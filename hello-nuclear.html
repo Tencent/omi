@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello,Nuclear!</title>
+</head>
+<body>
+    <div id="container"></div>
+    <script src="dist/nuclear.min.js"></script>
+    <script type="text/javascript">
+        var HelloMessage = Nuclear.extend({
+            render: function () {
+                return '<div>Hello , {{name}} !</div>';
+            }
+        })
+        new HelloMessage("#container", { name: "Nuclear" });
+    </script>
+</body>
+</html>

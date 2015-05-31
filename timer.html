@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Timer</title>
+</head>
+<body>
+    <div id="container"></div>
+    <script src="dist/nuclear.js"></script>
+    <script type="text/javascript">
+        var Timer = Nuclear.extend({
+            tick: function () {
+                this.option.secondsElapsed++;
+            },
+            didMount: function () {
+                //react这里不需要加bind(this),会导致对javascript上下文的误解
+                this.interval = setInterval(this.tick.bind(this), 1000);
+            },
+            willUnmount: function () {
+                clearInterval(this.interval);
+            },
+            render: function () {
+                return ' <div>Seconds Elapsed: {{secondsElapsed}}</div>';
+            }
+        });
+
+        new Timer("#container",{ secondsElapsed: 0 } );
+    </script>
+</body>
+</html>

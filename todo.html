@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo</title>
+</head>
+<body>
+    <div id="container"></div>
+    <script src="dist/nuclear.min.js"></script>
+    <script type="text/javascript">
+        var TodoApp = Nuclear.extend({
+            eventBinding: function () {
+                this.form = this.node.querySelector("form");
+                this.textBox = this.node.querySelector("input");     
+                this.form.addEventListener("submit", function (evt) {
+                    evt.preventDefault();                
+                    this.option.items.push(this.textBox.value);
+                }.bind(this), false);
+            },
+            render: function () {
+               return '<div>'
+                 + '        <h3>TODO</h3>'
+                 + '         <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>'
+                 + '        <form >'
+                 + '          <input type="text"  />'
+                 + '          <button>Add #{{items.length}}</button>'
+                 + '        </form>'              
+                 + '      </div>';
+            }
+        });
+        new TodoApp("#container", { items: [] });
+    </script>
+</body>
+</html>
