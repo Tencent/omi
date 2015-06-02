@@ -17,7 +17,6 @@
                 this.content = this.node.querySelector(".content");
 
                 this.textarea.addEventListener("keyup", function () {
-                    this.option.value = this.textarea.value;
                     this.option.html = marked(this.textarea.value);
                 }.bind(this), false);
             },
