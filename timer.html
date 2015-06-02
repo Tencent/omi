@@ -5,13 +5,9 @@
 </head>
 <body>
     <div id="container"></div>
-    
-    <script src="src/nuclear.js"></script>
-    <script src="src/tpl.js"></script>
-    <script src="src/observe.js"></script>
-    <script src="src/class.js"></script>
+    <script src="dist/nuclear.js"></script>
     <script type="text/javascript">
-        var Timer = Nuclear.extend({         
+        var Timer = Nuclear.extend({
             install: function () {
                 //react这里不需要加bind(this),会导致对javascript上下文的误解
                 this.interval = setInterval(this.tick.bind(this), 1000);
@@ -27,9 +23,9 @@
             }
         });
 
-        new Timer("#container",{ secondsElapsed: 0 } );
+        new Timer("#container", { secondsElapsed: 0 });
     </script>
-        <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+    <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
     </a>
 </body>
