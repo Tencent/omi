@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="container"></div>
+    <script src="dist/nuclear.js"></script>
+    <script src="asset/marked.min.js"></script>
+    <script>
+        var MarkdownEditor = Nuclear.extend({
+            install: function () {
+                this.option.html = marked(this.option.value);
+            },
+            eventBinding: function () {
+                this.textarea = this.node.querySelector("textarea");
+                this.content = this.node.querySelector(".content");
+
+                this.textarea.addEventListener("keyup", function () {
+                    this.option.value = this.textarea.value;
+                    this.option.html = marked(this.textarea.value);
+                }.bind(this), false);
+            },
+            render: function () {
+                return    '<div>'
+                        + '    <h3>Input</h3>'
+                        + '    <textarea rows="15" cols="35">{{value}}</textarea>'
+                        + '    <h3>Output</h3>'
+                        + '    <div class="content" data-nuclear-refresh="true">'
+                        + '        {{{html}}}'
+                        + '    </div>'
+                        + '</div>';
+
+            }
+        });
+
+        new MarkdownEditor("#container", { value: 'Type some *markdown* here!', html: '' })
+    </script>
+ <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
+</body>
+</html>

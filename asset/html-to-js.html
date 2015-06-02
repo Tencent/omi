@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+    <textarea id="txtRaw" name="txtRaw" cols="60" rows="10" style="border-radius: 0.4em;"></textarea>
+        <input type="button" id="cmdGenerate" value="Convert to JavaScript syntax →" />
+        <textarea id="txtGenerated" name="txtGenerated" cols="60" rows="10" class="" style="border-radius: 0.4em;"></textarea>
+    <script>
+        $(function () {
+            $("#cmdGenerate").click(function () {
+                var r = $("#txtRaw").val();
+                var strVar = "htmlStr";
+                var g = "";
+                var arr = r.split("\n");
+                g += "var " + strVar + "=\n";
+                for (i = 0; i < arr.length; i++) {
+                    var l = '';
+                    if (i !== 0) { l += "+'" } else {
+                        l += "'"
+                    };
+                    //l += arr[i].replace(/\"/g, "\\\"").replace(/\//g, "\\/");
+                    //.replace(/\//g, "\\/");
+                    l += arr[i];
+
+                    if (i === arr.length - 1) {
+                        l += "';\n";
+                    } else {
+                        l += "'\n";
+                    }
+                    g += l;
+                }
+                $("#txtGenerated").val(g);
+
+            });
+        });
+
+    </script>
+</body>
+</html>
