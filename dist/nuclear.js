@@ -15,8 +15,6 @@
 
 var Nuclear = {};
 
-Nuclear.renderList = [];
-
 Nuclear.extend = function (obj) {
     obj.ctor = function (selector, option) {
         if (typeof selector === "string" || Nuclear.isElement(selector)) {
@@ -25,16 +23,15 @@ Nuclear.extend = function (obj) {
             if (obj.install) {
                 obj.install.call(this);
             }
-            Nuclear.observe(this.option, Nuclear.debounce(Nuclear.localRefresh, 50));
-            Nuclear.renderList.push({
+            Nuclear.observe(this.option, Nuclear.debounce(this._nuclearLocalRefresh.bind(this), 50));
+
+            this._nuclearRenderInfo = {
                 tpl: this.render(),
                 data: this.option,
                 parent: this.parent,
-                eventBinding: obj.eventBinding,
-                self: this
-            });
-            
-            Nuclear.render();
+                eventBinding: obj.eventBinding
+            };
+            this._nuclearRender(this._nuclearRenderInfo);
         } else {
             this.option = selector;
             if (obj.install) {
@@ -43,6 +40,34 @@ Nuclear.extend = function (obj) {
            
         }
     }
+
+    obj._nuclearRender = function (item) {
+        if (this.node) {
+            item.parent.removeChild(this.node);
+        }
+        item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl,item.data));
+        this.node = item.parent.lastChild;
+        if (item.eventBinding) item.eventBinding.call(this);
+
+        item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
+       
+    }
+
+    obj._nuclearLocalRefresh = function () {
+        var item = this._nuclearRenderInfo , rpLen = item.refreshPart.length;
+        if (rpLen > 0) {
+            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data)).querySelectorAll('*[nc-refresh]');
+            for (var j = 0; j < rpLen; j++) {
+                var part = item.refreshPart[j];
+                part.parentNode.replaceChild(parts[j], part);
+
+            }
+            item.refreshPart = parts;
+        } else {
+            this._nuclearRender(item);
+        }
+    }
+
     return Nuclear.Class.extend(obj);
 }
 Nuclear.isElement=function(o) {
@@ -51,21 +76,7 @@ Nuclear.isElement=function(o) {
       o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string"
   );
 }
-Nuclear.render = function () {
-    for (var i = 0, len = Nuclear.renderList.length; i < len; i++) {
-        var item = Nuclear.renderList[i];
-        if (item.self.node) {
-            item.parent.removeChild(item.self.node);
-        }
-        item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl,item.data));
-        item.self.node = item.parent.lastChild;
-        if (item.eventBinding) item.eventBinding.call(item.self);
 
-        item.refreshPart = item.self.node.querySelectorAll('*[nc-refresh]');
-
-    }
-
-}
 Nuclear.str2Dom = function (html) {
     var wrapMap = {
         option: [1, "<select multiple='multiple'>", "</select>"],
@@ -113,31 +124,6 @@ Nuclear.str2Dom = function (html) {
     }
     return element;
 }
-Nuclear.localRefresh = function () {
-    for (var i = 0, len = Nuclear.renderList.length; i < len; i++) {
-
-        var item = Nuclear.renderList[i], rpLen = item.refreshPart.length;
-        if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data)).querySelectorAll('*[nc-refresh]');
-            for (var j = 0; j < rpLen; j++) {
-                var part = item.refreshPart[j];
-                part.parentNode.replaceChild(parts[j],part);
-               
-            }
-            item.refreshPart = parts;
-        } else {
-            if (item.self.node) {
-                item.parent.removeChild(item.self.node);
-            }
-            item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl, item.data));
-            item.self.node = item.parent.lastChild;
-            if (item.eventBinding) item.eventBinding.call(item.self);
-        }
-      
-    }
-
-}
-
 
 Nuclear.debounce=function (func, wait, immediate) {
     var timeout;
@@ -153,13 +139,6 @@ Nuclear.debounce=function (func, wait, immediate) {
         if (callNow) func.apply(context, args);
     };
 }
-
-
-
-
-
-
-
 
 Nuclear.addEvent = (function () {
     return function (el, type, fn) {
