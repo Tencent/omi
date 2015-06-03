@@ -46,7 +46,7 @@ Nuclear.render = function () {
         item.self.node = item.parent.lastChild;
         if (item.eventBinding) item.eventBinding.call(item.self);
 
-        item.refreshPart = item.self.node.querySelectorAll('*[data-nuclear-refresh="true"]');
+        item.refreshPart = item.self.node.querySelectorAll('*[nc-refresh]');
 
     }
 
@@ -103,7 +103,7 @@ Nuclear.localRefresh = function () {
 
         var item = Nuclear.renderList[i], rpLen = item.refreshPart.length;
         if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data)).querySelectorAll('*[data-nuclear-refresh="true"]');
+            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data)).querySelectorAll('*[nc-refresh]');
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
                 part.parentNode.replaceChild(parts[j],part);
