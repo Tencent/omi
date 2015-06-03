@@ -1,8 +1,6 @@
 # Nuclear
 
-website:
-
-* [Nuclear](http://alloyteam.github.io/Nuclear/)
+website: [Nuclear](http://alloyteam.github.io/Nuclear/)
 
 a react-like library without jsx , virtual dom and requestAnimationFrame :)
 
