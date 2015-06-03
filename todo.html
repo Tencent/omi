@@ -17,14 +17,14 @@
                 }.bind(this), false);
             },
             render: function () {
-               return '<div>'
-                 + '        <h3>TODO</h3>'
-                 + '         <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>'
-                 + '        <form >'
-                 + '          <input type="text"  />'
-                 + '          <button>Add #{{items.length}}</button>'
-                 + '        </form>'              
-                 + '      </div>';
+               return '<div>\
+                         <h3>TODO</h3>\
+                          <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
+                         <form >\
+                           <input type="text"  />\
+                           <button>Add #{{items.length}}</button>\
+                         </form>\
+                       </div>';
             }
         });
         new TodoApp("#container", { items: [] });
