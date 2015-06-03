@@ -8,7 +8,7 @@
     <script src="dist/nuclear.js"></script>
     <script type="text/javascript">
         var TodoApp = Nuclear.extend({
-            eventBinding: function () {
+            onRefresh: function () {
                 this.form = this.node.querySelector("form");
                 this.textBox = this.node.querySelector("input");     
                 this.form.addEventListener("submit", function (evt) {

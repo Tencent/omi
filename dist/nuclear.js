@@ -28,8 +28,7 @@ Nuclear.extend = function (obj) {
             this._nuclearRenderInfo = {
                 tpl: this.render(),
                 data: this.option,
-                parent: this.parent,
-                eventBinding: obj.eventBinding
+                parent: this.parent
             };
             this._nuclearRender(this._nuclearRenderInfo);
         } else {
@@ -47,8 +46,8 @@ Nuclear.extend = function (obj) {
         }
         item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl,item.data));
         this.node = item.parent.lastChild;
-        if (item.eventBinding) item.eventBinding.call(this);
-
+        if (this.onRefresh) this.onRefresh();
+        if (this.installed) this.installed();
         item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
        
     }
@@ -64,6 +63,7 @@ Nuclear.extend = function (obj) {
 
             }
             item.refreshPart = parts;
+            if (this.onRefresh) this.onRefresh();
         } else {
             this._nuclearRender(item);
         }
