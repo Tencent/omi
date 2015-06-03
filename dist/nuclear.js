@@ -54,7 +54,8 @@ Nuclear.extend = function (obj) {
     }
 
     obj._nuclearLocalRefresh = function () {
-        var item = this._nuclearRenderInfo , rpLen = item.refreshPart.length;
+        var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
+        item.tpl = this.render();
         if (rpLen > 0) {
             var parts = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data)).querySelectorAll('*[nc-refresh]');
             for (var j = 0; j < rpLen; j++) {
