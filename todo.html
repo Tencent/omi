@@ -7,7 +7,7 @@
     <div id="container"></div>
     <script src="dist/nuclear.js"></script>
     <script type="text/javascript">
-        var TodoApp = Nuclear.extend({
+        var TodoApp = Nuclear.create({
             onRefresh: function () {
                 this.form = this.node.querySelector("form");
                 this.textBox = this.node.querySelector("input");     

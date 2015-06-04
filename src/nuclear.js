@@ -1,12 +1,23 @@
 ﻿var Nuclear = {};
 
-Nuclear.extend = function (obj) {
+Nuclear.create = function (obj) {
+    Nuclear._mixObj(obj);
+    if (!obj.statics) obj.statics = {};
+    obj.statics.create = function (obj) {      
+        Nuclear._mixObj(obj);
+        return this.extend(obj);
+    }
+    return Nuclear.Class.extend(obj);
+}
+
+Nuclear._mixObj = function (obj) {
     obj.ctor = function (selector, option) {
         if (typeof selector === "string" || Nuclear.isElement(selector)) {
             this.option = option;
             this.parent = document.querySelector(selector);
-            if (obj.install) {
-                obj.install.call(this);
+            if (this.install) {
+
+                this.install();
             }
             Nuclear.observe(this.option, Nuclear.debounce(this._nuclearLocalRefresh.bind(this), 50));
 
@@ -18,10 +29,10 @@ Nuclear.extend = function (obj) {
             this._nuclearRender(this._nuclearRenderInfo);
         } else {
             this.option = selector;
-            if (obj.install) {
-                obj.install.call(this);
+            if (this.install) {
+
+                this.install();
             }
-           
         }
     }
 
@@ -29,12 +40,12 @@ Nuclear.extend = function (obj) {
         if (this.node) {
             item.parent.removeChild(this.node);
         }
-        item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl,item.data));
+        item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl, item.data));
         this.node = item.parent.lastChild;
         if (this.onRefresh) this.onRefresh();
         if (this.installed) this.installed();
         item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
-       
+
     }
 
     obj._nuclearLocalRefresh = function () {
@@ -53,9 +64,8 @@ Nuclear.extend = function (obj) {
             this._nuclearRender(item);
         }
     }
-
-    return Nuclear.Class.extend(obj);
 }
+
 Nuclear.isElement=function(o) {
     return (
       typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2

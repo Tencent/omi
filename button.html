@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello,Nuclear!</title>
+    <style>
+        #buttonContainer, #switchButtonContainer {
+            height: 40px;
+        }
+
+        #buttonGroup .btn {
+            text-decoration: none;
+            padding: 10px;
+            background-color: #CC7A6F;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            font: 14px/1.5 arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;
+        }
+
+            #buttonGroup .btn:hover {
+                background-color: #A94E42;
+            }
+
+            #buttonGroup .btn.disable {
+                background-color: #CCC;
+            }
+    </style>
+</head>
+<body>
+    <div id="buttonGroup">
+        <div id="buttonContainer"></div>
+        <div id="switchButtonContainer"></div>
+        <div id="countdownButtonContainer"></div>
+    </div>
+
+    <script src="dist/nuclear.js"></script>
+
+    <script type="text/javascript">
+        var Button = Nuclear.create({
+            install: function () {
+                this.option.disable = false;
+            },
+            installed: function () {
+                this.node.addEventListener("click", function (evt) {
+                    if (this.option.onClick) {
+                        this.option.onClick.call(this.node, evt);
+                    }
+                }.bind(this), false);
+            },
+            render: function () {
+                return ' <a class="btn {{#disable}}disable{{/disable}}">{{text}}</a>';
+            }
+        })
+
+        var SwitchButton = Button.create({
+            installed: function () {
+                this.node.addEventListener("click", function (evt) {
+                    this.option.disable = !this.option.disable;
+                    if (this.option.disable) {
+                        this.option.close && this.option.close();
+                    } else {
+                        this.option.open && this.option.open();
+                    }
+                }.bind(this), false);
+            }
+        })
+
+        var CountdownButton = Button.create({
+            install: function () {
+                //可通过访问父类方法
+                // this._super();              
+            },
+            installed: function () {
+                this.node.addEventListener("click", function (evt) {
+                    if (!this.option.disable) {
+                        this.option.textBak = this.option.text;
+                        this.option.valueBak = this.option.value;
+                        this.option.value--;
+                        this.option.text = this.option.waitingText.replace("{}", this.option.value);
+                        this.option.disable = !this.option.disable;
+                        this.interval = setInterval(this.tick.bind(this), 1000);
+                    }
+                }.bind(this), false);
+            },
+            tick: function () {
+                if (this.option.value === 1) {
+                    this.option.disable = !this.option.disable;
+                    clearInterval(this.interval);
+                    this.option.text = this.option.textBak;
+                    this.option.value = this.option.valueBak;
+                    if (this.option.complete) this.option.complete();
+                } else {
+                    this.option.value--;
+                    this.option.text = this.option.waitingText.replace("{}", this.option.value);
+                }
+            }
+        })
+
+        new Button("#buttonContainer",
+            {
+                text: "普通按钮",
+                onClick: function (evt) {
+                    alert(1);
+                }
+            });
+
+        new SwitchButton("#switchButtonContainer",
+            {
+                text: "开关按钮",
+                open: function () {
+                },
+                close: function () {
+                }
+            });
+
+        new CountdownButton("#countdownButtonContainer",
+             {
+                 text: "获取短信验证码",
+                 waitingText: "{}秒后可以重试",
+                 value: 10,
+                 complete: function () {
+                     console.log(11);
+                 }
+             });
+
+    </script>
+    <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
+</body>
+</html>

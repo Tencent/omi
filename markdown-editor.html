@@ -8,7 +8,7 @@
     <script src="dist/nuclear.js"></script>
     <script src="asset/marked.min.js"></script>
     <script>
-        var MarkdownEditor = Nuclear.extend({
+        var MarkdownEditor = Nuclear.create({
             install: function () {
                 this.option.html = marked(this.option.value);
             },
