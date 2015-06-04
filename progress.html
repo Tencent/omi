@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        #progressContainer {
+            width: 300px;
+        }
+
+        #progressContainer .progress {
+            overflow: hidden;
+            background-color: rgba(0,0,0,0.1);
+            -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+            height: 12px;
+            margin-bottom: 15px;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+            #progressContainer .progress .progress-bar {
+                font-size: 9px;
+                line-height: 12px;
+                box-shadow: none;
+            }
+
+        #progressContainer .progress-bar-primary {
+            background-color: #5fa2dd;
+        }
+
+        #progressContainer .progress-bar {
+            float: left;
+            width: 0;
+            height: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            color: #fff;
+            text-align: center;
+            background-color: #337ab7;
+            -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+            -webkit-transition: width .6s ease;
+            -o-transition: width .6s ease;
+            -moz-transition: width .6s ease;
+            transition: width .6s ease;
+        }
+    </style>
+</head>
+<body>
+    <script src="dist/nuclear.js"></script>
+    <div id="progressContainer">
+    </div>
+
+    <script type="text/javascript">
+        var Progress = Nuclear.extend({
+            install: function () {
+                this.option.percent = function () {
+                    return this.value * 100 + "%";
+                }
+            },
+            render: function () {
+                if (this.option.displayNumber) {
+                    return '<div class="progress">\
+                                    <div style="width:{{percent}};" class="progress-bar progress-bar-primary">{{percent}}</div>\
+                                </div>';
+                } else {
+                    return '<div class="progress">\
+                                    <div style="width:{{percent}};" class="progress-bar progress-bar-primary"></div>\
+                                </div>';
+                }
+            }
+        })
+        var progress = new Progress("#progressContainer", { value: 0.6, displayNumber: true });
+        //操作数据自动刷新Dom
+        progress.option.value = 0.3;
+    </script>
+    <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
+</body>
+</html>
+<!-- this.option.numToPct = function () {
+                    return function (text, render) {
+                        return render(text) * 100 + "%";
+                    }
+                }
+
+{{#numToPct}}{{value}}{{/numToPct}}-->
