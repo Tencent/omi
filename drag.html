@@ -28,14 +28,14 @@
                 Nuclear.css(this.moveElement, "position", "absolute");
                 Nuclear.css(this.dragElement, "cursor", option.cursor || "move");
 
-                Nuclear.addEvent(this.dragElement, "mousedown", this.bind(this._mousedown, this));
+                Nuclear.addEvent(this.dragElement, "mousedown", this._mousedown.bind(this));
 
                 var offset = Nuclear.offset(this.moveElement);
                 if (Nuclear.css(this.moveElement, "top") === "auto") Nuclear.css(this.moveElement, "top", offset.top + "px");
                 if (Nuclear.css(this.moveElement, "left") === "auto") Nuclear.css(this.moveElement, "left", offset.left + "px");
 
-                this._docMove = this.bind(this._mousemove, this);
-                this._docUp = this.bind(this._mouseup, this);
+                this._docMove = this._mousemove.bind(this);
+                this._docUp = this._mouseup.bind(this);
             },
             _mousedown: function (evt) {
                 this.currentPosition.x = evt.pageX;
@@ -71,12 +71,6 @@
                     this.option.end(evt);
                 }
 
-            },
-            //修正函数作用环境
-            bind: function (func, obj) {
-                return function () {
-                    return func.apply(obj, arguments);
-                }
             }
         })
 
