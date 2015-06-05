@@ -8,6 +8,10 @@
         define([], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory();
+    } else if (typeof define === "function" && define.cmd) {
+        define(function(require, exports, module){
+            module.exports=factory();
+        });
     } else {
         root.Nuclear  = factory();
     }
