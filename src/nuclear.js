@@ -12,9 +12,10 @@ Nuclear.create = function (obj) {
 
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (selector, option) {
-        if (typeof selector === "string" || Nuclear.isElement(selector)) {
+        var isSelector=typeof selector === "string" ;
+        if (isSelector || Nuclear.isElement(selector)) {
             this.option = option;
-            this.parent = document.querySelector(selector);
+            this.parent = isSelector ? document.querySelector(selector) : selector;
             if (this.install) {
 
                 this.install();
@@ -447,4 +448,38 @@ Nuclear.uuid = function () {
     return uuid;
 };
 
+Nuclear.createCanvas = function (obj) {
+    Nuclear._minCanvasObj(obj);
+    if (!obj.statics) obj.statics = {};
+    obj.statics.create = function (obj) {
+        Nuclear._minCanvasObj(obj);
+        return this.extend(obj);
+    }
+    return Nuclear.Class.extend(obj);
+};
 
+
+Nuclear._minCanvasObj = function (obj) {
+    obj.ctor = function (selector, width, height, option) {
+        this.canvas = document.createElement("canvas");
+        this.ctx = this.canvas.getContext("2d");
+        this.canvas.width = width;
+        this.canvas.height = height;
+        this.parent = typeof selector === "string" ? document.querySelector(selector) : selector;
+        this.option = option;
+        if (this.install) {
+            this.install();
+        }
+        Nuclear.observe(this.option, Nuclear.debounce(this._nuclearRender.bind(this), 50));
+        this._nuclearRender();
+        if (this.installed) this.installed();
+        this.parent.appendChild(this.canvas);
+    }
+
+    obj._nuclearRender = function (item) {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.render();
+    }
+
+
+};

@@ -5,7 +5,7 @@
 
 /*global define: false Mustache: true*/
 
-(function defineMustache (global, factory) {
+;(function defineMustache (global, factory) {
     Nuclear.Tpl = {};
     factory(Nuclear.Tpl); // script, wsh, asp
 }(this, function mustacheFactory (mustache) {
