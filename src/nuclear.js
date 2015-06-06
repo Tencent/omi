@@ -20,7 +20,7 @@ Nuclear._mixObj = function (obj) {
 
                 this.install();
             }
-            Nuclear.observe(this.option, Nuclear.debounce(this._nuclearLocalRefresh.bind(this), 50));
+            Nuclear.observe(this.option, Nuclear.throttle(this._nuclearLocalRefresh.bind(this), 40));
 
             this._nuclearRenderInfo = {
                 tpl: this.render(),
@@ -66,6 +66,17 @@ Nuclear._mixObj = function (obj) {
         }
     }
 }
+
+Nuclear.throttle = function (fn, delay) {
+    var timer = null;
+    return function () {
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            fn.apply(context, args);
+        }, delay);
+    };
+};
 
 Nuclear.isElement=function(o) {
     return (
