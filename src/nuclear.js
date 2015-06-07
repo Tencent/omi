@@ -12,18 +12,33 @@ Nuclear.create = function (obj) {
 
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (selector, option) {
-        var isSelector=typeof selector === "string" ;
+        var isSelector = typeof selector === "string";
         if (isSelector || Nuclear.isElement(selector)) {
+            this._nuclearParentEmpty = selector === "";
+            this.HTML = "";
             this.option = option;
-            this.parent = isSelector ? document.querySelector(selector) : selector;
+            if (!this._nuclearParentEmpty) {
+                this.parent = isSelector ? document.querySelector(selector) : selector;
+            } else {
+                this.parent = document.createElement("div");
+            }
             if (this.install) {
-
                 this.install();
             }
-            Nuclear.observe(this.option, Nuclear.throttle(this._nuclearLocalRefresh.bind(this), 40));
+            this._nuclearRef = [];
+            for (var key in this) {
+                if (this.hasOwnProperty(key)) {
+                    if (this[key]&& this[key]["_nuclearLocalRefresh"]) {
+                        this._nuclearRef.push(this[key]);
+                    }
+                }
+            }
 
+            if (this.option) {
+                Nuclear.observe(this.option, Nuclear.throttle(this._nuclearLocalRefresh.bind(this), 40));
+            }
             this._nuclearRenderInfo = {
-                tpl: this.render(),
+                tpl:  this._nuclearTplGenerator() ,
                 data: this.option,
                 parent: this.parent
             };
@@ -37,21 +52,55 @@ Nuclear._mixObj = function (obj) {
         }
     }
 
+    //加if防止子类赋值undefined，丢失父类方法
+    if (obj.render) {
+        obj._nuclearTplGenerator = obj.render;
+    }
+
+    obj.render = function () {
+        if (this._nuclearParentEmpty) {
+            //嵌套的render逻辑
+         
+           // this.node = Nuclear.str2Dom(this.HTML);
+
+            return this.HTML;
+        } else {
+            return this._nuclearTplGenerator();
+        }
+    }
+
+
     obj._nuclearRender = function (item) {
         if (this.node) {
             item.parent.removeChild(this.node);
         }
         item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl, item.data));
         this.node = item.parent.lastChild;
+        this._nuclearId = Nuclear.getId()
+        this.node.setAttribute("data-nuclearId", this._nuclearId);
         if (this.onRefresh) this.onRefresh();
         if (this.installed) this.installed();
         item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
+        this.HTML = this.node.outerHTML;
 
+        var refLen = this._nuclearRef.length;
+        if (refLen > 0) {
+            var i = 0;
+            for (; i < refLen; i++) {
+                var ref = this._nuclearRef[i];
+                ref.node = this.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
+                ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
+                ref._nuclearRenderInfo.parent = ref.node.parentNode;
+                if (ref.onRefresh) ref.onRefresh();
+                if (ref.installed) ref.installed();
+            }
+        }
     }
 
     obj._nuclearLocalRefresh = function () {
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
-        item.tpl = this.render();
+        item.tpl = this._nuclearTplGenerator();
+
         if (rpLen > 0) {
             var parts = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data)).querySelectorAll('*[nc-refresh]');
             for (var j = 0; j < rpLen; j++) {
@@ -61,6 +110,19 @@ Nuclear._mixObj = function (obj) {
             }
             item.refreshPart = parts;
             if (this.onRefresh) this.onRefresh();
+            this.HTML = this.node.outerHTML;
+
+            var refLen = this._nuclearRef.length;
+            if (refLen > 0) {
+                var i = 0;
+                for (; i < refLen; i++) {
+                    var ref = this._nuclearRef[i];
+                    ref.node = this.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
+
+                    if (ref.onRefresh) ref.onRefresh();
+                    if (ref.installed) ref.installed();
+                }
+            }
         } else {
             this._nuclearRender(item);
         }
@@ -508,7 +570,9 @@ Nuclear._minCanvasObj = function (obj) {
         if (this.install) {
             this.install();
         }
-        Nuclear.observe(this.option, Nuclear.debounce(this._nuclearRender.bind(this), 50));
+        if (this.option) {
+            Nuclear.observe(this.option, Nuclear.debounce(this._nuclearRender.bind(this), 50));
+        }
         this._nuclearRender();
         if (this.installed) this.installed();
         this.parent.appendChild(this.canvas);
@@ -521,3 +585,9 @@ Nuclear._minCanvasObj = function (obj) {
 
 
 };
+
+Nuclear._nextID = 0;
+Nuclear.getId = function () {
+    return Nuclear._nextID++;
+         
+}
