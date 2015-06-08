@@ -2,7 +2,7 @@
 
 We have several examples on [the website](http://alloyteam.github.io/Nuclear/).
 
-Nuclear Performance test ：[http://alloyteam.github.io/Nuclear/pt/](http://alloyteam.github.io/Nuclear/pt/).
+Nuclear Performance test ：[http://alloyteam.github.io/Nuclear/pt/](http://alloyteam.github.io/Nuclear/pt/). There is a lot of room for improvement and optimization. 
 
 a react-like library without jsx , virtual dom and requestAnimationFrame :)
 
