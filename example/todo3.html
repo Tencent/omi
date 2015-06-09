@@ -5,9 +5,18 @@
 </head>
 <body>
     <div id="container"></div>
-    <script src="dist/nuclear.js"></script>
+    <script src="../dist/nuclear.js"></script>
     <script type="text/javascript">
+        var TodoList = Nuclear.create({
+            render: function () {
+                return '<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';
+            }
+        });
+
         var TodoApp = Nuclear.create({
+            install: function () {
+                this.todoList = new TodoList("", this.option)
+            },
             onRefresh: function () {
                 this.form = this.node.querySelector("form");
                 this.textBox = this.node.querySelector("input");     
@@ -18,9 +27,9 @@
             },
             render: function () {
                return '<div>\
-                         <h3>TODO</h3>\
-                        <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
-                          <form >\
+                         <h3>TODO</h3>'
+                         + this.todoList.render()+
+                         '<form >\
                            <input type="text"  />\
                            <button>Add #{{items.length}}</button>\
                          </form>\

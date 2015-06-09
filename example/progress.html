@@ -3,11 +3,11 @@
 <head>
     <title></title>
     <style>
-        #progressContainer {
+        #progressContainer, #progressContainer2 {
             width: 300px;
         }
 
-        #progressContainer .progress {
+        .progress {
             overflow: hidden;
             background-color: rgba(0,0,0,0.1);
             -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
@@ -17,17 +17,17 @@
             box-shadow: none;
         }
 
-            #progressContainer .progress .progress-bar {
+            .progress .progress-bar {
                 font-size: 9px;
                 line-height: 12px;
                 box-shadow: none;
             }
 
-        #progressContainer .progress-bar-primary {
+         .progress-bar-primary {
             background-color: #5fa2dd;
         }
 
-        #progressContainer .progress-bar {
+         .progress-bar {
             float: left;
             width: 0;
             height: 100%;
@@ -46,10 +46,11 @@
     </style>
 </head>
 <body>
-    <script src="dist/nuclear.js"></script>
+    <script src="../dist/nuclear.js"></script>
     <div id="progressContainer">
     </div>
-
+    <div id="progressContainer2">
+    </div>
     <script type="text/javascript">
         var Progress = Nuclear.create({
             install: function () {
@@ -72,6 +73,8 @@
         var progress = new Progress("#progressContainer", { value: 0.6, displayNumber: true });
         //操作数据自动刷新Dom
         progress.option.value = 0.3;
+
+        var progress2 = new Progress("#progressContainer2", { value: 0.6, displayNumber: false });
     </script>
     <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />

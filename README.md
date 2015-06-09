@@ -13,3 +13,6 @@ Nuclear used js , html+css and observejs instead of jsx , virtual dom and reques
 * [react.js](http://facebook.github.io/react/) 
 * [mustache.js](https://github.com/janl/mustache.js) 
 * [class.js](http://ejohn.org/blog/simple-javascript-inheritance/) 
+
+# License
+This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
