@@ -1,0 +1,30 @@
+{
+  "name": "alloynuclear",
+  "version": "0.0.1",
+  "description": "a react-like library without jsx , virtual dom and requestAnimationFrame.",
+  "main": "nuclear.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlloyTeam/Nuclear"
+  },
+  "keywords": [
+    "ui"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.1",
+    "gulp-concat": "latest",
+	"gulp-uglify": "latest",
+	"gulp-rename": "latest", 
+	"gulp-header": "latest"  	
+  },
+  "author": "dntzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlloyTeam/Nuclear/issues/new"
+  },
+  "homepage": "http://alloyteam.github.io/Nuclear/"
+}
