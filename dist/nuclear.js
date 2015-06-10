@@ -62,13 +62,7 @@ Nuclear._mixObj = function (obj) {
                 parent: this.parent
             };
             this._nuclearRender(this._nuclearRenderInfo);
-        } else {
-            this.option = selector;
-            if (this.install) {
-
-                this.install();
-            }
-        }
+        } 
     }
 
     //加if防止子类赋值undefined，丢失父类方法
@@ -147,6 +141,29 @@ Nuclear._mixObj = function (obj) {
         }
     }
 }
+
+Nuclear._minActionObj = function (obj) {
+    obj.ctor = function (option) {
+        this.option = option;
+        if (this.install) {
+            this.install();
+        }
+    }
+}
+
+Nuclear.createAction = function (obj) {
+    
+    Nuclear._minActionObj(obj)
+    if (!obj.statics) obj.statics = {};
+    obj.statics.createAction = function (obj) {
+        Nuclear._minActionObj(obj);
+        return this.extend(obj);
+    }
+    return Nuclear.Class.extend(obj);
+    
+}
+
+
 
 Nuclear.throttle = function (func, wait, options) {
     var context, args, result;
