@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        #lcContainer canvas{
+            background-color:#777777;
+        }
+    </style>
+</head>
+<body>
+    <div id="lcContainer"></div>
+    <script src="../dist/nuclear.js"></script>
+    <script>
+
+        var LineChart = Nuclear.createCanvas({
+            render: function () {
+                var  option = this.option,canvas=this.canvas, ctx = this.ctx;
+                ctx.strokeStyle = option.gridBoderColor,
+                ctx.fillStyle = option.gridFontColor,
+                ctx.lineWidth = 2;
+                var offset = [option.offset[0], option.offset[1]],
+                    s = option.yValueGrid.length,
+                    o = option.xValueGrid.length,
+                    u = Math.ceil((canvas.height - offset[1]) / s),
+                    a = Math.ceil((canvas.width - offset[0]) / o),
+                    f = offset[0] + a * (o - 1),
+                    l = offset[1] + u * (s - 1);
+                ctx.fillStyle = option.fontColor,
+                ctx.beginPath(),
+                ctx.fillText(option.yUnit, offset[0] - 22, offset[1] - 15);
+
+                for (var c = 0; c < s; c++) {
+                    ctx.moveTo(offset[0], offset[1]),
+                    ctx.fillText(option.yValueGrid[s - c - 1], offset[0] - 22, offset[1] + 5),
+                    ctx.lineTo(f, offset[1]),
+                    offset[1] += u;
+                }
+
+                offset = [option.offset[0], option.offset[1]];
+                for (var c = 0; c < o; c++) {
+                    ctx.moveTo(offset[0], offset[1]),
+                    ctx.fillText(option.xValueGrid[c] + option.xUnit, offset[0] - 10, l + 15),
+                    ctx.lineTo(offset[0], l),
+                    offset[0] += a;
+                }
+                ctx.stroke();
+
+                var h = option.yValueGrid[option.yValueGrid.length - 1] - option.yValueGrid[0];
+                offset = [option.offset[0], option.offset[1]];
+                for (var c = 0, p = option.lines.length; c < p; c++) {
+                    var d = option.lines[c];
+                    ctx.strokeStyle = d.lineColor,
+                    ctx.beginPath();
+                    for (var v = 0, m = d.data.length - 1; v < m; v++) ctx.moveTo(offset[0] + a * v, l - (l - offset[0]) * d.data[v] / h),
+                    ctx.lineTo(offset[0] + a * (v + 1), l - (l - offset[0]) * d.data[v + 1] / h);
+                    ctx.stroke()
+                }
+
+                offset = [option.offset[0], option.offset[1]];
+                for (var c = 0, p = option.lines.length; c < p; c++) {
+                    var d = option.lines[c];
+                    ctx.strokeStyle = d.lineColor;
+                    for (var v = 0, m = d.data.length; v < m; v++) {
+                        var g = offset[0] + a * v,
+                        y = l - (l - offset[0]) * d.data[v] / h;
+                        ctx.beginPath(),
+                        ctx.lineWidth = 3,
+                        ctx.arc(g, y, 4, 0, Math.PI * 2, !1),
+                        ctx.stroke(),
+                        ctx.beginPath(),
+                        ctx.fillStyle = option.fontColor;
+                        ctx.arc(g, y, 4, 0, Math.PI * 2, !1),
+                        ctx.fill(),
+                        v === m - 1 && (ctx.fillText(d.data[v], g + 10, y + 10))
+                    }
+                }
+
+            }
+
+        })
+
+    var lineChart=new LineChart("#lcContainer", 600, 300, {
+        offset:[40,40],
+        fontColor:"white",
+        gridBoderColor: "white",
+        gridFontColor: "black",
+        yValueGrid: [0, 50, 100, 150, 200, 250, 300],
+        yUnit: "万元/㎡",
+        xValueGrid: [10, 11, 12, 1, 2, 3],
+        xUnit: "月",
+        lines: [{
+            lineColor: "#A8322E",
+            data: [23, 40, 33, 76, 20, 19]
+        },
+        {
+            lineColor: "#8FB443",
+            data: [123, 10, 23, 176, 200, 34]
+        },
+        {
+            lineColor: "#2D9EBC",
+            data: [13, 2, 7, 76, 100, 134]
+        },
+        {
+            lineColor: "#FA9416",
+            data: [11, 60, 33, 116, 1, 119]
+        }]
+    })
+
+
+    function random(min,max) {
+        return min + Math.floor(Math.random() * (max - min + 1));
+    }
+
+    function random1To200() {
+        return random(1, 200);
+    }
+
+    setInterval(function () {
+        //数据改变自动通知视图
+        lineChart.option.lines[0].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+        lineChart.option.lines[1].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+        lineChart.option.lines[2].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+        lineChart.option.lines[3].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+    }, 1000)
+    </script>
+
+    <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
+</body>
+</html>
