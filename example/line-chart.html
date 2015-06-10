@@ -15,45 +15,54 @@
 
         var LineChart = Nuclear.createCanvas({
             render: function () {
-                var  option = this.option,canvas=this.canvas, ctx = this.ctx;
+                var canvas = this.canvas, option = this.option,
+                    offset = [option.offset[0], option.offset[1]],
+                    xLen = option.xValueGrid.length,
+                    yLen = option.yValueGrid.length,
+                    cellHeight = Math.ceil((canvas.height - offset[1]) / yLen),
+                    cellWidth = Math.ceil((canvas.width - offset[0]) / xLen),
+                    bottom = offset[1] + cellHeight * (yLen - 1);
+                this.renderGird(offset, xLen, yLen, cellWidth, cellHeight, bottom);
+                this.renderData(cellWidth, bottom);
+
+            },
+            renderGird: function (offset, xLen, yLen, cellWidth, cellHeight, bottom) {
+                var option = this.option, canvas = this.canvas, ctx = this.ctx;
                 ctx.strokeStyle = option.gridBoderColor,
                 ctx.fillStyle = option.gridFontColor,
                 ctx.lineWidth = 2;
-                var offset = [option.offset[0], option.offset[1]],
-                    s = option.yValueGrid.length,
-                    o = option.xValueGrid.length,
-                    u = Math.ceil((canvas.height - offset[1]) / s),
-                    a = Math.ceil((canvas.width - offset[0]) / o),
-                    f = offset[0] + a * (o - 1),
-                    l = offset[1] + u * (s - 1);
-                ctx.fillStyle = option.fontColor,
-                ctx.beginPath(),
+                var f = offset[0] + cellWidth * (xLen - 1);
+                ctx.fillStyle = option.fontColor;
                 ctx.fillText(option.yUnit, offset[0] - 22, offset[1] - 15);
+                ctx.beginPath();
 
-                for (var c = 0; c < s; c++) {
+
+                for (var c = 0; c < yLen; c++) {
                     ctx.moveTo(offset[0], offset[1]),
-                    ctx.fillText(option.yValueGrid[s - c - 1], offset[0] - 22, offset[1] + 5),
+                    ctx.fillText(option.yValueGrid[yLen - c - 1], offset[0] - 22, offset[1] + 5),
                     ctx.lineTo(f, offset[1]),
-                    offset[1] += u;
+                    offset[1] += cellHeight;
                 }
 
                 offset = [option.offset[0], option.offset[1]];
-                for (var c = 0; c < o; c++) {
+                for (var c = 0; c < xLen; c++) {
                     ctx.moveTo(offset[0], offset[1]),
-                    ctx.fillText(option.xValueGrid[c] + option.xUnit, offset[0] - 10, l + 15),
-                    ctx.lineTo(offset[0], l),
-                    offset[0] += a;
+                    ctx.fillText(option.xValueGrid[c] + option.xUnit, offset[0] - 10, bottom + 15),
+                    ctx.lineTo(offset[0], bottom),
+                    offset[0] += cellWidth;
                 }
                 ctx.stroke();
-
+            },
+            renderData: function (cellWidth, bottom) {
+                var option = this.option,ctx=this.ctx;
                 var h = option.yValueGrid[option.yValueGrid.length - 1] - option.yValueGrid[0];
                 offset = [option.offset[0], option.offset[1]];
                 for (var c = 0, p = option.lines.length; c < p; c++) {
                     var d = option.lines[c];
                     ctx.strokeStyle = d.lineColor,
                     ctx.beginPath();
-                    for (var v = 0, m = d.data.length - 1; v < m; v++) ctx.moveTo(offset[0] + a * v, l - (l - offset[0]) * d.data[v] / h),
-                    ctx.lineTo(offset[0] + a * (v + 1), l - (l - offset[0]) * d.data[v + 1] / h);
+                    for (var v = 0, m = d.data.length - 1; v < m; v++) ctx.moveTo(offset[0] + cellWidth * v, bottom - (bottom - offset[0]) * d.data[v] / h),
+                    ctx.lineTo(offset[0] + cellWidth * (v + 1), bottom - (bottom - offset[0]) * d.data[v + 1] / h);
                     ctx.stroke()
                 }
 
@@ -62,8 +71,8 @@
                     var d = option.lines[c];
                     ctx.strokeStyle = d.lineColor;
                     for (var v = 0, m = d.data.length; v < m; v++) {
-                        var g = offset[0] + a * v,
-                        y = l - (l - offset[0]) * d.data[v] / h;
+                        var g = offset[0] + cellWidth * v,
+                        y = bottom - (bottom - offset[0]) * d.data[v] / h;
                         ctx.beginPath(),
                         ctx.lineWidth = 3,
                         ctx.arc(g, y, 4, 0, Math.PI * 2, !1),
@@ -75,7 +84,6 @@
                         v === m - 1 && (ctx.fillText(d.data[v], g + 10, y + 10))
                     }
                 }
-
             }
 
         })
@@ -83,7 +91,7 @@
     var lineChart=new LineChart("#lcContainer", 600, 300, {
         offset:[40,40],
         fontColor:"white",
-        gridBoderColor: "white",
+        gridBoderColor: "#ccc",
         gridFontColor: "black",
         yValueGrid: [0, 50, 100, 150, 200, 250, 300],
         yUnit: "万元/㎡",
