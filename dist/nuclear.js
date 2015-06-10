@@ -590,7 +590,7 @@ Nuclear._minCanvasObj = function (obj) {
             this.install();
         }
         if (this.option) {
-            Nuclear.observe(this.option, Nuclear.debounce(this._nuclearRender.bind(this), 50));
+            Nuclear.observe(this.option, Nuclear.throttle(this._nuclearRender.bind(this), 15));
         }
         this._nuclearRender();
         if (this.installed) this.installed();
