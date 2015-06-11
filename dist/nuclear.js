@@ -30,40 +30,38 @@ Nuclear.create = function (obj) {
 }
 
 Nuclear._mixObj = function (obj) {
-    obj.ctor = function (selector, option) {
-        var isSelector = typeof selector === "string";
-        if (isSelector || Nuclear.isElement(selector)) {
-            this._nuclearParentEmpty = selector === "" || selector===null;
-            this.HTML = "";
-            this.option = option;
-            if (!this._nuclearParentEmpty) {
-                this.parent = isSelector ? document.querySelector(selector) : selector;
-            } else {
-                this.parent = document.createElement("div");
-            }
-            if (this.install) {
-                this.install();
-            }
-            this._nuclearRef = [];
-            for (var key in this) {
-                if (this.hasOwnProperty(key)) {
-                    if (this[key] && this[key]["_nuclearLocalRefresh"]) {
-                        this[key]._nuclearParent = this;
-                        this._nuclearRef.push(this[key]);
-                    }
+    obj.ctor = function (option, selector) {
+        this._nuclearParentEmpty = !selector;
+        this.HTML = "";
+        this.option = option;
+        if (!this._nuclearParentEmpty) {
+            this.parent = typeof selector === "string" ? document.querySelector(selector) : selector;
+        } else {
+            this.parent = document.createElement("div");
+        }
+        if (this.install) {
+            this.install();
+        }
+        this._nuclearRef = [];
+        for (var key in this) {
+            if (this.hasOwnProperty(key)) {
+                if (this[key] && this[key]["_nuclearLocalRefresh"]) {
+                    this[key]._nuclearParent = this;
+                    this._nuclearRef.push(this[key]);
                 }
             }
+        }
 
-            if (this.option) {
-                Nuclear.observe(this.option, Nuclear.throttle(this._nuclearLocalRefresh.bind(this), 40));
-            }
-            this._nuclearRenderInfo = {
-                tpl:  this._nuclearTplGenerator() ,
-                data: this.option,
-                parent: this.parent
-            };
-            this._nuclearRender(this._nuclearRenderInfo);
-        } 
+        if (this.option) {
+            Nuclear.observe(this.option, Nuclear.throttle(this._nuclearLocalRefresh.bind(this), 40));
+        }
+        this._nuclearRenderInfo = {
+            tpl: this._nuclearTplGenerator(),
+            data: this.option,
+            parent: this.parent
+        };
+        this._nuclearRender(this._nuclearRenderInfo);
+
     }
 
     //加if防止子类赋值undefined，丢失父类方法

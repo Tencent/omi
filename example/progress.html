@@ -70,11 +70,11 @@
                 }
             }
         })
-        var progress = new Progress("#progressContainer", { value: 0.6, displayNumber: true });
+        var progress = new Progress( { value: 0.6, displayNumber: true },"#progressContainer");
         //操作数据自动刷新Dom
         progress.option.value = 0.3;
 
-        var progress2 = new Progress("#progressContainer2", { value: 0.6, displayNumber: false });
+        var progress2 = new Progress({ value: 0.6, displayNumber: false },"#progressContainer2");
     </script>
     <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />

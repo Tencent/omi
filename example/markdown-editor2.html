@@ -40,14 +40,14 @@
 
         var MDEContainer = Nuclear.create({
             install: function () {
-                this.mde = new MarkdownEditor("", this.option);
+                this.mde = new MarkdownEditor( this.option);
             },
             render: function () {
                 return '<div><h1>Nuclear Example</h1>' + this.mde.render() + '</div>';
                       
             }
         });
-        new MDEContainer("#container",{ value: 'Type some *markdown* here!', html: '' });
+        new MDEContainer({ value: 'Type some *markdown* here!', html: '' },"#container");
     </script>
  <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />

@@ -15,7 +15,7 @@
 
         var TodoApp = Nuclear.create({
             install: function () {
-                this.todoList = new TodoList("", this.option)
+                this.todoList = new TodoList( this.option)
             },
             onRefresh: function () {
                 this.form = this.node.querySelector("form");
@@ -37,7 +37,7 @@
             }
         });
 
-        new TodoApp("#container", { items: [] });
+        new TodoApp( { items: [] },"#container");
     </script>
         <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
