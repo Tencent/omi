@@ -8,14 +8,22 @@
     <script src="../dist/nuclear.js"></script>
     <script src="../asset/marked.min.js"></script>
     <script>
+        var HelloMessage = Nuclear.create({
+            render: function () {
+                return '<div>Hello , {{value}} !</div>';
+            }
+        })
+
         var MarkdownEditor = Nuclear.create({
             install: function () {
+                this.hm = new HelloMessage("", this.option);
                 this.option.html = marked(this.option.value);
             },
             installed: function () {
                 this.textarea = this.node.querySelector("textarea");
                 this.textarea.addEventListener("keyup", function () {
                     this.option.html = marked(this.textarea.value);
+                    this.option.value = this.textarea.value;
                 }.bind(this), false);
             },
             onRefresh: function () {
@@ -26,9 +34,10 @@
                 }.bind(this), false);
             },
             render: function () {
-                return    '<div>\
-                               <h3>Input</h3>\
-                               <textarea rows="15" cols="35">{{value}}</textarea>\
+                return '<div>\
+                               <h3>Input</h3>'
+                                + this.hm.render() +
+                               '<textarea rows="15" cols="35">{{value}}</textarea>\
                                <h3>Output</h3>\
                                <div class="content" nc-refresh >\
                                    {{{html}}}\
@@ -44,13 +53,20 @@
             },
             render: function () {
                 return '<div><h1>Nuclear Example</h1>' + this.mde.render() + '</div>';
-                      
+
             }
         });
-        new MDEContainer("#container",{ value: 'Type some *markdown* here!', html: '' });
+        new MDEContainer("#container", { value: 'Type some *markdown* here!', html: '', name: "Nuclear" });
     </script>
  <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
     </a>
 </body>
 </html>
+<!--//onPropChange?!
+//{ name: this.option.name }
+    
+   组件的自动nc-not-refresh 
+    
+    
+    -->

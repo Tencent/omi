@@ -33,7 +33,7 @@ Nuclear._mixObj = function (obj) {
     obj.ctor = function (selector, option) {
         var isSelector = typeof selector === "string";
         if (isSelector || Nuclear.isElement(selector)) {
-            this._nuclearParentEmpty = selector === "";
+            this._nuclearParentEmpty = selector === "" || selector===null;
             this.HTML = "";
             this.option = option;
             if (!this._nuclearParentEmpty) {
@@ -47,7 +47,8 @@ Nuclear._mixObj = function (obj) {
             this._nuclearRef = [];
             for (var key in this) {
                 if (this.hasOwnProperty(key)) {
-                    if (this[key]&& this[key]["_nuclearLocalRefresh"]) {
+                    if (this[key] && this[key]["_nuclearLocalRefresh"]) {
+                        this[key]._nuclearParent = this;
                         this._nuclearRef.push(this[key]);
                     }
                 }
@@ -72,11 +73,19 @@ Nuclear._mixObj = function (obj) {
 
     obj.render = function () {
         if (this._nuclearParentEmpty) {
-            //嵌套的render逻辑
-         
-           // this.node = Nuclear.str2Dom(this.HTML);
-
             return this.HTML;
+            //var len=this._nuclearRef.length;
+            ////嵌套的render逻辑        
+            ////子节点下再无子节点
+            //if (len === 0) {
+            //    return this.HTML;
+            //} else {//子节点下又有子节点
+            //    var i=0;
+            //    for (; i < len; i++) {
+            //        var ref = this._nuclearRef[i];
+            //        return ref.render();
+            //    }
+            //}
         } else {
             return this._nuclearTplGenerator();
         }
@@ -85,10 +94,15 @@ Nuclear._mixObj = function (obj) {
 
     obj._nuclearRender = function (item) {
         if (this.node) {
-            item.parent.removeChild(this.node);
+            //this.node.parentNode&&this.node.parentNode.removeChild(this.node);
+            // item.parent.removeChild(this.node);          
+            var newNode = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data));
+            item.parent.replaceChild(newNode, this.node);
+            this.node = newNode;
+        } else {
+            item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl, item.data));
+            this.node = item.parent.lastChild;
         }
-        item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl, item.data));
-        this.node = item.parent.lastChild;
         this._nuclearId = Nuclear.getId()
         this.node.setAttribute("data-nuclearId", this._nuclearId);
         if (this.onRefresh) this.onRefresh();
@@ -96,18 +110,36 @@ Nuclear._mixObj = function (obj) {
         item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
         this.HTML = this.node.outerHTML;
 
-        var refLen = this._nuclearRef.length;
+
+        this._nuclearFix();
+    }
+
+    //从最顶部组件向内fix
+    obj._nuclearFix = function () {
+        if (this._nuclearParent) return;
+        var root = this._nuclearGetTop(this);
+        this._nuclearFixOne(root)
+    }
+
+    obj._nuclearFixOne = function (one) {
+        var refLen = one._nuclearRef.length;
         if (refLen > 0) {
             var i = 0;
             for (; i < refLen; i++) {
-                var ref = this._nuclearRef[i];
-                ref.node = this.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
+                var ref = one._nuclearRef[i];
+                ref.node = one.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
                 ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
                 ref._nuclearRenderInfo.parent = ref.node.parentNode;
                 if (ref.onRefresh) ref.onRefresh();
                 if (ref.installed) ref.installed();
+                this._nuclearFixOne(ref)
             }
         }
+    }
+
+    obj._nuclearGetTop = function (current) {
+        if (!current._nuclearParent) return current;
+        return this._nuclearGetTop(current._nuclearParent);
     }
 
     obj._nuclearLocalRefresh = function () {
@@ -118,24 +150,26 @@ Nuclear._mixObj = function (obj) {
             var parts = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data)).querySelectorAll('*[nc-refresh]');
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
-                part.parentNode.replaceChild(parts[j], part);
+                //part.parentNode为null,代表其已经被子节点替换掉了
+                part.parentNode&&part.parentNode.replaceChild(parts[j], part);
 
             }
             item.refreshPart = parts;
             if (this.onRefresh) this.onRefresh();
             this.HTML = this.node.outerHTML;
 
-            var refLen = this._nuclearRef.length;
-            if (refLen > 0) {
-                var i = 0;
-                for (; i < refLen; i++) {
-                    var ref = this._nuclearRef[i];
-                    ref.node = this.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
+            this._nuclearFix();
+            //var refLen = this._nuclearRef.length;
+            //if (refLen > 0) {
+            //    var i = 0;
+            //    for (; i < refLen; i++) {
+            //        var ref = this._nuclearRef[i];
+            //        ref.node = this.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
 
-                    if (ref.onRefresh) ref.onRefresh();
-                    if (ref.installed) ref.installed();
-                }
-            }
+            //        if (ref.onRefresh) ref.onRefresh();
+            //        if (ref.installed) ref.installed();
+            //    }
+            //}
         } else {
             this._nuclearRender(item);
         }
@@ -151,8 +185,7 @@ Nuclear._minActionObj = function (obj) {
     }
 }
 
-Nuclear.createAction = function (obj) {
-    
+Nuclear.createAction = function (obj) {  
     Nuclear._minActionObj(obj)
     if (!obj.statics) obj.statics = {};
     obj.statics.createAction = function (obj) {
