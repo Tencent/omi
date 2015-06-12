@@ -63,7 +63,7 @@
             }
         })
 
-        var pc=new PieChart("#pieChartContainer",300,300, {         
+        var pc=new PieChart(300,300, {         
                 x: 140,
                 y: 140,
                 r: 120,
@@ -74,7 +74,7 @@
                    { name: "Java", count: 12, color: "#D3731F" },
                    { name: "PHP", count: 55, color: "#FA9416" }
                 ]              
-        });
+        }, "#pieChartContainer");
         //更改数据自动刷新Canvas
         pc.option.data[0].count = 200;
     </script>

@@ -88,7 +88,7 @@
 
         })
 
-    var lineChart=new LineChart("#lcContainer", 600, 300, {
+    var lineChart=new LineChart( 600, 300, {
         offset:[40,40],
         fontColor:"white",
         gridBoderColor: "#ccc",
@@ -113,7 +113,7 @@
             lineColor: "#FA9416",
             data: [11, 60, 33, 116, 1, 119]
         }]
-    })
+    },"#lcContainer")
 
 
     function random(min,max) {
