@@ -42,7 +42,7 @@ Nuclear._mixObj = function (obj) {
             parent: this.parent
         };
         this._nuclearRender(this._nuclearRenderInfo);
-
+        if (this.installed) this.installed();
     }
 
     //加if防止子类赋值undefined，丢失父类方法
@@ -85,7 +85,7 @@ Nuclear._mixObj = function (obj) {
         this._nuclearId = Nuclear.getId()
         this.node.setAttribute("data-nuclearId", this._nuclearId);
         if (this.onRefresh) this.onRefresh();
-        if (this.installed) this.installed();
+      
         item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
         this.HTML = this.node.outerHTML;
 
@@ -122,6 +122,10 @@ Nuclear._mixObj = function (obj) {
     }
 
     obj._nuclearLocalRefresh = function () {
+        if (this.update) {
+            this.update();
+            return;
+        }
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
         item.tpl = this._nuclearTplGenerator();
 
