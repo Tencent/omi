@@ -31,14 +31,6 @@
             border-radius: 5px 5px 0px 0px;
         }
 
-        .nuclear-tab-content > div {
-            display: none;
-        }
-
-        .nuclear-tab-content .nuclear-tab-contentActive {
-            display: block;
-        }
-
         .nuclear-tab-content {
             background-color: #c8c6c6;
             border: 2px solid #515050;
@@ -69,7 +61,7 @@
                 this.option.tabs.map(function (tab, index) {
                     var isSelected = this.option.selectedIndex === index;
                     tpl += '<a class="' + (isSelected ? "nuclear-tab-navActive" : "") + '">' + tab.title + '</a>';
-                    content += '<div class="' + (isSelected ? "nuclear-tab-contentActive" : "") + '">' + tab.content + '</div>'
+                    isSelected && (content += '<div>' + tab.content + '</div>');
                 }.bind(this));
                     tpl += '</div>\
                             <div class="nuclear-tab-content">'
