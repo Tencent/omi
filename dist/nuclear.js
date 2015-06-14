@@ -51,9 +51,23 @@ Nuclear._mixObj = function (obj) {
                 }
             }
         }
-
+        this._nuclearTimer = null;
+        this._preNuclearTime = new Date();
+ 
         if (this.option) {
-            Nuclear.observe(this.option, Nuclear.throttle(this._nuclearLocalRefresh.bind(this), 40));
+            Nuclear.observe(this.option, function (prop, value, oldValue, path) {
+                if (!this.onOptionChange||(this.onOptionChange && this.onOptionChange(prop, value, oldValue, path))) {
+                    clearTimeout(this._nuclearTimer);
+                    if (new Date() - this._preNuclearTime > 40) {
+                        this._nuclearLocalRefresh();
+                        this._preNuclearTime = new Date();
+                    } else {
+                        this._nuclearTimer = setTimeout(function () {
+                            this._nuclearLocalRefresh();
+                        }.bind(this), 40);
+                    }
+                }
+            }.bind(this));
         }
         this._nuclearRenderInfo = {
             tpl: this._nuclearTplGenerator(),
@@ -71,6 +85,7 @@ Nuclear._mixObj = function (obj) {
 
     obj.render = function () {
         if (this._nuclearParentEmpty) {
+         
             return this.HTML;
             //var len=this._nuclearRef.length;
             ////嵌套的render逻辑        
@@ -143,10 +158,6 @@ Nuclear._mixObj = function (obj) {
     }
 
     obj._nuclearLocalRefresh = function () {
-        if (this.update) {
-            this.update();
-            return;
-        }
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
         item.tpl = this._nuclearTplGenerator();
 
@@ -199,8 +210,6 @@ Nuclear.createAction = function (obj) {
     return Nuclear.Class.extend(obj);
     
 }
-
-
 
 Nuclear.throttle = function (func, wait, options) {
     var context, args, result;

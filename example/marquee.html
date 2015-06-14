@@ -17,8 +17,12 @@
                     if (this.option.left < this.end) this.option.left = this.option.width;
                 }.bind(this), 100);                
             },
-            update: function () {
-                this.scroll.style.left = this.option.left+"px";
+            onOptionChange: function (prop, value, oldValue, path) {
+                if (prop === "left") {
+                    this.scroll.style.left = value + "px";
+                    //下面的return ture代表同时出发render，return false或者不return任何值代表不触发render
+                   // return ture;
+                }
             },
             render: function () {
                 return '<div style="width:{{width}}px;overflow:hidden;position:relative;"><div  style="visibility:hidden;">a核</div><div class="marquee-scroll" style="position:absolute; white-space:nowrap;left:{{left}}px;top:0;">{{content}}</div></div>';

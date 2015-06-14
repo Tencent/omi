@@ -17,8 +17,12 @@
                     if (this.option.left < this.end) this.option.left = this.option.width;
                 }.bind(this), 100);
             },
-            update: function () {
-                this.scroll.style.left = this.option.left + "px";
+            onOptionChange: function (prop, value, oldValue, path) {
+                if (prop === "left") {
+                    this.scroll.style.left = value + "px";
+                    //下面的return ture代表同时出发render，return false或者不return任何值代表不触发render
+                    // return ture;
+                }
             },
             render: function () {
                 return '<div style="width:{{width}}px;overflow:hidden;position:relative;"><div  style="visibility:hidden;">a核</div><div class="marquee-scroll" style="position:absolute; white-space:nowrap;left:{{left}}px;top:0;">{{content}}</div></div>';
@@ -27,17 +31,15 @@
 
         var Hello = Nuclear.create({
             install: function () {
-                this.mq =new Marquee(this.option) 
-            },
-            update: function () {
-                this.scroll.style.left = this.option.left + "px";
+                //解除observer链条
+                this.mq = new Marquee({ width: this.option.width, left: this.option.left, content:  this.option.content })
             },
             render: function () {
-                return '<div><div>嵌套</div>'+this.mq.render()+'</div>';
+                return '<div><div>{{value}}</div>'+this.mq.render()+'</div>';
             }
         })
     
-        new Hello({ width: 480, left: 480, content: "张三中了 笔记本电脑  李四中了 苹果手机  王五中了 QQ靓号  孙六中了 马尔代夫双人游  " }, "#container");
+        new Hello({ value: "嵌套", width: 480, left: 480, content: "张三中了 笔记本电脑  李四中了 苹果手机  王五中了 QQ靓号  孙六中了 马尔代夫双人游  " }, "#container");
     </script>
     <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
