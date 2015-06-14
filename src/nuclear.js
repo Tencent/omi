@@ -107,11 +107,13 @@ Nuclear._mixObj = function (obj) {
             for (; i < refLen; i++) {
                 var ref = one._nuclearRef[i];
                 ref.node = one.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
-                ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
-                ref._nuclearRenderInfo.parent = ref.node.parentNode;
-                if (ref.onRefresh) ref.onRefresh();
-                if (ref.installed) ref.installed();
-                this._nuclearFixOne(ref)
+                if (ref.node) {
+                    ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
+                    ref._nuclearRenderInfo.parent = ref.node.parentNode;
+                    if (ref.onRefresh) ref.onRefresh();
+                    if (ref.installed) ref.installed();
+                    this._nuclearFixOne(ref)
+                }
             }
         }
     }
