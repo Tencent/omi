@@ -78,6 +78,10 @@ Nuclear._mixObj = function (obj) {
         if (this.installed) this.installed();
     }
 
+    obj.refresh = function () {
+        this._nuclearLocalRefresh();
+    }
+
     //加if防止子类赋值undefined，丢失父类方法
     if (obj.render) {
         obj._nuclearTplGenerator = obj.render;
