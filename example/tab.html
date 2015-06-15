@@ -46,7 +46,6 @@
     <script src="../dist/nuclear.js"></script>
     <script type="text/javascript">
         var Tab = Nuclear.create({
-
             onRefresh: function () {
                 this.tabs = this.node.querySelectorAll('.nuclear-tab-nav a');
                 var self = this;
@@ -56,22 +55,19 @@
             },
             render: function () {
                 var tpl = '<div class="nuclear-tab">\
-                            <div class="nuclear-tab-nav">';
-                var content = "";
+                            <div class="nuclear-tab-nav">',selectedIndex=this.option.selectedIndex;
                 this.option.tabs.map(function (tab, index) {
-                    var isSelected = this.option.selectedIndex === index;
-                    tpl += '<a class="' + (isSelected ? "nuclear-tab-navActive" : "") + '">' + tab.title + '</a>';
-                    isSelected && (content += '<div>' + tab.content + '</div>');
+                     tpl += '<a class="' + (selectedIndex===index ? "nuclear-tab-navActive" : "") + '">' + tab.title + '</a>';
                 }.bind(this));
                     tpl += '</div>\
-                            <div class="nuclear-tab-content">'
-                              +content+
-                            '</div>\
+                            <div class="nuclear-tab-content">\
+                                <div>' + this.option.tabs[selectedIndex].content + '</div>\
+                            </div>\
                          </div>';
                 return tpl;
             }
         })
-        new Tab({ tabs: [{ title: "tab-1", content: "tab1-content" }, { title: "tab-2", content: "tab2-content" }, { title: "tab-3", content: "tab3-content" }], selectedIndex: 0 }, "#tabContainer");
+        new Tab({ tabs: [{ title: "tab-1", content: "tab1-content" }, { title: "tab-2", content: '<a href="##">tab2-content</a>'}, { title: "tab-3", content: "<em>tab3-content</em>" }], selectedIndex: 0 }, "#tabContainer");
     </script>
     <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
