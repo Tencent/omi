@@ -122,8 +122,10 @@ Nuclear._mixObj = function (obj) {
         }
         this._nuclearId = Nuclear.getId()
         this.node.setAttribute("data-nuclearId", this._nuclearId);
-        if (this.onRefresh) this.onRefresh();
-      
+
+        this._mixNode();
+
+        if (this.onRefresh) this.onRefresh();     
         item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
         this.HTML = this.node.outerHTML;
 
@@ -131,11 +133,21 @@ Nuclear._mixObj = function (obj) {
         this._nuclearFix();
     }
 
+    obj._mixNode = function () {
+        var nodes = this.node.querySelectorAll('*[nc-id]'),len=nodes.length;
+        if (len > 0) {
+            var i=0;
+            for (; i < len; i++) {
+                var node=nodes[i];
+                this[node.getAttribute("nc-id")] = node;
+            }
+        }
+    }
+
     //从最顶部组件向内fix
     obj._nuclearFix = function () {
         if (this._nuclearParent) return;
-        var root = this._nuclearGetTop(this);
-        this._nuclearFixOne(root)
+        this._nuclearFixOne(this)
     }
 
     obj._nuclearFixOne = function (one) {
@@ -146,6 +158,7 @@ Nuclear._mixObj = function (obj) {
                 var ref = one._nuclearRef[i];
                 ref.node = one.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
                 if (ref.node) {
+                    ref._mixNode();
                     ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
                     ref._nuclearRenderInfo.parent = ref.node.parentNode;
                     if (ref.onRefresh) ref.onRefresh();
@@ -156,10 +169,6 @@ Nuclear._mixObj = function (obj) {
         }
     }
 
-    obj._nuclearGetTop = function (current) {
-        if (!current._nuclearParent) return current;
-        return this._nuclearGetTop(current._nuclearParent);
-    }
 
     obj._nuclearLocalRefresh = function () {
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
@@ -174,6 +183,7 @@ Nuclear._mixObj = function (obj) {
 
             }
             item.refreshPart = parts;
+            this._mixNode();
             if (this.onRefresh) this.onRefresh();
             this.HTML = this.node.outerHTML;
 

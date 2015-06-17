@@ -8,9 +8,7 @@
     <script src="../dist/nuclear.js"></script>
     <script type="text/javascript">
         var TodoApp = Nuclear.create({
-            onRefresh: function () {
-                this.form = this.node.querySelector("form");
-                this.textBox = this.node.querySelector("input");     
+            onRefresh: function () {   
                 this.form.addEventListener("submit", function (evt) {
                     evt.preventDefault();                
                     this.option.items.push(this.textBox.value);
@@ -20,8 +18,8 @@
                return '<div>\
                          <h3>TODO</h3>\
                         <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
-                          <form >\
-                           <input type="text"  />\
+                          <form nc-id="form" >\
+                           <input nc-id="textBox" type="text"  />\
                            <button>Add #{{items.length}}</button>\
                          </form>\
                        </div>';

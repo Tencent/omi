@@ -17,9 +17,7 @@
             install: function () {
                 this.todoList = new TodoList({ items: [] })
             },
-            onRefresh: function () {
-                this.form = this.node.querySelector("form");
-                this.textBox = this.node.querySelector("input");     
+            onRefresh: function () { 
                 this.form.addEventListener("submit", function (evt) {
                     evt.preventDefault();                
                     this.todoList.option.items.push(this.textBox.value);
@@ -30,8 +28,8 @@
                return '<div>\
                          <h3>TODO</h3>'
                          + this.todoList.render()+
-                         '<form >\
-                           <input type="text"  />\
+                         '<form nc-id="form" >\
+                           <input nc-id="textBox" type="text"  />\
                            <button>Add #'+this.todoList.option.items.length+'</button>\
                          </form>\
                        </div>';

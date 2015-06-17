@@ -20,14 +20,12 @@
                 this.option.html = marked(this.option.value);
             },
             installed: function () {
-                this.textarea = this.node.querySelector("textarea");
                 this.textarea.addEventListener("keyup", function () {
                     this.option.html = marked(this.textarea.value);
                     this.option.value = this.textarea.value;
                 }.bind(this), false);
             },
             onRefresh: function () {
-                this.content = this.node.querySelector(".content");
                 this.content.style.cursor = "pointer";
                 this.content.addEventListener("click", function () {
                     this.content.style.backgroundColor = "#A5E4F5";
@@ -37,9 +35,9 @@
                 return '<div>\
                                <h3>Input</h3>'
                                 + this.hm.render() +
-                               '<textarea rows="15" cols="35">{{value}}</textarea>\
+                               '<textarea nc-id="textarea" rows="15" cols="35">{{value}}</textarea>\
                                <h3>Output</h3>\
-                               <div class="content" nc-refresh >\
+                               <div nc-id="content" class="content" nc-refresh >\
                                    {{{html}}}\
                                </div>\
                            </div>';

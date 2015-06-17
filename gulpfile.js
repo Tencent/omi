@@ -3,6 +3,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var header = require('gulp-header');
+var watch = require('gulp-watch');
 
 var headerComment = '/* Nuclear\n' +
                      ' * By AlloyTeam http://www.alloyteam.com/\n'+
@@ -10,7 +11,7 @@ var headerComment = '/* Nuclear\n' +
                      ' * MIT Licensed.\n' +
                      ' */\n';
 
-gulp.task('concat', function () {
+gulp.task('build', function () {
     gulp.src([
 
         'src/intro.js',
@@ -31,4 +32,10 @@ gulp.task('concat', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['concat']);
+// 监视文件的变化
+gulp.task('watch', function () {
+    gulp.watch('src/*.js', ['build']);
+});
+
+
+gulp.task('default', ['build','watch']);

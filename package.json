@@ -19,7 +19,8 @@
     "gulp-concat": "latest",
 	"gulp-uglify": "latest",
 	"gulp-rename": "latest", 
-	"gulp-header": "latest"  	
+	"gulp-header": "latest",
+	"gulp-watch": "latest"    	
   },
   "author": "dntzhang",
   "license": "MIT",
