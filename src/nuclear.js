@@ -93,25 +93,33 @@ Nuclear._mixObj = function (obj) {
     obj._nuclearRender = function (item) {
         if (this.node) {
             //this.node.parentNode&&this.node.parentNode.removeChild(this.node);
-            // item.parent.removeChild(this.node);          
-            var newNode = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data));
-            item.parent.replaceChild(newNode, this.node);
-            this.node = newNode;
+            // item.parent.removeChild(this.node);      
+            if (Nuclear.isUndefined(item.tpl)) {
+                item.parent.removeChild(this.node);
+                this.node = null;
+                this.HTML = "";
+            } else {
+                var newNode = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data));
+                item.parent.replaceChild(newNode, this.node);
+                this.node = newNode;
+            }
         } else {
             item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl, item.data));
             this.node = item.parent.lastChild;
         }
-        this._nuclearId = Nuclear.getId()
-        this.node.setAttribute("data-nuclearId", this._nuclearId);
+        if (this.node) {
+            this._nuclearId = Nuclear.getId();
+            this.node.setAttribute("data-nuclearId", this._nuclearId);
 
-        this._mixNode();
+            this._mixNode();
 
-        if (this.onRefresh) this.onRefresh();     
-        item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
-        this.HTML = this.node.outerHTML;
+            if (this.onRefresh) this.onRefresh();
+            item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
+            this.HTML = this.node.outerHTML;
 
 
-        this._nuclearFix();
+            this._nuclearFix();
+        }
     }
 
     obj._mixNode = function () {

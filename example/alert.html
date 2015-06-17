@@ -10,12 +10,19 @@
             position: absolute;
             left: 0;
             top: -10000px;
-            display: none;
             -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
             background-color: white;
             -webkit-transform: translateZ(0);
             -webkit-user-select: none;
             -webkit-user-drag: none;
+            background: #f5f5f5;
+            -webkit-border-radius: 7px;
+            width: 300px;
+            height: auto;
+            left: 50%;
+            margin-left: -150px;
+            top: 453px;
+            margin-top: -79px;
         }
         /** mask */
         .ui-mask {
@@ -24,43 +31,17 @@
             left: 0;
             background: black;
             opacity: 0.5;
-            display: none;
             z-index: 1001;
             -webkit-transform: translateZ(0);
             -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
             -webkit-user-select: none;
             -webkit-user-drag: none;
+            width: 100%;
         }
 
         .ui-dialog .ui-dialog-title {
             position: relative;
-        }
 
-        .ui-dialog .ui-dialog-close {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            cursor: pointer;
-        }
-
-        .ui-dialog-container {
-            position: relative;
-        }
-
-
-
-        .ui-dialog {
-            background: #f5f5f5;
-            -webkit-border-radius: 7px;
-        }
-
-        .ui-dialog-content p {
-            font-size: 16px;
-            text-align: center;
-            color: black;
-        }
-
-        .ui-dialog .ui-dialog-title {
             height: 50px;
             line-height: 50px;
             font-size: 16px;
@@ -69,15 +50,24 @@
             -webkit-border-radius: 3px 3px 0 0;
         }
 
-        .ui-dialog .ui-dialog-close {
-            cursor: pointer;
-            border-width: 0;
-            display: inline-block;
-            padding: 7px 9px;
-            margin: 2px;
-            line-height: 1;
-            -webkit-border-radius: 3px;
+ 
+
+        .ui-dialog-container {
+            position: relative;
         }
+
+
+
+
+
+        .ui-dialog-content p {
+            font-size: 16px;
+            text-align: center;
+            color: black;
+        }
+
+     
+
 
         .ui-dialog h3 {
             margin: 0;
@@ -85,13 +75,7 @@
             color: black;
         }
 
-        /*.ui-dialog .ui-dialog-close .ui-icon {
-    background-image: url("../../icons-36-white.png");
-}*/
-
-        .ui-dialog .ui-dialog-close-hover {
-            background-color: rgba(255, 255, 255, 0.4);
-        }
+ 
 
         .ui-dialog .ui-dialog-content {
             padding: 10px;
@@ -136,16 +120,6 @@
                     background-color: #e2e2e2;
                 }
 
-        /*css for pad*/
-        @media all and (min-device-width:768px) and (max-device-width: 1024px) {
-            .ui-dialog {
-                min-width: 500px;
-            }
-
-                .ui-dialog .ui-dialog-title {
-                    min-height: 1.1em;
-                }
-        }
     </style>
 </head>
 <body>
@@ -153,10 +127,17 @@
     <script src="../dist/nuclear.js"></script>
     <script type="text/javascript">
         var Alert = Nuclear.create({
+            installed: function () {
+                this.ok.addEventListener("click", function (evt) {
+                    this.option.display=false;
+                    evt.stopPropagation();
+                }.bind(this), false);
+            },
             render: function () {
+                if (!this.option.display) return;
                 return '<div>\
-                              <div class="ui-mask" style="display: block; width: 100%; height: 1092px;"></div>\
-                              <div class="ui-dialog" style="width: 300px; height: auto; display: block; left: 50%; margin-left: -150px; top: 453px; margin-top: -79px;">\
+                              <div class="ui-mask" style="height:' + (Math.max(document.body.scrollHeight, document.body.clientHeight) - 1) + 'px;"></div>\
+                              <div class="ui-dialog">\
                                 <div class="ui-dialog-title">\
                                     <h3>{{title}}</h3>\
                                 </div>\
@@ -164,7 +145,7 @@
                                     <div title="{{msg}}">\
                                        <p>{{msg}}</p></div>\
                                     </div>\
-                                <div class="ui-dialog-btns"><a class="ui-btn ui-btn-1" data-key="好" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);">好</a>\
+                                <div nc-id="ok" class="ui-dialog-btns"><a class="ui-btn ui-btn-1" data-key="好" style="-webkit-tap-highlight-color: rgba(255, 255, 255, 0);">好</a>\
                                 </div>\
                                </div>\
                             </div>';
@@ -174,10 +155,14 @@
 
 
         Nuclear.alert = function (msg, title) {
-            new Alert({ msg: msg, title: title || "提示" }, "body");
+            new Alert({ msg: msg, title: title || "提示", display:true}, "body");
         }
 
-        Nuclear.alert("bb", "cc");
+        Nuclear.alert("Nuclear大法好");
+
+        document.onclick = function () {
+            Nuclear.alert(Math.random(1231));
+        }
     </script>
     <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
