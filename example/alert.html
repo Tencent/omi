@@ -3,6 +3,28 @@
 <head>
     <title>Hello,Nuclear!</title>
     <style>
+           #alertContainer {
+            height: 40px;
+        }
+
+        #alertContainer .btn {
+            text-decoration: none;
+            padding: 10px;
+            background-color: #CC7A6F;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            font: 14px/1.5 arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;
+        }
+
+            #alertContainer .btn:hover {
+                background-color: #A94E42;
+            }
+
+            #alertContainer .btn.disable {
+                background-color: #CCC;
+            }
+
         .ui-dialog {
             overflow: hidden;
             margin: 0 auto;
@@ -123,13 +145,29 @@
     </style>
 </head>
 <body>
-
+    <div id="alertContainer"></div>
     <script src="../dist/nuclear.js"></script>
     <script type="text/javascript">
+        var Button = Nuclear.create({
+            install: function () {
+                this.option.disable = false;
+            },
+            installed: function () {
+                this.node.addEventListener("click", function (evt) {
+                    if (this.option.onClick) {
+                        this.option.onClick.call(this.node, evt);
+                    }
+                }.bind(this), false);
+            },
+            render: function () {
+                return ' <a class="btn {{#disable}}disable{{/disable}}">{{text}}</a>';
+            }
+        })
+
         var Alert = Nuclear.create({
             installed: function () {
                 this.ok.addEventListener("click", function (evt) {
-                    this.option.display=false;
+                    this.option.display = false;
                     evt.stopPropagation();
                 }.bind(this), false);
             },
@@ -150,19 +188,18 @@
                                </div>\
                             </div>';
             }
-        })
-
-
+        });
 
         Nuclear.alert = function (msg, title) {
             new Alert({ msg: msg, title: title || "提示", display:true}, "body");
         }
 
-        Nuclear.alert("Nuclear大法好");
-
-        document.onclick = function () {
-            Nuclear.alert(Math.random(1231));
-        }
+        new Button({
+            text: "点我试试alert",
+            onClick: function () {
+                Nuclear.alert("Nuclear大法好");
+            }
+        }, "#alertContainer")
     </script>
     <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
