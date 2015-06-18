@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+</head>
+<body>
+    <!--  style='max-width: 200px; margin: 0 auto'-->
+<!--<div style="max-width: 300px; margin: 0 auto;overflow: hidden;">
+    <div style="position:relative;  width: 300%; transition: left 1s cubic-bezier(0.22, 0.61, 0.36, 1);   font-size: 0; left: 0%;">
+        <img style=" width: 33.33%;" src="../asset/room.jpg" />
+        <img style=" width: 33.33%;" src="../asset/sleep.jpg" />
+        <img style=" width: 33.33%;" src="../asset/watch.jpg" />
+    </div>
+</div>-->
+    <div style=""></div>
+    <div id="carouselContainer"></div>
+    <script src="../dist/nuclear.js"></script>
+    <script>
+        var Carousel = Nuclear.create({
+            install: function () {
+                this.imgCount = this.option.imgs.length;
+            },
+            onOptionChange: function (prop, value, oldValue, path) {
+                if (prop === "index") {
+                    this.carouselScroll.style.left = value * -100 + "%";
+                }
+            },
+            render: function () {      
+                return '<div style="max-width: 280px; margin: 0 auto;overflow: hidden;position:relative;">\
+                            <div nc-id="carouselScroll" style="position:relative;  width: ' + this.imgCount * 100 + '%; transition: left 1s cubic-bezier(0.22, 0.61, 0.36, 1);   font-size: 0; left: ' + this.option.index * -100 + '%;">\
+                            {{#imgs}}<img style=" width:'+100/this.imgCount+'%;" src="{{.}}" /> {{/imgs}}\
+                            </div>\
+                           <div  style="position:absolute;bottom:0;right:0;"> {{#imgs}}<a style="display:inline-block;background-color:white;cursor:pointer;">{{@index}}</a> {{/imgs}}</div>\
+                        </div>';
+                ;
+            }
+        });
+        var c=new Carousel({
+                                imgs: ["../asset/room.jpg", "../asset/sleep.jpg", "../asset/watch.jpg"],
+                                index:0
+        }, "#carouselContainer");
+    </script>
+</body>
+</html>

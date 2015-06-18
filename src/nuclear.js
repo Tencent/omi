@@ -55,6 +55,13 @@ Nuclear._mixObj = function (obj) {
             data: this.option,
             parent: this.parent
         };
+        this.option._nuclearIndex = function () {
+            return ++window['_nuclearIndex'] || (window['_nuclearIndex'] = 0);
+        }
+        this.option._resetNuclearIndex=function() {
+            window['_nuclearIndex'] = -1;
+            return;
+        }
         this._nuclearRender(this._nuclearRenderInfo);
         if (this.installed) this.installed();
     }
@@ -99,14 +106,15 @@ Nuclear._mixObj = function (obj) {
                 this.node = null;
                 this.HTML = "";
             } else {
-                var newNode = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data));
+                var newNode = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixTplIndex(item.tpl), item.data));
                 item.parent.replaceChild(newNode, this.node);
                 this.node = newNode;
             }
         } else {
-            item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(item.tpl, item.data));
+            item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(Nuclear._fixTplIndex(item.tpl), item.data));
             this.node = item.parent.lastChild;
         }
+        window["_nuclearIndex"] = null;
         if (this.node) {
             this._nuclearId = Nuclear.getId();
             this.node.setAttribute("data-nuclearId", this._nuclearId);
@@ -162,9 +170,9 @@ Nuclear._mixObj = function (obj) {
     obj._nuclearLocalRefresh = function () {
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
         item.tpl = this._nuclearTplGenerator();
-
         if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(item.tpl, item.data)).querySelectorAll('*[nc-refresh]');
+            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixTplIndex(item.tpl), item.data)).querySelectorAll('*[nc-refresh]');
+            window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
                 //part.parentNode为null,代表其已经被子节点替换掉了
@@ -192,6 +200,14 @@ Nuclear._mixObj = function (obj) {
             this._nuclearRender(item);
         }
     }
+}
+
+Nuclear._fixTplIndex = function (tpl) {
+    //"{{_nuclearIndex}}"
+    return tpl.replace(/{{#[\s\S]*?{{@index}}/g, function (str) {
+
+        return "{{_resetNuclearIndex}}" + str.replace("{{@index}}", "{{_nuclearIndex}}");
+    });
 }
 
 Nuclear._minActionObj = function (obj) {
