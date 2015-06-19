@@ -54,13 +54,6 @@
                 }, this.option);
                 this.pageNum = Math.ceil(this.option.total / this.option.pageSize);
             },
-            getInterval: function () {               
-                var ne_half = Math.ceil(this.option.numDisplay / 2);
-                var upper_limit = this.pageNum - this.option.numDisplay;
-                var start = this.option.currentPage > ne_half ? Math.max(Math.min(this.option.currentPage - ne_half, upper_limit), 0) : 0;
-                var end = this.option.currentPage > ne_half ? Math.min(this.option.currentPage + ne_half, this.pageNum) : Math.min(this.option.numDisplay, this.pageNum);
-                return [start, end];
-            },
             onRefresh: function () {
                 if (this.option.currentPage > 0) {
                     this.prev.addEventListener("click", function (evt) {
@@ -122,6 +115,13 @@
                 }
                 tpl += '</div>';
                 return tpl;
+            },
+            getInterval: function () {
+                var ne_half = Math.ceil(this.option.numDisplay / 2);
+                var upper_limit = this.pageNum - this.option.numDisplay;
+                var start = this.option.currentPage > ne_half ? Math.max(Math.min(this.option.currentPage - ne_half, upper_limit), 0) : 0;
+                var end = this.option.currentPage > ne_half ? Math.min(this.option.currentPage + ne_half, this.pageNum) : Math.min(this.option.numDisplay, this.pageNum);
+                return [start, end];
             },
             getPrev: function () {
                 if (this.option.currentPage === 0) {
