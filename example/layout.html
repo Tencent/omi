@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+      <style>
+        * {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        div {
+            border: 1px solid #ccc;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 300px; height: 400px;" id="layoutContainer">
+
+        <div class="nuclear-layout-top">top</div>
+        <div class="nuclear-layout-bottom">bottom</div>
+        <div class="nuclear-layout-left">left</div>
+        <div class="nuclear-layout-right">right</div>
+        <div class="nuclear-layout-center">center</div>
+    </div>
+    <script src="../dist/nuclear.js"></script>
+    <script src="../asset/drag.js"></script>
+    <script src="../asset/layout.js"></script>
+    <script>
+
+        new Layout({
+            topHeight: 40,
+            leftWidth: 60,
+            rightWidth:50,
+            bottomHeight: 30,
+            container: "#layoutContainer"
+        });
+
+    </script>
+
+     <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
+</body>
+</html>
