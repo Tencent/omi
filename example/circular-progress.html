@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>CircularProgress</title>
+</head>
+<body>
+
+    <div id="circularProgressContainer"></div>
+    <script src="../dist/nuclear.js"></script>
+    <script type="text/javascript">
+        var CircularProgress = Nuclear.createCanvas({
+            sector: function (x, y, r, begin, end, color, clock) {
+                var ctx = this.ctx;
+                ctx.beginPath();
+                ctx.fillStyle = color;
+                ctx.moveTo(x, y);
+                ctx.arc(x, y, r, begin, end, clock)
+                ctx.lineTo(x, y);
+                ctx.fill();
+            },
+            circle: function (x, y, r,  color) {
+                this.sector(x, y, r, 0, 2 * Math.PI, color);
+            },
+            getColor: function (percent) {
+                if (percent < 20) return "#6B0300";
+                if (percent < 40) return "#814700";
+                if (percent < 60) return "#847A00";
+           
+                if (percent < 80) return "#556C02";
+                if (percent <= 100) return "#367D00";
+            },
+            text: function (x, y, text, color) {
+
+                this.ctx.fillStyle = color;
+                this.ctx.font = "bold 20px Verdana";
+                this.ctx.fillText(text,x - this.ctx.measureText(text).width / 2, y+8 );
+            },
+            render: function () {
+               
+                var x = this.canvas.width / 2, y = this.canvas.height / 2, r = x - 20, innerR = r - this.option.ringWidth;
+                this.circle(x, y, r, "#DCDCDC")
+                this.sector(x, y, r, -Math.PI / 2, 2 * Math.PI * this.option.percent / 100 - Math.PI / 2, this.getColor(this.option.percent));
+                this.circle(x, y, innerR, "white");
+                this.text(x, y, this.option.percent + "%","black");
+            }
+        })
+
+        var cp = new CircularProgress(150, 150, { percent: 0, ringWidth: 15 }, "#circularProgressContainer");
+        //为了演示
+        setInterval(function () {
+            if (cp.option.percent >= 100) cp.option.percent = 0;
+            cp.option.percent++;
+        }, 100)
+    </script>
+    <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
+</body>
+</html>
