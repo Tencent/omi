@@ -13,6 +13,6 @@
             module.exports=factory();
         });
     } else {
-        root.Nuclear  = factory();
+        root.$ = root.Nuclear  = factory();
     }
 }(this, function () {

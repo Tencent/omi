@@ -1,694 +1,1326 @@
-﻿var Nuclear = {};
+﻿/* paste from Zepto v1.1.6 -
+contain zepto,event and touch modules
+https://github.com/madrobby/zepto/blob/master/src/zepto.js
+https://github.com/madrobby/zepto/blob/master/src/event.js
+https://github.com/madrobby/zepto/blob/master/src/touch.js
+*/
 
-Nuclear.create = function (obj) {
-    Nuclear._mixObj(obj);
-    if (!obj.statics) obj.statics = {};
-    obj.statics.create = function (obj) {      
-        Nuclear._mixObj(obj);
-        return this.extend(obj);
+var Nuclear = (function () {
+    var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice, filter = emptyArray.filter,
+      document = window.document,
+      elementDisplay = {}, classCache = {},
+      cssNumber = { 'column-count': 1, 'columns': 1, 'font-weight': 1, 'line-height': 1, 'opacity': 1, 'z-index': 1, 'zoom': 1 },
+      fragmentRE = /^\s*<(\w+|!)[^>]*>/,
+      singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+      tagExpanderRE = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,
+      rootNodeRE = /^(?:body|html)$/i,
+      capitalRE = /([A-Z])/g,
+
+      // special attributes that should be get/set via method calls
+      methodAttributes = ['val', 'css', 'html', 'text', 'data', 'width', 'height', 'offset'],
+
+      adjacencyOperators = ['after', 'prepend', 'before', 'append'],
+      table = document.createElement('table'),
+      tableRow = document.createElement('tr'),
+      containers = {
+          'tr': document.createElement('tbody'),
+          'tbody': table, 'thead': table, 'tfoot': table,
+          'td': tableRow, 'th': tableRow,
+          '*': document.createElement('div')
+      },
+      readyRE = /complete|loaded|interactive/,
+      simpleSelectorRE = /^[\w-]*$/,
+      class2type = {},
+      toString = class2type.toString,
+      nuclear = {},
+      camelize, uniq,
+      tempParent = document.createElement('div'),
+      propMap = {
+          'tabindex': 'tabIndex',
+          'readonly': 'readOnly',
+          'for': 'htmlFor',
+          'class': 'className',
+          'maxlength': 'maxLength',
+          'cellspacing': 'cellSpacing',
+          'cellpadding': 'cellPadding',
+          'rowspan': 'rowSpan',
+          'colspan': 'colSpan',
+          'usemap': 'useMap',
+          'frameborder': 'frameBorder',
+          'contenteditable': 'contentEditable'
+      },
+      isArray = Array.isArray ||
+        function (object) { return object instanceof Array }
+
+    nuclear.matches = function (element, selector) {
+        if (!selector || !element || element.nodeType !== 1) return false
+        var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
+                              element.oMatchesSelector || element.matchesSelector
+        if (matchesSelector) return matchesSelector.call(element, selector)
+        // fall back to performing a selector:
+        var match, parent = element.parentNode, temp = !parent
+        if (temp) (parent = tempParent).appendChild(element)
+        match = ~nuclear.qsa(parent, selector).indexOf(element)
+        temp && tempParent.removeChild(element)
+        return match
     }
-    return Nuclear.Class.extend(obj);
-}
 
-Nuclear._mixObj = function (obj) {
-    obj.ctor = function (option, selector) {
-        this._nuclearParentEmpty = !selector;
-        this.HTML = "";
-        this.option = option;
-        if (!this._nuclearParentEmpty) {
-            this.parent = typeof selector === "string" ? document.querySelector(selector) : selector;
+    function type(obj) {
+        return obj == null ? String(obj) :
+          class2type[toString.call(obj)] || "object"
+    }
+
+    function isFunction(value) { return type(value) == "function" }
+    function isWindow(obj) { return obj != null && obj == obj.window }
+    function isDocument(obj) { return obj != null && obj.nodeType == obj.DOCUMENT_NODE }
+    function isObject(obj) { return type(obj) == "object" }
+    function isPlainObject(obj) {
+        return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype
+    }
+    function likeArray(obj) { return typeof obj.length == 'number' }
+
+    function compact(array) { return filter.call(array, function (item) { return item != null }) }
+    function flatten(array) { return array.length > 0 ? $.fn.concat.apply([], array) : array }
+    camelize = function (str) { return str.replace(/-+(.)?/g, function (match, chr) { return chr ? chr.toUpperCase() : '' }) }
+    function dasherize(str) {
+        return str.replace(/::/g, '/')
+               .replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
+               .replace(/([a-z\d])([A-Z])/g, '$1_$2')
+               .replace(/_/g, '-')
+               .toLowerCase()
+    }
+    uniq = function (array) { return filter.call(array, function (item, idx) { return array.indexOf(item) == idx }) }
+
+    function classRE(name) {
+        return name in classCache ?
+          classCache[name] : (classCache[name] = new RegExp('(^|\\s)' + name + '(\\s|$)'))
+    }
+
+    function maybeAddPx(name, value) {
+        return (typeof value == "number" && !cssNumber[dasherize(name)]) ? value + "px" : value
+    }
+
+    function defaultDisplay(nodeName) {
+        var element, display
+        if (!elementDisplay[nodeName]) {
+            element = document.createElement(nodeName)
+            document.body.appendChild(element)
+            display = getComputedStyle(element, '').getPropertyValue("display")
+            element.parentNode.removeChild(element)
+            display == "none" && (display = "block")
+            elementDisplay[nodeName] = display
+        }
+        return elementDisplay[nodeName]
+    }
+
+    function children(element) {
+        return 'children' in element ?
+          slice.call(element.children) :
+          $.map(element.childNodes, function (node) { if (node.nodeType == 1) return node })
+    }
+
+    // `$.nuclear.fragment` takes a html string and an optional tag name
+    // to generate DOM nodes nodes from the given html string.
+    // The generated DOM nodes are returned as an array.
+    // This function can be overriden in plugins for example to make
+    // it compatible with browsers that don't support the DOM fully.
+    nuclear.fragment = function (html, name, properties) {
+        var dom, nodes, container
+
+        // A special case optimization for a single tag
+        if (singleTagRE.test(html)) dom = $(document.createElement(RegExp.$1))
+
+        if (!dom) {
+            if (html.replace) html = html.replace(tagExpanderRE, "<$1></$2>")
+            if (name === undefined) name = fragmentRE.test(html) && RegExp.$1
+            if (!(name in containers)) name = '*'
+
+            container = containers[name]
+            container.innerHTML = '' + html
+            dom = $.each(slice.call(container.childNodes), function () {
+                container.removeChild(this)
+            })
+        }
+
+        if (isPlainObject(properties)) {
+            nodes = $(dom)
+            $.each(properties, function (key, value) {
+                if (methodAttributes.indexOf(key) > -1) nodes[key](value)
+                else nodes.attr(key, value)
+            })
+        }
+
+        return dom
+    }
+
+    // `$.nuclear.Z` swaps out the prototype of the given `dom` array
+    // of nodes with `$.fn` and thus supplying all the Nuclear functions
+    // to the array. Note that `__proto__` is not supported on Internet
+    // Explorer. This method can be overriden in plugins.
+    nuclear.Z = function (dom, selector) {
+        dom = dom || []
+        dom.__proto__ = $.fn
+        dom.selector = selector || ''
+        return dom
+    }
+
+    // `$.nuclear.isZ` should return `true` if the given object is a Nuclear
+    // collection. This method can be overriden in plugins.
+    nuclear.isZ = function (object) {
+        return object instanceof nuclear.Z
+    }
+
+    // `$.nuclear.init` is Nuclear's counterpart to jQuery's `$.fn.init` and
+    // takes a CSS selector and an optional context (and handles various
+    // special cases).
+    // This method can be overriden in plugins.
+    nuclear.init = function (selector, context) {
+        var dom
+        // If nothing given, return an empty Nuclear collection
+        if (!selector) return nuclear.Z()
+            // Optimize for string selectors
+        else if (typeof selector == 'string') {
+            selector = selector.trim()
+            // If it's a html fragment, create nodes from it
+            // Note: In both Chrome 21 and Firefox 15, DOM error 12
+            // is thrown if the fragment doesn't begin with <
+            if (selector[0] == '<' && fragmentRE.test(selector))
+                dom = nuclear.fragment(selector, RegExp.$1, context), selector = null
+                // If there's a context, create a collection on that context first, and select
+                // nodes from there
+            else if (context !== undefined) return $(context).find(selector)
+                // If it's a CSS selector, use it to select nodes.
+            else dom = nuclear.qsa(document, selector)
+        }
+            // If a function is given, call it when the DOM is ready
+        else if (isFunction(selector)) return $(document).ready(selector)
+            // If a Nuclear collection is given, just return it
+        else if (nuclear.isZ(selector)) return selector
+        else {
+            // normalize array if an array of nodes is given
+            if (isArray(selector)) dom = compact(selector)
+                // Wrap DOM nodes.
+            else if (isObject(selector))
+                dom = [selector], selector = null
+                // If it's a html fragment, create nodes from it
+            else if (fragmentRE.test(selector))
+                dom = nuclear.fragment(selector.trim(), RegExp.$1, context), selector = null
+                // If there's a context, create a collection on that context first, and select
+                // nodes from there
+            else if (context !== undefined) return $(context).find(selector)
+                // And last but no least, if it's a CSS selector, use it to select nodes.
+            else dom = nuclear.qsa(document, selector)
+        }
+        // create a new Nuclear collection from the nodes found
+        return nuclear.Z(dom, selector)
+    }
+
+    // `$` will be the base `Nuclear` object. When calling this
+    // function just call `$.nuclear.init, which makes the implementation
+    // details of selecting nodes and creating Nuclear collections
+    // patchable in plugins.
+    $ = function (selector, context) {
+        return nuclear.init(selector, context)
+    }
+
+    function extend(target, source, deep) {
+        for (key in source)
+            if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
+                if (isPlainObject(source[key]) && !isPlainObject(target[key]))
+                    target[key] = {}
+                if (isArray(source[key]) && !isArray(target[key]))
+                    target[key] = []
+                extend(target[key], source[key], deep)
+            }
+            else if (source[key] !== undefined) target[key] = source[key]
+    }
+
+    // Copy all but undefined properties from one or more
+    // objects to the `target` object.
+    $.extend = function (target) {
+        var deep, args = slice.call(arguments, 1)
+        if (typeof target == 'boolean') {
+            deep = target
+            target = args.shift()
+        }
+        args.forEach(function (arg) { extend(target, arg, deep) })
+        return target
+    }
+
+    // `$.nuclear.qsa` is Nuclear's CSS selector implementation which
+    // uses `document.querySelectorAll` and optimizes for some special cases, like `#id`.
+    // This method can be overriden in plugins.
+    nuclear.qsa = function (element, selector) {
+        var found,
+            maybeID = selector[0] == '#',
+            maybeClass = !maybeID && selector[0] == '.',
+            nameOnly = maybeID || maybeClass ? selector.slice(1) : selector, // Ensure that a 1 char tag name still gets checked
+            isSimple = simpleSelectorRE.test(nameOnly)
+        return (isDocument(element) && isSimple && maybeID) ?
+          ((found = element.getElementById(nameOnly)) ? [found] : []) :
+          (element.nodeType !== 1 && element.nodeType !== 9) ? [] :
+          slice.call(
+            isSimple && !maybeID ?
+              maybeClass ? element.getElementsByClassName(nameOnly) : // If it's simple, it could be a class
+              element.getElementsByTagName(selector) : // Or a tag
+              element.querySelectorAll(selector) // Or it's not simple, and we need to query all
+          )
+    }
+
+    function filtered(nodes, selector) {
+        return selector == null ? $(nodes) : $(nodes).filter(selector)
+    }
+
+    $.contains = document.documentElement.contains ?
+      function (parent, node) {
+          return parent !== node && parent.contains(node)
+      } :
+      function (parent, node) {
+          while (node && (node = node.parentNode))
+              if (node === parent) return true
+          return false
+      }
+
+    function funcArg(context, arg, idx, payload) {
+        return isFunction(arg) ? arg.call(context, idx, payload) : arg
+    }
+
+    function setAttribute(node, name, value) {
+        value == null ? node.removeAttribute(name) : node.setAttribute(name, value)
+    }
+
+    // access className property while respecting SVGAnimatedString
+    function className(node, value) {
+        var klass = node.className || '',
+            svg = klass && klass.baseVal !== undefined
+
+        if (value === undefined) return svg ? klass.baseVal : klass
+        svg ? (klass.baseVal = value) : (node.className = value)
+    }
+
+    // "true"  => true
+    // "false" => false
+    // "null"  => null
+    // "42"    => 42
+    // "42.5"  => 42.5
+    // "08"    => "08"
+    // JSON    => parse if valid
+    // String  => self
+    function deserializeValue(value) {
+        try {
+            return value ?
+              value == "true" ||
+              (value == "false" ? false :
+                value == "null" ? null :
+                +value + "" == value ? +value :
+                /^[\[\{]/.test(value) ? $.parseJSON(value) :
+                value)
+              : value
+        } catch (e) {
+            return value
+        }
+    }
+
+    $.type = type
+    $.isFunction = isFunction
+    $.isWindow = isWindow
+    $.isArray = isArray
+    $.isPlainObject = isPlainObject
+
+    $.isEmptyObject = function (obj) {
+        var name
+        for (name in obj) return false
+        return true
+    }
+
+    $.inArray = function (elem, array, i) {
+        return emptyArray.indexOf.call(array, elem, i)
+    }
+
+    $.camelCase = camelize
+    $.trim = function (str) {
+        return str == null ? "" : String.prototype.trim.call(str)
+    }
+
+    // plugin compatibility
+    $.uuid = 0
+    $.support = {}
+    $.expr = {}
+
+    $.map = function (elements, callback) {
+        var value, values = [], i, key
+        if (likeArray(elements))
+            for (i = 0; i < elements.length; i++) {
+                value = callback(elements[i], i)
+                if (value != null) values.push(value)
+            }
+        else
+            for (key in elements) {
+                value = callback(elements[key], key)
+                if (value != null) values.push(value)
+            }
+        return flatten(values)
+    }
+
+    $.each = function (elements, callback) {
+        var i, key
+        if (likeArray(elements)) {
+            for (i = 0; i < elements.length; i++)
+                if (callback.call(elements[i], i, elements[i]) === false) return elements
         } else {
-            this.parent = document.createElement("div");
+            for (key in elements)
+                if (callback.call(elements[key], key, elements[key]) === false) return elements
         }
-        if (this.install) {
-            this.install();
-        }
-        this._nuclearRef = [];
-        for (var key in this) {
-            if (this.hasOwnProperty(key)) {
-                if (this[key] && this[key]["_nuclearLocalRefresh"]) {
-                    this[key]._nuclearParent = this;
-                    this._nuclearRef.push(this[key]);
+
+        return elements
+    }
+
+    $.grep = function (elements, callback) {
+        return filter.call(elements, callback)
+    }
+
+    if (window.JSON) $.parseJSON = JSON.parse
+
+    // Populate the class2type map
+    $.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function (i, name) {
+        class2type["[object " + name + "]"] = name.toLowerCase()
+    })
+
+    // Define methods that will be available on all
+    // Nuclear collections
+    $.fn = {
+        // Because a collection acts like an array
+        // copy over these useful array functions.
+        forEach: emptyArray.forEach,
+        reduce: emptyArray.reduce,
+        push: emptyArray.push,
+        sort: emptyArray.sort,
+        indexOf: emptyArray.indexOf,
+        concat: emptyArray.concat,
+
+        // `map` and `slice` in the jQuery API work differently
+        // from their array counterparts
+        map: function (fn) {
+            return $($.map(this, function (el, i) { return fn.call(el, i, el) }))
+        },
+        slice: function () {
+            return $(slice.apply(this, arguments))
+        },
+
+        ready: function (callback) {
+            // need to check if document.body exists for IE as that browser reports
+            // document ready when it hasn't yet created the body element
+            if (readyRE.test(document.readyState) && document.body) callback($)
+            else document.addEventListener('DOMContentLoaded', function () { callback($) }, false)
+            return this
+        },
+        get: function (idx) {
+            return idx === undefined ? slice.call(this) : this[idx >= 0 ? idx : idx + this.length]
+        },
+        toArray: function () { return this.get() },
+        size: function () {
+            return this.length
+        },
+        remove: function () {
+            return this.each(function () {
+                if (this.parentNode != null)
+                    this.parentNode.removeChild(this)
+            })
+        },
+        each: function (callback) {
+            emptyArray.every.call(this, function (el, idx) {
+                return callback.call(el, idx, el) !== false
+            })
+            return this
+        },
+        filter: function (selector) {
+            if (isFunction(selector)) return this.not(this.not(selector))
+            return $(filter.call(this, function (element) {
+                return nuclear.matches(element, selector)
+            }))
+        },
+        add: function (selector, context) {
+            return $(uniq(this.concat($(selector, context))))
+        },
+        is: function (selector) {
+            return this.length > 0 && nuclear.matches(this[0], selector)
+        },
+        not: function (selector) {
+            var nodes = []
+            if (isFunction(selector) && selector.call !== undefined)
+                this.each(function (idx) {
+                    if (!selector.call(this, idx)) nodes.push(this)
+                })
+            else {
+                var excludes = typeof selector == 'string' ? this.filter(selector) :
+                  (likeArray(selector) && isFunction(selector.item)) ? slice.call(selector) : $(selector)
+                this.forEach(function (el) {
+                    if (excludes.indexOf(el) < 0) nodes.push(el)
+                })
+            }
+            return $(nodes)
+        },
+        has: function (selector) {
+            return this.filter(function () {
+                return isObject(selector) ?
+                  $.contains(this, selector) :
+                  $(this).find(selector).size()
+            })
+        },
+        eq: function (idx) {
+            return idx === -1 ? this.slice(idx) : this.slice(idx, +idx + 1)
+        },
+        first: function () {
+            var el = this[0]
+            return el && !isObject(el) ? el : $(el)
+        },
+        last: function () {
+            var el = this[this.length - 1]
+            return el && !isObject(el) ? el : $(el)
+        },
+        find: function (selector) {
+            var result, $this = this
+            if (!selector) result = $()
+            else if (typeof selector == 'object')
+                result = $(selector).filter(function () {
+                    var node = this
+                    return emptyArray.some.call($this, function (parent) {
+                        return $.contains(parent, node)
+                    })
+                })
+            else if (this.length == 1) result = $(nuclear.qsa(this[0], selector))
+            else result = this.map(function () { return nuclear.qsa(this, selector) })
+            return result
+        },
+        closest: function (selector, context) {
+            var node = this[0], collection = false
+            if (typeof selector == 'object') collection = $(selector)
+            while (node && !(collection ? collection.indexOf(node) >= 0 : nuclear.matches(node, selector)))
+                node = node !== context && !isDocument(node) && node.parentNode
+            return $(node)
+        },
+        parents: function (selector) {
+            var ancestors = [], nodes = this
+            while (nodes.length > 0)
+                nodes = $.map(nodes, function (node) {
+                    if ((node = node.parentNode) && !isDocument(node) && ancestors.indexOf(node) < 0) {
+                        ancestors.push(node)
+                        return node
+                    }
+                })
+            return filtered(ancestors, selector)
+        },
+        parent: function (selector) {
+            return filtered(uniq(this.pluck('parentNode')), selector)
+        },
+        children: function (selector) {
+            return filtered(this.map(function () { return children(this) }), selector)
+        },
+        contents: function () {
+            return this.map(function () { return slice.call(this.childNodes) })
+        },
+        siblings: function (selector) {
+            return filtered(this.map(function (i, el) {
+                return filter.call(children(el.parentNode), function (child) { return child !== el })
+            }), selector)
+        },
+        empty: function () {
+            return this.each(function () { this.innerHTML = '' })
+        },
+        // `pluck` is borrowed from Prototype.js
+        pluck: function (property) {
+            return $.map(this, function (el) { return el[property] })
+        },
+        show: function () {
+            return this.each(function () {
+                this.style.display == "none" && (this.style.display = '')
+                if (getComputedStyle(this, '').getPropertyValue("display") == "none")
+                    this.style.display = defaultDisplay(this.nodeName)
+            })
+        },
+        replaceWith: function (newContent) {
+            return this.before(newContent).remove()
+        },
+        wrap: function (structure) {
+            var func = isFunction(structure)
+            if (this[0] && !func)
+                var dom = $(structure).get(0),
+                    clone = dom.parentNode || this.length > 1
+
+            return this.each(function (index) {
+                $(this).wrapAll(
+                  func ? structure.call(this, index) :
+                    clone ? dom.cloneNode(true) : dom
+                )
+            })
+        },
+        wrapAll: function (structure) {
+            if (this[0]) {
+                $(this[0]).before(structure = $(structure))
+                var children
+                // drill down to the inmost element
+                while ((children = structure.children()).length) structure = children.first()
+                $(structure).append(this)
+            }
+            return this
+        },
+        wrapInner: function (structure) {
+            var func = isFunction(structure)
+            return this.each(function (index) {
+                var self = $(this), contents = self.contents(),
+                    dom = func ? structure.call(this, index) : structure
+                contents.length ? contents.wrapAll(dom) : self.append(dom)
+            })
+        },
+        unwrap: function () {
+            this.parent().each(function () {
+                $(this).replaceWith($(this).children())
+            })
+            return this
+        },
+        clone: function () {
+            return this.map(function () { return this.cloneNode(true) })
+        },
+        hide: function () {
+            return this.css("display", "none")
+        },
+        toggle: function (setting) {
+            return this.each(function () {
+                var el = $(this)
+                ; (setting === undefined ? el.css("display") == "none" : setting) ? el.show() : el.hide()
+            })
+        },
+        prev: function (selector) { return $(this.pluck('previousElementSibling')).filter(selector || '*') },
+        next: function (selector) { return $(this.pluck('nextElementSibling')).filter(selector || '*') },
+        html: function (html) {
+            return 0 in arguments ?
+              this.each(function (idx) {
+                  var originHtml = this.innerHTML
+                  $(this).empty().append(funcArg(this, html, idx, originHtml))
+              }) :
+              (0 in this ? this[0].innerHTML : null)
+        },
+        text: function (text) {
+            return 0 in arguments ?
+              this.each(function (idx) {
+                  var newText = funcArg(this, text, idx, this.textContent)
+                  this.textContent = newText == null ? '' : '' + newText
+              }) :
+              (0 in this ? this[0].textContent : null)
+        },
+        attr: function (name, value) {
+            var result
+            return (typeof name == 'string' && !(1 in arguments)) ?
+              (!this.length || this[0].nodeType !== 1 ? undefined :
+                (!(result = this[0].getAttribute(name)) && name in this[0]) ? this[0][name] : result
+              ) :
+              this.each(function (idx) {
+                  if (this.nodeType !== 1) return
+                  if (isObject(name)) for (key in name) setAttribute(this, key, name[key])
+                  else setAttribute(this, name, funcArg(this, value, idx, this.getAttribute(name)))
+              })
+        },
+        removeAttr: function (name) {
+            return this.each(function () {
+                this.nodeType === 1 && name.split(' ').forEach(function (attribute) {
+                    setAttribute(this, attribute)
+                }, this)
+            })
+        },
+        prop: function (name, value) {
+            name = propMap[name] || name
+            return (1 in arguments) ?
+              this.each(function (idx) {
+                  this[name] = funcArg(this, value, idx, this[name])
+              }) :
+              (this[0] && this[0][name])
+        },
+        data: function (name, value) {
+            var attrName = 'data-' + name.replace(capitalRE, '-$1').toLowerCase()
+
+            var data = (1 in arguments) ?
+              this.attr(attrName, value) :
+              this.attr(attrName)
+
+            return data !== null ? deserializeValue(data) : undefined
+        },
+        val: function (value) {
+            return 0 in arguments ?
+              this.each(function (idx) {
+                  this.value = funcArg(this, value, idx, this.value)
+              }) :
+              (this[0] && (this[0].multiple ?
+                 $(this[0]).find('option').filter(function () { return this.selected }).pluck('value') :
+                 this[0].value)
+              )
+        },
+        offset: function (coordinates) {
+            if (coordinates) return this.each(function (index) {
+                var $this = $(this),
+                    coords = funcArg(this, coordinates, index, $this.offset()),
+                    parentOffset = $this.offsetParent().offset(),
+                    props = {
+                        top: coords.top - parentOffset.top,
+                        left: coords.left - parentOffset.left
+                    }
+
+                if ($this.css('position') == 'static') props['position'] = 'relative'
+                $this.css(props)
+            })
+            if (!this.length) return null
+            var obj = this[0].getBoundingClientRect()
+            return {
+                left: obj.left + window.pageXOffset,
+                top: obj.top + window.pageYOffset,
+                width: Math.round(obj.width),
+                height: Math.round(obj.height)
+            }
+        },
+        css: function (property, value) {
+            if (arguments.length < 2) {
+                var computedStyle, element = this[0]
+                if (!element) return
+                computedStyle = getComputedStyle(element, '')
+                if (typeof property == 'string')
+                    return element.style[camelize(property)] || computedStyle.getPropertyValue(property)
+                else if (isArray(property)) {
+                    var props = {}
+                    $.each(property, function (_, prop) {
+                        props[prop] = (element.style[camelize(prop)] || computedStyle.getPropertyValue(prop))
+                    })
+                    return props
                 }
             }
-        }
-        this._nuclearTimer = null;
-        this._preNuclearTime = new Date();
- 
-        if (this.option) {
-            Nuclear.observe(this.option, function (prop, value, oldValue, path) {
-                if (!this.onOptionChange||(this.onOptionChange && this.onOptionChange(prop, value, oldValue, path))) {
-                    clearTimeout(this._nuclearTimer);
-                    if (new Date() - this._preNuclearTime > 40) {
-                        this._nuclearLocalRefresh();
-                        this._preNuclearTime = new Date();
-                    } else {
-                        this._nuclearTimer = setTimeout(function () {
-                            this._nuclearLocalRefresh();
-                        }.bind(this), 40);
-                    }
-                }
-            }.bind(this));
-        }
-        this._nuclearRenderInfo = {
-            tpl: this._nuclearTplGenerator(),
-            data: this.option,
-            parent: this.parent
-        };
-        this.option._nuclearIndex = function () {
-            return ++window['_nuclearIndex'] || (window['_nuclearIndex'] = 0);
-        }
-        this.option._resetNuclearIndex=function() {
-            window['_nuclearIndex'] = -1;
-            return;
-        }
-        this._nuclearRender(this._nuclearRenderInfo);
-        if (this.installed) this.installed();
-    }
 
-    obj.refresh = function () {
-        this._nuclearLocalRefresh();
-    }
-
-    //加if防止子类赋值undefined，丢失父类方法
-    if (obj.render) {
-        obj._nuclearTplGenerator = obj.render;
-    }
-
-    obj.render = function () {
-        if (this._nuclearParentEmpty) {
-         
-            return this.HTML;
-            //var len=this._nuclearRef.length;
-            ////嵌套的render逻辑        
-            ////子节点下再无子节点
-            //if (len === 0) {
-            //    return this.HTML;
-            //} else {//子节点下又有子节点
-            //    var i=0;
-            //    for (; i < len; i++) {
-            //        var ref = this._nuclearRef[i];
-            //        return ref.render();
-            //    }
-            //}
-        } else {
-            return this._nuclearTplGenerator();
-        }
-    }
-
-
-    obj._nuclearRender = function (item) {
-        if (this.node) {
-            //this.node.parentNode&&this.node.parentNode.removeChild(this.node);
-            // item.parent.removeChild(this.node);      
-            if (Nuclear.isUndefined(item.tpl)) {
-                item.parent.removeChild(this.node);
-                this.node = null;
-                this.HTML = "";
+            var css = ''
+            if (type(property) == 'string') {
+                if (!value && value !== 0)
+                    this.each(function () { this.style.removeProperty(dasherize(property)) })
+                else
+                    css = dasherize(property) + ":" + maybeAddPx(property, value)
             } else {
-                var newNode = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixTplIndex(item.tpl), item.data));
-                item.parent.replaceChild(newNode, this.node);
-                this.node = newNode;
+                for (key in property)
+                    if (!property[key] && property[key] !== 0)
+                        this.each(function () { this.style.removeProperty(dasherize(key)) })
+                    else
+                        css += dasherize(key) + ':' + maybeAddPx(key, property[key]) + ';'
             }
-        } else {
-            item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(Nuclear._fixTplIndex(item.tpl), item.data));
-            this.node = item.parent.lastChild;
-        }
-        window["_nuclearIndex"] = null;
-        if (this.node) {
-            this._nuclearId = Nuclear.getId();
-            this.node.setAttribute("data-nuclearId", this._nuclearId);
 
-            this._mixNode();
+            return this.each(function () { this.style.cssText += ';' + css })
+        },
+        index: function (element) {
+            return element ? this.indexOf($(element)[0]) : this.parent().children().indexOf(this[0])
+        },
+        hasClass: function (name) {
+            if (!name) return false
+            return emptyArray.some.call(this, function (el) {
+                return this.test(className(el))
+            }, classRE(name))
+        },
+        addClass: function (name) {
+            if (!name) return this
+            return this.each(function (idx) {
+                if (!('className' in this)) return
+                classList = []
+                var cls = className(this), newName = funcArg(this, name, idx, cls)
+                newName.split(/\s+/g).forEach(function (klass) {
+                    if (!$(this).hasClass(klass)) classList.push(klass)
+                }, this)
+                classList.length && className(this, cls + (cls ? " " : "") + classList.join(" "))
+            })
+        },
+        removeClass: function (name) {
+            return this.each(function (idx) {
+                if (!('className' in this)) return
+                if (name === undefined) return className(this, '')
+                classList = className(this)
+                funcArg(this, name, idx, classList).split(/\s+/g).forEach(function (klass) {
+                    classList = classList.replace(classRE(klass), " ")
+                })
+                className(this, classList.trim())
+            })
+        },
+        toggleClass: function (name, when) {
+            if (!name) return this
+            return this.each(function (idx) {
+                var $this = $(this), names = funcArg(this, name, idx, className(this))
+                names.split(/\s+/g).forEach(function (klass) {
+                    (when === undefined ? !$this.hasClass(klass) : when) ?
+                      $this.addClass(klass) : $this.removeClass(klass)
+                })
+            })
+        },
+        scrollTop: function (value) {
+            if (!this.length) return
+            var hasScrollTop = 'scrollTop' in this[0]
+            if (value === undefined) return hasScrollTop ? this[0].scrollTop : this[0].pageYOffset
+            return this.each(hasScrollTop ?
+              function () { this.scrollTop = value } :
+              function () { this.scrollTo(this.scrollX, value) })
+        },
+        scrollLeft: function (value) {
+            if (!this.length) return
+            var hasScrollLeft = 'scrollLeft' in this[0]
+            if (value === undefined) return hasScrollLeft ? this[0].scrollLeft : this[0].pageXOffset
+            return this.each(hasScrollLeft ?
+              function () { this.scrollLeft = value } :
+              function () { this.scrollTo(value, this.scrollY) })
+        },
+        position: function () {
+            if (!this.length) return
 
-            if (this.onRefresh) this.onRefresh();
-            item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
-            this.HTML = this.node.outerHTML;
+            var elem = this[0],
+              // Get *real* offsetParent
+              offsetParent = this.offsetParent(),
+              // Get correct offsets
+              offset = this.offset(),
+              parentOffset = rootNodeRE.test(offsetParent[0].nodeName) ? { top: 0, left: 0 } : offsetParent.offset()
 
+            // Subtract element margins
+            // note: when an element has margin: auto the offsetLeft and marginLeft
+            // are the same in Safari causing offset.left to incorrectly be 0
+            offset.top -= parseFloat($(elem).css('margin-top')) || 0
+            offset.left -= parseFloat($(elem).css('margin-left')) || 0
 
-            this._nuclearFix();
-        }
-    }
+            // Add offsetParent borders
+            parentOffset.top += parseFloat($(offsetParent[0]).css('border-top-width')) || 0
+            parentOffset.left += parseFloat($(offsetParent[0]).css('border-left-width')) || 0
 
-    obj._mixNode = function () {
-        var nodes = this.node.querySelectorAll('*[nc-id]'),len=nodes.length;
-        if (len > 0) {
-            var i=0;
-            for (; i < len; i++) {
-                var node=nodes[i];
-                this[node.getAttribute("nc-id")] = node;
+            // Subtract the two offsets
+            return {
+                top: offset.top - parentOffset.top,
+                left: offset.left - parentOffset.left
             }
+        },
+        offsetParent: function () {
+            return this.map(function () {
+                var parent = this.offsetParent || document.body
+                while (parent && !rootNodeRE.test(parent.nodeName) && $(parent).css("position") == "static")
+                    parent = parent.offsetParent
+                return parent
+            })
         }
     }
 
-    //从最顶部组件向内fix
-    obj._nuclearFix = function () {
-        if (this._nuclearParent) return;
-        this._nuclearFixOne(this)
-    }
+    // for now
+    $.fn.detach = $.fn.remove
 
-    obj._nuclearFixOne = function (one) {
-        var refLen = one._nuclearRef.length;
-        if (refLen > 0) {
-            var i = 0;
-            for (; i < refLen; i++) {
-                var ref = one._nuclearRef[i];
-                ref.node = one.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
-                if (ref.node) {
-                    ref._mixNode();
-                    ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
-                    ref._nuclearRenderInfo.parent = ref.node.parentNode;
-                    if (ref.onRefresh) ref.onRefresh();
-                    if (ref.installed) ref.installed();
-                    this._nuclearFixOne(ref)
-                }
-            }
+    // Generate the `width` and `height` functions
+    ;['width', 'height'].forEach(function (dimension) {
+        var dimensionProperty =
+          dimension.replace(/./, function (m) { return m[0].toUpperCase() })
+
+        $.fn[dimension] = function (value) {
+            var offset, el = this[0]
+            if (value === undefined) return isWindow(el) ? el['inner' + dimensionProperty] :
+              isDocument(el) ? el.documentElement['scroll' + dimensionProperty] :
+              (offset = this.offset()) && offset[dimension]
+            else return this.each(function (idx) {
+                el = $(this)
+                el.css(dimension, funcArg(this, value, idx, el[dimension]()))
+            })
         }
-    }
-
-
-    obj._nuclearLocalRefresh = function () {
-        var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
-        item.tpl = this._nuclearTplGenerator();
-        if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixTplIndex(item.tpl), item.data)).querySelectorAll('*[nc-refresh]');
-            window["_nuclearIndex"] = null;
-            for (var j = 0; j < rpLen; j++) {
-                var part = item.refreshPart[j];
-                //part.parentNode为null,代表其已经被子节点替换掉了
-                part.parentNode&&part.parentNode.replaceChild(parts[j], part);
-
-            }
-            item.refreshPart = parts;
-            this._mixNode();
-            if (this.onRefresh) this.onRefresh();
-            this.HTML = this.node.outerHTML;
-
-            this._nuclearFix();
-            //var refLen = this._nuclearRef.length;
-            //if (refLen > 0) {
-            //    var i = 0;
-            //    for (; i < refLen; i++) {
-            //        var ref = this._nuclearRef[i];
-            //        ref.node = this.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
-
-            //        if (ref.onRefresh) ref.onRefresh();
-            //        if (ref.installed) ref.installed();
-            //    }
-            //}
-        } else {
-            this._nuclearRender(item);
-        }
-    }
-}
-
-Nuclear._fixTplIndex = function (tpl) {
-    //"{{_nuclearIndex}}"
-    return tpl.replace(/{{#[\s\S]*?{{@index}}/g, function (str) {
-
-        return "{{_resetNuclearIndex}}" + str.replace("{{@index}}", "{{_nuclearIndex}}");
-    });
-}
-
-Nuclear._minActionObj = function (obj) {
-    obj.ctor = function (option) {
-        this.option = option;
-        if (this.install) {
-            this.install();
-        }
-    }
-}
-
-Nuclear.createAction = function (obj) {  
-    Nuclear._minActionObj(obj)
-    if (!obj.statics) obj.statics = {};
-    obj.statics.createAction = function (obj) {
-        Nuclear._minActionObj(obj);
-        return this.extend(obj);
-    }
-    return Nuclear.Class.extend(obj);
-    
-}
-
-Nuclear.throttle = function (func, wait, options) {
-    var context, args, result;
-    var timeout = null;
-    // 上次执行时间点
-    var previous = 0;
-    if (!options) options = {};
-    // 延迟执行函数
-    var later = function () {
-        // 若设定了开始边界不执行选项，上次执行时间始终为0
-        previous = options.leading === false ? 0 : Date.now();
-        timeout = null;
-        result = func.apply(context, args);
-        if (!timeout) context = args = null;
-    };
-    return function () {
-        var now = Date.now();
-        // 首次执行时，如果设定了开始边界不执行选项，将上次执行时间设定为当前时间。
-        if (!previous && options.leading === false) previous = now;
-        // 延迟执行时间间隔
-        var remaining = wait - (now - previous);
-        context = this;
-        args = arguments;
-        // 延迟时间间隔remaining小于等于0，表示上次执行至此所间隔时间已经超过一个时间窗口
-        // remaining大于时间窗口wait，表示客户端系统时间被调整过
-        if (remaining <= 0 || remaining > wait) {
-            clearTimeout(timeout);
-            timeout = null;
-            previous = now;
-            result = func.apply(context, args);
-            if (!timeout) context = args = null;
-            //如果延迟执行不存在，且没有设定结尾边界不执行选项
-        } else if (!timeout && options.trailing !== false) {
-            timeout = setTimeout(later, remaining);
-        }
-        return result;
-    };
-}
-
-Nuclear.isElement=function(o) {
-    return (
-      typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
-      o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string"
-  );
-}
-
-Nuclear.str2Dom = function (html) {
-    var wrapMap = {
-        option: [1, "<select multiple='multiple'>", "</select>"],
-        legend: [1, "<fieldset>", "</fieldset>"],
-        area: [1, "<map>", "</map>"],
-        param: [1, "<object>", "</object>"],
-        thead: [1, "<table>", "</table>"],
-        tr: [2, "<table><tbody>", "</tbody></table>"],
-        col: [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
-        td: [3, "<table><tbody><tr>", "</tr></tbody></table>"],
-        body: [0, "", ""],
-        _default: [1, "<div>", "</div>"]
-    };
-    wrapMap.optgroup = wrapMap.option;
-    wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
-    wrapMap.th = wrapMap.td;
-    var match = /<\s*\w.*?>/g.exec(html);
-    var element = document.createElement('div');
-    if (match != null) {
-        var tag = match[0].replace(/</g, '').replace(/>/g, '').split(' ')[0];
-        if (tag.toLowerCase() === 'body') {
-            var dom = document.implementation.createDocument('http://www.w3.org/1999/xhtml', 'html', null);
-            var body = document.createElement("body");
-            // keeping the attributes
-            element.innerHTML = html.replace(/<body/g, '<div').replace(/<\/body>/g, '</div>');
-            var attrs = element.firstChild.attributes;
-            body.innerHTML = html;
-            for (var i = 0; i < attrs.length; i++) {
-                body.setAttribute(attrs[i].name, attrs[i].value);
-            }
-            return body;
-        } else {
-            var map = wrapMap[tag] || wrapMap._default, element;
-            html = map[1] + html + map[2];
-            element.innerHTML = html;
-            // Descend through wrappers to the right content
-            var j = map[0] + 1;
-            while (j--) {
-                element = element.lastChild;
-            }
-        }
-    } else {
-        element.innerHTML = html;
-        element = element.lastChild;
-    }
-    return element;
-}
-
-Nuclear.debounce=function (func, wait, immediate) {
-    var timeout;
-    return function () {
-        var context = this, args = arguments;
-        var later = function () {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        };
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-    };
-}
-
-Nuclear.addEvent = (function () {
-    return function (el, type, fn) {
-        if (el && el.nodeName || el === window) {
-            el.addEventListener(type, fn, false);
-        } else if (el && el.length) {
-            for (var i = 0; i < el.length; i++) {
-                Nuclear.addEvent(el[i], type, fn);
-            }
-        }
-    };
-})();
-
-Nuclear.removeEvent = (function () {
-    return function (el, type, fn) {
-        if (el && el.nodeName || el === window) {
-            el.removeEventListener(type, fn, false);
-        } else if (el && el.length) {
-            for (var i = 0; i < el.length; i++) {
-                Nuclear.removeEvent.removeEvent(el[i], type, fn);
-            }
-        }
-    };
-})();
-
-Nuclear.getNodeIndex = function (node) {
-    var index = 0;
-    while ((node = node.previousSibling)) {
-        if (node.nodeType != 3 || !/^\s*$/.test(node.data)) {
-            index++;
-        }
-    }
-    return index;
-}
-
-Nuclear.hasClass = function (ele, cls) {
-    return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
-}
-
-Nuclear.addClass = function (node, cls) {
-    if (Nuclear.isNodeList(node)) {
-        Nuclear._iteration("addClass", arguments);
-        return;
-    }
-    if (!Nuclear.hasClass(node, cls)) node.className += " " + cls;
-
-}
-
-Nuclear.removeClass = function (node, cls) {
-    if (Nuclear.isNodeList(node)) {
-        Nuclear._iteration("removeClass", arguments);
-        return;
-    }
-    if (Nuclear.hasClass(node, cls)) {
-        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-        node.className = node.className.replace(reg, ' ');
-    }
-}
-
-Nuclear.toggleClass = function (node, classStr) {
-    if (Nuclear.isNodeList(node)) {
-        Nuclear._iteration("toggleClass", arguments);
-        return;
-    }
-
-    var cls = ' ' + node.className + ' ';
-    if (cls.indexOf(' ' + Nuclear.trim(classStr) + ' ') >= 0) {
-        Nuclear.removeClass(node, classStr);
-    } else {
-        Nuclear.addClass(node, classStr);
-    }
-}
-
-Nuclear.trim = function (str) {
-    return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-};
-
-Nuclear._iteration = function (method, args) {
-    var args = Array.prototype.slice.call(args);
-    Nuclear.each(args[0], function (index) {
-        var temp = args[0];
-        args[0] = args[0][index];
-        Nuclear[method].apply(Nuclear, args);
-        args[0] = temp;
     })
-}
 
-Nuclear.css = function (node, styleName, value) {
-    if (!node) return;
-
-    if (Nuclear.isNodeList(node)) {
-        Nuclear._iteration("css", arguments);
-        return;
+    function traverseNode(node, fun) {
+        fun(node)
+        for (var i = 0, len = node.childNodes.length; i < len; i++)
+            traverseNode(node.childNodes[i], fun)
     }
 
-    if (arguments.length == 3 && node.style) {  //change by bizai
-        node.style[styleName] = value;
-    }
-    //因为有transition的存在，所有这行代码需要注释掉
-    //if (node.style[styleName]) return node.style[styleName];
-    return window.getComputedStyle(node, null)[styleName];
+    // Generate the `after`, `prepend`, `before`, `append`,
+    // `insertAfter`, `insertBefore`, `appendTo`, and `prependTo` methods.
+    adjacencyOperators.forEach(function (operator, operatorIndex) {
+        var inside = operatorIndex % 2 //=> prepend, append
 
-},
+        $.fn[operator] = function () {
+            // arguments can be nodes, arrays of nodes, nuclear objects and HTML strings
+            var argType, nodes = $.map(arguments, function (arg) {
+                argType = type(arg)
+                return argType == "object" || argType == "array" || arg == null ?
+                    arg : nuclear.fragment(arg)
+            }),
+                parent, copyByClone = this.length > 1
+            if (nodes.length < 1) return this
 
+            return this.each(function (_, target) {
+                parent = inside ? target : target.parentNode
 
-Nuclear.each = function (list, fn) {
-    for (var i = 0, len = list.length; i < len ; i++) {
-        fn.call(list[i], i);
-    }
-}
+                // convert all methods to a "before" operation
+                target = operatorIndex == 0 ? target.nextSibling :
+                         operatorIndex == 1 ? target.firstChild :
+                         operatorIndex == 2 ? target :
+                         null
 
-Nuclear.offset = function (el) {
-    var _t = 0,
-        _l = 0;
-    if (document.documentElement.getBoundingClientRect && el.getBoundingClientRect) {
-        var box = el.getBoundingClientRect();
-        _l = box.left;
-        _t = box.top;
-    } else {
-        while (el.offsetParent) {
-            _t += el.offsetTop;
-            _l += el.offsetLeft;
-            el = el.offsetParent;
+                var parentInDocument = $.contains(document.documentElement, parent)
+
+                nodes.forEach(function (node) {
+                    if (copyByClone) node = node.cloneNode(true)
+                    else if (!parent) return $(node).remove()
+
+                    parent.insertBefore(node, target)
+                    if (parentInDocument) traverseNode(node, function (el) {
+                        if (el.nodeName != null && el.nodeName.toUpperCase() === 'SCRIPT' &&
+                           (!el.type || el.type === 'text/javascript') && !el.src)
+                            window['eval'].call(window, el.innerHTML)
+                    })
+                })
+            })
         }
-        return { left: _l, top: _t };
+
+        // after    => insertAfter
+        // prepend  => prependTo
+        // before   => insertBefore
+        // append   => appendTo
+        $.fn[inside ? operator + 'To' : 'insert' + (operatorIndex ? 'Before' : 'After')] = function (html) {
+            $(html)[operator](this)
+            return this
+        }
+    })
+
+    nuclear.Z.prototype = $.fn
+
+    // Export internal API functions in the `$.nuclear` namespace
+    nuclear.uniq = uniq
+    nuclear.deserializeValue = deserializeValue
+    $.nuclear = nuclear
+
+    return $
+})()
+
+
+
+; (function ($) {
+    var _zid = 1, undefined,
+        slice = Array.prototype.slice,
+        isFunction = $.isFunction,
+        isString = function (obj) { return typeof obj == 'string' },
+        handlers = {},
+        specialEvents = {},
+        focusinSupported = 'onfocusin' in window,
+        focus = { focus: 'focusin', blur: 'focusout' },
+        hover = { mouseenter: 'mouseover', mouseleave: 'mouseout' }
+
+    specialEvents.click = specialEvents.mousedown = specialEvents.mouseup = specialEvents.mousemove = 'MouseEvents'
+
+    function zid(element) {
+        return element._zid || (element._zid = _zid++)
     }
-    return { left: _l + Math.max(document.documentElement.scrollLeft, document.body.scrollLeft), top: _t + Math.max(document.documentElement.scrollTop, document.body.scrollTop) };
-}
-
-Nuclear.getViewport = function () {
-    var d = document.documentElement, b = document.body, w = window, div = document.createElement("div");
-    div.innerHTML = "  <link/>";
-    var lt = !(div.firstChild.nodeType === 3) ?
-                { left: b.scrollLeft || d.scrollLeft, top: b.scrollTop || d.scrollTop } :
-                { left: w.pageXOffset, top: w.pageYOffset };
-    var wh = w.innerWidth ?
-                { width: w.innerWidth, height: w.innerHeight } :
-            (d && d.clientWidth && d.clientWidth != 0 ?
-                    { width: d.clientWidth, height: d.clientHeight } :
-                    { width: b.clientWidth, height: b.clientHeight });
-
-    return { left: lt.left, top: lt.top, width: wh.width, height: wh.height };
-}
-
-//this.parent.lastChild代替
-Nuclear.getLastNode = function (parent, selector) {
-    var childs = parent.querySelectorAll(selector), len = childs.length;
-    return childs[len - 1];
-}
-
-Nuclear.isUndefined = function (o) {
-    return typeof (o) === "undefined";
-}
-
-Nuclear.domready = (function () {
-
-    var fns = [], listener
-      , doc = document
-      , hack = doc.documentElement.doScroll
-      , domContentLoaded = 'DOMContentLoaded'
-      , loaded = (hack ? /^loaded|^c/ : /^loaded|^i|^c/).test(doc.readyState)
-
-
-    if (!loaded)
-        doc.addEventListener(domContentLoaded, listener = function () {
-            doc.removeEventListener(domContentLoaded, listener)
-            loaded = 1
-            while (listener = fns.shift()) listener()
+    function findHandlers(element, event, fn, selector) {
+        event = parse(event)
+        if (event.ns) var matcher = matcherFor(event.ns)
+        return (handlers[zid(element)] || []).filter(function (handler) {
+            return handler
+              && (!event.e || handler.e == event.e)
+              && (!event.ns || matcher.test(handler.ns))
+              && (!fn || zid(handler.fn) === zid(fn))
+              && (!selector || handler.sel == selector)
         })
-
-    return function (fn) {
-        loaded ? setTimeout(fn, 0) : fns.push(fn)
+    }
+    function parse(event) {
+        var parts = ('' + event).split('.')
+        return { e: parts[0], ns: parts.slice(1).sort().join(' ') }
+    }
+    function matcherFor(ns) {
+        return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)')
     }
 
-})();
+    function eventCapture(handler, captureSetting) {
+        return handler.del &&
+          (!focusinSupported && (handler.e in focus)) ||
+          !!captureSetting
+    }
 
-; (function () {
-    var class2type = {}, toString = Object.prototype.toString;
-    "Boolean Number String Function Array Date RegExp Object Error NodeList".split(" ").forEach(function (name) {
-        class2type["[object " + name + "]"] = name.toLowerCase();
-    })
+    function realEvent(type) {
+        return hover[type] || (focusinSupported && focus[type]) || type
+    }
 
-    var type = function (obj) {
-        if (obj == null) {
-            return obj + "";
+    function add(element, events, fn, data, selector, delegator, capture) {
+        var id = zid(element), set = (handlers[id] || (handlers[id] = []))
+        events.split(/\s/).forEach(function (event) {
+            if (event == 'ready') return $(document).ready(fn)
+            var handler = parse(event)
+            handler.fn = fn
+            handler.sel = selector
+            // emulate mouseenter, mouseleave
+            if (handler.e in hover) fn = function (e) {
+                var related = e.relatedTarget
+                if (!related || (related !== this && !$.contains(this, related)))
+                    return handler.fn.apply(this, arguments)
+            }
+            handler.del = delegator
+            var callback = delegator || fn
+            handler.proxy = function (e) {
+                e = compatible(e)
+                if (e.isImmediatePropagationStopped()) return
+                e.data = data
+                var result = callback.apply(element, e._args == undefined ? [e] : [e].concat(e._args))
+                if (result === false) e.preventDefault(), e.stopPropagation()
+                return result
+            }
+            handler.i = set.length
+            set.push(handler)
+            if ('addEventListener' in element)
+                element.addEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
+        })
+    }
+    function remove(element, events, fn, selector, capture) {
+        var id = zid(element)
+        ; (events || '').split(/\s/).forEach(function (event) {
+            findHandlers(element, event, fn, selector).forEach(function (handler) {
+                delete handlers[id][handler.i]
+                if ('removeEventListener' in element)
+                    element.removeEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
+            })
+        })
+    }
+
+    $.event = { add: add, remove: remove }
+
+    $.proxy = function (fn, context) {
+        var args = (2 in arguments) && slice.call(arguments, 2)
+        if (isFunction(fn)) {
+            var proxyFn = function () { return fn.apply(context, args ? args.concat(slice.call(arguments)) : arguments) }
+            proxyFn._zid = zid(fn)
+            return proxyFn
+        } else if (isString(context)) {
+            if (args) {
+                args.unshift(fn[context], fn)
+                return $.proxy.apply(null, args)
+            } else {
+                return $.proxy(fn[context], fn)
+            }
+        } else {
+            throw new TypeError("expected function")
         }
-        // Support: Android<4.0 (functionish RegExp)
-        return typeof obj === "object" || typeof obj === "function" ?
-			class2type[toString.call(obj)] || "object" :
-			typeof obj;
     }
 
-    var isNodeList = function (obj) {
-        return type(obj) === "nodelist";
+    $.fn.bind = function (event, data, callback) {
+        return this.on(event, data, callback)
+    }
+    $.fn.unbind = function (event, callback) {
+        return this.off(event, callback)
+    }
+    $.fn.one = function (event, selector, data, callback) {
+        return this.on(event, selector, data, callback, 1)
     }
 
-    var isFunction = function (obj) {
-        return type(obj) === "function";
-
-    }
-    var isArray = function (obj) {
-        return type(obj) === "array";
-    }
-    var isWindow = function (obj) {
-        return obj != null && obj === obj.window;
-    }
-
-    var isPlainObject = function (obj) {
-        // Not plain objects:
-        // - Any object or value whose internal [[Class]] property is not "[object Object]"
-        // - DOM nodes
-        // - window
-        if (type(obj) !== "object" || obj.nodeType || isWindow(obj)) {
-            return false;
+    var returnTrue = function () { return true },
+        returnFalse = function () { return false },
+        ignoreProperties = /^([A-Z]|returnValue$|layer[XY]$)/,
+        eventMethods = {
+            preventDefault: 'isDefaultPrevented',
+            stopImmediatePropagation: 'isImmediatePropagationStopped',
+            stopPropagation: 'isPropagationStopped'
         }
 
-        if (obj.constructor &&
-				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf")) {
-            return false;
-        }
+    function compatible(event, source) {
+        if (source || !event.isDefaultPrevented) {
+            source || (source = event)
 
-        // If the function hasn't returned already, we're confident that
-        // |obj| is a plain object, created by {} or constructed with new Object
-        return true;
-    }
-
-    Nuclear.type = type;
-    Nuclear.isFunction = isFunction;
-    Nuclear.isArray = isArray;
-    Nuclear.isWindow = isWindow;
-    Nuclear.isPlainObject = isPlainObject;
-    Nuclear.isNodeList = isNodeList;
-})();
-
-Nuclear.merge = function () {
-    var options, name, src, copy, copyIsArray, clone,
-		target = arguments[0] || {},
-		i = 1,
-		length = arguments.length,
-		deep = false;
-
-    // Handle a deep copy situation
-    if (typeof target === "boolean") {
-        deep = target;
-
-        // Skip the boolean and the target
-        target = arguments[i] || {};
-        i++;
-    }
-
-    // Handle case when target is a string or something (possible in deep copy)
-    if (typeof target !== "object" && !Nuclear.isFunction(target)) {
-        target = {};
-    }
-
-    // Extend jQuery itself if only one argument is passed
-    if (i === length) {
-        target = this;
-        i--;
-    }
-
-    for (; i < length; i++) {
-        // Only deal with non-null/undefined values
-        if ((options = arguments[i]) != null) {
-            // Extend the base object
-            for (name in options) {
-                src = target[name];
-                copy = options[name];
-
-                // Prevent never-ending loop
-                if (target === copy) {
-                    continue;
+            $.each(eventMethods, function (name, predicate) {
+                var sourceMethod = source[name]
+                event[name] = function () {
+                    this[predicate] = returnTrue
+                    return sourceMethod && sourceMethod.apply(source, arguments)
                 }
+                event[predicate] = returnFalse
+            })
 
-                // Recurse if we're merging plain objects or arrays
-                if (deep && copy && (Nuclear.isPlainObject(copy) ||
-					(copyIsArray = Nuclear.isArray(copy)))) {
+            if (source.defaultPrevented !== undefined ? source.defaultPrevented :
+                'returnValue' in source ? source.returnValue === false :
+                source.getPreventDefault && source.getPreventDefault())
+                event.isDefaultPrevented = returnTrue
+        }
+        return event
+    }
 
-                    if (copyIsArray) {
-                        copyIsArray = false;
-                        clone = src && Nuclear.isArray(src) ? src : [];
+    function createProxy(event) {
+        var key, proxy = { originalEvent: event }
+        for (key in event)
+            if (!ignoreProperties.test(key) && event[key] !== undefined) proxy[key] = event[key]
 
-                    } else {
-                        clone = src && Nuclear.isPlainObject(src) ? src : {};
-                    }
+        return compatible(proxy, event)
+    }
 
-                    // Never move original objects, clone them
-                    target[name] = Nuclear.merge(deep, clone, copy);
+    $.fn.delegate = function (selector, event, callback) {
+        return this.on(event, selector, callback)
+    }
+    $.fn.undelegate = function (selector, event, callback) {
+        return this.off(event, selector, callback)
+    }
 
-                    // Don't bring in undefined values
-                } else if (copy !== undefined) {
-                    target[name] = copy;
+    $.fn.live = function (event, callback) {
+        $(document.body).delegate(this.selector, event, callback)
+        return this
+    }
+    $.fn.die = function (event, callback) {
+        $(document.body).undelegate(this.selector, event, callback)
+        return this
+    }
+
+    $.fn.on = function (event, selector, data, callback, one) {
+        var autoRemove, delegator, $this = this
+        if (event && !isString(event)) {
+            $.each(event, function (type, fn) {
+                $this.on(type, selector, data, fn, one)
+            })
+            return $this
+        }
+
+        if (!isString(selector) && !isFunction(callback) && callback !== false)
+            callback = data, data = selector, selector = undefined
+        if (isFunction(data) || data === false)
+            callback = data, data = undefined
+
+        if (callback === false) callback = returnFalse
+
+        return $this.each(function (_, element) {
+            if (one) autoRemove = function (e) {
+                remove(element, e.type, callback)
+                return callback.apply(this, arguments)
+            }
+
+            if (selector) delegator = function (e) {
+                var evt, match = $(e.target).closest(selector, element).get(0)
+                if (match && match !== element) {
+                    evt = $.extend(createProxy(e), { currentTarget: match, liveFired: element })
+                    return (autoRemove || callback).apply(match, [evt].concat(slice.call(arguments, 1)))
                 }
             }
+
+            add(element, event, callback, data, selector, delegator || autoRemove)
+        })
+    }
+    $.fn.off = function (event, selector, callback) {
+        var $this = this
+        if (event && !isString(event)) {
+            $.each(event, function (type, fn) {
+                $this.off(type, selector, fn)
+            })
+            return $this
+        }
+
+        if (!isString(selector) && !isFunction(callback) && callback !== false)
+            callback = selector, selector = undefined
+
+        if (callback === false) callback = returnFalse
+
+        return $this.each(function () {
+            remove(this, event, callback, selector)
+        })
+    }
+
+    $.fn.trigger = function (event, args) {
+        event = (isString(event) || $.isPlainObject(event)) ? $.Event(event) : compatible(event)
+        event._args = args
+        return this.each(function () {
+            // handle focus(), blur() by calling them directly
+            if (event.type in focus && typeof this[event.type] == "function") this[event.type]()
+                // items in the collection might not be DOM elements
+            else if ('dispatchEvent' in this) this.dispatchEvent(event)
+            else $(this).triggerHandler(event, args)
+        })
+    }
+
+    // triggers event handlers on current element just as if an event occurred,
+    // doesn't trigger an actual event, doesn't bubble
+    $.fn.triggerHandler = function (event, args) {
+        var e, result
+        this.each(function (i, element) {
+            e = createProxy(isString(event) ? $.Event(event) : event)
+            e._args = args
+            e.target = element
+            $.each(findHandlers(element, event.type || event), function (i, handler) {
+                result = handler.proxy(e)
+                if (e.isImmediatePropagationStopped()) return false
+            })
+        })
+        return result
+    }
+
+    // shortcut methods for `.bind(event, fn)` for each event type
+    ; ('focusin focusout focus blur load resize scroll unload click dblclick ' +
+    'mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave ' +
+    'change select keydown keypress keyup error').split(' ').forEach(function (event) {
+        $.fn[event] = function (callback) {
+            return (0 in arguments) ?
+              this.bind(event, callback) :
+              this.trigger(event)
+        }
+    })
+
+    $.Event = function (type, props) {
+        if (!isString(type)) props = type, type = props.type
+        var event = document.createEvent(specialEvents[type] || 'Events'), bubbles = true
+        if (props) for (var name in props) (name == 'bubbles') ? (bubbles = !!props[name]) : (event[name] = props[name])
+        event.initEvent(type, bubbles, true)
+        return compatible(event)
+    }
+
+})(Nuclear);
+
+
+
+; (function ($) {
+    var touch = {},
+      touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
+      longTapDelay = 750,
+      gesture
+
+    function swipeDirection(x1, x2, y1, y2) {
+        return Math.abs(x1 - x2) >=
+          Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
+    }
+
+    function longTap() {
+        longTapTimeout = null
+        if (touch.last) {
+            touch.el.trigger('longTap')
+            touch = {}
         }
     }
 
-    // Return the modified object
-    return target;
-};
-
-//因为js单线程的关系，所以就算同时执行两次Nuclear.uuid,得到的uuid也不可能相同
-Nuclear.uuid = function () {
-    var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
-};
-
-Nuclear.createCanvas = function (obj) {
-    Nuclear._minCanvasObj(obj);
-    if (!obj.statics) obj.statics = {};
-    obj.statics.create = function (obj) {
-        Nuclear._minCanvasObj(obj);
-        return this.extend(obj);
+    function cancelLongTap() {
+        if (longTapTimeout) clearTimeout(longTapTimeout)
+        longTapTimeout = null
     }
-    return Nuclear.Class.extend(obj);
-};
 
+    function cancelAll() {
+        if (touchTimeout) clearTimeout(touchTimeout)
+        if (tapTimeout) clearTimeout(tapTimeout)
+        if (swipeTimeout) clearTimeout(swipeTimeout)
+        if (longTapTimeout) clearTimeout(longTapTimeout)
+        touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
+        touch = {}
+    }
 
-Nuclear._minCanvasObj = function (obj) {
-    obj.ctor = function (width, height, option, selector) {
-        this.canvas = document.createElement("canvas");
-        this.ctx = this.canvas.getContext("2d");
-        this.canvas.width = width;
-        this.canvas.height = height;
-        this.parent = typeof selector === "string" ? document.querySelector(selector) : selector;
-        this.option = option;
-        if (this.install) {
-            this.install();
+    function isPrimaryTouch(event) {
+        return (event.pointerType == 'touch' ||
+          event.pointerType == event.MSPOINTER_TYPE_TOUCH)
+          && event.isPrimary
+    }
+
+    function isPointerEventType(e, type) {
+        return (e.type == 'pointer' + type ||
+          e.type.toLowerCase() == 'mspointer' + type)
+    }
+
+    $(document).ready(function () {
+        var now, delta, deltaX = 0, deltaY = 0, firstTouch, _isPointerType
+
+        if ('MSGesture' in window) {
+            gesture = new MSGesture()
+            gesture.target = document.body
         }
-        if (this.option) {
-            Nuclear.observe(this.option, Nuclear.throttle(this._nuclearRender.bind(this), 15));
-        }
-        this._nuclearRender();
-        if (this.installed) this.installed();
-        this.parent.appendChild(this.canvas);
-    }
 
-    obj._nuclearRender = function (item) {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.render();
-    }
+        $(document)
+          .bind('MSGestureEnd', function (e) {
+              var swipeDirectionFromVelocity =
+                e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null;
+              if (swipeDirectionFromVelocity) {
+                  touch.el.trigger('swipe')
+                  touch.el.trigger('swipe' + swipeDirectionFromVelocity)
+              }
+          })
+          .on('touchstart MSPointerDown pointerdown', function (e) {
+              if ((_isPointerType = isPointerEventType(e, 'down')) &&
+                !isPrimaryTouch(e)) return
+              firstTouch = _isPointerType ? e : e.touches[0]
+              if (e.touches && e.touches.length === 1 && touch.x2) {
+                  // Clear out touch movement data if we have it sticking around
+                  // This can occur if touchcancel doesn't fire due to preventDefault, etc.
+                  touch.x2 = undefined
+                  touch.y2 = undefined
+              }
+              now = Date.now()
+              delta = now - (touch.last || now)
+              touch.el = $('tagName' in firstTouch.target ?
+                firstTouch.target : firstTouch.target.parentNode)
+              touchTimeout && clearTimeout(touchTimeout)
+              touch.x1 = firstTouch.pageX
+              touch.y1 = firstTouch.pageY
+              if (delta > 0 && delta <= 250) touch.isDoubleTap = true
+              touch.last = now
+              longTapTimeout = setTimeout(longTap, longTapDelay)
+              // adds the current touch contact for IE gesture recognition
+              if (gesture && _isPointerType) gesture.addPointer(e.pointerId);
+          })
+          .on('touchmove MSPointerMove pointermove', function (e) {
+              if ((_isPointerType = isPointerEventType(e, 'move')) &&
+                !isPrimaryTouch(e)) return
+              firstTouch = _isPointerType ? e : e.touches[0]
+              cancelLongTap()
+              touch.x2 = firstTouch.pageX
+              touch.y2 = firstTouch.pageY
 
+              deltaX += Math.abs(touch.x1 - touch.x2)
+              deltaY += Math.abs(touch.y1 - touch.y2)
+          })
+          .on('touchend MSPointerUp pointerup', function (e) {
+              if ((_isPointerType = isPointerEventType(e, 'up')) &&
+                !isPrimaryTouch(e)) return
+              cancelLongTap()
 
-};
+              // swipe
+              if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
+                  (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30))
 
-Nuclear._nextID = 0;
-Nuclear.getId = function () {
-    return Nuclear._nextID++;
-         
-}
+                  swipeTimeout = setTimeout(function () {
+                      touch.el.trigger('swipe')
+                      touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)))
+                      touch = {}
+                  }, 0)
+
+                  // normal tap
+              else if ('last' in touch)
+                  // don't fire tap when delta position changed by more than 30 pixels,
+                  // for instance when moving to a point and back to origin
+                  if (deltaX < 30 && deltaY < 30) {
+                      // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
+                      // ('tap' fires before 'scroll')
+                      tapTimeout = setTimeout(function () {
+
+                          // trigger universal 'tap' with the option to cancelTouch()
+                          // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
+                          var event = $.Event('tap')
+                          event.cancelTouch = cancelAll
+                          touch.el.trigger(event)
+
+                          // trigger double tap immediately
+                          if (touch.isDoubleTap) {
+                              if (touch.el) touch.el.trigger('doubleTap')
+                              touch = {}
+                          }
+
+                              // trigger single tap after 250ms of inactivity
+                          else {
+                              touchTimeout = setTimeout(function () {
+                                  touchTimeout = null
+                                  if (touch.el) touch.el.trigger('singleTap')
+                                  touch = {}
+                              }, 250)
+                          }
+                      }, 0)
+                  } else {
+                      touch = {}
+                  }
+              deltaX = deltaY = 0
+
+          })
+          // when the browser window loses focus,
+          // for example when a modal dialog is shown,
+          // cancel all ongoing events
+          .on('touchcancel MSPointerCancel pointercancel', cancelAll)
+
+        // scrolling the window indicates intention of the user
+        // to scroll, not tap or swipe, so cancel all ongoing events
+        $(window).on('scroll', cancelAll)
+    })
+
+    ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
+      'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function (eventName) {
+          $.fn[eventName] = function (callback) { return this.on(eventName, callback) }
+      })
+})(Nuclear)
+
