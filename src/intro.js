@@ -12,7 +12,6 @@
         define(function(require, exports, module){
             module.exports=factory();
         });
-    } else {
-        root.$ = root.Nuclear  = factory();
     }
+    root.$ = root.Nuclear  = factory();   
 }(this, function () {

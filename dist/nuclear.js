@@ -12,9 +12,8 @@
         define(function(require, exports, module){
             module.exports=factory();
         });
-    } else {
-        root.$ = root.Nuclear  = factory();
     }
+    root.$ = root.Nuclear  = factory();   
 }(this, function () {
 
 /* paste from Zepto v1.1.6 -
@@ -1389,6 +1388,8 @@ Nuclear.create = function (obj) {
 
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector) {
+        this._ncInstanceId=Nuclear.getInstanceId();
+        Nuclear.instances[this._ncInstanceId] = this;
         this._nuclearParentEmpty = !selector;
         this.HTML = "";
         this.option = option;
@@ -1483,12 +1484,12 @@ Nuclear._mixObj = function (obj) {
                 this.node = null;
                 this.HTML = "";
             } else {
-                var newNode = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixTplIndex(item.tpl), item.data));
+                var newNode = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
                 item.parent.replaceChild(newNode, this.node);
                 this.node = newNode;
             }
         } else {
-            item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(Nuclear._fixTplIndex(item.tpl), item.data));
+            item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
             this.node = item.parent.lastChild;
         }
         window["_nuclearIndex"] = null;
@@ -1548,7 +1549,7 @@ Nuclear._mixObj = function (obj) {
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
         item.tpl = this._nuclearTplGenerator();
         if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixTplIndex(item.tpl), item.data)).querySelectorAll('*[nc-refresh]');
+            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)).querySelectorAll('*[nc-refresh]');
             window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
@@ -1562,21 +1563,19 @@ Nuclear._mixObj = function (obj) {
             this.HTML = this.node.outerHTML;
 
             this._nuclearFix();
-            //var refLen = this._nuclearRef.length;
-            //if (refLen > 0) {
-            //    var i = 0;
-            //    for (; i < refLen; i++) {
-            //        var ref = this._nuclearRef[i];
-            //        ref.node = this.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
-
-            //        if (ref.onRefresh) ref.onRefresh();
-            //        if (ref.installed) ref.installed();
-            //    }
-            //}
         } else {
             this._nuclearRender(item);
         }
     }
+}
+
+Nuclear._fixEvent = function (tpl,instanceId) {
+
+   return tpl.replace(/<[\s\S]*?>/g, function (item) {
+        return item.replace(/(onabort|onblur|oncancel|oncanplay|oncanplaythrough|onchange|onclick|onclose|oncontextmenu|oncuechange|ondblclick|ondrag|ondragend|ondragenter|ondragleave|ondragover|ondragstart|ondrop|ondurationchange|onemptied|onended|onerror|onfocus|oninput|oninvalid|onkeydown|onkeypress|onkeyup|onload|onloadeddata|onloadedmetadata|onloadstart|onmousedown|onmouseenter|onmouseleave|onmousemove|onmouseout|onmouseover|onmouseup|onmousewheel|onpause|onplay|onplaying|onprogress|onratechange|onreset|onresize|onscroll|onseeked|onseeking|onselect|onshow|onstalled|onsubmit|onsuspend|ontimeupdate|ontoggle|onvolumechange|onwaiting|onautocomplete|onautocompleteerror|onbeforecopy|onbeforecut|onbeforepaste|oncopy|oncut|onpaste|onsearch|onselectstart|onwheel|onwebkitfullscreenchange|onwebkitfullscreenerror)=('|")/g, function (eventStr) {
+            return eventStr += "Nuclear.instances[" + instanceId + "].";
+        });
+    });
 }
 
 Nuclear._fixTplIndex = function (tpl) {
@@ -2066,9 +2065,14 @@ Nuclear._minCanvasObj = function (obj) {
 
 Nuclear._nextID = 0;
 Nuclear.getId = function () {
-    return Nuclear._nextID++;
-         
+    return Nuclear._nextID++;        
 }
+
+Nuclear._instanceId= 0;
+Nuclear.getInstanceId = function () {
+    return Nuclear._instanceId++;
+}
+Nuclear.instances = {};
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
