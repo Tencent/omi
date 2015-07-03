@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <title></title>
+    <title>导航</title>
     <style>
         *, *:before, *:after {
             -moz-box-sizing: border-box;
@@ -13,26 +13,66 @@
 
         .nc-nav {
             font-size: 0;
+            width: 100%;
+            height: 10px;
+            position: fixed;
+            bottom: 0;
+            border: 1px solid #ccc;
+            text-align:center;
         }
 
             .nc-nav a {
-                background-color: #50BFF5;
                 display: inline-block;
-                width: 50%;
+                width: 10%;
                 font-size: 12px;
-                 height: 10px;
-                border-right: 1px solid white;
+                height: 10px;
+                border-right: 1px solid #ccc;
+                cursor:pointer;
             }
 
-                .nc-nav a:nth-last-child(1) {
-                    border-right: 0px solid white;
-                }
+        .nc-nav-active {
+            background-color: #50BFF5;
+        }
+
+        .nc-nav a:nth-last-child(1) {
+            border-right: 0px solid white;
+        }
+
+        .nc-nav-tip{
+            font-size:12px;
+            position:fixed;
+            bottom:15px;
+            left:0%;          
+            text-align:center;
+        }
     </style>
 </head>
-<body>
-    <div class="nc-nav" style="width: 100%;  height: 10px; position: absolute;">
+<body style="height:1000px;">
+    <!--<div class="nc-nav" style="width: 100%; height: 10px; position: absolute;">
         <a></a>
         <a></a>
-    </div>
+    </div>-->
+    <div id="container"></div>
+    <script src="../dist/nuclear.js"></script>
+    <script type="text/javascript">
+        var Nav = $.create({
+            scrollTo: function (top) {
+                $("html,body").scrollTop(top);
+            },
+            render: function () {
+                var i = 0, len = this.option.positions.length, pec = 100 / len, linkStr = "";
+                for (; i < len; i++) {
+                    linkStr += (i <= this.option.index ? '<a class="nc-nav-active" onclick="scrollTo(' + this.option.positions[i]+ ')"></a>' : '<a></a>');
+                }
+               
+                //<div  class="nc-nav-tip" style="width:' + pec + '%;">啊啊aaaaaaaaaa啊</div>\
+                return '<div class="nc-nav">' + linkStr + '</div>';
+            }
+        })
+        new Nav({ index: 2, positions: [100, 200, 300, 400, 500, 1200, 1200, 1200, 1200, 1200] }, "body");
+    </script>
+    <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
 </body>
 </html>

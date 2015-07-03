@@ -516,7 +516,7 @@ Nuclear.domready = (function () {
     "Boolean Number String Function Array Date RegExp Object Error NodeList".split(" ").forEach(function (name) {
         class2type["[object " + name + "]"] = name.toLowerCase();
     })
-
+    var hasOwn = Object.prototype.hasOwnProperty;
     var type = function (obj) {
         if (obj == null) {
             return obj + "";
