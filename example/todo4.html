@@ -4,7 +4,7 @@
     <title>Todo</title>
 </head>
 <body>
-    <div id="container"></div>
+    <div id="todo2Container"></div>
     <script src="../dist/nuclear.js"></script>
     <script type="text/javascript">
         var TodoList = Nuclear.create({
@@ -17,18 +17,17 @@
             install: function () {
                 this.todoList = new TodoList({ items: [] })
             },
-            onRefresh: function () { 
-                this.form.addEventListener("submit", function (evt) {
-                    evt.preventDefault();                
+            add: function (evt) {
+                    evt.preventDefault();
                     this.todoList.option.items.push(this.textBox.value);
+                    //触发父容器的刷新
                     this.refresh();
-                }.bind(this), false);
             },
             render: function () {
                return '<div>\
                          <h3>TODO</h3>'
                          + this.todoList.render()+
-                         '<form nc-id="form" >\
+                         '<form onsubmit="add(event)" >\
                            <input nc-id="textBox" type="text"  />\
                            <button>Add #'+this.todoList.option.items.length+'</button>\
                          </form>\
@@ -36,7 +35,7 @@
             }
         });
 
-        new TodoApp( {},"#container");
+        new TodoApp( {},"#todo2Container");
     </script>
         <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />

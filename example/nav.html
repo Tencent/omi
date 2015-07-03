@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        *, *:before, *:after {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .inner, .nav-panel ul .nav-btn:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+
+
+
+        .nav-panel {
+            position: fixed;
+            top: 50%;
+            right: 2%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+            z-index: 1000;
+            -webkit-transition: opacity 0.5s, -webkit-transform 0.5s cubic-bezier(0.57, 1.2, 0.68, 2.6);
+            transition: opacity 0.5s, transform 0.5s cubic-bezier(0.57, 1.2, 0.68, 2.6);
+            will-change: transform, opacity;
+        }
+
+            .nav-panel.invisible {
+                opacity: 0;
+                -webkit-transform: translateY(-50%) scale(0.5);
+                -ms-transform: translateY(-50%) scale(0.5);
+                transform: translateY(-50%) scale(0.5);
+            }
+
+            .nav-panel ul {
+                list-style-type: none;
+            }
+
+                .nav-panel ul .nav-btn {
+                    position: relative;
+                    overflow: hidden;
+                    width: 1em;
+                    height: 1em;
+                    margin-bottom: 0.5em;
+                    border: 0.12em solid black;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    -webkit-transition: border-color, -webkit-transform 0.3s;
+                    transition: border-color, transform 0.3s;
+                    will-change: border-color, transform;
+                }
+
+                    .nav-panel ul .nav-btn:after {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        -webkit-transform: translateX(-50%) translateY(-50%) scale(0.3);
+                        -ms-transform: translateX(-50%) translateY(-50%) scale(0.3);
+                        transform: translateX(-50%) translateY(-50%) scale(0.3);
+                        background-color: black;
+                        opacity: 0;
+                        -webkit-transition: -webkit-transform, opacity 0.3s;
+                        transition: transform, opacity 0.3s;
+                        will-change: transform, opacity;
+                    }
+
+                    .nav-panel ul .nav-btn.active:after, .nav-panel ul .nav-btn:hover:after {
+                        -webkit-transform: translateX(-50%) translateY(-50%) scale(0.7);
+                        -ms-transform: translateX(-50%) translateY(-50%) scale(0.7);
+                        transform: translateX(-50%) translateY(-50%) scale(0.7);
+                        opacity: 1;
+                    }
+
+                    .nav-panel ul .nav-btn:hover {
+                        border-color: #cc7a6f;
+                        -webkit-transform: scale(1.2);
+                        -ms-transform: scale(1.2);
+                        transform: scale(1.2);
+                    }
+
+                        .nav-panel ul .nav-btn:hover:after {
+                            background-color: #cc7a6f;
+                        }
+
+            .nav-panel .scroll-btn {
+                position: absolute;
+                left: 0;
+                width: 1em;
+                height: 1em;
+                border: 0.2em solid black;
+                border-left: none;
+                border-bottom: none;
+                cursor: pointer;
+                -webkit-transform-origin: 50% 50%;
+                -ms-transform-origin: 50% 50%;
+                transform-origin: 50% 50%;
+                -webkit-transition: border-color 0.3s;
+                transition: border-color 0.3s;
+            }
+
+                .nav-panel .scroll-btn.up {
+                    top: -1.6em;
+                    -webkit-transform: rotate(-45deg);
+                    -ms-transform: rotate(-45deg);
+                    transform: rotate(-45deg);
+                }
+
+                .nav-panel .scroll-btn.down {
+                    bottom: -1.2em;
+                    -webkit-transform: rotate(135deg);
+                    -ms-transform: rotate(135deg);
+                    transform: rotate(135deg);
+                }
+
+                .nav-panel .scroll-btn:hover {
+                    border-color: #cc7a6f;
+                }
+    </style>
+</head>
+<body>
+    <div class="nav-panel">
+        <div class="scroll-btn up"></div>
+        <div class="scroll-btn down"></div>
+        <div class="nav-tip" style="position:absolute;right:20px;top:0;">aaaaaaaaa</div>
+        <nav>
+            <ul>
+                <li class="nav-btn nav-page1 active"></li>
+                <li class="nav-btn nav-page2"></li>
+                <li class="nav-btn nav-page3"></li>
+                <li class="nav-btn nav-page4"></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>
