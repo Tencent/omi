@@ -2033,12 +2033,13 @@ Nuclear._mixObj = function (obj) {
 
             this._mixNode();
 
-            if (this.onRefresh) this.onRefresh();
+           
             item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
             this.HTML = this.node.outerHTML;
 
 
             this._nuclearFix();
+            if (this.onRefresh) this.onRefresh();
         }
     }
 
@@ -2070,9 +2071,10 @@ Nuclear._mixObj = function (obj) {
                     ref._mixNode();
                     ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
                     ref._nuclearRenderInfo.parent = ref.node.parentNode;
+                   
+                    this._nuclearFixOne(ref);
                     if (ref.onRefresh) ref.onRefresh();
                     if (ref.installed) ref.installed();
-                    this._nuclearFixOne(ref)
                 }
             }
         }
@@ -2093,10 +2095,11 @@ Nuclear._mixObj = function (obj) {
             }
             item.refreshPart = parts;
             this._mixNode();
-            if (this.onRefresh) this.onRefresh();
+           
             this.HTML = this.node.outerHTML;
 
             this._nuclearFix();
+            if (this.onRefresh) this.onRefresh();
         } else {
             this._nuclearRender(item);
         }
@@ -2106,7 +2109,8 @@ Nuclear._mixObj = function (obj) {
 Nuclear._fixEvent = function (tpl,instanceId) {
 
    return tpl.replace(/<[\s\S]*?>/g, function (item) {
-        return item.replace(/(onabort|onblur|oncancel|oncanplay|oncanplaythrough|onchange|onclick|onclose|oncontextmenu|oncuechange|ondblclick|ondrag|ondragend|ondragenter|ondragleave|ondragover|ondragstart|ondrop|ondurationchange|onemptied|onended|onerror|onfocus|oninput|oninvalid|onkeydown|onkeypress|onkeyup|onload|onloadeddata|onloadedmetadata|onloadstart|onmousedown|onmouseenter|onmouseleave|onmousemove|onmouseout|onmouseover|onmouseup|onmousewheel|onpause|onplay|onplaying|onprogress|onratechange|onreset|onresize|onscroll|onseeked|onseeking|onselect|onshow|onstalled|onsubmit|onsuspend|ontimeupdate|ontoggle|onvolumechange|onwaiting|onautocomplete|onautocompleteerror|onbeforecopy|onbeforecut|onbeforepaste|oncopy|oncut|onpaste|onsearch|onselectstart|onwheel|onwebkitfullscreenchange|onwebkitfullscreenerror)=('|")/g, function (eventStr) {
+       return item.replace(/(onabort|onblur|oncancel|oncanplay|oncanplaythrough|onchange|onclick|onclose|oncontextmenu|oncuechange|ondblclick|ondrag|ondragend|ondragenter|ondragleave|ondragover|ondragstart|ondrop|ondurationchange|onemptied|onended|onerror|onfocus|oninput|oninvalid|onkeydown|onkeypress|onkeyup|onload|onloadeddata|onloadedmetadata|onloadstart|onmousedown|onmouseenter|onmouseleave|onmousemove|onmouseout|onmouseover|onmouseup|onmousewheel|onpause|onplay|onplaying|onprogress|onratechange|onreset|onresize|onscroll|onseeked|onseeking|onselect|onshow|onstalled|onsubmit|onsuspend|ontimeupdate|ontoggle|onvolumechange|onwaiting|onautocomplete|onautocompleteerror|onbeforecopy|onbeforecut|onbeforepaste|oncopy|oncut|onpaste|onsearch|onselectstart|onwheel|onwebkitfullscreenchange|onwebkitfullscreenerror)=('|")/g, function (eventStr, b, c, d, e) {
+           if (e.substr(eventStr.length + d, 18) === "Nuclear.instances[") return eventStr;
             return eventStr += "Nuclear.instances[" + instanceId + "].";
         });
     });

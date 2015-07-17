@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo</title>
+</head>
+<body>
+    <div id="todo2Container"></div>
+    <script src="../dist/nuclear.js"></script>
+    <script type="text/javascript">
+        var TodoList = Nuclear.create({
+            render: function () {
+                return '<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';
+            }
+        });
+
+        var TodoForm = Nuclear.create({
+            render: function () {
+                return  '<form  >\
+                           <input nc-id="textBox" type="text"  />\
+                           <button>Add #{{length}}</button>\
+                         </form>';
+            }
+        });
+
+        var TodoApp = Nuclear.create({
+            install: function () {
+                this.todoList = new TodoList({ items: [] });
+                this.todoForm = new TodoForm({ length: 0 });
+            },   
+            onRefresh: function () {
+                this.todoForm.node.addEventListener("submit",this.add.bind(this), false);
+            },
+            add: function (evt) {
+                evt.preventDefault();
+                this.todoList.option.items.push(this.todoForm.textBox.value);
+                this.todoForm.option.length = this.todoList.option.items.length;
+                this.refresh();
+            },
+            render: function () {
+                return '<div>\
+                         <h3>TODO</h3>' +
+                          this.todoList.render() +
+                          this.todoForm.render() +
+                        '</div>';
+            }
+        });
+
+        new TodoApp({}, "#todo2Container");
+    </script>
+        <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="http://alloyteam.github.io/AlloyRenderingEngine/asset/img/github.png" alt="" />
+    </a>
+</body>
+</html>
