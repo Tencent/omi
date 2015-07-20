@@ -1,7 +1,7 @@
 {
   "name": "alloynuclear",
-  "version": "0.0.2",
-  "description": "a react-like library without jsx , virtual dom and requestAnimationFrame.",
+  "version": "0.0.3",
+  "description": "made UI super easy.",
   "main": "nuclear.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
