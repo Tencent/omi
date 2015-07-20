@@ -19,8 +19,8 @@
             onOptionChange: function (prop, value, oldValue, path) {
                 if (prop === "left") {
                     this.scroll.style.left = value + "px";
-                    //下面的return ture代表同时出发render，return false或者不return任何值代表不触发render
-                   // return ture;
+                    //return false代表不触发render
+                    return false;
                 }
             },
             render: function () {

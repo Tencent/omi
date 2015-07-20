@@ -37,7 +37,7 @@ Nuclear._mixObj = function (obj) {
  
         if (this.option) {
             Nuclear.observe(this.option, function (prop, value, oldValue, path) {
-                if (!this.onOptionChange||(this.onOptionChange && this.onOptionChange(prop, value, oldValue, path))) {
+                if (!this.onOptionChange||(this.onOptionChange && this.onOptionChange(prop, value, oldValue, path)!==false)) {
                     clearTimeout(this._nuclearTimer);
                     if (new Date() - this._preNuclearTime > 40) {
                         this._nuclearLocalRefresh();

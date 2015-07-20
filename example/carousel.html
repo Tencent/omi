@@ -63,6 +63,7 @@
                 if (prop === "index") {
                     $(this.carouselScroll).css("left", value * -100 + "%");
                     this.active();
+                    return false;
                 }
             },
             render: function () {
