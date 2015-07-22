@@ -2052,6 +2052,17 @@ Nuclear._mixObj = function (obj) {
                 this[node.getAttribute("nc-id")] = node;
             }
         }
+
+        var cNodes = this.node.querySelectorAll('*[nc-class]'), cLen = cNodes.length;
+        if (cLen > 0) {
+            var j = 0;
+            for (; j < cLen; j++) {
+                var cNode = cNodes[j];
+                var cAtrr = cNode.getAttribute("nc-class");
+                if (!this[cAtrr]) this[cAtrr] = [];
+                this[cAtrr].push(cNode);
+            }
+        }
     }
 
     //从最顶部组件向内fix
