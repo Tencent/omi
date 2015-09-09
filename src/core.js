@@ -111,8 +111,10 @@ Nuclear._mixObj = function (obj) {
                 this.node = newNode;
             }
         } else {
-            item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
-            this.node = item.parent.lastChild;
+            if (!Nuclear.isUndefined(item.tpl)) {
+                item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
+                this.node = item.parent.lastChild;
+            }
         }
         window["_nuclearIndex"] = null;
         if (this.node) {
