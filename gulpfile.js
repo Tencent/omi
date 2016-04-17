@@ -17,7 +17,6 @@ gulp.task('build', function () {
         'src/intro.js',
 
         'src/nuclear.js',
-        'src/core.js',
         'src/tpl.js',
         'src/observe.js',
         'src/class.js',
