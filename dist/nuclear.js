@@ -1496,68 +1496,37 @@ Nuclear.instances = {};
 	Nuclear.observe = observe;
 })();
 
-;(function () {
-    // The base Class implementation (does nothing)
-    var Class = function () { };
+//所有类的基类
+var Class = function () { };
 
-    // Create a new Class that inherits from this class
-    Class.extend = function (prop) {
-        var _super = this.prototype;
+//基类增加一个extend方法
+Class.extend = function (prop) {
+    var prototype = Object.create(this.prototype);
+    //把要扩展的属性复制到prototype变量上
+    for (var name in prop) {
+        //下面代码是让ctor里可以直接访问使用this._super访问父类构造函数，除了ctor的其他方法，this._super都是访问父类的实例
+        prototype[name] = prop[name];
+    }
 
-        // Instantiate a base class (but only create the instance,
-        // don't run the init constructor)
+    //假的构造函数
+    function Class() {
+        //执行真正的ctor构造函数
+        this.ctor.apply(this, arguments);
+    }
 
-        var prototype = Object.create(this.prototype);
+    Class.prototype = prototype;
 
-        // Copy the properties over onto the new prototype
-        for (var name in prop) {
-                // Check if we're overwriting an existing function
-                prototype[name] =
-                typeof _super[name] == "ctor"  ?
-                    (function (name, fn) {
-                        return function () {
-                            var tmp = this._super;
-
-                            // Add a new ._super() method that is the same method
-                            // but on the super-class
-                            this._super = _super[name];
-
-                            // The method only need to be bound temporarily, so we
-                            // remove it when we're done executing
-                            var ret = fn.apply(this, arguments);
-                            this._super = tmp;
-
-                            return ret;
-                        };
-                    })(name, prop[name]) :
-                    prop[name];
-
-        }
-
-        // The dummy class constructor
-        function _Class() {
-            // All construction is actually done in the init method
-            this.ctor.apply(this, arguments);
-        }
-
-        // Populate our constructed prototype object
-        _Class.prototype = prototype;
-
-        _Class.prototype._super= Object.create(this.prototype);
-
-        // Enforce the constructor to be what we expect
-        _Class.prototype.constructor = _Class;
-
-        // And make this class extendable
-        _Class.extend = Class.extend;
+    Class.prototype._super = Object.create(this.prototype);
 
 
-        return _Class;
-    };
+    Class.prototype.constructor = Class;
+    //任何Class.extend的返回对象都将具备extend方法
+    Class.extend = arguments.callee;
 
+    return Class;
+};
 
-    Nuclear.Class = Class;
-})()
+Nuclear.Class = Class;
 
 
 return Nuclear;
