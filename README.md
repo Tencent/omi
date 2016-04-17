@@ -50,9 +50,7 @@ var Nuclear = require('nuclear');
 # Many thanks to
 * [observe.js](https://github.com/kmdjs/observejs)
 * [react.js](http://facebook.github.io/react/) 
-* [zepto.js](http://zeptojs.com/) 
 * [mustache.js](https://github.com/janl/mustache.js) 
-* [class.js](http://ejohn.org/blog/simple-javascript-inheritance/) 
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
