@@ -46,8 +46,9 @@
 <body>
     <div id="carouselContainer"></div>
     <script src="../dist/nuclear.js"></script>
+    <script src="../asset/zepto.min.js"></script>
     <script>
-        var Carousel = $.create({
+        var Carousel = Nuclear.create({
             installed: function () {
                 this.$links = $(this.nav).find('a');
                 var self = this;

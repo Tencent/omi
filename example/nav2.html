@@ -50,8 +50,9 @@
 <body style="height:3000px;">
     <div id="container"></div>
     <script src="../dist/nuclear.js"></script>
+    <script src="../asset/zepto.min.js"></script>
     <script type="text/javascript">
-        var Nav = $.create({
+        var Nav = Nuclear.create({
             install:function(){
                 $(window).on('scroll',function(){
                    this.updateProgressBar($('body')[0].scrollTop);
@@ -77,7 +78,7 @@
                 this.option.index=index;
             },
             scrollTo: function (top) {
-                $("body").scrollToTop(top);
+                //$("body").scrollToTop(top);
             },
             render: function () {
                 var i = 0, len = this.option.positions.length, pec = 100 / len, links = "";

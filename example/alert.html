@@ -149,12 +149,12 @@
     <div id="alertContainer"></div>
     <script src="../dist/nuclear.js"></script>
     <script type="text/javascript">
-        var Button = $.create({
+        var Button = Nuclear.create({
             install: function () {
                 this.option.disable = false;
             },
             installed: function () {
-                $(this.node).on("click", function (evt) {
+                this.node.addEventListener("click", function (evt) {
                     if (this.option.onClick) {
                         this.option.onClick.call(this.node, evt);
                     }
@@ -165,7 +165,7 @@
             }
         })
 
-        var Alert = $.create({
+        var Alert = Nuclear.create({
             hide: function (evt) {
                 this.option.display = false;
                 evt.stopPropagation();
@@ -189,14 +189,14 @@
             }
         });
 
-        $.alert = function (msg, title) {
+        var myAlert = function (msg, title) {
             new Alert({ msg: msg, title: title || "提示", display:true}, "body");
         }
 
         new Button({
             text: "点我试试alert",
             onClick: function () {
-                $.alert("Nuclear大法好");
+                myAlert("Nuclear大法好");
             }
         }, "#alertContainer")
     </script>

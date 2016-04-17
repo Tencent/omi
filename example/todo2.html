@@ -23,7 +23,7 @@
             render: function () {
                return '<div>\
                          <h3>TODO</h3>'
-                         +this._super()+
+                         +this._super.render()+
                          '<form nc-id="form" >\
                            <input nc-id="textBox" type="text"  />\
                            <button>Add #{{items.length}}</button>\

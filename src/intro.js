@@ -13,5 +13,5 @@
             module.exports=factory();
         });
     }
-    root.$ = root.Nuclear  = factory();   
+    root.Nuclear  = factory();
 }(this, function () {

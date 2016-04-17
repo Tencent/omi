@@ -17,9 +17,10 @@
         <div class="dragger3" id="dragger3"></div>
     </div>
     <script src="../dist/nuclear.js"></script>
+    <script src="../asset/zepto.min.js"></script>
     <script type="text/javascript">
 
-        var Drag = $.createAction({
+        var Drag = Nuclear.createAction({
             install: function () {
                 var option = this.option;
                 this.currentPosition = { x: 0, y: 0 };

@@ -2,12 +2,10 @@
 
 Nuclear.create = function (obj) {
     Nuclear._mixObj(obj);
-    if (!obj.statics) obj.statics = {};
-    obj.statics.create = function (obj) {
-        Nuclear._mixObj(obj);
-        return this.extend(obj);
-    };
-    return Nuclear.Class.extend(obj);
+    var currentEvn = this === Nuclear ? Nuclear.Class : this;
+    var componet = currentEvn.extend(obj);
+    componet.create = arguments.callee;
+    return componet;
 };
 
 Nuclear._mixObj = function (obj) {

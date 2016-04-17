@@ -36,12 +36,12 @@
     <script src="../dist/nuclear.js"></script>
 
     <script type="text/javascript">
-        var Button = $.create({
+        var Button = Nuclear.create({
             install: function () {
                 this.option.disable = false;
             },
             installed: function () {
-                $(this.node).on("click", function (evt) {
+                this.node.addEventListener("click", function (evt) {
                     if (this.option.onClick) {
                         this.option.onClick.call(this.node, evt);
                     }
@@ -54,7 +54,7 @@
 
         var SwitchButton = Button.create({
             installed: function () {
-                $(this.node).on("click", function (evt) {
+                this.node.addEventListener("click", function (evt) {
                     this.option.disable = !this.option.disable;
                     if (this.option.disable) {
                         this.option.close && this.option.close();
@@ -71,7 +71,7 @@
                 // this._super();              
             },
             installed: function () {
-                $(this.node).on("click", function (evt) {
+                this.node.addEventListener("click", function (evt) {
                     if (!this.option.disable) {
                         this.option.textBak = this.option.text;
                         this.option.valueBak = this.option.value;
