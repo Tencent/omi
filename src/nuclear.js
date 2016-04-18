@@ -190,7 +190,7 @@ Nuclear._mixObj = function (obj) {
             window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
-                //part.parentNode为null,代表其已经被子节点替换掉了
+                //执行完replaceChild，原part的parentNode就为null,代表其已经被子节点替换掉了
                 part.parentNode&&part.parentNode.replaceChild(parts[j], part);
 
             }
