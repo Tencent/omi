@@ -123,7 +123,7 @@ Nuclear._mixObj = function (obj) {
 
             this._mixNode();
 
-
+            //nc-refresh的比较常见的应用场景就是文本框输入的时候不刷新自己，刷新会导致失去焦点。nc-refresh也能用于性能优化
             item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
             this.HTML = this.node.outerHTML;
 
