@@ -29,21 +29,31 @@
 
     //共用方法，重写模板
     var Sub_A=A.create({
+        sub_a:function(){
+            return "dd";
+        },
         render: function () {
-            return '<div>{{msg}} '+this._super.aa()+'</div>'
+            return '<div>'+this.sub_a()+' {{msg}} '+this._super.aa()+'</div>'
         }
     })
     new Sub_A({ msg:"haha"  },"#testDiv2");
 
-
+    if(!String.prototype.trim) {
+        String.prototype.trim = function () {
+            return this.replace(/(^\s*)|(\s*$)/g, '');
+        };
+    }
 
     (function(){
         QUnit.test( "Hello Nuclear！", function( assert ) {
-            assert.ok( testDiv.innerText == 'haha', "Passed!" );
+
+            assert.equal( testDiv.innerText.trim() , 'haha' );
+
+
         });
 
-        QUnit.test( "继承测试", function( assert ) {
-            assert.ok( testDiv2.innerText == 'haha from A', "Passed!" );
+        QUnit.test( "【继承】父类方法调用测试", function( assert ) {
+            assert.equal( testDiv2.innerText.trim() , 'dd haha from A' );
         });
     })();
 </script>
