@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>QUnit Example</title>
+    <link rel="stylesheet" href="../asset/qunit-1.23.1.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div>
+    <div id="testDiv"></div>
+    <div id="testDiv2"></div>
+</div>
+
+<div id="qunit-fixture"></div>
+<script src="../asset/qunit-1.23.1.js"></script>
+<script src="../dist/nuclear.js"></script>
+<script>
+    var A=Nuclear.create({
+        aa:function(){
+          return "from A";
+        },
+        render: function () {
+            return '<div>{{msg}}</div>'
+        }
+    })
+    new A({ msg:"haha"  },"#testDiv");
+
+    //共用方法，重写模板
+    var Sub_A=A.create({
+        render: function () {
+            return '<div>{{msg}} '+this._super.aa()+'</div>'
+        }
+    })
+    new Sub_A({ msg:"haha"  },"#testDiv2");
+
+
+
+    (function(){
+        QUnit.test( "Hello Nuclear！", function( assert ) {
+            assert.ok( testDiv.innerText == 'haha', "Passed!" );
+        });
+
+        QUnit.test( "继承测试", function( assert ) {
+            assert.ok( testDiv2.innerText == 'haha from A', "Passed!" );
+        });
+    })();
+</script>
+</body>
+</html>
