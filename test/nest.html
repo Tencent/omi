@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .hasBorder{border:1px solid #ccc;}
+    </style>
+</head>
+<body>
+<div id="App">
+
+</div>
+<script src="../dist/nuclear.js"></script>
+<script>
+    var A=Nuclear.create({
+        install:function(){
+            this.b=new B(this.option);
+            this.d=new D(this.option);
+        },
+        render:function(){
+            return '<div style="width: 500px;" class="hasBorder"><div>{{titleA}}</div>'+this.b.render()+this.d.render()+'</div>'
+        }
+    })
+
+    var B=Nuclear.create({
+        install:function(){
+            this.c=new C(this.option)
+        },
+        render:function(){
+            return '<div class="hasBorder" style="width: 370px;margin: 0 auto;"><div>{{titleB}}</div>'+this.c.render()+'</div>'
+        }
+    })
+
+    var C=Nuclear.create({
+        render:function(){
+            return '<div class="hasBorder" style="width: 270px;margin: 10px auto;">{{titleC}}</div>'
+        }
+    })
+
+    var D=Nuclear.create({
+        render:function(){
+            return '<div class="hasBorder" style="width: 370px;margin: 10px auto;">{{titleD}}</div>'
+        }
+    })
+
+    var a=new A({titleA:"AA",titleB:"BB",titleC:"CC",titleD:"DD"},"#App");
+
+
+    a.option.titleD="A";
+    a.option.titleA="B";
+    a.option.titleB="C";
+    a.option.titleC="D";
+
+    //a.option={titleA:"a",titleB:"b",titleC:"c",titleD:"d"};
+
+</script>
+</body>
+</html>
