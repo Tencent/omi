@@ -44,6 +44,7 @@ Nuclear._mixObj = function (obj) {
         this._nuclearRef = [];
         for (var key in this) {
             if (this.hasOwnProperty(key)) {
+                //这里判断是否依赖其他nuclear组件，依赖的话记录下来
                 if (this[key] && this[key]["_nuclearLocalRefresh"]) {
                     this[key]._nuclearParent = this;
                     this._nuclearRef.push(this[key]);
@@ -140,7 +141,7 @@ Nuclear._mixObj = function (obj) {
 
             this._mixNode();
 
-
+            //nc-refresh的比较常见的应用场景就是文本框输入的时候不刷新自己，刷新会导致失去焦点。nc-refresh也能用于性能优化
             item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
             this.HTML = this.node.outerHTML;
 
