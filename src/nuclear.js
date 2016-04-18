@@ -175,6 +175,7 @@ Nuclear._mixObj = function (obj) {
                     ref._nuclearRenderInfo.parent = ref.node.parentNode;
 
                     this._nuclearFixOne(ref);
+                    //依赖的组件new的时候没有插入dom，所以下面两行再次执行是为了防止内部的事件绑定失效
                     if (ref.onRefresh) ref.onRefresh();
                     if (ref.installed) ref.installed();
                 }

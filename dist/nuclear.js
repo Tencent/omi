@@ -129,6 +129,7 @@ Nuclear._mixObj = function (obj) {
                 this.node = newNode;
             }
         } else {
+            //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
                 item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
                 this.node = item.parent.lastChild;
@@ -192,6 +193,7 @@ Nuclear._mixObj = function (obj) {
                     ref._nuclearRenderInfo.parent = ref.node.parentNode;
 
                     this._nuclearFixOne(ref);
+                    //依赖的组件new的时候没有插入dom，所以下面两行再次执行是为了防止内部的事件绑定失效
                     if (ref.onRefresh) ref.onRefresh();
                     if (ref.installed) ref.installed();
                 }
@@ -208,7 +210,7 @@ Nuclear._mixObj = function (obj) {
             window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
-                //part.parentNode为null,代表其已经被子节点替换掉了
+                //执行完replaceChild，原part的parentNode就为null,代表其已经被子节点替换掉了
                 part.parentNode&&part.parentNode.replaceChild(parts[j], part);
 
             }

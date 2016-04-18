@@ -35,6 +35,13 @@
     var C=Nuclear.create({
         render:function(){
             return '<div class="hasBorder" style="width: 270px;margin: 10px auto;">{{titleC}}</div>'
+        },
+        installed:function(){
+            console.log(22);
+            this.node.addEventListener("click",function(){
+                console.log(1111)
+            },false)
+
         }
     })
 
@@ -46,13 +53,14 @@
 
     var a=new A({titleA:"AA",titleB:"BB",titleC:"CC",titleD:"DD"},"#App");
 
-
     a.option.titleD="A";
     a.option.titleA="B";
     a.option.titleB="C";
     a.option.titleC="D";
+    //nc-id不能指定最顶层节点？因为通过this.node就能访问
     //监听组件option的setter？
     //a.option={titleA:"a",titleB:"b",titleC:"c",titleD:"d"};
+    //option改变会导致从内到外的组件变更
 
 
     //一个复杂的组件/App可以是无限嵌套的，但它只依赖一个配置（option），该配置又能拆分成若干个子配置或者配置树，app的界面的一些交互行为（点击，触摸，文本
