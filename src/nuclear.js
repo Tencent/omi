@@ -26,6 +26,7 @@ Nuclear._mixObj = function (obj) {
         this._nuclearRef = [];
         for (var key in this) {
             if (this.hasOwnProperty(key)) {
+                //这里判断是否依赖其他nuclear组件，依赖的话记录下来
                 if (this[key] && this[key]["_nuclearLocalRefresh"]) {
                     this[key]._nuclearParent = this;
                     this._nuclearRef.push(this[key]);
