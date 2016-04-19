@@ -3,9 +3,9 @@
 Nuclear.create = function (obj) {
     Nuclear._mixObj(obj);
     var currentEvn = this === Nuclear ? Nuclear.Class : this;
-    var componet = currentEvn.extend(obj);
-    componet.create = arguments.callee;
-    return componet;
+    var component = currentEvn.extend(obj);
+    component.create = arguments.callee;
+    return component;
 };
 
 Nuclear._mixObj = function (obj) {
@@ -64,7 +64,7 @@ Nuclear._mixObj = function (obj) {
         };
         this._nuclearRender(this._nuclearRenderInfo);
         if (this.installed) this.installed();
-    }
+    };
 
     obj.refresh = function () {
         this._nuclearLocalRefresh();
@@ -149,9 +149,9 @@ Nuclear._mixObj = function (obj) {
             var j = 0;
             for (; j < cLen; j++) {
                 var cNode = cNodes[j];
-                var cAtrr = cNode.getAttribute("nc-class");
-                if (!this[cAtrr]) this[cAtrr] = [];
-                this[cAtrr].push(cNode);
+                var cAttr = cNode.getAttribute("nc-class");
+                if (!this[cAttr]) this[cAttr] = [];
+                this[cAttr].push(cNode);
             }
         }
     };
@@ -292,10 +292,10 @@ Nuclear.uuid = function () {
 Nuclear._nextID = 0;
 Nuclear.getId = function () {
     return Nuclear._nextID++;
-}
+};
 
 Nuclear._instanceId= 0;
 Nuclear.getInstanceId = function () {
     return Nuclear._instanceId++;
-}
+};
 Nuclear.instances = {};
