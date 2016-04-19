@@ -20,6 +20,7 @@ gulp.task('build', function () {
         'src/tpl.js',
         'src/observe.js',
         'src/class.js',
+        'src/scoper.js',
 
         'src/outro.js'
 

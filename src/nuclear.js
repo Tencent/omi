@@ -106,14 +106,14 @@ Nuclear._mixObj = function (obj) {
                 this.node = null;
                 this.HTML = "";
             } else {
-                var newNode = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
+                var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
                 item.parent.replaceChild(newNode, this.node);
                 this.node = newNode;
             }
         } else {
             //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
-                item.parent.insertAdjacentHTML("beforeEnd", Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
+                item.parent.insertAdjacentHTML("beforeEnd", this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
                 this.node = item.parent.lastChild;
             }
         }
@@ -183,12 +183,15 @@ Nuclear._mixObj = function (obj) {
         }
     };
 
+    obj._nuclearWrap = function (tpl) {
+        return '<div>' + tpl + '<style scoped>' + this.style() + '</style></div>'
+    };
 
     obj._nuclearLocalRefresh = function () {
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
         item.tpl = this._nuclearTplGenerator();
         if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)).querySelectorAll('*[nc-refresh]');
+            var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)).querySelectorAll('*[nc-refresh]'));
             window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
@@ -277,16 +280,6 @@ Nuclear.str2Dom = function (html) {
 
 Nuclear.isUndefined = function (o) {
     return typeof (o) === "undefined";
-};
-
-//因为js单线程的关系，所以就算同时执行两次Nuclear.uuid,得到的uuid也不可能相同
-Nuclear.uuid = function () {
-    var d = new Date().getTime();
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
 };
 
 Nuclear._nextID = 0;
