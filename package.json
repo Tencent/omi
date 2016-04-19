@@ -15,7 +15,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "gulp": "^3.8.1",
+    "gulp": "latest",
     "gulp-concat": "latest",
 	"gulp-uglify": "latest",
 	"gulp-rename": "latest", 
