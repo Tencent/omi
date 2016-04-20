@@ -184,7 +184,11 @@ Nuclear._mixObj = function (obj) {
     };
 
     obj._nuclearWrap = function (tpl) {
-        return '<div>' + tpl + '<style scoped>' +(this.style&&this.style()) + '</style></div>'
+        var scopedStr = "";
+        if (this.style) {
+            scopedStr = '<style scoped>' + this.style() + '</style>';
+        }
+        return '<div>' + tpl + scopedStr + '</div>'
     };
 
     obj._nuclearLocalRefresh = function () {
