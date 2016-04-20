@@ -1,12 +1,10 @@
-# Nuclear
+# Nuclear Preview
+
+some HTML + scoped CSS + JS  ===  Reusable Component
+
+![preview](http://alloyteam.github.io/Nuclear/img/guide.png)
 
 We have several examples on [the website](http://alloyteam.github.io/Nuclear/).
-
-a react-like library without jsx , virtual dom and requestAnimationFrame :)
-
-Nuclear used js , html+css and observejs instead of jsx , virtual dom and requestAnimationFrame.
-
-Nuclear Performance test ：[http://alloyteam.github.io/Nuclear/pt/](http://alloyteam.github.io/Nuclear/pt/). There is a lot of room for improvement and optimization. 
 
 
 
@@ -51,6 +49,7 @@ var Nuclear = require('nuclear');
 * [observe.js](https://github.com/kmdjs/observejs)
 * [react.js](http://facebook.github.io/react/) 
 * [mustache.js](https://github.com/janl/mustache.js) 
+* [scoper.js](https://github.com/thomaspark/scoper) 
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
