@@ -97,6 +97,6 @@
         document.addEventListener("DOMContentLoaded", process);
     }
 
-    Nuclear.cssScoper = process;
+    Nuclear.refreshStyle = process;
 }());
 

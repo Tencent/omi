@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo</title>
+</head>
+<body>
+<div id="container"></div>
+<script src="../dist/nuclear.js"></script>
+<script type="text/javascript">
+    var TodoApp = Nuclear.create({
+        add: function (evt) {
+            evt.preventDefault();
+            this.option.items.push(this.textBox.value);
+        },
+        render: function () {
+            return '<div>\
+                          <h3>TODO</h3>\
+                          <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
+                          <form onsubmit="add(event)" >\
+                           <input nc-id="textBox" type="text"  />\
+                           <button>Add #{{items.length}}</button>\
+                         </form>\
+                       </div>';
+        },
+        style: function () {
+            return 'h3 { color:'+this.option.h3Color+'; }\
+                        button{ color:green;}';
+        }
+    });
+    var ta=new TodoApp({ items: [] ,h3Color:"red"}, "#container");
+    ta.option.h3Color="yellow";
+</script>
+<a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+    <img src="../asset/github.png" alt="" />
+</a>
+</body>
+</html>

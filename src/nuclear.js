@@ -213,6 +213,8 @@ Nuclear._mixObj = function (obj) {
         } else {
             this._nuclearRender(item);
         }
+        //刷新局部样式
+        Nuclear.refreshStyle();
     }
 };
 

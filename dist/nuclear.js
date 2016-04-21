@@ -231,6 +231,8 @@ Nuclear._mixObj = function (obj) {
         } else {
             this._nuclearRender(item);
         }
+        //刷新局部样式
+        Nuclear.refreshStyle();
     }
 };
 
@@ -1212,7 +1214,7 @@ Nuclear.Class = Class;
         document.addEventListener("DOMContentLoaded", process);
     }
 
-    Nuclear.cssScoper = process;
+    Nuclear.refreshStyle = process;
 }());
 
 
