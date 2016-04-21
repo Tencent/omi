@@ -5,6 +5,7 @@
         var style = document.createElement("style");
         style.appendChild(document.createTextNode(""));
         document.head.appendChild(style);
+        //先隐藏所有dom元素
         style.sheet.insertRule("body { visibility: hidden; }", 0);
     }
 
