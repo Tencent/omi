@@ -1,0 +1,32 @@
+{
+  "name": "alloynuclear",
+  "version": "0.1.1",
+  "description": "made UI super easy.",
+  "main": "nuclear.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlloyTeam/Nuclear"
+  },
+  "keywords": [
+    "ui"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "latest",
+    "gulp-concat": "latest",
+    "gulp-file": "^0.2.0",
+    "gulp-header": "latest",
+    "gulp-rename": "latest",
+    "gulp-uglify": "latest",
+    "gulp-watch": "latest"
+  },
+  "author": "dntzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlloyTeam/Nuclear/issues/new"
+  },
+  "homepage": "http://alloyteam.github.io/Nuclear/"
+}
