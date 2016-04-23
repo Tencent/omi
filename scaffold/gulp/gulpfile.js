@@ -48,7 +48,7 @@ gulp.task('copyJS', function () {
 });
 
 gulp.task('fixUtil', function () {
-    return gulp.src('common/util.js').pipe(gulp.dest('dev/js'));
+    return gulp.src('fix/util.js').pipe(gulp.dest('dev/js'));
 });
 
 
