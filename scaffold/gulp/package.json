@@ -21,7 +21,8 @@
     "gulp-header": "latest",
     "gulp-rename": "latest",
     "gulp-uglify": "latest",
-    "gulp-watch": "latest"
+    "gulp-watch": "latest",
+    "run-sequence": "^1.1.5"
   },
   "author": "dntzhang",
   "license": "MIT",
