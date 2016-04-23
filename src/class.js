@@ -1,8 +1,8 @@
 ﻿//所有类的基类
-var Class = function () { };
+Nuclear.Class = function () { };
 
 //基类增加一个extend方法
-Class.extend = function (prop) {
+Nuclear.Class.extend = function (prop) {
     var prototype = Object.create(this.prototype);
     //把要扩展的属性复制到prototype变量上
     for (var name in prop) {
@@ -23,9 +23,7 @@ Class.extend = function (prop) {
 
     Class.prototype.constructor = Class;
     //任何Class.extend的返回对象都将具备extend方法
-    Class.extend = arguments.callee;
+    Class.extend = Nuclear.Class.extend;
 
     return Class;
 };
-
-Nuclear.Class = Class;

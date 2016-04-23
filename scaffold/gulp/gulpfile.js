@@ -2,16 +2,18 @@
     fs = require("fs"),
     file = require('gulp-file'),
     runSequence = require('run-sequence'),
-    replace = require('gulp-replace');
+    replace = require('gulp-replace'),
+    babel = require('gulp-babel'),
+    bc=require('babel-core');
 
 var componentFileArr=[];
 
 gulp.task('readFile',function(callback) {
     walk("src/component", function (path) {
         var ext = getFileExt(path);
-        if (ext === ".html" || ext === ".css") {
+      //  if (ext === ".html" || ext === ".css") {
             componentFileArr.push(path);
-        }
+       // }
     }, function () {
         var map=arrToObj(componentFileArr);
         console.log(map)
@@ -21,12 +23,12 @@ gulp.task('readFile',function(callback) {
             var contentArr=[];
             for(;i<len;i++){
                 var path=paths[i];
-
+                if(getFileExt(path)===".js")continue;
                 contentArr.push(fileContentToStr(fs.readFileSync(path, "utf8"),getFileExt(path)===".html",path));
 
             }
 
-            contentArr.push(fs.readFileSync("src/component/"+key+"/index.js", "utf8"));
+            contentArr.push(  bc.transform(fs.readFileSync("src/component/"+key+"/index.js", "utf8"), { presets: ['es2015'] }) .code);
             file(key+".js", contentArr.join("") , { src: true })
                 .pipe(gulp.dest('dev/component'))
 
@@ -44,7 +46,9 @@ gulp.task('copyHTML', function () {
 });
 
 gulp.task('copyJS', function () {
-    return gulp.src('src/js/*js').pipe(gulp.dest('dev/js'));
+    return gulp.src('src/js/*js').pipe(babel({
+        presets: ['es2015']
+    })).pipe(gulp.dest('dev/js'));
 });
 
 gulp.task('fixUtil', function () {

@@ -23,7 +23,8 @@
     "gulp-replace": "^0.5.4",
     "gulp-uglify": "latest",
     "gulp-watch": "latest",
-    "run-sequence": "^1.1.5"
+    "run-sequence": "^1.1.5",
+    "babel-core": "^6.0.2"
   },
   "author": "dntzhang",
   "license": "MIT",

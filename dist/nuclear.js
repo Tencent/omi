@@ -14,7 +14,7 @@
         });
     }
     root.Nuclear  = factory();
-}(this, function () {
+}(window, function () {
 
 var Nuclear={};
 
@@ -22,7 +22,7 @@ Nuclear.create = function (obj) {
     Nuclear._mixObj(obj);
     var currentEvn = this === Nuclear ? Nuclear.Class : this;
     var component = currentEvn.extend(obj);
-    component.create = arguments.callee;
+    component.create = Nuclear.create;
     return component;
 };
 
@@ -213,7 +213,7 @@ Nuclear._mixObj = function (obj) {
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
         item.tpl = this._nuclearTplGenerator();
         if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)).querySelectorAll('*[nc-refresh]'));
+            var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data))).querySelectorAll('*[nc-refresh]');
             window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
@@ -1085,10 +1085,10 @@ Nuclear.instances = {};
 })();
 
 //所有类的基类
-var Class = function () { };
+Nuclear.Class = function () { };
 
 //基类增加一个extend方法
-Class.extend = function (prop) {
+Nuclear.Class.extend = function (prop) {
     var prototype = Object.create(this.prototype);
     //把要扩展的属性复制到prototype变量上
     for (var name in prop) {
@@ -1109,12 +1109,10 @@ Class.extend = function (prop) {
 
     Class.prototype.constructor = Class;
     //任何Class.extend的返回对象都将具备extend方法
-    Class.extend = arguments.callee;
+    Class.extend = Nuclear.Class.extend;
 
     return Class;
 };
-
-Nuclear.Class = Class;
 //many thanks to https://github.com/thomaspark/scoper/
 (function () {
 

@@ -12,18 +12,19 @@ App.componentRes['component/todo/index.html'] =
     </form>\
 </div>';
 
+"use strict";
+
 App.Util.loadFile("component/todo/index.html", "component/todo/index.css", function (tpl, css) {
     App.TodoApp = Nuclear.create({
-        add: function (evt) {
+        add: function add(evt) {
             evt.preventDefault();
             this.option.items.push(this.textBox.value);
         },
-        render: function () {
+        render: function render() {
             return tpl;
         },
-        style: function () {
+        style: function style() {
             return css;
         }
     });
-
 });

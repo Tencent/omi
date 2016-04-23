@@ -14,4 +14,4 @@
         });
     }
     root.Nuclear  = factory();
-}(this, function () {
+}(window, function () {
