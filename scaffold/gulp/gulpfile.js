@@ -8,11 +8,27 @@ var componentFileArr=[];
 gulp.task('readFile',function(callback) {
     walk("src/component", function (path) {
         var ext = getFileExt(path);
-        console.log(ext)
         if (ext === ".html" || ext === ".css") {
             componentFileArr.push(path);
         }
     }, function () {
+        var map=arrToObj(componentFileArr);
+        console.log(map)
+        for(var key in map){
+            var paths=map[key];
+            var i= 0,len=paths.length;
+            var contentArr=[];
+            for(;i<len;i++){
+                var path=paths[i];
+
+                contentArr.push(fileContentToStr(fs.readFileSync(path, "utf8")));
+
+            }
+
+            file(key+".js", contentArr.join("") , { src: true })
+                .pipe(gulp.dest('dist/component'))
+
+        }
         callback();
     })
 })
@@ -20,8 +36,8 @@ gulp.task('readFile',function(callback) {
 gulp.task('doSomething', function () {
     var fileContent = fs.readFileSync("src/component/todo/index.html", "utf8");
     console.log(componentFileArr)
-    return file("a.js", fileContentToStr(fileContent) , { src: true })
-        .pipe(gulp.dest('dist/component'));
+    return file("ab.js", fileContentToStr(fileContent) , { src: true })
+        .pipe(gulp.dest('dist'));
     //return gulp.src(dirs.src + '/templates/*.html')
     //  .pipe(myFunction(fileContent))
     //  .pipe(gulp.dest('destination/path'));
@@ -35,6 +51,23 @@ gulp.task('default',  function (taskDone) {
         taskDone
     );
 });
+
+function arrToObj(arr){
+    var obj={};
+    console.log(arr.length)
+    for(var i= 0,len=arr.length;i<len;i++){
+        var item=arr[i];
+        var key=item.split("/")[2];
+       console.log(obj[key])
+        if(!obj[key]){
+            obj[key]=[];
+        }
+
+        obj[key].push(item);
+
+    }
+    return obj;
+}
 
 function getFileExt(filename) {
     var index1 = filename.lastIndexOf(".")
