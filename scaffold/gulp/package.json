@@ -20,6 +20,7 @@
     "gulp-file": "^0.2.0",
     "gulp-header": "latest",
     "gulp-rename": "latest",
+    "gulp-replace": "^0.5.4",
     "gulp-uglify": "latest",
     "gulp-watch": "latest",
     "run-sequence": "^1.1.5"

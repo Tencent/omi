@@ -1,7 +1,8 @@
 ﻿var gulp = require('gulp'),
     fs = require("fs"),
     file = require('gulp-file'),
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
+    replace = require('gulp-replace');
 
 var componentFileArr=[];
 
@@ -21,44 +22,52 @@ gulp.task('readFile',function(callback) {
             for(;i<len;i++){
                 var path=paths[i];
 
-                contentArr.push(fileContentToStr(fs.readFileSync(path, "utf8")));
+                contentArr.push(fileContentToStr(fs.readFileSync(path, "utf8"),getFileExt(path)===".html",path));
 
             }
 
+            contentArr.push(fs.readFileSync("src/component/"+key+"/index.js", "utf8"));
             file(key+".js", contentArr.join("") , { src: true })
-                .pipe(gulp.dest('dist/component'))
+                .pipe(gulp.dest('dev/component'))
 
         }
         callback();
     })
 })
 
-gulp.task('doSomething', function () {
-    var fileContent = fs.readFileSync("src/component/todo/index.html", "utf8");
-    console.log(componentFileArr)
-    return file("ab.js", fileContentToStr(fileContent) , { src: true })
-        .pipe(gulp.dest('dist'));
-    //return gulp.src(dirs.src + '/templates/*.html')
-    //  .pipe(myFunction(fileContent))
-    //  .pipe(gulp.dest('destination/path'));
+gulp.task('copyHTML', function () {
+    return gulp.src('src/*.html')
+        .pipe(replace(/<script src="component\/(.*?)\/index.js"><\/script>/gm ,function(a,b,c){
+           return '<script src="component\/'+b+'.js"><\/script>';
+        }))
+     .pipe(gulp.dest('dev'));
 });
+
+gulp.task('copyJS', function () {
+    return gulp.src('src/js/*js').pipe(gulp.dest('dev/js'));
+});
+
+gulp.task('fixUtil', function () {
+    return gulp.src('common/util.js').pipe(gulp.dest('dev/js'));
+});
+
 
 //http://www.tuicool.com/articles/rQvUbu2
 gulp.task('default',  function (taskDone) {
     runSequence(
         'readFile',
-        'doSomething',
+        'copyHTML',
+        'copyJS',
+        'fixUtil',
         taskDone
     );
 });
 
 function arrToObj(arr){
     var obj={};
-    console.log(arr.length)
     for(var i= 0,len=arr.length;i<len;i++){
         var item=arr[i];
         var key=item.split("/")[2];
-       console.log(obj[key])
         if(!obj[key]){
             obj[key]=[];
         }
@@ -75,11 +84,11 @@ function getFileExt(filename) {
     return filename.substring(index1, index2).toLowerCase();
 }
 
-function  fileContentToStr(r) {
-    var strVar = "tpl";
+function  fileContentToStr(r ,isTpl ,path) {
+    var strVar =isTpl? "tpl":"css";
     var g = "";
     var arr = r.replace(/\r/g,"").split("\n");
-    g += "var " + strVar + "=\n";
+    g += "App.componentRes['"+path.substring(4,path.length)+"'] =\n";
     var i = 0;
     for (; i < arr.length; i++) {
         var l = '';
@@ -89,7 +98,7 @@ function  fileContentToStr(r) {
         ;
 
         if (i === arr.length - 1) {
-            l += arr[i] + "';\n";
+            l += arr[i] + "';\n\n";
         } else {
             l += arr[i] + "\\\n";
         }

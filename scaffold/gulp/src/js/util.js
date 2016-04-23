@@ -8,18 +8,10 @@ App.Util.getFileExt = function(filename) {
 
 App.Util.loadFile = function (tpl, css, callback) {
     if (arguments.length === 2) {
-        if (App.Util.getFileExt(tpl) === "html") {
             var tplHttp = new XMLHttpRequest();
             tplHttp.open("GET", tpl, false);
             tplHttp.send();
             css(tplHttp.responseText);
-        } else {
-
-            var cssHttp = new XMLHttpRequest();
-            cssHttp.open("GET", tpl, false);
-            cssHttp.send();
-            css(cssHttp.responseText);
-        }
     } else {
         var tplHttp = new XMLHttpRequest();
         tplHttp.open("GET", tpl, false);
