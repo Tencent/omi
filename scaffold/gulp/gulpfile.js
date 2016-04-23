@@ -166,3 +166,5 @@ function walk (path, handleFile, callback) {
 
     compose(path);
 }
+
+//todo es6转换
