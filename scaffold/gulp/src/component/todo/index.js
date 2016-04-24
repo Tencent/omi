@@ -1,4 +1,4 @@
-App.Util.loadFile("component/todo/index.html", "component/todo/index.css", function (tpl, css) {
+﻿App.Util.loadFile("component/todo/index.html", "component/todo/index.css", function (tpl, css) {
     App.TodoApp = Nuclear.create({
         add: function (evt) {
             evt.preventDefault();

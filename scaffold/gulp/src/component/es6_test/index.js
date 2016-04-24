@@ -1,4 +1,4 @@
-App.ES6TodoApp = Nuclear.create({
+﻿App.ES6TodoApp = Nuclear.create({
     add: function (evt) {
         evt.preventDefault();
         this.option.items.push(this.textBox.value);
