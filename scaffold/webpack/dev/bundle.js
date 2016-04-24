@@ -44,15 +44,20 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var _index = __webpack_require__(1);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
+	var _index3 = __webpack_require__(3);
+	
+	var _index4 = _interopRequireDefault(_index3);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	new _index2.default({ name: "Nuclear" }, "#es6");
+	new _index2.default({ items: [] }, "#es6");
+	new _index4.default({ items: [] }, "#hello");
 
 /***/ },
 /* 1 */
@@ -124,7 +129,8 @@
 	    Nuclear._mixObj = function (obj) {
 	        obj.ctor = function (option, selector) {
 	            this._ncInstanceId = Nuclear.getInstanceId();
-	            Nuclear.instances[this._ncInstanceId] = this;
+	            //加window防止构建到webpack中，Nuclear是局部而非全局
+	            window.Nuclear.instances[this._ncInstanceId] = this;
 	            this._nuclearParentEmpty = !selector;
 	            this.HTML = "";
 	            this.option = option;
@@ -309,7 +315,7 @@
 	                rpLen = item.refreshPart.length;
 	            item.tpl = this._nuclearTplGenerator();
 	            if (rpLen > 0) {
-	                var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)).querySelectorAll('*[nc-refresh]'));
+	                var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data))).querySelectorAll('*[nc-refresh]');
 	                window["_nuclearIndex"] = null;
 	                for (var j = 0; j < rpLen; j++) {
 	                    var part = item.refreshPart[j];
@@ -1285,6 +1291,36 @@
 	
 	    return Nuclear;
 	});
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _nuclear = __webpack_require__(2);
+	
+	var _nuclear2 = _interopRequireDefault(_nuclear);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var HelloMessage = _nuclear2.default.create({
+	    say: function say() {
+	        alert("Hello Nuclear!");
+	    },
+	    style: function style() {
+	        return "div{\n            color:green;\n            cursor:pointer;\n        }";
+	    },
+	    render: function render() {
+	        return "<div onclick=\"say()\">Click Me ,Please!</div>";
+	    }
+	});
+	
+	exports.default = HelloMessage;
 
 /***/ }
 /******/ ]);

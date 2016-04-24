@@ -29,7 +29,8 @@ Nuclear.create = function (obj) {
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector) {
         this._ncInstanceId=Nuclear.getInstanceId();
-        Nuclear.instances[this._ncInstanceId] = this;
+		//加window防止构建到webpack中，Nuclear是局部而非全局
+        window.Nuclear.instances[this._ncInstanceId] = this;
         this._nuclearParentEmpty = !selector;
         this.HTML = "";
         this.option = option;
@@ -213,7 +214,7 @@ Nuclear._mixObj = function (obj) {
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
         item.tpl = this._nuclearTplGenerator();
         if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)).querySelectorAll('*[nc-refresh]'));
+            var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data))).querySelectorAll('*[nc-refresh]');
             window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];

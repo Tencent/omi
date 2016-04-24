@@ -14,11 +14,11 @@ var ES6TodoApp = Nuclear.create({
             <button>Add #{{items.length}}</button>
         </form>
         </div>`;
-},
-style: function () {
-    return `h3 { color:red; }
+    },
+    style: function () {
+        return `h3 { color:red; }
     button{ color:green;}`;
-}
+    }
 });
 
 export default  ES6TodoApp;

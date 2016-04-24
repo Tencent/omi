@@ -11,7 +11,8 @@ Nuclear.create = function (obj) {
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector) {
         this._ncInstanceId=Nuclear.getInstanceId();
-        Nuclear.instances[this._ncInstanceId] = this;
+		//加window防止构建到webpack中，Nuclear是局部而非全局
+        window.Nuclear.instances[this._ncInstanceId] = this;
         this._nuclearParentEmpty = !selector;
         this.HTML = "";
         this.option = option;
