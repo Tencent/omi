@@ -1,7 +1,3 @@
-App.componentRes['component/todo/index.css'] =
-'h3 { color:red; }\
-button{ color:green;}';
-
 App.componentRes['component/todo/index.html'] =
 '<div>\
     <h3>TODO</h3>\
@@ -11,6 +7,10 @@ App.componentRes['component/todo/index.html'] =
         <button>Add #{{items.length}}</button>\
     </form>\
 </div>';
+
+App.componentRes['component/todo/index.css'] =
+'h3 { color:red; }\
+button{ color:green;}';
 
 "use strict";
 
