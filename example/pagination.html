@@ -35,10 +35,11 @@
 <body>
     <div id="paginationContainer"></div>
     <script src="../dist/nuclear.js"></script>
+    <script src="http://alloyteam.github.io/Nuclear/js/util.js"></script>
     <script type="text/javascript">
         var Pagination = Nuclear.create({
             install: function () {
-                this.option = Nuclear.merge({
+                this.option = util.merge({
                     total: 0,
                     pageSize: 10,
                     numDisplay: 10,
@@ -58,24 +59,26 @@
                 if (this.option.currentPage > 0) {
                     this.prev.addEventListener("click", function (evt) {
                         this.option.currentPage--;
+                        evt.preventDefault();
                     }.bind(this), false);
                 }
                 if (this.option.currentPage < this.pageNum - 1) {
                     this.next.addEventListener("click", function (evt) {
                         this.option.currentPage++;
+                        evt.preventDefault();
                     }.bind(this), false);
                 }
 
                 this.links = this.node.querySelectorAll(".link");
                 var self = this;
-                Nuclear.addEvent(this.links, "click", function () {
-                    self.option.currentPage =parseInt( this.getAttribute("data-pageIndex"));
+                util.addEvent(this.links, "click", function (evt) {
+                    self.option.currentPage = parseInt(this.getAttribute("data-pageIndex"));
+                    evt.preventDefault();
                 });
             },
-            onOptionChange: function (prop,value,oldValue,path) {
+            onOptionChange: function (prop, value, oldValue, path) {
                 if (prop === "currentPage") {
                     this.option.callback(value);
-                    return true;
                 }
             },
             render: function () {
@@ -84,12 +87,12 @@
                 //上一页
                 if (opt.prevShow) {
                     tpl += this.getPrev();
-                }             
+                }
                 //起始点
                 if (interval[0] > 0 && opt.numEdge > 0) {
                     var end = Math.min(opt.numEdge, interval[0]);
                     for (var i = 0; i < end; i++) {
-                        tpl += this.getItem(i,i+1);
+                        tpl += this.getItem(i, i + 1);
                     }
                     if (opt.numEdge < interval[0] && opt.ellipseText) {
                         tpl += "<span>" + opt.ellipseText + "</span>";
@@ -100,11 +103,11 @@
                     tpl += this.getItem(i, i + 1);
                 }
                 // 结束点
-                if (interval[1] < this.pageNum  && opt.numEdge > 0) {
-                    if (this.pageNum  - opt.numEdge > interval[1] && opt.ellipseText) {
+                if (interval[1] < this.pageNum && opt.numEdge > 0) {
+                    if (this.pageNum - opt.numEdge > interval[1] && opt.ellipseText) {
                         tpl += "<span>" + opt.ellipseText + "</span>";
                     }
-                    var begin = Math.max(this.pageNum  - opt.numEdge, interval[1]);
+                    var begin = Math.max(this.pageNum - opt.numEdge, interval[1]);
                     for (var i = begin; i < this.pageNum ; i++) {
                         tpl += this.getItem(i, i + 1);
                     }
