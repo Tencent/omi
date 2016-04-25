@@ -33,6 +33,9 @@
     })
 
     var C=Nuclear.create({
+        style:function(){
+            return ".hasBorder{color:red;}"
+        },
         render:function(){
             return '<div class="hasBorder" style="width: 270px;margin: 10px auto;">{{titleC}}</div>'
         },
