@@ -18,8 +18,10 @@ Nuclear._mixObj = function (obj) {
         this.option = option;
         if (!this._nuclearParentEmpty) {
             this.parent = typeof selector === "string" ? document.querySelector(selector) : selector;
-            while (this.parent.firstChild) {
-                this.parent.removeChild(this.parent.firstChild);
+            if(document.body!==this.parent) {
+                while (this.parent.firstChild) {
+                    this.parent.removeChild(this.parent.firstChild);
+                }
             }
         } else {
             this.parent = document.createElement("div");
