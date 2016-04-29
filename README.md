@@ -1,6 +1,8 @@
-# Nuclear Preview
+![preview](http://alloyteam.github.io/Nuclear/img/nuclear.png)
 
-some HTML + scoped CSS + JS  ===  Reusable Component
+# Preview
+
+Some HTML + Scoped CSS + JS  ===  Reusable Component
 
 ![preview](http://alloyteam.github.io/Nuclear/img/guide.png)
 
