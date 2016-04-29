@@ -1212,6 +1212,7 @@ Nuclear.Class.extend = function (prop) {
 
 
     if ("scoped" in document.createElement("style")) {
+        Nuclear.refreshStyle= function(){};
         return;
     }
 
