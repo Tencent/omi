@@ -30,7 +30,7 @@ Nuclear._mixObj = function (obj,setting) {
     obj.ctor = function (option, selector) {
         this._ncInstanceId=Nuclear.getInstanceId();
         this._nuclearTwoWay = true;
-        if(setting.twoWay === false) {
+        if(setting&&setting.twoWay === false) {
             this._nuclearTwoWay = false;
         }
         //加window防止构建到webpack中，Nuclear是局部而非全局
