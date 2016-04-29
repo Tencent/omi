@@ -3,7 +3,7 @@
 <head>
     <title>Todo</title>
 </head>
-<body>
+<body style="background-color:#B6B6B6;">
     <div id="container"></div>
     <script src="../dist/nuclear.js"></script>
     <script type="text/javascript">
@@ -27,7 +27,11 @@
                         button{ color:green;}';
             }
         });
-        new TodoApp({ items: [] }, "#container");
+        var todoApp = new TodoApp({ items: [] }, '#container');
+
+        todoApp.option.items.push('Nuclear');
+        todoApp.option.items.push('Hello World!');
+        
     </script>
         <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
         <img src="../asset/github.png" alt="" />
