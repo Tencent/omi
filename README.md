@@ -8,7 +8,7 @@ Some HTML + Scoped CSS + JS  ===  Reusable Component
 
 ![preview](http://alloyteam.github.io/Nuclear/img/guide.png)
 
-We have several examples on [the website](http://alloyteam.github.io/Nuclear/).
+We have several examples on [the website](http://alloyteam.github.io/Nuclear/en.html).
 
 
 
