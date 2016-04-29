@@ -1,18 +1,19 @@
 ﻿var Nuclear={};
 
 Nuclear.create = function (obj, setting) {
-    Nuclear._mixObj(obj,setting);
+    obj._nuclearSetting = setting;
+    Nuclear._mixObj(obj);
     var currentEvn = this === Nuclear ? Nuclear.Class : this;
-    var component = currentEvn.extend(obj,setting);
+    var component = currentEvn.extend(obj);
     component.create = Nuclear.create;
     return component;
 };
 
-Nuclear._mixObj = function (obj,setting) {
+Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector) {
         this._ncInstanceId=Nuclear.getInstanceId();
         this._nuclearTwoWay = true;
-        if(setting&&setting.twoWay === false) {
+        if(this._nuclearSetting&&this._nuclearSetting.twoWay === false) {
             this._nuclearTwoWay = false;
         }
         //加window防止构建到webpack中，Nuclear是局部而非全局
