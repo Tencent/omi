@@ -1,17 +1,21 @@
 ﻿var Nuclear={};
 
-Nuclear.create = function (obj) {
-    Nuclear._mixObj(obj);
+Nuclear.create = function (obj, setting) {
+    Nuclear._mixObj(obj,setting);
     var currentEvn = this === Nuclear ? Nuclear.Class : this;
-    var component = currentEvn.extend(obj);
+    var component = currentEvn.extend(obj,setting);
     component.create = Nuclear.create;
     return component;
 };
 
-Nuclear._mixObj = function (obj) {
+Nuclear._mixObj = function (obj,setting) {
     obj.ctor = function (option, selector) {
         this._ncInstanceId=Nuclear.getInstanceId();
-		//加window防止构建到webpack中，Nuclear是局部而非全局
+        this._nuclearTwoWay = true;
+        if(setting.twoWay === false) {
+            this._nuclearTwoWay = false;
+        }
+        //加window防止构建到webpack中，Nuclear是局部而非全局
         window.Nuclear.instances[this._ncInstanceId] = this;
         this._nuclearParentEmpty = !selector;
         this.HTML = "";
@@ -42,7 +46,7 @@ Nuclear._mixObj = function (obj) {
         this._nuclearTimer = null;
         this._preNuclearTime = new Date();
 
-        if (this.option) {
+        if (this.option && this._nuclearTwoWay) {
             Nuclear.observe(this.option, function (prop, value, oldValue, path) {
                 if (!this.onOptionChange||(this.onOptionChange && this.onOptionChange(prop, value, oldValue, path)!==false)) {
                     clearTimeout(this._nuclearTimer);
