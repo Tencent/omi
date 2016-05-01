@@ -135,14 +135,14 @@ Nuclear._mixObj = function (obj) {
                 this.node = null;
                 this.HTML = "";
             } else {
-                var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
                 item.parent.replaceChild(newNode, this.node);
                 this.node = newNode;
             }
         } else {
             //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
-                item.parent.insertAdjacentHTML("beforeEnd", this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                item.parent.insertAdjacentHTML("beforeEnd", this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
                 this.node = item.parent.lastChild;
             }
         }
@@ -224,7 +224,7 @@ Nuclear._mixObj = function (obj) {
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
         item.tpl = this._nuclearTplGenerator();
         if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data))).querySelectorAll('*[nc-refresh]');
+            var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data))).querySelectorAll('*[nc-refresh]');
             window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
@@ -337,6 +337,7 @@ Nuclear.instances = {};
 ;(function defineMustache (global, factory) {
     Nuclear.Tpl = {};
     factory(Nuclear.Tpl); // script, wsh, asp
+    Nuclear.render=Nuclear.Tpl.render;
 }(this, function mustacheFactory (mustache) {
 
   var objectToString = Object.prototype.toString;

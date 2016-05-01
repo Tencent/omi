@@ -8,6 +8,7 @@
 ;(function defineMustache (global, factory) {
     Nuclear.Tpl = {};
     factory(Nuclear.Tpl); // script, wsh, asp
+    Nuclear.render=Nuclear.Tpl.render;
 }(this, function mustacheFactory (mustache) {
 
   var objectToString = Object.prototype.toString;
