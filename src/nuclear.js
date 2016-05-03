@@ -154,7 +154,11 @@ Nuclear._mixObj = function (obj) {
             for (; j < cLen; j++) {
                 var cNode = cNodes[j];
                 var cAttr = cNode.getAttribute("nc-class");
-                if (!this[cAttr]) this[cAttr] = [];
+                this[cAttr] = [];
+            }
+            for (j = 0; j < cLen; j++) {
+                var cNode = cNodes[j];
+                var cAttr = cNode.getAttribute("nc-class");
                 this[cAttr].push(cNode);
             }
         }
