@@ -8,15 +8,14 @@ Some HTML + Scoped CSS + JS  ===  Reusable Component
 
 ![preview](http://alloyteam.github.io/Nuclear/img/guide.png)
 
-We have several examples on [the website](http://alloyteam.github.io/Nuclear/en.html).
+Several examples on [the website](http://alloyteam.github.io/Nuclear/en.html).
 
+Performance-testing on [the website](http://alloyteam.github.io/Nuclear/pt/).
 
 
 # Install
 
-the file is  here: [nuclear.js](https://raw.githubusercontent.com/AlloyTeam/Nuclear/master/dist/nuclear.js) or [nuclear.min.js](https://raw.githubusercontent.com/AlloyTeam/Nuclear/master/dist/nuclear.min.js)
-
-You can also install it via npm:
+You can install it via npm:
 
 ```html
 npm install alloynuclear

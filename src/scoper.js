@@ -86,6 +86,7 @@
 
 
     if ("scoped" in document.createElement("style")) {
+        Nuclear.refreshStyle= function(){};
         return;
     }
 
