@@ -62,12 +62,6 @@ Nuclear._mixObj = function (obj) {
             data: this.option,
             parent: this.parent
         };
-        this.option._nuclearIndex = function () {
-            return ++window['_nuclearIndex'] || (window['_nuclearIndex'] = 0);
-        };
-        this.option._resetNuclearIndex=function() {
-            window['_nuclearIndex'] = -1;
-        };
         this._nuclearRender(this._nuclearRenderInfo);
         if (this.installed) this.installed();
     };
@@ -123,7 +117,6 @@ Nuclear._mixObj = function (obj) {
                 this.node = item.parent.lastChild;
             }
         }
-        window["_nuclearIndex"] = null;
         if (this.node) {
             this._nuclearId = Nuclear.getId();
             this.node.setAttribute("data-nuclearId", this._nuclearId);
@@ -202,7 +195,6 @@ Nuclear._mixObj = function (obj) {
         item.tpl = this._nuclearTplGenerator();
         if (rpLen > 0) {
             var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data))).querySelectorAll('*[nc-refresh]');
-            window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
                 //执行完replaceChild，原part的parentNode就为null,代表其已经被子节点替换掉了
@@ -235,11 +227,7 @@ Nuclear._fixEvent = function (tpl,instanceId) {
 };
 
 Nuclear._fixTplIndex = function (tpl) {
-    //"{{_nuclearIndex}}"
-    return tpl.replace(/{{#[\s\S]*?{{@index}}/g, function (str) {
-
-        return "{{_resetNuclearIndex}}" + str.replace("{{@index}}", "{{_nuclearIndex}}");
-    });
+    return tpl.replace(/{{@index}}/g, "{{_nuclearIndex}}");
 };
 
 Nuclear.str2Dom = function (html) {

@@ -80,12 +80,6 @@ Nuclear._mixObj = function (obj) {
             data: this.option,
             parent: this.parent
         };
-        this.option._nuclearIndex = function () {
-            return ++window['_nuclearIndex'] || (window['_nuclearIndex'] = 0);
-        };
-        this.option._resetNuclearIndex=function() {
-            window['_nuclearIndex'] = -1;
-        };
         this._nuclearRender(this._nuclearRenderInfo);
         if (this.installed) this.installed();
     };
@@ -141,7 +135,6 @@ Nuclear._mixObj = function (obj) {
                 this.node = item.parent.lastChild;
             }
         }
-        window["_nuclearIndex"] = null;
         if (this.node) {
             this._nuclearId = Nuclear.getId();
             this.node.setAttribute("data-nuclearId", this._nuclearId);
@@ -220,7 +213,6 @@ Nuclear._mixObj = function (obj) {
         item.tpl = this._nuclearTplGenerator();
         if (rpLen > 0) {
             var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.Tpl.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data))).querySelectorAll('*[nc-refresh]');
-            window["_nuclearIndex"] = null;
             for (var j = 0; j < rpLen; j++) {
                 var part = item.refreshPart[j];
                 //执行完replaceChild，原part的parentNode就为null,代表其已经被子节点替换掉了
@@ -253,11 +245,7 @@ Nuclear._fixEvent = function (tpl,instanceId) {
 };
 
 Nuclear._fixTplIndex = function (tpl) {
-    //"{{_nuclearIndex}}"
-    return tpl.replace(/{{#[\s\S]*?{{@index}}/g, function (str) {
-
-        return "{{_resetNuclearIndex}}" + str.replace("{{@index}}", "{{_nuclearIndex}}");
-    });
+    return tpl.replace(/{{@index}}/g, "{{_nuclearIndex}}");
 };
 
 Nuclear.str2Dom = function (html) {
@@ -977,11 +965,17 @@ Nuclear.instances = {};
             },
             "mock": function (target) {
                 var self = this;
+                target.forEach(function (item, index) {
+                    item._nuclearIndex = index;
+                });
                 observe.methods.forEach(function (item) {
                     target[item] = function () {
 						var old =  Array.prototype.slice.call(this,0);
                         var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
                         if (new RegExp("\\b" + item + "\\b").test(observe.triggerStr)) {
+                            this.forEach(function (item, index) {
+                                item._nuclearIndex = index;
+                            });
 							for (var cprop in this) {
 								if (this.hasOwnProperty(cprop)  && !observe.isFunction(this[cprop])) {
 									self.watch(this, cprop, this.$observeProps.$observerPath);
@@ -1037,8 +1031,8 @@ Nuclear.instances = {};
         }
         return new _observe(target, arr, callback)
     }
-    observe.methods = ["concat", "every", "filter", "forEach", "indexOf", "join", "lastIndexOf", "map", "pop", "push", "reduce", "reduceRight", "reverse", "shift", "slice", "some", "sort", "splice", "unshift", "toLocaleString","toString","size"]
-    observe.triggerStr = ["concat", "pop", "push", "reverse", "shift", "sort", "splice", "unshift","size"].join(",")
+    observe.methods = ["concat", "copyWithin", "entries", "every", "fill", "filter", "find", "findIndex", "forEach", "includes", "indexOf", "join", "keys", "lastIndexOf", "map", "pop", "push", "reduce", "reduceRight", "reverse", "shift", "slice", "some", "sort", "splice", "toLocaleString", "toString", "unshift", "values", "size"]
+    observe.triggerStr = ["concat", "copyWithin", "fill", "pop", "push", "reverse", "shift", "sort", "splice", "unshift", "size"].join(",")
     observe.isArray = function (obj) {
         return Object.prototype.toString.call(obj) === '[object Array]';
     }
