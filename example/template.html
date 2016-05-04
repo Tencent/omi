@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Nuclear</title>
+</head>
+<body>
+<template id="myTemplate">
+    <style scoped>
+        h3 { color:red; }
+        button{ color:green;}
+    </style>
+
+    <div>
+        <div>
+            <h3>TODO</h3>
+            <ul>{{#items}}<li>{{.}}</li>{{/items}}</ul>
+            <form onsubmit="add(event)">
+                <input nc-id="textBox" type="text">
+                <button>Add #{{items.length}}</button>
+            </form>
+        </div>
+    </div>
+</template>
+
+<div id="todoListContainer"></div>
+<script src="http://alloyteam.github.io/Nuclear/js/nuclear.min.js"></script>
+
+<script>
+    var todoTpl = document.querySelector("#myTemplate").innerHTML;
+
+    var TodoApp = Nuclear.create({
+        add: function (evt) {
+            evt.preventDefault();
+            this.option.items.push(this.textBox.value);
+        },
+        render: function () {
+            return todoTpl;
+        }
+    });
+
+    new TodoApp({ items: [] }, "#todoListContainer");
+</script>
+</body>
+</html>
