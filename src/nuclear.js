@@ -1,5 +1,7 @@
 ﻿var Nuclear={};
 
+Nuclear.diffDOM = new diffDOM();
+
 Nuclear.create = function (obj, setting) {
     obj._nuclearSetting = setting;
     Nuclear._mixObj(obj);
@@ -112,8 +114,9 @@ Nuclear._mixObj = function (obj) {
                 this.HTML = "";
             } else {
                 var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
-                item.parent.replaceChild(newNode, this.node);
-                this.node = newNode;
+                Nuclear.diffDOM.apply(this.node, Nuclear.diffDOM.diff(this.node,newNode));
+                //item.parent.replaceChild(newNode, this.node);
+                //this.node = newNode;
             }
         } else {
             //第一次渲染

@@ -16,6 +16,7 @@ gulp.task('build', function () {
 
         'src/intro.js',
 
+        'src/diffDOM.js',
         'src/nuclear.js',
         'src/tpl.js',
         'src/observe.js',
