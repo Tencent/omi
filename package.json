@@ -1,6 +1,6 @@
 {
   "name": "alloynuclear",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "made UI super easy.",
   "main": "nuclear.js",
   "scripts": {
