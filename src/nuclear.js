@@ -15,8 +15,14 @@ Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector) {
         this._ncInstanceId=Nuclear.getInstanceId();
         this._nuclearTwoWay = true;
-        if(this._nuclearSetting&&this._nuclearSetting.twoWay === false) {
-            this._nuclearTwoWay = false;
+        this._nuclearDiffDom=true;
+        if(this._nuclearSetting) {
+            if (this._nuclearSetting.twoWay === false) {
+                this._nuclearTwoWay = false;
+            }
+            if (this._nuclearSetting.diff === false) {
+                this._nuclearDiffDom = false;
+            }
         }
         //加window防止构建到webpack中，Nuclear是局部而非全局
         window.Nuclear.instances[this._ncInstanceId] = this;
@@ -114,9 +120,12 @@ Nuclear._mixObj = function (obj) {
                 this.HTML = "";
             } else {
                 var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
-                Nuclear.diffDOM.apply(this.node, Nuclear.diffDOM.diff(this.node,newNode));
-                //item.parent.replaceChild(newNode, this.node);
-                //this.node = newNode;
+               if(this._nuclearDiffDom) {
+                   Nuclear.diffDOM.apply(this.node, Nuclear.diffDOM.diff(this.node, newNode));
+               }else {
+                   item.parent.replaceChild(newNode, this.node);
+                   this.node = newNode;
+               }
             }
         } else {
             //第一次渲染
