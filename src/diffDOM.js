@@ -677,7 +677,9 @@
                 }
                 if (objNode.attributes) {
                     Object.keys(objNode.attributes).forEach(function(attribute) {
-                        node.setAttribute(attribute, objNode.attributes[attribute]);
+                        if(attribute!=='=""') {
+                            node.setAttribute(attribute, objNode.attributes[attribute]);
+                        }
                     });
                 }
                 if (objNode.childNodes) {
@@ -1158,6 +1160,7 @@
                     if (!node || !node.setAttribute) {
                         return false;
                     }
+                    if(diff.name==='"'||diff.name==='="'||diff.name==='=""')break;
                     node.setAttribute(diff.name, diff.value);
                     break;
                 case 'modifyAttribute':
