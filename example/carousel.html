@@ -50,38 +50,41 @@
     <script>
         var Carousel = Nuclear.create({
             installed: function () {
-                this.$links = $(this.nav).find('a');
-                var self = this;
-                this.$links.on("click", function () {
-                    self.option.index = this.getAttribute("data-index");
-                });
+                this.links = this.nav.querySelectorAll('a');
                 this.active();
             },
+            to: function (index) {
+                this.option.index = index;
+            },
             active: function () {
-                this.$links.removeClass("active").eq(this.option.index).addClass("active");
+                for(var i= 0,len=this.links.length;i<len;i++){
+                    $(this.links[i]).removeClass('active');
+                }
+                $(this.links[this.option.index]).addClass('active');
             },
             onOptionChange: function (prop, value, oldValue, path) {
                 if (prop === "index") {
-                    $(this.carouselScroll).css("left", value * -100 + "%");
+                    this.carouselScroll.style.left = value * -100 + "%";
                     this.active();
                     return false;
                 }
             },
+            style: function () {
+                return ".nuclear-carousel-box { transition: left 1s cubic-bezier(0.22, 0.61, 0.36, 1); }";
+            },
             render: function () {
                 var imgCount = this.option.imgs.length;
-                var nav = "";
                 return '<div class="nuclear-carousel">\
-                            <div nc-id="carouselScroll" class="nuclear-carousel-box" style="width: ' + imgCount * 100 + '%; left: ' + this.option.index * -100 + '%;">\
-                                {{#imgs}}<img style=" width:'+ 100 / imgCount + '%;" src="{{.}}" /> {{/imgs}}\
-                            </div>\
-                           <div nc-id="nav"  class="nuclear-nav"> \
-                                {{#imgs}}<a data-index="{{@index}}"></a> {{/imgs}}</div>\
-                        </div>';
-                ;
+                    <div style="width: ' + imgCount * 100 + '%; left: ' + this.option.index * -100 + '%;" nc-id="carouselScroll" class="nuclear-carousel-box">\
+                        {{#imgs}}<img style=" width:'+ 100 / imgCount + '%;" src="{{url}}" /> {{/imgs}}\
+                    </div>\
+                    <div nc-id="nav"  class="nuclear-nav"> \
+                        {{#imgs}}<a onclick="to({{@index}})"></a> {{/imgs}}</div>\
+                </div>';
             }
         });
         new Carousel({
-            imgs: ["../asset/room.jpg", "../asset/sleep.jpg", "../asset/watch.jpg"],
+            imgs: [{url:"../asset/room.jpg" }, {url:"../asset/sleep.jpg"}, {url:"../asset/watch.jpg"}],
             index: 0
         }, "#carouselContainer");
     </script>
