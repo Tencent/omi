@@ -36,7 +36,7 @@
         return css;
     }
 
-    var newstyle;
+    //var newstyle;
 
     function process() {
         var styles = document.body.querySelectorAll("style[scoped]");
@@ -47,16 +47,18 @@
         }
 
         var head = document.head || document.getElementsByTagName("head")[0];
-        newstyle && head.removeChild(newstyle);
-        newstyle = document.createElement("style");
-        var csses = "";
+        //newstyle && head.removeChild(newstyle);
+       
 
         for (var i = 0; i < styles.length; i++) {
+            var newstyle = document.createElement("style");
+            var csses = "";
             var style = styles[i];
+            var ncId = style.getAttribute('data-nuclearId');
             var css = style.innerHTML;
-
+            newstyle.setAttribute('data-scoper-nuclearId', ncId);
             if (css && (style.parentElement.nodeName !== "BODY")) {
-                var id = "nuclear-scoper-" + i;
+                var id = "nuclear-scoper-" + ncId;
                 var prefix = "#" + id;
 
                 //var wrapper = document.createElement("span");
@@ -72,15 +74,16 @@
 
                 csses = csses + scoper(css, prefix);
             }
+            if (newstyle.styleSheet) {
+                newstyle.styleSheet.cssText = csses;
+            } else {
+                newstyle.appendChild(document.createTextNode(csses));
+            }
+
+            head.appendChild(newstyle);
         }
 
-        if (newstyle.styleSheet) {
-            newstyle.styleSheet.cssText = csses;
-        } else {
-            newstyle.appendChild(document.createTextNode(csses));
-        }
-
-        head.appendChild(newstyle);
+       
         document.getElementsByTagName("body")[0].style.visibility = "visible";
     }
 
@@ -99,6 +102,11 @@
         document.addEventListener("DOMContentLoaded", process);
     }
 
-    Nuclear.refreshStyle = process;
+    Nuclear.refreshStyle = function (ncId) {
+        var style = document.querySelector('style[data-scoper-nuclearId="' + ncId + '"]');
+        style&&style.parentNode.removeChild(style);
+       // console.log(style)
+        process();
+    };
 }());
 

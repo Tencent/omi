@@ -1225,6 +1225,9 @@
                     route = diff.route.slice();
                     c = route.splice(route.length - 1, 1)[0];
                     node = this.getFromRoute(tree, route);
+                    //todo fix ie9 error
+
+                    //node.insertAdjacentHTML("afterBegin", this.objToNode(diff.element, node.namespaceURI === 'http://www.w3.org/2000/svg').outerHTML);
                     node.insertBefore(this.objToNode(diff.element, node.namespaceURI === 'http://www.w3.org/2000/svg'), node.childNodes[c]);
                     break;
                 case 'removeTextElement':

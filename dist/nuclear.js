@@ -1243,6 +1243,9 @@
                     route = diff.route.slice();
                     c = route.splice(route.length - 1, 1)[0];
                     node = this.getFromRoute(tree, route);
+                    //todo fix ie9 error
+
+                    //node.insertAdjacentHTML("afterBegin", this.objToNode(diff.element, node.namespaceURI === 'http://www.w3.org/2000/svg').outerHTML);
                     node.insertBefore(this.objToNode(diff.element, node.namespaceURI === 'http://www.w3.org/2000/svg'), node.childNodes[c]);
                     break;
                 case 'removeTextElement':
@@ -1394,7 +1397,22 @@ Nuclear._mixObj = function (obj) {
         window.Nuclear.instances[this._ncInstanceId] = this;
         this._nuclearParentEmpty = !selector;
         this.HTML = "";
-        this.option = option;
+        this._nuclearOption = option;
+        Object.defineProperty(this, 'option', {
+            get: function () {
+                return this._nuclearOption;
+            },
+            set: function (value) {
+                var old = this._nuclearOption;
+                if (old !== value) {
+                    this._nuclearOption = value;
+                    this.onOptionChange && this.onOptionChange('_nuclearOption', value, old, '');
+                    this._nuclearObserver();
+                    this._nuclearRenderInfo.data = this.option;
+                    this.refresh();
+                }
+            }
+        });
         if (!this._nuclearParentEmpty) {
             this.parent = typeof selector === "string" ? document.querySelector(selector) : selector;
             if(document.body!==this.parent) {
@@ -1420,10 +1438,21 @@ Nuclear._mixObj = function (obj) {
         }
         this._nuclearTimer = null;
         this._preNuclearTime = new Date();
+        this._nuclearObserver();
 
+        this._nuclearRenderInfo = {
+            tpl: this._nuclearTplGenerator(),
+            data: this.option,
+            parent: this.parent
+        };
+        this._nuclearRender(this._nuclearRenderInfo);
+        if (this.installed) this.installed();
+    };
+
+    obj._nuclearObserver = function () {
         if (this.option && this._nuclearTwoWay) {
             Nuclear.observe(this.option, function (prop, value, oldValue, path) {
-                if (!this.onOptionChange||(this.onOptionChange && this.onOptionChange(prop, value, oldValue, path)!==false)) {
+                if (!this.onOptionChange || (this.onOptionChange && this.onOptionChange(prop, value, oldValue, path) !== false)) {
                     clearTimeout(this._nuclearTimer);
                     if (new Date() - this._preNuclearTime > 40) {
                         this._nuclearLocalRefresh();
@@ -1436,14 +1465,7 @@ Nuclear._mixObj = function (obj) {
                 }
             }.bind(this));
         }
-        this._nuclearRenderInfo = {
-            tpl: this._nuclearTplGenerator(),
-            data: this.option,
-            parent: this.parent
-        };
-        this._nuclearRender(this._nuclearRenderInfo);
-        if (this.installed) this.installed();
-    };
+    }
 
     obj.refresh = function () {
         this._nuclearLocalRefresh();
@@ -1477,6 +1499,7 @@ Nuclear._mixObj = function (obj) {
 
 
     obj._nuclearRender = function (item) {
+        var isFirstRender = false;
         if (this.node) {
             //this.node.parentNode&&this.node.parentNode.removeChild(this.node);
             // item.parent.removeChild(this.node);      
@@ -1496,13 +1519,13 @@ Nuclear._mixObj = function (obj) {
         } else {
             //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
+                isFirstRender = true;
                 item.parent.insertAdjacentHTML("beforeEnd", this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
                 this.node = item.parent.lastChild;
             }
         }
         if (this.node) {
-            this._nuclearId = Nuclear.getId();
-            this.node.setAttribute("data-nuclearId", this._nuclearId);
+            this.node.setAttribute("data-nuclearId", this._ncInstanceId);
 
             this._mixNode();
 
@@ -1513,6 +1536,11 @@ Nuclear._mixObj = function (obj) {
 
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
+        }
+
+        //刷新局部样式
+        if (!isFirstRender) {
+            Nuclear.refreshStyle(this._ncInstanceId);
         }
     };
 
@@ -1554,7 +1582,7 @@ Nuclear._mixObj = function (obj) {
             var i = 0;
             for (; i < refLen; i++) {
                 var ref = one._nuclearRef[i];
-                ref.node = one.node.querySelector('*[data-nuclearId="' + ref._nuclearId + '"]');
+                ref.node = one.node.querySelector('*[data-nuclearId="' + ref._ncInstanceId + '"]');
                 if (ref.node) {
                     ref._mixNode();
                     ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
@@ -1572,7 +1600,7 @@ Nuclear._mixObj = function (obj) {
     obj._nuclearWrap = function (tpl) {
         var scopedStr = "";
         if (this.style) {
-            scopedStr = '<style scoped>' + this.style() + '</style>';
+            scopedStr = '<style scoped data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
         }
         return '<div>' + tpl + scopedStr + '</div>'
     };
@@ -1595,11 +1623,12 @@ Nuclear._mixObj = function (obj) {
 
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
+            //刷新局部样式
+            Nuclear.refreshStyle(this._ncInstanceId);
         } else {
             this._nuclearRender(item);
         }
-        //刷新局部样式
-        Nuclear.refreshStyle();
+        
     }
 };
 
@@ -1668,10 +1697,7 @@ Nuclear.isUndefined = function (o) {
     return typeof (o) === "undefined";
 };
 
-Nuclear._nextID = 0;
-Nuclear.getId = function () {
-    return Nuclear._nextID++;
-};
+
 
 Nuclear._instanceId= 0;
 Nuclear.getInstanceId = function () {
@@ -2520,7 +2546,7 @@ Nuclear.Class.extend = function (prop) {
         return css;
     }
 
-    var newstyle;
+    //var newstyle;
 
     function process() {
         var styles = document.body.querySelectorAll("style[scoped]");
@@ -2531,16 +2557,18 @@ Nuclear.Class.extend = function (prop) {
         }
 
         var head = document.head || document.getElementsByTagName("head")[0];
-        newstyle && head.removeChild(newstyle);
-        newstyle = document.createElement("style");
-        var csses = "";
+        //newstyle && head.removeChild(newstyle);
+       
 
         for (var i = 0; i < styles.length; i++) {
+            var newstyle = document.createElement("style");
+            var csses = "";
             var style = styles[i];
+            var ncId = style.getAttribute('data-nuclearId');
             var css = style.innerHTML;
-
+            newstyle.setAttribute('data-scoper-nuclearId', ncId);
             if (css && (style.parentElement.nodeName !== "BODY")) {
-                var id = "nuclear-scoper-" + i;
+                var id = "nuclear-scoper-" + ncId;
                 var prefix = "#" + id;
 
                 //var wrapper = document.createElement("span");
@@ -2556,15 +2584,16 @@ Nuclear.Class.extend = function (prop) {
 
                 csses = csses + scoper(css, prefix);
             }
+            if (newstyle.styleSheet) {
+                newstyle.styleSheet.cssText = csses;
+            } else {
+                newstyle.appendChild(document.createTextNode(csses));
+            }
+
+            head.appendChild(newstyle);
         }
 
-        if (newstyle.styleSheet) {
-            newstyle.styleSheet.cssText = csses;
-        } else {
-            newstyle.appendChild(document.createTextNode(csses));
-        }
-
-        head.appendChild(newstyle);
+       
         document.getElementsByTagName("body")[0].style.visibility = "visible";
     }
 
@@ -2583,7 +2612,12 @@ Nuclear.Class.extend = function (prop) {
         document.addEventListener("DOMContentLoaded", process);
     }
 
-    Nuclear.refreshStyle = process;
+    Nuclear.refreshStyle = function (ncId) {
+        var style = document.querySelector('style[data-scoper-nuclearId="' + ncId + '"]');
+        style&&style.parentNode.removeChild(style);
+       // console.log(style)
+        process();
+    };
 }());
 
 
