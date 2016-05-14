@@ -1414,14 +1414,14 @@ Nuclear._mixObj = function (obj) {
             }
         });
         if (!this._nuclearParentEmpty) {
-            this.parent = typeof selector === "string" ? document.querySelector(selector) : selector;
-            if(document.body!==this.parent) {
-                while (this.parent.firstChild) {
-                    this.parent.removeChild(this.parent.firstChild);
+            this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
+            if(document.body!==this.parentNode) {
+                while (this.parentNode.firstChild) {
+                    this.parentNode.removeChild(this.parentNode.firstChild);
                 }
             }
         } else {
-            this.parent = document.createElement("div");
+            this.parentNode = document.createElement("div");
         }
         if (this.install) {
             this.install();
@@ -1443,7 +1443,7 @@ Nuclear._mixObj = function (obj) {
         this._nuclearRenderInfo = {
             tpl: this._nuclearTplGenerator(),
             data: this.option,
-            parent: this.parent
+            parent: this.parentNode
         };
         this._nuclearRender(this._nuclearRenderInfo);
         if (this.installed) this.installed();
@@ -1470,6 +1470,19 @@ Nuclear._mixObj = function (obj) {
     obj.refresh = function () {
         this._nuclearLocalRefresh();
     };
+
+    obj.setNuclearContainer = function(selector){
+        this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
+        if(document.body!==this.parentNode) {
+            while (this.parentNode.firstChild) {
+                this.parentNode.removeChild(this.parentNode.firstChild);
+            }
+        }
+        this._nuclearRenderInfo.parent = this.parentNode;
+        this.parentNode.insertAdjacentHTML("beforeEnd", this.HTML);
+        this.node = this.parentNode.lastChild;
+        this._mixNode();
+    }
 
     //加if防止子类赋值undefined，丢失父类方法
     if (obj.render) {
