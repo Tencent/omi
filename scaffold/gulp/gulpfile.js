@@ -29,8 +29,8 @@ gulp.task('readFile',function(callback) {
             }
 
             contentArr.push(  bc.transform(fs.readFileSync("src/component/"+key+"/index.js", "utf8"), { presets: ['es2015'] }) .code);
-            file(key+".js", contentArr.join("") , { src: true })
-                .pipe(gulp.dest('dev/component'))
+            file("index.js", contentArr.join("") , { src: true })
+                .pipe(gulp.dest('dev/component/'+key))
 
         }
         callback();
@@ -38,11 +38,7 @@ gulp.task('readFile',function(callback) {
 })
 
 gulp.task('copyHTML', function () {
-    return gulp.src('src/*.html')
-        .pipe(replace(/<script src="component\/(.*?)\/index.js"><\/script>/gm ,function(a,b,c){
-           return '<script src="component\/'+b+'.js"><\/script>';
-        }))
-     .pipe(gulp.dest('dev'));
+    return gulp.src('src/*.html').pipe(gulp.dest('dev'));
 });
 
 gulp.task('copyJS', function () {
@@ -52,7 +48,7 @@ gulp.task('copyJS', function () {
 });
 
 gulp.task('fixUtil', function () {
-    return gulp.src('fix/util.js').pipe(gulp.dest('dev/js'));
+    return gulp.src('fix/app.js').pipe(gulp.dest('dev/js'));
 });
 
 

@@ -1,15 +1,12 @@
-﻿App.Util.loadFile("component/todo/index.html", "component/todo/index.css", function (tpl, css) {
-    App.TodoApp = Nuclear.create({
+﻿App.TodoApp = Nuclear.create({
         add: function (evt) {
             evt.preventDefault();
             this.option.items.push(this.textBox.value);
         },
         render: function () {
-            return tpl;
+            return App.loadFile('component/todo/index.html');
         },
         style: function () {
-            return css;
+            return App.loadFile('component/todo/index.css');
         }
-    });
-
 });

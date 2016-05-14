@@ -1,5 +1,7 @@
 ﻿var App = {};
 
+App.componentRes={};
+
 App.getFileExt = function(filename) {
     var index1 = filename.lastIndexOf(".")
     var index2 = filename.length;
@@ -7,9 +9,6 @@ App.getFileExt = function(filename) {
 }
 
 App.loadFile = function (path) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", path, false);
-    xhr.send();
-    return xhr.responseText;
+    return App.componentRes[path];
 
 }
