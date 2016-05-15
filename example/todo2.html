@@ -14,17 +14,15 @@
         });
 
         var TodoApp = TodoList.create({
-            onRefresh: function () { 
-                this.form.addEventListener("submit", function (evt) {
-                    evt.preventDefault();                
-                    this.option.items.push(this.textBox.value);
-                }.bind(this), false);
+            add: function (evt) {
+                evt.preventDefault();
+                this.option.items.push(this.textBox.value);
             },
             render: function () {
-               return '<div>\
+                return '<div>\
                          <h3>TODO</h3>'
-                         +this._super.render()+
-                         '<form nc-id="form" >\
+                        + this._super.render() +
+                        '<form  onsubmit="add(event)" >\
                            <input nc-id="textBox" type="text"  />\
                            <button>Add #{{items.length}}</button>\
                          </form>\
