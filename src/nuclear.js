@@ -142,7 +142,10 @@ Nuclear._mixObj = function (obj) {
     };
 
     obj._nuclearSetStyleData=function(){
-        this.node&&this.node.querySelector('style').setAttribute('data-nuclearId',this._ncInstanceId);
+        if(this.node&&this.node.querySelector){
+            var style=this.node.querySelector('style');
+            style&&style.setAttribute('data-nuclearId',this._ncInstanceId);
+        }
     }
 
     obj._nuclearRender = function (item) {
