@@ -1510,6 +1510,9 @@ Nuclear._mixObj = function (obj) {
         }
     };
 
+    obj._nuclearSetStyleData=function(){
+        this.node&&this.node.querySelector('style').setAttribute('data-nuclearId',this._ncInstanceId);
+    }
 
     obj._nuclearRender = function (item) {
         var isFirstRender = false;
@@ -1550,7 +1553,7 @@ Nuclear._mixObj = function (obj) {
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
         }
-
+        this._nuclearSetStyleData();
         //刷新局部样式
         if (!isFirstRender) {
             Nuclear.refreshStyle(this._ncInstanceId);
