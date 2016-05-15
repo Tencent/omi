@@ -17,17 +17,15 @@
             install: function () {
                 this.todoList = new TodoList( this.option)
             },
-            onRefresh: function () {    
-                this.form.addEventListener("submit", function (evt) {
+            add: function (evt) {
                     evt.preventDefault();                
                     this.option.items.push(this.textBox.value);
-                }.bind(this), false);
             },
             render: function () {
                return '<div>\
                          <h3>TODO</h3>'
                          + this.todoList.render()+
-                         '<form nc-id="form" >\
+                         '<form  onsubmit="add(event)"  >\
                            <input nc-id="textBox" type="text"  />\
                            <button>Add #{{items.length}}</button>\
                          </form>\
