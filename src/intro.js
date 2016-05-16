@@ -1,9 +1,4 @@
-﻿/* Nuclear
- * By AlloyTeam http://www.alloyteam.com/
- * Github: https://github.com/AlloyTeam/Nuclear
- * MIT Licensed.
- */
-;(function (root, factory) {
+﻿;(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define([], factory);
     } else if (typeof exports === 'object') {

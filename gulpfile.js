@@ -5,7 +5,7 @@ var rename = require('gulp-rename');
 var header = require('gulp-header');
 var watch = require('gulp-watch');
 
-var headerComment = '/* Nuclear\n' +
+var headerComment = '/* Nuclear  v0.2.6\n' +
                      ' * By AlloyTeam http://www.alloyteam.com/\n'+
                      ' * Github: https://github.com/AlloyTeam/Nuclear\n' +
                      ' * MIT Licensed.\n' +
@@ -27,6 +27,7 @@ gulp.task('build', function () {
 
     ])
         .pipe(concat('nuclear.js'))
+        .pipe(header(headerComment))
         .pipe(gulp.dest('dist'))
         .pipe(uglify())
         .pipe(rename('nuclear.min.js'))

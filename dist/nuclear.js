@@ -1,4 +1,4 @@
-/* Nuclear
+/* Nuclear  v0.2.6
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -2641,6 +2641,5 @@ Nuclear.Class.extend = function (prop) {
 
 
 
-
-return Nuclear;
+    return Nuclear;
 }));
