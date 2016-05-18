@@ -2400,6 +2400,9 @@ Nuclear.instances = {};
                         }
                         return result;
                     };
+                    target['real'+item.substring(0,1).toUpperCase()+item.substring(1)] = function () {
+                        return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+                    };
                 });
             },
             "watch": function (target, prop, path) {             
@@ -2461,23 +2464,6 @@ Nuclear.instances = {};
     }
     observe.isFunction = function (obj) {
         return Object.prototype.toString.call(obj) == '[object Function]';
-    }
-    observe.twoWay = function (objA, aProp, objB, bProp) {
-        if (typeof objA[aProp] === "object" && typeof objB[bProp] === "object") {
-            observe(objA, aProp, function (name, value) {
-                objB[bProp] = this[aProp];
-            })
-            observe(objB, bProp, function (name, value) {
-                objA[aProp] = this[bProp];
-            })
-        } else {
-            observe(objA, aProp, function (name, value) {
-                objB[bProp] = value;
-            })
-            observe(objB, bProp, function (name, value) {
-                objA[aProp] = value;
-            })
-        }
     }
 	observe._getRootName=function(prop,path){
 		if(path==="#"){
