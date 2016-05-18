@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        .nuclear-carousel {
+            max-width: 280px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .nuclear-nav {
+            position: absolute;
+            bottom: 6px;
+            right: 10px;
+        }
+
+        .nuclear-nav a {
+            display: inline-block;
+            background-color: white;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .nuclear-nav a {
+            display: inline-block;
+            background-color: white;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .nuclear-nav a.active {
+            background-color: yellow;
+        }
+
+        .nuclear-carousel-box {
+            position: relative;
+            transition: left 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+            font-size: 0;
+        }
+    </style>
+</head>
+<body>
+点击每项看console.log输出
+<div id="container"></div>
+<script src="../dist/nuclear.js"></script>
+<script>
+    var Test = Nuclear.create({
+        test:function(item){
+            console.log(item)
+        },
+        render: function () {
+            return '{{#imgs}}<div  onclick="test({{@item}})" >{{@index}}</div> {{/imgs}}';
+        },
+        style:function(){
+            return 'div{ cursor:pointer;line-height: 100px;text-align: center;font-size: 50px; width: 100px;height: 100px;border:1px solid red;}';
+        }
+    });
+
+    new Test({
+        imgs: [{url:"../asset/room.jpg",name:'dntzhang' }, {url:"../asset/sleep.jpg",name:'zhangdnt'}, {url:"../asset/watch.jpg",name:'zhanglei'}],
+    }, "#container");
+</script>
+</body>
+</html>
