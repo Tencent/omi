@@ -13,7 +13,7 @@
             module.exports=factory();
         });
     }
-    root.Nuclear  = factory();
+    root.Nuclear&&root.Nuclear.instances||(root.Nuclear=factory());
 }(window, function () {
 
 (function() {
