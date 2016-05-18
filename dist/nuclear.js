@@ -1,4 +1,4 @@
-/* Nuclear  v0.2.6
+/* Nuclear  v0.2.8
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
