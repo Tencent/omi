@@ -7,17 +7,17 @@ var ES6TodoApp = Nuclear.create({
     },
     render: function () {
         return `<div>
-        <h3>ES6 Todo</h3>
-        <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>
-        <form onsubmit="add(event)" >
-            <input nc-id="textBox" type="text"  />
-            <button>Add #{{items.length}}</button>
-        </form>
-        </div>`;
+                    <h3>ES6 Todo</h3>
+                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>
+                    <form onsubmit="add(event)" >
+                        <input nc-id="textBox" type="text"  />
+                        <button>Add #{{items.length}}</button>
+                    </form>
+                </div>`;
     },
     style: function () {
         return `h3 { color:red; }
-    button{ color:green;}`;
+               button{ color:green;}`;
     }
 });
 
