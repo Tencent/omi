@@ -2,7 +2,7 @@
   "name": "alloynuclear",
   "version": "0.2.9",
   "description": "made UI super easy.",
-  "main": "nuclear.js",
+  "main": "dist/nuclear.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
