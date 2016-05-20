@@ -1,8 +1,4 @@
-﻿var Nuclear={};
-
-Nuclear.diffDOM = new diffDOM();
-
-Nuclear.create = function (obj, setting) {
+﻿Nuclear.create = function (obj, setting) {
     obj._nuclearSetting = setting;
     Nuclear._mixObj(obj);
     var currentEvn = this === Nuclear ? Nuclear.Class : this;

@@ -1,4 +1,4 @@
-/* Nuclear  v0.2.9
+/* Nuclear  v0.2.10
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -15,6 +15,8 @@
     }
     root.Nuclear&&root.Nuclear.instances||(root.Nuclear=factory());
 }(window, function () {
+
+    var Nuclear={};
 
 (function() {
     "use strict";
@@ -1355,21 +1357,9 @@
         }
     };
 
-    if (typeof exports !== 'undefined') {
-        if (typeof module !== 'undefined' && module.exports) {
-            exports = module.exports = diffDOM;
-        }
-        exports.diffDOM = diffDOM;
-    } else {
-        // `window` in the browser, or `exports` on the server
-        window.diffDOM = diffDOM;
-    }
+    Nuclear.diffDOM = new diffDOM();
 
 }.call(this));
-
-var Nuclear={};
-
-Nuclear.diffDOM = new diffDOM();
 
 Nuclear.create = function (obj, setting) {
     obj._nuclearSetting = setting;

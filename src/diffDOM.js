@@ -1337,14 +1337,6 @@
         }
     };
 
-    if (typeof exports !== 'undefined') {
-        if (typeof module !== 'undefined' && module.exports) {
-            exports = module.exports = diffDOM;
-        }
-        exports.diffDOM = diffDOM;
-    } else {
-        // `window` in the browser, or `exports` on the server
-        window.diffDOM = diffDOM;
-    }
+    Nuclear.diffDOM = new diffDOM();
 
 }.call(this));

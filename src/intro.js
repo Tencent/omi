@@ -10,3 +10,5 @@
     }
     root.Nuclear&&root.Nuclear.instances||(root.Nuclear=factory());
 }(window, function () {
+
+    var Nuclear={};
