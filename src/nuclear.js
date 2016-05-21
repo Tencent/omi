@@ -75,7 +75,8 @@ Nuclear._mixObj = function (obj) {
         }
         this._nuclearTimer = null;
         this._preNuclearTime = new Date();
-        this._nuclearObserver();
+        //server不用双向绑定
+        if(!this._nuclearServerRender)this._nuclearObserver();
 
         this._nuclearRenderInfo = {
             tpl: this._nuclearTplGenerator(),
