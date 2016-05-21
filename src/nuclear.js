@@ -1,5 +1,5 @@
 ﻿Nuclear.create = function (obj, setting) {
-    obj._nuclearSetting = setting;
+    obj._nuclearSetting = setting||{};
     Nuclear._mixObj(obj);
     var currentEvn = this === Nuclear ? Nuclear.Class : this;
     var component = currentEvn.extend(obj);
@@ -9,17 +9,23 @@
 
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector) {
-        this._ncInstanceId=Nuclear.getInstanceId();
+
         this._nuclearTwoWay = true;
-        this._nuclearDiffDom=true;
-        if(this._nuclearSetting) {
-            if (this._nuclearSetting.twoWay === false) {
-                this._nuclearTwoWay = false;
-            }
-            if (this._nuclearSetting.diff === false) {
-                this._nuclearDiffDom = false;
-            }
+        this._nuclearDiffDom = true;
+        this._nuclearServerRender = this._nuclearSetting.server;
+        if (this._nuclearSetting.twoWay === false) {
+            this._nuclearTwoWay = false;
         }
+        if (this._nuclearSetting.diff === false) {
+            this._nuclearDiffDom = false;
+        }
+
+        if(this._nuclearServerRender){
+            this._ncInstanceId=Nuclear.getServerInstanceId();
+        }else{
+            this._ncInstanceId=Nuclear.getInstanceId();
+        }
+
         //加window防止构建到webpack中，Nuclear是局部而非全局
         window.Nuclear.instances[this._ncInstanceId] = this;
         this._nuclearParentEmpty = !selector;
@@ -263,7 +269,7 @@ Nuclear._mixObj = function (obj) {
         if (this.style) {
             scopedStr = '<style scoped data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
         }
-        return '<div>'+ scopedStr + tpl  + '</div>'
+        return '<div '+(this._nuclearServerRender?'data-server="server"':'')+'>'+ scopedStr + tpl  + '</div>'
     };
 
     obj._nuclearLocalRefresh = function () {
@@ -358,10 +364,21 @@ Nuclear.isUndefined = function (o) {
     return typeof (o) === "undefined";
 };
 
-
+Nuclear._serverInstanceId=1000000;
+Nuclear.getServerInstanceId = function () {
+    if(Nuclear._serverInstanceId>10000000&&!Nuclear.instances[1000000])Nuclear._serverInstanceId=1000000;
+    return Nuclear._serverInstanceId++;
+};
 
 Nuclear._instanceId= 0;
 Nuclear.getInstanceId = function () {
+    if(Nuclear._instanceId>Nuclear._serverInstanceId){
+        throw  'please set _serverInstanceId value to a larger value';
+    }
     return Nuclear._instanceId++;
 };
+
 Nuclear.instances = {};
+Nuclear.destroy=function(instance){
+    Nuclear.instances[instance._ncInstanceId] =null;
+}
