@@ -22,33 +22,6 @@ You can install it via npm:
 npm install alloynuclear
 ```
 
-Nuclear can be used in the CommonJS/AMD module definition environment, but also directly through the script tag reference in your page ,such as:
-
-```html
-<script src="nuclear.js"></script>
-```
-
-you can get the Nuclear module by synchronizing require in the AMD module definition environment:
-
-```javascript
-define(function (require) {
-    var Nuclear = require('nuclear');
-});
-```
-
-or asynchronous require：
-
-```javascript
-require([ 'nuclear' ], function (Nuclear) {
-});
-```
-
-or  require in the CommonJS module definition environment:
-
-```javascript
-var Nuclear = require('nuclear');
-```
-
 # Many thanks to
 * [observe.js](https://github.com/kmdjs/observejs)
 * [diffDOM.js](https://github.com/fiduswriter/diffDOM) 
