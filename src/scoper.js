@@ -59,20 +59,20 @@
             newstyle.setAttribute('data-scoper-nuclearId', ncId);
             if (css && (style.parentElement.nodeName !== "BODY")) {
                 var id = "nuclear-scoper-" + ncId;
-                var prefix = "#" + id;
+                //var prefix = "#" + id;
 
                 //var wrapper = document.createElement("span");
                 //wrapper.id = id;
 
                 var parent = style.parentNode;
-                var grandparent = parent.parentNode;
+                //var grandparent = parent.parentNode;
 
                 parent.id = id;
                 //grandparent.replaceChild(wrapper, parent);
                 //wrapper.appendChild(parent);
                 style.parentNode.removeChild(style);
 
-                csses = csses + scoper(css, prefix);
+                csses = csses + css;
             }
             if (newstyle.styleSheet) {
                 newstyle.styleSheet.cssText = csses;
@@ -87,10 +87,9 @@
         document.getElementsByTagName("body")[0].style.visibility = "visible";
     }
 
-
-
+    Nuclear.scoper = scoper;
+    Nuclear.refreshStyle= function(){};
     if ("scoped" in document.createElement("style")) {
-        Nuclear.refreshStyle= function(){};
         return;
     }
 

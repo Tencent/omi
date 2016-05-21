@@ -1520,8 +1520,19 @@ Nuclear._mixObj = function (obj) {
 
     obj._nuclearSetStyleData=function(){
         if(this.node&&this.node.querySelector){
-            var style=this.node.querySelector('style');
-            style&&style.setAttribute('data-nuclearId',this._ncInstanceId);
+            var styles=this.node.querySelectorAll('style');
+            var i=0,len=styles.length;
+            for(;i<len;i++){
+                var style=styles[i];
+                style.setAttribute('data-nuclearId',this._ncInstanceId);
+                var cssText=Nuclear.scoper(style.innerHTML,"#nuclear-scoper-" + this._ncInstanceId);
+                style.innerHTML='';
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = cssText;
+                } else {
+                    style.appendChild(document.createTextNode(cssText));
+                }
+            }
         }
     }
 
@@ -1629,7 +1640,7 @@ Nuclear._mixObj = function (obj) {
         if (this.style) {
             scopedStr = '<style scoped data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
         }
-        return '<div>' + tpl + scopedStr + '</div>'
+        return '<div>'+ scopedStr + tpl  + '</div>'
     };
 
     obj._nuclearLocalRefresh = function () {
@@ -2582,20 +2593,20 @@ Nuclear.Class.extend = function (prop) {
             newstyle.setAttribute('data-scoper-nuclearId', ncId);
             if (css && (style.parentElement.nodeName !== "BODY")) {
                 var id = "nuclear-scoper-" + ncId;
-                var prefix = "#" + id;
+                //var prefix = "#" + id;
 
                 //var wrapper = document.createElement("span");
                 //wrapper.id = id;
 
                 var parent = style.parentNode;
-                var grandparent = parent.parentNode;
+                //var grandparent = parent.parentNode;
 
                 parent.id = id;
                 //grandparent.replaceChild(wrapper, parent);
                 //wrapper.appendChild(parent);
                 style.parentNode.removeChild(style);
 
-                csses = csses + scoper(css, prefix);
+                csses = csses + css;
             }
             if (newstyle.styleSheet) {
                 newstyle.styleSheet.cssText = csses;
@@ -2610,10 +2621,9 @@ Nuclear.Class.extend = function (prop) {
         document.getElementsByTagName("body")[0].style.visibility = "visible";
     }
 
-
-
+    Nuclear.scoper = scoper;
+    Nuclear.refreshStyle= function(){};
     if ("scoped" in document.createElement("style")) {
-        Nuclear.refreshStyle= function(){};
         return;
     }
 
