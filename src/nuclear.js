@@ -13,7 +13,8 @@ Nuclear._mixObj = function (obj) {
         this._nuclearTwoWay = true;
         this._nuclearDiffDom = true;
         this._nuclearServerRender = this._nuclearSetting.server;
-        if (this._nuclearSetting.twoWay === false) {
+        //close two way binding by default in node evn
+        if (this._nuclearSetting.twoWay === false||this._nuclearServerRender) {
             this._nuclearTwoWay = false;
         }
         if (this._nuclearSetting.diff === false) {
@@ -75,8 +76,7 @@ Nuclear._mixObj = function (obj) {
         }
         this._nuclearTimer = null;
         this._preNuclearTime = new Date();
-        //server不用双向绑定
-        if(!this._nuclearServerRender)this._nuclearObserver();
+        this._nuclearObserver();
 
         this._nuclearRenderInfo = {
             tpl: this._nuclearTplGenerator(),
