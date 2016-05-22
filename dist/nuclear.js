@@ -1,4 +1,4 @@
-/* Nuclear  v0.2.11
+/* Nuclear  v0.2.12
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -1397,18 +1397,25 @@ Nuclear._mixObj = function (obj) {
         if (this._nuclearSetting.diff === false) {
             this._nuclearDiffDom = false;
         }
+        this._nuclearReRender= (typeof option === 'string');
 
-        if(this._nuclearServerRender){
-            this._ncInstanceId=Nuclear.getServerInstanceId();
-        }else{
-            this._ncInstanceId=Nuclear.getInstanceId();
+        if(this._nuclearReRender) {
+            this.parentNode = document.querySelector(option).firstChild;
+            this._ncInstanceId = this.parentNode.getAttribute('data-nuclearId');
+            this._nuclearOption = JSON.parse(this.parentNode.querySelector("input[name=__nuclear_option_"+this._ncInstanceId+"]").value);
+        }else if(this._nuclearServerRender) {
+            this._ncInstanceId = Nuclear.getServerInstanceId();
+            this._nuclearOption = option;
+        }else {
+            this._ncInstanceId = Nuclear.getInstanceId();
+            this._nuclearOption = option;
         }
 
         //加window防止构建到webpack中，Nuclear是局部而非全局
         window.Nuclear.instances[this._ncInstanceId] = this;
         this._nuclearParentEmpty = !selector;
         this.HTML = "";
-        this._nuclearOption = option;
+
         Object.defineProperty(this, 'option', {
             get: function () {
                 return this._nuclearOption;
@@ -1428,15 +1435,17 @@ Nuclear._mixObj = function (obj) {
 
             return JSON.stringify(this);
         }
-        if (!this._nuclearParentEmpty) {
-            this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
-            //if(document.body!==this.parentNode) {
-            //    while (this.parentNode.firstChild) {
-            //        this.parentNode.removeChild(this.parentNode.firstChild);
-            //    }
-            //}
-        } else {
-            this.parentNode = document.createElement("div");
+        if(!this._nuclearReRender) {
+            if (!this._nuclearParentEmpty) {
+                this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
+                //if(document.body!==this.parentNode) {
+                //    while (this.parentNode.firstChild) {
+                //        this.parentNode.removeChild(this.parentNode.firstChild);
+                //    }
+                //}
+            } else {
+                this.parentNode = document.createElement("div");
+            }
         }
         if (this.install) {
             this.install();
