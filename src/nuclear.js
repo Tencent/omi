@@ -266,12 +266,19 @@ Nuclear._mixObj = function (obj) {
     };
 
     obj._nuclearWrap = function (tpl) {
-        var scopedStr = "";
+        var scopedStr = "",optionStr="";
         if (this.style) {
             scopedStr = '<style scoped data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
         }
-        return '<div '+(this._nuclearServerRender?'data-server="server"':'')+'>'+ scopedStr + tpl  + '</div>'
+        if(this._nuclearServerRender){
+            optionStr=this._nuclearViewOption(this._ncInstanceId,JSON.stringify(this.option));
+        }
+        return '<div '+(this._nuclearServerRender?'data-server="server"':'')+'>'+ scopedStr + tpl  +optionStr+ '</div>'
     };
+
+    obj._nuclearViewOption = function(id,optionStr){
+        return '<input type="hidden" name="__nuclear_option_'+id+'"  value=\''+optionStr+'\'>'
+    }
 
     obj._nuclearLocalRefresh = function () {
         var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
