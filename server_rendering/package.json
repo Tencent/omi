@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "dependencies": {
+    "alloynuclear": "^0.2.12",
+    "ejs": "latest",
+    "koa": "latest",
+    "koa-route": "latest",
+    "jsdom":"latest",
+    "koa-static": "latest"
+  }
+}
