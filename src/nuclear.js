@@ -216,9 +216,7 @@ Nuclear._mixObj = function (obj) {
         }
         this._nuclearSetStyleData();
         //刷新局部样式
-        if (!isFirstRender) {
-            Nuclear.refreshStyle(this._ncInstanceId);
-        }
+        Nuclear.refreshStyle(this._ncInstanceId);
     };
 
     obj._mixNode = function () {
