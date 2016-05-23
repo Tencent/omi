@@ -151,20 +151,18 @@ Nuclear._mixObj = function (obj) {
         }
     };
 
-    obj._nuclearSetStyleData=function(){
-        if(this.node&&this.node.querySelector){
-            var styles=this.node.querySelectorAll('style');
-            var i=0,len=styles.length;
-            for(;i<len;i++){
-                var style=styles[i];
-                style.setAttribute('data-nuclearId',this._ncInstanceId);
-                var cssText=Nuclear.scoper(style.innerHTML,"#nuclear-scoper-" + this._ncInstanceId);
-                style.innerHTML='';
-                if (style.styleSheet) {
-                    style.styleSheet.cssText = cssText;
-                } else {
-                    style.appendChild(document.createTextNode(cssText));
-                }
+    obj._nuclearSetStyleData=function() {
+        var styles = this.node.querySelectorAll('style');
+        var i = 0, len = styles.length;
+        for (; i < len; i++) {
+            var style = styles[i];
+            style.setAttribute('data-nuclearId', this._ncInstanceId);
+            var cssText = Nuclear.scoper(style.innerHTML, "#nuclear-scoper-" + this._ncInstanceId);
+            style.innerHTML = '';
+            if (style.styleSheet) {
+                style.styleSheet.cssText = cssText;
+            } else {
+                style.appendChild(document.createTextNode(cssText));
             }
         }
     }
@@ -201,7 +199,7 @@ Nuclear._mixObj = function (obj) {
             this.node.setAttribute("data-nuclearId", this._ncInstanceId);
 
             this._mixNode();
-
+            this._nuclearSetStyleData();
             //nc-refresh的比较常见的应用场景就是文本框输入的时候不刷新自己，刷新会导致失去焦点。nc-refresh也能用于性能优化
             item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
             this.HTML = this.node.outerHTML;
@@ -210,7 +208,7 @@ Nuclear._mixObj = function (obj) {
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
         }
-        this._nuclearSetStyleData();
+
         //刷新局部样式
         Nuclear.refreshStyle(this._ncInstanceId);
     };
