@@ -1400,8 +1400,8 @@ Nuclear._mixObj = function (obj) {
         this._nuclearReRender= (typeof option === 'string');
 
         if(this._nuclearReRender) {
-            this.parentNode = document.querySelector(option).firstChild;
-            this._ncInstanceId = this.parentNode.getAttribute('data-nuclearId');
+            this.parentNode = document.querySelector(option);
+            this._ncInstanceId = this.parentNode.firstChild.getAttribute('data-nuclearId');
             this._nuclearOption = JSON.parse(this.parentNode.querySelector("input[name=__nuclear_option_"+this._ncInstanceId+"]").value);
         }else if(this._nuclearServerRender) {
             this._ncInstanceId = Nuclear.getServerInstanceId();
@@ -1528,20 +1528,18 @@ Nuclear._mixObj = function (obj) {
         }
     };
 
-    obj._nuclearSetStyleData=function(){
-        if(this.node&&this.node.querySelector){
-            var styles=this.node.querySelectorAll('style');
-            var i=0,len=styles.length;
-            for(;i<len;i++){
-                var style=styles[i];
-                style.setAttribute('data-nuclearId',this._ncInstanceId);
-                var cssText=Nuclear.scoper(style.innerHTML,"#nuclear-scoper-" + this._ncInstanceId);
-                style.innerHTML='';
-                if (style.styleSheet) {
-                    style.styleSheet.cssText = cssText;
-                } else {
-                    style.appendChild(document.createTextNode(cssText));
-                }
+    obj._nuclearSetStyleData=function() {
+        var styles = this.node.querySelectorAll('style');
+        var i = 0, len = styles.length;
+        for (; i < len; i++) {
+            var style = styles[i];
+            style.setAttribute('data-nuclearId', this._ncInstanceId);
+            var cssText = Nuclear.scoper(style.innerHTML, "#nuclear-scoper-" + this._ncInstanceId);
+            style.innerHTML = '';
+            if (style.styleSheet) {
+                style.styleSheet.cssText = cssText;
+            } else {
+                style.appendChild(document.createTextNode(cssText));
             }
         }
     }
@@ -1578,7 +1576,7 @@ Nuclear._mixObj = function (obj) {
             this.node.setAttribute("data-nuclearId", this._ncInstanceId);
 
             this._mixNode();
-
+            this._nuclearSetStyleData();
             //nc-refresh的比较常见的应用场景就是文本框输入的时候不刷新自己，刷新会导致失去焦点。nc-refresh也能用于性能优化
             item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
             this.HTML = this.node.outerHTML;
@@ -1587,9 +1585,6 @@ Nuclear._mixObj = function (obj) {
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
         }
-        this._nuclearSetStyleData();
-        //刷新局部样式
-        Nuclear.refreshStyle(this._ncInstanceId);
     };
 
     obj._mixNode = function () {
@@ -1648,12 +1643,12 @@ Nuclear._mixObj = function (obj) {
     obj._nuclearWrap = function (tpl) {
         var scopedStr = "",optionStr="";
         if (this.style) {
-            scopedStr = '<style scoped data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
+            scopedStr = '<style data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
         }
         if(this._nuclearServerRender){
             optionStr=this._nuclearViewOption(this._ncInstanceId,JSON.stringify(this.option));
         }
-        return '<div '+(this._nuclearServerRender?'data-server="server"':'')+'>'+ scopedStr + tpl  +optionStr+ '</div>'
+        return '<div id="nuclear-scoper-'+this._ncInstanceId+'" '+(this._nuclearServerRender?'data-server="server"':'')+'>'+ scopedStr + tpl  +optionStr+ '</div>'
     };
 
     obj._nuclearViewOption = function(id,optionStr){
@@ -1678,8 +1673,6 @@ Nuclear._mixObj = function (obj) {
 
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
-            //刷新局部样式
-            Nuclear.refreshStyle(this._ncInstanceId);
         } else {
             this._nuclearRender(item);
         }
@@ -2598,59 +2591,11 @@ Nuclear.Class.extend = function (prop) {
         return css;
     }
 
-    //var newstyle;
-
     function process() {
-        var styles = document.body.querySelectorAll("style[scoped]");
-
-        if (styles.length === 0) {
-            document.getElementsByTagName("body")[0].style.visibility = "visible";
-            return;
-        }
-
-        var head = document.head || document.getElementsByTagName("head")[0];
-        //newstyle && head.removeChild(newstyle);
-       
-
-        for (var i = 0; i < styles.length; i++) {
-            var newstyle = document.createElement("style");
-            var csses = "";
-            var style = styles[i];
-            var ncId = style.getAttribute('data-nuclearId');
-            var css = style.innerHTML;
-            newstyle.setAttribute('data-scoper-nuclearId', ncId);
-            if (css && (style.parentElement.nodeName !== "BODY")) {
-                var id = "nuclear-scoper-" + ncId;
-                //var prefix = "#" + id;
-
-                //var wrapper = document.createElement("span");
-                //wrapper.id = id;
-
-                var parent = style.parentNode;
-                //var grandparent = parent.parentNode;
-
-                parent.id = id;
-                //grandparent.replaceChild(wrapper, parent);
-                //wrapper.appendChild(parent);
-                style.parentNode.removeChild(style);
-
-                csses = csses + css;
-            }
-            if (newstyle.styleSheet) {
-                newstyle.styleSheet.cssText = csses;
-            } else {
-                newstyle.appendChild(document.createTextNode(csses));
-            }
-
-            head.appendChild(newstyle);
-        }
-
-       
         document.getElementsByTagName("body")[0].style.visibility = "visible";
     }
 
     Nuclear.scoper = scoper;
-    Nuclear.refreshStyle= function(){};
     if ("scoped" in document.createElement("style")) {
         return;
     }
@@ -2662,13 +2607,6 @@ Nuclear.Class.extend = function (prop) {
     } else {
         document.addEventListener("DOMContentLoaded", process);
     }
-
-    Nuclear.refreshStyle = function (ncId) {
-        var style = document.querySelector('style[data-scoper-nuclearId="' + ncId + '"]');
-        style&&style.parentNode.removeChild(style);
-       // console.log(style)
-        process();
-    };
 }());
 
 

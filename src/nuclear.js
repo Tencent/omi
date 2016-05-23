@@ -23,8 +23,8 @@ Nuclear._mixObj = function (obj) {
         this._nuclearReRender= (typeof option === 'string');
 
         if(this._nuclearReRender) {
-            this.parentNode = document.querySelector(option).firstChild;
-            this._ncInstanceId = this.parentNode.getAttribute('data-nuclearId');
+            this.parentNode = document.querySelector(option);
+            this._ncInstanceId = this.parentNode.firstChild.getAttribute('data-nuclearId');
             this._nuclearOption = JSON.parse(this.parentNode.querySelector("input[name=__nuclear_option_"+this._ncInstanceId+"]").value);
         }else if(this._nuclearServerRender) {
             this._ncInstanceId = Nuclear.getServerInstanceId();
