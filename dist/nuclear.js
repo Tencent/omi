@@ -1438,11 +1438,10 @@ Nuclear._mixObj = function (obj) {
         if(!this._nuclearReRender) {
             if (!this._nuclearParentEmpty) {
                 this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
-                //if(document.body!==this.parentNode) {
-                //    while (this.parentNode.firstChild) {
-                //        this.parentNode.removeChild(this.parentNode.firstChild);
-                //    }
-                //}
+                if(document.body!==this.parentNode) {
+                    this.parentNode=document.createElement('div')
+                    document.body.appendChild(this.parentNode);
+                }
             } else {
                 this.parentNode = document.createElement("div");
             }
