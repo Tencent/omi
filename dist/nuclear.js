@@ -1651,7 +1651,7 @@ Nuclear._mixObj = function (obj) {
         if(this._nuclearServerRender){
             optionStr=this._nuclearViewOption(this._ncInstanceId,JSON.stringify(this.option));
         }
-        return '<div '+(this._nuclearServerRender?'data-server="server"':'')+'>'+ scopedStr + tpl  +optionStr+ '</div>'
+        return '<div id="nuclear-scoper-'+this._ncInstanceId+'" '+(this._nuclearServerRender?'data-server="server"':'')+'>'+ scopedStr + tpl  +optionStr+ '</div>'
     };
 
     obj._nuclearViewOption = function(id,optionStr){
