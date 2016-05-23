@@ -174,7 +174,6 @@ Nuclear._mixObj = function (obj) {
     }
 
     obj._nuclearRender = function (item) {
-        var isFirstRender = false;
         if (this.node) {
             //this.node.parentNode&&this.node.parentNode.removeChild(this.node);
             // item.parent.removeChild(this.node);      
@@ -194,7 +193,6 @@ Nuclear._mixObj = function (obj) {
         } else {
             //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
-                isFirstRender = true;
                 item.parent.innerHTML = this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
                 this.node = item.parent.lastChild;
             }
