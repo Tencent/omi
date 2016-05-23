@@ -1,4 +1,4 @@
-/* Nuclear  v0.2.11
+/* Nuclear  v0.2.15
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -1438,11 +1438,6 @@ Nuclear._mixObj = function (obj) {
         if(!this._nuclearReRender) {
             if (!this._nuclearParentEmpty) {
                 this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
-                //if(document.body!==this.parentNode) {
-                //    while (this.parentNode.firstChild) {
-                //        this.parentNode.removeChild(this.parentNode.firstChild);
-                //    }
-                //}
             } else {
                 this.parentNode = document.createElement("div");
             }
@@ -1473,10 +1468,6 @@ Nuclear._mixObj = function (obj) {
         if (this.installed) this.installed();
     };
 
-    obj._nuclearServerCtor = function(selector){
-
-    }
-
     obj._nuclearObserver = function () {
         if (this.option && this._nuclearTwoWay) {
             Nuclear.observe(this.option, function (prop, value, oldValue, path) {
@@ -1501,13 +1492,12 @@ Nuclear._mixObj = function (obj) {
 
     obj.setNuclearContainer = function(selector){
         this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
-        if(document.body!==this.parentNode) {
-            while (this.parentNode.firstChild) {
-                this.parentNode.removeChild(this.parentNode.firstChild);
-            }
-        }
         this._nuclearRenderInfo.parent = this.parentNode;
-        this.parentNode.innerHTML = this.HTML;
+        if(document.body === this.parentNode) {
+            this.parentNode.insertAdjacentHTML('beforeend',this.HTML);
+        }else{
+            this.parentNode.innerHTML = this.HTML;
+        }
         this.node = this.parentNode.lastChild;
         this._mixNode();
     }
@@ -1557,7 +1547,6 @@ Nuclear._mixObj = function (obj) {
     }
 
     obj._nuclearRender = function (item) {
-        var isFirstRender = false;
         if (this.node) {
             //this.node.parentNode&&this.node.parentNode.removeChild(this.node);
             // item.parent.removeChild(this.node);      
@@ -1577,8 +1566,11 @@ Nuclear._mixObj = function (obj) {
         } else {
             //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
-                isFirstRender = true;
-                item.parent.innerHTML = this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
+                if(document.body === item.parent) {
+                    item.parent.insertAdjacentHTML('beforeend', this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                }else {
+                    item.parent.innerHTML = this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
+                }
                 this.node = item.parent.lastChild;
             }
         }
@@ -1597,9 +1589,7 @@ Nuclear._mixObj = function (obj) {
         }
         this._nuclearSetStyleData();
         //刷新局部样式
-        if (!isFirstRender) {
-            Nuclear.refreshStyle(this._ncInstanceId);
-        }
+        Nuclear.refreshStyle(this._ncInstanceId);
     };
 
     obj._mixNode = function () {
