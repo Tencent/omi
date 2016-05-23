@@ -1585,9 +1585,6 @@ Nuclear._mixObj = function (obj) {
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
         }
-
-        //刷新局部样式
-        Nuclear.refreshStyle(this._ncInstanceId);
     };
 
     obj._mixNode = function () {
@@ -1676,8 +1673,6 @@ Nuclear._mixObj = function (obj) {
 
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
-            //刷新局部样式
-            Nuclear.refreshStyle(this._ncInstanceId);
         } else {
             this._nuclearRender(item);
         }
@@ -2596,59 +2591,11 @@ Nuclear.Class.extend = function (prop) {
         return css;
     }
 
-    //var newstyle;
-
     function process() {
-        var styles = document.body.querySelectorAll("style[scoped]");
-
-        if (styles.length === 0) {
-            document.getElementsByTagName("body")[0].style.visibility = "visible";
-            return;
-        }
-
-        var head = document.head || document.getElementsByTagName("head")[0];
-        //newstyle && head.removeChild(newstyle);
-       
-
-        for (var i = 0; i < styles.length; i++) {
-            var newstyle = document.createElement("style");
-            var csses = "";
-            var style = styles[i];
-            var ncId = style.getAttribute('data-nuclearId');
-            var css = style.innerHTML;
-            newstyle.setAttribute('data-scoper-nuclearId', ncId);
-            if (css && (style.parentElement.nodeName !== "BODY")) {
-                var id = "nuclear-scoper-" + ncId;
-                //var prefix = "#" + id;
-
-                //var wrapper = document.createElement("span");
-                //wrapper.id = id;
-
-                var parent = style.parentNode;
-                //var grandparent = parent.parentNode;
-
-                parent.id = id;
-                //grandparent.replaceChild(wrapper, parent);
-                //wrapper.appendChild(parent);
-                style.parentNode.removeChild(style);
-
-                csses = csses + css;
-            }
-            if (newstyle.styleSheet) {
-                newstyle.styleSheet.cssText = csses;
-            } else {
-                newstyle.appendChild(document.createTextNode(csses));
-            }
-
-            head.appendChild(newstyle);
-        }
-
-       
         document.getElementsByTagName("body")[0].style.visibility = "visible";
     }
 
     Nuclear.scoper = scoper;
-    Nuclear.refreshStyle= function(){};
     if ("scoped" in document.createElement("style")) {
         return;
     }
@@ -2660,13 +2607,6 @@ Nuclear.Class.extend = function (prop) {
     } else {
         document.addEventListener("DOMContentLoaded", process);
     }
-
-    Nuclear.refreshStyle = function (ncId) {
-        var style = document.querySelector('style[data-scoper-nuclearId="' + ncId + '"]');
-        style&&style.parentNode.removeChild(style);
-       // console.log(style)
-        process();
-    };
 }());
 
 

@@ -208,9 +208,6 @@ Nuclear._mixObj = function (obj) {
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
         }
-
-        //刷新局部样式
-        Nuclear.refreshStyle(this._ncInstanceId);
     };
 
     obj._mixNode = function () {
@@ -299,8 +296,6 @@ Nuclear._mixObj = function (obj) {
 
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
-            //刷新局部样式
-            Nuclear.refreshStyle(this._ncInstanceId);
         } else {
             this._nuclearRender(item);
         }
