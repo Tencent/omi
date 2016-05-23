@@ -61,10 +61,6 @@ Nuclear._mixObj = function (obj) {
         if(!this._nuclearReRender) {
             if (!this._nuclearParentEmpty) {
                 this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
-                if(document.body === this.parentNode) {
-                    this.parentNode=document.createElement('div')
-                    document.body.appendChild(this.parentNode);
-                }
             } else {
                 this.parentNode = document.createElement("div");
             }
@@ -119,12 +115,12 @@ Nuclear._mixObj = function (obj) {
 
     obj.setNuclearContainer = function(selector){
         this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
-        if(document.body === this.parentNode) {
-            this.parentNode=document.createElement('div')
-            document.body.appendChild(this.parentNode);
-        }
         this._nuclearRenderInfo.parent = this.parentNode;
-        this.parentNode.innerHTML = this.HTML;
+        if(document.body === this.parentNode) {
+            item.parent.insertAdjacentHTML('beforeend',this.HTML);
+        }else{
+            this.parentNode.innerHTML = this.HTML;
+        }
         this.node = this.parentNode.lastChild;
         this._mixNode();
     }
@@ -193,7 +189,11 @@ Nuclear._mixObj = function (obj) {
         } else {
             //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
-                item.parent.innerHTML = this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
+                if(document.body === item.parent) {
+                    item.parent.insertAdjacentHTML('beforeend', this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                }else {
+                    item.parent.innerHTML = this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
+                }
                 this.node = item.parent.lastChild;
             }
         }
