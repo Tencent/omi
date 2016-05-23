@@ -266,7 +266,7 @@ Nuclear._mixObj = function (obj) {
     obj._nuclearWrap = function (tpl) {
         var scopedStr = "",optionStr="";
         if (this.style) {
-            scopedStr = '<style scoped data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
+            scopedStr = '<style data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
         }
         if(this._nuclearServerRender){
             optionStr=this._nuclearViewOption(this._ncInstanceId,JSON.stringify(this.option));
