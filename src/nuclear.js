@@ -117,7 +117,7 @@ Nuclear._mixObj = function (obj) {
         this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
         this._nuclearRenderInfo.parent = this.parentNode;
         if(document.body === this.parentNode) {
-            item.parent.insertAdjacentHTML('beforeend',this.HTML);
+            this.parentNode.insertAdjacentHTML('beforeend',this.HTML);
         }else{
             this.parentNode.innerHTML = this.HTML;
         }
