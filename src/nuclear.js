@@ -119,10 +119,9 @@ Nuclear._mixObj = function (obj) {
 
     obj.setNuclearContainer = function(selector){
         this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
-        if(document.body!==this.parentNode) {
-            while (this.parentNode.firstChild) {
-                this.parentNode.removeChild(this.parentNode.firstChild);
-            }
+        if(document.body === this.parentNode) {
+            this.parentNode=document.createElement('div')
+            document.body.appendChild(this.parentNode);
         }
         this._nuclearRenderInfo.parent = this.parentNode;
         this.parentNode.innerHTML = this.HTML;
