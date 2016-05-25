@@ -1,4 +1,4 @@
-/* Nuclear  v0.3.0
+/* Nuclear  v0.3.1
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
