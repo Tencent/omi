@@ -207,6 +207,30 @@ Nuclear._mixObj = function (obj) {
 
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
+            if(!this._nuclearServerRender){
+                this._nuclearFixForm();
+            }
+        }
+    };
+
+    obj._nuclearFixForm = function(){
+        var elements = this.node.querySelectorAll('input'),
+            i = 0,
+            len = elements.length;
+        for (; i < len; i++) {
+            var element = elements[i];
+            var type = element.type.toLowerCase();
+            if (element.getAttribute('value') === '') {
+                element.value = '';
+            }
+            if (type === 'checked' || type === 'radio') {
+                if (element.hasAttribute('checked')) {
+                    element.checked = 'checked';
+                } else {
+                    element.checked = false;
+                }
+
+            }
         }
     };
 
@@ -257,6 +281,9 @@ Nuclear._mixObj = function (obj) {
                     this._nuclearFixOne(ref);
                     //依赖的组件new的时候没有插入dom，所以下面两行再次执行是为了防止内部的事件绑定失效
                     if (ref.onRefresh) ref.onRefresh();
+                    if(!this._nuclearServerRender){
+                        this._nuclearFixForm();
+                    }
                     if (ref.installed) ref.installed();
                 }
             }
