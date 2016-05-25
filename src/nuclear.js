@@ -293,7 +293,7 @@ Nuclear._mixObj = function (obj) {
     obj._nuclearWrap = function (tpl) {
         var scopedStr = "",optionStr="";
         if (this.style) {
-            scopedStr = '<style data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
+            scopedStr = '\n<style data-nuclearId=' + this._ncInstanceId + '>\n' + this.style() + '\n</style>\n';
         }
         if(this._nuclearServerRender){
             optionStr=this._nuclearViewOption(this._ncInstanceId,JSON.stringify(this.option));
@@ -302,7 +302,7 @@ Nuclear._mixObj = function (obj) {
     };
 
     obj._nuclearViewOption = function(id,optionStr){
-        return '<input type="hidden" name="__nuclear_option_'+id+'"  value=\''+optionStr+'\'>'
+        return '\n<input type="hidden" name="__nuclear_option_'+id+'"  value=\''+optionStr+'\'>\n'
     }
 
     obj._nuclearLocalRefresh = function () {

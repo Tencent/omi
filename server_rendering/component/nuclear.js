@@ -1,4 +1,4 @@
-/* Nuclear  v0.2.15
+/* Nuclear  v0.3.1
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -1584,6 +1584,30 @@ Nuclear._mixObj = function (obj) {
 
             this._nuclearFix();
             if (this.onRefresh) this.onRefresh();
+            if(!this._nuclearServerRender){
+                this._nuclearFixForm();
+            }
+        }
+    };
+
+    obj._nuclearFixForm = function(){
+        var elements = this.node.querySelectorAll('input'),
+            i = 0,
+            len = elements.length;
+        for (; i < len; i++) {
+            var element = elements[i];
+            var type = element.type.toLowerCase();
+            if (element.getAttribute('value') === '') {
+                element.value = '';
+            }
+            if (type === 'checked' || type === 'radio') {
+                if (element.hasAttribute('checked')) {
+                    element.checked = 'checked';
+                } else {
+                    element.checked = false;
+                }
+
+            }
         }
     };
 
@@ -1634,6 +1658,9 @@ Nuclear._mixObj = function (obj) {
                     this._nuclearFixOne(ref);
                     //依赖的组件new的时候没有插入dom，所以下面两行再次执行是为了防止内部的事件绑定失效
                     if (ref.onRefresh) ref.onRefresh();
+                    if(!this._nuclearServerRender){
+                        this._nuclearFixForm();
+                    }
                     if (ref.installed) ref.installed();
                 }
             }
@@ -1643,7 +1670,7 @@ Nuclear._mixObj = function (obj) {
     obj._nuclearWrap = function (tpl) {
         var scopedStr = "",optionStr="";
         if (this.style) {
-            scopedStr = '<style data-nuclearId=' + this._ncInstanceId + '>' + this.style() + '</style>';
+            scopedStr = '\n<style data-nuclearId=' + this._ncInstanceId + '>\n' + this.style() + '\n</style>\n';
         }
         if(this._nuclearServerRender){
             optionStr=this._nuclearViewOption(this._ncInstanceId,JSON.stringify(this.option));
@@ -1652,7 +1679,7 @@ Nuclear._mixObj = function (obj) {
     };
 
     obj._nuclearViewOption = function(id,optionStr){
-        return '<input type="hidden" name="__nuclear_option_'+id+'"  value=\''+optionStr+'\'>'
+        return '\n<input type="hidden" name="__nuclear_option_'+id+'"  value=\''+optionStr+'\'>\n'
     }
 
     obj._nuclearLocalRefresh = function () {
