@@ -55,26 +55,9 @@
                 }, this.option);
                 this.pageNum = Math.ceil(this.option.total / this.option.pageSize);
             },
-            onRefresh: function () {
-                if (this.option.currentPage > 0) {
-                    this.prev.addEventListener("click", function (evt) {
-                        this.option.currentPage--;
-                        evt.preventDefault();
-                    }.bind(this), false);
-                }
-                if (this.option.currentPage < this.pageNum - 1) {
-                    this.next.addEventListener("click", function (evt) {
-                        this.option.currentPage++;
-                        evt.preventDefault();
-                    }.bind(this), false);
-                }
-
-                this.links = this.node.querySelectorAll(".link");
-                var self = this;
-                util.addEvent(this.links, "click", function (evt) {
-                    self.option.currentPage = parseInt(this.getAttribute("data-pageIndex"));
-                    evt.preventDefault();
-                });
+            goto: function (index,evt) {
+                evt.preventDefault();
+                this.option.currentPage=index;
             },
             onOptionChange: function (prop, value, oldValue, path) {
                 if (prop === "currentPage") {
@@ -130,22 +113,20 @@
                 if (this.option.currentPage === 0) {
                     return '<span nc-id="prev" class="current prev">{{prevText}}</span>';
                 }
-                return '<a nc-id="prev" href="{{linkTo}}" class="prev">{{prevText}}</a>';
+                return '<a nc-id="prev" onclick="goto('+(this.option.currentPage-1)+',event)" href="{{linkTo}}" class="prev">{{prevText}}</a>';
             },
             getNext: function () {
                 if (this.option.currentPage === this.pageNum - 1) {
                     return '<span nc-id="next" class="current next">{{nextText}}</span>';
                 }
-                return '<a nc-id="next" href="{{linkTo}}" class="next">{{nextText}}</a>';
+                return '<a nc-id="next" onclick="goto('+(this.option.currentPage+1)+',event)"  href="{{linkTo}}" class="next">{{nextText}}</a>';
             },
             getItem: function (pageIndex, text) {
                 if (this.option.currentPage === pageIndex) {
                     return '<span class="current">' + text + '</span>';
                 }
-                return '<a class="link" data-pageIndex="' + pageIndex + '" href="{{linkTo}}">' + text + '</a>';
+                return '<a class="link" onclick="goto('+pageIndex+',event)"  data-pageIndex="' + pageIndex + '" href="{{linkTo}}">' + text + '</a>';
             }
-        },{
-            diff:false
         })
         new Pagination({
             total: 100,//总个数80

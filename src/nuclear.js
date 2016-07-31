@@ -47,9 +47,10 @@ Nuclear._mixObj = function (obj) {
                 var old = this._nuclearOption;
                 if (old !== value) {
                     this._nuclearOption = value;
-                    this.onOptionChange && this.onOptionChange('_nuclearOption', value, old, '');
-                    this._nuclearObserver();
+
                     if( this._nuclearRenderInfo){
+                        this.onOptionChange && this.onOptionChange('_nuclearOption', value, old, '');
+                        this._nuclearObserver();
                         this._nuclearRenderInfo.data = this.option;
                         this.refresh();
                     }
@@ -179,13 +180,20 @@ Nuclear._mixObj = function (obj) {
                 this.node = null;
                 this.HTML = "";
             } else {
-                var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
-               if(this._nuclearDiffDom) {
-                   Nuclear.diffDOM.apply(this.node, Nuclear.diffDOM.diff(this.node, newNode));
-               }else {
-                   item.parent.replaceChild(newNode, this.node);
-                   this.node = newNode;
-               }
+                // var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                //if(this._nuclearDiffDom) {
+                //    Nuclear.diffDOM.apply(this.node, Nuclear.diffDOM.diff(this.node, newNode));
+                //}else {
+                //    item.parent.replaceChild(newNode, this.node);
+                //    this.node = newNode;
+                //}
+                if (this._nuclearDiffDom) {
+                    Nuclear.setDOM(this.node, this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                } else {
+                    var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                    item.parent.replaceChild(newNode, this.node);
+                    this.node = newNode;
+                }
             }
         } else {
             //第一次渲染
@@ -203,8 +211,6 @@ Nuclear._mixObj = function (obj) {
 
             this._mixNode();
             this._nuclearSetStyleData();
-            //nc-refresh的比较常见的应用场景就是文本框输入的时候不刷新自己，刷新会导致失去焦点。nc-refresh也能用于性能优化
-            item.refreshPart = this.node.querySelectorAll('*[nc-refresh]');
             this.HTML = this.node.outerHTML;
 
 
@@ -309,26 +315,11 @@ Nuclear._mixObj = function (obj) {
     }
 
     obj._nuclearLocalRefresh = function () {
-        var item = this._nuclearRenderInfo, rpLen = item.refreshPart.length;
+        var item = this._nuclearRenderInfo;
         item.tpl = this._nuclearTplGenerator();
-        if (rpLen > 0) {
-            var parts = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data))).querySelectorAll('*[nc-refresh]');
-            for (var j = 0; j < rpLen; j++) {
-                var part = item.refreshPart[j];
-                //执行完replaceChild，原part的parentNode就为null,代表其已经被子节点替换掉了
-                part.parentNode&&part.parentNode.replaceChild(parts[j], part);
 
-            }
-            item.refreshPart = parts;
-            this._mixNode();
-
-            this.HTML = this.node.outerHTML;
-
-            this._nuclearFix();
-            if (this.onRefresh) this.onRefresh();
-        } else {
             this._nuclearRender(item);
-        }
+
         
     }
 };
