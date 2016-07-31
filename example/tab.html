@@ -44,13 +44,14 @@
 <body>
     <div id="tabContainer"></div>
     <script src="../dist/nuclear.js"></script>
+    <script src="../asset/util.js"></script>
     <script type="text/javascript">
         var Tab = Nuclear.create({
             onRefresh: function () {
                 this.tabs = this.node.querySelectorAll('.nuclear-tab-nav a');
                 var self = this;
-                Nuclear.addEvent(this.tabs, "click", function () {
-                    self.option.selectedIndex = Nuclear.getNodeIndex(this);
+                util.addEvent(this.tabs, "click", function () {
+                    self.option.selectedIndex = util.getNodeIndex(this);
                 });
             },
             render: function () {

@@ -24,7 +24,7 @@ npm install alloynuclear
 
 # Many thanks to
 * [observe.js](https://github.com/kmdjs/observejs)
-* [diffDOM.js](https://github.com/fiduswriter/diffDOM) 
+* [set-dom.js](https://github.com/DylanPiercey/set-dom) 
 * [mustache.js](https://github.com/janl/mustache.js) 
 * [scoper.js](https://github.com/thomaspark/scoper) 
 

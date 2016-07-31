@@ -44,11 +44,12 @@
 <body>
     <div id="tabContainer"></div>
     <script src="../dist/nuclear.js"></script>
+    <script src="../asset/util.js"></script>
     <script type="text/javascript">
         var Tab = Nuclear.create({
             install: function () {
                 this.helloMessage = new HelloMessage({ name: "Nuclear" });
-                this.todoApp = new TodoApp({ items: [] });
+                this.todoApp = new TodoApp({value:'' ,items: [] });
             },
             installed: function () {
 
@@ -56,8 +57,8 @@
             onRefresh: function () {
                 this.tabs = this.node.querySelectorAll('.nuclear-tab-nav a');
                 var self = this;
-                Nuclear.addEvent(this.tabs, "click", function () {
-                    self.option.selectedIndex = Nuclear.getNodeIndex(this);
+                util.addEvent(this.tabs, "click", function () {
+                    self.option.selectedIndex = util.getNodeIndex(this);
                 });
             },
             render: function () {
@@ -93,26 +94,22 @@
         })
 
         var TodoApp = Nuclear.create({
-            onRefresh: function () {
-                this.form = this.node.querySelector("form");
-                this.textBox = this.node.querySelector("input");
-                this.form.addEventListener("submit", function (evt) {
-                    evt.preventDefault();
-                    this.option.items.push(this.textBox.value);
-                }.bind(this), false);
+            add: function (evt) {
+                evt.preventDefault();
+                this.option.value='';
+                this.option.items.push(this.textBox.value);
             },
             render: function () {
                 return '<div>\
                          <h3>TODO</h3>\
                         <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
-                          <form >\
-                           <input type="text"  />\
+                          <form onsubmit="add(event)" >\
+                           <input nc-id="textBox" type="text" value="{{value}}" />\
                            <button>Add #{{items.length}}</button>\
                          </form>\
                        </div>';
             }
         });
-
 
         
        var tab= new Tab({ tabs: [{ title: "tab-1", content: "" }, { title: "tab-2", content: "" }, { title: "tab-3", content: "tab3-content" }], selectedIndex: 0 }, "#tabContainer");

@@ -5,12 +5,12 @@
 </head>
 <body>
 <div id="container"></div>
-<script src="../asset/diffDOM.js"></script>
 <script src="../dist/nuclear.js"></script>
 <script type="text/javascript">
     var TodoApp = Nuclear.create({
         add: function (evt) {
             evt.preventDefault();
+            this.option.value = '';
             this.option.items.push(this.textBox.value);
         },
         render: function () {
@@ -18,13 +18,13 @@
                          <h3>TODO</h3>\
                         <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
                           <form onsubmit="add(event)" >\
-                           <input nc-id="textBox" type="text"  />\
+                           <input nc-id="textBox" type="text" value="{{value}}"  />\
                            <button>Add #{{items.length}}</button>\
                          </form>\
                        </div>';
         }
     });
-    new TodoApp( { items: [] },"#container");
+    new TodoApp( { items: [] ,value:""},"#container");
 </script>
 <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
     <img src="../asset/github.png" alt="" />

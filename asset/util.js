@@ -65,3 +65,24 @@ util.merge = function () {
     // Return the modified object
     return target;
 };
+util.getNodeIndex = function (node) {
+    var index = 0;
+    while ((node = node.previousSibling)) {
+        if (node.nodeType != 3 || !/^\s*$/.test(node.data)) {
+            index++;
+        }
+    }
+    return index;
+};
+
+util.addEvent = (function () {
+    return function (el, type, fn) {
+        if (el && el.nodeName || el === window) {
+            el.addEventListener(type, fn, false);
+        } else if (el && el.length) {
+            for (var i = 0; i < el.length; i++) {
+                util.addEvent(el[i], type, fn);
+            }
+        }
+    };
+})();
