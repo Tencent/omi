@@ -9,9 +9,10 @@
     <script type="text/javascript">
         var TodoApp = Nuclear.create({
             add: function (evt) {   
-                    evt.preventDefault();
+                    evt.preventDefault?evt.preventDefault():(evt.returnValue=false);
                     this.option.value = '';
                     this.option.items.push(this.textBox.value);
+                this.refresh();
             },
             render: function () {
                return '<div>\
@@ -23,7 +24,7 @@
                          </form>\
                        </div>';
             }
-        });
+        },{twoWay:false});
         new TodoApp( {value:"", items: [] },"#container");
     </script>
         <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">

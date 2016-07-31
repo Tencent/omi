@@ -2,12 +2,12 @@
 (function () {
 
     function init() {
-        var style = document.createElement("style");
-        style.appendChild(document.createTextNode(""));
-        document.head.appendChild(style);
-        //先隐藏所有dom元素
-        style.sheet.insertRule("body { visibility: hidden; }", 0);
-        style.sheet.insertRule("template { display: none !important; }", 0);
+        //var style = document.createElement("style");
+        //style.appendChild(document.createTextNode(""));
+        //document.head.appendChild(style);
+        ////先隐藏所有dom元素
+        //style.sheet.insertRule("body { visibility: hidden; }", 0);
+        //style.sheet.insertRule("template { display: none !important; }", 0);
     }
 
     function scoper(css, prefix) {
@@ -37,7 +37,7 @@
     }
 
     function process() {
-        document.getElementsByTagName("body")[0].style.visibility = "visible";
+        //document.getElementsByTagName("body")[0].style.visibility = "visible";
     }
 
     Nuclear.scoper = scoper;
@@ -45,12 +45,12 @@
         return;
     }
 
-    init();
-
-    if (document.readyState === "complete" || document.readyState === "loaded") {
-        process();
-    } else {
-        document.addEventListener("DOMContentLoaded", process);
-    }
+    //init();
+    //
+    //if (document.readyState === "complete" || document.readyState === "loaded") {
+    //    process();
+    //} else {
+    //    document.addEventListener("DOMContentLoaded", process);
+    //}
 }());
 

@@ -244,7 +244,21 @@ Nuclear.create = function (obj, setting) {
     component.create = Nuclear.create;
     return component;
 };
+Nuclear.ie = (function(){
 
+    var undef,
+        v = 3,
+        div = document.createElement('div'),
+        all = div.getElementsByTagName('i');
+
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+            all[0]
+        );
+
+    return v > 4 ? v : undef;
+
+}());
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector) {
 
@@ -271,31 +285,37 @@ Nuclear._mixObj = function (obj) {
             this._ncInstanceId = Nuclear.getInstanceId();
             this._nuclearOption = option;
         }
-
+        if(Nuclear.ie<9){
+            this._nuclearDiffDom = false;
+        }
         //加window防止构建到webpack中，Nuclear是局部而非全局
         window.Nuclear.instances[this._ncInstanceId] = this;
         this._nuclearParentEmpty = !selector;
         this.HTML = "";
 
-        Object.defineProperty(this, 'option', {
-            get: function () {
-                return this._nuclearOption;
-            },
-            set: function (value) {
-                var old = this._nuclearOption;
-                if (old !== value) {
-                    this._nuclearOption = value;
+        if(!(Nuclear.ie<9)) {
+            Object.defineProperty(this, 'option', {
+                get: function () {
+                    return this._nuclearOption;
+                },
+                set: function (value) {
+                    var old = this._nuclearOption;
+                    if (old !== value) {
+                        this._nuclearOption = value;
 
-                    if( this._nuclearRenderInfo){
-                        this.onOptionChange && this.onOptionChange('_nuclearOption', value, old, '');
-                        this._nuclearObserver();
-                        this._nuclearRenderInfo.data = this.option;
-                        this.refresh();
+                        if (this._nuclearRenderInfo) {
+                            this.onOptionChange && this.onOptionChange('_nuclearOption', value, old, '');
+                            this._nuclearObserver();
+                            this._nuclearRenderInfo.data = this.option;
+                            this.refresh();
+                        }
+
                     }
-
                 }
-            }
-        });
+            });
+        }else{
+            this.option=this._nuclearOption;
+        }
         this.option['@item']=function(){
 
             return JSON.stringify(this);
@@ -334,7 +354,7 @@ Nuclear._mixObj = function (obj) {
     };
 
     obj._nuclearObserver = function () {
-        if (this.option && this._nuclearTwoWay) {
+        if (this.option && this._nuclearTwoWay&&!(Nuclear.ie<9)) {
             Nuclear.observe(this.option, function (prop, value, oldValue, path) {
                 if (!this.onOptionChange || (this.onOptionChange && this.onOptionChange(prop, value, oldValue, path) !== false)) {
                     clearTimeout(this._nuclearTimer);
@@ -1406,6 +1426,28 @@ Nuclear.destroy=function(instance){
 	Nuclear.observe = observe;
 })();
 
+if (typeof Object.create != 'function') {
+    Object.create = (function(undefined) {
+        var Temp = function() {};
+        return function (prototype, propertiesObject) {
+            if(prototype !== Object(prototype) && prototype !== null) {
+                throw TypeError('Argument must be an object, or null');
+            }
+            Temp.prototype = prototype || {};
+            if (propertiesObject !== undefined) {
+                Object.defineProperties(Temp.prototype, propertiesObject);
+            }
+            var result = new Temp();
+            Temp.prototype = null;
+            // to imitate the case of Object.create(null)
+            if(prototype === null) {
+                result.__proto__ = null;
+            }
+            return result;
+        };
+    })();
+}
+
 //所有类的基类
 Nuclear.Class = function () { };
 
@@ -1439,12 +1481,12 @@ Nuclear.Class.extend = function (prop) {
 (function () {
 
     function init() {
-        var style = document.createElement("style");
-        style.appendChild(document.createTextNode(""));
-        document.head.appendChild(style);
-        //先隐藏所有dom元素
-        style.sheet.insertRule("body { visibility: hidden; }", 0);
-        style.sheet.insertRule("template { display: none !important; }", 0);
+        //var style = document.createElement("style");
+        //style.appendChild(document.createTextNode(""));
+        //document.head.appendChild(style);
+        ////先隐藏所有dom元素
+        //style.sheet.insertRule("body { visibility: hidden; }", 0);
+        //style.sheet.insertRule("template { display: none !important; }", 0);
     }
 
     function scoper(css, prefix) {
@@ -1474,7 +1516,7 @@ Nuclear.Class.extend = function (prop) {
     }
 
     function process() {
-        document.getElementsByTagName("body")[0].style.visibility = "visible";
+        //document.getElementsByTagName("body")[0].style.visibility = "visible";
     }
 
     Nuclear.scoper = scoper;
@@ -1482,13 +1524,13 @@ Nuclear.Class.extend = function (prop) {
         return;
     }
 
-    init();
-
-    if (document.readyState === "complete" || document.readyState === "loaded") {
-        process();
-    } else {
-        document.addEventListener("DOMContentLoaded", process);
-    }
+    //init();
+    //
+    //if (document.readyState === "complete" || document.readyState === "loaded") {
+    //    process();
+    //} else {
+    //    document.addEventListener("DOMContentLoaded", process);
+    //}
 }());
 
 
