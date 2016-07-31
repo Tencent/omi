@@ -49,8 +49,11 @@ Nuclear._mixObj = function (obj) {
                     this._nuclearOption = value;
                     this.onOptionChange && this.onOptionChange('_nuclearOption', value, old, '');
                     this._nuclearObserver();
-                    this._nuclearRenderInfo.data = this.option;
-                    this.refresh();
+                    if( this._nuclearRenderInfo){
+                        this._nuclearRenderInfo.data = this.option;
+                        this.refresh();
+                    }
+
                 }
             }
         });
