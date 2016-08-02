@@ -1,56 +1,58 @@
 ﻿//many thanks to https://github.com/thomaspark/scoper/
-(function () {
+Nuclear.scoper = function (css, prefix) {
+    var re = new RegExp("([^\r\n,{}]+)(,(?=[^}]*{)|\s*{)", "g");
+    css = css.replace(re, function (g0, g1, g2) {
 
-    function init() {
-        //var style = document.createElement("style");
-        //style.appendChild(document.createTextNode(""));
-        //document.head.appendChild(style);
-        ////先隐藏所有dom元素
-        //style.sheet.insertRule("body { visibility: hidden; }", 0);
-        //style.sheet.insertRule("template { display: none !important; }", 0);
-    }
-
-    function scoper(css, prefix) {
-        var re = new RegExp("([^\r\n,{}]+)(,(?=[^}]*{)|\s*{)", "g");
-        css = css.replace(re, function (g0, g1, g2) {
-
-            if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {
-                return g1 + g2;
-            }
-
-            if (g1.match(/:scope/)) {
-                g1 = g1.replace(/([^\s]*):scope/, function (h0, h1) {
-                    if (h1 === "") {
-                        return "> *";
-                    } else {
-                        return "> " + h1;
-                    }
-                });
-            }
-
-            g1 = g1.replace(/^(\s*)/, "$1" + prefix + " ");
-
+        if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {
             return g1 + g2;
-        });
+        }
 
-        return css;
-    }
+        if (g1.match(/:scope/)) {
+            g1 = g1.replace(/([^\s]*):scope/, function (h0, h1) {
+                if (h1 === "") {
+                    return "> *";
+                } else {
+                    return "> " + h1;
+                }
+            });
+        }
 
-    function process() {
-        //document.getElementsByTagName("body")[0].style.visibility = "visible";
-    }
+        g1 = g1.replace(/^(\s*)/, "$1" + prefix + " ");
 
-    Nuclear.scoper = scoper;
-    if ("scoped" in document.createElement("style")) {
-        return;
-    }
+        return g1 + g2;
+    });
 
-    //init();
-    //
-    //if (document.readyState === "complete" || document.readyState === "loaded") {
-    //    process();
-    //} else {
-    //    document.addEventListener("DOMContentLoaded", process);
-    //}
+    return css;
+}
+
+Nuclear.ie = (function () {
+
+    var undef,
+        v = 3,
+        div = document.createElement('div'),
+        all = div.getElementsByTagName('i');
+
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+            all[0]
+        );
+
+    return v > 4 ? v : undef;
+
 }());
 
+Nuclear.addStyle = function (cssText, id) {
+    var d = document,
+        someThingStyles = d.createElement('style');
+    d.getElementsByTagName('head')[0].appendChild(someThingStyles);
+    someThingStyles.setAttribute('type', 'text/css');
+    someThingStyles.setAttribute('id', id);
+    if (Nuclear.ie) {
+        someThingStyles.styleSheet.cssText = cssText;
+    } else {
+
+        someThingStyles.textContent = cssText;
+
+    }
+
+}

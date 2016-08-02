@@ -6,21 +6,7 @@
     component.create = Nuclear.create;
     return component;
 };
-Nuclear.ie = (function(){
 
-    var undef,
-        v = 3,
-        div = document.createElement('div'),
-        all = div.getElementsByTagName('i');
-
-    while (
-        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-            all[0]
-        );
-
-    return v > 4 ? v : undef;
-
-}());
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector) {
 
@@ -96,7 +82,7 @@ Nuclear._mixObj = function (obj) {
         for (var key in this) {
             if (this.hasOwnProperty(key)) {
                 //这里判断是否依赖其他nuclear组件，依赖的话记录下来
-                if (this[key] && this[key]["_nuclearLocalRefresh"]) {
+                if (this[key] && this[key]["_isNuclearComponent"]) {
                     this[key]._nuclearParent = this;
                     this._nuclearRef.push(this[key]);
                 }
@@ -107,11 +93,10 @@ Nuclear._mixObj = function (obj) {
         this._nuclearObserver();
 
         this._nuclearRenderInfo = {
-            tpl: this._nuclearTplGenerator(),
             data: this.option,
             parent: this.parentNode
         };
-        this._nuclearRender(this._nuclearRenderInfo);
+        this._nuclearRender();
         if (this.installed) this.installed();
     };
 
@@ -121,11 +106,11 @@ Nuclear._mixObj = function (obj) {
                 if (!this.onOptionChange || (this.onOptionChange && this.onOptionChange(prop, value, oldValue, path) !== false)) {
                     clearTimeout(this._nuclearTimer);
                     if (new Date() - this._preNuclearTime > 40) {
-                        this._nuclearLocalRefresh();
+                        this._nuclearRender();
                         this._preNuclearTime = new Date();
                     } else {
                         this._nuclearTimer = setTimeout(function () {
-                            this._nuclearLocalRefresh();
+                            this._nuclearRender();
                         }.bind(this), 40);
                     }
                 }
@@ -134,7 +119,7 @@ Nuclear._mixObj = function (obj) {
     }
 
     obj.refresh = function () {
-        this._nuclearLocalRefresh();
+        this._nuclearRender();
     };
 
     obj.setNuclearContainer = function(selector){
@@ -175,23 +160,33 @@ Nuclear._mixObj = function (obj) {
         }
     };
 
-    obj._nuclearSetStyleData=function() {
-        var styles = this.node.querySelectorAll('style');
-        var i = 0, len = styles.length;
-        for (; i < len; i++) {
-            var style = styles[i];
-            style.setAttribute('data-nuclearId', this._ncInstanceId);
-            var cssText = Nuclear.scoper(style.innerHTML, "#nuclear-scoper-" + this._ncInstanceId);
-            style.innerHTML = '';
-            if (style.styleSheet) {
-                style.styleSheet.cssText = cssText;
-            } else {
-                style.appendChild(document.createTextNode(cssText));
-            }
-        }
-    }
+    //obj._nuclearSetStyleData=function() {
+    //    var styles = this.node.querySelectorAll('style');
+    //    var i = 0, len = styles.length;
+    //    for (; i < len; i++) {
+    //        var style = styles[i];
+    //        style.setAttribute('data-nuclearId', this._ncInstanceId);
+    //        var cssText = Nuclear.scoper(style.innerHTML, "#nuclear-scoper-" + this._ncInstanceId);
+    //        style.innerHTML = '';
+    //        if (style.styleSheet) {
+    //            style.styleSheet.cssText = cssText;
+    //        } else {
+    //            style.appendChild(document.createTextNode(cssText));
+    //        }
+    //    }
+    //}
 
-    obj._nuclearRender = function (item) {
+    obj._nuclearRender = function () {
+        var item = this._nuclearRenderInfo;
+        item.tpl = this._nuclearTplGenerator();
+     
+        if (this.style) {
+            var ele = document.getElementById('nuclear_style_' + this._ncInstanceId);
+            ele && document.getElementsByTagName('head')[0].removeChild(ele);
+
+            Nuclear.addStyle(this.style(), "nuclear_style_" + this._ncInstanceId);
+        }
+
         if (this.node) {
             //this.node.parentNode&&this.node.parentNode.removeChild(this.node);
             // item.parent.removeChild(this.node);      
@@ -200,17 +195,10 @@ Nuclear._mixObj = function (obj) {
                 this.node = null;
                 this.HTML = "";
             } else {
-                // var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
-                //if(this._nuclearDiffDom) {
-                //    Nuclear.diffDOM.apply(this.node, Nuclear.diffDOM.diff(this.node, newNode));
-                //}else {
-                //    item.parent.replaceChild(newNode, this.node);
-                //    this.node = newNode;
-                //}
                 if (this._nuclearDiffDom) {
-                    Nuclear.setDOM(this.node, this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                    Nuclear.setDOM(this.node, this._nulcearGenerateHTML(item));
                 } else {
-                    var newNode = Nuclear.str2Dom(this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                    var newNode = Nuclear.str2Dom(this._nulcearGenerateHTML(item));
                     item.parent.replaceChild(newNode, this.node);
                     this.node = newNode;
                 }
@@ -219,9 +207,9 @@ Nuclear._mixObj = function (obj) {
             //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
                 if(document.body === item.parent) {
-                    item.parent.insertAdjacentHTML('beforeend', this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data)));
+                    item.parent.insertAdjacentHTML('beforeend', this._nulcearGenerateHTML(item));
                 }else {
-                    item.parent.innerHTML = this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(item.tpl), this._ncInstanceId), item.data));
+                    item.parent.innerHTML = this._nulcearGenerateHTML(item);
                 }
                 this.node = item.parent.lastChild;
             }
@@ -230,7 +218,7 @@ Nuclear._mixObj = function (obj) {
             this.node.setAttribute("data-nuclearId", this._ncInstanceId);
 
             this._mixNode();
-            this._nuclearSetStyleData();
+            //this._nuclearSetStyleData();
             this.HTML = this.node.outerHTML;
 
 
@@ -304,7 +292,7 @@ Nuclear._mixObj = function (obj) {
                 ref.node = one.node.querySelector('*[data-nuclearId="' + ref._ncInstanceId + '"]');
                 if (ref.node) {
                     ref._mixNode();
-                    ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
+                    //ref._nuclearRenderInfo.refreshPart = ref.node.querySelectorAll('*[nc-refresh]');
                     ref._nuclearRenderInfo.parent = ref.node.parentNode;
 
                     this._nuclearFixOne(ref);
@@ -320,28 +308,42 @@ Nuclear._mixObj = function (obj) {
     };
 
     obj._nuclearWrap = function (tpl) {
-        var scopedStr = "",optionStr="";
-        if (this.style) {
-            scopedStr = '\n<style data-nuclearId=' + this._ncInstanceId + '>\n' + this.style() + '\n</style>\n';
-        }
+        var optionStr="";
         if(this._nuclearServerRender){
             optionStr=this._nuclearViewOption(this._ncInstanceId,JSON.stringify(this.option));
         }
-        return '<div id="nuclear-scoper-'+this._ncInstanceId+'" '+(this._nuclearServerRender?'data-server="server"':'')+'>'+ scopedStr + tpl  +optionStr+ '</div>'
+        return '<div id="nuclear-scoper-'+this._ncInstanceId+'" '+(this._nuclearServerRender?'data-server="server"':'')+'>' + tpl  +optionStr+ '</div>'
     };
 
     obj._nuclearViewOption = function(id,optionStr){
         return '\n<input type="hidden" name="__nuclear_option_'+id+'"  value=\''+optionStr+'\'>\n'
     }
 
-    obj._nuclearLocalRefresh = function () {
-        var item = this._nuclearRenderInfo;
-        item.tpl = this._nuclearTplGenerator();
-
-            this._nuclearRender(item);
-
-        
+    obj._nulcearGenerateHTML = function (item) {
+        return this._nuclearWrap(Nuclear.render(Nuclear._fixEvent(Nuclear._fixTplIndex(this._fixStyleFromTpl(item.tpl)), this._ncInstanceId), item.data));
     }
+
+    obj._fixStyleFromTpl = function (tpl) {
+        var arr = tpl.match(/<style(([\s\S])*?)<\/style>/g);
+        var str = this.style ? this.style() : '';
+
+        if (arr) {
+            var i = 0, len = arr.length;
+            for (; i < len; i++) {
+                str += arr[i].replace('<style>', '').replace('</style>', '');
+            }
+        }
+        var ele = document.getElementById('nuclear_style_' + this._ncInstanceId);
+        ele && document.getElementsByTagName('head')[0].removeChild(ele);
+
+        Nuclear.addStyle(Nuclear.scoper(str, "#nuclear-scoper-" + this._ncInstanceId), "nuclear_style_" + this._ncInstanceId);
+
+        return tpl.replace(/<style(([\s\S])*?)<\/style>/g, '');
+
+    }
+
+
+    obj._isNuclearComponent = function () { }
 };
 
 Nuclear._fixEvent = function (tpl,instanceId) {
