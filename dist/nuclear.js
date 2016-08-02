@@ -515,9 +515,10 @@ Nuclear._mixObj = function (obj) {
         }
     };
 
-    //从最顶部组件向内fix
+    
     obj._nuclearFix = function () {
-        if (this._nuclearParent) return;
+        //从最顶部组件向内fix,非顶层直接return出去
+        if (this._nuclearParent || this._nuclearParentEmpty) return;
         this._nuclearFixOne(this)
     };
 
@@ -539,7 +540,7 @@ Nuclear._mixObj = function (obj) {
                     if(!this._nuclearServerRender){
                         this._nuclearFixForm();
                     }
-                    if (ref.installed) ref.installed();
+                    //if (ref.installed) ref.installed();
                 }
             }
         }
