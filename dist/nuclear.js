@@ -485,6 +485,8 @@ Nuclear._mixObj = function (obj) {
                     element.checked = false;
                 }
 
+            } else if (type === 'text') {
+                element.value = element.getAttribute('value');
             }
         }
     };
