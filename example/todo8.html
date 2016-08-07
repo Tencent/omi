@@ -22,30 +22,35 @@
 
     var TodoApp = Nuclear.create({
         install: function () {
-            this.childrenOptions = [ {title:"Todo"}, {items: []}];
-            this.length = 0;
+            //pass options to children
+            this.childrenOptions = [{title: "Todo"}, {items: []}];
+            this.length = 1;
         },
         add: function (evt) {
             evt.preventDefault();
-            this.nulcearChildren[1].option.items.push(this.textBox.value);
-            this.length = this.nulcearChildren[1].option.items.length;
-            //触发父容器的刷新
+            //this.nulcearChildren[1].option.items.push(this.textBox.value);
+            //or
+            this.list.option.items.push(this.textBox.value);
+            this.length = this.list.option.items.length +1;
+
+            this.option.inputValue = "";
+            //组件刷新
             this.refresh();
         },
         render: function () {
 
             return '<div>\
                         <child nc-class="TodoTitle"></child>\
-                        <child nc-class="AA.TodoList"></child>\
+                        <child nc-class="AA.TodoList"  nc-name="list"></child>\
                         <form onsubmit="add(event)" >\
-                          <input nc-id="textBox" type="text"  />\
+                          <input nc-id="textBox" type="text" value="{{inputValue}}" />\
                           <button>Add #'+ this.length+'</button>\
                          </form>\
                        </div>';
         }
     });
 
-    new TodoApp( {},"#todo2Container");
+    new TodoApp( {inputValue:""},"#todo2Container");
 </script>
 <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
     <img src="../asset/github.png" alt="" />

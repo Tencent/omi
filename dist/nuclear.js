@@ -336,13 +336,16 @@ Nuclear._mixObj = function (obj) {
            this.nulcearChildren = [];
            var i = 0;
            for (; i < len; i++) {
-
-               arr[i].match(/nc-class=['|"](\S*)['|"]/g);
+                var matchStr = arr[i];
+               matchStr.match(/nc-class=['|"](\S*)['|"]/g);
                var ChildClass = this._getClassFromString(RegExp.$1);
                var child = new ChildClass( this.childrenOptions[i]||{});
                this.nulcearChildren.push(child);
-
-               this._ncChildrenMapping.push({tpl: arr[i],child:child});
+               matchStr.match(/nc-name=['|"](\S*)['|"]/g);
+               if(RegExp.$1){
+                   this[RegExp.$1] = child;
+               }
+               this._ncChildrenMapping.push({tpl: matchStr,child:child});
                this._nuclearRef.push(child);
 
            }
@@ -531,7 +534,9 @@ Nuclear._mixObj = function (obj) {
                 }
 
             } else if (type === 'text') {
-                element.value = element.getAttribute('value');
+                if(element.getAttribute('value')!== null) {
+                    element.value = element.getAttribute('value');
+                }
             }
         }
     };
