@@ -106,7 +106,7 @@ Nuclear._mixObj = function (obj) {
     obj._nuclearFixNestingChild = function(child){
         child._ncChildrenMapping = [];
 
-        var arr = child.render().match(/<child[^>][\s\S]*?nc-class=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
+        var arr = child._nuclearTplGenerator().match(/<child[^>][\s\S]*?nc-class=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
 
         if(arr) {
 
@@ -125,7 +125,7 @@ Nuclear._mixObj = function (obj) {
                 }
                 child._ncChildrenMapping.push({tpl: matchStr,child:sub_child});
                 child._nuclearRef.push(sub_child);
-                child._nuclearFixNestingChild(sub_child);
+                //child._nuclearFixNestingChild(sub_child);
             }
         }
     }
