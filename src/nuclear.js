@@ -88,30 +88,8 @@ Nuclear._mixObj = function (obj) {
                 }
             }
         }
-        this._ncChildrenMapping = [];
 
-        var arr = this.render().match(/<child[^>][\s\S]*?nc-class=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
-
-       if(arr) {
-
-           var len = arr.length;
-           this.nulcearChildren = [];
-           var i = 0;
-           for (; i < len; i++) {
-                var matchStr = arr[i];
-               matchStr.match(/nc-class=['|"](\S*)['|"]/g);
-               var ChildClass = this._getClassFromString(RegExp.$1);
-               var child = new ChildClass( this.childrenOptions[i]||{});
-               this.nulcearChildren.push(child);
-               matchStr.match(/nc-name=['|"](\S*)['|"]/g);
-               if(RegExp.$1){
-                   this[RegExp.$1] = child;
-               }
-               this._ncChildrenMapping.push({tpl: matchStr,child:child});
-               this._nuclearRef.push(child);
-
-           }
-       }
+        this._nuclearFixNestingChild(this);
 
         this._nuclearTimer = null;
         this._preNuclearTime = new Date();
@@ -124,6 +102,33 @@ Nuclear._mixObj = function (obj) {
         this._nuclearRender();
         if (this.installed) this.installed();
     };
+
+    obj._nuclearFixNestingChild = function(child){
+        child._ncChildrenMapping = [];
+
+        var arr = child.render().match(/<child[^>][\s\S]*?nc-class=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
+
+        if(arr) {
+
+            var len = arr.length;
+            child.nulcearChildren = [];
+            var i = 0;
+            for (; i < len; i++) {
+                var matchStr = arr[i];
+                matchStr.match(/nc-class=['|"](\S*)['|"]/g);
+                var ChildClass = child._getClassFromString(RegExp.$1);
+                var sub_child = new ChildClass( child.childrenOptions[i]||{});
+                child.nulcearChildren.push(sub_child);
+                matchStr.match(/nc-name=['|"](\S*)['|"]/g);
+                if(RegExp.$1){
+                    child[RegExp.$1] = sub_child;
+                }
+                child._ncChildrenMapping.push({tpl: matchStr,child:sub_child});
+                child._nuclearRef.push(sub_child);
+                child._nuclearFixNestingChild(sub_child);
+            }
+        }
+    }
 
     obj._getClassFromString = function(str){
         if(str.indexOf('.')!==0){
@@ -181,8 +186,7 @@ Nuclear._mixObj = function (obj) {
 
     obj.render = function () {
         if (this._nuclearParentEmpty) {
-
-            return this.HTML;
+             return this._nuclearFixNesting(this.HTML);
             //var len=this._nuclearRef.length;
             ////嵌套的render逻辑        
             ////子节点下再无子节点
@@ -215,18 +219,23 @@ Nuclear._mixObj = function (obj) {
     //        }
     //    }
     //}
+    obj._nuclearFixNesting = function(tpl){
+        var len = this._ncChildrenMapping.length;
+
+        if(len>0){
+            var i = 0;
+            for(;i<len;i++){
+                tpl=tpl.replace(this._ncChildrenMapping[i]["tpl"],this._ncChildrenMapping[i]["child"].render());
+            }
+        }
+        return tpl;
+    }
 
     obj._nuclearRender = function () {
         var item = this._nuclearRenderInfo;
         item.tpl = this._nuclearTplGenerator();
 
-        var len = this._ncChildrenMapping.length;
-        if(len>0){
-            var i = 0;
-            for(;i<len;i++){
-                item.tpl=item.tpl.replace(this._ncChildrenMapping[i]["tpl"],this._ncChildrenMapping[i]["child"].render());
-            }
-        }
+        item.tpl = this._nuclearFixNesting(item.tpl);
 
         if (this.style) {
             var ele = document.getElementById('nuclear_style_' + this._ncInstanceId);
