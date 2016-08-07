@@ -1,4 +1,4 @@
-/* Nuclear  v0.3.1
+/* Nuclear  v0.4.0
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -326,6 +326,28 @@ Nuclear._mixObj = function (obj) {
                 }
             }
         }
+        this._ncChildrenMapping = [];
+
+        var arr = this.render().match(/<child[^>][\s\S]*?nc-class=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
+
+       if(arr) {
+
+           var len = arr.length;
+           this.nulcearChildren = [];
+           var i = 0;
+           for (; i < len; i++) {
+
+               arr[i].match(/nc-class=['|"](\S*)['|"]/g);
+               var ChildClass = this._getClassFromString(RegExp.$1);
+               var child = new ChildClass( this.childrenOptions[i]||{});
+               this.nulcearChildren.push(child);
+
+               this._ncChildrenMapping.push({tpl: arr[i],child:child});
+               this._nuclearRef.push(child);
+
+           }
+       }
+
         this._nuclearTimer = null;
         this._preNuclearTime = new Date();
         this._nuclearObserver();
@@ -338,19 +360,34 @@ Nuclear._mixObj = function (obj) {
         if (this.installed) this.installed();
     };
 
+    obj._getClassFromString = function(str){
+        if(str.indexOf('.')!==0){
+            var arr = str.split('.');
+            var i= 1,len=arr.length;current = window[arr[0]];
+            for(;i<len;i++){
+                current = current[arr[i]];
+            }
+            return current;
+        }else{
+            return window[str];
+        }
+
+    }
+
     obj._nuclearObserver = function () {
         if (this.option && this._nuclearTwoWay&&!(Nuclear.ie<9)) {
             Nuclear.observe(this.option, function (prop, value, oldValue, path) {
                 if (!this.onOptionChange || (this.onOptionChange && this.onOptionChange(prop, value, oldValue, path) !== false)) {
-                    clearTimeout(this._nuclearTimer);
-                    if (new Date() - this._preNuclearTime > 40) {
-                        this._nuclearRender();
-                        this._preNuclearTime = new Date();
-                    } else {
-                        this._nuclearTimer = setTimeout(function () {
-                            this._nuclearRender();
-                        }.bind(this), 40);
-                    }
+                    this._nuclearRender();
+                    //clearTimeout(this._nuclearTimer);
+                    //if (new Date() - this._preNuclearTime > 40) {
+                    //    this._nuclearRender();
+                    //    this._preNuclearTime = new Date();
+                    //} else {
+                    //    this._nuclearTimer = setTimeout(function () {
+                    //        this._nuclearRender();
+                    //    }.bind(this), 40);
+                    //}
                 }
             }.bind(this));
         }
@@ -417,7 +454,15 @@ Nuclear._mixObj = function (obj) {
     obj._nuclearRender = function () {
         var item = this._nuclearRenderInfo;
         item.tpl = this._nuclearTplGenerator();
-     
+
+        var len = this._ncChildrenMapping.length;
+        if(len>0){
+            var i = 0;
+            for(;i<len;i++){
+                item.tpl=item.tpl.replace(this._ncChildrenMapping[i]["tpl"],this._ncChildrenMapping[i]["child"].render());
+            }
+        }
+
         if (this.style) {
             var ele = document.getElementById('nuclear_style_' + this._ncInstanceId);
             ele && document.getElementsByTagName('head')[0].removeChild(ele);
