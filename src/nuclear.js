@@ -105,27 +105,27 @@ Nuclear._mixObj = function (obj) {
 
     obj._nuclearFixNestingChild = function(child){
         child._ncChildrenMapping = [];
-
-        var arr = child._nuclearTplGenerator().match(/<child[^>][\s\S]*?nc-class=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
-
-        if(arr) {
-
-            var len = arr.length;
-            child.children = [];
-            var i = 0;
-            for (; i < len; i++) {
-                var matchStr = arr[i];
-                matchStr.match(/nc-class=['|"](\S*)['|"]/g);
-                var ChildClass = child._getClassFromString(RegExp.$1);
-                var sub_child = new ChildClass( child.childrenOptions[i]||{});
-                child.children.push(sub_child);
-                matchStr.match(/nc-name=['|"](\S*)['|"]/g);
-                if(RegExp.$1){
-                    child[RegExp.$1] = sub_child;
+        var tpl = child._nuclearTplGenerator();
+        if(tpl){
+            var arr = tpl.match(/<child[^>][\s\S]*?nc-class=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
+            if(arr) {
+                var len = arr.length;
+                child.children = [];
+                var i = 0;
+                for (; i < len; i++) {
+                    var matchStr = arr[i];
+                    matchStr.match(/nc-class=['|"](\S*)['|"]/g);
+                    var ChildClass = child._getClassFromString(RegExp.$1);
+                    var sub_child = new ChildClass( child.childrenOptions[i]||{});
+                    child.children.push(sub_child);
+                    matchStr.match(/nc-name=['|"](\S*)['|"]/g);
+                    if(RegExp.$1){
+                        child[RegExp.$1] = sub_child;
+                    }
+                    child._ncChildrenMapping.push({tpl: matchStr,child:sub_child});
+                    child._nuclearRef.push(sub_child);
+                    //child._nuclearFixNestingChild(sub_child);
                 }
-                child._ncChildrenMapping.push({tpl: matchStr,child:sub_child});
-                child._nuclearRef.push(sub_child);
-                //child._nuclearFixNestingChild(sub_child);
             }
         }
     }

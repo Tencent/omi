@@ -1,6 +1,6 @@
 {
   "name": "alloynuclear",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "made UI super easy.",
   "main": "dist/nuclear.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "author": "dntzhang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlloyTeam/Nuclear/issues/new"
-  },
-  "homepage": "http://alloyteam.github.io/Nuclear/"
+"url": "https://github.com/AlloyTeam/Nuclear/issues/new"
+},
+"homepage": "http://alloyteam.github.io/Nuclear/"
 }
