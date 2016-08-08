@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .hasBorder{border:1px solid #ccc;}
+    </style>
+</head>
+<body>
+
+<script src="../dist/nuclear.js"></script>
+<script>
+    var A=Nuclear.create({
+        install:function(){
+            this.childrenOptions = [this.option,this.option]
+        },
+        render:function(){
+            return '<div style="width: 500px;" class="hasBorder"><div>{{titleA}}</div>\
+                            <child nc-class="B"></child>\
+                            <child nc-class="D"></child>\
+                    </div>'
+        }
+    })
+
+    var B=Nuclear.create({
+        install:function(){
+            this.childrenOptions = [this.option]
+        },
+        render:function(){
+            return '<div class="hasBorder" style="width: 370px;margin: 0 auto;"><div>{{titleB}}</div>\
+            <child nc-class="C"></child>\
+                    </div>'
+        }
+    })
+
+    var C=Nuclear.create({
+        style:function(){
+            return ".hasBorder{color:red;}"
+        },
+        render:function(){
+            return '<div class="hasBorder" style="width: 270px;margin: 10px auto;">{{titleC}}</div>'
+        },
+        installed:function(){
+            console.log(22);
+            this.node.addEventListener("click",function(){
+                console.log(1111)
+            },false)
+
+        }
+    })
+
+    var D=Nuclear.create({
+        render:function(){
+            return '<div class="hasBorder" style="width: 370px;margin: 10px auto;">{{titleD}}</div>'
+        }
+    })
+
+    var a=new A({titleA:"AA",titleB:"BB",titleC:"CC",titleD:"DD"},"body");
+
+
+    a.option.titleA="A";
+    a.option.titleB="B";
+    a.option.titleC="C";
+    a.option.titleD = "D";
+    a.option = { titleA: "AAa", titleB: "BBb", titleC: "CCc", titleD: "DDd" }
+    a.option.titleC="CDE";
+</script>
+</body>
+</html>

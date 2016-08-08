@@ -111,14 +111,14 @@ Nuclear._mixObj = function (obj) {
         if(arr) {
 
             var len = arr.length;
-            child.nulcearChildren = [];
+            child.children = [];
             var i = 0;
             for (; i < len; i++) {
                 var matchStr = arr[i];
                 matchStr.match(/nc-class=['|"](\S*)['|"]/g);
                 var ChildClass = child._getClassFromString(RegExp.$1);
                 var sub_child = new ChildClass( child.childrenOptions[i]||{});
-                child.nulcearChildren.push(sub_child);
+                child.children.push(sub_child);
                 matchStr.match(/nc-name=['|"](\S*)['|"]/g);
                 if(RegExp.$1){
                     child[RegExp.$1] = sub_child;
