@@ -13,14 +13,14 @@
             this.childrenOptions = [{title: "Todo"}];
         },
         render: function () {
-            return ' <child nc-class="TodoTitle"></child>' +
+            return '<style>h3{font-size:40px;}</style> <h3>复式房建设经费</h3><child nc-class="TodoTitle"></child><style>h3{color:green;}</style>' +
                     '<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';
         }
     });
 
     var TodoTitle = Nuclear.create({
         render: function () {
-            return '<h3>{{title}}</h3>';
+            return '<style>h3{color:red;}</style><h3>{{title}}</h3>';
         }
     });
 
