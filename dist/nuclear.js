@@ -1,4 +1,4 @@
-/* Nuclear  v0.4.4
+/* Nuclear  v0.4.5
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -542,10 +542,6 @@ Nuclear._mixObj = function (obj) {
                     element.checked = false;
                 }
 
-            } else if (type === 'text') {
-                if(element.getAttribute('value')!== null) {
-                    element.value = element.getAttribute('value');
-                }
             }
         }
     };

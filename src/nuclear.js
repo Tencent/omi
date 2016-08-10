@@ -304,10 +304,6 @@ Nuclear._mixObj = function (obj) {
                     element.checked = false;
                 }
 
-            } else if (type === 'text') {
-                if(element.getAttribute('value')!== null) {
-                    element.value = element.getAttribute('value');
-                }
             }
         }
     };
