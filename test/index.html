@@ -188,5 +188,39 @@
     new TestParent({},"#nestTest")
 
 </script>
+
+<div id="nestTest2"></div>
+<script>
+
+    var TopNameSpace = {};
+    TopNameSpace.TestChild = Nuclear.create({
+
+        render:function(){
+            return '<h1>i am child.{{msg}}</h1>'
+        }
+    })
+    var TestParent2 = Nuclear.create({
+        install:function(){
+            this.childrenOptions = [{
+                msg:"test namespace"
+            }];
+        },
+        installed:function(){
+            var text = this.node.querySelector('h1').innerText;
+
+            QUnit.test("【Nest】using namespace in child", function (assert) {
+                assert.equal(text,'i am child.test namespace' );
+            });
+        },
+        render:function(){
+            return '<div style="border: 1px solid #ccc;"><child nc-class="TopNameSpace.TestChild"></child>\
+                        <div>i am parent</div>\
+                    </div>'
+        }
+    })
+
+    new TestParent2({},"#nestTest2")
+
+</script>
 </body>
 </html>
