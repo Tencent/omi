@@ -23,6 +23,7 @@
 <script src="../asset/qunit-1.23.1.js"></script>
 <script src="../dist/nuclear.js"></script>
 <script src="polyfill.js"></script>
+
 <script>
 
     
@@ -62,10 +63,10 @@
             assert.equal(testDiv2.innerText.trim(), 'dd haha from A');
         });
 
-       
+
         setTimeout(function () {
             a.option.msg = 'Modified'
-            QUnit.test("【Tow Way Binding】Prop Change", function (assert) {              
+            QUnit.test("【Tow Way Binding】Prop Change", function (assert) {
                 assert.equal(testDiv.innerText.trim(), 'Modified');
             });
         }, 1000)
@@ -82,12 +83,12 @@
         //导致ie9错误
         at.option.msg.push('c');
 
-        setTimeout(function () {
+       // setTimeout(function () {
             QUnit.test("【Tow Way Binding】Array Change", function (assert) {
                 var testArray = document.querySelector('#testArray .test');
                 assert.equal(testArray.innerText.trim(), 'abc');
             });
-        }, 1000)
+       // }, 1000)
 
 
         var CSSTest = Nuclear.create({
@@ -112,7 +113,11 @@
 
 
         var EventTest = Nuclear.create({
-            add:function(){},
+            add:function(){
+                QUnit.test("【EventTest2】test event scope", function (assert) {
+                    assert.equal(true,true);
+                });
+            },
             render: function () {
                 return '<h1 nc-id="test" onclick="add()">EventTest</h1>'
             }
@@ -123,6 +128,8 @@
         QUnit.test("【EventTest】", function (assert) {
             assert.equal(et.node.querySelector('h1').getAttribute('onclick').indexOf('Nuclear.instances['),0 );
         });
+
+        et.test.click();
 
         QUnit.test("【nc-id】", function (assert) {
             assert.equal(et.test.innerHTML,'EventTest' );
@@ -142,7 +149,44 @@
             assert.equal(nc.test[1].innerHTML,'2' );
             assert.equal(nc.test[2].innerHTML,'aa' );
         });
+
     })();
+
+</script>
+
+
+
+<div id="nestTest"></div>
+<script>
+
+    var TestChild = Nuclear.create({
+
+        render:function(){
+            return '<h1>i am child.{{msg}}</h1>'
+        }
+    })
+    var TestParent = Nuclear.create({
+        install:function(){
+            this.childrenOptions = [{
+                msg:"from parent option"
+            }];
+        },
+        installed:function(){
+            var text = this.node.querySelector('h1').innerText;
+
+            QUnit.test("【Nest】", function (assert) {
+                assert.equal(text,'i am child.from parent option' );
+            });
+        },
+        render:function(){
+            return '<div style="border: 1px solid #ccc;"><child nc-class="TestChild"></child>\
+                        <div>i am parent</div>\
+                    </div>'
+        }
+    })
+
+    new TestParent({},"#nestTest")
+
 </script>
 </body>
 </html>
