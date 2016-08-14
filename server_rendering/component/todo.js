@@ -9,7 +9,7 @@ function todo(Nuclear,server) {
                       <h3>TODO</h3>
                       <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>
                       <form onsubmit="add(event)" >
-                          <input nc-id="textBox" type="text"  />
+                          <input nc-id="textBox" type="text"  value="" />
                           <button>Add #{{items.length}}</button>
                       </form>
                     </div>`;
