@@ -359,7 +359,7 @@ Nuclear._mixObj = function (obj) {
                     if(!this._nuclearServerRender){
                         this._nuclearFixForm();
                     }
-                    //if (ref.installed) ref.installed();
+                    if (ref.installed) ref.installed();
                 }
             }
         }
