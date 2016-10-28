@@ -338,7 +338,7 @@ Nuclear._mixObj = function (obj) {
             parent: this.parentNode
         };
         this._nuclearRender();
-        if (this.installed) this.installed();
+        if (this.installed&&arguments.length>1) this.installed();
     };
 
     obj._nuclearFixNestingChild = function(child){
@@ -597,7 +597,7 @@ Nuclear._mixObj = function (obj) {
                     if(!this._nuclearServerRender){
                         this._nuclearFixForm();
                     }
-                    //if (ref.installed) ref.installed();
+                    if (ref.installed) ref.installed();
                 }
             }
         }
@@ -725,6 +725,7 @@ Nuclear.instances = {};
 Nuclear.destroy=function(instance){
     Nuclear.instances[instance._ncInstanceId] =null;
 }
+
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js

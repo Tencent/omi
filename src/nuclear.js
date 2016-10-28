@@ -100,7 +100,7 @@ Nuclear._mixObj = function (obj) {
             parent: this.parentNode
         };
         this._nuclearRender();
-        if (this.installed) this.installed();
+        if (this.installed&&arguments.length>1) this.installed();
     };
 
     obj._nuclearFixNestingChild = function(child){
