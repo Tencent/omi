@@ -107,15 +107,17 @@ Nuclear._mixObj = function (obj) {
         child._ncChildrenMapping = [];
         var tpl = child._nuclearTplGenerator();
         if(tpl){
-            var arr = tpl.match(/<child[^>][\s\S]*?nc-class=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
+            var arr = tpl.match(/<child[^>][\s\S]*?nc-constructor=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
             if(arr) {
                 var len = arr.length;
                 child.children = [];
                 var i = 0;
                 for (; i < len; i++) {
                     var matchStr = arr[i];
-                    matchStr.match(/nc-class=['|"](\S*)['|"]/g);
+                    matchStr.match(/nc-constructor=['|"](\S*)['|"]/g);
                     var ChildClass = child._getClassFromString(RegExp.$1);
+                    if (!child.childrenOptions) throw "you must define the [childrenOptions] property in the parent node's install function";
+                    if (!ChildClass) throw "Can't find Class called [" + RegExp.$1+"]";
                     var sub_child = new ChildClass( child.childrenOptions[i]||{});
                     child.children.push(sub_child);
                     matchStr.match(/nc-name=['|"](\S*)['|"]/g);

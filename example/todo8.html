@@ -40,8 +40,8 @@
         render: function () {
 
             return '<div>\
-                        <child nc-class="TodoTitle"></child>\
-                        <child nc-class="AA.TodoList"  nc-name="list"></child>\
+                        <child nc-constructor="TodoTitle"></child>\
+                        <child nc-constructor="AA.TodoList"  nc-name="list"></child>\
                         <form onsubmit="add(event)" >\
                           <input nc-id="textBox" type="text" value="{{inputValue}}" />\
                           <button>Add #'+ this.length+'</button>\
@@ -50,7 +50,7 @@
         }
     });
 
-    new TodoApp( {inputValue:""},"#todo2Container");
+   var todo =  new TodoApp( {inputValue:""},"#todo2Container");
 </script>
 <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
     <img src="asset/github.png" alt="" />
