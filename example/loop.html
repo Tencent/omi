@@ -1,9 +1,46 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <title></title>
+    <meta charset="utf-8">
+    <title>Loop</title>
 </head>
 <body>
 
+    <script src="../dist/nuclear.js"></script>
+
+    <script type="text/javascript">
+        var LoopDemo = Nuclear.create({
+            render: function () {
+                return '<ul>{{#list}}<li>姓名:{{name}} 年龄:{{age}}</li>{{/list}}</ul>'
+            }
+        })
+
+        var ld = new LoopDemo({
+            list: [
+                { name: "dntzhang", age: 18 },
+                { name: "vorshen", age: 17 }
+            ]
+        }, "body");
+
+        setTimeout(function () {
+            //增加
+            ld.option.list.push({ name: "lisi", age: 38 });
+        }, 1000);
+
+        setTimeout(function () {
+            //修改
+            ld.option.list[0].age = 19;
+        }, 2000);
+
+        setTimeout(function () {
+            //移除
+            ld.option.list.splice(0, 1);
+        }, 3000);
+
+    </script>
+
+    <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="asset/github.png" alt="" />
+    </a>
 </body>
 </html>

@@ -1,9 +1,38 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <title></title>
+    <title>Condition</title>
 </head>
 <body>
 
+    <script src="../dist/nuclear.js"></script>
+
+    <script type="text/javascript">
+        var HelloNuclear = Nuclear.create({
+            render: function () {
+                return '{{#seen}}\
+                            <div>\
+                                you can see me\
+                            </div>\
+                        {{/seen}}\
+                        {{^seen}}\
+                            <div>\
+                                yan can not see me\
+                            </div>\
+                        {{/seen}}'
+            }
+        })
+
+        var hn = new HelloNuclear({ seen: true }, "body");
+
+        setTimeout(function () {
+            hn.option.seen = false;
+        }, 2000);
+
+    </script>
+
+    <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="asset/github.png" alt="" />
+    </a>
 </body>
 </html>
