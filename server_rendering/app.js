@@ -7,17 +7,16 @@ var Nuclear = require("alloynuclear")(jsdom.jsdom().defaultView);
 
 var Todo = require('./component/todo')(Nuclear,true);
 
-var ejs = require('ejs');
 
 
 app.use(serve(__dirname + '/component'));
 
 app.use(router.get('/todos', function *(){
     var  str = require('fs').readFileSync(__dirname + '/view/index.html', 'utf8');
-    var todo = new Todo({ items: ["Nuclear","koa",'ejs'] });
-    this.body =  ejs.render(str, {
+    var todo = new Todo({ items: ["Nuclear2","koa",'ejs'] });
+    this.body = Nuclear.Tpl.render(str, {
         todo:  todo.HTML
-    });
+    }); 
     Nuclear.destroy(todo);
 }));
 
