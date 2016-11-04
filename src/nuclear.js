@@ -8,10 +8,11 @@
 };
 
 Nuclear._mixObj = function (obj) {
-    obj.ctor = function (option, selector) {
+    obj.ctor = function (option, selector, increment) {
 
         this._nuclearTwoWay = true;
         this._nuclearDiffDom = true;
+        this._nuclearIncrement = increment;
         this._nuclearServerRender = this._nuclearSetting.server;
         //close two way binding by default in node evn
         if (this._nuclearSetting.twoWay === false||this._nuclearServerRender) {
@@ -172,7 +173,7 @@ Nuclear._mixObj = function (obj) {
     obj.setNuclearContainer = function(selector){
         this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
         this._nuclearRenderInfo.parent = this.parentNode;
-        if(document.body === this.parentNode) {
+        if (this._nuclearIncrement) {
             this.parentNode.insertAdjacentHTML('beforeend',this.HTML);
         }else{
             this.parentNode.innerHTML = this.HTML;
@@ -265,7 +266,7 @@ Nuclear._mixObj = function (obj) {
         } else {
             //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
-                if(document.body === item.parent) {
+                if (this._nuclearIncrement) {
                     item.parent.insertAdjacentHTML('beforeend', this._nulcearGenerateHTML(item));
                 }else {
                     item.parent.innerHTML = this._nulcearGenerateHTML(item);
