@@ -11,11 +11,11 @@
 
     <script type="text/javascript">
         var EventDemo = Nuclear.create({
-            clickHandler: function (evt, target, other1, other2) {
-                alert("1");
+            clickHandler: function () {
+                alert("my color is red!");
             },
             render: function () {
-                return '<div onclick="clickHandler(event,this,\'otherParameter1\',\'otherParameter2\')">my color is red!</div>'
+                return '<div onclick="clickHandler()">my color is red!</div>'
             },
             style: function () {
                 return 'div { cursor:pointer; color:red }';

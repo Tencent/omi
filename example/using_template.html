@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Event</title>
+</head>
+<body>
+
+    <script src="../dist/nuclear.js"></script>
+
+    <template id="myTemplate">
+        <style>
+            h3 {
+                color: red;
+            }
+
+            button {
+                color: green;
+            }
+        </style>
+
+        <div>
+            <div>
+                <h3>TODO</h3>
+                <ul>{{#items}}<li>{{.}}</li>{{/items}}</ul>
+                <form onsubmit="add(event)">
+                    <input nc-id="textBox" value="{{inputValue}}" type="text">
+                    <button>Add #{{items.length}}</button>
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        var TodoApp = Nuclear.create({
+            install: function () {
+                this.todoTpl = document.querySelector("#myTemplate").innerHTML;
+            },
+            add: function (evt) {
+                evt.preventDefault();
+                this.inputValue = "";
+                this.option.items.push(this.textBox.value);
+            },
+            render: function () {
+                return this.todoTpl;
+            }
+        });
+
+        new TodoApp({ inputValue: "", items: [] }, "body");
+        //反斜杠可以使用 ES20XX template literals、或者split to js、css和html文件然后通过构建组装使用。
+    </script>
+</body>
+</html>
