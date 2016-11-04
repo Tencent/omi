@@ -246,10 +246,11 @@ Nuclear.create = function (obj, setting) {
 };
 
 Nuclear._mixObj = function (obj) {
-    obj.ctor = function (option, selector) {
+    obj.ctor = function (option, selector, increment) {
 
         this._nuclearTwoWay = true;
         this._nuclearDiffDom = true;
+        this._nuclearIncrement = increment;
         this._nuclearServerRender = this._nuclearSetting.server;
         //close two way binding by default in node evn
         if (this._nuclearSetting.twoWay === false||this._nuclearServerRender) {
@@ -338,22 +339,24 @@ Nuclear._mixObj = function (obj) {
             parent: this.parentNode
         };
         this._nuclearRender();
-        if (this.installed) this.installed();
+        if (this.installed&&arguments.length>1) this.installed();
     };
 
     obj._nuclearFixNestingChild = function(child){
         child._ncChildrenMapping = [];
         var tpl = child._nuclearTplGenerator();
         if(tpl){
-            var arr = tpl.match(/<child[^>][\s\S]*?nc-class=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
+            var arr = tpl.match(/<child[^>][\s\S]*?nc-constructor=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
             if(arr) {
                 var len = arr.length;
                 child.children = [];
                 var i = 0;
                 for (; i < len; i++) {
                     var matchStr = arr[i];
-                    matchStr.match(/nc-class=['|"](\S*)['|"]/g);
+                    matchStr.match(/nc-constructor=['|"](\S*)['|"]/g);
                     var ChildClass = child._getClassFromString(RegExp.$1);
+                    if (!child.childrenOptions) throw "you must define the [childrenOptions] property in the parent node's install function";
+                    if (!ChildClass) throw "Can't find Class called [" + RegExp.$1+"]";
                     var sub_child = new ChildClass( child.childrenOptions[i]||{});
                     child.children.push(sub_child);
                     matchStr.match(/nc-name=['|"](\S*)['|"]/g);
@@ -408,7 +411,7 @@ Nuclear._mixObj = function (obj) {
     obj.setNuclearContainer = function(selector){
         this.parentNode = typeof selector === "string" ? document.querySelector(selector) : selector;
         this._nuclearRenderInfo.parent = this.parentNode;
-        if(document.body === this.parentNode) {
+        if (this._nuclearIncrement) {
             this.parentNode.insertAdjacentHTML('beforeend',this.HTML);
         }else{
             this.parentNode.innerHTML = this.HTML;
@@ -501,7 +504,7 @@ Nuclear._mixObj = function (obj) {
         } else {
             //第一次渲染
             if (!Nuclear.isUndefined(item.tpl)) {
-                if(document.body === item.parent) {
+                if (this._nuclearIncrement) {
                     item.parent.insertAdjacentHTML('beforeend', this._nulcearGenerateHTML(item));
                 }else {
                     item.parent.innerHTML = this._nulcearGenerateHTML(item);
@@ -597,7 +600,7 @@ Nuclear._mixObj = function (obj) {
                     if(!this._nuclearServerRender){
                         this._nuclearFixForm();
                     }
-                    //if (ref.installed) ref.installed();
+                    if (ref.installed) ref.installed();
                 }
             }
         }
@@ -725,6 +728,7 @@ Nuclear.instances = {};
 Nuclear.destroy=function(instance){
     Nuclear.instances[instance._ncInstanceId] =null;
 }
+
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
