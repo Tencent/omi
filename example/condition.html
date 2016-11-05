@@ -8,7 +8,7 @@
     <script src="../dist/nuclear.js"></script>
 
     <script type="text/javascript">
-        var HelloNuclear = Nuclear.create({
+        var ConditionDemo = Nuclear.create({
             render: function () {
                 return '{{#seen}}\
                             <div>\
@@ -23,10 +23,10 @@
             }
         })
 
-        var hn = new HelloNuclear({ seen: true }, "body");
+        var cd = new ConditionDemo({ seen: true }, "body");
 
         setTimeout(function () {
-            hn.option.seen = false;
+            cd.option.seen = false;
         }, 2000);
 
     </script>

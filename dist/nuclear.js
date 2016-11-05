@@ -1,4 +1,4 @@
-/* Nuclear  v0.4.5
+/* Nuclear  v0.4.6
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -263,7 +263,8 @@ Nuclear._mixObj = function (obj) {
 
         if(this._nuclearReRender) {
             this.parentNode = document.querySelector(option);
-            this._ncInstanceId = this.parentNode.firstChild.getAttribute('data-nuclearId');
+            //first child会出现text文本节点
+            this._ncInstanceId = this.parentNode.querySelector("div").getAttribute('data-nuclearId');
             this._nuclearOption = JSON.parse(this.parentNode.querySelector("input[name=__nuclear_option_"+this._ncInstanceId+"]").value);
         }else if(this._nuclearServerRender) {
             this._ncInstanceId = Nuclear.getServerInstanceId();
