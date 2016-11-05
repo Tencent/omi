@@ -243,7 +243,9 @@ Nuclear._mixObj = function (obj) {
 
         if (this.style) {
             var ele = document.getElementById('nuclear_style_' + this._ncInstanceId);
-            ele && document.getElementsByTagName('head')[0].removeChild(ele);
+            if(ele&&ele.parentNode === document.getElementsByTagName('head')[0]){
+                document.getElementsByTagName('head')[0].removeChild(ele);
+            }
 
             Nuclear.addStyle(this.style(), "nuclear_style_" + this._ncInstanceId);
         }
@@ -397,10 +399,12 @@ Nuclear._mixObj = function (obj) {
         }
         var ele = document.getElementById('nuclear_style_' + this._ncInstanceId);
         ele && document.getElementsByTagName('head')[0].removeChild(ele);
-
-        Nuclear.addStyle(Nuclear.scoper(str, "#nuclear-scoper-" + this._ncInstanceId), "nuclear_style_" + this._ncInstanceId);
-
-        return tpl.replace(/<style(([\s\S])*?)<\/style>/g, '');
+        if(this._nuclearServerRender){
+            return '<style id="nuclear_style_'+this._ncInstanceId+'">'+ Nuclear.scoper(str, "#nuclear-scoper-" + this._ncInstanceId)+'</style>'+ tpl.replace(/<style(([\s\S])*?)<\/style>/g, '');
+        }else {
+            Nuclear.addStyle(Nuclear.scoper(str, "#nuclear-scoper-" + this._ncInstanceId), "nuclear_style_" + this._ncInstanceId);
+            return tpl.replace(/<style(([\s\S])*?)<\/style>/g, '');
+        }
 
     }
 
