@@ -29,8 +29,7 @@
         var TodoApp = Nuclear.create({
             install: function () {
                 //pass options to children
-                this.childrenOptions = [{ title: "Todo" }, { items: [] }];
-                this.length = 0;
+                this.childrenOptions = [{ title: "Todo" }, { items: [] }];        
             },
             add: function (evt) {
                 evt.preventDefault();
@@ -39,8 +38,7 @@
                 //or
                 this.list.option.items.push(this.textBox.value);
 
-                this.length = this.list.option.items.length;
-                this.textBox.value = "";
+                this.option.length = this.list.option.items.length;
             },
             render: function () {
                 //or  any_namespace.xx.xxx.TodoList 对应的 nc-constructor="any_namespace.xx.xxx.TodoList"
@@ -49,13 +47,13 @@
                             <child nc-constructor="TodoList"  nc-name="list"></child>\
                             <form onsubmit="add(event)" >\
                               <input nc-id="textBox" value="{{inputValue}}" type="text"  />\
-                              <button>Add #'+ this.length + '</button>\
+                              <button>Add #{{length}}</button>\
                              </form>\
                        </div>';
             }
         });
 
-        new TodoApp({ inputValue: "" }, "body");
+        new TodoApp({ inputValue: "" ,length: 0 }, "body");
     </script>
 </body>
 </html>
