@@ -1,4 +1,4 @@
-/* Nuclear  v0.4.5
+/* Nuclear  v0.5.0
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -263,7 +263,8 @@ Nuclear._mixObj = function (obj) {
 
         if(this._nuclearReRender) {
             this.parentNode = document.querySelector(option);
-            this._ncInstanceId = this.parentNode.firstChild.getAttribute('data-nuclearId');
+            //first child会出现text文本节点
+            this._ncInstanceId = this.parentNode.querySelector("div").getAttribute('data-nuclearId');
             this._nuclearOption = JSON.parse(this.parentNode.querySelector("input[name=__nuclear_option_"+this._ncInstanceId+"]").value);
         }else if(this._nuclearServerRender) {
             this._ncInstanceId = Nuclear.getServerInstanceId();
@@ -480,7 +481,9 @@ Nuclear._mixObj = function (obj) {
 
         if (this.style) {
             var ele = document.getElementById('nuclear_style_' + this._ncInstanceId);
-            ele && document.getElementsByTagName('head')[0].removeChild(ele);
+            if(ele&&ele.parentNode === document.getElementsByTagName('head')[0]){
+                document.getElementsByTagName('head')[0].removeChild(ele);
+            }
 
             Nuclear.addStyle(this.style(), "nuclear_style_" + this._ncInstanceId);
         }
@@ -634,10 +637,12 @@ Nuclear._mixObj = function (obj) {
         }
         var ele = document.getElementById('nuclear_style_' + this._ncInstanceId);
         ele && document.getElementsByTagName('head')[0].removeChild(ele);
-
-        Nuclear.addStyle(Nuclear.scoper(str, "#nuclear-scoper-" + this._ncInstanceId), "nuclear_style_" + this._ncInstanceId);
-
-        return tpl.replace(/<style(([\s\S])*?)<\/style>/g, '');
+        if(this._nuclearServerRender){
+            return '<style id="nuclear_style_'+this._ncInstanceId+'">'+ Nuclear.scoper(str, "#nuclear-scoper-" + this._ncInstanceId)+'</style>'+ tpl.replace(/<style(([\s\S])*?)<\/style>/g, '');
+        }else {
+            Nuclear.addStyle(Nuclear.scoper(str, "#nuclear-scoper-" + this._ncInstanceId), "nuclear_style_" + this._ncInstanceId);
+            return tpl.replace(/<style(([\s\S])*?)<\/style>/g, '');
+        }
 
     }
 

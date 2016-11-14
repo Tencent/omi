@@ -5,7 +5,7 @@ function todo(Nuclear,server) {
             this.option.items.push(this.textBox.value);
         },
         render: function () {
-            return `<div>
+            return `<style>input{width:400px;}</style><div>
                       <h3>TODO</h3>
                       <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>
                       <form onsubmit="add(event)" >
@@ -19,8 +19,8 @@ function todo(Nuclear,server) {
                    button{ color:green;}`;
         }
     },{
-        server:server
-    });
+    server:server
+});
     return Todo;
 }
 
