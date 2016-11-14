@@ -43,7 +43,7 @@ Nuclear._mixObj = function (obj) {
         this._nuclearParentEmpty = !selector;
         this.HTML = "";
 
-        if(!(Nuclear.ie<9)) {
+        if(this._nuclearTwoWay&&!(Nuclear.ie<9)) {
             Object.defineProperty(this, 'option', {
                 get: function () {
                     return this._nuclearOption;
