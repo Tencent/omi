@@ -118,7 +118,7 @@ Nuclear._mixObj = function (obj) {
                     var matchStr = arr[i];
                     matchStr.match(/nc-constructor=['|"](\S*)['|"]/g);
                     var ChildClass = child._getClassFromString(RegExp.$1);
-                    if (!child.childrenOptions) throw "you must define the [childrenOptions] property in the parent node's install function";
+                    if (!child.childrenOptions) throw "you must define the [childrenOptions] property in the parent node's install function to init the child [" + RegExp.$1 + "]";
                     if (!ChildClass) throw "Can't find Class called [" + RegExp.$1+"]";
                     var sub_child = new ChildClass( child.childrenOptions[i]||{});
                     child.children.push(sub_child);
