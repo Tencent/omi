@@ -1,4 +1,4 @@
-/* Nuclear  v0.5.0
+/* Nuclear  v0.5.1
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -281,7 +281,7 @@ Nuclear._mixObj = function (obj) {
         this._nuclearParentEmpty = !selector;
         this.HTML = "";
 
-        if(!(Nuclear.ie<9)) {
+        if(this._nuclearTwoWay&&!(Nuclear.ie<9)) {
             Object.defineProperty(this, 'option', {
                 get: function () {
                     return this._nuclearOption;
@@ -329,7 +329,9 @@ Nuclear._mixObj = function (obj) {
             }
         }
 
-        this._nuclearFixNestingChild(this);
+        var tpl = this._nuclearTplGenerator();
+
+        this._nuclearFixNestingChild(this, tpl);
 
         this._nuclearTimer = null;
         this._preNuclearTime = new Date();
@@ -339,13 +341,13 @@ Nuclear._mixObj = function (obj) {
             data: this.option,
             parent: this.parentNode
         };
-        this._nuclearRender();
+        this._nuclearRender(tpl);
         if (this.installed&&arguments.length>1) this.installed();
     };
 
-    obj._nuclearFixNestingChild = function(child){
+    obj._nuclearFixNestingChild = function(child ,child_tpl){
         child._ncChildrenMapping = [];
-        var tpl = child._nuclearTplGenerator();
+        var tpl = child_tpl||child._nuclearTplGenerator();
         if(tpl){
             var arr = tpl.match(/<child[^>][\s\S]*?nc-constructor=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
             if(arr) {
@@ -356,7 +358,7 @@ Nuclear._mixObj = function (obj) {
                     var matchStr = arr[i];
                     matchStr.match(/nc-constructor=['|"](\S*)['|"]/g);
                     var ChildClass = child._getClassFromString(RegExp.$1);
-                    if (!child.childrenOptions) throw "you must define the [childrenOptions] property in the parent node's install function";
+                    if (!child.childrenOptions) throw "you must define the [childrenOptions] property in the parent node's install function to init the child [" + RegExp.$1 + "]";
                     if (!ChildClass) throw "Can't find Class called [" + RegExp.$1+"]";
                     var sub_child = new ChildClass( child.childrenOptions[i]||{});
                     child.children.push(sub_child);
@@ -473,9 +475,9 @@ Nuclear._mixObj = function (obj) {
         return tpl;
     }
 
-    obj._nuclearRender = function () {
+    obj._nuclearRender = function (tpl) {
         var item = this._nuclearRenderInfo;
-        item.tpl = this._nuclearTplGenerator();
+        item.tpl = tpl||this._nuclearTplGenerator();
 
         item.tpl = this._nuclearFixNesting(item.tpl);
 

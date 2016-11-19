@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>QUnit Example</title>
-    <link rel="stylesheet" href="asset/qunit-1.23.1.css">
+    <link href="../asset/qunit-1.23.1.css" rel="stylesheet" />
+
 </head>
 <body>
 <div id="qunit"></div>
@@ -20,7 +21,7 @@
 </div>
 
 <div id="qunit-fixture"></div>
-<script src="asset/qunit-1.23.1.js"></script>
+        <script src="../asset/qunit-1.23.1.js"></script>
 <script src="../../dist/nuclear.js"></script>
 <script src="polyfill.js"></script>
 
@@ -171,7 +172,8 @@
                 msg:"from parent option"
             }];
         },
-        installed:function(){
+        installed: function () {
+            console.log(this.node)
             var text = this.node.querySelector('h1').innerText;
 
             QUnit.test("【Nest】", function (assert) {
@@ -179,7 +181,7 @@
             });
         },
         render:function(){
-            return '<div style="border: 1px solid #ccc;"><child nc-class="TestChild"></child>\
+            return '<div style="border: 1px solid #ccc;"><child nc-constructor="TestChild"></child>\
                         <div>i am parent</div>\
                     </div>'
         }
@@ -213,7 +215,7 @@
             });
         },
         render:function(){
-            return '<div style="border: 1px solid #ccc;"><child nc-class="TopNameSpace.TestChild"></child>\
+            return '<div style="border: 1px solid #ccc;"><child nc-constructor="TopNameSpace.TestChild"></child>\
                         <div>i am parent</div>\
                     </div>'
         }

@@ -91,7 +91,9 @@ Nuclear._mixObj = function (obj) {
             }
         }
 
-        this._nuclearFixNestingChild(this);
+        var tpl = this._nuclearTplGenerator();
+
+        this._nuclearFixNestingChild(this, tpl);
 
         this._nuclearTimer = null;
         this._preNuclearTime = new Date();
@@ -101,13 +103,13 @@ Nuclear._mixObj = function (obj) {
             data: this.option,
             parent: this.parentNode
         };
-        this._nuclearRender();
+        this._nuclearRender(tpl);
         if (this.installed&&arguments.length>1) this.installed();
     };
 
-    obj._nuclearFixNestingChild = function(child){
+    obj._nuclearFixNestingChild = function(child ,child_tpl){
         child._ncChildrenMapping = [];
-        var tpl = child._nuclearTplGenerator();
+        var tpl = child_tpl||child._nuclearTplGenerator();
         if(tpl){
             var arr = tpl.match(/<child[^>][\s\S]*?nc-constructor=['|"](\S*)['|"][\s\S]*?>[\s\S]*?<\/child>/g);
             if(arr) {
@@ -235,9 +237,9 @@ Nuclear._mixObj = function (obj) {
         return tpl;
     }
 
-    obj._nuclearRender = function () {
+    obj._nuclearRender = function (tpl) {
         var item = this._nuclearRenderInfo;
-        item.tpl = this._nuclearTplGenerator();
+        item.tpl = tpl||this._nuclearTplGenerator();
 
         item.tpl = this._nuclearFixNesting(item.tpl);
 
