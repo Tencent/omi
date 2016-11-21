@@ -1,4 +1,4 @@
-/* Nuclear  v0.5.1
+/* Nuclear  v0.5.2
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -247,7 +247,7 @@ Nuclear.create = function (obj, setting) {
 
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector, increment) {
-
+        this.pureOption = Nuclear.clone(option);
         this._nuclearTwoWay = true;
         this._nuclearDiffDom = true;
         this._nuclearIncrement = increment;
@@ -319,11 +319,12 @@ Nuclear._mixObj = function (obj) {
             this.install();
         }
         this._nuclearRef = [];
+        this._isNuclearComponent = true;
         for (var key in this) {
             if (this.hasOwnProperty(key)) {
                 //这里判断是否依赖其他nuclear组件，依赖的话记录下来
                 if (this[key] && this[key]["_isNuclearComponent"]) {
-                    this[key]._nuclearParent = this;
+                    this[key].nuclearParent = this;
                     this._nuclearRef.push(this[key]);
                 }
             }
@@ -366,6 +367,7 @@ Nuclear._mixObj = function (obj) {
                     if(RegExp.$1){
                         child[RegExp.$1] = sub_child;
                     }
+                    sub_child.nuclearParent = child;
                     child._ncChildrenMapping.push({tpl: matchStr,child:sub_child});
                     child._nuclearRef.push(sub_child);
                     //child._nuclearFixNestingChild(sub_child);
@@ -583,7 +585,7 @@ Nuclear._mixObj = function (obj) {
     
     obj._nuclearFix = function () {
         //从最顶部组件向内fix,非顶层直接return出去
-        if (this._nuclearParent || this._nuclearParentEmpty) return;
+        if (this.nuclearParent || this._nuclearParentEmpty) return;
         this._nuclearFixOne(this)
     };
 
@@ -648,8 +650,6 @@ Nuclear._mixObj = function (obj) {
 
     }
 
-
-    obj._isNuclearComponent = function () { }
 };
 
 Nuclear._fixEvent = function (tpl,instanceId) {
@@ -736,6 +736,57 @@ Nuclear.destroy=function(instance){
     Nuclear.instances[instance._ncInstanceId] =null;
 }
 
+
+Nuclear.clone = function (item) {
+    if (!item) { return item; } // null, undefined values check
+
+    var types = [Number, String, Boolean],
+        result;
+
+    // normalizing primitives if someone did new String('aaa'), or new Number('444');
+    types.forEach(function (type) {
+        if (item instanceof type) {
+            result = type(item);
+        }
+    });
+
+    if (typeof result == "undefined") {
+        if (Object.prototype.toString.call(item) === "[object Array]") {
+            result = [];
+            item.forEach(function (child, index, array) {
+                result[index] = Nuclear.clone(child);
+            });
+        } else if (typeof item == "object") {
+            // testing that this is DOM
+            if (item.nodeType && typeof item.cloneNode == "function") {
+                var result = item.cloneNode(true);
+            } else if (!item.prototype) { // check that this is a literal
+                if (item instanceof Date) {
+                    result = new Date(item);
+                } else {
+                    // it is an object literal
+                    result = {};
+                    for (var i in item) {
+                        result[i] = Nuclear.clone(item[i]);
+                    }
+                }
+            } else {
+                // depending what you would like here,
+                // just keep the reference, or create new object
+                if (false && item.constructor) {
+                    // would not advice to do that, reason? Read below
+                    result = new item.constructor();
+                } else {
+                    result = item;
+                }
+            }
+        } else {
+            result = item;
+        }
+    }
+
+    return result;
+}
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js

@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Communication</title>
+
+</head>
+<body>
+    <div id="demo"></div>
+
+    <script src="../dist/nuclear.js"></script>
+
+    <script type="text/javascript">
+
+
+        //子组件
+        var SubCompement = Nuclear.create({
+
+            render: function () {
+                return '<div>{{title}}</div>';
+            }
+
+
+            , installed: function () {
+                var _this = this;
+                // console.log(_this)
+                // var parent = _this.option.parent;
+                // parent.option.text = "11111111";
+            }
+        });
+
+
+        var SubButton = Nuclear.create({
+            changeParentTitle: function () {
+                console.log(this)
+                //这个方法中如何修改SpecialMark组件里面的option?
+                console.log(this.nuclearParent);
+
+                this.nuclearParent.option.title = "abc";
+            },
+            render: function () {
+                return '<button onclick="changeParentTitle(event)">{{buttonText}}</button>';
+            }
+        });
+
+        var SpecialMark = Nuclear.create({
+            install: function () {
+                var _this = this;
+                // debugger;
+                this.childrenOptions = [{ title: "Todo" }, { buttonText: "改变父组件的内容" }];
+            }
+            //改变title的方法
+            , changeTitle: function () {
+                var _this = this;
+                //此方法用来修改SubCompement组件的内容，也就是改变子组件的内容
+                this.title.option.title = "Todo changed";
+            }
+            , render: function () {
+                return '\
+        <div class="demo">\
+            <child nc-constructor="SubCompement" nc-name="title"></child>\
+            <child nc-constructor="SubButton" nc-name="subButton"></child>\
+            <div>\
+                <div>{{title}}</div>\
+                <input type="text" nc-id="inputDom" value="{{text}}" />\
+                <input type="checkbox" nc-class="chechbox" />\
+                <input type="checkbox" nc-class="chechbox" />\
+                <button onclick="changeTitle(event)">changeTitle</button>\
+            </div>\
+        </div>\
+        ';
+            }
+
+            , installed: function () {
+                var _this = this;
+                //在任何一个方法中可以通过this.inputDom获取到这个input的dom节点，返回的是原声的dom节点，可以通过jquery包装后继续使用
+                var text = this.inputDom.value;
+                //nc-class也是特殊标识符，标志之后，可以通过this.class内容获取到一个数组，但是只能获取衡等于chechbox的内容，如果有额外样式的就获取不到了。
+                var chechboxDoms = this.chechbox;
+            }
+        });
+
+        new SpecialMark({
+            title: '父组件的内容',
+            text: '这是一个demo'
+
+        }, "#demo");
+
+    </script>
+</body>
+</html>
