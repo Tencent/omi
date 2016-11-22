@@ -501,7 +501,7 @@ Nuclear.destroy=function(instance){
 
 Nuclear.clone = function (item) {
     if (!item) { return item; } // null, undefined values check
-
+    if (item.hasOwnProperty("$observeProps")   ||item.hasOwnProperty("$observer") ) return item;
     var types = [Number, String, Boolean],
         result;
 

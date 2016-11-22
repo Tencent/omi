@@ -34,9 +34,7 @@
 
     var App = Nuclear.create({
         install: function () {
-            var _this = this;
-            var listData = _this.pureOption.users;
-            this.childrenOptions = [{ users: listData }];
+            this.childrenOptions = [this.option];
         },
         add: function () {
             this.itemList.option.users.push({ name: 'aaa' });

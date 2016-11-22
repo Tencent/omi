@@ -1,4 +1,4 @@
-/* Nuclear  v0.5.2
+/* Nuclear  v0.5.3
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
  * MIT Licensed.
@@ -739,7 +739,7 @@ Nuclear.destroy=function(instance){
 
 Nuclear.clone = function (item) {
     if (!item) { return item; } // null, undefined values check
-
+    if (item.hasOwnProperty("$observeProps")   ||item.hasOwnProperty("$observer") ) return item;
     var types = [Number, String, Boolean],
         result;
 
