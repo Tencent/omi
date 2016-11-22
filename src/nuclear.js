@@ -10,9 +10,6 @@
 Nuclear._mixObj = function (obj) {
     obj.ctor = function (option, selector, increment) {
         this.pureOption = Nuclear.clone(option);
-        if (this.install) {
-            this.install();
-        }
         this._nuclearTwoWay = true;
         this._nuclearDiffDom = true;
         this._nuclearIncrement = increment;
@@ -80,7 +77,9 @@ Nuclear._mixObj = function (obj) {
                 this.parentNode = document.createElement("div");
             }
         }
-
+        if (this.install) {
+            this.install();
+        }
         this._nuclearRef = [];
         this._isNuclearComponent = true;
         for (var key in this) {
