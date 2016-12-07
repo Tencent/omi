@@ -412,6 +412,17 @@ Nuclear._mixObj = function (obj) {
 
     }
 
+    obj.destroy = function () {
+        this.node.parentNode.removeChild(this.node);
+        var ele = document.getElementById('nuclear_style_' + this._ncInstanceId);
+        var head = document.getElementsByTagName('head')[0];
+        if (ele && ele.parentNode === head) {
+            head.removeChild(ele);
+        }
+
+        this.node = null;
+    }
+
 };
 
 Nuclear._fixEvent = function (tpl,instanceId) {
