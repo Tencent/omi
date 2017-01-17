@@ -37,8 +37,9 @@
                 //this.nulcearChildren[1].option.items.push(this.textBox.value);
                 //or
                 this.list.option.items.push(this.textBox.value);
-
+                //this.list.update();
                 this.option.length = this.list.option.items.length;
+                this.update();
             },
             render: function () {
                 //or  any_namespace.xx.xxx.TodoList 对应的 nc-constructor="any_namespace.xx.xxx.TodoList"

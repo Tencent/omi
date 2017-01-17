@@ -17,9 +17,11 @@
     var ItemList = Nuclear.create({
         deleteEvent: function (index) {
             this.option.users.splice(index, 1);
+            this.update();
         },
         add: function () {
             this.option.users.push({ "name": "333" });
+            this.update();
         },
         render: function () {
             return '\
@@ -38,9 +40,11 @@
         },
         add: function () {
             this.itemList.option.users.push({ name: 'aaa' });
+            this.update();
         },
         clear: function () {
             this.itemList.option.users = [];
+            this.update();
         },
         render: function () {
             return '\

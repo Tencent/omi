@@ -39,6 +39,7 @@
                 evt.preventDefault();
                 this.inputValue = "";
                 this.option.items.push(this.textBox.value);
+                this.update();
             },
             render: function () {
                 return this.todoTpl;

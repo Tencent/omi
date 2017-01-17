@@ -1,4 +1,4 @@
-![preview](http://alloyteam.github.io/Nuclear/img/nuclear.png)
+# Nuclear
 
 Some HTML + Scoped CSS + JS  ===  Reusable Component
 
@@ -23,7 +23,6 @@ npm install alloynuclear
 ```
 
 # Many thanks to
-* [observe.js](https://github.com/kmdjs/observejs)
 * [set-dom.js](https://github.com/DylanPiercey/set-dom) 
 * [mustache.js](https://github.com/janl/mustache.js) 
 * [scoper.js](https://github.com/thomaspark/scoper) 

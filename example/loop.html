@@ -25,16 +25,19 @@
         setTimeout(function () {
             //增加
             ld.option.list.push({ name: "lisi", age: 38 });
+            ld.update();
         }, 1000);
 
         setTimeout(function () {
             //修改
             ld.option.list[0].age = 19;
+            ld.update();
         }, 2000);
 
         setTimeout(function () {
             //移除
             ld.option.list.splice(0, 1);
+            ld.update();
         }, 3000);
 
     </script>

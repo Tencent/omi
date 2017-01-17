@@ -20,7 +20,6 @@ gulp.task('build', function () {
         'src/set-dom.js',
         'src/nuclear.js',
         'src/tpl.js',
-        'src/observe.js',
         'src/class.js',
         'src/scoper.js',
 
