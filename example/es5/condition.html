@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Condition</title>
+</head>
+<body>
+
+    <script src="../../dist/omi.js"></script>
+    <script type="text/javascript">
+        var ConditionDemo = Omi.create("ConditionDemo",{
+            render: function () {
+                return '   <div> \
+                                <h1>ConditionDemo</h1>\
+                                {{#seen}}\
+                                    <div><span>you can see me</span></div>\
+                                {{/seen}}\
+                                {{^seen}}\
+                                    <div><span>you can not see me</span></div>\
+                                {{/seen}}\
+                             </div>'
+            }
+        })
+        var cd = new ConditionDemo({ seen: true });
+        Omi.render(cd,'body',true);
+        setInterval(function () {
+            //Omi Only Updates What's Necessary
+            cd.data.seen = !cd.data.seen;
+            cd.update();
+        }, 2000);
+    </script>
+
+    <a href="https://github.com/AlloyTeam/Omi" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="../../asset/github.png" alt="" />
+    </a>
+</body>
+</html>

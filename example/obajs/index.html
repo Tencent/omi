@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="test"></div>
+<script src="../../dist/omi.js"></script>
+<script src="oba.js"></script>
+<script>
+
+    var Hello =  Omi.create("Hello", {
+        style: function () {
+            return "h1{ cursor:pointer }";
+        },
+        handleClick: function (dom) {
+            alert(dom.innerHTML)
+        },
+        render: function () {
+            return ' <div><h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1></div>'
+        }
+    });
+
+
+    var hello = new Hello( {name:"dnt"});
+
+    Omi.render(hello,"#test")
+
+    oba(hello.data,function(){
+      hello.update();
+    })
+
+    // auto update
+    hello.data.name = "omi";
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Omi Server-side Rendering</title>
+</head>
+<body>
+    {{{todo}}}
+    <script src="./omi.js"></script>
+    <script src="./list.js"></script>
+    <script src="./todo.js"></script>
+    <script>
+        var List = makeList(Omi);
+        var Todo = makeTodo(Omi);
+        new Todo('body');
+    </script>
+</body>
+</html>
