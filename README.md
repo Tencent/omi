@@ -25,14 +25,6 @@ npm install omi
 
 ## Hello World
 
-你可以使用ES6+或者ES5的方式编写Omi程序来搭建你的Web程序。
-
-### Hello World with ES6+
-
-你可以使用 [webpack](https://webpack.github.io/) 打包工具，webpack会把你的模块代码打成一个很小的包，优化加载时间。使用[babel](http://babeljs.io/)，让你立刻马上使用ES6+来编写你的web程序。你只需要在webpack配置的module设置好[babel-loader](https://github.com/babel/babel-loader)便可。
-
-一个Omi的简短的例子如下所示:
-
 ```js
 class Hello extends Omi.Component {
     constructor(data) {
@@ -79,8 +71,7 @@ Omi.render(new Hello({ name : "Omi" }),"body");
     ...
 ```
 
-当然Omi没有抛弃ES5的用户。你可以使用ES5的方式编写Omi。具体可以看这里[Hello World with ES5](https://github.com/AlloyTeam/Omi/blob/master/docs/cn_hello_world.md#hello-world-with-es5)
-
+你可以使用 [webpack](https://webpack.github.io/) 打包工具，webpack会把你的模块代码打成一个很小的包，优化加载时间。使用[babel](http://babeljs.io/)，让你立刻马上使用ES6+来编写你的web程序。你只需要在webpack配置的module设置好[babel-loader](https://github.com/babel/babel-loader)便可。当然Omi没有抛弃ES5的用户。你可以使用ES5的方式编写Omi。具体可以看这里[Hello World with ES5](https://github.com/AlloyTeam/Omi/blob/master/docs/cn_hello_world.md#hello-world-with-es5)
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
