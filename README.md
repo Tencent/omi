@@ -131,5 +131,5 @@ Omi.render(new Hello({ name : "Omi" }),"body");
     ...
 ```
 
-
-欢迎加入Omi开发者群，当然你是Omi的使用者也可以入群交流。
+# License
+This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
