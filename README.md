@@ -10,11 +10,10 @@ Open and modern framework for building user interfaces.
 
 ## Omi相关
 
-* 如果想使用Omi框架，请阅读 **Omi使用文档**。
-* 如果想一起开发完善Omi框架，有更好的解决方案或者思路，请阅读  **从零一步步打造Web组件化框架Omi**。
+* 如果想使用Omi框架，请阅读  [Omi使用文档](https://github.com/AlloyTeam/Omi/tree/master/docs#omi使用文档)
+* 如果想一起开发完善Omi框架，有更好的解决方案或者思路，请阅读  [从零一步步打造web组件化框架Omi](https://github.com/AlloyTeam/Omi/tree/master/docs#从零一步步打造web组件化框架omi)
 * 如果你有Omi相关的问题可以[New issue](https://github.com/AlloyTeam/Omi/issues/new)
-* 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群:
-
+* 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170):
 ![qq](./asset/omi_group.png)
 
 ## 安装 
