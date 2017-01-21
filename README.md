@@ -73,7 +73,7 @@ Omi.render(new Hello({ name : "Omi" }),"body");
 
 你可以使用 [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)，在webpack配置的module设置[babel-loader](https://github.com/babel/babel-loader)，立马就能使用ES6+来编写你的web程序。
 
- 当然Omi没有抛弃ES5的用户。你可以使用ES5的方式编写Omi。具体可以看这里[Hello World with ES5](https://github.com/AlloyTeam/Omi/blob/master/docs/cn_hello_world.md#hello-world-with-es5)
+ 当然Omi没有抛弃ES5的用户，你可以使用ES5的方式编写Omi。具体可以看这里[Hello World with ES5](https://github.com/AlloyTeam/Omi/blob/master/docs/cn_hello_world.md#hello-world-with-es5)。
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
