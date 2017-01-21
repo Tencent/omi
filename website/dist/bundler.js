@@ -2001,7 +2001,7 @@
 	    _createClass(List, [{
 	        key: 'style',
 	        value: function style() {
-	            return '\n        li.title{\n            font-size: 16px;\n            font-weight: bold;\n            margin-bottom:10px;\n            margin-top:10px;\n            text-indent: 23px;\n        }\n        li{\n            margin-bottom:3px;\n            text-indent: 33px;\n        }\n        li a{\n            font-size:14px;\n            color: #666;\n        }\n        ';
+	            return '\n        li.title{\n            font-size: 16px;\n            font-weight: bold;\n            margin-bottom:10px;\n            margin-top:10px;\n            text-indent: 23px;\n        }\n        li{\n            margin-bottom:3px;\n            text-indent: 33px;\n        }\n        li a{\n            display:block;\n            font-size:14px;\n            height:20px;\n            line-height:20px;\n            color: #666;\n        }\n        li a:hover{\n            background-color:#b3d4fc;\n            color:white;\n        }\n        ';
 	        }
 	    }, {
 	        key: 'render',
@@ -2051,7 +2051,7 @@
 	    _createClass(Head, [{
 	        key: 'style',
 	        value: function style() {
-	            return '\n        .head{\n            position:fixed;\n            height:45px;\n            line-height: 45px;\n            border-bottom: 1px solid #eee;\n            width:100%;\n            background-color:#303030;\n            z-index:100;\n\n        }\n        ul,li{\n            display: inline-block;\n        }\n        .logo_box{\n            width:100px;\n            display: inline-block;\n            text-align:center;\n            line-height: 60px;\n        }\n         .menu a,.logo_box a{\n            display: inline-block;\n            height:45px;\n            color:#ddd;\n        }\n        .menu{\n            position: absolute;\n            right:20px;\n        }\n        .menu li{\n            margin-left:10px;\n        }\n        .logo_box a{\n            font-size: 34px;\n            font-weight: bold;\n            color: #00bff3;\n            padding: 0px 15px;\n            line-height: 45px;\n            cursor: pointer;\n        }\n        ';
+	            return '\n        .head{\n            position:fixed;\n            height:45px;\n            line-height: 45px;\n            border-bottom: 1px solid #eee;\n            width:100%;\n            background-color:#303030;\n            z-index:100;\n\n        }\n        ul,li{\n            display: inline-block;\n        }\n        .logo_box{\n            width:100px;\n            display: inline-block;\n            text-align:center;\n            line-height: 60px;\n        }\n         .menu a,.logo_box a{\n            display: inline-block;\n            height:45px;\n            color:#ddd;\n        }\n        .menu{\n            position: absolute;\n            right:20px;\n        }\n        .menu li{\n            margin-left:10px;\n        }\n        .logo_box a{\n            font-size: 34px;\n            font-weight: bold;\n            color: #00bff3;\n            padding: 0px 15px;\n            line-height: 45px;\n            cursor: pointer;\n        }\n        .menu a:hover{\n            color: white;\n        }\n        ';
 	        }
 	    }, {
 	        key: 'render',

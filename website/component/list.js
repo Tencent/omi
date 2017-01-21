@@ -18,8 +18,15 @@ class List extends Omi.Component {
             text-indent: 33px;
         }
         li a{
+            display:block;
             font-size:14px;
+            height:20px;
+            line-height:20px;
             color: #666;
+        }
+        li a:hover{
+            background-color:#b3d4fc;
+            color:white;
         }
         `;
     }

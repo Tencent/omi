@@ -46,6 +46,9 @@ class Head extends Omi.Component {
             line-height: 45px;
             cursor: pointer;
         }
+        .menu a:hover{
+            color: white;
+        }
         `;
     }
 
