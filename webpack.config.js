@@ -75,7 +75,7 @@ if(ENV === 'build'){
        // devtool: 'source-map',
     };
 }else if(ENV === 'website') {
-    config.entry = './website/js/api_main.js';
+    config.entry = './website/js/docs_main.js';
     config.output.path = './website/dist/';
     config.module.loaders.push(  { test: /\.md$/, loader: "md-text" });
 }else {
