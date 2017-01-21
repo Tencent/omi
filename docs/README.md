@@ -1,11 +1,3 @@
-![Omi](./asset/omi.png)
-
-Open and modern framework for building user interfaces.
-
-
-如果想使用Omi框架，请阅读 **Omi使用文档**。
-如果想一起开发完善Omi框架，有更好的解决方案或者思路，请阅读  **从零一步步打造Web组件化框架Omi**。
-
 # Omi使用文档
 * [安装](./website/cn_installation.md)
 * [Hello World](./website/cn_hello_world.md)
