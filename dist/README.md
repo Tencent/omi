@@ -14,7 +14,7 @@
 
 ### omi_server.js
 
-用户服务端直出或者同构直出。
+用于服务端直出或者同构直出。
   
 
 ## Explanation of Build Files
