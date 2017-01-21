@@ -17,9 +17,7 @@ Open and modern framework for building user interfaces.
 
 ![qq](./asset/omi_group.png)
 
-## 安装 
-
-通过npm安装Omi，你只需要执行下面的命令:
+## 通过npm安装 
 
 ``` js
 npm install omi
@@ -36,8 +34,6 @@ npm install omi
 一个Omi的简短的例子如下所示:
 
 ```js
-import Omi from './omi.js';
-
 class Hello extends Omi.Component {
     constructor(data) {
         super(data);
@@ -63,14 +59,7 @@ class Hello extends Omi.Component {
 }
 
 Omi.render(new Hello({ name : "Omi" }),"body");
-
 ```
-
-组件生成的HTML最终会插入到body中。上面的例子展示了Omi的部分特性:
-
-- data传递: new Hello(data,..)的data可以直接提供给render方法里的模板
-- 局部CSS: h1只对render里的h1生效，不会污染外面的h1
-- 声明式事件绑定: onclick调用的就是组件内的handleClick，this可以拿到当然的DOM元素,还可以拿到当前的event
 
 你可以使用Omi.makeHTML来生成组件标签用于嵌套。
 ```js
@@ -83,53 +72,15 @@ Omi.render(new Hello({ name : "Omi" }),"body");
         return  `
         <div>
             <div>Test</div>
-            <Hello />
+            <Hello data-name="{{name}}" />
         </div>
         `;
     }
     ...
 ```
 
+当然Omi没有抛弃ES5的用户。你可以使用ES5的方式编写Omi。具体可以看这里[Hello World with ES5](https://github.com/AlloyTeam/Omi/blob/master/docs/cn_hello_world.md#hello-world-with-es5)
 
-###  Hello World with ES5
-
-当然Omi没有抛弃ES5的用户。你可以使用ES5的方式编写Omi。如，在你的HTML中引用omi.js：
-
-```html
-<script src="omi.js"></script>
-```
-
-然后：
-
-```js
-var Hello =  Omi.create("Hello", {
-    style: function () {
-        return "h1{ cursor:pointer }";
-    },
-    handleClick: function (dom) {
-        alert(dom.innerHTML);
-    },
-    render: function () {
-        return ' <div><h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1></div>';
-    }
-});
-
-Omi.render(new Hello({ name : "Omi" }),"body");
-```
-当然除了在HTML引入脚步，你还可以使用AMD、CMD或者CommonJS的方式引入Omi，这里就不再一一列举。
-
-需要注意的是，第一个参数是用来生成Tag Name的。你可以在其他地方嵌入你的组件。如：
-
-```js
-  ...
-  render:function() {
-        return  '<div>\
-                    <div>Test</div>\
-                    <Hello />\
-                </div>';
-    }
-    ...
-```
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
