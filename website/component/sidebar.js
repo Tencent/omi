@@ -26,8 +26,7 @@ class Sidebar extends Omi.Component {
                     {"name": "服务器端渲染"},
                     {"name": "Omi的理念"}
                 ]},
-                {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},
-                {title: "AasfsfasBC", list: [{"name": "aaa"}, {"name": "ddd"}]}
+                {title: "Omi原理", list: [ {"name": "局部CSS"}]}
             ];
         }else{
             this.data.items =  [
@@ -44,8 +43,7 @@ class Sidebar extends Omi.Component {
                     {"name": "Sever-side Rendering"},
                     {"name": "Thinking In Omi"}
                 ]},
-                {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},  {title: "ABC", list: [{"name": "aaa"}, {"name": "cccdd"}]},
-                {title: "AasfsfasBC", list: [{"name": "aaa"}, {"name": "ddd"}]}
+                {title: "Omi's Principle", list: [ {"name": "Scroped CSS"}]}
             ];
 
         }
@@ -58,7 +56,7 @@ class Sidebar extends Omi.Component {
     style () {
         return `
         .list{
-            width:280px;
+            width:200px;
             text-indent: 20px;
             border-right: 1px solid #eee;
             overflow-x: hidden;

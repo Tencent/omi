@@ -14,10 +14,10 @@ class Frame extends Omi.Component {
 
     install(){
         this.data.height = window.innerHeight -45;
-        this.data.width = window.innerWidth -300;
+        this.data.width = window.innerWidth -220;
 
         window.onresize = ()=>{
-            this.data.width = window.innerWidth -300;
+            this.data.width = window.innerWidth -220;
             this.update();
         }
     }
@@ -28,7 +28,7 @@ class Frame extends Omi.Component {
         return `
         .main{
              position: absolute;
-            left:300px;
+            left:220px;
             top:45px;
             overflow-x:hidden;
             overflow-y:auto;
