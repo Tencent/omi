@@ -15,9 +15,8 @@ Open and modern framework for building user interfaces.
 * 关于上面的两类文档，如果你想获得更佳的阅读体验，可以访问[http://alloyteam.github.io/omi](http://alloyteam.github.io/omi)
 * 如果你有Omi相关的问题可以[New issue](https://github.com/AlloyTeam/Omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170):
-<p align="center">
-  <a href ="##"><img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png"></a>
-</p>
+
+<img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png">
 
 ## 通过npm安装 
 
