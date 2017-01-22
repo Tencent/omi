@@ -74,11 +74,11 @@
 
 	var _content2 = _interopRequireDefault(_content);
 
-	var _sidebar = __webpack_require__(22);
+	var _sidebar = __webpack_require__(23);
 
 	var _sidebar2 = _interopRequireDefault(_sidebar);
 
-	var _head = __webpack_require__(24);
+	var _head = __webpack_require__(25);
 
 	var _head2 = _interopRequireDefault(_head);
 
@@ -1781,7 +1781,7 @@
 	    _createClass(Content, [{
 	        key: "install",
 	        value: function install() {
-	            this.data.html = marked(getMarkDownByArr(['installation', 'hello_world', 'components', 'lifecycle', 'events', 'condition', 'thinking_in_omi'], 'cn'));
+	            this.data.html = marked(getMarkDownByArr(['installation', 'hello_world', 'components', 'lifecycle', 'events', 'condition', 'loop', 'thinking_in_omi'], 'cn'));
 	        }
 	    }, {
 	        key: "style",
@@ -1812,10 +1812,11 @@
 		"./cn_hello_world.md": 15,
 		"./cn_installation.md": 16,
 		"./cn_lifecycle.md": 17,
-		"./cn_template.md": 18,
-		"./cn_thinking_in_omi.md": 19,
-		"./en_hello_world.md": 20,
-		"./en_installation.md": 21
+		"./cn_loop.md": 18,
+		"./cn_template.md": 19,
+		"./cn_thinking_in_omi.md": 20,
+		"./en_hello_world.md": 21,
+		"./en_installation.md": 22
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -1835,7 +1836,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"# Omiʹ���ĵ�\\r\\n* [��װ](./cn_installation.md)\\r\\n* [Hello World](./cn_hello_world.md)\\r\\n* [����](./cn_components.md)\\r\\n* [��������](./cn_lifecycle.md)\\r\\n* [�¼�����](./cn_events.md)\\r\\n* [�����ж�](./cn_condition.md)\\r\\n* �����б�\\r\\n* ����\\r\\n* �̳�\\r\\n* ����ϵͳ\\r\\n* [ģ���л�](./cn_template.md)\\r\\n* ����������Ⱦ\\r\\n* [Omi����](./cn_thinking_in_omi.md)\\r\\n\\r\\n# ����һ��������Web����������Omi\\r\\n\\r\\n* �ֲ�CSS����\\r\\n* ����Ƕ�׽���\\r\\n* �¼���������\\r\\n* ����������Ⱦ����\\r\\n* ģ���л�����\\r\\n* ����ϵͳ����\""
+	module.exports = "module.exports = \"# Omiʹ���ĵ�\\r\\n* [��װ](./cn_installation.md)\\r\\n* [Hello World](./cn_hello_world.md)\\r\\n* [����](./cn_components.md)\\r\\n* [��������](./cn_lifecycle.md)\\r\\n* [�¼�����](./cn_events.md)\\r\\n* [�����ж�](./cn_condition.md)\\r\\n* [ѭ������](./cn_loop.md)\\r\\n* ����\\r\\n* �̳�\\r\\n* ����ϵͳ\\r\\n* [ģ���л�](./cn_template.md)\\r\\n* ����������Ⱦ\\r\\n* [Omi����](./cn_thinking_in_omi.md)\\r\\n\\r\\n# ����һ��������Web����������Omi\\r\\n\\r\\n* �ֲ�CSS����\\r\\n* ����Ƕ�׽���\\r\\n* �¼���������\\r\\n* ����������Ⱦ����\\r\\n* ģ���л�����\\r\\n* ����ϵͳ����\""
 
 /***/ },
 /* 12 */
@@ -1877,28 +1878,34 @@
 /* 18 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"模板切换\\\">模板切换</h2>\\r\\n\\r\\nOmi有三个版本。其中的omi.js和omi.lite.js属于Web端使用的版本。\\r\\n\\r\\n* omi.js内置了[mustache.js](https://github.com/janl/mustache.js)作为模版引擎\\r\\n* omi.lite.js不包含任何模版引擎\\r\\n\\r\\n那么怎么使用别的模板引擎？下面拿[artTemplate](https://github.com/aui/artTemplate)作为例子。\\r\\n\\r\\n### 使用artTemplate\\r\\n\\r\\n这里我们使用Todo的例子来讲解Omi组件体系的使用。\\r\\n\\r\\n```js\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.data.items.push(this.data.text);\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{items.length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Todo({ items: [] ,text : '' }),\\\"body\\\");\\r\\n```\\r\\n\\r\\n组件生成的HTML最终会插入到body中。上面的例子展示了Omi的部分特性:\\r\\n\\r\\n- data传递: new Todo(data,..)的data可以直接提供给render方法里的模板\\r\\n- 局部CSS: h3只对render里的h3生效，不会污染外面的h3；button也是同样的\\r\\n- 声明式事件绑定: onchange调用的就是组件内的handleChange，this可以拿到当然的DOM元素,还可以拿到当前的event\\r\\n- 需要手动调用update方法才能更新组件\\r\\n\\r\\n这里需要特别强调的是，为了更加的自由和灵活度。Omi没有内置数据变更的自动更新，需要开发者自己调用update方法。\\r\\n你也可以和[oba](https://github.com/kmdjs/oba)或者mobx一起使用来实现自动更新。\\r\\n\\r\\n###  组件嵌套\\r\\n\\r\\n几乎所有的Web网页或者Web应用，我们需要嵌套我们定义的组件来完成所有的功能和展示。比如上面的Todo，我们也是可以抽取出List。\\r\\n这样有什么好处？易维护、可扩展、方便复用。如，我们抽取去List：\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.data.items = [];\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return ` <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n怎么使用这个List？\\r\\n\\r\\n```js\\r\\nimport List from './list.js';\\r\\n\\r\\nOmi.makeHTML(List);\\r\\n\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    install (){\\r\\n        this.data.length = this.data.items.length;\\r\\n    }\\r\\n    \\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.list.data.items.push(this.data.text);\\r\\n        this.data.length = this.list.data.items.length;\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <List omi-id=\\\"list\\\" name=\\\"list\\\" />\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n* 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML(List);也可以写在List组件的代码下面。\\r\\n* 第36行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。omi-id可以让你通过Omi.mapping['list']快速访问到组件对象的实例。\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"循环遍历\\\">循环遍历</h2>\\r\\n\\r\\n下面介绍mustache.js的方式和javascript遍历的方式。\\r\\n\\r\\n### 方式一\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <ul> {{#items}} <li id=\\\"{{id}}\\\">{{text}}</li> {{/items}}</ul>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new List({\\r\\n    items: [\\r\\n        {id: 1, text: 'Omi'},\\r\\n        {id: 2, text: 'dntzhang'},\\r\\n        {id: 3, text: 'AlloyTeam'}\\r\\n    ]\\r\\n}),\\\"body\\\");\\r\\n```\\r\\n\\r\\nmustache.js更详细的循环遍历使用可看[https://github.com/janl/mustache.js#non-empty-lists](https://github.com/janl/mustache.js#non-empty-lists)。 比如还支持：\\r\\n\\r\\n* 如果items的每一项是字符串，可以直接**{{.}}**的方式来输出每一项\\r\\n* 循环的时候调用定义好的函数\\r\\n\\r\\n### 方式二\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render() {\\r\\n        return `<div>\\r\\n                    <ul>\\r\\n                    ` + this.data.items.map(item =>\\r\\n                        '<li id=\\\"' + item.id + '\\\">' + item.text + '</li>'\\r\\n                    ).join(\\\"\\\") + `\\r\\n                    </ul>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new List({\\r\\n    items: [\\r\\n        {id: 1, text: 'Omi'},\\r\\n        {id: 2, text: 'dntzhang'},\\r\\n        {id: 3, text: 'AlloyTeam'}\\r\\n    ]\\r\\n}),\\\"body\\\");\\r\\n```\\r\\n\\r\\n你将在页面看到如下效果:\\r\\n\\r\\n![pv](http://images2015.cnblogs.com/blog/105416/201701/105416-20170122095724129-2059595233.png)\\r\\n\\r\\n具体的代码可以[在这里找到](https://github.com/AlloyTeam/omi/tree/master/example/loop)。\\r\\n\""
 
 /***/ },
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Omi的理念\\\">Omi的理念</h2>\\r\\n\\r\\nOmi的理念是基于面向对象编程体系，内建积木系统。\\r\\n 传统的单向数据流或者抛出event的组件通讯方式增加了系统的稳定性，但是丧失了灵活性。一定程度上也降低了组建的复用。所谓鱼和熊掌不可兼得。\\r\\n 面向对象体系需要多一个逻辑层，可以自由操作所有组件的instance，instance之间的逻辑关系构建出了整个程序。这样组建间的逻辑，通信，复用就全部迎刃而解。组建也更加单一职责，更松耦合。\\r\\n\\r\\n对比函数式编程、命令式编程与面向对象编程，可以归纳总结出下面几条：\\r\\n\\r\\n- 命令式编程干脆直接，利用循环条件等控制流程，强调执行过程\\r\\n- 命令式编程对硬件执行友好，运行更容易，却阻碍了复杂程序的设计\\r\\n- 函数式强调输入和输出，并非执行过程\\r\\n- 函数式倡导多个简单执行单元组合成复杂运算程序\\r\\n- 面向对象编程将对象作为程序的基本单元，更具有重用性、灵活性和扩展性\\r\\n\\r\\n Javascript是哪种类型的语言？现在ES6+已经有了class。那么他是面向对象语言？\\r\\n但是JS可以在任意地方定义函数并且当作把函数当作值来传递。那么他是函数式编程语言？\\r\\n所以，没有精准的定义，取决于你的用法和姿势。其次，Web组件化架构层面编程模型和语言层面编程模型是非常自由的关系。意思就是，你可以用Javascript构建函数式编程框架如React，也可以基于面向对象体系搭建Omi。\\r\\n\\r\\n### 函数式编程 VS 面向对象编程\\r\\n\\r\\n在UI组件框架层面，函数式编程的代表有React，Omi属于面向对象编程体系。那么他们各有什么优缺点？下面做了个对比（其实也是函数式编程与面向对象编程的对比）：\\r\\n\\r\\n|    | React        | Omi  |\\r\\n| ------------- |:-------------:|:-----:|\\r\\n| 组件通信  | ★★★★☆| ★★★★★ |\\r\\n| 稳定性    | ★★★★★    |   ★★★★☆ |\\r\\n| 灵活性  | ★★★★☆| ★★★★★ |\\r\\n| 扩展性 | ★★★★☆     |   ★★★★★ |\\r\\n| 测试性 | ★★★★★     |   ★★★★☆ |\\r\\n| 文件大小 | ★★★☆☆    |   ★★★★★ |\\r\\n| 功能特性 | ★★★☆☆    |   ★★★★☆ |\\r\\n| DOM性能 | ★★★★★    |   ★★★★☆ |\\r\\n| 动画性能 | ★★★★☆    |   ★★★★★ |\\r\\n| 抽象复杂度 | ★★★★☆    |   ★★★★★ |\\r\\n| 异步编程 | ★★★★★    |   ★★★★☆ |\\r\\n\\r\\n可以看得出，鱼和熊掌不可兼得。面向对象编程更具有重用性、灵活性和扩展性，带来的问题就是更加难测试。\\r\\n具体来说，如函数式编程，其测试面积是state1 + state2 + ... + stateN,在面向对象编程中，其测试面积是state1×event1 + state2×event2 + ... + stateN×eventN。\\r\\n\\r\\n总结来说，更加推荐使用面向对象的方式去搭建UI组件化框架。\\r\\n\\r\\n<hr/>\\r\\n\\r\\n### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/Omi)\\r\\n\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"模板切换\\\">模板切换</h2>\\r\\n\\r\\nOmi有三个版本。其中的omi.js和omi.lite.js属于Web端使用的版本。\\r\\n\\r\\n* omi.js内置了[mustache.js](https://github.com/janl/mustache.js)作为模版引擎\\r\\n* omi.lite.js不包含任何模版引擎\\r\\n\\r\\n那么怎么使用别的模板引擎？下面拿[artTemplate](https://github.com/aui/artTemplate)作为例子。\\r\\n\\r\\n### 使用artTemplate\\r\\n\\r\\n这里我们使用Todo的例子来讲解Omi组件体系的使用。\\r\\n\\r\\n```js\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.data.items.push(this.data.text);\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{items.length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Todo({ items: [] ,text : '' }),\\\"body\\\");\\r\\n```\\r\\n\\r\\n组件生成的HTML最终会插入到body中。上面的例子展示了Omi的部分特性:\\r\\n\\r\\n- data传递: new Todo(data,..)的data可以直接提供给render方法里的模板\\r\\n- 局部CSS: h3只对render里的h3生效，不会污染外面的h3；button也是同样的\\r\\n- 声明式事件绑定: onchange调用的就是组件内的handleChange，this可以拿到当然的DOM元素,还可以拿到当前的event\\r\\n- 需要手动调用update方法才能更新组件\\r\\n\\r\\n这里需要特别强调的是，为了更加的自由和灵活度。Omi没有内置数据变更的自动更新，需要开发者自己调用update方法。\\r\\n你也可以和[oba](https://github.com/kmdjs/oba)或者mobx一起使用来实现自动更新。\\r\\n\\r\\n###  组件嵌套\\r\\n\\r\\n几乎所有的Web网页或者Web应用，我们需要嵌套我们定义的组件来完成所有的功能和展示。比如上面的Todo，我们也是可以抽取出List。\\r\\n这样有什么好处？易维护、可扩展、方便复用。如，我们抽取去List：\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.data.items = [];\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return ` <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n怎么使用这个List？\\r\\n\\r\\n```js\\r\\nimport List from './list.js';\\r\\n\\r\\nOmi.makeHTML(List);\\r\\n\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    install (){\\r\\n        this.data.length = this.data.items.length;\\r\\n    }\\r\\n    \\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.list.data.items.push(this.data.text);\\r\\n        this.data.length = this.list.data.items.length;\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <List omi-id=\\\"list\\\" name=\\\"list\\\" />\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n* 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML(List);也可以写在List组件的代码下面。\\r\\n* 第36行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。omi-id可以让你通过Omi.mapping['list']快速访问到组件对象的实例。\\r\\n\""
 
 /***/ },
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Hello World\\\">Hello World</h2>\\r\\n\\r\\n\\r\\n### Hello World with ES20XX \\r\\n\\r\\nWe recommend using a bundler like [webpack](https://webpack.github.io/) or [Browserify](http://browserify.org/) so you can write modular code and bundle it together into small packages to optimize load time.\\r\\n\\r\\nThe small Omi example looks like this:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 onclick=\\\"handleClick(this)\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"body\\\");\\r\\n\\r\\n```\\r\\n\\r\\nThis code renders into body element. \\r\\n\\r\\n\\r\\n###  Hello World with ES5\\r\\n\\r\\n\\r\\n```html\\r\\n<script src=\\\"omi.js\\\"></script>\\r\\n```\\r\\n\\r\\n\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"Omi的理念\\\">Omi的理念</h2>\\r\\n\\r\\nOmi的理念是基于面向对象编程体系，内建积木系统。\\r\\n 传统的单向数据流或者抛出event的组件通讯方式增加了系统的稳定性，但是丧失了灵活性。一定程度上也降低了组建的复用。所谓鱼和熊掌不可兼得。\\r\\n 面向对象体系需要多一个逻辑层，可以自由操作所有组件的instance，instance之间的逻辑关系构建出了整个程序。这样组建间的逻辑，通信，复用就全部迎刃而解。组建也更加单一职责，更松耦合。\\r\\n\\r\\n对比函数式编程、命令式编程与面向对象编程，可以归纳总结出下面几条：\\r\\n\\r\\n- 命令式编程干脆直接，利用循环条件等控制流程，强调执行过程\\r\\n- 命令式编程对硬件执行友好，运行更容易，却阻碍了复杂程序的设计\\r\\n- 函数式强调输入和输出，并非执行过程\\r\\n- 函数式倡导多个简单执行单元组合成复杂运算程序\\r\\n- 面向对象编程将对象作为程序的基本单元，更具有重用性、灵活性和扩展性\\r\\n\\r\\n Javascript是哪种类型的语言？现在ES6+已经有了class。那么他是面向对象语言？\\r\\n但是JS可以在任意地方定义函数并且当作把函数当作值来传递。那么他是函数式编程语言？\\r\\n所以，没有精准的定义，取决于你的用法和姿势。其次，Web组件化架构层面编程模型和语言层面编程模型是非常自由的关系。意思就是，你可以用Javascript构建函数式编程框架如React，也可以基于面向对象体系搭建Omi。\\r\\n\\r\\n### 函数式编程 VS 面向对象编程\\r\\n\\r\\n在UI组件框架层面，函数式编程的代表有React，Omi属于面向对象编程体系。那么他们各有什么优缺点？下面做了个对比（其实也是函数式编程与面向对象编程的对比）：\\r\\n\\r\\n|    | React        | Omi  |\\r\\n| ------------- |:-------------:|:-----:|\\r\\n| 组件通信  | ★★★★☆| ★★★★★ |\\r\\n| 稳定性    | ★★★★★    |   ★★★★☆ |\\r\\n| 灵活性  | ★★★★☆| ★★★★★ |\\r\\n| 扩展性 | ★★★★☆     |   ★★★★★ |\\r\\n| 测试性 | ★★★★★     |   ★★★★☆ |\\r\\n| 文件大小 | ★★★☆☆    |   ★★★★★ |\\r\\n| 功能特性 | ★★★☆☆    |   ★★★★☆ |\\r\\n| DOM性能 | ★★★★★    |   ★★★★☆ |\\r\\n| 动画性能 | ★★★★☆    |   ★★★★★ |\\r\\n| 抽象复杂度 | ★★★★☆    |   ★★★★★ |\\r\\n| 异步编程 | ★★★★★    |   ★★★★☆ |\\r\\n\\r\\n可以看得出，鱼和熊掌不可兼得。面向对象编程更具有重用性、灵活性和扩展性，带来的问题就是更加难测试。\\r\\n具体来说，如函数式编程，其测试面积是state1 + state2 + ... + stateN,在面向对象编程中，其测试面积是state1×event1 + state2×event2 + ... + stateN×eventN。\\r\\n\\r\\n总结来说，更加推荐使用面向对象的方式去搭建UI组件化框架。\\r\\n\\r\\n<hr/>\\r\\n\\r\\n### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/Omi)\\r\\n\\r\\n\""
 
 /***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Installation\\\">Installation</h2>\\r\\n\\r\\nOmi is open and modern framework  for building user interfaces.\\r\\n\\r\\n### Installing Omi\\r\\n\\r\\nWe recommend using  [npm](https://www.npmjs.com/) for managing front-end dependencies. If you're new to package managers.\\r\\n\\r\\nTo install Omi with npm, run:\\r\\n\\r\\n``` js\\r\\nnpm install omi\\r\\n```\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"Hello World\\\">Hello World</h2>\\r\\n\\r\\n\\r\\n### Hello World with ES20XX \\r\\n\\r\\nWe recommend using a bundler like [webpack](https://webpack.github.io/) or [Browserify](http://browserify.org/) so you can write modular code and bundle it together into small packages to optimize load time.\\r\\n\\r\\nThe small Omi example looks like this:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 onclick=\\\"handleClick(this)\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"body\\\");\\r\\n\\r\\n```\\r\\n\\r\\nThis code renders into body element. \\r\\n\\r\\n\\r\\n###  Hello World with ES5\\r\\n\\r\\n\\r\\n```html\\r\\n<script src=\\\"omi.js\\\"></script>\\r\\n```\\r\\n\\r\\n\\r\\n\""
 
 /***/ },
 /* 22 */
+/***/ function(module, exports) {
+
+	module.exports = "module.exports = \"<h2 id=\\\"Installation\\\">Installation</h2>\\r\\n\\r\\nOmi is open and modern framework  for building user interfaces.\\r\\n\\r\\n### Installing Omi\\r\\n\\r\\nWe recommend using  [npm](https://www.npmjs.com/) for managing front-end dependencies. If you're new to package managers.\\r\\n\\r\\nTo install Omi with npm, run:\\r\\n\\r\\n``` js\\r\\nnpm install omi\\r\\n```\\r\\n\""
+
+/***/ },
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1913,7 +1920,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _list = __webpack_require__(23);
+	var _list = __webpack_require__(24);
 
 	var _list2 = _interopRequireDefault(_list);
 
@@ -1940,7 +1947,7 @@
 	        key: 'install',
 	        value: function install() {
 	            if (this.data.lan === "cn") {
-	                this.data.items = [{ title: "快速开始", list: [{ "name": "安装" }, { "name": "Hello World" }, { "name": "组件" }, { "name": "生命周期" }, { "name": "事件处理" }, { "name": "条件判断" }, { "name": "数组列表" }, { "name": "表单" }, { "name": "继承" }, { "name": "容器系统" }, { "name": "模板切换" }, { "name": "服务器端渲染" }, { "name": "Omi的理念" }] }, { title: "Omi原理", list: [{ "name": "局部CSS" }] }];
+	                this.data.items = [{ title: "快速开始", list: [{ "name": "安装" }, { "name": "Hello World" }, { "name": "组件" }, { "name": "生命周期" }, { "name": "事件处理" }, { "name": "条件判断" }, { "name": "循环遍历" }, { "name": "表单" }, { "name": "继承" }, { "name": "容器系统" }, { "name": "模板切换" }, { "name": "服务器端渲染" }, { "name": "Omi的理念" }] }, { title: "Omi原理", list: [{ "name": "局部CSS" }] }];
 	            } else {
 	                this.data.items = [{ title: "QUICK START", list: [{ "name": "Installation" }, { "name": "Hello World" }, { "name": "Components" }, { "name": "Lifecycle" }, { "name": "Handling Events" }, { "name": "Conditional Rendering" }, { "name": "Lists and Keys" }, { "name": "Forms" }, { "name": "Inheritance" }, { "name": "Sever-side Rendering" }, { "name": "Thinking In Omi" }] }, { title: "Omi's Principle", list: [{ "name": "Scroped CSS" }] }];
 	            }
@@ -1966,7 +1973,7 @@
 	exports.default = Sidebar;
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2016,7 +2023,7 @@
 	exports.default = List;
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

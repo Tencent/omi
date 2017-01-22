@@ -8,6 +8,7 @@
     "build_server":"node build_server.js",
     "nest": "webpack -w",
     "curd": "webpack -w",
+    "loop": "webpack -w",
     "order": "webpack -w",
     "timer": "webpack -w",
     "todo": "webpack -w",

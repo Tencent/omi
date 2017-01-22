@@ -18,7 +18,7 @@ class Sidebar extends Omi.Component {
                     {"name": "生命周期"},
                     {"name": "事件处理"},
                     {"name": "条件判断"},
-                    {"name": "数组列表"},
+                    {"name": "循环遍历"},
                     {"name": "表单"},
                     {"name": "继承"},
                     {"name": "容器系统"},

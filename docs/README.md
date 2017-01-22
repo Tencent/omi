@@ -5,7 +5,7 @@
 * [生命周期](./cn_lifecycle.md)
 * [事件处理](./cn_events.md)
 * [条件判断](./cn_condition.md)
-* 数组列表
+* [循环遍历](./cn_loop.md)
 * 表单
 * 继承
 * 容器系统
