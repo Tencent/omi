@@ -55,7 +55,7 @@
 	Omi.render(new _hello2.default({ name: 'Omi' }), 'body');
 
 	setTimeout(function () {
-	    Omi.mapping["world"].data.list = "aa";
+	    Omi.get("world").data.list = "aa";
 	    Omi.mapping["world"].update();
 	}, 1000);
 
@@ -94,10 +94,10 @@
 	var Hello = function (_Omi$Component) {
 	    _inherits(Hello, _Omi$Component);
 
-	    function Hello(data, renderTo) {
+	    function Hello(data) {
 	        _classCallCheck(this, Hello);
 
-	        return _possibleConstructorReturn(this, (Hello.__proto__ || Object.getPrototypeOf(Hello)).call(this, data, renderTo));
+	        return _possibleConstructorReturn(this, (Hello.__proto__ || Object.getPrototypeOf(Hello)).call(this, data));
 	    }
 
 	    _createClass(Hello, [{
@@ -316,6 +316,11 @@
 	    component._render(true);
 	    component.installed();
 	    component._childrenInstalled(component);
+	    return component;
+	};
+
+	Omi.get = function (name) {
+	    return Omi.mapping[name];
 	};
 
 	module.exports = Omi;
@@ -974,7 +979,8 @@
 
 	        //re render the server-side rendering html on the client-side
 	        var type = Object.prototype.toString.call(data);
-	        if (type !== '[object Object]' && type !== '[object Undefined]') {
+	        var isReRendering = type !== '[object Object]' && type !== '[object Undefined]';
+	        if (isReRendering) {
 	            this.renderTo = typeof data === "string" ? document.querySelector(data) : data;
 	            this._hidden = this.renderTo.querySelector('.omi_scoped__hidden_data');
 	            this.id = this._hidden.dataset.omiId;
@@ -992,7 +998,7 @@
 	        this._omi_order = [];
 	        _omi2.default.instances[this.id] = this;
 	        this.BODY_ELEMENT = document.createElement('body');
-	        if (this._omi_server_rendering) {
+	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
 	            this.installed();
@@ -1708,10 +1714,10 @@
 	var SubHello = function (_Omi$Component) {
 	    _inherits(SubHello, _Omi$Component);
 
-	    function SubHello(data, renderTo) {
+	    function SubHello(data) {
 	        _classCallCheck(this, SubHello);
 
-	        return _possibleConstructorReturn(this, (SubHello.__proto__ || Object.getPrototypeOf(SubHello)).call(this, data, renderTo));
+	        return _possibleConstructorReturn(this, (SubHello.__proto__ || Object.getPrototypeOf(SubHello)).call(this, data));
 	    }
 
 	    _createClass(SubHello, [{
@@ -1760,10 +1766,10 @@
 	var SubSubHello = function (_Omi$Component) {
 	    _inherits(SubSubHello, _Omi$Component);
 
-	    function SubSubHello(data, renderTo) {
+	    function SubSubHello(data) {
 	        _classCallCheck(this, SubSubHello);
 
-	        return _possibleConstructorReturn(this, (SubSubHello.__proto__ || Object.getPrototypeOf(SubSubHello)).call(this, data, renderTo));
+	        return _possibleConstructorReturn(this, (SubSubHello.__proto__ || Object.getPrototypeOf(SubSubHello)).call(this, data));
 	    }
 
 	    _createClass(SubSubHello, [{
@@ -1807,10 +1813,10 @@
 	var World = function (_Omi$Component) {
 	    _inherits(World, _Omi$Component);
 
-	    function World(data, renderTo) {
+	    function World(data) {
 	        _classCallCheck(this, World);
 
-	        return _possibleConstructorReturn(this, (World.__proto__ || Object.getPrototypeOf(World)).call(this, data, renderTo));
+	        return _possibleConstructorReturn(this, (World.__proto__ || Object.getPrototypeOf(World)).call(this, data));
 	    }
 
 	    _createClass(World, [{

@@ -248,6 +248,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return component;
 	};
 
+	Omi.get = function (name) {
+	    return Omi.mapping[name];
+	};
+
 	module.exports = Omi;
 
 /***/ },

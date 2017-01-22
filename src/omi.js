@@ -137,4 +137,8 @@ Omi.render = function(component , renderTo, increment){
     return component;
 }
 
+Omi.get = function(name){
+    return Omi.mapping[name];
+}
+
 module.exports = Omi;
