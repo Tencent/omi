@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../dist/omi.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        parent.postMessage(JSON.stringify({
+            type: 'ready',
+        }), '*');
+    </script>
+</body>
+</html>
