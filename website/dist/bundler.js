@@ -371,6 +371,10 @@
 	    return component;
 	};
 
+	Omi.get = function (name) {
+	    return Omi.mapping[name];
+	};
+
 	module.exports = Omi;
 
 /***/ },
@@ -2058,12 +2062,12 @@
 	    _createClass(Head, [{
 	        key: 'style',
 	        value: function style() {
-	            return '\n        .head{\n            position:fixed;\n            height:45px;\n            line-height: 45px;\n            border-bottom: 1px solid #eee;\n            width:100%;\n            background-color:#303030;\n            z-index:100;\n\n        }\n        ul,li{\n            display: inline-block;\n        }\n        .logo_box{\n            width:100px;\n            display: inline-block;\n            text-align:center;\n            line-height: 60px;\n        }\n         .menu a,.logo_box a{\n            display: inline-block;\n            height:45px;\n            color:#ddd;\n        }\n        .menu{\n            position: absolute;\n            right:20px;\n        }\n        .menu li{\n            margin-left:10px;\n        }\n        .logo_box a{\n            font-size: 34px;\n            font-weight: bold;\n            color: #00bff3;\n            padding: 0px 15px;\n            line-height: 45px;\n            cursor: pointer;\n        }\n        .menu a:hover{\n            color: white;\n        }\n        ';
+	            return '\n        .head{\n            position:fixed;\n            height:45px;\n            line-height: 45px;\n            border-bottom: 1px solid #eee;\n            width:100%;\n            background-color:#303030;\n            z-index:100;\n\n        }\n        ul,li{\n            display: inline-block;\n        }\n        .logo_box{\n            width:100px;\n            display: inline-block;\n            text-align:center;\n            line-height: 60px;\n        }\n         .menu a,.logo_box a{\n            display: inline-block;\n            height:45px;\n            color:#ddd;\n        }\n        .menu{\n            position: absolute;\n            right:20px;\n        }\n        .menu li{\n            margin-left:15px;\n        }\n        .logo_box a{\n            font-size: 34px;\n            font-weight: bold;\n            color: #00bff3;\n            padding: 0px 15px;\n            line-height: 45px;\n            cursor: pointer;\n        }\n        .menu a:hover{\n            color: white;\n        }\n        ';
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n    <div class="head bord-btm">\n        <div class="logo_box">\n            <a href="https://github.com/AlloyTeam/Omi">Omi</a>\n        </div>\n        <ul class="menu">\n            <li><a href="https://github.com/AlloyTeam/Omi/tree/master/docs">Edit on Github</a></li>\n            <li><a href="http://www.alloyteam.com/">AlloyTeam</a></li>\n            <li class="github_li"><a href="https://github.com/AlloyTeam/Omi">Github</a>\n            </li>\n        </ul>\n    </div>';
+	            return '\n    <div class="head bord-btm">\n        <div class="logo_box">\n            <a href="https://github.com/AlloyTeam/Omi">Omi</a>\n        </div>\n        <ul class="menu">\n            <li class="github_li"><a href="https://github.com/AlloyTeam/Omi">Github</a>\n            <li><a href="http://alloyteam.github.io/omi/example/playground/">Playground</a></li>\n            <li><a href="https://github.com/AlloyTeam/Omi/tree/master/docs">[Edit the Docs]</a></li>\n            </li>\n        </ul>\n    </div>';
 	        }
 	    }]);
 

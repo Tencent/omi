@@ -36,7 +36,7 @@ class Head extends Omi.Component {
             right:20px;
         }
         .menu li{
-            margin-left:10px;
+            margin-left:15px;
         }
         .logo_box a{
             font-size: 34px;
@@ -59,9 +59,9 @@ class Head extends Omi.Component {
             <a href="https://github.com/AlloyTeam/Omi">Omi</a>
         </div>
         <ul class="menu">
-            <li><a href="https://github.com/AlloyTeam/Omi/tree/master/docs">Edit on Github</a></li>
-            <li><a href="http://www.alloyteam.com/">AlloyTeam</a></li>
             <li class="github_li"><a href="https://github.com/AlloyTeam/Omi">Github</a>
+            <li><a href="http://alloyteam.github.io/omi/example/playground/">Playground</a></li>
+            <li><a href="https://github.com/AlloyTeam/Omi/tree/master/docs">[Edit the Docs]</a></li>
             </li>
         </ul>
     </div>`;
