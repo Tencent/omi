@@ -56,7 +56,7 @@ Omi.render(new Hello({ name : "Omi" }),"body");
         return  `
         <div>
             <div>Test</div>
-            <Hello />
+            <Hello data-name="Omi" />
         </div>
         `;
     }
@@ -83,7 +83,9 @@ var Hello =  Omi.create("Hello", {
         alert(dom.innerHTML);
     },
     render: function () {
-        return ' <div><h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1></div>';
+        return '<div>\
+                    <h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>\
+                </div>';
     }
 });
 
@@ -98,7 +100,7 @@ Omi.render(new Hello({ name : "Omi" }),"body");
   render:function() {
         return  '<div>\
                     <div>Test</div>\
-                    <Hello />\
+                    <Hello  data-name="Omi" />\
                 </div>';
     }
     ...

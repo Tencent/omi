@@ -63,11 +63,10 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 class List extends Omi.Component {
     constructor(data) {
         super(data);
-        this.data.items = [];
     }
 
     render () {
-        return ` <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`;
+        return `<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`;
     }
 }
 ```
@@ -82,12 +81,10 @@ Omi.makeHTML(List);
 class Todo extends Omi.Component {
     constructor(data) {
         super(data);
+        this.data.length = this.data.items.length;
+        this.childrenData = [ { items : this.data.items } ];
     }
 
-    install (){
-        this.data.length = this.data.items.length;
-    }
-    
     add (evt) {
         evt.preventDefault();
         this.list.data.items.push(this.data.text);
@@ -121,4 +118,5 @@ class Todo extends Omi.Component {
 ```
 
 * 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML(List);也可以写在List组件的代码下面。
+* 第9行，通过设置this.childrenData可以把参数传递给子组件。this.childrenData是个数组，这样就支持多child的情况。
 * 第36行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。omi-id可以让你通过Omi.mapping['list']快速访问到组件对象的实例。

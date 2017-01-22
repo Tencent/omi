@@ -58,7 +58,7 @@ class Frame extends Omi.Component {
             codes[i].classList.add('language-js');
         }
         //1,5-6,8
-        let mapping = {3: '6', 6: '5', 9: '3,36', 14: '22', 17: '6-12'}
+        let mapping = {3: '6', 6: '5', 9: '3,9,34', 14: '22', 17: '6-12'}
         let pres = document.querySelectorAll("pre");
         for (let key in mapping) {
             pres[key].setAttribute("data-line", mapping[key]);
