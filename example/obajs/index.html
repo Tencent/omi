@@ -25,14 +25,18 @@
 
     var hello = new Hello( {name:"dnt"});
 
-    Omi.render(hello,"#test")
+    Omi.render(hello,"#test");
 
     oba(hello.data,function(){
       hello.update();
-    })
+    });
 
-    // auto update
-    hello.data.name = "omi";
+
+    setTimeout(function(){
+        //will auto update
+        hello.data.name = "omi";
+    },1000);
+
 </script>
 </body>
 </html>
