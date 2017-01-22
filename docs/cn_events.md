@@ -104,3 +104,7 @@ class Pagination extends Omi.Component {
 
 这里取了Pagination组件的部分代码。高亮的就是执行onPageChange的地方。
 
+### 相关地址
+
+* [演示地址](http://alloyteam.github.io/omi/example/pagination/)
+* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/pagination)

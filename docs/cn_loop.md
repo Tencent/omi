@@ -66,4 +66,4 @@ Omi.render(new List({
 ### 相关地址
 
 * [演示地址](http://alloyteam.github.io/omi/example/loop/)
-* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/loop)。
+* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/loop)
