@@ -1,4 +1,4 @@
-<p align="center">
+ï»¿<p align="center">
   <a href ="##"><img alt="Omi" src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png"></a>
 </p>
 
@@ -8,17 +8,17 @@ Open and modern framework for building user interfaces.
 
 ---
 
-## OmiÏà¹Ø
+## Omiç›¸å…³
 
-* Èç¹ûÏëÊ¹ÓÃOmi¿ò¼Ü£¬ÇëÔÄ¶Á  [OmiÊ¹ÓÃÎÄµµ](https://github.com/AlloyTeam/Omi/tree/master/docs#omiÊ¹ÓÃÎÄµµ)
-* Èç¹ûÏëÒ»Æğ¿ª·¢ÍêÉÆOmi¿ò¼Ü£¬ÓĞ¸üºÃµÄ½â¾ö·½°¸»òÕßË¼Â·£¬ÇëÔÄ¶Á  [´ÓÁãÒ»²½²½´òÔìweb×é¼ş»¯¿ò¼ÜOmi](https://github.com/AlloyTeam/Omi/tree/master/docs#´ÓÁãÒ»²½²½´òÔìweb×é¼ş»¯¿ò¼Üomi)
-* ¹ØÓÚÉÏÃæµÄÁ½ÀàÎÄµµ£¬Èç¹ûÄãÏë»ñµÃ¸ü¼ÑµÄÔÄ¶ÁÌåÑé£¬¿ÉÒÔ·ÃÎÊ[http://alloyteam.github.io/omi](http://alloyteam.github.io/omi)
-* Èç¹ûÄãÓĞOmiÏà¹ØµÄÎÊÌâ¿ÉÒÔ[New issue](https://github.com/AlloyTeam/Omi/issues/new)
-* Èç¹ûÏë¸ü¼Ó·½±ãµÄ½»Á÷¹ØÓÚOmiµÄÒ»ÇĞ¿ÉÒÔ¼ÓÈëQQµÄOmi½»Á÷Èº(256426170):
+* å¦‚æœæƒ³ä½¿ç”¨Omiæ¡†æ¶ï¼Œè¯·é˜…è¯»  [Omiä½¿ç”¨æ–‡æ¡£](https://github.com/AlloyTeam/Omi/tree/master/docs#omiä½¿ç”¨æ–‡æ¡£)
+* å¦‚æœæƒ³ä¸€èµ·å¼€å‘å®Œå–„Omiæ¡†æ¶ï¼Œæœ‰æ›´å¥½çš„è§£å†³æ–¹æ¡ˆæˆ–è€…æ€è·¯ï¼Œè¯·é˜…è¯»  [ä»é›¶ä¸€æ­¥æ­¥æ‰“é€ webç»„ä»¶åŒ–æ¡†æ¶Omi](https://github.com/AlloyTeam/Omi/tree/master/docs#ä»é›¶ä¸€æ­¥æ­¥æ‰“é€ webç»„ä»¶åŒ–æ¡†æ¶omi)
+* å…³äºä¸Šé¢çš„ä¸¤ç±»æ–‡æ¡£ï¼Œå¦‚æœä½ æƒ³è·å¾—æ›´ä½³çš„é˜…è¯»ä½“éªŒï¼Œå¯ä»¥è®¿é—®[http://alloyteam.github.io/omi](http://alloyteam.github.io/omi)
+* å¦‚æœä½ æœ‰Omiç›¸å…³çš„é—®é¢˜å¯ä»¥[New issue](https://github.com/AlloyTeam/Omi/issues/new)
+* å¦‚æœæƒ³æ›´åŠ æ–¹ä¾¿çš„äº¤æµå…³äºOmiçš„ä¸€åˆ‡å¯ä»¥åŠ å…¥QQçš„Omiäº¤æµç¾¤(256426170):
 
 <img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png">
 
-## Í¨¹ınpm°²×° 
+## é€šè¿‡npmå®‰è£… 
 
 ``` js
 npm install omi
@@ -54,11 +54,11 @@ class Hello extends Omi.Component {
 Omi.render(new Hello({ name : "Omi" }),"body");
 ```
 
-Äã¿ÉÒÔÊ¹ÓÃOmi.makeHTMLÀ´Éú³É×é¼ş±êÇ©ÓÃÓÚÇ¶Ì×¡£
+ä½ å¯ä»¥ä½¿ç”¨Omi.makeHTMLæ¥ç”Ÿæˆç»„ä»¶æ ‡ç­¾ç”¨äºåµŒå¥—ã€‚
 ```js
     Omi.makeHTML(Hello);
 ```
-ÄÇÃ´Äã¾ÍÔÚÆäËû×é¼şÖĞÊ¹ÓÃ£¬²¢ÇÒÍ¨¹ıdata-*µÄ·½Ê½¿ÉÒÔ¸ø×é¼ş´«²Î£¬Èç£º
+é‚£ä¹ˆä½ å°±åœ¨å…¶ä»–ç»„ä»¶ä¸­ä½¿ç”¨ï¼Œå¹¶ä¸”é€šè¿‡data-*çš„æ–¹å¼å¯ä»¥ç»™ç»„ä»¶ä¼ å‚ï¼Œå¦‚ï¼š
 ```js
   ...
   render() {
@@ -72,9 +72,9 @@ Omi.render(new Hello({ name : "Omi" }),"body");
     ...
 ```
 
-Äã¿ÉÒÔÊ¹ÓÃ [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)£¬ÔÚwebpackÅäÖÃµÄmoduleÉèÖÃ[babel-loader](https://github.com/babel/babel-loader)£¬Á¢Âí¾ÍÄÜÊ¹ÓÃES6+À´±àĞ´ÄãµÄweb³ÌĞò¡£
+ä½ å¯ä»¥ä½¿ç”¨ [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)ï¼Œåœ¨webpacké…ç½®çš„moduleè®¾ç½®[babel-loader](https://github.com/babel/babel-loader)ï¼Œç«‹é©¬å°±èƒ½ä½¿ç”¨ES6+æ¥ç¼–å†™ä½ çš„webç¨‹åºã€‚
 
- µ±È»OmiÃ»ÓĞÅ×ÆúES5µÄÓÃ»§£¬Äã¿ÉÒÔÊ¹ÓÃES5µÄ·½Ê½±àĞ´Omi¡£¾ßÌå¿ÉÒÔ¿´ÕâÀï[Hello World with ES5](https://github.com/AlloyTeam/Omi/blob/master/docs/cn_hello_world.md#hello-world-with-es5)¡£
+ å½“ç„¶Omiæ²¡æœ‰æŠ›å¼ƒES5çš„ç”¨æˆ·ï¼Œä½ å¯ä»¥ä½¿ç”¨ES5çš„æ–¹å¼ç¼–å†™Omiã€‚å…·ä½“å¯ä»¥çœ‹è¿™é‡Œ[Hello World with ES5](https://github.com/AlloyTeam/Omi/blob/master/docs/cn_hello_world.md#hello-world-with-es5)ã€‚
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
