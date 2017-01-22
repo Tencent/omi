@@ -4,7 +4,7 @@
   "description": "Omi is Omi.",
   "scripts": {
     "build": "webpack -w",
-    "build_server":"node build_server.js",
+    "build_server":"node asset/build_server.js",
     "nest": "webpack -w",
     "curd": "webpack -w",
     "loop": "webpack -w",
