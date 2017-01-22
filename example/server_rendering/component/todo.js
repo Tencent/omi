@@ -16,8 +16,10 @@ function makeTodo(Omi){
             this.childrenData[0] = this.data;
         },
         style:function () {
-            return `h3 { color:red; }
-            button{ color:green;}`;
+            return `
+            h3 { color:red; }
+            button{ color:green;}
+            `;
         },
         render:function(){
             return `

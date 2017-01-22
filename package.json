@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "description": "Omi is Omi.",
   "scripts": {
-    "build_all":"npm run build && npm run build_server &",
     "build": "webpack -w",
     "build_server":"node build_server.js",
     "nest": "webpack -w",
