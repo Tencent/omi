@@ -8,6 +8,7 @@ Open and modern framework for building user interfaces.
 
 ---
 
+* 如果想体验一下Omi框架，请[点击Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * 如果想使用Omi框架，请阅读  [Omi使用文档](https://github.com/AlloyTeam/Omi/tree/master/docs#omi使用文档)
 * 如果想一起开发完善Omi框架，有更好的解决方案或者思路，请阅读  [从零一步步打造web组件化框架Omi](https://github.com/AlloyTeam/Omi/tree/master/docs#从零一步步打造web组件化框架omi)
 * 关于上面的两类文档，如果你想获得更佳的阅读体验，可以访问[http://alloyteam.github.io/omi](http://alloyteam.github.io/omi)
