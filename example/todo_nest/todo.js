@@ -4,12 +4,10 @@ import List from './list.js';
 Omi.makeHTML(List);
 
 class Todo extends Omi.Component {
-    constructor(data, renderTo) {
-        super(data, renderTo);
-    }
-
-    install (){
+    constructor(data) {
+        super(data);
         this.data.length = this.data.items.length;
+        this.childrenData = [ { items : this.data.items } ];
     }
 
     add (evt) {

@@ -87,27 +87,17 @@
 	var Todo = function (_Omi$Component) {
 	    _inherits(Todo, _Omi$Component);
 
-	    function Todo(data, renderTo) {
+	    function Todo(data) {
 	        _classCallCheck(this, Todo);
 
-	        var _this = _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, data, renderTo));
+	        var _this = _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, data));
 
-	        console.log(1);
+	        _this.data.length = _this.data.items.length;
+	        _this.childrenData = [{ items: _this.data.items }];
 	        return _this;
 	    }
 
 	    _createClass(Todo, [{
-	        key: 'install',
-	        value: function install() {
-	            console.log(2);
-	            this.data.length = this.data.items.length;
-	        }
-	    }, {
-	        key: 'installed',
-	        value: function installed() {
-	            console.log(3);
-	        }
-	    }, {
 	        key: 'add',
 	        value: function add(evt) {
 	            evt.preventDefault();
@@ -331,6 +321,10 @@
 	    component.installed();
 	    component._childrenInstalled(component);
 	    return component;
+	};
+
+	Omi.get = function (name) {
+	    return Omi.mapping[name];
 	};
 
 	module.exports = Omi;
@@ -1720,27 +1714,13 @@
 	var List = function (_Omi$Component) {
 	    _inherits(List, _Omi$Component);
 
-	    function List(data, renderTo) {
+	    function List(data) {
 	        _classCallCheck(this, List);
 
-	        var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, data, renderTo));
-
-	        _this.data.items = [];
-	        console.log(11);
-	        return _this;
+	        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, data));
 	    }
 
 	    _createClass(List, [{
-	        key: 'install',
-	        value: function install() {
-	            console.log(22);
-	        }
-	    }, {
-	        key: 'installed',
-	        value: function installed() {
-	            console.log(33);
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return ' <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';

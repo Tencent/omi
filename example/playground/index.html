@@ -35,8 +35,8 @@ class List extends Omi.Component {
 Omi.makeHTML(List);
 
 class Todo extends Omi.Component {
-    constructor(data, renderTo) {
-        super(data, renderTo);
+    constructor(data) {
+        super(data);
         this.data.length = this.data.items.length;
         this.childrenData = [ { items : this.data.items } ];
     }
