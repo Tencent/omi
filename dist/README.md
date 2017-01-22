@@ -1,8 +1,8 @@
-## �ļ�˵��
+﻿## 文件说明
 
 ### omi.js
  
- UMD��ʽbuild�������ʹ��AMD��CommonJS����Import����ʹ�á�Ҳ������HTML��ֱ�����ýű�ʹ�ã�
+ UMD方式build，你可以使用AMD、CommonJS或者Import导入使用。也可以在HTML里直接引用脚本使用：
  
  ```js
  <script src="omi.js"></script>
@@ -10,11 +10,11 @@
 
 ### omi.lite.js
 
-�Ƴ���ģ�������omi.js���������дOmi.renderȥʹ������ģ�����档
+移除了模板引擎的omi.js。你可以重写Omi.render去使用任意模板引擎。
 
 ### omi_server.js
 
-���ڷ����ֱ������ͬ��ֱ����
+用于服务端直出或者同构直出。
   
 
 ## Explanation of Build Files
