@@ -5,4 +5,4 @@ let list = new List( {
     list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
 });
 
-Omi.render(list,'body');
+Omi.render(list,'#test');

@@ -28,4 +28,4 @@ Omi.render(new List({
         {id: 2, text: 'dntzhang'},
         {id: 3, text: 'AlloyTeam'}
     ]
-}),"body");
+}),"body",true);

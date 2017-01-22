@@ -57,7 +57,7 @@
 	    list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
 	});
 
-	Omi.render(list, 'body');
+	Omi.render(list, '#test');
 
 /***/ },
 /* 1 */
@@ -94,33 +94,21 @@
 	var List = function (_Omi$Component) {
 	    _inherits(List, _Omi$Component);
 
-	    function List(data, renderTo) {
+	    function List(data) {
 	        _classCallCheck(this, List);
 
-	        var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, data, renderTo));
-
-	        _this.textBox = null;
-	        return _this;
+	        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, data));
 	    }
 
 	    _createClass(List, [{
-	        key: 'add',
-	        value: function add(evt) {
-	            evt.preventDefault();
-	            this.textBox = this.node.querySelector("input");
-	            this.data.items.push(this.textBox.value);
-	            this.update();
-	            this.textBox.value = "";
-	        }
-	    }, {
 	        key: 'style',
 	        value: function style() {
-	            return 'h1 { color:red; }\n        li{ color:green;}';
+	            return '\n        h1 { color:red; }\n        li{ color:green;}\n        ';
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<h1>{{title}}</h1>\n                <ul>\n                    {{each list as value i}}\n                    <li>\u7D22\u5F152 {{i + 1}} \uFF1A{{value}}</li>\n                    {{/each}}\n                </ul>';
+	            return '<h1>{{title}}</h1>\n                <ul>\n                    {{each list as value i}}\n                    <li>\u7D22\u5F15 {{i + 1}} \uFF1A{{value}}</li>\n                    {{/each}}\n                </ul>';
 	        }
 	    }]);
 
@@ -321,6 +309,7 @@
 	    component._render(true);
 	    component.installed();
 	    component._childrenInstalled(component);
+	    return component;
 	};
 
 	module.exports = Omi;
@@ -978,13 +967,15 @@
 	        _classCallCheck(this, Component);
 
 	        //re render the server-side rendering html on the client-side
-	        if (Object.prototype.toString.call(data) !== '[object Object]') {
+	        var type = Object.prototype.toString.call(data);
+	        var isReRendering = type !== '[object Object]' && type !== '[object Undefined]';
+	        if (isReRendering) {
 	            this.renderTo = typeof data === "string" ? document.querySelector(data) : data;
 	            this._hidden = this.renderTo.querySelector('.omi_scoped__hidden_data');
 	            this.id = this._hidden.dataset.omiId;
 	            this.data = JSON.parse(this._hidden.value);
 	        } else {
-	            this.data = data;
+	            this.data = data || {};
 	            this._omi_server_rendering = server;
 	            this.id = _omi2.default.getInstanceId();
 	            this.refs = {};
@@ -996,7 +987,7 @@
 	        this._omi_order = [];
 	        _omi2.default.instances[this.id] = this;
 	        this.BODY_ELEMENT = document.createElement('body');
-	        if (this._omi_server_rendering) {
+	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
 	            this.installed();
@@ -1123,6 +1114,10 @@
 
 	            this._addedItems.forEach(function (item) {
 	                var target = typeof item.el === "string" ? _this2.node.querySelector(item.el) : item.el;
+	                item.component.install();
+	                item.component._render(true);
+	                item.component.installed();
+	                item.component._childrenInstalled(item.component);
 	                target.insertAdjacentHTML(item.position, item.component.HTML);
 	            });
 	            this.children.forEach(function (child) {
@@ -1187,7 +1182,6 @@
 	                return this.HTML;
 	            }
 	            childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
-	            console.log("_mergeData");
 	            this._mergeData(childStr, isFirst);
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);

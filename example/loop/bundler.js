@@ -90,7 +90,7 @@
 
 	_index2.default.render(new List({
 	    items: [{ id: 1, text: 'Omi' }, { id: 2, text: 'dntzhang' }, { id: 3, text: 'AlloyTeam' }]
-	}), "body");
+	}), "body", true);
 
 /***/ },
 /* 1 */
