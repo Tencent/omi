@@ -1,7 +1,7 @@
 import Omi from '../../src/index.js';
 
 class Head extends Omi.Component {
-    constructor(data) {
+    constructor (data) {
         super(data);
     }
 

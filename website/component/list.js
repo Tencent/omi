@@ -4,7 +4,8 @@ class List extends Omi.Component {
     constructor(data) {
         super(data);
     }
-    style(){
+
+    style() {
         return `
         li.title{
             font-size: 16px;

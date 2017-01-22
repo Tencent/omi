@@ -129,7 +129,6 @@
 	    }, {
 	        key: 'afterUpdate',
 	        value: function afterUpdate() {
-
 	            this.highlightBlock();
 	        }
 	    }, {

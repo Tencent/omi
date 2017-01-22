@@ -48,7 +48,6 @@ class Sidebar extends Omi.Component {
 
         }
 
-
         this.data.height = window.innerHeight -45;
         this.childrenData = this.data.items;
     }

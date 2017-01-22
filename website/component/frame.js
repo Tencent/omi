@@ -12,19 +12,21 @@ class Frame extends Omi.Component {
         super(data);
     }
 
-    install(){
-        this.data.height = window.innerHeight -45;
-        this.data.width = window.innerWidth -220;
+    install() {
+        this.data.height = window.innerHeight - 45;
+        this.data.width = window.innerWidth - 220;
 
-        window.onresize = ()=>{
-            this.data.width = window.innerWidth -220;
+        window.onresize = ()=> {
+            this.data.width = window.innerWidth - 220;
             this.update();
         }
     }
-    installed(){
+
+    installed() {
         this.highlightBlock(true);
     }
-    style () {
+
+    style() {
         return `
         .main{
              position: absolute;
@@ -37,42 +39,40 @@ class Frame extends Omi.Component {
     }
 
     afterUpdate() {
-
         this.highlightBlock();
-
     }
 
-     _$$(expr, con) {
+    _$$(expr, con) {
         return Array.prototype.slice.call((con || document).querySelectorAll(expr));
     }
 
-    highlightBlock(lh){
+    highlightBlock(lh) {
         var codes = document.querySelectorAll("code");
         for (let i = 0, len = codes.length; i < len; i++) {
             //innerText bug£¿ie11 remove the \r\n??
             // detail:  http://www.cnblogs.com/fsjohnhuang/p/4319635.html
             // so textContent
-           var html =  Prism.highlight(codes[i].textContent, Prism.languages.javascript);
+            var html = Prism.highlight(codes[i].textContent, Prism.languages.javascript);
             codes[i].innerHTML = html;
 
             codes[i].classList.add('language-js');
         }
         //1,5-6,8
-        let mapping = {3:'6',6:'5',9:'3,36',14:'22',17:'6-12'}
+        let mapping = {3: '6', 6: '5', 9: '3,36', 14: '22', 17: '6-12'}
         let pres = document.querySelectorAll("pre");
-        for(let key in mapping){
-            pres[key].setAttribute("data-line",mapping[key]);
+        for (let key in mapping) {
+            pres[key].setAttribute("data-line", mapping[key]);
         }
 
-        this._$$('pre').forEach((item)=>{
+        this._$$('pre').forEach((item)=> {
 
             item.classList.add('language-js');
         })
 
-        if(!lh)lineHighLight();
+        if (!lh)lineHighLight();
     }
 
-    render () {
+    render() {
         return `<div>
                 <Head />
                 <div class="main"  style="height:{{height}}px;width:{{width}}px;">
@@ -80,7 +80,7 @@ class Frame extends Omi.Component {
                 </div>
                 <Sidebar data-lan="{{lan}}" />
                 </div>`;
-}
+    }
 }
 
 export default Frame;

@@ -18,9 +18,11 @@ class Content extends Omi.Component {
     constructor(data) {
         super(data);
     }
+
     install() {
-        this.data.html = marked(getMarkDownByArr(['installation','hello_world','components','lifecycle','events','condition','loop','template','thinking_in_omi'],'cn'));
+        this.data.html = marked(getMarkDownByArr(['installation', 'hello_world', 'components', 'lifecycle', 'events', 'condition', 'loop', 'template', 'thinking_in_omi'], 'cn'));
     }
+
     style () {
         return `
         .content{
