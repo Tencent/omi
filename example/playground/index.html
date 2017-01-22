@@ -25,7 +25,6 @@
 class List extends Omi.Component {
     constructor(data) {
         super(data);
-        this.data.items = [];
     }
 
     render () {
@@ -38,10 +37,8 @@ Omi.makeHTML(List);
 class Todo extends Omi.Component {
     constructor(data, renderTo) {
         super(data, renderTo);
-    }
-
-    install (){
         this.data.length = this.data.items.length;
+        this.childrenData = [ { items : this.data.items } ];
     }
 
     add (evt) {
@@ -66,7 +63,7 @@ class Todo extends Omi.Component {
     render () {
         return `<div>
           <h3>TODO</h3>
-          <List omi-id="list" name="list" />
+          <List name="list" />
           <form onsubmit="add(event)" >
               <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
               <button>Add #{{length}}</button>
@@ -76,7 +73,7 @@ class Todo extends Omi.Component {
 }
 
 
-Omi.render(new Todo({ items: [] , text : '' }),'#container');</textarea>
+Omi.render(new Todo({ items: ['Omi','dntzhang','AlloyTeam'] , text : '' }),'#container');</textarea>
         </div>
     </div>
 
