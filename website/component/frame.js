@@ -17,6 +17,7 @@ class Frame extends Omi.Component {
         this.data.width = window.innerWidth - 220;
 
         window.onresize = ()=> {
+            this.data.height = window.innerHeight - 45;
             this.data.width = window.innerWidth - 220;
             this.update();
         }
