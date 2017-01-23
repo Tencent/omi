@@ -60,7 +60,7 @@ class FormTest extends Omi.Component {
   
     render () {
         return `
-        <form onSubmit="handleSubmit(evt)">
+        <form onsubmit="handleSubmit(event)">
         <label>
           Pick your favorite La Croix flavor:
           <select value="{{value}}" onchange="handleChange(this)">
@@ -77,3 +77,6 @@ class FormTest extends Omi.Component {
 
 Omi.render(new FormTest({ value: 'mango' }),'#container');
 ```
+
+### 在线试试
+
