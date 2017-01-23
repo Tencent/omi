@@ -20,7 +20,7 @@ class Content extends Omi.Component {
     }
 
     install() {
-        this.data.html = marked(getMarkDownByArr(['installation', 'hello_world', 'components', 'lifecycle', 'events', 'condition', 'loop', 'template', 'thinking_in_omi'], 'cn'));
+        this.data.html = marked(getMarkDownByArr(['installation', 'hello_world', 'components', 'lifecycle', 'events', 'condition', 'loop', 'form', 'template', 'thinking_in_omi'], 'cn'));
     }
 
     style () {

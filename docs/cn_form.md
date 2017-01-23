@@ -6,7 +6,7 @@ Omi让一些表单操控起来更加方便，特别是select！
 
 以前，我们需要像如下的方式选中一个选项：
 
-```js
+```html
 <select>
   <option value="grapefruit">Grapefruit</option>
   <option value="lime">Lime</option>
@@ -17,7 +17,7 @@ Omi让一些表单操控起来更加方便，特别是select！
 
 第三个option由于加上了selected，所有会被选中。这样带来的问题就是，开发者写的程序可能要操遍历每个option。而使用Omi，你只需要这样子：
 
-```js
+```html
 <select value="coconut">
   <option value="grapefruit">Grapefruit</option>
   <option value="lime">Lime</option>
@@ -28,7 +28,7 @@ Omi让一些表单操控起来更加方便，特别是select！
 
 这样就能达到同样的效果。比如你想选择第一项：
 
-```js
+```html
 <select value="grapefruit">
   <option value="grapefruit">Grapefruit</option>
   <option value="lime">Lime</option>

@@ -6,11 +6,11 @@
 * [事件处理](./cn_events.md)
 * [条件判断](./cn_condition.md)
 * [循环遍历](./cn_loop.md)
-* 表单
+* [表单](./cn_form.md)
 * 继承
 * 容器系统
 * [模板切换](./cn_template.md)
-* 服务器端渲染
+* 服务端同构渲染
 * [Omi理念](./cn_thinking_in_omi.md)
 
 # 从零一步步打造Web组件化框架Omi
