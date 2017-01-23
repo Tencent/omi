@@ -1862,7 +1862,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"# Omi使用文档\\r\\n* [安装](./cn_installation.md)\\r\\n* [Hello World](./cn_hello_world.md)\\r\\n* [组件](./cn_components.md)\\r\\n* [生命周期](./cn_lifecycle.md)\\r\\n* [事件处理](./cn_events.md)\\r\\n* [条件判断](./cn_condition.md)\\r\\n* [循环遍历](./cn_loop.md)\\r\\n* [表单](./cn_form.md)\\r\\n* 继承\\r\\n* 容器系统\\r\\n* [模板切换](./cn_template.md)\\r\\n* 服务端同构渲染\\r\\n* [Omi理念](./cn_thinking_in_omi.md)\\r\\n\\r\\n# 从零一步步打造Web组件化框架Omi\\r\\n\\r\\n* 局部CSS揭秘\\r\\n* 组件嵌套揭秘\\r\\n* 事件处理揭秘\\r\\n* 服务器端渲染揭秘\\r\\n* 模板切换揭秘\\r\\n* 容器系统揭秘\""
+	module.exports = "module.exports = \"# Omi使用文档\\r\\n* [安装](./cn_installation.md)\\r\\n* [Hello World](./cn_hello_world.md)\\r\\n* [组件](./cn_components.md)\\r\\n* [生命周期](./cn_lifecycle.md)\\r\\n* [事件处理](./cn_events.md)\\r\\n* [条件判断](./cn_condition.md)\\r\\n* [循环遍历](./cn_loop.md)\\r\\n* [表单](./cn_form.md)\\r\\n* [继承](./cn_inhrit.md)\\r\\n* [模板切换](./cn_template.md)\\r\\n* [Omi理念](./cn_thinking_in_omi.md)\\r\\n\\r\\n# 从零一步步打造Web组件化框架Omi（待续）\\r\\n\\r\\n* 局部CSS揭秘\\r\\n* 组件嵌套揭秘\\r\\n* 事件处理揭秘\\r\\n* 服务器端渲染揭秘\\r\\n* 模板切换揭秘\\r\\n* 容器系统揭秘\""
 
 /***/ },
 /* 12 */
@@ -1985,7 +1985,11 @@
 	        key: 'install',
 	        value: function install() {
 	            if (this.data.lan === "cn") {
-	                this.data.items = [{ title: "快速开始", list: [{ "name": "安装" }, { "name": "Hello World" }, { "name": "组件" }, { "name": "生命周期" }, { "name": "事件处理" }, { "name": "条件判断" }, { "name": "循环遍历" }, { "name": "表单" }, { "name": "继承" }, { "name": "容器系统" }, { "name": "模板切换" }, { "name": "服务器端渲染" }, { "name": "Omi的理念" }] }, { title: "Omi原理", list: [{ "name": "局部CSS" }] }];
+	                this.data.items = [{ title: "快速开始", list: [{ "name": "安装" }, { "name": "Hello World" }, { "name": "组件" }, { "name": "生命周期" }, { "name": "事件处理" }, { "name": "条件判断" }, { "name": "循环遍历" }, { "name": "表单" }, { "name": "继承" },
+	                    //{"name": "容器系统"},
+	                    { "name": "模板切换" },
+	                    //{"name": "服务器端渲染"},
+	                    { "name": "Omi的理念" }] }, { title: "Omi原理", list: [{ "name": "未完待续" }, { "name": "..." }, { "name": "..." }, { "name": "..." }] }];
 	            } else {
 	                this.data.items = [{ title: "QUICK START", list: [{ "name": "Installation" }, { "name": "Hello World" }, { "name": "Components" }, { "name": "Lifecycle" }, { "name": "Handling Events" }, { "name": "Conditional Rendering" }, { "name": "Lists and Keys" }, { "name": "Forms" }, { "name": "Inheritance" }, { "name": "Sever-side Rendering" }, { "name": "Thinking In Omi" }] }, { title: "Omi's Principle", list: [{ "name": "Scroped CSS" }] }];
 	            }

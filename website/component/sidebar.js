@@ -21,12 +21,18 @@ class Sidebar extends Omi.Component {
                     {"name": "循环遍历"},
                     {"name": "表单"},
                     {"name": "继承"},
-                    {"name": "容器系统"},
+                    //{"name": "容器系统"},
                     {"name": "模板切换"},
-                    {"name": "服务器端渲染"},
+                    //{"name": "服务器端渲染"},
                     {"name": "Omi的理念"}
                 ]},
-                {title: "Omi原理", list: [ {"name": "局部CSS"}]}
+                {title: "Omi原理", list: [
+                    {"name": "未完待续"},
+                    {"name": "..."},
+                    {"name": "..."},
+                    {"name": "..."}
+
+                ]}
             ];
         }else{
             this.data.items =  [
