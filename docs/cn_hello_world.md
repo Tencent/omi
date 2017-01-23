@@ -44,7 +44,7 @@ Omi.render(new Hello({ name : "Omi" }),"#container");
 - 局部CSS: h1只对render里的h1生效，不会污染外面的h1
 - 声明式事件绑定: onclick调用的就是组件内的handleClick，this可以拿到当然的DOM元素,还可以拿到当前的event
 
-点击这里->[在线试试](http://alloyteam.github.io/omi/website/redirect.html?type=hello)
+[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello)
 
 你可以使用Omi.makeHTML来生成组件标签用于嵌套。
 ```js
@@ -64,7 +64,7 @@ Omi.render(new Hello({ name : "Omi" }),"#container");
     ...
 ```
 
-点击这里->[在线试试](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
+[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
 
 ###  Hello World with ES5
 
