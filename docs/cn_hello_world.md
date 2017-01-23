@@ -35,15 +35,16 @@ class Hello extends Omi.Component {
     }
 }
 
-Omi.render(new Hello({ name : "Omi" }),"body");
-
+Omi.render(new Hello({ name : "Omi" }),"#container");
 ```
 
-组件生成的HTML最终会插入到body中。上面的例子展示了Omi的部分特性:
+组件生成的HTML最终会插入到#container中。上面的例子展示了Omi的部分特性:
 
 - data传递: new Hello(data,..)的data可以直接提供给render方法里的模板
 - 局部CSS: h1只对render里的h1生效，不会污染外面的h1
 - 声明式事件绑定: onclick调用的就是组件内的handleClick，this可以拿到当然的DOM元素,还可以拿到当前的event
+
+点击这里->[在线试试](http://alloyteam.github.io/omi/website/redirect.html?type=hello)
 
 你可以使用Omi.makeHTML来生成组件标签用于嵌套。
 ```js
@@ -63,6 +64,7 @@ Omi.render(new Hello({ name : "Omi" }),"body");
     ...
 ```
 
+点击这里->[在线试试](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
 
 ###  Hello World with ES5
 
@@ -89,7 +91,7 @@ var Hello =  Omi.create("Hello", {
     }
 });
 
-Omi.render(new Hello({ name : "Omi" }),"body");
+Omi.render(new Hello({ name : "Omi" }),"#container");
 ```
 当然除了在HTML引入脚步，你还可以使用AMD、CMD或者CommonJS的方式引入Omi，这里就不再一一列举。
 
