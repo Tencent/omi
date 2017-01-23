@@ -8,7 +8,7 @@ function getMarkDown(name,lan) {
 function getMarkDownByArr(arr , lan) {
     let md = "";
     arr.forEach((item)=> {
-        md += getMarkDown(item, lan);
+        md += getMarkDown(item, lan)+"\r\n \r\n";
     })
 
     return md;

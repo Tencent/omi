@@ -53,5 +53,3 @@ class Timer extends Omi.Component {
     }
 }
 ```
-
-

@@ -47,5 +47,3 @@ This code renders into body element.
 ```html
 <script src="omi.js"></script>
 ```
-
-
