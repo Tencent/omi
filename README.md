@@ -5,7 +5,7 @@
 Open and modern framework for building user interfaces.
 </p>
 <p align="center">
-[![Build Status](https://secure.travis-ci.org/AlloyTeam/omi.png?branch=master)](https://travis-ci.org/AlloyTeam/omi)
+  <a href="https://travis-ci.org/AlloyTeam/omi"><img src="https://travis-ci.org/AlloyTeam/omi.svg"></a>
 </p>
 
 ---
