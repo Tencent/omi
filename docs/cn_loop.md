@@ -63,7 +63,4 @@ Omi.render(new List({
 
 ![pv](http://images2015.cnblogs.com/blog/105416/201701/105416-20170122095724129-2059595233.png)
 
-### 相关地址
-
-* [演示地址](http://alloyteam.github.io/omi/example/loop/)
-* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/loop)
+[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=list2)

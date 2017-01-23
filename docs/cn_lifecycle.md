@@ -53,3 +53,5 @@ class Timer extends Omi.Component {
     }
 }
 ```
+
+[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=lifecycle)

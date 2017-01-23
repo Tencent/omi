@@ -107,3 +107,5 @@ Omi.render(new Hello({ name : "Omi" }),"#container");
     }
     ...
 ```
+
+[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
