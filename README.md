@@ -9,10 +9,10 @@ Open and modern framework for building user interfaces.
 ---
 
 * 如果想体验一下Omi框架，请[点击Omi Playground](http://alloyteam.github.io/omi/example/playground/)
-* 如果想使用Omi框架，请阅读  [Omi使用文档](https://github.com/AlloyTeam/Omi/tree/master/docs#omi使用文档)
-* 如果想一起开发完善Omi框架，有更好的解决方案或者思路，请阅读  [从零一步步打造web组件化框架Omi](https://github.com/AlloyTeam/Omi/tree/master/docs#从零一步步打造web组件化框架omi)
+* 如果想使用Omi框架，请阅读  [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
+* 如果想一起开发完善Omi框架，有更好的解决方案或者思路，请阅读  [从零一步步打造web组件化框架Omi](https://github.com/AlloyTeam/omi/tree/master/docs#从零一步步打造web组件化框架omi)
 * 关于上面的两类文档，如果你想获得更佳的阅读体验，可以访问[http://alloyteam.github.io/omi](http://alloyteam.github.io/omi)
-* 如果你有Omi相关的问题可以[New issue](https://github.com/AlloyTeam/Omi/issues/new)
+* 如果你有Omi相关的问题可以[New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170):
 
 <img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png">
@@ -73,7 +73,7 @@ Omi.render(new Hello({ name : "Omi" }),"body");
 
 你可以使用 [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)，在webpack配置的module设置[babel-loader](https://github.com/babel/babel-loader)，立马就能使用ES6+来编写你的web程序。
 
- 当然Omi没有抛弃ES5的用户，你可以使用ES5的方式编写Omi。具体可以看这里[Hello World with ES5](https://github.com/AlloyTeam/Omi/blob/master/docs/cn_hello_world.md#hello-world-with-es5)。
+ 当然Omi没有抛弃ES5的用户，你可以使用ES5的方式编写Omi。具体可以看这里[Hello World with ES5](https://github.com/AlloyTeam/omi/blob/master/docs/cn_hello_world.md#hello-world-with-es5)。
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.

@@ -1,6 +1,6 @@
 /*!
 *  Omi v0.1.0 By dntzhang
-*  Github: https://github.com/AlloyTeam/Omi
+*  Github: https://github.com/AlloyTeam/omi
     *  MIT Licensed.
 */
 (function webpackUniversalModuleDefinition(root, factory) {

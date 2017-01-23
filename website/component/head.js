@@ -56,12 +56,12 @@ class Head extends Omi.Component {
         return `
     <div class="head bord-btm">
         <div class="logo_box">
-            <a href="https://github.com/AlloyTeam/Omi">Omi</a>
+            <a href="https://github.com/AlloyTeam/omi">Omi</a>
         </div>
         <ul class="menu">
-            <li class="github_li"><a href="https://github.com/AlloyTeam/Omi">Github</a>
+            <li class="github_li"><a href="https://github.com/AlloyTeam/omi">Github</a>
             <li><a href="http://alloyteam.github.io/omi/example/playground/">Playground</a></li>
-            <li><a href="https://github.com/AlloyTeam/Omi/tree/master/docs">[Edit the Docs]</a></li>
+            <li><a href="https://github.com/AlloyTeam/omi/tree/master/docs">[Edit the Docs]</a></li>
             </li>
         </ul>
     </div>`;

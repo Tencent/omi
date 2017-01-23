@@ -5,7 +5,7 @@ var data = fs.readFileSync("./dist/omi.js","utf-8");
 var head = "\
 /*!\r\n\
 *  Omi v0.1.0 By dntzhang\r\n\
-*  Github: https://github.com/AlloyTeam/Omi\r\n\
+*  Github: https://github.com/AlloyTeam/omi\r\n\
     *  MIT Licensed.\r\n\
 */\r\n\
 (function webpackUniversalModuleDefinition(root, factory) {\r\n\

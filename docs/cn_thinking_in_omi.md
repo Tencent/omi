@@ -41,5 +41,5 @@ Omi的理念是基于面向对象编程体系，内建积木系统。
 
 <hr/>
 
-### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/Omi)
+### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/omi)
 
