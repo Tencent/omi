@@ -112,6 +112,7 @@
 	            this.data.width = window.innerWidth - 220;
 
 	            window.onresize = function () {
+	                _this2.data.height = window.innerHeight - 45;
 	                _this2.data.width = window.innerWidth - 220;
 	                _this2.update();
 	            };
@@ -330,6 +331,14 @@
 	        return context.querySelector(selector);
 	    } else {
 	        return document.querySelector(selector);
+	    }
+	};
+
+	Omi.$$ = function (selector, context) {
+	    if (context) {
+	        return Array.prototype.slice.call(context.querySelectorAll(selector));
+	    } else {
+	        return Array.prototype.slice.call(document.querySelectorAll(selector));
 	    }
 	};
 
@@ -1298,10 +1307,8 @@
 	    }, {
 	        key: '_fixForm',
 	        value: function _fixForm() {
-	            var elements = this.node.querySelectorAll('input');
-	            var len = elements.length;
-	            for (var i = 0; i < len; i++) {
-	                var element = elements[i];
+
+	            _omi2.default.$$('input', this.node).forEach(function (element) {
 	                var type = element.type.toLowerCase();
 	                if (element.getAttribute('value') === '') {
 	                    element.value = '';
@@ -1313,7 +1320,19 @@
 	                        element.checked = false;
 	                    }
 	                }
-	            }
+	            });
+
+	            _omi2.default.$$('select', this.node).forEach(function (select) {
+	                var value = select.getAttribute('value');
+	                if (value) {
+	                    _omi2.default.$$('option', select).forEach(function (option) {
+	                        option.setAttribute('selected', 'selected');
+	                    });
+	                } else {
+	                    var firstOption = _omi2.default.$$('option', select)[0];
+	                    firstOption && firstOption.setAttribute('selected', 'selected');
+	                }
+	            });
 	        }
 	    }, {
 	        key: '_replaceTags',

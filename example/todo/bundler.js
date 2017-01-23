@@ -46,7 +46,7 @@
 
 	'use strict';
 
-	var _todo = __webpack_require__(1);
+	var _todo = __webpack_require__(8);
 
 	var _todo2 = _interopRequireDefault(_todo);
 
@@ -60,78 +60,15 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _index = __webpack_require__(2);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Todo = function (_Omi$Component) {
-	    _inherits(Todo, _Omi$Component);
-
-	    function Todo(data, renderTo) {
-	        _classCallCheck(this, Todo);
-
-	        return _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, data, renderTo));
-	    }
-
-	    _createClass(Todo, [{
-	        key: 'add',
-	        value: function add(evt) {
-	            evt.preventDefault();
-	            this.data.items.push(this.data.text);
-	            this.data.text = '';
-	            this.update();
-	        }
-	    }, {
-	        key: 'style',
-	        value: function style() {
-	            return '\n        h3 { color:red; }\n        button{ color:green;}\n        ';
-	        }
-	    }, {
-	        key: 'handleChange',
-	        value: function handleChange(target) {
-	            this.data.text = target.value;
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return '<div>\n                    <h3>TODO</h3>\n                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\n                    <form onsubmit="add(event)" >\n                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />\n                        <button>Add #{{items.length}}</button>\n                    </form>\n                </div>';
-	        }
-	    }]);
-
-	    return Todo;
-	}(_index2.default.Component);
-
-	exports.default = Todo;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _omi = __webpack_require__(3);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _mustache = __webpack_require__(4);
+	var _mustache = __webpack_require__(3);
 
 	var _mustache2 = _interopRequireDefault(_mustache);
 
-	var _component = __webpack_require__(5);
+	var _component = __webpack_require__(4);
 
 	var _component2 = _interopRequireDefault(_component);
 
@@ -145,7 +82,7 @@
 	module.exports = _omi2.default;
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -275,6 +212,14 @@
 	    }
 	};
 
+	Omi.$$ = function (selector, context) {
+	    if (context) {
+	        return Array.prototype.slice.call(context.querySelectorAll(selector));
+	    } else {
+	        return Array.prototype.slice.call(document.querySelectorAll(selector));
+	    }
+	};
+
 	Omi.getClassFromString = function (str) {
 	    if (str.indexOf('.') !== 0) {
 	        var arr = str.split('.');
@@ -312,10 +257,14 @@
 	    return component;
 	};
 
+	Omi.get = function (name) {
+	    return Omi.mapping[name];
+	};
+
 	module.exports = Omi;
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -931,7 +880,7 @@
 	});
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -942,19 +891,19 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _omi = __webpack_require__(3);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _style = __webpack_require__(6);
+	var _style = __webpack_require__(5);
 
 	var _style2 = _interopRequireDefault(_style);
 
-	var _event = __webpack_require__(7);
+	var _event = __webpack_require__(6);
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _diff = __webpack_require__(8);
+	var _diff = __webpack_require__(7);
 
 	var _diff2 = _interopRequireDefault(_diff);
 
@@ -1236,10 +1185,8 @@
 	    }, {
 	        key: '_fixForm',
 	        value: function _fixForm() {
-	            var elements = this.node.querySelectorAll('input');
-	            var len = elements.length;
-	            for (var i = 0; i < len; i++) {
-	                var element = elements[i];
+
+	            _omi2.default.$$('input', this.node).forEach(function (element) {
 	                var type = element.type.toLowerCase();
 	                if (element.getAttribute('value') === '') {
 	                    element.value = '';
@@ -1251,7 +1198,21 @@
 	                        element.checked = false;
 	                    }
 	                }
-	            }
+	            });
+
+	            _omi2.default.$$('select', this.node).forEach(function (select) {
+	                var value = select.getAttribute('value');
+	                if (value) {
+	                    _omi2.default.$$('option', select).forEach(function (option) {
+	                        if (value === option.getAttribute('value')) {
+	                            option.setAttribute('selected', 'selected');
+	                        }
+	                    });
+	                } else {
+	                    var firstOption = _omi2.default.$$('option', select)[0];
+	                    firstOption && firstOption.setAttribute('selected', 'selected');
+	                }
+	            });
 	        }
 	    }, {
 	        key: '_replaceTags',
@@ -1379,7 +1340,7 @@
 	exports.default = Component;
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1388,7 +1349,7 @@
 	    value: true
 	});
 
-	var _omi = __webpack_require__(3);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
@@ -1444,7 +1405,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1464,7 +1425,7 @@
 	exports.default = scopedEvent;
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1671,6 +1632,69 @@
 	}
 
 	exports.default = setDOM;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _index = __webpack_require__(1);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Todo = function (_Omi$Component) {
+	    _inherits(Todo, _Omi$Component);
+
+	    function Todo(data) {
+	        _classCallCheck(this, Todo);
+
+	        return _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, data));
+	    }
+
+	    _createClass(Todo, [{
+	        key: 'add',
+	        value: function add(evt) {
+	            evt.preventDefault();
+	            this.data.items.push(this.data.text);
+	            this.data.text = '';
+	            this.update();
+	        }
+	    }, {
+	        key: 'style',
+	        value: function style() {
+	            return '\n        h3 { color:red; }\n        button{ color:green;}\n        ';
+	        }
+	    }, {
+	        key: 'handleChange',
+	        value: function handleChange(target) {
+	            this.data.text = target.value;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return '<div>\n                    <h3>TODO</h3>\n                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\n                    <form onsubmit="add(event)" >\n                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />\n                        <button>Add #{{items.length}}</button>\n                    </form>\n                </div>';
+	        }
+	    }]);
+
+	    return Todo;
+	}(_index2.default.Component);
+
+	exports.default = Todo;
 
 /***/ }
 /******/ ]);

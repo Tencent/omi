@@ -250,11 +250,9 @@ class Component {
     }
 
     _fixForm (){
-        let elements = this.node.querySelectorAll('input');
-        const len = elements.length;
-        for (let i = 0; i < len; i++) {
-            var element = elements[i];
-            var type = element.type.toLowerCase();
+
+        Omi.$$('input',this.node).forEach(element =>{
+            let type = element.type.toLowerCase();
             if (element.getAttribute('value') === '') {
                 element.value = '';
             }
@@ -264,9 +262,22 @@ class Component {
                 } else {
                     element.checked = false;
                 }
-
             }
-        }
+        });
+
+        Omi.$$('select',this.node).forEach(select =>{
+            let value = select.getAttribute('value')
+            if (value) {
+                Omi.$$('option',select).forEach(option =>{
+                    if(value === option.getAttribute('value')) {
+                        option.setAttribute('selected', 'selected');
+                    }
+                })
+            }else {
+                let firstOption = Omi.$$('option', select)[0];
+                firstOption && firstOption.setAttribute('selected', 'selected');
+            }
+        });
     }
 
     _replaceTags(array, html) {

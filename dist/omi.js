@@ -213,6 +213,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	};
 
+	Omi.$$ = function (selector, context) {
+	    if (context) {
+	        return Array.prototype.slice.call(context.querySelectorAll(selector));
+	    } else {
+	        return Array.prototype.slice.call(document.querySelectorAll(selector));
+	    }
+	};
+
 	Omi.getClassFromString = function (str) {
 	    if (str.indexOf('.') !== 0) {
 	        var arr = str.split('.');
@@ -1178,10 +1186,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_fixForm',
 	        value: function _fixForm() {
-	            var elements = this.node.querySelectorAll('input');
-	            var len = elements.length;
-	            for (var i = 0; i < len; i++) {
-	                var element = elements[i];
+
+	            _omi2.default.$$('input', this.node).forEach(function (element) {
 	                var type = element.type.toLowerCase();
 	                if (element.getAttribute('value') === '') {
 	                    element.value = '';
@@ -1193,7 +1199,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        element.checked = false;
 	                    }
 	                }
-	            }
+	            });
+
+	            _omi2.default.$$('select', this.node).forEach(function (select) {
+	                var value = select.getAttribute('value');
+	                if (value) {
+	                    _omi2.default.$$('option', select).forEach(function (option) {
+	                        if (value === option.getAttribute('value')) {
+	                            option.setAttribute('selected', 'selected');
+	                        }
+	                    });
+	                } else {
+	                    var firstOption = _omi2.default.$$('option', select)[0];
+	                    firstOption && firstOption.setAttribute('selected', 'selected');
+	                }
+	            });
 	        }
 	    }, {
 	        key: '_replaceTags',

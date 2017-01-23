@@ -100,6 +100,14 @@ Omi.$ = function(selector,context){
     }
 }
 
+Omi.$$ = function(selector,context){
+    if(context){
+        return  Array.prototype.slice.call(context.querySelectorAll(selector));
+    }else{
+        return Array.prototype.slice.call(document.querySelectorAll(selector));
+    }
+}
+
 Omi.getClassFromString = function(str) {
     if (str.indexOf('.') !== 0) {
         let arr = str.split('.');
