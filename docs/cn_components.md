@@ -54,6 +54,8 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 这里需要特别强调的是，为了更加的自由和灵活度。Omi没有内置数据变更的自动更新，需要开发者自己调用update方法。
 你也可以和[oba](https://github.com/kmdjs/oba)或者mobx一起使用来实现自动更新。
 
+[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=todo)
+
 ###  组件嵌套
 
 几乎所有的Web网页或者Web应用，我们需要嵌套我们定义的组件来完成所有的功能和展示。比如上面的Todo，我们也是可以抽取出List。
@@ -120,3 +122,5 @@ class Todo extends Omi.Component {
 * 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML(List);也可以写在List组件的代码下面。
 * 第9行，通过设置this.childrenData可以把参数传递给子组件。this.childrenData是个数组，这样就支持多child的情况。
 * 第36行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。omi-id可以让你通过Omi.mapping['list']快速访问到组件对象的实例。
+
+[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest)
