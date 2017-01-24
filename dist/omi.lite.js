@@ -707,9 +707,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            childStr.match(/\s*name=['|"](\S*)['|"]/);
+	                            var nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
 
-	                            if (RegExp.$1) {
+	                            if (nameArr) {
 	                                child[RegExp.$1] = sub_child;
 	                            }
 	                        })();

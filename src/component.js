@@ -381,9 +381,9 @@ class Component {
                         child.children[i] = sub_child;
                     }
 
-                    childStr.match(/\s*name=['|"](\S*)['|"]/);
+                    let nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
 
-                    if (RegExp.$1) {
+                    if (nameArr) {
                         child[RegExp.$1] = sub_child;
                     }
                 }
