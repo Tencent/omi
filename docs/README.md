@@ -2,6 +2,7 @@
 * [安装](./cn_installation.md)
 * [Hello World](./cn_hello_world.md)
 * [组件](./cn_components.md)
+* [组件通讯](./cn_communication.md)
 * [生命周期](./cn_lifecycle.md)
 * [事件处理](./cn_events.md)
 * [条件判断](./cn_condition.md)
