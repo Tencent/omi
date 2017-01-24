@@ -2,7 +2,7 @@ import Omi from '../../src/index.js';
 
 function getMarkDown(name,lan) {
     let md = require("md-text!../../docs/" + lan + "_" + name + ".md");
-    return md.substring(0, md.length - 1).replace(/\\r\\n/g, "\r\n").replace(/\\n/g, "\n").replace('module.exports = "', "").replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+    return md.substring(0, md.length - 1).replace(/\\r\\n/g, "\r\n").replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace('module.exports = "', "").replace(/\\"/g, '"').replace(/\\\\/g, '\\');
 }
 
 function getMarkDownByArr(arr , lan) {
@@ -20,7 +20,7 @@ class Content extends Omi.Component {
     }
 
     install() {
-        this.data.html = marked(getMarkDownByArr(['installation', 'hello_world', 'components', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'thinking_in_omi'], 'cn'));
+        this.data.html = marked(getMarkDownByArr(['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'thinking_in_omi'], 'cn'));
     }
 
     style () {

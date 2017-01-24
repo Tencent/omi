@@ -15,6 +15,7 @@ class Sidebar extends Omi.Component {
                     {"name": "安装"},
                     {"name": "Hello World"},
                     {"name": "组件"},
+                    {"name": "组件通讯"},
                     {"name": "生命周期"},
                     {"name": "事件处理"},
                     {"name": "条件判断"},

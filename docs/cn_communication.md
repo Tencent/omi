@@ -58,8 +58,6 @@ Omi.render(new App(),"#container");
 
 ```js
 ...
-...
-...
 class App extends Omi.Component {
     constructor(data) {
       super(data);
@@ -81,8 +79,6 @@ Omi.render(new App(),"#container");
 还可以使用childrenData的方式。
 
 ```js
-...
-...
 ...
 class App extends Omi.Component {
     constructor(data) {
@@ -106,14 +102,12 @@ Omi.render(new App(),"#container");
 
 ```js
 ...
-...
-...
 class App extends Omi.Component {
     constructor(data) {
         super(data);
     }
-  
-  	installed(){
+    
+    installed(){
         this.hello.data.name = "Omi";
         this.update()
     }
@@ -134,14 +128,12 @@ Omi.render(new App(),"#container");
 
 ```js
 ...
-...
-...
 class App extends Omi.Component {
     constructor(data) {
         super(data);
     }
-  
-  	installed(){
+    
+    installed(){
         Omi.get("hello").data.name = "Omi";
         this.update()
     }
@@ -158,5 +150,3 @@ class App extends Omi.Component {
 
 Omi.render(new App(),"#container");
 ```
-
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest)
