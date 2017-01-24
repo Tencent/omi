@@ -1,4 +1,4 @@
-import Omi from '../../src/index.js';
+ï»¿import Omi from '../../src/index.js';
 
 class Pagination extends Omi.Component {
     constructor(data) {
@@ -63,11 +63,11 @@ class Pagination extends Omi.Component {
     render () {
         var tpl = '<div class="pagination">';
         var opt = this.data, interval = this.getInterval();
-        //ÉÏÒ»Ò³
+        //ä¸Šä¸€é¡µ
         if (opt.prevShow) {
             tpl += this.getPrev();
         }
-        //ÆðÊ¼µã
+        //èµ·å§‹ç‚¹
         if (interval[0] > 0 && opt.numEdge > 0) {
             var end = Math.min(opt.numEdge, interval[0]);
             for (var i = 0; i < end; i++) {
@@ -77,11 +77,11 @@ class Pagination extends Omi.Component {
                 tpl += "<span>" + opt.ellipseText + "</span>";
             }
         }
-        //ÄÚ²¿µÄÁ´½Ó
+        //å†…éƒ¨çš„é“¾æŽ¥
         for (var i = interval[0]; i < interval[1]; i++) {
             tpl += this.getItem(i, i + 1);
         }
-        // ½áÊøµã
+        // ç»“æŸç‚¹
         if (interval[1] < this.pageNum && opt.numEdge > 0) {
             if (this.pageNum - opt.numEdge > interval[1] && opt.ellipseText) {
                 tpl += "<span>" + opt.ellipseText + "</span>";
@@ -91,7 +91,7 @@ class Pagination extends Omi.Component {
                 tpl += this.getItem(i, i + 1);
             }
         }
-        //ÏÂÒ»Ò³
+        //ä¸‹ä¸€é¡µ
         if (opt.nextShow) {
             tpl += this.getNext();
         }

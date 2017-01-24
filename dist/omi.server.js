@@ -1243,7 +1243,8 @@
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr, isFirst) {
-	            this.data = Object.assign({}, this._getDataset(childStr), this.data);
+	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
+	            this.data = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this.data);
 	            isFirst && this.install();
 	        }
 	    }, {

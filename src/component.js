@@ -296,9 +296,10 @@ class Component {
         return hdNode;
     }
 
-    _mergeData(childStr,isFirst){
-        this.data = Object.assign({}, this._getDataset(childStr), this.data);
-        isFirst&&this.install();
+    _mergeData(childStr,isFirst) {
+        let arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
+        this.data = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this.data);
+        isFirst && this.install();
     }
 
     _generateHTMLCSS() {
