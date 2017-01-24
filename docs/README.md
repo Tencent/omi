@@ -12,7 +12,9 @@
 * [模板切换](./cn_template.md)
 * [Omi理念](./cn_thinking_in_omi.md)
 
-# 从零一步步打造Web组件化框架Omi（待续）
+# 从零一步步打造Web组件化框架Omi
+
+（待续...）
 
 * 局部CSS揭秘
 * 组件嵌套揭秘
