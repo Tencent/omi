@@ -132,4 +132,31 @@ Omi.render(new App(),"#container");
 
 也可以通过设置omi-id在程序任何地方拿到该对象的实例。如：
 
+```js
+...
+...
+...
+class App extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+  
+  	installed(){
+        Omi.get("hello").data.name = "Omi";
+        this.update()
+    }
+  
+    render() {
+        return  `
+        <div>
+            <Hello omi-id="hello" />
+        </div>
+        `;
+
+    }
+}
+
+Omi.render(new App(),"#container");
+```
+
 [[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest)
