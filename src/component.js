@@ -26,6 +26,7 @@ class Component {
         this._omi_order = [];
         Omi.instances[this.id] = this;
         this.BODY_ELEMENT = document.createElement('body');
+        this._preCSS = null;
         if (this._omi_server_rendering || isReRendering) {
             this.install();
             this._render(true);
@@ -303,18 +304,18 @@ class Component {
     }
 
     _generateHTMLCSS() {
-        this.CSS = this.style();
-        let css = "";
+        this.CSS = this.style() || '';
         if (this.CSS) {
-            css = style.scoper(this.CSS, "[" + Omi.STYLESCOPEDPREFIX + this.id + "]");
-            if (!this._omi_server_rendering) {
-                style.addStyle(css, this.id);
+            this.CSS = style.scoper(this.CSS, "[" + Omi.STYLESCOPEDPREFIX + this.id + "]");
+            if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
+                style.addStyle(this.CSS, this.id);
+                this._preCSS = this.CSS;
             }
         }
         let tpl = this.render();
         this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "", this.data), Omi.STYLESCOPEDPREFIX + this.id).trim();
         if (this._omi_server_rendering) {
-            this.HTML = '\r\n<style id="'+Omi.STYLEPREFIX+this.id+'">\r\n' + css + '\r\n</style>\r\n'+this.HTML ;
+            this.HTML = '\r\n<style id="'+Omi.STYLEPREFIX+this.id+'">\r\n' + this.CSS + '\r\n</style>\r\n'+this.HTML ;
             this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + Omi.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n'
         }
     }
