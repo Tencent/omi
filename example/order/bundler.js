@@ -110,10 +110,10 @@
 	var Hello = function (_Omi$Component) {
 	    _inherits(Hello, _Omi$Component);
 
-	    function Hello(data, renderTo) {
+	    function Hello(data) {
 	        _classCallCheck(this, Hello);
 
-	        return _possibleConstructorReturn(this, (Hello.__proto__ || Object.getPrototypeOf(Hello)).call(this, data, renderTo));
+	        return _possibleConstructorReturn(this, (Hello.__proto__ || Object.getPrototypeOf(Hello)).call(this, data));
 	    }
 
 	    _createClass(Hello, [{
@@ -136,7 +136,7 @@
 	    return Hello;
 	}(_index2.default.Component);
 
-	_index2.default.makeHTML(Hello);
+	_index2.default.makeHTML('Hello', Hello);
 
 	exports.default = Hello;
 
@@ -298,6 +298,14 @@
 	    }
 	};
 
+	Omi.$$ = function (selector, context) {
+	    if (context) {
+	        return Array.prototype.slice.call(context.querySelectorAll(selector));
+	    } else {
+	        return Array.prototype.slice.call(document.querySelectorAll(selector));
+	    }
+	};
+
 	Omi.getClassFromString = function (str) {
 	    if (str.indexOf('.') !== 0) {
 	        var arr = str.split('.');
@@ -313,16 +321,9 @@
 	};
 
 	//��ǰ��Component�ľ�̬�������Ƶ�omi��������Ȼmakehtml ��ie��child���ʲ������׵ľ�̬����
-	Omi.makeHTML = function (ctor, name) {
-	    var tagName = name || ctor.name;
-	    // fix ie tagName is undefined
-	    if (!tagName) {
-	        tagName = (ctor + "").split("(")[0].replace("function", "").trim();
-	    }
-	    Omi[tagName] = ctor;
-	    Omi.customTags.push(tagName);
-
-	    return tagName;
+	Omi.makeHTML = function (name, ctor) {
+	    Omi[name] = ctor;
+	    Omi.customTags.push(name);
 	};
 
 	Omi.render = function (component, renderTo, increment) {
@@ -332,6 +333,11 @@
 	    component._render(true);
 	    component.installed();
 	    component._childrenInstalled(component);
+	    return component;
+	};
+
+	Omi.get = function (name) {
+	    return Omi.mapping[name];
 	};
 
 	module.exports = Omi;
@@ -990,7 +996,8 @@
 
 	        //re render the server-side rendering html on the client-side
 	        var type = Object.prototype.toString.call(data);
-	        if (type !== '[object Object]' && type !== '[object Undefined]') {
+	        var isReRendering = type !== '[object Object]' && type !== '[object Undefined]';
+	        if (isReRendering) {
 	            this.renderTo = typeof data === "string" ? document.querySelector(data) : data;
 	            this._hidden = this.renderTo.querySelector('.omi_scoped__hidden_data');
 	            this.id = this._hidden.dataset.omiId;
@@ -1008,7 +1015,8 @@
 	        this._omi_order = [];
 	        _omi2.default.instances[this.id] = this;
 	        this.BODY_ELEMENT = document.createElement('body');
-	        if (this._omi_server_rendering) {
+	        this._preCSS = null;
+	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
 	            this.installed();
@@ -1257,10 +1265,8 @@
 	    }, {
 	        key: '_fixForm',
 	        value: function _fixForm() {
-	            var elements = this.node.querySelectorAll('input');
-	            var len = elements.length;
-	            for (var i = 0; i < len; i++) {
-	                var element = elements[i];
+
+	            _omi2.default.$$('input', this.node).forEach(function (element) {
 	                var type = element.type.toLowerCase();
 	                if (element.getAttribute('value') === '') {
 	                    element.value = '';
@@ -1272,7 +1278,21 @@
 	                        element.checked = false;
 	                    }
 	                }
-	            }
+	            });
+
+	            _omi2.default.$$('select', this.node).forEach(function (select) {
+	                var value = select.getAttribute('value');
+	                if (value) {
+	                    _omi2.default.$$('option', select).forEach(function (option) {
+	                        if (value === option.getAttribute('value')) {
+	                            option.setAttribute('selected', 'selected');
+	                        }
+	                    });
+	                } else {
+	                    var firstOption = _omi2.default.$$('option', select)[0];
+	                    firstOption && firstOption.setAttribute('selected', 'selected');
+	                }
+	            });
 	        }
 	    }, {
 	        key: '_replaceTags',
@@ -1294,24 +1314,25 @@
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr, isFirst) {
-	            this.data = Object.assign({}, this._getDataset(childStr), this.data);
+	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
+	            this.data = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this.data);
 	            isFirst && this.install();
 	        }
 	    }, {
 	        key: '_generateHTMLCSS',
 	        value: function _generateHTMLCSS() {
-	            this.CSS = this.style();
-	            var css = "";
+	            this.CSS = this.style() || '';
 	            if (this.CSS) {
-	                css = _style2.default.scoper(this.CSS, "[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
-	                if (!this._omi_server_rendering) {
-	                    _style2.default.addStyle(css, this.id);
+	                this.CSS = _style2.default.scoper(this.CSS, "[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
+	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
+	                    _style2.default.addStyle(this.CSS, this.id);
+	                    this._preCSS = this.CSS;
 	                }
 	            }
 	            var tpl = this.render();
 	            this.HTML = this._scopedAttr(_omi2.default.template(tpl ? tpl : "", this.data), _omi2.default.STYLESCOPEDPREFIX + this.id).trim();
 	            if (this._omi_server_rendering) {
-	                this.HTML = '\r\n<style id="' + _omi2.default.STYLEPREFIX + this.id + '">\r\n' + css + '\r\n</style>\r\n' + this.HTML;
+	                this.HTML = '\r\n<style id="' + _omi2.default.STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
 	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2.default.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
 	            }
 	        }
@@ -1382,9 +1403,9 @@
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            childStr.match(/\s*name=['|"](\S*)['|"]/);
+	                            var nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
 
-	                            if (RegExp.$1) {
+	                            if (nameArr) {
 	                                child[RegExp.$1] = sub_child;
 	                            }
 	                        })();
@@ -1475,7 +1496,7 @@
 	});
 	function scopedEvent(tpl, id) {
 	    return tpl.replace(/<[\s\S]*?>/g, function (item) {
-	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave)=('|")/g, function (eventStr, b, c, d, e) {
+	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|Canplay|Canplaythrough|Change|Click|Close|Contextmenu|Cuechange|Dblclick|Drag|Dragend|Dragenter|Dragleave|Dragover|Dragstart|Drop|Durationchange|Emptied|Ended|Error|Focus|Input|Invalid|Keydown|Keypress|Keyup|Load|Loadeddata|Loadedmetadata|Loadstart|Mousedown|Mouseenter|Mouseleave|Mousemove|Mouseout|Mouseover|Mouseup|Mousewheel|Pause|Play|Playing|Progress|Ratechange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|Timeupdate|Toggle|Volumechange|Waiting|Autocomplete|Autocompleteerror|Beforecopy|Beforecut|Beforepaste|Copy|Cut|Paste|Search|Selectstart|Wheel|Webkitfullscreenchange|Webkitfullscreenerror|Touchstart|Touchmove|Touchend|Touchcancel|Pointerdown|Pointerup|Pointercancel|Pointermove|Pointerover|Pointerout|Pointerenter|Pointerleave)=('|")/g, function (eventStr, b, c, d, e) {
 	            if (e.substr(eventStr.length + d, 14) === "Omi.instances[") return eventStr;
 	            return eventStr += "Omi.instances[" + id + "].";
 	        });
@@ -1724,10 +1745,10 @@
 	var SubHello = function (_Omi$Component) {
 	    _inherits(SubHello, _Omi$Component);
 
-	    function SubHello(data, renderTo) {
+	    function SubHello(data) {
 	        _classCallCheck(this, SubHello);
 
-	        return _possibleConstructorReturn(this, (SubHello.__proto__ || Object.getPrototypeOf(SubHello)).call(this, data, renderTo));
+	        return _possibleConstructorReturn(this, (SubHello.__proto__ || Object.getPrototypeOf(SubHello)).call(this, data));
 	    }
 
 	    _createClass(SubHello, [{
@@ -1745,7 +1766,7 @@
 	    return SubHello;
 	}(_index2.default.Component);
 
-	_index2.default.makeHTML(SubHello);
+	_index2.default.makeHTML('SubHello', SubHello);
 
 	exports.default = SubHello;
 
@@ -1776,10 +1797,10 @@
 	var SubSubHello = function (_Omi$Component) {
 	    _inherits(SubSubHello, _Omi$Component);
 
-	    function SubSubHello(data, renderTo) {
+	    function SubSubHello(data) {
 	        _classCallCheck(this, SubSubHello);
 
-	        return _possibleConstructorReturn(this, (SubSubHello.__proto__ || Object.getPrototypeOf(SubSubHello)).call(this, data, renderTo));
+	        return _possibleConstructorReturn(this, (SubSubHello.__proto__ || Object.getPrototypeOf(SubSubHello)).call(this, data));
 	    }
 
 	    _createClass(SubSubHello, [{
@@ -1792,7 +1813,7 @@
 	    return SubSubHello;
 	}(_index2.default.Component);
 
-	_index2.default.makeHTML(SubSubHello);
+	_index2.default.makeHTML('SubSubHello', SubSubHello);
 
 	exports.default = SubSubHello;
 
@@ -1823,10 +1844,10 @@
 	var World = function (_Omi$Component) {
 	    _inherits(World, _Omi$Component);
 
-	    function World(data, renderTo) {
+	    function World(data) {
 	        _classCallCheck(this, World);
 
-	        return _possibleConstructorReturn(this, (World.__proto__ || Object.getPrototypeOf(World)).call(this, data, renderTo));
+	        return _possibleConstructorReturn(this, (World.__proto__ || Object.getPrototypeOf(World)).call(this, data));
 	    }
 
 	    _createClass(World, [{
@@ -1839,7 +1860,7 @@
 	    return World;
 	}(_index2.default.Component);
 
-	_index2.default.makeHTML(World);
+	_index2.default.makeHTML('World', World);
 
 	exports.default = World;
 

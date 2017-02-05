@@ -59,7 +59,7 @@ Omi.render(new Hello({ name : "Omi" }),"body");
 
 你可以使用Omi.makeHTML来生成组件标签用于嵌套。
 ```js
-    Omi.makeHTML(Hello);
+    Omi.makeHTML('Hello', Hello);
 ```
 那么你就在其他组件中使用，并且通过data-*的方式可以给组件传参，如：
 ```js

@@ -1,7 +1,7 @@
 import Omi from '../../src/index.js';
 import List from './list.js';
 
-Omi.makeHTML(List);
+Omi.makeHTML('List', List);
 
 class Sidebar extends Omi.Component {
     constructor(data) {

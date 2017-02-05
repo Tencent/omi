@@ -35,7 +35,7 @@ class Hello extends Omi.Component {
     }
 }
 
-Omi.makeHTML(Hello);
+Omi.makeHTML('Hello', Hello);
 
 class App extends Omi.Component {
     constructor(data) {

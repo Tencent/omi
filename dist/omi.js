@@ -236,16 +236,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	//��ǰ��Component�ľ�̬�������Ƶ�omi��������Ȼmakehtml ��ie��child���ʲ������׵ľ�̬����
-	Omi.makeHTML = function (ctor, name) {
-	    var tagName = name || ctor.name;
-	    // fix ie tagName is undefined
-	    if (!tagName) {
-	        tagName = (ctor + "").split("(")[0].replace("function", "").trim();
-	    }
-	    Omi[tagName] = ctor;
-	    Omi.customTags.push(tagName);
-
-	    return tagName;
+	Omi.makeHTML = function (name, ctor) {
+	    Omi[name] = ctor;
+	    Omi.customTags.push(name);
 	};
 
 	Omi.render = function (component, renderTo, increment) {
@@ -927,9 +920,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            this.data = data || {};
 	            this._omi_server_rendering = server;
-	            this.id = _omi2.default.getInstanceId();
-	            this.refs = {};
+	            this.id = this._omi_server_rendering ? 1000000 + _omi2.default.getInstanceId() : _omi2.default.getInstanceId();
 	        }
+	        this.refs = {};
 	        this.children = [];
 	        this.childrenData = [];
 	        this.HTML = null;

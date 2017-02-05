@@ -298,16 +298,9 @@
 	};
 
 	//��ǰ��Component�ľ�̬�������Ƶ�omi��������Ȼmakehtml ��ie��child���ʲ������׵ľ�̬����
-	Omi.makeHTML = function (ctor, name) {
-	    var tagName = name || ctor.name;
-	    // fix ie tagName is undefined
-	    if (!tagName) {
-	        tagName = (ctor + "").split("(")[0].replace("function", "").trim();
-	    }
-	    Omi[tagName] = ctor;
-	    Omi.customTags.push(tagName);
-
-	    return tagName;
+	Omi.makeHTML = function (name, ctor) {
+	    Omi[name] = ctor;
+	    Omi.customTags.push(name);
 	};
 
 	Omi.render = function (component, renderTo, increment) {
@@ -999,6 +992,7 @@
 	        this._omi_order = [];
 	        _omi2.default.instances[this.id] = this;
 	        this.BODY_ELEMENT = document.createElement('body');
+	        this._preCSS = null;
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
@@ -1297,24 +1291,25 @@
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr, isFirst) {
-	            this.data = Object.assign({}, this._getDataset(childStr), this.data);
+	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
+	            this.data = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this.data);
 	            isFirst && this.install();
 	        }
 	    }, {
 	        key: '_generateHTMLCSS',
 	        value: function _generateHTMLCSS() {
-	            this.CSS = this.style();
-	            var css = "";
+	            this.CSS = this.style() || '';
 	            if (this.CSS) {
-	                css = _style2.default.scoper(this.CSS, "[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
-	                if (!this._omi_server_rendering) {
-	                    _style2.default.addStyle(css, this.id);
+	                this.CSS = _style2.default.scoper(this.CSS, "[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
+	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
+	                    _style2.default.addStyle(this.CSS, this.id);
+	                    this._preCSS = this.CSS;
 	                }
 	            }
 	            var tpl = this.render();
 	            this.HTML = this._scopedAttr(_omi2.default.template(tpl ? tpl : "", this.data), _omi2.default.STYLESCOPEDPREFIX + this.id).trim();
 	            if (this._omi_server_rendering) {
-	                this.HTML = '\r\n<style id="' + _omi2.default.STYLEPREFIX + this.id + '">\r\n' + css + '\r\n</style>\r\n' + this.HTML;
+	                this.HTML = '\r\n<style id="' + _omi2.default.STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
 	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2.default.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
 	            }
 	        }
@@ -1385,9 +1380,9 @@
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            childStr.match(/\s*name=['|"](\S*)['|"]/);
+	                            var nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
 
-	                            if (RegExp.$1) {
+	                            if (nameArr) {
 	                                child[RegExp.$1] = sub_child;
 	                            }
 	                        })();

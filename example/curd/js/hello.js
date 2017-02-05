@@ -34,6 +34,6 @@ class Hello extends Omi.Component {
     }
 }
 
-Omi.makeHTML(Hello);
+Omi.makeHTML('Hello', Hello);
 
 export default Hello;

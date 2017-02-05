@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Omi is Omi.",
   "scripts": {
     "build": "webpack -w",
@@ -15,6 +15,7 @@
     "todo_nest": "webpack -w",
     "website": "webpack -w",
     "pagination": "webpack -w",
+    "server_rendering":"node example/server_rendering/app.js",
     "test": "karma start test/karma.conf.js"
   },
   "devDependencies": {

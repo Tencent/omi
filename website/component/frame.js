@@ -1,11 +1,11 @@
 import Omi from '../../src/index.js';
-import Context from './content.js';
+import Content from './content.js';
 import Sidebar from './sidebar.js';
 import Head from './head.js';
 
-Omi.makeHTML(Context);
-Omi.makeHTML(Sidebar);
-Omi.makeHTML(Head);
+Omi.makeHTML('Content', Content);
+Omi.makeHTML('Sidebar', Sidebar);
+Omi.makeHTML('Head', Head);
 
 class Frame extends Omi.Component {
     constructor(data) {

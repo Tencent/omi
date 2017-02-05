@@ -13,6 +13,6 @@ class World extends Omi.Component {
 }
 
 
-Omi.makeHTML(World);
+Omi.makeHTML('World', World);
 
 export default World;

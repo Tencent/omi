@@ -2,8 +2,8 @@ import Omi from '../../src/index.js';
 import Pagination from './pagination.js';
 import Content from './content.js';
 
-Omi.makeHTML(Pagination);
-Omi.makeHTML(Content);
+Omi.makeHTML('Pagination', Pagination);
+Omi.makeHTML('Content', Content);
 
 class Main extends Omi.Component {
     constructor(data) {

@@ -64,14 +64,6 @@ describe("_replaceTags ", function() {
 });
 
 
-describe("makeHTML ", function() {
-
-    var tagName  = Omi.makeHTML(Hello);
-
-    it("makeHTML", function() {
-        expect(tagName).toBe('Hello');
-    });
-});
 
 describe("_getDataset ", function() {
 

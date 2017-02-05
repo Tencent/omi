@@ -1,9 +1,10 @@
 if ( typeof module === "object" && typeof module.exports === "object" ) {
-    var makeList  =require('./list');
+    var makeList  = require('./list');
 }
 
 function makeTodo(Omi){
     makeList(Omi);
+
     var Todo =  Omi.create("Todo",{
         add :function(evt) {
             evt.preventDefault();

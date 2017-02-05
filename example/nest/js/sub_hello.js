@@ -23,6 +23,6 @@ class SubHello extends Omi.Component {
          `;
     }
 }
-Omi.makeHTML(SubHello);
+Omi.makeHTML('SubHello', SubHello);
 
 export default SubHello;

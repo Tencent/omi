@@ -16,9 +16,9 @@ class Component {
         } else {
             this.data = data || {};
             this._omi_server_rendering = server;
-            this.id = Omi.getInstanceId();
-            this.refs = {};
+            this.id = this._omi_server_rendering ? (1000000+ Omi.getInstanceId()) : Omi.getInstanceId();
         }
+        this.refs = {};
         this.children = [];
         this.childrenData = [];
         this.HTML = null;

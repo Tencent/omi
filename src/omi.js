@@ -123,19 +123,12 @@ Omi.getClassFromString = function(str) {
 }
 
 //以前是Component的静态方法，移到omi下来，不然makehtml 在ie下child访问不到父亲的静态方法
-Omi.makeHTML= function(ctor, name) {
-    let tagName = name || ctor.name;
-    // fix ie tagName is undefined
-    if(!tagName){
-        tagName = (ctor+"").split("(")[0].replace("function","").trim();
-    }
-    Omi[tagName] = ctor;
-    Omi.customTags.push(tagName);
-
-    return tagName;
+Omi.makeHTML= function(name , ctor) {
+    Omi[name] = ctor;
+    Omi.customTags.push(name);
 }
 
-Omi.render = function(component , renderTo, increment){
+Omi.render = function(component , renderTo , increment){
     component.renderTo = typeof renderTo === "string" ? document.querySelector(renderTo) : renderTo;
     component._omi_increment = increment;
     component.install();
