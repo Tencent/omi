@@ -30,5 +30,18 @@
     "md-text-loader": "^0.1.0",
     "node-libs-browser": "^0.5.3",
     "webpack": "^1.14.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlloyTeam/omi.git"
+  },
+  "keywords": [
+    "omi"
+  ],
+  "author": "dntzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlloyTeam/omi/issues/new"
+  },
+  "homepage": "http://alloyteam.github.io/omi"
 }

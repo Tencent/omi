@@ -22,5 +22,19 @@
     "run-sequence": "^1.2.2",
     "webpack": "^1.14.0",
     "webpack-stream": "^3.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlloyTeam/omi.git"
+  },
+  "keywords": [
+    "omi",
+    "omis"
+  ],
+  "author": "dntzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlloyTeam/omi/issues/new"
+  },
+  "homepage": "http://alloyteam.github.io/omi"
 }
