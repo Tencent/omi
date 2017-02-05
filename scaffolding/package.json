@@ -1,0 +1,26 @@
+{
+  "name": "omi-scaffolding",
+  "version": "0.1.0",
+  "description": "Scaffolding for Omi.js",
+  "scripts": {
+    "dev": "gulp",
+    "dist": "gulp"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "browser-sync": "^2.18.6",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-csso": "^2.0.0",
+    "gulp-header": "^1.8.8",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-rev": "^7.1.2",
+    "gulp-rev-collector": "^1.1.1",
+    "html-webpack-plugin": "^2.26.0",
+    "run-sequence": "^1.2.2",
+    "webpack": "^1.14.0",
+    "webpack-stream": "^3.2.0"
+  }
+}
