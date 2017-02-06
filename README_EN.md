@@ -1,4 +1,6 @@
-﻿<p align="center">
+﻿[﻿中文](https://github.com/AlloyTeam/omi) | English
+
+<p align="center">
   <a href ="##"><img alt="Omi" src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png"></a>
 </p>
 <p align="center">
@@ -9,8 +11,6 @@ Open and modern framework for building user interfaces.
 </p>
 
 ---
-
-[﻿中文](https://github.com/AlloyTeam/omi) | English
 
 * If you want to experience the Omi framework, please click [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * If you want to use the Omi framework,please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
