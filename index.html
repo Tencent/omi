@@ -1,13 +1,413 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Omi is Omi</title>
-    <script>
-        window.location.href='http://alloyteam.github.io/omi/website/docs.html';
-    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Omi</title>
+    <link rel="shortcut icon" href="example/asset/logo.ico">
+    <style type="text/css">
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        body, ul, li {
+            padding: 0;
+            margin: 0;
+            border: 0;
+            font-family: Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            outline: 0;
+        }
+
+        img {
+            vertical-align: middle;
+            border: 0;
+        }
+
+
+        ._ib {
+            display: inline-block;
+        }
+    </style>
+
+    <style>
+        .ctn {
+            width: 100%;
+        }
+
+        .logo_box img {
+            width: 50px;
+            margin-right: 5px;
+            position: relative;
+            top: -3px;
+        }
+
+        .logo_box {
+            font-size: 30px;
+            color: #00a6ff;
+            text-indent: 20px;
+        }
+
+        .logo_box a {
+            color: #00a6ff;
+        }
+
+        .head {
+            width: 100%;
+            line-height: 60px;
+            height: 60px;
+            font-weight: bold;
+        }
+
+        .head li {
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 18px;
+            font-weight: normal;
+            color: black;
+        }
+
+        .head li a {
+            color: black;
+            display: block;
+            width: 100%;
+        }
+
+        .ad {
+            text-align: center;
+            background: #00a6ff url(./asset/bg.jpg) center center no-repeat;
+            background-size: cover;
+            height: 400px;
+            position: relative;
+        }
+
+        .ad_main {
+            color: white;
+            position: absolute;
+            z-index: 2;
+            left: 50%;
+            margin-left: -238px;
+            top: 50%;
+            margin-top: -80px;
+            font-size: 20px;
+        }
+
+        .ad_mask {
+            z-index: 1;
+            width: 100%;
+            position: absolute;
+            height: 400px;
+            background-color: black;
+            opacity: 0.3;
+        }
+
+        .ad_main h1 {
+            color: white;
+            font-size: 40px;
+        }
+
+        .footer {
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background-color: #202020;
+            color: white;
+        }
+
+        .special {
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .features li {
+            display: inline-block;
+            width: 25%;
+            vertical-align: top;
+        }
+
+        @media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+            .features p {
+                height: auto;
+                width: 200px;
+                margin: 0 auto;
+                font-size: 18px;
+            }
+
+            .ad_main p{
+                font-size: 16px;
+            }
+
+            .ad_main{
+                margin-left: -199px;
+            }
+
+            .features li {
+                width: 100%;
+                vertical-align: top;
+            }
+
+            .mb_menu {
+                display: block;
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 50px;
+                z-index: 200;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+            }
+
+            .mb_menu img {
+                width: 30px;
+            }
+
+            .logo_box {
+                width: 100%;
+                text-align: center;
+            }
+
+            .head ul {
+                -moz-transform: translateX(-100%) translateZ(0);
+                -ms-transform: translateX(-100%) translateZ(0);
+                -o-transform: translateX(-100%) translateZ(0);
+                -webkit-transform: translateX(-100%) translateZ(0);
+                transform: translateX(-100%) translateZ(0);
+                text-align: center;
+                width: 100%;
+                padding-top: 58px;
+                background-color: white;
+                position: fixed;
+                z-index: 100;
+                left: 0;
+                top: 0;
+                top: 0px;
+                border-bottom: 1px solid #dddddd;
+                -moz-transition: all .6s ease;
+                -o-transition: all .6s ease;
+                -webkit-transition: all .6s ease;
+                transition: all .6s ease;
+            }
+
+            .head ul.show {
+                -moz-transform: translateX(0%) translateZ(0);
+                -ms-transform: translateX(0%) translateZ(0);
+                -o-transform: translateX(0%) translateZ(0);
+                -webkit-transform: translateX(0%) translateZ(0);
+                transform: translateX(0%) translateZ(0);
+                text-align: center;
+                width: 100%;
+                padding-top: 58px;
+                background-color: white;
+                position: fixed;
+                z-index: 100;
+                left: 0;
+                top: 0;
+                top: 0px;
+                border-bottom: 1px solid #dddddd;
+                -moz-transition: all .6s ease;
+                -o-transition: all .6s ease;
+                -webkit-transition: all .6s ease;
+                transition: all .6s ease;
+            }
+
+            .head li {
+                width: 100%;
+                border-top: 1px solid #dddddd;
+                margin-left: 0px;
+            }
+
+            .github_li {
+                display: inline-block;
+            }
+
+            #githubLink {
+                display: none;
+            }
+        }
+
+        @media only screen and (min-width: 768px) {
+            .features p {
+                height: 100px;
+                width: 200px;
+                margin: 0 auto;
+                font-size: 18px;
+            }
+
+            .mb_menu {
+                display: none;
+            }
+            /* For desktop: */
+            .ctn {
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            #githubLink {
+                display: block;
+            }
+
+            .head .github_li {
+                display: none;
+            }
+
+            .special {
+                height:500px;
+
+            }
+        }
+
+        .major h2{
+            font-size: 28px;
+        }
+
+        .features h3{
+            font-size: 23px;
+        }
+
+        .major h2:after {
+            background-color: #dddddd;
+            background-image: -moz-linear-gradient(90deg, #efa8b0, #a89cc8, #8cc9f0);
+            background-image: -webkit-linear-gradient(90deg, #efa8b0, #a89cc8, #8cc9f0);
+            background-image: -ms-linear-gradient(90deg, #efa8b0, #a89cc8, #8cc9f0);
+            background-image: linear-gradient(90deg, #efa8b0, #a89cc8, #8cc9f0);
+            display: block;
+            content: '';
+            width: 3.25em;
+            height: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            margin: 20px auto 0px;
+        }
+
+
+        .user{
+            text-align:center;
+        }
+    </style>
 </head>
 <body>
+<div class="mb_menu">
+    <img src="./asset/menu.png" alt="" />
+</div>
+<div class="ctn">
+    <div class="head bord-btm">
 
+        <div class="logo_box _ib">
+            <a href="https://github.com/AlloyTeam/omi">Omi</a>
+        </div>
+
+        <ul class="_ib" id="menu">
+            <!-- <li>
+                 <a href="##">Docs</a>
+             </li>
+             <li>
+                 <a href="##">Tutorial</a>
+             </li>-->
+            <li>
+                <a href="docs.html">Docs</a>
+            </li>
+            <li>
+                <a href="demo.html">PlayGround</a>
+            </li>
+
+            <li >
+                <a href="https://github.com/AlloyTeam/omi">Github</a>
+            </li>
+
+        </ul>
+
+
+    </div>
+    <div class="ad">
+        <div class="ad_mask"></div>
+        <div class="ad_main">
+            <!--<span class="logo"><img src="images/logo.svg" alt="" /></span>-->
+            <h1>Omi</h1>
+            <p>
+                Open and modern framework for building user interfaces. <br>
+
+            </p>
+        </div>
+    </div>
+
+    <div class="special">
+        <div class="major">
+            <h2>特性</h2>
+        </div>
+        <ul class="features">
+            <li>
+                <span class="icon major style3 fa-copy"></span>
+                <h3>局部CSS</h3>
+                <p>HTML+ Scoped CSS + JS组成可复用的组件。不用担心组件的CSS会污染组件外的,Omi会帮你处理好一切</p>
+            </li>
+            <li>
+                <span class="icon major style1 fa-code"></span>
+                <h3>超小的尺寸</h3>
+                <p> 7 kb (gzip)</p>
+            </li>
+            <li>
+                <span class="icon major style5 fa-diamond"></span>
+                <h3>更自由的更新</h3>
+                <p>
+                    每个组件都有update方法，自由选择时机进行更新。你也可以和<a href="https://github.com/dntzhang/oba" target="_blank">obajs</a>或者mobx一起使用来实现自动更新。
+                </p>
+            </li>
+        </ul>
+        <ul class="features" style="margin-top: 30px;">
+            <li>
+                <span class="icon major style1 fa-code"></span>
+                <h3>模板引擎可替换</h3>
+                <p>开发者可以重写Omi.template方法来使用任意模板引擎</p>
+            </li>
+            <li>
+                <span class="icon major style3 fa-copy"></span>
+                <h3>完全面向对象</h3>
+                <p>函数式和面向对象各有优劣，Omi使用完全的面向对象的方式来构建Web程序。</p>
+            </li>
+            <li>
+                <span class="icon major style5 fa-diamond"></span>
+                <h3>ES6+ 和 ES5都可以</h3>
+                <p>Omi提供了ES6+和ES5的两种开发方案。你可以自有选择你喜爱的方式。</p>
+            </li>
+        </ul>
+    </div>
+    <div class="footer bord-top">Copyright © 2017 AlloyTeam Inc.</div>
+</div>
+
+<script>
+
+    function toggleClass(element, className) {
+        if (!element || !className) {
+            return;
+        }
+
+        var classString = element.className, nameIndex = classString.indexOf(className);
+        if (nameIndex == -1) {
+            classString += ' ' + className;
+        }
+        else {
+            classString = classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length);
+        }
+        element.className = classString;
+    }
+    var menuDiv = document.getElementById("menu");
+    document.querySelector(".mb_menu").onclick = function () {
+        toggleClass(menuDiv, "show");
+
+    }
+</script>
 </body>
 </html>
