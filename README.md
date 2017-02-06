@@ -1,4 +1,4 @@
-﻿## 中文 | [English](./README_EN.md)
+﻿## 中文 | [English](https://github.com/AlloyTeam/omi/blob/master/README_EN.md#中文--english)
 
 <p align="center">
   <a href ="##"><img alt="Omi" src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png"></a>
