@@ -15,7 +15,7 @@ Open and modern framework for building user interfaces.
 * If you want to experience the Omi framework, please click [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * If you want to use the Omi framework,please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
 * If you want to develop and improve the Omi framework, there are better solutions or ideas, please read [develop the Omi framework step by step](https://github.com/AlloyTeam/omi/tree/master/docs#从零一步步打造web组件化框架omi)
-* If you want to get a better reading experience of the above two categories of documents, you can visit[http://alloyteam.github.io/omi](http://alloyteam.github.io/omi)
+* If you want to get a better reading experience of the above two categories of documents, you can visit[Docs Website](http://alloyteam.github.io/omi/website/docs.html)
 * If you are too lazy to build a project scaffolding, you can try [Scaffolding for Omi](https://github.com/AlloyTeam/omi/tree/master/scaffolding)
 * If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
