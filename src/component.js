@@ -27,6 +27,7 @@ class Component {
         Omi.instances[this.id] = this;
         this.BODY_ELEMENT = document.createElement('body');
         this._preCSS = null;
+        this._combinedData = null;
         if (this._omi_server_rendering || isReRendering) {
             this.install();
             this._render(true);
@@ -204,7 +205,7 @@ class Component {
         }
         childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
         this._mergeData(childStr,isFirst);
-        this._generateHTMLCSS();
+        this._generateHTMLCSS(true);
         this._extractChildren(this);
         if(isFirst){
             this.children.forEach((item,index)=>{
@@ -299,11 +300,11 @@ class Component {
 
     _mergeData(childStr,isFirst) {
         let arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
-        this.data = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this.data);
+        this._combinedData = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this.data);
         isFirst && this.install();
     }
 
-    _generateHTMLCSS() {
+    _generateHTMLCSS(isChild) {
         this.CSS = this.style() || '';
         if (this.CSS) {
             this.CSS = style.scoper(this.CSS, "[" + Omi.STYLESCOPEDPREFIX + this.id + "]");
@@ -313,10 +314,10 @@ class Component {
             }
         }
         let tpl = this.render();
-        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "", this.data), Omi.STYLESCOPEDPREFIX + this.id).trim();
+        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "",isChild ? this._combinedData : this.data), Omi.STYLESCOPEDPREFIX + this.id).trim();
         if (this._omi_server_rendering) {
             this.HTML = '\r\n<style id="'+Omi.STYLEPREFIX+this.id+'">\r\n' + this.CSS + '\r\n</style>\r\n'+this.HTML ;
-            this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + Omi.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n'
+            this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + Omi.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(isChild ? this._combinedData : this.data) + '\'  />\r\n'
         }
     }
 

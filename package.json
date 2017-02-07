@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Omi is Omi.",
   "scripts": {
     "build": "webpack -w",
@@ -10,6 +10,7 @@
     "loop": "webpack -w",
     "order": "webpack -w",
     "timer": "webpack -w",
+    "communication": "webpack -w",
     "todo": "webpack -w",
     "artTemplate": "webpack -w",
     "todo_nest": "webpack -w",
