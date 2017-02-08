@@ -2,10 +2,7 @@
 
 class Pagination extends Omi.Component {
     constructor(data) {
-        super(data);
-    }
-    install () {
-        this.data = Object.assign ({
+        data = Object.assign ({
             total: 0,
             pageSize: 10,
             numDisplay: 10,
@@ -18,10 +15,14 @@ class Pagination extends Omi.Component {
             prevShow: true,
             nextShow: true,
             onPageChange: function () { return false; }
-        }, this.data);
+        }, data);
+        super(data);
+    }
 
+    install () {
         this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
     }
+
     goto (index,evt) {
         evt.preventDefault();
         this.data.currentPage=index;

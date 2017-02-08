@@ -36,7 +36,7 @@ class App extends Omi.Component {
 
     render () {
         return `<div>
-                    <Hello data="helloData" />
+                    <Hello name="hello" data="helloData" />
                 </div>`;
     }
 }
@@ -45,6 +45,6 @@ class App extends Omi.Component {
 var app = new App();
 Omi.render(app ,'#container');
 
-app.helloData.name="bbb";
+app.hello.data.name="bbb";
 
 app.update();

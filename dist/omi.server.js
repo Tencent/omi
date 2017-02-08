@@ -995,9 +995,9 @@
 	            this.renderTo = typeof data === "string" ? document.querySelector(data) : data;
 	            this._hidden = this.renderTo.querySelector('.omi_scoped__hidden_data');
 	            this.id = this._hidden.dataset.omiId;
-	            this.data = this._data = JSON.parse(this._hidden.value);
+	            this.data = JSON.parse(this._hidden.value);
 	        } else {
-	            this.data = this._data = data || {};
+	            this.data = data || {};
 	            this._omi_server_rendering = server;
 	            this.id = this._omi_server_rendering ? 1000000 + _omi2['default'].getInstanceId() : _omi2['default'].getInstanceId();
 	        }
@@ -1008,6 +1008,7 @@
 	        this._addedItems = [];
 	        this._omi_order = [];
 	        _omi2['default'].instances[this.id] = this;
+	        this.dataFirst = true;
 	        //this.BODY_ELEMENT = document.createElement('body');
 	        this._preCSS = null;
 	        if (this._omi_server_rendering || isReRendering) {
@@ -1309,7 +1310,15 @@
 	        key: '_mergeData',
 	        value: function _mergeData(childStr, isFirst) {
 	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
-	            this.data = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this._data);
+	            if (isFirst) {
+	                this.data = Object.assign(this.data, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null);
+	            } else {
+	                if (this.dataFirst) {
+	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
+	                } else {
+	                    this.data = Object.assign({}, this.data, this._getDataset(childStr));
+	                }
+	            }
 	            isFirst && this.install();
 	        }
 	    }, {
@@ -1397,7 +1406,7 @@
 	                        (function () {
 	                            var ChildClass = _omi2['default'].getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                            var sub_child = new ChildClass(child.childrenData[i] || {}, false);
+	                            var sub_child = new ChildClass(Object.assign({}, child.childrenData[i]), false);
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
 

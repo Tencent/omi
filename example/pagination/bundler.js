@@ -60,7 +60,7 @@
 
 	var _content2 = _interopRequireDefault(_content);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -68,8 +68,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	_index2.default.makeHTML(_pagination2.default);
-	_index2.default.makeHTML(_content2.default);
+	_index2['default'].makeHTML('Pagination', _pagination2['default']);
+	_index2['default'].makeHTML('Content', _content2['default']);
 
 	var Main = function (_Omi$Component) {
 	    _inherits(Main, _Omi$Component);
@@ -98,9 +98,9 @@
 	    }]);
 
 	    return Main;
-	}(_index2.default.Component);
+	}(_index2['default'].Component);
 
-	_index2.default.render(new Main(), 'body');
+	_index2['default'].render(new Main(), 'body');
 
 /***/ },
 /* 1 */
@@ -120,14 +120,14 @@
 
 	var _component2 = _interopRequireDefault(_component);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	_omi2.default.template = _mustache2.default.render;
+	_omi2['default'].template = _mustache2['default'].render;
 
-	_omi2.default.Component = _component2.default;
+	_omi2['default'].Component = _component2['default'];
 
-	window.Omi = _omi2.default;
-	module.exports = _omi2.default;
+	window.Omi = _omi2['default'];
+	module.exports = _omi2['default'];
 
 /***/ },
 /* 2 */
@@ -172,6 +172,75 @@
 	        return target;
 	    };
 	}
+
+	/**
+	 * Shim for "fixing" IE's lack of support (IE < 9) for applying slice
+	 * on host objects like NamedNodeMap, NodeList, and HTMLCollection
+	 * (technically, since host objects have been implementation-dependent,
+	 * at least before ES6, IE hasn't needed to work this way).
+	 * Also works on strings, fixes IE < 9 to allow an explicit undefined
+	 * for the 2nd argument (as in Firefox), and prevents errors when
+	 * called on other DOM objects.
+	 */
+	(function () {
+	    'use strict';
+
+	    var _slice = Array.prototype.slice;
+
+	    try {
+	        // Can't be used with DOM elements in IE < 9
+	        _slice.call(document.documentElement);
+	    } catch (e) {
+	        // Fails in IE < 9
+	        // This will work for genuine arrays, array-like objects,
+	        // NamedNodeMap (attributes, entities, notations),
+	        // NodeList (e.g., getElementsByTagName), HTMLCollection (e.g., childNodes),
+	        // and will not fail on other DOM objects (as do DOM elements in IE < 9)
+	        Array.prototype.slice = function (begin, end) {
+	            // IE < 9 gets unhappy with an undefined end argument
+	            end = typeof end !== 'undefined' ? end : this.length;
+
+	            // For native Array objects, we use the native slice function
+	            if (Object.prototype.toString.call(this) === '[object Array]') {
+	                return _slice.call(this, begin, end);
+	            }
+
+	            // For array like object we handle it ourselves.
+	            var i,
+	                cloned = [],
+	                size,
+	                len = this.length;
+
+	            // Handle negative value for "begin"
+	            var start = begin || 0;
+	            start = start >= 0 ? start : len + start;
+
+	            // Handle negative value for "end"
+	            var upTo = end ? end : len;
+	            if (end < 0) {
+	                upTo = len + end;
+	            }
+
+	            // Actual expected size of the slice
+	            size = upTo - start;
+
+	            if (size > 0) {
+	                cloned = new Array(size);
+	                if (this.charAt) {
+	                    for (i = 0; i < size; i++) {
+	                        cloned[i] = this.charAt(start + i);
+	                    }
+	                } else {
+	                    for (i = 0; i < size; i++) {
+	                        cloned[i] = this[start + i];
+	                    }
+	                }
+	            }
+
+	            return cloned;
+	        };
+	    }
+	})();
 
 	var _createClass = function () {
 	    function defineProperties(target, props) {
@@ -283,16 +352,9 @@
 	};
 
 	//��ǰ��Component�ľ�̬�������Ƶ�omi��������Ȼmakehtml ��ie��child���ʲ������׵ľ�̬����
-	Omi.makeHTML = function (ctor, name) {
-	    var tagName = name || ctor.name;
-	    // fix ie tagName is undefined
-	    if (!tagName) {
-	        tagName = (ctor + "").split("(")[0].replace("function", "").trim();
-	    }
-	    Omi[tagName] = ctor;
-	    Omi.customTags.push(tagName);
-
-	    return tagName;
+	Omi.makeHTML = function (name, ctor) {
+	    Omi[name] = ctor;
+	    Omi.customTags.push(name);
 	};
 
 	Omi.render = function (component, renderTo, increment) {
@@ -937,6 +999,8 @@
 	    value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _omi = __webpack_require__(2);
@@ -955,7 +1019,7 @@
 
 	var _diff2 = _interopRequireDefault(_diff);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -974,16 +1038,18 @@
 	        } else {
 	            this.data = data || {};
 	            this._omi_server_rendering = server;
-	            this.id = _omi2.default.getInstanceId();
-	            this.refs = {};
+	            this.id = this._omi_server_rendering ? 1000000 + _omi2['default'].getInstanceId() : _omi2['default'].getInstanceId();
 	        }
+	        this.refs = {};
 	        this.children = [];
 	        this.childrenData = [];
 	        this.HTML = null;
 	        this._addedItems = [];
 	        this._omi_order = [];
-	        _omi2.default.instances[this.id] = this;
-	        this.BODY_ELEMENT = document.createElement('body');
+	        _omi2['default'].instances[this.id] = this;
+	        this.dataFirst = true;
+	        //this.BODY_ELEMENT = document.createElement('body');
+	        this._preCSS = null;
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
@@ -1026,7 +1092,7 @@
 	                    this.node.parentNode.replaceChild(hdNode, this.node);
 	                    this.node = hdNode;
 	                } else {
-	                    (0, _diff2.default)(this.node, (0, _event2.default)(this._childRender(this._omiChildStr), this.id));
+	                    (0, _diff2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
 	                }
 	            }
 	            //update added components
@@ -1146,7 +1212,7 @@
 	            this.children.forEach(function (item, index) {
 	                _this3.HTML = _this3.HTML.replace(item._omiChildStr, _this3.children[_this3._omi_order[index]].HTML);
 	            });
-	            this.HTML = (0, _event2.default)(this.HTML, this.id);
+	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
 	                if (this.renderTo) {
 	                    if (this._omi_increment) {
@@ -1157,14 +1223,14 @@
 	                }
 	            } else {
 	                if (this.HTML !== "") {
-	                    (0, _diff2.default)(this.node, this.HTML);
+	                    (0, _diff2['default'])(this.node, this.HTML);
 	                } else {
-	                    (0, _diff2.default)(this.node, this._createHiddenNode());
+	                    (0, _diff2['default'])(this.node, this._createHiddenNode());
 	                }
 	            }
 	            //get node prop from parent node
 	            if (this.renderTo) {
-	                this.node = document.querySelector("[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
+	                this.node = document.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
 	                this._queryElements(this);
 	                this._fixForm();
 	            }
@@ -1190,7 +1256,7 @@
 	            this.children.forEach(function (item, index) {
 	                _this4.HTML = _this4.HTML.replace(item._omiChildStr, _this4.children[_this4._omi_order[index]].HTML);
 	            });
-	            this.HTML = (0, _event2.default)(this.HTML, this.id);
+	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            return this.HTML;
 	        }
 	    }, {
@@ -1198,7 +1264,7 @@
 	        value: function _queryElements(current) {
 	            current._mixRefs();
 	            current.children.forEach(function (item) {
-	                item.node = current.node.querySelector("[" + _omi2.default.STYLESCOPEDPREFIX + item.id + "]");
+	                item.node = current.node.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + item.id + "]");
 	                //recursion get node prop from parent node
 	                current._queryElements(item);
 	            });
@@ -1234,7 +1300,7 @@
 	        key: '_fixForm',
 	        value: function _fixForm() {
 
-	            _omi2.default.$$('input', this.node).forEach(function (element) {
+	            _omi2['default'].$$('input', this.node).forEach(function (element) {
 	                var type = element.type.toLowerCase();
 	                if (element.getAttribute('value') === '') {
 	                    element.value = '';
@@ -1248,16 +1314,16 @@
 	                }
 	            });
 
-	            _omi2.default.$$('select', this.node).forEach(function (select) {
+	            _omi2['default'].$$('select', this.node).forEach(function (select) {
 	                var value = select.getAttribute('value');
 	                if (value) {
-	                    _omi2.default.$$('option', select).forEach(function (option) {
+	                    _omi2['default'].$$('option', select).forEach(function (option) {
 	                        if (value === option.getAttribute('value')) {
 	                            option.setAttribute('selected', 'selected');
 	                        }
 	                    });
 	                } else {
-	                    var firstOption = _omi2.default.$$('option', select)[0];
+	                    var firstOption = _omi2['default'].$$('option', select)[0];
 	                    firstOption && firstOption.setAttribute('selected', 'selected');
 	                }
 	            });
@@ -1276,32 +1342,40 @@
 	        value: function _createHiddenNode() {
 	            var hdNode = document.createElement("input");
 	            hdNode.setAttribute("type", "hidden");
-	            hdNode.setAttribute(_omi2.default.STYLESCOPEDPREFIX + this.id, "");
+	            hdNode.setAttribute(_omi2['default'].STYLESCOPEDPREFIX + this.id, "");
 	            return hdNode;
 	        }
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr, isFirst) {
 	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
-	            this.data = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this.data);
+	            if (isFirst) {
+	                this.data = Object.assign(this.data, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null);
+	            } else {
+	                if (this.dataFirst) {
+	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
+	                } else {
+	                    this.data = Object.assign({}, this.data, this._getDataset(childStr));
+	                }
+	            }
 	            isFirst && this.install();
 	        }
 	    }, {
 	        key: '_generateHTMLCSS',
 	        value: function _generateHTMLCSS() {
-	            this.CSS = this.style();
-	            var css = "";
+	            this.CSS = this.style() || '';
 	            if (this.CSS) {
-	                css = _style2.default.scoper(this.CSS, "[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
-	                if (!this._omi_server_rendering) {
-	                    _style2.default.addStyle(css, this.id);
+	                this.CSS = _style2['default'].scoper(this.CSS, "[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
+	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
+	                    _style2['default'].addStyle(this.CSS, this.id);
+	                    this._preCSS = this.CSS;
 	                }
 	            }
 	            var tpl = this.render();
-	            this.HTML = this._scopedAttr(_omi2.default.template(tpl ? tpl : "", this.data), _omi2.default.STYLESCOPEDPREFIX + this.id).trim();
+	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), _omi2['default'].STYLESCOPEDPREFIX + this.id).trim();
 	            if (this._omi_server_rendering) {
-	                this.HTML = '\r\n<style id="' + _omi2.default.STYLEPREFIX + this.id + '">\r\n' + css + '\r\n</style>\r\n' + this.HTML;
-	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2.default.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
+	                this.HTML = '\r\n<style id="' + _omi2['default'].STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
+	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2['default'].STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
 	            }
 	        }
 	    }, {
@@ -1315,14 +1389,41 @@
 	    }, {
 	        key: '_getDataset',
 	        value: function _getDataset(str) {
-	            this.BODY_ELEMENT.innerHTML = str;
-	            return this.BODY_ELEMENT.firstChild.dataset;
+	            var _this6 = this;
+
+	            var arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
+	            if (arr) {
+	                var _ret = function () {
+	                    var obj = {};
+	                    arr.forEach(function (item) {
+	                        var arr = item.split('=');
+	                        obj[_this6._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
+	                        arr = null;
+	                    });
+	                    return {
+	                        v: obj
+	                    };
+	                }();
+
+	                if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	            }
+	            //this.BODY_ELEMENT.innerHTML = str ;
+	            //return this.BODY_ELEMENT.firstChild.dataset;
+	        }
+	    }, {
+	        key: '_capitalize',
+	        value: function _capitalize(str) {
+	            str = str.toLowerCase();
+	            str = str.replace(/\b\w+\b/g, function (word) {
+	                return word.substring(0, 1).toUpperCase() + word.substring(1);
+	            }).replace(/-/g, '');
+	            return str.substring(0, 1).toLowerCase() + str.substring(1);
 	        }
 	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
-	            if (_omi2.default.customTags.length > 0) {
-	                child.HTML = this._replaceTags(_omi2.default.customTags, child.HTML);
+	            if (_omi2['default'].customTags.length > 0) {
+	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
 
@@ -1342,9 +1443,9 @@
 	                        continue;
 	                    } else {
 	                        (function () {
-	                            var ChildClass = _omi2.default.getClassFromString(name);
+	                            var ChildClass = _omi2['default'].getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                            var sub_child = new ChildClass(child.childrenData[i] || {}, false);
+	                            var sub_child = new ChildClass(Object.assign({}, child.childrenData[i]), false);
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
 
@@ -1363,7 +1464,7 @@
 
 	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"]/);
 	                            if (mo_ids) {
-	                                _omi2.default.mapping[RegExp.$1] = sub_child;
+	                                _omi2['default'].mapping[RegExp.$1] = sub_child;
 	                            }
 	                            if (!cmi) {
 	                                child.children.push(sub_child);
@@ -1371,9 +1472,9 @@
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            childStr.match(/\s*name=['|"](\S*)['|"]/);
+	                            var nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
 
-	                            if (RegExp.$1) {
+	                            if (nameArr) {
 	                                child[RegExp.$1] = sub_child;
 	                            }
 	                        })();
@@ -1386,7 +1487,7 @@
 	    return Component;
 	}();
 
-	exports.default = Component;
+	exports['default'] = Component;
 
 /***/ },
 /* 5 */
@@ -1402,7 +1503,7 @@
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	//many thanks to https://github.com/thomaspark/scoper/
 	function scoper(css, prefix) {
@@ -1431,7 +1532,7 @@
 	}
 
 	function addStyle(cssText, id) {
-	    var ele = document.getElementById(_omi2.default.STYLEPREFIX + id),
+	    var ele = document.getElementById(_omi2["default"].STYLEPREFIX + id),
 	        head = document.getElementsByTagName('head')[0];
 	    if (ele && ele.parentNode === head) {
 	        head.removeChild(ele);
@@ -1440,7 +1541,7 @@
 	    var someThingStyles = document.createElement('style');
 	    head.appendChild(someThingStyles);
 	    someThingStyles.setAttribute('type', 'text/css');
-	    someThingStyles.setAttribute('id', _omi2.default.STYLEPREFIX + id);
+	    someThingStyles.setAttribute('id', _omi2["default"].STYLEPREFIX + id);
 	    if (!!window.ActiveXObject) {
 	        someThingStyles.styleSheet.cssText = cssText;
 	    } else {
@@ -1448,7 +1549,7 @@
 	    }
 	}
 
-	exports.default = {
+	exports["default"] = {
 	    scoper: scoper,
 	    addStyle: addStyle
 	};
@@ -1471,7 +1572,7 @@
 	    });
 	};
 
-	exports.default = scopedEvent;
+	exports["default"] = scopedEvent;
 
 /***/ },
 /* 7 */
@@ -1487,6 +1588,12 @@
 	var DOCUMENT_TYPE = 9;
 	var HTML_ELEMENT = document.createElement('html');
 	var BODY_ELEMENT = document.createElement('body');
+
+	var isIE = function isIE(ver) {
+	    var b = document.createElement('b');
+	    b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->';
+	    return b.getElementsByTagName('i').length === 1;
+	};
 
 	/**
 	 * @description
@@ -1513,6 +1620,10 @@
 	        }
 	    }
 
+	    if (isIE(8)) {
+	        prev.parentNode.replaceChild(next, prev);
+	        return;
+	    }
 	    // Update the node.
 	    setNode(prev, next);
 	}
@@ -1680,7 +1791,7 @@
 	    if (!val) throw new Error('set-dom: ' + msg);
 	}
 
-	exports.default = setDOM;
+	exports['default'] = setDOM;
 
 /***/ },
 /* 8 */
@@ -1698,7 +1809,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1712,29 +1823,28 @@
 	    function Pagination(data) {
 	        _classCallCheck(this, Pagination);
 
+	        data = Object.assign({
+	            total: 0,
+	            pageSize: 10,
+	            numDisplay: 10,
+	            currentPage: 3,
+	            numEdge: 0,
+	            linkTo: "#",
+	            prevText: "Prev",
+	            nextText: "Next",
+	            ellipseText: "...",
+	            prevShow: true,
+	            nextShow: true,
+	            onPageChange: function onPageChange() {
+	                return false;
+	            }
+	        }, data);
 	        return _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, data));
 	    }
 
 	    _createClass(Pagination, [{
 	        key: "install",
 	        value: function install() {
-	            this.data = Object.assign({
-	                total: 0,
-	                pageSize: 10,
-	                numDisplay: 10,
-	                currentPage: 3,
-	                numEdge: 0,
-	                linkTo: "#",
-	                prevText: "Prev",
-	                nextText: "Next",
-	                ellipseText: "...",
-	                prevShow: true,
-	                nextShow: true,
-	                onPageChange: function onPageChange() {
-	                    return false;
-	                }
-	            }, this.data);
-
 	            this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
 	        }
 	    }, {
@@ -1742,7 +1852,7 @@
 	        value: function goto(index, evt) {
 	            evt.preventDefault();
 	            this.data.currentPage = index;
-	            this.update();
+	            this.update(true);
 	            this.data.onPageChange(index);
 	        }
 	    }, {
@@ -1756,11 +1866,11 @@
 	            var tpl = '<div class="pagination">';
 	            var opt = this.data,
 	                interval = this.getInterval();
-	            //��һҳ
+	            //上一页
 	            if (opt.prevShow) {
 	                tpl += this.getPrev();
 	            }
-	            //��ʼ��
+	            //起始点
 	            if (interval[0] > 0 && opt.numEdge > 0) {
 	                var end = Math.min(opt.numEdge, interval[0]);
 	                for (var i = 0; i < end; i++) {
@@ -1770,11 +1880,11 @@
 	                    tpl += "<span>" + opt.ellipseText + "</span>";
 	                }
 	            }
-	            //�ڲ�������
+	            //内部的链接
 	            for (var i = interval[0]; i < interval[1]; i++) {
 	                tpl += this.getItem(i, i + 1);
 	            }
-	            // ������
+	            // 结束点
 	            if (interval[1] < this.pageNum && opt.numEdge > 0) {
 	                if (this.pageNum - opt.numEdge > interval[1] && opt.ellipseText) {
 	                    tpl += "<span>" + opt.ellipseText + "</span>";
@@ -1784,7 +1894,7 @@
 	                    tpl += this.getItem(i, i + 1);
 	                }
 	            }
-	            //��һҳ
+	            //下一页
 	            if (opt.nextShow) {
 	                tpl += this.getNext();
 	            }
@@ -1827,9 +1937,9 @@
 	    }]);
 
 	    return Pagination;
-	}(_index2.default.Component);
+	}(_index2["default"].Component);
 
-	exports.default = Pagination;
+	exports["default"] = Pagination;
 
 /***/ },
 /* 9 */
@@ -1847,7 +1957,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1883,9 +1993,9 @@
 	    }]);
 
 	    return Content;
-	}(_index2.default.Component);
+	}(_index2['default'].Component);
 
-	exports.default = Content;
+	exports['default'] = Content;
 
 /***/ }
 /******/ ]);
