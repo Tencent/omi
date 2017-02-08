@@ -2,6 +2,7 @@ import Omi from '../../src/index.js';
 import Content from './content.js';
 import Sidebar from './sidebar.js';
 import Head from './head.js';
+import config from '../js/config.js';
 
 Omi.makeHTML('Content', Content);
 Omi.makeHTML('Sidebar', Sidebar);
@@ -55,18 +56,17 @@ class Frame extends Omi.Component {
             // so textContent
             var html = Prism.highlight(codes[i].textContent, Prism.languages.javascript);
             codes[i].innerHTML = html;
-
             codes[i].classList.add('language-js');
         }
-        //1,5-6,8
-        let mapping = {3: '6', 6: '5', 9: '3,9,34', 19: '22', 22: '6-12'}
+
         let pres = document.querySelectorAll("pre");
-        for (let key in mapping) {
-            pres[key].setAttribute("data-line", mapping[key]);
+        let highlight = config.highlight;
+
+        for (let key in config.highlight) {
+            pres[key].setAttribute("data-line", highlight[key]);
         }
 
         this._$$('pre').forEach((item)=> {
-
             item.classList.add('language-js');
         })
 

@@ -1,4 +1,5 @@
 import Omi from '../../src/index.js';
+import config from '../js/config.js';
 
 function getMarkDown(name,lan) {
     let md = require("md-text!../../docs/" + lan + "_" + name + ".md");
@@ -20,7 +21,7 @@ class Content extends Omi.Component {
     }
 
     install() {
-        this.data.html = marked(getMarkDownByArr(['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'thinking_in_omi'], 'cn'));
+        this.data.html = marked(getMarkDownByArr(config.mds, 'cn'));
     }
 
     style () {

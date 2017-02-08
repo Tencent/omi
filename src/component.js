@@ -12,9 +12,9 @@ class Component {
             this.renderTo = typeof data === "string" ? document.querySelector(data) : data;
             this._hidden = this.renderTo.querySelector('.omi_scoped__hidden_data');
             this.id = this._hidden.dataset.omiId;
-            this.data = JSON.parse(this._hidden.value);
+            this.data = this._data = JSON.parse(this._hidden.value);
         } else {
-            this.data = data || {};
+            this.data = this._data = data || {};
             this._omi_server_rendering = server;
             this.id = this._omi_server_rendering ? (1000000+ Omi.getInstanceId()) : Omi.getInstanceId();
         }
@@ -27,7 +27,6 @@ class Component {
         Omi.instances[this.id] = this;
         this.BODY_ELEMENT = document.createElement('body');
         this._preCSS = null;
-        this._combinedData = null;
         if (this._omi_server_rendering || isReRendering) {
             this.install();
             this._render(true);
@@ -79,7 +78,7 @@ class Component {
         this.afterUpdate();
     }
 
-    setData(data,update) {
+    setData(data, update) {
         this.data = data;
         if (update) {
             this.update();
@@ -205,7 +204,7 @@ class Component {
         }
         childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
         this._mergeData(childStr,isFirst);
-        this._generateHTMLCSS(true);
+        this._generateHTMLCSS();
         this._extractChildren(this);
         if(isFirst){
             this.children.forEach((item,index)=>{
@@ -300,11 +299,11 @@ class Component {
 
     _mergeData(childStr,isFirst) {
         let arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
-        this._combinedData = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this.data);
+        this.data = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this._data);
         isFirst && this.install();
     }
 
-    _generateHTMLCSS(isChild) {
+    _generateHTMLCSS() {
         this.CSS = this.style() || '';
         if (this.CSS) {
             this.CSS = style.scoper(this.CSS, "[" + Omi.STYLESCOPEDPREFIX + this.id + "]");
@@ -314,10 +313,10 @@ class Component {
             }
         }
         let tpl = this.render();
-        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "",isChild ? this._combinedData : this.data), Omi.STYLESCOPEDPREFIX + this.id).trim();
+        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "", this.data), Omi.STYLESCOPEDPREFIX + this.id).trim();
         if (this._omi_server_rendering) {
             this.HTML = '\r\n<style id="'+Omi.STYLEPREFIX+this.id+'">\r\n' + this.CSS + '\r\n</style>\r\n'+this.HTML ;
-            this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + Omi.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(isChild ? this._combinedData : this.data) + '\'  />\r\n'
+            this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + Omi.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n'
         }
     }
 
