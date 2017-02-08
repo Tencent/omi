@@ -4,7 +4,11 @@ var DOCUMENT_TYPE = 9
 var HTML_ELEMENT = document.createElement('html')
 var BODY_ELEMENT = document.createElement('body')
 
-
+var isIE = function(ver){
+    var b = document.createElement('b')
+    b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->'
+    return b.getElementsByTagName('i').length === 1
+}
 
 /**
  * @description
@@ -31,6 +35,10 @@ function setDOM (prev, next) {
         }
     }
 
+    if(isIE(8)){
+        prev.parentNode.replaceChild(next,prev);
+        return;
+    }
     // Update the node.
     setNode(prev, next)
 }

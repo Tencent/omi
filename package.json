@@ -1,12 +1,13 @@
 {
   "name": "omi",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Omi is Omi.",
   "scripts": {
     "build": "webpack -w",
-    "build_server":"node asset/build_server.js",
+    "build_server": "node asset/build_server.js",
     "nest": "webpack -w",
     "curd": "webpack -w",
+    "hello": "webpack -w",
     "loop": "webpack -w",
     "order": "webpack -w",
     "timer": "webpack -w",
@@ -16,12 +17,14 @@
     "todo_nest": "webpack -w",
     "website": "webpack -w",
     "pagination": "webpack -w",
-    "server_rendering":"node example/server_rendering/app.js",
+    "server_rendering": "node example/server_rendering/app.js",
     "test": "karma start test/karma.conf.js"
   },
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-loader": "^6.0.1",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+    "babel-plugin-transform-es3-property-literals": "^6.22.0",
     "babel-preset-es2015": "^6.0.15",
     "jasmine-core": "^2.5.2",
     "karma": "^1.3.0",

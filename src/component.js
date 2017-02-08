@@ -25,7 +25,7 @@ class Component {
         this._addedItems = [];
         this._omi_order = [];
         Omi.instances[this.id] = this;
-        this.BODY_ELEMENT = document.createElement('body');
+        //this.BODY_ELEMENT = document.createElement('body');
         this._preCSS = null;
         if (this._omi_server_rendering || isReRendering) {
             this.install();
@@ -328,8 +328,26 @@ class Component {
     }
 
     _getDataset(str) {
-        this.BODY_ELEMENT.innerHTML = str ;
-        return this.BODY_ELEMENT.firstChild.dataset;
+        let arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
+        if(arr) {
+            let obj = {};
+            arr.forEach(item => {
+                let arr = item.split('=');
+                obj[this._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
+                arr = null;
+            });
+            return obj;
+        }
+        //this.BODY_ELEMENT.innerHTML = str ;
+        //return this.BODY_ELEMENT.firstChild.dataset;
+    }
+
+    _capitalize (str){
+        str = str.toLowerCase();
+        str = str.replace(/\b\w+\b/g, function (word) {
+            return word.substring(0, 1).toUpperCase() + word.substring(1);
+        }).replace(/-/g,'');
+        return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 
     _extractChildren(child) {

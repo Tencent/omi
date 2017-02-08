@@ -21,6 +21,10 @@ var config  = {
                 test: /\.js$/,
                 query: {
                     presets: 'es2015',
+                    plugins : [
+                        "transform-es3-property-literals",
+                        "transform-es3-member-expression-literals"
+                    ]
                 }
             }
         ]
@@ -58,13 +62,17 @@ if(ENV === 'build'){
                     test: path.join(__dirname, 'src'),
                     query: {
                         presets: 'es2015',
+                        plugins : [
+                            "transform-es3-property-literals",
+                            "transform-es3-member-expression-literals"
+                        ]
                     },
                 }
             ]
         },
         plugins: [
             // Avoid publishing files when compilation fails
-            new webpack.BannerPlugin(" Omi v0.1.2 By dntzhang \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
+            new webpack.BannerPlugin(" Omi v0.1.3 By dntzhang \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
             new webpack.NoErrorsPlugin()
         ],
         stats: {

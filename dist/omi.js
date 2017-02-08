@@ -1,5 +1,5 @@
 /*!
- *  Omi v0.1.2 By dntzhang 
+ *  Omi v0.1.3 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -73,14 +73,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _component2 = _interopRequireDefault(_component);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	_omi2.default.template = _mustache2.default.render;
+	_omi2['default'].template = _mustache2['default'].render;
 
-	_omi2.default.Component = _component2.default;
+	_omi2['default'].Component = _component2['default'];
 
-	window.Omi = _omi2.default;
-	module.exports = _omi2.default;
+	window.Omi = _omi2['default'];
+	module.exports = _omi2['default'];
 
 /***/ },
 /* 1 */
@@ -125,6 +125,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return target;
 	    };
 	}
+
+	/**
+	 * Shim for "fixing" IE's lack of support (IE < 9) for applying slice
+	 * on host objects like NamedNodeMap, NodeList, and HTMLCollection
+	 * (technically, since host objects have been implementation-dependent,
+	 * at least before ES6, IE hasn't needed to work this way).
+	 * Also works on strings, fixes IE < 9 to allow an explicit undefined
+	 * for the 2nd argument (as in Firefox), and prevents errors when
+	 * called on other DOM objects.
+	 */
+	(function () {
+	    'use strict';
+
+	    var _slice = Array.prototype.slice;
+
+	    try {
+	        // Can't be used with DOM elements in IE < 9
+	        _slice.call(document.documentElement);
+	    } catch (e) {
+	        // Fails in IE < 9
+	        // This will work for genuine arrays, array-like objects,
+	        // NamedNodeMap (attributes, entities, notations),
+	        // NodeList (e.g., getElementsByTagName), HTMLCollection (e.g., childNodes),
+	        // and will not fail on other DOM objects (as do DOM elements in IE < 9)
+	        Array.prototype.slice = function (begin, end) {
+	            // IE < 9 gets unhappy with an undefined end argument
+	            end = typeof end !== 'undefined' ? end : this.length;
+
+	            // For native Array objects, we use the native slice function
+	            if (Object.prototype.toString.call(this) === '[object Array]') {
+	                return _slice.call(this, begin, end);
+	            }
+
+	            // For array like object we handle it ourselves.
+	            var i,
+	                cloned = [],
+	                size,
+	                len = this.length;
+
+	            // Handle negative value for "begin"
+	            var start = begin || 0;
+	            start = start >= 0 ? start : len + start;
+
+	            // Handle negative value for "end"
+	            var upTo = end ? end : len;
+	            if (end < 0) {
+	                upTo = len + end;
+	            }
+
+	            // Actual expected size of the slice
+	            size = upTo - start;
+
+	            if (size > 0) {
+	                cloned = new Array(size);
+	                if (this.charAt) {
+	                    for (i = 0; i < size; i++) {
+	                        cloned[i] = this.charAt(start + i);
+	                    }
+	                } else {
+	                    for (i = 0; i < size; i++) {
+	                        cloned[i] = this[start + i];
+	                    }
+	                }
+	            }
+
+	            return cloned;
+	        };
+	    }
+	})();
 
 	var _createClass = function () {
 	    function defineProperties(target, props) {
@@ -883,6 +952,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _omi = __webpack_require__(1);
@@ -901,7 +972,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _diff2 = _interopRequireDefault(_diff);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -920,7 +991,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            this.data = this._data = data || {};
 	            this._omi_server_rendering = server;
-	            this.id = this._omi_server_rendering ? 1000000 + _omi2.default.getInstanceId() : _omi2.default.getInstanceId();
+	            this.id = this._omi_server_rendering ? 1000000 + _omi2['default'].getInstanceId() : _omi2['default'].getInstanceId();
 	        }
 	        this.refs = {};
 	        this.children = [];
@@ -928,8 +999,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.HTML = null;
 	        this._addedItems = [];
 	        this._omi_order = [];
-	        _omi2.default.instances[this.id] = this;
-	        this.BODY_ELEMENT = document.createElement('body');
+	        _omi2['default'].instances[this.id] = this;
+	        //this.BODY_ELEMENT = document.createElement('body');
 	        this._preCSS = null;
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
@@ -973,7 +1044,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.node.parentNode.replaceChild(hdNode, this.node);
 	                    this.node = hdNode;
 	                } else {
-	                    (0, _diff2.default)(this.node, (0, _event2.default)(this._childRender(this._omiChildStr), this.id));
+	                    (0, _diff2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
 	                }
 	            }
 	            //update added components
@@ -1093,7 +1164,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.children.forEach(function (item, index) {
 	                _this3.HTML = _this3.HTML.replace(item._omiChildStr, _this3.children[_this3._omi_order[index]].HTML);
 	            });
-	            this.HTML = (0, _event2.default)(this.HTML, this.id);
+	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
 	                if (this.renderTo) {
 	                    if (this._omi_increment) {
@@ -1104,14 +1175,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            } else {
 	                if (this.HTML !== "") {
-	                    (0, _diff2.default)(this.node, this.HTML);
+	                    (0, _diff2['default'])(this.node, this.HTML);
 	                } else {
-	                    (0, _diff2.default)(this.node, this._createHiddenNode());
+	                    (0, _diff2['default'])(this.node, this._createHiddenNode());
 	                }
 	            }
 	            //get node prop from parent node
 	            if (this.renderTo) {
-	                this.node = document.querySelector("[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
+	                this.node = document.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
 	                this._queryElements(this);
 	                this._fixForm();
 	            }
@@ -1137,7 +1208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.children.forEach(function (item, index) {
 	                _this4.HTML = _this4.HTML.replace(item._omiChildStr, _this4.children[_this4._omi_order[index]].HTML);
 	            });
-	            this.HTML = (0, _event2.default)(this.HTML, this.id);
+	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            return this.HTML;
 	        }
 	    }, {
@@ -1145,7 +1216,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _queryElements(current) {
 	            current._mixRefs();
 	            current.children.forEach(function (item) {
-	                item.node = current.node.querySelector("[" + _omi2.default.STYLESCOPEDPREFIX + item.id + "]");
+	                item.node = current.node.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + item.id + "]");
 	                //recursion get node prop from parent node
 	                current._queryElements(item);
 	            });
@@ -1181,7 +1252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: '_fixForm',
 	        value: function _fixForm() {
 
-	            _omi2.default.$$('input', this.node).forEach(function (element) {
+	            _omi2['default'].$$('input', this.node).forEach(function (element) {
 	                var type = element.type.toLowerCase();
 	                if (element.getAttribute('value') === '') {
 	                    element.value = '';
@@ -1195,16 +1266,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            });
 
-	            _omi2.default.$$('select', this.node).forEach(function (select) {
+	            _omi2['default'].$$('select', this.node).forEach(function (select) {
 	                var value = select.getAttribute('value');
 	                if (value) {
-	                    _omi2.default.$$('option', select).forEach(function (option) {
+	                    _omi2['default'].$$('option', select).forEach(function (option) {
 	                        if (value === option.getAttribute('value')) {
 	                            option.setAttribute('selected', 'selected');
 	                        }
 	                    });
 	                } else {
-	                    var firstOption = _omi2.default.$$('option', select)[0];
+	                    var firstOption = _omi2['default'].$$('option', select)[0];
 	                    firstOption && firstOption.setAttribute('selected', 'selected');
 	                }
 	            });
@@ -1223,7 +1294,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _createHiddenNode() {
 	            var hdNode = document.createElement("input");
 	            hdNode.setAttribute("type", "hidden");
-	            hdNode.setAttribute(_omi2.default.STYLESCOPEDPREFIX + this.id, "");
+	            hdNode.setAttribute(_omi2['default'].STYLESCOPEDPREFIX + this.id, "");
 	            return hdNode;
 	        }
 	    }, {
@@ -1238,17 +1309,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _generateHTMLCSS() {
 	            this.CSS = this.style() || '';
 	            if (this.CSS) {
-	                this.CSS = _style2.default.scoper(this.CSS, "[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
+	                this.CSS = _style2['default'].scoper(this.CSS, "[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
 	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
-	                    _style2.default.addStyle(this.CSS, this.id);
+	                    _style2['default'].addStyle(this.CSS, this.id);
 	                    this._preCSS = this.CSS;
 	                }
 	            }
 	            var tpl = this.render();
-	            this.HTML = this._scopedAttr(_omi2.default.template(tpl ? tpl : "", this.data), _omi2.default.STYLESCOPEDPREFIX + this.id).trim();
+	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), _omi2['default'].STYLESCOPEDPREFIX + this.id).trim();
 	            if (this._omi_server_rendering) {
-	                this.HTML = '\r\n<style id="' + _omi2.default.STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
-	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2.default.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
+	                this.HTML = '\r\n<style id="' + _omi2['default'].STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
+	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2['default'].STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
 	            }
 	        }
 	    }, {
@@ -1262,14 +1333,41 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_getDataset',
 	        value: function _getDataset(str) {
-	            this.BODY_ELEMENT.innerHTML = str;
-	            return this.BODY_ELEMENT.firstChild.dataset;
+	            var _this6 = this;
+
+	            var arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
+	            if (arr) {
+	                var _ret = function () {
+	                    var obj = {};
+	                    arr.forEach(function (item) {
+	                        var arr = item.split('=');
+	                        obj[_this6._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
+	                        arr = null;
+	                    });
+	                    return {
+	                        v: obj
+	                    };
+	                }();
+
+	                if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	            }
+	            //this.BODY_ELEMENT.innerHTML = str ;
+	            //return this.BODY_ELEMENT.firstChild.dataset;
+	        }
+	    }, {
+	        key: '_capitalize',
+	        value: function _capitalize(str) {
+	            str = str.toLowerCase();
+	            str = str.replace(/\b\w+\b/g, function (word) {
+	                return word.substring(0, 1).toUpperCase() + word.substring(1);
+	            }).replace(/-/g, '');
+	            return str.substring(0, 1).toLowerCase() + str.substring(1);
 	        }
 	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
-	            if (_omi2.default.customTags.length > 0) {
-	                child.HTML = this._replaceTags(_omi2.default.customTags, child.HTML);
+	            if (_omi2['default'].customTags.length > 0) {
+	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
 
@@ -1289,7 +1387,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        continue;
 	                    } else {
 	                        (function () {
-	                            var ChildClass = _omi2.default.getClassFromString(name);
+	                            var ChildClass = _omi2['default'].getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
 	                            var sub_child = new ChildClass(child.childrenData[i] || {}, false);
 	                            sub_child._omiChildStr = childStr;
@@ -1310,7 +1408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"]/);
 	                            if (mo_ids) {
-	                                _omi2.default.mapping[RegExp.$1] = sub_child;
+	                                _omi2['default'].mapping[RegExp.$1] = sub_child;
 	                            }
 	                            if (!cmi) {
 	                                child.children.push(sub_child);
@@ -1333,7 +1431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return Component;
 	}();
 
-	exports.default = Component;
+	exports['default'] = Component;
 
 /***/ },
 /* 4 */
@@ -1349,7 +1447,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	//many thanks to https://github.com/thomaspark/scoper/
 	function scoper(css, prefix) {
@@ -1378,7 +1476,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function addStyle(cssText, id) {
-	    var ele = document.getElementById(_omi2.default.STYLEPREFIX + id),
+	    var ele = document.getElementById(_omi2["default"].STYLEPREFIX + id),
 	        head = document.getElementsByTagName('head')[0];
 	    if (ele && ele.parentNode === head) {
 	        head.removeChild(ele);
@@ -1387,7 +1485,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var someThingStyles = document.createElement('style');
 	    head.appendChild(someThingStyles);
 	    someThingStyles.setAttribute('type', 'text/css');
-	    someThingStyles.setAttribute('id', _omi2.default.STYLEPREFIX + id);
+	    someThingStyles.setAttribute('id', _omi2["default"].STYLEPREFIX + id);
 	    if (!!window.ActiveXObject) {
 	        someThingStyles.styleSheet.cssText = cssText;
 	    } else {
@@ -1395,7 +1493,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	}
 
-	exports.default = {
+	exports["default"] = {
 	    scoper: scoper,
 	    addStyle: addStyle
 	};
@@ -1418,7 +1516,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 
-	exports.default = scopedEvent;
+	exports["default"] = scopedEvent;
 
 /***/ },
 /* 6 */
@@ -1434,6 +1532,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DOCUMENT_TYPE = 9;
 	var HTML_ELEMENT = document.createElement('html');
 	var BODY_ELEMENT = document.createElement('body');
+
+	var isIE = function isIE(ver) {
+	    var b = document.createElement('b');
+	    b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->';
+	    return b.getElementsByTagName('i').length === 1;
+	};
 
 	/**
 	 * @description
@@ -1460,6 +1564,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }
 
+	    if (isIE(8)) {
+	        prev.parentNode.replaceChild(next, prev);
+	        return;
+	    }
 	    // Update the node.
 	    setNode(prev, next);
 	}
@@ -1627,7 +1735,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!val) throw new Error('set-dom: ' + msg);
 	}
 
-	exports.default = setDOM;
+	exports['default'] = setDOM;
 
 /***/ }
 /******/ ])
