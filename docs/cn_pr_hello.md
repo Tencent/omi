@@ -2,7 +2,7 @@
 
 [Omi框架](https://github.com/AlloyTeam/omi)的每个组件都继承自Omi.Component，本篇会去完成Omi的Component的基本锥形，让其能够渲染第一个组件。
 
-## Omi.js实现
+## omi.js实现
 
 ```js
 var Omi = {};
