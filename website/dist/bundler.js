@@ -50,9 +50,9 @@
 
 	var _frame2 = _interopRequireDefault(_frame);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	Omi.render(new _frame2.default({ lan: "cn" }), 'body', true);
+	Omi.render(new _frame2['default']({ lan: "cn" }), 'body', true);
 
 /***/ },
 /* 1 */
@@ -74,11 +74,11 @@
 
 	var _content2 = _interopRequireDefault(_content);
 
-	var _sidebar = __webpack_require__(29);
+	var _sidebar = __webpack_require__(30);
 
 	var _sidebar2 = _interopRequireDefault(_sidebar);
 
-	var _head = __webpack_require__(31);
+	var _head = __webpack_require__(32);
 
 	var _head2 = _interopRequireDefault(_head);
 
@@ -86,7 +86,7 @@
 
 	var _config2 = _interopRequireDefault(_config);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -94,9 +94,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	_index2.default.makeHTML('Content', _content2.default);
-	_index2.default.makeHTML('Sidebar', _sidebar2.default);
-	_index2.default.makeHTML('Head', _head2.default);
+	_index2['default'].makeHTML('Content', _content2['default']);
+	_index2['default'].makeHTML('Sidebar', _sidebar2['default']);
+	_index2['default'].makeHTML('Head', _head2['default']);
 
 	var Frame = function (_Omi$Component) {
 	    _inherits(Frame, _Omi$Component);
@@ -155,9 +155,9 @@
 	            }
 
 	            var pres = document.querySelectorAll("pre");
-	            var highlight = _config2.default.highlight;
+	            var highlight = _config2['default'].highlight;
 
-	            for (var key in _config2.default.highlight) {
+	            for (var key in _config2['default'].highlight) {
 	                pres[key].setAttribute("data-line", highlight[key]);
 	            }
 
@@ -175,9 +175,9 @@
 	    }]);
 
 	    return Frame;
-	}(_index2.default.Component);
+	}(_index2['default'].Component);
 
-	exports.default = Frame;
+	exports['default'] = Frame;
 
 /***/ },
 /* 2 */
@@ -197,14 +197,14 @@
 
 	var _component2 = _interopRequireDefault(_component);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	_omi2.default.template = _mustache2.default.render;
+	_omi2['default'].template = _mustache2['default'].render;
 
-	_omi2.default.Component = _component2.default;
+	_omi2['default'].Component = _component2['default'];
 
-	window.Omi = _omi2.default;
-	module.exports = _omi2.default;
+	window.Omi = _omi2['default'];
+	module.exports = _omi2['default'];
 
 /***/ },
 /* 3 */
@@ -249,6 +249,75 @@
 	        return target;
 	    };
 	}
+
+	/**
+	 * Shim for "fixing" IE's lack of support (IE < 9) for applying slice
+	 * on host objects like NamedNodeMap, NodeList, and HTMLCollection
+	 * (technically, since host objects have been implementation-dependent,
+	 * at least before ES6, IE hasn't needed to work this way).
+	 * Also works on strings, fixes IE < 9 to allow an explicit undefined
+	 * for the 2nd argument (as in Firefox), and prevents errors when
+	 * called on other DOM objects.
+	 */
+	(function () {
+	    'use strict';
+
+	    var _slice = Array.prototype.slice;
+
+	    try {
+	        // Can't be used with DOM elements in IE < 9
+	        _slice.call(document.documentElement);
+	    } catch (e) {
+	        // Fails in IE < 9
+	        // This will work for genuine arrays, array-like objects,
+	        // NamedNodeMap (attributes, entities, notations),
+	        // NodeList (e.g., getElementsByTagName), HTMLCollection (e.g., childNodes),
+	        // and will not fail on other DOM objects (as do DOM elements in IE < 9)
+	        Array.prototype.slice = function (begin, end) {
+	            // IE < 9 gets unhappy with an undefined end argument
+	            end = typeof end !== 'undefined' ? end : this.length;
+
+	            // For native Array objects, we use the native slice function
+	            if (Object.prototype.toString.call(this) === '[object Array]') {
+	                return _slice.call(this, begin, end);
+	            }
+
+	            // For array like object we handle it ourselves.
+	            var i,
+	                cloned = [],
+	                size,
+	                len = this.length;
+
+	            // Handle negative value for "begin"
+	            var start = begin || 0;
+	            start = start >= 0 ? start : len + start;
+
+	            // Handle negative value for "end"
+	            var upTo = end ? end : len;
+	            if (end < 0) {
+	                upTo = len + end;
+	            }
+
+	            // Actual expected size of the slice
+	            size = upTo - start;
+
+	            if (size > 0) {
+	                cloned = new Array(size);
+	                if (this.charAt) {
+	                    for (i = 0; i < size; i++) {
+	                        cloned[i] = this.charAt(start + i);
+	                    }
+	                } else {
+	                    for (i = 0; i < size; i++) {
+	                        cloned[i] = this[start + i];
+	                    }
+	                }
+	            }
+
+	            return cloned;
+	        };
+	    }
+	})();
 
 	var _createClass = function () {
 	    function defineProperties(target, props) {
@@ -1007,6 +1076,8 @@
 	    value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _omi = __webpack_require__(3);
@@ -1025,7 +1096,7 @@
 
 	var _diff2 = _interopRequireDefault(_diff);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1040,11 +1111,11 @@
 	            this.renderTo = typeof data === "string" ? document.querySelector(data) : data;
 	            this._hidden = this.renderTo.querySelector('.omi_scoped__hidden_data');
 	            this.id = this._hidden.dataset.omiId;
-	            this.data = this._data = JSON.parse(this._hidden.value);
+	            this.data = JSON.parse(this._hidden.value);
 	        } else {
-	            this.data = this._data = data || {};
+	            this.data = data || {};
 	            this._omi_server_rendering = server;
-	            this.id = this._omi_server_rendering ? 1000000 + _omi2.default.getInstanceId() : _omi2.default.getInstanceId();
+	            this.id = this._omi_server_rendering ? 1000000 + _omi2['default'].getInstanceId() : _omi2['default'].getInstanceId();
 	        }
 	        this.refs = {};
 	        this.children = [];
@@ -1052,8 +1123,9 @@
 	        this.HTML = null;
 	        this._addedItems = [];
 	        this._omi_order = [];
-	        _omi2.default.instances[this.id] = this;
-	        this.BODY_ELEMENT = document.createElement('body');
+	        _omi2['default'].instances[this.id] = this;
+	        this.dataFirst = true;
+	        //this.BODY_ELEMENT = document.createElement('body');
 	        this._preCSS = null;
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
@@ -1097,7 +1169,7 @@
 	                    this.node.parentNode.replaceChild(hdNode, this.node);
 	                    this.node = hdNode;
 	                } else {
-	                    (0, _diff2.default)(this.node, (0, _event2.default)(this._childRender(this._omiChildStr), this.id));
+	                    (0, _diff2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
 	                }
 	            }
 	            //update added components
@@ -1217,7 +1289,7 @@
 	            this.children.forEach(function (item, index) {
 	                _this3.HTML = _this3.HTML.replace(item._omiChildStr, _this3.children[_this3._omi_order[index]].HTML);
 	            });
-	            this.HTML = (0, _event2.default)(this.HTML, this.id);
+	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
 	                if (this.renderTo) {
 	                    if (this._omi_increment) {
@@ -1228,14 +1300,14 @@
 	                }
 	            } else {
 	                if (this.HTML !== "") {
-	                    (0, _diff2.default)(this.node, this.HTML);
+	                    (0, _diff2['default'])(this.node, this.HTML);
 	                } else {
-	                    (0, _diff2.default)(this.node, this._createHiddenNode());
+	                    (0, _diff2['default'])(this.node, this._createHiddenNode());
 	                }
 	            }
 	            //get node prop from parent node
 	            if (this.renderTo) {
-	                this.node = document.querySelector("[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
+	                this.node = document.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
 	                this._queryElements(this);
 	                this._fixForm();
 	            }
@@ -1261,7 +1333,7 @@
 	            this.children.forEach(function (item, index) {
 	                _this4.HTML = _this4.HTML.replace(item._omiChildStr, _this4.children[_this4._omi_order[index]].HTML);
 	            });
-	            this.HTML = (0, _event2.default)(this.HTML, this.id);
+	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            return this.HTML;
 	        }
 	    }, {
@@ -1269,7 +1341,7 @@
 	        value: function _queryElements(current) {
 	            current._mixRefs();
 	            current.children.forEach(function (item) {
-	                item.node = current.node.querySelector("[" + _omi2.default.STYLESCOPEDPREFIX + item.id + "]");
+	                item.node = current.node.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + item.id + "]");
 	                //recursion get node prop from parent node
 	                current._queryElements(item);
 	            });
@@ -1305,7 +1377,7 @@
 	        key: '_fixForm',
 	        value: function _fixForm() {
 
-	            _omi2.default.$$('input', this.node).forEach(function (element) {
+	            _omi2['default'].$$('input', this.node).forEach(function (element) {
 	                var type = element.type.toLowerCase();
 	                if (element.getAttribute('value') === '') {
 	                    element.value = '';
@@ -1319,16 +1391,16 @@
 	                }
 	            });
 
-	            _omi2.default.$$('select', this.node).forEach(function (select) {
+	            _omi2['default'].$$('select', this.node).forEach(function (select) {
 	                var value = select.getAttribute('value');
 	                if (value) {
-	                    _omi2.default.$$('option', select).forEach(function (option) {
+	                    _omi2['default'].$$('option', select).forEach(function (option) {
 	                        if (value === option.getAttribute('value')) {
 	                            option.setAttribute('selected', 'selected');
 	                        }
 	                    });
 	                } else {
-	                    var firstOption = _omi2.default.$$('option', select)[0];
+	                    var firstOption = _omi2['default'].$$('option', select)[0];
 	                    firstOption && firstOption.setAttribute('selected', 'selected');
 	                }
 	            });
@@ -1347,14 +1419,22 @@
 	        value: function _createHiddenNode() {
 	            var hdNode = document.createElement("input");
 	            hdNode.setAttribute("type", "hidden");
-	            hdNode.setAttribute(_omi2.default.STYLESCOPEDPREFIX + this.id, "");
+	            hdNode.setAttribute(_omi2['default'].STYLESCOPEDPREFIX + this.id, "");
 	            return hdNode;
 	        }
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr, isFirst) {
 	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
-	            this.data = Object.assign({}, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null, this._data);
+	            if (isFirst) {
+	                this.data = Object.assign(this.data, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null);
+	            } else {
+	                if (this.dataFirst) {
+	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
+	                } else {
+	                    this.data = Object.assign({}, this.data, this._getDataset(childStr));
+	                }
+	            }
 	            isFirst && this.install();
 	        }
 	    }, {
@@ -1362,17 +1442,17 @@
 	        value: function _generateHTMLCSS() {
 	            this.CSS = this.style() || '';
 	            if (this.CSS) {
-	                this.CSS = _style2.default.scoper(this.CSS, "[" + _omi2.default.STYLESCOPEDPREFIX + this.id + "]");
+	                this.CSS = _style2['default'].scoper(this.CSS, "[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
 	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
-	                    _style2.default.addStyle(this.CSS, this.id);
+	                    _style2['default'].addStyle(this.CSS, this.id);
 	                    this._preCSS = this.CSS;
 	                }
 	            }
 	            var tpl = this.render();
-	            this.HTML = this._scopedAttr(_omi2.default.template(tpl ? tpl : "", this.data), _omi2.default.STYLESCOPEDPREFIX + this.id).trim();
+	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), _omi2['default'].STYLESCOPEDPREFIX + this.id).trim();
 	            if (this._omi_server_rendering) {
-	                this.HTML = '\r\n<style id="' + _omi2.default.STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
-	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2.default.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
+	                this.HTML = '\r\n<style id="' + _omi2['default'].STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
+	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2['default'].STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
 	            }
 	        }
 	    }, {
@@ -1386,14 +1466,41 @@
 	    }, {
 	        key: '_getDataset',
 	        value: function _getDataset(str) {
-	            this.BODY_ELEMENT.innerHTML = str;
-	            return this.BODY_ELEMENT.firstChild.dataset;
+	            var _this6 = this;
+
+	            var arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
+	            if (arr) {
+	                var _ret = function () {
+	                    var obj = {};
+	                    arr.forEach(function (item) {
+	                        var arr = item.split('=');
+	                        obj[_this6._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
+	                        arr = null;
+	                    });
+	                    return {
+	                        v: obj
+	                    };
+	                }();
+
+	                if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	            }
+	            //this.BODY_ELEMENT.innerHTML = str ;
+	            //return this.BODY_ELEMENT.firstChild.dataset;
+	        }
+	    }, {
+	        key: '_capitalize',
+	        value: function _capitalize(str) {
+	            str = str.toLowerCase();
+	            str = str.replace(/\b\w+\b/g, function (word) {
+	                return word.substring(0, 1).toUpperCase() + word.substring(1);
+	            }).replace(/-/g, '');
+	            return str.substring(0, 1).toLowerCase() + str.substring(1);
 	        }
 	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
-	            if (_omi2.default.customTags.length > 0) {
-	                child.HTML = this._replaceTags(_omi2.default.customTags, child.HTML);
+	            if (_omi2['default'].customTags.length > 0) {
+	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
 
@@ -1413,9 +1520,9 @@
 	                        continue;
 	                    } else {
 	                        (function () {
-	                            var ChildClass = _omi2.default.getClassFromString(name);
+	                            var ChildClass = _omi2['default'].getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                            var sub_child = new ChildClass(child.childrenData[i] || {}, false);
+	                            var sub_child = new ChildClass(Object.assign({}, child.childrenData[i]), false);
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
 
@@ -1434,7 +1541,7 @@
 
 	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"]/);
 	                            if (mo_ids) {
-	                                _omi2.default.mapping[RegExp.$1] = sub_child;
+	                                _omi2['default'].mapping[RegExp.$1] = sub_child;
 	                            }
 	                            if (!cmi) {
 	                                child.children.push(sub_child);
@@ -1457,7 +1564,7 @@
 	    return Component;
 	}();
 
-	exports.default = Component;
+	exports['default'] = Component;
 
 /***/ },
 /* 6 */
@@ -1473,7 +1580,7 @@
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	//many thanks to https://github.com/thomaspark/scoper/
 	function scoper(css, prefix) {
@@ -1502,7 +1609,7 @@
 	}
 
 	function addStyle(cssText, id) {
-	    var ele = document.getElementById(_omi2.default.STYLEPREFIX + id),
+	    var ele = document.getElementById(_omi2["default"].STYLEPREFIX + id),
 	        head = document.getElementsByTagName('head')[0];
 	    if (ele && ele.parentNode === head) {
 	        head.removeChild(ele);
@@ -1511,7 +1618,7 @@
 	    var someThingStyles = document.createElement('style');
 	    head.appendChild(someThingStyles);
 	    someThingStyles.setAttribute('type', 'text/css');
-	    someThingStyles.setAttribute('id', _omi2.default.STYLEPREFIX + id);
+	    someThingStyles.setAttribute('id', _omi2["default"].STYLEPREFIX + id);
 	    if (!!window.ActiveXObject) {
 	        someThingStyles.styleSheet.cssText = cssText;
 	    } else {
@@ -1519,7 +1626,7 @@
 	    }
 	}
 
-	exports.default = {
+	exports["default"] = {
 	    scoper: scoper,
 	    addStyle: addStyle
 	};
@@ -1542,7 +1649,7 @@
 	    });
 	};
 
-	exports.default = scopedEvent;
+	exports["default"] = scopedEvent;
 
 /***/ },
 /* 8 */
@@ -1558,6 +1665,12 @@
 	var DOCUMENT_TYPE = 9;
 	var HTML_ELEMENT = document.createElement('html');
 	var BODY_ELEMENT = document.createElement('body');
+
+	var isIE = function isIE(ver) {
+	    var b = document.createElement('b');
+	    b.innerHTML = '<!--[if IE ' + ver + ']><i></i><![endif]-->';
+	    return b.getElementsByTagName('i').length === 1;
+	};
 
 	/**
 	 * @description
@@ -1584,6 +1697,10 @@
 	        }
 	    }
 
+	    if (isIE(8)) {
+	        prev.parentNode.replaceChild(next, prev);
+	        return;
+	    }
 	    // Update the node.
 	    setNode(prev, next);
 	}
@@ -1751,7 +1868,7 @@
 	    if (!val) throw new Error('set-dom: ' + msg);
 	}
 
-	exports.default = setDOM;
+	exports['default'] = setDOM;
 
 /***/ },
 /* 9 */
@@ -1773,7 +1890,7 @@
 
 	var _config2 = _interopRequireDefault(_config);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1807,7 +1924,7 @@
 	    _createClass(Content, [{
 	        key: 'install',
 	        value: function install() {
-	            this.data.html = marked(getMarkDownByArr(_config2.default.mds, 'cn'));
+	            this.data.html = marked(getMarkDownByArr(_config2['default'].mds, 'cn'));
 	        }
 	    }, {
 	        key: 'style',
@@ -1822,9 +1939,9 @@
 	    }]);
 
 	    return Content;
-	}(_index2.default.Component);
+	}(_index2['default'].Component);
 
-	exports.default = Content;
+	exports['default'] = Content;
 
 /***/ },
 /* 10 */
@@ -1838,17 +1955,17 @@
 	var config = {
 	    //1,5-6,8
 	    highlight: { 3: '6', 6: '5', 9: '3,9,34', 19: '22', 22: '6-12', 33: '13,18' },
-	    mds: ['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom', 'thinking_in_omi'],
+	    mds: ['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom', 'thinking_in_omi', 'pr_env', 'pr_hello'],
 	    cn_menus: [{ title: "快速开始", list: [{ "name": "安装" }, { "name": "Hello World" }, { "name": "组件" }, { "name": "组件通讯" }, { "name": "生命周期" }, { "name": "事件处理" }, { "name": "条件判断" }, { "name": "循环遍历" }, { "name": "表单" }, { "name": "继承" },
 	        //{"name": "容器系统"},
 	        { "name": "模板切换" }, { "name": "获取DOM节点" },
 	        //{"name": "服务器端渲染"},
-	        { "name": "Omi的理念" }] }, { title: "Omi原理", list: [{ "name": "未完待续" }, { "name": "..." }, { "name": "..." }, { "name": "..." }] }],
+	        { "name": "Omi的理念" }] }, { title: "Omi原理", list: [{ "name": "环境搭建" }, { "name": "Hello Omi" }, { "name": "未完待续.." }, { "name": "..." }] }],
 	    en_menu: [{ title: "QUICK START", list: [{ "name": "Installation" }, { "name": "Hello World" }, { "name": "Components" }, { "name": "Lifecycle" }, { "name": "Handling Events" }, { "name": "Conditional Rendering" }, { "name": "Lists and Keys" }, { "name": "Forms" }, { "name": "Inheritance" }, { "name": "Sever-side Rendering" }, { "name": "Thinking In Omi" }] }, { title: "Principle of Omi", list: [{ "name": "Scoped CSS" }] }]
 
 	};
 
-	exports.default = config;
+	exports['default'] = config;
 
 /***/ },
 /* 11 */
@@ -1868,10 +1985,11 @@
 		"./cn_lifecycle.md": 22,
 		"./cn_loop.md": 23,
 		"./cn_pr_env.md": 24,
-		"./cn_template.md": 25,
-		"./cn_thinking_in_omi.md": 26,
-		"./en_hello_world.md": 27,
-		"./en_installation.md": 28
+		"./cn_pr_hello.md": 25,
+		"./cn_template.md": 26,
+		"./cn_thinking_in_omi.md": 27,
+		"./en_hello_world.md": 28,
+		"./en_installation.md": 29
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -1891,7 +2009,7 @@
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"# Omi使用文档\\r\\n* [安装](./cn_installation.md)\\r\\n* [Hello World](./cn_hello_world.md)\\r\\n* [组件](./cn_components.md)\\r\\n* [组件通讯](./cn_communication.md)\\r\\n* [生命周期](./cn_lifecycle.md)\\r\\n* [事件处理](./cn_events.md)\\r\\n* [条件判断](./cn_condition.md)\\r\\n* [循环遍历](./cn_loop.md)\\r\\n* [表单](./cn_form.md)\\r\\n* [继承](./cn_inhrit.md)\\r\\n* [模板切换](./cn_template.md)\\r\\n* [Omi理念](./cn_thinking_in_omi.md)\\r\\n\\r\\n# 从零一步步打造Web组件化框架Omi\\r\\n\\r\\n（待续...）\\r\\n\\r\\n* 局部CSS揭秘\\r\\n* 组件嵌套揭秘\\r\\n* 事件处理揭秘\\r\\n* 服务器端渲染揭秘\\r\\n* 模板切换揭秘\\r\\n* 容器系统揭秘\""
+	module.exports = "module.exports = \"# Omi使用文档\\r\\n* [安装](./cn_installation.md)\\r\\n* [Hello World](./cn_hello_world.md)\\r\\n* [组件](./cn_components.md)\\r\\n* [组件通讯](./cn_communication.md)\\r\\n* [生命周期](./cn_lifecycle.md)\\r\\n* [事件处理](./cn_events.md)\\r\\n* [条件判断](./cn_condition.md)\\r\\n* [循环遍历](./cn_loop.md)\\r\\n* [表单](./cn_form.md)\\r\\n* [继承](./cn_inhrit.md)\\r\\n* [模板切换](./cn_template.md)\\r\\n* [获取DOM节点](./cn_get_dom.md)\\r\\n* [Omi理念](./cn_thinking_in_omi.md)\\r\\n\\r\\n# 从零一步步打造Web组件化框架Omi\\r\\n\\r\\n（待续...）\\r\\n\\r\\n* [环境搭建](./cn_pr_env.md)\\r\\n* 局部CSS揭秘\\r\\n* 组件嵌套揭秘\\r\\n* 事件处理揭秘\\r\\n* 服务器端渲染揭秘\\r\\n* 模板切换揭秘\\r\\n* 容器系统揭秘\""
 
 /***/ },
 /* 13 */
@@ -1963,98 +2081,37 @@
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"环境搭建\\\">环境搭建</h2>\\r\\n\\r\\n我们使用 Webpack + ES6 的方式去开发Omi框架；使用karma+jasmine来作为Omi的测试工具。\\r\\n\\r\\n## 开发依赖包\\r\\n\\r\\n在package.json中，有如下配置:\\r\\n\\r\\n```js\\r\\n  \\\"devDependencies\\\": {\\r\\n    \\\"babel-core\\\": \\\"^6.0.20\\\",\\r\\n    \\\"babel-loader\\\": \\\"^6.0.1\\\",\\r\\n    \\\"babel-preset-es2015\\\": \\\"^6.0.15\\\",\\r\\n    \\\"node-libs-browser\\\": \\\"^0.5.3\\\",\\r\\n    \\\"webpack\\\": \\\"^1.14.0\\\",\\r\\n    \\\"jasmine-core\\\": \\\"^2.5.2\\\",\\r\\n    \\\"karma\\\": \\\"^1.3.0\\\",\\r\\n    \\\"karma-chrome-launcher\\\": \\\"^2.0.0\\\",\\r\\n    \\\"karma-jasmine\\\": \\\"^1.1.0\\\",\\r\\n    \\\"karma-webpack\\\": \\\"^1.8.1\\\"\\r\\n  }\\r\\n```\\r\\n\\r\\n* ES6+相关依赖有babel-core、babel-loader和babel-preset-es2015\\r\\n* webpack相关依赖有node-libs-browser和webpack\\r\\n* 其余都是单元测试相关依赖\\r\\n\\r\\n    注意，这里使用了karma-webpack。因为使用Omi框架支持ES6+和ES5,使用karma-webpack是为了在单元测试里面使用ES6+的import和Class等语法。\\r\\n\\r\\n在karma.conf.js中配置webpack:\\r\\n\\r\\n```js\\r\\n    webpack: webpackConfig,\\r\\n    webpackMiddleware:{\\r\\n      noInfo:false\\r\\n    },\\r\\n    plugins: [\\r\\n        'karma-webpack',\\r\\n        'karma-jasmine',\\r\\n        'karma-chrome-launcher'\\r\\n    ]\\r\\n```\\r\\n\\r\\n具体配置看test目录下的karma.conf.js和webpack.test.config.js便可。\\r\\n\\r\\n注意，karma.conf.js需要设置\\r\\n\\r\\n```js\\r\\n// if true, Karma captures browsers, runs the tests and exits\\r\\nsingleRun: true,\\r\\n```\\r\\n\\r\\n不然，travis ci脚本执行的时候不会中断导致执行异常。\\r\\n\\r\\n### npm 脚本\\r\\n\\r\\n```js\\r\\n  \\\"scripts\\\": {\\r\\n    \\\"build\\\": \\\"webpack -w\\\",\\r\\n    \\\"test\\\": \\\"karma start test/karma.conf.js\\\",\\r\\n    \\\"hello\\\": \\\"webpack -w\\\",\\r\\n    \\\"todo\\\": \\\"webpack -w\\\"\\r\\n  }\\r\\n```\\r\\n\\r\\n其中：\\r\\n* npm run build : 生成dist目录的omi.js文件\\r\\n* npm run test : 执行单元测试\\r\\n* npm run hello : 编译hello的demo\\r\\n* npm run todo : 编译todo的demo\\r\\n\\r\\n在webpack.config.js中，会根据 process.env.npm_lifecycle_event去设置不同的入口文件。所以同样是执行webpack -w，执行结果可以不一样。\\r\\n\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"环境搭建\\\">环境搭建</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)使用 Webpack + ES6 的方式去开发；使用karma+jasmine来作为Omi的测试工具。\\r\\n\\r\\n## Karma介绍\\r\\n\\r\\nKarma是一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。这个测试工具的一个强大特性就是，它可以监控(Watch)文件的变化，然后自行执行。但是集成到travis ci要把singleRun设置成true,让其只执行一遍。\\r\\n\\r\\n## Jasmine介绍\\r\\nJasmine 是一款 JavaScript BDD（行为驱动开发）测试框架，它不依赖于其他任何 JavaScript 组件。它有干净清晰的语法，让您可以很简单的写出测试代码。\\r\\n\\r\\n## 开发依赖包\\r\\n\\r\\n在package.json中，有如下配置:\\r\\n\\r\\n```js\\r\\n  \\\"devDependencies\\\": {\\r\\n    \\\"babel-core\\\": \\\"^6.0.20\\\",\\r\\n    \\\"babel-loader\\\": \\\"^6.0.1\\\",\\r\\n    \\\"babel-preset-es2015\\\": \\\"^6.0.15\\\",\\r\\n    \\\"node-libs-browser\\\": \\\"^0.5.3\\\",\\r\\n    \\\"webpack\\\": \\\"^1.14.0\\\",\\r\\n    \\\"jasmine-core\\\": \\\"^2.5.2\\\",\\r\\n    \\\"karma\\\": \\\"^1.3.0\\\",\\r\\n    \\\"karma-chrome-launcher\\\": \\\"^2.0.0\\\",\\r\\n    \\\"karma-jasmine\\\": \\\"^1.1.0\\\",\\r\\n    \\\"karma-webpack\\\": \\\"^1.8.1\\\"\\r\\n  }\\r\\n```\\r\\n\\r\\n* ES6+相关依赖有babel-core、babel-loader和babel-preset-es2015\\r\\n\\r\\n在webpack.config.js中配置js文件使用babel-loader编译。\\r\\n```js\\r\\nloaders: [\\r\\n    {\\r\\n        loader: 'babel-loader',\\r\\n        test: /\\\\.js$/,\\r\\n        query: {\\r\\n            presets: 'es2015',\\r\\n        }\\r\\n    }\\r\\n]\\r\\n```\\r\\n\\r\\n* webpack相关依赖有node-libs-browser和webpack\\r\\n* 其余都是单元测试相关依赖\\r\\n\\r\\n        注意，这里使用了karma-webpack。因为使用Omi框架支持ES6+和ES5,使用karma-webpack是为了在单元测试里面使用ES6+的import和Class等语法。\\r\\n\\r\\n在karma.conf.js中配置webpack:\\r\\n\\r\\n```js\\r\\n    webpack: webpackConfig,\\r\\n    webpackMiddleware:{\\r\\n      noInfo:false\\r\\n    },\\r\\n    plugins: [\\r\\n        'karma-webpack',\\r\\n        'karma-jasmine',\\r\\n        'karma-chrome-launcher'\\r\\n    ]\\r\\n```\\r\\n\\r\\n具体配置看test目录下的[karma.conf.js](https://github.com/AlloyTeam/omi/blob/master/test/karma.conf.js)和[webpack.test.config.js](https://github.com/AlloyTeam/omi/blob/master/test/webpack.test.config.js)便可。\\r\\n\\r\\n注意，karma.conf.js需要设置\\r\\n\\r\\n```js\\r\\n// if true, Karma captures browsers, runs the tests and exits\\r\\nsingleRun: true,\\r\\n```\\r\\n\\r\\n不然，travis ci脚本执行的时候不会中断导致执行超时异常。\\r\\n\\r\\n## npm 脚本\\r\\n\\r\\n```js\\r\\n  \\\"scripts\\\": {\\r\\n    \\\"build\\\": \\\"webpack -w\\\",\\r\\n    \\\"test\\\": \\\"karma start test/karma.conf.js\\\",\\r\\n    \\\"hello\\\": \\\"webpack -w\\\",\\r\\n    \\\"todo\\\": \\\"webpack -w\\\"\\r\\n  }\\r\\n```\\r\\n\\r\\n其中：\\r\\n* npm run build : 生成dist目录的omi.js文件\\r\\n* npm run test : 执行单元测试\\r\\n* npm run hello : 编译hello的demo\\r\\n* npm run todo : 编译todo的demo\\r\\n\\r\\n在webpack.config.js中，会根据 process.env.npm_lifecycle_event去设置不同的入口文件。所以同样是执行webpack -w，执行结果可以不一样。\\r\\n\\r\\n来看下build的相关webpack配置:\\r\\n\\r\\n```js\\r\\nif(ENV === 'build'){\\r\\n    config = {\\r\\n        entry: {\\r\\n            omi: './src/index.js'\\r\\n        },\\r\\n        output: {\\r\\n            path: 'dist/',\\r\\n            library:'Omi',\\r\\n            libraryTarget: 'umd',\\r\\n            filename:  '[name].js'\\r\\n        },\\r\\n```\\r\\n\\r\\n这里把libraryTarget设置成了umd，webpack会帮助我们build出umd的Omi。\\r\\n\\r\\n如果是打包demo（npm run hello 和 npm run todo）的话，会进入下面的条件判断：\\r\\n\\r\\n```js\\r\\nelse {\\r\\n    config.entry = './example/' + ENV + '/main.js';\\r\\n    config.output.path = './example/' + ENV + '/';\\r\\n}\\r\\n```\\r\\n\\r\\n会去example下对应的目录查找main.js作为webpack入口文件。\\r\\n\\r\\n这里可以看到，我们不仅用webpack build出Omi框架，也使用webpack build所有demo。\\r\\n详细配置参考[webpack.config.js](https://github.com/AlloyTeam/omi/blob/master/webpack.config.js)的配置。\\r\\n\\r\\n## 参考文档\\r\\n\\r\\n* [http://www.cnblogs.com/cqhaibin/p/5867125.html](http://www.cnblogs.com/cqhaibin/p/5867125.html)\\r\\n* [https://karma-runner.github.io/latest/intro/installation.html](https://karma-runner.github.io/latest/intro/installation.html)\\r\\n* [https://karma-runner.github.io/latest/intro/configuration.html](https://karma-runner.github.io/latest/intro/configuration.html)\\r\\n\\r\\n\""
 
 /***/ },
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"模板切换\\\">模板切换</h2>\\r\\n\\r\\nOmi有三个版本。其中的omi.js和omi.lite.js属于Web端使用的版本。\\r\\n\\r\\n* omi.js内置了[mustache.js](https://github.com/janl/mustache.js)作为模版引擎\\r\\n* omi.lite.js不包含任何模版引擎\\r\\n\\r\\nOmi不强制开发者使用mustache.js，你可以根据业务场景使用任意模板引擎或者不使用模板引擎。\\r\\n\\r\\n那么怎么使用别的模板引擎？下面拿[artTemplate](https://github.com/aui/artTemplate)作为例子。\\r\\n\\r\\n### 使用artTemplate\\r\\n\\r\\n```js\\r\\nOmi.template = function(tpl, data){\\r\\n    return artTemplate.compile(tpl)(data);\\r\\n}\\r\\n```\\r\\n重写Omi.template方法，tpl为传入的模板，data为模板所需的数据，返回值为HTML。\\r\\n重写完毕后就能在render使用artTemplate的语法，如：\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h1 { color:red; }\\r\\n        li{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<h1>{{title}}</h1>\\r\\n                <ul>\\r\\n                    {{each list as value i}}\\r\\n                    <li>索引 {{i + 1}} ：{{value}}</li>\\r\\n                    {{/each}}\\r\\n                </ul>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n### 相关地址\\r\\n\\r\\n* [演示地址](http://alloyteam.github.io/omi/example/artTemplate/)\\r\\n* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/artTemplate)\""
+	module.exports = "module.exports = \"<h2 id=\\\"Hello Omi\\\">Hello Omi</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)的每个组件都继承自Omi.Component，本篇会去完成Omi的Component的基本锥形，让其能够渲染第一个组件。\\r\\n\\r\\n## omi.js实现\\r\\n\\r\\n```js\\r\\nvar Omi = {};\\r\\nOmi._instanceId = 0;\\r\\nOmi.getInstanceId = function () {\\r\\n    return Omi._instanceId++;\\r\\n};\\r\\n\\r\\nOmi.render = function(component, renderTo){\\r\\n    component.renderTo = typeof renderTo === \\\"string\\\" ? document.querySelector(renderTo) : renderTo;\\r\\n    component._render();\\r\\n    return component;\\r\\n};\\r\\n\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n* Omi.getInstanceId 用来给每个组件生成自增的ID\\r\\n* Omi.render 用来把组件渲染到页面\\r\\n\\r\\n## 基类Omi.Component实现\\r\\n\\r\\n所有的组件都是继承自Omi.Component。\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n        this.renderTo = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = this.render();\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\n* Omi使用完全面向对象的方式去开发组件，这里约定好带有下划线的方法是用于内部实现调用，不建议Omi框架的使用者去调用。\\r\\n* 其中，_render为私有方法用于内部实现调用,会去调用组件的真正render方法用于生成HTML,并且把生成的HTML插入到renderTo容器里面。\\r\\n* 注意，这里目前没有引入dom diff，不管第几次渲染都是无脑设置innerHTML，复杂HTML结构对浏览器的开销很大，这里后续会引入diff。\\r\\n\\r\\n## index.js整合\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi = Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Omi给直接暴露在window下，因为每个组件都生成了唯一的ID，后续实现事件作用域以及对象实例获取都要通过window下的Omi获取。\\r\\n\\r\\n## 最后使用\\r\\n\\r\\n实现完omi.js和component.js以及index.js之后，你就可以实现Hello Omi拉:\\r\\n\\r\\n```js\\r\\nimport Omi from 'index.js'; \\r\\n//或者使用webpack build之后的omi.js \\r\\n//import Omi from 'omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,`+ this.data.name +`!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : 'Omi' }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n什么？都2017年了还在拼接字符串？！虽然ES6+的template string让多行字符串拼接更加得心应手，但是template string+模板引擎可以让更加优雅方便。\\r\\n\\r\\n## 引入mustachejs模板引擎\\r\\n\\r\\nOmi支持任意模板引擎。可以看到，上面是通过拼接字符串的形式生成HTML，这里当然可以使用模板引擎。\\r\\n\\r\\n修改一下index.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Mustache from './mustache.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = Mustache.render;\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Mustache.render挂载在Omi.template下。再修改一下component.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = Omi.template(this.render(), this.data);\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\nOmi.template（即Mustache.render）需要接受两个参数，第一个参数是模板，第二个参数是模板使用的数据。\\r\\n\\r\\n现在，你便可以使用mustachejs模板引擎的语法了：\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,{{name}}!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n从上面的代码可以看到，你完全可以重写Omi.template方法去使用任意模板引擎。重写Omi.template的话，建议使用omi.lite.js，因为omi.lite.js是不包含任何模板引擎的。那么怎么build出两个版本的omi？且看webpack里设置的多入口:\\r\\n\\r\\n```js\\r\\n entry: {\\r\\n    omi: './src/index.js',\\r\\n    'omi.lite': './src/index.lite.js'\\r\\n},\\r\\noutput: {\\r\\n    path: 'dist/',\\r\\n    library:'Omi',\\r\\n    libraryTarget: 'umd',\\r\\n    filename:  '[name].js'\\r\\n},\\r\\n```\\r\\n\\r\\nindex.lite.js的代码如下：\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = function(tpl, data){\\r\\n    return tpl;\\r\\n}\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n可以看到Omi.template没有对tpl做任何处理直接返回，开发者可以重写该方法。\\r\\n\\r\\n## 总结\\r\\n\\r\\n到目前为止，已经实现了：\\r\\n\\r\\n* 第一个组件的渲染\\r\\n* 模板引擎的接入\\r\\n* 多入口打包omi.js和omi.lite.js\\r\\n\\r\\n下片，将介绍《Omi原理-局部CSS》，欢迎关注...\\r\\n\""
 
 /***/ },
 /* 26 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Omi的理念\\\">Omi的理念</h2>\\r\\n\\r\\nOmi的理念是基于面向对象编程体系，内建积木系统。\\r\\n 传统的单向数据流或者抛出event的组件通讯方式增加了系统的稳定性，但是丧失了灵活性。一定程度上也降低了组建的复用。所谓鱼和熊掌不可兼得。\\r\\n 面向对象体系需要多一个逻辑层，可以自由操作所有组件的instance，instance之间的逻辑关系构建出了整个程序。这样组建间的逻辑，通信，复用就全部迎刃而解。组建也更加单一职责，更松耦合。\\r\\n\\r\\n对比函数式编程、命令式编程与面向对象编程，可以归纳总结出下面几条：\\r\\n\\r\\n- 命令式编程干脆直接，利用循环条件等控制流程，强调执行过程\\r\\n- 命令式编程对硬件执行友好，运行更容易，却阻碍了复杂程序的设计\\r\\n- 函数式强调输入和输出，并非执行过程\\r\\n- 函数式倡导多个简单执行单元组合成复杂运算程序\\r\\n- 面向对象编程将对象作为程序的基本单元，更具有重用性、灵活性和扩展性\\r\\n\\r\\n Javascript是哪种类型的语言？现在ES6+已经有了class。那么他是面向对象语言？\\r\\n但是JS可以在任意地方定义函数并且当作把函数当作值来传递。那么他是函数式编程语言？\\r\\n所以，没有精准的定义，取决于你的用法和姿势。其次，Web组件化架构层面编程模型和语言层面编程模型是非常自由的关系。意思就是，你可以用Javascript构建函数式编程框架如React，也可以基于面向对象体系搭建Omi。\\r\\n\\r\\n### 函数式编程 VS 面向对象编程\\r\\n\\r\\n在UI组件框架层面，函数式编程的代表有React，Omi属于面向对象编程体系。那么他们各有什么优缺点？下面做了个对比（其实也是函数式编程与面向对象编程的对比）：\\r\\n\\r\\n|    | React        | Omi  |\\r\\n| ------------- |:-------------:|:-----:|\\r\\n| 组件通信  | ★★★★☆| ★★★★★ |\\r\\n| 稳定性    | ★★★★★    |   ★★★★☆ |\\r\\n| 灵活性  | ★★★★☆| ★★★★★ |\\r\\n| 扩展性 | ★★★★☆     |   ★★★★★ |\\r\\n| 测试性 | ★★★★★     |   ★★★★☆ |\\r\\n| 文件大小 | ★★★☆☆    |   ★★★★★ |\\r\\n| 功能特性 | ★★★☆☆    |   ★★★★☆ |\\r\\n| DOM性能 | ★★★★★    |   ★★★★☆ |\\r\\n| 动画性能 | ★★★★☆    |   ★★★★★ |\\r\\n| 抽象复杂度 | ★★★★☆    |   ★★★★★ |\\r\\n| 异步编程 | ★★★★★    |   ★★★★☆ |\\r\\n\\r\\n可以看得出，鱼和熊掌不可兼得。面向对象编程更具有重用性、灵活性和扩展性，带来的问题就是更加难测试。\\r\\n具体来说，如函数式编程，其测试面积是state1 + state2 + ... + stateN；在面向对象编程中，其测试面积是state1×event1 + state2×event2 + ... + stateN×eventN。\\r\\n\\r\\n总结来说，更加推荐使用面向对象的方式去搭建UI组件化框架。\\r\\n\\r\\n<hr/>\\r\\n\\r\\n### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/omi)\\r\\n\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"模板切换\\\">模板切换</h2>\\r\\n\\r\\nOmi有三个版本。其中的omi.js和omi.lite.js属于Web端使用的版本。\\r\\n\\r\\n* omi.js内置了[mustache.js](https://github.com/janl/mustache.js)作为模版引擎\\r\\n* omi.lite.js不包含任何模版引擎\\r\\n\\r\\nOmi不强制开发者使用mustache.js，你可以根据业务场景使用任意模板引擎或者不使用模板引擎。\\r\\n\\r\\n那么怎么使用别的模板引擎？下面拿[artTemplate](https://github.com/aui/artTemplate)作为例子。\\r\\n\\r\\n### 使用artTemplate\\r\\n\\r\\n```js\\r\\nOmi.template = function(tpl, data){\\r\\n    return artTemplate.compile(tpl)(data);\\r\\n}\\r\\n```\\r\\n重写Omi.template方法，tpl为传入的模板，data为模板所需的数据，返回值为HTML。\\r\\n重写完毕后就能在render使用artTemplate的语法，如：\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h1 { color:red; }\\r\\n        li{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<h1>{{title}}</h1>\\r\\n                <ul>\\r\\n                    {{each list as value i}}\\r\\n                    <li>索引 {{i + 1}} ：{{value}}</li>\\r\\n                    {{/each}}\\r\\n                </ul>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n### 相关地址\\r\\n\\r\\n* [演示地址](http://alloyteam.github.io/omi/example/artTemplate/)\\r\\n* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/artTemplate)\""
 
 /***/ },
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Hello World\\\">Hello World</h2>\\r\\n\\r\\n\\r\\n### Hello World with ES20XX \\r\\n\\r\\nWe recommend using a bundler like [webpack](https://webpack.github.io/) or [Browserify](http://browserify.org/) so you can write modular code and bundle it together into small packages to optimize load time.\\r\\n\\r\\nThe small Omi example looks like this:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 onclick=\\\"handleClick(this)\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"body\\\");\\r\\n\\r\\n```\\r\\n\\r\\nThis code renders into body element. \\r\\n\\r\\n\\r\\n###  Hello World with ES5\\r\\n\\r\\n\\r\\n```html\\r\\n<script src=\\\"omi.js\\\"></script>\\r\\n```\""
+	module.exports = "module.exports = \"<h2 id=\\\"Omi的理念\\\">Omi的理念</h2>\\r\\n\\r\\nOmi的理念是基于面向对象编程体系，内建积木系统。\\r\\n 传统的单向数据流或者抛出event的组件通讯方式增加了系统的稳定性，但是丧失了灵活性。一定程度上也降低了组建的复用。所谓鱼和熊掌不可兼得。\\r\\n 面向对象体系需要多一个逻辑层，可以自由操作所有组件的instance，instance之间的逻辑关系构建出了整个程序。这样组建间的逻辑，通信，复用就全部迎刃而解。组建也更加单一职责，更松耦合。\\r\\n\\r\\n对比函数式编程、命令式编程与面向对象编程，可以归纳总结出下面几条：\\r\\n\\r\\n- 命令式编程干脆直接，利用循环条件等控制流程，强调执行过程\\r\\n- 命令式编程对硬件执行友好，运行更容易，却阻碍了复杂程序的设计\\r\\n- 函数式强调输入和输出，并非执行过程\\r\\n- 函数式倡导多个简单执行单元组合成复杂运算程序\\r\\n- 面向对象编程将对象作为程序的基本单元，更具有重用性、灵活性和扩展性\\r\\n\\r\\n Javascript是哪种类型的语言？现在ES6+已经有了class。那么他是面向对象语言？\\r\\n但是JS可以在任意地方定义函数并且当作把函数当作值来传递。那么他是函数式编程语言？\\r\\n所以，没有精准的定义，取决于你的用法和姿势。其次，Web组件化架构层面编程模型和语言层面编程模型是非常自由的关系。意思就是，你可以用Javascript构建函数式编程框架如React，也可以基于面向对象体系搭建Omi。\\r\\n\\r\\n### 函数式编程 VS 面向对象编程\\r\\n\\r\\n在UI组件框架层面，函数式编程的代表有React，Omi属于面向对象编程体系。那么他们各有什么优缺点？下面做了个对比（其实也是函数式编程与面向对象编程的对比）：\\r\\n\\r\\n|    | React        | Omi  |\\r\\n| ------------- |:-------------:|:-----:|\\r\\n| 组件通信  | ★★★★☆| ★★★★★ |\\r\\n| 稳定性    | ★★★★★    |   ★★★★☆ |\\r\\n| 灵活性  | ★★★★☆| ★★★★★ |\\r\\n| 扩展性 | ★★★★☆     |   ★★★★★ |\\r\\n| 测试性 | ★★★★★     |   ★★★★☆ |\\r\\n| 文件大小 | ★★★☆☆    |   ★★★★★ |\\r\\n| 功能特性 | ★★★☆☆    |   ★★★★☆ |\\r\\n| DOM性能 | ★★★★★    |   ★★★★☆ |\\r\\n| 动画性能 | ★★★★☆    |   ★★★★★ |\\r\\n| 抽象复杂度 | ★★★★☆    |   ★★★★★ |\\r\\n| 异步编程 | ★★★★★    |   ★★★★☆ |\\r\\n\\r\\n可以看得出，鱼和熊掌不可兼得。面向对象编程更具有重用性、灵活性和扩展性，带来的问题就是更加难测试。\\r\\n具体来说，如函数式编程，其测试面积是state1 + state2 + ... + stateN；在面向对象编程中，其测试面积是state1×event1 + state2×event2 + ... + stateN×eventN。\\r\\n\\r\\n总结来说，更加推荐使用面向对象的方式去搭建UI组件化框架。\\r\\n\\r\\n<hr/>\\r\\n\\r\\n### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/omi) 或者继续往看下[Omi原理↓↓↓](http://alloyteam.github.io/omi/website/docs.html#环境搭建)\\r\\n\\r\\n\""
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Installation\\\">Installation</h2>\\r\\n\\r\\nOmi is open and modern framework  for building user interfaces.\\r\\n\\r\\n### Installing Omi\\r\\n\\r\\nWe recommend using  [npm](https://www.npmjs.com/) for managing front-end dependencies. If you're new to package managers.\\r\\n\\r\\nTo install Omi with npm, run:\\r\\n\\r\\n``` js\\r\\nnpm install omi\\r\\n```\""
+	module.exports = "module.exports = \"<h2 id=\\\"Hello World\\\">Hello World</h2>\\r\\n\\r\\n\\r\\n### Hello World with ES20XX \\r\\n\\r\\nWe recommend using a bundler like [webpack](https://webpack.github.io/) or [Browserify](http://browserify.org/) so you can write modular code and bundle it together into small packages to optimize load time.\\r\\n\\r\\nThe small Omi example looks like this:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 onclick=\\\"handleClick(this)\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"body\\\");\\r\\n\\r\\n```\\r\\n\\r\\nThis code renders into body element. \\r\\n\\r\\n\\r\\n###  Hello World with ES5\\r\\n\\r\\n\\r\\n```html\\r\\n<script src=\\\"omi.js\\\"></script>\\r\\n```\""
 
 /***/ },
 /* 29 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _index = __webpack_require__(2);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var _list = __webpack_require__(30);
-
-	var _list2 = _interopRequireDefault(_list);
-
-	var _config = __webpack_require__(10);
-
-	var _config2 = _interopRequireDefault(_config);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	_index2.default.makeHTML('List', _list2.default);
-
-	var Sidebar = function (_Omi$Component) {
-	    _inherits(Sidebar, _Omi$Component);
-
-	    function Sidebar(data) {
-	        _classCallCheck(this, Sidebar);
-
-	        return _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, data));
-	    }
-
-	    _createClass(Sidebar, [{
-	        key: 'install',
-	        value: function install() {
-	            this.data.items = _config2.default[this.data.lan + '_menus'];
-	            this.data.height = window.innerHeight - 45;
-	            this.childrenData = this.data.items;
-	        }
-	    }, {
-	        key: 'style',
-	        value: function style() {
-	            return '\n        .list{\n            width:200px;\n            text-indent: 20px;\n            border-right: 1px solid #eee;\n            overflow-x: hidden;\n            overflow-y: auto;\n            position:fixed;\n            top:45px;\n        }\n        .version{\n            height:20px;\n        }\n        ';
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return '\n        <div class="list" style="height:{{height}}px;">\n           <div class="version"></div>\n          {{#items}}<List /> {{/items}}\n        </div>';
-	        }
-	    }]);
-
-	    return Sidebar;
-	}(_index2.default.Component);
-
-	exports.default = Sidebar;
+	module.exports = "module.exports = \"<h2 id=\\\"Installation\\\">Installation</h2>\\r\\n\\r\\nOmi is open and modern framework  for building user interfaces.\\r\\n\\r\\n### Installing Omi\\r\\n\\r\\nWe recommend using  [npm](https://www.npmjs.com/) for managing front-end dependencies. If you're new to package managers.\\r\\n\\r\\nTo install Omi with npm, run:\\r\\n\\r\\n``` js\\r\\nnpm install omi\\r\\n```\""
 
 /***/ },
 /* 30 */
@@ -2072,7 +2129,74 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _list = __webpack_require__(31);
+
+	var _list2 = _interopRequireDefault(_list);
+
+	var _config = __webpack_require__(10);
+
+	var _config2 = _interopRequireDefault(_config);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	_index2['default'].makeHTML('List', _list2['default']);
+
+	var Sidebar = function (_Omi$Component) {
+	    _inherits(Sidebar, _Omi$Component);
+
+	    function Sidebar(data) {
+	        _classCallCheck(this, Sidebar);
+
+	        return _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, data));
+	    }
+
+	    _createClass(Sidebar, [{
+	        key: 'install',
+	        value: function install() {
+	            this.data.items = _config2['default'][this.data.lan + '_menus'];
+	            this.data.height = window.innerHeight - 45;
+	            this.childrenData = this.data.items;
+	        }
+	    }, {
+	        key: 'style',
+	        value: function style() {
+	            return '\n        .list{\n            width:200px;\n            text-indent: 20px;\n            border-right: 1px solid #eee;\n            overflow-x: hidden;\n            overflow-y: auto;\n            position:fixed;\n            top:45px;\n        }\n        .version{\n            height:20px;\n        }\n        ';
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return '\n        <div class="list" style="height:{{height}}px;">\n           <div class="version"></div>\n          {{#items}}<List /> {{/items}}\n        </div>';
+	        }
+	    }]);
+
+	    return Sidebar;
+	}(_index2['default'].Component);
+
+	exports['default'] = Sidebar;
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _index = __webpack_require__(2);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2102,12 +2226,12 @@
 	    }]);
 
 	    return List;
-	}(_index2.default.Component);
+	}(_index2['default'].Component);
 
-	exports.default = List;
+	exports['default'] = List;
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2122,7 +2246,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2152,9 +2276,9 @@
 	    }]);
 
 	    return Head;
-	}(_index2.default.Component);
+	}(_index2['default'].Component);
 
-	exports.default = Head;
+	exports['default'] = Head;
 
 /***/ }
 /******/ ]);
