@@ -18,6 +18,7 @@
 （待续...）
 
 * [环境搭建](./cn_pr_env.md)
+* [Hello Omi](./cn_pr_hello.md)
 * 局部CSS揭秘
 * 组件嵌套揭秘
 * 事件处理揭秘
