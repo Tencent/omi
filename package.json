@@ -2,6 +2,7 @@
   "name": "omi",
   "version": "0.1.4",
   "description": "Omi is Omi.",
+  "main": "dist/omi.js",
   "scripts": {
     "build": "webpack -w",
     "build_server": "node asset/build_server.js",
