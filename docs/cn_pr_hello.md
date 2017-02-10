@@ -91,7 +91,25 @@ class Hello extends Omi.Component {
 Omi.render(new Hello({ name : 'Omi' }),"#container");
 ```
 
-什么？都2017年了还在拼接字符串？！虽然ES6+的template string让多行字符串拼接更加得心应手，但是template string+模板引擎可以让更加优雅方便。
+什么？都2017年了还在拼接字符串？！虽然ES6+的template string让多行字符串拼接更加得心应手，但是template string+模板引擎可以让更加优雅方便。既然用了template string，也可以写成这样子：
+
+```js
+class Hello extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+    render() {
+        return  `
+      <div>
+        <h1>Hello ,${this.data.name}!</h1>
+      </div>
+        `;
+
+    }
+}
+
+Omi.render(new Hello({ name : 'Omi' }),"#container");
+```
 
 ## 引入mustachejs模板引擎
 
