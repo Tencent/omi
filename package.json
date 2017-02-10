@@ -1,7 +1,7 @@
 {
   "name": "omi",
   "version": "0.1.4",
-  "description": "Omi is Omi.",
+  "description": "Open and modern framework for building user interfaces.",
   "main": "dist/omi.js",
   "scripts": {
     "build": "webpack -w",
