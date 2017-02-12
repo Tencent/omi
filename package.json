@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Open and modern framework for building user interfaces.",
   "main": "dist/omi.js",
   "scripts": {
@@ -10,6 +10,7 @@
     "curd": "webpack -w",
     "hello": "webpack -w",
     "loop": "webpack -w",
+    "finger": "webpack -w",
     "order": "webpack -w",
     "timer": "webpack -w",
     "communication": "webpack -w",

@@ -46,42 +46,15 @@
 
 	'use strict';
 
-	var _hello = __webpack_require__(1);
-
-	var _hello2 = _interopRequireDefault(_hello);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	Omi.render(new _hello2['default']({ name: 'Omi' }), 'body');
-
-	setTimeout(function () {
-	    Omi.get("world").data.list = "aa";
-	    Omi.mapping["world"].update();
-	}, 1000);
-
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _index = __webpack_require__(2);
+	var _index = __webpack_require__(1);
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _sub_hello = __webpack_require__(9);
+	var _omiFinger = __webpack_require__(8);
 
-	var _sub_hello2 = _interopRequireDefault(_sub_hello);
-
-	var _world = __webpack_require__(11);
-
-	var _world2 = _interopRequireDefault(_world);
+	var _omiFinger2 = _interopRequireDefault(_omiFinger);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -91,54 +64,49 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Hello = function (_Omi$Component) {
-	    _inherits(Hello, _Omi$Component);
+	_omiFinger2['default'].init();
 
-	    function Hello(data) {
-	        _classCallCheck(this, Hello);
+	var App = function (_Omi$Component) {
+	    _inherits(App, _Omi$Component);
 
-	        return _possibleConstructorReturn(this, (Hello.__proto__ || Object.getPrototypeOf(Hello)).call(this, data));
+	    function App(data) {
+	        _classCallCheck(this, App);
+
+	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, data));
 	    }
 
-	    _createClass(Hello, [{
-	        key: 'style',
-	        value: function style() {
-	            return '\n           h1{\n             cursor:pointer;\n           }\n         ';
-	        }
-	    }, {
-	        key: 'handleClick',
-	        value: function handleClick(dom) {
-	            alert(dom.innerHTML);
+	    _createClass(App, [{
+	        key: 'handleTap',
+	        value: function handleTap(evt) {
+	            alert(11);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div>\n            <h1 onclick="handleClick(this)">Omi</h1>\n            <World omi-id="world" data-name="abcd"  data-list=\'{"name":"Latch", "album":"Disclosure", "date":"2013"}\'  />\n            <div>\n                Hello {{name}}!\n                <SubHello  name="list" />\n\n            </div>\n        </div>\n        ';
+	            return '\n        <div>\n            <div omi-finger onTap="handleTap"  >ABCD</div>\n        </div>\n        ';
 	        }
 	    }]);
 
-	    return Hello;
+	    return App;
 	}(_index2['default'].Component);
 
-	_index2['default'].makeHTML('Hello', Hello);
-
-	exports['default'] = Hello;
+	_index2['default'].render(new App(), "#container");
 
 /***/ },
-/* 2 */
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _omi = __webpack_require__(3);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _mustache = __webpack_require__(4);
+	var _mustache = __webpack_require__(3);
 
 	var _mustache2 = _interopRequireDefault(_mustache);
 
-	var _component = __webpack_require__(5);
+	var _component = __webpack_require__(4);
 
 	var _component2 = _interopRequireDefault(_component);
 
@@ -152,7 +120,7 @@
 	module.exports = _omi2['default'];
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -402,7 +370,7 @@
 	module.exports = Omi;
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -1018,7 +986,7 @@
 	});
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1031,19 +999,19 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _omi = __webpack_require__(3);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _style = __webpack_require__(6);
+	var _style = __webpack_require__(5);
 
 	var _style2 = _interopRequireDefault(_style);
 
-	var _event = __webpack_require__(7);
+	var _event = __webpack_require__(6);
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _diff = __webpack_require__(8);
+	var _diff = __webpack_require__(7);
 
 	var _diff2 = _interopRequireDefault(_diff);
 
@@ -1534,7 +1502,7 @@
 	exports['default'] = Component;
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1543,7 +1511,7 @@
 	    value: true
 	});
 
-	var _omi = __webpack_require__(3);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
@@ -1599,7 +1567,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1619,7 +1587,7 @@
 	exports["default"] = scopedEvent;
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1838,154 +1806,336 @@
 	exports['default'] = setDOM;
 
 /***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _index = __webpack_require__(1);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var _alloyFinger = __webpack_require__(9);
+
+	var _alloyFinger2 = _interopRequireDefault(_alloyFinger);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var OmiFinger = {};
+
+	OmiFinger.init = function () {
+	    _index2['default'].extendPlugin('omi-finger', function (dom, instance) {
+	        var finger = new _alloyFinger2['default'](dom, {
+	            tap: instance[dom.getAttribute('onTap')]
+	        });
+	    });
+	};
+
+	OmiFinger.destroy = function () {
+	    _index2['default'].plugins['omi-finger'] = null;
+	    delete _index2['default'].plugins['omi-finger'];
+	};
+
+	exports['default'] = OmiFinger;
+
+/***/ },
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _index = __webpack_require__(2);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var _sub_sub_hello = __webpack_require__(10);
-
-	var _sub_sub_hello2 = _interopRequireDefault(_sub_sub_hello);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SubHello = function (_Omi$Component) {
-	    _inherits(SubHello, _Omi$Component);
-
-	    function SubHello(data) {
-	        _classCallCheck(this, SubHello);
-
-	        return _possibleConstructorReturn(this, (SubHello.__proto__ || Object.getPrototypeOf(SubHello)).call(this, data));
+	/* AlloyFinger v0.1.4
+	 * By dntzhang
+	 * Github: https://github.com/AlloyTeam/AlloyFinger
+	 */
+	;(function () {
+	    function getLen(v) {
+	        return Math.sqrt(v.x * v.x + v.y * v.y);
 	    }
 
-	    _createClass(SubHello, [{
-	        key: 'style',
-	        value: function style() {
-	            return '\n        a{\n            color: #4078c0;\n            text-decoration: none;\n        }\n        ';
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return '\n            <div>\n                <a   href="https://github.com/AlloyTeam/AlloyTouch/wiki/Scoped-CSS">link</a>\n                i am SubHello\'s instance2{{name}}!\n                <SubSubHello  />\n            </div>\n         ';
-	        }
-	    }]);
-
-	    return SubHello;
-	}(_index2['default'].Component);
-
-	_index2['default'].makeHTML('SubHello', SubHello);
-
-	exports['default'] = SubHello;
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _index = __webpack_require__(2);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SubSubHello = function (_Omi$Component) {
-	    _inherits(SubSubHello, _Omi$Component);
-
-	    function SubSubHello(data) {
-	        _classCallCheck(this, SubSubHello);
-
-	        return _possibleConstructorReturn(this, (SubSubHello.__proto__ || Object.getPrototypeOf(SubSubHello)).call(this, data));
+	    function dot(v1, v2) {
+	        return v1.x * v2.x + v1.y * v2.y;
 	    }
 
-	    _createClass(SubSubHello, [{
-	        key: 'render',
-	        value: function render() {
-	            return '\n    <div>\n    <div ref="abcd"></div>\n        i am SubSubHello\'s instance{{name}}!\n        </div>\n         ';
-	        }
-	    }]);
-
-	    return SubSubHello;
-	}(_index2['default'].Component);
-
-	_index2['default'].makeHTML('SubSubHello', SubSubHello);
-
-	exports['default'] = SubSubHello;
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _index = __webpack_require__(2);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var World = function (_Omi$Component) {
-	    _inherits(World, _Omi$Component);
-
-	    function World(data) {
-	        _classCallCheck(this, World);
-
-	        return _possibleConstructorReturn(this, (World.__proto__ || Object.getPrototypeOf(World)).call(this, data));
+	    function getAngle(v1, v2) {
+	        var mr = getLen(v1) * getLen(v2);
+	        if (mr === 0) return 0;
+	        var r = dot(v1, v2) / mr;
+	        if (r > 1) r = 1;
+	        return Math.acos(r);
 	    }
 
-	    _createClass(World, [{
-	        key: 'render',
-	        value: function render() {
-	            return '\n     <div>\n        i am World\'s instance2{{list}}!\n     </div>';
+	    function cross(v1, v2) {
+	        return v1.x * v2.y - v2.x * v1.y;
+	    }
+
+	    function getRotateAngle(v1, v2) {
+	        var angle = getAngle(v1, v2);
+	        if (cross(v1, v2) > 0) {
+	            angle *= -1;
 	        }
-	    }]);
 
-	    return World;
-	}(_index2['default'].Component);
+	        return angle * 180 / Math.PI;
+	    }
 
-	_index2['default'].makeHTML('World', World);
+	    var HandlerAdmin = function HandlerAdmin(el) {
+	        this.handlers = [];
+	        this.el = el;
+	    };
 
-	exports['default'] = World;
+	    HandlerAdmin.prototype.add = function (handler) {
+	        this.handlers.push(handler);
+	    };
+
+	    HandlerAdmin.prototype.del = function (handler) {
+	        if (!handler) this.handlers = [];
+
+	        for (var i = this.handlers.length; i >= 0; i--) {
+	            if (this.handlers[i] === handler) {
+	                this.handlers.splice(i, 1);
+	            }
+	        }
+	    };
+
+	    HandlerAdmin.prototype.dispatch = function () {
+	        for (var i = 0, len = this.handlers.length; i < len; i++) {
+	            var handler = this.handlers[i];
+	            if (typeof handler === 'function') handler.apply(this.el, arguments);
+	        }
+	    };
+
+	    function wrapFunc(el, handler) {
+	        var handlerAdmin = new HandlerAdmin(el);
+	        handlerAdmin.add(handler);
+
+	        return handlerAdmin;
+	    }
+
+	    var AlloyFinger = function AlloyFinger(el, option) {
+
+	        this.element = typeof el == 'string' ? document.querySelector(el) : el;
+
+	        this.start = this.start.bind(this);
+	        this.move = this.move.bind(this);
+	        this.end = this.end.bind(this);
+	        this.cancel = this.cancel.bind(this);
+	        this.element.addEventListener("touchstart", this.start, false);
+	        this.element.addEventListener("touchmove", this.move, false);
+	        this.element.addEventListener("touchend", this.end, false);
+	        this.element.addEventListener("touchcancel", this.cancel, false);
+
+	        this.preV = { x: null, y: null };
+	        this.pinchStartLen = null;
+	        this.scale = 1;
+	        this.isDoubleTap = false;
+
+	        var noop = function noop() {};
+
+	        this.rotate = wrapFunc(this.element, option.rotate || noop);
+	        this.touchStart = wrapFunc(this.element, option.touchStart || noop);
+	        this.multipointStart = wrapFunc(this.element, option.multipointStart || noop);
+	        this.multipointEnd = wrapFunc(this.element, option.multipointEnd || noop);
+	        this.pinch = wrapFunc(this.element, option.pinch || noop);
+	        this.swipe = wrapFunc(this.element, option.swipe || noop);
+	        this.tap = wrapFunc(this.element, option.tap || noop);
+	        this.doubleTap = wrapFunc(this.element, option.doubleTap || noop);
+	        this.longTap = wrapFunc(this.element, option.longTap || noop);
+	        this.singleTap = wrapFunc(this.element, option.singleTap || noop);
+	        this.pressMove = wrapFunc(this.element, option.pressMove || noop);
+	        this.touchMove = wrapFunc(this.element, option.touchMove || noop);
+	        this.touchEnd = wrapFunc(this.element, option.touchEnd || noop);
+	        this.touchCancel = wrapFunc(this.element, option.touchCancel || noop);
+
+	        this.delta = null;
+	        this.last = null;
+	        this.now = null;
+	        this.tapTimeout = null;
+	        this.singleTapTimeout = null;
+	        this.longTapTimeout = null;
+	        this.swipeTimeout = null;
+	        this.x1 = this.x2 = this.y1 = this.y2 = null;
+	        this.preTapPosition = { x: null, y: null };
+	    };
+
+	    AlloyFinger.prototype = {
+	        start: function start(evt) {
+	            if (!evt.touches) return;
+	            this.now = Date.now();
+	            this.x1 = evt.touches[0].pageX;
+	            this.y1 = evt.touches[0].pageY;
+	            this.delta = this.now - (this.last || this.now);
+	            this.touchStart.dispatch(evt);
+	            if (this.preTapPosition.x !== null) {
+	                this.isDoubleTap = this.delta > 0 && this.delta <= 250 && Math.abs(this.preTapPosition.x - this.x1) < 30 && Math.abs(this.preTapPosition.y - this.y1) < 30;
+	            }
+	            this.preTapPosition.x = this.x1;
+	            this.preTapPosition.y = this.y1;
+	            this.last = this.now;
+	            var preV = this.preV,
+	                len = evt.touches.length;
+	            if (len > 1) {
+	                this._cancelLongTap();
+	                this._cancelSingleTap();
+	                var v = { x: evt.touches[1].pageX - this.x1, y: evt.touches[1].pageY - this.y1 };
+	                preV.x = v.x;
+	                preV.y = v.y;
+	                this.pinchStartLen = getLen(preV);
+	                this.multipointStart.dispatch(evt);
+	            }
+	            this.longTapTimeout = setTimeout(function () {
+	                this.longTap.dispatch(evt);
+	            }.bind(this), 750);
+	        },
+	        move: function move(evt) {
+	            if (!evt.touches) return;
+	            var preV = this.preV,
+	                len = evt.touches.length,
+	                currentX = evt.touches[0].pageX,
+	                currentY = evt.touches[0].pageY;
+	            this.isDoubleTap = false;
+	            if (len > 1) {
+	                var v = { x: evt.touches[1].pageX - currentX, y: evt.touches[1].pageY - currentY };
+
+	                if (preV.x !== null) {
+	                    if (this.pinchStartLen > 0) {
+	                        evt.scale = getLen(v) / this.pinchStartLen;
+	                        this.pinch.dispatch(evt);
+	                    }
+
+	                    evt.angle = getRotateAngle(v, preV);
+	                    this.rotate.dispatch(evt);
+	                }
+	                preV.x = v.x;
+	                preV.y = v.y;
+	            } else {
+	                if (this.x2 !== null) {
+	                    evt.deltaX = currentX - this.x2;
+	                    evt.deltaY = currentY - this.y2;
+	                } else {
+	                    evt.deltaX = 0;
+	                    evt.deltaY = 0;
+	                }
+	                this.pressMove.dispatch(evt);
+	            }
+
+	            this.touchMove.dispatch(evt);
+
+	            this._cancelLongTap();
+	            this.x2 = currentX;
+	            this.y2 = currentY;
+	            if (len > 1) {
+	                evt.preventDefault();
+	            }
+	        },
+	        end: function end(evt) {
+	            if (!evt.changedTouches) return;
+	            this._cancelLongTap();
+	            var self = this;
+	            if (evt.touches.length < 2) {
+	                this.multipointEnd.dispatch(evt);
+	            }
+	            this.touchEnd.dispatch(evt);
+	            //swipe
+	            if (this.x2 && Math.abs(this.x1 - this.x2) > 30 || this.y2 && Math.abs(this.preV.y - this.y2) > 30) {
+	                evt.direction = this._swipeDirection(this.x1, this.x2, this.y1, this.y2);
+	                this.swipeTimeout = setTimeout(function () {
+	                    self.swipe.dispatch(evt);
+	                }, 0);
+	            } else {
+	                this.tapTimeout = setTimeout(function () {
+	                    self.tap.dispatch(evt);
+	                    // trigger double tap immediately
+	                    if (self.isDoubleTap) {
+	                        self.doubleTap.dispatch(evt);
+	                        clearTimeout(self.singleTapTimeout);
+	                        self.isDoubleTap = false;
+	                    } else {
+	                        self.singleTapTimeout = setTimeout(function () {
+	                            self.singleTap.dispatch(evt);
+	                        }, 250);
+	                    }
+	                }, 0);
+	            }
+
+	            this.preV.x = 0;
+	            this.preV.y = 0;
+	            this.scale = 1;
+	            this.pinchStartLen = null;
+	            this.x1 = this.x2 = this.y1 = this.y2 = null;
+	        },
+	        cancel: function cancel(evt) {
+	            clearTimeout(this.singleTapTimeout);
+	            clearTimeout(this.tapTimeout);
+	            clearTimeout(this.longTapTimeout);
+	            clearTimeout(this.swipeTimeout);
+	            this.touchCancel.dispatch(evt);
+	        },
+	        _cancelLongTap: function _cancelLongTap() {
+	            clearTimeout(this.longTapTimeout);
+	        },
+	        _cancelSingleTap: function _cancelSingleTap() {
+	            clearTimeout(this.singleTapTimeout);
+	        },
+	        _swipeDirection: function _swipeDirection(x1, x2, y1, y2) {
+	            return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? x1 - x2 > 0 ? 'Left' : 'Right' : y1 - y2 > 0 ? 'Up' : 'Down';
+	        },
+
+	        on: function on(evt, handler) {
+	            if (this[evt]) {
+	                this[evt].add(handler);
+	            }
+	        },
+
+	        off: function off(evt, handler) {
+	            if (this[evt]) {
+	                this[evt].del(handler);
+	            }
+	        },
+
+	        destroy: function destroy() {
+	            if (this.singleTapTimeout) clearTimeout(this.singleTapTimeout);
+	            if (this.tapTimeout) clearTimeout(this.tapTimeout);
+	            if (this.longTapTimeout) clearTimeout(this.longTapTimeout);
+	            if (this.swipeTimeout) clearTimeout(this.swipeTimeout);
+
+	            this.element.removeEventListener("touchstart", this.start);
+	            this.element.removeEventListener("touchmove", this.move);
+	            this.element.removeEventListener("touchend", this.end);
+	            this.element.removeEventListener("touchcancel", this.cancel);
+
+	            this.rotate.del();
+	            this.touchStart.del();
+	            this.multipointStart.del();
+	            this.multipointEnd.del();
+	            this.pinch.del();
+	            this.swipe.del();
+	            this.tap.del();
+	            this.doubleTap.del();
+	            this.longTap.del();
+	            this.singleTap.del();
+	            this.pressMove.del();
+	            this.touchMove.del();
+	            this.touchEnd.del();
+	            this.touchCancel.del();
+
+	            this.preV = this.pinchStartLen = this.scale = this.isDoubleTap = this.delta = this.last = this.now = this.tapTimeout = this.singleTapTimeout = this.longTapTimeout = this.swipeTimeout = this.x1 = this.x2 = this.y1 = this.y2 = this.preTapPosition = this.rotate = this.touchStart = this.multipointStart = this.multipointEnd = this.pinch = this.swipe = this.tap = this.doubleTap = this.longTap = this.singleTap = this.pressMove = this.touchMove = this.touchEnd = this.touchCancel = null;
+
+	            return null;
+	        }
+	    };
+
+	    if (typeof module !== 'undefined' && ( false ? 'undefined' : _typeof(exports)) === 'object') {
+	        module.exports = AlloyFinger;
+	    } else {
+	        window.AlloyFinger = AlloyFinger;
+	    }
+	})();
 
 /***/ }
 /******/ ]);

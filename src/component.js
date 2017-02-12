@@ -26,6 +26,7 @@ class Component {
         this._omi_order = [];
         Omi.instances[this.id] = this;
         this.dataFirst = true;
+        this._omi_scoped_attr =  Omi.STYLESCOPEDPREFIX + this.id;
         //this.BODY_ELEMENT = document.createElement('body');
         this._preCSS = null;
         if (this._omi_server_rendering || isReRendering) {
@@ -192,7 +193,7 @@ class Component {
         }
         //get node prop from parent node
         if (this.renderTo) {
-            this.node = document.querySelector("[" + Omi.STYLESCOPEDPREFIX + this.id + "]");
+            this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
             this._queryElements(this);
             this._fixForm();
         }
@@ -221,6 +222,7 @@ class Component {
 
     _queryElements(current) {
         current._mixRefs();
+        current._execPlugins();
         current.children.forEach((item)=>{
             item.node = current.node.querySelector("[" + Omi.STYLESCOPEDPREFIX + item.id + "]");
             //recursion get node prop from parent node
@@ -229,15 +231,23 @@ class Component {
     }
 
     _mixRefs() {
-        let nodes = this.node.querySelectorAll('*[ref]');
-        const len = nodes.length;
-        if (len > 0) {
-            for (let i = 0; i < len; i++) {
-                let node = nodes[i];
-                this.refs[node.getAttribute("ref")] = node;
+        let nodes = Omi.$$('*[ref]',this.node);
+        nodes.forEach(node => {
+            if(node.hasAttribute(this._omi_scoped_attr) ) {
+                this.refs[node.getAttribute('ref')] = node;
             }
-        }
+        });
+    }
 
+    _execPlugins(){
+        Object.keys(Omi.plugins).forEach(item => {
+            let nodes = Omi.$$('*['+item+']',this.node);
+            nodes.forEach(node => {
+                if(node.hasAttribute(this._omi_scoped_attr) ) {
+                    Omi.plugins[item](node,this);
+                }
+            })
+        });
     }
 
     _childrenInstalled(root){
@@ -294,7 +304,7 @@ class Component {
     _createHiddenNode(){
         let hdNode = document.createElement("input");
         hdNode.setAttribute("type","hidden");
-        hdNode.setAttribute( Omi.STYLESCOPEDPREFIX+this.id,"");
+        hdNode.setAttribute( this._omi_scoped_attr, '');
         return hdNode;
     }
 
@@ -315,14 +325,14 @@ class Component {
     _generateHTMLCSS() {
         this.CSS = this.style() || '';
         if (this.CSS) {
-            this.CSS = style.scoper(this.CSS, "[" + Omi.STYLESCOPEDPREFIX + this.id + "]");
+            this.CSS = style.scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
             if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
                 style.addStyle(this.CSS, this.id);
                 this._preCSS = this.CSS;
             }
         }
         let tpl = this.render();
-        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "", this.data), Omi.STYLESCOPEDPREFIX + this.id).trim();
+        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "", this.data), this._omi_scoped_attr).trim();
         if (this._omi_server_rendering) {
             this.HTML = '\r\n<style id="'+Omi.STYLEPREFIX+this.id+'">\r\n' + this.CSS + '\r\n</style>\r\n'+this.HTML ;
             this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + Omi.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n'

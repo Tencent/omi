@@ -7,6 +7,7 @@ class SubSubHello extends Omi.Component {
     render() {
         return `
     <div>
+    <div ref="abcd"></div>
         i am SubSubHello's instance{{name}}!
         </div>
          `;

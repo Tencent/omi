@@ -208,4 +208,10 @@ Omi.get = function(name){
     return Omi.mapping[name];
 }
 
+Omi.plugins ={};
+
+Omi.extendPlugin = function(name, handler) {
+    Omi.plugins[name] = handler;
+}
+
 module.exports = Omi;

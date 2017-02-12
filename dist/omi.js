@@ -1,5 +1,5 @@
 /*!
- *  Omi v0.1.5 By dntzhang 
+ *  Omi v0.1.6 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -322,6 +322,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Omi.get = function (name) {
 	    return Omi.mapping[name];
+	};
+
+	Omi.plugins = {};
+
+	Omi.extendPlugin = function (name, handler) {
+	    Omi.plugins[name] = handler;
 	};
 
 	module.exports = Omi;
@@ -1001,6 +1007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._omi_order = [];
 	        _omi2['default'].instances[this.id] = this;
 	        this.dataFirst = true;
+	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
 	        //this.BODY_ELEMENT = document.createElement('body');
 	        this._preCSS = null;
 	        if (this._omi_server_rendering || isReRendering) {
@@ -1183,7 +1190,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            //get node prop from parent node
 	            if (this.renderTo) {
-	                this.node = document.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
+	                this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
 	                this._queryElements(this);
 	                this._fixForm();
 	            }
@@ -1216,6 +1223,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: '_queryElements',
 	        value: function _queryElements(current) {
 	            current._mixRefs();
+	            current._execPlugins();
 	            current.children.forEach(function (item) {
 	                item.node = current.node.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + item.id + "]");
 	                //recursion get node prop from parent node
@@ -1225,23 +1233,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_mixRefs',
 	        value: function _mixRefs() {
-	            var nodes = this.node.querySelectorAll('*[ref]');
-	            var len = nodes.length;
-	            if (len > 0) {
-	                for (var i = 0; i < len; i++) {
-	                    var node = nodes[i];
-	                    this.refs[node.getAttribute("ref")] = node;
+	            var _this5 = this;
+
+	            var nodes = _omi2['default'].$$('*[ref]', this.node);
+	            nodes.forEach(function (node) {
+	                if (node.hasAttribute(_this5._omi_scoped_attr)) {
+	                    _this5.refs[node.getAttribute('ref')] = node;
 	                }
-	            }
+	            });
+	        }
+	    }, {
+	        key: '_execPlugins',
+	        value: function _execPlugins() {
+	            var _this6 = this;
+
+	            Object.keys(_omi2['default'].plugins).forEach(function (item) {
+	                var nodes = _omi2['default'].$$('*[' + item + ']', _this6.node);
+	                nodes.forEach(function (node) {
+	                    if (node.hasAttribute(_this6._omi_scoped_attr)) {
+	                        _omi2['default'].plugins[item](node, _this6);
+	                    }
+	                });
+	            });
 	        }
 	    }, {
 	        key: '_childrenInstalled',
 	        value: function _childrenInstalled(root) {
-	            var _this5 = this;
+	            var _this7 = this;
 
 	            root.children.forEach(function (child) {
 	                child.installed();
-	                _this5._childrenInstalled(child);
+	                _this7._childrenInstalled(child);
 	            });
 	        }
 	    }, {
@@ -1295,7 +1317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _createHiddenNode() {
 	            var hdNode = document.createElement("input");
 	            hdNode.setAttribute("type", "hidden");
-	            hdNode.setAttribute(_omi2['default'].STYLESCOPEDPREFIX + this.id, "");
+	            hdNode.setAttribute(this._omi_scoped_attr, '');
 	            return hdNode;
 	        }
 	    }, {
@@ -1318,14 +1340,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _generateHTMLCSS() {
 	            this.CSS = this.style() || '';
 	            if (this.CSS) {
-	                this.CSS = _style2['default'].scoper(this.CSS, "[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
+	                this.CSS = _style2['default'].scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
 	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
 	                    _style2['default'].addStyle(this.CSS, this.id);
 	                    this._preCSS = this.CSS;
 	                }
 	            }
 	            var tpl = this.render();
-	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), _omi2['default'].STYLESCOPEDPREFIX + this.id).trim();
+	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), this._omi_scoped_attr).trim();
 	            if (this._omi_server_rendering) {
 	                this.HTML = '\r\n<style id="' + _omi2['default'].STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
 	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2['default'].STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
@@ -1342,7 +1364,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_getDataset',
 	        value: function _getDataset(str) {
-	            var _this6 = this;
+	            var _this8 = this;
 
 	            var arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
 	            if (arr) {
@@ -1350,7 +1372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    var obj = {};
 	                    arr.forEach(function (item) {
 	                        var arr = item.split('=');
-	                        obj[_this6._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
+	                        obj[_this8._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
 	                        arr = null;
 	                    });
 	                    return {
