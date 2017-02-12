@@ -6,7 +6,8 @@ let OmiFinger = {};
 OmiFinger.init = function(){
     Omi.extendPlugin('omi-finger',function(dom, instance){
         let finger = new AlloyFinger(dom,{
-            tap: instance[dom.getAttribute('onTap')]
+            tap: instance[dom.getAttribute('onTap')],
+            swipe: instance[dom.getAttribute('onSwipe')]
         });
     })
 }

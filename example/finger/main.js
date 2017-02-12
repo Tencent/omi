@@ -10,14 +10,19 @@ class App extends Omi.Component {
     }
 
     handleTap(evt){
-        alert(11)
+        console.log(evt);
+        console.log('tap');
+    }
 
+    handleSwipe(evt){
+        console.log(evt);
+        console.log('swipe');
     }
 
     render() {
         return  `
         <div>
-            <div omi-finger onTap="handleTap"  >ABCD</div>
+            <div omi-finger onTap="handleTap"  onSwipe="handleSwipe" >ABCD</div>
         </div>
         `;
 

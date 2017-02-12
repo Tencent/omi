@@ -78,12 +78,19 @@
 	    _createClass(App, [{
 	        key: 'handleTap',
 	        value: function handleTap(evt) {
-	            alert(11);
+	            console.log(evt);
+	            console.log('tap');
+	        }
+	    }, {
+	        key: 'handleSwipe',
+	        value: function handleSwipe(evt) {
+	            console.log(evt);
+	            console.log('swipe');
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div>\n            <div omi-finger onTap="handleTap"  >ABCD</div>\n        </div>\n        ';
+	            return '\n        <div>\n            <div omi-finger onTap="handleTap"  onSwipe="handleSwipe" >ABCD</div>\n        </div>\n        ';
 	        }
 	    }]);
 
@@ -1830,7 +1837,8 @@
 	OmiFinger.init = function () {
 	    _index2['default'].extendPlugin('omi-finger', function (dom, instance) {
 	        var finger = new _alloyFinger2['default'](dom, {
-	            tap: instance[dom.getAttribute('onTap')]
+	            tap: instance[dom.getAttribute('onTap')],
+	            swipe: instance[dom.getAttribute('onSwipe')]
 	        });
 	    });
 	};
