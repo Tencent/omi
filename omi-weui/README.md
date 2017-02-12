@@ -63,7 +63,7 @@ Omi.render(new Hello({ name : "Omi" }),"body");
 
 ## Link
 
-* Github: https://github.com/pasturn/omi-weui
+* Github: https://github.com/omijs/omi-weui
 * Contributor: [pasturn](https://github.com/pasturn)  [dntzhang](https://github.com/dntzhang)
 
 # License
