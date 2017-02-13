@@ -237,6 +237,10 @@ class Component {
                 this.refs[node.getAttribute('ref')] = node;
             }
         });
+        let attr = this.node.getAttribute('ref');
+        if(attr) {
+            this.refs[attr] = this.node;
+        }
     }
 
     _execPlugins(){
@@ -246,7 +250,10 @@ class Component {
                 if(node.hasAttribute(this._omi_scoped_attr) ) {
                     Omi.plugins[item](node,this);
                 }
-            })
+            });
+            if(this.node.hasAttribute(item)) {
+                Omi.plugins[item](this.node, this);
+            }
         });
     }
 
