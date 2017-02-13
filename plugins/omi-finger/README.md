@@ -28,7 +28,7 @@ class App extends Omi.Component {
     }
 
     handleSwipe(evt){
-        this.refs.touchArea.innerHTML+='<br/>Swipe-'+ evt.direction
+        this.refs.touchArea.innerHTML+='<br/>Swipe-'+ evt.direction;
     }
 
     render() {
