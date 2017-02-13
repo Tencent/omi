@@ -13,7 +13,7 @@ cd omis
 npm install
 ```
 
-当然你可以通过npm init去修改你的项目信息。
+当然你可以修改你的目录名，也可通过npm init去修改你的项目信息。
 
 ## 开发
 
