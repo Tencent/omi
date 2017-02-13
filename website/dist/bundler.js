@@ -448,6 +448,12 @@
 	    return Omi.mapping[name];
 	};
 
+	Omi.plugins = {};
+
+	Omi.extendPlugin = function (name, handler) {
+	    Omi.plugins[name] = handler;
+	};
+
 	module.exports = Omi;
 
 /***/ },
@@ -1125,6 +1131,7 @@
 	        this._omi_order = [];
 	        _omi2['default'].instances[this.id] = this;
 	        this.dataFirst = true;
+	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
 	        //this.BODY_ELEMENT = document.createElement('body');
 	        this._preCSS = null;
 	        if (this._omi_server_rendering || isReRendering) {
@@ -1307,7 +1314,7 @@
 	            }
 	            //get node prop from parent node
 	            if (this.renderTo) {
-	                this.node = document.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
+	                this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
 	                this._queryElements(this);
 	                this._fixForm();
 	            }
@@ -1340,6 +1347,7 @@
 	        key: '_queryElements',
 	        value: function _queryElements(current) {
 	            current._mixRefs();
+	            current._execPlugins();
 	            current.children.forEach(function (item) {
 	                item.node = current.node.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + item.id + "]");
 	                //recursion get node prop from parent node
@@ -1349,23 +1357,37 @@
 	    }, {
 	        key: '_mixRefs',
 	        value: function _mixRefs() {
-	            var nodes = this.node.querySelectorAll('*[ref]');
-	            var len = nodes.length;
-	            if (len > 0) {
-	                for (var i = 0; i < len; i++) {
-	                    var node = nodes[i];
-	                    this.refs[node.getAttribute("ref")] = node;
+	            var _this5 = this;
+
+	            var nodes = _omi2['default'].$$('*[ref]', this.node);
+	            nodes.forEach(function (node) {
+	                if (node.hasAttribute(_this5._omi_scoped_attr)) {
+	                    _this5.refs[node.getAttribute('ref')] = node;
 	                }
-	            }
+	            });
+	        }
+	    }, {
+	        key: '_execPlugins',
+	        value: function _execPlugins() {
+	            var _this6 = this;
+
+	            Object.keys(_omi2['default'].plugins).forEach(function (item) {
+	                var nodes = _omi2['default'].$$('*[' + item + ']', _this6.node);
+	                nodes.forEach(function (node) {
+	                    if (node.hasAttribute(_this6._omi_scoped_attr)) {
+	                        _omi2['default'].plugins[item](node, _this6);
+	                    }
+	                });
+	            });
 	        }
 	    }, {
 	        key: '_childrenInstalled',
 	        value: function _childrenInstalled(root) {
-	            var _this5 = this;
+	            var _this7 = this;
 
 	            root.children.forEach(function (child) {
 	                child.installed();
-	                _this5._childrenInstalled(child);
+	                _this7._childrenInstalled(child);
 	            });
 	        }
 	    }, {
@@ -1419,7 +1441,7 @@
 	        value: function _createHiddenNode() {
 	            var hdNode = document.createElement("input");
 	            hdNode.setAttribute("type", "hidden");
-	            hdNode.setAttribute(_omi2['default'].STYLESCOPEDPREFIX + this.id, "");
+	            hdNode.setAttribute(this._omi_scoped_attr, '');
 	            return hdNode;
 	        }
 	    }, {
@@ -1442,14 +1464,14 @@
 	        value: function _generateHTMLCSS() {
 	            this.CSS = this.style() || '';
 	            if (this.CSS) {
-	                this.CSS = _style2['default'].scoper(this.CSS, "[" + _omi2['default'].STYLESCOPEDPREFIX + this.id + "]");
+	                this.CSS = _style2['default'].scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
 	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
 	                    _style2['default'].addStyle(this.CSS, this.id);
 	                    this._preCSS = this.CSS;
 	                }
 	            }
 	            var tpl = this.render();
-	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), _omi2['default'].STYLESCOPEDPREFIX + this.id).trim();
+	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), this._omi_scoped_attr).trim();
 	            if (this._omi_server_rendering) {
 	                this.HTML = '\r\n<style id="' + _omi2['default'].STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
 	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2['default'].STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
@@ -1466,7 +1488,7 @@
 	    }, {
 	        key: '_getDataset',
 	        value: function _getDataset(str) {
-	            var _this6 = this;
+	            var _this8 = this;
 
 	            var arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
 	            if (arr) {
@@ -1474,7 +1496,7 @@
 	                    var obj = {};
 	                    arr.forEach(function (item) {
 	                        var arr = item.split('=');
-	                        obj[_this6._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
+	                        obj[_this8._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
 	                        arr = null;
 	                    });
 	                    return {
@@ -1642,7 +1664,7 @@
 	});
 	function scopedEvent(tpl, id) {
 	    return tpl.replace(/<[\s\S]*?>/g, function (item) {
-	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|Canplay|Canplaythrough|Change|Click|Close|Contextmenu|Cuechange|Dblclick|Drag|Dragend|Dragenter|Dragleave|Dragover|Dragstart|Drop|Durationchange|Emptied|Ended|Error|Focus|Input|Invalid|Keydown|Keypress|Keyup|Load|Loadeddata|Loadedmetadata|Loadstart|Mousedown|Mouseenter|Mouseleave|Mousemove|Mouseout|Mouseover|Mouseup|Mousewheel|Pause|Play|Playing|Progress|Ratechange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|Timeupdate|Toggle|Volumechange|Waiting|Autocomplete|Autocompleteerror|Beforecopy|Beforecut|Beforepaste|Copy|Cut|Paste|Search|Selectstart|Wheel|Webkitfullscreenchange|Webkitfullscreenerror|Touchstart|Touchmove|Touchend|Touchcancel|Pointerdown|Pointerup|Pointercancel|Pointermove|Pointerover|Pointerout|Pointerenter|Pointerleave)=('|")/g, function (eventStr, b, c, d, e) {
+	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=('|")/g, function (eventStr, b, c, d, e) {
 	            if (e.substr(eventStr.length + d, 14) === "Omi.instances[") return eventStr;
 	            return eventStr += "Omi.instances[" + id + "].";
 	        });
@@ -2087,7 +2109,7 @@
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Hello Omi\\\">Hello Omi</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)的每个组件都继承自Omi.Component，本篇会去完成Omi的Component的基本锥形，让其能够渲染第一个组件。\\r\\n\\r\\n## omi.js实现\\r\\n\\r\\n```js\\r\\nvar Omi = {};\\r\\nOmi._instanceId = 0;\\r\\nOmi.getInstanceId = function () {\\r\\n    return Omi._instanceId++;\\r\\n};\\r\\n\\r\\nOmi.render = function(component, renderTo){\\r\\n    component.renderTo = typeof renderTo === \\\"string\\\" ? document.querySelector(renderTo) : renderTo;\\r\\n    component._render();\\r\\n    return component;\\r\\n};\\r\\n\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n* Omi.getInstanceId 用来给每个组件生成自增的ID\\r\\n* Omi.render 用来把组件渲染到页面\\r\\n\\r\\n## 基类Omi.Component实现\\r\\n\\r\\n所有的组件都是继承自Omi.Component。\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n        this.renderTo = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = this.render();\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\n* Omi使用完全面向对象的方式去开发组件，这里约定好带有下划线的方法是用于内部实现调用，不建议Omi框架的使用者去调用。\\r\\n* 其中，_render为私有方法用于内部实现调用,会去调用组件的真正render方法用于生成HTML,并且把生成的HTML插入到renderTo容器里面。\\r\\n* 注意，这里目前没有引入dom diff，不管第几次渲染都是无脑设置innerHTML，复杂HTML结构对浏览器的开销很大，这里后续会引入diff。\\r\\n\\r\\n## index.js整合\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi = Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Omi给直接暴露在window下，因为每个组件都生成了唯一的ID，后续实现事件作用域以及对象实例获取都要通过window下的Omi获取。\\r\\n\\r\\n## 最后使用\\r\\n\\r\\n实现完omi.js和component.js以及index.js之后，你就可以实现Hello Omi拉:\\r\\n\\r\\n```js\\r\\nimport Omi from 'index.js'; \\r\\n//或者使用webpack build之后的omi.js \\r\\n//import Omi from 'omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,`+ this.data.name +`!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : 'Omi' }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n什么？都2017年了还在拼接字符串？！虽然ES6+的template string让多行字符串拼接更加得心应手，但是template string+模板引擎可以让更加优雅方便。\\r\\n\\r\\n## 引入mustachejs模板引擎\\r\\n\\r\\nOmi支持任意模板引擎。可以看到，上面是通过拼接字符串的形式生成HTML，这里当然可以使用模板引擎。\\r\\n\\r\\n修改一下index.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Mustache from './mustache.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = Mustache.render;\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Mustache.render挂载在Omi.template下。再修改一下component.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = Omi.template(this.render(), this.data);\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\nOmi.template（即Mustache.render）需要接受两个参数，第一个参数是模板，第二个参数是模板使用的数据。\\r\\n\\r\\n现在，你便可以使用mustachejs模板引擎的语法了：\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,{{name}}!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n从上面的代码可以看到，你完全可以重写Omi.template方法去使用任意模板引擎。重写Omi.template的话，建议使用omi.lite.js，因为omi.lite.js是不包含任何模板引擎的。那么怎么build出两个版本的omi？且看webpack里设置的多入口:\\r\\n\\r\\n```js\\r\\n entry: {\\r\\n    omi: './src/index.js',\\r\\n    'omi.lite': './src/index.lite.js'\\r\\n},\\r\\noutput: {\\r\\n    path: 'dist/',\\r\\n    library:'Omi',\\r\\n    libraryTarget: 'umd',\\r\\n    filename:  '[name].js'\\r\\n},\\r\\n```\\r\\n\\r\\nindex.lite.js的代码如下：\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = function(tpl, data){\\r\\n    return tpl;\\r\\n}\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n可以看到Omi.template没有对tpl做任何处理直接返回，开发者可以重写该方法。\\r\\n\\r\\n## 总结\\r\\n\\r\\n到目前为止，已经实现了：\\r\\n\\r\\n* 第一个组件的渲染\\r\\n* 模板引擎的接入\\r\\n* 多入口打包omi.js和omi.lite.js\\r\\n\\r\\n下片，将介绍《Omi原理-局部CSS》，欢迎关注...\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"Hello Omi\\\">Hello Omi</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)的每个组件都继承自Omi.Component，本篇会去完成Omi的Component的基本锥形，让其能够渲染第一个组件。\\r\\n\\r\\n## omi.js实现\\r\\n\\r\\n```js\\r\\nvar Omi = {};\\r\\nOmi._instanceId = 0;\\r\\nOmi.getInstanceId = function () {\\r\\n    return Omi._instanceId++;\\r\\n};\\r\\n\\r\\nOmi.render = function(component, renderTo){\\r\\n    component.renderTo = typeof renderTo === \\\"string\\\" ? document.querySelector(renderTo) : renderTo;\\r\\n    component._render();\\r\\n    return component;\\r\\n};\\r\\n\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n* Omi.getInstanceId 用来给每个组件生成自增的ID\\r\\n* Omi.render 用来把组件渲染到页面\\r\\n\\r\\n## 基类Omi.Component实现\\r\\n\\r\\n所有的组件都是继承自Omi.Component。\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n        this.renderTo = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = this.render();\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\n* Omi使用完全面向对象的方式去开发组件，这里约定好带有下划线的方法是用于内部实现调用，不建议Omi框架的使用者去调用。\\r\\n* 其中，_render为私有方法用于内部实现调用,会去调用组件的真正render方法用于生成HTML,并且把生成的HTML插入到renderTo容器里面。\\r\\n* 注意，这里目前没有引入dom diff，不管第几次渲染都是无脑设置innerHTML，复杂HTML结构对浏览器的开销很大，这里后续会引入diff。\\r\\n\\r\\n## index.js整合\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi = Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Omi给直接暴露在window下，因为每个组件都生成了唯一的ID，后续实现事件作用域以及对象实例获取都要通过window下的Omi获取。\\r\\n\\r\\n## 最后使用\\r\\n\\r\\n实现完omi.js和component.js以及index.js之后，你就可以实现Hello Omi拉:\\r\\n\\r\\n```js\\r\\nimport Omi from 'index.js'; \\r\\n//或者使用webpack build之后的omi.js \\r\\n//import Omi from 'omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,`+ this.data.name +`!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : 'Omi' }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n什么？都2017年了还在拼接字符串？！虽然ES6+的template string让多行字符串拼接更加得心应手，但是template string+模板引擎可以让更加优雅方便。既然用了template string，也可以写成这样子：\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n        <h1>Hello ,${this.data.name}!</h1>\\r\\n      </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : 'Omi' }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n## 引入mustachejs模板引擎\\r\\n\\r\\nOmi支持任意模板引擎。可以看到，上面是通过拼接字符串的形式生成HTML，这里当然可以使用模板引擎。\\r\\n\\r\\n修改一下index.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Mustache from './mustache.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = Mustache.render;\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Mustache.render挂载在Omi.template下。再修改一下component.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = Omi.template(this.render(), this.data);\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\nOmi.template（即Mustache.render）需要接受两个参数，第一个参数是模板，第二个参数是模板使用的数据。\\r\\n\\r\\n现在，你便可以使用mustachejs模板引擎的语法了：\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,{{name}}!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n从上面的代码可以看到，你完全可以重写Omi.template方法去使用任意模板引擎。重写Omi.template的话，建议使用omi.lite.js，因为omi.lite.js是不包含任何模板引擎的。那么怎么build出两个版本的omi？且看webpack里设置的多入口:\\r\\n\\r\\n```js\\r\\n entry: {\\r\\n    omi: './src/index.js',\\r\\n    'omi.lite': './src/index.lite.js'\\r\\n},\\r\\noutput: {\\r\\n    path: 'dist/',\\r\\n    library:'Omi',\\r\\n    libraryTarget: 'umd',\\r\\n    filename:  '[name].js'\\r\\n},\\r\\n```\\r\\n\\r\\nindex.lite.js的代码如下：\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = function(tpl, data){\\r\\n    return tpl;\\r\\n}\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n可以看到Omi.template没有对tpl做任何处理直接返回，开发者可以重写该方法。\\r\\n\\r\\n## 总结\\r\\n\\r\\n到目前为止，已经实现了：\\r\\n\\r\\n* 第一个组件的渲染\\r\\n* 模板引擎的接入\\r\\n* 多入口打包omi.js和omi.lite.js\\r\\n\\r\\n下片，将介绍《Omi原理-局部CSS》，欢迎关注...\\r\\n\""
 
 /***/ },
 /* 26 */
@@ -2099,7 +2121,7 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Omi的理念\\\">Omi的理念</h2>\\r\\n\\r\\nOmi的理念是基于面向对象编程体系，内建积木系统。\\r\\n 传统的单向数据流或者抛出event的组件通讯方式增加了系统的稳定性，但是丧失了灵活性。一定程度上也降低了组建的复用。所谓鱼和熊掌不可兼得。\\r\\n 面向对象体系需要多一个逻辑层，可以自由操作所有组件的instance，instance之间的逻辑关系构建出了整个程序。这样组建间的逻辑，通信，复用就全部迎刃而解。组建也更加单一职责，更松耦合。\\r\\n\\r\\n对比函数式编程、命令式编程与面向对象编程，可以归纳总结出下面几条：\\r\\n\\r\\n- 命令式编程干脆直接，利用循环条件等控制流程，强调执行过程\\r\\n- 命令式编程对硬件执行友好，运行更容易，却阻碍了复杂程序的设计\\r\\n- 函数式强调输入和输出，并非执行过程\\r\\n- 函数式倡导多个简单执行单元组合成复杂运算程序\\r\\n- 面向对象编程将对象作为程序的基本单元，更具有重用性、灵活性和扩展性\\r\\n\\r\\n Javascript是哪种类型的语言？现在ES6+已经有了class。那么他是面向对象语言？\\r\\n但是JS可以在任意地方定义函数并且当作把函数当作值来传递。那么他是函数式编程语言？\\r\\n所以，没有精准的定义，取决于你的用法和姿势。其次，Web组件化架构层面编程模型和语言层面编程模型是非常自由的关系。意思就是，你可以用Javascript构建函数式编程框架如React，也可以基于面向对象体系搭建Omi。\\r\\n\\r\\n### 函数式编程 VS 面向对象编程\\r\\n\\r\\n在UI组件框架层面，函数式编程的代表有React，Omi属于面向对象编程体系。那么他们各有什么优缺点？下面做了个对比（其实也是函数式编程与面向对象编程的对比）：\\r\\n\\r\\n|    | React        | Omi  |\\r\\n| ------------- |:-------------:|:-----:|\\r\\n| 组件通信  | ★★★★☆| ★★★★★ |\\r\\n| 稳定性    | ★★★★★    |   ★★★★☆ |\\r\\n| 灵活性  | ★★★★☆| ★★★★★ |\\r\\n| 扩展性 | ★★★★☆     |   ★★★★★ |\\r\\n| 测试性 | ★★★★★     |   ★★★★☆ |\\r\\n| 文件大小 | ★★★☆☆    |   ★★★★★ |\\r\\n| 功能特性 | ★★★☆☆    |   ★★★★☆ |\\r\\n| DOM性能 | ★★★★★    |   ★★★★☆ |\\r\\n| 动画性能 | ★★★★☆    |   ★★★★★ |\\r\\n| 抽象复杂度 | ★★★★☆    |   ★★★★★ |\\r\\n| 异步编程 | ★★★★★    |   ★★★★☆ |\\r\\n\\r\\n可以看得出，鱼和熊掌不可兼得。面向对象编程更具有重用性、灵活性和扩展性，带来的问题就是更加难测试。\\r\\n具体来说，如函数式编程，其测试面积是state1 + state2 + ... + stateN；在面向对象编程中，其测试面积是state1×event1 + state2×event2 + ... + stateN×eventN。\\r\\n\\r\\n总结来说，更加推荐使用面向对象的方式去搭建UI组件化框架。\\r\\n\\r\\n<hr/>\\r\\n\\r\\n### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/omi) 或者继续往看下[Omi原理↓↓↓](http://alloyteam.github.io/omi/website/docs.html#环境搭建)\\r\\n\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"Omi的理念\\\">Omi的理念</h2>\\r\\n\\r\\nOmi的理念是基于面向对象编程体系，内建积木系统。\\r\\n 传统的单向数据流或者抛出event的组件通讯方式增加了系统的稳定性，但是丧失了灵活性。一定程度上也降低了组建的复用。所谓鱼和熊掌不可兼得。\\r\\n 面向对象体系需要多一个逻辑层，可以自由操作所有组件的instance，instance之间的逻辑关系构建出了整个程序。这样组建间的逻辑，通信，复用就全部迎刃而解。组建也更加单一职责，更松耦合。\\r\\n\\r\\n对比函数式编程、命令式编程与面向对象编程，可以归纳总结出下面几条：\\r\\n\\r\\n- 命令式编程干脆直接，利用循环条件等控制流程，强调执行过程\\r\\n- 命令式编程对硬件执行友好，运行更容易，却阻碍了复杂程序的设计\\r\\n- 函数式强调输入和输出，并非执行过程\\r\\n- 函数式倡导多个简单执行单元组合成复杂运算程序\\r\\n- 面向对象编程将对象作为程序的基本单元，更具有重用性、灵活性和扩展性\\r\\n\\r\\nJavascript是哪种类型的语言？现在ES6+已经有了class。那么他是面向对象语言？\\r\\n但是JS可以在任意地方定义函数并且当作把函数当作值来传递。那么他是函数式编程语言？\\r\\n所以，没有精准的定义，取决于你的用法和姿势。其次，Web组件化架构层面编程模型和语言层面编程模型是非常自由的关系。意思就是，你可以用Javascript构建函数式编程框架如React，也可以基于面向对象体系搭建Omi。\\r\\n\\r\\n### 函数式编程 VS 面向对象编程\\r\\n\\r\\n在UI组件框架层面，函数式编程的代表有React，Omi属于面向对象编程体系。那么他们各有什么优缺点？下面做了个对比（其实也是函数式编程与面向对象编程的对比）：\\r\\n\\r\\n|    | React        | Omi  |\\r\\n| ------------- |:-------------:|:-----:|\\r\\n| 组件通信  | ★★★★☆| ★★★★★ |\\r\\n| 稳定性    | ★★★★★    |   ★★★★☆ |\\r\\n| 灵活性  | ★★★★☆| ★★★★★ |\\r\\n| 扩展性 | ★★★★☆     |   ★★★★★ |\\r\\n| 测试性 | ★★★★★     |   ★★★★☆ |\\r\\n| 文件大小 | ★★★☆☆    |   ★★★★★ |\\r\\n| 功能特性 | ★★★☆☆    |   ★★★★☆ |\\r\\n| DOM性能 | ★★★★★    |   ★★★★☆ |\\r\\n| 动画性能 | ★★★★☆    |   ★★★★★ |\\r\\n| 抽象复杂度 | ★★★★☆    |   ★★★★★ |\\r\\n| 异步编程 | ★★★★★    |   ★★★★☆ |\\r\\n\\r\\n可以看得出，鱼和熊掌不可兼得。面向对象编程更具有重用性、灵活性和扩展性，带来的问题就是更加难测试。\\r\\n具体来说，如函数式编程，其测试面积是state1 + state2 + ... + stateN；在面向对象编程中，其测试面积是state1×event1 + state2×event2 + ... + stateN×eventN。\\r\\n\\r\\n总结来说，更加推荐使用面向对象的方式去搭建UI组件化框架。\\r\\n\\r\\n<hr/>\\r\\n\\r\\n### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/omi) 或者继续往看下[Omi原理↓↓↓](http://alloyteam.github.io/omi/website/docs.html#环境搭建)\\r\\n\\r\\n\""
 
 /***/ },
 /* 28 */
