@@ -14,7 +14,6 @@ OmiFinger.init = function(){
 
 
 OmiFinger.destroy = function(){
-    Omi.plugins['omi-finger'] = null;
     delete Omi.plugins['omi-finger'];
 };
 

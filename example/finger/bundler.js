@@ -1844,7 +1844,6 @@
 	};
 
 	OmiFinger.destroy = function () {
-	    _index2['default'].plugins['omi-finger'] = null;
 	    delete _index2['default'].plugins['omi-finger'];
 	};
 
