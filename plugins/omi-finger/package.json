@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "alloyfinger": "^0.1.4",
-    "omi": "^0.1.6"
+    "omi": "^0.1.7"
   },
   "devDependencies": {
     "babel-core": "^6.0.20",
