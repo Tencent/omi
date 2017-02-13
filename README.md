@@ -22,6 +22,10 @@ Open and modern framework for building user interfaces.
 
 <img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png">
 
+## 生态
+
+* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger)
+
 ## 通过npm安装 
 
 ``` js
