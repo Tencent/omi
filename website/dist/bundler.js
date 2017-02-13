@@ -129,7 +129,7 @@
 	    }, {
 	        key: 'style',
 	        value: function style() {
-	            return '\n        .main{\n             position: absolute;\n            left:220px;\n            top:45px;\n            overflow-x:hidden;\n            overflow-y:auto;\n\n        }';
+	            return '\n        .main{\n            position: absolute;\n            left:220px;\n            top:45px;\n            overflow-x:hidden;\n            overflow-y:auto;\n            -webkit-overflow-scrolling : touch;\n        }';
 	        }
 	    }, {
 	        key: 'afterUpdate',
@@ -1365,6 +1365,10 @@
 	                    _this5.refs[node.getAttribute('ref')] = node;
 	                }
 	            });
+	            var attr = this.node.getAttribute('ref');
+	            if (attr) {
+	                this.refs[attr] = this.node;
+	            }
 	        }
 	    }, {
 	        key: '_execPlugins',
@@ -1378,6 +1382,9 @@
 	                        _omi2['default'].plugins[item](node, _this6);
 	                    }
 	                });
+	                if (_this6.node.hasAttribute(item)) {
+	                    _omi2['default'].plugins[item](_this6.node, _this6);
+	                }
 	            });
 	        }
 	    }, {
