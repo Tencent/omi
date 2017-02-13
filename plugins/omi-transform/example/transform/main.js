@@ -1,7 +1,7 @@
 ﻿import Omi from 'omi';
-import OmiFinger from '../../omi-transform.js';
+import OmiTransform from '../../omi-transform.js';
 
-OmiFinger.init();
+OmiTransform.init();
 
 class App extends Omi.Component {
     constructor(data) {

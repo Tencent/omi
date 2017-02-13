@@ -85,7 +85,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n\n            <div omi-transform class="test" ref="test" rotateZ="45" translateX="200" >\n                omi-transform\n            </div>\n\n        ';
+	            return '\n            <div omi-transform class="test" ref="test" rotateZ="45" translateX="100" >\n                omi-transform\n            </div>\n\n        ';
 	        }
 	    }, {
 	        key: 'style',

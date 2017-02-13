@@ -1,50 +1,60 @@
-﻿## omi-finger
+﻿## omi-transform 
 
-Omi的AlloyFinger插件，让你轻松在Omi项目里支持各种触摸事件和手势。
+Omi的[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/)插件，让你轻松在Omi项目里快速简便支持CSS3 Transform设置。
 
 ---
 
 ## 通过npm安装 
 
 ``` js
-npm install omi-finger
+npm install omi-transform
 ```
 
 ## 使用
 
 ```js
 import Omi from 'omi';
-import OmiFinger from '../../omi-finger.js';
+import OmiTransform from '../../omi-transform.js';
 
-OmiFinger.init();
+OmiTransform.init();
 
 class App extends Omi.Component {
     constructor(data) {
         super(data);
     }
 
-    handleTap(evt){
-        this.refs.touchArea.innerHTML+='<br/>Tap';
-    }
-
-    handleSwipe(evt){
-        this.refs.touchArea.innerHTML+='<br/>Swipe-'+ evt.direction;
+    installed(){
+        setInterval(function(){
+            this.refs.test.rotateZ += 0.1;
+        }.bind(this));
     }
 
     render() {
         return  `
-        <div>
-            <div omi-finger ref="touchArea" onTap="handleTap"  onSwipe="handleSwipe" >
-                Tap or Swipe Me!
+            <div omi-transform class="test" ref="test" rotateZ="45" translateX="100" >
+                omi-transform
             </div>
-        </div>
+
         `;
+    }
+
+    style(){
+        return  `
+            .test{
+                font-size: 20px;
+                border: 1px solid red;
+                width: 150px;
+                font-size
+                min-height: 150px;
+                text-align: center;
+                line-height:150px;
+            }
+         `;
     }
 }
 
 Omi.render(new App(),"#container");
 ```
-
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
