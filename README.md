@@ -25,6 +25,7 @@ Open and modern framework for building user interfaces.
 ## 生态
 
 * [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger)
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform)
 
 ## 通过npm安装 
 
