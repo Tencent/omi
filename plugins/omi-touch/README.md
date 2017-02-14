@@ -1,4 +1,4 @@
-﻿## omi-finger
+﻿## omi-touch
 
 Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）。
 
@@ -8,7 +8,7 @@ Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的
 
 ![omi-touch](./omi-touch.png)
 
-[http://alloyteam.github.io/omi/plugins/omi-finger/example/finger/](http://alloyteam.github.io/omi/plugins/omi-finger/example/finger/)
+[http://alloyteam.github.io/omi/plugins/omi-touch/example/touch/](http://alloyteam.github.io/omi/plugins/omi-touch/example/touch/)
 
 ## 通过npm安装 
 
