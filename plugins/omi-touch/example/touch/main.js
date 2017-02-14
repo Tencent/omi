@@ -53,7 +53,7 @@ class App extends Omi.Component {
     render() {
         return  `
         <div class="main">
-            <div  omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >
+            <div omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >
                         <ul ref="scroller">
                             <li>Hello, Omi-Touch!</li>
                             <li>AlloyTouch</li>
