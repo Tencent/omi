@@ -8,7 +8,7 @@ var ENV = process.env.npm_lifecycle_event;
 
 var config  = {
     entry: {
-        vendor: ['./src/common/omi.js'],
+        vendor: ['omi'],
         index: './src/js/index.js',
         other: './src/js/other.js'
     },

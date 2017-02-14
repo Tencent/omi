@@ -1,5 +1,5 @@
 import Root from './config.js';
-import Omi from '../common/omi.js';
+import Omi from 'omi';
 
 import Header from '../component/header/header.js';
 import Footer from '../component/footer/Footer.js';

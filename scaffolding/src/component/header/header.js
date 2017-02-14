@@ -1,4 +1,4 @@
-import Omi from '../../common/omi.js';
+import Omi from 'omi';
 
 class Header extends Omi.Component {
     constructor (data) {
