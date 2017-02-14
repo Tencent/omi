@@ -167,14 +167,14 @@ Omi.render(new App(),"#container");
 ### 特别强调
 
 * 通过childrenData或者data方式通讯都是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件
-* 通过data-*通讯也是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件。
-* 关于data-*通讯也可以不是一锤子买卖，但是要设置组件实例的dataFirst为false，这样的话data-*就会覆盖组件实例的data对应的属性
+* 通过data-✼通讯也是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件。
+* 关于data-✼通讯也可以不是一锤子买卖，但是要设置组件实例的dataFirst为false，这样的话data-✼就会覆盖组件实例的data对应的属性
 
 关于上面的第三条也就是这样的逻辑伪代码：
 ```js
 if(this.dataFirst){
-    this.data = Object.assign({},data-* ,this.data);
+    this.data = Object.assign({},data-✼ ,this.data);
 }else{
-    this.data = Object.assign({},this.data, data-*);
+    this.data = Object.assign({},this.data, data-✼);
 }
 ```
