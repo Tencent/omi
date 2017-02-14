@@ -1,6 +1,6 @@
 ﻿## omi-finger
 
-Omi的AlloyFinger插件，让你轻松在Omi项目里支持各种触摸事件和手势。
+Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，让你轻松在Omi项目里支持各种触摸事件和手势。
 
 ---
 
