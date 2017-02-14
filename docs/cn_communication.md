@@ -1,14 +1,15 @@
 <h2 id="组件通讯">组件通讯</h2>
 
-使用Omi，其实没有组件通讯的概念，因为：
+[Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常遍历灵活，因为有许多可选方案进行通讯：
 
-* 通过在子节点上声明 data-* 或者声明 data 传递给子节点 
-* 父容器设置childrenData自动传递给子节点
+* 通过在组件上声明 data-* 传递给子节点 
+* 通过在组件上声明 data 传递给子节点 
+* 父容器设置 childrenData 自动传递给子节点
 * 完全面向对象，可以非常容易地拿到对象的实例，之后可以设置实例属性和调用实例的方法
 
 所以通讯变得畅通无阻，下面一一来举例说明。
 
-### data-*或者data通讯 
+### data-*通讯 
 
 ```js
 class Hello extends Omi.Component {
@@ -54,6 +55,11 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
+一般data-*用来传递值类型，如string、number。值得注意的是，通过data-*接收到的数据类型都是string，需要自行转成number类型。
+通常情况下，data-*能满足我们的要求，但是遇到复杂的数据类型是没有办法通过大量data-*去表达，所以可以通过data通讯，请往下看。
+
+### data通讯 
+
 如上面代码所示，通过 data-name="Omi"可以把name传递给子组件。下面的代码也可以达到同样的效果。
 
 ```js
@@ -76,7 +82,10 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-还可以使用childrenData的方式。
+使用data声明，会去组件的instance（也就是this）下找对应的属性，this下可以挂载任意复杂的对象。所以这也就突破了data-*的局限性。
+
+
+### childrenData通讯
 
 ```js
 ...
@@ -98,7 +107,9 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-### 设置对象实例
+通用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。
+
+### 通过对象实例
 
 ```js
 ...
@@ -124,7 +135,7 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-也可以通过设置omi-id在程序任何地方拿到该对象的实例。如：
+### 通过omi-id
 
 ```js
 ...
@@ -149,4 +160,21 @@ class App extends Omi.Component {
 }
 
 Omi.render(new App(),"#container");
+```
+
+通过在组件上声明omi-id，在程序任何地方拿到该对象的实例。这个可以算是跨任意组件通讯神器。
+
+### 特别强调
+
+* 通过childrenData或者data方式通讯都是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件
+* 通过data-*通讯也是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件。
+* 关于data-*通讯也可以不是一锤子买卖，但是要设置组件实例的dataFirst为false，这样的话data-*就会覆盖组件实例的data对应的属性
+
+关于上面的第三条也就是这样的逻辑伪代码：
+```js
+if(this.dataFirst){
+    this.data = Object.assign({},data-* ,this.data);
+}else{
+    this.data = Object.assign({},this.data, data-*);
+}
 ```
