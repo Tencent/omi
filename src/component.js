@@ -73,6 +73,10 @@ class Component {
                 this.node = hdNode;
             }else{
                 setDOM(this.node, scopedEvent(this._childRender(this._omiChildStr), this.id));
+
+                this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
+                this._queryElements(this);
+                this._fixForm();
             }
         }
         //update added components

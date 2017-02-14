@@ -1,18 +1,19 @@
 {
   "name": "omi-transform",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Omi / css3transform  integration. Support CSS3 transformation in your Omi project. ",
   "main": "omi-transform.js",
   "scripts": {
-    "transform": "webpack -w"
+    "transform": "webpack -w",
+    "nest": "webpack -w"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AlloyTeam/omi.git"
   },
   "dependencies": {
-    "css3transform": "^1.1.3",
-    "omi": "^0.1.7"
+    "css3transform": "^1.1.4",
+    "omi": "latest"
   },
   "devDependencies": {
     "babel-core": "^6.0.20",

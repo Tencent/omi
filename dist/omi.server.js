@@ -1061,6 +1061,10 @@
 	                    this.node = hdNode;
 	                } else {
 	                    (0, _diff2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
+
+	                    this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
+	                    this._queryElements(this);
+	                    this._fixForm();
 	                }
 	            }
 	            //update added components

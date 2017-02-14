@@ -1,13 +1,13 @@
 {
   "name": "omis",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Scaffolding for Omi.js",
   "scripts": {
     "dev": "gulp",
     "dist": "gulp"
   },
   "dependencies": {
-    "omi": "^0.1.7"
+    "omi": "latest"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",

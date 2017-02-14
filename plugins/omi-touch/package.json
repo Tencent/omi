@@ -1,6 +1,6 @@
 {
   "name": "omi-touch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AlloyTouch / Omi integration. Smooth scrolling, rotation, pull to refresh, page transition and any motion for your Omi project.",
   "main": "omi-touch.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "dependencies": {
     "css3transform": "^1.1.3",
     "alloytouch": "^0.2.1",
-    "omi": "^0.1.7"
+    "omi": "latest"
   },
   "devDependencies": {
     "babel-core": "^6.0.20",
