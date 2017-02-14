@@ -102,6 +102,12 @@ Omi.render(new Hello({ name : "Omi" }),"body");
 * If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
 
+## Plugins
+
+* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) :  Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) :  Omi /[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/) integration.
+* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) :  Omi /[AlloyTouch](http://alloyteam.github.io/AlloyTouch/) integration.
+
 ## Install
 
 ``` js
