@@ -1,19 +1,11 @@
 ﻿import Omi from 'omi';
-import OmiFinger from '../../omi-touch.js';
+import OmiTouch from '../../omi-touch.js';
 
-OmiFinger.init();
+OmiTouch.init();
 
 class App extends Omi.Component {
     constructor(data) {
         super(data);
-    }
-
-    handleTap(evt){
-
-    }
-
-    handleSwipe(evt){
-
     }
 
     style(){
@@ -37,6 +29,8 @@ class App extends Omi.Component {
             margin: 0;
             width: 100%;
             text-align: left;
+            font-size: 14px;
+            transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
         }
 
         .main li {
@@ -49,14 +43,18 @@ class App extends Omi.Component {
             font-size: 14px;
         }
 
+        .touchArea{
+            height: 250px;
+            overflow: hidden;
+        }
          `;
     }
 
     render() {
         return  `
         <div class="main">
-            <div style="height: 250px;overflow: hidden;"  omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0"  onTap="handleTap"  onSwipe="handleSwipe" >
-                        <ul ref="scroller"  style="list-style: none; text-align: left; font-size: 14px; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
+            <div  omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >
+                        <ul ref="scroller">
                             <li>Hello, Omi-Touch!</li>
                             <li>AlloyTouch</li>
                             <li>Transformjs</li>

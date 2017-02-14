@@ -1,48 +1,50 @@
 ﻿## omi-finger
 
-Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，让你轻松在Omi项目里支持各种触摸事件和手势。
+Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）。
 
 ---
 
 ## Demo
 
-![omi-finger](./omi-finger.png)
+![omi-touch](./omi-touch.png)
 
 [http://alloyteam.github.io/omi/plugins/omi-finger/example/finger/](http://alloyteam.github.io/omi/plugins/omi-finger/example/finger/)
 
 ## 通过npm安装 
 
 ``` js
-npm install omi-finger
+npm install omi-touch
 ```
 
 ## 使用
 
 ```js
 import Omi from 'omi';
-import OmiFinger from '../../omi-finger.js';
+import OmiTouch from '../../omi-touch.js';
 
-OmiFinger.init();
+OmiTouch.init();
 
 class App extends Omi.Component {
     constructor(data) {
         super(data);
     }
 
-    handleTap(evt){
-        this.refs.touchArea.innerHTML+='<br/>Tap';
-    }
-
-    handleSwipe(evt){
-        this.refs.touchArea.innerHTML+='<br/>Swipe-'+ evt.direction;
-    }
-
     render() {
         return  `
-        <div>
-            <div omi-finger ref="touchArea" onTap="handleTap"  onSwipe="handleSwipe" >
-                Tap or Swipe Me!
-            </div>
+        <div class="main">
+            <div  omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >
+                        <ul ref="scroller">
+                            <li>Hello, Omi-Touch!</li>
+                            <li>AlloyTouch</li>
+                            <li>Transformjs</li>
+                            <li>AlloyFinger</li>
+                            <li>Omi</li>
+                            ...
+                            ...
+                            <li> row 24</li>
+                            <li style="border-bottom: none;"> row 25</li>
+                        </ul>
+                    </div>
         </div>
         `;
     }
