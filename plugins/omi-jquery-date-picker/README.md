@@ -5,8 +5,10 @@ Omi的[jquery-date-range-picker](https://github.com/longbill/jquery-date-range-p
 ---
 
 ## Demo
-![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170215195952691-1738483673.jpg)
+
 [http://alloyteam.github.io/omi/plugins/omi-jquery-date-picker/example/simple/](http://alloyteam.github.io/omi/plugins/omi-jquery-date-picker/example/simple/)
+![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170215195952691-1738483673.jpg)
+
 
 ## 通过npm安装 
 
