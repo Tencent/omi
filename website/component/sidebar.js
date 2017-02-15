@@ -12,7 +12,7 @@ class Sidebar extends Omi.Component {
     install () {
         this.data.items = config[this.data.lan+'_menus'] ;
         this.data.height = window.innerHeight -45;
-        this.childrenData = this.data.items;
+        this.itemsData = this.data.items;
     }
 
     style () {
@@ -36,7 +36,7 @@ class Sidebar extends Omi.Component {
         return `
         <div class="list" style="height:{{height}}px;">
            <div class="version"></div>
-          {{#items}}<List /> {{/items}}
+          {{#items}}<List group-data="itemsData" /> {{/items}}
         </div>`;
     }
 }

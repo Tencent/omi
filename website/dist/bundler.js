@@ -1134,6 +1134,7 @@
 	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
 	        //this.BODY_ELEMENT = document.createElement('body');
 	        this._preCSS = null;
+	        this._omiGroupDataCounter = {};
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
@@ -1177,6 +1178,10 @@
 	                    this.node = hdNode;
 	                } else {
 	                    (0, _diff2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
+
+	                    this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
+	                    this._queryElements(this);
+	                    this._fixForm();
 	                }
 	            }
 	            //update added components
@@ -1456,7 +1461,9 @@
 	        value: function _mergeData(childStr, isFirst) {
 	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
 	            if (isFirst) {
-	                this.data = Object.assign(this.data, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null);
+	                var parentData = arr ? this.parent[RegExp.$1] : null;
+	                var groupArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
+	                this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this.parent[RegExp.$1][this._omiGroupDataIndex] : null);
 	            } else {
 	                if (this.dataFirst) {
 	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
@@ -1566,6 +1573,17 @@
 	                                    }
 	                                });
 	                            }
+
+	                            var groupNameArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
+	                            if (groupNameArr) {
+	                                if (child._omiGroupDataCounter.hasOwnProperty(RegExp.$1)) {
+	                                    child._omiGroupDataCounter[RegExp.$1]++;
+	                                    sub_child._omiGroupDataIndex = child._omiGroupDataCounter[RegExp.$1];
+	                                } else {
+	                                    sub_child._omiGroupDataIndex = child._omiGroupDataCounter[RegExp.$1] = 0;
+	                                }
+	                            }
+
 	                            sub_child._childRender(childStr, true);
 
 	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"]/);
@@ -1579,7 +1597,6 @@
 	                            }
 
 	                            var nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
-
 	                            if (nameArr) {
 	                                child[RegExp.$1] = sub_child;
 	                            }
@@ -2190,7 +2207,7 @@
 	        value: function install() {
 	            this.data.items = _config2['default'][this.data.lan + '_menus'];
 	            this.data.height = window.innerHeight - 45;
-	            this.childrenData = this.data.items;
+	            this.itemsData = this.data.items;
 	        }
 	    }, {
 	        key: 'style',
@@ -2200,7 +2217,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div class="list" style="height:{{height}}px;">\n           <div class="version"></div>\n          {{#items}}<List /> {{/items}}\n        </div>';
+	            return '\n        <div class="list" style="height:{{height}}px;">\n           <div class="version"></div>\n          {{#items}}<List group-data="itemsData" /> {{/items}}\n        </div>';
 	        }
 	    }]);
 
