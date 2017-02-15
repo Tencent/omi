@@ -16,7 +16,7 @@ npm install omi-jquery-date-picker
 
 ## 使用
 
-现引入一堆[jquery-date-range-picker](http://longbill.github.io/jquery-date-range-picker/)依赖的文件:
+先引入一堆[jquery-date-range-picker](http://longbill.github.io/jquery-date-range-picker/)依赖的文件:
 
 ```html
 <link rel="stylesheet" href="http://longbill.github.io/jquery-date-range-picker/dist/daterangepicker.min.css">
@@ -25,33 +25,28 @@ npm install omi-jquery-date-picker
 <script type="text/javascript" src="http://longbill.github.io/jquery-date-range-picker/dist/jquery.daterangepicker.min.js"></script>
 ```
 
-在Omi项目里使用:
+然后在Omi项目里使用:
 
 ```js
 import Omi from 'omi';
-import OmiFinger from '../../omi-finger.js';
+import OmiJQueryDatePicker from 'omi-jquery-date-picker';
 
-OmiFinger.init();
+OmiJQueryDatePicker.init();
 
 class App extends Omi.Component {
     constructor(data) {
         super(data);
     }
 
-    handleTap(evt){
-        this.refs.touchArea.innerHTML+='<br/>Tap';
-    }
-
-    handleSwipe(evt){
-        this.refs.touchArea.innerHTML+='<br/>Swipe-'+ evt.direction;
+    applyHandle(evt, obj){
+        console.log('apply', obj);
+        console.log(this.datePicker);
     }
 
     render() {
         return  `
         <div>
-            <div omi-finger ref="touchArea" onTap="handleTap"  onSwipe="handleSwipe" >
-                Tap or Swipe Me!
-            </div>
+            <input omi-jquery-date-picker language="cn" instanceRef="datePicker" size="40" value="" onApply="applyHandle" >
         </div>
         `;
     }
@@ -59,7 +54,6 @@ class App extends Omi.Component {
 
 Omi.render(new App(),"#container");
 ```
-
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
