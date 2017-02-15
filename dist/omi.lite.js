@@ -1,5 +1,5 @@
 /*!
- *  Omi v0.1.8 By dntzhang 
+ *  Omi v0.1.9 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -393,6 +393,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
 	        //this.BODY_ELEMENT = document.createElement('body');
 	        this._preCSS = null;
+	        this._omiGroupDataCounter = {};
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
@@ -719,7 +720,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _mergeData(childStr, isFirst) {
 	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
 	            if (isFirst) {
-	                this.data = Object.assign(this.data, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null);
+	                var parentData = arr ? this.parent[RegExp.$1] : null;
+	                var groupArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
+	                this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this.parent[RegExp.$1][this._omiGroupDataIndex] : null);
 	            } else {
 	                if (this.dataFirst) {
 	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
@@ -829,6 +832,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    }
 	                                });
 	                            }
+
+	                            var groupNameArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
+	                            if (groupNameArr) {
+	                                if (child._omiGroupDataCounter.hasOwnProperty(RegExp.$1)) {
+	                                    child._omiGroupDataCounter[RegExp.$1]++;
+	                                    sub_child._omiGroupDataIndex = child._omiGroupDataCounter[RegExp.$1];
+	                                } else {
+	                                    sub_child._omiGroupDataIndex = child._omiGroupDataCounter[RegExp.$1] = 0;
+	                                }
+	                            }
+
 	                            sub_child._childRender(childStr, true);
 
 	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"]/);
@@ -842,7 +856,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            }
 
 	                            var nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
-
 	                            if (nameArr) {
 	                                child[RegExp.$1] = sub_child;
 	                            }
