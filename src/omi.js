@@ -214,4 +214,43 @@ Omi.extendPlugin = function(name, handler) {
     Omi.plugins[name] = handler;
 }
 
+Omi.getParameters = function(dom, instance, types){
+    let data = { };
+    let noop = function(){ };
+    let methodMapping = {
+        stringType : value =>{
+            return value;
+        },
+        numberType: value =>{
+            return Number(value);
+        },
+        booleanType: (value)=> {
+            if (value === 'true') {
+                return true;
+            } else if (value === 'false') {
+                return false;
+            } else {
+                return Boolean(value);
+            }
+        },
+        functionType:  value =>{
+            if(value) {
+                return instance[value].bind(instance);
+            }else{
+                return noop;
+            }
+        }
+    };
+    Object.keys(types).forEach(type => {
+        types[type].forEach(name => {
+            let attr =  dom.getAttribute(name);
+            if(attr !== null) {
+                data[name] = methodMapping[type](attr);
+            }
+        } )
+    });
+
+    return data;
+}
+
 module.exports = Omi;

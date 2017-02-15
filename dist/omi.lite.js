@@ -1,5 +1,5 @@
 /*!
- *  Omi v0.1.9 By dntzhang 
+ *  Omi v0.1.10 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -326,6 +326,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Omi.extendPlugin = function (name, handler) {
 	    Omi.plugins[name] = handler;
+	};
+
+	Omi.getParameters = function (dom, instance, types) {
+	    var data = {};
+	    var noop = function noop() {};
+	    var methodMapping = {
+	        stringType: function stringType(value) {
+	            return value;
+	        },
+	        numberType: function numberType(value) {
+	            return Number(value);
+	        },
+	        booleanType: function booleanType(value) {
+	            if (value === 'true') {
+	                return true;
+	            } else if (value === 'false') {
+	                return false;
+	            } else {
+	                return Boolean(value);
+	            }
+	        },
+	        functionType: function functionType(value) {
+	            if (value) {
+	                return instance[value].bind(instance);
+	            } else {
+	                return noop;
+	            }
+	        }
+	    };
+	    Object.keys(types).forEach(function (type) {
+	        types[type].forEach(function (name) {
+	            var attr = dom.getAttribute(name);
+	            if (attr !== null) {
+	                data[name] = methodMapping[type](attr);
+	            }
+	        });
+	    });
+
+	    return data;
 	};
 
 	module.exports = Omi;
