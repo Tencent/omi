@@ -9,7 +9,7 @@ class List extends Omi.Component {
         return `<div>
                     <ul>
                     ` + this.data.items.map(item =>
-                        '<li id="' + item.id + '">' + item.text + '</li>'
+                        `<li id="${item.id}">${item.text}</li>`
                     ).join("") + `
                     </ul>
                 </div>`;
