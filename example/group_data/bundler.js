@@ -70,14 +70,35 @@
 
 	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, data));
 
-	        _this.testData = [{ name: 'Omi' }, { name: 'dntzhang' }, { name: 'AlloyTeam' }];
+	        _this.simple = { name: 'webpack' };
+
+	        _this.testGroupData = [{ name: 'gp1' }, { name: 'gp2' }];
+
+	        _this.aaa = {};
+	        _this.aaa.testData = [{ name: 'Omi' }, { name: 'dntzhang' }, { name: 'AlloyTeam' }];
+
+	        _this.complexData = {
+	            a: {
+	                b: {
+	                    c: [{
+	                        e: [{
+	                            name: 'ComplexData Support1'
+	                        }, {
+	                            name: 'ComplexData Support2'
+	                        }]
+	                    }, {
+	                        name: 'ComplexData Support3'
+	                    }]
+	                }
+	            }
+	        };
 	        return _this;
 	    }
 
 	    _createClass(App, [{
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div>\n            <Hello group-data="testData" />\n            <Hello group-data="testData" />\n            <Hello group-data="testData" />\n        </div>\n        ';
+	            return '\n        <div>\n            <Hello data="simple" />\n            <Hello\n            data="complexData.a.b.c[1]"\n            />\n\n            <Hello group-data="testGroupData" />\n            <Hello group-data="testGroupData" />\n\n            <Hello group-data="aaa.testData" />\n            <Hello group-data="aaa.testData" />\n            <Hello group-data="aaa.testData" />\n\n            <Hello group-data="complexData.a.b.c[0].e" />\n            <Hello group-data="complexData.a.b.c[0].e" />\n        </div>\n        ';
 	        }
 	    }]);
 
@@ -416,6 +437,51 @@
 
 	Omi.extendPlugin = function (name, handler) {
 	    Omi.plugins[name] = handler;
+	};
+
+	Omi.getParameters = function (dom, instance, types) {
+	    var data = {};
+	    var noop = function noop() {};
+	    var methodMapping = {
+	        stringType: function stringType(value) {
+	            return value;
+	        },
+	        numberType: function numberType(value) {
+	            return Number(value);
+	        },
+	        booleanType: function booleanType(value) {
+	            if (value === 'true') {
+	                return true;
+	            } else if (value === 'false') {
+	                return false;
+	            } else {
+	                return Boolean(value);
+	            }
+	        },
+	        functionType: function functionType(value) {
+	            if (value) {
+	                var handler = instance[value.replace(/Omi.instances\[\d\]./, '')];
+	                if (handler) {
+	                    return handler.bind(instance);
+	                } else {
+	                    console.warn('You do not define [ ' + value + ' ] method in following component');
+	                    console.warn(instance);
+	                }
+	            } else {
+	                return noop;
+	            }
+	        }
+	    };
+	    Object.keys(types).forEach(function (type) {
+	        types[type].forEach(function (name) {
+	            var attr = dom.getAttribute(name);
+	            if (attr !== null) {
+	                data[name] = methodMapping[type](attr);
+	            }
+	        });
+	    });
+
+	    return data;
 	};
 
 	module.exports = Omi;
@@ -1297,7 +1363,7 @@
 	                this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >';
 	                return this.HTML;
 	            }
-	            childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
+	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
 	            this._mergeData(childStr, isFirst);
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
@@ -1423,11 +1489,14 @@
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr, isFirst) {
-	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
+	            console.log(childStr);
+	            var arr = childStr.match(/\s+data=['|"](\S*)['|"][\s+|/]/);
 	            if (isFirst) {
-	                var parentData = arr ? this.parent[RegExp.$1] : null;
-	                var groupArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
-	                this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this.parent[RegExp.$1][this._omiGroupDataIndex] : null);
+	                console.log(arr);
+	                var parentData = arr ? this._extractPropertyFromString(RegExp.$1, this.parent) : null;
+	                console.log(parentData);
+	                var groupArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
+	                this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
 	            } else {
 	                if (this.dataFirst) {
 	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
@@ -1497,19 +1566,30 @@
 	            return str.substring(0, 1).toLowerCase() + str.substring(1);
 	        }
 	    }, {
+	        key: '_extractPropertyFromString',
+	        value: function _extractPropertyFromString(str, instance) {
+	            var arr = str.replace(/['|"|\]]/g, '').replace(/\[/g, '.').split('.');
+	            var current = instance;
+	            arr.forEach(function (prop) {
+	                current = current[prop];
+	            });
+	            arr = null;
+	            return current;
+	        }
+	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
 	            if (_omi2['default'].customTags.length > 0) {
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
-
+	            console.log(arr);
 	            if (arr) {
 	                var len = arr.length;
 
 	                for (var i = 0; i < len; i++) {
 	                    var childStr = arr[i];
-	                    childStr.match(/\s*tag=['|"](\S*)['|"]/);
+	                    childStr.match(/\s+tag=['|"](\S*)['|"][\s+|/]/);
 
 	                    var name = RegExp.$1;
 	                    var cmi = this.children[i];
@@ -1526,7 +1606,7 @@
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
 
-	                            var evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"]/g);
+	                            var evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"][\s+|/]/g);
 	                            if (evtArr) {
 	                                evtArr.forEach(function (item) {
 	                                    var evtArr = item.trim().split("=");
@@ -1537,8 +1617,8 @@
 	                                    }
 	                                });
 	                            }
-
-	                            var groupNameArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
+	                            console.log(childStr);
+	                            var groupNameArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
 	                            if (groupNameArr) {
 	                                if (child._omiGroupDataCounter.hasOwnProperty(RegExp.$1)) {
 	                                    child._omiGroupDataCounter[RegExp.$1]++;
@@ -1550,7 +1630,7 @@
 
 	                            sub_child._childRender(childStr, true);
 
-	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"]/);
+	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"][\s+|/]/);
 	                            if (mo_ids) {
 	                                _omi2['default'].mapping[RegExp.$1] = sub_child;
 	                            }
@@ -1560,7 +1640,7 @@
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            var nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
+	                            var nameArr = childStr.match(/\s+name=['|"](\S*)['|"][\s+|/]/);
 	                            if (nameArr) {
 	                                child[RegExp.$1] = sub_child;
 	                            }

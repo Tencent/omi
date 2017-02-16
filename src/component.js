@@ -209,7 +209,7 @@ class Component {
             this.HTML = '<input type="hidden" omi_scoped_'+this.id+' >';
             return this.HTML;
         }
-        childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
+        //childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
         this._mergeData(childStr,isFirst);
         this._generateHTMLCSS();
         this._extractChildren(this);
@@ -321,11 +321,11 @@ class Component {
     }
 
     _mergeData(childStr,isFirst) {
-        let arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
+        let arr = childStr.match(/\s+data=['|"](\S*)['|"][\s+|/]/);
         if(isFirst) {
-            let parentData = arr ? this.parent[RegExp.$1] : null;
-            let groupArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
-            this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this.parent[RegExp.$1][this._omiGroupDataIndex] : null);
+            let parentData = arr ? this._extractPropertyFromString(RegExp.$1, this.parent) : null;
+            let groupArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
+            this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
         }else{
             if(this.dataFirst){
                 this.data = Object.assign({},this._getDataset(childStr),this.data);
@@ -383,6 +383,17 @@ class Component {
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 
+    _extractPropertyFromString(str, instance){
+        let arr = str.replace(/['|"|\]]/g,'' ).replace(/\[/g,'.').split('.');
+        let current = instance;
+        arr.forEach(prop => {
+            current = current[prop];
+        });
+        arr = null;
+        return current;
+
+    }
+
     _extractChildren(child) {
         if (Omi.customTags.length > 0) {
             child.HTML = this._replaceTags(Omi.customTags, child.HTML);
@@ -394,7 +405,7 @@ class Component {
 
             for (let i = 0; i < len; i++) {
                 let childStr = arr[i];
-                childStr.match(/\s*tag=['|"](\S*)['|"]/);
+                childStr.match(/\s+tag=['|"](\S*)['|"][\s+|/]/);
 
                 let name = RegExp.$1;
                 let cmi = this.children[i];
@@ -410,7 +421,7 @@ class Component {
                     sub_child._omiChildStr = childStr;
                     sub_child.parent = child;
 
-                    let evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"]/g);
+                    let evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"][\s+|/]/g);
                     if(evtArr) {
                         evtArr.forEach((item) => {
                             let evtArr = item.trim().split("=");
@@ -422,7 +433,7 @@ class Component {
                         })
                     }
 
-                    let groupNameArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
+                    let groupNameArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
                     if (groupNameArr) {
                         if(child._omiGroupDataCounter.hasOwnProperty(RegExp.$1)){
                             child._omiGroupDataCounter[RegExp.$1]++;
@@ -434,7 +445,7 @@ class Component {
 
                     sub_child._childRender(childStr,true);
 
-                    let mo_ids = childStr.match(/omi-id=['|"](\S*)['|"]/);
+                    let mo_ids = childStr.match(/omi-id=['|"](\S*)['|"][\s+|/]/);
                     if (mo_ids) {
                         Omi.mapping[RegExp.$1] = sub_child;
                     }
@@ -444,7 +455,7 @@ class Component {
                         child.children[i] = sub_child;
                     }
 
-                    let nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
+                    let nameArr = childStr.match(/\s+name=['|"](\S*)['|"][\s+|/]/);
                     if (nameArr) {
                         child[RegExp.$1] = sub_child;
                     }
