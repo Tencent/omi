@@ -1378,7 +1378,7 @@
 	                this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >';
 	                return this.HTML;
 	            }
-	            childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
+	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
 	            this._mergeData(childStr, isFirst);
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
@@ -1504,11 +1504,11 @@
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr, isFirst) {
-	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
+	            var arr = childStr.match(/\s+data=['|"](\S*)['|"][\s+|/]/);
 	            if (isFirst) {
-	                var parentData = arr ? this.parent[RegExp.$1] : null;
-	                var groupArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
-	                this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this.parent[RegExp.$1][this._omiGroupDataIndex] : null);
+	                var parentData = arr ? this._extractPropertyFromString(RegExp.$1, this.parent) : null;
+	                var groupArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
+	                this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
 	            } else {
 	                if (this.dataFirst) {
 	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
@@ -1578,6 +1578,17 @@
 	            return str.substring(0, 1).toLowerCase() + str.substring(1);
 	        }
 	    }, {
+	        key: '_extractPropertyFromString',
+	        value: function _extractPropertyFromString(str, instance) {
+	            var arr = str.replace(/['|"|\]]/g, '').replace(/\[/g, '.').split('.');
+	            var current = instance;
+	            arr.forEach(function (prop) {
+	                current = current[prop];
+	            });
+	            arr = null;
+	            return current;
+	        }
+	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
 	            if (_omi2['default'].customTags.length > 0) {
@@ -1590,7 +1601,7 @@
 
 	                for (var i = 0; i < len; i++) {
 	                    var childStr = arr[i];
-	                    childStr.match(/\s*tag=['|"](\S*)['|"]/);
+	                    childStr.match(/\s+tag=['|"](\S*)['|"][\s+|/]/);
 
 	                    var name = RegExp.$1;
 	                    var cmi = this.children[i];
@@ -1607,7 +1618,7 @@
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
 
-	                            var evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"]/g);
+	                            var evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"][\s+|/]/g);
 	                            if (evtArr) {
 	                                evtArr.forEach(function (item) {
 	                                    var evtArr = item.trim().split("=");
@@ -1619,7 +1630,7 @@
 	                                });
 	                            }
 
-	                            var groupNameArr = childStr.match(/\s*group-data=['|"](\S*)['|"]/);
+	                            var groupNameArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
 	                            if (groupNameArr) {
 	                                if (child._omiGroupDataCounter.hasOwnProperty(RegExp.$1)) {
 	                                    child._omiGroupDataCounter[RegExp.$1]++;
@@ -1631,7 +1642,7 @@
 
 	                            sub_child._childRender(childStr, true);
 
-	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"]/);
+	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"][\s+|/]/);
 	                            if (mo_ids) {
 	                                _omi2['default'].mapping[RegExp.$1] = sub_child;
 	                            }
@@ -1641,7 +1652,7 @@
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            var nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
+	                            var nameArr = childStr.match(/\s+name=['|"](\S*)['|"][\s+|/]/);
 	                            if (nameArr) {
 	                                child[RegExp.$1] = sub_child;
 	                            }
@@ -2252,7 +2263,6 @@
 	        value: function install() {
 	            this.data.items = _config2['default'][this.data.lan + '_menus'];
 	            this.data.height = window.innerHeight - 45;
-	            this.itemsData = this.data.items;
 	        }
 	    }, {
 	        key: 'style',
@@ -2262,7 +2272,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div class="list" style="height:{{height}}px;">\n           <div class="version"></div>\n          {{#items}}<List group-data="itemsData" /> {{/items}}\n        </div>';
+	            return '\n        <div class="list" style="height:{{height}}px;">\n           <div class="version"></div>\n          {{#items}}<List group-data="data.items" /> {{/items}}\n        </div>';
 	        }
 	    }]);
 
