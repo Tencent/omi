@@ -454,6 +454,51 @@
 	    Omi.plugins[name] = handler;
 	};
 
+	Omi.getParameters = function (dom, instance, types) {
+	    var data = {};
+	    var noop = function noop() {};
+	    var methodMapping = {
+	        stringType: function stringType(value) {
+	            return value;
+	        },
+	        numberType: function numberType(value) {
+	            return Number(value);
+	        },
+	        booleanType: function booleanType(value) {
+	            if (value === 'true') {
+	                return true;
+	            } else if (value === 'false') {
+	                return false;
+	            } else {
+	                return Boolean(value);
+	            }
+	        },
+	        functionType: function functionType(value) {
+	            if (value) {
+	                var handler = instance[value.replace(/Omi.instances\[\d\]./, '')];
+	                if (handler) {
+	                    return handler.bind(instance);
+	                } else {
+	                    console.warn('You do not define [ ' + value + ' ] method in following component');
+	                    console.warn(instance);
+	                }
+	            } else {
+	                return noop;
+	            }
+	        }
+	    };
+	    Object.keys(types).forEach(function (type) {
+	        types[type].forEach(function (name) {
+	            var attr = dom.getAttribute(name);
+	            if (attr !== null) {
+	                data[name] = methodMapping[type](attr);
+	            }
+	        });
+	    });
+
+	    return data;
+	};
+
 	module.exports = Omi;
 
 /***/ },
@@ -2061,7 +2106,7 @@
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"组件通讯\\\">组件通讯</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常遍历灵活，因为有许多可选方案进行通讯：\\r\\n\\r\\n* 通过在组件上声明 data-* 传递给子节点 \\r\\n* 通过在组件上声明 data 传递给子节点 \\r\\n* 父容器设置 childrenData 自动传递给子节点\\r\\n* 完全面向对象，可以非常容易地拿到对象的实例，之后可以设置实例属性和调用实例的方法\\r\\n\\r\\n所以通讯变得畅通无阻，下面一一来举例说明。\\r\\n\\r\\n### data-*通讯 \\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n    }\\r\\n    style () {\\r\\n      return  `\\r\\n      h1{\\r\\n      \\tcursor:pointer;\\r\\n      }\\r\\n      `;\\r\\n    }\\r\\n    handleClick(target, evt){\\r\\n      alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n      return  `\\r\\n      <div>\\r\\n      \\t<h1 onclick=\\\"handleClick(this, event)\\\">Hello ,{{name}}!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.makeHTML('Hello', Hello);\\r\\n\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data-name=\\\"Omi\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n一般data-*用来传递值类型，如string、number。值得注意的是，通过data-*接收到的数据类型都是string，需要自行转成number类型。\\r\\n通常情况下，data-*能满足我们的要求，但是遇到复杂的数据类型是没有办法通过大量data-*去表达，所以可以通过data通讯，请往下看。\\r\\n\\r\\n### data通讯 \\r\\n\\r\\n如上面代码所示，通过 data-name=\\\"Omi\\\"可以把name传递给子组件。下面的代码也可以达到同样的效果。\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n      this.helloData = { name : 'Omi' };\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data=\\\"helloData\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n使用data声明，会去组件的instance（也就是this）下找对应的属性，this下可以挂载任意复杂的对象。所以这也就突破了data-*的局限性。\\r\\n\\r\\n\\r\\n### childrenData通讯\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n      this.childrenData = [{ name : 'Omi' }];\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello  />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n通用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。\\r\\n\\r\\n### 通过对象实例\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    \\r\\n    installed(){\\r\\n        this.hello.data.name = \\\"Omi\\\";\\r\\n        this.update()\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello name=\\\"hello\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n### 通过omi-id\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    \\r\\n    installed(){\\r\\n        Omi.get(\\\"hello\\\").data.name = \\\"Omi\\\";\\r\\n        this.update()\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello omi-id=\\\"hello\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n通过在组件上声明omi-id，在程序任何地方拿到该对象的实例。这个可以算是跨任意组件通讯神器。\\r\\n\\r\\n### 特别强调\\r\\n\\r\\n* 通过childrenData或者data方式通讯都是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件\\r\\n* 通过data-✼通讯也是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件。\\r\\n* 关于data-✼通讯也可以不是一锤子买卖，但是要设置组件实例的dataFirst为false，这样的话data-✼就会覆盖组件实例的data对应的属性\\r\\n\\r\\n关于上面的第三条也就是这样的逻辑伪代码：\\r\\n```js\\r\\nif(this.dataFirst){\\r\\n    this.data = Object.assign({},data-✼ ,this.data);\\r\\n}else{\\r\\n    this.data = Object.assign({},this.data, data-✼);\\r\\n}\\r\\n```\""
+	module.exports = "module.exports = \"<h2 id=\\\"组件通讯\\\">组件通讯</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常遍历灵活，因为有许多可选方案进行通讯：\\r\\n\\r\\n* 通过在组件上声明 data-* 传递给子节点 \\r\\n* 通过在组件上声明 data 传递给子节点 \\r\\n* 父容器设置 childrenData 自动传递给子节点\\r\\n* 完全面向对象，可以非常容易地拿到对象的实例，之后可以设置实例属性和调用实例的方法\\r\\n\\r\\n所以通讯变得畅通无阻，下面一一来举例说明。\\r\\n\\r\\n### data-*通讯 \\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n    }\\r\\n    style () {\\r\\n      return  `\\r\\n      h1{\\r\\n      \\tcursor:pointer;\\r\\n      }\\r\\n      `;\\r\\n    }\\r\\n    handleClick(target, evt){\\r\\n      alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n      return  `\\r\\n      <div>\\r\\n      \\t<h1 onclick=\\\"handleClick(this, event)\\\">Hello ,{{name}}!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.makeHTML('Hello', Hello);\\r\\n\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data-name=\\\"Omi\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n一般data-*用来传递值类型，如string、number。值得注意的是，通过data-*接收到的数据类型都是string，需要自行转成number类型。\\r\\n通常情况下，data-*能满足我们的要求，但是遇到复杂的数据类型是没有办法通过大量data-*去表达，所以可以通过data通讯，请往下看。\\r\\n\\r\\n### data通讯 \\r\\n\\r\\n如上面代码所示，通过 data-name=\\\"Omi\\\"可以把name传递给子组件。下面的代码也可以达到同样的效果。\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n      this.helloData = { name : 'Omi' };\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data=\\\"helloData\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n使用data声明，会去组件的instance（也就是this）下找对应的属性，this下可以挂载任意复杂的对象。所以这也就突破了data-*的局限性。\\r\\n\\r\\n\\r\\n### childrenData通讯\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n      this.childrenData = [{ name : 'Omi' }];\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello  />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n通用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。\\r\\n\\r\\n### group-data通讯\\r\\n\\r\\nchildrenData的方式可以批量传递数据给组件，但是有很多场景下data的来源不一定非要都从childrenData来，childrenData是个数组，会和组件的顺序一一对应，这就给不同传递方式的data必须全部集中的childrenData中，非常不方便。group-data专门为解决上面的痛点而生，专门是为了给一组组件批量传递data。\\r\\n\\r\\n```js\\r\\nimport Hello from './hello.js';\\r\\n\\r\\n\\r\\nOmi.makeHTML('Hello', Hello);\\r\\n\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.testData = [{name: 'Omi'}, {name: 'dntzhang'}, {name: 'AlloyTeam'}];\\r\\n    }\\r\\n\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello group-data=\\\"testData\\\" />\\r\\n            <Hello group-data=\\\"testData\\\" />\\r\\n            <Hello group-data=\\\"testData\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n只需要在声明的子组件上标记group-data，就会去当前组件的instance（也就是this）下面找对应的属性，然后根据当前的位置，和对应数组的位置会一一对应起来。\\r\\n\\r\\n运行结果如下：\\r\\n![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170216110701535-1698390390.png)\\r\\n\\r\\n[在线试试->group-data](http://alloyteam.github.io/omi/website/redirect.html?type=group_data)\\r\\n\\r\\n### 通过对象实例\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    \\r\\n    installed(){\\r\\n        this.hello.data.name = \\\"Omi\\\";\\r\\n        this.update()\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello name=\\\"hello\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n### 通过omi-id\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    \\r\\n    installed(){\\r\\n        Omi.get(\\\"hello\\\").data.name = \\\"Omi\\\";\\r\\n        this.update()\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello omi-id=\\\"hello\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n通过在组件上声明omi-id，在程序任何地方拿到该对象的实例。这个可以算是跨任意组件通讯神器。\\r\\n\\r\\n### 特别强调\\r\\n\\r\\n* 通过childrenData或者data方式通讯都是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件\\r\\n* 通过data-✼通讯也是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件。\\r\\n* 关于data-✼通讯也可以不是一锤子买卖，但是要设置组件实例的dataFirst为false，这样的话data-✼就会覆盖组件实例的data对应的属性\\r\\n\\r\\n关于上面的第三条也就是这样的逻辑伪代码：\\r\\n```js\\r\\nif(this.dataFirst){\\r\\n    this.data = Object.assign({},data-✼ ,this.data);\\r\\n}else{\\r\\n    this.data = Object.assign({},this.data, data-✼);\\r\\n}\\r\\n```\""
 
 /***/ },
 /* 14 */

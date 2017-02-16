@@ -109,6 +109,44 @@ Omi.render(new App(),"#container");
 
 通用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。
 
+### group-data通讯
+
+childrenData的方式可以批量传递数据给组件，但是有很多场景下data的来源不一定非要都从childrenData来，childrenData是个数组，会和组件的顺序一一对应，这就给不同传递方式的data必须全部集中的childrenData中，非常不方便。group-data专门为解决上面的痛点而生，专门是为了给一组组件批量传递data。
+
+```js
+import Hello from './hello.js';
+
+
+Omi.makeHTML('Hello', Hello);
+
+class App extends Omi.Component {
+    constructor(data) {
+        super(data);
+        this.testData = [{name: 'Omi'}, {name: 'dntzhang'}, {name: 'AlloyTeam'}];
+    }
+
+    render() {
+        return  `
+        <div>
+            <Hello group-data="testData" />
+            <Hello group-data="testData" />
+            <Hello group-data="testData" />
+        </div>
+        `;
+
+    }
+}
+
+Omi.render(new App(),"#container");
+```
+
+只需要在声明的子组件上标记group-data，就会去当前组件的instance（也就是this）下面找对应的属性，然后根据当前的位置，和对应数组的位置会一一对应起来。
+
+运行结果如下：
+![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170216110701535-1698390390.png)
+
+[在线试试->group-data](http://alloyteam.github.io/omi/website/redirect.html?type=group_data)
+
 ### 通过对象实例
 
 ```js
