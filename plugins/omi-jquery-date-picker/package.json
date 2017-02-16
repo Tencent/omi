@@ -1,6 +1,6 @@
 {
   "name": "omi-jquery-date-picker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Omi / JQuery Date Picker integration.",
   "main": "omi-jquery-date-picker.js",
   "scripts": {
