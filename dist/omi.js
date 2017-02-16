@@ -1,5 +1,5 @@
 /*!
- *  Omi v0.1.10 By dntzhang 
+ *  Omi v0.1.11 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -351,7 +351,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        },
 	        functionType: function functionType(value) {
 	            if (value) {
-	                return instance[value].bind(instance);
+	                var handler = instance[value.replace(/Omi.instances\[\d\]./, '')];
+	                if (handler) {
+	                    return handler.bind(instance);
+	                } else {
+	                    console.warn('You do not define [ ' + value + ' ] method in following component');
+	                    console.warn(instance);
+	                }
 	            } else {
 	                return noop;
 	            }

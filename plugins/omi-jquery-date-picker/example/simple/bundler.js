@@ -72,7 +72,10 @@
 	    function App(data) {
 	        _classCallCheck(this, App);
 
-	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, data));
+	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, data));
+
+	        _this.data.date = '';
+	        return _this;
 	    }
 
 	    _createClass(App, [{
@@ -80,11 +83,12 @@
 	        value: function applyHandle(evt, obj) {
 	            console.log('apply', obj);
 	            console.log(this.datePicker);
+	            this.data.date = this.refs.dateInput.value;
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div>\n            <input omi-jquery-date-picker language="cn" instanceRef="datePicker" size="40" value="" onApply="applyHandle" >\n        </div>\n        ';
+	            return '\n        <div>\n            <input omi-jquery-date-picker ref="dateInput" language="cn" instanceRef="datePicker" size="40" value="' + this.data.date + '"  onChange="applyHandle" >\n        </div>\n        ';
 	        }
 	    }]);
 
@@ -456,7 +460,13 @@
 						},
 						functionType: function functionType(value) {
 							if (value) {
-								return instance[value].bind(instance);
+								var handler = instance[value.replace(/Omi.instances\[\d\]./, '')];
+								if (handler) {
+									return handler.bind(instance);
+								} else {
+									console.warn('You do not define [ ' + value + ' ] method in following component');
+									console.warn(instance);
+								}
 							} else {
 								return noop;
 							}
@@ -2019,7 +2029,7 @@
 	                stringType: ['format', 'separator', 'language', 'startOfWeek', 'container', 'applyBtnClass', 'singleMonth']
 	            });
 
-	            $(dom).dateRangePicker(data).bind('datepicker-first-date-selected', data['onFirstDateSelected']).bind('datepicker-change', data['onChange']).bind('datepicker-apply', data['onApply']).bind('datepicker-close', data['onClose']).bind('datepicker-closed', data['onClosed']).bind('datepicker-open', data['onOpen']).bind('datepicker-opened', data['onOpened']);
+	            $(dom).dateRangePicker(data).bind('datepicker-first-date-selected', data['onFirstDateSelected']).unbind('datepicker-change').unbind('datepicker-apply').unbind('datepicker-close').unbind('datepicker-closed').unbind('datepicker-open').unbind('datepicker-opened').bind('datepicker-change', data['onChange']).bind('datepicker-apply', data['onApply']).bind('datepicker-close', data['onClose']).bind('datepicker-closed', data['onClosed']).bind('datepicker-open', data['onOpen']).bind('datepicker-opened', data['onOpened']);
 
 	            instance[dom.getAttribute('instanceRef')] = $(dom).data('dateRangePicker');
 	        });

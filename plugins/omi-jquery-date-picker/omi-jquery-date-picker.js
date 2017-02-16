@@ -22,6 +22,12 @@
             });
 
             $(dom).dateRangePicker(data).bind('datepicker-first-date-selected', data['onFirstDateSelected'])
+                .unbind('datepicker-change')
+                .unbind('datepicker-apply')
+                .unbind('datepicker-close')
+                .unbind('datepicker-closed')
+                .unbind('datepicker-open')
+                .unbind('datepicker-opened')
                 .bind('datepicker-change', data['onChange'])
                 .bind('datepicker-apply', data['onApply'])
                 .bind('datepicker-close',  data['onClose'])

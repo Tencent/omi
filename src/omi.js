@@ -224,7 +224,7 @@ Omi.getParameters = function(dom, instance, types){
         numberType: value =>{
             return Number(value);
         },
-        booleanType: (value)=> {
+        booleanType: value => {
             if (value === 'true') {
                 return true;
             } else if (value === 'false') {
@@ -233,10 +233,16 @@ Omi.getParameters = function(dom, instance, types){
                 return Boolean(value);
             }
         },
-        functionType:  value =>{
-            if(value) {
-                return instance[value].bind(instance);
-            }else{
+        functionType: value => {
+            if (value) {
+                let handler = instance[value.replace(/Omi.instances\[\d\]./, '')]
+                if (handler) {
+                    return handler.bind(instance);
+                } else {
+                    console.warn('You do not define [ '+value+' ] method in following component');
+                    console.warn(instance);
+                }
+            } else {
                 return noop;
             }
         }
