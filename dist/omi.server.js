@@ -1354,6 +1354,10 @@
 	                }
 	            });
 
+	            _omi2['default'].$$('textarea', this.node).forEach(function (textarea) {
+	                textarea.value = textarea.getAttribute('value');
+	            });
+
 	            _omi2['default'].$$('select', this.node).forEach(function (select) {
 	                var value = select.getAttribute('value');
 	                if (value) {

@@ -289,6 +289,10 @@ class Component {
             }
         });
 
+        Omi.$$('textarea',this.node).forEach(textarea =>{
+            textarea.value = textarea.getAttribute('value');
+        });
+
         Omi.$$('select',this.node).forEach(select =>{
             let value = select.getAttribute('value')
             if (value) {
