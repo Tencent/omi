@@ -56,7 +56,7 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 这里需要特别强调的是，为了更加的自由和灵活度。Omi没有内置数据变更的自动更新，需要开发者自己调用update方法。
 你也可以和[oba](https://github.com/dntzhang/oba)或者mobx一起使用来实现自动更新。
 
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=todo)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=todo" target="_blank">点击这里→在线试试</a>
 
 ## 组件嵌套
 
@@ -127,4 +127,4 @@ class Todo extends Omi.Component {
 
 需要注意的是，this.childrenData传递给子组件的data是一锤子买卖，data会被克隆到子组件。意思就是后续只能改变子组件实例的data属性再update才能改变页面。关于Omi组件通讯其实有4种方案，这个后续教程会专门来讲。
 
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest" target="_blank">点击这里→在线试试</a>

@@ -34,4 +34,4 @@ Omi.render(new Hello({ name : "Omi" }),"#container");
 
 可以看到通过在HTML中标记ref为abc，那么就通过this.refs.abc访问到该DOM节点。
 
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=ref)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=ref" target="_blank">点击这里→在线试试</a>

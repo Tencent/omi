@@ -33,7 +33,7 @@ class SubHello extends Hello {
 Omi.render(new SubHello({ name : 'Omi' }),'#container');
 ```
 
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=inherit)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=inherit" target="_blank">点击这里→在线试试</a>
 
 ###  ES5下的继承
 
@@ -50,4 +50,4 @@ var SubHello =  Omi.create("SubHello",Hello,{ });
 Omi.render(new SubHello({ name : 'Omi' }),'#container');
 ```
 
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=inherit_es5)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=inherit_es5" target="_blank">点击这里→在线试试</a>

@@ -78,4 +78,4 @@ class FormTest extends Omi.Component {
 Omi.render(new FormTest({ value: 'mango' }),'#container');
 ```
 
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=form)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=form" target="_blank">点击这里→在线试试</a>

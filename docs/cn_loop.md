@@ -31,7 +31,7 @@ mustache.js更详细的循环遍历使用可看[https://github.com/janl/mustache
 * 如果items的每一项是字符串，可以直接**{{.}}**的方式来输出每一项
 * 循环的时候调用定义好的函数
 
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=list)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=list" target="_blank">点击这里→在线试试</a>
 
 ### 方式二
 
@@ -81,4 +81,4 @@ render() {
 
 ![pv](http://images2015.cnblogs.com/blog/105416/201701/105416-20170122095724129-2059595233.png)
 
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=list2)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=list2" target="_blank">点击这里→在线试试</a>

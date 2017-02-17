@@ -124,7 +124,7 @@ class App extends Omi.Component {
 ...
 ```
 
-[在线试试->data映射复杂数据](http://alloyteam.github.io/omi/website/redirect.html?type=data_complex)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=data_complex" target="_blank">点击这里→data映射复杂数据</a>
 
 ### childrenData通讯
 
@@ -187,7 +187,7 @@ Omi.render(new App(),"#container");
 运行结果如下：
 ![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170216110701535-1698390390.png)
 
-[在线试试->group-data](http://alloyteam.github.io/omi/website/redirect.html?type=group_data)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=group_data" target="_blank">点击这里→group-data</a>
 
 同样group-data支持复杂数据类型的映射，需要注意的是，group-data映射的终点必须是一个数组:
 
@@ -234,7 +234,7 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-[在线试试->group-data映射复杂数据](http://alloyteam.github.io/omi/website/redirect.html?type=group_data_complex)
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=group_data_complex" target="_blank">点击这里→group-data映射复杂数据</a>
 
 ### 通过对象实例
 
