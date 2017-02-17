@@ -1,6 +1,28 @@
 ﻿const config = {
     //1,5-6,8
-    highlight:{3: '6', 6: '5', 9: '3,9,34', 20: '22', 23: '6-12',34:'13,18'},
+    highlight:{
+        3: '6',
+        6: '5',
+        9: '3,9,34',
+        10:'35',
+        11:'5,11',
+        12:'16-18,28',
+        13:'5,11,12',
+        14:'9,15-17',
+        15:'14-18,32,33',
+        16:'8',
+        17:'8,15',
+        22: '30',
+        23: '22',
+        25: '6-12',
+        27:'8',
+        28:'9-11',
+        29:'5-7',
+        34:'20',
+        35:'7',
+        37:'16-18',
+        38:'13,18'
+    },
     mds:['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom', 'thinking_in_omi','pr_env','pr_hello'],
     cn_menus:[
         {title: "快速开始", list: [

@@ -3,9 +3,9 @@
 [Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常遍历灵活，因为有许多可选方案进行通讯：
 
 * 通过在组件上声明 data-* 传递给子节点 
-* 通过在组件上声明 data 传递给子节点 
+* 通过在组件上声明 data 传递给子节点 （支持复杂数据类型的映射）
 * 父容器设置 childrenData 自动传递给子节点
-* 声明 group-data 传递
+* 声明 group-data 传递（支持复杂数据类型的映射）
 * 完全面向对象，可以非常容易地拿到对象的实例，之后可以设置实例属性和调用实例的方法
 
 所以通讯变得畅通无阻，下面一一来举例说明。
@@ -85,6 +85,46 @@ Omi.render(new App(),"#container");
 
 使用data声明，会去组件的instance（也就是this）下找对应的属性，this下可以挂载任意复杂的对象。所以这也就突破了data-*的局限性。
 
+如果instance下面的某个属性下面的某个属性下面的某个数组的第一个元素的某个属性要作为data传递Hello怎么办？
+没关系，data声明是支持复杂类型的，使用方式如下:
+
+```js
+...
+class App extends Omi.Component {
+    constructor(data) {
+        super(data);
+        this.complexData ={
+            a:{
+                b:{
+                    c:[
+                        {
+                            e:[{
+                                name:'ComplexData Support1'
+                            },{
+                                name:'ComplexData Support2'
+                            }]
+                        },
+                        {
+                            name: 'ComplexData Support3'
+                        }
+                    ]
+                }
+            }
+        };
+    }
+  
+    render() {
+        return  `
+        <div>
+            <Hello data="complexData.a.b.c[1]" />
+        </div>
+        `;
+    }
+}
+...
+```
+
+[在线试试->data映射复杂数据](http://alloyteam.github.io/omi/website/redirect.html?type=data_complex)
 
 ### childrenData通讯
 
@@ -93,12 +133,13 @@ Omi.render(new App(),"#container");
 class App extends Omi.Component {
     constructor(data) {
       super(data);
-      this.childrenData = [{ name : 'Omi' }];
+      this.childrenData = [{ name : 'Omi' } , { name : 'dntzhang' }];
     }
   
     render() {
         return  `
         <div>
+            <Hello  />
             <Hello  />
         </div>
         `;
@@ -147,6 +188,53 @@ Omi.render(new App(),"#container");
 ![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170216110701535-1698390390.png)
 
 [在线试试->group-data](http://alloyteam.github.io/omi/website/redirect.html?type=group_data)
+
+同样group-data支持复杂数据类型的映射，需要注意的是，group-data映射的终点必须是一个数组:
+
+```js
+import Hello from './hello.js';
+
+
+Omi.makeHTML('Hello', Hello);
+
+class App extends Omi.Component {
+    constructor(data) {
+        super(data);
+        this.complexData ={
+            a:{
+                b:{
+                    c:[
+                        {
+                            e:[{
+                                name:'ComplexData Support1'
+                            },{
+                                name:'ComplexData Support2'
+                            }]
+                        },
+                        {
+                            name: 'ComplexData Support3'
+                        }
+                    ]
+                }
+            }
+        };
+    }
+
+    render() {
+        return  `
+        <div>
+            <Hello group-data="complexData.a.b.c[0].e" />
+            <Hello group-data="complexData.a.b.c[0].e" />
+        </div>
+        `;
+
+    }
+}
+
+Omi.render(new App(),"#container");
+```
+
+[在线试试->group-data映射复杂数据](http://alloyteam.github.io/omi/website/redirect.html?type=group_data_complex)
 
 ### 通过对象实例
 

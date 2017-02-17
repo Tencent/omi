@@ -61,6 +61,22 @@ Omi.render(new List({
 }),"body");
 ```
 
+当然你也可以在map里面也使用template string
+
+```js
+...
+render() {
+    return `<div>
+                <ul>
+                ` + this.data.items.map(item =>
+                    `<li id="${item.id}">${item.text}</li>`
+                ).join("") + `
+                </ul>
+            </div>`;
+}
+...
+```
+
 你将在页面看到如下效果:
 
 ![pv](http://images2015.cnblogs.com/blog/105416/201701/105416-20170122095724129-2059595233.png)
