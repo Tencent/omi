@@ -365,12 +365,12 @@ class Component {
     }
 
     _getDataset(str) {
-        let arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
+        let arr = str.match(/\s+data-(\S*)=['|"](\S*)['|"]/g);
         if(arr) {
             let obj = {};
             arr.forEach(item => {
                 let arr = item.split('=');
-                obj[this._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
+                obj[this._capitalize(arr[0].replace(/\s+data-/, ''))] = arr[1].replace(/['|"]/g, '');
                 arr = null;
             });
             return obj;

@@ -1437,13 +1437,13 @@
 	        value: function _getDataset(str) {
 	            var _this8 = this;
 
-	            var arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
+	            var arr = str.match(/\s+data-(\S*)=['|"](\S*)['|"]/g);
 	            if (arr) {
 	                var _ret = function () {
 	                    var obj = {};
 	                    arr.forEach(function (item) {
 	                        var arr = item.split('=');
-	                        obj[_this8._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
+	                        obj[_this8._capitalize(arr[0].replace(/\s+data-/, ''))] = arr[1].replace(/['|"]/g, '');
 	                        arr = null;
 	                    });
 	                    return {
