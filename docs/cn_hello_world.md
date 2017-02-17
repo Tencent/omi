@@ -93,7 +93,7 @@ var Hello =  Omi.create("Hello", {
 
 Omi.render(new Hello({ name : "Omi" }),"#container");
 ```
-当然除了在HTML引入脚步，你还可以使用AMD、CMD或者CommonJS的方式引入Omi，这里就不再一一列举。
+当然除了在HTML引入脚本，你还可以使用AMD、CMD或者CommonJS的方式引入Omi，这里就不再一一列举。
 
 需要注意的是，Omi.create的第一个参数Hello是用来生成Tag Name的。你可以在其他地方嵌入你的组件。如：
 
