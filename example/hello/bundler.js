@@ -74,12 +74,12 @@
 	    _createClass(App, [{
 	        key: 'SFDSF',
 	        value: function SFDSF() {
-	            alert(2);
+	            alert(3);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div>\n            <Hello data-name="Omi"\n            data-img="<img src=\'http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png\' >"\n            onXX="SFDSF"\n            onXXX="SFDSdF"\n            omi-id="aa" />\n        </div>\n        ';
+	            return '\n        <div>\n            <Hello data-name="Omi"\n            data-img="<img src=\'http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png\' />"\n            onXX="SFDSF"\n            onXXX="SFDSdF"\n            omi-id="aa" />\n        </div>\n        ';
 	        }
 	    }]);
 
@@ -135,7 +135,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n      <div>\n{{{img}}}\n      \t<h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>\n      </div>\n  \t\t';
+	            return '\n      <div>\n        {{{img}}}\n      \t<h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>\n      </div>\n  \t\t';
 	        }
 	    }]);
 
@@ -1456,9 +1456,14 @@
 	        key: '_replaceTags',
 	        value: function _replaceTags(array, html) {
 	            var str = array.join("|");
-	            var reg = new RegExp("(<(" + str + "))[^a-zA-Z>][\\s\\S]*?/>", "g");
-	            return html.replace(reg, function (m, a, b) {
-	                return m.replace(a, '<child tag="' + b + '" ');
+	            var reg = new RegExp('<(' + str + '+)((?:\\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\\s*=\\s*(?:(?:"[^"]*")|(?:\'[^\']*\')|[^>\\s]+))?)*)\\s*(\\/?)>', 'g');
+	            return html.replace(reg, function (m, a) {
+	                var d = m.length - 2;
+	                if (d >= 0 && m.lastIndexOf('/>') === m.length - 2) {
+	                    return m.replace('<' + a, '<child tag="' + a + '"').substr(0, m.length + 10) + '></child>';
+	                } else if (m.lastIndexOf('>') === m.length - 1) {
+	                    return m.replace('<' + a, '<child tag="' + a + '"') + '</child>';
+	                }
 	            });
 	        }
 	    }, {
@@ -1554,7 +1559,7 @@
 	            if (_omi2['default'].customTags.length > 0) {
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
-	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
+	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
 
 	            if (arr) {
 	                arr.forEach(function (childStr, i) {

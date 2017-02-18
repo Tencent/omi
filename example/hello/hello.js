@@ -18,7 +18,7 @@ class Hello extends Omi.Component {
     render() {
         return  `
       <div>
-{{{img}}}
+        {{{img}}}
       	<h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>
       </div>
   		`;

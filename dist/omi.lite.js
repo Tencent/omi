@@ -1,5 +1,5 @@
 /*!
- *  Omi v0.3.0 By dntzhang 
+ *  Omi v0.3.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -748,9 +748,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: '_replaceTags',
 	        value: function _replaceTags(array, html) {
 	            var str = array.join("|");
-	            var reg = new RegExp("(<(" + str + "))[^a-zA-Z>][\\s\\S]*?/>", "g");
-	            return html.replace(reg, function (m, a, b) {
-	                return m.replace(a, '<child tag="' + b + '" ');
+	            var reg = new RegExp('<(' + str + '+)((?:\\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\\s*=\\s*(?:(?:"[^"]*")|(?:\'[^\']*\')|[^>\\s]+))?)*)\\s*(\\/?)>', 'g');
+	            return html.replace(reg, function (m, a) {
+	                var d = m.length - 2;
+	                if (d >= 0 && m.lastIndexOf('/>') === m.length - 2) {
+	                    return m.replace('<' + a, '<child tag="' + a + '"').substr(0, m.length + 10) + '></child>';
+	                } else if (m.lastIndexOf('>') === m.length - 1) {
+	                    return m.replace('<' + a, '<child tag="' + a + '"') + '</child>';
+	                }
 	            });
 	        }
 	    }, {
@@ -846,7 +851,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (_omi2['default'].customTags.length > 0) {
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
-	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
+	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
 
 	            if (arr) {
 	                arr.forEach(function (childStr, i) {

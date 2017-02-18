@@ -70,19 +70,19 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _content = __webpack_require__(9);
+	var _content = __webpack_require__(10);
 
 	var _content2 = _interopRequireDefault(_content);
 
-	var _sidebar = __webpack_require__(30);
+	var _sidebar = __webpack_require__(32);
 
 	var _sidebar2 = _interopRequireDefault(_sidebar);
 
-	var _head = __webpack_require__(32);
+	var _head = __webpack_require__(34);
 
 	var _head2 = _interopRequireDefault(_head);
 
-	var _config = __webpack_require__(10);
+	var _config = __webpack_require__(11);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -1127,8 +1127,6 @@
 	    value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _omi = __webpack_require__(3);
@@ -1146,6 +1144,10 @@
 	var _diff = __webpack_require__(8);
 
 	var _diff2 = _interopRequireDefault(_diff);
+
+	var _html2json = __webpack_require__(9);
+
+	var _html2json2 = _interopRequireDefault(_html2json);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -1448,11 +1450,6 @@
 	            });
 	        }
 	    }, {
-	        key: '_getConstructorNameByMagic',
-	        value: function _getConstructorNameByMagic(c) {
-	            return (c + "").split("(")[0].replace("function", "").trim();
-	        }
-	    }, {
 	        key: '_fixForm',
 	        value: function _fixForm() {
 
@@ -1492,9 +1489,14 @@
 	        key: '_replaceTags',
 	        value: function _replaceTags(array, html) {
 	            var str = array.join("|");
-	            var reg = new RegExp("(<(" + str + "))[^a-zA-Z>][\\s\\S]*?/>", "g");
-	            return html.replace(reg, function (m, a, b) {
-	                return m.replace(a, '<child tag="' + b + '" ');
+	            var reg = new RegExp('<(' + str + '+)((?:\\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\\s*=\\s*(?:(?:"[^"]*")|(?:\'[^\']*\')|[^>\\s]+))?)*)\\s*(\\/?)>', 'g');
+	            return html.replace(reg, function (m, a) {
+	                var d = m.length - 2;
+	                if (d >= 0 && m.lastIndexOf('/>') === m.length - 2) {
+	                    return m.replace('<' + a, '<child tag="' + a + '"').substr(0, m.length + 10) + '></child>';
+	                } else if (m.lastIndexOf('>') === m.length - 1) {
+	                    return m.replace('<' + a, '<child tag="' + a + '"') + '</child>';
+	                }
 	            });
 	        }
 	    }, {
@@ -1512,7 +1514,7 @@
 	            if (isFirst) {
 	                var parentData = arr ? this._extractPropertyFromString(RegExp.$1, this.parent) : null;
 	                var groupArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
-	                this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
+	                this.data = Object.assign(this.data, this._dataset, parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
 	            } else {
 	                if (this.dataFirst) {
 	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
@@ -1550,27 +1552,17 @@
 	        }
 	    }, {
 	        key: '_getDataset',
-	        value: function _getDataset(str) {
+	        value: function _getDataset(childStr) {
 	            var _this8 = this;
 
-	            var arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
-	            if (arr) {
-	                var _ret = function () {
-	                    var obj = {};
-	                    arr.forEach(function (item) {
-	                        var arr = item.split('=');
-	                        obj[_this8._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
-	                        arr = null;
-	                    });
-	                    return {
-	                        v: obj
-	                    };
-	                }();
-
-	                if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-	            }
-	            //this.BODY_ELEMENT.innerHTML = str ;
-	            //return this.BODY_ELEMENT.firstChild.dataset;
+	            var json = (0, _html2json2['default'])(childStr);
+	            var attr = json.child[0].attr;
+	            Object.keys(attr).forEach(function (key) {
+	                if (key.indexOf('data-') === 0) {
+	                    _this8._dataset[_this8._capitalize(key.replace('data-', ''))] = attr[key];
+	                }
+	            });
+	            return this._dataset;
 	        }
 	    }, {
 	        key: '_capitalize',
@@ -1595,25 +1587,23 @@
 	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
+	            var _this9 = this;
+
 	            if (_omi2['default'].customTags.length > 0) {
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
-	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
+	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
 
 	            if (arr) {
-	                var len = arr.length;
-
-	                for (var i = 0; i < len; i++) {
-	                    var childStr = arr[i];
-	                    childStr.match(/\s+tag=['|"](\S*)['|"][\s+|/]/);
-
-	                    var name = RegExp.$1;
-	                    var cmi = this.children[i];
+	                arr.forEach(function (childStr, i) {
+	                    var json = (0, _html2json2['default'])(childStr);
+	                    var attr = json.child[0].attr;
+	                    var name = attr.tag;
+	                    delete attr.tag;
+	                    var cmi = _this9.children[i];
 	                    //if not first time to invoke _extractChildren method
-	                    //___omi_constructor_name for es5
-	                    if (cmi && (cmi.constructor.name === name || cmi.___omi_constructor_name === name || this._getConstructorNameByMagic(cmi.constructor))) {
+	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._childRender(childStr);
-	                        continue;
 	                    } else {
 	                        (function () {
 	                            var ChildClass = _omi2['default'].getClassFromString(name);
@@ -1621,48 +1611,42 @@
 	                            var sub_child = new ChildClass(Object.assign({}, child.childrenData[i]), false);
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
+	                            sub_child.___omi_constructor_name = name;
+	                            sub_child._dataset = {};
 
-	                            var evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"][\s+|/]/g);
-	                            if (evtArr) {
-	                                evtArr.forEach(function (item) {
-	                                    var evtArr = item.trim().split("=");
-	                                    var hdName = evtArr[1].replace(/['|"]/g, "");
-	                                    var handler = sub_child.parent[hdName];
+	                            Object.keys(attr).forEach(function (key) {
+	                                var value = attr[key];
+	                                if (key.indexOf('on') === 0) {
+	                                    var handler = sub_child.parent[value];
 	                                    if (handler) {
-	                                        sub_child.data[evtArr[0]] = handler.bind(sub_child.parent);
+	                                        sub_child.data[key] = handler.bind(sub_child.parent);
 	                                    }
-	                                });
-	                            }
-
-	                            var groupNameArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
-	                            if (groupNameArr) {
-	                                if (child._omiGroupDataCounter.hasOwnProperty(RegExp.$1)) {
-	                                    child._omiGroupDataCounter[RegExp.$1]++;
-	                                    sub_child._omiGroupDataIndex = child._omiGroupDataCounter[RegExp.$1];
-	                                } else {
-	                                    sub_child._omiGroupDataIndex = child._omiGroupDataCounter[RegExp.$1] = 0;
+	                                } else if (key === 'group-data') {
+	                                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                                        child._omiGroupDataCounter[value]++;
+	                                        sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value];
+	                                    } else {
+	                                        sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value] = 0;
+	                                    }
+	                                } else if (key === 'omi-id') {
+	                                    _omi2['default'].mapping[value] = sub_child;
+	                                } else if (key === 'name') {
+	                                    child[value] = sub_child;
+	                                } else if (key.indexOf('data-') === 0) {
+	                                    sub_child._dataset[_this9._capitalize(key.replace('data-', ''))] = value;
 	                                }
-	                            }
+	                            });
 
-	                            sub_child._childRender(childStr, true);
-
-	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"][\s+|/]/);
-	                            if (mo_ids) {
-	                                _omi2['default'].mapping[RegExp.$1] = sub_child;
-	                            }
 	                            if (!cmi) {
 	                                child.children.push(sub_child);
 	                            } else {
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            var nameArr = childStr.match(/\s+name=['|"](\S*)['|"][\s+|/]/);
-	                            if (nameArr) {
-	                                child[RegExp.$1] = sub_child;
-	                            }
+	                            sub_child._childRender(childStr, true);
 	                        })();
 	                    }
-	                }
+	                });
 	            }
 	        }
 	    }]);
@@ -1978,6 +1962,249 @@
 
 /***/ },
 /* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/*
+	 *  html2json for omi
+	 *  https://github.com/AlloyTeam/omi
+	 *
+	 *  Original code by John Resig (ejohn.org)
+	 *  http://ejohn.org/blog/pure-javascript-html-parser/
+	 *  Original code by Erik Arvidsson, Mozilla Public License
+	 *  http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+	 *  Original code by Jxck
+	 *  https://github.com/Jxck/html2json
+	 */
+
+	// Regular Expressions for parsing tags and attributes
+	var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
+	    endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
+	    attr = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+
+	var HTMLParser = function HTMLParser(html, handler) {
+	    var index,
+	        chars,
+	        match,
+	        stack = [],
+	        last = html;
+	    stack.last = function () {
+	        return this[this.length - 1];
+	    };
+
+	    while (html) {
+	        chars = true;
+
+	        // Make sure we're not in a script or style element
+	        if (!stack.last()) {
+
+	            if (html.indexOf("</") == 0) {
+	                match = html.match(endTag);
+
+	                if (match) {
+	                    html = html.substring(match[0].length);
+	                    match[0].replace(endTag, parseEndTag);
+	                    chars = false;
+	                }
+
+	                // start tag
+	            } else if (html.indexOf("<") == 0) {
+	                match = html.match(startTag);
+
+	                if (match) {
+	                    html = html.substring(match[0].length);
+	                    match[0].replace(startTag, parseStartTag);
+	                    chars = false;
+	                }
+	            }
+
+	            if (chars) {
+	                index = html.indexOf("<");
+
+	                var text = index < 0 ? html : html.substring(0, index);
+	                html = index < 0 ? "" : html.substring(index);
+
+	                if (handler.chars) handler.chars(text);
+	            }
+	        } else {
+	            html = html.replace(new RegExp("([\\s\\S]*?)<\/" + stack.last() + "[^>]*>"), function (all, text) {
+
+	                if (handler.chars) handler.chars(text);
+
+	                return "";
+	            });
+
+	            parseEndTag("", stack.last());
+	        }
+
+	        if (html == last) throw "Parse Error: " + html;
+	        last = html;
+	    }
+
+	    // Clean up any remaining tags
+	    parseEndTag();
+
+	    function parseStartTag(tag, tagName, rest, unary) {
+	        tagName = tagName.toLowerCase();
+
+	        unary = !!unary;
+
+	        if (!unary) stack.push(tagName);
+
+	        if (handler.start) {
+	            var attrs = [];
+
+	            rest.replace(attr, function (match, name) {
+	                var value = arguments[2] ? arguments[2] : arguments[3] ? arguments[3] : arguments[4] ? arguments[4] : "";
+
+	                attrs.push({
+	                    name: name,
+	                    value: value,
+	                    escaped: value.replace(/(^|[^\\])"/g, '$1\\\"') //"
+	                });
+	            });
+
+	            if (handler.start) handler.start(tagName, attrs, unary);
+	        }
+	    }
+
+	    function parseEndTag(tag, tagName) {
+	        // If no tag name is provided, clean shop
+	        if (!tagName) var pos = 0;
+
+	        // Find the closest opened tag of the same type
+	        else for (var pos = stack.length - 1; pos >= 0; pos--) {
+	                if (stack[pos] == tagName) break;
+	            }if (pos >= 0) {
+	            // Close all the open elements, up the stack
+	            for (var i = stack.length - 1; i >= pos; i--) {
+	                if (handler.end) handler.end(stack[i]);
+	            } // Remove the open elements from the stack
+	            stack.length = pos;
+	        }
+	    }
+	};
+
+	var DEBUG = false;
+	var debug = DEBUG ? console.log.bind(console) : function () {};
+
+	// Production steps of ECMA-262, Edition 5, 15.4.4.21
+	// Reference: http://es5.github.io/#x15.4.4.21
+	if (!Array.prototype.reduce) {
+	    Array.prototype.reduce = function (callback /*, initialValue*/) {
+	        'use strict';
+
+	        if (this == null) {
+	            throw new TypeError('Array.prototype.reduce called on null or undefined');
+	        }
+	        if (typeof callback !== 'function') {
+	            throw new TypeError(callback + ' is not a function');
+	        }
+	        var t = Object(this),
+	            len = t.length >>> 0,
+	            k = 0,
+	            value;
+	        if (arguments.length == 2) {
+	            value = arguments[1];
+	        } else {
+	            while (k < len && !(k in t)) {
+	                k++;
+	            }
+	            if (k >= len) {
+	                throw new TypeError('Reduce of empty array with no initial value');
+	            }
+	            value = t[k++];
+	        }
+	        for (; k < len; k++) {
+	            if (k in t) {
+	                value = callback(value, t[k], k, t);
+	            }
+	        }
+	        return value;
+	    };
+	}
+
+	var html2json = function html2json(html) {
+
+	    var bufArray = [];
+	    var results = {
+	        node: 'root',
+	        child: []
+	    };
+	    HTMLParser(html, {
+	        start: function start(tag, attrs, unary) {
+	            debug(tag, attrs, unary);
+	            // node for this element
+	            var node = {
+	                node: 'element',
+	                tag: tag
+	            };
+	            if (attrs.length !== 0) {
+	                node.attr = attrs.reduce(function (pre, attr) {
+	                    var name = attr.name;
+	                    var value = attr.value;
+
+	                    pre[name] = value;
+	                    return pre;
+	                }, {});
+	            }
+	            if (unary) {
+	                // if this tag dosen't have end tag
+	                // like <img src="hoge.png"/>
+	                // add to parents
+	                var parent = bufArray[0] || results;
+	                if (parent.child === undefined) {
+	                    parent.child = [];
+	                }
+	                parent.child.push(node);
+	            } else {
+	                bufArray.unshift(node);
+	            }
+	        },
+	        end: function end(tag) {
+	            debug(tag);
+	            // merge into parent tag
+	            var node = bufArray.shift();
+	            if (node.tag !== tag) console.error('invalid state: mismatch end tag');
+
+	            if (bufArray.length === 0) {
+	                results.child.push(node);
+	            } else {
+	                var parent = bufArray[0];
+	                if (parent.child === undefined) {
+	                    parent.child = [];
+	                }
+	                parent.child.push(node);
+	            }
+	        },
+	        chars: function chars(text) {
+	            debug(text);
+	            var node = {
+	                node: 'text',
+	                text: text
+	            };
+	            if (bufArray.length === 0) {
+	                results.child.push(node);
+	            } else {
+	                var parent = bufArray[0];
+	                if (parent.child === undefined) {
+	                    parent.child = [];
+	                }
+	                parent.child.push(node);
+	            }
+	        }
+	    });
+	    return results;
+	};
+
+	exports["default"] = html2json;
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1992,7 +2219,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _config = __webpack_require__(10);
+	var _config = __webpack_require__(11);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -2005,7 +2232,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	function getMarkDown(name, lan) {
-	    var md = __webpack_require__(11)("./" + lan + "_" + name + ".md");
+	    var md = __webpack_require__(12)("./" + lan + "_" + name + ".md");
 	    return md.substring(0, md.length - 1).replace(/\\r\\n/g, "\r\n").replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace('module.exports = "', "").replace(/\\"/g, '"').replace(/\\\\/g, '\\');
 	}
 
@@ -2050,7 +2277,7 @@
 	exports['default'] = Content;
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2096,28 +2323,29 @@
 	exports['default'] = config;
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./README.md": 12,
-		"./cn_communication.md": 13,
-		"./cn_components.md": 14,
-		"./cn_condition.md": 15,
-		"./cn_events.md": 16,
-		"./cn_form.md": 17,
-		"./cn_get_dom.md": 18,
-		"./cn_hello_world.md": 19,
-		"./cn_inherit.md": 20,
-		"./cn_installation.md": 21,
-		"./cn_lifecycle.md": 22,
-		"./cn_loop.md": 23,
-		"./cn_pr_env.md": 24,
-		"./cn_pr_hello.md": 25,
-		"./cn_template.md": 26,
-		"./cn_thinking_in_omi.md": 27,
-		"./en_hello_world.md": 28,
-		"./en_installation.md": 29
+		"./README.md": 13,
+		"./cn_communication.md": 14,
+		"./cn_components.md": 15,
+		"./cn_condition.md": 16,
+		"./cn_events.md": 17,
+		"./cn_form.md": 18,
+		"./cn_get_dom.md": 19,
+		"./cn_hello_world.md": 20,
+		"./cn_inherit.md": 21,
+		"./cn_installation.md": 22,
+		"./cn_lifecycle.md": 23,
+		"./cn_loop.md": 24,
+		"./cn_pr_env.md": 25,
+		"./cn_pr_hello.md": 26,
+		"./cn_template.md": 27,
+		"./cn_thinking_in_omi.md": 28,
+		"./en_components.md": 29,
+		"./en_hello_world.md": 30,
+		"./en_installation.md": 31
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -2130,119 +2358,125 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 11;
+	webpackContext.id = 12;
 
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	module.exports = "module.exports = \"# Omi使用文档\\r\\n* [安装](./cn_installation.md)\\r\\n* [Hello World](./cn_hello_world.md)\\r\\n* [组件](./cn_components.md)\\r\\n* [组件通讯](./cn_communication.md)\\r\\n* [生命周期](./cn_lifecycle.md)\\r\\n* [事件处理](./cn_events.md)\\r\\n* [条件判断](./cn_condition.md)\\r\\n* [循环遍历](./cn_loop.md)\\r\\n* [表单](./cn_form.md)\\r\\n* [继承](./cn_inhrit.md)\\r\\n* [模板切换](./cn_template.md)\\r\\n* [获取DOM节点](./cn_get_dom.md)\\r\\n* [Omi理念](./cn_thinking_in_omi.md)\\r\\n\\r\\n# 从零一步步打造Web组件化框架Omi\\r\\n\\r\\n（待续...）\\r\\n\\r\\n* [环境搭建](./cn_pr_env.md)\\r\\n* [Hello Omi](./cn_pr_hello.md)\\r\\n* 局部CSS揭秘\\r\\n* 组件嵌套揭秘\\r\\n* 事件处理揭秘\\r\\n* 服务器端渲染揭秘\\r\\n* 模板切换揭秘\\r\\n* 容器系统揭秘\""
 
 /***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"组件通讯\\\">组件通讯</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常遍历灵活，因为有许多可选方案进行通讯：\\r\\n\\r\\n* 通过在组件上声明 data-* 传递给子节点 \\r\\n* 通过在组件上声明 data 传递给子节点 （支持复杂数据类型的映射）\\r\\n* 父容器设置 childrenData 自动传递给子节点\\r\\n* 声明 group-data 传递（支持复杂数据类型的映射）\\r\\n* 完全面向对象，可以非常容易地拿到对象的实例，之后可以设置实例属性和调用实例的方法\\r\\n\\r\\n所以通讯变得畅通无阻，下面一一来举例说明。\\r\\n\\r\\n### data-*通讯 \\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n    }\\r\\n    style () {\\r\\n      return  `\\r\\n      h1{\\r\\n      \\tcursor:pointer;\\r\\n      }\\r\\n      `;\\r\\n    }\\r\\n    handleClick(target, evt){\\r\\n      alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n      return  `\\r\\n      <div>\\r\\n      \\t<h1 onclick=\\\"handleClick(this, event)\\\">Hello ,{{name}}!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.makeHTML('Hello', Hello);\\r\\n\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data-name=\\\"Omi\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n一般data-*用来传递值类型，如string、number。值得注意的是，通过data-*接收到的数据类型都是string，需要自行转成number类型。\\r\\n通常情况下，data-*能满足我们的要求，但是遇到复杂的数据类型是没有办法通过大量data-*去表达，所以可以通过data通讯，请往下看。\\r\\n\\r\\n### data通讯 \\r\\n\\r\\n如上面代码所示，通过 data-name=\\\"Omi\\\"可以把name传递给子组件。下面的代码也可以达到同样的效果。\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n      this.helloData = { name : 'Omi' };\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data=\\\"helloData\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n使用data声明，会去组件的instance（也就是this）下找对应的属性，this下可以挂载任意复杂的对象。所以这也就突破了data-*的局限性。\\r\\n\\r\\n如果instance下面的某个属性下面的某个属性下面的某个数组的第一个元素的某个属性要作为data传递Hello怎么办？\\r\\n没关系，data声明是支持复杂类型的，使用方式如下:\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.complexData ={\\r\\n            a:{\\r\\n                b:{\\r\\n                    c:[\\r\\n                        {\\r\\n                            e:[{\\r\\n                                name:'ComplexData Support1'\\r\\n                            },{\\r\\n                                name:'ComplexData Support2'\\r\\n                            }]\\r\\n                        },\\r\\n                        {\\r\\n                            name: 'ComplexData Support3'\\r\\n                        }\\r\\n                    ]\\r\\n                }\\r\\n            }\\r\\n        };\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data=\\\"complexData.a.b.c[1]\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n...\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=data_complex\\\" target=\\\"_blank\\\">点击这里→data映射复杂数据</a>\\r\\n\\r\\n### childrenData通讯\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n      this.childrenData = [{ name : 'Omi' } , { name : 'dntzhang' }];\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello  />\\r\\n            <Hello  />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n通用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。\\r\\n\\r\\n### group-data通讯\\r\\n\\r\\nchildrenData的方式可以批量传递数据给组件，但是有很多场景下data的来源不一定非要都从childrenData来，childrenData是个数组，会和组件的顺序一一对应，这就给不同传递方式的data必须全部集中的childrenData中，非常不方便。group-data专门为解决上面的痛点而生，专门是为了给一组组件批量传递data。\\r\\n\\r\\n```js\\r\\nimport Hello from './hello.js';\\r\\n\\r\\n\\r\\nOmi.makeHTML('Hello', Hello);\\r\\n\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.testData = [{name: 'Omi'}, {name: 'dntzhang'}, {name: 'AlloyTeam'}];\\r\\n    }\\r\\n\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello group-data=\\\"testData\\\" />\\r\\n            <Hello group-data=\\\"testData\\\" />\\r\\n            <Hello group-data=\\\"testData\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n只需要在声明的子组件上标记group-data，就会去当前组件的instance（也就是this）下面找对应的属性，然后根据当前的位置，和对应数组的位置会一一对应起来。\\r\\n\\r\\n运行结果如下：\\r\\n![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170216110701535-1698390390.png)\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=group_data\\\" target=\\\"_blank\\\">点击这里→group-data</a>\\r\\n\\r\\n同样group-data支持复杂数据类型的映射，需要注意的是，group-data映射的终点必须是一个数组:\\r\\n\\r\\n```js\\r\\nimport Hello from './hello.js';\\r\\n\\r\\n\\r\\nOmi.makeHTML('Hello', Hello);\\r\\n\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.complexData ={\\r\\n            a:{\\r\\n                b:{\\r\\n                    c:[\\r\\n                        {\\r\\n                            e:[{\\r\\n                                name:'ComplexData Support1'\\r\\n                            },{\\r\\n                                name:'ComplexData Support2'\\r\\n                            }]\\r\\n                        },\\r\\n                        {\\r\\n                            name: 'ComplexData Support3'\\r\\n                        }\\r\\n                    ]\\r\\n                }\\r\\n            }\\r\\n        };\\r\\n    }\\r\\n\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello group-data=\\\"complexData.a.b.c[0].e\\\" />\\r\\n            <Hello group-data=\\\"complexData.a.b.c[0].e\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=group_data_complex\\\" target=\\\"_blank\\\">点击这里→group-data映射复杂数据</a>\\r\\n\\r\\n### 通过对象实例\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    \\r\\n    installed(){\\r\\n        this.hello.data.name = \\\"Omi\\\";\\r\\n        this.update()\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello name=\\\"hello\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n### 通过omi-id\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    \\r\\n    installed(){\\r\\n        Omi.get(\\\"hello\\\").data.name = \\\"Omi\\\";\\r\\n        this.update()\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello omi-id=\\\"hello\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n通过在组件上声明omi-id，在程序任何地方拿到该对象的实例。这个可以算是跨任意组件通讯神器。\\r\\n\\r\\n### 特别强调\\r\\n\\r\\n* 通过childrenData或者data方式通讯都是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件\\r\\n* 通过data-✼通讯也是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件。\\r\\n* 关于data-✼通讯也可以不是一锤子买卖，但是要设置组件实例的dataFirst为false，这样的话data-✼就会覆盖组件实例的data对应的属性\\r\\n\\r\\n关于上面的第三条也就是这样的逻辑伪代码：\\r\\n```js\\r\\nif(this.dataFirst){\\r\\n    this.data = Object.assign({},data-✼ ,this.data);\\r\\n}else{\\r\\n    this.data = Object.assign({},this.data, data-✼);\\r\\n}\\r\\n```\""
+	module.exports = "module.exports = \"# Omi使用文档\\r\\n* [安装](./cn_installation.md)\\r\\n* [Hello World](./cn_hello_world.md)\\r\\n* [组件](./cn_components.md)\\r\\n* [组件通讯](./cn_communication.md)\\r\\n* [生命周期](./cn_lifecycle.md)\\r\\n* [事件处理](./cn_events.md)\\r\\n* [条件判断](./cn_condition.md)\\r\\n* [循环遍历](./cn_loop.md)\\r\\n* [表单](./cn_form.md)\\r\\n* [继承](./cn_inhrit.md)\\r\\n* [模板切换](./cn_template.md)\\r\\n* [获取DOM节点](./cn_get_dom.md)\\r\\n* [Omi理念](./cn_thinking_in_omi.md)\\r\\n\\r\\n# 从零一步步打造Web组件化框架Omi\\r\\n\\r\\n（待续...）\\r\\n\\r\\n* [环境搭建](./cn_pr_env.md)\\r\\n* [Hello Omi](./cn_pr_hello.md)\\r\\n* 局部CSS揭秘\\r\\n* 组件嵌套揭秘\\r\\n* 事件处理揭秘\\r\\n* 服务器端渲染揭秘\\r\\n* 模板切换揭秘\\r\\n* 容器系统揭秘\""
 
 /***/ },
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"组件\\\">组件</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)完全基于组件体系设计，我们希望开发者可以像搭积木一样制作Web程序，一切皆是组件，组件也可以嵌套子组件形成新的组件，新的组件又可以当作子组件嵌套至任意组件形成新的组件...\\r\\n\\r\\n![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170210093427338-1536910080.png)\\r\\n\\r\\n### 简单组件\\r\\n\\r\\n这里使用Todo的例子来讲解Omi组件体系的使用。\\r\\n\\r\\n```js\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.data.items.push(this.data.text);\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{items.length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Todo({ items: [] ,text : '' }),\\\"body\\\");\\r\\n```\\r\\n\\r\\n组件生成的HTML最终会插入到body中。上面的例子展示了Omi的部分特性:\\r\\n\\r\\n- data传递: new Todo(data,..)的data可以直接提供给render方法里的模板\\r\\n- 局部CSS: h3只对render里的h3生效，不会污染外面的h3；button也是同样的\\r\\n- 声明式事件绑定: onchange调用的就是组件内的handleChange，this可以拿到当然的DOM元素,还可以拿到当前的event\\r\\n- 需要手动调用update方法才能更新组件\\r\\n\\r\\n这里需要特别强调的是，为了更加的自由和灵活度。Omi没有内置数据变更的自动更新，需要开发者自己调用update方法。\\r\\n你也可以和[oba](https://github.com/dntzhang/oba)或者mobx一起使用来实现自动更新。\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=todo\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n## 组件嵌套\\r\\n\\r\\n如果页面超级简单的话，可以没有组件嵌套。但是绝大部分Web网页或者Web应用，需要嵌套定义的组件来完成所有的功能和展示。比如上面的Todo，我们也是可以抽取出List。\\r\\n这样让程序易维护、可扩展、方便复用。如，我们抽取出List：\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n怎么使用这个List？我们需要使用Omi.makeHTML把List制作成可以声明式的标签，在render方法中就能直接使用该标签。如下所示：\\r\\n\\r\\n```js\\r\\nimport List from './list.js';\\r\\n\\r\\nOmi.makeHTML('List', List);\\r\\n\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.data.length = this.data.items.length;\\r\\n        this.childrenData = [ { items : this.data.items } ];\\r\\n    }\\r\\n\\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.list.data.items.push(this.data.text);\\r\\n        this.data.length = this.list.data.items.length;\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <List omi-id=\\\"list\\\" name=\\\"list\\\" />\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n* 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML('List', List);也可以写在List组件的代码下面。\\r\\n* 第9行，通过设置this.childrenData可以把参数传递给子组件。this.childrenData是个数组，这样就支持多child的情况。\\r\\n* 第36行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。omi-id可以让你通过Omi.mapping['list']快速访问到组件对象的实例。\\r\\n\\r\\n需要注意的是，this.childrenData传递给子组件的data是一锤子买卖，data会被克隆到子组件。意思就是后续只能改变子组件实例的data属性再update才能改变页面。关于Omi组件通讯其实有4种方案，这个后续教程会专门来讲。\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
+	module.exports = "module.exports = \"<h2 id=\\\"组件通讯\\\">组件通讯</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常遍历灵活，因为有许多可选方案进行通讯：\\r\\n\\r\\n* 通过在组件上声明 data-* 传递给子节点 \\r\\n* 通过在组件上声明 data 传递给子节点 （支持复杂数据类型的映射）\\r\\n* 父容器设置 childrenData 自动传递给子节点\\r\\n* 声明 group-data 传递（支持复杂数据类型的映射）\\r\\n* 完全面向对象，可以非常容易地拿到对象的实例，之后可以设置实例属性和调用实例的方法\\r\\n\\r\\n所以通讯变得畅通无阻，下面一一来举例说明。\\r\\n\\r\\n### data-*通讯 \\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n    }\\r\\n    style () {\\r\\n      return  `\\r\\n      h1{\\r\\n      \\tcursor:pointer;\\r\\n      }\\r\\n      `;\\r\\n    }\\r\\n    handleClick(target, evt){\\r\\n      alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n      return  `\\r\\n      <div>\\r\\n      \\t<h1 onclick=\\\"handleClick(this, event)\\\">Hello ,{{name}}!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.makeHTML('Hello', Hello);\\r\\n\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data-name=\\\"Omi\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n一般data-*用来传递值类型，如string、number。值得注意的是，通过data-*接收到的数据类型都是string，需要自行转成number类型。\\r\\n通常情况下，data-*能满足我们的要求，但是遇到复杂的数据类型是没有办法通过大量data-*去表达，所以可以通过data通讯，请往下看。\\r\\n\\r\\n### data通讯 \\r\\n\\r\\n如上面代码所示，通过 data-name=\\\"Omi\\\"可以把name传递给子组件。下面的代码也可以达到同样的效果。\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n      this.helloData = { name : 'Omi' };\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data=\\\"helloData\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n使用data声明，会去组件的instance（也就是this）下找对应的属性，this下可以挂载任意复杂的对象。所以这也就突破了data-*的局限性。\\r\\n\\r\\n如果instance下面的某个属性下面的某个属性下面的某个数组的第一个元素的某个属性要作为data传递Hello怎么办？\\r\\n没关系，data声明是支持复杂类型的，使用方式如下:\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.complexData ={\\r\\n            a:{\\r\\n                b:{\\r\\n                    c:[\\r\\n                        {\\r\\n                            e:[{\\r\\n                                name:'ComplexData Support1'\\r\\n                            },{\\r\\n                                name:'ComplexData Support2'\\r\\n                            }]\\r\\n                        },\\r\\n                        {\\r\\n                            name: 'ComplexData Support3'\\r\\n                        }\\r\\n                    ]\\r\\n                }\\r\\n            }\\r\\n        };\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello data=\\\"complexData.a.b.c[1]\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n...\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=data_complex\\\" target=\\\"_blank\\\">点击这里→data映射复杂数据</a>\\r\\n\\r\\n### childrenData通讯\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n      super(data);\\r\\n      this.childrenData = [{ name : 'Omi' } , { name : 'dntzhang' }];\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello  />\\r\\n            <Hello  />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n通用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。\\r\\n\\r\\n### group-data通讯\\r\\n\\r\\nchildrenData的方式可以批量传递数据给组件，但是有很多场景下data的来源不一定非要都从childrenData来，childrenData是个数组，会和组件的顺序一一对应，这就给不同传递方式的data必须全部集中的childrenData中，非常不方便。group-data专门为解决上面的痛点而生，专门是为了给一组组件批量传递data。\\r\\n\\r\\n```js\\r\\nimport Hello from './hello.js';\\r\\n\\r\\n\\r\\nOmi.makeHTML('Hello', Hello);\\r\\n\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.testData = [{name: 'Omi'}, {name: 'dntzhang'}, {name: 'AlloyTeam'}];\\r\\n    }\\r\\n\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello group-data=\\\"testData\\\" />\\r\\n            <Hello group-data=\\\"testData\\\" />\\r\\n            <Hello group-data=\\\"testData\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n只需要在声明的子组件上标记group-data，就会去当前组件的instance（也就是this）下面找对应的属性，然后根据当前的位置，和对应数组的位置会一一对应起来。\\r\\n\\r\\n运行结果如下：\\r\\n![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170216110701535-1698390390.png)\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=group_data\\\" target=\\\"_blank\\\">点击这里→group-data</a>\\r\\n\\r\\n同样group-data支持复杂数据类型的映射，需要注意的是，group-data映射的终点必须是一个数组:\\r\\n\\r\\n```js\\r\\nimport Hello from './hello.js';\\r\\n\\r\\n\\r\\nOmi.makeHTML('Hello', Hello);\\r\\n\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.complexData ={\\r\\n            a:{\\r\\n                b:{\\r\\n                    c:[\\r\\n                        {\\r\\n                            e:[{\\r\\n                                name:'ComplexData Support1'\\r\\n                            },{\\r\\n                                name:'ComplexData Support2'\\r\\n                            }]\\r\\n                        },\\r\\n                        {\\r\\n                            name: 'ComplexData Support3'\\r\\n                        }\\r\\n                    ]\\r\\n                }\\r\\n            }\\r\\n        };\\r\\n    }\\r\\n\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello group-data=\\\"complexData.a.b.c[0].e\\\" />\\r\\n            <Hello group-data=\\\"complexData.a.b.c[0].e\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=group_data_complex\\\" target=\\\"_blank\\\">点击这里→group-data映射复杂数据</a>\\r\\n\\r\\n### 通过对象实例\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    \\r\\n    installed(){\\r\\n        this.hello.data.name = \\\"Omi\\\";\\r\\n        this.update()\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello name=\\\"hello\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n### 通过omi-id\\r\\n\\r\\n```js\\r\\n...\\r\\nclass App extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    \\r\\n    installed(){\\r\\n        Omi.get(\\\"hello\\\").data.name = \\\"Omi\\\";\\r\\n        this.update()\\r\\n    }\\r\\n  \\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <Hello omi-id=\\\"hello\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new App(),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n通过在组件上声明omi-id，在程序任何地方拿到该对象的实例。这个可以算是跨任意组件通讯神器。\\r\\n\\r\\n### 特别强调\\r\\n\\r\\n* 通过childrenData或者data方式通讯都是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件\\r\\n* 通过data-✼通讯也是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件。\\r\\n* 关于data-✼通讯也可以不是一锤子买卖，但是要设置组件实例的dataFirst为false，这样的话data-✼就会覆盖组件实例的data对应的属性\\r\\n\\r\\n关于上面的第三条也就是这样的逻辑伪代码：\\r\\n```js\\r\\nif(this.dataFirst){\\r\\n    this.data = Object.assign({},data-✼ ,this.data);\\r\\n}else{\\r\\n    this.data = Object.assign({},this.data, data-✼);\\r\\n}\\r\\n```\""
 
 /***/ },
 /* 15 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"条件判断\\\">条件判断</h2>\\r\\n\\r\\n我们经常需要根据不同的状态呈现不同的界面，比如有的用户是vip要显示vip的Logo。Omi有许多种方式满足你的要求。\\r\\n\\r\\n### 方式一\\r\\n\\r\\n```js\\r\\nclass ConditionTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `{{#isVip}}\\r\\n                    <div>you are VIP.</div>\\r\\n                {{/isVip}}\\r\\n                {{^isVip}}\\r\\n                    <div>you are not VIP.</div>\\r\\n                {{/isVip}}`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n上面完全使用mustachejs的条件判断的语法。当然Omi不强制你使用mustachejs。你可以是omi.lite.js，然后重写Omi.template方法去使用任意你喜爱的模板引擎。\\r\\n\\r\\n### 方式二\\r\\n\\r\\n```js\\r\\nclass ConditionTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        if(this.data.isVip){\\r\\n            return '<div>you are VIP.</div>';\\r\\n        }else{\\r\\n            return '<div>you are not VIP.</div>';\\r\\n        }\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\nrender就是提供了很好的可编程性，里面可以写任意js逻辑代码。对了，差点忘了，style方法里面也可以写js逻辑的。\\r\\n\\r\\n```js\\r\\nclass ConditionTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    style (){\\r\\n        if(this.data.isVip){\\r\\n            return 'div{ color : red; }';\\r\\n        }else{\\r\\n            return 'div{ color : green; }';\\r\\n        }\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        if(this.data.isVip){\\r\\n            return '<div>you are VIP.</div>';\\r\\n        }else{\\r\\n            return '<div>you are not VIP.</div>';\\r\\n        }\\r\\n    }\\r\\n}\\r\\n```\""
+	module.exports = "module.exports = \"<h2 id=\\\"组件\\\">组件</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)完全基于组件体系设计，我们希望开发者可以像搭积木一样制作Web程序，一切皆是组件，组件也可以嵌套子组件形成新的组件，新的组件又可以当作子组件嵌套至任意组件形成新的组件...\\r\\n\\r\\n![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170210093427338-1536910080.png)\\r\\n\\r\\n### 简单组件\\r\\n\\r\\n这里使用Todo的例子来讲解Omi组件体系的使用。\\r\\n\\r\\n```js\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.data.items.push(this.data.text);\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{items.length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Todo({ items: [] ,text : '' }),\\\"body\\\");\\r\\n```\\r\\n\\r\\n组件生成的HTML最终会插入到body中。上面的例子展示了Omi的部分特性:\\r\\n\\r\\n- data传递: new Todo(data,..)的data可以直接提供给render方法里的模板\\r\\n- 局部CSS: h3只对render里的h3生效，不会污染外面的h3；button也是同样的\\r\\n- 声明式事件绑定: onchange调用的就是组件内的handleChange，this可以拿到当然的DOM元素,还可以拿到当前的event\\r\\n- 需要手动调用update方法才能更新组件\\r\\n\\r\\n这里需要特别强调的是，为了更加的自由和灵活度。Omi没有内置数据变更的自动更新，需要开发者自己调用update方法。\\r\\n你也可以和[oba](https://github.com/dntzhang/oba)或者mobx一起使用来实现自动更新。\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=todo\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n## 组件嵌套\\r\\n\\r\\n如果页面超级简单的话，可以没有组件嵌套。但是绝大部分Web网页或者Web应用，需要嵌套定义的组件来完成所有的功能和展示。比如上面的Todo，我们也是可以抽取出List。\\r\\n这样让程序易维护、可扩展、方便复用。如，我们抽取出List：\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n怎么使用这个List？我们需要使用Omi.makeHTML把List制作成可以声明式的标签，在render方法中就能直接使用该标签。如下所示：\\r\\n\\r\\n```js\\r\\nimport List from './list.js';\\r\\n\\r\\nOmi.makeHTML('List', List);\\r\\n\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.data.length = this.data.items.length;\\r\\n        this.childrenData = [ { items : this.data.items } ];\\r\\n    }\\r\\n\\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.list.data.items.push(this.data.text);\\r\\n        this.data.length = this.list.data.items.length;\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <List omi-id=\\\"list\\\" name=\\\"list\\\" />\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n* 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML('List', List);也可以写在List组件的代码下面。\\r\\n* 第9行，通过设置this.childrenData可以把参数传递给子组件。this.childrenData是个数组，这样就支持多child的情况。\\r\\n* 第34行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。omi-id可以让你通过Omi.mapping['list']快速访问到组件对象的实例。\\r\\n\\r\\n需要注意的是，this.childrenData传递给子组件的data是一锤子买卖，data会被克隆到子组件。意思就是后续只能改变子组件实例的data属性再update才能改变页面。关于Omi组件通讯其实有4种方案，这个后续教程会专门来讲。\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\""
 
 /***/ },
 /* 16 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"事件处理\\\">事件处理</h2>\\r\\n\\r\\nOmi的事件分内置事件和自定义事件。在内置事件处理方面巧妙地利用了浏览器自身的管线机制，可以通过event和this轻松拿到事件实例和触发该事件的元素。\\r\\n\\r\\n### 内置事件\\r\\n\\r\\n什么算内置事件？只要下面正则能匹配到就算内置事件。\\r\\n\\r\\n```js\\r\\non(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave)\\r\\n```\\r\\n\\r\\n内置事件怎么绑定？如下所示：\\r\\n\\r\\n```js\\r\\nclass EventTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    handleClick(dom, evt){\\r\\n        alert(dom.innerHTML);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div onclick=\\\"handleClick(this, event)\\\">Hello, Omi!</div>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n### 自定义事件\\r\\n\\r\\n开发者自己定义的组件的事件，称为自定义事件。这里拿分页作为例子：\\r\\n\\r\\n```js\\r\\nimport Omi from '../../src/index.js';\\r\\nimport Pagination from './pagination.js';\\r\\nimport Content from './content.js';\\r\\n\\r\\nOmi.makeHTML('Pagination', Pagination);\\r\\nOmi.makeHTML('Content', Content);\\r\\n\\r\\nclass Main extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    installed(){\\r\\n        this.content.goto(this.pagination.data.currentPage+1);\\r\\n    }\\r\\n    handlePageChange(index){\\r\\n        this.content.goto(index+1);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h1>Pagination Example</h1>\\r\\n                    <Content name=\\\"content\\\" />\\r\\n                    <Pagination\\r\\n                        name=\\\"pagination\\\"\\r\\n                        data-total=\\\"100\\\"\\r\\n                        data-page-size=\\\"10\\\"\\r\\n                        data-num-edge=\\\"1\\\"\\r\\n                        data-num-display=\\\"4\\\"　　　　　\\r\\n                        onPageChange=\\\"handlePageChange\\\" />\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render( new Main(),'body');\\r\\n```\\r\\n\\r\\n如上面的onPageChange就是自定义事件，触发会执行handlePageChange。onPageChange方法是在Pagination中执行：\\r\\n\\r\\n```js\\r\\nimport Omi from '../../src/index.js';\\r\\n\\r\\nclass Pagination extends Omi.Component {\\r\\n    ...\\r\\n    ...\\r\\n    ...\\r\\n            linkTo: \\\"#\\\",\\r\\n            prevText: \\\"Prev\\\",\\r\\n            nextText: \\\"Next\\\",\\r\\n            ellipseText: \\\"...\\\",\\r\\n            prevShow: true,\\r\\n            nextShow: true,\\r\\n            onPageChange: function () { return false; }\\r\\n        }, this.data);\\r\\n\\r\\n        this.pageNum = Math.ceil(this.data.total / this.data.pageSize);\\r\\n    }\\r\\n    goto (index,evt) {\\r\\n        evt.preventDefault();\\r\\n        this.data.currentPage=index;\\r\\n        this.update();\\r\\n        this.data.onPageChange(index);\\r\\n    }\\r\\n    ...\\r\\n    ...\\r\\n    ...\\r\\n}\\r\\n```\\r\\n\\r\\n这里取了Pagination组件的部分代码。高亮的就是执行onPageChange的地方。\\r\\n\\r\\n### 相关地址\\r\\n\\r\\n* [演示地址](http://alloyteam.github.io/omi/example/pagination/)\\r\\n* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/pagination)\""
+	module.exports = "module.exports = \"<h2 id=\\\"条件判断\\\">条件判断</h2>\\r\\n\\r\\n我们经常需要根据不同的状态呈现不同的界面，比如有的用户是vip要显示vip的Logo。Omi有许多种方式满足你的要求。\\r\\n\\r\\n### 方式一\\r\\n\\r\\n```js\\r\\nclass ConditionTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `{{#isVip}}\\r\\n                    <div>you are VIP.</div>\\r\\n                {{/isVip}}\\r\\n                {{^isVip}}\\r\\n                    <div>you are not VIP.</div>\\r\\n                {{/isVip}}`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n上面完全使用mustachejs的条件判断的语法。当然Omi不强制你使用mustachejs。你可以是omi.lite.js，然后重写Omi.template方法去使用任意你喜爱的模板引擎。\\r\\n\\r\\n### 方式二\\r\\n\\r\\n```js\\r\\nclass ConditionTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        if(this.data.isVip){\\r\\n            return '<div>you are VIP.</div>';\\r\\n        }else{\\r\\n            return '<div>you are not VIP.</div>';\\r\\n        }\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\nrender就是提供了很好的可编程性，里面可以写任意js逻辑代码。对了，差点忘了，style方法里面也可以写js逻辑的。\\r\\n\\r\\n```js\\r\\nclass ConditionTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    style (){\\r\\n        if(this.data.isVip){\\r\\n            return 'div{ color : red; }';\\r\\n        }else{\\r\\n            return 'div{ color : green; }';\\r\\n        }\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        if(this.data.isVip){\\r\\n            return '<div>you are VIP.</div>';\\r\\n        }else{\\r\\n            return '<div>you are not VIP.</div>';\\r\\n        }\\r\\n    }\\r\\n}\\r\\n```\""
 
 /***/ },
 /* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"表单\\\">表单</h2>\\r\\n\\r\\nOmi让一些表单操控起来更加方便，特别是select！\\r\\n\\r\\n### select标签\\r\\n\\r\\n以前，我们需要像如下的方式选中一个选项：\\r\\n\\r\\n```html\\r\\n<select>\\r\\n  <option value=\\\"grapefruit\\\">Grapefruit</option>\\r\\n  <option value=\\\"lime\\\">Lime</option>\\r\\n  <option selected value=\\\"coconut\\\">Coconut</option>\\r\\n  <option value=\\\"mango\\\">Mango</option>\\r\\n</select>\\r\\n```\\r\\n\\r\\n第三个option由于加上了selected，所有会被选中。这样带来的问题就是，开发者写的程序可能要操遍历每个option。而使用Omi，你只需要这样子：\\r\\n\\r\\n```html\\r\\n<select value=\\\"coconut\\\">\\r\\n  <option value=\\\"grapefruit\\\">Grapefruit</option>\\r\\n  <option value=\\\"lime\\\">Lime</option>\\r\\n  <option value=\\\"coconut\\\">Coconut</option>\\r\\n  <option value=\\\"mango\\\">Mango</option>\\r\\n</select>\\r\\n```\\r\\n\\r\\n这样就能达到同样的效果。比如你想选择第一项：\\r\\n\\r\\n```html\\r\\n<select value=\\\"grapefruit\\\">\\r\\n  <option value=\\\"grapefruit\\\">Grapefruit</option>\\r\\n  <option value=\\\"lime\\\">Lime</option>\\r\\n  <option value=\\\"coconut\\\">Coconut</option>\\r\\n  <option value=\\\"mango\\\">Mango</option>\\r\\n</select>\\r\\n```\\r\\n\\r\\n是不是非常方便？\\r\\n\\r\\n###  举个例子\\r\\n\\r\\n```js\\r\\nclass FormTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n       \\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n      console.log(target.value)\\r\\n      this.data.value = target.value;\\r\\n    }\\r\\n\\r\\n    handleSubmit(evt) {\\r\\n      alert('Your favorite flavor is: ' + this.data.value);\\r\\n      evt.preventDefault();\\r\\n    }\\r\\n  \\r\\n    render () {\\r\\n        return `\\r\\n        <form onsubmit=\\\"handleSubmit(event)\\\">\\r\\n        <label>\\r\\n          Pick your favorite La Croix flavor:\\r\\n          <select value=\\\"{{value}}\\\" onchange=\\\"handleChange(this)\\\">\\r\\n            <option value=\\\"grapefruit\\\">Grapefruit</option>\\r\\n            <option value=\\\"lime\\\">Lime</option>\\r\\n            <option value=\\\"coconut\\\">Coconut</option>\\r\\n            <option value=\\\"mango\\\">Mango</option>\\r\\n          </select>\\r\\n        </label>\\r\\n        <input type=\\\"submit\\\" value=\\\"Submit\\\" />\\r\\n      </form>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new FormTest({ value: 'mango' }),'#container');\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=form\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
+	module.exports = "module.exports = \"<h2 id=\\\"事件处理\\\">事件处理</h2>\\r\\n\\r\\nOmi的事件分内置事件和自定义事件。在内置事件处理方面巧妙地利用了浏览器自身的管线机制，可以通过event和this轻松拿到事件实例和触发该事件的元素。\\r\\n\\r\\n### 内置事件\\r\\n\\r\\n什么算内置事件？只要下面正则能匹配到就算内置事件。\\r\\n\\r\\n```js\\r\\non(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave)\\r\\n```\\r\\n\\r\\n内置事件怎么绑定？如下所示：\\r\\n\\r\\n```js\\r\\nclass EventTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    handleClick(dom, evt){\\r\\n        alert(dom.innerHTML);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div onclick=\\\"handleClick(this, event)\\\">Hello, Omi!</div>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n### 自定义事件\\r\\n\\r\\n开发者自己定义的组件的事件，称为自定义事件。这里拿分页作为例子：\\r\\n\\r\\n```js\\r\\nimport Omi from '../../src/index.js';\\r\\nimport Pagination from './pagination.js';\\r\\nimport Content from './content.js';\\r\\n\\r\\nOmi.makeHTML('Pagination', Pagination);\\r\\nOmi.makeHTML('Content', Content);\\r\\n\\r\\nclass Main extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    installed(){\\r\\n        this.content.goto(this.pagination.data.currentPage+1);\\r\\n    }\\r\\n    handlePageChange(index){\\r\\n        this.content.goto(index+1);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h1>Pagination Example</h1>\\r\\n                    <Content name=\\\"content\\\" />\\r\\n                    <Pagination\\r\\n                        name=\\\"pagination\\\"\\r\\n                        data-total=\\\"100\\\"\\r\\n                        data-page-size=\\\"10\\\"\\r\\n                        data-num-edge=\\\"1\\\"\\r\\n                        data-num-display=\\\"4\\\"　　　　　\\r\\n                        onPageChange=\\\"handlePageChange\\\" />\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render( new Main(),'body');\\r\\n```\\r\\n\\r\\n如上面的onPageChange就是自定义事件，触发会执行handlePageChange。onPageChange方法是在Pagination中执行：\\r\\n\\r\\n```js\\r\\nimport Omi from '../../src/index.js';\\r\\n\\r\\nclass Pagination extends Omi.Component {\\r\\n    ...\\r\\n    ...\\r\\n    ...\\r\\n            linkTo: \\\"#\\\",\\r\\n            prevText: \\\"Prev\\\",\\r\\n            nextText: \\\"Next\\\",\\r\\n            ellipseText: \\\"...\\\",\\r\\n            prevShow: true,\\r\\n            nextShow: true,\\r\\n            onPageChange: function () { return false; }\\r\\n        }, this.data);\\r\\n\\r\\n        this.pageNum = Math.ceil(this.data.total / this.data.pageSize);\\r\\n    }\\r\\n    goto (index,evt) {\\r\\n        evt.preventDefault();\\r\\n        this.data.currentPage=index;\\r\\n        this.update();\\r\\n        this.data.onPageChange(index);\\r\\n    }\\r\\n    ...\\r\\n    ...\\r\\n    ...\\r\\n}\\r\\n```\\r\\n\\r\\n这里取了Pagination组件的部分代码。高亮的就是执行onPageChange的地方。\\r\\n\\r\\n### 相关地址\\r\\n\\r\\n* [演示地址](http://alloyteam.github.io/omi/example/pagination/)\\r\\n* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/pagination)\""
 
 /***/ },
 /* 18 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"获取DOM节点\\\">获取DOM节点</h2>\\r\\n\\r\\n虽然绝大部分情况下，开发者不需要去查找获取DOM，但是还是有需要获取DOM的场景，所以Omi提供了方便获取DOM节点的方式。\\r\\n\\r\\n### ref和refs\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(){\\r\\n        alert(this.refs.abc.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 ref=\\\"abc\\\" onclick=\\\"handleClick()\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n可以看到通过在HTML中标记ref为abc，那么就通过this.refs.abc访问到该DOM节点。\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=ref\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
+	module.exports = "module.exports = \"<h2 id=\\\"表单\\\">表单</h2>\\r\\n\\r\\nOmi让一些表单操控起来更加方便，特别是select！\\r\\n\\r\\n### select标签\\r\\n\\r\\n以前，我们需要像如下的方式选中一个选项：\\r\\n\\r\\n```html\\r\\n<select>\\r\\n  <option value=\\\"grapefruit\\\">Grapefruit</option>\\r\\n  <option value=\\\"lime\\\">Lime</option>\\r\\n  <option selected value=\\\"coconut\\\">Coconut</option>\\r\\n  <option value=\\\"mango\\\">Mango</option>\\r\\n</select>\\r\\n```\\r\\n\\r\\n第三个option由于加上了selected，所有会被选中。这样带来的问题就是，开发者写的程序可能要操遍历每个option。而使用Omi，你只需要这样子：\\r\\n\\r\\n```html\\r\\n<select value=\\\"coconut\\\">\\r\\n  <option value=\\\"grapefruit\\\">Grapefruit</option>\\r\\n  <option value=\\\"lime\\\">Lime</option>\\r\\n  <option value=\\\"coconut\\\">Coconut</option>\\r\\n  <option value=\\\"mango\\\">Mango</option>\\r\\n</select>\\r\\n```\\r\\n\\r\\n这样就能达到同样的效果。比如你想选择第一项：\\r\\n\\r\\n```html\\r\\n<select value=\\\"grapefruit\\\">\\r\\n  <option value=\\\"grapefruit\\\">Grapefruit</option>\\r\\n  <option value=\\\"lime\\\">Lime</option>\\r\\n  <option value=\\\"coconut\\\">Coconut</option>\\r\\n  <option value=\\\"mango\\\">Mango</option>\\r\\n</select>\\r\\n```\\r\\n\\r\\n是不是非常方便？\\r\\n\\r\\n###  举个例子\\r\\n\\r\\n```js\\r\\nclass FormTest extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n       \\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n      console.log(target.value)\\r\\n      this.data.value = target.value;\\r\\n    }\\r\\n\\r\\n    handleSubmit(evt) {\\r\\n      alert('Your favorite flavor is: ' + this.data.value);\\r\\n      evt.preventDefault();\\r\\n    }\\r\\n  \\r\\n    render () {\\r\\n        return `\\r\\n        <form onsubmit=\\\"handleSubmit(event)\\\">\\r\\n        <label>\\r\\n          Pick your favorite La Croix flavor:\\r\\n          <select value=\\\"{{value}}\\\" onchange=\\\"handleChange(this)\\\">\\r\\n            <option value=\\\"grapefruit\\\">Grapefruit</option>\\r\\n            <option value=\\\"lime\\\">Lime</option>\\r\\n            <option value=\\\"coconut\\\">Coconut</option>\\r\\n            <option value=\\\"mango\\\">Mango</option>\\r\\n          </select>\\r\\n        </label>\\r\\n        <input type=\\\"submit\\\" value=\\\"Submit\\\" />\\r\\n      </form>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new FormTest({ value: 'mango' }),'#container');\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=form\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
 
 /***/ },
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Hello World\\\">Hello World</h2>\\r\\n\\r\\n你可以使用ES6+或者ES5的方式编写Omi程序来搭建你的Web程序。\\r\\n\\r\\n### Hello World with ES6+\\r\\n\\r\\n你可以使用 [webpack](https://webpack.github.io/) 打包工具，webpack会把你的模块代码打成一个很小的包，优化加载时间。使用[babel](http://babeljs.io/)，让你立刻马上使用ES6+来编写你的web程序。你只需要在webpack配置的module设置好[babel-loader](https://github.com/babel/babel-loader)便可。\\r\\n\\r\\n一个Omi的简短的例子如下所示:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target, evt){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 onclick=\\\"handleClick(this, event)\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n组件生成的HTML最终会插入到#container中。上面的例子展示了Omi的部分特性:\\r\\n\\r\\n- data传递: new Hello(data,..)的data可以直接提供给render方法里的模板\\r\\n- 局部CSS: h1只对render里的h1生效，不会污染外面的h1\\r\\n- 声明式事件绑定: onclick调用的就是组件内的handleClick，this可以拿到当然的DOM元素,还可以拿到当前的event\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=hello\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n你可以使用Omi.makeHTML来生成组件标签用于嵌套。\\r\\n```js\\r\\n    Omi.makeHTML('Hello', Hello);\\r\\n```\\r\\n那么你就在其他组件中使用，如\\r\\n```js\\r\\n  ...\\r\\n  render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <div>Test</div>\\r\\n            <Hello data-name=\\\"Omi\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n    ...\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n###  Hello World with ES5\\r\\n\\r\\n当然Omi没有抛弃ES5的用户。你可以使用ES5的方式编写Omi。如，在你的HTML中引用omi.js：\\r\\n\\r\\n```html\\r\\n<script src=\\\"omi.js\\\"></script>\\r\\n```\\r\\n\\r\\n然后：\\r\\n\\r\\n```js\\r\\nvar Hello =  Omi.create(\\\"Hello\\\", {\\r\\n    style: function () {\\r\\n        return \\\"h1{ cursor:pointer }\\\";\\r\\n    },\\r\\n    handleClick: function (dom) {\\r\\n        alert(dom.innerHTML);\\r\\n    },\\r\\n    render: function () {\\r\\n        return '<div>\\\\\\r\\n                    <h1 onclick=\\\"handleClick(this, event)\\\">Hello ,{{name}}!</h1>\\\\\\r\\n                </div>';\\r\\n    }\\r\\n});\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"#container\\\");\\r\\n```\\r\\n当然除了在HTML引入脚步，你还可以使用AMD、CMD或者CommonJS的方式引入Omi，这里就不再一一列举。\\r\\n\\r\\n需要注意的是，Omi.create的第一个参数Hello是用来生成Tag Name的。你可以在其他地方嵌入你的组件。如：\\r\\n\\r\\n```js\\r\\n  ...\\r\\n  render:function() {\\r\\n        return  '<div>\\\\\\r\\n                    <div>Test</div>\\\\\\r\\n                    <Hello  data-name=\\\"Omi\\\" />\\\\\\r\\n                </div>';\\r\\n    }\\r\\n    ...\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
+	module.exports = "module.exports = \"<h2 id=\\\"获取DOM节点\\\">获取DOM节点</h2>\\r\\n\\r\\n虽然绝大部分情况下，开发者不需要去查找获取DOM，但是还是有需要获取DOM的场景，所以Omi提供了方便获取DOM节点的方式。\\r\\n\\r\\n### ref和refs\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(){\\r\\n        alert(this.refs.abc.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 ref=\\\"abc\\\" onclick=\\\"handleClick()\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n可以看到通过在HTML中标记ref为abc，那么就通过this.refs.abc访问到该DOM节点。\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=ref\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
 
 /***/ },
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"继承\\\">继承</h2>\\r\\n\\r\\n通过继承机制，可以利用已有的数据类型来定义新的数据类型。所定义的新的数据类型不仅拥有新定义的成员，而且还同时拥有旧的成员。我们称已存在的用来派生新类的类为基类，又称为父类。由已存在的类派生出的新类称为派生类，又称为子类。\\r\\n\\r\\n### 举个例子\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            div{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target, evt){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n       return  ' <div onclick=\\\"handleClick(this,event)\\\">Hello {{name}}!</div>'\\r\\n    }\\r\\n}\\r\\n\\r\\nclass SubHello extends Hello {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new SubHello({ name : 'Omi' }),'#container');\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=inherit\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n###  ES5下的继承\\r\\n\\r\\n```js\\r\\nvar Hello =  Omi.create(\\\"Hello\\\",{\\r\\n  render:function(){\\r\\n    return  ' <div>Hello {{name}}!</div>'\\r\\n  }\\r\\n})\\r\\n\\r\\nvar SubHello =  Omi.create(\\\"SubHello\\\",Hello,{ });\\r\\n\\r\\n\\r\\nOmi.render(new SubHello({ name : 'Omi' }),'#container');\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=inherit_es5\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
+	module.exports = "module.exports = \"<h2 id=\\\"Hello World\\\">Hello World</h2>\\r\\n\\r\\n你可以使用ES6+或者ES5的方式编写Omi程序来搭建你的Web程序。\\r\\n\\r\\n### Hello World with ES6+\\r\\n\\r\\n你可以使用 [webpack](https://webpack.github.io/) 打包工具，webpack会把你的模块代码打成一个很小的包，优化加载时间。使用[babel](http://babeljs.io/)，让你立刻马上使用ES6+来编写你的web程序。你只需要在webpack配置的module设置好[babel-loader](https://github.com/babel/babel-loader)便可。\\r\\n\\r\\n一个Omi的简短的例子如下所示:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target, evt){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 onclick=\\\"handleClick(this, event)\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n组件生成的HTML最终会插入到#container中。上面的例子展示了Omi的部分特性:\\r\\n\\r\\n- data传递: new Hello(data,..)的data可以直接提供给render方法里的模板\\r\\n- 局部CSS: h1只对render里的h1生效，不会污染外面的h1\\r\\n- 声明式事件绑定: onclick调用的就是组件内的handleClick，this可以拿到当然的DOM元素,还可以拿到当前的event\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=hello\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n你可以使用Omi.makeHTML来生成组件标签用于嵌套。\\r\\n```js\\r\\n    Omi.makeHTML('Hello', Hello);\\r\\n```\\r\\n那么你就在其他组件中使用，如\\r\\n```js\\r\\n  ...\\r\\n  render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <div>Test</div>\\r\\n            <Hello data-name=\\\"Omi\\\" />\\r\\n        </div>\\r\\n        `;\\r\\n    }\\r\\n    ...\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n###  Hello World with ES5\\r\\n\\r\\n当然Omi没有抛弃ES5的用户。你可以使用ES5的方式编写Omi。如，在你的HTML中引用omi.js：\\r\\n\\r\\n```html\\r\\n<script src=\\\"omi.js\\\"></script>\\r\\n```\\r\\n\\r\\n然后：\\r\\n\\r\\n```js\\r\\nvar Hello =  Omi.create(\\\"Hello\\\", {\\r\\n    style: function () {\\r\\n        return \\\"h1{ cursor:pointer }\\\";\\r\\n    },\\r\\n    handleClick: function (dom) {\\r\\n        alert(dom.innerHTML);\\r\\n    },\\r\\n    render: function () {\\r\\n        return '<div>\\\\\\r\\n                    <h1 onclick=\\\"handleClick(this, event)\\\">Hello ,{{name}}!</h1>\\\\\\r\\n                </div>';\\r\\n    }\\r\\n});\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"#container\\\");\\r\\n```\\r\\n当然除了在HTML引入脚本，你还可以使用AMD、CMD或者CommonJS的方式引入Omi，这里就不再一一列举。\\r\\n\\r\\n需要注意的是，Omi.create的第一个参数Hello是用来生成Tag Name的。你可以在其他地方嵌入你的组件。如：\\r\\n\\r\\n```js\\r\\n  ...\\r\\n  render:function() {\\r\\n        return  '<div>\\\\\\r\\n                    <div>Test</div>\\\\\\r\\n                    <Hello  data-name=\\\"Omi\\\" />\\\\\\r\\n                </div>';\\r\\n    }\\r\\n    ...\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\""
 
 /***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"安装\\\">安装</h2>\\n\\nOmi是一款用于创建用户界面的组件化框架，开放并且现代，故得名：Omi。\\n\\n### 安装 Omi\\n\\n我们推荐使用  [npm](https://www.npmjs.com/) 来管理你的前端依赖.\\n\\n通过npm安装Omi，你只需要执行下面的命令:\\n\\n``` js\\nnpm install omi\\n```\""
+	module.exports = "module.exports = \"<h2 id=\\\"继承\\\">继承</h2>\\r\\n\\r\\n通过继承机制，可以利用已有的数据类型来定义新的数据类型。所定义的新的数据类型不仅拥有新定义的成员，而且还同时拥有旧的成员。我们称已存在的用来派生新类的类为基类，又称为父类。由已存在的类派生出的新类称为派生类，又称为子类。\\r\\n\\r\\n### 举个例子\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            div{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target, evt){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n       return  ' <div onclick=\\\"handleClick(this,event)\\\">Hello {{name}}!</div>'\\r\\n    }\\r\\n}\\r\\n\\r\\nclass SubHello extends Hello {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new SubHello({ name : 'Omi' }),'#container');\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=inherit\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n###  ES5下的继承\\r\\n\\r\\n```js\\r\\nvar Hello =  Omi.create(\\\"Hello\\\",{\\r\\n  render:function(){\\r\\n    return  ' <div>Hello {{name}}!</div>'\\r\\n  }\\r\\n})\\r\\n\\r\\nvar SubHello =  Omi.create(\\\"SubHello\\\",Hello,{ });\\r\\n\\r\\n\\r\\nOmi.render(new SubHello({ name : 'Omi' }),'#container');\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=inherit_es5\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
 
 /***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"生命周期\\\">生命周期</h2>\\r\\n\\r\\n\\r\\n|  名称  | 含义        | 时机  |\\r\\n| :-------------: |:-------------:|: -----:|\\r\\n| constructor  | 构造函数 | new的时候 |\\r\\n| install  | 初始化安装，这可以拿到用户传进的data进行处理 | 实例化 |\\r\\n| installed    | 安装完成，HTML已经插入页面之后执行。注意：组件被remove之后再进行restore也会执行   |   ** 实例化和存在期 ** |\\r\\n| uninstall | 卸载组件。执行remove方法会触发该事件    |   销毁时 |\\r\\n| beforeUpdate | 更新前     |   存在期 |\\r\\n| afterUpdate | 更新后     |    存在期 |\\r\\n\\r\\n## 示意图\\r\\n\\r\\n![lc](http://images2015.cnblogs.com/blog/105416/201701/105416-20170119153018546-1566368987.png)\\r\\n    \\r\\n需要注意的是installed在实例化期也会执行，上图没有标出。比如组件被移除再进行还原会执行，再比如新增新的组件也会执行。\\r\\n    \\r\\n### 举个例子\\r\\n\\r\\n```js\\r\\nclass Timer extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    install () {\\r\\n        this.data = {secondsElapsed: 0};\\r\\n    }\\r\\n\\r\\n    tick() {\\r\\n        this.data.secondsElapsed++;\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    installed(){\\r\\n        this.interval = setInterval(() => this.tick(), 1000);\\r\\n    }\\r\\n\\r\\n    uninstall() {\\r\\n        clearInterval(this.interval);\\r\\n    }\\r\\n\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        .num { color:red; }\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>Seconds Elapsed:<span class=\\\"num\\\"> {{secondsElapsed}}</span></div>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=lifecycle\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
+	module.exports = "module.exports = \"<h2 id=\\\"安装\\\">安装</h2>\\n\\nOmi（读音 / [ˈomɪ] /, 汉字类似于 欧米） 是一款用于创建用户界面的组件化框架，开放并且现代，故得名：Omi。\\n\\n### 安装 Omi\\n\\n我们推荐使用  [npm](https://www.npmjs.com/) 来管理你的前端依赖.\\n\\n通过npm安装Omi，你只需要执行下面的命令:\\n\\n``` js\\nnpm install omi\\n```\""
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"循环遍历\\\">循环遍历</h2>\\r\\n\\r\\n下面介绍mustache.js的方式和javascript遍历的方式。\\r\\n\\r\\n### 方式一\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <ul> {{#items}} <li id=\\\"{{id}}\\\">{{text}}</li> {{/items}}</ul>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new List({\\r\\n    items: [\\r\\n        {id: 1, text: 'Omi'},\\r\\n        {id: 2, text: 'dntzhang'},\\r\\n        {id: 3, text: 'AlloyTeam'}\\r\\n    ]\\r\\n}),\\\"body\\\");\\r\\n```\\r\\n\\r\\nmustache.js更详细的循环遍历使用可看[https://github.com/janl/mustache.js#non-empty-lists](https://github.com/janl/mustache.js#non-empty-lists)。 比如还支持：\\r\\n\\r\\n* 如果items的每一项是字符串，可以直接**{{.}}**的方式来输出每一项\\r\\n* 循环的时候调用定义好的函数\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=list\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n### 方式二\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render() {\\r\\n        return `<div>\\r\\n                    <ul>\\r\\n                    ` + this.data.items.map(item =>\\r\\n                        '<li id=\\\"' + item.id + '\\\">' + item.text + '</li>'\\r\\n                    ).join(\\\"\\\") + `\\r\\n                    </ul>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new List({\\r\\n    items: [\\r\\n        {id: 1, text: 'Omi'},\\r\\n        {id: 2, text: 'dntzhang'},\\r\\n        {id: 3, text: 'AlloyTeam'}\\r\\n    ]\\r\\n}),\\\"body\\\");\\r\\n```\\r\\n\\r\\n当然你也可以在map里面也使用template string\\r\\n\\r\\n```js\\r\\n...\\r\\nrender() {\\r\\n    return `<div>\\r\\n                <ul>\\r\\n                ` + this.data.items.map(item =>\\r\\n                    `<li id=\\\"${item.id}\\\">${item.text}</li>`\\r\\n                ).join(\\\"\\\") + `\\r\\n                </ul>\\r\\n            </div>`;\\r\\n}\\r\\n...\\r\\n```\\r\\n\\r\\n你将在页面看到如下效果:\\r\\n\\r\\n![pv](http://images2015.cnblogs.com/blog/105416/201701/105416-20170122095724129-2059595233.png)\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=list2\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
+	module.exports = "module.exports = \"<h2 id=\\\"生命周期\\\">生命周期</h2>\\r\\n\\r\\n\\r\\n|  名称  | 含义        | 时机  |\\r\\n| :-------------: |:-------------:|: -----:|\\r\\n| constructor  | 构造函数 | new的时候 |\\r\\n| install  | 初始化安装，这可以拿到用户传进的data进行处理 | 实例化 |\\r\\n| installed    | 安装完成，HTML已经插入页面之后执行。注意：组件被remove之后再进行restore也会执行   |   ** 实例化和存在期 ** |\\r\\n| uninstall | 卸载组件。执行remove方法会触发该事件    |   销毁时 |\\r\\n| beforeUpdate | 更新前     |   存在期 |\\r\\n| afterUpdate | 更新后     |    存在期 |\\r\\n\\r\\n## 示意图\\r\\n\\r\\n![lc](http://images2015.cnblogs.com/blog/105416/201701/105416-20170119153018546-1566368987.png)\\r\\n    \\r\\n需要注意的是installed在实例化期也会执行，上图没有标出。比如组件被移除再进行还原会执行，再比如新增新的组件也会执行。\\r\\n    \\r\\n### 举个例子\\r\\n\\r\\n```js\\r\\nclass Timer extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    install () {\\r\\n        this.data = {secondsElapsed: 0};\\r\\n    }\\r\\n\\r\\n    tick() {\\r\\n        this.data.secondsElapsed++;\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    installed(){\\r\\n        this.interval = setInterval(() => this.tick(), 1000);\\r\\n    }\\r\\n\\r\\n    uninstall() {\\r\\n        clearInterval(this.interval);\\r\\n    }\\r\\n\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        .num { color:red; }\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>Seconds Elapsed:<span class=\\\"num\\\"> {{secondsElapsed}}</span></div>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=lifecycle\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
 
 /***/ },
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"环境搭建\\\">环境搭建</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)使用 Webpack + ES6 的方式去开发；使用karma+jasmine来作为Omi的测试工具。\\r\\n\\r\\n## Karma介绍\\r\\n\\r\\nKarma是一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。这个测试工具的一个强大特性就是，它可以监控(Watch)文件的变化，然后自行执行。但是集成到travis ci要把singleRun设置成true,让其只执行一遍。\\r\\n\\r\\n## Jasmine介绍\\r\\nJasmine 是一款 JavaScript BDD（行为驱动开发）测试框架，它不依赖于其他任何 JavaScript 组件。它有干净清晰的语法，让您可以很简单的写出测试代码。\\r\\n\\r\\n## 开发依赖包\\r\\n\\r\\n在package.json中，有如下配置:\\r\\n\\r\\n```js\\r\\n  \\\"devDependencies\\\": {\\r\\n    \\\"babel-core\\\": \\\"^6.0.20\\\",\\r\\n    \\\"babel-loader\\\": \\\"^6.0.1\\\",\\r\\n    \\\"babel-preset-es2015\\\": \\\"^6.0.15\\\",\\r\\n    \\\"node-libs-browser\\\": \\\"^0.5.3\\\",\\r\\n    \\\"webpack\\\": \\\"^1.14.0\\\",\\r\\n    \\\"jasmine-core\\\": \\\"^2.5.2\\\",\\r\\n    \\\"karma\\\": \\\"^1.3.0\\\",\\r\\n    \\\"karma-chrome-launcher\\\": \\\"^2.0.0\\\",\\r\\n    \\\"karma-jasmine\\\": \\\"^1.1.0\\\",\\r\\n    \\\"karma-webpack\\\": \\\"^1.8.1\\\"\\r\\n  }\\r\\n```\\r\\n\\r\\n* ES6+相关依赖有babel-core、babel-loader和babel-preset-es2015\\r\\n\\r\\n在webpack.config.js中配置js文件使用babel-loader编译。\\r\\n```js\\r\\nloaders: [\\r\\n    {\\r\\n        loader: 'babel-loader',\\r\\n        test: /\\\\.js$/,\\r\\n        query: {\\r\\n            presets: 'es2015',\\r\\n        }\\r\\n    }\\r\\n]\\r\\n```\\r\\n\\r\\n* webpack相关依赖有node-libs-browser和webpack\\r\\n* 其余都是单元测试相关依赖\\r\\n\\r\\n        注意，这里使用了karma-webpack。因为使用Omi框架支持ES6+和ES5,使用karma-webpack是为了在单元测试里面使用ES6+的import和Class等语法。\\r\\n\\r\\n在karma.conf.js中配置webpack:\\r\\n\\r\\n```js\\r\\n    webpack: webpackConfig,\\r\\n    webpackMiddleware:{\\r\\n      noInfo:false\\r\\n    },\\r\\n    plugins: [\\r\\n        'karma-webpack',\\r\\n        'karma-jasmine',\\r\\n        'karma-chrome-launcher'\\r\\n    ]\\r\\n```\\r\\n\\r\\n具体配置看test目录下的[karma.conf.js](https://github.com/AlloyTeam/omi/blob/master/test/karma.conf.js)和[webpack.test.config.js](https://github.com/AlloyTeam/omi/blob/master/test/webpack.test.config.js)便可。\\r\\n\\r\\n注意，karma.conf.js需要设置\\r\\n\\r\\n```js\\r\\n// if true, Karma captures browsers, runs the tests and exits\\r\\nsingleRun: true,\\r\\n```\\r\\n\\r\\n不然，travis ci脚本执行的时候不会中断导致执行超时异常。\\r\\n\\r\\n## npm 脚本\\r\\n\\r\\n```js\\r\\n  \\\"scripts\\\": {\\r\\n    \\\"build\\\": \\\"webpack -w\\\",\\r\\n    \\\"test\\\": \\\"karma start test/karma.conf.js\\\",\\r\\n    \\\"hello\\\": \\\"webpack -w\\\",\\r\\n    \\\"todo\\\": \\\"webpack -w\\\"\\r\\n  }\\r\\n```\\r\\n\\r\\n其中：\\r\\n* npm run build : 生成dist目录的omi.js文件\\r\\n* npm run test : 执行单元测试\\r\\n* npm run hello : 编译hello的demo\\r\\n* npm run todo : 编译todo的demo\\r\\n\\r\\n在webpack.config.js中，会根据 process.env.npm_lifecycle_event去设置不同的入口文件。所以同样是执行webpack -w，执行结果可以不一样。\\r\\n\\r\\n来看下build的相关webpack配置:\\r\\n\\r\\n```js\\r\\nif(ENV === 'build'){\\r\\n    config = {\\r\\n        entry: {\\r\\n            omi: './src/index.js'\\r\\n        },\\r\\n        output: {\\r\\n            path: 'dist/',\\r\\n            library:'Omi',\\r\\n            libraryTarget: 'umd',\\r\\n            filename:  '[name].js'\\r\\n        },\\r\\n```\\r\\n\\r\\n这里把libraryTarget设置成了umd，webpack会帮助我们build出umd的Omi。\\r\\n\\r\\n如果是打包demo（npm run hello 和 npm run todo）的话，会进入下面的条件判断：\\r\\n\\r\\n```js\\r\\nelse {\\r\\n    config.entry = './example/' + ENV + '/main.js';\\r\\n    config.output.path = './example/' + ENV + '/';\\r\\n}\\r\\n```\\r\\n\\r\\n会去example下对应的目录查找main.js作为webpack入口文件。\\r\\n\\r\\n这里可以看到，我们不仅用webpack build出Omi框架，也使用webpack build所有demo。\\r\\n详细配置参考[webpack.config.js](https://github.com/AlloyTeam/omi/blob/master/webpack.config.js)的配置。\\r\\n\\r\\n## 参考文档\\r\\n\\r\\n* [http://www.cnblogs.com/cqhaibin/p/5867125.html](http://www.cnblogs.com/cqhaibin/p/5867125.html)\\r\\n* [https://karma-runner.github.io/latest/intro/installation.html](https://karma-runner.github.io/latest/intro/installation.html)\\r\\n* [https://karma-runner.github.io/latest/intro/configuration.html](https://karma-runner.github.io/latest/intro/configuration.html)\\r\\n\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"循环遍历\\\">循环遍历</h2>\\r\\n\\r\\n下面介绍mustache.js的方式和javascript遍历的方式。\\r\\n\\r\\n### 方式一\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <ul> {{#items}} <li id=\\\"{{id}}\\\">{{text}}</li> {{/items}}</ul>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new List({\\r\\n    items: [\\r\\n        {id: 1, text: 'Omi'},\\r\\n        {id: 2, text: 'dntzhang'},\\r\\n        {id: 3, text: 'AlloyTeam'}\\r\\n    ]\\r\\n}),\\\"body\\\");\\r\\n```\\r\\n\\r\\nmustache.js更详细的循环遍历使用可看[https://github.com/janl/mustache.js#non-empty-lists](https://github.com/janl/mustache.js#non-empty-lists)。 比如还支持：\\r\\n\\r\\n* 如果items的每一项是字符串，可以直接**{{.}}**的方式来输出每一项\\r\\n* 循环的时候调用定义好的函数\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=list\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\\r\\n\\r\\n### 方式二\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render() {\\r\\n        return `<div>\\r\\n                    <ul>\\r\\n                    ` + this.data.items.map(item =>\\r\\n                        '<li id=\\\"' + item.id + '\\\">' + item.text + '</li>'\\r\\n                    ).join(\\\"\\\") + `\\r\\n                    </ul>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new List({\\r\\n    items: [\\r\\n        {id: 1, text: 'Omi'},\\r\\n        {id: 2, text: 'dntzhang'},\\r\\n        {id: 3, text: 'AlloyTeam'}\\r\\n    ]\\r\\n}),\\\"body\\\");\\r\\n```\\r\\n\\r\\n当然你也可以在map里面也使用template string\\r\\n\\r\\n```js\\r\\n...\\r\\nrender() {\\r\\n    return `<div>\\r\\n                <ul>\\r\\n                ` + this.data.items.map(item =>\\r\\n                    `<li id=\\\"${item.id}\\\">${item.text}</li>`\\r\\n                ).join(\\\"\\\") + `\\r\\n                </ul>\\r\\n            </div>`;\\r\\n}\\r\\n...\\r\\n```\\r\\n\\r\\n你将在页面看到如下效果:\\r\\n\\r\\n![pv](http://images2015.cnblogs.com/blog/105416/201701/105416-20170122095724129-2059595233.png)\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=list2\\\" target=\\\"_blank\\\">点击这里→在线试试</a>\""
 
 /***/ },
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Hello Omi\\\">Hello Omi</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)的每个组件都继承自Omi.Component，本篇会去完成Omi的Component的基本锥形，让其能够渲染第一个组件。\\r\\n\\r\\n## omi.js实现\\r\\n\\r\\n```js\\r\\nvar Omi = {};\\r\\nOmi._instanceId = 0;\\r\\nOmi.getInstanceId = function () {\\r\\n    return Omi._instanceId++;\\r\\n};\\r\\n\\r\\nOmi.render = function(component, renderTo){\\r\\n    component.renderTo = typeof renderTo === \\\"string\\\" ? document.querySelector(renderTo) : renderTo;\\r\\n    component._render();\\r\\n    return component;\\r\\n};\\r\\n\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n* Omi.getInstanceId 用来给每个组件生成自增的ID\\r\\n* Omi.render 用来把组件渲染到页面\\r\\n\\r\\n## 基类Omi.Component实现\\r\\n\\r\\n所有的组件都是继承自Omi.Component。\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n        this.renderTo = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = this.render();\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\n* Omi使用完全面向对象的方式去开发组件，这里约定好带有下划线的方法是用于内部实现调用，不建议Omi框架的使用者去调用。\\r\\n* 其中，_render为私有方法用于内部实现调用,会去调用组件的真正render方法用于生成HTML,并且把生成的HTML插入到renderTo容器里面。\\r\\n* 注意，这里目前没有引入dom diff，不管第几次渲染都是无脑设置innerHTML，复杂HTML结构对浏览器的开销很大，这里后续会引入diff。\\r\\n\\r\\n## index.js整合\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi = Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Omi给直接暴露在window下，因为每个组件都生成了唯一的ID，后续实现事件作用域以及对象实例获取都要通过window下的Omi获取。\\r\\n\\r\\n## 最后使用\\r\\n\\r\\n实现完omi.js和component.js以及index.js之后，你就可以实现Hello Omi拉:\\r\\n\\r\\n```js\\r\\nimport Omi from 'index.js'; \\r\\n//或者使用webpack build之后的omi.js \\r\\n//import Omi from 'omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,`+ this.data.name +`!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : 'Omi' }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n什么？都2017年了还在拼接字符串？！虽然ES6+的template string让多行字符串拼接更加得心应手，但是template string+模板引擎可以让更加优雅方便。既然用了template string，也可以写成这样子：\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n        <h1>Hello ,${this.data.name}!</h1>\\r\\n      </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : 'Omi' }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n## 引入mustachejs模板引擎\\r\\n\\r\\nOmi支持任意模板引擎。可以看到，上面是通过拼接字符串的形式生成HTML，这里当然可以使用模板引擎。\\r\\n\\r\\n修改一下index.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Mustache from './mustache.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = Mustache.render;\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Mustache.render挂载在Omi.template下。再修改一下component.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = Omi.template(this.render(), this.data);\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\nOmi.template（即Mustache.render）需要接受两个参数，第一个参数是模板，第二个参数是模板使用的数据。\\r\\n\\r\\n现在，你便可以使用mustachejs模板引擎的语法了：\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,{{name}}!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n从上面的代码可以看到，你完全可以重写Omi.template方法去使用任意模板引擎。重写Omi.template的话，建议使用omi.lite.js，因为omi.lite.js是不包含任何模板引擎的。那么怎么build出两个版本的omi？且看webpack里设置的多入口:\\r\\n\\r\\n```js\\r\\n entry: {\\r\\n    omi: './src/index.js',\\r\\n    'omi.lite': './src/index.lite.js'\\r\\n},\\r\\noutput: {\\r\\n    path: 'dist/',\\r\\n    library:'Omi',\\r\\n    libraryTarget: 'umd',\\r\\n    filename:  '[name].js'\\r\\n},\\r\\n```\\r\\n\\r\\nindex.lite.js的代码如下：\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = function(tpl, data){\\r\\n    return tpl;\\r\\n}\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n可以看到Omi.template没有对tpl做任何处理直接返回，开发者可以重写该方法。\\r\\n\\r\\n## 总结\\r\\n\\r\\n到目前为止，已经实现了：\\r\\n\\r\\n* 第一个组件的渲染\\r\\n* 模板引擎的接入\\r\\n* 多入口打包omi.js和omi.lite.js\\r\\n\\r\\n下片，将介绍《Omi原理-局部CSS》，欢迎关注...\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"环境搭建\\\">环境搭建</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)使用 Webpack + ES6 的方式去开发；使用karma+jasmine来作为Omi的测试工具。\\r\\n\\r\\n## Karma介绍\\r\\n\\r\\nKarma是一个基于Node.js的JavaScript测试执行过程管理工具（Test Runner）。该工具可用于测试所有主流Web浏览器，也可集成到CI（Continuous integration）工具，也可和其他代码编辑器一起使用。这个测试工具的一个强大特性就是，它可以监控(Watch)文件的变化，然后自行执行。但是集成到travis ci要把singleRun设置成true,让其只执行一遍。\\r\\n\\r\\n## Jasmine介绍\\r\\nJasmine 是一款 JavaScript BDD（行为驱动开发）测试框架，它不依赖于其他任何 JavaScript 组件。它有干净清晰的语法，让您可以很简单的写出测试代码。\\r\\n\\r\\n## 开发依赖包\\r\\n\\r\\n在package.json中，有如下配置:\\r\\n\\r\\n```js\\r\\n  \\\"devDependencies\\\": {\\r\\n    \\\"babel-core\\\": \\\"^6.0.20\\\",\\r\\n    \\\"babel-loader\\\": \\\"^6.0.1\\\",\\r\\n    \\\"babel-preset-es2015\\\": \\\"^6.0.15\\\",\\r\\n    \\\"node-libs-browser\\\": \\\"^0.5.3\\\",\\r\\n    \\\"webpack\\\": \\\"^1.14.0\\\",\\r\\n    \\\"jasmine-core\\\": \\\"^2.5.2\\\",\\r\\n    \\\"karma\\\": \\\"^1.3.0\\\",\\r\\n    \\\"karma-chrome-launcher\\\": \\\"^2.0.0\\\",\\r\\n    \\\"karma-jasmine\\\": \\\"^1.1.0\\\",\\r\\n    \\\"karma-webpack\\\": \\\"^1.8.1\\\"\\r\\n  }\\r\\n```\\r\\n\\r\\n* ES6+相关依赖有babel-core、babel-loader和babel-preset-es2015\\r\\n\\r\\n在webpack.config.js中配置js文件使用babel-loader编译。\\r\\n```js\\r\\nloaders: [\\r\\n    {\\r\\n        loader: 'babel-loader',\\r\\n        test: /\\\\.js$/,\\r\\n        query: {\\r\\n            presets: 'es2015',\\r\\n        }\\r\\n    }\\r\\n]\\r\\n```\\r\\n\\r\\n* webpack相关依赖有node-libs-browser和webpack\\r\\n* 其余都是单元测试相关依赖\\r\\n\\r\\n        注意，这里使用了karma-webpack。因为使用Omi框架支持ES6+和ES5,使用karma-webpack是为了在单元测试里面使用ES6+的import和Class等语法。\\r\\n\\r\\n在karma.conf.js中配置webpack:\\r\\n\\r\\n```js\\r\\n    webpack: webpackConfig,\\r\\n    webpackMiddleware:{\\r\\n      noInfo:false\\r\\n    },\\r\\n    plugins: [\\r\\n        'karma-webpack',\\r\\n        'karma-jasmine',\\r\\n        'karma-chrome-launcher'\\r\\n    ]\\r\\n```\\r\\n\\r\\n具体配置看test目录下的[karma.conf.js](https://github.com/AlloyTeam/omi/blob/master/test/karma.conf.js)和[webpack.test.config.js](https://github.com/AlloyTeam/omi/blob/master/test/webpack.test.config.js)便可。\\r\\n\\r\\n注意，karma.conf.js需要设置\\r\\n\\r\\n```js\\r\\n// if true, Karma captures browsers, runs the tests and exits\\r\\nsingleRun: true,\\r\\n```\\r\\n\\r\\n不然，travis ci脚本执行的时候不会中断导致执行超时异常。\\r\\n\\r\\n## npm 脚本\\r\\n\\r\\n```js\\r\\n  \\\"scripts\\\": {\\r\\n    \\\"build\\\": \\\"webpack -w\\\",\\r\\n    \\\"test\\\": \\\"karma start test/karma.conf.js\\\",\\r\\n    \\\"hello\\\": \\\"webpack -w\\\",\\r\\n    \\\"todo\\\": \\\"webpack -w\\\"\\r\\n  }\\r\\n```\\r\\n\\r\\n其中：\\r\\n* npm run build : 生成dist目录的omi.js文件\\r\\n* npm run test : 执行单元测试\\r\\n* npm run hello : 编译hello的demo\\r\\n* npm run todo : 编译todo的demo\\r\\n\\r\\n在webpack.config.js中，会根据 process.env.npm_lifecycle_event去设置不同的入口文件。所以同样是执行webpack -w，执行结果可以不一样。\\r\\n\\r\\n来看下build的相关webpack配置:\\r\\n\\r\\n```js\\r\\nif(ENV === 'build'){\\r\\n    config = {\\r\\n        entry: {\\r\\n            omi: './src/index.js'\\r\\n        },\\r\\n        output: {\\r\\n            path: 'dist/',\\r\\n            library:'Omi',\\r\\n            libraryTarget: 'umd',\\r\\n            filename:  '[name].js'\\r\\n        },\\r\\n```\\r\\n\\r\\n这里把libraryTarget设置成了umd，webpack会帮助我们build出umd的Omi。\\r\\n\\r\\n如果是打包demo（npm run hello 和 npm run todo）的话，会进入下面的条件判断：\\r\\n\\r\\n```js\\r\\nelse {\\r\\n    config.entry = './example/' + ENV + '/main.js';\\r\\n    config.output.path = './example/' + ENV + '/';\\r\\n}\\r\\n```\\r\\n\\r\\n会去example下对应的目录查找main.js作为webpack入口文件。\\r\\n\\r\\n这里可以看到，我们不仅用webpack build出Omi框架，也使用webpack build所有demo。\\r\\n详细配置参考[webpack.config.js](https://github.com/AlloyTeam/omi/blob/master/webpack.config.js)的配置。\\r\\n\\r\\n## 参考文档\\r\\n\\r\\n* [http://www.cnblogs.com/cqhaibin/p/5867125.html](http://www.cnblogs.com/cqhaibin/p/5867125.html)\\r\\n* [https://karma-runner.github.io/latest/intro/installation.html](https://karma-runner.github.io/latest/intro/installation.html)\\r\\n* [https://karma-runner.github.io/latest/intro/configuration.html](https://karma-runner.github.io/latest/intro/configuration.html)\\r\\n\\r\\n\""
 
 /***/ },
 /* 26 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"模板切换\\\">模板切换</h2>\\r\\n\\r\\nOmi有三个版本。其中的omi.js和omi.lite.js属于Web端使用的版本。\\r\\n\\r\\n* omi.js内置了[mustache.js](https://github.com/janl/mustache.js)作为模版引擎\\r\\n* omi.lite.js不包含任何模版引擎\\r\\n\\r\\nOmi不强制开发者使用mustache.js，你可以根据业务场景使用任意模板引擎或者不使用模板引擎。\\r\\n\\r\\n那么怎么使用别的模板引擎？下面拿[artTemplate](https://github.com/aui/artTemplate)作为例子。\\r\\n\\r\\n### 使用artTemplate\\r\\n\\r\\n```js\\r\\nOmi.template = function(tpl, data){\\r\\n    return artTemplate.compile(tpl)(data);\\r\\n}\\r\\n```\\r\\n重写Omi.template方法，tpl为传入的模板，data为模板所需的数据，返回值为HTML。\\r\\n重写完毕后就能在render使用artTemplate的语法，如：\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h1 { color:red; }\\r\\n        li{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<h1>{{title}}</h1>\\r\\n                <ul>\\r\\n                    {{each list as value i}}\\r\\n                    <li>索引 {{i + 1}} ：{{value}}</li>\\r\\n                    {{/each}}\\r\\n                </ul>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n### 相关地址\\r\\n\\r\\n* [演示地址](http://alloyteam.github.io/omi/example/artTemplate/)\\r\\n* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/artTemplate)\""
+	module.exports = "module.exports = \"<h2 id=\\\"Hello Omi\\\">Hello Omi</h2>\\r\\n\\r\\n[Omi框架](https://github.com/AlloyTeam/omi)的每个组件都继承自Omi.Component，本篇会去完成Omi的Component的基本锥形，让其能够渲染第一个组件。\\r\\n\\r\\n## omi.js实现\\r\\n\\r\\n```js\\r\\nvar Omi = {};\\r\\nOmi._instanceId = 0;\\r\\nOmi.getInstanceId = function () {\\r\\n    return Omi._instanceId++;\\r\\n};\\r\\n\\r\\nOmi.render = function(component, renderTo){\\r\\n    component.renderTo = typeof renderTo === \\\"string\\\" ? document.querySelector(renderTo) : renderTo;\\r\\n    component._render();\\r\\n    return component;\\r\\n};\\r\\n\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n* Omi.getInstanceId 用来给每个组件生成自增的ID\\r\\n* Omi.render 用来把组件渲染到页面\\r\\n\\r\\n## 基类Omi.Component实现\\r\\n\\r\\n所有的组件都是继承自Omi.Component。\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n        this.renderTo = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = this.render();\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\n* Omi使用完全面向对象的方式去开发组件，这里约定好带有下划线的方法是用于内部实现调用，不建议Omi框架的使用者去调用。\\r\\n* 其中，_render为私有方法用于内部实现调用,会去调用组件的真正render方法用于生成HTML,并且把生成的HTML插入到renderTo容器里面。\\r\\n* 注意，这里目前没有引入dom diff，不管第几次渲染都是无脑设置innerHTML，复杂HTML结构对浏览器的开销很大，这里后续会引入diff。\\r\\n\\r\\n## index.js整合\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi = Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Omi给直接暴露在window下，因为每个组件都生成了唯一的ID，后续实现事件作用域以及对象实例获取都要通过window下的Omi获取。\\r\\n\\r\\n## 最后使用\\r\\n\\r\\n实现完omi.js和component.js以及index.js之后，你就可以实现Hello Omi拉:\\r\\n\\r\\n```js\\r\\nimport Omi from 'index.js'; \\r\\n//或者使用webpack build之后的omi.js \\r\\n//import Omi from 'omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,`+ this.data.name +`!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : 'Omi' }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n什么？都2017年了还在拼接字符串？！虽然ES6+的template string让多行字符串拼接更加得心应手，但是template string+模板引擎可以让更加优雅方便。既然用了template string，也可以写成这样子：\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n        <h1>Hello ,${this.data.name}!</h1>\\r\\n      </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : 'Omi' }),\\\"#container\\\");\\r\\n```\\r\\n\\r\\n## 引入mustachejs模板引擎\\r\\n\\r\\nOmi支持任意模板引擎。可以看到，上面是通过拼接字符串的形式生成HTML，这里当然可以使用模板引擎。\\r\\n\\r\\n修改一下index.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Mustache from './mustache.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = Mustache.render;\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n这里把Mustache.render挂载在Omi.template下。再修改一下component.js:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Component {\\r\\n    constructor(data) {\\r\\n        this.data = data || {};\\r\\n        this.id = Omi.getInstanceId();\\r\\n        this.HTML = null;\\r\\n    }\\r\\n\\r\\n    _render() {\\r\\n        this.HTML = Omi.template(this.render(), this.data);\\r\\n        this.renderTo.innerHTML = this.HTML;\\r\\n    }\\r\\n}\\r\\n\\r\\nexport default Component;\\r\\n```\\r\\n\\r\\nOmi.template（即Mustache.render）需要接受两个参数，第一个参数是模板，第二个参数是模板使用的数据。\\r\\n\\r\\n现在，你便可以使用mustachejs模板引擎的语法了：\\r\\n\\r\\n```js\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n      <div>\\r\\n      \\t<h1>Hello ,{{name}}!</h1>\\r\\n      </div>\\r\\n  \\t\\t`;\\r\\n\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n从上面的代码可以看到，你完全可以重写Omi.template方法去使用任意模板引擎。重写Omi.template的话，建议使用omi.lite.js，因为omi.lite.js是不包含任何模板引擎的。那么怎么build出两个版本的omi？且看webpack里设置的多入口:\\r\\n\\r\\n```js\\r\\n entry: {\\r\\n    omi: './src/index.js',\\r\\n    'omi.lite': './src/index.lite.js'\\r\\n},\\r\\noutput: {\\r\\n    path: 'dist/',\\r\\n    library:'Omi',\\r\\n    libraryTarget: 'umd',\\r\\n    filename:  '[name].js'\\r\\n},\\r\\n```\\r\\n\\r\\nindex.lite.js的代码如下：\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\nimport Component from './component.js';\\r\\n\\r\\nOmi.template = function(tpl, data){\\r\\n    return tpl;\\r\\n}\\r\\n\\r\\nOmi.Component = Component;\\r\\n\\r\\nwindow.Omi=Omi;\\r\\nmodule.exports = Omi;\\r\\n```\\r\\n\\r\\n可以看到Omi.template没有对tpl做任何处理直接返回，开发者可以重写该方法。\\r\\n\\r\\n## 总结\\r\\n\\r\\n到目前为止，已经实现了：\\r\\n\\r\\n* 第一个组件的渲染\\r\\n* 模板引擎的接入\\r\\n* 多入口打包omi.js和omi.lite.js\\r\\n\\r\\n下片，将介绍《Omi原理-局部CSS》，欢迎关注...\\r\\n\""
 
 /***/ },
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Omi的理念\\\">Omi的理念</h2>\\r\\n\\r\\nOmi的理念是基于面向对象编程体系，内建积木系统。\\r\\n 传统的单向数据流或者抛出event的组件通讯方式增加了系统的稳定性，但是丧失了灵活性。一定程度上也降低了组建的复用。所谓鱼和熊掌不可兼得。\\r\\n 面向对象体系需要多一个逻辑层，可以自由操作所有组件的instance，instance之间的逻辑关系构建出了整个程序。这样组建间的逻辑，通信，复用就全部迎刃而解。组建也更加单一职责，更松耦合。\\r\\n\\r\\n对比函数式编程、命令式编程与面向对象编程，可以归纳总结出下面几条：\\r\\n\\r\\n- 命令式编程干脆直接，利用循环条件等控制流程，强调执行过程\\r\\n- 命令式编程对硬件执行友好，运行更容易，却阻碍了复杂程序的设计\\r\\n- 函数式强调输入和输出，并非执行过程\\r\\n- 函数式倡导多个简单执行单元组合成复杂运算程序\\r\\n- 面向对象编程将对象作为程序的基本单元，更具有重用性、灵活性和扩展性\\r\\n\\r\\nJavascript是哪种类型的语言？现在ES6+已经有了class。那么他是面向对象语言？\\r\\n但是JS可以在任意地方定义函数并且当作把函数当作值来传递。那么他是函数式编程语言？\\r\\n所以，没有精准的定义，取决于你的用法和姿势。其次，Web组件化架构层面编程模型和语言层面编程模型是非常自由的关系。意思就是，你可以用Javascript构建函数式编程框架如React，也可以基于面向对象体系搭建Omi。\\r\\n\\r\\n### 函数式编程 VS 面向对象编程\\r\\n\\r\\n在UI组件框架层面，函数式编程的代表有React，Omi属于面向对象编程体系。那么他们各有什么优缺点？下面做了个对比（其实也是函数式编程与面向对象编程的对比）：\\r\\n\\r\\n|    | React        | Omi  |\\r\\n| ------------- |:-------------:|:-----:|\\r\\n| 组件通信  | ★★★★☆| ★★★★★ |\\r\\n| 稳定性    | ★★★★★    |   ★★★★☆ |\\r\\n| 灵活性  | ★★★★☆| ★★★★★ |\\r\\n| 扩展性 | ★★★★☆     |   ★★★★★ |\\r\\n| 测试性 | ★★★★★     |   ★★★★☆ |\\r\\n| 文件大小 | ★★★☆☆    |   ★★★★★ |\\r\\n| 功能特性 | ★★★☆☆    |   ★★★★☆ |\\r\\n| DOM性能 | ★★★★★    |   ★★★★☆ |\\r\\n| 动画性能 | ★★★★☆    |   ★★★★★ |\\r\\n| 抽象复杂度 | ★★★★☆    |   ★★★★★ |\\r\\n| 异步编程 | ★★★★★    |   ★★★★☆ |\\r\\n\\r\\n可以看得出，鱼和熊掌不可兼得。面向对象编程更具有重用性、灵活性和扩展性，带来的问题就是更加难测试。\\r\\n具体来说，如函数式编程，其测试面积是state1 + state2 + ... + stateN；在面向对象编程中，其测试面积是state1×event1 + state2×event2 + ... + stateN×eventN。\\r\\n\\r\\n总结来说，更加推荐使用面向对象的方式去搭建UI组件化框架。\\r\\n\\r\\n<hr/>\\r\\n\\r\\n### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/omi) 或者继续往看下[Omi原理↓↓↓](http://alloyteam.github.io/omi/website/docs.html#环境搭建)\\r\\n\\r\\n\""
+	module.exports = "module.exports = \"<h2 id=\\\"模板切换\\\">模板切换</h2>\\r\\n\\r\\nOmi有三个版本。其中的omi.js和omi.lite.js属于Web端使用的版本。\\r\\n\\r\\n* omi.js内置了[mustache.js](https://github.com/janl/mustache.js)作为模版引擎\\r\\n* omi.lite.js不包含任何模版引擎\\r\\n\\r\\nOmi不强制开发者使用mustache.js，你可以根据业务场景使用任意模板引擎或者不使用模板引擎。\\r\\n\\r\\n那么怎么使用别的模板引擎？下面拿[artTemplate](https://github.com/aui/artTemplate)作为例子。\\r\\n\\r\\n### 使用artTemplate\\r\\n\\r\\n```js\\r\\nOmi.template = function(tpl, data){\\r\\n    return artTemplate.compile(tpl)(data);\\r\\n}\\r\\n```\\r\\n重写Omi.template方法，tpl为传入的模板，data为模板所需的数据，返回值为HTML。\\r\\n重写完毕后就能在render使用artTemplate的语法，如：\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h1 { color:red; }\\r\\n        li{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<h1>{{title}}</h1>\\r\\n                <ul>\\r\\n                    {{each list as value i}}\\r\\n                    <li>索引 {{i + 1}} ：{{value}}</li>\\r\\n                    {{/each}}\\r\\n                </ul>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n### 相关地址\\r\\n\\r\\n* [演示地址](http://alloyteam.github.io/omi/example/artTemplate/)\\r\\n* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/artTemplate)\""
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Hello World\\\">Hello World</h2>\\r\\n\\r\\n\\r\\n### Hello World with ES20XX \\r\\n\\r\\nWe recommend using a bundler like [webpack](https://webpack.github.io/) or [Browserify](http://browserify.org/) so you can write modular code and bundle it together into small packages to optimize load time.\\r\\n\\r\\nThe small Omi example looks like this:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 onclick=\\\"handleClick(this)\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"body\\\");\\r\\n\\r\\n```\\r\\n\\r\\nThis code renders into body element. \\r\\n\\r\\n\\r\\n###  Hello World with ES5\\r\\n\\r\\n\\r\\n```html\\r\\n<script src=\\\"omi.js\\\"></script>\\r\\n```\""
+	module.exports = "module.exports = \"<h2 id=\\\"Omi的理念\\\">Omi的理念</h2>\\r\\n\\r\\nOmi的理念是基于面向对象编程体系，内建积木系统。\\r\\n 传统的单向数据流或者抛出event的组件通讯方式增加了系统的稳定性，但是丧失了灵活性。一定程度上也降低了组建的复用。所谓鱼和熊掌不可兼得。\\r\\n 面向对象体系需要多一个逻辑层，可以自由操作所有组件的instance，instance之间的逻辑关系构建出了整个程序。这样组建间的逻辑，通信，复用就全部迎刃而解。组建也更加单一职责，更松耦合。\\r\\n\\r\\n对比函数式编程、命令式编程与面向对象编程，可以归纳总结出下面几条：\\r\\n\\r\\n- 命令式编程干脆直接，利用循环条件等控制流程，强调执行过程\\r\\n- 命令式编程对硬件执行友好，运行更容易，却阻碍了复杂程序的设计\\r\\n- 函数式强调输入和输出，并非执行过程\\r\\n- 函数式倡导多个简单执行单元组合成复杂运算程序\\r\\n- 面向对象编程将对象作为程序的基本单元，更具有重用性、灵活性和扩展性\\r\\n\\r\\nJavascript是哪种类型的语言？现在ES6+已经有了class。那么他是面向对象语言？\\r\\n但是JS可以在任意地方定义函数并且当作把函数当作值来传递。那么他是函数式编程语言？\\r\\n所以，没有精准的定义，取决于你的用法和姿势。其次，Web组件化架构层面编程模型和语言层面编程模型是非常自由的关系。意思就是，你可以用Javascript构建函数式编程框架如React，也可以基于面向对象体系搭建Omi。\\r\\n\\r\\n### 函数式编程 VS 面向对象编程\\r\\n\\r\\n在UI组件框架层面，函数式编程的代表有React，Omi属于面向对象编程体系。那么他们各有什么优缺点？下面做了个对比（其实也是函数式编程与面向对象编程的对比）：\\r\\n\\r\\n|    | React        | Omi  |\\r\\n| ------------- |:-------------:|:-----:|\\r\\n| 组件通信  | ★★★★☆| ★★★★★ |\\r\\n| 稳定性    | ★★★★★    |   ★★★★☆ |\\r\\n| 灵活性  | ★★★★☆| ★★★★★ |\\r\\n| 扩展性 | ★★★★☆     |   ★★★★★ |\\r\\n| 测试性 | ★★★★★     |   ★★★★☆ |\\r\\n| 文件大小 | ★★★☆☆    |   ★★★★★ |\\r\\n| 功能特性 | ★★★☆☆    |   ★★★★☆ |\\r\\n| DOM性能 | ★★★★★    |   ★★★★☆ |\\r\\n| 动画性能 | ★★★★☆    |   ★★★★★ |\\r\\n| 抽象复杂度 | ★★★★☆    |   ★★★★★ |\\r\\n| 异步编程 | ★★★★★    |   ★★★★☆ |\\r\\n\\r\\n可以看得出，鱼和熊掌不可兼得。面向对象编程更具有重用性、灵活性和扩展性，带来的问题就是更加难测试。\\r\\n具体来说，如函数式编程，其测试面积是state1 + state2 + ... + stateN；在面向对象编程中，其测试面积是state1×event1 + state2×event2 + ... + stateN×eventN。\\r\\n\\r\\n总结来说，更加推荐使用面向对象的方式去搭建UI组件化框架。\\r\\n\\r\\n<hr/>\\r\\n\\r\\n### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/omi) 或者继续往看下[Omi原理↓↓↓](http://alloyteam.github.io/omi/website/docs.html#环境搭建)\\r\\n\\r\\n\""
 
 /***/ },
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Installation\\\">Installation</h2>\\r\\n\\r\\nOmi is open and modern framework  for building user interfaces.\\r\\n\\r\\n### Installing Omi\\r\\n\\r\\nWe recommend using  [npm](https://www.npmjs.com/) for managing front-end dependencies. If you're new to package managers.\\r\\n\\r\\nTo install Omi with npm, run:\\r\\n\\r\\n``` js\\r\\nnpm install omi\\r\\n```\""
+	module.exports = "module.exports = \"<h2 id=\\\"components\\\">Components</h2>\\r\\n\\r\\n[Omi](https://github.com/AlloyTeam/omi) is based entirely on component architecture, which allows developers to build web applications like building blocks. Everything is components, components can be nested to create new components.\\r\\n\\r\\n![Omi Components System](http://images2015.cnblogs.com/blog/105416/201702/105416-20170210093427338-1536910080.png)\\r\\n\\r\\n### Simple Components\\r\\n\\r\\nLet's explore a simple Todo example to learn the components system in Omi.\\r\\n\\r\\n```js\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.data.items.push(this.data.text);\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{items.length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Todo({ items: [] ,text : '' }),\\\"body\\\");\\r\\n```\\r\\n\\r\\nThe HTML generated by the component will eventually be inserted into the body. The above example shows some of the features of Omi:\\r\\n\\r\\n- Data flow: `data` in `new Todo(data,..)` can be used directly in the template in render method.\\r\\n- Partial CSS: `h3` in `style()` only effect inside of render. It'll never pollute `h3`  outside of this component. The same rule applies to `button`.\\r\\n- Declarative event binding: `onchange` will call `handleChange` that inside of the component. `this` refers to the current DOM element, `event` refers to the current DOM Event Object.\\r\\n- You need to manually call the `this.update()` method to update the component\\r\\n\\r\\nIt is important to note that, for more freedom and flexibility, Omi does not automatically update DOM while data changes. Developers need to call the `update` method manually.\\r\\n\\r\\nYou can also use [oba] (https://github.com/dntzhang/oba) or mobx to implement automatic updates.\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=todo\\\" target=\\\"_blank\\\">Click me for the live demo</a>\\r\\n\\r\\n## Component Nesting\\r\\n\\r\\nIt's ok to not use nesting component if your page is super simple. However, for most of webpages and web applications, it is a necessary to define the nesting Components to implement complex features.\\r\\n\\r\\nFor instance, we can extract a `List` component form the Todo example. This brings maintainable, scalable and reuseable to our project:\\r\\n\\r\\n```js\\r\\nclass List extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\nThen how to use this `List`? We need to use `Omi.makeHTML` to make the `List` to a tag which can be used in render method:\\r\\n\\r\\n```js\\r\\nimport List from './list.js';\\r\\n\\r\\nOmi.makeHTML('List', List);\\r\\n\\r\\nclass Todo extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n        this.data.length = this.data.items.length;\\r\\n        this.childrenData = [ { items : this.data.items } ];\\r\\n    }\\r\\n\\r\\n    add (evt) {\\r\\n        evt.preventDefault();\\r\\n        this.list.data.items.push(this.data.text);\\r\\n        this.data.length = this.list.data.items.length;\\r\\n        this.data.text = '';\\r\\n        this.update();\\r\\n    }\\r\\n\\r\\n    style () {\\r\\n        return `\\r\\n        h3 { color:red; }\\r\\n        button{ color:green;}\\r\\n        `;\\r\\n    }\\r\\n\\r\\n    handleChange(target){\\r\\n        this.data.text = target.value;\\r\\n    }\\r\\n\\r\\n    render () {\\r\\n        return `<div>\\r\\n                    <h3>TODO</h3>\\r\\n                    <List omi-id=\\\"list\\\" name=\\\"list\\\" />\\r\\n                    <form onsubmit=\\\"add(event)\\\" >\\r\\n                        <input type=\\\"text\\\" onchange=\\\"handleChange(this)\\\"  value=\\\"{{text}}\\\"  />\\r\\n                        <button>Add #{{length}}</button>\\r\\n                    </form>\\r\\n                </div>`;\\r\\n    }\\r\\n}\\r\\n```\\r\\n\\r\\n- In line 3, we use `makeHTML` to make the component to a tag which can be used in render method. Of course, `Omi.makeHTML('List', List);` can also be written in the end of List component.\\r\\n- In line 9, by setting `this.childrenData`, we can pass parameters to subcomponents. `this.childrenData` is an array, which supports multiple child.\\r\\n- In line 34, we use List component in the render method. `name` attribute allows us easily find the instance of the component by using `this`. `omi-id` attribute allows us easily find the instance of the component by using `Omi.mapping['list']`.\\r\\n\\r\\nIt should be noted that the `data` passed from `this.childrenData` is cloned to the subcomponents, which means if we want to change the DOM, we need to first update the `data` of the instance of subcomponent and secondly call the `update` method.\\r\\n\\r\\nIn fact there are 4 way to communicate between components, it'll be explained later.\\r\\n\\r\\n<a href=\\\"http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest\\\" target=\\\"_blank\\\">Click me for the live demo</a>\\r\\n\""
 
 /***/ },
 /* 30 */
+/***/ function(module, exports) {
+
+	module.exports = "module.exports = \"<h2 id=\\\"Hello World\\\">Hello World</h2>\\r\\n\\r\\n\\r\\n### Hello World with ES20XX \\r\\n\\r\\nWe recommend using a bundler like [webpack](https://webpack.github.io/) or [Browserify](http://browserify.org/) so you can write modular code and bundle it together into small packages to optimize load time.\\r\\n\\r\\nThe small Omi example looks like this:\\r\\n\\r\\n```js\\r\\nimport Omi from './omi.js';\\r\\n\\r\\nclass Hello extends Omi.Component {\\r\\n    constructor(data) {\\r\\n        super(data);\\r\\n    }\\r\\n    style () {\\r\\n        return  `\\r\\n            h1{\\r\\n                cursor:pointer;\\r\\n            }\\r\\n         `;\\r\\n    }\\r\\n    handleClick(target){\\r\\n        alert(target.innerHTML);\\r\\n    }\\r\\n    render() {\\r\\n        return  `\\r\\n        <div>\\r\\n            <h1 onclick=\\\"handleClick(this)\\\">Hello ,{{name}}!</h1>\\r\\n        </div>\\r\\n        `;\\r\\n\\r\\n    }\\r\\n}\\r\\n\\r\\nOmi.render(new Hello({ name : \\\"Omi\\\" }),\\\"body\\\");\\r\\n\\r\\n```\\r\\n\\r\\nThis code renders into body element. \\r\\n\\r\\n\\r\\n###  Hello World with ES5\\r\\n\\r\\n\\r\\n```html\\r\\n<script src=\\\"omi.js\\\"></script>\\r\\n```\""
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	module.exports = "module.exports = \"<h2 id=\\\"Installation\\\">Installation</h2>\\r\\n\\r\\nOmi is open and modern framework  for building user interfaces.\\r\\n\\r\\n### Installing Omi\\r\\n\\r\\nWe recommend using  [npm](https://www.npmjs.com/) for managing front-end dependencies. If you're new to package managers.\\r\\n\\r\\nTo install Omi with npm, run:\\r\\n\\r\\n``` js\\r\\nnpm install omi\\r\\n```\""
+
+/***/ },
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2257,11 +2491,11 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _list = __webpack_require__(31);
+	var _list = __webpack_require__(33);
 
 	var _list2 = _interopRequireDefault(_list);
 
-	var _config = __webpack_require__(10);
+	var _config = __webpack_require__(11);
 
 	var _config2 = _interopRequireDefault(_config);
 
@@ -2308,7 +2542,7 @@
 	exports['default'] = Sidebar;
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2358,7 +2592,7 @@
 	exports['default'] = List;
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
