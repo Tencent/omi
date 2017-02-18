@@ -13,10 +13,12 @@ class Hello extends Omi.Component {
     }
     handleClick(target, evt){
         alert(target.innerHTML);
+        this.data.onXX();
     }
     render() {
         return  `
       <div>
+{{{img}}}
       	<h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>
       </div>
   		`;

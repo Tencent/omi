@@ -1011,8 +1011,6 @@
 	    value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _omi = __webpack_require__(1);
@@ -1030,6 +1028,10 @@
 	var _diff = __webpack_require__(6);
 
 	var _diff2 = _interopRequireDefault(_diff);
+
+	var _html2json = __webpack_require__(7);
+
+	var _html2json2 = _interopRequireDefault(_html2json);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -1332,11 +1334,6 @@
 	            });
 	        }
 	    }, {
-	        key: '_getConstructorNameByMagic',
-	        value: function _getConstructorNameByMagic(c) {
-	            return (c + "").split("(")[0].replace("function", "").trim();
-	        }
-	    }, {
 	        key: '_fixForm',
 	        value: function _fixForm() {
 
@@ -1396,7 +1393,7 @@
 	            if (isFirst) {
 	                var parentData = arr ? this._extractPropertyFromString(RegExp.$1, this.parent) : null;
 	                var groupArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
-	                this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
+	                this.data = Object.assign(this.data, this._dataset, parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
 	            } else {
 	                if (this.dataFirst) {
 	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
@@ -1434,27 +1431,17 @@
 	        }
 	    }, {
 	        key: '_getDataset',
-	        value: function _getDataset(str) {
+	        value: function _getDataset(childStr) {
 	            var _this8 = this;
 
-	            var arr = str.match(/\s+data-(\S*)=['|"](\S*)['|"]/g);
-	            if (arr) {
-	                var _ret = function () {
-	                    var obj = {};
-	                    arr.forEach(function (item) {
-	                        var arr = item.split('=');
-	                        obj[_this8._capitalize(arr[0].replace(/\s+data-/, ''))] = arr[1].replace(/['|"]/g, '');
-	                        arr = null;
-	                    });
-	                    return {
-	                        v: obj
-	                    };
-	                }();
-
-	                if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-	            }
-	            //this.BODY_ELEMENT.innerHTML = str ;
-	            //return this.BODY_ELEMENT.firstChild.dataset;
+	            var json = (0, _html2json2['default'])(childStr);
+	            var attr = json.child[0].attr;
+	            Object.keys(attr).forEach(function (key) {
+	                if (key.indexOf('data-') === 0) {
+	                    _this8._dataset[_this8._capitalize(key.replace('data-', ''))] = attr[key];
+	                }
+	            });
+	            return this._dataset;
 	        }
 	    }, {
 	        key: '_capitalize',
@@ -1479,25 +1466,23 @@
 	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
+	            var _this9 = this;
+
 	            if (_omi2['default'].customTags.length > 0) {
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
 
 	            if (arr) {
-	                var len = arr.length;
-
-	                for (var i = 0; i < len; i++) {
-	                    var childStr = arr[i];
-	                    childStr.match(/\s+tag=['|"](\S*)['|"][\s+|/]/);
-
-	                    var name = RegExp.$1;
-	                    var cmi = this.children[i];
+	                arr.forEach(function (childStr, i) {
+	                    var json = (0, _html2json2['default'])(childStr);
+	                    var attr = json.child[0].attr;
+	                    var name = attr.tag;
+	                    delete attr.tag;
+	                    var cmi = _this9.children[i];
 	                    //if not first time to invoke _extractChildren method
-	                    //___omi_constructor_name for es5
-	                    if (cmi && (cmi.constructor.name === name || cmi.___omi_constructor_name === name || this._getConstructorNameByMagic(cmi.constructor))) {
+	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._childRender(childStr);
-	                        continue;
 	                    } else {
 	                        (function () {
 	                            var ChildClass = _omi2['default'].getClassFromString(name);
@@ -1505,48 +1490,42 @@
 	                            var sub_child = new ChildClass(Object.assign({}, child.childrenData[i]), false);
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
+	                            sub_child.___omi_constructor_name = name;
+	                            sub_child._dataset = {};
 
-	                            var evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"][\s+|/]/g);
-	                            if (evtArr) {
-	                                evtArr.forEach(function (item) {
-	                                    var evtArr = item.trim().split("=");
-	                                    var hdName = evtArr[1].replace(/['|"]/g, "");
-	                                    var handler = sub_child.parent[hdName];
+	                            Object.keys(attr).forEach(function (key) {
+	                                var value = attr[key];
+	                                if (key.indexOf('on') === 0) {
+	                                    var handler = sub_child.parent[value];
 	                                    if (handler) {
-	                                        sub_child.data[evtArr[0]] = handler.bind(sub_child.parent);
+	                                        sub_child.data[key] = handler.bind(sub_child.parent);
 	                                    }
-	                                });
-	                            }
-
-	                            var groupNameArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
-	                            if (groupNameArr) {
-	                                if (child._omiGroupDataCounter.hasOwnProperty(RegExp.$1)) {
-	                                    child._omiGroupDataCounter[RegExp.$1]++;
-	                                    sub_child._omiGroupDataIndex = child._omiGroupDataCounter[RegExp.$1];
-	                                } else {
-	                                    sub_child._omiGroupDataIndex = child._omiGroupDataCounter[RegExp.$1] = 0;
+	                                } else if (key === 'group-data') {
+	                                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                                        child._omiGroupDataCounter[value]++;
+	                                        sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value];
+	                                    } else {
+	                                        sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value] = 0;
+	                                    }
+	                                } else if (key === 'omi-id') {
+	                                    _omi2['default'].mapping[value] = sub_child;
+	                                } else if (key === 'name') {
+	                                    child[value] = sub_child;
+	                                } else if (key.indexOf('data-') === 0) {
+	                                    sub_child._dataset[_this9._capitalize(key.replace('data-', ''))] = value;
 	                                }
-	                            }
+	                            });
 
-	                            sub_child._childRender(childStr, true);
-
-	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"][\s+|/]/);
-	                            if (mo_ids) {
-	                                _omi2['default'].mapping[RegExp.$1] = sub_child;
-	                            }
 	                            if (!cmi) {
 	                                child.children.push(sub_child);
 	                            } else {
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            var nameArr = childStr.match(/\s+name=['|"](\S*)['|"][\s+|/]/);
-	                            if (nameArr) {
-	                                child[RegExp.$1] = sub_child;
-	                            }
+	                            sub_child._childRender(childStr, true);
 	                        })();
 	                    }
-	                }
+	                });
 	            }
 	        }
 	    }]);
@@ -1859,6 +1838,249 @@
 	}
 
 	exports['default'] = setDOM;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/*
+	 *  html2json for omi
+	 *  https://github.com/AlloyTeam/omi
+	 *
+	 *  Original code by John Resig (ejohn.org)
+	 *  http://ejohn.org/blog/pure-javascript-html-parser/
+	 *  Original code by Erik Arvidsson, Mozilla Public License
+	 *  http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+	 *  Original code by Jxck
+	 *  https://github.com/Jxck/html2json
+	 */
+
+	// Regular Expressions for parsing tags and attributes
+	var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
+	    endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
+	    attr = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+
+	var HTMLParser = function HTMLParser(html, handler) {
+	    var index,
+	        chars,
+	        match,
+	        stack = [],
+	        last = html;
+	    stack.last = function () {
+	        return this[this.length - 1];
+	    };
+
+	    while (html) {
+	        chars = true;
+
+	        // Make sure we're not in a script or style element
+	        if (!stack.last()) {
+
+	            if (html.indexOf("</") == 0) {
+	                match = html.match(endTag);
+
+	                if (match) {
+	                    html = html.substring(match[0].length);
+	                    match[0].replace(endTag, parseEndTag);
+	                    chars = false;
+	                }
+
+	                // start tag
+	            } else if (html.indexOf("<") == 0) {
+	                match = html.match(startTag);
+
+	                if (match) {
+	                    html = html.substring(match[0].length);
+	                    match[0].replace(startTag, parseStartTag);
+	                    chars = false;
+	                }
+	            }
+
+	            if (chars) {
+	                index = html.indexOf("<");
+
+	                var text = index < 0 ? html : html.substring(0, index);
+	                html = index < 0 ? "" : html.substring(index);
+
+	                if (handler.chars) handler.chars(text);
+	            }
+	        } else {
+	            html = html.replace(new RegExp("([\\s\\S]*?)<\/" + stack.last() + "[^>]*>"), function (all, text) {
+
+	                if (handler.chars) handler.chars(text);
+
+	                return "";
+	            });
+
+	            parseEndTag("", stack.last());
+	        }
+
+	        if (html == last) throw "Parse Error: " + html;
+	        last = html;
+	    }
+
+	    // Clean up any remaining tags
+	    parseEndTag();
+
+	    function parseStartTag(tag, tagName, rest, unary) {
+	        tagName = tagName.toLowerCase();
+
+	        unary = !!unary;
+
+	        if (!unary) stack.push(tagName);
+
+	        if (handler.start) {
+	            var attrs = [];
+
+	            rest.replace(attr, function (match, name) {
+	                var value = arguments[2] ? arguments[2] : arguments[3] ? arguments[3] : arguments[4] ? arguments[4] : "";
+
+	                attrs.push({
+	                    name: name,
+	                    value: value,
+	                    escaped: value.replace(/(^|[^\\])"/g, '$1\\\"') //"
+	                });
+	            });
+
+	            if (handler.start) handler.start(tagName, attrs, unary);
+	        }
+	    }
+
+	    function parseEndTag(tag, tagName) {
+	        // If no tag name is provided, clean shop
+	        if (!tagName) var pos = 0;
+
+	        // Find the closest opened tag of the same type
+	        else for (var pos = stack.length - 1; pos >= 0; pos--) {
+	                if (stack[pos] == tagName) break;
+	            }if (pos >= 0) {
+	            // Close all the open elements, up the stack
+	            for (var i = stack.length - 1; i >= pos; i--) {
+	                if (handler.end) handler.end(stack[i]);
+	            } // Remove the open elements from the stack
+	            stack.length = pos;
+	        }
+	    }
+	};
+
+	var DEBUG = false;
+	var debug = DEBUG ? console.log.bind(console) : function () {};
+
+	// Production steps of ECMA-262, Edition 5, 15.4.4.21
+	// Reference: http://es5.github.io/#x15.4.4.21
+	if (!Array.prototype.reduce) {
+	    Array.prototype.reduce = function (callback /*, initialValue*/) {
+	        'use strict';
+
+	        if (this == null) {
+	            throw new TypeError('Array.prototype.reduce called on null or undefined');
+	        }
+	        if (typeof callback !== 'function') {
+	            throw new TypeError(callback + ' is not a function');
+	        }
+	        var t = Object(this),
+	            len = t.length >>> 0,
+	            k = 0,
+	            value;
+	        if (arguments.length == 2) {
+	            value = arguments[1];
+	        } else {
+	            while (k < len && !(k in t)) {
+	                k++;
+	            }
+	            if (k >= len) {
+	                throw new TypeError('Reduce of empty array with no initial value');
+	            }
+	            value = t[k++];
+	        }
+	        for (; k < len; k++) {
+	            if (k in t) {
+	                value = callback(value, t[k], k, t);
+	            }
+	        }
+	        return value;
+	    };
+	}
+
+	var html2json = function html2json(html) {
+
+	    var bufArray = [];
+	    var results = {
+	        node: 'root',
+	        child: []
+	    };
+	    HTMLParser(html, {
+	        start: function start(tag, attrs, unary) {
+	            debug(tag, attrs, unary);
+	            // node for this element
+	            var node = {
+	                node: 'element',
+	                tag: tag
+	            };
+	            if (attrs.length !== 0) {
+	                node.attr = attrs.reduce(function (pre, attr) {
+	                    var name = attr.name;
+	                    var value = attr.value;
+
+	                    pre[name] = value;
+	                    return pre;
+	                }, {});
+	            }
+	            if (unary) {
+	                // if this tag dosen't have end tag
+	                // like <img src="hoge.png"/>
+	                // add to parents
+	                var parent = bufArray[0] || results;
+	                if (parent.child === undefined) {
+	                    parent.child = [];
+	                }
+	                parent.child.push(node);
+	            } else {
+	                bufArray.unshift(node);
+	            }
+	        },
+	        end: function end(tag) {
+	            debug(tag);
+	            // merge into parent tag
+	            var node = bufArray.shift();
+	            if (node.tag !== tag) console.error('invalid state: mismatch end tag');
+
+	            if (bufArray.length === 0) {
+	                results.child.push(node);
+	            } else {
+	                var parent = bufArray[0];
+	                if (parent.child === undefined) {
+	                    parent.child = [];
+	                }
+	                parent.child.push(node);
+	            }
+	        },
+	        chars: function chars(text) {
+	            debug(text);
+	            var node = {
+	                node: 'text',
+	                text: text
+	            };
+	            if (bufArray.length === 0) {
+	                results.child.push(node);
+	            } else {
+	                var parent = bufArray[0];
+	                if (parent.child === undefined) {
+	                    parent.child = [];
+	                }
+	                parent.child.push(node);
+	            }
+	        }
+	    });
+	    return results;
+	};
+
+	exports["default"] = html2json;
 
 /***/ }
 /******/ ])

@@ -2,6 +2,7 @@ import Omi from './omi.js';
 import style from './style.js';
 import scopedEvent from './event.js';
 import setDOM from './diff.js';
+import html2json from './html2json.js';
 
 class Component {
     constructor(data, server) {
@@ -269,10 +270,6 @@ class Component {
         })
     }
 
-    _getConstructorNameByMagic(c){
-        return  (c+"").split("(")[0].replace("function","").trim();
-    }
-
     _fixForm (){
 
         Omi.$$('input',this.node).forEach(element =>{
@@ -329,7 +326,7 @@ class Component {
         if(isFirst) {
             let parentData = arr ? this._extractPropertyFromString(RegExp.$1, this.parent) : null;
             let groupArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
-            this.data = Object.assign(this.data, this._getDataset(childStr), parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
+            this.data = Object.assign(this.data, this._dataset, parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
         }else{
             if(this.dataFirst){
                 this.data = Object.assign({},this._getDataset(childStr),this.data);
@@ -364,19 +361,15 @@ class Component {
         });
     }
 
-    _getDataset(str) {
-        let arr = str.match(/\s+data-(\S*)=['|"](\S*)['|"]/g);
-        if(arr) {
-            let obj = {};
-            arr.forEach(item => {
-                let arr = item.split('=');
-                obj[this._capitalize(arr[0].replace(/\s+data-/, ''))] = arr[1].replace(/['|"]/g, '');
-                arr = null;
-            });
-            return obj;
-        }
-        //this.BODY_ELEMENT.innerHTML = str ;
-        //return this.BODY_ELEMENT.firstChild.dataset;
+    _getDataset(childStr) {
+        let json = html2json(childStr);
+        let attr = json.child[0].attr;
+        Object.keys(attr).forEach(key => {
+            if(key.indexOf('data-') === 0){
+                this._dataset[this._capitalize(key.replace('data-', ''))] = attr[key];
+            }
+        });
+        return this._dataset;
     }
 
     _capitalize (str){
@@ -398,74 +391,63 @@ class Component {
 
     }
 
-    _extractChildren(child) {
+    _extractChildren(child){
         if (Omi.customTags.length > 0) {
             child.HTML = this._replaceTags(Omi.customTags, child.HTML);
         }
         let arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
 
-        if (arr) {
-            const len = arr.length;
-
-            for (let i = 0; i < len; i++) {
-                let childStr = arr[i];
-                childStr.match(/\s+tag=['|"](\S*)['|"][\s+|/]/);
-
-                let name = RegExp.$1;
+        if(arr){
+            arr.forEach( (childStr, i) =>{
+                let json = html2json(childStr);
+                let attr = json.child[0].attr;
+                let name = attr.tag;
+                delete attr.tag;
                 let cmi = this.children[i];
                 //if not first time to invoke _extractChildren method
-                //___omi_constructor_name for es5
-                if (cmi && (cmi.constructor.name === name || cmi.___omi_constructor_name === name||this._getConstructorNameByMagic(cmi.constructor))) {
+                if (cmi && cmi.___omi_constructor_name === name) {
                     cmi._childRender(childStr);
-                    continue;
                 } else {
                     let ChildClass = Omi.getClassFromString(name);
                     if (!ChildClass) throw "Can't find Class called [" + name+"]";
                     let sub_child = new ChildClass( Object.assign({},child.childrenData[i] ),false);
                     sub_child._omiChildStr = childStr;
                     sub_child.parent = child;
+                    sub_child.___omi_constructor_name = name;
+                    sub_child._dataset = {};
 
-                    let evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"][\s+|/]/g);
-                    if(evtArr) {
-                        evtArr.forEach((item) => {
-                            let evtArr = item.trim().split("=");
-                            let hdName = evtArr[1].replace(/['|"]/g, "");
-                            let handler = sub_child.parent[hdName];
+                    Object.keys(attr).forEach(key => {
+                        const value = attr[key];
+                        if (key.indexOf('on') === 0) {
+                            let handler = sub_child.parent[value];
                             if (handler) {
-                                sub_child.data[evtArr[0]] = handler.bind(sub_child.parent);
+                                sub_child.data[key] = handler.bind(sub_child.parent);
                             }
-                        })
-                    }
-
-                    let groupNameArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
-                    if (groupNameArr) {
-                        if(child._omiGroupDataCounter.hasOwnProperty(RegExp.$1)){
-                            child._omiGroupDataCounter[RegExp.$1]++;
-                            sub_child._omiGroupDataIndex =  child._omiGroupDataCounter[RegExp.$1];
-                        }else{
-                            sub_child._omiGroupDataIndex = child._omiGroupDataCounter[RegExp.$1] = 0;
+                        } else if (key === 'group-data') {
+                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+                                child._omiGroupDataCounter[value]++;
+                                sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value];
+                            } else {
+                                sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value] = 0;
+                            }
+                        } else if (key === 'omi-id'){
+                            Omi.mapping[value] = sub_child;
+                        }else if (key === 'name'){
+                            child[value] = sub_child;
+                        }else if(key.indexOf('data-') === 0){
+                            sub_child._dataset[this._capitalize(key.replace('data-', ''))] = value;
                         }
-                    }
+                    });
 
-                    sub_child._childRender(childStr,true);
-
-                    let mo_ids = childStr.match(/omi-id=['|"](\S*)['|"][\s+|/]/);
-                    if (mo_ids) {
-                        Omi.mapping[RegExp.$1] = sub_child;
-                    }
                     if (!cmi) {
                         child.children.push(sub_child);
                     } else {
                         child.children[i] = sub_child;
                     }
 
-                    let nameArr = childStr.match(/\s+name=['|"](\S*)['|"][\s+|/]/);
-                    if (nameArr) {
-                        child[RegExp.$1] = sub_child;
-                    }
+                    sub_child._childRender(childStr,true);
                 }
-
-            }
+            });
         }
     }
 }

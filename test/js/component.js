@@ -21,7 +21,7 @@ class Hello extends Omi.Component {
     }
 }
 
-var hello =Omi.render(new Hello({ name:'dntzhang'}),'body');
+var hello = Omi.render(new Hello({ name:'dntzhang'}),'body');
 
 describe("A suite is just a function", function() {
 
@@ -66,10 +66,10 @@ describe("_replaceTags ", function() {
 
 
 describe("_getDataset ", function() {
-
-    var dataset = hello._getDataset('<div data-a="a" data-b="b"></div>');
+    hello._dataset = {};
+    hello._getDataset('<div data-a="a" data-b="b"></div>');
 
     it("_getDataset", function() {
-        expect(dataset.a).toBe('a');
+        expect(hello._dataset.a).toBe('a');
     });
 });
