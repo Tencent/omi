@@ -22,6 +22,16 @@ Open and modern framework for building user interfaces.
 
 <img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png">
 
+## 特性
+
+* 超小的尺寸，7 kb (gzip)
+* 良好的兼容性，支持IE8
+* 完全面向对象的组件体系
+* 局部CSS，HTML+ Scoped CSS + JS组成可复用的组件
+* 更自由的更新，每个组件都有update方法，自由选择时机进行更新
+* 模板引擎可替换，开发者可以重写Omi.template方法来使用任意模板引擎
+* 提供了ES6+和ES5的两种开发方案供开发者自由选择
+
 ## 生态
 
 * [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，支持各种触摸事件和手势
@@ -102,6 +112,16 @@ Omi.render(new Hello({ name : "Omi" }),"body");
 * If you are too lazy to build a project scaffolding, you can try [Scaffolding for Omi](https://github.com/AlloyTeam/omi/tree/master/scaffolding)
 * If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
+
+## Fetures
+
+* Super tiny size, 7 KB (gzip)
+* Good compatibility, support IE8
+* Fully object-oriented component system
+* Support Scoped CSS, reusable components are composed of HTML， Scoped CSS and JS
+* More free updates, each component has a update method, free to choose the right time to update
+* Template engines can be replaced, developers can override the Omi.template method to use any template engine
+* Provides two development way ( ES6+ and ES5) for developers to choose freely
 
 ## Plugins
 
