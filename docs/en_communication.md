@@ -149,11 +149,11 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-通用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。
+We can use `this.childrenData` to transfer data to the sub-component. In this case, `childrenData` is an array, so it can pass data to multiple components in the same time. In the meanwhile, the data will be passed to components one by one.
 
-### group-data通讯
+### Communicate by `group-data`
 
-childrenData的方式可以批量传递数据给组件，但是有很多场景下data的来源不一定非要都从childrenData来，childrenData是个数组，会和组件的顺序一一对应，这就给不同传递方式的data必须全部集中的childrenData中，非常不方便。group-data专门为解决上面的痛点而生，专门是为了给一组组件批量传递data。
+`childrenData` can pass data to multiple components. However, there are many scenes where the source of data does not have to be from `childrenData`. `childrenData` is an array, and it should be the same order with the components, so that the data must all concentrated in `childrenData`, it's very inconvenient. `group-data` dedicated to solve the above pain points, specifically to pass data to a group of components.
 
 ```js
 import Hello from './hello.js';
@@ -182,14 +182,15 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-只需要在声明的子组件上标记group-data，就会去当前组件的instance（也就是this）下面找对应的属性，然后根据当前的位置，和对应数组的位置会一一对应起来。
+By declaring a `group-data` tag in the sub-components, it will go to the current instance of the component (that is, `this`) to find the corresponding property. Then according to the current location, the data will pass to the positions one by one.
 
-运行结果如下：
-![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170216110701535-1698390390.png)
+The results are as follows:
 
-<a href="http://alloyteam.github.io/omi/website/redirect.html?type=group_data" target="_blank">点击这里→group-data</a>
+![group-data results](http://images2015.cnblogs.com/blog/105416/201702/105416-20170216110701535-1698390390.png)
 
-同样group-data支持复杂数据类型的映射，需要注意的是，group-data映射的终点必须是一个数组:
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=group_data" target="_blank">Click me for the group-data example</a>
+
+Similarly, `group-data` supports the mapping of complex data types. It should be noted that the end of the group-data mapping must be an array:
 
 ```js
 import Hello from './hello.js';
@@ -234,9 +235,9 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-<a href="http://alloyteam.github.io/omi/website/redirect.html?type=group_data_complex" target="_blank">点击这里→group-data映射复杂数据</a>
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=group_data_complex" target="_blank">Click me for the complex group-data mapping</a>
 
-### 通过对象实例
+### By object instance
 
 ```js
 ...
@@ -262,7 +263,7 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-### 通过omi-id
+### By omi-id
 
 ```js
 ...
@@ -289,15 +290,16 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-通过在组件上声明omi-id，在程序任何地方拿到该对象的实例。这个可以算是跨任意组件通讯神器。
+By declaring `omi-id` on the component, we can get the instance of the object anywhere in the program. This can be regarded as any component communication artifacts.
 
-### 特别强调
+### Warm Tips
 
-* 通过childrenData或者data方式通讯都是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件
-* 通过data-✼通讯也是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件。
-* 关于data-✼通讯也可以不是一锤子买卖，但是要设置组件实例的dataFirst为false，这样的话data-✼就会覆盖组件实例的data对应的属性
+- The data that passed by `childrenData` or `data` is shadow copied to sub-components. In order to update it, we need to update the `data` attribute of the component instance.
+- The data that passed by `data-*` is also shadow copied to sub-components. In order to update it, we need to update the `data` attribute of the component instance.
+- If we set the `dataFirst` property of the component instance to `false`, then `data-*` will override the `data` of component instance.
 
-关于上面的第三条也就是这样的逻辑伪代码：
+For the third tip, please checkout the pseudo-code:
+
 ```js
 if(this.dataFirst){
     this.data = Object.assign({},data-✼ ,this.data);

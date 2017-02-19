@@ -149,7 +149,7 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-通用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。
+使用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。
 
 ### group-data通讯
 
