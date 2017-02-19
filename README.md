@@ -172,5 +172,13 @@ You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)ï
 
 Omi did not abandon the ES5 users, you can also use ES5 to write Omi.[[Try Omi-ES5 on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
 
+## Contributors
+
+|name   |avatars   |company   | 
+|---|---|---|
+|  [xcatliu](https://github.com/xcatliu) |  ![](https://avatars3.githubusercontent.com/u/5453359?v=3&amp;s=100)  |  Microsoft |  
+|  [pasturn](https://github.com/pasturn) |  ![](https://avatars2.githubusercontent.com/u/6126885?v=3&s=100)  |   |  
+|  [dntzhang](https://github.com/dntzhang) | ![](https://avatars2.githubusercontent.com/u/7917954?v=3&s=100)  |  Tencent | 
+
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
