@@ -86,6 +86,7 @@ class Todo extends Omi.Component {
     constructor(data) {
         super(data);
         this.data.length = this.data.items.length;
+        this.listData = { items : this.data.items };
     }
 
     add (evt) {
@@ -110,7 +111,7 @@ class Todo extends Omi.Component {
     render () {
         return `<div>
                     <h3>TODO</h3>
-                    <List  name="list" data="data" />
+                    <List  name="list" data="listData" />
                     <form onsubmit="add(event)" >
                         <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
                         <button>Add #{{length}}</button>
@@ -121,10 +122,11 @@ class Todo extends Omi.Component {
 ```
 
 * 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML('List', List);也可以写在List组件的代码下面。
-* 第33行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。data="data"可以让你把this.data传递给子组件。
+* 第34行，在父组件上定义listData属性用来传递给子组件。
+* 第34行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。data="listData"可以让你把this.listData传递给子组件。
 
-需要注意的是，父组件的this.data会被通过Object.assign浅拷贝到子组件。
-这样做的目的主要是希望以后DOM的变更都尽量修改子组件自身的data，然后再调用其update方法，而不是去更改父组件的data。
+需要注意的是，父组件的this.listData会被通过Object.assign浅拷贝到子组件。
+这样做的目的主要是希望以后DOM的变更都尽量修改子组件自身的data，然后再调用其update方法，而不是去更改父组件的listData。
 
 关于Omi组件通讯其实有4种方案，这个后续教程会专门来讲。
 

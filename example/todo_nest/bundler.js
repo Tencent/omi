@@ -93,6 +93,7 @@
 	        var _this = _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, data));
 
 	        _this.data.length = _this.data.items.length;
+	        _this.listData = { items: _this.data.items };
 	        return _this;
 	    }
 
@@ -118,7 +119,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h3>TODO</h3>\n                    <List  name="list" data="data" />\n                    <form onsubmit="add(event)" >\n                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n                </div>';
+	            return '<div>\n                    <h3>TODO</h3>\n                    <List  name="list" data="listData" />\n                    <form onsubmit="add(event)" >\n                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n                </div>';
 	        }
 	    }]);
 

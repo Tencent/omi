@@ -88,6 +88,7 @@ class Todo extends Omi.Component {
     constructor(data) {
         super(data);
         this.data.length = this.data.items.length;
+        this.listData = { items : this.data.items };
     }
 
     add (evt) {
@@ -112,7 +113,7 @@ class Todo extends Omi.Component {
     render () {
         return `<div>
                     <h3>TODO</h3>
-                    <List name="list" data="data" />
+                    <List name="list" data="listData" />
                     <form onsubmit="add(event)" >
                         <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
                         <button>Add #{{length}}</button>
@@ -123,9 +124,10 @@ class Todo extends Omi.Component {
 ```
 
 - In line 3, we use `makeHTML` to make the component to a tag which can be used in render method. Of course, `Omi.makeHTML('List', List);` can also be written in the end of List component.
-- In line 33, we use List component in the render method. `name` attribute allows us easily find the instance of the component by using `this`. .
+- In line 9, the parent component defines the 'listData' property
+- In line 34, we use List component in the render method. `name` attribute allows us easily find the instance of the component by using `this`.`data="listData"` attribute allows us easily pass `this.listData`  to the sub component from parent component.
 
-It should be noted that the `data` passed from `data="data"` is cloned to the subcomponents by Object.assign(shallow  copy) , which means if we want to change the DOM, we recommend  that first update the `data` of the instance of subcomponent(not the parent component's data ) and secondly call the `update` method.
+It should be noted that the `data` passed from `data="listData"` is cloned to the subcomponents by Object.assign(shallow  copy) , which means if we want to change the DOM, we recommend  that first update the `data` of the instance of subcomponent(not the parent component's `listData` ) and secondly call the `update` method.
 
 In fact there are 4 way to communicate between components, it'll be explained later.
 
