@@ -25,7 +25,7 @@
     },
     mds:{
         cn:['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom', 'thinking_in_omi','pr_env','pr_hello'],
-        en:['installation', 'hello_world', 'components', 'communication']
+        en:['installation', 'hello_world', 'components', 'communication', 'lifecycle']
     },
     menus:{
         cn:[
@@ -59,8 +59,8 @@
                 {"name": "Installation"},
                 {"name": "Hello World"},
                 {"name": "Components"},
-                {"name": "Communication"}
-                //{"name": "Lifecycle"},
+                {"name": "Communication"},
+                {"name": "Lifecycle"}
                 //{"name": "Handling Events"},
                 //{"name": "Conditional Rendering"},
                 //{"name": "Lists and Keys"},
