@@ -9,3 +9,12 @@ describe("scopedEvent", function() {
 
     });
 });
+
+describe("scopedEvent2", function() {
+
+    var result =   scopedEvent("<div onclick='adfd'>sfsdf </div>",1);
+    it("and so is a spec", function() {
+        expect(result).toBe("<div onclick='adfd'>sfsdf </div>");
+
+    });
+});
