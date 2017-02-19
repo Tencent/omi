@@ -86,7 +86,6 @@ class Todo extends Omi.Component {
     constructor(data) {
         super(data);
         this.data.length = this.data.items.length;
-        this.childrenData = [ { items : this.data.items } ];
     }
 
     add (evt) {
@@ -111,7 +110,7 @@ class Todo extends Omi.Component {
     render () {
         return `<div>
                     <h3>TODO</h3>
-                    <List omi-id="list" name="list" />
+                    <List  name="list" data="data" />
                     <form onsubmit="add(event)" >
                         <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
                         <button>Add #{{length}}</button>
@@ -122,9 +121,11 @@ class Todo extends Omi.Component {
 ```
 
 * 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML('List', List);也可以写在List组件的代码下面。
-* 第9行，通过设置this.childrenData可以把参数传递给子组件。this.childrenData是个数组，这样就支持多child的情况。
-* 第34行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。omi-id可以让你通过Omi.mapping['list']快速访问到组件对象的实例。
+* 第33行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。data="data"可以让你把this.data传递给子组件。
 
-需要注意的是，this.childrenData传递给子组件的data是一锤子买卖，data会被克隆到子组件。意思就是后续只能改变子组件实例的data属性再update才能改变页面。关于Omi组件通讯其实有4种方案，这个后续教程会专门来讲。
+需要注意的是，父组件的this.data会被通过Object.assign浅拷贝到子组件。
+这样做的目的主要是希望以后DOM的变更都尽量修改子组件自身的data，然后再调用其update方法，而不是去更改父组件的data。
+
+关于Omi组件通讯其实有4种方案，这个后续教程会专门来讲。
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest" target="_blank">点击这里→在线试试</a>

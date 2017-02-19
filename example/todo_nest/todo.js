@@ -7,7 +7,6 @@ class Todo extends Omi.Component {
     constructor(data) {
         super(data);
         this.data.length = this.data.items.length;
-        this.childrenData = [ { items : this.data.items } ];
     }
 
     add (evt) {
@@ -32,7 +31,7 @@ class Todo extends Omi.Component {
     render () {
         return `<div>
                     <h3>TODO</h3>
-                    <List omi-id="list" name="list" />
+                    <List  name="list" data="data" />
                     <form onsubmit="add(event)" >
                         <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
                         <button>Add #{{length}}</button>
