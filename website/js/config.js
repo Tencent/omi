@@ -23,49 +23,55 @@
         37:'16-18',
         38:'13,18'
     },
-    mds:['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom', 'thinking_in_omi','pr_env','pr_hello'],
-    cn_menus:[
-        {title: "快速开始", list: [
-            {"name": "安装"},
-            {"name": "Hello World"},
-            {"name": "组件"},
-            {"name": "组件通讯"},
-            {"name": "生命周期"},
-            {"name": "事件处理"},
-            {"name": "条件判断"},
-            {"name": "循环遍历"},
-            {"name": "表单"},
-            {"name": "继承"},
-            //{"name": "容器系统"},
-            {"name": "模板切换"},
-            {"name": "获取DOM节点"},
-            //{"name": "服务器端渲染"},
-            {"name": "Omi的理念"}
-        ]},
-        {title: "Omi原理", list: [
-            {"name": "环境搭建"},
-            {"name": "Hello Omi"},
-            {"name": "未完待续.."},
-            {"name": "..."}
+    mds:{
+        cn:['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom', 'thinking_in_omi','pr_env','pr_hello'],
+        en:['installation', 'hello_world', 'components', 'communication']
+    },
+    menus:{
+        cn:[
+            {title: "快速开始", list: [
+                {"name": "安装"},
+                {"name": "Hello World"},
+                {"name": "组件"},
+                {"name": "组件通讯"},
+                {"name": "生命周期"},
+                {"name": "事件处理"},
+                {"name": "条件判断"},
+                {"name": "循环遍历"},
+                {"name": "表单"},
+                {"name": "继承"},
+                //{"name": "容器系统"},
+                {"name": "模板切换"},
+                {"name": "获取DOM节点"},
+                //{"name": "服务器端渲染"},
+                {"name": "Omi的理念"}
+            ]},
+            {title: "Omi原理", list: [
+                {"name": "环境搭建"},
+                {"name": "Hello Omi"},
+                {"name": "未完待续.."},
+                {"name": "..."}
 
-        ]}
-    ],
-    en_menu:[
-        {title: "QUICK START", list: [
-            {"name": "Installation"},
-            {"name": "Hello World"},
-            {"name": "Components"},
-            {"name": "Lifecycle"},
-            {"name": "Handling Events"},
-            {"name": "Conditional Rendering"},
-            {"name": "Lists and Keys"},
-            {"name": "Forms"},
-            {"name": "Inheritance"},
-            {"name": "Sever-side Rendering"},
-            {"name": "Thinking In Omi"}
-        ]},
-        {title: "Principle of Omi", list: [ {"name": "Scoped CSS"}]}
-    ]
+            ]}
+        ],
+        en:[
+            {title: "QUICK START", list: [
+                {"name": "Installation"},
+                {"name": "Hello World"},
+                {"name": "Components"},
+                {"name": "Communication"}
+                //{"name": "Lifecycle"},
+                //{"name": "Handling Events"},
+                //{"name": "Conditional Rendering"},
+                //{"name": "Lists and Keys"},
+                //{"name": "Forms"},
+                //{"name": "Inheritance"},
+                //{"name": "Sever-side Rendering"},
+                //{"name": "Thinking In Omi"}
+            ]},
+            {title: "Principle of Omi", list: [ {"name": "Coming soom.."}]}
+        ]
+    }
 
 }
 

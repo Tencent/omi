@@ -83,8 +83,12 @@ if(ENV === 'build'){
        // devtool: 'source-map',
     };
 }else if(ENV === 'website') {
-    config.entry = './website/js/docs_main.js';
+    config.entry ={
+        bundler: './website/js/docs_main.js',
+        bundler_en: './website/js/docs_main_en.js'
+    }
     config.output.path = './website/dist/';
+    config.output.filename =  '[name].js';
     config.module.loaders.push(  { test: /\.md$/, loader: "md-text" });
 }else {
     config.entry = './example/' + ENV + '/main.js';

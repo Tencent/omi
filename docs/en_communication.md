@@ -1,4 +1,4 @@
-<h2 id="component-communication">Component Communication</h2>
+<h2 id="Communication">Component Communication</h2>
 
 Communication between [Omi](https://github.com/AlloyTeam/omi) components is very flexible, there are many options:
 

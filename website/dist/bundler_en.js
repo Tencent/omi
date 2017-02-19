@@ -52,7 +52,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	Omi.render(new _frame2['default']({ lan: "cn" }), 'body', true);
+	Omi.render(new _frame2['default']({ lan: "en" }), 'body', true);
 
 /***/ },
 /* 1 */

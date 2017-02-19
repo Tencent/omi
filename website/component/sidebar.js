@@ -10,7 +10,7 @@ class Sidebar extends Omi.Component {
     }
 
     install () {
-        this.data.items = config[this.data.lan+'_menus'] ;
+        this.data.items = config['menus'][this.data.lan] ;
         this.data.height = window.innerHeight -45;
     }
 

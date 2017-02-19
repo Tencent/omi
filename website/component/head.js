@@ -1,8 +1,12 @@
-import Omi from '../../src/index.js';
+﻿import Omi from '../../src/index.js';
 
 class Head extends Omi.Component {
     constructor (data) {
         super(data);
+    }
+
+    install(){
+        this.data.isEnLan = this.data.lan === 'en';
     }
 
     style () {
@@ -59,9 +63,16 @@ class Head extends Omi.Component {
             <a href="https://github.com/AlloyTeam/omi">Omi</a>
         </div>
         <ul class="menu">
+
             <li class="github_li"><a href="https://github.com/AlloyTeam/omi">Github</a>
             <li><a href="http://alloyteam.github.io/omi/example/playground/">Playground</a></li>
             <li><a href="https://github.com/AlloyTeam/omi/tree/master/docs">[Edit the Docs]</a></li>
+             {{#isEnLan}}
+                <li class="github_li"><a href="docs.html">中文</a>
+            {{/isEnLan}}
+            {{^isEnLan}}
+                <li class="github_li"><a href="docs_en.html">English</a>
+            {{/isEnLan}}
             </li>
         </ul>
     </div>`;

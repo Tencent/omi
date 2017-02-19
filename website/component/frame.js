@@ -49,6 +49,7 @@ class Frame extends Omi.Component {
     }
 
     highlightBlock(lh) {
+        if(this.data.lan === 'en') return;
         var codes = document.querySelectorAll("code");
         for (let i = 0, len = codes.length; i < len; i++) {
             //innerText bug£¿ie11 remove the \r\n??
@@ -63,7 +64,7 @@ class Frame extends Omi.Component {
         let highlight = config.highlight;
 
         for (let key in config.highlight) {
-            pres[key].setAttribute("data-line", highlight[key]);
+            pres[key]&&pres[key].setAttribute("data-line", highlight[key]);
         }
 
         this._$$('pre').forEach((item)=> {
@@ -75,7 +76,7 @@ class Frame extends Omi.Component {
 
     render() {
         return `<div>
-                <Head />
+                <Head data-lan="{{lan}}" />
                 <div class="main"  style="height:{{height}}px;width:{{width}}px;">
                   <Content data-lan="{{lan}}" />
                 </div>

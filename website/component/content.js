@@ -21,7 +21,7 @@ class Content extends Omi.Component {
     }
 
     install() {
-        this.data.html = marked(getMarkDownByArr(config.mds, 'cn'));
+        this.data.html = marked(getMarkDownByArr(config.mds[this.data.lan], this.data.lan));
     }
 
     style () {

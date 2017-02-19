@@ -1,4 +1,4 @@
-<h2 id="components">Components</h2>
+<h2 id="Components">Components</h2>
 
 [Omi](https://github.com/AlloyTeam/omi) is based entirely on component architecture, which allows developers to build web applications like building blocks. Everything is components, components can be nested to create new components.
 
