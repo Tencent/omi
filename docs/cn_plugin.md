@@ -8,6 +8,8 @@
 
 且看这个例子:
 
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=plugin" target="_blank">点击这里→在线试试</a>
+
 ```js
 import OmiDrag from './omi-drag.js';
 
@@ -260,6 +262,8 @@ window.addEventListener('mousemove',function(evt){
 
 * 通过 var handlerName = dom.getAttribute('dragMove') 拿到dom上声明的dragMove
 * 通过 instance[handlerName](evt) 去执行对应的方法
+
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=plugin" target="_blank">点击这里→在线试试</a>
 
 ## 更多插件
 
