@@ -1,19 +1,13 @@
-# Omi脚手架
+## Omi脚手架
 
-## 安装omis
-
-``` js
-npm install omis
-```
+你可以修改你的目录名，也可通过npm init去修改你的项目信息。
 
 ## 安装开发依赖包
 
 ``` js
-cd omis
 npm install
 ```
 
-当然你可以修改你的目录名，也可通过npm init去修改你的项目信息。
 
 ## 开发
 

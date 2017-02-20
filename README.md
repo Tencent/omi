@@ -16,7 +16,7 @@ Open and modern framework for building user interfaces.
 * 如果想使用Omi框架，请阅读  [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
 * 如果想一起开发完善Omi框架，有更好的解决方案或者思路，请阅读  [从零一步步打造web组件化框架Omi](https://github.com/AlloyTeam/omi/tree/master/docs#从零一步步打造web组件化框架omi)
 * 关于上面的两类文档，如果你想获得更佳的阅读体验，可以访问[Docs Website](http://alloyteam.github.io/omi/website/docs.html)
-* 如果你懒得搭建项目脚手架，可以试试[Scaffolding for Omi](https://github.com/AlloyTeam/omi/tree/master/scaffolding)，npm安装omis便可
+* 如果你懒得搭建项目脚手架，可以试试[Scaffolding for Omi](https://github.com/AlloyTeam/omi/tree/master/scaffolding)
 * 如果你有Omi相关的问题可以[New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
 
