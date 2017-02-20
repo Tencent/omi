@@ -8,13 +8,21 @@ class App extends Omi.Component {
         super(data);
     }
 
+    moveHandlerA(){
+        console.log('a is moving');
+    }
+
+    moveHandlerB(){
+        console.log('b is moving');
+    }
+
     render() {
         return  `
-        <div>
-            <div omi-drag  class="test">Drag Me<div>
-        </div>
-        `;
-
+    <div>
+        <div omi-drag class="test" dragMove="moveHandlerA" >Drag Me A</div>
+        <div omi-drag class="test" dragMove="moveHandlerB" >Drag Me B</div>
+    </div>
+    `;
     }
 
     style(){

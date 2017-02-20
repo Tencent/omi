@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -52,7 +52,7 @@
 
 	var _omiDrag2 = _interopRequireDefault(_omiDrag);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -60,7 +60,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	_omiDrag2["default"].init();
+	_omiDrag2['default'].init();
 
 	var App = function (_Omi$Component) {
 	    _inherits(App, _Omi$Component);
@@ -72,14 +72,24 @@
 	    }
 
 	    _createClass(App, [{
-	        key: "render",
-	        value: function render() {
-	            return "\n        <div>\n            <div omi-drag  class=\"test\">Drag Me<div>\n        </div>\n        ";
+	        key: 'moveHandlerA',
+	        value: function moveHandlerA() {
+	            console.log('a is moving');
 	        }
 	    }, {
-	        key: "style",
+	        key: 'moveHandlerB',
+	        value: function moveHandlerB() {
+	            console.log('b is moving');
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return '\n    <div>\n        <div omi-drag class="test" dragMove="moveHandlerA" >Drag Me A</div>\n        <div omi-drag class="test" dragMove="moveHandlerB" >Drag Me B</div>\n    </div>\n    ';
+	        }
+	    }, {
+	        key: 'style',
 	        value: function style() {
-	            return "\n        .test{\n            width:100px;\n            height:100px;\n            color:white;\n            line-height:90px;\n            text-align:center;\n            background-color:#00BFF3;\n        }\n        ";
+	            return '\n        .test{\n            width:100px;\n            height:100px;\n            color:white;\n            line-height:90px;\n            text-align:center;\n            background-color:#00BFF3;\n        }\n        ';
 	        }
 	    }]);
 
@@ -116,11 +126,12 @@
 	                evt.stopPropagation();
 	            }, false);
 
+	            var handlerName = dom.getAttribute('dragMove');
+
 	            window.addEventListener('mousemove', function (evt) {
 	                if (isMouseDown) {
 	                    currentX = evt.pageX;
 	                    currentY = evt.pageY;
-
 	                    if (preX != null) {
 	                        translateX += currentX - preX;
 	                        translateY += currentY - preY;
@@ -129,6 +140,7 @@
 	                    preX = currentX;
 	                    preY = currentY;
 	                    evt.preventDefault();
+	                    instance[handlerName](evt);
 	                }
 	            }, false);
 
@@ -427,6 +439,51 @@
 
 	Omi.extendPlugin = function (name, handler) {
 	    Omi.plugins[name] = handler;
+	};
+
+	Omi.getParameters = function (dom, instance, types) {
+	    var data = {};
+	    var noop = function noop() {};
+	    var methodMapping = {
+	        stringType: function stringType(value) {
+	            return value;
+	        },
+	        numberType: function numberType(value) {
+	            return Number(value);
+	        },
+	        booleanType: function booleanType(value) {
+	            if (value === 'true') {
+	                return true;
+	            } else if (value === 'false') {
+	                return false;
+	            } else {
+	                return Boolean(value);
+	            }
+	        },
+	        functionType: function functionType(value) {
+	            if (value) {
+	                var handler = instance[value.replace(/Omi.instances\[\d\]./, '')];
+	                if (handler) {
+	                    return handler.bind(instance);
+	                } else {
+	                    console.warn('You do not define [ ' + value + ' ] method in following component');
+	                    console.warn(instance);
+	                }
+	            } else {
+	                return noop;
+	            }
+	        }
+	    };
+	    Object.keys(types).forEach(function (type) {
+	        types[type].forEach(function (name) {
+	            var attr = dom.getAttribute(name);
+	            if (attr !== null) {
+	                data[name] = methodMapping[type](attr);
+	            }
+	        });
+	    });
+
+	    return data;
 	};
 
 	module.exports = Omi;
@@ -1057,8 +1114,6 @@
 	    value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _omi = __webpack_require__(3);
@@ -1076,6 +1131,10 @@
 	var _diff = __webpack_require__(8);
 
 	var _diff2 = _interopRequireDefault(_diff);
+
+	var _html2json = __webpack_require__(9);
+
+	var _html2json2 = _interopRequireDefault(_html2json);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -1109,6 +1168,7 @@
 	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
 	        //this.BODY_ELEMENT = document.createElement('body');
 	        this._preCSS = null;
+	        this._omiGroupDataCounter = {};
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
@@ -1152,6 +1212,10 @@
 	                    this.node = hdNode;
 	                } else {
 	                    (0, _diff2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
+
+	                    this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
+	                    this._queryElements(this);
+	                    this._fixForm();
 	                }
 	            }
 	            //update added components
@@ -1303,8 +1367,8 @@
 	                this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >';
 	                return this.HTML;
 	            }
-	            childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
-	            this._mergeData(childStr, isFirst);
+	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
+	            this._mergeData(childStr);
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 	            if (isFirst) {
@@ -1373,11 +1437,6 @@
 	            });
 	        }
 	    }, {
-	        key: '_getConstructorNameByMagic',
-	        value: function _getConstructorNameByMagic(c) {
-	            return (c + "").split("(")[0].replace("function", "").trim();
-	        }
-	    }, {
 	        key: '_fixForm',
 	        value: function _fixForm() {
 
@@ -1393,6 +1452,10 @@
 	                        element.checked = false;
 	                    }
 	                }
+	            });
+
+	            _omi2['default'].$$('textarea', this.node).forEach(function (textarea) {
+	                textarea.value = textarea.getAttribute('value');
 	            });
 
 	            _omi2['default'].$$('select', this.node).forEach(function (select) {
@@ -1413,9 +1476,14 @@
 	        key: '_replaceTags',
 	        value: function _replaceTags(array, html) {
 	            var str = array.join("|");
-	            var reg = new RegExp("(<(" + str + "))[^a-zA-Z>][\\s\\S]*?/>", "g");
-	            return html.replace(reg, function (m, a, b) {
-	                return m.replace(a, '<child tag="' + b + '" ');
+	            var reg = new RegExp('<(' + str + '+)((?:\\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\\s*=\\s*(?:(?:"[^"]*")|(?:\'[^\']*\')|[^>\\s]+))?)*)\\s*(\\/?)>', 'g');
+	            return html.replace(reg, function (m, a) {
+	                var d = m.length - 2;
+	                if (d >= 0 && m.lastIndexOf('/>') === m.length - 2) {
+	                    return m.replace('<' + a, '<child tag="' + a + '"').substr(0, m.length + 10) + '></child>';
+	                } else if (m.lastIndexOf('>') === m.length - 1) {
+	                    return m.replace('<' + a, '<child tag="' + a + '"') + '</child>';
+	                }
 	            });
 	        }
 	    }, {
@@ -1428,18 +1496,12 @@
 	        }
 	    }, {
 	        key: '_mergeData',
-	        value: function _mergeData(childStr, isFirst) {
-	            var arr = childStr.match(/\s*data=['|"](\S*)['|"]/);
-	            if (isFirst) {
-	                this.data = Object.assign(this.data, this._getDataset(childStr), arr ? this.parent[RegExp.$1] : null);
+	        value: function _mergeData(childStr) {
+	            if (this.dataFirst) {
+	                this.data = Object.assign({}, this._getDataset(childStr), this.data);
 	            } else {
-	                if (this.dataFirst) {
-	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
-	                } else {
-	                    this.data = Object.assign({}, this.data, this._getDataset(childStr));
-	                }
+	                this.data = Object.assign({}, this.data, this._getDataset(childStr));
 	            }
-	            isFirst && this.install();
 	        }
 	    }, {
 	        key: '_generateHTMLCSS',
@@ -1469,27 +1531,17 @@
 	        }
 	    }, {
 	        key: '_getDataset',
-	        value: function _getDataset(str) {
+	        value: function _getDataset(childStr) {
 	            var _this8 = this;
 
-	            var arr = str.match(/data-(\S*)=['|"](\S*)['|"]/g);
-	            if (arr) {
-	                var _ret = function () {
-	                    var obj = {};
-	                    arr.forEach(function (item) {
-	                        var arr = item.split('=');
-	                        obj[_this8._capitalize(arr[0].replace('data-', ''))] = arr[1].replace(/['|"]/g, '');
-	                        arr = null;
-	                    });
-	                    return {
-	                        v: obj
-	                    };
-	                }();
-
-	                if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-	            }
-	            //this.BODY_ELEMENT.innerHTML = str ;
-	            //return this.BODY_ELEMENT.firstChild.dataset;
+	            var json = (0, _html2json2['default'])(childStr);
+	            var attr = json.child[0].attr;
+	            Object.keys(attr).forEach(function (key) {
+	                if (key.indexOf('data-') === 0) {
+	                    _this8._dataset[_this8._capitalize(key.replace('data-', ''))] = attr[key];
+	                }
+	            });
+	            return this._dataset;
 	        }
 	    }, {
 	        key: '_capitalize',
@@ -1501,66 +1553,91 @@
 	            return str.substring(0, 1).toLowerCase() + str.substring(1);
 	        }
 	    }, {
+	        key: '_extractPropertyFromString',
+	        value: function _extractPropertyFromString(str, instance) {
+	            var arr = str.replace(/['|"|\]]/g, '').replace(/\[/g, '.').split('.');
+	            var current = instance;
+	            arr.forEach(function (prop) {
+	                current = current[prop];
+	            });
+	            arr = null;
+	            return current;
+	        }
+	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
+	            var _this9 = this;
+
 	            if (_omi2['default'].customTags.length > 0) {
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
-	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?\/>/g);
+	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
 
 	            if (arr) {
-	                var len = arr.length;
-
-	                for (var i = 0; i < len; i++) {
-	                    var childStr = arr[i];
-	                    childStr.match(/\s*tag=['|"](\S*)['|"]/);
-
-	                    var name = RegExp.$1;
-	                    var cmi = this.children[i];
+	                arr.forEach(function (childStr, i) {
+	                    var json = (0, _html2json2['default'])(childStr);
+	                    var attr = json.child[0].attr;
+	                    var name = attr.tag;
+	                    delete attr.tag;
+	                    var cmi = _this9.children[i];
 	                    //if not first time to invoke _extractChildren method
-	                    //___omi_constructor_name for es5
-	                    if (cmi && (cmi.constructor.name === name || cmi.___omi_constructor_name === name || this._getConstructorNameByMagic(cmi.constructor))) {
+	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._childRender(childStr);
-	                        continue;
 	                    } else {
 	                        (function () {
+	                            var baseData = {};
+	                            var dataset = {};
+	                            var dataFromParent = {};
+	                            var groupData = {};
+	                            var omiID = null;
+	                            var instanceName = null;
+	                            Object.keys(attr).forEach(function (key) {
+	                                var value = attr[key];
+	                                if (key.indexOf('on') === 0) {
+	                                    var handler = child[value];
+	                                    if (handler) {
+	                                        baseData[key] = handler.bind(child);
+	                                    }
+	                                } else if (key === 'omi-id') {
+	                                    omiID = value;
+	                                } else if (key === 'name') {
+	                                    instanceName = value;
+	                                } else if (key === 'group-data') {
+	                                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                                        child._omiGroupDataCounter[value]++;
+	                                    } else {
+	                                        child._omiGroupDataCounter[value] = 0;
+	                                    }
+	                                    groupData = _this9._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
+	                                } else if (key.indexOf('data-') === 0) {
+	                                    dataset[_this9._capitalize(key.replace('data-', ''))] = value;
+	                                } else if (key === 'data') {
+	                                    dataFromParent = _this9._extractPropertyFromString(value, child);
+	                                }
+	                            });
+
 	                            var ChildClass = _omi2['default'].getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                            var sub_child = new ChildClass(Object.assign({}, child.childrenData[i]), false);
+	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
+	                            sub_child.___omi_constructor_name = name;
+	                            sub_child._dataset = {};
+	                            sub_child.install();
 
-	                            var evtArr = childStr.match(/[\s\t\n]+on(\S*)=['|"](\S*)['|"]/g);
-	                            if (evtArr) {
-	                                evtArr.forEach(function (item) {
-	                                    var evtArr = item.trim().split("=");
-	                                    var hdName = evtArr[1].replace(/['|"]/g, "");
-	                                    var handler = sub_child.parent[hdName];
-	                                    if (handler) {
-	                                        sub_child.data[evtArr[0]] = handler.bind(sub_child.parent);
-	                                    }
-	                                });
-	                            }
-	                            sub_child._childRender(childStr, true);
+	                            omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                            instanceName && (child[instanceName] = sub_child);
 
-	                            var mo_ids = childStr.match(/omi-id=['|"](\S*)['|"]/);
-	                            if (mo_ids) {
-	                                _omi2['default'].mapping[RegExp.$1] = sub_child;
-	                            }
 	                            if (!cmi) {
 	                                child.children.push(sub_child);
 	                            } else {
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            var nameArr = childStr.match(/\s*name=['|"](\S*)['|"]/);
-
-	                            if (nameArr) {
-	                                child[RegExp.$1] = sub_child;
-	                            }
+	                            sub_child._childRender(childStr, true);
 	                        })();
 	                    }
-	                }
+	                });
 	            }
 	        }
 	    }]);
@@ -1639,21 +1716,24 @@
 /* 7 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	function scopedEvent(tpl, id) {
 	    return tpl.replace(/<[\s\S]*?>/g, function (item) {
-	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=('|")/g, function (eventStr, b, c, d, e) {
-	            if (e.substr(eventStr.length + d, 14) === "Omi.instances[") return eventStr;
-	            return eventStr += "Omi.instances[" + id + "].";
+	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=('|")([\s\S]*?)\([\s\S]*?\)/g, function (eventStr, b, c, d) {
+	            if (d.indexOf('Omi.instances[') === 0) {
+	                return eventStr;
+	            } else {
+	                return eventStr.replace(/=(['|"])/, '=$1Omi.instances[' + id + '].');
+	            }
 	        });
 	    });
 	};
 
-	exports["default"] = scopedEvent;
+	exports['default'] = scopedEvent;
 
 /***/ },
 /* 8 */
@@ -1873,6 +1953,249 @@
 	}
 
 	exports['default'] = setDOM;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/*
+	 *  html2json for omi
+	 *  https://github.com/AlloyTeam/omi
+	 *
+	 *  Original code by John Resig (ejohn.org)
+	 *  http://ejohn.org/blog/pure-javascript-html-parser/
+	 *  Original code by Erik Arvidsson, Mozilla Public License
+	 *  http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+	 *  Original code by Jxck
+	 *  https://github.com/Jxck/html2json
+	 */
+
+	// Regular Expressions for parsing tags and attributes
+	var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
+	    endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
+	    attr = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+
+	var HTMLParser = function HTMLParser(html, handler) {
+	    var index,
+	        chars,
+	        match,
+	        stack = [],
+	        last = html;
+	    stack.last = function () {
+	        return this[this.length - 1];
+	    };
+
+	    while (html) {
+	        chars = true;
+
+	        // Make sure we're not in a script or style element
+	        if (!stack.last()) {
+
+	            if (html.indexOf("</") == 0) {
+	                match = html.match(endTag);
+
+	                if (match) {
+	                    html = html.substring(match[0].length);
+	                    match[0].replace(endTag, parseEndTag);
+	                    chars = false;
+	                }
+
+	                // start tag
+	            } else if (html.indexOf("<") == 0) {
+	                match = html.match(startTag);
+
+	                if (match) {
+	                    html = html.substring(match[0].length);
+	                    match[0].replace(startTag, parseStartTag);
+	                    chars = false;
+	                }
+	            }
+
+	            if (chars) {
+	                index = html.indexOf("<");
+
+	                var text = index < 0 ? html : html.substring(0, index);
+	                html = index < 0 ? "" : html.substring(index);
+
+	                if (handler.chars) handler.chars(text);
+	            }
+	        } else {
+	            html = html.replace(new RegExp("([\\s\\S]*?)<\/" + stack.last() + "[^>]*>"), function (all, text) {
+
+	                if (handler.chars) handler.chars(text);
+
+	                return "";
+	            });
+
+	            parseEndTag("", stack.last());
+	        }
+
+	        if (html == last) throw "Parse Error: " + html;
+	        last = html;
+	    }
+
+	    // Clean up any remaining tags
+	    parseEndTag();
+
+	    function parseStartTag(tag, tagName, rest, unary) {
+	        tagName = tagName.toLowerCase();
+
+	        unary = !!unary;
+
+	        if (!unary) stack.push(tagName);
+
+	        if (handler.start) {
+	            var attrs = [];
+
+	            rest.replace(attr, function (match, name) {
+	                var value = arguments[2] ? arguments[2] : arguments[3] ? arguments[3] : arguments[4] ? arguments[4] : "";
+
+	                attrs.push({
+	                    name: name,
+	                    value: value,
+	                    escaped: value.replace(/(^|[^\\])"/g, '$1\\\"') //"
+	                });
+	            });
+
+	            if (handler.start) handler.start(tagName, attrs, unary);
+	        }
+	    }
+
+	    function parseEndTag(tag, tagName) {
+	        // If no tag name is provided, clean shop
+	        if (!tagName) var pos = 0;
+
+	        // Find the closest opened tag of the same type
+	        else for (var pos = stack.length - 1; pos >= 0; pos--) {
+	                if (stack[pos] == tagName) break;
+	            }if (pos >= 0) {
+	            // Close all the open elements, up the stack
+	            for (var i = stack.length - 1; i >= pos; i--) {
+	                if (handler.end) handler.end(stack[i]);
+	            } // Remove the open elements from the stack
+	            stack.length = pos;
+	        }
+	    }
+	};
+
+	var DEBUG = false;
+	var debug = DEBUG ? console.log.bind(console) : function () {};
+
+	// Production steps of ECMA-262, Edition 5, 15.4.4.21
+	// Reference: http://es5.github.io/#x15.4.4.21
+	if (!Array.prototype.reduce) {
+	    Array.prototype.reduce = function (callback /*, initialValue*/) {
+	        'use strict';
+
+	        if (this == null) {
+	            throw new TypeError('Array.prototype.reduce called on null or undefined');
+	        }
+	        if (typeof callback !== 'function') {
+	            throw new TypeError(callback + ' is not a function');
+	        }
+	        var t = Object(this),
+	            len = t.length >>> 0,
+	            k = 0,
+	            value;
+	        if (arguments.length == 2) {
+	            value = arguments[1];
+	        } else {
+	            while (k < len && !(k in t)) {
+	                k++;
+	            }
+	            if (k >= len) {
+	                throw new TypeError('Reduce of empty array with no initial value');
+	            }
+	            value = t[k++];
+	        }
+	        for (; k < len; k++) {
+	            if (k in t) {
+	                value = callback(value, t[k], k, t);
+	            }
+	        }
+	        return value;
+	    };
+	}
+
+	var html2json = function html2json(html) {
+
+	    var bufArray = [];
+	    var results = {
+	        node: 'root',
+	        child: []
+	    };
+	    HTMLParser(html, {
+	        start: function start(tag, attrs, unary) {
+	            debug(tag, attrs, unary);
+	            // node for this element
+	            var node = {
+	                node: 'element',
+	                tag: tag
+	            };
+	            if (attrs.length !== 0) {
+	                node.attr = attrs.reduce(function (pre, attr) {
+	                    var name = attr.name;
+	                    var value = attr.value;
+
+	                    pre[name] = value;
+	                    return pre;
+	                }, {});
+	            }
+	            if (unary) {
+	                // if this tag dosen't have end tag
+	                // like <img src="hoge.png"/>
+	                // add to parents
+	                var parent = bufArray[0] || results;
+	                if (parent.child === undefined) {
+	                    parent.child = [];
+	                }
+	                parent.child.push(node);
+	            } else {
+	                bufArray.unshift(node);
+	            }
+	        },
+	        end: function end(tag) {
+	            debug(tag);
+	            // merge into parent tag
+	            var node = bufArray.shift();
+	            if (node.tag !== tag) console.error('invalid state: mismatch end tag');
+
+	            if (bufArray.length === 0) {
+	                results.child.push(node);
+	            } else {
+	                var parent = bufArray[0];
+	                if (parent.child === undefined) {
+	                    parent.child = [];
+	                }
+	                parent.child.push(node);
+	            }
+	        },
+	        chars: function chars(text) {
+	            debug(text);
+	            var node = {
+	                node: 'text',
+	                text: text
+	            };
+	            if (bufArray.length === 0) {
+	                results.child.push(node);
+	            } else {
+	                var parent = bufArray[0];
+	                if (parent.child === undefined) {
+	                    parent.child = [];
+	                }
+	                parent.child.push(node);
+	            }
+	        }
+	    });
+	    return results;
+	};
+
+	exports["default"] = html2json;
 
 /***/ }
 /******/ ]);

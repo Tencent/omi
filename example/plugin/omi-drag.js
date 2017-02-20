@@ -9,7 +9,10 @@
         Omi.extendPlugin('omi-drag',function(dom, instance){
             dom.style.cursor='move';
             var isMouseDown = false,
-                preX = preY = currentX = currentY = null,
+                preX = null,
+                preY = null,
+                currentX = null,
+                currentY = null,
                 translateX = 0,
                 translateY = 0;
 
@@ -20,11 +23,12 @@
                 evt.stopPropagation();
             },false);
 
+            var handlerName = dom.getAttribute('dragMove');
+
             window.addEventListener('mousemove',function(evt){
                 if(isMouseDown){
                     currentX = evt.pageX;
                     currentY = evt.pageY;
-
                     if(preX != null){
                         translateX += currentX - preX;
                         translateY += currentY - preY;
@@ -33,6 +37,7 @@
                     preX = currentX;
                     preY = currentY;
                     evt.preventDefault();
+                    instance[handlerName](evt);
                 }
             },false);
 

@@ -24,7 +24,7 @@
         38:'13,18'
     },
     mds:{
-        cn:['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom', 'thinking_in_omi','pr_env','pr_hello'],
+        cn:['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom','plugin', 'thinking_in_omi','pr_env','pr_hello'],
         en:['installation', 'hello_world', 'components', 'communication', 'lifecycle']
     },
     menus:{
@@ -43,6 +43,7 @@
                 //{"name": "容器系统"},
                 {"name": "模板切换"},
                 {"name": "获取DOM节点"},
+                {"name": "插件体系"},
                 //{"name": "服务器端渲染"},
                 {"name": "Omi的理念"}
             ]},
