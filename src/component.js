@@ -211,7 +211,7 @@ class Component {
             return this.HTML;
         }
         //childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
-        this._mergeData(childStr,isFirst);
+        this._mergeData(childStr);
         this._generateHTMLCSS();
         this._extractChildren(this);
         if(isFirst){
@@ -325,20 +325,12 @@ class Component {
         return hdNode;
     }
 
-    _mergeData(childStr,isFirst) {
-        let arr = childStr.match(/\s+data=['|"](\S*)['|"][\s+|/]/);
-        if(isFirst) {
-            let parentData = arr ? this._extractPropertyFromString(RegExp.$1, this.parent) : null;
-            let groupArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
-            this.data = Object.assign(this.data, this._dataset, parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
+    _mergeData(childStr) {
+        if(this.dataFirst){
+            this.data = Object.assign({},this._getDataset(childStr),this.data);
         }else{
-            if(this.dataFirst){
-                this.data = Object.assign({},this._getDataset(childStr),this.data);
-            }else{
-                this.data = Object.assign({},this.data, this._getDataset(childStr));
-            }
+            this.data = Object.assign({},this.data, this._getDataset(childStr));
         }
-        isFirst && this.install();
     }
 
     _generateHTMLCSS() {
@@ -412,36 +404,49 @@ class Component {
                 if (cmi && cmi.___omi_constructor_name === name) {
                     cmi._childRender(childStr);
                 } else {
+                    let baseData = {};
+                    let dataset = {};
+                    let dataFromParent = {};
+                    let groupData = {};
+                    let omiID = null;
+                    let instanceName = null;
+                    Object.keys(attr).forEach(key => {
+                        const value = attr[key];
+                        if (key.indexOf('on') === 0) {
+                            let handler = child[value];
+                            if (handler) {
+                                baseData[key] = handler.bind(child);
+                            }
+                        } else if (key === 'omi-id'){
+                            omiID = value;
+                        }else if (key === 'name'){
+                            instanceName = value;
+                        }else if (key === 'group-data') {
+                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+                                child._omiGroupDataCounter[value]++;
+                            } else {
+                                child._omiGroupDataCounter[value] = 0;
+                            }
+                            groupData = this._extractPropertyFromString(value,child)[child._omiGroupDataCounter[value]];
+
+                        } else if(key.indexOf('data-') === 0){
+                            dataset[this._capitalize(key.replace('data-', ''))] = value;
+                        }else if(key === 'data'){
+                            dataFromParent =  this._extractPropertyFromString(value,child);
+                        }
+                    });
+
                     let ChildClass = Omi.getClassFromString(name);
                     if (!ChildClass) throw "Can't find Class called [" + name+"]";
-                    let sub_child = new ChildClass( Object.assign({},child.childrenData[i] ),false);
+                    let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset,dataFromParent,groupData ),false);
                     sub_child._omiChildStr = childStr;
                     sub_child.parent = child;
                     sub_child.___omi_constructor_name = name;
                     sub_child._dataset = {};
+                    sub_child.install();
 
-                    Object.keys(attr).forEach(key => {
-                        const value = attr[key];
-                        if (key.indexOf('on') === 0) {
-                            let handler = sub_child.parent[value];
-                            if (handler) {
-                                sub_child.data[key] = handler.bind(sub_child.parent);
-                            }
-                        } else if (key === 'group-data') {
-                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-                                child._omiGroupDataCounter[value]++;
-                                sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value];
-                            } else {
-                                sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value] = 0;
-                            }
-                        } else if (key === 'omi-id'){
-                            Omi.mapping[value] = sub_child;
-                        }else if (key === 'name'){
-                            child[value] = sub_child;
-                        }else if(key.indexOf('data-') === 0){
-                            sub_child._dataset[this._capitalize(key.replace('data-', ''))] = value;
-                        }
-                    });
+                    omiID && (Omi.mapping[omiID] = sub_child);
+                    instanceName && (child[instanceName] = sub_child);
 
                     if (!cmi) {
                         child.children.push(sub_child);

@@ -1265,7 +1265,7 @@
 	                return this.HTML;
 	            }
 	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
-	            this._mergeData(childStr, isFirst);
+	            this._mergeData(childStr);
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 	            if (isFirst) {
@@ -1393,20 +1393,12 @@
 	        }
 	    }, {
 	        key: '_mergeData',
-	        value: function _mergeData(childStr, isFirst) {
-	            var arr = childStr.match(/\s+data=['|"](\S*)['|"][\s+|/]/);
-	            if (isFirst) {
-	                var parentData = arr ? this._extractPropertyFromString(RegExp.$1, this.parent) : null;
-	                var groupArr = childStr.match(/\s+group-data=['|"](\S*)['|"][\s+|/]/);
-	                this.data = Object.assign(this.data, this._dataset, parentData, groupArr ? this._extractPropertyFromString(RegExp.$1, this.parent)[this._omiGroupDataIndex] : null);
+	        value: function _mergeData(childStr) {
+	            if (this.dataFirst) {
+	                this.data = Object.assign({}, this._getDataset(childStr), this.data);
 	            } else {
-	                if (this.dataFirst) {
-	                    this.data = Object.assign({}, this._getDataset(childStr), this.data);
-	                } else {
-	                    this.data = Object.assign({}, this.data, this._getDataset(childStr));
-	                }
+	                this.data = Object.assign({}, this.data, this._getDataset(childStr));
 	            }
-	            isFirst && this.install();
 	        }
 	    }, {
 	        key: '_generateHTMLCSS',
@@ -1490,36 +1482,48 @@
 	                        cmi._childRender(childStr);
 	                    } else {
 	                        (function () {
+	                            var baseData = {};
+	                            var dataset = {};
+	                            var dataFromParent = {};
+	                            var groupData = {};
+	                            var omiID = null;
+	                            var instanceName = null;
+	                            Object.keys(attr).forEach(function (key) {
+	                                var value = attr[key];
+	                                if (key.indexOf('on') === 0) {
+	                                    var handler = child[value];
+	                                    if (handler) {
+	                                        baseData[key] = handler.bind(child);
+	                                    }
+	                                } else if (key === 'omi-id') {
+	                                    omiID = value;
+	                                } else if (key === 'name') {
+	                                    instanceName = value;
+	                                } else if (key === 'group-data') {
+	                                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                                        child._omiGroupDataCounter[value]++;
+	                                    } else {
+	                                        child._omiGroupDataCounter[value] = 0;
+	                                    }
+	                                    groupData = _this9._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
+	                                } else if (key.indexOf('data-') === 0) {
+	                                    dataset[_this9._capitalize(key.replace('data-', ''))] = value;
+	                                } else if (key === 'data') {
+	                                    dataFromParent = _this9._extractPropertyFromString(value, child);
+	                                }
+	                            });
+
 	                            var ChildClass = _omi2['default'].getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                            var sub_child = new ChildClass(Object.assign({}, child.childrenData[i]), false);
+	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
 	                            sub_child.___omi_constructor_name = name;
 	                            sub_child._dataset = {};
+	                            sub_child.install();
 
-	                            Object.keys(attr).forEach(function (key) {
-	                                var value = attr[key];
-	                                if (key.indexOf('on') === 0) {
-	                                    var handler = sub_child.parent[value];
-	                                    if (handler) {
-	                                        sub_child.data[key] = handler.bind(sub_child.parent);
-	                                    }
-	                                } else if (key === 'group-data') {
-	                                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                                        child._omiGroupDataCounter[value]++;
-	                                        sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value];
-	                                    } else {
-	                                        sub_child._omiGroupDataIndex = child._omiGroupDataCounter[value] = 0;
-	                                    }
-	                                } else if (key === 'omi-id') {
-	                                    _omi2['default'].mapping[value] = sub_child;
-	                                } else if (key === 'name') {
-	                                    child[value] = sub_child;
-	                                } else if (key.indexOf('data-') === 0) {
-	                                    sub_child._dataset[_this9._capitalize(key.replace('data-', ''))] = value;
-	                                }
-	                            });
+	                            omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                            instanceName && (child[instanceName] = sub_child);
 
 	                            if (!cmi) {
 	                                child.children.push(sub_child);
