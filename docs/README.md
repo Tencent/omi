@@ -11,6 +11,7 @@
 * [继承](./cn_inhrit.md)
 * [模板切换](./cn_template.md)
 * [获取DOM节点](./cn_get_dom.md)
+* [插件体系](./cn_plugin.md)
 * [Omi理念](./cn_thinking_in_omi.md)
 
 # 从零一步步打造Web组件化框架Omi
