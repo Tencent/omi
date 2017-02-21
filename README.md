@@ -196,10 +196,10 @@ Omi did not abandon the ES5 users, you can also use ES5 to write Omi.[[Try Omi-E
 
 |name   |avatars   |company   | 
 |---|---|---|
-|  [xcatliu](https://github.com/xcatliu) |  ![](https://avatars3.githubusercontent.com/u/5453359?v=3&amp;s=60)  |  Microsoft |  
 |  [Aresn](https://github.com/icarusion) |  ![](https://avatars3.githubusercontent.com/u/5370542?v=3&amp;s=60)  |  TalkingCoder |  
 |  [pasturn](https://github.com/pasturn) |  ![](https://avatars2.githubusercontent.com/u/6126885?v=3&s=60)  | Mars Holding  |  
 |  [dntzhang](https://github.com/dntzhang) | ![](https://avatars2.githubusercontent.com/u/7917954?v=3&s=60)  |  Tencent | 
+|  [xcatliu](https://github.com/xcatliu) |  ![](https://avatars3.githubusercontent.com/u/5453359?v=3&amp;s=60)  |  Microsoft |  
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
