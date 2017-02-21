@@ -1,5 +1,7 @@
 ## Omi脚手架
 
+使用 Gulp + Webpack + Babel + BrowserSync 搭建 的脚手架。
+
 你可以修改你的目录名，也可通过npm init去修改你的项目信息。
 
 ## 安装开发依赖包
