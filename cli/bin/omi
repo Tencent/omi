@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const program = require('commander')
+const join = require('path').join
+const chalk = require('chalk')
+const exists = require('fs-exists-sync');
+const spawn = require('cross-spawn')
+
+program
+    .version(require('../package').version)
+    .usage('<command> [option]')
+    .on('--help', help)
+
+program.parse(process.argv)
+
+const args = process.argv.slice(3)
+let cmdstr = program.args[0]
+
+if (cmdstr) {
+    const binFile = executable(cmdstr)
+    if (binFile) {
+        console.log()
+        console.log(chalk.bold.cyan("Omi-cli") + " is initializing... ")
+        secede(spawn('node', [].concat([binFile], args), {stdio: 'inherit'}))
+    } else {
+        program.help();
+    }
+} else {
+    program.help();
+}
+
+function help() {
+    console.log('  Commands:')
+    console.log()
+    console.log('    init                   Init a new Omi application in the current folder ')
+    console.log()
+    console.log('  All commands can be run with -h (or --help) for more information.')
+}
+
+function executable(cmdstr) {
+    const file = join(__dirname, 'omi-' + cmdstr)
+    if (exists(file)) {
+        return file
+    }
+}
+
+function secede(line){
+    line.on('close', function(code){
+        process.exit(code)
+    })
+}
+
