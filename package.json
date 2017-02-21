@@ -9,6 +9,7 @@
     "nest": "webpack -w",
     "curd": "webpack -w",
     "textarea": "webpack -w",
+    "svg": "webpack -w",
     "hello": "webpack -w",
     "group_data": "webpack -w",
     "loop": "webpack -w",

@@ -26,6 +26,5 @@ class Hello extends Omi.Component {
     }
 }
 
-Omi.makeHTML('Hello', Hello);
 
 export default Hello;
