@@ -16,6 +16,7 @@
     "browser-sync": "^2.18.6",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-cdn-replace": "^0.6.0",
     "gulp-csso": "^2.0.0",
     "gulp-header": "^1.8.8",
     "gulp-html-replace": "^1.6.2",

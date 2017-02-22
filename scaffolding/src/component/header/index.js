@@ -35,7 +35,7 @@ class Header extends Omi.Component {
         }
 
         .logo_box a{
-            background:#303030 url(`+( Root.isDev?'./component/header/omi.png':(Root.CDN+'/component/header/omi.png'))+`) no-repeat left 11px;
+            background:#303030 url(`+( Root.isDev?'./component/header/omi.png':(Root.CDN+'component/header/omi.png'))+`) no-repeat left 11px;
             background-size: contain;
             width: 39px;
 
