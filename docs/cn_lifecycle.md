@@ -4,7 +4,7 @@
 |---|---|---|
 | constructor  | 构造函数 | new的时候 |
 | install  | 初始化安装，这可以拿到用户传进的data进行处理 | 实例化 |
-| installed    | 安装完成，HTML已经插入页面之后执行。注意：组件被remove之后再进行restore也会执行   |   ** 实例化和存在期 ** |
+| installed    | 安装完成，HTML已经插入页面之后执行。注意：组件被remove之后再进行restore也会执行   |  实例化和存在期  |
 | uninstall | 卸载组件。执行remove方法会触发该事件    |   销毁时 |
 | beforeUpdate | 更新前     |   存在期 |
 | afterUpdate | 更新后     |    存在期 |
