@@ -77,7 +77,7 @@ Omi.render(new Hello({ name : "Omi" }),"body");
 
 [[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello)
 
-如果使用omi.lite.js版本(不包含mustachejs模板引擎)的话，也可以[使用 ${this.data.name} 的方式](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
+如果使用omi.lite.js版本(不包含[mustache.js](https://github.com/janl/mustache.js)模板引擎)的话，也可以[使用 ${this.data.name} 的方式](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
 
 你可以使用Omi.makeHTML来生成组件标签用于嵌套。
 ```js
