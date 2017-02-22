@@ -7,12 +7,13 @@ const emptyDir  = require('empty-dir')
 const { info, error, success } = require('./logger')
 
 
-function init() {
+function init(program) {
+    const customPrj = program.args[0] || ''
     const tpl = join(__dirname, '../template/app')
-    const dest = process.cwd()
-    const prjName = basename(dest)
+    const dest = join(process.cwd(), customPrj)
+    const projectName = basename(dest)
 
-    if (!emptyDir.sync(dest)) {
+    if (!customPrj && !emptyDir.sync(dest)) {
         error('This directory existing files, please empty.');
         process.exit(1);
     }
@@ -29,11 +30,18 @@ function init() {
       .pipe(vfs.dest(dest))
       .on('end', function(){
           try{
-            info('rename', 'gitignore -> .gitignore')
-            renameSync(join(dest, 'gitignore'), join(dest, '.gitignore'));
-
-                info('run', 'npm install')
-                require('./install')(echoDone)
+             info('Rename', 'gitignore -> .gitignore')
+             renameSync(join(dest, 'gitignore'), join(dest, '.gitignore'));
+             if(customPrj) {
+                try{
+                    process.chdir(customPrj);
+                }
+                catch (err) {
+                    console.log(error(err));
+                }
+             }
+             info('Run', 'npm install')
+             require('./install')(echoDone)
           } catch(e){
               console.log(error(e))
           }
@@ -44,12 +52,12 @@ function init() {
         console.log()
         console.log()
         console.log()
-        success(`Congratulation! "${prjName}" has been created successful! `)
+        success(`Congratulation! "${projectName}" has been created successful! `)
         console.log(`
         
 Using the scaffold with Gulp + Webpack + Babel + BrowserSync,
 
-In ${prjName}, you can run these commands:
+In ${projectName}, you can run these commands:
 
   > ${chalk.bold.white('npm run dev')}         Starts the development server
   > ${chalk.bold.white('npm run dist')}        Publish your project`)
@@ -66,7 +74,7 @@ function template(dest, cwd) {
       return cb();
     }
 
-    info('create', file.path.replace(cwd + '/', ''));
+    info('Copy', file.path.replace(cwd + '/', ''));
     this.push(file);
     cb();
   });

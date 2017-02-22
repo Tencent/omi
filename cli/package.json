@@ -1,13 +1,14 @@
 {
   "name": "omi-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Omi command line utility",
-  "main": "bin/index.js",
+  "main": "bin/omi",
   "engines": {
     "node": ">=6.0.0"
   },
+  "preferGlobal": true,
   "bin": {
-    "omi": "bin/index.js"
+    "omi": "./bin/omi"
   },
   "repository": {
     "type": "git",

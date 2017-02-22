@@ -9,13 +9,14 @@ const exists = require('fs-exists-sync');
 const spawn = require('cross-spawn')
 
 program
-    .version(require('../package').version)
-    .usage('<command> [option]')
+    .version(require('../package').version, '-v, --version')
+    .usage('init [project-name]')
     .on('--help', help)
 
 program.parse(process.argv)
 
 const args = process.argv.slice(3)
+
 let cmdstr = program.args[0]
 
 if (cmdstr) {
@@ -34,7 +35,7 @@ if (cmdstr) {
 function help() {
     console.log('  Commands:')
     console.log()
-    console.log('    init                   Init a new Omi application in the current folder ')
+    console.log('    init  [project-name]          Initialize a new Omi application in the current folder ')
     console.log()
     console.log('  All commands can be run with -h (or --help) for more information.')
 }
