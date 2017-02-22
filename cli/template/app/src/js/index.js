@@ -1,8 +1,8 @@
 import Root from './config.js';
 import Omi from 'omi';
 
-import Header from '../component/header/header.js';
-import Footer from '../component/footer/Footer.js';
+import Header from '../component/header/index.js';
+import Footer from '../component/footer/index.js';
 
 Omi.makeHTML('Header', Header);
 Omi.makeHTML('Footer', Footer);

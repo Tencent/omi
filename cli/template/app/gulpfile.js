@@ -6,12 +6,15 @@ var del = require('del'),
     htmlreplace = require('gulp-html-replace'),
     rev = require('gulp-rev'),
     revCollector = require('gulp-rev-collector'),
-    header = require('gulp-header');
+    header = require('gulp-header'),
+    cdnReplace = require('gulp-cdn-replace');
 
 var browserSync = require('browser-sync').create();
 
 var assets = [];
 
+//set your cdn address here~~  for example : var cdn = '//s.url.cn/';
+var cdn = '';
 var ENV = process.env.npm_lifecycle_event;
 
 gulp.task('clean', function(callback) {
@@ -44,7 +47,6 @@ gulp.task('copyCSS', function() {
         return gulp.src('src/**/*.css')
             .pipe(gulp.dest(ENV))
     }
-
 });
 
 gulp.task('rev', function() {
@@ -71,19 +73,39 @@ gulp.task('fixEvn', function() {
 
 //https://segmentfault.com/q/1010000005760064/a-1020000005760268
 gulp.task('replace', function() {
-    var lastAsset = assets[assets.length-1];
+    var vdName = assets[assets.length-1].name;
+    var omiName = '';
+    assets.forEach(function(item){
+        if(item.chunkNames[0]==='omi'){
+            omiName = item.name;
+        }
+    });
     assets.forEach(function(item){
         gulp.src(ENV+'/'+item.chunkNames[0]+ '.html')
             .pipe(htmlreplace({
-                'vjs': 'js/'+ lastAsset.name,
-                'js': 'js/'+item.name
+                'omijs':(isDist?(cdn+ 'js/'+ omiName):''),
+                'vjs': (isDist?(cdn+ 'js/'+ vdName):('js/'+ vdName)),
+                'js': (isDist?(cdn+ 'js/'+ item.name):('js/'+ item.name))
             }))
             .pipe(gulp.dest(ENV));
 
-        gulp.src(ENV+'/js/'+item.name)
-            .pipe(header('window.Root ={}; Root.isDev = '+(isDist?'false':'true')+';'))
-            .pipe(gulp.dest(ENV+'/js'))
+        if(item.chunkNames[0]!=='omi'&&item.chunkNames[0]!=='vendor') {
+            gulp.src(ENV + '/js/' + item.name)
+                .pipe(header('window.Root ={}; Root.isDev = ' + (isDist ? 'false' : 'true') + ';'))
+                .pipe(gulp.dest(ENV + '/js'))
+        }
     });
+});
+
+gulp.task('cdnReplace', function() {
+    return gulp.src('./dist/*.html')
+        .pipe(cdnReplace({
+            dir: './dist',
+            root: {
+                css: cdn
+            }
+        }))
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('browser-sync',function(){
@@ -119,6 +141,7 @@ if(isDist){
             'copyHTML',
             'copyComponent',
             'rev',
+            'cdnReplace',
             'replace',
             'browser-sync',
             done);
