@@ -1,19 +1,10 @@
-# Omi脚手架
+# Omi实战 QQ附近用户列表Web页
 
-## 安装omis
-
-``` js
-npm install omis
-```
-
-## 安装开发依赖包
+## 安装依赖
 
 ``` js
-cd omis
 npm install
 ```
-
-当然你可以修改你的目录名，也可通过npm init去修改你的项目信息。
 
 ## 开发
 
