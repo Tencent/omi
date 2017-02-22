@@ -9,11 +9,6 @@ class Main extends Omi.Component {
         super(data)
     }
 
-    install() {
-        this.orig_grid = 0
-        this.next_grid = 0
-    }
-
     installed() {
         window.onscroll = () => this.loadMore()
         this.requestData(data => this.list.appendUsers(data))
