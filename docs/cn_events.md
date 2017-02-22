@@ -30,7 +30,7 @@ class EventTest extends Omi.Component {
 
 ### 自定义事件
 
-开发者自己定义的组件的事件，称为自定义事件。这里拿分页作为例子：
+开发者自己定义的组件的事件，称为自定义事件，自定义事件必须以on开头，即onXXXX的格式，不然Omi识别不到。这里拿分页作为例子：
 
 ```js
 import Omi from '../../src/index.js';
