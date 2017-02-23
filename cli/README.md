@@ -1,5 +1,6 @@
 # omi-cli
-The Omi command line utility.
+
+CLI for scaffolding Omi.js projects.
 
 
 ### Installation
