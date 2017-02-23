@@ -1,6 +1,8 @@
+import config from '../../project.js';
+
 window.Root = window.Root||{ };
 
-Root.CDN = '//s.url.cn/';
+Root.CDN = config.cdn;
 
 if(!Root.hasOwnProperty('isDev')) {
     Root.isDev = true;

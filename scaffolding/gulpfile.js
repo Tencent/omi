@@ -7,15 +7,13 @@ var del = require('del'),
     rev = require('gulp-rev'),
     revCollector = require('gulp-rev-collector'),
     header = require('gulp-header'),
-    cdnReplace = require('gulp-cdn-replace');
+    cdnReplace = require('gulp-cdn-replace'),
+    browserSync = require('browser-sync').create(),
+    config = require('./project.js');
 
-var browserSync = require('browser-sync').create();
-
-var assets = [];
-
-//set your cdn address here~~  for example : var cdn = '//s.url.cn/';
-var cdn = '';
-var ENV = process.env.npm_lifecycle_event;
+var assets = [],
+    cdn = config.cdn,
+    ENV = process.env.npm_lifecycle_event;
 
 gulp.task('clean', function(callback) {
     del.sync([ENV+'/**/**']);
