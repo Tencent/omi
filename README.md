@@ -25,10 +25,11 @@ Open and modern framework for building user interfaces.
 ## 命令行
 
 ``` js
-$ npm install omi-cli -g    //安装cli
-$ omi init [project_name]   //初始化项目，你也可以在一个空的文件夹下执行 omi init
-$ npm run dev               //开发
-$ npm run dist              //部署发布
+$ npm install omi-cli -g       //安装cli
+$ omi init your_project_name   //初始化项目，你也可以在一个空的文件夹下执行 omi init
+$ cd your_project_name         //如果你是在空文件夹下执行的 omi init。请无视这条命令
+$ npm run dev                  //开发
+$ npm run dist                 //部署发布
 ``` 
 
 ## 特性
@@ -76,10 +77,11 @@ $ npm install omi
 ## omi-cli
 
 ``` js
-$ npm install omi-cli -g    //install cli
-$ omi init [project_name]   //init project, you can also exec 'omi init' in an empty folder
-$ npm run dev               //develop
-$ npm run dist              //release
+$ npm install omi-cli -g       //install cli
+$ omi init your_project_name   //init project, you can also exec 'omi init' in an empty folder
+$ cd your_project_name         //please ignore this command if you executed 'omi init' in an empty folder
+$ npm run dev                  //develop
+$ npm run dist                 //release
 ``` 
 
 ## Fetures
