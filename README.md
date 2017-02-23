@@ -113,7 +113,7 @@ You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)�
 * [[Hello World ES6+ ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
 * [[Hello World ES5  ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
 
-if using 'omi.lite.js'(without[mustache.js](https://github.com/janl/mustache.js))，you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
+if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js))，you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
 
 ## Contributors
 
