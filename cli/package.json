@@ -1,6 +1,6 @@
 {
   "name": "omi-cli",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "Omi command line utility",
   "main": "bin/omi",
   "engines": {
