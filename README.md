@@ -22,6 +22,15 @@ Open and modern framework for building user interfaces.
 
 <img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png">
 
+## 命令行
+
+``` js
+$ npm install omi-cli -g    //安装cli
+$ omi init [project_name]   //初始化项目，你也可以在一个空的文件夹下执行 omi init
+$ npm run dev               //开发
+$ npm run dist              //部署发布
+``` 
+
 ## 特性
 
 * 超小的尺寸，7 kb (gzip)
@@ -112,6 +121,15 @@ Omi.render(new Hello({ name : "Omi" }),"body");
 * If you are too lazy to build a project scaffolding, you can try [Scaffolding for Omi](https://github.com/AlloyTeam/omi/tree/master/scaffolding)
 * If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
+
+## omi-cli
+
+``` js
+$ npm install omi-cli -g    //install cli
+$ omi init [project_name]   //init project, you can also exec 'omi init' in an empty folder
+$ npm run dev               //develop
+$ npm run dist              //release
+``` 
 
 ## Fetures
 
