@@ -16,7 +16,8 @@
   },
   "keywords": [
     "omi",
-    "cli"
+    "cli",
+    "omi-cli"
   ],
   "author": "pasturn",
   "license": "MIT",
