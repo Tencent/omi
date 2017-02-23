@@ -51,66 +51,17 @@ $ npm run dist              //部署发布
 ## 通过npm安装 
 
 ``` js
-npm install omi
+$ npm install omi
 ```
 
 ## Hello World
 
-```js
-class Hello extends Omi.Component {
-    constructor(data) {
-        super(data);
-    }
-    style () {
-        return  `
-            h1{
-                cursor:pointer;
-            }
-         `;
-    }
-    handleClick(target, evt){
-        alert(target.innerHTML);
-    }
-    render() {
-        return  `
-        <div>
-            <h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>
-        </div>
-        `;
-
-    }
-}
-
-Omi.render(new Hello({ name : "Omi" }),"body");
-```
-
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello)
-
-如果使用omi.lite.js版本(不包含[mustache.js](https://github.com/janl/mustache.js)模板引擎)的话，也可以[使用 ${this.data.name} 的方式](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
-
-你可以使用Omi.makeHTML来生成组件标签用于嵌套。
-```js
-    Omi.makeHTML('Hello', Hello);
-```
-那么你就在其他组件中使用，并且通过data-*的方式可以给组件传参，如：
-```js
-  ...
-  render() {
-        return  `
-        <div>
-            <div>Test</div>
-            <Hello data-name="Omi" />
-        </div>
-        `;
-    }
-    ...
-```
-
-[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
-
 你可以使用 [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)，在webpack配置的module设置[babel-loader](https://github.com/babel/babel-loader)，立马就能使用ES6+来编写你的web程序。
 
- 当然Omi没有抛弃ES5的用户，你可以使用ES5的方式编写Omi。[[点击这里试试ES5写Omi程序]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
+* [[Hello World ES6+ ->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
+* [[Hello World ES5  ->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
+
+如果使用omi.lite.js版本(不包含[mustache.js](https://github.com/janl/mustache.js)模板引擎)的话，也可以[使用 ${this.data.name} 的方式](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
 
 ## [﻿中文](https://github.com/AlloyTeam/omi#中文--english) | English
 
@@ -151,64 +102,18 @@ $ npm run dist              //release
 ## Install
 
 ``` js
-npm install omi
+$ npm install omi
 ```
 
 ## Hello World
 
-```js
-class Hello extends Omi.Component {
-    constructor(data) {
-        super(data);
-    }
-    style () {
-        return  `
-            h1{
-                cursor:pointer;
-            }
-         `;
-    }
-    handleClick(target, evt){
-        alert(target.innerHTML);
-    }
-    render() {
-        return  `
-        <div>
-            <h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>
-        </div>
-        `;
-
-    }
-}
-
-Omi.render(new Hello({ name : "Omi" }),"body");
-```
-
-[[Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello)
-
-You can use Omi.makeHTML to generate component tags for nesting.
-```js
-    Omi.makeHTML('Hello', Hello);
-```
-Then you can use it in other components, and pass parameter to the component through the data-* , such as:
-```js
-  ...
-  render() {
-        return  `
-        <div>
-            <div>Test</div>
-            <Hello data-name="Omi" />
-        </div>
-        `;
-    }
-    ...
-```
-
-[[Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
 
 You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)，configure the [babel-loader](https://github.com/babel/babel-loader) in  the module settings of webpack，then you can use ES6+ to write your web program.
 
-Omi did not abandon the ES5 users, you can also use ES5 to write Omi.[[Try Omi-ES5 on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
+* [[Hello World ES6+ ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
+* [[Hello World ES5  ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
+
+if using 'omi.lite.js'(without[mustache.js](https://github.com/janl/mustache.js))，you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
 
 ## Contributors
 
