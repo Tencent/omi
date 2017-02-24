@@ -29,11 +29,7 @@ table,td,th{
 
 
 @media only screen and (max-width: 768px) {
-    code[class*="language-"],
-    pre[class*="language-"] {
-        font-size: 13px;
 
-    }
     .content img{
         width:100%;
     }
