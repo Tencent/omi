@@ -30,7 +30,7 @@ class Content extends Omi.Component {
              width: 80%;
         }
         h2{
-            padding-top:20px;
+            padding-top:55px;
         }
         h3{
             color:#444444;
@@ -42,6 +42,14 @@ class Content extends Omi.Component {
         li{
             text-indent: 20px;
             list-style:disc inside ;
+        }
+
+         @media only screen and (max-width: 768px) {
+           .content{
+             width: 100%;
+           }
+
+
         }
         `;
     }

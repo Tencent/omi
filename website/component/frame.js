@@ -14,13 +14,18 @@ class Frame extends Omi.Component {
     }
 
     install() {
-        this.data.height = window.innerHeight - 45;
-        this.data.width = window.innerWidth - 220;
-
+        this.setViewport();
         window.onresize = ()=> {
-            this.data.height = window.innerHeight - 45;
-            this.data.width = window.innerWidth - 220;
+            this.setViewport();
             this.update();
+        }
+    }
+
+    setViewport (){
+        if(  window.innerWidth < 768) {
+            this.data.width = '95%';
+        }else{
+            this.data.width = (window.innerWidth - 220)+'px';
         }
     }
 
@@ -37,7 +42,16 @@ class Frame extends Omi.Component {
             overflow-x:hidden;
             overflow-y:auto;
             -webkit-overflow-scrolling : touch;
-        }`;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .main{
+                left:2%;
+            }
+
+
+        }
+        `;
     }
 
     afterUpdate() {
@@ -77,10 +91,10 @@ class Frame extends Omi.Component {
     render() {
         return `<div>
                 <Head data-lan="{{lan}}" />
-                <div class="main"  style="height:{{height}}px;width:{{width}}px;">
+                <div class="main"  style="width:{{width}};">
                   <Content data-lan="{{lan}}" />
                 </div>
-                <Sidebar data-lan="{{lan}}" />
+                <Sidebar omi-id="sidebar" data-lan="{{lan}}" />
                 </div>`;
     }
 }

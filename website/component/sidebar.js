@@ -16,6 +16,29 @@ class Sidebar extends Omi.Component {
 
     style () {
         return `
+        @media only screen and (max-width: 768px) {
+            .list{
+                transform: translateX(-100%);
+                background-color:white;
+
+                -moz-transition: all .6s ease;
+                -o-transition: all .6s ease;
+                -webkit-transition: all .6s ease;
+                transition: all .6s ease;
+            }
+
+               .list.show {
+                -moz-transform: translateX(0%) translateZ(0);
+                -ms-transform: translateX(0%) translateZ(0);
+                -o-transform: translateX(0%) translateZ(0);
+                -webkit-transform: translateX(0%) translateZ(0);
+                transform: translateX(0%) translateZ(0);
+
+            }
+
+
+
+        }
         .list{
             width:200px;
             text-indent: 20px;

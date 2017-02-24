@@ -4,7 +4,7 @@ html,body{
     border: 0;
     background-color: #f9f9f9;
     font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto, PT Sans, DejaVu Sans, Arial,Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 img,ul,li{

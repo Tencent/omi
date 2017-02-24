@@ -7,6 +7,37 @@ class Head extends Omi.Component {
 
     install(){
         this.data.isEnLan = this.data.lan === 'en';
+        document.body.addEventListener('click',()=>{
+            this.removeClass(Omi.get('sidebar').node,'show');
+        },false);
+    }
+
+    toggleMenus(evt){
+        this.toggleClass(Omi.get('sidebar').node,'show');
+        evt.stopPropagation();
+    }
+
+    toggleClass(element, className) {
+        if (!element || !className) {
+            return;
+        }
+
+        var classString = element.className, nameIndex = classString.indexOf(className);
+        if (nameIndex == -1) {
+            classString += ' ' + className;
+        }
+        else {
+            classString = classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length);
+        }
+        element.className = classString;
+    }
+
+    removeClass(element, className) {
+        var classString = element.className, nameIndex = classString.indexOf(className);
+        if (nameIndex !== -1) {
+            classString = classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length);
+        }
+        element.className = classString;
     }
 
     style () {
@@ -53,18 +84,55 @@ class Head extends Omi.Component {
         .menu a:hover{
             color: white;
         }
+
+        .m_menu{
+          position:fixed;
+            display:none;
+        }
+
+         @media only screen and (max-width: 768px) {
+           .menu li{
+             display:none;
+           }
+            .menu .m_show{
+             display:block;
+           }
+
+           .logo_box{
+            display:inline-block;
+           }
+
+           .head{
+            text-align:center;
+           }
+
+           .m_menu{
+
+            top:0;
+            left:0;
+            display:block;
+            width:50px;
+            height:50px;
+            padding-top: 6px;
+           }
+           .m_menu img{
+                width:30px;
+           }
+
+        }
         `;
     }
 
     render () {
         return `
     <div class="head bord-btm">
+        <div class="m_menu" onclick="toggleMenus(event)"> <img src="../asset/menu.png" alt="" /></div>
         <div class="logo_box">
             <a href="https://github.com/AlloyTeam/omi">Omi</a>
         </div>
         <ul class="menu">
 
-            <li class="github_li"><a href="https://github.com/AlloyTeam/omi">Github</a>
+            <li class="github_li m_show"><a href="https://github.com/AlloyTeam/omi">Github</a>
             <li><a href="http://alloyteam.github.io/omi/example/playground/">Playground</a></li>
             <li><a href="https://github.com/AlloyTeam/omi/tree/master/docs">[Edit the Docs]</a></li>
              {{#isEnLan}}
