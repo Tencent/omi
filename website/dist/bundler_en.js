@@ -110,13 +110,11 @@
 	    _createClass(Frame, [{
 	        key: 'install',
 	        value: function install() {
-	            var _this2 = this;
-
 	            this.setViewport();
-	            window.onresize = function () {
-	                _this2.setViewport();
-	                _this2.update();
-	            };
+	            //window.onresize = ()=> {
+	            //    this.setViewport();
+	            //    this.update();
+	            //}
 	        }
 	    }, {
 	        key: 'setViewport',
