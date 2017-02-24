@@ -2451,7 +2451,7 @@
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"安装\\\">安装</h2>\\n\\nOmi（读音 / [ˈomɪ] /, 汉字类似于 欧米） 是一款用于创建用户界面的组件化框架，开放并且现代，故得名：Omi。\\n\\n### 安装 Omi\\n\\n我们推荐使用  [npm](https://www.npmjs.com/) 来管理你的前端依赖.\\n\\n通过npm安装Omi，你只需要执行下面的命令:\\n\\n``` js\\nnpm install omi\\n```\""
+	module.exports = "module.exports = \"<h2 id=\\\"安装\\\">安装</h2>\\n\\n[Omi](https://github.com/AlloyTeam/omi)（读音 / [ˈomɪ] /, 汉字类似于 欧米） 是一款用于创建用户界面的组件化框架，开放并且现代，故得名：Omi。\\n\\n### 安装 Omi\\n\\n我们推荐使用  [npm](https://www.npmjs.com/) 来管理你的前端依赖.\\n\\n通过npm安装Omi，你只需要执行下面的命令:\\n\\n``` js\\nnpm install omi\\n```\""
 
 /***/ },
 /* 23 */
@@ -2547,7 +2547,7 @@
 /* 38 */
 /***/ function(module, exports) {
 
-	module.exports = "module.exports = \"<h2 id=\\\"Installation\\\">Installation</h2>\\r\\n\\r\\nOmi is open and modern framework  for building user interfaces.\\r\\n\\r\\n### Installing Omi\\r\\n\\r\\nWe recommend using  [npm](https://www.npmjs.com/) for managing front-end dependencies. If you're new to package managers.\\r\\n\\r\\nTo install Omi with npm, run:\\r\\n\\r\\n``` js\\r\\nnpm install omi\\r\\n```\""
+	module.exports = "module.exports = \"<h2 id=\\\"Installation\\\">Installation</h2>\\r\\n\\r\\n[Omi](https://github.com/AlloyTeam/omi) is open and modern framework  for building user interfaces.\\r\\n\\r\\n### Installing Omi\\r\\n\\r\\nWe recommend using  [npm](https://www.npmjs.com/) for managing front-end dependencies. If you're new to package managers.\\r\\n\\r\\nTo install Omi with npm, run:\\r\\n\\r\\n``` js\\r\\nnpm install omi\\r\\n```\""
 
 /***/ },
 /* 39 */
@@ -2766,7 +2766,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n    <div class="head bord-btm">\n        <div class="m_menu" onclick="toggleMenus(event)"> <img src="../asset/menu.png" alt="" /></div>\n        <div class="logo_box">\n            <a href="https://github.com/AlloyTeam/omi">Omi</a>\n        </div>\n        <ul class="menu">\n\n            <li class="github_li m_show"><a href="https://github.com/AlloyTeam/omi">Github</a>\n            <li><a href="http://alloyteam.github.io/omi/example/playground/">Playground</a></li>\n            <li><a href="https://github.com/AlloyTeam/omi/tree/master/docs">[Edit the Docs]</a></li>\n             {{#isEnLan}}\n                <li class="github_li"><a href="docs.html">\u4E2D\u6587</a>\n            {{/isEnLan}}\n            {{^isEnLan}}\n                <li class="github_li"><a href="docs_en.html">English</a>\n            {{/isEnLan}}\n            </li>\n        </ul>\n    </div>';
+	            return '\n    <div class="head bord-btm">\n        <div class="m_menu" onclick="toggleMenus(event)"> <img src="../asset/menu.png" alt="" /></div>\n        <div class="logo_box">\n            <a href="https://github.com/AlloyTeam/omi">Omi</a>\n        </div>\n        <ul class="menu">\n\n            <li class="github_li"><a href="https://github.com/AlloyTeam/omi">Github</a>\n            <li><a href="http://alloyteam.github.io/omi/example/playground/">Playground</a></li>\n            <li><a href="https://github.com/AlloyTeam/omi/tree/master/docs">[Edit the Docs]</a></li>\n             {{#isEnLan}}\n                <li class="github_li m_show"><a href="docs.html">\u4E2D\u6587</a>\n            {{/isEnLan}}\n            {{^isEnLan}}\n                <li class="github_li m_show"><a href="docs_en.html">English</a>\n            {{/isEnLan}}\n            </li>\n        </ul>\n    </div>';
 	        }
 	    }]);
 

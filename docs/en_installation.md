@@ -1,6 +1,6 @@
 <h2 id="Installation">Installation</h2>
 
-Omi is open and modern framework  for building user interfaces.
+[Omi](https://github.com/AlloyTeam/omi) is open and modern framework  for building user interfaces.
 
 ### Installing Omi
 

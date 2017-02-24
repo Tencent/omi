@@ -132,14 +132,14 @@ class Head extends Omi.Component {
         </div>
         <ul class="menu">
 
-            <li class="github_li m_show"><a href="https://github.com/AlloyTeam/omi">Github</a>
+            <li class="github_li"><a href="https://github.com/AlloyTeam/omi">Github</a>
             <li><a href="http://alloyteam.github.io/omi/example/playground/">Playground</a></li>
             <li><a href="https://github.com/AlloyTeam/omi/tree/master/docs">[Edit the Docs]</a></li>
              {{#isEnLan}}
-                <li class="github_li"><a href="docs.html">中文</a>
+                <li class="github_li m_show"><a href="docs.html">中文</a>
             {{/isEnLan}}
             {{^isEnLan}}
-                <li class="github_li"><a href="docs_en.html">English</a>
+                <li class="github_li m_show"><a href="docs_en.html">English</a>
             {{/isEnLan}}
             </li>
         </ul>
