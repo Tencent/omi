@@ -83,6 +83,7 @@ if(ENV === 'build'){
        // devtool: 'source-map',
     };
 }else if(ENV === 'website') {
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
     config.entry ={
         bundler: './website/js/docs_main.js',
         bundler_en: './website/js/docs_main_en.js'

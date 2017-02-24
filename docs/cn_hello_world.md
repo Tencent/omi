@@ -42,7 +42,7 @@ Omi.render(new Hello({ name : "Omi" }),"#container");
 
 - data传递: new Hello(data,..)的data可以直接提供给render方法里的模板
 - 局部CSS: h1只对render里的h1生效，不会污染外面的h1
-- 声明式事件绑定: onclick调用的就是组件内的handleClick，this可以拿到当然的DOM元素,还可以拿到当前的event
+- 声明式事件绑定: onclick调用的就是组件内的handleClick，this可以拿到当前的DOM元素,还可以拿到当前的event
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=hello" target="_blank">点击这里→在线试试</a>
 
