@@ -26,3 +26,16 @@ table{
 table,td,th{
     border: 1px solid #ccc;
 }
+
+
+@media only screen and (max-width: 768px) {
+    code[class*="language-"],
+    pre[class*="language-"] {
+        font-size: 13px;
+
+    }
+    .content img{
+        width:100%;
+    }
+
+}
