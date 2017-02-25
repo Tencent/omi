@@ -12,7 +12,11 @@ class List extends Omi.Component {
 
     render () {
         return `<div>
-                    <ul> {{#items}} <li id="{{id}}">{{text}}</li> {{/items}}</ul>
+                    <ul> 
+                        {{#items}} 
+                        <li id="{{id}}">{{text}}</li> 
+                        {{/items}}
+                    </ul>
                 </div>`;
     }
 }
@@ -39,6 +43,8 @@ For example, it also support:
 
 ### Second Option
 
+Of course, you can also use template string inside the `map`:
+
 ```js
 class List extends Omi.Component {
     constructor(data) {
@@ -48,9 +54,9 @@ class List extends Omi.Component {
     render() {
         return `<div>
                     <ul>
-                    ` + this.data.items.map(item =>
-                        '<li id="' + item.id + '">' + item.text + '</li>'
-                    ).join("") + `
+                    ${this.data.items.map(item =>
+                         `<li id="${item.id}">${item.text}</li>`
+                    ).join('')}
                     </ul>
                 </div>`;
     }
@@ -63,22 +69,6 @@ Omi.render(new List({
         {id: 3, text: 'AlloyTeam'}
     ]
 }),"body");
-```
-
-Of course, you can also use template string inside the `map`
-
-```js
-...
-render() {
-    return `<div>
-                <ul>
-                ` + this.data.items.map(item =>
-                    `<li id="${item.id}">${item.text}</li>`
-                ).join("") + `
-                </ul>
-            </div>`;
-}
-...
 ```
 
 You will see the following page:

@@ -30,14 +30,14 @@ class Content extends Omi.Component {
     }
 
     installed(){
-        this.highlightBlock();
+        this.initCodeStyle();
     }
 
     afterUpdate(){
-        this.highlightBlock();
+        this.initCodeStyle();
     }
 
-    highlightBlock(lh) {
+    initCodeStyle(lh) {
 
         var codes = document.querySelectorAll("code");
         for (let i = 0, len = codes.length; i < len; i++) {
@@ -48,19 +48,34 @@ class Content extends Omi.Component {
             codes[i].innerHTML = html;
             codes[i].classList.add('language-js');
         }
-
-        //let pres = document.querySelectorAll("pre");
-        //let highlight = config.highlight;
-        //
-        //for (let key in config.highlight) {
-        //    pres[key]&&pres[key].setAttribute("data-line", highlight[key]);
-        //}
-
         Omi.$$('pre').forEach((item)=> {
             item.classList.add('language-js');
         })
 
-        //if (!lh)lineHighLight();
+        let pres = document.querySelectorAll("pre");
+        let highlight = this.getHighLight();
+
+        if(highlight) {
+            for (let key in highlight) {
+                pres[key]&&pres[key].setAttribute("data-line", highlight[key]);
+            }
+            if (!lh)lineHighLight();
+        }
+
+
+
+    }
+
+    getHighLight(){
+        let hl = null;
+         config.menus[this.data.lan].forEach((menu)=>{
+             menu.list.forEach((item)=>{
+                if(item.md === this.data.name){
+                    hl = item.highlight;
+                }
+            })
+        })
+        return hl;
     }
 
     installed(){

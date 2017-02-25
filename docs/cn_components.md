@@ -54,7 +54,6 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 - 需要手动调用update方法才能更新组件
 
 这里需要特别强调的是，为了更加的自由和灵活度。Omi没有内置数据变更的自动更新，需要开发者自己调用update方法。
-你也可以和[oba](https://github.com/dntzhang/oba)或者mobx一起使用来实现自动更新。
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=todo" target="_blank">点击这里→在线试试</a>
 
@@ -122,7 +121,7 @@ class Todo extends Omi.Component {
 ```
 
 * 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML('List', List);也可以写在List组件的代码下面。
-* 第34行，在父组件上定义listData属性用来传递给子组件。
+* 第9行，在父组件上定义listData属性用来传递给子组件。
 * 第34行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。data="listData"可以让你把this.listData传递给子组件。
 
 需要注意的是，父组件的this.listData会被通过Object.assign浅拷贝到子组件。

@@ -33,7 +33,6 @@ class Hello extends Omi.Component {
       	<h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>
       </div>
   		`;
-
     }
 }
 

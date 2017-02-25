@@ -49,7 +49,7 @@ function highlightLines(pre, lines, classes) {
 		    end = +range[1] || start;
 		
 		var line = document.createElement('div');
-		
+
 		line.textContent = Array(end - start + 2).join(' \n');
 		line.setAttribute('aria-hidden', 'true');
 		line.className = (classes || '') + ' line-highlight';
@@ -142,7 +142,9 @@ Prism.hooks.add('complete', function(env) {
 				line.parentNode.removeChild(line);
 			});
 
-			highlightLines(pre, lines);
+			if(lines!=='undefined') {
+				highlightLines(pre, lines);
+			}
 
 			fakeTimer = setTimeout(applyHash, 1);
 		})

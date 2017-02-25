@@ -12,7 +12,11 @@ class List extends Omi.Component {
 
     render () {
         return `<div>
-                    <ul> {{#items}} <li id="{{id}}">{{text}}</li> {{/items}}</ul>
+                    <ul> 
+                        {{#items}} 
+                        <li id="{{id}}">{{text}}</li> 
+                        {{/items}}
+                    </ul>
                 </div>`;
     }
 }
@@ -34,6 +38,8 @@ mustache.js更详细的循环遍历使用可看[https://github.com/janl/mustache
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=list" target="_blank">点击这里→在线试试</a>
 
 ### 方式二
+
+既然ES6+了，当然可以使用${ }以及Array的map方法: 
 
 ```js
 class List extends Omi.Component {
@@ -59,22 +65,6 @@ Omi.render(new List({
         {id: 3, text: 'AlloyTeam'}
     ]
 }),"body");
-```
-
-当然你也可以在map里面也使用template string
-
-```js
-...
-render() {
-    return `<div>
-                <ul>
-                ` + this.data.items.map(item =>
-                    `<li id="${item.id}">${item.text}</li>`
-                ).join("") + `
-                </ul>
-            </div>`;
-}
-...
 ```
 
 你将在页面看到如下效果:

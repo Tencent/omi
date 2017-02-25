@@ -82,16 +82,27 @@ var Hello =  Omi.create("Hello", {
         return "h1{ cursor:pointer }";
     },
     handleClick: function (dom) {
-        alert(dom.innerHTML);
+        alert(dom.innerHTML)
     },
     render: function () {
-        return '<div>\
-                    <h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>\
-                </div>';
+        return ' <div>\
+                        <h1 onclick="handleClick(this, event)">\
+                            Hello ,{{name}}!\
+                        </h1>\
+                </div>'
     }
 });
 
-Omi.render(new Hello({ name : "Omi" }),"#container");
+var Test =  Omi.create("Test", {
+    render: function () {
+        return '<div>\
+                    <div>Test</div>\
+                    <Hello data-name="Omi" />\
+                </div>'
+    }
+});
+
+Omi.render(new Test(),'#container');
 ```
 当然除了在HTML引入脚本，你还可以使用AMD、CMD或者CommonJS的方式引入Omi，这里就不再一一列举。
 
@@ -101,8 +112,9 @@ Omi.render(new Hello({ name : "Omi" }),"#container");
   ...
   render:function() {
         return  '<div>\
-                    <div>Test</div>\
-                    <Hello  data-name="Omi" />\
+                    <Hello  data-name="Omi1" />\
+                    <div>Test XXXX</div>\
+                    <Hello  data-name="Omi2" />\
                 </div>';
     }
     ...

@@ -11,3 +11,12 @@ To install Omi with npm, run:
 ``` js
 npm install omi
 ```
+### omi-cli
+
+``` js
+$ npm install omi-cli -g       
+$ omi init your_project_name   
+$ cd your_project_name         
+$ npm run dev                  
+$ npm run dist                 
+```
