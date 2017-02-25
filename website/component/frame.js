@@ -38,9 +38,6 @@ class Frame extends Omi.Component {
             left:220px;
             top:45px;
             height:auto;
-            overflow-x:hidden;
-            overflow-y:auto;
-            -webkit-overflow-scrolling : touch;
         }
 
         @media only screen and (max-width: 768px) {
