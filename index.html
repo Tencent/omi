@@ -44,28 +44,13 @@
             width: 100%;
         }
 
-        .logo_box img {
-            width: 50px;
-            margin-right: 5px;
-            position: relative;
-            top: -3px;
-        }
-
-        .logo_box {
-            font-size: 30px;
-            color: #00a6ff;
-            text-indent: 20px;
-        }
-
-        .logo_box a {
-            color: #00a6ff;
-        }
-
         .head {
             width: 100%;
             line-height: 60px;
             height: 60px;
             font-weight: bold;
+            background-color: #171f26;
+            border-bottom: 1px solid #1e2b34;
         }
 
         .head li {
@@ -77,38 +62,29 @@
         }
 
         .head li a {
-            color: black;
+            color: white;
             display: block;
             width: 100%;
         }
 
+
         .ad {
             text-align: center;
-            background: #3B2A4C url(./asset/bg.jpg) center center no-repeat;
-            background-size: cover;
-            height: 400px;
+            background-color: #171f26 ;
+            height: 230px;
             position: relative;
         }
 
         .ad_main {
             color: white;
-            position: absolute;
+
             z-index: 2;
-            left: 50%;
-            margin-left: -238px;
-            top: 50%;
-            margin-top: -80px;
+
+
             font-size: 20px;
         }
 
-        .ad_mask {
-            z-index: 1;
-            width: 100%;
-            position: absolute;
-            height: 400px;
-            background-color: black;
-            opacity: 0.3;
-        }
+
 
         .ad_main h1 {
             color: white;
@@ -147,10 +123,11 @@
             .ad_main p{
                 font-size: 16px;
             }
-
-            .ad_main{
-                margin-left: -199px;
+            .head #menu li a {
+                color: black;
             }
+
+
 
             .features li {
                 width: 100%;
@@ -171,11 +148,6 @@
 
             .mb_menu img {
                 width: 30px;
-            }
-
-            .logo_box {
-                width: 100%;
-                text-align: center;
             }
 
             .head ul {
@@ -227,14 +199,6 @@
                 border-top: 1px solid #dddddd;
                 margin-left: 0px;
             }
-
-            .github_li {
-                display: inline-block;
-            }
-
-            #githubLink {
-                display: none;
-            }
         }
 
         @media only screen and (min-width: 768px) {
@@ -252,14 +216,6 @@
             .ctn {
                 width: 100%;
                 margin: 0 auto;
-            }
-
-            #githubLink {
-                display: block;
-            }
-
-            .head .github_li {
-                display: none;
             }
 
             .special {
@@ -292,9 +248,48 @@
             margin: 20px auto 0px;
         }
 
+        .intro-get-started-link {
+            font-size: 18px;
+            font-family: Lato,Helvetica Neue,Helvetica,Arial,sans-serif;
+            display: inline-block;
+            color: #0e83cd;
+            text-decoration: none;
+            margin: 40px 0;
+            border: 3px solid;
+            border-color: #25a1f0;
+            padding: 12px 24px;
+            position: relative;
+            -webkit-transition: .2s;
+            transition: .2s;
+        }
+        .intro-cmd-item:before {
+            content: "$";
+            color: #0e83cd;
+            padding-right: 15px;
+        }
+        .intro-cmd-wrap{
+            display: inline-block;
+            text-align: left;
+            margin-top: 20px;
+        }
 
-        .user{
-            text-align:center;
+        .intro-cmd-item {
+            font-size: 16px;
+            font-family: Source Code Pro,Monaco,Menlo,Consolas,monospace;
+            line-height: 2;
+            padding: 0 30px;
+        }
+
+        .ad_dec_dt{
+            font-size: 42px;
+            color: #00a6ff;
+        }
+        .ad_dec_box{
+            padding-top: 30px;
+        }
+        .ad_github_link{
+            color: #48b1f4;
+            margin-top: 24px;
         }
     </style>
 </head>
@@ -304,18 +299,7 @@
 </div>
 <div class="ctn">
     <div class="head bord-btm">
-
-        <div class="logo_box _ib">
-            <a href="https://github.com/AlloyTeam/omi">Omi</a>
-        </div>
-
         <ul class="_ib" id="menu">
-            <!-- <li>
-                 <a href="##">Docs</a>
-             </li>
-             <li>
-                 <a href="##">Tutorial</a>
-             </li>-->
             <li>
                 <a href="http://alloyteam.github.io/omi/website/docs.html">Docs</a>
             </li>
@@ -328,27 +312,19 @@
             <li >
                 <a href="https://github.com/AlloyTeam/omi">Github</a>
             </li>
-
         </ul>
-
-
     </div>
     <div class="ad">
-        <div class="ad_mask"></div>
         <div class="ad_main">
-            <!--<span class="logo"><img src="images/logo.svg" alt="" /></span>-->
-            <h1>Omi</h1>
-            <p>
-                Open and modern framework for building user interfaces. <br>
-
-            </p>
+            <div class="ad_dec_box"><span class="ad_dec_dt">Omi</span><br/>开放现代的Web组件化框架</div>
+            <div class="intro-get-started-wrap">
+            <a href="https://github.com/AlloyTeam/omi" class="ad_github_link intro-get-started-link">Github</a>
+        </div>
         </div>
     </div>
 
     <div class="special">
-        <div class="major">
-            <h2>特性</h2>
-        </div>
+
         <ul class="features">
             <li>
                 <span class="icon major style3 fa-copy"></span>
@@ -386,6 +362,19 @@
             </li>
         </ul>
     </div>
+    <div style="text-align: center;">
+        <ul class="intro-cmd-wrap">
+            <li class="intro-cmd-item">npm install omi-cli -g</li>
+            <li class="intro-cmd-item">omi init your_project_name</li>
+            <li class="intro-cmd-item">cd your_project_name</li>
+            <li class="intro-cmd-item">npm run dev</li>
+            <li class="intro-cmd-item">npm run dist</li>
+        </ul>
+        <div class="intro-get-started-wrap">
+            <a href="https://alloyteam.github.io/omi/website/docs.html" class="intro-get-started-link">开始使用</a>
+        </div>
+    </div>
+
     <div class="footer bord-top">Copyright © 2017 AlloyTeam Inc.</div>
 </div>
 
