@@ -15,6 +15,10 @@ class Frame extends Omi.Component {
 
     install() {
         this.setViewport();
+        window.onreszie = ()=>{
+            this.setViewport();
+            this.update();
+        }
     }
 
     setViewport (){

@@ -29,8 +29,6 @@ class Content extends Omi.Component {
         //}
     }
 
-
-
     installed(){
         this.highlightBlock();
     }
@@ -51,18 +49,18 @@ class Content extends Omi.Component {
             codes[i].classList.add('language-js');
         }
 
-        let pres = document.querySelectorAll("pre");
-        let highlight = config.highlight;
-
-        for (let key in config.highlight) {
-            pres[key]&&pres[key].setAttribute("data-line", highlight[key]);
-        }
+        //let pres = document.querySelectorAll("pre");
+        //let highlight = config.highlight;
+        //
+        //for (let key in config.highlight) {
+        //    pres[key]&&pres[key].setAttribute("data-line", highlight[key]);
+        //}
 
         Omi.$$('pre').forEach((item)=> {
             item.classList.add('language-js');
         })
 
-        if (!lh)lineHighLight();
+        //if (!lh)lineHighLight();
     }
 
     installed(){
