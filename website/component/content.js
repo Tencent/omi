@@ -29,9 +29,7 @@ class Content extends Omi.Component {
         //}
     }
 
-    _$$(expr, con) {
-        return Array.prototype.slice.call((con || document).querySelectorAll(expr));
-    }
+
 
     installed(){
         this.highlightBlock();
@@ -42,7 +40,7 @@ class Content extends Omi.Component {
     }
 
     highlightBlock(lh) {
-        console.log(1);
+
         var codes = document.querySelectorAll("code");
         for (let i = 0, len = codes.length; i < len; i++) {
             //innerText bug£¿ie11 remove the \r\n??
@@ -60,7 +58,7 @@ class Content extends Omi.Component {
             pres[key]&&pres[key].setAttribute("data-line", highlight[key]);
         }
 
-        this._$$('pre').forEach((item)=> {
+        Omi.$$('pre').forEach((item)=> {
             item.classList.add('language-js');
         })
 
@@ -73,8 +71,6 @@ class Content extends Omi.Component {
 
     render () {
         this.data.html = marked(getMarkDown(this.data.name, this.data.lan));
-        console.log(getMarkDown(this.data.name, this.data.lan))
-        console.log( this.data.html)
         return `
         <div class="content">
             {{{html}}}

@@ -259,4 +259,10 @@ Omi.getParameters = function(dom, instance, types){
     return data;
 }
 
+Omi.mixIndexToArray = function(arr ,indexName){
+    arr.forEach((item , index)=>{
+       item[indexName||'index'] =  index;
+    });
+}
+
 module.exports = Omi;

@@ -31,7 +31,7 @@
     },
     menus:{
         cn:[
-            {title: '快速开始', list: [
+            {active:true, title: '快速开始', list: [
                 {'name': '安装',md:'installation'},
                 {'name': 'Hello World',md:'hello_world'},
                 {'name': '组件',md:'components'},
@@ -45,9 +45,9 @@
                 //{'name': '容器系统'},
                 {'name': '模板切换',md:'template'},
                 {'name': '获取DOM节点',md:'get_dom'},
-                {'name': '插件体系',md:'thinking_in_omi'},
+                {'name': '插件体系',md:'plugin'},
                 //{'name': '服务器端渲染'},
-                {'name': 'Omi的理念'}
+                {'name': 'Omi的理念',md:'thinking_in_omi'}
             ]},
             {title: 'Omi原理', list: [
                 {'name': '环境搭建',md:'pr_env'},

@@ -1,7 +1,7 @@
 import Omi from './omi.js';
 import style from './style.js';
 import scopedEvent from './event.js';
-import setDOM from './diff.js';
+import morphdom from './morphdom.js';
 import html2json from './html2json.js';
 
 class Component {
@@ -74,7 +74,7 @@ class Component {
                 this.node.parentNode.replaceChild(hdNode,this.node);
                 this.node = hdNode;
             }else{
-                setDOM(this.node, scopedEvent(this._childRender(this._omiChildStr), this.id));
+                morphdom(this.node, scopedEvent(this._childRender(this._omiChildStr), this.id));
 
                 this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
                 this._queryElements(this);
@@ -192,9 +192,9 @@ class Component {
             }
         } else {
             if (this.HTML !== "") {
-                setDOM(this.node, this.HTML);
+                morphdom(this.node, this.HTML);
             } else {
-                setDOM(this.node ,this._createHiddenNode());
+                morphdom(this.node ,this._createHiddenNode());
             }
         }
         //get node prop from parent node
