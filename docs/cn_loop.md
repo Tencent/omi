@@ -44,9 +44,9 @@ class List extends Omi.Component {
     render() {
         return `<div>
                     <ul>
-                    ` + this.data.items.map(item =>
-                        '<li id="' + item.id + '">' + item.text + '</li>'
-                    ).join("") + `
+                    ${this.data.items.map(item =>
+                         `<li id="${item.id}">${item.text}</li>`
+                    ).join('')}
                     </ul>
                 </div>`;
     }

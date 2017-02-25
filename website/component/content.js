@@ -17,20 +17,75 @@ function getMarkDownByArr(arr , lan) {
 
 class Content extends Omi.Component {
     constructor(data) {
+        data = Object.assign({
+            lan:'cn',
+            name: 'installation'
+        },data);
         super(data);
+
+        //document.onclick= ()=>{
+        //   var a =  getMarkDown('form','en');
+        //    console.log(a);
+        //}
     }
 
-    install() {
-        this.data.html = marked(getMarkDownByArr(config.mds[this.data.lan], this.data.lan));
+    _$$(expr, con) {
+        return Array.prototype.slice.call((con || document).querySelectorAll(expr));
+    }
+
+    installed(){
+        this.highlightBlock();
+    }
+
+    afterUpdate(){
+        this.highlightBlock();
+    }
+
+    highlightBlock(lh) {
+        console.log(1);
+        var codes = document.querySelectorAll("code");
+        for (let i = 0, len = codes.length; i < len; i++) {
+            //innerText bug£¿ie11 remove the \r\n??
+            // detail:  http://www.cnblogs.com/fsjohnhuang/p/4319635.html
+            // so textContent
+            var html = Prism.highlight(codes[i].textContent, Prism.languages.javascript);
+            codes[i].innerHTML = html;
+            codes[i].classList.add('language-js');
+        }
+
+        let pres = document.querySelectorAll("pre");
+        let highlight = config.highlight;
+
+        for (let key in config.highlight) {
+            pres[key]&&pres[key].setAttribute("data-line", highlight[key]);
+        }
+
+        this._$$('pre').forEach((item)=> {
+            item.classList.add('language-js');
+        })
+
+        if (!lh)lineHighLight();
+    }
+
+    installed(){
+
+    }
+
+    render () {
+        this.data.html = marked(getMarkDown(this.data.name, this.data.lan));
+        console.log(getMarkDown(this.data.name, this.data.lan))
+        console.log( this.data.html)
+        return `
+        <div class="content">
+            {{{html}}}
+        </div>
+        `;
     }
 
     style () {
         return `
         .content{
              width: 80%;
-        }
-        h2{
-            padding-top:55px;
         }
         h3{
             color:#444444;
@@ -51,14 +106,6 @@ class Content extends Omi.Component {
 
 
         }
-        `;
-    }
-
-    render () {
-        return `
-        <div class="content">
-            {{{html}}}
-        </div>
         `;
     }
 }

@@ -15,10 +15,6 @@ class Frame extends Omi.Component {
 
     install() {
         this.setViewport();
-        //window.onresize = ()=> {
-        //    this.setViewport();
-        //    this.update();
-        //}
     }
 
     setViewport (){
@@ -27,10 +23,6 @@ class Frame extends Omi.Component {
         }else{
             this.data.width = (window.innerWidth - 220)+'px';
         }
-    }
-
-    installed() {
-        this.highlightBlock(true);
     }
 
     style() {
@@ -54,45 +46,12 @@ class Frame extends Omi.Component {
         `;
     }
 
-    afterUpdate() {
-        this.highlightBlock();
-    }
-
-    _$$(expr, con) {
-        return Array.prototype.slice.call((con || document).querySelectorAll(expr));
-    }
-
-    highlightBlock(lh) {
-        if(this.data.lan === 'en') return;
-        var codes = document.querySelectorAll("code");
-        for (let i = 0, len = codes.length; i < len; i++) {
-            //innerText bug£¿ie11 remove the \r\n??
-            // detail:  http://www.cnblogs.com/fsjohnhuang/p/4319635.html
-            // so textContent
-            var html = Prism.highlight(codes[i].textContent, Prism.languages.javascript);
-            codes[i].innerHTML = html;
-            codes[i].classList.add('language-js');
-        }
-
-        let pres = document.querySelectorAll("pre");
-        let highlight = config.highlight;
-
-        for (let key in config.highlight) {
-            pres[key]&&pres[key].setAttribute("data-line", highlight[key]);
-        }
-
-        this._$$('pre').forEach((item)=> {
-            item.classList.add('language-js');
-        })
-
-        if (!lh)lineHighLight();
-    }
 
     render() {
         return `<div>
                 <Head data-lan="{{lan}}" />
                 <div class="main"  style="width:{{width}};">
-                  <Content data-lan="{{lan}}" />
+                  <Content  omi-id="content" data-lan="{{lan}}" />
                 </div>
                 <Sidebar omi-id="sidebar" data-lan="{{lan}}" />
                 </div>`;

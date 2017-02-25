@@ -5,6 +5,19 @@ class List extends Omi.Component {
         super(data);
     }
 
+   goto(name){
+       Omi.get('content').data.name = name;
+       Omi.get('content').update();
+   }
+
+    render () {
+        return `
+        <ul>
+            <li class="title">{{title}}</li>
+            {{#list}} <li><a href="##{{name}}" onclick="goto('{{md}}')">{{name}}</a></li> {{/list}}
+        </ul>`;
+    }
+
     style() {
         return `
         li.title{
@@ -31,14 +44,6 @@ class List extends Omi.Component {
         }
         `;
     }
-
-    render () {
-        return `
-        <ul>
-            <li class="title">{{title}}</li>
-            {{#list}} <li><a href="#{{name}}">{{name}}</a></li> {{/list}}
-        </ul>`;
-}
 }
 
 export default List;

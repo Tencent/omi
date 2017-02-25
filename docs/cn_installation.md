@@ -11,3 +11,15 @@
 ``` js
 npm install omi
 ```
+
+## omi-cli
+
+你也可以通过omi-cli去初始化你的项目:
+
+``` js
+$ npm install omi-cli -g       //安装cli
+$ omi init your_project_name   //初始化项目，你也可以在一个空的文件夹下执行 omi init
+$ cd your_project_name         //如果你是在空文件夹下执行的 omi init。请无视这条命令
+$ npm run dev                  //开发
+$ npm run dist                 //部署发布
+```
