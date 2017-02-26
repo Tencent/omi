@@ -30,13 +30,9 @@ table,td,th{
 
 @media only screen and (max-width: 768px) {
 
-    .main{
-        text-indent: 10px;
-    }
+
     .content img{
-        position: relative;
         width: 100%;
-        left: -10px;
     }
 
     .content pre{
@@ -45,5 +41,9 @@ table,td,th{
     }
     .content p{
         font-size: 15px;
+    }
+    .content p,.content h1,.content h2,.content h3,.content h4,.content h5{
+        padding-left:10px;
+        padding-right:10px;
     }
 }
