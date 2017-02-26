@@ -1,6 +1,6 @@
-﻿# [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
+﻿## [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
 
-## Usage
+### Usage
 * [安装](./cn_installation.md)
 * [Hello World](./cn_hello_world.md)
 * [组件](./cn_components.md)
@@ -16,7 +16,7 @@
 * [插件体系](./cn_plugin.md)
 * [Omi理念](./cn_thinking_in_omi.md)
 
-## Usage(en-us)
+### Usage(en-us)
 * [installation](./en_installation.md)
 * [Hello World](./en_hello_world.md)
 * [components](./en_components.md)
