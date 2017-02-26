@@ -22,7 +22,7 @@ pre[data-line] {
 	.line-highlight[data-end]:after {
 		content: attr(data-start);
 		position: absolute;
-		top: 1px;
+		top: .2em;
 		left: 0em;
 		min-width: 1em;
 		padding: 0 .4em;
