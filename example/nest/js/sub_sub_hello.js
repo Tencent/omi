@@ -12,6 +12,18 @@ class SubSubHello extends Omi.Component {
         </div>
          `;
     }
+    installed(){
+        console.log(1);
+    }
+
+    beforeUpdate(){
+        console.log("ssh_b")
+    }
+
+    afterUpdate(){
+        console.log("ssh_a")
+    }
+
 }
 
 Omi.makeHTML('SubSubHello', SubSubHello);

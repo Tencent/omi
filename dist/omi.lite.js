@@ -1,5 +1,5 @@
 /*!
- *  Omi v0.4.0 By dntzhang 
+ *  Omi v0.4.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -313,8 +313,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    component._omi_increment = increment;
 	    component.install();
 	    component._render(true);
-	    component.installed();
 	    component._childrenInstalled(component);
+	    component.installed();
 	    return component;
 	};
 
@@ -450,8 +450,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
-	            this.installed();
 	            this._childrenInstalled(this);
+	            this.installed();
 	        }
 	    }
 
@@ -480,6 +480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: 'update',
 	        value: function update() {
 	            this.beforeUpdate();
+	            this._childrenBeforeUpdate(this);
 	            if (this.renderTo) {
 	                this._render();
 	            } else {
@@ -498,7 +499,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	            //update added components
 	            this._renderAddedChildren();
+	            this._childrenAfterUpdate(this);
 	            this.afterUpdate();
+	        }
+	    }, {
+	        key: '_childrenBeforeUpdate',
+	        value: function _childrenBeforeUpdate(root) {
+	            var _this = this;
+
+	            root.children.forEach(function (child) {
+	                child.beforeUpdate();
+	                _this._childrenBeforeUpdate(child);
+	            });
+	        }
+	    }, {
+	        key: '_childrenAfterUpdate',
+	        value: function _childrenAfterUpdate(root) {
+	            var _this2 = this;
+
+	            root.children.forEach(function (child) {
+	                _this2._childrenAfterUpdate(child);
+	                child.afterUpdate();
+	            });
 	        }
 	    }, {
 	        key: 'setData',
@@ -531,10 +553,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'setComponentOrder',
 	        value: function setComponentOrder(arr) {
-	            var _this = this;
+	            var _this3 = this;
 
 	            arr.forEach(function (item, index) {
-	                _this._omi_order[index] = item;
+	                _this3._omi_order[index] = item;
 	            });
 	            this.update();
 	        }
@@ -574,10 +596,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_renderAddedChildren',
 	        value: function _renderAddedChildren() {
-	            var _this2 = this;
+	            var _this4 = this;
 
 	            this._addedItems.forEach(function (item) {
-	                var target = typeof item.el === "string" ? _this2.node.querySelector(item.el) : item.el;
+	                var target = typeof item.el === "string" ? _this4.node.querySelector(item.el) : item.el;
 	                item.component.install();
 	                item.component._render(true);
 	                item.component.installed();
@@ -591,7 +613,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_render',
 	        value: function _render(isFirst) {
-	            var _this3 = this;
+	            var _this5 = this;
 
 	            if (this._omi_removed) {
 	                var node = this._createHiddenNode();
@@ -607,11 +629,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._extractChildren(this);
 	            if (isFirst) {
 	                this.children.forEach(function (item, index) {
-	                    _this3._omi_order[index] = index;
+	                    _this5._omi_order[index] = index;
 	                });
 	            }
 	            this.children.forEach(function (item, index) {
-	                _this3.HTML = _this3.HTML.replace(item._omiChildStr, _this3.children[_this3._omi_order[index]].HTML);
+	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, _this5.children[_this5._omi_order[index]].HTML);
 	            });
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
@@ -639,7 +661,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_childRender',
 	        value: function _childRender(childStr, isFirst) {
-	            var _this4 = this;
+	            var _this6 = this;
 
 	            if (this._omi_removed) {
 	                this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >';
@@ -651,11 +673,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._extractChildren(this);
 	            if (isFirst) {
 	                this.children.forEach(function (item, index) {
-	                    _this4._omi_order[index] = index;
+	                    _this6._omi_order[index] = index;
 	                });
 	            }
 	            this.children.forEach(function (item, index) {
-	                _this4.HTML = _this4.HTML.replace(item._omiChildStr, _this4.children[_this4._omi_order[index]].HTML);
+	                _this6.HTML = _this6.HTML.replace(item._omiChildStr, _this6.children[_this6._omi_order[index]].HTML);
 	            });
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            return this.HTML;
@@ -674,12 +696,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_mixRefs',
 	        value: function _mixRefs() {
-	            var _this5 = this;
+	            var _this7 = this;
 
 	            var nodes = _omi2['default'].$$('*[ref]', this.node);
 	            nodes.forEach(function (node) {
-	                if (node.hasAttribute(_this5._omi_scoped_attr)) {
-	                    _this5.refs[node.getAttribute('ref')] = node;
+	                if (node.hasAttribute(_this7._omi_scoped_attr)) {
+	                    _this7.refs[node.getAttribute('ref')] = node;
 	                }
 	            });
 	            var attr = this.node.getAttribute('ref');
@@ -690,28 +712,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_execPlugins',
 	        value: function _execPlugins() {
-	            var _this6 = this;
+	            var _this8 = this;
 
 	            Object.keys(_omi2['default'].plugins).forEach(function (item) {
-	                var nodes = _omi2['default'].$$('*[' + item + ']', _this6.node);
+	                var nodes = _omi2['default'].$$('*[' + item + ']', _this8.node);
 	                nodes.forEach(function (node) {
-	                    if (node.hasAttribute(_this6._omi_scoped_attr)) {
-	                        _omi2['default'].plugins[item](node, _this6);
+	                    if (node.hasAttribute(_this8._omi_scoped_attr)) {
+	                        _omi2['default'].plugins[item](node, _this8);
 	                    }
 	                });
-	                if (_this6.node.hasAttribute(item)) {
-	                    _omi2['default'].plugins[item](_this6.node, _this6);
+	                if (_this8.node.hasAttribute(item)) {
+	                    _omi2['default'].plugins[item](_this8.node, _this8);
 	                }
 	            });
 	        }
 	    }, {
 	        key: '_childrenInstalled',
 	        value: function _childrenInstalled(root) {
-	            var _this7 = this;
+	            var _this9 = this;
 
 	            root.children.forEach(function (child) {
+	                _this9._childrenInstalled(child);
 	                child.installed();
-	                _this7._childrenInstalled(child);
 	            });
 	        }
 	    }, {
@@ -810,13 +832,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_getDataset',
 	        value: function _getDataset(childStr) {
-	            var _this8 = this;
+	            var _this10 = this;
 
 	            var json = (0, _html2json2['default'])(childStr);
 	            var attr = json.child[0].attr;
 	            Object.keys(attr).forEach(function (key) {
 	                if (key.indexOf('data-') === 0) {
-	                    _this8._dataset[_this8._capitalize(key.replace('data-', ''))] = attr[key];
+	                    _this10._dataset[_this10._capitalize(key.replace('data-', ''))] = attr[key];
 	                }
 	            });
 	            return this._dataset;
@@ -844,7 +866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
-	            var _this9 = this;
+	            var _this11 = this;
 
 	            if (_omi2['default'].customTags.length > 0) {
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
@@ -857,7 +879,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    var attr = json.child[0].attr;
 	                    var name = attr.tag;
 	                    delete attr.tag;
-	                    var cmi = _this9.children[i];
+	                    var cmi = _this11.children[i];
 	                    //if not first time to invoke _extractChildren method
 	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._childRender(childStr);
@@ -886,11 +908,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    } else {
 	                                        child._omiGroupDataCounter[value] = 0;
 	                                    }
-	                                    groupData = _this9._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
+	                                    groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
 	                                } else if (key.indexOf('data-') === 0) {
-	                                    dataset[_this9._capitalize(key.replace('data-', ''))] = value;
+	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
 	                                } else if (key === 'data') {
-	                                    dataFromParent = _this9._extractPropertyFromString(value, child);
+	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
 	                                }
 	                            });
 

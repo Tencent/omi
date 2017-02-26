@@ -199,8 +199,8 @@ Omi.render = function(component , renderTo , increment){
     component._omi_increment = increment;
     component.install();
     component._render(true);
-    component.installed();
     component._childrenInstalled(component);
+    component.installed();
     return component;
 }
 

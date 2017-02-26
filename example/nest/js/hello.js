@@ -18,6 +18,18 @@ class Hello extends Omi.Component {
     handleClick(dom){
         alert(dom.innerHTML);
     }
+
+    installed(){
+        console.log(3);
+    }
+
+    beforeUpdate(){
+        console.log("h_b")
+    }
+
+    afterUpdate(){
+        console.log("h_a")
+    }
     render() {
         return  `
         <div>
@@ -25,7 +37,7 @@ class Hello extends Omi.Component {
             <World omi-id="world" data-name="abcd"  data-list='{"name":"Latch", "album":"Disclosure", "date":"2013"}'  />
             <div>
                 Hello {{name}}!
-                <SubHello  name="list" />
+                <SubHello omi-id="sh"  name="list" />
 
             </div>
         </div>

@@ -34,8 +34,8 @@ class Component {
         if (this._omi_server_rendering || isReRendering) {
             this.install();
             this._render(true);
-            this.installed();
             this._childrenInstalled(this);
+            this.installed();
         }
     }
 
@@ -65,6 +65,7 @@ class Component {
 
     update() {
         this.beforeUpdate();
+        this._childrenBeforeUpdate(this);
         if (this.renderTo) {
             this._render();
         } else {
@@ -83,7 +84,22 @@ class Component {
         }
         //update added components
         this._renderAddedChildren();
+        this._childrenAfterUpdate(this);
         this.afterUpdate();
+    }
+
+    _childrenBeforeUpdate(root){
+        root.children.forEach((child)=>{
+            child.beforeUpdate();
+            this._childrenBeforeUpdate(child);
+        })
+    }
+
+    _childrenAfterUpdate(root){
+        root.children.forEach((child)=>{
+            this._childrenAfterUpdate(child);
+            child.afterUpdate();
+        })
     }
 
     setData(data, update) {
@@ -265,8 +281,8 @@ class Component {
 
     _childrenInstalled(root){
         root.children.forEach((child)=>{
-            child.installed();
             this._childrenInstalled(child);
+            child.installed();
         })
     }
 

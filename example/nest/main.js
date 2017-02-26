@@ -1,8 +1,9 @@
 import Hello from './js/hello.js';
 
-Omi.render(new Hello({ name:'Omi'}),'body');
+var hello = new Hello({ name:'Omi'});
+Omi.render(hello,'body');
 
 setTimeout(function(){
     Omi.get("world").data.list ="aa"
-    Omi.mapping["world"].update()
+    hello.update()
 },1000);

@@ -13,6 +13,16 @@ class SubHello extends Omi.Component {
         }
         `;
     }
+    beforeUpdate(){
+        console.log("sh_b")
+    }
+
+    afterUpdate(){
+        console.log("sh_a")
+    }
+    installed(){
+        console.log(2);
+    }
     render() {
         return `
             <div>

@@ -10,6 +10,20 @@ class World extends Omi.Component {
         i am World's instance2{{list}}!
      </div>`;
     }
+
+    beforeUpdate(){
+        console.log("world_b")
+    }
+
+    afterUpdate(){
+        console.log("world_a")
+    }
+
+
+
+    installed(){
+        console.log(0);
+    }
 }
 
 
