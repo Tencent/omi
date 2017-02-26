@@ -2,9 +2,9 @@
 
 （待续...）
 
-* [环境搭建](./cn_pr_env.md)
-* [Hello Omi](./cn_pr_hello.md)
-* [手Q附近Web页Omi实战](./cn_pr_nearby.md)
+* [环境搭建](./cn_env.md)
+* [Hello Omi](./cn_hello.md)
+* [手Q附近Web页Omi实战](./cn_nearby.md)
 * 局部CSS揭秘
 * 组件嵌套揭秘
 * 事件处理揭秘
