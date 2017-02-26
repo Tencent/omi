@@ -35,11 +35,19 @@ table,td,th{
         width: 100%;
     }
 
+
     .content code[class*="language-"],
     .content pre[class*="language-"] {
         font-family: Consolas, "Liberation Mono", Courier, monospace;
         line-height: 18px;
-        font-size: 85%;
+        font-size: 10px;
+        margin:  0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .content pre[class*="language-"] {
+        padding-left: 10px;
     }
     .content p{
         font-size: 14px;
