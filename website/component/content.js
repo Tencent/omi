@@ -52,18 +52,17 @@ class Content extends Omi.Component {
             item.classList.add('language-js');
         })
 
-        let pres = document.querySelectorAll("pre");
-        let highlight = this.getHighLight();
+        if(window.innerWidth>640) {
+            let pres = document.querySelectorAll("pre");
+            let highlight = this.getHighLight();
 
-        if(highlight) {
-            for (let key in highlight) {
-                pres[key]&&pres[key].setAttribute("data-line", highlight[key]);
+            if (highlight) {
+                for (let key in highlight) {
+                    pres[key] && pres[key].setAttribute("data-line", highlight[key]);
+                }
+                if (!lh)lineHighLight();
             }
-            if (!lh)lineHighLight();
         }
-
-
-
     }
 
     getHighLight(){

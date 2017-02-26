@@ -37,8 +37,9 @@ table,td,th{
 
     .content code[class*="language-"],
     .content pre[class*="language-"] {
+        font-family: Consolas, "Liberation Mono", Courier, monospace;
         line-height: 18px;
-        font-size: 12px;
+        font-size: 85%;
     }
     .content p{
         font-size: 14px;
