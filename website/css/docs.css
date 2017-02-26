@@ -35,15 +35,20 @@ table,td,th{
         width: 100%;
     }
 
-    .content pre{
-        /*font-size: 14px;*/
-        /*text-indent: 0px;*/
+    .content code[class*="language-"],
+    .content pre[class*="language-"] {
+        line-height: 18px;
+        font-size: 12px;
     }
     .content p{
-        font-size: 15px;
+        font-size: 14px;
     }
     .content p,.content h1,.content h2,.content h3,.content h4,.content h5{
         padding-left:10px;
         padding-right:10px;
+    }
+
+    .line-highlight:before, .line-highlight[data-end]:after{
+        top: 0em;
     }
 }
