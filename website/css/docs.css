@@ -34,4 +34,8 @@ table,td,th{
         width:100%;
     }
 
+    .content pre[class*="language-"] {
+        padding: 0;
+        margin: 0;
+    }
 }
