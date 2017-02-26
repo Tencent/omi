@@ -1,4 +1,6 @@
-﻿# Usage
+﻿[Docs Website](https://alloyteam.github.io/omi/website/docs.html)
+
+## Usage
 * [安装](./cn_installation.md)
 * [Hello World](./cn_hello_world.md)
 * [组件](./cn_components.md)
@@ -27,15 +29,3 @@
 * [inherit](./en_inherit.md)
 * [template](./en_template.md)
 
-# 从零一步步打造Web组件化框架Omi
-
-（待续...）
-
-* [环境搭建](./cn_pr_env.md)
-* [Hello Omi](./cn_pr_hello.md)
-* 局部CSS揭秘
-* 组件嵌套揭秘
-* 事件处理揭秘
-* 服务器端渲染揭秘
-* 模板切换揭秘
-* 容器系统揭秘

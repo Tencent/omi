@@ -53,15 +53,6 @@
                 //{'name': '服务器端渲染'},
                 {'name': 'Omi的理念', md: 'thinking_in_omi'}
             ]
-            },
-            {
-                title: 'Omi原理', list: [
-                {'name': '环境搭建', md: 'pr_env'},
-                {'name': 'Hello Omi', md: 'pr_hello'},
-                {'name': '未完待续..', md: 'pr_hello'},
-                {'name': '...'}
-
-            ]
             }
         ],
         en: [
@@ -85,8 +76,7 @@
                 //{'name': 'Sever-side Rendering'},
                 //{'name': 'Thinking In Omi'}
             ]
-            },
-            {title: 'Principle of Omi', list: [{'name': 'Coming soom..', md: 'components'}]}
+            }
         ]
     }
 

@@ -41,5 +41,5 @@ Javascript是哪种类型的语言？现在ES6+已经有了class。那么他是�
 
 <hr/>
 
-### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/omi) 或者继续往看下[Omi原理↓↓↓](http://alloyteam.github.io/omi/website/docs.html#环境搭建)
+### 全文结束，感谢阅读。[开始Omi之旅吧!](https://github.com/AlloyTeam/omi) 
 
