@@ -40,7 +40,7 @@ table,td,th{
     .content pre[class*="language-"] {
         font-family: Consolas, "Liberation Mono", Courier, monospace;
         line-height: 18px;
-        font-size: 10px;
+        font-size: 12px;
         margin:  0;
         width: 100%;
         box-sizing: border-box;
