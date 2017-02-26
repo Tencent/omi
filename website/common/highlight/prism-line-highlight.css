@@ -1,13 +1,12 @@
 pre[data-line] {
 	position: relative;
-	padding: 1em 0 1em 3em;
+	padding: 1em 0 1em 2em;
 }
 
 .line-highlight {
 	position: absolute;
 	left: 0;
 	right: 0;
-	padding: inherit 0;
 	margin-top: 1em; /* Same as .prism’s padding-top */
 
 	background: hsla(24, 20%, 50%,.2);
@@ -23,10 +22,10 @@ pre[data-line] {
 	.line-highlight[data-end]:after {
 		content: attr(data-start);
 		position: absolute;
-		top: .4em;
-		left: .6em;
+		top: 1px;
+		left: 0em;
 		min-width: 1em;
-		padding: 0 .5em;
+		padding: 0 .4em;
 		background-color: hsla(24, 20%, 50%,.4);
 		color: hsl(24, 20%, 95%);
 		font: bold 65%/1.5 sans-serif;

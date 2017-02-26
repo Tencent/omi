@@ -25,7 +25,7 @@ class Frame extends Omi.Component {
 
     setViewport (){
         if(  window.innerWidth < 768) {
-            this.data.width = '95%';
+            this.data.width = '100%';
         }else{
             this.data.width = (window.innerWidth - 220)+'px';
         }
@@ -42,7 +42,7 @@ class Frame extends Omi.Component {
 
         @media only screen and (max-width: 768px) {
             .main{
-                left:2%;
+                left:0%;
             }
 
 
