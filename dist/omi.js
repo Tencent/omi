@@ -1,5 +1,5 @@
 /*!
- *  Omi v0.4.1 By dntzhang 
+ *  Omi v0.4.2 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1423,7 +1423,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_generateHTMLCSS',
 	        value: function _generateHTMLCSS() {
-	            this.CSS = this.style() || '';
+	            this.CSS = (this.style() || '').replace(/<\/?style>/g, '');
 	            if (this.CSS) {
 	                this.CSS = _style2['default'].scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
 	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {

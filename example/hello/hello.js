@@ -6,9 +6,11 @@ class Hello extends Omi.Component {
     }
     style () {
         return  `
-      h1{
-      	cursor:pointer;
-      }
+        <style>
+          h1{
+            cursor:pointer;
+          }
+        </style>
       `;
     }
     handleClick(target, evt){

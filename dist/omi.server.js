@@ -1431,7 +1431,7 @@
 	    }, {
 	        key: '_generateHTMLCSS',
 	        value: function _generateHTMLCSS() {
-	            this.CSS = this.style() || '';
+	            this.CSS = (this.style() || '').replace(/<\/?style>/g, '');
 	            if (this.CSS) {
 	                this.CSS = _style2['default'].scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
 	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
