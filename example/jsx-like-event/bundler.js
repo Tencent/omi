@@ -1590,56 +1590,58 @@
 	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._childRender(childStr);
 	                    } else {
-	                        var baseData = {};
-	                        var dataset = {};
-	                        var dataFromParent = {};
-	                        var groupData = {};
-	                        var omiID = null;
-	                        var instanceName = null;
-	                        Object.keys(attr).forEach(function (key) {
-	                            var value = attr[key];
-	                            if (key.indexOf('on') === 0) {
-	                                var handler = child[value];
-	                                if (handler) {
-	                                    baseData[key] = handler.bind(child);
+	                        (function () {
+	                            var baseData = {};
+	                            var dataset = {};
+	                            var dataFromParent = {};
+	                            var groupData = {};
+	                            var omiID = null;
+	                            var instanceName = null;
+	                            Object.keys(attr).forEach(function (key) {
+	                                var value = attr[key];
+	                                if (key.indexOf('on') === 0) {
+	                                    var handler = child[value];
+	                                    if (handler) {
+	                                        baseData[key] = handler.bind(child);
+	                                    }
+	                                } else if (key === 'omi-id') {
+	                                    omiID = value;
+	                                } else if (key === 'name') {
+	                                    instanceName = value;
+	                                } else if (key === 'group-data') {
+	                                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                                        child._omiGroupDataCounter[value]++;
+	                                    } else {
+	                                        child._omiGroupDataCounter[value] = 0;
+	                                    }
+	                                    groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
+	                                } else if (key.indexOf('data-') === 0) {
+	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
+	                                } else if (key === 'data') {
+	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
 	                                }
-	                            } else if (key === 'omi-id') {
-	                                omiID = value;
-	                            } else if (key === 'name') {
-	                                instanceName = value;
-	                            } else if (key === 'group-data') {
-	                                if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                                    child._omiGroupDataCounter[value]++;
-	                                } else {
-	                                    child._omiGroupDataCounter[value] = 0;
-	                                }
-	                                groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
-	                            } else if (key.indexOf('data-') === 0) {
-	                                dataset[_this11._capitalize(key.replace('data-', ''))] = value;
-	                            } else if (key === 'data') {
-	                                dataFromParent = _this11._extractPropertyFromString(value, child);
+	                            });
+
+	                            var ChildClass = _omi2['default'].getClassFromString(name);
+	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
+	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
+	                            sub_child._omiChildStr = childStr;
+	                            sub_child.parent = child;
+	                            sub_child.___omi_constructor_name = name;
+	                            sub_child._dataset = {};
+	                            sub_child.install();
+
+	                            omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                            instanceName && (child[instanceName] = sub_child);
+
+	                            if (!cmi) {
+	                                child.children.push(sub_child);
+	                            } else {
+	                                child.children[i] = sub_child;
 	                            }
-	                        });
 
-	                        var ChildClass = _omi2['default'].getClassFromString(name);
-	                        if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                        var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
-	                        sub_child._omiChildStr = childStr;
-	                        sub_child.parent = child;
-	                        sub_child.___omi_constructor_name = name;
-	                        sub_child._dataset = {};
-	                        sub_child.install();
-
-	                        omiID && (_omi2['default'].mapping[omiID] = sub_child);
-	                        instanceName && (child[instanceName] = sub_child);
-
-	                        if (!cmi) {
-	                            child.children.push(sub_child);
-	                        } else {
-	                            child.children[i] = sub_child;
-	                        }
-
-	                        sub_child._childRender(childStr, true);
+	                            sub_child._childRender(childStr, true);
+	                        })();
 	                    }
 	                });
 	            }

@@ -13,6 +13,7 @@
     "svg": "webpack -w",
     "hello": "webpack -w",
     "group_data": "webpack -w",
+    "jsx-like-event":"webpack -w",
     "loop": "webpack -w",
     "plugin": "webpack -w",
     "order": "webpack -w",
