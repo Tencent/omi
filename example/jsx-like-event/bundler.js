@@ -135,7 +135,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n      <div>\n        {{{img}}}\n        <h1 onclick={function(e){\n          console.log(this);\n          console.log(e);\n          alert(e.type);\n        }}>Hello, {{name}}!</h1>\n<h1 onclick="onClick(1)">Omi by {{name}}</h1>\n      </div>\n  \t\t';
+	            return '\n      <div>\n        {{{img}}}\n        <h1 onclick={function(e){\n          console.log(this);\n          console.log(e);\n          alert(e.type);\n        }}>Hello, {{name}}!</h1>\n      </div>\n  \t\t';
 	        }
 	    }]);
 
@@ -1512,7 +1512,7 @@
 	    }, {
 	        key: '_generateHTMLCSS',
 	        value: function _generateHTMLCSS() {
-	            this.CSS = this.style() || '';
+	            this.CSS = (this.style() || '').replace(/<\/?style>/g, '');
 	            if (this.CSS) {
 	                this.CSS = _style2['default'].scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
 	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {

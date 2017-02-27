@@ -24,7 +24,6 @@ class Hello extends Omi.Component {
           console.log(e);
           alert(e.type);
         }}>Hello, {{name}}!</h1>
-<h1 onclick="onClick(1)">Omi by {{name}}</h1>
       </div>
   		`;
 
