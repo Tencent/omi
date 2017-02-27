@@ -34,7 +34,8 @@ $ npm run dist                 //部署发布
 ![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170227100545470-696026058.png)
 
 
-安装初始化项目omi init：
+安装初始化项目omi init:
+
 ![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170227100554891-1802174132.png)
 
 上面的成功的界面。注意：初始化项目会自动安装相关的npm依赖包，所以时间较长，请耐心等待。
@@ -42,8 +43,10 @@ $ npm run dist                 //部署发布
 
 ![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170227100755845-465268116.png)
 
-开发 npm run dev：
+开发 npm run dev:
+
 ![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170227100601235-1477801934.png)
+
 ![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170227100608985-921528126.png)
 
 如果，你看到了上面的界面，说明一切OK了。创建出来的项目主要基于 Gulp + Webpack + Babel + BrowserSync 进行开发和部署。Gulp用来串联整个流程，Webpack + Babel让你可以写ES6和打包，BrowserSync用来帮你刷浏览器，不用F5了。
