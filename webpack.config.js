@@ -41,7 +41,7 @@ var config  = {
     // devtool: 'source-map',
 };
 
-if(ENV === 'build'){
+if(ENV === 'build'||ENV === 'build_min'){
     config = {
         entry: {
             omi: './src/index.js',
@@ -82,6 +82,14 @@ if(ENV === 'build'){
         // Create Sourcemaps for the bundle
        // devtool: 'source-map',
     };
+
+     if(ENV === 'build_min'){
+        config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+        config.entry = {
+            'omi.min': './src/index.js',
+            'omi.lite.min': './src/index.lite.js'
+        };
+    }
 }else if(ENV === 'website') {
     config.plugins.push(new webpack.optimize.UglifyJsPlugin());
     config.entry ={
@@ -91,7 +99,7 @@ if(ENV === 'build'){
     config.output.path = './website/dist/';
     config.output.filename =  '[name].js';
     config.module.loaders.push(  { test: /\.md$/, loader: "md-text" });
-}else {
+}else{
     config.entry = './example/' + ENV + '/main.js';
     config.output.path = './example/' + ENV + '/';
 }

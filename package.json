@@ -5,6 +5,7 @@
   "main": "dist/omi.js",
   "scripts": {
     "build": "webpack -w",
+    "build_min": "webpack -w",
     "build_server": "node asset/build_server.js",
     "nest": "webpack -w",
     "curd": "webpack -w",
