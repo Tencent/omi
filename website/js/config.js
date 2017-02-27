@@ -2,7 +2,7 @@
     isMobile: false,
     mds: {
         cn: ['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom', 'plugin', 'thinking_in_omi', 'pr_env', 'pr_hello'],
-        en: ['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom']
+        en: ['installation', 'hello_world', 'components', 'communication', 'lifecycle', 'events', 'condition', 'loop', 'form', 'inherit', 'template', 'get_dom', 'plugin']
     },
     menus: {
         cn: [
@@ -72,7 +72,8 @@
                 {'name': 'Forms', md: 'form'},
                 {'name': 'Inheritance', md: 'inherit'},
                 {'name': 'Templates', md: 'template'},
-                {'name': 'Get DOM', md: 'get_dom'}
+                {'name': 'Get DOM', md: 'get_dom'},
+                {'name': 'Plugin', md: 'plugin'}
                 //{'name': 'Sever-side Rendering'},
                 //{'name': 'Thinking In Omi'}
             ]
