@@ -884,58 +884,56 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._childRender(childStr);
 	                    } else {
-	                        (function () {
-	                            var baseData = {};
-	                            var dataset = {};
-	                            var dataFromParent = {};
-	                            var groupData = {};
-	                            var omiID = null;
-	                            var instanceName = null;
-	                            Object.keys(attr).forEach(function (key) {
-	                                var value = attr[key];
-	                                if (key.indexOf('on') === 0) {
-	                                    var handler = child[value];
-	                                    if (handler) {
-	                                        baseData[key] = handler.bind(child);
-	                                    }
-	                                } else if (key === 'omi-id') {
-	                                    omiID = value;
-	                                } else if (key === 'name') {
-	                                    instanceName = value;
-	                                } else if (key === 'group-data') {
-	                                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                                        child._omiGroupDataCounter[value]++;
-	                                    } else {
-	                                        child._omiGroupDataCounter[value] = 0;
-	                                    }
-	                                    groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
-	                                } else if (key.indexOf('data-') === 0) {
-	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
-	                                } else if (key === 'data') {
-	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
+	                        var baseData = {};
+	                        var dataset = {};
+	                        var dataFromParent = {};
+	                        var groupData = {};
+	                        var omiID = null;
+	                        var instanceName = null;
+	                        Object.keys(attr).forEach(function (key) {
+	                            var value = attr[key];
+	                            if (key.indexOf('on') === 0) {
+	                                var handler = child[value];
+	                                if (handler) {
+	                                    baseData[key] = handler.bind(child);
 	                                }
-	                            });
-
-	                            var ChildClass = _omi2['default'].getClassFromString(name);
-	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
-	                            sub_child._omiChildStr = childStr;
-	                            sub_child.parent = child;
-	                            sub_child.___omi_constructor_name = name;
-	                            sub_child._dataset = {};
-	                            sub_child.install();
-
-	                            omiID && (_omi2['default'].mapping[omiID] = sub_child);
-	                            instanceName && (child[instanceName] = sub_child);
-
-	                            if (!cmi) {
-	                                child.children.push(sub_child);
-	                            } else {
-	                                child.children[i] = sub_child;
+	                            } else if (key === 'omi-id') {
+	                                omiID = value;
+	                            } else if (key === 'name') {
+	                                instanceName = value;
+	                            } else if (key === 'group-data') {
+	                                if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                                    child._omiGroupDataCounter[value]++;
+	                                } else {
+	                                    child._omiGroupDataCounter[value] = 0;
+	                                }
+	                                groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
+	                            } else if (key.indexOf('data-') === 0) {
+	                                dataset[_this11._capitalize(key.replace('data-', ''))] = value;
+	                            } else if (key === 'data') {
+	                                dataFromParent = _this11._extractPropertyFromString(value, child);
 	                            }
+	                        });
 
-	                            sub_child._childRender(childStr, true);
-	                        })();
+	                        var ChildClass = _omi2['default'].getClassFromString(name);
+	                        if (!ChildClass) throw "Can't find Class called [" + name + "]";
+	                        var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
+	                        sub_child._omiChildStr = childStr;
+	                        sub_child.parent = child;
+	                        sub_child.___omi_constructor_name = name;
+	                        sub_child._dataset = {};
+	                        sub_child.install();
+
+	                        omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                        instanceName && (child[instanceName] = sub_child);
+
+	                        if (!cmi) {
+	                            child.children.push(sub_child);
+	                        } else {
+	                            child.children[i] = sub_child;
+	                        }
+
+	                        sub_child._childRender(childStr, true);
 	                    }
 	                });
 	            }
@@ -1022,13 +1020,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	function scopedEvent(tpl, id) {
-	    return tpl.replace(/<[\s\S]*?>/g, function (item) {
-	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=('|")([\s\S]*?)\([\s\S]*?\)/g, function (eventStr, b, c, d) {
-	            if (d.indexOf('Omi.instances[') === 0) {
+	    return tpl.replace(/<[\s\S]*?[^=]>/g, function (item) {
+	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=('|"|{)([\s\S]*)('|"|})/g, function (eventStr, eventName, open, str, close) {
+	            if (str.indexOf('Omi.instances[') === 0 || str.indexOf('new Function(') === 0) {
 	                return eventStr;
-	            } else {
-	                return eventStr.replace(/=(['|"])/, '=$1Omi.instances[' + id + '].');
 	            }
+	            if (open === '{') {
+	                // JSX-like event bind
+	                var result = 'on' + eventName + '="new Function(\'event\', \'(' + str.replace(/'/g, '"') + ').bind(Omi.instances[' + id + '])(event)\')(event)"';
+	                return result.replace(/\n/g, '');
+	            } else {
+	                if (!str.match(/.*?\(.*?\)/)) {
+	                    // if is not JSX-like event and is not a function call (func(xxx, ttt))
+	                    return eventStr;
+	                }
+	            }
+	            return eventStr.replace(/=(['|"])/, '=$1Omi.instances[' + id + '].');
 	        });
 	    });
 	};
