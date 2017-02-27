@@ -18,3 +18,19 @@ describe("scopedEvent2", function() {
 
     });
 });
+
+describe("jsx-like event binding", function() {
+
+    var result =   scopedEvent("<div onclick={function(e){console.log(this)}}>sfsdf </div>",1);
+    it("and so is a spec", function() {
+        expect(result).toBe(`<div onclick="new Function('event', '(function(e){console.log(this)}).bind(Omi.instances[1])(event)')(event)";>sfsdf </div>`);
+    });
+});
+
+describe("jsx-like event binding with quote", function() {
+
+    var result =   scopedEvent('<div onclick={function(e){console.log("string with sigal quote \' and double quote \"")}}>sfsdf </div>',1);
+    it("and so is a spec", function() {
+        expect(result).toBe(`<div onclick="new Function('event', '(function(e){console.log(&quot;string with sigal quote \\&#039; and double quote &quot;&quot;)}).bind(Omi.instances[1])(event)')(event)";>sfsdf </div>`);
+    });
+});

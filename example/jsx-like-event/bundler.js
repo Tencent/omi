@@ -135,7 +135,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n      <div>\n        {{{img}}}\n        <h1 onclick={function(e){\n          console.log(this)\n          console.log(e)\n          console.log(\'test \\\' test "double quote"\')\n        }}>Hello, {{name}}!</h1>\n      </div>\n  \t\t';
+	            return '\n      <div>\n        {{{img}}}\n        <h1 onclick={function(e){\n          console.log(this)\n          console.log(e)\n          console.log(\'test \\\' test "double quote"\')\n          console.log("test \\"")\n        }}>Hello, {{name}}!</h1>\n      </div>\n  \t\t';
 	        }
 	    }]);
 
