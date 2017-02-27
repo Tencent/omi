@@ -20,9 +20,9 @@ class Hello extends Omi.Component {
       <div>
         {{{img}}}
         <h1 onclick={function(e){
-          console.log(this);
-          console.log(e);
-          alert(e.type);
+          console.log(this)
+          console.log(e)
+          console.log('test \\' test "double quote"')
         }}>Hello, {{name}}!</h1>
       </div>
   		`;
