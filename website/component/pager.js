@@ -28,8 +28,6 @@ class Pager extends Omi.Component {
             this.data.nextMd = next.md;
             this.data.nextName = next.name;
         }
-
-
     }
 
     goto(name , dir){
@@ -46,16 +44,23 @@ class Pager extends Omi.Component {
         let dir = evt.target.getAttribute('data-dir');
         let name= evt.target.getAttribute('data-name');
         this.goto(name,dir);
-        console.log(1)
     }
 
     render () {
         this.updatePager();
-        return `
+        if(config.isMobile) {
+            return `
     <div class="pager">
       {{#preName}} <a class="pre" href="#" omi-finger onTap="handleTap" data-dir="pre" data-name="{{preMd}}">←{{preName}}</a>{{/preName}}
       {{#nextName}}<a class="next" href="#" omi-finger onTap="handleTap" data-dir="next" data-name="{{nextMd}}">{{nextName}}→</a> {{/nextName}}
     </div>`;
+        }else{
+            return`
+    <div class="pager">
+        {{#preName}} <a class="pre" href="#" onclick="goto('{{preMd}}','pre')">←{{preName}}</a>{{/preName}}
+        {{#nextName}}<a class="next" href="#"  onclick="goto('{{nextMd}}','next')">{{nextName}}→</a> {{/nextName}}
+    </div>`;
+        }
     }
 
     style () {

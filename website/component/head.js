@@ -11,12 +11,16 @@ class Head extends Omi.Component {
     install(){
         this.data.isEnLan = this.data.lan === 'en';
         document.body.addEventListener('touchend',()=>{
-            this.removeClass(Omi.get('sidebar').node,'show');
+           this.removeClass(Omi.get('sidebar').node,'show');
         },false);
     }
 
     toggleMenus(evt){
         this.toggleClass(Omi.get('sidebar').node,'show');
+        evt.stopPropagation();
+    }
+
+    handleTouchEnd(evt){
         evt.stopPropagation();
     }
 
@@ -131,7 +135,7 @@ class Head extends Omi.Component {
     render () {
         return `
     <div class="head bord-btm">
-        <div class="m_menu" omi-finger onTap="toggleMenus"> <img src="../asset/menu.png" alt="" /></div>
+        <div class="m_menu" omi-finger onTap="toggleMenus" onTouchEnd="handleTouchEnd"> <img src="../asset/menu.png" alt="" /></div>
         <div class="logo_box">
             <a href="https://github.com/AlloyTeam/omi">Omi</a>
         </div>
