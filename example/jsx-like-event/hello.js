@@ -24,6 +24,7 @@ class Hello extends Omi.Component {
           console.log(e)
           console.log('test \\' test "double quote"')
           console.log("test \\"")
+          alert(e.type)
         }}>Hello, {{name}}!</h1>
       </div>
   		`;
