@@ -46,10 +46,10 @@ class Content extends Omi.Component {
             // so textContent
             var html = Prism.highlight(codes[i].textContent, Prism.languages.javascript);
             codes[i].innerHTML = html;
-            codes[i].classList.add('language-js');
+            codes[i].classList&&codes[i].classList.add('language-js');
         }
         Omi.$$('pre').forEach((item)=> {
-            item.classList.add('language-js');
+            item.classList&&item.classList.add('language-js');
         })
 
         if(window.innerWidth>640) {
