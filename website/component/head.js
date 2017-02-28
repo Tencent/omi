@@ -1,4 +1,7 @@
 ﻿import Omi from '../../src/index.js';
+import OmiFinger from '../common/omi-finger.js';
+
+OmiFinger.init();
 
 class Head extends Omi.Component {
     constructor (data) {
@@ -7,7 +10,7 @@ class Head extends Omi.Component {
 
     install(){
         this.data.isEnLan = this.data.lan === 'en';
-        document.body.addEventListener('click',()=>{
+        document.body.addEventListener('touchend',()=>{
             this.removeClass(Omi.get('sidebar').node,'show');
         },false);
     }
@@ -42,6 +45,7 @@ class Head extends Omi.Component {
 
     style () {
         return `
+    <style>
         .head{
             position:fixed;
             height:45px;
@@ -120,13 +124,14 @@ class Head extends Omi.Component {
            }
 
         }
+    </style>
         `;
     }
 
     render () {
         return `
     <div class="head bord-btm">
-        <div class="m_menu" onclick="toggleMenus(event)"> <img src="../asset/menu.png" alt="" /></div>
+        <div class="m_menu" omi-finger onTap="toggleMenus"> <img src="../asset/menu.png" alt="" /></div>
         <div class="logo_box">
             <a href="https://github.com/AlloyTeam/omi">Omi</a>
         </div>

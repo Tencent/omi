@@ -43,6 +43,7 @@ class List extends Omi.Component {
 
     style() {
         return `
+    <style>
         li.title{
             font-size: 16px;
             font-weight: bold;
@@ -69,6 +70,7 @@ class List extends Omi.Component {
             background-color:#b3d4fc;
             color:white;
         }
+    </style>
         `;
     }
 }

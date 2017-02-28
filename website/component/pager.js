@@ -1,5 +1,8 @@
 ﻿import Omi from '../../src/index.js';
 import config from '../js/config.js';
+import OmiFinger from '../common/omi-finger.js';
+
+OmiFinger.init();
 
 class Pager extends Omi.Component {
     constructor (data) {
@@ -39,18 +42,25 @@ class Pager extends Omi.Component {
         this.update();
     }
 
+    handleTap(evt){
+        let dir = evt.target.getAttribute('data-dir');
+        let name= evt.target.getAttribute('data-name');
+        this.goto(name,dir);
+        console.log(1)
+    }
+
     render () {
         this.updatePager();
         return `
     <div class="pager">
-      {{#preName}} <a class="pre" href="#" onclick="goto('{{preMd}}','pre')">←{{preName}}</a>{{/preName}}
-      {{#nextName}}<a class="next" href="#"  onclick="goto('{{nextMd}}','next')">{{nextName}}→</a> {{/nextName}}
+      {{#preName}} <a class="pre" href="#" omi-finger onTap="handleTap" data-dir="pre" data-name="{{preMd}}">←{{preName}}</a>{{/preName}}
+      {{#nextName}}<a class="next" href="#" omi-finger onTap="handleTap" data-dir="next" data-name="{{nextMd}}">{{nextName}}→</a> {{/nextName}}
     </div>`;
     }
 
     style () {
         return `
-
+    <style>
         .pager {
             width:85%;
             height:80px;
@@ -75,6 +85,7 @@ class Pager extends Omi.Component {
             right:10px;
             top:10px;
         }
+    </style>
         `;
     }
 

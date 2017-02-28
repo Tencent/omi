@@ -92,6 +92,7 @@ class Content extends Omi.Component {
 
     style () {
         return `
+    <style>
         .content{
              width: 80%;
         }
@@ -111,9 +112,8 @@ class Content extends Omi.Component {
            .content{
              width: 100%;
            }
-
-
         }
+     </style>
         `;
     }
 }

@@ -16,6 +16,7 @@ class Sidebar extends Omi.Component {
 
     style () {
         return `
+    <style>
         @media only screen and (max-width: 768px) {
             .list{
                 transform: translateX(-100%);
@@ -33,12 +34,9 @@ class Sidebar extends Omi.Component {
                 -o-transform: translateX(0%) translateZ(0);
                 -webkit-transform: translateX(0%) translateZ(0);
                 transform: translateX(0%) translateZ(0);
-
             }
-
-
-
         }
+
         .list{
             width:200px;
             text-indent: 20px;
@@ -51,6 +49,7 @@ class Sidebar extends Omi.Component {
         .version{
             height:20px;
         }
+    </style>
         `;
     }
 

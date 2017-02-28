@@ -33,6 +33,7 @@ class Frame extends Omi.Component {
 
     style() {
         return `
+    <style>
         .main{
             position: absolute;
             left:220px;
@@ -44,9 +45,8 @@ class Frame extends Omi.Component {
             .main{
                 left:0%;
             }
-
-
         }
+    </style>
         `;
     }
 
