@@ -66,3 +66,24 @@ class ConditionTest extends Omi.Component {
     }
 }
 ```
+
+### 方式三
+
+```js
+class ConditionTest extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render() {
+        return  `
+            ${this.data.isVip
+                ?"<div>you are VIP.</div>"
+                :"<div>you are not VIP.</div>"
+    		}
+        `;
+    }
+}
+```
+
+当然可以使用${ }里面写javascript代码进行输出。

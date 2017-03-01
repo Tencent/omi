@@ -72,3 +72,19 @@ Omi.render(new List({
 ![pv](http://images2015.cnblogs.com/blog/105416/201701/105416-20170122095724129-2059595233.png)
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=list2" target="_blank">点击这里→在线试试</a>
+
+如果想在循环里加些判断呢？比如需要把id为偶数的隐藏起来:
+
+```js
+render() {
+    return `<div>
+                <ul>
+                ${this.data.items.map(item =>
+                    `<li style="display:${item.id%2===0?'none':'block'};" id="${item.id}">${item.text}</li>`
+                ).join('')}
+                </ul>
+            </div>`;
+}
+```
+
+所以模板字符串还是非常方便，随着ES继续发展下去，模板引擎估计会慢慢消失。所以omi提供了 omi.lite.js 版本不包含任何模板引擎。

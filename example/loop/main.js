@@ -5,16 +5,25 @@ class List extends Omi.Component {
         super(data);
     }
 
+    //render() {
+    //    return `<div>
+    //                <ul>
+    //                ${this.data.items.map(item =>
+    //                     `<li id="${item.id}">${item.text}</li>`
+    //                ).join('')}
+    //                </ul>
+    //            </div>`;
+    //}
+
     render() {
         return `<div>
                     <ul>
                     ${this.data.items.map(item =>
-                         `<li id="${item.id}">${item.text}</li>`
+                            `<li style="display:${item.id%2===0?'none':'block'};" id="${item.id}">${item.text}</li>`
                     ).join('')}
                     </ul>
                 </div>`;
     }
-
     //render () {
     //    return `<div>
     //                <ul> {{#items}} <li id="{{id}}">{{text}}</li> {{/items}}</ul>

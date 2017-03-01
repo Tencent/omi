@@ -69,14 +69,23 @@
 	        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, data));
 	    }
 
+	    //render() {
+	    //    return `<div>
+	    //                <ul>
+	    //                ${this.data.items.map(item =>
+	    //                     `<li id="${item.id}">${item.text}</li>`
+	    //                ).join('')}
+	    //                </ul>
+	    //            </div>`;
+	    //}
+
 	    _createClass(List, [{
 	        key: 'render',
 	        value: function render() {
 	            return '<div>\n                    <ul>\n                    ' + this.data.items.map(function (item) {
-	                return '<li id="' + item.id + '">' + item.text + '</li>';
+	                return '<li style="display:' + (item.id % 2 === 0 ? 'none' : 'block') + ';" id="' + item.id + '">' + item.text + '</li>';
 	            }).join('') + '\n                    </ul>\n                </div>';
 	        }
-
 	        //render () {
 	        //    return `<div>
 	        //                <ul> {{#items}} <li id="{{id}}">{{text}}</li> {{/items}}</ul>
@@ -352,8 +361,8 @@
 	    component._omi_increment = increment;
 	    component.install();
 	    component._render(true);
-	    component.installed();
 	    component._childrenInstalled(component);
+	    component.installed();
 	    return component;
 	};
 
@@ -410,6 +419,12 @@
 	    });
 
 	    return data;
+	};
+
+	Omi.mixIndexToArray = function (arr, indexName) {
+	    arr.forEach(function (item, index) {
+	        item[indexName || 'index'] = index;
+	    });
 	};
 
 	module.exports = Omi;
@@ -1054,9 +1069,9 @@
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _diff = __webpack_require__(7);
+	var _morphdom = __webpack_require__(7);
 
-	var _diff2 = _interopRequireDefault(_diff);
+	var _morphdom2 = _interopRequireDefault(_morphdom);
 
 	var _html2json = __webpack_require__(8);
 
@@ -1098,8 +1113,8 @@
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
-	            this.installed();
 	            this._childrenInstalled(this);
+	            this.installed();
 	        }
 	    }
 
@@ -1128,6 +1143,7 @@
 	        key: 'update',
 	        value: function update() {
 	            this.beforeUpdate();
+	            this._childrenBeforeUpdate(this);
 	            if (this.renderTo) {
 	                this._render();
 	            } else {
@@ -1137,10 +1153,8 @@
 	                    this.node.parentNode.replaceChild(hdNode, this.node);
 	                    this.node = hdNode;
 	                } else {
-	                    console.log(this.node.outerHTML);
-	                    console.log((0, _event2['default'])(this._childRender(this._omiChildStr)));
-	                    (0, _diff2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
-	                    console.log(this.node.outerHTML);
+	                    (0, _morphdom2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
+
 	                    this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
 	                    this._queryElements(this);
 	                    this._fixForm();
@@ -1148,7 +1162,28 @@
 	            }
 	            //update added components
 	            this._renderAddedChildren();
+	            this._childrenAfterUpdate(this);
 	            this.afterUpdate();
+	        }
+	    }, {
+	        key: '_childrenBeforeUpdate',
+	        value: function _childrenBeforeUpdate(root) {
+	            var _this = this;
+
+	            root.children.forEach(function (child) {
+	                child.beforeUpdate();
+	                _this._childrenBeforeUpdate(child);
+	            });
+	        }
+	    }, {
+	        key: '_childrenAfterUpdate',
+	        value: function _childrenAfterUpdate(root) {
+	            var _this2 = this;
+
+	            root.children.forEach(function (child) {
+	                _this2._childrenAfterUpdate(child);
+	                child.afterUpdate();
+	            });
 	        }
 	    }, {
 	        key: 'setData',
@@ -1181,10 +1216,10 @@
 	    }, {
 	        key: 'setComponentOrder',
 	        value: function setComponentOrder(arr) {
-	            var _this = this;
+	            var _this3 = this;
 
 	            arr.forEach(function (item, index) {
-	                _this._omi_order[index] = item;
+	                _this3._omi_order[index] = item;
 	            });
 	            this.update();
 	        }
@@ -1224,10 +1259,10 @@
 	    }, {
 	        key: '_renderAddedChildren',
 	        value: function _renderAddedChildren() {
-	            var _this2 = this;
+	            var _this4 = this;
 
 	            this._addedItems.forEach(function (item) {
-	                var target = typeof item.el === "string" ? _this2.node.querySelector(item.el) : item.el;
+	                var target = typeof item.el === "string" ? _this4.node.querySelector(item.el) : item.el;
 	                item.component.install();
 	                item.component._render(true);
 	                item.component.installed();
@@ -1241,7 +1276,7 @@
 	    }, {
 	        key: '_render',
 	        value: function _render(isFirst) {
-	            var _this3 = this;
+	            var _this5 = this;
 
 	            if (this._omi_removed) {
 	                var node = this._createHiddenNode();
@@ -1257,11 +1292,11 @@
 	            this._extractChildren(this);
 	            if (isFirst) {
 	                this.children.forEach(function (item, index) {
-	                    _this3._omi_order[index] = index;
+	                    _this5._omi_order[index] = index;
 	                });
 	            }
 	            this.children.forEach(function (item, index) {
-	                _this3.HTML = _this3.HTML.replace(item._omiChildStr, _this3.children[_this3._omi_order[index]].HTML);
+	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, _this5.children[_this5._omi_order[index]].HTML);
 	            });
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
@@ -1274,9 +1309,9 @@
 	                }
 	            } else {
 	                if (this.HTML !== "") {
-	                    (0, _diff2['default'])(this.node, this.HTML);
+	                    (0, _morphdom2['default'])(this.node, this.HTML);
 	                } else {
-	                    (0, _diff2['default'])(this.node, this._createHiddenNode());
+	                    (0, _morphdom2['default'])(this.node, this._createHiddenNode());
 	                }
 	            }
 	            //get node prop from parent node
@@ -1289,7 +1324,7 @@
 	    }, {
 	        key: '_childRender',
 	        value: function _childRender(childStr, isFirst) {
-	            var _this4 = this;
+	            var _this6 = this;
 
 	            if (this._omi_removed) {
 	                this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >';
@@ -1301,11 +1336,11 @@
 	            this._extractChildren(this);
 	            if (isFirst) {
 	                this.children.forEach(function (item, index) {
-	                    _this4._omi_order[index] = index;
+	                    _this6._omi_order[index] = index;
 	                });
 	            }
 	            this.children.forEach(function (item, index) {
-	                _this4.HTML = _this4.HTML.replace(item._omiChildStr, _this4.children[_this4._omi_order[index]].HTML);
+	                _this6.HTML = _this6.HTML.replace(item._omiChildStr, _this6.children[_this6._omi_order[index]].HTML);
 	            });
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            return this.HTML;
@@ -1324,12 +1359,12 @@
 	    }, {
 	        key: '_mixRefs',
 	        value: function _mixRefs() {
-	            var _this5 = this;
+	            var _this7 = this;
 
 	            var nodes = _omi2['default'].$$('*[ref]', this.node);
 	            nodes.forEach(function (node) {
-	                if (node.hasAttribute(_this5._omi_scoped_attr)) {
-	                    _this5.refs[node.getAttribute('ref')] = node;
+	                if (node.hasAttribute(_this7._omi_scoped_attr)) {
+	                    _this7.refs[node.getAttribute('ref')] = node;
 	                }
 	            });
 	            var attr = this.node.getAttribute('ref');
@@ -1340,28 +1375,28 @@
 	    }, {
 	        key: '_execPlugins',
 	        value: function _execPlugins() {
-	            var _this6 = this;
+	            var _this8 = this;
 
 	            Object.keys(_omi2['default'].plugins).forEach(function (item) {
-	                var nodes = _omi2['default'].$$('*[' + item + ']', _this6.node);
+	                var nodes = _omi2['default'].$$('*[' + item + ']', _this8.node);
 	                nodes.forEach(function (node) {
-	                    if (node.hasAttribute(_this6._omi_scoped_attr)) {
-	                        _omi2['default'].plugins[item](node, _this6);
+	                    if (node.hasAttribute(_this8._omi_scoped_attr)) {
+	                        _omi2['default'].plugins[item](node, _this8);
 	                    }
 	                });
-	                if (_this6.node.hasAttribute(item)) {
-	                    _omi2['default'].plugins[item](_this6.node, _this6);
+	                if (_this8.node.hasAttribute(item)) {
+	                    _omi2['default'].plugins[item](_this8.node, _this8);
 	                }
 	            });
 	        }
 	    }, {
 	        key: '_childrenInstalled',
 	        value: function _childrenInstalled(root) {
-	            var _this7 = this;
+	            var _this9 = this;
 
 	            root.children.forEach(function (child) {
+	                _this9._childrenInstalled(child);
 	                child.installed();
-	                _this7._childrenInstalled(child);
 	            });
 	        }
 	    }, {
@@ -1434,7 +1469,7 @@
 	    }, {
 	        key: '_generateHTMLCSS',
 	        value: function _generateHTMLCSS() {
-	            this.CSS = this.style() || '';
+	            this.CSS = (this.style() || '').replace(/<\/?style>/g, '');
 	            if (this.CSS) {
 	                this.CSS = _style2['default'].scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
 	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
@@ -1460,13 +1495,13 @@
 	    }, {
 	        key: '_getDataset',
 	        value: function _getDataset(childStr) {
-	            var _this8 = this;
+	            var _this10 = this;
 
 	            var json = (0, _html2json2['default'])(childStr);
 	            var attr = json.child[0].attr;
 	            Object.keys(attr).forEach(function (key) {
 	                if (key.indexOf('data-') === 0) {
-	                    _this8._dataset[_this8._capitalize(key.replace('data-', ''))] = attr[key];
+	                    _this10._dataset[_this10._capitalize(key.replace('data-', ''))] = attr[key];
 	                }
 	            });
 	            return this._dataset;
@@ -1494,7 +1529,7 @@
 	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
-	            var _this9 = this;
+	            var _this11 = this;
 
 	            if (_omi2['default'].customTags.length > 0) {
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
@@ -1507,7 +1542,7 @@
 	                    var attr = json.child[0].attr;
 	                    var name = attr.tag;
 	                    delete attr.tag;
-	                    var cmi = _this9.children[i];
+	                    var cmi = _this11.children[i];
 	                    //if not first time to invoke _extractChildren method
 	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._childRender(childStr);
@@ -1536,11 +1571,11 @@
 	                                    } else {
 	                                        child._omiGroupDataCounter[value] = 0;
 	                                    }
-	                                    groupData = _this9._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
+	                                    groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
 	                                } else if (key.indexOf('data-') === 0) {
-	                                    dataset[_this9._capitalize(key.replace('data-', ''))] = value;
+	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
 	                                } else if (key === 'data') {
-	                                    dataFromParent = _this9._extractPropertyFromString(value, child);
+	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
 	                                }
 	                            });
 
@@ -1649,14 +1684,53 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	function exchange(str, a, b) {
+	    return str.split(a).map(function (item) {
+	        return item.replace(new RegExp(b, 'g'), a);
+	    }).join(b);
+	}
+
+	function safeDoubleQuote(str) {
+	    return JSON.stringify(str).replace(/(^"|"$)/g, '');
+	}
+
+	function safeSingleQuote(str) {
+	    str = exchange(str, "'", '"');
+	    return exchange(safeDoubleQuote(str), "'", '"');
+	}
+
+	function escapeHtml(unsafe) {
+	    return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+	}
+
+	function endsWith(str, end) {
+	    if (String.prototype.endsWith) {
+	        return String.prototype.endsWith.call(str, end);
+	    } else {
+	        return str.substr(str.length - 1, 1) === end;
+	    }
+	}
+
 	function scopedEvent(tpl, id) {
-	    return tpl.replace(/<[\s\S]*?>/g, function (item) {
-	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=('|")([\s\S]*?)\([\s\S]*?\)/g, function (eventStr, b, c, d) {
-	            if (d.indexOf('Omi.instances[') === 0) {
+	    return tpl.replace(/<[\s\S]*?[^=]>/g, function (item) {
+	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=('|"|{)([\s\S]*)('|"|})/g, function (eventStr, eventName, open, str, close) {
+	            if (str.indexOf('Omi.instances[') === 0 || str.indexOf('new Function(') === 0) {
 	                return eventStr;
-	            } else {
-	                return eventStr.replace(/=(['|"])/, '=$1Omi.instances[' + id + '].');
 	            }
+	            if (open === '{') {
+	                // JSX-like event bind
+	                var funcBody = '(' + str + ').bind(Omi.instances[' + id + '])(event)';
+	                var result = 'on' + eventName + '="new Function(\'event\', \'' + escapeHtml(safeSingleQuote(funcBody)) + '\')(event)"';
+	                return result.split('\n').map(function (line) {
+	                    return endsWith(line, ';') ? line : line + ';';
+	                }).join('');
+	            } else {
+	                if (!str.match(/.*?\(.*?\)/)) {
+	                    // if is not JSX-like event and is not a function call (func(xxx, ttt))
+	                    return eventStr;
+	                }
+	            }
+	            return eventStr.replace(/=(['|"])/, '=$1Omi.instances[' + id + '].');
 	        });
 	    });
 	};
