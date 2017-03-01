@@ -16,10 +16,13 @@ class Hello extends Omi.Component {
         super(data);
     }
     style () {
+        //注意，return中的<style></style>包裹是可选的。主要是为了识别为JSX文件可以有CSS高亮。
         return  `
+        <style>
             h1{
                 cursor:pointer;
             }
+        </style>
          `;
     }
     handleClick(target, evt){
