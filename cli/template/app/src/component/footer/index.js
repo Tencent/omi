@@ -1,30 +1,19 @@
 import Omi from 'omi';
 
+const tpl = require('./index.html');
+const css = require('./index.css');
+
 class Footer extends Omi.Component {
     constructor (data) {
         super(data);
     }
 
     style () {
-        return `
-        .footer{
-            position:fixed;
-            height:45px;
-            line-height: 45px;
-            width:100%;
-            bottom:0;
-            color:white;
-            background-color:black;
-            z-index:100;
-        }
-        `;
+        return css;
     }
 
     render () {
-        return `
-    <div class="footer">
-       I am footer
-    </div>`;
+        return tpl;
     }
 }
 

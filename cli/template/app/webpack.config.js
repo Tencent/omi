@@ -29,7 +29,9 @@ var config  = {
                     presets: ['es2015',"stage-0"],
                 },
                 exclude:/node_modules/
-            }
+            },
+            { test: /\.html$/, loader: "string" },
+            { test: /\.css$/, loader: "string" }
         ]
     },
     plugins: [

@@ -25,6 +25,7 @@
     "gulp-rev-collector": "^1.1.1",
     "html-webpack-plugin": "^2.26.0",
     "run-sequence": "^1.2.2",
+    "string-loader": "0.0.1",
     "webpack": "^1.14.0",
     "webpack-stream": "^3.2.0"
   },

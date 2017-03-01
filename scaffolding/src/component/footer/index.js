@@ -1,7 +1,7 @@
 import Omi from 'omi';
 
-const  tpl = require('./index.html');
-const css =  require('./index.css');
+const tpl = require('./index.html');
+const css = require('./index.css');
 
 class Footer extends Omi.Component {
     constructor (data) {
