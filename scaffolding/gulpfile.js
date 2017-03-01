@@ -115,7 +115,7 @@ gulp.task('browser-sync',function(){
 
     if(!isDist) {
         gulp.watch(ENV + '/**').on('change', browserSync.reload);
-        gulp.watch(['src/component/**/*.js', 'src/js/*.js', 'common/*.js'], function () {
+        gulp.watch(['src/component/**/*.**', 'src/js/*.js', 'common/*.js'], function () {
             runSequence(
                 'webpack',
                 'replace');
