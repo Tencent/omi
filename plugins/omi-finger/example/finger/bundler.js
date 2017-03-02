@@ -93,7 +93,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div>\n            <div omi-finger class="touchArea" ref="touchArea" onTap="handleTap"  onSwipe="handleSwipe" >\n                Tap or Swipe Me!\n            </div>\n        </div>\n        ';
+	            return '\n        <div>\n            <div omi-finger class="touchArea" ref="touchArea" tap="handleTap"  swipe="handleSwipe" >\n                Tap or Swipe Me!\n            </div>\n        </div>\n        ';
 	        }
 	    }]);
 
@@ -1945,7 +1945,7 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/*!
-	 *  omi-finger v0.1.0 by dntzhang
+	 *  omi-finger v0.1.3 by dntzhang
 	 *  Omi / AlloyFinger integration. Support touch and gesture events in your Omi project.
 	 *  Github: https://github.com/AlloyTeam/omi
 	 *  MIT Licensed.
@@ -1960,9 +1960,7 @@
 	    var noop = function noop() {};
 
 	    var getHandler = function getHandler(name, dom, instance) {
-	        var evtName = 'on' + name.substring(0, 1).toUpperCase() + name.substring(1);
-
-	        var value = dom.getAttribute(evtName);
+	        var value = dom.getAttribute(name);
 	        if (value === null) {
 	            return noop;
 	        } else {
