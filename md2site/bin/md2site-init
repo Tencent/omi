@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+const program = require('commander')
+
+program
+    .arguments('[project-name]')
+    .parse(process.argv);
+
+require('../lib/init')(program)
