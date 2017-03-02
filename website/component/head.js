@@ -135,7 +135,7 @@ class Head extends Omi.Component {
     render () {
         return `
     <div class="head bord-btm">
-        <div class="m_menu" omi-finger onTap="toggleMenus" onTouchEnd="handleTouchEnd"> <img src="../asset/menu.png" alt="" /></div>
+        <div class="m_menu" omi-finger tap="toggleMenus" touchEnd="handleTouchEnd"> <img src="../asset/menu.png" alt="" /></div>
         <div class="logo_box">
             <a href="https://github.com/AlloyTeam/omi">Omi</a>
         </div>
