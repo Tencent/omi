@@ -63,6 +63,13 @@ $ npm install omi
 
 如果使用omi.lite.js版本(不包含[mustache.js](https://github.com/janl/mustache.js)模板引擎)的话，也可以[使用 ${this.data.name} 的方式](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
 
+## CDN
+
+* [https://unpkg.com/omi@0.4.2/dist/omi.min.js](https://unpkg.com/omi@0.4.2/dist/omi.min.js)
+* [https://unpkg.com/omi@0.4.2/dist/omi.js](https://unpkg.com/omi@0.4.2/dist/omi.js)
+* [https://unpkg.com/omi@0.4.2/dist/omi.lite.min.js](https://unpkg.com/omi@0.4.2/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@0.4.2/dist/omi.lite.js](https://unpkg.com/omi@0.4.2/dist/omi.lite.js)
+
 ## [﻿中文](https://github.com/AlloyTeam/omi#中文--english) | English
 
 * If you want to experience the Omi framework, you can visit [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
@@ -114,6 +121,13 @@ You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)�
 * [[Hello World ES5  ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
 
 if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js))，you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
+
+## CDN
+
+* [https://unpkg.com/omi@0.4.2/dist/omi.min.js](https://unpkg.com/omi@0.4.2/dist/omi.min.js)
+* [https://unpkg.com/omi@0.4.2/dist/omi.js](https://unpkg.com/omi@0.4.2/dist/omi.js)
+* [https://unpkg.com/omi@0.4.2/dist/omi.lite.min.js](https://unpkg.com/omi@0.4.2/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@0.4.2/dist/omi.lite.js](https://unpkg.com/omi@0.4.2/dist/omi.lite.js)
 
 ## Contributors
 
