@@ -59,7 +59,7 @@ if(ENV === 'dist'){
 }else{
     config.entry.vendor = ['omi','./src/common/class_list.js'];
     config.output.filename = '[name].js';
-    config.plugins[1] = new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.[chunkhash:8].js")
+    config.plugins[1] = new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.js")
 }
 
 
