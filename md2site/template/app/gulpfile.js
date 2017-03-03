@@ -7,9 +7,9 @@ var del = require('del'),
     rev = require('gulp-rev'),
     revCollector = require('gulp-rev-collector'),
     header = require('gulp-header'),
-    cdnReplace = require('gulp-cdn-replace2'),
     browserSync = require('browser-sync').create(),
-    config = require('./project.js');
+    config = require('./project.js'),
+    urlPrefix = require('gulp-html-url-prefix');
 
 var assets = [],
     cdn = config.cdn,
@@ -102,11 +102,8 @@ gulp.task('replace', function() {
 
 gulp.task('cdnReplace', function() {
     return gulp.src('./dist/*.html')
-        .pipe(cdnReplace({
-            dir: './dist',
-            root: {
-                css: cdn
-            }
+        .pipe(urlPrefix({
+            prefix: cdn
         }))
         .pipe(gulp.dest('./dist'));
 });
