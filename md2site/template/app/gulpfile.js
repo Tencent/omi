@@ -7,7 +7,7 @@ var del = require('del'),
     rev = require('gulp-rev'),
     revCollector = require('gulp-rev-collector'),
     header = require('gulp-header'),
-    cdnReplace = require('gulp-cdn-replace'),
+    cdnReplace = require('gulp-cdn-replace2'),
     browserSync = require('browser-sync').create(),
     config = require('./project.js');
 
@@ -66,7 +66,7 @@ gulp.task('copyCommon', function() {
 });
 
 gulp.task('copyComponent', function() {
-    return gulp.src(['src/component/**','!src/component/**/*.js']).pipe(gulp.dest(ENV+'/component'));
+    return gulp.src(['src/component/**','!src/component/**/*.js','!src/component/**/*.html','!src/component/**/*.css']).pipe(gulp.dest(ENV+'/component'));
 });
 
 gulp.task('fixEvn', function() {

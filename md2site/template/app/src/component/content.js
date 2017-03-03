@@ -3,7 +3,8 @@ import config from '../js/config.js';
 
 function getMarkDown(name,lan) {
     let md = require("md-text!../docs/" + lan + "/" + name + ".md");
-    return md.substring(0, md.length - 1).replace(/\\r\\n/g, "\r\n").replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace('module.exports = "', "").replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+    return md;
+    //return md.substring(0, md.length - 1).replace(/\\r\\n/g, "\r\n").replace(/\\n/g, "\n").replace(/\\t/g, "\t").replace('module.exports = "', "").replace(/\\"/g, '"').replace(/\\\\/g, '\\');
 }
 
 function getMarkDownByArr(arr , lan) {
@@ -23,10 +24,6 @@ class Content extends Omi.Component {
         },data);
         super(data);
 
-        //document.onclick= ()=>{
-        //   var a =  getMarkDown('form','en');
-        //    console.log(a);
-        //}
     }
 
     installed(){

@@ -1,6 +1,6 @@
 ﻿import Omi from 'omi';
 import config from '../js/config.js';
-import OmiFinger from '../common/omi-finger.js';
+import OmiFinger from 'omi-finger';
 
 OmiFinger.init();
 
@@ -51,8 +51,8 @@ class Pager extends Omi.Component {
         if(config.isMobile) {
             return `
     <div class="pager">
-      {{#preName}} <a class="pre" href="#" omi-finger onTap="handleTap" data-dir="pre" data-name="{{preMd}}">←{{preName}}</a>{{/preName}}
-      {{#nextName}}<a class="next" href="#" omi-finger onTap="handleTap" data-dir="next" data-name="{{nextMd}}">{{nextName}}→</a> {{/nextName}}
+      {{#preName}} <a class="pre" href="#" omi-finger tap="handleTap" data-dir="pre" data-name="{{preMd}}">←{{preName}}</a>{{/preName}}
+      {{#nextName}}<a class="next" href="#" omi-finger tap="handleTap" data-dir="next" data-name="{{nextMd}}">{{nextName}}→</a> {{/nextName}}
     </div>`;
         }else{
             return`

@@ -7,7 +7,8 @@
     "dist": "gulp"
   },
   "dependencies": {
-    "omi": "latest"
+    "omi": "latest",
+    "omi-finger": "latest"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -17,16 +18,16 @@
     "browser-sync": "^2.18.6",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "gulp-cdn-replace": "^0.6.0",
+    "gulp-cdn-replace2": "^0.6.1",
     "gulp-csso": "^2.0.0",
     "gulp-header": "^1.8.8",
     "gulp-html-replace": "^1.6.2",
     "gulp-rev": "^7.1.2",
     "gulp-rev-collector": "^1.1.1",
     "html-webpack-plugin": "^2.26.0",
+    "md-text-loader": "^0.1.0",
     "run-sequence": "^1.2.2",
     "string-loader": "0.0.1",
-    "md-text-loader": "^0.1.0",
     "webpack": "^1.14.0",
     "webpack-stream": "^3.2.0"
   },
