@@ -1,6 +1,6 @@
 import Omi from 'omi';
-import List from './list.js';
-import config from '../js/config.js';
+import List from './list/index.js';
+import config from '../docs/config.js';
 
 Omi.makeHTML('List', List);
 

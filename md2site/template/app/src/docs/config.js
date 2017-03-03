@@ -1,9 +1,5 @@
 ﻿let config = {
     isMobile: false,
-    mds: {
-        cn: ['components', 'communication'],
-        en: ['communication']
-    },
     menus: {
         cn: [
             {
@@ -11,6 +7,10 @@
                 title: '快速开始',
                 currentIndex:0,
                 list: [
+                    {
+                        'name': '安装',
+                        md: 'installation'
+                    },
                     {
                         'name': '组件',
                         md: 'components',
@@ -31,11 +31,13 @@
         ],
         en: [
             {
+                active: true,
                 title: 'QUICK START',
                 currentIndex:0,
                 list: [
+                    {'name': 'Installation', md: 'installation'},
+                    {'name': 'Components', md: 'components'},
                     {'name': 'Communication', md: 'communication'}
-
                 ]
             }
         ]

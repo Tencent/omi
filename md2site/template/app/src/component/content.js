@@ -1,5 +1,5 @@
 import Omi from 'omi';
-import config from '../js/config.js';
+import config from '../docs/config.js';
 
 function getMarkDown(name,lan) {
     let md = require("md-text!../docs/" + lan + "/" + name + ".md");
