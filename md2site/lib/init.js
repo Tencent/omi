@@ -19,7 +19,7 @@ function init(program) {
     }
 
     console.log()
-    console.log(`Creating a new Omi app in ${dest}`)
+    console.log(`Creating a new md2site app in ${dest}`)
 
    /*
     * Use vinyl-fs to init file
@@ -62,7 +62,7 @@ In ${projectName}, you can run these commands:
   > ${chalk.bold.white('npm run dev')}         Starts the development server
   > ${chalk.bold.white('npm run dist')}        Publish your project`)
         console.log()
-        console.log(`${chalk.bold.cyan('Omi!')} https://alloyteam.github.io/omi` )
+        console.log(`${chalk.bold.cyan('md2site!')} https://alloyteam.github.io/omi` )
 
     }
     

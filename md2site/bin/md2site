@@ -23,7 +23,7 @@ if (cmdstr) {
     const binFile = executable(cmdstr)
     if (binFile) {
         console.log()
-        console.log(chalk.bold.cyan("Omi-cli") + " is initializing... ")
+        console.log(chalk.bold.cyan("md2site-cli") + " is initializing... ")
         secede(spawn('node', [].concat([binFile], args), {stdio: 'inherit'}))
     } else {
         program.help();
@@ -35,13 +35,13 @@ if (cmdstr) {
 function help() {
     console.log('  Commands:')
     console.log()
-    console.log('    init  [project-name]          Initialize a new Omi application in the current folder ')
+    console.log('    init  [project-name]          Initialize a new md2site application in the current folder ')
     console.log()
     console.log('  All commands can be run with -h (or --help) for more information.')
 }
 
 function executable(cmdstr) {
-    const file = join(__dirname, 'omi-' + cmdstr)
+    const file = join(__dirname, 'md2site-' + cmdstr)
     if (exists(file)) {
         return file
     }

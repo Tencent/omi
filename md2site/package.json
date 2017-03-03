@@ -1,6 +1,6 @@
 {
   "name": "md2site",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "CLI for scaffolding Omi.js projects.",
   "main": "bin/md2site",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "preferGlobal": true,
   "bin": {
-    "omi": "./bin/omi"
+    "omi": "./bin/md2site"
   },
   "repository": {
     "type": "git",
@@ -16,9 +16,13 @@
   },
   "keywords": [
     "omi",
+    "markdown",
+    "md2site",
+    "doc",
+    "docs",
     "cli"
   ],
-  "author": "pasturn",
+  "author": "dntzhang",
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.3",
