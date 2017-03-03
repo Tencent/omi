@@ -7,5 +7,9 @@ Omi.template = function(tpl, data){
 
 Omi.Component = Component;
 
-window.Omi=Omi;
-module.exports = Omi;
+if(window.Omi){
+    module.exports = window.Omi;
+}else {
+    window.Omi = Omi;
+    module.exports = Omi;
+}

@@ -1,5 +1,5 @@
 /*!
- *  Omi v0.4.2 By dntzhang 
+ *  Omi v0.4.3 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -77,8 +77,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	_omi2['default'].Component = _component2['default'];
 
-	window.Omi = _omi2['default'];
-	module.exports = _omi2['default'];
+	if (window.Omi) {
+	    module.exports = window.Omi;
+	} else {
+	    window.Omi = _omi2['default'];
+	    module.exports = _omi2['default'];
+	}
 
 /***/ },
 /* 1 */
@@ -884,56 +888,58 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._childRender(childStr);
 	                    } else {
-	                        var baseData = {};
-	                        var dataset = {};
-	                        var dataFromParent = {};
-	                        var groupData = {};
-	                        var omiID = null;
-	                        var instanceName = null;
-	                        Object.keys(attr).forEach(function (key) {
-	                            var value = attr[key];
-	                            if (key.indexOf('on') === 0) {
-	                                var handler = child[value];
-	                                if (handler) {
-	                                    baseData[key] = handler.bind(child);
+	                        (function () {
+	                            var baseData = {};
+	                            var dataset = {};
+	                            var dataFromParent = {};
+	                            var groupData = {};
+	                            var omiID = null;
+	                            var instanceName = null;
+	                            Object.keys(attr).forEach(function (key) {
+	                                var value = attr[key];
+	                                if (key.indexOf('on') === 0) {
+	                                    var handler = child[value];
+	                                    if (handler) {
+	                                        baseData[key] = handler.bind(child);
+	                                    }
+	                                } else if (key === 'omi-id') {
+	                                    omiID = value;
+	                                } else if (key === 'name') {
+	                                    instanceName = value;
+	                                } else if (key === 'group-data') {
+	                                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                                        child._omiGroupDataCounter[value]++;
+	                                    } else {
+	                                        child._omiGroupDataCounter[value] = 0;
+	                                    }
+	                                    groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
+	                                } else if (key.indexOf('data-') === 0) {
+	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
+	                                } else if (key === 'data') {
+	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
 	                                }
-	                            } else if (key === 'omi-id') {
-	                                omiID = value;
-	                            } else if (key === 'name') {
-	                                instanceName = value;
-	                            } else if (key === 'group-data') {
-	                                if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                                    child._omiGroupDataCounter[value]++;
-	                                } else {
-	                                    child._omiGroupDataCounter[value] = 0;
-	                                }
-	                                groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
-	                            } else if (key.indexOf('data-') === 0) {
-	                                dataset[_this11._capitalize(key.replace('data-', ''))] = value;
-	                            } else if (key === 'data') {
-	                                dataFromParent = _this11._extractPropertyFromString(value, child);
+	                            });
+
+	                            var ChildClass = _omi2['default'].getClassFromString(name);
+	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
+	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
+	                            sub_child._omiChildStr = childStr;
+	                            sub_child.parent = child;
+	                            sub_child.___omi_constructor_name = name;
+	                            sub_child._dataset = {};
+	                            sub_child.install();
+
+	                            omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                            instanceName && (child[instanceName] = sub_child);
+
+	                            if (!cmi) {
+	                                child.children.push(sub_child);
+	                            } else {
+	                                child.children[i] = sub_child;
 	                            }
-	                        });
 
-	                        var ChildClass = _omi2['default'].getClassFromString(name);
-	                        if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                        var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
-	                        sub_child._omiChildStr = childStr;
-	                        sub_child.parent = child;
-	                        sub_child.___omi_constructor_name = name;
-	                        sub_child._dataset = {};
-	                        sub_child.install();
-
-	                        omiID && (_omi2['default'].mapping[omiID] = sub_child);
-	                        instanceName && (child[instanceName] = sub_child);
-
-	                        if (!cmi) {
-	                            child.children.push(sub_child);
-	                        } else {
-	                            child.children[i] = sub_child;
-	                        }
-
-	                        sub_child._childRender(childStr, true);
+	                            sub_child._childRender(childStr, true);
+	                        })();
 	                    }
 	                });
 	            }
@@ -1038,6 +1044,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 	}
 
+	function endsWith(str, end) {
+	    if (String.prototype.endsWith) {
+	        return String.prototype.endsWith.call(str, end);
+	    } else {
+	        return str.substr(str.length - 1, 1) === end;
+	    }
+	}
+
 	function scopedEvent(tpl, id) {
 	    return tpl.replace(/<[\s\S]*?[^=]>/g, function (item) {
 	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=('|"|{)([\s\S]*)('|"|})/g, function (eventStr, eventName, open, str, close) {
@@ -1049,7 +1063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var funcBody = '(' + str + ').bind(Omi.instances[' + id + '])(event)';
 	                var result = 'on' + eventName + '="new Function(\'event\', \'' + escapeHtml(safeSingleQuote(funcBody)) + '\')(event)"';
 	                return result.split('\n').map(function (line) {
-	                    return line.endsWith(';') ? line : line + ';';
+	                    return endsWith(line, ';') ? line : line + ';';
 	                }).join('');
 	            } else {
 	                if (!str.match(/.*?\(.*?\)/)) {

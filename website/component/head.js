@@ -1,5 +1,5 @@
 ﻿import Omi from '../../src/index.js';
-import OmiFinger from '../common/omi-finger.js';
+import OmiFinger from '../../plugins/omi-finger/omi-finger.js';
 
 OmiFinger.init();
 
