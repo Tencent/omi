@@ -1,6 +1,6 @@
 {
   "name": "md2site",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "CLI for scaffolding Omi.js projects.",
   "main": "bin/md2site",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "preferGlobal": true,
   "bin": {
-    "omi": "./bin/md2site"
+    "md2site": "./bin/md2site"
   },
   "repository": {
     "type": "git",
