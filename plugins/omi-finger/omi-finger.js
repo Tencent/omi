@@ -31,7 +31,17 @@
 
     OmiFinger.init = function(){
         Omi.extendPlugin('omi-finger',function(dom, instance){
-            new AlloyFinger(dom,{
+            if(!instance.alloyFingerInstances)instance.alloyFingerInstances = [];
+            var len = instance.alloyFingerInstances.length;
+            var i = 0 ;
+            for(;i<len;i++){
+                if(instance.alloyFingerInstances[i].dom===dom){
+                    instance.alloyFingerInstances[i].fg.destroy();
+                    instance.alloyFingerInstances.splice(i,1);
+                    break;
+                }
+            }
+            var alloyFinger = new AlloyFinger(dom,{
                 touchStart: getHandler('touchStart', dom, instance),
                 touchMove: getHandler('touchMove', dom, instance),
                 touchEnd: getHandler('touchEnd', dom, instance),
@@ -48,6 +58,7 @@
                 swipe: getHandler('swipe', dom, instance)
 
             });
+            instance.alloyFingerInstances.push({fg:alloyFinger,dom:dom});
         });
     }
 
