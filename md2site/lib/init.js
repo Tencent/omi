@@ -55,12 +55,12 @@ function init(program) {
         success(`Congratulation! "${projectName}" has been created successful! `)
         console.log(`
         
-Using the scaffold with Gulp + Webpack + Babel + BrowserSync,
+Write your markdowns and config the website in docs folder,
 
 In ${projectName}, you can run these commands:
 
-  > ${chalk.bold.white('npm run dev')}         Starts the development server
-  > ${chalk.bold.white('npm run dist')}        Publish your project`)
+  > ${chalk.bold.white('npm run dev')}       Preview the website
+  > ${chalk.bold.white('npm run dist')}      Generate and publish the website`)
         console.log()
         console.log(`${chalk.bold.cyan('md2site!')} https://alloyteam.github.io/omi` )
 

@@ -23,7 +23,7 @@ if (cmdstr) {
     const binFile = executable(cmdstr)
     if (binFile) {
         console.log()
-        console.log(chalk.bold.cyan("md2site-cli") + " is initializing... ")
+        console.log(chalk.bold.cyan("md2site") + " is initializing... ")
         secede(spawn('node', [].concat([binFile], args), {stdio: 'inherit'}))
     } else {
         program.help();

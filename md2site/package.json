@@ -1,7 +1,7 @@
 {
   "name": "md2site",
-  "version": "0.0.3",
-  "description": "CLI for scaffolding Omi.js projects.",
+  "version": "0.1.0",
+  "description": "Transform Markdown to Website base on Omi Framework.",
   "main": "bin/md2site",
   "engines": {
     "node": ">=6.0.0"
