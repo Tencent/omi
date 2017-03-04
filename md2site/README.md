@@ -23,6 +23,8 @@ md2site will run 'npm install' to install dependencies.
 
 ### Write your markdown and preview
 
+Write your markdowns and config the website in docs folder, you can run the command to preview the docs:
+
 ``` js
 $ npm run dev
 ```
