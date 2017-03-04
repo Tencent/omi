@@ -73,7 +73,7 @@ class Content extends Omi.Component {
             name: 'installation'
         },data);
         super(data);
-        this.md = new Remarkable();
+        this.md = new Remarkable({html:true});
     }
     getMarkDown(name,lan) {
         return require("md-text!../docs/" + lan + "/" + name + ".md");
