@@ -9,7 +9,7 @@
 通过npm安装Omi，你只需要执行下面的命令:
 
 ``` js
-npm install omi
+$ npm install omi
 ```
 
 ## omi-cli

@@ -23,7 +23,7 @@ class Content extends Omi.Component {
             name: 'installation'
         },data);
         super(data);
-
+        this.md = new Remarkable();
     }
 
     installed(){
@@ -34,52 +34,17 @@ class Content extends Omi.Component {
         this.initCodeStyle();
     }
 
-    initCodeStyle(lh) {
-
+    initCodeStyle() {
         var codes = document.querySelectorAll("code");
         for (let i = 0, len = codes.length; i < len; i++) {
-            //innerText bug£¿ie11 remove the \r\n??
-            // detail:  http://www.cnblogs.com/fsjohnhuang/p/4319635.html
-            // so textContent
-            var html = Prism.highlight(codes[i].textContent, Prism.languages.javascript);
-            codes[i].innerHTML = html;
-            codes[i].classList&&codes[i].classList.add('language-js');
+            hljs.highlightBlock(codes[i])
+            console.log(codes[i])
         }
-        Omi.$$('pre').forEach((item)=> {
-            item.classList&&item.classList.add('language-js');
-        })
-
-        if(window.innerWidth>640) {
-            let pres = document.querySelectorAll("pre");
-            let highlight = this.getHighLight();
-
-            if (highlight) {
-                for (let key in highlight) {
-                    pres[key] && pres[key].setAttribute("data-line", highlight[key]);
-                }
-                if (!lh)lineHighLight();
-            }
-        }
-    }
-
-    getHighLight(){
-        let hl = null;
-         config.menus[this.data.lan].forEach((menu)=>{
-             menu.list.forEach((item)=>{
-                if(item.md === this.data.name){
-                    hl = item.highlight;
-                }
-            })
-        })
-        return hl;
-    }
-
-    installed(){
 
     }
 
     render () {
-        this.data.html = marked(getMarkDown(this.data.name, this.data.lan));
+        this.data.html = this.md.render(getMarkDown(this.data.name, this.data.lan));
         return `
         <div class="content">
             {{{html}}}

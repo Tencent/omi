@@ -1,7 +1,7 @@
 {
-  "name": "omis",
-  "version": "0.1.2",
-  "description": "Scaffolding for Omi.js",
+  "name": "your-project-name",
+  "version": "0.0.0",
+  "description": "",
   "scripts": {
     "dev": "gulp",
     "dist": "gulp"
@@ -36,8 +36,8 @@
     "url": "git+https://github.com/AlloyTeam/omi.git"
   },
   "keywords": [
-    "omi",
-    "omis"
+    "md2site",
+    "omi"
   ],
   "author": "dntzhang",
   "license": "MIT",

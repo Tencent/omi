@@ -17,9 +17,12 @@ class Frame extends Omi.Component {
 
     install() {
         this.setViewport();
-        window.onreszie = ()=>{
-            this.setViewport();
-            this.update();
+        window.onresize = ()=>{
+            if(  window.innerWidth < 768) {
+                this.refs.main.style.width = '100%';
+            }else{
+                this.refs.main.style.width = (window.innerWidth - 220)+'px';
+            }
         }
     }
 
@@ -54,7 +57,7 @@ class Frame extends Omi.Component {
     render() {
         return `<div>
                     <Head data-lan="{{lan}}" />
-                    <div class="main"  style="width:{{width}};">
+                    <div class="main" ref="main"  style="width:{{width}};">
                         <Content  omi-id="content" data-lan="{{lan}}" />
                         <Pager omi-id="pager" data-lan="{{lan}}" />
                     </div>

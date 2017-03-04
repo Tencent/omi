@@ -12,8 +12,8 @@
 
 ### data-*通讯 
 
-```js
-class Hello extends Omi.Component {
+```js hll-22_1-5
+class Hello2 extends Omi.Component {
     constructor(data) {
       super(data);
     }

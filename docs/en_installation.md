@@ -9,7 +9,7 @@ We recommend using  [npm](https://www.npmjs.com/) for managing front-end depende
 To install Omi with npm, run:
 
 ``` js
-npm install omi
+$ npm install omi
 ```
 ### omi-cli
 

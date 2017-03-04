@@ -77,10 +77,6 @@ class Content extends Omi.Component {
         return hl;
     }
 
-    installed(){
-
-    }
-
     render () {
         this.data.html = marked(getMarkDown(this.data.name, this.data.lan));
         return `

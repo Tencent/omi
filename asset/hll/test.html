@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="monokai-sublime.css">
+    <style>
+        .line {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<pre omi_scoped_2=""><code omi_scoped_2="" class="language-js hll-22_1-5">class Todo extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+    add (evt) {
+        evt.preventDefault();
+        this.data.items.push(this.data.text);
+        this.data.text = '';
+        this.update();
+    }
+
+    style () {
+        return `
+        h3 { color:red; }
+        button{ color:green;}
+        `;
+    }
+
+    handleChange(target){
+        this.data.text = target.value;
+    }
+
+
+Omi.render(new Todo({ items: [] ,text : '' }),"body");
+    
+</code></pre>
+    <script src="highlight.pack.js"></script>
+ <script>
+     // Iterates through `array`, running `callback` for each `array` element.
+     function forEach(array, callback) {
+         var i = -1, length = array ? array.length : 0;
+         while (++i < length) {
+             callback(array[i]);
+         }
+     }
+
+     function indexOf(array, elem) {
+         var i = -1, length = array ? array.length : 0;
+         while (++i < length) {
+             if (array[i] === elem) {
+                 return i;
+             }
+         }
+     }
+     function initialize(e) {
+         // Initialize code only once.
+         // TODO: figure out why `initialize` is being called twice.
+         if (initialize.ran) {
+             return;
+         }
+         initialize.ran = true;
+
+         // TODO: mark as parsed.
+         forEach(document.querySelectorAll('pre code'), function(element) {
+             // Trim whitespace if the `data-trim` attribute is present.
+             if (element.hasAttribute('data-trim') && typeof element.innerHTML.trim == 'function') {
+                 element.innerHTML = element.innerHTML.trim();
+             }
+
+             // Highlight code using highlight.js.
+             hljs.highlightBlock(element);
+
+             // Split highlighted code into lines.
+             var openTags = [], reHtmlTag = /<(\/?)span(?:\s+(?:class=(['"])hljs-.*?\2)?\s*|\s*)>/g;
+             element.innerHTML = element.innerHTML.replace(/(.*?)\r?\n/g, function(_, string) {
+                 if (!string) {
+                     return '<span class=line>&nbsp;</span>';
+                 }
+                 var openTag, stringPrepend;
+                 // Re-open all tags that were previously closed.
+                 if (openTags.length) {
+                     stringPrepend = openTags.join('');
+                 }
+                 // Match all HTML `<span>` tags.
+                 reHtmlTag.lastIndex = 0;
+                 while (openTag = reHtmlTag.exec(string)) {
+                     // If it is a closing tag, remove the opening tag from the list.
+                     if (openTag[1]) {
+                         openTags.pop();
+                     }
+                     // Otherwise if it is an opening tag, push it to the list.
+                     else {
+                         openTags.push(openTag[0]);
+                     }
+                 }
+                 // Close all opened tags, so that strings can be wrapped with `span.line`.
+                 if (openTags.length) {
+                     string += Array(openTags.length + 1).join('</span>');
+                 }
+                 if (stringPrepend) {
+                     string = stringPrepend + string;
+                 }
+                 return '<span class=line>' + string + '</span>';
+             });
+         });
+
+     }
+
+
+     initialize();
+ </script>
+<script>
+hljs.highlightBlock(document.querySelector('code'))
+</script>
+</body>
+</html>
