@@ -61,3 +61,21 @@ table,td,th{
         top: 0em;
     }
 }
+
+*{
+    box-sizing: border-box;
+}
+code.hljs{
+    padding-left: 14px;
+}
+.line.highlight{
+    background-color: #f7ebc6;
+    border-left: 5px solid #f7d87c;
+    display: block;
+    margin-left: -14px;
+    margin-right: -14px;
+    padding-left: 9px;
+}
+.line {
+    display: block;
+}
