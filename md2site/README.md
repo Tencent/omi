@@ -13,6 +13,9 @@ $ npm install md2site -g
 
 ```
 $ md2site init                     // in current directory
+```
+or 
+```
 $ md2site init your_project_name   // in new directroy named project name
 ```
 
