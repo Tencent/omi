@@ -1,5 +1,8 @@
 import Omi from 'omi';
-import config from '../docs/config.js';
+import config from '../../docs/config.js';
+
+const tpl = require('./index.html');
+const css = require('./index.css');
 
 // Iterates through `array`, running `callback` for each `array` element.
 function forEach(array, callback) {
@@ -76,7 +79,7 @@ class Content extends Omi.Component {
         this.md = new Remarkable({html:true});
     }
     getMarkDown(name,lan) {
-        return require("md-text!../docs/" + lan + "/" + name + ".md");
+        return require("md-text!../../docs/" + lan + "/" + name + ".md");
     }
 
     installed(){
@@ -134,38 +137,11 @@ class Content extends Omi.Component {
 
     render () {
         this.data.html = this.md.render(this.getMarkDown(this.data.name, this.data.lan));
-        return `
-        <div class="content">
-            {{{html}}}
-        </div>
-        `;
+        return tpl;
     }
 
     style () {
-        return `
-    <style>
-        .content{
-             width: 80%;
-        }
-        h3{
-            color:#444444;
-        }
-        pre{
-            border: 1px solid #eee;
-            width: 100%;
-        }
-        li{
-            text-indent: 20px;
-            list-style:disc inside ;
-        }
-
-         @media only screen and (max-width: 768px) {
-           .content{
-             width: 100%;
-           }
-        }
-     </style>
-        `;
+        return css;
     }
 }
 

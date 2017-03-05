@@ -1,5 +1,5 @@
 ﻿import Omi from 'omi';
-import config from '../docs/config.js';
+import config from '../../docs/config.js';
 import OmiFinger from 'omi-finger';
 
 OmiFinger.init();
@@ -91,34 +91,7 @@ class Pager extends Omi.Component {
     }
 
     style () {
-        return `
-    <style>
-        .pager {
-            width:85%;
-            height:80px;
-            line-height:80px;
-            position: relative;
-            font-size:16px;
-        }
-
-        @media only screen and (max-width: 768px) {
-            .pager {
-                width:100%;
-            }
-        }
-
-        .pre{
-            position: absolute;
-            left:10px;
-            top:10px;
-        }
-         .next{
-            position: absolute;
-            right:10px;
-            top:10px;
-        }
-    </style>
-        `;
+        return require('./index.css');
     }
 
 }

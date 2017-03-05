@@ -1,9 +1,9 @@
 import Omi from 'omi';
-import Content from './content.js';
-import Sidebar from './sidebar.js';
+import Content from './content/index.js';
+import Sidebar from './sidebar/index.js';
 import Head from './head/index.js';
 import config from '../docs/config.js';
-import Pager from './pager.js';
+import Pager from './pager/index.js';
 
 Omi.makeHTML('Content', Content);
 Omi.makeHTML('Sidebar', Sidebar);
