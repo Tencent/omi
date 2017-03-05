@@ -53,7 +53,6 @@ class Frame extends Omi.Component {
         `;
     }
 
-
     render() {
         return `<div>
                     <Head data-lan="{{lan}}" />

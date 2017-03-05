@@ -12,7 +12,7 @@ Let's see some examples.
 
 ### Communicate by `data-*`
 
-```js
+```js {23,1-5}
 class Hello extends Omi.Component {
     constructor(data) {
       super(data);

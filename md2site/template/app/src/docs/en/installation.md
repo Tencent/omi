@@ -13,7 +13,7 @@ $ npm install omi
 ```
 ### omi-cli
 
-``` js
+``` js {1}
 $ npm install omi-cli -g       
 $ omi init your_project_name   
 $ cd your_project_name         
