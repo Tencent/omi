@@ -12,7 +12,7 @@
 
 ### data-*通讯 
 
-```js
+```js {23,33}
 class Hello extends Omi.Component {
     constructor(data) {
       super(data);
