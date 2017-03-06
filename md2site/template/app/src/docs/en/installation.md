@@ -1,22 +1,28 @@
-<h2 id="Installation">Installation</h2>
+## Introduction 
 
-[Omi](https://github.com/AlloyTeam/omi) is open and modern framework  for building user interfaces.
+Md2site is a fast, simple & powerful framework that can be used for transformation of markdown to website based on [Omi](https://github.com/AlloyTeam/omi).
 
-### Installing Omi
-
-We recommend using  [npm](https://www.npmjs.com/) for managing front-end dependencies. If you're new to package managers.
-
-To install Omi with npm, run:
+## Usage
 
 ``` js
-$ npm install omi
+$ npm install md2site -g
+$ md2site init your_project_name
+$ cd your_project_name
+$ npm run dev
+$ npm run dist
 ```
-### omi-cli
 
-``` js {1}
-$ npm install omi-cli -g       
-$ omi init your_project_name   
-$ cd your_project_name         
-$ npm run dev                  
-$ npm run dist                 
-```
+### Md2site VS Hexo
+
+|    | Md2site        | Hexo  |
+| ------------- |:-------------:|:-----:|
+| Markdown support | ★★★★★| ★★★★★ |
+| File size of generated website | ★★★☆☆   |   ★★★★★ |
+| Difficulty of getting started  | ★★★★★| ★★★★★ |
+|  Secondary development | ★★★★☆     |   ★★★★★ |
+| Themes and plugins  | ★★★★★     |   ★★★★☆ |
+| Code specifies row highlight | ★★★★☆    |   ★★★★★ |
+| Multi language support | ★★★★☆    |   ★★★★★ |
+| Responsive | ★★★★★    |   ★★★★★ |
+
+    Note: more stars mean win.

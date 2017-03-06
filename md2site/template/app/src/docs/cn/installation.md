@@ -1,25 +1,28 @@
-<h2 id="安装">安装</h2>
+## 简介
 
-[Omi](https://github.com/AlloyTeam/omi)（读音 / [ˈomɪ] /, 汉字类似于 欧米） 是一款用于创建用户界面的组件化框架，开放并且现代，故得名：Omi。
+Md2site是基于[Omi](https://github.com/AlloyTeam/omi)的一款Markdown转网站工具，使用简单，生成的文件轻巧，功能强大。
 
-### 安装 Omi
-
-我们推荐使用  [npm](https://www.npmjs.com/) 来管理你的前端依赖.
-
-通过npm安装Omi，你只需要执行下面的命令:
+## 安装使用 md2site
 
 ``` js
-$ npm install omi
+$ npm install md2site -g
+$ md2site init your_project_name
+$ cd your_project_name
+$ npm run dev
+$ npm run dist
 ```
 
-## omi-cli
+## Md2site 与 Hexo 对比
 
-你也可以通过omi-cli去初始化你的项目:
+|    | Md2site        | Hexo  |
+| ------------- |:-------------:|:-----:|
+| Markdown支持 | ★★★★★| ★★★★★ |
+| 网站文件尺寸    | ★★★☆☆   |   ★★★★★ |
+| 上手难度  | ★★★★★| ★★★★★ |
+| 二次开发 | ★★★★☆     |   ★★★★★ |
+| 主题与插件 | ★★★★★     |   ★★★★☆ |
+| 代码指定行高亮 | ★★★★☆    |   ★★★★★ |
+| 多语言支持 | ★★★★☆    |   ★★★★★ |
+| 响应式 | ★★★★★    |   ★★★★★ |
 
-``` js {1}
-$ npm install omi-cli -g       //安装cli
-$ omi init your_project_name   //初始化项目，你也可以在一个空的文件夹下执行 omi init
-$ cd your_project_name         //如果你是在空文件夹下执行的 omi init。请无视这条命令
-$ npm run dev                  //开发
-$ npm run dist                 //部署发布
-```
+    注:星星更多的，代表对比获胜。
