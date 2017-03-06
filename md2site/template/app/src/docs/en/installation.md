@@ -12,9 +12,9 @@ $ npm run dev
 $ npm run dist
 ```
 
-### Md2site VS Hexo
+### Hexo VS Md2site
 
-|    | Md2site        | Hexo  |
+|    | Hexo        | Md2site  |
 | ------------- |:-------------:|:-----:|
 | Markdown support | ★★★★★| ★★★★★ |
 | File size of generated website | ★★★☆☆   |   ★★★★★ |

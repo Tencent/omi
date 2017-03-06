@@ -12,9 +12,9 @@ $ npm run dev
 $ npm run dist
 ```
 
-## Md2site 与 Hexo 对比
+### Hexo VS Md2site
 
-|    | Md2site        | Hexo  |
+|    | Hexo        | Md2site  |
 | ------------- |:-------------:|:-----:|
 | Markdown支持 | ★★★★★| ★★★★★ |
 | 网站文件尺寸    | ★★★☆☆   |   ★★★★★ |
