@@ -1,0 +1,97 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: #f9f9f9;
+    font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto, PT Sans, DejaVu Sans, Arial,Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
+    overflow-x: hidden;
+}
+
+img,ul,li{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+ul,li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+table{
+    border-collapse: collapse;
+}
+table,td,th{
+    border: 1px solid #ccc;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+
+    .content img{
+        width: 100%;
+    }
+
+
+    .content code[class*="language-"],
+    .content pre[class*="language-"] {
+        font-family: Consolas, "Liberation Mono", Courier, monospace;
+        line-height: 18px;
+        font-size: 12px;
+        margin:  0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .content pre[class*="language-"] {
+        padding-left: 10px;
+    }
+    .content p{
+        font-size: 14px;
+    }
+    .content p,.content h1,.content h2,.content h3,.content h4,.content h5{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+    .line-highlight:before, .line-highlight[data-end]:after{
+        top: 0em;
+    }
+}
+
+*{
+    box-sizing: border-box;
+}
+pre code.hljs{
+    padding-left: 14px;
+    display: block;
+    overflow-x: auto;
+
+
+}
+.hljs{
+    font-size: 14px;
+}
+code.hljs{
+    display: inline-block;
+    overflow-x: hidden;
+    text-indent: 0;
+
+    position: relative;
+    top: 3px;
+}
+
+.line.highlight{
+    background-color: #f7ebc6;
+    border-left: 5px solid #f7d87c;
+    display: block;
+    margin-left: -14px;
+    margin-right: -14px;
+    padding-left: 9px;
+}
+.line {
+    display: block;
+}
