@@ -29,7 +29,7 @@ class List extends Omi.Component {
         });
         Omi.get('pager').currentIndex = index;
         Omi.get('pager').update();
-
+        document.body.scrollTop = 0;
     }
 
     render() {

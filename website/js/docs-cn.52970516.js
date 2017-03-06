@@ -1,4 +1,4 @@
-window.Root ={}; Root.isDev = false;webpackJsonp([1],[
+window.Root ={}; Root.isDev = false;webpackJsonp([0],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -10,7 +10,7 @@ window.Root ={}; Root.isDev = false;webpackJsonp([1],[
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	Omi.render(new _frame2.default({ lan: 'en' }), 'body', true);
+	Omi.render(new _frame2.default({ lan: 'cn' }), 'body', true);
 
 /***/ },
 /* 1 */
@@ -707,6 +707,7 @@ window.Root ={}; Root.isDev = false;webpackJsonp([1],[
 	            });
 	            _omi2.default.get('pager').currentIndex = index;
 	            _omi2.default.get('pager').update();
+	            document.body.scrollTop = 0;
 	        }
 	    }, {
 	        key: 'render',
