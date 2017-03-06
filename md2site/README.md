@@ -29,7 +29,7 @@ $ npm run dist
 
 # Md2site
 
-Transform Markdown to Website base on [Omi](https://github.com/AlloyTeam/omi) Framework.
+Md2site is a fast, simple & powerful framework that can be used for transformation of markdown to website based on [Omi](https://github.com/AlloyTeam/omi).
 
 ### Installation
 Prerequisites: Node.js (>=6.x), npm version 3+
@@ -64,3 +64,17 @@ $ npm run dev
 $ npm run dist
 ```
 
+### Hexo VS Md2site
+
+|    | Hexo        | Md2site  |
+| ------------- |:-------------:|:-----:|
+| Markdown support | ¡ï¡ï¡ï¡ï¡ï| ¡ï¡ï¡ï¡ï¡ï |
+| File size of generated website | ¡ï¡ï¡ï¡î¡î   |   ¡ï¡ï¡ï¡ï¡ï |
+| Difficulty of getting started  | ¡ï¡ï¡ï¡ï¡ï| ¡ï¡ï¡ï¡ï¡ï |
+|  Secondary development | ¡ï¡ï¡ï¡ï¡î     |   ¡ï¡ï¡ï¡ï¡ï |
+| Themes and plugins  | ¡ï¡ï¡ï¡ï¡ï     |   ¡ï¡ï¡ï¡ï¡î |
+| Code specifies row highlight | ¡ï¡ï¡ï¡ï¡î    |   ¡ï¡ï¡ï¡ï¡ï |
+| Multi language support | ¡ï¡ï¡ï¡ï¡î    |   ¡ï¡ï¡ï¡ï¡ï |
+| Responsive | ¡ï¡ï¡ï¡ï¡ï    |   ¡ï¡ï¡ï¡ï¡ï |
+
+    Note: more stars mean win.
