@@ -12,11 +12,12 @@ Let's see some examples.
 
 ### Communicate by `data-*`
 
-```js {24,1-5}
+```js {26,1-3}
 class Hello extends Omi.Component {
     constructor(data) {
       super(data);
     }
+    
     style () {
       return  `
       h1{
@@ -24,16 +25,17 @@ class Hello extends Omi.Component {
       }
       `;
     }
+    
     handleClick(target, evt){
       alert(target.innerHTML);
     }
+    
     render() {
       return  `
       <div>
       	<h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>
       </div>
   		`;
-
     }
 }
 

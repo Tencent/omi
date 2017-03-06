@@ -12,11 +12,12 @@
 
 ### data-*通讯 
 
-```js {24,1-5}
+```js {26,1-3}
 class Hello2 extends Omi.Component {
     constructor(data) {
       super(data);
     }
+    
     style () {
       return  `
       h1{
@@ -24,9 +25,11 @@ class Hello2 extends Omi.Component {
       }
       `;
     }
+    
     handleClick(target, evt){
       alert(target.innerHTML);
     }
+    
     render() {
       return  `
       <div>
