@@ -1,4 +1,4 @@
-# Md2site
+# [Md2site](http://alloyteam.github.io/omi/md2site/)
 
 Md2site是基于[Omi](https://github.com/AlloyTeam/omi)的一款Markdown转网站工具，使用简单，生成的文件轻巧，功能强大。
 
