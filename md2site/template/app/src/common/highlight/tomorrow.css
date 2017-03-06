@@ -60,7 +60,7 @@
   overflow-x: auto;
   background: white;
   color: #4d4d4c;
-  padding: 0.5em;
+  /*padding: 0.5em;*/
 }
 
 .hljs-emphasis {

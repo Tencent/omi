@@ -65,9 +65,25 @@ table,td,th{
 *{
     box-sizing: border-box;
 }
-code.hljs{
+pre code.hljs{
     padding-left: 14px;
+    display: block;
+    overflow-x: auto;
+
+
 }
+.hljs{
+    font-size: 14px;
+}
+code.hljs{
+    display: inline-block;
+    overflow-x: hidden;
+    text-indent: 0;
+
+    position: relative;
+    top: 3px;
+}
+
 .line.highlight{
     background-color: #f7ebc6;
     border-left: 5px solid #f7d87c;
