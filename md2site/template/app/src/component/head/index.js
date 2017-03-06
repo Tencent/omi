@@ -14,7 +14,9 @@ class Head extends Omi.Component {
     install(){
         this.data.isEnLan = this.data.lan === 'en';
         document.body.addEventListener('touchend',()=>{
-           this.removeClass(Omi.get('sidebar').node,'show');
+            setTimeout(()=>{
+                this.removeClass(Omi.get('sidebar').node,'show');
+            },300);
         },false);
     }
 
