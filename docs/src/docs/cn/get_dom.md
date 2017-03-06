@@ -1,4 +1,4 @@
-<h2 id="获取DOM节点">获取DOM节点</h2>
+## 获取DOM节点
 
 虽然绝大部分情况下，开发者不需要去查找获取DOM，但是还是有需要获取DOM的场景，所以Omi提供了方便获取DOM节点的方式。
 
@@ -9,6 +9,7 @@ class Hello extends Omi.Component {
     constructor(data) {
         super(data);
     }
+    
     style () {
         return  `
             h1{
@@ -16,16 +17,17 @@ class Hello extends Omi.Component {
             }
          `;
     }
+    
     handleClick(){
         alert(this.refs.abc.innerHTML);
     }
+    
     render() {
         return  `
         <div>
             <h1 ref="abc" onclick="handleClick()">Hello ,{{name}}!</h1>
         </div>
         `;
-
     }
 }
 

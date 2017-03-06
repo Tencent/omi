@@ -1,4 +1,4 @@
-<h2 id="继承">继承</h2>
+## 继承
 
 通过继承机制，可以利用已有的数据类型来定义新的数据类型。所定义的新的数据类型不仅拥有新定义的成员，而且还同时拥有旧的成员。我们称已存在的用来派生新类的类为基类，又称为父类。由已存在的类派生出的新类称为派生类，又称为子类。
 
@@ -9,6 +9,7 @@ class Hello extends Omi.Component {
     constructor(data) {
         super(data);
     }
+    
     style () {
         return  `
             div{
@@ -16,9 +17,11 @@ class Hello extends Omi.Component {
             }
          `;
     }
+    
     handleClick(target, evt){
         alert(target.innerHTML);
     }
+    
     render() {
        return  ' <div onclick="handleClick(this,event)">Hello {{name}}!</div>'
     }

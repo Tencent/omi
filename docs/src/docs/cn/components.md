@@ -1,4 +1,4 @@
-<h2 id="组件">组件</h2>
+## 组件
 
 [Omi框架](https://github.com/AlloyTeam/omi)完全基于组件体系设计，我们希望开发者可以像搭积木一样制作Web程序，一切皆是组件，组件也可以嵌套子组件形成新的组件，新的组件又可以当作子组件嵌套至任意组件形成新的组件...
 
@@ -13,6 +13,7 @@ class Todo extends Omi.Component {
     constructor(data) {
         super(data);
     }
+    
     add (evt) {
         evt.preventDefault();
         this.data.items.push(this.data.text);

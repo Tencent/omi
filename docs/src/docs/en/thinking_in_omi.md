@@ -1,4 +1,4 @@
-<h2 id="Thinking in Omi">Thinking in Omi</h2>
+## Thinking in Omi
 
 Omi is based on object-oriented programming, with plugin system.
 

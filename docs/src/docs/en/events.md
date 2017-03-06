@@ -1,4 +1,4 @@
-<h2 id="Handling Events">Handling Events</h2>
+## Handling Events
 
 There are two types of events in Omi, built-in events and custom events. Built-in events clever use of the browser's own pipeline mechanism, you can easily get events instance and the triggered event elements through `event` and `this`.
 
@@ -48,6 +48,7 @@ class Main extends Omi.Component {
     installed(){
         this.content.goto(this.pagination.data.currentPage+1);
     }
+    
     handlePageChange(index){
         this.content.goto(index+1);
     }
@@ -90,6 +91,7 @@ class Pagination extends Omi.Component {
 
         this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
     }
+    
     goto (index,evt) {
         evt.preventDefault();
         this.data.currentPage=index;

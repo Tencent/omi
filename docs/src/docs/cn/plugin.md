@@ -1,4 +1,4 @@
-<h2 id="插件体系">插件体系</h2>
+## 插件体系
 
 [Omi](https://github.com/AlloyTeam/omi)是Web组件化框架，怎么又来了个插件的概念？
 

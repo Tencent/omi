@@ -1,4 +1,4 @@
-<h2 id="循环遍历">循环遍历</h2>
+## 循环遍历
 
 下面介绍mustache.js的方式和javascript遍历的方式。
 

@@ -1,4 +1,4 @@
-<h2 id="Templates">Templates</h2>
+## Templates
 
 There are three types of Omi. omi.js and omi.lite.js is for web side.
 

@@ -1,4 +1,4 @@
-<h2 id="Communication">Component Communication</h2>
+## Component Communication
 
 Communication between [Omi](https://github.com/AlloyTeam/omi) components is very flexible, there are many options:
 
@@ -17,6 +17,7 @@ class Hello extends Omi.Component {
     constructor(data) {
       super(data);
     }
+    
     style () {
       return  `
       h1{
@@ -24,16 +25,17 @@ class Hello extends Omi.Component {
       }
       `;
     }
+    
     handleClick(target, evt){
       alert(target.innerHTML);
     }
+    
     render() {
       return  `
       <div>
       	<h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>
       </div>
   		`;
-
     }
 }
 
@@ -283,7 +285,6 @@ class App extends Omi.Component {
             <Hello omi-id="hello" />
         </div>
         `;
-
     }
 }
 

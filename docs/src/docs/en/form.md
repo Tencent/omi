@@ -1,4 +1,4 @@
-<h2 id="Forms">Forms</h2>
+## Forms
 
 It's much more convenient to control forms in Omi, especially `<select>`!
 

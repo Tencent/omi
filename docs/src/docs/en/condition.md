@@ -1,4 +1,4 @@
-<h2 id="Conditional Rendering">Conditional Rendering</h2>
+## Conditional Rendering
 
 In most case, we need to show different layouts according to different states. For example, some users are vip and we need to show vip logo for them. Omi has many ways to meet this kind of requirements.
 

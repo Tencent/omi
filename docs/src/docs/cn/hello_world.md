@@ -1,4 +1,4 @@
-<h2 id="Hello World">Hello World</h2>
+## Hello World
 
 你可以使用ES6+或者ES5的方式编写Omi程序来搭建你的Web程序。
 
@@ -15,6 +15,7 @@ class Hello extends Omi.Component {
     constructor(data) {
         super(data);
     }
+    
     style () {
         //注意，return中的<style></style>包裹是可选的。主要是为了识别为JSX文件可以有CSS高亮。
         return  `
@@ -25,16 +26,17 @@ class Hello extends Omi.Component {
         </style>
          `;
     }
+    
     handleClick(target, evt){
         alert(target.innerHTML);
     }
+    
     render() {
         return  `
         <div>
             <h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>
         </div>
         `;
-
     }
 }
 
@@ -84,9 +86,11 @@ var Hello =  Omi.create("Hello", {
     style: function () {
         return "h1{ cursor:pointer }";
     },
+    
     handleClick: function (dom) {
         alert(dom.innerHTML)
     },
+    
     render: function () {
         return ' <div>\
                         <h1 onclick="handleClick(this, event)">\

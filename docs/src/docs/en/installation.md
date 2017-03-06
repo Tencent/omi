@@ -1,4 +1,4 @@
-<h2 id="Installation">Installation</h2>
+## Installation
 
 [Omi](https://github.com/AlloyTeam/omi) is open and modern framework  for building user interfaces.
 

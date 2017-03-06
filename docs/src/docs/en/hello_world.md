@@ -1,5 +1,4 @@
-<h2 id="Hello World">Hello World</h2>
-
+## Hello World
 
 ### Hello World with ES20XX 
 
@@ -14,6 +13,7 @@ class Hello extends Omi.Component {
     constructor(data) {
         super(data);
     }
+    
     style () {
         return  `
             h1{
@@ -21,29 +21,60 @@ class Hello extends Omi.Component {
             }
          `;
     }
+    
     handleClick(target){
         alert(target.innerHTML);
     }
+    
     render() {
         return  `
         <div>
             <h1 onclick="handleClick(this)">Hello ,{{name}}!</h1>
         </div>
         `;
-
     }
 }
 
 Omi.render(new Hello({ name : "Omi" }),"body");
-
 ```
 
 This code renders into body element. 
 
-
 ###  Hello World with ES5
-
 
 ```html
 <script src="omi.js"></script>
+```
+
+then:
+
+```js
+var Hello =  Omi.create("Hello", {
+    style: function () {
+        return "h1{ cursor:pointer }";
+    },
+    
+    handleClick: function (dom) {
+        alert(dom.innerHTML)
+    },
+    
+    render: function () {
+        return ' <div>\
+                        <h1 onclick="handleClick(this, event)">\
+                            Hello ,{{name}}!\
+                        </h1>\
+                </div>'
+    }
+});
+
+var Test =  Omi.create("Test", {
+    render: function () {
+        return '<div>\
+                    <div>Test</div>\
+                    <Hello data-name="Omi" />\
+                </div>'
+    }
+});
+
+Omi.render(new Test(),'#container');
 ```

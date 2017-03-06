@@ -1,4 +1,4 @@
-<h2 id="组件通讯">组件通讯</h2>
+## 组件通讯
 
 [Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常遍历灵活，因为有许多可选方案进行通讯：
 
@@ -12,11 +12,12 @@
 
 ### data-*通讯 
 
-```js {23,33}
+```js {36}
 class Hello extends Omi.Component {
     constructor(data) {
       super(data);
     }
+    
     style () {
       return  `
       h1{
@@ -24,9 +25,11 @@ class Hello extends Omi.Component {
       }
       `;
     }
+    
     handleClick(target, evt){
       alert(target.innerHTML);
     }
+    
     render() {
       return  `
       <div>
@@ -62,7 +65,7 @@ Omi.render(new App(),"#container");
 
 如上面代码所示，通过 data-name="Omi"可以把name传递给子组件。下面的代码也可以达到同样的效果。
 
-```js
+```js {4,10}
 ...
 class App extends Omi.Component {
     constructor(data) {
@@ -237,7 +240,7 @@ Omi.render(new App(),"#container");
 
 ### 通过对象实例
 
-```js
+```js {7}
 ...
 class App extends Omi.Component {
     constructor(data) {
@@ -263,7 +266,7 @@ Omi.render(new App(),"#container");
 
 ### 通过omi-id
 
-```js
+```js {7,14}
 ...
 class App extends Omi.Component {
     constructor(data) {
@@ -281,7 +284,6 @@ class App extends Omi.Component {
             <Hello omi-id="hello" />
         </div>
         `;
-
     }
 }
 

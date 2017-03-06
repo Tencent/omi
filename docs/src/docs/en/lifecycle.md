@@ -1,4 +1,4 @@
-<h2 id="Lifecycle">Lifecycle</h2>
+## Lifecycle
 
 | Name | Meaning | Occasion |
 | :-------------: | :-------------: | :-----: |

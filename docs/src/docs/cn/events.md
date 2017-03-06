@@ -1,4 +1,4 @@
-<h2 id="事件处理">事件处理</h2>
+## 事件处理
 
 Omi的事件分内置事件和自定义事件。在内置事件处理方面巧妙地利用了浏览器自身的管线机制，可以通过event和this轻松拿到事件实例和触发该事件的元素。
 
@@ -48,6 +48,7 @@ class Main extends Omi.Component {
     installed(){
         this.content.goto(this.pagination.data.currentPage+1);
     }
+    
     handlePageChange(index){
         this.content.goto(index+1);
     }
@@ -90,6 +91,7 @@ class Pagination extends Omi.Component {
 
         this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
     }
+    
     goto (index,evt) {
         evt.preventDefault();
         this.data.currentPage=index;

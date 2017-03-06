@@ -1,4 +1,4 @@
-<h2 id="Plugin">Plugin</h2>
+## Plugin
 
 [Omi](https://github.com/AlloyTeam/omi) is a componentized web framework. Then what is plugin?
 

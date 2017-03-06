@@ -1,4 +1,4 @@
-<h2 id="Get DOM">Get DOM</h2>
+## Get DOM
 
 While most of the time, developers do not need to find the DOM, but sometimes is a need to get the DOM.
 
@@ -11,6 +11,7 @@ class Hello extends Omi.Component {
     constructor(data) {
         super(data);
     }
+    
     style () {
         return  `
             h1{
@@ -18,16 +19,17 @@ class Hello extends Omi.Component {
             }
          `;
     }
+    
     handleClick(){
         alert(this.refs.abc.innerHTML);
     }
+    
     render() {
         return  `
         <div>
             <h1 ref="abc" onclick="handleClick()">Hello ,{{name}}!</h1>
         </div>
         `;
-
     }
 }
 

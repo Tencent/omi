@@ -1,4 +1,4 @@
-<h2 id="Inheritance">Inheritance</h2>
+## Inheritance
 
 Through the inheritance mechanism, we can define new classes base on old classes. The new classes not only have newly defined members, but also have old members at the same time.
 
@@ -11,6 +11,7 @@ class Hello extends Omi.Component {
     constructor(data) {
         super(data);
     }
+    
     style () {
         return  `
             div{
@@ -18,9 +19,11 @@ class Hello extends Omi.Component {
             }
          `;
     }
+    
     handleClick(target, evt){
         alert(target.innerHTML);
     }
+    
     render() {
        return  ' <div onclick="handleClick(this,event)">Hello {{name}}!</div>'
     }

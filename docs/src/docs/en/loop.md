@@ -1,4 +1,4 @@
-<h2 id="Loop">Loop</h2>
+## Loop
 
 The following describes how to traverses in mustache.js and javascript.
 

@@ -1,4 +1,4 @@
-<h2 id="Components">Components</h2>
+## Components
 
 [Omi](https://github.com/AlloyTeam/omi) is based entirely on component architecture, which allows developers to build web applications like building blocks. Everything is components, components can be nested to create new components.
 
@@ -13,6 +13,7 @@ class Todo extends Omi.Component {
     constructor(data) {
         super(data);
     }
+    
     add (evt) {
         evt.preventDefault();
         this.data.items.push(this.data.text);
@@ -59,7 +60,7 @@ You can also use [oba] (https://github.com/dntzhang/oba) or mobx to implement au
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=todo" target="_blank">Click me for the live demo</a>
 
-## Component Nesting
+### Component Nesting
 
 It's ok to not use nesting component if your page is super simple. However, for most of webpages and web applications, it is a necessary to define the nesting Components to implement complex features.
 
