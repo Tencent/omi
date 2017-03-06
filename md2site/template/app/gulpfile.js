@@ -36,7 +36,7 @@ gulp.task('webpack', function() {
 
 gulp.task('copyCSS', function() {
     if(isDist){
-        return gulp.src('src/**/*.css')
+        return gulp.src(['src/**/*.css','!src/component/**/*.css'])
             .pipe(csso()).pipe(rev())
             .pipe(gulp.dest(ENV))
             .pipe(rev.manifest())                                   //- 生成一个rev-manifest.json

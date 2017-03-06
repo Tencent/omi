@@ -6,25 +6,9 @@
                 title: '快速开始',
                 currentIndex: 0,
                 list: [
-                    {
-                        name: '安装',
-                        md: 'installation'
-                    },
-                    {
-                        name: '组件',
-                        md: 'components',
-                        highlight: {
-                            2: '3,9,34'
-                        }
-                    },
-                    {
-                        name: '组件通讯',
-                        md: 'communication',
-                        highlight: {
-                            0: '34',
-                            1: '5,11'
-                        }
-                    }
+                    {name: '安装', md: 'installation'},
+                    {name: '组件', md: 'components'},
+                    {name: '组件通讯', md: 'communication'}
                 ]
             }
         ],
