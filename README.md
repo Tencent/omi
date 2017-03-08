@@ -34,7 +34,7 @@ $ npm run dist                 //部署发布
 ## 特性
 
 * 超小的尺寸，7 kb (gzip)
-* 良好的兼容性，支持IE8
+* 良好的兼容性，支持IE8 （请自行引用es5-shim或es5-sham）
 * 完全面向对象的组件体系
 * 局部CSS，HTML+ Scoped CSS + JS组成可复用的组件
 * 更自由的更新，每个组件都有update方法，自由选择时机进行更新
@@ -92,7 +92,7 @@ $ npm run dist                 //release
 ## Fetures
 
 * Super tiny size, 7 KB (gzip)
-* Good compatibility, support IE8
+* Good compatibility, support IE8 (please import es5-shim or es5-sham by yourself)
 * Fully object-oriented component system
 * Support Scoped CSS, reusable components are composed of HTML， Scoped CSS and JS
 * More free updates, each component has a update method, free to choose the right time to update
