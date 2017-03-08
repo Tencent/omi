@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Open and modern framework for building user interfaces.",
   "main": "dist/omi.js",
   "scripts": {
@@ -22,7 +22,6 @@
     "todo": "webpack -w",
     "artTemplate": "webpack -w",
     "todo_nest": "webpack -w",
-    "website": "webpack -w",
     "pagination": "webpack -w",
     "server_rendering": "node example/server_rendering/app.js",
     "test": "karma start test/karma.conf.js"

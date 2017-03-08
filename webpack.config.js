@@ -72,7 +72,7 @@ if(ENV === 'build'||ENV === 'build_min'){
         },
         plugins: [
             // Avoid publishing files when compilation fails
-            new webpack.BannerPlugin(" Omi v0.4.3 By dntzhang \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
+            new webpack.BannerPlugin(" Omi v0.4.4 By dntzhang \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
             new webpack.NoErrorsPlugin()
         ],
         stats: {
@@ -90,15 +90,6 @@ if(ENV === 'build'||ENV === 'build_min'){
             'omi.lite.min': './src/index.lite.js'
         };
     }
-}else if(ENV === 'website') {
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-    config.entry ={
-        bundler: './website/js/docs_main.js',
-        bundler_en: './website/js/docs_main_en.js'
-    }
-    config.output.path = './website/dist/';
-    config.output.filename =  '[name].js';
-    config.module.loaders.push(  { test: /\.md$/, loader: "md-text" });
 }else{
     config.entry = './example/' + ENV + '/main.js';
     config.output.path = './example/' + ENV + '/';

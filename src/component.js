@@ -24,7 +24,6 @@ class Component {
         this.childrenData = [];
         this.HTML = null;
         this._addedItems = [];
-        this._omi_order = [];
         Omi.instances[this.id] = this;
         this.dataFirst = true;
         this._omi_scoped_attr =  Omi.STYLESCOPEDPREFIX + this.id;
@@ -127,12 +126,6 @@ class Component {
         child.restore();
     }
 
-    setComponentOrder(arr) {
-        arr.forEach((item, index)=>{
-            this._omi_order[index] = item;
-        })
-        this.update();
-    }
     //beforeBegin,beforeEnd,afterBegin,afterEnd
     addComponent(position, el, component) {
         this._addedItems.push({position: position, el: el, component: component});
@@ -189,13 +182,9 @@ class Component {
         }
         this._generateHTMLCSS();
         this._extractChildren(this);
-        if(isFirst){
-            this.children.forEach((item,index)=>{
-                this._omi_order[index] = index;
-            });
-        }
+
         this.children.forEach((item, index) => {
-            this.HTML = this.HTML.replace(item._omiChildStr, this.children[this._omi_order[index]].HTML);
+            this.HTML = this.HTML.replace(item._omiChildStr, this.children[index].HTML);
         });
         this.HTML =  scopedEvent(this.HTML, this.id);
         if (isFirst) {
@@ -230,13 +219,9 @@ class Component {
         this._mergeData(childStr);
         this._generateHTMLCSS();
         this._extractChildren(this);
-        if(isFirst){
-            this.children.forEach((item,index)=>{
-                this._omi_order[index] = index;
-            });
-        }
+
         this.children.forEach((item, index) => {
-            this.HTML = this.HTML.replace(item._omiChildStr, this.children[this._omi_order[index]].HTML);
+            this.HTML = this.HTML.replace(item._omiChildStr, this.children[index].HTML);
         });
         this.HTML =  scopedEvent(this.HTML, this.id);
         return this.HTML;
@@ -248,7 +233,7 @@ class Component {
         current.children.forEach((item)=>{
             item.node = current.node.querySelector("[" + Omi.STYLESCOPEDPREFIX + item.id + "]");
             //recursion get node prop from parent node
-            current._queryElements(item);
+            item.node && current._queryElements(item);
         });
     }
 
