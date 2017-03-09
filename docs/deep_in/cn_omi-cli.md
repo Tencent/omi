@@ -51,6 +51,78 @@ $ npm run dist                 //部署发布
 
 如果，你看到了上面的界面，说明一切OK了。创建出来的项目主要基于 Gulp + Webpack + Babel + BrowserSync 进行开发和部署。Gulp用来串联整个流程，Webpack + Babel让你可以写ES6和打包，BrowserSync用来帮你刷浏览器，不用F5了。
 
+## 组件开发
+
+页面的组件都在component目录:
+
+![](http://images2015.cnblogs.com/blog/105416/201703/105416-20170309091322484-527946546.png)
+
+你可以把组件的HTML、CSS和JS分离成三个文件，然后通过require的方式使用，如：
+
+```js
+import Omi from 'omi';
+
+const tpl = require('./index.html');
+const css = require('./index.css');
+
+class Footer extends Omi.Component {
+    constructor (data) {
+        super(data);
+    }
+
+    style () {
+        return css;
+    }
+
+    render () {
+        return tpl;
+    }
+}
+
+export default Footer;
+```
+
+也可以直接all in js的方式：
+
+```js
+import Omi from 'omi';
+
+class Header extends Omi.Component {
+    constructor (data) {
+        super(data);
+    }
+
+    style () {
+        return `
+        <style>
+        .menu a:hover{
+            color: white;
+        }
+        </style>
+        `;
+    }
+
+    render () {
+        return `
+    <div class="head bord-btm">
+        <div class="logo_box">
+            <a href="https://github.com/AlloyTeam/omi"></a>
+        </div>
+        <ul class="menu">
+            <li class="github_li"><a href="https://github.com/AlloyTeam/omi">Github</a>
+            <li><a href="http://alloyteam.github.io/omi/example/playground/">Playground</a></li>
+            <li><a href="https://github.com/AlloyTeam/omi/tree/master/docs">[Edit the Docs]</a></li>
+            </li>
+        </ul>
+    </div>`;
+    }
+}
+
+export default Header;
+```
+
+如果需要更多动态编程能力，可以all in js。如果纯静态不怎么需要改动的话，直接分离成三个文件通过require进来便可。
+
 ## 后续
 
 更多脚手架模板以及更多功能的命令正在开发中，如果有什么意见或者建议欢迎让我们知道。
