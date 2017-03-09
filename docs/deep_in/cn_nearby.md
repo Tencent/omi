@@ -1,7 +1,7 @@
 ## 写在前面
 Omi很适合大型复杂的Web页面开发，例如一些Web在线工具的开发。但是制作这种简单的QQ附近用户列表Web页，也不会有大炮哄蚊子的感觉。
 
-项目开始之前，实现选择一个脚手架。这个项目用的就是[Omi Github上的scaffolding](https://github.com/AlloyTeam/omi/tree/master/scaffolding)作为其项目脚手架。主要基于 Gulp + Webpack + Babel + BrowserSync 进行开发和部署。（ps：目前脚手架先上github弄下来，pasturn和Aresn正在开发omi-cli，不久就要发布了）
+项目开始之前，实现选择一个脚手架。可以使用[omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)快速创建项目脚手架。脚手架主要基于 Gulp + Webpack + Babel + BrowserSync 进行开发和部署。
 
 Gulp用来串联整个流程，Webpack + Babel让你可以写ES6和打包，BrowserSync用来帮你刷浏览器，不用F5了。
 
