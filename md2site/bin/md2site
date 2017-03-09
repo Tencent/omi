@@ -32,6 +32,7 @@ if (cmdstr) {
     program.help();
 }
 
+
 function help() {
     console.log('  Commands:')
     console.log()
