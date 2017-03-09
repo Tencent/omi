@@ -17,16 +17,16 @@
 
         var List =  Omi.create("List",{
             style:function () {
-                return `h3 { color:red; }
-                button{ color:green;}`;
+                return 'h3 { color:red; }\
+                button{ color:green;}';
             },
             render:function(){
-                return `<h1>{{title}}</h1>
-                            <ul>
-                            {{each list as value i}}
-                        <li>索引2 {{i + 1}} ：{{value}}</li>
-                        {{/each}}
-                        </ul>`;
+                return '<h1>{{title}}</h1>\
+                            <ul>\
+                            {{each list as value i}}\
+                        <li>索引2 {{i + 1}} ：{{value}}</li>\
+                        {{/each}}\
+                        </ul>';
         }
         })
 

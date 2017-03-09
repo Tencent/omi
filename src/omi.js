@@ -1,4 +1,4 @@
-var Omi = {};
+ï»¿var Omi = {};
 Omi.instances =  {};
 Omi._instanceId = 0;
 Omi.getInstanceId = function () {
@@ -188,7 +188,7 @@ Omi.getClassFromString = function(str) {
     }
 }
 
-//ÒÔÇ°ÊÇComponentµÄ¾²Ì¬·½·¨£¬ÒÆµ½omiÏÂÀ´£¬²»È»makehtml ÔÚieÏÂchild·ÃÎÊ²»µ½¸¸Ç×µÄ¾²Ì¬·½·¨
+//ä»¥å‰æ˜¯Componentçš„é™æ€æ–¹æ³•ï¼Œç§»åˆ°omiä¸‹æ¥ï¼Œä¸ç„¶makehtml åœ¨ieä¸‹childè®¿é—®ä¸åˆ°çˆ¶äº²çš„é™æ€æ–¹æ³•
 Omi.makeHTML= function(name , ctor) {
     Omi[name] = ctor;
     Omi.customTags.push(name);

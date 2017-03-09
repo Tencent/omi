@@ -68,13 +68,13 @@
                 if(!this.data.visible) return;
                 this.data.w = window.innerWidth;
                 this.data.h = window.innerHeight;
-                return `<div>
-                            <div class="mask" style="width:{{w}}px;height:{{h}}px;"></div>
-                            <div class="msg">
-                                <div>{{msg}}</div>
-                                <button  onclick="close()">close</button>
-                            </div>
-                        </div>`;
+                return '<div>\
+                            <div class="mask" style="width:{{w}}px;height:{{h}}px;"></div>\
+                            <div class="msg">\
+                                <div>{{msg}}</div>\
+                                <button  onclick="close()">close</button>\
+                            </div>\
+                        </div>';
         }
         });
 

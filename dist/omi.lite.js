@@ -306,7 +306,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	};
 
-	//��ǰ��Component�ľ�̬�������Ƶ�omi��������Ȼmakehtml ��ie��child���ʲ������׵ľ�̬����
+	//以前是Component的静态方法，移到omi下来，不然makehtml 在ie下child访问不到父亲的静态方法
 	Omi.makeHTML = function (name, ctor) {
 	    Omi[name] = ctor;
 	    Omi.customTags.push(name);
