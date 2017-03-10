@@ -72,7 +72,7 @@ if(ENV === 'build'||ENV === 'build_min'){
         },
         plugins: [
             // Avoid publishing files when compilation fails
-            new webpack.BannerPlugin(" Omi v0.4.4 By dntzhang \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
+            new webpack.BannerPlugin(" Omi v0.4.5 By dntzhang \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
             new webpack.NoErrorsPlugin()
         ],
         stats: {
