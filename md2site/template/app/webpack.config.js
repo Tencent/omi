@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var proj_config = require('./project.js');
 /**
  * Env
  * Get npm lifecycle event to identify the environment
@@ -31,7 +32,11 @@ var config  = {
                 exclude:/node_modules/
             },
             { test: /\.html$/, loader: "string" },
-            { test: /\.css$/, loader: "string" }
+            { test: /\.css$/, loader: "string" },
+            {
+                test: /\.md$/,
+                loader: "md-text"
+            }
         ]
     },
     plugins: [
@@ -45,6 +50,10 @@ var config  = {
     // Create Sourcemaps for the bundle
     //devtool: 'source-map'
 };
+
+if(proj_config.async) {
+    config.module.loaders[3].exclude =  /\.md$/;
+}
 
 if(ENV === 'dist'){
     config.plugins.push(new webpack.optimize.UglifyJsPlugin());

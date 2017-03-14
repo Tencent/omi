@@ -1,4 +1,5 @@
 import Omi from 'omi';
+import proj_config from '../../../project.js';
 
 const tpl = require('./index.html');
 const css = require('./index.css');
@@ -17,7 +18,11 @@ class List extends Omi.Component {
     goto(name, index) {
 
         Omi.get('content').data.name = name;
-        Omi.get('content').update();
+        if(proj_config.async) {
+            Omi.get('content').asyncUpdate();
+        }else{
+            Omi.get('content').update();
+        }
         this.data.currentIndex = index;
         this.parent.children.forEach((child,index) => {
             child.data.active = false;

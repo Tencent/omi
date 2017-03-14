@@ -65,6 +65,15 @@ gulp.task('copyCommon', function() {
     return gulp.src(['src/common/**']).pipe(gulp.dest(ENV+'/common'));
 });
 
+gulp.task('copyDocs', function(callback) {
+    if(config.async) {
+        return gulp.src(['src/docs/**']).pipe(gulp.dest(ENV + '/docs'));
+    }else{
+        callback();
+    }
+});
+
+
 gulp.task('copyComponent', function() {
     return gulp.src(['src/component/**','!src/component/**/*.js','!src/component/**/*.html','!src/component/**/*.css']).pipe(gulp.dest(ENV+'/component'));
 });
@@ -141,6 +150,7 @@ if(isDist){
             'copyHTML',
             'copyCommon',
             'copyComponent',
+            'copyDocs',
             'rev',
             'cdnReplace',
             'replace',
@@ -157,6 +167,7 @@ if(isDist){
             'copyHTML',
             'copyCommon',
             'copyComponent',
+            'copyDocs',
             'replace',
             'browser-sync',
             done);
