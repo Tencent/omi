@@ -1,5 +1,7 @@
 var path = require('path');
-var webpack = require('webpack');
+
+var webpack = require("webpack");
+var commonChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 /**
  * Env
  * Get npm lifecycle event to identify the environment
@@ -21,17 +23,30 @@ var config  = {
     },
     //watch: true,
     module: {
-        loaders: [
+        rules: [
             {
-                loader: 'babel-loader',
                 test: /\.js$/,
+                loader: 'babel-loader',
                 query: {
-                    presets: ['es2015',"stage-0"],
+                    presets: ['es2015', "stage-0"],
                 },
-                exclude:/node_modules/
+                exclude: /node_modules/
             },
-            { test: /\.html$/, loader: "string" },
-            { test: /\.css$/, loader: "string" }
+            {test: /\.html$/, loader: "string-loader"},
+            {test: /\.css$/, loader: "string-loader"},
+            {
+                test: /\.scss$/,
+                use: [
+                    //{
+                    //    // creates style nodes from JS strings
+                    //    loader: "style-loader"
+                    //},
+                    {
+                        loader: "css-loader" // translates CSS into CommonJS
+                    }, {
+                        loader: "sass-loader" // compiles Sass to CSS
+                    }]
+            }
         ]
     },
     plugins: [
@@ -54,12 +69,15 @@ if(ENV === 'dist'){
         omi : ['omi'],
         vendor : ['./src/common/class_list.js']
     }
-    config.plugins[1] = new webpack.optimize.CommonsChunkPlugin({name:['omi','vendor'],minChunks:Infinity});
+    config.plugins[1] = new commonChunkPlugin({name:['omi','vendor'],minChunks:Infinity});
     config.output.filename = '[name].[chunkhash:8].js';
 }else{
     config.entry.vendor = ['omi','./src/common/class_list.js'];
     config.output.filename = '[name].js';
-    config.plugins[1] = new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.js")
+    config.plugins[1] = new commonChunkPlugin({
+        name:"vendor",
+        filename:"vendor.js"
+    })
 }
 
 

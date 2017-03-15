@@ -25,9 +25,9 @@ var isDist = ENV ==='dist';
 
 gulp.task('webpack', function() {
     return gulp.src('src/js/index.js')
-        .pipe(webpack(webpackConfig, null, function(err, stats) {
+        .pipe(webpack(webpackConfig, require('webpack'), function(err, stats) {
             /* Use stats to do more things if needed */
-            console.log(stats.toJson().assets);
+            //console.log(stats.toJson().assets);
             assets = stats.toJson().assets;
             //https://www.npmjs.com/package/gulp-html-replace
             //require("fs").writeFileSync("stats.json",JSON.stringify(stats.toJson()));
