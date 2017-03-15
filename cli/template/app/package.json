@@ -1,6 +1,6 @@
 {
-  "name": "omis",
-  "version": "0.1.2",
+  "name": "your-project-name",
+  "version": "0.0.0",
   "description": "Scaffolding for Omi.js",
   "scripts": {
     "dev": "gulp",
