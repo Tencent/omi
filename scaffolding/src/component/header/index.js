@@ -1,44 +1,21 @@
 import Omi from 'omi';
 
+const style = require('./index.scss');
+console.log(style.toString())
+const testStyle = require('./test.scss');
+console.log(testStyle)
+
 class Header extends Omi.Component {
     constructor (data) {
         super(data);
     }
 
     style () {
-        return `
-        .head{
-            height:45px;
-            line-height: 45px;
-            border-bottom: 1px solid #eee;
-            width:100%;
-            background-color:#303030;
-            z-index:100;
-            text-align:left;
-        }
-
-        ul,li{
-            display: inline-block;
-        }
-
-        .logo_box{
-            width:100px;
-            display: inline-block;
-            text-align:center;
-            line-height: 60px;
-        }
-
-        .menu a,.logo_box a{
-            display: inline-block;
-            height:45px;
-            color:#ddd;
-        }
-
+        return style+testStyle+`
         .logo_box a{
             background:#303030 url(`+( Root.isDev?'./component/header/omi.png':(Root.CDN+'component/header/omi.png'))+`) no-repeat left 11px;
             background-size: contain;
             width: 39px;
-
         }
 
         .menu{
