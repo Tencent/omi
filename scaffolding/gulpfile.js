@@ -89,7 +89,7 @@ gulp.task('replace', function() {
 
         if(item.chunkNames[0]!=='omi'&&item.chunkNames[0]!=='vendor') {
             gulp.src(ENV + '/js/' + item.name)
-                .pipe(header('window.Root ={}; Root.isDev = ' + (isDist ? 'false' : 'true') + ';'))
+                .pipe(header('window.Root = window.Root||{}; Root.isDev = ' + (isDist ? 'false' : 'true') + ';'))
                 .pipe(gulp.dest(ENV + '/js'))
         }
     });
