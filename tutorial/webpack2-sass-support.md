@@ -132,7 +132,6 @@ class Header extends Omi.Component {
 	...
     style () {
         return style.toString();
-        `;
     }
 	...
 }
