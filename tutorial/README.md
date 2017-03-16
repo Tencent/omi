@@ -1,13 +1,6 @@
-﻿# 深入Omi
+﻿# Omi点滴
 
-（待续...）
-
-* [环境搭建](./cn_env.md)
-* [Hello Omi](./cn_hello.md)
-* [手Q附近Web页Omi实战](./cn_nearby.md)
-* 局部CSS揭秘
-* 组件嵌套揭秘
-* 事件处理揭秘
-* 服务器端渲染揭秘
-* 模板切换揭秘
-* 容器系统揭秘
+* [环境搭建](./env.md)
+* [omi-cli](./omi-cli.md)
+* [手Q附近Web页Omi实战](./nearby.md)
+* [omi-cli新版发布-升级webpack2和支持sass生成组件局部CSS](./webpack2-sass-support.md)
