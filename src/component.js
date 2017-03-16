@@ -26,6 +26,7 @@ class Component {
         this._addedItems = [];
         Omi.instances[this.id] = this;
         this.dataFirst = true;
+        this.dataOnly = false;
         this._omi_scoped_attr =  Omi.STYLESCOPEDPREFIX + this.id;
         //this.BODY_ELEMENT = document.createElement('body');
         this._preCSS = null;
@@ -327,6 +328,8 @@ class Component {
     }
 
     _mergeData(childStr) {
+        if(Omi.dataOnly) return;
+        if(this.dataOnly) return;
         if(this.dataFirst){
             this.data = Object.assign({},this._getDataset(childStr),this.data);
         }else{

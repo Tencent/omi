@@ -16,7 +16,7 @@
     "jsx-like-event":"webpack -w",
     "loop": "webpack -w",
     "plugin": "webpack -w",
-    "order": "webpack -w",
+    "omix": "webpack -w",
     "timer": "webpack -w",
     "communication": "webpack -w",
     "todo": "webpack -w",
