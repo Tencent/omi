@@ -1,4 +1,4 @@
-﻿## Omi点滴
+﻿## Omi教程
 
 * [环境搭建](./env.md)
 * [omi-cli](./omi-cli.md)
