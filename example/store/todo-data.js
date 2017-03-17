@@ -3,7 +3,13 @@ import Omi from '../../src/index.js';
 class TodoData extends Omi.Store {
     constructor(data , isReady) {
         super(isReady)
-        this.data = data
+
+        this.data = Object.assign({
+            items:[],
+            text:'',
+            length:0
+        },data)
+
         this.data.length = this.data.items.length
     }
 

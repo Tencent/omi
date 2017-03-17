@@ -1,11 +1,7 @@
 import TodoData from './todo-data.js';
 
 
-let todoData = new TodoData({
-    items:[],
-    text:'',
-    length:0
-})
+let todoData = new TodoData()
 
 setTimeout(function(){
 

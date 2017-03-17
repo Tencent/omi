@@ -2808,7 +2808,7 @@
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -2818,13 +2818,9 @@
 
 	var _todoData2 = _interopRequireDefault(_todoData);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var todoData = new _todoData2['default']({
-	    items: [],
-	    text: '',
-	    length: 0
-	});
+	var todoData = new _todoData2["default"]();
 
 	setTimeout(function () {
 
@@ -2837,13 +2833,13 @@
 	    todoData.beReady();
 	}, 3000);
 
-	exports['default'] = todoData;
+	exports["default"] = todoData;
 
 /***/ },
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -2855,7 +2851,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2871,13 +2867,18 @@
 
 	        var _this = _possibleConstructorReturn(this, (TodoData.__proto__ || Object.getPrototypeOf(TodoData)).call(this, isReady));
 
-	        _this.data = data;
+	        _this.data = Object.assign({
+	            items: [],
+	            text: '',
+	            length: 0
+	        }, data);
+
 	        _this.data.length = _this.data.items.length;
 	        return _this;
 	    }
 
 	    _createClass(TodoData, [{
-	        key: "add",
+	        key: 'add',
 	        value: function add() {
 	            this.data.items.push(this.data.text);
 	            this.data.text = "";
@@ -2885,12 +2886,12 @@
 	            this.update();
 	        }
 	    }, {
-	        key: "updateText",
+	        key: 'updateText',
 	        value: function updateText(text) {
 	            this.data.text = text;
 	        }
 	    }, {
-	        key: "clear",
+	        key: 'clear',
 	        value: function clear() {
 	            this.data.items.length = 0;
 	            this.data.length = 0;
@@ -2899,9 +2900,9 @@
 	    }]);
 
 	    return TodoData;
-	}(_index2["default"].Store);
+	}(_index2['default'].Store);
 
-	exports["default"] = TodoData;
+	exports['default'] = TodoData;
 
 /***/ }
 /******/ ]);
