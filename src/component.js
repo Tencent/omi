@@ -26,11 +26,17 @@ class Component {
         this._addedItems = [];
         Omi.instances[this.id] = this;
         this.dataFirst = true;
-        this.dataFromStore = false;
+
         this._omi_scoped_attr =  Omi.STYLESCOPEDPREFIX + this.id;
         //this.BODY_ELEMENT = document.createElement('body');
         this._preCSS = null;
         this._omiGroupDataCounter = {};
+        if(Omi.dataFromGlobalStore){
+            this.dataFromStore = true;
+            this.useStore(Omi.globalStore);
+        }else{
+            this.dataFromStore = false;
+        }
         if (this._omi_server_rendering || isReRendering) {
             this.install();
             this._render(true);

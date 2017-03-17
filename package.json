@@ -17,6 +17,7 @@
     "loop": "webpack -w",
     "plugin": "webpack -w",
     "store": "webpack -w",
+    "global-store": "webpack -w",
     "timer": "webpack -w",
     "communication": "webpack -w",
     "todo": "webpack -w",

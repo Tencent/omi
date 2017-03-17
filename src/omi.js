@@ -175,22 +175,23 @@ Omi.$$ = function(selector,context){
 }
 
 Omi.getClassFromString = function(str) {
-    if (str.indexOf('.') !== 0) {
+    if (str.indexOf('.') !== -1) { //root is window
         let arr = str.split('.');
         const len = arr.length;
-        let current = Omi[arr[0]];
+        let current = window[arr[0]];
         for (let i = 1; i < len; i++) {
             current = current[arr[i]];
         }
         return current;
     } else {
-        return Omi[str];
+        return Omi.componetConstructor[str];
     }
 }
 
+Omi.componetConstructor = { };
 //以前是Component的静态方法，移到omi下来，不然makehtml 在ie下child访问不到父亲的静态方法
-Omi.makeHTML= function(name , ctor) {
-    Omi[name] = ctor;
+Omi.makeHTML= function(name, ctor) {
+    Omi.componetConstructor[name] = ctor
     Omi.customTags.push(name);
 }
 
@@ -263,6 +264,11 @@ Omi.mixIndexToArray = function(arr ,indexName){
     arr.forEach((item , index)=>{
        item[indexName||'index'] =  index;
     });
+}
+
+Omi.useStore = function(globalStore){
+    Omi.globalStore = globalStore;
+    Omi.dataFromGlobalStore = true;
 }
 
 module.exports = Omi;
