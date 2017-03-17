@@ -112,7 +112,6 @@
 	        value: function add(evt) {
 	            evt.preventDefault();
 	            this.store.add();
-	            this.update();
 	        }
 	    }, {
 	        key: 'style',
@@ -2706,6 +2705,46 @@
 	                return handler();
 	            });
 	        }
+	    }, {
+	        key: "update",
+	        value: function update() {
+	            this._mergeInstances();
+	            this.instances.forEach(function (instance) {
+	                return instance.update();
+	            });
+	        }
+	    }, {
+	        key: "_mergeInstances",
+	        value: function _mergeInstances() {
+	            var _this = this;
+
+	            var arr = [];
+	            var idArr = [];
+	            this.instances.forEach(function (instance) {
+	                idArr.push(instance.id);
+	            });
+
+	            this.instances.forEach(function (instance) {
+	                if (!instance.parent) {
+	                    arr.push(instance);
+	                } else {
+	                    if (!_this._isSubInstance(instance, idArr)) {
+	                        arr.push(instance);
+	                    }
+	                }
+	            });
+
+	            this.instances = arr;
+	        }
+	    }, {
+	        key: "_isSubInstance",
+	        value: function _isSubInstance(instance, arr) {
+	            if (arr.indexOf(instance.parent.id) !== -1) {
+	                return true;
+	            } else if (instance.parent.parent) {
+	                return this._isSubInstance(instance.parent, arr);
+	            }
+	        }
 	    }]);
 
 	    return Store;
@@ -2843,6 +2882,7 @@
 	            this.data.items.push(this.data.text);
 	            this.data.text = "";
 	            this.data.length = this.data.items.length;
+	            this.update();
 	        }
 	    }, {
 	        key: "updateText",
@@ -2854,6 +2894,7 @@
 	        value: function clear() {
 	            this.data.items.length = 0;
 	            this.data.length = 0;
+	            this.update();
 	        }
 	    }]);
 

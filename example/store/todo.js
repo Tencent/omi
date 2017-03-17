@@ -14,7 +14,6 @@ class Todo extends Omi.Component {
     add (evt) {
         evt.preventDefault();
         this.store.add();
-        this.update();
     }
 
     style () {

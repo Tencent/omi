@@ -11,6 +11,7 @@ class TodoData extends Omi.Store {
         this.data.items.push(this.data.text)
         this.data.text = ""
         this.data.length = this.data.items.length
+        this.update()
     }
 
     updateText(text){
@@ -20,6 +21,7 @@ class TodoData extends Omi.Store {
     clear(){
         this.data.items.length = 0
         this.data.length = 0
+        this.update()
     }
 }
 
