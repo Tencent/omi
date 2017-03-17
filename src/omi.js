@@ -6,7 +6,7 @@ Omi.getInstanceId = function () {
 };
 Omi.customTags = [];
 Omi.mapping = {};
-Omi.dataOnly = false;
+Omi.dataFromStore = false;
 Omi.STYLEPREFIX = "omi_style_";
 Omi.STYLESCOPEDPREFIX = "omi_scoped_";
 

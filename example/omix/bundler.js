@@ -54,9 +54,14 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
+	var _store = __webpack_require__(11);
+
+	var _store2 = _interopRequireDefault(_store);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	_index2['default'].dataOnly = true;
+	_index2['default'].dataFromStore = true;
+
 	_index2['default'].render(new _todo2['default'](), 'body', true);
 
 /***/ },
@@ -79,9 +84,9 @@
 
 	var _list2 = _interopRequireDefault(_list);
 
-	var _todoData = __webpack_require__(11);
+	var _store = __webpack_require__(11);
 
-	var _todoData2 = _interopRequireDefault(_todoData);
+	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -101,7 +106,10 @@
 
 	        var _this = _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, data));
 
-	        _this.data = _todoData2['default'].data;
+	        _this.data = _store2['default'].data;
+	        _store2['default'].ready(function () {
+	            return _this.update();
+	        });
 	        return _this;
 	    }
 
@@ -109,7 +117,7 @@
 	        key: 'add',
 	        value: function add(evt) {
 	            evt.preventDefault();
-	            _todoData2['default'].add();
+	            _store2['default'].add();
 	            this.update();
 	        }
 	    }, {
@@ -120,7 +128,7 @@
 	    }, {
 	        key: 'handleChange',
 	        value: function handleChange(target) {
-	            _todoData2['default'].updateText(target.value);
+	            _store2['default'].updateText(target.value);
 	        }
 	    }, {
 	        key: 'render',
@@ -180,7 +188,7 @@
 	};
 	Omi.customTags = [];
 	Omi.mapping = {};
-	Omi.dataOnly = false;
+	Omi.dataFromStore = false;
 	Omi.STYLEPREFIX = "omi_style_";
 	Omi.STYLESCOPEDPREFIX = "omi_scoped_";
 
@@ -1141,7 +1149,7 @@
 	        this._addedItems = [];
 	        _omi2['default'].instances[this.id] = this;
 	        this.dataFirst = true;
-	        this.dataOnly = false;
+	        this.dataFromStore = false;
 	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
 	        //this.BODY_ELEMENT = document.createElement('body');
 	        this._preCSS = null;
@@ -1479,8 +1487,8 @@
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr) {
-	            if (_omi2['default'].dataOnly) return;
-	            if (this.dataOnly) return;
+	            if (_omi2['default'].dataFromStore) return;
+	            if (this.dataFromStore) return;
 	            if (this.dataFirst) {
 	                this.data = Object.assign({}, this._getDataset(childStr), this.data);
 	            } else {
@@ -2658,9 +2666,9 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _todoData = __webpack_require__(11);
+	var _store = __webpack_require__(11);
 
-	var _todoData2 = _interopRequireDefault(_todoData);
+	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -2678,7 +2686,7 @@
 
 	        var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, data));
 
-	        _this.data = _todoData2['default'].data;
+	        _this.data = _store2['default'].data;
 	        return _this;
 	    }
 
@@ -2696,7 +2704,42 @@
 
 /***/ },
 /* 11 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _todoData = __webpack_require__(12);
+
+	var _todoData2 = _interopRequireDefault(_todoData);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var todoData = new _todoData2['default']({
+	    items: [],
+	    text: '',
+	    length: 0
+	});
+
+	setTimeout(function () {
+
+	    var result = {
+	        items: ["aa", "bb"]
+	    };
+
+	    todoData.data.items = result.items;
+	    todoData.data.length = todoData.data.items.length;
+	    todoData.beReady();
+	}, 3000);
+
+	exports['default'] = todoData;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
@@ -2706,14 +2749,29 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _omix = __webpack_require__(13);
+
+	var _omix2 = _interopRequireDefault(_omix);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var TodoData = function () {
-	    function TodoData(data) {
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TodoData = function (_Omix) {
+	    _inherits(TodoData, _Omix);
+
+	    function TodoData(data, isReady) {
 	        _classCallCheck(this, TodoData);
 
-	        this.data = data;
-	        this.data.length = this.data.items.length;
+	        var _this = _possibleConstructorReturn(this, (TodoData.__proto__ || Object.getPrototypeOf(TodoData)).call(this, isReady));
+
+	        _this.data = data;
+	        _this.data.length = _this.data.items.length;
+	        return _this;
 	    }
 
 	    _createClass(TodoData, [{
@@ -2737,14 +2795,55 @@
 	    }]);
 
 	    return TodoData;
-	}();
+	}(_omix2["default"]);
 
-	var todoData = new TodoData({
-	    items: ["aa", "bb"],
-	    text: ''
+	exports["default"] = TodoData;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
 
-	exports["default"] = todoData;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Omix = function () {
+	    function Omix(isReady) {
+	        _classCallCheck(this, Omix);
+
+	        this.readyHandlers = [];
+	        this.isReady = isReady;
+	    }
+
+	    _createClass(Omix, [{
+	        key: "ready",
+	        value: function ready(readyHandler) {
+	            if (this.isReady) {
+	                readyHandler();
+	                return;
+	            }
+	            this.readyHandlers.push(readyHandler);
+	        }
+	    }, {
+	        key: "beReady",
+	        value: function beReady() {
+	            this.isReady = true;
+	            this.readyHandlers.forEach(function (handler) {
+	                return handler();
+	            });
+	        }
+	    }]);
+
+	    return Omix;
+	}();
+
+	exports["default"] = Omix;
 
 /***/ }
 /******/ ]);

@@ -1,6 +1,6 @@
 ﻿import Omi from '../../src/index.js';
 import List from './list.js';
-import store from './todo-data.js';
+import store from './store.js';
 
 Omi.makeHTML('List', List);
 
@@ -8,6 +8,7 @@ class Todo extends Omi.Component {
     constructor(data) {
         super(data)
         this.data = store.data;
+        store.ready(()=>this.update())
     }
 
     add (evt) {
