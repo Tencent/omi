@@ -1,6 +1,6 @@
-import Omix from './omix.js';
+import Omi from '../../src/index.js';
 
-class TodoData extends Omix {
+class TodoData extends Omi.Store {
     constructor(data , isReady) {
         super(isReady)
         this.data = data

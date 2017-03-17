@@ -7,13 +7,13 @@ Omi.makeHTML('List', List);
 class Todo extends Omi.Component {
     constructor(data) {
         super(data)
-        this.data = store.data;
-        store.ready(()=>this.update())
+        this.useStore(store)
+        this.store.ready(()=>this.update())
     }
 
     add (evt) {
         evt.preventDefault();
-        store.add();
+        this.store.add();
         this.update();
     }
 

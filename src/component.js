@@ -63,6 +63,22 @@ class Component {
     style() {
     }
 
+    useStore(store){
+        this.store = store;
+        this.data = store.data
+        let isInclude = false
+        this.dataFromStore = true
+        store.instances.forEach(instance=>{
+            if(instance.id ===this.id){
+                isInclude = true
+            }
+        })
+        if(!isInclude){
+            store.instances.push(this)
+        }
+
+    }
+
     update() {
         this.beforeUpdate();
         this._childrenBeforeUpdate(this);
@@ -328,7 +344,6 @@ class Component {
     }
 
     _mergeData(childStr) {
-        if(Omi.dataFromStore) return;
         if(this.dataFromStore) return;
         if(this.dataFirst){
             this.data = Object.assign({},this._getDataset(childStr),this.data);

@@ -4,7 +4,7 @@ import store from './store.js';
 class List extends Omi.Component {
     constructor(data) {
         super(data)
-        this.data = store.data
+        this.useStore(store)
     }
 
     render () {

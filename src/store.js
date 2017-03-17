@@ -1,7 +1,8 @@
-class Omix {
+class Store {
     constructor(isReady) {
         this.readyHandlers = []
         this.isReady = isReady
+        this.instances = []
     }
 
     ready(readyHandler){
@@ -21,4 +22,4 @@ class Omix {
 
 }
 
-export default Omix
+export default Store
