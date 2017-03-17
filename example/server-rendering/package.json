@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "dependencies": {
+    "koa": "^1.2.4",
+    "koa-route": "^2.4.2",
+    "jsdom":"^9.8.3",
+    "koa-static": "^2.0.0"
+  }
+}
