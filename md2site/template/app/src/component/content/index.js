@@ -8,19 +8,8 @@ const css = require('./index.css');
 
 class Content extends Omi.Component {
     constructor(data) {
-        data = Object.assign({
-            lan:'cn',
-            name: 'installation'
-        },data);
         super(data);
         this.md = new Remarkable({html:true});
-    }
-
-    asyncUpdate() {
-        this.loadMarkdown("../../docs/" + this.data.lan + "/" + this.data.name + ".md",(md)=>{
-            this.data.html = this.md.render(md);
-            this.update();
-        })
     }
 
     installed(){
@@ -29,7 +18,7 @@ class Content extends Omi.Component {
 
     install(){
         if(proj_config.async) {
-            this.asyncUpdate();
+            this.store.asyncUpdate();
         }
     }
 
@@ -40,20 +29,6 @@ class Content extends Omi.Component {
     getMarkDown(name,lan){
         return require("../../docs/" + lan + "/" + name + ".md");
     }
-
-     loadMarkdown(url,callback) {
-
-         var xobj = new XMLHttpRequest();
-         //xobj.overrideMimeType("application/json");
-         xobj.open('GET', url, true); // Replace 'my_data' with the path to your file
-         xobj.onreadystatechange = function () {
-             if (xobj.readyState == 4 && xobj.status == "200") {
-                 // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-                 callback(xobj.responseText);
-             }
-         };
-         xobj.send(null);
-     }
 
     initCodeStyle() {
         let codes = Omi.$$("code");
@@ -102,7 +77,7 @@ class Content extends Omi.Component {
 
     render () {
         if(!proj_config.async) {
-            this.data.html = this.md.render(this.getMarkDown(this.data.name, this.data.lan));
+            this.data.html = this.md.render(this.getMarkDown(this.store.data.md, this.store.data.lan));
         }
         return tpl;
     }

@@ -391,9 +391,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	};
 
-	Omi.useStore = function (globalStore) {
-	    Omi.globalStore = globalStore;
+	Omi.useStore = function (store, autoUse) {
+	    Omi.store = store;
 	    Omi.dataFromGlobalStore = true;
+	    Omi._autoUseGlobalStore = autoUse;
 	};
 
 	module.exports = Omi;
@@ -436,9 +437,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Component = function () {
-	    function Component(data, server) {
+	    function Component(data, option) {
 	        _classCallCheck(this, Component);
 
+	        var componentOption = Object.assign({
+	            server: false,
+	            useLocalData: false
+	        }, option);
 	        //re render the server-side rendering html on the client-side
 	        var type = Object.prototype.toString.call(data);
 	        var isReRendering = type !== '[object Object]' && type !== '[object Undefined]';
@@ -449,7 +454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.data = JSON.parse(this._hidden.value);
 	        } else {
 	            this.data = data || {};
-	            this._omi_server_rendering = server;
+	            this._omi_server_rendering = componentOption.server;
 	            this.id = this._omi_server_rendering ? 1000000 + _omi2['default'].getInstanceId() : _omi2['default'].getInstanceId();
 	        }
 	        this.refs = {};
@@ -466,7 +471,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._omiGroupDataCounter = {};
 	        if (_omi2['default'].dataFromGlobalStore) {
 	            this.dataFromStore = true;
-	            this.useStore(_omi2['default'].globalStore);
+	            if (_omi2['default']._autoUseGlobalStore && !componentOption.useLocalData) {
+	                this.useStore(_omi2['default'].store);
+	            }
 	        } else {
 	            this.dataFromStore = false;
 	        }

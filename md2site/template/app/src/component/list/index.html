@@ -2,7 +2,7 @@
     <li class="title">{{title}}</li>
     {{#list}}
     <li>
-        <a href="#"  onclick="goto('{{md}}',{{index}})" {{#isCurrent}}class="current"{{/isCurrent}}>{{name}}</a>
+        <a href="#"  onclick="goto('{{md}}',{{index}})" {{#selected}}class="current"{{/selected}}>{{name}}</a>
     </li>
     {{/list}}
 </ul>

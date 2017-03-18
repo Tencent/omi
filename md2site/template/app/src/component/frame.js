@@ -2,7 +2,6 @@ import Omi from 'omi';
 import Content from './content/index.js';
 import Sidebar from './sidebar/index.js';
 import Head from './head/index.js';
-import config from '../docs/config.js';
 import Pager from './pager/index.js';
 
 Omi.makeHTML('Content', Content);
@@ -55,12 +54,12 @@ class Frame extends Omi.Component {
 
     render() {
         return `<div>
-                    <Head data-lan="{{lan}}" />
+                    <Head />
                     <div class="main" ref="main"  style="width:{{width}};">
-                        <Content  omi-id="content" data-lan="{{lan}}" />
-                        <Pager omi-id="pager" data-lan="{{lan}}" />
+                        <Content  omi-id="content" />
+                        <Pager omi-id="pager" />
                     </div>
-                    <Sidebar omi-id="sidebar" data-lan="{{lan}}" />
+                    <Sidebar omi-id="sidebar" />
                 </div>`;
     }
 }

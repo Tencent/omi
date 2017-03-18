@@ -12,7 +12,7 @@ class Head extends Omi.Component {
     }
 
     install(){
-        this.data.isEnLan = this.data.lan === 'en';
+        this.data.isEnLan = this.store.data.lan === 'en';
         document.body.addEventListener('touchend',()=>{
             setTimeout(()=>{
                 this.removeClass(Omi.get('sidebar').node,'show');

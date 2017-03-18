@@ -1,5 +1,4 @@
 ﻿import Omi from 'omi';
-import config from '../../docs/config.js';
 import OmiFinger from 'omi-finger';
 
 OmiFinger.init();
@@ -7,43 +6,23 @@ OmiFinger.init();
 class Pager extends Omi.Component {
     constructor (data) {
         super(data);
-        this.activeIndex = 0;
-        this.currentIndex = 0;
     }
 
-    updatePager() {
-        this.data.preMd = null;
-        this.data.preName = null;
-        this.data.nextMd = null;
-        this.data.nextName = null;
-        let item = config.menus[this.data.lan][this.activeIndex];
-
-        let pre = item.list[this.currentIndex - 1];
-        if (pre) {
-            this.data.preMd = pre.md;
-            this.data.preName = pre.name;
-        }
-        let next = item.list[this.currentIndex + 1];
-        if (next) {
-            this.data.nextMd = next.md;
-            this.data.nextName = next.name;
-        }
+    next(){
+        this.store.next();
     }
 
-    goto(name , dir){
-        let sidebar = Omi.get('sidebar');
-        if(dir ==='next'){
-            sidebar.children[this.activeIndex].goto(name,++this.currentIndex);
-        }else{
-            sidebar.children[this.activeIndex].goto(name,--this.currentIndex);
-        }
-        this.update();
+    pre(){
+        this.store.pre();
     }
 
     handleTap(evt){
         let dir = evt.target.getAttribute('data-dir');
-        let name= evt.target.getAttribute('data-name');
-        this.goto(name,dir);
+        if(dir ==='next') {
+            this.next()
+        }else{
+            this.pre()
+        }
     }
 
     isMobile(){
@@ -74,7 +53,6 @@ class Pager extends Omi.Component {
     }
 
     render () {
-        this.updatePager();
         if(this.isMobile()) {
             return `
     <div class="pager">
@@ -84,8 +62,8 @@ class Pager extends Omi.Component {
         }else{
             return`
     <div class="pager">
-        {{#preName}} <a class="pre" href="#" onclick="goto('{{preMd}}','pre')">←{{preName}}</a>{{/preName}}
-        {{#nextName}}<a class="next" href="#"  onclick="goto('{{nextMd}}','next')">{{nextName}}→</a> {{/nextName}}
+        {{#preName}} <a class="pre" href="#" onclick="pre('{{preMd}}','pre')">←{{preName}}</a>{{/preName}}
+        {{#nextName}}<a class="next" href="#"  onclick="next('{{nextMd}}','next')">{{nextName}}→</a> {{/nextName}}
     </div>`;
         }
     }

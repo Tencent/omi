@@ -13,7 +13,7 @@ app.use(serve(__dirname + '/component'));
 
 app.use(router.get('/todos', function *(){
     var  str = require('fs').readFileSync(__dirname + '/view/index.html', 'utf8');
-    var todo = new Todo({ items: ["Omi","dntzhang",'AlloyTeam',"腾讯"] },true);
+    var todo = new Todo({ items: ["Omi","dntzhang",'AlloyTeam',"腾讯"] },{server:true});
     this.body = Omi.template(str, {
         todo:  todo.HTML
     });

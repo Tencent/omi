@@ -1,6 +1,6 @@
 import Omi from 'omi';
 import List from '../list/index.js';
-import config from '../../docs/config.js';
+
 
 Omi.makeHTML('List', List);
 
@@ -10,7 +10,6 @@ class Sidebar extends Omi.Component {
     }
 
     install () {
-        this.data.items = config['menus'][this.data.lan] ;
         this.data.height = window.innerHeight -45;
     }
 

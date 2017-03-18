@@ -5,7 +5,11 @@ import morphdom from './morphdom.js'
 import html2json from './html2json.js'
 
 class Component {
-    constructor(data, server) {
+    constructor(data, option) {
+        const componentOption = Object.assign({
+            server:false,
+            useLocalData: false
+        },option)
         //re render the server-side rendering html on the client-side
         const type = Object.prototype.toString.call(data)
         const isReRendering = type !== '[object Object]' && type !== '[object Undefined]'
@@ -16,8 +20,8 @@ class Component {
             this.data = JSON.parse(this._hidden.value)
         } else {
             this.data = data || {}
-            this._omi_server_rendering = server
-            this.id = this._omi_server_rendering ? (1000000+ Omi.getInstanceId()) : Omi.getInstanceId()
+            this._omi_server_rendering = componentOption.server
+            this.id = this._omi_server_rendering ? (1000000 + Omi.getInstanceId()) : Omi.getInstanceId()
         }
         this.refs = {}
         this.children = []
@@ -33,7 +37,7 @@ class Component {
         this._omiGroupDataCounter = {}
         if(Omi.dataFromGlobalStore){
             this.dataFromStore = true
-            if(Omi._autoUseGlobalStore) {
+            if(Omi._autoUseGlobalStore&&!componentOption.useLocalData) {
                 this.useStore(Omi.store)
             }
         }else{
