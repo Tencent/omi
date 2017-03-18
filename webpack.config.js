@@ -41,7 +41,7 @@ var config  = {
     // devtool: 'source-map',
 };
 
-if(ENV === 'build'||ENV === 'build_min'){
+if(ENV === 'build'||ENV === 'build-min'){
     config = {
         entry: {
             omi: './src/index.js',
@@ -83,7 +83,7 @@ if(ENV === 'build'||ENV === 'build_min'){
        // devtool: 'source-map',
     };
 
-     if(ENV === 'build_min'){
+     if(ENV === 'build-min'){
         config.plugins.push(new webpack.optimize.UglifyJsPlugin());
         config.entry = {
             'omi.min': './src/index.js',
