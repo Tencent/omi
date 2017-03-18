@@ -1,6 +1,6 @@
 {
     "name": "md2site",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "Transform Markdown to Website base on Omi Framework.",
     "main": "bin/md2site",
     "engines": {
