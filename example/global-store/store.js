@@ -1,7 +1,7 @@
-import TodoData from './todo-data.js';
+import TodoStore from './todo-store.js';
 
 
-let todoData = new TodoData()
+let todoStore = new TodoStore()
 
 setTimeout(function(){
 
@@ -9,11 +9,11 @@ setTimeout(function(){
         items: ["aa","bb"]
     };
 
-    todoData.data.items = result.items;
-    todoData.data.length = todoData.data.items.length
-    todoData.beReady();
+    todoStore.data.items = result.items;
+    todoStore.data.length = todoStore.data.items.length
+    todoStore.beReady();
 },3000)
 
 
 
-export default todoData;
+export default todoStore;

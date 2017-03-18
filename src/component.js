@@ -33,7 +33,9 @@ class Component {
         this._omiGroupDataCounter = {}
         if(Omi.dataFromGlobalStore){
             this.dataFromStore = true
-            this.useStore(Omi.globalStore)
+            if(Omi._autoUseGlobalStore) {
+                this.useStore(Omi.store)
+            }
         }else{
             this.dataFromStore = false
         }

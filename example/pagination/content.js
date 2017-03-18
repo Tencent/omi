@@ -3,11 +3,9 @@ import Omi from '../../src/index.js';
 class Content extends Omi.Component {
     constructor(data) {
         super(data);
+        this.useStore(Omi.store.pageStore);
     }
-    goto (index) {
-        this.data.index = index;
-        this.update();
-    }
+
     style(){
         return `
         .content{
@@ -18,9 +16,10 @@ class Content extends Omi.Component {
         }
         `
     }
+
     render () {
        return `
-       <div class="content">i am page {{index}}</div>
+       <div class="content">i am page {{currentPage}}</div>
        `;
     }
 }

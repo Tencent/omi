@@ -1,6 +1,6 @@
 import Omi from '../../src/index.js';
 
-class TodoData extends Omi.Store {
+class TodoStore extends Omi.Store {
     constructor(data , isReady) {
         super(isReady)
 
@@ -31,4 +31,4 @@ class TodoData extends Omi.Store {
     }
 }
 
-export default TodoData
+export default TodoStore

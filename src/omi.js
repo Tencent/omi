@@ -267,9 +267,10 @@ Omi.mixIndexToArray = function(arr ,indexName){
     })
 }
 
-Omi.useStore = function(globalStore){
-    Omi.globalStore = globalStore
+Omi.useStore = function(store, autoUse){
+    Omi.store = store
     Omi.dataFromGlobalStore = true
+    Omi._autoUseGlobalStore = autoUse
 }
 
 module.exports = Omi

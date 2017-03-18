@@ -190,6 +190,8 @@
 	Omi.STYLEPREFIX = "omi_style_";
 	Omi.STYLESCOPEDPREFIX = "omi_scoped_";
 
+	Omi.componetConstructor = {};
+
 	//fix ie bug
 	if (typeof Object.assign != 'function') {
 	    Object.assign = function (target) {
@@ -328,7 +330,7 @@
 	        u_setting = setting;
 	        u_parent = parent;
 	    }
-	    Omi[tagName] = function (parent) {
+	    Omi.componetConstructor[tagName] = function (parent) {
 	        _inherits(Obj, parent);
 
 	        function Obj(data, server) {
@@ -344,7 +346,7 @@
 
 	    Omi.customTags.push(tagName);
 
-	    return Omi[tagName];
+	    return Omi.componetConstructor[tagName];
 	};
 
 	Omi.mixIndex = function (array, key) {
@@ -379,22 +381,23 @@
 	};
 
 	Omi.getClassFromString = function (str) {
-	    if (str.indexOf('.') !== 0) {
+	    if (str.indexOf('.') !== -1) {
+	        //root is window
 	        var arr = str.split('.');
 	        var len = arr.length;
-	        var current = Omi[arr[0]];
+	        var current = window[arr[0]];
 	        for (var i = 1; i < len; i++) {
 	            current = current[arr[i]];
 	        }
 	        return current;
 	    } else {
-	        return Omi[str];
+	        return Omi.componetConstructor[str];
 	    }
 	};
 
 	//以前是Component的静态方法，移到omi下来，不然makehtml 在ie下child访问不到父亲的静态方法
 	Omi.makeHTML = function (name, ctor) {
-	    Omi[name] = ctor;
+	    Omi.componetConstructor[name] = ctor;
 	    Omi.customTags.push(name);
 	};
 
@@ -467,6 +470,11 @@
 	    arr.forEach(function (item, index) {
 	        item[indexName || 'index'] = index;
 	    });
+	};
+
+	Omi.useStore = function (globalStore) {
+	    Omi.globalStore = globalStore;
+	    Omi.dataFromGlobalStore = true;
 	};
 
 	module.exports = Omi;
@@ -1147,11 +1155,17 @@
 	        this._addedItems = [];
 	        _omi2['default'].instances[this.id] = this;
 	        this.dataFirst = true;
-	        this.dataFromStore = false;
+
 	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
-	        //this.BODY_ELEMENT = document.createElement('body');
+	        //this.BODY_ELEMENT = document.createElement('body')
 	        this._preCSS = null;
 	        this._omiGroupDataCounter = {};
+	        if (_omi2['default'].dataFromGlobalStore) {
+	            this.dataFromStore = true;
+	            this.useStore(_omi2['default'].globalStore);
+	        } else {
+	            this.dataFromStore = false;
+	        }
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
@@ -1377,7 +1391,7 @@
 	                this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >';
 	                return this.HTML;
 	            }
-	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>");
+	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>")
 	            this._mergeData(childStr);
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
@@ -1738,7 +1752,7 @@
 	            }
 	        });
 	    });
-	};
+	}
 
 	exports['default'] = scopedEvent;
 
@@ -2814,13 +2828,13 @@
 	    value: true
 	});
 
-	var _todoData = __webpack_require__(13);
+	var _todoStore = __webpack_require__(13);
 
-	var _todoData2 = _interopRequireDefault(_todoData);
+	var _todoStore2 = _interopRequireDefault(_todoStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var todoData = new _todoData2["default"]();
+	var todoStore = new _todoStore2["default"]();
 
 	setTimeout(function () {
 
@@ -2828,12 +2842,12 @@
 	        items: ["aa", "bb"]
 	    };
 
-	    todoData.data.items = result.items;
-	    todoData.data.length = todoData.data.items.length;
-	    todoData.beReady();
+	    todoStore.data.items = result.items;
+	    todoStore.data.length = todoStore.data.items.length;
+	    todoStore.beReady();
 	}, 3000);
 
-	exports["default"] = todoData;
+	exports["default"] = todoStore;
 
 /***/ },
 /* 13 */
@@ -2859,13 +2873,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var TodoData = function (_Omi$Store) {
-	    _inherits(TodoData, _Omi$Store);
+	var TodoStore = function (_Omi$Store) {
+	    _inherits(TodoStore, _Omi$Store);
 
-	    function TodoData(data, isReady) {
-	        _classCallCheck(this, TodoData);
+	    function TodoStore(data, isReady) {
+	        _classCallCheck(this, TodoStore);
 
-	        var _this = _possibleConstructorReturn(this, (TodoData.__proto__ || Object.getPrototypeOf(TodoData)).call(this, isReady));
+	        var _this = _possibleConstructorReturn(this, (TodoStore.__proto__ || Object.getPrototypeOf(TodoStore)).call(this, isReady));
 
 	        _this.data = Object.assign({
 	            items: [],
@@ -2877,7 +2891,7 @@
 	        return _this;
 	    }
 
-	    _createClass(TodoData, [{
+	    _createClass(TodoStore, [{
 	        key: 'add',
 	        value: function add() {
 	            this.data.items.push(this.data.text);
@@ -2899,10 +2913,10 @@
 	        }
 	    }]);
 
-	    return TodoData;
+	    return TodoStore;
 	}(_index2['default'].Store);
 
-	exports['default'] = TodoData;
+	exports['default'] = TodoStore;
 
 /***/ }
 /******/ ]);

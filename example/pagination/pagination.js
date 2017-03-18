@@ -17,6 +17,8 @@ class Pagination extends Omi.Component {
             onPageChange: function () { return false; }
         }, data);
         super(data);
+
+        this.useStore(Omi.store.paginationStore)
     }
 
     install () {
@@ -25,9 +27,10 @@ class Pagination extends Omi.Component {
 
     goto (index,evt) {
         evt.preventDefault();
-        this.data.currentPage=index;
-        this.update();
-        this.data.onPageChange(index);
+        this.store.goto(index);
+        //this.data.currentPage=index;
+        //this.update();
+        //this.data.onPageChange(index);
 
     }
     style(){
