@@ -15,6 +15,8 @@ setTimeout(function(){
 
 let paginationStore = new PaginationStore({
     total:100,
+    numDisplay: 4,
+    numEdge: 1,
     currentPage:currentPage,
     onPageChange:(pageIndex)=>{
         pageStore.updatePageIndex(pageIndex)

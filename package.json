@@ -24,6 +24,7 @@
     "artTemplate": "webpack -w",
     "todo-nest": "webpack -w",
     "pagination": "webpack -w",
+    "pagination-store": "webpack -w",
     "server-rendering": "node example/server_rendering/app.js",
     "test": "karma start test/karma.conf.js"
   },

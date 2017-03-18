@@ -60,6 +60,10 @@
 
 	var _content2 = _interopRequireDefault(_content);
 
+	var _store = __webpack_require__(12);
+
+	var _store2 = _interopRequireDefault(_store);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71,29 +75,27 @@
 	_index2['default'].makeHTML('Pagination', _pagination2['default']);
 	_index2['default'].makeHTML('Content', _content2['default']);
 
+	_index2['default'].useStore(_store2['default']);
+
 	var Main = function (_Omi$Component) {
 	    _inherits(Main, _Omi$Component);
 
 	    function Main(data) {
 	        _classCallCheck(this, Main);
 
-	        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, data));
+	        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, data));
+
+	        _this.useStore(_index2['default'].store.pageStore);
+	        return _this;
 	    }
 
 	    _createClass(Main, [{
 	        key: 'installed',
-	        value: function installed() {
-	            this.content.goto(this.pagination.data.currentPage + 1);
-	        }
-	    }, {
-	        key: 'handlePageChange',
-	        value: function handlePageChange(index) {
-	            this.content.goto(index + 1);
-	        }
+	        value: function installed() {}
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h1>Pagination Example</h1>\n                    <Content name="content" />\n                    <Pagination\n                        name="pagination"\n                        data-total="100"\n                        data-page-size="10"\n                        data-num-edge="1"\n                        data-num-display="4"\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\n                        onPageChange="handlePageChange" />\n                </div>';
+	            return '<div>\n                    <h1>{{title}}</h1>\n                    <Content name="content" />\n                    <Pagination />\n                </div>';
 	        }
 	    }]);
 
@@ -2782,7 +2784,11 @@
 	                return false;
 	            }
 	        }, data);
-	        return _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, data));
+
+	        var _this = _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, data));
+
+	        _this.useStore(_index2["default"].store.paginationStore);
+	        return _this;
 	    }
 
 	    _createClass(Pagination, [{
@@ -2794,9 +2800,10 @@
 	        key: "goto",
 	        value: function goto(index, evt) {
 	            evt.preventDefault();
-	            this.data.currentPage = index;
-	            this.update();
-	            this.data.onPageChange(index);
+	            this.store.goto(index);
+	            //this.data.currentPage=index;
+	            //this.update();
+	            //this.data.onPageChange(index);
 	        }
 	    }, {
 	        key: "style",
@@ -2914,16 +2921,13 @@
 	    function Content(data) {
 	        _classCallCheck(this, Content);
 
-	        return _possibleConstructorReturn(this, (Content.__proto__ || Object.getPrototypeOf(Content)).call(this, data));
+	        var _this = _possibleConstructorReturn(this, (Content.__proto__ || Object.getPrototypeOf(Content)).call(this, data));
+
+	        _this.useStore(_index2['default'].store.pageStore);
+	        return _this;
 	    }
 
 	    _createClass(Content, [{
-	        key: 'goto',
-	        value: function goto(index) {
-	            this.data.index = index;
-	            this.update();
-	        }
-	    }, {
 	        key: 'style',
 	        value: function style() {
 	            return '\n        .content{\n            height: 80px;\n            line-height: 53px;\n            text-indent: 20px;\n            font-size: 30px;\n        }\n        ';
@@ -2931,7 +2935,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n       <div class="content">i am page {{index}}</div>\n       ';
+	            return '\n       <div class="content">i am page {{currentPage}}</div>\n       ';
 	        }
 	    }]);
 
@@ -2939,6 +2943,181 @@
 	}(_index2['default'].Component);
 
 	exports['default'] = Content;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _pageStore = __webpack_require__(13);
+
+	var _pageStore2 = _interopRequireDefault(_pageStore);
+
+	var _paginationStore = __webpack_require__(14);
+
+	var _paginationStore2 = _interopRequireDefault(_paginationStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var currentPage = 3;
+	var pageStore = new _pageStore2['default']({
+	    currentPage: currentPage + 1
+	});
+
+	setTimeout(function () {
+
+	    //pageStore.data.currentPage = 0;
+	    //
+	    //pageStore.beReady();
+	}, 3000);
+
+	var paginationStore = new _paginationStore2['default']({
+	    total: 100,
+	    numDisplay: 4,
+	    numEdge: 1,
+	    currentPage: currentPage,
+	    onPageChange: function onPageChange(pageIndex) {
+	        pageStore.updatePageIndex(pageIndex);
+	    }
+	});
+
+	exports['default'] = {
+	    pageStore: pageStore,
+	    paginationStore: paginationStore
+	};
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _index = __webpack_require__(1);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PageStore = function (_Omi$Store) {
+	    _inherits(PageStore, _Omi$Store);
+
+	    function PageStore(data, isReady) {
+	        _classCallCheck(this, PageStore);
+
+	        var _this = _possibleConstructorReturn(this, (PageStore.__proto__ || Object.getPrototypeOf(PageStore)).call(this, isReady));
+
+	        _this.data = Object.assign({ currentPage: 0, title: 'Pagination Example2' }, data);
+
+	        return _this;
+	    }
+
+	    _createClass(PageStore, [{
+	        key: 'updateTitle',
+	        value: function updateTitle(title) {
+	            this.data.title = title;
+	            this.update();
+	        }
+	    }, {
+	        key: 'updatePageIndex',
+	        value: function updatePageIndex(index) {
+	            this.data.currentPage = index + 1;
+	            this.update();
+	        }
+	    }]);
+
+	    return PageStore;
+	}(_index2['default'].Store);
+
+	exports['default'] = PageStore;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _index = __webpack_require__(1);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PaginationStore = function (_Omi$Store) {
+	    _inherits(PaginationStore, _Omi$Store);
+
+	    function PaginationStore(data, isReady) {
+	        _classCallCheck(this, PaginationStore);
+
+	        var _this = _possibleConstructorReturn(this, (PaginationStore.__proto__ || Object.getPrototypeOf(PaginationStore)).call(this, isReady));
+
+	        _this.data = Object.assign({
+	            total: 0,
+	            pageSize: 10,
+	            numDisplay: 10,
+	            currentPage: 3,
+	            numEdge: 0,
+	            linkTo: "#",
+	            prevText: "Prev",
+	            nextText: "Next",
+	            ellipseText: "...",
+	            prevShow: true,
+	            nextShow: true,
+	            onPageChange: function onPageChange() {}
+
+	        }, data);
+
+	        return _this;
+	    }
+
+	    _createClass(PaginationStore, [{
+	        key: "goto",
+	        value: function goto(pageIndex) {
+	            if (pageIndex === this.data.currentPage) return;
+	            this.data.onPageChange(pageIndex);
+	            this.data.currentPage = pageIndex;
+	            this.update();
+	        }
+	    }, {
+	        key: "nextPage",
+	        value: function nextPage() {
+	            this.currentPage++;
+	            this.goto(this.currentPage);
+	        }
+	    }]);
+
+	    return PaginationStore;
+	}(_index2["default"].Store);
+
+	exports["default"] = PaginationStore;
 
 /***/ }
 /******/ ]);
