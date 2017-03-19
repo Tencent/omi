@@ -9,11 +9,11 @@ class Pager extends Omi.Component {
     }
 
     next(){
-        this.store.next();
+        this.$store.next();
     }
 
     pre(){
-        this.store.pre();
+        this.$store.pre();
     }
 
     handleTap(evt){

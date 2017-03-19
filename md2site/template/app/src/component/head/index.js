@@ -12,12 +12,16 @@ class Head extends Omi.Component {
     }
 
     install(){
-        this.data.isEnLan = this.store.data.lan === 'en';
+
         document.body.addEventListener('touchend',()=>{
             setTimeout(()=>{
                 this.removeClass(Omi.get('sidebar').node,'show');
             },300);
         },false);
+    }
+
+    storeToData(){
+        this.data.isEnLan = this.$store.data.lan === 'en';
     }
 
     toggleMenus(evt){

@@ -18,7 +18,7 @@ class Content extends Omi.Component {
 
     install(){
         if(proj_config.async) {
-            this.store.asyncUpdate();
+            this.$store.asyncUpdate();
         }
     }
 
@@ -77,7 +77,7 @@ class Content extends Omi.Component {
 
     render () {
         if(!proj_config.async) {
-            this.data.html = this.md.render(this.getMarkDown(this.store.data.md, this.store.data.lan));
+            this.data.html = this.md.render(this.getMarkDown(this.$store.data.md, this.$store.data.lan));
         }
         return tpl;
     }

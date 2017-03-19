@@ -33,6 +33,10 @@ class Frame extends Omi.Component {
         }
     }
 
+    storeToData(){
+        this.setViewport();
+    }
+
     style() {
         return `
     <style>

@@ -9,7 +9,7 @@ class Sidebar extends Omi.Component {
         super(data);
     }
 
-    install () {
+    storeToData(){
         this.data.height = window.innerHeight -45;
     }
 

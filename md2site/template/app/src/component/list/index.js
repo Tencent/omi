@@ -6,12 +6,12 @@ const css = require('./index.css');
 class List extends Omi.Component {
     constructor(data) {
         super(data,{
-            useLocalData: true
+            ignoreStoreData: true
         });
     }
 
     goto(md,index){
-        Omi.store.goto(md,index)
+        this.$store.goto(md,index)
     }
 
     render() {

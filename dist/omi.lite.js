@@ -444,8 +444,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _classCallCheck(this, Component);
 
 	        var componentOption = Object.assign({
-	            server: false
+	            server: false,
+	            ignoreStoreData: false
 	        }, option);
+	        this._omi_ignoreStoreData = componentOption.ignoreStoreData;
 	        //re render the server-side rendering html on the client-side
 	        var type = Object.prototype.toString.call(data);
 	        var isReRendering = type !== '[object Object]' && type !== '[object Undefined]';
@@ -660,7 +662,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return;
 	            }
 	            if (this._omi_autoStoreToData) {
-	                this.data = this.$store.data;
+	                if (!this._omi_ignoreStoreData) {
+	                    this.data = this.$store.data;
+	                }
 	            }
 	            this.storeToData();
 	            this._generateHTMLCSS();
@@ -705,7 +709,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._mergeData(childStr);
 	            if (this.parent._omi_autoStoreToData) {
 	                this._omi_autoStoreToData = true;
-	                this.data = this.$store.data;
+	                if (!this._omi_ignoreStoreData) {
+	                    this.data = this.$store.data;
+	                }
 	            }
 	            this.storeToData();
 	            this._generateHTMLCSS();
