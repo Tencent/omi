@@ -17,7 +17,7 @@ class TodoHeader extends Omi.Component {
         return `
  	<header id="header">
 			<h1>todos</h1>
-			<input ref="textBox" onchange="changeHandler" onfocus="focusHandler()" onblur="blurHandler" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>
+			<input ref="textBox" onchange="changeHandler" onfocus="focusHandler" onblur="blurHandler" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>
 		</header>
         `;
     }

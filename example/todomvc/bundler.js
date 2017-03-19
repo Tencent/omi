@@ -2757,34 +2757,16 @@
 	    }
 
 	    _createClass(Todo, [{
-	        key: 'install',
-	        value: function install() {
-	            this.editingIndex = -1;
-	            this.focus = true;
-	        }
-	    }, {
 	        key: 'installed',
 	        value: function installed() {
 	            var _this2 = this;
 
 	            window.addEventListener('keyup', function (evt) {
 	                if (evt.keyCode === 13) {
-
-	                    if (_this2.editingIndex !== -1) {
-	                        _this2.focus = false;
-	                        var input = _this2.node.querySelectorAll('.edit')[_this2.editingIndex];
+	                    if (_this2.store.data.editing) {
+	                        var input = _this2.list.node.querySelector('.editing .edit');
 	                        input.blur();
-	                        _this2.option.items[_this2.editingIndex].text = input.value;
-	                        _this2.editingIndex = -1;
 	                    } else {
-	                        //this.option.items.unshift({
-	                        //    text: this.textBox.value.trim(),
-	                        //    isCompleted: false,
-	                        //    show: true,
-	                        //    isEditing: false
-	                        //});
-	                        //this.focus = true;
-	                        //this.option.inputValue = '';
 	                        _this2.store.add();
 	                    }
 	                }
@@ -2793,81 +2775,12 @@
 	    }, {
 	        key: 'toggleAll',
 	        value: function toggleAll() {
-	            var isChecked = this.toggleAllBtn.checked;
-	            this.option.items.forEach(function (item) {
-	                item.isCompleted = isChecked;
-	            });
-	        }
-	    }, {
-	        key: 'toggleState',
-	        value: function toggleState(index) {
-	            this.option.items[index].isCompleted = this.option.items[index].isCompleted ? false : true;
-	        }
-	    }, {
-	        key: 'destroy',
-	        value: function destroy(index) {
-	            this.option.items.splice(index, 1);
-	        }
-	    }, {
-	        key: 'clearCompleted',
-	        value: function clearCompleted() {
-	            var i = 0,
-	                items = this.option.items;
-	            for (; i < items.length; ++i) {
-	                if (items[i].isCompleted) {
-	                    items.splice(i--, 1);
-	                }
-	            }
-	        }
-	    }, {
-	        key: 'filter',
-	        value: function filter(evt, type) {
-	            evt.preventDefault();
-	            this.option.filter = type;
-	            this.option.items.forEach(function (item) {
-	                if (type === 'all') {
-	                    item.show = true;
-	                } else if (type === 'active' && !item.isCompleted) {
-	                    item.show = true;
-	                } else if (type === 'completed' && item.isCompleted) {
-	                    item.show = true;
-	                } else {
-	                    item.show = false;
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'edit',
-	        value: function edit(currentIndex, li) {
-	            var input = li.querySelector('.edit');
-	            this.editingIndex = currentIndex;
-	            this.option.items[currentIndex].isEditing = true;
-	            input.focus();
-	            input.value = input.value;
-	        }
-	    }, {
-	        key: 'onRefresh',
-	        value: function onRefresh() {
-	            var i = 0;
-	            this.option.items.forEach(function (item) {
-	                if (item.show) {
-	                    this.itemCheckBox[i].checked = item.isCompleted;
-	                    i++;
-	                }
-	            }.bind(this));
-
-	            this.focus && this.textBox.focus();
-	        }
-	    }, {
-	        key: 'endEdit',
-	        value: function endEdit(currentIndex, input) {
-	            this.option.items[currentIndex].text = input.value;
-	            this.option.items[currentIndex].isEditing = false;
+	            this.store.toggleAll();
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n\t<div>\n\t    <TodoHeader  />\n\t\t<section id="main">\n\t\t\t<input id="toggle-all" nc-id="toggleAllBtn" onchange="toggleAll()"   {{allchecked}} type="checkbox">\n\t\t\t<label for="toggle-all">Mark all as complete</label>\n            <TodoList />\n\t\t</section>\n\t\t<TodoFooter />\n    </div>\n        ';
+	            return '\n\t<div>\n\t    <TodoHeader  />\n\t\t<section id="main">\n\t\t\t<input id="toggle-all" onchange="toggleAll"   {{allchecked}} type="checkbox">\n\t\t\t<label for="toggle-all">Mark all as complete</label>\n            <TodoList name="list" />\n\t\t</section>\n\t\t<TodoFooter />\n    </div>\n        ';
 	        }
 	    }]);
 
@@ -2927,7 +2840,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n \t<header id="header">\n\t\t\t<h1>todos</h1>\n\t\t\t<input ref="textBox" onchange="changeHandler" onfocus="focusHandler()" onblur="blurHandler" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>\n\t\t</header>\n        ';
+	            return '\n \t<header id="header">\n\t\t\t<h1>todos</h1>\n\t\t\t<input ref="textBox" onchange="changeHandler" onfocus="focusHandler" onblur="blurHandler" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>\n\t\t</header>\n        ';
 	        }
 	    }]);
 
@@ -2943,7 +2856,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-					value: true
+		value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -2961,32 +2874,45 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var TodoList = function (_Omi$Component) {
-					_inherits(TodoList, _Omi$Component);
+		_inherits(TodoList, _Omi$Component);
 
-					function TodoList() {
-									_classCallCheck(this, TodoList);
+		function TodoList() {
+			_classCallCheck(this, TodoList);
 
-									return _possibleConstructorReturn(this, (TodoList.__proto__ || Object.getPrototypeOf(TodoList)).apply(this, arguments));
-					}
+			return _possibleConstructorReturn(this, (TodoList.__proto__ || Object.getPrototypeOf(TodoList)).apply(this, arguments));
+		}
 
-					_createClass(TodoList, [{
-									key: 'destroy',
-									value: function destroy(id) {
-													this.store.destroy(id);
-									}
-					}, {
-									key: 'toggleState',
-									value: function toggleState(id) {
-													this.store.toggleState(id);
-									}
-					}, {
-									key: 'render',
-									value: function render() {
-													return '\n            <ul id="todo-list">\n\t\t\t\t{{#items}}\n\t\t\t\t{{#show}}\n\t\t\t\t<li ondblclick="edit({{id}},this)" class="{{#isCompleted}}completed{{/isCompleted}} {{#isEditing}}editing{{/isEditing}}">\n\t\t\t\t\t<div class="view" >\n\t\t\t\t\t\t<input  onclick="toggleState({{id}})" class="toggle" type="checkbox"  {{checked}} nc-class="itemCheckBox" ><label >{{text}}</label>\n\t\t\t\t\t\t<button  onclick="destroy({{id}})" class="destroy"></button>\n\t\t\t\t\t</div>\n\t\t\t\t\t<input class="edit" onblur="endEdit({{id}},this)" nc-class="itemTextBox" value="{{text}}">\n\t\t\t\t</li>\n\t\t\t\t{{/show}}\n\t\t\t\t{{/items}}\n\t\t\t</ul>\n        ';
-									}
-					}]);
+		_createClass(TodoList, [{
+			key: 'destroy',
+			value: function destroy(id) {
+				this.store.destroy(id);
+			}
+		}, {
+			key: 'toggleState',
+			value: function toggleState(id) {
+				this.store.toggleState(id);
+			}
+		}, {
+			key: 'edit',
+			value: function edit(id, dom) {
+				this.store.edit(id);
+				var input = dom.querySelector('.edit');
+				input.focus();
+				input.value = input.value;
+			}
+		}, {
+			key: 'endEdit',
+			value: function endEdit(id, input) {
+				this.store.endEdit(id, input.value);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return '\n            <ul id="todo-list">\n\t\t\t\t{{#items}}\n\t\t\t\t{{#show}}\n\t\t\t\t<li ondblclick="edit({{id}},this)" class="{{#isCompleted}}completed{{/isCompleted}} {{#isEditing}}editing{{/isEditing}}">\n\t\t\t\t\t<div class="view" >\n\t\t\t\t\t\t<input  onclick="toggleState({{id}})" class="toggle" type="checkbox"  {{checked}}  ><label >{{text}}</label>\n\t\t\t\t\t\t<button  onclick="destroy({{id}})" class="destroy"></button>\n\t\t\t\t\t</div>\n\t\t\t\t\t<input class="edit" onblur="endEdit({{id}},this)" value="{{text}}">\n\t\t\t\t</li>\n\t\t\t\t{{/show}}\n\t\t\t\t{{/items}}\n\t\t\t</ul>\n        ';
+			}
+		}]);
 
-					return TodoList;
+		return TodoList;
 	}(_index2['default'].Component);
 
 	exports['default'] = TodoList;
@@ -3025,9 +2951,20 @@
 		}
 
 		_createClass(TodoFooter, [{
+			key: 'filter',
+			value: function filter(evt, type) {
+				evt.preventDefault();
+				this.store.filter(type);
+			}
+		}, {
+			key: 'clearCompleted',
+			value: function clearCompleted() {
+				this.store.clearCompleted();
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				return '\n<footer id="footer">\n\t\t\t<span id="todo-count"><strong>{{left}}</strong> item left</span>\n\t\t\t<ul id="filters">\n\t\t\t\t<li>\n\t\t\t\t\t<a id="filterAll"  onclick="filter(event,\'all\',this)" class="{{all}}" href="#/">All</a>\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<a id="filterActive"  onclick="filter(event,\'active\',this)"  class="{{active}}"  href="#/active">Active</a>\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<a id="filterCompleted" onclick="filter(event,\'completed\',this)"  class="{{completed}}"   href="#/completed">Completed</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<button id="clear-completed" onclick="clearCompleted()">{{clearWording}}</button>\n</footer>\n';
+				return '\n<footer id="footer">\n\t\t\t<span id="todo-count"><strong>{{left}}</strong> item left</span>\n\t\t\t<ul id="filters">\n\t\t\t\t<li>\n\t\t\t\t\t<a id="filterAll"  onclick="filter(event,\'all\')" class="{{all}}" href="#/">All</a>\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<a id="filterActive"  onclick="filter(event,\'active\')"  class="{{active}}"  href="#/active">Active</a>\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<a id="filterCompleted" onclick="filter(event,\'completed\')"  class="{{completed}}"   href="#/completed">Completed</a>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t{{#hasCompleted}}<button id="clear-completed" onclick="clearCompleted">Clear completed</button>{{/hasCompleted}}\n</footer>\n';
 			}
 		}]);
 
@@ -3073,9 +3010,10 @@
 	            inputValue: '',
 	            filter: 'all',
 	            items: [],
-	            editingIndex: -1
+	            editingIndex: -1,
+	            hasCompleted: false,
+	            left: 0
 	        }, data);
-
 	        return _this;
 	    }
 
@@ -3092,23 +3030,27 @@
 	            this.data.items.every(function (item, index) {
 	                if (item.id === id) {
 	                    _this2.data.items.splice(index, 1);
-	                    _this2.update();
+
 	                    return false;
 	                }
 	                return true;
 	            });
+	            this.compute();
+
+	            this.update();
 	        }
 	    }, {
 	        key: 'add',
 	        value: function add() {
 	            if (this.data.inputValue) {
-	                this.data.items.push({
+	                this.data.items.unshift({
 	                    id: this.getID(),
 	                    text: this.data.inputValue,
 	                    show: true,
 	                    isCompleted: false
 	                });
 	                this.data.inputValue = "";
+	                this.compute();
 	                this.update();
 	            }
 	        }
@@ -3127,10 +3069,6 @@
 	    }, {
 	        key: 'getItemById',
 	        value: function getItemById(id) {
-	            //return this.data.items.find(item=> {
-	            //    return item.id === id
-	            //})
-
 	            for (var i = 0, len = this.data.items.length; i < len; i++) {
 	                var item = this.data.items[i];
 	                if (item.id === id) {
@@ -3139,22 +3077,99 @@
 	            }
 	        }
 	    }, {
+	        key: 'edit',
+	        value: function edit(id) {
+	            var item = this.getItemById(id);
+	            item.isEditing = true;
+	            this.data.editing = true;
+	            this.data.editingId = id;
+	            this.update();
+	        }
+	    }, {
+	        key: 'endEdit',
+	        value: function endEdit(id, text) {
+	            this.data.editing = false;
+	            var item = this.getItemById(id);
+	            item.text = text;
+	            item.isEditing = false;
+	            this.update();
+	        }
+	    }, {
 	        key: 'toggleState',
 	        value: function toggleState(id) {
 	            var item = this.getItemById(id);
 	            item.isCompleted = !item.isCompleted;
-	            if (item.isCompleted) {
-	                item.checked = 'checked';
-	            } else {
-	                item.checked = '';
-	            }
+
+	            this.compute();
 	            this.update();
 	        }
 	    }, {
-	        key: 'computer',
-	        value: function computer() {
+	        key: 'clearCompleted',
+	        value: function clearCompleted() {
+
+	            var items = this.data.items;
+	            for (var i = 0, len = items.length; i < len; i++) {
+	                if (items[i].isCompleted) {
+	                    items.splice(i--, 1);
+	                    len--;
+	                }
+	            }
+
+	            this.data.hasCompleted = false;
+	            this.update();
+	        }
+	    }, {
+	        key: 'filter',
+	        value: function filter(type) {
+	            this.data.filter = type;
+	            this.data.items.forEach(function (item) {
+	                if (type === 'all') {
+	                    item.show = true;
+	                } else if (type === 'active' && !item.isCompleted) {
+	                    item.show = true;
+	                } else if (type === 'completed' && item.isCompleted) {
+	                    item.show = true;
+	                } else {
+	                    item.show = false;
+	                }
+	            });
+	            this.update();
+	        }
+	    }, {
+	        key: 'toggleAll',
+	        value: function toggleAll() {
+	            if (this.data.left > 0) {
+
+	                this.completeAll();
+	            } else {
+	                this.unCompleteAll();
+	            }
+	        }
+	    }, {
+	        key: 'completeAll',
+	        value: function completeAll() {
+	            this.data.items.forEach(function (item) {
+	                item.isCompleted = true;
+	            });
+	            this.compute();
+	            this.update();
+	        }
+	    }, {
+	        key: 'unCompleteAll',
+	        value: function unCompleteAll() {
+	            this.data.items.forEach(function (item) {
+	                item.isCompleted = false;
+	            });
+
+	            this.compute();
+	            this.update();
+	        }
+	    }, {
+	        key: 'compute',
+	        value: function compute() {
 	            var left = 0;
-	            this.option.items.forEach(function (item) {
+	            var length = this.data.items.length;
+	            this.data.items.forEach(function (item) {
 	                if (!item.isCompleted) {
 	                    item.checked = "";
 	                    left++;
@@ -3162,13 +3177,10 @@
 	                    item.checked = "checked";
 	                }
 	            });
-	            this.option['all'] = '';
-	            this.option['active'] = '';
-	            this.option['completed'] = '';
-	            this.option[this.option.filter] = 'selected';
-	            this.option.clearWording = this.option.items.length - left > 0 ? 'Clear completed' : '';
-	            this.option.left = left;
-	            this.option.allchecked = left === 0 ? 'checked' : '';
+
+	            this.data.hasCompleted = length - left > 0;
+	            this.data.left = left;
+	            this.data.allchecked = left === 0 ? 'checked' : '';
 	        }
 	    }]);
 
