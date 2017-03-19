@@ -91,7 +91,7 @@ if(ENV === 'build'||ENV === 'build-min'){
         };
     }
 }else if(ENV==='todomvc'){
-    config.entry = './' + ENV + '/main.js';
+    config.entry = './' + ENV + '/js/main.js';
     config.output.path = './' + ENV + '/';
 }else{
     config.entry = './example/' + ENV + '/main.js';

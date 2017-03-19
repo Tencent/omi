@@ -86,8 +86,8 @@ class TodoStore extends Omi.Store {
 
     toggleState(id) {
         let item = this.getItemById(id)
-        item.isCompleted = !item.isCompleted;
-
+        item.isCompleted = !item.isCompleted
+        this.filter(this.data.filter)
         this.compute()
         this.update()
     }

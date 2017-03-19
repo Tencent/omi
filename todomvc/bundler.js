@@ -3100,7 +3100,7 @@
 	        value: function toggleState(id) {
 	            var item = this.getItemById(id);
 	            item.isCompleted = !item.isCompleted;
-
+	            this.filter(this.data.filter);
 	            this.compute();
 	            this.update();
 	        }

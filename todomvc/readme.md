@@ -1,12 +1,4 @@
-<p align="center">
-  <a href ="##"><img alt="Omi" src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png"></a>
-</p>
-<p align="center">
-Open and modern framework for building user interfaces.
-</p>
-<p align="center">
-  <a href="https://travis-ci.org/AlloyTeam/omi"><img src="https://travis-ci.org/AlloyTeam/omi.svg"></a>
-</p>
+# Omi TodoMVC
 
 ---
 
