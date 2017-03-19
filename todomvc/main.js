@@ -1,4 +1,4 @@
-﻿import Omi from '../../src/index.js'
+﻿import Omi from '../src/index.js'
 import Todo from './js/todo.js'
 import TodoStore from './js/todo-store.js'
 

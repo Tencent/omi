@@ -90,6 +90,9 @@ if(ENV === 'build'||ENV === 'build-min'){
             'omi.lite.min': './src/index.lite.js'
         };
     }
+}else if(ENV==='todomvc'){
+    config.entry = './' + ENV + '/main.js';
+    config.output.path = './' + ENV + '/';
 }else{
     config.entry = './example/' + ENV + '/main.js';
     config.output.path = './example/' + ENV + '/';

@@ -1,4 +1,4 @@
-﻿import Omi from '../../../src/index.js'
+﻿import Omi from '../../src/index.js'
 
 import TodoHeader from './todo-header.js'
 import TodoList from './todo-list.js'

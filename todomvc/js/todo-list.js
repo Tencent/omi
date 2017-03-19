@@ -1,4 +1,4 @@
-﻿import Omi from '../../../src/index.js';
+﻿import Omi from '../../src/index.js';
 
 class TodoList extends Omi.Component {
 

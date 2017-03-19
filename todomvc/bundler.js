@@ -3012,7 +3012,8 @@
 	            items: [],
 	            editingIndex: -1,
 	            hasCompleted: false,
-	            left: 0
+	            left: 0,
+	            all: 'selected'
 	        }, data);
 	        return _this;
 	    }
@@ -3133,6 +3134,7 @@
 	                    item.show = false;
 	                }
 	            });
+	            this.compute();
 	            this.update();
 	        }
 	    }, {
@@ -3181,6 +3183,11 @@
 	            this.data.hasCompleted = length - left > 0;
 	            this.data.left = left;
 	            this.data.allchecked = left === 0 ? 'checked' : '';
+
+	            this.data['all'] = '';
+	            this.data['active'] = '';
+	            this.data['completed'] = '';
+	            this.data[this.data.filter] = 'selected';
 	        }
 	    }]);
 

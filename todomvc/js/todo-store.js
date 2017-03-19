@@ -1,4 +1,4 @@
-import Omi from '../../../src/index.js';
+import Omi from '../../src/index.js';
 
 class TodoStore extends Omi.Store {
     constructor(data, isReady) {
@@ -11,7 +11,8 @@ class TodoStore extends Omi.Store {
             items: [],
             editingIndex: -1,
             hasCompleted: false,
-            left: 0
+            left: 0,
+            all:'selected'
         }, data)
     }
 
@@ -118,6 +119,7 @@ class TodoStore extends Omi.Store {
                 item.show = false
             }
         })
+        this.compute()
         this.update()
     }
 
@@ -163,6 +165,11 @@ class TodoStore extends Omi.Store {
         this.data.hasCompleted = (length - left > 0)
         this.data.left = left;
         this.data.allchecked = left === 0 ? 'checked' : '';
+
+        this.data['all'] = ''
+        this.data['active'] = ''
+        this.data['completed'] = ''
+        this.data[this.data.filter] = 'selected'
     }
 }
 
