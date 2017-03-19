@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "0.4.5",
+  "version": "1.0.0",
   "description": "Open and modern framework for building user interfaces.",
   "main": "dist/omi.js",
   "scripts": {
@@ -9,6 +9,7 @@
     "build-server": "node asset/build_server.js",
     "nest": "webpack -w",
     "curd": "webpack -w",
+    "todomvc": "webpack -w",
     "textarea": "webpack -w",
     "svg": "webpack -w",
     "hello": "webpack -w",

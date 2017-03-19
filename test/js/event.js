@@ -8,7 +8,7 @@ describe("scopedEvent", function() {
         expect(result).toBe("<div onclick='Omi.instances[1].adfd()'>sfsdf </div>");
         expect( scopedEvent(result)).toBe("<div onclick='Omi.instances[1].adfd()'>sfsdf </div>");
         expect(result2).toBe("<div onclick='Omi.instances[1].adfd()' onblur='Omi.instances[1].adfd()'>sfsdf </div>");
-        expect(result3).toBe("<div onblur='adfd'>sfsdf </div>");
+        expect(result3).toBe("<div onblur='Omi.instances[1].adfd(event)'>sfsdf </div>");
     });
 });
 
@@ -16,11 +16,28 @@ describe("scopedEvent2", function() {
 
     var result =   scopedEvent("<div onclick='adfd'>sfsdf </div>",1);
     it("and so is a spec", function() {
-        expect(result).toBe("<div onclick='adfd'>sfsdf </div>");
+        expect(result).toBe("<div onclick='Omi.instances[1].adfd(event)'>sfsdf </div>");
 
     });
 });
 
+describe("scopedEvent3", function() {
+
+    var result =   scopedEvent("<div ontap='adfd'>sfsdf </div>",1);
+    it("and so is a spec", function() {
+        expect(result).toBe("<div ontap='adfd'>sfsdf </div>");
+
+    });
+});
+
+describe("scopedEvent4", function() {
+
+    var result =   scopedEvent("<div ontap='adfd()'>sfsdf </div>",1);
+    it("and so is a spec", function() {
+        expect(result).toBe("<div ontap='adfd()'>sfsdf </div>");
+
+    });
+});
 //describe("jsx-like event binding", function() {
 //
 //    var result =   scopedEvent("<div onclick={function(e){console.log(this)}}>sfsdf </div>",1);
