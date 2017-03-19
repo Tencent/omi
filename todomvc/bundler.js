@@ -60,11 +60,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var store = new _todoStore2['default']();
-
-	_index2['default'].useStore(store, true);
-
-	_index2['default'].render(new _todo2['default'](), '#todoapp');
+	_index2['default'].render(new _todo2['default'](), '#todoapp', {
+	    store: new _todoStore2['default'](),
+	    autoStoreToData: true
+	});
 
 /***/ },
 /* 1 */
@@ -332,9 +331,18 @@
 	    Omi.customTags.push(name);
 	};
 
-	Omi.render = function (component, renderTo, increment) {
+	Omi.render = function (component, renderTo, incrementOrOption) {
 	    component.renderTo = typeof renderTo === "string" ? document.querySelector(renderTo) : renderTo;
-	    component._omi_increment = increment;
+	    if (typeof incrementOrOption === 'boolean') {
+	        component._omi_increment = incrementOrOption;
+	    } else if (incrementOrOption) {
+	        component._omi_increment = incrementOrOption.increment;
+	        component.$store = incrementOrOption.store;
+	        if (component.$store) {
+	            component.$store.instances.push(component);
+	        }
+	        component._omi_autoStoreToData = incrementOrOption.autoStoreToData;
+	    }
 	    component.install();
 	    component._render(true);
 	    component._childrenInstalled(component);
@@ -401,12 +409,6 @@
 	    arr.forEach(function (item, index) {
 	        item[indexName || 'index'] = index;
 	    });
-	};
-
-	Omi.useStore = function (store, autoUse) {
-	    Omi.store = store;
-	    Omi.dataFromGlobalStore = true;
-	    Omi._autoUseGlobalStore = autoUse;
 	};
 
 	module.exports = Omi;
@@ -1068,8 +1070,7 @@
 	        _classCallCheck(this, Component);
 
 	        var componentOption = Object.assign({
-	            server: false,
-	            useLocalData: false
+	            server: false
 	        }, option);
 	        //re render the server-side rendering html on the client-side
 	        var type = Object.prototype.toString.call(data);
@@ -1096,14 +1097,6 @@
 	        //this.BODY_ELEMENT = document.createElement('body')
 	        this._preCSS = null;
 	        this._omiGroupDataCounter = {};
-	        if (_omi2['default'].dataFromGlobalStore) {
-	            this.dataFromStore = true;
-	            if (_omi2['default']._autoUseGlobalStore && !componentOption.useLocalData) {
-	                this.useStore(_omi2['default'].store);
-	            }
-	        } else {
-	            this.dataFromStore = false;
-	        }
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
@@ -1134,14 +1127,15 @@
 	        key: 'style',
 	        value: function style() {}
 	    }, {
+	        key: 'storeToData',
+	        value: function storeToData() {}
+	    }, {
 	        key: 'useStore',
 	        value: function useStore(store) {
 	            var _this = this;
 
-	            this.store = store;
-	            this.data = store.data;
+	            this.$$store = store;
 	            var isInclude = false;
-	            this.dataFromStore = true;
 	            store.instances.forEach(function (instance) {
 	                if (instance.id === _this.id) {
 	                    isInclude = true;
@@ -1291,6 +1285,10 @@
 	                }
 	                return;
 	            }
+	            if (this._omi_autoStoreToData) {
+	                this.data = this.$store.data;
+	            }
+	            this.storeToData();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
@@ -1331,6 +1329,11 @@
 	            }
 	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>")
 	            this._mergeData(childStr);
+	            if (this.parent._omi_autoStoreToData) {
+	                this._omi_autoStoreToData = true;
+	                this.data = this.$store.data;
+	            }
+	            this.storeToData();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
@@ -1455,7 +1458,6 @@
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr) {
-	            if (this.dataFromStore) return;
 	            if (this.dataFirst) {
 	                this.data = Object.assign({}, this._getDataset(childStr), this.data);
 	            } else {
@@ -1580,6 +1582,10 @@
 	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
+	                            sub_child.$store = child.$store;
+	                            if (sub_child.$store) {
+	                                sub_child.$store.instances.push(sub_child);
+	                            }
 	                            sub_child.___omi_constructor_name = name;
 	                            sub_child._dataset = {};
 	                            sub_child.install();
@@ -2763,10 +2769,10 @@
 
 	            window.addEventListener('keyup', function (evt) {
 	                if (evt.keyCode === 13) {
-	                    if (_this2.store.data.editing) {
+	                    if (_this2.$store.data.editing) {
 	                        _this2.list.node.querySelector('.editing .edit').blur();
 	                    } else {
-	                        _this2.store.add();
+	                        _this2.$store.add();
 	                    }
 	                }
 	            }, false);
@@ -2774,7 +2780,7 @@
 	    }, {
 	        key: 'toggleAll',
 	        value: function toggleAll() {
-	            this.store.toggleAll();
+	            this.$store.toggleAll();
 	        }
 	    }, {
 	        key: 'render',
@@ -2824,7 +2830,7 @@
 	    _createClass(TodoHeader, [{
 	        key: 'changeHandler',
 	        value: function changeHandler(evt) {
-	            this.store.updateText(evt.target.value);
+	            this.$store.updateText(evt.target.value);
 	        }
 	    }, {
 	        key: 'render',
@@ -2874,17 +2880,17 @@
 		_createClass(TodoList, [{
 			key: 'destroy',
 			value: function destroy(id) {
-				this.store.destroy(id);
+				this.$store.destroy(id);
 			}
 		}, {
 			key: 'toggleState',
 			value: function toggleState(id) {
-				this.store.toggleState(id);
+				this.$store.toggleState(id);
 			}
 		}, {
 			key: 'edit',
 			value: function edit(id, dom) {
-				this.store.edit(id);
+				this.$store.edit(id);
 				var input = dom.querySelector('.edit');
 				input.focus();
 				input.value = input.value;
@@ -2892,7 +2898,7 @@
 		}, {
 			key: 'endEdit',
 			value: function endEdit(id, input) {
-				this.store.endEdit(id, input.value);
+				this.$store.endEdit(id, input.value);
 			}
 		}, {
 			key: 'render',
@@ -2943,12 +2949,12 @@
 			key: 'filter',
 			value: function filter(evt, type) {
 				evt.preventDefault();
-				this.store.filter(type);
+				this.$store.filter(type);
 			}
 		}, {
 			key: 'clearCompleted',
 			value: function clearCompleted() {
-				this.store.clearCompleted();
+				this.$store.clearCompleted();
 			}
 		}, {
 			key: 'render',

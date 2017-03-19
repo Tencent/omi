@@ -202,6 +202,9 @@ class Component {
             }
             return
         }
+        if(this._omi_autoStoreToData){
+            this.data = this.$store.data
+        }
         this.storeToData()
         this._generateHTMLCSS()
         this._extractChildren(this)
@@ -240,6 +243,10 @@ class Component {
         }
         //childStr = childStr.replace("<child", "<div").replace("/>", "></div>")
         this._mergeData(childStr)
+        if(this.parent._omi_autoStoreToData){
+            this._omi_autoStoreToData = true
+            this.data = this.$store.data
+        }
         this.storeToData()
         this._generateHTMLCSS()
         this._extractChildren(this)

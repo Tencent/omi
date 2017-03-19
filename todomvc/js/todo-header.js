@@ -3,7 +3,7 @@ import Omi from '../../src/index.js'
 class TodoHeader extends Omi.Component {
 
     changeHandler(evt){
-        this.store.updateText(evt.target.value)
+        this.$store.updateText(evt.target.value)
     }
 
     render () {

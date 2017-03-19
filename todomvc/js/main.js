@@ -2,9 +2,7 @@
 import Todo from './todo.js'
 import TodoStore from './todo-store.js'
 
-
-let store = new TodoStore()
-
-Omi.useStore(store,true)
-
-Omi.render(new Todo(),'#todoapp')
+Omi.render(new Todo(),'#todoapp',{
+    store: new TodoStore(),
+    autoStoreToData: true
+})

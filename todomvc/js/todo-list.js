@@ -3,22 +3,22 @@
 class TodoList extends Omi.Component {
 
     destroy(id){
-        this.store.destroy(id)
+        this.$store.destroy(id)
     }
 
     toggleState(id){
-        this.store.toggleState(id)
+        this.$store.toggleState(id)
     }
 
 	edit(id,dom){
-		this.store.edit(id)
+		this.$store.edit(id)
 		var input = dom.querySelector('.edit')
 		input.focus()
 		input.value = input.value
 	}
 
-	endEdit (id,input) {
-		this.store.endEdit(id,input.value)
+	endEdit(id,input) {
+		this.$store.endEdit(id,input.value)
 	}
 
     render () {

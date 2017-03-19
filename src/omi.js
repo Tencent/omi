@@ -200,12 +200,13 @@ Omi.render = function(component , renderTo , incrementOrOption){
     component.renderTo = typeof renderTo === "string" ? document.querySelector(renderTo) : renderTo
     if(typeof incrementOrOption === 'boolean') {
         component._omi_increment = incrementOrOption
-    }else{
+    }else if(incrementOrOption){
         component._omi_increment = incrementOrOption.increment
         component.$store = incrementOrOption.store
         if(component.$store){
             component.$store.instances.push(component)
         }
+        component._omi_autoStoreToData = incrementOrOption.autoStoreToData
     }
     component.install()
     component._render(true)

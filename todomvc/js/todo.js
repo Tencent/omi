@@ -13,17 +13,17 @@ class Todo extends Omi.Component {
     installed () {
         window.addEventListener('keyup', (evt) => {
             if (evt.keyCode === 13) {
-                if (this.store.data.editing) {
+                if (this.$store.data.editing) {
                     this.list.node.querySelector('.editing .edit').blur()
                 } else {
-                    this.store.add()
+                    this.$store.add()
                 }
             }
         }, false)
     }
 
     toggleAll() {
-        this.store.toggleAll()
+        this.$store.toggleAll()
     }
 
     render () {

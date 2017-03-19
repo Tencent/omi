@@ -4,12 +4,11 @@ class TodoFooter extends Omi.Component {
 
 	filter (evt, type) {
 		evt.preventDefault()
-		this.store.filter(type)
-
+		this.$store.filter(type)
 	}
 
 	clearCompleted () {
-		this.store.clearCompleted()
+		this.$store.clearCompleted()
 	}
 
     render () {
