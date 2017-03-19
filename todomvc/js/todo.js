@@ -11,16 +11,15 @@ Omi.makeHTML('TodoFooter',TodoFooter)
 class Todo extends Omi.Component {
 
     installed () {
-        window.addEventListener('keyup',  (evt)=> {
+        window.addEventListener('keyup', (evt) => {
             if (evt.keyCode === 13) {
                 if (this.store.data.editing) {
-                    var input = this.list.node.querySelector('.editing .edit')
-                    input.blur();
+                    this.list.node.querySelector('.editing .edit').blur()
                 } else {
                     this.store.add()
                 }
             }
-        }, false);
+        }, false)
     }
 
     toggleAll() {
@@ -38,7 +37,7 @@ class Todo extends Omi.Component {
 		</section>
 		<TodoFooter />
     </div>
-        `;
+        `
     }
 }
 

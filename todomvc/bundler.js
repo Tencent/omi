@@ -2764,8 +2764,7 @@
 	            window.addEventListener('keyup', function (evt) {
 	                if (evt.keyCode === 13) {
 	                    if (_this2.store.data.editing) {
-	                        var input = _this2.list.node.querySelector('.editing .edit');
-	                        input.blur();
+	                        _this2.list.node.querySelector('.editing .edit').blur();
 	                    } else {
 	                        _this2.store.add();
 	                    }
@@ -2823,16 +2822,6 @@
 	    }
 
 	    _createClass(TodoHeader, [{
-	        key: 'focusHandler',
-	        value: function focusHandler() {
-	            this.focus = true;
-	        }
-	    }, {
-	        key: 'blurHandler',
-	        value: function blurHandler() {
-	            this.focus = false;
-	        }
-	    }, {
 	        key: 'changeHandler',
 	        value: function changeHandler(evt) {
 	            this.store.updateText(evt.target.value);
@@ -2840,7 +2829,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n \t<header id="header">\n\t\t\t<h1>todos</h1>\n\t\t\t<input ref="textBox" onchange="changeHandler" onfocus="focusHandler" onblur="blurHandler" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>\n\t\t</header>\n        ';
+	            return '\n \t<header id="header">\n\t\t\t<h1>todos</h1>\n\t\t\t<input ref="textBox" onchange="changeHandler"  id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>\n\t\t</header>\n        ';
 	        }
 	    }]);
 

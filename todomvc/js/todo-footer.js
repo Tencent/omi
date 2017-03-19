@@ -1,4 +1,4 @@
-import Omi from '../../src/index.js';
+import Omi from '../../src/index.js'
 
 class TodoFooter extends Omi.Component {
 
@@ -32,6 +32,5 @@ class TodoFooter extends Omi.Component {
 `
     }
 }
-
 
 export default TodoFooter

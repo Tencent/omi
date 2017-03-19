@@ -1,4 +1,4 @@
-﻿import Omi from '../../src/index.js';
+﻿import Omi from '../../src/index.js'
 
 class TodoList extends Omi.Component {
 
@@ -12,9 +12,9 @@ class TodoList extends Omi.Component {
 
 	edit(id,dom){
 		this.store.edit(id)
-		var input = dom.querySelector('.edit');
-		input.focus();
-		input.value = input.value;
+		var input = dom.querySelector('.edit')
+		input.focus()
+		input.value = input.value
 	}
 
 	endEdit (id,input) {
@@ -36,7 +36,7 @@ class TodoList extends Omi.Component {
 				{{/show}}
 				{{/items}}
 			</ul>
-        `;
+        `
     }
 }
 

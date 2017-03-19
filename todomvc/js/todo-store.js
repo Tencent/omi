@@ -1,4 +1,4 @@
-import Omi from '../../src/index.js';
+import Omi from '../../src/index.js'
 
 class TodoStore extends Omi.Store {
     constructor(data, isReady) {
@@ -94,7 +94,7 @@ class TodoStore extends Omi.Store {
 
     clearCompleted() {
 
-        var items = this.data.items;
+        var items = this.data.items
         for (let i = 0, len = items.length; i < len; i++) {
             if (items[i].isCompleted) {
                 items.splice(i--, 1)
@@ -151,20 +151,20 @@ class TodoStore extends Omi.Store {
     }
 
     compute() {
-        let left = 0;
-        let length = this.data.items.length;
+        let left = 0
+        let length = this.data.items.length
         this.data.items.forEach(function (item) {
             if (!item.isCompleted) {
-                item.checked = "";
+                item.checked = ""
                 left++
             } else {
-                item.checked = "checked";
+                item.checked = "checked"
             }
         })
 
         this.data.hasCompleted = (length - left > 0)
-        this.data.left = left;
-        this.data.allchecked = left === 0 ? 'checked' : '';
+        this.data.left = left
+        this.data.allchecked = left === 0 ? 'checked' : ''
 
         this.data['all'] = ''
         this.data['active'] = ''
