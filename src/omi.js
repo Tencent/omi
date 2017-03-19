@@ -196,9 +196,17 @@ Omi.makeHTML= function(name, ctor) {
     Omi.customTags.push(name)
 }
 
-Omi.render = function(component , renderTo , increment){
+Omi.render = function(component , renderTo , incrementOrOption){
     component.renderTo = typeof renderTo === "string" ? document.querySelector(renderTo) : renderTo
-    component._omi_increment = increment
+    if(typeof incrementOrOption === 'boolean') {
+        component._omi_increment = incrementOrOption
+    }else{
+        component._omi_increment = incrementOrOption.increment
+        component.$store = incrementOrOption.store
+        if(component.$store){
+            component.$store.instances.push(component)
+        }
+    }
     component.install()
     component._render(true)
     component._childrenInstalled(component)
@@ -265,12 +273,6 @@ Omi.mixIndexToArray = function(arr ,indexName){
     arr.forEach((item , index)=>{
        item[indexName||'index'] =  index
     })
-}
-
-Omi.useStore = function(store, autoUse){
-    Omi.store = store
-    Omi.dataFromGlobalStore = true
-    Omi._autoUseGlobalStore = autoUse
 }
 
 module.exports = Omi

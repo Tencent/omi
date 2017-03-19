@@ -8,12 +8,17 @@ class Todo extends Omi.Component {
     constructor(data) {
         super(data)
         this.useStore(store)
-        this.store.ready(()=>this.update())
+        this.$$store.ready(()=>this.update())
+    }
+
+    storeToData(){
+        this.data.length = this.$$store.data.items.length
+        this.data.text = this.$$store.text
     }
 
     add (evt) {
         evt.preventDefault();
-        this.store.add();
+        this.$$store.add();
     }
 
     style () {

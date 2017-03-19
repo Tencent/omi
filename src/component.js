@@ -7,8 +7,7 @@ import html2json from './html2json.js'
 class Component {
     constructor(data, option) {
         const componentOption = Object.assign({
-            server:false,
-            useLocalData: false
+            server:false
         },option)
         //re render the server-side rendering html on the client-side
         const type = Object.prototype.toString.call(data)
@@ -35,14 +34,6 @@ class Component {
         //this.BODY_ELEMENT = document.createElement('body')
         this._preCSS = null
         this._omiGroupDataCounter = {}
-        if(Omi.dataFromGlobalStore){
-            this.dataFromStore = true
-            if(Omi._autoUseGlobalStore&&!componentOption.useLocalData) {
-                this.useStore(Omi.store)
-            }
-        }else{
-            this.dataFromStore = false
-        }
         if (this._omi_server_rendering || isReRendering) {
             this.install()
             this._render(true)
@@ -70,22 +61,26 @@ class Component {
     }
 
     render() {
+
     }
 
     style() {
+
     }
 
-    useStore(store){
-        this.store = store
-        this.data = store.data
+    storeToData(){
+
+    }
+
+    useStore(store) {
+        this.$$store = store
         let isInclude = false
-        this.dataFromStore = true
-        store.instances.forEach(instance=>{
-            if(instance.id ===this.id){
+        store.instances.forEach(instance=> {
+            if (instance.id === this.id) {
                 isInclude = true
             }
         })
-        if(!isInclude){
+        if (!isInclude) {
             store.instances.push(this)
         }
     }
@@ -207,6 +202,7 @@ class Component {
             }
             return
         }
+        this.storeToData()
         this._generateHTMLCSS()
         this._extractChildren(this)
 
@@ -244,6 +240,7 @@ class Component {
         }
         //childStr = childStr.replace("<child", "<div").replace("/>", "></div>")
         this._mergeData(childStr)
+        this.storeToData()
         this._generateHTMLCSS()
         this._extractChildren(this)
 
@@ -354,7 +351,6 @@ class Component {
     }
 
     _mergeData(childStr) {
-        if(this.dataFromStore) return
         if(this.dataFirst){
             this.data = Object.assign({},this._getDataset(childStr),this.data)
         }else{
@@ -470,6 +466,10 @@ class Component {
                     let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset,dataFromParent,groupData ),false)
                     sub_child._omiChildStr = childStr
                     sub_child.parent = child
+                    sub_child.$store = child.$store
+                    if(sub_child.$store){
+                        sub_child.$store.instances.push(sub_child)
+                    }
                     sub_child.___omi_constructor_name = name
                     sub_child._dataset = {}
                     sub_child.install()

@@ -7,6 +7,10 @@ class List extends Omi.Component {
         this.useStore(store)
     }
 
+    storeToData(){
+        this.data.items = this.$$store.data.items
+    }
+
     render () {
         return ` <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`
     }

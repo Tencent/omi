@@ -1,18 +1,25 @@
 ﻿import Omi from '../../src/index.js';
 import List from './list.js';
 
-
 Omi.makeHTML('List', List);
 
 class Todo extends Omi.Component {
     constructor(data) {
         super(data)
-        this.store.ready(()=>this.update())
+    }
+
+    install(){
+        this.$store.ready(()=>this.update())
+    }
+
+    storeToData(){
+        this.data.length = this.$store.data.items.length
+        this.data.text = this.$store.text
     }
 
     add (evt) {
         evt.preventDefault();
-        this.store.add();
+        this.$store.add();
     }
 
     style () {
@@ -23,7 +30,7 @@ class Todo extends Omi.Component {
     }
 
     handleChange(target){
-        this.store.updateText(target.value);
+        this.$store.updateText(target.value);
     }
 
     render () {
