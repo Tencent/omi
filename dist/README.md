@@ -10,7 +10,7 @@
 
 ### omi.lite.js
 
-不包含 mustache.js 模板引擎的 omi.js 。你可以重写 Omi.render 去使用任意模板引擎。
+不包含 mustache.js 模板引擎的 omi.js 。你可以重写 Omi.template 去使用任意模板引擎。
 
 ## Explanation of Build Files
 
