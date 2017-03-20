@@ -29,7 +29,7 @@ $ omi init your_project_name   //初始化项目，你也可以在一个空的�
 $ cd your_project_name         //如果你是在空文件夹下执行的 omi init。请无视这条命令
 $ npm run dev                  //开发
 $ npm run dist                 //部署发布
-``` 
+```
 
 ## 特性
 
@@ -48,7 +48,7 @@ $ npm run dist                 //部署发布
 * [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）
 * [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker) Omi的时间选择插件，支持各种时间或者时间区域选择
 
-## 通过npm安装 
+## 通过npm安装
 
 ``` js
 $ npm install omi
@@ -87,9 +87,9 @@ $ omi init your_project_name   //init project, you can also exec 'omi init' in a
 $ cd your_project_name         //please ignore this command if you executed 'omi init' in an empty folder
 $ npm run dev                  //develop
 $ npm run dist                 //release
-``` 
+```
 
-## Fetures
+## Features
 
 * Super tiny size, 7 KB (gzip)
 * Good compatibility, support IE8 (please import es5-shim or es5-sham by yourself)
@@ -131,15 +131,15 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 
 ## Contributors
 
-|name   |avatars   |company   | 
+|name   |avatars   |company   |
 |---|---|---|
 |  [CodeFalling](https://github.com/CodeFalling) |  ![](https://avatars3.githubusercontent.com/u/5436704?v=3&s=60)  |  alibaba |  
 |  [abell123456](https://github.com/abell123456) |  ![](https://avatars1.githubusercontent.com/u/2232380?v=3&s=60)  |  alibaba |  
 |  [Aresn](https://github.com/icarusion) |  ![](https://avatars3.githubusercontent.com/u/5370542?v=3&s=60)  |  TalkingCoder |  
 |  [pasturn](https://github.com/pasturn) |  ![](https://avatars2.githubusercontent.com/u/6126885?v=3&s=60)  | Mars Holding  |  
-|  [vorshen](https://github.com/vorshen) | ![](https://avatars2.githubusercontent.com/u/10334783?v=3&s=60)  |  Tencent | 
+|  [vorshen](https://github.com/vorshen) | ![](https://avatars2.githubusercontent.com/u/10334783?v=3&s=60)  |  Tencent |
 |  [xcatliu](https://github.com/xcatliu) |  ![](https://avatars3.githubusercontent.com/u/5453359?v=3&s=60)  |  Microsoft |  
-|  [dntzhang](https://github.com/dntzhang) | ![](https://avatars2.githubusercontent.com/u/7917954?v=3&s=60)  |  Tencent | 
+|  [dntzhang](https://github.com/dntzhang) | ![](https://avatars2.githubusercontent.com/u/7917954?v=3&s=60)  |  Tencent |
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
