@@ -17,11 +17,11 @@ var Hello =  Omi.create("Hello", {
     style: function () {
         return "h1{ cursor:pointer }";
     },
-    handleClick: function (dom) {
-        alert(dom.innerHTML)
+    handleClick: function (event) {
+        alert(event.target.innerHTML)
     },
     render: function () {
-        return ' <div><h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1></div>'
+        return ' <div><h1 onclick="handleClick">Hello ,{{name}}!</h1></div>'
     }
 });
 
