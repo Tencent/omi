@@ -4,20 +4,29 @@ class PageStore extends Omi.Store {
     constructor(data, isReady) {
         super(isReady)
 
-        this.data = Object.assign({currentPage: 0, title: 'Pagination Example2'}, data)
-
+        this.data = Object.assign({
+            total: 0,
+            currentPage: 3,
+            title: 'Pagination Example2'
+        }, data)
     }
 
+    goto(pageIndex) {
+        if(pageIndex === this.data.currentPage) return
 
-    updateTitle(title){
-        this.data.title = title
+        this.data.currentPage = pageIndex
         this.update()
     }
 
-    updatePageIndex(index){
-        this.data.currentPage = index+1
-        this.update()
+    nextPage(){
+
+        this.goto(this.data.currentPage+1)
     }
+
+    prePage(){
+        this.goto(this.data.currentPage-1)
+    }
+
 }
 
 export default PageStore

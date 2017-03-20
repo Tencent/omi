@@ -75,34 +75,28 @@
 	_index2['default'].makeHTML('Pagination', _pagination2['default']);
 	_index2['default'].makeHTML('Content', _content2['default']);
 
-	_index2['default'].useStore(_store2['default']);
-
 	var Main = function (_Omi$Component) {
 	    _inherits(Main, _Omi$Component);
 
 	    function Main(data) {
 	        _classCallCheck(this, Main);
 
-	        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, data));
-
-	        _this.useStore(_index2['default'].store.pageStore);
-	        return _this;
+	        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, data));
 	    }
 
 	    _createClass(Main, [{
-	        key: 'installed',
-	        value: function installed() {}
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h1>{{title}}</h1>\n                    <Content name="content" />\n                    <Pagination />\n                </div>';
+	            return '<div>\n                    <h1>' + this.$store.data.title + '</h1>\n                    <Content name="content" />\n                    <Pagination\n                        data-num-edge="1"\n                        data-num-display="4"\uFFFD\uFFFD\n                     />\n                </div>';
 	        }
 	    }]);
 
 	    return Main;
 	}(_index2['default'].Component);
 
-	_index2['default'].render(new Main(), 'body');
+	_index2['default'].render(new Main(), 'body', {
+	    store: _store2['default']
+	});
 
 /***/ },
 /* 1 */
@@ -370,9 +364,18 @@
 	    Omi.customTags.push(name);
 	};
 
-	Omi.render = function (component, renderTo, increment) {
+	Omi.render = function (component, renderTo, incrementOrOption) {
 	    component.renderTo = typeof renderTo === "string" ? document.querySelector(renderTo) : renderTo;
-	    component._omi_increment = increment;
+	    if (typeof incrementOrOption === 'boolean') {
+	        component._omi_increment = incrementOrOption;
+	    } else if (incrementOrOption) {
+	        component._omi_increment = incrementOrOption.increment;
+	        component.$store = incrementOrOption.store;
+	        if (component.$store) {
+	            component.$store.instances.push(component);
+	        }
+	        component._omi_autoStoreToData = incrementOrOption.autoStoreToData;
+	    }
 	    component.install();
 	    component._render(true);
 	    component._childrenInstalled(component);
@@ -439,12 +442,6 @@
 	    arr.forEach(function (item, index) {
 	        item[indexName || 'index'] = index;
 	    });
-	};
-
-	Omi.useStore = function (store, autoUse) {
-	    Omi.store = store;
-	    Omi.dataFromGlobalStore = true;
-	    Omi._autoUseGlobalStore = autoUse;
 	};
 
 	module.exports = Omi;
@@ -1102,9 +1099,14 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Component = function () {
-	    function Component(data, server) {
+	    function Component(data, option) {
 	        _classCallCheck(this, Component);
 
+	        var componentOption = Object.assign({
+	            server: false,
+	            ignoreStoreData: false
+	        }, option);
+	        this._omi_ignoreStoreData = componentOption.ignoreStoreData;
 	        //re render the server-side rendering html on the client-side
 	        var type = Object.prototype.toString.call(data);
 	        var isReRendering = type !== '[object Object]' && type !== '[object Undefined]';
@@ -1115,7 +1117,7 @@
 	            this.data = JSON.parse(this._hidden.value);
 	        } else {
 	            this.data = data || {};
-	            this._omi_server_rendering = server;
+	            this._omi_server_rendering = componentOption.server;
 	            this.id = this._omi_server_rendering ? 1000000 + _omi2['default'].getInstanceId() : _omi2['default'].getInstanceId();
 	        }
 	        this.refs = {};
@@ -1130,14 +1132,6 @@
 	        //this.BODY_ELEMENT = document.createElement('body')
 	        this._preCSS = null;
 	        this._omiGroupDataCounter = {};
-	        if (_omi2['default'].dataFromGlobalStore) {
-	            this.dataFromStore = true;
-	            if (_omi2['default']._autoUseGlobalStore) {
-	                this.useStore(_omi2['default'].store);
-	            }
-	        } else {
-	            this.dataFromStore = false;
-	        }
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
@@ -1168,14 +1162,15 @@
 	        key: 'style',
 	        value: function style() {}
 	    }, {
+	        key: 'storeToData',
+	        value: function storeToData() {}
+	    }, {
 	        key: 'useStore',
 	        value: function useStore(store) {
 	            var _this = this;
 
-	            this.store = store;
-	            this.data = store.data;
+	            this.$$store = store;
 	            var isInclude = false;
-	            this.dataFromStore = true;
 	            store.instances.forEach(function (instance) {
 	                if (instance.id === _this.id) {
 	                    isInclude = true;
@@ -1325,6 +1320,12 @@
 	                }
 	                return;
 	            }
+	            if (this._omi_autoStoreToData) {
+	                if (!this._omi_ignoreStoreData) {
+	                    this.data = this.$store.data;
+	                }
+	            }
+	            this.storeToData();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
@@ -1365,6 +1366,13 @@
 	            }
 	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>")
 	            this._mergeData(childStr);
+	            if (this.parent._omi_autoStoreToData) {
+	                this._omi_autoStoreToData = true;
+	                if (!this._omi_ignoreStoreData) {
+	                    this.data = this.$store.data;
+	                }
+	            }
+	            this.storeToData();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
@@ -1489,7 +1497,6 @@
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr) {
-	            if (this.dataFromStore) return;
 	            if (this.dataFirst) {
 	                this.data = Object.assign({}, this._getDataset(childStr), this.data);
 	            } else {
@@ -1614,6 +1621,10 @@
 	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
 	                            sub_child._omiChildStr = childStr;
 	                            sub_child.parent = child;
+	                            sub_child.$store = child.$store;
+	                            if (sub_child.$store) {
+	                                sub_child.$store.instances.push(sub_child);
+	                            }
 	                            sub_child.___omi_constructor_name = name;
 	                            sub_child._dataset = {};
 	                            sub_child.install();
@@ -1716,11 +1727,14 @@
 	});
 	function scopedEvent(tpl, id) {
 	    return tpl.replace(/<[\s\S]*?>/g, function (item) {
-	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=('|")([\s\S]*?)\([\s\S]*?\)/g, function (eventStr, b, c, d) {
-	            if (d.indexOf('Omi.instances[') === 0) {
+	        return item.replace(/on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave|Abort|Blur|Cancel|CanPlay|CanPlayThrough|Change|Click|Close|ContextMenu|CueChange|DblClick|Drag|DragEnd|DragEnter|DragLeave|DragOver|DragStart|Drop|DurationChange|Emptied|Ended|Error|Focus|Input|Invalid|KeyDown|KeyPress|KeyUp|Load|LoadedData|LoadedMetadata|LoadStart|MouseDown|MouseEnter|MouseLeave|MouseMove|MouseOut|MouseOver|MouseUp|MouseWheel|Pause|Play|Playing|Progress|RateChange|Reset|Resize|Scroll|Seeked|Seeking|Select|Show|Stalled|Submit|Suspend|TimeUpdate|Toggle|VolumeChange|Waiting|AutoComplete|AutoCompleteError|BeforeCopy|BeforeCut|BeforePaste|Copy|Cut|Paste|Search|SelectStart|Wheel|WebkitFullScreenChange|WebkitFullScreenError|TouchStart|TouchMove|TouchEnd|TouchCancel|PointerDown|PointerUp|PointerCancel|PointerMove|PointerOver|PointerOut|PointerEnter|PointerLeave)=(('([\s\S]*?)')|("([\s\S]*?)"))/g, function (eventStr, b, c) {
+	            if (c.indexOf('Omi.instances[') === 1) {
 	                return eventStr;
-	            } else {
+	            } else if (c.lastIndexOf(')') === c.length - 2) {
 	                return eventStr.replace(/=(['|"])/, '=$1Omi.instances[' + id + '].');
+	            } else {
+	                var str = eventStr.replace(/=(['|"])/, '=$1Omi.instances[' + id + '].');
+	                return str.substr(0, str.length - 1) + "(event)" + str.substr(str.length - 1, 1);
 	            }
 	        });
 	    });
@@ -2784,11 +2798,7 @@
 	                return false;
 	            }
 	        }, data);
-
-	        var _this = _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, data));
-
-	        _this.useStore(_index2["default"].store.paginationStore);
-	        return _this;
+	        return _possibleConstructorReturn(this, (Pagination.__proto__ || Object.getPrototypeOf(Pagination)).call(this, data));
 	    }
 
 	    _createClass(Pagination, [{
@@ -2797,10 +2807,17 @@
 	            this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
 	        }
 	    }, {
+	        key: "storeToData",
+	        value: function storeToData() {
+	            this.data.currentPage = this.$store.data.currentPage;
+	            this.data.total = this.$store.data.total;
+	            this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
+	        }
+	    }, {
 	        key: "goto",
 	        value: function goto(index, evt) {
 	            evt.preventDefault();
-	            this.store.goto(index);
+	            this.$store.goto(index);
 	            //this.data.currentPage=index;
 	            //this.update();
 	            //this.data.onPageChange(index);
@@ -2921,13 +2938,15 @@
 	    function Content(data) {
 	        _classCallCheck(this, Content);
 
-	        var _this = _possibleConstructorReturn(this, (Content.__proto__ || Object.getPrototypeOf(Content)).call(this, data));
-
-	        _this.useStore(_index2['default'].store.pageStore);
-	        return _this;
+	        return _possibleConstructorReturn(this, (Content.__proto__ || Object.getPrototypeOf(Content)).call(this, data));
 	    }
 
 	    _createClass(Content, [{
+	        key: 'storeToData',
+	        value: function storeToData() {
+	            this.data.currentPage = this.$store.data.currentPage + 1;
+	        }
+	    }, {
 	        key: 'style',
 	        value: function style() {
 	            return '\n        .content{\n            height: 80px;\n            line-height: 53px;\n            text-indent: 20px;\n            font-size: 30px;\n        }\n        ';
@@ -2958,38 +2977,14 @@
 
 	var _pageStore2 = _interopRequireDefault(_pageStore);
 
-	var _paginationStore = __webpack_require__(14);
-
-	var _paginationStore2 = _interopRequireDefault(_paginationStore);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var currentPage = 3;
 	var pageStore = new _pageStore2['default']({
-	    currentPage: currentPage + 1
+	    currentPage: 3,
+	    total: 100
 	});
 
-	setTimeout(function () {
-
-	    //pageStore.data.currentPage = 0;
-	    //
-	    //pageStore.beReady();
-	}, 3000);
-
-	var paginationStore = new _paginationStore2['default']({
-	    total: 100,
-	    numDisplay: 4,
-	    numEdge: 1,
-	    currentPage: currentPage,
-	    onPageChange: function onPageChange(pageIndex) {
-	        pageStore.updatePageIndex(pageIndex);
-	    }
-	});
-
-	exports['default'] = {
-	    pageStore: pageStore,
-	    paginationStore: paginationStore
-	};
+	exports['default'] = pageStore;
 
 /***/ },
 /* 13 */
@@ -3023,22 +3018,32 @@
 
 	        var _this = _possibleConstructorReturn(this, (PageStore.__proto__ || Object.getPrototypeOf(PageStore)).call(this, isReady));
 
-	        _this.data = Object.assign({ currentPage: 0, title: 'Pagination Example2' }, data);
-
+	        _this.data = Object.assign({
+	            total: 0,
+	            currentPage: 3,
+	            title: 'Pagination Example2'
+	        }, data);
 	        return _this;
 	    }
 
 	    _createClass(PageStore, [{
-	        key: 'updateTitle',
-	        value: function updateTitle(title) {
-	            this.data.title = title;
+	        key: 'goto',
+	        value: function goto(pageIndex) {
+	            if (pageIndex === this.data.currentPage) return;
+
+	            this.data.currentPage = pageIndex;
 	            this.update();
 	        }
 	    }, {
-	        key: 'updatePageIndex',
-	        value: function updatePageIndex(index) {
-	            this.data.currentPage = index + 1;
-	            this.update();
+	        key: 'nextPage',
+	        value: function nextPage() {
+
+	            this.goto(this.data.currentPage + 1);
+	        }
+	    }, {
+	        key: 'prePage',
+	        value: function prePage() {
+	            this.goto(this.data.currentPage - 1);
 	        }
 	    }]);
 
@@ -3046,78 +3051,6 @@
 	}(_index2['default'].Store);
 
 	exports['default'] = PageStore;
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _index = __webpack_require__(1);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var PaginationStore = function (_Omi$Store) {
-	    _inherits(PaginationStore, _Omi$Store);
-
-	    function PaginationStore(data, isReady) {
-	        _classCallCheck(this, PaginationStore);
-
-	        var _this = _possibleConstructorReturn(this, (PaginationStore.__proto__ || Object.getPrototypeOf(PaginationStore)).call(this, isReady));
-
-	        _this.data = Object.assign({
-	            total: 0,
-	            pageSize: 10,
-	            numDisplay: 10,
-	            currentPage: 3,
-	            numEdge: 0,
-	            linkTo: "#",
-	            prevText: "Prev",
-	            nextText: "Next",
-	            ellipseText: "...",
-	            prevShow: true,
-	            nextShow: true,
-	            onPageChange: function onPageChange() {}
-
-	        }, data);
-
-	        return _this;
-	    }
-
-	    _createClass(PaginationStore, [{
-	        key: "goto",
-	        value: function goto(pageIndex) {
-	            if (pageIndex === this.data.currentPage) return;
-	            this.data.onPageChange(pageIndex);
-	            this.data.currentPage = pageIndex;
-	            this.update();
-	        }
-	    }, {
-	        key: "nextPage",
-	        value: function nextPage() {
-	            this.currentPage++;
-	            this.goto(this.currentPage);
-	        }
-	    }]);
-
-	    return PaginationStore;
-	}(_index2["default"].Store);
-
-	exports["default"] = PaginationStore;
 
 /***/ }
 /******/ ]);

@@ -17,17 +17,21 @@ class Pagination extends Omi.Component {
             onPageChange: function () { return false; }
         }, data);
         super(data);
-
-        this.useStore(Omi.store.paginationStore)
     }
 
     install () {
         this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
     }
 
+    storeToData(){
+        this.data.currentPage = this.$store.data.currentPage;
+        this.data.total = this.$store.data.total;
+        this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
+    }
+
     goto (index,evt) {
         evt.preventDefault();
-        this.store.goto(index);
+        this.$store.goto(index);
         //this.data.currentPage=index;
         //this.update();
         //this.data.onPageChange(index);

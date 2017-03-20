@@ -1,9 +1,12 @@
-import Omi from '../../src/index.js';
+import Omi from '../../src/index.js'
 
 class Content extends Omi.Component {
     constructor(data) {
-        super(data);
-        this.useStore(Omi.store.pageStore);
+        super(data)
+    }
+
+    storeToData(){
+        this.data.currentPage = this.$store.data.currentPage+1
     }
 
     style(){

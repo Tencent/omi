@@ -1,30 +1,28 @@
-import Omi from '../../src/index.js';
-import Pagination from './pagination.js';
-import Content from './content.js';
-import store from './store.js';
+import Omi from '../../src/index.js'
+import Pagination from './pagination.js'
+import Content from './content.js'
+import store from './store.js'
 
-Omi.makeHTML('Pagination', Pagination);
-Omi.makeHTML('Content', Content);
-
-Omi.useStore(store);
+Omi.makeHTML('Pagination', Pagination)
+Omi.makeHTML('Content', Content)
 
 class Main extends Omi.Component {
     constructor(data) {
-        super(data);
-        this.useStore(Omi.store.pageStore);
+        super(data)
     }
-
-    installed(){
-    }
-
 
     render () {
         return `<div>
-                    <h1>{{title}}</h1>
+                    <h1>${this.$store.data.title}</h1>
                     <Content name="content" />
-                    <Pagination />
-                </div>`;
+                    <Pagination
+                        data-num-edge="1"
+                        data-num-display="4"¡¡
+                     />
+                </div>`
     }
 }
 
-Omi.render( new Main(),'body');
+Omi.render( new Main(),'body',{
+    store
+})
