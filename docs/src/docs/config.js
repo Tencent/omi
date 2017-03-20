@@ -14,6 +14,7 @@ let config = {
                     {'name': '事件处理', md: 'events'},
                     {'name': '条件判断', md: 'condition'},
                     {'name': '循环遍历', md: 'loop'},
+                    {'name': 'Store体系', md: 'store'},
                     {'name': '表单', md: 'form'},
                     {'name': '继承', md: 'inherit'},
                     {'name': '模板切换', md: 'template'},
