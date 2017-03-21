@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.0.1 By dntzhang 
+ *  Omi v1.0.2 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -954,7 +954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                } else if (key.indexOf('data-') === 0) {
 	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
 	                                } else if (key.indexOf(':data-') === 0) {
-	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval(value);
+	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
 	                                } else if (key === 'data') {
 	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
 	                                }
