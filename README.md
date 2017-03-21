@@ -65,10 +65,10 @@ $ npm install omi
 
 ## CDN
 
-* [https://unpkg.com/omi@1.0.0/dist/omi.min.js](https://unpkg.com/omi@1.0.0/dist/omi.min.js)
-* [https://unpkg.com/omi@1.0.0/dist/omi.js](https://unpkg.com/omi@1.0.0/dist/omi.js)
-* [https://unpkg.com/omi@1.0.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.0/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.0.0/dist/omi.lite.js](https://unpkg.com/omi@1.0.0/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.0.1/dist/omi.min.js](https://unpkg.com/omi@1.0.1/dist/omi.min.js)
+* [https://unpkg.com/omi@1.0.1/dist/omi.js](https://unpkg.com/omi@1.0.1/dist/omi.js)
+* [https://unpkg.com/omi@1.0.1/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.1/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.0.1/dist/omi.lite.js](https://unpkg.com/omi@1.0.1/dist/omi.lite.js)
 
 ## [﻿中文](https://github.com/AlloyTeam/omi#中文--english) | English
 
@@ -124,10 +124,10 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 
 ## CDN
 
-* [https://unpkg.com/omi@1.0.0/dist/omi.min.js](https://unpkg.com/omi@1.0.0/dist/omi.min.js)
-* [https://unpkg.com/omi@1.0.0/dist/omi.js](https://unpkg.com/omi@1.0.0/dist/omi.js)
-* [https://unpkg.com/omi@1.0.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.0/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.0.0/dist/omi.lite.js](https://unpkg.com/omi@1.0.0/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.0.1/dist/omi.min.js](https://unpkg.com/omi@1.0.1/dist/omi.min.js)
+* [https://unpkg.com/omi@1.0.1/dist/omi.js](https://unpkg.com/omi@1.0.1/dist/omi.js)
+* [https://unpkg.com/omi@1.0.1/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.1/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.0.1/dist/omi.lite.js](https://unpkg.com/omi@1.0.1/dist/omi.lite.js)
 
 ## Contributors
 
