@@ -11,15 +11,24 @@ class Main extends Omi.Component {
         super(data)
     }
 
+    handlePageChange(index){
+        this.$store.goto(index)
+    }
+
+
     render () {
         return `<div>
                     <h1>${this.$store.data.title}</h1>
                     <Content name="content" />
                     <Pagination
-                        data-num-edge="1"
-                        data-num-display="4"¡¡
-                     />
-                </div>`
+                        name="pagination"
+                        :data-total="${this.$store.data.total}"
+                        :data-current-page="${this.$store.data.currentPage}"
+                        :data-page-size="10"
+                        :data-num-edge="1"
+                        :data-num-display="4"¡¡
+                        onPageChange="handlePageChange" />
+                </div>`;
     }
 }
 

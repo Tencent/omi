@@ -440,6 +440,7 @@ class Component {
                 let cmi = this.children[i]
                 //if not first time to invoke _extractChildren method
                 if (cmi && cmi.___omi_constructor_name === name) {
+                    cmi._omiChildStr = childStr
                     cmi._childRender(childStr)
                 } else {
                     let baseData = {}
@@ -469,6 +470,8 @@ class Component {
 
                         } else if(key.indexOf('data-') === 0){
                             dataset[this._capitalize(key.replace('data-', ''))] = value
+                        }else if(key.indexOf(':data-') === 0){
+                            dataset[this._capitalize(key.replace(':data-', ''))] = eval(value)
                         }else if(key === 'data'){
                             dataFromParent =  this._extractPropertyFromString(value,child)
                         }

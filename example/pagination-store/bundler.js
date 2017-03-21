@@ -85,9 +85,14 @@
 	    }
 
 	    _createClass(Main, [{
+	        key: 'handlePageChange',
+	        value: function handlePageChange(index) {
+	            this.$store.goto(index);
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h1>' + this.$store.data.title + '</h1>\n                    <Content name="content" />\n                    <Pagination\n                        data-num-edge="1"\n                        data-num-display="4"\uFFFD\uFFFD\n                     />\n                </div>';
+	            return '<div>\n                    <h1>' + this.$store.data.title + '</h1>\n                    <Content name="content" />\n                    <Pagination\n                        name="pagination"\n                        :data-total="' + this.$store.data.total + '"\n                        :data-current-page="' + this.$store.data.currentPage + '"\n                        :data-page-size="10"\n                        :data-num-edge="1"\n                        :data-num-display="4"\uFFFD\uFFFD\n                        onPageChange="handlePageChange" />\n                </div>';
 	        }
 	    }]);
 
@@ -1330,8 +1335,12 @@
 	            this._extractChildren(this);
 
 	            this.children.forEach(function (item, index) {
+	                console.log(item._omiChildStr);
+	                console.warn(_this5.children[index].HTML);
+	                console.warn(_this5.HTML);
 	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, _this5.children[index].HTML);
 	            });
+	            console.warn(this.HTML);
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
 	                if (this.renderTo) {
@@ -1572,7 +1581,7 @@
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
-
+	            console.log(arr);
 	            if (arr) {
 	                arr.forEach(function (childStr, i) {
 	                    var json = (0, _html2json2['default'])(childStr);
@@ -1582,6 +1591,7 @@
 	                    var cmi = _this11.children[i];
 	                    //if not first time to invoke _extractChildren method
 	                    if (cmi && cmi.___omi_constructor_name === name) {
+	                        cmi._omiChildStr = childStr;
 	                        cmi._childRender(childStr);
 	                    } else {
 	                        (function () {
@@ -1611,6 +1621,8 @@
 	                                    groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
 	                                } else if (key.indexOf('data-') === 0) {
 	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
+	                                } else if (key.indexOf(':data-') === 0) {
+	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval(value);
 	                                } else if (key === 'data') {
 	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
 	                                }
@@ -2804,23 +2816,16 @@
 	    _createClass(Pagination, [{
 	        key: "install",
 	        value: function install() {
-	            this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
-	        }
-	    }, {
-	        key: "storeToData",
-	        value: function storeToData() {
-	            this.data.currentPage = this.$store.data.currentPage;
-	            this.data.total = this.$store.data.total;
+
 	            this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
 	        }
 	    }, {
 	        key: "goto",
 	        value: function goto(index, evt) {
 	            evt.preventDefault();
-	            this.$store.goto(index);
-	            //this.data.currentPage=index;
-	            //this.update();
-	            //this.data.onPageChange(index);
+	            this.data.currentPage = index;
+	            this.update();
+	            this.data.onPageChange(index);
 	        }
 	    }, {
 	        key: "style",

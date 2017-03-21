@@ -23,10 +23,10 @@ class Main extends Omi.Component {
                     <Content name="content" />
                     <Pagination
                         name="pagination"
-                        data-total="100"
-                        data-page-size="10"
-                        data-num-edge="1"
-                        data-num-display="4"　　　　　
+                        :data-total="100"
+                        :data-page-size="10"
+                        :data-num-edge="1"
+                        :data-num-display="4"　　　　　
                         onPageChange="handlePageChange" />
                 </div>`;
     }
