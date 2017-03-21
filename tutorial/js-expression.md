@@ -91,7 +91,7 @@ class Hello extends Omi.Component {
       return  `
       <ul>
       {{#arrayTest}}
-				<li onclick="handleClick">{{name}}</li>
+        <li onclick="handleClick">{{name}}</li>
       {{/arrayTest}}
       </ul>
   		`;
