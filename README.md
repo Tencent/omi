@@ -12,9 +12,9 @@ Open and modern framework for building user interfaces.
 
 ## 中文 | [English](https://github.com/AlloyTeam/omi#中文--english-1)
 
-* 如果想体验一下Omi框架，可以访问 [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
+* 如果想体验一下Omi框架，可以访问 [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
 * 如果想使用Omi框架或者开发完善Omi框架，可以访问 [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
-* 如果你想获得更佳的阅读体验，可以访问 [Docs Website](http://alloyteam.github.io/omi/website/docs.html)
+* 如果你想获得更佳的阅读体验，可以访问 [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
 * 如果你懒得搭建项目脚手架，可以试试 [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
 * 如果你有Omi相关的问题可以 [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
@@ -44,7 +44,7 @@ $ npm run dist                 //部署发布
 ## 生态
 
 * [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，支持各种触摸事件和手势
-* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) Omi的[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/)插件，快速方便地设置DOM的CSS3 Transform属性
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) Omi的[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/)插件，快速方便地设置DOM的CSS3 Transform属性
 * [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）
 * [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker) Omi的时间选择插件，支持各种时间或者时间区域选择
 
@@ -65,16 +65,16 @@ $ npm install omi
 
 ## CDN
 
-* [https://unpkg.com/omi@0.4.5/dist/omi.min.js](https://unpkg.com/omi@0.4.5/dist/omi.min.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.js](https://unpkg.com/omi@0.4.5/dist/omi.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.lite.min.js](https://unpkg.com/omi@0.4.5/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.lite.js](https://unpkg.com/omi@0.4.5/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.0.0/dist/omi.min.js](https://unpkg.com/omi@1.0.0/dist/omi.min.js)
+* [https://unpkg.com/omi@1.0.0/dist/omi.js](https://unpkg.com/omi@1.0.0/dist/omi.js)
+* [https://unpkg.com/omi@1.0.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.0/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.0.0/dist/omi.lite.js](https://unpkg.com/omi@1.0.0/dist/omi.lite.js)
 
 ## [﻿中文](https://github.com/AlloyTeam/omi#中文--english) | English
 
-* If you want to experience the Omi framework, you can visit [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
+* If you want to experience the Omi framework, you can visit [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
 * If you want to use the Omi framework or develop and improve omi framework, please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
-* If you want to get a better reading experience of the documents, you can visit [Docs Website](http://alloyteam.github.io/omi/website/docs.html)
+* If you want to get a better reading experience of the documents, you can visit [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
 * If you are too lazy to build a project scaffolding, you can try [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
 * If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
@@ -102,7 +102,7 @@ $ npm run dist                 //release
 ## Plugins
 
 * [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) :  Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
-* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) :  Omi /[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/) integration.
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) :  Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
 * [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) :  Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
 * [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker):  Omi / JQuery Date Picker integration.
 
@@ -124,10 +124,10 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 
 ## CDN
 
-* [https://unpkg.com/omi@0.4.5/dist/omi.min.js](https://unpkg.com/omi@0.4.5/dist/omi.min.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.js](https://unpkg.com/omi@0.4.5/dist/omi.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.lite.min.js](https://unpkg.com/omi@0.4.5/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.lite.js](https://unpkg.com/omi@0.4.5/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.0.0/dist/omi.min.js](https://unpkg.com/omi@1.0.0/dist/omi.min.js)
+* [https://unpkg.com/omi@1.0.0/dist/omi.js](https://unpkg.com/omi@1.0.0/dist/omi.js)
+* [https://unpkg.com/omi@1.0.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.0/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.0.0/dist/omi.lite.js](https://unpkg.com/omi@1.0.0/dist/omi.lite.js)
 
 ## Contributors
 
