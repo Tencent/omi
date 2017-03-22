@@ -14,7 +14,7 @@ function scoper(css, prefix) {
      */
     css = css.replace(re, function(g0, g1, g2, g3) {
         if (typeof g2 === "undefined") {
-            g2 = "";
+            g2 = ""
         }
 
         if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {
@@ -22,7 +22,7 @@ function scoper(css, prefix) {
         }
 
         var appendClass = g1.replace(/(\s*)$/, "") + prefix + g2
-        var prependClass = prefix + " " + g1.trim() + g2;
+        var prependClass = prefix + " " + g1.trim() + g2
         return appendClass + "," + prependClass + g3
     })
 

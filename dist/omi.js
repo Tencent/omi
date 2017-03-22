@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.0.4 By dntzhang 
+ *  Omi v1.0.5 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1665,25 +1665,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	//many thanks to https://github.com/thomaspark/scoper/
 	function scoper(css, prefix) {
-	    var re = new RegExp("([^\r\n,{}]+)(,(?=[^}]*{)|\s*{)", "g");
-	    css = css.replace(re, function (g0, g1, g2) {
+	    var re = new RegExp("([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{]*{)|\s*{)", "g");
+	    /**
+	     * Example:
+	     *
+	     * .classname::pesudo { color:red }
+	     *
+	     * g1 is normal selector `.classname`
+	     * g2 is pesudo class or pesudo element
+	     * g3 is the suffix
+	     */
+	    css = css.replace(re, function (g0, g1, g2, g3) {
+	        if (typeof g2 === "undefined") {
+	            g2 = "";
+	        }
 
 	        if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {
-	            return g1 + g2;
+	            return g1 + g2 + g3;
 	        }
 
-	        if (g1.match(/:scope/)) {
-	            g1 = g1.replace(/([^\s]*):scope/, function (h0, h1) {
-	                if (h1 === "") {
-	                    return "> *";
-	                } else {
-	                    return "> " + h1;
-	                }
-	            });
-	        }
-
-	        g1 = g1.replace(/^(\s*)/, g1.trim() + prefix + "," + "$1" + prefix + " ").replace(/\s+/g, ' ');
-	        return g1 + g2;
+	        var appendClass = g1.replace(/(\s*)$/, "") + prefix + g2;
+	        var prependClass = prefix + " " + g1.trim() + g2;
+	        return appendClass + "," + prependClass + g3;
 	    });
 
 	    return css;
