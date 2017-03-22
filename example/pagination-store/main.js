@@ -26,7 +26,7 @@ class Main extends Omi.Component {
                         :data-current-page="${this.$store.data.currentPage}"
                         :data-page-size="10"
                         :data-num-edge="1"
-                        :data-num-display="4"¡¡
+                        :data-num-display="4"
                         onPageChange="handlePageChange"
                         preventSelfUpdate
                          />
