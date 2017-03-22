@@ -519,9 +519,6 @@ class Component {
                     sub_child.selfDataFirst = selfDataFirst
                     sub_child.parent = child
                     sub_child.$store = child.$store
-                    if(sub_child.$store){
-                        sub_child.$store.instances.push(sub_child)
-                    }
                     sub_child.___omi_constructor_name = name
                     sub_child._dataset = {}
                     sub_child.install()

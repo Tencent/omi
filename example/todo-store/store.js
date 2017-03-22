@@ -3,7 +3,7 @@ import TodoStore from './todo-store.js';
 
 let todoStore = new TodoStore()
 
-setTimeout(function(){
+//setTimeout(function(){
 
     let result = {
         items: ["aa","bb"]
@@ -11,8 +11,8 @@ setTimeout(function(){
 
     todoStore.data.items = result.items;
     todoStore.data.length = todoStore.data.items.length
-    todoStore.beReady();
-},3000)
+    //todoStore.beReady();
+//},3000)
 
 
 

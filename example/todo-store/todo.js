@@ -10,16 +10,18 @@ class Todo extends Omi.Component {
 
     install(){
         this.$store.ready(()=>this.update())
+        this.$store.addView(this)
     }
 
     beforeRender(){
         this.data.length = this.$store.data.items.length
-        this.data.text = this.$store.text
     }
 
     add (evt) {
-        evt.preventDefault();
-        this.$store.add();
+        evt.preventDefault()
+        let value = this.data.text
+        this.data.text = ''
+        this.$store.add(value)
     }
 
     style () {
@@ -29,16 +31,16 @@ class Todo extends Omi.Component {
         `;
     }
 
-    handleChange(target){
-        this.$store.updateText(target.value);
+    handleChange(evt){
+        this.data.text = evt.target.value
     }
 
     render () {
         return `<div>
                     <h3>TODO</h3>
                     <List  name="list" data="$store.data"  />
-                    <form onsubmit="add(event)" >
-                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
+                    <form onsubmit="add" >
+                        <input type="text" onchange="handleChange"  value="{{text}}"  />
                         <button>Add #{{length}}</button>
                     </form>
                 </div>`;

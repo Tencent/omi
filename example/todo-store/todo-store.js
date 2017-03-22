@@ -6,22 +6,16 @@ class TodoStore extends Omi.Store {
 
         this.data = Object.assign({
             items:[],
-            text:'',
             length:0
         },data)
 
         this.data.length = this.data.items.length
     }
 
-    add(){
-        this.data.items.push(this.data.text)
-        this.data.text = ""
+    add(value){
+        this.data.items.push(value)
         this.data.length = this.data.items.length
         this.update()
-    }
-
-    updateText(text){
-        this.data.text = text
     }
 
     clear(){

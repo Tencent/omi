@@ -10,6 +10,10 @@ Omi.makeHTML('TodoFooter',TodoFooter)
 
 class Todo extends Omi.Component {
 
+    install(){
+        this.$store.addView(this)
+    }
+
     installed () {
         window.addEventListener('keyup', (evt) => {
             if (evt.keyCode === 13) {

@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.0.5 By dntzhang 
+ *  Omi v1.0.6 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -327,9 +327,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else if (incrementOrOption) {
 	        component._omi_increment = incrementOrOption.increment;
 	        component.$store = incrementOrOption.store;
-	        if (component.$store) {
-	            component.$store.instances.push(component);
-	        }
 	        component._omi_autoStoreToData = incrementOrOption.autoStoreToData;
 	    }
 	    component.install();
@@ -1002,9 +999,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            sub_child.selfDataFirst = selfDataFirst;
 	                            sub_child.parent = child;
 	                            sub_child.$store = child.$store;
-	                            if (sub_child.$store) {
-	                                sub_child.$store.instances.push(sub_child);
-	                            }
 	                            sub_child.___omi_constructor_name = name;
 	                            sub_child._dataset = {};
 	                            sub_child.install();
@@ -2079,6 +2073,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return;
 	            }
 	            this.readyHandlers.push(readyHandler);
+	        }
+	    }, {
+	        key: "addView",
+	        value: function addView(view) {
+	            var vid = view.id,
+	                added = false;
+	            for (var i = 0, len = this.instances.length; i < len; i++) {
+	                if (this.instances[i].id === vid) {
+	                    added = true;
+	                    break;
+	                }
+	            }
+	            if (!added) {
+	                this.instances.push(view);
+	            }
 	        }
 	    }, {
 	        key: "beReady",

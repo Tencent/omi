@@ -13,6 +13,20 @@ class Store {
         this.readyHandlers.push(readyHandler)
     }
 
+    addView(view) {
+        let vid = view.id,
+            added = false
+        for (let i = 0, len = this.instances.length; i < len; i++) {
+            if(this.instances[i].id === vid){
+                added = true
+                break
+            }
+        }
+        if(!added) {
+            this.instances.push(view)
+        }
+    }
+
     beReady() {
         this.isReady = true
         this.readyHandlers.forEach((handler)=>handler())
