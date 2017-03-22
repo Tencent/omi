@@ -64,10 +64,10 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 
 ## CDN
 
-* [https://unpkg.com/omi@1.0.3/dist/omi.min.js](https://unpkg.com/omi@1.0.3/dist/omi.min.js)
-* [https://unpkg.com/omi@1.0.3/dist/omi.js](https://unpkg.com/omi@1.0.3/dist/omi.js)
-* [https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.0.3/dist/omi.lite.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.min.js](https://unpkg.com/omi@1.0.6/dist/omi.min.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.js](https://unpkg.com/omi@1.0.6/dist/omi.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.6/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.lite.js](https://unpkg.com/omi@1.0.6/dist/omi.lite.js)
 
 ## Thanks 
 
@@ -128,10 +128,10 @@ $ npm install omi
 
 ## CDN
 
-* [https://unpkg.com/omi@1.0.3/dist/omi.min.js](https://unpkg.com/omi@1.0.3/dist/omi.min.js)
-* [https://unpkg.com/omi@1.0.3/dist/omi.js](https://unpkg.com/omi@1.0.3/dist/omi.js)
-* [https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.0.3/dist/omi.lite.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.min.js](https://unpkg.com/omi@1.0.6/dist/omi.min.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.js](https://unpkg.com/omi@1.0.6/dist/omi.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.6/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.lite.js](https://unpkg.com/omi@1.0.6/dist/omi.lite.js)
 
 ## 感谢 
 
