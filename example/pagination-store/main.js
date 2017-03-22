@@ -27,7 +27,9 @@ class Main extends Omi.Component {
                         :data-page-size="10"
                         :data-num-edge="1"
                         :data-num-display="4"¡¡
-                        onPageChange="handlePageChange" />
+                        onPageChange="handlePageChange"
+                        preventSelfUpdate
+                         />
                 </div>`;
     }
 }

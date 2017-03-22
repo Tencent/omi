@@ -8,8 +8,10 @@ class Component {
     constructor(data, option) {
         const componentOption = Object.assign({
             server: false,
-            ignoreStoreData: false
+            ignoreStoreData: false,
+            preventSelfUpdate: false
         },option)
+        this._omi_preventSelfUpdate = componentOption.preventSelfUpdate
         this._omi_ignoreStoreData = componentOption.ignoreStoreData
         //re render the server-side rendering html on the client-side
         const type = Object.prototype.toString.call(data)
@@ -93,6 +95,7 @@ class Component {
         if (this.renderTo) {
             this._render()
         } else {
+            if(this._omi_preventSelfUpdate) return;
             // update child node
             if(this._omi_removed ) {
                 let hdNode  = this._createHiddenNode()
@@ -449,6 +452,8 @@ class Component {
                     let groupData = {}
                     let omiID = null
                     let instanceName = null
+                    let _omi_preventSelfUpdate = false
+
                     Object.keys(attr).forEach(key => {
                         const value = attr[key]
                         if (key.indexOf('on') === 0) {
@@ -476,12 +481,15 @@ class Component {
                             dataset = eval('(' + value + ')')
                         }else if(key === 'data'){
                             dataFromParent =  this._extractPropertyFromString(value,child)
+                        }else if(key === 'preventSelfUpdate'){
+                            _omi_preventSelfUpdate = true
                         }
                     })
 
                     let ChildClass = Omi.getClassFromString(name)
                     if (!ChildClass) throw "Can't find Class called [" + name+"]"
                     let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset,dataFromParent,groupData ),false)
+                    sub_child._omi_preventSelfUpdate = _omi_preventSelfUpdate
                     sub_child._omiChildStr = childStr
                     sub_child.parent = child
                     sub_child.$store = child.$store
