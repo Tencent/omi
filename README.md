@@ -69,7 +69,7 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 * [https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js)
 * [https://unpkg.com/omi@1.0.3/dist/omi.lite.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.js)
 
-## 中文 | [English](https://github.com/AlloyTeam/omi#中文--english-1)
+## 中文 | [English](https://github.com/AlloyTeam/omi#english--中文)
 
 * 如果想体验一下Omi框架，可以访问 [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
 * 如果想使用Omi框架或者开发完善Omi框架，可以访问 [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
