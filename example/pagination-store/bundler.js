@@ -1335,12 +1335,8 @@
 	            this._extractChildren(this);
 
 	            this.children.forEach(function (item, index) {
-	                console.log(item._omiChildStr);
-	                console.warn(_this5.children[index].HTML);
-	                console.warn(_this5.HTML);
 	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, _this5.children[index].HTML);
 	            });
-	            console.warn(this.HTML);
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
 	                if (this.renderTo) {
@@ -1507,8 +1503,10 @@
 	        key: '_mergeData',
 	        value: function _mergeData(childStr) {
 	            if (this.dataFirst) {
+	                console.warn(JSON.stringify(this.data));
 	                this.data = Object.assign({}, this._getDataset(childStr), this.data);
 	            } else {
+	                console.log(11);
 	                this.data = Object.assign({}, this.data, this._getDataset(childStr));
 	            }
 	        }
@@ -1581,7 +1579,7 @@
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
-	            console.log(arr);
+
 	            if (arr) {
 	                arr.forEach(function (childStr, i) {
 	                    var json = (0, _html2json2['default'])(childStr);
@@ -1622,7 +1620,7 @@
 	                                } else if (key.indexOf('data-') === 0) {
 	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
 	                                } else if (key.indexOf(':data-') === 0) {
-	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval(value);
+	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
 	                                } else if (key === 'data') {
 	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
 	                                }
@@ -2824,7 +2822,7 @@
 	        value: function goto(index, evt) {
 	            evt.preventDefault();
 	            this.data.currentPage = index;
-	            this.update();
+	            //this.update();
 	            this.data.onPageChange(index);
 	        }
 	    }, {

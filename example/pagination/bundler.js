@@ -81,14 +81,10 @@
 	    }
 
 	    _createClass(Main, [{
-	        key: 'installed',
-	        value: function installed() {
-	            this.content.goto(this.pagination.data.currentPage + 1);
-	        }
-	    }, {
 	        key: 'handlePageChange',
 	        value: function handlePageChange(index) {
 	            this.content.goto(index + 1);
+	            this.update();
 	        }
 	    }, {
 	        key: 'render',
@@ -1334,12 +1330,8 @@
 	            this._extractChildren(this);
 
 	            this.children.forEach(function (item, index) {
-	                console.log(item._omiChildStr);
-	                console.warn(_this5.children[index].HTML);
-	                console.warn(_this5.HTML);
 	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, _this5.children[index].HTML);
 	            });
-	            console.warn(this.HTML);
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
 	                if (this.renderTo) {
@@ -1385,8 +1377,6 @@
 	            this._extractChildren(this);
 
 	            this.children.forEach(function (item, index) {
-	                console.log(item._omiChildStr);
-	                console.warn(_this6.children[index].HTML);
 	                _this6.HTML = _this6.HTML.replace(item._omiChildStr, _this6.children[index].HTML);
 	            });
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
@@ -1582,7 +1572,7 @@
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 	            }
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
-	            console.log(arr);
+
 	            if (arr) {
 	                arr.forEach(function (childStr, i) {
 	                    var json = (0, _html2json2['default'])(childStr);
@@ -1592,8 +1582,8 @@
 	                    var cmi = _this11.children[i];
 	                    //if not first time to invoke _extractChildren method
 	                    if (cmi && cmi.___omi_constructor_name === name) {
+	                        cmi._omiChildStr = childStr;
 	                        cmi._childRender(childStr);
-	                        console.log(childStr);
 	                    } else {
 	                        (function () {
 	                            var baseData = {};
@@ -1623,7 +1613,7 @@
 	                                } else if (key.indexOf('data-') === 0) {
 	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
 	                                } else if (key.indexOf(':data-') === 0) {
-	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval(value);
+	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
 	                                } else if (key === 'data') {
 	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
 	                                }
@@ -2799,7 +2789,7 @@
 	            total: 0,
 	            pageSize: 10,
 	            numDisplay: 10,
-	            currentPage: 3,
+	            currentPage: 0,
 	            numEdge: 0,
 	            linkTo: "#",
 	            prevText: "Prev",
@@ -2824,7 +2814,6 @@
 	        value: function goto(index, evt) {
 	            evt.preventDefault();
 	            this.data.currentPage = index;
-	            this.update();
 	            this.data.onPageChange(index);
 	        }
 	    }, {
@@ -2943,14 +2932,16 @@
 	    function Content(data) {
 	        _classCallCheck(this, Content);
 
-	        return _possibleConstructorReturn(this, (Content.__proto__ || Object.getPrototypeOf(Content)).call(this, data));
+	        var _this = _possibleConstructorReturn(this, (Content.__proto__ || Object.getPrototypeOf(Content)).call(this, data));
+
+	        _this.data.index = 0;
+	        return _this;
 	    }
 
 	    _createClass(Content, [{
 	        key: 'goto',
 	        value: function goto(index) {
 	            this.data.index = index;
-	            this.update();
 	        }
 	    }, {
 	        key: 'style',

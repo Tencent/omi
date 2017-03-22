@@ -10,11 +10,10 @@ class Main extends Omi.Component {
         super(data);
     }
 
-    installed(){
-        this.content.goto(this.pagination.data.currentPage+1);
-    }
+
     handlePageChange(index){
-        this.content.goto(index+1);
+        this.content.goto(index+1)
+        this.update()
     }
 
     render () {

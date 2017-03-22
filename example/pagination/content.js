@@ -3,11 +3,13 @@ import Omi from '../../src/index.js';
 class Content extends Omi.Component {
     constructor(data) {
         super(data);
+        this.data.index = 0;
     }
+
     goto (index) {
         this.data.index = index;
-        this.update();
     }
+
     style(){
         return `
         .content{
