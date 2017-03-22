@@ -69,6 +69,10 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 * [https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js)
 * [https://unpkg.com/omi@1.0.3/dist/omi.lite.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.js)
 
+## Thanks 
+
+* [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
+
 ## 中文 | [English](https://github.com/AlloyTeam/omi#english--中文)
 
 * 如果想体验一下Omi框架，可以访问 [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
@@ -128,6 +132,10 @@ $ npm install omi
 * [https://unpkg.com/omi@1.0.3/dist/omi.js](https://unpkg.com/omi@1.0.3/dist/omi.js)
 * [https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.min.js)
 * [https://unpkg.com/omi@1.0.3/dist/omi.lite.js](https://unpkg.com/omi@1.0.3/dist/omi.lite.js)
+
+## 感谢 
+
+* [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
 
 ## Contributors
 
