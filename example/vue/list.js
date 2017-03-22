@@ -1,5 +1,4 @@
 import Omi from '../../src/index.js';
-import template from './template.js';
 
 Omi.template = function(tpl, data){
     var res = Vue.compile(tpl)
