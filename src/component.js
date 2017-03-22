@@ -472,6 +472,8 @@ class Component {
                             dataset[this._capitalize(key.replace('data-', ''))] = value
                         }else if(key.indexOf(':data-') === 0) {
                             dataset[this._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')')
+                        }else if(key === ':data'){
+                            dataset = eval('(' + value + ')')
                         }else if(key === 'data'){
                             dataFromParent =  this._extractPropertyFromString(value,child)
                         }
