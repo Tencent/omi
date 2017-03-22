@@ -1167,8 +1167,8 @@
 	        key: 'style',
 	        value: function style() {}
 	    }, {
-	        key: 'storeToData',
-	        value: function storeToData() {}
+	        key: 'beforeRender',
+	        value: function beforeRender() {}
 	    }, {
 	        key: 'useStore',
 	        value: function useStore(store) {
@@ -1330,7 +1330,7 @@
 	                    this.data = this.$store.data;
 	                }
 	            }
-	            this.storeToData();
+	            this.beforeRender();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
@@ -1377,7 +1377,7 @@
 	                    this.data = this.$store.data;
 	                }
 	            }
-	            this.storeToData();
+	            this.beforeRender();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
@@ -2945,8 +2945,8 @@
 	    }
 
 	    _createClass(Content, [{
-	        key: 'storeToData',
-	        value: function storeToData() {
+	        key: 'beforeRender',
+	        value: function beforeRender() {
 	            this.data.currentPage = this.$store.data.currentPage + 1;
 	        }
 	    }, {

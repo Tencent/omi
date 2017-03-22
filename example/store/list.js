@@ -7,7 +7,7 @@ class List extends Omi.Component {
         this.useStore(store)
     }
 
-    storeToData(){
+    beforeRender(){
         this.data.items = this.$$store.data.items
     }
 

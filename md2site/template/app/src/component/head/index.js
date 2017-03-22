@@ -20,7 +20,7 @@ class Head extends Omi.Component {
         },false);
     }
 
-    storeToData(){
+    beforeRender(){
         this.data.isEnLan = this.$store.data.lan === 'en';
     }
 

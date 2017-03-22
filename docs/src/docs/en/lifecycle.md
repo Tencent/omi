@@ -11,7 +11,7 @@
 
 ## Illustration
 
-![lc](http://images2015.cnblogs.com/blog/105416/201701/105416-20170119153018546-1566368987.png)
+![lc](http://images2015.cnblogs.com/blog/105416/201703/105416-20170322084234049-1482108845.jpg)
 
 It should be noted that the installed will be executed during the instantiation, which is not shown above. For example, it'll executed when a component is removed and restored, or when the new component is being added.
 

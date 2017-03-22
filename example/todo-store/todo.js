@@ -12,7 +12,7 @@ class Todo extends Omi.Component {
         this.$store.ready(()=>this.update())
     }
 
-    storeToData(){
+    beforeRender(){
         this.data.length = this.$store.data.items.length
         this.data.text = this.$store.text
     }

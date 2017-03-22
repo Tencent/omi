@@ -70,7 +70,7 @@ class Component {
 
     }
 
-    storeToData(){
+    beforeRender(){
 
     }
 
@@ -209,7 +209,7 @@ class Component {
                 this.data = this.$store.data
             }
         }
-        this.storeToData()
+        this.beforeRender()
         this._generateHTMLCSS()
         this._extractChildren(this)
 
@@ -253,7 +253,7 @@ class Component {
                 this.data = this.$store.data
             }
         }
-        this.storeToData()
+        this.beforeRender()
         this._generateHTMLCSS()
         this._extractChildren(this)
 

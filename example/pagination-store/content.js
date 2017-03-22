@@ -5,7 +5,7 @@ class Content extends Omi.Component {
         super(data)
     }
 
-    storeToData(){
+    beforeRender(){
         this.data.currentPage = this.$store.data.currentPage+1
     }
 

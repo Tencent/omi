@@ -114,8 +114,8 @@
 	            });
 	        }
 	    }, {
-	        key: 'storeToData',
-	        value: function storeToData() {
+	        key: 'beforeRender',
+	        value: function beforeRender() {
 	            this.data.length = this.$store.data.items.length;
 	            this.data.text = this.$store.text;
 	        }
@@ -1209,8 +1209,8 @@
 	        key: 'style',
 	        value: function style() {}
 	    }, {
-	        key: 'storeToData',
-	        value: function storeToData() {}
+	        key: 'beforeRender',
+	        value: function beforeRender() {}
 	    }, {
 	        key: 'useStore',
 	        value: function useStore(store) {
@@ -1369,7 +1369,7 @@
 	                }
 	                return;
 	            }
-	            this.storeToData();
+	            this.beforeRender();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
@@ -1410,7 +1410,7 @@
 	            }
 	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>")
 	            this._mergeData(childStr);
-	            this.storeToData();
+	            this.beforeRender();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
@@ -2824,8 +2824,8 @@
 	    }
 
 	    _createClass(List, [{
-	        key: 'storeToData',
-	        value: function storeToData() {
+	        key: 'beforeRender',
+	        value: function beforeRender() {
 	            this.data.items = this.$store.data.items;
 	        }
 	    }, {

@@ -120,17 +120,17 @@ Omi.render(new Todo(),'body',{
 
 通过Omi.render注入之后，在组件树的所有组件都可以通过 this.$store 访问到 store。
 
-### 简便的 storeToData
+### 简便的 beforeRender
 
-storeToData这个函数，是生命周期的一部分。且看下面这张图:
+beforeRender这个函数，是生命周期的一部分。且看下面这张图:
 
-![storeToData](http://images2015.cnblogs.com/blog/105416/201703/105416-20170320163400955-825119056.png)
+![beforeRender](http://images2015.cnblogs.com/blog/105416/201703/105416-20170322083548924-1871234168.jpg)
 
-在render之前，会去执行storeToData方法。所以该方法里面，可以书写store的data到组件data的转换逻辑。比如：
+在render之前，会去执行beforeRender方法。所以可以利用该方法写store的data到组件data的转换逻辑。比如：
 
 ```js
 class List extends Omi.Component {
-    storeToData(){
+    beforeRender(){
         this.data.items = this.$store.data.items
     }
 
@@ -154,7 +154,7 @@ class Todo extends Omi.Component {
         this.$store.ready(()=>this.update())
     }
 
-    storeToData(){
+    beforeRender(){
         this.data.length = this.$store.data.items.length
         this.data.text = this.$store.text
     }
@@ -183,6 +183,6 @@ class Todo extends Omi.Component {
 export default Todo;
 ```
 
-为什么要去写storeToData方法？因为render只会使用this.data去渲染页面而不会去使用this.$store.data，所以需要把数据转移到组件的this.data下。这样组件既能使用自身的data，也能使用全局放this.$store.data了。
+为什么要去写beforeRender方法？因为render只会使用this.data去渲染页面而不会去使用this.$store.data，所以需要把数据转移到组件的this.data下。这样组件既能使用自身的data，也能使用全局放this.$store.data了。
 
 更为详细的代码可以[点击这里](https://github.com/AlloyTeam/omi/tree/master/example/todo-store)。

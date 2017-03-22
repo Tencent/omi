@@ -1127,8 +1127,8 @@
 	        key: 'style',
 	        value: function style() {}
 	    }, {
-	        key: 'storeToData',
-	        value: function storeToData() {}
+	        key: 'beforeRender',
+	        value: function beforeRender() {}
 	    }, {
 	        key: 'useStore',
 	        value: function useStore(store) {
@@ -1288,7 +1288,7 @@
 	            if (this._omi_autoStoreToData) {
 	                this.data = this.$store.data;
 	            }
-	            this.storeToData();
+	            this.beforeRender();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
@@ -1333,7 +1333,7 @@
 	                this._omi_autoStoreToData = true;
 	                this.data = this.$store.data;
 	            }
-	            this.storeToData();
+	            this.beforeRender();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
 
