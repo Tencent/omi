@@ -5,10 +5,6 @@ class List extends Omi.Component {
         super(data)
     }
 
-    beforeRender(){
-        this.data.items = this.$store.data.items
-    }
-
     render () {
         return ` <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`
     }

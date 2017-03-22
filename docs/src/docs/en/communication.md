@@ -4,7 +4,6 @@ Communication between [Omi](https://github.com/AlloyTeam/omi) components is very
 
 - By declaring `data-*` on the component to pass data to child node
 - By declaring `data` on the component to pass data to child node (support complex data types mapping)
-- By declaring `childrenData` on parent component to automatically pass data to child node
 - By declaring `group-data` (support complex data types mapping)
 - It's completely object-oriented, you can easily get the object instance, then you can set the instance of the property or call the instance of the method
 
@@ -128,34 +127,9 @@ class App extends Omi.Component {
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=data_complex" target="_blank">Click me for the complex data mapping</a>
 
-### Communicate by `childrenData`
-
-```js
-...
-class App extends Omi.Component {
-    constructor(data) {
-      super(data);
-      this.childrenData = [{ name : 'Omi' } , { name : 'dntzhang' }];
-    }
-  
-    render() {
-        return  `
-        <div>
-            <Hello  />
-            <Hello  />
-        </div>
-        `;
-    }
-}
-
-Omi.render(new App(),"#container");
-```
-
-We can use `this.childrenData` to transfer data to the sub-component. In this case, `childrenData` is an array, so it can pass data to multiple components in the same time. In the meanwhile, the data will be passed to components one by one.
-
 ### Communicate by `group-data`
 
-`childrenData` can pass data to multiple components. However, there are many scenes where the source of data does not have to be from `childrenData`. `childrenData` is an array, and it should be the same order with the components, so that the data must all concentrated in `childrenData`, it's very inconvenient. `group-data` dedicated to solve the above pain points, specifically to pass data to a group of components.
+`group-data` can pass data to  a group of components. 
 
 ```js
 import Hello from './hello.js';
@@ -293,18 +267,3 @@ Omi.render(new App(),"#container");
 
 By declaring `omi-id` on the component, we can get the instance of the object anywhere in the program. This can be regarded as any component communication artifacts.
 
-### Warm Tips
-
-- The data that passed by `childrenData` or `data` is shadow copied to sub-components. In order to update it, we need to update the `data` attribute of the component instance.
-- The data that passed by `data-*` is also shadow copied to sub-components. In order to update it, we need to update the `data` attribute of the component instance.
-- If we set the `dataFirst` property of the component instance to `false`, then `data-*` will override the `data` of component instance.
-
-For the third tip, please checkout the pseudo-code:
-
-```js
-if(this.dataFirst){
-    this.data = Object.assign({},data-✼ ,this.data);
-}else{
-    this.data = Object.assign({},this.data, data-✼);
-}
-```

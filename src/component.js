@@ -9,7 +9,8 @@ class Component {
         const componentOption = Object.assign({
             server: false,
             ignoreStoreData: false,
-            preventSelfUpdate: false
+            preventSelfUpdate: false,
+            selfDataFirst:false
         },option)
         this._omi_preventSelfUpdate = componentOption.preventSelfUpdate
         this._omi_ignoreStoreData = componentOption.ignoreStoreData
@@ -32,7 +33,7 @@ class Component {
         this.HTML = null
         this._addedItems = []
         Omi.instances[this.id] = this
-        this.dataFirst = true
+        this.selfDataFirst = componentOption.selfDataFirst
 
         this._omi_scoped_attr =  Omi.STYLESCOPEDPREFIX + this.id
         //this.BODY_ELEMENT = document.createElement('body')
@@ -367,7 +368,7 @@ class Component {
     }
 
     _mergeData(childStr) {
-        if(this.dataFirst){
+        if(this.selfDataFirst){
             this.data = Object.assign({},this._getDataset(childStr),this.data)
         }else{
             this.data = Object.assign({},this.data, this._getDataset(childStr))
@@ -401,11 +402,31 @@ class Component {
     _getDataset(childStr) {
         let json = html2json(childStr)
         let attr = json.child[0].attr
+        let baseData = { }
         Object.keys(attr).forEach(key => {
-            if(key.indexOf('data-') === 0){
-                this._dataset[this._capitalize(key.replace('data-', ''))] = attr[key]
+            const value = attr[key]
+            if (key.indexOf('on') === 0) {
+                let handler = this.parent[value]
+                if (handler) {
+                    baseData[key] = handler.bind(this.parent)
+                }
+            }else if(key.indexOf('data-') === 0){
+                this._dataset[this._capitalize(key.replace('data-', ''))] = value
+            }else if(key.indexOf(':data-') === 0) {
+                this._dataset[this._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')')
+            }else if(key === ':data'){
+                this._dataset = eval('(' + value + ')')
+            }else if(key === 'data'){
+                this._dataset =  this._extractPropertyFromString(value,this.parent)
+            }else if (key === 'group-data') {
+                this._dataset = this._extractPropertyFromString(value,this.parent)[this._omi_groupDataIndex]
             }
         })
+
+        Object.keys(baseData).forEach(key => {
+            this._dataset[key] = attr[key]
+        })
+
         return this._dataset
     }
 
@@ -448,12 +469,12 @@ class Component {
                 } else {
                     let baseData = {}
                     let dataset = {}
-                    let dataFromParent = {}
-                    let groupData = {}
+
+                    let groupDataIndex = null
                     let omiID = null
                     let instanceName = null
                     let _omi_preventSelfUpdate = false
-
+                    let selfDataFirst = false
                     Object.keys(attr).forEach(key => {
                         const value = attr[key]
                         if (key.indexOf('on') === 0) {
@@ -471,7 +492,8 @@ class Component {
                             } else {
                                 child._omiGroupDataCounter[value] = 0
                             }
-                            groupData = this._extractPropertyFromString(value,child)[child._omiGroupDataCounter[value]]
+                            groupDataIndex = child._omiGroupDataCounter[value]
+                            dataset = this._extractPropertyFromString(value,child)[groupDataIndex]
 
                         } else if(key.indexOf('data-') === 0){
                             dataset[this._capitalize(key.replace('data-', ''))] = value
@@ -480,17 +502,21 @@ class Component {
                         }else if(key === ':data'){
                             dataset = eval('(' + value + ')')
                         }else if(key === 'data'){
-                            dataFromParent =  this._extractPropertyFromString(value,child)
-                        }else if(key === 'preventSelfUpdate'){
+                            dataset =  this._extractPropertyFromString(value,child)
+                        }else if(key === 'preventSelfUpdate'|| key === 'psu'){
                             _omi_preventSelfUpdate = true
+                        }else if(key === 'selfDataFirst'|| key === 'sdf'){
+                            selfDataFirst = true
                         }
                     })
 
                     let ChildClass = Omi.getClassFromString(name)
                     if (!ChildClass) throw "Can't find Class called [" + name+"]"
-                    let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset,dataFromParent,groupData ),false)
+                    let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset ),false)
+                    sub_child._omi_groupDataIndex = groupDataIndex
                     sub_child._omi_preventSelfUpdate = _omi_preventSelfUpdate
                     sub_child._omiChildStr = childStr
+                    sub_child.selfDataFirst = selfDataFirst
                     sub_child.parent = child
                     sub_child.$store = child.$store
                     if(sub_child.$store){

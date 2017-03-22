@@ -4,7 +4,6 @@
 
 * 通过在组件上声明 data-* 传递给子节点 
 * 通过在组件上声明 data 传递给子节点 （支持复杂数据类型的映射）
-* 父容器设置 childrenData 自动传递给子节点
 * 声明 group-data 传递（支持复杂数据类型的映射）
 * 完全面向对象，可以非常容易地拿到对象的实例，之后可以设置实例属性和调用实例的方法
 
@@ -128,34 +127,9 @@ class App extends Omi.Component {
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=data_complex" target="_blank">点击这里→data映射复杂数据</a>
 
-### childrenData通讯
-
-```js
-...
-class App extends Omi.Component {
-    constructor(data) {
-      super(data);
-      this.childrenData = [{ name : 'Omi' } , { name : 'dntzhang' }];
-    }
-  
-    render() {
-        return  `
-        <div>
-            <Hello  />
-            <Hello  />
-        </div>
-        `;
-    }
-}
-
-Omi.render(new App(),"#container");
-```
-
-使用this.childrenData传递data给子组件，childrenData是一个数组类型，所以支持同时给多个组件传递data，与render里面的组件会一一对应上。
-
 ### group-data通讯
 
-childrenData的方式可以批量传递数据给组件，但是有很多场景下data的来源不一定非要都从childrenData来，childrenData是个数组，会和组件的顺序一一对应，这就给不同传递方式的data必须全部集中的childrenData中，非常不方便。group-data专门为解决上面的痛点而生，专门是为了给一组组件批量传递data。
+group-data专门是为了给一组组件批量传递data而设计。
 
 ```js
 import Hello from './hello.js';
@@ -292,17 +266,3 @@ Omi.render(new App(),"#container");
 
 通过在组件上声明omi-id，在程序任何地方拿到该对象的实例。这个可以算是跨任意组件通讯神器。
 
-### 特别强调
-
-* 通过childrenData或者data方式通讯都是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件
-* 通过data-✼通讯也是一锤子买卖。后续变更只能通过组件实例下的data属性去更新组件。
-* 关于data-✼通讯也可以不是一锤子买卖，但是要设置组件实例的dataFirst为false，这样的话data-✼就会覆盖组件实例的data对应的属性
-
-关于上面的第三条也就是这样的逻辑伪代码：
-```js
-if(this.dataFirst){
-    this.data = Object.assign({},data-✼ ,this.data);
-}else{
-    this.data = Object.assign({},this.data, data-✼);
-}
-```

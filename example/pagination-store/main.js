@@ -15,7 +15,6 @@ class Main extends Omi.Component {
         this.$store.goto(index)
     }
 
-
     render () {
         return `<div>
                     <h1>${this.$store.data.title}</h1>

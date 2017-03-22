@@ -138,7 +138,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h3>TODO</h3>\n                    <List  name="list"  />\n                    <form onsubmit="add(event)" >\n                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n                </div>';
+	            return '<div>\n                    <h3>TODO</h3>\n                    <List  name="list" data="$store.data"  />\n                    <form onsubmit="add(event)" >\n                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n                </div>';
 	        }
 	    }]);
 
@@ -416,13 +416,14 @@
 	Omi.render = function (component, renderTo, incrementOrOption) {
 	    component.renderTo = typeof renderTo === "string" ? document.querySelector(renderTo) : renderTo;
 	    if (typeof incrementOrOption === 'boolean') {
-	        component._omi_increment = increment;
-	    } else {
+	        component._omi_increment = incrementOrOption;
+	    } else if (incrementOrOption) {
 	        component._omi_increment = incrementOrOption.increment;
 	        component.$store = incrementOrOption.store;
 	        if (component.$store) {
 	            component.$store.instances.push(component);
 	        }
+	        component._omi_autoStoreToData = incrementOrOption.autoStoreToData;
 	    }
 	    component.install();
 	    component._render(true);
@@ -1152,8 +1153,12 @@
 
 	        var componentOption = Object.assign({
 	            server: false,
-	            useStoreData: false
+	            ignoreStoreData: false,
+	            preventSelfUpdate: false,
+	            selfDataFirst: false
 	        }, option);
+	        this._omi_preventSelfUpdate = componentOption.preventSelfUpdate;
+	        this._omi_ignoreStoreData = componentOption.ignoreStoreData;
 	        //re render the server-side rendering html on the client-side
 	        var type = Object.prototype.toString.call(data);
 	        var isReRendering = type !== '[object Object]' && type !== '[object Undefined]';
@@ -1173,7 +1178,7 @@
 	        this.HTML = null;
 	        this._addedItems = [];
 	        _omi2['default'].instances[this.id] = this;
-	        this.dataFirst = true;
+	        this.selfDataFirst = componentOption.selfDataFirst;
 
 	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
 	        //this.BODY_ELEMENT = document.createElement('body')
@@ -1216,10 +1221,8 @@
 	        value: function useStore(store) {
 	            var _this = this;
 
-	            this.store = store;
-	            this.data = store.data;
+	            this.$$store = store;
 	            var isInclude = false;
-	            this.dataFromStore = true;
 	            store.instances.forEach(function (instance) {
 	                if (instance.id === _this.id) {
 	                    isInclude = true;
@@ -1237,6 +1240,7 @@
 	            if (this.renderTo) {
 	                this._render();
 	            } else {
+	                if (this._omi_preventSelfUpdate) return;
 	                // update child node
 	                if (this._omi_removed) {
 	                    var hdNode = this._createHiddenNode();
@@ -1369,6 +1373,11 @@
 	                }
 	                return;
 	            }
+	            if (this._omi_autoStoreToData) {
+	                if (!this._omi_ignoreStoreData) {
+	                    this.data = this.$store.data;
+	                }
+	            }
 	            this.beforeRender();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
@@ -1410,6 +1419,12 @@
 	            }
 	            //childStr = childStr.replace("<child", "<div").replace("/>", "></div>")
 	            this._mergeData(childStr);
+	            if (this.parent._omi_autoStoreToData) {
+	                this._omi_autoStoreToData = true;
+	                if (!this._omi_ignoreStoreData) {
+	                    this.data = this.$store.data;
+	                }
+	            }
 	            this.beforeRender();
 	            this._generateHTMLCSS();
 	            this._extractChildren(this);
@@ -1535,7 +1550,7 @@
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr) {
-	            if (this.dataFirst) {
+	            if (this.selfDataFirst) {
 	                this.data = Object.assign({}, this._getDataset(childStr), this.data);
 	            } else {
 	                this.data = Object.assign({}, this.data, this._getDataset(childStr));
@@ -1575,10 +1590,18 @@
 	            var json = (0, _html2json2['default'])(childStr);
 	            var attr = json.child[0].attr;
 	            Object.keys(attr).forEach(function (key) {
+	                var value = attr[key];
 	                if (key.indexOf('data-') === 0) {
-	                    _this10._dataset[_this10._capitalize(key.replace('data-', ''))] = attr[key];
+	                    _this10._dataset[_this10._capitalize(key.replace('data-', ''))] = value;
+	                } else if (key.indexOf(':data-') === 0) {
+	                    _this10._dataset[_this10._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                } else if (key === ':data') {
+	                    _this10._dataset = eval('(' + value + ')');
+	                } else if (key === 'data') {
+	                    _this10._dataset = _this10._extractPropertyFromString(value, _this10.parent);
 	                }
 	            });
+	            console.log(JSON.stringify(this._dataset));
 	            return this._dataset;
 	        }
 	    }, {
@@ -1620,6 +1643,7 @@
 	                    var cmi = _this11.children[i];
 	                    //if not first time to invoke _extractChildren method
 	                    if (cmi && cmi.___omi_constructor_name === name) {
+	                        cmi._omiChildStr = childStr;
 	                        cmi._childRender(childStr);
 	                    } else {
 	                        (function () {
@@ -1629,6 +1653,8 @@
 	                            var groupData = {};
 	                            var omiID = null;
 	                            var instanceName = null;
+	                            var _omi_preventSelfUpdate = false;
+	                            var selfDataFirst = false;
 	                            Object.keys(attr).forEach(function (key) {
 	                                var value = attr[key];
 	                                if (key.indexOf('on') === 0) {
@@ -1649,15 +1675,25 @@
 	                                    groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
 	                                } else if (key.indexOf('data-') === 0) {
 	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
+	                                } else if (key.indexOf(':data-') === 0) {
+	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                                } else if (key === ':data') {
+	                                    dataset = eval('(' + value + ')');
 	                                } else if (key === 'data') {
 	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
+	                                } else if (key === 'preventSelfUpdate') {
+	                                    _omi_preventSelfUpdate = true;
+	                                } else if (key === 'selfDataFirst') {
+	                                    selfDataFirst = true;
 	                                }
 	                            });
 
 	                            var ChildClass = _omi2['default'].getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
 	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
+	                            sub_child._omi_preventSelfUpdate = _omi_preventSelfUpdate;
 	                            sub_child._omiChildStr = childStr;
+	                            sub_child.selfDataFirst = selfDataFirst;
 	                            sub_child.parent = child;
 	                            sub_child.$store = child.$store;
 	                            if (sub_child.$store) {
@@ -2824,11 +2860,6 @@
 	    }
 
 	    _createClass(List, [{
-	        key: 'beforeRender',
-	        value: function beforeRender() {
-	            this.data.items = this.$store.data.items;
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return ' <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';

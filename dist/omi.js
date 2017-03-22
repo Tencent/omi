@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.0.3 By dntzhang 
+ *  Omi v1.0.4 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1062,7 +1062,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var componentOption = Object.assign({
 	            server: false,
 	            ignoreStoreData: false,
-	            preventSelfUpdate: false
+	            preventSelfUpdate: false,
+	            selfDataFirst: false
 	        }, option);
 	        this._omi_preventSelfUpdate = componentOption.preventSelfUpdate;
 	        this._omi_ignoreStoreData = componentOption.ignoreStoreData;
@@ -1085,7 +1086,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.HTML = null;
 	        this._addedItems = [];
 	        _omi2['default'].instances[this.id] = this;
-	        this.dataFirst = true;
+	        this.selfDataFirst = componentOption.selfDataFirst;
 
 	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
 	        //this.BODY_ELEMENT = document.createElement('body')
@@ -1457,7 +1458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: '_mergeData',
 	        value: function _mergeData(childStr) {
-	            if (this.dataFirst) {
+	            if (this.selfDataFirst) {
 	                this.data = Object.assign({}, this._getDataset(childStr), this.data);
 	            } else {
 	                this.data = Object.assign({}, this.data, this._getDataset(childStr));
@@ -1496,11 +1497,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            var json = (0, _html2json2['default'])(childStr);
 	            var attr = json.child[0].attr;
+	            var baseData = {};
 	            Object.keys(attr).forEach(function (key) {
-	                if (key.indexOf('data-') === 0) {
-	                    _this10._dataset[_this10._capitalize(key.replace('data-', ''))] = attr[key];
+	                var value = attr[key];
+	                if (key.indexOf('on') === 0) {
+	                    var handler = _this10.parent[value];
+	                    if (handler) {
+	                        baseData[key] = handler.bind(_this10.parent);
+	                    }
+	                } else if (key.indexOf('data-') === 0) {
+	                    _this10._dataset[_this10._capitalize(key.replace('data-', ''))] = value;
+	                } else if (key.indexOf(':data-') === 0) {
+	                    _this10._dataset[_this10._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                } else if (key === ':data') {
+	                    _this10._dataset = eval('(' + value + ')');
+	                } else if (key === 'data') {
+	                    _this10._dataset = _this10._extractPropertyFromString(value, _this10.parent);
+	                } else if (key === 'group-data') {
+	                    _this10._dataset = _this10._extractPropertyFromString(value, _this10.parent)[_this10._omi_groupDataIndex];
 	                }
 	            });
+
+	            Object.keys(baseData).forEach(function (key) {
+	                _this10._dataset[key] = attr[key];
+	            });
+
 	            return this._dataset;
 	        }
 	    }, {
@@ -1548,12 +1569,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        (function () {
 	                            var baseData = {};
 	                            var dataset = {};
-	                            var dataFromParent = {};
-	                            var groupData = {};
+
+	                            var groupDataIndex = null;
 	                            var omiID = null;
 	                            var instanceName = null;
 	                            var _omi_preventSelfUpdate = false;
-
+	                            var selfDataFirst = false;
 	                            Object.keys(attr).forEach(function (key) {
 	                                var value = attr[key];
 	                                if (key.indexOf('on') === 0) {
@@ -1571,7 +1592,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                    } else {
 	                                        child._omiGroupDataCounter[value] = 0;
 	                                    }
-	                                    groupData = _this11._extractPropertyFromString(value, child)[child._omiGroupDataCounter[value]];
+	                                    groupDataIndex = child._omiGroupDataCounter[value];
+	                                    dataset = _this11._extractPropertyFromString(value, child)[groupDataIndex];
 	                                } else if (key.indexOf('data-') === 0) {
 	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
 	                                } else if (key.indexOf(':data-') === 0) {
@@ -1579,17 +1601,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                } else if (key === ':data') {
 	                                    dataset = eval('(' + value + ')');
 	                                } else if (key === 'data') {
-	                                    dataFromParent = _this11._extractPropertyFromString(value, child);
-	                                } else if (key === 'preventSelfUpdate') {
+	                                    dataset = _this11._extractPropertyFromString(value, child);
+	                                } else if (key === 'preventSelfUpdate' || key === 'psu') {
 	                                    _omi_preventSelfUpdate = true;
+	                                } else if (key === 'selfDataFirst' || key === 'sdf') {
+	                                    selfDataFirst = true;
 	                                }
 	                            });
 
 	                            var ChildClass = _omi2['default'].getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset, dataFromParent, groupData), false);
+	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), false);
+	                            sub_child._omi_groupDataIndex = groupDataIndex;
 	                            sub_child._omi_preventSelfUpdate = _omi_preventSelfUpdate;
 	                            sub_child._omiChildStr = childStr;
+	                            sub_child.selfDataFirst = selfDataFirst;
 	                            sub_child.parent = child;
 	                            sub_child.$store = child.$store;
 	                            if (sub_child.$store) {
