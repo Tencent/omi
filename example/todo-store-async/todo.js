@@ -12,12 +12,19 @@ class Todo extends Omi.Component {
         this.$store.addView(this)
     }
 
+    installed(){
+        this.$store.ready(()=>this.$store.update())
+    }
+
     beforeRender(){
         this.data.length = this.$store.data.items.length
     }
 
     add (evt) {
         evt.preventDefault()
+        if(!this.$store.isReady){
+            return
+        }
         let value = this.data.text
         this.data.text = ''
         this.$store.add(value)
@@ -30,11 +37,6 @@ class Todo extends Omi.Component {
         `;
     }
 
-    clear(){
-        this.data.text = ''
-        this.$store.clear()
-    }
-
     handleChange(evt){
         this.data.text = evt.target.value
     }
@@ -42,13 +44,11 @@ class Todo extends Omi.Component {
     render () {
         return `<div>
                     <h3>TODO</h3>
-                     <button onclick="clear">Clear</button>
                     <List  name="list" data="$store.data"  />
                     <form onsubmit="add" >
                         <input type="text" onchange="handleChange"  value="{{text}}"  />
                         <button>Add #{{length}}</button>
                     </form>
-
                 </div>`;
     }
 }

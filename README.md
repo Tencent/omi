@@ -10,69 +10,6 @@ Open and modern framework for building user interfaces.
 
 ---
 
-## English | [﻿中文](https://github.com/AlloyTeam/omi#中文--english)
-
-* If you want to experience the Omi framework, you can visit [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
-* If you want to use the Omi framework or develop and improve omi framework, please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
-* If you want to get a better reading experience of the documents, you can visit [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
-* If you are too lazy to build a project scaffolding, you can try [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
-* If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
-* If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
-
-## omi-cli
-
-``` js
-$ npm install omi-cli -g       //install cli
-$ omi init your_project_name   //init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name         //please ignore this command if you executed 'omi init' in an empty folder
-$ npm run dev                  //develop
-$ npm run dist                 //release
-```
-
-## Features
-
-* Super tiny size, 7 KB (gzip)
-* Good compatibility, support IE8 (please import es5-shim or es5-sham by yourself)
-* Fully object-oriented component system
-* Support Scoped CSS, reusable components are composed of HTML， Scoped CSS and JS
-* More free updates, each component has a update method, free to choose the right time to update
-* Template engines can be replaced, developers can override the Omi.template method to use any template engine
-* Provides two development way ( ES6+ and ES5) for developers to choose freely
-
-## Plugins
-
-* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) :  Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
-* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) :  Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
-* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) :  Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
-* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker):  Omi / JQuery Date Picker integration.
-
-## Install
-
-``` js
-$ npm install omi
-```
-
-## Hello World
-
-
-You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)，configure the [babel-loader](https://github.com/babel/babel-loader) in  the module settings of webpack，then you can use ES6+ to write your web program.
-
-* [[Hello World ES6+ ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
-* [[Hello World ES5  ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
-
-if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js))，you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
-
-## CDN
-
-* [https://unpkg.com/omi@1.0.6/dist/omi.min.js](https://unpkg.com/omi@1.0.6/dist/omi.min.js)
-* [https://unpkg.com/omi@1.0.6/dist/omi.js](https://unpkg.com/omi@1.0.6/dist/omi.js)
-* [https://unpkg.com/omi@1.0.6/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.6/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.0.6/dist/omi.lite.js](https://unpkg.com/omi@1.0.6/dist/omi.lite.js)
-
-## Thanks 
-
-* [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
-
 ## 中文 | [English](https://github.com/AlloyTeam/omi#english--中文)
 
 * 如果想体验一下Omi框架，可以访问 [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
@@ -134,6 +71,69 @@ $ npm install omi
 * [https://unpkg.com/omi@1.0.6/dist/omi.lite.js](https://unpkg.com/omi@1.0.6/dist/omi.lite.js)
 
 ## 感谢 
+
+* [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
+
+## English | [﻿中文](https://github.com/AlloyTeam/omi#中文--english)
+
+* If you want to experience the Omi framework, you can visit [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
+* If you want to use the Omi framework or develop and improve omi framework, please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
+* If you want to get a better reading experience of the documents, you can visit [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
+* If you are too lazy to build a project scaffolding, you can try [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
+* If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
+* If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
+
+## omi-cli
+
+``` js
+$ npm install omi-cli -g       //install cli
+$ omi init your_project_name   //init project, you can also exec 'omi init' in an empty folder
+$ cd your_project_name         //please ignore this command if you executed 'omi init' in an empty folder
+$ npm run dev                  //develop
+$ npm run dist                 //release
+```
+
+## Features
+
+* Super tiny size, 7 KB (gzip)
+* Good compatibility, support IE8 (please import es5-shim or es5-sham by yourself)
+* Fully object-oriented component system
+* Support Scoped CSS, reusable components are composed of HTML， Scoped CSS and JS
+* More free updates, each component has a update method, free to choose the right time to update
+* Template engines can be replaced, developers can override the Omi.template method to use any template engine
+* Provides two development way ( ES6+ and ES5) for developers to choose freely
+
+## Plugins
+
+* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) :  Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) :  Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
+* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) :  Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
+* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker):  Omi / JQuery Date Picker integration.
+
+## Install
+
+``` js
+$ npm install omi
+```
+
+## Hello World
+
+
+You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)，configure the [babel-loader](https://github.com/babel/babel-loader) in  the module settings of webpack，then you can use ES6+ to write your web program.
+
+* [[Hello World ES6+ ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
+* [[Hello World ES5  ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
+
+if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js))，you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
+
+## CDN
+
+* [https://unpkg.com/omi@1.0.6/dist/omi.min.js](https://unpkg.com/omi@1.0.6/dist/omi.min.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.js](https://unpkg.com/omi@1.0.6/dist/omi.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.lite.min.js](https://unpkg.com/omi@1.0.6/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.0.6/dist/omi.lite.js](https://unpkg.com/omi@1.0.6/dist/omi.lite.js)
+
+## Thanks 
 
 * [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
 

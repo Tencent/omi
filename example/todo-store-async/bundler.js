@@ -110,6 +110,15 @@
 	            this.$store.addView(this);
 	        }
 	    }, {
+	        key: 'installed',
+	        value: function installed() {
+	            var _this2 = this;
+
+	            this.$store.ready(function () {
+	                return _this2.$store.update();
+	            });
+	        }
+	    }, {
 	        key: 'beforeRender',
 	        value: function beforeRender() {
 	            this.data.length = this.$store.data.items.length;
@@ -118,6 +127,9 @@
 	        key: 'add',
 	        value: function add(evt) {
 	            evt.preventDefault();
+	            if (!this.$store.isReady) {
+	                return;
+	            }
 	            var value = this.data.text;
 	            this.data.text = '';
 	            this.$store.add(value);
@@ -128,12 +140,6 @@
 	            return '\n        h3 { color:red; }\n        button{ color:green;}\n        ';
 	        }
 	    }, {
-	        key: 'clear',
-	        value: function clear() {
-	            this.data.text = '';
-	            this.$store.clear();
-	        }
-	    }, {
 	        key: 'handleChange',
 	        value: function handleChange(evt) {
 	            this.data.text = evt.target.value;
@@ -141,7 +147,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h3>TODO</h3>\n                     <button onclick="clear">Clear</button>\n                    <List  name="list" data="$store.data"  />\n                    <form onsubmit="add" >\n                        <input type="text" onchange="handleChange"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n\n                </div>';
+	            return '<div>\n                    <h3>TODO</h3>\n                    <List  name="list" data="$store.data"  />\n                    <form onsubmit="add" >\n                        <input type="text" onchange="handleChange"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n                </div>';
 	        }
 	    }]);
 
@@ -2916,9 +2922,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-	var todoStore = new _todoStore2["default"]({
-	    items: ["omi", "store"]
-	}, true);
+	//let todoStore = new TodoStore({
+	//    items: ["omi","store"]
+	//},true)
+
+
+	var todoStore = new _todoStore2["default"]();
+	setTimeout(function () {
+	    todoStore.data.items = ["omi", "store"];
+	    todoStore.data.length = todoStore.data.items.length;
+	    todoStore.beReady();
+	}, 2000);
 
 	exports["default"] = todoStore;
 
