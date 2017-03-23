@@ -145,6 +145,25 @@ Omi.create = function(tagName ,parent,setting) {
     return Omi.componetConstructor[tagName]
 }
 
+Omi.createStore = function(option) {
+
+    let Store = function (parent) {
+        _inherits(Obj, parent)
+
+        function Obj(data, isReady) {
+            _classCallCheck(this, Obj)
+            this.data = data
+            return _possibleConstructorReturn(this, (Obj.__proto__ || Object.getPrototypeOf(Obj)).call(this, data, isReady))
+        }
+
+        _createClass(Obj, toArr(option.methods))
+
+        return Obj
+    }(Omi.Store)
+
+    return new Store(option.data, true)
+}
+
 Omi.mixIndex = function(array, key) {
     const len = array.length,
         indexName = key || "index"

@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.0.6 By dntzhang 
+ *  Omi v1.1.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -267,6 +267,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Omi.customTags.push(tagName);
 
 	    return Omi.componetConstructor[tagName];
+	};
+
+	Omi.createStore = function (option) {
+
+	    var Store = function (parent) {
+	        _inherits(Obj, parent);
+
+	        function Obj(data, isReady) {
+	            _classCallCheck(this, Obj);
+	            this.data = data;
+	            return _possibleConstructorReturn(this, (Obj.__proto__ || Object.getPrototypeOf(Obj)).call(this, data, isReady));
+	        }
+
+	        _createClass(Obj, toArr(option.methods));
+
+	        return Obj;
+	    }(Omi.Store);
+
+	    return new Store(option.data, true);
 	};
 
 	Omi.mixIndex = function (array, key) {

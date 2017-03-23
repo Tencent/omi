@@ -364,6 +364,25 @@
 	    return Omi.componetConstructor[tagName];
 	};
 
+	Omi.createStore = function (option) {
+
+	    var Store = function (parent) {
+	        _inherits(Obj, parent);
+
+	        function Obj(data, isReady) {
+	            _classCallCheck(this, Obj);
+	            this.data = data;
+	            return _possibleConstructorReturn(this, (Obj.__proto__ || Object.getPrototypeOf(Obj)).call(this, data, isReady));
+	        }
+
+	        _createClass(Obj, toArr(option.methods));
+
+	        return Obj;
+	    }(Omi.Store);
+
+	    return new Store(option.data, true);
+	};
+
 	Omi.mixIndex = function (array, key) {
 	    var len = array.length,
 	        indexName = key || "index";
@@ -2902,87 +2921,31 @@
 
 /***/ },
 /* 12 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _todoStore = __webpack_require__(13);
-
-	var _todoStore2 = _interopRequireDefault(_todoStore);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var todoStore = new _todoStore2["default"]({
-	    items: ["omi", "store"]
-	}, true);
-
-	exports["default"] = todoStore;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _index = __webpack_require__(2);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TodoStore = function (_Omi$Store) {
-	    _inherits(TodoStore, _Omi$Store);
-
-	    function TodoStore(data, isReady) {
-	        _classCallCheck(this, TodoStore);
-
-	        var _this = _possibleConstructorReturn(this, (TodoStore.__proto__ || Object.getPrototypeOf(TodoStore)).call(this, isReady));
-
-	        _this.data = Object.assign({
-	            items: [],
-	            length: 0
-	        }, data);
-
-	        _this.data.length = _this.data.items.length;
-	        return _this;
-	    }
-
-	    _createClass(TodoStore, [{
-	        key: 'add',
-	        value: function add(value) {
+	exports["default"] = Omi.createStore({
+	    data: {
+	        items: ["omi", "store"]
+	    },
+	    methods: {
+	        add: function add(value) {
 	            this.data.items.push(value);
 	            this.data.length = this.data.items.length;
 	            this.update();
-	        }
-	    }, {
-	        key: 'clear',
-	        value: function clear() {
+	        },
+
+	        clear: function clear() {
 	            this.data.items.length = 0;
 	            this.data.length = 0;
 	            this.update();
 	        }
-	    }]);
-
-	    return TodoStore;
-	}(_index2['default'].Store);
-
-	exports['default'] = TodoStore;
+	    }
+	});
 
 /***/ }
 /******/ ]);
