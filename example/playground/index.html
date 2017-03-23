@@ -23,57 +23,53 @@
         <div class="editor">
       <textarea id="editor">
 class List extends Omi.Component {
-    constructor(data) {
-        super(data);
-    }
-
     render () {
-        return `<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`;
+        return `<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`
     }
 }
 
-Omi.makeHTML('List', List);
+Omi.makeHTML('List', List)
 
 class Todo extends Omi.Component {
     constructor(data) {
         super(data);
-        this.data.length = this.data.items.length;
-        this.listData = { items : this.data.items } ;
+        this.data.length = this.data.items.length
+      	this.listData = { items : this.data.items }
     }
 
     add (evt) {
-        evt.preventDefault();
-        this.list.data.items.push(this.data.text);
-        this.data.length = this.list.data.items.length;
-        this.data.text = '';
-        this.update();
+        evt.preventDefault()
+        this.listData.items.push(this.data.text)
+        this.data.length = this.listData.items.length
+        this.data.text = ''
+        this.update()
     }
 
     style () {
         return `
         h3 { color:red; }
-        button{ color:green;}`;
+        button{ color:green;}`
     }
 
     handleChange(target){
-        this.data.text = target.value;
+        this.data.text = target.value
     }
 
     render () {
         return `
       <div>
           <h3>TODO</h3>
-          <List name="list" data="listData" />
-          <form onsubmit="add(event)" >
-              <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
+          <List data="listData" />
+          <form onsubmit="add" >
+              <input type="text" onchange="handleChange(this)" value="{{text}}" />
               <button>Add #{{length}}</button>
           </form>
-      </div>`;
+      </div>`
     }
 }
 
 
-Omi.render(new Todo({ items: ['Omi','dntzhang','AlloyTeam'] , text : '' }),'#container');</textarea>
+Omi.render(new Todo({ items: ['Omi','dntzhang','AlloyTeam'] , text : '' }),'#container')</textarea>
         </div>
     </div>
 
