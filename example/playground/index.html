@@ -92,7 +92,7 @@ Omi.render(new Todo({ items: ['Omi','dntzhang','AlloyTeam'] , text : '' }),'#con
 
     editor.on("changes",function(a){
         var b=a.getValue();compile(b),localStorage.setItem(storageKey,b);
-        window.history.pushState({a:1}, "My Profile", "http://alloyteam.github.io/omi/example/playground/index.html?code="+encodeURIComponent(b));}
+        window.history.pushState({a:1}, "My Profile",window.location.protocol + "//alloyteam.github.io/omi/example/playground/index.html?code="+encodeURIComponent(b));}
     );
 </script>
 </body>
