@@ -290,6 +290,31 @@ class Todo extends Omi.Component {
 
 可以看到上面的add方法可以通过this.$store.isReady获取组件store是否准备就绪。
 
+## 补充（20170323）
+
+在omi v1.1.0及以后的版本中，已经支持Omi.createStore快捷创建store。如:
+
+```js
+export default Omi.createStore({
+    data: {
+        items: ["omi", "store"]
+    },
+    methods: {
+        add: function (value) {
+            this.data.items.push(value)
+            this.data.length = this.data.items.length
+            this.update()
+        },
+
+        clear: function () {
+            this.data.items.length = 0
+            this.data.length = 0
+            this.update()
+        }
+    }
+});
+```
+
 ## 源码地址
 
 * 更为详细的代码可以[点击这里](https://github.com/AlloyTeam/omi/tree/master/example/todo-store)
