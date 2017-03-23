@@ -8,7 +8,7 @@
 * 通过在组件上声明 data 或者 :data 传递给子节点 （支持复杂数据类型的映射）
 * 声明 group-data 把数组里的data传给一堆组件传递（支持复杂数据类型的映射）
 
-	注：上面带有冒号的是传递javascript表达式
+注：上面带有冒号的是[传递javascript表达式](https://github.com/AlloyTeam/omi/blob/master/tutorial/js-expression.md)
 
 通过声明onXxx="xxxx"可以让子组件内执行父组件的方法。具体的如下图所示：
 
