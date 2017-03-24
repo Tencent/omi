@@ -6,6 +6,7 @@
 * [组件](./src/docs/cn/components.md)
 * [组件通讯](./src/docs/cn/communication.md)
 * [生命周期](./src/docs/cn/lifecycle.md)
+* [Store体系](./src/docs/cn/store.md)
 * [事件处理](./src/docs/cn/events.md)
 * [条件判断](./src/docs/cn/condition.md)
 * [循环遍历](./src/docs/cn/loop.md)
