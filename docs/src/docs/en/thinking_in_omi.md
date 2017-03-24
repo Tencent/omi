@@ -1,13 +1,6 @@
 ## Thinking in Omi
 
-Omi is based on object-oriented programming, with plugin system.
-
-The traditional one-way data flow or the event-throwing component communicating can increase the stability of the system, but it loses it's flexibility. To a certain extent also reduced the component reusing.
-
-Object-oriented system has an other logical layer, which let you control the instance of components. The logic between instances build the entire program.
-
-Then the issues like communication, reusing and logics between components are all solved.
-
+Omi is based on object-oriented programming, with plugin system and store system, support partial dom diff and update.
 
 Plus, the component is also more single duty, more loosely coupled.
 
@@ -46,10 +39,6 @@ So what are their strengths and weaknesses? The following is a comparison (in fa
 | Animation performance | ★★★★☆    |   ★★★★★ |
 | Abstract complexity | ★★★★☆    |   ★★★★★ |
 | Asynchronous programming | ★★★★★    |   ★★★★☆ |
-
-As we can see, we can not have it both ways. Object-oriented programming is more reusable, flexible and scalable, the problem is more difficult to test.
-
-Specifically, if the functional programming, the test area is state1 + state2 + ... + stateN; in object-oriented programming, the test area is state1 × event1 + state2 × event2 + ... + stateN × eventN.
 
 In summary, it is more recommended to use the object-oriented programming to build UI component framework.
 

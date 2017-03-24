@@ -441,7 +441,13 @@
 	        component._omi_increment = incrementOrOption;
 	    } else if (incrementOrOption) {
 	        component._omi_increment = incrementOrOption.increment;
-	        component.$store = incrementOrOption.store;
+	        if (incrementOrOption.store) {
+	            if (incrementOrOption.store instanceof Omi.Store) {
+	                component.$store = incrementOrOption.store;
+	            } else {
+	                component.$store = Omi.createStore(incrementOrOption.store);
+	            }
+	        }
 	        component._omi_autoStoreToData = incrementOrOption.autoStoreToData;
 	    }
 	    component.install();
@@ -2928,7 +2934,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports["default"] = Omi.createStore({
+	exports["default"] = {
 	    data: {
 	        items: ["omi", "store"]
 	    },
@@ -2945,7 +2951,7 @@
 	            this.update();
 	        }
 	    }
-	});
+	};
 
 /***/ }
 /******/ ]);

@@ -1,4 +1,4 @@
-export default Omi.createStore({
+export default {
     data: {
         items: ["omi", "store"]
     },
@@ -15,4 +15,4 @@ export default Omi.createStore({
             this.update()
         }
     }
-});
+}

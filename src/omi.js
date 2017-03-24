@@ -221,7 +221,13 @@ Omi.render = function(component , renderTo , incrementOrOption){
         component._omi_increment = incrementOrOption
     }else if(incrementOrOption){
         component._omi_increment = incrementOrOption.increment
-        component.$store = incrementOrOption.store
+        if( incrementOrOption.store) {
+            if(incrementOrOption.store instanceof Omi.Store){
+                component.$store = incrementOrOption.store
+            }else{
+                component.$store = Omi.createStore(incrementOrOption.store)
+            }
+        }
         component._omi_autoStoreToData = incrementOrOption.autoStoreToData
     }
     component.install()

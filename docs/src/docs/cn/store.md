@@ -312,7 +312,32 @@ export default Omi.createStore({
             this.update()
         }
     }
-});
+})
+```
+
+## 补充（20170324）
+
+在omi v1.1.1及以后的版本中，也支持省略Omi.createStore的形式创建store。如:
+
+```js
+export default {
+    data: {
+        items: ["omi", "store"]
+    },
+    methods: {
+        add: function (value) {
+            this.data.items.push(value)
+            this.data.length = this.data.items.length
+            this.update()
+        },
+
+        clear: function () {
+            this.data.items.length = 0
+            this.data.length = 0
+            this.update()
+        }
+    }
+}
 ```
 
 ## 源码地址

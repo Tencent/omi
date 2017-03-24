@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.1.0 By dntzhang 
+ *  Omi v1.1.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -346,7 +346,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        component._omi_increment = incrementOrOption;
 	    } else if (incrementOrOption) {
 	        component._omi_increment = incrementOrOption.increment;
-	        component.$store = incrementOrOption.store;
+	        if (incrementOrOption.store) {
+	            if (incrementOrOption.store instanceof Omi.Store) {
+	                component.$store = incrementOrOption.store;
+	            } else {
+	                component.$store = Omi.createStore(incrementOrOption.store);
+	            }
+	        }
 	        component._omi_autoStoreToData = incrementOrOption.autoStoreToData;
 	    }
 	    component.install();
