@@ -279,6 +279,25 @@
 	    return Omi.componetConstructor[tagName];
 	};
 
+	Omi.createStore = function (option) {
+
+	    var Store = function (parent) {
+	        _inherits(Obj, parent);
+
+	        function Obj(data, isReady) {
+	            _classCallCheck(this, Obj);
+	            this.data = data;
+	            return _possibleConstructorReturn(this, (Obj.__proto__ || Object.getPrototypeOf(Obj)).call(this, data, isReady));
+	        }
+
+	        _createClass(Obj, toArr(option.methods));
+
+	        return Obj;
+	    }(Omi.Store);
+
+	    return new Store(option.data, true);
+	};
+
 	Omi.mixIndex = function (array, key) {
 	    var len = array.length,
 	        indexName = key || "index";
@@ -337,7 +356,13 @@
 	        component._omi_increment = incrementOrOption;
 	    } else if (incrementOrOption) {
 	        component._omi_increment = incrementOrOption.increment;
-	        component.$store = incrementOrOption.store;
+	        if (incrementOrOption.store) {
+	            if (incrementOrOption.store instanceof Omi.Store) {
+	                component.$store = incrementOrOption.store;
+	            } else {
+	                component.$store = Omi.createStore(incrementOrOption.store);
+	            }
+	        }
 	        component._omi_autoStoreToData = incrementOrOption.autoStoreToData;
 	    }
 	    component.install();
@@ -1091,7 +1116,7 @@
 	        this.children = [];
 	        this.childrenData = [];
 	        this.HTML = null;
-	        this._addedItems = [];
+
 	        _omi2['default'].instances[this.id] = this;
 	        this.selfDataFirst = componentOption.selfDataFirst;
 
@@ -1148,6 +1173,31 @@
 	            }
 	        }
 	    }, {
+	        key: 'updateSelf',
+	        value: function updateSelf() {
+	            this.beforeUpdate();
+	            if (this.renderTo) {
+	                this._render(false, true);
+	            } else {
+	                if (this._omi_preventSelfUpdate) return;
+	                // update child node
+	                if (this._omi_removed) {
+	                    var hdNode = this._createHiddenNode();
+	                    this.node.parentNode.replaceChild(hdNode, this.node);
+	                    this.node = hdNode;
+	                } else {
+	                    (0, _morphdom2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr, true), this.id), {
+	                        ignoreAttr: this._getIgnoreAttr()
+	                    });
+
+	                    this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
+	                    this._queryElements(this);
+	                    this._fixForm();
+	                }
+	            }
+	            this.afterUpdate();
+	        }
+	    }, {
 	        key: 'update',
 	        value: function update() {
 	            this.beforeUpdate();
@@ -1169,8 +1219,7 @@
 	                    this._fixForm();
 	                }
 	            }
-	            //update added components
-	            this._renderAddedChildren();
+
 	            this._childrenAfterUpdate(this);
 	            this.afterUpdate();
 	        }
@@ -1222,26 +1271,6 @@
 
 	            child.restore();
 	        }
-
-	        //beforeBegin,beforeEnd,afterBegin,afterEnd
-
-	    }, {
-	        key: 'addComponent',
-	        value: function addComponent(position, el, component) {
-	            this._addedItems.push({ position: position, el: el, component: component });
-	            this.update();
-	        }
-	    }, {
-	        key: 'removeComponent',
-	        value: function removeComponent(component) {
-	            for (var i = 0, len = this._addedItems.length; i < len; i++) {
-	                if (component.id === this._addedItems[i].component.id) {
-	                    this._addedItems.splice(i, 1);
-	                    break;
-	                }
-	            }
-	            this.update();
-	        }
 	    }, {
 	        key: 'remove',
 	        value: function remove() {
@@ -1257,26 +1286,9 @@
 	            this.installed();
 	        }
 	    }, {
-	        key: '_renderAddedChildren',
-	        value: function _renderAddedChildren() {
-	            var _this4 = this;
-
-	            this._addedItems.forEach(function (item) {
-	                var target = typeof item.el === "string" ? _this4.node.querySelector(item.el) : item.el;
-	                item.component.install();
-	                item.component._render(true);
-	                item.component.installed();
-	                item.component._childrenInstalled(item.component);
-	                target.insertAdjacentHTML(item.position, item.component.HTML);
-	            });
-	            this.children.forEach(function (child) {
-	                child._renderAddedChildren();
-	            });
-	        }
-	    }, {
 	        key: '_render',
-	        value: function _render(isFirst) {
-	            var _this5 = this;
+	        value: function _render(isFirst, isSelf) {
+	            var _this4 = this;
 
 	            if (this._omi_removed) {
 	                var node = this._createHiddenNode();
@@ -1295,11 +1307,16 @@
 	            }
 	            this.beforeRender();
 	            this._generateHTMLCSS();
-	            this._extractChildren(this);
+	            if (!isSelf) {
+	                this._extractChildren(this);
+	            } else if (_omi2['default'].customTags.length > 0) {
+	                this.HTML = this._replaceTags(_omi2['default'].customTags, this.HTML);
+	            }
 
-	            this.children.forEach(function (item, index) {
-	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, _this5.children[index].HTML);
+	            this.children.forEach(function (item) {
+	                _this4.HTML = _this4.HTML.replace(item._omiChildStr, isSelf ? item.node.outerHTML : item.HTML);
 	            });
+
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
 	                if (this.renderTo) {
@@ -1311,7 +1328,9 @@
 	                }
 	            } else {
 	                if (this.HTML !== "") {
-	                    (0, _morphdom2['default'])(this.node, this.HTML);
+	                    (0, _morphdom2['default'])(this.node, this.HTML, isSelf ? {
+	                        ignoreAttr: this._getIgnoreAttr()
+	                    } : null);
 	                } else {
 	                    (0, _morphdom2['default'])(this.node, this._createHiddenNode());
 	                }
@@ -1324,9 +1343,18 @@
 	            }
 	        }
 	    }, {
+	        key: '_getIgnoreAttr',
+	        value: function _getIgnoreAttr() {
+	            var arr = [];
+	            this.children.forEach(function (child) {
+	                arr.push(child._omi_scoped_attr);
+	            });
+	            return arr;
+	        }
+	    }, {
 	        key: '_childRender',
-	        value: function _childRender(childStr, isFirst) {
-	            var _this6 = this;
+	        value: function _childRender(childStr, isSelf) {
+	            var _this5 = this;
 
 	            if (this._omi_removed) {
 	                this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >';
@@ -1342,10 +1370,14 @@
 	            }
 	            this.beforeRender();
 	            this._generateHTMLCSS();
-	            this._extractChildren(this);
+	            if (!isSelf) {
+	                this._extractChildren(this);
+	            } else if (_omi2['default'].customTags.length > 0) {
+	                this.HTML = this._replaceTags(_omi2['default'].customTags, this.HTML);
+	            }
 
-	            this.children.forEach(function (item, index) {
-	                _this6.HTML = _this6.HTML.replace(item._omiChildStr, _this6.children[index].HTML);
+	            this.children.forEach(function (item) {
+	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, isSelf ? item.node.outerHTML : item.HTML);
 	            });
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            return this.HTML;
@@ -1364,12 +1396,12 @@
 	    }, {
 	        key: '_mixRefs',
 	        value: function _mixRefs() {
-	            var _this7 = this;
+	            var _this6 = this;
 
 	            var nodes = _omi2['default'].$$('*[ref]', this.node);
 	            nodes.forEach(function (node) {
-	                if (node.hasAttribute(_this7._omi_scoped_attr)) {
-	                    _this7.refs[node.getAttribute('ref')] = node;
+	                if (node.hasAttribute(_this6._omi_scoped_attr)) {
+	                    _this6.refs[node.getAttribute('ref')] = node;
 	                }
 	            });
 	            var attr = this.node.getAttribute('ref');
@@ -1380,27 +1412,27 @@
 	    }, {
 	        key: '_execPlugins',
 	        value: function _execPlugins() {
-	            var _this8 = this;
+	            var _this7 = this;
 
 	            Object.keys(_omi2['default'].plugins).forEach(function (item) {
-	                var nodes = _omi2['default'].$$('*[' + item + ']', _this8.node);
+	                var nodes = _omi2['default'].$$('*[' + item + ']', _this7.node);
 	                nodes.forEach(function (node) {
-	                    if (node.hasAttribute(_this8._omi_scoped_attr)) {
-	                        _omi2['default'].plugins[item](node, _this8);
+	                    if (node.hasAttribute(_this7._omi_scoped_attr)) {
+	                        _omi2['default'].plugins[item](node, _this7);
 	                    }
 	                });
-	                if (_this8.node.hasAttribute(item)) {
-	                    _omi2['default'].plugins[item](_this8.node, _this8);
+	                if (_this7.node.hasAttribute(item)) {
+	                    _omi2['default'].plugins[item](_this7.node, _this7);
 	                }
 	            });
 	        }
 	    }, {
 	        key: '_childrenInstalled',
 	        value: function _childrenInstalled(root) {
-	            var _this9 = this;
+	            var _this8 = this;
 
 	            root.children.forEach(function (child) {
-	                _this9._childrenInstalled(child);
+	                _this8._childrenInstalled(child);
 	                child.installed();
 	            });
 	        }
@@ -1500,7 +1532,7 @@
 	    }, {
 	        key: '_getDataset',
 	        value: function _getDataset(childStr) {
-	            var _this10 = this;
+	            var _this9 = this;
 
 	            var json = (0, _html2json2['default'])(childStr);
 	            var attr = json.child[0].attr;
@@ -1508,25 +1540,25 @@
 	            Object.keys(attr).forEach(function (key) {
 	                var value = attr[key];
 	                if (key.indexOf('on') === 0) {
-	                    var handler = _this10.parent[value];
+	                    var handler = _this9.parent[value];
 	                    if (handler) {
-	                        baseData[key] = handler.bind(_this10.parent);
+	                        baseData[key] = handler.bind(_this9.parent);
 	                    }
 	                } else if (key.indexOf('data-') === 0) {
-	                    _this10._dataset[_this10._capitalize(key.replace('data-', ''))] = value;
+	                    _this9._dataset[_this9._capitalize(key.replace('data-', ''))] = value;
 	                } else if (key.indexOf(':data-') === 0) {
-	                    _this10._dataset[_this10._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                    _this9._dataset[_this9._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
 	                } else if (key === ':data') {
-	                    _this10._dataset = eval('(' + value + ')');
+	                    _this9._dataset = eval('(' + value + ')');
 	                } else if (key === 'data') {
-	                    _this10._dataset = _this10._extractPropertyFromString(value, _this10.parent);
+	                    _this9._dataset = _this9._extractPropertyFromString(value, _this9.parent);
 	                } else if (key === 'group-data') {
-	                    _this10._dataset = _this10._extractPropertyFromString(value, _this10.parent)[_this10._omi_groupDataIndex];
+	                    _this9._dataset = _this9._extractPropertyFromString(value, _this9.parent)[_this9._omi_groupDataIndex];
 	                }
 	            });
 
 	            Object.keys(baseData).forEach(function (key) {
-	                _this10._dataset[key] = attr[key];
+	                _this9._dataset[key] = attr[key];
 	            });
 
 	            return this._dataset;
@@ -1554,7 +1586,7 @@
 	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
-	            var _this11 = this;
+	            var _this10 = this;
 
 	            if (_omi2['default'].customTags.length > 0) {
 	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
@@ -1567,7 +1599,7 @@
 	                    var attr = json.child[0].attr;
 	                    var name = attr.tag;
 	                    delete attr.tag;
-	                    var cmi = _this11.children[i];
+	                    var cmi = _this10.children[i];
 	                    //if not first time to invoke _extractChildren method
 	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._omiChildStr = childStr;
@@ -1600,15 +1632,15 @@
 	                                        child._omiGroupDataCounter[value] = 0;
 	                                    }
 	                                    groupDataIndex = child._omiGroupDataCounter[value];
-	                                    dataset = _this11._extractPropertyFromString(value, child)[groupDataIndex];
+	                                    dataset = _this10._extractPropertyFromString(value, child)[groupDataIndex];
 	                                } else if (key.indexOf('data-') === 0) {
-	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
+	                                    dataset[_this10._capitalize(key.replace('data-', ''))] = value;
 	                                } else if (key.indexOf(':data-') === 0) {
-	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                                    dataset[_this10._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
 	                                } else if (key === ':data') {
 	                                    dataset = eval('(' + value + ')');
 	                                } else if (key === 'data') {
-	                                    dataset = _this11._extractPropertyFromString(value, child);
+	                                    dataset = _this10._extractPropertyFromString(value, child);
 	                                } else if (key === 'preventSelfUpdate' || key === 'psu') {
 	                                    _omi_preventSelfUpdate = true;
 	                                } else if (key === 'selfDataFirst' || key === 'sdf') {
@@ -1638,7 +1670,7 @@
 	                                child.children[i] = sub_child;
 	                            }
 
-	                            sub_child._childRender(childStr, true);
+	                            sub_child._childRender(childStr);
 	                        })();
 	                    }
 	                });
@@ -2024,7 +2056,7 @@
 	            var onNodeDiscarded = options.onNodeDiscarded || noop;
 	            var onBeforeElChildrenUpdated = options.onBeforeElChildrenUpdated || noop;
 	            var childrenOnly = options.childrenOnly === true;
-
+	            var ignoreAttr = options.ignoreAttr;
 	            // This object is used as a lookup to quickly find all keyed elements in the original DOM tree.
 	            var fromNodesLookup = {};
 	            var keyedRemovalList;
@@ -2153,6 +2185,27 @@
 	            }
 
 	            function morphEl(fromEl, toEl, childrenOnly) {
+	                if (ignoreAttr) {
+	                    var ignoreF = false,
+	                        ignoreT = false,
+	                        attrF = null,
+	                        attrT = null;
+	                    for (var _i = 0, _len = ignoreAttr.length; _i < _len; _i++) {
+	                        var selector = ignoreAttr[_i];
+	                        if (!ignoreF && fromEl.getAttribute(selector) !== null) {
+	                            ignoreF = true;
+	                            attrF = selector;
+	                        }
+	                        if (!ignoreT && toEl.getAttribute(selector) !== null) {
+	                            ignoreT = true;
+	                            attrT = selector;
+	                        }
+	                        if (ignoreF && ignoreT) break;
+	                    }
+	                    if (ignoreF && ignoreT && attrF === attrT) {
+	                        return;
+	                    }
+	                }
 	                var toElKey = getNodeKey(toEl);
 	                var curFromNodeKey;
 
@@ -2689,6 +2742,7 @@
 	        this.readyHandlers = [];
 	        this.isReady = isReady;
 	        this.instances = [];
+	        this.updateSelfInstances = [];
 	    }
 
 	    _createClass(Store, [{
@@ -2701,12 +2755,27 @@
 	            this.readyHandlers.push(readyHandler);
 	        }
 	    }, {
+	        key: "addSelfView",
+	        value: function addSelfView(view) {
+	            var added = false;
+
+	            for (var i = 0, len = this.updateSelfInstances.length; i < len; i++) {
+	                if (this.updateSelfInstances[i].id === view.id) {
+	                    added = true;
+	                    break;
+	                }
+	            }
+	            if (!added) {
+	                this.updateSelfInstances.push(view);
+	            }
+	        }
+	    }, {
 	        key: "addView",
 	        value: function addView(view) {
-	            var vid = view.id,
-	                added = false;
+	            var added = false;
+
 	            for (var i = 0, len = this.instances.length; i < len; i++) {
-	                if (this.instances[i].id === vid) {
+	                if (this.instances[i].id === view.id) {
 	                    added = true;
 	                    break;
 	                }
@@ -2726,23 +2795,26 @@
 	    }, {
 	        key: "update",
 	        value: function update() {
-	            this._mergeInstances();
+	            this._mergeInstances(this.instances);
 	            this.instances.forEach(function (instance) {
 	                return instance.update();
+	            });
+	            this.updateSelfInstances.forEach(function (instance) {
+	                return instance.updateSelf();
 	            });
 	        }
 	    }, {
 	        key: "_mergeInstances",
-	        value: function _mergeInstances() {
+	        value: function _mergeInstances(instances) {
 	            var _this = this;
 
 	            var arr = [];
 	            var idArr = [];
-	            this.instances.forEach(function (instance) {
+	            instances.forEach(function (instance) {
 	                idArr.push(instance.id);
 	            });
 
-	            this.instances.forEach(function (instance) {
+	            instances.forEach(function (instance) {
 	                if (!instance.parent) {
 	                    arr.push(instance);
 	                } else {
@@ -2822,10 +2894,6 @@
 	    _createClass(Todo, [{
 	        key: 'install',
 	        value: function install() {
-	            this.$store.addView(this);
-	            this.$store.addView(this);
-	            this.$store.addView(this);
-	            this.$store.addView(this);
 	            this.$store.addView(this);
 	        }
 	    }, {

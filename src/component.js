@@ -435,11 +435,7 @@ class Component {
             }
         })
 
-        Object.keys(baseData).forEach(key => {
-            this._dataset[key] = attr[key]
-        })
-
-        return this._dataset
+        return Object.assign(baseData,this._dataset)
     }
 
     _capitalize (str){

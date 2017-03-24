@@ -11,6 +11,10 @@ class Main extends Omi.Component {
         super(data)
     }
 
+    install(){
+        this.$store.addView(this)
+    }
+
     handlePageChange(index){
         this.$store.goto(index)
     }
