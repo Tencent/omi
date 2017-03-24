@@ -1,19 +1,18 @@
-import TodoStore from './todo-store.js';
+export default {
+    data: {
+        items: ["omi", "store"]
+    },
+    methods: {
+        add: function (value) {
+            this.data.items.push(value)
+            this.data.length = this.data.items.length
+            this.update()
+        },
 
-
-let todoStore = new TodoStore()
-
-setTimeout(function(){
-
-    let result = {
-        items: ["aa","bb"]
-    };
-
-    todoStore.data.items = result.items;
-    todoStore.data.length = todoStore.data.items.length
-    todoStore.beReady();
-},3000)
-
-
-
-export default todoStore;
+        clear: function () {
+            this.data.items.length = 0
+            this.data.length = 0
+            this.update()
+        }
+    }
+}

@@ -3,6 +3,7 @@ class Store {
         this.readyHandlers = []
         this.isReady = isReady
         this.instances = []
+        this.updateSelfInstances = []
     }
 
     ready(readyHandler) {
@@ -13,18 +14,33 @@ class Store {
         this.readyHandlers.push(readyHandler)
     }
 
-    addView(view) {
-        let vid = view.id,
-            added = false
-        for (let i = 0, len = this.instances.length; i < len; i++) {
-            if(this.instances[i].id === vid){
+    addSelfView(view) {
+        let added = false
+
+        for (let i = 0, len = this.updateSelfInstances.length; i < len; i++) {
+            if (this.updateSelfInstances[i].id === view.id) {
                 added = true
                 break
             }
         }
-        if(!added) {
+        if (!added) {
+            this.updateSelfInstances.push(view)
+        }
+    }
+
+    addView(view) {
+        let added = false
+
+        for (let i = 0, len = this.instances.length; i < len; i++) {
+            if (this.instances[i].id === view.id) {
+                added = true
+                break
+            }
+        }
+        if (!added) {
             this.instances.push(view)
         }
+
     }
 
     beReady() {
@@ -33,18 +49,19 @@ class Store {
     }
 
     update() {
-        this._mergeInstances()
-        this.instances.forEach(instance=>instance.update())
+        this._mergeInstances(this.instances)
+        this.instances.forEach(instance => instance.update())
+        this.updateSelfInstances.forEach(instance => instance.updateSelf())
     }
 
-    _mergeInstances(){
+    _mergeInstances(instances){
         let arr = []
         let idArr = []
-        this.instances.forEach(instance=>{
+        instances.forEach(instance=>{
             idArr.push(instance.id)
         })
 
-        this.instances.forEach(instance=>{
+        instances.forEach(instance=>{
             if(!instance.parent){
                 arr.push(instance)
             }else{

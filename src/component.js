@@ -31,7 +31,7 @@ class Component {
         this.children = []
         this.childrenData = []
         this.HTML = null
-        this._addedItems = []
+
         Omi.instances[this.id] = this
         this.selfDataFirst = componentOption.selfDataFirst
 
@@ -90,6 +90,30 @@ class Component {
         }
     }
 
+    updateSelf(){
+        this.beforeUpdate()
+        if (this.renderTo) {
+            this._render(false, true)
+        } else {
+            if(this._omi_preventSelfUpdate) return;
+            // update child node
+            if(this._omi_removed ) {
+                let hdNode  = this._createHiddenNode()
+                this.node.parentNode.replaceChild(hdNode,this.node)
+                this.node = hdNode
+            }else{
+                morphdom(this.node, scopedEvent(this._childRender(this._omiChildStr, true), this.id), {
+                    ignoreAttr:this._getIgnoreAttr()
+                })
+
+                this.node = document.querySelector("[" + this._omi_scoped_attr + "]")
+                this._queryElements(this)
+                this._fixForm()
+            }
+        }
+        this.afterUpdate()
+    }
+
     update() {
         this.beforeUpdate()
         this._childrenBeforeUpdate(this)
@@ -110,8 +134,7 @@ class Component {
                 this._fixForm()
             }
         }
-        //update added components
-        this._renderAddedChildren()
+
         this._childrenAfterUpdate(this)
         this.afterUpdate()
     }
@@ -155,22 +178,6 @@ class Component {
         child.restore()
     }
 
-    //beforeBegin,beforeEnd,afterBegin,afterEnd
-    addComponent(position, el, component) {
-        this._addedItems.push({position: position, el: el, component: component})
-        this.update()
-    }
-
-    removeComponent(component) {
-        for (let i = 0, len = this._addedItems.length; i < len; i++) {
-            if (component.id === this._addedItems[i].component.id) {
-                this._addedItems.splice(i, 1)
-                break
-            }
-        }
-        this.update()
-    }
-
     remove (){
         this._omi_removed  = true
         this.update()
@@ -183,21 +190,7 @@ class Component {
         this.installed()
     }
 
-    _renderAddedChildren(){
-        this._addedItems.forEach((item)=>{
-            let target = typeof item.el === "string" ? this.node.querySelector(item.el) : item.el
-            item.component.install()
-            item.component._render(true)
-            item.component.installed()
-            item.component._childrenInstalled(item.component)
-            target.insertAdjacentHTML(item.position ,item.component.HTML)
-        })
-        this.children.forEach((child)=>{
-            child._renderAddedChildren()
-        })
-    }
-
-    _render(isFirst) {
+    _render(isFirst, isSelf) {
         if(this._omi_removed ){
             let node = this._createHiddenNode()
             if(!isFirst){
@@ -215,11 +208,16 @@ class Component {
         }
         this.beforeRender()
         this._generateHTMLCSS()
-        this._extractChildren(this)
+        if(!isSelf) {
+            this._extractChildren(this)
+        }else if (Omi.customTags.length > 0) {
+            this.HTML = this._replaceTags(Omi.customTags, this.HTML)
+        }
 
-        this.children.forEach((item, index) => {
-            this.HTML = this.HTML.replace(item._omiChildStr, this.children[index].HTML)
+        this.children.forEach(item => {
+            this.HTML = this.HTML.replace(item._omiChildStr, isSelf ? item.node.outerHTML : item.HTML)
         })
+
         this.HTML =  scopedEvent(this.HTML, this.id)
         if (isFirst) {
             if (this.renderTo) {
@@ -231,9 +229,11 @@ class Component {
             }
         } else {
             if (this.HTML !== "") {
-                morphdom(this.node, this.HTML)
+                morphdom(this.node, this.HTML, isSelf ? {
+                    ignoreAttr: this._getIgnoreAttr()
+                } : null)
             } else {
-                morphdom(this.node ,this._createHiddenNode())
+                morphdom(this.node, this._createHiddenNode())
             }
         }
         //get node prop from parent node
@@ -244,27 +244,39 @@ class Component {
         }
     }
 
-    _childRender(childStr,isFirst) {
-        if(this._omi_removed ){
-            this.HTML = '<input type="hidden" omi_scoped_'+this.id+' >'
+    _getIgnoreAttr(){
+        var arr = []
+        this.children.forEach( child => {
+            arr.push(child._omi_scoped_attr)
+        })
+        return arr
+    }
+
+    _childRender(childStr,isSelf) {
+        if (this._omi_removed) {
+            this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >'
             return this.HTML
         }
         //childStr = childStr.replace("<child", "<div").replace("/>", "></div>")
         this._mergeData(childStr)
-        if(this.parent._omi_autoStoreToData){
+        if (this.parent._omi_autoStoreToData) {
             this._omi_autoStoreToData = true
-            if(!this._omi_ignoreStoreData) {
+            if (!this._omi_ignoreStoreData) {
                 this.data = this.$store.data
             }
         }
         this.beforeRender()
         this._generateHTMLCSS()
-        this._extractChildren(this)
+        if (!isSelf) {
+            this._extractChildren(this)
+        } else if (Omi.customTags.length > 0) {
+            this.HTML = this._replaceTags(Omi.customTags, this.HTML)
+        }
 
-        this.children.forEach((item, index) => {
-            this.HTML = this.HTML.replace(item._omiChildStr, this.children[index].HTML)
+        this.children.forEach(item => {
+            this.HTML = this.HTML.replace(item._omiChildStr, isSelf ? item.node.outerHTML : item.HTML)
         })
-        this.HTML =  scopedEvent(this.HTML, this.id)
+        this.HTML = scopedEvent(this.HTML, this.id)
         return this.HTML
     }
 
@@ -532,7 +544,7 @@ class Component {
                         child.children[i] = sub_child
                     }
 
-                    sub_child._childRender(childStr,true)
+                    sub_child._childRender(childStr)
                 }
             })
         }

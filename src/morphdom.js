@@ -276,7 +276,7 @@
             var onNodeDiscarded = options.onNodeDiscarded || noop;
             var onBeforeElChildrenUpdated = options.onBeforeElChildrenUpdated || noop;
             var childrenOnly = options.childrenOnly === true;
-
+            var ignoreAttr = options.ignoreAttr;
             // This object is used as a lookup to quickly find all keyed elements in the original DOM tree.
             var fromNodesLookup = {};
             var keyedRemovalList;
@@ -405,6 +405,27 @@
             }
 
             function morphEl(fromEl, toEl, childrenOnly) {
+                if(ignoreAttr) {
+                    let ignoreF = false,
+                        ignoreT = false,
+                        attrF = null,
+                        attrT = null;
+                    for(let i = 0,len = ignoreAttr.length;i<len;i++) {
+                        let selector = ignoreAttr[i];
+                        if ((!ignoreF)&&fromEl.getAttribute(selector) !== null) {
+                            ignoreF = true
+                            attrF = selector
+                        }
+                        if ((!ignoreT)&&toEl.getAttribute(selector) !== null) {
+                            ignoreT = true
+                            attrT = selector
+                        }
+                        if(ignoreF&&ignoreT)break;
+                    }
+                    if(ignoreF&&ignoreT&&attrF===attrT){
+                        return
+                    }
+                }
                 var toElKey = getNodeKey(toEl);
                 var curFromNodeKey;
 

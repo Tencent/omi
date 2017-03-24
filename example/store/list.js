@@ -1,18 +1,17 @@
 import Omi from '../../src/index.js';
-import store from './store.js';
+import Test from './test.js';
+Omi.makeHTML('Test', Test);
 
 class List extends Omi.Component {
     constructor(data) {
         super(data)
-        this.useStore(store)
-    }
-
-    beforeRender(){
-        this.data.items = this.$$store.data.items
     }
 
     render () {
-        return ` <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`
+        return ` <div>
+                    <Test data-name="abc"/>
+                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>
+                </div>`
     }
 }
 

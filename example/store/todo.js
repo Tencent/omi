@@ -1,24 +1,28 @@
 ﻿import Omi from '../../src/index.js';
 import List from './list.js';
-import store from './store.js';
+
 
 Omi.makeHTML('List', List);
 
 class Todo extends Omi.Component {
     constructor(data) {
         super(data)
-        this.useStore(store)
-        this.$$store.ready(()=>this.update())
+    }
+
+    installed(){
+        this.$store.addSelfView(this.list)
+        this.$store.addSelfView(this)
     }
 
     beforeRender(){
-        this.data.length = this.$$store.data.items.length
-        this.data.text = this.$$store.text
+        this.data.length = this.$store.data.items.length
     }
 
-    add (evt) {
-        evt.preventDefault();
-        this.$$store.add();
+    add (evt){
+        evt.preventDefault()
+        let value = this.data.text
+        this.data.text = ''
+        this.$store.add(value)
     }
 
     style () {
@@ -28,16 +32,22 @@ class Todo extends Omi.Component {
         `;
     }
 
-    handleChange(target){
-        store.updateText(target.value);
+    clear(){
+        this.data.text = ''
+        this.$store.clear()
+    }
+
+    handleChange(evt){
+        this.data.text = evt.target.value
     }
 
     render () {
         return `<div>
                     <h3>TODO</h3>
-                    <List  name="list"  />
-                    <form onsubmit="add(event)" >
-                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
+                    <button onclick="clear">Clear</button>
+                    <List  name="list" data="$store.data"  />
+                    <form onsubmit="add" >
+                        <input type="text" onchange="handleChange"  value="{{text}}"  />
                         <button>Add #{{length}}</button>
                     </form>
                 </div>`;
