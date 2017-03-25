@@ -1395,8 +1395,8 @@
 	            this._generateHTMLCSS();
 	            if (!isSelf) {
 	                this._extractChildren(this);
-	            } else if (_omi2['default'].customTags.length > 0) {
-	                this.HTML = this._replaceTags(_omi2['default'].customTags, this.HTML);
+	            } else {
+	                this._extractChildrenString(this);
 	            }
 
 	            this.children.forEach(function (item) {
@@ -1458,8 +1458,8 @@
 	            this._generateHTMLCSS();
 	            if (!isSelf) {
 	                this._extractChildren(this);
-	            } else if (_omi2['default'].customTags.length > 0) {
-	                this.HTML = this._replaceTags(_omi2['default'].customTags, this.HTML);
+	            } else {
+	                this._extractChildrenString(this);
 	            }
 
 	            this.children.forEach(function (item) {
@@ -1643,11 +1643,7 @@
 	                }
 	            });
 
-	            Object.keys(baseData).forEach(function (key) {
-	                _this9._dataset[key] = attr[key];
-	            });
-
-	            return this._dataset;
+	            return Object.assign(baseData, this._dataset);
 	        }
 	    }, {
 	        key: '_capitalize',
@@ -1670,13 +1666,14 @@
 	            return current;
 	        }
 	    }, {
-	        key: '_extractChildren',
-	        value: function _extractChildren(child) {
+	        key: '_extractChildrenString',
+	        value: function _extractChildrenString(child) {
 	            var _this10 = this;
 
-	            if (_omi2['default'].customTags.length > 0) {
-	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
-	            }
+	            if (_omi2['default'].customTags.length === 0) return;
+
+	            child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
+
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
 
 	            if (arr) {
@@ -1686,6 +1683,30 @@
 	                    var name = attr.tag;
 	                    delete attr.tag;
 	                    var cmi = _this10.children[i];
+	                    if (cmi && cmi.___omi_constructor_name === name) {
+	                        cmi._omiChildStr = childStr;
+	                    }
+	                });
+	            }
+	        }
+	    }, {
+	        key: '_extractChildren',
+	        value: function _extractChildren(child) {
+	            var _this11 = this;
+
+	            if (_omi2['default'].customTags.length === 0) return;
+
+	            child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
+
+	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
+
+	            if (arr) {
+	                arr.forEach(function (childStr, i) {
+	                    var json = (0, _html2json2['default'])(childStr);
+	                    var attr = json.child[0].attr;
+	                    var name = attr.tag;
+	                    delete attr.tag;
+	                    var cmi = _this11.children[i];
 	                    //if not first time to invoke _extractChildren method
 	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._omiChildStr = childStr;
@@ -1718,15 +1739,15 @@
 	                                        child._omiGroupDataCounter[value] = 0;
 	                                    }
 	                                    groupDataIndex = child._omiGroupDataCounter[value];
-	                                    dataset = _this10._extractPropertyFromString(value, child)[groupDataIndex];
+	                                    dataset = _this11._extractPropertyFromString(value, child)[groupDataIndex];
 	                                } else if (key.indexOf('data-') === 0) {
-	                                    dataset[_this10._capitalize(key.replace('data-', ''))] = value;
+	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
 	                                } else if (key.indexOf(':data-') === 0) {
-	                                    dataset[_this10._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
 	                                } else if (key === ':data') {
 	                                    dataset = eval('(' + value + ')');
 	                                } else if (key === 'data') {
-	                                    dataset = _this10._extractPropertyFromString(value, child);
+	                                    dataset = _this11._extractPropertyFromString(value, child);
 	                                } else if (key === 'preventSelfUpdate' || key === 'psu') {
 	                                    _omi_preventSelfUpdate = true;
 	                                } else if (key === 'selfDataFirst' || key === 'sdf') {
@@ -2970,7 +2991,7 @@
 	    _createClass(List, [{
 	        key: 'render',
 	        value: function render() {
-	            return ' <div>\n                    <Test data-name="abc"/>\n                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\n                </div>';
+	            return ' <div>\n                    <Test data-name="' + Math.random() + '"/>\n                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\n                </div>';
 	        }
 	    }]);
 

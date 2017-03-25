@@ -9,7 +9,7 @@ class List extends Omi.Component {
 
     render () {
         return ` <div>
-                    <Test data-name="abc"/>
+                    <Test data-name="${Math.random()}"/>
                     <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>
                 </div>`
     }

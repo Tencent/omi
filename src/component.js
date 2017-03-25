@@ -210,8 +210,8 @@ class Component {
         this._generateHTMLCSS()
         if(!isSelf) {
             this._extractChildren(this)
-        }else if (Omi.customTags.length > 0) {
-            this.HTML = this._replaceTags(Omi.customTags, this.HTML)
+        }else {
+            this._extractChildrenString(this)
         }
 
         this.children.forEach(item => {
@@ -269,8 +269,8 @@ class Component {
         this._generateHTMLCSS()
         if (!isSelf) {
             this._extractChildren(this)
-        } else if (Omi.customTags.length > 0) {
-            this.HTML = this._replaceTags(Omi.customTags, this.HTML)
+        } else {
+            this._extractChildrenString(this)
         }
 
         this.children.forEach(item => {
@@ -457,10 +457,32 @@ class Component {
 
     }
 
-    _extractChildren(child){
-        if (Omi.customTags.length > 0) {
-            child.HTML = this._replaceTags(Omi.customTags, child.HTML)
+    _extractChildrenString(child){
+        if (Omi.customTags.length === 0) return
+
+        child.HTML = this._replaceTags(Omi.customTags, child.HTML)
+
+        let arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g)
+
+        if(arr){
+            arr.forEach( (childStr, i) =>{
+                let json = html2json(childStr)
+                let attr = json.child[0].attr
+                let name = attr.tag
+                delete attr.tag
+                let cmi = this.children[i]
+                if (cmi && cmi.___omi_constructor_name === name) {
+                    cmi._omiChildStr = childStr
+                }
+            })
         }
+    }
+
+    _extractChildren(child){
+        if (Omi.customTags.length === 0) return
+
+        child.HTML = this._replaceTags(Omi.customTags, child.HTML)
+
         let arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g)
 
         if(arr){
