@@ -10,9 +10,11 @@ class Component {
             server: false,
             ignoreStoreData: false,
             preventSelfUpdate: false,
-            selfDataFirst:false
+            selfDataFirst:false,
+            domDiffDisabled:false
         },option)
         this._omi_preventSelfUpdate = componentOption.preventSelfUpdate
+        this._omi_domDiffDisabled = componentOption.domDiffDisabled
         this._omi_ignoreStoreData = componentOption.ignoreStoreData
         //re render the server-side rendering html on the client-side
         const type = Object.prototype.toString.call(data)
@@ -127,8 +129,11 @@ class Component {
                 this.node.parentNode.replaceChild(hdNode,this.node)
                 this.node = hdNode
             }else{
-                morphdom(this.node, scopedEvent(this._childRender(this._omiChildStr), this.id))
-
+                if(this._omi_domDiffDisabled){
+                    this.node.parentNode.replaceChild(morphdom.toElement(scopedEvent(this._childRender(this._omiChildStr), this.id)),this.node)
+                }else {
+                    morphdom(this.node, scopedEvent(this._childRender(this._omiChildStr), this.id))
+                }
                 this.node = document.querySelector("[" + this._omi_scoped_attr + "]")
                 this._queryElements(this)
                 this._fixForm()
@@ -229,9 +234,13 @@ class Component {
             }
         } else {
             if (this.HTML !== "") {
-                morphdom(this.node, this.HTML, isSelf ? {
-                    ignoreAttr: this._getIgnoreAttr()
-                } : null)
+                if(this._omi_domDiffDisabled){
+                    this.renderTo.innerHTML = this.HTML
+                }else {
+                    morphdom(this.node, this.HTML, isSelf ? {
+                        ignoreAttr: this._getIgnoreAttr()
+                    } : null)
+                }
             } else {
                 morphdom(this.node, this._createHiddenNode())
             }
@@ -503,8 +512,8 @@ class Component {
                     let groupDataIndex = null
                     let omiID = null
                     let instanceName = null
-                    let _omi_preventSelfUpdate = false
-                    let selfDataFirst = false
+                    let _omi_option = {}
+
                     Object.keys(attr).forEach(key => {
                         const value = attr[key]
                         if (key.indexOf('on') === 0) {
@@ -534,19 +543,22 @@ class Component {
                         }else if(key === 'data'){
                             dataset =  this._extractPropertyFromString(value,child)
                         }else if(key === 'preventSelfUpdate'|| key === 'psu'){
-                            _omi_preventSelfUpdate = true
+                            _omi_option.preventSelfUpdate = true
                         }else if(key === 'selfDataFirst'|| key === 'sdf'){
-                            selfDataFirst = true
+                            _omi_option.selfDataFirst = true
+                        }else if(key === 'domDiffDisabled'|| key === 'ddd'){
+                            _omi_option.domDiffDisabled = true
+                        }else if(key === 'ignoreStoreData'|| key === 'isd'){
+                            _omi_option.ignoreStoreData = true
                         }
                     })
 
                     let ChildClass = Omi.getClassFromString(name)
                     if (!ChildClass) throw "Can't find Class called [" + name+"]"
-                    let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset ),false)
+                    let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset ),_omi_option)
                     sub_child._omi_groupDataIndex = groupDataIndex
-                    sub_child._omi_preventSelfUpdate = _omi_preventSelfUpdate
                     sub_child._omiChildStr = childStr
-                    sub_child.selfDataFirst = selfDataFirst
+
                     sub_child.parent = child
                     sub_child.$store = child.$store
                     sub_child.___omi_constructor_name = name

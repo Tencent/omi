@@ -15,6 +15,7 @@ class Frame extends Omi.Component {
     }
 
     install() {
+        this.$store.addView(this);
         this.setViewport();
         window.onresize = ()=> {
             if(  window.innerWidth < 768) {
@@ -60,7 +61,7 @@ class Frame extends Omi.Component {
         return `<div>
                     <Head />
                     <div class="main" ref="main"  style="width:{{width}};">
-                        <Content  omi-id="content" />
+                        <Content  omi-id="content" ddd />
                         <Pager omi-id="pager" />
                     </div>
                     <Sidebar omi-id="sidebar" />

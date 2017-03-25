@@ -694,7 +694,7 @@
     }
 
     var morphdom = morphdomFactory(morphAttrs);
-
+    morphdom.toElement = toElement;
     return morphdom;
 
 })));

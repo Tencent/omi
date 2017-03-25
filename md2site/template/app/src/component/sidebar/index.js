@@ -5,8 +5,8 @@ import List from '../list/index.js';
 Omi.makeHTML('List', List);
 
 class Sidebar extends Omi.Component {
-    constructor(data) {
-        super(data);
+    constructor(data,option) {
+        super(data,option);
     }
 
     beforeRender(){

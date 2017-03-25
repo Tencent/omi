@@ -4,10 +4,8 @@ const tpl = require('./index.html');
 const css = require('./index.css');
 
 class List extends Omi.Component {
-    constructor(data) {
-        super(data,{
-            ignoreStoreData: true
-        });
+    constructor(data,option) {
+        super(data,option);
     }
 
     goto(md,index){

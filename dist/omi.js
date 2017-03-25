@@ -1085,9 +1085,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            server: false,
 	            ignoreStoreData: false,
 	            preventSelfUpdate: false,
-	            selfDataFirst: false
+	            selfDataFirst: false,
+	            domDiffDisabled: false
 	        }, option);
 	        this._omi_preventSelfUpdate = componentOption.preventSelfUpdate;
+	        this._omi_domDiffDisabled = componentOption.domDiffDisabled;
 	        this._omi_ignoreStoreData = componentOption.ignoreStoreData;
 	        //re render the server-side rendering html on the client-side
 	        var type = Object.prototype.toString.call(data);
@@ -1202,8 +1204,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.node.parentNode.replaceChild(hdNode, this.node);
 	                    this.node = hdNode;
 	                } else {
-	                    (0, _morphdom2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
-
+	                    if (this._omi_domDiffDisabled) {
+	                        this.node.parentNode.replaceChild(_morphdom2['default'].toElement((0, _event2['default'])(this._childRender(this._omiChildStr), this.id)), this.node);
+	                    } else {
+	                        (0, _morphdom2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
+	                    }
 	                    this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
 	                    this._queryElements(this);
 	                    this._fixForm();
@@ -1318,9 +1323,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            } else {
 	                if (this.HTML !== "") {
-	                    (0, _morphdom2['default'])(this.node, this.HTML, isSelf ? {
-	                        ignoreAttr: this._getIgnoreAttr()
-	                    } : null);
+	                    if (this._omi_domDiffDisabled) {
+	                        this.renderTo.innerHTML = this.HTML;
+	                    } else {
+	                        (0, _morphdom2['default'])(this.node, this.HTML, isSelf ? {
+	                            ignoreAttr: this._getIgnoreAttr()
+	                        } : null);
+	                    }
 	                } else {
 	                    (0, _morphdom2['default'])(this.node, this._createHiddenNode());
 	                }
@@ -1623,8 +1632,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            var groupDataIndex = null;
 	                            var omiID = null;
 	                            var instanceName = null;
-	                            var _omi_preventSelfUpdate = false;
-	                            var selfDataFirst = false;
+	                            var _omi_option = {};
+
 	                            Object.keys(attr).forEach(function (key) {
 	                                var value = attr[key];
 	                                if (key.indexOf('on') === 0) {
@@ -1653,19 +1662,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                } else if (key === 'data') {
 	                                    dataset = _this11._extractPropertyFromString(value, child);
 	                                } else if (key === 'preventSelfUpdate' || key === 'psu') {
-	                                    _omi_preventSelfUpdate = true;
+	                                    _omi_option.preventSelfUpdate = true;
 	                                } else if (key === 'selfDataFirst' || key === 'sdf') {
-	                                    selfDataFirst = true;
+	                                    _omi_option.selfDataFirst = true;
+	                                } else if (key === 'domDiffDisabled' || key === 'ddd') {
+	                                    _omi_option.domDiffDisabled = true;
+	                                } else if (key === 'ignoreStoreData' || key === 'isd') {
+	                                    _omi_option.ignoreStoreData = true;
 	                                }
 	                            });
 
 	                            var ChildClass = _omi2['default'].getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), false);
+	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
 	                            sub_child._omi_groupDataIndex = groupDataIndex;
-	                            sub_child._omi_preventSelfUpdate = _omi_preventSelfUpdate;
 	                            sub_child._omiChildStr = childStr;
-	                            sub_child.selfDataFirst = selfDataFirst;
+
 	                            sub_child.parent = child;
 	                            sub_child.$store = child.$store;
 	                            sub_child.___omi_constructor_name = name;
@@ -2485,7 +2497,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    var morphdom = morphdomFactory(morphAttrs);
-
+	    morphdom.toElement = toElement;
 	    return morphdom;
 	});
 

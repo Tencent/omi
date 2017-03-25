@@ -7,8 +7,8 @@ const tpl = require('./index.html');
 const css = require('./index.css');
 
 class Content extends Omi.Component {
-    constructor(data) {
-        super(data);
+    constructor(data,option) {
+        super(data,option);
         this.md = new Remarkable({html:true});
     }
 

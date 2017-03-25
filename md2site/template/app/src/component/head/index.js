@@ -7,8 +7,8 @@ const css = require('./index.css');
 OmiFinger.init();
 
 class Head extends Omi.Component {
-    constructor (data) {
-        super(data);
+    constructor (data,option) {
+        super(data,option);
     }
 
     install(){

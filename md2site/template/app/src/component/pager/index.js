@@ -4,8 +4,8 @@ import OmiFinger from 'omi-finger';
 OmiFinger.init();
 
 class Pager extends Omi.Component {
-    constructor (data) {
-        super(data);
+    constructor (data,option) {
+        super(data,option);
     }
 
     next(){
