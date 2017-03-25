@@ -12,7 +12,7 @@
     "todomvc": "webpack -w",
     "textarea": "webpack -w",
     "svg": "webpack -w",
-    "hello": "webpack -w",
+    "simple": "webpack -w",
     "group-data": "webpack -w",
     "jsx-like-event":"webpack -w",
     "loop": "webpack -w",
