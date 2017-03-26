@@ -215,6 +215,8 @@ Omi.makeHTML= function(name, ctor) {
     Omi.customTags.push(name)
 }
 
+Omi.tag = Omi.makeHTML
+
 Omi.render = function(component , renderTo , incrementOrOption){
     component.renderTo = typeof renderTo === "string" ? document.querySelector(renderTo) : renderTo
     if(typeof incrementOrOption === 'boolean') {
