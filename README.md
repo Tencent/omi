@@ -12,12 +12,11 @@ Open and modern framework for building user interfaces.
 
 ## 中文 | [English](https://github.com/AlloyTeam/omi#english--中文)
 
-* 如果想体验一下Omi框架，可以访问 [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
+* 如果想体验一下Omi框架，可以访问 [Omi Playground](https://alloyteam.github.io/omi/example/playground/) 或者看看 [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
 * 如果想使用Omi框架或者开发完善Omi框架，可以访问 [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
 * 如果你想获得更佳的阅读体验，可以访问 [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
 * Omi相关的使用教程和blog，可以访问 [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
 * 如果你懒得搭建项目脚手架，可以试试 [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
-* [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
 * 如果你有Omi相关的问题可以 [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
 
@@ -78,12 +77,11 @@ $ npm install omi
 
 ## English | [﻿中文](https://github.com/AlloyTeam/omi#中文--english)
 
-* If you want to experience the Omi framework, you can visit [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
+* If you want to experience the Omi framework, you can visit [Omi Playground](https://alloyteam.github.io/omi/example/playground/) or read the code of * [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
 * If you want to use the Omi framework or develop and improve omi framework, please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
 * If you want to get a better reading experience of the documents, you can visit [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
 * Tutorial or blogs about omi framework，you can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
 * If you are too lazy to build a project scaffolding, you can try [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
-* [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
 * If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
 
