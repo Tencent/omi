@@ -17,6 +17,7 @@ Open and modern framework for building user interfaces.
 * 如果你想获得更佳的阅读体验，可以访问 [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
 * Omi相关的使用教程和blog，可以访问 [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
 * 如果你懒得搭建项目脚手架，可以试试 [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
+* [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
 * 如果你有Omi相关的问题可以 [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
 
@@ -42,7 +43,7 @@ $ npm run dist                 //部署发布
 * 模板引擎可替换，开发者可以重写Omi.template方法来使用任意模板引擎
 * 提供了ES6+和ES5的两种开发方案供开发者自由选择
 
-## 生态
+## 插件
 
 * [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，支持各种触摸事件和手势
 * [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) Omi的[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/)插件，快速方便地设置DOM的CSS3 Transform属性
@@ -82,6 +83,7 @@ $ npm install omi
 * If you want to get a better reading experience of the documents, you can visit [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
 * Tutorial or blogs about omi framework，you can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
 * If you are too lazy to build a project scaffolding, you can try [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
+* [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
 * If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
 

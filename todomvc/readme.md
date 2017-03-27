@@ -7,6 +7,7 @@
 * Èç¹ûÏëÌåÑéÒ»ÏÂOmi¿ò¼Ü£¬¿ÉÒÔ·ÃÎÊ [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * Èç¹ûÏëÊ¹ÓÃOmi¿ò¼Ü»òÕß¿ª·¢ÍêÉÆOmi¿ò¼Ü£¬¿ÉÒÔ·ÃÎÊ [OmiÊ¹ÓÃÎÄµµ](https://github.com/AlloyTeam/omi/tree/master/docs#omiÊ¹ÓÃÎÄµµ)
 * Èç¹ûÄãÏë»ñµÃ¸ü¼ÑµÄÔÄ¶ÁÌåÑé£¬¿ÉÒÔ·ÃÎÊ [Docs Website](http://alloyteam.github.io/omi/website/docs.html)
+* OmiÏà¹ØµÄÊ¹ÓÃ½Ì³ÌºÍblog£¬¿ÉÒÔ·ÃÎÊ [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
 * Èç¹ûÄãÀÁµÃ´î½¨ÏîÄ¿½ÅÊÖ¼Ü£¬¿ÉÒÔÊÔÊÔ [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
 * Èç¹ûÄãÓĞOmiÏà¹ØµÄÎÊÌâ¿ÉÒÔ [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * Èç¹ûÏë¸ü¼Ó·½±ãµÄ½»Á÷¹ØÓÚOmiµÄÒ»ÇĞ¿ÉÒÔ¼ÓÈëQQµÄOmi½»Á÷Èº(256426170)
@@ -55,18 +56,13 @@ $ npm install omi
 
 Èç¹ûÊ¹ÓÃomi.lite.js°æ±¾(²»°üº¬[mustache.js](https://github.com/janl/mustache.js)Ä£°åÒıÇæ)µÄ»°£¬Ò²¿ÉÒÔ[Ê¹ÓÃ ${this.data.name} µÄ·½Ê½](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)¡£
 
-## CDN
-
-* [https://unpkg.com/omi@0.4.5/dist/omi.min.js](https://unpkg.com/omi@0.4.5/dist/omi.min.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.js](https://unpkg.com/omi@0.4.5/dist/omi.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.lite.min.js](https://unpkg.com/omi@0.4.5/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.lite.js](https://unpkg.com/omi@0.4.5/dist/omi.lite.js)
 
 ## [?ÖĞÎÄ](https://github.com/AlloyTeam/omi#ÖĞÎÄ--english) | English
 
 * If you want to experience the Omi framework, you can visit [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * If you want to use the Omi framework or develop and improve omi framework, please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omiÊ¹ÓÃÎÄµµ)
 * If you want to get a better reading experience of the documents, you can visit [Docs Website](http://alloyteam.github.io/omi/website/docs.html)
+* Tutorial or blogs about omi framework£¬you can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
 * If you are too lazy to build a project scaffolding, you can try [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
 * If you have Any problems£¬please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
@@ -114,12 +110,6 @@ You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)£
 
 if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js))£¬you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)¡£
 
-## CDN
-
-* [https://unpkg.com/omi@0.4.5/dist/omi.min.js](https://unpkg.com/omi@0.4.5/dist/omi.min.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.js](https://unpkg.com/omi@0.4.5/dist/omi.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.lite.min.js](https://unpkg.com/omi@0.4.5/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@0.4.5/dist/omi.lite.js](https://unpkg.com/omi@0.4.5/dist/omi.lite.js)
 
 ## Contributors
 
