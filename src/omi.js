@@ -10,7 +10,7 @@ Omi.mapping = {}
 Omi.STYLEPREFIX = "omi_style_"
 Omi.STYLESCOPEDPREFIX = "omi_scoped_"
 
-Omi.componetConstructor = { }
+Omi.componentConstructor = { }
 
 //fix ie bug
 if (typeof Object.assign != 'function') {
@@ -126,7 +126,7 @@ Omi.create = function(tagName ,parent,setting) {
         u_setting = setting
         u_parent = parent
     }
-    Omi.componetConstructor[tagName] = function (parent) {
+    Omi.componentConstructor[tagName] = function (parent) {
         _inherits(Obj, parent)
 
         function Obj(data, server) {
@@ -142,7 +142,7 @@ Omi.create = function(tagName ,parent,setting) {
 
     Omi.customTags.push(tagName)
 
-    return Omi.componetConstructor[tagName]
+    return Omi.componentConstructor[tagName]
 }
 
 Omi.createStore = function(option) {
@@ -205,13 +205,13 @@ Omi.getClassFromString = function(str) {
         }
         return current
     } else {
-        return Omi.componetConstructor[str]
+        return Omi.componentConstructor[str]
     }
 }
 
 //以前是Component的静态方法，移到omi下来，不然makehtml 在ie下child访问不到父亲的静态方法
 Omi.makeHTML= function(name, ctor) {
-    Omi.componetConstructor[name] = ctor
+    Omi.componentConstructor[name] = ctor
     Omi.customTags.push(name)
 }
 

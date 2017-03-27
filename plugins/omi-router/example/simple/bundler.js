@@ -1,19 +1,4 @@
-/*!
- *  Omi v1.1.5 By dntzhang 
- *  Github: https://github.com/AlloyTeam/omi
- *  MIT Licensed.
- */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["Omi"] = factory();
-	else
-		root["Omi"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -61,37 +46,151 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _omi = __webpack_require__(1);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _omi2 = _interopRequireDefault(_omi);
+	var _index = __webpack_require__(1);
 
-	var _mustache = __webpack_require__(2);
+	var _index2 = _interopRequireDefault(_index);
 
-	var _mustache2 = _interopRequireDefault(_mustache);
+	var _omiRouter = __webpack_require__(10);
 
-	var _component = __webpack_require__(3);
+	var _omiRouter2 = _interopRequireDefault(_omiRouter);
 
-	var _component2 = _interopRequireDefault(_component);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _store = __webpack_require__(8);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _store2 = _interopRequireDefault(_store);
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	_omi2['default'].template = _mustache2['default'].render;
+	_omiRouter2.default.init();
 
-	_omi2['default'].Store = _store2['default'];
-	_omi2['default'].Component = _component2['default'];
-	if (window.Omi) {
-	    module.exports = window.Omi;
-	} else {
-	    window.Omi = _omi2['default'];
-	    module.exports = _omi2['default'];
-	}
+	var App = function (_Omi$Component) {
+	    _inherits(App, _Omi$Component);
+
+	    function App(data) {
+	        _classCallCheck(this, App);
+
+	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, data));
+	    }
+
+	    _createClass(App, [{
+	        key: 'style',
+	        value: function style() {
+	            return '\n        ul{\n            border-bottom: 1px solid #ccc;\n            padding-bottom:5px;\n        }\n        li{\n            display:inline-block;\n        }\n        ';
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return '\n        <ul>\n            <li><a omi-router to="/" component="Home" renderTo="#view">Home</a></li>\n            <li><a omi-router to="/about" component="About" renderTo="#view">About</a></li>\n            <li><a omi-router to="/topics" component="Topics" renderTo="#view">Topics</a></li>\n        </ul>\n        ';
+	        }
+	    }]);
+
+	    return App;
+	}(_index2.default.Component);
+
+	var Home = function (_Omi$Component2) {
+	    _inherits(Home, _Omi$Component2);
+
+	    function Home() {
+	        _classCallCheck(this, Home);
+
+	        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+	    }
+
+	    _createClass(Home, [{
+	        key: 'render',
+	        value: function render() {
+	            return '\n      \t<div >Home</div>\n  \t\t';
+	        }
+	    }]);
+
+	    return Home;
+	}(_index2.default.Component);
+
+	var About = function (_Omi$Component3) {
+	    _inherits(About, _Omi$Component3);
+
+	    function About() {
+	        _classCallCheck(this, About);
+
+	        return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
+	    }
+
+	    _createClass(About, [{
+	        key: 'render',
+	        value: function render() {
+	            return '\n      \t<div >About</div>\n  \t\t';
+	        }
+	    }]);
+
+	    return About;
+	}(_index2.default.Component);
+
+	var Topics = function (_Omi$Component4) {
+	    _inherits(Topics, _Omi$Component4);
+
+	    function Topics() {
+	        _classCallCheck(this, Topics);
+
+	        return _possibleConstructorReturn(this, (Topics.__proto__ || Object.getPrototypeOf(Topics)).apply(this, arguments));
+	    }
+
+	    _createClass(Topics, [{
+	        key: 'render',
+	        value: function render() {
+	            return '\n      \t<div >Topics</div>\n  \t\t';
+	        }
+	    }]);
+
+	    return Topics;
+	}(_index2.default.Component);
+
+	_index2.default.tag('Home', Home);
+	_index2.default.tag('About', About);
+	_index2.default.tag('Topics', Topics);
+
+	_index2.default.render(new Home(), "#view");
+	_index2.default.render(new App(), "#links");
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _omi = __webpack_require__(2);
+
+	var _omi2 = _interopRequireDefault(_omi);
+
+	var _mustache = __webpack_require__(3);
+
+	var _mustache2 = _interopRequireDefault(_mustache);
+
+	var _component = __webpack_require__(4);
+
+	var _component2 = _interopRequireDefault(_component);
+
+	var _store = __webpack_require__(9);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	_omi2.default.template = _mustache2.default.render;
+
+	_omi2.default.Store = _store2.default;
+	_omi2.default.Component = _component2.default;
+	if (window.Omi) {
+	    module.exports = window.Omi;
+	} else {
+	    window.Omi = _omi2.default;
+	    module.exports = _omi2.default;
+	}
+
+/***/ },
+/* 2 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -428,7 +527,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Omi;
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -1044,7 +1143,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1055,27 +1154,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _omi = __webpack_require__(1);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _style = __webpack_require__(4);
+	var _style = __webpack_require__(5);
 
 	var _style2 = _interopRequireDefault(_style);
 
-	var _event = __webpack_require__(5);
+	var _event = __webpack_require__(6);
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _morphdom = __webpack_require__(6);
+	var _morphdom = __webpack_require__(7);
 
 	var _morphdom2 = _interopRequireDefault(_morphdom);
 
-	var _html2json = __webpack_require__(7);
+	var _html2json = __webpack_require__(8);
 
 	var _html2json2 = _interopRequireDefault(_html2json);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1104,17 +1203,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } else {
 	            this.data = data || {};
 	            this._omi_server_rendering = componentOption.server;
-	            this.id = this._omi_server_rendering ? 1000000 + _omi2['default'].getInstanceId() : _omi2['default'].getInstanceId();
+	            this.id = this._omi_server_rendering ? 1000000 + _omi2.default.getInstanceId() : _omi2.default.getInstanceId();
 	        }
 	        this.refs = {};
 	        this.children = [];
 	        this.childrenData = [];
 	        this.HTML = null;
 
-	        _omi2['default'].instances[this.id] = this;
+	        _omi2.default.instances[this.id] = this;
 	        this.selfDataFirst = componentOption.selfDataFirst;
 
-	        this._omi_scoped_attr = _omi2['default'].STYLESCOPEDPREFIX + this.id;
+	        this._omi_scoped_attr = _omi2.default.STYLESCOPEDPREFIX + this.id;
 	        //this.BODY_ELEMENT = document.createElement('body')
 	        this._preCSS = null;
 	        this._omiGroupDataCounter = {};
@@ -1180,7 +1279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.node.parentNode.replaceChild(hdNode, this.node);
 	                    this.node = hdNode;
 	                } else {
-	                    (0, _morphdom2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr, true), this.id), {
+	                    (0, _morphdom2.default)(this.node, (0, _event2.default)(this._childRender(this._omiChildStr, true), this.id), {
 	                        ignoreAttr: this._getIgnoreAttr()
 	                    });
 
@@ -1207,9 +1306,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.node = hdNode;
 	                } else {
 	                    if (this._omi_domDiffDisabled) {
-	                        this.node.parentNode.replaceChild(_morphdom2['default'].toElement((0, _event2['default'])(this._childRender(this._omiChildStr), this.id)), this.node);
+	                        this.node.parentNode.replaceChild(_morphdom2.default.toElement((0, _event2.default)(this._childRender(this._omiChildStr), this.id)), this.node);
 	                    } else {
-	                        (0, _morphdom2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
+	                        (0, _morphdom2.default)(this.node, (0, _event2.default)(this._childRender(this._omiChildStr), this.id));
 	                    }
 	                    this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
 	                    this._queryElements(this);
@@ -1314,7 +1413,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                _this4.HTML = _this4.HTML.replace(item._omiChildStr, isSelf ? item.node.outerHTML : item.HTML);
 	            });
 
-	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
+	            this.HTML = (0, _event2.default)(this.HTML, this.id);
 	            if (isFirst) {
 	                if (this.renderTo) {
 	                    if (this._omi_increment) {
@@ -1328,12 +1427,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    if (this._omi_domDiffDisabled) {
 	                        this.renderTo.innerHTML = this.HTML;
 	                    } else {
-	                        (0, _morphdom2['default'])(this.node, this.HTML, isSelf ? {
+	                        (0, _morphdom2.default)(this.node, this.HTML, isSelf ? {
 	                            ignoreAttr: this._getIgnoreAttr()
 	                        } : null);
 	                    }
 	                } else {
-	                    (0, _morphdom2['default'])(this.node, this._createHiddenNode());
+	                    (0, _morphdom2.default)(this.node, this._createHiddenNode());
 	                }
 	            }
 	            //get node prop from parent node
@@ -1380,7 +1479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.children.forEach(function (item) {
 	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, isSelf ? item.node.outerHTML : item.HTML);
 	            });
-	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
+	            this.HTML = (0, _event2.default)(this.HTML, this.id);
 	            return this.HTML;
 	        }
 	    }, {
@@ -1389,7 +1488,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            current._mixRefs();
 	            current._execPlugins();
 	            current.children.forEach(function (item) {
-	                item.node = current.node.querySelector("[" + _omi2['default'].STYLESCOPEDPREFIX + item.id + "]");
+	                item.node = current.node.querySelector("[" + _omi2.default.STYLESCOPEDPREFIX + item.id + "]");
 	                //recursion get node prop from parent node
 	                item.node && current._queryElements(item);
 	            });
@@ -1399,7 +1498,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _mixRefs() {
 	            var _this6 = this;
 
-	            var nodes = _omi2['default'].$$('*[ref]', this.node);
+	            var nodes = _omi2.default.$$('*[ref]', this.node);
 	            nodes.forEach(function (node) {
 	                if (node.hasAttribute(_this6._omi_scoped_attr)) {
 	                    _this6.refs[node.getAttribute('ref')] = node;
@@ -1415,15 +1514,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _execPlugins() {
 	            var _this7 = this;
 
-	            Object.keys(_omi2['default'].plugins).forEach(function (item) {
-	                var nodes = _omi2['default'].$$('*[' + item + ']', _this7.node);
+	            Object.keys(_omi2.default.plugins).forEach(function (item) {
+	                var nodes = _omi2.default.$$('*[' + item + ']', _this7.node);
 	                nodes.forEach(function (node) {
 	                    if (node.hasAttribute(_this7._omi_scoped_attr)) {
-	                        _omi2['default'].plugins[item](node, _this7);
+	                        _omi2.default.plugins[item](node, _this7);
 	                    }
 	                });
 	                if (_this7.node.hasAttribute(item)) {
-	                    _omi2['default'].plugins[item](_this7.node, _this7);
+	                    _omi2.default.plugins[item](_this7.node, _this7);
 	                }
 	            });
 	        }
@@ -1441,7 +1540,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: '_fixForm',
 	        value: function _fixForm() {
 
-	            _omi2['default'].$$('input', this.node).forEach(function (element) {
+	            _omi2.default.$$('input', this.node).forEach(function (element) {
 	                var type = element.type.toLowerCase();
 	                if (element.getAttribute('value') === '') {
 	                    element.value = '';
@@ -1455,20 +1554,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            });
 
-	            _omi2['default'].$$('textarea', this.node).forEach(function (textarea) {
+	            _omi2.default.$$('textarea', this.node).forEach(function (textarea) {
 	                textarea.value = textarea.getAttribute('value');
 	            });
 
-	            _omi2['default'].$$('select', this.node).forEach(function (select) {
+	            _omi2.default.$$('select', this.node).forEach(function (select) {
 	                var value = select.getAttribute('value');
 	                if (value) {
-	                    _omi2['default'].$$('option', select).forEach(function (option) {
+	                    _omi2.default.$$('option', select).forEach(function (option) {
 	                        if (value === option.getAttribute('value')) {
 	                            option.setAttribute('selected', 'selected');
 	                        }
 	                    });
 	                } else {
-	                    var firstOption = _omi2['default'].$$('option', select)[0];
+	                    var firstOption = _omi2.default.$$('option', select)[0];
 	                    firstOption && firstOption.setAttribute('selected', 'selected');
 	                }
 	            });
@@ -1509,17 +1608,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _generateHTMLCSS() {
 	            this.CSS = (this.style() || '').replace(/<\/?style>/g, '');
 	            if (this.CSS) {
-	                this.CSS = _style2['default'].scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
+	                this.CSS = _style2.default.scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
 	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
-	                    _style2['default'].addStyle(this.CSS, this.id);
+	                    _style2.default.addStyle(this.CSS, this.id);
 	                    this._preCSS = this.CSS;
 	                }
 	            }
 	            var tpl = this.render();
-	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), this._omi_scoped_attr).trim();
+	            this.HTML = this._scopedAttr(_omi2.default.template(tpl ? tpl : "", this.data), this._omi_scoped_attr).trim();
 	            if (this._omi_server_rendering) {
-	                this.HTML = '\r\n<style id="' + _omi2['default'].STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
-	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2['default'].STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
+	                this.HTML = '\r\n<style id="' + _omi2.default.STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
+	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2.default.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
 	            }
 	        }
 	    }, {
@@ -1535,7 +1634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _getDataset(childStr) {
 	            var _this9 = this;
 
-	            var json = (0, _html2json2['default'])(childStr);
+	            var json = (0, _html2json2.default)(childStr);
 	            var attr = json.child[0].attr;
 	            var baseData = {};
 	            Object.keys(attr).forEach(function (key) {
@@ -1585,15 +1684,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _extractChildrenString(child) {
 	            var _this10 = this;
 
-	            if (_omi2['default'].customTags.length === 0) return;
+	            if (_omi2.default.customTags.length === 0) return;
 
-	            child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
+	            child.HTML = this._replaceTags(_omi2.default.customTags, child.HTML);
 
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
 
 	            if (arr) {
 	                arr.forEach(function (childStr, i) {
-	                    var json = (0, _html2json2['default'])(childStr);
+	                    var json = (0, _html2json2.default)(childStr);
 	                    var attr = json.child[0].attr;
 	                    var name = attr.tag;
 	                    delete attr.tag;
@@ -1609,15 +1708,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _extractChildren(child) {
 	            var _this11 = this;
 
-	            if (_omi2['default'].customTags.length === 0) return;
+	            if (_omi2.default.customTags.length === 0) return;
 
-	            child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
+	            child.HTML = this._replaceTags(_omi2.default.customTags, child.HTML);
 
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
 
 	            if (arr) {
 	                arr.forEach(function (childStr, i) {
-	                    var json = (0, _html2json2['default'])(childStr);
+	                    var json = (0, _html2json2.default)(childStr);
 	                    var attr = json.child[0].attr;
 	                    var name = attr.tag;
 	                    delete attr.tag;
@@ -1674,7 +1773,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                }
 	                            });
 
-	                            var ChildClass = _omi2['default'].getClassFromString(name);
+	                            var ChildClass = _omi2.default.getClassFromString(name);
 	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
 	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
 	                            sub_child._omi_groupDataIndex = groupDataIndex;
@@ -1686,7 +1785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            sub_child._dataset = {};
 	                            sub_child.install();
 
-	                            omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                            omiID && (_omi2.default.mapping[omiID] = sub_child);
 	                            instanceName && (child[instanceName] = sub_child);
 
 	                            if (!cmi) {
@@ -1706,10 +1805,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return Component;
 	}();
 
-	exports['default'] = Component;
+	exports.default = Component;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1718,11 +1817,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
-	var _omi = __webpack_require__(1);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//many thanks to https://github.com/thomaspark/scoper/
 	function scoper(css, prefix) {
@@ -1758,7 +1857,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function addStyle(cssText, id) {
-	    var ele = document.getElementById(_omi2["default"].STYLEPREFIX + id),
+	    var ele = document.getElementById(_omi2.default.STYLEPREFIX + id),
 	        head = document.getElementsByTagName('head')[0];
 	    if (ele && ele.parentNode === head) {
 	        head.removeChild(ele);
@@ -1767,7 +1866,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var someThingStyles = document.createElement('style');
 	    head.appendChild(someThingStyles);
 	    someThingStyles.setAttribute('type', 'text/css');
-	    someThingStyles.setAttribute('id', _omi2["default"].STYLEPREFIX + id);
+	    someThingStyles.setAttribute('id', _omi2.default.STYLEPREFIX + id);
 	    if (!!window.ActiveXObject) {
 	        someThingStyles.styleSheet.cssText = cssText;
 	    } else {
@@ -1775,13 +1874,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	}
 
-	exports["default"] = {
+	exports.default = {
 	    scoper: scoper,
 	    addStyle: addStyle
 	};
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1804,10 +1903,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	}
 
-	exports['default'] = scopedEvent;
+	exports.default = scopedEvent;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -2508,7 +2607,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2748,10 +2847,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return results;
 	};
 
-	exports["default"] = html2json;
+	exports.default = html2json;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2869,9 +2968,65 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return Store;
 	}();
 
-	exports["default"] = Store;
+	exports.default = Store;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/*!
+	 *  omi-router v0.1.0 by dntzhang
+	 *  Router for Omi.
+	 *  Github: https://github.com/AlloyTeam/omi
+	 *  MIT Licensed.
+	 */
+
+	;(function () {
+
+	    var OmiRouter = {};
+	    var Omi =  true ? __webpack_require__(1) : window.Omi;
+
+	    var noop = function noop() {};
+
+	    var getHandler = function getHandler(name, dom, instance) {
+	        var value = dom.getAttribute(name);
+	        if (value === null) {
+	            return noop;
+	        } else {
+	            return instance[value].bind(instance);
+	        }
+	    };
+
+	    OmiRouter.init = function () {
+	        Omi.extendPlugin('omi-router', function (dom, instance) {
+	            dom.setAttribute('href', '##');
+	            var value = dom.getAttribute('to');
+	            var renderTo = dom.getAttribute('renderTo');
+	            var component = dom.getAttribute('component');
+	            dom.addEventListener('click', function () {
+	                Omi.render(new Omi.componentConstructor[component](), "#view");
+	            }, false);
+	        });
+	    };
+
+	    OmiRouter.destroy = function () {
+	        delete Omi.plugins['omi-finger'];
+	    };
+
+	    if (( false ? 'undefined' : _typeof(exports)) == "object") {
+	        module.exports = OmiRouter;
+	    } else if (true) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	            return OmiRouter;
+	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else {
+	        window.OmiRouter = OmiRouter;
+	    }
+	})();
 
 /***/ }
-/******/ ])
-});
-;
+/******/ ]);
