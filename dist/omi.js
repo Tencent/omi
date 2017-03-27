@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.1.4 By dntzhang 
+ *  Omi v1.1.5 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -339,6 +339,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Omi.componetConstructor[name] = ctor;
 	    Omi.customTags.push(name);
 	};
+
+	Omi.tag = Omi.makeHTML;
 
 	Omi.render = function (component, renderTo, incrementOrOption) {
 	    component.renderTo = typeof renderTo === "string" ? document.querySelector(renderTo) : renderTo;
@@ -1737,6 +1739,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    css = css.replace(re, function (g0, g1, g2, g3) {
 	        if (typeof g2 === "undefined") {
 	            g2 = "";
+	        }
+
+	        if (g0.indexOf(';base64') > 0) {
+	            return g0;
 	        }
 
 	        if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {

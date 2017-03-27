@@ -44,6 +44,13 @@ describe("scoper", function() {
         });
     });
 
+    describe("Base64 values", function() {
+        var result = style.scoper(".watch i, .watchaa  ,p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}.watch i, .watchaa  ,p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}",'#xx');
+        it("expect quoted values works well", function() {
+            expect(result).toBe(".watch i#xx,#xx .watch i, .watchaa#xx,#xx .watchaa,p#xx:lang(it),#xx p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}.watch i#xx,#xx .watch i, .watchaa#xx,#xx .watchaa,p#xx:lang(it),#xx p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}");
+        });
+    });
+
     describe("Media queries", function() {
         var rule = "@media (max-width: 600px) {\n" +
                     "  h1 {\n" +

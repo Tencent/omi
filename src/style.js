@@ -17,6 +17,10 @@ function scoper(css, prefix) {
             g2 = ""
         }
 
+        if (g0.indexOf(';base64') > 0) {
+            return g0;
+        }
+
         if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {
             return g1 + g2 + g3
         }
