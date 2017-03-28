@@ -1,52 +1,23 @@
 ﻿import Omi from 'omi';
 import OmiRouter from '../../index.js';
 
-class Home extends Omi.Component {
-    render() {
-        return  `
-      	<div >Home</div>
-  		`;
-    }
-}
-
-class About extends Omi.Component {
-    render() {
-        return  `
-      	<div >About</div>
-  		`;
-    }
-}
-
-class User extends Omi.Component {
-
-    beforeRender(){
-        this.data.name = this.$store.data[1]
-    }
-
-    render() {
-        return  `
-      	<div >{{name}}</div>
-  		`;
-    }
-}
-
-Omi.tag('Home',Home)
-Omi.tag('About',About)
-Omi.tag('User',User)
-
-OmiRouter.init({
-    routes : [
-        { path: '/', component: Home },
-        { path: '/about', component: About },
-        { path: '/user/:name', component: User },
-
-    ],
-    renderTo:"#view"
-});
+import Home from './home.js';
+import About from './about.js';
+import User from './user.js';
 
 class App extends Omi.Component {
-    constructor(data) {
-        super(data);
+
+    install(){
+        OmiRouter.init({
+            routes : [
+                { path: '/', component: Home },
+                { path: '/about', component: About },
+                { path: '/user/:name', component: User }
+            ],
+            renderTo:"#view"
+        });
+
+        Omi.render(new Home(),"#view");
     }
 
     style(){
@@ -73,5 +44,4 @@ class App extends Omi.Component {
 }
 
 
-Omi.render(new Home(),"#view");
 Omi.render(new App(),"#links");

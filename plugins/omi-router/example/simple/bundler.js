@@ -56,6 +56,18 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
+	var _home = __webpack_require__(6);
+
+	var _home2 = _interopRequireDefault(_home);
+
+	var _about = __webpack_require__(7);
+
+	var _about2 = _interopRequireDefault(_about);
+
+	var _user = __webpack_require__(8);
+
+	var _user2 = _interopRequireDefault(_user);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64,87 +76,26 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Home = function (_Omi$Component) {
-	    _inherits(Home, _Omi$Component);
+	var App = function (_Omi$Component) {
+	    _inherits(App, _Omi$Component);
 
-	    function Home() {
-	        _classCallCheck(this, Home);
-
-	        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
-	    }
-
-	    _createClass(Home, [{
-	        key: 'render',
-	        value: function render() {
-	            return '\n      \t<div >Home</div>\n  \t\t';
-	        }
-	    }]);
-
-	    return Home;
-	}(_omi2.default.Component);
-
-	var About = function (_Omi$Component2) {
-	    _inherits(About, _Omi$Component2);
-
-	    function About() {
-	        _classCallCheck(this, About);
-
-	        return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
-	    }
-
-	    _createClass(About, [{
-	        key: 'render',
-	        value: function render() {
-	            return '\n      \t<div >About</div>\n  \t\t';
-	        }
-	    }]);
-
-	    return About;
-	}(_omi2.default.Component);
-
-	var User = function (_Omi$Component3) {
-	    _inherits(User, _Omi$Component3);
-
-	    function User() {
-	        _classCallCheck(this, User);
-
-	        return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
-	    }
-
-	    _createClass(User, [{
-	        key: 'beforeRender',
-	        value: function beforeRender() {
-	            this.data.name = this.$store.data[1];
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return '\n      \t<div >{{name}}</div>\n  \t\t';
-	        }
-	    }]);
-
-	    return User;
-	}(_omi2.default.Component);
-
-	_omi2.default.tag('Home', Home);
-	_omi2.default.tag('About', About);
-	_omi2.default.tag('User', User);
-
-	_index2.default.init({
-	    routes: [{ path: '/', component: Home }, { path: '/about', component: About }, { path: '/user/:name', component: User }],
-	    renderTo: "#view"
-	});
-
-	var App = function (_Omi$Component4) {
-	    _inherits(App, _Omi$Component4);
-
-	    function App(data) {
+	    function App() {
 	        _classCallCheck(this, App);
 
-	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, data));
+	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
 	    }
 
 	    _createClass(App, [{
+	        key: 'install',
+	        value: function install() {
+	            _index2.default.init({
+	                routes: [{ path: '/', component: _home2.default }, { path: '/about', component: _about2.default }, { path: '/user/:name', component: _user2.default }],
+	                renderTo: "#view"
+	            });
+
+	            _omi2.default.render(new _home2.default(), "#view");
+	        }
+	    }, {
 	        key: 'style',
 	        value: function style() {
 	            return '\n        ul{\n            border-bottom: 1px solid #ccc;\n            padding-bottom:5px;\n        }\n        li{\n            display:inline-block;\n        }\n        ';
@@ -159,7 +110,6 @@
 	    return App;
 	}(_omi2.default.Component);
 
-	_omi2.default.render(new Home(), "#view");
 	_omi2.default.render(new App(), "#links");
 
 /***/ },
@@ -3133,16 +3083,19 @@
 	    var OmiRouter = {};
 	    var Omi =  true ? __webpack_require__(1) : window.Omi;
 
-	    var parser = __webpack_require__(4);
+	    var parser = __webpack_require__(4),
+	        routes = null,
+	        renderTo = null;
 
 	    OmiRouter.init = function (option) {
-
+	        routes = option.routes;
+	        renderTo = option.renderTo;
 	        option.routes.forEach(function (route) {
 	            route.reg = parser(route.path);
 	        });
 
 	        Omi.extendPlugin('omi-router', function (dom, instance) {
-	            dom.setAttribute('href', '##');
+	            dom.setAttribute('href', 'javascript:void(0)');
 
 	            dom.addEventListener('click', function () {
 	                var to = dom.getAttribute('to');
@@ -3150,6 +3103,8 @@
 	                option.routes.every(function (route) {
 	                    var arr = to.match(route.reg);
 	                    if (arr) {
+	                        //preIndex = index
+	                        pushState(to);
 	                        Omi.render(new route.component(), option.renderTo, {
 	                            store: { data: arr }
 	                        });
@@ -3165,6 +3120,29 @@
 	        delete Omi.plugins['omi-finger'];
 	    };
 
+	    window.addEventListener('hashchange', function () {
+	        hashMapping(window.location.hash.replace('#', ''), renderTo);
+	    }, false);
+
+	    function hashMapping(to, renderTo) {
+	        routes.every(function (route) {
+	            var arr = to.match(route.reg);
+	            if (arr) {
+	                //preIndex = index
+	                pushState(to);
+	                Omi.render(new route.component(), renderTo, {
+	                    store: { data: arr }
+	                });
+	                return false;
+	            }
+	            return true;
+	        });
+	    }
+
+	    function pushState(route) {
+	        window.location.hash = route;
+	    }
+
 	    if (( false ? 'undefined' : _typeof(exports)) == "object") {
 	        module.exports = OmiRouter;
 	    } else if (true) {
@@ -3175,10 +3153,6 @@
 	        window.OmiRouter = OmiRouter;
 	    }
 	})();
-
-	//�ı�url
-	//֧�ֺ���
-	//dist��������
 
 /***/ },
 /* 4 */
@@ -3623,6 +3597,152 @@
 	module.exports = Array.isArray || function (arr) {
 	  return Object.prototype.toString.call(arr) == '[object Array]';
 	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _omi = __webpack_require__(1);
+
+	var _omi2 = _interopRequireDefault(_omi);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Home = function (_Omi$Component) {
+	    _inherits(Home, _Omi$Component);
+
+	    function Home() {
+	        _classCallCheck(this, Home);
+
+	        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+	    }
+
+	    _createClass(Home, [{
+	        key: 'render',
+	        value: function render() {
+	            return '\n      \t<div >Home</div>\n  \t\t';
+	        }
+	    }]);
+
+	    return Home;
+	}(_omi2.default.Component);
+
+	_omi2.default.tag('Home', Home);
+
+	exports.default = Home;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _omi = __webpack_require__(1);
+
+	var _omi2 = _interopRequireDefault(_omi);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var About = function (_Omi$Component) {
+	    _inherits(About, _Omi$Component);
+
+	    function About() {
+	        _classCallCheck(this, About);
+
+	        return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
+	    }
+
+	    _createClass(About, [{
+	        key: 'render',
+	        value: function render() {
+	            return '\n      \t<div >About</div>\n  \t\t';
+	        }
+	    }]);
+
+	    return About;
+	}(_omi2.default.Component);
+
+	_omi2.default.tag('About', About);
+
+	exports.default = About;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _omi = __webpack_require__(1);
+
+	var _omi2 = _interopRequireDefault(_omi);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var User = function (_Omi$Component) {
+	    _inherits(User, _Omi$Component);
+
+	    function User() {
+	        _classCallCheck(this, User);
+
+	        return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
+	    }
+
+	    _createClass(User, [{
+	        key: 'beforeRender',
+	        value: function beforeRender() {
+	            this.data.name = this.$store.data[1];
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return '\n      \t<div >{{name}}</div>\n  \t\t';
+	        }
+	    }]);
+
+	    return User;
+	}(_omi2.default.Component);
+
+	_omi2.default.tag('User', User);
+
+	exports.default = User;
 
 /***/ }
 /******/ ]);
