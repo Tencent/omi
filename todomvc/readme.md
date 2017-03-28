@@ -1,47 +1,46 @@
-# Omi TodoMVC
-
+ï»¿# Omi TodoMVC
 ---
 
-## ÖĞÎÄ | [English](https://github.com/AlloyTeam/omi#ÖĞÎÄ--english-1)
+## ä¸­æ–‡ | [English](https://github.com/AlloyTeam/omi#english--ä¸­æ–‡)
 
-* Èç¹ûÏëÌåÑéÒ»ÏÂOmi¿ò¼Ü£¬¿ÉÒÔ·ÃÎÊ [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
-* Èç¹ûÏëÊ¹ÓÃOmi¿ò¼Ü»òÕß¿ª·¢ÍêÉÆOmi¿ò¼Ü£¬¿ÉÒÔ·ÃÎÊ [OmiÊ¹ÓÃÎÄµµ](https://github.com/AlloyTeam/omi/tree/master/docs#omiÊ¹ÓÃÎÄµµ)
-* Èç¹ûÄãÏë»ñµÃ¸ü¼ÑµÄÔÄ¶ÁÌåÑé£¬¿ÉÒÔ·ÃÎÊ [Docs Website](http://alloyteam.github.io/omi/website/docs.html)
-* OmiÏà¹ØµÄÊ¹ÓÃ½Ì³ÌºÍblog£¬¿ÉÒÔ·ÃÎÊ [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
-* Èç¹ûÄãÀÁµÃ´î½¨ÏîÄ¿½ÅÊÖ¼Ü£¬¿ÉÒÔÊÔÊÔ [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
-* Èç¹ûÄãÓĞOmiÏà¹ØµÄÎÊÌâ¿ÉÒÔ [New issue](https://github.com/AlloyTeam/omi/issues/new)
-* Èç¹ûÏë¸ü¼Ó·½±ãµÄ½»Á÷¹ØÓÚOmiµÄÒ»ÇĞ¿ÉÒÔ¼ÓÈëQQµÄOmi½»Á÷Èº(256426170)
+* å¦‚æœæƒ³ä½“éªŒä¸€ä¸‹Omiæ¡†æ¶ï¼Œå¯ä»¥è®¿é—® [Omi Playground](https://alloyteam.github.io/omi/example/playground/) æˆ–è€…çœ‹çœ‹ [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
+* å¦‚æœæƒ³ä½¿ç”¨Omiæ¡†æ¶æˆ–è€…å¼€å‘å®Œå–„Omiæ¡†æ¶ï¼Œå¯ä»¥è®¿é—® [Omiä½¿ç”¨æ–‡æ¡£](https://github.com/AlloyTeam/omi/tree/master/docs#omiä½¿ç”¨æ–‡æ¡£)
+* å¦‚æœä½ æƒ³è·å¾—æ›´ä½³çš„é˜…è¯»ä½“éªŒï¼Œå¯ä»¥è®¿é—® [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
+* Omiç›¸å…³çš„ä½¿ç”¨æ•™ç¨‹å’Œblogï¼Œå¯ä»¥è®¿é—® [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
+* å¦‚æœä½ æ‡’å¾—æ­å»ºé¡¹ç›®è„šæ‰‹æ¶ï¼Œå¯ä»¥è¯•è¯• [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
+* å¦‚æœä½ æœ‰Omiç›¸å…³çš„é—®é¢˜å¯ä»¥ [New issue](https://github.com/AlloyTeam/omi/issues/new)
+* å¦‚æœæƒ³æ›´åŠ æ–¹ä¾¿çš„äº¤æµå…³äºOmiçš„ä¸€åˆ‡å¯ä»¥åŠ å…¥QQçš„Omiäº¤æµç¾¤(256426170)
 
 <img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png">
 
-## ÃüÁîĞĞ
+## å‘½ä»¤è¡Œ
 
 ``` js
-$ npm install omi-cli -g       //°²×°cli
-$ omi init your_project_name   //³õÊ¼»¯ÏîÄ¿£¬ÄãÒ²¿ÉÒÔÔÚÒ»¸ö¿ÕµÄÎÄ¼ş¼ĞÏÂÖ´ĞĞ omi init
-$ cd your_project_name         //Èç¹ûÄãÊÇÔÚ¿ÕÎÄ¼ş¼ĞÏÂÖ´ĞĞµÄ omi init¡£ÇëÎŞÊÓÕâÌõÃüÁî
-$ npm run dev                  //¿ª·¢
-$ npm run dist                 //²¿Êğ·¢²¼
-``` 
+$ npm install omi-cli -g       //å®‰è£…cli
+$ omi init your_project_name   //åˆå§‹åŒ–é¡¹ç›®ï¼Œä½ ä¹Ÿå¯ä»¥åœ¨ä¸€ä¸ªç©ºçš„æ–‡ä»¶å¤¹ä¸‹æ‰§è¡Œ omi init
+$ cd your_project_name         //å¦‚æœä½ æ˜¯åœ¨ç©ºæ–‡ä»¶å¤¹ä¸‹æ‰§è¡Œçš„ omi initã€‚è¯·æ— è§†è¿™æ¡å‘½ä»¤
+$ npm run dev                  //å¼€å‘
+$ npm run dist                 //éƒ¨ç½²å‘å¸ƒ
+```
 
-## ÌØĞÔ
+## ç‰¹æ€§
 
-* ³¬Ğ¡µÄ³ß´ç£¬7 kb (gzip)
-* Á¼ºÃµÄ¼æÈİĞÔ£¬Ö§³ÖIE8 £¨Çë×ÔĞĞÒıÓÃes5-shim»òes5-sham£©
-* ÍêÈ«ÃæÏò¶ÔÏóµÄ×é¼şÌåÏµ
-* ¾Ö²¿CSS£¬HTML+ Scoped CSS + JS×é³É¿É¸´ÓÃµÄ×é¼ş
-* ¸ü×ÔÓÉµÄ¸üĞÂ£¬Ã¿¸ö×é¼ş¶¼ÓĞupdate·½·¨£¬×ÔÓÉÑ¡ÔñÊ±»ú½øĞĞ¸üĞÂ
-* Ä£°åÒıÇæ¿ÉÌæ»»£¬¿ª·¢Õß¿ÉÒÔÖØĞ´Omi.template·½·¨À´Ê¹ÓÃÈÎÒâÄ£°åÒıÇæ
-* Ìá¹©ÁËES6+ºÍES5µÄÁ½ÖÖ¿ª·¢·½°¸¹©¿ª·¢Õß×ÔÓÉÑ¡Ôñ
+* è¶…å°çš„å°ºå¯¸ï¼Œ7 kb (gzip)
+* è‰¯å¥½çš„å…¼å®¹æ€§ï¼Œæ”¯æŒIE8 ï¼ˆè¯·è‡ªè¡Œå¼•ç”¨es5-shimæˆ–es5-shamï¼‰
+* å®Œå…¨é¢å‘å¯¹è±¡çš„ç»„ä»¶ä½“ç³»
+* å±€éƒ¨CSSï¼ŒHTML+ Scoped CSS + JSç»„æˆå¯å¤ç”¨çš„ç»„ä»¶
+* æ›´è‡ªç”±çš„æ›´æ–°ï¼Œæ¯ä¸ªç»„ä»¶éƒ½æœ‰updateæ–¹æ³•ï¼Œè‡ªç”±é€‰æ‹©æ—¶æœºè¿›è¡Œæ›´æ–°
+* æ¨¡æ¿å¼•æ“å¯æ›¿æ¢ï¼Œå¼€å‘è€…å¯ä»¥é‡å†™Omi.templateæ–¹æ³•æ¥ä½¿ç”¨ä»»æ„æ¨¡æ¿å¼•æ“
+* æä¾›äº†ES6+å’ŒES5çš„ä¸¤ç§å¼€å‘æ–¹æ¡ˆä¾›å¼€å‘è€…è‡ªç”±é€‰æ‹©
 
-## ÉúÌ¬
+## æ’ä»¶
 
-* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) OmiµÄ[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)²å¼ş£¬Ö§³Ö¸÷ÖÖ´¥ÃşÊÂ¼şºÍÊÖÊÆ
-* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) OmiµÄ[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/)²å¼ş£¬¿ìËÙ·½±ãµØÉèÖÃDOMµÄCSS3 TransformÊôĞÔ
-* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) OmiµÄ[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)²å¼ş£¬OmiÏîÄ¿µÄ´¥ÃşÔË¶¯½â¾ö·½°¸£¨Ö§³Ö´¥Ãş¹ö¶¯¡¢Ğı×ª¡¢·­Ò³¡¢Ñ¡ÔñµÈµÈ£©
-* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker) OmiµÄÊ±¼äÑ¡Ôñ²å¼ş£¬Ö§³Ö¸÷ÖÖÊ±¼ä»òÕßÊ±¼äÇøÓòÑ¡Ôñ
+* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) Omiçš„[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)æ’ä»¶ï¼Œæ”¯æŒå„ç§è§¦æ‘¸äº‹ä»¶å’Œæ‰‹åŠ¿
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) Omiçš„[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/)æ’ä»¶ï¼Œå¿«é€Ÿæ–¹ä¾¿åœ°è®¾ç½®DOMçš„CSS3 Transformå±æ€§
+* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) Omiçš„[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)æ’ä»¶ï¼ŒOmié¡¹ç›®çš„è§¦æ‘¸è¿åŠ¨è§£å†³æ–¹æ¡ˆï¼ˆæ”¯æŒè§¦æ‘¸æ»šåŠ¨ã€æ—‹è½¬ã€ç¿»é¡µã€é€‰æ‹©ç­‰ç­‰ï¼‰
+* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker) Omiçš„æ—¶é—´é€‰æ‹©æ’ä»¶ï¼Œæ”¯æŒå„ç§æ—¶é—´æˆ–è€…æ—¶é—´åŒºåŸŸé€‰æ‹©
 
-## Í¨¹ınpm°²×° 
+## é€šè¿‡npmå®‰è£…
 
 ``` js
 $ npm install omi
@@ -49,22 +48,32 @@ $ npm install omi
 
 ## Hello World
 
-Äã¿ÉÒÔÊ¹ÓÃ [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)£¬ÔÚwebpackÅäÖÃµÄmoduleÉèÖÃ[babel-loader](https://github.com/babel/babel-loader)£¬Á¢Âí¾ÍÄÜÊ¹ÓÃES6+À´±àĞ´ÄãµÄweb³ÌĞò¡£
+ä½ å¯ä»¥ä½¿ç”¨ [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)ï¼Œåœ¨webpacké…ç½®çš„moduleè®¾ç½®[babel-loader](https://github.com/babel/babel-loader)ï¼Œç«‹é©¬å°±èƒ½ä½¿ç”¨ES6+æ¥ç¼–å†™ä½ çš„webç¨‹åºã€‚
 
-* [[Hello World ES6+ ->ÔÚÏßÊÔÊÔ]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
-* [[Hello World ES5  ->ÔÚÏßÊÔÊÔ]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
+* [[Hello World ES6+ ->åœ¨çº¿è¯•è¯•]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
+* [[Hello World ES5  ->åœ¨çº¿è¯•è¯•]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
 
-Èç¹ûÊ¹ÓÃomi.lite.js°æ±¾(²»°üº¬[mustache.js](https://github.com/janl/mustache.js)Ä£°åÒıÇæ)µÄ»°£¬Ò²¿ÉÒÔ[Ê¹ÓÃ ${this.data.name} µÄ·½Ê½](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)¡£
+å¦‚æœä½¿ç”¨omi.lite.jsç‰ˆæœ¬(ä¸åŒ…å«[mustache.js](https://github.com/janl/mustache.js)æ¨¡æ¿å¼•æ“)çš„è¯ï¼Œä¹Ÿå¯ä»¥[ä½¿ç”¨ ${this.data.name} çš„æ–¹å¼](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)ã€‚
 
+## CDN
 
-## [?ÖĞÎÄ](https://github.com/AlloyTeam/omi#ÖĞÎÄ--english) | English
+* [https://unpkg.com/omi@1.1.5/dist/omi.min.js](https://unpkg.com/omi@1.1.5/dist/omi.min.js)
+* [https://unpkg.com/omi@1.1.5/dist/omi.js](https://unpkg.com/omi@1.1.5/dist/omi.js)
+* [https://unpkg.com/omi@1.1.5/dist/omi.lite.min.js](https://unpkg.com/omi@1.1.5/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.1.5/dist/omi.lite.js](https://unpkg.com/omi@1.1.5/dist/omi.lite.js)
 
-* If you want to experience the Omi framework, you can visit [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
-* If you want to use the Omi framework or develop and improve omi framework, please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omiÊ¹ÓÃÎÄµµ)
-* If you want to get a better reading experience of the documents, you can visit [Docs Website](http://alloyteam.github.io/omi/website/docs.html)
-* Tutorial or blogs about omi framework£¬you can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
+## æ„Ÿè°¢ 
+
+* [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
+
+## English | [ï»¿ä¸­æ–‡](https://github.com/AlloyTeam/omi#ä¸­æ–‡--english)
+
+* If you want to experience the Omi framework, you can visit [Omi Playground](https://alloyteam.github.io/omi/example/playground/) or read the code of [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
+* If you want to use the Omi framework or develop and improve omi framework, please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omiä½¿ç”¨æ–‡æ¡£)
+* If you want to get a better reading experience of the documents, you can visit [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
+* Tutorial or blogs about omi frameworkï¼Œyou can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
 * If you are too lazy to build a project scaffolding, you can try [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
-* If you have Any problems£¬please [New issue](https://github.com/AlloyTeam/omi/issues/new)
+* If you have Any problemsï¼Œplease [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
 
 ## omi-cli
@@ -75,14 +84,14 @@ $ omi init your_project_name   //init project, you can also exec 'omi init' in a
 $ cd your_project_name         //please ignore this command if you executed 'omi init' in an empty folder
 $ npm run dev                  //develop
 $ npm run dist                 //release
-``` 
+```
 
-## Fetures
+## Features
 
 * Super tiny size, 7 KB (gzip)
 * Good compatibility, support IE8 (please import es5-shim or es5-sham by yourself)
 * Fully object-oriented component system
-* Support Scoped CSS, reusable components are composed of HTML£¬ Scoped CSS and JS
+* Support Scoped CSS, reusable components are composed of HTMLï¼Œ Scoped CSS and JS
 * More free updates, each component has a update method, free to choose the right time to update
 * Template engines can be replaced, developers can override the Omi.template method to use any template engine
 * Provides two development way ( ES6+ and ES5) for developers to choose freely
@@ -90,7 +99,7 @@ $ npm run dist                 //release
 ## Plugins
 
 * [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) :  Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
-* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) :  Omi /[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/) integration.
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) :  Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
 * [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) :  Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
 * [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker):  Omi / JQuery Date Picker integration.
 
@@ -103,25 +112,35 @@ $ npm install omi
 ## Hello World
 
 
-You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)£¬configure the [babel-loader](https://github.com/babel/babel-loader) in  the module settings of webpack£¬then you can use ES6+ to write your web program.
+You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)ï¼Œconfigure the [babel-loader](https://github.com/babel/babel-loader) in  the module settings of webpackï¼Œthen you can use ES6+ to write your web program.
 
 * [[Hello World ES6+ ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
 * [[Hello World ES5  ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
 
-if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js))£¬you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)¡£
+if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js))ï¼Œyou can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)ã€‚
 
+## CDN
+
+* [https://unpkg.com/omi@1.1.5/dist/omi.min.js](https://unpkg.com/omi@1.1.5/dist/omi.min.js)
+* [https://unpkg.com/omi@1.1.5/dist/omi.js](https://unpkg.com/omi@1.1.5/dist/omi.js)
+* [https://unpkg.com/omi@1.1.5/dist/omi.lite.min.js](https://unpkg.com/omi@1.1.5/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.1.5/dist/omi.lite.js](https://unpkg.com/omi@1.1.5/dist/omi.lite.js)
+
+## Thanks 
+
+* [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
 
 ## Contributors
 
-|name   |avatars   |company   | 
+|name   |avatars   |company   |
 |---|---|---|
 |  [CodeFalling](https://github.com/CodeFalling) |  ![](https://avatars3.githubusercontent.com/u/5436704?v=3&s=60)  |  alibaba |  
 |  [abell123456](https://github.com/abell123456) |  ![](https://avatars1.githubusercontent.com/u/2232380?v=3&s=60)  |  alibaba |  
 |  [Aresn](https://github.com/icarusion) |  ![](https://avatars3.githubusercontent.com/u/5370542?v=3&s=60)  |  TalkingCoder |  
 |  [pasturn](https://github.com/pasturn) |  ![](https://avatars2.githubusercontent.com/u/6126885?v=3&s=60)  | Mars Holding  |  
-|  [vorshen](https://github.com/vorshen) | ![](https://avatars2.githubusercontent.com/u/10334783?v=3&s=60)  |  Tencent | 
-|  [dntzhang](https://github.com/dntzhang) | ![](https://avatars2.githubusercontent.com/u/7917954?v=3&s=60)  |  Tencent | 
+|  [vorshen](https://github.com/vorshen) | ![](https://avatars2.githubusercontent.com/u/10334783?v=3&s=60)  |  Tencent |
 |  [xcatliu](https://github.com/xcatliu) |  ![](https://avatars3.githubusercontent.com/u/5453359?v=3&s=60)  |  Microsoft |  
+|  [dntzhang](https://github.com/dntzhang) | ![](https://avatars2.githubusercontent.com/u/7917954?v=3&s=60)  |  Tencent |
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
