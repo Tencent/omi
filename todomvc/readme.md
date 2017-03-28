@@ -55,13 +55,6 @@ $ npm install omi
 
 如果使用omi.lite.js版本(不包含[mustache.js](https://github.com/janl/mustache.js)模板引擎)的话，也可以[使用 ${this.data.name} 的方式](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
 
-## CDN
-
-* [https://unpkg.com/omi@1.1.5/dist/omi.min.js](https://unpkg.com/omi@1.1.5/dist/omi.min.js)
-* [https://unpkg.com/omi@1.1.5/dist/omi.js](https://unpkg.com/omi@1.1.5/dist/omi.js)
-* [https://unpkg.com/omi@1.1.5/dist/omi.lite.min.js](https://unpkg.com/omi@1.1.5/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.1.5/dist/omi.lite.js](https://unpkg.com/omi@1.1.5/dist/omi.lite.js)
-
 ## 感谢 
 
 * [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
@@ -111,7 +104,6 @@ $ npm install omi
 
 ## Hello World
 
-
 You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)，configure the [babel-loader](https://github.com/babel/babel-loader) in  the module settings of webpack，then you can use ES6+ to write your web program.
 
 * [[Hello World ES6+ ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
@@ -119,12 +111,6 @@ You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)�
 
 if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js))，you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
 
-## CDN
-
-* [https://unpkg.com/omi@1.1.5/dist/omi.min.js](https://unpkg.com/omi@1.1.5/dist/omi.min.js)
-* [https://unpkg.com/omi@1.1.5/dist/omi.js](https://unpkg.com/omi@1.1.5/dist/omi.js)
-* [https://unpkg.com/omi@1.1.5/dist/omi.lite.min.js](https://unpkg.com/omi@1.1.5/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.1.5/dist/omi.lite.js](https://unpkg.com/omi@1.1.5/dist/omi.lite.js)
 
 ## Thanks 
 
