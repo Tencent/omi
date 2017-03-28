@@ -4,7 +4,9 @@
   "description": "Router for Omi.",
   "main": "omi-router.js",
   "scripts": {
-    "simple": "webpack -w"
+    "simple": "webpack -w",
+    "build": "webpack -w",
+    "build-min": "webpack -w"
   },
   "repository": {
     "type": "git",
