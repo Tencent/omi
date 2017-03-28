@@ -10,9 +10,11 @@ class Component {
             server: false,
             ignoreStoreData: false,
             preventSelfUpdate: false,
-            selfDataFirst:false,
-            domDiffDisabled:false
+            selfDataFirst: false,
+            domDiffDisabled: false,
+            scopedSelfCSS: false
         },option)
+        this._omi_scopedSelfCSS = componentOption.scopedSelfCSS
         this._omi_preventSelfUpdate = componentOption.preventSelfUpdate
         this._omi_domDiffDisabled = componentOption.domDiffDisabled
         this._omi_ignoreStoreData = componentOption.ignoreStoreData
@@ -398,25 +400,33 @@ class Component {
 
     _generateHTMLCSS() {
         this.CSS = (this.style()|| '').replace(/<\/?style>/g,'')
+        let shareAttr = this.___omi_constructor_name?(Omi.STYLESCOPEDPREFIX + this.___omi_constructor_name.toLowerCase()):this._omi_scoped_attr
         if (this.CSS) {
-            this.CSS = style.scoper(this.CSS, "[" + this._omi_scoped_attr + "]")
-            if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
-                style.addStyle(this.CSS, this.id)
-                this._preCSS = this.CSS
+            if(this._omi_scopedSelfCSS||!Omi.style[shareAttr]) {
+                this.CSS = style.scoper(this.CSS, this._omi_scopedSelfCSS ? "[" + this._omi_scoped_attr + "]" : "[" + shareAttr + "]")
+                Omi.style[shareAttr] = this.CSS
+                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
+                    style.addStyle(this.CSS, this.id)
+                    this._preCSS = this.CSS
+                }
             }
         }
         let tpl = this.render()
-        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "", this.data), this._omi_scoped_attr).trim()
+        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "", this.data), this._omi_scoped_attr,shareAttr).trim()
         if (this._omi_server_rendering) {
             this.HTML = '\r\n<style id="'+Omi.STYLEPREFIX+this.id+'">\r\n' + this.CSS + '\r\n</style>\r\n'+this.HTML
             this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + Omi.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n'
         }
     }
 
-    _scopedAttr(html, id) {
-        return html.replace(/<[^/]([A-Za-z]*)[^>]*>/g, function (m) {
+    _scopedAttr(html, id, shareAtrr) {
+        return html.replace(/<[^/]([A-Za-z]*)[^>]*>/g,  (m) => {
             let str = m.split(" ")[0].replace(">", "")
-            return m.replace(str, str + " " + id)
+            if(this._omi_scopedSelfCSS||!this.___omi_constructor_name){
+                return m.replace(str, str + " " + id)
+            }else{
+                return m.replace(str, str + " " + id+" "+ shareAtrr)
+            }
         })
     }
 
@@ -550,6 +560,8 @@ class Component {
                             _omi_option.domDiffDisabled = true
                         }else if(key === 'ignoreStoreData'|| key === 'isd'){
                             _omi_option.ignoreStoreData = true
+                        }else if(key === 'scopedSelfCSS'|| key === 'ssc'){
+                            _omi_option.scopedSelfCSS = true
                         }
                     })
 

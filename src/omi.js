@@ -10,6 +10,8 @@ Omi.mapping = {}
 Omi.STYLEPREFIX = "omi_style_"
 Omi.STYLESCOPEDPREFIX = "omi_scoped_"
 
+Omi.style = { }
+
 Omi.componentConstructor = { }
 
 //fix ie bug
