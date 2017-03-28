@@ -17,7 +17,7 @@ function scoper(css, prefix) {
             g2 = ""
         }
 
-        if (g0.indexOf(';base64') > 0) {
+        if (g0.indexOf(';base64') !== -1 || g0.indexOf('/') !== -1) {
             return g0;
         }
 

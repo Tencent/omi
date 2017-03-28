@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.1.6 By dntzhang 
+ *  Omi v1.1.7 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1741,7 +1741,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            g2 = "";
 	        }
 
-	        if (g0.indexOf(';base64') > 0) {
+	        if (g0.indexOf(';base64') !== -1 || g0.indexOf('/') !== -1) {
 	            return g0;
 	        }
 

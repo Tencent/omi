@@ -80,4 +80,13 @@ describe("scoper", function() {
             expect(actual).toBe(expected);
         });
     });
+
+    describe("Comment", function() {
+        var rule = "/* .item:nth-child(odd) {float: left;}*/";
+        var expected = rule;
+        var actual = style.scoper(rule, "#scoper-1");
+        it("expect font faces works well", function() {
+            expect(actual).toBe(expected);
+        });
+    });
 });
