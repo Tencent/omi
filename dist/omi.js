@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.1.9 By dntzhang 
+ *  Omi v1.2.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1628,7 +1628,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
 
 	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
-
+	            child._omiGroupDataCounter = {};
 	            if (arr) {
 	                arr.forEach(function (childStr, i) {
 	                    var json = (0, _html2json2['default'])(childStr);
@@ -1639,6 +1639,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    //if not first time to invoke _extractChildren method
 	                    if (cmi && cmi.___omi_constructor_name === name) {
 	                        cmi._omiChildStr = childStr;
+
+	                        Object.keys(attr).forEach(function (key) {
+	                            var value = attr[key];
+	                            if (key === 'group-data') {
+	                                if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                                    child._omiGroupDataCounter[value]++;
+	                                } else {
+	                                    child._omiGroupDataCounter[value] = 0;
+	                                }
+	                                cmi._omi_groupDataIndex = child._omiGroupDataCounter[value];
+	                            }
+	                        });
+
 	                        cmi._childRender(childStr);
 	                    } else {
 	                        (function () {

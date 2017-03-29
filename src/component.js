@@ -503,7 +503,7 @@ class Component {
         child.HTML = this._replaceTags(Omi.customTags, child.HTML)
 
         let arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g)
-
+        child._omiGroupDataCounter = {}
         if(arr){
             arr.forEach( (childStr, i) =>{
                 let json = html2json(childStr)
@@ -514,6 +514,19 @@ class Component {
                 //if not first time to invoke _extractChildren method
                 if (cmi && cmi.___omi_constructor_name === name) {
                     cmi._omiChildStr = childStr
+
+                    Object.keys(attr).forEach(key => {
+                        const value = attr[key]
+                        if (key === 'group-data') {
+                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+                                child._omiGroupDataCounter[value]++
+                            } else {
+                                child._omiGroupDataCounter[value] = 0
+                            }
+                            cmi._omi_groupDataIndex = child._omiGroupDataCounter[value]
+                        }
+                    })
+
                     cmi._childRender(childStr)
                 } else {
                     let baseData = {}
