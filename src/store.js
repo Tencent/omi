@@ -49,23 +49,35 @@ class Store {
     }
 
     update() {
-        this._mergeInstances(this.instances)
+        this._mergeInstances()
+        this._mergeSelfInstances()
         this.instances.forEach(instance => instance.update())
         this.updateSelfInstances.forEach(instance => instance.updateSelf())
     }
 
-    _mergeInstances(instances){
+    _mergeSelfInstances() {
+
         let arr = []
-        let idArr = []
-        instances.forEach(instance=>{
-            idArr.push(instance.id)
+        this.updateSelfInstances.forEach(instance=> {
+            if(!this._checkSelfUpdateInstance(instance)){
+                arr.push(instance)
+            }
+        })
+        this.updateSelfInstances = arr
+    }
+
+    _mergeInstances(){
+        let arr = []
+        this.idArr = []
+        this.instances.forEach(instance=>{
+            this.idArr.push(instance.id)
         })
 
-        instances.forEach(instance=>{
+        this.instances.forEach(instance=>{
             if(!instance.parent){
                 arr.push(instance)
             }else{
-                if(!this._isSubInstance(instance,idArr)){
+                if(!this._isSubInstance(instance)){
                     arr.push(instance)
                 }
             }
@@ -75,11 +87,19 @@ class Store {
         this.instances = arr;
     }
 
-    _isSubInstance(instance,arr) {
-        if (arr.indexOf(instance.parent.id) !== -1) {
+    _checkSelfUpdateInstance(instance){
+        if (this.idArr.indexOf(instance.id) !== -1) {
+            return true;
+        } else if(instance.parent){
+            return this._checkSelfUpdateInstance(instance.parent)
+        }
+    }
+
+    _isSubInstance(instance) {
+        if (this.idArr.indexOf(instance.parent.id) !== -1) {
             return true;
         } else if(instance.parent.parent){
-            return this._isSubInstance(instance.parent,arr)
+            return this._isSubInstance(instance.parent)
         }
     }
 

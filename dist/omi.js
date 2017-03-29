@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.1.8 By dntzhang 
+ *  Omi v1.1.9 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -2840,7 +2840,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: "update",
 	        value: function update() {
-	            this._mergeInstances(this.instances);
+	            this._mergeInstances();
+	            this._mergeSelfInstances();
 	            this.instances.forEach(function (instance) {
 	                return instance.update();
 	            });
@@ -2849,21 +2850,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 	        }
 	    }, {
-	        key: "_mergeInstances",
-	        value: function _mergeInstances(instances) {
+	        key: "_mergeSelfInstances",
+	        value: function _mergeSelfInstances() {
 	            var _this = this;
 
 	            var arr = [];
-	            var idArr = [];
-	            instances.forEach(function (instance) {
-	                idArr.push(instance.id);
+	            this.updateSelfInstances.forEach(function (instance) {
+	                if (!_this._checkSelfUpdateInstance(instance)) {
+	                    arr.push(instance);
+	                }
+	            });
+	            this.updateSelfInstances = arr;
+	        }
+	    }, {
+	        key: "_mergeInstances",
+	        value: function _mergeInstances() {
+	            var _this2 = this;
+
+	            var arr = [];
+	            this.idArr = [];
+	            this.instances.forEach(function (instance) {
+	                _this2.idArr.push(instance.id);
 	            });
 
-	            instances.forEach(function (instance) {
+	            this.instances.forEach(function (instance) {
 	                if (!instance.parent) {
 	                    arr.push(instance);
 	                } else {
-	                    if (!_this._isSubInstance(instance, idArr)) {
+	                    if (!_this2._isSubInstance(instance)) {
 	                        arr.push(instance);
 	                    }
 	                }
@@ -2872,12 +2886,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this.instances = arr;
 	        }
 	    }, {
+	        key: "_checkSelfUpdateInstance",
+	        value: function _checkSelfUpdateInstance(instance) {
+	            if (this.idArr.indexOf(instance.id) !== -1) {
+	                return true;
+	            } else if (instance.parent) {
+	                return this._checkSelfUpdateInstance(instance.parent);
+	            }
+	        }
+	    }, {
 	        key: "_isSubInstance",
-	        value: function _isSubInstance(instance, arr) {
-	            if (arr.indexOf(instance.parent.id) !== -1) {
+	        value: function _isSubInstance(instance) {
+	            if (this.idArr.indexOf(instance.parent.id) !== -1) {
 	                return true;
 	            } else if (instance.parent.parent) {
-	                return this._isSubInstance(instance.parent, arr);
+	                return this._isSubInstance(instance.parent);
 	            }
 	        }
 	    }]);
