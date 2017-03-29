@@ -2,7 +2,7 @@
 
 [Omi框架](https://github.com/AlloyTeam/omi)在架构设计的时候就决定把update的控制权交给了开发者，视灵活性比生命还重要。不然的话，如果遇到React Fiber要解决的这类问题的话，就需要推翻原有架构重新搞了。
 
-## React Fiber
+## React Fiber要解决的问题
 
 先引用下我们团队小鲜肉[Stark伟-复旦大四 / 腾讯@AlloyTeam](https://www.zhihu.com/people/starkwei/answers)在[知乎上的回答](https://www.zhihu.com/question/49496872/answer/116334119)
 
