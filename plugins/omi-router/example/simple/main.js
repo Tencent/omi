@@ -1,9 +1,10 @@
-﻿import Omi from 'omi';
-import OmiRouter from '../../index.js';
+﻿import Omi from 'omi'
+import OmiRouter from '../../index.js'
 
-import Home from './home.js';
-import About from './about.js';
-import User from './user.js';
+import Home from './home.js'
+import About from './about.js'
+import User from './user.js'
+import UserList from './user-list.js'
 
 class App extends Omi.Component {
 
@@ -12,12 +13,13 @@ class App extends Omi.Component {
             routes : [
                 { path: '/', component: Home },
                 { path: '/about', component: About },
+                { path: '/user-list', component: UserList },
                 { path: '/user/:name', component: User }
             ],
             renderTo:"#view"
-        });
+        })
 
-        Omi.render(new Home(),"#view");
+        Omi.render(new Home(),"#view")
     }
 
     style(){
@@ -37,11 +39,11 @@ class App extends Omi.Component {
         <ul>
             <li><a omi-router to="/" >Home</a></li>
             <li><a omi-router to="/about" >About</a></li>
-            <li><a omi-router to="/user/dntzhang" >User</a></li>
+            <li><a omi-router to="/user-list" >UserList</a></li>
         </ul>
-        `;
+        `
     }
 }
 
 
-Omi.render(new App(),"#links");
+Omi.render(new App(),"#links")

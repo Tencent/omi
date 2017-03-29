@@ -68,6 +68,10 @@
 
 	var _user2 = _interopRequireDefault(_user);
 
+	var _userList = __webpack_require__(9);
+
+	var _userList2 = _interopRequireDefault(_userList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -89,7 +93,7 @@
 	        key: 'install',
 	        value: function install() {
 	            _index2.default.init({
-	                routes: [{ path: '/', component: _home2.default }, { path: '/about', component: _about2.default }, { path: '/user/:name', component: _user2.default }],
+	                routes: [{ path: '/', component: _home2.default }, { path: '/about', component: _about2.default }, { path: '/user-list', component: _userList2.default }, { path: '/user/:name', component: _user2.default }],
 	                renderTo: "#view"
 	            });
 
@@ -103,7 +107,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <ul>\n            <li><a omi-router to="/" >Home</a></li>\n            <li><a omi-router to="/about" >About</a></li>\n            <li><a omi-router to="/user/dntzhang" >User</a></li>\n        </ul>\n        ';
+	            return '\n        <ul>\n            <li><a omi-router to="/" >Home</a></li>\n            <li><a omi-router to="/about" >About</a></li>\n            <li><a omi-router to="/user-list" >UserList</a></li>\n        </ul>\n        ';
 	        }
 	    }]);
 
@@ -3729,11 +3733,29 @@
 	        key: 'beforeRender',
 	        value: function beforeRender() {
 	            this.data.name = this.$store.data[1];
+	            this.info = this.queryInfo(this.data.name);
+	            this.data.age = this.info.age;
+	            this.data.sex = this.info.sex;
+	        }
+	    }, {
+	        key: 'queryInfo',
+	        value: function queryInfo(name) {
+	            this.mockData = {
+	                'yanagao': { age: 18, sex: 'female' },
+	                'vorshen': { age: 20, sex: 'male' },
+	                'dntzhang': { age: 22, sex: 'male' }
+	            };
+	            return this.mockData[name];
+	        }
+	    }, {
+	        key: 'back',
+	        value: function back() {
+	            history.back();
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n      \t<div >{{name}}</div>\n  \t\t';
+	            return '\n      \t<div >\n      \t    <button onclick="back">back</button>\n      \t    <ul>\n      \t        <li>name:{{name}}</li>\n      \t        <li>age:{{age}}</li>\n      \t        <li>sex:{{sex}}</li>\n      \t    </ul>\n      \t</div>\n  \t\t';
 	        }
 	    }]);
 
@@ -3743,6 +3765,53 @@
 	_omi2.default.tag('User', User);
 
 	exports.default = User;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _omi = __webpack_require__(1);
+
+	var _omi2 = _interopRequireDefault(_omi);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UserList = function (_Omi$Component) {
+	    _inherits(UserList, _Omi$Component);
+
+	    function UserList() {
+	        _classCallCheck(this, UserList);
+
+	        return _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).apply(this, arguments));
+	    }
+
+	    _createClass(UserList, [{
+	        key: 'render',
+	        value: function render() {
+	            return '\n      \t <ul>\n      \t    <li><a omi-router to="/user/yanagao" >yanagao</a></li>\n            <li><a omi-router to="/user/vorshen" >vorshen</a></li>\n            <li><a omi-router to="/user/dntzhang" >dntzhang</a></li>\n        </ul>\n  \t\t';
+	        }
+	    }]);
+
+	    return UserList;
+	}(_omi2.default.Component);
+
+	_omi2.default.tag('UserList', UserList);
+
+	exports.default = UserList;
 
 /***/ }
 /******/ ]);
