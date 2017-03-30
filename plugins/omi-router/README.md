@@ -16,9 +16,10 @@
 npm install omi-router
 ```
 
-
+```js
 import Omi from 'omi'
 import OmiRouter from 'omi-router'
+```
 
 如果使用全局的 script 标签，则无须如此import便可使用。
 
