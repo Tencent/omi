@@ -290,9 +290,7 @@ class Todo extends Omi.Component {
 
 可以看到上面的add方法可以通过this.$store.isReady获取组件store是否准备就绪。
 
-## 补充（20170323）
-
-在omi v1.1.0及以后的版本中，已经支持Omi.createStore快捷创建store。如:
+你可以通过Omi.createStore快捷创建store。如:
 
 ```js
 export default Omi.createStore({
@@ -315,9 +313,7 @@ export default Omi.createStore({
 })
 ```
 
-## 补充（20170324）
-
-在omi v1.1.1及以后的版本中，也支持省略Omi.createStore的形式创建store。如:
+也支持省略Omi.createStore的形式创建store。如:
 
 ```js
 export default {
@@ -340,6 +336,18 @@ export default {
 }
 ```
 
+## Omi Store update
+
+Omi Store的update方法会更新所有关联的视图。
+Omi Store体系以前通过addView进行视图收集，store进行update的时候会调用组件的update。
+
+与此同时，Omi Store体系也新增了addSelfView的API。
+
+* addView 收集该组件视图，store进行update的时候会调用组件的update
+* addSelfView 收集该组件本身的视图，store进行update的时候会调用组件的updateSelf
+
+当然，store内部会对视图进行合并，比如addView里面加进去的所有视图有父子关系的，会把子组件去掉。爷孙关系的会把孙组件去掉。addSelfView收集的组件在addView里已经收集的也去进行合并去重，等等一系列合并优化。
+
 ## 源码地址
 
 * 更为详细的代码可以[点击这里](https://github.com/AlloyTeam/omi/tree/master/example/todo-store)
@@ -347,8 +355,8 @@ export default {
 
 ## 相关
 
-* Omi官网[omijs.org](http://www.omijs.org)
-* Omi的Github地址[https://github.com/AlloyTeam/omi](https://github.com/AlloyTeam/omi)
+* Omi官网 [omijs.org](http://www.omijs.org)
+* Omi的Github地址 [https://github.com/AlloyTeam/omi](https://github.com/AlloyTeam/omi)
 * 如果想体验一下Omi框架，可以访问 [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * 如果想使用Omi框架或者开发完善Omi框架，可以访问 [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
 * 如果你想获得更佳的阅读体验，可以访问 [Docs Website](http://alloyteam.github.io/omi/website/docs.html)
