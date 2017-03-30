@@ -1,5 +1,6 @@
 ## Omi 相关文章
 
+* [Omi架构与React Fiber](./update-self-react-fiber.md)
 * [Omi框架Store体系的前世今生](./store.md)
 * [Omi v1.0.2发布-支持传递js表达式](./js-expression.md)
 * [Omi v1.0发布](./omi-v1.0-release.md)
