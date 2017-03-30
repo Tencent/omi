@@ -13,14 +13,16 @@
         : window.Omi
 
     var parser = require('path-to-regexp'),
-        routes = null,
         renderTo = null,
         params = { },
-        Component = null
+        Component = null,
+        store = null,
+        routerOption = { },
+        preRenderTo = null,
+        preInstance = null
 
     OmiRouter.init = function (option) {
-        routes = option.routes
-        renderTo = option.renderTo
+        routerOption = option
         option.routes.forEach(function (route) {
             route.reg = parser(route.path)
         })
@@ -29,20 +31,7 @@
             dom.setAttribute('href', 'javascript:void(0)')
 
             dom.addEventListener('click', function () {
-                var to = dom.getAttribute('to')
-
-                option.routes.every(function (route) {
-                    var toArr = to.match(route.reg);
-                    if (toArr) {
-                        var pathArr =  route.path.match(route.reg)
-                        params = getParams(toArr, pathArr)
-                        renderTo = option.renderTo
-                        Component = route.component
-                        pushState(to)
-                        return false
-                    }
-                    return true
-                })
+                hashMapping(dom.getAttribute('to'))
             }, false)
         })
     }
@@ -58,11 +47,15 @@
     }
 
     function hashMapping(to) {
-        routes.every(function (route) {
-            var arr = to.match(route.reg);
-            if (arr) {
-                pushState(to)
+        routerOption.routes.every(function (route) {
+            var toArr = to.match(route.reg);
+            if (toArr) {
+                var pathArr = route.path.match(route.reg)
+                params = getParams(toArr, pathArr)
+                renderTo = route.renderTo || routerOption.renderTo
+                store = route.store || routerOption.store
                 Component = route.component
+                pushState(to)
                 return false
             }
             return true
@@ -75,10 +68,40 @@
 
     window.addEventListener('hashchange', function() {
         hashMapping(window.location.hash.replace('#',''), renderTo)
-        Omi.render(new Component(), renderTo, {
-            store: {data: params}
+        if(store){
+            store.$route = { }
+            store.$route.params = params
+        }else{
+            store = {
+                methods:{
+                    install:function(){
+                        this.$route = { }
+                        this.$route.params = params
+                    }
+                }
+            }
+        }
+        if(preRenderTo === renderTo&&preInstance){
+            deleteInstance(preInstance)
+        }
+        var instance = new Component()
+        Omi.render(instance, renderTo, {
+            store: store
         })
-    }, false);
+        preInstance = instance
+        preRenderTo = renderTo
+    }, false)
+
+    function deleteInstance(instance){
+        for(var key in Omi.instances){
+            if(Omi.instances.hasOwnProperty(key)){
+                Omi.instances[key].id = instance.id
+                delete  Omi.instances[key]
+                instance = null
+                break
+            }
+        }
+    }
 
     OmiRouter.destroy = function () {
         delete Omi.plugins['omi-router']

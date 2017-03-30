@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.2.0 By dntzhang 
+ *  Omi v1.2.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -278,6 +278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        function Obj(data, isReady) {
 	            _classCallCheck(this, Obj);
 	            this.data = data;
+	            option.methods.install && option.methods.install.call(this);
 	            return _possibleConstructorReturn(this, (Obj.__proto__ || Object.getPrototypeOf(Obj)).call(this, data, isReady));
 	        }
 

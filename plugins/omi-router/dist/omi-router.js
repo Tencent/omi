@@ -68,44 +68,104 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	;(function () {
 
-	    var OmiRouter = {};
+	    var OmiRouter = {}
 	    var Omi =  true
 	        ? __webpack_require__(1)
-	        : window.Omi;
+	        : window.Omi
 
-	    var parser = __webpack_require__(2);
-
+	    var parser = __webpack_require__(2),
+	        renderTo = null,
+	        params = { },
+	        Component = null,
+	        store = null,
+	        routerOption = { },
+	        preRenderTo = null,
+	        preInstance = null
 
 	    OmiRouter.init = function (option) {
-
+	        routerOption = option
 	        option.routes.forEach(function (route) {
 	            route.reg = parser(route.path)
 	        })
 
 	        Omi.extendPlugin('omi-router', function (dom, instance) {
-	            dom.setAttribute('href', '##')
+	            dom.setAttribute('href', 'javascript:void(0)')
 
 	            dom.addEventListener('click', function () {
-	                var to = dom.getAttribute('to')
-
-	                option.routes.every(function (route) {
-	                    var arr = to.match(route.reg);
-	                    if (arr) {
-	                        Omi.render(new route.component(), option.renderTo, {
-	                            store: {data: arr}
-	                        })
-	                        return false
-	                    }
-	                    return true
-	                })
-
+	                hashMapping(dom.getAttribute('to'))
 	            }, false)
-
 	        })
 	    }
 
+	    function getParams(toArr, pathArr) {
+	        var params = {}
+	        toArr.forEach(function (item, index) {
+	            if (index > 0) {
+	                params[pathArr[index].replace(':','')] = item
+	            }
+	        })
+	        return params
+	    }
+
+	    function hashMapping(to) {
+	        routerOption.routes.every(function (route) {
+	            var toArr = to.match(route.reg);
+	            if (toArr) {
+	                var pathArr = route.path.match(route.reg)
+	                params = getParams(toArr, pathArr)
+	                renderTo = route.renderTo || routerOption.renderTo
+	                store = route.store || routerOption.store
+	                Component = route.component
+	                pushState(to)
+	                return false
+	            }
+	            return true
+	        })
+	    }
+
+	    function pushState(route){
+	        window.location.hash = route
+	    }
+
+	    window.addEventListener('hashchange', function() {
+	        hashMapping(window.location.hash.replace('#',''), renderTo)
+	        if(store){
+	            store.$route = { }
+	            store.$route.params = params
+	        }else{
+	            store = {
+	                methods:{
+	                    install:function(){
+	                        this.$route = { }
+	                        this.$route.params = params
+	                    }
+	                }
+	            }
+	        }
+	        if(preRenderTo === renderTo&&preInstance){
+	            deleteInstance(preInstance)
+	        }
+	        var instance = new Component()
+	        Omi.render(instance, renderTo, {
+	            store: store
+	        })
+	        preInstance = instance
+	        preRenderTo = renderTo
+	    }, false)
+
+	    function deleteInstance(instance){
+	        for(var key in Omi.instances){
+	            if(Omi.instances.hasOwnProperty(key)){
+	                Omi.instances[key].id = instance.id
+	                delete  Omi.instances[key]
+	                instance = null
+	                break
+	            }
+	        }
+	    }
+
 	    OmiRouter.destroy = function () {
-	        delete Omi.plugins['omi-finger']
+	        delete Omi.plugins['omi-router']
 	    }
 
 	    if (true) {
@@ -119,11 +179,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	})()
-
-
-	//�ı�url
-	//֧�ֺ���
-	//dist��������
 
 /***/ },
 /* 1 */

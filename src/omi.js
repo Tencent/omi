@@ -155,6 +155,7 @@ Omi.createStore = function(option) {
         function Obj(data, isReady) {
             _classCallCheck(this, Obj)
             this.data = data
+            option.methods.install && option.methods.install.call(this)
             return _possibleConstructorReturn(this, (Obj.__proto__ || Object.getPrototypeOf(Obj)).call(this, data, isReady))
         }
 
