@@ -28,18 +28,15 @@ import OmiRouter from 'omi-router'
 先来看下HTML结构:
 
 ``` html
-<h2>omi-router演示</h2>
 <div id="links">
 
 </div>
 <div id="view">
 
 </div>
-
-<script src="bundler.js"></script>
 ```
 
-在看下javascript代码:
+再看下javascript代码:
 
 ```js
 import Omi from 'omi'
