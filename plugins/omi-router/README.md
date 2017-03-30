@@ -101,6 +101,56 @@ Omi.render(new App(),"#links")
 
 注意: $route 会被挂载在$store下，$store会在根组件中注入，在组件树中的任何组件都可以通过 `this.$store.$route.params` 访问hash传递的数据。 
 
+### 举个例子
+
+```js
+import Omi from 'omi'
+
+class User extends Omi.Component {
+
+    beforeRender(){
+        let params =  this.$store.$route.params
+        this.data.name = params.name
+        this.data.category = params.category
+        this.info = this.queryInfo(this.data.name)
+        this.data.age = this.info.age
+        this.data.sex = this.info.sex
+    }
+
+    queryInfo(name) {
+        this.mockData = {
+            'yanagao': {age: 18, sex: 'female'},
+            'vorshen': {age: 20, sex: 'male'},
+            'dntzhang': {age: 22, sex: 'male'}
+        }
+        return this.mockData[name]
+    }
+
+    back(){
+        history.back()
+    }
+
+    render() {
+        return  `
+      	<div >
+      	    <button onclick="back">back</button>
+      	    <ul>
+      	        <li>name:{{name}}</li>
+      	        <li>age:{{age}}</li>
+      	        <li>sex:{{sex}}</li>
+      	        <li>category:{{category}}</li>
+      	    </ul>
+      	</div>
+  		`
+    }
+}
+
+
+Omi.tag('User',User)
+
+export default  User
+```
+
 ### 地址
 
 * [在线演示地址](http://alloyteam.github.io/omi/plugins/omi-router/example/simple/)
