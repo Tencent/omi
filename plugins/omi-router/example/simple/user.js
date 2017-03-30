@@ -3,7 +3,8 @@
 class User extends Omi.Component {
 
     beforeRender(){
-        this.data.name = this.$store.data[1]
+        this.data.name = this.$store.data.name
+        this.data.category = this.$store.data.category
         this.info = this.queryInfo(this.data.name)
         this.data.age = this.info.age
         this.data.sex = this.info.sex
@@ -30,6 +31,7 @@ class User extends Omi.Component {
       	        <li>name:{{name}}</li>
       	        <li>age:{{age}}</li>
       	        <li>sex:{{sex}}</li>
+      	        <li>category:{{category}}</li>
       	    </ul>
       	</div>
   		`

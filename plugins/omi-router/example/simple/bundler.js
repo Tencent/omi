@@ -93,7 +93,7 @@
 	        key: 'install',
 	        value: function install() {
 	            _index2.default.init({
-	                routes: [{ path: '/', component: _home2.default }, { path: '/about', component: _about2.default }, { path: '/user-list', component: _userList2.default }, { path: '/user/:name', component: _user2.default }],
+	                routes: [{ path: '/', component: _home2.default }, { path: '/about', component: _about2.default }, { path: '/user-list', component: _userList2.default }, { path: '/user/:name/category/:category', component: _user2.default }],
 	                renderTo: "#view"
 	            });
 
@@ -3089,7 +3089,9 @@
 
 	    var parser = __webpack_require__(4),
 	        routes = null,
-	        renderTo = null;
+	        renderTo = null,
+	        params = {},
+	        Component = null;
 
 	    OmiRouter.init = function (option) {
 	        routes = option.routes;
@@ -3105,13 +3107,13 @@
 	                var to = dom.getAttribute('to');
 
 	                option.routes.every(function (route) {
-	                    var arr = to.match(route.reg);
-	                    if (arr) {
-	                        //preIndex = index
+	                    var toArr = to.match(route.reg);
+	                    if (toArr) {
+	                        var pathArr = route.path.match(route.reg);
+	                        params = getParams(toArr, pathArr);
+	                        renderTo = option.renderTo;
+	                        Component = route.component;
 	                        pushState(to);
-	                        Omi.render(new route.component(), option.renderTo, {
-	                            store: { data: arr }
-	                        });
 	                        return false;
 	                    }
 	                    return true;
@@ -3120,23 +3122,22 @@
 	        });
 	    };
 
-	    OmiRouter.destroy = function () {
-	        delete Omi.plugins['omi-finger'];
-	    };
+	    function getParams(toArr, pathArr) {
+	        var params = {};
+	        toArr.forEach(function (item, index) {
+	            if (index > 0) {
+	                params[pathArr[index].replace(':', '')] = item;
+	            }
+	        });
+	        return params;
+	    }
 
-	    window.addEventListener('hashchange', function () {
-	        hashMapping(window.location.hash.replace('#', ''), renderTo);
-	    }, false);
-
-	    function hashMapping(to, renderTo) {
+	    function hashMapping(to) {
 	        routes.every(function (route) {
 	            var arr = to.match(route.reg);
 	            if (arr) {
-	                //preIndex = index
 	                pushState(to);
-	                Omi.render(new route.component(), renderTo, {
-	                    store: { data: arr }
-	                });
+	                Component = route.component;
 	                return false;
 	            }
 	            return true;
@@ -3146,6 +3147,17 @@
 	    function pushState(route) {
 	        window.location.hash = route;
 	    }
+
+	    window.addEventListener('hashchange', function () {
+	        hashMapping(window.location.hash.replace('#', ''), renderTo);
+	        Omi.render(new Component(), renderTo, {
+	            store: { data: params }
+	        });
+	    }, false);
+
+	    OmiRouter.destroy = function () {
+	        delete Omi.plugins['omi-router'];
+	    };
 
 	    if (( false ? 'undefined' : _typeof(exports)) == "object") {
 	        module.exports = OmiRouter;
@@ -3732,7 +3744,8 @@
 	    _createClass(User, [{
 	        key: 'beforeRender',
 	        value: function beforeRender() {
-	            this.data.name = this.$store.data[1];
+	            this.data.name = this.$store.data.name;
+	            this.data.category = this.$store.data.category;
 	            this.info = this.queryInfo(this.data.name);
 	            this.data.age = this.info.age;
 	            this.data.sex = this.info.sex;
@@ -3755,7 +3768,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n      \t<div >\n      \t    <button onclick="back">back</button>\n      \t    <ul>\n      \t        <li>name:{{name}}</li>\n      \t        <li>age:{{age}}</li>\n      \t        <li>sex:{{sex}}</li>\n      \t    </ul>\n      \t</div>\n  \t\t';
+	            return '\n      \t<div >\n      \t    <button onclick="back">back</button>\n      \t    <ul>\n      \t        <li>name:{{name}}</li>\n      \t        <li>age:{{age}}</li>\n      \t        <li>sex:{{sex}}</li>\n      \t        <li>category:{{category}}</li>\n      \t    </ul>\n      \t</div>\n  \t\t';
 	        }
 	    }]);
 
@@ -3802,7 +3815,7 @@
 	    _createClass(UserList, [{
 	        key: 'render',
 	        value: function render() {
-	            return '\n      \t <ul>\n      \t    <li><a omi-router to="/user/yanagao" >yanagao</a></li>\n            <li><a omi-router to="/user/vorshen" >vorshen</a></li>\n            <li><a omi-router to="/user/dntzhang" >dntzhang</a></li>\n        </ul>\n  \t\t';
+	            return '\n      \t <ul>\n      \t    <li><a omi-router to="/user/yanagao/category/js" >yanagao</a></li>\n            <li><a omi-router to="/user/vorshen/category/html" >vorshen</a></li>\n            <li><a omi-router to="/user/dntzhang/category/css" >dntzhang</a></li>\n        </ul>\n  \t\t';
 	        }
 	    }]);
 
