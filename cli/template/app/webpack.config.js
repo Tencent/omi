@@ -29,6 +29,11 @@ var config  = {
                 loader: 'babel-loader',
                 query: {
                     presets: ['es2015', "stage-0"],
+                    //support ie8
+                    plugins : [
+                        "transform-es3-property-literals",
+                        "transform-es3-member-expression-literals"
+                    ]
                 },
                 exclude: /node_modules/
             },
