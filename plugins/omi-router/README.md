@@ -92,6 +92,15 @@ class App extends Omi.Component {
 Omi.render(new App(),"#links")
 ```
 
+## 动态匹配
+
+| 模式 | 匹配路径 | $route.params |
+|---------|------|--------|
+| /user/:name | /user/dntzhang | `{ username: 'dntzhang' }` |
+| /user/:name/category/:category | /user/dntzhang/category/js | `{ username: 'dntzhang', category: js }` |
+
+注意: $route 会被挂载在$store下，$store会在根组件中注入，在组件树中的任何组件都可以通过 `this.$store.$route.params` 访问hash传递的数据。 
+
 ### 地址
 
 * [在线演示地址](http://alloyteam.github.io/omi/plugins/omi-router/example/simple/)
