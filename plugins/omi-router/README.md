@@ -36,7 +36,7 @@ import OmiRouter from 'omi-router'
 </div>
 ```
 
-再看下javascript代码:
+看下javascript代码:
 
 ```js
 import Omi from 'omi'
@@ -88,6 +88,29 @@ class App extends Omi.Component {
 
 
 Omi.render(new App(),"#links")
+```
+
+再看下UserList:
+
+```js
+import Omi from 'omi';
+
+class UserList extends Omi.Component {
+
+    render() {
+        return  `
+      	 <ul>
+      	    <li><a omi-router to="/user/yanagao/category/js" >yanagao</a></li>
+            <li><a omi-router to="/user/vorshen/category/html" >vorshen</a></li>
+            <li><a omi-router to="/user/dntzhang/category/css" >dntzhang</a></li>
+        </ul>
+  		`;
+    }
+}
+
+Omi.tag('UserList',UserList)
+
+export default  UserList
 ```
 
 ## 动态匹配
