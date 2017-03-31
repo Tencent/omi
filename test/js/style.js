@@ -83,10 +83,68 @@ describe("scoper", function() {
 
     describe("Comment", function() {
         var rule = "/* .item:nth-child(odd) {float: left;}*/";
-        var expected = rule;
+        var expected = '';
         var actual = style.scoper(rule, "#scoper-1");
-        it("expect font faces works well", function() {
+        it("expect comment works well", function() {
             expect(actual).toBe(expected);
         });
     });
+
+    describe("complex test", function() {
+        var rule= `.clearfix{*zoom:1;}.clearfix:before,.clearfix:after{display:table;content:"";line-height:0;}
+.clearfix:after{clear:both;}
+
+    .nick {
+    font-size: 0.746666rem;
+    font-weight: bold;
+    height: 0.746666rem;
+    line-height: 0.746666rem;
+    max-width: 5.506666rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto,PT Sans,DejaVu Sans,Arial,Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
+    display: inline-block;
+    vertical-align: top;
+    -webkit-transform: scale(.5, .5);
+    transform: scale(.5, .5);
+}
+        .b {
+font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto,PT Sans,DejaVu Sans,Arial,Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
+    display: inline-block;
+    vertical-align: top;
+    -webkit-transform: scale(.5, .5);
+    transform: scale(.5, .5);
+}`
+        var expected = `.clearfix#cc,#cc .clearfix{*zoom:1;}.clearfix#cc:before,#cc .clearfix:before,.clearfix#cc:after,#cc .clearfix:after{display:table;content:"";line-height:0;}
+.clearfix#cc:after,#cc .clearfix:after{clear:both;}
+
+    .nick#cc,#cc .nick{
+    font-size: 0.746666rem;
+    font-weight: bold;
+    height: 0.746666rem;
+    line-height: 0.746666rem;
+    max-width: 5.506666rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto,PT Sans,DejaVu Sans,Arial,Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
+    display: inline-block;
+    vertical-align: top;
+    -webkit-transform: scale(.5, .5);
+    transform: scale(.5, .5);
+}
+        .b#cc,#cc .b{
+font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto,PT Sans,DejaVu Sans,Arial,Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
+    display: inline-block;
+    vertical-align: top;
+    -webkit-transform: scale(.5, .5);
+    transform: scale(.5, .5);
+}`;
+        var actual = style.scoper(rule, "#cc");
+        it("expect complex test works well", function() {
+            expect(actual).toBe(expected);
+        });
+    });
+
 });

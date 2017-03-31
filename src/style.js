@@ -2,7 +2,10 @@ import Omi from './omi.js'
 
 //many thanks to https://github.com/thomaspark/scoper/
 function scoper(css, prefix) {
-    let re = new RegExp("([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{]*{)|\s*{)", "g")
+    //https://www.w3.org/TR/css-syntax-3/#lexical
+    css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g,'')
+
+    let re = new RegExp("([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)", "g")
     /**
      * Example:
      *
@@ -15,10 +18,6 @@ function scoper(css, prefix) {
     css = css.replace(re, function(g0, g1, g2, g3) {
         if (typeof g2 === "undefined") {
             g2 = ""
-        }
-
-        if (g0.indexOf(';base64') !== -1 || g0.indexOf('/') !== -1) {
-            return g0;
         }
 
         if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {
