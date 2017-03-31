@@ -8,18 +8,17 @@ import UserList from './user-list.js'
 
 class App extends Omi.Component {
 
-    install(){
+    install() {
         OmiRouter.init({
-            routes : [
-                { path: '/', component: Home },
-                { path: '/about', component: About },
-                { path: '/user-list', component: UserList },
-                { path: '/user/:name/category/:category', component: User }
+            routes: [
+                {path: '/', component: Home},
+                {path: '/about', component: About},
+                {path: '/user-list', component: UserList},
+                {path: '/user/:name/category/:category', component: User}
             ],
-            renderTo:"#view"
+            renderTo: "#view",
+            defaultRoute: '/'
         })
-
-        Omi.render(new Home(),"#view")
     }
 
     style(){

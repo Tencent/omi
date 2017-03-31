@@ -94,10 +94,9 @@
 	        value: function install() {
 	            _index2.default.init({
 	                routes: [{ path: '/', component: _home2.default }, { path: '/about', component: _about2.default }, { path: '/user-list', component: _userList2.default }, { path: '/user/:name/category/:category', component: _user2.default }],
-	                renderTo: "#view"
+	                renderTo: "#view",
+	                defaultRoute: '/'
 	            });
-
-	            _omi2.default.render(new _home2.default(), "#view");
 	        }
 	    }, {
 	        key: 'style',
@@ -3162,6 +3161,12 @@
 	                hashMapping(dom.getAttribute('to'));
 	            }, false);
 	        });
+
+	        var hash = window.location.hash.replace('#', '');
+	        hashMapping(hash ? hash : routerOption.defaultRoute, renderTo);
+	        if (hash) {
+	            render();
+	        }
 	    };
 
 	    function getParams(toArr, pathArr) {
@@ -3196,6 +3201,10 @@
 
 	    window.addEventListener('hashchange', function () {
 	        hashMapping(window.location.hash.replace('#', ''), renderTo);
+	        render();
+	    }, false);
+
+	    function render() {
 	        if (store) {
 	            store.$route = {};
 	            store.$route.params = params;
@@ -3218,7 +3227,7 @@
 	        });
 	        preInstance = instance;
 	        preRenderTo = renderTo;
-	    }, false);
+	    }
 
 	    function deleteInstance(instance) {
 	        for (var key in Omi.instances) {

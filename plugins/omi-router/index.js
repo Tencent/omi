@@ -34,6 +34,12 @@
                 hashMapping(dom.getAttribute('to'))
             }, false)
         })
+
+        var hash = window.location.hash.replace('#', '')
+        hashMapping(hash ? hash : routerOption.defaultRoute, renderTo)
+        if(hash) {
+            render()
+        }
     }
 
     function getParams(toArr, pathArr) {
@@ -68,6 +74,10 @@
 
     window.addEventListener('hashchange', function() {
         hashMapping(window.location.hash.replace('#',''), renderTo)
+        render()
+    }, false)
+
+    function render(){
         if(store){
             store.$route = { }
             store.$route.params = params
@@ -90,7 +100,7 @@
         })
         preInstance = instance
         preRenderTo = renderTo
-    }, false)
+    }
 
     function deleteInstance(instance){
         for(var key in Omi.instances){

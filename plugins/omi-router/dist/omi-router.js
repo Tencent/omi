@@ -1,5 +1,5 @@
 /*!
- *  OmiRouter v0.1.0 By dntzhang 
+ *  OmiRouter v0.1.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -95,6 +95,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                hashMapping(dom.getAttribute('to'))
 	            }, false)
 	        })
+
+	        var hash = window.location.hash.replace('#', '')
+	        hashMapping(hash ? hash : routerOption.defaultRoute, renderTo)
+	        if(hash) {
+	            render()
+	        }
 	    }
 
 	    function getParams(toArr, pathArr) {
@@ -129,6 +135,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    window.addEventListener('hashchange', function() {
 	        hashMapping(window.location.hash.replace('#',''), renderTo)
+	        render()
+	    }, false)
+
+	    function render(){
 	        if(store){
 	            store.$route = { }
 	            store.$route.params = params
@@ -151,7 +161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        })
 	        preInstance = instance
 	        preRenderTo = renderTo
-	    }, false)
+	    }
 
 	    function deleteInstance(instance){
 	        for(var key in Omi.instances){
