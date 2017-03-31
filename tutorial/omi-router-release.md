@@ -1,6 +1,6 @@
 ﻿# omi-router
 
-omi-router是[Omi框架](https://github.com/AlloyTeam/omi)专属的router插件，文件尺寸轻量，使用简便，功能强大。用于Omi制作Web单页应用的首选解决方案。
+[omi-router](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router)是[Omi框架](https://github.com/AlloyTeam/omi)专属的router插件，文件尺寸轻量，使用简便，功能强大。用于Omi制作Web单页应用的首选解决方案。
 
 单页的好处也是非常明显:
 
