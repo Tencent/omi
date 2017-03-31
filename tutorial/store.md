@@ -360,6 +360,7 @@ Omi Store体系以前通过addView进行视图收集，store进行update的时�
 * 如果想体验一下Omi框架，可以访问 [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * 如果想使用Omi框架或者开发完善Omi框架，可以访问 [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
 * 如果你想获得更佳的阅读体验，可以访问 [Docs Website](http://alloyteam.github.io/omi/website/docs.html)
+* Omi相关的使用教程和blog，可以访问 [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
 * 如果你懒得搭建项目脚手架，可以试试 [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
 * 如果你有Omi相关的问题可以 [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
