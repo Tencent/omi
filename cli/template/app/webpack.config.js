@@ -1,7 +1,8 @@
 var path = require('path');
-
 var webpack = require("webpack");
 var commonChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+var projectConfig = require('./project.js');
+
 /**
  * Env
  * Get npm lifecycle event to identify the environment
@@ -37,8 +38,7 @@ var config  = {
                 },
                 exclude: /node_modules/
             },
-            {test: /\.html$/, loader: "string-loader"},
-            {test: /\.css$/, loader: "string-loader"},
+            {test: /\.html|\.css$/, loader: "string-loader"},
             {
                 test: /\.scss$/,
                 use: [
@@ -47,7 +47,7 @@ var config  = {
                     //    loader: "style-loader"
                     //},
                     {
-                        loader: "css-loader" // translates CSS into CommonJS
+                        loader: "css-loader?-url" // translates CSS into CommonJS
                     }, {
                         loader: "sass-loader" // compiles Sass to CSS
                     }]
@@ -66,16 +66,18 @@ var config  = {
     //devtool: 'source-map'
 };
 
-if(ENV === 'dist'){
+if(ENV === 'dist') {
     config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-    config.entry ={
+    config.entry = {
         index: './src/js/index.js',
         other: './src/js/other.js',
-        omi : ['omi'],
-        vendor : ['./src/common/class_list.js']
+        omi: ['omi'],
+        vendor: ['./src/common/class_list.js']
     }
-    config.plugins[1] = new commonChunkPlugin({name:['omi','vendor'],minChunks:Infinity});
+    config.plugins[1] = new commonChunkPlugin({name: ['omi', 'vendor'], minChunks: Infinity});
     config.output.filename = '[name].[chunkhash:8].js';
+
+    config.module.rules[1] = {test: /\.html|\.css$/, loader: "cdn-replace-loader?cdn="+projectConfig.cdn}
 }else{
     config.entry.vendor = ['omi','./src/common/class_list.js'];
     config.output.filename = '[name].js';
