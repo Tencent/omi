@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.2.1 By dntzhang 
+ *  Omi v1.2.2 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1126,7 +1126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -1136,11 +1136,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	//many thanks to https://github.com/thomaspark/scoper/
 	function scoper(css, prefix) {
-	    var re = new RegExp("([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{]*{)|\s*{)", "g");
+	    //https://www.w3.org/TR/css-syntax-3/#lexical
+	    css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
+
+	    var re = new RegExp("([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)", "g");
 	    /**
 	     * Example:
 	     *
@@ -1153,10 +1156,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    css = css.replace(re, function (g0, g1, g2, g3) {
 	        if (typeof g2 === "undefined") {
 	            g2 = "";
-	        }
-
-	        if (g0.indexOf(';base64') !== -1 || g0.indexOf('/') !== -1) {
-	            return g0;
 	        }
 
 	        if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {
@@ -1172,7 +1171,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function addStyle(cssText, id) {
-	    var ele = document.getElementById(_omi2["default"].STYLEPREFIX + id),
+	    var ele = document.getElementById(_omi2['default'].STYLEPREFIX + id),
 	        head = document.getElementsByTagName('head')[0];
 	    if (ele && ele.parentNode === head) {
 	        head.removeChild(ele);
@@ -1181,7 +1180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var someThingStyles = document.createElement('style');
 	    head.appendChild(someThingStyles);
 	    someThingStyles.setAttribute('type', 'text/css');
-	    someThingStyles.setAttribute('id', _omi2["default"].STYLEPREFIX + id);
+	    someThingStyles.setAttribute('id', _omi2['default'].STYLEPREFIX + id);
 	    if (!!window.ActiveXObject) {
 	        someThingStyles.styleSheet.cssText = cssText;
 	    } else {
@@ -1189,7 +1188,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	}
 
-	exports["default"] = {
+	exports['default'] = {
 	    scoper: scoper,
 	    addStyle: addStyle
 	};
