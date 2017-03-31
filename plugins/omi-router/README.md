@@ -49,30 +49,17 @@ import UserList from './user-list.js'
 
 class App extends Omi.Component {
 
-    install(){
+    install() {
         OmiRouter.init({
-            routes : [
-                { path: '/', component: Home },
-                { path: '/about', component: About },
-                { path: '/user-list', component: UserList },
-                { path: '/user/:name/category/:category', component: User }
+            routes: [
+                {path: '/', component: Home},
+                {path: '/about', component: About},
+                {path: '/user-list', component: UserList},
+                {path: '/user/:name/category/:category', component: User}
             ],
-            renderTo:"#view"
+            renderTo: "#view",
+            defaultRoute: '/'
         })
-
-        Omi.render(new Home(),"#view")
-    }
-
-    style(){
-       return `
-        ul{
-            border-bottom: 1px solid #ccc;
-            padding-bottom:5px;
-        }
-        li{
-            display:inline-block;
-        }
-        `
     }
 
     render() {
@@ -89,6 +76,14 @@ class App extends Omi.Component {
 
 Omi.render(new App(),"#links")
 ```
+
+这里详细说下 `OmiRouter.init` 传递的配置参数的意义:
+
+| 参数名 | 意义 | 是否必须 |
+|---------|------|--------|
+| routes | 路由配置。其中每一项中的path代表匹配规则，component代表渲染的组件 | 必须|
+| renderTo| 组件渲染的容器 | 必须 |
+| defaultRoute | 如果第一次打开页面没携带hash，默认使用的地址 | 必须 |
 
 再看下UserList:
 
