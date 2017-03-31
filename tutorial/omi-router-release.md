@@ -179,7 +179,13 @@ Omi.tag('User',User)
 export default  User
 ```
 
-### 地址
+上面使用了`beforeRender`进行store到data的转换，`beforeRender`是生命周期的一部分。且看下面这张图:
+
+![beforeRender](http://images2015.cnblogs.com/blog/105416/201703/105416-20170322083548924-1871234168.jpg)
+
+注意:除了在constructor中不能读取到 `this.$store`, 在声明周期的任何其他函数中都能读取到  `this.$store`，非常便捷。
+
+## 地址
 
 * [在线演示地址](http://alloyteam.github.io/omi/plugins/omi-router/example/simple/)
 * [源码地址](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router/example/simple)
