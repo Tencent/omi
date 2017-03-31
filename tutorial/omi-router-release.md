@@ -184,5 +184,15 @@ export default  User
 * [在线演示地址](http://alloyteam.github.io/omi/plugins/omi-router/example/simple/)
 * [源码地址](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router/example/simple)
 
-## License
-This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
+## 相关
+
+* Omi官网 [omijs.org](http://www.omijs.org)
+* Omi的Github地址 [https://github.com/AlloyTeam/omi](https://github.com/AlloyTeam/omi)
+* 如果想体验一下Omi框架，可以访问 [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
+* 如果想使用Omi框架或者开发完善Omi框架，可以访问 [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
+* 如果你想获得更佳的阅读体验，可以访问 [Docs Website](http://alloyteam.github.io/omi/website/docs.html)
+* 如果你懒得搭建项目脚手架，可以试试 [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
+* 如果你有Omi相关的问题可以 [New issue](https://github.com/AlloyTeam/omi/issues/new)
+* 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
+
+![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170208095745213-1049686133.png)
