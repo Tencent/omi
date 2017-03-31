@@ -62,7 +62,7 @@ gulp.task('copyAsset', function() {
 });
 
 gulp.task('copyComponent', function() {
-    return gulp.src(['src/component/**','!src/component/**/*.js']).pipe(gulp.dest(ENV+'/component'));
+    return gulp.src(['src/component/**','!src/component/**/*.js','!src/component/**/*.css','!src/component/**/*.scss','!src/component/**/*.html']).pipe(gulp.dest(ENV+'/component'));
 });
 
 gulp.task('fixEvn', function() {
