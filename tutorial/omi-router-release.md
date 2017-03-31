@@ -129,7 +129,7 @@ export default  UserList
 
 注意: $route 会被挂载在$store下，$store会在根组件中注入，在组件树中的任何组件都可以通过 `this.$store.$route.params` 访问hash传递的数据。 
 
-### 举个例子
+### 接着上面例子
 
 ```js
 import Omi from 'omi'
