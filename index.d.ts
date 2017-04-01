@@ -79,19 +79,21 @@ declare namespace Omi {
 
     export function $$(selector: string, context: any): Array<HTMLElement>;
 
-    export type STYLEPREFIX = string
+    export const STYLEPREFIX: string;
 
-    export type STYLESCOPEDPREFIX = string
+    export const STYLESCOPEDPREFIX: string;
 
-    type _instanceId = number
+    export const  _instanceId: number;
 
-    type componentConstructor = Component
+    export interface componentConstructor {
+        [name: string]: Component
+    }
 
     export function create (tagName: string, parent: string, setting: any): void
 
-    export function createStore (option: any): typeof Store
+    export function createStore (option: any): Store
 
-    type customTags = Array<string>
+    export const customTags: Array<string>;
 
     /*
      *  Method: Omi.extendPlugin( pluginName, handler )
@@ -100,17 +102,26 @@ declare namespace Omi {
      *  With Omi.extendPlugin, we can give the dom some ability, and can also be associated with the component instance.
      *  The above example is not associated with the instance, let's try it:
      */
-    export function extendPlugin(pluginName: string, handler: HTMLElement): void
+    interface ExtendPluginHandler {
+        (dom: HTMLElement, instance: Component): void
+    }
+    export interface plugins{
+        [name: string]: ExtendPluginHandler
+    }
+
+    export function extendPlugin(pluginName: string, handler: ExtendPluginHandler): void
 
     export function get(name: string): void
 
-    export function getClassFromString(string: string): typeof Component
+    export function getClassFromString(string: string):  Component
 
     export function getInstanceId () : number
 
-    export function getParameters(dom: HTMLElement, instance: typeof Component, types: string): void
+    export function getParameters(dom: HTMLElement, instance: Component, types: string): void
 
-    type instances = Object
+    export interface instances {
+        [component: string]: Component
+    }
 
     /*
      *  We use makeHTML to make the component to a tag which can be used in render method. Of course, Omi.makeHTML('List', List);
@@ -118,26 +129,26 @@ declare namespace Omi {
      */
     export function makeHTML(name: string, component: typeof Component): void
 
-    type mapping = Object
+    export interface mapping {
+        [name: string]: any
+    }
 
     interface MixIndexArrayItem {
         value: any;
         [indexName: string]: number
     }
 
-    export function mixIndex(array: Array<any>, key?: string): Array<any>;
+    export function mixIndex(array: Array<any>, key?: string): Array<MixIndexArrayItem>;
 
     export function mixIndexToArray(array: Array<any>, indexName: string): void;
-
-    type plugins = Object
 
     class Store {
         constructor(isReady: boolean);
         public ready<T>(readyHandle: Array<T>): void;
-        public addSelfView(view: typeof Component): void;
-        public addView(view: typeof Component): void;
-        public beReady(): void;
-        public update(): void;
+        public addSelfView?(view: Component): void;
+        public addView?(view: Component): void;
+        public beReady?(): void;
+        public update?(): void;
     }
     /*
      *
@@ -156,7 +167,7 @@ declare namespace Omi {
 
     export function render(component: Component, renderTo: string, incrementOrOption?: IncrementOrOption)
 
-    const style: Style;
+    export const style: Style;
     /*
      *
      */
