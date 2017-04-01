@@ -1,6 +1,6 @@
 {
   "name": "omi-transform",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Omi / css3transform  integration. Support CSS3 transformation in your Omi project. ",
   "main": "omi-transform.js",
   "scripts": {

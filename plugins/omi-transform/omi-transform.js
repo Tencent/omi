@@ -20,17 +20,16 @@
     OmiTransform.init = function(){
         Omi.extendPlugin('omi-transform',function(dom, instance){
             var ref = dom.getAttribute('ref');
-            if(ref){
+            if(ref) {
                 var element = instance.refs[ref];
-                Transform(element);
-                ['translateX', 'translateY', 'translateZ', 'scaleX', 'scaleY', 'scaleZ', 'rotateX', 'rotateY', 'rotateZ', 'skewX', 'skewY', 'originX', 'originY', 'originZ'].forEach(function(name){
+                Transform(element, dom.getAttribute('perspective') ? false : true);
+                ['translateX', 'translateY', 'translateZ', 'scaleX', 'scaleY', 'scaleZ', 'rotateX', 'rotateY', 'rotateZ', 'skewX', 'skewY', 'originX', 'originY', 'originZ'].forEach(function (name) {
                     var attr = dom.getAttribute(name);
-                    if(attr) {
+                    if (attr) {
                         element[name] = parseFloat(dom.getAttribute(name));
                     }
                 });
             }
-
         });
     }
 
