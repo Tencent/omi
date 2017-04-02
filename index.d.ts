@@ -32,7 +32,7 @@ declare namespace Omi {
          *   The constructor;
          *   When new a constructor
          */
-        constructor(data: any, option?: ComponentOption);
+        constructor(data?: any, option?: ComponentOption);
 
         /*
          *   The installation. We can process the data that user pass;
@@ -127,7 +127,7 @@ declare namespace Omi {
      *  We use makeHTML to make the component to a tag which can be used in render method. Of course, Omi.makeHTML('List', List);
      *  can also be written in the end of List component.
      */
-    export function makeHTML<T extends Component>(name: string, component: T): void
+    export function makeHTML<T extends Component>(name: string, component: typeof Component): void
 
     export interface mapping {
         [name: string]: any
@@ -143,7 +143,7 @@ declare namespace Omi {
     export function mixIndexToArray(array: Array<any>, indexName: string): void;
 
     class Store {
-        constructor(isReady: boolean);
+        constructor(isReady?: boolean);
         public ready<T>(readyHandle: Array<T>): void;
         public addSelfView?(view: Component): void;
         public addView?(view: Component): void;
@@ -165,13 +165,13 @@ declare namespace Omi {
         addStyle(cssText: string, id: string): void;
     }
 
-    export function render<T extends Component>(component: {new():T}, renderTo: string, incrementOrOption?: IncrementOrOption): T
+    export function render<T extends Component>(component: T, renderTo: string, incrementOrOption?: IncrementOrOption): T
 
-    export const style: Style;
+    export type style = Style;
     /*
      *
      */
-    export function tag(name: string, ctor: typeof Component): void
+    export function tag(name: string, ctor:  Component): void
 
 }
 /*

@@ -78,45 +78,34 @@ module.exports = Omi;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Omi = __webpack_require__(0);
-var Hello = (function (_super) {
-    __extends(Hello, _super);
-    function Hello() {
-        return _super !== null && _super.apply(this, arguments) || this;
+const Omi = __webpack_require__(0);
+class Hello extends Omi.Component {
+    style() {
+        return `
+          h1{
+          	cursor:pointer;
+          }`;
     }
-    Hello.prototype.style = function () {
-        return "\n          h1{\n          \tcursor:pointer;\n          }";
-    };
-    Hello.prototype.handleClick = function (evt) {
+    handleClick(evt) {
         alert(evt.target.innerHTML);
-    };
-    Hello.prototype.render = function () {
-        return "\n      <div>\n      \t<h1 onclick=\"handleClick\">Hello ,{{name}}!</h1>\n      </div>";
-    };
-    return Hello;
-}(Omi.Component));
-Omi.makeHTML('Hello', Hello);
-var App = (function (_super) {
-    __extends(App, _super);
-    function App() {
-        return _super !== null && _super.apply(this, arguments) || this;
     }
-    App.prototype.render = function () {
-        return "\n        <div>\n            <Hello data-name=\"Omi\" />\n        </div>";
-    };
-    return App;
-}(Omi.Component));
+    render() {
+        return `
+      <div>
+      	<h1 onclick="handleClick">Hello ,{{name}}!</h1>
+      </div>`;
+    }
+}
+Omi.makeHTML('Hello', Hello);
+class App extends Omi.Component {
+    render() {
+        return `
+        <div>
+            <Hello data-name="Omi" />
+        </div>`;
+    }
+}
 Omi.render(new App(), "body");
 
 

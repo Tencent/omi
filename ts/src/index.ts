@@ -1,4 +1,4 @@
-﻿import * as Omi from 'omi';
+﻿import Omi = require('omi') ;
 
 class Hello extends Omi.Component {
 
@@ -34,6 +34,6 @@ class App extends Omi.Component {
     }
 }
 
-Omi.render(new App(),"body");
+Omi.render(new App() ,"body");
 
 
