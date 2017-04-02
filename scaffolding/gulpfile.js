@@ -36,9 +36,9 @@ gulp.task('webpack', function() {
 
 gulp.task('copyCSS', function() {
     if(isDist){
-        return gulp.src('src/**/*.css')
+        return gulp.src('src/css/*.css')
             .pipe(csso()).pipe(rev())
-            .pipe(gulp.dest(ENV))
+            .pipe(gulp.dest(ENV+'/css'))
             .pipe(rev.manifest())                                   //- 生成一个rev-manifest.json
             .pipe(gulp.dest('./rev'));
     }else{
@@ -62,7 +62,7 @@ gulp.task('copyAsset', function() {
 });
 
 gulp.task('copyComponent', function() {
-    return gulp.src(['src/component/**','!src/component/**/*.js']).pipe(gulp.dest(ENV+'/component'));
+    return gulp.src(['src/component/**','!src/component/**/*.js','!src/component/**/*.css','!src/component/**/*.scss','!src/component/**/*.html']).pipe(gulp.dest(ENV+'/component'));
 });
 
 gulp.task('fixEvn', function() {

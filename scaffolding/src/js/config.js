@@ -7,3 +7,5 @@ Root.CDN = config.cdn;
 if(!Root.hasOwnProperty('isDev')) {
     Root.isDev = true;
 }
+
+export default  Root;
