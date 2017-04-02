@@ -2,7 +2,8 @@
     "compilerOptions": {
         "outDir": "./built/",
         "sourceMap": true,
-        "noImplicitAny": true,
-        "target": "es5"
+        "noImplicitAny": false,
+        "module": "commonjs",
+        "target": "es6"
     }
 }
