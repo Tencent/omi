@@ -127,7 +127,7 @@ declare namespace Omi {
      *  We use makeHTML to make the component to a tag which can be used in render method. Of course, Omi.makeHTML('List', List);
      *  can also be written in the end of List component.
      */
-    export function makeHTML(name: string, component: typeof Component): void
+    export function makeHTML<T extends Component>(name: string, component: T): void
 
     export interface mapping {
         [name: string]: any
@@ -165,7 +165,7 @@ declare namespace Omi {
         addStyle(cssText: string, id: string): void;
     }
 
-    export function render(component: Component, renderTo: string, incrementOrOption?: IncrementOrOption)
+    export function render<T extends Component>(component: {new():T}, renderTo: string, incrementOrOption?: IncrementOrOption): T
 
     export const style: Style;
     /*
@@ -179,5 +179,5 @@ declare namespace Omi {
  */
 
 declare module "omi" {
-    export default Omi;
+    export = Omi;
 }
