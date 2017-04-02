@@ -5,7 +5,10 @@ import fs from 'fs'
 const compiler = webpack(webpackConfig)
 
 compiler.run((err, stats) => {
-    if (err) return reject(err)
+    if (err) {
+        console.error(err)
+        return
+    }
 
     const jsonStats = stats.toJson()
 
@@ -13,7 +16,8 @@ compiler.run((err, stats) => {
         const error = new Error(jsonStats.errors[0])
         error.errors = jsonStats.errors
         error.warnings = jsonStats.warnings
-        return reject(error)
+        console.error(err)
+        return
     }
 
     var contentText = fs.readFileSync('index.js', 'utf-8');
