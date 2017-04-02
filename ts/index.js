@@ -76,7 +76,9 @@ module.exports = Omi;
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = (this && this.__extends) || (function () {
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
         function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
@@ -86,39 +88,36 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __extends = 
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, Omi) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var Hello = (function (_super) {
-        __extends(Hello, _super);
-        function Hello() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        Hello.prototype.style = function () {
-            return "\n          h1{\n          \tcursor:pointer;\n          }";
-        };
-        Hello.prototype.handleClick = function (evt) {
-            alert(evt.target.innerHTML);
-        };
-        Hello.prototype.render = function () {
-            return "\n      <div>\n      \t<h1 onclick=\"handleClick\">Hello ,{{name}}!</h1>\n      </div>";
-        };
-        return Hello;
-    }(Omi.Component));
-    Omi.makeHTML('Hello', Hello);
-    var App = (function (_super) {
-        __extends(App, _super);
-        function App() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        App.prototype.render = function () {
-            return "\n        <div>\n            <Hello data-name=\"Omi\" />\n        </div>";
-        };
-        return App;
-    }(Omi.Component));
-    Omi.render(new App(), "body");
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+Object.defineProperty(exports, "__esModule", { value: true });
+var Omi = __webpack_require__(0);
+var Hello = (function (_super) {
+    __extends(Hello, _super);
+    function Hello() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Hello.prototype.style = function () {
+        return "\n          h1{\n          \tcursor:pointer;\n          }";
+    };
+    Hello.prototype.handleClick = function (evt) {
+        alert(evt.target.innerHTML);
+    };
+    Hello.prototype.render = function () {
+        return "\n      <div>\n      \t<h1 onclick=\"handleClick\">Hello ,{{name}}!</h1>\n      </div>";
+    };
+    return Hello;
+}(Omi.Component));
+Omi.makeHTML('Hello', Hello);
+var App = (function (_super) {
+    __extends(App, _super);
+    function App() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    App.prototype.render = function () {
+        return "\n        <div>\n            <Hello data-name=\"Omi\" />\n        </div>";
+    };
+    return App;
+}(Omi.Component));
+Omi.render(new App(), "body");
 
 
 /***/ })

@@ -36,3 +36,4 @@ class App extends Omi.Component {
 
 Omi.render(new App(),"body");
 
+
