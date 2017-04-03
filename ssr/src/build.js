@@ -20,26 +20,21 @@ compiler.run((err, stats) => {
         return
     }
 
-    var jsdom = require("jsdom").jsdom;
-    var window = jsdom().defaultView;
+    const jsdom = require("jsdom").jsdom;
+    const window = jsdom().defaultView;
 
     //window.__myObject = { foo: "bar" };
 
-    var scriptEl = window.document.createElement("script");
+    let scriptEl = window.document.createElement("script");
     scriptEl.onload = function () {
 
-        console.log(window.document.body.innerHTML)
-        console.log(window.document.head.innerHTML)
         fs.unlinkSync('index.js')
+        cpLite(window.document.head.innerHTML, '<div id="__omi">'+window.document.body.innerHTML.replace('<script src="index.js"><\/script>','')+'</div>')
 
-        cpLite(window.document.head.innerHTML, window.document.body.innerHTML.replace('<script src="index.js"><\/script>',''))
+
     }
     scriptEl.src = "index.js"
     window.document.body.appendChild(scriptEl)
-
-
-
-
 })
 
 function cpLite(css, html) {
@@ -63,12 +58,15 @@ function cpLite(css, html) {
             return
         }
 
-        var contentText = fs.readFileSync('index.lite.js', 'utf-8');
-
+        const content = fs.readFileSync('index.lite.js', 'utf-8')
+        const newContent = JSON.stringify({ component: content })
+        const pos =  newContent.lastIndexOf('body')
         if (!fs.existsSync('dist')) {
             fs.mkdirSync('dist')
         }
-        fs.writeFileSync('dist/index.html', `<html><head>`+css+`</head><body>`+html+`<script>` + contentText + `</script>`+ fs.readFileSync('./src/loadjs.js', 'utf-8')+`</body></html>`, 'utf-8')
+        let script = fs.readFileSync('./src/loadjs.js', 'utf-8');
+
+        fs.writeFileSync('dist/index.html', `<html><head>`+css+`</head><body>`+html+`<script>var __OMI_DATA__=` + (  newContent.substring(0, pos) + "#__omi" + newContent.substring(pos+4,newContent.length) ) + `</script><script>`+script+`</script></body></html>`, 'utf-8')
         fs.unlinkSync('index.lite.js')
     })
 }

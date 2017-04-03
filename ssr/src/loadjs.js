@@ -1,6 +1,10 @@
-<script>
+
 (function () {
-    load('https://xx.xxx.xxx/omi-server.min.js')
+    load('https://unpkg.com/omi@1.2.2/dist/omi.min.js',function (err) {
+        eval(__OMI_DATA__.component)
+        //diff
+
+    })
 
     function load (src, fn) {
         fn = fn || function () {}
@@ -12,4 +16,3 @@
         document.head.appendChild(script)
     }
 })()
-</script>

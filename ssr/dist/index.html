@@ -1,227 +1,20 @@
 <html><head><style type="text/css" id="omi_style_0">
         h3[omi_scoped_0],[omi_scoped_0] h3{ color:red; }
         button[omi_scoped_0],[omi_scoped_0] button{ color:green;}
-        </style></head><body><div omi_scoped_0="">
+        </style></head><body><div id="__omi"><div omi_scoped_0="">
                     <h3 omi_scoped_0="">TODO</h3>
                     <ul omi_scoped_1="" omi_scoped_list=""> </ul>
                     <form omi_scoped_0="" onsubmit="Omi.instances[0].add(event)">
                         <input omi_scoped_0="" type="text" onchange="Omi.instances[0].handleChange(this)" value="">
                         <button omi_scoped_0="">Add #0</button>
                     </form>
-                </div><script>/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-/******/
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports) {
-
-module.exports = Omi;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _omi = __webpack_require__(0);
-
-var _omi2 = _interopRequireDefault(_omi);
-
-var _list = __webpack_require__(2);
-
-var _list2 = _interopRequireDefault(_list);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-_omi2['default'].makeHTML('List', _list2['default']);
-
-var Todo = function (_Omi$Component) {
-    _inherits(Todo, _Omi$Component);
-
-    function Todo(data) {
-        _classCallCheck(this, Todo);
-
-        var _this = _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, data));
-
-        _this.data.length = _this.data.items.length;
-        _this.listData = { items: _this.data.items };
-        return _this;
-    }
-
-    _createClass(Todo, [{
-        key: 'add',
-        value: function add(evt) {
-            evt.preventDefault();
-            this.list.data.items.push(this.data.text);
-            this.data.length = this.list.data.items.length;
-            this.data.text = '';
-            this.update();
-        }
-    }, {
-        key: 'style',
-        value: function style() {
-            return '\n        h3 { color:red; }\n        button{ color:green;}\n        ';
-        }
-    }, {
-        key: 'handleChange',
-        value: function handleChange(target) {
-            this.data.text = target.value;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return '<div>\n                    <h3>TODO</h3>\n                    <List  name="list" data="listData" />\n                    <form onsubmit="add(event)" >\n                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n                </div>';
-        }
-    }]);
-
-    return Todo;
-}(_omi2['default'].Component);
-
-exports['default'] = Todo;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _omi = __webpack_require__(0);
-
-var _omi2 = _interopRequireDefault(_omi);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var List = function (_Omi$Component) {
-    _inherits(List, _Omi$Component);
-
-    function List(data) {
-        _classCallCheck(this, List);
-
-        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, data));
-    }
-
-    _createClass(List, [{
-        key: 'render',
-        value: function render() {
-            return ' <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';
-        }
-    }]);
-
-    return List;
-}(_omi2['default'].Component);
-
-exports['default'] = List;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _todo = __webpack_require__(1);
-
-var _todo2 = _interopRequireDefault(_todo);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-Omi.render(new _todo2['default']({ items: [], text: '' }), 'body', true);
-
-/***/ })
-/******/ ]);</script><script>
+                </div></div><script>var __OMI_DATA__={"component":"!function(t){function e(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,e),o.l=!0,o.exports}var n={};e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,r){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:r})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,\"a\",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p=\"\",e(e.s=3)}([function(t,e){t.exports=Omi},function(t,e,n){\"use strict\";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,e){if(!(t instanceof e))throw new TypeError(\"Cannot call a class as a function\")}function u(t,e){if(!t)throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\");return!e||\"object\"!=typeof e&&\"function\"!=typeof e?t:e}function i(t,e){if(\"function\"!=typeof e&&null!==e)throw new TypeError(\"Super expression must either be null or a function, not \"+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,\"__esModule\",{value:!0});var a=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,\"value\"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),l=n(0),f=r(l),c=n(2),s=r(c);f.default.makeHTML(\"List\",s.default);var p=function(t){function e(t){o(this,e);var n=u(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return n.data.length=n.data.items.length,n.listData={items:n.data.items},n}return i(e,t),a(e,[{key:\"add\",value:function(t){t.preventDefault(),this.list.data.items.push(this.data.text),this.data.length=this.list.data.items.length,this.data.text=\"\",this.update()}},{key:\"style\",value:function(){return\"\\n        h3 { color:red; }\\n        button{ color:green;}\\n        \"}},{key:\"handleChange\",value:function(t){this.data.text=t.value}},{key:\"render\",value:function(){return'<div>\\n                    <h3>TODO</h3>\\n                    <List  name=\"list\" data=\"listData\" />\\n                    <form onsubmit=\"add(event)\" >\\n                        <input type=\"text\" onchange=\"handleChange(this)\"  value=\"{{text}}\"  />\\n                        <button>Add #{{length}}</button>\\n                    </form>\\n                </div>'}}]),e}(f.default.Component);e.default=p},function(t,e,n){\"use strict\";function r(t,e){if(!(t instanceof e))throw new TypeError(\"Cannot call a class as a function\")}function o(t,e){if(!t)throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\");return!e||\"object\"!=typeof e&&\"function\"!=typeof e?t:e}function u(t,e){if(\"function\"!=typeof e&&null!==e)throw new TypeError(\"Super expression must either be null or a function, not \"+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,\"__esModule\",{value:!0});var i=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,\"value\"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),a=n(0),l=function(t){return t&&t.__esModule?t:{default:t}}(a),f=function(t){function e(t){return r(this,e),o(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t))}return u(e,t),i(e,[{key:\"render\",value:function(){return\" <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\"}}]),e}(l.default.Component);e.default=f},function(t,e,n){\"use strict\";var r=n(1),o=function(t){return t&&t.__esModule?t:{default:t}}(r);Omi.render(new o.default({items:[],text:\"\"}),\"#__omi\")}]);"}</script><script>
 (function () {
-    load('https://xx.xxx.xxx/omi-server.min.js')
+    load('https://unpkg.com/omi@1.2.2/dist/omi.min.js',function (err) {
+        eval(__OMI_DATA__.component)
+        //diff
+
+    })
 
     function load (src, fn) {
         fn = fn || function () {}
@@ -232,5 +25,4 @@ Omi.render(new _todo2['default']({ items: [], text: '' }), 'body', true);
         script.crossorigin = 'anonymous'
         document.head.appendChild(script)
     }
-})()
-</script></body></html>
+})()</script></body></html>
