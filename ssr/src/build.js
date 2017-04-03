@@ -68,7 +68,7 @@ function cpLite(css, html) {
         if (!fs.existsSync('dist')) {
             fs.mkdirSync('dist')
         }
-        fs.writeFileSync('dist/index.html', `<html><head>`+css+`</head><body>`+html+`<script>` + contentText + `</script></body></html>`, 'utf-8')
+        fs.writeFileSync('dist/index.html', `<html><head>`+css+`</head><body>`+html+`<script>` + contentText + `</script>`+ fs.readFileSync('./src/loadjs.js', 'utf-8')+`</body></html>`, 'utf-8')
         fs.unlinkSync('index.lite.js')
     })
 }
