@@ -60,10 +60,10 @@ var config  = {
     stats: {
         // Nice colored output
         colors: true
+    },
+    externals: {
+
     }
-    //externals: {
-    //    'omi': 'Omi'
-    //}
     // Create Sourcemaps for the bundle
     //devtool: 'source-map'
 };
