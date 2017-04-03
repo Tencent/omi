@@ -5,3 +5,4 @@ node_modules
 /.idea
 /md2site/template/app/rev
 /omi-canvas
+/example/server-rendering
