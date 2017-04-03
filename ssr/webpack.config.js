@@ -11,7 +11,7 @@ var ENV = process.env.npm_lifecycle_event;
 
 var config  = {
     entry: {
-        index: './example/simple/index.js'
+        index: './example/simple/main.js'
     },
     //dist命令使用下面的config
     //output: {
@@ -61,6 +61,9 @@ var config  = {
         // Nice colored output
         colors: true
     }
+    //externals: {
+    //    'omi': 'Omi'
+    //}
     // Create Sourcemaps for the bundle
     //devtool: 'source-map'
 };

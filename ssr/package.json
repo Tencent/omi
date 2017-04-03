@@ -29,6 +29,7 @@
     "gulp-rev": "^7.1.2",
     "gulp-rev-collector": "^1.1.1",
     "html-webpack-plugin": "^2.26.0",
+    "jsdom": "^9.12.0",
     "node-sass": "^4.5.0",
     "run-sequence": "^1.2.2",
     "sass-loader": "^6.0.3",

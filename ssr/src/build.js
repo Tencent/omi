@@ -27,5 +27,19 @@ compiler.run((err, stats) => {
     }
     fs.writeFileSync('dist/index.html', `<html><head></head><body><script>` + contentText + `</script></body></html>`, 'utf-8')
 
-    fs.unlinkSync('index.js')
+    var jsdom = require("jsdom").jsdom;
+    var window = jsdom().defaultView;
+
+    //window.__myObject = { foo: "bar" };
+
+    var scriptEl = window.document.createElement("script");
+    scriptEl.onload = function () {
+        console.log(window.document.body.innerHTML)
+        console.log(window.document.head.innerHTML)
+
+        fs.unlinkSync('index.js')
+    }
+    scriptEl.src = "index.js";
+    window.document.body.appendChild(scriptEl);
+
 })
