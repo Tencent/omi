@@ -11,7 +11,7 @@ var ENV = process.env.npm_lifecycle_event;
 
 var config  = {
     entry: {
-        index: './example/'+ENV+'/src/main.js'
+        index: './example/'+ENV.replace('-min','')+'/src/main.js'
     },
     //dist命令使用下面的config
     //output: {
@@ -55,10 +55,8 @@ var config  = {
     //devtool: 'source-map'
 };
 
-if(ENV === 'dist') {
+if(ENV.indexOf('-min') !== '-1') {
     config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-
-
 }
 
 module.exports = config;

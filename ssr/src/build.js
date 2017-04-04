@@ -63,12 +63,14 @@ function cpLite(css, html) {
         newContent = newContent.replace(/(\.render\([\s\S]*?\\['|"])(body)(\\['|"]\))/,()=>{
             return RegExp.$1 + '#__omi'  +RegExp.$3;
         })
-        if (!fs.existsSync('dist')) {
-            fs.mkdirSync('dist')
+
+       const dir =  webpackConfig.entry.index.replace('src/main.js','')
+        if (!fs.existsSync(dir+'dist')) {
+            fs.mkdirSync(dir+'dist')
         }
         let script = fs.readFileSync('./src/loadjs.js', 'utf-8');
 
-        fs.writeFileSync('dist/index.html', `<html><head>`+css+`</head><body>`+html+`<script>var __OMI_DATA__=` + newContent + `</script><script>`+script+`</script></body></html>`, 'utf-8')
+        fs.writeFileSync(dir+'dist/index.html', `<html><head>`+css+`</head><body>`+html+`<script>var __OMI_DATA__=` + newContent + `</script><script>`+script+`</script></body></html>`, 'utf-8')
         fs.unlinkSync('index.lite.js')
     })
 }

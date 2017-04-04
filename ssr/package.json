@@ -4,7 +4,9 @@
   "description": "SSR for Omi.js",
   "scripts": {
     "simple":"babel-node ./src/build.js",
-    "spa":"babel-node ./src/build.js"
+    "spa":"babel-node ./src/build.js",
+    "simple-min":"babel-node ./src/build.js",
+    "spa-min":"babel-node ./src/build.js"
   },
   "dependencies": {
     "omi": "latest",
