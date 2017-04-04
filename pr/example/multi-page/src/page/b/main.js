@@ -2,9 +2,12 @@ import Omi from 'omi';
 import Hello from '../../component/hello.js';
 
 class App extends Omi.Component {
+    style() {
+        return ` div{color:red;}`
+    }
 
     render() {
-        return  `
+        return `
         <div>
             <Hello data-name="{{name}}" />
         </div>`;

@@ -1,45 +1,63 @@
 const webpack = require('webpack')
-let webpackConfig = require('../webpack.config.js')
+const path = require('path')
 const fs = require('fs')
+let webpackConfig = require('./webpack.config.js')
+let omiConfig = require(path.resolve('.')+"/omi.config.js")
 
+const dir = path.resolve('.')
 const compiler = webpack(webpackConfig)
+const jsdom = require("jsdom").jsdom
+const window = jsdom().defaultView
+const keys =  Object.keys(webpackConfig.entry)
+const len = keys.length
+let index = 0
+let list = []
 
-compiler.run((err, stats) => {
-    if (err) {
-        console.error(err)
-        return
-    }
+const build = () => {
+    compiler.run((err, stats) => {
+        if (err) {
+            console.error(err)
+            return
+        }
 
-    const jsonStats = stats.toJson()
+        const jsonStats = stats.toJson()
 
-    if (jsonStats.errors.length > 0) {
-        const error = new Error(jsonStats.errors[0])
-        error.errors = jsonStats.errors
-        error.warnings = jsonStats.warnings
-        console.error(err)
-        return
-    }
+        if (jsonStats.errors.length > 0) {
+            const error = new Error(jsonStats.errors[0])
+            error.errors = jsonStats.errors
+            error.warnings = jsonStats.warnings
+            console.log(jsonStats)
+            return
+        }
 
-    const jsdom = require("jsdom").jsdom;
-    const window = jsdom().defaultView;
+        getHTMLCSS(keys[index])
+    })
+}
 
-    //window.__myObject = { foo: "bar" };
 
+
+const getHTMLCSS = (name) =>{
+    window.document.head.innerHTML = ''
+    window.document.body.innerHTML = ''
+    window.Omi = null
     let scriptEl = window.document.createElement("script");
+
     scriptEl.onload = function () {
+        fs.unlinkSync(scriptEl.src)
+        list.push([window.document.head.innerHTML, '<div id="__omi">'+window.document.body.innerHTML.replace('<script src="'+scriptEl.src+'.js"><\/script>','')+'</div>',scriptEl.src])
+        index++
+        (index<len)&&getHTMLCSS(keys[index])
 
-        fs.unlinkSync('index.js')
-        cpLite(window.document.head.innerHTML, '<div id="__omi">'+window.document.body.innerHTML.replace('<script src="index.js"><\/script>','')+'</div>')
-
-
+        if(index===len){
+            cpLite()
+        }
     }
-    scriptEl.src = "index.js"
+    scriptEl.src = name+".js"
     window.document.body.appendChild(scriptEl)
-})
+}
 
-function cpLite(css, html) {
+const cpLite = ()=> {
     webpackConfig.externals.omi = 'Omi'
-    webpackConfig.output.filename = 'index.lite.js'
     const compilerEncludeOmi = webpack(webpackConfig)
 
     compilerEncludeOmi.run((err, stats) => {
@@ -58,19 +76,33 @@ function cpLite(css, html) {
             return
         }
 
-        const content = fs.readFileSync('index.lite.js', 'utf-8')
-        let newContent = JSON.stringify({ component: content })
-        newContent = newContent.replace(/(\.render\([\s\S]*?\\['|"])(body)(\\['|"]\))/,()=>{
-            return RegExp.$1 + '#__omi'  +RegExp.$3;
+        list.forEach((item)=> {
+            let name = item[2],
+                html = item[1],
+                css = item[0]
+
+            const content = fs.readFileSync(name, 'utf-8')
+            let newContent = JSON.stringify({component: content})
+            newContent = newContent.replace(/(\.render\([\s\S]*?\\['|"])(body)(\\['|"]\))/, ()=> {
+                return RegExp.$1 + '#__omi' + RegExp.$3
+            })
+
+            if (!fs.existsSync('dist')) {
+                fs.mkdirSync('dist')
+            }
+
+            let script = fs.readFileSync(path.resolve(__dirname, 'loadjs.js'), 'utf-8')
+
+            let cdn = omiConfig['omi-cdn'];
+            if (!cdn) {
+                cdn = 'https://unpkg.com/omi@1.2.4/dist/omi.min.js'
+            }
+
+            fs.writeFileSync('dist/' + name.split('.')[0] + '.html', `<html><head>` + css + `</head><body>` + html + `<script>var __OMI_DATA__=` + newContent + `</script><script>` + script.replace('{{omi-cdn}}', cdn) + `</script></body></html>`, 'utf-8')
+            fs.unlinkSync(name)
         })
 
-       const dir =  webpackConfig.entry.index.replace('src/main.js','')
-        if (!fs.existsSync(dir+'dist')) {
-            fs.mkdirSync(dir+'dist')
-        }
-        let script = fs.readFileSync('./src/loadjs.js', 'utf-8');
-
-        fs.writeFileSync(dir+'dist/index.html', `<html><head>`+css+`</head><body>`+html+`<script>var __OMI_DATA__=` + newContent + `</script><script>`+script+`</script></body></html>`, 'utf-8')
-        fs.unlinkSync('index.lite.js')
     })
 }
+
+module.exports = build;

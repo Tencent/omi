@@ -2,22 +2,10 @@ var path = require('path');
 var webpack = require("webpack");
 var commonChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
-
-/**
- * Env
- * Get npm lifecycle event to identify the environment
- */
-var ENV = process.env.npm_lifecycle_event;
+var omiConfig = require(path.resolve('.')+"/omi.config.js");
 
 var config  = {
-    entry: {
-        index: './example/'+ENV.replace('-min','')+'/src/main.js'
-    },
-    //dist命令使用下面的config
-    //output: {
-    //    filename: '[name].[chunkhash:8].js'
-    //},
-    //dev使用下面的
+    entry: omiConfig.entry,
     output: {
         filename: '[name].js'
     },
@@ -55,8 +43,8 @@ var config  = {
     //devtool: 'source-map'
 };
 
-if(ENV.indexOf('-min') !== '-1') {
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-}
+
+config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+
 
 module.exports = config;
