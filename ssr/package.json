@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "description": "SSR for Omi.js",
   "scripts": {
-    "dev": "babel-node ./src/build.js",
-    "dist": "babel-node ./src/build.js"
+    "simple":"babel-node ./src/build.js",
+    "spa":"babel-node ./src/build.js"
   },
   "dependencies": {
     "omi": "latest",

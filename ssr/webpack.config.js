@@ -11,7 +11,7 @@ var ENV = process.env.npm_lifecycle_event;
 
 var config  = {
     entry: {
-        index: './example/spa/src/main.js'
+        index: './example/'+ENV+'/src/main.js'
     },
     //dist命令使用下面的config
     //output: {
