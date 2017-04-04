@@ -1,7 +1,10 @@
 {
   "name": "omi-pr",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Pre-Render for Omi.js",
+  "bin": {
+    "omi-pr": "./bin/omi-pr"
+  },
   "scripts": {
 
   },
