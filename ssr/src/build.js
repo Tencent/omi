@@ -59,14 +59,16 @@ function cpLite(css, html) {
         }
 
         const content = fs.readFileSync('index.lite.js', 'utf-8')
-        const newContent = JSON.stringify({ component: content })
-        const pos =  newContent.lastIndexOf('body')
+        let newContent = JSON.stringify({ component: content })
+        newContent = newContent.replace(/(\.render\([\s\S]*?\\['|"])(body)(\\['|"]\))/,()=>{
+            return RegExp.$1 + '#__omi'  +RegExp.$3;
+        })
         if (!fs.existsSync('dist')) {
             fs.mkdirSync('dist')
         }
         let script = fs.readFileSync('./src/loadjs.js', 'utf-8');
 
-        fs.writeFileSync('dist/index.html', `<html><head>`+css+`</head><body>`+html+`<script>var __OMI_DATA__=` + (  newContent.substring(0, pos) + "#__omi" + newContent.substring(pos+4,newContent.length) ) + `</script><script>`+script+`</script></body></html>`, 'utf-8')
+        fs.writeFileSync('dist/index.html', `<html><head>`+css+`</head><body>`+html+`<script>var __OMI_DATA__=` + newContent + `</script><script>`+script+`</script></body></html>`, 'utf-8')
         fs.unlinkSync('index.lite.js')
     })
 }

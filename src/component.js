@@ -43,11 +43,13 @@ class Component {
         //this.BODY_ELEMENT = document.createElement('body')
         this._preCSS = null
         this._omiGroupDataCounter = {}
+        this._omi_installedHandlers = null
         if (this._omi_server_rendering || isReRendering) {
             this.install()
             this._render(true)
             this._childrenInstalled(this)
             this.installed()
+            this._execInstalledHandlers()
         }
     }
 
@@ -55,6 +57,19 @@ class Component {
     }
 
     installed() {
+    }
+
+    onInstalled(handler){
+        if(!this._omi_installedHandlers){
+            this._omi_installedHandlers = []
+        }
+        this._omi_installedHandlers.push(handler)
+    }
+
+    _execInstalledHandlers(){
+        this._omi_installedHandlers&&this._omi_installedHandlers.forEach((handler)=>{
+            handler()
+        })
     }
 
     uninstall(){
@@ -195,6 +210,7 @@ class Component {
         this._omi_removed  = false
         this.update()
         this.installed()
+        this._execInstalledHandlers()
     }
 
     _render(isFirst, isSelf) {
@@ -332,6 +348,7 @@ class Component {
         root.children.forEach((child)=>{
             this._childrenInstalled(child)
             child.installed()
+            child._execInstalledHandlers()
         })
     }
 

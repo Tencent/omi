@@ -38,7 +38,9 @@
         var hash = window.location.hash.replace('#', '')
         hashMapping(hash ? hash : routerOption.defaultRoute, renderTo)
         if(hash) {
-            render()
+            option.root.onInstalled(function(){
+                render()
+            })
         }
     }
 

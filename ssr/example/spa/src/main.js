@@ -1,5 +1,5 @@
 ﻿import Omi from 'omi'
-import OmiRouter from '../../index.js'
+import OmiRouter from 'omi-router'
 
 import Home from './home.js'
 import About from './about.js'
@@ -23,7 +23,7 @@ class App extends Omi.Component {
     }
 
     style(){
-       return `
+        return `
         ul{
             border-bottom: 1px solid #ccc;
             padding-bottom:5px;
@@ -57,4 +57,4 @@ class App extends Omi.Component {
 }
 
 
-Omi.render(new App(),"#__omi")
+Omi.render(new App(),"body")

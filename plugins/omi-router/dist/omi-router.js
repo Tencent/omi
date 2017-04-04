@@ -1,5 +1,5 @@
 /*!
- *  OmiRouter v0.1.1 By dntzhang 
+ *  OmiRouter v0.1.2 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -99,7 +99,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var hash = window.location.hash.replace('#', '')
 	        hashMapping(hash ? hash : routerOption.defaultRoute, renderTo)
 	        if(hash) {
-	            render()
+	            option.root.onInstalled(function(){
+	                render()
+	            })
 	        }
 	    }
 

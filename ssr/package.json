@@ -7,7 +7,8 @@
     "dist": "babel-node ./src/build.js"
   },
   "dependencies": {
-    "omi": "latest"
+    "omi": "latest",
+    "omi-router": "latest"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",

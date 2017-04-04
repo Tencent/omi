@@ -95,25 +95,26 @@
 	            _index2.default.init({
 	                routes: [{ path: '/', component: _home2.default }, { path: '/about', component: _about2.default }, { path: '/user-list', component: _userList2.default }, { path: '/user/:name/category/:category', component: _user2.default }],
 	                renderTo: "#view",
-	                defaultRoute: '/'
+	                defaultRoute: '/',
+	                root: this
 	            });
 	        }
 	    }, {
 	        key: 'style',
 	        value: function style() {
-	            return '\n        ul{\n            border-bottom: 1px solid #ccc;\n            padding-bottom:5px;\n        }\n        li{\n            display:inline-block;\n        }\n        ';
+	            return '\n        ul{\n            border-bottom: 1px solid #ccc;\n            padding-bottom:5px;\n        }\n        li{\n            display:inline-block;\n        }\n        #view li{\n            display:block;\n        }\n        #view ul{\n            border-width: 0px;\n        }\n        ';
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <ul>\n            <li><a omi-router to="/" >Home</a></li>\n            <li><a omi-router to="/about" >About</a></li>\n            <li><a omi-router to="/user-list" >UserList</a></li>\n        </ul>\n        ';
+	            return '\n        <div>\n            <ul>\n                <li><a omi-router to="/" >Home</a></li>\n                <li><a omi-router to="/about" >About</a></li>\n                <li><a omi-router to="/user-list" >UserList</a></li>\n            </ul>\n            <div id="view">\n\n            </div>\n        </div>\n        ';
 	        }
 	    }]);
 
 	    return App;
 	}(_omi2.default.Component);
 
-	_omi2.default.render(new App(), "#links");
+	_omi2.default.render(new App(), "#__omi");
 
 /***/ },
 /* 1 */
@@ -124,7 +125,7 @@
 	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/*!
-	 *  Omi v1.2.0 By dntzhang 
+	 *  Omi v1.2.3 By dntzhang 
 	 *  Github: https://github.com/AlloyTeam/omi
 	 *  MIT Licensed.
 	 */
@@ -491,6 +492,7 @@
 					component._render(true);
 					component._childrenInstalled(component);
 					component.installed();
+					component._execInstalledHandlers();
 					return component;
 				};
 
@@ -1270,11 +1272,13 @@
 						//this.BODY_ELEMENT = document.createElement('body')
 						this._preCSS = null;
 						this._omiGroupDataCounter = {};
+						this._omi_installedHandlers = null;
 						if (this._omi_server_rendering || isReRendering) {
 							this.install();
 							this._render(true);
 							this._childrenInstalled(this);
 							this.installed();
+							this._execInstalledHandlers();
 						}
 					}
 
@@ -1284,6 +1288,21 @@
 					}, {
 						key: 'installed',
 						value: function installed() {}
+					}, {
+						key: 'onInstalled',
+						value: function onInstalled(handler) {
+							if (!this._omi_installedHandlers) {
+								this._omi_installedHandlers = [];
+							}
+							this._omi_installedHandlers.push(handler);
+						}
+					}, {
+						key: '_execInstalledHandlers',
+						value: function _execInstalledHandlers() {
+							this._omi_installedHandlers && this._omi_installedHandlers.forEach(function (handler) {
+								handler();
+							});
+						}
 					}, {
 						key: 'uninstall',
 						value: function uninstall() {}
@@ -1433,6 +1452,7 @@
 							this._omi_removed = false;
 							this.update();
 							this.installed();
+							this._execInstalledHandlers();
 						}
 					}, {
 						key: '_render',
@@ -1587,6 +1607,7 @@
 							root.children.forEach(function (child) {
 								_this8._childrenInstalled(child);
 								child.installed();
+								child._execInstalledHandlers();
 							});
 						}
 					}, {
@@ -1890,7 +1911,7 @@
 			/* 4 */
 			/***/function (module, exports, __webpack_require__) {
 
-				"use strict";
+				'use strict';
 
 				Object.defineProperty(exports, "__esModule", {
 					value: true
@@ -1901,12 +1922,15 @@
 				var _omi2 = _interopRequireDefault(_omi);
 
 				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { "default": obj };
+					return obj && obj.__esModule ? obj : { 'default': obj };
 				}
 
 				//many thanks to https://github.com/thomaspark/scoper/
 				function scoper(css, prefix) {
-					var re = new RegExp("([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{]*{)|\s*{)", "g");
+					//https://www.w3.org/TR/css-syntax-3/#lexical
+					css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
+
+					var re = new RegExp("([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)", "g");
 					/**
 	     * Example:
 	     *
@@ -1919,10 +1943,6 @@
 					css = css.replace(re, function (g0, g1, g2, g3) {
 						if (typeof g2 === "undefined") {
 							g2 = "";
-						}
-
-						if (g0.indexOf(';base64') !== -1 || g0.indexOf('/') !== -1) {
-							return g0;
 						}
 
 						if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {
@@ -1938,7 +1958,7 @@
 				}
 
 				function addStyle(cssText, id) {
-					var ele = document.getElementById(_omi2["default"].STYLEPREFIX + id),
+					var ele = document.getElementById(_omi2['default'].STYLEPREFIX + id),
 					    head = document.getElementsByTagName('head')[0];
 					if (ele && ele.parentNode === head) {
 						head.removeChild(ele);
@@ -1947,7 +1967,7 @@
 					var someThingStyles = document.createElement('style');
 					head.appendChild(someThingStyles);
 					someThingStyles.setAttribute('type', 'text/css');
-					someThingStyles.setAttribute('id', _omi2["default"].STYLEPREFIX + id);
+					someThingStyles.setAttribute('id', _omi2['default'].STYLEPREFIX + id);
 					if (!!window.ActiveXObject) {
 						someThingStyles.styleSheet.cssText = cssText;
 					} else {
@@ -1955,7 +1975,7 @@
 					}
 				}
 
-				exports["default"] = {
+				exports['default'] = {
 					scoper: scoper,
 					addStyle: addStyle
 				};
@@ -3165,7 +3185,9 @@
 	        var hash = window.location.hash.replace('#', '');
 	        hashMapping(hash ? hash : routerOption.defaultRoute, renderTo);
 	        if (hash) {
-	            render();
+	            option.root.onInstalled(function () {
+	                render();
+	            });
 	        }
 	    };
 

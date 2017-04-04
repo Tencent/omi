@@ -37,22 +37,9 @@ import OmiRouter from 'omi-router'
 
 ## 开始
 
-先来看下HTML结构:
-
-``` html
-<div id="links">
-
-</div>
-<div id="view">
-
-</div>
-```
-
-看下javascript代码:
-
 ```js
 import Omi from 'omi'
-import OmiRouter from '../../index.js'
+import OmiRouter from 'omi-router'
 
 import Home from './home.js'
 import About from './about.js'
@@ -60,7 +47,6 @@ import User from './user.js'
 import UserList from './user-list.js'
 
 class App extends Omi.Component {
-
     install() {
         OmiRouter.init({
             routes: [
@@ -70,23 +56,26 @@ class App extends Omi.Component {
                 {path: '/user/:name/category/:category', component: User}
             ],
             renderTo: "#view",
-            defaultRoute: '/'
+            defaultRoute: '/',
+            root: this
         })
     }
 
     render() {
         return  `
-        <ul>
-            <li><a omi-router to="/" >Home</a></li>
-            <li><a omi-router to="/about" >About</a></li>
-            <li><a omi-router to="/user-list" >UserList</a></li>
-        </ul>
+        <div>
+            <ul>
+                <li><a omi-router to="/" >Home</a></li>
+                <li><a omi-router to="/about" >About</a></li>
+                <li><a omi-router to="/user-list" >UserList</a></li>
+            </ul>
+            <div id="view"> </div>
+        </div>
         `
     }
 }
 
-
-Omi.render(new App(),"#links")
+Omi.render(new App(),"#__omi")
 ```
 
 这里详细说下 `OmiRouter.init` 传递的配置参数的意义:

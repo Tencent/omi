@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.2.2 By dntzhang 
+ *  Omi v1.2.4 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -363,6 +363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    component._render(true);
 	    component._childrenInstalled(component);
 	    component.installed();
+	    component._execInstalledHandlers();
 	    return component;
 	};
 
@@ -507,11 +508,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        //this.BODY_ELEMENT = document.createElement('body')
 	        this._preCSS = null;
 	        this._omiGroupDataCounter = {};
+	        this._omi_installedHandlers = null;
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
 	            this._childrenInstalled(this);
 	            this.installed();
+	            this._execInstalledHandlers();
 	        }
 	    }
 
@@ -521,6 +524,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'installed',
 	        value: function installed() {}
+	    }, {
+	        key: 'onInstalled',
+	        value: function onInstalled(handler) {
+	            if (!this._omi_installedHandlers) {
+	                this._omi_installedHandlers = [];
+	            }
+	            this._omi_installedHandlers.push(handler);
+	        }
+	    }, {
+	        key: '_execInstalledHandlers',
+	        value: function _execInstalledHandlers() {
+	            this._omi_installedHandlers && this._omi_installedHandlers.forEach(function (handler) {
+	                handler();
+	            });
+	        }
 	    }, {
 	        key: 'uninstall',
 	        value: function uninstall() {}
@@ -670,6 +688,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            this._omi_removed = false;
 	            this.update();
 	            this.installed();
+	            this._execInstalledHandlers();
 	        }
 	    }, {
 	        key: '_render',
@@ -824,6 +843,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            root.children.forEach(function (child) {
 	                _this8._childrenInstalled(child);
 	                child.installed();
+	                child._execInstalledHandlers();
 	            });
 	        }
 	    }, {
