@@ -41,16 +41,16 @@ var config  = {
     },
     resolve: {
         modules: [
+            path.join(__dirname, '..', 'node_modules'),
             'node_modules',
             path.join(__dirname,  'node_modules')
-
         ]
     },
     resolveLoader: {
         modules: [
+            path.join(__dirname, '..', 'node_modules'),
             'node_modules',
             path.join(__dirname,  'node_modules')
-
         ]
     }
     // Create Sourcemaps for the bundle
