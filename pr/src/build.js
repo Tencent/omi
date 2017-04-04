@@ -1,6 +1,6 @@
-import webpack from 'webpack'
-import webpackConfig from '../webpack.config.js'
-import fs from 'fs'
+const webpack = require('webpack')
+let webpackConfig = require('../webpack.config.js')
+const fs = require('fs')
 
 const compiler = webpack(webpackConfig)
 

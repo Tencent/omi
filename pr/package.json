@@ -1,12 +1,12 @@
 {
   "name": "your-project-name",
   "version": "0.0.0",
-  "description": "SSR for Omi.js",
+  "description": "pr for Omi.js",
   "scripts": {
-    "simple":"babel-node ./src/build.js",
-    "spa":"babel-node ./src/build.js",
-    "simple-min":"babel-node ./src/build.js",
-    "spa-min":"babel-node ./src/build.js"
+    "simple":"node ./src/build.js",
+    "spa":"node ./src/build.js",
+    "simple-min":"node ./src/build.js",
+    "spa-min":"node ./src/build.js"
   },
   "dependencies": {
     "omi": "latest",
@@ -45,7 +45,8 @@
     "url": "git+https://github.com/AlloyTeam/omi.git"
   },
   "keywords": [
-    "omi"
+    "omi",
+    "omi-pr"
   ],
   "author": "dntzhang",
   "license": "MIT",
