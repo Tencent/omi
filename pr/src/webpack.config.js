@@ -16,14 +16,14 @@ var config  = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015', "stage-0"],
+                    presets: ["babel-preset-es2015", "babel-preset-stage-0"].map(require.resolve),
                     //support ie8
                     plugins : [
-                        "transform-es3-property-literals",
-                        "transform-es3-member-expression-literals"
-                    ]
+                        "babel-plugin-transform-es3-property-literals",
+                        "babel-plugin-transform-es3-member-expression-literals"
+                    ].map(require.resolve)
                 },
-                exclude: /node_modules/
+                exclude: /(node_modules|bower_components)/
             },
             {test: /\.html|\.css$/, loader: "string-loader"}
         ]
@@ -38,6 +38,20 @@ var config  = {
     },
     externals: {
 
+    },
+    resolve: {
+        modules: [
+            'node_modules',
+            path.join(__dirname,  'node_modules')
+
+        ]
+    },
+    resolveLoader: {
+        modules: [
+            'node_modules',
+            path.join(__dirname,  'node_modules')
+
+        ]
     }
     // Create Sourcemaps for the bundle
     //devtool: 'source-map'

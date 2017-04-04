@@ -1,6 +1,6 @@
 {
   "name": "omi-pr",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Pre-Render for Omi.js",
   "bin": {
     "omi-pr": "./bin/omi-pr"
@@ -20,6 +20,8 @@
     "babel-plugin-transform-es3-property-literals": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
+    "babel-runtime": "6.23.0",
+
     "jsdom": "^9.12.0",
     "string-loader": "0.0.1",
     "webpack": "^2.2.1"
