@@ -6,7 +6,7 @@ Omi的[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/)插件，
 
 ## Demo
 
-[http://alloyteam.github.io/omi/plugins/omi-transform/example/transform/](http://alloyteam.github.io/omi/plugins/omi-transform/example/transform/)
+[http://alloyteam.github.io/omi/plugins/omi-transform/example/simple/](http://alloyteam.github.io/omi/plugins/omi-transform/example/simple/)
 
 ## 通过npm安装 
 
