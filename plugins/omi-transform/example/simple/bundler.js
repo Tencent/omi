@@ -79,13 +79,13 @@
 	        key: 'installed',
 	        value: function installed() {
 	            setInterval(function () {
-	                this.refs.test.rotateZ += 0.1;
+	                this.refs.test.rotateY += 1;
 	            }.bind(this));
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n            <div omi-transform class="test" ref="test" rotateZ="45" translateX="100" >\n                omi-transform\n            </div>\n\n        ';
+	            return '\n            <div omi-transform class="test" ref="test" rotateZ="0" translateX="100" perspective="400" >\n                omi-transform\n            </div>\n\n        ';
 	        }
 	    }, {
 	        key: 'style',
@@ -108,7 +108,7 @@
 	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/*!
-	 *  Omi v0.1.6 By dntzhang 
+	 *  Omi v0.1.8 By dntzhang 
 	 *  Github: https://github.com/AlloyTeam/omi
 	 *  MIT Licensed.
 	 */
@@ -1188,6 +1188,10 @@
 									this.node = hdNode;
 								} else {
 									(0, _diff2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
+
+									this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
+									this._queryElements(this);
+									this._fixForm();
 								}
 							}
 							//update added components
@@ -1966,11 +1970,15 @@
 	            var ref = dom.getAttribute('ref');
 	            if (ref) {
 	                var element = instance.refs[ref];
-	                Transform(element);
-	                ['translateX', 'translateY', 'translateZ', 'scaleX', 'scaleY', 'scaleZ', 'rotateX', 'rotateY', 'rotateZ', 'skewX', 'skewY', 'originX', 'originY', 'originZ'].forEach(function (name) {
+
+	                Transform(element, dom.getAttribute('perspective') === null ? true : false);
+	                ['translateX', 'translateY', 'translateZ', 'scaleX', 'scaleY', 'scaleZ', 'rotateX', 'rotateY', 'rotateZ', 'skewX', 'skewY', 'originX', 'originY', 'originZ', 'perspective'].forEach(function (name) {
 	                    var attr = dom.getAttribute(name);
 	                    if (attr) {
-	                        element[name] = parseFloat(dom.getAttribute(name));
+	                        var num = parseFloat(dom.getAttribute(name));
+	                        if (!isNaN(num)) {
+	                            element[name] = num;
+	                        }
 	                    }
 	                });
 	            }
@@ -2000,7 +2008,7 @@
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	/* transformjs 1.1.3
+	/* transformjs 1.1.4
 	 * By dntzhang
 	 * Github: https://github.com/AlloyTeam/AlloyTouch/tree/master/transformjs
 	 */
@@ -2218,10 +2226,8 @@
 	                return this["_" + prop];
 	            },
 	            set: function set(value) {
-	                if (value !== this["_" + prop]) {
-	                    this["_" + prop] = value;
-	                    callback();
-	                }
+	                this["_" + prop] = value;
+	                callback();
 	            }
 	        });
 	    }

@@ -22,11 +22,15 @@
             var ref = dom.getAttribute('ref');
             if(ref) {
                 var element = instance.refs[ref];
-                Transform(element, dom.getAttribute('perspective') ? false : true);
-                ['translateX', 'translateY', 'translateZ', 'scaleX', 'scaleY', 'scaleZ', 'rotateX', 'rotateY', 'rotateZ', 'skewX', 'skewY', 'originX', 'originY', 'originZ'].forEach(function (name) {
+
+                Transform(element, dom.getAttribute('perspective') === null ? true : false);
+                ['translateX', 'translateY', 'translateZ', 'scaleX', 'scaleY', 'scaleZ', 'rotateX', 'rotateY', 'rotateZ', 'skewX', 'skewY', 'originX', 'originY', 'originZ','perspective'].forEach(function (name) {
                     var attr = dom.getAttribute(name);
                     if (attr) {
-                        element[name] = parseFloat(dom.getAttribute(name));
+                        var num = parseFloat(dom.getAttribute(name));
+                        if(!isNaN(num)) {
+                            element[name] = num;
+                        }
                     }
                 });
             }
