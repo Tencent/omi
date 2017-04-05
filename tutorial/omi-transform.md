@@ -1,6 +1,4 @@
-Omi官方插件系列 - omi-transform介绍
-
-## 写在前面
+## Omi官方插件系列 - omi-transform介绍
 
 [Omi框架](https://github.com/AlloyTeam/omi/)正式发布了[omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform)作为Omi组件化开发特效运动解决方案，让你轻松在Omi项目里快速简便支持CSS3 Transform设置。先说说 [transform.js](http://alloyteam.github.io/AlloyTouch/transformjs/) (npm上的名字是 css3transform)。transform.js作为移动Web特效解决方案，在手Q兴趣部落、日迹、QQ群、QQ附近等项目中广泛使用，以激进的**修改**DOM属性为代价，带来极为便利的可编程性。
 
