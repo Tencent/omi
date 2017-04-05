@@ -35,13 +35,13 @@
 
     <span class="pl-en">installed</span>(){
         <span class="pl-c1">setInterval</span>(<span class="pl-k">function</span>(){
-            <span class="pl-c1">this</span>.<span class="pl-smi">refs</span>.<span class="pl-smi">test</span>.<span class="pl-smi">rotateZ</span> <span class="pl-k">+=</span> <span class="pl-c1">0.1</span>;
+            <span class="pl-c1">this</span>.<span class="pl-smi">refs</span>.<span class="pl-smi">test</span>.<span class="pl-smi">rotateZ</span> <span class="pl-k">+=</span> <span class="pl-c1">1</span>;
         }.<span class="pl-en">bind</span>(<span class="pl-c1">this</span>));
     }
 
     <span class="pl-en">render</span>() {
         <span class="pl-k">return</span>  <span class="pl-s"><span class="pl-pds">`</span></span>
-<span class="pl-s">            &lt;div omi-transform class="test" ref="test" rotateZ="45" translateX="100" &gt;</span>
+<span class="pl-s">            &lt;div omi-transform class="test" ref="test"  translateX="100"  perspective="400" &gt;</span>
 <span class="pl-s">                omi-transform</span>
 <span class="pl-s">            &lt;/div&gt;</span>
 <span class="pl-s"></span>
