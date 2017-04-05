@@ -12,7 +12,7 @@
     "url": "git+https://github.com/AlloyTeam/omi.git"
   },
   "dependencies": {
-    "css3transform": "^1.1.4",
+    "css3transform": "latest",
     "omi": "latest"
   },
   "devDependencies": {
