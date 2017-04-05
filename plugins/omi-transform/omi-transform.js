@@ -1,5 +1,5 @@
 /*!
- *  omi-transform v0.1.0 by dntzhang
+ *  omi-transform v0.2.0 by dntzhang
  *  Omi / css3transform  integration. Support CSS3 transformation in your Omi project.
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
