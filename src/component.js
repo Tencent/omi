@@ -293,8 +293,7 @@ class Component {
             }
         }
         this.beforeRender()
-        this._generateHTMLCSS()
-        this._fixSlot()
+        this._fixSlot(this._generateHTMLCSS())
         if (!isSelf) {
             this._extractChildren(this)
         } else {
@@ -308,7 +307,8 @@ class Component {
         return this.HTML
     }
 
-    _fixSlot() {
+    _fixSlot(shareAttr) {
+        this._omi_slotContent = this._scopedAttr(this._omi_slotContent, this._omi_scoped_attr, shareAttr)
         let nodes = morphdom.toElements(this._omi_slotContent)
         let slotMatch = this.HTML.match(/<slot[\s\S]*?<\/slot>/g)
         if(nodes.length === 1 && slotMatch && slotMatch.length===1) {
@@ -450,11 +450,13 @@ class Component {
             }
         }
         let tpl = this.render()
-        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "", this.data), this._omi_scoped_attr,shareAttr).trim()
+        this.HTML = this._scopedAttr(Omi.template(tpl ? tpl : "", this.data), this._omi_scoped_attr, shareAttr).trim()
         if (this._omi_server_rendering) {
             this.HTML = '\r\n<style id="'+Omi.STYLEPREFIX+this.id+'">\r\n' + this.CSS + '\r\n</style>\r\n'+this.HTML
             this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + Omi.STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n'
         }
+
+        return shareAttr
     }
 
     _scopedAttr(html, id, shareAtrr) {
@@ -530,6 +532,7 @@ class Component {
         //if not first time to invoke _extractChildren method
         if (cmi && cmi.___omi_constructor_name === name) {
             cmi._omiChildStr = childStr
+            cmi._omi_slotContent = slotContent
             Object.keys(attr).forEach(key => {
                 const value = attr[key]
                 if (key === 'group-data') {
