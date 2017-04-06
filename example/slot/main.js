@@ -19,7 +19,10 @@ class App extends Omi.Component {
             data-img="<img src='http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png' />"
             onXX="SFDSF"
             onXXX="SFDSdF"
-            omi-id="aa" ><div>aafd</div><span style="color: red;">123</span></Hello>
+            omi-id="aa" >
+                <div slot-index="0">aafd</div>
+                <span slot-index="1" style="color: red;">123</span>
+            </Hello>
 
             <Hello></Hello>
         </div>

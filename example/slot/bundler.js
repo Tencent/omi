@@ -79,7 +79,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div>\n            <Hello data-name="Omi"\n            data-img="<img src=\'http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png\' />"\n            onXX="SFDSF"\n            onXXX="SFDSdF"\n            omi-id="aa" ><div>aafd</div><span style="color: red;">123</span></Hello>\n\n            <Hello></Hello>\n        </div>\n        ';
+	            return '\n        <div>\n            <Hello data-name="Omi"\n            data-img="<img src=\'http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png\' />"\n            onXX="SFDSF"\n            onXXX="SFDSdF"\n            omi-id="aa" >\n                <div slot-index="0">aafd</div>\n                <span slot-index="1" style="color: red;">123</span>\n            </Hello>\n\n            <Hello></Hello>\n        </div>\n        ';
 	        }
 	    }]);
 
@@ -135,7 +135,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return '\n      <div>\n        {{{img}}}\n      \t<h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>\n      \t<slot></slot>\n      </div>\n  \t\t';
+	      return '\n      <div>\n        {{{img}}}\n        <slot></slot>\n      \t<h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>\n      \t<slot></slot>\n      </div>\n  \t\t';
 	    }
 	  }]);
 
@@ -1482,7 +1482,6 @@
 	                    this.data = this.$store.data;
 	                }
 	            }
-
 	            this.beforeRender();
 	            this._generateHTMLCSS();
 	            this._fixSlot();
@@ -1501,7 +1500,20 @@
 	    }, {
 	        key: '_fixSlot',
 	        value: function _fixSlot() {
-	            this.HTML = this.HTML.replace(/<slot[\s\S]*?<\/slot>/, this._omi_slotContent);
+	            var _this6 = this;
+
+	            var nodes = _morphdom2['default'].toElements(this._omi_slotContent);
+	            var slotMatch = this.HTML.match(/<slot[\s\S]*?<\/slot>/g);
+	            if (nodes.length === 1 && slotMatch && slotMatch.length === 1) {
+	                this.HTML = this.HTML.replace(/<slot[\s\S]*?<\/slot>/, this._omi_slotContent);
+	            } else {
+	                nodes.sort(function (a, b) {
+	                    return parseInt(a.getAttribute('slot-index')) - parseInt(b.getAttribute('slot-index'));
+	                });
+	                nodes.forEach(function (node) {
+	                    _this6.HTML = _this6.HTML.replace(/<slot[\s\S]*?<\/slot>/, node.outerHTML);
+	                });
+	            }
 	        }
 	    }, {
 	        key: '_queryElements',
@@ -1517,12 +1529,12 @@
 	    }, {
 	        key: '_mixRefs',
 	        value: function _mixRefs() {
-	            var _this6 = this;
+	            var _this7 = this;
 
 	            var nodes = _omi2['default'].$$('*[ref]', this.node);
 	            nodes.forEach(function (node) {
-	                if (node.hasAttribute(_this6._omi_scoped_attr)) {
-	                    _this6.refs[node.getAttribute('ref')] = node;
+	                if (node.hasAttribute(_this7._omi_scoped_attr)) {
+	                    _this7.refs[node.getAttribute('ref')] = node;
 	                }
 	            });
 	            var attr = this.node.getAttribute('ref');
@@ -1533,27 +1545,27 @@
 	    }, {
 	        key: '_execPlugins',
 	        value: function _execPlugins() {
-	            var _this7 = this;
+	            var _this8 = this;
 
 	            Object.keys(_omi2['default'].plugins).forEach(function (item) {
-	                var nodes = _omi2['default'].$$('*[' + item + ']', _this7.node);
+	                var nodes = _omi2['default'].$$('*[' + item + ']', _this8.node);
 	                nodes.forEach(function (node) {
-	                    if (node.hasAttribute(_this7._omi_scoped_attr)) {
-	                        _omi2['default'].plugins[item](node, _this7);
+	                    if (node.hasAttribute(_this8._omi_scoped_attr)) {
+	                        _omi2['default'].plugins[item](node, _this8);
 	                    }
 	                });
-	                if (_this7.node.hasAttribute(item)) {
-	                    _omi2['default'].plugins[item](_this7.node, _this7);
+	                if (_this8.node.hasAttribute(item)) {
+	                    _omi2['default'].plugins[item](_this8.node, _this8);
 	                }
 	            });
 	        }
 	    }, {
 	        key: '_childrenInstalled',
 	        value: function _childrenInstalled(root) {
-	            var _this8 = this;
+	            var _this9 = this;
 
 	            root.children.forEach(function (child) {
-	                _this8._childrenInstalled(child);
+	                _this9._childrenInstalled(child);
 	                child.installed();
 	                child._execInstalledHandlers();
 	            });
@@ -1597,7 +1609,7 @@
 	    }, {
 	        key: '_replaceTags',
 	        value: function _replaceTags(array, html, updateSelf) {
-	            var _this9 = this;
+	            var _this10 = this;
 
 	            if (_omi2['default'].customTags.length === 0) return;
 	            var str = array.join("|");
@@ -1605,117 +1617,14 @@
 	            var index = 0;
 	            return html.replace(reg, function (m, a, b, c, d, e, f) {
 	                if (updateSelf) {
-	                    var cmi = _this9.children[index];
+	                    var cmi = _this10.children[index];
 	                    if (cmi && cmi.___omi_constructor_name === a) {
 	                        cmi._omiChildStr = m;
 	                    }
 	                } else {
-	                    _this9._initComponentByString(a, m, f, index++, _this9);
+	                    _this10._initComponentByString(a, m, f, index++, _this10);
 	                }
 	            });
-	        }
-	    }, {
-	        key: '_initComponentByString',
-	        value: function _initComponentByString(name, childStr, slotContent, i, child) {
-	            var _this10 = this;
-
-	            console.log(childStr);
-	            var json = (0, _html2json2['default'])(childStr);
-	            console.log(json);
-	            var attr = json.child[0].attr;
-	            //let name = attr.tag
-	            //delete attr.tag
-	            var cmi = this.children[i];
-	            //if not first time to invoke _extractChildren method
-	            if (cmi && cmi.___omi_constructor_name === name) {
-	                cmi._omiChildStr = childStr;
-	                Object.keys(attr).forEach(function (key) {
-	                    var value = attr[key];
-	                    if (key === 'group-data') {
-	                        if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                            child._omiGroupDataCounter[value]++;
-	                        } else {
-	                            child._omiGroupDataCounter[value] = 0;
-	                        }
-	                        cmi._omi_groupDataIndex = child._omiGroupDataCounter[value];
-	                    }
-	                });
-
-	                cmi._childRender(childStr);
-	            } else {
-	                (function () {
-	                    var baseData = {};
-	                    var dataset = {};
-
-	                    var groupDataIndex = null;
-	                    var omiID = null;
-	                    var instanceName = null;
-	                    var _omi_option = {};
-
-	                    Object.keys(attr).forEach(function (key) {
-	                        var value = attr[key];
-	                        if (key.indexOf('on') === 0) {
-	                            var handler = child[value];
-	                            if (handler) {
-	                                baseData[key] = handler.bind(child);
-	                            }
-	                        } else if (key === 'omi-id') {
-	                            omiID = value;
-	                        } else if (key === 'name') {
-	                            instanceName = value;
-	                        } else if (key === 'group-data') {
-	                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                                child._omiGroupDataCounter[value]++;
-	                            } else {
-	                                child._omiGroupDataCounter[value] = 0;
-	                            }
-	                            groupDataIndex = child._omiGroupDataCounter[value];
-	                            dataset = _this10._extractPropertyFromString(value, child)[groupDataIndex];
-	                        } else if (key.indexOf('data-') === 0) {
-	                            dataset[_this10._capitalize(key.replace('data-', ''))] = value;
-	                        } else if (key.indexOf(':data-') === 0) {
-	                            dataset[_this10._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                        } else if (key === ':data') {
-	                            dataset = eval('(' + value + ')');
-	                        } else if (key === 'data') {
-	                            dataset = _this10._extractPropertyFromString(value, child);
-	                        } else if (key === 'preventSelfUpdate' || key === 'psu') {
-	                            _omi_option.preventSelfUpdate = true;
-	                        } else if (key === 'selfDataFirst' || key === 'sdf') {
-	                            _omi_option.selfDataFirst = true;
-	                        } else if (key === 'domDiffDisabled' || key === 'ddd') {
-	                            _omi_option.domDiffDisabled = true;
-	                        } else if (key === 'ignoreStoreData' || key === 'isd') {
-	                            _omi_option.ignoreStoreData = true;
-	                        } else if (key === 'scopedSelfCSS' || key === 'ssc') {
-	                            _omi_option.scopedSelfCSS = true;
-	                        }
-	                    });
-
-	                    var ChildClass = _omi2['default'].getClassFromString(name);
-	                    if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                    var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
-	                    sub_child._omi_groupDataIndex = groupDataIndex;
-	                    sub_child._omiChildStr = childStr;
-	                    sub_child._omi_slotContent = slotContent;
-	                    sub_child.parent = child;
-	                    sub_child.$store = child.$store;
-	                    sub_child.___omi_constructor_name = name;
-	                    sub_child._dataset = {};
-	                    sub_child.install();
-
-	                    omiID && (_omi2['default'].mapping[omiID] = sub_child);
-	                    instanceName && (child[instanceName] = sub_child);
-
-	                    if (!cmi) {
-	                        child.children.push(sub_child);
-	                    } else {
-	                        child.children[i] = sub_child;
-	                    }
-
-	                    sub_child._childRender(childStr);
-	                })();
-	            }
 	        }
 	    }, {
 	        key: '_createHiddenNode',
@@ -1829,6 +1738,105 @@
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
 	            this._replaceTags(_omi2['default'].customTags, child.HTML);
+	        }
+	    }, {
+	        key: '_initComponentByString',
+	        value: function _initComponentByString(name, childStr, slotContent, i, child) {
+	            var _this13 = this;
+
+	            var json = (0, _html2json2['default'])(childStr);
+	            var attr = json.child[0].attr;
+	            var cmi = this.children[i];
+	            //if not first time to invoke _extractChildren method
+	            if (cmi && cmi.___omi_constructor_name === name) {
+	                cmi._omiChildStr = childStr;
+	                Object.keys(attr).forEach(function (key) {
+	                    var value = attr[key];
+	                    if (key === 'group-data') {
+	                        if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                            child._omiGroupDataCounter[value]++;
+	                        } else {
+	                            child._omiGroupDataCounter[value] = 0;
+	                        }
+	                        cmi._omi_groupDataIndex = child._omiGroupDataCounter[value];
+	                    }
+	                });
+
+	                cmi._childRender(childStr);
+	            } else {
+	                (function () {
+	                    var baseData = {};
+	                    var dataset = {};
+
+	                    var groupDataIndex = null;
+	                    var omiID = null;
+	                    var instanceName = null;
+	                    var _omi_option = {};
+
+	                    Object.keys(attr).forEach(function (key) {
+	                        var value = attr[key];
+	                        if (key.indexOf('on') === 0) {
+	                            var handler = child[value];
+	                            if (handler) {
+	                                baseData[key] = handler.bind(child);
+	                            }
+	                        } else if (key === 'omi-id') {
+	                            omiID = value;
+	                        } else if (key === 'name') {
+	                            instanceName = value;
+	                        } else if (key === 'group-data') {
+	                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                                child._omiGroupDataCounter[value]++;
+	                            } else {
+	                                child._omiGroupDataCounter[value] = 0;
+	                            }
+	                            groupDataIndex = child._omiGroupDataCounter[value];
+	                            dataset = _this13._extractPropertyFromString(value, child)[groupDataIndex];
+	                        } else if (key.indexOf('data-') === 0) {
+	                            dataset[_this13._capitalize(key.replace('data-', ''))] = value;
+	                        } else if (key.indexOf(':data-') === 0) {
+	                            dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                        } else if (key === ':data') {
+	                            dataset = eval('(' + value + ')');
+	                        } else if (key === 'data') {
+	                            dataset = _this13._extractPropertyFromString(value, child);
+	                        } else if (key === 'preventSelfUpdate' || key === 'psu') {
+	                            _omi_option.preventSelfUpdate = true;
+	                        } else if (key === 'selfDataFirst' || key === 'sdf') {
+	                            _omi_option.selfDataFirst = true;
+	                        } else if (key === 'domDiffDisabled' || key === 'ddd') {
+	                            _omi_option.domDiffDisabled = true;
+	                        } else if (key === 'ignoreStoreData' || key === 'isd') {
+	                            _omi_option.ignoreStoreData = true;
+	                        } else if (key === 'scopedSelfCSS' || key === 'ssc') {
+	                            _omi_option.scopedSelfCSS = true;
+	                        }
+	                    });
+
+	                    var ChildClass = _omi2['default'].getClassFromString(name);
+	                    if (!ChildClass) throw "Can't find Class called [" + name + "]";
+	                    var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
+	                    sub_child._omi_groupDataIndex = groupDataIndex;
+	                    sub_child._omiChildStr = childStr;
+	                    sub_child._omi_slotContent = slotContent;
+	                    sub_child.parent = child;
+	                    sub_child.$store = child.$store;
+	                    sub_child.___omi_constructor_name = name;
+	                    sub_child._dataset = {};
+	                    sub_child.install();
+
+	                    omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                    instanceName && (child[instanceName] = sub_child);
+
+	                    if (!cmi) {
+	                        child.children.push(sub_child);
+	                    } else {
+	                        child.children[i] = sub_child;
+	                    }
+
+	                    sub_child._childRender(childStr);
+	                })();
+	            }
 	        }
 	    }]);
 
@@ -1988,6 +1996,32 @@
 	            fragment.innerHTML = str;
 	        }
 	        return fragment.childNodes[0];
+	    }
+
+	    function toElements(str) {
+	        if (!range && doc.createRange) {
+	            range = doc.createRange();
+	            range.selectNode(doc.body);
+	        }
+
+	        var fragment;
+	        if (range && range.createContextualFragment) {
+	            fragment = range.createContextualFragment(str);
+	        } else {
+	            fragment = doc.createElement('body');
+	            fragment.innerHTML = str;
+	        }
+
+	        var arr = [],
+	            i = 0,
+	            len = fragment.childNodes.length;
+	        for (; i < len; i++) {
+	            var item = fragment.childNodes[i];
+	            if (item.nodeType === 1) {
+	                arr.push(item);
+	            }
+	        }
+	        return arr;
 	    }
 
 	    /**
@@ -2632,6 +2666,7 @@
 
 	    var morphdom = morphdomFactory(morphAttrs);
 	    morphdom.toElement = toElement;
+	    morphdom.toElements = toElements;
 	    return morphdom;
 	});
 

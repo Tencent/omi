@@ -9,6 +9,7 @@
     "build-min": "webpack -w",
     "build-server": "node asset/build_server.js",
     "nest": "webpack -w",
+    "slot":"webpack -w",
     "curd": "webpack -w",
     "todomvc": "webpack -w",
     "textarea": "webpack -w",

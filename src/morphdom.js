@@ -50,6 +50,30 @@
         return fragment.childNodes[0];
     }
 
+    function toElements(str) {
+        if (!range && doc.createRange) {
+            range = doc.createRange();
+            range.selectNode(doc.body);
+        }
+
+        var fragment;
+        if (range && range.createContextualFragment) {
+            fragment = range.createContextualFragment(str);
+        } else {
+            fragment = doc.createElement('body');
+            fragment.innerHTML = str;
+        }
+
+        var arr = [], i = 0, len = fragment.childNodes.length;
+        for (; i < len; i++) {
+            var item = fragment.childNodes[i];
+            if(item.nodeType === 1){
+                arr.push(item);
+            }
+        }
+        return arr;
+    }
+
     /**
      * Returns true if two node's names are the same.
      *
@@ -695,6 +719,7 @@
 
     var morphdom = morphdomFactory(morphAttrs);
     morphdom.toElement = toElement;
+    morphdom.toElements = toElements;
     return morphdom;
 
 })));

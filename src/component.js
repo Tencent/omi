@@ -308,8 +308,20 @@ class Component {
         return this.HTML
     }
 
-    _fixSlot(){
-        this.HTML = this.HTML.replace(/<slot[\s\S]*?<\/slot>/, this._omi_slotContent)
+    _fixSlot() {
+        let nodes = morphdom.toElements(this._omi_slotContent)
+        let slotMatch = this.HTML.match(/<slot[\s\S]*?<\/slot>/g)
+        if(nodes.length === 1 && slotMatch && slotMatch.length===1) {
+            this.HTML = this.HTML.replace(/<slot[\s\S]*?<\/slot>/, this._omi_slotContent)
+        }else{
+            nodes.sort(function(a,b){
+                return  parseInt(a.getAttribute('slot-index'))- parseInt(b.getAttribute('slot-index'))
+            })
+            nodes.forEach((node)=> {
+                this.HTML = this.HTML.replace(/<slot[\s\S]*?<\/slot>/, node.outerHTML)
+            })
+        }
+
     }
 
     _queryElements(current) {
