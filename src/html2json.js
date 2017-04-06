@@ -78,7 +78,7 @@ var HTMLParser = function (html, handler) {
     parseEndTag();
 
     function parseStartTag(tag, tagName, rest, unary) {
-        tagName = tagName.toLowerCase();
+        //tagName = tagName.toLowerCase();
 
         unary =  !!unary;
 

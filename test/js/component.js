@@ -54,14 +54,7 @@ describe("Omi.mixIndex ", function() {
 });
 
 
-describe("_replaceTags ", function() {
 
-    var result = hello._replaceTags(["List","Todo","Hist"],'<List /><Todo xx="xxx" /><TodoList xx="xxx" /><Hist /><List /><Todo xx="xxx2" />');
-
-    it("_replaceTags", function() {
-        expect(result).toBe('<child tag="List" ></child><child tag="Todo" xx="xxx" ></child><TodoList xx="xxx" /><child tag="Hist" ></child><child tag="List" ></child><child tag="Todo" xx="xxx2" ></child>');
-    });
-});
 
 
 

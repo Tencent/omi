@@ -294,6 +294,7 @@ class Component {
         }
         this.beforeRender()
         this._generateHTMLCSS()
+        this._fixSlot()
         if (!isSelf) {
             this._extractChildren(this)
         } else {
@@ -305,6 +306,10 @@ class Component {
         })
         this.HTML = scopedEvent(this.HTML, this.id)
         return this.HTML
+    }
+
+    _fixSlot(){
+        this.HTML = this.HTML.replace(/<slot[\s\S]*?<\/slot>/, this._omi_slotContent)
     }
 
     _queryElements(current) {
@@ -387,15 +392,19 @@ class Component {
         })
     }
 
-    _replaceTags(array, html) {
+    _replaceTags(array, html, updateSelf) {
+        if (Omi.customTags.length === 0) return
         const str = array.join("|")
-        const reg = new RegExp('<(' + str + '+)((?:\\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\\s*=\\s*(?:(?:"[^"]*")|(?:\'[^\']*\')|[^>\\s]+))?)*)\\s*(\\/?)>', 'g')
-        return html.replace(reg, function (m, a) {
-            var d = m.length - 2
-            if (d >= 0 && m.lastIndexOf('/>') === m.length - 2) {
-                return m.replace('<' + a, '<child tag="' + a + '"').substr(0, m.length + 10) + '></child>'
-            } else if (m.lastIndexOf('>') === m.length - 1) {
-                return m.replace('<' + a, '<child tag="' + a + '"') + '</child>'
+        const reg = new RegExp('<(' + str + '+)((?:\\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\\s*=\\s*(?:(?:"[^"]*")|(?:\'[^\']*\')|[^>\\s]+))?)*)\\s*((\\/>)|>(([\\s\\S]*?)<\\/\\1>))', 'g');
+        let index = 0
+        return html.replace(reg, (m,a,b,c,d,e,f) => {
+            if(updateSelf) {
+                let cmi = this.children[index]
+                if (cmi && cmi.___omi_constructor_name === a) {
+                    cmi._omiChildStr = m
+                }
+            }else{
+                this._initComponentByString(a, m, f, index++, this)
             }
         })
     }
@@ -494,131 +503,106 @@ class Component {
     }
 
     _extractChildrenString(child){
-        if (Omi.customTags.length === 0) return
+        this._replaceTags(Omi.customTags, child.HTML,true)
 
-        child.HTML = this._replaceTags(Omi.customTags, child.HTML)
-
-        let arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g)
-
-        if(arr){
-            arr.forEach( (childStr, i) =>{
-                let json = html2json(childStr)
-                let attr = json.child[0].attr
-                let name = attr.tag
-                delete attr.tag
-                let cmi = this.children[i]
-                if (cmi && cmi.___omi_constructor_name === name) {
-                    cmi._omiChildStr = childStr
-                }
-            })
-        }
     }
 
     _extractChildren(child){
-        if (Omi.customTags.length === 0) return
+        this._replaceTags(Omi.customTags, child.HTML)
+    }
 
-        child.HTML = this._replaceTags(Omi.customTags, child.HTML)
-
-        let arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g)
-        child._omiGroupDataCounter = {}
-        if(arr){
-            arr.forEach( (childStr, i) =>{
-                let json = html2json(childStr)
-                let attr = json.child[0].attr
-                let name = attr.tag
-                delete attr.tag
-                let cmi = this.children[i]
-                //if not first time to invoke _extractChildren method
-                if (cmi && cmi.___omi_constructor_name === name) {
-                    cmi._omiChildStr = childStr
-
-                    Object.keys(attr).forEach(key => {
-                        const value = attr[key]
-                        if (key === 'group-data') {
-                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-                                child._omiGroupDataCounter[value]++
-                            } else {
-                                child._omiGroupDataCounter[value] = 0
-                            }
-                            cmi._omi_groupDataIndex = child._omiGroupDataCounter[value]
-                        }
-                    })
-
-                    cmi._childRender(childStr)
-                } else {
-                    let baseData = {}
-                    let dataset = {}
-
-                    let groupDataIndex = null
-                    let omiID = null
-                    let instanceName = null
-                    let _omi_option = {}
-
-                    Object.keys(attr).forEach(key => {
-                        const value = attr[key]
-                        if (key.indexOf('on') === 0) {
-                            let handler = child[value]
-                            if (handler) {
-                                baseData[key] = handler.bind(child)
-                            }
-                        } else if (key === 'omi-id'){
-                            omiID = value
-                        }else if (key === 'name'){
-                            instanceName = value
-                        }else if (key === 'group-data') {
-                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-                                child._omiGroupDataCounter[value]++
-                            } else {
-                                child._omiGroupDataCounter[value] = 0
-                            }
-                            groupDataIndex = child._omiGroupDataCounter[value]
-                            dataset = this._extractPropertyFromString(value,child)[groupDataIndex]
-
-                        } else if(key.indexOf('data-') === 0){
-                            dataset[this._capitalize(key.replace('data-', ''))] = value
-                        }else if(key.indexOf(':data-') === 0) {
-                            dataset[this._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')')
-                        }else if(key === ':data'){
-                            dataset = eval('(' + value + ')')
-                        }else if(key === 'data'){
-                            dataset =  this._extractPropertyFromString(value,child)
-                        }else if(key === 'preventSelfUpdate'|| key === 'psu'){
-                            _omi_option.preventSelfUpdate = true
-                        }else if(key === 'selfDataFirst'|| key === 'sdf'){
-                            _omi_option.selfDataFirst = true
-                        }else if(key === 'domDiffDisabled'|| key === 'ddd'){
-                            _omi_option.domDiffDisabled = true
-                        }else if(key === 'ignoreStoreData'|| key === 'isd'){
-                            _omi_option.ignoreStoreData = true
-                        }else if(key === 'scopedSelfCSS'|| key === 'ssc'){
-                            _omi_option.scopedSelfCSS = true
-                        }
-                    })
-
-                    let ChildClass = Omi.getClassFromString(name)
-                    if (!ChildClass) throw "Can't find Class called [" + name+"]"
-                    let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset ),_omi_option)
-                    sub_child._omi_groupDataIndex = groupDataIndex
-                    sub_child._omiChildStr = childStr
-
-                    sub_child.parent = child
-                    sub_child.$store = child.$store
-                    sub_child.___omi_constructor_name = name
-                    sub_child._dataset = {}
-                    sub_child.install()
-
-                    omiID && (Omi.mapping[omiID] = sub_child)
-                    instanceName && (child[instanceName] = sub_child)
-
-                    if (!cmi) {
-                        child.children.push(sub_child)
+    _initComponentByString(name, childStr, slotContent, i, child){
+        let json = html2json(childStr)
+        let attr = json.child[0].attr
+        let cmi = this.children[i]
+        //if not first time to invoke _extractChildren method
+        if (cmi && cmi.___omi_constructor_name === name) {
+            cmi._omiChildStr = childStr
+            Object.keys(attr).forEach(key => {
+                const value = attr[key]
+                if (key === 'group-data') {
+                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+                        child._omiGroupDataCounter[value]++
                     } else {
-                        child.children[i] = sub_child
+                        child._omiGroupDataCounter[value] = 0
                     }
-
-                    sub_child._childRender(childStr)
+                    cmi._omi_groupDataIndex = child._omiGroupDataCounter[value]
                 }
             })
+
+            cmi._childRender(childStr)
+        } else {
+            let baseData = {}
+            let dataset = {}
+
+            let groupDataIndex = null
+            let omiID = null
+            let instanceName = null
+            let _omi_option = {}
+
+            Object.keys(attr).forEach(key => {
+                const value = attr[key]
+                if (key.indexOf('on') === 0) {
+                    let handler = child[value]
+                    if (handler) {
+                        baseData[key] = handler.bind(child)
+                    }
+                } else if (key === 'omi-id'){
+                    omiID = value
+                }else if (key === 'name'){
+                    instanceName = value
+                }else if (key === 'group-data') {
+                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+                        child._omiGroupDataCounter[value]++
+                    } else {
+                        child._omiGroupDataCounter[value] = 0
+                    }
+                    groupDataIndex = child._omiGroupDataCounter[value]
+                    dataset = this._extractPropertyFromString(value,child)[groupDataIndex]
+
+                } else if(key.indexOf('data-') === 0){
+                    dataset[this._capitalize(key.replace('data-', ''))] = value
+                }else if(key.indexOf(':data-') === 0) {
+                    dataset[this._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')')
+                }else if(key === ':data'){
+                    dataset = eval('(' + value + ')')
+                }else if(key === 'data'){
+                    dataset =  this._extractPropertyFromString(value,child)
+                }else if(key === 'preventSelfUpdate'|| key === 'psu'){
+                    _omi_option.preventSelfUpdate = true
+                }else if(key === 'selfDataFirst'|| key === 'sdf'){
+                    _omi_option.selfDataFirst = true
+                }else if(key === 'domDiffDisabled'|| key === 'ddd'){
+                    _omi_option.domDiffDisabled = true
+                }else if(key === 'ignoreStoreData'|| key === 'isd'){
+                    _omi_option.ignoreStoreData = true
+                }else if(key === 'scopedSelfCSS'|| key === 'ssc'){
+                    _omi_option.scopedSelfCSS = true
+                }
+            })
+
+            let ChildClass = Omi.getClassFromString(name)
+            if (!ChildClass) throw "Can't find Class called [" + name+"]"
+            let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset ),_omi_option)
+            sub_child._omi_groupDataIndex = groupDataIndex
+            sub_child._omiChildStr = childStr
+            sub_child._omi_slotContent = slotContent
+            sub_child.parent = child
+            sub_child.$store = child.$store
+            sub_child.___omi_constructor_name = name
+            sub_child._dataset = {}
+            sub_child.install()
+
+            omiID && (Omi.mapping[omiID] = sub_child)
+            instanceName && (child[instanceName] = sub_child)
+
+            if (!cmi) {
+                child.children.push(sub_child)
+            } else {
+                child.children[i] = sub_child
+            }
+
+            sub_child._childRender(childStr)
         }
     }
 }
