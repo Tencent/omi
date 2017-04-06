@@ -2,6 +2,10 @@
 
 
 Omi.makeHTML('Hello', Hello);
+import Test from './test.js';
+
+
+Omi.makeHTML('Test', Test);
 
 class App extends Omi.Component {
     constructor(data) {
@@ -14,14 +18,15 @@ class App extends Omi.Component {
 
     render() {
         return  `
-        <div>
+        <div> <Test></Test>
             <Hello data-name="Omi"
             data-img="<img src='http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png' />"
             onXX="SFDSF"
             onXXX="SFDSdF"
             omi-id="aa" >
-                <div slot-index="0">aafd</div>
-                <span slot-index="1" style="color: red;">123</span>
+                <Test  slot-index="0"><div>sfdsf</div></Test>
+                <div slot-index="1">aafd</div>
+
             </Hello>
 
             <Hello></Hello>

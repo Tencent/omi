@@ -52,6 +52,10 @@
 
 	var _hello2 = _interopRequireDefault(_hello);
 
+	var _test = __webpack_require__(11);
+
+	var _test2 = _interopRequireDefault(_test);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61,6 +65,9 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	Omi.makeHTML('Hello', _hello2['default']);
+
+
+	Omi.makeHTML('Test', _test2['default']);
 
 	var App = function (_Omi$Component) {
 	    _inherits(App, _Omi$Component);
@@ -79,7 +86,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div>\n            <Hello data-name="Omi"\n            data-img="<img src=\'http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png\' />"\n            onXX="SFDSF"\n            onXXX="SFDSdF"\n            omi-id="aa" >\n                <div slot-index="0">aafd</div>\n                <span slot-index="1" style="color: red;">123</span>\n            </Hello>\n\n            <Hello></Hello>\n        </div>\n        ';
+	            return '\n        <div> <Test></Test>\n            <Hello data-name="Omi"\n            data-img="<img src=\'http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png\' />"\n            onXX="SFDSF"\n            onXXX="SFDSdF"\n            omi-id="aa" >\n                <Test  slot-index="0"><div>sfdsf</div></Test>\n                <div slot-index="1">aafd</div>\n\n            </Hello>\n\n            <Hello></Hello>\n        </div>\n        ';
 	        }
 	    }]);
 
@@ -429,7 +436,8 @@
 	//以前是Component的静态方法，移到omi下来，不然makehtml 在ie下child访问不到父亲的静态方法
 	Omi.makeHTML = function (name, ctor) {
 	    Omi.componentConstructor[name] = ctor;
-	    Omi.customTags.push(name);
+	    Omi.componentConstructor[name.toLowerCase()] = ctor;
+	    Omi.customTags.push(name, name.toLowerCase());
 	};
 
 	Omi.tag = Omi.makeHTML;
@@ -3056,6 +3064,51 @@
 	}();
 
 	exports["default"] = Store;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _index = __webpack_require__(2);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Test = function (_Omi$Component) {
+	    _inherits(Test, _Omi$Component);
+
+	    function Test() {
+	        _classCallCheck(this, Test);
+
+	        return _possibleConstructorReturn(this, (Test.__proto__ || Object.getPrototypeOf(Test)).apply(this, arguments));
+	    }
+
+	    _createClass(Test, [{
+	        key: 'render',
+	        value: function render() {
+	            return '\n      <div>\n        <slot></slot>\n        Test\n      </div>\n  \t\t';
+	        }
+	    }]);
+
+	    return Test;
+	}(_index2['default'].Component);
+
+	exports['default'] = Test;
 
 /***/ }
 /******/ ]);
