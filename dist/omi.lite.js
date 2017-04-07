@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.3.0 By dntzhang 
+ *  Omi v1.3.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -797,6 +797,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _fixSlot(shareAttr) {
 	            var _this6 = this;
 
+	            if (!this._omi_slotContent) return;
 	            this._omi_slotContent = this._scopedAttr(this._omi_slotContent, this._omi_scoped_attr, shareAttr);
 	            var nodes = _morphdom2['default'].toElements(this._omi_slotContent);
 	            var slotMatch = this.HTML.match(/<slot[\s\S]*?<\/slot>/g);

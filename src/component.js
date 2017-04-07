@@ -308,6 +308,7 @@ class Component {
     }
 
     _fixSlot(shareAttr) {
+        if(!this._omi_slotContent) return
         this._omi_slotContent = this._scopedAttr(this._omi_slotContent, this._omi_scoped_attr, shareAttr)
         let nodes = morphdom.toElements(this._omi_slotContent)
         let slotMatch = this.HTML.match(/<slot[\s\S]*?<\/slot>/g)
@@ -321,7 +322,6 @@ class Component {
                 this.HTML = this.HTML.replace(/<slot[\s\S]*?<\/slot>/, node.outerHTML)
             })
         }
-
     }
 
     _queryElements(current) {
