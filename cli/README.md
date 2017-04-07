@@ -13,8 +13,9 @@ $ npm install omi-cli -g
 ### Usage
 
 ```
-$ omi init                  // in current directory
-$ omi init [project name]   // in new directroy named project name
+$ omi init                          // in current directory
+$ omi init [project name]           // in new directroy named project name
+$ omi init [project name] [cn]      // shift to cnpm mirror
 ```
 Example:
 ```
