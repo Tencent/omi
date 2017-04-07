@@ -92,17 +92,30 @@ const cpLite = ()=> {
             }
 
             let script = fs.readFileSync(path.resolve(__dirname, 'loadjs.js'), 'utf-8')
+            let tpl = fs.readFileSync( path.resolve('.')+'/src/page/tpl.html', 'utf-8')
 
             let cdn = omiConfig['omi-cdn'];
             if (!cdn) {
                 cdn = 'https://unpkg.com/omi@1.2.4/dist/omi.min.js'
             }
 
-            fs.writeFileSync('dist/' + name.split('.')[0] + '.html', `<html><head>` + css + `</head><body>` + html + `<script>var __OMI_DATA__=` + newContent + `</script><script>` + script.replace('{{omi-cdn}}', cdn) + `</script></body></html>`, 'utf-8')
+            fs.writeFileSync('dist/' + name.split('.')[0] + '.html',template(tpl, html,  css ,`<script>var __OMI_DATA__=` + newContent + `</script><script>` + script.replace('{{omi-cdn}}', cdn) + `</script>`, 'utf-8'))
             fs.unlinkSync(name)
         })
 
+        //http://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
+        console.log('\x1b[32m')
+        console.log('-------------------------------------------')
+        console.log('-------------------------------------------')
+        console.log('-----------Successfully Executed-----------')
+        console.log('-------------------------------------------')
+        console.log('-------------------------------------------')
+        console.log('\x1b[37m')
     })
+}
+
+const template = (tpl,html,css,js)=>{
+    return tpl.replace('{{html}}',html).replace('{{css}}',css).replace('{{js}}',js)
 }
 
 module.exports = build;

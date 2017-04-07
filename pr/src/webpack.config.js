@@ -1,11 +1,14 @@
-var path = require('path');
-var webpack = require("webpack");
-var commonChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+const path = require('path')
+const webpack = require("webpack")
+const commonChunkPlugin = webpack.optimize.CommonsChunkPlugin
+const fs = require('fs')
 
-var omiConfig = require(path.resolve('.')+"/omi.config.js");
+let fileList = {};
+
+walk(path.resolve('.')+'/src/page');
 
 var config  = {
-    entry: omiConfig.entry,
+    entry: fileList,
     output: {
         filename: '[name].js'
     },
@@ -60,5 +63,16 @@ var config  = {
 
 config.plugins.push(new webpack.optimize.UglifyJsPlugin());
 
+function walk(path){
+    var dirList = fs.readdirSync(path);
+    dirList.forEach(function(item){
+        if(fs.statSync(path + '/' + item).isDirectory()){
+            fileList[item] = path + '/' + item+'/main.js'
+            //walk(path + '/' + item);
+        }else{
+            //fileList.push(path + '/' + item);
+        }
+    });
+}
 
 module.exports = config;
