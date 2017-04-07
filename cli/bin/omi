@@ -1,30 +1,30 @@
 #!/usr/bin/env node
 
-'use strict'
+'use strict';
 
-const program = require('commander')
-const join = require('path').join
-const chalk = require('chalk')
-const exists = require('fs-exists-sync');
-const spawn = require('cross-spawn')
+var program = require('commander');
+var join = require('path').join;
+var chalk = require('chalk');
+var exists = require('fs-exists-sync');
+var spawn = require('cross-spawn');
 
 program
     .version(require('../package').version, '-v, --version')
     .usage('init [project-name]')
-    .on('--help', help)
+    .on('--help', help);
 
-program.parse(process.argv)
+program.parse(process.argv);
 
-const args = process.argv.slice(3)
+var args = process.argv.slice(3);
 
-let cmdstr = program.args[0]
+let cmdstr = program.args[0];
 
 if (cmdstr) {
 
-    const binFile = executable(cmdstr)
+    const binFile = executable(cmdstr);
     if (binFile) {
-        console.log()
-        console.log(chalk.bold.cyan("Omi-cli") + " is initializing... ")
+        console.log();
+        console.log(chalk.bold.cyan("Omi-cli") + " is initializing... ");
         secede(spawn('node', [].concat([binFile], args), {stdio: 'inherit'}))
     } else {
         program.help();
@@ -34,15 +34,17 @@ if (cmdstr) {
 }
 
 function help() {
-    console.log('  Commands:')
-    console.log()
-    console.log('    init  [project-name]          Initialize a new Omi application in the current folder ')
-    console.log()
+    console.log('  Commands:');
+    console.log();
+    console.log(`     ${chalk.green('init  [project-name]')}           Initialize a new Omi application in the current folder `);
+    console.log();
+    console.log(`     ${chalk.green('init  [project-name]  [cn]')}     Shift the npm registry to cnpm mirror `);
+    console.log();
     console.log('  All commands can be run with -h (or --help) for more information.')
 }
 
 function executable(cmdstr) {
-    const file = join(__dirname, 'omi-' + cmdstr)
+    const file = join(__dirname, 'omi-' + cmdstr);
     if (exists(file)) {
         return file
     }

@@ -1,11 +1,13 @@
-const spawnNpm = require('cross-npm-spawn')
-const ora = require('ora')
-const spinner = ora("npm installing dependencies, please wait for a while...")
-spinner.start()
+var spawn = require('cross-spawn');
+var ora = require('ora');
 
-module.exports = function (done){
-    spawnNpm('install').then((result) => {
-        spinner.stop();
-        done()
-    })
-}
+module.exports = function (args, done){
+    var common = spawn('npm', args, { stdio: 'inherit' });
+    common.on('close', function () {
+        done();
+        process.exit(0);
+    });
+    common.on('error', function (reason) {
+        console.log('An error occured while executing the NPM command.', reason);
+    });
+};
