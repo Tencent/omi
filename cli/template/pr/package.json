@@ -1,0 +1,28 @@
+{
+  "name": "omi-pr-multi-page-example",
+  "version": "0.0.0",
+  "description": "omi-pr example",
+  "scripts": {
+    "dist":"omi-pr"
+  },
+  "dependencies": {
+    "omi-pr":"latest"
+  },
+  "devDependencies": {
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlloyTeam/omi.git"
+  },
+  "keywords": [
+    "omi",
+    "omi-pr"
+  ],
+  "author": "dntzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlloyTeam/omi/issues/new"
+  },
+  "homepage": "http://alloyteam.github.io/omi"
+}
