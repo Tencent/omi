@@ -74,7 +74,7 @@ if(ENV === 'dist') {
         omi: ['omi'],
         vendor: ['./src/common/class_list.js']
     }
-    config.plugins[1] = new commonChunkPlugin({name: ['omi', 'vendor'], minChunks: Infinity});
+    config.plugins[2] = new commonChunkPlugin({name: ['omi', 'vendor'], minChunks: Infinity});
     config.output.filename = '[name].[chunkhash:8].js';
     config.module.rules[1] = {test: /\.html|\.css$/, loader: "cdn-replace-loader?cdn="+projectConfig.cdn}
     config.module.rules[2].use[0] .loader =  "cdn-replace-loader?cdn="+projectConfig.cdn
