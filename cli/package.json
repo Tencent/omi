@@ -1,6 +1,6 @@
 {
   "name": "omi-cli",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "CLI for scaffolding Omi.js projects.",
   "main": "bin/omi",
   "engines": {
@@ -21,16 +21,22 @@
   "author": "pasturn",
   "license": "MIT",
   "dependencies": {
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+    "babel-plugin-transform-es3-property-literals": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "chalk": "^1.1.3",
     "commander": "^2.9.0",
     "cross-npm-spawn": "^1.1.1",
     "cross-spawn": "^5.0.1",
     "empty-dir": "^0.2.1",
     "fs-exists-sync": "^0.1.0",
+    "jsdom": "^9.12.0",
     "ora": "^1.1.0",
-    "vinyl-fs": "^2.4.4"
+    "vinyl-fs": "^2.4.4",
+    "webpack": "^2.3.3"
   },
-   "bugs": {
+  "bugs": {
     "url": "https://github.com/AlloyTeam/omi/issues"
   },
   "homepage": "https://github.com/AlloyTeam/omi#readme"

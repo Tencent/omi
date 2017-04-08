@@ -1,31 +1,31 @@
 var path = require('path');
 var join = path.join;
 var basename = path.basename;
-var fs = require('fs');
 var vfs = require('vinyl-fs');
-var renameSync = fs.renameSync;
-var existsSync = fs.existsSync;
+// var renameSync = require('fs').renameSync;
+var existsSync = require('fs').existsSync;
 var chalk = require('chalk');
 var through = require('through2');
 var emptyDir  = require('empty-dir');
-var info = require('./logger').info;
-var error = require('./logger').error;
-var success = require('./logger').success;
+var logger = require('./logger');
+var info = logger.info;
+var error = logger.error;
+var success = logger.success;
 var isCnFun = require('./utils').isCnFuc;
 var emptyFs = require('./utils').emptyFs;
 
-function init(args){
+function initPr(args) {
     var omiCli = chalk.bold.cyan("Omi-Cli");
     var isCn = isCnFun(args.language);
     var customPrjName = args.project || '';
-    var tpl = join(__dirname, '../template/app');
+    var tpl = join(__dirname, '../template/pr');
     var dest = join(process.cwd(), customPrjName);
     var projectName = basename(dest);
     var mirror = args.mirror;
 
     console.log();
     console.log(omiCli + (!isCn ? " is booting... ": " 正在启动..."));
-    console.log(omiCli + (!isCn ? " will execute init command... ": " 即将执行 init 命令..."));
+    console.log(omiCli + (!isCn ? " will execute init-pr command... ": " 即将执行 init-pr 命令..."));
 
     if(existsSync(dest) && !emptyDir.sync(dest)) {
         console.log();
@@ -39,25 +39,24 @@ function init(args){
             } else {
                 console.log(chalk.bold.cyan("Omi-Cli")+ (!isCn ?  ' is emptying this directory...' : ' 正在清空此文件夹...'));
                 emptyFs(dest);
-                createApp()
+                createPr()
             }
         });
     } else {
-        createApp()
+        createPr()
     }
 
-
-    function createApp() {
+    function createPr() {
         console.log();
-        console.log(chalk.bold.cyan("Omi-Cli") + (!isCn ? ' will creating a new omi app in ' : ' 即将创建一个新的应用在 ') + dest);
+        console.log(chalk.bold.cyan("Omi-Cli") + (!isCn ? ' will creating a new omi-pr in ' : ' 即将创建一个新的omi-pr在 ') + dest);
 
         vfs.src(['**/*', '!mode_modules/**/*'], {cwd: tpl, cwdbase: true, dot: true})
             .pipe(template(dest, tpl))
             .pipe(vfs.dest(dest))
             .on('end', function(){
                 try{
-                    info('Rename', 'gitignore -> .gitignore');
-                    renameSync(join(dest, 'gitignore'), join(dest, '.gitignore'));
+                    // info('Rename', 'gitignore -> .gitignore');
+                    // renameSync(join(dest, 'gitignore'), join(dest, '.gitignore'));
                     if(customPrjName) {
                         try{
                             process.chdir(customPrjName);
@@ -80,31 +79,29 @@ function init(args){
         console.log();
         console.log();
         console.log();
-        success(`Congratulation! "${projectName}" has been created successful! `);
+        success(`Congratulation! a Omi-pr has been created successful! `);
         console.log(`
-    
-Using the scaffold with Gulp + Webpack + Babel + BrowserSync,
     
 if you are not in ${projectName}, please run 'cd ${projectName}', then you can:
     
-    > ${chalk.bold.white('npm run dev')}         Starts the development server
-    > ${chalk.bold.white('npm run dist')}        Publish your project`);
+    > ${chalk.bold.white('omi pr')}        compile your project`);
         console.log();
         console.log(`${chalk.bold.cyan('Omi!')} https://alloyteam.github.io/omi` )
     }
+
 
 }
 
 function template(dest, cwd) {
     return through.obj(function (file, enc, cb) {
-    if (!file.stat.isFile()) {
-      return cb();
-    }
+        if (!file.stat.isFile()) {
+            return cb();
+        }
 
-    info('Copy', file.path.replace(cwd + '/', ''));
+        info('Copy', file.path.replace(cwd + '/', ''));
         this.push(file);
         cb();
     });
 }
 
-module.exports = init;
+module.exports = initPr;

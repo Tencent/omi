@@ -1,9 +1,0 @@
-#!/usr/bin/env node
-
-var program = require('commander');
-
-program
-    .arguments('[project-name]')
-    .parse(process.argv);
-
-require('../lib/init')(program);
