@@ -11,38 +11,23 @@ $ npm install omi-cli -g
 ```
 
 ## Usage
-initialize a new omi application `omi-app` :
+initialize a new omi application :
+
 ```
 $ omi init                          // in current directory
 $ omi init [project name]           // in new directroy named project name
 ```
-initialize a new omi project `omi-pr` :
-```
-$ omi init-pr                          // in current directory
-$ omi init-pr [project name]           // in new directroy named project name
-```
-if you want to compile project for ssr, you can run:
-```
-$ omi pr
-```
-in your omi-pr project
-
-## Example:
-```
-$ omi init app
-$ omi init-pr project
-$ omi pr
-  .....
-```
 
 omi-cli will run npm command to install dependencies automatically. You could switch the mirror source with:
+
 ```
 $ omi init app -m cnpm 
 ```
+
 we support to shift from default to `npm`, `cnpm` or `taobao` mirror.
 
 
-## Scaffolding
+### Scaffolding
 
 Using `Gulp + Webpack + Babel + BrowserSync` Scaffolding.
 
@@ -60,3 +45,21 @@ $ npm run dev
 $ npm run dist
 ```
 
+## omi pr
+
+initialize a new `omi-pr` project :
+
+```
+$ omi init-pr                          // in current directory
+$ omi init-pr [project name]           // in new directroy named project name
+```
+
+if you want to pre-render your project for speeding up your web page access times, you can run:
+
+```
+$ omi pr
+```
+
+in your omi-pr project.
+
+That's all, have fun.

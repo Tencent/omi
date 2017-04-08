@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require("webpack")
 const commonChunkPlugin = webpack.optimize.CommonsChunkPlugin
 const fs = require('fs')
+const omiConfig = require(path.resolve('.')+"/omi.config.js")
 
 let fileList = {};
 
@@ -74,5 +75,7 @@ function walk(path){
         }
     });
 }
+
+omiConfig.webpackProcessing&&omiConfig.webpackProcessing(config)
 
 module.exports = config;

@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const path = require('path')
 const fs = require('fs')
 let webpackConfig = require('./webpack.config.js')
-let omiConfig = require(path.resolve('.')+"/omi.config.js")
+const omiConfig = require(path.resolve('.')+"/omi.config.js")
 
 const dir = path.resolve('.')
 const compiler = webpack(webpackConfig)
@@ -94,7 +94,7 @@ const cpLite = ()=> {
             let script = fs.readFileSync(path.resolve(__dirname, 'loadjs.js'), 'utf-8')
             let tpl = fs.readFileSync( path.resolve('.')+'/src/page/tpl.html', 'utf-8')
 
-            let cdn = omiConfig['omi-cdn'];
+            let cdn = omiConfig.cdn;
             if (!cdn) {
                 cdn = 'https://unpkg.com/omi@1.2.4/dist/omi.min.js'
             }
