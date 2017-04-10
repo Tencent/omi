@@ -54,7 +54,7 @@ $ omi init-pr                          // in current directory
 $ omi init-pr [project name]           // in new directroy named project name
 ```
 
-if you want to pre-render your project for speeding up your web page access times, you can run:
+pre-render your project for speeding up your web page access times, you can run:
 
 ```
 $ omi pr
