@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "omi-pr example",
   "scripts": {
-    "dist":"omi-pr"
+    "dist":"omi pr"
   },
   "dependencies": {
     "omi-pr":"latest"
