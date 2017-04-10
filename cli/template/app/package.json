@@ -10,8 +10,8 @@
     "omi": "latest"
   },
   "devDependencies": {
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
+    "babel-core":"^6.24.1",
+    "babel-loader":"^6.4.1",
     "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
     "babel-plugin-transform-es3-property-literals": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
