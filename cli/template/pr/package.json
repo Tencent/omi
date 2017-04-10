@@ -5,12 +5,6 @@
   "scripts": {
     "dist":"omi pr"
   },
-  "dependencies": {
-    "omi-pr":"latest"
-  },
-  "devDependencies": {
-
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AlloyTeam/omi.git"
