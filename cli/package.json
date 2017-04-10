@@ -1,6 +1,6 @@
 {
   "name": "omi-cli",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "CLI for scaffolding Omi.js projects.",
   "main": "bin/omi",
   "engines": {

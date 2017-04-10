@@ -65,7 +65,7 @@ function initPr(args) {
                             console.log(error(err));
                         }
                     }
-                    info('Install', 'npm will install dependencies');
+                    //info('Install', 'npm will install dependencies');
                     console.log();
                     require('./install')(mirror, done)
                 } catch(e){
