@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.3.1 By dntzhang 
+ *  Omi v1.3.2 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -427,6 +427,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    arr.forEach(function (item, index) {
 	        item[indexName || 'index'] = index;
 	    });
+	};
+
+	Omi.deletePlugin = function (name) {
+	    delete Omi.plugins[name];
 	};
 
 	module.exports = Omi;
