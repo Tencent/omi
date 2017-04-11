@@ -305,4 +305,8 @@ Omi.mixIndexToArray = function(arr ,indexName){
     })
 }
 
+Omi.deletePlugin = function(name){
+    delete Omi.plugins[name]
+}
+
 module.exports = Omi

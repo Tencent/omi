@@ -62,10 +62,6 @@
         });
     }
 
-    OmiFinger.destroy = function(){
-        delete Omi.plugins['omi-finger'];
-    };
-
     if (typeof exports == "object") {
         module.exports = OmiFinger;
     } else if (typeof define == "function" && define.amd) {

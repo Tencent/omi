@@ -63,10 +63,6 @@
         });
     }
 
-    OmiTouch.destroy = function(){
-        delete Omi.plugins['omi-touch'];
-    };
-
     if (typeof exports == "object") {
         module.exports = OmiTouch;
     } else if (typeof define == "function" && define.amd) {

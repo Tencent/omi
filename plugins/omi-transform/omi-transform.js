@@ -37,10 +37,6 @@
         });
     }
 
-    OmiTransform.destroy = function(){
-        delete Omi.plugins['omi-transform'];
-    };
-
     if (typeof exports == "object") {
         module.exports = OmiTransform;
     } else if (typeof define == "function" && define.amd) {

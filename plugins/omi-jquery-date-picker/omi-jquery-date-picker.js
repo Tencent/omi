@@ -39,10 +39,6 @@
         });
     }
 
-    OmiJQueryDatePicker.destroy = function(){
-        delete Omi.plugins['omi-jquery-date-picker'];
-    };
-
     if (typeof exports == "object") {
         module.exports = OmiJQueryDatePicker;
     } else if (typeof define == "function" && define.amd) {

@@ -115,10 +115,6 @@
         }
     }
 
-    OmiRouter.destroy = function () {
-        delete Omi.plugins['omi-router']
-    }
-
     if (typeof exports == "object") {
         module.exports = OmiRouter
     } else if (typeof define == "function" && define.amd) {
