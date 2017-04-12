@@ -25,6 +25,7 @@
     "communication": "webpack -w",
     "todo": "webpack -w",
     "artTemplate": "webpack -w",
+    "nest-self": "webpack -w",
     "todo-nest": "webpack -w",
     "pagination": "webpack -w",
     "pagination-store": "webpack -w",

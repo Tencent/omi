@@ -38,25 +38,12 @@ var config  = {
                 },
                 exclude: /node_modules/
             },
-            {test: /\.html|\.css$/, loader: "string-loader"},
-            {
-                test: /\.scss$/,
-                use: [
-                    //{
-                    //    // creates style nodes from JS strings
-                    //    loader: "style-loader"
-                    //},
-                    {
-                        loader: "css-loader?-url" // translates CSS into CommonJS
-                    }, {
-                        loader: "sass-loader" // compiles Sass to CSS
-                    }]
-            }
+            {test: /\.html|\.css$/, loader: "string-loader"}
         ]
     },
     plugins: [
         // Avoid publishing files when compilation fails
-        new webpack.NoErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin()
     ],
     stats: {
         // Nice colored output

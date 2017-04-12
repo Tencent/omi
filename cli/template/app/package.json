@@ -18,7 +18,6 @@
     "babel-preset-stage-0": "^6.22.0",
     "browser-sync": "^2.18.6",
     "cdn-replace-loader": "^0.4.1",
-    "css-loader": "^0.27.3",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-csso": "^2.0.0",
@@ -30,9 +29,7 @@
     "html-webpack-plugin": "^2.26.0",
     "node-sass": "^4.5.0",
     "run-sequence": "^1.2.2",
-    "sass-loader": "^6.0.3",
     "string-loader": "0.0.1",
-    "style-loader": "^0.13.2",
     "webpack": "^2.2.1",
     "webpack-stream": "^3.2.0"
   },
