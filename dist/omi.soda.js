@@ -2371,7 +2371,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
-	 * sodajs v0.3.0 by dorsywang
+	 * sodajs v0.4.0 by dorsywang
 	 * Light weight but powerful template engine for JavaScript
 	 * Github: https://github.com/AlloyTeam/sodajs
 	 * MIT License
@@ -2829,6 +2829,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 	    });
 
+	    sodaDirective('html', function () {
+	        return {
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute("soda-html");
+	                var expressFunc = parseSodaExpression(opt, scope);
+
+	                if (expressFunc) {
+	                    el.innerHTML = expressFunc;
+
+	                    return {
+	                        command: "childDone"
+	                    };
+	                }
+	            }
+	        };
+	    });
+
 	    sodaDirective("style", function () {
 	        return {
 	            link: function link(scope, el, attrs) {
@@ -2881,7 +2898,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return Number(a.opt.priority || 0) - Number(b.opt.priority || 0);
 	        });
 
-	        console.log(sodaDirectiveArr);
+	        //console.log(sodaDirectiveArr);
 
 	        // 解析模板DOM
 	        var div = document.createElement("div");

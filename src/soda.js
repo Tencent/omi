@@ -477,6 +477,23 @@
         };
     });
 
+    sodaDirective('html', function(){
+        return {
+            link: function(scope, el, attrs){
+                var opt = el.getAttribute("soda-html");
+                var expressFunc = parseSodaExpression(opt, scope);
+
+                if(expressFunc){
+                    el.innerHTML = expressFunc;
+
+                    return {
+                        command: "childDone"
+                    };
+                }
+            }
+        };
+    });
+
     sodaDirective("style", function(){
         return {
             link: function(scope, el, attrs){
