@@ -67,14 +67,18 @@ $ npm install omi
 
 ## CDN
 
-* [https://unpkg.com/omi@1.3.2/dist/omi.min.js](https://unpkg.com/omi@1.3.2/dist/omi.min.js)
-* [https://unpkg.com/omi@1.3.2/dist/omi.js](https://unpkg.com/omi@1.3.2/dist/omi.js)
-* [https://unpkg.com/omi@1.3.2/dist/omi.lite.min.js](https://unpkg.com/omi@1.3.2/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.3.2/dist/omi.lite.js](https://unpkg.com/omi@1.3.2/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.min.js](https://unpkg.com/omi@1.4.0/dist/omi.min.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.js](https://unpkg.com/omi@1.4.0/dist/omi.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.4.0/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.lite.js](https://unpkg.com/omi@1.4.0/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.soda.min.js](https://unpkg.com/omi@1.4.0/dist/omi.soda.min.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.soda.js](https://unpkg.com/omi@1.4.0/dist/omi.soda.js)
 
 ## 感谢 
 
 * [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
+* [mustache.js](https://github.com/janl/mustache.js)
+* [sodajs](https://github.com/AlloyTeam/sodajs)
 
 ## English | [﻿中文](https://github.com/AlloyTeam/omi#中文--english)
 
@@ -132,14 +136,18 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 
 ## CDN
 
-* [https://unpkg.com/omi@1.3.2/dist/omi.min.js](https://unpkg.com/omi@1.3.2/dist/omi.min.js)
-* [https://unpkg.com/omi@1.3.2/dist/omi.js](https://unpkg.com/omi@1.3.2/dist/omi.js)
-* [https://unpkg.com/omi@1.3.2/dist/omi.lite.min.js](https://unpkg.com/omi@1.3.2/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.3.2/dist/omi.lite.js](https://unpkg.com/omi@1.3.2/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.min.js](https://unpkg.com/omi@1.4.0/dist/omi.min.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.js](https://unpkg.com/omi@1.4.0/dist/omi.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.4.0/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.lite.js](https://unpkg.com/omi@1.4.0/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.soda.min.js](https://unpkg.com/omi@1.4.0/dist/omi.soda.min.js)
+* [https://unpkg.com/omi@1.4.0/dist/omi.soda.js](https://unpkg.com/omi@1.4.0/dist/omi.soda.js)
 
 ## Thanks 
 
 * [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
+* [mustache.js](https://github.com/janl/mustache.js)
+* [sodajs](https://github.com/AlloyTeam/sodajs)
 
 ## Contributors
 
