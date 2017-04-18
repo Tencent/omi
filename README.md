@@ -77,8 +77,8 @@ $ npm install omi
 ## 感谢 
 
 * [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
-* [mustache.js](https://github.com/janl/mustache.js)
-* [sodajs](https://github.com/AlloyTeam/sodajs)
+* [mustache.js](https://github.com/janl/mustache.js)-Minimal templating with {{mustaches}} in JavaScript
+* [sodajs](https://github.com/AlloyTeam/sodajs)-Light weight but powerful template engine for JavaScript 
 
 ## English | [﻿中文](https://github.com/AlloyTeam/omi#中文--english)
 
@@ -146,8 +146,8 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 ## Thanks 
 
 * [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
-* [mustache.js](https://github.com/janl/mustache.js)
-* [sodajs](https://github.com/AlloyTeam/sodajs)
+* [mustache.js](https://github.com/janl/mustache.js)-Minimal templating with {{mustaches}} in JavaScript
+* [sodajs](https://github.com/AlloyTeam/sodajs)-Light weight but powerful template engine for JavaScript 
 
 ## Contributors
 
