@@ -20,8 +20,6 @@ Open and modern framework for building user interfaces.
 * 如果你有Omi相关的问题可以 [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
 
-<img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png">
-
 ## 命令行
 
 ``` js
