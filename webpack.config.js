@@ -45,7 +45,8 @@ if(ENV === 'build'||ENV === 'build-min'){
     config = {
         entry: {
             omi: './src/index.js',
-            'omi.lite': './src/index.lite.js'
+            'omi.lite': './src/index.lite.js',
+            'omi.soda': './src/index.soda.js'
         },
         output: {
             // path: __dirname,
@@ -87,7 +88,8 @@ if(ENV === 'build'||ENV === 'build-min'){
         config.plugins.push(new webpack.optimize.UglifyJsPlugin());
         config.entry = {
             'omi.min': './src/index.js',
-            'omi.lite.min': './src/index.lite.js'
+            'omi.lite.min': './src/index.lite.js',
+            'omi.soda.min': './src/index.soda.js'
         };
     }
 }else if(ENV==='todomvc'){

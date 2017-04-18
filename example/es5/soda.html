@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script src="../../dist/omi.soda.js"></script>
+    <script>
+         var List = Omi.create('List', {
+             render:function(){
+                 return '<ul>\
+                            <li soda-repeat="item in items" soda-if="item.show">\
+                                {{$index}}- {{item.text}}\
+                            </li>\
+                        </ul>'
+                }
+         });
+
+        Omi.render(new List({
+            items: [
+                { text: 'Omi', show: true},
+                { text: 'dntzhang', show: true},
+                { text: 'AlloyTeam'}
+            ]
+        }),"body",true);
+    </script>
+</body>
+</html>
