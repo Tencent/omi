@@ -1,5 +1,7 @@
 ﻿import Omi from '../../src/index.soda.js';
 
+import hello from './hello.js'
+
 class List extends Omi.Component {
     constructor(data) {
         super(data);
@@ -7,16 +9,19 @@ class List extends Omi.Component {
 
     render(){
 
-        return `<ul>
-                    <li soda-repeat="item in items" soda-if="item.show">
+        return `<div>
+                    <hello soda-if="show" data-name="{{name}}"></hello>
+                    <div soda-repeat="item in items" soda-if="item.show">
                         {{$index}}- {{item.text}}
-                    </li>
-                </ul>`
+                    </div>
+                </div>`
     }
 
 }
 
 Omi.render(new List({
+    show:true,
+    name:'Omi',
     items: [
         { text: 'Omi', show: true},
         { text: 'dntzhang', show: true},

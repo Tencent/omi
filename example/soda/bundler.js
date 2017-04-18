@@ -52,6 +52,10 @@
 
 	var _indexSoda2 = _interopRequireDefault(_indexSoda);
 
+	var _hello = __webpack_require__(11);
+
+	var _hello2 = _interopRequireDefault(_hello);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73,7 +77,7 @@
 	        key: 'render',
 	        value: function render() {
 
-	            return '<ul>\n                    <li soda-repeat="item in items" soda-if="item.show">\n                        {{$index}}- {{item.text}}\n                    </li>\n                </ul>';
+	            return '<div>\n                    <hello soda-if="show" data-name="{{name}}"></hello>\n                    <div soda-repeat="item in items" soda-if="item.show">\n                        {{$index}}- {{item.text}}\n                    </div>\n                </div>';
 	        }
 	    }]);
 
@@ -81,6 +85,8 @@
 	}(_indexSoda2['default'].Component);
 
 	_indexSoda2['default'].render(new List({
+	    show: true,
+	    name: 'Omi',
 	    items: [{ text: 'Omi', show: true }, { text: 'dntzhang', show: true }, { text: 'AlloyTeam' }]
 	}), "body", true);
 
@@ -474,7 +480,7 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
-	 * sodajs v0.3.0 by dorsywang
+	 * sodajs v0.4.0 by dorsywang
 	 * Light weight but powerful template engine for JavaScript
 	 * Github: https://github.com/AlloyTeam/sodajs
 	 * MIT License
@@ -932,6 +938,23 @@
 	        };
 	    });
 
+	    sodaDirective('html', function () {
+	        return {
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute("soda-html");
+	                var expressFunc = parseSodaExpression(opt, scope);
+
+	                if (expressFunc) {
+	                    el.innerHTML = expressFunc;
+
+	                    return {
+	                        command: "childDone"
+	                    };
+	                }
+	            }
+	        };
+	    });
+
 	    sodaDirective("style", function () {
 	        return {
 	            link: function link(scope, el, attrs) {
@@ -984,7 +1007,7 @@
 	            return Number(a.opt.priority || 0) - Number(b.opt.priority || 0);
 	        });
 
-	        console.log(sodaDirectiveArr);
+	        //console.log(sodaDirectiveArr);
 
 	        // 解析模板DOM
 	        var div = document.createElement("div");
@@ -2999,6 +3022,53 @@
 	}();
 
 	exports["default"] = Store;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _indexSoda = __webpack_require__(1);
+
+	var _indexSoda2 = _interopRequireDefault(_indexSoda);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Hello = function (_Omi$Component) {
+	    _inherits(Hello, _Omi$Component);
+
+	    function Hello(data) {
+	        _classCallCheck(this, Hello);
+
+	        return _possibleConstructorReturn(this, (Hello.__proto__ || Object.getPrototypeOf(Hello)).call(this, data));
+	    }
+
+	    _createClass(Hello, [{
+	        key: 'render',
+	        value: function render() {
+	            return '<div>Hello, {{name}}</div>';
+	        }
+	    }]);
+
+	    return Hello;
+	}(_indexSoda2['default'].Component);
+
+	_indexSoda2['default'].tag('hello', Hello);
+
+	exports['default'] = Hello;
 
 /***/ }
 /******/ ]);
