@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.4.0 By dntzhang 
+ *  Omi v1.4.1 By dntzhang
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
