@@ -117,21 +117,6 @@ document.body.innerHTML = soda(tpl,{ html : '<span style="color:red;">test soda-
 
 ➜ [bind-html example](http://alloyteam.github.io/sodajs/pg/rd.html?type=bind-html)
 
-### Others
-
-#### soda-class
-> soda-class="currItem === 'list1' ? 'active' : ''"
-
-#### soda-src
-> soda-src="hello{{index}}.png"
-
-#### soda-style
-> soda-style="style"
-
-#### soda-*
-> soda-rx="{{rx}}%"
-
-
 
 ## 使用omi.soda.js
 
