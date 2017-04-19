@@ -158,6 +158,7 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 |  [pasturn](https://github.com/pasturn) |  ![](https://avatars2.githubusercontent.com/u/6126885?v=3&s=60)  | Mars Holding  |  
 |  [vorshen](https://github.com/vorshen) | ![](https://avatars2.githubusercontent.com/u/10334783?v=3&s=60)  |  Tencent |
 |  [xcatliu](https://github.com/xcatliu) |  ![](https://avatars3.githubusercontent.com/u/5453359?v=3&s=60)  |  Microsoft |  
+|  [dorsywang](https://github.com/dorsywang) |  ![](https://avatars3.githubusercontent.com/u/7475208?v=3&s=60)  |  Tencent |  
 |  [dntzhang](https://github.com/dntzhang) | ![](https://avatars2.githubusercontent.com/u/7917954?v=3&s=60)  |  Tencent |
 
 # License
