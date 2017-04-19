@@ -1,6 +1,6 @@
 ## 组件通讯
 
-[Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常遍历灵活，因为有许多可选方案进行通讯：
+[Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常便利灵活，因为有许多可选方案进行通讯：
 
 * 通过在组件上声明 data-* 传递给子节点 
 * 通过在组件上声明 data 传递给子节点 （支持复杂数据类型的映射）
