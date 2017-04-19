@@ -24,11 +24,13 @@
       <textarea id="editor">
 class List extends Omi.Component {
     render () {
-        return `<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`
+        return `<ul>
+          <li o-repeat="item in items">{{item}}</li>
+      </ul>`;
     }
 }
 
-Omi.makeHTML('List', List)
+Omi.tag('list', List)
 
 class Todo extends Omi.Component {
     constructor(data) {
@@ -59,7 +61,7 @@ class Todo extends Omi.Component {
         return `
       <div>
           <h3>TODO</h3>
-          <List data="listData" />
+          <list data="listData"></list>
           <form onsubmit="add" >
               <input type="text" onchange="handleChange(this)" value="{{text}}" />
               <button>Add #{{length}}</button>
