@@ -2,7 +2,7 @@
 
 [Omi框架](https://github.com/AlloyTeam/omi)到目前为止有三种版本。
 
-* omi.js 使用 [sodajs](https://github.com/AlloyTeam/sodajs) 为内置模板引擎
+* omi.js 使用 [sodajs](https://github.com/AlloyTeam/sodajs) 为内置指令系统
 * omi.lite.js 不包含任何模板引擎
 * omi.mustache.js 使用 [mustache.js](https://github.com/janl/mustache.js)为内置模版引擎
 
