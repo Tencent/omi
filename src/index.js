@@ -1,9 +1,11 @@
 import Omi from './omi.js'
-import Mustache from './mustache.js'
+import soda from './soda.js'
 import Component from './component.js'
 import Store from './store.js'
 
-Omi.template = Mustache.render
+soda.prefix('o')
+
+Omi.template = soda
 
 Omi.Store = Store
 Omi.Component = Component

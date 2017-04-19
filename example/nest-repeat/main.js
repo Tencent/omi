@@ -1,6 +1,5 @@
-﻿import Omi from '../../src/index.soda.js';
+﻿import Omi from '../../src/index.js';
 
-import hello from './hello.js'
 
 class List extends Omi.Component {
     constructor(data) {
@@ -8,16 +7,15 @@ class List extends Omi.Component {
     }
 
     render(){
-
         return `<div>
-                    <hello  o-repeat="item in items" o-if="item.show" data-name="{{item.text}}"></hello>
                     <div o-repeat="item in items" o-if="item.show">
                         {{$index}}- {{item.text}}
                         <ul>
                             <li o-repeat="subItem in item.arr by $subIndex">
                                 <div>parent index: {{$index}}</div>
                                 <div>parent item text:{{item.text}}</div>
-                                <div>{{$subIndex}}{{subItem}}</div>
+                                <div>sub index: {{$subIndex}}</div>
+                                <div>sub item :{{subItem}}</div>
                             </li>
                         </ul>
                     </div>
@@ -27,11 +25,9 @@ class List extends Omi.Component {
 }
 
 Omi.render(new List({
-    show:true,
-    name:'Omi',
     items: [
         { text: 'Omi', show: true ,arr:['a','b','c']},
-        { text: 'dntzhang', show: true},
+        { text: 'dntzhang', show: true, arr:['d','e']},
         { text: 'AlloyTeam'}
     ]
 }),"body",true);

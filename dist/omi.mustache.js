@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.4.1 By dntzhang
+ *  Omi v1.5.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -65,21 +65,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _soda = __webpack_require__(9);
+	var _mustache = __webpack_require__(10);
 
-	var _soda2 = _interopRequireDefault(_soda);
+	var _mustache2 = _interopRequireDefault(_mustache);
 
-	var _component = __webpack_require__(3);
+	var _component = __webpack_require__(4);
 
 	var _component2 = _interopRequireDefault(_component);
 
-	var _store = __webpack_require__(8);
+	var _store = __webpack_require__(9);
 
 	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	_omi2['default'].template = _soda2['default'];
+	_omi2['default'].template = _mustache2['default'].render;
 
 	_omi2['default'].Store = _store2['default'];
 	_omi2['default'].Component = _component2['default'];
@@ -438,7 +438,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 2 */,
-/* 3 */
+/* 3 */,
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -453,19 +454,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _style = __webpack_require__(4);
+	var _style = __webpack_require__(5);
 
 	var _style2 = _interopRequireDefault(_style);
 
-	var _event = __webpack_require__(5);
+	var _event = __webpack_require__(6);
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _morphdom = __webpack_require__(6);
+	var _morphdom = __webpack_require__(7);
 
 	var _morphdom2 = _interopRequireDefault(_morphdom);
 
-	var _html2json = __webpack_require__(7);
+	var _html2json = __webpack_require__(8);
 
 	var _html2json2 = _interopRequireDefault(_html2json);
 
@@ -1151,7 +1152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = Component;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1222,7 +1223,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1248,7 +1249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = scopedEvent;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -1976,7 +1977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2219,7 +2220,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports["default"] = html2json;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2363,630 +2364,620 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports["default"] = Store;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	/**
-	 * sodajs v0.4.0 by dorsywang
-	 * Light weight but powerful template engine for JavaScript
-	 * Github: https://github.com/AlloyTeam/sodajs
-	 * MIT License
+	/*!
+	 * mustache.js - Logic-less {{mustache}} templates with JavaScript
+	 * http://github.com/janl/mustache.js
 	 */
 
-	;(function () {
-	    var valueoutReg = /\{\{([^\}]*)\}\}/g;
+	/*global define: false Mustache: true*/
 
-	    var classNameRegExp = function classNameRegExp(className) {
-	        return new RegExp('(^|\\s+)' + className + '(\\s+|$)', 'g');
+	(function defineMustache(global, factory) {
+	    if (( false ? 'undefined' : _typeof(exports)) === 'object' && exports && typeof exports.nodeName !== 'string') {
+	        factory(exports); // CommonJS
+	    } else if (true) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)); // AMD
+	    } else {
+	        global.Mustache = {};
+	        factory(global.Mustache); // script, wsh, asp
+	    }
+	})(undefined, function mustacheFactory(mustache) {
+
+	    var objectToString = Object.prototype.toString;
+	    var isArray = Array.isArray || function isArrayPolyfill(object) {
+	        return objectToString.call(object) === '[object Array]';
 	    };
 
-	    var addClass = function addClass(el, className) {
-	        if (!el.className) {
-	            el.className = className;
+	    function isFunction(object) {
+	        return typeof object === 'function';
+	    }
 
-	            return;
-	        }
+	    /**
+	     * More correct typeof string handling array
+	     * which normally returns typeof 'object'
+	     */
+	    function typeStr(obj) {
+	        return isArray(obj) ? 'array' : typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+	    }
 
-	        if (el.className.match(classNameRegExp(className))) {} else {
-	            el.className += " " + className;
-	        }
+	    function escapeRegExp(string) {
+	        return string.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+	    }
+
+	    /**
+	     * Null safe way of checking whether or not an object,
+	     * including its prototype, has a given property
+	     */
+	    function hasProperty(obj, propName) {
+	        return obj != null && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' && propName in obj;
+	    }
+
+	    // Workaround for https://issues.apache.org/jira/browse/COUCHDB-577
+	    // See https://github.com/janl/mustache.js/issues/189
+	    var regExpTest = RegExp.prototype.test;
+	    function testRegExp(re, string) {
+	        return regExpTest.call(re, string);
+	    }
+
+	    var nonSpaceRe = /\S/;
+	    function isWhitespace(string) {
+	        return !testRegExp(nonSpaceRe, string);
+	    }
+
+	    var entityMap = {
+	        '&': '&amp;',
+	        '<': '&lt;',
+	        '>': '&gt;',
+	        '"': '&quot;',
+	        "'": '&#39;',
+	        '/': '&#x2F;',
+	        '`': '&#x60;',
+	        '=': '&#x3D;'
 	    };
 
-	    var removeClass = function removeClass(el, className) {
-	        el.className = el.className.replace(classNameRegExp(className), "");
-	    };
+	    function escapeHtml(string) {
+	        return String(string).replace(/[&<>"'`=\/]/g, function fromEntityMap(s) {
+	            return entityMap[s];
+	        });
+	    }
 
-	    var getValue = function getValue(_data, _attrStr) {
-	        CONST_REGG.lastIndex = 0;
-	        var realAttrStr = _attrStr.replace(CONST_REGG, function (r) {
-	            if (typeof _data[r] === "undefined") {
-	                return r;
+	    var whiteRe = /\s*/;
+	    var spaceRe = /\s+/;
+	    var equalsRe = /\s*=/;
+	    var curlyRe = /\s*\}/;
+	    var tagRe = /#|\^|\/|>|\{|&|=|!/;
+
+	    /**
+	     * Breaks up the given `template` string into a tree of tokens. If the `tags`
+	     * argument is given here it must be an array with two string values: the
+	     * opening and closing tags used in the template (e.g. [ "<%", "%>" ]). Of
+	     * course, the default is to use mustaches (i.e. mustache.tags).
+	     *
+	     * A token is an array with at least 4 elements. The first element is the
+	     * mustache symbol that was used inside the tag, e.g. "#" or "&". If the tag
+	     * did not contain a symbol (i.e. {{myValue}}) this element is "name". For
+	     * all text that appears outside a symbol this element is "text".
+	     *
+	     * The second element of a token is its "value". For mustache tags this is
+	     * whatever else was inside the tag besides the opening symbol. For text tokens
+	     * this is the text itself.
+	     *
+	     * The third and fourth elements of the token are the start and end indices,
+	     * respectively, of the token in the original template.
+	     *
+	     * Tokens that are the root node of a subtree contain two more elements: 1) an
+	     * array of tokens in the subtree and 2) the index in the original template at
+	     * which the closing tag for that section begins.
+	     */
+	    function parseTemplate(template, tags) {
+	        if (!template) return [];
+
+	        var sections = []; // Stack to hold section tokens
+	        var tokens = []; // Buffer to hold the tokens
+	        var spaces = []; // Indices of whitespace tokens on the current line
+	        var hasTag = false; // Is there a {{tag}} on the current line?
+	        var nonSpace = false; // Is there a non-space char on the current line?
+
+	        // Strips all whitespace tokens array for the current line
+	        // if there was a {{#tag}} on it and otherwise only space.
+	        function stripSpace() {
+	            if (hasTag && !nonSpace) {
+	                while (spaces.length) {
+	                    delete tokens[spaces.pop()];
+	                }
 	            } else {
-	                return _data[r];
+	                spaces = [];
 	            }
-	        });
 
-	        if (_attrStr === 'true') {
-	            return true;
+	            hasTag = false;
+	            nonSpace = false;
 	        }
 
-	        if (_attrStr === 'false') {
-	            return false;
+	        var openingTagRe, closingTagRe, closingCurlyRe;
+	        function compileTags(tagsToCompile) {
+	            if (typeof tagsToCompile === 'string') tagsToCompile = tagsToCompile.split(spaceRe, 2);
+
+	            if (!isArray(tagsToCompile) || tagsToCompile.length !== 2) throw new Error('Invalid tags: ' + tagsToCompile);
+
+	            openingTagRe = new RegExp(escapeRegExp(tagsToCompile[0]) + '\\s*');
+	            closingTagRe = new RegExp('\\s*' + escapeRegExp(tagsToCompile[1]));
+	            closingCurlyRe = new RegExp('\\s*' + escapeRegExp('}' + tagsToCompile[1]));
 	        }
 
-	        var _getValue = function _getValue(data, attrStr) {
-	            var dotIndex = attrStr.indexOf(".");
+	        compileTags(tags || mustache.tags);
 
-	            if (dotIndex > -1) {
-	                var attr = attrStr.substr(0, dotIndex);
-	                attrStr = attrStr.substr(dotIndex + 1);
+	        var scanner = new Scanner(template);
 
-	                // ��?查attrStr是否属�?�变量并转换
-	                if (typeof _data[attr] !== "undefined" && CONST_REG.test(attr)) {
-	                    attr = _data[attr];
+	        var start, type, value, chr, token, openSection;
+	        while (!scanner.eos()) {
+	            start = scanner.pos;
+
+	            // Match any text between tags.
+	            value = scanner.scanUntil(openingTagRe);
+
+	            if (value) {
+	                for (var i = 0, valueLength = value.length; i < valueLength; ++i) {
+	                    chr = value.charAt(i);
+
+	                    if (isWhitespace(chr)) {
+	                        spaces.push(tokens.length);
+	                    } else {
+	                        nonSpace = true;
+	                    }
+
+	                    tokens.push(['text', chr, start, start + 1]);
+	                    start += 1;
+
+	                    // Check for whitespace on the current line.
+	                    if (chr === '\n') stripSpace();
 	                }
+	            }
 
-	                if (typeof data[attr] !== "undefined") {
-	                    return _getValue(data[attr], attrStr);
-	                } else {
-	                    var eventData = {
-	                        name: realAttrStr,
-	                        data: _data
-	                    };
+	            // Match the opening tag.
+	            if (!scanner.scan(openingTagRe)) break;
 
-	                    triggerEvent("nullvalue", {
-	                        type: "nullattr",
-	                        data: eventData
-	                    }, eventData);
+	            hasTag = true;
 
-	                    // 如果还有
-	                    return "";
-	                }
+	            // Get the tag type.
+	            type = scanner.scan(tagRe) || 'name';
+	            scanner.scan(whiteRe);
+
+	            // Get the tag value.
+	            if (type === '=') {
+	                value = scanner.scanUntil(equalsRe);
+	                scanner.scan(equalsRe);
+	                scanner.scanUntil(closingTagRe);
+	            } else if (type === '{') {
+	                value = scanner.scanUntil(closingCurlyRe);
+	                scanner.scan(curlyRe);
+	                scanner.scanUntil(closingTagRe);
+	                type = '&';
 	            } else {
+	                value = scanner.scanUntil(closingTagRe);
+	            }
 
-	                // ��?查attrStr是否属�?�变量并转换
-	                if (typeof _data[attrStr] !== "undefined" && CONST_REG.test(attrStr)) {
-	                    attrStr = _data[attrStr];
-	                }
+	            // Match the closing tag.
+	            if (!scanner.scan(closingTagRe)) throw new Error('Unclosed tag at ' + scanner.pos);
 
-	                var rValue;
-	                if (typeof data[attrStr] !== "undefined") {
-	                    rValue = data[attrStr];
+	            token = [type, value, start, scanner.pos];
+	            tokens.push(token);
+
+	            if (type === '#' || type === '^') {
+	                sections.push(token);
+	            } else if (type === '/') {
+	                // Check section nesting.
+	                openSection = sections.pop();
+
+	                if (!openSection) throw new Error('Unopened section "' + value + '" at ' + start);
+
+	                if (openSection[1] !== value) throw new Error('Unclosed section "' + openSection[1] + '" at ' + start);
+	            } else if (type === 'name' || type === '{' || type === '&') {
+	                nonSpace = true;
+	            } else if (type === '=') {
+	                // Set the tags for the next time around.
+	                compileTags(value);
+	            }
+	        }
+
+	        // Make sure there are no open sections when we're done.
+	        openSection = sections.pop();
+
+	        if (openSection) throw new Error('Unclosed section "' + openSection[1] + '" at ' + scanner.pos);
+
+	        return nestTokens(squashTokens(tokens));
+	    }
+
+	    /**
+	     * Combines the values of consecutive text tokens in the given `tokens` array
+	     * to a single token.
+	     */
+	    function squashTokens(tokens) {
+	        var squashedTokens = [];
+
+	        var token, lastToken;
+	        for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+	            token = tokens[i];
+
+	            if (token) {
+	                if (token[0] === 'text' && lastToken && lastToken[0] === 'text') {
+	                    lastToken[1] += token[1];
+	                    lastToken[3] = token[3];
 	                } else {
-	                    var eventData = {
-	                        name: realAttrStr,
-	                        data: _data
-	                    };
-
-	                    triggerEvent("nullvalue", {
-	                        type: "nullvalue",
-	                        data: eventData
-	                    }, eventData);
-
-	                    rValue = '';
+	                    squashedTokens.push(token);
+	                    lastToken = token;
 	                }
-
-	                return rValue;
 	            }
-	        };
-
-	        return _getValue(_data, _attrStr);
-	    };
-
-	    // 注释node
-	    var commentNode = function commentNode(node) {};
-
-	    // 标识��?
-	    var IDENTOR_REG = /[a-zA-Z_\$]+[\w\$]*/g;
-	    var STRING_REG = /"([^"]*)"|'([^']*)'/g;
-	    var NUMBER_REG = /\d+|\d*\.\d+/g;
-
-	    var OBJECT_REG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/g;
-	    var ATTR_REG = /\[([^\[\]]*)\]/g;
-	    var ATTR_REG_DOT = /\.([a-zA-Z_\$]+[\w\$]*)/g;
-
-	    var NOT_ATTR_REG = /[^\.|]([a-zA-Z_\$]+[\w\$]*)/g;
-
-	    var OR_REG = /\|\|/g;
-
-	    var OR_REPLACE = "OR_OPERATOR\x1E";
-
-	    var getRandom = function getRandom() {
-	        return "$$" + ~~(Math.random() * 1E6);
-	    };
-
-	    var CONST_PRIFIX = "_$C$_";
-	    var CONST_REG = /^_\$C\$_/;
-	    var CONST_REGG = /_\$C\$_[^\.]+/g;
-
-	    var getAttrVarKey = function getAttrVarKey() {
-	        return CONST_PRIFIX + ~~(Math.random() * 1E6);
-	    };
-
-	    var parseSodaExpression = function parseSodaExpression(str, scope) {
-	        // 对filter进行处理
-	        str = str.replace(OR_REG, OR_REPLACE).split("|");
-
-	        for (var i = 0; i < str.length; i++) {
-	            str[i] = (str[i].replace(new RegExp(OR_REPLACE, 'g'), "||") || '').trim();
 	        }
 
-	        var expr = str[0] || "";
-	        var filters = str.slice(1);
+	        return squashedTokens;
+	    }
 
-	        // 将字符常量保存下��?
-	        expr = expr.replace(STRING_REG, function (r, $1, $2) {
-	            var key = getRandom();
-	            scope[key] = $1 || $2;
-	            return key;
-	        });
+	    /**
+	     * Forms the given array of `tokens` into a nested tree structure where
+	     * tokens that represent a section have two additional items: 1) an array of
+	     * all tokens that appear in that section and 2) the index in the original
+	     * template that represents the end of that section.
+	     */
+	    function nestTokens(tokens) {
+	        var nestedTokens = [];
+	        var collector = nestedTokens;
+	        var sections = [];
 
-	        while (ATTR_REG.test(expr)) {
-	            ATTR_REG.lastIndex = 0;
+	        var token, section;
+	        for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+	            token = tokens[i];
 
-	            //对expr预处��?
-	            expr = expr.replace(ATTR_REG, function (r, $1) {
-	                var key = getAttrVarKey();
-	                // 属�?�名��? 为字符常��?
-	                var attrName = parseSodaExpression($1, scope);
-
-	                // 给一个特殊的前缀 表示是属性变��?
-
-	                scope[key] = attrName;
-
-	                return "." + key;
-	            });
-	        }
-
-	        expr = expr.replace(OBJECT_REG, function (value) {
-	            return "getValue(scope,'" + value.trim() + "')";
-	        });
-
-	        var parseFilter = function parseFilter() {
-	            var filterExpr = filters.shift();
-
-	            if (!filterExpr) {
-	                return;
+	            switch (token[0]) {
+	                case '#':
+	                case '^':
+	                    collector.push(token);
+	                    sections.push(token);
+	                    collector = token[4] = [];
+	                    break;
+	                case '/':
+	                    section = sections.pop();
+	                    section[5] = token[2];
+	                    collector = sections.length > 0 ? sections[sections.length - 1][4] : nestedTokens;
+	                    break;
+	                default:
+	                    collector.push(token);
 	            }
-
-	            var filterExpr = filterExpr.split(":");
-	            var args = filterExpr.slice(1) || [];
-	            var name = filterExpr[0] || "";
-
-	            var stringReg = /^'.*'$|^".*"$/;
-	            for (var i = 0; i < args.length; i++) {
-	                //这里根据类型进行判断
-	                if (OBJECT_REG.test(args[i])) {
-	                    args[i] = "getValue(scope,'" + args[i] + "')";
-	                } else {}
-	            }
-
-	            if (sodaFilterMap[name]) {
-	                args.unshift(expr);
-
-	                args = args.join(",");
-
-	                expr = "sodaFilterMap['" + name + "'](" + args + ")";
-	            }
-
-	            parseFilter();
-	        };
-
-	        parseFilter();
-
-	        var evalFunc = new Function("getValue", "sodaFilterMap", "return function sodaExp(scope){ return " + expr + "}")(getValue, sodaFilterMap);
-
-	        return evalFunc(scope);
-	    };
-
-	    var hashTable = {
-	        id2Expression: {},
-
-	        expression2id: {},
-
-	        getRandId: function getRandId() {
-	            return 'soda' + ~~(Math.random() * 1E5);
-	        }
-	    };
-
-	    // 解析指令
-	    // 解析attr
-	    var compileNode = function compileNode(node, scope) {
-	        // 如果只是文本
-	        if (node.nodeType === 3) {
-	            node.nodeValue = node.nodeValue.replace(valueoutReg, function (item, $1) {
-	                /*
-	                var id = hashTable.getRandId();
-	                 hashTable.id2Expression[id] = {
-	                    expression: $1,
-	                    el: child
-	                };
-	                 hashTable.expression2id[$1] = {
-	                    id: id,
-	                    el: child
-	                };
-	                */
-
-	                return parseSodaExpression($1, scope);
-	            });
 	        }
 
-	        if (node.attributes) {
-	            // 指令处理
-	            sodaDirectiveArr.map(function (item) {
-	                var name = item.name;
+	        return nestedTokens;
+	    }
 
-	                var opt = item.opt;
+	    /**
+	     * A simple string scanner that is used by the template parser to find
+	     * tokens in template strings.
+	     */
+	    function Scanner(string) {
+	        this.string = string;
+	        this.tail = string;
+	        this.pos = 0;
+	    }
 
-	                if (node.getAttribute(name) && node.parentNode) {
-	                    opt.link(scope, node, node.attributes);
-	                }
-	            });
+	    /**
+	     * Returns `true` if the tail is empty (end of string).
+	     */
+	    Scanner.prototype.eos = function eos() {
+	        return this.tail === '';
+	    };
 
-	            // 处理输出 包含 soda-*
-	            [].map.call(node.attributes, function (attr) {
-	                // 如果dirctiveMap有的就跳过不再处��?
-	                if (!sodaDirectiveMap[attr.name]) {
-	                    if (/^soda-/.test(attr.name)) {
-	                        var attrName = attr.name.replace(/^soda-/, '');
+	    /**
+	     * Tries to match the given regular expression at the current position.
+	     * Returns the matched text if it can match, the empty string otherwise.
+	     */
+	    Scanner.prototype.scan = function scan(re) {
+	        var match = this.tail.match(re);
 
-	                        if (attrName) {
-	                            var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
-	                                return parseSodaExpression($1, scope);
-	                            });
+	        if (!match || match.index !== 0) return '';
 
-	                            node.setAttribute(attrName, attrValue);
-	                        }
+	        var string = match[0];
 
-	                        // 对其他属性里含expr 处理
-	                    } else {
-	                        attr.value = attr.value.replace(valueoutReg, function (item, $1) {
-	                            return parseSodaExpression($1, scope);
-	                        });
-	                    }
-	                }
-	            });
+	        this.tail = this.tail.substring(string.length);
+	        this.pos += string.length;
+
+	        return string;
+	    };
+
+	    /**
+	     * Skips all text until the given regular expression can be matched. Returns
+	     * the skipped string, which is the entire tail if no match can be made.
+	     */
+	    Scanner.prototype.scanUntil = function scanUntil(re) {
+	        var index = this.tail.search(re),
+	            match;
+
+	        switch (index) {
+	            case -1:
+	                match = this.tail;
+	                this.tail = '';
+	                break;
+	            case 0:
+	                match = '';
+	                break;
+	            default:
+	                match = this.tail.substring(0, index);
+	                this.tail = this.tail.substring(index);
 	        }
 
-	        [].map.call([].slice.call(node.childNodes, []), function (child) {
-	            compileNode(child, scope);
-	        });
+	        this.pos += match.length;
+
+	        return match;
 	    };
 
-	    var sodaDirectiveMap = {};
+	    /**
+	     * Represents a rendering context by wrapping a view object and
+	     * maintaining a reference to the parent context.
+	     */
+	    function Context(view, parentContext) {
+	        this.view = view;
+	        this.cache = { '.': this.view };
+	        this.parent = parentContext;
+	    }
 
-	    var sodaFilterMap = {};
-
-	    var sodaDirectiveArr = [];
-
-	    var sodaDirective = function sodaDirective(name, func) {
-	        var name = 'soda-' + name;
-	        sodaDirectiveMap[name] = func();
-
-	        sodaDirectiveArr.push({
-	            name: name,
-	            opt: sodaDirectiveMap[name]
-	        });
+	    /**
+	     * Creates a new context using the given view with this context
+	     * as the parent.
+	     */
+	    Context.prototype.push = function push(view) {
+	        return new Context(view, this);
 	    };
 
-	    var sodaFilter = function sodaFilter(name, func) {
-	        sodaFilterMap[name] = func;
-	    };
+	    /**
+	     * Returns the value of the given name in this context, traversing
+	     * up the context hierarchy if the value is absent in this context's view.
+	     */
+	    Context.prototype.lookup = function lookup(name) {
+	        var cache = this.cache;
 
-	    sodaFilter.get = function (name) {
-	        return sodaFilterMap[name];
-	    };
+	        var value;
+	        if (cache.hasOwnProperty(name)) {
+	            value = cache[name];
+	        } else {
+	            var context = this,
+	                names,
+	                index,
+	                lookupHit = false;
 
-	    sodaFilter("date", function (input, lenth) {
-	        return lenth;
-	    });
+	            while (context) {
+	                if (name.indexOf('.') > 0) {
+	                    value = context.view;
+	                    names = name.split('.');
+	                    index = 0;
 
-	    sodaDirective('repeat', function () {
-	        return {
-	            priority: 10,
-	            compile: function compile(scope, el, attrs) {},
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute('soda-repeat');
-	                var itemName;
-	                var valueName;
+	                    /**
+	                     * Using the dot notion path in `name`, we descend through the
+	                     * nested objects.
+	                     *
+	                     * To be certain that the lookup has been successful, we have to
+	                     * check if the last object in the path actually has the property
+	                     * we are looking for. We store the result in `lookupHit`.
+	                     *
+	                     * This is specially necessary for when the value has been set to
+	                     * `undefined` and we want to avoid looking up parent contexts.
+	                     **/
+	                    while (value != null && index < names.length) {
+	                        if (index === names.length - 1) lookupHit = hasProperty(value, names[index]);
 
-	                var trackReg = /\s+by\s+([^\s]+)$/;
-
-	                var trackName;
-	                opt = opt.replace(trackReg, function (item, $1) {
-	                    if ($1) {
-	                        trackName = ($1 || '').trim();
-	                    }
-
-	                    return '';
-	                });
-
-	                var inReg = /([^\s]+)\s+in\s+([^\s]+)|\(([^,]+)\s*,\s*([^)]+)\)\s+in\s+([^\s]+)/;
-
-	                var r = inReg.exec(opt);
-	                if (r) {
-	                    if (r[1] && r[2]) {
-	                        itemName = (r[1] || '').trim();
-	                        valueName = (r[2] || '').trim();
-
-	                        if (!(itemName && valueName)) {
-	                            return;
-	                        }
-	                    } else if (r[3] && r[4] && r[5]) {
-	                        trackName = (r[3] || '').trim();
-	                        itemName = (r[4] || '').trim();
-	                        valueName = (r[5] || '').trim();
+	                        value = value[names[index++]];
 	                    }
 	                } else {
-	                    return;
+	                    value = context.view[name];
+	                    lookupHit = hasProperty(context.view, name);
 	                }
 
-	                trackName = trackName || '$index';
+	                if (lookupHit) break;
 
-	                // 这里要处理一��?
-	                var repeatObj = getValue(scope, valueName) || [];
-
-	                var repeatFunc = function repeatFunc(i) {
-	                    var itemNode = el.cloneNode(true);
-
-	                    // 这里创建��?个新的scope
-	                    var itemScope = {};
-	                    itemScope[trackName] = i;
-
-	                    itemScope[itemName] = repeatObj[i];
-
-	                    itemScope.__proto__ = scope;
-
-	                    itemNode.removeAttribute('soda-repeat');
-
-	                    el.parentNode.insertBefore(itemNode, el);
-
-	                    // 这里是新加的dom, 要单独编��?
-	                    compileNode(itemNode, itemScope);
-	                };
-
-	                if ('length' in repeatObj) {
-	                    for (var i = 0; i < repeatObj.length; i++) {
-	                        repeatFunc(i);
-	                    }
-	                } else {
-	                    for (var i in repeatObj) {
-	                        if (repeatObj.hasOwnProperty(i)) {
-	                            repeatFunc(i);
-	                        }
-	                    }
-	                }
-
-	                el.parentNode.removeChild(el);
+	                context = context.parent;
 	            }
-	        };
-	    });
 
-	    sodaDirective('if', function () {
-	        return {
-	            priority: 9,
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute('soda-if');
-
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                if (expressFunc) {} else {
-	                    // el.setAttribute("removed", "removed");
-	                    el.parentNode && el.parentNode.removeChild(el);
-	                }
-	            }
-	        };
-	    });
-
-	    sodaDirective('class', function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-class");
-
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                if (expressFunc) {
-	                    addClass(el, expressFunc);
-	                } else {}
-	            }
-	        };
-	    });
-
-	    sodaDirective('src', function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-src");
-
-	                var expressFunc = opt.replace(valueoutReg, function (item, $1) {
-	                    return parseSodaExpression($1, scope);
-	                });
-
-	                if (expressFunc) {
-	                    el.setAttribute("src", expressFunc);
-	                } else {}
-	            }
-	        };
-	    });
-
-	    sodaDirective('bind-html', function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-bind-html");
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                if (expressFunc) {
-	                    el.innerHTML = expressFunc;
-
-	                    return {
-	                        command: "childDone"
-	                    };
-	                }
-	            }
-	        };
-	    });
-
-	    sodaDirective('html', function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-html");
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                if (expressFunc) {
-	                    el.innerHTML = expressFunc;
-
-	                    return {
-	                        command: "childDone"
-	                    };
-	                }
-	            }
-	        };
-	    });
-
-	    sodaDirective("style", function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-style");
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                var getCssValue = function getCssValue(name, value) {
-	                    var numberWithoutpx = /opacity|z-index/;
-	                    if (numberWithoutpx.test(name)) {
-	                        return parseFloat(value);
-	                    }
-
-	                    if (isNaN(value)) {
-	                        return value;
-	                    } else {
-	                        return value + "px";
-	                    }
-	                };
-
-	                if (expressFunc) {
-	                    var stylelist = [];
-
-	                    for (var i in expressFunc) {
-	                        if (expressFunc.hasOwnProperty(i)) {
-	                            var provalue = getCssValue(i, expressFunc[i]);
-
-	                            stylelist.push([i, provalue].join(":"));
-	                        }
-	                    }
-
-	                    var style = el.style;
-	                    for (var i = 0; i < style.length; i++) {
-	                        var name = style[i];
-	                        if (expressFunc[name]) {} else {
-	                            stylelist.push([name, style[name]].join(":"));
-	                        }
-	                    }
-
-	                    var styleStr = stylelist.join(";");
-
-	                    el.setAttribute("style", styleStr);
-	                }
-	            }
-	        };
-	    });
-
-	    var sodaRender = function sodaRender(str, data) {
-	        // 对directive进行排序
-	        sodaDirectiveArr.sort(function (b, a) {
-	            return Number(a.opt.priority || 0) - Number(b.opt.priority || 0);
-	        });
-
-	        //console.log(sodaDirectiveArr);
-
-	        // 解析模板DOM
-	        var div = document.createElement("div");
-
-	        div.innerHTML = str;
-
-	        [].map.call([].slice.call(div.childNodes, []), function (child) {
-	            compileNode(child, data);
-	        });
-
-	        return div.innerHTML;
-
-	        //  var frament = document.createDocumentFragment();
-	        //  frament.innerHTML = div.innerHTML;
-
-	        /*
-	        frament.update = function(newData){
-	            //checkingDirtyData(data, d);
-	            var diff = DeepDiff.noConflict();
-	             var diffResult = diff(data, newData);
-	             console.log(diffResult);
-	             var dirtyData = ['a'];
-	             for(var i = 0; i < dirtyData.length; i ++){
-	                var item = dirtyData[i];
-	                 var id = hashTable.expression2id[item];
-	                 var nowValue = parseSodaExpression(item, newData);
-	                //console.log(nowValue);
-	                 if(id.el){
-	                    id.el.nodeValue = nowValue;
-	                }
-	            }
-	             console.log(hashTable);
-	          };
-	        */
-
-	        var child;
-	        while (child = div.childNodes[0]) {
-	            frament.appendChild(child);
+	            cache[name] = value;
 	        }
 
-	        return frament;
+	        if (isFunction(value)) value = value.call(this.view);
+
+	        return value;
 	    };
 
-	    var eventPool = {};
-	    sodaRender.addEventListener = function (type, func) {
-	        if (eventPool[type]) {} else {
-	            eventPool[type] = [];
+	    /**
+	     * A Writer knows how to take a stream of tokens and render them to a
+	     * string, given a context. It also maintains a cache of templates to
+	     * avoid the need to parse the same template twice.
+	     */
+	    function Writer() {
+	        this.cache = {};
+	    }
+
+	    /**
+	     * Clears all cached templates in this writer.
+	     */
+	    Writer.prototype.clearCache = function clearCache() {
+	        this.cache = {};
+	    };
+
+	    /**
+	     * Parses and caches the given `template` and returns the array of tokens
+	     * that is generated from the parse.
+	     */
+	    Writer.prototype.parse = function parse(template, tags) {
+	        var cache = this.cache;
+	        var tokens = cache[template];
+
+	        if (tokens == null) tokens = cache[template] = parseTemplate(template, tags);
+
+	        return tokens;
+	    };
+
+	    /**
+	     * High-level method that is used to render the given `template` with
+	     * the given `view`.
+	     *
+	     * The optional `partials` argument may be an object that contains the
+	     * names and templates of partials that are used in the template. It may
+	     * also be a function that is used to load partial templates on the fly
+	     * that takes a single argument: the name of the partial.
+	     */
+	    Writer.prototype.render = function render(template, view, partials) {
+	        var tokens = this.parse(template);
+	        var context = view instanceof Context ? view : new Context(view);
+	        return this.renderTokens(tokens, context, partials, template);
+	    };
+
+	    /**
+	     * Low-level method that renders the given array of `tokens` using
+	     * the given `context` and `partials`.
+	     *
+	     * Note: The `originalTemplate` is only ever used to extract the portion
+	     * of the original template that was contained in a higher-order section.
+	     * If the template doesn't use higher-order sections, this argument may
+	     * be omitted.
+	     */
+	    Writer.prototype.renderTokens = function renderTokens(tokens, context, partials, originalTemplate) {
+	        var buffer = '';
+
+	        var token, symbol, value;
+	        for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
+	            value = undefined;
+	            token = tokens[i];
+	            symbol = token[0];
+
+	            if (symbol === '#') value = this.renderSection(token, context, partials, originalTemplate);else if (symbol === '^') value = this.renderInverted(token, context, partials, originalTemplate);else if (symbol === '>') value = this.renderPartial(token, context, partials, originalTemplate);else if (symbol === '&') value = this.unescapedValue(token, context);else if (symbol === 'name') value = this.escapedValue(token, context);else if (symbol === 'text') value = this.rawValue(token);
+
+	            if (value !== undefined) buffer += value;
 	        }
 
-	        eventPool[type].push(func);
+	        return buffer;
 	    };
 
-	    sodaRender.author = "dorsy";
+	    Writer.prototype.renderSection = function renderSection(token, context, partials, originalTemplate) {
+	        var self = this;
+	        var buffer = '';
+	        var value = context.lookup(token[1]);
 
-	    var triggerEvent = function triggerEvent(type, e, data) {
-	        var events = eventPool[type] || [];
+	        // This function is used to render an arbitrary template
+	        // in the current context by higher-order sections.
+	        function subRender(template) {
+	            return self.render(template, context, partials);
+	        }
 
-	        for (var i = 0; i < events.length; i++) {
-	            var eventFunc = events[i];
-	            eventFunc && eventFunc(e, data);
+	        if (!value) return;
+
+	        if (isArray(value)) {
+	            for (var j = 0, valueLength = value.length; j < valueLength; ++j) {
+	                buffer += this.renderTokens(token[4], context.push(value[j]), partials, originalTemplate);
+	            }
+	        } else if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' || typeof value === 'string' || typeof value === 'number') {
+	            buffer += this.renderTokens(token[4], context.push(value), partials, originalTemplate);
+	        } else if (isFunction(value)) {
+	            if (typeof originalTemplate !== 'string') throw new Error('Cannot use higher-order sections without the original template');
+
+	            // Extract the portion of the original template that the section contains.
+	            value = value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
+
+	            if (value != null) buffer += value;
+	        } else {
+	            buffer += this.renderTokens(token[4], context, partials, originalTemplate);
+	        }
+	        return buffer;
+	    };
+
+	    Writer.prototype.renderInverted = function renderInverted(token, context, partials, originalTemplate) {
+	        var value = context.lookup(token[1]);
+
+	        // Use JavaScript's definition of falsy. Include empty arrays.
+	        // See https://github.com/janl/mustache.js/issues/186
+	        if (!value || isArray(value) && value.length === 0) return this.renderTokens(token[4], context, partials, originalTemplate);
+	    };
+
+	    Writer.prototype.renderPartial = function renderPartial(token, context, partials) {
+	        if (!partials) return;
+
+	        var value = isFunction(partials) ? partials(token[1]) : partials[token[1]];
+	        if (value != null) return this.renderTokens(this.parse(value), context, partials, value);
+	    };
+
+	    Writer.prototype.unescapedValue = function unescapedValue(token, context) {
+	        var value = context.lookup(token[1]);
+	        if (value != null) return value;
+	    };
+
+	    Writer.prototype.escapedValue = function escapedValue(token, context) {
+	        var value = context.lookup(token[1]);
+	        if (value != null) return mustache.escape(value);
+	    };
+
+	    Writer.prototype.rawValue = function rawValue(token) {
+	        return token[1];
+	    };
+
+	    mustache.name = 'mustache.js';
+	    mustache.version = '2.3.0';
+	    mustache.tags = ['{{', '}}'];
+
+	    // All high-level mustache.* functions use this writer.
+	    var defaultWriter = new Writer();
+
+	    /**
+	     * Clears all cached templates in the default writer.
+	     */
+	    mustache.clearCache = function clearCache() {
+	        return defaultWriter.clearCache();
+	    };
+
+	    /**
+	     * Parses and caches the given template in the default writer and returns the
+	     * array of tokens it contains. Doing this ahead of time avoids the need to
+	     * parse templates on the fly as they are rendered.
+	     */
+	    mustache.parse = function parse(template, tags) {
+	        return defaultWriter.parse(template, tags);
+	    };
+
+	    /**
+	     * Renders the `template` with the given `view` and `partials` using the
+	     * default writer.
+	     */
+	    mustache.render = function render(template, view, partials) {
+	        if (typeof template !== 'string') {
+	            throw new TypeError('Invalid template! Template should be a "string" ' + 'but "' + typeStr(template) + '" was given as the first ' + 'argument for mustache#render(template, view, partials)');
+	        }
+
+	        return defaultWriter.render(template, view, partials);
+	    };
+
+	    // This is here for backwards compatibility with 0.4.x.,
+	    /*eslint-disable */ // eslint wants camel cased function name
+	    mustache.to_html = function to_html(template, view, partials, send) {
+	        /*eslint-enable*/
+
+	        var result = mustache.render(template, view, partials);
+
+	        if (isFunction(send)) {
+	            send(result);
+	        } else {
+	            return result;
 	        }
 	    };
 
-	    sodaRender.filter = sodaFilter;
+	    // Export the escaping function so that the user may override it.
+	    // See https://github.com/janl/mustache.js/issues/244
+	    mustache.escape = escapeHtml;
 
-	    if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') module.exports = sodaRender;else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-	        return sodaRender;
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["soda"] = sodaRender;else window.soda = sodaRender;
+	    // Export these mainly for testing, but also for advanced usage.
+	    mustache.Scanner = Scanner;
+	    mustache.Context = Context;
+	    mustache.Writer = Writer;
 
-	    // 监听数据异常情况
-	})();
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
-
+	    return mustache;
+	});
 
 /***/ }
 /******/ ])

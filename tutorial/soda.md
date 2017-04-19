@@ -1,15 +1,23 @@
-## Omi的soda版本正式发布
+## Omi全新版本来袭 - 指令系统
 
 [Omi框架](https://github.com/AlloyTeam/omi)到目前为止有三种版本。
 
-* omi.js 使用 [mustache.js](https://github.com/janl/mustache.js)为内置模版引擎
+* omi.js 使用 [sodajs](https://github.com/AlloyTeam/sodajs) 为内置模板引擎
 * omi.lite.js 不包含任何模板引擎
-* omi.soda.js 使用 [sodajs](https://github.com/AlloyTeam/sodajs) 为内置模板引擎
+* omi.mustache.js 使用 [mustache.js](https://github.com/janl/mustache.js)为内置模版引擎
 
  [sodajs](https://github.com/AlloyTeam/sodajs)是我们团队高级工程师(dorsywang)的作品，服务员QQ群、兴趣部落等多个产品线，
  以良好的兼容性、卓越的性能、简便的语法、超小的尺寸以及强大的功能而深受同事们的喜爱。下面先来看看sodajs怎么使用。
 
 ## sodajs语法
+
+sodajs的指令默认是以`soda`开头。当然不是必须，今天更新了一版sodajs支持自定义前缀。
+
+```
+soda.prefix('o')
+```
+
+现在，下面所有的指令使用`o-`开头。
 
 ### simple
 
@@ -18,31 +26,27 @@ var tpl = '<div>Hello, {{name}}</div>'
 document.body.innerHTML = soda(tpl,{ name : 'soda' })
 ```
 
-➜ [simple example](http://alloyteam.github.io/sodajs/pg/rd.html?type=simple)
-
 ### if
 
 ``` js
-var tpl = '<div soda-if="show">Hello, {{name}}</div>' +
-            '<div soda-if="!show">I\'m hidden!</div>'
+var tpl = '<div o-if="show">Hello, {{name}}</div>' +
+            '<div o-if="!show">I\'m hidden!</div>'
 document.body.innerHTML = soda(tpl,{ name : 'soda',show: true })
 ```
 
-➜ [if example](http://alloyteam.github.io/sodajs/pg/rd.html?type=if)
-
 ### repeat
 
-> soda-repeat="item in array"
+> o-repeat="item in array"
 
-> soda-repeat="item in object"
+> o-repeat="item in object"
 
-> soda-repeat="item in array by index"
+> o-repeat="item in array by index"
 
-> soda-repeat="item in object by key"
+> o-repeat="item in object by key"
 
-> soda-repeat="(index, value) in array"
+> o-repeat="(index, value) in array"
 
-> soda-repeat="(key, value) in object"
+> o-repeat="(key, value) in object"
 
 default index or key is $index
 
@@ -50,7 +54,7 @@ default index or key is $index
 ``` js
 var tpl = '\
 <ul>\
-    <li soda-repeat="item in list" soda-if="item.show">\
+    <li o-repeat="item in list" o-if="item.show">\
         {{item.name}}\
         {{$index}}\
     </li>\
@@ -67,8 +71,6 @@ var data = {
 document.body.innerHTML =  soda(tpl, data);
 ```
 
-➜ [repeat example](http://alloyteam.github.io/sodajs/pg/rd.html?type=repeat)
-
 这里 item in array by index 中的by index有什么作用呢？当然有作用！因为当两层或者多层嵌套循环的时候，通过内层循环已经无法通过{{$index}} 访问到外层循环的索引，所以可以通过  by xxx 对 index进行重命名，这样就解决了多层嵌套循环访问索引的问题。
 
 ### expression
@@ -77,8 +79,6 @@ document.body.innerHTML =  soda(tpl, data);
 var tpl = '<div>Hello, {{count+1}}</div>'
 document.body.innerHTML = soda(tpl,{ count : 1 })
 ```
-
-➜ [expression example](http://alloyteam.github.io/sodajs/pg/rd.html?type=expression)
 
 ### filter
 
@@ -93,7 +93,7 @@ soda.filter('shortTitle', function(input, length){
 });
 
 var tpl = '\
-<ul soda-repeat="item in list">\
+<ul o-repeat="item in list">\
     <li class="title">\
         {{item.title|shortTitle:10}}\
     </li>\
@@ -106,19 +106,14 @@ document.body.innerHTML = soda(tpl,{ list : [
 ] })
 ```
 
-➜ [filter example](http://alloyteam.github.io/sodajs/pg/rd.html?type=filter)
-
 ### html
 
 ```js
-var tpl = '<div soda-html="html"></div>'
+var tpl = '<div o-html="html"></div>'
 document.body.innerHTML = soda(tpl,{ html : '<span style="color:red;">test soda-html</span>' })
 ```
 
-➜ [bind-html example](http://alloyteam.github.io/sodajs/pg/rd.html?type=bind-html)
-
-
-## 使用omi.soda.js
+## 新版omi.js
 
 
 ```js
@@ -129,7 +124,7 @@ class List extends Omi.Component {
 
     render(){
         return `<ul>
-                    <li soda-repeat="item in items" soda-if="item.show">
+                    <li o-repeat="item in items" o-if="item.show">
                         {{$index}}- {{item.text}}
                     </li>
                 </ul>`
@@ -144,6 +139,8 @@ Omi.render(new List({
     ]
 }),"body",true);
 ```
+
+➜ [bind-html example](http://alloyteam.github.io/sodajs/pg/rd.html?type=bind-html)
 
 ## Omi相关
 

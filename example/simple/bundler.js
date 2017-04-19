@@ -1,19 +1,4 @@
-/*!
- *  Omi v1.5.0 By dntzhang 
- *  Github: https://github.com/AlloyTeam/omi
- *  MIT Licensed.
- */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["Omi"] = factory();
-	else
-		root["Omi"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -61,19 +46,66 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _omi = __webpack_require__(1);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _index = __webpack_require__(1);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var _hello = __webpack_require__(11);
+
+	var _hello2 = _interopRequireDefault(_hello);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	_index2['default'].tag('hello', _hello2['default']);
+
+	var App = function (_Omi$Component) {
+	    _inherits(App, _Omi$Component);
+
+	    function App() {
+	        _classCallCheck(this, App);
+
+	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    }
+
+	    _createClass(App, [{
+	        key: 'render',
+	        value: function render() {
+	            return '<hello data-name="Omi"></hello>';
+	        }
+	    }]);
+
+	    return App;
+	}(_index2['default'].Component);
+
+	_index2['default'].render(new App(), "#container");
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _soda = __webpack_require__(2);
+	var _soda = __webpack_require__(3);
 
 	var _soda2 = _interopRequireDefault(_soda);
 
-	var _component = __webpack_require__(4);
+	var _component = __webpack_require__(5);
 
 	var _component2 = _interopRequireDefault(_component);
 
-	var _store = __webpack_require__(9);
+	var _store = __webpack_require__(10);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -93,7 +125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 1 */
+/* 2 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -439,7 +471,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Omi;
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {'use strict';
@@ -1066,26 +1098,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // ���������쳣����
 	})();
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports) {
 
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
+	"use strict";
+
+	module.exports = function (module) {
+		if (!module.webpackPolyfill) {
+			module.deprecate = function () {};
 			module.paths = [];
 			// module.parent = undefined by default
 			module.children = [];
 			module.webpackPolyfill = 1;
 		}
 		return module;
-	}
-
+	};
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1096,23 +1129,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _omi = __webpack_require__(1);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _style = __webpack_require__(5);
+	var _style = __webpack_require__(6);
 
 	var _style2 = _interopRequireDefault(_style);
 
-	var _event = __webpack_require__(6);
+	var _event = __webpack_require__(7);
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _morphdom = __webpack_require__(7);
+	var _morphdom = __webpack_require__(8);
 
 	var _morphdom2 = _interopRequireDefault(_morphdom);
 
-	var _html2json = __webpack_require__(8);
+	var _html2json = __webpack_require__(9);
 
 	var _html2json2 = _interopRequireDefault(_html2json);
 
@@ -1798,7 +1831,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = Component;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1807,7 +1840,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
-	var _omi = __webpack_require__(1);
+	var _omi = __webpack_require__(2);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
@@ -1869,7 +1902,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1895,7 +1928,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = scopedEvent;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -2623,7 +2656,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2866,7 +2899,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports["default"] = html2json;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3009,7 +3042,60 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = Store;
 
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _index = __webpack_require__(1);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Hello = function (_Omi$Component) {
+	    _inherits(Hello, _Omi$Component);
+
+	    function Hello() {
+	        _classCallCheck(this, Hello);
+
+	        return _possibleConstructorReturn(this, (Hello.__proto__ || Object.getPrototypeOf(Hello)).apply(this, arguments));
+	    }
+
+	    _createClass(Hello, [{
+	        key: 'style',
+	        value: function style() {
+	            return 'div{\n            cursor: pointer;\n        }';
+	        }
+	    }, {
+	        key: 'clickHandler',
+	        value: function clickHandler(evt) {
+	            alert(evt.target.innerHTML);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return '<div onclick="clickHandler">Hello, {{name}}</div>';
+	        }
+	    }]);
+
+	    return Hello;
+	}(_index2['default'].Component);
+
+	exports['default'] = Hello;
+
 /***/ }
-/******/ ])
-});
-;
+/******/ ]);

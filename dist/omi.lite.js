@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.4.1 By dntzhang
+ *  Omi v1.5.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -65,11 +65,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _component = __webpack_require__(3);
+	var _component = __webpack_require__(4);
 
 	var _component2 = _interopRequireDefault(_component);
 
-	var _store = __webpack_require__(8);
+	var _store = __webpack_require__(9);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -437,7 +437,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 2 */,
-/* 3 */
+/* 3 */,
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -452,19 +453,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _style = __webpack_require__(4);
+	var _style = __webpack_require__(5);
 
 	var _style2 = _interopRequireDefault(_style);
 
-	var _event = __webpack_require__(5);
+	var _event = __webpack_require__(6);
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _morphdom = __webpack_require__(6);
+	var _morphdom = __webpack_require__(7);
 
 	var _morphdom2 = _interopRequireDefault(_morphdom);
 
-	var _html2json = __webpack_require__(7);
+	var _html2json = __webpack_require__(8);
 
 	var _html2json2 = _interopRequireDefault(_html2json);
 
@@ -1150,7 +1151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = Component;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1221,7 +1222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1247,7 +1248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = scopedEvent;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -1975,7 +1976,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2218,7 +2219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports["default"] = html2json;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
