@@ -215,7 +215,7 @@ Omi.render(new List({
 
 ➜ [example](https://alloyteam.github.io/omi/website/redirect.html?type=repeat-ct)
 
-
+需要特别强调，新版omi自定义标签强制必须使用<tag-name></tag-name>，不能使用<tag-name />。
 
 
 ## Omi相关
