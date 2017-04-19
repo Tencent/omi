@@ -77,7 +77,7 @@
 	        key: 'render',
 	        value: function render() {
 
-	            return '<div>\n                    <hello soda-if="show" data-name="{{name}}"></hello>\n                    <div soda-repeat="item in items" soda-if="item.show">\n                        {{$index}}- {{item.text}}\n                    </div>\n                </div>';
+	            return '<div>\n                    <hello  o-repeat="item in items" o-if="item.show" data-name="{{item.text}}"></hello>\n                    <div o-repeat="item in items" o-if="item.show">\n                        {{$index}}- {{item.text}}\n                        <ul>\n                            <li o-repeat="subItem in item.arr by $subIndex">\n                                <div>parent index: {{$index}}</div>\n                                <div>parent item text:{{item.text}}</div>\n                                <div>{{$subIndex}}{{subItem}}</div>\n                            </li>\n                        </ul>\n                    </div>\n                </div>';
 	        }
 	    }]);
 
@@ -87,7 +87,7 @@
 	_indexSoda2['default'].render(new List({
 	    show: true,
 	    name: 'Omi',
-	    items: [{ text: 'Omi', show: true }, { text: 'dntzhang', show: true }, { text: 'AlloyTeam' }]
+	    items: [{ text: 'Omi', show: true, arr: ['a', 'b', 'c'] }, { text: 'dntzhang', show: true }, { text: 'AlloyTeam' }]
 	}), "body", true);
 
 /***/ },
@@ -113,6 +113,8 @@
 	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	_soda2['default'].prefix('o');
 
 	_omi2['default'].template = _soda2['default'];
 
@@ -480,7 +482,7 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
-	 * sodajs v0.4.0 by dorsywang
+	 * sodajs v0.4.1 by dorsywang
 	 * Light weight but powerful template engine for JavaScript
 	 * Github: https://github.com/AlloyTeam/sodajs
 	 * MIT License
@@ -488,6 +490,9 @@
 
 	;(function () {
 	    var valueoutReg = /\{\{([^\}]*)\}\}/g;
+
+	    var prefix = 'soda';
+	    var prefixReg = new RegExp('^' + prefix + '-');
 
 	    var classNameRegExp = function classNameRegExp(className) {
 	        return new RegExp('(^|\\s+)' + className + '(\\s+|$)', 'g');
@@ -534,7 +539,7 @@
 	                var attr = attrStr.substr(0, dotIndex);
 	                attrStr = attrStr.substr(dotIndex + 1);
 
-	                // ��?查attrStr是否属�?�变量并转换
+	                // ??��attrStr�Ƿ���???������ת��
 	                if (typeof _data[attr] !== "undefined" && CONST_REG.test(attr)) {
 	                    attr = _data[attr];
 	                }
@@ -552,12 +557,12 @@
 	                        data: eventData
 	                    }, eventData);
 
-	                    // 如果还有
+	                    // ��������
 	                    return "";
 	                }
 	            } else {
 
-	                // ��?查attrStr是否属�?�变量并转换
+	                // ??��attrStr�Ƿ���???������ת��
 	                if (typeof _data[attrStr] !== "undefined" && CONST_REG.test(attrStr)) {
 	                    attrStr = _data[attrStr];
 	                }
@@ -586,10 +591,10 @@
 	        return _getValue(_data, _attrStr);
 	    };
 
-	    // 注释node
+	    // ע��node
 	    var commentNode = function commentNode(node) {};
 
-	    // 标识��?
+	    // ��ʶ??
 	    var IDENTOR_REG = /[a-zA-Z_\$]+[\w\$]*/g;
 	    var STRING_REG = /"([^"]*)"|'([^']*)'/g;
 	    var NUMBER_REG = /\d+|\d*\.\d+/g;
@@ -617,7 +622,7 @@
 	    };
 
 	    var parseSodaExpression = function parseSodaExpression(str, scope) {
-	        // 对filter进行处理
+	        // ��filter���д���
 	        str = str.replace(OR_REG, OR_REPLACE).split("|");
 
 	        for (var i = 0; i < str.length; i++) {
@@ -627,7 +632,7 @@
 	        var expr = str[0] || "";
 	        var filters = str.slice(1);
 
-	        // 将字符常量保存下��?
+	        // ���ַ�����������??
 	        expr = expr.replace(STRING_REG, function (r, $1, $2) {
 	            var key = getRandom();
 	            scope[key] = $1 || $2;
@@ -637,13 +642,13 @@
 	        while (ATTR_REG.test(expr)) {
 	            ATTR_REG.lastIndex = 0;
 
-	            //对expr预处��?
+	            //��exprԤ��??
 	            expr = expr.replace(ATTR_REG, function (r, $1) {
 	                var key = getAttrVarKey();
-	                // 属�?�名��? 为字符常��?
+	                // ��???��?? Ϊ�ַ���??
 	                var attrName = parseSodaExpression($1, scope);
 
-	                // 给一个特殊的前缀 表示是属性变��?
+	                // ��һ��������ǰ׺ ��ʾ�����Ա�??
 
 	                scope[key] = attrName;
 
@@ -668,7 +673,7 @@
 
 	            var stringReg = /^'.*'$|^".*"$/;
 	            for (var i = 0; i < args.length; i++) {
-	                //这里根据类型进行判断
+	                //�����������ͽ����ж�
 	                if (OBJECT_REG.test(args[i])) {
 	                    args[i] = "getValue(scope,'" + args[i] + "')";
 	                } else {}
@@ -702,30 +707,30 @@
 	        }
 	    };
 
-	    // 解析指令
-	    // 解析attr
+	    // ����ָ��
+	    // ����attr
 	    var compileNode = function compileNode(node, scope) {
-	        // 如果只是文本
+	        // ����ֻ���ı�
 	        if (node.nodeType === 3) {
 	            node.nodeValue = node.nodeValue.replace(valueoutReg, function (item, $1) {
 	                /*
-	                var id = hashTable.getRandId();
-	                 hashTable.id2Expression[id] = {
-	                    expression: $1,
-	                    el: child
-	                };
-	                 hashTable.expression2id[$1] = {
-	                    id: id,
-	                    el: child
-	                };
-	                */
+	                 var id = hashTable.getRandId();
+	                  hashTable.id2Expression[id] = {
+	                 expression: $1,
+	                 el: child
+	                 };
+	                  hashTable.expression2id[$1] = {
+	                 id: id,
+	                 el: child
+	                 };
+	                 */
 
 	                return parseSodaExpression($1, scope);
 	            });
 	        }
 
 	        if (node.attributes) {
-	            // 指令处理
+	            // ָ���
 	            sodaDirectiveArr.map(function (item) {
 	                var name = item.name;
 
@@ -736,12 +741,12 @@
 	                }
 	            });
 
-	            // 处理输出 包含 soda-*
+	            // �������� ���� prefix-*
 	            [].map.call(node.attributes, function (attr) {
-	                // 如果dirctiveMap有的就跳过不再处��?
+	                // ����dirctiveMap�еľ��������ٴ�??
 	                if (!sodaDirectiveMap[attr.name]) {
-	                    if (/^soda-/.test(attr.name)) {
-	                        var attrName = attr.name.replace(/^soda-/, '');
+	                    if (prefixReg.test(attr.name)) {
+	                        var attrName = attr.name.replace(prefixReg, '');
 
 	                        if (attrName) {
 	                            var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
@@ -751,7 +756,7 @@
 	                            node.setAttribute(attrName, attrValue);
 	                        }
 
-	                        // 对其他属性里含expr 处理
+	                        // �����������ﺬexpr ����
 	                    } else {
 	                        attr.value = attr.value.replace(valueoutReg, function (item, $1) {
 	                            return parseSodaExpression($1, scope);
@@ -773,7 +778,7 @@
 	    var sodaDirectiveArr = [];
 
 	    var sodaDirective = function sodaDirective(name, func) {
-	        var name = 'soda-' + name;
+	        var name = prefix + '-' + name;
 	        sodaDirectiveMap[name] = func();
 
 	        sodaDirectiveArr.push({
@@ -799,7 +804,7 @@
 	            priority: 10,
 	            compile: function compile(scope, el, attrs) {},
 	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute('soda-repeat');
+	                var opt = el.getAttribute(prefix + '-repeat');
 	                var itemName;
 	                var valueName;
 
@@ -836,13 +841,13 @@
 
 	                trackName = trackName || '$index';
 
-	                // 这里要处理一��?
+	                // ����Ҫ����һ??
 	                var repeatObj = getValue(scope, valueName) || [];
 
 	                var repeatFunc = function repeatFunc(i) {
 	                    var itemNode = el.cloneNode(true);
 
-	                    // 这里创建��?个新的scope
+	                    // ���ﴴ��??���µ�scope
 	                    var itemScope = {};
 	                    itemScope[trackName] = i;
 
@@ -850,11 +855,11 @@
 
 	                    itemScope.__proto__ = scope;
 
-	                    itemNode.removeAttribute('soda-repeat');
+	                    itemNode.removeAttribute(prefix + '-repeat');
 
 	                    el.parentNode.insertBefore(itemNode, el);
 
-	                    // 这里是新加的dom, 要单独编��?
+	                    // �������¼ӵ�dom, Ҫ������??
 	                    compileNode(itemNode, itemScope);
 	                };
 
@@ -879,7 +884,7 @@
 	        return {
 	            priority: 9,
 	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute('soda-if');
+	                var opt = el.getAttribute(prefix + '-if');
 
 	                var expressFunc = parseSodaExpression(opt, scope);
 
@@ -894,7 +899,7 @@
 	    sodaDirective('class', function () {
 	        return {
 	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-class");
+	                var opt = el.getAttribute(prefix + "-class");
 
 	                var expressFunc = parseSodaExpression(opt, scope);
 
@@ -908,7 +913,7 @@
 	    sodaDirective('src', function () {
 	        return {
 	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-src");
+	                var opt = el.getAttribute(prefix + "-src");
 
 	                var expressFunc = opt.replace(valueoutReg, function (item, $1) {
 	                    return parseSodaExpression($1, scope);
@@ -924,7 +929,7 @@
 	    sodaDirective('bind-html', function () {
 	        return {
 	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-bind-html");
+	                var opt = el.getAttribute(prefix + "-bind-html");
 	                var expressFunc = parseSodaExpression(opt, scope);
 
 	                if (expressFunc) {
@@ -941,7 +946,7 @@
 	    sodaDirective('html', function () {
 	        return {
 	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-html");
+	                var opt = el.getAttribute(prefix + "-html");
 	                var expressFunc = parseSodaExpression(opt, scope);
 
 	                if (expressFunc) {
@@ -958,7 +963,7 @@
 	    sodaDirective("style", function () {
 	        return {
 	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute("soda-style");
+	                var opt = el.getAttribute(prefix + "-style");
 	                var expressFunc = parseSodaExpression(opt, scope);
 
 	                var getCssValue = function getCssValue(name, value) {
@@ -1002,14 +1007,14 @@
 	    });
 
 	    var sodaRender = function sodaRender(str, data) {
-	        // 对directive进行排序
+	        // ��directive��������
 	        sodaDirectiveArr.sort(function (b, a) {
 	            return Number(a.opt.priority || 0) - Number(b.opt.priority || 0);
 	        });
 
 	        //console.log(sodaDirectiveArr);
 
-	        // 解析模板DOM
+	        // ����ģ��DOM
 	        var div = document.createElement("div");
 
 	        div.innerHTML = str;
@@ -1024,24 +1029,24 @@
 	        //  frament.innerHTML = div.innerHTML;
 
 	        /*
-	        frament.update = function(newData){
-	            //checkingDirtyData(data, d);
-	            var diff = DeepDiff.noConflict();
-	             var diffResult = diff(data, newData);
-	             console.log(diffResult);
-	             var dirtyData = ['a'];
-	             for(var i = 0; i < dirtyData.length; i ++){
-	                var item = dirtyData[i];
-	                 var id = hashTable.expression2id[item];
-	                 var nowValue = parseSodaExpression(item, newData);
-	                //console.log(nowValue);
-	                 if(id.el){
-	                    id.el.nodeValue = nowValue;
-	                }
-	            }
-	             console.log(hashTable);
-	          };
-	        */
+	         frament.update = function(newData){
+	         //checkingDirtyData(data, d);
+	         var diff = DeepDiff.noConflict();
+	          var diffResult = diff(data, newData);
+	          console.log(diffResult);
+	          var dirtyData = ['a'];
+	          for(var i = 0; i < dirtyData.length; i ++){
+	         var item = dirtyData[i];
+	          var id = hashTable.expression2id[item];
+	          var nowValue = parseSodaExpression(item, newData);
+	         //console.log(nowValue);
+	          if(id.el){
+	         id.el.nodeValue = nowValue;
+	         }
+	         }
+	          console.log(hashTable);
+	           };
+	         */
 
 	        var child;
 	        while (child = div.childNodes[0]) {
@@ -1060,8 +1065,6 @@
 	        eventPool[type].push(func);
 	    };
 
-	    sodaRender.author = "dorsy";
-
 	    var triggerEvent = function triggerEvent(type, e, data) {
 	        var events = eventPool[type] || [];
 
@@ -1073,11 +1076,30 @@
 
 	    sodaRender.filter = sodaFilter;
 
+	    sodaRender.prefix = function (newPrefix) {
+
+	        for (var key in sodaDirectiveMap) {
+	            if (sodaDirectiveMap.hasOwnProperty(key)) {
+	                sodaDirectiveMap[key.replace(prefix, newPrefix)] = sodaDirectiveMap[key];
+	                delete sodaDirectiveMap[key];
+	            }
+	        }
+
+	        var i = 0,
+	            len = sodaDirectiveArr.length;
+	        for (; i < len; i++) {
+	            sodaDirectiveArr[i].name = sodaDirectiveArr[i].name.replace(prefix, newPrefix);
+	        }
+
+	        prefix = newPrefix;
+	        prefixReg = new RegExp('^' + prefix + '-');
+	    };
+
 	    if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') module.exports = sodaRender;else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	        return sodaRender;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["soda"] = sodaRender;else window.soda = sodaRender;
 
-	    // 监听数据异常情况
+	    // ���������쳣����
 	})();
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 

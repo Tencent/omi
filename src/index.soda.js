@@ -3,6 +3,8 @@ import soda from './soda.js'
 import Component from './component.js'
 import Store from './store.js'
 
+soda.prefix('o')
+
 Omi.template = soda
 
 Omi.Store = Store
