@@ -23,14 +23,14 @@ Omi从设计之初，就是往标准的DOM标签的标准传递方式靠齐。�
 ```js
 import Hello from 'hello.js'
 
-Omi.makeHTML('Hello', Hello);
+Omi.tag('hello', Hello);
 
 class App extends Omi.Component {
   
     render() {
         return  `
         <div>
-            <Hello :data-user="{ name : 'Dntzhang', favorite : 'Omi' }" />
+            <hello :data-user="{ name : 'Dntzhang', favorite : 'Omi' }" ></hello>
         </div>
         `
 
@@ -64,33 +64,33 @@ class Hello extends Omi.Component {
 上面的例子展示了传递JSON，其他类型也支持。比如：
 
 ```js
- <Hello :data-age="18" />
+ <hello :data-age="18" ></hello>
 ```
 ```js
- <Hello :data-xxx="1+1*2/3" />
+ <hello :data-xxx="1+1*2/3" ></hello>
 ```
 ```js
- <Hello :data-is-girl="false" />
+ <hello :data-is-girl="false" ></hello>
 ```
 ```js
- <Hello :data-array-test="[1,2,3]" />
+ <hello :data-array-test="[1,2,3]" ></hello>
 ```
 
 当然也支持传递多个值：
 
 ```js
- <Hello :data-array-test="[1,2,3]" :data-is-girl="false" :data-age="18"/>
+ <hello :data-array-test="[1,2,3]" :data-is-girl="false" :data-age="18" ></hello>
 ```
 
 当然你也可以使用:data合并到一起：
 
 ```js
- <Hello :data="{
+ <hello :data="{
                   arrayTest : [1,2,3], 
                   isGirl : false, 
                   age : 19
                 }"
-/>
+/><hello>
 ```
 
 ## 复杂类型
@@ -116,14 +116,14 @@ class Hello extends Omi.Component {
     }
 }
 
-Omi.makeHTML('Hello', Hello);
+Omi.tag('hello', Hello);
 
 class App extends Omi.Component {
   
     render() {
         return  `
         <div>
-            <Hello :data-array-test="[{name:'dntzhang'},{name:'omi'},{name:'AlloyTeam'}]" />
+            <hello :data-array-test="[{name:'dntzhang'},{name:'omi'},{name:'AlloyTeam'}]" ></hello>
         </div>
         `;
 
