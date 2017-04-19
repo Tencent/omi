@@ -142,6 +142,82 @@ Omi.render(new List({
 
 ➜ [example](https://alloyteam.github.io/omi/website/redirect.html?type=repeat)
 
+上面是一个简单是例子说明o-repeat和条件判断o-if指令的使用方式，也可以支持多重循环:
+
+```js
+class List extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render(){
+        return `<div>
+                    <div o-repeat="item in items" o-if="item.show">
+                        {{$index}}- {{item.text}}
+                        <ul>
+                            <li o-repeat="subItem in item.arr by $subIndex">
+                                <div>parent index: {{$index}}</div>
+                                <div>parent item text:{{item.text}}</div>
+                                <div>sub index: {{$subIndex}}</div>
+                                <div>sub item :{{subItem}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>`
+    }
+
+}
+
+Omi.render(new List({
+    items: [
+        { text: 'Omi', show: true ,arr:['a','b','c']},
+        { text: 'dntzhang', show: true, arr:['d','e']},
+        { text: 'AlloyTeam'}
+    ]
+}),"body",true);
+```
+
+➜ [example](https://alloyteam.github.io/omi/website/redirect.html?type=repeat-n)
+
+自定义标签也可以使用指令：
+
+```js
+class Item extends Omi.Component {
+
+    render(){
+        return `<div>Hello, {{text}}</div>`
+    }
+}
+
+Omi.tag('item',Item)
+
+class List extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render(){
+        return `<div>
+                    <item o-repeat="item in items" o-if="item.show" data-text="{{item.text}}"></item>
+                </div>`
+    }
+
+}
+
+Omi.render(new List({
+    items: [
+        { text: 'Omi', show: true },
+        { text: 'dntzhang', show: true },
+        { text: 'AlloyTeam'}
+    ]
+}),'#container');
+```
+
+➜ [example](https://alloyteam.github.io/omi/website/redirect.html?type=repeat-ct)
+
+
+
+
 ## Omi相关
 
 * Omi官网[omijs.org](http://www.omijs.org)

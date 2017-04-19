@@ -1,7 +1,7 @@
 ﻿import Omi from '../../src/index.js';
-import item from './item.js'
+import Item from './item.js'
 
-Omi.tag('item',item)
+Omi.tag('item',Item)
 
 class List extends Omi.Component {
     constructor(data) {
@@ -10,7 +10,7 @@ class List extends Omi.Component {
 
     render(){
         return `<div>
-                    <item  o-repeat="item in items" o-if="item.show" data-text="{{item.text}}"></item>
+                    <item o-repeat="item in items" o-if="item.show" data-text="{{item.text}}"></item>
                 </div>`
     }
 
