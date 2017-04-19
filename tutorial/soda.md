@@ -140,7 +140,7 @@ Omi.render(new List({
 }),"body",true);
 ```
 
-➜ [bind-html example](http://alloyteam.github.io/sodajs/pg/rd.html?type=bind-html)
+➜ [example](https://alloyteam.github.io/omi/website/redirect.html?type=repeat)
 
 ## Omi相关
 
