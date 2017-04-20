@@ -6,7 +6,10 @@ Omi.tag('hello', hello)
 
 class App extends Omi.Component {
     render(){
-        return `<hello data-name="Omi"></hello>`
+        return `<div>
+                    afsdfsd
+                    <hello data-name="Omi"></hello>
+                </div>`
     }
 }
 
