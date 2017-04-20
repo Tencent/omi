@@ -212,11 +212,15 @@ Omi.getClassFromString = function(str) {
     }
 }
 
+
 //以前是Component的静态方法，移到omi下来，不然makehtml 在ie下child访问不到父亲的静态方法
 Omi.makeHTML= function(name, ctor) {
     Omi.componentConstructor[name] = ctor
     Omi.componentConstructor[name.toLowerCase()] = ctor
     Omi.customTags.push(name, name.toLowerCase())
+    if(document.documentMode < 9){
+        document.createElement(name.toLowerCase());
+    }
 }
 
 Omi.tag = Omi.makeHTML

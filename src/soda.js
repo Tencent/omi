@@ -1,11 +1,41 @@
 /**
- * sodajs v0.4.1 by dorsywang
+ * sodajs v0.4.3 by dorsywang
  * Light weight but powerful template engine for JavaScript
  * Github: https://github.com/AlloyTeam/sodajs
  * MIT License
  */
 
 ;(function() {
+    if(! Array.prototype.map){
+        Array.prototype.map = function(func){
+            var arr = [];
+            for(var i = 0; i < this.length; i ++){
+                var item = this[i];
+
+                [].push(func && func.call(item, item, i));
+            }
+
+            return arr;
+        };
+    }
+
+    if(! String.prototype.trim){
+        String.prototype.trim = function(){
+            return this.replace(/^\s*|\s*$/g, '');
+        };
+    }
+
+
+    var nodes2Arr = function(nodes){
+        var arr = [];
+
+        for(var i = 0; i < nodes.length; i ++){
+            arr.push(nodes[i]);
+        }
+
+        return arr;
+    };
+
     var valueoutReg = /\{\{([^\}]*)\}\}/g;
 
     var prefix = 'soda';
@@ -57,7 +87,7 @@
                 var attr = attrStr.substr(0, dotIndex);
                 attrStr = attrStr.substr(dotIndex + 1);
 
-                // ??²éattrStrÊÇ·ñÊô???±äÁ¿²¢×ª»»
+                // ï¿½?æŸ¥attrStræ˜¯å¦å±žï¿½?ï¿½å˜é‡å¹¶è½¬æ¢
                 if (typeof _data[attr] !== "undefined" && CONST_REG.test(attr)) {
                     attr = _data[attr];
                 }
@@ -75,12 +105,12 @@
                         data: eventData
                     }, eventData);
 
-                    // Èç¹û»¹ÓÐ
+                    // å¦‚æžœè¿˜æœ‰
                     return "";
                 }
             } else {
 
-                // ??²éattrStrÊÇ·ñÊô???±äÁ¿²¢×ª»»
+                // ï¿½?æŸ¥attrStræ˜¯å¦å±žï¿½?ï¿½å˜é‡å¹¶è½¬æ¢
                 if (typeof _data[attrStr] !== "undefined" && CONST_REG.test(attrStr)) {
                     attrStr = _data[attrStr];
                 }
@@ -109,17 +139,21 @@
         return _getValue(_data, _attrStr);
     };
 
-    // ×¢ÊÍnode
+    // æ³¨é‡Šnode
     var commentNode = function (node) {
     };
 
-    // ±êÊ¶??
+    // æ ‡è¯†ï¿½?
     var IDENTOR_REG = /[a-zA-Z_\$]+[\w\$]*/g;
     var STRING_REG = /"([^"]*)"|'([^']*)'/g
     var NUMBER_REG = /\d+|\d*\.\d+/g;
 
     var OBJECT_REG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/g;
+    // éžglobal åštestç”¨
+    var OBJECT_REG_NG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/;
+
     var ATTR_REG = /\[([^\[\]]*)\]/g;
+    var ATTR_REG_NG = /\[([^\[\]]*)\]/;
     var ATTR_REG_DOT = /\.([a-zA-Z_\$]+[\w\$]*)/g;
 
     var NOT_ATTR_REG = /[^\.|]([a-zA-Z_\$]+[\w\$]*)/g;
@@ -141,7 +175,7 @@
     };
 
     var parseSodaExpression = function (str, scope) {
-        // ¶Ôfilter½øÐÐ´¦Àí
+        // å¯¹filterè¿›è¡Œå¤„ç†
         str = str.replace(OR_REG, OR_REPLACE).split("|");
 
         for (var i = 0; i < str.length; i++) {
@@ -151,23 +185,23 @@
         var expr = str[0] || "";
         var filters = str.slice(1);
 
-        // ½«×Ö·û³£Á¿±£´æÏÂ??
+        // å°†å­—ç¬¦å¸¸é‡ä¿å­˜ä¸‹ï¿½?
         expr = expr.replace(STRING_REG, function (r, $1, $2) {
             var key = getRandom();
             scope[key] = $1 || $2;
             return key;
         });
 
-        while (ATTR_REG.test(expr)) {
+        while (ATTR_REG_NG.test(expr)) {
             ATTR_REG.lastIndex = 0;
 
-            //¶ÔexprÔ¤´¦??
+            //å¯¹expré¢„å¤„ï¿½?
             expr = expr.replace(ATTR_REG, function (r, $1) {
                 var key = getAttrVarKey();
-                // Êô???Ãû?? Îª×Ö·û³£??
+                // å±žï¿½?ï¿½åï¿½? ä¸ºå­—ç¬¦å¸¸ï¿½?
                 var attrName = parseSodaExpression($1, scope);
 
-                // ¸øÒ»¸öÌØÊâµÄÇ°×º ±íÊ¾ÊÇÊôÐÔ±ä??
+                // ç»™ä¸€ä¸ªç‰¹æ®Šçš„å‰ç¼€ è¡¨ç¤ºæ˜¯å±žæ€§å˜ï¿½?
 
                 scope[key] = attrName;
 
@@ -193,8 +227,8 @@
 
             var stringReg = /^'.*'$|^".*"$/;
             for (var i = 0; i < args.length; i++) {
-                //ÕâÀï¸ù¾ÝÀàÐÍ½øÐÐÅÐ¶Ï
-                if (OBJECT_REG.test(args[i])) {
+                //è¿™é‡Œæ ¹æ®ç±»åž‹è¿›è¡Œåˆ¤æ–­
+                if (OBJECT_REG_NG.test(args[i])) {
                     args[i] = "getValue(scope,'" + args[i] + "')";
                 } else {
                 }
@@ -228,10 +262,10 @@
         }
     };
 
-    // ½âÎöÖ¸Áî
-    // ½âÎöattr
+    // è§£æžæŒ‡ä»¤
+    // è§£æžattr
     var compileNode = function (node, scope) {
-        // Èç¹ûÖ»ÊÇÎÄ±¾
+        // å¦‚æžœåªæ˜¯æ–‡æœ¬
         if (node.nodeType === 3) {
             node.nodeValue = node.nodeValue.replace(valueoutReg, function (item, $1) {
                 /*
@@ -254,7 +288,7 @@
         }
 
         if (node.attributes) {
-            // Ö¸Áî´¦Àí
+            // æŒ‡ä»¤å¤„ç†
             sodaDirectiveArr.map(function (item) {
                 var name = item.name;
 
@@ -265,33 +299,37 @@
                 }
             });
 
-            // ´¦ÀíÊä³ö °üº¬ prefix-*
+            // å¤„ç†è¾“å‡º åŒ…å« prefix-*
             [].map.call(node.attributes, function (attr) {
-                // Èç¹ûdirctiveMapÓÐµÄ¾ÍÌø¹ý²»ÔÙ´¦??
+                // å¦‚æžœdirctiveMapæœ‰çš„å°±è·³è¿‡ä¸å†å¤„ï¿½?
                 if (!sodaDirectiveMap[attr.name]) {
                     if (prefixReg.test(attr.name)) {
                         var attrName = attr.name.replace(prefixReg, '');
 
                         if (attrName) {
-                            var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
-                                return parseSodaExpression($1, scope);
-                            });
+                            if(attr.value){
+                                var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
+                                    return parseSodaExpression($1, scope);
+                                });
 
-                            node.setAttribute(attrName, attrValue);
+                                node.setAttribute(attrName, attrValue);
+                            }
                         }
 
-                        // ¶ÔÆäËûÊôÐÔÀïº¬expr ´¦Àí
+                        // å¯¹å…¶ä»–å±žæ€§é‡Œå«expr å¤„ç†
                     } else {
-                        attr.value = attr.value.replace(valueoutReg, function (item, $1) {
-                            return parseSodaExpression($1, scope);
-                        });
+                        if(attr.value){
+                            attr.value = attr.value.replace(valueoutReg, function (item, $1) {
+                                return parseSodaExpression($1, scope);
+                            });
+                        }
                     }
                 }
             });
 
         }
 
-        [].map.call([].slice.call(node.childNodes, []), function (child) {
+        nodes2Arr(node.childNodes).map(function (child) {
             compileNode(child, scope);
         });
     };
@@ -369,13 +407,13 @@
 
                 trackName = trackName || '$index';
 
-                // ÕâÀïÒª´¦ÀíÒ»??
+                // è¿™é‡Œè¦å¤„ç†ä¸€ï¿½?
                 var repeatObj = getValue(scope, valueName) || [];
 
                 var repeatFunc = function (i) {
                     var itemNode = el.cloneNode(true);
 
-                    // ÕâÀï´´½¨??¸öÐÂµÄscope
+                    // è¿™é‡Œåˆ›å»ºï¿½?ä¸ªæ–°çš„scope
                     var itemScope = {};
                     itemScope[trackName] = i;
 
@@ -387,7 +425,7 @@
 
                     el.parentNode.insertBefore(itemNode, el);
 
-                    // ÕâÀïÊÇÐÂ¼ÓµÄdom, Òªµ¥¶À±à??
+                    // è¿™é‡Œæ˜¯æ–°åŠ çš„dom, è¦å•ç‹¬ç¼–ï¿½?
                     compileNode(itemNode, itemScope);
 
                 };
@@ -541,23 +579,35 @@
     });
 
     var sodaRender = function (str, data) {
-        // ¶Ôdirective½øÐÐÅÅÐò
+        // å¯¹directiveè¿›è¡ŒæŽ’åº
         sodaDirectiveArr.sort(function (b, a) {
             return (Number(a.opt.priority || 0) - Number(b.opt.priority || 0));
         });
 
         //console.log(sodaDirectiveArr);
 
-        // ½âÎöÄ£°åDOM
+        // è§£æžæ¨¡æ¿DOM
         var div = document.createElement("div");
+
+        // å¿…é¡»åŠ å…¥åˆ°bodyä¸­åŽ»ï¼Œä¸ç„¶è‡ªå®šä¹‰æ ‡ç­¾ä¸ç”Ÿæ•ˆ
+        if(document.documentMode < 9) {
+            div.style.display = 'none';
+            document.body.appendChild(div);
+        }
 
         div.innerHTML = str;
 
-        [].map.call([].slice.call(div.childNodes, []), function (child) {
+        nodes2Arr(div.childNodes).map(function (child) {
             compileNode(child, data);
         });
 
-        return div.innerHTML;
+        var innerHTML = div.innerHTML;
+
+        if(document.documentMode < 9) {
+            document.body.removeChild(div);
+        }
+
+        return innerHTML;
 
         //  var frament = document.createDocumentFragment();
         //  frament.innerHTML = div.innerHTML;
@@ -653,5 +703,5 @@
     else
         window.soda = sodaRender;
 
-    // ¼àÌýÊý¾ÝÒì³£Çé¿ö
+    // ç›‘å¬æ•°æ®å¼‚å¸¸æƒ…å†µ
 })();

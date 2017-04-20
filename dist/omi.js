@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.5.0 By dntzhang 
+ *  Omi v1.5.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -57,7 +57,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -92,9 +92,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    module.exports = _omi2['default'];
 	}
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -344,6 +344,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Omi.componentConstructor[name] = ctor;
 	    Omi.componentConstructor[name.toLowerCase()] = ctor;
 	    Omi.customTags.push(name, name.toLowerCase());
+	    if (document.documentMode < 9) {
+	        document.createElement(name.toLowerCase());
+	    }
 	};
 
 	Omi.tag = Omi.makeHTML;
@@ -438,22 +441,51 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = Omi;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
-	 * sodajs v0.4.1 by dorsywang
+	 * sodajs v0.4.3 by dorsywang
 	 * Light weight but powerful template engine for JavaScript
 	 * Github: https://github.com/AlloyTeam/sodajs
 	 * MIT License
 	 */
 
 	;(function () {
+	    if (!Array.prototype.map) {
+	        Array.prototype.map = function (func) {
+	            var arr = [];
+	            for (var i = 0; i < this.length; i++) {
+	                var item = this[i];
+
+	                [].push(func && func.call(item, item, i));
+	            }
+
+	            return arr;
+	        };
+	    }
+
+	    if (!String.prototype.trim) {
+	        String.prototype.trim = function () {
+	            return this.replace(/^\s*|\s*$/g, '');
+	        };
+	    }
+
+	    var nodes2Arr = function nodes2Arr(nodes) {
+	        var arr = [];
+
+	        for (var i = 0; i < nodes.length; i++) {
+	            arr.push(nodes[i]);
+	        }
+
+	        return arr;
+	    };
+
 	    var valueoutReg = /\{\{([^\}]*)\}\}/g;
 
 	    var prefix = 'soda';
@@ -504,7 +536,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var attr = attrStr.substr(0, dotIndex);
 	                attrStr = attrStr.substr(dotIndex + 1);
 
-	                // ??��attrStr�Ƿ���???������ת��
+	                // �?查attrStr是否属�?�变量并转换
 	                if (typeof _data[attr] !== "undefined" && CONST_REG.test(attr)) {
 	                    attr = _data[attr];
 	                }
@@ -522,12 +554,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        data: eventData
 	                    }, eventData);
 
-	                    // ��������
+	                    // 如果还有
 	                    return "";
 	                }
 	            } else {
 
-	                // ??��attrStr�Ƿ���???������ת��
+	                // �?查attrStr是否属�?�变量并转换
 	                if (typeof _data[attrStr] !== "undefined" && CONST_REG.test(attrStr)) {
 	                    attrStr = _data[attrStr];
 	                }
@@ -556,16 +588,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return _getValue(_data, _attrStr);
 	    };
 
-	    // ע��node
+	    // 注释node
 	    var commentNode = function commentNode(node) {};
 
-	    // ��ʶ??
+	    // 标识�?
 	    var IDENTOR_REG = /[a-zA-Z_\$]+[\w\$]*/g;
 	    var STRING_REG = /"([^"]*)"|'([^']*)'/g;
 	    var NUMBER_REG = /\d+|\d*\.\d+/g;
 
 	    var OBJECT_REG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/g;
+	    // 非global 做test用
+	    var OBJECT_REG_NG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/;
+
 	    var ATTR_REG = /\[([^\[\]]*)\]/g;
+	    var ATTR_REG_NG = /\[([^\[\]]*)\]/;
 	    var ATTR_REG_DOT = /\.([a-zA-Z_\$]+[\w\$]*)/g;
 
 	    var NOT_ATTR_REG = /[^\.|]([a-zA-Z_\$]+[\w\$]*)/g;
@@ -587,7 +623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    var parseSodaExpression = function parseSodaExpression(str, scope) {
-	        // ��filter���д���
+	        // 对filter进行处理
 	        str = str.replace(OR_REG, OR_REPLACE).split("|");
 
 	        for (var i = 0; i < str.length; i++) {
@@ -597,23 +633,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var expr = str[0] || "";
 	        var filters = str.slice(1);
 
-	        // ���ַ�����������??
+	        // 将字符常量保存下�?
 	        expr = expr.replace(STRING_REG, function (r, $1, $2) {
 	            var key = getRandom();
 	            scope[key] = $1 || $2;
 	            return key;
 	        });
 
-	        while (ATTR_REG.test(expr)) {
+	        while (ATTR_REG_NG.test(expr)) {
 	            ATTR_REG.lastIndex = 0;
 
-	            //��exprԤ��??
+	            //对expr预处�?
 	            expr = expr.replace(ATTR_REG, function (r, $1) {
 	                var key = getAttrVarKey();
-	                // ��???��?? Ϊ�ַ���??
+	                // 属�?�名�? 为字符常�?
 	                var attrName = parseSodaExpression($1, scope);
 
-	                // ��һ��������ǰ׺ ��ʾ�����Ա�??
+	                // 给一个特殊的前缀 表示是属性变�?
 
 	                scope[key] = attrName;
 
@@ -638,8 +674,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            var stringReg = /^'.*'$|^".*"$/;
 	            for (var i = 0; i < args.length; i++) {
-	                //�����������ͽ����ж�
-	                if (OBJECT_REG.test(args[i])) {
+	                //这里根据类型进行判断
+	                if (OBJECT_REG_NG.test(args[i])) {
 	                    args[i] = "getValue(scope,'" + args[i] + "')";
 	                } else {}
 	            }
@@ -672,10 +708,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    };
 
-	    // ����ָ��
-	    // ����attr
+	    // 解析指令
+	    // 解析attr
 	    var compileNode = function compileNode(node, scope) {
-	        // ����ֻ���ı�
+	        // 如果只是文本
 	        if (node.nodeType === 3) {
 	            node.nodeValue = node.nodeValue.replace(valueoutReg, function (item, $1) {
 	                /*
@@ -695,7 +731,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        if (node.attributes) {
-	            // ָ���
+	            // 指令处理
 	            sodaDirectiveArr.map(function (item) {
 	                var name = item.name;
 
@@ -706,32 +742,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            });
 
-	            // �������� ���� prefix-*
+	            // 处理输出 包含 prefix-*
 	            [].map.call(node.attributes, function (attr) {
-	                // ����dirctiveMap�еľ��������ٴ�??
+	                // 如果dirctiveMap有的就跳过不再处�?
 	                if (!sodaDirectiveMap[attr.name]) {
 	                    if (prefixReg.test(attr.name)) {
 	                        var attrName = attr.name.replace(prefixReg, '');
 
 	                        if (attrName) {
-	                            var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
-	                                return parseSodaExpression($1, scope);
-	                            });
+	                            if (attr.value) {
+	                                var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
+	                                    return parseSodaExpression($1, scope);
+	                                });
 
-	                            node.setAttribute(attrName, attrValue);
+	                                node.setAttribute(attrName, attrValue);
+	                            }
 	                        }
 
-	                        // �����������ﺬexpr ����
+	                        // 对其他属性里含expr 处理
 	                    } else {
-	                        attr.value = attr.value.replace(valueoutReg, function (item, $1) {
-	                            return parseSodaExpression($1, scope);
-	                        });
+	                        if (attr.value) {
+	                            attr.value = attr.value.replace(valueoutReg, function (item, $1) {
+	                                return parseSodaExpression($1, scope);
+	                            });
+	                        }
 	                    }
 	                }
 	            });
 	        }
 
-	        [].map.call([].slice.call(node.childNodes, []), function (child) {
+	        nodes2Arr(node.childNodes).map(function (child) {
 	            compileNode(child, scope);
 	        });
 	    };
@@ -806,13 +846,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                trackName = trackName || '$index';
 
-	                // ����Ҫ����һ??
+	                // 这里要处理一�?
 	                var repeatObj = getValue(scope, valueName) || [];
 
 	                var repeatFunc = function repeatFunc(i) {
 	                    var itemNode = el.cloneNode(true);
 
-	                    // ���ﴴ��??���µ�scope
+	                    // 这里创建�?个新的scope
 	                    var itemScope = {};
 	                    itemScope[trackName] = i;
 
@@ -824,7 +864,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                    el.parentNode.insertBefore(itemNode, el);
 
-	                    // �������¼ӵ�dom, Ҫ������??
+	                    // 这里是新加的dom, 要单独编�?
 	                    compileNode(itemNode, itemScope);
 	                };
 
@@ -972,23 +1012,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 
 	    var sodaRender = function sodaRender(str, data) {
-	        // ��directive��������
+	        // 对directive进行排序
 	        sodaDirectiveArr.sort(function (b, a) {
 	            return Number(a.opt.priority || 0) - Number(b.opt.priority || 0);
 	        });
 
 	        //console.log(sodaDirectiveArr);
 
-	        // ����ģ��DOM
+	        // 解析模板DOM
 	        var div = document.createElement("div");
+
+	        // 必须加入到body中去，不然自定义标签不生效
+	        if (document.documentMode < 9) {
+	            div.style.display = 'none';
+	            document.body.appendChild(div);
+	        }
 
 	        div.innerHTML = str;
 
-	        [].map.call([].slice.call(div.childNodes, []), function (child) {
+	        nodes2Arr(div.childNodes).map(function (child) {
 	            compileNode(child, data);
 	        });
 
-	        return div.innerHTML;
+	        var innerHTML = div.innerHTML;
+
+	        if (document.documentMode < 9) {
+	            document.body.removeChild(div);
+	        }
+
+	        return innerHTML;
 
 	        //  var frament = document.createDocumentFragment();
 	        //  frament.innerHTML = div.innerHTML;
@@ -1064,13 +1116,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return sodaRender;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["soda"] = sodaRender;else window.soda = sodaRender;
 
-	    // ���������쳣����
+	    // 监听数据异常情况
 	})();
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = function(module) {
 		if(!module.webpackPolyfill) {
@@ -1084,9 +1136,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1716,78 +1768,76 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                cmi._childRender(childStr);
 	            } else {
-	                (function () {
-	                    var baseData = {};
-	                    var dataset = {};
+	                var baseData = {};
+	                var dataset = {};
 
-	                    var groupDataIndex = null;
-	                    var omiID = null;
-	                    var instanceName = null;
-	                    var _omi_option = {};
+	                var groupDataIndex = null;
+	                var omiID = null;
+	                var instanceName = null;
+	                var _omi_option = {};
 
-	                    Object.keys(attr).forEach(function (key) {
-	                        var value = attr[key];
-	                        if (key.indexOf('on') === 0) {
-	                            var handler = child[value];
-	                            if (handler) {
-	                                baseData[key] = handler.bind(child);
-	                            }
-	                        } else if (key === 'omi-id') {
-	                            omiID = value;
-	                        } else if (key === 'name') {
-	                            instanceName = value;
-	                        } else if (key === 'group-data') {
-	                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                                child._omiGroupDataCounter[value]++;
-	                            } else {
-	                                child._omiGroupDataCounter[value] = 0;
-	                            }
-	                            groupDataIndex = child._omiGroupDataCounter[value];
-	                            dataset = _this13._extractPropertyFromString(value, child)[groupDataIndex];
-	                        } else if (key.indexOf('data-') === 0) {
-	                            dataset[_this13._capitalize(key.replace('data-', ''))] = value;
-	                        } else if (key.indexOf(':data-') === 0) {
-	                            dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                        } else if (key === ':data') {
-	                            dataset = eval('(' + value + ')');
-	                        } else if (key === 'data') {
-	                            dataset = _this13._extractPropertyFromString(value, child);
-	                        } else if (key === 'preventSelfUpdate' || key === 'psu') {
-	                            _omi_option.preventSelfUpdate = true;
-	                        } else if (key === 'selfDataFirst' || key === 'sdf') {
-	                            _omi_option.selfDataFirst = true;
-	                        } else if (key === 'domDiffDisabled' || key === 'ddd') {
-	                            _omi_option.domDiffDisabled = true;
-	                        } else if (key === 'ignoreStoreData' || key === 'isd') {
-	                            _omi_option.ignoreStoreData = true;
-	                        } else if (key === 'scopedSelfCSS' || key === 'ssc') {
-	                            _omi_option.scopedSelfCSS = true;
+	                Object.keys(attr).forEach(function (key) {
+	                    var value = attr[key];
+	                    if (key.indexOf('on') === 0) {
+	                        var handler = child[value];
+	                        if (handler) {
+	                            baseData[key] = handler.bind(child);
 	                        }
-	                    });
-
-	                    var ChildClass = _omi2['default'].getClassFromString(name);
-	                    if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                    var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
-	                    sub_child._omi_groupDataIndex = groupDataIndex;
-	                    sub_child._omiChildStr = childStr;
-	                    sub_child._omi_slotContent = slotContent;
-	                    sub_child.parent = child;
-	                    sub_child.$store = child.$store;
-	                    sub_child.___omi_constructor_name = name;
-	                    sub_child._dataset = {};
-	                    sub_child.install();
-
-	                    omiID && (_omi2['default'].mapping[omiID] = sub_child);
-	                    instanceName && (child[instanceName] = sub_child);
-
-	                    if (!cmi) {
-	                        child.children.push(sub_child);
-	                    } else {
-	                        child.children[i] = sub_child;
+	                    } else if (key === 'omi-id') {
+	                        omiID = value;
+	                    } else if (key === 'name') {
+	                        instanceName = value;
+	                    } else if (key === 'group-data') {
+	                        if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                            child._omiGroupDataCounter[value]++;
+	                        } else {
+	                            child._omiGroupDataCounter[value] = 0;
+	                        }
+	                        groupDataIndex = child._omiGroupDataCounter[value];
+	                        dataset = _this13._extractPropertyFromString(value, child)[groupDataIndex];
+	                    } else if (key.indexOf('data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace('data-', ''))] = value;
+	                    } else if (key.indexOf(':data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                    } else if (key === ':data') {
+	                        dataset = eval('(' + value + ')');
+	                    } else if (key === 'data') {
+	                        dataset = _this13._extractPropertyFromString(value, child);
+	                    } else if (key === 'preventSelfUpdate' || key === 'psu') {
+	                        _omi_option.preventSelfUpdate = true;
+	                    } else if (key === 'selfDataFirst' || key === 'sdf') {
+	                        _omi_option.selfDataFirst = true;
+	                    } else if (key === 'domDiffDisabled' || key === 'ddd') {
+	                        _omi_option.domDiffDisabled = true;
+	                    } else if (key === 'ignoreStoreData' || key === 'isd') {
+	                        _omi_option.ignoreStoreData = true;
+	                    } else if (key === 'scopedSelfCSS' || key === 'ssc') {
+	                        _omi_option.scopedSelfCSS = true;
 	                    }
+	                });
 
-	                    sub_child._childRender(childStr);
-	                })();
+	                var ChildClass = _omi2['default'].getClassFromString(name);
+	                if (!ChildClass) throw "Can't find Class called [" + name + "]";
+	                var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
+	                sub_child._omi_groupDataIndex = groupDataIndex;
+	                sub_child._omiChildStr = childStr;
+	                sub_child._omi_slotContent = slotContent;
+	                sub_child.parent = child;
+	                sub_child.$store = child.$store;
+	                sub_child.___omi_constructor_name = name;
+	                sub_child._dataset = {};
+	                sub_child.install();
+
+	                omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                instanceName && (child[instanceName] = sub_child);
+
+	                if (!cmi) {
+	                    child.children.push(sub_child);
+	                } else {
+	                    child.children[i] = sub_child;
+	                }
+
+	                sub_child._childRender(childStr);
 	            }
 	        }
 	    }]);
@@ -1797,9 +1847,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports['default'] = Component;
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1868,9 +1918,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    addStyle: addStyle
 	};
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -1894,9 +1944,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports['default'] = scopedEvent;
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
@@ -2622,9 +2672,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return morphdom;
 	});
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -2865,9 +2915,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = html2json;
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -3009,7 +3059,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = Store;
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

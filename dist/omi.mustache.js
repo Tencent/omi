@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.5.0 By dntzhang 
+ *  Omi v1.5.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -57,7 +57,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -90,9 +90,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    module.exports = _omi2['default'];
 	}
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -342,6 +342,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Omi.componentConstructor[name] = ctor;
 	    Omi.componentConstructor[name.toLowerCase()] = ctor;
 	    Omi.customTags.push(name, name.toLowerCase());
+	    if (document.documentMode < 9) {
+	        document.createElement(name.toLowerCase());
+	    }
 	};
 
 	Omi.tag = Omi.makeHTML;
@@ -436,11 +439,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = Omi;
 
-/***/ },
+/***/ }),
 /* 2 */,
 /* 3 */,
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1070,78 +1073,76 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                cmi._childRender(childStr);
 	            } else {
-	                (function () {
-	                    var baseData = {};
-	                    var dataset = {};
+	                var baseData = {};
+	                var dataset = {};
 
-	                    var groupDataIndex = null;
-	                    var omiID = null;
-	                    var instanceName = null;
-	                    var _omi_option = {};
+	                var groupDataIndex = null;
+	                var omiID = null;
+	                var instanceName = null;
+	                var _omi_option = {};
 
-	                    Object.keys(attr).forEach(function (key) {
-	                        var value = attr[key];
-	                        if (key.indexOf('on') === 0) {
-	                            var handler = child[value];
-	                            if (handler) {
-	                                baseData[key] = handler.bind(child);
-	                            }
-	                        } else if (key === 'omi-id') {
-	                            omiID = value;
-	                        } else if (key === 'name') {
-	                            instanceName = value;
-	                        } else if (key === 'group-data') {
-	                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                                child._omiGroupDataCounter[value]++;
-	                            } else {
-	                                child._omiGroupDataCounter[value] = 0;
-	                            }
-	                            groupDataIndex = child._omiGroupDataCounter[value];
-	                            dataset = _this13._extractPropertyFromString(value, child)[groupDataIndex];
-	                        } else if (key.indexOf('data-') === 0) {
-	                            dataset[_this13._capitalize(key.replace('data-', ''))] = value;
-	                        } else if (key.indexOf(':data-') === 0) {
-	                            dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                        } else if (key === ':data') {
-	                            dataset = eval('(' + value + ')');
-	                        } else if (key === 'data') {
-	                            dataset = _this13._extractPropertyFromString(value, child);
-	                        } else if (key === 'preventSelfUpdate' || key === 'psu') {
-	                            _omi_option.preventSelfUpdate = true;
-	                        } else if (key === 'selfDataFirst' || key === 'sdf') {
-	                            _omi_option.selfDataFirst = true;
-	                        } else if (key === 'domDiffDisabled' || key === 'ddd') {
-	                            _omi_option.domDiffDisabled = true;
-	                        } else if (key === 'ignoreStoreData' || key === 'isd') {
-	                            _omi_option.ignoreStoreData = true;
-	                        } else if (key === 'scopedSelfCSS' || key === 'ssc') {
-	                            _omi_option.scopedSelfCSS = true;
+	                Object.keys(attr).forEach(function (key) {
+	                    var value = attr[key];
+	                    if (key.indexOf('on') === 0) {
+	                        var handler = child[value];
+	                        if (handler) {
+	                            baseData[key] = handler.bind(child);
 	                        }
-	                    });
-
-	                    var ChildClass = _omi2['default'].getClassFromString(name);
-	                    if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                    var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
-	                    sub_child._omi_groupDataIndex = groupDataIndex;
-	                    sub_child._omiChildStr = childStr;
-	                    sub_child._omi_slotContent = slotContent;
-	                    sub_child.parent = child;
-	                    sub_child.$store = child.$store;
-	                    sub_child.___omi_constructor_name = name;
-	                    sub_child._dataset = {};
-	                    sub_child.install();
-
-	                    omiID && (_omi2['default'].mapping[omiID] = sub_child);
-	                    instanceName && (child[instanceName] = sub_child);
-
-	                    if (!cmi) {
-	                        child.children.push(sub_child);
-	                    } else {
-	                        child.children[i] = sub_child;
+	                    } else if (key === 'omi-id') {
+	                        omiID = value;
+	                    } else if (key === 'name') {
+	                        instanceName = value;
+	                    } else if (key === 'group-data') {
+	                        if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                            child._omiGroupDataCounter[value]++;
+	                        } else {
+	                            child._omiGroupDataCounter[value] = 0;
+	                        }
+	                        groupDataIndex = child._omiGroupDataCounter[value];
+	                        dataset = _this13._extractPropertyFromString(value, child)[groupDataIndex];
+	                    } else if (key.indexOf('data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace('data-', ''))] = value;
+	                    } else if (key.indexOf(':data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                    } else if (key === ':data') {
+	                        dataset = eval('(' + value + ')');
+	                    } else if (key === 'data') {
+	                        dataset = _this13._extractPropertyFromString(value, child);
+	                    } else if (key === 'preventSelfUpdate' || key === 'psu') {
+	                        _omi_option.preventSelfUpdate = true;
+	                    } else if (key === 'selfDataFirst' || key === 'sdf') {
+	                        _omi_option.selfDataFirst = true;
+	                    } else if (key === 'domDiffDisabled' || key === 'ddd') {
+	                        _omi_option.domDiffDisabled = true;
+	                    } else if (key === 'ignoreStoreData' || key === 'isd') {
+	                        _omi_option.ignoreStoreData = true;
+	                    } else if (key === 'scopedSelfCSS' || key === 'ssc') {
+	                        _omi_option.scopedSelfCSS = true;
 	                    }
+	                });
 
-	                    sub_child._childRender(childStr);
-	                })();
+	                var ChildClass = _omi2['default'].getClassFromString(name);
+	                if (!ChildClass) throw "Can't find Class called [" + name + "]";
+	                var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
+	                sub_child._omi_groupDataIndex = groupDataIndex;
+	                sub_child._omiChildStr = childStr;
+	                sub_child._omi_slotContent = slotContent;
+	                sub_child.parent = child;
+	                sub_child.$store = child.$store;
+	                sub_child.___omi_constructor_name = name;
+	                sub_child._dataset = {};
+	                sub_child.install();
+
+	                omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                instanceName && (child[instanceName] = sub_child);
+
+	                if (!cmi) {
+	                    child.children.push(sub_child);
+	                } else {
+	                    child.children[i] = sub_child;
+	                }
+
+	                sub_child._childRender(childStr);
 	            }
 	        }
 	    }]);
@@ -1151,9 +1152,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports['default'] = Component;
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1222,9 +1223,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    addStyle: addStyle
 	};
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -1248,9 +1249,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports['default'] = scopedEvent;
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
@@ -1976,9 +1977,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return morphdom;
 	});
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -2219,9 +2220,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = html2json;
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -2363,9 +2364,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = Store;
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
@@ -2979,7 +2980,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return mustache;
 	});
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

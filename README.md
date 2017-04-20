@@ -33,7 +33,7 @@ $ npm run dist                 //部署发布
 ## 特性
 
 * 超小的尺寸，7 kb (gzip)
-* 良好的兼容性，omi.js支持IE9, omi.lite.js和omi.mustache.js支持IE8 （请自行引用es5-shim或es5-sham）
+* 良好的兼容性，支持IE8（请自行引用es5-shim或es5-sham）
 * 完全面向对象的组件体系
 * 局部CSS，HTML+ Scoped CSS + JS组成可复用的组件
 * 更自由的更新，每个组件都有update方法，自由选择时机进行更新
@@ -65,12 +65,12 @@ $ npm install omi
 
 ## CDN
 
-* [https://unpkg.com/omi@1.5.0/dist/omi.min.js](https://unpkg.com/omi@1.5.0/dist/omi.min.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.js](https://unpkg.com/omi@1.5.0/dist/omi.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.5.0/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.lite.js](https://unpkg.com/omi@1.5.0/dist/omi.lite.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.mustache.min.js](https://unpkg.com/omi@1.5.0/dist/omi.mustache.min.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.mustache.js](https://unpkg.com/omi@1.5.0/dist/omi.mustache.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.min.js](https://unpkg.com/omi@1.5.1/dist/omi.min.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.js](https://unpkg.com/omi@1.5.1/dist/omi.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.lite.min.js](https://unpkg.com/omi@1.5.1/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.lite.js](https://unpkg.com/omi@1.5.1/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.mustache.min.js](https://unpkg.com/omi@1.5.1/dist/omi.mustache.min.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.mustache.js](https://unpkg.com/omi@1.5.1/dist/omi.mustache.js)
 
 ## 感谢 
 
@@ -101,7 +101,7 @@ $ npm run dist                 //release
 ## Features
 
 * Super tiny size, 7 KB (gzip)
-* Good compatibility, omi.js support IE9, omi.lite.js and omi.mustache.js support IE8(please import es5-shim or es5-sham by yourself)
+* Good compatibility, support IE8 (please import es5-shim or es5-sham by yourself)
 * Fully object-oriented component system
 * Support Scoped CSS, reusable components are composed of HTML， Scoped CSS and JS
 * More free updates, each component has a update method, free to choose the right time to update
@@ -134,12 +134,12 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 
 ## CDN
 
-* [https://unpkg.com/omi@1.5.0/dist/omi.min.js](https://unpkg.com/omi@1.5.0/dist/omi.min.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.js](https://unpkg.com/omi@1.5.0/dist/omi.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.5.0/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.lite.js](https://unpkg.com/omi@1.5.0/dist/omi.lite.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.mustache.min.js](https://unpkg.com/omi@1.5.0/dist/omi.mustache.min.js)
-* [https://unpkg.com/omi@1.5.0/dist/omi.mustache.js](https://unpkg.com/omi@1.5.0/dist/omi.mustache.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.min.js](https://unpkg.com/omi@1.5.1/dist/omi.min.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.js](https://unpkg.com/omi@1.5.1/dist/omi.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.lite.min.js](https://unpkg.com/omi@1.5.1/dist/omi.lite.min.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.lite.js](https://unpkg.com/omi@1.5.1/dist/omi.lite.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.mustache.min.js](https://unpkg.com/omi@1.5.1/dist/omi.mustache.min.js)
+* [https://unpkg.com/omi@1.5.1/dist/omi.mustache.js](https://unpkg.com/omi@1.5.1/dist/omi.mustache.js)
 
 ## Thanks 
 
