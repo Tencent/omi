@@ -4,8 +4,8 @@ import Omi from 'omi';
 import Header from '../component/header/index.js';
 import Footer from '../component/footer/index.js';
 
-Omi.makeHTML('Header', Header);
-Omi.makeHTML('Footer', Footer);
+Omi.tag('header', Header);
+Omi.tag('footer', Footer);
 
 class Main extends Omi.Component {
     constructor (data) {
@@ -29,9 +29,9 @@ class Main extends Omi.Component {
     render () {
         return `
     <div class="main">
-        <Header />
+        <header></header>
         <div>Main Content</div>
-        <Footer />
+        <footer></footer>
     </div>`;
     }
 }
