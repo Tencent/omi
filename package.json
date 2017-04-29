@@ -17,6 +17,7 @@
     "todomvc": "webpack -w",
     "textarea": "webpack -w",
     "svg": "webpack -w",
+    "tree": "webpack -w",
     "soda": "webpack -w",
     "group-data": "webpack -w",
     "jsx-like-event":"webpack -w",
