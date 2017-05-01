@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.5.1 By dntzhang 
+ *  Omi v1.5.2 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -612,6 +612,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function update() {
 	            this.beforeUpdate();
 	            this._childrenBeforeUpdate(this);
+	            this._omiGroupDataCounter = {};
 	            if (this.renderTo) {
 	                this._render();
 	            } else {
@@ -643,6 +644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            root.children.forEach(function (child) {
 	                child.beforeUpdate();
+	                child._omiGroupDataCounter = {};
 	                _this2._childrenBeforeUpdate(child);
 	            });
 	        }
