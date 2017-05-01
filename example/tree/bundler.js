@@ -89,7 +89,7 @@
 	    demoName: 'Omi Tree Demo',
 	    rootNode: {
 	        name: 'Root',
-	        children: [{ name: 'A', children: [{ name: 'A1', children: [] }, { name: 'A2', children: [] }] }, { name: 'B', children: [{ name: 'B1', children: [] }, { name: 'B2', children: [] }] }, { name: 'C', children: [{ name: 'C1', children: [] }, { name: 'C2', children: [] }] }]
+	        children: [{ name: 'A', id: 1, children: [{ id: 4, name: 'A1', children: [] }, { id: 7, name: 'A2', children: [] }] }, { name: 'B', id: 2, children: [{ id: 5, name: 'B1', children: [] }, { id: 8, name: 'B2', children: [] }] }, { name: 'C', id: 3, children: [{ id: 6, name: 'C1', children: [] }, { id: 9, name: 'C2', children: [] }] }]
 	    }
 	}), "#container");
 
@@ -1347,6 +1347,7 @@
 	        value: function update() {
 	            this.beforeUpdate();
 	            this._childrenBeforeUpdate(this);
+	            this._omiGroupDataCounter = {};
 	            if (this.renderTo) {
 	                this._render();
 	            } else {
@@ -1378,6 +1379,7 @@
 
 	            root.children.forEach(function (child) {
 	                child.beforeUpdate();
+	                child._omiGroupDataCounter = {};
 	                _this2._childrenBeforeUpdate(child);
 	            });
 	        }
@@ -3138,6 +3140,55 @@
 	    }
 
 	    _createClass(Tree, [{
+	        key: 'moveNode',
+	        value: function moveNode(id, parentId) {
+
+	            console.log(id, parentId);
+	            // if(id===parentId)return;
+	            var parent = this.getChildById(parentId, this.data.children);
+	            var child = this.removeChildById(id, this.data.children);
+
+	            parent.children.push(child);
+	            console.log(JSON.stringify(this.data.children));
+	            this.update();
+	        }
+	    }, {
+	        key: 'removeChildById',
+	        value: function removeChildById(id, children) {
+
+	            for (var i = 0, len = children.length; i < len; i++) {
+	                var child = children[i];
+	                if (child.id === id) {
+	                    children.splice(i, 1);
+	                    return child;
+	                }
+
+	                var target = this.removeChildById(id, child.children);
+	                if (target) {
+	                    return target;
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'getChildById',
+	        value: function getChildById(id, children) {
+	            var target = null;
+
+	            for (var i = 0, len = children.length; i < len; i++) {
+	                var child = children[i];
+	                if (child.id === id) {
+	                    target = child;
+	                    break;
+	                }
+
+	                target = this.getChildById(id, child.children);
+
+	                if (target) break;
+	            }
+
+	            return target;
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return '<ul>\n                    <tree-node o-repeat="child in children" group-data="data.children"></tree-node>\n                </ul>';
@@ -3183,9 +3234,54 @@
 	    }
 
 	    _createClass(TreeNode, [{
+	        key: 'dropHandler',
+	        value: function dropHandler(evt) {
+	            //swap node
+	            this.getRootInstance(this.parent).moveNode(parseInt(evt.dataTransfer.getData("node-id")), parseInt(evt.target.dataset['nodeId']));
+	            evt.stopPropagation();
+	            evt.preventDefault();
+	        }
+	    }, {
+	        key: 'getRootInstance',
+	        value: function getRootInstance(parent) {
+	            if (parent.moveNode) {
+	                return parent;
+	            } else {
+	                return this.getRootInstance(parent.parent);
+	            }
+	        }
+	    }, {
+	        key: 'dragOverHandler',
+	        value: function dragOverHandler(evt) {
+	            //add active class
+
+	            this.node.classList.add('drag-over');
+	            //  console.log(this.node)
+	            evt.stopPropagation();
+	            evt.preventDefault();
+	        }
+	    }, {
+	        key: 'dragLeaveHandler',
+	        value: function dragLeaveHandler(evt) {
+	            this.node.classList.remove('drag-over');
+	        }
+	    }, {
+	        key: 'dragStartHandler',
+	        value: function dragStartHandler(evt) {
+	            //console.log(this.node)
+
+	            evt.dataTransfer.setData("node-id", this.data.id);
+	            evt.stopPropagation();
+	        }
+	    }, {
+	        key: 'style',
+	        value: function style() {
+	            return '\n            .drag-over{\n                border:1px dashed black;\n            }\n\n            li{\n                cursor: move;\n            }\n        ';
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n                <li>\n                    <div>{{name}}</div>\n                    <ul>\n                        <tree-node o-repeat="child in children" group-data="data.children"></tree-node>\n                    </ul>\n                </li>\n            ';
+	            return '\n                <li data-node-id="{{id}}"  draggable="true"  ondragstart="dragStartHandler" ondragleave="dragLeaveHandler"  ondrop="dropHandler" ondragover="dragOverHandler" >\n                    <div data-node-id="{{id}}">{{name}}</div>\n                    <ul o-if="children.length>0">\n                        <tree-node o-repeat="child in children" group-data="data.children"></tree-node>\n                    </ul>\n                </li>\n            ';
 	        }
 	    }]);
 

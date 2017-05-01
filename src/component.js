@@ -136,6 +136,7 @@ class Component {
     update() {
         this.beforeUpdate()
         this._childrenBeforeUpdate(this)
+        this._omiGroupDataCounter = {}
         if (this.renderTo) {
             this._render()
         } else {
@@ -164,6 +165,7 @@ class Component {
     _childrenBeforeUpdate(root){
         root.children.forEach((child)=>{
             child.beforeUpdate()
+            child._omiGroupDataCounter = {}
             this._childrenBeforeUpdate(child)
         })
     }
