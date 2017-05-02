@@ -14,11 +14,11 @@ var config  = {
         index: './src/js/index.js',
         other: './src/js/other.js'
     },
-    //distÃüÁîÊ¹ÓÃÏÂÃæµÄconfig
+    //distï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½config
     //output: {
     //    filename: '[name].[chunkhash:8].js'
     //},
-    //devÊ¹ÓÃÏÂÃæµÄ
+    //devÊ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     output: {
         filename: '[name].js'
     },
@@ -63,8 +63,12 @@ if(ENV === 'dist') {
     }
     config.plugins[2] = new commonChunkPlugin({name: ['omi', 'vendor'], minChunks: Infinity});
     config.output.filename = '[name].[chunkhash:8].js';
-    config.module.rules[1] = {test: /\.html|\.css$/, loader: "cdn-replace-loader?cdn="+projectConfig.cdn}
-    config.module.rules[2].use[0] .loader =  "cdn-replace-loader?cdn="+projectConfig.cdn
+    config.module.rules[1] = {test: /\.html|\.css$/, loader: "cdn-replace-loader?cdn="+projectConfig.cdn};
+    config.module.rules.push({
+        use:[{
+            loader: "cdn-replace-loader?cdn="+projectConfig.cdn
+        }]
+    })
 
 }else{
     config.entry.vendor = ['omi','./src/common/class_list.js'];
