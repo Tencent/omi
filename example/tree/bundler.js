@@ -3142,15 +3142,35 @@
 	    _createClass(Tree, [{
 	        key: 'moveNode',
 	        value: function moveNode(id, parentId) {
+	            if (id === parentId) {
+	                return;
+	            }
 
-	            console.log(id, parentId);
-	            // if(id===parentId)return;
-	            var parent = this.getChildById(parentId, this.data.children);
-	            var child = this.removeChildById(id, this.data.children);
+	            if (this.check(parentId, id)) {
+	                var parent = this.getChildById(parentId, this.data.children);
+	                var child = this.removeChildById(id, this.data.children);
+	                parent.children.push(child);
+	                this.update();
+	            }
+	        }
+	    }, {
+	        key: 'check',
+	        value: function check(parentId, childId) {
+	            var current = this.getChildById(childId, this.data.children),
+	                children = current.children;
+	            for (var i = 0, len = children.length; i < len; i++) {
+	                var child = children[i];
+	                if (child.id === parentId) {
+	                    return false;
+	                }
 
-	            parent.children.push(child);
-	            console.log(JSON.stringify(this.data.children));
-	            this.update();
+	                var errorIds = this.check(parentId, child.id);
+	                if (!errorIds) {
+	                    return false;
+	                }
+	            }
+
+	            return true;
 	        }
 	    }, {
 	        key: 'removeChildById',
@@ -3172,21 +3192,18 @@
 	    }, {
 	        key: 'getChildById',
 	        value: function getChildById(id, children) {
-	            var target = null;
 
 	            for (var i = 0, len = children.length; i < len; i++) {
 	                var child = children[i];
 	                if (child.id === id) {
-	                    target = child;
-	                    break;
+	                    return child;
 	                }
 
-	                target = this.getChildById(id, child.children);
-
-	                if (target) break;
+	                var target = this.getChildById(id, child.children);
+	                if (target) {
+	                    return target;
+	                }
 	            }
-
-	            return target;
 	        }
 	    }, {
 	        key: 'render',
@@ -3236,8 +3253,8 @@
 	    _createClass(TreeNode, [{
 	        key: 'dropHandler',
 	        value: function dropHandler(evt) {
-	            //swap node
 	            this.getRootInstance(this.parent).moveNode(parseInt(evt.dataTransfer.getData("node-id")), parseInt(evt.target.dataset['nodeId']));
+	            this.node && this.node.classList.remove('drag-over');
 	            evt.stopPropagation();
 	            evt.preventDefault();
 	        }
@@ -3253,35 +3270,30 @@
 	    }, {
 	        key: 'dragOverHandler',
 	        value: function dragOverHandler(evt) {
-	            //add active class
-
 	            this.node.classList.add('drag-over');
-	            //  console.log(this.node)
 	            evt.stopPropagation();
 	            evt.preventDefault();
 	        }
 	    }, {
 	        key: 'dragLeaveHandler',
-	        value: function dragLeaveHandler(evt) {
+	        value: function dragLeaveHandler() {
 	            this.node.classList.remove('drag-over');
 	        }
 	    }, {
 	        key: 'dragStartHandler',
 	        value: function dragStartHandler(evt) {
-	            //console.log(this.node)
-
 	            evt.dataTransfer.setData("node-id", this.data.id);
 	            evt.stopPropagation();
 	        }
 	    }, {
 	        key: 'style',
 	        value: function style() {
-	            return '\n            .drag-over{\n                border:1px dashed black;\n            }\n\n            li{\n                cursor: move;\n            }\n        ';
+	            return '\n            .drag-over{\n                border:1px dashed black;\n            }\n        ';
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n                <li data-node-id="{{id}}"  draggable="true"  ondragstart="dragStartHandler" ondragleave="dragLeaveHandler"  ondrop="dropHandler" ondragover="dragOverHandler" >\n                    <div data-node-id="{{id}}">{{name}}</div>\n                    <ul o-if="children.length>0">\n                        <tree-node o-repeat="child in children" group-data="data.children"></tree-node>\n                    </ul>\n                </li>\n            ';
+	            return '\n                <li data-node-id="{{id}}"  draggable="true"  ondragstart="dragStartHandler" ondragleave="dragLeaveHandler"  ondrop="dropHandler" ondragover="dragOverHandler" >\n                    <div data-node-id="{{id}}">{{name}}</div>\n                    <ul data-node-id="{{id}}" o-if="children.length > 0">\n                        <tree-node o-repeat="child in children" group-data="data.children"></tree-node>\n                    </ul>\n                </li>\n            ';
 	        }
 	    }]);
 

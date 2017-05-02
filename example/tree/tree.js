@@ -6,19 +6,38 @@ Omi.tag('tree-node',TreeNode)
 class Tree extends Omi.Component {
 
 
-    moveNode(id, parentId){
+    moveNode(id, parentId) {
+        if (id === parentId) {
+            return
+        }
 
-        console.log(id,parentId)
-       // if(id===parentId)return;
-        let parent = this.getChildById(parentId,this.data.children)
-        let child = this.removeChildById(id,this.data.children)
-
-        parent.children.push(child)
-        console.log(JSON.stringify(this.data.children))
-        this.update()
+        if(this.check(parentId, id)) {
+            let parent = this.getChildById(parentId, this.data.children)
+            let child = this.removeChildById(id, this.data.children)
+            parent.children.push(child)
+            this.update()
+        }
     }
 
-    removeChildById(id,children) {
+    check(parentId, childId){
+        let current = this.getChildById(childId, this.data.children),
+            children = current.children
+        for (let i = 0, len = children.length; i < len; i++) {
+            let child = children[i]
+            if (child.id === parentId) {
+                return false
+            }
+
+            let errorIds = this.check(parentId, child.id )
+            if (!errorIds) {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    removeChildById(id, children) {
 
         for (let i = 0, len = children.length; i < len; i++) {
             let child = children[i]
@@ -27,34 +46,30 @@ class Tree extends Omi.Component {
                 return child
             }
 
-           let target = this.removeChildById(id, child.children)
-            if(target){
+            let target = this.removeChildById(id, child.children)
+            if (target) {
                 return target
             }
 
         }
     }
 
-    getChildById(id,children) {
-        let target = null
+    getChildById(id, children) {
 
         for (let i = 0, len = children.length; i < len; i++) {
             let child = children[i]
             if (child.id === id) {
-                target = child
-                break
+                return child
             }
 
-            target = this.getChildById(id, child.children)
-
-            if(target)break
+            let target = this.getChildById(id, child.children)
+            if (target) {
+                return target
+            }
         }
-
-
-        return target
     }
 
-    render(){
+    render() {
         return `<ul>
                     <tree-node o-repeat="child in children" group-data="data.children"></tree-node>
                 </ul>`
