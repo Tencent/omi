@@ -18,7 +18,7 @@ var config  = {
     //output: {
     //    filename: '[name].[chunkhash:8].js'
     //},
-    //devʹ�������
+    //devʹ�������?
     output: {
         filename: '[name].js'
     },
@@ -64,11 +64,11 @@ if(ENV === 'dist') {
     config.plugins[2] = new commonChunkPlugin({name: ['omi', 'vendor'], minChunks: Infinity});
     config.output.filename = '[name].[chunkhash:8].js';
     config.module.rules[1] = {test: /\.html|\.css$/, loader: "cdn-replace-loader?cdn="+projectConfig.cdn};
-    config.module.rules.push({
-        use:[{
-            loader: "cdn-replace-loader?cdn="+projectConfig.cdn
-        }]
-    })
+    //config.module.rules.push({
+    //    use:[{
+    //        loader: "cdn-replace-loader?cdn="+projectConfig.cdn
+    //    }]
+    //})
 
 }else{
     config.entry.vendor = ['omi','./src/common/class_list.js'];
