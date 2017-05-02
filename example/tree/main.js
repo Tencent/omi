@@ -14,7 +14,7 @@ class App extends Omi.Component {
 }
 
 Omi.render(new App( {
-    demoName : 'Omi Tree Demo',
+    demoName : 'Omi Tree Demo (support drag and drop to move the node)',
     rootNode: {
         name: 'Root',
         children: [
