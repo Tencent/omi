@@ -1,5 +1,7 @@
 ## Omi 相关文章
 
+* [Omi树组件omi-tree编写指南](./omi-tree.md)
+* [Omi v1.5发布](./omi-v1.5-release.md)
 * [omi-transform发布](./omi-transform.md)
 * [omi-router发布](./omi-router-release.md)
 * [Omi架构与React Fiber](./update-self-react-fiber.md)
