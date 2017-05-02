@@ -1,4 +1,4 @@
-import Omi from '../../src/index.js';
+import Omi from '../../src/index.js'
 
 class TreeNode extends Omi.Component {
 
@@ -22,7 +22,7 @@ class TreeNode extends Omi.Component {
     dragOverHandler(evt){
         this.node.classList.add('drag-over')
         evt.stopPropagation()
-        evt.preventDefault();
+        evt.preventDefault()
     }
 
     dragLeaveHandler(){
@@ -30,7 +30,7 @@ class TreeNode extends Omi.Component {
     }
 
     dragStartHandler(evt){
-        evt.dataTransfer.setData("node-id",this.data.id);
+        evt.dataTransfer.setData("node-id",this.data.id)
         evt.stopPropagation()
     }
 
