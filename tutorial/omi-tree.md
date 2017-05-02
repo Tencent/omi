@@ -233,6 +233,7 @@ Omi.tag('tree-node',TreeNode)
 
 * dragStart的时候通过evt.dataTransfer.setData设置需要传递的数据，这里存放了拖拽的节点id
 * drop的时候通过evt.dataTransfer.getData读取传递过来的数据，这里取drag的node的节点id
+* 通过 o-if="children.length > 0" 决定是否生成 ul 标签
 * getRootInstance组件是递归去调取tree的对象的实例（因为tree-node可能包含tree-node,所以需要递归读parent）
 * 拿到tree的实例之后，调用tree的对象的实例的moveNode方法去移动节点，moveNode的本质就是修改节点数据，然后update组件
 
