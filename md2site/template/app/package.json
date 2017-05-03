@@ -7,7 +7,7 @@
     "dist": "gulp"
   },
   "dependencies": {
-    "omi": "latest",
+    "omi": "^0.4.2",
     "omi-finger": "latest"
   },
   "devDependencies": {
