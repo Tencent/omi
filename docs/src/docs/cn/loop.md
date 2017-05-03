@@ -2,6 +2,33 @@
 
 下面介绍mustache.js的方式和javascript遍历的方式。
 
+### 方式零
+
+```js
+class List extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render(){
+        return `<div>
+                    <div o-repeat="item in items" o-if="item.show">
+                        {{$index}}- {{item.text}}
+                    </div>
+                </div>`
+    }
+
+}
+
+Omi.render(new List({
+    items: [
+        { text: 'Omi', show: true },
+        { text: 'dntzhang', show: true },
+        { text: 'AlloyTeam'}
+    ]
+}),"body",true);
+```
+
 ### 方式一
 
 ```js

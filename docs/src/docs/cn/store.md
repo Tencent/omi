@@ -29,13 +29,13 @@ class Main extends Omi.Component {
         return `<div>
                     <h1>Pagination Example</h1>
                     <Content name="content" />
-                    <Pagination
+                    <pagination
                         name="pagination"
                         :data-total="100"
                         :data-page-size="10"
                         :data-num-edge="1"
                         :data-num-display="4"　　　　　
-                        onPageChange="handlePageChange" />
+                        onPageChange="handlePageChange" ></pagination>
                 </div>`;
     }
 }
@@ -158,7 +158,7 @@ beforeRender是生命周期的一部分。且看下面这张图:
 import Omi from '../../src/index.js';
 import List from './list.js';
 
-Omi.makeHTML('List', List);
+Omi.tag('list', List);
 
 class Todo extends Omi.Component {
     constructor(data) {
@@ -200,7 +200,7 @@ class Todo extends Omi.Component {
         return `<div>
                     <h3>TODO</h3>
                     <button onclick="clear">Clear</button>
-                    <List name="list" data="$store.data" />
+                    <list name="list" data="$store.data" ></list>
                     <form onsubmit="add" >
                         <input type="text" onchange="handleChange"  value="{{text}}"  />
                         <button>Add #{{length}}</button>

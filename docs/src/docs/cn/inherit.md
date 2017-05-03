@@ -41,13 +41,13 @@ Omi.render(new SubHello({ name : 'Omi' }),'#container');
 ###  ES5下的继承
 
 ```js
-var Hello =  Omi.create("Hello",{
+var Hello =  Omi.create("hello",{
   render:function(){
     return  ' <div>Hello {{name}}!</div>'
   }
 })
 
-var SubHello =  Omi.create("SubHello",Hello,{ });
+var SubHello =  Omi.create("sub-hello",Hello,{ });
 
 
 Omi.render(new SubHello({ name : 'Omi' }),'#container');

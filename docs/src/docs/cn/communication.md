@@ -38,7 +38,7 @@ class Hello extends Omi.Component {
     }
 }
 
-Omi.makeHTML('Hello', Hello);
+Omi.tag('hello', Hello);
 
 class App extends Omi.Component {
     constructor(data) {
@@ -48,7 +48,7 @@ class App extends Omi.Component {
     render() {
         return  `
         <div>
-            <Hello data-name="Omi" />
+            <hello data-name="Omi" ></hello>
         </div>
         `;
     }
@@ -75,7 +75,7 @@ class App extends Omi.Component {
     render() {
         return  `
         <div>
-            <Hello data="helloData" />
+            <hello data="helloData" ></hello>
         </div>
         `;
     }
@@ -117,7 +117,7 @@ class App extends Omi.Component {
     render() {
         return  `
         <div>
-            <Hello data="complexData.a.b.c[1]" />
+            <hello data="complexData.a.b.c[1]" ></hello>
         </div>
         `;
     }
@@ -146,9 +146,9 @@ class App extends Omi.Component {
     render() {
         return  `
         <div>
-            <Hello group-data="testData" />
-            <Hello group-data="testData" />
-            <Hello group-data="testData" />
+            <hello group-data="testData" ></hello>
+            <hello group-data="testData" ></hello>
+            <hello group-data="testData" ></hello>
         </div>
         `;
 
@@ -171,7 +171,7 @@ Omi.render(new App(),"#container");
 import Hello from './hello.js';
 
 
-Omi.makeHTML('Hello', Hello);
+Omi.tag('hello', Hello);
 
 class App extends Omi.Component {
     constructor(data) {
@@ -199,8 +199,8 @@ class App extends Omi.Component {
     render() {
         return  `
         <div>
-            <Hello group-data="complexData.a.b.c[0].e" />
-            <Hello group-data="complexData.a.b.c[0].e" />
+            <hello group-data="complexData.a.b.c[0].e" ></hello>
+            <hello group-data="complexData.a.b.c[0].e" ></hello>
         </div>
         `;
 
@@ -229,7 +229,7 @@ class App extends Omi.Component {
     render() {
         return  `
         <div>
-            <Hello name="hello" />
+            <hello name="hello" ></hello>
         </div>
         `;
     }
@@ -255,7 +255,7 @@ class App extends Omi.Component {
     render() {
         return  `
         <div>
-            <Hello omi-id="hello" />
+            <hello omi-id="hello" ></hello>
         </div>
         `;
     }

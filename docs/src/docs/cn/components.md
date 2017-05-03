@@ -80,7 +80,7 @@ class List extends Omi.Component {
 ```js
 import List from './list.js';
 
-Omi.makeHTML('List', List);
+Omi.tag('list', List);
 
 class Todo extends Omi.Component {
     constructor(data) {
@@ -111,7 +111,7 @@ class Todo extends Omi.Component {
     render () {
         return `<div>
                     <h3>TODO</h3>
-                    <List  name="list" data="listData" />
+                    <list  name="list" data="listData" ></list>
                     <form onsubmit="add(event)" >
                         <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
                         <button>Add #{{length}}</button>
@@ -121,12 +121,19 @@ class Todo extends Omi.Component {
 }
 ```
 
-* 第3行，通过makeHTML方法把组件制作成可以在render中使用的标签。当然Omi.makeHTML('List', List);也可以写在List组件的代码下面。
+* 第3行，通过tag方法把组件制作成可以在render中使用的标签。当然Omi.tag('list', List);也可以写在List组件的代码下面。
 * 第9行，在父组件上定义listData属性用来传递给子组件。
 * 第34行，在render方法中使用List组件。其中name方法可以让你在代码里通过this快速方法到该组件的实例。data="listData"可以让你把this.listData传递给子组件。
 
-需要注意的是，父组件的this.listData会被通过Object.assign浅拷贝到子组件。
-这样做的目的主要是希望以后DOM的变更都尽量修改子组件自身的data，然后再调用其update方法，而不是去更改父组件的listData。
+需要注意的是，父组件的this.listData会被通过Object.assign浅拷贝到子组件。你可以通过在组件上标记selfDataFirst或者sdf来表示组件自身的data的优先级更高还是父组件传递过来的data的优先级更好。Omi内部的源代码是这样子:
+
+```js
+if(this.selfDataFirst){
+    this.data = Object.assign({},this._getDataset(childStr),this.data)
+}else{
+    this.data = Object.assign({},this.data, this._getDataset(childStr))
+}
+```
 
 关于Omi组件通讯其实有4种方案，这个后续教程会专门来讲。
 

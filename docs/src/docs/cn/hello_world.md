@@ -51,9 +51,9 @@ Omi.render(new Hello({ name : "Omi" }),"#container");
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=hello" target="_blank">点击这里→在线试试</a>
 
-你可以使用Omi.makeHTML来生成组件标签用于嵌套。
+你可以使用Omi.tag来生成组件标签用于嵌套。
 ```js
-    Omi.makeHTML('Hello', Hello);
+    Omi.tag('hello', Hello);
 ```
 那么你就在其他组件中使用，如
 ```js
@@ -62,7 +62,7 @@ Omi.render(new Hello({ name : "Omi" }),"#container");
         return  `
         <div>
             <div>Test</div>
-            <Hello data-name="Omi" />
+            <hello data-name="Omi" ></hello>
         </div>
         `;
     }
@@ -82,7 +82,7 @@ Omi.render(new Hello({ name : "Omi" }),"#container");
 然后：
 
 ```js
-var Hello =  Omi.create("Hello", {
+var Hello =  Omi.create("hello", {
     style: function () {
         return "h1{ cursor:pointer }";
     },
@@ -104,7 +104,7 @@ var Test =  Omi.create("Test", {
     render: function () {
         return '<div>\
                     <div>Test</div>\
-                    <Hello data-name="Omi" />\
+                    <hello data-name="Omi" ><hello>\
                 </div>'
     }
 });
@@ -119,9 +119,9 @@ Omi.render(new Test(),'#container');
   ...
   render:function() {
         return  '<div>\
-                    <Hello  data-name="Omi1" />\
+                    <hello  data-name="Omi1" ></hello>\
                     <div>Test XXXX</div>\
-                    <Hello  data-name="Omi2" />\
+                    <hello  data-name="Omi2" ></hello>\
                 </div>';
     }
     ...
