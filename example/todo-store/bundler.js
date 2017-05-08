@@ -42,7 +42,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -54,7 +54,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _store = __webpack_require__(12);
+	var _store = __webpack_require__(13);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -65,9 +65,9 @@
 	    increment: true
 	});
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -81,7 +81,7 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _list = __webpack_require__(11);
+	var _list = __webpack_require__(12);
 
 	var _list2 = _interopRequireDefault(_list);
 
@@ -93,7 +93,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	_index2['default'].makeHTML('List', _list2['default']);
+	_index2['default'].tag('list', _list2['default']);
 
 	var Todo = function (_Omi$Component) {
 	    _inherits(Todo, _Omi$Component);
@@ -141,7 +141,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h3>TODO</h3>\n                     <button onclick="clear">Clear</button>\n                    <List  name="list" data="$store.data"  />\n                    <form onsubmit="add" >\n                        <input type="text" onchange="handleChange"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n\n                </div>';
+	            return '<div>\n                    <h3>TODO</h3>\n                    <button onclick="clear">Clear</button>\n                    <list name="list" data="$store.data"></list>\n                    <form onsubmit="add" >\n                        <input type="text" onchange="handleChange"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n\n                </div>';
 	        }
 	    }]);
 
@@ -150,9 +150,9 @@
 
 	exports['default'] = Todo;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -160,21 +160,23 @@
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _mustache = __webpack_require__(4);
+	var _soda = __webpack_require__(4);
 
-	var _mustache2 = _interopRequireDefault(_mustache);
+	var _soda2 = _interopRequireDefault(_soda);
 
-	var _component = __webpack_require__(5);
+	var _component = __webpack_require__(6);
 
 	var _component2 = _interopRequireDefault(_component);
 
-	var _store = __webpack_require__(10);
+	var _store = __webpack_require__(11);
 
 	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	_omi2['default'].template = _mustache2['default'].render;
+	_soda2['default'].prefix('o');
+
+	_omi2['default'].template = _soda2['default'];
 
 	_omi2['default'].Store = _store2['default'];
 	_omi2['default'].Component = _component2['default'];
@@ -185,9 +187,9 @@
 	    module.exports = _omi2['default'];
 	}
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -205,7 +207,9 @@
 	Omi.STYLEPREFIX = "omi_style_";
 	Omi.STYLESCOPEDPREFIX = "omi_scoped_";
 
-	Omi.componetConstructor = {};
+	Omi.style = {};
+
+	Omi.componentConstructor = {};
 
 	//fix ie bug
 	if (typeof Object.assign != 'function') {
@@ -345,7 +349,7 @@
 	        u_setting = setting;
 	        u_parent = parent;
 	    }
-	    Omi.componetConstructor[tagName] = function (parent) {
+	    Omi.componentConstructor[tagName] = function (parent) {
 	        _inherits(Obj, parent);
 
 	        function Obj(data, server) {
@@ -361,7 +365,7 @@
 
 	    Omi.customTags.push(tagName);
 
-	    return Omi.componetConstructor[tagName];
+	    return Omi.componentConstructor[tagName];
 	};
 
 	Omi.createStore = function (option) {
@@ -372,6 +376,7 @@
 	        function Obj(data, isReady) {
 	            _classCallCheck(this, Obj);
 	            this.data = data;
+	            option.methods.install && option.methods.install.call(this);
 	            return _possibleConstructorReturn(this, (Obj.__proto__ || Object.getPrototypeOf(Obj)).call(this, data, isReady));
 	        }
 
@@ -425,15 +430,21 @@
 	        }
 	        return current;
 	    } else {
-	        return Omi.componetConstructor[str];
+	        return Omi.componentConstructor[str];
 	    }
 	};
 
 	//以前是Component的静态方法，移到omi下来，不然makehtml 在ie下child访问不到父亲的静态方法
 	Omi.makeHTML = function (name, ctor) {
-	    Omi.componetConstructor[name] = ctor;
-	    Omi.customTags.push(name);
+	    Omi.componentConstructor[name] = ctor;
+	    Omi.componentConstructor[name.toLowerCase()] = ctor;
+	    Omi.customTags.push(name, name.toLowerCase());
+	    if (document.documentMode < 9) {
+	        document.createElement(name.toLowerCase());
+	    }
 	};
+
+	Omi.tag = Omi.makeHTML;
 
 	Omi.render = function (component, renderTo, incrementOrOption) {
 	    component.renderTo = typeof renderTo === "string" ? document.querySelector(renderTo) : renderTo;
@@ -454,6 +465,7 @@
 	    component._render(true);
 	    component._childrenInstalled(component);
 	    component.installed();
+	    component._execInstalledHandlers();
 	    return component;
 	};
 
@@ -518,627 +530,711 @@
 	    });
 	};
 
+	Omi.deletePlugin = function (name) {
+	    delete Omi.plugins[name];
+	};
+
 	module.exports = Omi;
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	/*!
-	 * mustache.js - Logic-less {{mustache}} templates with JavaScript
-	 * http://github.com/janl/mustache.js
+	/**
+	 * sodajs v0.4.3 by dorsywang
+	 * Light weight but powerful template engine for JavaScript
+	 * Github: https://github.com/AlloyTeam/sodajs
+	 * MIT License
 	 */
 
-	/*global define: false Mustache: true*/
+	;(function () {
+	    if (!Array.prototype.map) {
+	        Array.prototype.map = function (func) {
+	            var arr = [];
+	            for (var i = 0; i < this.length; i++) {
+	                var item = this[i];
 
-	(function defineMustache(global, factory) {
-	    if (( false ? 'undefined' : _typeof(exports)) === 'object' && exports && typeof exports.nodeName !== 'string') {
-	        factory(exports); // CommonJS
-	    } else if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)); // AMD
-	    } else {
-	        global.Mustache = {};
-	        factory(global.Mustache); // script, wsh, asp
+	                [].push(func && func.call(item, item, i));
+	            }
+
+	            return arr;
+	        };
 	    }
-	})(undefined, function mustacheFactory(mustache) {
 
-	    var objectToString = Object.prototype.toString;
-	    var isArray = Array.isArray || function isArrayPolyfill(object) {
-	        return objectToString.call(object) === '[object Array]';
+	    if (!String.prototype.trim) {
+	        String.prototype.trim = function () {
+	            return this.replace(/^\s*|\s*$/g, '');
+	        };
+	    }
+
+	    var nodes2Arr = function nodes2Arr(nodes) {
+	        var arr = [];
+
+	        for (var i = 0; i < nodes.length; i++) {
+	            arr.push(nodes[i]);
+	        }
+
+	        return arr;
 	    };
 
-	    function isFunction(object) {
-	        return typeof object === 'function';
-	    }
+	    var valueoutReg = /\{\{([^\}]*)\}\}/g;
 
-	    /**
-	     * More correct typeof string handling array
-	     * which normally returns typeof 'object'
-	     */
-	    function typeStr(obj) {
-	        return isArray(obj) ? 'array' : typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
-	    }
+	    var prefix = 'soda';
+	    var prefixReg = new RegExp('^' + prefix + '-');
 
-	    function escapeRegExp(string) {
-	        return string.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
-	    }
-
-	    /**
-	     * Null safe way of checking whether or not an object,
-	     * including its prototype, has a given property
-	     */
-	    function hasProperty(obj, propName) {
-	        return obj != null && (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' && propName in obj;
-	    }
-
-	    // Workaround for https://issues.apache.org/jira/browse/COUCHDB-577
-	    // See https://github.com/janl/mustache.js/issues/189
-	    var regExpTest = RegExp.prototype.test;
-	    function testRegExp(re, string) {
-	        return regExpTest.call(re, string);
-	    }
-
-	    var nonSpaceRe = /\S/;
-	    function isWhitespace(string) {
-	        return !testRegExp(nonSpaceRe, string);
-	    }
-
-	    var entityMap = {
-	        '&': '&amp;',
-	        '<': '&lt;',
-	        '>': '&gt;',
-	        '"': '&quot;',
-	        "'": '&#39;',
-	        '/': '&#x2F;',
-	        '`': '&#x60;',
-	        '=': '&#x3D;'
+	    var classNameRegExp = function classNameRegExp(className) {
+	        return new RegExp('(^|\\s+)' + className + '(\\s+|$)', 'g');
 	    };
 
-	    function escapeHtml(string) {
-	        return String(string).replace(/[&<>"'`=\/]/g, function fromEntityMap(s) {
-	            return entityMap[s];
+	    var addClass = function addClass(el, className) {
+	        if (!el.className) {
+	            el.className = className;
+
+	            return;
+	        }
+
+	        if (el.className.match(classNameRegExp(className))) {} else {
+	            el.className += " " + className;
+	        }
+	    };
+
+	    var removeClass = function removeClass(el, className) {
+	        el.className = el.className.replace(classNameRegExp(className), "");
+	    };
+
+	    var getValue = function getValue(_data, _attrStr) {
+	        CONST_REGG.lastIndex = 0;
+	        var realAttrStr = _attrStr.replace(CONST_REGG, function (r) {
+	            if (typeof _data[r] === "undefined") {
+	                return r;
+	            } else {
+	                return _data[r];
+	            }
 	        });
-	    }
 
-	    var whiteRe = /\s*/;
-	    var spaceRe = /\s+/;
-	    var equalsRe = /\s*=/;
-	    var curlyRe = /\s*\}/;
-	    var tagRe = /#|\^|\/|>|\{|&|=|!/;
+	        if (_attrStr === 'true') {
+	            return true;
+	        }
 
-	    /**
-	     * Breaks up the given `template` string into a tree of tokens. If the `tags`
-	     * argument is given here it must be an array with two string values: the
-	     * opening and closing tags used in the template (e.g. [ "<%", "%>" ]). Of
-	     * course, the default is to use mustaches (i.e. mustache.tags).
-	     *
-	     * A token is an array with at least 4 elements. The first element is the
-	     * mustache symbol that was used inside the tag, e.g. "#" or "&". If the tag
-	     * did not contain a symbol (i.e. {{myValue}}) this element is "name". For
-	     * all text that appears outside a symbol this element is "text".
-	     *
-	     * The second element of a token is its "value". For mustache tags this is
-	     * whatever else was inside the tag besides the opening symbol. For text tokens
-	     * this is the text itself.
-	     *
-	     * The third and fourth elements of the token are the start and end indices,
-	     * respectively, of the token in the original template.
-	     *
-	     * Tokens that are the root node of a subtree contain two more elements: 1) an
-	     * array of tokens in the subtree and 2) the index in the original template at
-	     * which the closing tag for that section begins.
-	     */
-	    function parseTemplate(template, tags) {
-	        if (!template) return [];
+	        if (_attrStr === 'false') {
+	            return false;
+	        }
 
-	        var sections = []; // Stack to hold section tokens
-	        var tokens = []; // Buffer to hold the tokens
-	        var spaces = []; // Indices of whitespace tokens on the current line
-	        var hasTag = false; // Is there a {{tag}} on the current line?
-	        var nonSpace = false; // Is there a non-space char on the current line?
+	        var _getValue = function _getValue(data, attrStr) {
+	            var dotIndex = attrStr.indexOf(".");
 
-	        // Strips all whitespace tokens array for the current line
-	        // if there was a {{#tag}} on it and otherwise only space.
-	        function stripSpace() {
-	            if (hasTag && !nonSpace) {
-	                while (spaces.length) {
-	                    delete tokens[spaces.pop()];
+	            if (dotIndex > -1) {
+	                var attr = attrStr.substr(0, dotIndex);
+	                attrStr = attrStr.substr(dotIndex + 1);
+
+	                // �?查attrStr是否属�?�变量并转换
+	                if (typeof _data[attr] !== "undefined" && CONST_REG.test(attr)) {
+	                    attr = _data[attr];
+	                }
+
+	                if (typeof data[attr] !== "undefined") {
+	                    return _getValue(data[attr], attrStr);
+	                } else {
+	                    var eventData = {
+	                        name: realAttrStr,
+	                        data: _data
+	                    };
+
+	                    triggerEvent("nullvalue", {
+	                        type: "nullattr",
+	                        data: eventData
+	                    }, eventData);
+
+	                    // 如果还有
+	                    return "";
 	                }
 	            } else {
-	                spaces = [];
+
+	                // �?查attrStr是否属�?�变量并转换
+	                if (typeof _data[attrStr] !== "undefined" && CONST_REG.test(attrStr)) {
+	                    attrStr = _data[attrStr];
+	                }
+
+	                var rValue;
+	                if (typeof data[attrStr] !== "undefined") {
+	                    rValue = data[attrStr];
+	                } else {
+	                    var eventData = {
+	                        name: realAttrStr,
+	                        data: _data
+	                    };
+
+	                    triggerEvent("nullvalue", {
+	                        type: "nullvalue",
+	                        data: eventData
+	                    }, eventData);
+
+	                    rValue = '';
+	                }
+
+	                return rValue;
+	            }
+	        };
+
+	        return _getValue(_data, _attrStr);
+	    };
+
+	    // 注释node
+	    var commentNode = function commentNode(node) {};
+
+	    // 标识�?
+	    var IDENTOR_REG = /[a-zA-Z_\$]+[\w\$]*/g;
+	    var STRING_REG = /"([^"]*)"|'([^']*)'/g;
+	    var NUMBER_REG = /\d+|\d*\.\d+/g;
+
+	    var OBJECT_REG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/g;
+	    // 非global 做test用
+	    var OBJECT_REG_NG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/;
+
+	    var ATTR_REG = /\[([^\[\]]*)\]/g;
+	    var ATTR_REG_NG = /\[([^\[\]]*)\]/;
+	    var ATTR_REG_DOT = /\.([a-zA-Z_\$]+[\w\$]*)/g;
+
+	    var NOT_ATTR_REG = /[^\.|]([a-zA-Z_\$]+[\w\$]*)/g;
+
+	    var OR_REG = /\|\|/g;
+
+	    var OR_REPLACE = "OR_OPERATOR\x1E";
+
+	    var getRandom = function getRandom() {
+	        return "$$" + ~~(Math.random() * 1E6);
+	    };
+
+	    var CONST_PRIFIX = "_$C$_";
+	    var CONST_REG = /^_\$C\$_/;
+	    var CONST_REGG = /_\$C\$_[^\.]+/g;
+
+	    var getAttrVarKey = function getAttrVarKey() {
+	        return CONST_PRIFIX + ~~(Math.random() * 1E6);
+	    };
+
+	    var parseSodaExpression = function parseSodaExpression(str, scope) {
+	        // 对filter进行处理
+	        str = str.replace(OR_REG, OR_REPLACE).split("|");
+
+	        for (var i = 0; i < str.length; i++) {
+	            str[i] = (str[i].replace(new RegExp(OR_REPLACE, 'g'), "||") || '').trim();
+	        }
+
+	        var expr = str[0] || "";
+	        var filters = str.slice(1);
+
+	        // 将字符常量保存下�?
+	        expr = expr.replace(STRING_REG, function (r, $1, $2) {
+	            var key = getRandom();
+	            scope[key] = $1 || $2;
+	            return key;
+	        });
+
+	        while (ATTR_REG_NG.test(expr)) {
+	            ATTR_REG.lastIndex = 0;
+
+	            //对expr预处�?
+	            expr = expr.replace(ATTR_REG, function (r, $1) {
+	                var key = getAttrVarKey();
+	                // 属�?�名�? 为字符常�?
+	                var attrName = parseSodaExpression($1, scope);
+
+	                // 给一个特殊的前缀 表示是属性变�?
+
+	                scope[key] = attrName;
+
+	                return "." + key;
+	            });
+	        }
+
+	        expr = expr.replace(OBJECT_REG, function (value) {
+	            return "getValue(scope,'" + value.trim() + "')";
+	        });
+
+	        var parseFilter = function parseFilter() {
+	            var filterExpr = filters.shift();
+
+	            if (!filterExpr) {
+	                return;
 	            }
 
-	            hasTag = false;
-	            nonSpace = false;
+	            var filterExpr = filterExpr.split(":");
+	            var args = filterExpr.slice(1) || [];
+	            var name = filterExpr[0] || "";
+
+	            var stringReg = /^'.*'$|^".*"$/;
+	            for (var i = 0; i < args.length; i++) {
+	                //这里根据类型进行判断
+	                if (OBJECT_REG_NG.test(args[i])) {
+	                    args[i] = "getValue(scope,'" + args[i] + "')";
+	                } else {}
+	            }
+
+	            if (sodaFilterMap[name]) {
+	                args.unshift(expr);
+
+	                args = args.join(",");
+
+	                expr = "sodaFilterMap['" + name + "'](" + args + ")";
+	            }
+
+	            parseFilter();
+	        };
+
+	        parseFilter();
+
+	        var evalFunc = new Function("getValue", "sodaFilterMap", "return function sodaExp(scope){ return " + expr + "}")(getValue, sodaFilterMap);
+
+	        return evalFunc(scope);
+	    };
+
+	    var hashTable = {
+	        id2Expression: {},
+
+	        expression2id: {},
+
+	        getRandId: function getRandId() {
+	            return 'soda' + ~~(Math.random() * 1E5);
+	        }
+	    };
+
+	    // 解析指令
+	    // 解析attr
+	    var compileNode = function compileNode(node, scope) {
+	        // 如果只是文本
+	        if (node.nodeType === 3) {
+	            node.nodeValue = node.nodeValue.replace(valueoutReg, function (item, $1) {
+	                /*
+	                 var id = hashTable.getRandId();
+	                  hashTable.id2Expression[id] = {
+	                 expression: $1,
+	                 el: child
+	                 };
+	                  hashTable.expression2id[$1] = {
+	                 id: id,
+	                 el: child
+	                 };
+	                 */
+
+	                return parseSodaExpression($1, scope);
+	            });
 	        }
 
-	        var openingTagRe, closingTagRe, closingCurlyRe;
-	        function compileTags(tagsToCompile) {
-	            if (typeof tagsToCompile === 'string') tagsToCompile = tagsToCompile.split(spaceRe, 2);
+	        if (node.attributes) {
+	            // 指令处理
+	            sodaDirectiveArr.map(function (item) {
+	                var name = item.name;
 
-	            if (!isArray(tagsToCompile) || tagsToCompile.length !== 2) throw new Error('Invalid tags: ' + tagsToCompile);
+	                var opt = item.opt;
 
-	            openingTagRe = new RegExp(escapeRegExp(tagsToCompile[0]) + '\\s*');
-	            closingTagRe = new RegExp('\\s*' + escapeRegExp(tagsToCompile[1]));
-	            closingCurlyRe = new RegExp('\\s*' + escapeRegExp('}' + tagsToCompile[1]));
-	        }
+	                if (node.getAttribute(name) && node.parentNode) {
+	                    opt.link(scope, node, node.attributes);
+	                }
+	            });
 
-	        compileTags(tags || mustache.tags);
+	            // 处理输出 包含 prefix-*
+	            [].map.call(node.attributes, function (attr) {
+	                // 如果dirctiveMap有的就跳过不再处�?
+	                if (!sodaDirectiveMap[attr.name]) {
+	                    if (prefixReg.test(attr.name)) {
+	                        var attrName = attr.name.replace(prefixReg, '');
 
-	        var scanner = new Scanner(template);
+	                        if (attrName) {
+	                            if (attr.value) {
+	                                var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
+	                                    return parseSodaExpression($1, scope);
+	                                });
 
-	        var start, type, value, chr, token, openSection;
-	        while (!scanner.eos()) {
-	            start = scanner.pos;
+	                                node.setAttribute(attrName, attrValue);
+	                            }
+	                        }
 
-	            // Match any text between tags.
-	            value = scanner.scanUntil(openingTagRe);
-
-	            if (value) {
-	                for (var i = 0, valueLength = value.length; i < valueLength; ++i) {
-	                    chr = value.charAt(i);
-
-	                    if (isWhitespace(chr)) {
-	                        spaces.push(tokens.length);
+	                        // 对其他属性里含expr 处理
 	                    } else {
-	                        nonSpace = true;
+	                        if (attr.value) {
+	                            attr.value = attr.value.replace(valueoutReg, function (item, $1) {
+	                                return parseSodaExpression($1, scope);
+	                            });
+	                        }
+	                    }
+	                }
+	            });
+	        }
+
+	        nodes2Arr(node.childNodes).map(function (child) {
+	            compileNode(child, scope);
+	        });
+	    };
+
+	    var sodaDirectiveMap = {};
+
+	    var sodaFilterMap = {};
+
+	    var sodaDirectiveArr = [];
+
+	    var sodaDirective = function sodaDirective(name, func) {
+	        var name = prefix + '-' + name;
+	        sodaDirectiveMap[name] = func();
+
+	        sodaDirectiveArr.push({
+	            name: name,
+	            opt: sodaDirectiveMap[name]
+	        });
+	    };
+
+	    var sodaFilter = function sodaFilter(name, func) {
+	        sodaFilterMap[name] = func;
+	    };
+
+	    sodaFilter.get = function (name) {
+	        return sodaFilterMap[name];
+	    };
+
+	    sodaFilter("date", function (input, lenth) {
+	        return lenth;
+	    });
+
+	    sodaDirective('repeat', function () {
+	        return {
+	            priority: 10,
+	            compile: function compile(scope, el, attrs) {},
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute(prefix + '-repeat');
+	                var itemName;
+	                var valueName;
+
+	                var trackReg = /\s+by\s+([^\s]+)$/;
+
+	                var trackName;
+	                opt = opt.replace(trackReg, function (item, $1) {
+	                    if ($1) {
+	                        trackName = ($1 || '').trim();
 	                    }
 
-	                    tokens.push(['text', chr, start, start + 1]);
-	                    start += 1;
+	                    return '';
+	                });
 
-	                    // Check for whitespace on the current line.
-	                    if (chr === '\n') stripSpace();
-	                }
-	            }
+	                var inReg = /([^\s]+)\s+in\s+([^\s]+)|\(([^,]+)\s*,\s*([^)]+)\)\s+in\s+([^\s]+)/;
 
-	            // Match the opening tag.
-	            if (!scanner.scan(openingTagRe)) break;
+	                var r = inReg.exec(opt);
+	                if (r) {
+	                    if (r[1] && r[2]) {
+	                        itemName = (r[1] || '').trim();
+	                        valueName = (r[2] || '').trim();
 
-	            hasTag = true;
-
-	            // Get the tag type.
-	            type = scanner.scan(tagRe) || 'name';
-	            scanner.scan(whiteRe);
-
-	            // Get the tag value.
-	            if (type === '=') {
-	                value = scanner.scanUntil(equalsRe);
-	                scanner.scan(equalsRe);
-	                scanner.scanUntil(closingTagRe);
-	            } else if (type === '{') {
-	                value = scanner.scanUntil(closingCurlyRe);
-	                scanner.scan(curlyRe);
-	                scanner.scanUntil(closingTagRe);
-	                type = '&';
-	            } else {
-	                value = scanner.scanUntil(closingTagRe);
-	            }
-
-	            // Match the closing tag.
-	            if (!scanner.scan(closingTagRe)) throw new Error('Unclosed tag at ' + scanner.pos);
-
-	            token = [type, value, start, scanner.pos];
-	            tokens.push(token);
-
-	            if (type === '#' || type === '^') {
-	                sections.push(token);
-	            } else if (type === '/') {
-	                // Check section nesting.
-	                openSection = sections.pop();
-
-	                if (!openSection) throw new Error('Unopened section "' + value + '" at ' + start);
-
-	                if (openSection[1] !== value) throw new Error('Unclosed section "' + openSection[1] + '" at ' + start);
-	            } else if (type === 'name' || type === '{' || type === '&') {
-	                nonSpace = true;
-	            } else if (type === '=') {
-	                // Set the tags for the next time around.
-	                compileTags(value);
-	            }
-	        }
-
-	        // Make sure there are no open sections when we're done.
-	        openSection = sections.pop();
-
-	        if (openSection) throw new Error('Unclosed section "' + openSection[1] + '" at ' + scanner.pos);
-
-	        return nestTokens(squashTokens(tokens));
-	    }
-
-	    /**
-	     * Combines the values of consecutive text tokens in the given `tokens` array
-	     * to a single token.
-	     */
-	    function squashTokens(tokens) {
-	        var squashedTokens = [];
-
-	        var token, lastToken;
-	        for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
-	            token = tokens[i];
-
-	            if (token) {
-	                if (token[0] === 'text' && lastToken && lastToken[0] === 'text') {
-	                    lastToken[1] += token[1];
-	                    lastToken[3] = token[3];
-	                } else {
-	                    squashedTokens.push(token);
-	                    lastToken = token;
-	                }
-	            }
-	        }
-
-	        return squashedTokens;
-	    }
-
-	    /**
-	     * Forms the given array of `tokens` into a nested tree structure where
-	     * tokens that represent a section have two additional items: 1) an array of
-	     * all tokens that appear in that section and 2) the index in the original
-	     * template that represents the end of that section.
-	     */
-	    function nestTokens(tokens) {
-	        var nestedTokens = [];
-	        var collector = nestedTokens;
-	        var sections = [];
-
-	        var token, section;
-	        for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
-	            token = tokens[i];
-
-	            switch (token[0]) {
-	                case '#':
-	                case '^':
-	                    collector.push(token);
-	                    sections.push(token);
-	                    collector = token[4] = [];
-	                    break;
-	                case '/':
-	                    section = sections.pop();
-	                    section[5] = token[2];
-	                    collector = sections.length > 0 ? sections[sections.length - 1][4] : nestedTokens;
-	                    break;
-	                default:
-	                    collector.push(token);
-	            }
-	        }
-
-	        return nestedTokens;
-	    }
-
-	    /**
-	     * A simple string scanner that is used by the template parser to find
-	     * tokens in template strings.
-	     */
-	    function Scanner(string) {
-	        this.string = string;
-	        this.tail = string;
-	        this.pos = 0;
-	    }
-
-	    /**
-	     * Returns `true` if the tail is empty (end of string).
-	     */
-	    Scanner.prototype.eos = function eos() {
-	        return this.tail === '';
-	    };
-
-	    /**
-	     * Tries to match the given regular expression at the current position.
-	     * Returns the matched text if it can match, the empty string otherwise.
-	     */
-	    Scanner.prototype.scan = function scan(re) {
-	        var match = this.tail.match(re);
-
-	        if (!match || match.index !== 0) return '';
-
-	        var string = match[0];
-
-	        this.tail = this.tail.substring(string.length);
-	        this.pos += string.length;
-
-	        return string;
-	    };
-
-	    /**
-	     * Skips all text until the given regular expression can be matched. Returns
-	     * the skipped string, which is the entire tail if no match can be made.
-	     */
-	    Scanner.prototype.scanUntil = function scanUntil(re) {
-	        var index = this.tail.search(re),
-	            match;
-
-	        switch (index) {
-	            case -1:
-	                match = this.tail;
-	                this.tail = '';
-	                break;
-	            case 0:
-	                match = '';
-	                break;
-	            default:
-	                match = this.tail.substring(0, index);
-	                this.tail = this.tail.substring(index);
-	        }
-
-	        this.pos += match.length;
-
-	        return match;
-	    };
-
-	    /**
-	     * Represents a rendering context by wrapping a view object and
-	     * maintaining a reference to the parent context.
-	     */
-	    function Context(view, parentContext) {
-	        this.view = view;
-	        this.cache = { '.': this.view };
-	        this.parent = parentContext;
-	    }
-
-	    /**
-	     * Creates a new context using the given view with this context
-	     * as the parent.
-	     */
-	    Context.prototype.push = function push(view) {
-	        return new Context(view, this);
-	    };
-
-	    /**
-	     * Returns the value of the given name in this context, traversing
-	     * up the context hierarchy if the value is absent in this context's view.
-	     */
-	    Context.prototype.lookup = function lookup(name) {
-	        var cache = this.cache;
-
-	        var value;
-	        if (cache.hasOwnProperty(name)) {
-	            value = cache[name];
-	        } else {
-	            var context = this,
-	                names,
-	                index,
-	                lookupHit = false;
-
-	            while (context) {
-	                if (name.indexOf('.') > 0) {
-	                    value = context.view;
-	                    names = name.split('.');
-	                    index = 0;
-
-	                    /**
-	                     * Using the dot notion path in `name`, we descend through the
-	                     * nested objects.
-	                     *
-	                     * To be certain that the lookup has been successful, we have to
-	                     * check if the last object in the path actually has the property
-	                     * we are looking for. We store the result in `lookupHit`.
-	                     *
-	                     * This is specially necessary for when the value has been set to
-	                     * `undefined` and we want to avoid looking up parent contexts.
-	                     **/
-	                    while (value != null && index < names.length) {
-	                        if (index === names.length - 1) lookupHit = hasProperty(value, names[index]);
-
-	                        value = value[names[index++]];
+	                        if (!(itemName && valueName)) {
+	                            return;
+	                        }
+	                    } else if (r[3] && r[4] && r[5]) {
+	                        trackName = (r[3] || '').trim();
+	                        itemName = (r[4] || '').trim();
+	                        valueName = (r[5] || '').trim();
 	                    }
 	                } else {
-	                    value = context.view[name];
-	                    lookupHit = hasProperty(context.view, name);
+	                    return;
 	                }
 
-	                if (lookupHit) break;
+	                trackName = trackName || '$index';
 
-	                context = context.parent;
+	                // 这里要处理一�?
+	                var repeatObj = getValue(scope, valueName) || [];
+
+	                var repeatFunc = function repeatFunc(i) {
+	                    var itemNode = el.cloneNode(true);
+
+	                    // 这里创建�?个新的scope
+	                    var itemScope = {};
+	                    itemScope[trackName] = i;
+
+	                    itemScope[itemName] = repeatObj[i];
+
+	                    itemScope.__proto__ = scope;
+
+	                    itemNode.removeAttribute(prefix + '-repeat');
+
+	                    el.parentNode.insertBefore(itemNode, el);
+
+	                    // 这里是新加的dom, 要单独编�?
+	                    compileNode(itemNode, itemScope);
+	                };
+
+	                if ('length' in repeatObj) {
+	                    for (var i = 0; i < repeatObj.length; i++) {
+	                        repeatFunc(i);
+	                    }
+	                } else {
+	                    for (var i in repeatObj) {
+	                        if (repeatObj.hasOwnProperty(i)) {
+	                            repeatFunc(i);
+	                        }
+	                    }
+	                }
+
+	                el.parentNode.removeChild(el);
 	            }
+	        };
+	    });
 
-	            cache[name] = value;
-	        }
+	    sodaDirective('if', function () {
+	        return {
+	            priority: 9,
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute(prefix + '-if');
 
-	        if (isFunction(value)) value = value.call(this.view);
+	                var expressFunc = parseSodaExpression(opt, scope);
 
-	        return value;
-	    };
-
-	    /**
-	     * A Writer knows how to take a stream of tokens and render them to a
-	     * string, given a context. It also maintains a cache of templates to
-	     * avoid the need to parse the same template twice.
-	     */
-	    function Writer() {
-	        this.cache = {};
-	    }
-
-	    /**
-	     * Clears all cached templates in this writer.
-	     */
-	    Writer.prototype.clearCache = function clearCache() {
-	        this.cache = {};
-	    };
-
-	    /**
-	     * Parses and caches the given `template` and returns the array of tokens
-	     * that is generated from the parse.
-	     */
-	    Writer.prototype.parse = function parse(template, tags) {
-	        var cache = this.cache;
-	        var tokens = cache[template];
-
-	        if (tokens == null) tokens = cache[template] = parseTemplate(template, tags);
-
-	        return tokens;
-	    };
-
-	    /**
-	     * High-level method that is used to render the given `template` with
-	     * the given `view`.
-	     *
-	     * The optional `partials` argument may be an object that contains the
-	     * names and templates of partials that are used in the template. It may
-	     * also be a function that is used to load partial templates on the fly
-	     * that takes a single argument: the name of the partial.
-	     */
-	    Writer.prototype.render = function render(template, view, partials) {
-	        var tokens = this.parse(template);
-	        var context = view instanceof Context ? view : new Context(view);
-	        return this.renderTokens(tokens, context, partials, template);
-	    };
-
-	    /**
-	     * Low-level method that renders the given array of `tokens` using
-	     * the given `context` and `partials`.
-	     *
-	     * Note: The `originalTemplate` is only ever used to extract the portion
-	     * of the original template that was contained in a higher-order section.
-	     * If the template doesn't use higher-order sections, this argument may
-	     * be omitted.
-	     */
-	    Writer.prototype.renderTokens = function renderTokens(tokens, context, partials, originalTemplate) {
-	        var buffer = '';
-
-	        var token, symbol, value;
-	        for (var i = 0, numTokens = tokens.length; i < numTokens; ++i) {
-	            value = undefined;
-	            token = tokens[i];
-	            symbol = token[0];
-
-	            if (symbol === '#') value = this.renderSection(token, context, partials, originalTemplate);else if (symbol === '^') value = this.renderInverted(token, context, partials, originalTemplate);else if (symbol === '>') value = this.renderPartial(token, context, partials, originalTemplate);else if (symbol === '&') value = this.unescapedValue(token, context);else if (symbol === 'name') value = this.escapedValue(token, context);else if (symbol === 'text') value = this.rawValue(token);
-
-	            if (value !== undefined) buffer += value;
-	        }
-
-	        return buffer;
-	    };
-
-	    Writer.prototype.renderSection = function renderSection(token, context, partials, originalTemplate) {
-	        var self = this;
-	        var buffer = '';
-	        var value = context.lookup(token[1]);
-
-	        // This function is used to render an arbitrary template
-	        // in the current context by higher-order sections.
-	        function subRender(template) {
-	            return self.render(template, context, partials);
-	        }
-
-	        if (!value) return;
-
-	        if (isArray(value)) {
-	            for (var j = 0, valueLength = value.length; j < valueLength; ++j) {
-	                buffer += this.renderTokens(token[4], context.push(value[j]), partials, originalTemplate);
+	                if (expressFunc) {} else {
+	                    // el.setAttribute("removed", "removed");
+	                    el.parentNode && el.parentNode.removeChild(el);
+	                }
 	            }
-	        } else if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' || typeof value === 'string' || typeof value === 'number') {
-	            buffer += this.renderTokens(token[4], context.push(value), partials, originalTemplate);
-	        } else if (isFunction(value)) {
-	            if (typeof originalTemplate !== 'string') throw new Error('Cannot use higher-order sections without the original template');
+	        };
+	    });
 
-	            // Extract the portion of the original template that the section contains.
-	            value = value.call(context.view, originalTemplate.slice(token[3], token[5]), subRender);
+	    sodaDirective('class', function () {
+	        return {
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute(prefix + "-class");
 
-	            if (value != null) buffer += value;
-	        } else {
-	            buffer += this.renderTokens(token[4], context, partials, originalTemplate);
+	                var expressFunc = parseSodaExpression(opt, scope);
+
+	                if (expressFunc) {
+	                    addClass(el, expressFunc);
+	                } else {}
+	            }
+	        };
+	    });
+
+	    sodaDirective('src', function () {
+	        return {
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute(prefix + "-src");
+
+	                var expressFunc = opt.replace(valueoutReg, function (item, $1) {
+	                    return parseSodaExpression($1, scope);
+	                });
+
+	                if (expressFunc) {
+	                    el.setAttribute("src", expressFunc);
+	                } else {}
+	            }
+	        };
+	    });
+
+	    sodaDirective('bind-html', function () {
+	        return {
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute(prefix + "-bind-html");
+	                var expressFunc = parseSodaExpression(opt, scope);
+
+	                if (expressFunc) {
+	                    el.innerHTML = expressFunc;
+
+	                    return {
+	                        command: "childDone"
+	                    };
+	                }
+	            }
+	        };
+	    });
+
+	    sodaDirective('html', function () {
+	        return {
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute(prefix + "-html");
+	                var expressFunc = parseSodaExpression(opt, scope);
+
+	                if (expressFunc) {
+	                    el.innerHTML = expressFunc;
+
+	                    return {
+	                        command: "childDone"
+	                    };
+	                }
+	            }
+	        };
+	    });
+
+	    sodaDirective("style", function () {
+	        return {
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute(prefix + "-style");
+	                var expressFunc = parseSodaExpression(opt, scope);
+
+	                var getCssValue = function getCssValue(name, value) {
+	                    var numberWithoutpx = /opacity|z-index/;
+	                    if (numberWithoutpx.test(name)) {
+	                        return parseFloat(value);
+	                    }
+
+	                    if (isNaN(value)) {
+	                        return value;
+	                    } else {
+	                        return value + "px";
+	                    }
+	                };
+
+	                if (expressFunc) {
+	                    var stylelist = [];
+
+	                    for (var i in expressFunc) {
+	                        if (expressFunc.hasOwnProperty(i)) {
+	                            var provalue = getCssValue(i, expressFunc[i]);
+
+	                            stylelist.push([i, provalue].join(":"));
+	                        }
+	                    }
+
+	                    var style = el.style;
+	                    for (var i = 0; i < style.length; i++) {
+	                        var name = style[i];
+	                        if (expressFunc[name]) {} else {
+	                            stylelist.push([name, style[name]].join(":"));
+	                        }
+	                    }
+
+	                    var styleStr = stylelist.join(";");
+
+	                    el.setAttribute("style", styleStr);
+	                }
+	            }
+	        };
+	    });
+
+	    var sodaRender = function sodaRender(str, data) {
+	        // 对directive进行排序
+	        sodaDirectiveArr.sort(function (b, a) {
+	            return Number(a.opt.priority || 0) - Number(b.opt.priority || 0);
+	        });
+
+	        //console.log(sodaDirectiveArr);
+
+	        // 解析模板DOM
+	        var div = document.createElement("div");
+
+	        // 必须加入到body中去，不然自定义标签不生效
+	        if (document.documentMode < 9) {
+	            div.style.display = 'none';
+	            document.body.appendChild(div);
 	        }
-	        return buffer;
-	    };
 
-	    Writer.prototype.renderInverted = function renderInverted(token, context, partials, originalTemplate) {
-	        var value = context.lookup(token[1]);
+	        div.innerHTML = str;
 
-	        // Use JavaScript's definition of falsy. Include empty arrays.
-	        // See https://github.com/janl/mustache.js/issues/186
-	        if (!value || isArray(value) && value.length === 0) return this.renderTokens(token[4], context, partials, originalTemplate);
-	    };
+	        nodes2Arr(div.childNodes).map(function (child) {
+	            compileNode(child, data);
+	        });
 
-	    Writer.prototype.renderPartial = function renderPartial(token, context, partials) {
-	        if (!partials) return;
+	        var innerHTML = div.innerHTML;
 
-	        var value = isFunction(partials) ? partials(token[1]) : partials[token[1]];
-	        if (value != null) return this.renderTokens(this.parse(value), context, partials, value);
-	    };
-
-	    Writer.prototype.unescapedValue = function unescapedValue(token, context) {
-	        var value = context.lookup(token[1]);
-	        if (value != null) return value;
-	    };
-
-	    Writer.prototype.escapedValue = function escapedValue(token, context) {
-	        var value = context.lookup(token[1]);
-	        if (value != null) return mustache.escape(value);
-	    };
-
-	    Writer.prototype.rawValue = function rawValue(token) {
-	        return token[1];
-	    };
-
-	    mustache.name = 'mustache.js';
-	    mustache.version = '2.3.0';
-	    mustache.tags = ['{{', '}}'];
-
-	    // All high-level mustache.* functions use this writer.
-	    var defaultWriter = new Writer();
-
-	    /**
-	     * Clears all cached templates in the default writer.
-	     */
-	    mustache.clearCache = function clearCache() {
-	        return defaultWriter.clearCache();
-	    };
-
-	    /**
-	     * Parses and caches the given template in the default writer and returns the
-	     * array of tokens it contains. Doing this ahead of time avoids the need to
-	     * parse templates on the fly as they are rendered.
-	     */
-	    mustache.parse = function parse(template, tags) {
-	        return defaultWriter.parse(template, tags);
-	    };
-
-	    /**
-	     * Renders the `template` with the given `view` and `partials` using the
-	     * default writer.
-	     */
-	    mustache.render = function render(template, view, partials) {
-	        if (typeof template !== 'string') {
-	            throw new TypeError('Invalid template! Template should be a "string" ' + 'but "' + typeStr(template) + '" was given as the first ' + 'argument for mustache#render(template, view, partials)');
+	        if (document.documentMode < 9) {
+	            document.body.removeChild(div);
 	        }
 
-	        return defaultWriter.render(template, view, partials);
+	        return innerHTML;
+
+	        //  var frament = document.createDocumentFragment();
+	        //  frament.innerHTML = div.innerHTML;
+
+	        /*
+	         frament.update = function(newData){
+	         //checkingDirtyData(data, d);
+	         var diff = DeepDiff.noConflict();
+	          var diffResult = diff(data, newData);
+	          console.log(diffResult);
+	          var dirtyData = ['a'];
+	          for(var i = 0; i < dirtyData.length; i ++){
+	         var item = dirtyData[i];
+	          var id = hashTable.expression2id[item];
+	          var nowValue = parseSodaExpression(item, newData);
+	         //console.log(nowValue);
+	          if(id.el){
+	         id.el.nodeValue = nowValue;
+	         }
+	         }
+	          console.log(hashTable);
+	           };
+	         */
+
+	        var child;
+	        while (child = div.childNodes[0]) {
+	            frament.appendChild(child);
+	        }
+
+	        return frament;
 	    };
 
-	    // This is here for backwards compatibility with 0.4.x.,
-	    /*eslint-disable */ // eslint wants camel cased function name
-	    mustache.to_html = function to_html(template, view, partials, send) {
-	        /*eslint-enable*/
+	    var eventPool = {};
+	    sodaRender.addEventListener = function (type, func) {
+	        if (eventPool[type]) {} else {
+	            eventPool[type] = [];
+	        }
 
-	        var result = mustache.render(template, view, partials);
+	        eventPool[type].push(func);
+	    };
 
-	        if (isFunction(send)) {
-	            send(result);
-	        } else {
-	            return result;
+	    var triggerEvent = function triggerEvent(type, e, data) {
+	        var events = eventPool[type] || [];
+
+	        for (var i = 0; i < events.length; i++) {
+	            var eventFunc = events[i];
+	            eventFunc && eventFunc(e, data);
 	        }
 	    };
 
-	    // Export the escaping function so that the user may override it.
-	    // See https://github.com/janl/mustache.js/issues/244
-	    mustache.escape = escapeHtml;
+	    sodaRender.filter = sodaFilter;
 
-	    // Export these mainly for testing, but also for advanced usage.
-	    mustache.Scanner = Scanner;
-	    mustache.Context = Context;
-	    mustache.Writer = Writer;
+	    sodaRender.prefix = function (newPrefix) {
 
-	    return mustache;
-	});
+	        for (var key in sodaDirectiveMap) {
+	            if (sodaDirectiveMap.hasOwnProperty(key)) {
+	                sodaDirectiveMap[key.replace(prefix, newPrefix)] = sodaDirectiveMap[key];
+	                delete sodaDirectiveMap[key];
+	            }
+	        }
 
-/***/ },
+	        var i = 0,
+	            len = sodaDirectiveArr.length;
+	        for (; i < len; i++) {
+	            sodaDirectiveArr[i].name = sodaDirectiveArr[i].name.replace(prefix, newPrefix);
+	        }
+
+	        prefix = newPrefix;
+	        prefixReg = new RegExp('^' + prefix + '-');
+	    };
+
+	    if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') module.exports = sodaRender;else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	        return sodaRender;
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["soda"] = sodaRender;else window.soda = sodaRender;
+
+	    // 监听数据异常情况
+	})();
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
+
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	module.exports = function (module) {
+		if (!module.webpackPolyfill) {
+			module.deprecate = function () {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1152,19 +1248,19 @@
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _style = __webpack_require__(6);
+	var _style = __webpack_require__(7);
 
 	var _style2 = _interopRequireDefault(_style);
 
-	var _event = __webpack_require__(7);
+	var _event = __webpack_require__(8);
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _morphdom = __webpack_require__(8);
+	var _morphdom = __webpack_require__(9);
 
 	var _morphdom2 = _interopRequireDefault(_morphdom);
 
-	var _html2json = __webpack_require__(9);
+	var _html2json = __webpack_require__(10);
 
 	var _html2json2 = _interopRequireDefault(_html2json);
 
@@ -1180,9 +1276,13 @@
 	            server: false,
 	            ignoreStoreData: false,
 	            preventSelfUpdate: false,
-	            selfDataFirst: false
+	            selfDataFirst: false,
+	            domDiffDisabled: false,
+	            scopedSelfCSS: false
 	        }, option);
+	        this._omi_scopedSelfCSS = componentOption.scopedSelfCSS;
 	        this._omi_preventSelfUpdate = componentOption.preventSelfUpdate;
+	        this._omi_domDiffDisabled = componentOption.domDiffDisabled;
 	        this._omi_ignoreStoreData = componentOption.ignoreStoreData;
 	        //re render the server-side rendering html on the client-side
 	        var type = Object.prototype.toString.call(data);
@@ -1201,7 +1301,7 @@
 	        this.children = [];
 	        this.childrenData = [];
 	        this.HTML = null;
-	        this._addedItems = [];
+
 	        _omi2['default'].instances[this.id] = this;
 	        this.selfDataFirst = componentOption.selfDataFirst;
 
@@ -1209,11 +1309,13 @@
 	        //this.BODY_ELEMENT = document.createElement('body')
 	        this._preCSS = null;
 	        this._omiGroupDataCounter = {};
+	        this._omi_installedHandlers = null;
 	        if (this._omi_server_rendering || isReRendering) {
 	            this.install();
 	            this._render(true);
 	            this._childrenInstalled(this);
 	            this.installed();
+	            this._execInstalledHandlers();
 	        }
 	    }
 
@@ -1223,6 +1325,21 @@
 	    }, {
 	        key: 'installed',
 	        value: function installed() {}
+	    }, {
+	        key: 'onInstalled',
+	        value: function onInstalled(handler) {
+	            if (!this._omi_installedHandlers) {
+	                this._omi_installedHandlers = [];
+	            }
+	            this._omi_installedHandlers.push(handler);
+	        }
+	    }, {
+	        key: '_execInstalledHandlers',
+	        value: function _execInstalledHandlers() {
+	            this._omi_installedHandlers && this._omi_installedHandlers.forEach(function (handler) {
+	                handler();
+	            });
+	        }
 	    }, {
 	        key: 'uninstall',
 	        value: function uninstall() {}
@@ -1258,10 +1375,36 @@
 	            }
 	        }
 	    }, {
+	        key: 'updateSelf',
+	        value: function updateSelf() {
+	            this.beforeUpdate();
+	            if (this.renderTo) {
+	                this._render(false, true);
+	            } else {
+	                if (this._omi_preventSelfUpdate) return;
+	                // update child node
+	                if (this._omi_removed) {
+	                    var hdNode = this._createHiddenNode();
+	                    this.node.parentNode.replaceChild(hdNode, this.node);
+	                    this.node = hdNode;
+	                } else {
+	                    (0, _morphdom2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr, true), this.id), {
+	                        ignoreAttr: this._getIgnoreAttr()
+	                    });
+
+	                    this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
+	                    this._queryElements(this);
+	                    this._fixForm();
+	                }
+	            }
+	            this.afterUpdate();
+	        }
+	    }, {
 	        key: 'update',
 	        value: function update() {
 	            this.beforeUpdate();
 	            this._childrenBeforeUpdate(this);
+	            this._omiGroupDataCounter = {};
 	            if (this.renderTo) {
 	                this._render();
 	            } else {
@@ -1272,15 +1415,17 @@
 	                    this.node.parentNode.replaceChild(hdNode, this.node);
 	                    this.node = hdNode;
 	                } else {
-	                    (0, _morphdom2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
-
+	                    if (this._omi_domDiffDisabled) {
+	                        this.node.parentNode.replaceChild(_morphdom2['default'].toElement((0, _event2['default'])(this._childRender(this._omiChildStr), this.id)), this.node);
+	                    } else {
+	                        (0, _morphdom2['default'])(this.node, (0, _event2['default'])(this._childRender(this._omiChildStr), this.id));
+	                    }
 	                    this.node = document.querySelector("[" + this._omi_scoped_attr + "]");
 	                    this._queryElements(this);
 	                    this._fixForm();
 	                }
 	            }
-	            //update added components
-	            this._renderAddedChildren();
+
 	            this._childrenAfterUpdate(this);
 	            this.afterUpdate();
 	        }
@@ -1291,6 +1436,7 @@
 
 	            root.children.forEach(function (child) {
 	                child.beforeUpdate();
+	                child._omiGroupDataCounter = {};
 	                _this2._childrenBeforeUpdate(child);
 	            });
 	        }
@@ -1332,26 +1478,6 @@
 
 	            child.restore();
 	        }
-
-	        //beforeBegin,beforeEnd,afterBegin,afterEnd
-
-	    }, {
-	        key: 'addComponent',
-	        value: function addComponent(position, el, component) {
-	            this._addedItems.push({ position: position, el: el, component: component });
-	            this.update();
-	        }
-	    }, {
-	        key: 'removeComponent',
-	        value: function removeComponent(component) {
-	            for (var i = 0, len = this._addedItems.length; i < len; i++) {
-	                if (component.id === this._addedItems[i].component.id) {
-	                    this._addedItems.splice(i, 1);
-	                    break;
-	                }
-	            }
-	            this.update();
-	        }
 	    }, {
 	        key: 'remove',
 	        value: function remove() {
@@ -1365,28 +1491,12 @@
 	            this._omi_removed = false;
 	            this.update();
 	            this.installed();
-	        }
-	    }, {
-	        key: '_renderAddedChildren',
-	        value: function _renderAddedChildren() {
-	            var _this4 = this;
-
-	            this._addedItems.forEach(function (item) {
-	                var target = typeof item.el === "string" ? _this4.node.querySelector(item.el) : item.el;
-	                item.component.install();
-	                item.component._render(true);
-	                item.component.installed();
-	                item.component._childrenInstalled(item.component);
-	                target.insertAdjacentHTML(item.position, item.component.HTML);
-	            });
-	            this.children.forEach(function (child) {
-	                child._renderAddedChildren();
-	            });
+	            this._execInstalledHandlers();
 	        }
 	    }, {
 	        key: '_render',
-	        value: function _render(isFirst) {
-	            var _this5 = this;
+	        value: function _render(isFirst, isSelf) {
+	            var _this4 = this;
 
 	            if (this._omi_removed) {
 	                var node = this._createHiddenNode();
@@ -1405,11 +1515,16 @@
 	            }
 	            this.beforeRender();
 	            this._generateHTMLCSS();
-	            this._extractChildren(this);
+	            if (!isSelf) {
+	                this._extractChildren(this);
+	            } else {
+	                this._extractChildrenString(this);
+	            }
 
-	            this.children.forEach(function (item, index) {
-	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, _this5.children[index].HTML);
+	            this.children.forEach(function (item) {
+	                _this4.HTML = _this4.HTML.replace(item._omiChildStr, isSelf ? item.node.outerHTML : item.HTML);
 	            });
+
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            if (isFirst) {
 	                if (this.renderTo) {
@@ -1421,7 +1536,13 @@
 	                }
 	            } else {
 	                if (this.HTML !== "") {
-	                    (0, _morphdom2['default'])(this.node, this.HTML);
+	                    if (this._omi_domDiffDisabled) {
+	                        this.renderTo.innerHTML = this.HTML;
+	                    } else {
+	                        (0, _morphdom2['default'])(this.node, this.HTML, isSelf ? {
+	                            ignoreAttr: this._getIgnoreAttr()
+	                        } : null);
+	                    }
 	                } else {
 	                    (0, _morphdom2['default'])(this.node, this._createHiddenNode());
 	                }
@@ -1434,9 +1555,18 @@
 	            }
 	        }
 	    }, {
+	        key: '_getIgnoreAttr',
+	        value: function _getIgnoreAttr() {
+	            var arr = [];
+	            this.children.forEach(function (child) {
+	                arr.push(child._omi_scoped_attr);
+	            });
+	            return arr;
+	        }
+	    }, {
 	        key: '_childRender',
-	        value: function _childRender(childStr, isFirst) {
-	            var _this6 = this;
+	        value: function _childRender(childStr, isSelf) {
+	            var _this5 = this;
 
 	            if (this._omi_removed) {
 	                this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >';
@@ -1451,14 +1581,38 @@
 	                }
 	            }
 	            this.beforeRender();
-	            this._generateHTMLCSS();
-	            this._extractChildren(this);
+	            this._fixSlot(this._generateHTMLCSS());
+	            if (!isSelf) {
+	                this._extractChildren(this);
+	            } else {
+	                this._extractChildrenString(this);
+	            }
 
-	            this.children.forEach(function (item, index) {
-	                _this6.HTML = _this6.HTML.replace(item._omiChildStr, _this6.children[index].HTML);
+	            this.children.forEach(function (item) {
+	                _this5.HTML = _this5.HTML.replace(item._omiChildStr, isSelf ? item.node.outerHTML : item.HTML);
 	            });
 	            this.HTML = (0, _event2['default'])(this.HTML, this.id);
 	            return this.HTML;
+	        }
+	    }, {
+	        key: '_fixSlot',
+	        value: function _fixSlot(shareAttr) {
+	            var _this6 = this;
+
+	            if (!this._omi_slotContent) return;
+	            this._omi_slotContent = this._scopedAttr(this._omi_slotContent, this._omi_scoped_attr, shareAttr);
+	            var nodes = _morphdom2['default'].toElements(this._omi_slotContent);
+	            var slotMatch = this.HTML.match(/<slot[\s\S]*?<\/slot>/g);
+	            if (nodes.length === 1 && slotMatch && slotMatch.length === 1) {
+	                this.HTML = this.HTML.replace(/<slot[\s\S]*?<\/slot>/, this._omi_slotContent);
+	            } else {
+	                nodes.sort(function (a, b) {
+	                    return parseInt(a.getAttribute('slot-index')) - parseInt(b.getAttribute('slot-index'));
+	                });
+	                nodes.forEach(function (node) {
+	                    _this6.HTML = _this6.HTML.replace(/<slot[\s\S]*?<\/slot>/, node.outerHTML);
+	                });
+	            }
 	        }
 	    }, {
 	        key: '_queryElements',
@@ -1512,6 +1666,7 @@
 	            root.children.forEach(function (child) {
 	                _this9._childrenInstalled(child);
 	                child.installed();
+	                child._execInstalledHandlers();
 	            });
 	        }
 	    }, {
@@ -1552,15 +1707,21 @@
 	        }
 	    }, {
 	        key: '_replaceTags',
-	        value: function _replaceTags(array, html) {
+	        value: function _replaceTags(array, html, updateSelf) {
+	            var _this10 = this;
+
+	            if (_omi2['default'].customTags.length === 0) return;
 	            var str = array.join("|");
-	            var reg = new RegExp('<(' + str + '+)((?:\\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\\s*=\\s*(?:(?:"[^"]*")|(?:\'[^\']*\')|[^>\\s]+))?)*)\\s*(\\/?)>', 'g');
-	            return html.replace(reg, function (m, a) {
-	                var d = m.length - 2;
-	                if (d >= 0 && m.lastIndexOf('/>') === m.length - 2) {
-	                    return m.replace('<' + a, '<child tag="' + a + '"').substr(0, m.length + 10) + '></child>';
-	                } else if (m.lastIndexOf('>') === m.length - 1) {
-	                    return m.replace('<' + a, '<child tag="' + a + '"') + '</child>';
+	            var reg = new RegExp('<(' + str + '+)((?:\\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\\s*=\\s*(?:(?:"[^"]*")|(?:\'[^\']*\')|[^>\\s]+))?)*)\\s*((\\/>)|>(([\\s\\S]*?)<\\/\\1>))', 'g');
+	            var index = 0;
+	            return html.replace(reg, function (m, a, b, c, d, e, f) {
+	                if (updateSelf) {
+	                    var cmi = _this10.children[index];
+	                    if (cmi && cmi.___omi_constructor_name === a) {
+	                        cmi._omiChildStr = m;
+	                    }
+	                } else {
+	                    _this10._initComponentByString(a, m, f, index++, _this10);
 	                }
 	            });
 	        }
@@ -1585,32 +1746,44 @@
 	        key: '_generateHTMLCSS',
 	        value: function _generateHTMLCSS() {
 	            this.CSS = (this.style() || '').replace(/<\/?style>/g, '');
+	            var shareAttr = this.___omi_constructor_name ? _omi2['default'].STYLESCOPEDPREFIX + this.___omi_constructor_name.toLowerCase() : this._omi_scoped_attr;
 	            if (this.CSS) {
-	                this.CSS = _style2['default'].scoper(this.CSS, "[" + this._omi_scoped_attr + "]");
-	                if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
-	                    _style2['default'].addStyle(this.CSS, this.id);
-	                    this._preCSS = this.CSS;
+	                if (this._omi_scopedSelfCSS || !_omi2['default'].style[shareAttr]) {
+	                    this.CSS = _style2['default'].scoper(this.CSS, this._omi_scopedSelfCSS ? "[" + this._omi_scoped_attr + "]" : "[" + shareAttr + "]");
+	                    _omi2['default'].style[shareAttr] = this.CSS;
+	                    if (this.CSS !== this._preCSS && !this._omi_server_rendering) {
+	                        _style2['default'].addStyle(this.CSS, this.id);
+	                        this._preCSS = this.CSS;
+	                    }
 	                }
 	            }
 	            var tpl = this.render();
-	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), this._omi_scoped_attr).trim();
+	            this.HTML = this._scopedAttr(_omi2['default'].template(tpl ? tpl : "", this.data), this._omi_scoped_attr, shareAttr).trim();
 	            if (this._omi_server_rendering) {
 	                this.HTML = '\r\n<style id="' + _omi2['default'].STYLEPREFIX + this.id + '">\r\n' + this.CSS + '\r\n</style>\r\n' + this.HTML;
 	                this.HTML += '\r\n<input type="hidden" data-omi-id="' + this.id + '" class="' + _omi2['default'].STYLESCOPEDPREFIX + '_hidden_data" value=\'' + JSON.stringify(this.data) + '\'  />\r\n';
 	            }
+
+	            return shareAttr;
 	        }
 	    }, {
 	        key: '_scopedAttr',
-	        value: function _scopedAttr(html, id) {
+	        value: function _scopedAttr(html, id, shareAtrr) {
+	            var _this11 = this;
+
 	            return html.replace(/<[^/]([A-Za-z]*)[^>]*>/g, function (m) {
 	                var str = m.split(" ")[0].replace(">", "");
-	                return m.replace(str, str + " " + id);
+	                if (_this11._omi_scopedSelfCSS || !_this11.___omi_constructor_name) {
+	                    return m.replace(str, str + " " + id);
+	                } else {
+	                    return m.replace(str, str + " " + id + " " + shareAtrr);
+	                }
 	            });
 	        }
 	    }, {
 	        key: '_getDataset',
 	        value: function _getDataset(childStr) {
-	            var _this10 = this;
+	            var _this12 = this;
 
 	            var json = (0, _html2json2['default'])(childStr);
 	            var attr = json.child[0].attr;
@@ -1618,28 +1791,24 @@
 	            Object.keys(attr).forEach(function (key) {
 	                var value = attr[key];
 	                if (key.indexOf('on') === 0) {
-	                    var handler = _this10.parent[value];
+	                    var handler = _this12.parent[value];
 	                    if (handler) {
-	                        baseData[key] = handler.bind(_this10.parent);
+	                        baseData[key] = handler.bind(_this12.parent);
 	                    }
 	                } else if (key.indexOf('data-') === 0) {
-	                    _this10._dataset[_this10._capitalize(key.replace('data-', ''))] = value;
+	                    _this12._dataset[_this12._capitalize(key.replace('data-', ''))] = value;
 	                } else if (key.indexOf(':data-') === 0) {
-	                    _this10._dataset[_this10._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                    _this12._dataset[_this12._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
 	                } else if (key === ':data') {
-	                    _this10._dataset = eval('(' + value + ')');
+	                    _this12._dataset = eval('(' + value + ')');
 	                } else if (key === 'data') {
-	                    _this10._dataset = _this10._extractPropertyFromString(value, _this10.parent);
+	                    _this12._dataset = _this12._extractPropertyFromString(value, _this12.parent);
 	                } else if (key === 'group-data') {
-	                    _this10._dataset = _this10._extractPropertyFromString(value, _this10.parent)[_this10._omi_groupDataIndex];
+	                    _this12._dataset = _this12._extractPropertyFromString(value, _this12.parent)[_this12._omi_groupDataIndex];
 	                }
 	            });
 
-	            Object.keys(baseData).forEach(function (key) {
-	                _this10._dataset[key] = attr[key];
-	            });
-
-	            return this._dataset;
+	            return Object.assign(baseData, this._dataset);
 	        }
 	    }, {
 	        key: '_capitalize',
@@ -1662,96 +1831,111 @@
 	            return current;
 	        }
 	    }, {
+	        key: '_extractChildrenString',
+	        value: function _extractChildrenString(child) {
+	            this._replaceTags(_omi2['default'].customTags, child.HTML, true);
+	        }
+	    }, {
 	        key: '_extractChildren',
 	        value: function _extractChildren(child) {
-	            var _this11 = this;
+	            this._replaceTags(_omi2['default'].customTags, child.HTML);
+	        }
+	    }, {
+	        key: '_initComponentByString',
+	        value: function _initComponentByString(name, childStr, slotContent, i, child) {
+	            var _this13 = this;
 
-	            if (_omi2['default'].customTags.length > 0) {
-	                child.HTML = this._replaceTags(_omi2['default'].customTags, child.HTML);
-	            }
-	            var arr = child.HTML.match(/<child[^>][\s\S]*?tag=['|"](\S*)['|"][\s\S]*?><\/child>/g);
-
-	            if (arr) {
-	                arr.forEach(function (childStr, i) {
-	                    var json = (0, _html2json2['default'])(childStr);
-	                    var attr = json.child[0].attr;
-	                    var name = attr.tag;
-	                    delete attr.tag;
-	                    var cmi = _this11.children[i];
-	                    //if not first time to invoke _extractChildren method
-	                    if (cmi && cmi.___omi_constructor_name === name) {
-	                        cmi._omiChildStr = childStr;
-	                        cmi._childRender(childStr);
-	                    } else {
-	                        (function () {
-	                            var baseData = {};
-	                            var dataset = {};
-
-	                            var groupDataIndex = null;
-	                            var omiID = null;
-	                            var instanceName = null;
-	                            var _omi_preventSelfUpdate = false;
-	                            var selfDataFirst = false;
-	                            Object.keys(attr).forEach(function (key) {
-	                                var value = attr[key];
-	                                if (key.indexOf('on') === 0) {
-	                                    var handler = child[value];
-	                                    if (handler) {
-	                                        baseData[key] = handler.bind(child);
-	                                    }
-	                                } else if (key === 'omi-id') {
-	                                    omiID = value;
-	                                } else if (key === 'name') {
-	                                    instanceName = value;
-	                                } else if (key === 'group-data') {
-	                                    if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                                        child._omiGroupDataCounter[value]++;
-	                                    } else {
-	                                        child._omiGroupDataCounter[value] = 0;
-	                                    }
-	                                    groupDataIndex = child._omiGroupDataCounter[value];
-	                                    dataset = _this11._extractPropertyFromString(value, child)[groupDataIndex];
-	                                } else if (key.indexOf('data-') === 0) {
-	                                    dataset[_this11._capitalize(key.replace('data-', ''))] = value;
-	                                } else if (key.indexOf(':data-') === 0) {
-	                                    dataset[_this11._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                                } else if (key === ':data') {
-	                                    dataset = eval('(' + value + ')');
-	                                } else if (key === 'data') {
-	                                    dataset = _this11._extractPropertyFromString(value, child);
-	                                } else if (key === 'preventSelfUpdate' || key === 'psu') {
-	                                    _omi_preventSelfUpdate = true;
-	                                } else if (key === 'selfDataFirst' || key === 'sdf') {
-	                                    selfDataFirst = true;
-	                                }
-	                            });
-
-	                            var ChildClass = _omi2['default'].getClassFromString(name);
-	                            if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                            var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), false);
-	                            sub_child._omi_groupDataIndex = groupDataIndex;
-	                            sub_child._omi_preventSelfUpdate = _omi_preventSelfUpdate;
-	                            sub_child._omiChildStr = childStr;
-	                            sub_child.selfDataFirst = selfDataFirst;
-	                            sub_child.parent = child;
-	                            sub_child.$store = child.$store;
-	                            sub_child.___omi_constructor_name = name;
-	                            sub_child._dataset = {};
-	                            sub_child.install();
-
-	                            omiID && (_omi2['default'].mapping[omiID] = sub_child);
-	                            instanceName && (child[instanceName] = sub_child);
-
-	                            if (!cmi) {
-	                                child.children.push(sub_child);
-	                            } else {
-	                                child.children[i] = sub_child;
-	                            }
-
-	                            sub_child._childRender(childStr, true);
-	                        })();
+	            var json = (0, _html2json2['default'])(childStr);
+	            var attr = json.child[0].attr;
+	            var cmi = this.children[i];
+	            //if not first time to invoke _extractChildren method
+	            if (cmi && cmi.___omi_constructor_name === name) {
+	                cmi._omiChildStr = childStr;
+	                cmi._omi_slotContent = slotContent;
+	                Object.keys(attr).forEach(function (key) {
+	                    var value = attr[key];
+	                    if (key === 'group-data') {
+	                        if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                            child._omiGroupDataCounter[value]++;
+	                        } else {
+	                            child._omiGroupDataCounter[value] = 0;
+	                        }
+	                        cmi._omi_groupDataIndex = child._omiGroupDataCounter[value];
 	                    }
 	                });
+
+	                cmi._childRender(childStr);
+	            } else {
+	                var baseData = {};
+	                var dataset = {};
+
+	                var groupDataIndex = null;
+	                var omiID = null;
+	                var instanceName = null;
+	                var _omi_option = {};
+
+	                Object.keys(attr).forEach(function (key) {
+	                    var value = attr[key];
+	                    if (key.indexOf('on') === 0) {
+	                        var handler = child[value];
+	                        if (handler) {
+	                            baseData[key] = handler.bind(child);
+	                        }
+	                    } else if (key === 'omi-id') {
+	                        omiID = value;
+	                    } else if (key === 'name') {
+	                        instanceName = value;
+	                    } else if (key === 'group-data') {
+	                        if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                            child._omiGroupDataCounter[value]++;
+	                        } else {
+	                            child._omiGroupDataCounter[value] = 0;
+	                        }
+	                        groupDataIndex = child._omiGroupDataCounter[value];
+	                        dataset = _this13._extractPropertyFromString(value, child)[groupDataIndex];
+	                    } else if (key.indexOf('data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace('data-', ''))] = value;
+	                    } else if (key.indexOf(':data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                    } else if (key === ':data') {
+	                        dataset = eval('(' + value + ')');
+	                    } else if (key === 'data') {
+	                        dataset = _this13._extractPropertyFromString(value, child);
+	                    } else if (key === 'preventSelfUpdate' || key === 'psu') {
+	                        _omi_option.preventSelfUpdate = true;
+	                    } else if (key === 'selfDataFirst' || key === 'sdf') {
+	                        _omi_option.selfDataFirst = true;
+	                    } else if (key === 'domDiffDisabled' || key === 'ddd') {
+	                        _omi_option.domDiffDisabled = true;
+	                    } else if (key === 'ignoreStoreData' || key === 'isd') {
+	                        _omi_option.ignoreStoreData = true;
+	                    } else if (key === 'scopedSelfCSS' || key === 'ssc') {
+	                        _omi_option.scopedSelfCSS = true;
+	                    }
+	                });
+
+	                var ChildClass = _omi2['default'].getClassFromString(name);
+	                if (!ChildClass) throw "Can't find Class called [" + name + "]";
+	                var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
+	                sub_child._omi_groupDataIndex = groupDataIndex;
+	                sub_child._omiChildStr = childStr;
+	                sub_child._omi_slotContent = slotContent;
+	                sub_child.parent = child;
+	                sub_child.$store = child.$store;
+	                sub_child.___omi_constructor_name = name;
+	                sub_child._dataset = {};
+	                sub_child.install();
+
+	                omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                instanceName && (child[instanceName] = sub_child);
+
+	                if (!cmi) {
+	                    child.children.push(sub_child);
+	                } else {
+	                    child.children[i] = sub_child;
+	                }
+
+	                sub_child._childRender(childStr);
 	            }
 	        }
 	    }]);
@@ -1761,11 +1945,11 @@
 
 	exports['default'] = Component;
 
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -1775,11 +1959,14 @@
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	//many thanks to https://github.com/thomaspark/scoper/
 	function scoper(css, prefix) {
-	    var re = new RegExp("([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{]*{)|\s*{)", "g");
+	    //https://www.w3.org/TR/css-syntax-3/#lexical
+	    css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
+
+	    var re = new RegExp("([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)", "g");
 	    /**
 	     * Example:
 	     *
@@ -1807,7 +1994,7 @@
 	}
 
 	function addStyle(cssText, id) {
-	    var ele = document.getElementById(_omi2["default"].STYLEPREFIX + id),
+	    var ele = document.getElementById(_omi2['default'].STYLEPREFIX + id),
 	        head = document.getElementsByTagName('head')[0];
 	    if (ele && ele.parentNode === head) {
 	        head.removeChild(ele);
@@ -1816,7 +2003,7 @@
 	    var someThingStyles = document.createElement('style');
 	    head.appendChild(someThingStyles);
 	    someThingStyles.setAttribute('type', 'text/css');
-	    someThingStyles.setAttribute('id', _omi2["default"].STYLEPREFIX + id);
+	    someThingStyles.setAttribute('id', _omi2['default'].STYLEPREFIX + id);
 	    if (!!window.ActiveXObject) {
 	        someThingStyles.styleSheet.cssText = cssText;
 	    } else {
@@ -1824,14 +2011,14 @@
 	    }
 	}
 
-	exports["default"] = {
+	exports['default'] = {
 	    scoper: scoper,
 	    addStyle: addStyle
 	};
 
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -1855,9 +2042,9 @@
 
 	exports['default'] = scopedEvent;
 
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
@@ -1909,6 +2096,32 @@
 	            fragment.innerHTML = str;
 	        }
 	        return fragment.childNodes[0];
+	    }
+
+	    function toElements(str) {
+	        if (!range && doc.createRange) {
+	            range = doc.createRange();
+	            range.selectNode(doc.body);
+	        }
+
+	        var fragment;
+	        if (range && range.createContextualFragment) {
+	            fragment = range.createContextualFragment(str);
+	        } else {
+	            fragment = doc.createElement('body');
+	            fragment.innerHTML = str;
+	        }
+
+	        var arr = [],
+	            i = 0,
+	            len = fragment.childNodes.length;
+	        for (; i < len; i++) {
+	            var item = fragment.childNodes[i];
+	            if (item.nodeType === 1) {
+	                arr.push(item);
+	            }
+	        }
+	        return arr;
 	    }
 
 	    /**
@@ -2134,7 +2347,7 @@
 	            var onNodeDiscarded = options.onNodeDiscarded || noop;
 	            var onBeforeElChildrenUpdated = options.onBeforeElChildrenUpdated || noop;
 	            var childrenOnly = options.childrenOnly === true;
-
+	            var ignoreAttr = options.ignoreAttr;
 	            // This object is used as a lookup to quickly find all keyed elements in the original DOM tree.
 	            var fromNodesLookup = {};
 	            var keyedRemovalList;
@@ -2263,6 +2476,27 @@
 	            }
 
 	            function morphEl(fromEl, toEl, childrenOnly) {
+	                if (ignoreAttr) {
+	                    var ignoreF = false,
+	                        ignoreT = false,
+	                        attrF = null,
+	                        attrT = null;
+	                    for (var _i = 0, _len = ignoreAttr.length; _i < _len; _i++) {
+	                        var selector = ignoreAttr[_i];
+	                        if (!ignoreF && fromEl.getAttribute(selector) !== null) {
+	                            ignoreF = true;
+	                            attrF = selector;
+	                        }
+	                        if (!ignoreT && toEl.getAttribute(selector) !== null) {
+	                            ignoreT = true;
+	                            attrT = selector;
+	                        }
+	                        if (ignoreF && ignoreT) break;
+	                    }
+	                    if (ignoreF && ignoreT && attrF === attrT) {
+	                        return;
+	                    }
+	                }
 	                var toElKey = getNodeKey(toEl);
 	                var curFromNodeKey;
 
@@ -2531,13 +2765,14 @@
 	    }
 
 	    var morphdom = morphdomFactory(morphAttrs);
-
+	    morphdom.toElement = toElement;
+	    morphdom.toElements = toElements;
 	    return morphdom;
 	});
 
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -2624,7 +2859,7 @@
 	    parseEndTag();
 
 	    function parseStartTag(tag, tagName, rest, unary) {
-	        tagName = tagName.toLowerCase();
+	        //tagName = tagName.toLowerCase();
 
 	        unary = !!unary;
 
@@ -2778,9 +3013,9 @@
 
 	exports["default"] = html2json;
 
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -2799,6 +3034,7 @@
 	        this.readyHandlers = [];
 	        this.isReady = isReady;
 	        this.instances = [];
+	        this.updateSelfInstances = [];
 	    }
 
 	    _createClass(Store, [{
@@ -2811,12 +3047,27 @@
 	            this.readyHandlers.push(readyHandler);
 	        }
 	    }, {
+	        key: "addSelfView",
+	        value: function addSelfView(view) {
+	            var added = false;
+
+	            for (var i = 0, len = this.updateSelfInstances.length; i < len; i++) {
+	                if (this.updateSelfInstances[i].id === view.id) {
+	                    added = true;
+	                    break;
+	                }
+	            }
+	            if (!added) {
+	                this.updateSelfInstances.push(view);
+	            }
+	        }
+	    }, {
 	        key: "addView",
 	        value: function addView(view) {
-	            var vid = view.id,
-	                added = false;
+	            var added = false;
+
 	            for (var i = 0, len = this.instances.length; i < len; i++) {
-	                if (this.instances[i].id === vid) {
+	                if (this.instances[i].id === view.id) {
 	                    added = true;
 	                    break;
 	                }
@@ -2837,26 +3088,43 @@
 	        key: "update",
 	        value: function update() {
 	            this._mergeInstances();
+	            this._mergeSelfInstances();
 	            this.instances.forEach(function (instance) {
 	                return instance.update();
 	            });
+	            this.updateSelfInstances.forEach(function (instance) {
+	                return instance.updateSelf();
+	            });
+	        }
+	    }, {
+	        key: "_mergeSelfInstances",
+	        value: function _mergeSelfInstances() {
+	            var _this = this;
+
+	            var arr = [];
+	            this.updateSelfInstances.forEach(function (instance) {
+	                if (!_this._checkSelfUpdateInstance(instance)) {
+	                    arr.push(instance);
+	                }
+	            });
+	            this.updateSelfInstances = arr;
 	        }
 	    }, {
 	        key: "_mergeInstances",
 	        value: function _mergeInstances() {
-	            var _this = this;
+	            var _this2 = this;
 
 	            var arr = [];
-	            var idArr = [];
+	            this.idArr = [];
 	            this.instances.forEach(function (instance) {
-	                idArr.push(instance.id);
+	                _this2.idArr.push(instance.id);
 	            });
 
 	            this.instances.forEach(function (instance) {
 	                if (!instance.parent) {
 	                    arr.push(instance);
 	                } else {
-	                    if (!_this._isSubInstance(instance, idArr)) {
+	                    if (!_this2._isSubInstance(instance)) {
 	                        arr.push(instance);
 	                    }
 	                }
@@ -2865,12 +3133,21 @@
 	            this.instances = arr;
 	        }
 	    }, {
+	        key: "_checkSelfUpdateInstance",
+	        value: function _checkSelfUpdateInstance(instance) {
+	            if (this.idArr.indexOf(instance.id) !== -1) {
+	                return true;
+	            } else if (instance.parent) {
+	                return this._checkSelfUpdateInstance(instance.parent);
+	            }
+	        }
+	    }, {
 	        key: "_isSubInstance",
-	        value: function _isSubInstance(instance, arr) {
-	            if (arr.indexOf(instance.parent.id) !== -1) {
+	        value: function _isSubInstance(instance) {
+	            if (this.idArr.indexOf(instance.parent.id) !== -1) {
 	                return true;
 	            } else if (instance.parent.parent) {
-	                return this._isSubInstance(instance.parent, arr);
+	                return this._isSubInstance(instance.parent);
 	            }
 	        }
 	    }]);
@@ -2880,9 +3157,9 @@
 
 	exports["default"] = Store;
 
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -2907,16 +3184,16 @@
 	var List = function (_Omi$Component) {
 	    _inherits(List, _Omi$Component);
 
-	    function List(data) {
+	    function List() {
 	        _classCallCheck(this, List);
 
-	        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, data));
+	        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
 	    }
 
 	    _createClass(List, [{
 	        key: 'render',
 	        value: function render() {
-	            return ' <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';
+	            return ' <ul>  <li o-repeat="item in items">{{item}}</li></ul>';
 	        }
 	    }]);
 
@@ -2925,9 +3202,9 @@
 
 	exports['default'] = List;
 
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -2939,19 +3216,18 @@
 	        items: ["omi", "store"]
 	    },
 	    methods: {
+	        install: function install() {},
 	        add: function add(value) {
 	            this.data.items.push(value);
-	            this.data.length = this.data.items.length;
 	            this.update();
 	        },
 
 	        clear: function clear() {
 	            this.data.items.length = 0;
-	            this.data.length = 0;
 	            this.update();
 	        }
 	    }
 	};
 
-/***/ }
+/***/ })
 /******/ ]);
