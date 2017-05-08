@@ -29,13 +29,13 @@ class Main extends Omi.Component {
         return `<div>
                     <h1>Pagination Example</h1>
                     <Content name="content" />
-                    <Pagination
+                    <pagination
                         name="pagination"
                         :data-total="100"
                         :data-page-size="10"
                         :data-num-edge="1"
                         :data-num-display="4"　　　　　
-                        onPageChange="handlePageChange" />
+                        onPageChange="handlePageChange" ></pagination>
                 </div>`;
     }
 }
@@ -69,22 +69,17 @@ class TodoStore extends Omi.Store {
         super(isReady)
 
         this.data = Object.assign({
-            items:[],
-            length:0
+            items:[]
         },data)
-
-        this.data.length = this.data.items.length
     }
 
     add(value){
         this.data.items.push(value)
-        this.data.length = this.data.items.length
         this.update()
     }
 
     clear(){
         this.data.items.length = 0
-        this.data.length = 0
         this.update()
     }
 }
@@ -97,8 +92,7 @@ TodoStore定义了数据的基本格式和数据模型的逻辑。
 
 ```js
 {
-    items:[],
-    length:0
+    items:[]
 }
 ```
 
@@ -158,7 +152,7 @@ beforeRender是生命周期的一部分。且看下面这张图:
 import Omi from '../../src/index.js';
 import List from './list.js';
 
-Omi.makeHTML('List', List);
+Omi.tag('list', List);
 
 class Todo extends Omi.Component {
     constructor(data) {
@@ -200,7 +194,7 @@ class Todo extends Omi.Component {
         return `<div>
                     <h3>TODO</h3>
                     <button onclick="clear">Clear</button>
-                    <List name="list" data="$store.data" />
+                    <list name="list" data="$store.data"></list>
                     <form onsubmit="add" >
                         <input type="text" onchange="handleChange"  value="{{text}}"  />
                         <button>Add #{{length}}</button>
@@ -228,19 +222,15 @@ export default Todo;
 再看上面的子组件声明:
 
 ```js
-<List name="list" data="$store.data" />
+<list name="list" data="$store.data"></list>
 ```
 
 这样相当于把this.$store.data传递给了List组件。所以在List内部，就不再需要写beforeRender方法转换了。
 
 ```js
 class List extends Omi.Component {
-    constructor(data) {
-        super(data)
-    }
-
     render () {
-        return ` <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>`
+        return ` <ul>  <li o-repeat="item in items">{{item}}</li></ul>`
     }
 }
 ```
@@ -256,7 +246,6 @@ class List extends Omi.Component {
 let todoStore = new TodoStore()
 setTimeout(()=>{
     todoStore.data.items = ["omi","store"];
-    todoStore.data.length = todoStore.data.items.length
     todoStore.beReady();
 },2000)
 ```
@@ -300,13 +289,11 @@ export default Omi.createStore({
     methods: {
         add: function (value) {
             this.data.items.push(value)
-            this.data.length = this.data.items.length
             this.update()
         },
 
         clear: function () {
             this.data.items.length = 0
-            this.data.length = 0
             this.update()
         }
     }
@@ -321,20 +308,22 @@ export default {
         items: ["omi", "store"]
     },
     methods: {
+        install:function(){ },
+        
         add: function (value) {
             this.data.items.push(value)
-            this.data.length = this.data.items.length
             this.update()
         },
 
         clear: function () {
             this.data.items.length = 0
-            this.data.length = 0
             this.update()
         }
     }
 }
 ```
+
+你也可以定义install方法初始化一些属性，install方法在Omi内部会自动帮你执行。
 
 ## Omi Store update
 
@@ -351,7 +340,6 @@ Omi Store体系以前通过addView进行视图收集，store进行update的时�
 ## 源码地址
 
 * 更为详细的代码可以[点击这里](https://github.com/AlloyTeam/omi/tree/master/example/todo-store)
-* 异步拉取的代码可以[点击这里](https://github.com/AlloyTeam/omi/tree/master/example/todo-store-async)
 
 ## 相关
 
