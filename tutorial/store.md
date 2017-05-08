@@ -12,7 +12,7 @@
 
 通过声明onXxx="xxxx"可以让子组件内执行父组件的方法。具体的如下图所示：
 
-![](http://images2015.cnblogs.com/blog/105416/201703/105416-20170323100946955-1938506287.jpg)
+![](http://images2015.cnblogs.com/blog/105416/201705/105416-20170508180241113-1922050643.jpg)
 
 
 如果还不明白的话，那...  我就直接上代码了：
@@ -34,8 +34,8 @@ class Main extends Omi.Component {
                         :data-total="100"
                         :data-page-size="10"
                         :data-num-edge="1"
-                        :data-num-display="4"　　　　　
-                        onpagechange="handlePageChange" ></pagination>
+                        :data-num-display="4"
+                        event="onPageChange:handlePageChange" ></pagination>
                 </div>`;
     }
 }
@@ -44,7 +44,8 @@ class Main extends Omi.Component {
 上面的例子中，
 
 * 父组件的render方法里，通过 data-✽ 传递数据给子组件 Pagination
-* 通过onPageChange="handlePageChange"实现子组件与父组件通讯
+* 通过event="onPageChange:handlePageChange"实现子组件与父组件通讯
+* 定义多个事件可以通过竖线分隔 event="onPageChange:handlePageChange | onXXX:xxx " 
 
 详细代码可以点击： [分页例子地址](https://github.com/AlloyTeam/omi/tree/master/example/pagination)
 
