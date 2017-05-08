@@ -15,6 +15,10 @@ class Main extends Omi.Component {
         this.update()
     }
 
+    xxx(){
+
+    }
+
     render () {
         return `<div>
                     <h1>Pagination Example</h1>
@@ -25,7 +29,7 @@ class Main extends Omi.Component {
                         :data-page-size="10"
                         :data-num-edge="1"
                         :data-num-display="4"
-                        onpagechange="handlePageChange" ></pagination>
+                        event="onPageChange:handlePageChange | onXXX:xxx " ></pagination>
                 </div>`;
     }
 }

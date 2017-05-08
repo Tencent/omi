@@ -14,7 +14,7 @@ class Pagination extends Omi.Component {
             ellipseText: "...",
             prevShow: true,
             nextShow: true,
-            onpagechange: function () { return false; }
+            onPageChange: function () { return false; }
         }, data);
         super(data);
     }
@@ -26,7 +26,8 @@ class Pagination extends Omi.Component {
     goto (index,evt) {
         evt.preventDefault();
         this.data.currentPage=index;
-        this.data.onpagechange(index);
+        this.data.onXXX()
+        this.data.onPageChange(index);
     }
 
     style(){

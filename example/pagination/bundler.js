@@ -87,9 +87,12 @@
 	            this.update();
 	        }
 	    }, {
+	        key: 'xxx',
+	        value: function xxx() {}
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h1>Pagination Example</h1>\n                    <content name="content" ></content>\n                    <pagination\n                        name="pagination"\n                        :data-total="100"\n                        :data-page-size="10"\n                        :data-num-edge="1"\n                        :data-num-display="4"\n                        onpagechange="handlePageChange" ></pagination>\n                </div>';
+	            return '<div>\n                    <h1>Pagination Example</h1>\n                    <content name="content" ></content>\n                    <pagination\n                        name="pagination"\n                        :data-total="100"\n                        :data-page-size="10"\n                        :data-num-edge="1"\n                        :data-num-display="4"\n                        event="onPageChange:handlePageChange | onXXX:xxx " ></pagination>\n                </div>';
 	        }
 	    }]);
 
@@ -1743,6 +1746,11 @@
 	                    if (handler) {
 	                        baseData[key] = handler.bind(_this12.parent);
 	                    }
+	                } else if (key === 'event') {
+	                    value.split('|').forEach(function (evtStr) {
+	                        var evtMap = evtStr.split(':');
+	                        baseData[evtMap[0].trim()] = _this12.parent[evtMap[1].trim()].bind(_this12.parent);
+	                    });
 	                } else if (key.indexOf('data-') === 0) {
 	                    _this12._dataset[_this12._capitalize(key.replace('data-', ''))] = value;
 	                } else if (key.indexOf(':data-') === 0) {
@@ -1829,6 +1837,11 @@
 	                        if (handler) {
 	                            baseData[key] = handler.bind(child);
 	                        }
+	                    } else if (key === 'event') {
+	                        value.split('|').forEach(function (evtStr) {
+	                            var evtMap = evtStr.split(':');
+	                            baseData[evtMap[0].trim()] = child[evtMap[1].trim()].bind(child);
+	                        });
 	                    } else if (key === 'omi-id') {
 	                        omiID = value;
 	                    } else if (key === 'name') {
@@ -3147,7 +3160,7 @@
 	            ellipseText: "...",
 	            prevShow: true,
 	            nextShow: true,
-	            onpagechange: function onpagechange() {
+	            onPageChange: function onPageChange() {
 	                return false;
 	            }
 	        }, data);
@@ -3164,7 +3177,8 @@
 	        value: function goto(index, evt) {
 	            evt.preventDefault();
 	            this.data.currentPage = index;
-	            this.data.onpagechange(index);
+	            this.data.onXXX();
+	            this.data.onPageChange(index);
 	        }
 	    }, {
 	        key: "style",

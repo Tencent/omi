@@ -483,6 +483,11 @@ class Component {
                 if (handler) {
                     baseData[key] = handler.bind(this.parent)
                 }
+            }else if (key === 'event'){
+                value.split('|').forEach((evtStr)=>{
+                    let evtMap = evtStr.split(':')
+                    baseData[evtMap[0].trim()]= this.parent[evtMap[1].trim()].bind(this.parent)
+                })
             }else if(key.indexOf('data-') === 0){
                 this._dataset[this._capitalize(key.replace('data-', ''))] = value
             }else if(key.indexOf(':data-') === 0) {
@@ -564,6 +569,11 @@ class Component {
                     if (handler) {
                         baseData[key] = handler.bind(child)
                     }
+                }else if (key === 'event'){
+                    value.split('|').forEach((evtStr)=>{
+                        let evtMap = evtStr.split(':')
+                        baseData[evtMap[0].trim()]= child[evtMap[1].trim()].bind(child)
+                    })
                 } else if (key === 'omi-id'){
                     omiID = value
                 }else if (key === 'name'){
