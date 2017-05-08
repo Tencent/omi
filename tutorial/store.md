@@ -28,7 +28,7 @@ class Main extends Omi.Component {
     render () {
         return `<div>
                     <h1>Pagination Example</h1>
-                    <Content name="content" />
+                    <content name="content"></content>
                     <pagination
                         name="pagination"
                         :data-total="100"
@@ -352,5 +352,3 @@ Omi Store体系以前通过addView进行视图收集，store进行update的时�
 * 如果你懒得搭建项目脚手架，可以试试 [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
 * 如果你有Omi相关的问题可以 [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
-
-![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170208095745213-1049686133.png)
