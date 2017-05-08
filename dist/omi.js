@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.5.2 By dntzhang 
+ *  Omi v1.5.3 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1699,6 +1699,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    if (handler) {
 	                        baseData[key] = handler.bind(_this12.parent);
 	                    }
+	                } else if (key === 'event') {
+	                    value.split('|').forEach(function (evtStr) {
+	                        var evtMap = evtStr.split(':');
+	                        baseData[evtMap[0].trim()] = _this12.parent[evtMap[1].trim()].bind(_this12.parent);
+	                    });
 	                } else if (key.indexOf('data-') === 0) {
 	                    _this12._dataset[_this12._capitalize(key.replace('data-', ''))] = value;
 	                } else if (key.indexOf(':data-') === 0) {
@@ -1785,6 +1790,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        if (handler) {
 	                            baseData[key] = handler.bind(child);
 	                        }
+	                    } else if (key === 'event') {
+	                        value.split('|').forEach(function (evtStr) {
+	                            var evtMap = evtStr.split(':');
+	                            baseData[evtMap[0].trim()] = child[evtMap[1].trim()].bind(child);
+	                        });
 	                    } else if (key === 'omi-id') {
 	                        omiID = value;
 	                    } else if (key === 'name') {
