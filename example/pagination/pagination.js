@@ -26,7 +26,6 @@ class Pagination extends Omi.Component {
     goto (index,evt) {
         evt.preventDefault();
         this.data.currentPage=index;
-        this.data.onXXX()
         this.data.onPageChange(index);
     }
 

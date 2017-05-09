@@ -92,7 +92,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h1>Pagination Example</h1>\n                    <content name="content" ></content>\n                    <pagination\n                        name="pagination"\n                        :data-total="100"\n                        :data-page-size="10"\n                        :data-num-edge="1"\n                        :data-num-display="4"\n                        event="onPageChange:handlePageChange | onXXX:xxx " ></pagination>\n                </div>';
+	            return '<div>\n                    <h1>Pagination Example</h1>\n                    <content name="content" ></content>\n                    <pagination\n                        name="pagination"\n                        :data-total="100"\n                        :data-page-size="10"\n                        :data-num-edge="1"\n                        :data-num-display="4"\n                        on-page-change="handlePageChange" ></pagination>\n                </div>';
 	        }
 	    }]);
 
@@ -1250,7 +1250,7 @@
 	        }
 	        this.refs = {};
 	        this.children = [];
-	        this.childrenData = [];
+
 	        this.HTML = null;
 
 	        _omi2['default'].instances[this.id] = this;
@@ -1744,13 +1744,8 @@
 	                if (key.indexOf('on') === 0) {
 	                    var handler = _this12.parent[value];
 	                    if (handler) {
-	                        baseData[key] = handler.bind(_this12.parent);
+	                        baseData[_this12._capitalize(key)] = handler.bind(_this12.parent);
 	                    }
-	                } else if (key === 'event') {
-	                    value.split('|').forEach(function (evtStr) {
-	                        var evtMap = evtStr.split(':');
-	                        baseData[evtMap[0].trim()] = _this12.parent[evtMap[1].trim()].bind(_this12.parent);
-	                    });
 	                } else if (key.indexOf('data-') === 0) {
 	                    _this12._dataset[_this12._capitalize(key.replace('data-', ''))] = value;
 	                } else if (key.indexOf(':data-') === 0) {
@@ -1835,13 +1830,8 @@
 	                    if (key.indexOf('on') === 0) {
 	                        var handler = child[value];
 	                        if (handler) {
-	                            baseData[key] = handler.bind(child);
+	                            baseData[_this13._capitalize(key)] = handler.bind(child);
 	                        }
-	                    } else if (key === 'event') {
-	                        value.split('|').forEach(function (evtStr) {
-	                            var evtMap = evtStr.split(':');
-	                            baseData[evtMap[0].trim()] = child[evtMap[1].trim()].bind(child);
-	                        });
 	                    } else if (key === 'omi-id') {
 	                        omiID = value;
 	                    } else if (key === 'name') {
@@ -1877,7 +1867,7 @@
 
 	                var ChildClass = _omi2['default'].getClassFromString(name);
 	                if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
+	                var sub_child = new ChildClass(Object.assign(baseData, dataset), _omi_option);
 	                sub_child._omi_groupDataIndex = groupDataIndex;
 	                sub_child._omiChildStr = childStr;
 	                sub_child._omi_slotContent = slotContent;
@@ -3177,7 +3167,6 @@
 	        value: function goto(index, evt) {
 	            evt.preventDefault();
 	            this.data.currentPage = index;
-	            this.data.onXXX();
 	            this.data.onPageChange(index);
 	        }
 	    }, {

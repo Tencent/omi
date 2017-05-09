@@ -33,7 +33,7 @@ class Component {
         }
         this.refs = {}
         this.children = []
-        this.childrenData = []
+
         this.HTML = null
 
         Omi.instances[this.id] = this
@@ -481,13 +481,8 @@ class Component {
             if (key.indexOf('on') === 0) {
                 let handler = this.parent[value]
                 if (handler) {
-                    baseData[key] = handler.bind(this.parent)
+                    baseData[this._capitalize(key)] = handler.bind(this.parent)
                 }
-            }else if (key === 'event'){
-                value.split('|').forEach((evtStr)=>{
-                    let evtMap = evtStr.split(':')
-                    baseData[evtMap[0].trim()]= this.parent[evtMap[1].trim()].bind(this.parent)
-                })
             }else if(key.indexOf('data-') === 0){
                 this._dataset[this._capitalize(key.replace('data-', ''))] = value
             }else if(key.indexOf(':data-') === 0) {
@@ -567,13 +562,8 @@ class Component {
                 if (key.indexOf('on') === 0) {
                     let handler = child[value]
                     if (handler) {
-                        baseData[key] = handler.bind(child)
+                        baseData[this._capitalize(key)] = handler.bind(child)
                     }
-                }else if (key === 'event'){
-                    value.split('|').forEach((evtStr)=>{
-                        let evtMap = evtStr.split(':')
-                        baseData[evtMap[0].trim()]= child[evtMap[1].trim()].bind(child)
-                    })
                 } else if (key === 'omi-id'){
                     omiID = value
                 }else if (key === 'name'){
@@ -610,7 +600,7 @@ class Component {
 
             let ChildClass = Omi.getClassFromString(name)
             if (!ChildClass) throw "Can't find Class called [" + name+"]"
-            let sub_child = new ChildClass( Object.assign(baseData,child.childrenData[i],dataset ),_omi_option)
+            let sub_child = new ChildClass( Object.assign(baseData,dataset ),_omi_option)
             sub_child._omi_groupDataIndex = groupDataIndex
             sub_child._omiChildStr = childStr
             sub_child._omi_slotContent = slotContent
