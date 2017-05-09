@@ -91,6 +91,8 @@ Omi.render(new App(),"#container")
 * 通过`data-name="Omi"`把传递给子组件hello，子组件直接在render里可以使用{{name}}来使用传递来的数据
 * 通过`onclick="handleClick"`给HTML元素绑定事件，在handleClick回调中可以拿到event对象，即:`handleClick(evt){ }`
 
+特别强调，Omi.tag是全局注册，只要一个地方注册了，其他地方可以省去注册的代码。
+
 你也可以使用ES5的方式进行开发:
 
 ```js
