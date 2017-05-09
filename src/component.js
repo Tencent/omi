@@ -487,10 +487,12 @@ class Component {
                 this._dataset[this._capitalize(key.replace('data-', ''))] = value
             }else if(key.indexOf(':data-') === 0) {
                 this._dataset[this._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')')
-            }else if(key === ':data'){
-                this._dataset = eval('(' + value + ')')
+            }else if(key.indexOf('::data-') === 0){
+                this._dataset[this._capitalize(key.replace('::data-', ''))] =  this._extractPropertyFromString(value,this.parent)
             }else if(key === 'data'){
                 this._dataset =  this._extractPropertyFromString(value,this.parent)
+            }else if(key === ':data'){
+                this._dataset = eval('(' + value + ')')
             }else if (key === 'group-data') {
                 this._dataset = this._extractPropertyFromString(value,this.parent)[this._omi_groupDataIndex]
             }
@@ -581,10 +583,12 @@ class Component {
                     dataset[this._capitalize(key.replace('data-', ''))] = value
                 }else if(key.indexOf(':data-') === 0) {
                     dataset[this._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')')
-                }else if(key === ':data'){
-                    dataset = eval('(' + value + ')')
+                }else if(key.indexOf('::data-') === 0){
+                    dataset[this._capitalize(key.replace('::data-', ''))] =  this._extractPropertyFromString(value,child)
                 }else if(key === 'data'){
                     dataset =  this._extractPropertyFromString(value,child)
+                }else if(key === ':data'){
+                    dataset = eval('(' + value + ')')
                 }else if(key === 'preventSelfUpdate'|| key === 'psu'){
                     _omi_option.preventSelfUpdate = true
                 }else if(key === 'selfDataFirst'|| key === 'sdf'){

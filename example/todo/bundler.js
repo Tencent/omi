@@ -42,7 +42,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -54,9 +54,9 @@
 
 	Omi.render(new _todo2['default']({ items: [], text: '' }), 'body', true);
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -90,19 +90,14 @@
 	    function Todo(data) {
 	        _classCallCheck(this, Todo);
 
-	        var _this = _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, data));
-
-	        _this.data.length = _this.data.items.length;
-	        _this.listData = { items: _this.data.items };
-	        return _this;
+	        return _possibleConstructorReturn(this, (Todo.__proto__ || Object.getPrototypeOf(Todo)).call(this, data));
 	    }
 
 	    _createClass(Todo, [{
 	        key: 'add',
 	        value: function add(evt) {
 	            evt.preventDefault();
-	            this.list.data.items.push(this.data.text);
-	            this.data.length = this.list.data.items.length;
+	            this.data.items.push({ text: this.data.text });
 	            this.data.text = '';
 	            this.update();
 	        }
@@ -119,7 +114,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '<div>\n                    <h3>TODO</h3>\n                    <list  name="list" data="listData" ></list>\n                    <form onsubmit="add(event)" >\n                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />\n                        <button>Add #{{length}}</button>\n                    </form>\n                </div>';
+	            return '<div>\n                    <h3>TODO</h3>\n                    <list ::data-items="data.items" ></list>\n                    <form onsubmit="add(event)" >\n                        <input type="text" onchange="handleChange(this)"  value="{{text}}"  />\n                        <button>Add #' + this.data.items.length + '</button>\n                    </form>\n                </div>';
 	        }
 	    }]);
 
@@ -128,9 +123,9 @@
 
 	exports['default'] = Todo;
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -165,9 +160,9 @@
 	    module.exports = _omi2['default'];
 	}
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -417,6 +412,9 @@
 	    Omi.componentConstructor[name] = ctor;
 	    Omi.componentConstructor[name.toLowerCase()] = ctor;
 	    Omi.customTags.push(name, name.toLowerCase());
+	    if (document.documentMode < 9) {
+	        document.createElement(name.toLowerCase());
+	    }
 	};
 
 	Omi.tag = Omi.makeHTML;
@@ -511,22 +509,51 @@
 
 	module.exports = Omi;
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
-	 * sodajs v0.4.1 by dorsywang
+	 * sodajs v0.4.3 by dorsywang
 	 * Light weight but powerful template engine for JavaScript
 	 * Github: https://github.com/AlloyTeam/sodajs
 	 * MIT License
 	 */
 
 	;(function () {
+	    if (!Array.prototype.map) {
+	        Array.prototype.map = function (func) {
+	            var arr = [];
+	            for (var i = 0; i < this.length; i++) {
+	                var item = this[i];
+
+	                [].push(func && func.call(item, item, i));
+	            }
+
+	            return arr;
+	        };
+	    }
+
+	    if (!String.prototype.trim) {
+	        String.prototype.trim = function () {
+	            return this.replace(/^\s*|\s*$/g, '');
+	        };
+	    }
+
+	    var nodes2Arr = function nodes2Arr(nodes) {
+	        var arr = [];
+
+	        for (var i = 0; i < nodes.length; i++) {
+	            arr.push(nodes[i]);
+	        }
+
+	        return arr;
+	    };
+
 	    var valueoutReg = /\{\{([^\}]*)\}\}/g;
 
 	    var prefix = 'soda';
@@ -577,7 +604,7 @@
 	                var attr = attrStr.substr(0, dotIndex);
 	                attrStr = attrStr.substr(dotIndex + 1);
 
-	                // ??��attrStr�Ƿ���???������ת��
+	                // �?查attrStr是否属�?�变量并转换
 	                if (typeof _data[attr] !== "undefined" && CONST_REG.test(attr)) {
 	                    attr = _data[attr];
 	                }
@@ -595,12 +622,12 @@
 	                        data: eventData
 	                    }, eventData);
 
-	                    // ��������
+	                    // 如果还有
 	                    return "";
 	                }
 	            } else {
 
-	                // ??��attrStr�Ƿ���???������ת��
+	                // �?查attrStr是否属�?�变量并转换
 	                if (typeof _data[attrStr] !== "undefined" && CONST_REG.test(attrStr)) {
 	                    attrStr = _data[attrStr];
 	                }
@@ -629,16 +656,20 @@
 	        return _getValue(_data, _attrStr);
 	    };
 
-	    // ע��node
+	    // 注释node
 	    var commentNode = function commentNode(node) {};
 
-	    // ��ʶ??
+	    // 标识�?
 	    var IDENTOR_REG = /[a-zA-Z_\$]+[\w\$]*/g;
 	    var STRING_REG = /"([^"]*)"|'([^']*)'/g;
 	    var NUMBER_REG = /\d+|\d*\.\d+/g;
 
 	    var OBJECT_REG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/g;
+	    // 非global 做test用
+	    var OBJECT_REG_NG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/;
+
 	    var ATTR_REG = /\[([^\[\]]*)\]/g;
+	    var ATTR_REG_NG = /\[([^\[\]]*)\]/;
 	    var ATTR_REG_DOT = /\.([a-zA-Z_\$]+[\w\$]*)/g;
 
 	    var NOT_ATTR_REG = /[^\.|]([a-zA-Z_\$]+[\w\$]*)/g;
@@ -660,7 +691,7 @@
 	    };
 
 	    var parseSodaExpression = function parseSodaExpression(str, scope) {
-	        // ��filter���д���
+	        // 对filter进行处理
 	        str = str.replace(OR_REG, OR_REPLACE).split("|");
 
 	        for (var i = 0; i < str.length; i++) {
@@ -670,23 +701,23 @@
 	        var expr = str[0] || "";
 	        var filters = str.slice(1);
 
-	        // ���ַ�����������??
+	        // 将字符常量保存下�?
 	        expr = expr.replace(STRING_REG, function (r, $1, $2) {
 	            var key = getRandom();
 	            scope[key] = $1 || $2;
 	            return key;
 	        });
 
-	        while (ATTR_REG.test(expr)) {
+	        while (ATTR_REG_NG.test(expr)) {
 	            ATTR_REG.lastIndex = 0;
 
-	            //��exprԤ��??
+	            //对expr预处�?
 	            expr = expr.replace(ATTR_REG, function (r, $1) {
 	                var key = getAttrVarKey();
-	                // ��???��?? Ϊ�ַ���??
+	                // 属�?�名�? 为字符常�?
 	                var attrName = parseSodaExpression($1, scope);
 
-	                // ��һ��������ǰ׺ ��ʾ�����Ա�??
+	                // 给一个特殊的前缀 表示是属性变�?
 
 	                scope[key] = attrName;
 
@@ -711,8 +742,8 @@
 
 	            var stringReg = /^'.*'$|^".*"$/;
 	            for (var i = 0; i < args.length; i++) {
-	                //�����������ͽ����ж�
-	                if (OBJECT_REG.test(args[i])) {
+	                //这里根据类型进行判断
+	                if (OBJECT_REG_NG.test(args[i])) {
 	                    args[i] = "getValue(scope,'" + args[i] + "')";
 	                } else {}
 	            }
@@ -745,10 +776,10 @@
 	        }
 	    };
 
-	    // ����ָ��
-	    // ����attr
+	    // 解析指令
+	    // 解析attr
 	    var compileNode = function compileNode(node, scope) {
-	        // ����ֻ���ı�
+	        // 如果只是文本
 	        if (node.nodeType === 3) {
 	            node.nodeValue = node.nodeValue.replace(valueoutReg, function (item, $1) {
 	                /*
@@ -768,7 +799,7 @@
 	        }
 
 	        if (node.attributes) {
-	            // ָ���
+	            // 指令处理
 	            sodaDirectiveArr.map(function (item) {
 	                var name = item.name;
 
@@ -779,32 +810,36 @@
 	                }
 	            });
 
-	            // �������� ���� prefix-*
+	            // 处理输出 包含 prefix-*
 	            [].map.call(node.attributes, function (attr) {
-	                // ����dirctiveMap�еľ��������ٴ�??
+	                // 如果dirctiveMap有的就跳过不再处�?
 	                if (!sodaDirectiveMap[attr.name]) {
 	                    if (prefixReg.test(attr.name)) {
 	                        var attrName = attr.name.replace(prefixReg, '');
 
 	                        if (attrName) {
-	                            var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
-	                                return parseSodaExpression($1, scope);
-	                            });
+	                            if (attr.value) {
+	                                var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
+	                                    return parseSodaExpression($1, scope);
+	                                });
 
-	                            node.setAttribute(attrName, attrValue);
+	                                node.setAttribute(attrName, attrValue);
+	                            }
 	                        }
 
-	                        // �����������ﺬexpr ����
+	                        // 对其他属性里含expr 处理
 	                    } else {
-	                        attr.value = attr.value.replace(valueoutReg, function (item, $1) {
-	                            return parseSodaExpression($1, scope);
-	                        });
+	                        if (attr.value) {
+	                            attr.value = attr.value.replace(valueoutReg, function (item, $1) {
+	                                return parseSodaExpression($1, scope);
+	                            });
+	                        }
 	                    }
 	                }
 	            });
 	        }
 
-	        [].map.call([].slice.call(node.childNodes, []), function (child) {
+	        nodes2Arr(node.childNodes).map(function (child) {
 	            compileNode(child, scope);
 	        });
 	    };
@@ -879,13 +914,13 @@
 
 	                trackName = trackName || '$index';
 
-	                // ����Ҫ����һ??
+	                // 这里要处理一�?
 	                var repeatObj = getValue(scope, valueName) || [];
 
 	                var repeatFunc = function repeatFunc(i) {
 	                    var itemNode = el.cloneNode(true);
 
-	                    // ���ﴴ��??���µ�scope
+	                    // 这里创建�?个新的scope
 	                    var itemScope = {};
 	                    itemScope[trackName] = i;
 
@@ -897,7 +932,7 @@
 
 	                    el.parentNode.insertBefore(itemNode, el);
 
-	                    // �������¼ӵ�dom, Ҫ������??
+	                    // 这里是新加的dom, 要单独编�?
 	                    compileNode(itemNode, itemScope);
 	                };
 
@@ -1045,23 +1080,35 @@
 	    });
 
 	    var sodaRender = function sodaRender(str, data) {
-	        // ��directive��������
+	        // 对directive进行排序
 	        sodaDirectiveArr.sort(function (b, a) {
 	            return Number(a.opt.priority || 0) - Number(b.opt.priority || 0);
 	        });
 
 	        //console.log(sodaDirectiveArr);
 
-	        // ����ģ��DOM
+	        // 解析模板DOM
 	        var div = document.createElement("div");
+
+	        // 必须加入到body中去，不然自定义标签不生效
+	        if (document.documentMode < 9) {
+	            div.style.display = 'none';
+	            document.body.appendChild(div);
+	        }
 
 	        div.innerHTML = str;
 
-	        [].map.call([].slice.call(div.childNodes, []), function (child) {
+	        nodes2Arr(div.childNodes).map(function (child) {
 	            compileNode(child, data);
 	        });
 
-	        return div.innerHTML;
+	        var innerHTML = div.innerHTML;
+
+	        if (document.documentMode < 9) {
+	            document.body.removeChild(div);
+	        }
+
+	        return innerHTML;
 
 	        //  var frament = document.createDocumentFragment();
 	        //  frament.innerHTML = div.innerHTML;
@@ -1137,13 +1184,13 @@
 	        return sodaRender;
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["soda"] = sodaRender;else window.soda = sodaRender;
 
-	    // ���������쳣����
+	    // 监听数据异常情况
 	})();
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -1158,9 +1205,9 @@
 		return module;
 	};
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1225,7 +1272,7 @@
 	        }
 	        this.refs = {};
 	        this.children = [];
-	        this.childrenData = [];
+
 	        this.HTML = null;
 
 	        _omi2['default'].instances[this.id] = this;
@@ -1330,6 +1377,7 @@
 	        value: function update() {
 	            this.beforeUpdate();
 	            this._childrenBeforeUpdate(this);
+	            this._omiGroupDataCounter = {};
 	            if (this.renderTo) {
 	                this._render();
 	            } else {
@@ -1361,6 +1409,7 @@
 
 	            root.children.forEach(function (child) {
 	                child.beforeUpdate();
+	                child._omiGroupDataCounter = {};
 	                _this2._childrenBeforeUpdate(child);
 	            });
 	        }
@@ -1717,16 +1766,18 @@
 	                if (key.indexOf('on') === 0) {
 	                    var handler = _this12.parent[value];
 	                    if (handler) {
-	                        baseData[key] = handler.bind(_this12.parent);
+	                        baseData[_this12._capitalize(key)] = handler.bind(_this12.parent);
 	                    }
 	                } else if (key.indexOf('data-') === 0) {
 	                    _this12._dataset[_this12._capitalize(key.replace('data-', ''))] = value;
 	                } else if (key.indexOf(':data-') === 0) {
 	                    _this12._dataset[_this12._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                } else if (key === ':data') {
-	                    _this12._dataset = eval('(' + value + ')');
+	                } else if (key.indexOf('::data-') === 0) {
+	                    _this12._dataset[_this12._capitalize(key.replace('::data-', ''))] = _this12._extractPropertyFromString(value, _this12.parent);
 	                } else if (key === 'data') {
 	                    _this12._dataset = _this12._extractPropertyFromString(value, _this12.parent);
+	                } else if (key === ':data') {
+	                    _this12._dataset = eval('(' + value + ')');
 	                } else if (key === 'group-data') {
 	                    _this12._dataset = _this12._extractPropertyFromString(value, _this12.parent)[_this12._omi_groupDataIndex];
 	                }
@@ -1790,78 +1841,78 @@
 
 	                cmi._childRender(childStr);
 	            } else {
-	                (function () {
-	                    var baseData = {};
-	                    var dataset = {};
+	                var baseData = {};
+	                var dataset = {};
 
-	                    var groupDataIndex = null;
-	                    var omiID = null;
-	                    var instanceName = null;
-	                    var _omi_option = {};
+	                var groupDataIndex = null;
+	                var omiID = null;
+	                var instanceName = null;
+	                var _omi_option = {};
 
-	                    Object.keys(attr).forEach(function (key) {
-	                        var value = attr[key];
-	                        if (key.indexOf('on') === 0) {
-	                            var handler = child[value];
-	                            if (handler) {
-	                                baseData[key] = handler.bind(child);
-	                            }
-	                        } else if (key === 'omi-id') {
-	                            omiID = value;
-	                        } else if (key === 'name') {
-	                            instanceName = value;
-	                        } else if (key === 'group-data') {
-	                            if (child._omiGroupDataCounter.hasOwnProperty(value)) {
-	                                child._omiGroupDataCounter[value]++;
-	                            } else {
-	                                child._omiGroupDataCounter[value] = 0;
-	                            }
-	                            groupDataIndex = child._omiGroupDataCounter[value];
-	                            dataset = _this13._extractPropertyFromString(value, child)[groupDataIndex];
-	                        } else if (key.indexOf('data-') === 0) {
-	                            dataset[_this13._capitalize(key.replace('data-', ''))] = value;
-	                        } else if (key.indexOf(':data-') === 0) {
-	                            dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                        } else if (key === ':data') {
-	                            dataset = eval('(' + value + ')');
-	                        } else if (key === 'data') {
-	                            dataset = _this13._extractPropertyFromString(value, child);
-	                        } else if (key === 'preventSelfUpdate' || key === 'psu') {
-	                            _omi_option.preventSelfUpdate = true;
-	                        } else if (key === 'selfDataFirst' || key === 'sdf') {
-	                            _omi_option.selfDataFirst = true;
-	                        } else if (key === 'domDiffDisabled' || key === 'ddd') {
-	                            _omi_option.domDiffDisabled = true;
-	                        } else if (key === 'ignoreStoreData' || key === 'isd') {
-	                            _omi_option.ignoreStoreData = true;
-	                        } else if (key === 'scopedSelfCSS' || key === 'ssc') {
-	                            _omi_option.scopedSelfCSS = true;
+	                Object.keys(attr).forEach(function (key) {
+	                    var value = attr[key];
+	                    if (key.indexOf('on') === 0) {
+	                        var handler = child[value];
+	                        if (handler) {
+	                            baseData[_this13._capitalize(key)] = handler.bind(child);
 	                        }
-	                    });
-
-	                    var ChildClass = _omi2['default'].getClassFromString(name);
-	                    if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                    var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
-	                    sub_child._omi_groupDataIndex = groupDataIndex;
-	                    sub_child._omiChildStr = childStr;
-	                    sub_child._omi_slotContent = slotContent;
-	                    sub_child.parent = child;
-	                    sub_child.$store = child.$store;
-	                    sub_child.___omi_constructor_name = name;
-	                    sub_child._dataset = {};
-	                    sub_child.install();
-
-	                    omiID && (_omi2['default'].mapping[omiID] = sub_child);
-	                    instanceName && (child[instanceName] = sub_child);
-
-	                    if (!cmi) {
-	                        child.children.push(sub_child);
-	                    } else {
-	                        child.children[i] = sub_child;
+	                    } else if (key === 'omi-id') {
+	                        omiID = value;
+	                    } else if (key === 'name') {
+	                        instanceName = value;
+	                    } else if (key === 'group-data') {
+	                        if (child._omiGroupDataCounter.hasOwnProperty(value)) {
+	                            child._omiGroupDataCounter[value]++;
+	                        } else {
+	                            child._omiGroupDataCounter[value] = 0;
+	                        }
+	                        groupDataIndex = child._omiGroupDataCounter[value];
+	                        dataset = _this13._extractPropertyFromString(value, child)[groupDataIndex];
+	                    } else if (key.indexOf('data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace('data-', ''))] = value;
+	                    } else if (key.indexOf(':data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
+	                    } else if (key.indexOf('::data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace('::data-', ''))] = _this13._extractPropertyFromString(value, child);
+	                    } else if (key === 'data') {
+	                        dataset = _this13._extractPropertyFromString(value, child);
+	                    } else if (key === ':data') {
+	                        dataset = eval('(' + value + ')');
+	                    } else if (key === 'preventSelfUpdate' || key === 'psu') {
+	                        _omi_option.preventSelfUpdate = true;
+	                    } else if (key === 'selfDataFirst' || key === 'sdf') {
+	                        _omi_option.selfDataFirst = true;
+	                    } else if (key === 'domDiffDisabled' || key === 'ddd') {
+	                        _omi_option.domDiffDisabled = true;
+	                    } else if (key === 'ignoreStoreData' || key === 'isd') {
+	                        _omi_option.ignoreStoreData = true;
+	                    } else if (key === 'scopedSelfCSS' || key === 'ssc') {
+	                        _omi_option.scopedSelfCSS = true;
 	                    }
+	                });
 
-	                    sub_child._childRender(childStr);
-	                })();
+	                var ChildClass = _omi2['default'].getClassFromString(name);
+	                if (!ChildClass) throw "Can't find Class called [" + name + "]";
+	                var sub_child = new ChildClass(Object.assign(baseData, dataset), _omi_option);
+	                sub_child._omi_groupDataIndex = groupDataIndex;
+	                sub_child._omiChildStr = childStr;
+	                sub_child._omi_slotContent = slotContent;
+	                sub_child.parent = child;
+	                sub_child.$store = child.$store;
+	                sub_child.___omi_constructor_name = name;
+	                sub_child._dataset = {};
+	                sub_child.install();
+
+	                omiID && (_omi2['default'].mapping[omiID] = sub_child);
+	                instanceName && (child[instanceName] = sub_child);
+
+	                if (!cmi) {
+	                    child.children.push(sub_child);
+	                } else {
+	                    child.children[i] = sub_child;
+	                }
+
+	                sub_child._childRender(childStr);
 	            }
 	        }
 	    }]);
@@ -1871,9 +1922,9 @@
 
 	exports['default'] = Component;
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -1942,9 +1993,9 @@
 	    addStyle: addStyle
 	};
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -1968,9 +2019,9 @@
 
 	exports['default'] = scopedEvent;
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
@@ -2696,9 +2747,9 @@
 	    return morphdom;
 	});
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -2720,7 +2771,7 @@
 	// Regular Expressions for parsing tags and attributes
 	var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
 	    endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
-	    attr = /([a-zA-Z_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+	    attr = /([a-zA-Z_:$][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
 
 	var HTMLParser = function HTMLParser(html, handler) {
 	    var index,
@@ -2939,9 +2990,9 @@
 
 	exports["default"] = html2json;
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -3083,9 +3134,9 @@
 
 	exports["default"] = Store;
 
-/***/ },
+/***/ }),
 /* 12 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -3119,7 +3170,7 @@
 	    _createClass(List, [{
 	        key: 'render',
 	        value: function render() {
-	            return '<ul>\n                    <li o-repeat="item in items">{{item}}</li>\n                </ul>';
+	            return '<ul>\n                    <li o-repeat="item in items">{{item.text}}</li>\n                </ul>';
 	        }
 	    }]);
 
@@ -3128,5 +3179,5 @@
 
 	exports['default'] = List;
 
-/***/ }
+/***/ })
 /******/ ]);

@@ -5,17 +5,14 @@ Omi.tag('list', List);
 
 class Todo extends Omi.Component {
     constructor(data) {
-        super(data);
-        this.data.length = this.data.items.length;
-        this.listData = { items : this.data.items };
+        super(data)
     }
 
     add (evt) {
         evt.preventDefault();
-        this.list.data.items.push(this.data.text);
-        this.data.length = this.list.data.items.length;
-        this.data.text = '';
-        this.update();
+        this.data.items.push({text: this.data.text})
+        this.data.text = ''
+        this.update()
     }
 
     style () {
@@ -32,10 +29,10 @@ class Todo extends Omi.Component {
     render () {
         return `<div>
                     <h3>TODO</h3>
-                    <list  name="list" data="listData" ></list>
+                    <list ::data-items="data.items" ></list>
                     <form onsubmit="add(event)" >
                         <input type="text" onchange="handleChange(this)"  value="{{text}}"  />
-                        <button>Add #{{length}}</button>
+                        <button>Add #${this.data.items.length}</button>
                     </form>
                 </div>`;
     }
