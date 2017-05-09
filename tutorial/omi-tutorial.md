@@ -5,12 +5,10 @@
 
 ## 目录
 
-* [简介](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-v1.6.1-release.md#简介)
-* [安装Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-v1.6.1-release.md#安装Omi)
-* [Hello Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-v1.6.1-release.md#hello-omi)
-* [组件](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-v1.6.1-release.md#组件)
-
-
+* [简介](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#简介)
+* [安装Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#安装Omi)
+* [Hello Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#hello-omi)
+* [组件](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#组件)
 
 ## 简介
 
