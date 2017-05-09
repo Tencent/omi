@@ -1,10 +1,11 @@
 # 精通Omi框架这篇足够(持续更新..)
 
-* [简介](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md#简介)
-* [安装Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md#安装omi)
-* [Hello Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md#hello-omi)
-* [组件](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md#组件)
-* [组件通讯](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md#组件通讯)
+* [简介](#简介)
+* [安装Omi](#安装omi)
+* [Hello Omi](#hello-omi)
+* [组件](#组件)
+* [组件通讯](#组件通讯)
+    * [通讯概览](#通讯概览)
 
 ## 简介
 
@@ -212,6 +213,8 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest" target="_blank">点击这里→在线试试</a>
 
 ## 组件通讯
+
+### 通讯概览
 
 ![](http://images2015.cnblogs.com/blog/105416/201705/105416-20170509130200394-716974903.jpg)
 
