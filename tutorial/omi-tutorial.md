@@ -1,4 +1,18 @@
+
+
+
 # 精通Omi框架这篇足够(持续更新..)
+
+## 目录
+
+* [简介](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-v1.6.1-release.md#简介)
+* [安装Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-v1.6.1-release.md#安装Omi)
+* [Hello Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-v1.6.1-release.md#hello-omi)
+* [组件](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-v1.6.1-release.md#组件)
+
+
+
+## 简介
 
 [Omi框架](https://github.com/AlloyTeam/omi)目前最新版本为1.6.1，提供了渐进增强式的Web开发解决方案，内置完善的支持无限声明式嵌套的组件系统。
 
@@ -122,8 +136,6 @@ Omi.render(new App(),'#container')
 [Omi框架](https://github.com/AlloyTeam/omi)完全基于组件体系设计，我们希望开发者可以像搭积木一样制作Web程序，一切皆是组件，组件也可以嵌套子组件形成新的组件，新的组件又可以当作子组件嵌套至任意组件形成新的组件...
 
 ![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170210093427338-1536910080.png)
-
-## 简单组件
 
 上面的Hello Omi的例子已经说明了组件大概，这里再使用Todo的例子来讲解Omi组件体系的使用。
 
