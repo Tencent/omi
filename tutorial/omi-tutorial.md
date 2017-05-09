@@ -1,9 +1,4 @@
-
-
-
 # 精通Omi框架这篇足够(持续更新..)
-
-## 目录
 
 * [简介](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#简介)
 * [安装Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#安装omi)
