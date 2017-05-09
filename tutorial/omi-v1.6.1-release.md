@@ -25,19 +25,19 @@
 
 ## 安装Omi
 
-```
+``` bash
 npm install omi
 ```
 
 你也可以通过cdn获取omi，并在HTML里声明script变迁:
 
-```
+``` html
 <script src="https://unpkg.com/omi@1.6.0/dist/omi.min.js"></script>
 ```
 
 ## Hello Omi
 
-```
+```js
 import Omi from 'omi';
 
 class Hello extends Omi.Component {
@@ -143,7 +143,7 @@ class List extends Omi.Component {
 
 ```js
 <li o-repeat="item in items">{{$index}} - {{item}}</li>
-``
+```
 
 
 怎么使用这个List？我们需要使用`Omi.tag`把List制作成可以声明式的标签，在render方法中就能直接使用该标签。如下所示：
@@ -204,3 +204,5 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 关于Omi组件通讯其实有4种方案，这个后续教程会专门来讲。
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest" target="_blank">点击这里→在线试试</a>
+
+未完待续...
