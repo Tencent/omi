@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.6.0 By dntzhang 
+ *  Omi v1.6.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1007,10 +1007,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    _this12._dataset[_this12._capitalize(key.replace('data-', ''))] = value;
 	                } else if (key.indexOf(':data-') === 0) {
 	                    _this12._dataset[_this12._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                } else if (key === ':data') {
-	                    _this12._dataset = eval('(' + value + ')');
+	                } else if (key.indexOf('::data-') === 0) {
+	                    _this12._dataset[_this12._capitalize(key.replace('::data-', ''))] = _this12._extractPropertyFromString(value, _this12.parent);
 	                } else if (key === 'data') {
 	                    _this12._dataset = _this12._extractPropertyFromString(value, _this12.parent);
+	                } else if (key === ':data') {
+	                    _this12._dataset = eval('(' + value + ')');
 	                } else if (key === 'group-data') {
 	                    _this12._dataset = _this12._extractPropertyFromString(value, _this12.parent)[_this12._omi_groupDataIndex];
 	                }
@@ -1105,10 +1107,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        dataset[_this13._capitalize(key.replace('data-', ''))] = value;
 	                    } else if (key.indexOf(':data-') === 0) {
 	                        dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                    } else if (key === ':data') {
-	                        dataset = eval('(' + value + ')');
+	                    } else if (key.indexOf('::data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace('::data-', ''))] = _this13._extractPropertyFromString(value, child);
 	                    } else if (key === 'data') {
 	                        dataset = _this13._extractPropertyFromString(value, child);
+	                    } else if (key === ':data') {
+	                        dataset = eval('(' + value + ')');
 	                    } else if (key === 'preventSelfUpdate' || key === 'psu') {
 	                        _omi_option.preventSelfUpdate = true;
 	                    } else if (key === 'selfDataFirst' || key === 'sdf') {
