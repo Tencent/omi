@@ -235,6 +235,29 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 
 ### on-*传递回调函数 
 
+```js
+...
+handlePageChange () {
+
+}
+
+render () {
+    return `<div>
+                <h1>Pagination Example</h1>
+                <content name="content" ></content>
+                <pagination
+                    name="pagination"
+                    :data-total="100"
+                    :data-page-size="10"
+                    :data-num-edge="1"
+                    :data-num-display="4"
+                    on-page-change="handlePageChange" ></pagination>
+            </div>`;
+}
+```
+
+* 可以看到上面使用了`pagination`组件。里面声明了`on-page-change`来指向this.handlePageChange
+* 在pagination组件内部可以通过`this.data.onPageChange` 来执行`this.handlePageChange`方法
 
 
 ### data-*通讯 
@@ -476,24 +499,5 @@ Omi.render(new App(),"#container");
 ```
 
 通过在组件上声明omi-id，在程序任何地方拿到该对象的实例。
-
-
-### 组件通讯实战
-
-```js
-render () {
-    return `<div>
-                <h1>Pagination Example</h1>
-                <content name="content" ></content>
-                <pagination
-                    name="pagination"
-                    :data-total="100"
-                    :data-page-size="10"
-                    :data-num-edge="1"
-                    :data-num-display="4"
-                    on-page-change="handlePageChange" ></pagination>
-            </div>`;
-}
-```
 
 未完待续...
