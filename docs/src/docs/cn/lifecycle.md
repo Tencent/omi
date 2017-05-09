@@ -8,6 +8,7 @@
 | uninstall | 卸载组件。执行remove方法会触发该事件    |   销毁时 |
 | beforeUpdate | 更新前     |   存在期 |
 | afterUpdate | 更新后     |    存在期 |
+| beforeRender | render函数执行之前     |    存在期和实例化 |
 
 ## 示意图
 
