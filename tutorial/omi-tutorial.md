@@ -6,7 +6,7 @@
 ## 目录
 
 * [简介](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#简介)
-* [安装Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#安装Omi)
+* [安装Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#安装omi)
 * [Hello Omi](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#hello-omi)
 * [组件](https://github.com/AlloyTeam/omi/blob/master/tutorial/omi-tutorial.md#组件)
 
