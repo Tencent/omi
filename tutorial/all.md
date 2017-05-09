@@ -222,12 +222,18 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 
 [Omi框架](https://github.com/AlloyTeam/omi)组建间的通讯非常便利灵活，足够满足业务场景需要。因为有许多可选方案进行通讯:
 
+* `on-*` 代表传递父组件向子组件注入的回调函数，比`on-page-change="pageChangeHandler"`
 * `data-*`   代表直接传递字符串
 * `:data-*`  代表传递javascript表达式，比如`data-num="1"` 代表传递数字1而非字符串，`data-num="1+1"`可以传递2。
 * `::data-*` 代表传递父组件的属性，比如上面的`::data-items="data.items"`就代表传递`this.data.items`给子组件
 * `data` 代表传递父组件的属性，比如`data="user"`代表传递`this.user`给子组件
 * `:data` 代表传递javascript表达式，比如`data="{ name : 'dntzhang' , age : 18 }"`代表传递`{ name : 'dntzhang' , age : 18 }`给子组件
 * `group-data` 代表传递父组件的数组一一映射到子组件
+
+
+### on-*传递回调函数 
+
+
 
 ### data-*通讯 
 
