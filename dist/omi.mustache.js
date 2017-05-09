@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.5.3 By dntzhang 
+ *  Omi v1.6.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -508,7 +508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        this.refs = {};
 	        this.children = [];
-	        this.childrenData = [];
+
 	        this.HTML = null;
 
 	        _omi2['default'].instances[this.id] = this;
@@ -1002,13 +1002,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                if (key.indexOf('on') === 0) {
 	                    var handler = _this12.parent[value];
 	                    if (handler) {
-	                        baseData[key] = handler.bind(_this12.parent);
+	                        baseData[_this12._capitalize(key)] = handler.bind(_this12.parent);
 	                    }
-	                } else if (key === 'event') {
-	                    value.split('|').forEach(function (evtStr) {
-	                        var evtMap = evtStr.split(':');
-	                        baseData[evtMap[0].trim()] = _this12.parent[evtMap[1].trim()].bind(_this12.parent);
-	                    });
 	                } else if (key.indexOf('data-') === 0) {
 	                    _this12._dataset[_this12._capitalize(key.replace('data-', ''))] = value;
 	                } else if (key.indexOf(':data-') === 0) {
@@ -1093,13 +1088,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    if (key.indexOf('on') === 0) {
 	                        var handler = child[value];
 	                        if (handler) {
-	                            baseData[key] = handler.bind(child);
+	                            baseData[_this13._capitalize(key)] = handler.bind(child);
 	                        }
-	                    } else if (key === 'event') {
-	                        value.split('|').forEach(function (evtStr) {
-	                            var evtMap = evtStr.split(':');
-	                            baseData[evtMap[0].trim()] = child[evtMap[1].trim()].bind(child);
-	                        });
 	                    } else if (key === 'omi-id') {
 	                        omiID = value;
 	                    } else if (key === 'name') {
@@ -1135,7 +1125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                var ChildClass = _omi2['default'].getClassFromString(name);
 	                if (!ChildClass) throw "Can't find Class called [" + name + "]";
-	                var sub_child = new ChildClass(Object.assign(baseData, child.childrenData[i], dataset), _omi_option);
+	                var sub_child = new ChildClass(Object.assign(baseData, dataset), _omi_option);
 	                sub_child._omi_groupDataIndex = groupDataIndex;
 	                sub_child._omiChildStr = childStr;
 	                sub_child._omi_slotContent = slotContent;
