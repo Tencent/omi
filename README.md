@@ -12,12 +12,13 @@ Open and modern framework for building user interfaces.
 
 ## 中文 | [English](https://github.com/AlloyTeam/omi#english--中文)
 
-* 如果想体验一下Omi框架，可以访问 [Omi Playground](https://alloyteam.github.io/omi/example/playground/) 或者看看 [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
-* 如果想使用Omi框架或者开发完善Omi框架，可以访问 [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
-* 如果你想获得更佳的阅读体验，可以访问 [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
-* Omi相关的使用教程和blog，可以访问 [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
-* 如果你懒得搭建项目脚手架，可以试试 [omi-cli](https://github.com/AlloyTeam/omi/tree/master/cli)
-* 如果你有Omi相关的问题可以 [New issue](https://github.com/AlloyTeam/omi/issues/new)
+* [Omi 官网](http://www.omijs.org)
+* [Omi Github](https://github.com/AlloyTeam/omi)
+* [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
+* [Omi 文档](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
+* [Omi 教程](https://github.com/AlloyTeam/omi/tree/master/tutorial#omi-相关文章)
+* [Omi Cli](https://github.com/AlloyTeam/omi/tree/master/cli)
+* [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
 
 ## 命令行
