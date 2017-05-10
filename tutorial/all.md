@@ -6,12 +6,32 @@
 * [组件](#组件)
 * [组件通讯](#组件通讯)
     * [通讯概览](#通讯概览)
+    * [子与父通讯](#子与父通讯)
+    * [data-*通讯](#data-通讯)
+    * [:data-*通讯](#:data-通讯)
+    * [::data-*通讯](#::data-通讯)
+    * [data通讯](#data通讯)
+    * [group-data通讯](#group-data通讯)
+    * [标记name](#标记name)
+    * [标记omi-id](#标记omi-id)
 * [生命周期](#生命周期)
 * [事件处理](#事件处理)
     * [内置事件](#内置事件)
     * [组件事件](#组件事件)
-    
-    
+* [条件判断](#条件判断)
+* [循环遍历](#循环遍历)  
+* [Store体系](#store体系)  
+* [表单](#表单)  
+* [继承](#继承)  
+* [模板切换](#模板切换)  
+* [获取DOM节点](#获取dom节点)  
+* [插件体系](#插件体系)  
+    * [Omi.extendPlugin](#omiextendplugin)
+    * [关联instance](#关联instance)
+    * [传递数据](#传递数据)
+    * [更多插件](#更多插件)
+* [Omi相关](#omi相关)  
+
 ## 简介
 
 [Omi框架](https://github.com/AlloyTeam/omi)目前最新版本为1.6.2，提供了渐进增强式的Web开发解决方案，内置完善的支持无限声明式嵌套的组件系统。概括起来包含下面优点和特性:
@@ -239,7 +259,9 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 * `group-data` 代表传递父组件的数组一一映射到子组件
 
 
-### on-*传递回调函数 
+### 子与父通讯
+
+通过on-*传递回调函数给子组件，子组件就可以执行注入的父组件中的方法，如; 
 
 ```js
 ...
@@ -299,6 +321,14 @@ Omi.render(new App(),"#container");
 ```
 
 一般data-*用来传递值类型，如string、number。值得注意的是，通过data-*接收到的数据类型都是string，需要自行转成number类型，或者使用`:data-*`来传递number。
+
+### :data-*通讯 
+
+* `:data-*`  代表传递javascript表达式，比如`data-num="1"` 代表传递数字1而非字符串，`data-num="1+1"`可以传递2。
+
+### ::data-*通讯 
+
+* `::data-*` 代表传递父组件的属性，比如上面的`::data-items="data.items"`就代表传递`this.data.items`给子组件
 
 ### data通讯 
 
@@ -452,7 +482,7 @@ Omi.render(new App(),"#container");
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=group_data_complex" target="_blank">点击这里→group-data映射复杂数据</a>
 
-### 通过对象实例
+### 标记name
 
 ```js {7}
 ...
@@ -478,7 +508,7 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-### 通过omi-id
+### 标记omi-id
 
 ```js {7,14}
 ...
@@ -1786,11 +1816,11 @@ window.addEventListener('mousemove',function(evt){
 
 ## Omi相关
 
-* Omi 官网   [omijs.org](http://www.omijs.org)
-* Omi Github [https://github.com/AlloyTeam/omi](https://github.com/AlloyTeam/omi)
+* [Omi 官网](http://www.omijs.org)
+* [Omi Github](https://github.com/AlloyTeam/omi)
 * [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * [Omi 文档](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
-* [Omi 教程](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
+* [Omi 教程](https://github.com/AlloyTeam/omi/tree/master/tutorial#omi-相关文章)
 * [Omi Cli](https://github.com/AlloyTeam/omi/tree/master/cli)
 * [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
