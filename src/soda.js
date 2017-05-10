@@ -1,5 +1,5 @@
 /**
- * sodajs v0.4.3 by dorsywang
+ * sodajs v0.4.4 by dorsywang
  * Light weight but powerful template engine for JavaScript
  * Github: https://github.com/AlloyTeam/sodajs
  * MIT License
@@ -530,6 +530,29 @@
             }
         };
     });
+
+    sodaDirective('replace', function () {
+        return {
+            link: function (scope, el, attrs) {
+                var opt = el.getAttribute(prefix + "-replace");
+                var expressFunc = parseSodaExpression(opt, scope);
+
+                if (expressFunc) {
+                    var div = document.createElement('div');
+                    div.innerHTML = expressFunc;
+
+                    if(el.parentNode){
+                        while(div.childNodes[0]){
+                            el.parentNode.insertBefore(div.childNodes[0], el);
+                        }
+                    }
+                }
+
+                el.parentNode.removeChild(el);
+            }
+        };
+    });
+
 
     sodaDirective("style", function () {
         return {
