@@ -14,11 +14,12 @@
     
 ## 简介
 
-[Omi框架](https://github.com/AlloyTeam/omi)目前最新版本为1.6.1，提供了渐进增强式的Web开发解决方案，内置完善的支持无限声明式嵌套的组件系统。概括起来包含下面优点和特性:
+[Omi框架](https://github.com/AlloyTeam/omi)目前最新版本为1.6.2，提供了渐进增强式的Web开发解决方案，内置完善的支持无限声明式嵌套的组件系统。概括起来包含下面优点和特性:
 
 * 良好的兼容性 - 兼容IE8及IE8以上版本
 * 超小的尺寸 - 7 kb (gzip) 虽然文件尺寸小
-* 面向未来的架构体系 - 未来DOM很快，而且越来来快! 其实现在DOM已经足够快了:)
+* 面向未来的Web架构体系 - 未来DOM很快，而且越来来快! 其实现在DOM已经足够快了:)
+* 不使用虚拟DOM的问题是跨平台渲染更麻烦，Omi未来将提供`omi-canvas`进行跨平台渲染
 * ES6+ 和 ES5都可以 - Omi提供了ES6+和ES5的两种开发方案。你可以自有选择你喜爱的方式
 * 局部CSS - HTML+ Scoped CSS + JS组成可复用的组件。不用担心组件的CSS会污染组件外的,Omi会帮你处理好一切
 * 模板或指令系统可替换 - 默认使用soda指令系统，开发者可以重写Omi.template方法来使用任意模板引擎或者指令引擎
@@ -932,6 +933,864 @@ mustache.js更详细的循环遍历使用可看[https://github.com/janl/mustache
 * 如果items的每一项是字符串，可以直接**{{.}}**的方式来输出每一项
 * 循环的时候调用定义好的函数
 
+## Store体系
+
+先说说Store系统是干什么的！为什么要造这样一个东西？能够给系统架构带来什么？
+
+当我们组件之间，拥有共享的数据的时候，经常需要进行组件通讯。在Omi框架里，父组件传递数据给子组件非常方便：
+
+* 通过在组件上声明 data-* 或者 :data-* 传递给子节点
+* 通过在组件上声明 data 或者 :data 传递给子节点 （支持复杂数据类型的映射）
+* 声明 group-data 把数组里的data传给一堆组件传递（支持复杂数据类型的映射）
+
+注：上面带有冒号的是[传递javascript表达式](https://github.com/AlloyTeam/omi/blob/master/tutorial/js-expression.md)
+
+通过声明onXxx="xxxx"可以让子组件内执行父组件的方法。具体的如下图所示：
+
+![](http://images2015.cnblogs.com/blog/105416/201705/105416-20170509130200394-716974903.jpg)
 
 
-未完待续...
+如果还不明白的话，那...  我就直接上代码了：
+
+```js
+class Main extends Omi.Component {
+
+    handlePageChange(index){
+        this.content.goto(index+1)
+        this.update()
+    }
+
+    render () {
+        return `<div>
+                    <h1>Pagination Example</h1>
+                    <content name="content"></content>
+                    <pagination
+                        name="pagination"
+                        :data-total="100"
+                        :data-page-size="10"
+                        :data-num-edge="1"
+                        :data-num-display="4"
+                        on-page-change="handlePageChange"></pagination>
+                </div>`;
+    }
+}
+```
+
+上面的例子中，
+
+* 父组件的render方法里，通过 data-✽ 传递数据给子组件 Pagination
+* 通过`on-page-change="handlePageChange"`实现子组件与父组件通讯
+
+详细代码可以点击： [分页例子地址](https://github.com/AlloyTeam/omi/tree/master/example/pagination)
+
+当然你也可以使用event emitter / pubsub库在组件之间通讯，比如这个只有 200b 的超小库[mitt](https://github.com/developit/mitt) 。但是需要注意mitt兼容到IE9+，Omi兼容IE8。但是，使用event emitter / pubsub库会对组件代码进行入侵，所以非常不建议在基础非业务组件使用这类代码库。
+
+虽然组件通讯非常方便，但是在真实的业务场景中，不仅仅是父子、爷孙、爷爷和堂兄、嫂子和堂弟...
+onXxx="xxxx"就显得无能为力，力不从心了，各种数据传递、组件实例互操作、 emitter/pubsub或者循环依赖，让代码非常难看且难以维护。所以：
+
+	Omi.Store是用来管理共享数据以及共享数据的逻辑 。
+	
+Omi Store使用足够简便，对架构入侵性极极极小(3个极代表比极小还要小)。下面一步一步从todo的例子看下Store体系怎么使用。
+	
+### 定义 Omi.Store
+
+Omi.Store是基类，我们可以继承Omi.Store来定义自己的Store，比如下面的TodoStore。
+
+```js
+import Omi from 'omi'
+
+class TodoStore extends Omi.Store {
+    constructor(data , isReady) {
+        super(isReady)
+
+        this.data = Object.assign({
+            items:[]
+        },data)
+    }
+
+    add(value){
+        this.data.items.push(value)
+        this.update()
+    }
+
+    clear(){
+        this.data.items.length = 0
+        this.update()
+    }
+}
+
+export default TodoStore
+```
+
+TodoStore定义了数据的基本格式和数据模型的逻辑。
+比如 this.data 就是数据的基本格式：
+
+```js
+{
+    items:[]
+}
+```
+
+add和clear就是共享数据相关的逻辑。
+
+值得注意的是，在add和clear方法里都有调用this.update();这个是用来更新组件的，this.update并不会更新所有组件。但是他到底会更新哪些组件呢？等讲到store的addView方法你就明白了。
+
+### 创建 Omi.Store
+
+通过 new 关键字来使用TodoStore对象的实例。
+
+```js
+let store = new TodoStore({ /* 初始化数据 */ ，/* 数据是否准备好 */  })
+```
+
+上面可以传入一些初始化配置信息，store里面便包含了整个应用程序共享的状态数据以及贡献数据逻辑方法(add,clear)。
+
+当然，这些初始化配置信息可能是异步拉取的。所以，有两种方法解决异步拉取store配置的问题：
+
+* 拉取数据，然后new TodoStore()，再Omi.render
+* 先let store = new TodoStore(),再Omi.render,组件内部监听store.ready，拉取数据更改store的data信息，然后执行store.beReady()
+
+
+### 根组件注入 store
+
+为了让组件树能够使用到 store，可以通过Omi.render的第三个参数给根组件注入 store:
+
+```js
+Omi.render(new Todo(),'body',{
+    store: store
+});
+```
+
+当然ES2015已经允许你这样写了:
+
+```js
+Omi.render(new Todo(),'body',{
+    store
+});
+```
+
+两份代码同样的效果。
+
+通过Omi.render注入之后，在组件树的**所有组件**都可以通过 this.$store 访问到 store。
+
+### 利用 beforeRender
+
+为什么要说beforeRender这个函数？ 因为通过beforeRender转换store的data到组件的data，这样store的数据和组件的数据就解耦开了。
+
+beforeRender是生命周期的一部分。且看下面这张图:
+
+![beforeRender](http://images2015.cnblogs.com/blog/105416/201703/105416-20170322083548924-1871234168.jpg)
+
+不管是实例化或者存在期间，在render之前，会去执行beforeRender方法。所以可以利用该方法写store的data到组件data的转换逻辑。比如：
+
+```js
+import Omi from '../../src/index.js';
+import List from './list.js';
+
+Omi.tag('list', List);
+
+class Todo extends Omi.Component {
+    constructor(data) {
+        super(data)
+    }
+
+    install(){
+        this.$store.addView(this)
+    }
+
+    beforeRender(){
+        this.data.length = this.$store.data.items.length
+    }
+
+    add (evt) {
+        evt.preventDefault()
+        let value = this.data.text
+        this.data.text = ''
+        this.$store.add(value)
+    }
+
+    style () {
+        return `
+        h3 { color:red; }
+        button{ color:green;}
+        `;
+    }
+
+    clear(){
+        this.data.text = ''
+        this.$store.clear()
+    }
+
+    handleChange(evt){
+        this.data.text = evt.target.value
+    }
+
+    render () {
+        return `<div>
+                    <h3>TODO</h3>
+                    <button onclick="clear">Clear</button>
+                    <list name="list" data="$store.data"></list>
+                    <form onsubmit="add" >
+                        <input type="text" onchange="handleChange"  value="{{text}}"  />
+                        <button>Add #{{length}}</button>
+                    </form>
+
+                </div>`;
+    }
+}
+
+export default Todo;
+```
+
+为什么要去写beforeRender方法？因为render只会使用this.data去渲染页面而不会去使用this.$store.data，所以需要把数据转移到组件的this.data下。这样组件既能使用自身的data，也能使用全局放this.$store.data了，不会耦合在一起。
+
+注意看上面的：
+
+```js
+    install(){
+        this.$store.addView(this)
+    }
+```
+
+通过 addView 可以让 store 和 view（也就是组件的实例） 关联起来，以后store执行update方法的时候，关联的view都会自动更新！
+
+再看上面的子组件声明:
+
+```js
+<list name="list" data="$store.data"></list>
+```
+
+这样相当于把this.$store.data传递给了List组件。所以在List内部，就不再需要写beforeRender方法转换了。
+
+```js
+class List extends Omi.Component {
+    render () {
+        return ` <ul>  <li o-repeat="item in items">{{item}}</li></ul>`
+    }
+}
+```
+
+	这里需要特别强调，不需要把所有的数据提取到store里，只提取共享数据就好了，组件自身的数据还是放在组件自己进行管理。
+
+
+### 异步Store数据
+
+通常，在真实的业务需求中，数据并不是马上能够拿到。所以这里模拟的异步拉取的todo数据：
+
+```js
+let todoStore = new TodoStore()
+setTimeout(()=>{
+    todoStore.data.items = ["omi","store"];
+    todoStore.beReady();
+},2000)
+```
+
+上面的beReady就是代码已经准备就绪，在组件内部可以监听ready方法：
+
+```js
+class Todo extends Omi.Component {
+    constructor(data) {
+        super(data)
+    }
+
+    install(){
+        this.$store.addView(this)
+    }
+
+    installed(){
+        this.$store.ready(()=>this.$store.update())
+    }
+    
+    add (evt) {
+        evt.preventDefault()
+        if(!this.$store.isReady){
+            return
+        }
+        let value = this.data.text
+        this.data.text = ''
+        this.$store.add(value)
+    }
+```
+
+可以看到上面的add方法可以通过this.$store.isReady获取组件store是否准备就绪。
+
+你可以通过Omi.createStore快捷创建store。如:
+
+```js
+export default Omi.createStore({
+    data: {
+        items: ["omi", "store"]
+    },
+    methods: {
+        add: function (value) {
+            this.data.items.push(value)
+            this.update()
+        },
+
+        clear: function () {
+            this.data.items.length = 0
+            this.update()
+        }
+    }
+})
+```
+
+也支持省略Omi.createStore的形式创建store。如:
+
+```js
+export default {
+    data: {
+        items: ["omi", "store"]
+    },
+    methods: {
+        install:function(){ },
+        
+        add: function (value) {
+            this.data.items.push(value)
+            this.update()
+        },
+
+        clear: function () {
+            this.data.items.length = 0
+            this.update()
+        }
+    }
+}
+```
+
+你也可以定义install方法初始化一些属性，install方法在Omi内部会自动帮你执行。
+
+### Omi Store update
+
+Omi Store的update方法会更新所有关联的视图。
+Omi Store体系以前通过addView进行视图收集，store进行update的时候会调用组件的update。
+
+与此同时，Omi Store体系也新增了addSelfView的API。
+
+* addView 收集该组件视图，store进行update的时候会调用组件的update
+* addSelfView 收集该组件本身的视图，store进行update的时候会调用组件的updateSelf
+
+当然，store内部会对视图进行合并，比如addView里面加进去的所有视图有父子关系的，会把子组件去掉。爷孙关系的会把孙组件去掉。addSelfView收集的组件在addView里已经收集的也去进行合并去重，等等一系列合并优化。
+
+### 源码地址
+
+* 更为详细的代码可以[点击这里](https://github.com/AlloyTeam/omi/tree/master/example/todo-store)
+
+## 表单
+
+Omi让一些表单操控起来更加方便，特别是select！
+
+### select标签
+
+以前，我们需要像如下的方式选中一个选项：
+
+```html
+<select>
+  <option value="grapefruit">Grapefruit</option>
+  <option value="lime">Lime</option>
+  <option selected value="coconut">Coconut</option>
+  <option value="mango">Mango</option>
+</select>
+```
+
+第三个option由于加上了selected，所有会被选中。这样带来的问题就是，开发者写的程序可能要操遍历每个option。而使用Omi，你只需要这样子：
+
+```html
+<select value="coconut">
+  <option value="grapefruit">Grapefruit</option>
+  <option value="lime">Lime</option>
+  <option value="coconut">Coconut</option>
+  <option value="mango">Mango</option>
+</select>
+```
+
+这样就能达到同样的效果。比如你想选择第一项：
+
+```html
+<select value="grapefruit">
+  <option value="grapefruit">Grapefruit</option>
+  <option value="lime">Lime</option>
+  <option value="coconut">Coconut</option>
+  <option value="mango">Mango</option>
+</select>
+```
+
+是不是非常方便？
+
+###  举个例子
+
+```js
+class FormTest extends Omi.Component {
+    constructor(data) {
+        super(data);
+       
+    }
+
+    handleChange(target){
+      console.log(target.value)
+      this.data.value = target.value;
+    }
+
+    handleSubmit(evt) {
+      alert('Your favorite flavor is: ' + this.data.value);
+      evt.preventDefault();
+    }
+  
+    render () {
+        return `
+        <form onsubmit="handleSubmit(event)">
+        <label>
+          Pick your favorite La Croix flavor:
+          <select value="{{value}}" onchange="handleChange(this)">
+            <option value="grapefruit">Grapefruit</option>
+            <option value="lime">Lime</option>
+            <option value="coconut">Coconut</option>
+            <option value="mango">Mango</option>
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>`;
+    }
+}
+
+Omi.render(new FormTest({ value: 'mango' }),'#container');
+```
+
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=form" target="_blank">点击这里→在线试试</a>
+
+
+## 继承
+
+通过继承机制，可以利用已有的数据类型来定义新的数据类型。所定义的新的数据类型不仅拥有新定义的成员，而且还同时拥有旧的成员。我们称已存在的用来派生新类的类为基类，又称为父类。由已存在的类派生出的新类称为派生类，又称为子类。
+
+### 举个例子
+
+```js
+class Hello extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+    
+    style () {
+        return  `
+            div{
+                cursor:pointer;
+            }
+         `;
+    }
+    
+    handleClick(target, evt){
+        alert(target.innerHTML);
+    }
+    
+    render() {
+       return  ' <div onclick="handleClick(this,event)">Hello {{name}}!</div>'
+    }
+}
+
+class SubHello extends Hello {
+    constructor(data) {
+        super(data);
+    }
+}
+
+Omi.render(new SubHello({ name : 'Omi' }),'#container');
+```
+
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=inherit" target="_blank">点击这里→在线试试</a>
+
+###  ES5下的继承
+
+```js
+var Hello =  Omi.create("hello",{
+  render:function(){
+    return  ' <div>Hello {{name}}!</div>'
+  }
+})
+
+var SubHello =  Omi.create("sub-hello",Hello,{ });
+
+
+Omi.render(new SubHello({ name : 'Omi' }),'#container');
+```
+
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=inherit_es5" target="_blank">点击这里→在线试试</a>
+
+## 模板切换
+
+[Omi框架](https://github.com/AlloyTeam/omi)到目前为止有三种版本。
+
+* omi.js 使用 [sodajs](https://github.com/AlloyTeam/sodajs) 为内置指令系统
+* omi.lite.js 不包含任何模板引擎
+* omi.mustache.js 使用 [mustache.js](https://github.com/janl/mustache.js)为内置模版引擎
+
+ [sodajs](https://github.com/AlloyTeam/sodajs)是我们团队高级工程师(dorsywang)的作品，服务员QQ群、兴趣部落等多个产品线，
+ 以良好的兼容性、卓越的性能、简便的语法、超小的尺寸以及强大的功能而深受同事们的喜爱。下面先来看看sodajs怎么使用。
+
+Omi不强制开发者使用soda指令或者mustache.js模版引擎，你可以根据业务场景使用任意模板引擎或者不使用模板引擎。
+
+那么怎么使用别的模板引擎？下面拿[artTemplate](https://github.com/aui/artTemplate)作为例子。
+
+### 使用artTemplate
+
+```js
+Omi.template = function(tpl, data){
+    return artTemplate.compile(tpl)(data);
+}
+```
+重写Omi.template方法，tpl为传入的模板，data为模板所需的数据，返回值为HTML。
+重写完毕后就能在render使用artTemplate的语法，如：
+
+```js
+class List extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    style () {
+        return `
+        h1 { color:red; }
+        li{ color:green;}
+        `;
+    }
+
+    render () {
+        return `<h1>{{title}}</h1>
+                <ul>
+                    {{each list as value i}}
+                    <li>索引 {{i + 1}} ：{{value}}</li>
+                    {{/each}}
+                </ul>`;
+    }
+}
+```
+
+### 相关地址
+
+* [演示地址](http://alloyteam.github.io/omi/example/artTemplate/)
+* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/artTemplate)
+
+## 获取DOM节点
+
+虽然绝大部分情况下，开发者不需要去查找获取DOM，但是还是有需要获取DOM的场景，所以Omi提供了方便获取DOM节点的方式。
+
+### ref和refs
+
+```js
+class Hello extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+    
+    style () {
+        return  `
+            h1{
+                cursor:pointer;
+            }
+         `;
+    }
+    
+    handleClick(){
+        alert(this.refs.abc.innerHTML);
+    }
+    
+    render() {
+        return  `
+        <div>
+            <h1 ref="abc" onclick="handleClick()">Hello ,{{name}}!</h1>
+        </div>
+        `;
+    }
+}
+
+Omi.render(new Hello({ name : "Omi" }),"#container");
+```
+
+可以看到通过在HTML中标记ref为abc，那么就通过this.refs.abc访问到该DOM节点。
+
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=ref" target="_blank">点击这里→在线试试</a>
+
+## 插件体系
+
+[Omi](https://github.com/AlloyTeam/omi)是Web组件化框架，怎么又来了个插件的概念？
+
+可以这么理解: Omi插件体系可以赋予dom元素一些能力，并且可以和组件的实例产生关联。
+
+### omi-drag
+
+且看这个例子:
+
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=plugin" target="_blank">点击这里→在线试试</a>
+
+```js
+import OmiDrag from './omi-drag.js';
+
+OmiDrag.init();
+
+class App extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render() {
+        return  `
+        <div>
+            <div omi-drag class="test">Drag Me</div>
+        </div>
+        `;
+
+    }
+
+    style(){
+       return `
+        .test{
+            width:100px;
+            height:100px;
+            color:white;
+            line-height:90px;
+            text-align:center;
+            background-color:#00BFF3;
+        }
+        `
+    }
+}
+
+Omi.render(new App(),"#container");
+```
+
+如上面的代码所示，通过在div上标记omi-drag，这个div就能够被用户使用鼠标拖拽。我们称omi-drag.js为omi插件。
+是不是非常方便？那么这个omi-drag是怎么实现的？
+
+## Omi.extendPlugin
+
+核心方法: Omi.extendPlugin( pluginName, handler )
+
+下面的代码就是展示了如何通过 Omi.extendPlugin 赋予dom拖拽的能力:
+
+```js
+;(function () {
+
+    var OmiDrag = {};
+    var Omi = typeof require === 'function'
+        ? require('omi')
+        : window.Omi;
+
+    OmiDrag.init = function(){
+        Omi.extendPlugin('omi-drag',function(dom, instance){
+            dom.style.cursor='move';
+            var isMouseDown = false,
+                preX = null,
+                preY = null,
+                currentX = null,
+                currentY = null,
+                translateX = 0,
+                translateY = 0;
+
+            dom.addEventListener('mousedown',function(evt){
+                isMouseDown = true;
+                preX = evt.pageX;
+                preY = evt.pageY;
+                evt.stopPropagation();
+            },false);
+
+            window.addEventListener('mousemove',function(evt){
+                if(isMouseDown){
+                    currentX = evt.pageX;
+                    currentY = evt.pageY;
+                    if(preX != null){
+                        translateX += currentX - preX;
+                        translateY += currentY - preY;
+                        dom.style.transform = 'translateX('+translateX+'px) translateY('+translateY+'px)';
+                    }
+                    preX = currentX;
+                    preY = currentY;
+                    evt.preventDefault();
+                }
+            },false);
+
+            window.addEventListener('mouseup',function(){
+                isMouseDown = false;
+                preX = preY = currentX = currentY = null;
+            },false);
+        });
+    }
+
+    OmiDrag.destroy = function(){
+        delete Omi.plugins['omi-drag'];
+    };
+
+    if (typeof exports == "object") {
+        module.exports = OmiDrag;
+    } else if (typeof define == "function" && define.amd) {
+        define([], function(){ return OmiDrag });
+    } else {
+        window.OmiDrag = OmiDrag;
+    }
+
+})();
+```
+
+方法: Omi.extendPlugin( pluginName, handler )
+
+其中pluginName为插件的名称
+其中handler为处理器。handler可以拿到标记了pluginName的dom以及dom所在的组件的实例，即 dom 和 instance。
+
+通过 Omi.extendPlugin，可以赋予dom元素一些能力，也可以和组件的实例(instance)产生关联。
+但是上面的例子没有和instance产生关联，我们接下来试试:
+
+## 关联instance
+
+我们想在组件里面能够监听到move并且执行回调。如下:
+
+```js
+...
+...
+moveHandler(){
+    console.log('moving');
+}
+
+render() {
+    return  `
+    <div>
+        <div omi-drag class="test">Drag Me</div>
+    </div>
+    `;
+}
+...
+```
+
+主要被拖动过程中，moveHandler就不断地被执行。插件代码需要修改:
+
+```js
+...
+window.addEventListener('mousemove',function(evt){
+    if(isMouseDown){
+        currentX = evt.pageX;
+        currentY = evt.pageY;
+        if(preX != null){
+            translateX += currentX - preX;
+            translateY += currentY - preY;
+            dom.style.transform = 'translateX('+translateX+'px) translateY('+translateY+'px)';
+        }
+        preX = currentX;
+        preY = currentY;
+        evt.preventDefault();
+        instance.moveHandler(evt);
+    }
+},false);
+```
+
+我们在里面增加了instance.moveHandler(evt);方法，用来执行组件实例上的moveHandler方法。
+这样的话:就是组件的实例(instance)产生关联。但是还是有问题？如果标记了多个omi-drag 就会有问题！如:
+
+```js
+...
+render() {
+    return  `
+    <div>
+        <div omi-drag class="test">Drag Me</div>
+        <div omi-drag class="test">Drag Me</div>
+    </div>
+    `;
+}
+...
+```
+
+通常我们系统每个omi-drag都能对应一个回调函数，如：
+
+```js
+...
+...
+moveHandlerA(){
+    console.log('moving');
+}
+
+moveHandlerB(){
+    console.log('moving');
+}
+
+render() {
+    return  `
+    <div>
+        <div omi-drag class="test">Drag Me A</div>
+        <div omi-drag class="test">Drag Me B</div>
+    </div>
+    `;
+}
+...
+```
+
+怎么办？怎么实现？有办法！通过dom传递数据给插件。
+
+## 传递数据
+
+先来看最后实现的效果:
+
+```js
+...
+...
+moveHandlerA(){
+    console.log('moving');
+}
+
+moveHandlerB(){
+    console.log('moving');
+}
+
+render() {
+    return  `
+    <div>
+        <div omi-drag class="test" dragMove="moveHandlerA" >Drag Me A</div>
+        <div omi-drag class="test" dragMove="moveHandlerB" >Drag Me B</div>
+    </div>
+    `;
+}
+...
+```
+
+omi-drag修改的地方:
+
+```js
+...
+var handlerName = dom.getAttribute('dragMove');
+
+window.addEventListener('mousemove',function(evt){
+    if(isMouseDown){
+        currentX = evt.pageX;
+        currentY = evt.pageY;
+        if(preX != null){
+            translateX += currentX - preX;
+            translateY += currentY - preY;
+            dom.style.transform = 'translateX('+translateX+'px) translateY('+translateY+'px)';
+        }
+        preX = currentX;
+        preY = currentY;
+        evt.preventDefault();
+        instance[handlerName](evt);
+    }
+},false);
+...
+```
+
+* 通过 var handlerName = dom.getAttribute('dragMove') 拿到dom上声明的dragMove
+* 通过 instance[handlerName](evt) 去执行对应的方法
+
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=plugin" target="_blank">点击这里→在线试试</a>
+
+## 更多插件
+
+* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，支持各种触摸事件和手势
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) Omi的[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/)插件，快速方便地设置DOM的CSS3 Transform属性
+* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）
+* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker) Omi的时间选择插件，支持各种时间或者时间区域选择
+
+## Omi相关
+
+* Omi 官网   [omijs.org](http://www.omijs.org)
+* Omi Github [https://github.com/AlloyTeam/omi](https://github.com/AlloyTeam/omi)
+* [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
+* [Omi 文档](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
+* [Omi 教程](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
+* [Omi Cli](https://github.com/AlloyTeam/omi/tree/master/cli)
+* [New issue](https://github.com/AlloyTeam/omi/issues/new)
+* 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
