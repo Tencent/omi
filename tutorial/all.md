@@ -32,6 +32,7 @@
     * [关联instance](#关联instance)
     * [传递数据](#传递数据)
     * [更多插件](#更多插件)
+* [指令详解](#指令详解)  
 * [Omi相关](#omi相关)  
 
 ## 简介
@@ -1815,6 +1816,157 @@ window.addEventListener('mousemove',function(evt){
 * [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) Omi的[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/)插件，快速方便地设置DOM的CSS3 Transform属性
 * [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）
 * [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker) Omi的时间选择插件，支持各种时间或者时间区域选择
+
+## 指令详解
+
+### expression
+
+``` js
+    <div>Hello, {{name}}</div>
+```
+
+data:
+
+``` js
+{ name : 'Omi' }
+``` 
+
+result:
+``` js
+<div>Hello, Omi</div>
+``` 
+
+### o-if
+
+``` js
+<div o-if="show">I'm visible {{name}}!</div>
+<div o-if="!show">I'm hidden!</div>
+```
+data:
+
+``` js
+ { name : 'Omi',show: true }
+``` 
+
+result:
+
+``` js
+<div>I'm visible Omi!</div>
+``` 
+
+### o-repeat
+
+> o-repeat="item in array"
+
+> o-repeat="item in object"
+
+> o-repeat="item in array by index"
+
+> o-repeat="item in object by key"
+
+> o-repeat="(index, value) in array"
+
+> o-repeat="(key, value) in object"
+
+default index or key is $index
+
+``` js
+<ul>
+    <li o-repeat="item in list" o-if="item.show">
+        {{$index}} - {{item.name}}
+    </li>
+</ul>
+``` 
+
+data:
+
+``` js
+{
+    list: [
+        {name: "Hello" ,show: true},
+        {name: "Omi" ,show: true},
+        {name: "AlloyTeam"}
+    ]
+}
+```
+
+result:
+
+``` html
+<ul>
+    <li> 
+        0 - Hello 
+    </li>
+    <li> 
+        1 - Omi 
+    </li>
+</ul>
+```
+
+
+### filter
+
+> Omi.template.filter(String filterName, Function func(input, args...))
+> {{input|filte1:args1:args2...|filter2:args...}}
+
+example: 
+
+``` js
+Omi.template.filter('shortTitle', function(input, length){
+    return (input || '').substr(0, length);
+});
+```
+
+``` js
+
+<ul o-repeat="item in list">
+    <li class="title">
+        {{item.title|shortTitle:10}}
+    </li>
+</ul>
+``` 
+
+data:
+
+```js
+{ 
+    list : [
+        {title:'short'},
+        {title:'i am too long!'}
+    ] 
+}
+```
+
+
+### html
+
+```js
+<div o-html="html"></div>
+```
+
+data:
+
+```js
+{ html : '<span style="color:red;">test o-html</span>' }
+```
+
+
+### replace
+replace this node with html
+
+```js
+var tpl = '<div o-replace="html"></div>'
+```
+
+data:
+
+```js
+{ html : '<span style="color:red;">test o-replace</span>' }
+```
+
+div will be replaced with given html
+
+
 
 ## Omi相关
 
