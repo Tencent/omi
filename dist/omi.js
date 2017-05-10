@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.6.2 By dntzhang 
+ *  Omi v1.6.3 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -450,7 +450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
-	 * sodajs v0.4.3 by dorsywang
+	 * sodajs v0.4.4 by dorsywang
 	 * Light weight but powerful template engine for JavaScript
 	 * Github: https://github.com/AlloyTeam/sodajs
 	 * MIT License
@@ -961,6 +961,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        command: "childDone"
 	                    };
 	                }
+	            }
+	        };
+	    });
+
+	    sodaDirective('replace', function () {
+	        return {
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute(prefix + "-replace");
+	                var expressFunc = parseSodaExpression(opt, scope);
+
+	                if (expressFunc) {
+	                    var div = document.createElement('div');
+	                    div.innerHTML = expressFunc;
+
+	                    if (el.parentNode) {
+	                        while (div.childNodes[0]) {
+	                            el.parentNode.insertBefore(div.childNodes[0], el);
+	                        }
+	                    }
+	                }
+
+	                el.parentNode.removeChild(el);
 	            }
 	        };
 	    });
