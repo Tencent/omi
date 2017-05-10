@@ -1,6 +1,6 @@
 # 精通Omi框架
 
-精通Omi框架，一篇足够，本篇会持续更新...
+精通[Omi框架](https://github.com/AlloyTeam/omi)，一篇足够，本篇会持续更新...
 
 * [简介](#简介)
 * [安装Omi](#安装omi)
