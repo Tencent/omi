@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.6.1 By dntzhang 
+ *  Omi v1.6.2 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1114,15 +1114,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        dataset = _this13._extractPropertyFromString(value, child);
 	                    } else if (key === ':data') {
 	                        dataset = eval('(' + value + ')');
-	                    } else if (key === 'preventSelfUpdate' || key === 'psu') {
+	                    } else if (key === 'preventSelfUpdate' || key === 'psu' || key === 'preventselfupdate') {
 	                        _omi_option.preventSelfUpdate = true;
-	                    } else if (key === 'selfDataFirst' || key === 'sdf') {
+	                    } else if (key === 'selfDataFirst' || key === 'sdf' || key === 'selfdatafirst') {
 	                        _omi_option.selfDataFirst = true;
-	                    } else if (key === 'domDiffDisabled' || key === 'ddd') {
+	                    } else if (key === 'domDiffDisabled' || key === 'ddd' || key === 'domdiffdisabled') {
 	                        _omi_option.domDiffDisabled = true;
-	                    } else if (key === 'ignoreStoreData' || key === 'isd') {
+	                    } else if (key === 'ignoreStoreData' || key === 'isd' || key === 'ignorestoredata') {
 	                        _omi_option.ignoreStoreData = true;
-	                    } else if (key === 'scopedSelfCSS' || key === 'ssc') {
+	                    } else if (key === 'scopedSelfCSS' || key === 'ssc' || key === 'scopedselfcss') {
 	                        _omi_option.scopedSelfCSS = true;
 	                    }
 	                });

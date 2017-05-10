@@ -6,7 +6,12 @@
 * [组件](#组件)
 * [组件通讯](#组件通讯)
     * [通讯概览](#通讯概览)
-
+* [生命周期](#生命周期)
+* [事件处理](#事件处理)
+    * [内置事件](#内置事件)
+    * [组件事件](#组件事件)
+    
+    
 ## 简介
 
 [Omi框架](https://github.com/AlloyTeam/omi)目前最新版本为1.6.1，提供了渐进增强式的Web开发解决方案，内置完善的支持无限声明式嵌套的组件系统。概括起来包含下面优点和特性:
@@ -498,6 +503,316 @@ class App extends Omi.Component {
 Omi.render(new App(),"#container");
 ```
 
-通过在组件上声明omi-id，在程序任何地方拿到该对象的实例。
+通过在组件上声明`omi-id`，标记`omi-id`是全局注册，在程序任何地方可以通过`Omi.get`拿到该对象的实例。
+
+## 生命周期
+
+|name   |avatars   |company   | 
+|---|---|---|
+| constructor  | 构造函数 | new的时候 |
+| install  | 初始化安装，这可以拿到用户传进的data进行处理 | 实例化 |
+| installed    | 安装完成，HTML已经插入页面之后执行  |  实例化  |
+| uninstall | 卸载组件。执行remove方法会触发该事件    |   销毁时 |
+| beforeUpdate | 更新前     |   存在期 |
+| afterUpdate | 更新后     |    存在期 |
+| beforeRender | render函数执行之前     |    存在期和实例化 |
+
+## 示意图
+
+![lc](http://images2015.cnblogs.com/blog/105416/201703/105416-20170322083548924-1871234168.jpg)
+       
+### 举个例子
+
+```js
+class Timer extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    install () {
+        this.data = {secondsElapsed: 0};
+    }
+
+    tick() {
+        this.data.secondsElapsed++;
+        this.update();
+    }
+
+    installed(){
+        this.interval = setInterval(() => this.tick(), 1000);
+    }
+
+    uninstall() {
+        clearInterval(this.interval);
+    }
+
+
+    style () {
+        return `
+        .num { color:red; }
+        `;
+    }
+
+    render () {
+        return `<div>Seconds Elapsed:<span class="num"> {{secondsElapsed}}</span></div>`;
+    }
+}
+```
+
+<a href="http://alloyteam.github.io/omi/website/redirect.html?type=lifecycle" target="_blank">点击这里→在线试试</a>
+
+
+## 事件处理
+
+Omi的事件分内置事件和自定义事件。在内置事件处理方面巧妙地利用了浏览器自身的管线机制，可以通过event和this轻松拿到事件实例和触发该事件的元素。
+
+### 内置事件
+
+什么算内置事件？只要下面正则能匹配到就算内置事件。
+
+```js
+on(abort|blur|cancel|canplay|canplaythrough|change|click|close|contextmenu|cuechange|dblclick|drag|dragend|dragenter|dragleave|dragover|dragstart|drop|durationchange|emptied|ended|error|focus|input|invalid|keydown|keypress|keyup|load|loadeddata|loadedmetadata|loadstart|mousedown|mouseenter|mouseleave|mousemove|mouseout|mouseover|mouseup|mousewheel|pause|play|playing|progress|ratechange|reset|resize|scroll|seeked|seeking|select|show|stalled|submit|suspend|timeupdate|toggle|volumechange|waiting|autocomplete|autocompleteerror|beforecopy|beforecut|beforepaste|copy|cut|paste|search|selectstart|wheel|webkitfullscreenchange|webkitfullscreenerror|touchstart|touchmove|touchend|touchcancel|pointerdown|pointerup|pointercancel|pointermove|pointerover|pointerout|pointerenter|pointerleave)
+```
+
+内置事件怎么绑定？如下所示：
+
+```js
+class EventTest extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    handleClick(dom, evt){
+        alert(dom.innerHTML);
+    }
+
+    render () {
+        return `<div onclick="handleClick(this, event)">Hello, Omi!</div>`;
+    }
+}
+```
+
+### 组件事件
+
+开发者自己定义的组件的事件，称为组件事件，组件事件必须以on-*的格式，不然Omi识别不到。这里拿分页作为例子：
+
+```js
+import Omi from '../../src/index.js';
+import Pagination from './pagination.js';
+import Content from './content.js';
+
+Omi.tag('pagination', Pagination);
+Omi.tag('content', Content);
+
+class Main extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    installed(){
+        this.content.goto(this.pagination.data.currentPage+1);
+    }
+    
+    handlePageChange(index){
+        this.content.goto(index+1);
+    }
+
+    render () {
+        return `<div>
+                    <h1>Pagination Example</h1>
+                    <content name="content" ></content>
+                    <pagination
+                        name="pagination"
+                        data-total="100"
+                        data-page-size="10"
+                        data-num-edge="1"
+                        data-num-display="4"　　　　　
+                        on-page-change="handlePageChange" ></pagination>
+                </div>`;
+    }
+}
+
+Omi.render( new Main(),'body');
+```
+
+如上面的`on-page-change`就是自定义事件，触发会执行handlePageChange。对应到子组件的`this.data.onPageChange`方法是在`Pagination`中执行：
+
+```js
+import Omi from 'omi';
+
+class Pagination extends Omi.Component {
+    ...
+    ...
+            linkTo: "#",
+            prevText: "Prev",
+            nextText: "Next",
+            ellipseText: "...",
+            prevShow: true,
+            nextShow: true,
+            onPageChange: function () { return false; }
+        }, this.data);
+
+        this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
+    }
+    
+    goto (index,evt) {
+        evt.preventDefault();
+        this.data.currentPage=index;
+        this.data.onPageChange(index);
+    }
+    ...
+    ...
+}
+```
+
+### 相关地址
+
+* [演示地址](http://alloyteam.github.io/omi/example/pagination/)
+* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/pagination)
+
+## 条件判断
+
+我们经常需要根据不同的状态呈现不同的界面，比如有的用户是vip要显示vip的Logo。Omi有许多种方式满足你的要求。
+
+### 方式一
+
+```js
+class ConditionTest extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render () {
+        return `
+                <div o-if="isVip">you are VIP.</div>
+                <div o-if="!isVip">you are not VIP.</div>
+                `;
+    }
+}
+```
+
+当然也可以利用`{{expression}}`:
+
+```js
+class ConditionTest extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render () {
+        return `
+                <div>you are {{isVip?'':'not'}} VIP.</div>
+                `;
+    }
+}
+```
+
+类似于 JavaScript 表达式，Omi 表达式可以包含字母，操作符，变量，以上的omi.js的条件判断方式。
+
+### 方式二
+
+```js
+class ConditionTest extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render () {
+        if(this.data.isVip){
+            return '<div>you are VIP.</div>';
+        }else{
+            return '<div>you are not VIP.</div>';
+        }
+    }
+}
+```
+
+render就是提供了很好的可编程性，里面可以写任意js逻辑代码。对了，差点忘了，style方法里面也可以写js逻辑的。
+
+```js
+class ConditionTest extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    style (){
+        if(this.data.isVip){
+            return 'div{ color : red; }';
+        }else{
+            return 'div{ color : green; }';
+        }
+    }
+
+    render () {
+        if(this.data.isVip){
+            return '<div>you are VIP.</div>';
+        }else{
+            return '<div>you are not VIP.</div>';
+        }
+    }
+}
+```
+
+这里需要特别注意，如果同一个组件使用了多次，只会使用第一次生成的局部CSS。如果需要每次都生成不同的局部CSS，需要创建或者声明的时候标记scopedSelfCSS。即:
+
+```html
+<your-component scopedSelfCSS></your-component>
+```
+
+也支持下面的简写形式:
+
+```html
+<your-component ssc></your-component>
+```
+
+如果是javascript创建的时候:
+
+```js
+new YourComponent({ }, { scopedSelfCSS : true })
+```
+
+### 方式三
+
+```js
+class ConditionTest extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render() {
+        return  `
+            ${this.data.isVip
+                ?"<div>you are VIP.</div>"
+                :"<div>you are not VIP.</div>"
+    		}
+        `;
+    }
+}
+```
+
+当然可以使用${ }里面写javascript代码进行输出。
+
+### 方式四
+
+如果你使用的是omi.mustache.js，你可以使用下面的方式:
+
+```js
+class ConditionTest extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+
+    render () {
+        return `{{#isVip}}
+                    <div>you are VIP.</div>
+                {{/isVip}}
+                {{^isVip}}
+                    <div>you are not VIP.</div>
+                {{/isVip}}`;
+    }
+}
+```
+
+完全使用mustachejs的条件判断的语法。当然Omi不强制你使用mustachejs。你可以是omi.lite.js，然后重写Omi.template方法去使用任意你喜爱的模板引擎。
 
 未完待续...
