@@ -33,6 +33,12 @@
     * [传递数据](#传递数据)
     * [更多插件](#更多插件)
 * [指令详解](#指令详解)  
+    * [{{expression}}](#expression)
+    * [o-if](#o-if)
+    * [o-repeat](#o-repeat)
+    * [o-filter](#o-filter)
+    * [o-html](#o-html)
+    * [o-replace](#o-replace)
 * [Omi相关](#omi相关)  
 
 ## 简介
@@ -1819,7 +1825,7 @@ window.addEventListener('mousemove',function(evt){
 
 ## 指令详解
 
-### expression
+### {{expression}}
 
 ``` js
     <div>Hello, {{name}}</div>
@@ -1838,7 +1844,7 @@ result:
 
 ### o-if
 
-``` js
+``` html
 <div o-if="show">I'm visible {{name}}!</div>
 <div o-if="!show">I'm hidden!</div>
 ```
@@ -1850,7 +1856,7 @@ data:
 
 result:
 
-``` js
+``` html
 <div>I'm visible Omi!</div>
 ``` 
 
@@ -1904,7 +1910,7 @@ result:
 ```
 
 
-### filter
+### o-filter
 
 > Omi.template.filter(String filterName, Function func(input, args...))
 > {{input|filte1:args1:args2...|filter2:args...}}
@@ -1938,7 +1944,7 @@ data:
 ```
 
 
-### html
+### o-html
 
 ```js
 <div o-html="html"></div>
@@ -1951,7 +1957,7 @@ data:
 ```
 
 
-### replace
+### o-replace
 replace this node with html
 
 ```js
