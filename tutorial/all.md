@@ -79,7 +79,7 @@ npm install omi
 你也可以通过cdn获取omi，并在HTML里声明script变迁:
 
 ``` html
-<script src="https://unpkg.com/omi@1.6.0/dist/omi.min.js"></script>
+<script src="https://unpkg.com/omi@1.6.3/dist/omi.min.js"></script>
 ```
 
 ## Hello Omi
