@@ -42,6 +42,9 @@
 * [Omi相关](#omi相关)  
 
 ## 简介
+    
+    Omi（读音 / [ˈomɪ] /, 汉字类似于 欧米） 是一款用于创建Web用户界面的组件化框架，开放并且现代，故得名：Omi。
+其代码已托管至Github地址: [https://github.com/AlloyTeam/omi](https://github.com/AlloyTeam/omi)
 
 [Omi框架](https://github.com/AlloyTeam/omi)目前最新版本为1.6.3，提供了渐进增强式的Web开发解决方案，内置完善的支持无限声明式嵌套的组件系统。概括起来包含下面优点和特性:
 
