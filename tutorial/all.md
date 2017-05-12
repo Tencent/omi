@@ -860,8 +860,6 @@ class ConditionTest extends Omi.Component {
 
 ## 循环遍历
 
-下面介绍mustache.js的方式和javascript遍历的方式。
-
 ### 方式一
 
 ```js
