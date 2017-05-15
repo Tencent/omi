@@ -1913,6 +1913,7 @@ result:
 ### o-filter
 
 > Omi.template.filter(String filterName, Function func(input, args...))
+
 > {{input|filte1:args1:args2...|filter2:args...}}
 
 example: 
@@ -1956,6 +1957,11 @@ data:
 { html : '<span style="color:red;">test o-html</span>' }
 ```
 
+result:
+
+``` html
+<div o-html="html"><span style="color:red;">test o-replace</span></div>
+```
 
 ### o-replace
 replace this node with html
@@ -1968,6 +1974,12 @@ data:
 
 ```js
 { html : '<span style="color:red;">test o-replace</span>' }
+```
+
+result:
+
+``` html
+<span style="color:red;">test o-replace</span>
 ```
 
 div will be replaced with given html
