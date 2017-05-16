@@ -54,14 +54,23 @@ var config  = {
 };
 
 if(ENV === 'dist') {
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false,
+            screw_ie8 : false
+        },
+        mangle: {
+            screw_ie8: false
+        },
+        output: { screw_ie8: false }
+    }));
     config.entry = {
         index: './src/js/index.js',
         other: './src/js/other.js',
         omi: ['omi'],
         vendor: ['./src/common/class_list.js']
     }
-    config.plugins[2] = new commonChunkPlugin({name: ['omi', 'vendor'], minChunks: Infinity});
+    config.plugins.push( new commonChunkPlugin({name: ['omi', 'vendor'], minChunks: Infinity}));
     config.output.filename = '[name].[chunkhash:8].js';
     config.module.rules[1] = {test: /\.html|\.css$/, loader: "cdn-replace-loader?cdn="+projectConfig.cdn};
     //config.module.rules.push({
