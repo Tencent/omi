@@ -1,0 +1,27 @@
+.head {
+
+  height: 45px;
+  line-height: 45px;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  background-color: #303030;
+  z-index: 100;
+  text-align: left;
+}
+
+ul,li{
+  display: inline-block;
+}
+
+.logo_box{
+  width:100px;
+  display: inline-block;
+  text-align:center;
+  line-height: 60px;
+}
+
+.menu a,.logo_box a{
+  display: inline-block;
+  height:45px;
+  color:#ddd;
+}

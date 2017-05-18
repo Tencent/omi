@@ -38,25 +38,12 @@ var config  = {
                 },
                 exclude: /node_modules/
             },
-            {test: /\.html|\.css$/, loader: "string-loader"},
-            {
-                test: /\.scss$/,
-                use: [
-                    //{
-                    //    // creates style nodes from JS strings
-                    //    loader: "style-loader"
-                    //},
-                    {
-                        loader: "css-loader?-url" // translates CSS into CommonJS
-                    }, {
-                        loader: "sass-loader" // compiles Sass to CSS
-                    }]
-            }
+            {test: /\.html|\.css$/, loader: "string-loader"}
         ]
     },
     plugins: [
         // Avoid publishing files when compilation fails
-        new webpack.NoErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin()
     ],
     stats: {
         // Nice colored output
@@ -67,17 +54,30 @@ var config  = {
 };
 
 if(ENV === 'dist') {
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false,
+            screw_ie8 : false
+        },
+        mangle: {
+            screw_ie8: false
+        },
+        output: { screw_ie8: false }
+    }));
     config.entry = {
         index: './src/js/index.js',
         other: './src/js/other.js',
         omi: ['omi'],
         vendor: ['./src/common/class_list.js']
     }
-    config.plugins[2] = new commonChunkPlugin({name: ['omi', 'vendor'], minChunks: Infinity});
+    config.plugins.push( new commonChunkPlugin({name: ['omi', 'vendor'], minChunks: Infinity}));
     config.output.filename = '[name].[chunkhash:8].js';
-    config.module.rules[1] = {test: /\.html|\.css$/, loader: "cdn-replace-loader?cdn="+projectConfig.cdn}
-    config.module.rules[2].use[0] .loader =  "cdn-replace-loader?cdn="+projectConfig.cdn
+    config.module.rules[1] = {test: /\.html|\.css$/, loader: "cdn-replace-loader?cdn="+projectConfig.cdn};
+    //config.module.rules.push({
+    //    use:[{
+    //        loader: "cdn-replace-loader?cdn="+projectConfig.cdn
+    //    }]
+    //})
 
 }else{
     config.entry.vendor = ['omi','./src/common/class_list.js'];

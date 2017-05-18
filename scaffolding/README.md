@@ -1,15 +1,14 @@
-## Omi脚手架
+## Omi Gulp脚手架
 
-使用 Gulp + Webpack + Babel + BrowserSync 搭建 的脚手架。
+本项目使用 Gulp + Webpack + Babel + BrowserSync 搭建的脚手架。
 
-你可以修改你的目录名，也可通过npm init去修改你的项目信息。
+如果想要使用 webpack + hot reload 请使用 omi-cli 初始化项目。
 
-## 安装开发依赖包
+## 安装
 
 ``` js
 npm install
 ```
-
 
 ## 开发
 

@@ -1,9 +1,6 @@
 import Omi from 'omi';
 
-const style = require('./index.scss');
-console.log(style.toString())
-const testStyle = require('./test.scss');
-console.log(testStyle)
+const css = require('./index.css');
 
 class Header extends Omi.Component {
     constructor (data) {
@@ -11,7 +8,7 @@ class Header extends Omi.Component {
     }
 
     style () {
-        return style+testStyle+`
+        return css+`
         .logo_box a{
             background:#303030 url(`+( Root.isDev?'./component/header/omi.png':(Root.CDN+'component/header/omi.png'))+`) no-repeat left 11px;
             background-size: contain;
