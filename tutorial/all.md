@@ -81,6 +81,8 @@ npm install omi
 <script src="https://unpkg.com/omi@1.6.3/dist/omi.min.js"></script>
 ```
 
+你也可以 [Omi Cli](https://github.com/AlloyTeam/omi-cli) 来初始化你的项目脚手架，它会帮你处理好一切构建相关的东西。
+
 ## Hello Omi
 
 ```js
@@ -1993,6 +1995,6 @@ div will be replaced with given html
 * [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * [Omi 文档](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
 * [Omi 教程](https://github.com/AlloyTeam/omi/tree/master/tutorial#omi-相关文章)
-* [Omi Cli](https://github.com/AlloyTeam/omi/tree/master/cli)
+* [Omi Cli](https://github.com/AlloyTeam/omi-cli)
 * [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
