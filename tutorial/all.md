@@ -83,6 +83,14 @@ npm install omi
 
 你也可以 [Omi Cli](https://github.com/AlloyTeam/omi-cli) 来初始化你的项目脚手架，它会帮你处理好一切构建相关的东西。
 
+```js
+npm install omi-cli -g     //安装CLI
+omi init [project name]    //初始化项目 
+cd your_project_name       //转到目录
+npm start                  //开发
+npm run dist               //生成发布文件   
+```
+
 ## Hello Omi
 
 ```js
