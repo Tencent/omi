@@ -1467,9 +1467,10 @@ Omi.render(new SubHello({ name : 'Omi' }),'#container');
 
 ## 模板切换
 
-[Omi框架](https://github.com/AlloyTeam/omi)到目前为止有三种版本。
+[Omi框架](https://github.com/AlloyTeam/omi)到目前为止有四种版本。
 
 * omi.js 使用 [sodajs](https://github.com/AlloyTeam/sodajs) 为内置指令系统
+* omi.art.js 使用 [art-template](https://github.com/aui/art-template) 为内置模版引擎
 * omi.lite.js 不包含任何模板引擎
 * omi.mustache.js 使用 [mustache.js](https://github.com/janl/mustache.js)为内置模版引擎
 
@@ -1478,17 +1479,15 @@ Omi.render(new SubHello({ name : 'Omi' }),'#container');
 
 Omi不强制开发者使用soda指令或者mustache.js模版引擎，你可以根据业务场景使用任意模板引擎或者不使用模板引擎。
 
-那么怎么使用别的模板引擎？下面拿[artTemplate](https://github.com/aui/artTemplate)作为例子。
+那么怎么使用别的模板引擎？下面拿[ejs](https://github.com/tj/ejs)作为例子。
 
 ### 使用artTemplate
 
 ```js
-Omi.template = function(tpl, data){
-    return artTemplate.compile(tpl)(data);
-}
+Omi.template =  ejs.render
 ```
 重写Omi.template方法，tpl为传入的模板，data为模板所需的数据，返回值为HTML。
-重写完毕后就能在render使用artTemplate的语法，如：
+重写完毕后就能在render使用ejs的语法，如：
 
 ```js
 class List extends Omi.Component {
@@ -1504,20 +1503,16 @@ class List extends Omi.Component {
     }
 
     render () {
-        return `<h1>{{title}}</h1>
-                <ul>
-                    {{each list as value i}}
-                    <li>索引 {{i + 1}} ：{{value}}</li>
-                    {{/each}}
-                </ul>`;
+        return `<% if (names.length) { %>  
+                  <ul>  
+                    <% names.forEach(function(name){ %>  
+                      <li foo='<%= name + "'" %>'><%= name %></li>  
+                    <% }) %>  
+                  </ul>  
+                <% } %> `;
     }
 }
 ```
-
-### 相关地址
-
-* [演示地址](http://alloyteam.github.io/omi/example/artTemplate/)
-* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/artTemplate)
 
 ## 获取DOM节点
 
