@@ -85,7 +85,16 @@ if(ENV === 'build'||ENV === 'build-min'){
     };
 
      if(ENV === 'build-min'){
-        config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+        config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+                screw_ie8 : false
+            },
+            mangle: {
+                screw_ie8: false
+            },
+            output: { screw_ie8: false }
+        }));
         config.entry = {
             'omi.min': './src/index.js',
             'omi.lite.min': './src/index.lite.js',
