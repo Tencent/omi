@@ -34,12 +34,17 @@ $ npm run dist                 //部署发布
 ## 特性
 
 * 超小的尺寸，7 kb (gzip)
-* 良好的兼容性，支持IE8（请自行引用 es5-shim 或 [es5-sham](//s.url.cn/qqun/xiaoqu/buluo/p/js/es5-sham-es5-sham.min.77c4325f.js)）
 * 完全面向对象的组件体系
 * 局部CSS，HTML+ Scoped CSS + JS组成可复用的组件
 * 更自由的更新，每个组件都有update方法，自由选择时机进行更新
 * 模板引擎可替换，开发者可以重写Omi.template方法来使用任意模板引擎
 * 提供了ES6+和ES5的两种开发方案供开发者自由选择
+* 良好的兼容性，支持IE8（请自行引用 es5-shim 或 [es5-sham](//s.url.cn/qqun/xiaoqu/buluo/p/js/es5-sham-es5-sham.min.77c4325f.js) 和 [console-polyfill](//s.url.cn/qqun/xiaoqu/buluo/p/js/console-polyfill.min.848060c4.js)）,比如:
+
+```
+<!--[if lt IE 9]><script type="text/javascript" crossorigin="anonymous" src="//s.url.cn/qqun/xiaoqu/buluo/p/js/console-polyfill.min.848060c4.js"></script>
+      <script type="text/javascript" crossorigin="anonymous" src="//s.url.cn/qqun/xiaoqu/buluo/p/js/es5-sham-es5-sham.min.77c4325f.js"></script><![endif]-->
+```
 
 ## 插件
 
