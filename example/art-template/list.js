@@ -1,9 +1,4 @@
-import Omi from '../../src/index.js';
-import template from './template.js';
-
-Omi.template = function(tpl, data){
-    return template.compile(tpl)(data);
-}
+import Omi from '../../src/index.art.js';
 
 class List extends Omi.Component {
     constructor(data) {
@@ -13,15 +8,22 @@ class List extends Omi.Component {
     style () {
         return `
         h1 { color:red; }
-        li{ color:green;}
+        li{
+         color:green;
+         cursor:pointer;
+        }
         `;
+    }
+
+    showMe(value){
+        alert(value)
     }
 
     render () {
         return `<h1>{{title}}</h1>
                 <ul>
                     {{each list as value i}}
-                    <li>索引 {{i + 1}} ：{{value}}</li>
+                    <li onclick="showMe('{{value}}')">索引 {{i + 1}} ：{{value}}</li>
                     {{/each}}
                 </ul>`;
     }

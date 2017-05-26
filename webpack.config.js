@@ -46,7 +46,8 @@ if(ENV === 'build'||ENV === 'build-min'){
         entry: {
             omi: './src/index.js',
             'omi.lite': './src/index.lite.js',
-            'omi.mustache': './src/index.mustache.js'
+            'omi.mustache': './src/index.mustache.js',
+            'omi.art': './src/index.art.js'
         },
         output: {
             // path: __dirname,
@@ -98,7 +99,8 @@ if(ENV === 'build'||ENV === 'build-min'){
         config.entry = {
             'omi.min': './src/index.js',
             'omi.lite.min': './src/index.lite.js',
-            'omi.mustache.min': './src/index.mustache.js'
+            'omi.mustache.min': './src/index.mustache.js',
+            'omi.art.min': './src/index.art.js'
         };
     }
 }else if(ENV==='todomvc'){

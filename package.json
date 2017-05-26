@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "1.6.4",
+  "version": "1.7.0",
   "description": "Open and modern framework for building user interfaces.",
   "main": "dist/omi.js",
   "types": "index.d.ts",
@@ -28,7 +28,7 @@
     "timer": "webpack -w",
     "communication": "webpack -w",
     "todo": "webpack -w",
-    "artTemplate": "webpack -w",
+    "art-template": "webpack -w",
     "nest-self": "webpack -w",
     "todo-nest": "webpack -w",
     "pagination": "webpack -w",

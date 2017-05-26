@@ -1,19 +1,4 @@
-/*!
- *  Omi v1.7.0 By dntzhang 
- *  Github: https://github.com/AlloyTeam/omi
- *  MIT Licensed.
- */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["Omi"] = factory();
-	else
-		root["Omi"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -61,27 +46,101 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _omi = __webpack_require__(1);
+	var _list = __webpack_require__(1);
+
+	var _list2 = _interopRequireDefault(_list);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var list = new _list2['default']({
+	    title: '标签',
+	    list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
+	});
+
+	Omi.render(list, '#test');
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _indexArt = __webpack_require__(2);
+
+	var _indexArt2 = _interopRequireDefault(_indexArt);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var List = function (_Omi$Component) {
+	    _inherits(List, _Omi$Component);
+
+	    function List(data) {
+	        _classCallCheck(this, List);
+
+	        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, data));
+	    }
+
+	    _createClass(List, [{
+	        key: 'style',
+	        value: function style() {
+	            return '\n        h1 { color:red; }\n        li{\n         color:green;\n         cursor:pointer;\n        }\n        ';
+	        }
+	    }, {
+	        key: 'showMe',
+	        value: function showMe(value) {
+	            alert(value);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return '<h1>{{title}}</h1>\n                <ul>\n                    {{each list as value i}}\n                    <li onclick="showMe(\'{{value}}\')">\u7D22\u5F15 {{i + 1}} \uFF1A{{value}}</li>\n                    {{/each}}\n                </ul>';
+	        }
+	    }]);
+
+	    return List;
+	}(_indexArt2['default'].Component);
+
+	exports['default'] = List;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _omi = __webpack_require__(3);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _soda = __webpack_require__(2);
+	var _artTemplate = __webpack_require__(4);
 
-	var _soda2 = _interopRequireDefault(_soda);
+	var _artTemplate2 = _interopRequireDefault(_artTemplate);
 
-	var _component = __webpack_require__(4);
+	var _component = __webpack_require__(7);
 
 	var _component2 = _interopRequireDefault(_component);
 
-	var _store = __webpack_require__(9);
+	var _store = __webpack_require__(12);
 
 	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	_soda2['default'].prefix('o');
-
-	_omi2['default'].template = _soda2['default'];
+	_omi2['default'].template = function (tpl, data) {
+	    return _artTemplate2['default'].compile(tpl)(data);
+	};
 
 	_omi2['default'].Store = _store2['default'];
 	_omi2['default'].Component = _component2['default'];
@@ -93,7 +152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -442,724 +501,670 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Omi;
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, module) {"use strict";
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	/**
-	 * sodajs v0.4.4 by dorsywang
-	 * Light weight but powerful template engine for JavaScript
-	 * Github: https://github.com/AlloyTeam/sodajs
-	 * MIT License
-	 */
-
-	;(function () {
-	    if (!Array.prototype.map) {
-	        Array.prototype.map = function (func) {
-	            var arr = [];
-	            for (var i = 0; i < this.length; i++) {
-	                var item = this[i];
-
-	                [].push(func && func.call(item, item, i));
-	            }
-
-	            return arr;
-	        };
-	    }
-
-	    if (!String.prototype.trim) {
-	        String.prototype.trim = function () {
-	            return this.replace(/^\s*|\s*$/g, '');
-	        };
-	    }
-
-	    var nodes2Arr = function nodes2Arr(nodes) {
-	        var arr = [];
-
-	        for (var i = 0; i < nodes.length; i++) {
-	            arr.push(nodes[i]);
+	/*! art-template@4.9.1 for browser | https://github.com/aui/art-template */
+	!function (e, t) {
+	  "object" == ( false ? "undefined" : _typeof(exports)) && "object" == ( false ? "undefined" : _typeof(module)) ? module.exports = t() :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (t), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) ? exports.template = t() : e.template = t();
+	}(undefined, function () {
+	  return function (e) {
+	    function t(r) {
+	      if (n[r]) return n[r].exports;var o = n[r] = { i: r, l: !1, exports: {} };return e[r].call(o.exports, o, o.exports, t), o.l = !0, o.exports;
+	    }var n = {};return t.m = e, t.c = n, t.i = function (e) {
+	      return e;
+	    }, t.d = function (e, n, r) {
+	      t.o(e, n) || Object.defineProperty(e, n, { configurable: !1, enumerable: !0, get: r });
+	    }, t.n = function (e) {
+	      var n = e && e.__esModule ? function () {
+	        return e["default"];
+	      } : function () {
+	        return e;
+	      };return t.d(n, "a", n), n;
+	    }, t.o = function (e, t) {
+	      return Object.prototype.hasOwnProperty.call(e, t);
+	    }, t.p = "", t(t.s = 22);
+	  }([function (e, t, n) {
+	    (function (t) {
+	      e.exports = !1;try {
+	        e.exports = "[object process]" === Object.prototype.toString.call(t.process);
+	      } catch (n) {}
+	    }).call(t, n(4));
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = n(17),
+	        o = n(2),
+	        i = n(18),
+	        s = function s(e, t) {
+	      t.onerror(e, t);var n = function n() {
+	        return "{Template Error}";
+	      };return n.mappings = [], n.sourcesContent = [], n;
+	    },
+	        a = function c(e) {
+	      var t = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};"string" != typeof e ? t = e : t.source = e, t = o.$extend(t), e = t.source, t.debug && (t.cache = !1, t.bail = !1, t.minimize = !1, t.compileDebug = !0), t.compileDebug && (t.minimize = !1), t.filename && (t.filename = t.resolveFilename(t.filename, t));var n = t.filename,
+	          a = t.cache,
+	          u = t.caches;if (a && n) {
+	        var p = u.get(n);if (p) return p;
+	      }if (!e) try {
+	        e = t.loader(n, t), t.source = e;
+	      } catch (d) {
+	        var l = new i({ name: "CompileError", path: n, message: "template not found: " + d.message, stack: d.stack });if (t.bail) throw l;return s(l, t);
+	      }var f = void 0,
+	          h = new r(t);try {
+	        f = h.build();
+	      } catch (l) {
+	        if (l = new i(l), t.bail) throw l;return s(l, t);
+	      }var m = function m(e, n) {
+	        try {
+	          return f(e, n);
+	        } catch (l) {
+	          if (!t.compileDebug) return t.cache = !1, t.compileDebug = !0, c(t)(e, n);if (l = new i(l), t.bail) throw l;return s(l, t)();
 	        }
-
-	        return arr;
+	      };return m.mappings = f.mappings, m.sourcesContent = f.sourcesContent, m.toString = function () {
+	        return f.toString();
+	      }, a && n && u.set(n, m), m;
+	    };a.Compiler = r, e.exports = a;
+	  }, function (e, t, n) {
+	    "use strict";
+	    function r() {
+	      this.$extend = function (e) {
+	        return e = e || {}, s(e, e instanceof r ? e : this);
+	      };
+	    }var o = n(0),
+	        i = n(20),
+	        s = n(9),
+	        a = n(11),
+	        c = n(13),
+	        u = n(8),
+	        p = n(12),
+	        l = n(15),
+	        f = n(16),
+	        h = n(10),
+	        m = n(14),
+	        d = { source: null, filename: null, rules: [f, l], escape: !0, debug: !!o && "production" !== process.env.NODE_ENV, bail: !1, cache: !0, minimize: !0, compileDebug: !1, resolveFilename: m, include: a, htmlMinifier: h, htmlMinifierOptions: { collapseWhitespace: !0, minifyCSS: !0, minifyJS: !0, ignoreCustomFragments: [] }, onerror: c, loader: p, caches: u, root: "/", extname: ".art", ignore: [], imports: i };r.prototype = d, e.exports = new r();
+	  }, function (e, t) {}, function (e, t) {
+	    var n;n = function () {
+	      return this;
+	    }();try {
+	      n = n || Function("return this")() || (0, eval)("this");
+	    } catch (r) {
+	      "object" == (typeof window === "undefined" ? "undefined" : _typeof(window)) && (n = window);
+	    }e.exports = n;
+	  }, function (e, t) {
+	    Object.defineProperty(t, "__esModule", { value: !0 }), t["default"] = /((['"])(?:(?!\2|\\).|\\(?:\r\n|[\s\S]))*(\2)?|`(?:[^`\\$]|\\[\s\S]|\$(?!\{)|\$\{(?:[^{}]|\{[^}]*\}?)*\}?)*(`)?)|(\/\/.*)|(\/\*(?:[^*]|\*(?!\/))*(\*\/)?)|(\/(?!\*)(?:\[(?:(?![\]\\]).|\\.)*\]|(?![\/\]\\]).|\\.)+\/(?:(?!\s*(?:\b|[\u0080-\uFFFF$\\'"~({]|[+\-!](?!=)|\.?\d))|[gmiyu]{1,5}\b(?![\u0080-\uFFFF$\\]|\s*(?:[+\-*%&|^<>!=?({]|\/(?![\/*])))))|(0[xX][\da-fA-F]+|0[oO][0-7]+|0[bB][01]+|(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?)|((?!\d)(?:(?!\s)[$\w\u0080-\uFFFF]|\\u[\da-fA-F]{4}|\\u\{[\da-fA-F]+\})+)|(--|\+\+|&&|\|\||=>|\.{3}|(?:[+\-\/%&|^]|\*{1,2}|<{1,2}|>{1,3}|!=?|={1,2})=?|[?~.,:;[\](){}])|(\s+)|(^$|[\s\S])/g, t.matchToToken = function (e) {
+	      var t = { type: "invalid", value: e[0] };return e[1] ? (t.type = "string", t.closed = !(!e[3] && !e[4])) : e[5] ? t.type = "comment" : e[6] ? (t.type = "comment", t.closed = !!e[7]) : e[8] ? t.type = "regex" : e[9] ? t.type = "number" : e[10] ? t.type = "name" : e[11] ? t.type = "punctuator" : e[12] && (t.type = "whitespace"), t;
 	    };
-
-	    var valueoutReg = /\{\{([^\}]*)\}\}/g;
-
-	    var prefix = 'soda';
-	    var prefixReg = new RegExp('^' + prefix + '-');
-
-	    var classNameRegExp = function classNameRegExp(className) {
-	        return new RegExp('(^|\\s+)' + className + '(\\s+|$)', 'g');
-	    };
-
-	    var addClass = function addClass(el, className) {
-	        if (!el.className) {
-	            el.className = className;
-
-	            return;
-	        }
-
-	        if (el.className.match(classNameRegExp(className))) {} else {
-	            el.className += " " + className;
-	        }
-	    };
-
-	    var removeClass = function removeClass(el, className) {
-	        el.className = el.className.replace(classNameRegExp(className), "");
-	    };
-
-	    var getValue = function getValue(_data, _attrStr) {
-	        CONST_REGG.lastIndex = 0;
-	        var realAttrStr = _attrStr.replace(CONST_REGG, function (r) {
-	            if (typeof _data[r] === "undefined") {
-	                return r;
-	            } else {
-	                return _data[r];
-	            }
+	  }, function (e, t, n) {
+	    "use strict";
+	    e.exports = n(2);
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = n(1),
+	        o = function o(e, t, n) {
+	      return r(e, n)(t);
+	    };e.exports = o;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = { __data: Object.create(null), set: function set(e, t) {
+	        this.__data[e] = t;
+	      }, get: function get(e) {
+	        return this.__data[e];
+	      }, reset: function reset() {
+	        this.__data = {};
+	      } };e.exports = r;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = Object.prototype.toString,
+	        o = function o(e) {
+	      return null === e ? "Null" : r.call(e).slice(8, -1);
+	    },
+	        i = function s(e, t) {
+	      var n = void 0,
+	          r = o(e);if ("Object" === r ? n = Object.create(t || {}) : "Array" === r && (n = [].concat(t || [])), n) {
+	        for (var i in e) {
+	          e.hasOwnProperty(i) && (n[i] = s(e[i], n[i]));
+	        }return n;
+	      }return e;
+	    };e.exports = i;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = n(0),
+	        o = function o(e, t) {
+	      if (r) {
+	        var o,
+	            i = n(23).minify,
+	            s = t.htmlMinifierOptions,
+	            a = t.rules.map(function (e) {
+	          return e.test;
+	        });(o = s.ignoreCustomFragments).push.apply(o, a), e = i(e, s);
+	      }return e;
+	    };e.exports = o;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = function r(e, t, _r, o) {
+	      var i = n(1);return o = o.$extend({ filename: o.resolveFilename(e, o), bail: !0, source: null }), i(o)(t, _r);
+	    };e.exports = r;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = n(0),
+	        o = function o(e) {
+	      if (r) {
+	        return n(3).readFileSync(e, "utf8");
+	      }var t = document.getElementById(e);return t.value || t.innerHTML;
+	    };e.exports = o;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = function r(e) {
+	      console.error(e.name, e.message);
+	    };e.exports = r;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = n(0),
+	        o = /^\.+\//,
+	        i = function i(e, t) {
+	      if (r) {
+	        var i = n(3),
+	            s = t.root,
+	            a = t.extname;if (o.test(e)) {
+	          var c = t.filename,
+	              u = !c || e === c,
+	              p = u ? s : i.dirname(c);e = i.resolve(p, e);
+	        } else e = i.resolve(s, e);i.extname(e) || (e += a);
+	      }return e;
+	    };e.exports = i;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = { test: /{{[ \t]*([@#]?)(\/?)([\w\W]*?)[ \t]*}}/, use: function use(e, t, n, o) {
+	        var i = this,
+	            s = i.options,
+	            a = i.getEsTokens(o.trim()),
+	            c = a.map(function (e) {
+	          return e.value;
+	        }),
+	            u = {},
+	            p = void 0,
+	            l = !!t && "raw",
+	            f = n + c.shift(),
+	            h = function h(e, t) {
+	          console.warn("Template upgrade:", "{{" + e + "}}", "->", "{{" + t + "}}", "\n", s.filename || "");
+	        };switch ("#" === t && h("#value", "@value"), f) {case "set":
+	            o = "var " + c.join("");break;case "if":
+	            o = "if(" + c.join("") + "){";break;case "else":
+	            var m = c.indexOf("if");m > -1 ? (c.splice(0, m + 1), o = "}else if(" + c.join("") + "){") : o = "}else{";break;case "/if":
+	            o = "}";break;case "each":
+	            p = r._split(a), p.shift(), "as" === p[1] && (h("each object as value index", "each object value index"), p.splice(1, 1));var d = p[0] || "$data",
+	                v = p[1] || "$value",
+	                g = p[2] || "$index";o = "$each(" + d + ",function(" + v + "," + g + "){";break;case "/each":
+	            o = "})";break;case "echo":
+	            f = "print", h("echo value", "value");case "print":case "include":case "extend":
+	            p = r._split(a), p.shift(), o = f + "(" + p.join(",") + ")";break;case "block":
+	            o = "block(" + c.join("") + ",function(){";break;case "/block":
+	            o = "})";break;default:
+	            if (-1 !== c.indexOf("|")) {
+	              for (var y = f, b = [], x = c.filter(function (e) {
+	                return !/^\s+$/.test(e);
+	              }); "|" !== x[0];) {
+	                y += x.shift();
+	              }x.filter(function (e) {
+	                return ":" !== e;
+	              }).forEach(function (e) {
+	                "|" === e ? b.push([]) : b[b.length - 1].push(e);
+	              }), b.reduce(function (e, t) {
+	                var n = t.shift();return t.unshift(e), o = "$imports." + n + "(" + t.join(",") + ")";
+	              }, y);
+	            } else s.imports[f] ? (h("filterName value", "value | filterName"), p = r._split(a), p.shift(), o = f + "(" + p.join(",") + ")", l = "raw") : o = "" + f + c.join("");l || (l = "escape");}return u.code = o, u.output = l, u;
+	      }, _split: function _split(e) {
+	        for (var t = 0, n = e.shift(), r = [[n]]; t < e.length;) {
+	          var o = e[t],
+	              i = o.type;"whitespace" !== i && "comment" !== i && ("punctuator" === n.type && "]" !== n.value || "punctuator" === i ? r[r.length - 1].push(o) : r.push([o]), n = o), t++;
+	        }return r.map(function (e) {
+	          return e.map(function (e) {
+	            return e.value;
+	          }).join("");
 	        });
-
-	        if (_attrStr === 'true') {
-	            return true;
-	        }
-
-	        if (_attrStr === 'false') {
-	            return false;
-	        }
-
-	        var _getValue = function _getValue(data, attrStr) {
-	            var dotIndex = attrStr.indexOf(".");
-
-	            if (dotIndex > -1) {
-	                var attr = attrStr.substr(0, dotIndex);
-	                attrStr = attrStr.substr(dotIndex + 1);
-
-	                // �?查attrStr是否属�?�变量并转换
-	                if (typeof _data[attr] !== "undefined" && CONST_REG.test(attr)) {
-	                    attr = _data[attr];
-	                }
-
-	                if (typeof data[attr] !== "undefined") {
-	                    return _getValue(data[attr], attrStr);
-	                } else {
-	                    var eventData = {
-	                        name: realAttrStr,
-	                        data: _data
-	                    };
-
-	                    triggerEvent("nullvalue", {
-	                        type: "nullattr",
-	                        data: eventData
-	                    }, eventData);
-
-	                    // 如果还有
-	                    return "";
-	                }
-	            } else {
-
-	                // �?查attrStr是否属�?�变量并转换
-	                if (typeof _data[attrStr] !== "undefined" && CONST_REG.test(attrStr)) {
-	                    attrStr = _data[attrStr];
-	                }
-
-	                var rValue;
-	                if (typeof data[attrStr] !== "undefined") {
-	                    rValue = data[attrStr];
-	                } else {
-	                    var eventData = {
-	                        name: realAttrStr,
-	                        data: _data
-	                    };
-
-	                    triggerEvent("nullvalue", {
-	                        type: "nullvalue",
-	                        data: eventData
-	                    }, eventData);
-
-	                    rValue = '';
-	                }
-
-	                return rValue;
-	            }
-	        };
-
-	        return _getValue(_data, _attrStr);
-	    };
-
-	    // 注释node
-	    var commentNode = function commentNode(node) {};
-
-	    // 标识�?
-	    var IDENTOR_REG = /[a-zA-Z_\$]+[\w\$]*/g;
-	    var STRING_REG = /"([^"]*)"|'([^']*)'/g;
-	    var NUMBER_REG = /\d+|\d*\.\d+/g;
-
-	    var OBJECT_REG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/g;
-	    // 非global 做test用
-	    var OBJECT_REG_NG = /[a-zA-Z_\$]+[\w\$]*(?:\s*\.\s*(?:[a-zA-Z_\$]+[\w\$]*|\d+))*/;
-
-	    var ATTR_REG = /\[([^\[\]]*)\]/g;
-	    var ATTR_REG_NG = /\[([^\[\]]*)\]/;
-	    var ATTR_REG_DOT = /\.([a-zA-Z_\$]+[\w\$]*)/g;
-
-	    var NOT_ATTR_REG = /[^\.|]([a-zA-Z_\$]+[\w\$]*)/g;
-
-	    var OR_REG = /\|\|/g;
-
-	    var OR_REPLACE = "OR_OPERATOR\x1E";
-
-	    var getRandom = function getRandom() {
-	        return "$$" + ~~(Math.random() * 1E6);
-	    };
-
-	    var CONST_PRIFIX = "_$C$_";
-	    var CONST_REG = /^_\$C\$_/;
-	    var CONST_REGG = /_\$C\$_[^\.]+/g;
-
-	    var getAttrVarKey = function getAttrVarKey() {
-	        return CONST_PRIFIX + ~~(Math.random() * 1E6);
-	    };
-
-	    var parseSodaExpression = function parseSodaExpression(str, scope) {
-	        // 对filter进行处理
-	        str = str.replace(OR_REG, OR_REPLACE).split("|");
-
-	        for (var i = 0; i < str.length; i++) {
-	            str[i] = (str[i].replace(new RegExp(OR_REPLACE, 'g'), "||") || '').trim();
-	        }
-
-	        var expr = str[0] || "";
-	        var filters = str.slice(1);
-
-	        // 将字符常量保存下�?
-	        expr = expr.replace(STRING_REG, function (r, $1, $2) {
-	            var key = getRandom();
-	            scope[key] = $1 || $2;
-	            return key;
+	      } };e.exports = r;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = { test: /<%(#?)((?:==|=#|[=-])?)([\w\W]*?)(-?)%>/, use: function use(e, t, n, r) {
+	        return n = { "-": "raw", "=": "escape", "": !1, "==": "raw", "=#": "raw" }[n], t && (r = "/*" + e + "*/", n = !1), { code: r, output: n };
+	      } };e.exports = r;
+	  }, function (e, t, n) {
+	    "use strict";
+	    function r(e, t) {
+	      if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
+	    }var o = n(19),
+	        i = n(21),
+	        s = "$data",
+	        a = "$imports",
+	        c = "print",
+	        u = "include",
+	        p = "extend",
+	        l = "block",
+	        f = "$$out",
+	        h = "$$line",
+	        m = "$$blocks",
+	        d = "$$from",
+	        v = "$$options",
+	        g = function g(e, t) {
+	      return e.hasOwnProperty(t);
+	    },
+	        y = JSON.stringify,
+	        b = function () {
+	      function e(t) {
+	        var n,
+	            o,
+	            g = this;r(this, e);var y = t.source,
+	            b = t.minimize,
+	            x = t.htmlMinifier;if (this.options = t, this.stacks = [], this.context = [], this.scripts = [], this.CONTEXT_MAP = {}, this.ignore = [s, a, v].concat(t.ignore), this.internal = (n = {}, n[f] = "''", n[h] = "[0,0]", n[m] = "arguments[1]||{}", n[d] = "null", n[c] = "function(){" + f + "+=''.concat.apply('',arguments)}", n[u] = "function(src,data){" + f + "+=" + v + ".include(src,data||" + s + ",arguments[2]||" + m + "," + v + ")}", n[p] = "function(from){" + d + "=from}", n[l] = "function(name,callback){if(" + d + "){" + f + "='';callback();" + m + "[name]=" + f + "}else{if(typeof " + m + "[name]==='string'){" + f + "+=" + m + "[name]}else{callback()}}}", n), this.dependencies = (o = {}, o[c] = [f], o[u] = [f, v, s, m], o[p] = [d, u], o[l] = [d, f, m], o), this.importContext(f), t.compileDebug && this.importContext(h), b) try {
+	          y = x(y, t);
+	        } catch (w) {}this.source = y, this.getTplTokens(y, t.rules, this).forEach(function (e) {
+	          e.type === i.TYPE_STRING ? g.parseString(e) : g.parseExpression(e);
 	        });
-
-	        while (ATTR_REG_NG.test(expr)) {
-	            ATTR_REG.lastIndex = 0;
-
-	            //对expr预处�?
-	            expr = expr.replace(ATTR_REG, function (r, $1) {
-	                var key = getAttrVarKey();
-	                // 属�?�名�? 为字符常�?
-	                var attrName = parseSodaExpression($1, scope);
-
-	                // 给一个特殊的前缀 表示是属性变�?
-
-	                scope[key] = attrName;
-
-	                return "." + key;
-	            });
-	        }
-
-	        expr = expr.replace(OBJECT_REG, function (value) {
-	            return "getValue(scope,'" + value.trim() + "')";
+	      }return e.prototype.getTplTokens = function () {
+	        return i.apply(undefined, arguments);
+	      }, e.prototype.getEsTokens = function (e) {
+	        return o(e);
+	      }, e.prototype.getVariables = function (e) {
+	        var t = !1;return e.filter(function (e) {
+	          return "whitespace" !== e.type && "comment" !== e.type;
+	        }).filter(function (e) {
+	          return "name" === e.type && !t || (t = "punctuator" === e.type && "." === e.value, !1);
+	        }).map(function (e) {
+	          return e.value;
 	        });
-
-	        var parseFilter = function parseFilter() {
-	            var filterExpr = filters.shift();
-
-	            if (!filterExpr) {
-	                return;
-	            }
-
-	            var filterExpr = filterExpr.split(":");
-	            var args = filterExpr.slice(1) || [];
-	            var name = filterExpr[0] || "";
-
-	            var stringReg = /^'.*'$|^".*"$/;
-	            for (var i = 0; i < args.length; i++) {
-	                //这里根据类型进行判断
-	                if (OBJECT_REG_NG.test(args[i])) {
-	                    args[i] = "getValue(scope,'" + args[i] + "')";
-	                } else {}
-	            }
-
-	            if (sodaFilterMap[name]) {
-	                args.unshift(expr);
-
-	                args = args.join(",");
-
-	                expr = "sodaFilterMap['" + name + "'](" + args + ")";
-	            }
-
-	            parseFilter();
-	        };
-
-	        parseFilter();
-
-	        var evalFunc = new Function("getValue", "sodaFilterMap", "return function sodaExp(scope){ return " + expr + "}")(getValue, sodaFilterMap);
-
-	        return evalFunc(scope);
-	    };
-
-	    var hashTable = {
-	        id2Expression: {},
-
-	        expression2id: {},
-
-	        getRandId: function getRandId() {
-	            return 'soda' + ~~(Math.random() * 1E5);
+	      }, e.prototype.importContext = function (e) {
+	        var t = this,
+	            n = "",
+	            r = this.internal,
+	            o = this.dependencies,
+	            i = this.ignore,
+	            c = this.context,
+	            u = this.options,
+	            p = u.imports,
+	            l = this.CONTEXT_MAP;g(l, e) || -1 !== i.indexOf(e) || (g(r, e) ? (n = r[e], g(o, e) && o[e].forEach(function (e) {
+	          return t.importContext(e);
+	        })) : n = "$escape" === e || "$each" === e || g(p, e) ? a + "." + e : s + "." + e, l[e] = n, c.push({ name: e, value: n }));
+	      }, e.prototype.parseString = function (e) {
+	        var t = e.value;if (t) {
+	          var n = f + "+=" + y(t);this.scripts.push({ source: t, tplToken: e, code: n });
 	        }
-	    };
-
-	    // 解析指令
-	    // 解析attr
-	    var compileNode = function compileNode(node, scope) {
-	        // 如果只是文本
-	        if (node.nodeType === 3) {
-	            node.nodeValue = node.nodeValue.replace(valueoutReg, function (item, $1) {
-	                /*
-	                 var id = hashTable.getRandId();
-	                  hashTable.id2Expression[id] = {
-	                 expression: $1,
-	                 el: child
-	                 };
-	                  hashTable.expression2id[$1] = {
-	                 id: id,
-	                 el: child
-	                 };
-	                 */
-
-	                return parseSodaExpression($1, scope);
-	            });
+	      }, e.prototype.parseExpression = function (e) {
+	        var t = this,
+	            n = e.value,
+	            r = e.script,
+	            o = r.output,
+	            s = r.code;o && (s = !1 === escape || o === i.TYPE_RAW ? f + "+=" + r.code : f + "+=$escape(" + r.code + ")");var a = this.getEsTokens(s);this.getVariables(a).forEach(function (e) {
+	          return t.importContext(e);
+	        }), this.scripts.push({ source: n, tplToken: e, code: s });
+	      }, e.prototype.checkExpression = function (e) {
+	        for (var t = [[/^\s*}[\w\W]*?{?[\s;]*$/, ""], [/(^[\w\W]*?\([\w\W]*?(?:=>|\([\w\W]*?\))\s*{[\s;]*$)/, "$1})"], [/(^[\w\W]*?\([\w\W]*?\)\s*{[\s;]*$)/, "$1}"]], n = 0; n < t.length;) {
+	          if (t[n][0].test(e)) {
+	            var r;e = (r = e).replace.apply(r, t[n]);break;
+	          }n++;
+	        }try {
+	          return new Function(e), !0;
+	        } catch (o) {
+	          return !1;
 	        }
-
-	        if (node.attributes) {
-	            // 指令处理
-	            sodaDirectiveArr.map(function (item) {
-	                var name = item.name;
-
-	                var opt = item.opt;
-
-	                if (node.getAttribute(name) && node.parentNode) {
-	                    opt.link(scope, node, node.attributes);
-	                }
-	            });
-
-	            // 处理输出 包含 prefix-*
-	            [].map.call(node.attributes, function (attr) {
-	                // 如果dirctiveMap有的就跳过不再处�?
-	                if (!sodaDirectiveMap[attr.name]) {
-	                    if (prefixReg.test(attr.name)) {
-	                        var attrName = attr.name.replace(prefixReg, '');
-
-	                        if (attrName) {
-	                            if (attr.value) {
-	                                var attrValue = attr.value.replace(valueoutReg, function (item, $1) {
-	                                    return parseSodaExpression($1, scope);
-	                                });
-
-	                                node.setAttribute(attrName, attrValue);
-	                            }
-	                        }
-
-	                        // 对其他属性里含expr 处理
-	                    } else {
-	                        if (attr.value) {
-	                            attr.value = attr.value.replace(valueoutReg, function (item, $1) {
-	                                return parseSodaExpression($1, scope);
-	                            });
-	                        }
-	                    }
-	                }
-	            });
+	      }, e.prototype.build = function () {
+	        var e = this.options,
+	            t = this.context,
+	            n = this.scripts,
+	            r = this.stacks,
+	            o = this.source,
+	            c = e.filename,
+	            l = e.imports,
+	            b = [],
+	            x = g(this.CONTEXT_MAP, p),
+	            w = 0,
+	            k = function k(e, t) {
+	          var n = t.line,
+	              o = t.start,
+	              i = { generated: { line: r.length + w + 1, column: 1 }, original: { line: n + 1, column: o + 1 } };return w += e.split(/\n/).length - 1, i;
+	        },
+	            E = function E(e) {
+	          return e.replace(/^[\t ]+|[\t ]$/g, "");
+	        };r.push("function(" + s + "){"), r.push("'use strict'"), r.push(s + "=" + s + "||{}"), r.push("var " + t.map(function (e) {
+	          return e.name + "=" + e.value;
+	        }).join(",")), e.compileDebug ? (r.push("try{"), n.forEach(function (e) {
+	          e.tplToken.type === i.TYPE_EXPRESSION && r.push(h + "=[" + [e.tplToken.line, e.tplToken.start].join(",") + "]"), b.push(k(e.code, e.tplToken)), r.push(E(e.code));
+	        }), r.push("}catch(error){"), r.push("throw {" + ["name:'RuntimeError'", "path:" + y(c), "message:error.message", "line:" + h + "[0]+1", "column:" + h + "[1]+1", "source:" + y(o), "stack:error.stack"].join(",") + "}"), r.push("}")) : n.forEach(function (e) {
+	          b.push(k(e.code, e.tplToken)), r.push(E(e.code));
+	        }), x && (r.push(f + "=''"), r.push(u + "(" + d + "," + s + "," + m + ")")), r.push("return " + f), r.push("}");var T = r.join("\n");try {
+	          var O = new Function(a, v, "return " + T)(l, e);return O.mappings = b, O.sourcesContent = [o], O;
+	        } catch (S) {
+	          for (var $ = 0, j = 0, _ = 0; $ < n.length;) {
+	            var C = n[$];if (!this.checkExpression(C.code)) {
+	              j = C.tplToken.line, _ = C.tplToken.start;break;
+	            }$++;
+	          }throw { name: "CompileError", path: c, message: S.message, line: j + 1, column: _ + 1, source: o, generated: T, stack: S.stack };
 	        }
-
-	        nodes2Arr(node.childNodes).map(function (child) {
-	            compileNode(child, scope);
-	        });
-	    };
-
-	    var sodaDirectiveMap = {};
-
-	    var sodaFilterMap = {};
-
-	    var sodaDirectiveArr = [];
-
-	    var sodaDirective = function sodaDirective(name, func) {
-	        var name = prefix + '-' + name;
-	        sodaDirectiveMap[name] = func();
-
-	        sodaDirectiveArr.push({
-	            name: name,
-	            opt: sodaDirectiveMap[name]
-	        });
-	    };
-
-	    var sodaFilter = function sodaFilter(name, func) {
-	        sodaFilterMap[name] = func;
-	    };
-
-	    sodaFilter.get = function (name) {
-	        return sodaFilterMap[name];
-	    };
-
-	    sodaFilter("date", function (input, lenth) {
-	        return lenth;
-	    });
-
-	    sodaDirective('repeat', function () {
-	        return {
-	            priority: 10,
-	            compile: function compile(scope, el, attrs) {},
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute(prefix + '-repeat');
-	                var itemName;
-	                var valueName;
-
-	                var trackReg = /\s+by\s+([^\s]+)$/;
-
-	                var trackName;
-	                opt = opt.replace(trackReg, function (item, $1) {
-	                    if ($1) {
-	                        trackName = ($1 || '').trim();
-	                    }
-
-	                    return '';
-	                });
-
-	                var inReg = /([^\s]+)\s+in\s+([^\s]+)|\(([^,]+)\s*,\s*([^)]+)\)\s+in\s+([^\s]+)/;
-
-	                var r = inReg.exec(opt);
-	                if (r) {
-	                    if (r[1] && r[2]) {
-	                        itemName = (r[1] || '').trim();
-	                        valueName = (r[2] || '').trim();
-
-	                        if (!(itemName && valueName)) {
-	                            return;
-	                        }
-	                    } else if (r[3] && r[4] && r[5]) {
-	                        trackName = (r[3] || '').trim();
-	                        itemName = (r[4] || '').trim();
-	                        valueName = (r[5] || '').trim();
-	                    }
-	                } else {
-	                    return;
-	                }
-
-	                trackName = trackName || '$index';
-
-	                // 这里要处理一�?
-	                var repeatObj = getValue(scope, valueName) || [];
-
-	                var repeatFunc = function repeatFunc(i) {
-	                    var itemNode = el.cloneNode(true);
-
-	                    // 这里创建�?个新的scope
-	                    var itemScope = {};
-	                    itemScope[trackName] = i;
-
-	                    itemScope[itemName] = repeatObj[i];
-
-	                    itemScope.__proto__ = scope;
-
-	                    itemNode.removeAttribute(prefix + '-repeat');
-
-	                    el.parentNode.insertBefore(itemNode, el);
-
-	                    // 这里是新加的dom, 要单独编�?
-	                    compileNode(itemNode, itemScope);
-	                };
-
-	                if ('length' in repeatObj) {
-	                    for (var i = 0; i < repeatObj.length; i++) {
-	                        repeatFunc(i);
-	                    }
-	                } else {
-	                    for (var i in repeatObj) {
-	                        if (repeatObj.hasOwnProperty(i)) {
-	                            repeatFunc(i);
-	                        }
-	                    }
-	                }
-
-	                el.parentNode.removeChild(el);
-	            }
-	        };
-	    });
-
-	    sodaDirective('if', function () {
-	        return {
-	            priority: 9,
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute(prefix + '-if');
-
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                if (expressFunc) {} else {
-	                    // el.setAttribute("removed", "removed");
-	                    el.parentNode && el.parentNode.removeChild(el);
-	                }
-	            }
-	        };
-	    });
-
-	    sodaDirective('class', function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute(prefix + "-class");
-
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                if (expressFunc) {
-	                    addClass(el, expressFunc);
-	                } else {}
-	            }
-	        };
-	    });
-
-	    sodaDirective('src', function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute(prefix + "-src");
-
-	                var expressFunc = opt.replace(valueoutReg, function (item, $1) {
-	                    return parseSodaExpression($1, scope);
-	                });
-
-	                if (expressFunc) {
-	                    el.setAttribute("src", expressFunc);
-	                } else {}
-	            }
-	        };
-	    });
-
-	    sodaDirective('bind-html', function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute(prefix + "-bind-html");
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                if (expressFunc) {
-	                    el.innerHTML = expressFunc;
-
-	                    return {
-	                        command: "childDone"
-	                    };
-	                }
-	            }
-	        };
-	    });
-
-	    sodaDirective('html', function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute(prefix + "-html");
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                if (expressFunc) {
-	                    el.innerHTML = expressFunc;
-
-	                    return {
-	                        command: "childDone"
-	                    };
-	                }
-	            }
-	        };
-	    });
-
-	    sodaDirective('replace', function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute(prefix + "-replace");
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                if (expressFunc) {
-	                    var div = document.createElement('div');
-	                    div.innerHTML = expressFunc;
-
-	                    if (el.parentNode) {
-	                        while (div.childNodes[0]) {
-	                            el.parentNode.insertBefore(div.childNodes[0], el);
-	                        }
-	                    }
-	                }
-
-	                el.parentNode.removeChild(el);
-	            }
-	        };
-	    });
-
-	    sodaDirective("style", function () {
-	        return {
-	            link: function link(scope, el, attrs) {
-	                var opt = el.getAttribute(prefix + "-style");
-	                var expressFunc = parseSodaExpression(opt, scope);
-
-	                var getCssValue = function getCssValue(name, value) {
-	                    var numberWithoutpx = /opacity|z-index/;
-	                    if (numberWithoutpx.test(name)) {
-	                        return parseFloat(value);
-	                    }
-
-	                    if (isNaN(value)) {
-	                        return value;
-	                    } else {
-	                        return value + "px";
-	                    }
-	                };
-
-	                if (expressFunc) {
-	                    var stylelist = [];
-
-	                    for (var i in expressFunc) {
-	                        if (expressFunc.hasOwnProperty(i)) {
-	                            var provalue = getCssValue(i, expressFunc[i]);
-
-	                            stylelist.push([i, provalue].join(":"));
-	                        }
-	                    }
-
-	                    var style = el.style;
-	                    for (var i = 0; i < style.length; i++) {
-	                        var name = style[i];
-	                        if (expressFunc[name]) {} else {
-	                            stylelist.push([name, style[name]].join(":"));
-	                        }
-	                    }
-
-	                    var styleStr = stylelist.join(";");
-
-	                    el.setAttribute("style", styleStr);
-	                }
-	            }
-	        };
-	    });
-
-	    var sodaRender = function sodaRender(str, data) {
-	        // 对directive进行排序
-	        sodaDirectiveArr.sort(function (b, a) {
-	            return Number(a.opt.priority || 0) - Number(b.opt.priority || 0);
-	        });
-
-	        //console.log(sodaDirectiveArr);
-
-	        // 解析模板DOM
-	        var div = document.createElement("div");
-
-	        // 必须加入到body中去，不然自定义标签不生效
-	        if (document.documentMode < 9) {
-	            div.style.display = 'none';
-	            document.body.appendChild(div);
+	      }, e;
+	    }();b.CONSTS = { DATA: s, IMPORTS: a, PRINT: c, INCLUDE: u, EXTEND: p, BLOCK: l, OPTIONS: v, OUT: f, LINE: h, BLOCKS: m, FROM: d, ESCAPE: "$escape", EACH: "$each" }, e.exports = b;
+	  }, function (e, t, n) {
+	    "use strict";
+	    function r(e, t) {
+	      if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function");
+	    }function o(e, t) {
+	      if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t || "object" != (typeof t === "undefined" ? "undefined" : _typeof(t)) && "function" != typeof t ? e : t;
+	    }function i(e, t) {
+	      if ("function" != typeof t && null !== t) throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : _typeof(t)));e.prototype = Object.create(t && t.prototype, { constructor: { value: e, enumerable: !1, writable: !0, configurable: !0 } }), t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t);
+	    }var s = function (e) {
+	      function t(n) {
+	        r(this, t);var i = o(this, e.call(this, n)),
+	            s = n.message;return t.debugTypes[n.name] && (n.source && (s = t.debug(n)), i.path = n.path), i.name = "TemplateError", i.message = s, i;
+	      }return i(t, e), t.debug = function (e) {
+	        var t = e.source,
+	            n = e.path,
+	            r = e.line,
+	            o = e.column,
+	            i = t.split(/\n/),
+	            s = Math.max(r - 3, 0),
+	            a = Math.min(i.length, r + 3),
+	            c = i.slice(s, a).map(function (e, t) {
+	          var n = t + s + 1;return (n === r ? " >> " : "    ") + n + "| " + e;
+	        }).join("\n");return (n || "anonymous") + ":" + r + ":" + o + "\n" + c + "\n\n" + e.message;
+	      }, t;
+	    }(Error);s.debugTypes = { RuntimeError: !0, CompileError: !0 }, e.exports = s;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = n(24),
+	        o = n(5)["default"],
+	        i = n(5).matchToToken,
+	        s = function s(e) {
+	      return e.match(o).map(function (e) {
+	        return o.lastIndex = 0, i(o.exec(e));
+	      }).map(function (e) {
+	        return "name" === e.type && r(e.value) && (e.type = "keyword"), e;
+	      });
+	    };e.exports = s;
+	  }, function (e, t, n) {
+	    "use strict";
+	    (function (t) {
+	      /*! art-template@runtime | https://github.com/aui/art-template */
+	      var r = n(0),
+	          o = Object.create(r ? t : window),
+	          i = function p(e) {
+	        return "string" != typeof e && (e = e === undefined || null === e ? "" : "function" == typeof e ? p(e.call(e)) : JSON.stringify(e)), e;
+	      },
+	          s = /["&'<>]/,
+	          a = function a(e) {
+	        var t = "" + e,
+	            n = s.exec(t);if (!n) return e;var r = "",
+	            o = void 0,
+	            i = void 0,
+	            a = void 0;for (o = n.index, i = 0; o < t.length; o++) {
+	          switch (t.charCodeAt(o)) {case 34:
+	              a = "&#34;";break;case 38:
+	              a = "&#38;";break;case 39:
+	              a = "&#39;";break;case 60:
+	              a = "&#60;";break;case 62:
+	              a = "&#62;";break;default:
+	              continue;}i !== o && (r += t.substring(i, o)), i = o + 1, r += a;
+	        }return i !== o ? r + t.substring(i, o) : r;
+	      },
+	          c = function c(e) {
+	        return a(i(e));
+	      },
+	          u = function u(e, t) {
+	        if (Array.isArray(e)) for (var n = 0, r = e.length; n < r; n++) {
+	          t(e[n], n, e);
+	        } else for (var o in e) {
+	          t(e[o], o);
 	        }
-
-	        div.innerHTML = str;
-
-	        nodes2Arr(div.childNodes).map(function (child) {
-	            compileNode(child, data);
-	        });
-
-	        var innerHTML = div.innerHTML;
-
-	        if (document.documentMode < 9) {
-	            document.body.removeChild(div);
-	        }
-
-	        return innerHTML;
-
-	        //  var frament = document.createDocumentFragment();
-	        //  frament.innerHTML = div.innerHTML;
-
-	        /*
-	         frament.update = function(newData){
-	         //checkingDirtyData(data, d);
-	         var diff = DeepDiff.noConflict();
-	          var diffResult = diff(data, newData);
-	          console.log(diffResult);
-	          var dirtyData = ['a'];
-	          for(var i = 0; i < dirtyData.length; i ++){
-	         var item = dirtyData[i];
-	          var id = hashTable.expression2id[item];
-	          var nowValue = parseSodaExpression(item, newData);
-	         //console.log(nowValue);
-	          if(id.el){
-	         id.el.nodeValue = nowValue;
-	         }
-	         }
-	          console.log(hashTable);
-	           };
-	         */
-
-	        var child;
-	        while (child = div.childNodes[0]) {
-	            frament.appendChild(child);
-	        }
-
-	        return frament;
-	    };
-
-	    var eventPool = {};
-	    sodaRender.addEventListener = function (type, func) {
-	        if (eventPool[type]) {} else {
-	            eventPool[type] = [];
-	        }
-
-	        eventPool[type].push(func);
-	    };
-
-	    var triggerEvent = function triggerEvent(type, e, data) {
-	        var events = eventPool[type] || [];
-
-	        for (var i = 0; i < events.length; i++) {
-	            var eventFunc = events[i];
-	            eventFunc && eventFunc(e, data);
-	        }
-	    };
-
-	    sodaRender.filter = sodaFilter;
-
-	    sodaRender.prefix = function (newPrefix) {
-
-	        for (var key in sodaDirectiveMap) {
-	            if (sodaDirectiveMap.hasOwnProperty(key)) {
-	                sodaDirectiveMap[key.replace(prefix, newPrefix)] = sodaDirectiveMap[key];
-	                delete sodaDirectiveMap[key];
+	      };o.$each = u, o.$escape = c, e.exports = o;
+	    }).call(t, n(4));
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = function r(e, t, n) {
+	      for (var r = [{ type: "string", value: e, line: 0, start: 0, end: e.length }], o = 0; o < t.length; o++) {
+	        !function (e) {
+	          for (var t = e.test.ignoreCase ? "ig" : "g", o = e.test.source + "|^$|[\\w\\W]", i = new RegExp(o, t), s = 0; s < r.length; s++) {
+	            if ("string" === r[s].type) {
+	              for (var a = r[s].line, c = r[s].start, u = r[s].end, p = r[s].value.match(i), l = [], f = 0; f < p.length; f++) {
+	                var h = p[f];e.test.lastIndex = 0;var m = e.test.exec(h),
+	                    d = m ? "expression" : "string",
+	                    v = l[l.length - 1],
+	                    g = v || r[s],
+	                    y = g.value;c = g.line === a ? v ? v.end : c : y.length - y.lastIndexOf("\n") - 1, u = c + h.length;var b = { type: d, value: h, line: a, start: c, end: u };if ("string" === d) v && "string" === v.type ? (v.value += h, v.end += h.length) : l.push(b);else {
+	                  var x = e.use.apply(n, m);b.script = x, l.push(b);
+	                }a += h.split(/\n/).length - 1;
+	              }r.splice.apply(r, [s, 1].concat(l)), s += l.length - 1;
 	            }
-	        }
-
-	        var i = 0,
-	            len = sodaDirectiveArr.length;
-	        for (; i < len; i++) {
-	            sodaDirectiveArr[i].name = sodaDirectiveArr[i].name.replace(prefix, newPrefix);
-	        }
-
-	        prefix = newPrefix;
-	        prefixReg = new RegExp('^' + prefix + '-');
+	          }
+	        }(t[o]);
+	      }return r;
+	    };r.TYPE_STRING = "string", r.TYPE_EXPRESSION = "expression", r.TYPE_RAW = "raw", r.TYPE_ESCAPE = "escape", e.exports = r;
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = n(7),
+	        o = n(1),
+	        i = n(6),
+	        s = function s(e, t) {
+	      return t instanceof Object ? r({ filename: e }, t) : o({ filename: e, source: t });
+	    };s.render = r, s.compile = o, s.defaults = i, e.exports = s;
+	  }, function (e, t) {
+	    !function (e) {
+	      e.noop = function () {};
+	    }("object" == (typeof e === "undefined" ? "undefined" : _typeof(e)) && "object" == _typeof(e.exports) ? e.exports : window);
+	  }, function (e, t, n) {
+	    "use strict";
+	    var r = { "abstract": !0, "await": !0, "boolean": !0, "break": !0, "byte": !0, "case": !0, "catch": !0, "char": !0, "class": !0, "const": !0, "continue": !0, "debugger": !0, "default": !0, "delete": !0, "do": !0, "double": !0, "else": !0, "enum": !0, "export": !0, "extends": !0, "false": !0, "final": !0, "finally": !0, "float": !0, "for": !0, "function": !0, "goto": !0, "if": !0, "implements": !0, "import": !0, "in": !0, "instanceof": !0, "int": !0, "interface": !0, "let": !0, "long": !0, "native": !0, "new": !0, "null": !0, "package": !0, "private": !0, "protected": !0, "public": !0, "return": !0, "short": !0, "static": !0, "super": !0, "switch": !0, "synchronized": !0, "this": !0, "throw": !0, "transient": !0, "true": !0, "try": !0, "typeof": !0, "var": !0, "void": !0, "volatile": !0, "while": !0, "with": !0, "yield": !0 };e.exports = function (e) {
+	      return r.hasOwnProperty(e);
 	    };
-
-	    if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') module.exports = sodaRender;else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-	        return sodaRender;
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["soda"] = sodaRender;else window.soda = sodaRender;
-
-	    // 监听数据异常情况
-	})();
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
+	  }]);
+	});
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(6)(module)))
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
+	'use strict';
+
+	// shim for using process in browser
+	var process = module.exports = {};
+
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
+
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+
+	function defaultSetTimout() {
+	    throw new Error('setTimeout has not been defined');
+	}
+	function defaultClearTimeout() {
+	    throw new Error('clearTimeout has not been defined');
+	}
+	(function () {
+	    try {
+	        if (typeof setTimeout === 'function') {
+	            cachedSetTimeout = setTimeout;
+	        } else {
+	            cachedSetTimeout = defaultSetTimout;
+	        }
+	    } catch (e) {
+	        cachedSetTimeout = defaultSetTimout;
+	    }
+	    try {
+	        if (typeof clearTimeout === 'function') {
+	            cachedClearTimeout = clearTimeout;
+	        } else {
+	            cachedClearTimeout = defaultClearTimeout;
+	        }
+	    } catch (e) {
+	        cachedClearTimeout = defaultClearTimeout;
+	    }
+	})();
+	function runTimeout(fun) {
+	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
+	        return setTimeout(fun, 0);
+	    }
+	    // if setTimeout wasn't available but was latter defined
+	    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+	        cachedSetTimeout = setTimeout;
+	        return setTimeout(fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
+	    }
+	}
+	function runClearTimeout(marker) {
+	    if (cachedClearTimeout === clearTimeout) {
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    // if clearTimeout wasn't available but was latter defined
+	    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+	        cachedClearTimeout = clearTimeout;
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e) {
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e) {
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
+	    }
+	}
+	var queue = [];
+	var draining = false;
+	var currentQueue;
+	var queueIndex = -1;
+
+	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
+	    draining = false;
+	    if (currentQueue.length) {
+	        queue = currentQueue.concat(queue);
+	    } else {
+	        queueIndex = -1;
+	    }
+	    if (queue.length) {
+	        drainQueue();
+	    }
+	}
+
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    var timeout = runTimeout(cleanUpNextTick);
+	    draining = true;
+
+	    var len = queue.length;
+	    while (len) {
+	        currentQueue = queue;
+	        queue = [];
+	        while (++queueIndex < len) {
+	            if (currentQueue) {
+	                currentQueue[queueIndex].run();
+	            }
+	        }
+	        queueIndex = -1;
+	        len = queue.length;
+	    }
+	    currentQueue = null;
+	    draining = false;
+	    runClearTimeout(timeout);
+	}
+
+	process.nextTick = function (fun) {
+	    var args = new Array(arguments.length - 1);
+	    if (arguments.length > 1) {
+	        for (var i = 1; i < arguments.length; i++) {
+	            args[i - 1] = arguments[i];
+	        }
+	    }
+	    queue.push(new Item(fun, args));
+	    if (queue.length === 1 && !draining) {
+	        runTimeout(drainQueue);
+	    }
+	};
+
+	// v8 likes predictible objects
+	function Item(fun, array) {
+	    this.fun = fun;
+	    this.array = array;
+	}
+	Item.prototype.run = function () {
+	    this.fun.apply(null, this.array);
+	};
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
+
+	function noop() {}
+
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+
+	process.cwd = function () {
+	    return '/';
+	};
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function () {
+	    return 0;
+	};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	module.exports = function (module) {
+		if (!module.webpackPolyfill) {
+			module.deprecate = function () {};
 			module.paths = [];
 			// module.parent = undefined by default
 			module.children = [];
 			module.webpackPolyfill = 1;
 		}
 		return module;
-	}
-
+	};
 
 /***/ }),
-/* 4 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1170,23 +1175,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _omi = __webpack_require__(1);
+	var _omi = __webpack_require__(3);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _style = __webpack_require__(5);
+	var _style = __webpack_require__(8);
 
 	var _style2 = _interopRequireDefault(_style);
 
-	var _event = __webpack_require__(6);
+	var _event = __webpack_require__(9);
 
 	var _event2 = _interopRequireDefault(_event);
 
-	var _morphdom = __webpack_require__(7);
+	var _morphdom = __webpack_require__(10);
 
 	var _morphdom2 = _interopRequireDefault(_morphdom);
 
-	var _html2json = __webpack_require__(8);
+	var _html2json = __webpack_require__(11);
 
 	var _html2json2 = _interopRequireDefault(_html2json);
 
@@ -1876,7 +1881,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = Component;
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1885,7 +1890,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
-	var _omi = __webpack_require__(1);
+	var _omi = __webpack_require__(3);
 
 	var _omi2 = _interopRequireDefault(_omi);
 
@@ -1947,7 +1952,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1973,7 +1978,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports['default'] = scopedEvent;
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -2701,7 +2706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -2944,7 +2949,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports["default"] = html2json;
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -3088,6 +3093,4 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports["default"] = Store;
 
 /***/ })
-/******/ ])
-});
-;
+/******/ ]);

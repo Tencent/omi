@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.6.4 By dntzhang 
+ *  Omi v1.7.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -65,7 +65,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _mustache = __webpack_require__(10);
+	var _mustache = __webpack_require__(12);
 
 	var _mustache2 = _interopRequireDefault(_mustache);
 
@@ -2371,7 +2371,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports["default"] = Store;
 
 /***/ }),
-/* 10 */
+/* 10 */,
+/* 11 */,
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';

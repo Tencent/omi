@@ -46,9 +46,9 @@
     Omi（读音 / [ˈomɪ] /, 汉字类似于 欧米） 是一款用于创建Web用户界面的组件化框架，开放并且现代，故得名：Omi。
 其代码已托管至Github地址: [https://github.com/AlloyTeam/omi](https://github.com/AlloyTeam/omi)
 
-[Omi框架](https://github.com/AlloyTeam/omi)目前最新版本为1.6.4，提供了渐进增强式的Web开发解决方案，内置完善的支持无限声明式嵌套的组件系统。概括起来包含下面优点和特性:
+[Omi框架](https://github.com/AlloyTeam/omi)目前最新版本为1.7.0，提供了渐进增强式的Web开发解决方案，内置完善的支持无限声明式嵌套的组件系统。概括起来包含下面优点和特性:
 
-* 良好的兼容性 - 兼容IE8及IE8以上版本
+* 良好的兼容性 - 兼容IE8及IE8以上版本(要兼容IE8请使用omi.art.js)
 * 超小的尺寸 - 7 kb (gzip) 
 * 面向未来的Web架构体系 - 未来DOM很快，而且越来来快! 其实现在DOM已经足够快了:)
 * 不使用虚拟DOM的问题是跨平台渲染更麻烦，Omi未来将提供`omi-canvas`进行跨平台渲染
