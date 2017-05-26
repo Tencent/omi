@@ -68,6 +68,8 @@ $ npm install omi
 
 * [https://unpkg.com/omi@1.7.0/dist/omi.min.js](https://unpkg.com/omi@1.7.0/dist/omi.min.js)
 * [https://unpkg.com/omi@1.7.0/dist/omi.js](https://unpkg.com/omi@1.7.0/dist/omi.js)
+* [https://unpkg.com/omi@1.7.0/dist/omi.art.min.js](https://unpkg.com/omi@1.7.0/dist/omi.art.min.js)
+* [https://unpkg.com/omi@1.7.0/dist/omi.art.js](https://unpkg.com/omi@1.7.0/dist/omi.art.js)
 * [https://unpkg.com/omi@1.7.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.7.0/dist/omi.lite.min.js)
 * [https://unpkg.com/omi@1.7.0/dist/omi.lite.js](https://unpkg.com/omi@1.7.0/dist/omi.lite.js)
 * [https://unpkg.com/omi@1.7.0/dist/omi.mustache.min.js](https://unpkg.com/omi@1.7.0/dist/omi.mustache.min.js)
@@ -137,6 +139,8 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 
 * [https://unpkg.com/omi@1.7.0/dist/omi.min.js](https://unpkg.com/omi@1.7.0/dist/omi.min.js)
 * [https://unpkg.com/omi@1.7.0/dist/omi.js](https://unpkg.com/omi@1.7.0/dist/omi.js)
+* [https://unpkg.com/omi@1.7.0/dist/omi.art.min.js](https://unpkg.com/omi@1.7.0/dist/omi.art.min.js)
+* [https://unpkg.com/omi@1.7.0/dist/omi.art.js](https://unpkg.com/omi@1.7.0/dist/omi.art.js)
 * [https://unpkg.com/omi@1.7.0/dist/omi.lite.min.js](https://unpkg.com/omi@1.7.0/dist/omi.lite.min.js)
 * [https://unpkg.com/omi@1.7.0/dist/omi.lite.js](https://unpkg.com/omi@1.7.0/dist/omi.lite.js)
 * [https://unpkg.com/omi@1.7.0/dist/omi.mustache.min.js](https://unpkg.com/omi@1.7.0/dist/omi.mustache.min.js)
