@@ -14,7 +14,6 @@ Open and modern framework for building user interfaces.
 
 * [Omi 官网](http://www.omijs.org)
 * [Omi Cli](https://github.com/AlloyTeam/omi-cli)
-* [Omi Github](https://github.com/AlloyTeam/omi)
 * [Omi Playground](http://alloyteam.github.io/omi/example/playground/)
 * [Omi 文档](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
 * [Omi 教程](https://github.com/AlloyTeam/omi/tree/master/tutorial#omi-相关文章)
