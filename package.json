@@ -19,6 +19,7 @@
     "svg": "webpack -w",
     "tree": "webpack -w",
     "soda": "webpack -w",
+    "slot":"webpack -w",
     "group-data": "webpack -w",
     "jsx-like-event":"webpack -w",
     "loop": "webpack -w",
