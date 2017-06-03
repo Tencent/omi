@@ -22,7 +22,7 @@ class List extends Omi.Component {
     render () {
         return `<h1>{{title}}</h1>
                 <ul>
-                    {{each list as value i}}
+                    {{each list value i}}
                     <li onclick="showMe('{{value}}')">索引 {{i + 1}} ：{{value}}</li>
                     {{/each}}
                 </ul>`;

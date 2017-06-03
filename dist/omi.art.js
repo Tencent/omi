@@ -1,5 +1,5 @@
 /*!
- *  Omi v1.7.0 By dntzhang 
+ *  Omi v1.7.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -2395,7 +2395,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	/*! art-template@4.9.1 for browser | https://github.com/aui/art-template */
+	/*! art-template@4.10.1 for browser | https://github.com/aui/art-template */
 	!function (e, t) {
 	  "object" == ( false ? "undefined" : _typeof(exports)) && "object" == ( false ? "undefined" : _typeof(module)) ? module.exports = t() :  true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (t), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) ? exports.template = t() : e.template = t();
 	}(undefined, function () {
@@ -2439,20 +2439,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }if (!e) try {
 	        e = t.loader(n, t), t.source = e;
 	      } catch (d) {
-	        var l = new i({ name: "CompileError", path: n, message: "template not found: " + d.message, stack: d.stack });if (t.bail) throw l;return s(l, t);
-	      }var f = void 0,
+	        var f = new i({ name: "CompileError", path: n, message: "template not found: " + d.message, stack: d.stack });if (t.bail) throw f;return s(f, t);
+	      }var l = void 0,
 	          h = new r(t);try {
-	        f = h.build();
-	      } catch (l) {
-	        if (l = new i(l), t.bail) throw l;return s(l, t);
+	        l = h.build();
+	      } catch (f) {
+	        if (f = new i(f), t.bail) throw f;return s(f, t);
 	      }var m = function m(e, n) {
 	        try {
-	          return f(e, n);
-	        } catch (l) {
-	          if (!t.compileDebug) return t.cache = !1, t.compileDebug = !0, c(t)(e, n);if (l = new i(l), t.bail) throw l;return s(l, t)();
+	          return l(e, n);
+	        } catch (f) {
+	          if (!t.compileDebug) return t.cache = !1, t.compileDebug = !0, c(t)(e, n);if (f = new i(f), t.bail) throw f;return s(f, t)();
 	        }
-	      };return m.mappings = f.mappings, m.sourcesContent = f.sourcesContent, m.toString = function () {
-	        return f.toString();
+	      };return m.mappings = l.mappings, m.sourcesContent = l.sourcesContent, m.toString = function () {
+	        return l.toString();
 	      }, a && n && u.set(n, m), m;
 	    };a.Compiler = r, e.exports = a;
 	  }, function (e, t, n) {
@@ -2468,11 +2468,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        c = n(13),
 	        u = n(8),
 	        p = n(12),
-	        l = n(15),
-	        f = n(16),
+	        f = n(15),
+	        l = n(16),
 	        h = n(10),
 	        m = n(14),
-	        d = { source: null, filename: null, rules: [f, l], escape: !0, debug: !!o && "production" !== process.env.NODE_ENV, bail: !1, cache: !0, minimize: !0, compileDebug: !1, resolveFilename: m, include: a, htmlMinifier: h, htmlMinifierOptions: { collapseWhitespace: !0, minifyCSS: !0, minifyJS: !0, ignoreCustomFragments: [] }, onerror: c, loader: p, caches: u, root: "/", extname: ".art", ignore: [], imports: i };r.prototype = d, e.exports = new r();
+	        d = { source: null, filename: null, rules: [l, f], escape: !0, debug: !!o && "production" !== process.env.NODE_ENV, bail: !1, cache: !0, minimize: !0, compileDebug: !1, resolveFilename: m, include: a, htmlMinifier: h, htmlMinifierOptions: { collapseWhitespace: !0, minifyCSS: !0, minifyJS: !0, ignoreCustomFragments: [] }, onerror: c, loader: p, caches: u, root: "/", extname: ".art", ignore: [], imports: i };r.prototype = d, e.exports = new r();
 	  }, function (e, t) {}, function (e, t) {
 	    var n;n = function () {
 	      return this;
@@ -2574,11 +2574,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }),
 	            u = {},
 	            p = void 0,
-	            l = !!t && "raw",
-	            f = n + c.shift(),
-	            h = function h(e, t) {
-	          console.warn("Template upgrade:", "{{" + e + "}}", "->", "{{" + t + "}}", "\n", s.filename || "");
-	        };switch ("#" === t && h("#value", "@value"), f) {case "set":
+	            f = !!t && "raw",
+	            l = n + c.shift(),
+	            h = function h(t, n) {
+	          console && console.warn && console.warn((s.filename || "anonymous") + ":" + (e.line + 1) + ":" + (e.start + 1) + "\nTemplate upgrade: {{" + t + "}} -> {{" + n + "}}");
+	        };switch ("#" === t && h("#value", "@value"), l) {case "set":
 	            o = "var " + c.join("");break;case "if":
 	            o = "if(" + c.join("") + "){";break;case "else":
 	            var m = c.indexOf("if");m > -1 ? (c.splice(0, m + 1), o = "}else if(" + c.join("") + "){") : o = "}else{";break;case "/if":
@@ -2587,12 +2587,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                v = p[1] || "$value",
 	                g = p[2] || "$index";o = "$each(" + d + ",function(" + v + "," + g + "){";break;case "/each":
 	            o = "})";break;case "echo":
-	            f = "print", h("echo value", "value");case "print":case "include":case "extend":
-	            p = r._split(a), p.shift(), o = f + "(" + p.join(",") + ")";break;case "block":
+	            l = "print", h("echo value", "value");case "print":case "include":case "extend":
+	            p = r._split(a), p.shift(), o = l + "(" + p.join(",") + ")";break;case "block":
 	            o = "block(" + c.join("") + ",function(){";break;case "/block":
 	            o = "})";break;default:
 	            if (-1 !== c.indexOf("|")) {
-	              for (var y = f, b = [], x = c.filter(function (e) {
+	              for (var y = l, b = [], x = c.filter(function (e) {
 	                return !/^\s+$/.test(e);
 	              }); "|" !== x[0];) {
 	                y += x.shift();
@@ -2603,7 +2603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              }), b.reduce(function (e, t) {
 	                var n = t.shift();return t.unshift(e), o = "$imports." + n + "(" + t.join(",") + ")";
 	              }, y);
-	            } else s.imports[f] ? (h("filterName value", "value | filterName"), p = r._split(a), p.shift(), o = f + "(" + p.join(",") + ")", l = "raw") : o = "" + f + c.join("");l || (l = "escape");}return u.code = o, u.output = l, u;
+	            } else o = "" + l + c.join("");f || (f = "escape");}return u.code = o, u.output = f, u;
 	      }, _split: function _split(e) {
 	        for (var t = 0, n = e.shift(), r = [[n]]; t < e.length;) {
 	          var o = e[t],
@@ -2630,26 +2630,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        c = "print",
 	        u = "include",
 	        p = "extend",
-	        l = "block",
-	        f = "$$out",
+	        f = "block",
+	        l = "$$out",
 	        h = "$$line",
 	        m = "$$blocks",
-	        d = "$$from",
-	        v = "$$options",
-	        g = function g(e, t) {
+	        d = "$$slice",
+	        v = "$$from",
+	        g = "$$options",
+	        y = function y(e, t) {
 	      return e.hasOwnProperty(t);
 	    },
-	        y = JSON.stringify,
-	        b = function () {
+	        b = JSON.stringify,
+	        x = function () {
 	      function e(t) {
 	        var n,
 	            o,
-	            g = this;r(this, e);var y = t.source,
-	            b = t.minimize,
-	            x = t.htmlMinifier;if (this.options = t, this.stacks = [], this.context = [], this.scripts = [], this.CONTEXT_MAP = {}, this.ignore = [s, a, v].concat(t.ignore), this.internal = (n = {}, n[f] = "''", n[h] = "[0,0]", n[m] = "arguments[1]||{}", n[d] = "null", n[c] = "function(){" + f + "+=''.concat.apply('',arguments)}", n[u] = "function(src,data){" + f + "+=" + v + ".include(src,data||" + s + ",arguments[2]||" + m + "," + v + ")}", n[p] = "function(from){" + d + "=from}", n[l] = "function(name,callback){if(" + d + "){" + f + "='';callback();" + m + "[name]=" + f + "}else{if(typeof " + m + "[name]==='string'){" + f + "+=" + m + "[name]}else{callback()}}}", n), this.dependencies = (o = {}, o[c] = [f], o[u] = [f, v, s, m], o[p] = [d, u], o[l] = [d, f, m], o), this.importContext(f), t.compileDebug && this.importContext(h), b) try {
-	          y = x(y, t);
-	        } catch (w) {}this.source = y, this.getTplTokens(y, t.rules, this).forEach(function (e) {
-	          e.type === i.TYPE_STRING ? g.parseString(e) : g.parseExpression(e);
+	            y = this;r(this, e);var b = t.source,
+	            x = t.minimize,
+	            w = t.htmlMinifier;if (this.options = t, this.stacks = [], this.context = [], this.scripts = [], this.CONTEXT_MAP = {}, this.ignore = [s, a, g].concat(t.ignore), this.internal = (n = {}, n[l] = "''", n[h] = "[0,0]", n[m] = "arguments[1]||{}", n[v] = "null", n[c] = "function(){var s=''.concat.apply('',arguments);" + l + "+=s;return s}", n[u] = "function(src,data){var s=" + g + ".include(src,data||" + s + ",arguments[2]||" + m + "," + g + ");" + l + "+=s;return s}", n[p] = "function(from){" + v + "=from}", n[d] = "function(c,p,s){p=" + l + ";" + l + "='';c();s=" + l + ";" + l + "=p+s;return s}", n[f] = "function(){var a=arguments,s;if(typeof a[0]==='function'){return " + d + "(a[0])}else if(" + v + "){" + m + "[a[0]]=" + d + "(a[1])}else{s=" + m + "[a[0]];if(typeof s==='string'){" + l + "+=s}else{s=" + d + "(a[1])}return s}}", n), this.dependencies = (o = {}, o[c] = [l], o[u] = [l, g, s, m], o[p] = [v, u], o[f] = [d, v, l, m], o), this.importContext(l), t.compileDebug && this.importContext(h), x) try {
+	          b = w(b, t);
+	        } catch (E) {}this.source = b, this.getTplTokens(b, t.rules, this).forEach(function (e) {
+	          e.type === i.TYPE_STRING ? y.parseString(e) : y.parseExpression(e);
 	        });
 	      }return e.prototype.getTplTokens = function () {
 	        return i.apply(undefined, arguments);
@@ -2672,19 +2673,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	            c = this.context,
 	            u = this.options,
 	            p = u.imports,
-	            l = this.CONTEXT_MAP;g(l, e) || -1 !== i.indexOf(e) || (g(r, e) ? (n = r[e], g(o, e) && o[e].forEach(function (e) {
+	            f = this.CONTEXT_MAP;y(f, e) || -1 !== i.indexOf(e) || (y(r, e) ? (n = r[e], y(o, e) && o[e].forEach(function (e) {
 	          return t.importContext(e);
-	        })) : n = "$escape" === e || "$each" === e || g(p, e) ? a + "." + e : s + "." + e, l[e] = n, c.push({ name: e, value: n }));
+	        })) : n = "$escape" === e || "$each" === e || y(p, e) ? a + "." + e : s + "." + e, f[e] = n, c.push({ name: e, value: n }));
 	      }, e.prototype.parseString = function (e) {
 	        var t = e.value;if (t) {
-	          var n = f + "+=" + y(t);this.scripts.push({ source: t, tplToken: e, code: n });
+	          var n = l + "+=" + b(t);this.scripts.push({ source: t, tplToken: e, code: n });
 	        }
 	      }, e.prototype.parseExpression = function (e) {
 	        var t = this,
 	            n = e.value,
 	            r = e.script,
 	            o = r.output,
-	            s = r.code;o && (s = !1 === escape || o === i.TYPE_RAW ? f + "+=" + r.code : f + "+=$escape(" + r.code + ")");var a = this.getEsTokens(s);this.getVariables(a).forEach(function (e) {
+	            s = r.code;o && (s = !1 === escape || o === i.TYPE_RAW ? l + "+=" + r.code : l + "+=$escape(" + r.code + ")");var a = this.getEsTokens(s);this.getVariables(a).forEach(function (e) {
 	          return t.importContext(e);
 	        }), this.scripts.push({ source: n, tplToken: e, code: s });
 	      }, e.prototype.checkExpression = function (e) {
@@ -2704,34 +2705,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	            r = this.stacks,
 	            o = this.source,
 	            c = e.filename,
-	            l = e.imports,
-	            b = [],
-	            x = g(this.CONTEXT_MAP, p),
+	            f = e.imports,
+	            d = [],
+	            x = y(this.CONTEXT_MAP, p),
 	            w = 0,
-	            k = function k(e, t) {
+	            E = function E(e, t) {
 	          var n = t.line,
 	              o = t.start,
 	              i = { generated: { line: r.length + w + 1, column: 1 }, original: { line: n + 1, column: o + 1 } };return w += e.split(/\n/).length - 1, i;
 	        },
-	            E = function E(e) {
+	            k = function k(e) {
 	          return e.replace(/^[\t ]+|[\t ]$/g, "");
 	        };r.push("function(" + s + "){"), r.push("'use strict'"), r.push(s + "=" + s + "||{}"), r.push("var " + t.map(function (e) {
 	          return e.name + "=" + e.value;
 	        }).join(",")), e.compileDebug ? (r.push("try{"), n.forEach(function (e) {
-	          e.tplToken.type === i.TYPE_EXPRESSION && r.push(h + "=[" + [e.tplToken.line, e.tplToken.start].join(",") + "]"), b.push(k(e.code, e.tplToken)), r.push(E(e.code));
-	        }), r.push("}catch(error){"), r.push("throw {" + ["name:'RuntimeError'", "path:" + y(c), "message:error.message", "line:" + h + "[0]+1", "column:" + h + "[1]+1", "source:" + y(o), "stack:error.stack"].join(",") + "}"), r.push("}")) : n.forEach(function (e) {
-	          b.push(k(e.code, e.tplToken)), r.push(E(e.code));
-	        }), x && (r.push(f + "=''"), r.push(u + "(" + d + "," + s + "," + m + ")")), r.push("return " + f), r.push("}");var T = r.join("\n");try {
-	          var O = new Function(a, v, "return " + T)(l, e);return O.mappings = b, O.sourcesContent = [o], O;
-	        } catch (S) {
-	          for (var $ = 0, j = 0, _ = 0; $ < n.length;) {
-	            var C = n[$];if (!this.checkExpression(C.code)) {
-	              j = C.tplToken.line, _ = C.tplToken.start;break;
-	            }$++;
-	          }throw { name: "CompileError", path: c, message: S.message, line: j + 1, column: _ + 1, source: o, generated: T, stack: S.stack };
+	          e.tplToken.type === i.TYPE_EXPRESSION && r.push(h + "=[" + [e.tplToken.line, e.tplToken.start].join(",") + "]"), d.push(E(e.code, e.tplToken)), r.push(k(e.code));
+	        }), r.push("}catch(error){"), r.push("throw {" + ["name:'RuntimeError'", "path:" + b(c), "message:error.message", "line:" + h + "[0]+1", "column:" + h + "[1]+1", "source:" + b(o), "stack:error.stack"].join(",") + "}"), r.push("}")) : n.forEach(function (e) {
+	          d.push(E(e.code, e.tplToken)), r.push(k(e.code));
+	        }), x && (r.push(l + "=''"), r.push(u + "(" + v + "," + s + "," + m + ")")), r.push("return " + l), r.push("}");var T = r.join("\n");try {
+	          var $ = new Function(a, g, "return " + T)(f, e);return $.mappings = d, $.sourcesContent = [o], $;
+	        } catch (_) {
+	          for (var O = 0, j = 0, S = 0; O < n.length;) {
+	            var C = n[O];if (!this.checkExpression(C.code)) {
+	              j = C.tplToken.line, S = C.tplToken.start;break;
+	            }O++;
+	          }throw { name: "CompileError", path: c, message: _.message, line: j + 1, column: S + 1, source: o, generated: T, stack: _.stack };
 	        }
 	      }, e;
-	    }();b.CONSTS = { DATA: s, IMPORTS: a, PRINT: c, INCLUDE: u, EXTEND: p, BLOCK: l, OPTIONS: v, OUT: f, LINE: h, BLOCKS: m, FROM: d, ESCAPE: "$escape", EACH: "$each" }, e.exports = b;
+	    }();x.CONSTS = { DATA: s, IMPORTS: a, PRINT: c, INCLUDE: u, EXTEND: p, BLOCK: f, OPTIONS: g, OUT: l, LINE: h, BLOCKS: m, SLICE: d, FROM: v, ESCAPE: "$escape", EACH: "$each" }, e.exports = x;
 	  }, function (e, t, n) {
 	    "use strict";
 	    function r(e, t) {
@@ -2740,23 +2741,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (!e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return !t || "object" != (typeof t === "undefined" ? "undefined" : _typeof(t)) && "function" != typeof t ? e : t;
 	    }function i(e, t) {
 	      if ("function" != typeof t && null !== t) throw new TypeError("Super expression must either be null or a function, not " + (typeof t === "undefined" ? "undefined" : _typeof(t)));e.prototype = Object.create(t && t.prototype, { constructor: { value: e, enumerable: !1, writable: !0, configurable: !0 } }), t && (Object.setPrototypeOf ? Object.setPrototypeOf(e, t) : e.__proto__ = t);
-	    }var s = function (e) {
+	    }function s(e) {
+	      var t = e.name,
+	          n = e.source,
+	          r = e.path,
+	          o = e.line,
+	          i = e.column,
+	          s = e.message;if (!n) return s;var a = n.split(/\n/),
+	          c = Math.max(o - 3, 0),
+	          u = Math.min(a.length, o + 3),
+	          p = a.slice(c, u).map(function (e, t) {
+	        var n = t + c + 1;return (n === o ? " >> " : "    ") + n + "| " + e;
+	      }).join("\n");return (r || "anonymous") + ":" + o + ":" + i + "\n" + p + "\n\n" + t + ": " + s;
+	    }var a = function (e) {
 	      function t(n) {
-	        r(this, t);var i = o(this, e.call(this, n)),
-	            s = n.message;return t.debugTypes[n.name] && (n.source && (s = t.debug(n)), i.path = n.path), i.name = "TemplateError", i.message = s, i;
-	      }return i(t, e), t.debug = function (e) {
-	        var t = e.source,
-	            n = e.path,
-	            r = e.line,
-	            o = e.column,
-	            i = t.split(/\n/),
-	            s = Math.max(r - 3, 0),
-	            a = Math.min(i.length, r + 3),
-	            c = i.slice(s, a).map(function (e, t) {
-	          var n = t + s + 1;return (n === r ? " >> " : "    ") + n + "| " + e;
-	        }).join("\n");return (n || "anonymous") + ":" + r + ":" + o + "\n" + c + "\n\n" + e.message;
-	      }, t;
-	    }(Error);s.debugTypes = { RuntimeError: !0, CompileError: !0 }, e.exports = s;
+	        r(this, t);var i = o(this, e.call(this, n.message));return i.name = "TemplateError", i.message = s(n), Error.captureStackTrace && Error.captureStackTrace(i, i.constructor), i;
+	      }return i(t, e), t;
+	    }(Error);e.exports = a;
 	  }, function (e, t, n) {
 	    "use strict";
 	    var r = n(24),
@@ -2772,60 +2773,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, function (e, t, n) {
 	    "use strict";
 	    (function (t) {
-	      /*! art-template@runtime | https://github.com/aui/art-template */
-	      var r = n(0),
-	          o = Object.create(r ? t : window),
-	          i = function p(e) {
-	        return "string" != typeof e && (e = e === undefined || null === e ? "" : "function" == typeof e ? p(e.call(e)) : JSON.stringify(e)), e;
-	      },
-	          s = /["&'<>]/,
-	          a = function a(e) {
+	      function r(e) {
+	        return "string" != typeof e && (e = e === undefined || null === e ? "" : "function" == typeof e ? r(e.call(e)) : JSON.stringify(e)), e;
+	      }function o(e) {
 	        var t = "" + e,
-	            n = s.exec(t);if (!n) return e;var r = "",
+	            n = a.exec(t);if (!n) return e;var r = "",
 	            o = void 0,
 	            i = void 0,
-	            a = void 0;for (o = n.index, i = 0; o < t.length; o++) {
+	            s = void 0;for (o = n.index, i = 0; o < t.length; o++) {
 	          switch (t.charCodeAt(o)) {case 34:
-	              a = "&#34;";break;case 38:
-	              a = "&#38;";break;case 39:
-	              a = "&#39;";break;case 60:
-	              a = "&#60;";break;case 62:
-	              a = "&#62;";break;default:
-	              continue;}i !== o && (r += t.substring(i, o)), i = o + 1, r += a;
+	              s = "&#34;";break;case 38:
+	              s = "&#38;";break;case 39:
+	              s = "&#39;";break;case 60:
+	              s = "&#60;";break;case 62:
+	              s = "&#62;";break;default:
+	              continue;}i !== o && (r += t.substring(i, o)), i = o + 1, r += s;
 	        }return i !== o ? r + t.substring(i, o) : r;
-	      },
-	          c = function c(e) {
-	        return a(i(e));
-	      },
-	          u = function u(e, t) {
+	      } /*! art-template@runtime | https://github.com/aui/art-template */
+	      var i = n(0),
+	          s = Object.create(i ? t : window),
+	          a = /["&'<>]/;s.$escape = function (e) {
+	        return o(r(e));
+	      }, s.$each = function (e, t) {
 	        if (Array.isArray(e)) for (var n = 0, r = e.length; n < r; n++) {
-	          t(e[n], n, e);
+	          t(e[n], n);
 	        } else for (var o in e) {
 	          t(e[o], o);
 	        }
-	      };o.$each = u, o.$escape = c, e.exports = o;
+	      }, e.exports = s;
 	    }).call(t, n(4));
 	  }, function (e, t, n) {
 	    "use strict";
-	    var r = function r(e, t, n) {
-	      for (var r = [{ type: "string", value: e, line: 0, start: 0, end: e.length }], o = 0; o < t.length; o++) {
+	    function r(e, t, n, r) {
+	      this.content = e, this.line = t, this.start = n, this.end = r;
+	    }r.prototype.toString = function () {
+	      return this.content;
+	    };var o = function o(e, t) {
+	      for (var n = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}, o = [{ type: "string", value: e, line: 0, start: 0, end: e.length }], i = 0; i < t.length; i++) {
 	        !function (e) {
-	          for (var t = e.test.ignoreCase ? "ig" : "g", o = e.test.source + "|^$|[\\w\\W]", i = new RegExp(o, t), s = 0; s < r.length; s++) {
-	            if ("string" === r[s].type) {
-	              for (var a = r[s].line, c = r[s].start, u = r[s].end, p = r[s].value.match(i), l = [], f = 0; f < p.length; f++) {
-	                var h = p[f];e.test.lastIndex = 0;var m = e.test.exec(h),
-	                    d = m ? "expression" : "string",
-	                    v = l[l.length - 1],
-	                    g = v || r[s],
-	                    y = g.value;c = g.line === a ? v ? v.end : c : y.length - y.lastIndexOf("\n") - 1, u = c + h.length;var b = { type: d, value: h, line: a, start: c, end: u };if ("string" === d) v && "string" === v.type ? (v.value += h, v.end += h.length) : l.push(b);else {
-	                  var x = e.use.apply(n, m);b.script = x, l.push(b);
-	                }a += h.split(/\n/).length - 1;
-	              }r.splice.apply(r, [s, 1].concat(l)), s += l.length - 1;
+	          for (var t = e.test.ignoreCase ? "ig" : "g", i = e.test.source + "|^$|[\\w\\W]", s = new RegExp(i, t), a = 0; a < o.length; a++) {
+	            if ("string" === o[a].type) {
+	              for (var c = o[a].line, u = o[a].start, p = o[a].end, f = o[a].value.match(s), l = [], h = 0; h < f.length; h++) {
+	                var m = f[h];e.test.lastIndex = 0;var d = e.test.exec(m),
+	                    v = d ? "expression" : "string",
+	                    g = l[l.length - 1],
+	                    y = g || o[a],
+	                    b = y.value;u = y.line === c ? g ? g.end : u : b.length - b.lastIndexOf("\n") - 1, p = u + m.length;var x = { type: v, value: m, line: c, start: u, end: p };if ("string" === v) g && "string" === g.type ? (g.value += m, g.end += m.length) : l.push(x);else {
+	                  d[0] = new r(d[0], c, u, p);var w = e.use.apply(n, d);x.script = w, l.push(x);
+	                }c += m.split(/\n/).length - 1;
+	              }o.splice.apply(o, [a, 1].concat(l)), a += l.length - 1;
 	            }
 	          }
-	        }(t[o]);
-	      }return r;
-	    };r.TYPE_STRING = "string", r.TYPE_EXPRESSION = "expression", r.TYPE_RAW = "raw", r.TYPE_ESCAPE = "escape", e.exports = r;
+	        }(t[i]);
+	      }return o;
+	    };o.TYPE_STRING = "string", o.TYPE_EXPRESSION = "expression", o.TYPE_RAW = "raw", o.TYPE_ESCAPE = "escape", e.exports = o;
 	  }, function (e, t, n) {
 	    "use strict";
 	    var r = n(7),
