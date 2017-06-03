@@ -22,6 +22,7 @@
     * [组件事件](#组件事件)
 * [条件判断](#条件判断)
 * [循环遍历](#循环遍历)  
+* [插槽slot](#插槽slot)  
 * [Store体系](#store体系)  
 * [表单](#表单)  
 * [继承](#继承)  
@@ -981,6 +982,41 @@ mustache.js更详细的循环遍历使用可看[https://github.com/janl/mustache
 
 * 如果items的每一项是字符串，可以直接**{{.}}**的方式来输出每一项
 * 循环的时候调用定义好的函数
+
+## 插槽slot
+
+在hello组件中开槽:
+
+```js
+   render(){
+        return `
+        <div onclick="clickHandler">
+            <div>Hello, {{name}}</div>
+            <slot></slot>
+            <slot></slot>
+        </div>`
+    }
+```
+
+在其他组件中插入:
+
+```js
+<hello data-name="Omi">
+    <h1>slot 1</h1>
+    <h1>slot 2</h1>
+</hello>
+```
+
+当然，你也可以标记权重要插入到指定的凹槽:
+
+```js
+<hello data-name="Omi">
+    <h1 slot-index="1">slot 1</h1>
+    <h1 slot-index="0">slot 2</h1>
+</hello>
+```
+
+slot-index越小权重越高。会order by一下，然后按顺序插入。
 
 ## Store体系
 
