@@ -174,6 +174,24 @@ Omi.tag('User',User)
 export default  User
 ```
 
+### renderTo到不同view
+
+```js
+OmiRouter.init({
+    routes: [
+        {path: '/', component: Home},
+        {path: '/about', component: About},
+        {path: '/user-list', component: UserList},
+        {path: '/user/:name/category/:category', component: User, renderTo: "#otherView"}
+    ],
+    renderTo: "#view",
+    defaultRoute: '/',
+    root: this
+})
+```
+
+如果你需要某个路由规则render到其他的view里，可以在routes但单独的项里添加renderTo，它的优先级会更高。
+
 ### 地址
 
 * [在线演示地址](http://alloyteam.github.io/omi/plugins/omi-router/example/simple/)
