@@ -262,6 +262,31 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 
 <a href="http://alloyteam.github.io/omi/website/redirect.html?type=todo_nest" target="_blank">点击这里→在线试试</a>
 
+特别需要注意的是每个组件必须要要闭合成一个节点，比如:
+
+错误写法:
+
+```
+  render() {
+    return `
+        <div>a</div>
+        <div>b</div>
+    `
+  }
+```
+
+正确写法:
+
+```
+  render() {
+    return `
+        <div>
+            <div>a</div>
+            <div>b</div>
+        <div>`
+  }
+```
+
 ## 组件通讯
 
 ### 通讯概览
