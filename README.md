@@ -30,6 +30,12 @@ $ npm start                    //开发
 $ npm run dist                 //部署发布
 ```
 
+当然omi-cli还有一个特殊命令:
+
+``` js
+$ npm run ie    //用于生成未压缩js的发布包用来定位ie8的问题
+```
+
 ## 特性
 
 * 超小的尺寸，7 kb (gzip)
@@ -104,6 +110,12 @@ $ omi init your_project_name   //init project, you can also exec 'omi init' in a
 $ cd your_project_name         //please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                    //develop
 $ npm run dist                 //release
+```
+
+other cmd:
+
+``` js
+$ npm run ie    //for debugging in ie8 
 ```
 
 ## Features
