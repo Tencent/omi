@@ -2,7 +2,7 @@
 import List from './list.js';
 
 
-Omi.makeHTML('List', List);
+Omi.tag('list', List);
 
 class Todo extends Omi.Component {
     constructor(data) {
@@ -45,7 +45,7 @@ class Todo extends Omi.Component {
         return `<div>
                     <h3>TODO</h3>
                     <button onclick="clear">Clear</button>
-                    <List  name="list" data="$store.data"  />
+                    <list  name="list" ::data-items="$store.data.items"  ></list>
                     <form onsubmit="add" >
                         <input type="text" onchange="handleChange"  value="{{text}}"  />
                         <button>Add #{{length}}</button>

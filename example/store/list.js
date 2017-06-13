@@ -1,6 +1,4 @@
 import Omi from '../../src/index.js';
-import Test from './test.js';
-Omi.makeHTML('Test', Test);
 
 class List extends Omi.Component {
     constructor(data) {
@@ -9,8 +7,9 @@ class List extends Omi.Component {
 
     render () {
         return ` <div>
-                    <Test data-name="${Math.random()}"/>
-                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>
+                    <ul>
+                        <li o-repeat="item in items">{{item}}</li>
+                    </ul>
                 </div>`
     }
 }
