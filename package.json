@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "Open and modern framework for building user interfaces.",
   "main": "dist/omi.js",
   "types": "index.d.ts",
