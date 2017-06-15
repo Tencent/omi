@@ -20,7 +20,7 @@ npm install omi-finger
 
 ```js
 import Omi from 'omi';
-import OmiFinger from '../../omi-finger.js';
+import OmiFinger from 'omi-finger';
 
 OmiFinger.init();
 
