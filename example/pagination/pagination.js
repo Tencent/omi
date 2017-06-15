@@ -19,7 +19,7 @@ class Pagination extends Omi.Component {
         super(data);
     }
 
-    install () {
+    beforeRender () {
         this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
     }
 

@@ -496,7 +496,7 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
-	 * sodajs v0.4.3 by dorsywang
+	 * sodajs v0.4.4 by dorsywang
 	 * Light weight but powerful template engine for JavaScript
 	 * Github: https://github.com/AlloyTeam/sodajs
 	 * MIT License
@@ -1007,6 +1007,28 @@
 	                        command: "childDone"
 	                    };
 	                }
+	            }
+	        };
+	    });
+
+	    sodaDirective('replace', function () {
+	        return {
+	            link: function link(scope, el, attrs) {
+	                var opt = el.getAttribute(prefix + "-replace");
+	                var expressFunc = parseSodaExpression(opt, scope);
+
+	                if (expressFunc) {
+	                    var div = document.createElement('div');
+	                    div.innerHTML = expressFunc;
+
+	                    if (el.parentNode) {
+	                        while (div.childNodes[0]) {
+	                            el.parentNode.insertBefore(div.childNodes[0], el);
+	                        }
+	                    }
+	                }
+
+	                el.parentNode.removeChild(el);
 	            }
 	        };
 	    });
@@ -1750,10 +1772,12 @@
 	                    _this12._dataset[_this12._capitalize(key.replace('data-', ''))] = value;
 	                } else if (key.indexOf(':data-') === 0) {
 	                    _this12._dataset[_this12._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                } else if (key === ':data') {
-	                    _this12._dataset = eval('(' + value + ')');
+	                } else if (key.indexOf('::data-') === 0) {
+	                    _this12._dataset[_this12._capitalize(key.replace('::data-', ''))] = _this12._extractPropertyFromString(value, _this12.parent);
 	                } else if (key === 'data') {
 	                    _this12._dataset = _this12._extractPropertyFromString(value, _this12.parent);
+	                } else if (key === ':data') {
+	                    _this12._dataset = eval('(' + value + ')');
 	                } else if (key === 'group-data') {
 	                    _this12._dataset = _this12._extractPropertyFromString(value, _this12.parent)[_this12._omi_groupDataIndex];
 	                }
@@ -1848,19 +1872,21 @@
 	                        dataset[_this13._capitalize(key.replace('data-', ''))] = value;
 	                    } else if (key.indexOf(':data-') === 0) {
 	                        dataset[_this13._capitalize(key.replace(':data-', ''))] = eval('(' + value + ')');
-	                    } else if (key === ':data') {
-	                        dataset = eval('(' + value + ')');
+	                    } else if (key.indexOf('::data-') === 0) {
+	                        dataset[_this13._capitalize(key.replace('::data-', ''))] = _this13._extractPropertyFromString(value, child);
 	                    } else if (key === 'data') {
 	                        dataset = _this13._extractPropertyFromString(value, child);
-	                    } else if (key === 'preventSelfUpdate' || key === 'psu') {
+	                    } else if (key === ':data') {
+	                        dataset = eval('(' + value + ')');
+	                    } else if (key === 'preventSelfUpdate' || key === 'psu' || key === 'preventselfupdate') {
 	                        _omi_option.preventSelfUpdate = true;
-	                    } else if (key === 'selfDataFirst' || key === 'sdf') {
+	                    } else if (key === 'selfDataFirst' || key === 'sdf' || key === 'selfdatafirst') {
 	                        _omi_option.selfDataFirst = true;
-	                    } else if (key === 'domDiffDisabled' || key === 'ddd') {
+	                    } else if (key === 'domDiffDisabled' || key === 'ddd' || key === 'domdiffdisabled') {
 	                        _omi_option.domDiffDisabled = true;
-	                    } else if (key === 'ignoreStoreData' || key === 'isd') {
+	                    } else if (key === 'ignoreStoreData' || key === 'isd' || key === 'ignorestoredata') {
 	                        _omi_option.ignoreStoreData = true;
-	                    } else if (key === 'scopedSelfCSS' || key === 'ssc') {
+	                    } else if (key === 'scopedSelfCSS' || key === 'ssc' || key === 'scopedselfcss') {
 	                        _omi_option.scopedSelfCSS = true;
 	                    }
 	                });
@@ -3158,8 +3184,8 @@
 	    }
 
 	    _createClass(Pagination, [{
-	        key: "install",
-	        value: function install() {
+	        key: "beforeRender",
+	        value: function beforeRender() {
 	            this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
 	        }
 	    }, {
