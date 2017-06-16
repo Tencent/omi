@@ -1,4 +1,4 @@
-## [Docs Website](https://alloyteam.github.io/omi/website/docs-cn.html)
+## [Docs All in One](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
 
 ### Usage
 * [安装](./src/docs/cn/installation.md)

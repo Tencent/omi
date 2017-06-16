@@ -1,1 +1,0 @@
-转移到新地址 - [https://github.com/AlloyTeam/omi-cli](https://github.com/AlloyTeam/omi-cli)
