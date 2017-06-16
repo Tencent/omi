@@ -45,9 +45,9 @@ $ npm run ie    //用于生成未压缩js的发布包用来定位ie8的问题
 * 模板引擎可替换，开发者可以重写Omi.template方法来使用任意模板引擎
 * 提供了ES6+和ES5的两种开发方案供开发者自由选择
 * 良好的兼容性，支持IE8
-    omi.art.js和omi.lite.js以及omi.mustache.js兼容到IE8
-    omi.js 兼容到IE9
-    兼容IE8请自行引用 es5-shim 或 [es5-sham](//s.url.cn/qqun/xiaoqu/buluo/p/js/es5-sham-es5-sham.min.77c4325f.js) 和 [console-polyfill](//s.url.cn/qqun/xiaoqu/buluo/p/js/console-polyfill.min.848060c4.js)）,比如:
+    * omi.art.js和omi.lite.js以及omi.mustache.js兼容到IE8
+    * omi.js 兼容到IE9
+    * 兼容IE8请自行引用 es5-shim 或 [es5-sham](//s.url.cn/qqun/xiaoqu/buluo/p/js/es5-sham-es5-sham.min.77c4325f.js) 和 [console-polyfill](//s.url.cn/qqun/xiaoqu/buluo/p/js/console-polyfill.min.848060c4.js)）,比如:
 
 ```
 <!--[if lt IE 9]><script type="text/javascript" crossorigin="anonymous" src="//s.url.cn/qqun/xiaoqu/buluo/p/js/console-polyfill.min.848060c4.js"></script>
