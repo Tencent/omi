@@ -25,8 +25,8 @@
 class List extends Omi.Component {
     render () {
         return `<ul>
-                  <li o-repeat="item in items">{{item}}</li>
-                </ul>`;
+          <li o-repeat="item in items">{{item}}</li>
+      </ul>`;
     }
 }
 
@@ -35,14 +35,11 @@ Omi.tag('list', List)
 class Todo extends Omi.Component {
     constructor(data) {
         super(data);
-        this.data.length = this.data.items.length
-      	this.listData = { items : this.data.items }
     }
 
     add (evt) {
         evt.preventDefault()
-        this.listData.items.push(this.data.text)
-        this.data.length = this.listData.items.length
+        this.data.items.push(this.data.text)
         this.data.text = ''
         this.update()
     }
@@ -61,10 +58,10 @@ class Todo extends Omi.Component {
         return `
       <div>
           <h3>TODO</h3>
-          <list data="listData"></list>
+          <list ::data-items="data.items"></list>
           <form onsubmit="add" >
               <input type="text" onchange="handleChange(this)" value="{{text}}" />
-              <button>Add #{{length}}</button>
+              <button>Add #${ this.data.items.length }</button>
           </form>
       </div>`
     }
