@@ -192,6 +192,39 @@ OmiRouter.init({
 
 如果你需要某个路由规则render到其他的view里，可以在routes但单独的项里添加renderTo，它的优先级会更高。
 
+### 共享或独享store
+
+根节点注入的store可以共享给routes里的其他组件，通过下面两种方式:
+
+#### 共享
+
+```js
+OmiRouter.init({
+    routes: [
+        {path: '/', component: Home},
+        {path: '/about', component: About},
+    ],
+    renderTo: "#view",
+    defaultRoute: '/',
+    root: this,
+    store: this.$store
+})
+```
+
+#### 独享
+
+```js
+OmiRouter.init({
+    routes: [
+        {path: '/', component: Home},
+        {path: '/about', component: About, store: this.$store},
+    ],
+    renderTo: "#view",
+    defaultRoute: '/',
+    root: this
+})
+```
+
 ### 地址
 
 * [在线演示地址](http://alloyteam.github.io/omi/plugins/omi-router/example/simple/)
