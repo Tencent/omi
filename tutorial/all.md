@@ -1043,6 +1043,18 @@ mustache.js更详细的循环遍历使用可看[https://github.com/janl/mustache
 
 slot-index越小权重越高。会order by一下，然后按顺序插入。
 
+这里需要特别强调一下: Slots are placeholders inside your component that users can fill with their own markup.所以 slot 的本质其实就是传递 HTML 字符串(当然也可以包括 Omi 自定义组件字符串)，当 slot 里的 HTML 标签绑定事件，该事件要定义在子组件中。
+
+```js
+<hello data-name="Omi">
+    <h1 slot-index="1" onclick="clickHandler" >slot 1</h1>
+    <h1 slot-index="0">slot 2</h1>
+</hello>
+```
+
+如上面的 clickHandler 需要定义在 hello 组件当中。
+
+
 ## Store体系
 
 先说说Store系统是干什么的！为什么要造这样一个东西？能够给系统架构带来什么？
