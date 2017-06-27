@@ -168,16 +168,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function deleteInstance(instance){
 	        for(var key in Omi.instances){
 	            if(Omi.instances.hasOwnProperty(key)){
-	                Omi.instances[key].id = instance.id
-	                delete  Omi.instances[key]
-	                instance = null
-	                break
+	                if(Omi.instances[key].id === instance.id){
+	                    delete  Omi.instances[key]
+	                    instance = null
+	                    break
+	                }
 	            }
 	        }
-	    }
-
-	    OmiRouter.destroy = function () {
-	        delete Omi.plugins['omi-router']
 	    }
 
 	    if (true) {
