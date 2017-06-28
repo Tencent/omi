@@ -34,6 +34,7 @@
 
     OmiTouch.init = function(){
         Omi.extendPlugin('omi-touch',function(dom, instance){
+            if(dom.alloyTouch) return;
             var target = instance.refs[ dom.getAttribute('motionRef')];
             Transform(target);
             var initialValue = dom.getAttribute('initialValue');
@@ -41,7 +42,7 @@
                 target[dom.getAttribute('property') || "translateY"] = parseInt(initialValue);
             }
 
-            new AlloyTouch({
+            var alloyTouch = new AlloyTouch({
                 touch: dom,//反馈触摸的dom
                 vertical: dom.getAttribute('vertical') === 'false' ? false : true,//不必需，默认是true代表监听竖直方向touch
                 target: target, //运动的对象
@@ -60,6 +61,8 @@
                 pressMove: getHandler('pressMove', dom, instance),
                 animationEnd: getHandler('animationEnd', dom, instance)
             })
+
+            dom.alloyTouch = alloyTouch
         });
     }
 

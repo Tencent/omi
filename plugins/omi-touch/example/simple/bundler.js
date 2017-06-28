@@ -52,9 +52,9 @@
 
 	var _omi2 = _interopRequireDefault(_omi);
 
-	var _omiTouch = __webpack_require__(3);
+	var _index = __webpack_require__(3);
 
-	var _omiTouch2 = _interopRequireDefault(_omiTouch);
+	var _index2 = _interopRequireDefault(_index);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64,7 +64,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	_omiTouch2.default.init();
+	_index2.default.init();
 
 	var App = function (_Omi$Component) {
 	    _inherits(App, _Omi$Component);
@@ -83,7 +83,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return '\n        <div class="main">\n            <div  omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >\n                        <ul ref="scroller">\n                            <li>Hello, Omi-Touch!</li>\n                            <li>AlloyTouch</li>\n                            <li>Transformjs</li>\n                            <li>AlloyFinger</li>\n                            <li>Omi</li>\n                            <li>AlloyGameEngine</li>\n                            <li>Rosin</li>\n                            <li>LivePool</li>\n                            <li>AlloyStick</li>\n                            <li>CodeStar</li>\n                            <li>AlloyDesigner</li>\n                            <li>JX</li>\n                            <li>TEditor</li>\n                            <li>JXAnimate</li>\n                            <li>Spirit</li>\n                            <li>AlloyImage</li>\n                            <li>ModJS</li>\n                            <li>Pretty row 16</li>\n                            <li>stepify</li>\n                            <li>AlloyTimer</li>\n                            <li>Alloy Desktop</li>\n                            <li>JX UI</li>\n                            <li>CodeTank</li>\n                            <li>iSpriter</li>\n                            <li>Rythem</li>\n                            <li>Go!Png </li>\n                            <li> row 1</li>\n                            <li> row 2</li>\n                            <li> row 3</li>\n                            <li>row 5</li>\n                            <li> row 5</li>\n                            <li> row 7</li>\n                            <li> row 8</li>\n                            <li> row 9</li>\n                            <li> row 11</li>\n                            <li> row 11</li>\n                            <li> row 12</li>\n                            <li> row 13</li>\n                            <li> row 14</li>\n                            <li> row 15</li>\n                            <li> row 16</li>\n                            <li> row 17</li>\n                            <li> row 18</li>\n                            <li> row 19</li>\n                            <li> row 20</li>\n                            <li> row 21</li>\n                            <li> row 22</li>\n                            <li> row 23</li>\n                            <li> row 24</li>\n                            <li style="border-bottom: none;"> row 25</li>\n                        </ul>\n                    </div>\n        </div>\n        ';
+	            return '\n        <div class="main">\n            <div omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >\n                        <ul ref="scroller">\n                            <li>Hello, Omi-Touch!</li>\n                            <li>AlloyTouch</li>\n                            <li>Transformjs</li>\n                            <li>AlloyFinger</li>\n                            <li>Omi</li>\n                            <li>AlloyGameEngine</li>\n                            <li>Rosin</li>\n                            <li>LivePool</li>\n                            <li>AlloyStick</li>\n                            <li>CodeStar</li>\n                            <li>AlloyDesigner</li>\n                            <li>JX</li>\n                            <li>TEditor</li>\n                            <li>JXAnimate</li>\n                            <li>Spirit</li>\n                            <li>AlloyImage</li>\n                            <li>ModJS</li>\n                            <li>Pretty row 16</li>\n                            <li>stepify</li>\n                            <li>AlloyTimer</li>\n                            <li>Alloy Desktop</li>\n                            <li>JX UI</li>\n                            <li>CodeTank</li>\n                            <li>iSpriter</li>\n                            <li>Rythem</li>\n                            <li>Go!Png </li>\n                            <li> row 1</li>\n                            <li> row 2</li>\n                            <li> row 3</li>\n                            <li>row 5</li>\n                            <li> row 5</li>\n                            <li> row 7</li>\n                            <li> row 8</li>\n                            <li> row 9</li>\n                            <li> row 11</li>\n                            <li> row 11</li>\n                            <li> row 12</li>\n                            <li> row 13</li>\n                            <li> row 14</li>\n                            <li> row 15</li>\n                            <li> row 16</li>\n                            <li> row 17</li>\n                            <li> row 18</li>\n                            <li> row 19</li>\n                            <li> row 20</li>\n                            <li> row 21</li>\n                            <li> row 22</li>\n                            <li> row 23</li>\n                            <li> row 24</li>\n                            <li style="border-bottom: none;"> row 25</li>\n                        </ul>\n                    </div>\n        </div>\n        ';
 	        }
 	    }]);
 
@@ -1958,8 +1958,7 @@
 	    var noop = function noop() {};
 
 	    var getHandler = function getHandler(name, dom, instance) {
-	        var evtName = 'on' + name.substring(0, 1).toUpperCase() + name.substring(1);
-	        var value = dom.getAttribute(evtName);
+	        var value = dom.getAttribute(name);
 	        if (value === null) {
 	            return noop;
 	        } else {
@@ -1976,6 +1975,7 @@
 
 	    OmiTouch.init = function () {
 	        Omi.extendPlugin('omi-touch', function (dom, instance) {
+	            if (dom.alloyTouch) return;
 	            var target = instance.refs[dom.getAttribute('motionRef')];
 	            Transform(target);
 	            var initialValue = dom.getAttribute('initialValue');
@@ -1983,15 +1983,15 @@
 	                target[dom.getAttribute('property') || "translateY"] = parseInt(initialValue);
 	            }
 
-	            new AlloyTouch({
+	            var alloyTouch = new AlloyTouch({
 	                touch: dom, //����������dom
-	                vertical: dom.getAttribute('vertical') === 'false' ? false : true, //�����裬Ĭ����true����������ֱ����touch
+	                vertical: dom.getAttribute('vertical') === 'false' ? false : true, //�����裬Ĭ����true���������ֱ����touch
 	                target: target, //�˶��Ķ���
 	                property: dom.getAttribute('property') || "translateY", //���˶�������
 	                min: getNum('min', dom), //������,�˶����Ե���Сֵ
-	                max: getNum('max', dom), //������,�������Ե�����ֵ
-	                sensitivity: getNum('sensitivity', dom), //������,���������������ȣ�Ĭ��ֵΪ1������Ϊ����
-	                factor: getNum('factor', dom), //������,��ʾ����λ���뱻�˶�����ӳ����ϵ��Ĭ��ֵ��1
+	                max: getNum('max', dom), //������,�������Ե����ֵ
+	                sensitivity: getNum('sensitivity', dom), //������,�������������ȣ�Ĭ��ֵΪ1������Ϊ����
+	                factor: getNum('factor', dom), //������,��ʾ����λ���뱻�˶�����ӳ���ϵ��Ĭ��ֵ��1
 	                step: getNum('step', dom), //����У����step��������
 	                bindSelf: dom.getAttribute('bindSelf') === 'true' ? true : false,
 	                change: getHandler('change', dom, instance),
@@ -2002,11 +2002,9 @@
 	                pressMove: getHandler('pressMove', dom, instance),
 	                animationEnd: getHandler('animationEnd', dom, instance)
 	            });
-	        });
-	    };
 
-	    OmiTouch.destroy = function () {
-	        delete Omi.plugins['omi-touch'];
+	            dom.alloyTouch = alloyTouch;
+	        });
 	    };
 
 	    if (( false ? 'undefined' : _typeof(exports)) == "object") {

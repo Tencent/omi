@@ -1,10 +1,10 @@
 {
   "name": "omi-touch",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "AlloyTouch / Omi integration. Smooth scrolling, rotation, pull to refresh, page transition and any motion for your Omi project.",
-  "main": "omi-touch.js",
+  "main": "index.js",
   "scripts": {
-    "touch": "webpack -w"
+    "simple": "webpack -w"
   },
   "repository": {
     "type": "git",
