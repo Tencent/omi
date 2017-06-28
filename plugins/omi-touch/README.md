@@ -20,7 +20,7 @@ npm install omi-touch
 
 ```js
 import Omi from 'omi';
-import OmiTouch from '../../omi-touch.js';
+import OmiTouch from 'omi-touch';
 
 OmiTouch.init();
 
