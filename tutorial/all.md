@@ -589,17 +589,20 @@ Omi.render(new App(),"#container");
 使用Omi的时候，你会发现，在子组件内部修改父组件传递过来的data，就是修改 this.data 然后进行 this.update 会没有效果。
 
 这里会有个权重问题。Omi的组件 selfDataFirst 默认是 false，也就是代码 父组件传递的属性的权重更高，如果你想要子组件 this.data 的权重更高，可以通过修改 selfDataFirst。如:
+
 ```js
 <child-element selfDataFirst><child-element>
 ```
+
 也可以使用缺省模式:
+
 ```js
 <child-element sdf><child-element>
 ```
 
 也可以在构造函数内修改如:
 
-```
+```js
 class ChildElement extends Omi.Component {
     constructor(data) {
         super(data)
@@ -607,7 +610,6 @@ class ChildElement extends Omi.Component {
     }
     ...
 ```
-
 
 ## 生命周期
 
