@@ -258,5 +258,5 @@ if (Root.isDev) {
 
 ### 相关地址
 
-* [演示地址](http://alloyteam.github.io/omi/example/qq-nearby/dev/index.html)
-* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/qq-nearby)
+* [演示地址](http://alloyteam.github.io/omi/example/old-bak/qq-nearby/dev/index.html)
+* [源码地址](https://github.com/AlloyTeam/omi/tree/master/example/old-bak/qq-nearby)
