@@ -16,6 +16,7 @@
     * [group-data通讯](#group-data通讯)
     * [标记name](#标记name)
     * [标记omi-id](#标记omi-id)
+    * [selfDataFirst](#selfdatafirst)
 * [生命周期](#生命周期)
 * [事件处理](#事件处理)
     * [内置事件](#内置事件)
@@ -582,6 +583,31 @@ Omi.render(new App(),"#container");
 ```
 
 通过在组件上声明`omi-id`，标记`omi-id`是全局注册，在程序任何地方可以通过`Omi.get`拿到该对象的实例。
+
+### selfDataFirst
+
+使用Omi的时候，你会发现，在子组件内部修改父组件传递过来的data，就是修改 this.data 然后进行 this.update 会没有效果。
+
+这里会有个权重问题。Omi的组件 selfDataFirst 默认是 false，也就是代码 父组件传递的属性的权重更高，如果你想要子组件 this.data 的权重更高，可以通过修改 selfDataFirst。如:
+```js
+<child-element selfDataFirst><child-element>
+```
+也可以使用缺省模式:
+```js
+<child-element sdf><child-element>
+```
+
+也可以在构造函数内修改如:
+
+```
+class ChildElement extends Omi.Component {
+    constructor(data) {
+        super(data)
+        this.selfDataFirst = true
+    }
+    ...
+```
+
 
 ## 生命周期
 
