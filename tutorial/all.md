@@ -611,6 +611,18 @@ class ChildElement extends Omi.Component {
     ...
 ```
 
+当然 selfDataFirst 的原理只是 Object.assign 的顺序不一样，Object.assign 只是浅拷贝，所以如果是引用类型的话，不管修改父组件传递的属性还是子组件自身的 `this.data` 都是可以修改成功的。最后贴上 Omi 相关的源码方便大家理解:
+
+```js
+_mergeData(childStr) {
+    if(this.selfDataFirst){
+        this.data = Object.assign({},this._getDataset(childStr),this.data)
+    }else{
+        this.data = Object.assign({},this.data, this._getDataset(childStr))
+    }
+}
+```
+
 ## 生命周期
 
 |name   |avatars   |company   | 
