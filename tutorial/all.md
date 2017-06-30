@@ -623,6 +623,8 @@ _mergeData(childStr) {
 }
 ```
 
+`_mergeData` 方法是Omi内部执行的一个私有方法，会在组件 `render` 之前由执行。 
+
 ## 生命周期
 
 |name   |avatars   |company   | 
