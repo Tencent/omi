@@ -41,6 +41,7 @@
     * [o-filter](#o-filter)
     * [o-html](#o-html)
     * [o-replace](#o-replace)
+* [调试技巧](#调试技巧)  
 * [Omi相关](#omi相关)  
 
 ## 简介
@@ -2104,7 +2105,13 @@ result:
 
 div will be replaced with given html
 
+## 调试技巧
 
+```js
+console.log(Omi.instances)
+```
+
+所有的组件的实例都在`Omi.instances`数组里，简单吧！
 
 ## Omi相关
 
