@@ -18,19 +18,11 @@ class Component {
         this._omi_preventSelfUpdate = componentOption.preventSelfUpdate
         this._omi_domDiffDisabled = componentOption.domDiffDisabled
         this._omi_ignoreStoreData = componentOption.ignoreStoreData
-        //re render the server-side rendering html on the client-side
-        const type = Object.prototype.toString.call(data)
-        const isReRendering = type !== '[object Object]' && type !== '[object Undefined]'
-        if (isReRendering) {
-            this.renderTo = typeof data === "string" ? document.querySelector(data) : data
-            this._hidden = this.renderTo.querySelector('.omi_scoped__hidden_data')
-            this.id = this._hidden.dataset.omiId
-            this.data = JSON.parse(this._hidden.value)
-        } else {
-            this.data = data || {}
-            this._omi_server_rendering = componentOption.server
-            this.id = this._omi_server_rendering ? (1000000 + Omi.getInstanceId()) : Omi.getInstanceId()
-        }
+
+        this.data = data || {}
+        this._omi_server_rendering = componentOption.server
+        this.id = this._omi_server_rendering ? (1000000 + Omi.getInstanceId()) : Omi.getInstanceId()
+
         this.refs = {}
         this.children = []
 
@@ -132,7 +124,7 @@ class Component {
         this._childrenBeforeUpdate(this)
         this._omiGroupDataCounter = {}
         if (this.renderTo) {
-            this._render()
+            this._render(false, false, true)
         } else {
             if(this._omi_preventSelfUpdate) return;
             // update child node
@@ -142,15 +134,19 @@ class Component {
                 this.node = hdNode
             }else{
                 if(this._omi_domDiffDisabled){
-                    this.node.parentNode.replaceChild(morphdom.toElement(scopedEvent(this._childRender(this._omiChildStr), this.id)),this.node)
+                    this.node.parentNode.replaceChild(morphdom.toElement(scopedEvent(this._childRender(this._omiChildStr, false, true), this.id)),this.node)
                 }else {
-                    morphdom(this.node, scopedEvent(this._childRender(this._omiChildStr), this.id))
+                    morphdom(this.node, scopedEvent(this._childRender(this._omiChildStr,false, true), this.id))
                 }
                 this.node = document.querySelector("[" + this._omi_scoped_attr + "]")
                 this._queryElements(this)
                 this._fixForm()
+
             }
         }
+
+        //exec new element installed
+        this._childrenInstalledAfterUpdate(this)
 
         this._childrenAfterUpdate(this)
         this.afterUpdate()
@@ -209,7 +205,7 @@ class Component {
         this._execInstalledHandlers()
     }
 
-    _render(isFirst, isSelf) {
+    _render(isFirst, isSelf, fromUpdate) {
         if(this._omi_removed ){
             let node = this._createHiddenNode()
             if(!isFirst){
@@ -228,9 +224,9 @@ class Component {
         this.beforeRender()
         this._generateHTMLCSS()
         if(!isSelf) {
-            this._extractChildren(this)
+            this._extractChildren(this, fromUpdate)
         }else {
-            this._extractChildrenString(this)
+            this._extractChildrenString(this, fromUpdate)
         }
 
         this.children.forEach(item => {
@@ -275,7 +271,7 @@ class Component {
         return arr
     }
 
-    _childRender(childStr,isSelf) {
+    _childRender(childStr, isSelf, fromUpdate) {
         if (this._omi_removed) {
             this.HTML = '<input type="hidden" omi_scoped_' + this.id + ' >'
             return this.HTML
@@ -291,9 +287,9 @@ class Component {
         this.beforeRender()
         this._fixSlot(this._generateHTMLCSS())
         if (!isSelf) {
-            this._extractChildren(this)
+            this._extractChildren(this, fromUpdate)
         } else {
-            this._extractChildrenString(this)
+            this._extractChildrenString(this, fromUpdate)
         }
 
         this.children.forEach(item => {
@@ -357,6 +353,25 @@ class Component {
         })
     }
 
+    _childrenInstalled(root){
+        root.children.forEach((child)=>{
+            this._childrenInstalled(child)
+            child.installed()
+            child._execInstalledHandlers()
+        })
+    }
+
+    _childrenInstalledAfterUpdate(root){
+        root.children.forEach((child)=>{
+            if(child._omi_needInstalled){
+                child._omi_needInstalled = false
+                this._childrenInstalled(child)
+                child.installed()
+                child._execInstalledHandlers()
+            }
+        })
+    }
+
     _fixForm (){
 
         Omi.$$('input',this.node).forEach(element =>{
@@ -392,7 +407,7 @@ class Component {
         })
     }
 
-    _replaceTags(array, html, updateSelf) {
+    _replaceTags(array, html, updateSelf, fromUpdate) {
         if (Omi.customTags.length === 0) return
         const str = array.join("|")
         const reg = new RegExp('<(' + str + '+)((?:\\s+[a-zA-Z_:][-a-zA-Z0-9_:.]*(?:\\s*=\\s*(?:(?:"[^"]*")|(?:\'[^\']*\')|[^>\\s]+))?)*)\\s*((\\/>)|>(([\\s\\S]*?)<\\/\\1>))', 'g');
@@ -404,7 +419,7 @@ class Component {
                     cmi._omiChildStr = m
                 }
             }else{
-                this._initComponentByString(a, m, f, index++, this)
+                this._initComponentByString(a, m, f, index++, this, fromUpdate)
             }
         })
     }
@@ -506,16 +521,16 @@ class Component {
 
     }
 
-    _extractChildrenString(child){
-        this._replaceTags(Omi.customTags, child.HTML,true)
+    _extractChildrenString(child, fromUpdate){
+        this._replaceTags(Omi.customTags, child.HTML, true, fromUpdate)
 
     }
 
-    _extractChildren(child){
-        this._replaceTags(Omi.customTags, child.HTML)
+    _extractChildren(child, fromUpdate){
+        this._replaceTags(Omi.customTags, child.HTML, false, fromUpdate)
     }
 
-    _initComponentByString(name, childStr, slotContent, i, child){
+    _initComponentByString(name, childStr, slotContent, i, child, fromUpdate){
         let json = html2json(childStr)
         let attr = json.child[0].attr
         let cmi = this.children[i]
@@ -611,9 +626,9 @@ class Component {
 
             sub_child._childRender(childStr)
 
-            sub_child.installed()
-            sub_child._execInstalledHandlers()
-
+            if(fromUpdate){
+                sub_child._omi_needInstalled = true
+            }
         }
     }
 }

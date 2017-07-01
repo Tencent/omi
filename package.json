@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "Open and modern framework for building user interfaces.",
   "main": "dist/omi.js",
   "types": "index.d.ts",
@@ -16,6 +16,7 @@
     "curd": "webpack -w",
     "todomvc": "webpack -w",
     "textarea": "webpack -w",
+    "life-cycle": "webpack -w",
     "svg": "webpack -w",
     "tree": "webpack -w",
     "soda": "webpack -w",
