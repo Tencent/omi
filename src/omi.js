@@ -242,7 +242,7 @@ Omi.render = function(component , renderTo , incrementOrOption){
     }
     component.install()
     component._render(true)
-    component._childrenInstalled(component)
+
     component.installed()
     component._execInstalledHandlers()
     return component

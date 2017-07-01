@@ -20,8 +20,8 @@ function scoper(css, prefix) {
             g2 = ""
         }
 
-        if (g1.match(/^\s*(@media|@keyframes|to|from|@font-face)/)) {
-            return g1 + g2 + g3
+        if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) {
+            return g1 + g2 + g3;
         }
 
         var appendClass = g1.replace(/(\s*)$/, "") + prefix + g2

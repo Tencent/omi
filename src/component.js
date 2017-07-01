@@ -44,13 +44,7 @@ class Component {
         this._preCSS = null
         this._omiGroupDataCounter = {}
         this._omi_installedHandlers = null
-        if (this._omi_server_rendering || isReRendering) {
-            this.install()
-            this._render(true)
-            this._childrenInstalled(this)
-            this.installed()
-            this._execInstalledHandlers()
-        }
+
     }
 
     install() {
@@ -363,14 +357,6 @@ class Component {
         })
     }
 
-    _childrenInstalled(root){
-        root.children.forEach((child)=>{
-            this._childrenInstalled(child)
-            child.installed()
-            child._execInstalledHandlers()
-        })
-    }
-
     _fixForm (){
 
         Omi.$$('input',this.node).forEach(element =>{
@@ -624,6 +610,10 @@ class Component {
             }
 
             sub_child._childRender(childStr)
+
+            sub_child.installed()
+            sub_child._execInstalledHandlers()
+
         }
     }
 }

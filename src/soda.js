@@ -58,6 +58,10 @@
         }
     };
 
+    var exist = function(value){
+        return value !== null && value !== undefined && value !== "" && typeof value !== 'undefined';
+    };
+
     var removeClass = function (el, className) {
         el.className = el.className.replace(classNameRegExp(className), "");
     };
@@ -312,7 +316,9 @@
                                     return parseSodaExpression($1, scope);
                                 });
 
-                                node.setAttribute(attrName, attrValue);
+                                if(exist(attrValue)) {
+                                    node.setAttribute(attrName, attrValue);
+                                }
                             }
                         }
 
