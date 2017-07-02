@@ -41,6 +41,7 @@
     * [o-filter](#o-filter)
     * [o-html](#o-html)
     * [o-replace](#o-replace)
+    * [其他指令](#其他指令)
 * [调试技巧](#调试技巧)  
 * [Omi相关](#omi相关)  
 
