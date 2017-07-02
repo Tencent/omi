@@ -1,5 +1,5 @@
 /*!
- *  OmiRouter v0.1.2 By dntzhang 
+ *  OmiRouter v0.2.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -60,7 +60,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
-	 *  omi-router v0.1.0 by dntzhang
+	 *  omi-router v0.2.0 by dntzhang
 	 *  Router for Omi.
 	 *  Github: https://github.com/AlloyTeam/omi
 	 *  MIT Licensed.
@@ -80,7 +80,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        store = null,
 	        routerOption = { },
 	        preRenderTo = null,
-	        preInstance = null
+	        preInstance = null,
+	        currentRoute = null,
+	        preRoute = null,
+	        instanceList = []
 
 	    OmiRouter.init = function (option) {
 	        routerOption = option
@@ -124,6 +127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                renderTo = route.renderTo || routerOption.renderTo
 	                store = route.store || routerOption.store
 	                Component = route.component
+	                currentRoute = route
 	                pushState(to)
 	                return false
 	            }
@@ -140,29 +144,71 @@ return /******/ (function(modules) { // webpackBootstrap
 	        render()
 	    }, false)
 
-	    function render(){
-	        if(store){
-	            store.$route = { }
+	    function render() {
+	        if (store) {
+	            store.$route = {}
 	            store.$route.params = params
-	        }else{
+	        } else {
 	            store = {
-	                methods:{
-	                    install:function(){
-	                        this.$route = { }
+	                methods: {
+	                    install: function () {
+	                        this.$route = {}
 	                        this.$route.params = params
 	                    }
 	                }
 	            }
 	        }
-	        if(preRenderTo === renderTo&&preInstance){
+	        if (preRenderTo === renderTo && preInstance && !routerOption.increment) {
 	            deleteInstance(preInstance)
 	        }
-	        var instance = new Component()
-	        Omi.render(instance, renderTo, {
-	            store: store
-	        })
+
+	        var instance
+	        if(routerOption.increment) {
+	            var i = 0,
+	                len = instanceList.length
+	            for (; i < len; i++) {
+	                if (instanceList[i] instanceof Component) {
+	                    instance = instanceList[i]
+	                    break
+	                }
+	            }
+	        }
+
+	        if (!instance) {
+	            instance = new Component()
+	            if(routerOption.increment){
+	                instanceList.push(instance)
+	            }
+	            Omi.render(instance, renderTo, {
+	                store: store,
+	                increment: routerOption.increment
+	            })
+	            if(routerOption.init){
+	                routerOption.init({
+	                    component:instance,
+	                    preComponent:preInstance,
+	                    preRoute:preRoute,
+	                    route:currentRoute
+	                })
+	            }
+	        }
+
+
+	        if(routerOption.change) {
+	            routerOption.change({
+	                component:instance,
+	                preComponent:preInstance,
+	                preRoute:preRoute,
+	                route:currentRoute
+	            })
+	        }
+
+	        preRoute = currentRoute
 	        preInstance = instance
 	        preRenderTo = renderTo
+
+
+
 	    }
 
 	    function deleteInstance(instance){
