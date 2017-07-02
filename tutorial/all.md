@@ -2030,6 +2030,7 @@ result:
 </ul>
 ```
 
+当然这是支持嵌套的 o-repeat 用于遍历多维数组。
 
 ### o-filter
 
@@ -2103,7 +2104,19 @@ result:
 <span style="color:red;">test o-replace</span>
 ```
 
-div will be replaced with given html
+div 标签讲被 html替换掉，而不是插入 div 里面。
+
+### 其他指令
+
+支持 o-checked 、 o-autofocus 等等任意指令用于注入或者移除checked和autofocus等。举个例子:
+
+```html
+<input type="checkbox" o-checked="{{ user_config_status ? 'checked' : '' }}" >
+<input type="text" o-autofocus="{{ group_forbid===1 ? 'autofocus' : '' }}" >
+```
+
+超级方便！
+
 
 ## 调试技巧
 
