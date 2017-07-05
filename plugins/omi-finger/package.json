@@ -1,10 +1,11 @@
 {
   "name": "omi-finger",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "AlloyFinger / Omi integration. Support touch and gesture events in your Omi project. ",
   "main": "index.js",
   "scripts": {
-    "simple": "webpack -w"
+    "simple": "webpack -w",
+    "dynamic": "webpack -w"
   },
   "repository": {
     "type": "git",
