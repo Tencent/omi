@@ -1,5 +1,5 @@
 /*!
- *  omi-finger v0.1.7 by dntzhang
+ *  omi-finger v0.1.8 by dntzhang
  *  Omi / AlloyFinger integration. Support touch and gesture events in your Omi project.
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
@@ -32,7 +32,11 @@
     OmiFinger.init = function(){
         Omi.extendPlugin('omi-finger',function(dom, instance){
             if(dom.alloyFinger) {
-                dom.alloyFinger.destroy()
+                if (dom.getAttribute('once') !== null) {
+                    return
+                } else {
+                    dom.alloyFinger.destroy()
+                }
             }
 
             var alloyFinger = new AlloyFinger(dom, {
