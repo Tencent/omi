@@ -1,6 +1,6 @@
 # QQ日迹Omi实战开发，从0到1
 
-相信大家对Omi应该都不陌生了，如果还有不了解的同学先看看这里。使用Omi之后真的回不去了~~~
+相信大家对Omi应该都不陌生了，如果还有不了解的同学先看看这里。了解并使用Omi之后你会发现真的回不去了~~~
 
 [精通Omi框架](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
 
