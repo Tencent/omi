@@ -167,7 +167,7 @@ component是组件，组件也是以文件夹为粒度来的，里面一定有�
 
 超级简单明了，constructor是组件的构造函数，也是生命周期的开始，因为我们包裹盒的组件一直存在，所以没有用上其他生命周期的方法。但omi对组件生命周期的控制可是非常强大的，如下图
 
-<img src="http://www.alloyteam.com/wp-content/uploads/2017/07/5-300x168.png" alt="" width="300" height="168" class="alignnone size-medium wp-image-12865" />
+<img src="http://images2015.cnblogs.com/blog/105416/201703/105416-20170322083548924-1871234168.jpg" alt="" width="300" height="168" class="alignnone size-medium wp-image-12865" />
 
 接着是style和render，这里是用模版字符串写css和html，很方便，但如果觉得麻烦也可以用文件的形式，后面会说
 
