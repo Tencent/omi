@@ -377,9 +377,13 @@ list组件里面有一个item组件，这个item组件就是最后一个啦，�
 生产环境的代码就已经搞定了~接下来就是部署、提测...
 
 # 结语
-文章一些cgi、util相关的代码就省略掉了，主要目的是讲解omi的开发。虽然是一个很小的页面，不过可以看出来用omi+omi-cli开发还是很简单的哈~omi的能力当然不止这一点点，我这篇文章只是抛砖引玉，大家想解放生产力的话~快来使用omi吧~
+
+文章一些cgi、util相关的代码就省略掉了，主要目的是讲解Omi的开发。虽然是一个很小的页面，不过可以看出来用omi+omi-cli开发还是很简单的哈！Omi的能力当然不止这一点点，我这篇文章只是抛砖引玉，大家想解放生产力的话,快来使用Omi吧~~
+
 在线体验地址，请使用手机QQ扫描下方二维码
+
 <img src="http://www.alloyteam.com/wp-content/uploads/2017/07/6.png" alt="" width="245" height="244" class="alignnone size-full wp-image-12866" />
+
 github地址：
 
 * [omi](https://github.com/AlloyTeam/omi)
