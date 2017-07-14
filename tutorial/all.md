@@ -17,6 +17,7 @@
     * [标记name](#标记name)
     * [标记omi-id](#标记omi-id)
     * [selfDataFirst](#selfdatafirst)
+    * [domDiffDisabled](#domdiffdisabled)
 * [生命周期](#生命周期)
 * [事件处理](#事件处理)
     * [内置事件](#内置事件)
@@ -626,6 +627,20 @@ _mergeData(childStr) {
 ```
 
 `_mergeData` 方法是Omi内部执行的一个私有方法，会在组件 `render` 之前由执行。 
+
+# domDiffDisabled
+
+首先说下DOM Diff。DOM Diff 的本质是为了防止丢失 transition、scroll position、input焦点等等状态。但是非常多的场景下我们是不需要保存transition、scroll position、input焦点等。所以这个时候可以关闭DOM Diff来获取更加快的更新速度。怎么使用?举个例子:
+
+```js
+<child-element domDiffDisabled><child-element>
+```
+
+或者使用缺省模式:
+
+```js
+<child-element ddd><child-element>
+```
 
 ## 生命周期
 
