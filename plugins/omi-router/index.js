@@ -109,6 +109,18 @@
             }
         }
 
+        var doRouter = true
+
+        if(routerOption.beforeRoute){
+            doRouter = routerOption.beforeRoute({
+                preRoute:preRoute,
+                route:currentRoute,
+                preComponent:preInstance
+            })
+        }
+
+        if(doRouter === false) return
+
         if (!instance) {
             instance = new Component()
             if(routerOption.increment){
