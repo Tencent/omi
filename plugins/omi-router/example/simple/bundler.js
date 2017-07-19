@@ -3293,7 +3293,7 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/*!
-	 *  omi-router v0.1.0 by dntzhang
+	 *  omi-router v0.2.0 by dntzhang
 	 *  Router for Omi.
 	 *  Github: https://github.com/AlloyTeam/omi
 	 *  MIT Licensed.
@@ -3311,7 +3311,10 @@
 	        store = null,
 	        routerOption = {},
 	        preRenderTo = null,
-	        preInstance = null;
+	        preInstance = null,
+	        currentRoute = null,
+	        preRoute = null,
+	        instanceList = [];
 
 	    OmiRouter.init = function (option) {
 	        routerOption = option;
@@ -3320,11 +3323,7 @@
 	        });
 
 	        Omi.extendPlugin('omi-router', function (dom, instance) {
-	            dom.setAttribute('href', 'javascript:void(0)');
-
-	            dom.addEventListener('click', function () {
-	                hashMapping(dom.getAttribute('to'));
-	            }, false);
+	            dom.setAttribute('href', '#' + dom.getAttribute('to'));
 	        });
 
 	        var hash = window.location.hash.replace('#', '');
@@ -3355,6 +3354,7 @@
 	                renderTo = route.renderTo || routerOption.renderTo;
 	                store = route.store || routerOption.store;
 	                Component = route.component;
+	                currentRoute = route;
 	                pushState(to);
 	                return false;
 	            }
@@ -3385,13 +3385,51 @@
 	                }
 	            };
 	        }
-	        if (preRenderTo === renderTo && preInstance) {
+	        if (preRenderTo === renderTo && preInstance && !routerOption.increment) {
 	            deleteInstance(preInstance);
 	        }
-	        var instance = new Component();
-	        Omi.render(instance, renderTo, {
-	            store: store
-	        });
+
+	        var instance;
+	        if (routerOption.increment) {
+	            var i = 0,
+	                len = instanceList.length;
+	            for (; i < len; i++) {
+	                if (instanceList[i] instanceof Component) {
+	                    instance = instanceList[i];
+	                    break;
+	                }
+	            }
+	        }
+
+	        if (!instance) {
+	            instance = new Component();
+	            if (routerOption.increment) {
+	                instanceList.push(instance);
+	            }
+	            Omi.render(instance, renderTo, {
+	                store: store,
+	                increment: routerOption.increment
+	            });
+	            if (routerOption.init) {
+	                routerOption.init({
+	                    component: instance,
+	                    preComponent: preInstance,
+	                    preRoute: preRoute,
+	                    route: currentRoute
+	                });
+	            }
+	        }
+
+	        if (routerOption.change) {
+	            routerOption.change({
+	                component: instance,
+	                preComponent: preInstance,
+	                preRoute: preRoute,
+	                route: currentRoute
+	            });
+	        }
+
+	        preRoute = currentRoute;
 	        preInstance = instance;
 	        preRenderTo = renderTo;
 	    }

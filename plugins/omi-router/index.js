@@ -31,11 +31,7 @@
         })
 
         Omi.extendPlugin('omi-router', function (dom, instance) {
-            dom.setAttribute('href', 'javascript:void(0)')
-
-            dom.addEventListener('click', function () {
-                hashMapping(dom.getAttribute('to'))
-            }, false)
+            dom.setAttribute('href', '#'+ dom.getAttribute('to'))
         })
 
         var hash = window.location.hash.replace('#', '')
