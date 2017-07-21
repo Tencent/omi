@@ -1,4 +1,8 @@
-﻿## v1.7.4
+﻿## v1.7.5
+
+* 再次修复 select 选中的问题,  `option.setAttribute('selected', 'selected')` 改成  `option.selected  = true`
+
+## v1.7.4
 
 * 再次修复 组件 update 时候新加的组件 installed 方法不执行的问题
 

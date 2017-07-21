@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "Open and modern framework for building user interfaces.",
   "main": "dist/omi.js",
   "types": "index.d.ts",
@@ -9,6 +9,7 @@
     "build-min": "webpack -w",
     "build-server": "node asset/build_server.js",
     "simple": "webpack -w",
+    "select": "webpack -w",
     "repeat-custom-tag": "webpack -w",
     "repeat": "webpack -w",
     "nest-repeat": "webpack -w",

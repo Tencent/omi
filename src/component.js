@@ -397,12 +397,12 @@ class Component {
             if (value) {
                 Omi.$$('option',select).forEach(option =>{
                     if(value === option.getAttribute('value')) {
-                        option.setAttribute('selected', 'selected')
+                        option.selected  = true
                     }
                 })
             }else {
                 let firstOption = Omi.$$('option', select)[0]
-                firstOption && firstOption.setAttribute('selected', 'selected')
+                firstOption && (firstOption.selected  = true)
             }
         })
     }
