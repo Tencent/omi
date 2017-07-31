@@ -255,7 +255,7 @@ Omi.render(new Todo({ items: [] ,text : '' }),"body");
 注意看上面的这行代码`<list ::data-items="data.items" ></list>`。这样就把父组件的data.items传递给了子组件的data.items。这里解释下没有冒号，一个冒号和两个冒号:
 
 * `data-*`   代表直接传递字符串
-* `:data-*`  代表传递javascript表达式，比如`data-num="1"` 代表传递数字1而非字符串，`data-num="1+1"`可以传递2。
+* `:data-*`  代表传递javascript表达式，比如`:data-num="1"` 代表传递数字1而非字符串，`:data-num="1+1"`可以传递2。
 * `::data-*` 代表传递父组件的属性，比如上面的`::data-items="data.items"`就代表传递`this.data.items`给子组件
 
 
