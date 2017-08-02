@@ -11,7 +11,7 @@ Open and modern framework for building user interfaces.
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs"></a>
 </p>
 
----
+[中文README](README.zh-CN.md)
 
 ## Omi
 
@@ -19,24 +19,24 @@ Open and modern framework for building user interfaces.
 * If you want to experience the Omi framework, you can visit [Omi Playground](https://alloyteam.github.io/omi/example/playground/) or read the code of [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
 * If you want to use the Omi framework or develop and improve omi framework, please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
 * If you want to get a better reading experience of the documents, you can visit [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
-* Tutorial or blogs about omi framework，you can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
-* If you have Any problems，please [New issue](https://github.com/AlloyTeam/omi/issues/new)
+* Tutorial or blogs about omi framework,you can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
+* If you have Any problems,please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
 
 ## omi-cli
 
-``` js
-$ npm install omi-cli -g       //install cli
-$ omi init your_project_name   //init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name         //please ignore this command if you executed 'omi init' in an empty folder
-$ npm start                    //develop
-$ npm run dist                 //release
+```bash
+$ npm install omi-cli -g       // install cli
+$ omi init your_project_name   // init project, you can also exec 'omi init' in an empty folder
+$ cd your_project_name         // please ignore this command if you executed 'omi init' in an empty folder
+$ npm start                    // develop
+$ npm run dist                 // release
 ```
 
 other cmd:
 
-``` js
-$ npm run ie    //for debugging in ie8
+```bash
+$ npm run ie    // debugging in ie8
 ```
 
 ## Features
@@ -44,34 +44,33 @@ $ npm run ie    //for debugging in ie8
 * Super tiny size, 7 KB (gzip)
 * Good compatibility, support IE8 (please import es5-shim or [es5-sham](//s.url.cn/qqun/xiaoqu/buluo/p/js/es5-sham-es5-sham.min.77c4325f.js) by yourself)
 * Fully object-oriented component system
-* Support Scoped CSS, reusable components are composed of HTML， Scoped CSS and JS
+* Support Scoped CSS, reusable components are composed of HTML, Scoped CSS and JS
 * More free updates, each component has a update method, free to choose the right time to update
 * Template engines can be replaced, developers can override the Omi.template method to use any template engine
 * Provides two development way ( ES6+ and ES5) for developers to choose freely
 
 ## Plugins
 
-* [omi-router](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router) :  Router for Omi.
-* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) :  Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
-* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) :  Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
-* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) :  Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
-* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker):  Omi / JQuery Date Picker integration.
+* [omi-router](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router): Router for Omi.
+* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger): Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform): Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
+* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch): Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
+* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker): Omi / JQuery Date Picker integration.
 
 ## Install
 
-``` js
+```bash
 $ npm install omi
 ```
 
 ## Hello World
 
-
-You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)，configure the [babel-loader](https://github.com/babel/babel-loader) in  the module settings of webpack，then you can use ES6+ to write your web program.
+You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/), configure the [babel-loader](https://github.com/babel/babel-loader) in  the module settings of webpack, then you can use ES6+ to write your web program.
 
 * [[Hello World ES6+ ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
 * [[Hello World ES5  ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
 
-if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js))，you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)。
+if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js)), you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)
 
 ## CDN
 
@@ -86,11 +85,10 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 
 ## Thanks
 
-* [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
-* [art-template](https://github.com/aui/art-template)-JS template engine with excellent performance
-* [sodajs](https://github.com/AlloyTeam/sodajs)-Light weight but powerful template engine for JavaScript
-* [mustache.js](https://github.com/janl/mustache.js)-Minimal templating with {{mustaches}} in JavaScript
-
+* [morphdom](https://github.com/patrick-steele-idem/morphdom) - Fast and lightweight DOM diffing/patching (no virtual DOM needed)
+* [art-template](https://github.com/aui/art-template) - JS template engine with excellent performance
+* [sodajs](https://github.com/AlloyTeam/sodajs) - Light weight but powerful template engine for JavaScript
+* [mustache.js](https://github.com/janl/mustache.js) - Minimal templating with {{mustaches}} in JavaScript
 
 ## Contributors
 

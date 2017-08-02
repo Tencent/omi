@@ -11,7 +11,7 @@ Open and modern framework for building user interfaces.
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs"></a>
 </p>
 
----
+[English README](README.md)
 
 ## 中文
 
