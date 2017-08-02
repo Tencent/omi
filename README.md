@@ -1,5 +1,5 @@
 ﻿<p align="center">
-  <a href ="##"><img alt="Omi" src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png" alt="Omi"></a>
+  <a href="##Omi"><img src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png" alt="Omi"></a>
 </p>
 <p align="center">
 Open and modern framework for building user interfaces.
@@ -19,24 +19,24 @@ Open and modern framework for building user interfaces.
 * If you want to experience the Omi framework, you can visit [Omi Playground](https://alloyteam.github.io/omi/example/playground/) or read the code of [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
 * If you want to use the Omi framework or develop and improve omi framework, please read [the Omi documentation](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
 * If you want to get a better reading experience of the documents, you can visit [Docs Website](https://alloyteam.github.io/omi/website/docs.html)
-* Tutorial or blogs about omi framework,you can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
-* If you have Any problems,please [New issue](https://github.com/AlloyTeam/omi/issues/new)
+* Tutorial or blogs about omi framework, you can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
+* If you have Any problems, please [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
 
 ## omi-cli
 
 ```bash
-$ npm install omi-cli -g       // install cli
-$ omi init your_project_name   // init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name         // please ignore this command if you executed 'omi init' in an empty folder
-$ npm start                    // develop
-$ npm run dist                 // release
+$ npm install omi-cli -g       # install cli
+$ omi init your_project_name   # init project, you can also exec 'omi init' in an empty folder
+$ cd your_project_name         # please ignore this command if you executed 'omi init' in an empty folder
+$ npm start                    # develop
+$ npm run dist                 # release
 ```
 
 other cmd:
 
 ```bash
-$ npm run ie    // debugging in ie8
+$ npm run ie    # debugging in ie8
 ```
 
 ## Features

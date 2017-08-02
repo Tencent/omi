@@ -25,18 +25,18 @@ Open and modern framework for building user interfaces.
 
 ## 命令行
 
-``` js
-$ npm install omi-cli -g       //安装cli
-$ omi init your_project_name   //初始化项目，你也可以在一个空的文件夹下执行 omi init
-$ cd your_project_name         //如果你是在空文件夹下执行的 omi init。请无视这条命令
-$ npm start                    //开发
-$ npm run dist                 //部署发布
+```bash
+$ npm install omi-cli -g       # 安装cli
+$ omi init your_project_name   # 初始化项目，你也可以在一个空的文件夹下执行 omi init
+$ cd your_project_name         # 如果你是在空文件夹下执行的 omi init。请无视这条命令
+$ npm start                    # 开发
+$ npm run dist                 # 部署发布
 ```
 
 当然omi-cli还有一个特殊命令:
 
-``` js
-$ npm run ie    //用于生成未压缩js的发布包用来定位ie8的问题
+```bash
+$ npm run ie    # 用于生成未压缩js的发布包用来定位ie8的问题
 ```
 
 ## 特性
@@ -52,22 +52,22 @@ $ npm run ie    //用于生成未压缩js的发布包用来定位ie8的问题
     * omi.js 兼容到IE9
     * 兼容IE8请自行引用 es5-shim 或 [es5-sham](//s.url.cn/qqun/xiaoqu/buluo/p/js/es5-sham-es5-sham.min.77c4325f.js) 和 [console-polyfill](//s.url.cn/qqun/xiaoqu/buluo/p/js/console-polyfill.min.848060c4.js)）,比如:
 
-```
+```html
 <!--[if lt IE 9]><script type="text/javascript" crossorigin="anonymous" src="//s.url.cn/qqun/xiaoqu/buluo/p/js/console-polyfill.min.848060c4.js"></script>
       <script type="text/javascript" crossorigin="anonymous" src="//s.url.cn/qqun/xiaoqu/buluo/p/js/es5-sham-es5-sham.min.77c4325f.js"></script><![endif]-->
 ```
 
 ## 插件
 
-* [omi-router](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router) : Omi专属的官方Router插件.
-* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，支持各种触摸事件和手势
-* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) Omi的[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/)插件，快速方便地设置DOM的CSS3 Transform属性
-* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）
-* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker) Omi的时间选择插件，支持各种时间或者时间区域选择
+* [omi-router](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router): Omi专属的官方Router插件.
+* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger): Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，支持各种触摸事件和手势
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform): Omi的[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/)插件，快速方便地设置DOM的CSS3 Transform属性
+* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch): Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）
+* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker): Omi的时间选择插件，支持各种时间或者时间区域选择
 
 ## 通过npm安装
 
-``` js
+```bash
 $ npm install omi
 ```
 
@@ -93,10 +93,10 @@ $ npm install omi
 
 ## 感谢
 
-* [morphdom](https://github.com/patrick-steele-idem/morphdom)-Fast and lightweight DOM diffing/patching (no virtual DOM needed)
-* [art-template](https://github.com/aui/art-template)-JS template engine with excellent performance
-* [sodajs](https://github.com/AlloyTeam/sodajs)-Light weight but powerful template engine for JavaScript
-* [mustache.js](https://github.com/janl/mustache.js)-Minimal templating with {{mustaches}} in JavaScript
+* [morphdom](https://github.com/patrick-steele-idem/morphdom) - Fast and lightweight DOM diffing/patching (no virtual DOM needed)
+* [art-template](https://github.com/aui/art-template) - JS template engine with excellent performance
+* [sodajs](https://github.com/AlloyTeam/sodajs) - Light weight but powerful template engine for JavaScript
+* [mustache.js](https://github.com/janl/mustache.js) - Minimal templating with {{mustaches}} in JavaScript
 
 ## Contributors
 
@@ -112,4 +112,5 @@ $ npm install omi
 |  [dntzhang](https://github.com/dntzhang) | ![](https://avatars2.githubusercontent.com/u/7917954?v=3&s=60)  |  Tencent |
 
 # License
-This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
+
+[MIT](http://opensource.org/licenses/MIT)
