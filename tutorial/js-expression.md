@@ -1,10 +1,10 @@
 ## 写在前面
 
-[Omi框架](https://github.com/AlloyTeam/omi)可以通过在组件上声明 data-* 把属性传递给子节点。
+[Omi框架](https://github.com/AlloyTeam/omi)可以通过在组件上声明`data-*`把属性传递给子节点。
 Omi从设计之初，就是往标准的DOM标签的标准传递方式靠齐。比如：
 
-* 下划线自动转驼峰， data-page-index传到子组件就变成this.data.pageIndex
-* data-xx 传递到子节点全都变成字符串，如data-page-index="1"到子节点中this.data.pageIndex就是字符串"1"
+* 下划线自动转驼峰，`data-page-index`传到子组件就变成 `this.data.pageIndex`
+* `data-xx` 传递到子节点全都变成字符串，如`data-page-index="1"`到子节点中`this.data.pageIndex`就是字符串"1"
 
 这样会有什么局限性和问题？如：
 
@@ -14,7 +14,7 @@ Omi从设计之初，就是往标准的DOM标签的标准传递方式靠齐。�
 
 那么支持传递javascript表达式就能解决这些痛点。
 
-废话不多说，来看神器的冒号。
+废话不多说，来看神奇的冒号。
 
 ## 冒号标记
 
@@ -23,73 +23,71 @@ Omi从设计之初，就是往标准的DOM标签的标准传递方式靠齐。�
 ```js
 import Hello from 'hello.js'
 
-Omi.tag('hello', Hello);
+Omi.tag('hello', Hello)
 
 class App extends Omi.Component {
-  
     render() {
-        return  `
-        <div>
-            <hello :data-user="{ name : 'Dntzhang', favorite : 'Omi' }" ></hello>
-        </div>
+        return `
+            <div>
+                <hello :data-user="{ name : 'Dntzhang', favorite : 'Omi' }" ></hello>
+            </div>
         `
-
     }
 }
 
 Omi.render(new App(),"#container")
 ```
 
-在data-user前面加上冒号即:data-user，就代表传递的是js 表达式，够方便吧。
+在`data-user`前面加上冒号即`:data-user`，就代表传递的是js表达式，够方便吧。
 
 然后在Hello组件内就可以直接使用。
 
 ```js
 class Hello extends Omi.Component {
-
     render() {
-      return  `
-      <div>
-      	<h1>{{user.name}} love {{user.favorite}}.</h1>
-      </div>
-  		`
+        return `
+            <div>
+                <h1>{{user.name}} love {{user.favorite}}.</h1>
+            </div>
+        `
     }
 }
 ```
 
-你也可以在hello组件内打印出 this.data.user 试试。
+你也可以在hello组件内打印出`this.data.user`试试。
 
 ## 传递其他类型
 
 上面的例子展示了传递JSON，其他类型也支持。比如：
 
-```js
- <hello :data-age="18" ></hello>
+```html
+<hello :data-age="18"></hello>
 ```
-```js
- <hello :data-xxx="1+1*2/3" ></hello>
+```html
+<hello :data-xxx="1+1*2/3"></hello>
 ```
-```js
- <hello :data-is-girl="false" ></hello>
+```html
+<hello :data-is-girl="false"></hello>
 ```
-```js
- <hello :data-array-test="[1,2,3]" ></hello>
+```html
+<hello :data-array-test="[1,2,3]"></hello>
 ```
 
 当然也支持传递多个值：
 
-```js
- <hello :data-array-test="[1,2,3]" :data-is-girl="false" :data-age="18" ></hello>
+```html
+<hello :data-array-test="[1,2,3]" :data-is-girl="false" :data-age="18"></hello>
 ```
 
 当然你也可以使用:data合并到一起：
 
-```js
- <hello :data="{
-                  arrayTest : [1,2,3], 
-                  isGirl : false, 
-                  age : 19
-                }"
+```html
+<hello 
+    :data="{
+        arrayTest : [1,2,3], 
+        isGirl : false, 
+        age : 19
+    }"
 /><hello>
 ```
 
@@ -99,56 +97,51 @@ class Hello extends Omi.Component {
 
 ```js
 class Hello extends Omi.Component {
-  
-    handleClick(evt){
-      alert( this.data.arrayTest[0].name)
+    handleClick(evt) {
+        alert(this.data.arrayTest[0].name)
     }
-  
-    render() {
-      return  `
-      <ul>
-      {{#arrayTest}}
-        <li onclick="handleClick">{{name}}</li>
-      {{/arrayTest}}
-      </ul>
-  		`;
 
-    }
-}
-
-Omi.tag('hello', Hello);
-
-class App extends Omi.Component {
-  
     render() {
         return  `
-        <div>
-            <hello :data-array-test="[{name:'dntzhang'},{name:'omi'},{name:'AlloyTeam'}]" ></hello>
-        </div>
-        `;
-
+            <ul>
+                {{#arrayTest}}
+                <li onclick="handleClick">{{name}}</li>
+                {{/arrayTest}}
+            </ul>
+        `
     }
 }
 
-Omi.render(new App(),"#container"); 
+Omi.tag('hello', Hello)
+
+class App extends Omi.Component {
+    render() {
+        return  `
+            <div>
+                <hello :data-array-test="[{name:'dntzhang'},{name:'omi'},{name:'AlloyTeam'}]" ></hello>
+            </div>
+        `
+    }
+}
+
+Omi.render(new App(), "#container")
 ```
-当然，在子组件中，你也可以不使用 [mustache.js](https://github.com/janl/mustache.js)模板引擎的语法去遍历，使用ES6+的姿势去遍历。
+
+当然，在子组件中，你也可以不使用[mustache.js](https://github.com/janl/mustache.js)模板引擎的语法去遍历，使用ES6+的姿势去遍历。
 
 ```js
 class Hello extends Omi.Component {
-  
     render() {
-      return  `
-      <ul>
-       ${this.data.arrayTest.map(item =>
-        `<li>${item.name}</li>`
-        ).join('')}
-      </ul>
-  		`;
+        return  `
+            <ul>
+                ${this.data.arrayTest.map(item => `<li>${item.name}</li>`).join('')}
+            </ul>
+        `
 
     }
 }
 ```
+
 这也是为什么omi提供了两个版本，omi.js和omi.lite.js的原因。omi.lite.js不包含 [mustache.js](https://github.com/janl/mustache.js)模板引擎。
 
 ## 在线演示
