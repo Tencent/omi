@@ -1,6 +1,10 @@
 {
     "extends": "standard",
     "rules": {
-        "indent": ["error", 4]
+        // special alloyteam code style 
+        // @see: http://alloyteam.github.io/CodeGuide/#js-indentation
+        "indent": ["error", 4],
+        // @see: http://alloyteam.github.io/CodeGuide/#js-space
+        "space-before-function-paren": ["error", "never"]
     }
 }
