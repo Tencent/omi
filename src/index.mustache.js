@@ -1,7 +1,8 @@
-import Omi from './omi.js'
-import Mustache from './mustache.js'
-import Component from './component.js'
-import Store from './store.js'
+import Omi from './core/omi.js'
+import Store from './core/store.js'
+import Component from './core/component.js'
+
+import Mustache from './lib/mustache.js'
 
 Omi.template = Mustache.render
 Omi.Store = Store

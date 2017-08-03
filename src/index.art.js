@@ -1,7 +1,8 @@
-import Omi from './omi.js'
-import template from './art-template.js'
-import Component from './component.js'
-import Store from './store.js'
+import Omi from './core/omi.js'
+import Store from './core/store.js'
+import Component from './core/component.js'
+
+import template from './lib/art-template.js'
 
 Omi.template = function(tpl, data) {
     return template.compile(tpl)(data)
