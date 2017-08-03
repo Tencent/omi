@@ -40,12 +40,11 @@ class Store {
         if (!added) {
             this.instances.push(view)
         }
-
     }
 
     beReady() {
         this.isReady = true
-        this.readyHandlers.forEach((handler)=>handler())
+        this.readyHandlers.forEach(handler => handler())
     }
 
     update() {
@@ -56,53 +55,52 @@ class Store {
     }
 
     _mergeSelfInstances() {
-
         let arr = []
-        this.updateSelfInstances.forEach(instance=> {
-            if(!this._checkSelfUpdateInstance(instance)){
+        this.updateSelfInstances.forEach(instance => {
+            if (!this._checkSelfUpdateInstance(instance)) {
                 arr.push(instance)
             }
         })
         this.updateSelfInstances = arr
     }
 
-    _mergeInstances(){
+    _mergeInstances() {
         let arr = []
         this.idArr = []
-        this.instances.forEach(instance=>{
+        this.instances.forEach(instance => {
             this.idArr.push(instance.id)
         })
 
-        this.instances.forEach(instance=>{
-            if(!instance.parent){
+        this.instances.forEach(instance => {
+            if (!instance.parent) {
                 arr.push(instance)
-            }else{
-                if(!this._isSubInstance(instance)){
+            } else {
+                if (!this._isSubInstance(instance)) {
                     arr.push(instance)
                 }
             }
-
         })
 
-        this.instances = arr;
+        this.instances = arr
     }
 
-    _checkSelfUpdateInstance(instance){
+    _checkSelfUpdateInstance(instance) {
         if (this.idArr.indexOf(instance.id) !== -1) {
-            return true;
-        } else if(instance.parent){
+            return true
+        } else if (instance.parent) {
             return this._checkSelfUpdateInstance(instance.parent)
         }
+        // what's default result?
     }
 
     _isSubInstance(instance) {
         if (this.idArr.indexOf(instance.parent.id) !== -1) {
-            return true;
-        } else if(instance.parent.parent){
+            return true
+        } else if (instance.parent.parent) {
             return this._isSubInstance(instance.parent)
         }
+        // what's default result?
     }
-
 }
 
 export default Store

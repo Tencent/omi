@@ -6,12 +6,12 @@ import Store from './store.js'
 soda.prefix('o')
 
 Omi.template = soda
-
 Omi.Store = Store
 Omi.Component = Component
-if(window.Omi){
+
+if (window.Omi) {
     module.exports = window.Omi
-}else {
+} else {
     window.Omi = Omi
     module.exports = Omi
 }

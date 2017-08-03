@@ -4,12 +4,12 @@ import Component from './component.js'
 import Store from './store.js'
 
 Omi.template = Mustache.render
-
 Omi.Store = Store
 Omi.Component = Component
-if(window.Omi){
+
+if (window.Omi) {
     module.exports = window.Omi
-}else {
+} else {
     window.Omi = Omi
     module.exports = Omi
 }
