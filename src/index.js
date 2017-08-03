@@ -1,17 +1,18 @@
-import Omi from './omi.js'
-import soda from './soda.js'
-import Component from './component.js'
-import Store from './store.js'
+import Omi from './core/omi.js'
+import Store from './core/store.js'
+import Component from './core/component.js'
+
+import soda from './lib/soda.js'
 
 soda.prefix('o')
 
 Omi.template = soda
-
 Omi.Store = Store
 Omi.Component = Component
-if(window.Omi){
+
+if (window.Omi) {
     module.exports = window.Omi
-}else {
+} else {
     window.Omi = Omi
     module.exports = Omi
 }

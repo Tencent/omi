@@ -1,4 +1,4 @@
-import scopedEvent from '../../src/event.js'
+import scopedEvent from '../../src/core/event.js'
 
 describe('scopedEvent', function() {
     var result2 = scopedEvent("<div onclick='adfd()' onblur='adfd()'>sfsdf </div>", 1)

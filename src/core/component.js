@@ -1,8 +1,9 @@
 import Omi from './omi.js'
 import style from './style.js'
 import scopedEvent from './event.js'
-import morphdom from './morphdom.js'
-import html2json from './html2json.js'
+
+import morphdom from '../lib/morphdom.js'
+import html2json from '../lib/html2json.js'
 
 class Component {
     constructor(data, option) {

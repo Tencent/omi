@@ -1,15 +1,16 @@
-import Omi from './omi.js'
-import Mustache from './mustache.js'
-import Component from './component.js'
-import Store from './store.js'
+import Omi from './core/omi.js'
+import Store from './core/store.js'
+import Component from './core/component.js'
+
+import Mustache from './lib/mustache.js'
 
 Omi.template = Mustache.render
-
 Omi.Store = Store
 Omi.Component = Component
-if(window.Omi){
+
+if (window.Omi) {
     module.exports = window.Omi
-}else {
+} else {
     window.Omi = Omi
     module.exports = Omi
 }
