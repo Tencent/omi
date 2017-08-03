@@ -17,9 +17,9 @@ Open and modern framework for building user interfaces.
 
 * [Omi Cli](https://github.com/AlloyTeam/omi-cli) and [Cli Usage](https://github.com/AlloyTeam/omi-cli#用户指南)
 * [Omi Docs](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
-* If you want to experience the Omi framework, you can visit [Omi Playground](https://alloyteam.github.io/omi/example/playground/) or read the code of [TodoMVC by Omi](https://github.com/AlloyTeam/omi/tree/master/todomvc)
-* Tutorial or blogs about omi framework, you can visit [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
-* If you have Any problems, please [New issue](https://github.com/AlloyTeam/omi/issues/new)
+* [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
+* [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
+* [New issue](https://github.com/AlloyTeam/omi/issues/new)
 * If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
 
 ## omi-cli
