@@ -71,7 +71,7 @@
         .ad {
             text-align: center;
             background-color: #171f26 ;
-            height: 230px;
+            height: auto;
             position: relative;
         }
 
@@ -120,6 +120,10 @@
                 font-size: 18px;
             }
 
+            .intro-get-started-wrap .ad_github_link{
+                margin-top:10px;
+                margin-bottom: 24px;
+            }
             .ad_main p{
                 font-size: 16px;
             }
@@ -290,6 +294,8 @@
         .ad_github_link{
             color: #48b1f4;
             margin-top: 24px;
+            width: 130px;
+            margin-left: 15px;
         }
 
         .footer a:link {color: #FFFFFF}
@@ -318,9 +324,6 @@
                 <a href="https://github.com/AlloyTeam/omi-cli">CLI</a>
             </li>
             <li >
-                <a href="https://github.com/AlloyTeam/omi">Github</a>
-            </li>
-            <li >
                 <a href="https://alloyteam.github.io/omi/website/index-en.html">English</a>
             </li>
         </ul>
@@ -330,6 +333,8 @@
             <div class="ad_dec_box"><span class="ad_dec_dt">Omi</span><br/>开放现代的Web组件化框架</div>
             <div class="intro-get-started-wrap">
             <a href="https://github.com/AlloyTeam/omi" class="ad_github_link intro-get-started-link">Github</a>
+
+                <a href="https://github.com/AlloyTeam/omix" class="ad_github_link intro-get-started-link">Omix</a>
         </div>
         </div>
     </div>
@@ -351,20 +356,20 @@
                 <span class="icon major style5 fa-diamond"></span>
                 <h3>更自由的更新</h3>
                 <p>
-                    每个组件都有update和updateSelf方法，自由选择你认为最佳的更新时机和更新方式
+                    每个组件都有update方法，自由选择你认为最佳的更新时机和更新方式
                 </p>
             </li>
         </ul>
         <ul class="features" style="margin-top: 30px;">
             <li>
                 <span class="icon major style1 fa-code"></span>
-                <h3>模板引擎可替换</h3>
-                <p>开发者可以重写Omi.template方法来使用任意模板引擎</p>
+                <h3>Omi 模板引擎可替换</h3>
+                <p>喜欢模板引擎、ES6模板字符串请使用 Omi，开发者可以重写Omi.template方法来使用任意模板引擎</p>
             </li>
             <li>
                 <span class="icon major style3 fa-copy"></span>
-                <h3>完全面向对象</h3>
-                <p>函数式和面向对象各有优劣，Omi使用完全的面向对象的方式来构建Web程序</p>
+                <h3>Omix任选JSX或hyperscript</h3>
+                <p>JSX 和 hyperscript 风格在 Omix 内置同时支持，喜欢JSX、hyperscript请使用 Omix</p>
             </li>
             <li>
                 <span class="icon major style5 fa-diamond"></span>
@@ -376,13 +381,16 @@
     <div style="text-align: center;">
         <ul class="intro-cmd-wrap">
             <li class="intro-cmd-item">npm install omi-cli -g</li>
-            <li class="intro-cmd-item">omi init your_project_name</li>
+            <li class="intro-cmd-item" style="color: #999;margin-top:15px;">//create omi project </li>
+            <li class="intro-cmd-item" >omi init your_project_name</li>
+            <li class="intro-cmd-item" style="color: #999">//or create omix project</li>
+            <li class="intro-cmd-item"  style="margin-bottom:15px; ">omi init-x your_project_name</li>
             <li class="intro-cmd-item">cd your_project_name</li>
             <li class="intro-cmd-item">npm start</li>
             <li class="intro-cmd-item">npm run dist</li>
         </ul>
-        <div class="intro-get-started-wrap">
-            <a href="https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md" class="intro-get-started-link">开始使用</a>
+        <div class="intro-get-started-wrap" style="height: 20px">
+            <!--<a href="https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md" class="intro-get-started-link">开始使用</a>-->
         </div>
     </div>
 
