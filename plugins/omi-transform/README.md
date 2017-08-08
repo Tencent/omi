@@ -18,9 +18,7 @@ npm install omi-transform
 
 ```js
 import Omi from 'omi';
-import OmiTransform from '../../omi-transform.js';
-
-OmiTransform.init();
+import 'omi-transform';
 
 class App extends Omi.Component {
     constructor(data) {

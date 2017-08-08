@@ -20,9 +20,8 @@ npm install omi-finger
 
 ```js
 import Omi from 'omi';
-import OmiFinger from 'omi-finger';
+import 'omi-finger';
 
-OmiFinger.init();
 
 class App extends Omi.Component {
     constructor(data) {

@@ -20,9 +20,8 @@ npm install omi-touch
 
 ```js
 import Omi from 'omi';
-import OmiTouch from 'omi-touch';
+import 'omi-touch';
 
-OmiTouch.init();
 
 class App extends Omi.Component {
     constructor(data) {
