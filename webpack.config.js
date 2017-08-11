@@ -15,12 +15,13 @@ var config = {
         filename: 'bundler.js'
     },
     module: {
-        loaders: [
+        rules: [
             {
-                loader: 'babel-loader',
                 test: /\.js$/,
-                query: {
-                    presets: 'es2015',
+                loader: "babel-loader",
+                exclude: /node_modules/,
+                options: {
+                    presets: ['es2015'],
                     plugins: [
                         'transform-es3-property-literals',
                         'transform-es3-member-expression-literals'
@@ -51,19 +52,20 @@ if (ENV === 'build' || ENV === 'build-min') {
         },
         output: {
             // path: __dirname,
-            path: 'dist/',
+            path: path.resolve('dist/'),
             library: 'Omi',
             libraryTarget: 'umd',
             filename: '[name].js'
             // umdNamedDefine: true
         },
         module: {
-            loaders: [
+            rules: [
                 {
-                    loader: 'babel-loader',
                     test: path.join(__dirname, 'src'),
-                    query: {
-                        presets: 'es2015',
+                    loader: "babel-loader",
+                    exclude: /node_modules/,
+                    options: {
+                        presets: ['es2015'],
                         plugins: [
                             'transform-es3-property-literals',
                             'transform-es3-member-expression-literals'
