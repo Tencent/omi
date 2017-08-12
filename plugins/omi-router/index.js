@@ -1,5 +1,5 @@
 /*!
- *  omi-router v0.2.0 by dntzhang
+ *  omi-router v0.3.0 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
@@ -7,10 +7,7 @@
 
 ;(function () {
 
-    var OmiRouter = {}
-    var Omi = typeof require === 'function'
-        ? require('omi')
-        : window.Omi
+    var OmiRouter = { }
 
     var parser = require('path-to-regexp'),
         renderTo = null,
@@ -22,7 +19,8 @@
         preInstance = null,
         currentRoute = null,
         preRoute = null,
-        instanceList = []
+        instanceList = [],
+        $route = {}
 
     OmiRouter.init = function (option) {
         routerOption = option
@@ -80,25 +78,15 @@
     }, false)
 
     function render() {
-        if (store) {
-            store.$route = {}
-            store.$route.params = params
-        } else {
-            store = {
-                methods: {
-                    install: function () {
-                        this.$route = {}
-                        this.$route.params = params
-                    }
-                }
-            }
-        }
+        $route.params = params
+
         if (preRenderTo === renderTo && preInstance && !routerOption.increment) {
             deleteInstance(preInstance)
         }
 
         var instance
-        if(routerOption.increment) {
+
+        if (routerOption.increment) {
             var i = 0,
                 len = instanceList.length
             for (; i < len; i++) {
@@ -111,51 +99,50 @@
 
         var doRouter = true
 
-        if(routerOption.beforeRoute){
+        if (routerOption.beforeRoute) {
             doRouter = routerOption.beforeRoute({
-                preRoute:preRoute,
-                route:currentRoute,
-                preComponent:preInstance
+                preRoute: preRoute,
+                route: currentRoute,
+                preComponent: preInstance
             })
         }
 
-        if(doRouter === false) return
+        if (doRouter === false) return
 
         if (!instance) {
-            instance = new Component()
-            if(routerOption.increment){
-                instanceList.push(instance)
-            }
-            Omi.render(instance, renderTo, {
-                store: store,
-                increment: routerOption.increment
-            })
-            if(routerOption.init){
-                routerOption.init({
-                    component:instance,
-                    preComponent:preInstance,
-                    preRoute:preRoute,
-                    route:currentRoute
+            if (currentRoute.component.prototype.render) {
+                initComponent(instance, Component)
+            }else{
+                currentRoute.component().then(function(Component){
+                    initComponent(instance, Component.default)
+                    change(instance)
                 })
+                return
             }
+        } else {
+            instance.$route = $route
         }
+        change(instance)
+    }
 
-
-        if(routerOption.change) {
-            routerOption.change({
-                component:instance,
-                preComponent:preInstance,
-                preRoute:preRoute,
-                route:currentRoute
+    function initComponent(instance, Component){
+        instance = new Component()
+        if (routerOption.increment) {
+            instanceList.push(instance)
+        }
+        instance.$route = $route
+        Omi.render(instance, renderTo, {
+            store: store,
+            increment: routerOption.increment
+        })
+        if (routerOption.init) {
+            routerOption.init({
+                component: instance,
+                preComponent: preInstance,
+                preRoute: preRoute,
+                route: currentRoute
             })
         }
-
-        preRoute = currentRoute
-        preInstance = instance
-        preRenderTo = renderTo
-
-
-
     }
 
     function deleteInstance(instance){
@@ -168,6 +155,21 @@
                 }
             }
         }
+    }
+
+    function change(instance){
+        if (routerOption.change) {
+            routerOption.change({
+                component: instance,
+                preComponent: preInstance,
+                preRoute: preRoute,
+                route: currentRoute
+            })
+        }
+
+        preRoute = currentRoute
+        preInstance = instance
+        preRenderTo = renderTo
     }
 
     if (typeof exports == "object") {

@@ -3,7 +3,7 @@
 class User extends Omi.Component {
 
     beforeRender(){
-        let params =  this.$store.$route.params
+        let params =  this.$route.params
         this.data.name = params.name
         this.data.category = params.category
         this.info = this.queryInfo(this.data.name)

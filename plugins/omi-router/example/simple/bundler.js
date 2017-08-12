@@ -3293,7 +3293,7 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/*!
-	 *  omi-router v0.2.0 by dntzhang
+	 *  omi-router v0.3.0 by dntzhang
 	 *  Router for Omi.
 	 *  Github: https://github.com/AlloyTeam/omi
 	 *  MIT Licensed.
@@ -3302,7 +3302,6 @@
 	;(function () {
 
 	    var OmiRouter = {};
-	    var Omi =  true ? __webpack_require__(1) : window.Omi;
 
 	    var parser = __webpack_require__(4),
 	        renderTo = null,
@@ -3314,7 +3313,8 @@
 	        preInstance = null,
 	        currentRoute = null,
 	        preRoute = null,
-	        instanceList = [];
+	        instanceList = [],
+	        $route = {};
 
 	    OmiRouter.init = function (option) {
 	        routerOption = option;
@@ -3372,24 +3372,14 @@
 	    }, false);
 
 	    function render() {
-	        if (store) {
-	            store.$route = {};
-	            store.$route.params = params;
-	        } else {
-	            store = {
-	                methods: {
-	                    install: function install() {
-	                        this.$route = {};
-	                        this.$route.params = params;
-	                    }
-	                }
-	            };
-	        }
+	        $route.params = params;
+
 	        if (preRenderTo === renderTo && preInstance && !routerOption.increment) {
 	            deleteInstance(preInstance);
 	        }
 
 	        var instance;
+
 	        if (routerOption.increment) {
 	            var i = 0,
 	                len = instanceList.length;
@@ -3401,37 +3391,52 @@
 	            }
 	        }
 
-	        if (!instance) {
-	            instance = new Component();
-	            if (routerOption.increment) {
-	                instanceList.push(instance);
-	            }
-	            Omi.render(instance, renderTo, {
-	                store: store,
-	                increment: routerOption.increment
+	        var doRouter = true;
+
+	        if (routerOption.beforeRoute) {
+	            doRouter = routerOption.beforeRoute({
+	                preRoute: preRoute,
+	                route: currentRoute,
+	                preComponent: preInstance
 	            });
-	            if (routerOption.init) {
-	                routerOption.init({
-	                    component: instance,
-	                    preComponent: preInstance,
-	                    preRoute: preRoute,
-	                    route: currentRoute
-	                });
-	            }
 	        }
 
-	        if (routerOption.change) {
-	            routerOption.change({
+	        if (doRouter === false) return;
+
+	        if (!instance) {
+	            if (currentRoute.component.prototype.render) {
+	                initComponent(instance, Component);
+	            } else {
+	                currentRoute.component().then(function (Component) {
+	                    initComponent(instance, Component.default);
+	                    change(instance);
+	                });
+	                return;
+	            }
+	        } else {
+	            instance.$route = $route;
+	        }
+	        change(instance);
+	    }
+
+	    function initComponent(instance, Component) {
+	        instance = new Component();
+	        if (routerOption.increment) {
+	            instanceList.push(instance);
+	        }
+	        instance.$route = $route;
+	        Omi.render(instance, renderTo, {
+	            store: store,
+	            increment: routerOption.increment
+	        });
+	        if (routerOption.init) {
+	            routerOption.init({
 	                component: instance,
 	                preComponent: preInstance,
 	                preRoute: preRoute,
 	                route: currentRoute
 	            });
 	        }
-
-	        preRoute = currentRoute;
-	        preInstance = instance;
-	        preRenderTo = renderTo;
 	    }
 
 	    function deleteInstance(instance) {
@@ -3444,6 +3449,21 @@
 	                }
 	            }
 	        }
+	    }
+
+	    function change(instance) {
+	        if (routerOption.change) {
+	            routerOption.change({
+	                component: instance,
+	                preComponent: preInstance,
+	                preRoute: preRoute,
+	                route: currentRoute
+	            });
+	        }
+
+	        preRoute = currentRoute;
+	        preInstance = instance;
+	        preRenderTo = renderTo;
 	    }
 
 	    if (( false ? 'undefined' : _typeof(exports)) == "object") {
@@ -4031,7 +4051,7 @@
 	    _createClass(User, [{
 	        key: 'beforeRender',
 	        value: function beforeRender() {
-	            var params = this.$store.$route.params;
+	            var params = this.$route.params;
 	            this.data.name = params.name;
 	            this.data.category = params.category;
 	            this.info = this.queryInfo(this.data.name);

@@ -109,11 +109,11 @@ Omi.tag('UserList',UserList)
 export default  UserList
 ```
 
-上面使用了`beforeRender`进行store到data的转换，`beforeRender`是生命周期的一部分。且看下面这张图:
+上面使用了`beforeRender`进行 this.$route 的 data的转换，`beforeRender`是生命周期的一部分。且看下面这张图:
 
 ![beforeRender](http://images2015.cnblogs.com/blog/105416/201703/105416-20170322083548924-1871234168.jpg)
 
-注意:除了在constructor中不能读取到 `this.$store`, 在声明周期的任何其他函数中都能读取到  `this.$store`，非常便捷。
+注意:除了在constructor中不能读取到 `this.$route`, 在声明周期的任何其他函数中都能读取到  `this.$route`，非常便捷。
 
 ## 动态匹配
 
@@ -122,7 +122,7 @@ export default  UserList
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
 
-注意: $route 会被挂载在$store下，$store会在根组件中注入，在组件树中的任何组件都可以通过 `this.$store.$route.params` 访问hash传递的数据。 
+注意: $route 会被挂载在组件的实例下，也就是this下。在组件树中的任何组件都可以通过 `this.$route.params` 访问hash传递的数据。 
 
 ### 接着上面例子
 
@@ -132,7 +132,7 @@ import Omi from 'omi'
 class User extends Omi.Component {
 
     beforeRender(){
-        let params =  this.$store.$route.params
+        let params =  this.$route.params
         this.data.name = params.name
         this.data.category = params.category
         this.info = this.queryInfo(this.data.name)
