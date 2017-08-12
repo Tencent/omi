@@ -1,11 +1,14 @@
 module.exports = {
     module: {
-        loaders: [{
-            test: /\.js$/,
-            loader: 'babel',
-            query: {
-                presets: ['es2015']
+        rules: [
+            {
+                test: /\.js$/,
+                loader: "babel-loader",
+                exclude: /node_modules/,
+                options: {
+                    presets: ['es2015'],
+                }
             }
-        }]
+        ]
     }
 }
