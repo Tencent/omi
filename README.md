@@ -90,9 +90,7 @@ if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.j
 * [sodajs](https://github.com/AlloyTeam/sodajs) - Light weight but powerful template engine for JavaScript
 * [mustache.js](https://github.com/janl/mustache.js) - Minimal templating with {{mustaches}} in JavaScript
 
-## Contributors
-
-[https://github.com/AlloyTeam/omi/graphs/contributors](https://github.com/AlloyTeam/omi/graphs/contributors)
+## Thanks to [omi contributors](https://github.com/AlloyTeam/omi/graphs/contributors)
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
