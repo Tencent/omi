@@ -1,5 +1,16 @@
 ﻿
-# [Use Omix if your like JSX](https://github.com/AlloyTeam/omix) 
+<h1 align="center">
+  <a href="https://github.com/AlloyTeam/omix">→Use Omix if your like JSX←</a>
+</h1>
+<p align="center">
+  
+</p>
+<p align="center">
+  
+</p>
+<p align="center">
+  
+</p>
 
 <p align="center">
   <a href="##Omi"><img src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png" alt="Omi"></a>
