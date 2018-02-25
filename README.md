@@ -13,12 +13,12 @@ Build UI with JSX - 使用 JSX 创建用户界面
 
 
 * [中文文档](./docs/README.md)
-* [Omi REPL](https://alloyteam.github.io/omix/repl/)
-* [Change Log](https://github.com/AlloyTeam/omix/blob/master/change-log.md)
+* [Omi REPL](https://alloyteam.github.io/omi/repl/)
+* [Change Log](https://github.com/AlloyTeam/omi/blob/master/change-log.md)
 
 ## Features
 
-* Super fast, [click here!!!!](https://alloyteam.github.io/omix/example/perfs)
+* Super fast, [click here!!!!](https://alloyteam.github.io/omi/example/perfs)
 * Super tiny size, 7 KB (gzip)
 * Good compatibility, support IE8
 * Support Scoped CSS, reusable components are composed of HTML, Scoped CSS and JS
@@ -118,13 +118,13 @@ Omi.render(app, 'body',{
 })
 ```
 
-[→Try it online←](https://alloyteam.github.io/omix/repl/redirect.html)
+[→Try it online←](https://alloyteam.github.io/omi/repl/redirect.html)
 
 ## omi-cli
 
 ```bash
 $ npm install omi-cli -g         # install cli
-$ omi init-x your_project_name   # init project, you can also exec 'omi init-x' in an empty folder
+$ omi init your_project_name   # init project, you can also exec 'omi init' in an empty folder
 $ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                      # develop
 $ npm run dist                   # release
@@ -150,11 +150,11 @@ or get it from CDN:
 
 ## Plugins
 
-* [omi-tap](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-tap): Support tap event in your Omi project..
-* [omi-router](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-router): Router for Omi.
-* [omi-finger](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-finger): Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
-* [omi-transform](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-transform): Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
-* [omi-touch](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-touch): Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
+* [omi-tap](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-tap): Support tap event in your Omi project..
+* [omi-router](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router): Router for Omi.
+* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger): Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
+* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform): Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
+* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch): Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
