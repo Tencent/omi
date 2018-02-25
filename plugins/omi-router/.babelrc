@@ -1,0 +1,7 @@
+{
+    "plugins": ["syntax-dynamic-import","transform-es3-member-expression-literals","transform-es3-property-literals"],
+    "presets": [
+        ["env", {"loose": true, "modules": false}],
+        'omi'
+    ]
+}
