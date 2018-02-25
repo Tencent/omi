@@ -1,5 +1,4 @@
-import assert from 'assert'
-import style from '../../src/core/style.js'
+import style from '../../src/style.js'
 
 describe('scoper', function() {
     describe('Attribute selector as prefix', function() {

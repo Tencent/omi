@@ -1,16 +1,16 @@
-import Omi from '../../src/index.js';
+import Omi from '../../src/index.js'
 
 class Content extends Omi.Component {
     constructor(data) {
-        super(data);
-        this.data.index = 0;
+        super(data)
+        this.data.index = 1
     }
 
-    goto (index) {
-        this.data.index = index;
+    goto(index) {
+        this.data.index = index
     }
 
-    style(){
+    style() {
         return `
         .content{
             height: 80px;
@@ -20,11 +20,9 @@ class Content extends Omi.Component {
         }
         `
     }
-    render () {
-       return `
-       <div class="content">i am page {{index}}</div>
-       `;
+    render() {
+        return <div class="content">i am page {this.data.index}</div>
     }
 }
 
-export default Content;
+export default Content

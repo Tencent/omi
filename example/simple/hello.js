@@ -1,20 +1,15 @@
-import Omi from '../../src/index.js';
+import Omi from '../../src/index.js'
 
 class Hello extends Omi.Component {
-
-    style(){
-        return `div{
-            cursor: pointer;
-        }`
-    }
-
-    clickHandler(evt){
-        alert(evt.target.innerHTML)
-    }
-
-    render(){
-        return `<div onclick="clickHandler">Hello, {{name}}</div>`
+    render() {
+        return (
+            <div> Hello
+                <h1 style="display:inline-block;">{this.data.name}</h1>!
+            </div>
+            )
     }
 }
 
-export default  Hello
+
+
+export default Hello

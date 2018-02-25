@@ -1,22 +1,30 @@
-﻿import Omi from '../../src/index.js';
+import Omi from '../../src/index.js'
 
-import hello from './hello.js'
-
-Omi.tag('hello', hello)
+import './hello.js'
 
 class App extends Omi.Component {
-    render(){
-        return `<div>
+    render() {
+        return <div>
                     afsdfsd
-                    <hello data-name="Omi"></hello>
-                </div>`
+            <hello name="Omi"></hello>
+        </div>
     }
-    install(){
+    install() {
         console.log(1)
     }
-    installed(){
+    installed() {
         console.log(2)
+    }
+    beforeUpdate() {
+        console.log('beforeUpdate' + 1)
+    }
+
+    beforeRender() {
+        console.log('beforeRender' + 2)
+    }
+    afterUpdate() {
+        console.log('afterUpdate' + 3)
     }
 }
 
-Omi.render(new App(),"#container");
+Omi.render(new App(), '#container')

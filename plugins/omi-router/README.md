@@ -18,7 +18,7 @@ omi-router是[Omi框架](https://github.com/AlloyTeam/omi)专属的router插件�
 可以直接通过Unpkg.com下载或引用cdn: [https://unpkg.com/omi-router/dist/omi-router.js](https://unpkg.com/omi-router/dist/omi-router.js)
 
 ```js
-<script src="https://unpkg.com/omi/dist/omi.js"></script>
+<script src="https://unpkg.com/omix/dist/omix.js"></script>
 <script src="https://unpkg.com/omi-router/dist/omi-router.js"></script>
 ```
 
@@ -29,7 +29,7 @@ npm install omi-router
 ```
 
 ```js
-import Omi from 'omi'
+import Omi from 'omix'
 import OmiRouter from 'omi-router'
 ```
 
@@ -38,7 +38,7 @@ import OmiRouter from 'omi-router'
 ## 开始
 
 ```js
-import Omi from 'omi'
+import Omi from 'omix'
 import OmiRouter from 'omi-router'
 
 import Home from './home.js'
@@ -62,20 +62,18 @@ class App extends Omi.Component {
     }
 
     render() {
-        return  `
-        <div>
-            <ul>
-                <li><a omi-router to="/" >Home</a></li>
-                <li><a omi-router to="/about" >About</a></li>
-                <li><a omi-router to="/user-list" >UserList</a></li>
-            </ul>
-            <div id="view"> </div>
-        </div>
-        `
+        return  <div>
+	            <ul>
+	                <li><a omi-router to="/" >Home</a></li>
+	                <li><a omi-router to="/about" >About</a></li>
+	                <li><a omi-router to="/user-list" >UserList</a></li>
+	            </ul>
+	            <div id="view"> </div>
+	        </div>
     }
 }
 
-Omi.render(new App(),"#__omi")
+Omi.render(new App(),"#container")
 ```
 
 这里详细说下 `OmiRouter.init` 传递的配置参数的意义:
@@ -89,27 +87,25 @@ Omi.render(new App(),"#__omi")
 再看下UserList:
 
 ```js
-import Omi from 'omi';
+import Omi from 'omix';
 
 class UserList extends Omi.Component {
 
     render() {
-        return  `
-      	 <ul>
-      	    <li><a omi-router to="/user/yanagao/category/js" >yanagao</a></li>
-            <li><a omi-router to="/user/vorshen/category/html" >vorshen</a></li>
-            <li><a omi-router to="/user/dntzhang/category/css" >dntzhang</a></li>
-        </ul>
-  		`;
+        return  <ul>
+	            <li><a omi-router to="/user/yanagao/category/js" >yanagao</a></li>
+	            <li><a omi-router to="/user/vorshen/category/html" >vorshen</a></li>
+	            <li><a omi-router to="/user/dntzhang/category/css" >dntzhang</a></li>
+	        </ul>
     }
 }
 
-Omi.tag('UserList',UserList)
+Omi.tag('user-list',UserList)
 
 export default  UserList
 ```
 
-上面使用了`beforeRender`进行 this.$route 的 data的转换，`beforeRender`是生命周期的一部分。且看下面这张图:
+上面使用了`beforeRender`进行$route到data的转换，`beforeRender`是生命周期的一部分。且看下面这张图:
 
 ![beforeRender](http://images2015.cnblogs.com/blog/105416/201703/105416-20170322083548924-1871234168.jpg)
 
@@ -122,7 +118,7 @@ export default  UserList
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
 
-注意: $route 会被挂载在组件的实例下，也就是this下。在组件树中的任何组件都可以通过 `this.$route.params` 访问hash传递的数据。 
+注意: $route 会被挂载在组件实例下，也就是 this ，在组件树中的任何组件都可以通过 `this.$route.params` 访问hash传递的数据。 
 
 ### 接着上面例子
 
@@ -133,11 +129,11 @@ class User extends Omi.Component {
 
     beforeRender(){
         let params =  this.$route.params
-        this.data.name = params.name
-        this.data.category = params.category
-        this.info = this.queryInfo(this.data.name)
-        this.data.age = this.info.age
-        this.data.sex = this.info.sex
+        this.name = params.name
+        this.category = params.category
+        this.info = this.queryInfo(this.name)
+        this.age = this.info.age
+        this.sex = this.info.sex
     }
 
     queryInfo(name) {
@@ -154,22 +150,21 @@ class User extends Omi.Component {
     }
 
     render() {
-        return  `
-      	<div >
-      	    <button onclick="back">back</button>
-      	    <ul>
-      	        <li>name:{{name}}</li>
-      	        <li>age:{{age}}</li>
-      	        <li>sex:{{sex}}</li>
-      	        <li>category:{{category}}</li>
-      	    </ul>
-      	</div>
-  		`
+        return  <div >
+                    <button onclick={this.back.bind(this)}>back</button>
+                    <ul>
+                        <li>name:{this.name}</li>
+                        <li>age:{this.age}</li>
+                        <li>sex:{this.sex}</li>
+                        <li>category:{this.category}</li>
+                    </ul>
+                </div>
+
     }
 }
 
 
-Omi.tag('User',User)
+Omi.tag('user',User)
 
 export default  User
 ```
@@ -192,43 +187,11 @@ OmiRouter.init({
 
 如果你需要某个路由规则render到其他的view里，可以在routes但单独的项里添加renderTo，它的优先级会更高。
 
-### 共享或独享store
-
-根节点注入的store可以共享给routes里的其他组件，通过下面两种方式:
-
-#### 共享
-
-```js
-OmiRouter.init({
-    routes: [
-        {path: '/', component: Home},
-        {path: '/about', component: About},
-    ],
-    renderTo: "#view",
-    defaultRoute: '/',
-    root: this,
-    store: this.$store
-})
-```
-
-#### 独享
-
-```js
-OmiRouter.init({
-    routes: [
-        {path: '/', component: Home},
-        {path: '/about', component: About, store: this.$store},
-    ],
-    renderTo: "#view",
-    defaultRoute: '/',
-    root: this
-})
-```
 
 ### 地址
 
-* [在线演示地址](http://alloyteam.github.io/omi/plugins/omi-router/example/simple/)
-* [源码地址](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router/example/simple)
+* [在线演示地址](http://alloyteam.github.io/omix/plugins/omi-router/example/simple/)
+* [源码地址](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-router/example/simple)
 
 ## License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.

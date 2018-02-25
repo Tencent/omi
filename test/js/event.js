@@ -1,49 +1,48 @@
-import scopedEvent from '../../src/core/event.js'
+import Hello from './hello.js'
 
-describe('scopedEvent', function() {
-    var result2 = scopedEvent("<div onclick='adfd()' onblur='adfd()'>sfsdf </div>", 1)
-    var result3 = scopedEvent("<div onblur='adfd'>sfsdf </div>", 1)
-    var result = scopedEvent("<div onclick='adfd()'>sfsdf </div>", 1)
-    it('and so is a spec', function() {
-        expect(result).toBe("<div onclick='Omi.instances[1].adfd()'>sfsdf </div>")
-        expect(scopedEvent(result)).toBe("<div onclick='Omi.instances[1].adfd()'>sfsdf </div>")
-        expect(result2).toBe("<div onclick='Omi.instances[1].adfd()' onblur='Omi.instances[1].adfd()'>sfsdf </div>")
-        expect(result3).toBe("<div onblur='Omi.instances[1].adfd(event)'>sfsdf </div>")
+
+class App extends Omi.Component {
+
+    install(){
+        this.name = 'Omi'
+    }
+
+    handleClick(e) {
+        this.name = 'Omix'
+        this.update()
+    }
+
+    style() {
+        return `
+        <style>
+        h3{
+            color:red;
+            cursor: pointer;
+        }
+        `
+    }
+
+    render() {
+
+        return <div>
+                    <h3 onClick={this.handleClick.bind(this)}>b</h3>
+                    <Hello name={this.name}></Hello>
+                </div>
+    }
+}
+
+document.body.innerHTML+='<div id="ctn2"></div>'
+
+Omi.render(new App(),'#ctn2')
+
+let ctn =  document.querySelector('#ctn2')
+let innerH3 = ctn.querySelector('h3')
+innerH3.click()
+
+
+
+describe('base', function() {
+    it('test event and update method', function() {
+        expect(ctn.innerHTML).toBe('<div __st_2="" __s_2=""><h3 __st_2="" __s_2="">b</h3><div __st_3="" __s_3=""> Hello Omix!</div></div>')
     })
 })
-
-describe('scopedEvent2', function() {
-    var result = scopedEvent("<div onclick='adfd'>sfsdf </div>", 1)
-    it('and so is a spec', function() {
-        expect(result).toBe("<div onclick='Omi.instances[1].adfd(event)'>sfsdf </div>")
-    })
-})
-
-describe('scopedEvent3', function() {
-    var result = scopedEvent("<div ontap='adfd'>sfsdf </div>", 1)
-    it('and so is a spec', function() {
-        expect(result).toBe("<div ontap='adfd'>sfsdf </div>")
-    })
-})
-
-describe('scopedEvent4', function() {
-    var result = scopedEvent("<div ontap='adfd()'>sfsdf </div>", 1)
-    it('and so is a spec', function() {
-        expect(result).toBe("<div ontap='adfd()'>sfsdf </div>")
-    })
-})
-// describe("jsx-like event binding", function() {
-//
-//    var result =   scopedEvent("<div onclick={function(e){console.log(this)}}>sfsdf </div>",1);
-//    it("and so is a spec", function() {
-//        expect(result).toBe(`<div onclick="new Function('event', '(function(e){console.log(this)}).bind(Omi.instances[1])(event)')(event)";>sfsdf </div>`);
-//    });
-// });
-//
-// describe("jsx-like event binding with quote", function() {
-//
-//    var result =   scopedEvent('<div onclick={function(e){console.log("string with sigal quote \' and double quote \"")}}>sfsdf </div>',1);
-//    it("and so is a spec", function() {
-//        expect(result).toBe(`<div onclick="new Function('event', '(function(e){console.log(&quot;string with sigal quote \\&#039; and double quote &quot;&quot;)}).bind(Omi.instances[1])(event)')(event)";>sfsdf </div>`);
-//    });
-// });

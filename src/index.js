@@ -1,18 +1,33 @@
-import Omi from './core/omi.js'
-import Store from './core/store.js'
-import Component from './core/component.js'
+import Omi from './omi.js'
+import Component from './component.js'
 
-import soda from './lib/soda.js'
+if (typeof Object.assign !== 'function') {
+    Object.assign = function(target) {
+        'use strict'
+        if (target == null) {
+            throw new TypeError('Cannot convert undefined or null to object')
+        }
 
-soda.prefix('o')
+        target = Object(target)
+        for (var index = 1; index < arguments.length; index++) {
+            var source = arguments[index]
+            if (source != null) {
+                for (var key in source) {
+                    if (Object.prototype.hasOwnProperty.call(source, key)) {
+                        target[key] = source[key]
+                    }
+                }
+            }
+        }
+        return target
+    }
+}
 
-Omi.template = soda
-Omi.Store = Store
 Omi.Component = Component
 
-if (window.Omi) {
+if (typeof window !== 'undefined' && window.Omi) {
     module.exports = window.Omi
 } else {
-    window.Omi = Omi
+    (typeof window !== 'undefined') && (window.Omi = Omi)
     module.exports = Omi
 }

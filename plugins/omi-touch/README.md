@@ -6,9 +6,9 @@ Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的
 
 ## Demo
 
-![omi-touch](./omi-touch.png)
+![omi-touch demo](./demo.png)
 
-[http://alloyteam.github.io/omi/plugins/omi-touch/example/touch/](http://alloyteam.github.io/omi/plugins/omi-touch/example/touch/)
+[https://alloyteam.github.io/omix/plugins/omi-touch/example/simple/](https://alloyteam.github.io/omix/plugins/omi-touch/example/simple/)
 
 ## 通过npm安装 
 
@@ -19,9 +19,8 @@ npm install omi-touch
 ## 使用
 
 ```js
-import Omi from 'omi';
+import Omi from 'omix';
 import 'omi-touch';
-
 
 class App extends Omi.Component {
     constructor(data) {
@@ -29,23 +28,21 @@ class App extends Omi.Component {
     }
 
     render() {
-        return  `
-        <div class="main">
-            <div  omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >
-                        <ul ref="scroller">
-                            <li>Hello, Omi-Touch!</li>
-                            <li>AlloyTouch</li>
-                            <li>Transformjs</li>
-                            <li>AlloyFinger</li>
-                            <li>Omi</li>
-                            ...
-                            ...
-                            <li> row 24</li>
-                            <li style="border-bottom: none;"> row 25</li>
-                        </ul>
-                    </div>
-        </div>
-        `;
+        return  <div class="main">
+	            <div  omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >
+	                        <ul ref="scroller">
+	                            <li>Hello, Omi-Touch!</li>
+	                            <li>AlloyTouch</li>
+	                            <li>Transformjs</li>
+	                            <li>AlloyFinger</li>
+	                            <li>Omi</li>
+	                            ...
+	                            ...
+	                            <li> row 24</li>
+	                            <li style="border-bottom: none;"> row 25</li>
+	                        </ul>
+	                    </div>
+	        </div>
     }
 }
 

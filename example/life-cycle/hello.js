@@ -1,27 +1,39 @@
-import Omi from '../../src/index.js';
-import HE from './hello2.js';
-Omi.tag('aa',HE)
-class Hello extends Omi.Component {
+import Omi from '../../src/index.js'
+import HE from './hello2.js'
+Omi.tag('aa', HE)
 
-    style(){
+class Hello extends Omi.Component {
+    style() {
         return `div{
             cursor: pointer;
         }`
     }
 
-    install(){
+    install() {
         console.log(11)
     }
-    installed(){
+    installed() {
         console.log(22)
     }
-    clickHandler(evt){
+
+    beforeUpdate() {
+        console.log('beforeUpdate' + 11)
+    }
+
+    beforeRender() {
+        console.log('beforeRender' + 22)
+    }
+    afterUpdate() {
+        console.log('afterUpdate' + 33)
+    }
+    clickHandler(evt) {
         alert(evt.target.innerHTML)
     }
 
-    render(){
-        return `<div onclick="clickHandler">Hello, {{name}}<aa></aa></div>`
+    render() {
+        return <div onclick={this.clickHandler.bind(this)}>Hello, {this.data.name}<aa></aa></div>
     }
 }
 
-export default  Hello
+Omi.tag('hello', Hello)
+export default Hello

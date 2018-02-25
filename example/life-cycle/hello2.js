@@ -1,25 +1,33 @@
-import Omi from '../../src/index.js';
+import Omi from '../../src/index.js'
 
 class Hello extends Omi.Component {
-
-    style(){
+    style() {
         return `div{
             cursor: pointer;
         }`
     }
-    install(){
+    install() {
         console.log(111)
     }
-    installed(){
+    installed() {
         console.log(222)
     }
-    clickHandler(evt){
+    clickHandler(evt) {
         alert(evt.target.innerHTML)
     }
+    beforeUpdate() {
+        console.log('beforeUpdate' + 111)
+    }
 
-    render(){
-        return `<div onclick="clickHandler">Hello, {{name}}</div>`
+    beforeRender() {
+        console.log('beforeRender' + 222)
+    }
+    afterUpdate() {
+        console.log('afterUpdate' + 333)
+    }
+    render() {
+        return <div onclick={this.clickHandler.bind(this)}>Hello, {this.data.name}</div>
     }
 }
 
-export default  Hello
+export default Hello

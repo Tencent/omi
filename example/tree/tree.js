@@ -1,34 +1,38 @@
 import Omi from '../../src/index.js'
 import TreeNode from './tree-node.js'
 
-Omi.tag('tree-node',TreeNode)
+
 
 class Tree extends Omi.Component {
 
+    beforeRender(){
+        this.data.nodes = this.data.root.nodes
+    }
 
     moveNode(id, parentId) {
         if (id === parentId) {
             return
         }
 
-        if(this.check(parentId, id)) {
-            let parent = this.getChildById(parentId, this.data.children)
-            let child = this.removeChildById(id, this.data.children)
-            parent.children.push(child)
+        if (this.check(parentId, id)) {
+            let parent = this.getChildById(parentId, this.data.nodes)
+            let child = this.removeChildById(id, this.data.nodes)
+            parent.nodes.push(child)
+
             this.update()
         }
     }
 
-    check(parentId, childId){
-        let current = this.getChildById(childId, this.data.children),
-            children = current.children
-        for (let i = 0, len = children.length; i < len; i++) {
-            let child = children[i]
+    check(parentId, childId) {
+        let current = this.getChildById(childId, this.data.nodes),
+            nodes = current.nodes
+        for (let i = 0, len = nodes.length; i < len; i++) {
+            let child = nodes[i]
             if (child.id === parentId) {
                 return false
             }
 
-            let errorIds = this.check(parentId, child.id )
+            let errorIds = this.check(parentId, child.id)
             if (!errorIds) {
                 return false
             }
@@ -37,32 +41,29 @@ class Tree extends Omi.Component {
         return true
     }
 
-    removeChildById(id, children) {
-
-        for (let i = 0, len = children.length; i < len; i++) {
-            let child = children[i]
+    removeChildById(id, nodes) {
+        for (let i = 0, len = nodes.length; i < len; i++) {
+            let child = nodes[i]
             if (child.id === id) {
-                children.splice(i, 1)
+                nodes.splice(i, 1)
                 return child
             }
 
-            let target = this.removeChildById(id, child.children)
+            let target = this.removeChildById(id, child.nodes)
             if (target) {
                 return target
             }
-
         }
     }
 
-    getChildById(id, children) {
-
-        for (let i = 0, len = children.length; i < len; i++) {
-            let child = children[i]
+    getChildById(id, nodes) {
+        for (let i = 0, len = nodes.length; i < len; i++) {
+            let child = nodes[i]
             if (child.id === id) {
                 return child
             }
 
-            let target = this.getChildById(id, child.children)
+            let target = this.getChildById(id, child.nodes)
             if (target) {
                 return target
             }
@@ -70,10 +71,12 @@ class Tree extends Omi.Component {
     }
 
     render() {
-        return `<ul>
-                    <tree-node o-repeat="child in children" group-data="data.children"></tree-node>
-                </ul>`
+        return <ul>
+            {this.data.root.nodes.map((child) =>
+                <TreeNode root={child}></TreeNode>
+            )}
+        </ul>
     }
 }
 
-export default  Tree
+export default Tree

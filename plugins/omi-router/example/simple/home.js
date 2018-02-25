@@ -2,12 +2,12 @@
 
 class Home extends Omi.Component {
     render() {
-        return  `
-      	<div >Home</div>
-  		`
+
+      	return <div>Home</div>
+
     }
 }
 
-Omi.tag('Home',Home)
+Omi.tag('home',Home)
 
 export default  Home

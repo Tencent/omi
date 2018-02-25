@@ -7,6 +7,8 @@
 
 ;(function () {
 
+    if(typeof Omi === 'undefined') return
+
     var OmiRouter = { }
 
     var parser = require('path-to-regexp'),

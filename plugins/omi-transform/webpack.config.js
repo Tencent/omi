@@ -22,6 +22,8 @@ var config  = {
                 query: {
                     presets: 'es2015'
                 }
+            },{
+                loader: 'virtual-dom-loader?jsx=Omi.x'
             }
         ]
     },

@@ -1,11 +1,9 @@
-﻿import Omi from 'omi';
-import OmiTouch from '../../index.js';
-
-OmiTouch.init();
+﻿import Omi from 'omix'
+import  '../../index.js'
 
 class App extends Omi.Component {
     constructor(data) {
-        super(data);
+        super(data)
     }
 
     style(){
@@ -46,23 +44,21 @@ class App extends Omi.Component {
         .touchArea{
             height: 250px;
             overflow: hidden;
-        }
-         `;
+        }`
     }
 
     render() {
-        return  `
-        <div class="main">
+        return <div class="main">
             <div omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >
                         <ul ref="scroller">
                             <li>Hello, Omi-Touch!</li>
                             <li>AlloyTouch</li>
-                            <li>Transformjs</li>
+                            <li>Omix</li>
                             <li>AlloyFinger</li>
                             <li>Omi</li>
                             <li>AlloyGameEngine</li>
-                            <li>Rosin</li>
-                            <li>LivePool</li>
+                            <li>css3transform</li>
+                            <li>AlloyRender</li>
                             <li>AlloyStick</li>
                             <li>CodeStar</li>
                             <li>AlloyDesigner</li>
@@ -108,8 +104,7 @@ class App extends Omi.Component {
                         </ul>
                     </div>
         </div>
-        `;
     }
 }
 
-Omi.render(new App(),"#container");
+Omi.render(new App(),"#container")

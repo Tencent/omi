@@ -1,27 +1,33 @@
 {
   "name": "omi-router",
-  "version": "0.2.3",
+  "version": "0.3.3",
   "description": "Router for Omi.",
   "main": "index.js",
   "scripts": {
+    "lazy": "webpack -w",
     "simple": "webpack -w",
-    "build": "webpack -w",
-    "build-min": "webpack -w"
+    "build": "webpack",
+    "build-min": "webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AlloyTeam/omi.git"
   },
   "dependencies": {
-    "path-to-regexp": "latest",
-    "omi": "latest"
+    "path-to-regexp": "latest"
   },
   "devDependencies": {
-    "babel-core": "^6.0.20",
-    "babel-loader": "^6.0.1",
-    "babel-preset-es2015": "^6.0.15",
-    "node-libs-browser": "^0.5.3",
-    "webpack": "^1.14.0"
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+    "babel-plugin-transform-es3-property-literals": "^6.22.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-omi": "^0.1.0",
+    "esprima-fb": "^15001.1001.0-dev-harmony-fb",
+    "webpack": "^3.4.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "omi": "latest",
+    "omix": "latest"
   },
   "keywords": [
     "omi",

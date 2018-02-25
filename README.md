@@ -1,109 +1,160 @@
-﻿
-<h1 align="center">
-  <a href="https://github.com/AlloyTeam/omix">→Use Omix if your like JSX←</a>
-</h1>
 <p align="center">
-  
+  <a href="##Omix"><img src="http://images2017.cnblogs.com/blog/105416/201708/105416-20170807145434955-1872305404.png" alt="Omi"></a>
 </p>
 <p align="center">
-  
+Build UI with JSX - 使用 JSX 创建用户界面
 </p>
 <p align="center">
-  
-</p>
-
-<p align="center">
-  <a href="##Omi"><img src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png" alt="Omi"></a>
-</p>
-<p align="center">
-Open and modern framework for building user interfaces.
-</p>
-<p align="center">
-   <a href="https://circleci.com/gh/AlloyTeam/omi/tree/master"><img src="https://img.shields.io/circleci/project/AlloyTeam/omi/master.svg" alt="Build Status"></a>
-  <a href="https://www.npmjs.com/package/omi"><img src="https://img.shields.io/npm/v/omi.svg" alt="Version"></a>
-  <a href="https://www.npmjs.com/package/omi"><img src="https://img.shields.io/npm/dm/omi.svg" alt="Download"></a>
+  <a href="https://circleci.com/gh/AlloyTeam/omix/tree/master"><img src="https://img.shields.io/circleci/project/AlloyTeam/omix/master.svg" alt="Build Status"></a>
+  <a href="https://www.npmjs.com/package/omix"><img src="https://img.shields.io/npm/v/omix.svg" alt="Version"></a>
+  <a href="https://www.npmjs.com/package/omix"><img src="https://img.shields.io/npm/dm/omix.svg" alt="Download"></a>
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs"></a>
 </p>
 
-[中文README](README.zh-CN.md)
 
-## Omi
+* [中文文档](./docs/README.md)
+* [Omi REPL](https://alloyteam.github.io/omix/repl/)
+* [Change Log](https://github.com/AlloyTeam/omix/blob/master/change-log.md)
 
-* [Omi Cli](https://github.com/AlloyTeam/omi-cli) and [Cli Usage](https://github.com/AlloyTeam/omi-cli#用户指南)
-* [Omi Docs](https://github.com/AlloyTeam/omi/blob/master/tutorial/all.md)
-* [Omi Playground](https://alloyteam.github.io/omi/example/playground/)
-* [Omi Tutorial](https://github.com/AlloyTeam/omi/tree/master/tutorial)
-* [New issue](https://github.com/AlloyTeam/omi/issues/new)
-* If you want to be more convenient on the exchange of all Omi can join the QQ Omi exchange group (256426170)
+## Features
+
+* Super fast, [click here!!!!](https://alloyteam.github.io/omix/example/perfs)
+* Super tiny size, 7 KB (gzip)
+* Good compatibility, support IE8
+* Support Scoped CSS, reusable components are composed of HTML, Scoped CSS and JS
+* More free updates, each component has a update method, free to choose the right time to update
+
+## Hello Omix 
+
+``` js
+class Hello extends Omi.Component {
+    render() {
+        return <div> Hello {this.data.name}!</div>
+    }
+}
+
+class App extends Omi.Component {
+    install() {
+        this.name = 'Omi'
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick(e) {
+        this.name = 'Omix' 
+        this.update()
+    }
+
+    style() {
+        return `h3{
+	            color:red;
+	            cursor: pointer;
+	        }`
+    }
+
+    render() {
+        return <div>
+	            <Hello name={this.name}></Hello>
+	            <h3 onclick={this.handleClick}>Scoped css and event test! click me!</h3>
+	        </div>
+    }
+}
+
+Omi.render(new App(), '#container')
+```
+
+## Using Store System
+
+```js
+class Store  {
+    constructor(data, callbacks) {
+        this.name = data.name || ''
+        this.onRename = callbacks.onRename || function(){}
+    }
+
+    rename(name){
+        this.name = name
+        this.onRename()
+    }
+}
+
+
+class Hello extends Omi.Component {
+    render() {
+        return (
+            //you can also use this.$store.name here. but using data if this is a pure component.
+            <div> Hello <span>{this.data.name}</span>!</div>
+        )
+    }
+}
+
+class App extends Omi.Component {
+
+    install(){
+        this.rename = this.rename.bind(this)
+    }
+
+    rename(){
+        this.$store.rename('Omix')
+    }
+
+    render() {
+        return (
+            <div onclick={this.rename}>
+                <Hello name={this.$store.name}></Hello>
+            </div>
+        )
+    }
+}
+
+let app = new App()
+let store = new Store({ name : 'Omi' } ,{
+    onRename :()=>{
+        app.update()
+    }
+})
+
+Omi.render(app, 'body',{
+    store
+})
+```
+
+[→Try it online←](https://alloyteam.github.io/omix/repl/redirect.html)
 
 ## omi-cli
 
 ```bash
-$ npm install omi-cli -g       # install cli
-$ omi init your_project_name   # init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name         # please ignore this command if you executed 'omi init' in an empty folder
-$ npm start                    # develop
-$ npm run dist                 # release
+$ npm install omi-cli -g         # install cli
+$ omi init-x your_project_name   # init project, you can also exec 'omi init-x' in an empty folder
+$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ npm start                      # develop
+$ npm run dist                   # release
 ```
 
-other cmd:
+the latest cli support blow cmd to init omix project, not omi project:
 
-```bash
-$ npm run ie    # debugging in ie8
 ```
-
-## Features
-
-* Super tiny size, 7 KB (gzip)
-* Good compatibility, support IE8 (please import es5-shim or [es5-sham](//s.url.cn/qqun/xiaoqu/buluo/p/js/es5-sham-es5-sham.min.77c4325f.js) by yourself)
-* Fully object-oriented component system
-* Support Scoped CSS, reusable components are composed of HTML, Scoped CSS and JS
-* More free updates, each component has a update method, free to choose the right time to update
-* Template engines can be replaced, developers can override the Omi.template method to use any template engine
-* Provides two development way ( ES6+ and ES5) for developers to choose freely
-
-## Plugins
-
-* [omi-router](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router): Router for Omi.
-* [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger): Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
-* [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform): Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
-* [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch): Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
-* [omi-jquery-date-picker](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-jquery-date-picker): Omi / JQuery Date Picker integration.
+omi init your_project_name
+```
 
 ## Install
 
-```bash
-$ npm install omi
+``` bash
+npm install omix
 ```
 
-## Hello World
+or get it from CDN:
 
-You can use [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/), configure the [babel-loader](https://github.com/babel/babel-loader) in  the module settings of webpack, then you can use ES6+ to write your web program.
+* [https://unpkg.com/omix@1.2.9/dist/omix.min.js](https://unpkg.com/omix@1.2.9/dist/omix.min.js)
+* [https://unpkg.com/omix@1.2.9/dist/omix.js](https://unpkg.com/omix@1.2.9/dist/omix.js)
 
-* [[Hello World ES6+ ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
-* [[Hello World ES5  ->Try it on Playground]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
 
-if using 'omi.lite.js' (without [mustache.js](https://github.com/janl/mustache.js)), you can [use the ${this.data.name} way](http://alloyteam.github.io/omi/website/redirect.html?type=without_tpl)
+## Plugins
 
-## CDN
-
-* [https://unpkg.com/omi@1.7.5/dist/omi.min.js](https://unpkg.com/omi@1.7.5/dist/omi.min.js)
-* [https://unpkg.com/omi@1.7.5/dist/omi.js](https://unpkg.com/omi@1.7.5/dist/omi.js)
-* [https://unpkg.com/omi@1.7.5/dist/omi.art.min.js](https://unpkg.com/omi@1.7.5/dist/omi.art.min.js)
-* [https://unpkg.com/omi@1.7.5/dist/omi.art.js](https://unpkg.com/omi@1.7.5/dist/omi.art.js)
-* [https://unpkg.com/omi@1.7.5/dist/omi.lite.min.js](https://unpkg.com/omi@1.7.5/dist/omi.lite.min.js)
-* [https://unpkg.com/omi@1.7.5/dist/omi.lite.js](https://unpkg.com/omi@1.7.5/dist/omi.lite.js)
-* [https://unpkg.com/omi@1.7.5/dist/omi.mustache.min.js](https://unpkg.com/omi@1.7.5/dist/omi.mustache.min.js)
-* [https://unpkg.com/omi@1.7.5/dist/omi.mustache.js](https://unpkg.com/omi@1.7.5/dist/omi.mustache.js)
-
-## Thanks
-
-* [morphdom](https://github.com/patrick-steele-idem/morphdom) - Fast and lightweight DOM diffing/patching (no virtual DOM needed)
-* [art-template](https://github.com/aui/art-template) - JS template engine with excellent performance
-* [sodajs](https://github.com/AlloyTeam/sodajs) - Light weight but powerful template engine for JavaScript
-* [mustache.js](https://github.com/janl/mustache.js) - Minimal templating with {{mustaches}} in JavaScript
-
-## Thanks to [omi contributors](https://github.com/AlloyTeam/omi/graphs/contributors)
+* [omi-tap](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-tap): Support tap event in your Omi project..
+* [omi-router](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-router): Router for Omi.
+* [omi-finger](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-finger): Omi /[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger) integration.
+* [omi-transform](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-transform): Omi /[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/) integration.
+* [omi-touch](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-touch): Omi /[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch) integration.
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.

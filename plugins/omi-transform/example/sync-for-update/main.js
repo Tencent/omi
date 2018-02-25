@@ -1,29 +1,27 @@
-﻿import Omi from 'omi';
-import OmiTransform from '../../omi-transform.js';
-
-OmiTransform.init();
+﻿import Omi from 'omix'
+import '../../index.js'
 
 class App extends Omi.Component {
-    constructor(data) {
-        super(data);
 
-        this.rotateZ  = 45;
+    install(){
+        this.rotateY = 45
     }
 
-    installed(){
-        setInterval(() =>{
-            //sync for update
-            this.rotateZ = this.refs.test.rotateZ += 0.1;
-        });
+    handleClick(){
+        this.refs.test.rotateY += 100
+        this.rotateY = this.refs.test.rotateY
     }
 
     render() {
-        return  `
-            <div omi-transform class="test" ref="test" rotateZ="${this.rotateZ}" translateX="100" perspective="400" >
+        return  (
+            <div onclick={this.handleClick.bind(this)}
+                 omi-transform class="test" ref="test"
+                 rotateY={this.rotateY}
+                 translateX="100"
+                 perspective="400" >
                 omi-transform
             </div>
-
-        `;
+        )
     }
 
     style(){
@@ -37,8 +35,8 @@ class App extends Omi.Component {
                 text-align: center;
                 line-height:150px;
             }
-         `;
+         `
     }
 }
 
-Omi.render(new App(),"#container");
+Omi.render(new App(),"#container")

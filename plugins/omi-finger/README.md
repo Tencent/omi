@@ -6,9 +6,9 @@ Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，让你轻�
 
 ## Demo
 
-![omi-finger](./omi-finger.png)
+![omi-finger demo](./demo.png)
 
-[http://alloyteam.github.io/omi/plugins/omi-finger/example/finger/](http://alloyteam.github.io/omi/plugins/omi-finger/example/finger/)
+[https://alloyteam.github.io/omix/plugins/omi-finger/example/simple/](https://alloyteam.github.io/omix/plugins/omi-finger/example/simple/)
 
 ## 通过npm安装 
 
@@ -19,9 +19,7 @@ npm install omi-finger
 ## 使用
 
 ```js
-import Omi from 'omi';
 import 'omi-finger';
-
 
 class App extends Omi.Component {
     constructor(data) {
@@ -37,19 +35,16 @@ class App extends Omi.Component {
     }
 
     render() {
-        return  `
-        <div>
-            <div omi-finger ref="touchArea" tap="handleTap"  swipe="handleSwipe" >
-                Tap or Swipe Me!
-            </div>
-        </div>
-        `;
+        return  <div>
+	            <div omi-finger ref="touchArea" tap={this.handleTap}  swipe={this.handleSwipe} >
+	                Tap or Swipe Me!
+	            </div>
+	        </div>
     }
 }
 
 Omi.render(new App(),"#container");
 ```
-
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.

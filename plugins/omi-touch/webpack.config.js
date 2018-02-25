@@ -20,7 +20,7 @@ var config  = {
                 loader: 'babel-loader',
                 test: /\.js$/,
                 query: {
-                    presets: 'es2015'
+                    presets: ['env', 'omi'],
                 }
             }
         ]

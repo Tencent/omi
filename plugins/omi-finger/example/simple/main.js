@@ -1,15 +1,13 @@
-﻿import Omi from 'omi';
-import OmiFinger from '../../index.js';
-
-OmiFinger.init();
+﻿import Omi from 'omix'
+import '../../index.js'
 
 class App extends Omi.Component {
     constructor(data) {
-        super(data);
+        super(data)
     }
 
     handleTap(evt){
-        this.refs.touchArea.innerHTML+='<br/>Tap';
+        this.refs.touchArea.innerHTML+='<br/>Tap'
     }
 
     handleSwipe(evt){
@@ -17,27 +15,23 @@ class App extends Omi.Component {
     }
 
     style(){
-        return  `
-            .touchArea{
-                background-color: green;
-                width: 200px;
-                min-height: 200px;
-                text-align: center;
-                color:white;
-                height:auto;
-            }
-         `;
+        return  `.touchArea{
+                    background-color: green;
+                    width: 200px;
+                    min-height: 200px;
+                    text-align: center;
+                    color:white;
+                    height:auto;
+                }`
     }
 
     render() {
-        return  `
-        <div>
-            <div omi-finger class="touchArea" ref="touchArea" tap="handleTap"  swipe="handleSwipe" >
-                Tap or Swipe Me!
-            </div>
-        </div>
-        `;
+        return  <div>
+                    <div omi-finger class="touchArea" ref="touchArea" tap={this.handleTap}  swipe={this.handleSwipe} >
+                        Tap or Swipe Me!
+                    </div>
+                </div>
     }
 }
 
-Omi.render(new App(),"#container");
+Omi.render(new App(),"#container")

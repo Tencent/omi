@@ -2,12 +2,10 @@
 
 class About extends Omi.Component {
     render() {
-        return  `
-      	<div >About</div>
-  		`
+        return  <div >About</div>
     }
 }
 
-Omi.tag('About',About)
+Omi.tag('about',About)
 
 export default  About

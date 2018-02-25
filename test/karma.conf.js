@@ -1,7 +1,5 @@
 // Karma configuration
 // Generated on Tue Jan 03 2017 10:33:15 GMT+0800 (中国标准时间)
-var webpack = require("webpack");
-var webpackConfig = require('./webpack.test.config')
 
 module.exports = function(config) {
     config.set({
@@ -51,13 +49,31 @@ module.exports = function(config) {
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
+        // change to false if you debug local
+        // change to true when you submit to server
         singleRun: true,
 
         // Concurrency level
         // how many browser should be started simultaneous
         concurrency: Infinity,
 
-        webpack: webpackConfig,
+        webpack: {
+            module: {
+                rules: [
+                    {
+                        test: /\.js$/,
+                        exclude: /(node_modules|bower_components)/,
+                        use: [{
+                            loader: 'babel-loader',
+                            options: {
+                                presets: ['env','omi']
+                            }
+                        }
+                        ]
+                    }
+                ]
+            }
+        },
         webpackMiddleware: {
             noInfo: false
         },

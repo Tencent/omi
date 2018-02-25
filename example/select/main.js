@@ -3,12 +3,11 @@
 class FormTest extends Omi.Component {
     constructor(data) {
         super(data);
-
     }
 
-    handleChange(target){
-        console.log(target.value)
-        this.data.value = target.value;
+    handleChange(evt){
+        console.log(evt.target.value)
+        this.data.value = evt.target.value;
         this.update()
     }
 
@@ -17,21 +16,19 @@ class FormTest extends Omi.Component {
         evt.preventDefault();
     }
 
-
     render () {
-        return `
-        <form onsubmit="handleSubmit(event)">
-        <label>
-          Pick your favorite La Croix flavor:
-          <select value="{{value}}" onchange="handleChange(this)">
-            <option value="grapefruit">Grapefruit</option>
-            <option value="lime">Lime</option>
-            <option value="coconut">Coconut</option>
-            <option value="mango">Mango</option>
-          </select>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>`;
+        return <form onsubmit={this.handleSubmit.bind(this)}>
+                    <label>
+                      Pick your favorite La Croix flavor:
+                      <select value={this.data.value} onchange={this.handleChange.bind(this)}>
+                        <option value="grapefruit">Grapefruit</option>
+                        <option value="lime">Lime</option>
+                        <option value="coconut">Coconut</option>
+                        <option value="mango">Mango</option>
+                      </select>
+                    </label>
+                    <input type="submit" value="Submit" />
+              </form>
     }
 }
 

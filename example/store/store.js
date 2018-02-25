@@ -1,18 +1,18 @@
-export default {
-    data: {
-        items: ["omi", "store"]
-    },
-    methods: {
-        add: function (value) {
-            this.data.items.push(value)
-            this.data.length = this.data.items.length
-            this.update()
-        },
+class Store  {
+    constructor(data,callbacks) {
+        this.items = data.items
+        this.text = data.text
+        this.onAdd = callbacks.add || function(){}
+    }
 
-        clear: function () {
-            this.data.items.length = 0
-            this.data.length = 0
-            this.update()
-        }
+    add(text){
+        this.items.push({id: this.items.length + 1, text: text})
+        this.onAdd(text)
+    }
+
+    clear(){
+        this.items.length = 0
     }
 }
+
+export default Store

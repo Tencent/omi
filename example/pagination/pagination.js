@@ -1,35 +1,36 @@
-﻿import Omi from '../../src/index.js';
+import Omi from '../../src/index.js'
 
 class Pagination extends Omi.Component {
     constructor(data) {
-        data = Object.assign ({
+        data = Object.assign({
             total: 0,
             pageSize: 10,
             numDisplay: 10,
             currentPage: 0,
             numEdge: 0,
-            linkTo: "#",
-            prevText: "Prev",
-            nextText: "Next",
-            ellipseText: "...",
+            linkTo: '#',
+            prevText: 'Prev',
+            nextText: 'Next',
+            ellipseText: '...',
             prevShow: true,
             nextShow: true,
-            onPageChange: function () { return false; }
-        }, data);
-        super(data);
+            onPageChange: function() { return false }
+        }, data)
+
+        super(data)
     }
 
-    beforeRender () {
-        this.pageNum = Math.ceil(this.data.total / this.data.pageSize);
+    beforeRender() {
+        this.pageNum = Math.ceil(this.data.total / this.data.pageSize)
     }
 
-    goto (index,evt) {
-        evt.preventDefault();
-        this.data.currentPage=index;
-        this.data.onPageChange(index);
+    goto(index, e) {
+        e.preventDefault()
+        this.data.currentPage = index
+        this.data.onPageChange(index)
     }
 
-    style(){
+    style() {
         return `
     .pagination a {
             text-decoration: none;
@@ -60,69 +61,81 @@ class Pagination extends Omi.Component {
     }
     `
     }
-    render () {
-        var tpl = '<div class="pagination">';
-        var opt = this.data, interval = this.getInterval();
-        //上一页
+
+    render() {
+        let arr = []
+        var opt = this.data,
+            interval = this.getInterval()
+        // 上一页
         if (opt.prevShow) {
-            tpl += this.getPrev();
+            arr.push(this.getPrev())
         }
-        //起始点
+        // 起始点
         if (interval[0] > 0 && opt.numEdge > 0) {
-            var end = Math.min(opt.numEdge, interval[0]);
+            var end = Math.min(opt.numEdge, interval[0])
             for (var i = 0; i < end; i++) {
-                tpl += this.getItem(i, i + 1);
+                arr.push(this.getItem(i, i + 1))
             }
+
             if (opt.numEdge < interval[0] && opt.ellipseText) {
-                tpl += "<span>" + opt.ellipseText + "</span>";
+                arr.push(<span> {opt.ellipseText }</span>)
             }
         }
-        //内部的链接
+        // 内部的链接
         for (var i = interval[0]; i < interval[1]; i++) {
-            tpl += this.getItem(i, i + 1);
+            arr.push(this.getItem(i, i + 1))
         }
         // 结束点
         if (interval[1] < this.pageNum && opt.numEdge > 0) {
             if (this.pageNum - opt.numEdge > interval[1] && opt.ellipseText) {
-                tpl += "<span>" + opt.ellipseText + "</span>";
+                arr.push(<span>{ opt.ellipseText }</span>)
             }
-            var begin = Math.max(this.pageNum - opt.numEdge, interval[1]);
-            for (var i = begin; i < this.pageNum ; i++) {
-                tpl += this.getItem(i, i + 1);
+            var begin = Math.max(this.pageNum - opt.numEdge, interval[1])
+            for (var i = begin; i < this.pageNum; i++) {
+                arr.push(this.getItem(i, i + 1))
             }
         }
-        //下一页
+        // 下一页
         if (opt.nextShow) {
-            tpl += this.getNext();
+            arr.push(this.getNext())
         }
-        tpl += '</div>';
-        return tpl;
+        return <div class="pagination">{
+            arr.map(function(p) {
+                return p
+            })
+        } </div>
     }
-    getInterval () {
-        var ne_half = Math.ceil(this.data.numDisplay / 2);
-        var upper_limit = this.pageNum - this.data.numDisplay;
-        var start = this.data.currentPage > ne_half ? Math.max(Math.min(this.data.currentPage - ne_half, upper_limit), 0) : 0;
-        var end = this.data.currentPage > ne_half ? Math.min(this.data.currentPage + ne_half, this.pageNum) : Math.min(this.data.numDisplay, this.pageNum);
-        return [start, end];
+
+    getInterval() {
+        var ne_half = Math.ceil(this.data.numDisplay / 2)
+        var upper_limit = this.pageNum - this.data.numDisplay
+        var start = this.data.currentPage > ne_half ? Math.max(Math.min(this.data.currentPage - ne_half, upper_limit), 0) : 0
+        var end = this.data.currentPage > ne_half ? Math.min(this.data.currentPage + ne_half, this.pageNum) : Math.min(this.data.numDisplay, this.pageNum)
+        return [start, end]
     }
-    getPrev () {
+
+    getPrev() {
         if (this.data.currentPage === 0) {
-            return '<span nc-id="prev" class="current prev">{{prevText}}</span>';
+            return <span class="current prev">{this.data.prevText}</span>
         }
-        return '<a nc-id="prev" onclick="goto('+(this.data.currentPage-1)+',event)" href="{{linkTo}}" class="prev">{{prevText}}</a>';
+
+        return <a onclick={e => { this.goto(this.data.currentPage-1, e) }} href={this.data.linkTo} class="prev">{this.data.prevText}</a>
     }
-    getNext () {
+
+    getNext() {
         if (this.data.currentPage === this.pageNum - 1) {
-            return '<span nc-id="next" class="current next">{{nextText}}</span>';
+            return <span class="current next">{this.data.nextText}</span>
         }
-        return '<a nc-id="next" onclick="goto('+(this.data.currentPage+1)+',event)"  href="{{linkTo}}" class="next">{{nextText}}</a>';
+
+        return <a onclick={e => { this.goto(this.data.currentPage+1, e) }} href={this.data.linkTo} class="next">{this.data.nextText}</a>
     }
-    getItem (pageIndex, text) {
+
+    getItem(pageIndex, text) {
         if (this.data.currentPage === pageIndex) {
-            return '<span class="current">' + text + '</span>';
+            return <span class="current"> {text} </span>
         }
-        return '<a class="link" onclick="goto('+pageIndex+',event)"  data-pageIndex="' + pageIndex + '" href="{{linkTo}}">' + text + '</a>';
+        return <a class="link" onclick={e => { this.goto(pageIndex, e) }} data-pageIndex="' + pageIndex + '" href={this.data.linkTo}>{text}</a>
     }
 }
 
-export default Pagination;
+export default Pagination

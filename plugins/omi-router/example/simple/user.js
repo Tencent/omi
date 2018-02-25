@@ -4,11 +4,11 @@ class User extends Omi.Component {
 
     beforeRender(){
         let params =  this.$route.params
-        this.data.name = params.name
-        this.data.category = params.category
-        this.info = this.queryInfo(this.data.name)
-        this.data.age = this.info.age
-        this.data.sex = this.info.sex
+        this.name = params.name
+        this.category = params.category
+        this.info = this.queryInfo(this.name)
+        this.age = this.info.age
+        this.sex = this.info.sex
     }
 
     queryInfo(name) {
@@ -25,21 +25,20 @@ class User extends Omi.Component {
     }
 
     render() {
-        return  `
-      	<div >
-      	    <button onclick="back">back</button>
-      	    <ul>
-      	        <li>name:{{name}}</li>
-      	        <li>age:{{age}}</li>
-      	        <li>sex:{{sex}}</li>
-      	        <li>category:{{category}}</li>
-      	    </ul>
-      	</div>
-  		`
+        return  <div >
+                    <button onclick={this.back.bind(this)}>back</button>
+                    <ul>
+                        <li>name:{this.name}</li>
+                        <li>age:{this.age}</li>
+                        <li>sex:{this.sex}</li>
+                        <li>category:{this.category}</li>
+                    </ul>
+                </div>
+
     }
 }
 
 
-Omi.tag('User',User)
+Omi.tag('user',User)
 
 export default  User

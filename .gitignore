@@ -1,8 +1,5 @@
-.DS_Store
-node_modules
-
-
-/.idea
-/md2site/template/app/rev
-/omi-canvas
-/example/server-rendering
+/node_modules
+/plugins/omi-finger/node_modules
+/plugins/omi-router/node_modules
+/plugins/omi-touch/node_modules
+/plugins/omi-transform/node_modules
