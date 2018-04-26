@@ -139,8 +139,8 @@ npm install omi
 
 or get it from CDN:
 
-* [https://unpkg.com/omi@1.8.0/dist/omi.min.js](https://unpkg.com/omi@1.8.0/dist/omi.min.js)
-* [https://unpkg.com/omi@1.8.0/dist/omi.js](https://unpkg.com/omi@1.8.0/dist/omi.js)
+* [https://unpkg.com/omi@1.8.1/dist/omi.min.js](https://unpkg.com/omi@1.8.1/dist/omi.min.js)
+* [https://unpkg.com/omi@1.8.1/dist/omi.js](https://unpkg.com/omi@1.8.1/dist/omi.js)
 
 
 ## Plugins

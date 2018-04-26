@@ -1,5 +1,5 @@
 /*!
- *  omi v1.8.0 By dntzhang 
+ *  omi v1.8.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -97,8 +97,6 @@ var _h2 = _interopRequireDefault(_h);
 
 var _vnode = __webpack_require__(1);
 
-var _vnode2 = _interopRequireDefault(_vnode);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var Omi = {
@@ -114,8 +112,7 @@ var Omi = {
     plugins: {},
     scopedStyle: true,
     mapping: {},
-    style: {},
-    componentConstructor: {}
+    style: {}
 };
 
 Omi.getAttr = function (ctor) {
@@ -162,7 +159,7 @@ function isServer() {
 Omi.render = function (component, renderTo, option) {
     if (isServer()) return;
 
-    if (component instanceof _vnode2['default']) {
+    if (component instanceof _vnode.VNode) {
         component = new component.tagName(component.props);
     }
 
@@ -199,15 +196,13 @@ Omi.deletePlugin = function (name) {
 
 function spread(vd) {
     var str = '';
-    var type = vd.type;
-    switch (type) {
-        case 'VirtualNode':
-            str += '<' + vd.tagName + ' ' + props2str(vd.props) + '>' + vd.children.map(function (child) {
-                return spread(child);
-            }).join('') + '</' + vd.tagName + '>';
-            break;
-        case 'VirtualText':
-            return vd.text;
+
+    if (vd instanceof _vnode.VNode) {
+        str += '<' + vd.tagName + ' ' + props2str(vd.props) + '>' + vd.children.map(function (child) {
+            return spread(child);
+        }).join('') + '</' + vd.tagName + '>';
+    } else {
+        return vd;
     }
 
     return str;
@@ -238,6 +233,9 @@ function stringifyData(component) {
 }
 
 Omi.renderToString = function (component, store) {
+    if (component instanceof _vnode.VNode) {
+        component = new component.tagName(component.props);
+    }
     Omi.ssr = true;
     component.$store = store;
     component.install();
@@ -262,7 +260,7 @@ exports['default'] = Omi;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = VNode;
+exports.VNode = VNode;
 // from  preact
 /** Virtual DOM Node */
 
@@ -516,10 +514,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _vnode = __webpack_require__(1);
 
-var _vnode2 = _interopRequireDefault(_vnode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 var stack = [];
 
 var EMPTY_CHILDREN = [];
@@ -568,7 +562,7 @@ function h(tagName, props) {
         }
     }
 
-    var p = new _vnode2['default']();
+    var p = new _vnode.VNode();
     p.tagName = tagName;
     p.children = children;
     p.props = props == null ? {} : props;

@@ -1,3 +1,7 @@
+# omi v1.8.1
+
+* 修复 renderToString 的 bug
+
 # omi v1.8.0
 
 * 合并了 omix 和 omi 项目
