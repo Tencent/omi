@@ -1,5 +1,5 @@
 /*!
- *  omix v1.8.0 By dntzhang 
+ *  omi v1.8.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -9,10 +9,10 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["Omix"] = factory();
+		exports["Omi"] = factory();
 	else
-		root["Omix"] = factory();
-})(this, function() {
+		root["Omi"] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -75,7 +75,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -91,9 +91,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _h = __webpack_require__(5);
+var _h = __webpack_require__(6);
 
 var _h2 = _interopRequireDefault(_h);
+
+var _vnode = __webpack_require__(1);
+
+var _vnode2 = _interopRequireDefault(_vnode);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -157,6 +161,11 @@ function isServer() {
 
 Omi.render = function (component, renderTo, option) {
     if (isServer()) return;
+
+    if (component instanceof _vnode2['default']) {
+        component = new component.tagName(component.props);
+    }
+
     component.renderTo = typeof renderTo === 'string' ? document.querySelector(renderTo) : renderTo;
     if (typeof option === 'boolean') {
         component._omi_increment = option;
@@ -251,6 +260,22 @@ exports['default'] = Omi;
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = VNode;
+// from  preact
+/** Virtual DOM Node */
+
+function VNode() {}
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -271,7 +296,7 @@ function isObject(x) {
 }
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -281,7 +306,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _applyProperties = __webpack_require__(3);
+var _applyProperties = __webpack_require__(4);
 
 var _applyProperties2 = _interopRequireDefault(_applyProperties);
 
@@ -317,7 +342,7 @@ function createElement(vnode, opts) {
 exports['default'] = createElement;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -328,7 +353,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports['default'] = applyProperties;
 
-var _util = __webpack_require__(1);
+var _util = __webpack_require__(2);
 
 function removeProperty(node, propName, propValue, previous) {
     if (previous) {
@@ -399,11 +424,12 @@ function applyProperties(node, props, previous) {
     if (!node.omixEventList) {
         node.omixEventList = {};
     }
-    for (var event in node.omixEventList) {
-        node[event] = null;
-    }
+
     for (var propName in props) {
         var propValue = props[propName];
+        if (node.omixEventList[propName]) {
+            node[propName] = null;
+        }
 
         if (propValue === undefined) {
             removeProperty(node, propName, propValue, previous);
@@ -429,7 +455,7 @@ function applyProperties(node, props, previous) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -439,7 +465,7 @@ var _omi = __webpack_require__(0);
 
 var _omi2 = _interopRequireDefault(_omi);
 
-var _component = __webpack_require__(6);
+var _component = __webpack_require__(7);
 
 var _component2 = _interopRequireDefault(_component);
 
@@ -478,7 +504,7 @@ if (typeof window !== 'undefined' && window.Omi) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -487,10 +513,12 @@ if (typeof window !== 'undefined' && window.Omi) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-// from  preact
-/** Virtual DOM Node */
 
-function VNode() {}
+var _vnode = __webpack_require__(1);
+
+var _vnode2 = _interopRequireDefault(_vnode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var stack = [];
 
@@ -540,7 +568,7 @@ function h(tagName, props) {
         }
     }
 
-    var p = new VNode();
+    var p = new _vnode2['default']();
     p.tagName = tagName;
     p.children = children;
     p.props = props == null ? {} : props;
@@ -562,7 +590,7 @@ function h(tagName, props) {
 exports['default'] = h;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -578,19 +606,19 @@ var _omi = __webpack_require__(0);
 
 var _omi2 = _interopRequireDefault(_omi);
 
-var _style = __webpack_require__(7);
+var _style = __webpack_require__(8);
 
 var _style2 = _interopRequireDefault(_style);
 
-var _diff = __webpack_require__(8);
+var _diff = __webpack_require__(9);
 
 var _diff2 = _interopRequireDefault(_diff);
 
-var _patch = __webpack_require__(9);
+var _patch = __webpack_require__(10);
 
 var _patch2 = _interopRequireDefault(_patch);
 
-var _createElement = __webpack_require__(2);
+var _createElement = __webpack_require__(3);
 
 var _createElement2 = _interopRequireDefault(_createElement);
 
@@ -789,7 +817,7 @@ var Component = function () {
                         var childIns = parentInstance.children[cmiIndex];
                         if (childIns && childIns.constructor === root.tagName) {
                             cmi = childIns;
-                        }
+                        } //else destroy the instance?!
                     }
 
                     // not using pre instance the first time
@@ -959,7 +987,7 @@ var Component = function () {
 exports['default'] = Component;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1032,7 +1060,7 @@ exports['default'] = {
 };
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1042,7 +1070,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _util = __webpack_require__(1);
+var _util = __webpack_require__(2);
 
 function diff(a, b) {
     var patch = { a: a };
@@ -1363,7 +1391,7 @@ function diffProps(a, b) {
 exports['default'] = diff;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1373,11 +1401,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createElement = __webpack_require__(2);
+var _createElement = __webpack_require__(3);
 
 var _createElement2 = _interopRequireDefault(_createElement);
 
-var _applyProperties = __webpack_require__(3);
+var _applyProperties = __webpack_require__(4);
 
 var _applyProperties2 = _interopRequireDefault(_applyProperties);
 
