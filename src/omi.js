@@ -1,4 +1,5 @@
 import h from './vdom/h'
+import VNode from './vdom//vnode'
 
 let Omi = {
     x: h,
@@ -60,6 +61,11 @@ function isServer() {
 
 Omi.render = function(component, renderTo, option) {
     if (isServer()) return
+    
+    if(component instanceof VNode){
+        component = new component.tagName(component.props)
+    }
+
     component.renderTo = typeof renderTo === 'string' ? document.querySelector(renderTo) : renderTo
     if (typeof option === 'boolean') {
         component._omi_increment = option

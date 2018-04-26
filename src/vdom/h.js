@@ -1,9 +1,5 @@
-// from  preact
-/** Virtual DOM Node */
 
-function VNode() {
-
-}
+import VNode from './vnode'
 
 var stack = []
 

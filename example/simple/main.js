@@ -27,4 +27,4 @@ class App extends Omi.Component {
     }
 }
 
-Omi.render(new App(), 'body')
+Omi.render(<App  name='aa' />, 'body')
