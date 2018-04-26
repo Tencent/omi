@@ -19,6 +19,7 @@
     * [Omi.extendPlugin](#omiextendplugin)
     * [关联instance](#关联instance)
     * [传递数据](#传递数据)
+* [组件体系](#组件体系)  
 * [closeScopedStyle](#closescopedstyle)     
 * [调试技巧](#调试技巧)  
 * [Server Side Rendering](#server-side-rendering)  
@@ -906,6 +907,11 @@ Omi.render(new App({ closeScopedStyle : true }, '#ctn'))
 <your-tag closeScopedStyle></your-tag>
 ```
 
+## 组件体系
+
+Omi 也支持类似 React 的组件体系方式搭建组件，插件体系相当于后置处理，组件体系会直接影响和生产虚拟 DOM,
+
+举个例子: [https://github.com/AlloyTeam/omi/blob/master/example/plugin-x/main.js#L24-L26](https://github.com/AlloyTeam/omi/blob/master/example/plugin-x/main.js#L24-L26)
 
 ## 调试技巧
 
