@@ -59,7 +59,7 @@ class App extends Omi.Component {
     }
 }
 
-Omi.render(new App(), '#container')
+Omi.render(<App />, '#container')
 ```
 
 ## Using Store System

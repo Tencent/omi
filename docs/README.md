@@ -80,6 +80,7 @@ class Hello extends Omi.Component {
 class App extends Omi.Component {
     install() {
         this.name = 'Omi'
+        this.handleClick = this.handleClick.bind(this)
     }
 
     handleClick(e) {
@@ -97,7 +98,7 @@ class App extends Omi.Component {
     render() {
         return <div>
             <Hello name={this.name}></Hello>
-            <h3 onclick={this.handleClick.bind(this)}>Scoped css and event test! click me!</h3>
+            <h3 onclick={this.handleClick}>Scoped css and event test! click me!</h3>
         </div>
     }
 }
@@ -106,11 +107,10 @@ Omi.render(<App />, '#container')
 ```
 
 * 组件继承自`Omi.Component`，
-* `render`返回的是组件JSX 或者 hyperscript
+* `render`返回的是组件JSX 
 * `style`返回的是组件的CSS，是局部的，不会污染组件以外的元素
 * 通过`name={this.name}`把传递给子组件hello，子组件直接在render里可以使用{this.data.name}来使用传递来的数据
-* 通过`onclick={this.handleClick.bind(this)}"`给HTML元素绑定事件，在handleClick回调中可以拿到event对象
-
+* 通过`onclick={this.handleClick}"`给HTML元素绑定事件，在handleClick回调中可以拿到event对象
 
 
 ## 介绍 JSX
@@ -123,7 +123,7 @@ const element = <h1>Hello, world!</h1>;
 
 这种看起来可能有些奇怪的标签语法既不是字符串也不是HTML.
 
-它被称为 JSX, 一种 JavaScript 的语法扩展。JSX 乍看起来可能比较像是模版语言，但事实上它完全是在 JavaScript 内部实现的，和 hyperscript 可以互相转换。
+它被称为 JSX, 一种 JavaScript 的语法扩展。JSX 乍看起来可能比较像是模版语言，但事实上它完全是在 JavaScript 内部实现的。
 
 ### 在 JSX 中使用表达式
 
@@ -209,7 +209,7 @@ const element = (
 
 ### JSX 代表 Objects
 
-转义器 `virtual-dom-loader` 会把 JSX 转换成一个名为 `Omi.x()` 的方法调用。
+转义器 `babel-preset-omi` 会把 JSX 转换成一个名为 `Omi.x()` 的方法调用。
 
 下面两种代码的作用是完全相同的：
 
@@ -246,15 +246,12 @@ const element = Omi.x(
 </ul>
 ```
 
-
-
 ```
 // JSX
 <MyList>{this.data.items.map(item => 
     <MyItem id={item.id} title={item.title} />
 )}</MyList>
 ```
-
 
 ```
 <MyComponent someProp={{x: 1, y: 2}}/>
