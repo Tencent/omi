@@ -47,12 +47,12 @@ var config  = {
 if(ENV === 'build'||ENV === 'build-min'){
     config = {
         entry: {
-            'omix': './src/index.js'
+            'omi': './src/index.js'
         },
         output: {
             // path: __dirname,
             path: path.resolve(__dirname,'./dist/'),
-            library:'Omix',
+            library:'Omi',
             libraryTarget: 'umd',
             filename:  '[name].js'
             //umdNamedDefine: true
@@ -76,7 +76,7 @@ if(ENV === 'build'||ENV === 'build-min'){
         },
         plugins: [
             // Avoid publishing files when compilation fails
-            new webpack.BannerPlugin(" omix v"+packageJSON.version+" By dntzhang \r\n Github: https://github.com/AlloyTeam/omix\r\n MIT Licensed."),
+            new webpack.BannerPlugin(" omi v"+packageJSON.version+" By dntzhang \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
             new webpack.NoEmitOnErrorsPlugin()
         ],
         stats: {
@@ -99,7 +99,7 @@ if(ENV === 'build'||ENV === 'build-min'){
             output: { screw_ie8: false }
         }));
         config.entry = {
-            'omix.min': './src/index.js'
+            'omi.min': './src/index.js'
         };
     }
 }else if(ENV==='todomvc'){

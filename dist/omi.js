@@ -1,6 +1,6 @@
 /*!
- *  omix v1.2.9 By dntzhang 
- *  Github: https://github.com/AlloyTeam/omix
+ *  omix v1.8.0 By dntzhang 
+ *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
 (function webpackUniversalModuleDefinition(root, factory) {

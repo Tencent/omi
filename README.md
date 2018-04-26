@@ -1,13 +1,13 @@
 <p align="center">
-  <a href="##Omix"><img src="http://images2017.cnblogs.com/blog/105416/201708/105416-20170807145434955-1872305404.png" alt="Omi"></a>
+  <a href="##Omi"><img src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png" alt="Omi"></a>
 </p>
 <p align="center">
-Build UI with JSX - 使用 JSX 创建用户界面
+Open and modern framework for building user interfaces.
 </p>
 <p align="center">
-  <a href="https://circleci.com/gh/AlloyTeam/omix/tree/master"><img src="https://img.shields.io/circleci/project/AlloyTeam/omix/master.svg" alt="Build Status"></a>
-  <a href="https://www.npmjs.com/package/omix"><img src="https://img.shields.io/npm/v/omix.svg" alt="Version"></a>
-  <a href="https://www.npmjs.com/package/omix"><img src="https://img.shields.io/npm/dm/omix.svg" alt="Download"></a>
+  <a href="https://circleci.com/gh/AlloyTeam/omi/tree/master"><img src="https://img.shields.io/circleci/project/AlloyTeam/omi/master.svg" alt="Build Status"></a>
+  <a href="https://www.npmjs.com/package/omi"><img src="https://img.shields.io/npm/v/omi.svg" alt="Version"></a>
+  <a href="https://www.npmjs.com/package/omi"><img src="https://img.shields.io/npm/dm/omi.svg" alt="Download"></a>
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs"></a>
 </p>
 
@@ -24,7 +24,7 @@ Build UI with JSX - 使用 JSX 创建用户界面
 * Support Scoped CSS, reusable components are composed of HTML, Scoped CSS and JS
 * More free updates, each component has a update method, free to choose the right time to update
 
-## Hello Omix 
+## Hello Omi
 
 ``` js
 class Hello extends Omi.Component {
@@ -40,7 +40,7 @@ class App extends Omi.Component {
     }
 
     handleClick(e) {
-        this.name = 'Omix' 
+        this.name = 'Hello Omi' 
         this.update()
     }
 
@@ -94,7 +94,7 @@ class App extends Omi.Component {
     }
 
     rename(){
-        this.$store.rename('Omix')
+        this.$store.rename('Hello Omi')
     }
 
     render() {
@@ -130,22 +130,17 @@ $ npm start                      # develop
 $ npm run dist                   # release
 ```
 
-the latest cli support blow cmd to init omix project, not omi project:
-
-```
-omi init your_project_name
-```
 
 ## Install
 
 ``` bash
-npm install omix
+npm install omi
 ```
 
 or get it from CDN:
 
-* [https://unpkg.com/omix@1.2.9/dist/omix.min.js](https://unpkg.com/omix@1.2.9/dist/omix.min.js)
-* [https://unpkg.com/omix@1.2.9/dist/omix.js](https://unpkg.com/omix@1.2.9/dist/omix.js)
+* [https://unpkg.com/omi@1.8.0/dist/omi.min.js](https://unpkg.com/omi@1.8.0/dist/omi.min.js)
+* [https://unpkg.com/omi@1.8.0/dist/omi.js](https://unpkg.com/omi@1.8.0/dist/omi.js)
 
 
 ## Plugins
