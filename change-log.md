@@ -1,3 +1,9 @@
+# omi v1.8.0
+
+* 合并了 omix 和 omi 项目
+* fix 事件丢失的 bug 
+* 支持 jsx 方式的 Omi.reander
+
 # omix v1.2.8
 
 *  优化了组件的复用
