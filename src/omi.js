@@ -1,5 +1,5 @@
 import h from './vdom/h'
-import VNode from './vdom//vnode'
+import {VNode} from './vdom/vnode'
 
 let Omi = {
     x: h,
@@ -14,8 +14,7 @@ let Omi = {
     plugins: {},
     scopedStyle: true,
     mapping: {},
-    style: {},
-    componentConstructor: {}
+    style: {}
 }
 
 Omi.getAttr = function(ctor) {
@@ -61,7 +60,7 @@ function isServer() {
 
 Omi.render = function(component, renderTo, option) {
     if (isServer()) return
-    
+
     if(component instanceof VNode){
         component = new component.tagName(component.props)
     }
@@ -99,15 +98,13 @@ Omi.deletePlugin = function(name) {
 
 function spread(vd) {
     let str = ''
-    const type = vd.type
-    switch (type) {
-    case 'VirtualNode':
+
+    if (vd instanceof VNode) {
         str += `<${vd.tagName} ${props2str(vd.props)}>${vd.children.map(child => {
             return spread(child)
         }).join('')}</${vd.tagName}>`
-        break
-    case 'VirtualText':
-        return vd.text
+    } else {
+        return vd
     }
 
     return str
@@ -138,6 +135,9 @@ function stringifyData(component) {
 }
 
 Omi.renderToString = function(component, store) {
+    if(component instanceof VNode){
+        component = new component.tagName(component.props)
+    }
     Omi.ssr = true
     component.$store = store
     component.install()

@@ -36,6 +36,6 @@ Omi.render(app,'#ctn3')
 
 describe('base', function() {
     it('test ref and refs', function() {
-        expect(app.refs.test.innerHTML).toBe('aaa')
+        expect(app.refs.test.innerHTML).to.equal('aaa')
     })
 })

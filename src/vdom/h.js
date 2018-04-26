@@ -1,5 +1,5 @@
 
-import VNode from './vnode'
+import {VNode} from './vnode'
 
 var stack = []
 

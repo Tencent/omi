@@ -40,7 +40,7 @@ let ctn =  document.querySelector('#ctn')
 
 describe('base', function() {
     it('test render', function() {
-        expect(ctn.innerHTML).toBe('<div __st_0="" __s_0=""><h3 __st_0="" __s_0="">b</h3><div __st_1="" __s_1=""> Hello Omi!</div></div>')
+        expect(ctn.innerHTML).to.equal('<div __st_0="" __s_0=""><h3 __st_0="" __s_0="">b</h3><div __st_1="" __s_1=""> Hello Omi!</div></div>')
     })
 })
 
@@ -50,11 +50,11 @@ setTimeout(function(){
         let outerH3 =  document.querySelector('h3')
         let innerH3 = ctn.querySelector('h3')
         it('', function() {
-            expect(window.getComputedStyle(outerH3).color).toBe('rgb(0, 0, 0)')
+            expect(window.getComputedStyle(outerH3).color).to.equal('rgb(0, 0, 0)')
         })
 
         it('', function() {
-            expect(window.getComputedStyle(innerH3).color).toBe('rgb(255, 0, 0)')
+            expect(window.getComputedStyle(innerH3).color).to.equal('rgb(255, 0, 0)')
         })
     })
 

@@ -43,6 +43,6 @@ innerH3.click()
 
 describe('base', function() {
     it('test event and update method', function() {
-        expect(ctn.innerHTML).toBe('<div __st_2="" __s_2=""><h3 __st_2="" __s_2="">b</h3><div __st_3="" __s_3=""> Hello Omix!</div></div>')
+        expect(ctn.innerHTML).to.equal('<div __st_2="" __s_2=""><h3 __st_2="" __s_2="">b</h3><div __st_3="" __s_3=""> Hello Omix!</div></div>')
     })
 })

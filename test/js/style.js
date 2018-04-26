@@ -4,49 +4,49 @@ describe('scoper', function() {
     describe('Attribute selector as prefix', function() {
         var result = style.scoper('.active{ color:red};', '[attribute]')
         it('expect attribute selector prefix works well', function() {
-            expect(result).toBe('.active[attribute],[attribute] .active{ color:red};')
+            expect(result).to.equal('.active[attribute],[attribute] .active{ color:red};')
         })
     })
 
     describe('Id selector as prefix', function() {
         var result = style.scoper('.active{ color:red};', '#id')
         it('expect id selector prefix works well', function() {
-            expect(result).toBe('.active#id,#id .active{ color:red};')
+            expect(result).to.equal('.active#id,#id .active{ color:red};')
         })
     })
 
     describe('Two classes', function() {
         var result = style.scoper('.active,.xx{ color:red};', '#id')
         it('expect id selector prefix works well with two class selector', function() {
-            expect(result).toBe('.active#id,#id .active,.xx#id,#id .xx{ color:red};')
+            expect(result).to.equal('.active#id,#id .active,.xx#id,#id .xx{ color:red};')
         })
     })
 
     describe('Pseudo class', function() {
         var result = style.scoper('.active:hover{ color:red};', '[attribute]')
         it('expect pseudo class works well', function() {
-            expect(result).toBe('.active[attribute]:hover,[attribute] .active:hover{ color:red};')
+            expect(result).to.equal('.active[attribute]:hover,[attribute] .active:hover{ color:red};')
         })
     })
 
     describe('Pseudo element', function() {
         var result = style.scoper('.active::after{ color:red};', '[attribute]')
         it('expect pseudo element works well', function() {
-            expect(result).toBe('.active[attribute]::after,[attribute] .active::after{ color:red};')
+            expect(result).to.equal('.active[attribute]::after,[attribute] .active::after{ color:red};')
         })
     })
 
     describe('Quoted values', function() {
         var result = style.scoper('.active { font-family: "Helvetica Neue"};', '[attribute]')
         it('expect quoted values works well', function() {
-            expect(result).toBe('.active[attribute],[attribute] .active{ font-family: "Helvetica Neue"};')
+            expect(result).to.equal('.active[attribute],[attribute] .active{ font-family: "Helvetica Neue"};')
         })
     })
 
     describe('Base64 values', function() {
         var result = style.scoper('.watch i, .watchaa  ,p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}.watch i, .watchaa  ,p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}', '#xx')
         it('expect quoted values works well', function() {
-            expect(result).toBe('.watch i#xx,#xx .watch i, .watchaa#xx,#xx .watchaa,p#xx:lang(it),#xx p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}.watch i#xx,#xx .watch i, .watchaa#xx,#xx .watchaa,p#xx:lang(it),#xx p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}')
+            expect(result).to.equal('.watch i#xx,#xx .watch i, .watchaa#xx,#xx .watchaa,p#xx:lang(it),#xx p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}.watch i#xx,#xx .watch i, .watchaa#xx,#xx .watchaa,p#xx:lang(it),#xx p:lang(it){background-image: url(data:image/png;base64,iVBORw0C);}')
         })
     })
 
@@ -63,7 +63,7 @@ describe('scoper', function() {
                     '}'
         var actual = style.scoper(rule, '#scoper-1')
         it('expect media queries works well', function() {
-            expect(actual).toBe(expected)
+            expect(actual).to.equal(expected)
         })
     })
 
@@ -76,7 +76,7 @@ describe('scoper', function() {
         var expected = rule
         var actual = style.scoper(rule, '#scoper-1')
         it('expect font faces works well', function() {
-            expect(actual).toBe(expected)
+            expect(actual).to.equal(expected)
         })
     })
 
@@ -85,7 +85,7 @@ describe('scoper', function() {
         var expected = ''
         var actual = style.scoper(rule, '#scoper-1')
         it('expect comment works well', function() {
-            expect(actual).toBe(expected)
+            expect(actual).to.equal(expected)
         })
     })
 
@@ -142,7 +142,7 @@ font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto,PT Sans,DejaVu Sans,A
 }`
         var actual = style.scoper(rule, '#cc')
         it('expect complex test works well', function() {
-            expect(actual).toBe(expected)
+            expect(actual).to.equal(expected)
         })
     })
 })

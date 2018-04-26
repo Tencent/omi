@@ -1,5 +1,5 @@
 import Omi from '../../src/index.js'
-import './hello.js'
+import Hello from './hello.js'
 
 class App extends Omi.Component {
     install() {
@@ -20,10 +20,10 @@ class App extends Omi.Component {
 
     render() {
         return <div>
-                    <hello name={this.name}></hello>
+                    <Hello name={this.name}></Hello>
                     <h3 onclick={this.handleClick.bind(this)}>Scoped css and event test! you can't click me from renderToString!</h3>
                 </div>
     }
 }
 
-document.body.innerHTML = Omi.renderToString( new App())
+document.body.innerHTML = Omi.renderToString( <App />)

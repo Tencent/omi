@@ -1,4 +1,4 @@
-import Omi from '../../dist/omi.js'
+import Omi from '../../src/index.js'
 
 class Hello extends Omi.Component {
     render(){
