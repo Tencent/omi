@@ -1,10 +1,10 @@
-# 精通 Omix 框架
+# 精通 Omi 框架
 
-《精通[Omix框架](https://github.com/AlloyTeam/omix)》书籍的免费电子版，有这一篇足够从入门到精通。
+《精通[Omi框架](https://github.com/AlloyTeam/omi)》书籍的免费电子版，有这一篇足够从入门到精通。
 
 * [简介](#简介)
-* [安装Omix](#安装-omix)
-* [Hello Omix](#hello-omix)
+* [安装Omi](#安装-omi)
+* [Hello Omi](#hello-omi)
 * [介绍 JSX](#介绍-jsx)
 * [组件与通讯](#组件与通讯)
     * [组件体系](#组件体系)
@@ -22,38 +22,38 @@
 * [closeScopedStyle](#closescopedstyle)     
 * [调试技巧](#调试技巧)  
 * [Server Side Rendering](#server-side-rendering)  
-* [Omix相关](#omix相关)  
+* [Omi相关](#omi相关)  
 
 ## 简介
     
-    Omix（读音 / [ˈomɪkɜ:s] /, 汉字类似于 欧米可思） 是一款使用 JSX 创建Web用户界面的组件化框架，故得名：Omix。
-其代码已托管至Github地址: [https://github.com/AlloyTeam/omix](https://github.com/AlloyTeam/omix)
+    Omi（读音 / [ˈomɪkɜ:s] /, 汉字类似于 欧米） 是一款开放现代化的组件化框架，故得名：Omi。
+其代码已托管至Github地址: [https://github.com/AlloyTeam/omi](https://github.com/AlloyTeam/omi)
 
-[Omix框架](https://github.com/AlloyTeam/omix) 并不是用来替代 [Omi框架](https://github.com/AlloyTeam/omi) ，而是另外一种选择。概括起来包含下面优点和特性:
+[Omi框架](https://github.com/AlloyTeam/omi) 概括起来包含下面优点和特性:
 
-* 超迅捷的性能，经过测试, 居然是所有框架第一名, 不信可以看看[dbmon with omix](https://alloyteam.github.io/omix/example/perfs)。虽然排第一，但是发现还有许多优化空间！！
+* 超迅捷的性能，经过测试, 居然是所有框架第一名, 不信可以看看[dbmon with omi](https://alloyteam.github.io/omi/example/perfs)。虽然排第一，但是发现还有许多优化空间！！
 * 良好的兼容性 - 兼容 IE8,兼容各种手机平版移动 Web 程序
 * 超小的尺寸 - 7 kb (gzip) 
-* 内置支持 JSX 和 hyperscript , 喜欢哪种方式随意切换。需要注意 omix 里写 JSX 组件标签要小写
-* 局部CSS - HTML+ Scoped CSS + JS组成可复用的组件。不用担心组件的CSS会污染组件外的
+* 支持 JSX
+* 支持局部CSS - HTML+ Scoped CSS + JS组成可复用的组件。不用担心组件的CSS会污染组件外的
 * 更自由的更新 - 每个组件都有 update 方法，自由选择你认为最佳的更新时机和最佳的更新方式
 * 灵活的插件体系和丰富的插件生态
-    * [omi-router](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-router) : Omi专属的官方Router插件.
-    * [omi-finger](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-finger) Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，支持各种触摸事件和手势
-    * [omi-transform](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-transform) Omi的[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/)插件，快速方便地设置DOM的CSS3 Transform属性
-    * [omi-touch](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-touch) Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）
+    * [omi-router](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router) : Omi专属的官方Router插件.
+    * [omi-finger](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-finger) Omi的[AlloyFinger](https://github.com/AlloyTeam/AlloyFinger)插件，支持各种触摸事件和手势
+    * [omi-transform](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-transform) Omi的[transformjs](https://alloyteam.github.io/AlloyTouch/transformjs/)插件，快速方便地设置DOM的CSS3 Transform属性
+    * [omi-touch](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-touch) Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）
   
 
-## 安装 Omix
+## 安装 Omi
 
 ``` bash
-npm install omix
+npm install omi
 ```
 
 你也可以通过cdn获取omi，并在HTML里声明script变迁:
 
 ``` html
-<script src="https://unpkg.com/omix@0.1.0/dist/omix.min.js"></script>
+<script src="https://unpkg.com/omi@1.8.0/dist/omi.min.js"></script>
 ```
 
 你也可以 [Omi Cli](https://github.com/AlloyTeam/omi-cli) 来初始化你的项目脚手架，它会帮你处理好一切构建相关的东西。
@@ -66,10 +66,10 @@ npm start                   //开发
 npm run build               //生成发布文件   
 ```
 
-## Hello Omix
+## Hello Omi
 
 ```js
-import Omi from 'omix';
+import Omi from 'omi';
 
 class Hello extends Omi.Component {
     render() {
@@ -83,7 +83,7 @@ class App extends Omi.Component {
     }
 
     handleClick(e) {
-        this.name = 'Omix'
+        this.name = 'Hello Omi'
         this.update()
     }
 
@@ -102,7 +102,7 @@ class App extends Omi.Component {
     }
 }
 
-Omi.render(new App(), '#container')
+Omi.render(<App />, '#container')
 ```
 
 * 组件继承自`Omi.Component`，
@@ -204,7 +204,7 @@ const element = (
 
 >**提醒:**
 >
-> Omix 里使用 JSX 更加宽松，你既可以使用 `class` 也可以使用 `className`。既可以使用 `onclick` 也可以使用 `onClick`。 
+> Omi 里使用 JSX 更加宽松，你既可以使用 `class` 也可以使用 `className`。既可以使用 `onclick` 也可以使用 `onClick`。 
 
 
 ### JSX 代表 Objects
@@ -265,11 +265,11 @@ const element = Omi.x(
 
 ### 组件体系
 
-[Omix框架](https://github.com/AlloyTeam/omix)完全基于组件体系设计，我们希望开发者可以像搭积木一样制作Web程序，一切皆是组件，组件也可以嵌套子组件形成新的组件，新的组件又可以当作子组件嵌套至任意组件形成新的组件...
+[Omi框架](https://github.com/AlloyTeam/omi)完全基于组件体系设计，我们希望开发者可以像搭积木一样制作Web程序，一切皆是组件，组件也可以嵌套子组件形成新的组件，新的组件又可以当作子组件嵌套至任意组件形成新的组件...
 
 ![](http://images2015.cnblogs.com/blog/105416/201702/105416-20170210093427338-1536910080.png)
 
-上面的Hello Omix的例子已经说明了组件大概，这里再使用Todo的例子来讲解 Omix 组件体系的使用。
+上面的Hello Omi 的例子已经说明了组件大概，这里再使用Todo的例子来讲解 Omi 组件体系的使用。
 
 先定义一个List组件用来展示列表:
 
@@ -599,7 +599,7 @@ class SubHello extends Hello {
 Omi.render(new SubHello({ name : 'Omi' }),'#container');
 ```
 
-使用 Omix ，组合或者继承都可以。
+使用 Omi ，组合或者继承都可以。
 
 ## 获取DOM节点
 
@@ -928,12 +928,11 @@ let content = Omi.renderToString(new Root(data))
 * Root 为前后端共享的根节点
 * data 为前后端共享的数据
 
-## Omix相关
+## Omi相关
 
-* [Omi[x] 官网](http://www.omijs.org)
-* [Omix Github](https://github.com/AlloyTeam/omix)
+* [Omi 官网](http://www.omijs.org)
 * [Omi Github](https://github.com/AlloyTeam/omi)
-* [Omix REPL](https://alloyteam.github.io/omix/repl/)
-* [Omix 文档](https://github.com/AlloyTeam/omix/blob/master/docs/)
-* [Omi[x] Cli](https://github.com/AlloyTeam/omi-cli)
-* [New issue](https://github.com/AlloyTeam/omix/issues/new)
+* [Omi REPL](https://alloyteam.github.io/omi/repl/)
+* [Omi 文档](https://github.com/AlloyTeam/omi/blob/master/docs/)
+* [Omi Cli](https://github.com/AlloyTeam/omi-cli)
+* [New issue](https://github.com/AlloyTeam/omi/issues/new)

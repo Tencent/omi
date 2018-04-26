@@ -70,11 +70,12 @@ export default function applyProperties(node, props, previous) {
     if (!node.omixEventList) {
         node.omixEventList = {}
     }
-    for (var event in node.omixEventList) {
-        node[event] = null
-    }
+
     for (var propName in props) {
         var propValue = props[propName]
+        if(node.omixEventList[propName]){
+            node[propName] = null
+        }
 
         if (propValue === undefined) {
             removeProperty(node, propName, propValue, previous)
