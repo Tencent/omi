@@ -18,7 +18,7 @@ omi-router是[Omi框架](https://github.com/AlloyTeam/omi)专属的router插件�
 可以直接通过Unpkg.com下载或引用cdn: [https://unpkg.com/omi-router/dist/omi-router.js](https://unpkg.com/omi-router/dist/omi-router.js)
 
 ```js
-<script src="https://unpkg.com/omix/dist/omix.js"></script>
+<script src="https://unpkg.com/omi/dist/omi.js"></script>
 <script src="https://unpkg.com/omi-router/dist/omi-router.js"></script>
 ```
 
@@ -29,7 +29,7 @@ npm install omi-router
 ```
 
 ```js
-import Omi from 'omix'
+import Omi from 'omi'
 import OmiRouter from 'omi-router'
 ```
 
@@ -38,7 +38,7 @@ import OmiRouter from 'omi-router'
 ## 开始
 
 ```js
-import Omi from 'omix'
+import Omi from 'omi'
 import OmiRouter from 'omi-router'
 
 import Home from './home.js'
@@ -87,7 +87,7 @@ Omi.render(new App(),"#container")
 再看下UserList:
 
 ```js
-import Omi from 'omix';
+import Omi from 'omi';
 
 class UserList extends Omi.Component {
 
@@ -190,8 +190,8 @@ OmiRouter.init({
 
 ### 地址
 
-* [在线演示地址](http://alloyteam.github.io/omix/plugins/omi-router/example/simple/)
-* [源码地址](https://github.com/AlloyTeam/omix/tree/master/plugins/omi-router/example/simple)
+* [在线演示地址](http://alloyteam.github.io/omi/plugins/omi-router/example/simple/)
+* [源码地址](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router/example/simple)
 
 ## License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.

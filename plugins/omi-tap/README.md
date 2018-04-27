@@ -1,6 +1,6 @@
 ﻿## omi-tap
 
-Support tap event in your [Omi](https://github.com/AlloyTeam/omix) project.
+Support tap event in your [Omi](https://github.com/AlloyTeam/omi) project.
 
 ---
 

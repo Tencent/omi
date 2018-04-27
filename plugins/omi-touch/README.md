@@ -8,7 +8,7 @@ Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的
 
 ![omi-touch demo](./demo.png)
 
-[https://alloyteam.github.io/omix/plugins/omi-touch/example/simple/](https://alloyteam.github.io/omix/plugins/omi-touch/example/simple/)
+[https://alloyteam.github.io/omi/plugins/omi-touch/example/simple/](https://alloyteam.github.io/omi/plugins/omi-touch/example/simple/)
 
 ## 通过npm安装 
 
@@ -19,7 +19,7 @@ npm install omi-touch
 ## 使用
 
 ```js
-import Omi from 'omix';
+import Omi from 'omi';
 import 'omi-touch';
 
 class App extends Omi.Component {

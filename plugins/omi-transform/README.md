@@ -6,7 +6,7 @@ Omi的[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/)插件，
 
 ## Demo
 
-[http://alloyteam.github.io/omix/plugins/omi-transform/example/simple/](http://alloyteam.github.io/omix/plugins/omi-transform/example/simple/)
+[http://alloyteam.github.io/omi/plugins/omi-transform/example/simple/](http://alloyteam.github.io/omi/plugins/omi-transform/example/simple/)
 
 ## 通过npm安装 
 
@@ -17,7 +17,7 @@ npm install omi-transform
 ## 使用
 
 ```js
-import Omi from 'omix'
+import Omi from 'omi'
 import 'omi-transform'
 
 class App extends Omi.Component {
