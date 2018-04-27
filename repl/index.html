@@ -29,12 +29,12 @@
 
 class App extends Omi.Component {
     install() {
-        this.name = 'Omi'
+        this.name = 'world'
         this.handleClick = this.handleClick.bind(this)
     }
 
     handleClick(e) {
-        this.name = 'Omix' 
+        this.name = 'Omi' 
         this.update()
     }
 
@@ -53,7 +53,7 @@ class App extends Omi.Component {
     }
 }
 
-Omi.render(new App(), '#container')</textarea>
+Omi.render(<App />, '#container')</textarea>
         </div>
     </div>
 
