@@ -9,6 +9,7 @@
     "lint:example": "eslint example --fix",
     "store": "webpack -w",
     "simple": "webpack -w",
+    "nest": "webpack -w",
     "scoped-style": "webpack -w",
     "on": "webpack -w",
     "render-to-string": "webpack -w",

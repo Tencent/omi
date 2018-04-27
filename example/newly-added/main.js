@@ -1,6 +1,6 @@
 import Omi from '../../src/index.js'
-import './hello.js'
-import './hello-list.js'
+
+import HelloList from './hello-list.js'
 class App extends Omi.Component {
     install() {
         this.name = 'Omi'
@@ -21,8 +21,7 @@ class App extends Omi.Component {
 
     render() {
         return <div>
-                  <hello-list></hello-list>
-
+                  <HelloList />
 
 
 

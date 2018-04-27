@@ -1,5 +1,5 @@
 import Omi from '../../src/index.js'
-
+import Hello from './hello'
 class HelloList extends Omi.Component {
 
     install(){
@@ -19,7 +19,7 @@ class HelloList extends Omi.Component {
                 {
                     this.items.map((item, index) => {
                         return <div vvv={index} ref={`item${index}`}>
-                            <hello name={item}></hello></div>
+                            <Hello name={item}></Hello></div>
                     })
                 }
             </div>
@@ -27,6 +27,5 @@ class HelloList extends Omi.Component {
     }
 }
 
-Omi.tag('hello-list', HelloList)
 
 export default HelloList

@@ -1,12 +1,12 @@
 import Omi from '../../src/index.js'
 
-import './hello.js'
+import Hello from './hello.js'
 
 class App extends Omi.Component {
     render() {
         return <div>
                     afsdfsd
-            <hello name="Omi"></hello>
+            <Hello name="Omi"></Hello>
         </div>
     }
     install() {

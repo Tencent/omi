@@ -1,5 +1,5 @@
 import Omi from '../../src/index.js'
-import './hello.js'
+import Hello from './hello.js'
 
 class App extends Omi.Component {
     constructor() {
@@ -46,7 +46,7 @@ class App extends Omi.Component {
                 className="content"
                 dangerouslySetInnerHTML={this.getRawMarkup()}
             />
-            <hello aa="bb"></hello>
+            <Hello aa="bb"></Hello>
             <ul>
                 {this.items.map(item => (
                     <li key={item.id}>{item.text}</li>
@@ -56,18 +56,6 @@ class App extends Omi.Component {
     }
 }
 
-Omi.render(new App(), 'body')
+Omi.render(<App />, 'body')
 
-// 支持jsx 和 hs-helper
 
-// document.body.appendChild(node);
-
-// var parser = require('html2hscript');
-// parser('<h1>Hello World<span>sfdsfsd</span></h1>', function(err, hscript) {
-//    console.log(hscript);
-// });
-// import h from 'virtual-dom/h'
-//
-// console.log(h('div',{onclick:'aa'}))
-//
-// console.log(h`sfsdf`)

@@ -1,6 +1,5 @@
 import Omi from '../../src/index.js'
-import HE from './hello2.js'
-Omi.tag('aa', HE)
+
 
 class Hello extends Omi.Component {
     style() {
@@ -35,5 +34,4 @@ class Hello extends Omi.Component {
     }
 }
 
-Omi.tag('hello', Hello)
 export default Hello

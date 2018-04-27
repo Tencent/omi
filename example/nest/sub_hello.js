@@ -10,6 +10,5 @@ class Hello extends Omi.Component {
     }
 }
 
-Omi.tag('sub-hello', Hello)
 
 export default Hello

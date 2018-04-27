@@ -1,5 +1,5 @@
 import Omi from '../../src/index.js'
-import './sub_hello.js'
+import SH from './sub_hello.js'
 
 class Hello extends Omi.Component {
     is() {
@@ -8,11 +8,10 @@ class Hello extends Omi.Component {
 
     render() {
         return <div> Hello Omi!
-            <sub-hello></sub-hello>
+            <SH />
         </div>
     }
 }
 
-Omi.tag('hello', Hello)
 
 export default Hello
