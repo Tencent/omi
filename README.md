@@ -1,6 +1,5 @@
-English | [简体中文](./README-CN.md) 
+English | [简体中文](./README.CN.md) 
 
-[English](./README.md) | 简体中文
 # Omi <a href="https://circleci.com/gh/AlloyTeam/omi/tree/master"><img src="https://img.shields.io/circleci/project/AlloyTeam/omi/master.svg" alt="Build Status"></a> <a href="https://www.npmjs.com/package/omi"><img src="https://img.shields.io/npm/v/omi.svg" alt="Version"></a>
 
 > Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
