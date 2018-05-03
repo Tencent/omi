@@ -247,8 +247,8 @@ or get it from CDN:
 ## Links
 
 - [preact github](https://github.com/developit/preact)
-- [preactjs.com/](https://preactjs.com/)
-- [omijs.org/](http://omijs.org/)
+- [preactjs.com](https://preactjs.com/)
+- [omijs.org](http://omijs.org/)
 - server side render
 	- [preact-render-to-string](https://github.com/developit/preact-render-to-string)
 	- [ssr demo](https://github.com/lukeed/preact-cli-ssr)
