@@ -253,7 +253,7 @@ or get it from CDN:
 	- [preact-render-to-string](https://github.com/developit/preact-render-to-string)
 	- [ssr demo](https://github.com/lukeed/preact-cli-ssr)
 - [differences to react](https://preactjs.com/guide/differences-to-react)
-- [native support](https://github.com/AlloyTeam/omi/src/native)
+- [native support](https://github.com/AlloyTeam/omi/tree/master/src/native)
 
 ## License
 
