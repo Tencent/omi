@@ -107,11 +107,11 @@ render(<App />, 'body')
 ``` js
 render() {
         return (
-			<div>
-                <Hello name={this.name}></Hello>
-                <Hello name={this.name}></Hello>
-                <Hello name={this.name}></Hello>
-			</div>
+		<div>
+			<Hello name={this.name}></Hello>
+			<Hello name={this.name}></Hello>
+			<Hello name={this.name}></Hello>
+		</div>
 		)
     }
 ```
