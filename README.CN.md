@@ -12,11 +12,11 @@
 
 - 超小的尺寸和超快的速度
 - 兼容 React/Preact/Omi API
-* Scoped CSS, 让你的 CSS 选择器更加简单
-* 每个组件都有 update 方法，当然你也可以继续 setState
-* Store system, 内置的，不需要依赖任何库 
-* 想要的一切都有：Server side render, ES6+, JSX, VDOM, React DevTools, HMR ...
-* Native 支持，目前接入和正在接入的项目有: **腾讯课堂** **QQ群** **兴趣部落** **QQ空间玩吧**
+- Scoped CSS, 让你的 CSS 选择器更加简单
+- 每个组件都有 update 方法，当然你也可以继续 setState
+- Store system, 内置的，不需要依赖任何库 
+- 想要的一切都有：Server side render, ES6+, JSX, VDOM, React DevTools, HMR ...
+- Native 支持，目前接入和正在接入的项目有: **腾讯课堂** **QQ群** **兴趣部落** **QQ空间玩吧**
 
 ---
 
