@@ -200,7 +200,7 @@ const appStore = new AppStore({ name: 'Omi' }, {
 render(app, document.body, appStore)
 ```
 
-You can use `this.$store` in all components to access the data or the data or data logic.
+You can use `this.$store` in all components to access the data or data logic.
 
 ### Lifecycle
 
