@@ -106,11 +106,11 @@ What'S the different between `style` and `staticStyle` method ? For example：
 ``` js
 render() {
         return (
-			<div>
-                <Hello name={this.name}></Hello>
-                <Hello name={this.name}></Hello>
-                <Hello name={this.name}></Hello>
-			</div>
+		<div>
+			<Hello name={this.name}></Hello>
+			<Hello name={this.name}></Hello>
+			<Hello name={this.name}></Hello>
+		</div>
 		)
     }
 ```
