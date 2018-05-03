@@ -63,7 +63,7 @@ class App extends Component {
                 }`
         }
 
-	staticStyle() {
+    staticStyle() {
         return `div{
                     font-size:20px;
                 }`
