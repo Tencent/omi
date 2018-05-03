@@ -1,6 +1,6 @@
 ﻿# omi-router
 
-omi-router是[Omi框架](https://github.com/AlloyTeam/omi)专属的router插件，文件尺寸轻量，使用简便，功能强大。用于Omi制作Web单页应用的首选解决方案。
+omi-router是 [Omi](http://omijs.org) 专属的router插件，文件尺寸轻量，使用简便，功能强大。用于Omi制作Web单页应用的首选解决方案。
 
 单页的好处也是非常明显:
 
@@ -39,7 +39,7 @@ import OmiRouter from 'omi-router'
 
 ```js
 import Omi from 'omi'
-import OmiRouter from 'omi-router'
+import OmiRouter,{ Link } from 'omi-router'
 
 import Home from './home.js'
 import About from './about.js'
@@ -47,7 +47,7 @@ import User from './user.js'
 import UserList from './user-list.js'
 
 class App extends Omi.Component {
-    install() {
+    installed() {
         OmiRouter.init({
             routes: [
                 {path: '/', component: Home},
@@ -64,16 +64,16 @@ class App extends Omi.Component {
     render() {
         return  <div>
 	            <ul>
-	                <li><a omi-router to="/" >Home</a></li>
-	                <li><a omi-router to="/about" >About</a></li>
-	                <li><a omi-router to="/user-list" >UserList</a></li>
+	                <li><Link to="/" >Home</Link></li>
+	                <li><Link to="/about" >About</Link></li>
+	                <li><Link to="/user-list" >UserList</Link></li>
 	            </ul>
 	            <div id="view"> </div>
 	        </div>
     }
 }
 
-Omi.render(new App(),"#container")
+Omi.render(<App />,"#container")
 ```
 
 这里详细说下 `OmiRouter.init` 传递的配置参数的意义:
@@ -88,24 +88,23 @@ Omi.render(new App(),"#container")
 
 ```js
 import Omi from 'omi';
+import { Link } from 'omi-router'
 
 class UserList extends Omi.Component {
 
     render() {
         return  <ul>
-	            <li><a omi-router to="/user/yanagao/category/js" >yanagao</a></li>
-	            <li><a omi-router to="/user/vorshen/category/html" >vorshen</a></li>
-	            <li><a omi-router to="/user/dntzhang/category/css" >dntzhang</a></li>
+	            <li><Link to="/user/yanagao/category/js" >yanagao</Link></li>
+	            <li><Link to="/user/vorshen/category/html" >vorshen</Link></li>
+	            <li><Link to="/user/dntzhang/category/css" >dntzhang</Link></li>
 	        </ul>
     }
 }
 
-Omi.tag('user-list',UserList)
-
 export default  UserList
 ```
 
-上面使用了`beforeRender`进行$route到data的转换，`beforeRender`是生命周期的一部分。且看下面这张图:
+上面使用了`install`进行$route到data的转换，`install`是生命周期的一部分。且看下面这张图:
 
 ![beforeRender](http://images2015.cnblogs.com/blog/105416/201703/105416-20170322083548924-1871234168.jpg)
 
@@ -127,7 +126,7 @@ import Omi from 'omi'
 
 class User extends Omi.Component {
 
-    beforeRender(){
+    install(){
         let params =  this.$route.params
         this.name = params.name
         this.category = params.category
@@ -163,8 +162,6 @@ class User extends Omi.Component {
     }
 }
 
-
-Omi.tag('user',User)
 
 export default  User
 ```

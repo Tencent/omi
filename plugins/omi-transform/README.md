@@ -1,6 +1,6 @@
 ﻿## omi-transform 
 
-Omi的[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/)插件，让你轻松在Omi项目里快速简便支持CSS3 Transform设置。
+[Omi](http://omijs.org) / css3transform  integration. Support CSS3 transformation in your Omi project.
 
 ---
 
@@ -8,13 +8,13 @@ Omi的[transformjs](http://alloyteam.github.io/AlloyTouch/transformjs/)插件，
 
 [http://alloyteam.github.io/omi/plugins/omi-transform/example/simple/](http://alloyteam.github.io/omi/plugins/omi-transform/example/simple/)
 
-## 通过npm安装 
+## Install
 
 ``` js
-npm install omi-transform
+npm i omi-transform
 ```
 
-## 使用
+## Usage
 
 ```js
 import Omi from 'omi'

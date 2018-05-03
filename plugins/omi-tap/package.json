@@ -1,18 +1,17 @@
 {
   "name": "omi-tap",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Support tap event in your Omi project.",
   "main": "index.js",
   "scripts": {
     "start": "parcel example/index.html --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["tap","omix","omi","omi-tap"],
+  "keywords": ["tap","omi","omi-tap"],
   "author": "dntzhang",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "omix": "^1.2.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-omi": "^0.1.0",
     "parcel-bundler": "^1.2.0"

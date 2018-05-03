@@ -1,1679 +1,716 @@
-/*!
- *  omi v1.8.1 By dntzhang 
- *  Github: https://github.com/AlloyTeam/omi
- *  MIT Licensed.
- */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["Omi"] = factory();
-	else
-		root["Omi"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _h = __webpack_require__(6);
-
-var _h2 = _interopRequireDefault(_h);
-
-var _vnode = __webpack_require__(1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var Omi = {
-    x: _h2['default'],
-    instances: {},
-    _instanceId: 0,
-    _styleId: 0,
-    STYLEPREFIX: '__st_',
-    PREFIX: '__s_',
-    getInstanceId: function getInstanceId() {
-        return Omi._instanceId++;
-    },
-    plugins: {},
-    scopedStyle: true,
-    mapping: {},
-    style: {}
-};
-
-Omi.getAttr = function (ctor) {
-    if (ctor.is) {
-        return ctor.is;
-    }
-    var inst = Omi.instances,
-        hasAttr = false;
-    for (var key in inst) {
-        if (inst[key].constructor === ctor) {
-            hasAttr = true;
-            ctor.is = Omi.STYLEPREFIX + Omi._styleId;
-            Omi._styleId++;
-            return ctor.is;
+!function() {
+    'use strict';
+    function VNode() {}
+    function h(nodeName, attributes) {
+        var lastSimple, child, simple, i, children = EMPTY_CHILDREN;
+        for (i = arguments.length; i-- > 2; ) stack.push(arguments[i]);
+        if (attributes && null != attributes.children) {
+            if (!stack.length) stack.push(attributes.children);
+            delete attributes.children;
         }
-    }
-    if (!hasAttr) {
-        ctor.is = Omi.STYLEPREFIX + Omi._styleId;
-        Omi._styleId++;
-        return ctor.is;
-    }
-};
-
-Omi.$ = function (selector, context) {
-    if (context) {
-        return context.querySelector(selector);
-    } else {
-        return document.querySelector(selector);
-    }
-};
-
-Omi.$$ = function (selector, context) {
-    if (context) {
-        return Array.prototype.slice.call(context.querySelectorAll(selector));
-    } else {
-        return Array.prototype.slice.call(document.querySelectorAll(selector));
-    }
-};
-
-function isServer() {
-    return !(typeof window !== 'undefined' && window.document);
-}
-
-Omi.render = function (component, renderTo, option) {
-    if (isServer()) return;
-
-    if (component instanceof _vnode.VNode) {
-        component = new component.tagName(component.props);
-    }
-
-    component.renderTo = typeof renderTo === 'string' ? document.querySelector(renderTo) : renderTo;
-    if (typeof option === 'boolean') {
-        component._omi_increment = option;
-    } else if (option) {
-        component._omi_increment = option.increment;
-        component.$store = option.store;
-        if (option.ssr) {
-            component.data = Object.assign({}, window.__omiSsrData, component.data);
-        }
-    }
-    component.install();
-    component.beforeRender();
-    component._render(true);
-    component._childrenInstalled(component);
-    component.installed();
-    component._execInstalledHandlers();
-    return component;
-};
-
-Omi.get = function (name) {
-    return Omi.mapping[name];
-};
-
-Omi.extendPlugin = function (name, handler) {
-    Omi.plugins[name] = handler;
-};
-
-Omi.deletePlugin = function (name) {
-    delete Omi.plugins[name];
-};
-
-function spread(vd) {
-    var str = '';
-
-    if (vd instanceof _vnode.VNode) {
-        str += '<' + vd.tagName + ' ' + props2str(vd.props) + '>' + vd.children.map(function (child) {
-            return spread(child);
-        }).join('') + '</' + vd.tagName + '>';
-    } else {
-        return vd;
-    }
-
-    return str;
-}
-
-function props2str(props) {
-    var result = '';
-    for (var key in props) {
-        var val = props[key];
-        var type = typeof val === 'undefined' ? 'undefined' : _typeof(val);
-        if (type !== 'function' && type !== 'object') {
-            result += key + '="' + val + '" ';
-        }
-    }
-    return result;
-}
-
-function spreadStyle() {
-    var css = '';
-    for (var key in Omi.style) {
-        css += '\n' + Omi.style[key] + '\n';
-    }
-    return css;
-}
-
-function stringifyData(component) {
-    return '<script>window.__omiSsrData=' + JSON.stringify(component.data) + '</script>';
-}
-
-Omi.renderToString = function (component, store) {
-    if (component instanceof _vnode.VNode) {
-        component = new component.tagName(component.props);
-    }
-    Omi.ssr = true;
-    component.$store = store;
-    component.install();
-    component.beforeRender();
-    component._render(true);
-    Omi.ssr = false;
-    var result = '<style>' + spreadStyle() + '</style>\n' + spread(component._virtualDom) + stringifyData(component);
-    Omi.style = {};
-    Omi._instanceId = 0;
-    return result;
-};
-
-exports['default'] = Omi;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.VNode = VNode;
-// from  preact
-/** Virtual DOM Node */
-
-function VNode() {}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.getPrototype = getPrototype;
-exports.isObject = isObject;
-function getPrototype(value) {
-    if (Object.getPrototypeOf) {
-        return Object.getPrototypeOf(value);
-    } else if (value.constructor) {
-        return value.constructor.prototype;
-    }
-}
-
-function isObject(x) {
-    return (typeof x === 'undefined' ? 'undefined' : _typeof(x)) === 'object' && x !== null;
-}
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _applyProperties = __webpack_require__(4);
-
-var _applyProperties2 = _interopRequireDefault(_applyProperties);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function createElement(vnode, opts) {
-    var doc = opts ? opts.document || document : document;
-
-    // vnode = handleThunk(vnode).a
-
-    if (typeof vnode === 'string') {
-        return doc.createTextNode(vnode);
-    }
-
-    var node = doc.createElement(vnode.tagName);
-
-    var props = vnode.props;
-
-    (0, _applyProperties2['default'])(node, props);
-
-    var children = vnode.children;
-
-    for (var i = 0; i < children.length; i++) {
-        var childNode = createElement(children[i], opts);
-        if (childNode) {
-            node.appendChild(childNode);
-        }
-    }
-
-    return node;
-}
-
-exports['default'] = createElement;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports['default'] = applyProperties;
-
-var _util = __webpack_require__(2);
-
-function removeProperty(node, propName, propValue, previous) {
-    if (previous) {
-        var previousValue = previous[propName];
-
-        if (propName === 'attributes') {
-            for (var attrName in previousValue) {
-                node.removeAttribute(attrName);
-            }
-        } else if (propName === 'style') {
-            for (var i in previousValue) {
-                node.style[i] = '';
-            }
-        } else if (typeof previousValue === 'string') {
-            node[propName] = '';
-            node.removeAttribute(propName);
-        } else {
-            node[propName] = null;
-        }
-    }
-}
-
-function patchObject(node, props, previous, propName, propValue) {
-    var previousValue = previous ? previous[propName] : undefined;
-
-    // Set attributes
-    if (propName === 'attributes') {
-        for (var attrName in propValue) {
-            var attrValue = propValue[attrName];
-
-            if (attrValue === undefined) {
-                node.removeAttribute(attrName);
-            } else {
-                node.setAttribute(attrName, attrValue);
-            }
-        }
-
-        return;
-    }
-
-    if (previousValue && (0, _util.isObject)(previousValue) && (0, _util.getPrototype)(previousValue) !== (0, _util.getPrototype)(propValue)) {
-        node[propName] = propValue;
-        return;
-    }
-
-    if (!(0, _util.isObject)(node[propName])) {
-        node[propName] = {};
-    }
-
-    var replacer = propName === 'style' ? '' : undefined,
-        json = propValue;
-
-    if (propName === 'style' && Object.prototype.toString.call(propValue) === '[object Array]') {
-        var arr = propValue.slice(0);
-        arr.unshift({});
-
-        json = Object.assign.apply(null, arr);
-    }
-
-    for (var k in json) {
-        var value = json[k];
-
-        node[propName][k] = value === undefined ? replacer : value;
-    }
-}
-
-function applyProperties(node, props, previous) {
-    if (!node.omixEventList) {
-        node.omixEventList = {};
-    }
-
-    for (var propName in props) {
-        var propValue = props[propName];
-        if (node.omixEventList[propName]) {
-            node[propName] = null;
-        }
-
-        if (propValue === undefined) {
-            removeProperty(node, propName, propValue, previous);
-        } else {
-            if ((0, _util.isObject)(propValue)) {
-                patchObject(node, props, previous, propName, propValue);
-            } else {
-                // https://stackoverflow.com/questions/12718186/element-setattributeprop-value-vs-element-prop-value
-                if (typeof propValue === 'function') {
-                    node[propName.toLowerCase()] = propValue;
-                    node.omixEventList[propName.toLowerCase()] = true;
-                    node.omixEventList[propName] = true;
-                } else {
-                    node.setAttribute(propName, propValue);
-                }
-                if (propName !== 'style') {
-                    // fix readonly bug in ios
-                    node[propName] = propValue;
-                }
-            }
-        }
-    }
-}
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _omi = __webpack_require__(0);
-
-var _omi2 = _interopRequireDefault(_omi);
-
-var _component = __webpack_require__(7);
-
-var _component2 = _interopRequireDefault(_component);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-if (typeof Object.assign !== 'function') {
-    Object.assign = function (target) {
-        'use strict';
-
-        if (target == null) {
-            throw new TypeError('Cannot convert undefined or null to object');
-        }
-
-        target = Object(target);
-        for (var index = 1; index < arguments.length; index++) {
-            var source = arguments[index];
-            if (source != null) {
-                for (var key in source) {
-                    if (Object.prototype.hasOwnProperty.call(source, key)) {
-                        target[key] = source[key];
-                    }
-                }
-            }
-        }
-        return target;
-    };
-}
-
-_omi2['default'].Component = _component2['default'];
-
-if (typeof window !== 'undefined' && window.Omi) {
-    module.exports = window.Omi;
-} else {
-    typeof window !== 'undefined' && (window.Omi = _omi2['default']);
-    module.exports = _omi2['default'];
-}
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _vnode = __webpack_require__(1);
-
-var stack = [];
-
-var EMPTY_CHILDREN = [];
-
-/** JSX/hyperscript reviver
-    Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
-    @see http://jasonformat.com/wtf-is-jsx
-    @public
- */
-function h(tagName, props) {
-    var children = EMPTY_CHILDREN,
-        lastSimple = void 0,
-        child = void 0,
-        simple = void 0,
-        i = void 0;
-    for (i = arguments.length; i-- > 2;) {
-        stack.push(arguments[i]);
-    }
-    if (props && props.children != null) {
-        if (!stack.length) stack.push(props.children);
-        delete props.children;
-    }
-    while (stack.length) {
-        if ((child = stack.pop()) && child.pop !== undefined) {
-            for (i = child.length; i--;) {
-                stack.push(child[i]);
-            }
-        } else {
-            if (typeof child === 'boolean') child = null;
-
-            if (simple = typeof tagName !== 'function') {
-                if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
-            }
-
-            if (simple && lastSimple) {
-                children[children.length - 1] += child;
-            } else if (child != null) {
-                if (children === EMPTY_CHILDREN) {
-                    children = [child];
-                } else {
-                    children.push(child);
-                }
-            }
-
+        while (stack.length) if ((child = stack.pop()) && void 0 !== child.pop) for (i = child.length; i--; ) stack.push(child[i]); else {
+            if ('boolean' == typeof child) child = null;
+            if (simple = 'function' != typeof nodeName) if (null == child) child = ''; else if ('number' == typeof child) child = String(child); else if ('string' != typeof child) simple = !1;
+            if (simple && lastSimple) children[children.length - 1] += child; else if (children === EMPTY_CHILDREN) children = [ child ]; else children.push(child);
             lastSimple = simple;
         }
+        var p = new VNode();
+        p.nodeName = isH5 ? nodeName : map[nodeName];
+        p.attributes = null == attributes ? void 0 : attributes;
+        if (children && 'string' == typeof children[0] && !isH5) if (p.attributes) p.attributes.value = children[0]; else p.attributes = {
+            value: children[0]
+        }; else p.children = children;
+        p.key = null == attributes ? void 0 : attributes.key;
+        if (void 0 !== options.vnode) options.vnode(p);
+        return p;
     }
-
-    var p = new _vnode.VNode();
-    p.tagName = tagName;
-    p.children = children;
-    p.props = props == null ? {} : props;
-    p.key = props == null ? undefined : props.key;
-
-    // if a "vnode hook" is defined, pass every created VNode to it
-    // if (options.vnode!==undefined) options.vnode(p);
-
-    p.count = children.length;
-
-    p.children.forEach(function (nChild) {
-        if (nChild && nChild.count) {
-            p.count += nChild.count;
+    function extend(obj, props) {
+        for (var i in props) obj[i] = props[i];
+        return obj;
+    }
+    function cloneElement(vnode, props) {
+        return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
+    }
+    function enqueueRender(component) {
+        if (!component.__d && (component.__d = !0) && 1 == items.push(component)) (options.debounceRendering || defer)(rerender);
+    }
+    function rerender() {
+        var p, list = items;
+        items = [];
+        var element;
+        while (p = list.pop()) {
+            element = p.base;
+            if (p.__d) renderComponent(p);
         }
+        if (!list.length) if (options.componentChange) options.componentChange(p, element);
+    }
+    function isSameNodeType(node, vnode, hydrating) {
+        if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
+        if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else return hydrating || node._componentConstructor === vnode.nodeName;
+    }
+    function isNamedNode(node, nodeName) {
+        return node.__n === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
+    }
+    function getNodeProps(vnode) {
+        var props = extend({}, vnode.attributes);
+        props.children = vnode.children;
+        var defaultProps = vnode.nodeName.defaultProps;
+        if (void 0 !== defaultProps) for (var i in defaultProps) if (void 0 === props[i]) props[i] = defaultProps[i];
+        return props;
+    }
+    function createNode(nodeName, isSvg) {
+        var node = isSvg ? options.doc.createElementNS('http://www.w3.org/2000/svg', nodeName) : options.doc.createElement(nodeName);
+        node.__n = nodeName;
+        return node;
+    }
+    function parseCSSText(cssText) {
+        var cssTxt = cssText.replace(/\/\*(.|\s)*?\*\//g, " ").replace(/\s+/g, " ");
+        var style = {}, _ref = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [ a, b, cssTxt ], a = _ref[0], b = _ref[1], rule = _ref[2];
+        var properties = rule.split(";").map(function(o) {
+            return o.split(":").map(function(x) {
+                return x && x.trim();
+            });
+        });
+        for (var i = properties, i = Array.isArray(i), i = 0, i = i ? i : i[Symbol.iterator](); ;) {
+            var _ref3;
+            if (i) {
+                if (i >= i.length) break;
+                _ref3 = i[i++];
+            } else {
+                i = i.next();
+                if (i.done) break;
+                _ref3 = i.value;
+            }
+            var _ref2 = _ref3;
+            var property = _ref2[0];
+            var value = _ref2[1];
+            style[function(s) {
+                return s.replace(/\W+\w/g, function(match) {
+                    return match.slice(-1).toUpperCase();
+                });
+            }(property)] = value;
+        }
+        return style;
+    }
+    function removeNode(node) {
+        var parentNode = node.parentNode;
+        if (parentNode) parentNode.removeChild(node);
+    }
+    function setAccessor(node, name, old, value, isSvg) {
+        if ('className' === name) name = 'class';
+        if ('key' === name) ; else if ('ref' === name) {
+            if (old) old(null);
+            if (value) value(node);
+        } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) if (isH5$1) {
+            if (!value || 'string' == typeof value || 'string' == typeof old) node.style.cssText = value || '';
+            if (value && 'object' == typeof value) {
+                if ('string' != typeof old) for (var i in old) if (!(i in value)) node.style[i] = '';
+                for (var i in value) node.style[i] = 'number' == typeof value[i] && !1 === IS_NON_DIMENSIONAL.test(i) ? value[i] + 'px' : value[i];
+            }
+        } else {
+            var oldJson = old, currentJson = value;
+            if ('string' == typeof old) oldJson = parseCSSText(old);
+            if ('string' == typeof value) currentJson = parseCSSText(value);
+            var result = {}, changed = !1;
+            if (oldJson) {
+                for (var key in oldJson) if ('object' == typeof currentJson && !(key in currentJson)) {
+                    result[key] = '';
+                    changed = !0;
+                }
+                for (var ckey in currentJson) if (currentJson[ckey] !== oldJson[ckey]) {
+                    result[ckey] = currentJson[ckey];
+                    changed = !0;
+                }
+                if (changed) node.setStyles(result);
+            } else node.setStyles(currentJson);
+        } else if ('dangerouslySetInnerHTML' === name) {
+            if (value) node.innerHTML = value.__html || '';
+        } else if ('o' == name[0] && 'n' == name[1]) {
+            var useCapture = name !== (name = name.replace(/Capture$/, ''));
+            name = name.toLowerCase().substring(2);
+            if (value) {
+                if (!old) node.addEventListener(name, eventProxy, useCapture);
+            } else node.removeEventListener(name, eventProxy, useCapture);
+            (node.__l || (node.__l = {}))[name] = value;
+        } else if ('list' !== name && 'type' !== name && !isSvg && name in node) {
+            setProperty(node, name, null == value ? '' : value);
+            if (null == value || !1 === value) node.removeAttribute(name);
+        } else {
+            var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
+            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.setAttribute(name, value);
+        }
+    }
+    function setProperty(node, name, value) {
+        try {
+            node[name] = value;
+        } catch (e) {}
+    }
+    function eventProxy(e) {
+        return this.__l[e.type](options.event && options.event(e) || e);
+    }
+    function flushMounts() {
+        var c;
+        while (c = mounts.pop()) {
+            if (options.afterMount) options.afterMount(c);
+            if (c.componentDidMount) c.componentDidMount();
+            if (c.installed) c.installed();
+        }
+    }
+    function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+        if (!diffLevel++) {
+            isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
+            hydrating = null != dom && !('__preactattr_' in dom);
+        }
+        var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+        if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+        if (!--diffLevel) {
+            hydrating = !1;
+            if (!componentRoot) flushMounts();
+        }
+        return ret;
+    }
+    function idiff(dom, vnode, context, mountAll, componentRoot) {
+        var out = dom, prevSvgMode = isSvgMode;
+        if (null == vnode || 'boolean' == typeof vnode) vnode = '';
+        if ('string' == typeof vnode || 'number' == typeof vnode) {
+            if (dom && void 0 !== dom.splitText && dom.parentNode && (!dom._component || componentRoot)) {
+                if (dom.nodeValue != vnode) dom.nodeValue = vnode;
+            } else {
+                out = document.createTextNode(vnode);
+                if (dom) {
+                    if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+                    recollectNodeTree(dom, !0);
+                }
+            }
+            out.t = !0;
+            return out;
+        }
+        var vnodeName = vnode.nodeName;
+        if ('function' == typeof vnodeName) return buildComponentFromVNode(dom, vnode, context, mountAll);
+        isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
+        vnodeName = String(vnodeName);
+        if (!dom || !isNamedNode(dom, vnodeName)) {
+            out = createNode(vnodeName, isSvgMode);
+            if (dom) {
+                while (dom.firstChild) out.appendChild(dom.firstChild);
+                if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+                recollectNodeTree(dom, !0);
+            }
+        }
+        var fc = out.firstChild, props = out.t, vchildren = vnode.children;
+        if (null == props) {
+            props = out.t = {};
+            for (var a = out.attributes, i = a.length; i--; ) props[a[i].name] = a[i].value;
+        }
+        if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
+            if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
+        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
+        diffAttributes(out, vnode.attributes, props);
+        isSvgMode = prevSvgMode;
+        return out;
+    }
+    function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+        var j, c, f, vchild, child, originalChildren = dom.childNodes, children = [], keyed = {}, keyedLen = 0, min = 0, len = originalChildren.length, childrenLen = 0, vlen = vchildren ? vchildren.length : 0;
+        if (0 !== len) for (var i = 0; i < len; i++) {
+            var _child = originalChildren[i], props = _child.t, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
+            if (null != key) {
+                keyedLen++;
+                keyed[key] = _child;
+            } else if (props || (void 0 !== _child.splitText ? isHydrating ? _child.nodeValue.trim() : !0 : isHydrating)) children[childrenLen++] = _child;
+        }
+        if (0 !== vlen) for (var i = 0; i < vlen; i++) {
+            vchild = vchildren[i];
+            child = null;
+            var key = vchild.key;
+            if (null != key) {
+                if (keyedLen && void 0 !== keyed[key]) {
+                    child = keyed[key];
+                    keyed[key] = void 0;
+                    keyedLen--;
+                }
+            } else if (!child && min < childrenLen) for (j = min; j < childrenLen; j++) if (void 0 !== children[j] && isSameNodeType(c = children[j], vchild, isHydrating)) {
+                child = c;
+                children[j] = void 0;
+                if (j === childrenLen - 1) childrenLen--;
+                if (j === min) min++;
+                break;
+            }
+            child = idiff(child, vchild, context, mountAll);
+            f = originalChildren[i];
+            if (child && child !== dom && child !== f) if (null == f) dom.appendChild(child); else if (child === f.nextSibling) removeNode(f); else dom.insertBefore(child, f);
+        }
+        if (keyedLen) for (var i in keyed) if (void 0 !== keyed[i]) recollectNodeTree(keyed[i], !1);
+        while (min <= childrenLen) if (void 0 !== (child = children[childrenLen--])) recollectNodeTree(child, !1);
+    }
+    function recollectNodeTree(node, unmountOnly) {
+        var component = node._component;
+        if (component) unmountComponent(component); else {
+            if (null != node.t && node.t.ref) node.t.ref(null);
+            if (!1 === unmountOnly || null == node.t) removeNode(node);
+            removeChildren(node);
+        }
+    }
+    function removeChildren(node) {
+        node = node.lastChild;
+        while (node) {
+            var next = node.previousSibling;
+            recollectNodeTree(node, !0);
+            node = next;
+        }
+    }
+    function diffAttributes(dom, attrs, old) {
+        var name;
+        for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
+        for (name in attrs) if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+    }
+    function collectComponent(component) {
+        var name = component.constructor.name;
+        (components[name] || (components[name] = [])).push(component);
+    }
+    function createComponent(Ctor, props, context) {
+        var inst, list = components[Ctor.name];
+        if (Ctor.prototype && Ctor.prototype.render) {
+            inst = new Ctor(props, context);
+            Component.call(inst, props, context);
+        } else {
+            inst = new Component(props, context);
+            inst.constructor = Ctor;
+            inst.render = doRender;
+        }
+        inst.$store = options.$store;
+        if (window && window.Omi) window.Omi.instances.push(inst);
+        if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
+            inst.__b = list[i].__b;
+            list.splice(i, 1);
+            break;
+        }
+        return inst;
+    }
+    function doRender(props, state, context) {
+        return this.constructor(props, context);
+    }
+    function scoper(css, prefix) {
+        prefix = '[' + prefix.toLowerCase() + ']';
+        css = css.replace(/\/\*[^*]*\*+([^\/][^*]*\*+)*\//g, '');
+        var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|s*{)', 'g');
+        css = css.replace(re, function(g0, g1, g2, g3) {
+            if (void 0 === g2) g2 = '';
+            if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) return g1 + g2 + g3;
+            var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
+            var prependClass = prefix + ' ' + g1.trim() + g2;
+            return appendClass + ',' + prependClass + g3;
+        });
+        return css;
+    }
+    function addStyle(cssText, id) {
+        id = id.toLowerCase();
+        var ele = document.getElementById(id);
+        var head = document.getElementsByTagName('head')[0];
+        if (ele && ele.parentNode === head) head.removeChild(ele);
+        var someThingStyles = document.createElement('style');
+        head.appendChild(someThingStyles);
+        someThingStyles.setAttribute('type', 'text/css');
+        someThingStyles.setAttribute('id', id);
+        if (window.ActiveXObject) someThingStyles.styleSheet.cssText = cssText; else someThingStyles.textContent = cssText;
+    }
+    function addStyleWithoutId(cssText) {
+        var head = document.getElementsByTagName('head')[0];
+        var someThingStyles = document.createElement('style');
+        head.appendChild(someThingStyles);
+        someThingStyles.setAttribute('type', 'text/css');
+        if (window.ActiveXObject) someThingStyles.styleSheet.cssText = cssText; else someThingStyles.textContent = cssText;
+    }
+    function addScopedAttr(vdom, style, attr, component) {
+        if (options.scopedStyle) {
+            scopeVdom(attr, vdom);
+            style = scoper(style, attr);
+            if (style !== component.r) addStyle(style, attr);
+        } else if (style !== component.r) addStyleWithoutId(style);
+        component.r = style;
+    }
+    function addScopedAttrStatic(vdom, style, attr) {
+        if (options.scopedStyle) {
+            scopeVdom(attr, vdom);
+            if (!options.staticStyleRendered) addStyle(scoper(style, attr), attr);
+        } else if (!options.staticStyleRendered) addStyleWithoutId(style);
+    }
+    function scopeVdom(attr, vdom) {
+        if ('string' != typeof vdom) {
+            vdom.attributes = vdom.attributes || {};
+            vdom.attributes[attr] = '';
+            vdom.children.forEach(function(child) {
+                return scopeVdom(attr, child);
+            });
+        }
+    }
+    function setComponentProps(component, props, opts, context, mountAll) {
+        if (!component.__x) {
+            component.__x = !0;
+            if (component.__r = props.ref) delete props.ref;
+            if (component.__k = props.key) delete props.key;
+            if (!component.base || mountAll) {
+                if (component.componentWillMount) component.componentWillMount();
+                if (component.install) component.install();
+            } else if (component.componentWillReceiveProps) component.componentWillReceiveProps(props, context);
+            if (context && context !== component.context) {
+                if (!component.__c) component.__c = component.context;
+                component.context = context;
+            }
+            if (!component.__p) component.__p = component.props;
+            component.props = props;
+            component.__x = !1;
+            if (0 !== opts) if (1 === opts || !1 !== options.syncComponentUpdates || !component.base) renderComponent(component, 1, mountAll); else enqueueRender(component);
+            if (component.__r) component.__r(component);
+        }
+    }
+    function renderComponent(component, opts, mountAll, isChild) {
+        if (!component.__x) {
+            var rendered, inst, cbase, props = component.props, state = component.state, context = component.context, previousProps = component.__p || props, previousState = component.__s || state, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
+            if (isUpdate) {
+                component.props = previousProps;
+                component.state = previousState;
+                component.context = previousContext;
+                if (2 !== opts && component.shouldComponentUpdate && !1 === component.shouldComponentUpdate(props, state, context)) skip = !0; else if (component.componentWillUpdate) component.componentWillUpdate(props, state, context); else if (component.beforeUpdate) component.beforeUpdate(props, state, context);
+                component.props = props;
+                component.state = state;
+                component.context = context;
+            }
+            component.__p = component.__s = component.__c = component.__b = null;
+            component.__d = !1;
+            if (!skip) {
+                rendered = component.render(props, state, context);
+                if (component.style) addScopedAttr(rendered, component.style(), '_style_' + component.s, component);
+                if (component.staticStyle) addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + component.constructor.name);
+                if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
+                var toUnmount, base, childComponent = rendered && rendered.nodeName;
+                if ('function' == typeof childComponent) {
+                    var childProps = getNodeProps(rendered);
+                    inst = initialChildComponent;
+                    if (inst && inst.constructor === childComponent && childProps.key == inst.__k) setComponentProps(inst, childProps, 1, context, !1); else {
+                        toUnmount = inst;
+                        component._component = inst = createComponent(childComponent, childProps, context);
+                        inst.__b = inst.__b || nextBase;
+                        inst.__u = component;
+                        setComponentProps(inst, childProps, 0, context, !1);
+                        renderComponent(inst, 1, mountAll, !0);
+                    }
+                    base = inst.base;
+                } else {
+                    cbase = initialBase;
+                    toUnmount = initialChildComponent;
+                    if (toUnmount) cbase = component._component = null;
+                    if (initialBase || 1 === opts) {
+                        if (cbase) cbase._component = null;
+                        base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, !0);
+                    }
+                }
+                if (initialBase && base !== initialBase && inst !== initialChildComponent) {
+                    var baseParent = initialBase.parentNode;
+                    if (baseParent && base !== baseParent) {
+                        baseParent.replaceChild(base, initialBase);
+                        if (!toUnmount) {
+                            initialBase._component = null;
+                            recollectNodeTree(initialBase, !1);
+                        }
+                    }
+                }
+                if (toUnmount) unmountComponent(toUnmount);
+                component.base = base;
+                if (base && !isChild) {
+                    var componentRef = component, t = component;
+                    while (t = t.__u) (componentRef = t).base = base;
+                    base._component = componentRef;
+                    base._componentConstructor = componentRef.constructor;
+                }
+            }
+            if (!isUpdate || mountAll) mounts.unshift(component); else if (!skip) {
+                if (component.componentDidUpdate) component.componentDidUpdate(previousProps, previousState, previousContext);
+                if (component.afterUpdate) component.afterUpdate(previousProps, previousState, previousContext);
+                if (options.afterUpdate) options.afterUpdate(component);
+            }
+            if (null != component.__h) while (component.__h.length) component.__h.pop().call(component);
+            if (!diffLevel && !isChild) flushMounts();
+        }
+    }
+    function buildComponentFromVNode(dom, vnode, context, mountAll) {
+        var c = dom && dom._component, originalComponent = c, oldDom = dom, isDirectOwner = c && dom._componentConstructor === vnode.nodeName, isOwner = isDirectOwner, props = getNodeProps(vnode);
+        while (c && !isOwner && (c = c.__u)) isOwner = c.constructor === vnode.nodeName;
+        if (c && isOwner && (!mountAll || c._component)) {
+            setComponentProps(c, props, 3, context, mountAll);
+            dom = c.base;
+        } else {
+            if (originalComponent && !isDirectOwner) {
+                unmountComponent(originalComponent);
+                dom = oldDom = null;
+            }
+            c = createComponent(vnode.nodeName, props, context);
+            if (dom && !c.__b) {
+                c.__b = dom;
+                oldDom = null;
+            }
+            setComponentProps(c, props, 1, context, mountAll);
+            dom = c.base;
+            if (oldDom && dom !== oldDom) {
+                oldDom._component = null;
+                recollectNodeTree(oldDom, !1);
+            }
+        }
+        return dom;
+    }
+    function unmountComponent(component) {
+        if (options.beforeUnmount) options.beforeUnmount(component);
+        var base = component.base;
+        component.__x = !0;
+        if (component.componentWillUnmount) component.componentWillUnmount();
+        if (component.uninstall) component.uninstall();
+        component.base = null;
+        var inner = component._component;
+        if (inner) unmountComponent(inner); else if (base) {
+            if (base.t && base.t.ref) base.t.ref(null);
+            component.__b = base;
+            removeNode(base);
+            collectComponent(component);
+            removeChildren(base);
+        }
+        if (component.__r) component.__r(null);
+    }
+    function getId() {
+        return id++;
+    }
+    function Component(props, context) {
+        this.__d = !0;
+        this.context = context;
+        this.props = props;
+        this.state = this.state || {};
+        this.s = getId();
+        this.r = null;
+        this.$store = null;
+    }
+    function isElement(obj) {
+        try {
+            return obj instanceof HTMLElement;
+        } catch (e) {
+            return "object" == typeof obj && 1 === obj.nodeType && "object" == typeof obj.style && "object" == typeof obj.ownerDocument;
+        }
+    }
+    function render(vnode, parent, merge) {
+        options.staticStyleRendered = !1;
+        parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
+        if (!0 === merge) while (parent.firstChild) parent.removeChild(parent.firstChild);
+        var m = isElement(merge) || void 0 === merge;
+        if (vnode instanceof Component) {
+            if (window && window.Omi) window.Omi.instances.push(vnode);
+            if (!m) vnode.$store = options.$store = merge;
+            if (vnode.componentWillMount) vnode.componentWillMount();
+            if (vnode.install) vnode.install();
+            var rendered = vnode.render();
+            if (vnode.style) addScopedAttr(rendered, vnode.style(), '_style_' + vnode.s, vnode);
+            if (vnode.staticStyle) addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
+            vnode.base = diff(m ? merge : void 0, rendered, {}, !1, parent, !1);
+            if (vnode.componentDidMount) vnode.componentDidMount();
+            if (vnode.installed) vnode.installed();
+            options.staticStyleRendered = !0;
+            return vnode.base;
+        }
+        var result = diff(merge, vnode, {}, !1, parent, !1);
+        options.staticStyleRendered = !0;
+        return result;
+    }
+    var options = {
+        scopedStyle: !0,
+        $store: null,
+        isWeb: !0,
+        staticStyleRendered: !1,
+        doc: 'object' == typeof document ? document : null
+    };
+    var stack = [];
+    var EMPTY_CHILDREN = [];
+    var isH5 = options.isWeb;
+    var map = {
+        br: 'view',
+        hr: 'view',
+        p: 'view',
+        h1: 'view',
+        h2: 'view',
+        h3: 'view',
+        h4: 'view',
+        h5: 'view',
+        h6: 'view',
+        abbr: 'view',
+        address: 'view',
+        b: 'view',
+        bdi: 'view',
+        bdo: 'view',
+        blockquote: 'view',
+        cite: 'view',
+        code: 'view',
+        del: 'view',
+        ins: 'view',
+        dfn: 'view',
+        em: 'view',
+        strong: 'view',
+        samp: 'view',
+        kbd: 'view',
+        var: 'view',
+        i: 'view',
+        mark: 'view',
+        pre: 'view',
+        q: 'view',
+        ruby: 'view',
+        rp: 'view',
+        rt: 'view',
+        s: 'view',
+        small: 'view',
+        sub: 'view',
+        sup: 'view',
+        time: 'view',
+        u: 'view',
+        wbr: 'view',
+        form: 'form',
+        input: 'input',
+        textarea: 'textarea',
+        button: 'button',
+        select: 'picker',
+        option: 'view',
+        optgroup: 'view',
+        label: 'label',
+        fieldset: 'view',
+        datalist: 'picker',
+        legend: 'view',
+        output: 'view',
+        iframe: 'view',
+        img: 'image',
+        canvas: 'canvas',
+        figure: 'view',
+        figcaption: 'view',
+        audio: 'audio',
+        source: 'audio',
+        video: 'video',
+        track: 'video',
+        a: 'navigator',
+        nav: 'view',
+        link: 'navigator',
+        ul: 'view',
+        ol: 'view',
+        li: 'view',
+        dl: 'view',
+        dt: 'view',
+        dd: 'view',
+        menu: 'view',
+        command: 'view',
+        table: 'view',
+        caption: 'view',
+        th: 'view',
+        td: 'view',
+        tr: 'view',
+        thead: 'view',
+        tbody: 'view',
+        tfoot: 'view',
+        col: 'view',
+        colgroup: 'view',
+        div: 'view',
+        main: 'view',
+        span: 'text',
+        header: 'view',
+        footer: 'view',
+        section: 'view',
+        article: 'view',
+        aside: 'view',
+        details: 'view',
+        dialog: 'view',
+        summary: 'view',
+        progress: 'progress',
+        meter: 'progress',
+        head: 'view',
+        meta: 'view',
+        base: 'text',
+        map: 'map',
+        area: 'navigator',
+        script: 'view',
+        noscript: 'view',
+        embed: 'view',
+        object: 'view',
+        param: 'view',
+        view: 'view',
+        'scroll-view': 'scroll-view',
+        swiper: 'swiper',
+        icon: 'icon',
+        text: 'text',
+        checkbox: 'checkbox',
+        radio: 'radio',
+        picker: 'picker',
+        'picker-view': 'picker-view',
+        slider: 'slider',
+        switch: 'switch',
+        navigator: 'navigator',
+        image: 'image',
+        'contact-button': 'contact-button',
+        block: 'block'
+    };
+    var usePromise = 'function' == typeof Promise;
+    if ('object' != typeof document && 'undefined' != typeof global && global.v) if ('android' === global.v.platform) usePromise = !0; else {
+        var systemVersion = global.v.systemVersion && global.v.systemVersion.split('.')[0] || 0;
+        if (systemVersion > 8) usePromise = !0;
+    }
+    var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+    var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+    var items = [];
+    var isH5$1 = options.isWeb;
+    var mounts = [];
+    var diffLevel = 0;
+    var isSvgMode = !1;
+    var hydrating = !1;
+    var components = {};
+    var id = 0;
+    extend(Component.prototype, {
+        setState: function(state, callback) {
+            var s = this.state;
+            if (!this.__s) this.__s = extend({}, s);
+            extend(s, 'function' == typeof state ? state(s, this.props) : state);
+            if (callback) (this.__h = this.__h || []).push(callback);
+            enqueueRender(this);
+        },
+        forceUpdate: function(callback) {
+            if (callback) (this.__h = this.__h || []).push(callback);
+            renderComponent(this, 2);
+            if (options.componentChange) options.componentChange(this, this.base);
+        },
+        update: function(callback) {
+            this.forceUpdate(callback);
+        },
+        render: function() {}
     });
-    return p;
-}
-
-exports['default'] = h;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _omi = __webpack_require__(0);
-
-var _omi2 = _interopRequireDefault(_omi);
-
-var _style = __webpack_require__(8);
-
-var _style2 = _interopRequireDefault(_style);
-
-var _diff = __webpack_require__(9);
-
-var _diff2 = _interopRequireDefault(_diff);
-
-var _patch = __webpack_require__(10);
-
-var _patch2 = _interopRequireDefault(_patch);
-
-var _createElement = __webpack_require__(3);
-
-var _createElement2 = _interopRequireDefault(_createElement);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Component = function () {
-    function Component(data) {
-        _classCallCheck(this, Component);
-
-        this.data = data || {};
-        this.id = _omi2['default'].getInstanceId();
-        this.children = [];
-        this._omi_scopedAttr = _omi2['default'].PREFIX + this.id;
-        _omi2['default'].instances[this.id] = this;
-        this.refs = {};
-    }
-
-    _createClass(Component, [{
-        key: 'render',
-        value: function render() {}
-    }, {
-        key: 'install',
-        value: function install() {}
-    }, {
-        key: 'beforeUpdate',
-        value: function beforeUpdate() {}
-    }, {
-        key: 'update',
-        value: function update() {
-
-            this.beforeUpdate();
-            // this._childrenBeforeUpdate(this)
-            this.beforeRender();
-            this._preVirtualDom = this._virtualDom;
-            this._virtualDom = this.render();
-            this._normalize(this._virtualDom);
-
-            this._fixVirtualDomCount(this._virtualDomCount(this._preVirtualDom, [[this._preVirtualDom]]));
-            // this._fixVirtualDomCount(this._virtualDomCount(this._virtualDom, [[this._virtualDom]]))
-
-            (0, _patch2['default'])(this.node, (0, _diff2['default'])(this._preVirtualDom, this._virtualDom));
-
-            this._mixAttr(this);
-
-            this._childrenAfterUpdate(this);
-            this.afterUpdate();
-
-            this._childrenInstalled(this);
-            if (!this.renderTo) {
-                // 子节点自己更新之后同步至父节点的虚拟
-                this.parent._virtualDom.children[this._omi_instanceIndex] = this._virtualDom;
-            }
-
-            this._fixForm();
+    var instances = [];
+    var root = function() {
+        if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) {
+            if ('undefined' != typeof self) return self; else if ('undefined' != typeof window) return window; else if ('undefined' != typeof global) return global;
+            return function() {
+                return this;
+            }();
         }
-    }, {
-        key: '_virtualDomCount',
-        value: function _virtualDomCount(root, arr) {
-            var _this = this;
-
-            root.count = root.children.length;
-            var list = [];
-            root.children.forEach(function (child) {
-                list.push(child);
-                if (child.children) {
-                    child.count = child.children.length;
-                    child._pp = root;
-                }
-            });
-
-            arr.push(list);
-
-            root.children.forEach(function (child) {
-                if (child.children) {
-                    _this._virtualDomCount(child, arr);
-                }
-            });
-            return arr;
-        }
-    }, {
-        key: '_fixVirtualDomCount',
-        value: function _fixVirtualDomCount(list) {
-            for (var i = list.length - 1; i >= 0; i--) {
-                var children = list[i];
-                children.forEach(function (child) {
-                    if (child._pp) {
-                        child._pp.count += child.count || 0;
-                    }
-                });
-            }
-        }
-    }, {
-        key: '_childrenAfterUpdate',
-        value: function _childrenAfterUpdate(root) {
-            var _this2 = this;
-
-            root.children.forEach(function (child) {
-                _this2._childrenAfterUpdate(child);
-                child.afterUpdate();
-            });
-        }
-    }, {
-        key: 'afterUpdate',
-        value: function afterUpdate() {}
-    }, {
-        key: 'beforeRender',
-        value: function beforeRender() {}
-    }, {
-        key: 'installed',
-        value: function installed() {}
-    }, {
-        key: 'style',
-        value: function style() {}
-    }, {
-        key: 'onInstalled',
-        value: function onInstalled(handler) {
-            if (!this._omi_installedHandlers) {
-                this._omi_installedHandlers = [];
-            }
-            this._omi_installedHandlers.push(handler);
-        }
-    }, {
-        key: '_execInstalledHandlers',
-        value: function _execInstalledHandlers() {
-            this._omi_installedHandlers && this._omi_installedHandlers.forEach(function (handler) {
-                handler();
-            });
-        }
-    }, {
-        key: '_render',
-        value: function _render(first) {
-            this._generateCss();
-            this._virtualDom = this.render();
-            this._normalize(this._virtualDom, first);
-            if (this.renderTo) {
-                this.node = (0, _createElement2['default'])(this._virtualDom);
-                if (!this._omi_increment) {
-                    while (this.renderTo.firstChild) {
-                        this.renderTo.removeChild(this.renderTo.firstChild);
-                    }
-                }
-                this.renderTo.appendChild(this.node);
-                this._mixAttr(this);
-                this._fixForm();
-            }
-        }
-    }, {
-        key: '_generateCss',
-        value: function _generateCss() {
-            this.css = (this.style() || '').replace(/<\/?style>/g, '');
-            var shareAttr = this.data.scopedSelfCss ? this._omi_scopedAttr : _omi2['default'].getAttr(this.constructor);
-
-            if (this.css) {
-                if (this.data.closeScopedStyle) {
-                    _omi2['default'].style[shareAttr + '_g'] = this.css;
-                    if (!_omi2['default'].ssr) {
-                        if (this.css !== this._preCss) {
-                            _style2['default'].addStyle(this.css, this.id);
-                            this._preCss = this.css;
-                        }
-                    }
-                } else if (!_omi2['default'].style[shareAttr]) {
-                    if (_omi2['default'].scopedStyle) {
-                        this.css = _style2['default'].scoper(this.css, this.data.scopedSelfCss ? '[' + this._omi_scopedAttr + ']' : '[' + shareAttr + ']');
-                    }
-                    _omi2['default'].style[shareAttr] = this.css;
-                    if (!_omi2['default'].ssr) {
-                        if (this.css !== this._preCss) {
-                            _style2['default'].addStyle(this.css, this.id);
-                            this._preCss = this.css;
-                        }
-                    }
-                }
-            }
-        }
-    }, {
-        key: '_normalize',
-        value: function _normalize(root, first, parent, index, parentInstance, cmiIndex) {
-            var _this3 = this;
-
-            var ps = root.props;
-            // for scoped css
-            if (ps) {
-                if (_omi2['default'].scopedStyle && this.constructor.name) {
-                    ps[_omi2['default'].getAttr(this.constructor)] = '';
-                }
-                ps[this._omi_scopedAttr] = '';
-            }
-
-            if (root.tagName) {
-                if (typeof root.tagName === 'function') {
-                    var cmi = null;
-                    if (cmiIndex !== undefined && !first) {
-                        var childIns = parentInstance.children[cmiIndex];
-                        if (childIns && childIns.constructor === root.tagName) {
-                            cmi = childIns;
-                        } //else destroy the instance?!
-                    }
-
-                    // not using pre instance the first time
-                    if (cmi && !first) {
-                        if (cmi.data.selfDataFirst) {
-                            cmi.data = Object.assign({}, root.props, cmi.data);
-                        } else {
-                            cmi.data = Object.assign({}, cmi.data, root.props);
-                        }
-                        cmi.beforeUpdate();
-                        cmi.beforeRender();
-                        cmi._render();
-                        parent[index] = cmi._virtualDom;
-                    } else {
-                        var instance = new root.tagName(root.props);
-                        if (parentInstance) {
-                            instance.$store = parentInstance.$store;
-                        }
-                        if (instance.data.children !== undefined) {
-                            instance.data._children = instance.data.children;
-                            console.warn('The children property will be covered.access it by _children');
-                        }
-                        instance.data.children = root.children;
-                        instance._using = true;
-                        instance.install();
-                        instance.beforeRender();
-                        instance._render(first);
-                        instance.parent = parentInstance;
-                        instance._omi_needInstalled = true;
-                        if (parentInstance) {
-                            instance.parent = parentInstance;
-                            instance._omi_instanceIndex = parentInstance.children.length;
-                            parentInstance.children.push(instance);
-                            parent[index] = instance._virtualDom;
-                            if (root.props['omi-name']) {
-                                parentInstance[root.props['omi-name']] = instance;
-                            }
-                        } else {
-                            this._virtualDom = instance._virtualDom;
-                            if (root.props['omi-name']) {
-                                this[root.props['omi-name']] = instance;
-                            }
-                        }
-
-                        if (root.props['omi-id']) {
-                            _omi2['default'].mapping[root.props['omi-id']] = instance;
-                        }
-                    }
-                }
-            }
-
-            var __cmiIndex = 0;
-            root.children && root.children.forEach(function (child, index) {
-                if (typeof root !== 'string') {
-                    _this3._normalize(child, first, root.children, index, _this3, __cmiIndex);
-                    if (typeof root.tagName === 'function') {
-                        __cmiIndex++;
-                    }
-                }
-            });
-        }
-    }, {
-        key: '_fixForm',
-        value: function _fixForm() {
-            _omi2['default'].$$('input', this.node).forEach(function (element) {
-                var type = element.type.toLowerCase();
-                if (element.getAttribute('value') === '') {
-                    element.value = '';
-                }
-                if (type === 'checked' || type === 'radio') {
-                    if (element.hasAttribute('checked')) {
-                        element.checked = 'checked';
-                    } else {
-                        element.checked = false;
-                    }
-                }
-            });
-
-            _omi2['default'].$$('textarea', this.node).forEach(function (textarea) {
-                textarea.value = textarea.getAttribute('value');
-            });
-
-            _omi2['default'].$$('select', this.node).forEach(function (select) {
-                var value = select.getAttribute('value');
-                if (value) {
-                    _omi2['default'].$$('option', select).forEach(function (option) {
-                        if (value === option.getAttribute('value')) {
-                            option.selected = true;
-                        }
-                    });
-                } else {
-                    var firstOption = _omi2['default'].$$('option', select)[0];
-                    firstOption && (firstOption.selected = true);
-                }
-            });
-        }
-    }, {
-        key: '_childrenInstalled',
-        value: function _childrenInstalled(root) {
-            var _this4 = this;
-
-            root.children.forEach(function (child) {
-                _this4._childrenInstalled(child);
-                child._omi_needInstalled && child.installed();
-                child._omi_needInstalled = false;
-                child._execInstalledHandlers();
-            });
-        }
-    }, {
-        key: '_mixPlugins',
-        value: function _mixPlugins() {
-            var _this5 = this;
-
-            Object.keys(_omi2['default'].plugins).forEach(function (item) {
-                var nodes = _omi2['default'].$$('*[' + item + ']', _this5.node);
-                nodes.forEach(function (node) {
-                    if (node.hasAttribute(_this5._omi_scopedAttr)) {
-                        _omi2['default'].plugins[item](node, _this5);
-                    }
-                });
-                if (_this5.node.hasAttribute(item)) {
-                    _omi2['default'].plugins[item](_this5.node, _this5);
-                }
-            });
-        }
-    }, {
-        key: '_mixRefs',
-        value: function _mixRefs() {
-            var _this6 = this;
-
-            this.refs = {};
-            var nodes = _omi2['default'].$$('*[ref]', this.node);
-            nodes.forEach(function (node) {
-                if (node.hasAttribute(_this6._omi_scopedAttr)) {
-                    _this6.refs[node.getAttribute('ref')] = node;
-                }
-            });
-            var attr = this.node.getAttribute('ref');
-            if (attr) {
-                this.refs[attr] = this.node;
-            }
-        }
-    }, {
-        key: '_mixAttr',
-        value: function _mixAttr(current) {
-            current._mixRefs();
-            current._mixPlugins();
-            for (var i = 0, len = current.children.length; i < len; i++) {
-                var child = current.children[i];
-                child.node = _omi2['default'].$('[' + child._omi_scopedAttr + ']', current.node);
-                if (!child.node) {
-                    child._virtualDom = null;
-                    current.children.splice(i, 1);
-                    i--;
-                    len--;
-                } else {
-                    child._omi_instanceIndex = i;
-                    current._mixAttr(child);
-                }
-            }
-        }
-    }]);
-
-    return Component;
+        return global;
+    }();
+    root.Omi = {
+        h: h,
+        createElement: h,
+        cloneElement: cloneElement,
+        Component: Component,
+        render: render,
+        rerender: rerender,
+        options: options,
+        instances: instances
+    };
+    root.Omi.version = '3.0.0';
+    var Omi = {
+        h: h,
+        createElement: h,
+        cloneElement: cloneElement,
+        Component: Component,
+        render: render,
+        rerender: rerender,
+        options: options,
+        instances: instances
+    };
+    if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();
-
-exports['default'] = Component;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _omi = __webpack_require__(0);
-
-var _omi2 = _interopRequireDefault(_omi);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-// many thanks to https://github.com/thomaspark/scoper/
-function scoper(css, prefix) {
-    // https://www.w3.org/TR/css-syntax-3/#lexical
-    css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
-    // eslint-disable-next-line
-    var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)', 'g');
-    /**
-     * Example:
-     *
-     * .classname::pesudo { color:red }
-     *
-     * g1 is normal selector `.classname`
-     * g2 is pesudo class or pesudo element
-     * g3 is the suffix
-     */
-    css = css.replace(re, function (g0, g1, g2, g3) {
-        if (typeof g2 === 'undefined') {
-            g2 = '';
-        }
-
-        /* eslint-ignore-next-line */
-        if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) {
-            return g1 + g2 + g3;
-        }
-
-        var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-        var prependClass = prefix + ' ' + g1.trim() + g2;
-        return appendClass + ',' + prependClass + g3;
-    });
-
-    return css;
-}
-
-function addStyle(cssText, id) {
-    var ele = document.getElementById(_omi2['default'].PREFIX + id);
-    var head = document.getElementsByTagName('head')[0];
-    if (ele && ele.parentNode === head) {
-        head.removeChild(ele);
-    }
-
-    var someThingStyles = document.createElement('style');
-    head.appendChild(someThingStyles);
-    someThingStyles.setAttribute('type', 'text/css');
-    someThingStyles.setAttribute('id', _omi2['default'].PREFIX + id);
-    if (window.ActiveXObject) {
-        someThingStyles.styleSheet.cssText = cssText;
-    } else {
-        someThingStyles.textContent = cssText;
-    }
-}
-
-exports['default'] = {
-    scoper: scoper,
-    addStyle: addStyle
-};
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _util = __webpack_require__(2);
-
-function diff(a, b) {
-    var patch = { a: a };
-    walk(a, b, patch, 0);
-    return patch;
-}
-
-function walk(a, b, patch, index) {
-    var apply = patch[index];
-    if (b == null) {
-        apply = appendPatch(apply, { p: ['REMOVE', a, b] });
-    } else if ((0, _util.isObject)(b)) {
-        if ((0, _util.isObject)(a)) {
-            if (a.tagName === b.tagName) {
-                var propsPatch = diffProps(a.props, b.props);
-                if (propsPatch) {
-                    apply = appendPatch(apply, { p: ['PROPS', a, propsPatch] });
-                }
-
-                apply = diffChildren(a, b, patch, apply, index);
-            } else {
-                apply = appendPatch(apply, { p: ['VNODE', a, b] });
-            }
-        } else {
-            apply = appendPatch(apply, { p: ['VNODE', a, b] });
-        }
-    } else if (typeof b === 'string') {
-        if (typeof a !== 'string') {
-            apply = appendPatch(apply, { p: ['VTEXT', a, b] });
-        } else if (a !== b) {
-            apply = appendPatch(apply, { p: ['VTEXT', a, b] });
-        }
-    }
-
-    if (apply) {
-        patch[index] = apply;
-    }
-}
-
-function appendPatch(apply, patch) {
-    if (apply) {
-        if (Object.prototype.toString.call(apply) === '[object Array]') {
-            apply.push(patch);
-        } else {
-            apply = [apply, patch];
-        }
-
-        return apply;
-    } else {
-        return patch;
-    }
-}
-
-function diffChildren(a, b, patch, apply, index) {
-    var aChildren = a.children;
-    var orderedSet = reorder(aChildren, b.children);
-    var bChildren = orderedSet.children;
-
-    var aLen = aChildren.length;
-    var bLen = bChildren.length;
-    var len = aLen > bLen ? aLen : bLen;
-
-    for (var i = 0; i < len; i++) {
-        var leftNode = aChildren[i];
-        var rightNode = bChildren[i];
-        index += 1;
-
-        if (!leftNode) {
-            if (rightNode) {
-                // Excess nodes in b need to be added
-
-                apply = appendPatch(apply, { p: ['INSERT', null, rightNode] });
-            }
-        } else {
-            walk(leftNode, rightNode, patch, index);
-        }
-
-        if ((0, _util.isObject)(leftNode) && leftNode.count) {
-            index += leftNode.count;
-        }
-    }
-
-    if (orderedSet.moves) {
-        // Reorder nodes last
-        apply = appendPatch(apply, { p: ['ORDER', a, orderedSet.moves] });
-    }
-
-    return apply;
-}
-
-// List diff, naive left to right reordering
-function reorder(aChildren, bChildren) {
-    // O(M) time, O(M) memory
-    var bChildIndex = keyIndex(bChildren);
-    var bKeys = bChildIndex.keys;
-    var bFree = bChildIndex.free;
-
-    if (bFree.length === bChildren.length) {
-        return {
-            children: bChildren,
-            moves: null
-        };
-    }
-
-    // O(N) time, O(N) memory
-    var aChildIndex = keyIndex(aChildren);
-    var aKeys = aChildIndex.keys;
-    var aFree = aChildIndex.free;
-
-    if (aFree.length === aChildren.length) {
-        return {
-            children: bChildren,
-            moves: null
-        };
-    }
-
-    // O(MAX(N, M)) memory
-    var newChildren = [];
-
-    var freeIndex = 0;
-    var freeCount = bFree.length;
-    var deletedItems = 0;
-
-    // Iterate through a and match a node in b
-    // O(N) time,
-    for (var i = 0; i < aChildren.length; i++) {
-        var aItem = aChildren[i];
-        var itemIndex;
-
-        if (aItem.key) {
-            if (bKeys.hasOwnProperty(aItem.key)) {
-                // Match up the old keys
-                itemIndex = bKeys[aItem.key];
-                newChildren.push(bChildren[itemIndex]);
-            } else {
-                // Remove old keyed items
-                itemIndex = i - deletedItems++;
-                newChildren.push(null);
-            }
-        } else {
-            // Match the item in a with the next free item in b
-            if (freeIndex < freeCount) {
-                itemIndex = bFree[freeIndex++];
-                newChildren.push(bChildren[itemIndex]);
-            } else {
-                // There are no free items in b to match with
-                // the free items in a, so the extra free nodes
-                // are deleted.
-                itemIndex = i - deletedItems++;
-                newChildren.push(null);
-            }
-        }
-    }
-
-    var lastFreeIndex = freeIndex >= bFree.length ? bChildren.length : bFree[freeIndex];
-
-    // Iterate through b and append any new keys
-    // O(M) time
-    for (var j = 0; j < bChildren.length; j++) {
-        var newItem = bChildren[j];
-
-        if (newItem.key) {
-            if (!aKeys.hasOwnProperty(newItem.key)) {
-                // Add any new keyed items
-                // We are adding new items to the end and then sorting them
-                // in place. In future we should insert new items in place.
-                newChildren.push(newItem);
-            }
-        } else if (j >= lastFreeIndex) {
-            // Add any leftover non-keyed items
-            newChildren.push(newItem);
-        }
-    }
-
-    var simulate = newChildren.slice();
-    var simulateIndex = 0;
-    var removes = [];
-    var inserts = [];
-    var simulateItem;
-
-    for (var k = 0; k < bChildren.length;) {
-        var wantedItem = bChildren[k];
-        simulateItem = simulate[simulateIndex];
-
-        // remove items
-        while (simulateItem === null && simulate.length) {
-            removes.push(remove(simulate, simulateIndex, null));
-            simulateItem = simulate[simulateIndex];
-        }
-
-        if (!simulateItem || simulateItem.key !== wantedItem.key) {
-            // if we need a key in this position...
-            if (wantedItem.key) {
-                if (simulateItem && simulateItem.key) {
-                    // if an insert doesn't put this key in place, it needs to move
-                    if (bKeys[simulateItem.key] !== k + 1) {
-                        removes.push(remove(simulate, simulateIndex, simulateItem.key));
-                        simulateItem = simulate[simulateIndex];
-                        // if the remove didn't put the wanted item in place, we need to insert it
-                        if (!simulateItem || simulateItem.key !== wantedItem.key) {
-                            inserts.push({ key: wantedItem.key, to: k });
-                        } else {
-                            // items are matching, so skip ahead
-                            simulateIndex++;
-                        }
-                    } else {
-                        inserts.push({ key: wantedItem.key, to: k });
-                    }
-                } else {
-                    inserts.push({ key: wantedItem.key, to: k });
-                }
-                k++;
-            } else if (simulateItem && simulateItem.key) {
-                // a key in simulate has no matching wanted key, remove it
-                removes.push(remove(simulate, simulateIndex, simulateItem.key));
-            }
-        } else {
-            simulateIndex++;
-            k++;
-        }
-    }
-
-    // remove all the remaining nodes from simulate
-    while (simulateIndex < simulate.length) {
-        simulateItem = simulate[simulateIndex];
-        removes.push(remove(simulate, simulateIndex, simulateItem && simulateItem.key));
-    }
-
-    // If the only moves we have are deletes then we can just
-    // let the delete patch remove these items.
-    if (removes.length === deletedItems && !inserts.length) {
-        return {
-            children: newChildren,
-            moves: null
-        };
-    }
-
-    return {
-        children: newChildren,
-        moves: {
-            removes: removes,
-            inserts: inserts
-        }
-    };
-}
-
-function remove(arr, index, key) {
-    arr.splice(index, 1);
-
-    return {
-        from: index,
-        key: key
-    };
-}
-
-function keyIndex(children) {
-    var keys = {};
-    var free = [];
-    var length = children.length;
-
-    for (var i = 0; i < length; i++) {
-        var child = children[i];
-
-        if (child.key) {
-            keys[child.key] = i;
-        } else {
-            free.push(i);
-        }
-    }
-
-    return {
-        keys: keys, // A hash of key name to index
-        free: free // An array of unkeyed item indices
-    };
-}
-
-function diffProps(a, b) {
-    var diff;
-
-    for (var aKey in a) {
-        if (!(aKey in b)) {
-            diff = diff || {};
-            diff[aKey] = undefined;
-        }
-
-        var aValue = a[aKey];
-        var bValue = b[aKey];
-
-        if (aValue === bValue) {
-            continue;
-        } else if ((0, _util.isObject)(aValue) && (0, _util.isObject)(bValue)) {
-            if ((0, _util.getPrototype)(bValue) !== (0, _util.getPrototype)(aValue)) {
-                diff = diff || {};
-                diff[aKey] = bValue;
-            } else {
-                var objectDiff = diffProps(aValue, bValue);
-                if (objectDiff) {
-                    diff = diff || {};
-                    diff[aKey] = objectDiff;
-                }
-            }
-        } else {
-            diff = diff || {};
-            diff[aKey] = bValue;
-        }
-    }
-
-    for (var bKey in b) {
-        if (!(bKey in a)) {
-            diff = diff || {};
-            diff[bKey] = b[bKey];
-        }
-    }
-
-    return diff;
-}
-
-exports['default'] = diff;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createElement = __webpack_require__(3);
-
-var _createElement2 = _interopRequireDefault(_createElement);
-
-var _applyProperties = __webpack_require__(4);
-
-var _applyProperties2 = _interopRequireDefault(_applyProperties);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function isArray(obj) {
-    return Object.prototype.toString.call(obj) === '[object Array]';
-}
-
-var noChild = {};
-
-function domIndex(rootNode, tree, indices, nodes) {
-    if (!indices || indices.length === 0) {
-        return {};
-    } else {
-        indices.sort(ascending);
-        return recurse(rootNode, tree, indices, nodes, 0);
-    }
-}
-
-function recurse(rootNode, tree, indices, nodes, rootIndex) {
-    nodes = nodes || {};
-
-    if (rootNode) {
-        if (indexInRange(indices, rootIndex, rootIndex)) {
-            nodes[rootIndex] = rootNode;
-        }
-
-        var vChildren = tree.children;
-
-        if (vChildren) {
-            var childNodes = rootNode.childNodes;
-
-            for (var i = 0; i < tree.children.length; i++) {
-                rootIndex += 1;
-
-                var vChild = vChildren[i] || noChild;
-                var nextIndex = rootIndex + (vChild.count || 0);
-
-                // skip recursion down the tree if there are no nodes down here
-                if (indexInRange(indices, rootIndex, nextIndex)) {
-                    recurse(childNodes[i], vChild, indices, nodes, rootIndex);
-                }
-
-                rootIndex = nextIndex;
-            }
-        }
-    }
-
-    return nodes;
-}
-
-// Binary search for an index in the interval [left, right]
-function indexInRange(indices, left, right) {
-    if (indices.length === 0) {
-        return false;
-    }
-
-    var minIndex = 0;
-    var maxIndex = indices.length - 1;
-    var currentIndex;
-    var currentItem;
-
-    while (minIndex <= maxIndex) {
-        currentIndex = (maxIndex + minIndex) / 2 >> 0;
-        currentItem = indices[currentIndex];
-
-        if (minIndex === maxIndex) {
-            return currentItem >= left && currentItem <= right;
-        } else if (currentItem < left) {
-            minIndex = currentIndex + 1;
-        } else if (currentItem > right) {
-            maxIndex = currentIndex - 1;
-        } else {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-function ascending(a, b) {
-    return a > b ? 1 : -1;
-}
-
-function VPatch(type, vNode, patch) {
-    this.type = Number(type);
-    this.vNode = vNode;
-    this.patch = patch;
-}
-
-VPatch.NONE = 0;
-VPatch.VTEXT = 1;
-VPatch.VNODE = 2;
-
-VPatch.PROPS = 4;
-VPatch.ORDER = 5;
-VPatch.INSERT = 6;
-VPatch.REMOVE = 7;
-
-function patchOp(vpatch, domNode, renderOptions) {
-    var type = vpatch.p[0];
-    var vNode = vpatch.p[1];
-    var patch = vpatch.p[2];
-
-    switch (type) {
-        case 'REMOVE':
-            return removeNode(domNode, vNode);
-        case 'INSERT':
-            return insertNode(domNode, patch, renderOptions);
-        case 'VTEXT':
-
-            return stringPatch(domNode, vNode, patch, renderOptions);
-
-        case 'VNODE':
-            return vNodePatch(domNode, vNode, patch, renderOptions);
-        case 'ORDER':
-            reorderChildren(domNode, patch);
-            return domNode;
-        case 'PROPS':
-            (0, _applyProperties2['default'])(domNode, patch, vNode.props);
-            return domNode;
-        default:
-            return domNode;
-    }
-}
-
-function removeNode(domNode, vNode) {
-    var parentNode = domNode.parentNode;
-
-    if (parentNode) {
-        parentNode.removeChild(domNode);
-    }
-
-    return null;
-}
-
-function insertNode(parentNode, vNode, renderOptions) {
-    var newNode = renderOptions.render(vNode, renderOptions);
-
-    if (parentNode) {
-        parentNode.appendChild(newNode);
-    }
-
-    return parentNode;
-}
-
-function stringPatch(domNode, leftVNode, vText, renderOptions) {
-    var newNode;
-
-    if (domNode.nodeType === 3) {
-        domNode.replaceData(0, domNode.length, vText);
-        newNode = domNode;
-    } else {
-        var parentNode = domNode.parentNode;
-
-        newNode = renderOptions.render(vText, renderOptions);
-
-        if (parentNode && newNode !== domNode) {
-            parentNode.replaceChild(newNode, domNode);
-        }
-    }
-
-    return newNode;
-}
-
-function vNodePatch(domNode, leftVNode, vNode, renderOptions) {
-    var parentNode = domNode.parentNode;
-    var newNode = renderOptions.render(vNode, renderOptions);
-
-    if (parentNode && newNode !== domNode) {
-        parentNode.replaceChild(newNode, domNode);
-    }
-
-    return newNode;
-}
-
-function reorderChildren(domNode, moves) {
-    var childNodes = domNode.childNodes;
-    var keyMap = {};
-    var node;
-    var remove;
-    var insert;
-
-    for (var i = 0; i < moves.removes.length; i++) {
-        remove = moves.removes[i];
-        node = childNodes[remove.from];
-        if (remove.key) {
-            keyMap[remove.key] = node;
-        }
-        domNode.removeChild(node);
-    }
-
-    var length = childNodes.length;
-    for (var j = 0; j < moves.inserts.length; j++) {
-        insert = moves.inserts[j];
-        node = keyMap[insert.key];
-        // this is the weirdest bug i've ever seen in webkit
-        domNode.insertBefore(node, insert.to >= length++ ? null : childNodes[insert.to]);
-    }
-}
-
-function patch(rootNode, patches, renderOptions) {
-    renderOptions = renderOptions || {};
-    renderOptions.patch = renderOptions.patch && renderOptions.patch !== patch ? renderOptions.patch : patchRecursive;
-    renderOptions.render = renderOptions.render || _createElement2['default'];
-
-    return renderOptions.patch(rootNode, patches, renderOptions);
-}
-
-function patchRecursive(rootNode, patches, renderOptions) {
-    var indices = patchIndices(patches);
-
-    if (indices.length === 0) {
-        return rootNode;
-    }
-
-    var nodes = domIndex(rootNode, patches.a, indices);
-
-    var ownerDocument = rootNode.ownerDocument;
-
-    if (!renderOptions.document && ownerDocument !== document) {
-        renderOptions.document = ownerDocument;
-    }
-
-    for (var i = 0; i < indices.length; i++) {
-        var nodeIndex = indices[i];
-
-        rootNode = applyPatch(rootNode, nodes[nodeIndex], patches[nodeIndex], renderOptions);
-    }
-
-    return rootNode;
-}
-
-function applyPatch(rootNode, domNode, patchList, renderOptions) {
-    if (!domNode) {
-        return rootNode;
-    }
-
-    var newNode;
-
-    if (isArray(patchList)) {
-        for (var i = 0; i < patchList.length; i++) {
-            newNode = patchOp(patchList[i], domNode, renderOptions);
-
-            if (domNode === rootNode) {
-                rootNode = newNode;
-            }
-        }
-    } else {
-        newNode = patchOp(patchList, domNode, renderOptions);
-
-        if (domNode === rootNode) {
-            rootNode = newNode;
-        }
-    }
-
-    return rootNode;
-}
-
-function patchIndices(patches) {
-    var indices = [];
-
-    for (var key in patches) {
-        if (key !== 'a') {
-            indices.push(Number(key));
-        }
-    }
-
-    return indices;
-}
-
-exports['default'] = patch;
-
-/***/ })
-/******/ ]);
-});
+//# sourceMappingURL=omi.js.map

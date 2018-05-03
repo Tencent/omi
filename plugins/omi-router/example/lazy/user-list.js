@@ -1,17 +1,17 @@
-﻿import Omi from 'omi';
+﻿import Omi from '../../../../dist/omi'
+import {Link} from '../../dist/omi-router'
 
 class UserList extends Omi.Component {
 
     render() {
         return  <ul>
-                    <li><a omi-router to="/user/yanagao/category/js" >yanagao</a></li>
-                    <li><a omi-router to="/user/vorshen/category/html" >vorshen</a></li>
-                    <li><a omi-router to="/user/dntzhang/category/css" >dntzhang</a></li>
+                    <li><Link to="/user/yanagao/category/js" >yanagao</Link></li>
+                    <li><Link to="/user/vorshen/category/html" >vorshen</Link></li>
+                    <li><Link to="/user/dntzhang/category/css" >dntzhang</Link></li>
                 </ul>
     }
 }
 
 
-Omi.tag('user-list',UserList)
 
 export default  UserList

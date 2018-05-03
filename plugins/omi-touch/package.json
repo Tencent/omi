@@ -1,6 +1,6 @@
 {
   "name": "omi-touch",
-  "version": "0.3.5",
+  "version": "1.0.0",
   "description": "AlloyTouch / Omi integration. Smooth scrolling, rotation, pull to refresh, page transition and any motion for your Omi project.",
   "main": "index.js",
   "scripts": {
@@ -11,18 +11,16 @@
     "url": "git+https://github.com/AlloyTeam/omi.git"
   },
   "dependencies": {
-    "css3transform": "^1.1.3",
+    "css3transform": "^1.1.9",
     "alloytouch": "^0.2.5"
   },
   "devDependencies": {
-    "babel-core": "^6.0.20",
-    "babel-loader": "^6.0.1",
-    "babel-preset-es2015": "^6.0.15",
-    "node-libs-browser": "^0.5.3",
-    "webpack": "^1.14.0",
-    "virtual-dom-loader": "^0.1.0",
-    "omix": "latest",
-    "omi": "latest"
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-omi": "^0.1.1",
+    "esprima-fb": "^15001.1001.0-dev-harmony-fb",
+    "webpack": "^3.4.1"
   },
   "keywords": [
     "omi",

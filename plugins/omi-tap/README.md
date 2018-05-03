@@ -13,9 +13,16 @@ npm install omi-tap
 ## Usage
 
 ```js
-import 'omi-tap';
+import Omi from 'omi';
+import OmiTap from 'omi-tap';
 
 class App extends Component {
+
+    constructor(){
+        super()
+        this.tapHandler = this.tapHandler.bind(this)
+  }
+
     tapHandler(evt) {
         alert('Hello Omi + Parcel!')
     }
@@ -23,32 +30,15 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h1 omi-tap tap={this.tapHandler}>Hello Omi + Parcel 📦 🚀</h1>
+                <OmiTap onTap={this.tapHandler}>
+                    <h1>Hello Omi + Parcel 📦 🚀</h1>
+                </OmiTap>
             </div>
         )
     }
 }
 
-Omi.render(new App(),"#container");
-```
-
-# Debug The Project
-
-```
-yarn global add parcel-bundler
-```
-or:
-```
-npm install -g parcel-bundler
-```
-
-then:
-```
-npm start
-```
-or
-```
-parcel example/index.html --open
+Omi.render(<App />,"#container");
 ```
 
 # License

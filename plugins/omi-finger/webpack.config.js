@@ -8,10 +8,10 @@ var webpack = require('webpack');
 var ENV = process.env.npm_lifecycle_event;
 
 var config  = {
-    entry: './example/' + ENV + '/main.js',
+    entry: __dirname + '/example/' + ENV + '/main.js',
     output: {
         // path: __dirname,
-        path: './example/' + ENV + '/',
+        path: __dirname + '/example/' + ENV + '/',
         filename: 'bundler.js'
     },
     module: {
@@ -20,16 +20,13 @@ var config  = {
                 loader: 'babel-loader',
                 test: /\.js$/,
                 query: {
-                    presets: 'es2015'
+                    presets: 'env'
                 }
-            },{
-                loader: 'virtual-dom-loader?jsx=Omi.x'
             }
         ]
     },
     plugins: [
-        // Avoid publishing files when compilation fails
-        new webpack.NoErrorsPlugin()
+     
     ],
     stats: {
         // Nice colored output

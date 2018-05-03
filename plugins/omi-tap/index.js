@@ -1,58 +1,42 @@
-/*!
- *  omi-tap v0.1.0 by dntzhang
- *  Support tap event in your Omi project.
- *  Github: https://github.com/AlloyTeam/omix
- *  MIT Licensed.
- */
-
-;(function () {
-
-    if (typeof Omi === 'undefined') {
-        return
-    }
+import { cloneElement, render, Component } from '../../src/omi';
 
 
-    Omi.extendPlugin('omi-tap', function (dom, instance) {
+class OmiTap extends Component {
 
-        var x1,
-            y1,
-            scrollTop
+	constructor() {
+		super()
+		this._handleTouchStart = this._handleTouchStart.bind(this)
+		this._handleTouchEnd = this._handleTouchEnd.bind(this)
+		this.x = null
+		this.y = null 
+		this.scrollTop = null
+	}
 
-        dom.removeEventListener('touchstart', dom._preTouchStart, false)
-        dom.removeEventListener('touchend', dom._preTouchEnd, false)
-        dom.addEventListener('touchstart', start, false)
-        dom.addEventListener('touchend', end, false)
+	_handleTouchStart(evt) {
+		this.x = evt.touches[0].pageX
+        this.y = evt.touches[0].pageY
+        this.scrollTop = document.body.scrollTop
+	}
 
-        dom._preTouchStart = start
-        dom._preTouchEnd = end
-
-        function start(evt) {
-            x1 = evt.touches[0].pageX
-            y1 = evt.touches[0].pageY
-            scrollTop = document.body.scrollTop
+	_emitEvent(name, ...arg) {
+        if (this.props[name]) {
+            this.props[name](...arg);
         }
+	}
+	
+	_handleTouchEnd(evt) {
+		if (Math.abs(evt.changedTouches[0].pageX - this.x) < 30 && Math.abs(evt.changedTouches[0].pageY - this.y) < 30 && Math.abs(document.body.scrollTop - this.scrollTop) < 30) {
+			this._emitEvent('onTap', evt);
+		}
+	}
 
-        function end(evt) {
-            if (Math.abs(evt.changedTouches[0].pageX - x1) < 30 && Math.abs(evt.changedTouches[0].pageY - y1) < 30 && Math.abs(document.body.scrollTop - scrollTop) < 30) {
-                getHandler('tap', dom, instance)(evt)
-            }
-        }
-    })
+	render() {
 
-    function getHandler(name, dom, instance) {
-        var value = dom.getAttribute(name)
-        if (value === null) {
-            if (dom[name]) {
-                return function (evt) {
-                    dom[name].bind(instance)(evt, dom)
-                }
-            }
-            return noop
-        } else {
-            return function (evt) {
-                instance[value].bind(instance)(evt, dom)
-            }
-        }
-    }
+		return cloneElement(this.props.children[0], {
+			onTouchStart: this._handleTouchStart,
+			onTouchEnd: this._handleTouchEnd
+		});
+	}
+}
 
-})();
+export default OmiTap

@@ -1,5 +1,19 @@
 /node_modules
-/plugins/omi-finger/node_modules
-/plugins/omi-router/node_modules
-/plugins/omi-touch/node_modules
-/plugins/omi-transform/node_modules
+/npm-debug.log
+.DS_Store
+/_dev
+/coverage
+package-lock.json
+/test/ts/**/*.js
+
+# Additional bundles
+/devtools.js
+/devtools.js.map
+/debug.js
+/debug.js.map
+
+# Editor and IDE configuration
+.vscode/
+.idea/
+
+/plugins/*/node_modules

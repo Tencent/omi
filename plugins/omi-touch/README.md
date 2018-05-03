@@ -1,6 +1,6 @@
 ﻿## omi-touch
 
-Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的触摸运动解决方案（支持触摸滚动、旋转、翻页、选择等等）。
+AlloyTouch / [Omi](http://omijs.org) integration. Smooth scrolling, rotation, pull to refresh, page transition and any motion for your Omi project.
 
 ---
 
@@ -10,43 +10,54 @@ Omi的[AlloyTouch](https://github.com/AlloyTeam/AlloyTouch)插件，Omi项目的
 
 [https://alloyteam.github.io/omi/plugins/omi-touch/example/simple/](https://alloyteam.github.io/omi/plugins/omi-touch/example/simple/)
 
-## 通过npm安装 
+## Install
 
 ``` js
-npm install omi-touch
+npm i omi-touch
 ```
 
-## 使用
+## Usage
 
 ```js
-import Omi from 'omi';
-import 'omi-touch';
+import {render, Component} from 'omi'
+import  OmiTouch from 'omi-touch'
 
-class App extends Omi.Component {
+class App extends Component {
     constructor(data) {
-        super(data);
+        super(data)
+        
+        this.touchChange = this.touchChange.bind(this)
     }
 
-    render() {
-        return  <div class="main">
-	            <div  omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >
-	                        <ul ref="scroller">
-	                            <li>Hello, Omi-Touch!</li>
-	                            <li>AlloyTouch</li>
-	                            <li>Transformjs</li>
-	                            <li>AlloyFinger</li>
-	                            <li>Omi</li>
-	                            ...
-	                            ...
-	                            <li> row 24</li>
-	                            <li style="border-bottom: none;"> row 25</li>
-	                        </ul>
-	                    </div>
-	        </div>
+    touchChange(value){
+        console.log(this)
+        console.log(value)
     }
+   
+    render() {
+        return <div class="main">
+        <OmiTouch  min={-1750} max={0} change={this.touchChange}>
+
+            <div class="touchArea" >
+                        <ul >
+                            <li>Hello, Omi-Touch!</li>
+                            <li>AlloyTouch</li>x
+                            <li>AlloyFinger</li>
+                            <li>Omi</li>
+							  ...
+							  ...
+							  ...
+                            <li style="border-bottom: none;"> row 25</li>
+                        </ul>
+                    </div>
+
+        </OmiTouch>
+        </div>
+    }
+
 }
 
-Omi.render(new App(),"#container");
+render(<App />,"#container")
 ```
 
 

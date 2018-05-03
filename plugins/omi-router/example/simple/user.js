@@ -1,10 +1,14 @@
-﻿import Omi from 'omi'
+﻿
+
+import Omi from '../../../../dist/omi'
+
 
 class User extends Omi.Component {
 
-    beforeRender(){
+    install(){
         let params =  this.$route.params
         this.name = params.name
+
         this.category = params.category
         this.info = this.queryInfo(this.name)
         this.age = this.info.age
@@ -39,6 +43,6 @@ class User extends Omi.Component {
 }
 
 
-Omi.tag('user',User)
+
 
 export default  User

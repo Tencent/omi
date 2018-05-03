@@ -1,6 +1,6 @@
 {
   "name": "omi-router",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "description": "Router for Omi.",
   "main": "index.js",
   "scripts": {
@@ -19,15 +19,15 @@
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
     "babel-plugin-transform-es3-property-literals": "^6.22.0",
     "babel-preset-env": "^1.6.0",
-    "babel-preset-omi": "^0.1.0",
+    "babel-preset-omi": "^0.1.1",
     "esprima-fb": "^15001.1001.0-dev-harmony-fb",
-    "webpack": "^3.4.1",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "omi": "latest",
-    "omix": "latest"
+    "omix": "latest",
+    "webpack": "^3.4.1"
   },
   "keywords": [
     "omi",

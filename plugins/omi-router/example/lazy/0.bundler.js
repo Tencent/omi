@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 10:
+/***/ 7:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34,8 +34,8 @@ var User = function (_Omi$Component) {
     }
 
     _createClass(User, [{
-        key: 'beforeRender',
-        value: function beforeRender() {
+        key: 'install',
+        value: function install() {
             var params = this.$route.params;
             this.name = params.name;
             this.category = params.category;
@@ -61,36 +61,36 @@ var User = function (_Omi$Component) {
     }, {
         key: 'render',
         value: function render() {
-            return _omi2['default'].x(
+            return _omi2['default'].h(
                 'div',
                 null,
-                _omi2['default'].x(
+                _omi2['default'].h(
                     'button',
                     { onclick: this.back.bind(this) },
                     'back'
                 ),
-                _omi2['default'].x(
+                _omi2['default'].h(
                     'ul',
                     null,
-                    _omi2['default'].x(
+                    _omi2['default'].h(
                         'li',
                         null,
                         'name:',
                         this.name
                     ),
-                    _omi2['default'].x(
+                    _omi2['default'].h(
                         'li',
                         null,
                         'age:',
                         this.age
                     ),
-                    _omi2['default'].x(
+                    _omi2['default'].h(
                         'li',
                         null,
                         'sex:',
                         this.sex
                     ),
-                    _omi2['default'].x(
+                    _omi2['default'].h(
                         'li',
                         null,
                         'category:',
@@ -103,8 +103,6 @@ var User = function (_Omi$Component) {
 
     return User;
 }(_omi2['default'].Component);
-
-_omi2['default'].tag('user', User);
 
 exports['default'] = User;
 

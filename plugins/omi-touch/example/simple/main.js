@@ -1,56 +1,24 @@
-﻿import Omi from 'omix'
-import  '../../index.js'
+﻿import {render, Component} from '../../../../dist/omi'
+import  OmiTouch from '../../index.js'
 
-class App extends Omi.Component {
+class App extends Component {
     constructor(data) {
         super(data)
+        
+        this.touchChange = this.touchChange.bind(this)
     }
 
-    style(){
-        return  `
-        *{
-            box-sizing: border-box;
-        }
-
-        .main{
-            width: 160px;
-            overflow: hidden;
-            border: 1px solid rgb(204, 204, 204);
-            text-indent: 10px;
-            margin: 0 auto;
-        }
-
-
-        .main ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            text-align: left;
-            font-size: 14px;
-            transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-        }
-
-        .main li {
-            padding: 0 10px;
-            height: 40px;
-            line-height: 40px;
-            border-bottom: 1px solid #ccc;
-            border-top: 1px solid #fff;
-            background-color: #fafafa;
-            font-size: 14px;
-        }
-
-        .touchArea{
-            height: 250px;
-            overflow: hidden;
-        }`
+    touchChange(value){
+        console.log(this)
+        console.log(value)
     }
-
+   
     render() {
         return <div class="main">
-            <div omi-touch class="touchArea" motionRef="scroller" min="-1750" max="0" >
-                        <ul ref="scroller">
+        <OmiTouch  min={-1750} max={0} change={this.touchChange}>
+
+            <div class="touchArea" >
+                        <ul >
                             <li>Hello, Omi-Touch!</li>
                             <li>AlloyTouch</li>
                             <li>Omix</li>
@@ -103,8 +71,52 @@ class App extends Omi.Component {
                             <li style="border-bottom: none;"> row 25</li>
                         </ul>
                     </div>
+
+        </OmiTouch>
         </div>
     }
+
+    style(){
+        return  `
+        *{
+            box-sizing: border-box;
+        }
+
+        .main{
+            width: 160px;
+            overflow: hidden;
+            border: 1px solid rgb(204, 204, 204);
+            text-indent: 10px;
+            margin: 0 auto;
+        }
+
+
+        .main ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            text-align: left;
+            font-size: 14px;
+            transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+        }
+
+        .main li {
+            padding: 0 10px;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #ccc;
+            border-top: 1px solid #fff;
+            background-color: #fafafa;
+            font-size: 14px;
+        }
+
+        .touchArea{
+            height: 250px;
+            overflow: hidden;
+        }`
+    }
+
 }
 
-Omi.render(new App(),"#container")
+render(<App />,"#container")

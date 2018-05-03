@@ -1,5 +1,5 @@
 /*!
- *  OmiRouter v0.3.2 By dntzhang 
+ *  OmiRouter v1.0.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -91,6 +91,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 ;(function () {
 
+    if(typeof Omi === 'undefined') return
+
     var OmiRouter = { }
 
     var parser = __webpack_require__(1),
@@ -112,16 +114,14 @@ return /******/ (function(modules) { // webpackBootstrap
             route.reg = parser(route.path)
         })
 
-        Omi.extendPlugin('omi-router', function (dom, instance) {
-            dom.setAttribute('href', '#'+ dom.getAttribute('to'))
-        })
 
         var hash = window.location.hash.replace('#', '')
         hashMapping(hash ? hash : routerOption.defaultRoute, renderTo)
         if(hash) {
-            option.root.onInstalled(function(){
-                render()
-            })
+            render()
+            // option.root.onInstalled(function(){
+            //     render()
+            // })
         }
     }
 
@@ -145,6 +145,8 @@ return /******/ (function(modules) { // webpackBootstrap
                 store = route.store || routerOption.store
                 Component = route.component
                 currentRoute = route
+                renderTo = typeof renderTo === 'string' ? document.querySelector(renderTo) : renderTo
+
                 pushState(to)
                 return false
             }
@@ -215,10 +217,14 @@ return /******/ (function(modules) { // webpackBootstrap
             instanceList.push(instance)
         }
         instance.$route = $route
-        Omi.render(instance, renderTo, {
-            store: store,
-            increment: routerOption.increment
-        })
+        
+        if(!routerOption.increment){
+            while (renderTo.firstChild) {
+                renderTo.removeChild(renderTo.firstChild);
+            }
+        }
+        
+        Omi.render(instance, renderTo, store)
         if (routerOption.init) {
             routerOption.init({
                 component: instance,
@@ -256,6 +262,34 @@ return /******/ (function(modules) { // webpackBootstrap
         preRenderTo = renderTo
     }
 
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Link = function (_Component) {
+	    _inherits(Link, _Component);
+
+	    function Link() {
+	        _classCallCheck(this, Link);
+
+	        return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+	    }
+
+	    Link.prototype.render = function render$$1() {
+	        return Omi.h(
+	            'a',
+	            { href: '#' + this.props.to },
+	            this.props.children[0]
+	        );
+	    };
+
+	    return Link;
+    }(Omi.Component);
+
+    OmiRouter.Link = Link
+    
     if (true) {
         module.exports = OmiRouter
     } else if (typeof define == "function" && define.amd) {

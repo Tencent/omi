@@ -1,4 +1,5 @@
-﻿import Omi from 'omi'
+﻿
+import Omi from '../../../../dist/omi'
 
 class Home extends Omi.Component {
     render() {
@@ -8,6 +9,6 @@ class Home extends Omi.Component {
     }
 }
 
-Omi.tag('home',Home)
+
 
 export default  Home

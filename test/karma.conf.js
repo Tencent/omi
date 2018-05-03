@@ -1,87 +1,164 @@
-// Karma configuration
-// Generated on Tue Jan 03 2017 10:33:15 GMT+0800 (中国标准时间)
+/*eslint no-var:0, object-shorthand:0 */
+
+var coverage = String(process.env.COVERAGE) === 'true',
+	ci = String(process.env.CI).match(/^(1|true)$/gi),
+	pullRequest = !String(process.env.TRAVIS_PULL_REQUEST).match(/^(0|false|undefined)$/gi),
+	masterBranch = String(process.env.TRAVIS_BRANCH).match(/^master$/gi),
+	sauceLabs = ci && !pullRequest && masterBranch,
+	performance = !coverage && String(process.env.PERFORMANCE)!=='false',
+	webpack = require('webpack');
+
+var sauceLabsLaunchers = {
+	sl_chrome: {
+		base: 'SauceLabs',
+		browserName: 'chrome',
+		platform: 'Windows 10'
+	},
+	sl_firefox: {
+		base: 'SauceLabs',
+		browserName: 'firefox',
+		platform: 'Windows 10'
+	},
+	sl_safari: {
+		base: 'SauceLabs',
+		browserName: 'safari',
+		platform: 'OS X 10.11'
+	},
+	sl_edge: {
+		base: 'SauceLabs',
+		browserName: 'MicrosoftEdge',
+		platform: 'Windows 10'
+	},
+	sl_ie_11: {
+		base: 'SauceLabs',
+		browserName: 'internet explorer',
+		version: '11.103',
+		platform: 'Windows 10'
+	},
+	sl_ie_10: {
+		base: 'SauceLabs',
+		browserName: 'internet explorer',
+		version: '10.0',
+		platform: 'Windows 7'
+	},
+	sl_ie_9: {
+		base: 'SauceLabs',
+		browserName: 'internet explorer',
+		version: '9.0',
+		platform: 'Windows 7'
+	}
+};
+
+var localLaunchers = {
+	ChromeNoSandboxHeadless: {
+		base: 'Chrome',
+		flags: [
+			'--no-sandbox',
+			// See https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+			'--headless',
+			'--disable-gpu',
+			// Without a remote debugging port, Google Chrome exits immediately.
+			'--remote-debugging-port=9333'
+		]
+	}
+};
 
 module.exports = function(config) {
-    config.set({
-        // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '',
+	config.set({
+		browsers: sauceLabs
+			? Object.keys(sauceLabsLaunchers)
+			: Object.keys(localLaunchers),
 
-        // frameworks to use
-        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: [ 'mocha', 'chai-sinon'],
+		frameworks: ['source-map-support', 'mocha', 'chai-sinon'],
 
-        // list of files / patterns to load in the browser
-        files: [
-            'js/*.js'
-        ],
+		reporters: ['mocha'].concat(
+			coverage ? 'coverage' : [],
+			sauceLabs ? 'saucelabs' : []
+		),
 
-        // list of files to exclude
-        exclude: [
-        ],
+		coverageReporter: {
+			dir: __dirname+'/../coverage',
+			reporters: [
+				{ type: 'text-summary' },
+				{ type: 'html' },
+				{ type: 'lcovonly', subdir: '.', file: 'lcov.info' }
+			]
+		},
 
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {
-            'js/*.js': ['webpack']
-        },
+		mochaReporter: {
+			showDiff: true
+		},
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+		browserLogOptions: { terminal: true },
+		browserConsoleLogOptions: { terminal: true },
 
-        // web server port
-        port: 9876,
+		browserNoActivityTimeout: 5 * 60 * 1000,
 
-        // enable / disable colors in the output (reporters and logs)
-        colors: true,
+		// Use only two browsers concurrently, works better with open source Sauce Labs remote testing
+		concurrency: 2,
 
-        // level of logging
-        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_INFO,
+		// sauceLabs: {
+		// 	tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER || ('local'+require('./package.json').version),
+		// 	startConnect: false
+		// },
 
-        // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
+		customLaunchers: sauceLabs ? sauceLabsLaunchers : localLaunchers,
 
-        // start these browsers
-        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome'],
+		files: [
+			{ pattern: 'polyfills.js', watched: false },
+			{ pattern: '{browser,shared}/**.js', watched: false }
+		],
 
-        // Continuous Integration mode
-        // if true, Karma captures browsers, runs the tests and exits
-        // change to false if you debug local
-        // change to true when you submit to server
-        singleRun: true,
+		preprocessors: {
+			'**/*': ['webpack', 'sourcemap']
+		},
 
-        // Concurrency level
-        // how many browser should be started simultaneous
-        concurrency: Infinity,
+		webpack: {
+			mode: 'development',
+			devtool: 'inline-source-map',
+			module: {
+				/* Transpile source and test files */
+				rules: [
+					{
+						enforce: 'pre',
+						test: /\.jsx?$/,
+						exclude: /node_modules/,
+						loader: 'babel-loader',
+						options: {
+							comments: false,
+							compact: true
+						}
+					},
+					/* Only Instrument our source files for coverage */
+					coverage ? {
+						test: /\.jsx?$/,
+						loader: 'istanbul-instrumenter-loader',
+						include: /src/
+					} : {}
+				]
+			},
+			resolve: {
+				// The React DevTools integration requires preact as a module
+				// rather than referencing source files inside the module
+				// directly
+				alias: { Omi: '../src/omi' },
+				modules: [__dirname, 'node_modules']
+			},
+			plugins: [
+				new webpack.DefinePlugin({
+					coverage: coverage,
+					NODE_ENV: JSON.stringify(process.env.NODE_ENV || ''),
+					ENABLE_PERFORMANCE: performance,
+					DISABLE_FLAKEY: !!String(process.env.FLAKEY).match(/^(0|false)$/gi)
+				})
+			],
+			performance: {
+				hints: false
+			}
+		},
 
-        webpack: {
-            module: {
-                rules: [
-                    {
-                        test: /\.js$/,
-                        exclude: /(node_modules|bower_components)/,
-                        use: [{
-                            loader: 'babel-loader',
-                            options: {
-                                presets: ['env','omi']
-                            }
-                        }
-                        ]
-                    }
-                ]
-            }
-        },
-        webpackMiddleware: {
-            noInfo: false
-        },
-        plugins: [
-            'karma-webpack',
-            'karma-mocha',
-            'karma-chai-sinon',
-            'karma-chrome-launcher'
-        ]
-    })
-}
+		webpackMiddleware: {
+			noInfo: true
+		}
+	});
+};

@@ -1,14 +1,17 @@
-﻿import Omi from 'omix'
-import OmiRouter from '../../index.js'
+﻿
+import Omi from '../../../../dist/omi'
+import OmiRouter,{Link} from '../../dist/omi-router'
 
 import Home from './home.js'
 import About from './about.js'
 import User from './user.js'
 import UserList from './user-list.js'
 
+
 class App extends Omi.Component {
 
-    install() {
+    installed() {
+
         OmiRouter.init({
             routes: [
                 {path: '/', component: Home},
@@ -44,9 +47,9 @@ class App extends Omi.Component {
     render() {
         return <div>
                     <ul>
-                        <li><a omi-router to="/" >Home</a></li>
-                        <li><a omi-router to="/about" >About</a></li>
-                        <li><a omi-router to="/user-list" >UserList</a></li>
+                        <li><Link to="/" >Home</Link></li>
+                        <li><Link to="/about" >About</Link></li>
+                        <li><Link to="/user-list" >UserList</Link></li>
                     </ul>
                     <div id="view">
                     </div>
@@ -55,4 +58,4 @@ class App extends Omi.Component {
 }
 
 
-Omi.render(new App(),"#container")
+Omi.render(<App />,"#container")
