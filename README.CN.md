@@ -8,7 +8,7 @@
 </p>
 
 由于有段时间 react native 授权协议问题，内部的rn急需替代品。所以我们自研了 plato 代替 rn。做了一些权衡之后，我决定基于 preact 二次开发，把 preact 的 dom 模块更加抽象了针对浏览器和向 native 发指令。相对于 react，preact 代码尺寸更小，速度更快，jsx里的约定更贴合web的习惯
-，通过 preact compat 几乎百分百兼容react，在一些方面还在走在 react 前面 ，preact 没有自己实现事件体系，直接 addeventlinsten ,这也是性能出众和尺度极小的原因之一。Omi 从 3.0 开始基于 preact 二次开发，完全可以共享 preact 和 react 的生态，也有了自己独特的风格和优势：
+，通过 preact compat 几乎百分百兼容react，在一些方面还在走在 react 前面 ，preact 没有自己实现事件体系，内部直接 addEventListener 实现,这也是性能出众和尺度极小的原因之一。Omi 从 3.0 开始基于 preact 二次开发，完全可以共享 preact 和 react 的生态，也有了自己独特的风格和优势：
 
 - 超小的尺寸和超快的速度
 - 兼容 React/Preact/Omi API
