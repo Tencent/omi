@@ -71,10 +71,10 @@ class App extends Component {
 	
     render() {
         return (
-			<div>
-				<Hello name={this.name}></Hello>
-				<h3 onclick={this.handleClick}>Scoped css and event test! click me!</h3>
-			</div>
+		<div>
+			<Hello name={this.name}></Hello>
+			<h3 onclick={this.handleClick}>Scoped css and event test! click me!</h3>
+		</div>
 		)
     }
 }
