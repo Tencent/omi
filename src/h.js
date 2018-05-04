@@ -6,8 +6,6 @@ const stack = [];
 
 const EMPTY_CHILDREN = [];
 
-const isH5 = options.isWeb;
-
 const map = {
 	'br': 'view',
 	'hr': 'view',
@@ -217,9 +215,9 @@ export function h(nodeName, attributes) {
 	}
 
 	let p = new VNode();
-	p.nodeName = isH5?nodeName:map[nodeName];
+	p.nodeName = options.isWeb?nodeName:map[nodeName];
 	p.attributes = attributes == null ? undefined : attributes;
-	if (children && typeof children[0] === 'string'&& !isH5) {
+	if (children && typeof children[0] === 'string'&& !options.isWeb) {
 		if (p.attributes) {
 			p.attributes.value = children[0];
 		} else {

@@ -22,9 +22,6 @@ function parseCSSText(cssText) {
 	return style;
 }
 
-const isH5 = options.isWeb;
-
-
 /** Remove a child node from its parent if attached.
  *	@param {Element} node		The node to remove
  */
@@ -58,7 +55,7 @@ export function setAccessor(node, name, old, value, isSvg) {
 		node.className = value || '';
 	}
 	else if (name==='style') {
-		if (isH5) {
+		if (options.isWeb) {
 			if (!value || typeof value==='string' || typeof old==='string') {
 				node.style.cssText = value || '';
 			}
