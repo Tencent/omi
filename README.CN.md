@@ -209,7 +209,7 @@ render(app, document.body, appStore)
 |-------------------------------|--------------------------------------------------|
 | `componentWillMount / install`        | before the component gets mounted to the DOM     |
 | `componentDidMount / installed`         | after the component gets mounted to the DOM      |
-| `componentWillUnmount /uninstall`      | prior to removal from the DOM                    |
+| `componentWillUnmount / uninstall`      | prior to removal from the DOM                    |
 | `componentWillReceiveProps` | before new props get accepted                    |
 | `shouldComponentUpdate`     | before `render()`. Return `false` to skip render |
 | `componentWillUpdate / beforeUpdate`       | before `render()`                                |
