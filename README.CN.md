@@ -120,7 +120,7 @@ render() {
 当你 update 组件或者 setState 时候，`style`方法会渲染三次，并更新head里对应三个地方的样式，`staticStyle` 不再渲染。
 
 
-如果你想使用 scoped css 但又不想写在 js 里, you may need [to-string-loader](https://www.npmjs.com/package/to-string-loader), 看下 [omi-cli config](https://github.com/AlloyTeam/omi-cli/blob/master/template/app/tools/webpack.base.js#L84-L107)：
+如果你想使用 scoped css 但又不想写在 js 里, 你可以使用 [to-string-loader](https://www.npmjs.com/package/to-string-loader), 看下 [omi-cli config](https://github.com/AlloyTeam/omi-cli/blob/master/template/app/tools/webpack.base.js#L84-L107)：
 
 ``` js
 var styleRules = {
@@ -201,7 +201,7 @@ const appStore = new AppStore({ name: 'Omi' }, {
 render(app, document.body, appStore)
 ```
 
-通过根节点注入后，你可以在所有组件中使用 `this.$store` 来或者 store 的数据或者调用 store 的方法。
+通过根节点注入后，你可以在所有组件中使用 `this.$store` 来获取 store 的数据或者调用 store 的方法。
 
 ### Lifecycle
 
