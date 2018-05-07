@@ -110,6 +110,78 @@ describe('Components', () => {
 		expect(scratch.innerHTML).to.equal('<div foo="bar"></div>');
 	});
 
+	it('should render components with scoped attr', () => {
+
+		class C2 extends Component {
+			style(){
+				return `div{color:red;}`;
+			}
+
+			render() {
+				return <div />;
+			}
+		}
+
+		render(<C2  />, scratch);
+
+		expect(scratch.innerHTML).to.equal('<div _style_9=""></div>');
+	});
+
+	it('should render components with scoped attr', () => {
+	
+		class C2 extends Component {
+
+
+			staticStyle(){
+				return `div{color:red;}`;
+			}
+
+			render() {
+				return <div />;
+			}
+		}
+
+		
+		render(<C2  />, scratch);
+
+		expect(scratch.innerHTML).to.equal('<div _style_c2=""></div>');
+	});
+
+	it('should render components with scoped attr', () => {
+	
+		class C2 extends Component {
+			style(){
+				return `div{color:red;}`;
+			}
+
+			staticStyle(){
+				return `div{color:red;}`;
+			}
+
+			render() {
+				return <div />;
+			}
+		}
+
+		
+		render(<C2  />, scratch);
+
+		expect(scratch.innerHTML).to.equal('<div _style_15="" _style_c2=""></div>');
+	});
+
+	it('should render components with store', () => {
+	
+		class C4 extends Component {
+			render() {
+				return <div />;
+			}
+		}
+
+		let instance = new C4();
+		render(instance, scratch, {a:1});
+
+		expect(instance.$store.a).to.equal(1);
+	});
 
 	it('should clone components', () => {
 		function Comp () {}
