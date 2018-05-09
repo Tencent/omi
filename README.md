@@ -119,33 +119,56 @@ The `style` method will render three times to html head element, the `staticStyl
 When you update the component `style` method will rerender, but the `staticStyle` will not rerender.
 
 
-if you want to use the scoped css but you did not want write it in your javascript, you may need [to-string-loader](https://www.npmjs.com/package/to-string-loader), see the [omi-cli config](https://github.com/AlloyTeam/omi-cli/blob/master/template/app/tools/webpack.base.js#L84-L107)：
+If you want to use the scoped css but you did not want write it in your javascript, you may need [to-string-loader](https://www.npmjs.com/package/to-string-loader), see the [omi-cli config](https://github.com/AlloyTeam/omi-cli/blob/master/template/app/config/webpack.config.dev.js#L156-L162)：
 
 ``` js
-var styleRules = {
-    'scoped.css':{
-        test: /[\\|\/]_[\S]*\.css$/,
-        use: [
-            'to-string-loader',
-            'css-loader'
-        ],
-        include: path.resolve(config.webpack.path.src)
-    },
-    'scoped.less':{
-        test: /[\\|\/]_[\S]*\.less$/,
-        use: [
-            'to-string-loader',
-            'css-loader',
-            'less-loader'
-        ],
-        include: path.resolve(config.webpack.path.src)
-    },
-    'scoped.stylus':{
-	...
-	...		
+{
+    test: /[\\|\/]_[\S]*\.css$/,
+    use: [
+        'to-string-loader',
+        'css-loader'
+    ]
+}
 ```
 
-If your css file name is begin with `_`, the css content will use to-string-loader.
+If your css file name is begin with `_`, the css content will use to-string-loader. For example：
+
+``` js
+import Omi from 'omi'
+//typeof style is string
+import style from './_index.css' 
+
+class App extends Omi.Component {
+
+  staticStyle() {
+    return style
+  }
+
+  style() {
+    return `
+      code{
+        color: ${Math.random() > 0.5 ? 'red' : 'blue'}
+      }
+      .app-logo{
+        cursor: pointer; 
+      }
+    `
+  }
+
+  render() {
+    return (
+      <div class="app">
+        <header class="app-header">
+          <h1 class="app-title">Welcome to Omi</h1>
+        </header>
+      </div>
+    )
+  }
+}
+```
+
+You can use the feature in the project created by omi-cli with no configuration.
+
 
 ### Store
 

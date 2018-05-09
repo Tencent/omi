@@ -102,7 +102,7 @@ render(<App />, 'body')
 
 ### Scoped CSS
 
-`style` 和 `staticStyle` 的区别是 ? For example：
+`style` 和 `staticStyle` 的区别是 ? 例如：
 
 ``` js
 render() {
@@ -120,33 +120,56 @@ render() {
 当你 update 组件或者 setState 时候，`style`方法会渲染三次，并更新head里对应三个地方的样式，`staticStyle` 不再渲染。
 
 
-如果你想使用 scoped css 但又不想写在 js 里, 你可以使用 [to-string-loader](https://www.npmjs.com/package/to-string-loader), 看下 [omi-cli config](https://github.com/AlloyTeam/omi-cli/blob/master/template/app/tools/webpack.base.js#L84-L107)：
+如果你想使用 scoped css 但又不想写在 js 里, 你可以使用 [to-string-loader](https://www.npmjs.com/package/to-string-loader), 看下 [omi-cli config](https://github.com/AlloyTeam/omi-cli/blob/master/template/app/config/webpack.config.dev.js#L156-L162)：
 
 ``` js
-var styleRules = {
-    'scoped.css':{
-        test: /[\\|\/]_[\S]*\.css$/,
-        use: [
-            'to-string-loader',
-            'css-loader'
-        ],
-        include: path.resolve(config.webpack.path.src)
-    },
-    'scoped.less':{
-        test: /[\\|\/]_[\S]*\.less$/,
-        use: [
-            'to-string-loader',
-            'css-loader',
-            'less-loader'
-        ],
-        include: path.resolve(config.webpack.path.src)
-    },
-    'scoped.stylus':{
-	...
-	...		
+{
+    test: /[\\|\/]_[\S]*\.css$/,
+    use: [
+        'to-string-loader',
+        'css-loader'
+    ]
+}
 ```
 
-这里约定了以下划线 '_' 开头的，会经过 to-string-loader 处理成字符串。
+这里约定了以下划线 '_' 开头的，会经过 to-string-loader 处理成字符串。例如:
+
+
+``` js
+import Omi from 'omi'
+//import 进来的 style 是字符串
+import style from './_index.css' 
+
+class App extends Omi.Component {
+
+  staticStyle() {
+    return style
+  }
+
+  style() {
+    return `
+      code{
+        color: ${Math.random() > 0.5 ? 'red' : 'blue'}
+      }
+      .app-logo{
+        cursor: pointer; 
+      }
+    `
+  }
+
+  render() {
+    return (
+      <div class="app">
+        <header class="app-header">
+          <h1 class="app-title">Welcome to Omi</h1>
+        </header>
+      </div>
+    )
+  }
+}
+```
+
+你如果使用 omi-cli 创建项目的话，就可以直接使用上面这个特性，omi-cli 帮你配置好了一切。
 
 ### Store
 
