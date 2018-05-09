@@ -1,14 +1,6 @@
 (function () {
 	'use strict';
 
-	/**
-	 * omi v3.0.0
-	 * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
-	 * By dntzhang https://github.com/dntzhang
-	 * Github: https://github.com/AlloyTeam/omi
-	 * MIT Licensed.
-	 */
-
 	/** Virtual DOM Node */
 	function VNode() {}
 
@@ -21,6 +13,7 @@
 		scopedStyle: true,
 		$store: null,
 		isWeb: true,
+		staticStyleRendered: false,
 		doc: typeof document === 'object' ? document : null
 		//componentChange(component, element) { },
 		/** If `true`, `prop` changes trigger synchronous component updates.
@@ -48,8 +41,6 @@
 	var stack = [];
 
 	var EMPTY_CHILDREN = [];
-
-	var isH5 = options.isWeb;
 
 	var map = {
 		'br': 'view',
@@ -218,10 +209,10 @@
 	 */
 	function h(nodeName, attributes) {
 		var children = EMPTY_CHILDREN,
-		    lastSimple,
-		    child,
-		    simple,
-		    i;
+		    lastSimple = void 0,
+		    child = void 0,
+		    simple = void 0,
+		    i = void 0;
 		for (i = arguments.length; i-- > 2;) {
 			stack.push(arguments[i]);
 		}
@@ -254,9 +245,9 @@
 		}
 
 		var p = new VNode();
-		p.nodeName = isH5 ? nodeName : map[nodeName];
+		p.nodeName = options.isWeb ? nodeName : map[nodeName];
 		p.attributes = attributes == null ? undefined : attributes;
-		if (children && typeof children[0] === 'string' && !isH5) {
+		if (children && typeof children[0] === 'string' && !options.isWeb) {
 			if (p.attributes) {
 				p.attributes.value = children[0];
 			} else {
@@ -281,9 +272,9 @@
 	 *  @private
 	 */
 	function extend(obj, props) {
-		for (var i in props) {
-			obj[i] = props[i];
-		}return obj;
+	  for (var i in props) {
+	    obj[i] = props[i];
+	  }return obj;
 	}
 
 	/**
@@ -298,14 +289,14 @@
 
 	// for native
 	if (typeof document !== 'object' && typeof global !== 'undefined' && global.__config__) {
-		if (global.__config__.platform === 'android') {
-			usePromise = true;
-		} else {
-			var systemVersion = global.__config__.systemVersion && global.__config__.systemVersion.split('.')[0] || 0;
-			if (systemVersion > 8) {
-				usePromise = true;
-			}
-		}
+	  if (global.__config__.platform === 'android') {
+	    usePromise = true;
+	  } else {
+	    var systemVersion = global.__config__.systemVersion && global.__config__.systemVersion.split('.')[0] || 0;
+	    if (systemVersion > 8) {
+	      usePromise = true;
+	    }
+	  }
 	}
 
 	var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
@@ -317,8 +308,17 @@
 	 * @param {VNode} rest		Any additional arguments will be used as replacement children.
 	 */
 	function cloneElement(vnode, props) {
-		return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
+	  return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
 	}
+
+	// render modes
+
+	var NO_RENDER = 0;
+	var SYNC_RENDER = 1;
+	var FORCE_RENDER = 2;
+	var ASYNC_RENDER = 3;
+
+	var ATTR_KEY = '__preactattr_';
 
 	// DOM properties that should NOT have "px" added when numeric
 	var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -334,10 +334,10 @@
 	}
 
 	function rerender() {
-		var p,
+		var p = void 0,
 		    list = items;
 		items = [];
-		var element;
+		var element = void 0;
 		while (p = list.pop()) {
 			element = p.base;
 			if (p._dirty) renderComponent(p);
@@ -356,13 +356,13 @@
 	 * @private
 	 */
 	function isSameNodeType(node, vnode, hydrating) {
-		if (typeof vnode === 'string' || typeof vnode === 'number') {
-			return node.splitText !== undefined;
-		}
-		if (typeof vnode.nodeName === 'string') {
-			return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
-		}
-		return hydrating || node._componentConstructor === vnode.nodeName;
+	  if (typeof vnode === 'string' || typeof vnode === 'number') {
+	    return node.splitText !== undefined;
+	  }
+	  if (typeof vnode.nodeName === 'string') {
+	    return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+	  }
+	  return hydrating || node._componentConstructor === vnode.nodeName;
 	}
 
 	/**
@@ -372,7 +372,7 @@
 	 * @param {String} nodeName	Unnormalized name to compare against.
 	 */
 	function isNamedNode(node, nodeName) {
-		return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
+	  return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
 	}
 
 	/**
@@ -384,19 +384,19 @@
 	 * @returns {Object} props
 	 */
 	function getNodeProps(vnode) {
-		var props = extend({}, vnode.attributes);
-		props.children = vnode.children;
+	  var props = extend({}, vnode.attributes);
+	  props.children = vnode.children;
 
-		var defaultProps = vnode.nodeName.defaultProps;
-		if (defaultProps !== undefined) {
-			for (var i in defaultProps) {
-				if (props[i] === undefined) {
-					props[i] = defaultProps[i];
-				}
-			}
-		}
+	  var defaultProps = vnode.nodeName.defaultProps;
+	  if (defaultProps !== undefined) {
+	    for (var i in defaultProps) {
+	      if (props[i] === undefined) {
+	        props[i] = defaultProps[i];
+	      }
+	    }
+	  }
 
-		return props;
+	  return props;
 	}
 
 	/** Create an element with the given nodeName.
@@ -427,16 +427,16 @@
 				return x && x.trim();
 			});
 		});
-		for (var i = properties, i = Array.isArray(i), i = 0, i = i ? i : i[Symbol.iterator]();;) {
+		for (var _iterator = properties, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
 			var _ref3;
 
-			if (i) {
-				if (i >= i.length) break;
-				_ref3 = i[i++];
+			if (_isArray) {
+				if (_i >= _iterator.length) break;
+				_ref3 = _iterator[_i++];
 			} else {
-				i = i.next();
-				if (i.done) break;
-				_ref3 = i.value;
+				_i = _iterator.next();
+				if (_i.done) break;
+				_ref3 = _i.value;
 			}
 
 			var _ref2 = _ref3;
@@ -445,8 +445,6 @@
 			style[cssToJs(property)] = value;
 		}return style;
 	}
-
-	var isH5$1 = options.isWeb;
 
 	/** Remove a child node from its parent if attached.
 	 *	@param {Element} node		The node to remove
@@ -476,7 +474,7 @@
 		} else if (name === 'class' && !isSvg) {
 			node.className = value || '';
 		} else if (name === 'style') {
-			if (isH5$1) {
+			if (options.isWeb) {
 				if (!value || typeof value === 'string' || typeof old === 'string') {
 					node.style.cssText = value || '';
 				}
@@ -486,8 +484,8 @@
 							if (!(i in value)) node.style[i] = '';
 						}
 					}
-					for (var i in value) {
-						node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+					for (var _i2 in value) {
+						node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
 					}
 				}
 			} else {
@@ -579,7 +577,7 @@
 
 	/** Invoke queued componentDidMount lifecycle methods */
 	function flushMounts() {
-		var c;
+		var c = void 0;
 		while (c = mounts.pop()) {
 			if (options.afterMount) options.afterMount(c);
 			if (c.componentDidMount) c.componentDidMount();
@@ -600,7 +598,7 @@
 			isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
 			// hydration is indicated by the existing element to be diffed not having a prop cache
-			hydrating = dom != null && !('__preactattr_' in dom);
+			hydrating = dom != null && !(ATTR_KEY in dom);
 		}
 
 		var ret = idiff(dom, vnode, context, mountAll, componentRoot);
@@ -644,7 +642,7 @@
 				}
 			}
 
-			out['__preactattr_'] = true;
+			out[ATTR_KEY] = true;
 
 			return out;
 		}
@@ -676,11 +674,11 @@
 		}
 
 		var fc = out.firstChild,
-		    props = out['__preactattr_'],
+		    props = out[ATTR_KEY],
 		    vchildren = vnode.children;
 
 		if (props == null) {
-			props = out['__preactattr_'] = {};
+			props = out[ATTR_KEY] = {};
 			for (var a = out.attributes, i = a.length; i--;) {
 				props[a[i].name] = a[i].value;
 			}
@@ -722,17 +720,17 @@
 		    len = originalChildren.length,
 		    childrenLen = 0,
 		    vlen = vchildren ? vchildren.length : 0,
-		    j,
-		    c,
-		    f,
-		    vchild,
-		    child;
+		    j = void 0,
+		    c = void 0,
+		    f = void 0,
+		    vchild = void 0,
+		    child = void 0;
 
 		// Build up a map of keyed children and an Array of unkeyed children:
 		if (len !== 0) {
 			for (var i = 0; i < len; i++) {
 				var _child = originalChildren[i],
-				    props = _child['__preactattr_'],
+				    props = _child[ATTR_KEY],
 				    key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
 				if (key != null) {
 					keyedLen++;
@@ -744,16 +742,16 @@
 		}
 
 		if (vlen !== 0) {
-			for (var i = 0; i < vlen; i++) {
-				vchild = vchildren[i];
+			for (var _i = 0; _i < vlen; _i++) {
+				vchild = vchildren[_i];
 				child = null;
 
 				// attempt to find a node based on key matching
-				var key = vchild.key;
-				if (key != null) {
-					if (keyedLen && keyed[key] !== undefined) {
-						child = keyed[key];
-						keyed[key] = undefined;
+				var _key = vchild.key;
+				if (_key != null) {
+					if (keyedLen && keyed[_key] !== undefined) {
+						child = keyed[_key];
+						keyed[_key] = undefined;
 						keyedLen--;
 					}
 				}
@@ -773,7 +771,7 @@
 				// morph the matched/found/created DOM child to match vchild (deep)
 				child = idiff(child, vchild, context, mountAll);
 
-				f = originalChildren[i];
+				f = originalChildren[_i];
 				if (child && child !== dom && child !== f) {
 					if (f == null) {
 						dom.appendChild(child);
@@ -788,8 +786,8 @@
 
 		// remove unused keyed children:
 		if (keyedLen) {
-			for (var i in keyed) {
-				if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
+			for (var _i2 in keyed) {
+				if (keyed[_i2] !== undefined) recollectNodeTree(keyed[_i2], false);
 			}
 		}
 
@@ -811,9 +809,9 @@
 		} else {
 			// If the node's VNode had a ref function, invoke it with null here.
 			// (this is part of the React spec, and smart for unsetting references)
-			if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
+			if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null);
 
-			if (unmountOnly === false || node['__preactattr_'] == null) {
+			if (unmountOnly === false || node[ATTR_KEY] == null) {
 				removeNode(node);
 			}
 
@@ -840,7 +838,7 @@
 	 *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
 	 */
 	function diffAttributes(dom, attrs, old) {
-		var name;
+		var name = void 0;
 
 		// remove attributes no longer present on the vnode by setting them to undefined
 		for (name in old) {
@@ -872,7 +870,7 @@
 	/** Create a component. Normalizes differences between PFC's and classful Components. */
 	function createComponent(Ctor, props, context) {
 		var list = components[Ctor.name],
-		    inst;
+		    inst = void 0;
 
 		if (Ctor.prototype && Ctor.prototype.render) {
 			inst = new Ctor(props, context);
@@ -932,7 +930,9 @@
 
 			var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
 			var prependClass = prefix + ' ' + g1.trim() + g2;
-			return appendClass + ',' + prependClass + g3;
+
+			return appendClass + g3;
+			//return appendClass + ',' + prependClass + g3;
 		});
 
 		return css;
@@ -983,13 +983,13 @@
 		component._preStyle = style;
 	}
 
-	function addScopedAttrStatic(vdom, style, attr, firstTime) {
+	function addScopedAttrStatic(vdom, style, attr) {
 		if (options.scopedStyle) {
 			scopeVdom(attr, vdom);
-			if (firstTime) {
+			if (!options.staticStyleRendered) {
 				addStyle(scoper(style, attr), attr);
 			}
-		} else if (firstTime) {
+		} else if (!options.staticStyleRendered) {
 			addStyleWithoutId(style);
 		}
 	}
@@ -1034,9 +1034,9 @@
 
 		component._disable = false;
 
-		if (opts !== 0) {
-			if (opts === 1 || options.syncComponentUpdates !== false || !component.base) {
-				renderComponent(component, 1, mountAll);
+		if (opts !== NO_RENDER) {
+			if (opts === SYNC_RENDER || options.syncComponentUpdates !== false || !component.base) {
+				renderComponent(component, SYNC_RENDER, mountAll);
 			} else {
 				enqueueRender(component);
 			}
@@ -1065,16 +1065,16 @@
 		    initialBase = isUpdate || nextBase,
 		    initialChildComponent = component._component,
 		    skip = false,
-		    rendered,
-		    inst,
-		    cbase;
+		    rendered = void 0,
+		    inst = void 0,
+		    cbase = void 0;
 
 		// if updating
 		if (isUpdate) {
 			component.props = previousProps;
 			component.state = previousState;
 			component.context = previousContext;
-			if (opts !== 2 && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
+			if (opts !== FORCE_RENDER && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
 				skip = true;
 			} else if (component.componentWillUpdate) {
 				component.componentWillUpdate(props, state, context);
@@ -1098,7 +1098,7 @@
 
 			//don't rerender
 			if (component.staticStyle) {
-				addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + component.constructor.name, !component.base);
+				addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + component.constructor.name);
 			}
 
 			// context to pass to the child, can be updated via (grand-)parent component
@@ -1107,8 +1107,8 @@
 			}
 
 			var childComponent = rendered && rendered.nodeName,
-			    toUnmount,
-			    base;
+			    toUnmount = void 0,
+			    base = void 0;
 
 			if (typeof childComponent === 'function') {
 				// set up high order component link
@@ -1117,15 +1117,15 @@
 				inst = initialChildComponent;
 
 				if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
-					setComponentProps(inst, childProps, 1, context, false);
+					setComponentProps(inst, childProps, SYNC_RENDER, context, false);
 				} else {
 					toUnmount = inst;
 
 					component._component = inst = createComponent(childComponent, childProps, context);
 					inst.nextBase = inst.nextBase || nextBase;
 					inst._parentComponent = component;
-					setComponentProps(inst, childProps, 0, context, false);
-					renderComponent(inst, 1, mountAll, true);
+					setComponentProps(inst, childProps, NO_RENDER, context, false);
+					renderComponent(inst, SYNC_RENDER, mountAll, true);
 				}
 
 				base = inst.base;
@@ -1138,7 +1138,7 @@
 					cbase = component._component = null;
 				}
 
-				if (initialBase || opts === 1) {
+				if (initialBase || opts === SYNC_RENDER) {
 					if (cbase) cbase._component = null;
 					base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
 				}
@@ -1216,7 +1216,7 @@
 		}
 
 		if (c && isOwner && (!mountAll || c._component)) {
-			setComponentProps(c, props, 3, context, mountAll);
+			setComponentProps(c, props, ASYNC_RENDER, context, mountAll);
 			dom = c.base;
 		} else {
 			if (originalComponent && !isDirectOwner) {
@@ -1230,7 +1230,7 @@
 				// passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
 				oldDom = null;
 			}
-			setComponentProps(c, props, 1, context, mountAll);
+			setComponentProps(c, props, SYNC_RENDER, context, mountAll);
 			dom = c.base;
 
 			if (oldDom && dom !== oldDom) {
@@ -1263,7 +1263,7 @@
 		if (inner) {
 			unmountComponent(inner);
 		} else if (base) {
-			if (base['__preactattr_'] && base['__preactattr_'].ref) base['__preactattr_'].ref(null);
+			if (base[ATTR_KEY] && base[ATTR_KEY].ref) base[ATTR_KEY].ref(null);
 
 			component.nextBase = base;
 
@@ -1339,18 +1339,20 @@
 			enqueueRender(this);
 		},
 
+
 		/** Immediately perform a synchronous re-render of the component.
 	  *	@param {function} callback		A function to be called after component is re-rendered.
 	  *	@private
 	  */
 		forceUpdate: function forceUpdate(callback) {
 			if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
-			renderComponent(this, 2);
+			renderComponent(this, FORCE_RENDER);
 			if (options.componentChange) options.componentChange(this, this.base);
 		},
 		update: function update(callback) {
 			this.forceUpdate(callback);
 		},
+
 
 		/** Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
 	  *	Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
@@ -1390,6 +1392,7 @@
 	 *	render(<Thing name="one" />, document.querySelector('#foo'));
 	 */
 	function render(vnode, parent, merge) {
+		options.staticStyleRendered = false;
 		parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 		if (merge === true) {
 			while (parent.firstChild) {
@@ -1400,6 +1403,9 @@
 		if (vnode instanceof Component) {
 			if (window && window.Omi) {
 				window.Omi.instances.push(vnode);
+			}
+			if (!m) {
+				vnode.$store = options.$store = merge;
 			}
 			if (vnode.componentWillMount) vnode.componentWillMount();
 			if (vnode.install) vnode.install();
@@ -1413,18 +1419,17 @@
 				addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
 			}
 
-			if (m) {
-				vnode.base = diff(merge, rendered, {}, false, parent, false);
-			} else {
-				vnode.$store = options.$store = merge;
-				vnode.base = diff(undefined, rendered, {}, false, parent, false);
-			}
+			vnode.base = diff(m ? merge : undefined, rendered, {}, false, parent, false);
+
 			if (vnode.componentDidMount) vnode.componentDidMount();
 			if (vnode.installed) vnode.installed();
+			options.staticStyleRendered = true;
 			return vnode.base;
 		}
 
-		return diff(merge, vnode, {}, false, parent, false);
+		var result = diff(merge, vnode, {}, false, parent, false);
+		options.staticStyleRendered = true;
+		return result;
 	}
 
 	function getGlobal() {
@@ -1455,7 +1460,8 @@
 		options: options,
 		instances: instances
 	};
-	//# sourceMappingURL=omi.esm.js.map
+
+	root.Omi.version = '3.0.0';
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1474,7 +1480,7 @@
 
 	    Hello.prototype.render = function render$$1() {
 	        return Omi.h(
-	            'div',
+	            'h3',
 	            null,
 	            ' ',
 	            this.props.name
@@ -1504,11 +1510,11 @@
 	    };
 
 	    App.prototype.style = function style() {
-	        return 'h3{\n\t\t\t\t      cursor:pointer;\n\t            color: ' + (Math.random() > 0.5 ? 'red' : 'green') + ';\n\t        }';
+	        return 'h3{\n                    cursor:pointer;\n                    color: ' + (Math.random() > 0.5 ? 'red' : 'green') + ';\n                }';
 	    };
 
 	    App.prototype.staticStyle = function staticStyle() {
-	        return 'div{\n\t            font-size:20px;\n\t        }';
+	        return 'div{\n                    font-size:20px;\n                }';
 	    };
 
 	    App.prototype.render = function render$$1() {

@@ -257,8 +257,8 @@ npm i omi
 
 或从 CDN 获取:
 
-* [https://unpkg.com/omi@3.0.0/dist/omi.min.js](https://unpkg.com/omi@3.0.0/dist/omi.min.js)
-* [https://unpkg.com/omi@3.0.0/dist/omi.js](https://unpkg.com/omi@3.0.0/dist/omi.js)
+* [https://unpkg.com/omi@3.0.1/dist/omi.min.js](https://unpkg.com/omi@3.0.1/dist/omi.min.js)
+* [https://unpkg.com/omi@3.0.1/dist/omi.js](https://unpkg.com/omi@3.0.1/dist/omi.js)
 
 ## Official Plugins
 

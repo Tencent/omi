@@ -27,8 +27,10 @@ export function scoper(css, prefix) {
 		}
 
 		let appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-		let prependClass = prefix + ' ' + g1.trim() + g2;
-		return appendClass + ',' + prependClass + g3;
+		//let prependClass = prefix + ' ' + g1.trim() + g2;
+
+		return appendClass + g3;
+		//return appendClass + ',' + prependClass + g3;
 	});
 
 	return css;

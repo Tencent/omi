@@ -1,8 +1,8 @@
-import { render, Component } from '../../dist/omi.esm';
+import { render, Component } from '../../src/omi';
 
 class Hello extends Component {
     render() {
-        return <div> {this.props.name}</div>
+        return <h3> {this.props.name}</h3>
     }
 }
 
@@ -19,15 +19,15 @@ class App extends Component {
 
     style() {
         return `h3{
-				      cursor:pointer;
-	            color: ${Math.random() > 0.5 ? 'red' :'green'};
-	        }`
+                    cursor:pointer;
+                    color: ${Math.random() > 0.5 ? 'red' :'green'};
+                }`
     }
 
 	staticStyle() {
         return `div{
-	            font-size:20px;
-	        }`
+                    font-size:20px;
+                }`
 	}
 	
     render() {

@@ -1,5 +1,5 @@
 /**
- * omi v3.0.0  http://omijs.org
+ * omi v3.0.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/AlloyTeam/omi
@@ -49,8 +49,6 @@
     var stack = [];
 
     var EMPTY_CHILDREN = [];
-
-    var isH5 = options.isWeb;
 
     var map = {
 		'br': 'view',
@@ -255,9 +253,9 @@
 		}
 
 		var p = new VNode();
-		p.nodeName = isH5 ? nodeName : map[nodeName];
+		p.nodeName = options.isWeb ? nodeName : map[nodeName];
 		p.attributes = attributes == null ? undefined : attributes;
-		if (children && typeof children[0] === 'string' && !isH5) {
+		if (children && typeof children[0] === 'string' && !options.isWeb) {
 			if (p.attributes) {
 				p.attributes.value = children[0];
 			} else {
@@ -447,8 +445,6 @@
 		}return style;
 	}
 
-    var isH5$1 = options.isWeb;
-
     /** Remove a child node from its parent if attached.
 	 *	@param {Element} node		The node to remove
 	 */
@@ -477,7 +473,7 @@
 		} else if (name === 'class' && !isSvg) {
 			node.className = value || '';
 		} else if (name === 'style') {
-			if (isH5$1) {
+			if (options.isWeb) {
 				if (!value || typeof value === 'string' || typeof old === 'string') {
 					node.style.cssText = value || '';
 				}
@@ -932,8 +928,10 @@
 			}
 
 			var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-			var prependClass = prefix + ' ' + g1.trim() + g2;
-			return appendClass + ',' + prependClass + g3;
+			//let prependClass = prefix + ' ' + g1.trim() + g2;
+
+			return appendClass + g3;
+			//return appendClass + ',' + prependClass + g3;
 		});
 
 		return css;

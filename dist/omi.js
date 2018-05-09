@@ -15,9 +15,9 @@
             lastSimple = simple;
         }
         var p = new VNode();
-        p.nodeName = isH5 ? nodeName : map[nodeName];
+        p.nodeName = options.isWeb ? nodeName : map[nodeName];
         p.attributes = null == attributes ? void 0 : attributes;
-        if (children && 'string' == typeof children[0] && !isH5) if (p.attributes) p.attributes.value = children[0]; else p.attributes = {
+        if (children && 'string' == typeof children[0] && !options.isWeb) if (p.attributes) p.attributes.value = children[0]; else p.attributes = {
             value: children[0]
         }; else p.children = children;
         p.key = null == attributes ? void 0 : attributes.key;
@@ -101,7 +101,7 @@
         if ('key' === name) ; else if ('ref' === name) {
             if (old) old(null);
             if (value) value(node);
-        } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) if (isH5$1) {
+        } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) if (options.isWeb) {
             if (!value || 'string' == typeof value || 'string' == typeof old) node.style.cssText = value || '';
             if (value && 'object' == typeof value) {
                 if ('string' != typeof old) for (var i in old) if (!(i in value)) node.style[i] = '';
@@ -297,8 +297,7 @@
             if (void 0 === g2) g2 = '';
             if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) return g1 + g2 + g3;
             var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-            var prependClass = prefix + ' ' + g1.trim() + g2;
-            return appendClass + ',' + prependClass + g3;
+            return appendClass + g3;
         });
         return css;
     }
@@ -525,7 +524,6 @@
     };
     var stack = [];
     var EMPTY_CHILDREN = [];
-    var isH5 = options.isWeb;
     var map = {
         br: 'view',
         hr: 'view',
@@ -655,7 +653,6 @@
     var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
     var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
     var items = [];
-    var isH5$1 = options.isWeb;
     var mounts = [];
     var diffLevel = 0;
     var isSvgMode = !1;
