@@ -32,7 +32,7 @@
         return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
     }
     function enqueueRender(component) {
-        if (!component.__d && (component.__d = !0) && 1 == items.push(component)) (options.debounceRendering || defer)(rerender);
+        if (1 == items.push(component)) (options.debounceRendering || defer)(rerender);
     }
     function rerender() {
         var p, list = items;
@@ -40,7 +40,7 @@
         var element;
         while (p = list.pop()) {
             element = p.base;
-            if (p.__d) renderComponent(p);
+            renderComponent(p);
         }
         if (!list.length) if (options.componentChange) options.componentChange(p, element);
     }
@@ -375,7 +375,6 @@
                 component.context = context;
             }
             component.__p = component.__s = component.__c = component.__b = null;
-            component.__d = !1;
             if (!skip) {
                 rendered = component.render(props, state, context);
                 if (component.style) addScopedAttr(rendered, component.style(), '_style_' + component.s, component);
@@ -477,7 +476,6 @@
         return id++;
     }
     function Component(props, context) {
-        this.__d = !0;
         this.context = context;
         this.props = props;
         this.state = this.state || {};
@@ -697,7 +695,7 @@
         options: options,
         instances: instances
     };
-    root.Omi.version = '3.0.0';
+    root.Omi.version = '3.0.2';
     var Omi = {
         h: h,
         createElement: h,

@@ -1,5 +1,5 @@
 /**
- * omi v3.0.1  http://omijs.org
+ * omi v3.0.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/AlloyTeam/omi
@@ -327,7 +327,7 @@
     var items = [];
 
     function enqueueRender(component) {
-		if (!component._dirty && (component._dirty = true) && items.push(component) == 1) {
+		if (items.push(component) == 1) {
 			(options.debounceRendering || defer)(rerender);
 		}
 	}
@@ -339,7 +339,7 @@
 		var element;
 		while (p = list.pop()) {
 			element = p.base;
-			if (p._dirty) renderComponent(p);
+			renderComponent(p);
 		}
 		if (!list.length) {
 			if (options.componentChange) options.componentChange(p, element);
@@ -1086,7 +1086,6 @@
 		}
 
 		component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
-		component._dirty = false;
 
 		if (!skip) {
 			rendered = component.render(props, state, context);
@@ -1291,7 +1290,6 @@
 	 *	}
 	 */
     function Component(props, context) {
-		this._dirty = true;
 
 		/** @public
 	  *	@type {object}
@@ -1460,7 +1458,7 @@
 		instances: instances
 	};
 
-    root.Omi.version = '3.0.0';
+    root.Omi.version = '3.0.2';
 
     var Omi = {
 		h: h,

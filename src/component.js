@@ -20,7 +20,6 @@ function getId(){
  *	}
  */
 export function Component(props, context) {
-	this._dirty = true;
 
 	/** @public
 	 *	@type {object}

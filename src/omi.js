@@ -35,7 +35,7 @@ root.Omi = {
 	instances
 };
 
-root.Omi.version = '3.0.0';
+root.Omi.version = '3.0.2';
 
 export default {
 	h,

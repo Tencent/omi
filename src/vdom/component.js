@@ -95,7 +95,6 @@ export function renderComponent(component, opts, mountAll, isChild) {
 	}
 
 	component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
-	component._dirty = false;
 
 	if (!skip) {
 		rendered = component.render(props, state, context);
