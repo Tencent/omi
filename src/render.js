@@ -51,7 +51,7 @@ export function render(vnode, parent, merge) {
 		}
 		if (vnode.componentWillMount) vnode.componentWillMount();
 		if (vnode.install) vnode.install();
-		const rendered =  vnode.render();
+		const rendered =  vnode.render(vnode.props, vnode.state, vnode.context);
 		if (vnode.style){
 			addScopedAttr(rendered,vnode.style(),'_style_'+vnode._id,vnode);
 		}

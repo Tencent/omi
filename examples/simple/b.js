@@ -328,7 +328,7 @@
 	var items = [];
 
 	function enqueueRender(component) {
-		if (!component._dirty && (component._dirty = true) && items.push(component) == 1) {
+		if (items.push(component) == 1) {
 			(options.debounceRendering || defer)(rerender);
 		}
 	}
@@ -340,7 +340,7 @@
 		var element = void 0;
 		while (p = list.pop()) {
 			element = p.base;
-			if (p._dirty) renderComponent(p);
+			renderComponent(p);
 		}
 		if (!list.length) {
 			if (options.componentChange) options.componentChange(p, element);
@@ -929,7 +929,7 @@
 			}
 
 			var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-			var prependClass = prefix + ' ' + g1.trim() + g2;
+			//let prependClass = prefix + ' ' + g1.trim() + g2;
 
 			return appendClass + g3;
 			//return appendClass + ',' + prependClass + g3;
@@ -1087,7 +1087,6 @@
 		}
 
 		component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
-		component._dirty = false;
 
 		if (!skip) {
 			rendered = component.render(props, state, context);
@@ -1292,7 +1291,6 @@
 	 *	}
 	 */
 	function Component(props, context) {
-		this._dirty = true;
 
 		/** @public
 	  *	@type {object}
@@ -1409,7 +1407,7 @@
 			}
 			if (vnode.componentWillMount) vnode.componentWillMount();
 			if (vnode.install) vnode.install();
-			var rendered = vnode.render();
+			var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
 			if (vnode.style) {
 				addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode);
 			}
@@ -1461,7 +1459,7 @@
 		instances: instances
 	};
 
-	root.Omi.version = '3.0.0';
+	root.Omi.version = '3.0.2';
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1494,19 +1492,22 @@
 	    _inherits(App, _Component2);
 
 	    function App() {
+	        var _temp, _this2, _ret;
+
 	        _classCallCheck(this, App);
 
-	        return _possibleConstructorReturn(this, _Component2.apply(this, arguments));
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+
+	        return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.handleClick = function (e) {
+	            _this2.name = 'Hello Omi !';
+	            _this2.update();
+	        }, _temp), _possibleConstructorReturn(_this2, _ret);
 	    }
 
 	    App.prototype.install = function install() {
 	        this.name = 'Omi';
-	        this.handleClick = this.handleClick.bind(this);
-	    };
-
-	    App.prototype.handleClick = function handleClick(e) {
-	        this.name = 'Hello Omi !';
-	        this.update();
 	    };
 
 	    App.prototype.style = function style() {

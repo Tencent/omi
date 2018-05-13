@@ -41,6 +41,7 @@ export default {
 				}]
 			],
 			plugins : [ 
+				'transform-class-properties',
 				["transform-react-jsx", { "pragma":"Omi.h" }] 
 			] 
 		})
