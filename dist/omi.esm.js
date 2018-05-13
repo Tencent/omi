@@ -1,5 +1,5 @@
 /**
- * omi v3.0.2  http://omijs.org
+ * omi v3.0.3  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/AlloyTeam/omi
@@ -1385,15 +1385,25 @@ function isElement(obj) {
  *	const Thing = ({ name }) => <span>{ name }</span>;
  *	render(<Thing name="one" />, document.querySelector('#foo'));
  */
-function render(vnode, parent, merge) {
+function render(vnode, parent, merge, ssrRoot) {
+	var m = isElement(merge) || merge === undefined;
+	if (typeof window === 'undefined') {
+		if (vnode instanceof Component && !m) {
+			vnode.$store = merge;
+		}
+		return;
+	}
 	options.staticStyleRendered = false;
 	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+	if (ssrRoot) {
+		ssrRoot = document.querySelector(ssrRoot);
+	}
 	if (merge === true) {
 		while (parent.firstChild) {
 			parent.removeChild(parent.firstChild);
 		}
 	}
-	var m = isElement(merge) || merge === undefined;
+
 	if (vnode instanceof Component) {
 		if (window && window.Omi) {
 			window.Omi.instances.push(vnode);
@@ -1403,7 +1413,7 @@ function render(vnode, parent, merge) {
 		}
 		if (vnode.componentWillMount) vnode.componentWillMount();
 		if (vnode.install) vnode.install();
-		var rendered = vnode.render();
+		var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
 		if (vnode.style) {
 			addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode);
 		}
@@ -1413,7 +1423,7 @@ function render(vnode, parent, merge) {
 			addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
 		}
 
-		vnode.base = diff(m ? merge : undefined, rendered, {}, false, parent, false);
+		vnode.base = diff(m ? merge : ssrRoot, rendered, {}, false, parent, false);
 
 		if (vnode.componentDidMount) vnode.componentDidMount();
 		if (vnode.installed) vnode.installed();

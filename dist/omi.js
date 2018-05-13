@@ -490,28 +490,31 @@
             return "object" == typeof obj && 1 === obj.nodeType && "object" == typeof obj.style && "object" == typeof obj.ownerDocument;
         }
     }
-    function render(vnode, parent, merge) {
-        options.staticStyleRendered = !1;
-        parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
-        if (!0 === merge) while (parent.firstChild) parent.removeChild(parent.firstChild);
+    function render(vnode, parent, merge, ssrRoot) {
         var m = isElement(merge) || void 0 === merge;
-        if (vnode instanceof Component) {
-            if (window && window.Omi) window.Omi.instances.push(vnode);
-            if (!m) vnode.$store = options.$store = merge;
-            if (vnode.componentWillMount) vnode.componentWillMount();
-            if (vnode.install) vnode.install();
-            var rendered = vnode.render();
-            if (vnode.style) addScopedAttr(rendered, vnode.style(), '_style_' + vnode.s, vnode);
-            if (vnode.staticStyle) addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
-            vnode.base = diff(m ? merge : void 0, rendered, {}, !1, parent, !1);
-            if (vnode.componentDidMount) vnode.componentDidMount();
-            if (vnode.installed) vnode.installed();
+        if ('undefined' != typeof window) {
+            options.staticStyleRendered = !1;
+            parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
+            if (ssrRoot) ssrRoot = document.querySelector(ssrRoot);
+            if (!0 === merge) while (parent.firstChild) parent.removeChild(parent.firstChild);
+            if (vnode instanceof Component) {
+                if (window && window.Omi) window.Omi.instances.push(vnode);
+                if (!m) vnode.$store = options.$store = merge;
+                if (vnode.componentWillMount) vnode.componentWillMount();
+                if (vnode.install) vnode.install();
+                var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
+                if (vnode.style) addScopedAttr(rendered, vnode.style(), '_style_' + vnode.s, vnode);
+                if (vnode.staticStyle) addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
+                vnode.base = diff(m ? merge : ssrRoot, rendered, {}, !1, parent, !1);
+                if (vnode.componentDidMount) vnode.componentDidMount();
+                if (vnode.installed) vnode.installed();
+                options.staticStyleRendered = !0;
+                return vnode.base;
+            }
+            var result = diff(merge, vnode, {}, !1, parent, !1);
             options.staticStyleRendered = !0;
-            return vnode.base;
-        }
-        var result = diff(merge, vnode, {}, !1, parent, !1);
-        options.staticStyleRendered = !0;
-        return result;
+            return result;
+        } else if (vnode instanceof Component && !m) vnode.$store = merge;
     }
     var options = {
         scopedStyle: !0,

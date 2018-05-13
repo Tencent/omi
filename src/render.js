@@ -33,15 +33,25 @@ function isElement(obj) {
  *	const Thing = ({ name }) => <span>{ name }</span>;
  *	render(<Thing name="one" />, document.querySelector('#foo'));
  */
-export function render(vnode, parent, merge) {
+export function render(vnode, parent, merge, ssrRoot) {
+	const m = isElement(merge) || merge === undefined;
+	if (typeof window === 'undefined') {
+		if (vnode instanceof Component&&!m){
+			vnode.$store = merge;
+		}
+		return;
+	}
 	options.staticStyleRendered = false;
 	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+	if (ssrRoot){
+		ssrRoot = document.querySelector(ssrRoot);
+	}
 	if (merge === true){
 		while (parent.firstChild){
 			parent.removeChild(parent.firstChild);
 		}
 	}
-	const m = isElement(merge) || merge === undefined;
+	
 	if (vnode instanceof Component) {
 		if (window && window.Omi){
 			window.Omi.instances.push(vnode);
@@ -61,7 +71,7 @@ export function render(vnode, parent, merge) {
 			addScopedAttrStatic(rendered,vnode.staticStyle(),'_style_'+vnode.constructor.name, !vnode.base);
 		}
 
-		vnode.base = diff(m ? merge : undefined, rendered, {}, false, parent, false);
+		vnode.base = diff(m ? merge : ssrRoot, rendered, {}, false, parent, false);
 		
 		if (vnode.componentDidMount) vnode.componentDidMount();
 		if (vnode.installed) vnode.installed();
