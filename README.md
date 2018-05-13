@@ -49,10 +49,9 @@ class Hello extends Component {
 class App extends Component {
     install() {
         this.name = 'Omi'
-        this.handleClick = this.handleClick.bind(this)
     }
 
-    handleClick(e) {
+    handleClick = (e) => {
         this.name = 'Hello Omi !' 
         this.update()
     }
@@ -183,12 +182,8 @@ class Hello extends Component {
 }
 
 class App extends Component {
-  constructor() {
-    super()
-    this.handleClick = this.handleClick.bind(this)
-  }
 
-  handleClick() {
+  handleClick = () => {
     this.$store.rename('Hello Omi !')
   }
 

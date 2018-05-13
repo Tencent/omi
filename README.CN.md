@@ -50,10 +50,9 @@ class Hello extends Component {
 class App extends Component {
     install() {
         this.name = 'Omi'
-        this.handleClick = this.handleClick.bind(this)
     }
 
-    handleClick(e) {
+    handleClick (e) => {
         this.name = 'Hello Omi !' 
         this.update()
     }
@@ -100,6 +99,8 @@ render(<App />, 'body')
 "babel-preset-env": "^1.6.0",
 "babel-preset-omi": "^0.1.1",
 ```
+
+还有一点需要提醒一下，上面绑定的事件不需要在构造函数里进行 bind this 操作，因为依靠 `babel-plugin-transform-class-properties` 可以自动绑定。
 
 ### Scoped CSS
 
@@ -184,12 +185,8 @@ class Hello extends Component {
 }
 
 class App extends Component {
-  constructor() {
-    super()
-    this.handleClick = this.handleClick.bind(this)
-  }
 
-  handleClick() {
+  handleClick = () => {
     this.$store.rename('Hello Omi !')
   }
 
