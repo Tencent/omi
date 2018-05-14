@@ -243,6 +243,15 @@ $ npm start                      # develop
 $ npm run build                  # release
 ```
 
+Server Side Render:
+
+```bash
+$ omi init-ssr your_project_name     # init ssr project, you can also exec 'omi init-ssr' in an empty folder
+$ cd your_project_name               # please ignore this command if you executed 'omi init' in an empty folder
+$ npm run dev                        # develop
+$ npm run build                      # release
+$ npm start                          # release 
+```
 
 ## Install
 
