@@ -104,7 +104,7 @@ describe('performance', function() {
 
 		let root;
 		benchmark( () => {
-			root = render(jsx, scratch, root);
+			root = render(jsx, scratch, {merge:root});
 		}, ({ ticks, message }) => {
 			console.log(`PERF: empty diff: ${message}`);
 			expect(ticks).to.be.below(150 * MULTIPLIER);
@@ -186,8 +186,8 @@ describe('performance', function() {
 
 		let root;
 		benchmark( () => {
-			root = render(<Parent child={Root} />, scratch, root);
-			root = render(<Parent child={Empty} />, scratch, root);
+			root = render(<Parent child={Root} />, scratch, {merge:root});
+			root = render(<Parent child={Empty} />, scratch, {merge:root});
 		}, ({ ticks, message }) => {
 			console.log(`PERF: repeat diff: ${message}`);
 			expect(ticks).to.be.below(2000 * MULTIPLIER);
@@ -285,7 +285,7 @@ describe('performance', function() {
 
 		let root, count=0;
 		benchmark( () => {
-			root = render(app(++count), scratch, root);
+			root = render(app(++count), scratch, {merge:root});
 		}, ({ ticks, message }) => {
 			console.log(`PERF: style/prop mutation: ${message}`);
 			expect(ticks).to.be.below(350 * MULTIPLIER);
@@ -348,12 +348,12 @@ describe('performance', function() {
 			}
 		}
 
-		render(<App />, scratch, scratch.firstChild);
+		render(<App />, scratch, {merge:scratch.firstChild});
 		let html = scratch.innerHTML;
 
 		benchmark( () => {
 			scratch.innerHTML = html;
-			render(<App />, scratch, scratch.firstChild);
+			render(<App />, scratch, {merge:scratch.firstChild});
 		}, ({ ticks, message }) => {
 			console.log(`PERF: SSR Hydrate: ${message}`);
 			expect(ticks).to.be.below(3000 * MULTIPLIER);

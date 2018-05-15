@@ -5,26 +5,9 @@ import { render } from './render';
 import { rerender } from './render-queue';
 import options from './options';
 
-function getGlobal() {
-	if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
-		if (typeof self !== 'undefined') {
-			return self;
-		} else if (typeof window !== 'undefined') {
-			return window;
-		} else if (typeof global !== 'undefined') {
-			return global;
-		}
-		return (function(){
-			return this;
-		})();
-		
-	}
-	return global;
-}
-
 const instances = [];
-const root = getGlobal();
-root.Omi = {
+
+options.root.Omi = {
 	h,
 	createElement,
 	cloneElement,
@@ -35,7 +18,7 @@ root.Omi = {
 	instances
 };
 
-root.Omi.version = '3.0.2';
+options.root.Omi.version = '3.0.4';
 
 export default {
 	h,

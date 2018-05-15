@@ -75,11 +75,11 @@ describe('refs', () => {
 		expect(ref).to.have.been.calledOnce;
 
 		ref.resetHistory();
-		render(<Foo ref={ref} />, scratch, root);
+		render(<Foo ref={ref} />, scratch, {merge:root});
 		expect(ref).to.have.been.calledOnce;
 
 		ref.resetHistory();
-		render(<span />, scratch, root);
+		render(<span />, scratch, {merge:root});
 		expect(ref).to.have.been.calledOnce.and.calledWith(null);
 	});
 
@@ -135,7 +135,7 @@ describe('refs', () => {
 		outer.resetHistory();
 		inner.resetHistory();
 
-		render(<div />, scratch, root);
+		render(<div />, scratch, {merge:root});
 
 		expect(outer, 'unrender').to.have.been.calledOnce.and.calledWith(null);
 		expect(inner, 'unrender').to.have.been.calledOnce.and.calledWith(null);
@@ -176,7 +176,7 @@ describe('refs', () => {
 		outer.resetHistory();
 		inner.resetHistory();
 		innermost.resetHistory();
-		root = render(<Outer ref={outer} />, scratch, root);
+		root = render(<Outer ref={outer} />, scratch, {merge:root});
 
 		expect(outer, 'outer update').to.have.been.calledOnce.and.calledWith(outerInst);
 		expect(inner, 'inner update').to.have.been.calledOnce.and.calledWith(innerInst);
@@ -184,7 +184,7 @@ describe('refs', () => {
 
 		innermost.resetHistory();
 		InnermostComponent = 'x-span';
-		root = render(<Outer ref={outer} />, scratch, root);
+		root = render(<Outer ref={outer} />, scratch, {merge:root});
 		expect(innermost, 'innerMost swap');
 		expect(innermost.firstCall, 'innerMost swap').to.have.been.calledWith(null);
 		expect(innermost.secondCall, 'innerMost swap').to.have.been.calledWith(innerInst.base);
@@ -193,7 +193,7 @@ describe('refs', () => {
 		outer.resetHistory();
 		inner.resetHistory();
 		innermost.resetHistory();
-		render(<div />, scratch, root);
+		render(<div />, scratch, {merge:root});
 
 		expect(outer, 'outer unmount').to.have.been.calledOnce.and.calledWith(null);
 		expect(inner, 'inner unmount').to.have.been.calledOnce.and.calledWith(null);
@@ -248,13 +248,13 @@ describe('refs', () => {
 
 		sinon.spy(TestUnmount.prototype, 'componentWillUnmount');
 
-		root = render(<div><TestUnmount /></div>, scratch, root);
+		root = render(<div><TestUnmount /></div>, scratch, {merge:root});
 		outer = scratch.querySelector('#outer');
 		inner = scratch.querySelector('#inner');
 
 		expect(TestUnmount.prototype.componentWillUnmount).not.to.have.been.called;
 
-		render(<div />, scratch, root);
+		render(<div />, scratch, {merge:root});
 
 		expect(TestUnmount.prototype.componentWillUnmount).to.have.been.calledOnce;
 	});
@@ -316,7 +316,7 @@ describe('refs', () => {
 			}
 		}
 
-		render(<div><Wrapper ref={ c => ref(c.base) } /></div>, scratch, scratch.firstChild);
+		render(<div><Wrapper ref={ c => ref(c.base) } /></div>, scratch, {merge:scratch.firstChild});
 		expect(ref).to.have.been.calledOnce.and.calledWith(scratch.firstChild.firstChild);
 	});
 });

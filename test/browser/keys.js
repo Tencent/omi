@@ -34,7 +34,7 @@ describe('keys', () => {
 				<li key="b">b</li>
 				<li key="c">c</li>
 			</div>
-		), scratch, root);
+		), scratch, {merge:root});
 
 		expect(scratch.innerHTML).to.equal('<div><div>2</div><li>b</li><li>c</li></div>');
 	});
@@ -77,9 +77,9 @@ describe('keys', () => {
 
 		let root;
 
-		root = render(<App />, scratch, root);
-		root = render(<App opened loading />, scratch, root);
-		root = render(<App opened />, scratch, root);
+		root = render(<App />, scratch, {merge:root});
+		root = render(<App opened loading />, scratch, {merge:root});
+		root = render(<App opened />, scratch, {merge:root});
 
 		let html = String(root.innerHTML).replace(/ class=""/g, '');
 		expect(html).to.equal('<div>This div needs to be here for this to break</div><div></div><div class="indicator"><div>indicator</div><div>indicator</div><div>indicator</div></div>');

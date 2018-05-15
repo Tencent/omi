@@ -52,7 +52,7 @@ class App extends Component {
         this.name = 'Omi'
     }
 
-    handleClick (e) => {
+    handleClick = (e) => {
         this.name = 'Hello Omi !' 
         this.update()
     }
@@ -213,13 +213,13 @@ class AppStore {
 }
 
 const app = new App()
-const appStore = new AppStore({ name: 'Omi' }, {
+const store = new AppStore({ name: 'Omi' }, {
   onRename: () => {
     app.update()
   }
 })
 
-render(app, document.body, appStore)
+render(app, document.body, { store })
 ```
 
 通过根节点注入后，你可以在所有组件中使用 `this.$store` 来获取 store 的数据或者调用 store 的方法。
@@ -264,8 +264,8 @@ npm i omi
 
 或从 CDN 获取:
 
-* [https://unpkg.com/omi@3.0.3/dist/omi.min.js](https://unpkg.com/omi@3.0.3/dist/omi.min.js)
-* [https://unpkg.com/omi@3.0.3/dist/omi.js](https://unpkg.com/omi@3.0.3/dist/omi.js)
+* [https://unpkg.com/omi@3.0.4/dist/omi.min.js](https://unpkg.com/omi@3.0.4/dist/omi.min.js)
+* [https://unpkg.com/omi@3.0.4/dist/omi.js](https://unpkg.com/omi@3.0.4/dist/omi.js)
 
 ## Official Plugins
 

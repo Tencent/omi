@@ -1,3 +1,20 @@
+# omi 3.0.4
+
+* modify the render method args:
+
+now:
+
+``` js
+import { render } from 'omi'
+
+render(<App>, document.body, {
+    store: store,
+    merge: merge,
+    empty: empty
+})
+
+```
+
 # omi 3.0.3
 
 * SSR

@@ -1,6 +1,6 @@
 {
   "props": {
-    "cname": 22,
+    "cname": 23,
     "props": {
       "$_dirty": "__d",
       "$_disable": "__x",
@@ -22,7 +22,8 @@
       "$_id": "s",
       "$__preactattr_": "t",
       "$__config__": "v",
-      "$_isMockDocument": "w"
+      "$_isMockDocument": "w",
+      "$__omiSsrData": "x"
     }
   },
   "vars": {

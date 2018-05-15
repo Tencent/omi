@@ -210,13 +210,13 @@ class AppStore {
 }
 
 const app = new App()
-const appStore = new AppStore({ name: 'Omi' }, {
+const store = new AppStore({ name: 'Omi' }, {
   onRename: () => {
     app.update()
   }
 })
 
-render(app, document.body, appStore)
+render(app, document.body, { store })
 ```
 
 You can use `this.$store` in all components to access the data or data logic.
@@ -261,8 +261,8 @@ npm i omi
 
 or get it from CDN:
 
-* [https://unpkg.com/omi@3.0.3/dist/omi.min.js](https://unpkg.com/omi@3.0.3/dist/omi.min.js)
-* [https://unpkg.com/omi@3.0.3/dist/omi.js](https://unpkg.com/omi@3.0.3/dist/omi.js)
+* [https://unpkg.com/omi@3.0.4/dist/omi.min.js](https://unpkg.com/omi@3.0.4/dist/omi.min.js)
+* [https://unpkg.com/omi@3.0.4/dist/omi.js](https://unpkg.com/omi@3.0.4/dist/omi.js)
 
 ## Official Plugins
 

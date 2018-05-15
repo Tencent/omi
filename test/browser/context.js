@@ -54,7 +54,7 @@ describe('context', () => {
 		sinon.spy(Inner.prototype, 'componentDidUpdate');
 		sinon.spy(Inner.prototype, 'render');
 
-		render(<Outer />, scratch, scratch.lastChild);
+		render(<Outer />, scratch, {merge:scratch.lastChild});
 
 		expect(Outer.prototype.getChildContext).to.have.been.calledOnce;
 
@@ -62,7 +62,7 @@ describe('context', () => {
 		expect(Inner.prototype.render).to.have.been.calledWith({ children:CHILDREN_MATCHER }, {}, CONTEXT);
 
 		CONTEXT.foo = 'bar';
-		render(<Outer {...PROPS} />, scratch, scratch.lastChild);
+		render(<Outer {...PROPS} />, scratch,  {merge:scratch.lastChild});
 
 		expect(Outer.prototype.getChildContext).to.have.been.calledTwice;
 
@@ -113,7 +113,7 @@ describe('context', () => {
 		sinon.spy(Inner.prototype, 'componentDidUpdate');
 		sinon.spy(Inner.prototype, 'render');
 
-		render(<Outer />, scratch, scratch.lastChild);
+		render(<Outer />, scratch,  {merge:scratch.lastChild});
 
 		expect(Outer.prototype.getChildContext).to.have.been.calledOnce;
 
@@ -121,7 +121,7 @@ describe('context', () => {
 		expect(Inner.prototype.render).to.have.been.calledWith({ children: CHILDREN_MATCHER }, {}, CONTEXT);
 
 		CONTEXT.foo = 'bar';
-		render(<Outer {...PROPS} />, scratch, scratch.lastChild);
+		render(<Outer {...PROPS} />, scratch, {merge:scratch.lastChild});
 
 		expect(Outer.prototype.getChildContext).to.have.been.calledTwice;
 

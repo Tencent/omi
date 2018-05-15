@@ -120,7 +120,7 @@ describe('Lifecycle methods', () => {
 			}
 
 			const elem = render(<Outer renderInner={false} />, scratch);
-			render(<Outer renderInner={true} />, scratch, elem);
+			render(<Outer renderInner={true} />, scratch, {merge:elem});
 
 			// expect(log).to.deep.equal(['Inner mounted', 'Outer updated']);
 		});
@@ -236,14 +236,14 @@ describe('Lifecycle methods', () => {
 			spyAll(Foo.prototype);
 			spyAll(Bar.prototype);
 
-			render(<Foo />, scratch, scratch.lastChild);
+			render(<Foo />, scratch,{merge:scratch.lastChild} );
 			expect(Foo.prototype.componentDidMount, 'initial render').to.have.been.calledOnce;
 
-			render(<Bar />, scratch, scratch.lastChild);
+			render(<Bar />, scratch, {merge:scratch.lastChild});
 			expect(Foo.prototype.componentWillUnmount, 'when replaced').to.have.been.calledOnce;
 			expect(Bar.prototype.componentDidMount, 'when replaced').to.have.been.calledOnce;
 
-			render(<div />, scratch, scratch.lastChild);
+			render(<div />, scratch, {merge:scratch.lastChild});
 			expect(Bar.prototype.componentWillUnmount, 'when removed').to.have.been.calledOnce;
 		});
 	});

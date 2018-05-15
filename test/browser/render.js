@@ -141,7 +141,7 @@ describe('render()', () => {
 
 		render((
 			<div anull={null} aundefined={undefined} afalse={false} anan={NaN} a0={0} />
-		), scratch, root);
+		), scratch, {merge:root});
 
 		expect(getAttributes(scratch.firstChild), 'from previous truthy values').to.eql({
 			a0: '0',
@@ -184,7 +184,7 @@ describe('render()', () => {
 					<input value={val} />
 					<table border={val} />
 				</div>
-			), scratch, root);
+			), scratch, {merge:root});
 		}
 
 		test('2');
@@ -295,7 +295,7 @@ describe('render()', () => {
 		proto.addEventListener.resetHistory();
 		click.resetHistory();
 
-		render(<div onClick={ () => click(2) } />, scratch, scratch.firstChild);
+		render(<div onClick={ () => click(2) } />, scratch, {merge:scratch.firstChild});
 
 		expect(proto.addEventListener).not.to.have.been.called;
 
@@ -314,7 +314,7 @@ describe('render()', () => {
 		click.resetHistory();
 		mousedown.resetHistory();
 
-		render(<div />, scratch, scratch.firstChild);
+		render(<div />, scratch, {merge:scratch.firstChild});
 
 		expect(proto.removeEventListener)
 			.to.have.been.calledOnce
@@ -378,19 +378,19 @@ describe('render()', () => {
 
 		root = render((
 			<div style={{ color: 'rgb(0, 255, 255)' }}>test</div>
-		), scratch, root);
+		), scratch, {merge:root});
 
 		expect(root.style.cssText).to.equal('color: rgb(0, 255, 255);');
 
 		root = render((
 			<div style="display: inline;">test</div>
-		), scratch, root);
+		), scratch, {merge:root});
 
 		expect(root.style.cssText).to.equal('display: inline;');
 
 		root = render((
 			<div style={{ backgroundColor: 'rgb(0, 255, 255)' }}>test</div>
-		), scratch, root);
+		), scratch, {merge:root});
 
 		expect(root.style.cssText).to.equal('background-color: rgb(0, 255, 255);');
 	});
@@ -402,11 +402,11 @@ describe('render()', () => {
 		expect(scratch.firstChild, 'set').to.have.property('innerHTML', html);
 		expect(scratch.innerHTML).to.equal('<div>'+html+'</div>');
 
-		root = render(<div>a<strong>b</strong></div>, scratch, root);
+		root = render(<div>a<strong>b</strong></div>, scratch, {merge:root});
 
 		expect(scratch, 'unset').to.have.property('innerHTML', `<div>a<strong>b</strong></div>`);
 
-		render(<div dangerouslySetInnerHTML={{ __html: html }} />, scratch, root);
+		render(<div dangerouslySetInnerHTML={{ __html: html }} />, scratch, {merge:root});
 
 		expect(scratch.innerHTML, 're-set').to.equal('<div>'+html+'</div>');
 	});
@@ -442,14 +442,14 @@ describe('render()', () => {
 	it('should hydrate with dangerouslySetInnerHTML', () => {
 		let html = '<b>foo &amp; bar</b>';
 		scratch.innerHTML = `<div>${html}</div>`;
-		render(<div dangerouslySetInnerHTML={{ __html: html }} />, scratch, scratch.lastChild);
+		render(<div dangerouslySetInnerHTML={{ __html: html }} />, scratch, {merge:scratch.lastChild});
 
 		expect(scratch.firstChild).to.have.property('innerHTML', html);
 		expect(scratch.innerHTML).to.equal(`<div>${html}</div>`);
 	});
 
 	it('should reconcile mutated DOM attributes', () => {
-		let check = p => render(<input type="checkbox" checked={p} />, scratch, scratch.lastChild),
+		let check = p => render(<input type="checkbox" checked={p} />, scratch,{merge:scratch.lastChild}),
 			value = () => scratch.lastChild.checked,
 			setValue = p => scratch.lastChild.checked = p;
 		check(true);
@@ -480,7 +480,7 @@ describe('render()', () => {
 				<a>a</a>
 				<b>b</b>
 			</div>
-		), scratch, root);
+		), scratch, {merge:root});
 
 		let a = scratch.firstChild.firstChild;
 		let b = scratch.firstChild.lastChild;
@@ -493,7 +493,7 @@ describe('render()', () => {
 				<b>b</b>
 				<a>a</a>
 			</div>
-		), scratch, root);
+		), scratch, {merge:root});
 
 		expect(scratch.firstChild.firstChild).to.have.property('nodeName', 'B');
 		expect(scratch.firstChild.lastChild).to.have.property('nodeName', 'A');
@@ -511,7 +511,7 @@ describe('render()', () => {
 		const DOMElement = html`<div><a foo="bar"></a></div>`;
 		const preactElement = <div><a></a></div>;
 
-		render(preactElement, scratch, DOMElement);
+		render(preactElement, scratch, {merge:DOMElement} );
 		expect(scratch).to.have.property('innerHTML', '<div><a></a></div>');
 	});
 
@@ -529,7 +529,7 @@ describe('render()', () => {
 		}
 
 		let comp;
-		let root = render(<Foo ref={ c => comp = c } />, scratch, root);
+		let root = render(<Foo ref={ c => comp = c } />, scratch,  {merge:root} );
 
 		let c = document.createElement('c');
 		c.textContent = 'baz';
@@ -554,18 +554,18 @@ describe('render()', () => {
 
 		// Re-rendering from the root is non-destructive if the root was a previous render:
 		comp.alt = false;
-		root = render(<Foo ref={ c => comp = c } />, scratch, root);
+		root = render(<Foo ref={ c => comp = c } />, scratch,  {merge:root});
 
 		expect(scratch.firstChild.children, 'root re-render').to.have.length(4);
 		expect(scratch.innerHTML, 'root re-render').to.equal(`<div><a>foo</a><b>bar</b><c>baz</c><b>bat</b></div>`);
 
 		comp.alt = true;
-		root = render(<Foo ref={ c => comp = c } />, scratch, root);
+		root = render(<Foo ref={ c => comp = c } />, scratch,  {merge:root});
 
 		expect(scratch.firstChild.children, 'root re-render 2').to.have.length(4);
 		expect(scratch.innerHTML, 'root re-render 2').to.equal(`<div><b>alt</b><a>foo</a><c>baz</c><b>bat</b></div>`);
 
-		root = render(<div><Foo ref={ c => comp = c } /></div>, scratch, root);
+		root = render(<div><Foo ref={ c => comp = c } /></div>, scratch,  {merge:root});
 
 		expect(scratch.firstChild.children, 'root re-render changed').to.have.length(3);
 		expect(scratch.innerHTML, 'root re-render changed').to.equal(`<div><div><a>foo</a><b>bar</b></div><c>baz</c><b>bat</b></div>`);

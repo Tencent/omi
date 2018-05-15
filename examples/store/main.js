@@ -42,12 +42,12 @@ class AppStore {
 
 
 const app = new App()
-const appStore = new AppStore({ name: 'Omi' }, {
+const store = new AppStore({ name: 'Omi' }, {
   onRename: () => {
     app.update()
   }
 })
 
-render(app, document.body, appStore)
+render(app, document.body, {store})
 
 

@@ -483,45 +483,51 @@
         this.r = null;
         this.$store = null;
     }
-    function isElement(obj) {
-        try {
-            return obj instanceof HTMLElement;
-        } catch (e) {
-            return "object" == typeof obj && 1 === obj.nodeType && "object" == typeof obj.style && "object" == typeof obj.ownerDocument;
-        }
-    }
-    function render(vnode, parent, merge, ssrRoot) {
-        var m = isElement(merge) || void 0 === merge;
+    function render(vnode, parent, merge) {
+        merge = Object.assign({
+            store: {}
+        }, merge);
         if ('undefined' != typeof window) {
             options.staticStyleRendered = !1;
             parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
-            if (ssrRoot) ssrRoot = document.querySelector(ssrRoot);
-            if (!0 === merge) while (parent.firstChild) parent.removeChild(parent.firstChild);
+            if (merge.merge) merge.merge = 'string' == typeof merge.merge ? document.querySelector(merge.merge) : merge.merge;
+            if (merge.empty) while (parent.firstChild) parent.removeChild(parent.firstChild);
+            merge.store.ssrData = options.root.x;
+            options.$store = merge.store;
             if (vnode instanceof Component) {
                 if (window && window.Omi) window.Omi.instances.push(vnode);
-                if (!m) vnode.$store = options.$store = merge;
+                vnode.$store = merge.store;
                 if (vnode.componentWillMount) vnode.componentWillMount();
                 if (vnode.install) vnode.install();
                 var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
                 if (vnode.style) addScopedAttr(rendered, vnode.style(), '_style_' + vnode.s, vnode);
                 if (vnode.staticStyle) addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
-                vnode.base = diff(m ? merge : ssrRoot, rendered, {}, !1, parent, !1);
+                vnode.base = diff(merge.merge, rendered, {}, !1, parent, !1);
                 if (vnode.componentDidMount) vnode.componentDidMount();
                 if (vnode.installed) vnode.installed();
                 options.staticStyleRendered = !0;
                 return vnode.base;
             }
-            var result = diff(merge, vnode, {}, !1, parent, !1);
+            var result = diff(merge.merge, vnode, {}, !1, parent, !1);
             options.staticStyleRendered = !0;
             return result;
-        } else if (vnode instanceof Component && !m) vnode.$store = merge;
+        } else if (vnode instanceof Component && merge) vnode.$store = merge.store;
     }
     var options = {
         scopedStyle: !0,
         $store: null,
         isWeb: !0,
         staticStyleRendered: !1,
-        doc: 'object' == typeof document ? document : null
+        doc: 'object' == typeof document ? document : null,
+        root: function() {
+            if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) {
+                if ('undefined' != typeof self) return self; else if ('undefined' != typeof window) return window; else if ('undefined' != typeof global) return global;
+                return function() {
+                    return this;
+                }();
+            }
+            return global;
+        }()
     };
     var stack = [];
     var EMPTY_CHILDREN = [];
@@ -679,16 +685,7 @@
         render: function() {}
     });
     var instances = [];
-    var root = function() {
-        if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) {
-            if ('undefined' != typeof self) return self; else if ('undefined' != typeof window) return window; else if ('undefined' != typeof global) return global;
-            return function() {
-                return this;
-            }();
-        }
-        return global;
-    }();
-    root.Omi = {
+    options.root.Omi = {
         h: h,
         createElement: h,
         cloneElement: cloneElement,
@@ -698,7 +695,7 @@
         options: options,
         instances: instances
     };
-    root.Omi.version = '3.0.2';
+    options.root.Omi.version = '3.0.4';
     var Omi = {
         h: h,
         createElement: h,

@@ -1,3 +1,20 @@
+function getGlobal() {
+	if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
+		if (typeof self !== 'undefined') {
+			return self;
+		} else if (typeof window !== 'undefined') {
+			return window;
+		} else if (typeof global !== 'undefined') {
+			return global;
+		}
+		return (function(){
+			return this;
+		})();
+		
+	}
+	return global;
+}
+
 /** Global options
  *	@public
  *	@namespace options {Object}
@@ -8,7 +25,8 @@ export default {
 	$store: null,
 	isWeb: true,
 	staticStyleRendered: false,
-	doc: typeof document === 'object' ? document : null
+	doc: typeof document === 'object' ? document : null,
+	root: getGlobal()
 	//componentChange(component, element) { },
 	/** If `true`, `prop` changes trigger synchronous component updates.
 	 *	@name syncComponentUpdates

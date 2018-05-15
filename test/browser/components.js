@@ -34,7 +34,7 @@ describe('Components', () => {
 
 	beforeEach( () => {
 		let c = scratch.firstElementChild;
-		if (c) render(<Empty />, scratch, c);
+		if (c) render(<Empty />, scratch, {merge:c});
 		scratch.innerHTML = '';
 	});
 
@@ -178,7 +178,7 @@ describe('Components', () => {
 		}
 
 		let instance = new C4();
-		render(instance, scratch, {a:1});
+		render(instance, scratch, {store:{a:1}});
 
 		expect(instance.$store.a).to.equal(1);
 	});
@@ -201,7 +201,7 @@ describe('Components', () => {
 
 		let root;
 		function test(content) {
-			root = render(content, scratch, root);
+			root = render(content, scratch, {merge:root});
 		}
 
 		test(<Comp />);
@@ -307,7 +307,7 @@ describe('Components', () => {
 
 		sideEffect.resetHistory();
 		Comp.prototype.componentWillMount.resetHistory();
-		render(<BadContainer ref={c=>bad=c} />, scratch, root);
+		render(<BadContainer ref={c=>bad=c} />, scratch, {merge:root});
 		expect(scratch.textContent, 'new component without key').to.equal('DE');
 		expect(Comp.prototype.componentWillMount).to.have.been.calledTwice;
 		expect(sideEffect).to.have.been.calledTwice;
@@ -596,7 +596,7 @@ describe('Components', () => {
 			expect(Inner.prototype.componentDidMount).to.have.been.calledOnce;
 			expect(Inner.prototype.componentWillMount).to.have.been.calledBefore(Inner.prototype.componentDidMount);
 
-			render(<asdf />, scratch, root);
+			render(<asdf />, scratch, {merge:root});
 
 			expect(Inner.prototype.componentWillUnmount).to.have.been.calledOnce;
 		});
@@ -700,19 +700,19 @@ describe('Components', () => {
 				<div class="inner-func">bar</div>
 			);
 
-			let root = render(<Outer child={Inner} />, scratch, root);
+			let root = render(<Outer child={Inner} />, scratch, {merge:root});
 
 			expect(Inner.prototype.componentWillMount, 'initial mount').to.have.been.calledOnce;
 			expect(Inner.prototype.componentWillUnmount, 'initial mount').not.to.have.been.called;
 
 			Inner.prototype.componentWillMount.resetHistory();
-			root = render(<Outer child={InnerFunc} />, scratch, root);
+			root = render(<Outer child={InnerFunc} />, scratch,  {merge:root});
 
 			expect(Inner.prototype.componentWillMount, 'unmount').not.to.have.been.called;
 			expect(Inner.prototype.componentWillUnmount, 'unmount').to.have.been.calledOnce;
 
 			Inner.prototype.componentWillUnmount.resetHistory();
-			root = render(<Outer child={Inner} />, scratch, root);
+			root = render(<Outer child={Inner} />, scratch,  {merge:root});
 
 			expect(Inner.prototype.componentWillMount, 'remount').to.have.been.calledOnce;
 			expect(Inner.prototype.componentWillUnmount, 'remount').not.to.have.been.called;
@@ -738,7 +738,7 @@ describe('Components', () => {
 		let createFunction = () => sinon.spy( ({ children }) => children[0] );
 
 		let root;
-		let rndr = n => root = render(n, scratch, root);
+		let rndr = n => root = render(n, scratch,  {merge:root});
 
 		let F1 = createFunction();
 		let F2 = createFunction();
