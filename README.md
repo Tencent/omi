@@ -277,9 +277,6 @@ or get it from CDN:
 - [preact github](https://github.com/developit/preact)
 - [preactjs.com](https://preactjs.com/)
 - [omijs.org](http://omijs.org/)
-- server side render
-	- [preact-render-to-string](https://github.com/developit/preact-render-to-string)
-	- [ssr demo](https://github.com/lukeed/preact-cli-ssr)
 - [differences to react](https://preactjs.com/guide/differences-to-react)
 - [native support](https://github.com/AlloyTeam/omi/tree/master/src/native)
 
