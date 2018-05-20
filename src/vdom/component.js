@@ -6,28 +6,7 @@ import { getNodeProps } from './index';
 import { diff, mounts, diffLevel, flushMounts, recollectNodeTree, removeChildren } from './diff';
 import { createComponent, collectComponent } from './component-recycler';
 import { removeNode } from '../dom/index';
-import {addScopedAttr, addScopedAttrStatic} from '../style';
-
-let id = 0;
-
-function getCtorName(ctor) {
-
-	for (let i = 0, len = options.styleCache.length; i < len; i++) {
-		let item = options.styleCache[i];
-
-		if (item.ctor === ctor) {
-			return item.attrName;
-		}
-	}
-
-
-	let attrName = 'static_' + id;
-	options.styleCache.push({ ctor, attrName });
-	id++;
-
-
-	return attrName;
-}
+import {addScopedAttr, addScopedAttrStatic, getCtorName} from '../style';
 
 /** Set a component's `props` (generally derived from JSX attributes).
  *	@param {Object} props

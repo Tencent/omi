@@ -1,7 +1,7 @@
 import { diff } from './vdom/diff';
 import { Component } from './component';
 import options from './options';
-import {addScopedAttr, addScopedAttrStatic} from './style';
+import {addScopedAttr, addScopedAttrStatic, getCtorName} from './style';
 
 /** Render JSX into a `parent` Element.
  *	@param {VNode} vnode		A (JSX) VNode to render
@@ -53,13 +53,14 @@ export function render(vnode, parent, merge) {
 		if (vnode.componentWillMount) vnode.componentWillMount();
 		if (vnode.install) vnode.install();
 		const rendered =  vnode.render(vnode.props, vnode.state, vnode.context);
-		if (vnode.style){
-			addScopedAttr(rendered,vnode.style(),'_style_'+vnode._id,vnode);
-		}
 	
 		//don't rerender
 		if (vnode.staticStyle){
-			addScopedAttrStatic(rendered,vnode.staticStyle(),'_style_'+vnode.constructor.name, !vnode.base);
+			addScopedAttrStatic(rendered,vnode.staticStyle(),'_style_'+getCtorName(vnode.constructor));
+		}
+
+		if (vnode.style){
+			addScopedAttr(rendered,vnode.style(),'_style_'+vnode._id,vnode);
 		}
 
 		vnode.base = diff(merge.merge, rendered, {}, false, parent, false);

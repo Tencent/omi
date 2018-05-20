@@ -1,5 +1,24 @@
 import options from './options';
 
+let styleId = 0;
+
+export function getCtorName(ctor) {
+
+	for (let i = 0, len = options.styleCache.length; i < len; i++) {
+		let item = options.styleCache[i];
+
+		if (item.ctor === ctor) {
+			return item.attrName;
+		}
+	}
+
+	let attrName = 'static_' + styleId;
+	options.styleCache.push({ ctor, attrName });
+	styleId++;
+
+	return attrName;
+}
+
 // many thanks to https://github.com/thomaspark/scoper/
 export function scoper(css, prefix) {
 	prefix = '['+prefix.toLowerCase()+']';

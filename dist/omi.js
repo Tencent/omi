@@ -289,6 +289,19 @@
     function doRender(props, state, context) {
         return this.constructor(props, context);
     }
+    function getCtorName(ctor) {
+        for (var i = 0, len = options.styleCache.length; i < len; i++) {
+            var item = options.styleCache[i];
+            if (item.ctor === ctor) return item.attrName;
+        }
+        var attrName = 'static_' + styleId;
+        options.styleCache.push({
+            ctor: ctor,
+            attrName: attrName
+        });
+        styleId++;
+        return attrName;
+    }
     function scoper(css, prefix) {
         prefix = '[' + prefix.toLowerCase() + ']';
         css = css.replace(/\/\*[^*]*\*+([^\/][^*]*\*+)*\//g, '');
@@ -341,19 +354,6 @@
                 return scopeVdom(attr, child);
             });
         }
-    }
-    function getCtorName(ctor) {
-        for (var i = 0, len = options.styleCache.length; i < len; i++) {
-            var item = options.styleCache[i];
-            if (item.ctor === ctor) return item.attrName;
-        }
-        var attrName = 'static_' + id;
-        options.styleCache.push({
-            ctor: ctor,
-            attrName: attrName
-        });
-        id++;
-        return attrName;
     }
     function setComponentProps(component, props, opts, context, mountAll) {
         if (!component.__x) {
@@ -486,7 +486,7 @@
         if (component.__r) component.__r(null);
     }
     function getId() {
-        return id$1++;
+        return id++;
     }
     function Component(props, context) {
         this.context = context;
@@ -513,8 +513,8 @@
                 if (vnode.componentWillMount) vnode.componentWillMount();
                 if (vnode.install) vnode.install();
                 var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
+                if (vnode.staticStyle) addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + getCtorName(vnode.constructor));
                 if (vnode.style) addScopedAttr(rendered, vnode.style(), '_style_' + vnode.s, vnode);
-                if (vnode.staticStyle) addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
                 vnode.base = diff(merge.merge, rendered, {}, !1, parent, !1);
                 if (vnode.componentDidMount) vnode.componentDidMount();
                 if (vnode.installed) vnode.installed();
@@ -679,8 +679,8 @@
     var isSvgMode = !1;
     var hydrating = !1;
     var components = {};
+    var styleId = 0;
     var id = 0;
-    var id$1 = 0;
     extend(Component.prototype, {
         setState: function(state, callback) {
             var s = this.state;
@@ -710,7 +710,7 @@
         options: options,
         instances: instances
     };
-    options.root.Omi.version = '3.0.5';
+    options.root.Omi.version = '3.0.6';
     var Omi = {
         h: h,
         createElement: h,

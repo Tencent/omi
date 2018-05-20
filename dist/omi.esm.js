@@ -1,5 +1,5 @@
 /**
- * omi v3.0.5  http://omijs.org
+ * omi v3.0.6  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -917,6 +917,25 @@ function doRender(props, state, context) {
 	return this.constructor(props, context);
 }
 
+var styleId = 0;
+
+function getCtorName(ctor) {
+
+	for (var i = 0, len = options.styleCache.length; i < len; i++) {
+		var item = options.styleCache[i];
+
+		if (item.ctor === ctor) {
+			return item.attrName;
+		}
+	}
+
+	var attrName = 'static_' + styleId;
+	options.styleCache.push({ ctor: ctor, attrName: attrName });
+	styleId++;
+
+	return attrName;
+}
+
 // many thanks to https://github.com/thomaspark/scoper/
 function scoper(css, prefix) {
 	prefix = '[' + prefix.toLowerCase() + ']';
@@ -1017,25 +1036,6 @@ function scopeVdom(attr, vdom) {
 			return scopeVdom(attr, child);
 		});
 	}
-}
-
-var id = 0;
-
-function getCtorName(ctor) {
-
-	for (var i = 0, len = options.styleCache.length; i < len; i++) {
-		var item = options.styleCache[i];
-
-		if (item.ctor === ctor) {
-			return item.attrName;
-		}
-	}
-
-	var attrName = 'static_' + id;
-	options.styleCache.push({ ctor: ctor, attrName: attrName });
-	id++;
-
-	return attrName;
 }
 
 /** Set a component's `props` (generally derived from JSX attributes).
@@ -1309,9 +1309,9 @@ function unmountComponent(component) {
 	if (component.__ref) component.__ref(null);
 }
 
-var id$1 = 0;
+var id = 0;
 function getId() {
-	return id$1++;
+	return id++;
 }
 /** Base Component class.
  *	Provides `setState()` and `forceUpdate()`, which trigger rendering.
@@ -1446,13 +1446,14 @@ function render(vnode, parent, merge) {
 		if (vnode.componentWillMount) vnode.componentWillMount();
 		if (vnode.install) vnode.install();
 		var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
-		if (vnode.style) {
-			addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode);
-		}
 
 		//don't rerender
 		if (vnode.staticStyle) {
-			addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
+			addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + getCtorName(vnode.constructor));
+		}
+
+		if (vnode.style) {
+			addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode);
 		}
 
 		vnode.base = diff(merge.merge, rendered, {}, false, parent, false);
@@ -1481,7 +1482,7 @@ options.root.Omi = {
 	instances: instances
 };
 
-options.root.Omi.version = '3.0.5';
+options.root.Omi.version = '3.0.6';
 
 var omi = {
 	h: h,
