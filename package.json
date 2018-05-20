@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",

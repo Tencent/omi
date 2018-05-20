@@ -1,3 +1,7 @@
+# omi 3.0.5
+
+Solving the component constructor name conflict of static style rendering.
+
 # omi 3.0.4
 
 * modify the render method args:

@@ -1,5 +1,5 @@
 /**
- * omi v3.0.4  http://omijs.org
+ * omi v3.0.5  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/AlloyTeam/omi
@@ -39,7 +39,9 @@
 		isWeb: true,
 		staticStyleRendered: false,
 		doc: typeof document === 'object' ? document : null,
-		root: getGlobal()
+		root: getGlobal(),
+		//styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
+		styleCache: []
 		//componentChange(component, element) { },
 		/** If `true`, `prop` changes trigger synchronous component updates.
 	  *	@name syncComponentUpdates
@@ -1020,6 +1022,25 @@
 		}
 	}
 
+    var id = 0;
+
+    function getCtorName(ctor) {
+
+		for (var i = 0, len = options.styleCache.length; i < len; i++) {
+			var item = options.styleCache[i];
+
+			if (item.ctor === ctor) {
+				return item.attrName;
+			}
+		}
+
+		var attrName = 'static_' + id;
+		options.styleCache.push({ ctor: ctor, attrName: attrName });
+		id++;
+
+		return attrName;
+	}
+
     /** Set a component's `props` (generally derived from JSX attributes).
 	 *	@param {Object} props
 	 *	@param {Object} [opts]
@@ -1107,13 +1128,13 @@
 		if (!skip) {
 			rendered = component.render(props, state, context);
 
-			if (component.style) {
-				addScopedAttr(rendered, component.style(), '_style_' + component._id, component);
-			}
-
 			//don't rerender
 			if (component.staticStyle) {
-				addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + component.constructor.name);
+				addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + getCtorName(component.constructor));
+			}
+
+			if (component.style) {
+				addScopedAttr(rendered, component.style(), '_style_' + component._id, component);
 			}
 
 			// context to pass to the child, can be updated via (grand-)parent component
@@ -1291,9 +1312,9 @@
 		if (component.__ref) component.__ref(null);
 	}
 
-    var id = 0;
+    var id$1 = 0;
     function getId() {
-		return id++;
+		return id$1++;
 	}
     /** Base Component class.
 	 *	Provides `setState()` and `forceUpdate()`, which trigger rendering.
@@ -1463,7 +1484,7 @@
 		instances: instances
 	};
 
-    options.root.Omi.version = '3.0.4';
+    options.root.Omi.version = '3.0.5';
 
     var Omi = {
 		h: h,

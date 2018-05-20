@@ -144,7 +144,7 @@ describe('Components', () => {
 		
 		render(<C2  />, scratch);
 
-		expect(scratch.innerHTML).to.equal('<div _style_c2=""></div>');
+		expect(scratch.innerHTML).to.equal('<div _style_static_0=""></div>');
 	});
 
 	it('should render components with scoped attr', () => {
@@ -166,7 +166,7 @@ describe('Components', () => {
 		
 		render(<C2  />, scratch);
 
-		expect(scratch.innerHTML).to.equal('<div _style_15="" _style_c2=""></div>');
+		expect(scratch.innerHTML).to.equal('<div _style_static_1="" _style_15=""></div>');
 	});
 
 	it('should render components with store', () => {

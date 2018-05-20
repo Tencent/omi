@@ -26,7 +26,9 @@ export default {
 	isWeb: true,
 	staticStyleRendered: false,
 	doc: typeof document === 'object' ? document : null,
-	root: getGlobal()
+	root: getGlobal(),
+	//styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
+	styleCache: []
 	//componentChange(component, element) { },
 	/** If `true`, `prop` changes trigger synchronous component updates.
 	 *	@name syncComponentUpdates

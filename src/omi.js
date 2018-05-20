@@ -18,7 +18,7 @@ options.root.Omi = {
 	instances
 };
 
-options.root.Omi.version = '3.0.4';
+options.root.Omi.version = '3.0.5';
 
 export default {
 	h,

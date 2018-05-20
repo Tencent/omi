@@ -342,6 +342,19 @@
             });
         }
     }
+    function getCtorName(ctor) {
+        for (var i = 0, len = options.styleCache.length; i < len; i++) {
+            var item = options.styleCache[i];
+            if (item.ctor === ctor) return item.attrName;
+        }
+        var attrName = 'static_' + id;
+        options.styleCache.push({
+            ctor: ctor,
+            attrName: attrName
+        });
+        id++;
+        return attrName;
+    }
     function setComponentProps(component, props, opts, context, mountAll) {
         if (!component.__x) {
             component.__x = !0;
@@ -377,8 +390,8 @@
             component.__p = component.__s = component.__c = component.__b = null;
             if (!skip) {
                 rendered = component.render(props, state, context);
+                if (component.staticStyle) addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + getCtorName(component.constructor));
                 if (component.style) addScopedAttr(rendered, component.style(), '_style_' + component.s, component);
-                if (component.staticStyle) addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + component.constructor.name);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName;
                 if ('function' == typeof childComponent) {
@@ -473,7 +486,7 @@
         if (component.__r) component.__r(null);
     }
     function getId() {
-        return id++;
+        return id$1++;
     }
     function Component(props, context) {
         this.context = context;
@@ -527,7 +540,8 @@
                 }();
             }
             return global;
-        }()
+        }(),
+        styleCache: []
     };
     var stack = [];
     var EMPTY_CHILDREN = [];
@@ -666,6 +680,7 @@
     var hydrating = !1;
     var components = {};
     var id = 0;
+    var id$1 = 0;
     extend(Component.prototype, {
         setState: function(state, callback) {
             var s = this.state;
@@ -695,7 +710,7 @@
         options: options,
         instances: instances
     };
-    options.root.Omi.version = '3.0.4';
+    options.root.Omi.version = '3.0.5';
     var Omi = {
         h: h,
         createElement: h,

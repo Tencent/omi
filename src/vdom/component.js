@@ -8,6 +8,27 @@ import { createComponent, collectComponent } from './component-recycler';
 import { removeNode } from '../dom/index';
 import {addScopedAttr, addScopedAttrStatic} from '../style';
 
+let id = 0;
+
+function getCtorName(ctor) {
+
+	for (let i = 0, len = options.styleCache.length; i < len; i++) {
+		let item = options.styleCache[i];
+
+		if (item.ctor === ctor) {
+			return item.attrName;
+		}
+	}
+
+
+	let attrName = 'static_' + id;
+	options.styleCache.push({ ctor, attrName });
+	id++;
+
+
+	return attrName;
+}
+
 /** Set a component's `props` (generally derived from JSX attributes).
  *	@param {Object} props
  *	@param {Object} [opts]
@@ -99,13 +120,14 @@ export function renderComponent(component, opts, mountAll, isChild) {
 	if (!skip) {
 		rendered = component.render(props, state, context);
 	
-		if (component.style){
-			addScopedAttr(rendered,component.style(),'_style_'+component._id,component);
-		}
-	
 		//don't rerender
 		if (component.staticStyle){
-			addScopedAttrStatic(rendered,component.staticStyle(),'_style_'+component.constructor.name);
+			addScopedAttrStatic(rendered,component.staticStyle(),'_style_' + getCtorName(component.constructor));
+
+		}
+
+		if (component.style){
+			addScopedAttr(rendered,component.style(),'_style_'+component._id,component);
 		}
 
 		// context to pass to the child, can be updated via (grand-)parent component

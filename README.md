@@ -261,8 +261,8 @@ npm i omi
 
 or get it from CDN:
 
-* [https://unpkg.com/omi@3.0.4/dist/omi.min.js](https://unpkg.com/omi@3.0.4/dist/omi.min.js)
-* [https://unpkg.com/omi@3.0.4/dist/omi.js](https://unpkg.com/omi@3.0.4/dist/omi.js)
+* [https://unpkg.com/omi@3.0.5/dist/omi.min.js](https://unpkg.com/omi@3.0.5/dist/omi.min.js)
+* [https://unpkg.com/omi@3.0.5/dist/omi.js](https://unpkg.com/omi@3.0.5/dist/omi.js)
 
 ## Official Plugins
 
