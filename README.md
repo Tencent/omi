@@ -12,7 +12,7 @@ Omi has prosperous ecology and strong features through the second-hand preact de
 
 - Super tiny size and Super fast
 - Extensive React/Preact/Omi compatibility 
-- Scoped CSS, made css selector simple
+- Scoped CSS, made css selector simple, lazy evaluation and package with it's component
 - Each component has a update method, you can continue to use setState
 - Store system, data and logic of components management for omi without other frameworks dependencies 
 - Server side render, Native Suppport, ES6+, JSX, VDOM, React DevTools, HMR ...
@@ -277,9 +277,6 @@ or get it from CDN:
 - [preact github](https://github.com/developit/preact)
 - [preactjs.com](https://preactjs.com/)
 - [omijs.org](http://omijs.org/)
-- server side render
-	- [preact-render-to-string](https://github.com/developit/preact-render-to-string)
-	- [ssr demo](https://github.com/lukeed/preact-cli-ssr)
 - [differences to react](https://preactjs.com/guide/differences-to-react)
 - [native support](https://github.com/AlloyTeam/omi/tree/master/src/native)
 
