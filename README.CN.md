@@ -12,7 +12,7 @@
 
 - 超小的尺寸和超快的速度
 - 兼容 React/Preact/Omi API
-- Scoped CSS, 让 CSS 选择器更加简单,延迟执行,和组件打包在一起
+- Scoped CSS, 让 CSS 选择器更加简单，延迟执行，与归属组件智能打包
 - 每个组件都有 update 方法，当然你也可以继续 setState
 - Store system, 内置的，不需要依赖任何库 
 - 创建网站无需任何配置的脚手架工具 omi-cli （相当于 create-react-app 多页面版本）
