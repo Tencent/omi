@@ -65,14 +65,14 @@ module.exports = function(config) {
 			sauceLabs ? 'saucelabs' : []
 		),
 
-		coverageReporter: {
-			dir: __dirname+'/../coverage',
-			reporters: [
-				{ type: 'text-summary' },
-				{ type: 'html' },
-				{ type: 'lcovonly', subdir: '.', file: 'lcov.info' }
-			]
-		},
+// 		coverageReporter: {
+// 			dir: __dirname+'/../coverage',
+// 			reporters: [
+// 				{ type: 'text-summary' },
+// 				{ type: 'html' },
+// 				{ type: 'lcovonly', subdir: '.', file: 'lcov.info' }
+// 			]
+// 		},
 
 		mochaReporter: {
 			showDiff: true
