@@ -21,4 +21,3 @@ install:
 script:
   - npm run build
   - COVERAGE=true npm run test
-  - COVERAGE=false FLAKEY=false PERFORMANCE=false npm run test:karma
