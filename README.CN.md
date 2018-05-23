@@ -1,5 +1,6 @@
 [English](./README.md) | 简体中文
-# Omi <a href="https://www.npmjs.com/package/omi"><img src="https://img.shields.io/npm/v/omi.svg" alt="Version"></a>
+
+# Omi <a href="https://www.npmjs.com/package/omi"><img src="https://img.shields.io/npm/v/omi.svg" alt="Version"></a> <a href="https://travis-ci.org/Tencent/omi"><img src="https://api.travis-ci.org/Tencent/omi.svg?branch=master"></a> 
 
 > Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
 
