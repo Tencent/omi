@@ -4,7 +4,8 @@ var coverage = String(process.env.COVERAGE) === 'true',
 	ci = String(process.env.CI).match(/^(1|true)$/gi),
 	pullRequest = !String(process.env.TRAVIS_PULL_REQUEST).match(/^(0|false|undefined)$/gi),
 	masterBranch = String(process.env.TRAVIS_BRANCH).match(/^master$/gi),
-	sauceLabs = ci && !pullRequest && masterBranch,
+	//sauceLabs = ci && !pullRequest && masterBranch,
+    	sauceLabs = false,
 	performance = !coverage && String(process.env.PERFORMANCE)!=='false',
 	webpack = require('webpack');
 
