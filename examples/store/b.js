@@ -1501,6 +1501,10 @@
 	    return _possibleConstructorReturn(this, _Component.apply(this, arguments));
 	  }
 
+	  // install() {
+	  //   this.$store.hello = this
+	  // }
+
 	  Hello.prototype.render = function render$$1() {
 	    return Omi.h(
 	      'div',
@@ -1567,9 +1571,11 @@
 	var app = new App();
 	var store = new AppStore({ name: 'Omi' }, {
 	  onRename: function onRename() {
-	    app.update();
+	    //app.update()
 	    //or
-	    //app.hello.update()
+	    app.hello.update();
+	    //or
+	    //store.hello.update()
 	  }
 	});
 

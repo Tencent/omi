@@ -1,6 +1,10 @@
 import { render, Component } from '../../dist/omi.esm';
 
 class Hello extends Component {
+  // install() {
+  //   this.$store.hello = this
+  // }
+
   render() {
     return <div>{this.$store.name}</div>
   }
@@ -44,9 +48,11 @@ class AppStore {
 const app = new App()
 const store = new AppStore({ name: 'Omi' }, {
   onRename: () => {
-    app.update()
+    //app.update()
     //or
-    //app.hello.update()
+    app.hello.update()
+    //or
+    //store.hello.update()
   }
 })
 
