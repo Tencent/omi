@@ -6,7 +6,7 @@
 
 ## Demo
 
-[https://alloyteam.github.io/omi/plugins/omi-finger/example/simple/](https://alloyteam.github.io/omi/plugins/omi-finger/example/simple/)
+[https://tencent.github.io/omi/plugins/omi-finger/example/simple/](https://tencent.github.io/omi/plugins/omi-finger/example/simple/)
 
 ## Install
 
