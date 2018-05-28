@@ -6,9 +6,7 @@ AlloyTouch / [Omi](http://omijs.org) integration. Smooth scrolling, rotation, pu
 
 ## Demo
 
-![omi-touch demo](./demo.png)
-
-[https://alloyteam.github.io/omi/plugins/omi-touch/example/simple/](https://alloyteam.github.io/omi/plugins/omi-touch/example/simple/)
+[https://tencent.github.io/omi/plugins/omi-touch/example/simple/](https://tencent.github.io/omi/plugins/omi-touch/example/simple/)
 
 ## Install
 
