@@ -2,15 +2,31 @@
 	'use strict';
 
 	/**
-	 * omi v3.0.0
+	 * omi v3.0.6  http://omijs.org
 	 * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
 	 * By dntzhang https://github.com/dntzhang
-	 * Github: https://github.com/AlloyTeam/omi
+	 * Github: https://github.com/Tencent/omi
 	 * MIT Licensed.
 	 */
 
 	/** Virtual DOM Node */
 	function VNode() {}
+
+	function getGlobal() {
+		if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
+			if (typeof self !== 'undefined') {
+				return self;
+			} else if (typeof window !== 'undefined') {
+				return window;
+			} else if (typeof global !== 'undefined') {
+				return global;
+			}
+			return function () {
+				return this;
+			}();
+		}
+		return global;
+	}
 
 	/** Global options
 	 *	@public
@@ -22,7 +38,10 @@
 		$store: null,
 		isWeb: true,
 		staticStyleRendered: false,
-		doc: typeof document === 'object' ? document : null
+		doc: typeof document === 'object' ? document : null,
+		root: getGlobal(),
+		//styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
+		styleCache: []
 		//componentChange(component, element) { },
 		/** If `true`, `prop` changes trigger synchronous component updates.
 	  *	@name syncComponentUpdates
@@ -49,8 +68,6 @@
 	var stack = [];
 
 	var EMPTY_CHILDREN = [];
-
-	var isH5 = options.isWeb;
 
 	var map = {
 		'br': 'view',
@@ -255,9 +272,9 @@
 		}
 
 		var p = new VNode();
-		p.nodeName = isH5 ? nodeName : map[nodeName];
+		p.nodeName = options.isWeb ? nodeName : map[nodeName];
 		p.attributes = attributes == null ? undefined : attributes;
-		if (children && typeof children[0] === 'string' && !isH5) {
+		if (children && typeof children[0] === 'string' && !options.isWeb) {
 			if (p.attributes) {
 				p.attributes.value = children[0];
 			} else {
@@ -329,7 +346,7 @@
 	var items = [];
 
 	function enqueueRender(component) {
-		if (!component._dirty && (component._dirty = true) && items.push(component) == 1) {
+		if (items.push(component) == 1) {
 			(options.debounceRendering || defer)(rerender);
 		}
 	}
@@ -341,7 +358,7 @@
 		var element;
 		while (p = list.pop()) {
 			element = p.base;
-			if (p._dirty) renderComponent(p);
+			renderComponent(p);
 		}
 		if (!list.length) {
 			if (options.componentChange) options.componentChange(p, element);
@@ -447,8 +464,6 @@
 		}return style;
 	}
 
-	var isH5$1 = options.isWeb;
-
 	/** Remove a child node from its parent if attached.
 	 *	@param {Element} node		The node to remove
 	 */
@@ -477,7 +492,7 @@
 		} else if (name === 'class' && !isSvg) {
 			node.className = value || '';
 		} else if (name === 'style') {
-			if (isH5$1) {
+			if (options.isWeb) {
 				if (!value || typeof value === 'string' || typeof old === 'string') {
 					node.style.cssText = value || '';
 				}
@@ -905,6 +920,25 @@
 		return this.constructor(props, context);
 	}
 
+	var styleId = 0;
+
+	function getCtorName(ctor) {
+
+		for (var i = 0, len = options.styleCache.length; i < len; i++) {
+			var item = options.styleCache[i];
+
+			if (item.ctor === ctor) {
+				return item.attrName;
+			}
+		}
+
+		var attrName = 'static_' + styleId;
+		options.styleCache.push({ ctor: ctor, attrName: attrName });
+		styleId++;
+
+		return attrName;
+	}
+
 	// many thanks to https://github.com/thomaspark/scoper/
 	function scoper(css, prefix) {
 		prefix = '[' + prefix.toLowerCase() + ']';
@@ -932,8 +966,10 @@
 			}
 
 			var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-			var prependClass = prefix + ' ' + g1.trim() + g2;
-			return appendClass + ',' + prependClass + g3;
+			//let prependClass = prefix + ' ' + g1.trim() + g2;
+
+			return appendClass + g3;
+			//return appendClass + ',' + prependClass + g3;
 		});
 
 		return css;
@@ -1088,18 +1124,17 @@
 		}
 
 		component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
-		component._dirty = false;
 
 		if (!skip) {
 			rendered = component.render(props, state, context);
 
-			if (component.style) {
-				addScopedAttr(rendered, component.style(), '_style_' + component._id, component);
-			}
-
 			//don't rerender
 			if (component.staticStyle) {
-				addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + component.constructor.name);
+				addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + getCtorName(component.constructor));
+			}
+
+			if (component.style) {
+				addScopedAttr(rendered, component.style(), '_style_' + component._id, component);
 			}
 
 			// context to pass to the child, can be updated via (grand-)parent component
@@ -1293,7 +1328,6 @@
 	 *	}
 	 */
 	function Component(props, context) {
-		this._dirty = true;
 
 		/** @public
 	  *	@type {object}
@@ -1363,18 +1397,6 @@
 		render: function render() {}
 	});
 
-	function isElement(obj) {
-		try {
-			//Using W3 DOM2 (works for FF, Opera and Chrome)
-			return obj instanceof HTMLElement;
-		} catch (e) {
-			//Browsers not supporting W3 DOM2 don't have HTMLElement and
-			//an exception is thrown and we end up here. Testing some
-			//properties that all elements have (works on IE7)
-			return typeof obj === "object" && obj.nodeType === 1 && typeof obj.style === "object" && typeof obj.ownerDocument === "object";
-		}
-	}
-
 	/** Render JSX into a `parent` Element.
 	 *	@param {VNode} vnode		A (JSX) VNode to render
 	 *	@param {Element} parent		DOM element to render into
@@ -1391,34 +1413,51 @@
 	 *	render(<Thing name="one" />, document.querySelector('#foo'));
 	 */
 	function render(vnode, parent, merge) {
+		merge = Object.assign({
+			store: {}
+		}, merge);
+		if (typeof window === 'undefined') {
+			if (vnode instanceof Component && merge) {
+				vnode.$store = merge.store;
+			}
+			return;
+		}
 		options.staticStyleRendered = false;
+
 		parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-		if (merge === true) {
+
+		if (merge.merge) {
+			merge.merge = typeof merge.merge === 'string' ? document.querySelector(merge.merge) : merge.merge;
+		}
+		if (merge.empty) {
 			while (parent.firstChild) {
 				parent.removeChild(parent.firstChild);
 			}
 		}
-		var m = isElement(merge) || merge === undefined;
+		merge.store.ssrData = options.root.__omiSsrData;
+		options.$store = merge.store;
+
 		if (vnode instanceof Component) {
 			if (window && window.Omi) {
 				window.Omi.instances.push(vnode);
 			}
-			if (!m) {
-				vnode.$store = options.$store = merge;
-			}
+
+			vnode.$store = merge.store;
+
 			if (vnode.componentWillMount) vnode.componentWillMount();
 			if (vnode.install) vnode.install();
-			var rendered = vnode.render();
+			var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
+
+			//don't rerender
+			if (vnode.staticStyle) {
+				addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + getCtorName(vnode.constructor));
+			}
+
 			if (vnode.style) {
 				addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode);
 			}
 
-			//don't rerender
-			if (vnode.staticStyle) {
-				addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
-			}
-
-			vnode.base = diff(m ? merge : undefined, rendered, {}, false, parent, false);
+			vnode.base = diff(merge.merge, rendered, {}, false, parent, false);
 
 			if (vnode.componentDidMount) vnode.componentDidMount();
 			if (vnode.installed) vnode.installed();
@@ -1426,30 +1465,14 @@
 			return vnode.base;
 		}
 
-		var result = diff(merge, vnode, {}, false, parent, false);
+		var result = diff(merge.merge, vnode, {}, false, parent, false);
 		options.staticStyleRendered = true;
 		return result;
 	}
 
-	function getGlobal() {
-		if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
-			if (typeof self !== 'undefined') {
-				return self;
-			} else if (typeof window !== 'undefined') {
-				return window;
-			} else if (typeof global !== 'undefined') {
-				return global;
-			}
-			return function () {
-				return this;
-			}();
-		}
-		return global;
-	}
-
 	var instances = [];
-	var root = getGlobal();
-	root.Omi = {
+
+	options.root.Omi = {
 		h: h,
 		createElement: h,
 		cloneElement: cloneElement,
@@ -1459,6 +1482,8 @@
 		options: options,
 		instances: instances
 	};
+
+	options.root.Omi.version = '3.0.6';
 	//# sourceMappingURL=omi.esm.js.map
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1480,8 +1505,7 @@
 	    return Omi.h(
 	      'div',
 	      null,
-	      ' ',
-	      this.props.name
+	      this.$store.name
 	    );
 	  };
 
@@ -1505,10 +1529,14 @@
 	  };
 
 	  App.prototype.render = function render$$1() {
+	    var _this3 = this;
+
 	    return Omi.h(
 	      'div',
 	      null,
-	      Omi.h(Hello, { name: this.$store.name }),
+	      Omi.h(Hello, { ref: function ref(c) {
+	          _this3.hello = c;
+	        } }),
 	      Omi.h(
 	        'button',
 	        { onclick: this.handleClick },
@@ -1537,13 +1565,15 @@
 	}();
 
 	var app = new App();
-	var appStore = new AppStore({ name: 'Omi' }, {
+	var store = new AppStore({ name: 'Omi' }, {
 	  onRename: function onRename() {
 	    app.update();
+	    //or
+	    //app.hello.update()
 	  }
 	});
 
-	render(app, document.body, appStore);
+	render(app, document.body, { store: store });
 
 }());
 //# sourceMappingURL=b.js.map

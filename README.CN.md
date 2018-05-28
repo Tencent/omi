@@ -181,7 +181,7 @@ import { render, Component } from 'omi';
 
 class Hello extends Component {
   render() {
-    return <div>{this.props.name}</div>
+    return <div>{this.$store.name}</div>
   }
 }
 
@@ -194,7 +194,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Hello name={this.$store.name}></Hello>
+        <Hello ref={c => { this.hello = c }} ></Hello>
         <button onclick={this.handleClick}>Click me to call this.$store.rename('Hello Omi !') </button>
       </div>
     )
@@ -217,6 +217,8 @@ const app = new App()
 const store = new AppStore({ name: 'Omi' }, {
   onRename: () => {
     app.update()
+    //也可以进行更快速的局部更新
+    //app.hello.update()
   }
 })
 
