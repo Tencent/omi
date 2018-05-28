@@ -6,7 +6,7 @@
 
 ## Demo
 
-[http://alloyteam.github.io/omi/plugins/omi-transform/example/simple/](http://alloyteam.github.io/omi/plugins/omi-transform/example/simple/)
+[http://tencent.github.io/omi/plugins/omi-transform/example/simple/](http://tencent.github.io/omi/plugins/omi-transform/example/simple/)
 
 ## Install
 
