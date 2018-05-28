@@ -187,8 +187,8 @@ OmiRouter.init({
 
 ### 地址
 
-* [在线演示地址](http://alloyteam.github.io/omi/plugins/omi-router/example/simple/)
-* [源码地址](https://github.com/AlloyTeam/omi/tree/master/plugins/omi-router/example/simple)
+* [在线演示地址](http://tencent.github.io/omi/plugins/omi-router/example/simple/)
+* [源码地址](https://github.com/Tencent/omi/tree/master/plugins/omi-router/example/simple)
 
 ## License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
