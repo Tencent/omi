@@ -11,7 +11,7 @@ English | [简体中文](./README.CN.md)
 Omi has prosperous ecology and strong features through the second-hand preact developments:
 
 - Super tiny size and Super fast
-- Extensive React/Preact/Omi compatibility 
+- Extensive React/Preact/Omi compatibility, compatibility with IE9+
 - Scoped CSS, made css selector simple, lazy evaluation and package with it's component
 - Each component has a update method, you can continue to use setState
 - Store system, data and logic of components management for omi without other frameworks dependencies 
