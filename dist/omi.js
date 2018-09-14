@@ -343,8 +343,14 @@
     function addScopedAttrStatic(vdom, style, attr) {
         if (options.scopedStyle) {
             scopeVdom(attr, vdom);
-            if (!options.staticStyleRendered) addStyle(scoper(style, attr), attr);
-        } else if (!options.staticStyleRendered) addStyleWithoutId(style);
+            if (!options.staticStyleMapping[attr]) {
+                addStyle(scoper(style, attr), attr);
+                options.staticStyleMapping[attr] = !0;
+            }
+        } else if (!options.staticStyleMapping[attr]) {
+            addStyleWithoutId(style);
+            options.staticStyleMapping[attr] = !0;
+        }
     }
     function scopeVdom(attr, vdom) {
         if ('string' != typeof vdom) {
@@ -501,7 +507,6 @@
             store: {}
         }, merge);
         if ('undefined' != typeof window) {
-            options.staticStyleRendered = !1;
             parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
             if (merge.merge) merge.merge = 'string' == typeof merge.merge ? document.querySelector(merge.merge) : merge.merge;
             if (merge.empty) while (parent.firstChild) parent.removeChild(parent.firstChild);
@@ -518,11 +523,9 @@
                 vnode.base = diff(merge.merge, rendered, {}, !1, parent, !1);
                 if (vnode.componentDidMount) vnode.componentDidMount();
                 if (vnode.installed) vnode.installed();
-                options.staticStyleRendered = !0;
                 return vnode.base;
             }
             var result = diff(merge.merge, vnode, {}, !1, parent, !1);
-            options.staticStyleRendered = !0;
             return result;
         } else if (vnode instanceof Component && merge) vnode.$store = merge.store;
     }
@@ -530,7 +533,7 @@
         scopedStyle: !0,
         $store: null,
         isWeb: !0,
-        staticStyleRendered: !1,
+        staticStyleMapping: {},
         doc: 'object' == typeof document ? document : null,
         root: function() {
             if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) {

@@ -24,7 +24,7 @@ export default {
 	scopedStyle: true,
 	$store: null,
 	isWeb: true,
-	staticStyleRendered: false,
+	staticStyleMapping: {},
 	doc: typeof document === 'object' ? document : null,
 	root: getGlobal(),
 	//styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]

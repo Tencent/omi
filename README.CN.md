@@ -63,13 +63,13 @@ class App extends Component {
                     cursor:pointer;
                     color: ${Math.random() > 0.5 ? 'red' :'green'};
                 }`
-        }
+    }
 
     staticStyle() {
         return `div{
                     font-size:20px;
                 }`
-        }
+    }
 	
     render() {
         return (
@@ -267,8 +267,8 @@ npm i omi
 
 或从 CDN 获取:
 
-* [https://unpkg.com/omi@3.0.6/dist/omi.min.js](https://unpkg.com/omi@3.0.6/dist/omi.min.js)
-* [https://unpkg.com/omi@3.0.6/dist/omi.js](https://unpkg.com/omi@3.0.6/dist/omi.js)
+* [https://unpkg.com/omi@3.0.7/dist/omi.min.js](https://unpkg.com/omi@3.0.7/dist/omi.min.js)
+* [https://unpkg.com/omi@3.0.7/dist/omi.js](https://unpkg.com/omi@3.0.7/dist/omi.js)
 
 ## Official Plugins
 

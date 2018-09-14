@@ -28,7 +28,6 @@ export function render(vnode, parent, merge) {
 		}
 		return;
 	}
-	options.staticStyleRendered = false;
 
 	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 	
@@ -67,11 +66,11 @@ export function render(vnode, parent, merge) {
 		
 		if (vnode.componentDidMount) vnode.componentDidMount();
 		if (vnode.installed) vnode.installed();
-		options.staticStyleRendered = true;
+		
 		return vnode.base;
 	}
 
 	let result = diff(merge.merge, vnode, {}, false, parent, false);
-	options.staticStyleRendered = true;
+	
 	return result;
 }

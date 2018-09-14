@@ -104,11 +104,13 @@ export function addScopedAttr(vdom, style, attr, component) {
 export function addScopedAttrStatic(vdom, style, attr) {
 	if (options.scopedStyle) {
 		scopeVdom(attr, vdom);
-		if (!options.staticStyleRendered) {
+		if (!options.staticStyleMapping[attr]) {
 			addStyle(scoper(style, attr), attr);
+			options.staticStyleMapping[attr] = true
 		}
-	} else if (!options.staticStyleRendered) {
+	} else if (!options.staticStyleMapping[attr]) {
 		addStyleWithoutId(style);
+		options.staticStyleMapping[attr] = true
 	}
 }
 

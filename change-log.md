@@ -1,3 +1,7 @@
+# omi 3.0.7
+
+Solving the staticStyle method did not exec when it's component lazy execution.
+
 # omi 3.0.6
 
 Solving the root component constructor name conflict of static style rendering.

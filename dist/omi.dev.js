@@ -1,5 +1,5 @@
 /**
- * omi v3.0.6  http://omijs.org
+ * omi v3.0.7  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -37,7 +37,7 @@
 		scopedStyle: true,
 		$store: null,
 		isWeb: true,
-		staticStyleRendered: false,
+		staticStyleMapping: {},
 		doc: typeof document === 'object' ? document : null,
 		root: getGlobal(),
 		//styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
@@ -1023,11 +1023,13 @@
     function addScopedAttrStatic(vdom, style, attr) {
 		if (options.scopedStyle) {
 			scopeVdom(attr, vdom);
-			if (!options.staticStyleRendered) {
+			if (!options.staticStyleMapping[attr]) {
 				addStyle(scoper(style, attr), attr);
+				options.staticStyleMapping[attr] = true;
 			}
-		} else if (!options.staticStyleRendered) {
+		} else if (!options.staticStyleMapping[attr]) {
 			addStyleWithoutId(style);
+			options.staticStyleMapping[attr] = true;
 		}
 	}
 
@@ -1424,7 +1426,6 @@
 			}
 			return;
 		}
-		options.staticStyleRendered = false;
 
 		parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 
@@ -1463,12 +1464,12 @@
 
 			if (vnode.componentDidMount) vnode.componentDidMount();
 			if (vnode.installed) vnode.installed();
-			options.staticStyleRendered = true;
+
 			return vnode.base;
 		}
 
 		var result = diff(merge.merge, vnode, {}, false, parent, false);
-		options.staticStyleRendered = true;
+
 		return result;
 	}
 
