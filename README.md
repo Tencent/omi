@@ -101,7 +101,7 @@ You need install env and omi preset for the config:
 
 ### Scoped CSS
 
-What'S the different between `style` and `staticStyle` method ? For example：
+What's the difference between the `style` and the `staticStyle` method? For example：
 
 ``` js
 render() {
