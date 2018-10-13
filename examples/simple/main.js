@@ -4,7 +4,7 @@ import './hello-element'
 class MyApp extends WeElement {
 
     onClick = (evt) => {
-        
+
     }
 
     onAbc = (evt) => {
@@ -29,11 +29,11 @@ class MyApp extends WeElement {
          }`
     }
 
-    render() {
+    render(props, data) {
         return (
             <div onClick={this.onClick}>
-                Hello {this.props.name} {this.data.abc}
-                <hello-element onAbc={this.onAbc} prop-from-parent={this.data.passToChild} msg="Omi v4.0"></hello-element>
+                Hello {props.name} {data.abc}
+                <hello-element onAbc={this.onAbc} prop-from-parent={data.passToChild} msg="Omi v4.0"></hello-element>
             </div>
         )
     }

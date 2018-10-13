@@ -663,7 +663,7 @@
 	        var shadowRoot = this.attachShadow({ mode: 'open' });
 
 	        shadowRoot.appendChild(cssToDom(this.css()));
-	        this.host = diff(null, this.render(), {}, false, null, false);
+	        this.host = diff(null, this.render(this.props, this.data), {}, false, null, false);
 	        shadowRoot.appendChild(this.host);
 
 	        this.installed();
@@ -683,7 +683,7 @@
 
 	    WeElement.prototype.update = function update() {
 	        this.beforeUpdate();
-	        diff(this.host, this.render());
+	        diff(this.host, this.render(this.props, this.data));
 	        this.afterUpdate();
 	    };
 
@@ -764,14 +764,14 @@
 	        return '\n         div{\n             color: red;\n         }';
 	    };
 
-	    HelloElement.prototype.render = function render$$1() {
+	    HelloElement.prototype.render = function render$$1(props) {
 	        return Omi.h(
 	            'div',
 	            { onClick: this.onClick },
 	            'Hello ',
-	            this.props.msg,
+	            props.msg,
 	            ' ',
-	            this.props.propFromParent
+	            props.propFromParent
 	        );
 	    };
 
@@ -825,15 +825,15 @@
 	        return '\n         div{\n             color: green;\n         }';
 	    };
 
-	    MyApp.prototype.render = function render$$1() {
+	    MyApp.prototype.render = function render$$1(props, data) {
 	        return Omi.h(
 	            'div',
 	            { onClick: this.onClick },
 	            'Hello ',
-	            this.props.name,
+	            props.name,
 	            ' ',
-	            this.data.abc,
-	            Omi.h('hello-element', { onAbc: this.onAbc, 'prop-from-parent': this.data.passToChild, msg: 'Omi v4.0' })
+	            data.abc,
+	            Omi.h('hello-element', { onAbc: this.onAbc, 'prop-from-parent': data.passToChild, msg: 'Omi v4.0' })
 	        );
 	    };
 

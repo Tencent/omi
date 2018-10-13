@@ -29,7 +29,7 @@ export default class WeElement extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: 'open' })
 
         shadowRoot.appendChild(cssToDom(this.css()))
-        this.host =  diff(null, this.render(), {}, false, null, false)
+        this.host =  diff(null, this.render(this.props, this.data), {}, false, null, false)
         shadowRoot.appendChild(this.host)
 
         this.installed()
@@ -47,7 +47,7 @@ export default class WeElement extends HTMLElement {
 
     update() {
         this.beforeUpdate()
-        diff(this.host, this.render())
+        diff(this.host, this.render(this.props, this.data))
         this.afterUpdate()
     }
 
