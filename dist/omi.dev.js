@@ -135,85 +135,53 @@
 	 * current under-construction element's definition.
 	 */
     (function () {
-	    if (
-	    // No Reflect, no classes, no need for shim because native custom elements
-	    // require ES2015 classes or Reflect.
-	    window.Reflect === undefined || window.customElements === undefined ||
-	    // The webcomponentsjs custom elements polyfill doesn't require
-	    // ES2015-compatible construction (`super()` or `Reflect.construct`).
-	    window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
-	        return;
-	    }
-	    var BuiltInHTMLElement = HTMLElement;
-	    window.HTMLElement = function HTMLElement() {
-	        return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
-	    };
-	    HTMLElement.prototype = BuiltInHTMLElement.prototype;
-	    HTMLElement.prototype.constructor = HTMLElement;
-	    Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+	  if (
+	  // No Reflect, no classes, no need for shim because native custom elements
+	  // require ES2015 classes or Reflect.
+	  window.Reflect === undefined || window.customElements === undefined ||
+	  // The webcomponentsjs custom elements polyfill doesn't require
+	  // ES2015-compatible construction (`super()` or `Reflect.construct`).
+	  window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+	    return;
+	  }
+	  var BuiltInHTMLElement = HTMLElement;
+	  window.HTMLElement = function HTMLElement() {
+	    return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
+	  };
+	  HTMLElement.prototype = BuiltInHTMLElement.prototype;
+	  HTMLElement.prototype.constructor = HTMLElement;
+	  Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
 	})();
 
-    function vdToDom(vd) {
-	    if (vd) {
-	        if (vd.nodeName) {
-	            var dom = document.createElement(vd.nodeName);
-	            Object.keys(vd.attributes).forEach(function (key) {
-	                dom.setAttribute(key, vd.attributes[key]);
-	            });
-	            bind(vd, dom);
-	            vd.children && vd.children.forEach(function (child) {
-	                var n = vdToDom(child);
-	                n && dom.appendChild(n);
-	            });
-	            return dom;
-	        } else {
-	            return document.createTextNode(vd);
-	        }
-	    }
-	}
-
-    function bind(vd, dom) {
-	    if (vd.attributes.onClick) {
-
-	        dom.onclick = vd.attributes.onClick;
-	    }
-	}
-
     function cssToDom(css) {
-	    var node = document.createElement('style');
-	    node.innerText = css;
-	    return node;
+	  var node = document.createElement('style');
+	  node.innerText = css;
+	  return node;
 	}
 
     function npn(str) {
-	    return str.replace(/-(\w)/g, function ($, $1) {
-	        return $1.toUpperCase();
-	    });
+	  return str.replace(/-(\w)/g, function ($, $1) {
+	    return $1.toUpperCase();
+	  });
+	}
+
+    /** Invoke or update a ref, depending on whether it is a function or object ref.
+	 *  @param {object|function} [ref=null]
+	 *  @param {any} [value]
+	 */
+    function applyRef(ref, value) {
+	  if (ref != null) {
+	    if (typeof ref == 'function') ref(value);else ref.current = value;
+	  }
 	}
 
     /**
 	 * Call a function asynchronously, as soon as possible. Makes
 	 * use of HTML Promise to schedule the callback if available,
 	 * otherwise falling back to `setTimeout` (mainly for IE<11).
-	 *
-	 * @param {Function} callback
+	 * @type {(callback: function) => void}
 	 */
-
-    var usePromise = typeof Promise == 'function';
-
-    // for native
-    if (typeof document !== 'object' && typeof global !== 'undefined' && global.__config__) {
-	    if (global.__config__.platform === 'android') {
-	        usePromise = true;
-	    } else {
-	        var systemVersion = global.__config__.systemVersion && global.__config__.systemVersion.split('.')[0] || 0;
-	        if (systemVersion > 8) {
-	            usePromise = true;
-	        }
-	    }
-	}
-
-    var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+    var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
     // DOM properties that should NOT have "px" added when numeric
     var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -246,69 +214,64 @@
 	  return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
 	}
 
-    /** Create an element with the given nodeName.
-	 *	@param {String} nodeName
-	 *	@param {Boolean} [isSvg=false]	If `true`, creates an element within the SVG namespace.
-	 *	@returns {Element} node
+    /**
+	 * A DOM event listener
+	 * @typedef {(e: Event) => void} EventListner
+	 */
+
+    /**
+	 * A mapping of event types to event listeners
+	 * @typedef {Object.<string, EventListener>} EventListenerMap
+	 */
+
+    /**
+	 * Properties Preact adds to elements it creates
+	 * @typedef PreactElementExtensions
+	 * @property {string} [normalizedNodeName] A normalized node name to use in diffing
+	 * @property {EventListenerMap} [_listeners] A map of event listeners added by components to this DOM node
+	 * @property {import('../component').Component} [_component] The component that rendered this DOM node
+	 * @property {function} [_componentConstructor] The constructor of the component that rendered this DOM node
+	 */
+
+    /**
+	 * A DOM element that has been extended with Preact properties
+	 * @typedef {Element & ElementCSSInlineStyle & PreactElementExtensions} PreactElement
+	 */
+
+    /**
+	 * Create an element with the given nodeName.
+	 * @param {string} nodeName The DOM node to create
+	 * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
+	 *  namespace.
+	 * @returns {PreactElement} The created DOM node
 	 */
     function createNode(nodeName, isSvg) {
-		var node = isSvg ? options.doc.createElementNS('http://www.w3.org/2000/svg', nodeName) : options.doc.createElement(nodeName);
+		/** @type {PreactElement} */
+		var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
 		node.normalizedNodeName = nodeName;
 		return node;
 	}
 
-    function parseCSSText(cssText) {
-		var cssTxt = cssText.replace(/\/\*(.|\s)*?\*\//g, " ").replace(/\s+/g, " ");
-		var style = {},
-		    _ref = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [a, b, cssTxt],
-		    a = _ref[0],
-		    b = _ref[1],
-		    rule = _ref[2];
-		var cssToJs = function cssToJs(s) {
-			return s.replace(/\W+\w/g, function (match) {
-				return match.slice(-1).toUpperCase();
-			});
-		};
-		var properties = rule.split(";").map(function (o) {
-			return o.split(":").map(function (x) {
-				return x && x.trim();
-			});
-		});
-		for (var i = properties, i = Array.isArray(i), i = 0, i = i ? i : i[Symbol.iterator]();;) {
-			var _ref3;
-
-			if (i) {
-				if (i >= i.length) break;
-				_ref3 = i[i++];
-			} else {
-				i = i.next();
-				if (i.done) break;
-				_ref3 = i.value;
-			}
-
-			var _ref2 = _ref3;
-			var property = _ref2[0];
-			var value = _ref2[1];
-			style[cssToJs(property)] = value;
-		}return style;
-	}
-
-    /** Remove a child node from its parent if attached.
-	 *	@param {Element} node		The node to remove
+    /**
+	 * Remove a child node from its parent if attached.
+	 * @param {Node} node The node to remove
 	 */
     function removeNode(node) {
 		var parentNode = node.parentNode;
 		if (parentNode) parentNode.removeChild(node);
 	}
 
-    /** Set a named attribute on the given Node, with special behavior for some names and event handlers.
-	 *	If `value` is `null`, the attribute/handler will be removed.
-	 *	@param {Element} node	An element to mutate
-	 *	@param {string} name	The name/key to set, such as an event or attribute name
-	 *	@param {any} old	The last value that was set for this name/node pair
-	 *	@param {any} value	An attribute value, such as a function to be used as an event handler
-	 *	@param {Boolean} isSvg	Are we currently diffing inside an svg?
-	 *	@private
+    /**
+	 * Set a named attribute on the given Node, with special behavior for some names
+	 * and event handlers. If `value` is `null`, the attribute/handler will be
+	 * removed.
+	 * @param {PreactElement} node An element to mutate
+	 * @param {string} name The name/key to set, such as an event or attribute name
+	 * @param {*} old The last value that was set for this name/node pair
+	 * @param {*} value An attribute value, such as a function to be used as an
+	 *  event handler
+	 * @param {boolean} isSvg Are we currently diffing inside an svg?
+	 * @private
 	 */
     function setAccessor(node, name, old, value, isSvg) {
 		if (name === 'className') name = 'class';
@@ -316,58 +279,22 @@
 		if (name === 'key') {
 			// ignore
 		} else if (name === 'ref') {
-			if (old) old(null);
-			if (value) value(node);
+			applyRef(old, null);
+			applyRef(value, node);
 		} else if (name === 'class' && !isSvg) {
 			node.className = value || '';
 		} else if (name === 'style') {
-			if (options.isWeb) {
-				if (!value || typeof value === 'string' || typeof old === 'string') {
-					node.style.cssText = value || '';
-				}
-				if (value && typeof value === 'object') {
-					if (typeof old !== 'string') {
-						for (var i in old) {
-							if (!(i in value)) node.style[i] = '';
-						}
-					}
-					for (var i in value) {
-						node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+			if (!value || typeof value === 'string' || typeof old === 'string') {
+				node.style.cssText = value || '';
+			}
+			if (value && typeof value === 'object') {
+				if (typeof old !== 'string') {
+					for (var i in old) {
+						if (!(i in value)) node.style[i] = '';
 					}
 				}
-			} else {
-				var oldJson = old,
-				    currentJson = value;
-				if (typeof old === 'string') {
-					oldJson = parseCSSText(old);
-				}
-				if (typeof value == 'string') {
-					currentJson = parseCSSText(value);
-				}
-
-				var result = {},
-				    changed = false;
-
-				if (oldJson) {
-					for (var key in oldJson) {
-						if (typeof currentJson == 'object' && !(key in currentJson)) {
-							result[key] = '';
-							changed = true;
-						}
-					}
-
-					for (var ckey in currentJson) {
-						if (currentJson[ckey] !== oldJson[ckey]) {
-							result[ckey] = currentJson[ckey];
-							changed = true;
-						}
-					}
-
-					if (changed) {
-						node.setStyles(result);
-					}
-				} else {
-					node.setStyles(currentJson);
+				for (var i in value) {
+					node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
 				}
 			}
 		} else if (name === 'dangerouslySetInnerHTML') {
@@ -382,10 +309,17 @@
 			}
 			(node._listeners || (node._listeners = {}))[name] = value;
 		} else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
-			setProperty(node, name, value == null ? '' : value);
-			if (value == null || value === false) node.removeAttribute(name);
+			// Attempt to set a DOM property to the given value.
+			// IE & FF throw for certain property-value combinations.
+			try {
+				node[name] = value == null ? '' : value;
+			} catch (e) {}
+			if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
 		} else {
 			var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
+			// spellcheck is treated differently than all other boolean values and
+			// should not be removed when the value is `false`. See:
+			// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
 			if (value == null || value === false) {
 				if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
 			} else if (typeof value !== 'function') {
@@ -394,24 +328,14 @@
 		}
 	}
 
-    /** Attempt to set a DOM property to the given value.
-	 *	IE & FF throw for certain property-value combinations.
-	 */
-    function setProperty(node, name, value) {
-		try {
-			node[name] = value;
-		} catch (e) {}
-	}
-
-    /** Proxy an event to hooked event handlers
-	 *	@private
+    /**
+	 * Proxy an event to hooked event handlers
+	 * @param {Event} e The event object from the browser
+	 * @private
 	 */
     function eventProxy(e) {
 		return this._listeners[e.type](options.event && options.event(e) || e);
 	}
-
-    /** Queue of components that have been mounted and are awaiting componentDidMount */
-    var mounts = [];
 
     /** Diff recursion count, used to track the end of the diff cycle. */
     var diffLevel = 0;
@@ -421,16 +345,6 @@
 
     /** Global flag indicating if the diff is performing hydration */
     var hydrating = false;
-
-    /** Invoke queued componentDidMount lifecycle methods */
-    function flushMounts() {
-		var c;
-		while (c = mounts.pop()) {
-			if (options.afterMount) options.afterMount(c);
-			if (c.componentDidMount) c.componentDidMount();
-			if (c.installed) c.installed();
-		}
-	}
 
     /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
 	 *	@param {Element} [dom=null]		A DOM node to mutate into the shape of the `vnode`
@@ -457,7 +371,6 @@
 		if (! --diffLevel) {
 			hydrating = false;
 			// invoke queued componentDidMount lifecycle methods
-			if (!componentRoot) flushMounts();
 		}
 
 		return ret;
@@ -722,13 +635,11 @@
 	        names.forEach(function (name) {
 	            _this2.props[npn(name)] = _this2.getAttribute(name);
 	        });
-	        this._vd = this.render();
-	        this._css = this.css();
 
 	        var shadowRoot = this.attachShadow({ mode: 'open' });
 
-	        shadowRoot.appendChild(cssToDom(this._css));
-	        this.host = vdToDom(this._vd);
+	        shadowRoot.appendChild(cssToDom(this.css()));
+	        this.host = diff(null, this.render(), {}, false, null, false);
 	        shadowRoot.appendChild(this.host);
 
 	        this.installed();
@@ -747,19 +658,25 @@
 	    };
 
 	    WeElement.prototype.update = function update() {
+	        this.beforeUpdate();
 	        diff(this.host, this.render());
+	        this.afterUpdate();
 	    };
 
 	    WeElement.prototype.install = function install() {};
 
 	    WeElement.prototype.installed = function installed() {};
 
+	    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+
+	    WeElement.prototype.afterUpdate = function afterUpdate() {};
+
 	    return WeElement;
 	}(HTMLElement);
 
     function render(vnode, parent) {
 		parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-		parent.appendChild(vdToDom(vnode));
+		diff(null, vnode, {}, false, parent, false);
 	}
 
     var instances = [];

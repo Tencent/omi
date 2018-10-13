@@ -127,60 +127,34 @@
 	 * current under-construction element's definition.
 	 */
 	(function () {
-	    if (
-	    // No Reflect, no classes, no need for shim because native custom elements
-	    // require ES2015 classes or Reflect.
-	    window.Reflect === undefined || window.customElements === undefined ||
-	    // The webcomponentsjs custom elements polyfill doesn't require
-	    // ES2015-compatible construction (`super()` or `Reflect.construct`).
-	    window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
-	        return;
-	    }
-	    var BuiltInHTMLElement = HTMLElement;
-	    window.HTMLElement = function HTMLElement() {
-	        return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
-	    };
-	    HTMLElement.prototype = BuiltInHTMLElement.prototype;
-	    HTMLElement.prototype.constructor = HTMLElement;
-	    Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+	  if (
+	  // No Reflect, no classes, no need for shim because native custom elements
+	  // require ES2015 classes or Reflect.
+	  window.Reflect === undefined || window.customElements === undefined ||
+	  // The webcomponentsjs custom elements polyfill doesn't require
+	  // ES2015-compatible construction (`super()` or `Reflect.construct`).
+	  window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+	    return;
+	  }
+	  var BuiltInHTMLElement = HTMLElement;
+	  window.HTMLElement = function HTMLElement() {
+	    return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
+	  };
+	  HTMLElement.prototype = BuiltInHTMLElement.prototype;
+	  HTMLElement.prototype.constructor = HTMLElement;
+	  Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
 	})();
 
-	function vdToDom(vd) {
-	    if (vd) {
-	        if (vd.nodeName) {
-	            var dom = document.createElement(vd.nodeName);
-	            Object.keys(vd.attributes).forEach(function (key) {
-	                dom.setAttribute(key, vd.attributes[key]);
-	            });
-	            bind(vd, dom);
-	            vd.children && vd.children.forEach(function (child) {
-	                var n = vdToDom(child);
-	                n && dom.appendChild(n);
-	            });
-	            return dom;
-	        } else {
-	            return document.createTextNode(vd);
-	        }
-	    }
-	}
-
-	function bind(vd, dom) {
-	    if (vd.attributes.onClick) {
-
-	        dom.onclick = vd.attributes.onClick;
-	    }
-	}
-
 	function cssToDom(css) {
-	    var node = document.createElement('style');
-	    node.innerText = css;
-	    return node;
+	  var node = document.createElement('style');
+	  node.innerText = css;
+	  return node;
 	}
 
 	function npn(str) {
-	    return str.replace(/-(\w)/g, function ($, $1) {
-	        return $1.toUpperCase();
-	    });
+	  return str.replace(/-(\w)/g, function ($, $1) {
+	    return $1.toUpperCase();
+	  });
 	}
 
 	/** Invoke or update a ref, depending on whether it is a function or object ref.
@@ -188,9 +162,9 @@
 	 *  @param {any} [value]
 	 */
 	function applyRef(ref, value) {
-	    if (ref != null) {
-	        if (typeof ref == 'function') ref(value);else ref.current = value;
-	    }
+	  if (ref != null) {
+	    if (typeof ref == 'function') ref(value);else ref.current = value;
+	  }
 	}
 
 	/**
@@ -200,6 +174,32 @@
 	 * @type {(callback: function) => void}
 	 */
 	var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+
+	// export function vdToDom(vd) {
+	//     if(vd){
+	//     if (vd.nodeName) {
+	//         const dom = document.createElement(vd.nodeName)
+	//         Object.keys(vd.attributes).forEach(key=>{
+	//             dom.setAttribute(key,vd.attributes[key])
+	//         })
+	//         bind(vd, dom)
+	//         vd.children && vd.children.forEach(child => {
+	//             const n = vdToDom(child)
+	//             n&&dom.appendChild(n)
+	//         })
+	//         return dom
+	//     } else {
+	//         return document.createTextNode(vd)
+	//     }
+	// }
+	// }
+
+	// function bind(vd, dom) {
+	//     if (vd.attributes.onClick) {
+
+	//         dom.onclick = vd.attributes.onClick
+	//     }
+	// }
 
 	// render modes
 
@@ -359,9 +359,6 @@
 		return this._listeners[e.type](options.event && options.event(e) || e);
 	}
 
-	/** Queue of components that have been mounted and are awaiting componentDidMount */
-	var mounts = [];
-
 	/** Diff recursion count, used to track the end of the diff cycle. */
 	var diffLevel = 0;
 
@@ -370,16 +367,6 @@
 
 	/** Global flag indicating if the diff is performing hydration */
 	var hydrating = false;
-
-	/** Invoke queued componentDidMount lifecycle methods */
-	function flushMounts() {
-		var c = void 0;
-		while (c = mounts.pop()) {
-			if (options.afterMount) options.afterMount(c);
-			if (c.componentDidMount) c.componentDidMount();
-			if (c.installed) c.installed();
-		}
-	}
 
 	/** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
 	 *	@param {Element} [dom=null]		A DOM node to mutate into the shape of the `vnode`
@@ -406,7 +393,6 @@
 		if (! --diffLevel) {
 			hydrating = false;
 			// invoke queued componentDidMount lifecycle methods
-			if (!componentRoot) flushMounts();
 		}
 
 		return ret;
@@ -671,13 +657,11 @@
 	        names.forEach(function (name) {
 	            _this2.props[npn(name)] = _this2.getAttribute(name);
 	        });
-	        this._vd = this.render();
-	        this._css = this.css();
 
 	        var shadowRoot = this.attachShadow({ mode: 'open' });
 
-	        shadowRoot.appendChild(cssToDom(this._css));
-	        this.host = vdToDom(this._vd);
+	        shadowRoot.appendChild(cssToDom(this.css()));
+	        this.host = diff(null, this.render(), {}, false, null, false);
 	        shadowRoot.appendChild(this.host);
 
 	        this.installed();
@@ -714,7 +698,7 @@
 
 	function render(vnode, parent) {
 		parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-		parent.appendChild(vdToDom(vnode));
+		diff(null, vnode, {}, false, parent, false);
 	}
 
 	var instances = [];
@@ -761,7 +745,6 @@
 	    };
 
 	    HelloElement.prototype.render = function render$$1() {
-	        console.log(this.props.propFromParent);
 	        return Omi.h(
 	            'div',
 	            { onClick: this.onClick },
@@ -802,7 +785,9 @@
 	            args[_key] = arguments[_key];
 	        }
 
-	        return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {}, _temp), _possibleConstructorReturn$2(_this, _ret);
+	        return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {
+	            console.log(_this);
+	        }, _temp), _possibleConstructorReturn$2(_this, _ret);
 	    }
 
 	    MyApp.prototype.install = function install() {

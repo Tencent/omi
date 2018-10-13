@@ -16,13 +16,11 @@ export default class WeElement extends HTMLElement {
         names.forEach(name => {
             this.props[npn(name)] = this.getAttribute(name)
         })
-        this._vd = this.render()
-        this._css = this.css()
 
         const shadowRoot = this.attachShadow({ mode: 'open' })
 
-        shadowRoot.appendChild(cssToDom(this._css))
-        this.host = vdToDom(this._vd)
+        shadowRoot.appendChild(cssToDom(this.css()))
+        this.host =  diff(null, this.render(), {}, false, null, false)
         shadowRoot.appendChild(this.host)
 
         this.installed()

@@ -22,23 +22,6 @@
         if (void 0 !== options.vnode) options.vnode(p);
         return p;
     }
-    function vdToDom(vd) {
-        if (vd) if (vd.nodeName) {
-            var dom = document.createElement(vd.nodeName);
-            Object.keys(vd.attributes).forEach(function(key) {
-                dom.setAttribute(key, vd.attributes[key]);
-            });
-            bind(vd, dom);
-            vd.children && vd.children.forEach(function(child) {
-                var n = vdToDom(child);
-                n && dom.appendChild(n);
-            });
-            return dom;
-        } else return document.createTextNode(vd);
-    }
-    function bind(vd, dom) {
-        if (vd.attributes.onClick) dom.onclick = vd.attributes.onClick;
-    }
     function cssToDom(css) {
         var node = document.createElement('style');
         node.innerText = css;
@@ -49,6 +32,9 @@
             return $1.toUpperCase();
         });
     }
+    function applyRef(ref, value) {
+        if (null != ref) if ('function' == typeof ref) ref(value); else ref.current = value;
+    }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
         if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else return hydrating || node._componentConstructor === vnode.nodeName;
@@ -57,38 +43,9 @@
         return node.__n === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
     }
     function createNode(nodeName, isSvg) {
-        var node = isSvg ? options.doc.createElementNS('http://www.w3.org/2000/svg', nodeName) : options.doc.createElement(nodeName);
+        var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
         node.__n = nodeName;
         return node;
-    }
-    function parseCSSText(cssText) {
-        var cssTxt = cssText.replace(/\/\*(.|\s)*?\*\//g, " ").replace(/\s+/g, " ");
-        var style = {}, _ref = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [ a, b, cssTxt ], a = _ref[0], b = _ref[1], rule = _ref[2];
-        var properties = rule.split(";").map(function(o) {
-            return o.split(":").map(function(x) {
-                return x && x.trim();
-            });
-        });
-        for (var i = properties, i = Array.isArray(i), i = 0, i = i ? i : i[Symbol.iterator](); ;) {
-            var _ref3;
-            if (i) {
-                if (i >= i.length) break;
-                _ref3 = i[i++];
-            } else {
-                i = i.next();
-                if (i.done) break;
-                _ref3 = i.value;
-            }
-            var _ref2 = _ref3;
-            var property = _ref2[0];
-            var value = _ref2[1];
-            style[function(s) {
-                return s.replace(/\W+\w/g, function(match) {
-                    return match.slice(-1).toUpperCase();
-                });
-            }(property)] = value;
-        }
-        return style;
     }
     function removeNode(node) {
         var parentNode = node.parentNode;
@@ -97,30 +54,14 @@
     function setAccessor(node, name, old, value, isSvg) {
         if ('className' === name) name = 'class';
         if ('key' === name) ; else if ('ref' === name) {
-            if (old) old(null);
-            if (value) value(node);
-        } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) if (options.isWeb) {
+            applyRef(old, null);
+            applyRef(value, node);
+        } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) {
             if (!value || 'string' == typeof value || 'string' == typeof old) node.style.cssText = value || '';
             if (value && 'object' == typeof value) {
                 if ('string' != typeof old) for (var i in old) if (!(i in value)) node.style[i] = '';
                 for (var i in value) node.style[i] = 'number' == typeof value[i] && !1 === IS_NON_DIMENSIONAL.test(i) ? value[i] + 'px' : value[i];
             }
-        } else {
-            var oldJson = old, currentJson = value;
-            if ('string' == typeof old) oldJson = parseCSSText(old);
-            if ('string' == typeof value) currentJson = parseCSSText(value);
-            var result = {}, changed = !1;
-            if (oldJson) {
-                for (var key in oldJson) if ('object' == typeof currentJson && !(key in currentJson)) {
-                    result[key] = '';
-                    changed = !0;
-                }
-                for (var ckey in currentJson) if (currentJson[ckey] !== oldJson[ckey]) {
-                    result[ckey] = currentJson[ckey];
-                    changed = !0;
-                }
-                if (changed) node.setStyles(result);
-            } else node.setStyles(currentJson);
         } else if ('dangerouslySetInnerHTML' === name) {
             if (value) node.innerHTML = value.__html || '';
         } else if ('o' == name[0] && 'n' == name[1]) {
@@ -131,28 +72,17 @@
             } else node.removeEventListener(name, eventProxy, useCapture);
             (node.__l || (node.__l = {}))[name] = value;
         } else if ('list' !== name && 'type' !== name && !isSvg && name in node) {
-            setProperty(node, name, null == value ? '' : value);
-            if (null == value || !1 === value) node.removeAttribute(name);
+            try {
+                node[name] = null == value ? '' : value;
+            } catch (e) {}
+            if ((null == value || !1 === value) && 'spellcheck' != name) node.removeAttribute(name);
         } else {
             var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
             if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.setAttribute(name, value);
         }
     }
-    function setProperty(node, name, value) {
-        try {
-            node[name] = value;
-        } catch (e) {}
-    }
     function eventProxy(e) {
         return this.__l[e.type](options.event && options.event(e) || e);
-    }
-    function flushMounts() {
-        var c;
-        while (c = mounts.pop()) {
-            if (options.afterMount) options.afterMount(c);
-            if (c.componentDidMount) c.componentDidMount();
-            if (c.installed) c.installed();
-        }
     }
     function diff(dom, vnode, context, mountAll, parent, componentRoot) {
         if (!diffLevel++) {
@@ -161,10 +91,7 @@
         }
         var ret = idiff(dom, vnode, context, mountAll, componentRoot);
         if (parent && ret.parentNode !== parent) parent.appendChild(ret);
-        if (!--diffLevel) {
-            hydrating = !1;
-            if (!componentRoot) flushMounts();
-        }
+        if (!--diffLevel) hydrating = !1;
         return ret;
     }
     function idiff(dom, vnode, context, mountAll, componentRoot) {
@@ -278,7 +205,7 @@
     }
     function render(vnode, parent) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
-        parent.appendChild(vdToDom(vnode));
+        diff(null, vnode, {}, !1, parent, !1);
     }
     var options = {
         scopedStyle: !0,
@@ -310,14 +237,8 @@
             Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
         }
     }();
-    var usePromise = 'function' == typeof Promise;
-    if ('object' != typeof document && 'undefined' != typeof global && global.v) if ('android' === global.v.platform) usePromise = !0; else {
-        var systemVersion = global.v.systemVersion && global.v.systemVersion.split('.')[0] || 0;
-        if (systemVersion > 8) usePromise = !0;
-    }
-    usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+    'function' == typeof Promise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
     var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
-    var mounts = [];
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
@@ -337,13 +258,11 @@
             names.forEach(function(name) {
                 _this2.props[npn(name)] = _this2.getAttribute(name);
             });
-            this.y = this.render();
-            this.z = this.css();
             var shadowRoot = this.attachShadow({
                 mode: 'open'
             });
-            shadowRoot.appendChild(cssToDom(this.z));
-            this.host = vdToDom(this.y);
+            shadowRoot.appendChild(cssToDom(this.css()));
+            this.host = diff(null, this.render(), {}, !1, null, !1);
             shadowRoot.appendChild(this.host);
             this.installed();
         };
@@ -355,10 +274,14 @@
             this.uninstall();
         };
         WeElement.prototype.update = function() {
+            this.beforeUpdate();
             diff(this.host, this.render());
+            this.afterUpdate();
         };
         WeElement.prototype.install = function() {};
         WeElement.prototype.installed = function() {};
+        WeElement.prototype.beforeUpdate = function() {};
+        WeElement.prototype.afterUpdate = function() {};
         return WeElement;
     }(HTMLElement);
     var instances = [];

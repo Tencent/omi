@@ -19,7 +19,6 @@ class HelloElement extends WeElement {
     }
 
     render() {
-        console.log(this.props.propFromParent)
         return (
             <div onClick={this.onClick}>
                 Hello {this.props.msg} {this.props.propFromParent}

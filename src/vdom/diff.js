@@ -16,15 +16,7 @@ let isSvgMode = false;
 /** Global flag indicating if the diff is performing hydration */
 let hydrating = false;
 
-/** Invoke queued componentDidMount lifecycle methods */
-export function flushMounts() {
-	let c;
-	while ((c=mounts.pop())) {
-		if (options.afterMount) options.afterMount(c);
-		if (c.componentDidMount) c.componentDidMount();
-		if (c.installed) c.installed();
-	}
-}
+
 
 
 /** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
@@ -52,7 +44,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 	if (!--diffLevel) {
 		hydrating = false;
 		// invoke queued componentDidMount lifecycle methods
-		if (!componentRoot) flushMounts();
+		
 	}
 
 	return ret;

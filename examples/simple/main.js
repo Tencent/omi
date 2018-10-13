@@ -4,7 +4,7 @@ import './hello-element'
 class MyApp extends WeElement {
 
     onClick = (evt) => {
-
+        console.log(this)
     }
 
     install () {
@@ -15,7 +15,7 @@ class MyApp extends WeElement {
     installed(){
         this.data.passToChild = '12345'
         this.data.abc = 'abcde'
-        this.update()
+        this.update()    
     }
 
     css() {
