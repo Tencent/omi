@@ -8,7 +8,8 @@ class MyApp extends WeElement {
     }
 
     onAbc = (evt) => {
-        console.log(evt.detail)
+        this.data.abc = ' by ' + evt.detail.name
+        this.update()   
     }
 
     install () {
@@ -33,7 +34,7 @@ class MyApp extends WeElement {
         return (
             <div onClick={this.onClick}>
                 Hello {props.name} {data.abc}
-                <hello-element onAbc={this.onAbc} prop-from-parent={data.passToChild} msg="Omi v4.0"></hello-element>
+                <hello-element onAbc={this.onAbc} prop-from-parent={data.passToChild} msg="WeElement"></hello-element>
             </div>
         )
     }
@@ -42,4 +43,4 @@ class MyApp extends WeElement {
 
 customElements.define('my-app', MyApp)
 
-render(<my-app name='WeElement'></my-app>, 'body')
+render(<my-app name='Omi v4.0'></my-app>, 'body')

@@ -17,6 +17,7 @@ class HelloElement extends WeElement {
         return `
          div{
              color: red;
+             cursor: pointer;
          }`
     }
 
@@ -24,6 +25,7 @@ class HelloElement extends WeElement {
         return (
             <div onClick={this.onClick}>
                 Hello {props.msg} {props.propFromParent}
+                <div>Click Me!</div>
             </div>
         )
     }

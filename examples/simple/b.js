@@ -761,7 +761,7 @@
 	    }
 
 	    HelloElement.prototype.css = function css() {
-	        return '\n         div{\n             color: red;\n         }';
+	        return '\n         div{\n             color: red;\n             cursor: pointer;\n         }';
 	    };
 
 	    HelloElement.prototype.render = function render$$1(props) {
@@ -771,7 +771,12 @@
 	            'Hello ',
 	            props.msg,
 	            ' ',
-	            props.propFromParent
+	            props.propFromParent,
+	            Omi.h(
+	                'div',
+	                null,
+	                'Click Me!'
+	            )
 	        );
 	    };
 
@@ -806,7 +811,8 @@
 	        }
 
 	        return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {}, _this.onAbc = function (evt) {
-	            console.log(evt.detail);
+	            _this.data.abc = ' by ' + evt.detail.name;
+	            _this.update();
 	        }, _temp), _possibleConstructorReturn$2(_this, _ret);
 	    }
 
@@ -833,7 +839,7 @@
 	            props.name,
 	            ' ',
 	            data.abc,
-	            Omi.h('hello-element', { onAbc: this.onAbc, 'prop-from-parent': data.passToChild, msg: 'Omi v4.0' })
+	            Omi.h('hello-element', { onAbc: this.onAbc, 'prop-from-parent': data.passToChild, msg: 'WeElement' })
 	        );
 	    };
 
@@ -842,7 +848,7 @@
 
 	customElements.define('my-app', MyApp);
 
-	render(Omi.h('my-app', { name: 'WeElement' }), 'body');
+	render(Omi.h('my-app', { name: 'Omi v4.0' }), 'body');
 
 }());
 //# sourceMappingURL=b.js.map
