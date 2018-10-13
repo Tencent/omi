@@ -685,6 +685,10 @@
 	        this.afterUpdate();
 	    };
 
+	    WeElement.prototype.fire = function fire(name, data) {
+	        this.dispatchEvent(new CustomEvent(name, { detail: data }));
+	    };
+
 	    WeElement.prototype.install = function install() {};
 
 	    WeElement.prototype.installed = function installed() {};
@@ -736,6 +740,8 @@
 
 	        return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {
 	            console.log(_this);
+	            //trigger CustomEvent
+	            _this.fire('abc', { name: 'dntzhang', age: 12 });
 	            evt.stopPropagation();
 	        }, _temp), _possibleConstructorReturn$1(_this, _ret);
 	    }
@@ -785,8 +791,8 @@
 	            args[_key] = arguments[_key];
 	        }
 
-	        return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {
-	            console.log(_this);
+	        return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {}, _this.onAbc = function (evt) {
+	            console.log(evt.detail);
 	        }, _temp), _possibleConstructorReturn$2(_this, _ret);
 	    }
 
@@ -813,7 +819,7 @@
 	            this.props.name,
 	            ' ',
 	            this.data.abc,
-	            Omi.h('hello-element', { 'prop-from-parent': this.data.passToChild, msg: 'Omi v4.0' })
+	            Omi.h('hello-element', { onAbc: this.onAbc, 'prop-from-parent': this.data.passToChild, msg: 'Omi v4.0' })
 	        );
 	    };
 

@@ -8,6 +8,8 @@ class HelloElement extends WeElement {
 
     onClick = (evt) => {
         console.log(this)
+        //trigger CustomEvent
+        this.fire('abc', { name : 'dntzhang', age: 12 })
         evt.stopPropagation()
     }
 

@@ -4,7 +4,11 @@ import './hello-element'
 class MyApp extends WeElement {
 
     onClick = (evt) => {
-        console.log(this)
+        
+    }
+
+    onAbc = (evt) => {
+        console.log(evt.detail)
     }
 
     install () {
@@ -29,7 +33,7 @@ class MyApp extends WeElement {
         return (
             <div onClick={this.onClick}>
                 Hello {this.props.name} {this.data.abc}
-                <hello-element prop-from-parent={this.data.passToChild} msg="Omi v4.0"></hello-element>
+                <hello-element onAbc={this.onAbc} prop-from-parent={this.data.passToChild} msg="Omi v4.0"></hello-element>
             </div>
         )
     }

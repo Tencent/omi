@@ -42,6 +42,10 @@ export default class WeElement extends HTMLElement {
         this.afterUpdate()
     }
 
+    fire(name, data){
+        this.dispatchEvent(new CustomEvent(name, { detail : data }))
+    }
+
     install() {
 
     }
