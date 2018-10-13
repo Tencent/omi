@@ -17,12 +17,8 @@
 
 - [Getting Started](#getting-started)
 	- [Hello Omi](#hello-omi)
-    - [Scoped CSS](#scoped-css)
-	- [Store](#store)
 	- [Lifecycle](#lifecycle)
-- [CLI](#cli)
 - [Install](#install)
-- [Official Plugins](#official-plugins)
 - [Links](#links)
 - [License](#license)
 
