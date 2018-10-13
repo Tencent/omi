@@ -1,4 +1,6 @@
-# Omi 4.0 - 合一  (Coming soon....)
+# Omi 4.0 - 合一  
+
+(Coming soon....)
 
 > 下一代 Web 框架，去万物糟粕，合精华为一。
 
@@ -29,16 +31,18 @@
 先创建一个自定义元素:
 
 ```js
-import { WeElement } from '../../src/omi'
+import { WeElement } from 'omi'
 
 class HelloElement extends WeElement {
 
-    static get observedAttributes() { 
+    static get props(){
         return ['prop-from-parent']
     }
 
     onClick = (evt) => {
         console.log(this)
+        //trigger CustomEvent
+        this.fire('abc', { name : 'dntzhang', age: 12 })
         evt.stopPropagation()
     }
 
@@ -46,13 +50,15 @@ class HelloElement extends WeElement {
         return `
          div{
              color: red;
+             cursor: pointer;
          }`
     }
 
-    render() {
+    render(props) {
         return (
             <div onClick={this.onClick}>
-                Hello {this.props.msg} {this.props.propFromParent}
+                Hello {props.msg} {props.propFromParent}
+                <div>Click Me!</div>
             </div>
         )
     }
@@ -69,9 +75,25 @@ import { render, WeElement } from 'omi'
 import './hello-element'
 
 class MyApp extends WeElement {
-    
-    onClick = (evt)=> {
-       
+
+    onClick = (evt) => {
+
+    }
+
+    onAbc = (evt) => {
+        this.data.abc = ' by ' + evt.detail.name
+        this.update()   
+    }
+
+    install () {
+        this.data.abc = 'abc'
+        this.data.passToChild = '123'
+    }
+
+    installed(){
+        this.data.passToChild = '12345'
+        this.data.abc = 'abcde'
+        this.update()    
     }
 
     css() {
@@ -81,11 +103,11 @@ class MyApp extends WeElement {
          }`
     }
 
-    render() {
+    render(props, data) {
         return (
             <div onClick={this.onClick}>
-                Hello {this.props.name}
-                <hello-element msg="Omi v4.0"></hello-element>
+                Hello {props.name} {data.abc}
+                <hello-element onAbc={this.onAbc} prop-from-parent={data.passToChild} msg="WeElement"></hello-element>
             </div>
         )
     }
@@ -94,7 +116,7 @@ class MyApp extends WeElement {
 
 customElements.define('my-app', MyApp)
 
-render(<my-app name='WeElement'></my-app>, 'body')
+render(<my-app name='Omi v4.0'></my-app>, 'body')
 ```
 
 告诉 Babel to 把 JSX 转化成 Omi.h() 的调用:
@@ -131,7 +153,6 @@ render(<my-app name='WeElement'></my-app>, 'body')
 
 ``` js
 import { render, WeElement } from 'omi'
-import './hello-element'
 //typeof cssStr is string
 import cssStr from './_index.css' 
 
@@ -140,16 +161,9 @@ class MyApp extends WeElement {
   css() {
     return cssStr
   }
-
-  render() {
-      return (
-          <div onClick={this.onClick}>
-              Hello {this.props.name}
-              <hello-element msg="Omi v4.0"></hello-element>
-          </div>
-      )
-  }
-}
+  ...
+  ...
+  ...
 ```
 
 
@@ -163,12 +177,9 @@ class MyApp extends WeElement {
 | `beforeUpdate`       | before `render()`                                |
 | `afterUpdate`        | after `render()`                                 |
 
-
-
 ## Install
 
-
-or get it from Github:
+Get javascript file from Github:
 
 * [omi/master/dist](https://github.com/Tencent/omi/tree/master/dist)
 * [omi.js](https://github.com/Tencent/omi/blob/master/dist/omi.js)
