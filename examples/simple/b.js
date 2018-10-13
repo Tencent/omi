@@ -183,29 +183,23 @@
 	    });
 	}
 
+	/** Invoke or update a ref, depending on whether it is a function or object ref.
+	 *  @param {object|function} [ref=null]
+	 *  @param {any} [value]
+	 */
+	function applyRef(ref, value) {
+	    if (ref != null) {
+	        if (typeof ref == 'function') ref(value);else ref.current = value;
+	    }
+	}
+
 	/**
 	 * Call a function asynchronously, as soon as possible. Makes
 	 * use of HTML Promise to schedule the callback if available,
 	 * otherwise falling back to `setTimeout` (mainly for IE<11).
-	 *
-	 * @param {Function} callback
+	 * @type {(callback: function) => void}
 	 */
-
-	var usePromise = typeof Promise == 'function';
-
-	// for native
-	if (typeof document !== 'object' && typeof global !== 'undefined' && global.__config__) {
-	    if (global.__config__.platform === 'android') {
-	        usePromise = true;
-	    } else {
-	        var systemVersion = global.__config__.systemVersion && global.__config__.systemVersion.split('.')[0] || 0;
-	        if (systemVersion > 8) {
-	            usePromise = true;
-	        }
-	    }
-	}
-
-	var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+	var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
 	// render modes
 
@@ -242,69 +236,64 @@
 	  return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
 	}
 
-	/** Create an element with the given nodeName.
-	 *	@param {String} nodeName
-	 *	@param {Boolean} [isSvg=false]	If `true`, creates an element within the SVG namespace.
-	 *	@returns {Element} node
+	/**
+	 * A DOM event listener
+	 * @typedef {(e: Event) => void} EventListner
+	 */
+
+	/**
+	 * A mapping of event types to event listeners
+	 * @typedef {Object.<string, EventListener>} EventListenerMap
+	 */
+
+	/**
+	 * Properties Preact adds to elements it creates
+	 * @typedef PreactElementExtensions
+	 * @property {string} [normalizedNodeName] A normalized node name to use in diffing
+	 * @property {EventListenerMap} [_listeners] A map of event listeners added by components to this DOM node
+	 * @property {import('../component').Component} [_component] The component that rendered this DOM node
+	 * @property {function} [_componentConstructor] The constructor of the component that rendered this DOM node
+	 */
+
+	/**
+	 * A DOM element that has been extended with Preact properties
+	 * @typedef {Element & ElementCSSInlineStyle & PreactElementExtensions} PreactElement
+	 */
+
+	/**
+	 * Create an element with the given nodeName.
+	 * @param {string} nodeName The DOM node to create
+	 * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
+	 *  namespace.
+	 * @returns {PreactElement} The created DOM node
 	 */
 	function createNode(nodeName, isSvg) {
-		var node = isSvg ? options.doc.createElementNS('http://www.w3.org/2000/svg', nodeName) : options.doc.createElement(nodeName);
+		/** @type {PreactElement} */
+		var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
 		node.normalizedNodeName = nodeName;
 		return node;
 	}
 
-	function parseCSSText(cssText) {
-		var cssTxt = cssText.replace(/\/\*(.|\s)*?\*\//g, " ").replace(/\s+/g, " ");
-		var style = {},
-		    _ref = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [a, b, cssTxt],
-		    a = _ref[0],
-		    b = _ref[1],
-		    rule = _ref[2];
-		var cssToJs = function cssToJs(s) {
-			return s.replace(/\W+\w/g, function (match) {
-				return match.slice(-1).toUpperCase();
-			});
-		};
-		var properties = rule.split(";").map(function (o) {
-			return o.split(":").map(function (x) {
-				return x && x.trim();
-			});
-		});
-		for (var _iterator = properties, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-			var _ref3;
-
-			if (_isArray) {
-				if (_i >= _iterator.length) break;
-				_ref3 = _iterator[_i++];
-			} else {
-				_i = _iterator.next();
-				if (_i.done) break;
-				_ref3 = _i.value;
-			}
-
-			var _ref2 = _ref3;
-			var property = _ref2[0];
-			var value = _ref2[1];
-			style[cssToJs(property)] = value;
-		}return style;
-	}
-
-	/** Remove a child node from its parent if attached.
-	 *	@param {Element} node		The node to remove
+	/**
+	 * Remove a child node from its parent if attached.
+	 * @param {Node} node The node to remove
 	 */
 	function removeNode(node) {
 		var parentNode = node.parentNode;
 		if (parentNode) parentNode.removeChild(node);
 	}
 
-	/** Set a named attribute on the given Node, with special behavior for some names and event handlers.
-	 *	If `value` is `null`, the attribute/handler will be removed.
-	 *	@param {Element} node	An element to mutate
-	 *	@param {string} name	The name/key to set, such as an event or attribute name
-	 *	@param {any} old	The last value that was set for this name/node pair
-	 *	@param {any} value	An attribute value, such as a function to be used as an event handler
-	 *	@param {Boolean} isSvg	Are we currently diffing inside an svg?
-	 *	@private
+	/**
+	 * Set a named attribute on the given Node, with special behavior for some names
+	 * and event handlers. If `value` is `null`, the attribute/handler will be
+	 * removed.
+	 * @param {PreactElement} node An element to mutate
+	 * @param {string} name The name/key to set, such as an event or attribute name
+	 * @param {*} old The last value that was set for this name/node pair
+	 * @param {*} value An attribute value, such as a function to be used as an
+	 *  event handler
+	 * @param {boolean} isSvg Are we currently diffing inside an svg?
+	 * @private
 	 */
 	function setAccessor(node, name, old, value, isSvg) {
 		if (name === 'className') name = 'class';
@@ -312,58 +301,22 @@
 		if (name === 'key') {
 			// ignore
 		} else if (name === 'ref') {
-			if (old) old(null);
-			if (value) value(node);
+			applyRef(old, null);
+			applyRef(value, node);
 		} else if (name === 'class' && !isSvg) {
 			node.className = value || '';
 		} else if (name === 'style') {
-			if (options.isWeb) {
-				if (!value || typeof value === 'string' || typeof old === 'string') {
-					node.style.cssText = value || '';
-				}
-				if (value && typeof value === 'object') {
-					if (typeof old !== 'string') {
-						for (var i in old) {
-							if (!(i in value)) node.style[i] = '';
-						}
-					}
-					for (var _i2 in value) {
-						node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
+			if (!value || typeof value === 'string' || typeof old === 'string') {
+				node.style.cssText = value || '';
+			}
+			if (value && typeof value === 'object') {
+				if (typeof old !== 'string') {
+					for (var i in old) {
+						if (!(i in value)) node.style[i] = '';
 					}
 				}
-			} else {
-				var oldJson = old,
-				    currentJson = value;
-				if (typeof old === 'string') {
-					oldJson = parseCSSText(old);
-				}
-				if (typeof value == 'string') {
-					currentJson = parseCSSText(value);
-				}
-
-				var result = {},
-				    changed = false;
-
-				if (oldJson) {
-					for (var key in oldJson) {
-						if (typeof currentJson == 'object' && !(key in currentJson)) {
-							result[key] = '';
-							changed = true;
-						}
-					}
-
-					for (var ckey in currentJson) {
-						if (currentJson[ckey] !== oldJson[ckey]) {
-							result[ckey] = currentJson[ckey];
-							changed = true;
-						}
-					}
-
-					if (changed) {
-						node.setStyles(result);
-					}
-				} else {
-					node.setStyles(currentJson);
+				for (var _i in value) {
+					node.style[_i] = typeof value[_i] === 'number' && IS_NON_DIMENSIONAL.test(_i) === false ? value[_i] + 'px' : value[_i];
 				}
 			}
 		} else if (name === 'dangerouslySetInnerHTML') {
@@ -378,10 +331,17 @@
 			}
 			(node._listeners || (node._listeners = {}))[name] = value;
 		} else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
-			setProperty(node, name, value == null ? '' : value);
-			if (value == null || value === false) node.removeAttribute(name);
+			// Attempt to set a DOM property to the given value.
+			// IE & FF throw for certain property-value combinations.
+			try {
+				node[name] = value == null ? '' : value;
+			} catch (e) {}
+			if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
 		} else {
 			var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
+			// spellcheck is treated differently than all other boolean values and
+			// should not be removed when the value is `false`. See:
+			// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
 			if (value == null || value === false) {
 				if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
 			} else if (typeof value !== 'function') {
@@ -390,17 +350,10 @@
 		}
 	}
 
-	/** Attempt to set a DOM property to the given value.
-	 *	IE & FF throw for certain property-value combinations.
-	 */
-	function setProperty(node, name, value) {
-		try {
-			node[name] = value;
-		} catch (e) {}
-	}
-
-	/** Proxy an event to hooked event handlers
-	 *	@private
+	/**
+	 * Proxy an event to hooked event handlers
+	 * @param {Event} e The event object from the browser
+	 * @private
 	 */
 	function eventProxy(e) {
 		return this._listeners[e.type](options.event && options.event(e) || e);
@@ -743,12 +696,18 @@
 	    };
 
 	    WeElement.prototype.update = function update() {
+	        this.beforeUpdate();
 	        diff(this.host, this.render());
+	        this.afterUpdate();
 	    };
 
 	    WeElement.prototype.install = function install() {};
 
 	    WeElement.prototype.installed = function installed() {};
+
+	    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+
+	    WeElement.prototype.afterUpdate = function afterUpdate() {};
 
 	    return WeElement;
 	}(HTMLElement);

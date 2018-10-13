@@ -39,7 +39,9 @@ export default class WeElement extends HTMLElement {
     }
 
     update() {
+        this.beforeUpdate()
         diff(this.host, this.render())
+        this.afterUpdate()
     }
 
     install() {
@@ -47,6 +49,14 @@ export default class WeElement extends HTMLElement {
     }
 
     installed() {
+
+    }
+
+    beforeUpdate() {
+
+    }
+
+    afterUpdate() {
 
     }
 }
