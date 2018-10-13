@@ -1,32 +1,26 @@
 import { h, h as createElement } from './h';
-import { cloneElement } from './clone-element';
-import { Component } from './component';
-import { render } from './render';
-import { rerender } from './render-queue';
 import options from './options';
+import WeElement from  './we-element';
+import { render } from './render';
 
 const instances = [];
 
 options.root.Omi = {
 	h,
 	createElement,
-	cloneElement,
-	Component,
+	WeElement,
 	render,
-	rerender,
 	options,
 	instances
 };
 
-options.root.Omi.version = '3.0.6';
+options.root.Omi.version = '4.0.0';
 
 export default {
 	h,
 	createElement,
-	cloneElement,
-	Component,
+	WeElement,
 	render,
-	rerender,
 	options,
 	instances
 };
@@ -34,10 +28,8 @@ export default {
 export {
 	h,
 	createElement,
-	cloneElement,
-	Component,
+	WeElement,
 	render,
-	rerender,
 	options,
 	instances
 };

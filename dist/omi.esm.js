@@ -1,5 +1,5 @@
 /**
- * omi v3.0.7  http://omijs.org
+ * omi v4.0.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -66,171 +66,6 @@ var stack = [];
 
 var EMPTY_CHILDREN = [];
 
-var map = {
-	'br': 'view',
-	'hr': 'view',
-
-	'p': 'view',
-	'h1': 'view',
-	'h2': 'view',
-	'h3': 'view',
-	'h4': 'view',
-	'h5': 'view',
-	'h6': 'view',
-	'abbr': 'view',
-	'address': 'view',
-	'b': 'view',
-	'bdi': 'view',
-	'bdo': 'view',
-	'blockquote': 'view',
-	'cite': 'view',
-	'code': 'view',
-	'del': 'view',
-	'ins': 'view',
-	'dfn': 'view',
-	'em': 'view',
-	'strong': 'view',
-	'samp': 'view',
-	'kbd': 'view',
-	'var': 'view',
-	'i': 'view',
-	'mark': 'view',
-	'pre': 'view',
-	'q': 'view',
-	'ruby': 'view',
-	'rp': 'view',
-	'rt': 'view',
-	's': 'view',
-	'small': 'view',
-	'sub': 'view',
-	'sup': 'view',
-	'time': 'view',
-	'u': 'view',
-	'wbr': 'view',
-
-	'form': 'form',
-	'input': 'input',
-	'textarea': 'textarea',
-	'button': 'button',
-	'select': 'picker',
-	'option': 'view',
-	'optgroup': 'view',
-	'label': 'label',
-	'fieldset': 'view',
-	'datalist': 'picker',
-	'legend': 'view',
-	'output': 'view',
-
-	'iframe': 'view',
-
-	'img': 'image',
-	'canvas': 'canvas',
-	'figure': 'view',
-	'figcaption': 'view',
-
-	'audio': 'audio',
-	'source': 'audio',
-	'video': 'video',
-	'track': 'video',
-
-	'a': 'navigator',
-	'nav': 'view',
-	'link': 'navigator',
-
-	'ul': 'view',
-	'ol': 'view',
-	'li': 'view',
-	'dl': 'view',
-	'dt': 'view',
-	'dd': 'view',
-	'menu': 'view',
-	'command': 'view',
-
-	'table': 'view',
-	'caption': 'view',
-	'th': 'view',
-	'td': 'view',
-	'tr': 'view',
-	'thead': 'view',
-	'tbody': 'view',
-	'tfoot': 'view',
-	'col': 'view',
-	'colgroup': 'view',
-
-	'div': 'view',
-	'main': 'view',
-	//'span': 'label',
-	'span': 'text',
-	'header': 'view',
-	'footer': 'view',
-	'section': 'view',
-	'article': 'view',
-	'aside': 'view',
-	'details': 'view',
-	'dialog': 'view',
-	'summary': 'view',
-
-	'progress': 'progress',
-	'meter': 'progress',
-	'head': 'view',
-	'meta': 'view',
-	'base': 'text',
-	'map': 'map',
-	'area': 'navigator',
-
-	'script': 'view',
-	'noscript': 'view',
-	'embed': 'view',
-	'object': 'view',
-	'param': 'view',
-
-	'view': 'view',
-	'scroll-view': 'scroll-view',
-	'swiper': 'swiper',
-	'icon': 'icon',
-	'text': 'text',
-
-	'checkbox': 'checkbox',
-	'radio': 'radio',
-	'picker': 'picker',
-	'picker-view': 'picker-view',
-	'slider': 'slider',
-	'switch': 'switch',
-	'navigator': 'navigator',
-
-	'image': 'image',
-	'contact-button': 'contact-button',
-	'block': 'block'
-};
-
-/**
- * JSX/hyperscript reviver.
- * @see http://jasonformat.com/wtf-is-jsx
- * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
- *
- * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
- *
- * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
- * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
- * the current _actual_ DOM structure, and applying only the differences.
- *
- * `h()`/`createElement()` accepts an element name, a list of attributes/props,
- * and optionally children to append to the element.
- *
- * @example The following DOM tree
- *
- * `<div id="foo" name="bar">Hello!</div>`
- *
- * can be constructed using this function as:
- *
- * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
- *
- * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
- * @param {Object} attributes	Any attributes/props to set on the created element.
- * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
- *
- * @public
- */
 function h(nodeName, attributes) {
 	var children = EMPTY_CHILDREN,
 	    lastSimple,
@@ -269,17 +104,9 @@ function h(nodeName, attributes) {
 	}
 
 	var p = new VNode();
-	p.nodeName = options.isWeb ? nodeName : map[nodeName];
+	p.nodeName = nodeName;
+	p.children = children;
 	p.attributes = attributes == null ? undefined : attributes;
-	if (children && typeof children[0] === 'string' && !options.isWeb) {
-		if (p.attributes) {
-			p.attributes.value = children[0];
-		} else {
-			p.attributes = { value: children[0] };
-		}
-	} else {
-		p.children = children;
-	}
 	p.key = attributes == null ? undefined : attributes.key;
 
 	// if a "vnode hook" is defined, pass every created VNode to it
@@ -289,16 +116,76 @@ function h(nodeName, attributes) {
 }
 
 /**
- *  Copy all properties from `props` onto `obj`.
- *  @param {Object} obj		Object onto which properties should be copied.
- *  @param {Object} props	Object from which to copy properties.
- *  @returns obj
- *  @private
+ * @license
+ * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-function extend(obj, props) {
-  for (var i in props) {
-    obj[i] = props[i];
-  }return obj;
+
+/**
+ * This shim allows elements written in, or compiled to, ES5 to work on native
+ * implementations of Custom Elements v1. It sets new.target to the value of
+ * this.constructor so that the native HTMLElement constructor can access the
+ * current under-construction element's definition.
+ */
+(function () {
+    if (
+    // No Reflect, no classes, no need for shim because native custom elements
+    // require ES2015 classes or Reflect.
+    window.Reflect === undefined || window.customElements === undefined ||
+    // The webcomponentsjs custom elements polyfill doesn't require
+    // ES2015-compatible construction (`super()` or `Reflect.construct`).
+    window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+        return;
+    }
+    var BuiltInHTMLElement = HTMLElement;
+    window.HTMLElement = function HTMLElement() {
+        return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
+    };
+    HTMLElement.prototype = BuiltInHTMLElement.prototype;
+    HTMLElement.prototype.constructor = HTMLElement;
+    Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+})();
+
+function vdToDom(vd) {
+    if (vd) {
+        if (vd.nodeName) {
+            var dom = document.createElement(vd.nodeName);
+            Object.keys(vd.attributes).forEach(function (key) {
+                dom.setAttribute(key, vd.attributes[key]);
+            });
+            bind(vd, dom);
+            vd.children && vd.children.forEach(function (child) {
+                var n = vdToDom(child);
+                n && dom.appendChild(n);
+            });
+            return dom;
+        } else {
+            return document.createTextNode(vd);
+        }
+    }
+}
+
+function bind(vd, dom) {
+    if (vd.attributes.onClick) {
+
+        dom.onclick = vd.attributes.onClick;
+    }
+}
+
+function cssToDom(css) {
+    var node = document.createElement('style');
+    node.innerText = css;
+    return node;
+}
+
+function npn(str) {
+    return str.replace(/-(\w)/g, function ($, $1) {
+        return $1.toUpperCase();
+    });
 }
 
 /**
@@ -313,54 +200,20 @@ var usePromise = typeof Promise == 'function';
 
 // for native
 if (typeof document !== 'object' && typeof global !== 'undefined' && global.__config__) {
-  if (global.__config__.platform === 'android') {
-    usePromise = true;
-  } else {
-    var systemVersion = global.__config__.systemVersion && global.__config__.systemVersion.split('.')[0] || 0;
-    if (systemVersion > 8) {
-      usePromise = true;
+    if (global.__config__.platform === 'android') {
+        usePromise = true;
+    } else {
+        var systemVersion = global.__config__.systemVersion && global.__config__.systemVersion.split('.')[0] || 0;
+        if (systemVersion > 8) {
+            usePromise = true;
+        }
     }
-  }
 }
 
 var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
-/**
- * Clones the given VNode, optionally adding attributes/props and replacing its children.
- * @param {VNode} vnode		The virtual DOM element to clone
- * @param {Object} props	Attributes/props to add when cloning
- * @param {VNode} rest		Any additional arguments will be used as replacement children.
- */
-function cloneElement(vnode, props) {
-  return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
-}
-
 // DOM properties that should NOT have "px" added when numeric
 var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
-
-/** Managed queue of dirty components to be re-rendered */
-
-var items = [];
-
-function enqueueRender(component) {
-	if (items.push(component) == 1) {
-		(options.debounceRendering || defer)(rerender);
-	}
-}
-
-function rerender() {
-	var p,
-	    list = items;
-	items = [];
-	var element;
-	while (p = list.pop()) {
-		element = p.base;
-		renderComponent(p);
-	}
-	if (!list.length) {
-		if (options.componentChange) options.componentChange(p, element);
-	}
-}
 
 /**
  * Check if two nodes are equivalent.
@@ -388,30 +241,6 @@ function isSameNodeType(node, vnode, hydrating) {
  */
 function isNamedNode(node, nodeName) {
   return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
-}
-
-/**
- * Reconstruct Component-style `props` from a VNode.
- * Ensures default/fallback values from `defaultProps`:
- * Own-properties of `defaultProps` not present in `vnode.attributes` are added.
- *
- * @param {VNode} vnode
- * @returns {Object} props
- */
-function getNodeProps(vnode) {
-  var props = extend({}, vnode.attributes);
-  props.children = vnode.children;
-
-  var defaultProps = vnode.nodeName.defaultProps;
-  if (defaultProps !== undefined) {
-    for (var i in defaultProps) {
-      if (props[i] === undefined) {
-        props[i] = defaultProps[i];
-      }
-    }
-  }
-
-  return props;
 }
 
 /** Create an element with the given nodeName.
@@ -664,9 +493,6 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
 	// If the VNode represents a Component, perform a component diff:
 	var vnodeName = vnode.nodeName;
-	if (typeof vnodeName === 'function') {
-		return buildComponentFromVNode(dom, vnode, context, mountAll);
-	}
 
 	// Tracks entering and exiting SVG namespace when descending through the tree.
 	isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
@@ -817,21 +643,16 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
  *	@param {Boolean} [unmountOnly=false]	If `true`, only triggers unmount lifecycle, skips removal
  */
 function recollectNodeTree(node, unmountOnly) {
-	var component = node._component;
-	if (component) {
-		// if node is owned by a Component, unmount that component (ends up recursing back here)
-		unmountComponent(component);
-	} else {
-		// If the node's VNode had a ref function, invoke it with null here.
-		// (this is part of the React spec, and smart for unsetting references)
-		if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
 
-		if (unmountOnly === false || node['__preactattr_'] == null) {
-			removeNode(node);
-		}
+	// If the node's VNode had a ref function, invoke it with null here.
+	// (this is part of the React spec, and smart for unsetting references)
+	if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
 
-		removeChildren(node);
+	if (unmountOnly === false || node['__preactattr_'] == null) {
+		removeNode(node);
 	}
+
+	removeChildren(node);
 }
 
 /** Recollect/unmount all children.
@@ -870,604 +691,72 @@ function diffAttributes(dom, attrs, old) {
 	}
 }
 
-/** Retains a pool of Components for re-use, keyed on component name.
- *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
- *	@private
- */
-var components = {};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-/** Reclaim a component for later re-use by the recycler. */
-function collectComponent(component) {
-	var name = component.constructor.name;
-	(components[name] || (components[name] = [])).push(component);
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-/** Create a component. Normalizes differences between PFC's and classful Components. */
-function createComponent(Ctor, props, context) {
-	var list = components[Ctor.name],
-	    inst;
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	if (Ctor.prototype && Ctor.prototype.render) {
-		inst = new Ctor(props, context);
-		Component.call(inst, props, context);
-	} else {
-		inst = new Component(props, context);
-		inst.constructor = Ctor;
-		inst.render = doRender;
-	}
-	inst.$store = options.$store;
-	if (window && window.Omi) {
-		window.Omi.instances.push(inst);
-	}
+var WeElement = function (_HTMLElement) {
+    _inherits(WeElement, _HTMLElement);
 
-	if (list) {
-		for (var i = list.length; i--;) {
-			if (list[i].constructor === Ctor) {
-				inst.nextBase = list[i].nextBase;
-				list.splice(i, 1);
-				break;
-			}
-		}
-	}
-	return inst;
-}
+    function WeElement() {
+        _classCallCheck(this, WeElement);
 
-/** The `.render()` method for a PFC backing instance. */
-function doRender(props, state, context) {
-	return this.constructor(props, context);
-}
+        var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-var styleId = 0;
+        _this.props = {};
+        _this.data = {};
+        return _this;
+    }
 
-function getCtorName(ctor) {
+    WeElement.prototype.connectedCallback = function connectedCallback() {
+        var _this2 = this;
 
-	for (var i = 0, len = options.styleCache.length; i < len; i++) {
-		var item = options.styleCache[i];
+        this.install();
+        var names = this.getAttributeNames();
 
-		if (item.ctor === ctor) {
-			return item.attrName;
-		}
-	}
+        names.forEach(function (name) {
+            _this2.props[npn(name)] = _this2.getAttribute(name);
+        });
+        this._vd = this.render();
+        this._css = this.css();
 
-	var attrName = 'static_' + styleId;
-	options.styleCache.push({ ctor: ctor, attrName: attrName });
-	styleId++;
+        var shadowRoot = this.attachShadow({ mode: 'open' });
 
-	return attrName;
-}
+        shadowRoot.appendChild(cssToDom(this._css));
+        this.host = vdToDom(this._vd);
+        shadowRoot.appendChild(this.host);
 
-// many thanks to https://github.com/thomaspark/scoper/
-function scoper(css, prefix) {
-	prefix = '[' + prefix.toLowerCase() + ']';
-	// https://www.w3.org/TR/css-syntax-3/#lexical
-	css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
-	// eslint-disable-next-line
-	var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)', 'g');
-	/**
-     * Example:
-     *
-     * .classname::pesudo { color:red }
-     *
-     * g1 is normal selector `.classname`
-     * g2 is pesudo class or pesudo element
-     * g3 is the suffix
-     */
-	css = css.replace(re, function (g0, g1, g2, g3) {
-		if (typeof g2 === 'undefined') {
-			g2 = '';
-		}
+        this.installed();
+    };
 
-		/* eslint-ignore-next-line */
-		if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) {
-			return g1 + g2 + g3;
-		}
+    //chain transfer through this method
 
-		var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-		//let prependClass = prefix + ' ' + g1.trim() + g2;
 
-		return appendClass + g3;
-		//return appendClass + ',' + prependClass + g3;
-	});
+    WeElement.prototype.attributeChangedCallback = function attributeChangedCallback(name, pre, current) {
+        this.props[npn(name)] = current;
+        this.update();
+    };
 
-	return css;
-}
+    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
+        this.uninstall();
+    };
 
-function addStyle(cssText, id) {
-	id = id.toLowerCase();
-	var ele = document.getElementById(id);
-	var head = document.getElementsByTagName('head')[0];
-	if (ele && ele.parentNode === head) {
-		head.removeChild(ele);
-	}
+    WeElement.prototype.update = function update() {
+        diff(this.host, this.render());
+    };
 
-	var someThingStyles = document.createElement('style');
-	head.appendChild(someThingStyles);
-	someThingStyles.setAttribute('type', 'text/css');
-	someThingStyles.setAttribute('id', id);
-	if (window.ActiveXObject) {
-		someThingStyles.styleSheet.cssText = cssText;
-	} else {
-		someThingStyles.textContent = cssText;
-	}
-}
+    WeElement.prototype.install = function install() {};
 
-function addStyleWithoutId(cssText) {
-	var head = document.getElementsByTagName('head')[0];
-	var someThingStyles = document.createElement('style');
-	head.appendChild(someThingStyles);
-	someThingStyles.setAttribute('type', 'text/css');
+    WeElement.prototype.installed = function installed() {};
 
-	if (window.ActiveXObject) {
-		someThingStyles.styleSheet.cssText = cssText;
-	} else {
-		someThingStyles.textContent = cssText;
-	}
-}
+    return WeElement;
+}(HTMLElement);
 
-function addScopedAttr(vdom, style, attr, component) {
-	if (options.scopedStyle) {
-		scopeVdom(attr, vdom);
-		style = scoper(style, attr);
-		if (style !== component._preStyle) {
-			addStyle(style, attr);
-		}
-	} else if (style !== component._preStyle) {
-		addStyleWithoutId(style);
-	}
-	component._preStyle = style;
-}
-
-function addScopedAttrStatic(vdom, style, attr) {
-	if (options.scopedStyle) {
-		scopeVdom(attr, vdom);
-		if (!options.staticStyleMapping[attr]) {
-			addStyle(scoper(style, attr), attr);
-			options.staticStyleMapping[attr] = true;
-		}
-	} else if (!options.staticStyleMapping[attr]) {
-		addStyleWithoutId(style);
-		options.staticStyleMapping[attr] = true;
-	}
-}
-
-function scopeVdom(attr, vdom) {
-	if (typeof vdom !== 'string') {
-		vdom.attributes = vdom.attributes || {};
-		vdom.attributes[attr] = '';
-		vdom.children.forEach(function (child) {
-			return scopeVdom(attr, child);
-		});
-	}
-}
-
-/** Set a component's `props` (generally derived from JSX attributes).
- *	@param {Object} props
- *	@param {Object} [opts]
- *	@param {boolean} [opts.renderSync=false]	If `true` and {@link options.syncComponentUpdates} is `true`, triggers synchronous rendering.
- *	@param {boolean} [opts.render=true]			If `false`, no render will be triggered.
- */
-function setComponentProps(component, props, opts, context, mountAll) {
-	if (component._disable) return;
-	component._disable = true;
-
-	if (component.__ref = props.ref) delete props.ref;
-	if (component.__key = props.key) delete props.key;
-
-	if (!component.base || mountAll) {
-		if (component.componentWillMount) component.componentWillMount();
-		if (component.install) component.install();
-	} else if (component.componentWillReceiveProps) {
-		component.componentWillReceiveProps(props, context);
-	}
-
-	if (context && context !== component.context) {
-		if (!component.prevContext) component.prevContext = component.context;
-		component.context = context;
-	}
-
-	if (!component.prevProps) component.prevProps = component.props;
-	component.props = props;
-
-	component._disable = false;
-
-	if (opts !== 0) {
-		if (opts === 1 || options.syncComponentUpdates !== false || !component.base) {
-			renderComponent(component, 1, mountAll);
-		} else {
-			enqueueRender(component);
-		}
-	}
-
-	if (component.__ref) component.__ref(component);
-}
-
-/** Render a Component, triggering necessary lifecycle events and taking High-Order Components into account.
- *	@param {Component} component
- *	@param {Object} [opts]
- *	@param {boolean} [opts.build=false]		If `true`, component will build and store a DOM node if not already associated with one.
- *	@private
- */
-function renderComponent(component, opts, mountAll, isChild) {
-	if (component._disable) return;
-
-	var props = component.props,
-	    state = component.state,
-	    context = component.context,
-	    previousProps = component.prevProps || props,
-	    previousState = component.prevState || state,
-	    previousContext = component.prevContext || context,
-	    isUpdate = component.base,
-	    nextBase = component.nextBase,
-	    initialBase = isUpdate || nextBase,
-	    initialChildComponent = component._component,
-	    skip = false,
-	    rendered,
-	    inst,
-	    cbase;
-
-	// if updating
-	if (isUpdate) {
-		component.props = previousProps;
-		component.state = previousState;
-		component.context = previousContext;
-		if (opts !== 2 && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
-			skip = true;
-		} else if (component.componentWillUpdate) {
-			component.componentWillUpdate(props, state, context);
-		} else if (component.beforeUpdate) {
-			component.beforeUpdate(props, state, context);
-		}
-		component.props = props;
-		component.state = state;
-		component.context = context;
-	}
-
-	component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
-
-	if (!skip) {
-		rendered = component.render(props, state, context);
-
-		//don't rerender
-		if (component.staticStyle) {
-			addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + getCtorName(component.constructor));
-		}
-
-		if (component.style) {
-			addScopedAttr(rendered, component.style(), '_style_' + component._id, component);
-		}
-
-		// context to pass to the child, can be updated via (grand-)parent component
-		if (component.getChildContext) {
-			context = extend(extend({}, context), component.getChildContext());
-		}
-
-		var childComponent = rendered && rendered.nodeName,
-		    toUnmount,
-		    base;
-
-		if (typeof childComponent === 'function') {
-			// set up high order component link
-
-			var childProps = getNodeProps(rendered);
-			inst = initialChildComponent;
-
-			if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
-				setComponentProps(inst, childProps, 1, context, false);
-			} else {
-				toUnmount = inst;
-
-				component._component = inst = createComponent(childComponent, childProps, context);
-				inst.nextBase = inst.nextBase || nextBase;
-				inst._parentComponent = component;
-				setComponentProps(inst, childProps, 0, context, false);
-				renderComponent(inst, 1, mountAll, true);
-			}
-
-			base = inst.base;
-		} else {
-			cbase = initialBase;
-
-			// destroy high order component link
-			toUnmount = initialChildComponent;
-			if (toUnmount) {
-				cbase = component._component = null;
-			}
-
-			if (initialBase || opts === 1) {
-				if (cbase) cbase._component = null;
-				base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
-			}
-		}
-
-		if (initialBase && base !== initialBase && inst !== initialChildComponent) {
-			var baseParent = initialBase.parentNode;
-			if (baseParent && base !== baseParent) {
-				baseParent.replaceChild(base, initialBase);
-
-				if (!toUnmount) {
-					initialBase._component = null;
-					recollectNodeTree(initialBase, false);
-				}
-			}
-		}
-
-		if (toUnmount) {
-			unmountComponent(toUnmount);
-		}
-
-		component.base = base;
-		if (base && !isChild) {
-			var componentRef = component,
-			    t = component;
-			while (t = t._parentComponent) {
-				(componentRef = t).base = base;
-			}
-			base._component = componentRef;
-			base._componentConstructor = componentRef.constructor;
-		}
-	}
-
-	if (!isUpdate || mountAll) {
-		mounts.unshift(component);
-	} else if (!skip) {
-		// Ensure that pending componentDidMount() hooks of child components
-		// are called before the componentDidUpdate() hook in the parent.
-		// Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
-		// flushMounts();
-
-		if (component.componentDidUpdate) {
-			component.componentDidUpdate(previousProps, previousState, previousContext);
-		}
-		if (component.afterUpdate) {
-			component.afterUpdate(previousProps, previousState, previousContext);
-		}
-		if (options.afterUpdate) options.afterUpdate(component);
-	}
-
-	if (component._renderCallbacks != null) {
-		while (component._renderCallbacks.length) {
-			component._renderCallbacks.pop().call(component);
-		}
-	}
-
-	if (!diffLevel && !isChild) flushMounts();
-}
-
-/** Apply the Component referenced by a VNode to the DOM.
- *	@param {Element} dom	The DOM node to mutate
- *	@param {VNode} vnode	A Component-referencing VNode
- *	@returns {Element} dom	The created/mutated element
- *	@private
- */
-function buildComponentFromVNode(dom, vnode, context, mountAll) {
-	var c = dom && dom._component,
-	    originalComponent = c,
-	    oldDom = dom,
-	    isDirectOwner = c && dom._componentConstructor === vnode.nodeName,
-	    isOwner = isDirectOwner,
-	    props = getNodeProps(vnode);
-	while (c && !isOwner && (c = c._parentComponent)) {
-		isOwner = c.constructor === vnode.nodeName;
-	}
-
-	if (c && isOwner && (!mountAll || c._component)) {
-		setComponentProps(c, props, 3, context, mountAll);
-		dom = c.base;
-	} else {
-		if (originalComponent && !isDirectOwner) {
-			unmountComponent(originalComponent);
-			dom = oldDom = null;
-		}
-
-		c = createComponent(vnode.nodeName, props, context);
-		if (dom && !c.nextBase) {
-			c.nextBase = dom;
-			// passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
-			oldDom = null;
-		}
-		setComponentProps(c, props, 1, context, mountAll);
-		dom = c.base;
-
-		if (oldDom && dom !== oldDom) {
-			oldDom._component = null;
-			recollectNodeTree(oldDom, false);
-		}
-	}
-
-	return dom;
-}
-
-/** Remove a component from the DOM and recycle it.
- *	@param {Component} component	The Component instance to unmount
- *	@private
- */
-function unmountComponent(component) {
-	if (options.beforeUnmount) options.beforeUnmount(component);
-
-	var base = component.base;
-
-	component._disable = true;
-
-	if (component.componentWillUnmount) component.componentWillUnmount();
-	if (component.uninstall) component.uninstall();
-
-	component.base = null;
-
-	// recursively tear down & recollect high-order component children:
-	var inner = component._component;
-	if (inner) {
-		unmountComponent(inner);
-	} else if (base) {
-		if (base['__preactattr_'] && base['__preactattr_'].ref) base['__preactattr_'].ref(null);
-
-		component.nextBase = base;
-
-		removeNode(base);
-		collectComponent(component);
-
-		removeChildren(base);
-	}
-
-	if (component.__ref) component.__ref(null);
-}
-
-var id = 0;
-function getId() {
-	return id++;
-}
-/** Base Component class.
- *	Provides `setState()` and `forceUpdate()`, which trigger rendering.
- *	@public
- *
- *	@example
- *	class MyFoo extends Component {
- *		render(props, state) {
- *			return <div />;
- *		}
- *	}
- */
-function Component(props, context) {
-
-	/** @public
-  *	@type {object}
-  */
-	this.context = context;
-
-	/** @public
-  *	@type {object}
-  */
-	this.props = props;
-
-	/** @public
-  *	@type {object}
-  */
-	this.state = this.state || {};
-
-	this._id = getId();
-
-	this._preStyle = null;
-
-	this.$store = null;
-}
-
-extend(Component.prototype, {
-
-	/** Returns a `boolean` indicating if the component should re-render when receiving the given `props` and `state`.
-  *	@param {object} nextProps
-  *	@param {object} nextState
-  *	@param {object} nextContext
-  *	@returns {Boolean} should the component re-render
-  *	@name shouldComponentUpdate
-  *	@function
-  */
-
-	/** Update component state by copying properties from `state` to `this.state`.
-  *	@param {object} state		A hash of state properties to update with new values
-  *	@param {function} callback	A function to be called once component state is updated
-  */
-	setState: function setState(state, callback) {
-		var s = this.state;
-		if (!this.prevState) this.prevState = extend({}, s);
-		extend(s, typeof state === 'function' ? state(s, this.props) : state);
-		if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
-		enqueueRender(this);
-	},
-
-
-	/** Immediately perform a synchronous re-render of the component.
-  *	@param {function} callback		A function to be called after component is re-rendered.
-  *	@private
-  */
-	forceUpdate: function forceUpdate(callback) {
-		if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
-		renderComponent(this, 2);
-		if (options.componentChange) options.componentChange(this, this.base);
-	},
-	update: function update(callback) {
-		this.forceUpdate(callback);
-	},
-
-
-	/** Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
-  *	Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
-  *	@param {object} props		Props (eg: JSX attributes) received from parent element/component
-  *	@param {object} state		The component's current state
-  *	@param {object} context		Context object (if a parent component has provided context)
-  *	@returns VNode
-  */
-	render: function render() {}
-});
-
-/** Render JSX into a `parent` Element.
- *	@param {VNode} vnode		A (JSX) VNode to render
- *	@param {Element} parent		DOM element to render into
- *	@param {Element} [merge]	Attempt to re-use an existing DOM tree rooted at `merge`
- *	@public
- *
- *	@example
- *	// render a div into <body>:
- *	render(<div id="hello">hello!</div>, document.body);
- *
- *	@example
- *	// render a "Thing" component into #foo:
- *	const Thing = ({ name }) => <span>{ name }</span>;
- *	render(<Thing name="one" />, document.querySelector('#foo'));
- */
-function render(vnode, parent, merge) {
-	merge = Object.assign({
-		store: {}
-	}, merge);
-	if (typeof window === 'undefined') {
-		if (vnode instanceof Component && merge) {
-			vnode.$store = merge.store;
-		}
-		return;
-	}
-
+function render(vnode, parent) {
 	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-
-	if (merge.merge) {
-		merge.merge = typeof merge.merge === 'string' ? document.querySelector(merge.merge) : merge.merge;
-	}
-	if (merge.empty) {
-		while (parent.firstChild) {
-			parent.removeChild(parent.firstChild);
-		}
-	}
-	merge.store.ssrData = options.root.__omiSsrData;
-	options.$store = merge.store;
-
-	if (vnode instanceof Component) {
-		if (window && window.Omi) {
-			window.Omi.instances.push(vnode);
-		}
-
-		vnode.$store = merge.store;
-
-		if (vnode.componentWillMount) vnode.componentWillMount();
-		if (vnode.install) vnode.install();
-		var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
-
-		//don't rerender
-		if (vnode.staticStyle) {
-			addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + getCtorName(vnode.constructor));
-		}
-
-		if (vnode.style) {
-			addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode);
-		}
-
-		vnode.base = diff(merge.merge, rendered, {}, false, parent, false);
-
-		if (vnode.componentDidMount) vnode.componentDidMount();
-		if (vnode.installed) vnode.installed();
-
-		return vnode.base;
-	}
-
-	var result = diff(merge.merge, vnode, {}, false, parent, false);
-
-	return result;
+	parent.appendChild(vdToDom(vnode));
 }
 
 var instances = [];
@@ -1475,27 +764,23 @@ var instances = [];
 options.root.Omi = {
 	h: h,
 	createElement: h,
-	cloneElement: cloneElement,
-	Component: Component,
+	WeElement: WeElement,
 	render: render,
-	rerender: rerender,
 	options: options,
 	instances: instances
 };
 
-options.root.Omi.version = '3.0.6';
+options.root.Omi.version = '4.0.0';
 
 var omi = {
 	h: h,
 	createElement: h,
-	cloneElement: cloneElement,
-	Component: Component,
+	WeElement: WeElement,
 	render: render,
-	rerender: rerender,
 	options: options,
 	instances: instances
 };
 
 export default omi;
-export { h, h as createElement, cloneElement, Component, render, rerender, options, instances };
+export { h, h as createElement, WeElement, render, options, instances };
 //# sourceMappingURL=omi.esm.js.map

@@ -1,8 +1,6 @@
 import { ATTR_KEY } from '../constants';
 import { isSameNodeType, isNamedNode } from './index';
-import { buildComponentFromVNode } from './component';
 import { createNode, setAccessor } from '../dom/index';
-import { unmountComponent } from './component';
 import options from '../options';
 import { removeNode } from '../dom/index';
 
@@ -97,10 +95,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
 	// If the VNode represents a Component, perform a component diff:
 	let vnodeName = vnode.nodeName;
-	if (typeof vnodeName==='function') {
-		return buildComponentFromVNode(dom, vnode, context, mountAll);
-	}
-
+	
 
 	// Tracks entering and exiting SVG namespace when descending through the tree.
 	isSvgMode = vnodeName==='svg' ? true : vnodeName==='foreignObject' ? false : isSvgMode;
@@ -254,22 +249,17 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
  *	@param {Boolean} [unmountOnly=false]	If `true`, only triggers unmount lifecycle, skips removal
  */
 export function recollectNodeTree(node, unmountOnly) {
-	let component = node._component;
-	if (component) {
-		// if node is owned by a Component, unmount that component (ends up recursing back here)
-		unmountComponent(component);
-	}
-	else {
-		// If the node's VNode had a ref function, invoke it with null here.
-		// (this is part of the React spec, and smart for unsetting references)
-		if (node[ATTR_KEY]!=null && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null);
+	
+	// If the node's VNode had a ref function, invoke it with null here.
+	// (this is part of the React spec, and smart for unsetting references)
+	if (node[ATTR_KEY]!=null && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null);
 
-		if (unmountOnly===false || node[ATTR_KEY]==null) {
-			removeNode(node);
-		}
-
-		removeChildren(node);
+	if (unmountOnly===false || node[ATTR_KEY]==null) {
+		removeNode(node);
 	}
+
+	removeChildren(node);
+
 }
 
 

@@ -124,11 +124,6 @@ declare namespace Omi {
 	};
 }
 
-declare module "omi/devtools" {
-	// Empty. This module initializes the React Developer Tools integration
-	// when imported.
-}
-
 declare global {
 	namespace JSX {
 		interface Element extends Omi.VNode<any> {

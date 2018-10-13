@@ -1,42 +1,41 @@
-import { render, Component } from '../../src/omi';
+import { render, WeElement } from '../../src/omi'
+import './hello-element'
 
-class Hello extends Component {
-    render() {
-        return <h3> {this.props.name}</h3>
-    }
-}
+class MyApp extends WeElement {
 
-class App extends Component {
-    install() {
-        this.name = 'Omi'
+    onClick = (evt) => {
+
     }
 
-    handleClick = (e) => {
-        this.name = 'Hello Omi !' 
+    install () {
+        this.data.abc = 'abc'
+        this.data.passToChild = '123'
+    }
+
+    installed(){
+        this.data.passToChild = '12345'
+        this.data.abc = 'abcde'
         this.update()
     }
 
-    style() {
-        return `h3{
-                    cursor:pointer;
-                    color: ${Math.random() > 0.5 ? 'red' :'green'};
-                }`
+    css() {
+        return `
+         div{
+             color: green;
+         }`
     }
 
-	staticStyle() {
-        return `div{
-                    font-size:20px;
-                }`
-	}
-	
     render() {
         return (
-			<div>
-				<Hello name={this.name}></Hello>
-				<h3 onclick={this.handleClick}>Scoped css and event test! click me!</h3>
-			</div>
-		)
+            <div onClick={this.onClick}>
+                Hello {this.props.name} {this.data.abc}
+                <hello-element prop-from-parent={this.data.passToChild} msg="Omi v4.0"></hello-element>
+            </div>
+        )
     }
 }
 
-render(<App />, 'body')
+
+customElements.define('my-app', MyApp)
+
+render(<my-app name='WeElement'></my-app>, 'body')
