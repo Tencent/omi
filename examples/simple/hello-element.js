@@ -2,7 +2,7 @@ import { WeElement } from '../../src/omi'
 
 class HelloElement extends WeElement {
 
-    static get observedAttributes() { 
+    static get props(){
         return ['prop-from-parent']
     }
 

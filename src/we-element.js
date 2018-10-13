@@ -9,6 +9,15 @@ export default class WeElement extends HTMLElement {
         this.data = {}
     }
 
+    static get observedAttributes() { 
+        if(!this.props) return
+        if(Object.prototype.toString.call(this.props) === '[object Array]'){
+            return this.props
+        } else {
+            return Object.keys(this.props)
+        }
+    }
+
     connectedCallback() {
         this.install()
         const names = this.getAttributeNames()
