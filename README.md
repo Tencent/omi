@@ -167,18 +167,16 @@ class MyApp extends WeElement {
 
 ## Install
 
-``` bash
-npm i omi
-```
 
-or get it from CDN:
+or get it from Github:
 
-* [https://unpkg.com/omi@4.0.0/dist/omi.min.js](https://unpkg.com/omi@4.0.0/dist/omi.min.js)
-* [https://unpkg.com/omi@4.0.0/dist/omi.js](https://unpkg.com/omi@4.0.0/dist/omi.js)
+* [omi/master/dist](https://github.com/Tencent/omi/tree/master/dist)
+* [omi.js](https://github.com/Tencent/omi/blob/master/dist/omi.js)
+* [omi.min.js](https://raw.githubusercontent.com/Tencent/omi/master/dist/omi.min.js)
 
 ## Links
 
-- [westore](https://preactjs.com/)
+- [westore](https://github.com/dntzhang/westore)
 - [omijs.org](http://omijs.org/)
 
 ## License
