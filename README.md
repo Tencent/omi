@@ -309,7 +309,7 @@ Get javascript file from Github:
 
 * [omi/master/dist](https://github.com/Tencent/omi/tree/master/dist)
 * [omi.js](https://github.com/Tencent/omi/blob/master/dist/omi.js)
-* [omi.min.js](https://raw.githubusercontent.com/Tencent/omi/master/dist/omi.min.js)
+* [omi.min.js](https://github.com/Tencent/omi/blob/master/dist/omi.min.js)
 
 ## Links
 
