@@ -783,7 +783,7 @@
 	    _createClass$1(HelloElement, null, [{
 	        key: 'props',
 	        get: function get() {
-	            return ['prop-from-parent'];
+	            return ['prop-from-parent', 'msg'];
 	        }
 	    }]);
 

@@ -3,7 +3,7 @@ import { WeElement } from '../../src/omi'
 class HelloElement extends WeElement {
 
     static get props(){
-        return ['prop-from-parent']
+        return ['prop-from-parent', 'msg']
     }
 
     onClick = (evt) => {

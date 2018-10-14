@@ -37,7 +37,8 @@ import { WeElement } from 'omi'
 class HelloElement extends WeElement {
 
     static get props(){
-        return ['prop-from-parent']
+        //如果不写入就无法监听到属性变更且自动刷新视图
+        return ['prop-from-parent', 'msg']
     }
 
     onClick = (evt) => {
