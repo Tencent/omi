@@ -1,17 +1,17 @@
-import { cssToDom, npn } from './util'
+import { cssToDom, npn, isArray, nProps } from './util'
 import { diff } from './vdom/diff';
 
 
 export default class WeElement extends HTMLElement {
     constructor() {
         super()
-        this.props = {}
-        this.data = {}
+        this.props =  nProps(this.constructor.props)
+        this.data = this.constructor.data || {}
     }
 
     static get observedAttributes() { 
         if(!this.props) return
-        if(Object.prototype.toString.call(this.props) === '[object Array]'){
+        if(isArray(this.props)){
             return this.props
         } else {
             return Object.keys(this.props)

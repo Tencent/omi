@@ -74,29 +74,15 @@ export function applyRef(ref, value) {
  */
 export const defer = typeof Promise=='function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
+export function isArray(obj){
+  return Object.prototype.toString.call(obj) === '[object Array]'
+}
 
-// export function vdToDom(vd) {
-//     if(vd){
-//     if (vd.nodeName) {
-//         const dom = document.createElement(vd.nodeName)
-//         Object.keys(vd.attributes).forEach(key=>{
-//             dom.setAttribute(key,vd.attributes[key])
-//         })
-//         bind(vd, dom)
-//         vd.children && vd.children.forEach(child => {
-//             const n = vdToDom(child)
-//             n&&dom.appendChild(n)
-//         })
-//         return dom
-//     } else {
-//         return document.createTextNode(vd)
-//     }
-// }
-// }
-
-// function bind(vd, dom) {
-//     if (vd.attributes.onClick) {
-        
-//         dom.onclick = vd.attributes.onClick
-//     }
-// }
+export function nProps(props){
+  if(!props || isArray(props)) return {}
+  const result = {}
+  Object.keys(props).forEach(key =>{
+    result[key] = props[key].value 
+  })
+  return result
+}

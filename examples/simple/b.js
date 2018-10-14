@@ -26,14 +26,9 @@
 	 */
 	var options = {
 
-		scopedStyle: true,
-		$store: null,
-		isWeb: true,
-		staticStyleMapping: {},
-		doc: typeof document === 'object' ? document : null,
-		root: getGlobal(),
-		//styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
-		styleCache: []
+		store: null,
+
+		root: getGlobal()
 		//componentChange(component, element) { },
 		/** If `true`, `prop` changes trigger synchronous component updates.
 	  *	@name syncComponentUpdates
@@ -175,31 +170,18 @@
 	 */
 	var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
-	// export function vdToDom(vd) {
-	//     if(vd){
-	//     if (vd.nodeName) {
-	//         const dom = document.createElement(vd.nodeName)
-	//         Object.keys(vd.attributes).forEach(key=>{
-	//             dom.setAttribute(key,vd.attributes[key])
-	//         })
-	//         bind(vd, dom)
-	//         vd.children && vd.children.forEach(child => {
-	//             const n = vdToDom(child)
-	//             n&&dom.appendChild(n)
-	//         })
-	//         return dom
-	//     } else {
-	//         return document.createTextNode(vd)
-	//     }
-	// }
-	// }
+	function isArray(obj) {
+	  return Object.prototype.toString.call(obj) === '[object Array]';
+	}
 
-	// function bind(vd, dom) {
-	//     if (vd.attributes.onClick) {
-
-	//         dom.onclick = vd.attributes.onClick
-	//     }
-	// }
+	function nProps(props) {
+	  if (!props || isArray(props)) return {};
+	  var result = {};
+	  Object.keys(props).forEach(function (key) {
+	    result[key] = props[key].value;
+	  });
+	  return result;
+	}
 
 	// render modes
 
@@ -645,8 +627,8 @@
 
 	        var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-	        _this.props = {};
-	        _this.data = {};
+	        _this.props = nProps(_this.constructor.props);
+	        _this.data = _this.constructor.data || {};
 	        return _this;
 	    }
 
@@ -703,7 +685,7 @@
 	        key: 'observedAttributes',
 	        get: function get() {
 	            if (!this.props) return;
-	            if (Object.prototype.toString.call(this.props) === '[object Array]') {
+	            if (isArray(this.props)) {
 	                return this.props;
 	            } else {
 	                return Object.keys(this.props);
@@ -753,18 +735,26 @@
 	        }
 
 	        return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {
-	            console.log(_this);
 	            //trigger CustomEvent
 	            _this.fire('abc', { name: 'dntzhang', age: 12 });
 	            evt.stopPropagation();
 	        }, _temp), _possibleConstructorReturn$1(_this, _ret);
 	    }
 
+	    HelloElement.prototype.installed = function installed() {
+	        var _this2 = this;
+
+	        setTimeout(function () {
+	            _this2.data.a = 2;
+	            _this2.update();
+	        }, 1000);
+	    };
+
 	    HelloElement.prototype.css = function css() {
 	        return '\n         div{\n             color: red;\n             cursor: pointer;\n         }';
 	    };
 
-	    HelloElement.prototype.render = function render$$1(props) {
+	    HelloElement.prototype.render = function render$$1(props, data) {
 	        return Omi.h(
 	            'div',
 	            { onClick: this.onClick },
@@ -775,7 +765,20 @@
 	            Omi.h(
 	                'div',
 	                null,
-	                'Click Me!'
+	                'Click Me!',
+	                props.num
+	            ),
+	            Omi.h(
+	                'div',
+	                null,
+	                'data: ',
+	                data.a
+	            ),
+	            Omi.h(
+	                'div',
+	                null,
+	                'props ',
+	                props.num
 	            )
 	        );
 	    };
@@ -783,7 +786,29 @@
 	    _createClass$1(HelloElement, null, [{
 	        key: 'props',
 	        get: function get() {
-	            return ['prop-from-parent', 'msg'];
+	            return {
+	                propFromParent: {
+	                    value: '9'
+	                },
+	                msg: {
+	                    value: ''
+	                },
+	                num: {
+	                    value: 10
+	                }
+	                //不需要默认值直接使用数组
+	                //return ['prop-from-parent', 'msg']
+	            };
+	        }
+	    }, {
+	        key: 'data',
+	        get: function get() {
+	            return {
+	                a: 1,
+	                b: {
+	                    c: 2
+	                }
+	            };
 	        }
 	    }]);
 
