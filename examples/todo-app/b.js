@@ -707,8 +707,39 @@
 		diff(null, vnode, {}, false, parent, false);
 	}
 
+	var OBJECTTYPE = '[object Object]';
+
 	function define(name, ctor) {
-	    customElements.define(name, ctor);
+	  customElements.define(name, ctor);
+	  if (ctor.data) {
+	    ctor.updatePath = getUpdatePath(ctor.data);
+	  }
+	}
+
+	function getUpdatePath(data) {
+	  var result = {};
+	  dataToPath(data, result);
+	  return result;
+	}
+
+	function dataToPath(data, result) {
+	  Object.keys(data).forEach(function (key) {
+	    result[key] = true;
+	    var type = Object.prototype.toString.call(data[key]);
+	    if (type === OBJECTTYPE) {
+	      _dataToPath(data[key], key, result);
+	    }
+	  });
+	}
+
+	function _dataToPath(data, path, result) {
+	  Object.keys(data).forEach(function (key) {
+	    result[path + '.' + key] = true;
+	    var type = Object.prototype.toString.call(data[key]);
+	    if (type === OBJECTTYPE) {
+	      _dataToPath(data[key], path + '.' + key, result);
+	    }
+	  });
 	}
 
 	var instances = [];
