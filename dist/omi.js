@@ -205,7 +205,7 @@
         var update = !1;
         for (name in attrs) if ('object' == typeof attrs[name]) {
             dom.props[npn(name)] = attrs[name];
-            update = !0;
+            dom.parentNode && (update = !0);
         } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
         update && dom.update();
     }
@@ -228,9 +228,127 @@
         });
         if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
-    function render(vnode, parent) {
+    function diff$1(current, pre) {
+        var result = {};
+        syncKeys(current, pre);
+        _diff(current, pre, '', result);
+        return result;
+    }
+    function syncKeys(current, pre) {
+        if (current !== pre) {
+            var rootCurrentType = type(current);
+            var rootPreType = type(pre);
+            if ('[object Object]' == rootCurrentType && '[object Object]' == rootPreType) {
+                if (Object.keys(current).length >= Object.keys(pre).length) for (var key in pre) {
+                    var currentValue = current[key];
+                    if (void 0 === currentValue) current[key] = null; else syncKeys(currentValue, pre[key]);
+                }
+            } else if ('[object Array]' == rootCurrentType && '[object Array]' == rootPreType) if (current.length >= pre.length) pre.forEach(function(item, index) {
+                syncKeys(current[index], item);
+            });
+        }
+    }
+    function _diff(current, pre, path, result) {
+        if (current !== pre) {
+            var rootCurrentType = type(current);
+            var rootPreType = type(pre);
+            if ('[object Object]' == rootCurrentType) if ('[object Object]' != rootPreType || Object.keys(current).length < Object.keys(pre).length) setResult(result, path, current); else {
+                for (var key in current) !function(key) {
+                    var currentValue = current[key];
+                    var preValue = pre[key];
+                    var currentType = type(currentValue);
+                    var preType = type(preValue);
+                    if ('[object Array]' != currentType && '[object Object]' != currentType) {
+                        if (currentValue != pre[key]) setResult(result, ('' == path ? '' : path + ".") + key, currentValue);
+                    } else if ('[object Array]' == currentType) if ('[object Array]' != preType) setResult(result, ('' == path ? '' : path + ".") + key, currentValue); else if (currentValue.length < preValue.length) setResult(result, ('' == path ? '' : path + ".") + key, currentValue); else currentValue.forEach(function(item, index) {
+                        _diff(item, preValue[index], ('' == path ? '' : path + ".") + key + '[' + index + ']', result);
+                    }); else if ('[object Object]' == currentType) if ('[object Object]' != preType || Object.keys(currentValue).length < Object.keys(preValue).length) setResult(result, ('' == path ? '' : path + ".") + key, currentValue); else for (var subKey in currentValue) _diff(currentValue[subKey], preValue[subKey], ('' == path ? '' : path + ".") + key + '.' + subKey, result);
+                }(key);
+            } else if ('[object Array]' == rootCurrentType) if ('[object Array]' != rootPreType) setResult(result, path, current); else if (current.length < pre.length) setResult(result, path, current); else current.forEach(function(item, index) {
+                _diff(item, pre[index], path + '[' + index + ']', result);
+            }); else setResult(result, path, current);
+        }
+    }
+    function setResult(result, k, v) {
+        if ('[object Function]' != type(v)) result[k] = v;
+    }
+    function type(obj) {
+        return Object.prototype.toString.call(obj);
+    }
+    function render(vnode, parent, store) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
+        if (store) {
+            store.instances = [];
+            extendStoreUpate(store);
+            options.store = store;
+            store.originData = JSON.parse(JSON.stringify(store.data));
+        }
         diff(null, vnode, {}, !1, parent, !1);
+    }
+    function extendStoreUpate(store) {
+        store.update = function() {
+            var _this = this;
+            var diffResult = diff$1(this.data, this.originData);
+            if ('' == Object.keys(diffResult)[0]) diffResult = diffResult[''];
+            var updateAll = matchGlobalData(this.globalData, diffResult);
+            if (Object.keys(diffResult).length > 0) {
+                this.instances.forEach(function(instance) {
+                    if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(diffResult, instance.constructor.updatePath)) instance.update();
+                });
+                this.onChange && this.onChange(diffResult);
+                for (var key in diffResult) updateByPath(this.originData, key, 'object' == typeof diffResult[key] ? JSON.parse(JSON.stringify(diffResult[key])) : diffResult[key]);
+            }
+        };
+    }
+    function matchGlobalData(globalData, diffResult) {
+        if (!globalData) return !1;
+        for (var keyA in diffResult) {
+            if (globalData.indexOf(keyA) > -1) return !0;
+            for (var i = 0, len = globalData.length; i < len; i++) if (includePath(keyA, globalData[i])) return !0;
+        }
+        return !1;
+    }
+    function needUpdate(diffResult, updatePath) {
+        for (var keyA in diffResult) {
+            if (updatePath[keyA]) return !0;
+            for (var keyB in updatePath) if (includePath(keyA, keyB)) return !0;
+        }
+        return !1;
+    }
+    function includePath(pathA, pathB) {
+        if (0 === pathA.indexOf(pathB)) {
+            var next = pathA.substr(pathB.length, 1);
+            if ('[' === next || '.' === next) return !0;
+        }
+        return !1;
+    }
+    function updateByPath(origin, path, value) {
+        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        var current = origin;
+        for (var i = 0, len = arr.length; i < len; i++) if (i === len - 1) current[arr[i]] = value; else current = current[arr[i]];
+    }
+    function define(name, ctor) {
+        customElements.define(name, ctor);
+        if (ctor.data) ctor.updatePath = getUpdatePath(ctor.data);
+    }
+    function getUpdatePath(data) {
+        var result = {};
+        dataToPath(data, result);
+        return result;
+    }
+    function dataToPath(data, result) {
+        Object.keys(data).forEach(function(key) {
+            result[key] = !0;
+            var type = Object.prototype.toString.call(data[key]);
+            if ('[object Object]' === type) _dataToPath(data[key], key, result);
+        });
+    }
+    function _dataToPath(data, path, result) {
+        Object.keys(data).forEach(function(key) {
+            result[path + '.' + key] = !0;
+            var type = Object.prototype.toString.call(data[key]);
+            if ('[object Object]' === type) _dataToPath(data[key], path + '.' + key, result);
+        });
     }
     var options = {
         store: null,
@@ -288,6 +406,8 @@
         }
         _inherits(WeElement, _HTMLElement);
         WeElement.prototype.connectedCallback = function() {
+            this.store = options.store;
+            if (this.store) this.store.instances.push(this);
             this.install();
             var shadowRoot = this.attachShadow({
                 mode: 'open'
@@ -333,7 +453,8 @@
         WeElement: WeElement,
         render: render,
         options: options,
-        instances: instances
+        instances: instances,
+        define: define
     };
     options.root.Omi.version = '4.0.0';
     var Omi = {
@@ -342,7 +463,8 @@
         WeElement: WeElement,
         render: render,
         options: options,
-        instances: instances
+        instances: instances,
+        define: define
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();

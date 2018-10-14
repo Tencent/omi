@@ -54,12 +54,12 @@ class TodoApp extends WeElement {
 
 define('todo-app', TodoApp)
 
-const store = { 
+const store = {
     data: { items: [], text: '' },
-    add:function(){
+    add: function () {
         this.data.items.push({
-            text:this.data.text,
-            id:Date.now()
+            text: this.data.text,
+            id: Date.now()
         })
         this.data.text = ''
         this.update()

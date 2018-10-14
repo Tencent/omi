@@ -12,7 +12,7 @@ Coming soon....
 - JSX 是开发体验最棒(智能提示)，[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
 - 每一个组件拥有 update 方法自由渲染最佳更新视图的时机，功耗低，自由度高，性能卓越
 - 局部 CSS 最佳解决方案(Shadow DOM)，社区为局部 CSS 折腾了不少框架，Shadow DOM Style 是最完美的方案
-- WeStore 体系，99% 的项目不需要什么时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目，也能时间旅行
+- 类似 WeStore 体系，99% 的项目不需要什么时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目，也能时间旅行
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构:
@@ -25,6 +25,8 @@ Coming soon....
 
 - [Getting Started](#getting-started)
 	- [Hello Omi](#hello-omi)
+    - [TodoApp](#todoapp)
+    - [Store](#store)
 	- [Lifecycle](#lifecycle)
 - [Install](#install)
 - [Links](#links)
@@ -131,9 +133,6 @@ render(<my-app name='Omi v4.0'></my-app>, 'body')
 "babel-preset-omi": "^0.1.1",
 ```
 
-### Scoped CSS
-
-
 如果不想把 css 写在 js 里，你可以使用 [to-string-loader](https://www.npmjs.com/package/to-string-loader), 比如下面配置:
 
 ``` js
@@ -229,6 +228,71 @@ class TodoApp extends WeElement {
 define('todo-app', TodoApp)
 
 render(<todo-app></todo-app>, 'body')
+```
+
+### Store
+
+
+```js
+export default {
+  data: {
+    items: [],
+    text: '',
+    firstName: 'dnt',
+    lastName: 'zhang',
+    fullName: function () {
+      return this.firstName + this.lastName
+    },
+    globalPropTest: 'abc', //更改我会刷新所有页面,不需要再组件和页面声明data依赖
+    ccc: { ddd: 1 } //更改我会刷新所有页面,不需要再组件和页面声明data依赖
+  },
+  add: function () {
+    this.data.items.push({
+      text: this.data.text,
+      id: Date.now()
+    })
+    this.data.text = ''
+    this.update()
+  },
+  globalData: ['globalPropTest', 'ccc.ddd'],
+  logMotto: function () {
+    console.log(this.data.motto)
+  },
+  //默认 false，为 true 会无脑更新所有实例
+  //updateAll: true
+}
+```
+
+自定义 Element 需要声明依赖的 data，这样 Omi store 根据自定义组件上声明的 data 计算依赖 path 并会按需局部更新。如:
+
+```js
+class TodoApp extends WeElement {
+    static get data() {
+        return { items: [], text: '' }
+    }
+    ...
+    ...
+    ...
+    handleChange = (e) => {
+        this.store.data.text = e.target.value
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        if (!this.store.data.text.length) {
+            return;
+        }
+        this.store.add()
+    }
+}
+
+define('todo-app', TodoApp)
+```
+
+需要在 render 的时候从根节点注入 store 才能在所有自定义 Element 里使用 this.store:
+
+```js
+render(<todo-app></todo-app>, 'body', store)
 ```
 
 ### Lifecycle
