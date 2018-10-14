@@ -1012,7 +1012,8 @@
 	            Omi.h(
 	                'h3',
 	                null,
-	                'TODO'
+	                'TODO by ',
+	                data.fullName()
 	            ),
 	            Omi.h('todo-list', { items: data.items }),
 	            Omi.h(
@@ -1033,10 +1034,23 @@
 	        );
 	    };
 
+	    TodoApp.prototype.installed = function installed() {
+	        var _this3 = this;
+
+	        setTimeout(function () {
+	            _this3.store.rename();
+	        }, 1000);
+	    };
+
 	    _createClass$1(TodoApp, null, [{
 	        key: 'data',
 	        get: function get() {
-	            return { items: [], text: '' };
+	            return {
+	                items: [],
+	                text: '',
+	                firstName: 'dnt',
+	                lastName: 'zhang'
+	            };
 	        }
 	    }]);
 
@@ -1046,7 +1060,19 @@
 	define('todo-app', TodoApp);
 
 	var store = {
-	    data: { items: [], text: '' },
+	    data: {
+	        items: [],
+	        text: '',
+	        firstName: 'dnt',
+	        lastName: 'zhang',
+	        fullName: function fullName() {
+	            return this.firstName + this.lastName;
+	        }
+	    },
+	    rename: function rename() {
+	        this.data.firstName = 'Dnt';
+	        this.update();
+	    },
 	    add: function add() {
 	        if (!this.data.text.trim().length) {
 	            return;

@@ -16,14 +16,19 @@ define('todo-list', TodoList)
 
 class TodoApp extends WeElement {
     static get data() {
-        return { items: [], text: '' }
+        return {
+            items: [],
+            text: '',
+            firstName: 'dnt',
+            lastName: 'zhang',
+        }
     }
 
     render() {
         const data = this.store.data
         return (
             <div>
-                <h3>TODO</h3>
+                <h3>TODO by {data.fullName()}</h3>
                 <todo-list items={data.items} />
                 <form onSubmit={this.handleSubmit}>
                     <input
@@ -47,12 +52,30 @@ class TodoApp extends WeElement {
         e.preventDefault()
         this.store.add()
     }
+
+    installed() {
+        setTimeout(() => {
+            this.store.rename()
+        }, 1000)
+    }
 }
 
 define('todo-app', TodoApp)
 
 const store = {
-    data: { items: [], text: '' },
+    data: {
+        items: [],
+        text: '',
+        firstName: 'dnt',
+        lastName: 'zhang',
+        fullName: function () {
+            return this.firstName + this.lastName
+        }
+    },
+    rename: function () {
+        this.data.firstName = 'Dnt'
+        this.update()
+    },
     add: function () {
         if (!this.data.text.trim().length) {
             return;

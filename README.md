@@ -294,6 +294,8 @@ define('todo-app', TodoApp)
 render(<todo-app></todo-app>, 'body', store)
 ```
 
+[→ Store 完整的代码](https://github.com/Tencent/omi/blob/master/examples/store/main.js)
+
 总结一下:
 
 * store.data 用来列出所有属性和默认值(除去 props 决定的视图的组件)
