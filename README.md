@@ -17,7 +17,7 @@
 
 对比同样开发 TodoApp， Omi 和 react 渲染完的 DOM 结构:
 
-![](./asset/omi-render.jpg) ![](./asset/omi-react.jpg)
+![](./assets/omi-render.jpg) ![](./assets/omi-react.jpg)
 
 ---
 
