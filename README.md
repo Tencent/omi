@@ -10,7 +10,7 @@
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
 - 每一个组件拥有 update 方法自由渲染最佳更新视图的时机，功耗低，自由度高，性能卓越
 - 局部 CSS 最佳解决方案(Shadow DOM)，社区为局部 CSS 折腾了不少框架，Shadow DOM Style 是最完美的方案
-- 类似 WeStore 体系，99% 的项目不需要什么时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目，也能时间旅行
+- 类似 WeStore 体系，99.9% 的项目不需要什么时间旅行,也不仅仅 redux 能时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构:
