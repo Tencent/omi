@@ -246,6 +246,9 @@ export default {
     ccc: { ddd: 1 } //更改我会刷新所有页面,不需要再组件和页面声明data依赖
   },
   add: function () {
+    if (!this.data.text.length) {
+        return;
+    }
     this.data.items.push({
       text: this.data.text,
       id: Date.now()
@@ -253,10 +256,7 @@ export default {
     this.data.text = ''
     this.update()
   },
-  globalData: ['globalPropTest', 'ccc.ddd'],
-  logMotto: function () {
-    console.log(this.data.motto)
-  },
+  globalData: ['globalPropTest', 'ccc.ddd']
   //默认 false，为 true 会无脑更新所有实例
   //updateAll: true
 }
@@ -277,16 +277,16 @@ class TodoApp extends WeElement {
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
-        if (!this.store.data.text.length) {
-            return;
-        }
+        e.preventDefault()
         this.store.add()
     }
 }
 
 define('todo-app', TodoApp)
 ```
+
+* 数据的逻辑都封装在了 store 定义的方法里 (如 store.add)
+* 视图只负责传递数据给 store （如上面调用 store.add 或设置 store.data.text）
 
 需要在 render 的时候从根节点注入 store 才能在所有自定义 Element 里使用 this.store:
 

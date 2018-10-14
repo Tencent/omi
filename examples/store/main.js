@@ -44,10 +44,7 @@ class TodoApp extends WeElement {
     }
 
     handleSubmit = (e) => {
-        e.preventDefault();
-        if (!this.store.data.text.length) {
-            return;
-        }
+        e.preventDefault()
         this.store.add()
     }
 }
@@ -57,6 +54,9 @@ define('todo-app', TodoApp)
 const store = {
     data: { items: [], text: '' },
     add: function () {
+        if (!this.data.text.length) {
+            return;
+        }
         this.data.items.push({
             text: this.data.text,
             id: Date.now()
