@@ -20,6 +20,9 @@ export default class WeElement extends HTMLElement {
 
     connectedCallback() {
         this.store = options.store
+        if(this.store){
+            this.store.instances.push(this)
+        }
         this.install()
         
         const shadowRoot = this.attachShadow({ mode: 'open' })

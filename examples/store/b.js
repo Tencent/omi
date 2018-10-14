@@ -612,7 +612,8 @@
 		var update = false;
 		// add new & update changed attributes
 		for (name in attrs) {
-			if (typeof attrs[name] === 'object') {
+			//diable when using store system
+			if (!dom.store && typeof attrs[name] === 'object') {
 				// todo diff??
 				dom.props[npn(name)] = attrs[name];
 				dom.parentNode && (update = true);
@@ -647,6 +648,9 @@
 
 	    WeElement.prototype.connectedCallback = function connectedCallback() {
 	        this.store = options.store;
+	        if (this.store) {
+	            this.store.instances.push(this);
+	        }
 	        this.install();
 
 	        var shadowRoot = this.attachShadow({ mode: 'open' });
@@ -705,8 +709,21 @@
 
 	function render(vnode, parent, store) {
 		parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-		options.store = store;
+		if (store) {
+			store.instances = [];
+			extendStoreUpate(store);
+			options.store = store;
+		}
 		diff(null, vnode, {}, false, parent, false);
+	}
+
+	function extendStoreUpate(store) {
+		store.update = function () {
+			this.instances.forEach(function (instance) {
+				//diff here?
+				instance.update();
+			});
+		};
 	}
 
 	var OBJECTTYPE = '[object Object]';
@@ -776,7 +793,6 @@
 	    }
 
 	    TodoList.prototype.render = function render$$1(props) {
-	        console.error(this.store);
 	        return Omi.h(
 	            'ul',
 	            null,
@@ -814,12 +830,7 @@
 	            if (!_this2.store.data.text.length) {
 	                return;
 	            }
-	            _this2.store.data.items.push({
-	                text: _this2.store.data.text,
-	                id: Date.now()
-	            });
-	            _this2.store.data.text = '';
-	            _this2.update();
+	            _this2.store.add();
 	        }, _temp), _possibleConstructorReturn$1(_this2, _ret);
 	    }
 
@@ -864,7 +875,18 @@
 
 	define('todo-app', TodoApp);
 
-	var store = { data: { items: [], text: '' } };
+	var store = {
+	    data: { items: [], text: '' },
+	    add: function add() {
+	        this.data.items.push({
+	            text: this.data.text,
+	            id: Date.now()
+	        });
+	        this.data.text = '';
+	        this.update();
+	    }
+	};
+
 	render(Omi.h('todo-app', null), 'body', store);
 
 }());

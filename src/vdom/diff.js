@@ -287,7 +287,8 @@ function diffAttributes(dom, attrs, old) {
 	let update  = false
 	// add new & update changed attributes
 	for (name in attrs) {
-		if(typeof attrs[name] === 'object'){
+		//diable when using store system
+		if(!dom.store && typeof attrs[name] === 'object'){
 			// todo diff??
 			dom.props[npn(name)] = attrs[name]
 			dom.parentNode && (update = true)
@@ -295,6 +296,6 @@ function diffAttributes(dom, attrs, old) {
 			setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
 		}
 	}
-
+	
 	update && dom.update()
 }

@@ -2,7 +2,6 @@ import { render, WeElement, define } from '../../src/omi'
 
 class TodoList extends WeElement {
     render(props) {
-        console.error(this.store)
         return (
             <ul>
                 {props.items.map(item => (
@@ -49,16 +48,22 @@ class TodoApp extends WeElement {
         if (!this.store.data.text.length) {
             return;
         }
-        this.store.data.items.push({
-            text: this.store.data.text,
-            id: Date.now()
-        })
-        this.store.data.text = ''
-        this.update()
+        this.store.add()
     }
 }
 
 define('todo-app', TodoApp)
 
-const store = { data: { items: [], text: '' } }
+const store = { 
+    data: { items: [], text: '' },
+    add:function(){
+        this.data.items.push({
+            text:this.data.text,
+            id:Date.now()
+        })
+        this.data.text = ''
+        this.update()
+    }
+}
+
 render(<todo-app></todo-app>, 'body', store)
