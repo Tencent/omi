@@ -287,8 +287,9 @@ function diffAttributes(dom, attrs, old) {
 	let update  = false
 	// add new & update changed attributes
 	for (name in attrs) {
-		//diable when using store system
-		if(!dom.store && typeof attrs[name] === 'object'){
+		//diable when using store system?
+		//!dom.store && 
+		if(typeof attrs[name] === 'object'){
 			// todo diff??
 			dom.props[npn(name)] = attrs[name]
 			dom.parentNode && (update = true)
