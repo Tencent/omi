@@ -193,4 +193,6 @@ Get javascript file from Github:
 
 ## License
 
-MIT © [dntzhang](https://github.com/dntzhang)
+MIT © Tencent 
+
+Please contact me[@dntzhang](https://github.com/dntzhang) for any questions. 
