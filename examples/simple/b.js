@@ -707,6 +707,10 @@
 		diff(null, vnode, {}, false, parent, false);
 	}
 
+	function define(name, ctor) {
+	    customElements.define(name, ctor);
+	}
+
 	var instances = [];
 
 	options.root.Omi = {
@@ -715,7 +719,8 @@
 		WeElement: WeElement,
 		render: render,
 		options: options,
-		instances: instances
+		instances: instances,
+		define: define
 	};
 
 	options.root.Omi.version = '4.0.0';
@@ -821,7 +826,7 @@
 	    return HelloElement;
 	}(WeElement);
 
-	customElements.define('hello-element', HelloElement);
+	define('hello-element', HelloElement);
 
 	var _createClass$2 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -875,7 +880,7 @@
 	    return MyApp;
 	}(WeElement);
 
-	customElements.define('my-app', MyApp);
+	define('my-app', MyApp);
 
 	render(Omi.h('my-app', { name: 'Omi v4.0' }), 'body');
 

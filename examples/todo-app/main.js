@@ -1,4 +1,4 @@
-import { render, WeElement } from '../../src/omi'
+import { render, WeElement, define } from '../../src/omi'
 
 class TodoList extends WeElement {
     render(props) {
@@ -12,7 +12,7 @@ class TodoList extends WeElement {
     }
 }
 
-customElements.define('todo-list', TodoList)
+define('todo-list', TodoList)
 
 class TodoApp extends WeElement {
     static get data() {
@@ -56,7 +56,7 @@ class TodoApp extends WeElement {
     }
 }
 
-customElements.define('todo-app', TodoApp)
+define('todo-app', TodoApp)
 
 
 render(<todo-app></todo-app>, 'body')

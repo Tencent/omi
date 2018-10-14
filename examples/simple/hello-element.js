@@ -1,4 +1,4 @@
-import { WeElement } from '../../src/omi'
+import { WeElement, define } from '../../src/omi'
 
 class HelloElement extends WeElement {
 
@@ -61,4 +61,4 @@ class HelloElement extends WeElement {
     
 }
 
-customElements.define('hello-element', HelloElement)
+define('hello-element', HelloElement)

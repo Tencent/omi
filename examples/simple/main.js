@@ -1,4 +1,4 @@
-import { render, WeElement } from '../../src/omi'
+import { render, WeElement, define } from '../../src/omi'
 import './hello-element'
 
 class MyApp extends WeElement {
@@ -34,6 +34,6 @@ class MyApp extends WeElement {
 }
 
 
-customElements.define('my-app', MyApp)
+define('my-app', MyApp)
 
 render(<my-app name='Omi v4.0'></my-app>, 'body')

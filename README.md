@@ -38,7 +38,7 @@
 先创建一个自定义元素:
 
 ```js
-import { WeElement } from 'omi'
+import { WeElement, define } from 'omi'
 
 class HelloElement extends WeElement {
 
@@ -72,13 +72,13 @@ class HelloElement extends WeElement {
     
 }
 
-customElements.define('hello-element', HelloElement)
+define('hello-element', HelloElement)
 ```
 
 使用该元素:
 
 ``` js
-import { render, WeElement } from 'omi'
+import { render, WeElement, define } from 'omi'
 import './hello-element'
 
 class MyApp extends WeElement {
@@ -111,7 +111,7 @@ class MyApp extends WeElement {
 }
 
 
-customElements.define('my-app', MyApp)
+define('my-app', MyApp)
 
 render(<my-app name='Omi v4.0'></my-app>, 'body')
 ```
@@ -149,7 +149,7 @@ render(<my-app name='Omi v4.0'></my-app>, 'body')
 如果你的 css 文件以 `_` 开头, css 会使用 to-string-loader. 如：
 
 ``` js
-import { render, WeElement } from 'omi'
+import { render, WeElement, define } from 'omi'
 //typeof cssStr is string
 import cssStr from './_index.css' 
 
@@ -168,7 +168,7 @@ class MyApp extends WeElement {
 下面列举一个相对完整的 TodoApp 的例子:
 
 ```js
-import { render, WeElement } from 'omi'
+import { render, WeElement, define } from 'omi'
 
 class TodoList extends WeElement {
     render(props) {
@@ -182,7 +182,7 @@ class TodoList extends WeElement {
     }
 }
 
-customElements.define('todo-list', TodoList)
+define('todo-list', TodoList)
 
 class TodoApp extends WeElement {
     static get data() {
@@ -226,7 +226,7 @@ class TodoApp extends WeElement {
     }
 }
 
-customElements.define('todo-app', TodoApp)
+define('todo-app', TodoApp)
 
 render(<todo-app></todo-app>, 'body')
 ```

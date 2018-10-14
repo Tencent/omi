@@ -329,10 +329,10 @@
 			} else if (typeof value !== 'function') {
 				if (ns) {
 					node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-					node.props[name.toLowerCase()] = value;
+					node.props[npn(name.toLowerCase())] = value;
 				} else {
 					node.setAttribute(name, value);
-					node.props[name] = value;
+					node.props[npn(name)] = value;
 				}
 			}
 		}
@@ -614,7 +614,7 @@
 		for (name in attrs) {
 			if (typeof attrs[name] === 'object') {
 				// todo diff??
-				dom.props[name] = attrs[name];
+				dom.props[npn(name)] = attrs[name];
 				update = true;
 			} else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
 				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
@@ -707,6 +707,10 @@
 		diff(null, vnode, {}, false, parent, false);
 	}
 
+	function define(name, ctor) {
+	    customElements.define(name, ctor);
+	}
+
 	var instances = [];
 
 	options.root.Omi = {
@@ -715,7 +719,8 @@
 		WeElement: WeElement,
 		render: render,
 		options: options,
-		instances: instances
+		instances: instances,
+		define: define
 	};
 
 	options.root.Omi.version = '4.0.0';
@@ -754,7 +759,7 @@
 	    return TodoList;
 	}(WeElement);
 
-	customElements.define('todo-list', TodoList);
+	define('todo-list', TodoList);
 
 	var TodoApp = function (_WeElement2) {
 	    _inherits$1(TodoApp, _WeElement2);
@@ -822,7 +827,7 @@
 	    return TodoApp;
 	}(WeElement);
 
-	customElements.define('todo-app', TodoApp);
+	define('todo-app', TodoApp);
 
 	render(Omi.h('todo-app', null), 'body');
 
