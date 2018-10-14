@@ -1,4 +1,4 @@
-import { vdToDom, cssToDom, npn } from './util'
+import { cssToDom, npn } from './util'
 import { diff } from './vdom/diff';
 
 
