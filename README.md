@@ -230,6 +230,7 @@ render(<todo-app></todo-app>, 'body')
 
 ### Store
 
+强大的 Store 体系是高性能的原因，除了靠 props 决定组件状态的组件，其余组件所有 data 都挂载在 store 上:
 
 ```js
 export default {
@@ -292,6 +293,13 @@ define('todo-app', TodoApp)
 ```js
 render(<todo-app></todo-app>, 'body', store)
 ```
+
+总结一下:
+
+* store.data 用来列出所有属性和默认值(除去 props 决定的视图的组件)
+* 组件和页面的 data 用来列出依赖的 store.data 的属性 (omi会记录path)，按需更新
+* 如果页面简单组件很少，可以 updateAll 设置成 true，并且组件和页面不需要声明 data，也就不会按需更新
+* globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path
 
 ### Lifecycle
 
