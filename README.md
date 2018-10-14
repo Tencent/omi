@@ -1,8 +1,8 @@
 # Omi 4.0 - 合一  
 
-(Coming soon....)
-
 > 下一代 Web 框架，去万物糟粕，合精华为一。
+
+Coming soon....
 
 ### 特性
 
