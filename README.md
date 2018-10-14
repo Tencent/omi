@@ -15,6 +15,10 @@
 - WeStore 体系，99% 的项目不需要什么时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目，也能时间旅行
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 
+对比同样开发 TodoApp， Omi 和 react 渲染完的 DOM 结构:
+
+![](./asset/omi-render.jpg) ![](./asset/omi-react.jpg)
+
 ---
 
 - [Getting Started](#getting-started)
@@ -77,10 +81,6 @@ import './hello-element'
 
 class MyApp extends WeElement {
 
-    onClick = (evt) => {
-
-    }
-
     onAbc = (evt) => {
         this.data.abc = ' by ' + evt.detail.name
         this.update()   
@@ -106,7 +106,7 @@ class MyApp extends WeElement {
 
     render(props, data) {
         return (
-            <div onClick={this.onClick}>
+            <div>
                 Hello {props.name} {data.abc}
                 <hello-element onAbc={this.onAbc} prop-from-parent={data.passToChild} msg="WeElement"></hello-element>
             </div>
