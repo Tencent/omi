@@ -2,7 +2,6 @@ import { render, WeElement } from '../../src/omi'
 
 class TodoList extends WeElement {
     render(props) {
-        console.log(props)
         return (
             <ul>
                 {this.props.items.map(item => (
@@ -24,11 +23,10 @@ class TodoApp extends WeElement {
     }
 
     render() {
-        console.log(this.data.items)
         return (
             <div>
                 <h3>TODO</h3>
-                <todo-list ref={(e)=>{this.list=e}} items={this.data.items} />
+                <todo-list items={this.data.items} />
                 <form onSubmit={this.handleSubmit}>
                     <input
                         id="new-todo"
@@ -58,7 +56,6 @@ class TodoApp extends WeElement {
         })
         this.data.text = ''
         this.update()
-        this.list.update()
     }
 }
 

@@ -122,12 +122,12 @@ export function setAccessor(node, name, old, value, isSvg) {
 			else node.removeAttribute(name);
 		}
 		else if (typeof value!=='function') {
-			if(typeof value === 'string'){
-				if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-				else node.setAttribute(name, value);	
-				node.props[name] = value;
-			} else {
-				//can not trigger observedAttributes
+			if (ns) {
+				node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
+				node.props[name.toLowerCase()] = value;
+			}
+			else {
+				node.setAttribute(name, value);
 				node.props[name] = value;
 			}
 		}

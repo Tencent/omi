@@ -327,7 +327,15 @@
 			if (value == null || value === false) {
 				if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
 			} else if (typeof value !== 'function') {
-				if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);else node.setAttribute(name, value);
+				if (typeof value === 'string') {
+					if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);else node.setAttribute(name, value);
+					node.props[name] = value;
+				} else {
+					//can not trigger observedAttributes, so diff prop value here
+					console.log(JSON.stringify(node.props[name]));
+					console.log(SON.stringify(value));
+					node.props[name] = value;
+				}
 			}
 		}
 	}
@@ -633,18 +641,11 @@
 	    }
 
 	    WeElement.prototype.connectedCallback = function connectedCallback() {
-	        var _this2 = this;
-
 	        this.install();
-	        var names = this.getAttributeNames();
-
-	        names.forEach(function (name) {
-	            _this2.props[npn(name)] = _this2.getAttribute(name);
-	        });
 
 	        var shadowRoot = this.attachShadow({ mode: 'open' });
 
-	        shadowRoot.appendChild(cssToDom(this.css()));
+	        this.css && shadowRoot.appendChild(cssToDom(this.css()));
 	        this.host = diff(null, this.render(this.props, this.data), {}, false, null, false);
 	        shadowRoot.appendChild(this.host);
 

@@ -327,11 +327,11 @@
 			if (value == null || value === false) {
 				if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
 			} else if (typeof value !== 'function') {
-				if (typeof value === 'string') {
-					if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);else node.setAttribute(name, value);
-					node.props[name] = value;
+				if (ns) {
+					node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
+					node.props[name.toLowerCase()] = value;
 				} else {
-					//can not trigger observedAttributes
+					node.setAttribute(name, value);
 					node.props[name] = value;
 				}
 			}
@@ -606,15 +606,22 @@
 		for (name in old) {
 			if (!(attrs && attrs[name] != null) && old[name] != null) {
 				setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
+				delete dom.props[name];
 			}
 		}
-
+		var update = false;
 		// add new & update changed attributes
 		for (name in attrs) {
-			if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
+			if (typeof attrs[name] === 'object') {
+				// todo diff??
+				dom.props[name] = attrs[name];
+				update = true;
+			} else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
 				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
 			}
 		}
+
+		update && dom.update();
 	}
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -729,7 +736,6 @@
 	    }
 
 	    TodoList.prototype.render = function render$$1(props) {
-	        console.log(props);
 	        return Omi.h(
 	            'ul',
 	            null,
@@ -763,9 +769,6 @@
 	    }
 
 	    TodoApp.prototype.render = function render$$1() {
-	        var _this3 = this;
-
-	        console.log(this.data.items);
 	        return Omi.h(
 	            'div',
 	            null,
@@ -774,9 +777,7 @@
 	                null,
 	                'TODO'
 	            ),
-	            Omi.h('todo-list', { ref: function ref(e) {
-	                    _this3.list = e;
-	                }, items: this.data.items }),
+	            Omi.h('todo-list', { items: this.data.items }),
 	            Omi.h(
 	                'form',
 	                { onSubmit: this.handleSubmit },
@@ -810,7 +811,6 @@
 	        });
 	        this.data.text = '';
 	        this.update();
-	        this.list.update();
 	    };
 
 	    return TodoApp;
