@@ -1,7 +1,7 @@
 import { ATTR_KEY } from '../constants';
 import { isSameNodeType, isNamedNode } from './index';
 import { createNode, setAccessor } from '../dom/index';
-import options from '../options';
+import {  npn } from '../util'
 import { removeNode } from '../dom/index';
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
@@ -289,7 +289,7 @@ function diffAttributes(dom, attrs, old) {
 	for (name in attrs) {
 		if(typeof attrs[name] === 'object'){
 			// todo diff??
-			dom.props[name] = attrs[name]
+			dom.props[npn(name)] = attrs[name]
 			update = true
 		} else if (name!=='children' && name!=='innerHTML' && (!(name in old) || attrs[name]!==(name==='value' || name==='checked' ? dom[name] : old[name]))) {
 			setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);

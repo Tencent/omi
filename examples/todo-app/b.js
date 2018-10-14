@@ -720,6 +720,8 @@
 
 	options.root.Omi.version = '4.0.0';
 
+	var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -782,10 +784,6 @@
 	        }, _temp), _possibleConstructorReturn$1(_this2, _ret);
 	    }
 
-	    TodoApp.prototype.install = function install() {
-	        this.data = { items: [], text: '' };
-	    };
-
 	    TodoApp.prototype.render = function render$$1() {
 	        return Omi.h(
 	            'div',
@@ -813,6 +811,13 @@
 	            )
 	        );
 	    };
+
+	    _createClass$1(TodoApp, null, [{
+	        key: 'data',
+	        get: function get() {
+	            return { items: [], text: '' };
+	        }
+	    }]);
 
 	    return TodoApp;
 	}(WeElement);

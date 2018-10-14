@@ -329,10 +329,10 @@
 			} else if (typeof value !== 'function') {
 				if (ns) {
 					node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-					node.props[name.toLowerCase()] = value;
+					node.props[npn(name.toLowerCase())] = value;
 				} else {
 					node.setAttribute(name, value);
-					node.props[name] = value;
+					node.props[npn(name)] = value;
 				}
 			}
 		}
@@ -614,7 +614,7 @@
 		for (name in attrs) {
 			if (typeof attrs[name] === 'object') {
 				// todo diff??
-				dom.props[name] = attrs[name];
+				dom.props[npn(name)] = attrs[name];
 				update = true;
 			} else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
 				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
@@ -823,6 +823,8 @@
 
 	customElements.define('hello-element', HelloElement);
 
+	var _createClass$2 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -847,17 +849,6 @@
 	        }, _temp), _possibleConstructorReturn$2(_this, _ret);
 	    }
 
-	    MyApp.prototype.install = function install() {
-	        this.data.abc = 'abc';
-	        this.data.passToChild = '123';
-	    };
-
-	    MyApp.prototype.installed = function installed() {
-	        this.data.passToChild = '12345';
-	        this.data.abc = 'abcde';
-	        this.update();
-	    };
-
 	    MyApp.prototype.css = function css() {
 	        return '\n         div{\n             color: green;\n         }';
 	    };
@@ -873,6 +864,13 @@
 	            Omi.h('hello-element', { onAbc: this.onAbc, 'prop-from-parent': data.passToChild, msg: 'WeElement' })
 	        );
 	    };
+
+	    _createClass$2(MyApp, null, [{
+	        key: 'data',
+	        get: function get() {
+	            return { abc: 'abc', passToChild: '123' };
+	        }
+	    }]);
 
 	    return MyApp;
 	}(WeElement);

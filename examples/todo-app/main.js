@@ -15,8 +15,8 @@ class TodoList extends WeElement {
 customElements.define('todo-list', TodoList)
 
 class TodoApp extends WeElement {
-    install() {
-        this.data = { items: [], text: '' }
+    static get data() {
+        return { items: [], text: '' }
     }
 
     render() {

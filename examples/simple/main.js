@@ -7,20 +7,13 @@ class MyApp extends WeElement {
 
     }
 
+    static get data() {
+        return { abc: 'abc', passToChild: '123' }
+    }
+
     onAbc = (evt) => {
         this.data.abc = ' by ' + evt.detail.name
         this.update()   
-    }
-
-    install () {
-        this.data.abc = 'abc'
-        this.data.passToChild = '123'
-    }
-
-    installed(){
-        this.data.passToChild = '12345'
-        this.data.abc = 'abcde'
-        this.update()    
     }
 
     css() {

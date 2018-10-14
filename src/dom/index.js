@@ -1,6 +1,7 @@
 import { IS_NON_DIMENSIONAL } from '../constants';
 import { applyRef } from '../util';
 import options from '../options';
+import {  npn } from '../util'
 
 /**
  * A DOM event listener
@@ -124,11 +125,11 @@ export function setAccessor(node, name, old, value, isSvg) {
 		else if (typeof value!=='function') {
 			if (ns) {
 				node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-				node.props[name.toLowerCase()] = value;
+				node.props[npn(name.toLowerCase())] = value;
 			}
 			else {
 				node.setAttribute(name, value);
-				node.props[name] = value;
+				node.props[npn(name)] = value;
 			}
 		}
 	}

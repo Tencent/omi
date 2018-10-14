@@ -82,21 +82,15 @@ import { render, WeElement } from 'omi'
 import './hello-element'
 
 class MyApp extends WeElement {
+    static get data() {
+        return { abc: '', passToChild: '' }
+    }
 
+    //bind CustomEvent 
     onAbc = (evt) => {
+        // get evt data by evt.detail
         this.data.abc = ' by ' + evt.detail.name
         this.update()   
-    }
-
-    install () {
-        this.data.abc = 'abc'
-        this.data.passToChild = '123'
-    }
-
-    installed(){
-        this.data.passToChild = '12345'
-        this.data.abc = 'abcde'
-        this.update()    
     }
 
     css() {
@@ -140,7 +134,7 @@ render(<my-app name='Omi v4.0'></my-app>, 'body')
 ### Scoped CSS
 
 
-如果不想把 css 写在 js 里，你可以使用 [to-string-loader](https://www.npmjs.com/package/to-string-loader), 看 [omi-cli config](https://github.com/AlloyTeam/omi-cli/blob/master/template/app/config/webpack.config.dev.js#L156-L162)：
+如果不想把 css 写在 js 里，你可以使用 [to-string-loader](https://www.npmjs.com/package/to-string-loader), 比如下面配置:
 
 ``` js
 {
@@ -191,8 +185,8 @@ class TodoList extends WeElement {
 customElements.define('todo-list', TodoList)
 
 class TodoApp extends WeElement {
-    install() {
-        this.data = { items: [], text: '' }
+    static get data() {
+        return { items: [], text: '' }
     }
 
     render() {
