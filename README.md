@@ -19,7 +19,7 @@
 
 ![](./assets/omi-render.jpg) ![](./assets/react-render.jpg)
 
-(左边是Omi，右边是 React)
+左边是Omi，右边是 React，Omi 使用 Shadow DOM 格式样式和语义化结构。
 
 ---
 
