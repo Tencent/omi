@@ -20,15 +20,10 @@ export default class WeElement extends HTMLElement {
 
     connectedCallback() {
         this.install()
-        const names = this.getAttributeNames()
-
-        names.forEach(name => {
-            this.props[npn(name)] = this.getAttribute(name)
-        })
-
+        
         const shadowRoot = this.attachShadow({ mode: 'open' })
 
-        shadowRoot.appendChild(cssToDom(this.css()))
+        this.css && shadowRoot.appendChild(cssToDom(this.css()))
         this.host =  diff(null, this.render(this.props, this.data), {}, false, null, false)
         shadowRoot.appendChild(this.host)
 

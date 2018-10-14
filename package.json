@@ -14,7 +14,7 @@
     "copy-typescript-definition": "copyfiles -f src/omi.d.ts dist",
     "build": "npm-run-all --silent clean transpile copy-flow-definition copy-typescript-definition strip optimize minify size",
     "flow": "flow",
-    "todo": "rollup -c config/rollup.example.js --watch",
+    "todo-app": "rollup -c config/rollup.example.js --watch",
     "store": "rollup -c config/rollup.example.js --watch",
     "omi-tap": "rollup -c config/rollup.example.js --watch",
     "simple": "rollup -c config/rollup.example.js --watch",
