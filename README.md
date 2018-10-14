@@ -120,7 +120,7 @@ customElements.define('my-app', MyApp)
 render(<my-app name='Omi v4.0'></my-app>, 'body')
 ```
 
-告诉 Babel to 把 JSX 转化成 Omi.h() 的调用:
+告诉 Babel 把 JSX 转化成 Omi.h() 的调用:
 
 ``` json
 {
