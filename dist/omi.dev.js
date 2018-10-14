@@ -333,10 +333,10 @@
 			} else if (typeof value !== 'function') {
 				if (ns) {
 					node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-					node.props[name.toLowerCase()] = value;
+					node.props[npn(name.toLowerCase())] = value;
 				} else {
 					node.setAttribute(name, value);
-					node.props[name] = value;
+					node.props[npn(name)] = value;
 				}
 			}
 		}
@@ -618,7 +618,7 @@
 		for (name in attrs) {
 			if (typeof attrs[name] === 'object') {
 				// todo diff??
-				dom.props[name] = attrs[name];
+				dom.props[npn(name)] = attrs[name];
 				update = true;
 			} else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
 				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);

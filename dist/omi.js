@@ -91,10 +91,10 @@
             var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
             if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('function' != typeof value) if (ns) {
                 node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-                node.props[name.toLowerCase()] = value;
+                node.props[npn(name.toLowerCase())] = value;
             } else {
                 node.setAttribute(name, value);
-                node.props[name] = value;
+                node.props[npn(name)] = value;
             }
         }
     }
@@ -204,7 +204,7 @@
         }
         var update = !1;
         for (name in attrs) if ('object' == typeof attrs[name]) {
-            dom.props[name] = attrs[name];
+            dom.props[npn(name)] = attrs[name];
             update = !0;
         } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
         update && dom.update();
