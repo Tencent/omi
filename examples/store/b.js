@@ -1000,9 +1000,6 @@
 	            _this2.store.data.text = e.target.value;
 	        }, _this2.handleSubmit = function (e) {
 	            e.preventDefault();
-	            if (!_this2.store.data.text.length) {
-	                return;
-	            }
 	            _this2.store.add();
 	        }, _temp), _possibleConstructorReturn$1(_this2, _ret);
 	    }
@@ -1051,6 +1048,9 @@
 	var store = {
 	    data: { items: [], text: '' },
 	    add: function add() {
+	        if (!this.data.text.trim().length) {
+	            return;
+	        }
 	        this.data.items.push({
 	            text: this.data.text,
 	            id: Date.now()

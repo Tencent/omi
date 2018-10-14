@@ -54,7 +54,7 @@ define('todo-app', TodoApp)
 const store = {
     data: { items: [], text: '' },
     add: function () {
-        if (!this.data.text.length) {
+        if (!this.data.text.trim().length) {
             return;
         }
         this.data.items.push({

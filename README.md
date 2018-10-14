@@ -211,7 +211,7 @@ class TodoApp extends WeElement {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if (!this.data.text.length) {
+        if (!this.data.text.trim().length) {
             return;
         }
         this.data.items.push({
@@ -246,7 +246,7 @@ export default {
     ccc: { ddd: 1 } //更改我会刷新所有页面,不需要再组件和页面声明data依赖
   },
   add: function () {
-    if (!this.data.text.length) {
+    if (!this.data.text.trim().length) {
         return;
     }
     this.data.items.push({

@@ -44,7 +44,7 @@ class TodoApp extends WeElement {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if (!this.data.text.length) {
+        if (!this.data.text.trim().length) {
             return;
         }
         this.data.items.push({
