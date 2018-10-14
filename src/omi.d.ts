@@ -46,7 +46,7 @@ declare namespace Omi {
 	 * internal purposes.
 	 */
 	interface VNode<P> {
-		nodeName: ComponentFactory<P> | string;
+		nodeName: string;
 		attributes: P;
 		children: Array<VNode<any> | string>;
 		key?: Key | null;
@@ -55,51 +55,6 @@ declare namespace Omi {
 	type RenderableProps<P, RefType = any> = Readonly<
 		P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> }
 	>;
-
-	interface FunctionalComponent<P = {}> {
-		(props: RenderableProps<P>, context?: any): VNode<any> | null;
-		displayName?: string;
-		defaultProps?: Partial<P>;
-	}
-
-	interface ComponentConstructor<P = {}, S = {}> {
-		new (props: P, context?: any): Component<P, S>;
-		displayName?: string;
-		defaultProps?: Partial<P>;
-	}
-
-	// Type alias for a component considered generally, whether stateless or stateful.
-	type AnyComponent<P = {}, S = {}> = FunctionalComponent<P> | Component<P, S>;
-
-	interface Component<P = {}, S = {}> {
-		componentWillMount?(): void;
-		componentDidMount?(): void;
-		componentWillUnmount?(): void;
-		getChildContext?(): object;
-		componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
-		shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
-		componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
-		componentDidUpdate?(previousProps: Readonly<P>, previousState: Readonly<S>, previousContext: any): void;
-	}
-
-	abstract class Component<P, S> {
-		constructor(props?: P, context?: any);
-
-		static displayName?: string;
-		static defaultProps?: any;
-
-		state: Readonly<S>;
-		props: RenderableProps<P>;
-		context: any;
-		base?: HTMLElement;
-
-		setState<K extends keyof S>(state: Pick<S, K>, callback?: () => void): void;
-		setState<K extends keyof S>(fn: (prevState: S, props: P) => Pick<S, K>, callback?: () => void): void;
-
-		forceUpdate(callback?: () => void): void;
-
-		abstract render(props?: RenderableProps<P>, state?: Readonly<S>, context?: any): JSX.Element | null;
-	}
 
 	function h<P>(
 		node: ComponentFactory<P>,
@@ -127,9 +82,6 @@ declare namespace Omi {
 declare global {
 	namespace JSX {
 		interface Element extends Omi.VNode<any> {
-		}
-
-		interface ElementClass extends Omi.Component<any, any> {
 		}
 
 		interface ElementAttributesProperty {
