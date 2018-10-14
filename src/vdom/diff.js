@@ -290,7 +290,7 @@ function diffAttributes(dom, attrs, old) {
 		if(typeof attrs[name] === 'object'){
 			// todo diff??
 			dom.props[npn(name)] = attrs[name]
-			update = true
+			dom.parentNode && (update = true)
 		} else if (name!=='children' && name!=='innerHTML' && (!(name in old) || attrs[name]!==(name==='value' || name==='checked' ? dom[name] : old[name]))) {
 			setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
 		}

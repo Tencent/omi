@@ -615,7 +615,7 @@
 			if (typeof attrs[name] === 'object') {
 				// todo diff??
 				dom.props[npn(name)] = attrs[name];
-				update = true;
+				dom.parentNode && (update = true);
 			} else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
 				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
 			}
@@ -776,6 +776,7 @@
 	    }
 
 	    TodoList.prototype.render = function render$$1(props) {
+	        console.error(this.store);
 	        return Omi.h(
 	            'ul',
 	            null,
@@ -807,22 +808,23 @@
 	        }
 
 	        return _ret = (_temp = (_this2 = _possibleConstructorReturn$1(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this2), _this2.handleChange = function (e) {
-	            _this2.data.text = e.target.value;
+	            _this2.store.data.text = e.target.value;
 	        }, _this2.handleSubmit = function (e) {
 	            e.preventDefault();
-	            if (!_this2.data.text.length) {
+	            if (!_this2.store.data.text.length) {
 	                return;
 	            }
-	            _this2.data.items.push({
-	                text: _this2.data.text,
+	            _this2.store.data.items.push({
+	                text: _this2.store.data.text,
 	                id: Date.now()
 	            });
-	            _this2.data.text = '';
+	            _this2.store.data.text = '';
 	            _this2.update();
 	        }, _temp), _possibleConstructorReturn$1(_this2, _ret);
 	    }
 
 	    TodoApp.prototype.render = function render$$1() {
+	        var data = this.store.data;
 	        return Omi.h(
 	            'div',
 	            null,
@@ -831,20 +833,20 @@
 	                null,
 	                'TODO'
 	            ),
-	            Omi.h('todo-list', { items: this.data.items }),
+	            Omi.h('todo-list', { items: data.items }),
 	            Omi.h(
 	                'form',
 	                { onSubmit: this.handleSubmit },
 	                Omi.h('input', {
 	                    id: 'new-todo',
 	                    onChange: this.handleChange,
-	                    value: this.data.text
+	                    value: data.text
 	                }),
 	                Omi.h(
 	                    'button',
 	                    null,
 	                    'Add #',
-	                    this.data.items.length + 1
+	                    data.items.length + 1
 	                )
 	            )
 	        );
@@ -862,7 +864,8 @@
 
 	define('todo-app', TodoApp);
 
-	render(Omi.h('todo-app', null), 'body');
+	var store = { data: { items: [], text: '' } };
+	render(Omi.h('todo-app', null), 'body', store);
 
 }());
 //# sourceMappingURL=b.js.map
