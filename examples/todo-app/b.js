@@ -739,7 +739,7 @@
 	        return Omi.h(
 	            'ul',
 	            null,
-	            this.props.items.map(function (item) {
+	            props.items.map(function (item) {
 	                return Omi.h(
 	                    'li',
 	                    { key: item.id },
@@ -758,15 +758,33 @@
 	    _inherits$1(TodoApp, _WeElement2);
 
 	    function TodoApp() {
+	        var _temp, _this2, _ret;
+
 	        _classCallCheck$1(this, TodoApp);
 
-	        var _this2 = _possibleConstructorReturn$1(this, _WeElement2.call(this));
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
 
-	        _this2.data = { items: [], text: '' };
-	        _this2.handleChange = _this2.handleChange.bind(_this2);
-	        _this2.handleSubmit = _this2.handleSubmit.bind(_this2);
-	        return _this2;
+	        return _ret = (_temp = (_this2 = _possibleConstructorReturn$1(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this2), _this2.handleChange = function (e) {
+	            _this2.data.text = e.target.value;
+	        }, _this2.handleSubmit = function (e) {
+	            e.preventDefault();
+	            if (!_this2.data.text.length) {
+	                return;
+	            }
+	            _this2.data.items.push({
+	                text: _this2.data.text,
+	                id: Date.now()
+	            });
+	            _this2.data.text = '';
+	            _this2.update();
+	        }, _temp), _possibleConstructorReturn$1(_this2, _ret);
 	    }
+
+	    TodoApp.prototype.install = function install() {
+	        this.data = { items: [], text: '' };
+	    };
 
 	    TodoApp.prototype.render = function render$$1() {
 	        return Omi.h(
@@ -794,23 +812,6 @@
 	                )
 	            )
 	        );
-	    };
-
-	    TodoApp.prototype.handleChange = function handleChange(e) {
-	        this.data.text = e.target.value;
-	    };
-
-	    TodoApp.prototype.handleSubmit = function handleSubmit(e) {
-	        e.preventDefault();
-	        if (!this.data.text.length) {
-	            return;
-	        }
-	        this.data.items.push({
-	            text: this.data.text,
-	            id: Date.now()
-	        });
-	        this.data.text = '';
-	        this.update();
 	    };
 
 	    return TodoApp;

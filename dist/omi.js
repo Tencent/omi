@@ -35,6 +35,17 @@
     function applyRef(ref, value) {
         if (null != ref) if ('function' == typeof ref) ref(value); else ref.current = value;
     }
+    function isArray(obj) {
+        return '[object Array]' === Object.prototype.toString.call(obj);
+    }
+    function nProps(props) {
+        if (!props || isArray(props)) return {};
+        var result = {};
+        Object.keys(props).forEach(function(key) {
+            result[key] = props[key].value;
+        });
+        return result;
+    }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
         if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else return hydrating || node._componentConstructor === vnode.nodeName;
@@ -78,7 +89,13 @@
             if ((null == value || !1 === value) && 'spellcheck' != name) node.removeAttribute(name);
         } else {
             var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
-            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.setAttribute(name, value);
+            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('function' != typeof value) if (ns) {
+                node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
+                node.props[name.toLowerCase()] = value;
+            } else {
+                node.setAttribute(name, value);
+                node.props[name] = value;
+            }
         }
     }
     function eventProxy(e) {
@@ -181,8 +198,16 @@
     }
     function diffAttributes(dom, attrs, old) {
         var name;
-        for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
-        for (name in attrs) if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+        for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) {
+            setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
+            delete dom.props[name];
+        }
+        var update = !1;
+        for (name in attrs) if ('object' == typeof attrs[name]) {
+            dom.props[name] = attrs[name];
+            update = !0;
+        } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+        update && dom.update();
     }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -208,11 +233,7 @@
         diff(null, vnode, {}, !1, parent, !1);
     }
     var options = {
-        scopedStyle: !0,
-        $store: null,
-        isWeb: !0,
-        staticStyleMapping: {},
-        doc: 'object' == typeof document ? document : null,
+        store: null,
         root: function() {
             if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) {
                 if ('undefined' != typeof self) return self; else if ('undefined' != typeof window) return window; else if ('undefined' != typeof global) return global;
@@ -221,8 +242,7 @@
                 }();
             }
             return global;
-        }(),
-        styleCache: []
+        }()
     };
     var stack = [];
     var EMPTY_CHILDREN = [];
@@ -242,27 +262,38 @@
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
+    var _createClass = function() {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || !1;
+                descriptor.configurable = !0;
+                if ("value" in descriptor) descriptor.writable = !0;
+                descriptor.key;
+            }
+        }
+        return function(Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
     var WeElement = function(_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
             var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
-            _this.props = {};
-            _this.data = {};
+            _this.props = nProps(_this.constructor.props);
+            _this.data = _this.constructor.data || {};
             return _this;
         }
         _inherits(WeElement, _HTMLElement);
         WeElement.prototype.connectedCallback = function() {
-            var _this2 = this;
             this.install();
-            var names = this.getAttributeNames();
-            names.forEach(function(name) {
-                _this2.props[npn(name)] = _this2.getAttribute(name);
-            });
             var shadowRoot = this.attachShadow({
                 mode: 'open'
             });
-            shadowRoot.appendChild(cssToDom(this.css()));
-            this.host = diff(null, this.render(), {}, !1, null, !1);
+            this.css && shadowRoot.appendChild(cssToDom(this.css()));
+            this.host = diff(null, this.render(this.props, this.data), {}, !1, null, !1);
             shadowRoot.appendChild(this.host);
             this.installed();
         };
@@ -275,13 +306,24 @@
         };
         WeElement.prototype.update = function() {
             this.beforeUpdate();
-            diff(this.host, this.render());
+            diff(this.host, this.render(this.props, this.data));
             this.afterUpdate();
+        };
+        WeElement.prototype.fire = function(name, data) {
+            this.dispatchEvent(new CustomEvent(name, {
+                detail: data
+            }));
         };
         WeElement.prototype.install = function() {};
         WeElement.prototype.installed = function() {};
         WeElement.prototype.beforeUpdate = function() {};
         WeElement.prototype.afterUpdate = function() {};
+        _createClass(WeElement, null, [ {
+            key: 'observedAttributes',
+            get: function() {
+                if (this.props) if (isArray(this.props)) return this.props; else return Object.keys(this.props);
+            }
+        } ]);
         return WeElement;
     }(HTMLElement);
     var instances = [];

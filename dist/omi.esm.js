@@ -31,14 +31,9 @@ function getGlobal() {
  */
 var options = {
 
-	scopedStyle: true,
-	$store: null,
-	isWeb: true,
-	staticStyleMapping: {},
-	doc: typeof document === 'object' ? document : null,
-	root: getGlobal(),
-	//styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
-	styleCache: []
+	store: null,
+
+	root: getGlobal()
 	//componentChange(component, element) { },
 	/** If `true`, `prop` changes trigger synchronous component updates.
   *	@name syncComponentUpdates
@@ -180,6 +175,19 @@ function applyRef(ref, value) {
  */
 var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
+function isArray(obj) {
+  return Object.prototype.toString.call(obj) === '[object Array]';
+}
+
+function nProps(props) {
+  if (!props || isArray(props)) return {};
+  var result = {};
+  Object.keys(props).forEach(function (key) {
+    result[key] = props[key].value;
+  });
+  return result;
+}
+
 // DOM properties that should NOT have "px" added when numeric
 var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
@@ -320,7 +328,13 @@ function setAccessor(node, name, old, value, isSvg) {
 		if (value == null || value === false) {
 			if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
 		} else if (typeof value !== 'function') {
-			if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);else node.setAttribute(name, value);
+			if (ns) {
+				node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
+				node.props[name.toLowerCase()] = value;
+			} else {
+				node.setAttribute(name, value);
+				node.props[name] = value;
+			}
 		}
 	}
 }
@@ -593,16 +607,25 @@ function diffAttributes(dom, attrs, old) {
 	for (name in old) {
 		if (!(attrs && attrs[name] != null) && old[name] != null) {
 			setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
+			delete dom.props[name];
 		}
 	}
-
+	var update = false;
 	// add new & update changed attributes
 	for (name in attrs) {
-		if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
+		if (typeof attrs[name] === 'object') {
+			// todo diff??
+			dom.props[name] = attrs[name];
+			update = true;
+		} else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
 			setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
 		}
 	}
+
+	update && dom.update();
 }
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -618,25 +641,18 @@ var WeElement = function (_HTMLElement) {
 
         var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-        _this.props = {};
-        _this.data = {};
+        _this.props = nProps(_this.constructor.props);
+        _this.data = _this.constructor.data || {};
         return _this;
     }
 
     WeElement.prototype.connectedCallback = function connectedCallback() {
-        var _this2 = this;
-
         this.install();
-        var names = this.getAttributeNames();
-
-        names.forEach(function (name) {
-            _this2.props[npn(name)] = _this2.getAttribute(name);
-        });
 
         var shadowRoot = this.attachShadow({ mode: 'open' });
 
-        shadowRoot.appendChild(cssToDom(this.css()));
-        this.host = diff(null, this.render(), {}, false, null, false);
+        this.css && shadowRoot.appendChild(cssToDom(this.css()));
+        this.host = diff(null, this.render(this.props, this.data), {}, false, null, false);
         shadowRoot.appendChild(this.host);
 
         this.installed();
@@ -656,8 +672,12 @@ var WeElement = function (_HTMLElement) {
 
     WeElement.prototype.update = function update() {
         this.beforeUpdate();
-        diff(this.host, this.render());
+        diff(this.host, this.render(this.props, this.data));
         this.afterUpdate();
+    };
+
+    WeElement.prototype.fire = function fire(name, data) {
+        this.dispatchEvent(new CustomEvent(name, { detail: data }));
     };
 
     WeElement.prototype.install = function install() {};
@@ -667,6 +687,18 @@ var WeElement = function (_HTMLElement) {
     WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
     WeElement.prototype.afterUpdate = function afterUpdate() {};
+
+    _createClass(WeElement, null, [{
+        key: 'observedAttributes',
+        get: function get() {
+            if (!this.props) return;
+            if (isArray(this.props)) {
+                return this.props;
+            } else {
+                return Object.keys(this.props);
+            }
+        }
+    }]);
 
     return WeElement;
 }(HTMLElement);

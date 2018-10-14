@@ -4,7 +4,7 @@ class TodoList extends WeElement {
     render(props) {
         return (
             <ul>
-                {this.props.items.map(item => (
+                {props.items.map(item => (
                     <li key={item.id}>{item.text}</li>
                 ))}
             </ul>
@@ -15,11 +15,8 @@ class TodoList extends WeElement {
 customElements.define('todo-list', TodoList)
 
 class TodoApp extends WeElement {
-    constructor() {
-        super();
-        this.data = { items: [], text: '' };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    install() {
+        this.data = { items: [], text: '' }
     }
 
     render() {
@@ -41,11 +38,11 @@ class TodoApp extends WeElement {
         );
     }
 
-    handleChange(e) {
-        this.data.text = e.target.value 
+    handleChange = (e) => {
+        this.data.text = e.target.value
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
         if (!this.data.text.length) {
             return;
