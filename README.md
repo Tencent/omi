@@ -15,9 +15,11 @@
 - WeStore 体系，99% 的项目不需要什么时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目，也能时间旅行
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 
-对比同样开发 TodoApp， Omi 和 react 渲染完的 DOM 结构:
+对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构:
 
-![](./assets/omi-render.jpg) ![](./assets/omi-react.jpg)
+![](./assets/omi-render.jpg) ![](./assets/react-render.jpg)
+
+(左边是Omi，右边是 React)
 
 ---
 
