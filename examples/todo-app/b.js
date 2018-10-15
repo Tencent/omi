@@ -326,13 +326,11 @@
 			// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
 			if (value == null || value === false) {
 				if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
-			} else if (typeof value !== 'function') {
+			} else if (typeof value === 'string') {
 				if (ns) {
 					node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-					node.props[npn(name.toLowerCase())] = value;
 				} else {
 					node.setAttribute(name, value);
-					node.props[npn(name)] = value;
 				}
 			}
 		}
@@ -601,32 +599,37 @@
 	 */
 	function diffAttributes(dom, attrs, old) {
 		var name = void 0;
-
+		var update = false;
+		var isWeElement = dom.update;
 		// remove attributes no longer present on the vnode by setting them to undefined
 		for (name in old) {
 			if (!(attrs && attrs[name] != null) && old[name] != null) {
 				setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
-				delete dom.props[name];
+				if (isWeElement) {
+					delete dom.props[name];
+					update = true;
+				}
 			}
 		}
-		var update = false;
+
 		// add new & update changed attributes
 		for (name in attrs) {
 			//diable when using store system?
 			//!dom.store && 
-			if (typeof attrs[name] === 'object') {
-				// todo diff??
+			if (isWeElement && typeof attrs[name] === 'object') {
 				dom.props[npn(name)] = attrs[name];
-				dom.parentNode && (update = true);
+				update = true;
 			} else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
 				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+				if (isWeElement) {
+					dom.props[npn(name)] = attrs[name];
+					update = true;
+				}
 			}
 		}
 
-		update && dom.update();
+		dom.parentNode && update && isWeElement && dom.update();
 	}
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -663,14 +666,6 @@
 	        this.installed();
 	    };
 
-	    //chain transfer through this method
-
-
-	    WeElement.prototype.attributeChangedCallback = function attributeChangedCallback(name, pre, current) {
-	        this.props[npn(name)] = current;
-	        this.update();
-	    };
-
 	    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
 	        this.uninstall();
 	    };
@@ -692,18 +687,6 @@
 	    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
 	    WeElement.prototype.afterUpdate = function afterUpdate() {};
-
-	    _createClass(WeElement, null, [{
-	        key: 'observedAttributes',
-	        get: function get() {
-	            if (!this.props) return;
-	            if (isArray(this.props)) {
-	                return this.props;
-	            } else {
-	                return Object.keys(this.props);
-	            }
-	        }
-	    }]);
 
 	    return WeElement;
 	}(HTMLElement);
@@ -948,7 +931,7 @@
 
 	options.root.Omi.version = '4.0.0';
 
-	var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1040,7 +1023,7 @@
 	        );
 	    };
 
-	    _createClass$1(TodoApp, null, [{
+	    _createClass(TodoApp, null, [{
 	        key: 'data',
 	        get: function get() {
 	            return { items: [], text: '' };

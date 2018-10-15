@@ -89,13 +89,7 @@
             if ((null == value || !1 === value) && 'spellcheck' != name) node.removeAttribute(name);
         } else {
             var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
-            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('function' != typeof value) if (ns) {
-                node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-                node.props[npn(name.toLowerCase())] = value;
-            } else {
-                node.setAttribute(name, value);
-                node.props[npn(name)] = value;
-            }
+            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('string' == typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.setAttribute(name, value);
         }
     }
     function eventProxy(e) {
@@ -198,16 +192,26 @@
     }
     function diffAttributes(dom, attrs, old) {
         var name;
+        var update = !1;
+        var isWeElement = dom.update;
         for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) {
             setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
-            delete dom.props[name];
+            if (isWeElement) {
+                delete dom.props[name];
+                update = !0;
+            }
         }
-        var update = !1;
-        for (name in attrs) if ('object' == typeof attrs[name]) {
+        for (name in attrs) if (isWeElement && 'object' == typeof attrs[name]) {
             dom.props[npn(name)] = attrs[name];
-            dom.parentNode && (update = !0);
-        } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
-        update && dom.update();
+            update = !0;
+        } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
+            setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+            if (isWeElement) {
+                dom.props[npn(name)] = attrs[name];
+                update = !0;
+            }
+        }
+        dom.parentNode && update && isWeElement && dom.update();
     }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -380,22 +384,6 @@
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
-    var _createClass = function() {
-        function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
-                descriptor.enumerable = descriptor.enumerable || !1;
-                descriptor.configurable = !0;
-                if ("value" in descriptor) descriptor.writable = !0;
-                descriptor.key;
-            }
-        }
-        return function(Constructor, protoProps, staticProps) {
-            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-            if (staticProps) defineProperties(Constructor, staticProps);
-            return Constructor;
-        };
-    }();
     var WeElement = function(_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
@@ -417,10 +405,6 @@
             shadowRoot.appendChild(this.host);
             this.installed();
         };
-        WeElement.prototype.attributeChangedCallback = function(name, pre, current) {
-            this.props[npn(name)] = current;
-            this.update();
-        };
         WeElement.prototype.disconnectedCallback = function() {
             this.uninstall();
         };
@@ -438,12 +422,6 @@
         WeElement.prototype.installed = function() {};
         WeElement.prototype.beforeUpdate = function() {};
         WeElement.prototype.afterUpdate = function() {};
-        _createClass(WeElement, null, [ {
-            key: 'observedAttributes',
-            get: function() {
-                if (this.props) if (isArray(this.props)) return this.props; else return Object.keys(this.props);
-            }
-        } ]);
         return WeElement;
     }(HTMLElement);
     var instances = [];
