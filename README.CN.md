@@ -32,7 +32,8 @@
     - [TodoApp](#todoapp)
     - [Store](#store)
 	- [生命周期](#生命周期)
-    - [浏览器兼容](#浏览器兼容)
+- [生态](#生态)
+- [浏览器兼容](#浏览器兼容)
 - [Install](#install)
 - [Links](#links)
 - [License](#license)
@@ -319,7 +320,14 @@ render(<todo-app></todo-app>, 'body', store)
 | `beforeUpdate`       | before `render()`                                |
 | `afterUpdate`        | after `render()`                                 |
 
-### 浏览器兼容
+## 生态
+
+* [https://www.webcomponents.org/](https://www.webcomponents.org/)
+* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
+
+在里面查找你想要的组件，直接使用，或者花几分钟就能转换成 Omi Element（把模板拷贝到 render 方法，style拷贝到 css 方法）。
+
+## 浏览器兼容
 
 Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 

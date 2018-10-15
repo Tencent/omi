@@ -32,7 +32,8 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
     - [TodoApp](#todoapp)
     - [Store](#store)
 	- [Lifecycle](#lifecycle)
-    - [Browsers Support](#browsers-support)
+- [Component Ecosystem](#component-ecosystem)
+- [Browsers Support](#browsers-support)
 - [Install](#install)
 - [Links](#links)
 - [License](#license)
@@ -321,7 +322,14 @@ Summary：
 | `beforeUpdate`       | before `render()`                                |
 | `afterUpdate`        | after `render()`                                 |
 
-### Browsers Support
+## Component Ecosystem
+
+* [https://www.webcomponents.org/](https://www.webcomponents.org/)
+* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
+
+I believe you can easily convert webcomponents elements to omi elements.
+
+## Browsers Support
 
 Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
