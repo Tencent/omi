@@ -4,7 +4,7 @@ English | [简体中文](./README.CN.md)
 
 > Next generation web framework in 3KB javascript.
 
-Coming....You can download JS from [omi/master/dist] (https://github.com/Tencent/omi/tree/master/dist) to try it out.
+Coming....You can download JS from [omi/master/dist](https://github.com/Tencent/omi/tree/master/dist) to try it out.
 
 ### Why Omi？
 
