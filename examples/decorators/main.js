@@ -1,6 +1,6 @@
 import { tag, WeElement, render } from '../../src/omi'
 
-@tag('todo-list')
+@tag('todo-list', true)
 class TodoList extends WeElement {
     render(props) {
         return (
@@ -22,8 +22,7 @@ class TodoApp extends WeElement {
         }
     }
 
-    render() {
-        const data = this.store.data
+    render(props, data) {
         return (
             <div>
                 <h3>TODO</h3>

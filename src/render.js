@@ -49,7 +49,7 @@ function matchGlobalData(globalData, diffResult) {
     }
     return false
 }
-
+//todo path级别检测包括Array，如果array为空数组，默认值在install里加
 function needUpdate(diffResult, updatePath){
     for(let keyA in diffResult){
         if(updatePath[keyA]){

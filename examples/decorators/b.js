@@ -659,7 +659,7 @@
 	        var shadowRoot = this.attachShadow({ mode: 'open' });
 
 	        this.css && shadowRoot.appendChild(cssToDom(this.css()));
-	        this.host = diff(null, this.render(this.props, this.data), {}, false, null, false);
+	        this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
 	        shadowRoot.appendChild(this.host);
 
 	        this.installed();
@@ -671,7 +671,7 @@
 
 	    WeElement.prototype.update = function update() {
 	        this.beforeUpdate();
-	        diff(this.host, this.render(this.props, this.data));
+	        diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
 	        this.afterUpdate();
 	    };
 
@@ -844,7 +844,7 @@
 	    }
 	    return false;
 	}
-
+	//todo path级别检测包括Array，如果array为空数组，默认值在install里加
 	function needUpdate(diffResult, updatePath) {
 	    for (var keyA in diffResult) {
 	        if (updatePath[keyA]) {
@@ -916,8 +916,9 @@
 	  });
 	}
 
-	function tag(name) {
+	function tag(name, pure) {
 	    return function (target) {
+	        target.pure = pure;
 	        define(name, target);
 	    };
 	}
@@ -947,7 +948,7 @@
 
 	function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var TodoList = (_dec = tag('todo-list'), _dec(_class = function (_WeElement) {
+	var TodoList = (_dec = tag('todo-list', true), _dec(_class = function (_WeElement) {
 	    _inherits$1(TodoList, _WeElement);
 
 	    function TodoList() {
@@ -992,8 +993,7 @@
 	        }, _temp), _possibleConstructorReturn$1(_this2, _ret);
 	    }
 
-	    TodoApp.prototype.render = function render$$1() {
-	        var data = this.store.data;
+	    TodoApp.prototype.render = function render$$1(props, data) {
 	        return Omi.h(
 	            'div',
 	            null,
