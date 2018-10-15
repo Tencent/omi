@@ -46,8 +46,9 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
 Define a custom element:
 
 ```js
-import { WeElement, define } from 'omi'
+import { tag, WeElement, render } from 'omi'
 
+@tag('hello-element')
 class HelloElement extends WeElement {
 
     static get props(){
@@ -77,16 +78,15 @@ class HelloElement extends WeElement {
         )
     }   
 }
-
-define('hello-element', HelloElement)
 ```
 
 Using `hello-element`:
 
 ``` js
-import { render, WeElement, define } from 'omi'
+import { tag, WeElement, render } from 'omi'
 import './hello-element'
 
+@tag('my-app')
 class MyApp extends WeElement {
     static get data() {
         return { abc: '', passToChild: '' }
@@ -115,9 +115,6 @@ class MyApp extends WeElement {
         )
     }
 }
-
-
-define('my-app', MyApp)
 
 render(<my-app name='Omi v4.0'></my-app>, 'body')
 ```
@@ -153,10 +150,11 @@ For example, the following configuration:
 If your CSS file starts with "_", CSS will use to-string-loader., such as:
 
 ``` js
-import { render, WeElement, define } from 'omi'
+import { tag, WeElement render } from 'omi'
 //typeof cssStr is string
 import cssStr from './_index.css' 
 
+@tag('my-app')
 class MyApp extends WeElement {
 
   css() {
@@ -172,8 +170,9 @@ class MyApp extends WeElement {
 Here is a relatively complete example of TodoApp:
 
 ```js
-import { render, WeElement, define } from 'omi'
+import { tag, WeElement, render } from 'omi'
 
+@tag('todo-list')
 class TodoList extends WeElement {
     render(props) {
         return (
@@ -186,8 +185,7 @@ class TodoList extends WeElement {
     }
 }
 
-define('todo-list', TodoList)
-
+@tag('todo-app')
 class TodoApp extends WeElement {
     static get data() {
         return { items: [], text: '' }
@@ -229,8 +227,6 @@ class TodoApp extends WeElement {
         this.update()
     }
 }
-
-define('todo-app', TodoApp)
 
 render(<todo-app></todo-app>, 'body')
 ```
@@ -288,8 +284,6 @@ class TodoApp extends WeElement {
         this.store.add()
     }
 }
-
-define('todo-app', TodoApp)
 ```
 
 * the logic of data is encapsulated in the store definition method (such as store.add).
