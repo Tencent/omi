@@ -2,7 +2,7 @@ English | [简体中文](./README.CN.md)
 
 # Omi - Merge JSX and Webcomponents into One Framework 
 
-> Next generation web framework in 0.5KB javascript.
+> Next generation web framework in 3KB javascript.
 
 ### Why Omi？
 

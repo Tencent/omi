@@ -1,12 +1,12 @@
 [English](./README.md) | 简体中文
 
-# Omi 4.0 - 合一  
+# Omi - 合一  
 
 > 下一代 Web 框架，去万物糟粕，合精华为一。
 
 ### 特性
 
-- 0.5 KB 的代码尺寸，比小更小
+- 3KB 的代码尺寸，比小更小
 - 顺势而为，顺从浏览器的发展和 API 设计
 - Webcomponents + JSX 相互融合为一个框架 Omi
 - Webcomponents 也可以数据驱动视图, UI = fn(data)
