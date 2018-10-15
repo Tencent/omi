@@ -1,3 +1,5 @@
+[English](./README.md) | 简体中文
+
 # Omi 4.0 - 合一  
 
 > 下一代 Web 框架，去万物糟粕，合精华为一。
@@ -247,6 +249,7 @@ export default {
     globalPropTest: 'abc', //更改我会刷新所有页面,不需要再组件和页面声明data依赖
     ccc: { ddd: 1 } //更改我会刷新所有页面,不需要再组件和页面声明data依赖
   },
+  globalData: ['globalPropTest', 'ccc.ddd'],
   add: function () {
     if (!this.data.text.trim().length) {
         return;
@@ -257,8 +260,7 @@ export default {
     })
     this.data.text = ''
     this.update()
-  },
-  globalData: ['globalPropTest', 'ccc.ddd']
+  }
   //默认 false，为 true 会无脑更新所有实例
   //updateAll: true
 }

@@ -1,25 +1,27 @@
-# Omi 4.0 - 合一  
+English | [简体中文](./README.CN.md) 
 
-> 下一代 Web 框架，去万物糟粕，合精华为一。
+# Omi - Merge JSX and Webcomponents into One Framework 
 
-### 特性
+> Next generation web framework in 0.5KB javascript.
 
-- 0.5 KB 的代码尺寸，比小更小
-- 顺势而为，顺从浏览器的发展和 API 设计
-- Webcomponents + JSX 相互融合为一个框架 Omi
-- Webcomponents 也可以数据驱动视图, UI = fn(data)
-- JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
-- 每一个组件拥有 update 方法自由渲染最佳更新视图的时机，功耗低，自由度高，性能卓越
-- 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
-- Shadom DOM 与 Virtual DOM 融合，Omi 既使用了虚拟 DOM，也是使用真实 Shadom DOM，让视图更新更准确更迅速
-- 类似 WeStore 体系，99.9% 的项目不需要什么时间旅行,也不仅仅 redux 能时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目
-- 局部 CSS 最佳解决方案(Shadow DOM)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:Radium，jsxstyle，react-style；与webpack绑定使用生成独特的className`文件名—类名—hash值`，如：CSS Modules，Vue)，都是 hack 技术；Shadow DOM Style 是最完美的方案
+### Why Omi？
 
-对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构:
+- Tiny size(3KB gzip)
+- Compliance with browser trend and API design
+- Merge JSX and Webcomponents into One Framework 
+- Webcomponents can also be a data-driven view, UI = fn(data)
+- JSX is the best development experience (code intelligent  completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals)
+- Each component has the update method to freely render the best updated view of the time, low power consumption, high degree of freedom, excellent performance. Convenient to join requestIdleCallback in the future
+- Look at [Facebook React VS Webcomponents](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi combines their advantages and gives developers the freedom to choose the way they like.
+- Shadom DOM merges with Virtual DOM, Omi uses both virtual DOM and real Shadom DOM to make view updates more accurate and faster
+- With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on redux, Omi store system can meet all projects
+- Scoped CSS's best solution is Shadow DOM, the community churning out frameworks and libraries for Scoped CSS (using JS or JSON writing styles such as Radium, jsxstyle, react-style; binding to webpack using generated unique className `filename-classname-hash', such as CSS Modules, Vue), are hack technologies; and Shadow DOM Style is the perfect solution.
+
+Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
 ![](./assets/omi-render.jpg) ![](./assets/react-render.jpg)
 
-左边是Omi，右边是 React，Omi 使用 Shadow DOM 隔离样式和语义化结构。
+On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation style and semantic structure.
 
 ---
 
@@ -37,7 +39,7 @@
 
 ### Hello Omi
 
-先创建一个自定义元素:
+Define a custom element:
 
 ```js
 import { WeElement, define } from 'omi'
@@ -45,7 +47,6 @@ import { WeElement, define } from 'omi'
 class HelloElement extends WeElement {
 
     static get props(){
-        //如果不写入就无法监听到属性变更且自动刷新视图
         return ['prop-from-parent', 'msg']
     }
 
@@ -70,14 +71,13 @@ class HelloElement extends WeElement {
                 <div>Click Me!</div>
             </div>
         )
-    }
-    
+    }   
 }
 
 define('hello-element', HelloElement)
 ```
 
-使用该元素:
+Using `hello-element`:
 
 ``` js
 import { render, WeElement, define } from 'omi'
@@ -118,7 +118,7 @@ define('my-app', MyApp)
 render(<my-app name='Omi v4.0'></my-app>, 'body')
 ```
 
-告诉 Babel 把 JSX 转化成 Omi.h() 的调用:
+Tell Babel to transform JSX into Omi.h () call:
 
 ``` json
 {
@@ -126,14 +126,15 @@ render(<my-app name='Omi v4.0'></my-app>, 'body')
 }
 ```
 
-需要安装下面两个 npm 包支持上面的配置:
+The following two NPM packages need to be installed to support the above configuration:
 
 ``` bash
 "babel-preset-env": "^1.6.0",
 "babel-preset-omi": "^0.1.1",
 ```
 
-如果不想把 css 写在 js 里，你可以使用 [to-string-loader](https://www.npmjs.com/package/to-string-loader), 比如下面配置:
+If you don't want to write CSS in js, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader),
+For example, the following configuration:
 
 ``` js
 {
@@ -145,7 +146,7 @@ render(<my-app name='Omi v4.0'></my-app>, 'body')
 }
 ```
 
-如果你的 css 文件以 `_` 开头, css 会使用 to-string-loader. 如：
+If your CSS file starts with "_", CSS will use to-string-loader., such as:
 
 ``` js
 import { render, WeElement, define } from 'omi'
@@ -164,7 +165,7 @@ class MyApp extends WeElement {
 
 ### TodoApp
 
-下面列举一个相对完整的 TodoApp 的例子:
+Here is a relatively complete example of TodoApp:
 
 ```js
 import { render, WeElement, define } from 'omi'
@@ -232,7 +233,7 @@ render(<todo-app></todo-app>, 'body')
 
 ### Store
 
-强大的 Store 体系是高性能的原因，除了靠 props 决定组件状态的组件，其余组件所有 data 都挂载在 store 上:
+The powerful Store architecture is high-performance because all data is mounted on the store, except for components that rely on props to determine the state of the component.
 
 ```js
 export default {
@@ -244,9 +245,10 @@ export default {
     fullName: function () {
       return this.firstName + this.lastName
     },
-    globalPropTest: 'abc', //更改我会刷新所有页面,不需要再组件和页面声明data依赖
-    ccc: { ddd: 1 } //更改我会刷新所有页面,不需要再组件和页面声明data依赖
+    globalPropTest: 'abc', //I will refresh all elements without changing the components and page declaring data dependency.
+    ccc: { ddd: 1 } //I will refresh all elements without changing the components and page declaring data dependency.
   },
+  globalData: ['globalPropTest', 'ccc.ddd'],
   add: function () {
     if (!this.data.text.trim().length) {
         return;
@@ -257,14 +259,13 @@ export default {
     })
     this.data.text = ''
     this.update()
-  },
-  globalData: ['globalPropTest', 'ccc.ddd']
-  //默认 false，为 true 会无脑更新所有实例
+  }
+  //Default value is false, set to true will update all instances when data changing.
   //updateAll: true
 }
 ```
 
-自定义 Element 需要声明依赖的 data，这样 Omi store 根据自定义组件上声明的 data 计算依赖 path 并会按需局部更新。如:
+Custom Element requires declaring dependent data so that Omi stores compute the dependency path based on the data declared on the custom component and update it locally as needed. Such as:
 
 ```js
 class TodoApp extends WeElement {
@@ -287,23 +288,25 @@ class TodoApp extends WeElement {
 define('todo-app', TodoApp)
 ```
 
-* 数据的逻辑都封装在了 store 定义的方法里 (如 store.add)
-* 视图只负责传递数据给 store （如上面调用 store.add 或设置 store.data.text）
+* the logic of data is encapsulated in the store definition method (such as store.add).
+* views are only responsible for passing data to store, such as calling store.add or setting store.data.text on top.
 
-需要在 render 的时候从根节点注入 store 才能在所有自定义 Element 里使用 this.store:
+You need to inject store from the root node at render time to use this. store:
 
 ```js
 render(<todo-app></todo-app>, 'body', store)
 ```
 
-[→ Store 完整的代码](https://github.com/Tencent/omi/blob/master/examples/store/main.js)
+[→ Store Full Code](https://github.com/Tencent/omi/blob/master/examples/store/main.js)
 
-总结一下:
 
-* store.data 用来列出所有属性和默认值(除去 props 决定的视图的组件)
-* 组件和页面的 data 用来列出依赖的 store.data 的属性 (omi会记录path)，按需更新
-* 如果页面简单组件很少，可以 updateAll 设置成 true，并且组件和页面不需要声明 data，也就不会按需更新
-* globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path
+
+Summary：
+
+* store.data is used to list all attributes and default values (except the components of the view decided by props).
+* The data of the component and page is used to list the attributes of the dependent store.data (OMI will record path) and update on demand.
+* If there are few simple components on the page, updateAll can be set to true, and components and pages don't need to declare data, and they don't update on demand
+* The path declared in globalData refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties Path
 
 ### Lifecycle
 
