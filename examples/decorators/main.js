@@ -9,7 +9,7 @@ class TodoList extends WeElement {
                     <li key={item.id}>{item.text}</li>
                 ))}
             </ul>
-        );
+        )
     }
 }
 
@@ -18,9 +18,7 @@ class TodoApp extends WeElement {
     static get data() {
         return {
             items: [],
-            text: '',
-            firstName: 'dnt',
-            lastName: 'zhang',
+            text: ''
         }
     }
 
@@ -32,7 +30,6 @@ class TodoApp extends WeElement {
                 <todo-list items={data.items} />
                 <form onSubmit={this.handleSubmit}>
                     <input
-                        id="new-todo"
                         onChange={this.handleChange}
                         value={data.text}
                     />
@@ -41,7 +38,7 @@ class TodoApp extends WeElement {
                     </button>
                 </form>
             </div>
-        );
+        )
     }
 
     handleChange = (e) => {
@@ -61,7 +58,7 @@ const store = {
     },
     add: function () {
         if (!this.data.text.trim().length) {
-            return;
+            return
         }
         this.data.items.push({
             text: this.data.text,

@@ -1007,7 +1007,6 @@
 	                'form',
 	                { onSubmit: this.handleSubmit },
 	                Omi.h('input', {
-	                    id: 'new-todo',
 	                    onChange: this.handleChange,
 	                    value: data.text
 	                }),
@@ -1026,9 +1025,7 @@
 	        get: function get() {
 	            return {
 	                items: [],
-	                text: '',
-	                firstName: 'dnt',
-	                lastName: 'zhang'
+	                text: ''
 	            };
 	        }
 	    }]);
