@@ -122,14 +122,11 @@ export function setAccessor(node, name, old, value, isSvg) {
 			if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());
 			else node.removeAttribute(name);
 		}
-		else if (typeof value!=='function') {
+		else if (typeof value === 'string') {
 			if (ns) {
 				node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-				node.props[npn(name.toLowerCase())] = value;
-			}
-			else {
+			} else {
 				node.setAttribute(name, value);
-				node.props[npn(name)] = value;
 			}
 		}
 	}

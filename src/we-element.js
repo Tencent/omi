@@ -1,4 +1,4 @@
-import { cssToDom, npn, isArray, nProps } from './util'
+import { cssToDom, nProps } from './util'
 import { diff } from './vdom/diff';
 import options from './options'
 
@@ -7,15 +7,6 @@ export default class WeElement extends HTMLElement {
         super()
         this.props =  nProps(this.constructor.props)
         this.data = this.constructor.data || {}
-    }
-
-    static get observedAttributes() { 
-        if(!this.props) return
-        if(isArray(this.props)){
-            return this.props
-        } else {
-            return Object.keys(this.props)
-        }
     }
 
     connectedCallback() {
@@ -32,12 +23,6 @@ export default class WeElement extends HTMLElement {
         shadowRoot.appendChild(this.host)
 
         this.installed()
-    }
-
-    //chain transfer through this method
-    attributeChangedCallback(name, pre, current) {
-        this.props[npn(name)] = current
-        this.update()
     }
 
     disconnectedCallback() {

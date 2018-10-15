@@ -326,13 +326,11 @@
 			// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
 			if (value == null || value === false) {
 				if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
-			} else if (typeof value !== 'function') {
+			} else if (typeof value === 'string') {
 				if (ns) {
 					node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-					node.props[npn(name.toLowerCase())] = value;
 				} else {
 					node.setAttribute(name, value);
-					node.props[npn(name)] = value;
 				}
 			}
 		}
@@ -601,30 +599,37 @@
 	 */
 	function diffAttributes(dom, attrs, old) {
 		var name = void 0;
-
+		var update = false;
+		var isWeElement = dom.update;
 		// remove attributes no longer present on the vnode by setting them to undefined
 		for (name in old) {
 			if (!(attrs && attrs[name] != null) && old[name] != null) {
 				setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
-				delete dom.props[name];
+				if (isWeElement) {
+					delete dom.props[name];
+					update = true;
+				}
 			}
 		}
-		var update = false;
+
 		// add new & update changed attributes
 		for (name in attrs) {
-			if (typeof attrs[name] === 'object') {
-				// todo diff??
+			//diable when using store system?
+			//!dom.store && 
+			if (isWeElement && typeof attrs[name] === 'object') {
 				dom.props[npn(name)] = attrs[name];
 				update = true;
 			} else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
 				setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+				if (isWeElement) {
+					dom.props[npn(name)] = attrs[name];
+					update = true;
+				}
 			}
 		}
 
-		update && dom.update();
+		dom.parentNode && update && isWeElement && dom.update();
 	}
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -646,6 +651,10 @@
 	    }
 
 	    WeElement.prototype.connectedCallback = function connectedCallback() {
+	        this.store = options.store;
+	        if (this.store) {
+	            this.store.instances.push(this);
+	        }
 	        this.install();
 
 	        var shadowRoot = this.attachShadow({ mode: 'open' });
@@ -655,14 +664,6 @@
 	        shadowRoot.appendChild(this.host);
 
 	        this.installed();
-	    };
-
-	    //chain transfer through this method
-
-
-	    WeElement.prototype.attributeChangedCallback = function attributeChangedCallback(name, pre, current) {
-	        this.props[npn(name)] = current;
-	        this.update();
 	    };
 
 	    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
@@ -687,28 +688,233 @@
 
 	    WeElement.prototype.afterUpdate = function afterUpdate() {};
 
-	    _createClass(WeElement, null, [{
-	        key: 'observedAttributes',
-	        get: function get() {
-	            if (!this.props) return;
-	            if (isArray(this.props)) {
-	                return this.props;
-	            } else {
-	                return Object.keys(this.props);
-	            }
-	        }
-	    }]);
-
 	    return WeElement;
 	}(HTMLElement);
 
-	function render(vnode, parent) {
-		parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-		diff(null, vnode, {}, false, parent, false);
+	var ARRAYTYPE = '[object Array]';
+	var OBJECTTYPE = '[object Object]';
+	var FUNCTIONTYPE = '[object Function]';
+
+	function diff$1(current, pre) {
+	    var result = {};
+	    syncKeys(current, pre);
+	    _diff(current, pre, '', result);
+	    return result;
 	}
 
+	function syncKeys(current, pre) {
+	    if (current === pre) return;
+	    var rootCurrentType = type(current);
+	    var rootPreType = type(pre);
+	    if (rootCurrentType == OBJECTTYPE && rootPreType == OBJECTTYPE) {
+	        if (Object.keys(current).length >= Object.keys(pre).length) {
+	            for (var key in pre) {
+	                var currentValue = current[key];
+	                if (currentValue === undefined) {
+	                    current[key] = null;
+	                } else {
+	                    syncKeys(currentValue, pre[key]);
+	                }
+	            }
+	        }
+	    } else if (rootCurrentType == ARRAYTYPE && rootPreType == ARRAYTYPE) {
+	        if (current.length >= pre.length) {
+	            pre.forEach(function (item, index) {
+	                syncKeys(current[index], item);
+	            });
+	        }
+	    }
+	}
+
+	function _diff(current, pre, path, result) {
+	    if (current === pre) return;
+	    var rootCurrentType = type(current);
+	    var rootPreType = type(pre);
+	    if (rootCurrentType == OBJECTTYPE) {
+	        if (rootPreType != OBJECTTYPE || Object.keys(current).length < Object.keys(pre).length) {
+	            setResult(result, path, current);
+	        } else {
+	            var _loop = function _loop(key) {
+	                var currentValue = current[key];
+	                var preValue = pre[key];
+	                var currentType = type(currentValue);
+	                var preType = type(preValue);
+	                if (currentType != ARRAYTYPE && currentType != OBJECTTYPE) {
+	                    if (currentValue != pre[key]) {
+	                        setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
+	                    }
+	                } else if (currentType == ARRAYTYPE) {
+	                    if (preType != ARRAYTYPE) {
+	                        setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
+	                    } else {
+	                        if (currentValue.length < preValue.length) {
+	                            setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
+	                        } else {
+	                            currentValue.forEach(function (item, index) {
+	                                _diff(item, preValue[index], (path == '' ? '' : path + ".") + key + '[' + index + ']', result);
+	                            });
+	                        }
+	                    }
+	                } else if (currentType == OBJECTTYPE) {
+	                    if (preType != OBJECTTYPE || Object.keys(currentValue).length < Object.keys(preValue).length) {
+	                        setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
+	                    } else {
+	                        for (var subKey in currentValue) {
+	                            _diff(currentValue[subKey], preValue[subKey], (path == '' ? '' : path + ".") + key + '.' + subKey, result);
+	                        }
+	                    }
+	                }
+	            };
+
+	            for (var key in current) {
+	                _loop(key);
+	            }
+	        }
+	    } else if (rootCurrentType == ARRAYTYPE) {
+	        if (rootPreType != ARRAYTYPE) {
+	            setResult(result, path, current);
+	        } else {
+	            if (current.length < pre.length) {
+	                setResult(result, path, current);
+	            } else {
+	                current.forEach(function (item, index) {
+	                    _diff(item, pre[index], path + '[' + index + ']', result);
+	                });
+	            }
+	        }
+	    } else {
+	        setResult(result, path, current);
+	    }
+	}
+
+	function setResult(result, k, v) {
+	    if (type(v) != FUNCTIONTYPE) {
+	        result[k] = v;
+	    }
+	}
+
+	function type(obj) {
+	    return Object.prototype.toString.call(obj);
+	}
+
+	function render(vnode, parent, store) {
+	    parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+	    if (store) {
+	        store.instances = [];
+	        extendStoreUpate(store);
+	        options.store = store;
+	        store.originData = JSON.parse(JSON.stringify(store.data));
+	    }
+	    diff(null, vnode, {}, false, parent, false);
+	}
+
+	function extendStoreUpate(store) {
+	    store.update = function () {
+	        var _this = this;
+
+	        var diffResult = diff$1(this.data, this.originData);
+	        if (Object.keys(diffResult)[0] == '') {
+	            diffResult = diffResult[''];
+	        }
+	        var updateAll = matchGlobalData(this.globalData, diffResult);
+	        if (Object.keys(diffResult).length > 0) {
+	            this.instances.forEach(function (instance) {
+	                if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(diffResult, instance.constructor.updatePath)) {
+	                    instance.update();
+	                }
+	            });
+	            this.onChange && this.onChange(diffResult);
+	            for (var key in diffResult) {
+	                updateByPath(this.originData, key, typeof diffResult[key] === 'object' ? JSON.parse(JSON.stringify(diffResult[key])) : diffResult[key]);
+	            }
+	        }
+	    };
+	}
+
+	function matchGlobalData(globalData, diffResult) {
+	    if (!globalData) return false;
+	    for (var keyA in diffResult) {
+	        if (globalData.indexOf(keyA) > -1) {
+	            return true;
+	        }
+	        for (var i = 0, len = globalData.length; i < len; i++) {
+	            if (includePath(keyA, globalData[i])) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+	}
+
+	function needUpdate(diffResult, updatePath) {
+	    for (var keyA in diffResult) {
+	        if (updatePath[keyA]) {
+	            return true;
+	        }
+	        for (var keyB in updatePath) {
+	            if (includePath(keyA, keyB)) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+	}
+
+	function includePath(pathA, pathB) {
+	    if (pathA.indexOf(pathB) === 0) {
+	        var next = pathA.substr(pathB.length, 1);
+	        if (next === '[' || next === '.') {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
+	function updateByPath(origin, path, value) {
+	    var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+	    var current = origin;
+	    for (var i = 0, len = arr.length; i < len; i++) {
+	        if (i === len - 1) {
+	            current[arr[i]] = value;
+	        } else {
+	            current = current[arr[i]];
+	        }
+	    }
+	}
+
+	var OBJECTTYPE$1 = '[object Object]';
+
 	function define(name, ctor) {
-	    customElements.define(name, ctor);
+	  customElements.define(name, ctor);
+	  if (ctor.data) {
+	    ctor.updatePath = getUpdatePath(ctor.data);
+	  }
+	}
+
+	function getUpdatePath(data) {
+	  var result = {};
+	  dataToPath(data, result);
+	  return result;
+	}
+
+	function dataToPath(data, result) {
+	  Object.keys(data).forEach(function (key) {
+	    result[key] = true;
+	    var type = Object.prototype.toString.call(data[key]);
+	    if (type === OBJECTTYPE$1) {
+	      _dataToPath(data[key], key, result);
+	    }
+	  });
+	}
+
+	function _dataToPath(data, path, result) {
+	  Object.keys(data).forEach(function (key) {
+	    result[path + '.' + key] = true;
+	    var type = Object.prototype.toString.call(data[key]);
+	    if (type === OBJECTTYPE$1) {
+	      _dataToPath(data[key], path + '.' + key, result);
+	    }
+	  });
 	}
 
 	var instances = [];
@@ -725,7 +931,7 @@
 
 	options.root.Omi.version = '4.0.0';
 
-	var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -794,7 +1000,7 @@
 	        );
 	    };
 
-	    _createClass$1(HelloElement, null, [{
+	    _createClass(HelloElement, null, [{
 	        key: 'props',
 	        get: function get() {
 	            return {
@@ -828,7 +1034,7 @@
 
 	define('hello-element', HelloElement);
 
-	var _createClass$2 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _createClass$1 = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -850,6 +1056,7 @@
 
 	        return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {}, _this.onAbc = function (evt) {
 	            _this.data.abc = ' by ' + evt.detail.name;
+	            _this.data.passToChild = 1234;
 	            _this.update();
 	        }, _temp), _possibleConstructorReturn$2(_this, _ret);
 	    }
@@ -870,10 +1077,10 @@
 	        );
 	    };
 
-	    _createClass$2(MyApp, null, [{
+	    _createClass$1(MyApp, null, [{
 	        key: 'data',
 	        get: function get() {
-	            return { abc: 'abc', passToChild: '123' };
+	            return { abc: 'abc', passToChild: 123 };
 	        }
 	    }]);
 

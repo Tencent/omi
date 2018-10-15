@@ -276,27 +276,34 @@ export function removeChildren(node) {
  */
 function diffAttributes(dom, attrs, old) {
 	let name;
-
+	let update  = false
+	let isWeElement = dom.update 
 	// remove attributes no longer present on the vnode by setting them to undefined
 	for (name in old) {
 		if (!(attrs && attrs[name]!=null) && old[name]!=null) {
 			setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
-			delete dom.props[name]
+			if(isWeElement){
+				delete dom.props[name]
+				update = true
+			}	
 		}
 	}
-	let update  = false
+	
 	// add new & update changed attributes
 	for (name in attrs) {
 		//diable when using store system?
 		//!dom.store && 
-		if(typeof attrs[name] === 'object'){
-			// todo diff??
+		if(isWeElement && typeof attrs[name] === 'object'){
 			dom.props[npn(name)] = attrs[name]
-			dom.parentNode && (update = true)
+			update = true
 		} else if (name!=='children' && name!=='innerHTML' && (!(name in old) || attrs[name]!==(name==='value' || name==='checked' ? dom[name] : old[name]))) {
 			setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
-		}
+			if (isWeElement) {
+				dom.props[npn(name)] = attrs[name]
+				update = true
+			}
+		} 
 	}
 	
-	update && dom.update()
+	(dom.parentNode && update && isWeElement) && dom.update()
 }

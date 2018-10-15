@@ -8,11 +8,12 @@ class MyApp extends WeElement {
     }
 
     static get data() {
-        return { abc: 'abc', passToChild: '123' }
+        return { abc: 'abc', passToChild: 123 }
     }
 
     onAbc = (evt) => {
         this.data.abc = ' by ' + evt.detail.name
+        this.data.passToChild = 1234
         this.update()   
     }
 
