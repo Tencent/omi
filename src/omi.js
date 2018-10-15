@@ -3,14 +3,16 @@ import options from './options';
 import WeElement from  './we-element';
 import { render } from './render';
 import { define } from './define'
+import { tag } from './tag'
 
 const instances = [];
 
 options.root.Omi = {
-	h,
-	createElement,
+	tag,
 	WeElement,
 	render,
+	h,
+	createElement,
 	options,
 	instances,
 	define
@@ -19,20 +21,22 @@ options.root.Omi = {
 options.root.Omi.version = '4.0.0';
 
 export default {
-	h,
-	createElement,
+	tag,
 	WeElement,
 	render,
+	h,
+	createElement,
 	options,
 	instances,
 	define
 };
 
 export {
-	h,
-	createElement,
+	tag,
 	WeElement,
 	render,
+	h,
+	createElement,
 	options,
 	instances,
 	define

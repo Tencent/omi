@@ -1,7 +1,6 @@
 import { IS_NON_DIMENSIONAL } from '../constants';
 import { applyRef } from '../util';
 import options from '../options';
-import {  npn } from '../util'
 
 /**
  * A DOM event listener
