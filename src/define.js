@@ -3,7 +3,7 @@ const ARRAYTYPE = '[object Array]'
 
 export function define(name, ctor) {
   customElements.define(name, ctor)
-  if (ctor.data) {
+  if (ctor.data && !ctor.pure) {
     ctor.updatePath = getUpdatePath(ctor.data)
   }
 }
