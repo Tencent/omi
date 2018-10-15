@@ -29,6 +29,7 @@ function dataToPath(data, result) {
 function _objToPath(data, path, result) {
   Object.keys(data).forEach(key => {
     result[path + '.' + key] = true
+    delete result[path]
     const type = Object.prototype.toString.call(data[key])
     if (type === OBJECTTYPE) {
       _objToPath(data[key], path + '.' + key, result)
@@ -41,6 +42,7 @@ function _objToPath(data, path, result) {
 function _arrayToPath(data, path, result) {
   data.forEach((item, index) => {
     result[path + '[' + index + ']'] = true
+    delete result[path]
     const type = Object.prototype.toString.call(item)
     if (type === OBJECTTYPE) {
       _objToPath(item, path + '[' + index + ']', result)
