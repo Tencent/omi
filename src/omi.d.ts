@@ -60,10 +60,6 @@ declare namespace Omi {
 		key?: Key | null;
 	}
 
-	type RenderableProps<P, RefType = any> = Readonly<
-		P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> }
-	>;
-
 	function h<P>(
 		node: string,
 		params: Attributes & P | null,
