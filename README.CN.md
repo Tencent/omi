@@ -31,7 +31,8 @@
 	- [Hello Omi](#hello-omi)
     - [TodoApp](#todoapp)
     - [Store](#store)
-	- [Lifecycle](#lifecycle)
+	- [生命周期](#生命周期)
+    - [浏览器兼容](#浏览器兼容)
 - [Install](#install)
 - [Links](#links)
 - [License](#license)
@@ -308,7 +309,7 @@ render(<todo-app></todo-app>, 'body', store)
 * 如果页面简单组件很少，可以 updateAll 设置成 true，并且组件和页面不需要声明 data，也就不会按需更新
 * globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path
 
-### Lifecycle
+### 生命周期
 
 | Lifecycle method            | When it gets called                              |
 |-------------------------------|--------------------------------------------------|
@@ -317,6 +318,14 @@ render(<todo-app></todo-app>, 'body', store)
 | `uninstall`      | prior to removal from the DOM                    |
 | `beforeUpdate`       | before `render()`                                |
 | `afterUpdate`        | after `render()`                                 |
+
+### 浏览器兼容
+
+Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
+
+![Browsers Support](./assets/browsers-support.png)
+
+[→ polyfills](https://github.com/webcomponents/webcomponentsjs)
 
 ## Install
 

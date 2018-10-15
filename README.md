@@ -32,6 +32,7 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
     - [TodoApp](#todoapp)
     - [Store](#store)
 	- [Lifecycle](#lifecycle)
+    - [Browsers Support](#browsers-support)
 - [Install](#install)
 - [Links](#links)
 - [License](#license)
@@ -319,6 +320,14 @@ Summary：
 | `uninstall`      | prior to removal from the DOM                    |
 | `beforeUpdate`       | before `render()`                                |
 | `afterUpdate`        | after `render()`                                 |
+
+### Browsers Support
+
+Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
+
+![Browsers Support](./assets/browsers-support.png)
+
+[→ polyfills](https://github.com/webcomponents/webcomponentsjs)
 
 ## Install
 
