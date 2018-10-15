@@ -23,19 +23,27 @@ declare namespace Omi {
 		};
 	}
 
+	interface WeElement<> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+	}
+
 	abstract class WeElement<> {
 		constructor();
 
-		static props?: Array<string> | Object;
-		static data?: Object;
+		static props?: Array<string> | object;
+		static data?: object;
 
-		data: Object;
-		props: Object;
+		data: object;
+		props: object;
 		host: HTMLElement;
 
 		update(): void;
 
-		abstract render(props?: Object, data?: Object): void;
+		abstract render(props?: object, data?: object): void;
 	}
 
 	/**
@@ -67,7 +75,7 @@ declare namespace Omi {
 		...children: (ComponentChild | ComponentChildren)[]
 	): VNode<any>;
 	
-	function render(vnode: JSX, parent: string | Element | Document, store?: Object): void;
+	function render(vnode: JSX, parent: string | Element | Document, store?: object): void;
 	function define(name: string, ctor: HTMLElement): void;
 	function cloneElement(element: JSX.Element, props: any): JSX.Element;
 
