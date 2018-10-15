@@ -7,20 +7,6 @@ declare namespace Omi {
 	type ComponentChild = JSX.Element | string | number | null;
 	type ComponentChildren = ComponentChild[];
 
-	/**
-	 * @deprecated
-	 *
-	 * Use Attributes instead
-	 */
-	type ComponentProps = Attributes;
-
-	/**
-	 * @deprecated
-	 *
-	 * Use ClassAttributes instead
-	 */
-	type PreactHTMLAttributes = ClassAttributes<any>;
-
 	interface Attributes {
 		key?: string | number | any;
 		jsx?: boolean;
@@ -30,14 +16,28 @@ declare namespace Omi {
 		ref?: Ref<T>;
 	}
 
-	interface PreactDOMAttributes {
+	interface OmiDOMAttributes {
 		children?: ComponentChildren;
 		dangerouslySetInnerHTML?: {
 			__html: string;
 		};
 	}
 
-	type ComponentFactory<P> = ComponentConstructor<P> | FunctionalComponent<P>;
+	abstract class WeElement<> {
+		constructor();
+
+		static props?: Array<string> | Object;
+		static data?: Object;
+
+		data: Object;
+		props: Object;
+		host: HTMLElement;
+
+		update(): void;
+
+		abstract render(props?: Object, data?: Object): void;
+	}
+
 	/**
 	 * Define the contract for a virtual node in omi.
 	 *
@@ -57,7 +57,7 @@ declare namespace Omi {
 	>;
 
 	function h<P>(
-		node: ComponentFactory<P>,
+		node: string,
 		params: Attributes & P | null,
 		...children: (ComponentChild | ComponentChildren)[]
 	): VNode<any>;
@@ -66,16 +66,13 @@ declare namespace Omi {
 		params: JSX.HTMLAttributes & JSX.SVGAttributes & Record<string, any> | null,
 		...children: (ComponentChild | ComponentChildren)[]
 	): VNode<any>;
-
-	function render(node: ComponentChild, parent: Element | Document, mergeWith?: Element): Element;
-	function rerender(): void;
+	
+	function render(vnode: JSX, parent: string | Element | Document, store?: Object): void;
+	function define(name: string, ctor: HTMLElement): void;
 	function cloneElement(element: JSX.Element, props: any): JSX.Element;
 
 	var options: {
-		syncComponentUpdates?: boolean;
-		debounceRendering?: (render: () => void) => void;
 		vnode?: (vnode: VNode<any>) => void;
-		event?: (event: Event) => Event;
 	};
 }
 
@@ -351,7 +348,7 @@ declare global {
 		type TransitionEventHandler = EventHandler<TransitionEvent>;
 		type GenericEventHandler = EventHandler<Event>;
 
-		interface DOMAttributes extends Omi.PreactDOMAttributes {
+		interface DOMAttributes extends Omi.OmiDOMAttributes {
 			// Image Events
 			onLoad?: GenericEventHandler;
 
@@ -448,7 +445,7 @@ declare global {
 			onTransitionEnd?: TransitionEventHandler;
 		}
 
-		interface HTMLAttributes extends Omi.PreactHTMLAttributes, DOMAttributes {
+		interface HTMLAttributes extends Omi.ClassAttributes<any>, DOMAttributes {
 			// Standard HTML Attributes
 			accept?: string;
 			acceptCharset?: string;
