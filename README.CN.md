@@ -4,6 +4,8 @@
 
 > 下一代 Web 框架，去万物糟粕，合精华为一。
 
+即将发布，你可以先从这里[omi/master/dist](https://github.com/Tencent/omi/tree/master/dist)自行下载 js 尝试。
+
 ### 特性
 
 - 3KB 的代码尺寸，比小更小
