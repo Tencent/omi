@@ -61,7 +61,6 @@
 	};
 
     var stack = [];
-
     var EMPTY_CHILDREN = [];
 
     function h(nodeName, attributes) {
@@ -915,13 +914,20 @@
 	  });
 	}
 
+    function tag(name) {
+	    return function (target) {
+	        define(name, target);
+	    };
+	}
+
     var instances = [];
 
     options.root.Omi = {
-		h: h,
-		createElement: h,
+		tag: tag,
 		WeElement: WeElement,
 		render: render,
+		h: h,
+		createElement: h,
 		options: options,
 		instances: instances,
 		define: define
@@ -930,10 +936,11 @@
     options.root.Omi.version = '4.0.0';
 
     var Omi = {
-		h: h,
-		createElement: h,
+		tag: tag,
 		WeElement: WeElement,
 		render: render,
+		h: h,
+		createElement: h,
 		options: options,
 		instances: instances,
 		define: define

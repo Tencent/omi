@@ -58,7 +58,6 @@ var options = {
 };
 
 var stack = [];
-
 var EMPTY_CHILDREN = [];
 
 function h(nodeName, attributes) {
@@ -912,13 +911,20 @@ function _dataToPath(data, path, result) {
   });
 }
 
+function tag(name) {
+    return function (target) {
+        define(name, target);
+    };
+}
+
 var instances = [];
 
 options.root.Omi = {
-	h: h,
-	createElement: h,
+	tag: tag,
 	WeElement: WeElement,
 	render: render,
+	h: h,
+	createElement: h,
 	options: options,
 	instances: instances,
 	define: define
@@ -927,15 +933,16 @@ options.root.Omi = {
 options.root.Omi.version = '4.0.0';
 
 var omi = {
-	h: h,
-	createElement: h,
+	tag: tag,
 	WeElement: WeElement,
 	render: render,
+	h: h,
+	createElement: h,
 	options: options,
 	instances: instances,
 	define: define
 };
 
 export default omi;
-export { h, h as createElement, WeElement, render, options, instances, define };
+export { tag, WeElement, render, h, h as createElement, options, instances, define };
 //# sourceMappingURL=omi.esm.js.map
