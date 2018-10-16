@@ -668,6 +668,14 @@ var WeElement = function (_HTMLElement) {
 
     WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
         this.uninstall();
+        if (this.store) {
+            for (var i = 0, len = this.store.instances.length; i < len; i++) {
+                if (this.store.instances[i] === this) {
+                    this.store.instances.splice(i, 1);
+                    break;
+                }
+            }
+        }
     };
 
     WeElement.prototype.update = function update() {
@@ -683,6 +691,8 @@ var WeElement = function (_HTMLElement) {
     WeElement.prototype.install = function install() {};
 
     WeElement.prototype.installed = function installed() {};
+
+    WeElement.prototype.uninstall = function uninstall() {};
 
     WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
@@ -1254,8 +1264,6 @@ function tag(name, pure) {
     };
 }
 
-var instances = [];
-
 options.root.Omi = {
 	tag: tag,
 	WeElement: WeElement,
@@ -1263,7 +1271,6 @@ options.root.Omi = {
 	h: h,
 	createElement: h,
 	options: options,
-	instances: instances,
 	define: define
 };
 
@@ -1276,10 +1283,9 @@ var omi = {
 	h: h,
 	createElement: h,
 	options: options,
-	instances: instances,
 	define: define
 };
 
 export default omi;
-export { tag, WeElement, render, h, h as createElement, options, instances, define };
+export { tag, WeElement, render, h, h as createElement, options, define };
 //# sourceMappingURL=omi.esm.js.map

@@ -396,6 +396,10 @@
         };
         WeElement.prototype.disconnectedCallback = function() {
             this.uninstall();
+            if (this.store) for (var i = 0, len = this.store.instances.length; i < len; i++) if (this.store.instances[i] === this) {
+                this.store.instances.splice(i, 1);
+                break;
+            }
         };
         WeElement.prototype.update = function() {
             this.beforeUpdate();
@@ -409,6 +413,7 @@
         };
         WeElement.prototype.install = function() {};
         WeElement.prototype.installed = function() {};
+        WeElement.prototype.uninstall = function() {};
         WeElement.prototype.beforeUpdate = function() {};
         WeElement.prototype.afterUpdate = function() {};
         return WeElement;
@@ -631,7 +636,6 @@
             });
         }
     };
-    var instances = [];
     options.root.Omi = {
         tag: tag,
         WeElement: WeElement,
@@ -639,7 +643,6 @@
         h: h,
         createElement: h,
         options: options,
-        instances: instances,
         define: define
     };
     options.root.Omi.version = '4.0.0';
@@ -650,7 +653,6 @@
         h: h,
         createElement: h,
         options: options,
-        instances: instances,
         define: define
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;

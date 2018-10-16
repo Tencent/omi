@@ -671,6 +671,14 @@
 
 	    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
 	        this.uninstall();
+	        if (this.store) {
+	            for (var i = 0, len = this.store.instances.length; i < len; i++) {
+	                if (this.store.instances[i] === this) {
+	                    this.store.instances.splice(i, 1);
+	                    break;
+	                }
+	            }
+	        }
 	    };
 
 	    WeElement.prototype.update = function update() {
@@ -686,6 +694,8 @@
 	    WeElement.prototype.install = function install() {};
 
 	    WeElement.prototype.installed = function installed() {};
+
+	    WeElement.prototype.uninstall = function uninstall() {};
 
 	    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
@@ -1257,8 +1267,6 @@
 	    };
 	}
 
-    var instances = [];
-
     options.root.Omi = {
 		tag: tag,
 		WeElement: WeElement,
@@ -1266,7 +1274,6 @@
 		h: h,
 		createElement: h,
 		options: options,
-		instances: instances,
 		define: define
 	};
 
@@ -1279,7 +1286,6 @@
 		h: h,
 		createElement: h,
 		options: options,
-		instances: instances,
 		define: define
 	};
 
