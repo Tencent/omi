@@ -53,7 +53,6 @@
 	};
 
 	var stack = [];
-
 	var EMPTY_CHILDREN = [];
 
 	function h(nodeName, attributes) {
@@ -660,7 +659,7 @@
 	        var shadowRoot = this.attachShadow({ mode: 'open' });
 
 	        this.css && shadowRoot.appendChild(cssToDom(this.css()));
-	        this.host = diff(null, this.render(this.props, this.data), {}, false, null, false);
+	        this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
 	        shadowRoot.appendChild(this.host);
 
 	        this.installed();
@@ -672,7 +671,7 @@
 
 	    WeElement.prototype.update = function update() {
 	        this.beforeUpdate();
-	        diff(this.host, this.render(this.props, this.data));
+	        diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
 	        this.afterUpdate();
 	    };
 
@@ -845,7 +844,7 @@
 	    }
 	    return false;
 	}
-
+	//todo path级别检测包括Array，如果array为空数组，默认值在install里加
 	function needUpdate(diffResult, updatePath) {
 	    for (var keyA in diffResult) {
 	        if (updatePath[keyA]) {
@@ -883,10 +882,11 @@
 	}
 
 	var OBJECTTYPE$1 = '[object Object]';
+	var ARRAYTYPE$1 = '[object Array]';
 
 	function define(name, ctor) {
 	  customElements.define(name, ctor);
-	  if (ctor.data) {
+	  if (ctor.data && !ctor.pure) {
 	    ctor.updatePath = getUpdatePath(ctor.data);
 	  }
 	}
@@ -902,28 +902,54 @@
 	    result[key] = true;
 	    var type = Object.prototype.toString.call(data[key]);
 	    if (type === OBJECTTYPE$1) {
-	      _dataToPath(data[key], key, result);
+	      _objToPath(data[key], key, result);
+	    } else if (type === ARRAYTYPE$1) {
+	      _arrayToPath(data[key], key, result);
 	    }
 	  });
 	}
 
-	function _dataToPath(data, path, result) {
+	function _objToPath(data, path, result) {
 	  Object.keys(data).forEach(function (key) {
 	    result[path + '.' + key] = true;
+	    delete result[path];
 	    var type = Object.prototype.toString.call(data[key]);
 	    if (type === OBJECTTYPE$1) {
-	      _dataToPath(data[key], path + '.' + key, result);
+	      _objToPath(data[key], path + '.' + key, result);
+	    } else if (type === ARRAYTYPE$1) {
+	      _arrayToPath(data[key], path + '.' + key, result);
 	    }
 	  });
+	}
+
+	function _arrayToPath(data, path, result) {
+	  data.forEach(function (item, index) {
+	    result[path + '[' + index + ']'] = true;
+	    delete result[path];
+	    var type = Object.prototype.toString.call(item);
+	    if (type === OBJECTTYPE$1) {
+	      _objToPath(item, path + '[' + index + ']', result);
+	    } else if (type === ARRAYTYPE$1) {
+	      _arrayToPath(item, path + '[' + index + ']', result);
+	    }
+	  });
+	}
+
+	function tag(name, pure) {
+	    return function (target) {
+	        target.pure = pure;
+	        define(name, target);
+	    };
 	}
 
 	var instances = [];
 
 	options.root.Omi = {
-		h: h,
-		createElement: h,
+		tag: tag,
 		WeElement: WeElement,
 		render: render,
+		h: h,
+		createElement: h,
 		options: options,
 		instances: instances,
 		define: define
@@ -1013,8 +1039,6 @@
 	                num: {
 	                    value: 10
 	                }
-	                //不需要默认值直接使用数组
-	                //return ['prop-from-parent', 'msg']
 	            };
 	        }
 	    }, {

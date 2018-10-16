@@ -51,10 +51,6 @@ import { tag, WeElement, render } from 'omi'
 @tag('hello-element')
 class HelloElement extends WeElement {
 
-    static get props(){
-        return ['prop-from-parent', 'msg']
-    }
-
     onClick = (evt) => {
         //trigger CustomEvent
         this.fire('abc', { name : 'dntzhang', age: 12 })

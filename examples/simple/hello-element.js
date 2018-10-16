@@ -14,8 +14,6 @@ class HelloElement extends WeElement {
                 value :10
             }
         }
-        //不需要默认值直接使用数组
-        //return ['prop-from-parent', 'msg']
     }
 
     static get data() {
