@@ -55,13 +55,30 @@ class TodoApp extends WeElement {
     installed() {
         setTimeout(() => {
             this.store.rename()
-        }, 1000)
+        }, 2000)
+
+        setTimeout(() => {
+            this.store.data.items.push({ text: 'abc' })
+        }, 4000)
+
+        setTimeout(() => {
+            this.store.data.items[2].text = 'changed'
+        }, 6000)
+
+        setTimeout(() => {
+            this.store.data.items.splice(1, 1)
+        }, 8000)
+
+
     }
 }
 
 const store = {
     data: {
-        items: [],
+        items: [
+            { text: 'Omi', id: Date.now() },
+            { text: 'JSX', id: Date.now() }
+        ],
         text: '',
         firstName: 'dnt',
         lastName: 'zhang',
@@ -71,7 +88,6 @@ const store = {
     },
     rename: function () {
         this.data.firstName = 'Dnt'
-        this.update()
     },
     add: function () {
         if (!this.data.text.trim().length) {
@@ -82,7 +98,6 @@ const store = {
             id: Date.now()
         })
         this.data.text = ''
-        this.update()
     }
 }
 

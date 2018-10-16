@@ -8,12 +8,12 @@
 
 ### 特性
 
-- 3KB 的代码尺寸，比小更小
+- 4KB 的代码尺寸，比小更小
 - 顺势而为，顺从浏览器的发展和 API 设计
 - Webcomponents + JSX 相互融合为一个框架 Omi
 - Webcomponents 也可以数据驱动视图, UI = fn(data)
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
-- 每一个组件拥有 update 方法自由渲染最佳更新视图的时机，功耗低，自由度高，性能卓越，为未来集成 requestIdleCallback 做好铺垫
+- 独创的 Path Updating 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 requestIdleCallback 
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 - Shadom DOM 与 Virtual DOM 融合，Omi 既使用了虚拟 DOM，也是使用真实 Shadom DOM，让视图更新更准确更迅速
 - 类似 WeStore 体系，99.9% 的项目不需要什么时间旅行,也不仅仅 redux 能时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目
@@ -219,7 +219,6 @@ class TodoApp extends WeElement {
             id: Date.now()
         })
         this.data.text = ''
-        this.update()
     }
 }
 
@@ -253,7 +252,6 @@ export default {
       id: Date.now()
     })
     this.data.text = ''
-    this.update()
   }
   //默认 false，为 true 会无脑更新所有实例
   //updateAll: true

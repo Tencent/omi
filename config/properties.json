@@ -1,6 +1,6 @@
 {
   "props": {
-    "cname": 25,
+    "cname": 26,
     "props": {
       "$_dirty": "__d",
       "$_disable": "__x",
@@ -25,7 +25,8 @@
       "$_isMockDocument": "w",
       "$__omiSsrData": "x",
       "$_vd": "y",
-      "$_css": "z"
+      "$_css": "z",
+      "$_proxifyObjectTreeRecursively": "A"
     }
   },
   "vars": {

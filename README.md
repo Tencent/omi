@@ -1,8 +1,8 @@
 English | [简体中文](./README.CN.md) 
 
-# Omi - Merge JSX and Webcomponents into One Framework 
+# Omi - Merge JSX, Webcomponents, Proxy, Path Updating together
 
-> Next generation web framework in 3KB javascript.
+> Next generation web framework in 4KB javascript.
 
 Coming....You can download JS from [omi/master/dist](https://github.com/Tencent/omi/tree/master/dist) to try it out.
 
@@ -13,7 +13,7 @@ Coming....You can download JS from [omi/master/dist](https://github.com/Tencent/
 - Merge JSX and Webcomponents into One Framework 
 - Webcomponents can also be a data-driven view, UI = fn(data)
 - JSX is the best development experience (code intelligent  completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals)
-- Each component has the update method to freely render the best updated view of the time, low power consumption, high degree of freedom, excellent performance. Convenient to join requestIdleCallback in the future
+- The original Path Updating system. Proxy-based automatic accurate update, low power consumption, high degree of freedom, excellent performance, easy integration of requestIdleCallback
 - Look at [Facebook React VS Webcomponents](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi combines their advantages and gives developers the freedom to choose the way they like.
 - Shadom DOM merges with Virtual DOM, Omi uses both virtual DOM and real Shadom DOM to make view updates more accurate and faster
 - With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on redux, Omi store system can meet all projects
@@ -92,7 +92,7 @@ class MyApp extends WeElement {
     onAbc = (evt) => {
         // get evt data by evt.detail
         this.data.abc = ' by ' + evt.detail.name
-        this.update()   
+        this.update() 
     }
 
     css() {
@@ -254,7 +254,6 @@ export default {
       id: Date.now()
     })
     this.data.text = ''
-    this.update()
   }
   //Default value is false, set to true will update all instances when data changing.
   //updateAll: true
@@ -298,7 +297,7 @@ render(<todo-app></todo-app>, 'body', store)
 Summary：
 
 * store.data is used to list all attributes and default values (except the components of the view decided by props).
-* The data of the component and page is used to list the attributes of the dependent store.data (OMI will record path) and update on demand.
+* The data of the component and page is used to list the attributes of the dependent store.data (Omi will record path) and update on demand.
 * If there are few simple components on the page, updateAll can be set to true, and components and pages don't need to declare data, and they don't update on demand
 * The path declared in globalData refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties Path
 

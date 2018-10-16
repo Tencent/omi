@@ -64,7 +64,6 @@ const store = {
             id: Date.now()
         })
         this.data.text = ''
-        this.update()
     }
 }
 

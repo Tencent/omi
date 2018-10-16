@@ -9,17 +9,18 @@ class TodoList extends WeElement {
                     <li key={item.id}>{item.text}</li>
                 ))}
             </ul>
-        );
+        )
     }
 }
 
-tag('todo-app')
+@tag('todo-app')
 class TodoApp extends WeElement {
     static get data() {
         return { items: [], text: '' }
     }
 
     render() {
+        console.log(111)
         return (
             <div>
                 <h3>TODO</h3>
@@ -35,7 +36,7 @@ class TodoApp extends WeElement {
                     </button>
                 </form>
             </div>
-        );
+        )
     }
 
     handleChange = (e) => {
