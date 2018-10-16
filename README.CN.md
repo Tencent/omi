@@ -29,18 +29,31 @@
 ---
 
 - [Getting Started](#getting-started)
+    - [Install](#install)
 	- [Hello Omi](#hello-omi)
     - [TodoApp](#todoapp)
     - [Store](#store)
 	- [生命周期](#生命周期)
 - [生态](#生态)
 - [浏览器兼容](#浏览器兼容)
-- [Install](#install)
 - [Links](#links)
 - [License](#license)
 
 
 ## Getting Started
+
+### Install
+
+```bash
+npm i omi
+```
+
+或者直接从 Github 上获取:
+
+* [omi/master/dist](https://github.com/Tencent/omi/tree/master/dist)
+* [omi.js](https://github.com/Tencent/omi/blob/master/dist/omi.js)
+* [omi.min.js](https://github.com/Tencent/omi/blob/master/dist/omi.min.js)
+
 
 ### Hello Omi
 
@@ -323,14 +336,6 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 ![Browsers Support](./assets/browsers-support.png)
 
 [→ polyfills](https://github.com/webcomponents/webcomponentsjs)
-
-## Install
-
-Get javascript file from Github:
-
-* [omi/master/dist](https://github.com/Tencent/omi/tree/master/dist)
-* [omi.js](https://github.com/Tencent/omi/blob/master/dist/omi.js)
-* [omi.min.js](https://github.com/Tencent/omi/blob/master/dist/omi.min.js)
 
 ## Links
 
