@@ -1,5 +1,6 @@
-import { WeElement, define } from '../../src/omi'
+import { WeElement, tag } from '../../src/omi'
 
+@tag('hello-element')
 class HelloElement extends WeElement {
 
     static get props(){
@@ -56,7 +57,4 @@ class HelloElement extends WeElement {
             </div>
         )
     }
-    
 }
-
-define('hello-element', HelloElement)

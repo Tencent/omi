@@ -1,6 +1,7 @@
-import { render, WeElement, define } from '../../src/omi'
+import { render, WeElement, tag } from '../../src/omi'
 import './hello-element'
 
+@tag('my-app')
 class MyApp extends WeElement {
 
     onClick = (evt) => {
@@ -33,8 +34,5 @@ class MyApp extends WeElement {
         )
     }
 }
-
-
-define('my-app', MyApp)
 
 render(<my-app name='Omi v4.0'></my-app>, 'body')
