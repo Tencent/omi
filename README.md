@@ -265,6 +265,7 @@ Custom Element requires declaring dependent data so that Omi stores compute the 
 
 ```js
 class TodoApp extends WeElement {
+    //If you use store, the data is only used to declare dependencies.
     static get data() {
         return { items: [], text: '' }
     }

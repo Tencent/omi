@@ -264,6 +264,7 @@ export default {
 ```js
 class TodoApp extends WeElement {
     static get data() {
+        //如果你用了 store，这个只是用来声明依赖，按需 Path Updating
         return { items: [], text: '' }
     }
     ...
