@@ -6,7 +6,7 @@ English | [简体中文](./README.CN.md)
 
 ### Why Omi？
 
-- Tiny size(3KB gzip)
+- Tiny size(4KB gzip)
 - Compliance with browser trend and API design
 - Merge JSX and Webcomponents into One Framework 
 - Webcomponents can also be a data-driven view, UI = fn(data)
