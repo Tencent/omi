@@ -41,7 +41,9 @@ declare namespace Omi {
 		props: object;
 		host: HTMLElement;
 
+		css?(): void;
 		update(): void;
+		fire?(name: string, data?: object): void;
 
 		abstract render(props?: object, data?: object): void;
 	}
@@ -73,6 +75,7 @@ declare namespace Omi {
 	
 	function render(vnode: JSX, parent: string | Element | Document, store?: object): void;
 	function define(name: string, ctor: HTMLElement): void;
+	function tag(name: string, pure?: boolean): void;
 	function cloneElement(element: JSX.Element, props: any): JSX.Element;
 
 	var options: {
