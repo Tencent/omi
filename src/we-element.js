@@ -1,69 +1,69 @@
 import { cssToDom, nProps } from './util'
-import { diff } from './vdom/diff';
+import { diff } from './vdom/diff'
 import options from './options'
 
 export default class WeElement extends HTMLElement {
-    constructor() {
-        super()
-        this.props =  nProps(this.constructor.props)
-        this.data = this.constructor.data || {}
-    }
+	constructor() {
+		super()
+		this.props =  nProps(this.constructor.props)
+		this.data = this.constructor.data || {}
+	}
 
-    connectedCallback() {
-        this.store = options.store
-        if(this.store){
-            this.store.instances.push(this)
-        }
-        this.install()
+	connectedCallback() {
+		this.store = options.store
+		if (this.store){
+			this.store.instances.push(this)
+		}
+		this.install()
         
-        const shadowRoot = this.attachShadow({ mode: 'open' })
+		const shadowRoot = this.attachShadow({ mode: 'open' })
 
-        this.css && shadowRoot.appendChild(cssToDom(this.css()))
-        this.host = diff(null, this.render(this.props, (!this.constructor.pure && this.store) ? this.store.data : this.data), {}, false, null, false)
-        shadowRoot.appendChild(this.host)
+		this.css && shadowRoot.appendChild(cssToDom(this.css()))
+		this.host = diff(null, this.render(this.props, (!this.constructor.pure && this.store) ? this.store.data : this.data), {}, false, null, false)
+		shadowRoot.appendChild(this.host)
 
-        this.installed()
-    }
+		this.installed()
+	}
 
-    disconnectedCallback() {
-        this.uninstall()
-        if (this.store) {
-            for (let i = 0, len = this.store.instances.length; i < len; i++) {
-                if (this.store.instances[i] === this) {
-                    this.store.instances.splice(i, 1)
-                    break
-                }
-            }
-        }
-    }
+	disconnectedCallback() {
+		this.uninstall()
+		if (this.store) {
+			for (let i = 0, len = this.store.instances.length; i < len; i++) {
+				if (this.store.instances[i] === this) {
+					this.store.instances.splice(i, 1)
+					break
+				}
+			}
+		}
+	}
 
-    update() {
-        this.beforeUpdate()
-        diff(this.host, this.render(this.props, (!this.constructor.pure && this.store) ? this.store.data : this.data))
-        this.afterUpdate()
-    }
+	update() {
+		this.beforeUpdate()
+		diff(this.host, this.render(this.props, (!this.constructor.pure && this.store) ? this.store.data : this.data))
+		this.afterUpdate()
+	}
 
-    fire(name, data){
-        this.dispatchEvent(new CustomEvent(name, { detail : data }))
-    }
+	fire(name, data){
+		this.dispatchEvent(new CustomEvent(name, { detail : data }))
+	}
 
-    install() {
+	install() {
 
-    }
+	}
 
-    installed() {
+	installed() {
 
-    }
+	}
 
-    uninstall() {
+	uninstall() {
 
-    }
+	}
 
-    beforeUpdate() {
+	beforeUpdate() {
 
-    }
+	}
 
-    afterUpdate() {
+	afterUpdate() {
 
-    }
+	}
 }

@@ -27,7 +27,7 @@ module.exports = {
 		'no-cond-assign': 1,
 		'no-empty': 0,
 		'no-console': 1,
-		semi: 2,
+		semi: [1, "never"],
 		camelcase: 0,
 		'comma-style': 2,
 		'comma-dangle': [2, 'never'],

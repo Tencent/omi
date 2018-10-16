@@ -1,18 +1,18 @@
 function getGlobal() {
 	if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
 		if (typeof self !== 'undefined') {
-			return self;
+			return self
 		} else if (typeof window !== 'undefined') {
-			return window;
+			return window
 		} else if (typeof global !== 'undefined') {
-			return global;
+			return global
 		}
 		return (function(){
-			return this;
-		})();
+			return this
+		})()
 		
 	}
-	return global;
+	return global
 }
 
 /** Global options
@@ -45,4 +45,4 @@ export default {
 
 	/** Hook invoked immediately before a component is unmounted. */
 	// beforeUnmount(component) { }
-};
+}

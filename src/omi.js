@@ -1,7 +1,7 @@
-import { h, h as createElement } from './h';
-import options from './options';
-import WeElement from  './we-element';
-import { render } from './render';
+import { h, h as createElement } from './h'
+import options from './options'
+import WeElement from  './we-element'
+import { render } from './render'
 import { define } from './define'
 import { tag } from './tag'
 
@@ -13,9 +13,9 @@ options.root.Omi = {
 	createElement,
 	options,
 	define
-};
+}
 
-options.root.Omi.version = '4.0.0';
+options.root.Omi.version = '4.0.0'
 
 export default {
 	tag,
@@ -25,7 +25,7 @@ export default {
 	createElement,
 	options,
 	define
-};
+}
 
 export {
 	tag,
@@ -35,4 +35,4 @@ export {
 	createElement,
 	options,
 	define
-};
+}
