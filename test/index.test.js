@@ -1,6 +1,10 @@
 import { getUpdatePath } from '../src/define'
+import { matchGlobalData, needUpdate, fixPath } from '../src/render'
+//proxy test
+//https://github.com/Palindrom/JSONPatcherProxy/blob/master/test/spec/proxySpec.js
 
-
+//vdom diff render h dom test
+//https://github.com/Tencent/omi/tree/v3/test
 
 test('getUpdatePath', () => {
   let path = getUpdatePath({ a: 1 })
@@ -25,4 +29,48 @@ test('getUpdatePath', () => {
 
   path = getUpdatePath({ a: 1, b: { c: [{ e: 1 }, 2] }, d: {} })
   expect(path).toEqual({ a: true, 'b.c[1]': true, 'b.c[0].e': true, d: true })
+})
+
+
+
+test('matchGlobalData', () => {
+
+  expect(matchGlobalData(['a'], { a: 1 })).toEqual(true)
+
+  expect(matchGlobalData(['a'], { b: 1 })).toEqual(false)
+
+  expect(matchGlobalData(['a.b'], { 'a.b': 1 })).toEqual(true)
+
+  expect(matchGlobalData(['a[1]'], { 'a[1]': 1 })).toEqual(true)
+
+  expect(matchGlobalData(['a[1].c'], { 'a[1]': 1 })).toEqual(false)
+
+})
+
+
+
+test('needUpdate', () => {
+  const path = { 'a': true, 'b.c': true, 'd[2][1]': true }
+  expect(needUpdate({ a: 1 }, path)).toEqual(true)
+
+  expect(needUpdate({ 'a[1]': 1 }, path)).toEqual(true)
+
+  expect(needUpdate({ 'b': 1 }, path)).toEqual(false)
+
+  expect(needUpdate({ 'd[2][1]': 1 }, path)).toEqual(true)
+
+  expect(needUpdate({ 'd[2][1].c': 1 }, path)).toEqual(true)
+
+  expect(needUpdate({ 'd[2]': 1 }, path)).toEqual(false)
+
+  expect(needUpdate({ 'b.c.d': 1 }, path)).toEqual(true)
+
+})
+
+
+
+test('fixPath', () => {
+  const path = '/a/b/2/d/e'
+  expect(fixPath(path)).toEqual('a.b[2].d.e')
+  expect(fixPath('/a/b/1/2/3')).toEqual('a.b[1][2][3]')
 })

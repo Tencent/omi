@@ -56,7 +56,7 @@ function extendStoreUpate(store) {
 	}
 }
 
-function matchGlobalData(globalData, diffResult) {
+export function matchGlobalData(globalData, diffResult) {
 	if (!globalData) return false
 	for (let keyA in diffResult) {
 		if (globalData.indexOf(keyA) > -1) {
@@ -71,7 +71,7 @@ function matchGlobalData(globalData, diffResult) {
 	return false
 }
 
-function needUpdate(diffResult, updatePath) {
+export function needUpdate(diffResult, updatePath) {
 	for (let keyA in diffResult) {
 		if (updatePath[keyA]) {
 			return true
@@ -95,7 +95,7 @@ function includePath(pathA, pathB) {
 	return false
 }
 
-function fixPath(path) {
+export function fixPath(path) {
 	let mpPath = ''
 	const arr = path.replace('/', '').split('/')
 	arr.forEach((item, index) => {
