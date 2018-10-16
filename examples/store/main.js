@@ -17,10 +17,11 @@ class TodoList extends WeElement {
 class TodoApp extends WeElement {
     static get data() {
         return {
-            items: [],
-            text: '',
-            firstName: 'dnt',
-            lastName: 'zhang',
+            showList: null,
+            items: null,
+            text: null,
+            firstName: null,
+            lastName: null,
         }
     }
 
@@ -28,7 +29,7 @@ class TodoApp extends WeElement {
         return (
             <div>
                 <h3>TODO by {data.fullName()}</h3>
-                <todo-list items={data.items} />
+                {data.showList &&<todo-list items={data.items} />}
                 <form onSubmit={this.handleSubmit}>
                     <input
                         id="new-todo"
@@ -69,12 +70,20 @@ class TodoApp extends WeElement {
             this.store.data.items.splice(1, 1)
         }, 8000)
 
+        setTimeout(() => {
+            this.store.data.showList = false
+        }, 10000)
+
+        setTimeout(() => {
+            this.store.data.showList = true
+        }, 12000)
 
     }
 }
 
 const store = {
     data: {
+        showList :true,
         items: [
             { text: 'Omi', id: Date.now() },
             { text: 'JSX', id: Date.now() }

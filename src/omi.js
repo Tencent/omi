@@ -5,8 +5,6 @@ import { render } from './render';
 import { define } from './define'
 import { tag } from './tag'
 
-const instances = [];
-
 options.root.Omi = {
 	tag,
 	WeElement,
@@ -14,7 +12,6 @@ options.root.Omi = {
 	h,
 	createElement,
 	options,
-	instances,
 	define
 };
 
@@ -27,7 +24,6 @@ export default {
 	h,
 	createElement,
 	options,
-	instances,
 	define
 };
 
@@ -38,6 +34,5 @@ export {
 	h,
 	createElement,
 	options,
-	instances,
 	define
 };

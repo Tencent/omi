@@ -667,6 +667,14 @@
 
 	    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
 	        this.uninstall();
+	        if (this.store) {
+	            for (var i = 0, len = this.store.instances.length; i < len; i++) {
+	                if (this.store.instances[i] === this) {
+	                    this.store.instances.splice(i, 1);
+	                    break;
+	                }
+	            }
+	        }
 	    };
 
 	    WeElement.prototype.update = function update() {
@@ -682,6 +690,8 @@
 	    WeElement.prototype.install = function install() {};
 
 	    WeElement.prototype.installed = function installed() {};
+
+	    WeElement.prototype.uninstall = function uninstall() {};
 
 	    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
@@ -1256,8 +1266,6 @@
 	    };
 	}
 
-	var instances = [];
-
 	options.root.Omi = {
 		tag: tag,
 		WeElement: WeElement,
@@ -1265,7 +1273,6 @@
 		h: h,
 		createElement: h,
 		options: options,
-		instances: instances,
 		define: define
 	};
 
@@ -1336,7 +1343,7 @@
 	                'TODO by ',
 	                data.fullName()
 	            ),
-	            Omi.h('todo-list', { items: data.items }),
+	            data.showList && Omi.h('todo-list', { items: data.items }),
 	            Omi.h(
 	                'form',
 	                { onSubmit: this.handleSubmit },
@@ -1373,16 +1380,25 @@
 	        setTimeout(function () {
 	            _this3.store.data.items.splice(1, 1);
 	        }, 8000);
+
+	        setTimeout(function () {
+	            _this3.store.data.showList = false;
+	        }, 10000);
+
+	        setTimeout(function () {
+	            _this3.store.data.showList = true;
+	        }, 12000);
 	    };
 
 	    _createClass(TodoApp, null, [{
 	        key: 'data',
 	        get: function get() {
 	            return {
-	                items: [],
-	                text: '',
-	                firstName: 'dnt',
-	                lastName: 'zhang'
+	                showList: null,
+	                items: null,
+	                text: null,
+	                firstName: null,
+	                lastName: null
 	            };
 	        }
 	    }]);
@@ -1393,6 +1409,7 @@
 
 	var store = {
 	    data: {
+	        showList: true,
 	        items: [{ text: 'Omi', id: Date.now() }, { text: 'JSX', id: Date.now() }],
 	        text: '',
 	        firstName: 'dnt',

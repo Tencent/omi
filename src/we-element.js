@@ -27,6 +27,14 @@ export default class WeElement extends HTMLElement {
 
     disconnectedCallback() {
         this.uninstall()
+        if (this.store) {
+            for (let i = 0, len = this.store.instances.length; i < len; i++) {
+                if (this.store.instances[i] === this) {
+                    this.store.instances.splice(i, 1)
+                    break
+                }
+            }
+        }
     }
 
     update() {
@@ -44,6 +52,10 @@ export default class WeElement extends HTMLElement {
     }
 
     installed() {
+
+    }
+
+    uninstall() {
 
     }
 
