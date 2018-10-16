@@ -283,7 +283,7 @@
         var mpPath = '';
         var arr = path.replace('/', '').split('/');
         arr.forEach(function(item, index) {
-            if (index) if (isNaN(parseInt(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
+            if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
         });
         return mpPath;
     }
@@ -301,7 +301,7 @@
         var arr = path.replace('/', '').split('/');
         var len = arr.length;
         arr.forEach(function(item, index) {
-            if (index < len - 1) if (index) if (isNaN(parseInt(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
+            if (index < len - 1) if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
         });
         return mpPath;
     }
@@ -470,7 +470,8 @@
                 op: 'remove',
                 path: destinationPropKey
             };
-            if (void 0 === newValue) if (!Array.isArray(target) && !target.hasOwnProperty(key)) return Reflect.set(target, key, newValue); else {
+            if (void 0 === newValue) {
+                if (!Array.isArray(target) && !target.hasOwnProperty(key)) return Reflect.set(target, key, newValue);
                 if (Array.isArray(target)) operation.op = 'replace', operation.value = null;
                 var oldValue = instance.proxifiedObjectsMap.get(target[key]);
                 if (oldValue) {

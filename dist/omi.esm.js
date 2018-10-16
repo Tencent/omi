@@ -126,34 +126,34 @@ function h(nodeName, attributes) {
  * current under-construction element's definition.
  */
 (function () {
-  if (
-  // No Reflect, no classes, no need for shim because native custom elements
-  // require ES2015 classes or Reflect.
-  window.Reflect === undefined || window.customElements === undefined ||
-  // The webcomponentsjs custom elements polyfill doesn't require
-  // ES2015-compatible construction (`super()` or `Reflect.construct`).
-  window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
-    return;
-  }
-  var BuiltInHTMLElement = HTMLElement;
-  window.HTMLElement = function HTMLElement() {
-    return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
-  };
-  HTMLElement.prototype = BuiltInHTMLElement.prototype;
-  HTMLElement.prototype.constructor = HTMLElement;
-  Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+	if (
+	// No Reflect, no classes, no need for shim because native custom elements
+	// require ES2015 classes or Reflect.
+	window.Reflect === undefined || window.customElements === undefined ||
+	// The webcomponentsjs custom elements polyfill doesn't require
+	// ES2015-compatible construction (`super()` or `Reflect.construct`).
+	window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+		return;
+	}
+	var BuiltInHTMLElement = HTMLElement;
+	window.HTMLElement = function HTMLElement() {
+		return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
+	};
+	HTMLElement.prototype = BuiltInHTMLElement.prototype;
+	HTMLElement.prototype.constructor = HTMLElement;
+	Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
 })();
 
 function cssToDom(css) {
-  var node = document.createElement('style');
-  node.innerText = css;
-  return node;
+	var node = document.createElement('style');
+	node.innerText = css;
+	return node;
 }
 
 function npn(str) {
-  return str.replace(/-(\w)/g, function ($, $1) {
-    return $1.toUpperCase();
-  });
+	return str.replace(/-(\w)/g, function ($, $1) {
+		return $1.toUpperCase();
+	});
 }
 
 /** Invoke or update a ref, depending on whether it is a function or object ref.
@@ -161,9 +161,9 @@ function npn(str) {
  *  @param {any} [value]
  */
 function applyRef(ref, value) {
-  if (ref != null) {
-    if (typeof ref == 'function') ref(value);else ref.current = value;
-  }
+	if (ref != null) {
+		if (typeof ref == 'function') ref(value);else ref.current = value;
+	}
 }
 
 /**
@@ -175,16 +175,16 @@ function applyRef(ref, value) {
 var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
 function isArray(obj) {
-  return Object.prototype.toString.call(obj) === '[object Array]';
+	return Object.prototype.toString.call(obj) === '[object Array]';
 }
 
 function nProps(props) {
-  if (!props || isArray(props)) return {};
-  var result = {};
-  Object.keys(props).forEach(function (key) {
-    result[key] = props[key].value;
-  });
-  return result;
+	if (!props || isArray(props)) return {};
+	var result = {};
+	Object.keys(props).forEach(function (key) {
+		result[key] = props[key].value;
+	});
+	return result;
 }
 
 // DOM properties that should NOT have "px" added when numeric
@@ -615,7 +615,7 @@ function diffAttributes(dom, attrs, old) {
 	// add new & update changed attributes
 	for (name in attrs) {
 		//diable when using store system?
-		//!dom.store && 
+		//!dom.store &&
 		if (isWeElement && typeof attrs[name] === 'object') {
 			dom.props[npn(name)] = attrs[name];
 			update = true;
@@ -638,119 +638,118 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var WeElement = function (_HTMLElement) {
-    _inherits(WeElement, _HTMLElement);
+	_inherits(WeElement, _HTMLElement);
 
-    function WeElement() {
-        _classCallCheck(this, WeElement);
+	function WeElement() {
+		_classCallCheck(this, WeElement);
 
-        var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+		var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-        _this.props = nProps(_this.constructor.props);
-        _this.data = _this.constructor.data || {};
-        return _this;
-    }
+		_this.props = nProps(_this.constructor.props);
+		_this.data = _this.constructor.data || {};
+		return _this;
+	}
 
-    WeElement.prototype.connectedCallback = function connectedCallback() {
-        this.store = options.store;
-        if (this.store) {
-            this.store.instances.push(this);
-        }
-        this.install();
+	WeElement.prototype.connectedCallback = function connectedCallback() {
+		this.store = options.store;
+		if (this.store) {
+			this.store.instances.push(this);
+		}
+		this.install();
 
-        var shadowRoot = this.attachShadow({ mode: 'open' });
+		var shadowRoot = this.attachShadow({ mode: 'open' });
 
-        this.css && shadowRoot.appendChild(cssToDom(this.css()));
-        this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
-        shadowRoot.appendChild(this.host);
+		this.css && shadowRoot.appendChild(cssToDom(this.css()));
+		this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
+		shadowRoot.appendChild(this.host);
 
-        this.installed();
-    };
+		this.installed();
+	};
 
-    WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
-        this.uninstall();
-        if (this.store) {
-            for (var i = 0, len = this.store.instances.length; i < len; i++) {
-                if (this.store.instances[i] === this) {
-                    this.store.instances.splice(i, 1);
-                    break;
-                }
-            }
-        }
-    };
+	WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
+		this.uninstall();
+		if (this.store) {
+			for (var i = 0, len = this.store.instances.length; i < len; i++) {
+				if (this.store.instances[i] === this) {
+					this.store.instances.splice(i, 1);
+					break;
+				}
+			}
+		}
+	};
 
-    WeElement.prototype.update = function update() {
-        this.beforeUpdate();
-        diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
-        this.afterUpdate();
-    };
+	WeElement.prototype.update = function update() {
+		this.beforeUpdate();
+		diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
+		this.afterUpdate();
+	};
 
-    WeElement.prototype.fire = function fire(name, data) {
-        this.dispatchEvent(new CustomEvent(name, { detail: data }));
-    };
+	WeElement.prototype.fire = function fire(name, data) {
+		this.dispatchEvent(new CustomEvent(name, { detail: data }));
+	};
 
-    WeElement.prototype.install = function install() {};
+	WeElement.prototype.install = function install() {};
 
-    WeElement.prototype.installed = function installed() {};
+	WeElement.prototype.installed = function installed() {};
 
-    WeElement.prototype.uninstall = function uninstall() {};
+	WeElement.prototype.uninstall = function uninstall() {};
 
-    WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+	WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
-    WeElement.prototype.afterUpdate = function afterUpdate() {};
+	WeElement.prototype.afterUpdate = function afterUpdate() {};
 
-    return WeElement;
+	return WeElement;
 }(HTMLElement);
 
 /*!
  * https://github.com/Palindrom/JSONPatcherProxy
- * (c) 2017 Starcounter 
+ * (c) 2017 Starcounter
  * MIT license
  */
 
 /** Class representing a JS Object observer  */
-
 var JSONPatcherProxy = function () {
-  /**
+	/**
   * Deep clones your object and returns a new object.
   */
-  function deepClone(obj) {
-    switch (typeof obj) {
-      case 'object':
-        return JSON.parse(JSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
-      case 'undefined':
-        return null; //this is how JSON.stringify behaves for array items
-      default:
-        return obj; //no need to clone primitives
-    }
-  }
-  JSONPatcherProxy.deepClone = deepClone;
+	function deepClone(obj) {
+		switch (typeof obj) {
+			case 'object':
+				return JSON.parse(JSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
+			case 'undefined':
+				return null; //this is how JSON.stringify behaves for array items
+			default:
+				return obj; //no need to clone primitives
+		}
+	}
+	JSONPatcherProxy.deepClone = deepClone;
 
-  function escapePathComponent(str) {
-    if (str.indexOf('/') == -1 && str.indexOf('~') == -1) return str;
-    return str.replace(/~/g, '~0').replace(/\//g, '~1');
-  }
-  JSONPatcherProxy.escapePathComponent = escapePathComponent;
+	function escapePathComponent(str) {
+		if (str.indexOf('/') == -1 && str.indexOf('~') == -1) return str;
+		return str.replace(/~/g, '~0').replace(/\//g, '~1');
+	}
+	JSONPatcherProxy.escapePathComponent = escapePathComponent;
 
-  /**
+	/**
    * Walk up the parenthood tree to get the path
-   * @param {JSONPatcherProxy} instance 
+   * @param {JSONPatcherProxy} instance
    * @param {Object} obj the object you need to find its path
    */
-  function findObjectPath(instance, obj) {
-    var pathComponents = [];
-    var parentAndPath = instance.parenthoodMap.get(obj);
-    while (parentAndPath && parentAndPath.path) {
-      // because we're walking up-tree, we need to use the array as a stack
-      pathComponents.unshift(parentAndPath.path);
-      parentAndPath = instance.parenthoodMap.get(parentAndPath.parent);
-    }
-    if (pathComponents.length) {
-      var path = pathComponents.join('/');
-      return '/' + path;
-    }
-    return '';
-  }
-  /**
+	function findObjectPath(instance, obj) {
+		var pathComponents = [];
+		var parentAndPath = instance.parenthoodMap.get(obj);
+		while (parentAndPath && parentAndPath.path) {
+			// because we're walking up-tree, we need to use the array as a stack
+			pathComponents.unshift(parentAndPath.path);
+			parentAndPath = instance.parenthoodMap.get(parentAndPath.parent);
+		}
+		if (pathComponents.length) {
+			var path = pathComponents.join('/');
+			return '/' + path;
+		}
+		return '';
+	}
+	/**
    * A callback to be used as th proxy set trap callback.
    * It updates parenthood map if needed, proxifies nested newly-added objects, calls default callbacks with the changes occurred.
    * @param {JSONPatcherProxy} instance JSONPatcherProxy instance
@@ -758,20 +757,20 @@ var JSONPatcherProxy = function () {
    * @param {String} key the effect property's name
    * @param {Any} newValue the value being set
    */
-  function setTrap(instance, target, key, newValue) {
-    var parentPath = findObjectPath(instance, target);
+	function setTrap(instance, target, key, newValue) {
+		var parentPath = findObjectPath(instance, target);
 
-    var destinationPropKey = parentPath + '/' + escapePathComponent(key);
+		var destinationPropKey = parentPath + '/' + escapePathComponent(key);
 
-    if (instance.proxifiedObjectsMap.has(newValue)) {
-      var newValueOriginalObject = instance.proxifiedObjectsMap.get(newValue);
+		if (instance.proxifiedObjectsMap.has(newValue)) {
+			var newValueOriginalObject = instance.proxifiedObjectsMap.get(newValue);
 
-      instance.parenthoodMap.set(newValueOriginalObject.originalObject, {
-        parent: target,
-        path: key
-      });
-    }
-    /*
+			instance.parenthoodMap.set(newValueOriginalObject.originalObject, {
+				parent: target,
+				path: key
+			});
+		}
+		/*
         mark already proxified values as inherited.
         rationale: proxy.arr.shift()
         will emit
@@ -780,289 +779,288 @@ var JSONPatcherProxy = function () {
          by default, the second operation would revoke the proxy, and this renders arr revoked.
         That's why we need to remember the proxies that are inherited.
       */
-    var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
-    /*
+		var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
+		/*
     Why do we need to check instance.isProxifyingTreeNow?
      We need to make sure we mark revokables as inherited ONLY when we're observing,
-    because throughout the first proxification, a sub-object is proxified and then assigned to 
+    because throughout the first proxification, a sub-object is proxified and then assigned to
     its parent object. This assignment of a pre-proxified object can fool us into thinking
-    that it's a proxified object moved around, while in fact it's the first assignment ever. 
-     Checking isProxifyingTreeNow ensures this is not happening in the first proxification, 
+    that it's a proxified object moved around, while in fact it's the first assignment ever.
+     Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
     but in fact is is a proxified object moved around the tree
     */
-    if (revokableInstance && !instance.isProxifyingTreeNow) {
-      revokableInstance.inherited = true;
-    }
+		if (revokableInstance && !instance.isProxifyingTreeNow) {
+			revokableInstance.inherited = true;
+		}
 
-    // if the new value is an object, make sure to watch it
-    if (newValue && typeof newValue == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {
-      instance.parenthoodMap.set(newValue, {
-        parent: target,
-        path: key
-      });
-      newValue = instance._proxifyObjectTreeRecursively(target, newValue, key);
-    }
-    // let's start with this operation, and may or may not update it later
-    var operation = {
-      op: 'remove',
-      path: destinationPropKey
-    };
-    if (typeof newValue == 'undefined') {
-      // applying De Morgan's laws would be a tad faster, but less readable
-      if (!Array.isArray(target) && !target.hasOwnProperty(key)) {
-        // `undefined` is being set to an already undefined value, keep silent
-        return Reflect.set(target, key, newValue);
-      } else {
-        // when array element is set to `undefined`, should generate replace to `null`
-        if (Array.isArray(target)) {
-          // undefined array elements are JSON.stringified to `null`
-          operation.op = 'replace', operation.value = null;
-        }
-        var oldValue = instance.proxifiedObjectsMap.get(target[key]);
-        // was the deleted a proxified object?
-        if (oldValue) {
-          instance.parenthoodMap.delete(target[key]);
-          instance.disableTrapsForProxy(oldValue);
-          instance.proxifiedObjectsMap.delete(oldValue);
-        }
-      }
-    } else {
-      if (Array.isArray(target) && !Number.isInteger(+key.toString())) {
-        /* array props (as opposed to indices) don't emit any patches, to avoid needless `length` patches */
-        if (key != 'length') {
-          console.warn('JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch');
-        }
-        return Reflect.set(target, key, newValue);
-      }
-      operation.op = 'add';
-      if (target.hasOwnProperty(key)) {
-        if (typeof target[key] !== 'undefined' || Array.isArray(target)) {
-          operation.op = 'replace'; // setting `undefined` array elements is a `replace` op
-        }
-      }
-      operation.value = newValue;
-    }
-    var reflectionResult = Reflect.set(target, key, newValue);
-    instance.defaultCallback(operation);
-    return reflectionResult;
-  }
-  /**
+		// if the new value is an object, make sure to watch it
+		if (newValue && typeof newValue == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {
+			instance.parenthoodMap.set(newValue, {
+				parent: target,
+				path: key
+			});
+			newValue = instance._proxifyObjectTreeRecursively(target, newValue, key);
+		}
+		// let's start with this operation, and may or may not update it later
+		var operation = {
+			op: 'remove',
+			path: destinationPropKey
+		};
+		if (typeof newValue == 'undefined') {
+			// applying De Morgan's laws would be a tad faster, but less readable
+			if (!Array.isArray(target) && !target.hasOwnProperty(key)) {
+				// `undefined` is being set to an already undefined value, keep silent
+				return Reflect.set(target, key, newValue);
+			}
+			// when array element is set to `undefined`, should generate replace to `null`
+			if (Array.isArray(target)) {
+				// undefined array elements are JSON.stringified to `null`
+				operation.op = 'replace', operation.value = null;
+			}
+			var oldValue = instance.proxifiedObjectsMap.get(target[key]);
+			// was the deleted a proxified object?
+			if (oldValue) {
+				instance.parenthoodMap.delete(target[key]);
+				instance.disableTrapsForProxy(oldValue);
+				instance.proxifiedObjectsMap.delete(oldValue);
+			}
+		} else {
+			if (Array.isArray(target) && !Number.isInteger(+key.toString())) {
+				/* array props (as opposed to indices) don't emit any patches, to avoid needless `length` patches */
+				if (key != 'length') {
+					console.warn('JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch');
+				}
+				return Reflect.set(target, key, newValue);
+			}
+			operation.op = 'add';
+			if (target.hasOwnProperty(key)) {
+				if (typeof target[key] !== 'undefined' || Array.isArray(target)) {
+					operation.op = 'replace'; // setting `undefined` array elements is a `replace` op
+				}
+			}
+			operation.value = newValue;
+		}
+		var reflectionResult = Reflect.set(target, key, newValue);
+		instance.defaultCallback(operation);
+		return reflectionResult;
+	}
+	/**
    * A callback to be used as th proxy delete trap callback.
    * It updates parenthood map if needed, calls default callbacks with the changes occurred.
    * @param {JSONPatcherProxy} instance JSONPatcherProxy instance
    * @param {Object} target the effected object
    * @param {String} key the effected property's name
    */
-  function deleteTrap(instance, target, key) {
-    if (typeof target[key] !== 'undefined') {
-      var parentPath = findObjectPath(instance, target);
-      var destinationPropKey = parentPath + '/' + escapePathComponent(key);
+	function deleteTrap(instance, target, key) {
+		if (typeof target[key] !== 'undefined') {
+			var parentPath = findObjectPath(instance, target);
+			var destinationPropKey = parentPath + '/' + escapePathComponent(key);
 
-      var revokableProxyInstance = instance.proxifiedObjectsMap.get(target[key]);
+			var revokableProxyInstance = instance.proxifiedObjectsMap.get(target[key]);
 
-      if (revokableProxyInstance) {
-        if (revokableProxyInstance.inherited) {
-          /*
-            this is an inherited proxy (an already proxified object that was moved around), 
+			if (revokableProxyInstance) {
+				if (revokableProxyInstance.inherited) {
+					/*
+            this is an inherited proxy (an already proxified object that was moved around),
             we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
             And we know that because we mark moved proxies with `inherited` flag when we move them
              it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
             We DO want to revoke the proxy if it was removed again.
           */
-          revokableProxyInstance.inherited = false;
-        } else {
-          instance.parenthoodMap.delete(revokableProxyInstance.originalObject);
-          instance.disableTrapsForProxy(revokableProxyInstance);
-          instance.proxifiedObjectsMap.delete(target[key]);
-        }
-      }
-      var reflectionResult = Reflect.deleteProperty(target, key);
+					revokableProxyInstance.inherited = false;
+				} else {
+					instance.parenthoodMap.delete(revokableProxyInstance.originalObject);
+					instance.disableTrapsForProxy(revokableProxyInstance);
+					instance.proxifiedObjectsMap.delete(target[key]);
+				}
+			}
+			var reflectionResult = Reflect.deleteProperty(target, key);
 
-      instance.defaultCallback({
-        op: 'remove',
-        path: destinationPropKey
-      });
+			instance.defaultCallback({
+				op: 'remove',
+				path: destinationPropKey
+			});
 
-      return reflectionResult;
-    }
-  }
-  /* pre-define resume and pause functions to enhance constructors performance */
-  function resume() {
-    var _this = this;
+			return reflectionResult;
+		}
+	}
+	/* pre-define resume and pause functions to enhance constructors performance */
+	function resume() {
+		var _this = this;
 
-    this.defaultCallback = function (operation) {
-      _this.isRecording && _this.patches.push(operation);
-      _this.userCallback && _this.userCallback(operation);
-    };
-    this.isObserving = true;
-  }
-  function pause() {
-    this.defaultCallback = function () {};
-    this.isObserving = false;
-  }
-  /**
-    * Creates an instance of JSONPatcherProxy around your object of interest `root`. 
+		this.defaultCallback = function (operation) {
+			_this.isRecording && _this.patches.push(operation);
+			_this.userCallback && _this.userCallback(operation);
+		};
+		this.isObserving = true;
+	}
+	function pause() {
+		this.defaultCallback = function () {};
+		this.isObserving = false;
+	}
+	/**
+    * Creates an instance of JSONPatcherProxy around your object of interest `root`.
     * @param {Object|Array} root - the object you want to wrap
-    * @param {Boolean} [showDetachedWarning = true] - whether to log a warning when a detached sub-object is modified @see {@link https://github.com/Palindrom/JSONPatcherProxy#detached-objects} 
+    * @param {Boolean} [showDetachedWarning = true] - whether to log a warning when a detached sub-object is modified @see {@link https://github.com/Palindrom/JSONPatcherProxy#detached-objects}
     * @returns {JSONPatcherProxy}
     * @constructor
     */
-  function JSONPatcherProxy(root, showDetachedWarning) {
-    this.isProxifyingTreeNow = false;
-    this.isObserving = false;
-    this.proxifiedObjectsMap = new Map();
-    this.parenthoodMap = new Map();
-    // default to true
-    if (typeof showDetachedWarning !== 'boolean') {
-      showDetachedWarning = true;
-    }
+	function JSONPatcherProxy(root, showDetachedWarning) {
+		this.isProxifyingTreeNow = false;
+		this.isObserving = false;
+		this.proxifiedObjectsMap = new Map();
+		this.parenthoodMap = new Map();
+		// default to true
+		if (typeof showDetachedWarning !== 'boolean') {
+			showDetachedWarning = true;
+		}
 
-    this.showDetachedWarning = showDetachedWarning;
-    this.originalObject = root;
-    this.cachedProxy = null;
-    this.isRecording = false;
-    this.userCallback;
-    /**
+		this.showDetachedWarning = showDetachedWarning;
+		this.originalObject = root;
+		this.cachedProxy = null;
+		this.isRecording = false;
+		this.userCallback;
+		/**
      * @memberof JSONPatcherProxy
      * Restores callback back to the original one provided to `observe`.
      */
-    this.resume = resume.bind(this);
-    /**
+		this.resume = resume.bind(this);
+		/**
      * @memberof JSONPatcherProxy
      * Replaces your callback with a noop function.
      */
-    this.pause = pause.bind(this);
-  }
+		this.pause = pause.bind(this);
+	}
 
-  JSONPatcherProxy.prototype.generateProxyAtPath = function (parent, obj, path) {
-    var _this2 = this;
+	JSONPatcherProxy.prototype.generateProxyAtPath = function (parent, obj, path) {
+		var _this2 = this;
 
-    if (!obj) {
-      return obj;
-    }
-    var traps = {
-      set: function set(target, key, value, receiver) {
-        return setTrap(_this2, target, key, value, receiver);
-      },
-      deleteProperty: function deleteProperty(target, key) {
-        return deleteTrap(_this2, target, key);
-      }
-    };
-    var revocableInstance = Proxy.revocable(obj, traps);
-    // cache traps object to disable them later.
-    revocableInstance.trapsInstance = traps;
-    revocableInstance.originalObject = obj;
+		if (!obj) {
+			return obj;
+		}
+		var traps = {
+			set: function set(target, key, value, receiver) {
+				return setTrap(_this2, target, key, value, receiver);
+			},
+			deleteProperty: function deleteProperty(target, key) {
+				return deleteTrap(_this2, target, key);
+			}
+		};
+		var revocableInstance = Proxy.revocable(obj, traps);
+		// cache traps object to disable them later.
+		revocableInstance.trapsInstance = traps;
+		revocableInstance.originalObject = obj;
 
-    /* keeping track of object's parent and path */
+		/* keeping track of object's parent and path */
 
-    this.parenthoodMap.set(obj, { parent: parent, path: path });
+		this.parenthoodMap.set(obj, { parent: parent, path: path });
 
-    /* keeping track of all the proxies to be able to revoke them later */
-    this.proxifiedObjectsMap.set(revocableInstance.proxy, revocableInstance);
-    return revocableInstance.proxy;
-  };
-  // grab tree's leaves one by one, encapsulate them into a proxy and return
-  JSONPatcherProxy.prototype._proxifyObjectTreeRecursively = function (parent, root, path) {
-    for (var key in root) {
-      if (root.hasOwnProperty(key)) {
-        if (root[key] instanceof Object) {
-          root[key] = this._proxifyObjectTreeRecursively(root, root[key], escapePathComponent(key));
-        }
-      }
-    }
-    return this.generateProxyAtPath(parent, root, path);
-  };
-  // this function is for aesthetic purposes
-  JSONPatcherProxy.prototype.proxifyObjectTree = function (root) {
-    /*
+		/* keeping track of all the proxies to be able to revoke them later */
+		this.proxifiedObjectsMap.set(revocableInstance.proxy, revocableInstance);
+		return revocableInstance.proxy;
+	};
+	// grab tree's leaves one by one, encapsulate them into a proxy and return
+	JSONPatcherProxy.prototype._proxifyObjectTreeRecursively = function (parent, root, path) {
+		for (var key in root) {
+			if (root.hasOwnProperty(key)) {
+				if (root[key] instanceof Object) {
+					root[key] = this._proxifyObjectTreeRecursively(root, root[key], escapePathComponent(key));
+				}
+			}
+		}
+		return this.generateProxyAtPath(parent, root, path);
+	};
+	// this function is for aesthetic purposes
+	JSONPatcherProxy.prototype.proxifyObjectTree = function (root) {
+		/*
     while proxyifying object tree,
     the proxyifying operation itself is being
     recorded, which in an unwanted behavior,
     that's why we disable recording through this
     initial process;
     */
-    this.pause();
-    this.isProxifyingTreeNow = true;
-    var proxifiedObject = this._proxifyObjectTreeRecursively(undefined, root, '');
-    /* OK you can record now */
-    this.isProxifyingTreeNow = false;
-    this.resume();
-    return proxifiedObject;
-  };
-  /**
+		this.pause();
+		this.isProxifyingTreeNow = true;
+		var proxifiedObject = this._proxifyObjectTreeRecursively(undefined, root, '');
+		/* OK you can record now */
+		this.isProxifyingTreeNow = false;
+		this.resume();
+		return proxifiedObject;
+	};
+	/**
    * Turns a proxified object into a forward-proxy object; doesn't emit any patches anymore, like a normal object
    * @param {Proxy} proxy - The target proxy object
    */
-  JSONPatcherProxy.prototype.disableTrapsForProxy = function (revokableProxyInstance) {
-    if (this.showDetachedWarning) {
-      var message = "You're accessing an object that is detached from the observedObject tree, see https://github.com/Palindrom/JSONPatcherProxy#detached-objects";
+	JSONPatcherProxy.prototype.disableTrapsForProxy = function (revokableProxyInstance) {
+		if (this.showDetachedWarning) {
+			var message = "You're accessing an object that is detached from the observedObject tree, see https://github.com/Palindrom/JSONPatcherProxy#detached-objects";
 
-      revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
-        console.warn(message);
-        return Reflect.set(targetObject, propKey, newValue);
-      };
-      revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
-        console.warn(message);
-        return Reflect.set(targetObject, propKey, newValue);
-      };
-      revokableProxyInstance.trapsInstance.deleteProperty = function (targetObject, propKey) {
-        return Reflect.deleteProperty(targetObject, propKey);
-      };
-    } else {
-      delete revokableProxyInstance.trapsInstance.set;
-      delete revokableProxyInstance.trapsInstance.get;
-      delete revokableProxyInstance.trapsInstance.deleteProperty;
-    }
-  };
-  /**
+			revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
+				console.warn(message);
+				return Reflect.set(targetObject, propKey, newValue);
+			};
+			revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
+				console.warn(message);
+				return Reflect.set(targetObject, propKey, newValue);
+			};
+			revokableProxyInstance.trapsInstance.deleteProperty = function (targetObject, propKey) {
+				return Reflect.deleteProperty(targetObject, propKey);
+			};
+		} else {
+			delete revokableProxyInstance.trapsInstance.set;
+			delete revokableProxyInstance.trapsInstance.get;
+			delete revokableProxyInstance.trapsInstance.deleteProperty;
+		}
+	};
+	/**
    * Proxifies the object that was passed in the constructor and returns a proxified mirror of it. Even though both parameters are options. You need to pass at least one of them.
    * @param {Boolean} [record] - whether to record object changes to a later-retrievable patches array.
    * @param {Function} [callback] - this will be synchronously called with every object change with a single `patch` as the only parameter.
    */
-  JSONPatcherProxy.prototype.observe = function (record, callback) {
-    if (!record && !callback) {
-      throw new Error('You need to either record changes or pass a callback');
-    }
-    this.isRecording = record;
-    this.userCallback = callback;
-    /*
+	JSONPatcherProxy.prototype.observe = function (record, callback) {
+		if (!record && !callback) {
+			throw new Error('You need to either record changes or pass a callback');
+		}
+		this.isRecording = record;
+		this.userCallback = callback;
+		/*
     I moved it here to remove it from `unobserve`,
     this will also make the constructor faster, why initiate
     the array before they decide to actually observe with recording?
     They might need to use only a callback.
     */
-    if (record) this.patches = [];
-    this.cachedProxy = this.proxifyObjectTree(this.originalObject);
-    return this.cachedProxy;
-  };
-  /**
+		if (record) this.patches = [];
+		this.cachedProxy = this.proxifyObjectTree(this.originalObject);
+		return this.cachedProxy;
+	};
+	/**
    * If the observed is set to record, it will synchronously return all the patches and empties patches array.
    */
-  JSONPatcherProxy.prototype.generate = function () {
-    if (!this.isRecording) {
-      throw new Error('You should set record to true to get patches later');
-    }
-    return this.patches.splice(0, this.patches.length);
-  };
-  /**
+	JSONPatcherProxy.prototype.generate = function () {
+		if (!this.isRecording) {
+			throw new Error('You should set record to true to get patches later');
+		}
+		return this.patches.splice(0, this.patches.length);
+	};
+	/**
    * Revokes all proxies rendering the observed object useless and good for garbage collection @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/revocable}
    */
-  JSONPatcherProxy.prototype.revoke = function () {
-    this.proxifiedObjectsMap.forEach(function (el) {
-      el.revoke();
-    });
-  };
-  /**
+	JSONPatcherProxy.prototype.revoke = function () {
+		this.proxifiedObjectsMap.forEach(function (el) {
+			el.revoke();
+		});
+	};
+	/**
    * Disables all proxies' traps, turning the observed object into a forward-proxy object, like a normal object that you can modify silently.
    */
-  JSONPatcherProxy.prototype.disableTraps = function () {
-    this.proxifiedObjectsMap.forEach(this.disableTrapsForProxy, this);
-  };
-  return JSONPatcherProxy;
+	JSONPatcherProxy.prototype.disableTraps = function () {
+		this.proxifiedObjectsMap.forEach(this.disableTrapsForProxy, this);
+	};
+	return JSONPatcherProxy;
 }();
 if (typeof module !== 'undefined') {
-  module.exports = JSONPatcherProxy;
-  module.exports.default = JSONPatcherProxy;
+	module.exports = JSONPatcherProxy;
+	module.exports.default = JSONPatcherProxy;
 }
 
 var timeout = null;
@@ -1070,198 +1068,198 @@ var patchs = {};
 
 var handler = function handler(patch) {
 
-    clearTimeout(timeout);
-    if (patch.op === 'remove') {
-        //fix arr splice 
-        var kv = getArrayPatch(patch.path);
-        patchs[kv.k] = kv.v;
-        timeout = setTimeout(function () {
-            update(patchs);
-            patchs = {};
-        });
-    } else {
-        var key = fixPath(patch.path);
-        patchs[key] = patch.value;
-        timeout = setTimeout(function () {
-            update(patchs);
-            patchs = {};
-        });
-    }
+	clearTimeout(timeout);
+	if (patch.op === 'remove') {
+		//fix arr splice
+		var kv = getArrayPatch(patch.path);
+		patchs[kv.k] = kv.v;
+		timeout = setTimeout(function () {
+			update(patchs);
+			patchs = {};
+		});
+	} else {
+		var key = fixPath(patch.path);
+		patchs[key] = patch.value;
+		timeout = setTimeout(function () {
+			update(patchs);
+			patchs = {};
+		});
+	}
 };
 
 function render(vnode, parent, store) {
-    parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-    if (store) {
-        store.instances = [];
-        extendStoreUpate(store);
-        options.store = store;
-        store.data = new JSONPatcherProxy(store.data).observe(true, handler);
-    }
-    diff(null, vnode, {}, false, parent, false);
+	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+	if (store) {
+		store.instances = [];
+		extendStoreUpate(store);
+		options.store = store;
+		store.data = new JSONPatcherProxy(store.data).observe(true, handler);
+	}
+	diff(null, vnode, {}, false, parent, false);
 }
 
 function update(patch) {
-    options.store.update(patch);
+	options.store.update(patch);
 }
 
 function extendStoreUpate(store) {
-    store.update = function (patch) {
-        var _this = this;
+	store.update = function (patch) {
+		var _this = this;
 
-        var updateAll = matchGlobalData(this.globalData, patch);
+		var updateAll = matchGlobalData(this.globalData, patch);
 
-        if (Object.keys(patch).length > 0) {
-            this.instances.forEach(function (instance) {
-                if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath)) {
-                    instance.update();
-                }
-            });
-            this.onChange && this.onChange(patch);
-        }
-    };
+		if (Object.keys(patch).length > 0) {
+			this.instances.forEach(function (instance) {
+				if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath)) {
+					instance.update();
+				}
+			});
+			this.onChange && this.onChange(patch);
+		}
+	};
 }
 
 function matchGlobalData(globalData, diffResult) {
-    if (!globalData) return false;
-    for (var keyA in diffResult) {
-        if (globalData.indexOf(keyA) > -1) {
-            return true;
-        }
-        for (var i = 0, len = globalData.length; i < len; i++) {
-            if (includePath(keyA, globalData[i])) {
-                return true;
-            }
-        }
-    }
-    return false;
+	if (!globalData) return false;
+	for (var keyA in diffResult) {
+		if (globalData.indexOf(keyA) > -1) {
+			return true;
+		}
+		for (var i = 0, len = globalData.length; i < len; i++) {
+			if (includePath(keyA, globalData[i])) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function needUpdate(diffResult, updatePath) {
-    for (var keyA in diffResult) {
-        if (updatePath[keyA]) {
-            return true;
-        }
-        for (var keyB in updatePath) {
-            if (includePath(keyA, keyB)) {
-                return true;
-            }
-        }
-    }
-    return false;
+	for (var keyA in diffResult) {
+		if (updatePath[keyA]) {
+			return true;
+		}
+		for (var keyB in updatePath) {
+			if (includePath(keyA, keyB)) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function includePath(pathA, pathB) {
-    if (pathA.indexOf(pathB) === 0) {
-        var next = pathA.substr(pathB.length, 1);
-        if (next === '[' || next === '.') {
-            return true;
-        }
-    }
-    return false;
+	if (pathA.indexOf(pathB) === 0) {
+		var next = pathA.substr(pathB.length, 1);
+		if (next === '[' || next === '.') {
+			return true;
+		}
+	}
+	return false;
 }
 
 function fixPath(path) {
-    var mpPath = '';
-    var arr = path.replace('/', '').split('/');
-    arr.forEach(function (item, index) {
-        if (index) {
-            if (isNaN(parseInt(item))) {
-                mpPath += '.' + item;
-            } else {
-                mpPath += '[' + item + ']';
-            }
-        } else {
-            mpPath += item;
-        }
-    });
-    return mpPath;
+	var mpPath = '';
+	var arr = path.replace('/', '').split('/');
+	arr.forEach(function (item, index) {
+		if (index) {
+			if (isNaN(Number(item))) {
+				mpPath += '.' + item;
+			} else {
+				mpPath += '[' + item + ']';
+			}
+		} else {
+			mpPath += item;
+		}
+	});
+	return mpPath;
 }
 
 function getArrayPatch(path) {
-    var arr = path.replace('/', '').split('/');
-    var current = options.store.data[arr[0]];
-    for (var i = 1, len = arr.length; i < len - 1; i++) {
-        current = current[arr[i]];
-    }
-    return { k: fixArrPath(path), v: current };
+	var arr = path.replace('/', '').split('/');
+	var current = options.store.data[arr[0]];
+	for (var i = 1, len = arr.length; i < len - 1; i++) {
+		current = current[arr[i]];
+	}
+	return { k: fixArrPath(path), v: current };
 }
 
 function fixArrPath(path) {
-    var mpPath = '';
-    var arr = path.replace('/', '').split('/');
-    var len = arr.length;
-    arr.forEach(function (item, index) {
-        if (index < len - 1) {
-            if (index) {
-                if (isNaN(parseInt(item))) {
-                    mpPath += '.' + item;
-                } else {
-                    mpPath += '[' + item + ']';
-                }
-            } else {
-                mpPath += item;
-            }
-        }
-    });
-    return mpPath;
+	var mpPath = '';
+	var arr = path.replace('/', '').split('/');
+	var len = arr.length;
+	arr.forEach(function (item, index) {
+		if (index < len - 1) {
+			if (index) {
+				if (isNaN(Number(item))) {
+					mpPath += '.' + item;
+				} else {
+					mpPath += '[' + item + ']';
+				}
+			} else {
+				mpPath += item;
+			}
+		}
+	});
+	return mpPath;
 }
 
 function define(name, ctor) {
-  customElements.define(name, ctor);
-  if (ctor.data && !ctor.pure) {
-    ctor.updatePath = getUpdatePath(ctor.data);
-  }
+	customElements.define(name, ctor);
+	if (ctor.data && !ctor.pure) {
+		ctor.updatePath = getUpdatePath(ctor.data);
+	}
 }
 
 function getUpdatePath(data) {
-  var result = {};
-  dataToPath(data, result);
-  return result;
+	var result = {};
+	dataToPath(data, result);
+	return result;
 }
 
 function dataToPath(data, result) {
-  Object.keys(data).forEach(function (key) {
-    result[key] = true;
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], key, result);
-    }
-  });
+	Object.keys(data).forEach(function (key) {
+		result[key] = true;
+		var type = Object.prototype.toString.call(data[key]);
+		if (type === '[object Object]') {
+			_objToPath(data[key], key, result);
+		} else if (type === '[object Array]') {
+			_arrayToPath(data[key], key, result);
+		}
+	});
 }
 
 function _objToPath(data, path, result) {
-  Object.keys(data).forEach(function (key) {
-    result[path + '.' + key] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], path + '.' + key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], path + '.' + key, result);
-    }
-  });
+	Object.keys(data).forEach(function (key) {
+		result[path + '.' + key] = true;
+		delete result[path];
+		var type = Object.prototype.toString.call(data[key]);
+		if (type === '[object Object]') {
+			_objToPath(data[key], path + '.' + key, result);
+		} else if (type === '[object Array]') {
+			_arrayToPath(data[key], path + '.' + key, result);
+		}
+	});
 }
 
 function _arrayToPath(data, path, result) {
-  data.forEach(function (item, index) {
-    result[path + '[' + index + ']'] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(item);
-    if (type === '[object Object]') {
-      _objToPath(item, path + '[' + index + ']', result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(item, path + '[' + index + ']', result);
-    }
-  });
+	data.forEach(function (item, index) {
+		result[path + '[' + index + ']'] = true;
+		delete result[path];
+		var type = Object.prototype.toString.call(item);
+		if (type === '[object Object]') {
+			_objToPath(item, path + '[' + index + ']', result);
+		} else if (type === '[object Array]') {
+			_arrayToPath(item, path + '[' + index + ']', result);
+		}
+	});
 }
 
 function tag(name, pure) {
-    return function (target) {
-        target.pure = pure;
-        define(name, target);
-    };
+	return function (target) {
+		target.pure = pure;
+		define(name, target);
+	};
 }
 
 options.root.Omi = {
