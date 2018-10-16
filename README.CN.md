@@ -14,6 +14,7 @@
 - Webcomponents 也可以数据驱动视图, UI = fn(data)
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
 - 独创的 Path Updating 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 requestIdleCallback 
+- 使用 store 系统不需要调用 this.udpate，它会自动化按需更新局部视图
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 - Shadom DOM 与 Virtual DOM 融合，Omi 既使用了虚拟 DOM，也是使用真实 Shadom DOM，让视图更新更准确更迅速
 - 类似 WeStore 体系，99.9% 的项目不需要什么时间旅行,也不仅仅 redux 能时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目
@@ -227,7 +228,7 @@ render(<todo-app></todo-app>, 'body')
 
 ### Store
 
-强大的 Store 体系是高性能的原因，除了靠 props 决定组件状态的组件，其余组件所有 data 都挂载在 store 上:
+使用 Store 体系可以告别 update 方法，基于 Proxy 的全自动属性追踪和更新机制。强大的 Store 体系是高性能的原因，除了靠 props 决定组件状态的组件，其余组件所有 data 都挂载在 store 上,
 
 ```js
 export default {

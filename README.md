@@ -14,6 +14,7 @@ Coming....You can download JS from [omi/master/dist](https://github.com/Tencent/
 - Webcomponents can also be a data-driven view, UI = fn(data)
 - JSX is the best development experience (code intelligent  completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals)
 - The original Path Updating system. Proxy-based automatic accurate update, low power consumption, high degree of freedom, excellent performance, easy integration of requestIdleCallback
+- Say goodbye to `this.update` method when using store system! It will update partial UI automatically when data changed. 
 - Look at [Facebook React VS Webcomponents](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi combines their advantages and gives developers the freedom to choose the way they like.
 - Shadom DOM merges with Virtual DOM, Omi uses both virtual DOM and real Shadom DOM to make view updates more accurate and faster
 - With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on redux, Omi store system can meet all projects
@@ -229,7 +230,7 @@ render(<todo-app></todo-app>, 'body')
 
 ### Store
 
-The powerful Store architecture is high-performance because all data is mounted on the store, except for components that rely on props to determine the state of the component.
+Say goodbye to `this.update` method when using store system! It will update partial UI automatically when data changed. The powerful Store architecture is high-performance because all data is mounted on the store, except for components that rely on props to determine the state of the component.
 
 ```js
 export default {
