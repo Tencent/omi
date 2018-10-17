@@ -1,8 +1,8 @@
 English | [简体中文](./README.CN.md) 
 
-# Omi - Merge JSX, Webcomponents, Proxy, Path Updating together
+# Omi
 
-> Next generation web framework in 4KB javascript.
+> Next generation web framework in 4KB javascript(Merge JSX, Webcomponents, Proxy, Path Updating together).
 
 ![omi](./assets/omi.png)
 
