@@ -1,10 +1,10 @@
 [English](./README.md) | 简体中文
 
-# Omi - 合一  
+<p align="center"><img src="./assets/omi.png" alt="omi"/></p>
 
 > 下一代 Web 框架，去万物糟粕，合精华为一。
 
-<p style="text-align:center;"><img src="./assets/omi.png" alt="omi"/></p>
+
 
 ### 特性
 
