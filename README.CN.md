@@ -40,7 +40,10 @@
 
 ## 一个 HTML 完全上手
 
-下面这个页面不需要任何构建工具就可以执行，[点击这里看执行结果](https://tencent.github.io/omi/assets/)。
+下面这个页面不需要任何构建工具就可以执行
+
+* [点击这里看执行结果](https://tencent.github.io/omi/assets/)。
+* [Omi.js CDN](https://unpkg.com/omi)
 
 ```html
 <!DOCTYPE html>
@@ -93,13 +96,12 @@
 ### Install
 
 ```bash
-npm i omi
+$ npm i omi-cli -g               # install cli
+$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
+$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ npm start                      # develop
+$ npm run build                  # release
 ```
-
-或者直接从 CDN 上获取:
-
-* [https://unpkg.com/omi@4.0.1/dist/omi.js](https://unpkg.com/omi@4.0.1/dist/omi.js)
-* [https://unpkg.com/omi@4.0.1/dist/omi.min.js](https://unpkg.com/omi@4.0.1/dist/omi.min.js)
 
 ### Hello Element
 

@@ -44,7 +44,8 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
 
 This page demonstrates using Omi with no build tooling.
 
-[Online Demo!](https://tencent.github.io/omi/assets/)
+* [Online Demo!](https://tencent.github.io/omi/assets/)
+* [Omi.js CDN](https://unpkg.com/omi)
 
 ```html
 <<!DOCTYPE html>
@@ -98,13 +99,12 @@ This page demonstrates using Omi with no build tooling.
 ### Install
 
 ```bash
-npm i omi
+$ npm i omi-cli -g               # install cli
+$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
+$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ npm start                      # develop
+$ npm run build                  # release
 ```
-
-Or get javascript file from CDN:
-
-* [https://unpkg.com/omi@4.0.1/dist/omi.js](https://unpkg.com/omi@4.0.1/dist/omi.js)
-* [https://unpkg.com/omi@4.0.1/dist/omi.min.js](https://unpkg.com/omi@4.0.1/dist/omi.min.js)
 
 ### Hello Element
 
