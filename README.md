@@ -50,7 +50,7 @@ This page demonstrates using Omi with no build tooling.
 * [Omi.js CDN](https://unpkg.com/omi)
 
 ```html
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
