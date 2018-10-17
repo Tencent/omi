@@ -28,7 +28,7 @@
 
 - [Getting Started](#getting-started)
     - [Install](#install)
-	- [Hello Omi](#hello-omi)
+	- [Hello Element](#hello-element)
     - [TodoApp](#todoapp)
     - [Store](#store)
 	- [生命周期](#生命周期)
@@ -53,7 +53,7 @@ npm i omi
 * [omi.min.js](https://github.com/Tencent/omi/blob/master/packages/omi/dist/omi.min.js)
 
 
-### Hello Omi
+### Hello Element
 
 先创建一个自定义元素:
 
@@ -329,7 +329,7 @@ render(<todo-app></todo-app>, 'body', store)
 
 ## 浏览器兼容
 
-Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
+Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, ~~IE 11+~~, and the evergreen Chrome, Firefox, and Edge.
 
 ![Browsers Support](./assets/browsers-support.png)
 

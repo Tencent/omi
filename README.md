@@ -7,6 +7,8 @@ English | [简体中文](./README.CN.md)
 ### Why Omi？
 
 - Tiny size(4KB gzip)
+- Support TypeScript    
+- Reactive data-binding
 - Compliance with browser trend and API design
 - Merge JSX and Webcomponents into One Framework 
 - Webcomponents can also be a data-driven view, UI = fn(data)
@@ -28,7 +30,7 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
 
 - [Getting Started](#getting-started)
     - [Install](#install)
-	- [Hello Omi](#hello-omi)
+	- [Hello Element](#hello-element)
     - [TodoApp](#todoapp)
     - [Store](#store)
 	- [Lifecycle](#lifecycle)
@@ -53,7 +55,7 @@ Or get javascript file from Github:
 * [omi.js](https://github.com/Tencent/omi/blob/master/packages/omi/dist/omi.js)
 * [omi.min.js](https://github.com/Tencent/omi/blob/master/packages/omi/dist/omi.min.js)
 
-### Hello Omi
+### Hello Element
 
 Define a custom element:
 
@@ -333,7 +335,7 @@ I believe you can easily convert webcomponents elements to omi elements.
 
 ## Browsers Support
 
-Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
+Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, ~~IE 11+~~, and the evergreen Chrome, Firefox, and Edge.
 
 ![Browsers Support](./assets/browsers-support.png)
 
