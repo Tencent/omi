@@ -2,7 +2,9 @@
 
 # Omi - 合一  
 
-> 下一代 Web 框架(Webcomponents + JSX)，去万物糟粕，合精华为一。
+> 下一代 Web 框架，去万物糟粕，合精华为一。
+
+![omi](./assets/omi.png)
 
 ### 特性
 

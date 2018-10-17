@@ -4,6 +4,8 @@ English | [简体中文](./README.CN.md)
 
 > Next generation web framework in 4KB javascript.
 
+![omi](./assets/omi.png)
+
 ### Why Omi？
 
 - Tiny size(4KB gzip)
