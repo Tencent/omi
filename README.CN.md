@@ -48,9 +48,9 @@ npm i omi
 
 或者直接从 Github 上获取:
 
-* [omi/master/dist](https://github.com/Tencent/omi/tree/master/dist)
-* [omi.js](https://github.com/Tencent/omi/blob/master/dist/omi.js)
-* [omi.min.js](https://github.com/Tencent/omi/blob/master/dist/omi.min.js)
+* [omi/master/dist](https://github.com/Tencent/omi/tree/master/packages/omi/dist)
+* [omi.js](https://github.com/Tencent/omi/blob/master/packages/omi/dist/omi.js)
+* [omi.min.js](https://github.com/Tencent/omi/blob/master/packages/omi/dist/omi.min.js)
 
 
 ### Hello Omi
@@ -301,7 +301,7 @@ class TodoApp extends WeElement {
 render(<todo-app></todo-app>, 'body', store)
 ```
 
-[→ Store 完整的代码](https://github.com/Tencent/omi/blob/master/examples/store/main.js)
+[→ Store 完整的代码](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js)
 
 总结一下:
 

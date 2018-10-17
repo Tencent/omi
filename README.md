@@ -49,9 +49,9 @@ npm i omi
 
 Or get javascript file from Github:
 
-* [omi/master/dist](https://github.com/Tencent/omi/tree/master/dist)
-* [omi.js](https://github.com/Tencent/omi/blob/master/dist/omi.js)
-* [omi.min.js](https://github.com/Tencent/omi/blob/master/dist/omi.min.js)
+* [omi/master/dist](https://github.com/Tencent/omi/tree/master/packages/omi/dist)
+* [omi.js](https://github.com/Tencent/omi/blob/master/packages/omi/dist/omi.js)
+* [omi.min.js](https://github.com/Tencent/omi/blob/master/packages/omi/dist/omi.min.js)
 
 ### Hello Omi
 
@@ -303,7 +303,7 @@ You need to inject store from the root node at render time to use this. store:
 render(<todo-app></todo-app>, 'body', store)
 ```
 
-[→ Store Full Code](https://github.com/Tencent/omi/blob/master/examples/store/main.js)
+[→ Store Full Code](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js)
 
 
 
