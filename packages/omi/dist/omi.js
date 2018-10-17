@@ -642,7 +642,7 @@
         options: options,
         define: define
     };
-    options.root.Omi.version = '4.0.0';
+    options.root.Omi.version = '4.0.1';
     var Omi = {
         tag: tag,
         WeElement: WeElement,
