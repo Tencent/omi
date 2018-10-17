@@ -28,6 +28,7 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
 
 ---
 
+- [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Getting Started](#getting-started)
     - [Install](#install)
 	- [Hello Element](#hello-element)
@@ -39,6 +40,55 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
 - [Links](#links)
 - [License](#license)
 
+## Add Omi in One Minute
+
+This page demonstrates using Omi with no build tooling.
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+</head>
+
+<body>
+  <script src="https://unpkg.com/omi@4.0.0/dist/omi.js" crossorigin></script>
+  <script>
+    const { h, render, define } = Omi
+
+    class LikeButton extends Omi.WeElement {
+      install() {
+        this.data = { liked: false }
+      }
+
+      render() {
+        if (this.data.liked) {
+          return 'You liked this.'
+        }
+
+        return h(
+          'button',
+          {
+            onClick: () => {
+              this.data.liked = true
+              this.update()
+            }
+          },
+          'Like'
+        )
+      }
+    }
+
+    define('like-button', LikeButton)
+
+    render(h('like-button'), 'body')
+  </script>
+</body>
+
+</html>
+```
 
 ## Getting Started
 

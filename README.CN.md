@@ -26,6 +26,7 @@
 
 ---
 
+- [一个 HTML 完全上手](#一个-html-完全上手)
 - [Getting Started](#getting-started)
     - [Install](#install)
 	- [Hello Element](#hello-element)
@@ -37,6 +38,55 @@
 - [Links](#links)
 - [License](#license)
 
+## 一个 HTML 完全上手
+
+这个页面不需要任何构建工具就可以执行。
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+</head>
+
+<body>
+  <script src="https://unpkg.com/omi@4.0.0/dist/omi.js" crossorigin></script>
+  <script>
+    const { h, render, define } = Omi
+
+    class LikeButton extends Omi.WeElement {
+      install() {
+        this.data = { liked: false }
+      }
+
+      render() {
+        if (this.data.liked) {
+          return 'You liked this.'
+        }
+
+        return h(
+          'button',
+          {
+            onClick: () => {
+              this.data.liked = true
+              this.update()
+            }
+          },
+          'Like'
+        )
+      }
+    }
+
+    define('like-button', LikeButton)
+
+    render(h('like-button'), 'body')
+  </script>
+</body>
+
+</html>
+```
 
 ## Getting Started
 
