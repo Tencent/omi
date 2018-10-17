@@ -44,6 +44,8 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
 
 This page demonstrates using Omi with no build tooling.
 
+[Online Demo!](http://tencent.github.io/omi/assets/)
+
 ```html
 <!DOCTYPE html>
 <html>

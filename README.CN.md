@@ -40,7 +40,7 @@
 
 ## 一个 HTML 完全上手
 
-这个页面不需要任何构建工具就可以执行。
+下面这个页面不需要任何构建工具就可以执行，[点击这里看执行结果](http://tencent.github.io/omi/assets/)。
 
 ```html
 <!DOCTYPE html>
