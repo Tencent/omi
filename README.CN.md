@@ -4,7 +4,7 @@
 
 > 下一代 Web 框架，去万物糟粕，合精华为一。
 
-<div><img src="./assets/omi.png" alt="omi"/></div>
+<div style="text-algin:center;"><img src="./assets/omi.png" alt="omi"/></div>
 
 ### 特性
 
