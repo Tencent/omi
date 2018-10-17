@@ -49,11 +49,10 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
 npm i omi
 ```
 
-Or get javascript file from Github:
+Or get javascript file from CDN:
 
-* [omi/master/dist](https://github.com/Tencent/omi/tree/master/packages/omi/dist)
-* [omi.js](https://github.com/Tencent/omi/blob/master/packages/omi/dist/omi.js)
-* [omi.min.js](https://github.com/Tencent/omi/blob/master/packages/omi/dist/omi.min.js)
+* [https://unpkg.com/omi@4.0.0/dist/omi.js](https://unpkg.com/omi@4.0.0/dist/omi.js)
+* [https://unpkg.com/omi@4.0.0/dist/omi.min.js](https://unpkg.com/omi@4.0.0/dist/omi.min.js)
 
 ### Hello Element
 
