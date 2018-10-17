@@ -52,7 +52,7 @@
 </head>
 
 <body>
-  <script src="https://unpkg.com/omi@4.0.0/dist/omi.js"></script>
+  <script src="https://unpkg.com/omi"></script>
   <script>
     const { WeElement, h, render, define } = Omi
 
@@ -98,8 +98,8 @@ npm i omi
 
 或者直接从 CDN 上获取:
 
-* [https://unpkg.com/omi@4.0.0/dist/omi.js](https://unpkg.com/omi@4.0.0/dist/omi.js)
-* [https://unpkg.com/omi@4.0.0/dist/omi.min.js](https://unpkg.com/omi@4.0.0/dist/omi.min.js)
+* [https://unpkg.com/omi@4.0.1/dist/omi.js](https://unpkg.com/omi@4.0.1/dist/omi.js)
+* [https://unpkg.com/omi@4.0.1/dist/omi.min.js](https://unpkg.com/omi@4.0.1/dist/omi.min.js)
 
 ### Hello Element
 
