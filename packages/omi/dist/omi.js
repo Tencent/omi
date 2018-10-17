@@ -613,10 +613,6 @@
         };
         return JSONPatcherProxy;
     }();
-    if ('undefined' != typeof module) {
-        module.exports = JSONPatcherProxy;
-        module.exports.default = JSONPatcherProxy;
-    }
     var timeout = null;
     var patchs = {};
     var handler = function(patch) {

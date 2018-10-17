@@ -389,7 +389,3 @@ const JSONPatcherProxy = (function() {
 })()
 
 export default JSONPatcherProxy
-if (typeof module !== 'undefined') {
-	module.exports = JSONPatcherProxy
-	module.exports.default = JSONPatcherProxy
-}

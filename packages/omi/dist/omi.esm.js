@@ -1058,10 +1058,6 @@ var JSONPatcherProxy = function () {
 	};
 	return JSONPatcherProxy;
 }();
-if (typeof module !== 'undefined') {
-	module.exports = JSONPatcherProxy;
-	module.exports.default = JSONPatcherProxy;
-}
 
 var timeout = null;
 var patchs = {};
