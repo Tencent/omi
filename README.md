@@ -47,7 +47,7 @@ This page demonstrates using Omi with no build tooling.
 [Online Demo!](https://tencent.github.io/omi/assets/)
 
 ```html
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 
 <head>
@@ -56,11 +56,11 @@ This page demonstrates using Omi with no build tooling.
 </head>
 
 <body>
-  <script src="https://unpkg.com/omi@4.0.0/dist/omi.js" crossorigin></script>
+  <script src="https://unpkg.com/omi@4.0.0/dist/omi.js"></script>
   <script>
-    const { h, render, define } = Omi
+    const { WeElement, h, render, define } = Omi
 
-    class LikeButton extends Omi.WeElement {
+    class LikeButton extends WeElement {
       install() {
         this.data = { liked: false }
       }
