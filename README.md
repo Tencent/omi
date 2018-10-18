@@ -109,6 +109,8 @@ $ npm start                      # develop
 $ npm run build                  # release
 ```
 
+Cli's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
+
 ### Hello Element
 
 Define a custom element:
