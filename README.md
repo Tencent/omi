@@ -397,6 +397,8 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 [→ polyfills](https://github.com/webcomponents/webcomponentsjs)
 
+If you want to be compatible with IE11, use the Omi file of [→ this project](https://github.com/Tencent/omi/tree/ie11).This project uses JSON Diff instead of Proxy.
+
 ## Links
 
 - [westore](https://github.com/dntzhang/westore)
