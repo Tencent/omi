@@ -1,4 +1,6 @@
-## Omi Docs
+[English](./main-concepts.md) | 简体中文
+
+## Omi 文档
 
 - [My First Element](#my-first-element)
 - [Props](#props)
