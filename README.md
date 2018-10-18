@@ -2,7 +2,7 @@ English | [简体中文](./README.CN.md)
 
 # Omi
 
-> Next generation web framework in 4KB javascript(Merge JSX, Webcomponents, Proxy, Path Updating together).
+> Next generation web framework in 4KB javascript(Merge JSX, Web Components, Proxy, Path Updating together).
 
 <p align="center"><img src="./assets/omi.png" alt="omi"/></p>
 
@@ -12,12 +12,12 @@ English | [简体中文](./README.CN.md)
 - Support TypeScript    
 - Reactive data-binding
 - Compliance with browser trend and API design
-- Merge JSX and Webcomponents into One Framework 
-- Webcomponents can also be a data-driven view, UI = fn(data)
+- Merge JSX and Web Components into One Framework 
+- Web Components can also be a data-driven view, UI = fn(data)
 - JSX is the best development experience (code intelligent  completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals)
 - The original Path Updating system. Proxy-based automatic accurate update, low power consumption, high degree of freedom, excellent performance, easy integration of requestIdleCallback
 - Say goodbye to `this.update` method when using store system! It will update partial UI automatically when data changed. 
-- Look at [Facebook React VS Webcomponents](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi combines their advantages and gives developers the freedom to choose the way they like.
+- Look at [Facebook React VS Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi combines their advantages and gives developers the freedom to choose the way they like.
 - Shadom DOM merges with Virtual DOM, Omi uses both virtual DOM and real Shadom DOM to make view updates more accurate and faster
 - With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on redux, Omi store system can meet all projects
 - Scoped CSS's best solution is Shadow DOM, the community churning out frameworks and libraries for Scoped CSS (using JS or JSON writing styles such as Radium, jsxstyle, react-style; binding to webpack using generated unique className `filename-classname-hash', such as CSS Modules, Vue), are hack technologies; and Shadow DOM Style is the perfect solution.
@@ -387,7 +387,7 @@ Summary：
 * [https://www.webcomponents.org/](https://www.webcomponents.org/)
 * [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
-I believe you can easily convert webcomponents elements to omi elements.
+I believe you can easily convert web components elements to omi elements.
 
 ## Browsers Support
 
