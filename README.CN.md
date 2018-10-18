@@ -10,8 +10,8 @@
 
 - 4KB 的代码尺寸，比小更小
 - 顺势而为，顺从浏览器的发展和 API 设计
-- Webcomponents + JSX 相互融合为一个框架 Omi
-- Webcomponents 也可以数据驱动视图, UI = fn(data)
+- Web Components + JSX 相互融合为一个框架 Omi
+- Web Components 也可以数据驱动视图, UI = fn(data)
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
 - 独创的 Path Updating 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 requestIdleCallback 
 - 使用 store 系统不需要调用 this.udpate，它会自动化按需更新局部视图
