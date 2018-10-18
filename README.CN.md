@@ -35,7 +35,7 @@
     - [TodoApp](#todoapp)
     - [Store](#store)
 	- [生命周期](#生命周期)
-- [文档](#https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)
+- [文档](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)
 - [生态](#生态)
 - [浏览器兼容](#浏览器兼容)
 - [Links](#links)
