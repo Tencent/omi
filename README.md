@@ -391,7 +391,7 @@ I believe you can easily convert web components elements to omi elements.
 
 ## Browsers Support
 
-Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, ~~IE 11+~~, and the evergreen Chrome, Firefox, and Edge.
+Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
 ![Browsers Support](./assets/browsers-support.png)
 
