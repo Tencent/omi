@@ -1,3 +1,5 @@
+English | [简体中文](./main-concepts.cn.md) 
+
 ## Omi Docs
 
 - [My First Element](#my-first-element)
@@ -139,4 +141,4 @@ class MyFirstElement extends WeElement {
 render(<my-first-element></my-first-element>, 'body')
 ```
 
-Get the element by `ref={e => { this.anyNameYouWant = e }}`
+Add `ref={e => { this.anyNameYouWant = e }}` to attrs of the element, then you can get it by `this.anyNameYouWant`.

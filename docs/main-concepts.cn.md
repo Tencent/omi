@@ -102,7 +102,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
 
-Tirgger custom event by `this.fire` and get the data by  `evt.detail`. 
+通过 `this.fire` 触发自定义事件，fire 第一个参数是事件名称，第二个参数是传递的数据。通过 `evt.detail` 可以获取到传递的数据。
 
 ### Ref
 
@@ -125,4 +125,5 @@ class MyFirstElement extends WeElement {
 render(<my-first-element></my-first-element>, 'body')
 ```
 
-Get the element by `ref={e => { this.anyNameYouWant = e }}`
+
+在元素上添加 `ref={e => { this.anyNameYouWant = e }}` ，然后你就可以 JS 代码里使用 `this.anyNameYouWant` 访问该元素。
