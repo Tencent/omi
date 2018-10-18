@@ -37,6 +37,7 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation s
     - [TodoApp](#todoapp)
     - [Store](#store)
 	- [Lifecycle](#lifecycle)
+- [Docs][https://github.com/Tencent/omi/blob/master/docs/main-concepts.md]
 - [Component Ecosystem](#component-ecosystem)
 - [Browsers Support](#browsers-support)
 - [Links](#links)
