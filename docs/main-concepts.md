@@ -7,6 +7,7 @@ English | [简体中文](./main-concepts.cn.md)
 - [Event](#event)
 - [Custom Event](#custom-event)
 - [Ref](#ref)
+- [Store](#store)
 
 ### My First Element
 
@@ -142,3 +143,83 @@ render(<my-first-element></my-first-element>, 'body')
 ```
 
 Add `ref={e => { this.anyNameYouWant = e }}` to attrs of the element, then you can get it by `this.anyNameYouWant`.
+
+
+### Store
+
+```js
+import { WeElement, tag, render } from 'omi'
+
+@tag('my-first-element')
+class MyFirstElement extends WeElement {
+    //You must declare data here for view updating
+    static get data() {
+        return { name: null }
+    }
+    
+    onClick = () => {
+        //auto update the view
+        this.store.data.name = 'abc'
+    }
+
+    render(props, data) {
+        //data === this.store.data when using store stystem
+        return (
+            <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
+        )
+    }
+}
+
+const store = {
+    data: { name: 'Omi' }
+}
+render(<my-first-element name="world"></my-first-element>, 'body', store)
+```
+
+The staitc data will be transform to path for partial view updating, for example:
+```js
+static get data() {
+    return {
+        a: null,
+        b: null,
+        c: { d: [] },
+        e: []
+    }
+}
+
+```
+
+Transformed path：
+
+```js
+{
+  a: true,
+  b: true,
+  'c.d':true,
+  e: true
+}
+```
+
+Exemplify the Path hit rule:
+
+| proxy path | updatePath  |Update|
+| ------ | ------  |------  |
+| abc | 	abc  |	true |	 
+| abc[1] | 	abc  |	true |
+| abc.a| 	abc  |	true |
+| abc| 	abc.a  |	false |
+| abc| 	abc[1]  |	false |
+| abc| 	abc[1].c  |	false |
+| abc.b| 	abc.b |	true |
+
+If you hit one condition above, you can update it.
+
+Summary is as long as updatePath or updatePath sub nodes are updated.
+
+Can we see that the store system is a centralization system? So how do we centralization of some components? Use the second parameters of tag:
+
+```js
+@tag('my-first-element', true)
+```
+
+Pure element! Store will not be injected!

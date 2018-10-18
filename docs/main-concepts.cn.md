@@ -7,6 +7,7 @@
 - [Event](#event)
 - [Custom Event](#custom-event)
 - [Ref](#ref)
+- [Store](#store)
 
 ### My First Element
 
@@ -129,3 +130,85 @@ render(<my-first-element></my-first-element>, 'body')
 
 
 在元素上添加 `ref={e => { this.anyNameYouWant = e }}` ，然后你就可以 JS 代码里使用 `this.anyNameYouWant` 访问该元素。
+
+
+
+### Store
+
+```js
+import { WeElement, tag, render } from 'omi'
+
+@tag('my-first-element')
+class MyFirstElement extends WeElement {
+    //You must declare data here for view updating
+    static get data() {
+        return { name: null }
+    }
+    
+    onClick = () => {
+        //auto update the view
+        this.store.data.name = 'abc'
+    }
+
+    render(props, data) {
+        //data === this.store.data when using store stystem
+        return (
+            <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
+        )
+    }
+}
+
+const store = {
+    data: { name: 'Omi' }
+}
+render(<my-first-element name="world"></my-first-element>, 'body', store)
+```
+
+当使用 store 体系是，`static get data` 就仅仅被用来声明依赖，举个例子:
+
+```js
+static get data() {
+    return {
+        a: null,
+        b: null,
+        c: { d: [] },
+        e: []
+    }
+}
+
+```
+
+会被转换成：
+
+```js
+{
+  a: true,
+  b: true,
+  'c.d':true,
+  e: true
+}
+```
+
+举例说明 Path 命中规则:
+
+| diffResult | updatePath  |是否更新|
+| ------ | ------  |------  |
+| abc | 	abc  |	更新 |	 
+| abc[1] | 	abc  |	更新 |
+| abc.a| 	abc  |	更新 |
+| abc| 	abc.a  |	不更新 |
+| abc| 	abc[1]  |	不更新 |
+| abc| 	abc[1].c  |	不更新 |
+| abc.b| 	abc.b |	更新 |
+
+以上只要命中一个条件就可以进行更新！
+
+总结就是只要等于 updatePath 或者在 updatePath 子节点下都进行更新！
+
+看可以看到 store 体系是中心化的体系？那么怎么做到部分组件去中心化？使用 tag 的第二个参数:
+
+```js
+@tag('my-first-element', true)
+```
+
+纯元素！不会注入 store!
