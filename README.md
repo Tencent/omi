@@ -311,8 +311,8 @@ export default {
     fullName: function () {
       return this.firstName + this.lastName
     },
-    globalPropTest: 'abc', //I will refresh all elements without changing the components and page declaring data dependency.
-    ccc: { ddd: 1 } //I will refresh all elements without changing the components and page declaring data dependency.
+    globalPropTest: 'abc', //Change it will refresh all elements without changing the components and page declaring data dependency.
+    ccc: { ddd: 1 } //Change it will refresh all elements without changing the components and page declaring data dependency.
   },
   globalData: ['globalPropTest', 'ccc.ddd'],
   add: function () {
