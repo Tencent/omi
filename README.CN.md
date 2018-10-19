@@ -115,6 +115,20 @@ $ npm start                      # develop
 $ npm run build                  # release
 ```
 
+目录说明:
+
+```
+├─ config
+├─ public
+├─ scripts
+├─ src
+│  ├─ assets
+│  ├─ elements    //存放所有 custom elements
+│  ├─ store       //存放所有页面的 store
+│  ├─ admin.js    //入口文件，会 build 成  admin.html
+│  └─ index.js    //入口文件，会 build 成  index.html
+```
+
 Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)。
 
 ### Hello Element
