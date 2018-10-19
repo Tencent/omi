@@ -8,6 +8,7 @@
 - [Custom Event](#custom-event)
 - [Ref](#ref)
 - [Store](#store)
+- [SSR](#ssr)
 
 ### My First Element
 
@@ -212,3 +213,10 @@ static get data() {
 ```
 
 纯元素！不会注入 store!
+
+### SSR
+
+推荐尝试的框架:
+
+* https://github.com/skatejs/skatejs/tree/master/packages/ssr
+* https://www.youtube.com/watch?v=yT-EsESAmgA

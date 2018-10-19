@@ -8,6 +8,7 @@ English | [简体中文](./main-concepts.cn.md)
 - [Custom Event](#custom-event)
 - [Ref](#ref)
 - [Store](#store)
+- [SSR](#ssr)
 
 ### My First Element
 
@@ -223,3 +224,10 @@ Can we see that the store system is a centralization system? So how do we centra
 ```
 
 Pure element! Store will not be injected!
+
+### SSR
+
+Recommended class librarie:
+
+* https://github.com/skatejs/skatejs/tree/master/packages/ssr
+* https://www.youtube.com/watch?v=yT-EsESAmgA
