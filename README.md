@@ -11,6 +11,7 @@ English | [简体中文](./README.CN.md)
 - Tiny size(4KB gzip)
 - Support TypeScript    
 - Reactive data-binding
+- [Based on Shadow Dom](https://developers.google.cn/web/fundamentals/web-components/shadowdom)
 - Compliance with browser trend and API design
 - Merge JSX and Web Components into One Framework
 - Web Components can also be a data-driven view, UI = fn(data)
