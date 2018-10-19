@@ -391,11 +391,15 @@ I believe you can easily convert web components elements to omi elements.
 
 ## Browsers Support
 
-Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, ~~IE 11+~~, and the evergreen Chrome, Firefox, and Edge.
+Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
 ![Browsers Support](./assets/browsers-support.png)
 
 [→ polyfills](https://github.com/webcomponents/webcomponentsjs)
+
+If you want to be compatible with IE11, use the Omi file of [→ this project](https://github.com/Tencent/omi/tree/ie11).This project uses JSON Diff + Timer instead of Proxy.
+
+You can dynamically load the JS of this project in the IE9 environment, and the proxy version is still used in other environments.
 
 ## Links
 

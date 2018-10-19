@@ -384,11 +384,15 @@ render(<todo-app></todo-app>, 'body', store)
 
 ## 浏览器兼容
 
-Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, ~~IE 11+~~, and the evergreen Chrome, Firefox, and Edge.
+Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
 ![Browsers Support](./assets/browsers-support.png)
 
 [→ polyfills](https://github.com/webcomponents/webcomponentsjs)
+
+如果你想兼容IE11,使用[→ 这个项目](https://github.com/Tencent/omi/tree/ie11)的 Omi 文件,这个项目使用 JSON Diff 和 定时器 代替 Proxy。
+
+你可以在 IE9 的环境动态加载这个项目的 js，其他环境依旧使用 proxy 版本。
 
 ## Links
 
