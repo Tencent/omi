@@ -1,6 +1,6 @@
 [English](./README.md) | 简体中文
 
-# Omi - 合一  
+# Omi - 合一  (支持IE11的版本)
 
 > 下一代 Web 框架，去万物糟粕，合精华为一。
 
@@ -16,7 +16,7 @@
 - 独创的 Path Updating 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 requestIdleCallback 
 - 使用 store 系统不需要调用 this.udpate，它会自动化按需更新局部视图
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
-- Shadom DOM 与 Virtual DOM 融合，Omi 既使用了虚拟 DOM，也是使用真实 Shadom DOM，让视图更新更准确更迅速
+- Shadow DOM 与 Virtual DOM 融合，Omi 既使用了虚拟 DOM，也是使用真实 Shadow DOM，让视图更新更准确更迅速
 - 类似 WeStore 体系，99.9% 的项目不需要什么时间旅行,也不仅仅 redux 能时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目
 - 局部 CSS 最佳解决方案(Shadow DOM)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:Radium，jsxstyle，react-style；与webpack绑定使用生成独特的className`文件名—类名—hash值`，如：CSS Modules，Vue)，都是 hack 技术；Shadow DOM Style 是最完美的方案
 

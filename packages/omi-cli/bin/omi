@@ -1,0 +1,111 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var program = require('commander');
+var join = require('path').join;
+var chalk = require('chalk');
+var exists = require('fs-exists-sync');
+var spawn = require('cross-spawn');
+
+var options = {
+    cmd: '',
+    projectName: '',
+    mirror: 'default',
+    language: 'en'
+}
+
+program
+    .version(require('../package').version, '-v, --version')
+    .usage('<cmd> [project-name]')
+    .option('-m, --mirror <mirror>', 'Select mirror like: npm, cnpm, taobao', /^(npm|cnpm|taobao|nj|rednpm|skimdb|yarn)$/i)
+    .option('-l, --language <language>', 'Select language: en / cn', selectLanguage)
+    .on('-h, --help', help);
+
+
+program
+    .command('init [projectName]')
+    .description('Initialize a new Omi application in the current folder')
+    .action(function(projectName, option){
+        var cmd = 'init';
+        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+            options.mirror = option.parent.mirror;
+        }
+        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
+    })
+
+program
+    .command('init-pr [projectName]')
+    .description('Initialize a new Omi-Pr in the current folder')
+    .action(function(projectName, option){
+        var cmd = 'init-pr';
+        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+            options.mirror = option.parent.mirror;
+        }
+        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
+    })
+
+program
+    .command('init-ssr [projectName]')
+    .description('Initialize a new omix project in the current folder')
+    .action(function(projectName, option){
+        var cmd = 'init-ssr';
+        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+            options.mirror = option.parent.mirror;
+        }
+        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
+    })
+
+program
+    .command('pr')
+    .description('Compile your omi project')
+    .action(function(option){
+        var cmd = 'pr';
+        switchCommand(cmd, {language: options.language})
+    })
+
+
+program
+    .command('*')
+    .action(function(){
+        spawn('omi', ['-h'], { stdio: 'inherit'})
+    })
+
+program.parse(process.argv);
+
+function switchCommand (cmd, args) {
+    if (cmd) {
+        require('../lib/' + cmd)(args);
+    } else {
+        setTimeout(program.help, 0);
+    }
+}
+
+function isCnFuc(language){
+    return language === "cn" ? true : false
+}
+
+function selectLanguage(language){
+    if(language !== 'en' && language !== 'cn'){
+        language = 'en';
+    }
+    options.language = language;
+    return language;
+}
+
+function executable(cmd) {
+    var file = join(__dirname, 'omi-' + cmd);
+    return exists(file) ? file : void 0;
+}
+
+function help() {
+    console.log('  Commands:');
+    console.log();
+    console.log(`     ${chalk.green('init  [project-name]')}           Initialize a new Omi application in the current folder `);
+    console.log(`     ${chalk.green('init-pr  [project-name]')}        Initialize a new Omi-Pr in the current folder `)
+    console.log(`     ${chalk.green('pr')}                             Compile your omi project `)
+    console.log();
+    console.log('  All commands can be run with -h (or --help) for more information.')
+}
+
+
