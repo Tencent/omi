@@ -1,0 +1,14 @@
+node_modules
+/node_modules
+/npm-debug.log
+.DS_Store
+/_dev
+/coverage
+package-lock.json
+/test/ts/**/*.js
+
+# Editor and IDE configuration
+.vscode/
+.idea/
+
+/plugins/*/node_modules
