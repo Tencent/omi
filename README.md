@@ -1,4 +1,4 @@
-English | [简体中文](./README.CN.md) 
+English | [简体中文](./README.CN.md)
 
 # Omi
 
@@ -12,13 +12,13 @@ English | [简体中文](./README.CN.md)
 - Support TypeScript    
 - Reactive data-binding
 - Compliance with browser trend and API design
-- Merge JSX and Web Components into One Framework 
+- Merge JSX and Web Components into One Framework
 - Web Components can also be a data-driven view, UI = fn(data)
 - JSX is the best development experience (code intelligent  completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals)
 - The original Path Updating system. Proxy-based automatic accurate update, low power consumption, high degree of freedom, excellent performance, easy integration of requestIdleCallback
-- Say goodbye to `this.update` method when using store system! It will update partial UI automatically when data changed. 
+- Say goodbye to `this.update` method when using store system! It will update partial UI automatically when data changed.
 - Look at [Facebook React VS Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi combines their advantages and gives developers the freedom to choose the way they like.
-- Shadom DOM merges with Virtual DOM, Omi uses both virtual DOM and real Shadom DOM to make view updates more accurate and faster
+- Shadow DOM merges with Virtual DOM, Omi uses both virtual DOM and real Shadow DOM to make view updates more accurate and faster
 - With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on redux, Omi store system can meet all projects
 - Scoped CSS's best solution is Shadow DOM, the community churning out frameworks and libraries for Scoped CSS (using JS or JSON writing styles such as Radium, jsxstyle, react-style; binding to webpack using generated unique className `filename-classname-hash', such as CSS Modules, Vue), are hack technologies; and Shadow DOM Style is the perfect solution.
 
@@ -158,11 +158,11 @@ class MyApp extends WeElement {
         return { abc: '', passToChild: '' }
     }
 
-    //bind CustomEvent 
+    //bind CustomEvent
     onAbc = (evt) => {
         // get evt data by evt.detail
         this.data.abc = ' by ' + evt.detail.name
-        this.update() 
+        this.update()
     }
 
     css() {
@@ -218,7 +218,7 @@ If your CSS file starts with "_", CSS will use to-string-loader., such as:
 ``` js
 import { tag, WeElement render } from 'omi'
 //typeof cssStr is string
-import cssStr from './_index.css' 
+import cssStr from './_index.css'
 
 @tag('my-app')
 class MyApp extends WeElement {
@@ -408,6 +408,6 @@ You can dynamically load the JS of this project in the IE9 environment, and the 
 
 ## License
 
-MIT © Tencent 
+MIT © Tencent
 
-Please contact me[@dntzhang](https://github.com/dntzhang) for any questions. 
+Please contact me[@dntzhang](https://github.com/dntzhang) for any questions.
