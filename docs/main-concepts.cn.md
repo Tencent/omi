@@ -8,6 +8,7 @@
 - [Custom Event](#custom-event)
 - [Ref](#ref)
 - [Store](#store)
+- [Slot](#slot)
 - [SSR](#ssr)
 
 ### My First Element
@@ -213,6 +214,42 @@ static get data() {
 ```
 
 纯元素！不会注入 store!
+
+### Slot
+
+HTML`<slot>'元素（Web组件技术套件的一部分）是Web组件内部的占位符，您可以用自己的标记填充该占位符，该标记允许您创建单独的DOM树并将它们一起呈现。
+
+```js
+import { tag, render, WeElement } from '../../src/omi'
+
+@tag('hello-element')
+class HelloElement extends WeElement {
+    render() {
+        return (
+            <div onClick={this.onClick}>
+                <p><slot name="my-text">My default text</slot></p>
+            </div>
+        )
+    }    
+}
+
+@tag('my-app')
+class MyApp extends WeElement {
+    render() {
+        return (
+            <div >
+                <hello-element>
+                    <span slot="my-text">Let's have some different text!</span>
+                </hello-element>
+            </div>
+        )
+    }
+}
+
+render(<my-app></my-app>, 'body')
+```
+
+[→ Slot MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots#Adding_flexibility_with_slots)
 
 ### SSR
 
