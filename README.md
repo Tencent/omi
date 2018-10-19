@@ -290,7 +290,7 @@ class TodoApp extends WeElement {
             text: this.data.text,
             id: Date.now()
         })
-        this.data.text = ''
+        this.data.text = '';
         this.update()
     }
 }
