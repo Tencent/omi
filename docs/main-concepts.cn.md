@@ -217,7 +217,7 @@ static get data() {
 
 ### Slot
 
-HTML`<slot>'元素（Web组件技术套件的一部分）是Web组件内部的占位符，您可以用自己的标记填充该占位符，该标记允许您创建单独的DOM树并将它们一起呈现。
+HTML`<slot>`元素（Web组件技术套件的一部分）是Web组件内部的占位符，您可以用自己的标记填充该占位符，该标记允许您创建单独的DOM树并将它们一起呈现。
 
 ```jsx
 import { tag, render, WeElement } from '../../src/omi'
