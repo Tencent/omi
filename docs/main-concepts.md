@@ -165,7 +165,7 @@ class MyFirstElement extends WeElement {
     }
 
     render(props, data) {
-        //data === this.store.data when using store stystem
+        //data === this.store.data when using store system
         return (
             <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
         )
