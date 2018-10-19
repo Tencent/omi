@@ -164,7 +164,7 @@ const store = {
 render(<my-first-element name="world"></my-first-element>, 'body', store)
 ```
 
-当使用 store 体系是，`static get data` 就仅仅被用来声明依赖，举个例子:
+当非纯 Element 使用 store 体系时，`static get data` 就仅仅被用来声明依赖，举个例子:
 
 ```js
 static get data() {
