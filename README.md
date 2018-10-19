@@ -2,9 +2,9 @@ English | [简体中文](./README.CN.md)
 
 # Omi
 
-> Next generation web framework in 4KB javascript(Merge JSX, Web Components, Proxy, Path Updating together).
+> Next generation web framework in 4KB javascript (**Merge JSX, Web Components, Proxy, Path Updating together**).
 
-<p align="center"><img src="./assets/omi.png" alt="omi"/></p>
+<p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="400"/></p>
 
 ### Why Omi？
 
