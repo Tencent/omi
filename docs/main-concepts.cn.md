@@ -8,7 +8,7 @@
 - [Custom Event](#custom-event)
 - [Ref](#ref)
 - [Store](#store)
-- [Slot](#slot)
+- [Slot](#slot)
 - [SSR](#ssr)
 
 ### My First Element
@@ -219,7 +219,7 @@ static get data() {
 
 HTML`<slot>'元素（Web组件技术套件的一部分）是Web组件内部的占位符，您可以用自己的标记填充该占位符，该标记允许您创建单独的DOM树并将它们一起呈现。
 
-```js
+```jsx
 import { tag, render, WeElement } from '../../src/omi'
 
 @tag('hello-element')
