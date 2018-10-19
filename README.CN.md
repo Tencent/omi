@@ -95,6 +95,14 @@
 </html>
 ```
 
+通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 `like-button` 标签：
+
+```jsx
+<body>
+    <like-button></like-button>
+</body>
+```
+
 ## Getting Started
 
 ### Install

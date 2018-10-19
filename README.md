@@ -97,6 +97,14 @@ This page demonstrates using Omi with no build tooling.
 </html>
 ```
 
+You can also use `like-button` tag directly in HTML：
+
+```jsx
+<body>
+    <like-button></like-button>
+</body>
+```
+
 ## Getting Started
 
 
