@@ -1,6 +1,6 @@
 English | [简体中文](./README.CN.md) 
 
-# Omi (Compatible with IE11)
+# Omi
 
 > Next generation web framework in 4KB javascript(Merge JSX, Web Components, Proxy, Path Updating together).
 
