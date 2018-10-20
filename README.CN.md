@@ -431,5 +431,5 @@ MIT © Tencent
 
 任何 Omi 相关问题欢迎联系我们:
 
-* [@dntzhang](https://github.com/dntzhang)
 * [@f](https://github.com/f)
+* [@dntzhang](https://github.com/dntzhang)

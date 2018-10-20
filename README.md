@@ -437,5 +437,6 @@ MIT © Tencent
 
 Please contact us for any questions:
 
-* [@dntzhang](https://github.com/dntzhang)
 * [@f](https://github.com/f)
+* [@dntzhang](https://github.com/dntzhang)
+
