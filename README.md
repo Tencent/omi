@@ -9,7 +9,7 @@ English | [简体中文](./README.CN.md)
 - Tiny size. *(**4kb** gzipped)*
 - Supports TypeScript.
 - Reactive data-binding
-- [Based on Shadow DOM](https://developers.google.cn/web/fundamentals/web-components/shadowdom)
+- [Based on Shadow DOM](https://developers.google.com/web/fundamentals/web-components/shadowdom)
 - Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
 - Compliance with browser trend and API design.
 - Merge **JSX** and **Web Components** into one framework.
