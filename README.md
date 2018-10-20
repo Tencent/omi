@@ -438,6 +438,14 @@ MIT © Tencent
 
 ## Contribution
 
+## Contributing
+
+1. Fork it (https://github.com/Tencent/omi/fork)
+2. Create your branch (`git checkout -b my-urgent-hotfix`)
+3. Commit your changes (`git commit -am 'Fixed something'`)
+4. Push to the branch (`git push origin my-urgent-hotfix`)
+5. Create a new Pull Request
+
 Please contact us for any questions:
 
 * [@f](https://github.com/f)
