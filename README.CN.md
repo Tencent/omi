@@ -32,15 +32,17 @@
 
 - [文档](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)
 - [一个 HTML 完全上手](#一个-html-完全上手)
-- [Getting Started](#getting-started)
-    - [Install](#install)
+- [快速入门](#快速入门)
+    - [安装](#安装)
 	- [Hello Element](#hello-element)
     - [TodoApp](#todoapp)
     - [Store](#store)
 	- [生命周期](#生命周期)
 - [生态](#生态)
+- [调试工具](#调试工具)
 - [浏览器兼容](#浏览器兼容)
-- [Links](#links)
+- [相关链接](#相关链接)
+- [贡献代码](#贡献代码)
 - [License](#license)
 
 ## 一个 HTML 完全上手
@@ -104,9 +106,9 @@
 </body>
 ```
 
-## Getting Started
+## 快速入门
 
-### Install
+### 安装
 
 ```bash
 $ npm i omi-cli -g               # install cli
@@ -407,6 +409,14 @@ render(<todo-app></todo-app>, 'body', store)
 
 在里面查找你想要的组件，直接使用，或者花几分钟就能转换成 Omi Element（把模板拷贝到 render 方法，style拷贝到 css 方法）。
 
+## 调试工具
+
+使用 [Omi 开发工具](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd) 可以非常简单地调试和管理你的 UI。不需要任何配置，你只要安装然后就能调试。
+
+既然  Omi 使用了 Web Components 和 Shadow-DOM, 所以不需要像 React 和 Vue 一样安装其他元素面板，只需要使用 Chrome 自带的 **Elements' sidebar** 便可，它和 React and Vue 开发者工具一样强大。
+
+![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
+
 ## 浏览器兼容
 
 Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
@@ -419,7 +429,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 > 你可以在 IE9 的环境动态加载这个项目的 js，其他环境依旧使用 proxy 版本。
 
-## Links
+## 相关链接
 
 - [westore](https://github.com/dntzhang/westore)
 - [omijs.org](http://omijs.org/)
