@@ -435,4 +435,7 @@ You can dynamically load the JS of this project in the IE9 environment, and the 
 
 MIT © Tencent
 
-Please contact me[@dntzhang](https://github.com/dntzhang) for any questions.
+Please contact us for any questions:
+
+* [@dntzhang](https://github.com/dntzhang)
+* [@f](https://github.com/f)
