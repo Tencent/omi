@@ -30,7 +30,6 @@
 
 ---
 
-- [文档](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)
 - [一个 HTML 完全上手](#一个-html-完全上手)
 - [快速入门](#快速入门)
     - [安装](#安装)
@@ -49,7 +48,8 @@
 
 下面这个页面不需要任何构建工具就可以执行
 
-* [点击这里看执行结果](https://tencent.github.io/omi/assets/)。
+* [点击这里看执行结果](https://tencent.github.io/omi/assets/)
+* [Omi 文档](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)
 * [Omi.js CDN](https://unpkg.com/omi)
 
 ```html
