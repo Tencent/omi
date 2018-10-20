@@ -11,7 +11,7 @@
 - 4KB 的代码尺寸，比小更小
 - 顺势而为，顺从浏览器的发展和 API 设计
 - [基于 Shadow Dom 设计](https://developers.google.cn/web/fundamentals/web-components/shadowdom?hl=zh-cn)
-- [Chrome DevTools Extension](https://github.com/f/omi-devtools)
+- [Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)[[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)]
 - Web Components + JSX 相互融合为一个框架 Omi
 - Web Components 也可以数据驱动视图, UI = fn(data)
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
@@ -423,7 +423,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 - [westore](https://github.com/dntzhang/westore)
 - [omijs.org](http://omijs.org/)
-- [Omi.js DevTools](https://github.com/f/omi-devtools)
+- [Omi.js 谷歌开发工具扩展 by F](https://github.com/f/omi-devtools)
 
 ## License
 
