@@ -1,53 +1,55 @@
 English | [简体中文](./README.CN.md)
 
-# Omi
+<p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
+<h2 align="center">Omi: Next Generation Web Framework in 4kb JavaScript</h2>
+<p align="center"><b>Merge JSX, Web Components, Proxy, Path Updating together</b></p>
 
-> Next generation web framework in 4KB javascript (**Merge JSX, Web Components, Proxy, Path Updating together**).
+## Why Omi?
 
-<p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="400"/></p>
-
-### Why Omi？
-
-- Tiny size(4KB gzip)
-- Support TypeScript    
+- Tiny size. *(**4kb** gzipped)*
+- Supports TypeScript.
 - Reactive data-binding
-- [Based on Shadow Dom](https://developers.google.cn/web/fundamentals/web-components/shadowdom)
-- [Chrome DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)]
-- Compliance with browser trend and API design
-- Merge JSX and Web Components into One Framework
-- Web Components can also be a data-driven view, UI = fn(data)
-- JSX is the best development experience (code intelligent  completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals)
-- The original Path Updating system. Proxy-based automatic accurate update, low power consumption, high degree of freedom, excellent performance, easy integration of requestIdleCallback
-- Say goodbye to `this.update` method when using store system! It will update partial UI automatically when data changed.
-- Look at [Facebook React VS Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi combines their advantages and gives developers the freedom to choose the way they like.
-- Shadow DOM merges with Virtual DOM, Omi uses both virtual DOM and real Shadow DOM to make view updates more accurate and faster
-- With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on redux, Omi store system can meet all projects
-- Scoped CSS's best solution is Shadow DOM, the community churning out frameworks and libraries for Scoped CSS (using JS or JSON writing styles such as Radium, jsxstyle, react-style; binding to webpack using generated unique className `filename-classname-hash', such as CSS Modules, Vue), are hack technologies; and Shadow DOM Style is the perfect solution.
+- [Based on Shadow DOM](https://developers.google.cn/web/fundamentals/web-components/shadowdom)
+- Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)]
+- Compliance with browser trend and API design.
+- Merge **JSX** and **Web Components** into one framework.
+- Web Components can also be a data-driven view, **`UI = fn(data)`**.
+- JSX is the best development experience (code intelligent  completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals).
+- The original **Path Updating** system. Proxy-based automatic **accurate** update, **low power consumption**, high degree of freedom, excellent performance, easy integration of `requestIdleCallback`
+- Say goodbye to `this.update` method when using **store system**! It will automatically update UI partially when data is changed.
+- Look at [Facebook React vs Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi **combines their advantages** and gives developers the **freedom to choose the way they like**.
+- **Shadow DOM merges with Virtual DOM**, Omi uses both virtual DOM and real Shadow DOM to make view updates more accurate and faster.
+- With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on Redux, Omi store system can meet all projects
+- **Scoped CSS**'s best solution is **Shadow DOM**, the community churning out frameworks and libraries for Scoped CSS (using JS or JSON writing styles such as Radium, jsxstyle, react-style; binding to webpack using generated unique `className` `filename-classname-hash`, such as CSS Modules, Vue), are hack technologies; *and Shadow DOM Style is the perfect solution*.
 
 Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
-![](./assets/omi-render.jpg) ![](./assets/react-render.jpg)
+| **Omi** | **React** |
+|-|-|
+| ![Omi](./assets/omi-render.jpg) | ![React](./assets/react-render.jpg) |
 
-On the left is Omi, the right side is React, and Omi uses Shadow DOM isolation style and semantic structure.
+On the left is Omi, the right side is React, and Omi uses Shadow DOM based style isolation and semantic structure.
 
 ---
 
-- [Docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)
+- [Why Omi?](#why-omi)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Getting Started](#getting-started)
     - [Install](#install)
-	- [Hello Element](#hello-element)
+    - [Hello Element](#hello-element)
     - [TodoApp](#todoapp)
     - [Store](#store)
-	- [Lifecycle](#lifecycle)
+        - [Summary：](#summary)
+    - [Lifecycle](#lifecycle)
 - [Component Ecosystem](#component-ecosystem)
 - [Browsers Support](#browsers-support)
 - [Links](#links)
 - [License](#license)
+- [Contribution](#contribution)
 
 ## Add Omi in One Minute
 
-This page demonstrates using Omi with no build tooling.
+This page demonstrates using Omi **with no build tooling**.
 
 * [Online Demo!](https://tencent.github.io/omi/assets/)
 * [Omi.js CDN](https://unpkg.com/omi)
@@ -102,7 +104,7 @@ You can also use `like-button` tag directly in HTML：
 
 ```jsx
 <body>
-    <like-button></like-button>
+  <like-button></like-button>
 </body>
 ```
 
@@ -133,11 +135,11 @@ Directory description:
 │  └─ index.js    //Entry js of compiler，will build to index.html
 ```
 
-Cli's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
+CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
 
 ### Hello Element
 
-Define a custom element:
+Define a custom element by extending **`WeElement`** base class and name it using **`@tag`** decorator:
 
 ```js
 import { tag, WeElement, render } from 'omi'
@@ -146,27 +148,27 @@ import { tag, WeElement, render } from 'omi'
 class HelloElement extends WeElement {
 
     onClick = (evt) => {
-        //trigger CustomEvent
+        // trigger CustomEvent
         this.fire('abc', { name : 'dntzhang', age: 12 })
         evt.stopPropagation()
     }
 
     css() {
-        return `
-         div{
-             color: red;
-             cursor: pointer;
-         }`
+      return `
+        div {
+          color: red;
+          cursor: pointer;
+        }`
     }
 
     render(props) {
-        return (
-            <div onClick={this.onClick}>
-                Hello {props.msg} {props.propFromParent}
-                <div>Click Me!</div>
-            </div>
-        )
-    }   
+      return (
+        <div onClick={this.onClick}>
+          Hello {props.msg} {props.propFromParent}
+          <div>Click Me!</div>
+        </div>
+      )
+    }
 }
 ```
 
@@ -178,42 +180,42 @@ import './hello-element'
 
 @tag('my-app')
 class MyApp extends WeElement {
-    static get data() {
-        return { abc: '', passToChild: '' }
-    }
+  static get data() {
+      return { abc: '', passToChild: '' }
+  }
 
-    //bind CustomEvent
-    onAbc = (evt) => {
-        // get evt data by evt.detail
-        this.data.abc = ' by ' + evt.detail.name
-        this.update()
-    }
+  // bind CustomEvent
+  onAbc = (evt) => {
+      // get evt data by evt.detail
+      this.data.abc = ` by ${evt.detail.name}`
+      this.update()
+  }
 
-    css() {
-        return `
-         div{
-             color: green;
-         }`
-    }
+  css() {
+    return `
+      div {
+        color: green;
+      }`
+  }
 
-    render(props, data) {
-        return (
-            <div>
-                Hello {props.name} {data.abc}
-                <hello-element onAbc={this.onAbc} prop-from-parent={data.passToChild} msg="WeElement"></hello-element>
-            </div>
-        )
-    }
+  render(props, data) {
+    return (
+      <div>
+        Hello {props.name} {data.abc}
+        <hello-element onAbc={this.onAbc} prop-from-parent={data.passToChild} msg="WeElement"></hello-element>
+      </div>
+    )
+  }
 }
 
 render(<my-app name='Omi v4.0'></my-app>, 'body')
 ```
 
-Tell Babel to transform JSX into Omi.h () call:
+Tell Babel to transform JSX into `Omi.h()` call:
 
 ``` json
 {
-    "presets": ["env", "omi"]
+  "presets": ["env", "omi"]
 }
 ```
 
@@ -224,24 +226,25 @@ The following two NPM packages need to be installed to support the above configu
 "babel-preset-omi": "^0.1.1",
 ```
 
-If you don't want to write CSS in js, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader),
+If you don't want to write CSS in JS, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader),
 For example, the following configuration:
 
 ``` js
 {
-    test: /[\\|\/]_[\S]*\.css$/,
-    use: [
-        'to-string-loader',
-        'css-loader'
-    ]
+  test: /[\\|\/]_[\S]*\.css$/,
+  use: [
+    'to-string-loader',
+    'css-loader'
+  ]
 }
 ```
 
-If your CSS file starts with "_", CSS will use to-string-loader., such as:
+If your CSS file starts with "`_`", CSS will use `to-string-loader`., such as:
 
 ``` js
 import { tag, WeElement render } from 'omi'
-//typeof cssStr is string
+
+// typeof cssStr is string
 import cssStr from './_index.css'
 
 @tag('my-app')
@@ -277,53 +280,54 @@ class TodoList extends WeElement {
 
 @tag('todo-app')
 class TodoApp extends WeElement {
-    static get data() {
-        return { items: [], text: '' }
+  static get data() {
+    return { items: [], text: '' }
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>TODO</h3>
+        <todo-list items={this.data.items} />
+        <form onSubmit={this.handleSubmit}>
+          <input
+            id="new-todo"
+            onChange={this.handleChange}
+            value={this.data.text}
+          />
+          <button>
+            Add #{this.data.items.length + 1}
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+  handleChange = (e) => {
+    this.data.text = e.target.value
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (!this.data.text.trim().length) {
+      return;
     }
 
-    render() {
-        return (
-            <div>
-                <h3>TODO</h3>
-                <todo-list items={this.data.items} />
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        id="new-todo"
-                        onChange={this.handleChange}
-                        value={this.data.text}
-                    />
-                    <button>
-                        Add #{this.data.items.length + 1}
-                    </button>
-                </form>
-            </div>
-        );
-    }
-
-    handleChange = (e) => {
-        this.data.text = e.target.value
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        if (!this.data.text.trim().length) {
-            return;
-        }
-        this.data.items.push({
-            text: this.data.text,
-            id: Date.now()
-        })
-        this.data.text = '';
-        this.update()
-    }
+    this.data.items.push({
+      text: this.data.text,
+      id: Date.now()
+    })
+    this.data.text = '';
+    this.update()
+  }
 }
 
-render(<todo-app></todo-app>, 'body')
+render(<todo-app/>, 'body')
 ```
 
 ### Store
 
-Say goodbye to `this.update` method when using store system! It will update partial UI automatically when data changed. The powerful Store architecture is high-performance because all data is mounted on the store, except for components that rely on props to determine the state of the component.
+Say goodbye to `this.update` method when using store system! It will automatically update the UI partially when data is changed. The powerful **Store architecture** is high-performanced since all the data is mounted on the store, except for components that rely on props to determine the state of the component.
 
 ```js
 export default {
@@ -335,13 +339,13 @@ export default {
     fullName: function () {
       return this.firstName + this.lastName
     },
-    globalPropTest: 'abc', //Change it will refresh all elements without changing the components and page declaring data dependency.
-    ccc: { ddd: 1 } //Change it will refresh all elements without changing the components and page declaring data dependency.
+    globalPropTest: 'abc', // Change it will refresh all elements without changing the components and page declaring data dependency.
+    ccc: { ddd: 1 } // Change it will refresh all elements without changing the components and page declaring data dependency.
   },
   globalData: ['globalPropTest', 'ccc.ddd'],
   add: function () {
     if (!this.data.text.trim().length) {
-        return;
+      return;
     }
     this.data.items.push({
       text: this.data.text,
@@ -349,8 +353,8 @@ export default {
     })
     this.data.text = ''
   }
-  //Default value is false, set to true will update all instances when data changing.
-  //updateAll: true
+  // Default value is false, set to true will update all instances when data changing.
+  // updateAll: true
 }
 ```
 
@@ -358,53 +362,51 @@ Custom Element requires declaring dependent data so that Omi stores compute the 
 
 ```js
 class TodoApp extends WeElement {
-    //If you use store, the data is only used to declare dependencies.
-    static get data() {
-        return { items: [], text: '' }
-    }
-    ...
-    ...
-    ...
-    handleChange = (e) => {
-        this.store.data.text = e.target.value
-    }
+  // If you use store, the data is only used to declare dependencies.
+  static get data() {
+    return { items: [], text: '' }
+  }
+  // ...
+  handleChange = (e) => {
+    this.store.data.text = e.target.value
+  }
 
-    handleSubmit = (e) => {
-        e.preventDefault()
-        this.store.add()
-    }
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.store.add()
+  }
 }
 ```
 
-* the logic of data is encapsulated in the store definition method (such as store.add).
-* views are only responsible for passing data to store, such as calling store.add or setting store.data.text on top.
+* The logic of data is **encapsulated in the store definition method** (such as `store.add`).
+* Views are only **responsible for passing data to store**, such as calling `store.add` or setting `store.data.text` on top.
 
-You need to inject store from the root node at render time to use this. store:
+You need to inject `store` from the root node at render time to use this store:
 
 ```js
-render(<todo-app></todo-app>, 'body', store)
+render(<todo-app/>, 'body', store)
 ```
 
-[→ Store Full Code](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js)
+[→ Store Source Code](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js)
 
 
 
-Summary：
+#### Summary：
 
-* store.data is used to list all attributes and default values (except the components of the view decided by props).
-* The data of the component and page is used to list the attributes of the dependent store.data (Omi will record path) and update on demand.
-* If there are few simple components on the page, updateAll can be set to true, and components and pages don't need to declare data, and they don't update on demand
-* The path declared in globalData refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties Path
+* `store.data` is used to list all attributes and default values (except the components of the view decided by props).
+* The data of the component and page is used to list the attributes of the dependent store.data *(Omi will record path)* and update on demand.
+* If there are few simple components on the page, `updateAll` can be set to `true`, and components and pages don't need to declare data, and they don't update on demand
+* The path declared in `globalData` refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties path
 
 ### Lifecycle
 
-| Lifecycle method            | When it gets called                              |
-|-------------------------------|--------------------------------------------------|
-| `install`        | before the component gets mounted to the DOM     |
-| `installed`         | after the component gets mounted to the DOM      |
-| `uninstall`      | prior to removal from the DOM                    |
-| `beforeUpdate`       | before `render()`                                |
-| `afterUpdate`        | after `render()`                                 |
+| Lifecycle method | When it gets called |
+|-|-|
+| `install` | before the component gets mounted to the DOM |
+| `installed` | after the component gets mounted to the DOM |
+| `uninstall` | prior to removal from the DOM |
+| `beforeUpdate` | before `render()` |
+| `afterUpdate` | after `render()` |
 
 ## Component Ecosystem
 
@@ -419,23 +421,30 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 ![Browsers Support](./assets/browsers-support.png)
 
-[→ polyfills](https://github.com/webcomponents/webcomponentsjs)
+[→ Polyfills](https://github.com/webcomponents/webcomponentsjs)
 
-If you want to be compatible with IE11, use the Omi file of [→ this project](https://github.com/Tencent/omi/tree/master/packages/omi-ie11).This project uses JSON Diff + Timer instead of Proxy.
+> If you want to be compatible with IE11, use the Omi file of [→ this project](https://github.com/Tencent/omi/tree/master/packages/omi-ie11). This project uses JSON Diff + Timer instead of Proxy.
 
-You can dynamically load the JS of this project in the IE9 environment, and the proxy version is still used in other environments.
+> You can dynamically load the JS of this project in the IE9 environment, and the proxy version is still used in other environments.
 
 ## Links
 
 - [omijs.org](http://omijs.org/)
 - [Omi.js DevTools](https://github.com/f/omi-devtools)
 
-## License
+## Contribution
 
-MIT © Tencent
+1. Fork it (https://github.com/Tencent/omi/fork)
+2. Create your branch (`git checkout -b my-urgent-hotfix`)
+3. Commit your changes (`git commit -am 'Fixed something'`)
+4. Push to the branch (`git push origin my-urgent-hotfix`)
+5. Create a new Pull Request
 
 Please contact us for any questions:
 
 * [@f](https://github.com/f)
 * [@dntzhang](https://github.com/dntzhang)
 
+## License
+
+MIT © Tencent
