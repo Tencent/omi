@@ -432,13 +432,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 - [omijs.org](http://omijs.org/)
 - [Omi.js DevTools](https://github.com/f/omi-devtools)
 
-## License
-
-MIT © Tencent
-
 ## Contribution
-
-## Contributing
 
 1. Fork it (https://github.com/Tencent/omi/fork)
 2. Create your branch (`git checkout -b my-urgent-hotfix`)
@@ -450,3 +444,7 @@ Please contact us for any questions:
 
 * [@f](https://github.com/f)
 * [@dntzhang](https://github.com/dntzhang)
+
+## License
+
+MIT © Tencent
