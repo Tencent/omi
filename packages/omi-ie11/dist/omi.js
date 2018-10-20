@@ -281,7 +281,9 @@
     }
     function render(vnode, parent, store) {
         function execTask(deadline) {
-            while (deadline.timeRemaining() > 0) store.update();
+            while (deadline.timeRemaining() > 0) list.forEach(function(currentStore) {
+                currentStore.update();
+            });
             setTimeout(function() {
                 requestIdleCallback(execTask);
             }, 200);
@@ -290,11 +292,15 @@
         if (store) {
             store.instances = [];
             extendStoreUpate(store);
-            options.store = store;
             store.originData = JSON.parse(JSON.stringify(store.data));
         }
+        parent.store = store;
         diff(null, vnode, {}, !1, parent, !1);
-        if (store) requestIdleCallback(execTask);
+        list.push(store);
+        if (store && !tick) {
+            requestIdleCallback(execTask);
+            tick = !0;
+        }
     }
     function extendStoreUpate(store) {
         store.update = function() {
@@ -377,7 +383,6 @@
         };
     }
     var options = {
-        store: null,
         root: function() {
             if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) {
                 if ('undefined' != typeof self) return self; else if ('undefined' != typeof window) return window; else if ('undefined' != typeof global) return global;
@@ -430,8 +435,14 @@
         }
         _inherits(WeElement, _HTMLElement);
         WeElement.prototype.connectedCallback = function() {
-            this.store = options.store;
-            if (this.store) this.store.instances.push(this);
+            if (!this.constructor.pure) {
+                var p = this.parentNode;
+                while (p && !this.store) {
+                    this.store = p.store;
+                    p = p.parentNode || p.host;
+                }
+                if (this.store) this.store.instances.push(this);
+            }
             this.install();
             var shadowRoot = this.attachShadow({
                 mode: 'open'
@@ -465,6 +476,8 @@
         WeElement.prototype.afterUpdate = function() {};
         return WeElement;
     }(HTMLElement);
+    var list = [];
+    var tick = !1;
     options.root.Omi = {
         tag: tag,
         WeElement: WeElement,

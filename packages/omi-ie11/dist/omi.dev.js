@@ -1,5 +1,5 @@
 /**
- * omi v4.0.1  http://omijs.org
+ * omi v4.0.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -33,8 +33,6 @@
 	 *	@namespace options {Object}
 	 */
     var options = {
-
-		store: null,
 
 		root: getGlobal()
 		//componentChange(component, element) { },
@@ -673,10 +671,17 @@
 		}
 
 		WeElement.prototype.connectedCallback = function connectedCallback() {
-			this.store = options.store;
-			if (this.store) {
-				this.store.instances.push(this);
+			if (!this.constructor.pure) {
+				var p = this.parentNode;
+				while (p && !this.store) {
+					this.store = p.store;
+					p = p.parentNode || p.host;
+				}
+				if (this.store) {
+					this.store.instances.push(this);
+				}
 			}
+
 			this.install();
 
 			var shadowRoot = this.attachShadow({ mode: 'open' });
@@ -825,23 +830,30 @@
 	    return Object.prototype.toString.call(obj);
 	}
 
+    var list = [];
+    var tick = false;
+
     function render(vnode, parent, store) {
 	    parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 	    if (store) {
 	        store.instances = [];
 	        extendStoreUpate(store);
-	        options.store = store;
 	        store.originData = JSON.parse(JSON.stringify(store.data));
 	    }
+	    parent.store = store;
 	    diff(null, vnode, {}, false, parent, false);
+	    list.push(store);
 
-	    if (store) {
+	    if (store && !tick) {
 	        requestIdleCallback(execTask);
+	        tick = true;
 	    }
 
 	    function execTask(deadline) {
 	        while (deadline.timeRemaining() > 0) {
-	            store.update();
+	            list.forEach(function (currentStore) {
+	                currentStore.update();
+	            });
 	        }
 	        setTimeout(function () {
 	            requestIdleCallback(execTask);
