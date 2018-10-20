@@ -18,7 +18,7 @@ function init(args){
     var omiCli = chalk.bold.cyan("Omi-Cli");
     var isCn = isCnFun(args.language);
     var customPrjName = args.project || '';
-    var tpl = join(__dirname, '../template/ssr');
+    var tpl = join(__dirname, '../template/app-ts');
     var dest = join(process.cwd(), customPrjName);
     var projectName = basename(dest);
     var mirror = args.mirror;
