@@ -15,7 +15,7 @@ options.root.Omi = {
 	define
 }
 
-options.root.Omi.version = '4.0.1'
+options.root.Omi.version = '4.0.3'
 
 export default {
 	tag,
