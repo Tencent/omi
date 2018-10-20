@@ -1,26 +1,25 @@
 
 import { diff } from './vdom/diff'
-import options from './options'
 import JSONProxy from './proxy'
 
 let timeout = null
 let patchs = {}
 
-const handler = function (patch) {
+const handler = function (patch, store) {
 
 	clearTimeout(timeout)
 	if (patch.op === 'remove') {//fix arr splice
-		const kv = getArrayPatch(patch.path)
+		const kv = getArrayPatch(patch.path, store)
 		patchs[kv.k] = kv.v
 		timeout = setTimeout(() => {
-			update(patchs)
+			update(patchs, store)
 			patchs = {}
 		})
 	} else {
 		const key = fixPath(patch.path)
 		patchs[key] = patch.value
 		timeout = setTimeout(() => {
-			update(patchs)
+			update(patchs, store)
 			patchs = {}
 		})
 	}
@@ -31,14 +30,16 @@ export function render(vnode, parent, store) {
 	if (store) {
 		store.instances = []
 		extendStoreUpate(store)
-		options.store = store
-		store.data = new JSONProxy(store.data).observe(true, handler)
+		store.data = new JSONProxy(store.data).observe(true, (patch) => {
+			handler(patch, store)
+		})
+		parent.store = store
 	}
 	diff(null, vnode, {}, false, parent, false)
 }
 
-function update(patch) {
-	options.store.update(patch)
+function update(patch, store) {
+	store.update(patch)
 }
 
 function extendStoreUpate(store) {
@@ -113,9 +114,9 @@ export function fixPath(path) {
 	return mpPath
 }
 
-function getArrayPatch(path) {
+function getArrayPatch(path, store) {
 	const arr = path.replace('/', '').split('/')
-	let current = options.store.data[arr[0]]
+	let current = store.data[arr[0]]
 	for (let i = 1, len = arr.length; i < len - 1; i++) {
 		current = current[arr[i]]
 	}
