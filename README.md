@@ -12,7 +12,7 @@ English | [简体中文](./README.CN.md)
 - Support TypeScript    
 - Reactive data-binding
 - [Based on Shadow Dom](https://developers.google.cn/web/fundamentals/web-components/shadowdom)
-- [Chrome DevTools Extension](https://github.com/f/omi-devtools)
+- [Chrome DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)]
 - Compliance with browser trend and API design
 - Merge JSX and Web Components into One Framework
 - Web Components can also be a data-driven view, UI = fn(data)
