@@ -20,8 +20,6 @@ function getGlobal() {
  *	@namespace options {Object}
  */
 export default {
-
-	store: null,
 	
 	root: getGlobal()
 	//componentChange(component, element) { },

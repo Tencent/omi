@@ -1,6 +1,5 @@
 import { cssToDom, nProps } from './util'
 import { diff } from './vdom/diff'
-import options from './options'
 
 export default class WeElement extends HTMLElement {
 	constructor() {
@@ -10,10 +9,17 @@ export default class WeElement extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.store = options.store
-		if (this.store){
-			this.store.instances.push(this)
+		if (!this.constructor.pure) {
+			let p = this.parentNode
+			while (p && !this.store) {
+				this.store = p.store
+				p = p.parentNode || p.host
+			}
+			if (this.store) {
+				this.store.instances.push(this)
+			}
 		}
+		
 		this.install()
         
 		const shadowRoot = this.attachShadow({ mode: 'open' })

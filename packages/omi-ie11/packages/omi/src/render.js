@@ -1,24 +1,30 @@
 import { diff } from './vdom/diff'
-import options from './options'
 import jsonDiff from './json-diff'
+
+const list = []
+let tick = false
 
 export function render(vnode, parent, store) {
 	parent = typeof parent === 'string' ? document.querySelector(parent) : parent
 	if(store){
 		store.instances = []
 		extendStoreUpate(store)
-		options.store = store
 		store.originData = JSON.parse(JSON.stringify(store.data))	
-	}
+    }
+    parent.store = store
     diff(null, vnode, {}, false, parent, false)
-    
-    if(store){
+    list.push(store)
+
+    if(store && !tick){
         requestIdleCallback(execTask)
+        tick = true
     }
       
     function execTask(deadline){
         while (deadline.timeRemaining() > 0){
-            store.update()
+            list.forEach(currentStore => {
+                currentStore.update()
+            })
         }
         setTimeout(function(){
             requestIdleCallback(execTask)
@@ -26,8 +32,6 @@ export function render(vnode, parent, store) {
         
     }
 } 
-
-
 
 function extendStoreUpate(store){
 	store.update = function(){
