@@ -12,6 +12,7 @@ English | [简体中文](./README.CN.md)
 - Support TypeScript    
 - Reactive data-binding
 - [Based on Shadow Dom](https://developers.google.cn/web/fundamentals/web-components/shadowdom)
+- [Chrome DevTools Extension](https://github.com/f/omi-devtools)
 - Compliance with browser trend and API design
 - Merge JSX and Web Components into One Framework
 - Web Components can also be a data-driven view, UI = fn(data)
@@ -22,7 +23,6 @@ English | [简体中文](./README.CN.md)
 - Shadow DOM merges with Virtual DOM, Omi uses both virtual DOM and real Shadow DOM to make view updates more accurate and faster
 - With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on redux, Omi store system can meet all projects
 - Scoped CSS's best solution is Shadow DOM, the community churning out frameworks and libraries for Scoped CSS (using JS or JSON writing styles such as Radium, jsxstyle, react-style; binding to webpack using generated unique className `filename-classname-hash', such as CSS Modules, Vue), are hack technologies; and Shadow DOM Style is the perfect solution.
-- [Chrome DevTools Extension](https://github.com/f/omi-devtools)
 
 Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
