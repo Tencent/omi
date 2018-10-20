@@ -39,7 +39,7 @@
 
 export function cssToDom(css) {
 	const node = document.createElement('style')
-	node.innerText = css
+	node.textContent = css
 	return node
 }
 
