@@ -1,10 +1,8 @@
 [English](./README.md) | 简体中文
 
-# Omi - 合一  
-
-> 下一代 Web 框架，去万物糟粕，合精华为一。
-
-<p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="400"/></p>
+<p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
+<h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一</h2>
+<p align="center"><b>让 JSX, Web Components, Proxy, Store, Path Updating 在一起</b></p>
 
 ### 特性
 
@@ -24,7 +22,9 @@
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构:
 
-![](./assets/omi-render.jpg) ![](./assets/react-render.jpg)
+| **Omi** | **React** |
+|-|-|
+| ![Omi](./assets/omi-render.jpg) | ![React](./assets/react-render.jpg) |
 
 左边是Omi，右边是 React，Omi 使用 Shadow DOM 隔离样式和语义化结构。
 
@@ -425,11 +425,19 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 - [omijs.org](http://omijs.org/)
 - [Omi.js 谷歌开发工具扩展 by F](https://github.com/f/omi-devtools)
 
-## License
+## 贡献代码
 
-MIT © Tencent 
+1. 先 Fork (https://github.com/Tencent/omi/fork)
+2. 创建分支 (`git checkout -b my-urgent-hotfix`)
+3. 提交更改 (`git commit -am 'Fixed something'`)
+4. 推送更改 (`git push origin my-urgent-hotfix`)
+5. 创建一个 Pull Request
 
 任何 Omi 相关问题欢迎联系我们:
 
 * [@f](https://github.com/f)
 * [@dntzhang](https://github.com/dntzhang)
+
+## License
+
+MIT © Tencent 
