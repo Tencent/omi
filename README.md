@@ -396,7 +396,7 @@ render(<todo-app/>, 'body', store)
 #### Summary：
 
 * `store.data` is used to list all attributes and default values (except the components of the view decided by props).
-* The data of the component and page is used to list the attributes of the dependent store.data *(Omi will record path)* and update on demand.
+* The static data of the element is used to list the attributes of the dependent store.data *(Omi will record path)* and update on demand.
 * If there are few simple components on the page, `updateAll` can be set to `true`, and components and pages don't need to declare data, and they don't update on demand
 * The path declared in `globalData` refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties path
 
