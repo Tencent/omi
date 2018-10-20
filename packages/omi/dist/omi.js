@@ -237,13 +237,15 @@
         if (store) {
             store.instances = [];
             extendStoreUpate(store);
-            options.store = store;
-            store.data = new JSONPatcherProxy(store.data).observe(!0, handler);
+            store.data = new JSONPatcherProxy(store.data).observe(!0, function(patch) {
+                handler(patch, store);
+            });
+            parent.store = store;
         }
         diff(null, vnode, {}, !1, parent, !1);
     }
-    function update(patch) {
-        options.store.update(patch);
+    function update(patch, store) {
+        store.update(patch);
     }
     function extendStoreUpate(store) {
         store.update = function(patch) {
@@ -287,9 +289,9 @@
         });
         return mpPath;
     }
-    function getArrayPatch(path) {
+    function getArrayPatch(path, store) {
         var arr = path.replace('/', '').split('/');
-        var current = options.store.data[arr[0]];
+        var current = store.data[arr[0]];
         for (var i = 1, len = arr.length; i < len - 1; i++) current = current[arr[i]];
         return {
             k: fixArrPath(path),
@@ -383,8 +385,14 @@
         }
         _inherits(WeElement, _HTMLElement);
         WeElement.prototype.connectedCallback = function() {
-            this.store = options.store;
-            if (this.store) this.store.instances.push(this);
+            if (!this.constructor.pure) {
+                var p = this.parentNode;
+                while (p && !this.store) {
+                    this.store = p.store;
+                    p = p.parentNode || p.host;
+                }
+                if (this.store) this.store.instances.push(this);
+            }
             this.install();
             var shadowRoot = this.attachShadow({
                 mode: 'open'
@@ -615,20 +623,20 @@
     }();
     var timeout = null;
     var patchs = {};
-    var handler = function(patch) {
+    var handler = function(patch, store) {
         clearTimeout(timeout);
         if ('remove' === patch.op) {
-            var kv = getArrayPatch(patch.path);
+            var kv = getArrayPatch(patch.path, store);
             patchs[kv.k] = kv.v;
             timeout = setTimeout(function() {
-                update(patchs);
+                update(patchs, store);
                 patchs = {};
             });
         } else {
             var key = fixPath(patch.path);
             patchs[key] = patch.value;
             timeout = setTimeout(function() {
-                update(patchs);
+                update(patchs, store);
                 patchs = {};
             });
         }

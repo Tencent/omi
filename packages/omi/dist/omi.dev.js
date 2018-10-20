@@ -1,5 +1,5 @@
 /**
- * omi v4.0.1  http://omijs.org
+ * omi v4.0.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -654,10 +654,17 @@
 		}
 
 		WeElement.prototype.connectedCallback = function connectedCallback() {
-			this.store = options.store;
-			if (this.store) {
-				this.store.instances.push(this);
+			if (!this.constructor.pure) {
+				var p = this.parentNode;
+				while (p && !this.store) {
+					this.store = p.store;
+					p = p.parentNode || p.host;
+				}
+				if (this.store) {
+					this.store.instances.push(this);
+				}
 			}
+
 			this.install();
 
 			var shadowRoot = this.attachShadow({ mode: 'open' });
@@ -1065,22 +1072,22 @@
     var timeout = null;
     var patchs = {};
 
-    var handler = function handler(patch) {
+    var handler = function handler(patch, store) {
 
 		clearTimeout(timeout);
 		if (patch.op === 'remove') {
 			//fix arr splice
-			var kv = getArrayPatch(patch.path);
+			var kv = getArrayPatch(patch.path, store);
 			patchs[kv.k] = kv.v;
 			timeout = setTimeout(function () {
-				update(patchs);
+				update(patchs, store);
 				patchs = {};
 			});
 		} else {
 			var key = fixPath(patch.path);
 			patchs[key] = patch.value;
 			timeout = setTimeout(function () {
-				update(patchs);
+				update(patchs, store);
 				patchs = {};
 			});
 		}
@@ -1091,14 +1098,16 @@
 		if (store) {
 			store.instances = [];
 			extendStoreUpate(store);
-			options.store = store;
-			store.data = new JSONPatcherProxy(store.data).observe(true, handler);
+			store.data = new JSONPatcherProxy(store.data).observe(true, function (patch) {
+				handler(patch, store);
+			});
+			parent.store = store;
 		}
 		diff(null, vnode, {}, false, parent, false);
 	}
 
-    function update(patch) {
-		options.store.update(patch);
+    function update(patch, store) {
+		store.update(patch);
 	}
 
     function extendStoreUpate(store) {
@@ -1174,9 +1183,9 @@
 		return mpPath;
 	}
 
-    function getArrayPatch(path) {
+    function getArrayPatch(path, store) {
 		var arr = path.replace('/', '').split('/');
-		var current = options.store.data[arr[0]];
+		var current = store.data[arr[0]];
 		for (var i = 1, len = arr.length; i < len - 1; i++) {
 			current = current[arr[i]];
 		}
