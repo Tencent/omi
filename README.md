@@ -427,7 +427,6 @@ You can dynamically load the JS of this project in the IE9 environment, and the 
 
 ## Links
 
-- [westore](https://github.com/dntzhang/westore)
 - [omijs.org](http://omijs.org/)
 - [Omi.js DevTools](https://github.com/f/omi-devtools)
 
