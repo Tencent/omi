@@ -1,8 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 841.9 595.3">
-    <g fill="#61DAFB">
-        <circle cx="420.9" cy="296.5" r="245.7"/>
-    </g>
-    <g fill="black">
-        <circle cx="420.9" cy="296.5" r="165.7"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="529px" height="529px" viewBox="0 0 529 529" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>OMI</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFD4DE" offset="0%"></stop>
+            <stop stop-color="#D0021B" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#00375E" offset="0%"></stop>
+            <stop stop-color="#9ECAFD" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#B4EC51" offset="0%"></stop>
+            <stop stop-color="#429321" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="OMI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M360.461194,392.400665 L331.766299,363.852923 C362.137315,342.610697 382,307.374938 382,267.5 C382,242.280821 374.054892,218.917322 360.531177,199.776002 L264.653589,295.653589 L249.205844,280.205844 L249.063708,280.34798 L168.478308,199.762579 C154.948823,218.906399 147,242.274926 147,267.5 C147,307.374938 166.862685,342.610697 197.233701,363.852923 L168.538806,392.400665 C131.116001,363.605836 107,318.369215 107,267.5 C107,216.869975 130.889745,171.819699 168.011797,143.006609 L222.432893,197.148622 L264.511454,239.227182 L311.034034,192.704602 L360.988203,143.006609 C398.110255,171.819699 422,216.869975 422,267.5 C422,318.369215 397.883999,363.605836 360.461194,392.400665 Z" id="M" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+        <path d="M264.5,472 C149.900914,472 57,379.099086 57,264.5 C57,149.900914 149.900914,57 264.5,57 C379.099086,57 472,149.900914 472,264.5 C472,379.099086 379.099086,472 264.5,472 Z M263.5,436 C357.112265,436 433,360.112265 433,266.5 C433,172.887735 357.112265,97 263.5,97 C169.887735,97 94,172.887735 94,266.5 C94,360.112265 169.887735,436 263.5,436 Z" id="O" fill="url(#linearGradient-2)" fill-rule="nonzero"></path>
+        <circle id="I-Dot" fill="url(#linearGradient-3)" fill-rule="nonzero" cx="319" cy="142" r="20"></circle>
     </g>
 </svg>
