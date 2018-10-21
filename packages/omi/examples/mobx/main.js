@@ -21,23 +21,25 @@ class TodoApp extends WeElement {
 		return { items: [], text: "" };
 	}
 
-	render() {
-		console.log(111);
-		return (
-			<div>
-				<h3>TODO</h3>
-				<todo-list items={this.data.items} />
-				<form onSubmit={this.handleSubmit}>
-					<input
-						id="new-todo"
-						onChange={this.handleChange}
-						value={this.data.text}
-					/>
-					<button>Add #{this.data.items.length + 1}</button>
-				</form>
-			</div>
-		);
-	}
+    render() {
+        console.log('render')
+        return (
+            <div>
+                <h3>TODO</h3>
+                <todo-list items={this.data.items} />
+                <form onSubmit={this.handleSubmit}>
+                    <input
+                        id="new-todo"
+                        onChange={this.handleChange}
+                        value={this.data.text}
+                    />
+                    <button>
+                        Add #{this.data.items.length + 1}
+                    </button>
+                </form>
+            </div>
+        )
+    }
 
 	handleChange = e => {
 		this.data.text = e.target.value;
