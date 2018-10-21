@@ -10,15 +10,8 @@
 function VNode() {}
 
 function getGlobal() {
-	if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
-		if (typeof self !== 'undefined') {
-			return self;
-		} else if (typeof window !== 'undefined') {
-			return window;
-		} else if (typeof global !== 'undefined') {
-			return global;
-		}
-		return function () {
+	if (typeof global !== "object" || !global || global.Math !== Math || global.Array !== Array) {
+		return self || window || global || function () {
 			return this;
 		}();
 	}
@@ -30,29 +23,8 @@ function getGlobal() {
  *	@namespace options {Object}
  */
 var options = {
-
+	store: null,
 	root: getGlobal()
-	//componentChange(component, element) { },
-	/** If `true`, `prop` changes trigger synchronous component updates.
-  *	@name syncComponentUpdates
-  *	@type Boolean
-  *	@default true
-  */
-	//syncComponentUpdates: true,
-
-	/** Processes all created VNodes.
-  *	@param {VNode} vnode	A newly-created VNode to normalize/process
-  */
-	//vnode(vnode) { }
-
-	/** Hook invoked after a component is mounted. */
-	//afterMount(component) { },
-
-	/** Hook invoked after the DOM is updated with a component's latest render. */
-	//afterUpdate(component) { }
-
-	/** Hook invoked immediately before a component is unmounted. */
-	// beforeUnmount(component) { }
 };
 
 var stack = [];
@@ -77,10 +49,10 @@ function h(nodeName, attributes) {
 				stack.push(child[i]);
 			}
 		} else {
-			if (typeof child === 'boolean') child = null;
+			if (typeof child === "boolean") child = null;
 
-			if (simple = typeof nodeName !== 'function') {
-				if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
+			if (simple = typeof nodeName !== "function") {
+				if (child == null) child = "";else if (typeof child === "number") child = String(child);else if (typeof child !== "string") simple = false;
 			}
 
 			if (simple && lastSimple) {
@@ -130,7 +102,7 @@ function h(nodeName, attributes) {
 	window.Reflect === undefined || window.customElements === undefined ||
 	// The webcomponentsjs custom elements polyfill doesn't require
 	// ES2015-compatible construction (`super()` or `Reflect.construct`).
-	window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+	window.customElements.hasOwnProperty("polyfillWrapFlushCallback")) {
 		return;
 	}
 	var BuiltInHTMLElement = HTMLElement;
@@ -162,7 +134,7 @@ window.cancelIdleCallback = window.cancelIdleCallback || function (id) {
 };
 
 function cssToDom(css) {
-	var node = document.createElement('style');
+	var node = document.createElement("style");
 	node.innerText = css;
 	return node;
 }
@@ -179,7 +151,7 @@ function npn(str) {
  */
 function applyRef(ref, value) {
 	if (ref != null) {
-		if (typeof ref == 'function') ref(value);else ref.current = value;
+		if (typeof ref == "function") ref(value);else ref.current = value;
 	}
 }
 
@@ -189,10 +161,10 @@ function applyRef(ref, value) {
  * otherwise falling back to `setTimeout` (mainly for IE<11).
  * @type {(callback: function) => void}
  */
-var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+var defer = typeof Promise == "function" ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
 function isArray(obj) {
-	return Object.prototype.toString.call(obj) === '[object Array]';
+	return Object.prototype.toString.call(obj) === "[object Array]";
 }
 
 function nProps(props) {
@@ -216,13 +188,13 @@ var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/
  * @private
  */
 function isSameNodeType(node, vnode, hydrating) {
-  if (typeof vnode === 'string' || typeof vnode === 'number') {
-    return node.splitText !== undefined;
-  }
-  if (typeof vnode.nodeName === 'string') {
-    return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
-  }
-  return hydrating || node._componentConstructor === vnode.nodeName;
+	if (typeof vnode === "string" || typeof vnode === "number") {
+		return node.splitText !== undefined;
+	}
+	if (typeof vnode.nodeName === "string") {
+		return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+	}
+	return hydrating || node._componentConstructor === vnode.nodeName;
 }
 
 /**
@@ -232,7 +204,7 @@ function isSameNodeType(node, vnode, hydrating) {
  * @param {String} nodeName	Unnormalized name to compare against.
  */
 function isNamedNode(node, nodeName) {
-  return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
+	return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
 }
 
 /**
@@ -268,7 +240,7 @@ function isNamedNode(node, nodeName) {
  */
 function createNode(nodeName, isSvg) {
 	/** @type {PreactElement} */
-	var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
+	var node = isSvg ? document.createElementNS("http://www.w3.org/2000/svg", nodeName) : document.createElement(nodeName);
 	node.normalizedNodeName = nodeName;
 	return node;
 }
@@ -295,33 +267,33 @@ function removeNode(node) {
  * @private
  */
 function setAccessor(node, name, old, value, isSvg) {
-	if (name === 'className') name = 'class';
+	if (name === "className") name = "class";
 
-	if (name === 'key') {
+	if (name === "key") {
 		// ignore
-	} else if (name === 'ref') {
+	} else if (name === "ref") {
 		applyRef(old, null);
 		applyRef(value, node);
-	} else if (name === 'class' && !isSvg) {
-		node.className = value || '';
-	} else if (name === 'style') {
-		if (!value || typeof value === 'string' || typeof old === 'string') {
-			node.style.cssText = value || '';
+	} else if (name === "class" && !isSvg) {
+		node.className = value || "";
+	} else if (name === "style") {
+		if (!value || typeof value === "string" || typeof old === "string") {
+			node.style.cssText = value || "";
 		}
-		if (value && typeof value === 'object') {
-			if (typeof old !== 'string') {
+		if (value && typeof value === "object") {
+			if (typeof old !== "string") {
 				for (var i in old) {
-					if (!(i in value)) node.style[i] = '';
+					if (!(i in value)) node.style[i] = "";
 				}
 			}
 			for (var i in value) {
-				node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+				node.style[i] = typeof value[i] === "number" && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + "px" : value[i];
 			}
 		}
-	} else if (name === 'dangerouslySetInnerHTML') {
-		if (value) node.innerHTML = value.__html || '';
-	} else if (name[0] == 'o' && name[1] == 'n') {
-		var useCapture = name !== (name = name.replace(/Capture$/, ''));
+	} else if (name === "dangerouslySetInnerHTML") {
+		if (value) node.innerHTML = value.__html || "";
+	} else if (name[0] == "o" && name[1] == "n") {
+		var useCapture = name !== (name = name.replace(/Capture$/, ""));
 		name = name.toLowerCase().substring(2);
 		if (value) {
 			if (!old) node.addEventListener(name, eventProxy, useCapture);
@@ -329,23 +301,23 @@ function setAccessor(node, name, old, value, isSvg) {
 			node.removeEventListener(name, eventProxy, useCapture);
 		}
 		(node._listeners || (node._listeners = {}))[name] = value;
-	} else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
+	} else if (name !== "list" && name !== "type" && !isSvg && name in node) {
 		// Attempt to set a DOM property to the given value.
 		// IE & FF throw for certain property-value combinations.
 		try {
-			node[name] = value == null ? '' : value;
+			node[name] = value == null ? "" : value;
 		} catch (e) {}
-		if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
+		if ((value == null || value === false) && name != "spellcheck") node.removeAttribute(name);
 	} else {
-		var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
+		var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ""));
 		// spellcheck is treated differently than all other boolean values and
 		// should not be removed when the value is `false`. See:
 		// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
 		if (value == null || value === false) {
-			if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
-		} else if (typeof value === 'string') {
+			if (ns) node.removeAttributeNS("http://www.w3.org/1999/xlink", name.toLowerCase());else node.removeAttribute(name);
+		} else if (typeof value === "string") {
 			if (ns) {
-				node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
+				node.setAttributeNS("http://www.w3.org/1999/xlink", name.toLowerCase(), value);
 			} else {
 				node.setAttribute(name, value);
 			}
@@ -384,7 +356,7 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 		isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
 		// hydration is indicated by the existing element to be diffed not having a prop cache
-		hydrating = dom != null && !('__preactattr_' in dom);
+		hydrating = dom != null && !("__preactattr_" in dom);
 	}
 
 	var ret = idiff(dom, vnode, context, mountAll, componentRoot);
@@ -407,11 +379,10 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 	    prevSvgMode = isSvgMode;
 
 	// empty values (null, undefined, booleans) render as empty Text nodes
-	if (vnode == null || typeof vnode === 'boolean') vnode = '';
+	if (vnode == null || typeof vnode === "boolean") vnode = "";
 
 	// Fast case: Strings & Numbers create/update Text nodes.
-	if (typeof vnode === 'string' || typeof vnode === 'number') {
-
+	if (typeof vnode === "string" || typeof vnode === "number") {
 		// update if it's already a Text node:
 		if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
 			/* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
@@ -427,7 +398,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 			}
 		}
 
-		out['__preactattr_'] = true;
+		out["__preactattr_"] = true;
 
 		return out;
 	}
@@ -436,7 +407,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 	var vnodeName = vnode.nodeName;
 
 	// Tracks entering and exiting SVG namespace when descending through the tree.
-	isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
+	isSvgMode = vnodeName === "svg" ? true : vnodeName === "foreignObject" ? false : isSvgMode;
 
 	// If there's no existing element or it's the wrong type, create a new one:
 	vnodeName = String(vnodeName);
@@ -456,18 +427,18 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 	}
 
 	var fc = out.firstChild,
-	    props = out['__preactattr_'],
+	    props = out["__preactattr_"],
 	    vchildren = vnode.children;
 
 	if (props == null) {
-		props = out['__preactattr_'] = {};
+		props = out["__preactattr_"] = {};
 		for (var a = out.attributes, i = a.length; i--;) {
 			props[a[i].name] = a[i].value;
 		}
 	}
 
 	// Optimization: fast-path for elements containing a single TextNode:
-	if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {
+	if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === "string" && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {
 		if (fc.nodeValue != vchildren[0]) {
 			fc.nodeValue = vchildren[0];
 		}
@@ -512,7 +483,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
 	if (len !== 0) {
 		for (var i = 0; i < len; i++) {
 			var _child = originalChildren[i],
-			    props = _child['__preactattr_'],
+			    props = _child["__preactattr_"],
 			    key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
 			if (key != null) {
 				keyedLen++;
@@ -584,12 +555,11 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
  *	@param {Boolean} [unmountOnly=false]	If `true`, only triggers unmount lifecycle, skips removal
  */
 function recollectNodeTree(node, unmountOnly) {
-
 	// If the node's VNode had a ref function, invoke it with null here.
 	// (this is part of the React spec, and smart for unsetting references)
-	if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
+	if (node["__preactattr_"] != null && node["__preactattr_"].ref) node["__preactattr_"].ref(null);
 
-	if (unmountOnly === false || node['__preactattr_'] == null) {
+	if (unmountOnly === false || node["__preactattr_"] == null) {
 		removeNode(node);
 	}
 
@@ -633,10 +603,10 @@ function diffAttributes(dom, attrs, old) {
 	for (name in attrs) {
 		//diable when using store system?
 		//!dom.store &&
-		if (isWeElement && typeof attrs[name] === 'object') {
+		if (isWeElement && typeof attrs[name] === "object") {
 			dom.props[npn(name)] = attrs[name];
 			update = true;
-		} else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
+		} else if (name !== "children" && name !== "innerHTML" && (!(name in old) || attrs[name] !== (name === "value" || name === "checked" ? dom[name] : old[name]))) {
 			setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
 			if (isWeElement) {
 				dom.props[npn(name)] = attrs[name];
@@ -681,7 +651,7 @@ var WeElement = function (_HTMLElement) {
 
 		this.install();
 
-		var shadowRoot = this.attachShadow({ mode: 'open' });
+		var shadowRoot = this.attachShadow({ mode: "open" });
 
 		this.css && shadowRoot.appendChild(cssToDom(this.css()));
 		this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
@@ -726,210 +696,210 @@ var WeElement = function (_HTMLElement) {
 }(HTMLElement);
 
 function diff$1(current, pre) {
-    var result = {};
-    syncKeys(current, pre);
-    _diff(current, pre, '', result);
-    return result;
+	var result = {};
+	syncKeys(current, pre);
+	_diff(current, pre, "", result);
+	return result;
 }
 
 function syncKeys(current, pre) {
-    if (current === pre) return;
-    var rootCurrentType = type(current);
-    var rootPreType = type(pre);
-    if (rootCurrentType == '[object Object]' && rootPreType == '[object Object]') {
-        if (Object.keys(current).length >= Object.keys(pre).length) {
-            for (var key in pre) {
-                var currentValue = current[key];
-                if (currentValue === undefined) {
-                    current[key] = null;
-                } else {
-                    syncKeys(currentValue, pre[key]);
-                }
-            }
-        }
-    } else if (rootCurrentType == '[object Array]' && rootPreType == '[object Array]') {
-        if (current.length >= pre.length) {
-            pre.forEach(function (item, index) {
-                syncKeys(current[index], item);
-            });
-        }
-    }
+	if (current === pre) return;
+	var rootCurrentType = type(current);
+	var rootPreType = type(pre);
+	if (rootCurrentType == "[object Object]" && rootPreType == "[object Object]") {
+		if (Object.keys(current).length >= Object.keys(pre).length) {
+			for (var key in pre) {
+				var currentValue = current[key];
+				if (currentValue === undefined) {
+					current[key] = null;
+				} else {
+					syncKeys(currentValue, pre[key]);
+				}
+			}
+		}
+	} else if (rootCurrentType == "[object Array]" && rootPreType == "[object Array]") {
+		if (current.length >= pre.length) {
+			pre.forEach(function (item, index) {
+				syncKeys(current[index], item);
+			});
+		}
+	}
 }
 
 function _diff(current, pre, path, result) {
-    if (current === pre) return;
-    var rootCurrentType = type(current);
-    var rootPreType = type(pre);
-    if (rootCurrentType == '[object Object]') {
-        if (rootPreType != '[object Object]' || Object.keys(current).length < Object.keys(pre).length) {
-            setResult(result, path, current);
-        } else {
-            var _loop = function _loop(key) {
-                var currentValue = current[key];
-                var preValue = pre[key];
-                var currentType = type(currentValue);
-                var preType = type(preValue);
-                if (currentType != '[object Array]' && currentType != '[object Object]') {
-                    if (currentValue != pre[key]) {
-                        setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
-                    }
-                } else if (currentType == '[object Array]') {
-                    if (preType != '[object Array]') {
-                        setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
-                    } else {
-                        if (currentValue.length < preValue.length) {
-                            setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
-                        } else {
-                            currentValue.forEach(function (item, index) {
-                                _diff(item, preValue[index], (path == '' ? '' : path + ".") + key + '[' + index + ']', result);
-                            });
-                        }
-                    }
-                } else if (currentType == '[object Object]') {
-                    if (preType != '[object Object]' || Object.keys(currentValue).length < Object.keys(preValue).length) {
-                        setResult(result, (path == '' ? '' : path + ".") + key, currentValue);
-                    } else {
-                        for (var subKey in currentValue) {
-                            _diff(currentValue[subKey], preValue[subKey], (path == '' ? '' : path + ".") + key + '.' + subKey, result);
-                        }
-                    }
-                }
-            };
+	if (current === pre) return;
+	var rootCurrentType = type(current);
+	var rootPreType = type(pre);
+	if (rootCurrentType == "[object Object]") {
+		if (rootPreType != "[object Object]" || Object.keys(current).length < Object.keys(pre).length) {
+			setResult(result, path, current);
+		} else {
+			var _loop = function _loop(key) {
+				var currentValue = current[key];
+				var preValue = pre[key];
+				var currentType = type(currentValue);
+				var preType = type(preValue);
+				if (currentType != "[object Array]" && currentType != "[object Object]") {
+					if (currentValue != pre[key]) {
+						setResult(result, (path == "" ? "" : path + ".") + key, currentValue);
+					}
+				} else if (currentType == "[object Array]") {
+					if (preType != "[object Array]") {
+						setResult(result, (path == "" ? "" : path + ".") + key, currentValue);
+					} else {
+						if (currentValue.length < preValue.length) {
+							setResult(result, (path == "" ? "" : path + ".") + key, currentValue);
+						} else {
+							currentValue.forEach(function (item, index) {
+								_diff(item, preValue[index], (path == "" ? "" : path + ".") + key + "[" + index + "]", result);
+							});
+						}
+					}
+				} else if (currentType == "[object Object]") {
+					if (preType != "[object Object]" || Object.keys(currentValue).length < Object.keys(preValue).length) {
+						setResult(result, (path == "" ? "" : path + ".") + key, currentValue);
+					} else {
+						for (var subKey in currentValue) {
+							_diff(currentValue[subKey], preValue[subKey], (path == "" ? "" : path + ".") + key + "." + subKey, result);
+						}
+					}
+				}
+			};
 
-            for (var key in current) {
-                _loop(key);
-            }
-        }
-    } else if (rootCurrentType == '[object Array]') {
-        if (rootPreType != '[object Array]') {
-            setResult(result, path, current);
-        } else {
-            if (current.length < pre.length) {
-                setResult(result, path, current);
-            } else {
-                current.forEach(function (item, index) {
-                    _diff(item, pre[index], path + '[' + index + ']', result);
-                });
-            }
-        }
-    } else {
-        setResult(result, path, current);
-    }
+			for (var key in current) {
+				_loop(key);
+			}
+		}
+	} else if (rootCurrentType == "[object Array]") {
+		if (rootPreType != "[object Array]") {
+			setResult(result, path, current);
+		} else {
+			if (current.length < pre.length) {
+				setResult(result, path, current);
+			} else {
+				current.forEach(function (item, index) {
+					_diff(item, pre[index], path + "[" + index + "]", result);
+				});
+			}
+		}
+	} else {
+		setResult(result, path, current);
+	}
 }
 
 function setResult(result, k, v) {
-    if (type(v) != '[object Function]') {
-        result[k] = v;
-    }
+	if (type(v) != "[object Function]") {
+		result[k] = v;
+	}
 }
 
 function type(obj) {
-    return Object.prototype.toString.call(obj);
+	return Object.prototype.toString.call(obj);
 }
 
 var list = [];
 var tick = false;
 
 function render(vnode, parent, store) {
-    parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-    if (store) {
-        store.instances = [];
-        extendStoreUpate(store);
-        store.originData = JSON.parse(JSON.stringify(store.data));
-    }
-    parent.store = store;
-    diff(null, vnode, {}, false, parent, false);
-    list.push(store);
+	parent = typeof parent === "string" ? document.querySelector(parent) : parent;
+	if (store) {
+		store.instances = [];
+		extendStoreUpate(store);
+		store.originData = JSON.parse(JSON.stringify(store.data));
+	}
+	parent.store = store;
+	diff(null, vnode, {}, false, parent, false);
+	list.push(store);
 
-    if (store && !tick) {
-        requestIdleCallback(execTask);
-        tick = true;
-    }
+	if (store && !tick) {
+		requestIdleCallback(execTask);
+		tick = true;
+	}
 
-    function execTask(deadline) {
-        while (deadline.timeRemaining() > 0) {
-            list.forEach(function (currentStore) {
-                currentStore.update();
-            });
-        }
-        setTimeout(function () {
-            requestIdleCallback(execTask);
-        }, 200);
-    }
+	function execTask(deadline) {
+		while (deadline.timeRemaining() > 0) {
+			list.forEach(function (currentStore) {
+				currentStore.update();
+			});
+		}
+		setTimeout(function () {
+			requestIdleCallback(execTask);
+		}, 200);
+	}
 }
 
 function extendStoreUpate(store) {
-    store.update = function () {
-        var _this = this;
+	store.update = function () {
+		var _this = this;
 
-        var diffResult = diff$1(this.data, this.originData);
-        if (Object.keys(diffResult)[0] == '') {
-            diffResult = diffResult[''];
-        }
-        var updateAll = matchGlobalData(this.globalData, diffResult);
-        if (Object.keys(diffResult).length > 0) {
-            this.instances.forEach(function (instance) {
-                if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(diffResult, instance.constructor.updatePath)) {
-                    instance.update();
-                }
-            });
-            this.onChange && this.onChange(diffResult);
-            for (var key in diffResult) {
-                updateByPath(this.originData, key, typeof diffResult[key] === 'object' ? JSON.parse(JSON.stringify(diffResult[key])) : diffResult[key]);
-            }
-        }
-    };
+		var diffResult = diff$1(this.data, this.originData);
+		if (Object.keys(diffResult)[0] == "") {
+			diffResult = diffResult[""];
+		}
+		var updateAll = matchGlobalData(this.globalData, diffResult);
+		if (Object.keys(diffResult).length > 0) {
+			this.instances.forEach(function (instance) {
+				if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(diffResult, instance.constructor.updatePath)) {
+					instance.update();
+				}
+			});
+			this.onChange && this.onChange(diffResult);
+			for (var key in diffResult) {
+				updateByPath(this.originData, key, typeof diffResult[key] === "object" ? JSON.parse(JSON.stringify(diffResult[key])) : diffResult[key]);
+			}
+		}
+	};
 }
 
 function matchGlobalData(globalData, diffResult) {
-    if (!globalData) return false;
-    for (var keyA in diffResult) {
-        if (globalData.indexOf(keyA) > -1) {
-            return true;
-        }
-        for (var i = 0, len = globalData.length; i < len; i++) {
-            if (includePath(keyA, globalData[i])) {
-                return true;
-            }
-        }
-    }
-    return false;
+	if (!globalData) return false;
+	for (var keyA in diffResult) {
+		if (globalData.indexOf(keyA) > -1) {
+			return true;
+		}
+		for (var i = 0, len = globalData.length; i < len; i++) {
+			if (includePath(keyA, globalData[i])) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 //todo path级别检测包括Array，如果array为空数组，默认值在install里加
 function needUpdate(diffResult, updatePath) {
-    for (var keyA in diffResult) {
-        if (updatePath[keyA]) {
-            return true;
-        }
-        for (var keyB in updatePath) {
-            if (includePath(keyA, keyB)) {
-                return true;
-            }
-        }
-    }
-    return false;
+	for (var keyA in diffResult) {
+		if (updatePath[keyA]) {
+			return true;
+		}
+		for (var keyB in updatePath) {
+			if (includePath(keyA, keyB)) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 function includePath(pathA, pathB) {
-    if (pathA.indexOf(pathB) === 0) {
-        var next = pathA.substr(pathB.length, 1);
-        if (next === '[' || next === '.') {
-            return true;
-        }
-    }
-    return false;
+	if (pathA.indexOf(pathB) === 0) {
+		var next = pathA.substr(pathB.length, 1);
+		if (next === "[" || next === ".") {
+			return true;
+		}
+	}
+	return false;
 }
 
 function updateByPath(origin, path, value) {
-    var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
-    var current = origin;
-    for (var i = 0, len = arr.length; i < len; i++) {
-        if (i === len - 1) {
-            current[arr[i]] = value;
-        } else {
-            current = current[arr[i]];
-        }
-    }
+	var arr = path.replace(/]/g, "").replace(/\[/g, ".").split(".");
+	var current = origin;
+	for (var i = 0, len = arr.length; i < len; i++) {
+		if (i === len - 1) {
+			current[arr[i]] = value;
+		} else {
+			current = current[arr[i]];
+		}
+	}
 }
 
 function define(name, ctor) {
@@ -949,9 +919,9 @@ function dataToPath(data, result) {
 	Object.keys(data).forEach(function (key) {
 		result[key] = true;
 		var type = Object.prototype.toString.call(data[key]);
-		if (type === '[object Object]') {
+		if (type === "[object Object]") {
 			_objToPath(data[key], key, result);
-		} else if (type === '[object Array]') {
+		} else if (type === "[object Array]") {
 			_arrayToPath(data[key], key, result);
 		}
 	});
@@ -959,26 +929,26 @@ function dataToPath(data, result) {
 
 function _objToPath(data, path, result) {
 	Object.keys(data).forEach(function (key) {
-		result[path + '.' + key] = true;
+		result[path + "." + key] = true;
 		delete result[path];
 		var type = Object.prototype.toString.call(data[key]);
-		if (type === '[object Object]') {
-			_objToPath(data[key], path + '.' + key, result);
-		} else if (type === '[object Array]') {
-			_arrayToPath(data[key], path + '.' + key, result);
+		if (type === "[object Object]") {
+			_objToPath(data[key], path + "." + key, result);
+		} else if (type === "[object Array]") {
+			_arrayToPath(data[key], path + "." + key, result);
 		}
 	});
 }
 
 function _arrayToPath(data, path, result) {
 	data.forEach(function (item, index) {
-		result[path + '[' + index + ']'] = true;
+		result[path + "[" + index + "]"] = true;
 		delete result[path];
 		var type = Object.prototype.toString.call(item);
-		if (type === '[object Object]') {
-			_objToPath(item, path + '[' + index + ']', result);
-		} else if (type === '[object Array]') {
-			_arrayToPath(item, path + '[' + index + ']', result);
+		if (type === "[object Object]") {
+			_objToPath(item, path + "[" + index + "]", result);
+		} else if (type === "[object Array]") {
+			_arrayToPath(item, path + "[" + index + "]", result);
 		}
 	});
 }
@@ -990,18 +960,6 @@ function tag(name, pure) {
 	};
 }
 
-options.root.Omi = {
-	tag: tag,
-	WeElement: WeElement,
-	render: render,
-	h: h,
-	createElement: h,
-	options: options,
-	define: define
-};
-
-options.root.Omi.version = '4.0.1';
-
 var omi = {
 	tag: tag,
 	WeElement: WeElement,
@@ -1011,6 +969,9 @@ var omi = {
 	options: options,
 	define: define
 };
+
+options.root.Omi = omi;
+options.root.Omi.version = "4.0.3";
 
 export default omi;
 export { tag, WeElement, render, h, h as createElement, options, define };

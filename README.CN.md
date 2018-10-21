@@ -16,7 +16,7 @@
 - 通过 omi-mobx 让 omi 和 mobx 一起良好地制作响应式视图(免去 `this.update` 且兼容IE11)
 - Web Components 也可以数据驱动视图, `UI = fn(data)`
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
-- 独创的 `Path Updating` 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback` 
+- 独创的 `Path Updating` 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback`
 - 对 this.update 说再见吧！只要使用 `store` 系统，它就会自动化按需更新局部视图
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 - `Shadow DOM` 与 `Virtual DOM` 融合，Omi 既使用了`虚拟 DOM`，也是使用真实 `Shadow DOM`，让视图更新更准确更迅速
@@ -35,10 +35,10 @@
 
 - [一个 HTML 完全上手](#一个-html-完全上手)
 - [快速入门](#快速入门)
-    - [安装](#安装)
+	- [安装](#安装)
 	- [Hello Element](#hello-element)
-    - [TodoApp](#todoapp)
-    - [Store](#store)
+	- [TodoApp](#todoapp)
+	- [Store](#store)
 	- [生命周期](#生命周期)
 - [生态](#生态)
 - [调试工具](#调试工具)
@@ -169,7 +169,7 @@ class HelloElement extends WeElement {
                 <div>Click Me!</div>
             </div>
         )
-    }   
+    }
 }
 ```
 
@@ -185,11 +185,11 @@ class MyApp extends WeElement {
         return { abc: '', passToChild: '' }
     }
 
-    //bind CustomEvent 
+    //bind CustomEvent
     onAbc = (evt) => {
         // get evt data by evt.detail
         this.data.abc = ' by ' + evt.detail.name
-        this.update()   
+        this.update()
     }
 
     css() {
@@ -244,7 +244,7 @@ render(<my-app name='Omi v4.0'></my-app>, 'body')
 ``` js
 import { tag, WeElement render } from 'omi'
 //typeof cssStr is string
-import cssStr from './_index.css' 
+import cssStr from './_index.css'
 
 @tag('my-app')
 class MyApp extends WeElement {
@@ -398,13 +398,13 @@ render(<todo-app></todo-app>, 'body', store)
 
 ### 生命周期
 
-| Lifecycle method            | When it gets called                              |
-|-------------------------------|--------------------------------------------------|
-| `install`        | before the component gets mounted to the DOM     |
-| `installed`         | after the component gets mounted to the DOM      |
-| `uninstall`      | prior to removal from the DOM                    |
-| `beforeUpdate`       | before `render()`                                |
-| `afterUpdate`        | after `render()`                                 |
+| Lifecycle method | When it gets called                          |
+| ---------------- | -------------------------------------------- |
+| `install`        | before the component gets mounted to the DOM |
+| `installed`      | after the component gets mounted to the DOM  |
+| `uninstall`      | prior to removal from the DOM                |
+| `beforeUpdate`   | before `render()`                            |
+| `afterUpdate`    | after `render()`                             |
 
 ## 生态
 
@@ -484,4 +484,4 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 ## License
 
-MIT © Tencent 
+MIT © Tencent
