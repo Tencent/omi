@@ -39,7 +39,6 @@ window.cancelIdleCallback = window.cancelIdleCallback ||
     }
 
 
-
 options.afterInstall = function (ele) {
     if (ele.constructor.observe) {
         oba(ele.data, ele)
