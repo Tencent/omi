@@ -41,6 +41,7 @@
 	- [生命周期](#生命周期)
 - [生态](#生态)
 - [调试工具](#调试工具)
+- [Omi Mobx](#omi-mobx)
 - [浏览器兼容](#浏览器兼容)
 - [相关链接](#相关链接)
 - [贡献代码](#贡献代码)
@@ -418,6 +419,36 @@ render(<todo-app></todo-app>, 'body', store)
 既然  Omi 使用了 Web Components 和 Shadow-DOM, 所以不需要像 React 和 Vue 一样安装其他元素面板，只需要使用 Chrome 自带的 **Elements' sidebar** 便可，它和 React and Vue 开发者工具一样强大。
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
+
+## Omi Mobx
+
+你也可以放弃 store 体系，使用 omi-mobx 来制作响应式视图：
+
+```js
+import { tag, WeElement } from 'omi'
+import { observe } from 'omi-mobx'
+
+@observe
+@tag('my-app')
+class MyApp extends WeElement {
+
+  install() {
+    this.data.name = 'omi'
+  }
+
+  onClick = () => {
+    this.data.name = 'Omi V4.0'
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1 >Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
 
 ## 浏览器兼容
 

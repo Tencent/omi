@@ -43,6 +43,7 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM based style
     - [Lifecycle](#lifecycle)
 - [Component Ecosystem](#component-ecosystem)
 - [Debugging](#debugging)
+- [Omi Mobx](#omi-mobx)
 - [Browsers Support](#browsers-support)
 - [Links](#links)
 - [Contribution](#contribution)
@@ -424,6 +425,36 @@ Using [Omi DevTools](https://chrome.google.com/webstore/detail/omijs-devtools/pj
 Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another elements panel such as React or Vue has. It just adds a panel to the **Elements' sidebar** and it's powerful as much as React and Vue DevTools.
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
+
+## Omi Mobx
+
+You can also give up the store system and use omi-mobx to create response views, such as:
+
+```js
+import { tag, WeElement } from 'omi'
+import { observe } from 'omi-mobx'
+
+@observe
+@tag('my-app')
+class MyApp extends WeElement {
+
+  install() {
+    this.data.name = 'omi'
+  }
+
+  onClick = () => {
+    this.data.name = 'Omi V4.0'
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1 >Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
 
 ## Browsers Support
 
