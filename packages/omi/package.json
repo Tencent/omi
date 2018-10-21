@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Next generation web framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -14,6 +14,7 @@
     "build": "npm-run-all --silent clean transpile copy-typescript-definition strip optimize minify size",
     "slot": "rollup -c config/rollup.example.js --watch",
     "decorators": "rollup -c config/rollup.example.js --watch",
+    "mobx": "rollup -c config/rollup.example.js --watch",
     "todo-app": "rollup -c config/rollup.example.js --watch",
     "store": "rollup -c config/rollup.example.js --watch",
     "omi-tap": "rollup -c config/rollup.example.js --watch",
@@ -104,7 +105,9 @@
     "sinon-chai": "^3.0.0",
     "typescript": "^2.8.1",
     "uglify-js": "^2.7.5",
-    "webpack": "^4.3.0"
+    "webpack": "^4.3.0",
+    "mobx": "^4.5.1",
+    "omi-mobx": "^0.2.0"
   },
   "greenkeeper": {
     "ignore": [

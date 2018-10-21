@@ -1,0 +1,51 @@
+{
+  "name": "omi-mobx",
+  "version": "0.2.0",
+  "description": "Omi Mobx Adapter.",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "omi",
+    "omi-mobx",
+    "mobx",
+    "webcomponents",
+    "jsx",
+    "proxy",
+    "preact",
+    "react",
+    "virtual dom",
+    "vdom",
+    "components",
+    "virtual",
+    "dom"
+  ],
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi",
+  "dependencies": {
+    "mobx": "^4.5.1",
+    "omi": "^4.0.3"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "babel-cli",
+      "babel-core",
+      "babel-eslint",
+      "babel-loader",
+      "jscodeshift",
+      "rollup-plugin-babel"
+    ]
+  }
+}
