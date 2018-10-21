@@ -1,5 +1,5 @@
 import { observable, autorun } from "mobx"
-import { options } from "../../src/omi"
+import { options } from "omi"
 
 options.afterInstall = function (ele) {
     if (ele.constructor.observe) {

@@ -107,7 +107,7 @@
     "uglify-js": "^2.7.5",
     "webpack": "^4.3.0",
     "mobx": "^4.5.1",
-    "omi-mobx": "^0.2.0"
+    "omi-mobx": "^0.2.1"
   },
   "greenkeeper": {
     "ignore": [
