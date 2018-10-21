@@ -6,19 +6,21 @@
 
 ### 特性
 
-- 4KB 的代码尺寸，比小更小
-- 顺势而为，顺从浏览器的发展和 API 设计
+- 小巧的尺寸(gzip压缩后仅4kb)
+- 支持 `TypeScript`
+- 响应式数据绑定
 - [基于 Shadow Dom 设计](https://developers.google.cn/web/fundamentals/web-components/shadowdom?hl=zh-cn)
-- [Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)[[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)]
-- Web Components + JSX 相互融合为一个框架 Omi
-- Web Components 也可以数据驱动视图, UI = fn(data)
+- 利用[Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)轻松调试，[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)
+- 符合浏览器的发展趋势以及API设计理念
+- `Web Components` + `JSX` 相互融合为一个框架 Omi
+- Web Components 也可以数据驱动视图, `UI = fn(data)`
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
-- 独创的 Path Updating 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 requestIdleCallback 
-- 使用 store 系统不需要调用 this.udpate，它会自动化按需更新局部视图
+- 独创的 `Path Updating` 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback` 
+- 对 this.update 说再见吧！只要使用 `store` 系统，它就会自动化按需更新局部视图
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
-- Shadow DOM 与 Virtual DOM 融合，Omi 既使用了虚拟 DOM，也是使用真实 Shadow DOM，让视图更新更准确更迅速
-- 类似 WeStore 体系，99.9% 的项目不需要什么时间旅行,也不仅仅 redux 能时间旅行,请不要上来就 redux，Omi store 体系可以满足所有项目
-- 局部 CSS 最佳解决方案(Shadow DOM)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:Radium，jsxstyle，react-style；与webpack绑定使用生成独特的className`文件名—类名—hash值`，如：CSS Modules，Vue)，都是 hack 技术；Shadow DOM Style 是最完美的方案
+- `Shadow DOM` 与 `Virtual DOM` 融合，Omi 既使用了`虚拟 DOM`，也是使用真实 `Shadow DOM`，让视图更新更准确更迅速
+- 99.9% 的项目不需要什么时间旅行调试(`Time travel debugging`),而且也不仅仅 redux 能时间旅行,请不要上来就 `redux`，Omi `store` 系统可以满足所有项目。
+- 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:`Radium`，`jsxstyle`，`react-style`；与webpack绑定使用生成独特的className`文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构:
 
