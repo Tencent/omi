@@ -2,14 +2,15 @@
 
 ## Omi 文档
 
-- [My First Element](#my-first-element)
-- [Props](#props)
-- [Event](#event)
-- [Custom Event](#custom-event)
-- [Ref](#ref)
-- [Store](#store)
-- [Slot](#slot)
-- [SSR](#ssr)
+- [Omi 文档](#omi-文档)
+	- [My First Element](#my-first-element)
+	- [Props](#props)
+	- [Event](#event)
+	- [Custom Event](#custom-event)
+	- [Ref](#ref)
+	- [Store](#store)
+	- [Slot](#slot)
+	- [SSR](#ssr)
 
 ### My First Element
 
@@ -18,11 +19,11 @@ import { WeElement, tag, render } from 'omi'
 
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    render() {
-        return (
-            <h1>Hello, world!</h1>
-        )
-    }
+  render() {
+    return (
+      <h1>Hello, world!</h1>
+    )
+  }
 }
 
 render(<my-first-element></my-first-element>, 'body')
@@ -42,11 +43,11 @@ import { WeElement, tag, render } from 'omi'
 
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    render(props) {
-        return (
-            <h1>Hello, {props.name}!</h1>
-        )
-    }
+  render(props) {
+    return (
+      <h1>Hello, {props.name}!</h1>
+    )
+  }
 }
 
 render(<my-first-element name="world"></my-first-element>, 'body')
@@ -59,11 +60,11 @@ import { WeElement, tag, render } from 'omi'
 
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    render(props) {
-        return (
-            <h1>Hello, {props.myObj.name}!</h1>
-        )
-    }
+  render(props) {
+    return (
+      <h1>Hello, {props.myObj.name}!</h1>
+    )
+  }
 }
 
 render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
@@ -76,15 +77,15 @@ render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 
 ```js
 class MyFirstElement extends WeElement {
-    onClick = (evt) => {
-        alert('Hello Omi!')
-    }
+  onClick = (evt) => {
+    alert('Hello Omi!')
+  }
 
-    render() {
-        return (
-            <h1 onClick={this.onClick}>Hello, wrold!</h1>
-        )
-    }
+  render() {
+    return (
+      <h1 onClick={this.onClick}>Hello, wrold!</h1>
+    )
+  }
 }
 ```
 
@@ -93,15 +94,15 @@ class MyFirstElement extends WeElement {
 ```js
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    onClick = (evt) => {
-        this.fire('myevent', { name: 'abc' })
-    }
+  onClick = (evt) => {
+    this.fire('myevent', { name: 'abc' })
+  }
 
-    render(props) {
-        return (
-            <h1 onClick={this.onClick}>Hello, world!</h1>
-        )
-    }
+  render(props) {
+    return (
+      <h1 onClick={this.onClick}>Hello, world!</h1>
+    )
+  }
 }
 
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
@@ -114,17 +115,17 @@ render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-fi
 ```js
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    onClick = (evt) => {
-        console.log(this.h1)
-    }
+  onClick = (evt) => {
+    console.log(this.h1)
+  }
 
-    render(props) {
-        return (
-            <div>
-                <h1 ref={e => { this.h1 = e }} onClick={this.onClick}>Hello, world!</h1>
-            </div>
-        )
-    }
+  render(props) {
+    return (
+      <div>
+        <h1 ref={e => { this.h1 = e }} onClick={this.onClick}>Hello, world!</h1>
+      </div>
+    )
+  }
 }
 
 render(<my-first-element></my-first-element>, 'body')
@@ -142,26 +143,26 @@ import { WeElement, tag, render } from 'omi'
 
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    //You must declare data here for view updating
-    static get data() {
-        return { name: null }
-    }
-    
-    onClick = () => {
-        //auto update the view
-        this.store.data.name = 'abc'
-    }
+  //You must declare data here for view updating
+  static get data() {
+    return { name: null }
+  }
 
-    render(props, data) {
-        //data === this.store.data when using store stystem
-        return (
-            <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
-        )
-    }
+  onClick = () => {
+    //auto update the view
+    this.store.data.name = 'abc'
+  }
+
+  render(props, data) {
+    //data === this.store.data when using store stystem
+    return (
+      <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
+    )
+  }
 }
 
 const store = {
-    data: { name: 'Omi' }
+  data: { name: 'Omi' }
 }
 render(<my-first-element name="world"></my-first-element>, 'body', store)
 ```
@@ -170,12 +171,12 @@ render(<my-first-element name="world"></my-first-element>, 'body', store)
 
 ```js
 static get data() {
-    return {
-        a: null,
-        b: null,
-        c: { d: [] },
-        e: []
-    }
+  return {
+    a: null,
+    b: null,
+    c: { d: [] },
+    e: []
+  }
 }
 
 ```
@@ -193,15 +194,15 @@ static get data() {
 
 举例说明 Path 命中规则:
 
-| Proxy Path | updatePath  |是否更新|
-| ------ | ------  |------  |
-| abc | 	abc  |	更新 |	 
-| abc[1] | 	abc  |	更新 |
-| abc.a| 	abc  |	更新 |
-| abc| 	abc.a  |	不更新 |
-| abc| 	abc[1]  |	不更新 |
-| abc| 	abc[1].c  |	不更新 |
-| abc.b| 	abc.b |	更新 |
+| Proxy Path | updatePath | 是否更新 |
+| ---------- | ---------- | -------- |
+| abc        | abc        | 更新     |
+| abc[1]     | abc        | 更新     |
+| abc.a      | abc        | 更新     |
+| abc        | abc.a      | 不更新   |
+| abc        | abc[1]     | 不更新   |
+| abc        | abc[1].c   | 不更新   |
+| abc.b      | abc.b      | 更新     |
 
 以上只要命中一个条件就可以进行更新！
 
@@ -224,26 +225,26 @@ import { tag, render, WeElement } from '../../src/omi'
 
 @tag('hello-element')
 class HelloElement extends WeElement {
-    render() {
-        return (
-            <div onClick={this.onClick}>
-                <p><slot name="my-text">My default text</slot></p>
-            </div>
-        )
-    }    
+  render() {
+    return (
+      <div onClick={this.onClick}>
+        <p><slot name="my-text">My default text</slot></p>
+      </div>
+    )
+  }
 }
 
 @tag('my-app')
 class MyApp extends WeElement {
-    render() {
-        return (
-            <div >
-                <hello-element>
-                    <span slot="my-text">Let's have some different text!</span>
-                </hello-element>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div >
+        <hello-element>
+          <span slot="my-text">Let's have some different text!</span>
+        </hello-element>
+      </div>
+    )
+  }
 }
 
 render(<my-app></my-app>, 'body')

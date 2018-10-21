@@ -1,11 +1,11 @@
-import { h, h as createElement } from './h'
-import options from './options'
-import WeElement from  './we-element'
-import { render } from './render'
-import { define } from './define'
-import { tag } from './tag'
+import { h, h as createElement } from "./h";
+import options from "./options";
+import WeElement from "./we-element";
+import { render } from "./render";
+import { define } from "./define";
+import { tag } from "./tag";
 
-options.root.Omi = {
+const omi = {
 	tag,
 	WeElement,
 	render,
@@ -13,26 +13,11 @@ options.root.Omi = {
 	createElement,
 	options,
 	define
-}
+};
 
-options.root.Omi.version = '4.0.1'
+options.root.Omi = omi;
+options.root.Omi.version = "4.0.3";
 
-export default {
-	tag,
-	WeElement,
-	render,
-	h,
-	createElement,
-	options,
-	define
-}
+export default omi;
 
-export {
-	tag,
-	WeElement,
-	render,
-	h,
-	createElement,
-	options,
-	define
-}
+export { tag, WeElement, render, h, createElement, options, define };
