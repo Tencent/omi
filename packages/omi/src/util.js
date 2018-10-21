@@ -61,7 +61,7 @@ export function extend(obj, props) {
  */
 export function applyRef(ref, value) {
 	if (ref!=null) {
-		if (typeof ref=='function') ref(value)
+		if (typeof ref == 'function') ref(value)
 		else ref.current = value
 	}
 }
@@ -72,7 +72,7 @@ export function applyRef(ref, value) {
  * otherwise falling back to `setTimeout` (mainly for IE<11).
  * @type {(callback: function) => void}
  */
-export const defer = typeof Promise=='function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout
+export const defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout
 
 export function isArray(obj){
 	return Object.prototype.toString.call(obj) === '[object Array]'
