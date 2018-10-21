@@ -22,7 +22,7 @@ class TodoApp extends WeElement {
     }
 
     render() {
-        console.log(111)
+        console.log('render')
         return (
             <div>
                 <h3>TODO</h3>
