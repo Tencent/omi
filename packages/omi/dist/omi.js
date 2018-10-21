@@ -24,7 +24,7 @@
     }
     function cssToDom(css) {
         var node = document.createElement('style');
-        node.innerText = css;
+        node.textContent = css;
         return node;
     }
     function npn(str) {
@@ -394,6 +394,7 @@
                 if (this.store) this.store.instances.push(this);
             }
             this.install();
+            options.afterInstall && options.afterInstall(this);
             var shadowRoot = this.attachShadow({
                 mode: 'open'
             });
@@ -401,6 +402,7 @@
             this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, !1, null, !1);
             shadowRoot.appendChild(this.host);
             this.installed();
+            this.B = !0;
         };
         WeElement.prototype.disconnectedCallback = function() {
             this.uninstall();
@@ -650,7 +652,7 @@
         options: options,
         define: define
     };
-    options.root.Omi.version = '4.0.1';
+    options.root.Omi.version = '4.0.3';
     var Omi = {
         tag: tag,
         WeElement: WeElement,
