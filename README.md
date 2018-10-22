@@ -13,7 +13,7 @@ English | [简体中文](./README.CN.md)
 - Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
 - Compliance with browser trend and API design.
 - Merge **JSX** and **Web Components** into one framework.
-- Work well with mobx by omi-mobx (Compatible IE11).
+- Work well with mobx by omi-mobx (No need to call `this.update()`).
 - Web Components can also be a data-driven view, **`UI = fn(data)`**.
 - JSX is the best development experience (code intelligent completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals).
 - The original **Path Updating** system. Proxy-based automatic **accurate** update, **low power consumption**, high degree of freedom, excellent performance, easy integration of `requestIdleCallback`
@@ -464,7 +464,9 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 > If you want to be compatible with IE11, use the Omi file of [→ this project](https://github.com/Tencent/omi/tree/master/packages/omi-ie11). This project uses JSON Diff + Timer instead of Proxy.
 
-> You can dynamically load the JS of this project in the IE9 environment, and the proxy version is still used in other environments.
+> You can dynamically load the JS of this project in the IE11 environment, and the proxy version is still used in other environments.
+
+> You can also give up the store system and use omi-mobx to be compatible with IE11.
 
 ## Links
 
