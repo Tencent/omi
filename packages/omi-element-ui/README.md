@@ -49,12 +49,10 @@ Omi version of element-ui
 |  el-card| 		  |
 |  el-carousel| 		  |
 |  el-collapse| 		  |
-
 |  el-touch| 		dntzhang  |
 |  el-finger| 		  dntzhang|
 |  el-transform| 		 dntzhang |
-
-|  notice| 		  |
+|  notice| 		  |   |
 
 ## Develop
 
