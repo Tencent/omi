@@ -1,13 +1,13 @@
 ## Develop
 
-``` bash
+```bash
 npm install
 npm start
 ```
 
 ## Release
 
-``` bash
+```bash
 npm build
 ```
 

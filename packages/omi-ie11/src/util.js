@@ -16,62 +16,63 @@
  */
 (function() {
 	if (
-	// No Reflect, no classes, no need for shim because native custom elements
-	// require ES2015 classes or Reflect.
+		// No Reflect, no classes, no need for shim because native custom elements
+		// require ES2015 classes or Reflect.
 		window.Reflect === undefined ||
-      window.customElements === undefined ||
-      // The webcomponentsjs custom elements polyfill doesn't require
-      // ES2015-compatible construction (`super()` or `Reflect.construct`).
-      window.customElements.hasOwnProperty('polyfillWrapFlushCallback')
+		window.customElements === undefined ||
+		// The webcomponentsjs custom elements polyfill doesn't require
+		// ES2015-compatible construction (`super()` or `Reflect.construct`).
+		window.customElements.hasOwnProperty("polyfillWrapFlushCallback")
 	) {
-		return
+		return;
 	}
-	const BuiltInHTMLElement = HTMLElement
+	const BuiltInHTMLElement = HTMLElement;
 	window.HTMLElement = function HTMLElement() {
-		return Reflect.construct(BuiltInHTMLElement, [], this.constructor)
-	}
-	HTMLElement.prototype = BuiltInHTMLElement.prototype
-	HTMLElement.prototype.constructor = HTMLElement
-	Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement)
-})()
+		return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
+	};
+	HTMLElement.prototype = BuiltInHTMLElement.prototype;
+	HTMLElement.prototype.constructor = HTMLElement;
+	Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+})();
 
 /*
  * @see https://developers.google.com/web/updates/2015/08/using-requestidlecallback
  */
-window.requestIdleCallback = window.requestIdleCallback ||
-	function (cb) {
-		return setTimeout(function () {
+window.requestIdleCallback =
+	window.requestIdleCallback ||
+	function(cb) {
+		return setTimeout(function() {
 			var start = Date.now();
 			cb({
 				didTimeout: false,
-				timeRemaining: function () {
+				timeRemaining: function() {
 					return Math.max(0, 50 - (Date.now() - start));
 				}
 			});
 		}, 1);
-	}
+	};
 
-window.cancelIdleCallback = window.cancelIdleCallback ||
-	function (id) {
+window.cancelIdleCallback =
+	window.cancelIdleCallback ||
+	function(id) {
 		clearTimeout(id);
-	} 
+	};
 
 export function cssToDom(css) {
-	const node = document.createElement('style')
-	node.innerText = css
-	return node
+	const node = document.createElement("style");
+	node.innerText = css;
+	return node;
 }
-
 
 export function npn(str) {
 	return str.replace(/-(\w)/g, ($, $1) => {
-		return $1.toUpperCase()
-	})
+		return $1.toUpperCase();
+	});
 }
 
 export function extend(obj, props) {
-	for (let i in props) obj[i] = props[i]
-	return obj
+	for (let i in props) obj[i] = props[i];
+	return obj;
 }
 
 /** Invoke or update a ref, depending on whether it is a function or object ref.
@@ -79,9 +80,9 @@ export function extend(obj, props) {
  *  @param {any} [value]
  */
 export function applyRef(ref, value) {
-	if (ref!=null) {
-		if (typeof ref=='function') ref(value)
-		else ref.current = value
+	if (ref != null) {
+		if (typeof ref == "function") ref(value);
+		else ref.current = value;
 	}
 }
 
@@ -91,17 +92,20 @@ export function applyRef(ref, value) {
  * otherwise falling back to `setTimeout` (mainly for IE<11).
  * @type {(callback: function) => void}
  */
-export const defer = typeof Promise=='function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout
+export const defer =
+	typeof Promise == "function"
+		? Promise.resolve().then.bind(Promise.resolve())
+		: setTimeout;
 
-export function isArray(obj){
-	return Object.prototype.toString.call(obj) === '[object Array]'
+export function isArray(obj) {
+	return Object.prototype.toString.call(obj) === "[object Array]";
 }
 
-export function nProps(props){
-	if (!props || isArray(props)) return {}
-	const result = {}
-	Object.keys(props).forEach(key =>{
-		result[key] = props[key].value
-	})
-	return result
+export function nProps(props) {
+	if (!props || isArray(props)) return {};
+	const result = {};
+	Object.keys(props).forEach(key => {
+		result[key] = props[key].value;
+	});
+	return result;
 }

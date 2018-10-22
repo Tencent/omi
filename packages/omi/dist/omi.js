@@ -9,8 +9,8 @@
             delete attributes.children;
         }
         while (stack.length) if ((child = stack.pop()) && void 0 !== child.pop) for (i = child.length; i--; ) stack.push(child[i]); else {
-            if ('boolean' == typeof child) child = null;
-            if (simple = 'function' != typeof nodeName) if (null == child) child = ''; else if ('number' == typeof child) child = String(child); else if ('string' != typeof child) simple = !1;
+            if ("boolean" == typeof child) child = null;
+            if (simple = "function" != typeof nodeName) if (null == child) child = ""; else if ("number" == typeof child) child = String(child); else if ("string" != typeof child) simple = !1;
             if (simple && lastSimple) children[children.length - 1] += child; else if (children === EMPTY_CHILDREN) children = [ child ]; else children.push(child);
             lastSimple = simple;
         }
@@ -23,7 +23,7 @@
         return p;
     }
     function cssToDom(css) {
-        var node = document.createElement('style');
+        var node = document.createElement("style");
         node.textContent = css;
         return node;
     }
@@ -33,10 +33,10 @@
         });
     }
     function applyRef(ref, value) {
-        if (null != ref) if ('function' == typeof ref) ref(value); else ref.current = value;
+        if (null != ref) if ("function" == typeof ref) ref(value); else ref.current = value;
     }
     function isArray(obj) {
-        return '[object Array]' === Object.prototype.toString.call(obj);
+        return "[object Array]" === Object.prototype.toString.call(obj);
     }
     function nProps(props) {
         if (!props || isArray(props)) return {};
@@ -47,14 +47,14 @@
         return result;
     }
     function isSameNodeType(node, vnode, hydrating) {
-        if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
-        if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else return hydrating || node._componentConstructor === vnode.nodeName;
+        if ("string" == typeof vnode || "number" == typeof vnode) return void 0 !== node.splitText;
+        if ("string" == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else return hydrating || node._componentConstructor === vnode.nodeName;
     }
     function isNamedNode(node, nodeName) {
         return node.__n === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
     }
     function createNode(nodeName, isSvg) {
-        var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
+        var node = isSvg ? document.createElementNS("http://www.w3.org/2000/svg", nodeName) : document.createElement(nodeName);
         node.__n = nodeName;
         return node;
     }
@@ -63,33 +63,33 @@
         if (parentNode) parentNode.removeChild(node);
     }
     function setAccessor(node, name, old, value, isSvg) {
-        if ('className' === name) name = 'class';
-        if ('key' === name) ; else if ('ref' === name) {
+        if ("className" === name) name = "class";
+        if ("key" === name) ; else if ("ref" === name) {
             applyRef(old, null);
             applyRef(value, node);
-        } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) {
-            if (!value || 'string' == typeof value || 'string' == typeof old) node.style.cssText = value || '';
-            if (value && 'object' == typeof value) {
-                if ('string' != typeof old) for (var i in old) if (!(i in value)) node.style[i] = '';
-                for (var i in value) node.style[i] = 'number' == typeof value[i] && !1 === IS_NON_DIMENSIONAL.test(i) ? value[i] + 'px' : value[i];
+        } else if ("class" === name && !isSvg) node.className = value || ""; else if ("style" === name) {
+            if (!value || "string" == typeof value || "string" == typeof old) node.style.cssText = value || "";
+            if (value && "object" == typeof value) {
+                if ("string" != typeof old) for (var i in old) if (!(i in value)) node.style[i] = "";
+                for (var i in value) node.style[i] = "number" == typeof value[i] && !1 === IS_NON_DIMENSIONAL.test(i) ? value[i] + "px" : value[i];
             }
-        } else if ('dangerouslySetInnerHTML' === name) {
-            if (value) node.innerHTML = value.__html || '';
-        } else if ('o' == name[0] && 'n' == name[1]) {
-            var useCapture = name !== (name = name.replace(/Capture$/, ''));
+        } else if ("dangerouslySetInnerHTML" === name) {
+            if (value) node.innerHTML = value.__html || "";
+        } else if ("o" == name[0] && "n" == name[1]) {
+            var useCapture = name !== (name = name.replace(/Capture$/, ""));
             name = name.toLowerCase().substring(2);
             if (value) {
                 if (!old) node.addEventListener(name, eventProxy, useCapture);
             } else node.removeEventListener(name, eventProxy, useCapture);
             (node.__l || (node.__l = {}))[name] = value;
-        } else if ('list' !== name && 'type' !== name && !isSvg && name in node) {
+        } else if ("list" !== name && "type" !== name && !isSvg && name in node) {
             try {
-                node[name] = null == value ? '' : value;
+                node[name] = null == value ? "" : value;
             } catch (e) {}
-            if ((null == value || !1 === value) && 'spellcheck' != name) node.removeAttribute(name);
+            if ((null == value || !1 === value) && "spellcheck" != name) node.removeAttribute(name);
         } else {
-            var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
-            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('string' == typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.setAttribute(name, value);
+            var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ""));
+            if (null == value || !1 === value) if (ns) node.removeAttributeNS("http://www.w3.org/1999/xlink", name.toLowerCase()); else node.removeAttribute(name); else if ("string" == typeof value) if (ns) node.setAttributeNS("http://www.w3.org/1999/xlink", name.toLowerCase(), value); else node.setAttribute(name, value);
         }
     }
     function eventProxy(e) {
@@ -98,7 +98,7 @@
     function diff(dom, vnode, context, mountAll, parent, componentRoot) {
         if (!diffLevel++) {
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
-            hydrating = null != dom && !('__preactattr_' in dom);
+            hydrating = null != dom && !("__preactattr_" in dom);
         }
         var ret = idiff(dom, vnode, context, mountAll, componentRoot);
         if (parent && ret.parentNode !== parent) parent.appendChild(ret);
@@ -107,8 +107,8 @@
     }
     function idiff(dom, vnode, context, mountAll, componentRoot) {
         var out = dom, prevSvgMode = isSvgMode;
-        if (null == vnode || 'boolean' == typeof vnode) vnode = '';
-        if ('string' == typeof vnode || 'number' == typeof vnode) {
+        if (null == vnode || "boolean" == typeof vnode) vnode = "";
+        if ("string" == typeof vnode || "number" == typeof vnode) {
             if (dom && void 0 !== dom.splitText && dom.parentNode && (!dom._component || componentRoot)) {
                 if (dom.nodeValue != vnode) dom.nodeValue = vnode;
             } else {
@@ -122,7 +122,7 @@
             return out;
         }
         var vnodeName = vnode.nodeName;
-        isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
+        isSvgMode = "svg" === vnodeName ? !0 : "foreignObject" === vnodeName ? !1 : isSvgMode;
         vnodeName = String(vnodeName);
         if (!dom || !isNamedNode(dom, vnodeName)) {
             out = createNode(vnodeName, isSvgMode);
@@ -137,7 +137,7 @@
             props = out.t = {};
             for (var a = out.attributes, i = a.length; i--; ) props[a[i].name] = a[i].value;
         }
-        if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
+        if (!hydrating && vchildren && 1 === vchildren.length && "string" == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
         } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
         diffAttributes(out, vnode.attributes, props);
@@ -201,10 +201,10 @@
                 update = !0;
             }
         }
-        for (name in attrs) if (isWeElement && 'object' == typeof attrs[name]) {
+        for (name in attrs) if (isWeElement && "object" == typeof attrs[name]) {
             dom.props[npn(name)] = attrs[name];
             update = !0;
-        } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
+        } else if (!("children" === name || "innerHTML" === name || name in old && attrs[name] === ("value" === name || "checked" === name ? dom[name] : old[name]))) {
             setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
             if (isWeElement) {
                 dom.props[npn(name)] = attrs[name];
@@ -233,7 +233,7 @@
         if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
     function render(vnode, parent, store) {
-        parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
+        parent = "string" == typeof parent ? document.querySelector(parent) : parent;
         if (store) {
             store.instances = [];
             extendStoreUpate(store);
@@ -277,20 +277,20 @@
     function includePath(pathA, pathB) {
         if (0 === pathA.indexOf(pathB)) {
             var next = pathA.substr(pathB.length, 1);
-            if ('[' === next || '.' === next) return !0;
+            if ("[" === next || "." === next) return !0;
         }
         return !1;
     }
     function fixPath(path) {
-        var mpPath = '';
-        var arr = path.replace('/', '').split('/');
+        var mpPath = "";
+        var arr = path.replace("/", "").split("/");
         arr.forEach(function(item, index) {
-            if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
+            if (index) if (isNaN(Number(item))) mpPath += "." + item; else mpPath += "[" + item + "]"; else mpPath += item;
         });
         return mpPath;
     }
     function getArrayPatch(path, store) {
-        var arr = path.replace('/', '').split('/');
+        var arr = path.replace("/", "").split("/");
         var current = store.data[arr[0]];
         for (var i = 1, len = arr.length; i < len - 1; i++) current = current[arr[i]];
         return {
@@ -299,11 +299,11 @@
         };
     }
     function fixArrPath(path) {
-        var mpPath = '';
-        var arr = path.replace('/', '').split('/');
+        var mpPath = "";
+        var arr = path.replace("/", "").split("/");
         var len = arr.length;
         arr.forEach(function(item, index) {
-            if (index < len - 1) if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
+            if (index < len - 1) if (index) if (isNaN(Number(item))) mpPath += "." + item; else mpPath += "[" + item + "]"; else mpPath += item;
         });
         return mpPath;
     }
@@ -320,23 +320,23 @@
         Object.keys(data).forEach(function(key) {
             result[key] = !0;
             var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], key, result); else if ('[object Array]' === type) _arrayToPath(data[key], key, result);
+            if ("[object Object]" === type) _objToPath(data[key], key, result); else if ("[object Array]" === type) _arrayToPath(data[key], key, result);
         });
     }
     function _objToPath(data, path, result) {
         Object.keys(data).forEach(function(key) {
-            result[path + '.' + key] = !0;
+            result[path + "." + key] = !0;
             delete result[path];
             var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], path + '.' + key, result); else if ('[object Array]' === type) _arrayToPath(data[key], path + '.' + key, result);
+            if ("[object Object]" === type) _objToPath(data[key], path + "." + key, result); else if ("[object Array]" === type) _arrayToPath(data[key], path + "." + key, result);
         });
     }
     function _arrayToPath(data, path, result) {
         data.forEach(function(item, index) {
-            result[path + '[' + index + ']'] = !0;
+            result[path + "[" + index + "]"] = !0;
             delete result[path];
             var type = Object.prototype.toString.call(item);
-            if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
+            if ("[object Object]" === type) _objToPath(item, path + "[" + index + "]", result); else if ("[object Array]" === type) _arrayToPath(item, path + "[" + index + "]", result);
         });
     }
     function tag(name, pure) {
@@ -348,19 +348,15 @@
     var options = {
         store: null,
         root: function() {
-            if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) {
-                if ('undefined' != typeof self) return self; else if ('undefined' != typeof window) return window; else if ('undefined' != typeof global) return global;
-                return function() {
-                    return this;
-                }();
-            }
-            return global;
+            if ("object" != typeof global || !global || global.Math !== Math || global.Array !== Array) return self || window || global || function() {
+                return this;
+            }(); else return global;
         }()
     };
     var stack = [];
     var EMPTY_CHILDREN = [];
     !function() {
-        if (void 0 !== window.Reflect && void 0 !== window.customElements && !window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+        if (void 0 !== window.Reflect && void 0 !== window.customElements && !window.customElements.hasOwnProperty("polyfillWrapFlushCallback")) {
             var BuiltInHTMLElement = HTMLElement;
             window.HTMLElement = function() {
                 return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
@@ -370,7 +366,7 @@
             Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
         }
     }();
-    'function' == typeof Promise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+    "function" == typeof Promise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
     var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
     var diffLevel = 0;
     var isSvgMode = !1;
@@ -396,7 +392,7 @@
             this.install();
             options.afterInstall && options.afterInstall(this);
             var shadowRoot = this.attachShadow({
-                mode: 'open'
+                mode: "open"
             });
             this.css && shadowRoot.appendChild(cssToDom(this.css()));
             this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, !1, null, !1);
@@ -431,10 +427,10 @@
     var JSONPatcherProxy = function() {
         function deepClone(obj) {
             switch (typeof obj) {
-              case 'object':
+              case "object":
                 return JSON.parse(JSON.stringify(obj));
 
-              case 'undefined':
+              case "undefined":
                 return null;
 
               default:
@@ -442,7 +438,7 @@
             }
         }
         function escapePathComponent(str) {
-            if (-1 == str.indexOf('/') && -1 == str.indexOf('~')) return str; else return str.replace(/~/g, '~0').replace(/\//g, '~1');
+            if (-1 == str.indexOf("/") && -1 == str.indexOf("~")) return str; else return str.replace(/~/g, "~0").replace(/\//g, "~1");
         }
         function findObjectPath(instance, obj) {
             var pathComponents = [];
@@ -452,14 +448,14 @@
                 parentAndPath = instance.parenthoodMap.get(parentAndPath.parent);
             }
             if (pathComponents.length) {
-                var path = pathComponents.join('/');
-                return '/' + path;
+                var path = pathComponents.join("/");
+                return "/" + path;
             }
-            return '';
+            return "";
         }
         function setTrap(instance, target, key, newValue) {
             var parentPath = findObjectPath(instance, target);
-            var destinationPropKey = parentPath + '/' + escapePathComponent(key);
+            var destinationPropKey = parentPath + "/" + escapePathComponent(key);
             if (instance.proxifiedObjectsMap.has(newValue)) {
                 var newValueOriginalObject = instance.proxifiedObjectsMap.get(newValue);
                 instance.parenthoodMap.set(newValueOriginalObject.originalObject, {
@@ -469,7 +465,7 @@
             }
             var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
             if (revokableInstance && !instance.isProxifyingTreeNow) revokableInstance.inherited = !0;
-            if (newValue && 'object' == typeof newValue && !instance.proxifiedObjectsMap.has(newValue)) {
+            if (newValue && "object" == typeof newValue && !instance.proxifiedObjectsMap.has(newValue)) {
                 instance.parenthoodMap.set(newValue, {
                     parent: target,
                     path: key
@@ -477,12 +473,12 @@
                 newValue = instance.A(target, newValue, key);
             }
             var operation = {
-                op: 'remove',
+                op: "remove",
                 path: destinationPropKey
             };
             if (void 0 === newValue) {
                 if (!Array.isArray(target) && !target.hasOwnProperty(key)) return Reflect.set(target, key, newValue);
-                if (Array.isArray(target)) operation.op = 'replace', operation.value = null;
+                if (Array.isArray(target)) operation.op = "replace", operation.value = null;
                 var oldValue = instance.proxifiedObjectsMap.get(target[key]);
                 if (oldValue) {
                     instance.parenthoodMap.delete(target[key]);
@@ -491,11 +487,11 @@
                 }
             } else {
                 if (Array.isArray(target) && !Number.isInteger(+key.toString())) {
-                    if ('length' != key) console.warn('JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch');
+                    if ("length" != key) console.warn("JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch");
                     return Reflect.set(target, key, newValue);
                 }
-                operation.op = 'add';
-                if (target.hasOwnProperty(key)) if (void 0 !== target[key] || Array.isArray(target)) operation.op = 'replace';
+                operation.op = "add";
+                if (target.hasOwnProperty(key)) if (void 0 !== target[key] || Array.isArray(target)) operation.op = "replace";
                 operation.value = newValue;
             }
             var reflectionResult = Reflect.set(target, key, newValue);
@@ -505,7 +501,7 @@
         function deleteTrap(instance, target, key) {
             if (void 0 !== target[key]) {
                 var parentPath = findObjectPath(instance, target);
-                var destinationPropKey = parentPath + '/' + escapePathComponent(key);
+                var destinationPropKey = parentPath + "/" + escapePathComponent(key);
                 var revokableProxyInstance = instance.proxifiedObjectsMap.get(target[key]);
                 if (revokableProxyInstance) if (revokableProxyInstance.inherited) revokableProxyInstance.inherited = !1; else {
                     instance.parenthoodMap.delete(revokableProxyInstance.originalObject);
@@ -514,7 +510,7 @@
                 }
                 var reflectionResult = Reflect.deleteProperty(target, key);
                 instance.defaultCallback({
-                    op: 'remove',
+                    op: "remove",
                     path: destinationPropKey
                 });
                 return reflectionResult;
@@ -537,7 +533,7 @@
             this.isObserving = !1;
             this.proxifiedObjectsMap = new Map();
             this.parenthoodMap = new Map();
-            if ('boolean' != typeof showDetachedWarning) showDetachedWarning = !0;
+            if ("boolean" != typeof showDetachedWarning) showDetachedWarning = !0;
             this.showDetachedWarning = showDetachedWarning;
             this.originalObject = root;
             this.cachedProxy = null;
@@ -576,7 +572,7 @@
         JSONPatcherProxy.prototype.proxifyObjectTree = function(root) {
             this.pause();
             this.isProxifyingTreeNow = !0;
-            var proxifiedObject = this.A(void 0, root, '');
+            var proxifiedObject = this.A(void 0, root, "");
             this.isProxifyingTreeNow = !1;
             this.resume();
             return proxifiedObject;
@@ -602,7 +598,7 @@
             }
         };
         JSONPatcherProxy.prototype.observe = function(record, callback) {
-            if (!record && !callback) throw new Error('You need to either record changes or pass a callback');
+            if (!record && !callback) throw new Error("You need to either record changes or pass a callback");
             this.isRecording = record;
             this.userCallback = callback;
             if (record) this.patches = [];
@@ -610,7 +606,7 @@
             return this.cachedProxy;
         };
         JSONPatcherProxy.prototype.generate = function() {
-            if (!this.isRecording) throw new Error('You should set record to true to get patches later');
+            if (!this.isRecording) throw new Error("You should set record to true to get patches later");
             return this.patches.splice(0, this.patches.length);
         };
         JSONPatcherProxy.prototype.revoke = function() {
@@ -627,7 +623,7 @@
     var patchs = {};
     var handler = function(patch, store) {
         clearTimeout(timeout);
-        if ('remove' === patch.op) {
+        if ("remove" === patch.op) {
             var kv = getArrayPatch(patch.path, store);
             patchs[kv.k] = kv.v;
             timeout = setTimeout(function() {
@@ -643,7 +639,7 @@
             });
         }
     };
-    options.root.Omi = {
+    var omi = {
         tag: tag,
         WeElement: WeElement,
         render: render,
@@ -652,16 +648,8 @@
         options: options,
         define: define
     };
-    options.root.Omi.version = '4.0.3';
-    var Omi = {
-        tag: tag,
-        WeElement: WeElement,
-        render: render,
-        h: h,
-        createElement: h,
-        options: options,
-        define: define
-    };
-    if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
+    options.root.Omi = omi;
+    options.root.Omi.version = "4.0.3";
+    if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

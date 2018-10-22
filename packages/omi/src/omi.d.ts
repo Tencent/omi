@@ -23,7 +23,7 @@ declare namespace Omi {
 		};
 	}
 
-	interface WeElement<> {
+	interface WeElement {
 		install?(): void;
 		installed?(): void;
 		uninstall?(): void;
@@ -31,7 +31,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 	}
 
-	abstract class WeElement<> {
+	abstract class WeElement {
 		constructor();
 
 		static props?: Array<string> | object;
@@ -72,8 +72,12 @@ declare namespace Omi {
 		params: JSX.HTMLAttributes & JSX.SVGAttributes & Record<string, any> | null,
 		...children: (ComponentChild | ComponentChildren)[]
 	): VNode<any>;
-	
-	function render(vnode: JSX, parent: string | Element | Document, store?: object): void;
+
+	function render(
+		vnode: JSX,
+		parent: string | Element | Document,
+		store?: object
+	): void;
 	function define(name: string, ctor: HTMLElement): void;
 	function tag(name: string, pure?: boolean): void;
 	function cloneElement(element: JSX.Element, props: any): JSX.Element;
@@ -85,8 +89,7 @@ declare namespace Omi {
 
 declare global {
 	namespace JSX {
-		interface Element extends Omi.VNode<any> {
-		}
+		interface Element extends Omi.VNode<any> {}
 
 		interface ElementAttributesProperty {
 			props: any;
@@ -96,7 +99,20 @@ declare global {
 			accentHeight?: number | string;
 			accumulate?: "none" | "sum";
 			additive?: "replace" | "sum";
-			alignmentBaseline?: "auto" | "baseline" | "before-edge" | "text-before-edge" | "middle" | "central" | "after-edge" | "text-after-edge" | "ideographic" | "alphabetic" | "hanging" | "mathematical" | "inherit";
+			alignmentBaseline?:
+				| "auto"
+				| "baseline"
+				| "before-edge"
+				| "text-before-edge"
+				| "middle"
+				| "central"
+				| "after-edge"
+				| "text-after-edge"
+				| "ideographic"
+				| "alphabetic"
+				| "hanging"
+				| "mathematical"
+				| "inherit";
 			allowReorder?: "no" | "yes";
 			alphabetic?: number | string;
 			amplitude?: number | string;
@@ -699,7 +715,7 @@ declare global {
 			track: HTMLAttributes;
 			u: HTMLAttributes;
 			ul: HTMLAttributes;
-			"var": HTMLAttributes;
+			var: HTMLAttributes;
 			video: HTMLAttributes;
 			wbr: HTMLAttributes;
 

@@ -1,15 +1,16 @@
-English | [简体中文](./main-concepts.cn.md) 
+English | [简体中文](./main-concepts.cn.md)
 
 ## Omi Docs
 
-- [My First Element](#my-first-element)
-- [Props](#props)
-- [Event](#event)
-- [Custom Event](#custom-event)
-- [Ref](#ref)
-- [Store](#store)
-- [Slot](#slot)
-- [SSR](#ssr)
+- [Omi Docs](#omi-docs)
+	- [My First Element](#my-first-element)
+	- [Props](#props)
+	- [Event](#event)
+	- [Custom Event](#custom-event)
+	- [Ref](#ref)
+	- [Store](#store)
+	- [Slot](#slot)
+	- [SSR](#ssr)
 
 ### My First Element
 
@@ -18,11 +19,11 @@ import { WeElement, tag, render } from 'omi'
 
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    render() {
-        return (
-            <h1>Hello, world!</h1>
-        )
-    }
+  render() {
+    return (
+      <h1>Hello, world!</h1>
+    )
+  }
 }
 
 render(<my-first-element></my-first-element>, 'body')
@@ -40,13 +41,13 @@ import './my-first-element'
 
 @tag('other-element')
 class OtherElement extends WeElement {
-    render() {
-        return (
-            <div>
-                <my-first-element></my-first-element>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <my-first-element></my-first-element>
+      </div>
+    )
+  }
 }
 ```
 
@@ -57,11 +58,11 @@ import { WeElement, tag, render } from 'omi'
 
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    render(props) {
-        return (
-            <h1>Hello, {props.name}!</h1>
-        )
-    }
+  render(props) {
+    return (
+      <h1>Hello, {props.name}!</h1>
+    )
+  }
 }
 
 render(<my-first-element name="world"></my-first-element>, 'body')
@@ -74,11 +75,11 @@ import { WeElement, tag, render } from 'omi'
 
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    render(props) {
-        return (
-            <h1>Hello, {props.myObj.name}!</h1>
-        )
-    }
+  render(props) {
+    return (
+      <h1>Hello, {props.myObj.name}!</h1>
+    )
+  }
 }
 
 render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
@@ -90,15 +91,15 @@ The `my-obj` will map to myObj with camel-case.
 
 ```js
 class MyFirstElement extends WeElement {
-    onClick = (evt) => {
-        alert('Hello Omi!')
-    }
+  onClick = (evt) => {
+    alert('Hello Omi!')
+  }
 
-    render() {
-        return (
-            <h1 onClick={this.onClick}>Hello, wrold!</h1>
-        )
-    }
+  render() {
+    return (
+      <h1 onClick={this.onClick}>Hello, wrold!</h1>
+    )
+  }
 }
 ```
 
@@ -107,38 +108,38 @@ class MyFirstElement extends WeElement {
 ```js
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    onClick = (evt) => {
-        this.fire('myevent', { name: 'abc' })
-    }
+  onClick = (evt) => {
+    this.fire('myevent', { name: 'abc' })
+  }
 
-    render(props) {
-        return (
-            <h1 onClick={this.onClick}>Hello, world!</h1>
-        )
-    }
+  render(props) {
+    return (
+      <h1 onClick={this.onClick}>Hello, world!</h1>
+    )
+  }
 }
 
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
 
-Tirgger custom event by `this.fire` and get the data by  `evt.detail`. 
+Tirgger custom event by `this.fire` and get the data by  `evt.detail`.
 
 ### Ref
 
 ```js
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    onClick = (evt) => {
-        console.log(this.h1)
-    }
+  onClick = (evt) => {
+    console.log(this.h1)
+  }
 
-    render(props) {
-        return (
-            <div>
-                <h1 ref={e => { this.h1 = e }} onClick={this.onClick}>Hello, world!</h1>
-            </div>
-        )
-    }
+  render(props) {
+    return (
+      <div>
+        <h1 ref={e => { this.h1 = e }} onClick={this.onClick}>Hello, world!</h1>
+      </div>
+    )
+  }
 }
 
 render(<my-first-element></my-first-element>, 'body')
@@ -154,26 +155,26 @@ import { WeElement, tag, render } from 'omi'
 
 @tag('my-first-element')
 class MyFirstElement extends WeElement {
-    //You must declare data here for view updating
-    static get data() {
-        return { name: null }
-    }
-    
-    onClick = () => {
-        //auto update the view
-        this.store.data.name = 'abc'
-    }
+  //You must declare data here for view updating
+  static get data() {
+    return { name: null }
+  }
 
-    render(props, data) {
-        //data === this.store.data when using store system
-        return (
-            <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
-        )
-    }
+  onClick = () => {
+    //auto update the view
+    this.store.data.name = 'abc'
+  }
+
+  render(props, data) {
+    //data === this.store.data when using store system
+    return (
+      <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
+    )
+  }
 }
 
 const store = {
-    data: { name: 'Omi' }
+  data: { name: 'Omi' }
 }
 render(<my-first-element name="world"></my-first-element>, 'body', store)
 ```
@@ -181,12 +182,12 @@ render(<my-first-element name="world"></my-first-element>, 'body', store)
 The staitc data will be transform to path for partial view updating, for example:
 ```js
 static get data() {
-    return {
-        a: null,
-        b: null,
-        c: { d: [] },
-        e: []
-    }
+  return {
+    a: null,
+    b: null,
+    c: { d: [] },
+    e: []
+  }
 }
 
 ```
@@ -204,15 +205,15 @@ Transformed path：
 
 Exemplify the Path hit rule:
 
-| proxy path | updatePath  |Update|
-| ------ | ------  |------  |
-| abc | 	abc  |	true |	 
-| abc[1] | 	abc  |	true |
-| abc.a| 	abc  |	true |
-| abc| 	abc.a  |	false |
-| abc| 	abc[1]  |	false |
-| abc| 	abc[1].c  |	false |
-| abc.b| 	abc.b |	true |
+| proxy path | updatePath | Update |
+| ---------- | ---------- | ------ |
+| abc        | abc        | true   |
+| abc[1]     | abc        | true   |
+| abc.a      | abc        | true   |
+| abc        | abc.a      | false  |
+| abc        | abc[1]     | false  |
+| abc        | abc[1].c   | false  |
+| abc.b      | abc.b      | true   |
 
 If you hit one condition above, you can update it.
 
@@ -235,26 +236,26 @@ import { tag, render, WeElement } from '../../src/omi'
 
 @tag('hello-element')
 class HelloElement extends WeElement {
-    render() {
-        return (
-            <div onClick={this.onClick}>
-                <p><slot name="my-text">My default text</slot></p>
-            </div>
-        )
-    }    
+  render() {
+    return (
+      <div onClick={this.onClick}>
+        <p><slot name="my-text">My default text</slot></p>
+      </div>
+    )
+  }
 }
 
 @tag('my-app')
 class MyApp extends WeElement {
-    render() {
-        return (
-            <div >
-                <hello-element>
-                    <span slot="my-text">Let's have some different text!</span>
-                </hello-element>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div >
+        <hello-element>
+          <span slot="my-text">Let's have some different text!</span>
+        </hello-element>
+      </div>
+    )
+  }
 }
 
 render(<my-app></my-app>, 'body')

@@ -4,9 +4,9 @@ Any form of contribution is welcome.
 
 ## Acknowledgements
 
-* vorshen <987733967@qq.com>
-* pasturn <pasturn@qq.com>
-* xcatliu <xcatliu@gmail.com>
+- vorshen <987733967@qq.com>
+- pasturn <pasturn@qq.com>
+- xcatliu <xcatliu@gmail.com>
 
 The above contributors have been officially released by Tencent.
 

@@ -1,8 +1,8 @@
-import config from './rollup.config';
+import config from "./rollup.config";
 
 // ES output
-config.output.format = 'es';
-config.output.file = 'dist/omi.esm.js';
+config.output.format = "es";
+config.output.file = "dist/omi.esm.js";
 
 // remove memory() plugin
 config.plugins.splice(0, 1);
