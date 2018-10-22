@@ -52,10 +52,9 @@ class ElButton extends WeElement {
     }
 
     onClick = (evt) => {
-        if (!this.props.disabled) {
-            this.props.onClick && this.props.onClick(evt)
+        if (this.props.disabled) {
+            evt.stopPropagation()
         }
-        evt.stopPropagation()
     }
 
     install(){
