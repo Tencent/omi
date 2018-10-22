@@ -122,7 +122,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
 
-Tirgger custom event by `this.fire` and get the data by  `evt.detail`.
+Trigger custom event by `this.fire` and get the data by  `evt.detail`.
 
 ### Ref
 
@@ -265,7 +265,7 @@ render(<my-app></my-app>, 'body')
 
 ### SSR
 
-Recommended class librarie:
+Recommended class libraries:
 
 * https://github.com/skatejs/skatejs/tree/master/packages/ssr
 * https://www.youtube.com/watch?v=yT-EsESAmgA
