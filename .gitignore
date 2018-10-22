@@ -11,4 +11,4 @@ package-lock.json
 .vscode/
 .idea/
 
-/plugins/*/node_modules
+/packages/*/node_modules
