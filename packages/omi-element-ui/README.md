@@ -4,8 +4,8 @@ Omi version of element-ui
 
 ## Docs
 
-* (English Docs)[http://element-cn.eleme.io/#/en-US/component/]
-* (中文文档)[https://element.eleme.io/#/zh-CN/component/]
+* [English Docs](http://element-cn.eleme.io/#/en-US/component/)
+* [中文文档](https://element.eleme.io/#/zh-CN/component/)
 
 ## Contribute Element-UI to Omi
 

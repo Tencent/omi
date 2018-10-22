@@ -458,7 +458,7 @@ class MyApp extends WeElement {
 
 Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
-![Browsers Support](./assets/browsers-support.png)
+![→ Browsers Support](./assets/browsers-support.png)
 
 [→ Polyfills](https://github.com/webcomponents/webcomponentsjs)
 
@@ -485,6 +485,10 @@ Please contact us for any questions:
 
 - [@f](https://github.com/f)
 - [@dntzhang](https://github.com/dntzhang)
+
+## Contribute Element-UI to Omi
+
+[→ Go to contribute elements](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)
 
 ## License
 
