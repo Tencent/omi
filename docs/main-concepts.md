@@ -179,7 +179,7 @@ const store = {
 render(<my-first-element name="world"></my-first-element>, 'body', store)
 ```
 
-The staitc data will be transform to path for partial view updating, for example:
+The static data will be transform to path for partial view updating, for example:
 ```js
 static get data() {
   return {
