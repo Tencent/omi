@@ -10,7 +10,7 @@ class MyApp extends WeElement {
   }
 
   onChange = (e) => {
-    console.log('radio checked', e.detail.value)
+    console.log('page index', e.detail.index)
   }
 
   render(props, data) {
@@ -18,9 +18,8 @@ class MyApp extends WeElement {
       <div>
         <div>
           <el-pagination
-            background
-            layout="prev, pager, next"
-            total="1000">
+            onChange={this.onChange}
+            total={1000}>
           </el-pagination>
         </div>
 
