@@ -28,11 +28,11 @@
 |  el-form| 		  |
 |  el-table| 		  |
 |  el-tag| 		  |
-|  el-progress| 		  |
+|  el-progress| dntzhang		  |
 |  el-tree| 		  |
 |  el-pagination| 		  |
 |  el-badge| 		  |
-|  el-alert| 		  |
+|  el-alert| 	dntzhang	  |
 |  el-menu| 		  |
 |  el-tabs| 		  |
 |  el-breadcrumb| 		@wadellg  | 
