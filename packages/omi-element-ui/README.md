@@ -12,14 +12,14 @@
 * Updtate the readme and pull request to claim elements to be developed.
 * Create the element directory in the [omi-element-ui](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui/src/omi-element-ui) and finish it then pull request.
 
-| Element | Owner  |
-| ------ | ------  |
-| ~~el-button~~ | 	dntzhang	  |
-| ~~el-icon~~ | 	dntzhang	  |
-|  el-radio| 	dntzhang	  |
-|  el-checkbox| 		  |
-|  el-input| 		  |
-|  el-input-number| 		  |
+| Element | Owner  |Usage  |
+| ------ | ------  |------  |
+| ~~el-button~~ | 	dntzhang	  |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/button/index.js#L19-L118) |
+| ~~el-icon~~ | 	dntzhang	  | |
+|  el-radio| 	dntzhang	  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/radio/index.js#L19-L34)|
+|  el-checkbox| 		  | |
+|  el-input| 		  | |
+|  el-input-number| 	dntzhang	  | |
 |  el-select| 		  |
 |  el-cascader| 		  |
 |  el-switch| 		  |
