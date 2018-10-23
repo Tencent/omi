@@ -1,20 +1,20 @@
-import { tag, WeElement } from "omi";
-import logo from "./logo.svg";
-import style from "./_index.css";
-import "../app-intro";
+import { tag, WeElement } from "omi"
+import logo from "./logo.svg"
+import style from "./_index.css"
+import "../app-intro"
 
 @tag("my-app")
 class MyApp extends WeElement {
 	static get data() {
-		return { name: "" };
+		return { name: "" }
 	}
 
 	clickHandler = () => {
-		this.store.rename("Omi V4.0");
+		this.store.rename("Omi V4.0")
 	};
 
 	css() {
-		return style;
+		return style
 	}
 
 	render(props, data) {
@@ -31,6 +31,6 @@ class MyApp extends WeElement {
 				</header>
 				<app-intro />
 			</div>
-		);
+		)
 	}
 }
