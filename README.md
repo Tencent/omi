@@ -417,8 +417,9 @@ render(<todo-app />, "body", store);
 | `install`        | before the component gets mounted to the DOM |
 | `installed`      | after the component gets mounted to the DOM  |
 | `uninstall`      | prior to removal from the DOM                |
-| `beforeUpdate`   | before `render()`                            |
-| `afterUpdate`    | after `render()`                             |
+| `beforeUpdate`   | before update                           |
+| `afterUpdate`    | after update                             |
+| `beforeRender`   | before `render()`                           |
 
 ## Component Ecosystem
 
