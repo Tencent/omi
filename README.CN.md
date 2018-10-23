@@ -136,6 +136,16 @@ $ npm run build                  # release
 │  └─ index.js    //入口文件，会 build 成  index.html
 ```
 
+使用 TypeScript 模板(omi-cli v3.0.2+):
+
+```bash
+$ npm i omi-cli -g                  # install cli
+$ omi init-ts your_project_name     # init project, you can also exec 'omi init-ts' in an empty folder
+$ cd your_project_name              # please ignore this command if you executed 'omi init' in an empty folder
+$ npm start                         # develop
+$ npm run build                     # release
+```
+
 Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)。
 
 ### Hello Element
