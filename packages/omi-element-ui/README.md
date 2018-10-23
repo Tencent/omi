@@ -2,11 +2,6 @@
 
 > Omi version of element-ui
 
-## Docs
-
-* [English Docs](http://element-cn.eleme.io/#/en-US/component/)
-* [中文文档](https://element.eleme.io/#/zh-CN/component/)
-
 ## Contribute
 
 * Updtate the readme and pull request to claim elements to be developed.
@@ -60,6 +55,11 @@
 npm install
 npm start
 ```
+
+## Element UI Docs
+
+* [English Docs](http://element-cn.eleme.io/#/en-US/component/)
+* [中文文档](https://element.eleme.io/#/zh-CN/component/)
 
 ## Different with element-ui 
 
