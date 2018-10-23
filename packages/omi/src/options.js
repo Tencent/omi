@@ -10,11 +10,11 @@ function getGlobal() {
 			window ||
 			global ||
 			(function() {
-				return this;
+				return this
 			})()
-		);
+		)
 	}
-	return global;
+	return global
 }
 
 /** Global options
@@ -24,4 +24,4 @@ function getGlobal() {
 export default {
 	store: null,
 	root: getGlobal()
-};
+}

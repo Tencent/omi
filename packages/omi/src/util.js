@@ -24,32 +24,32 @@
 		// ES2015-compatible construction (`super()` or `Reflect.construct`).
 		window.customElements.hasOwnProperty("polyfillWrapFlushCallback")
 	) {
-		return;
+		return
 	}
-	const BuiltInHTMLElement = HTMLElement;
+	const BuiltInHTMLElement = HTMLElement
 	window.HTMLElement = function HTMLElement() {
-		return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
-	};
-	HTMLElement.prototype = BuiltInHTMLElement.prototype;
-	HTMLElement.prototype.constructor = HTMLElement;
-	Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
-})();
+		return Reflect.construct(BuiltInHTMLElement, [], this.constructor)
+	}
+	HTMLElement.prototype = BuiltInHTMLElement.prototype
+	HTMLElement.prototype.constructor = HTMLElement
+	Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement)
+})()
 
 export function cssToDom(css) {
-	const node = document.createElement("style");
-	node.textContent = css;
-	return node;
+	const node = document.createElement("style")
+	node.textContent = css
+	return node
 }
 
 export function npn(str) {
 	return str.replace(/-(\w)/g, ($, $1) => {
-		return $1.toUpperCase();
-	});
+		return $1.toUpperCase()
+	})
 }
 
 export function extend(obj, props) {
-	for (let i in props) obj[i] = props[i];
-	return obj;
+	for (let i in props) obj[i] = props[i]
+	return obj
 }
 
 /** Invoke or update a ref, depending on whether it is a function or object ref.
@@ -58,8 +58,8 @@ export function extend(obj, props) {
  */
 export function applyRef(ref, value) {
 	if (ref != null) {
-		if (typeof ref == "function") ref(value);
-		else ref.current = value;
+		if (typeof ref == "function") ref(value)
+		else ref.current = value
 	}
 }
 
@@ -72,17 +72,17 @@ export function applyRef(ref, value) {
 export const defer =
 	typeof Promise == "function"
 		? Promise.resolve().then.bind(Promise.resolve())
-		: setTimeout;
+		: setTimeout
 
 export function isArray(obj) {
-	return Object.prototype.toString.call(obj) === "[object Array]";
+	return Object.prototype.toString.call(obj) === "[object Array]"
 }
 
 export function nProps(props) {
-	if (!props || isArray(props)) return {};
-	const result = {};
+	if (!props || isArray(props)) return {}
+	const result = {}
 	Object.keys(props).forEach(key => {
-		result[key] = props[key].value;
-	});
-	return result;
+		result[key] = props[key].value
+	})
+	return result
 }
