@@ -8,6 +8,7 @@ class ElRadio extends WeElement {
     }
 
     install() {
+        this.data.checked = this.props.checked
         this._initData()
     }
 
@@ -16,13 +17,15 @@ class ElRadio extends WeElement {
     }
 
     _initData() {
-        this.data.checked = this.props.checked
+        
         this.data.disabled = this.props.disabled
         this.data.value = this.props.value
 
         if (this.parentNode.nodeName === 'EL-RADIO-GROUP') {
             if (this.parentNode.data.value === this.data.value) {
                 this.data.checked = true
+            } else {
+                this.data.checked = false
             }
             this._inInGroup = true
         }

@@ -19,7 +19,6 @@ class MyApp extends WeElement {
         <div>
           <el-input-number change={this.onChange} min={1} max={10} step={1} value={2} label="描述文字"></el-input-number>
         </div>
-
       </div>
     )
   }

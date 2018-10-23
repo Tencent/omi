@@ -11,10 +11,10 @@
 | ------ | ------  |------  |
 | ~~el-button~~ | 	dntzhang	  |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/button/index.js#L19-L118) |
 | ~~el-icon~~ | 	dntzhang	  | |
-|  el-radio| 	dntzhang	  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/radio/index.js#L19-L34)|
+|  ~~el-radio~~| 	dntzhang	  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/radio/index.js#L19-L34)|
 |  el-checkbox| 		  | |
 |  el-input| 		  | |
-|  el-input-number| 	dntzhang	  | |
+|  ~~el-input-number~~| 	dntzhang	  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/input-number/index.js#L18-L22) |
 |  el-select| 		  |
 |  el-cascader| 		  |
 |  el-switch| 		  |
