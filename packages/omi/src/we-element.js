@@ -1,4 +1,4 @@
-import { cssToDom, nProps } from "./util";
+import { cssToDom, nProps, isArray } from "./util";
 import { diff } from "./vdom/diff";
 import options from "./options";
 
@@ -37,8 +37,13 @@ export default class WeElement extends HTMLElement {
 			null,
 			false
 		);
-		shadowRoot.appendChild(this.host);
-
+		if (isArray(this.host)) { 
+			this.host.forEach(function(item) {
+				shadowRoot.appendChild(item)
+			})
+		} else {
+			shadowRoot.appendChild(this.host);
+		}
 		this.installed();
 		this._isInstalled = true;
 	}
