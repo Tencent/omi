@@ -28,7 +28,7 @@
 |  el-form| 		  |
 |  el-table| 		  |
 |  el-tag| 		  |
-|  el-progress| dntzhang		  |
+|  ~~el-progress~~| dntzhang		  |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/progress/index.js#L18-L42)|
 |  el-tree| 		  |
 |  el-pagination| 		  |
 |  el-badge| 		  |
