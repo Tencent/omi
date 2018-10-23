@@ -53,15 +53,15 @@ class ElRadio extends WeElement {
 
     onClick = () => {
         if (this._inInGroup) {
-            
-            if(this.parentNode.data.value!==this.data.value){
+
+            if (this.parentNode.data.value !== this.data.value) {
                 this.parentNode.data.value = this.data.value
                 this.parentNode.childNodes.forEach((node) => {
                     node.update()
                 })
-                this.parentNode.fire('change',{value:this.data.value})
+                this.parentNode.fire('change', { value: this.data.value })
             }
-           
+
         } else if (!this.data.disabled) {
             this.data.checked = true
             this.update()
