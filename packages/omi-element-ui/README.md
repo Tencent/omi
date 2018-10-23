@@ -22,7 +22,7 @@
 |  el-time-select| 		  |
 |  el-date-picker| 		  |
 |  el-upload| 		  |
-|  el-rate| 		  |
+|  el-rate| 	@wadellg	  |
 |  el-color-picker| 		  |
 |  el-transfer| 		  |
 |  el-form| 		  |
@@ -35,13 +35,13 @@
 |  el-alert| 		  |
 |  el-menu| 		  |
 |  el-tabs| 		  |
-|  el-breadcrumb| 		  |
+|  el-breadcrumb| 		@wadellg  | 
 |  el-dropdown| 		  |
 |  el-steps| 		  |
 |  el-dialog| 		  |
 |  el-tooltip| 		  |
 |  el-popover| 		  |
-|  el-card| 		  |
+|  el-card| 	@wadellg	  |
 |  el-carousel| 		  |
 |  el-collapse| 		  |
 |  el-touch| 		dntzhang  |
