@@ -8,7 +8,7 @@
 	- [Event](#event)
 	- [Custom Event](#custom-event)
   - [CSS](#css)
-	- [Ref](#ref)
+  - [Ref](#ref)
 	- [Store](#store)
 	- [Slot](#slot)
 	- [SSR](#ssr)
