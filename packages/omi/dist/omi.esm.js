@@ -1,5 +1,5 @@
 /**
- * omi v4.0.5  http://omijs.org
+ * omi v4.0.6  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -657,6 +657,7 @@ var WeElement = function (_HTMLElement) {
 		var shadowRoot = this.attachShadow({ mode: "open" });
 
 		this.css && shadowRoot.appendChild(cssToDom(this.css()));
+		this.beforeRender();
 		this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
 		if (isArray(this.host)) {
 			this.host.forEach(function (item) {
@@ -683,6 +684,7 @@ var WeElement = function (_HTMLElement) {
 
 	WeElement.prototype.update = function update() {
 		this.beforeUpdate();
+		this.beforeRender();
 		diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
 		this.afterUpdate();
 	};
@@ -700,6 +702,8 @@ var WeElement = function (_HTMLElement) {
 	WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
 	WeElement.prototype.afterUpdate = function afterUpdate() {};
+
+	WeElement.prototype.beforeRender = function beforeRender() {};
 
 	return WeElement;
 }(HTMLElement);
@@ -1273,7 +1277,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = "4.0.5";
+options.root.Omi.version = "4.0.6";
 
 export default omi;
 export { tag, WeElement, render, h, h as createElement, options, define };

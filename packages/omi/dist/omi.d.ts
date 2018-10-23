@@ -61,6 +61,7 @@ declare namespace Omi {
 		uninstall?(): void;
 		beforeUpdate?(): void;
 		afterUpdate?(): void;
+		beforeRender?(): void;
 	}
 
 	abstract class WeElement<P = {}, D = {}> {

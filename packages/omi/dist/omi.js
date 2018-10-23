@@ -414,6 +414,7 @@
                 mode: "open"
             });
             this.css && shadowRoot.appendChild(cssToDom(this.css()));
+            this.beforeRender();
             this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, !1, null, !1);
             if (isArray(this.host)) this.host.forEach(function(item) {
                 shadowRoot.appendChild(item);
@@ -430,6 +431,7 @@
         };
         WeElement.prototype.update = function() {
             this.beforeUpdate();
+            this.beforeRender();
             diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
             this.afterUpdate();
         };
@@ -443,6 +445,7 @@
         WeElement.prototype.uninstall = function() {};
         WeElement.prototype.beforeUpdate = function() {};
         WeElement.prototype.afterUpdate = function() {};
+        WeElement.prototype.beforeRender = function() {};
         return WeElement;
     }(HTMLElement);
     var JSONPatcherProxy = function() {
@@ -670,7 +673,7 @@
         define: define
     };
     options.root.Omi = omi;
-    options.root.Omi.version = "4.0.5";
+    options.root.Omi.version = "4.0.6";
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
