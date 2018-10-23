@@ -1,6 +1,7 @@
 @import "mixins/mixins";
 @import "common/var";
 @import "input";
+@import "icon.scss";
 
 @include b(input-number) {
   position: relative;
