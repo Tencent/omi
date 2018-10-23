@@ -23,6 +23,21 @@ declare namespace Omi {
 	}
 
 	/**
+	 * Use this to manually set the attributes of a custom element
+	 * 
+	 * declare global {
+	 *     namespace JSX {
+	 * 	       interface IntrinsicElements {
+	 *             'hello-element': CustomElementBaseAttributes & {
+	 *                 'prop-from-parent': string;
+	 *             }
+	 *         }
+	 *     }
+	 * }
+	 */
+	interface CustomElementBaseAttributes extends ClassAttributes<any>, OmiDOMAttributes {}
+
+	/**
 	 * Define the contract for a virtual node in omi.
 	 *
 	 * A virtual node has a name, a map of attributes, an array
