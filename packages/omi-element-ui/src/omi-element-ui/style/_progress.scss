@@ -1,6 +1,7 @@
 @import "mixins/mixins";
 @import "mixins/utils";
 @import "common/var";
+@import "icon.scss";
 
 @include b(progress) {
   position: relative;
