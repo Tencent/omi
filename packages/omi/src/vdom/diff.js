@@ -1,7 +1,7 @@
 import { ATTR_KEY } from "../constants";
 import { isSameNodeType, isNamedNode } from "./index";
 import { createNode, setAccessor } from "../dom/index";
-import { npn } from "../util";
+import { npn, isArray } from "../util";
 import { removeNode } from "../dom/index";
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
@@ -24,6 +24,7 @@ let hydrating = false;
  */
 export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 	// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
+	var ret;
 	if (!diffLevel++) {
 		// when first starting the diff, check if we're diffing an SVG or within an SVG
 		isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
@@ -31,11 +32,38 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 		// hydration is indicated by the existing element to be diffed not having a prop cache
 		hydrating = dom != null && !(ATTR_KEY in dom);
 	}
-
-	let ret = idiff(dom, vnode, context, mountAll, componentRoot);
-
-	// append the element if its a new parent
-	if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+	if (isArray(vnode)) {
+		ret = [];
+		var parentNode = null;	
+		if (isArray(dom)) {
+			parentNode = dom[0].parentNode;
+			dom.forEach(function (item, index) {
+				ret.push(
+					idiff(item, vnode[index], context, mountAll, componentRoot)
+				)
+			})
+		} else {
+			vnode.forEach(function (item) {
+				ret.push(
+					idiff(dom, item, context, mountAll, componentRoot)
+				)
+			})
+		}; 
+		if (parent) {
+			ret.forEach(function (vnode) {
+				parent.appendChild(vnode)
+			})
+		} else if (isArray(dom)) {
+			dom.forEach(function (node) {
+				parentNode.appendChild(node);
+			})
+		}
+	} else {
+		ret = idiff(dom, vnode, context, mountAll, componentRoot);
+		// append the element if its a new parent
+		if (parent && ret.parentNode !== parent) parent.appendChild(ret);	
+	}
+	
 
 	// diffLevel being reduced to 0 means we're exiting the diff
 	if (!--diffLevel) {
