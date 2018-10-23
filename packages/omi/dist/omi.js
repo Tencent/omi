@@ -96,12 +96,31 @@
         return this.__l[e.type](options.event && options.event(e) || e);
     }
     function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+        var ret;
         if (!diffLevel++) {
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
             hydrating = null != dom && !("__preactattr_" in dom);
         }
-        var ret = idiff(dom, vnode, context, mountAll, componentRoot);
-        if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+        if (isArray(vnode)) {
+            ret = [];
+            var parentNode = null;
+            if (isArray(dom)) {
+                parentNode = dom[0].parentNode;
+                dom.forEach(function(item, index) {
+                    ret.push(idiff(item, vnode[index], context, mountAll, componentRoot));
+                });
+            } else vnode.forEach(function(item) {
+                ret.push(idiff(dom, item, context, mountAll, componentRoot));
+            });
+            if (parent) ret.forEach(function(vnode) {
+                parent.appendChild(vnode);
+            }); else if (isArray(dom)) dom.forEach(function(node) {
+                parentNode.appendChild(node);
+            });
+        } else {
+            ret = idiff(dom, vnode, context, mountAll, componentRoot);
+            if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+        }
         if (!--diffLevel) hydrating = !1;
         return ret;
     }
@@ -396,7 +415,9 @@
             });
             this.css && shadowRoot.appendChild(cssToDom(this.css()));
             this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, !1, null, !1);
-            shadowRoot.appendChild(this.host);
+            if (isArray(this.host)) this.host.forEach(function(item) {
+                shadowRoot.appendChild(item);
+            }); else shadowRoot.appendChild(this.host);
             this.installed();
             this.B = !0;
         };
@@ -649,7 +670,7 @@
         define: define
     };
     options.root.Omi = omi;
-    options.root.Omi.version = "4.0.3";
+    options.root.Omi.version = "4.0.5";
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

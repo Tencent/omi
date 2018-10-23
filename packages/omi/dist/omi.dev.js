@@ -1,5 +1,5 @@
 /**
- * omi v4.0.4  http://omijs.org
+ * omi v4.0.5  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -335,6 +335,7 @@
 	 */
     function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 		// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
+		var ret;
 		if (!diffLevel++) {
 			// when first starting the diff, check if we're diffing an SVG or within an SVG
 			isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
@@ -342,11 +343,32 @@
 			// hydration is indicated by the existing element to be diffed not having a prop cache
 			hydrating = dom != null && !("__preactattr_" in dom);
 		}
-
-		var ret = idiff(dom, vnode, context, mountAll, componentRoot);
-
-		// append the element if its a new parent
-		if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+		if (isArray(vnode)) {
+			ret = [];
+			var parentNode = null;
+			if (isArray(dom)) {
+				parentNode = dom[0].parentNode;
+				dom.forEach(function (item, index) {
+					ret.push(idiff(item, vnode[index], context, mountAll, componentRoot));
+				});
+			} else {
+				vnode.forEach(function (item) {
+					ret.push(idiff(dom, item, context, mountAll, componentRoot));
+				});
+			}		if (parent) {
+				ret.forEach(function (vnode) {
+					parent.appendChild(vnode);
+				});
+			} else if (isArray(dom)) {
+				dom.forEach(function (node) {
+					parentNode.appendChild(node);
+				});
+			}
+		} else {
+			ret = idiff(dom, vnode, context, mountAll, componentRoot);
+			// append the element if its a new parent
+			if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+		}
 
 		// diffLevel being reduced to 0 means we're exiting the diff
 		if (! --diffLevel) {
@@ -639,8 +661,13 @@
 
 			this.css && shadowRoot.appendChild(cssToDom(this.css()));
 			this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
-			shadowRoot.appendChild(this.host);
-
+			if (isArray(this.host)) {
+				this.host.forEach(function (item) {
+					shadowRoot.appendChild(item);
+				});
+			} else {
+				shadowRoot.appendChild(this.host);
+			}
 			this.installed();
 			this._isInstalled = true;
 		};
@@ -1249,7 +1276,7 @@
 	};
 
     options.root.Omi = omi;
-    options.root.Omi.version = "4.0.3";
+    options.root.Omi.version = "4.0.5";
 
     if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
