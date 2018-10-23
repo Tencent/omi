@@ -98,7 +98,7 @@ class MyFirstElement extends WeElement {
 
   render() {
     return (
-      <h1 onClick={this.onClick}>Hello, wrold!</h1>
+      <h1 onClick={this.onClick}>Hello, world!</h1>
     )
   }
 }
