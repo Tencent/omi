@@ -1,13 +1,13 @@
 # Omi Element UI
 
-Omi version of element-ui
+> Omi version of element-ui
 
 ## Docs
 
 * [English Docs](http://element-cn.eleme.io/#/en-US/component/)
 * [中文文档](https://element.eleme.io/#/zh-CN/component/)
 
-## Contribute Element-UI to Omi
+## Contribute
 
 * Updtate the readme and pull request to claim elements to be developed.
 * Create the element directory in the [omi-element-ui](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui/src/omi-element-ui) and finish it then pull request.
