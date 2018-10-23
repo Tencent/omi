@@ -24,7 +24,7 @@ let hydrating = false;
  */
 export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 	// diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
-	var ret;
+	let ret;
 	if (!diffLevel++) {
 		// when first starting the diff, check if we're diffing an SVG or within an SVG
 		isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
@@ -34,7 +34,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 	}
 	if (isArray(vnode)) {
 		ret = [];
-		var parentNode = null;	
+		let parentNode = null;	
 		if (isArray(dom)) {
 			parentNode = dom[0].parentNode;
 			dom.forEach(function (item, index) {
