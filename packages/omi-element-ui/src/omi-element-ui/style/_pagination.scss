@@ -2,6 +2,7 @@
 @import "mixins/utils";
 @import "common/var";
 @import "select";
+@import "icon.scss";
 
 @include b(pagination) {
   white-space: nowrap;
