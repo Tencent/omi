@@ -7,6 +7,7 @@
 	- [Props](#props)
 	- [Event](#event)
 	- [Custom Event](#custom-event)
+  - [CSS](#css)
 	- [Ref](#ref)
 	- [Store](#store)
 	- [Slot](#slot)
@@ -109,6 +110,62 @@ render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-fi
 ```
 
 通过 `this.fire` 触发自定义事件，fire 第一个参数是事件名称，第二个参数是传递的数据。通过 `evt.detail` 可以获取到传递的数据。
+
+### CSS
+
+```js
+@tag('my-first-element')
+class MyFirstElement extends WeElement {
+  css() {
+    return `h1 { color: red; }`
+  }
+
+  render(props) {
+    return (
+      <h1>Hello, world!</h1>
+    )
+  }
+}
+
+render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
+```
+
+你也可以在 JS 里动态拼接 CSS:
+
+```js
+ css() {
+    return `h1 { color: ${Math.random() > 0.5 ? "red" : "blue"}; }`
+  }
+```
+
+你也可以另起一个文件用来写 CSS，但是需要配置一下 webpack [to-string-loader](https://www.npmjs.com/package/to-string-loader)：
+
+```js
+{
+  test: /[\\|\/]_[\S]*\.scss$/,
+  use: [
+      'to-string-loader',
+      'css-loader',
+      'sass-loader'
+  ]
+}
+```
+
+然后:
+
+```js
+import { tag, WeElement } from 'omi'
+import style from '../style/_button.scss'
+
+@tag('el-button', true)
+class ElButton extends WeElement {
+
+    css() {
+        return style
+    }
+    ...
+    ...
+```
 
 ### Ref
 

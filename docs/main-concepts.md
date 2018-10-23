@@ -7,6 +7,7 @@ English | [简体中文](./main-concepts.cn.md)
 	- [Props](#props)
 	- [Event](#event)
 	- [Custom Event](#custom-event)
+  - [CSS](#css)
 	- [Ref](#ref)
 	- [Store](#store)
 	- [Slot](#slot)
@@ -123,6 +124,62 @@ render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-fi
 ```
 
 Trigger custom event by `this.fire` and get the data by  `evt.detail`.
+
+### CSS
+
+```js
+@tag('my-first-element')
+class MyFirstElement extends WeElement {
+  css() {
+    return `h1 { color: red; }`
+  }
+
+  render(props) {
+    return (
+      <h1>Hello, world!</h1>
+    )
+  }
+}
+
+render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
+```
+
+You can also dynamically generate the CSS:
+
+```js
+ css() {
+    return `h1 { color: ${Math.random() > 0.5 ? "red" : "blue"}; }`
+  }
+```
+
+You can also write CSS, less and sass separately to another file using [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack：
+
+```js
+{
+  test: /[\\|\/]_[\S]*\.scss$/,
+  use: [
+      'to-string-loader',
+      'css-loader',
+      'sass-loader'
+  ]
+}
+```
+
+Then:
+
+```js
+import { tag, WeElement } from 'omi'
+import style from '../style/_button.scss'
+
+@tag('el-button', true)
+class ElButton extends WeElement {
+
+    css() {
+        return style
+    }
+    ...
+    ...
+```
 
 ### Ref
 

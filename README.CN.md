@@ -12,7 +12,7 @@
 - [基于 Shadow Dom 设计](https://developers.google.cn/web/fundamentals/web-components/shadowdom?hl=zh-cn)
 - 利用[Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)轻松调试，[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)
 - 符合浏览器的发展趋势以及API设计理念
-- `Web Components` + `JSX` 相互融合为一个框架 Omi
+- [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) + [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 相互融合为一个框架 Omi
 - 通过 omi-mobx 让 omi 和 mobx 一起良好地制作响应式视图(免去 `this.update`)
 - Web Components 也可以数据驱动视图, `UI = fn(data)`
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
@@ -227,7 +227,7 @@ render(<my-app name='Omi v4.0'></my-app>, 'body')
 "babel-preset-omi": "^0.1.1",
 ```
 
-如果不想把 css 写在 js 里，你可以使用 [to-string-loader](https://www.npmjs.com/package/to-string-loader), 比如下面配置:
+如果不想把 css 写在 js 里，你可以使用 webpack [to-string-loader](https://www.npmjs.com/package/to-string-loader), 比如下面配置:
 
 ``` js
 {

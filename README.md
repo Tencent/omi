@@ -12,7 +12,7 @@ English | [简体中文](./README.CN.md)
 - [Based on Shadow DOM](https://developers.google.com/web/fundamentals/web-components/shadowdom)
 - Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
 - Compliance with browser trend and API design.
-- Merge **JSX** and **Web Components** into one framework.
+- Merge [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) and [**JSX**](https://reactjs.org/docs/introducing-jsx.html)  into one framework.
 - Work well with mobx by omi-mobx (No need to call `this.update()`).
 - Web Components can also be a data-driven view, **`UI = fn(data)`**.
 - JSX is the best development experience (code intelligent completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals).
@@ -232,7 +232,7 @@ The following two NPM packages need to be installed to support the above configu
 "babel-preset-omi": "^0.1.1",
 ```
 
-If you don't want to write CSS in JS, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader),
+If you don't want to write CSS in JS, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack,
 For example, the following configuration:
 
 ```js
