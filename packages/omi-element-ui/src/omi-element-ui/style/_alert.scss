@@ -1,5 +1,6 @@
 @import "mixins/mixins";
 @import "common/var";
+@import "icon.scss";
 
 @include b(alert) {
   width: 100%;
