@@ -31,14 +31,17 @@ class MyApp extends WeElement {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
+      width: 180
     }, {
       title: '年龄',
       dataIndex: 'age',
       key: 'age',
+      width: 280
     }, {
       title: '住址',
       dataIndex: 'address',
       key: 'address',
+      width: 480
     }];
     
    
