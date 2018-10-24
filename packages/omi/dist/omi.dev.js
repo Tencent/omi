@@ -1,5 +1,5 @@
 /**
- * omi v4.0.6  http://omijs.org
+ * omi v4.0.7  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -457,6 +457,8 @@
 		// Apply attributes/props from VNode to the DOM Element:
 		diffAttributes(out, vnode.attributes, props);
 
+		out.props && (out.props.children = vnode.children);
+
 		// restore previous SVG mode: (in case we're exiting an SVG namespace)
 		isSvgMode = prevSvgMode;
 
@@ -786,17 +788,17 @@
 	        will emit
 	        {op: replace, path: '/arr/1', value: arr_2}
 	        {op: remove, path: '/arr/2'}
-	         by default, the second operation would revoke the proxy, and this renders arr revoked.
+	          by default, the second operation would revoke the proxy, and this renders arr revoked.
 	        That's why we need to remember the proxies that are inherited.
 	      */
 			var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
 			/*
 	    Why do we need to check instance.isProxifyingTreeNow?
-	     We need to make sure we mark revokables as inherited ONLY when we're observing,
+	      We need to make sure we mark revokables as inherited ONLY when we're observing,
 	    because throughout the first proxification, a sub-object is proxified and then assigned to
 	    its parent object. This assignment of a pre-proxified object can fool us into thinking
 	    that it's a proxified object moved around, while in fact it's the first assignment ever.
-	     Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
+	      Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
 	    but in fact is is a proxified object moved around the tree
 	    */
 			if (revokableInstance && !instance.isProxifyingTreeNow) {
@@ -874,7 +876,7 @@
 	            this is an inherited proxy (an already proxified object that was moved around),
 	            we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
 	            And we know that because we mark moved proxies with `inherited` flag when we move them
-	             it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
+	              it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
 	            We DO want to revoke the proxy if it was removed again.
 	          */
 						revokableProxyInstance.inherited = false;
@@ -1280,7 +1282,7 @@
 	};
 
     options.root.Omi = omi;
-    options.root.Omi.version = "4.0.6";
+    options.root.Omi.version = "4.0.7";
 
     if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
