@@ -481,6 +481,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 - [westore](https://github.com/dntzhang/westore)
 - [omijs.org](http://omijs.org/)
 - [Omi.js 谷歌开发工具扩展 by F](https://github.com/f/omi-devtools)
+- [omi-i18n](https://github.com/i18next/omi-i18n)
 
 ## 贡献代码
 

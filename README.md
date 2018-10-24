@@ -483,6 +483,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 - [omijs.org](http://omijs.org/)
 - [Omi.js DevTools](https://github.com/f/omi-devtools)
+- [omi-i18n](https://github.com/i18next/omi-i18n)
 
 ## Contribution
 

@@ -18,7 +18,7 @@
     "todo-app": "rollup -c config/rollup.example.js --watch",
     "store": "rollup -c config/rollup.example.js --watch",
     "render-array": "rollup -c config/rollup.example.js --watch",
-    "omi-tap": "rollup -c config/rollup.example.js --watch",
+    "css3transform": "rollup -c config/rollup.example.js --watch",
     "simple": "rollup -c config/rollup.example.js --watch",
     "transpile:main": "rollup -c config/rollup.config.js",
     "transpile:esm": "rollup -c config/rollup.config.esm.js",
