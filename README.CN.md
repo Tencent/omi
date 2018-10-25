@@ -419,10 +419,22 @@ render(<todo-app></todo-app>, 'body', store)
 
 ## 生态
 
+- [omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)
+- [omijs.org](http://omijs.org/)
+- [Omi.js DevTools](https://github.com/f/omi-devtools)
+- [omi-i18n](https://github.com/i18next/omi-i18n)
+- [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)
+- [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)
+- [https://www.webcomponents.org/](https://www.webcomponents.org/)
+- [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
+- [westore](https://github.com/dntzhang/westore)
+
+你也可以在 `webcomponents.org` 里面查找你想要的组件，直接使用，或者花几分钟就能转换成 Omi Element（把模板拷贝到 render 方法，style拷贝到 css 方法）。
+
 * [https://www.webcomponents.org/](https://www.webcomponents.org/)
 * [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
-在里面查找你想要的组件，直接使用，或者花几分钟就能转换成 Omi Element（把模板拷贝到 render 方法，style拷贝到 css 方法）。
+
 
 ## 调试工具
 
@@ -476,13 +488,6 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 > 你也可以放弃 store 体系，使用 omi-mobx 来兼容IE11
 
-## 相关链接
-
-- [westore](https://github.com/dntzhang/westore)
-- [omijs.org](http://omijs.org/)
-- [Omi.js 谷歌开发工具扩展 by F](https://github.com/f/omi-devtools)
-- [omi-i18n](https://github.com/i18next/omi-i18n)
-
 ## 贡献代码
 
 1. 先 Fork (https://github.com/Tencent/omi/fork)
@@ -496,10 +501,6 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 * [@f](https://github.com/f)
 * [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
-
-## 贡献 Element-UI 到 Omi
-
-[→ 现在就去](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)
 
 ## License
 
