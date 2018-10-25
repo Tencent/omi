@@ -46,7 +46,6 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM based style
 - [Debugging](#debugging)
 - [Omi Mobx](#omi-mobx)
 - [Browsers Support](#browsers-support)
-- [Links](#links)
 - [Contribution](#contribution)
 - [License](#license)
 
@@ -423,10 +422,14 @@ render(<todo-app />, "body", store);
 
 ## Component Ecosystem
 
+- [omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)
+- [omijs.org](http://omijs.org/)
+- [Omi.js DevTools](https://github.com/f/omi-devtools)
+- [omi-i18n](https://github.com/i18next/omi-i18n)
+- [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)
+- [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)
 - [https://www.webcomponents.org/](https://www.webcomponents.org/)
 - [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
-
-I believe you can easily convert web components elements to omi elements.
 
 ## Debugging
 
@@ -479,12 +482,6 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 > You can also give up the store system and use omi-mobx to be compatible with IE11.
 
-## Links
-
-- [omijs.org](http://omijs.org/)
-- [Omi.js DevTools](https://github.com/f/omi-devtools)
-- [omi-i18n](https://github.com/i18next/omi-i18n)
-
 ## Contribution
 
 1. Fork it (https://github.com/Tencent/omi/fork)
@@ -498,10 +495,6 @@ Please contact us for any questions:
 - [@f](https://github.com/f)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
-
-## Contribute Element-UI to Omi
-
-[→ Go to contribute elements](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)
 
 ## License
 
