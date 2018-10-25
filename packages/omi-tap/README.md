@@ -1,6 +1,6 @@
 ﻿## omi-tap
 
-Support tap event in your [Omi](https://github.com/AlloyTeam/omi) project.
+Support tap event in your [Omi](https://github.com/Tencent/omi) project.
 
 ---
 
@@ -13,32 +13,25 @@ npm install omi-tap
 ## Usage
 
 ```js
-import Omi from 'omi';
-import OmiTap from 'omi-tap';
+import { render, WeElement, tag } from "omi"
+import "omi-tap"
 
-class App extends Component {
+@tag("my-app")
+class MyApp extends WeElement {
+	onTap = () => {
+		console.log('tap')
+	}
 
-    constructor(){
-        super()
-        this.tapHandler = this.tapHandler.bind(this)
-  }
-
-    tapHandler(evt) {
-        alert('Hello Omi + Parcel!')
-    }
-
-    render() {
-        return (
-            <div>
-                <OmiTap onTap={this.tapHandler}>
-                    <h1>Hello Omi + Parcel 📦 🚀</h1>
-                </OmiTap>
-            </div>
-        )
-    }
+	render() {
+		return (
+			<omi-tap onTap={this.onTap} >
+				<div>Tap Me!</div>
+			</omi-tap>
+		)
+	}
 }
 
-Omi.render(<App />,"#container");
+render(<my-app />, "body");
 ```
 
 # License
