@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <img  src="../asset/alloy.png" id="test" style="display: block; width: 210px;height: 210px;position: absolute;left: 50%;margin-left: -105px;margin-top: -105px;top:50%;">
+    <a href="https://github.com/Tencent/omi/tree/master/packages/omi-transform/css3transform" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="//alloyteam.github.io/github.png" alt="" />
+    </a>
+
+    <script src="../dist/css3transform.js"></script>
+    <script src="../asset/to.js"></script>
+    <script src="../asset/alloy_flow.js"></script>
+    <script>
+
+        var element = document.querySelector("#test"),
+            obj = {};
+        Transform(obj);
+        obj.originY = 100;
+        obj.skewX = -20;
+
+        function sineInOut(a) {
+            return 0.5 * (1 - Math.cos(Math.PI * a));
+        }
+
+        var setting = {
+            onChange: function () {
+                element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = obj.transform;
+            }
+        };
+
+        var alloyFlow = new AlloyFlow({
+            workflow: [
+                {
+                    work: function () {
+                        To.go(obj, "scaleY", .8, 450, sineInOut, setting);
+                        To.go(obj, "skewX", 20, 900, sineInOut, setting)
+                    },
+                    start: 0
+                }, {
+                    work: function () {
+                        To.go(obj, "scaleY", 1, 450, sineInOut, setting)
+                    },
+                    start: 450
+                }, {
+                    work: function () {
+                        To.go(obj, "scaleY", .8, 450, sineInOut, setting);
+                        To.go(obj, "skewX", -20, 900, sineInOut, setting)
+                    },
+                    start: 900
+                }, {
+                    work: function () {
+                        To.go(obj, "scaleY", 1, 450, sineInOut, setting);
+                    },
+                    start: 1350
+                }, {
+                    work: function () {
+                        this.start();
+                    },
+                    start: 1800
+                }
+            ]
+        }).start();
+
+    </script>
+</body>
+</html>

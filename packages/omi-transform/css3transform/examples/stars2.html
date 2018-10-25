@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #ctn{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 100%;
+            height: 100%;
+
+        }
+    </style>
+</head>
+<body style="background-color: black;">
+    <div id="ctn"></div>
+    <script src="../dist/css3transform.js"></script>
+    <script>
+        var ctn  =document.querySelector("#ctn");
+        var img_list = [],
+         center = {x: window.innerHeight/2, y: window.innerWidth/2, z: 0},
+         r = 250,
+         distance = 300,
+         positions = [],
+         step_angle =  Math.PI/180,
+         size=400;
+
+        function randomPoints() {
+            var xTemp;
+            var yTemp;
+            var zTemp;
+            var i;
+            var j = -1;
+            i = 0;
+            for (; i < size; i++) {
+                xTemp = getRandomNumber(-250, 250);
+                yTemp = getRandomNumber(-250, 250);
+                j *= -1;
+                if (xTemp * xTemp + yTemp * yTemp <= r * r) {
+                    zTemp = j * Math.sqrt(Math.abs(r * r - xTemp * xTemp - yTemp * yTemp));
+                    positions.push({x: xTemp, y: yTemp, z: zTemp});
+                }
+            }
+        }
+
+        function getRandomNumber(min, max) {
+            return min + Math.floor(Math.random() * (max - min + 1));
+        }
+
+        function rotate() {
+            var cx,
+                    z,
+                    i = 0,
+                    len=positions.length;
+            for (; i < len; i++) {
+                cx = positions[i].x;
+                z = positions[i].z;
+                positions[i].x = positions[i].x * Math.cos(step_angle) - positions[i].z * Math.sin(step_angle);
+                positions[i].z = positions[i].z * Math.cos(step_angle) + cx * Math.sin(step_angle);
+            }
+        }
+
+        function createImgs() {
+            var i = 0,
+                len = positions.length;
+
+            for (; i < len; i++) {
+                var img = document.createElement("img");
+                img.style.position = "absolute";
+                img.style.left = "0px";
+                img.style.top = "0px";
+                img.src = "../asset/star.png";
+                ctn.appendChild(img);
+                Transform(img,false);
+
+                transformImg(img,i);
+
+                img_list.push(img);
+            }
+        }
+
+        function transformImg(img, i) {
+            var p = positions[i];
+            img.translateX =  p.x;
+            img.translateY =  p.y;
+            img.translateZ = p.z;
+            img.style.opacity =0.1+ 1 - (r - p.z) / (2 * r);
+        }
+
+        function render(){
+            var i = 0,
+                len=positions.length;
+            for (; i < len; i++) {
+                transformImg(img_list[i],i);
+            }
+        }
+
+        function tick() {
+            rotate();
+            render();
+            requestAnimationFrame(tick);
+        }
+
+        (function () {
+            randomPoints();
+            createImgs();
+            tick();
+        })();
+
+
+
+
+    </script>
+    <a href="https://github.com/Tencent/omi/tree/master/packages/omi-transform/css3transform" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="//alloyteam.github.io/github.png" alt="" />
+    </a>
+</body>
+</html>

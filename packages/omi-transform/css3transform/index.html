@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>css3transform - Made css3 transform super easy</title>
+    <link href="asset/index.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h1 id="title" style="width:300px;">css3transform</h1>
+    <p class="dir">Made css3 transform super easy.</p>
+    <p>Supported properties(get and set): translateX, translateY, translateZ, scaleX, scaleY, scaleZ, rotateX, rotateY,
+        rotateZ, skewX, skewY, originX, originY, originZ</p>
+    <h2>Examples</h2>
+
+    <a href="https://github.com/AlloyTeam/AlloyTouch/tree/master/transformjs" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="//alloyteam.github.io/github.png" alt="" />
+    </a>
+
+    <div id="examples">
+        <div id="example-1" class="example">
+            <h3>rotateZ</h3>
+            <p>Set <em>rotateZ</em> to <em>45deg</em>.</p>
+            <div class="panel">
+                <div class="sandbox">
+                    <div class="box small" id="test1">transformjs</div>
+                </div>
+                <pre class="source">
+          <code>
+    var element1 = document.querySelector("#test1");
+    Transform(element1);
+    element1.rotateZ = 45;</code></pre>
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>rotating animation</h3>
+            <p>animate the the <em>rotateY</em> property.</p>
+            <div class="panel">
+                <div class="sandbox">
+                    <div class="box small" id="test2">transformjs</div>
+                </div>
+                <pre class="source">
+          <code>
+    var element2 = document.querySelector("#test2");
+    Transform(element2);
+
+    tick(function () {
+        element2.rotateY++;
+    });</code></pre>
+            </div>
+        </div>
+
+
+        <div class="example">
+            <h3>not perspective</h3>
+            <p>using orthogonal projection if second argument is ture.</p>
+            <div class="panel">
+                <div class="sandbox">
+                    <div class="box small" id="test3">transformjs</div>
+                </div>
+                <pre class="source">
+          <code>
+    var element3 = document.querySelector("#test3");
+    Transform(element3, true);
+
+    tick(function () {
+        element3.rotateX++;
+    });</code></pre>
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>origin</h3>
+            <p>rotate around the left top.</p>
+            <div class="panel">
+                <div class="sandbox">
+                    <div class="box small" id="test4">transformjs</div>
+                </div>
+                <pre class="source">
+          <code>
+    var element4 = document.querySelector("#test4");
+    Transform(element4); 
+    element4.originX = -40;
+    element4.originY = -40;
+
+    tick(function () {
+        element4.rotateZ++;
+    });</code></pre>
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>zoom</h3>
+            <p>zoom using the <em>scaleX</em> and <em>scaleY</em> property.</p>
+            <div class="panel">
+                <div class="sandbox">
+                    <div class="box small" id="test5">transformjs</div>
+                </div>
+                <pre class="source">
+          <code>
+    var element5 = document.querySelector("#test5");
+    Transform(element5);
+       
+    var step = 0.02;
+    tick(function () {
+        element5.scaleX < 0.5 && (step *= -1);
+        element5.scaleX > 1.5 && (step *= -1);
+        element5.scaleX += step;
+        element5.scaleY += step;
+    });</code></pre>
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>translate</h3>
+            <p>moving elment using the <em>translateX</em>, <em>translateY</em> and <em>translateZ</em> properties.</p>
+            <div class="panel">
+                <div class="sandbox">
+                    <div class="box small" id="test6">transformjs</div>
+                </div>
+                <pre class="source">
+          <code>
+    var element6 = document.querySelector("#test6");
+    Transform(element6);
+
+    var xStep = 3;
+    tick(function () {
+        element6.translateX < -50 && (xStep *= -1);
+        element6.translateX > 50 && (xStep *= -1);
+        element6.translateX += xStep;
+    });</code></pre>
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>skew</h3>
+            <p>skew element using the <em>skewX</em> and <em>skewY</em> properties.</p>
+            <div class="panel">
+                <div class="sandbox">
+                    <div class="box small" id="test7">transformjs</div>
+                </div>
+                <pre class="source">
+          <code>
+    var element7 = document.querySelector("#test7");
+    Transform(element7);
+
+    var skewStep = 1;
+    tick(function () {
+        element7.skewY > 30 && (skewStep *= -1);
+        element7.skewY < -30 && (skewStep *= -1);
+        element7.skewY += skewStep;
+    });</code></pre>
+            </div>
+        </div>
+
+
+    </div>
+    <div>
+        <p> The above demonstration code is based on <a href="https://github.com/AlloyTeam/AlloyTouch/tree/master/transformjs">css3transform</a>
+            and <a href="https://github.com/AlloyTeam/AlloyTouch/blob/master/transformjs/asset/tick.js">tick.js</a></p>
+        <p>That's all. Have fun.</p>
+    </div>
+    <script src="dist/css3transform.js"></script>
+    <script src="asset/tick.js"></script>
+    <script>
+        var element1 = document.querySelector("#test1");
+        Transform(element1);
+        element1.rotateZ = 45;
+
+        var element2 = document.querySelector("#test2");
+        Transform(element2);
+
+        tick(function () {
+            element2.rotateY++;
+        });
+
+        var element3 = document.querySelector("#test3");
+        Transform(element3, true);
+
+        tick(function () {
+            element3.rotateX++;
+        });
+
+        var element4 = document.querySelector("#test4");
+        Transform(element4);
+        element4.originX = -40;
+        element4.originY = -40;
+
+        tick(function () {
+            element4.rotateZ++;
+        });
+
+        var element5 = document.querySelector("#test5");
+        Transform(element5);
+
+        var step = 0.02;
+        tick(function () {
+            element5.scaleX < 0.5 && (step *= -1);
+            element5.scaleX > 1.5 && (step *= -1);
+            element5.scaleX += step;
+            element5.scaleY += step;
+        });
+
+
+        var element6 = document.querySelector("#test6");
+        Transform(element6);
+
+        var xStep = 3;
+        tick(function () {
+            element6.translateX < -50 && (xStep *= -1);
+            element6.translateX > 50 && (xStep *= -1);
+            element6.translateX += xStep;
+        });
+
+
+        var element7 = document.querySelector("#test7");
+        Transform(element7);
+
+        var skewStep = 1;
+        tick(function () {
+            element7.skewY > 30 && (skewStep *= -1);
+            element7.skewY < -30 && (skewStep *= -1);
+            element7.skewY += skewStep;
+
+        });
+    </script>
+
+    <script src="asset/to.js"></script>
+    <script src="asset/alloy_flow.js"></script>
+    <script>
+        var element = document.querySelector("#title");
+        Transform(element);
+        element.originY = 40;
+        element.translateY = 40;
+        element.skewX = -20;
+
+        function sineInOut(a) {
+            return 0.5 * (1 - Math.cos(Math.PI * a));
+        }
+
+        var alloyFlow = new AlloyFlow({
+            workflow: [
+                {
+                    work: function () {
+                        To.go(element, "scaleY", .8, 450, sineInOut);
+                        To.go(element, "skewX", 20, 900, sineInOut)
+                    },
+                    start: 0
+                }, {
+                    work: function () {
+                        To.go(element, "scaleY", 1, 450, sineInOut)
+                    },
+                    start: 450
+                }, {
+                    work: function () {
+                        To.go(element, "scaleY", .8, 450, sineInOut);
+                        To.go(element, "skewX", -20, 900, sineInOut)
+                    },
+                    start: 900
+                }, {
+                    work: function () {
+                        To.go(element, "scaleY", 1, 450, sineInOut);
+                    },
+                    start: 1350
+                }, {
+                    work: function () {
+                        this.start();
+                    },
+                    start: 1800
+                }
+            ]
+        }).start();
+    </script>
+</body>
+
+</html>

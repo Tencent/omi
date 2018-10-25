@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        #ctt .test {
+            width: 100px;
+            height: 100px;
+            color: white;
+            line-height: 100px;
+            text-align: center;
+            display: inline-block;
+            margin-top: 30px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://github.com/Tencent/omi/tree/master/packages/omi-transform/css3transform" target="_blank" style="position: absolute; right: 0; top: 0;">
+        <img src="//alloyteam.github.io/github.png" alt="" />
+    </a>
+    <div style="text-align: center; position: relative; left: 100px; top: 100px;" id="ctt">
+
+        <div id="test1" class="test" style="background-color: green;">
+            transformjs
+        </div>
+
+        <div id="test2" class="test" style="background-color: red; left: 200px;">
+            transformjs
+        </div>
+
+        <div id="test3" class="test" style="background-color: blue; left: 400px">
+            transformjs
+        </div>
+
+        <div id="test4" class="test" style="background-color: #ff6a00; left: 600px">
+            transformjs
+        </div>
+
+        <div id="test5" class="test" style="background-color: #485f0f; left: 400px; top: 200px;">
+            transformjs
+        </div>
+
+        <div id="test6" class="test" style="background-color: #485f0f; left: 0; top: 200px;">
+            transformjs
+        </div>
+
+        <div id="test7" class="test" style="background-color: #291996; left: 200px; top: 200px;">
+            transformjs
+        </div>
+
+        <div id="test8" class="test" style="background-color: #291996; left: 600px; top: 200px;">
+            transformjs
+        </div>
+
+        <div id="test9" class="test" style="background-color: #291996; left: 200px; top: 400px;">
+            transformjs
+        </div>
+
+         <div id="test10" class="test" style="background-color: #291996; left: 400px; top: 400px;">
+            transformjs
+        </div>
+    </div>
+    <script src="../dist/css3transform.js"></script>
+
+    <script>
+        var element1 = document.querySelector("#test1");
+        var element2 = document.querySelector("#test2");
+        var element3 = document.querySelector("#test3");
+        var element4 = document.querySelector("#test4");
+        var element5 = document.querySelector("#test5");
+        var element6 = document.querySelector("#test6");
+        var element7 = document.querySelector("#test7");
+        var element8 = document.querySelector("#test8");
+        var element9 = document.querySelector("#test9");
+        var element10 = document.querySelector("#test10");
+
+        Transform(element1);
+        Transform(element2);
+        Transform(element3, true);
+        Transform(element4);
+        Transform(element5);
+        Transform(element6);
+        Transform(element7);     
+        Transform(element8);
+        Transform(element9);
+        Transform(element10);
+
+        element8.originX = -150;
+        element4.originX = -50;
+        element4.originY = -50;
+
+        var step = 0.02,
+            xStep = 3,
+            skewStep = 1;
+
+        function animate() {
+            element1.rotateZ++;
+            element2.rotateY++;
+            element3.rotateX++;
+            element4.rotateZ++;
+
+            element5.rotateY++;
+            element5.rotateX++;
+
+            element7.translateX < -50 && (xStep *= -1);
+            element7.translateX > 50 && (xStep *= -1);
+            element7.translateX += xStep;
+            element6.scaleX < 0.5 && (step *= -1);
+            element6.scaleX > 1.5 && (step *= -1);
+            element6.scaleX += step;
+            element6.scaleY += step;
+
+            element8.rotateY++;
+            element8.rotateX++;
+
+            element9.skewX > 30 && (skewStep *= -1);
+            element9.skewX < -30 && (skewStep *= -1);
+            element9.skewX += skewStep;
+
+            element10.skewY += skewStep;
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

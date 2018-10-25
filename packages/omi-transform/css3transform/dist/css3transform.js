@@ -1,6 +1,6 @@
 /* css3transform 2.0.0
  * By dntzhang
- * Github: https://github.com/Tencent/omi/packages/omi-transform
+ * Github: https://github.com/Tencent/omi/tree/master/packages/omi-transform/css3transform
  */
 
 ; (function () {
