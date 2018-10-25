@@ -1,65 +1,10 @@
 # omi-transform
 
-## css3transform
-
-    Made css3 transform super easy.
+	Made css3 transform super easy.
 
 Supported properties(get and set): translateX, translateY, translateZ, scaleX, scaleY, scaleZ, rotateX, rotateY, rotateZ, skewX, skewY, originX, originY, originZ
 
-### usage
-
-```js
-var ele = document.querySelector("#test1")
-Transform(element1)
-element1.rotateZ = 45
-```
-
-* [css3transform homepage](https://tencent.github.io/omi/packages/omi-transform/css3transform/)
-* [all demo](https://tencent.github.io/omi/packages/omi-transform/css3transform/examples/all.html)
-* [soft demo](https://tencent.github.io/omi/packages/omi-transform/css3transform/examples/soft.html)
-* [3d demo](https://tencent.github.io/omi/packages/omi-transform/css3transform/examples/stars.html)
-
-## make omi-transform
-
-How to use the library in Omi and has the same high performance as the above examples? Let's implement omi-transform together.
-
-```js
-import { WeElement, tag } from "omi";
-import Transform from 'css3transform'
-
-@tag("css3-transform")
-class CSS3Transform extends WeElement {
-
-	install() {
-		this.css = this.parentNode.host.css
-	}
-
-	installed() {
-		Transform(this.host);
-		this.transformByProps()
-	}
-
-	afterUpdate() {
-		this.transformByProps()
-
-	}
-
-	transformByProps() {
-		["translateX", "translateY", "translateZ", "scaleX", "scaleY", "scaleZ", "rotateX", "rotateY", "rotateZ", "skewX", "skewY", "originX", "originY", "originZ", "perspective"].forEach(item => {
-			if (this.props.hasOwnProperty(item)) {
-				this.host[item] = this.props[item]
-			}
-		})
-	}
-
-
-	render(props, data) {
-		return props.children[0]
-	}
-}
-```
-
-### using in omi
+## Usage
 
 ```js
 import { render, WeElement, tag } from "omi";
@@ -103,7 +48,6 @@ class MyApp extends WeElement {
 
 	}
 	render(props, data) {
-
 		return (
 			<css3-transform rotateZ={data.rotateZ} translateX={0} perspective={0} >
 				<div ref={this.linkRef}>
@@ -117,6 +61,21 @@ class MyApp extends WeElement {
 render(<my-app />, "body");
 ```
 
+## Using in pure js
+
+
+```js
+var ele = document.querySelector("#test1")
+Transform(element1)
+element1.rotateZ = 45
+```
+
+### Demos
+
+* [homepage](https://tencent.github.io/omi/packages/omi-transform/css3transform/)
+* [all](https://tencent.github.io/omi/packages/omi-transform/css3transform/examples/all.html)
+* [soft](https://tencent.github.io/omi/packages/omi-transform/css3transform/examples/soft.html)
+* [3d](https://tencent.github.io/omi/packages/omi-transform/css3transform/examples/stars.html)
 
 ## License
 
