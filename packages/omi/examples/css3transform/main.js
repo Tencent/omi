@@ -1,5 +1,5 @@
 import { render, WeElement, tag } from "../../src/omi";
-import "./omi-transform";
+import "omi-transform";
 
 @tag("my-app")
 class MyApp extends WeElement {
