@@ -22,8 +22,6 @@ class MyApp extends WeElement {
     }
 
     render(props,data) {
-        console.log(data);
-        
         return (
             <div>
                 <div>
