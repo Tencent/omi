@@ -27,7 +27,7 @@
 |  el-transfer| 		  |
 |  el-form| 		  |
 |  el-table| 	dntzhang	  |
-|  el-tag| 		  |
+|  ~~el-tag~~| 	@1921622004	  |  [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/tag/index.js)|
 |  ~~el-progress~~| dntzhang		  |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/progress/index.js#L18-L42)|
 |  el-tree| 		  |
 |  el-pagination| dntzhang		  |
@@ -46,7 +46,6 @@
 |  el-collapse| 		  |
 |  el-touch| 		dntzhang  |
 |  el-finger| 		  dntzhang|
-|  el-transform| 		 dntzhang |
 |  notice| 		  |   |
 
 ## Develop
