@@ -1,6 +1,8 @@
 import { tag, WeElement, render, h } from 'omi'
 import './hello-omi';
 
+import * as logo from './omi.png';
+
 interface AbcEvent extends Event {
     detail: {
         name: string;
@@ -47,6 +49,7 @@ class MyApp extends WeElement<MyAppProps, MyAppData> {
     render() {
         return (
             <div>
+                <img src={logo} />
                 Hello {this.props.name} {this.data.abc}
                 <hello-omi onAbc={this.onAbc} prop-from-parent={this.data.passToChild} msg="Omi"></hello-omi>
             </div>
