@@ -495,6 +495,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 * [@f](https://github.com/f)
 * [@dntzhang](https://github.com/dntzhang)
+- [@xcatliu](https://github.com/xcatliu)
 
 ## 贡献 Element-UI 到 Omi
 

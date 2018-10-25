@@ -497,6 +497,7 @@ Please contact us for any questions:
 
 - [@f](https://github.com/f)
 - [@dntzhang](https://github.com/dntzhang)
+- [@xcatliu](https://github.com/xcatliu)
 
 ## Contribute Element-UI to Omi
 
