@@ -23,7 +23,7 @@ class ElTag extends WeElement {
       <span className={classStr} style={{'background-color':props.color}}>
         {props.children}
         {
-          props.closeable ?
+          props.closable ?
             <i
               className="el-tag__close el-icon-close"
               onClick={props.onClose}
