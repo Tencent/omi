@@ -1,0 +1,25 @@
+{
+  "name": "css3transform",
+  "version": "1.2.0",
+  "description": "Made css3 transform super easy.",
+  "main": "dist/css3transform.js",
+  "jsnext:main": "dist/css3transform.esm.js",
+  "module": "dist/css3transform.esm.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "keywords": [
+    "css3",
+    "transform",
+    "css3transform",
+    "animation"
+  ],
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi"
+}
