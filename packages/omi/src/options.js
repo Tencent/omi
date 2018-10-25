@@ -1,20 +1,20 @@
 function getGlobal() {
-	if (
-		typeof global !== "object" ||
+  if (
+    typeof global !== "object" ||
 		!global ||
 		global.Math !== Math ||
 		global.Array !== Array
-	) {
-		return (
-			self ||
+  ) {
+    return (
+      self ||
 			window ||
 			global ||
 			(function() {
-				return this
+			  return this
 			})()
-		)
-	}
-	return global
+    )
+  }
+  return global
 }
 
 /** Global options
@@ -22,6 +22,6 @@ function getGlobal() {
  *	@namespace options {Object}
  */
 export default {
-	store: null,
-	root: getGlobal()
+  store: null,
+  root: getGlobal()
 }

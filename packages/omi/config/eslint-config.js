@@ -29,7 +29,7 @@ module.exports = {
 		camelcase: 0,
 		"comma-style": 2,
 		"comma-dangle": [2, "never"],
-		indent: [2, "tab", { SwitchCase: 1 }],
+		indent: ["error", 2],
 		"no-mixed-spaces-and-tabs": [2, "smart-tabs"],
 		"no-trailing-spaces": [2, { skipBlankLines: true }],
 		"max-nested-callbacks": [2, 3],

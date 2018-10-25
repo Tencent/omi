@@ -6,13 +6,13 @@ import { define } from "./define"
 import { tag } from "./tag"
 
 const omi = {
-	tag,
-	WeElement,
-	render,
-	h,
-	createElement,
-	options,
-	define
+  tag,
+  WeElement,
+  render,
+  h,
+  createElement,
+  options,
+  define
 }
 
 options.root.Omi = omi
