@@ -32,12 +32,12 @@
 |  el-tree| 		  |
 |  el-pagination| dntzhang		  |
 |  el-badge| 		  |
-|  el-alert| 	@zhengbao	  |
+|  ~~el-alert~~| 	@zhengbao	  |
 |  el-menu| 	@zhengbao	  |
 |  el-tabs| 	@zhengbao	  |
 |  el-breadcrumb| 		@wadellg  | 
 |  el-dropdown| 		  |
-|  el-steps| 		  |
+|  el-steps| 	@daizhan	  |
 |  el-dialog| 		  |
 |  el-tooltip| 		  |
 |  el-popover| 		  |
