@@ -47,7 +47,6 @@ class MyApp extends WeElement<MyAppProps, MyAppData> {
     }
 
     render() {
-        console.log(logo);
         return (
             <div>
                 <img src={logo} />
