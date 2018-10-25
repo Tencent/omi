@@ -138,7 +138,7 @@ Directory description:
 │  └─ index.js    //Entry js of compiler，will build to index.html
 ```
 
-TypeScript Template(omi-cli v3.0.2+):
+TypeScript Template(omi-cli v3.0.3+):
 
 ```bash
 $ npm i omi-cli -g                  # install cli

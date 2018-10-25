@@ -136,7 +136,7 @@ $ npm run build                  # release
 │  └─ index.js    //入口文件，会 build 成  index.html
 ```
 
-使用 TypeScript 模板(omi-cli v3.0.2+):
+使用 TypeScript 模板(omi-cli v3.0.3+):
 
 ```bash
 $ npm i omi-cli -g                  # install cli
