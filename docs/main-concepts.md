@@ -3,15 +3,15 @@ English | [简体中文](./main-concepts.cn.md)
 ## Omi Docs
 
 - [Omi Docs](#omi-docs)
-	- [My First Element](#my-first-element)
-	- [Props](#props)
-	- [Event](#event)
-	- [Custom Event](#custom-event)
-	- [CSS](#css)
-	- [Ref](#ref)
-	- [Store](#store)
-	- [Slot](#slot)
-	- [SSR](#ssr)
+  - [My First Element](#my-first-element)
+  - [Props](#props)
+  - [Event](#event)
+  - [Custom Event](#custom-event)
+  - [CSS](#css)
+  - [Ref](#ref)
+  - [Store](#store)
+  - [Slot](#slot)
+  - [SSR](#ssr)
 
 ### My First Element
 

@@ -18,17 +18,17 @@ import "omi-tap"
 
 @tag("my-app")
 class MyApp extends WeElement {
-	onTap = () => {
-		console.log('tap')
-	}
+  onTap = () => {
+    console.log('tap')
+  }
 
-	render() {
-		return (
-			<omi-tap onTap={this.onTap} >
-				<div>Tap Me!</div>
-			</omi-tap>
-		)
-	}
+  render() {
+    return (
+      <omi-tap onTap={this.onTap} >
+        <div>Tap Me!</div>
+      </omi-tap>
+    )
+  }
 }
 
 render(<my-app />, "body");

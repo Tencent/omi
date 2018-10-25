@@ -9,44 +9,44 @@
 
 | Element | Owner  |Usage  |
 | ------ | ------  |------  |
-| ~~el-button~~ | 	dntzhang	  |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/button/index.js#L19-L118) |
-| ~~el-icon~~ | 	dntzhang	  | |
-|  ~~el-radio~~| 	dntzhang	  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/radio/index.js#L19-L34)|
-|  el-checkbox| 	@zhengbao	  | |
-|  el-input| 	@zhengbao	  | |
-|  ~~el-input-number~~| 	dntzhang	  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/input-number/index.js#L18-L22) |
-|  el-select| 		  |
-|  el-cascader| 		  |
-|  el-switch| 		  |
-|  el-slider| 		  |
-|  el-time-select| 		  |
-|  el-date-picker| 		  |
-|  el-upload| 		  |
-|  el-rate| 	@wadellg	  |
-|  el-color-picker| 		  |
-|  el-transfer| 		  |
-|  el-form| 		  |
-|  el-table| 	dntzhang	  |
-|  ~~el-tag~~| 	@1921622004	  |  [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/tag/index.js)|
-|  ~~el-progress~~| dntzhang		  |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/progress/index.js#L18-L42)|
-|  el-tree| 		  |
-|  el-pagination| dntzhang		  |
-|  el-badge| 		  |
-|  ~~el-alert~~| 	@zhengbao	  |
-|  el-menu| 	@zhengbao	  |
-|  el-tabs| 	@zhengbao	  |
-|  ~~el-breadcrumb~~| 		@wadellg  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/breadcrumb/index.js)|
-|  el-dropdown| 		  |
-|  el-steps| 	@daizhan	  |
-|  el-dialog| 		  |
-|  el-tooltip| 		  |
-|  el-popover| 		  |
-|  el-card| 	@wadellg	  |
-|  el-carousel| 		  |
-|  el-collapse| 		  |
-|  el-touch| 		dntzhang  |
-|  el-finger| 		  dntzhang|
-|  notice| 		  |   |
+| ~~el-button~~ |   dntzhang    |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/button/index.js#L19-L118) |
+| ~~el-icon~~ |   dntzhang    | |
+|  ~~el-radio~~|  dntzhang    | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/radio/index.js#L19-L34)|
+|  el-checkbox|   @zhengbao   | |
+|  el-input|  @zhengbao   | |
+|  ~~el-input-number~~|   dntzhang    | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/input-number/index.js#L18-L22) |
+|  el-select|       |
+|  el-cascader|       |
+|  el-switch|       |
+|  el-slider|       |
+|  el-time-select|      |
+|  el-date-picker|      |
+|  el-upload|       |
+|  el-rate|   @wadellg    |
+|  el-color-picker|       |
+|  el-transfer|       |
+|  el-form|       |
+|  el-table|  dntzhang    |
+|  ~~el-tag~~|  @1921622004   |  [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/tag/index.js)|
+|  ~~el-progress~~| dntzhang      |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/progress/index.js#L18-L42)|
+|  el-tree|       |
+|  el-pagination| dntzhang      |
+|  el-badge|      |
+|  ~~el-alert~~|  @zhengbao   |
+|  el-menu|   @zhengbao   |
+|  el-tabs|   @zhengbao   |
+|  ~~el-breadcrumb~~|     @wadellg  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/breadcrumb/index.js)|
+|  el-dropdown|       |
+|  el-steps|  @daizhan    |
+|  el-dialog|       |
+|  el-tooltip|      |
+|  el-popover|      |
+|  el-card|   @wadellg    |
+|  el-carousel|       |
+|  el-collapse|       |
+|  el-touch|    dntzhang  |
+|  el-finger|       dntzhang|
+|  notice|      |   |
 
 ## Develop
 

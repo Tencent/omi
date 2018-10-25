@@ -35,11 +35,11 @@
 
 - [一个 HTML 完全上手](#一个-html-完全上手)
 - [快速入门](#快速入门)
-	- [安装](#安装)
-	- [Hello Element](#hello-element)
-	- [TodoApp](#todoapp)
-	- [Store](#store)
-	- [生命周期](#生命周期)
+  - [安装](#安装)
+  - [Hello Element](#hello-element)
+  - [TodoApp](#todoapp)
+  - [Store](#store)
+  - [生命周期](#生命周期)
 - [生态](#生态)
 - [调试工具](#调试工具)
 - [Omi Mobx](#omi-mobx)
@@ -326,7 +326,7 @@ class TodoApp extends WeElement {
             id: Date.now()
         })
         this.data.text = '';
-	this.update()
+  this.update()
     }
 }
 

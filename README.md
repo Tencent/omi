@@ -36,12 +36,12 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM based style
 - [Why Omi?](#why-omi)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Getting Started](#getting-started)
-	- [Install](#install)
-	- [Hello Element](#hello-element)
-	- [TodoApp](#todoapp)
-	- [Store](#store)
-		- [Summary：](#summary)
-	- [Lifecycle](#lifecycle)
+  - [Install](#install)
+  - [Hello Element](#hello-element)
+  - [TodoApp](#todoapp)
+  - [Store](#store)
+    - [Summary：](#summary)
+  - [Lifecycle](#lifecycle)
 - [Component Ecosystem](#component-ecosystem)
 - [Debugging](#debugging)
 - [Omi Mobx](#omi-mobx)
@@ -107,7 +107,7 @@ You can also use `like-button` tag directly in HTML：
 
 ```jsx
 <body>
-	<like-button />
+  <like-button />
 </body>
 ```
 
@@ -158,28 +158,28 @@ import { tag, WeElement, render } from "omi";
 
 @tag("hello-element")
 class HelloElement extends WeElement {
-	onClick = evt => {
-		// trigger CustomEvent
-		this.fire("abc", { name: "dntzhang", age: 12 });
-		evt.stopPropagation();
-	};
+  onClick = evt => {
+    // trigger CustomEvent
+    this.fire("abc", { name: "dntzhang", age: 12 });
+    evt.stopPropagation();
+  };
 
-	css() {
-		return `
+  css() {
+    return `
         div {
           color: red;
           cursor: pointer;
         }`;
-	}
+  }
 
-	render(props) {
-		return (
-			<div onClick={this.onClick}>
-				Hello {props.msg} {props.propFromParent}
-				<div>Click Me!</div>
-			</div>
-		);
-	}
+  render(props) {
+    return (
+      <div onClick={this.onClick}>
+        Hello {props.msg} {props.propFromParent}
+        <div>Click Me!</div>
+      </div>
+    );
+  }
 }
 ```
 
@@ -191,36 +191,36 @@ import "./hello-element";
 
 @tag("my-app")
 class MyApp extends WeElement {
-	static get data() {
-		return { abc: "", passToChild: "" };
-	}
+  static get data() {
+    return { abc: "", passToChild: "" };
+  }
 
-	// bind CustomEvent
-	onAbc = evt => {
-		// get evt data by evt.detail
-		this.data.abc = ` by ${evt.detail.name}`;
-		this.update();
-	};
+  // bind CustomEvent
+  onAbc = evt => {
+    // get evt data by evt.detail
+    this.data.abc = ` by ${evt.detail.name}`;
+    this.update();
+  };
 
-	css() {
-		return `
+  css() {
+    return `
       div {
         color: green;
       }`;
-	}
+  }
 
-	render(props, data) {
-		return (
-			<div>
-				Hello {props.name} {data.abc}
-				<hello-element
-					onAbc={this.onAbc}
-					prop-from-parent={data.passToChild}
-					msg="WeElement"
-				/>
-			</div>
-		);
-	}
+  render(props, data) {
+    return (
+      <div>
+        Hello {props.name} {data.abc}
+        <hello-element
+          onAbc={this.onAbc}
+          prop-from-parent={data.passToChild}
+          msg="WeElement"
+        />
+      </div>
+    );
+  }
 }
 
 render(<my-app name="Omi v4.0" />, "body");
@@ -230,7 +230,7 @@ Tell Babel to transform JSX into `Omi.h()` call:
 
 ```json
 {
-	"presets": ["env", "omi"]
+  "presets": ["env", "omi"]
 }
 ```
 
@@ -282,57 +282,57 @@ import { tag, WeElement, render } from "omi";
 
 @tag("todo-list")
 class TodoList extends WeElement {
-	render(props) {
-		return (
-			<ul>
-				{props.items.map(item => (
-					<li key={item.id}>{item.text}</li>
-				))}
-			</ul>
-		);
-	}
+  render(props) {
+    return (
+      <ul>
+        {props.items.map(item => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
+    );
+  }
 }
 
 @tag("todo-app")
 class TodoApp extends WeElement {
-	static get data() {
-		return { items: [], text: "" };
-	}
+  static get data() {
+    return { items: [], text: "" };
+  }
 
-	render() {
-		return (
-			<div>
-				<h3>TODO</h3>
-				<todo-list items={this.data.items} />
-				<form onSubmit={this.handleSubmit}>
-					<input
-						id="new-todo"
-						onChange={this.handleChange}
-						value={this.data.text}
-					/>
-					<button>Add #{this.data.items.length + 1}</button>
-				</form>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div>
+        <h3>TODO</h3>
+        <todo-list items={this.data.items} />
+        <form onSubmit={this.handleSubmit}>
+          <input
+            id="new-todo"
+            onChange={this.handleChange}
+            value={this.data.text}
+          />
+          <button>Add #{this.data.items.length + 1}</button>
+        </form>
+      </div>
+    );
+  }
 
-	handleChange = e => {
-		this.data.text = e.target.value;
-	};
+  handleChange = e => {
+    this.data.text = e.target.value;
+  };
 
-	handleSubmit = e => {
-		e.preventDefault();
-		if (!this.data.text.trim().length) {
-			return;
-		}
+  handleSubmit = e => {
+    e.preventDefault();
+    if (!this.data.text.trim().length) {
+      return;
+    }
 
-		this.data.items.push({
-			text: this.data.text,
-			id: Date.now()
-		});
-		this.data.text = "";
-		this.update();
-	};
+    this.data.items.push({
+      text: this.data.text,
+      id: Date.now()
+    });
+    this.data.text = "";
+    this.update();
+  };
 }
 
 render(<todo-app />, "body");
@@ -344,30 +344,30 @@ Say goodbye to `this.update` method when using store system! It will automatical
 
 ```js
 export default {
-	data: {
-		items: [],
-		text: "",
-		firstName: "dnt",
-		lastName: "zhang",
-		fullName: function() {
-			return this.firstName + this.lastName;
-		},
-		globalPropTest: "abc", // Change it will refresh all elements without changing the components and page declaring data dependency.
-		ccc: { ddd: 1 } // Change it will refresh all elements without changing the components and page declaring data dependency.
-	},
-	globalData: ["globalPropTest", "ccc.ddd"],
-	add: function() {
-		if (!this.data.text.trim().length) {
-			return;
-		}
-		this.data.items.push({
-			text: this.data.text,
-			id: Date.now()
-		});
-		this.data.text = "";
-	}
-	// Default value is false, set to true will update all instances when data changing.
-	// updateAll: true
+  data: {
+    items: [],
+    text: "",
+    firstName: "dnt",
+    lastName: "zhang",
+    fullName: function() {
+      return this.firstName + this.lastName;
+    },
+    globalPropTest: "abc", // Change it will refresh all elements without changing the components and page declaring data dependency.
+    ccc: { ddd: 1 } // Change it will refresh all elements without changing the components and page declaring data dependency.
+  },
+  globalData: ["globalPropTest", "ccc.ddd"],
+  add: function() {
+    if (!this.data.text.trim().length) {
+      return;
+    }
+    this.data.items.push({
+      text: this.data.text,
+      id: Date.now()
+    });
+    this.data.text = "";
+  }
+  // Default value is false, set to true will update all instances when data changing.
+  // updateAll: true
 };
 ```
 
@@ -375,19 +375,19 @@ Custom Element requires declaring dependent data so that Omi stores compute the 
 
 ```js
 class TodoApp extends WeElement {
-	// If you use store, the data is only used to declare dependencies.
-	static get data() {
-		return { items: [], text: "" };
-	}
-	// ...
-	handleChange = e => {
-		this.store.data.text = e.target.value;
-	};
+  // If you use store, the data is only used to declare dependencies.
+  static get data() {
+    return { items: [], text: "" };
+  }
+  // ...
+  handleChange = e => {
+    this.store.data.text = e.target.value;
+  };
 
-	handleSubmit = e => {
-		e.preventDefault();
-		this.store.add();
-	};
+  handleSubmit = e => {
+    e.preventDefault();
+    this.store.add();
+  };
 }
 ```
 
@@ -451,21 +451,21 @@ import { observe } from "omi-mobx";
 @observe
 @tag("my-app")
 class MyApp extends WeElement {
-	install() {
-		this.data.name = "omi";
-	}
+  install() {
+    this.data.name = "omi";
+  }
 
-	onClick = () => {
-		this.data.name = "Omi V4.0";
-	};
+  onClick = () => {
+    this.data.name = "Omi V4.0";
+  };
 
-	render(props, data) {
-		return (
-			<div onClick={this.onClick}>
-				<h1>Welcome to {data.name}</h1>
-			</div>
-		);
-	}
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    );
+  }
 }
 ```
 

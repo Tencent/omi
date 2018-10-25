@@ -3,15 +3,15 @@
 ## Omi 文档
 
 - [Omi 文档](#omi-文档)
-	- [My First Element](#my-first-element)
-	- [Props](#props)
-	- [Event](#event)
-	- [Custom Event](#custom-event)
-	- [CSS](#css)
-	- [Ref](#ref)
-	- [Store](#store)
-	- [Slot](#slot)
-	- [SSR](#ssr)
+  - [My First Element](#my-first-element)
+  - [Props](#props)
+  - [Event](#event)
+  - [Custom Event](#custom-event)
+  - [CSS](#css)
+  - [Ref](#ref)
+  - [Store](#store)
+  - [Slot](#slot)
+  - [SSR](#ssr)
 
 ### My First Element
 
