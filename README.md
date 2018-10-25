@@ -107,7 +107,7 @@ You can also use `like-button` tag directly in HTML：
 
 ```jsx
 <body>
-  <like-button />
+	<like-button />
 </body>
 ```
 
@@ -154,14 +154,14 @@ CLI's auto-created project scaffolding is based on a single-page create-react-ap
 Define a custom element by extending **`WeElement`** base class and name it using **`@tag`** decorator:
 
 ```js
-import { tag, WeElement, render } from "omi"
+import { tag, WeElement, render } from "omi";
 
 @tag("hello-element")
 class HelloElement extends WeElement {
 	onClick = evt => {
 		// trigger CustomEvent
-		this.fire("abc", { name: "dntzhang", age: 12 })
-		evt.stopPropagation()
+		this.fire("abc", { name: "dntzhang", age: 12 });
+		evt.stopPropagation();
 	};
 
 	css() {
@@ -169,16 +169,16 @@ class HelloElement extends WeElement {
         div {
           color: red;
           cursor: pointer;
-        }`
+        }`;
 	}
 
 	render(props) {
-    return (
-      <div onClick={this.onClick}>
-        Hello {props.msg} {props.propFromParent}
-        <div>Click Me!</div>
-        </div>
-    )
+		return (
+			<div onClick={this.onClick}>
+				Hello {props.msg} {props.propFromParent}
+				<div>Click Me!</div>
+			</div>
+		);
 	}
 }
 ```
@@ -186,44 +186,44 @@ class HelloElement extends WeElement {
 Using `hello-element`:
 
 ```js
-import { tag, WeElement, render } from "omi"
-import "./hello-element"
+import { tag, WeElement, render } from "omi";
+import "./hello-element";
 
 @tag("my-app")
 class MyApp extends WeElement {
 	static get data() {
-		return { abc: "", passToChild: "" }
+		return { abc: "", passToChild: "" };
 	}
 
 	// bind CustomEvent
 	onAbc = evt => {
 		// get evt data by evt.detail
-		this.data.abc = ` by ${evt.detail.name}`
-		this.update()
+		this.data.abc = ` by ${evt.detail.name}`;
+		this.update();
 	};
 
 	css() {
 		return `
       div {
         color: green;
-      }`
+      }`;
 	}
 
 	render(props, data) {
 		return (
-      <div>
-        Hello {props.name} {data.abc}
-        <hello-element
-          onAbc={this.onAbc}
-          prop-from-parent={data.passToChild}
-          msg="WeElement"
-        />
-      </div>
-		)
+			<div>
+				Hello {props.name} {data.abc}
+				<hello-element
+					onAbc={this.onAbc}
+					prop-from-parent={data.passToChild}
+					msg="WeElement"
+				/>
+			</div>
+		);
 	}
 }
 
-render(<my-app name="Omi v4.0" />, "body")
+render(<my-app name="Omi v4.0" />, "body");
 ```
 
 Tell Babel to transform JSX into `Omi.h()` call:
@@ -278,64 +278,64 @@ class MyApp extends WeElement {
 Here is a relatively complete example of TodoApp:
 
 ```js
-import { tag, WeElement, render } from "omi"
+import { tag, WeElement, render } from "omi";
 
 @tag("todo-list")
 class TodoList extends WeElement {
 	render(props) {
 		return (
-      <ul>
-        {props.items.map(item => (
-          <li key={item.id}>{item.text}</li>
-        ))}
-      </ul>
-		)
+			<ul>
+				{props.items.map(item => (
+					<li key={item.id}>{item.text}</li>
+				))}
+			</ul>
+		);
 	}
 }
 
 @tag("todo-app")
 class TodoApp extends WeElement {
 	static get data() {
-		return { items: [], text: "" }
+		return { items: [], text: "" };
 	}
 
 	render() {
 		return (
-      <div>
-        <h3>TODO</h3>
-        <todo-list items={this.data.items} />
-        <form onSubmit={this.handleSubmit}>
-          <input
-            id="new-todo"
-            onChange={this.handleChange}
-            value={this.data.text}
-          />
-          <button>Add #{this.data.items.length + 1}</button>
-        </form>
-      </div>
-		)
+			<div>
+				<h3>TODO</h3>
+				<todo-list items={this.data.items} />
+				<form onSubmit={this.handleSubmit}>
+					<input
+						id="new-todo"
+						onChange={this.handleChange}
+						value={this.data.text}
+					/>
+					<button>Add #{this.data.items.length + 1}</button>
+				</form>
+			</div>
+		);
 	}
 
 	handleChange = e => {
 		this.data.text = e.target.value;
-	}
+	};
 
 	handleSubmit = e => {
 		e.preventDefault();
 		if (!this.data.text.trim().length) {
-			return
+			return;
 		}
 
 		this.data.items.push({
 			text: this.data.text,
 			id: Date.now()
-		})
-		this.data.text = ""
-		this.update()
+		});
+		this.data.text = "";
+		this.update();
 	};
 }
 
-render(<todo-app />, "body")
+render(<todo-app />, "body");
 ```
 
 ### Store
@@ -345,49 +345,49 @@ Say goodbye to `this.update` method when using store system! It will automatical
 ```js
 export default {
 	data: {
-    items: [],
-    text: "",
-    firstName: "dnt",
-    lastName: "zhang",
-    fullName: function() {
-      return this.firstName + this.lastName
-    },
-    globalPropTest: "abc", // Change it will refresh all elements without changing the components and page declaring data dependency.
-    ccc: { ddd: 1 } // Change it will refresh all elements without changing the components and page declaring data dependency.
-    },
-    globalData: ["globalPropTest", "ccc.ddd"],
-    add: function() {
-    if (!this.data.text.trim().length) {
-      return
-    }
-    this.data.items.push({
-      text: this.data.text,
-      id: Date.now()
-    })
-    this.data.text = ""
-    }
-    // Default value is false, set to true will update all instances when data changing.
-    // updateAll: true
-}
+		items: [],
+		text: "",
+		firstName: "dnt",
+		lastName: "zhang",
+		fullName: function() {
+			return this.firstName + this.lastName;
+		},
+		globalPropTest: "abc", // Change it will refresh all elements without changing the components and page declaring data dependency.
+		ccc: { ddd: 1 } // Change it will refresh all elements without changing the components and page declaring data dependency.
+	},
+	globalData: ["globalPropTest", "ccc.ddd"],
+	add: function() {
+		if (!this.data.text.trim().length) {
+			return;
+		}
+		this.data.items.push({
+			text: this.data.text,
+			id: Date.now()
+		});
+		this.data.text = "";
+	}
+	// Default value is false, set to true will update all instances when data changing.
+	// updateAll: true
+};
 ```
 
 Custom Element requires declaring dependent data so that Omi stores compute the dependency path based on the data declared on the custom component and update it locally as needed. Such as:
 
 ```js
 class TodoApp extends WeElement {
-  // If you use store, the data is only used to declare dependencies.
-  static get data() {
-    return { items: [], text: "" }
-  }
-  // ...
-  handleChange = e => {
-    this.store.data.text = e.target.value
-  };
+	// If you use store, the data is only used to declare dependencies.
+	static get data() {
+		return { items: [], text: "" };
+	}
+	// ...
+	handleChange = e => {
+		this.store.data.text = e.target.value;
+	};
 
-  handleSubmit = e => {
-    e.preventDefault()
-    this.store.add()
-  }
+	handleSubmit = e => {
+		e.preventDefault();
+		this.store.add();
+	};
 }
 ```
 
@@ -451,21 +451,21 @@ import { observe } from "omi-mobx";
 @observe
 @tag("my-app")
 class MyApp extends WeElement {
-  install() {
-    this.data.name = "omi"
-  }
+	install() {
+		this.data.name = "omi";
+	}
 
-  onClick = () => {
-    this.data.name = "Omi V4.0"
-  };
+	onClick = () => {
+		this.data.name = "Omi V4.0";
+	};
 
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    )
-  }
+	render(props, data) {
+		return (
+			<div onClick={this.onClick}>
+				<h1>Welcome to {data.name}</h1>
+			</div>
+		);
+	}
 }
 ```
 
@@ -500,4 +500,3 @@ Please contact us for any questions:
 ## License
 
 MIT © Tencent
- 
