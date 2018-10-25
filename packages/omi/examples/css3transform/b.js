@@ -1281,7 +1281,7 @@
 	};
 
 	options.root.Omi = omi;
-	options.root.Omi.version = "4.0.6";
+	options.root.Omi.version = "4.0.7";
 
 	/* transformjs 1.1.6
 	 * By dntzhang
@@ -1624,32 +1624,7 @@
 		};
 
 		CSS3Transform.prototype.render = function render$$1(props, data) {
-
-			var mtx = Transform.getMatrix3D(this.props);
-
-			var transform = "matrix3d(" + Array.prototype.slice.call(mtx).join(",") + ")";
-			if (this.props.hasOwnProperty('perspective')) {
-				if (typeof this.props.perspective === 'number') {
-					transform = "perspective(" + this.props.perspective + "px) " + transform;
-				} else {
-					transform = "perspective(" + this.props.perspective + ") " + transform;
-				}
-			}
-
-			var vd = this.props.children[0];
-			if (!vd.attributes) vd.attributes = {};
-			if (!vd.attributes.style) vd.attributes.style = {};
-
-			if (typeof vd.attributes.style === 'string') {
-				vd.attributes.style += "transform:" + transform + ";";
-			} else {
-				vd.attributes.style.transform = transform;
-			}
-
-			return vd;
-			// return Omi.cloneElement(this.props.children[0], {
-			//     style :"transform:"+transform+";"
-			// });
+			return props.children[0];
 		};
 
 		return CSS3Transform;
@@ -1678,7 +1653,7 @@
 			this.data.rotateZ = 30;
 
 			this.linkRef = function (e) {
-				_this2.trDiv = e;
+				_this2.animDiv = e;
 			};
 		};
 
@@ -1689,14 +1664,15 @@
 		MyApp.prototype.installed = function installed() {
 			var _this3 = this;
 
-			var tk = setInterval(function () {
+			setInterval(function () {
 				//slow
 				// this.data.rotateZ += 2
 				// this.update()
 
 				//fast
-				_this3.trDiv.rotateZ += 2;
-				_this3.data.rotateZ = _this3.trDiv.rotateZ;
+				_this3.animDiv.rotateZ += 2;
+				//sync for update call of any scenario
+				_this3.data.rotateZ = _this3.animDiv.rotateZ;
 			}, 16);
 		};
 

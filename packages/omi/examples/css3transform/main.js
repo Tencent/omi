@@ -7,7 +7,7 @@ class MyApp extends WeElement {
 		this.data.rotateZ = 30
 
 		this.linkRef = (e) => {
-			this.trDiv = e
+			this.animDiv = e
 		}
 	}
 
@@ -26,14 +26,15 @@ class MyApp extends WeElement {
 	}
 
 	installed() {
-		const tk = setInterval(() => {
+		setInterval(() => {
 			//slow
 			// this.data.rotateZ += 2
 			// this.update()
 
 			//fast
-			this.trDiv.rotateZ += 2
-			this.data.rotateZ = this.trDiv.rotateZ
+			this.animDiv.rotateZ += 2
+			//sync for update call of any scenario
+			this.data.rotateZ = this.animDiv.rotateZ
 
 		}, 16)
 
