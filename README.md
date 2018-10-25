@@ -107,7 +107,7 @@ You can also use `like-button` tag directly in HTML：
 
 ```jsx
 <body>
-	<like-button />
+  <like-button />
 </body>
 ```
 
