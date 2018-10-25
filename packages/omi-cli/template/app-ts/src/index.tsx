@@ -1,7 +1,7 @@
-import { tag, WeElement, render, h } from 'omi'
+import { tag, WeElement, render, h } from 'omi';
 import './hello-omi';
-
-import * as logo from './omi.png';
+import './index.css';
+import * as logo from './logo.svg';
 
 interface AbcEvent extends Event {
     detail: {
@@ -24,7 +24,7 @@ class MyApp extends WeElement<MyAppProps, MyAppData> {
     static get data(): MyAppData {
         return {
             abc: '',
-            passToChild: ''
+            passToChild: 'from parent'
         };
     }
 
@@ -40,19 +40,55 @@ class MyApp extends WeElement<MyAppProps, MyAppData> {
 
     css() {
         return `
-            div {
-                color: green;
+        .app {
+            text-align: center;
+        }
+        
+        .app-logo {
+            animation: app-logo-spin infinite 20s linear;
+            height: 80px;
+        }
+        
+        .app-header {
+            background-color: #222;
+            height: 150px;
+            padding: 20px;
+            color: white;
+        }
+        
+        .app-title {
+            font-size: 1.5em;
+        }
+        
+        .app-logo {
+            cursor: pointer;
+        }
+        
+        @keyframes app-logo-spin {
+            from {
+                transform: rotate(0deg);
             }
+            to {
+                transform: rotate(360deg);
+            }
+        } 
         `
     }
 
-    render() {
+    render(props, data) {
         return (
-            <div>
-                <img src={logo} />
+            <div class="app">
+				<header class="app-header">
+					<img
+						src={logo}
+						class="app-logo"
+						alt="logo"
+					/>
+					<h1 class="app-title">Welcome to {props.name}</h1>
+				</header>
                 Hello {this.props.name} {this.data.abc}
                 <hello-omi onAbc={this.onAbc} prop-from-parent={this.data.passToChild} msg="Omi"></hello-omi>
-            </div>
+			</div>
         )
     }
 }

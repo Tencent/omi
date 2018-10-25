@@ -26,7 +26,7 @@ export default class HelloOmi extends WeElement<HelloOmiProps> {
 
     onClick = (evt: Event) => {
         // trigger CustomEvent
-        this.fire('abc', { name: 'dntzhang', age: 12 })
+        this.fire('abc', { name: 'dntzhang & f & xcatliu', age: 12 })
         evt.stopPropagation()
     }
 
@@ -40,7 +40,7 @@ export default class HelloOmi extends WeElement<HelloOmiProps> {
     render() {
         return (
             <div onClick={this.onClick}>
-                Hello {this.props.msg} {this.props.propFromParent}
+                Hello {this.props.msg} [{this.props.propFromParent}]
                 <div>Click Me!</div>
             </div>
         )
