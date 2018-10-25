@@ -1,7 +1,6 @@
-import { WeElement, tag } from 'omi'
+import { WeElement, define } from 'omi'
 import Transform from 'css3transform'
 
-@tag('css3-transform')
 class CSS3Transform extends WeElement {
 
 	install() {
@@ -29,3 +28,5 @@ class CSS3Transform extends WeElement {
 		return props.children[0]
 	}
 }
+
+define('css3-transform', CSS3Transform)
