@@ -2,7 +2,26 @@
 
 	Made css3 transform super easy.
 
-Supported properties(get and set): translateX, translateY, translateZ, scaleX, scaleY, scaleZ, rotateX, rotateY, rotateZ, skewX, skewY, originX, originY, originZ
+Supported properties(get and set): 
+
+| **Property**    | **Describe**                           |
+| --------- | ---------------------- |
+| translateX |translateX |
+| translateY |translateY |
+| translateZ |translateZ |
+| scaleX |scaleX |
+| scaleY |scaleY |
+| scaleZ |scaleZ|
+| rotateX |rotateX |
+| rotateY |rotateY |
+| rotateZ |rotateZ |
+| skewX | skewX|
+| skewY |skewY |
+| originX |  the basic x point of rotation|
+| originY | the basic y point of rotation |
+| originZ |  the basic z point of rotation|
+| perspective |Perspective projection distance |
+
 
 ## Usage
 
