@@ -37,7 +37,7 @@
 |  el-tabs| 	@zhengbao	  |
 |  el-breadcrumb| 		@wadellg  | 
 |  el-dropdown| 		  |
-|  el-steps| 		  |
+|  el-steps| 	@daizhan	 |
 |  el-dialog| 		  |
 |  el-tooltip| 		  |
 |  el-popover| 		  |
