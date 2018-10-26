@@ -4,11 +4,11 @@ import "omi-tap"
 @tag("my-app")
 class MyApp extends WeElement {
 	onTap = () => {
-		console.log('tap')
+	  console.log('tap')
 	}
 
 	css() {
-		return `
+	  return `
 		div{
 		  width: 100px;
 		  height: 100px;
@@ -21,11 +21,11 @@ class MyApp extends WeElement {
 	}
 
 	render() {
-		return (
-			<omi-tap onTap={this.onTap} >
-				<div>Tap Me!</div>
-			</omi-tap>
-		)
+	  return (
+	    <omi-tap onTap={this.onTap} >
+	      <div>Tap Me!</div>
+	    </omi-tap>
+	  )
 	}
 }
 

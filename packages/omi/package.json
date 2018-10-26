@@ -33,6 +33,7 @@
     "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size --raw dist/omi.min.js",
     "test": "jest",
     "fix": "eslint src --fix",
+    "fix-e": "eslint examples --fix",
     "lint": "eslint src test",
     "smart-release": "npm run build && npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
     "release": "cross-env npm run smart-release"
