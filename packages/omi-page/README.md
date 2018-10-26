@@ -2,6 +2,8 @@
 
 Tiny client-side router by [page](https://github.com/visionmedia/page.js).
 
+[→ demo](https://tencent.github.io/omi/packages/omi-page/examples/simple/)
+
 ## Usage
 
 ```js
