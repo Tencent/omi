@@ -29,11 +29,12 @@ Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 | ------------------------------- | ----------------------------------- |
 | ![Omi](./assets/omi-render.jpg) | ![React](./assets/react-render.jpg) |
 
-On the left is Omi, the right side is React, and Omi uses Shadow DOM based style isolation and semantic structure.
+Omi uses Shadow DOM based style isolation and semantic structure.
 
 ---
 
 - [Why Omi?](#why-omi)
+- [Ecosystem](#ecosystem)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Getting Started](#getting-started)
   - [Install](#install)
@@ -42,12 +43,29 @@ On the left is Omi, the right side is React, and Omi uses Shadow DOM based style
   - [Store](#store)
     - [Summary：](#summary)
   - [Lifecycle](#lifecycle)
-- [Component Ecosystem](#component-ecosystem)
 - [Debugging](#debugging)
 - [Omi Mobx](#omi-mobx)
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
 - [License](#license)
+
+## Ecosystem
+
+| **Project**                         | **Description**                           |
+| ------------------------------- | ----------------------------------- |
+| [omi-docs](http://omijs.org/)| Omi official documents |
+| [omi-devTools](https://github.com/f/omi-devtools)| Browser DevTools extension |
+|[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
+| [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Made css3 transform super easy|
+| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
+| [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)|Support tap event in your omi project|
+| [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
+|[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi version of element-ui|
+
+Other:
+
+- [https://www.webcomponents.org/](https://www.webcomponents.org/)
+- [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
 ## Add Omi in One Minute
 
@@ -419,19 +437,6 @@ render(<todo-app />, "body", store);
 | `beforeUpdate`   | before update                           |
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
-
-## Component Ecosystem
-
-- [omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)
-- [omijs.org](http://omijs.org/)
-- [Omi.js DevTools](https://github.com/f/omi-devtools)
-- [omi-i18n](https://github.com/i18next/omi-i18n)
-- [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)
-- [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) 
-- [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)
-- [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)
-- [https://www.webcomponents.org/](https://www.webcomponents.org/)
-- [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
 ## Debugging
 
