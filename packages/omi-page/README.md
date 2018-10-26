@@ -2,9 +2,6 @@
 
 Tiny client-side router by [page](https://github.com/visionmedia/page.js).
 
-
-
-
 ## Usage
 
 ```js
