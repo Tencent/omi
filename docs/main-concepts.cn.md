@@ -11,6 +11,7 @@
   - [Ref](#ref)
   - [Store](#store)
   - [Slot](#slot)
+  - [Pure Element](#pure-element)
   - [SSR](#ssr)
 
 ### My First Element
@@ -308,6 +309,30 @@ render(<my-app></my-app>, 'body')
 ```
 
 [→ Slot MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots#Adding_flexibility_with_slots)
+
+### Pure Element
+
+```js
+tag('my-ele', function (props) {
+	return (
+		<ul>
+			{props.items.map(item => (
+				<li key={item.id}>{item.text}</li>
+			))}
+		</ul>
+	)
+})
+```
+
+使用该自定义元素:
+
+```js
+<my-ele
+  items={[{ text: 'Omi', id: 1 }, { text: "Tencent", id: 2 }]}
+/>
+```
+
+注意，Pure Element 不兼容 IE11 。
 
 ### SSR
 

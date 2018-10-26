@@ -11,6 +11,7 @@ English | [简体中文](./main-concepts.cn.md)
   - [Ref](#ref)
   - [Store](#store)
   - [Slot](#slot)
+  - [Pure Element](#pure-element)
   - [SSR](#ssr)
 
 ### My First Element
@@ -319,6 +320,30 @@ render(<my-app></my-app>, 'body')
 ```
 
 [→ Slot MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots#Adding_flexibility_with_slots)
+
+### Pure Element
+
+```js
+tag('my-ele', function (props) {
+	return (
+		<ul>
+			{props.items.map(item => (
+				<li key={item.id}>{item.text}</li>
+			))}
+		</ul>
+	)
+})
+```
+
+Use it:
+
+```js
+<my-ele
+  items={[{ text: 'Omi', id: 1 }, { text: "Tencent", id: 2 }]}
+/>
+```
+
+Do not use pure element in browsers that do not support Reflect, such as ie11.
 
 ### SSR
 
