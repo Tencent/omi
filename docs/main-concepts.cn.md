@@ -314,13 +314,13 @@ render(<my-app></my-app>, 'body')
 
 ```js
 tag('my-ele', function (props) {
-	return (
-		<ul>
-			{props.items.map(item => (
-				<li key={item.id}>{item.text}</li>
-			))}
-		</ul>
-	)
+  return (
+    <ul>
+      {props.items.map(item => (
+        <li key={item.id}>{item.text}</li>
+      ))}
+    </ul>
+  )
 })
 ```
 
@@ -328,7 +328,7 @@ tag('my-ele', function (props) {
 
 ```js
 <my-ele
-  items={[{ text: 'Omi', id: 1 }, { text: "Tencent", id: 2 }]}
+    items={[{ text: 'Omi', id: 1 }, { text: "Tencent", id: 2 }]}
 />
 ```
 
