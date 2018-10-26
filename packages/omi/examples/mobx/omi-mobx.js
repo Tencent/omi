@@ -23,63 +23,63 @@ import { options } from "../../src/omi"
 window.requestIdleCallback =
 	window.requestIdleCallback ||
 	function(cb) {
-		return setTimeout(() => {
-			let start = Date.now()
-			cb({
-				didTimeout: false,
-				timeRemaining() {
-					return Math.max(0, 50 - (Date.now() - start))
-				}
-			})
-		}, 1)
+	  return setTimeout(() => {
+	    let start = Date.now()
+	    cb({
+	      didTimeout: false,
+	      timeRemaining() {
+	        return Math.max(0, 50 - (Date.now() - start))
+	      }
+	    })
+	  }, 1)
 	}
 
 window.cancelIdleCallback =
 	window.cancelIdleCallback ||
 	function(id) {
-		clearTimeout(id)
+	  clearTimeout(id)
 	}
 
 options.afterInstall = function(ele) {
-	if (ele.constructor.observe) {
-		oba(ele.data, ele)
-	}
+  if (ele.constructor.observe) {
+    oba(ele.data, ele)
+  }
 }
 
 let idleId = null
 const updateList = []
 
 function oba(data, ele) {
-	const o = observable(data)
+  const o = observable(data)
 
-	autorun(() => {
-		JSON.stringify(o)
-		if (ele._isInstalled) {
-			updateList.push(ele)
-			cancelIdleCallback(idleId)
-			idleId = requestIdleCallback(backgroundTask)
-		}
-	})
+  autorun(() => {
+    JSON.stringify(o)
+    if (ele._isInstalled) {
+      updateList.push(ele)
+      cancelIdleCallback(idleId)
+      idleId = requestIdleCallback(backgroundTask)
+    }
+  })
 
-	ele.data = o
+  ele.data = o
 }
 
 function backgroundTask(deadline) {
-	while (deadline.timeRemaining() > 0 && updateList.length > 0) {
-		updateList.shift().update()
-	}
+  while (deadline.timeRemaining() > 0 && updateList.length > 0) {
+    updateList.shift().update()
+  }
 
-	if (updateList.length > 0) {
-		idleId = requestIdleCallback(backgroundTask)
-	}
+  if (updateList.length > 0) {
+    idleId = requestIdleCallback(backgroundTask)
+  }
 }
 
 function observe(target) {
-	target.observe = true
+  target.observe = true
 }
 
 export { observe }
 
 export default {
-	observe
+  observe
 }
