@@ -360,7 +360,17 @@
         });
     }
     function tag(name, pure) {
-        return function(target) {
+        if ("function" == typeof pure) {
+            var CustomElement = function CustomElement() {
+                return Reflect.construct(WeElement, [], CustomElement);
+            };
+            if (void 0 === window.Reflect) throw 'Do not use pure element in browsers that do not support Reflect.';
+            CustomElement.pure = !0;
+            CustomElement.prototype.render = pure;
+            Object.setPrototypeOf(CustomElement.prototype, WeElement.prototype);
+            Object.setPrototypeOf(CustomElement, WeElement);
+            customElements.define(name, CustomElement);
+        } else return function(target) {
             target.pure = pure;
             define(name, target);
         };
@@ -674,7 +684,7 @@
         define: define
     };
     options.root.Omi = omi;
-    options.root.Omi.version = "4.0.7";
+    options.root.Omi.version = "4.0.8";
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
