@@ -72,7 +72,6 @@ Other:
 This page demonstrates using Omi **with no build tooling**.
 
 - [Online Demo!](https://tencent.github.io/omi/assets/)
-- [Omi Docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)
 - [Omi.js CDN](https://unpkg.com/omi)
 
 ```html
