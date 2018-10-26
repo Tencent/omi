@@ -14,6 +14,8 @@ English | [简体中文](./main-concepts.cn.md)
   - [Pure Element](#pure-element)
   - [SSR](#ssr)
 
+[→ Omi Simple Examples](https://github.com/Tencent/omi/tree/master/packages/omi/examples)
+
 ### My First Element
 
 ```js
