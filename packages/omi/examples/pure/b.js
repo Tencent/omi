@@ -1211,29 +1211,11 @@
 
   var OBJECTTYPE = "[object Object]";
   var ARRAYTYPE = "[object Array]";
-  var FUNCTION = "function";
 
   function define(name, ctor) {
-    if (typeof ctor === FUNCTION) {
-      var CustomElement = function CustomElement() {
-        return Reflect.construct(WeElement, [], CustomElement);
-      };
-
-      if (window.Reflect === undefined) {
-        throw 'Do not use pure element in browsers that do not support Reflect.';
-      }
-
-      CustomElement.pure = true;
-      CustomElement.prototype.render = ctor;
-      Object.setPrototypeOf(CustomElement.prototype, WeElement.prototype);
-      Object.setPrototypeOf(CustomElement, WeElement);
-
-      customElements.define(name, CustomElement);
-    } else {
-      customElements.define(name, ctor);
-      if (ctor.data && !ctor.pure) {
-        ctor.updatePath = getUpdatePath(ctor.data);
-      }
+    customElements.define(name, ctor);
+    if (ctor.data && !ctor.pure) {
+      ctor.updatePath = getUpdatePath(ctor.data);
     }
   }
 
@@ -1281,11 +1263,30 @@
     });
   }
 
+  var FUNCTION = "function";
+
   function tag(name, pure) {
-    return function (target) {
-      target.pure = pure;
-      define(name, target);
-    };
+    if (typeof pure === FUNCTION) {
+      var CustomElement = function CustomElement() {
+        return Reflect.construct(WeElement, [], CustomElement);
+      };
+
+      if (window.Reflect === undefined) {
+        throw 'Do not use pure element in browsers that do not support Reflect.';
+      }
+
+      CustomElement.pure = true;
+      CustomElement.prototype.render = pure;
+      Object.setPrototypeOf(CustomElement.prototype, WeElement.prototype);
+      Object.setPrototypeOf(CustomElement, WeElement);
+
+      customElements.define(name, CustomElement);
+    } else {
+      return function (target) {
+        target.pure = pure;
+        define(name, target);
+      };
+    }
   }
 
   var omi = {
@@ -1302,8 +1303,7 @@
   options.root.Omi.version = "4.0.8";
 
   //Do not use pure element in browsers that do not support Reflect, such as ie11.
-  define('my-ele', function (props) {
-  	console.log(props);
+  tag('my-ele', function (props) {
   	return Omi.h(
   		'ul',
   		null,
@@ -1317,8 +1317,9 @@
   	);
   });
 
-  var items = [{ text: 'Omi', id: 1 }, { text: "Tencent", id: 2 }];
-  render(Omi.h('my-ele', { items: items }), "body");
+  render(Omi.h('my-ele', {
+  	items: [{ text: 'Omi', id: 1 }, { text: "Tencent", id: 2 }]
+  }), "body");
 
 }());
 //# sourceMappingURL=b.js.map
