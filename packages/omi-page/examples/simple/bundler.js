@@ -120,7 +120,6 @@ var MyApp = (_dec = (0, _omi.tag)('my-app'), _dec(_class = function (_WeElement)
     _createClass(MyApp, [{
         key: 'installed',
         value: function installed() {
-            console.log(_index2.default);
             (0, _index2.default)('/', this.index);
             (0, _index2.default)('/about', this.about);
             (0, _index2.default)('/contact', this.contact);

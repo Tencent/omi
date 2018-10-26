@@ -1,5 +1,15 @@
-﻿import { render, tag, WeElement } from 'omi'
-import page from '../../index'
+# omi-page
+
+Tiny client-side router by [page](https://github.com/visionmedia/page.js).
+
+
+
+
+## Usage
+
+```js
+import { render, tag, WeElement } from 'omi'
+import page from 'omi-page'
 
 @tag('my-app')
 class MyApp extends WeElement {
@@ -52,3 +62,8 @@ class MyApp extends WeElement {
 }
 
 render(<my-app></my-app>, 'body')
+```
+
+## License
+
+MIT © dntzhang
