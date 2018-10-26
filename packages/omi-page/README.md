@@ -63,6 +63,14 @@ class MyApp extends WeElement {
 render(<my-app></my-app>, 'body')
 ```
 
+## page.base([path])
+
+Get or set the base path. For example if page.js is operating within /blog/* set the base path to "/blog"：
+
+```js
+ page.base('/blog')
+```
+
 ## License
 
 MIT © dntzhang
