@@ -36,22 +36,22 @@ class TodoApp extends WeElement {
     )
   }
 
-	handleChange = e => {
-	  this.data.text = e.target.value
-	};
+  handleChange = e => {
+    this.data.text = e.target.value
+  };
 
-	handleSubmit = e => {
-	  e.preventDefault()
-	  if (!this.data.text.trim().length) {
-	    return
-	  }
-	  this.data.items.push({
-	    text: this.data.text,
-	    id: Date.now()
-	  })
-	  this.data.text = ""
-	  this.update()
-	};
+  handleSubmit = e => {
+    e.preventDefault()
+    if (!this.data.text.trim().length) {
+      return
+    }
+    this.data.items.push({
+      text: this.data.text,
+      id: Date.now()
+    })
+    this.data.text = ""
+    this.update()
+  };
 }
 
 render(<todo-app />, "body")

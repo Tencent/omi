@@ -44,7 +44,7 @@ class MyApp extends WeElement {
     return (
       <css3-transform rotateZ={data.rotateZ} translateX={0} perspective={0} >
         <div ref={this.linkRef}>
-					omi-transform
+          omi-transform
         </div>
       </css3-transform>
 
