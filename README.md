@@ -33,8 +33,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 ---
 
-- [Why Omi?](#why-omi)
-- [Ecosystem](#ecosystem)
+- [Ecosystem of Omi](#ecosystem-of-omi)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Getting Started](#getting-started)
   - [Install](#install)
@@ -49,7 +48,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 - [Contribution](#contribution)
 - [License](#license)
 
-## Ecosystem
+## Ecosystem of Omi
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
