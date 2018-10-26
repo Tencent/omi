@@ -427,6 +427,7 @@ render(<todo-app />, "body", store);
 - [Omi.js DevTools](https://github.com/f/omi-devtools)
 - [omi-i18n](https://github.com/i18next/omi-i18n)
 - [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)
+- [omi-page]((https://github.com/Tencent/omi/tree/master/packages/omi-page) 
 - [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)
 - [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)
 - [https://www.webcomponents.org/](https://www.webcomponents.org/)
