@@ -49,10 +49,10 @@ class HelloElement extends WeElement {
 	render(props, data) {
 	  return (
 	    <div onClick={this.onClick}>
-				Hello {props.msg} {props.propFromParent}
+        Hello {props.msg} {props.propFromParent}
 	      <div>
-					Click Me!
-					{props.num}
+          Click Me!
+          {props.num}
 	      </div>
 	      <div>data: {data.a}</div>
 	      <div>props {props.num}</div>
