@@ -52,7 +52,7 @@ class HelloElement extends WeElement {
         Hello {props.msg} {props.propFromParent}
 	      <div>
           Click Me!
-          {props.num}
+	        {props.num}
 	      </div>
 	      <div>data: {data.a}</div>
 	      <div>props {props.num}</div>
