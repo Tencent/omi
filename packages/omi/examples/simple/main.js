@@ -26,7 +26,7 @@ class MyApp extends WeElement {
 	  return (
 	    <div onClick={this.onClick}>
 				Hello {props.name} {data.abc}
-	      <hello-element
+				<hello-element
 	        onAbc={this.onAbc}
 	        prop-from-parent={data.passToChild}
 	        msg="WeElement"
