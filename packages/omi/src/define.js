@@ -1,10 +1,29 @@
+import WeElement from './we-element'
 const OBJECTTYPE = "[object Object]"
 const ARRAYTYPE = "[object Array]"
+const FUNCTION = "function"
 
 export function define(name, ctor) {
-  customElements.define(name, ctor)
-  if (ctor.data && !ctor.pure) {
-    ctor.updatePath = getUpdatePath(ctor.data)
+  if (typeof ctor === FUNCTION) {
+    if (window.Reflect === undefined) {
+      throw 'Do not use pure element in browsers that do not support Reflect.'
+    }
+    
+    function CustomElement() {
+      return Reflect.construct(WeElement, [], CustomElement)
+    }
+
+    CustomElement.pure = true
+    CustomElement.prototype.render = ctor
+    Object.setPrototypeOf(CustomElement.prototype, WeElement.prototype)
+    Object.setPrototypeOf(CustomElement, WeElement)
+
+    customElements.define(name, CustomElement)
+  } else {
+    customElements.define(name, ctor)
+    if (ctor.data && !ctor.pure) {
+      ctor.updatePath = getUpdatePath(ctor.data)
+    }
   }
 }
 
