@@ -33,6 +33,7 @@
 
 ---
 
+- [Omi 生态](#omi-生态)
 - [一个 HTML 完全上手](#一个-html-完全上手)
 - [快速入门](#快速入门)
   - [安装](#安装)
@@ -40,13 +41,32 @@
   - [TodoApp](#todoapp)
   - [Store](#store)
   - [生命周期](#生命周期)
-- [生态](#生态)
 - [调试工具](#调试工具)
 - [Omi Mobx](#omi-mobx)
 - [浏览器兼容](#浏览器兼容)
 - [相关链接](#相关链接)
 - [贡献代码](#贡献代码)
 - [License](#license)
+
+## Omi 生态
+
+| **项目**                         | **描述**                           |
+| ------------------------------- | ----------------------------------- |
+| [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
+| [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
+| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，支持 Javascript 和 Typescript |
+|[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
+| [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|让 css3 transform 变得超级简单|
+| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
+| [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
+| [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx 适配器|
+|[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi 版本的 element-ui|
+|[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
+
+你也可以在 `webcomponents.org` 里面查找你想要的组件，直接使用，或者花几分钟就能转换成 Omi Element（把模板拷贝到 render 方法，style拷贝到 css 方法）。
+
+* [https://www.webcomponents.org/](https://www.webcomponents.org/)
+* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
 ## 一个 HTML 完全上手
 
@@ -416,27 +436,6 @@ render(<todo-app></todo-app>, 'body', store)
 | `beforeUpdate`   | before update                           |
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
-
-## 生态
-
-- [omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)
-- [omijs.org](http://omijs.org/)
-- [Omi.js DevTools](https://github.com/f/omi-devtools)
-- [omi-i18n](https://github.com/i18next/omi-i18n)
-- [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)
-- [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) 
-- [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)
-- [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)
-- [https://www.webcomponents.org/](https://www.webcomponents.org/)
-- [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
-- [westore](https://github.com/dntzhang/westore)
-
-你也可以在 `webcomponents.org` 里面查找你想要的组件，直接使用，或者花几分钟就能转换成 Omi Element（把模板拷贝到 render 方法，style拷贝到 css 方法）。
-
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
-
-
 
 ## 调试工具
 
