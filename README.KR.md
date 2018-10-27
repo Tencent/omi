@@ -1,35 +1,35 @@
-English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
+[English](./README.md) | [简体中文](./README.CN.md) | 한국어
 
 <p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
-<h2 align="center">Omi: Next Generation Web Framework in 4kb JavaScript</h2>
-<p align="center"><b>Merge JSX, Web Components, Proxy, Store, Path Updating together</b></p>
+<h2 align="center">Omi: 4kb 자바스크립트 차세대 웹 프레임워크</h2>
+<p align="center"><b>JSX, Web Components, Proxy, Store, Path Updating 지원</b></p>
 
 ## Why Omi?
 
-- Tiny size. _(**4kb** gzipped)_
-- Supports TypeScript.
-- Reactive data-binding
-- [Based on Shadow DOM](https://developers.google.com/web/fundamentals/web-components/shadowdom)
-- Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
-- Compliance with browser trend and API design.
-- Merge [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) and [**JSX**](https://reactjs.org/docs/introducing-jsx.html)  into one framework.
-- Work well with mobx by omi-mobx (No need to call `this.update()`).
-- Web Components can also be a data-driven view, **`UI = fn(data)`**.
-- JSX is the best development experience (code intelligent completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals).
-- The original **Path Updating** system. Proxy-based automatic **accurate** update, **low power consumption**, high degree of freedom, excellent performance, easy integration of `requestIdleCallback`
-- Say goodbye to `this.update` method when using **store system**! It will automatically update UI partially when data is changed.
-- Look at [Facebook React vs Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi **combines their advantages** and gives developers the **freedom to choose the way they like**.
-- **Shadow DOM merges with Virtual DOM**, Omi uses both virtual DOM and real Shadow DOM to make view updates more accurate and faster.
-- With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on Redux, Omi store system can meet all projects
-- **Scoped CSS**'s best solution is **Shadow DOM**, the community churning out frameworks and libraries for Scoped CSS (using JS or JSON writing styles such as Radium, jsxstyle, react-style; binding to webpack using generated unique `className` `filename-classname-hash`, such as CSS Modules, Vue), are hack technologies; _and Shadow DOM Style is the perfect solution_.
+- 작은 파일 사이즈. _(**4kb** gzip 압축후)_
+- TypeScript 지원.
+- 반응형 데이터 바인딩
+- [쉐도우 DOM 기반 설계](https://developers.google.com/web/fundamentals/web-components/shadowdom)
+- [Omi DevTools Extension](https://github.com/f/omi-devtools) 를 통한 쉬운 디버깅 [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
+- 브라우저 트렌드 및 API 디자인 준수.
+- [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) 와 [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 가 하나의 프레임워크에.
+- omi-mbox를 통한 omi 와 mobx 를 함께 사용 (`this.update()` 호출 필요 없음).
+- Web Components 가 데이터 기반(data-driven)의 뷰가 될수 있음, **`UI = fn(data)`**.
+- JSX 는 최소의 UI 표현식으로 최상의 개발경험을 제공 (코드 인텔리전트 와 팁)  [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals).
+- 독창적인 **Path Updating** 시스템. Proxy 기반 자동 **정확한** 업데이트, **저손실**, 높은 자유도, 뛰어난 성능, `requestIdleCallback` 로 통합하기 쉬움.
+- **store system** 을 사용해서 `this.update` 와 작별하세요! store  가 자동으로 데이터와 관련된 UI를 업데이트 합니다.
+- 봐주세요 [Facebook React vs Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi 는 이것들의 강점을 결합하여 개발자가 자유롭게 자신이 원하는 방식을 선택할 수 있게 해줍니다.
+- **Shadow DOM** 은 **Virtual DOM** 과 병합되며, Omi 는 Virtual DOM 과 실제 Shadow DOM을 사용하여 뷰를 보다 정확하고 빠르게 업데이트 합니다.
+- 99.9%의 프로젝트가 디버깅 하기 위해 시간낭비를 할 필요가 없습니다. 그리고 `redux`에 접근할 필요 없이, Omi 의 `store`가 모든 프로젝트 충족시킬수 있습니다.
+- **Scoped CSS**의 베스트 솔루션은 **Shadow DOM** 입니다. 커뮤니티들은 Scoped CSS 를 위해 않은 프레임워크와 라이브러리를 버렸습니다. JS 혹은 JSON을 사용하여 양식을 작성하고(예: `Radium`, `jsxstyle`, `react-style`), Webpack을 사용하여 독립적인 `className`, `filename-classname-hash` 를 만들어내는 것은(`CSS Modules`, `Vue`와 같이) 모두 hack 기술입니다. `Shadow DOM Style`이 완벽한 해결책입니다.
 
-Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
+TodoApp 을 통해 Omi 와 React를 비교해보십시오. Omi and React의 렌더링 DOM 구조:
 
 | **Omi**                         | **React**                           |
 | ------------------------------- | ----------------------------------- |
 | ![Omi](./assets/omi-render.jpg) | ![React](./assets/react-render.jpg) |
 
-Omi uses Shadow DOM based style isolation and semantic structure.
+Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니다.
 
 ---
 
@@ -67,9 +67,9 @@ Other:
 - [https://www.webcomponents.org/](https://www.webcomponents.org/)
 - [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
-## Add Omi in One Minute
+## 하나의 HTML 파일로 실행 가능
 
-This page demonstrates using Omi **with no build tooling**.
+이 페이지는 어떤 번들링 툴 사용없이 실행가능합니다.
 
 - [Online Demo!](https://tencent.github.io/omi/assets/)
 - [Omi.js CDN](https://unpkg.com/omi)
@@ -120,7 +120,7 @@ This page demonstrates using Omi **with no build tooling**.
 </html>
 ```
 
-You can also use `like-button` tag directly in HTML：
+`like-button` 태그를 HTML에서 직접 사용 가능합니다：
 
 ```jsx
 <body>
@@ -164,11 +164,11 @@ $ npm start                         # develop
 $ npm run build                     # release
 ```
 
-CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
+CLI 자동 프로젝트 생성 scaffolding 는 한 페이지의 create-react-app을 여러 페이지로 변환합니다. 설정(configuration) 이슈는 [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) 을 봐주세요.
 
 ### Hello Element
 
-Define a custom element by extending **`WeElement`** base class and name it using **`@tag`** decorator:
+`WeElement` 를 상속하여 커스텀 엘리먼트(element)를 정의하고 **`@tag`** 데코레이터를 사용하여 기본 class 와 이름을정의하세요:
 
 ```js
 import { tag, WeElement, render } from "omi";
@@ -243,7 +243,7 @@ class MyApp extends WeElement {
 render(<my-app name="Omi v4.0" />, "body");
 ```
 
-Tell Babel to transform JSX into `Omi.h()` call:
+Babel이 JSX 를 `Omi.h()` 호출로 변환하도록 설정:
 
 ```json
 {
@@ -251,15 +251,15 @@ Tell Babel to transform JSX into `Omi.h()` call:
 }
 ```
 
-The following two NPM packages need to be installed to support the above configuration:
+위의 설정(configuration)을 지원하려면 아래의 두 NPM 패키지를 설치해야 합니다:
 
 ```bash
 "babel-preset-env": "^1.6.0",
 "babel-preset-omi": "^0.1.1",
 ```
 
-If you don't want to write CSS in JS, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack,
-For example, the following configuration:
+만약 CSS 를 사용하기 싫으면 Webpack의 [to-string-loader](https://www.npmjs.com/package/to-string-loader) 를 봐주세요,
+예를 들어:
 
 ```js
 {
@@ -271,7 +271,7 @@ For example, the following configuration:
 }
 ```
 
-If your CSS file starts with "`_`", CSS will use `to-string-loader`., such as:
+만약 당신의 CSS 파일이 "`_`"로 시작한다면, CSS 는 `to-string-loader`를 사용할 것입니다. 이와 같이:
 
 ```js
 import { tag, WeElement render } from 'omi'
@@ -292,7 +292,7 @@ class MyApp extends WeElement {
 
 ### TodoApp
 
-Here is a relatively complete example of TodoApp:
+아래는 상대적으로 완벽한 TodoApp 예입니다:
 
 ```js
 import { tag, WeElement, render } from "omi";
@@ -357,7 +357,7 @@ render(<todo-app />, "body");
 
 ### Store
 
-Say goodbye to `this.update` method when using store system! It will automatically update the UI partially when data is changed. The powerful **Store architecture** is high-performanced since all the data is mounted on the store, except for components that rely on props to determine the state of the component.
+store system 을 사용하여 `this.update` 메서드에 작별을 고하세요! 이것은 데이터가 변경되면 UI 와 관련된 부분을 자동으로 업데이트 합니다. 파워풀한 **Store architecture** 는 고성능입니다. 왜냐하면 모든 데이터는 하나의 store 에 마운트(mount) 되기 때문입니다. 컴포넌트의 state 를 판별하기 위한 props가 의존된 컴포넌트를 제외.
 
 ```js
 export default {
@@ -388,7 +388,7 @@ export default {
 };
 ```
 
-Custom Element requires declaring dependent data so that Omi stores compute the dependency path based on the data declared on the custom component and update it locally as needed. Such as:
+커스텀 엘리먼트는 의존적인 데이터를 필요로합니다. 그래서 Omi stores는 커스텀 컴포넌트의 데이터가 정의된 디펜던시 경로(path) 를 계산합니다 그리고 필요할때 이것을 부분적으로 업데이트 합니다:
 
 ```js
 class TodoApp extends WeElement {
@@ -408,10 +408,10 @@ class TodoApp extends WeElement {
 }
 ```
 
-- The logic of data is **encapsulated in the store definition method** (such as `store.add`).
-- Views are only **responsible for passing data to store**, such as calling `store.add` or setting `store.data.text` on top.
+- 데이터 로직은 **store 정의 메서드에 encapsulated 됩니다** (`store.add` 와 같은.)
+- View 는 오직 데이터를 store에 전달만 합니다. `store.add` 사용 혹은 `store.data.text`를 top 에 설정하여.
 
-You need to inject `store` from the root node at render time to use this store:
+당신은 루트(root) 노드가 렌더시 이 `store` 를 사용하여 주입(inject)해야 합니다:
 
 ```js
 render(<todo-app />, "body", store);
@@ -421,10 +421,10 @@ render(<todo-app />, "body", store);
 
 #### Summary：
 
-- `store.data` is used to list all attributes and default values (except the components of the view decided by props).
-- The static data of the element is used to list the attributes of the dependent store.data _(Omi will record path)_ and update on demand.
-- If there are few simple components on the page, `updateAll` can be set to `true`, and components and pages don't need to declare data, and they don't update on demand
-- The path declared in `globalData` refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties path
+- `store.data`는 모든 애트리뷰트 와 기본 값들을 리스트 하기 위해 사용됩니다. (props를 통해 정의된 뷰 컴포넌트 제외)
+- 구성 요소 및 페이지의 데이터는 종속 store.data 의 속성을 나열하는 데 사용 되며 (omi는 경로를 기록 합니다.) 그리고 필요에 따라 업데이트 됩니다.
+- 만약 페이지에 간단한 컴포넌트가 거의 없는 경우, `updateAll`을 `true`로 선언할 수 있습니다. 그리고 컴포넌트와 페이지들은 데이터를 선언할 필요 없으며 그것들은 필요에 따라 업데이트 되지 않습니다.
+- globalData에 선언된 경로(path)는 해당경로의 값이 수정되는 한 모든 페이지와 구성 요소를 새로고침 하며 globalData를 사용하여 모든 페이지 또는 공용(public) 속성(property)를 나열할 수 있습니다.
 
 ### Lifecycle
 
@@ -439,15 +439,15 @@ render(<todo-app />, "body", store);
 
 ## Debugging
 
-Using [Omi DevTools](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd) you can simply debug and manage your UI **without any configuration**. Just install and debug.
+사용 [Omi DevTools](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd) 당신은 어떤 설정(configuration)없이 간단히 디버그와 UI를 매니지 할 수 있습니다. 그냥 설치하고 디버그하세요.
 
-Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another elements panel such as React or Vue has. It just adds a panel to the **Elements' sidebar** and it's powerful as much as React and Vue DevTools.
+Omi는 Web Components 와 Shadow-DOM을 사용하기 때문에 React 및 Vue 처럼 개발자 도구와 Chrome 에서 제공되는 **Elements 사이드바** 를 사용하여 다른 요소 패널을 설치할 필요가 없습니다.
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
 
 ## Omi Mobx
 
-You can also give up the store system and use omi-mobx to create response views, such as:
+당신은 store 시스템을 버리고, omi-mobx를 사용하여 반응형 뷰를 만들수 있습니다:
 
 ```js
 import { tag, WeElement } from "omi";
@@ -476,17 +476,17 @@ class MyApp extends WeElement {
 
 ## Browsers Support
 
-Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
+Omi 4.0+ 부터 주요 브라우저(Safari 10+, IE 11+, Chrome, Firefox, Edge)의 마지막 두 버전을 지원합니다.
 
 ![→ Browsers Support](./assets/browsers-support.png)
 
 [→ Polyfills](https://github.com/webcomponents/webcomponentsjs)
 
-> If you want to be compatible with IE11, use the Omi file of [→ this project](https://github.com/Tencent/omi/tree/master/packages/omi-ie11). This project uses JSON Diff + Timer instead of Proxy.
+> 만약 IE11과 호환하기를 원한다면, [→ this project](https://github.com/Tencent/omi/tree/master/packages/omi-ie11) 의 Omi 파일을 사용하세요. 이 프로젝트는 Proxy 대신에 JSON DIFF 와 Timer를 사용합니다.
 
-> You can dynamically load the JS of this project in the IE11 environment, and the proxy version is still used in other environments.
+> 당신은 IE11 환경에서 동적으로 이 프로젝트의 JS를 로드할 수 있습니다. 그리고 Proxy 버전은 여전히 다른 환경을 사용합니다.
 
-> You can also give up the store system and use omi-mobx to be compatible with IE11.
+> 당신은 store 시스템을 포기하고, omi-mbox 를 사용하여 IE11을 호환할 수 있습니다.
 
 ## Contribution
 
