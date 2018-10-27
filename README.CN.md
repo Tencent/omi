@@ -257,6 +257,27 @@ render(<my-app name='Omi v4.0'></my-app>, 'body')
 "babel-preset-omi": "^0.1.1",
 ```
 
+如果你使用 babel7，也可以使用如下包和配置：
+
+```bash
+npm install --save-dev @babel/preset-env
+npm install --save-dev @babel/preset-react
+```
+
+```js
+{
+  "presets": [
+    "@babel/preset-env",
+    [
+      "@babel/preset-react",
+      {
+        "pragma": "Omi.h", 
+      }
+    ]
+  ]
+}
+```
+
 如果不想把 css 写在 js 里，你可以使用 webpack [to-string-loader](https://www.npmjs.com/package/to-string-loader), 比如下面配置:
 
 ``` js

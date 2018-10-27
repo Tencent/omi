@@ -259,6 +259,27 @@ The following two NPM packages need to be installed to support the above configu
 "babel-preset-omi": "^0.1.1",
 ```
 
+If you use babel7, you can also use the following packages and configuration:
+
+```bash
+npm install --save-dev @babel/preset-env
+npm install --save-dev @babel/preset-react
+```
+
+```js
+{
+  "presets": [
+    "@babel/preset-env",
+    [
+      "@babel/preset-react",
+      {
+        "pragma": "Omi.h", 
+      }
+    ]
+  ]
+}
+```
+
 If you don't want to write CSS in JS, you can use [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack,
 For example, the following configuration:
 
