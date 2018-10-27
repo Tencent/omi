@@ -1,4 +1,4 @@
-[English](./README.md) | 简体中文
+[English](./README.md) | 简体中文 | [한국어](./README.KR.md)
 
 <p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一</h2>
