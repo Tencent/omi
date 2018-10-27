@@ -290,6 +290,9 @@ class MyApp extends WeElement {
   ...
 ```
 
+당신은 성가신 설정(configuration)과 omi-cli을 직접 사용하는 것을 잊어버려도 됩니다.
+어떤 설정도 필요가 없습니다.
+
 ### TodoApp
 
 아래는 상대적으로 완벽한 TodoApp 예입니다:
