@@ -73,7 +73,6 @@
 下面这个页面不需要任何构建工具就可以执行
 
 * [点击这里看执行结果](https://tencent.github.io/omi/assets/)
-* [Omi 文档](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)
 * [Omi.js CDN](https://unpkg.com/omi)
 
 ```html
