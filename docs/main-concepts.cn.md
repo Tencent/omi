@@ -330,7 +330,7 @@ tag('my-ele', function (props) {
 
 ```js
 <my-ele
-    items={[{ text: 'Omi', id: 1 }, { text: "Tencent", id: 2 }]}
+    items={[{ text: 'Omi', id: 1 }, { text: 'Tencent', id: 2 }]}
 />
 ```
 
