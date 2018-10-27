@@ -307,6 +307,8 @@ class MyApp extends WeElement {
   ...
 ```
 
+你也可以忘掉这一对繁琐的配置直接使用 omi-cli，不需要你配置任何东西。
+
 ### TodoApp
 
 下面列举一个相对完整的 TodoApp 的例子:
