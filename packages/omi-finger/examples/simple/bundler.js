@@ -77,7 +77,7 @@ Object.defineProperty(exports, "__esModule", {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
- * omi v4.0.11  http://omijs.org
+ * omi v4.0.12  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1407,6 +1407,17 @@ function cloneElement(vnode, props) {
   return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
 }
 
+function getHost(ele) {
+  var p = ele.parentNode;
+  while (p) {
+    if (p.host) {
+      return p.host;
+    } else {
+      p = p.parentNode;
+    }
+  }
+}
+
 var omi = {
   tag: tag,
   WeElement: WeElement,
@@ -1416,11 +1427,12 @@ var omi = {
   options: options,
   define: define,
   observe: observe,
-  cloneElement: cloneElement
+  cloneElement: cloneElement,
+  getHost: getHost
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = "4.0.11";
+options.root.Omi.version = "4.0.12";
 
 exports.default = omi;
 exports.tag = tag;
@@ -1432,6 +1444,7 @@ exports.options = options;
 exports.define = define;
 exports.observe = observe;
 exports.cloneElement = cloneElement;
+exports.getHost = getHost;
 //# sourceMappingURL=omi.esm.js.map
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 

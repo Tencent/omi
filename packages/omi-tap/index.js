@@ -1,4 +1,4 @@
-import { WeElement, define } from "omi";
+import { WeElement, define, getHost } from "omi";
 
 class OmiTap extends WeElement {
 
@@ -8,14 +8,7 @@ class OmiTap extends WeElement {
 		this._x = null
 		this._y = null
 		this._scrollTop = null
-		let p = this.parentNode
-    while (p && !this.css) {
-      if(p.host){
-        this.css = p.host.css
-      }else{
-        p = p.parentNode
-      }
-    }
+		this.css = getHost(this).css
 	}
 
 	_handleTouchStart(evt) {
