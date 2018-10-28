@@ -1,4 +1,4 @@
-English | [简体中文](./main-concepts.cn.md) | [한국어](./main-concepts.kr.md)
+[English](./main-concepts.md) | [简体中文](./main-concepts.cn.md) | 한국어
 
 ## Omi Docs
 
@@ -11,10 +11,7 @@ English | [简体中文](./main-concepts.cn.md) | [한국어](./main-concepts.kr
   - [Ref](#ref)
   - [Store](#store)
   - [Slot](#slot)
-  - [Observe](#observe)
   - [SSR](#ssr)
-
-[→ Omi Simple Examples](https://github.com/Tencent/omi/tree/master/packages/omi/examples)
 
 ### My First Element
 
@@ -33,11 +30,11 @@ class MyFirstElement extends WeElement {
 render(<my-first-element></my-first-element>, 'body')
 ```
 
-Look at the rendering structure in the HTML developer tool:
+HTML 개발자 도구에서 렌더링 구조를 확인하세요:
 
 ![fe](../assets/first-element.jpg)
 
-You can also use `my-first-element` in any other custom element. Such as:
+또한, 당신은 다음과 같이 다른 커스텀 엘리먼트(element)에서 `my-first-element`를 사용할 수 있습니다. : 
 
 ```js
 import { WeElement, tag, render } from 'omi'
@@ -72,7 +69,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element name="world"></my-first-element>, 'body')
 ```
 
-You can also transmit any type of data to props:
+당신은 또한 props를 통해 모든 유형의 데이터를 전송할 수 있습니다 :
 
 ```js
 import { WeElement, tag, render } from 'omi'
@@ -88,8 +85,7 @@ class MyFirstElement extends WeElement {
 
 render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ```
-
-The `my-obj` will map to myObj with camel-case.
+`my-obj`는 camel-case로 myObj에 매핑됩니다.
 
 ### Event
 
@@ -126,7 +122,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
 
-Trigger custom event by `this.fire` and get the data by  `evt.detail`.
+`this.fire` 로 커스텀 이벤트를 실행할 수 있고, `evt.detail` 로 데이터를 가져올 수 있습니다.
 
 ### CSS
 
@@ -147,7 +143,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
 
-You can also dynamically generate the CSS:
+당신은 CSS를 동적으로 생성되게 할 수 있습니다:
 
 ```js
  css() {
@@ -155,7 +151,7 @@ You can also dynamically generate the CSS:
   }
 ```
 
-You can also write CSS, less and sass separately to another file using [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack：
+당신은 또한 webpack의 [to-string-loader](https://www.npmjs.com/package/to-string-loader)을 사용하여 CSS, less와 sass를 다른 파일에 따로 작성할 수 있습니다：
 
 ```js
 {
@@ -168,7 +164,7 @@ You can also write CSS, less and sass separately to another file using [to-strin
 }
 ```
 
-Then:
+그리고:
 
 ```js
 import { tag, WeElement } from 'omi'
@@ -205,7 +201,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element></my-first-element>, 'body')
 ```
 
-Add `ref={e => { this.anyNameYouWant = e }}` to attrs of the element, then you can get it by `this.anyNameYouWant`.
+엘리먼트의 속성으로 `ref={e => { this.anyNameYouWant = e }}` 를 추가하면, `this.anyNameYouWant` 을 통해 받을 수 있습니다.
 
 
 ### Store
@@ -239,7 +235,7 @@ const store = {
 render(<my-first-element name="world"></my-first-element>, 'body', store)
 ```
 
-The static data will be transform to path for partial view updating, for example:
+정적 데이터는 부분 뷰 업데이트를 위해 경로로 변환됩니다.:
 ```js
 static get data() {
   return {
@@ -252,7 +248,7 @@ static get data() {
 
 ```
 
-Transformed path：
+변환된 경：
 
 ```js
 {
@@ -263,7 +259,7 @@ Transformed path：
 }
 ```
 
-Exemplify the Path hit rule:
+경로 변경 규칙 예시:
 
 | proxy path | updatePath | Update |
 | ---------- | ---------- | ------ |
@@ -279,20 +275,20 @@ If you hit one condition above, you can update it.
 
 Summary is as long as updatePath or updatePath sub nodes are updated.
 
-Can we see that the store system is a centralization system? So how do we centralization of some components? Use the second parameters of tag:
+우리가 store 시스템이 중앙화 되었는지 확인할 수 있나요? 그렇다면 어떻게 다른 컴포넌트들을 중앙화 할까요? tag의 두번째 파라미터를 사용하세요:
 
 ```js
 @tag('my-first-element', true)
 ```
 
-Pure element! Store will not be injected!
+Pure element! Store가 삽입되지 않을겁니다!
 
 ### Slot
 
-The HTML `<slot>` element—part of the Web Components technology suite—is a placeholder inside a web component that you can fill with your own markup, which lets you create separate DOM trees and present them together.
+웹 구성 요소 기술 집합의 HTML 요소 인 `<slot>` 은 별도의 DOM 트리를 만들고 함께 보여줄 수 있는 마크 업으로 당신이 웹 구성 요소를 채울 수 있게 해주는 placeholder입니다.
 
 ```jsx
-import { tag, render, WeElement } from 'omi'
+import { tag, render, WeElement } from '../../src/omi'
 
 @tag('hello-element')
 class HelloElement extends WeElement {
@@ -322,65 +318,6 @@ render(<my-app></my-app>, 'body')
 ```
 
 [→ Slot MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots#Adding_flexibility_with_slots)
-
-## Observe
-
-### Omi Observe
-
-You can also use observe to create response views for element who no need `store`, such as:
-
-```js
-import { tag, WeElement, observe } from "omi"
-
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
-  install() {
-    this.data.name = "omi"
-  }
-
-  onClick = () => {
-    this.data.name = "Omi V4.0"
-  }
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    )
-  }
-}
-```
-
-If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own obersve.
-
-### Omi Mobx
-
-```js
-import { tag, WeElement } from "omi"
-import { observe } from "omi-mobx"
-
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
-  install() {
-    this.data.name = "omi"
-  }
-
-  onClick = () => {
-    this.data.name = "Omi V4.0"
-  }
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    )
-  }
-}
-```
 
 ### SSR
 
