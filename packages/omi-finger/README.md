@@ -1,8 +1,8 @@
-# omi-page
+# omi-finger
 
 Support touch and gesture events in your Omi project.
 
-[→ demo](https://tencent.github.io/omi/packages/omi-finger/examples/simple/)
+[→ touch the mobile demo](https://tencent.github.io/omi/packages/omi-finger/examples/simple/)
 
 ## Usage
 
