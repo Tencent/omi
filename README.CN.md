@@ -40,9 +40,11 @@
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
+  - [Observe](#observe)
+    - [Omi Observe](#omi-observe)
+    - [Omi Mobx](#omi-mobx)
   - [生命周期](#生命周期)
 - [调试工具](#调试工具)
-- [Omi Mobx](#omi-mobx)
 - [浏览器兼容](#浏览器兼容)
 - [相关链接](#相关链接)
 - [贡献代码](#贡献代码)
@@ -448,6 +450,65 @@ render(<todo-app></todo-app>, 'body', store)
 * 如果页面简单组件很少，可以 updateAll 设置成 true，并且组件和页面不需要声明 data，也就不会按需更新
 * globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path
 
+## Observe
+
+### Omi Observe
+
+你可以为那些不需要 store 的自定义元素使用 observe 创建响应式视图，比如:
+
+```js
+import { tag, WeElement, observe } from "omi"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  };
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
+
+如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 obersve，往下看..
+
+### Omi Mobx
+
+```js
+import { tag, WeElement } from "omi"
+import { observe } from "omi-mobx"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
+
 ### 生命周期
 
 | Lifecycle method | When it gets called                          |
@@ -466,36 +527,6 @@ render(<todo-app></todo-app>, 'body', store)
 既然  Omi 使用了 Web Components 和 Shadow-DOM, 所以不需要像 React 和 Vue 一样安装其他元素面板，只需要使用 Chrome 自带的 **Elements' sidebar** 便可，它和 React and Vue 开发者工具一样强大。
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
-
-## Omi Mobx
-
-你也可以放弃 store 体系，使用 omi-mobx 来制作响应式视图：
-
-```js
-import { tag, WeElement } from 'omi'
-import { observe } from 'omi-mobx'
-
-@observe
-@tag('my-app')
-class MyApp extends WeElement {
-
-  install() {
-    this.data.name = 'omi'
-  }
-
-  onClick = () => {
-    this.data.name = 'Omi V4.0'
-  }
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1 >Welcome to {data.name}</h1>
-      </div>
-    )
-  }
-}
-```
 
 ## 浏览器兼容
 

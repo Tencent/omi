@@ -41,9 +41,11 @@ Omi uses Shadow DOM based style isolation and semantic structure.
   - [TodoApp](#todoapp)
   - [Store](#store)
     - [Summary：](#summary)
+  - [Observe](#observe)
+    - [Omi Observe](#omi-observe)
+    - [Omi Mobx](#omi-mobx)    
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
-- [Omi Mobx](#omi-mobx)
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
 - [License](#license)
@@ -449,6 +451,65 @@ render(<todo-app />, "body", store);
 - If there are few simple components on the page, `updateAll` can be set to `true`, and components and pages don't need to declare data, and they don't update on demand
 - The path declared in `globalData` refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties path
 
+## Observe
+
+### Omi Observe
+
+You can also use observe to create response views for element who no need `store`, such as:
+
+```js
+import { tag, WeElement, observe } from "omi"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  };
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
+
+If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own obersve.
+
+### Omi Mobx
+
+```js
+import { tag, WeElement } from "omi"
+import { observe } from "omi-mobx"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
+
 ### Lifecycle
 
 | Lifecycle method | When it gets called                          |
@@ -467,35 +528,6 @@ Using [Omi DevTools](https://chrome.google.com/webstore/detail/omijs-devtools/pj
 Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another elements panel such as React or Vue has. It just adds a panel to the **Elements' sidebar** and it's powerful as much as React and Vue DevTools.
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
-
-## Omi Mobx
-
-You can also give up the store system and use omi-mobx to create response views, such as:
-
-```js
-import { tag, WeElement } from "omi";
-import { observe } from "omi-mobx";
-
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
-  install() {
-    this.data.name = "omi";
-  }
-
-  onClick = () => {
-    this.data.name = "Omi V4.0";
-  };
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    );
-  }
-}
-```
 
 ## Browsers Support
 
