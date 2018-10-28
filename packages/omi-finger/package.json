@@ -27,7 +27,7 @@
     "webpack": "^3.4.1"
   },
   "dependencies": {
-    "omi": "latest"
+    "omi": "^4.0.10"
   },
   "author": "dntzhang <dntzhang@qq.com>",
   "license": "MIT",

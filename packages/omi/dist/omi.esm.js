@@ -1,5 +1,5 @@
 /**
- * omi v4.0.10  http://omijs.org
+ * omi v4.0.11  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -462,7 +462,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // Apply attributes/props from VNode to the DOM Element:
   diffAttributes(out, vnode.attributes, props);
-
+  if (out.props) {
+    out.props.children = vnode.children;
+  }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode;
 
@@ -1328,7 +1330,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = "4.0.10";
+options.root.Omi.version = "4.0.11";
 
 export default omi;
 export { tag, WeElement, render, h, h as createElement, options, define, observe, cloneElement };

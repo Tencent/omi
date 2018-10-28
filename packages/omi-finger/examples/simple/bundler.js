@@ -77,7 +77,7 @@ Object.defineProperty(exports, "__esModule", {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
- * omi v4.0.9  http://omijs.org
+ * omi v4.0.10  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -464,7 +464,6 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 function idiff(dom, vnode, context, mountAll, componentRoot) {
   if (dom && dom.props) {
     dom.props.children = vnode.children;
-    console.log(333);
   }
   var out = dom,
       prevSvgMode = isSvgMode;
@@ -541,11 +540,6 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // Apply attributes/props from VNode to the DOM Element:
   diffAttributes(out, vnode.attributes, props);
-
-  if (out.props) {
-    out.props.children = vnode.children;
-    console.log(333);
-  }
 
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode;
@@ -1424,7 +1418,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = "4.0.9";
+options.root.Omi.version = "4.0.10";
 
 exports.default = omi;
 exports.tag = tag;
@@ -1833,7 +1827,7 @@ var OmiFinger = function (_WeElement) {
   }, {
     key: 'render',
     value: function render(props) {
-      console.log(2);
+      console.log(props.children);
       var a = (0, _omi.cloneElement)(props.children[0], {
         onTouchStart: this._handleTouchStart,
         onTouchMove: this._handleTouchMove,

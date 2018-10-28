@@ -230,7 +230,7 @@ class OmiFinger extends WeElement {
   }
 
   render(props) {
-    console.log(2)
+    console.log(props.children)
     var a =  cloneElement(props.children[0], {
       onTouchStart: this._handleTouchStart,
       onTouchMove: this._handleTouchMove,
