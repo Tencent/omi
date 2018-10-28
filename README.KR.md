@@ -41,9 +41,11 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
   - [TodoApp](#todoapp)
   - [Store](#store)
     - [Summary：](#summary)
+  - [Observe](#observe)
+    - [Omi Observe](#omi-observe)
+    - [Omi Mobx](#omi-mobx)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
-- [Omi Mobx](#omi-mobx)
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
 - [License](#license)
@@ -428,6 +430,65 @@ render(<todo-app />, "body", store);
 - 구성 요소 및 페이지의 데이터는 종속 store.data 의 속성을 나열하는 데 사용 되며 (omi는 경로를 기록 합니다.) 그리고 필요에 따라 업데이트 됩니다.
 - 만약 페이지에 간단한 컴포넌트가 거의 없는 경우, `updateAll`을 `true`로 선언할 수 있습니다. 그리고 컴포넌트와 페이지들은 데이터를 선언할 필요 없으며 그것들은 필요에 따라 업데이트 되지 않습니다.
 - globalData에 선언된 경로(path)는 해당경로의 값이 수정되는 한 모든 페이지와 구성 요소를 새로고침 하며 globalData를 사용하여 모든 페이지 또는 공용(public) 속성(property)를 나열할 수 있습니다.
+
+## Observe
+
+### Omi Observe
+
+observe 를 사용해서 `store` 사용이 필요 없는 반응형 뷰 엘리먼트(element) 를 생성할 수 있습니다:
+
+```js
+import { tag, WeElement, observe } from "omi"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
+
+만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mbox` 를 사용해주세요.
+
+### Omi Mobx
+
+```js
+import { tag, WeElement } from "omi"
+import { observe } from "omi-mobx"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
 
 ### Lifecycle
 
