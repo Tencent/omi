@@ -11,7 +11,7 @@ English | [简体中文](./main-concepts.cn.md)
   - [Ref](#ref)
   - [Store](#store)
   - [Slot](#slot)
-  - [Pure Element](#pure-element)
+  - [Observe](#observe)
   - [SSR](#ssr)
 
 [→ Omi Simple Examples](https://github.com/Tencent/omi/tree/master/packages/omi/examples)
@@ -323,29 +323,64 @@ render(<my-app></my-app>, 'body')
 
 [→ Slot MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots#Adding_flexibility_with_slots)
 
-### Pure Element
+## Observe
+
+### Omi Observe
+
+You can also use observe to create response views for element who no need `store`, such as:
 
 ```js
-tag('my-ele', function (props) {
-  return (
-    <ul>
-      {props.items.map(item => (
-        <li key={item.id}>{item.text}</li>
-      ))}
-    </ul>
-  )
-})
+import { tag, WeElement, observe } from "omi"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
 ```
 
-Use it:
+If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own obersve.
+
+### Omi Mobx
 
 ```js
-<my-ele
-    items={[{ text: 'Omi', id: 1 }, { text: 'Tencent', id: 2 }]}
-/>
-```
+import { tag, WeElement } from "omi"
+import { observe } from "omi-mobx"
 
-Do not use pure element in browsers that do not support Reflect, such as ie11.
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
 
 ### SSR
 

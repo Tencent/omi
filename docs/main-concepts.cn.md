@@ -11,7 +11,7 @@
   - [Ref](#ref)
   - [Store](#store)
   - [Slot](#slot)
-  - [Pure Element](#pure-element)
+  - [Observe](#observe)
   - [SSR](#ssr)
 
 [→ Omi Simple Examples](https://github.com/Tencent/omi/tree/master/packages/omi/examples)
@@ -312,29 +312,64 @@ render(<my-app></my-app>, 'body')
 
 [→ Slot MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots#Adding_flexibility_with_slots)
 
-### Pure Element
+### Observe
+
+#### Omi Observe
+
+你可以为那些不需要 store 的自定义元素使用 observe 创建响应式视图，比如:
 
 ```js
-tag('my-ele', function (props) {
-  return (
-    <ul>
-      {props.items.map(item => (
-        <li key={item.id}>{item.text}</li>
-      ))}
-    </ul>
-  )
-})
+import { tag, WeElement, observe } from "omi"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
 ```
 
-使用该自定义元素:
+如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 obersve，往下看..
+
+#### Omi Mobx
 
 ```js
-<my-ele
-    items={[{ text: 'Omi', id: 1 }, { text: 'Tencent', id: 2 }]}
-/>
-```
+import { tag, WeElement } from "omi"
+import { observe } from "omi-mobx"
 
-注意，Pure Element 不兼容 IE11 。
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
 
 ### SSR
 
