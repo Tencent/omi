@@ -1,8 +1,8 @@
-[English](./main-concepts.md) | 简体中文 | [한국어](./main-concepts.kr.md)
+[English](./main-concepts.md) | [简体中文](./main-concepts.cn.md) | 한국어
 
-## Omi 文档
+## Omi Docs
 
-- [Omi 文档](#omi-文档)
+- [Omi Docs](#omi-docs)
   - [My First Element](#my-first-element)
   - [Props](#props)
   - [Event](#event)
@@ -30,12 +30,27 @@ class MyFirstElement extends WeElement {
 render(<my-first-element></my-first-element>, 'body')
 ```
 
-在 HTML 开发者工具里看看渲染得到的结构:
+HTML 개발자 도구에서 렌더링 구조를 확인하세요:
 
 ![fe](../assets/first-element.jpg)
 
-除了渲染到 body，你可以在其他任意自定义元素中使用 `my-first-element`。
+또한, 당신은 다음과 같이 다른 커스텀 엘리먼트(element)에서 `my-first-element`를 사용할 수 있습니다. : 
 
+```js
+import { WeElement, tag, render } from 'omi'
+import './my-first-element'
+
+@tag('other-element')
+class OtherElement extends WeElement {
+  render() {
+    return (
+      <div>
+        <my-first-element></my-first-element>
+      </div>
+    )
+  }
+}
+```
 
 ### Props
 
@@ -54,7 +69,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element name="world"></my-first-element>, 'body')
 ```
 
-你也可以传任意类型的数据给 props:
+당신은 또한 props를 통해 모든 유형의 데이터를 전송할 수 있습니다 :
 
 ```js
 import { WeElement, tag, render } from 'omi'
@@ -70,9 +85,7 @@ class MyFirstElement extends WeElement {
 
 render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ```
-
-`my-obj` 将映射到 myObj，驼峰的方式。
-
+`my-obj`는 camel-case로 myObj에 매핑됩니다.
 
 ### Event
 
@@ -84,7 +97,7 @@ class MyFirstElement extends WeElement {
 
   render() {
     return (
-      <h1 onClick={this.onClick}>Hello, wrold!</h1>
+      <h1 onClick={this.onClick}>Hello, world!</h1>
     )
   }
 }
@@ -109,7 +122,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
 
-通过 `this.fire` 触发自定义事件，fire 第一个参数是事件名称，第二个参数是传递的数据。通过 `evt.detail` 可以获取到传递的数据。
+`this.fire` 로 커스텀 이벤트를 실행할 수 있고, `evt.detail` 로 데이터를 가져올 수 있습니다.
 
 ### CSS
 
@@ -130,7 +143,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
 
-你也可以在 JS 里动态拼接 CSS:
+당신은 CSS를 동적으로 생성되게 할 수 있습니다:
 
 ```js
  css() {
@@ -138,7 +151,7 @@ render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-fi
   }
 ```
 
-你也可以另起一个文件用来写 CSS，但是需要配置一下 webpack [to-string-loader](https://www.npmjs.com/package/to-string-loader)：
+당신은 또한 webpack의 [to-string-loader](https://www.npmjs.com/package/to-string-loader)을 사용하여 CSS, less와 sass를 다른 파일에 따로 작성할 수 있습니다：
 
 ```js
 {
@@ -151,7 +164,7 @@ render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-fi
 }
 ```
 
-然后:
+그리고:
 
 ```js
 import { tag, WeElement } from 'omi'
@@ -188,9 +201,7 @@ class MyFirstElement extends WeElement {
 render(<my-first-element></my-first-element>, 'body')
 ```
 
-
-在元素上添加 `ref={e => { this.anyNameYouWant = e }}` ，然后你就可以 JS 代码里使用 `this.anyNameYouWant` 访问该元素。
-
+엘리먼트의 속성으로 `ref={e => { this.anyNameYouWant = e }}` 를 추가하면, `this.anyNameYouWant` 을 통해 받을 수 있습니다.
 
 
 ### Store
@@ -211,7 +222,7 @@ class MyFirstElement extends WeElement {
   }
 
   render(props, data) {
-    //data === this.store.data when using store stystem
+    //data === this.store.data when using store system
     return (
       <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
     )
@@ -224,8 +235,7 @@ const store = {
 render(<my-first-element name="world"></my-first-element>, 'body', store)
 ```
 
-当非纯 Element 使用 store 体系时，`static get data` 就仅仅被用来声明依赖，举个例子:
-
+정적 데이터는 부분 뷰 업데이트를 위해 경로로 변환됩니다.:
 ```js
 static get data() {
   return {
@@ -238,7 +248,7 @@ static get data() {
 
 ```
 
-会被转换成：
+변환된 경：
 
 ```js
 {
@@ -249,33 +259,33 @@ static get data() {
 }
 ```
 
-举例说明 Path 命中规则:
+경로 변경 규칙 예시:
 
-| Proxy Path | updatePath | 是否更新 |
-| ---------- | ---------- | -------- |
-| abc        | abc        | 更新     |
-| abc[1]     | abc        | 更新     |
-| abc.a      | abc        | 更新     |
-| abc        | abc.a      | 不更新   |
-| abc        | abc[1]     | 不更新   |
-| abc        | abc[1].c   | 不更新   |
-| abc.b      | abc.b      | 更新     |
+| proxy path | updatePath | Update |
+| ---------- | ---------- | ------ |
+| abc        | abc        | true   |
+| abc[1]     | abc        | true   |
+| abc.a      | abc        | true   |
+| abc        | abc.a      | false  |
+| abc        | abc[1]     | false  |
+| abc        | abc[1].c   | false  |
+| abc.b      | abc.b      | true   |
 
-以上只要命中一个条件就可以进行更新！
+If you hit one condition above, you can update it.
 
-总结就是只要等于 updatePath 或者在 updatePath 子节点下都进行更新！
+Summary is as long as updatePath or updatePath sub nodes are updated.
 
-看可以看到 store 体系是中心化的体系？那么怎么做到部分组件去中心化？使用 tag 的第二个参数:
+우리가 store 시스템이 중앙화 되었는지 확인할 수 있나요? 그렇다면 어떻게 다른 컴포넌트들을 중앙화 할까요? tag의 두번째 파라미터를 사용하세요:
 
 ```js
 @tag('my-first-element', true)
 ```
 
-纯元素！不会注入 store!
+Pure element! Store가 삽입되지 않을겁니다!
 
 ### Slot
 
-HTML`<slot>`元素（Web组件技术套件的一部分）是Web组件内部的占位符，您可以用自己的标记填充该占位符，该标记允许您创建单独的DOM树并将它们一起呈现。
+웹 구성 요소 기술 집합의 HTML 요소 인 `<slot>` 은 별도의 DOM 트리를 만들고 함께 보여줄 수 있는 마크 업으로 당신이 웹 구성 요소를 채울 수 있게 해주는 placeholder입니다.
 
 ```jsx
 import { tag, render, WeElement } from '../../src/omi'
@@ -311,7 +321,7 @@ render(<my-app></my-app>, 'body')
 
 ### SSR
 
-推荐尝试的框架:
+Recommended class libraries:
 
 * https://github.com/skatejs/skatejs/tree/master/packages/ssr
 * https://www.youtube.com/watch?v=yT-EsESAmgA
