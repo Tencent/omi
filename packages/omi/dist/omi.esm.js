@@ -1,5 +1,5 @@
 /**
- * omi v4.0.8  http://omijs.org
+ * omi v4.0.9  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -623,93 +623,6 @@ function diffAttributes(dom, attrs, old) {
   dom.parentNode && update && isWeElement && dom.update();
 }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var WeElement = function (_HTMLElement) {
-  _inherits(WeElement, _HTMLElement);
-
-  function WeElement() {
-    _classCallCheck(this, WeElement);
-
-    var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
-
-    _this.props = nProps(_this.constructor.props);
-    _this.data = _this.constructor.data || {};
-    return _this;
-  }
-
-  WeElement.prototype.connectedCallback = function connectedCallback() {
-    if (!this.constructor.pure) {
-      var p = this.parentNode;
-      while (p && !this.store) {
-        this.store = p.store;
-        p = p.parentNode || p.host;
-      }
-      if (this.store) {
-        this.store.instances.push(this);
-      }
-    }
-
-    this.install();
-    options.afterInstall && options.afterInstall(this);
-    var shadowRoot = this.attachShadow({ mode: "open" });
-
-    this.css && shadowRoot.appendChild(cssToDom(this.css()));
-    this.beforeRender();
-    this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
-    if (isArray(this.host)) {
-      this.host.forEach(function (item) {
-        shadowRoot.appendChild(item);
-      });
-    } else {
-      shadowRoot.appendChild(this.host);
-    }
-    this.installed();
-    this._isInstalled = true;
-  };
-
-  WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
-    this.uninstall();
-    if (this.store) {
-      for (var i = 0, len = this.store.instances.length; i < len; i++) {
-        if (this.store.instances[i] === this) {
-          this.store.instances.splice(i, 1);
-          break;
-        }
-      }
-    }
-  };
-
-  WeElement.prototype.update = function update() {
-    this.beforeUpdate();
-    this.beforeRender();
-    diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
-    this.afterUpdate();
-  };
-
-  WeElement.prototype.fire = function fire(name, data) {
-    this.dispatchEvent(new CustomEvent(name, { detail: data }));
-  };
-
-  WeElement.prototype.install = function install() {};
-
-  WeElement.prototype.installed = function installed() {};
-
-  WeElement.prototype.uninstall = function uninstall() {};
-
-  WeElement.prototype.beforeUpdate = function beforeUpdate() {};
-
-  WeElement.prototype.afterUpdate = function afterUpdate() {};
-
-  WeElement.prototype.beforeRender = function beforeRender() {};
-
-  return WeElement;
-}(HTMLElement);
-
 /*!
  * https://github.com/Palindrom/JSONPatcherProxy
  * (c) 2017 Starcounter
@@ -785,17 +698,17 @@ var JSONPatcherProxy = function () {
         will emit
         {op: replace, path: '/arr/1', value: arr_2}
         {op: remove, path: '/arr/2'}
-          by default, the second operation would revoke the proxy, and this renders arr revoked.
+         by default, the second operation would revoke the proxy, and this renders arr revoked.
         That's why we need to remember the proxies that are inherited.
       */
     var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
     /*
     Why do we need to check instance.isProxifyingTreeNow?
-      We need to make sure we mark revokables as inherited ONLY when we're observing,
+     We need to make sure we mark revokables as inherited ONLY when we're observing,
     because throughout the first proxification, a sub-object is proxified and then assigned to
     its parent object. This assignment of a pre-proxified object can fool us into thinking
     that it's a proxified object moved around, while in fact it's the first assignment ever.
-      Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
+     Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
     but in fact is is a proxified object moved around the tree
     */
     if (revokableInstance && !instance.isProxifyingTreeNow) {
@@ -873,7 +786,7 @@ var JSONPatcherProxy = function () {
             this is an inherited proxy (an already proxified object that was moved around),
             we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
             And we know that because we mark moved proxies with `inherited` flag when we move them
-              it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
+             it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
             We DO want to revoke the proxy if it was removed again.
           */
           revokableProxyInstance.inherited = false;
@@ -1068,36 +981,136 @@ var JSONPatcherProxy = function () {
   return JSONPatcherProxy;
 }();
 
-var timeout = null;
-var patchs = {};
+function observe(target) {
+	target.observable = true;
+}
 
-var handler = function handler(patch, store) {
-  clearTimeout(timeout);
-  if (patch.op === "remove") {
-    // fix arr splice
-    var kv = getArrayPatch(patch.path, store);
-    patchs[kv.k] = kv.v;
-    timeout = setTimeout(function () {
-      update(patchs, store);
-      patchs = {};
-    });
-  } else {
-    var key = fixPath(patch.path);
-    patchs[key] = patch.value;
-    timeout = setTimeout(function () {
-      update(patchs, store);
-      patchs = {};
-    });
+function proxyUpdate(ele) {
+	var timeout = null;
+	ele.data = new JSONPatcherProxy(ele.data).observe(false, function () {
+		clearTimeout(timeout);
+
+		timeout = setTimeout(function () {
+			ele.update();
+		}, 16.6);
+	});
+}
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WeElement = function (_HTMLElement) {
+  _inherits(WeElement, _HTMLElement);
+
+  function WeElement() {
+    _classCallCheck(this, WeElement);
+
+    var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+
+    _this.props = nProps(_this.constructor.props);
+    _this.data = _this.constructor.data || {};
+    return _this;
   }
-};
+
+  WeElement.prototype.connectedCallback = function connectedCallback() {
+    if (!this.constructor.pure) {
+      var p = this.parentNode;
+      while (p && !this.store) {
+        this.store = p.store;
+        p = p.parentNode || p.host;
+      }
+      if (this.store) {
+        this.store.instances.push(this);
+      }
+    }
+
+    this.install();
+    var shadowRoot = this.attachShadow({ mode: "open" });
+
+    this.css && shadowRoot.appendChild(cssToDom(this.css()));
+    this.beforeRender();
+    options.afterInstall && options.afterInstall(this);
+    if (this.constructor.observable) {
+      proxyUpdate(this);
+    }
+    this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
+    if (isArray(this.host)) {
+      this.host.forEach(function (item) {
+        shadowRoot.appendChild(item);
+      });
+    } else {
+      shadowRoot.appendChild(this.host);
+    }
+    this.installed();
+    this._isInstalled = true;
+  };
+
+  WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
+    this.uninstall();
+    if (this.store) {
+      for (var i = 0, len = this.store.instances.length; i < len; i++) {
+        if (this.store.instances[i] === this) {
+          this.store.instances.splice(i, 1);
+          break;
+        }
+      }
+    }
+  };
+
+  WeElement.prototype.update = function update() {
+    this.beforeUpdate();
+    this.beforeRender();
+    diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
+    this.afterUpdate();
+  };
+
+  WeElement.prototype.fire = function fire(name, data) {
+    this.dispatchEvent(new CustomEvent(name, { detail: data }));
+  };
+
+  WeElement.prototype.install = function install() {};
+
+  WeElement.prototype.installed = function installed() {};
+
+  WeElement.prototype.uninstall = function uninstall() {};
+
+  WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+
+  WeElement.prototype.afterUpdate = function afterUpdate() {};
+
+  WeElement.prototype.beforeRender = function beforeRender() {};
+
+  return WeElement;
+}(HTMLElement);
 
 function render(vnode, parent, store) {
   parent = typeof parent === "string" ? document.querySelector(parent) : parent;
   if (store) {
     store.instances = [];
     extendStoreUpate(store);
-    store.data = new JSONPatcherProxy(store.data).observe(true, function (patch) {
-      handler(patch, store);
+    var timeout = null;
+    var patchs = {};
+    store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
+      clearTimeout(timeout);
+      if (patch.op === "remove") {
+        // fix arr splice
+        var kv = getArrayPatch(patch.path, store);
+        patchs[kv.k] = kv.v;
+        timeout = setTimeout(function () {
+          update(patchs, store);
+          patchs = {};
+        }, 16.6);
+      } else {
+        var key = fixPath(patch.path);
+        patchs[key] = patch.value;
+        timeout = setTimeout(function () {
+          update(patchs, store);
+          patchs = {};
+        }, 16.6);
+      }
     });
     parent.store = store;
   }
@@ -1292,12 +1305,13 @@ var omi = {
   h: h,
   createElement: h,
   options: options,
-  define: define
+  define: define,
+  observe: observe
 };
 
 options.root.Omi = omi;
 options.root.Omi.version = "4.0.8";
 
 export default omi;
-export { tag, WeElement, render, h, h as createElement, options, define };
+export { tag, WeElement, render, h, h as createElement, options, define, observe };
 //# sourceMappingURL=omi.esm.js.map

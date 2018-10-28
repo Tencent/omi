@@ -233,6 +233,18 @@
         }
         dom.parentNode && update && isWeElement && dom.update();
     }
+    function observe(target) {
+        target.observable = !0;
+    }
+    function proxyUpdate(ele) {
+        var timeout = null;
+        ele.data = new JSONPatcherProxy(ele.data).observe(!1, function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                ele.update();
+            }, 16.6);
+        });
+    }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
@@ -257,8 +269,25 @@
         if (store) {
             store.instances = [];
             extendStoreUpate(store);
-            store.data = new JSONPatcherProxy(store.data).observe(!0, function(patch) {
-                handler(patch, store);
+            var timeout = null;
+            var patchs = {};
+            store.data = new JSONPatcherProxy(store.data).observe(!1, function(patch) {
+                clearTimeout(timeout);
+                if ("remove" === patch.op) {
+                    var kv = getArrayPatch(patch.path, store);
+                    patchs[kv.k] = kv.v;
+                    timeout = setTimeout(function() {
+                        update(patchs, store);
+                        patchs = {};
+                    }, 16.6);
+                } else {
+                    var key = fixPath(patch.path);
+                    patchs[key] = patch.value;
+                    timeout = setTimeout(function() {
+                        update(patchs, store);
+                        patchs = {};
+                    }, 16.6);
+                }
             });
             parent.store = store;
         }
@@ -401,64 +430,6 @@
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
-    var WeElement = function(_HTMLElement) {
-        function WeElement() {
-            _classCallCheck(this, WeElement);
-            var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
-            _this.props = nProps(_this.constructor.props);
-            _this.data = _this.constructor.data || {};
-            return _this;
-        }
-        _inherits(WeElement, _HTMLElement);
-        WeElement.prototype.connectedCallback = function() {
-            if (!this.constructor.pure) {
-                var p = this.parentNode;
-                while (p && !this.store) {
-                    this.store = p.store;
-                    p = p.parentNode || p.host;
-                }
-                if (this.store) this.store.instances.push(this);
-            }
-            this.install();
-            options.afterInstall && options.afterInstall(this);
-            var shadowRoot = this.attachShadow({
-                mode: "open"
-            });
-            this.css && shadowRoot.appendChild(cssToDom(this.css()));
-            this.beforeRender();
-            this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, !1, null, !1);
-            if (isArray(this.host)) this.host.forEach(function(item) {
-                shadowRoot.appendChild(item);
-            }); else shadowRoot.appendChild(this.host);
-            this.installed();
-            this.B = !0;
-        };
-        WeElement.prototype.disconnectedCallback = function() {
-            this.uninstall();
-            if (this.store) for (var i = 0, len = this.store.instances.length; i < len; i++) if (this.store.instances[i] === this) {
-                this.store.instances.splice(i, 1);
-                break;
-            }
-        };
-        WeElement.prototype.update = function() {
-            this.beforeUpdate();
-            this.beforeRender();
-            diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
-            this.afterUpdate();
-        };
-        WeElement.prototype.fire = function(name, data) {
-            this.dispatchEvent(new CustomEvent(name, {
-                detail: data
-            }));
-        };
-        WeElement.prototype.install = function() {};
-        WeElement.prototype.installed = function() {};
-        WeElement.prototype.uninstall = function() {};
-        WeElement.prototype.beforeUpdate = function() {};
-        WeElement.prototype.afterUpdate = function() {};
-        WeElement.prototype.beforeRender = function() {};
-        return WeElement;
-    }(HTMLElement);
     var JSONPatcherProxy = function() {
         function deepClone(obj) {
             switch (typeof obj) {
@@ -654,26 +625,65 @@
         };
         return JSONPatcherProxy;
     }();
-    var timeout = null;
-    var patchs = {};
-    var handler = function(patch, store) {
-        clearTimeout(timeout);
-        if ("remove" === patch.op) {
-            var kv = getArrayPatch(patch.path, store);
-            patchs[kv.k] = kv.v;
-            timeout = setTimeout(function() {
-                update(patchs, store);
-                patchs = {};
-            });
-        } else {
-            var key = fixPath(patch.path);
-            patchs[key] = patch.value;
-            timeout = setTimeout(function() {
-                update(patchs, store);
-                patchs = {};
-            });
+    var WeElement = function(_HTMLElement) {
+        function WeElement() {
+            _classCallCheck(this, WeElement);
+            var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+            _this.props = nProps(_this.constructor.props);
+            _this.data = _this.constructor.data || {};
+            return _this;
         }
-    };
+        _inherits(WeElement, _HTMLElement);
+        WeElement.prototype.connectedCallback = function() {
+            if (!this.constructor.pure) {
+                var p = this.parentNode;
+                while (p && !this.store) {
+                    this.store = p.store;
+                    p = p.parentNode || p.host;
+                }
+                if (this.store) this.store.instances.push(this);
+            }
+            this.install();
+            var shadowRoot = this.attachShadow({
+                mode: "open"
+            });
+            this.css && shadowRoot.appendChild(cssToDom(this.css()));
+            this.beforeRender();
+            options.afterInstall && options.afterInstall(this);
+            if (this.constructor.observable) proxyUpdate(this);
+            this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, !1, null, !1);
+            if (isArray(this.host)) this.host.forEach(function(item) {
+                shadowRoot.appendChild(item);
+            }); else shadowRoot.appendChild(this.host);
+            this.installed();
+            this.B = !0;
+        };
+        WeElement.prototype.disconnectedCallback = function() {
+            this.uninstall();
+            if (this.store) for (var i = 0, len = this.store.instances.length; i < len; i++) if (this.store.instances[i] === this) {
+                this.store.instances.splice(i, 1);
+                break;
+            }
+        };
+        WeElement.prototype.update = function() {
+            this.beforeUpdate();
+            this.beforeRender();
+            diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
+            this.afterUpdate();
+        };
+        WeElement.prototype.fire = function(name, data) {
+            this.dispatchEvent(new CustomEvent(name, {
+                detail: data
+            }));
+        };
+        WeElement.prototype.install = function() {};
+        WeElement.prototype.installed = function() {};
+        WeElement.prototype.uninstall = function() {};
+        WeElement.prototype.beforeUpdate = function() {};
+        WeElement.prototype.afterUpdate = function() {};
+        WeElement.prototype.beforeRender = function() {};
+        return WeElement;
+    }(HTMLElement);
     var omi = {
         tag: tag,
         WeElement: WeElement,
@@ -681,7 +691,8 @@
         h: h,
         createElement: h,
         options: options,
-        define: define
+        define: define,
+        observe: observe
     };
     options.root.Omi = omi;
     options.root.Omi.version = "4.0.8";
