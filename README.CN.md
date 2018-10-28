@@ -468,7 +468,7 @@ class MyApp extends WeElement {
 
   onClick = () => {
     this.data.name = "Omi V4.0"
-  };
+  }
 
   render(props, data) {
     return (
