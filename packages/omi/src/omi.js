@@ -6,6 +6,7 @@ import { define } from "./define"
 import { tag } from "./tag"
 import { observe } from "./observe"
 import { cloneElement } from "./clone-element"
+import { getHost } from "./get-host"
 
 const omi = {
   tag,
@@ -16,12 +17,13 @@ const omi = {
   options,
 	define,
 	observe,
-	cloneElement
+	cloneElement,
+	getHost
 }
 
 options.root.Omi = omi
-options.root.Omi.version = "4.0.11"
+options.root.Omi.version = "4.0.12"
 
 export default omi
 
-export { tag, WeElement, render, h, createElement, options, define, observe, cloneElement }
+export { tag, WeElement, render, h, createElement, options, define, observe, cloneElement, getHost }

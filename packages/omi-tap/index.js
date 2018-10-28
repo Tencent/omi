@@ -8,7 +8,14 @@ class OmiTap extends WeElement {
 		this._x = null
 		this._y = null
 		this._scrollTop = null
-		this.css = this.parentNode.host.css
+		let p = this.parentNode
+    while (p && !this.css) {
+      if(p.host){
+        this.css = p.host.css
+      }else{
+        p = p.parentNode
+      }
+    }
 	}
 
 	_handleTouchStart(evt) {

@@ -1,5 +1,5 @@
 /**
- * omi v4.0.11  http://omijs.org
+ * omi v4.0.12  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1317,6 +1317,17 @@ function cloneElement(vnode, props) {
   return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
 }
 
+function getHost(ele) {
+	var p = ele.parentNode;
+	while (p) {
+		if (p.host) {
+			return p.host;
+		} else {
+			p = p.parentNode;
+		}
+	}
+}
+
 var omi = {
   tag: tag,
   WeElement: WeElement,
@@ -1326,12 +1337,13 @@ var omi = {
   options: options,
   define: define,
   observe: observe,
-  cloneElement: cloneElement
+  cloneElement: cloneElement,
+  getHost: getHost
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = "4.0.11";
+options.root.Omi.version = "4.0.12";
 
 export default omi;
-export { tag, WeElement, render, h, h as createElement, options, define, observe, cloneElement };
+export { tag, WeElement, render, h, h as createElement, options, define, observe, cloneElement, getHost };
 //# sourceMappingURL=omi.esm.js.map

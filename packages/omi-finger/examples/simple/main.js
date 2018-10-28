@@ -20,7 +20,6 @@ class MyApp extends WeElement {
   render() {
     return (
       <div>
-         {this.data.wording}
         <omi-finger onTap={this.handleTap} abc={{a:1}} onSwipe={this.handleSwipe}>
           <div class="touchArea" >
             {this.data.wording}

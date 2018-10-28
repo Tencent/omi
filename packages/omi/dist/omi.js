@@ -412,6 +412,10 @@
     function cloneElement(vnode, props) {
         return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
     }
+    function getHost(ele) {
+        var p = ele.parentNode;
+        while (p) if (p.host) return p.host; else p = p.parentNode;
+    }
     var options = {
         store: null,
         root: function() {
@@ -701,10 +705,11 @@
         options: options,
         define: define,
         observe: observe,
-        cloneElement: cloneElement
+        cloneElement: cloneElement,
+        getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = "4.0.11";
+    options.root.Omi.version = "4.0.12";
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

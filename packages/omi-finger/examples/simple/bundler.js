@@ -1490,7 +1490,6 @@ var MyApp = (_dec = (0, _omi.tag)('my-app'), _dec(_class = function (_WeElement)
       return Omi.h(
         'div',
         null,
-        this.data.wording,
         Omi.h(
           'omi-finger',
           { onTap: this.handleTap, abc: { a: 1 }, onSwipe: this.handleSwipe },
@@ -1601,7 +1600,7 @@ var OmiFinger = function (_WeElement) {
       this._handleTouchCancel = this._handleTouchCancel.bind(this);
       this._handleTouchEnd = this._handleTouchEnd.bind(this);
 
-      this.css = this.parentNode.parentNode.host.css;
+      this.css = (0, _omi.getHost)(this).css;
     }
   }, {
     key: 'getLen',

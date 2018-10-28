@@ -1,4 +1,4 @@
-import { WeElement, define, cloneElement } from 'omi'
+import { WeElement, define, cloneElement, getHost } from 'omi'
 
 class OmiFinger extends WeElement {
   install() {
@@ -29,7 +29,7 @@ class OmiFinger extends WeElement {
     this._handleTouchCancel = this._handleTouchCancel.bind(this)
     this._handleTouchEnd = this._handleTouchEnd.bind(this)
 
-    this.css = this.parentNode.parentNode.host.css
+    this.css = getHost(this).css
   }
 
   getLen(v) {
