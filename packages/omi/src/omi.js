@@ -5,6 +5,7 @@ import { render } from "./render"
 import { define } from "./define"
 import { tag } from "./tag"
 import { observe } from "./observe"
+import { cloneElement } from "./clone-element"
 
 const omi = {
   tag,
@@ -14,12 +15,13 @@ const omi = {
   createElement,
   options,
 	define,
-	observe
+	observe,
+	cloneElement
 }
 
 options.root.Omi = omi
-options.root.Omi.version = "4.0.9"
+options.root.Omi.version = "4.0.10"
 
 export default omi
 
-export { tag, WeElement, render, h, createElement, options, define, observe }
+export { tag, WeElement, render, h, createElement, options, define, observe, cloneElement }

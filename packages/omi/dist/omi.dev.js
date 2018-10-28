@@ -1,5 +1,5 @@
 /**
- * omi v4.0.9  http://omijs.org
+ * omi v4.0.10  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -127,6 +127,12 @@
     return str.replace(/-(\w)/g, function ($, $1) {
       return $1.toUpperCase();
     });
+  }
+
+  function extend(obj, props) {
+    for (var i in props) {
+      obj[i] = props[i];
+    }return obj;
   }
 
   /** Invoke or update a ref, depending on whether it is a function or object ref.
@@ -381,6 +387,9 @@
 
   /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
   function idiff(dom, vnode, context, mountAll, componentRoot) {
+    if (dom && dom.props) {
+      dom.props.children = vnode.children;
+    }
     var out = dom,
         prevSvgMode = isSvgMode;
 
@@ -456,8 +465,6 @@
 
     // Apply attributes/props from VNode to the DOM Element:
     diffAttributes(out, vnode.attributes, props);
-
-    out.props && (out.props.children = vnode.children);
 
     // restore previous SVG mode: (in case we're exiting an SVG namespace)
     isSvgMode = prevSvgMode;
@@ -1301,6 +1308,16 @@
     }
   }
 
+  /**
+   * Clones the given VNode, optionally adding attributes/props and replacing its children.
+   * @param {VNode} vnode		The virtual DOM element to clone
+   * @param {Object} props	Attributes/props to add when cloning
+   * @param {VNode} rest		Any additional arguments will be used as replacement children.
+   */
+  function cloneElement(vnode, props) {
+    return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
+  }
+
   var omi = {
     tag: tag,
     WeElement: WeElement,
@@ -1309,11 +1326,12 @@
     createElement: h,
     options: options,
     define: define,
-    observe: observe
+    observe: observe,
+    cloneElement: cloneElement
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = "4.0.9";
+  options.root.Omi.version = "4.0.10";
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

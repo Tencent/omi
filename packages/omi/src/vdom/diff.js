@@ -34,7 +34,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
   }
   if (isArray(vnode)) {
     ret = []
-    let parentNode = null	
+    let parentNode = null
     if (isArray(dom)) {
       parentNode = dom[0].parentNode
       dom.forEach(function (item, index) {
@@ -48,7 +48,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
           idiff(dom, item, context, mountAll, componentRoot)
         )
       })
-    }; 
+    };
     if (parent) {
       ret.forEach(function (vnode) {
         parent.appendChild(vnode)
@@ -61,9 +61,9 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
   } else {
     ret = idiff(dom, vnode, context, mountAll, componentRoot)
     // append the element if its a new parent
-    if (parent && ret.parentNode !== parent) parent.appendChild(ret)	
+    if (parent && ret.parentNode !== parent) parent.appendChild(ret)
   }
-	
+
 
   // diffLevel being reduced to 0 means we're exiting the diff
   if (!--diffLevel) {
@@ -76,6 +76,9 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, context, mountAll, componentRoot) {
+	if (dom && dom.props) {
+		dom.props.children = vnode.children
+	}
   let out = dom,
     prevSvgMode = isSvgMode
 
@@ -174,8 +177,6 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // Apply attributes/props from VNode to the DOM Element:
   diffAttributes(out, vnode.attributes, props)
-
-  out.props && (out.props.children = vnode.children)
 
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode
