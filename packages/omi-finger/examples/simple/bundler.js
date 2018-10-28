@@ -77,7 +77,7 @@ Object.defineProperty(exports, "__esModule", {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
- * omi v4.0.10  http://omijs.org
+ * omi v4.0.11  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -540,7 +540,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // Apply attributes/props from VNode to the DOM Element:
   diffAttributes(out, vnode.attributes, props);
-
+  if (out.props) {
+    out.props.children = vnode.children;
+  }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode;
 
@@ -1418,7 +1420,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = "4.0.10";
+options.root.Omi.version = "4.0.11";
 
 exports.default = omi;
 exports.tag = tag;
@@ -1485,9 +1487,7 @@ var MyApp = (_dec = (0, _omi.tag)('my-app'), _dec(_class = function (_WeElement)
   }, {
     key: 'render',
     value: function render() {
-      console.log(1);
-
-      var dd = Omi.h(
+      return Omi.h(
         'div',
         null,
         this.data.wording,
@@ -1501,8 +1501,6 @@ var MyApp = (_dec = (0, _omi.tag)('my-app'), _dec(_class = function (_WeElement)
           )
         )
       );
-      console.log(dd);
-      return dd;
     }
   }, {
     key: 'css',
@@ -1827,7 +1825,6 @@ var OmiFinger = function (_WeElement) {
   }, {
     key: 'render',
     value: function render(props) {
-      console.log(props.children);
       var a = (0, _omi.cloneElement)(props.children[0], {
         onTouchStart: this._handleTouchStart,
         onTouchMove: this._handleTouchMove,

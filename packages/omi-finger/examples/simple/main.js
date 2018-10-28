@@ -18,9 +18,7 @@ class MyApp extends WeElement {
   }
 
   render() {
-    console.log(1)
-
-    var dd =(
+    return (
       <div>
          {this.data.wording}
         <omi-finger onTap={this.handleTap} abc={{a:1}} onSwipe={this.handleSwipe}>
@@ -30,8 +28,6 @@ class MyApp extends WeElement {
         </omi-finger>
       </div>
     )
-console.log(dd)
-    return dd
   }
 
   css() {
