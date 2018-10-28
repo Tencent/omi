@@ -4,6 +4,7 @@ import WeElement from "./we-element"
 import { render } from "./render"
 import { define } from "./define"
 import { tag } from "./tag"
+import { observe } from "./observe"
 
 const omi = {
   tag,
@@ -12,7 +13,8 @@ const omi = {
   h,
   createElement,
   options,
-  define
+	define,
+	observe
 }
 
 options.root.Omi = omi
@@ -20,4 +22,4 @@ options.root.Omi.version = "4.0.8"
 
 export default omi
 
-export { tag, WeElement, render, h, createElement, options, define }
+export { tag, WeElement, render, h, createElement, options, define, observe }

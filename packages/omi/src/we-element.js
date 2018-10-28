@@ -1,6 +1,7 @@
 import { cssToDom, nProps, isArray } from "./util"
 import { diff } from "./vdom/diff"
 import options from "./options"
+import { proxyUpdate } from './observe'
 
 export default class WeElement extends HTMLElement {
   constructor() {
@@ -22,11 +23,14 @@ export default class WeElement extends HTMLElement {
     }
 
     this.install()
-    options.afterInstall && options.afterInstall(this)
     const shadowRoot = this.attachShadow({ mode: "open" })
 
     this.css && shadowRoot.appendChild(cssToDom(this.css()))
-    this.beforeRender()
+		this.beforeRender()
+		options.afterInstall && options.afterInstall(this)
+		if (this.constructor.observable) {
+			proxyUpdate(this)
+		}
     this.host = diff(
       null,
       this.render(
@@ -38,7 +42,7 @@ export default class WeElement extends HTMLElement {
       null,
       false
     )
-    if (isArray(this.host)) { 
+    if (isArray(this.host)) {
       this.host.forEach(function(item) {
         shadowRoot.appendChild(item)
       })
