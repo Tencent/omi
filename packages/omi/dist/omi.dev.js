@@ -1313,7 +1313,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = "4.0.8";
+  options.root.Omi.version = "4.0.9";
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

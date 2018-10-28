@@ -1310,7 +1310,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = "4.0.8";
+options.root.Omi.version = "4.0.9";
 
 export default omi;
 export { tag, WeElement, render, h, h as createElement, options, define, observe };
