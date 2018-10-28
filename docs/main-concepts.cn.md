@@ -1,4 +1,4 @@
-[English](./main-concepts.md) | 简体中文
+[English](./main-concepts.md) | 简体中文 | [한국어](./main-concepts.kr.md)
 
 ## Omi 文档
 
