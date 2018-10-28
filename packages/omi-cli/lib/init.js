@@ -40,7 +40,7 @@ function init(args) {
 		process.stdin.resume();
 		process.stdin.setEncoding("utf-8");
 		process.stdin.on("data", chunk => {
-			chunk = chunk.replace(/\s\n|\r\n/g, "");
+			chunk = chunk.replace(/\s\n|\r\n|\n/g, "");
 			if (chunk !== "y" && chunk !== "Y") {
 				process.exit(0);
 			} else {
