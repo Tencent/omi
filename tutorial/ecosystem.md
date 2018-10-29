@@ -110,9 +110,10 @@ class MyApp extends WeElement {
 如果你使用过 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/), 就知道制作页面动效是多么地惬意。现在，你再 Omi 项目里也可以使用上 css3transform 的优秀的特性并且拥有同样高效的性能:
 
 ```js
-import { render, WeElement, tag } from "omi";
+import { render, WeElement, tag, observe } from "omi";
 import "omi-transform";
 
+@observe
 @tag("my-app")
 class MyApp extends WeElement {
   install() {
@@ -125,9 +126,8 @@ class MyApp extends WeElement {
 
   installed() {
     setInterval(() => {
-      // 慢
+      // 慢，因为直接改变 data 会触发 update -> render -> diff -> apply diff
       // this.data.rotateZ += 2
-      // this.update()
 
       //快，因为直接操作 dom
       this.animDiv.rotateZ += 2
@@ -151,6 +151,195 @@ class MyApp extends WeElement {
 render(<my-app />, "body");
 ```
 
+你可以通过上面展示的简单小技巧直接操作 DOM 获取高效的运动性能并且也能应对任何形式的组件更新而不丢失状态。
+
+## omi-page
+
+ 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由。
+ 
+[→ demo](https://tencent.github.io/omi/packages/omi-page/examples/simple/)
+
+使用:
+
+```js
+import { render, tag, WeElement } from 'omi'
+import page from 'omi-page'
+
+@tag('my-app')
+class MyApp extends WeElement {
+    installed() {
+        page('/', this.index)
+        page('/about', this.about)
+        page('/contact', this.contact)
+        page('/contact/:contactName', this.contact)
+        page('*', this.notfound)
+        page()
+    }
+
+    render() {
+        return (
+            <div>
+                <ul>
+                    <li><a href="/">/</a></li>
+                    <li><a href="/about">/about</a></li>
+                    <li><a href="/contact">/contact</a></li>
+                    <li><a href="/contact/me">/contact/me</a></li>
+                    <li><a href="/contact/me?a=b">/contact/me?a=b</a></li>
+                    <li><a href="/not-found?foo=bar">/not-found</a></li>
+                </ul>
+                <p>
+                    {this.data.path}
+                </p>
+            </div>
+        )
+    }
+
+    index = (ctx) => {
+        this.data.path = ctx.path
+        this.update()
+    }
+
+    about = (ctx) => {
+        this.data.path = ctx.path
+        this.update()
+    }
+
+    contact = (ctx) => {
+        this.data.path = ctx.path
+        this.update()
+    }
+
+    notfound = (ctx) => {
+        this.data.path = ctx.path
+        this.update()
+    }
+}
+
+render(<my-app></my-app>, 'body')
+```
+
+如果你知道 express，page.js 完全受 express 启发。了解 express 你就肯定能够快速上手 omi-page。
+
+## omi-tap
+
+Omi 不仅可以开发 PC 网站，我们拿来开发微信和手机 QQ 的 Web 页面，也叫 H5 页面。所以提供了 omi-tap 绑定 tap 事件来解决移动端 click 300ms 延迟的问题，使用方式也是极其简便：
+
+
+```js
+import { render, WeElement, tag } from "omi"
+import "omi-tap"
+
+@tag("my-app")
+class MyApp extends WeElement {
+  onTap = () => {
+    console.log('tap')
+  }
+
+  render() {
+    return (
+      <omi-tap onTap={this.onTap} >
+        <div>Tap Me!</div>
+      </omi-tap>
+    )
+  }
+}
+
+render(<my-app />, "body");
+```
+
+## omi-finger
+
+针对移动端，负责的手势交互，我们也提供了 omi-finger 手势交互库。你可以移动端打开这个页面看看 omi-finger 的能力:
+
+[→ omi-finger demo](http://alloyteam.github.io/AlloyFinger/)
+
+使用：
+
+
+```js
+import { render, tag, WeElement, observe } from 'omi'
+import 'omi-finger'
+
+@observe
+@tag('my-app')
+class MyApp extends WeElement {
+  install() {
+    this.data.wording = 'Tap or Swipe Me!'
+  }
+
+  handleTap = (evt) => {
+    this.data.wording += '\r\nTap'
+  }
+
+  handleSwipe = (evt) => {
+    this.data.wording += '\r\nSwipe-' + evt.direction
+  }
+
+  render() {
+    return (
+      <div>
+        <omi-finger onTap={this.handleTap} abc={{a:1}} onSwipe={this.handleSwipe}>
+          <div class="touchArea" >
+            {this.data.wording}
+          </div>
+        </omi-finger>
+      </div>
+    )
+  }
+}
+
+render(<my-app></my-app>, 'body')
+```
+
+支持手势列表:
+
+| **手势**    |
+| onTap  |
+| onMultipointStart    |
+| onLongTap   |
+| onSwipe    |
+| onPinch   |
+| onRotate    |
+| onPressMove    |
+| onMultipointEnd    |
+| onDoubleTap*   |
+
+## omi-mobx
+
+Omi 内置的 observe 是通过 proxy 实现的，如果你想要兼容 IE11, 你可以使用 omi-mobx 去实现响应式视图:
+
+```js
+import { tag, WeElement } from "omi"
+import { observe } from "omi-mobx"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
+
+## omi-element-ui
+
+Omi 版本的 element-ui, omi 版本的 weui 也在同步进行当中，期待一下。
+
+你也可以[→ 加入进来](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)。
+
+
 ## 感谢
 
 非常感谢各位为 Omi 生态的贡献:
@@ -165,5 +354,9 @@ render(<my-app />, "body");
 * [中国的 1921622004](https://github.com/1921622004)
 * [以色列的 benjamingr](https://github.com/benjamingr)
 * [还有我 dntzhang](https://github.com/dntzhang)
+
+以及其他正在为 Omi 贡献的人....
  
  我们也会在今年年底举办 [Omi Conf 开发者大会](https://github.com/Tencent/omi/issues/62)，门票大概率免费，或者约等于免费用来过滤无效报名者。
+
+[→ 立刻拥抱 Web Components ，加入 Omi](https://github.com/Tencent/omi)
