@@ -409,65 +409,62 @@ class MyApp extends WeElement {
 下面列举一个相对完整的 TodoApp 的例子:
 
 ```js
-import { tag, WeElement, render } from 'omi'
+import { render, WeElement, define } from 'omi'
 
-@tag('todo-list')
-class TodoList extends WeElement {
-    render(props) {
-        return (
-            <ul>
-                {props.items.map(item => (
-                    <li key={item.id}>{item.text}</li>
-                ))}
-            </ul>
-        );
-    }
-}
+define('todo-list', class extends WeElement {
+  render(props) {
+		return (
+      <ul>
+        {props.items.map(item => (
+          <li key={item.id}>{item.text}</li>
+				))}
+      </ul>
+    )
+  }
+})
 
-@tag('todo-app')
-class TodoApp extends WeElement {
-    static get data() {
-        return { items: [], text: '' }
-    }
+define('todo-app', class extends WeElement {
+	static observe = true
 
-    render() {
-        return (
-            <div>
-                <h3>TODO</h3>
-                <todo-list items={this.data.items} />
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        id="new-todo"
-                        onChange={this.handleChange}
-                        value={this.data.text}
-                    />
-                    <button>
-                        Add #{this.data.items.length + 1}
-                    </button>
-                </form>
-            </div>
-        );
-    }
+	static get data() {
+		return { items: [], text: '' }
+	}
 
-    handleChange = (e) => {
-        this.data.text = e.target.value
-    }
+	render() {
+		return (
+			<div>
+				<h3>TODO</h3>
+				<todo-list items={this.data.items} />
+				<form onSubmit={this.handleSubmit}>
+					<input
+						id="new-todo"
+						onChange={this.handleChange}
+						value={this.data.text}
+					/>
+					<button>Add #{this.data.items.length + 1}</button>
+				</form>
+			</div>
+		)
+	}
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        if (!this.data.text.trim().length) {
-            return;
-        }
-        this.data.items.push({
-            text: this.data.text,
-            id: Date.now()
-        })
-        this.data.text = '';
-  this.update()
-    }
-}
+	handleChange = e => {
+		this.data.text = e.target.value
+	}
 
-render(<todo-app></todo-app>, 'body')
+	handleSubmit = e => {
+		e.preventDefault()
+		if (!this.data.text.trim().length) {
+			return
+		}
+		this.data.items.push({
+			text: this.data.text,
+			id: Date.now()
+		})
+		this.data.text = ''
+	}
+})
+
+render(<todo-app />, 'body')
 ```
 
 ### Store
