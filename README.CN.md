@@ -199,10 +199,10 @@ $ npm run build                  # release
 │  └─ index.js    //入口文件，会 build 成  index.html
 ```
 
-关机编译的前缀 url 的设置：
+关于编译网站的 url 前缀的设置，可以参考两个地址：
 
-* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
 * [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
+* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
 
 比如在 windows 下:
 
