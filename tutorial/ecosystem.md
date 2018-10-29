@@ -365,7 +365,8 @@ Omi 版本的 element-ui, omi 版本的 weui 也在同步进行当中，期待�
 * [腾讯的 uxu](https://github.com/pasturn)
 * [腾讯的 ghostzhang](https://github.com/ghostzhang)
 * [腾讯的 zhengbao](https://github.com/zhengbao)
-* [中国的 1921622004](https://github.com/1921622004)
+* [1921622004](https://github.com/1921622004)
+* [青岛老前端 wadellg](https://github.com/wadellg)
 * [以色列的 benjamingr](https://github.com/benjamingr)
 * [还有我 dntzhang](https://github.com/dntzhang)
 
