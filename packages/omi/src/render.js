@@ -5,28 +5,28 @@ export function render(vnode, parent, store) {
   parent = typeof parent === "string" ? document.querySelector(parent) : parent
   if (store) {
     store.instances = []
-		extendStoreUpate(store)
-		let timeout = null
+    extendStoreUpate(store)
+    let timeout = null
     let patchs = {}
-		store.data = new JSONProxy(store.data).observe(false, function(patch) {
-			clearTimeout(timeout)
-			if (patch.op === "remove") {
-				// fix arr splice
-				const kv = getArrayPatch(patch.path, store)
-				patchs[kv.k] = kv.v
-				timeout = setTimeout(() => {
-					update(patchs, store)
-					patchs = {}
-				}, 16.6)
-			} else {
-				const key = fixPath(patch.path)
-				patchs[key] = patch.value
-				timeout = setTimeout(() => {
-					update(patchs, store)
-					patchs = {}
-				}, 16.6)
-			}
-		})
+    store.data = new JSONProxy(store.data).observe(false, function(patch) {
+      clearTimeout(timeout)
+      if (patch.op === "remove") {
+        // fix arr splice
+        const kv = getArrayPatch(patch.path, store)
+        patchs[kv.k] = kv.v
+        timeout = setTimeout(() => {
+          update(patchs, store)
+          patchs = {}
+        }, 16.6)
+      } else {
+        const key = fixPath(patch.path)
+        patchs[key] = patch.value
+        timeout = setTimeout(() => {
+          update(patchs, store)
+          patchs = {}
+        }, 16.6)
+      }
+    })
     parent.store = store
   }
   diff(null, vnode, {}, false, parent, false)

@@ -26,11 +26,11 @@ export default class WeElement extends HTMLElement {
     const shadowRoot = this.attachShadow({ mode: "open" })
 
     this.css && shadowRoot.appendChild(cssToDom(this.css()))
-		this.beforeRender()
-		options.afterInstall && options.afterInstall(this)
-		if (this.constructor.observable) {
-			proxyUpdate(this)
-		}
+    this.beforeRender()
+    options.afterInstall && options.afterInstall(this)
+    if (this.constructor.observable) {
+      proxyUpdate(this)
+    }
     this.host = diff(
       null,
       this.render(

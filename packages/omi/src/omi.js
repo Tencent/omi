@@ -15,10 +15,10 @@ const omi = {
   h,
   createElement,
   options,
-	define,
-	observe,
-	cloneElement,
-	getHost
+  define,
+  observe,
+  cloneElement,
+  getHost
 }
 
 options.root.Omi = omi

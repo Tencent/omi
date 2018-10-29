@@ -76,9 +76,9 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, context, mountAll, componentRoot) {
-	if (dom && dom.props) {
-		dom.props.children = vnode.children
-	}
+  if (dom && dom.props) {
+    dom.props.children = vnode.children
+  }
   let out = dom,
     prevSvgMode = isSvgMode
 
@@ -177,9 +177,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // Apply attributes/props from VNode to the DOM Element:
   diffAttributes(out, vnode.attributes, props)
-	if (out.props) {
-		out.props.children = vnode.children
-	}
+  if (out.props) {
+    out.props.children = vnode.children
+  }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode
 

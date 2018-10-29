@@ -131,5 +131,9 @@
       "path": "./dist/omi.min.js",
       "threshold": "4Kb"
     }
-  ]
+  ],
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  }
 }
