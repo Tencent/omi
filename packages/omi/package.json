@@ -137,6 +137,8 @@
   ],
   "prettier": {
     "singleQuote": true,
-    "semi": false
+    "semi": false,
+    "tabWidth": 2,
+    "useTabs": false
   }
 }
