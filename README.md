@@ -146,9 +146,9 @@ import { render, WeElement, tag, observe } from "omi"
 @tag("my-counter")
 class MyApp extends WeElement {
 
-	data = {
-		count: 0
-	}
+  data = {
+    count: 0
+  }
 
   sub = () => {
     this.data.count--
