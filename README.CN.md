@@ -35,6 +35,7 @@
 
 - [Omi 生态](#omi-生态)
 - [一个 HTML 完全上手](#一个-html-完全上手)
+- [再花 30 秒完全上手](#再花-30-秒完全上手)
 - [快速入门](#快速入门)
   - [安装](#安装)
   - [Hello Element](#hello-element)
@@ -131,6 +132,46 @@
     <like-button></like-button>
 </body>
 ```
+
+## 再花 30 秒完全上手
+
+你也可以使用现代化的 JS 语法，快速构建 Omi 项目:
+
+```js
+import { render, WeElement, tag, observe } from "omi"
+
+
+@observe
+@tag("my-counter")
+class MyApp extends WeElement {
+
+  install() {
+    this.data.count = 0
+  }
+
+  sub = () => {
+    this.data.count--
+  }
+
+  add = () => {
+    this.data.count++
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+}
+
+render(<my-counter />, "body")
+```
+
+[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
 
 ## 快速入门
 
