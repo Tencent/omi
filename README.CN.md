@@ -49,6 +49,7 @@
 - [浏览器兼容](#浏览器兼容)
 - [相关链接](#相关链接)
 - [贡献代码](#贡献代码)
+- [感谢](#感谢)
 - [License](#license)
 
 ## Omi 生态
@@ -613,6 +614,11 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 - [@f](https://github.com/f)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
+
+## 感谢
+
+* [preact](https://github.com/developit/preact)
+* [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
 
 ## License
 

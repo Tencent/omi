@@ -49,6 +49,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 - [Debugging](#debugging)
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
+- [Thanks](#thanks)
 - [License](#license)
 
 ## Ecosystem of Omi
@@ -613,6 +614,11 @@ Please contact us for any questions:
 - [@f](https://github.com/f)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
+
+## Thanks
+
+* [preact](https://github.com/developit/preact)
+* [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
 
 ## License
 
