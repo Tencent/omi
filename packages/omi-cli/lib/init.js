@@ -13,6 +13,7 @@ var error = require("./logger").error;
 var success = require("./logger").success;
 var isCnFun = require("./utils").isCnFuc;
 var emptyFs = require("./utils").emptyFs;
+var isSafeToCreateProjectIn = require("./utils").isSafeToCreateProjectIn;
 
 function init(args) {
 	var omiCli = chalk.bold.cyan("Omi-Cli");
@@ -29,32 +30,13 @@ function init(args) {
 		omiCli +
 			(!isCn ? " will execute init command... " : " 即将执行 init 命令...")
 	);
-
 	if (existsSync(dest) && !emptyDir.sync(dest)) {
-		console.log();
-		process.stdout.write(
-			!isCn
-				? "This directory isn't empty, empty it? [Y/N] "
-				: "此文件夹不为空，是否需要清空？ [Y/N]: "
-		);
-		process.stdin.resume();
-		process.stdin.setEncoding("utf-8");
-		process.stdin.on("data", chunk => {
-			chunk = chunk.replace(/\s\n|\r\n|\n/g, "");
-			if (chunk !== "y" && chunk !== "Y") {
-				process.exit(0);
-			} else {
-				console.log(
-					chalk.bold.cyan("Omi-Cli") +
-						(!isCn ? " is emptying this directory..." : " 正在清空此文件夹...")
-				);
-				emptyFs(dest);
-				createApp();
-			}
-		});
-	} else {
-		createApp();
+		if (!isSafeToCreateProjectIn(dest, projectName)) {
+			process.exit(1);
+		}
 	}
+		
+	createApp();
 
 	function createApp() {
 		console.log();
