@@ -1,10 +1,8 @@
-import { render, WeElement, tag, observe } from "../../src/omi"
-
+import { render, WeElement, tag, observe } from '../../src/omi'
 
 @observe
-@tag("my-counter")
+@tag('my-counter')
 class MyApp extends WeElement {
-
 	data = {
 	  count: 0
 	}
@@ -28,4 +26,4 @@ class MyApp extends WeElement {
 	}
 }
 
-render(<my-counter />, "body")
+render(<my-counter />, 'body')

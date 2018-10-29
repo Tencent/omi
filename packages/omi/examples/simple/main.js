@@ -1,19 +1,19 @@
-import { render, WeElement, tag } from "../../src/omi"
-import "./hello-element"
+import { render, WeElement, tag } from '../../src/omi'
+import './hello-element'
 
-@tag("my-app")
+@tag('my-app')
 class MyApp extends WeElement {
-	onClick = evt => { };
+	onClick = evt => {}
 
 	static get data() {
-	  return { abc: "abc", passToChild: 123 }
+	  return { abc: 'abc', passToChild: 123 }
 	}
 
 	onAbc = evt => {
-	  this.data.abc = " by " + evt.detail.name
+	  this.data.abc = ' by ' + evt.detail.name
 	  this.data.passToChild = 1234
 	  this.update()
-	};
+	}
 
 	css() {
 	  return `
@@ -25,7 +25,7 @@ class MyApp extends WeElement {
 	render(props, data) {
 	  return (
 	    <div onClick={this.onClick}>
-        Hello {props.name} {data.abc}
+				Hello {props.name} {data.abc}
 	      <hello-element
 	        onAbc={this.onAbc}
 	        prop-from-parent={data.passToChild}
@@ -36,4 +36,4 @@ class MyApp extends WeElement {
 	}
 }
 
-render(<my-app name="Omi v4.0" />, "body")
+render(<my-app name="Omi v4.0" />, 'body')

@@ -1,5 +1,5 @@
-import { observable, autorun } from "mobx"
-import { options } from "../../src/omi"
+import { observable, autorun } from 'mobx'
+import { options } from '../../src/omi'
 
 /*!
  * Copyright 2015 Google Inc. All rights reserved.

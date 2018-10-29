@@ -1,7 +1,7 @@
-import { render, tag } from "../../src/omi"
+import { render, tag } from '../../src/omi'
 
 //Do not use pure element in browsers that do not support Reflect, such as ie11.
-tag('my-ele', function (props) {
+tag('my-ele', function(props) {
   return (
     <ul>
       {props.items.map(item => (
@@ -11,9 +11,7 @@ tag('my-ele', function (props) {
   )
 })
 
-render((
-  <my-ele
-    items={[{ text: 'Omi', id: 1 }, { text: "Tencent", id: 2 }]}
-  />
-), "body")
-
+render(
+  <my-ele items={[{ text: 'Omi', id: 1 }, { text: 'Tencent', id: 2 }]} />,
+  'body'
+)

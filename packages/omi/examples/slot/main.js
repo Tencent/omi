@@ -1,6 +1,6 @@
-import { tag, render, WeElement } from "../../src/omi"
+import { tag, render, WeElement } from '../../src/omi'
 
-@tag("hello-element")
+@tag('hello-element')
 class HelloElement extends WeElement {
   render() {
     return (
@@ -13,7 +13,7 @@ class HelloElement extends WeElement {
   }
 }
 
-@tag("my-app")
+@tag('my-app')
 class MyApp extends WeElement {
   render() {
     return (
@@ -26,4 +26,4 @@ class MyApp extends WeElement {
   }
 }
 
-render(<my-app />, "body")
+render(<my-app />, 'body')

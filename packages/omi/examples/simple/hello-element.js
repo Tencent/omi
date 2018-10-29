@@ -1,14 +1,14 @@
-import { WeElement, tag } from "../../src/omi"
+import { WeElement, tag } from '../../src/omi'
 
-@tag("hello-element")
+@tag('hello-element')
 class HelloElement extends WeElement {
   static get props() {
     return {
       propFromParent: {
-        value: "9"
+        value: '9'
       },
       msg: {
-        value: ""
+        value: ''
       },
       num: {
         value: 10
@@ -27,9 +27,9 @@ class HelloElement extends WeElement {
 
 	onClick = evt => {
 	  //trigger CustomEvent
-	  this.fire("abc", { name: "dntzhang", age: 12 })
+	  this.fire('abc', { name: 'dntzhang', age: 12 })
 	  evt.stopPropagation()
-	};
+	}
 
 	installed() {
 	  setTimeout(() => {
@@ -49,9 +49,9 @@ class HelloElement extends WeElement {
 	render(props, data) {
 	  return (
 	    <div onClick={this.onClick}>
-        Hello {props.msg} {props.propFromParent}
+				Hello {props.msg} {props.propFromParent}
 	      <div>
-          Click Me!
+					Click Me!
 	        {props.num}
 	      </div>
 	      <div>data: {data.a}</div>

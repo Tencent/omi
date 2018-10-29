@@ -1,6 +1,6 @@
-import { render, WeElement, tag, observe } from "../../src/omi"
+import { render, WeElement, tag, observe } from '../../src/omi'
 
-@tag("todo-list")
+@tag('todo-list')
 class TodoList extends WeElement {
   render(props) {
     return (
@@ -14,10 +14,10 @@ class TodoList extends WeElement {
 }
 
 @observe
-@tag("todo-app")
+@tag('todo-app')
 class TodoApp extends WeElement {
   static get data() {
-    return { items: [], text: "" }
+    return { items: [], text: '' }
   }
 
   render() {
@@ -32,29 +32,27 @@ class TodoApp extends WeElement {
             onChange={this.handleChange}
             value={this.data.text}
           />
-          <button>
-            Add #{this.data.items.length + 1}
-          </button>
+          <button>Add #{this.data.items.length + 1}</button>
         </form>
       </div>
     )
   }
 
-  handleChange = e => {
-    this.data.text = e.target.value
-  };
+	handleChange = e => {
+	  this.data.text = e.target.value
+	}
 
-  handleSubmit = e => {
-    e.preventDefault()
-    if (!this.data.text.trim().length) {
-      return
-    }
-    this.data.items.push({
-      text: this.data.text,
-      id: Date.now()
-    })
-    this.data.text = ""
-  };
+	handleSubmit = e => {
+	  e.preventDefault()
+	  if (!this.data.text.trim().length) {
+	    return
+	  }
+	  this.data.items.push({
+	    text: this.data.text,
+	    id: Date.now()
+	  })
+	  this.data.text = ''
+	}
 }
 
-render(<todo-app />, "body")
+render(<todo-app />, 'body')
