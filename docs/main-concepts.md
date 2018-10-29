@@ -19,10 +19,9 @@ English | [简体中文](./main-concepts.cn.md) | [한국어](./main-concepts.kr
 ### My First Element
 
 ```js
-import { WeElement, tag, render } from 'omi'
+import { WeElement, define, render } from 'omi'
 
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   render() {
     return (
       <h1>Hello, world!</h1>
@@ -40,11 +39,10 @@ Look at the rendering structure in the HTML developer tool:
 You can also use `my-first-element` in any other custom element. Such as:
 
 ```js
-import { WeElement, tag, render } from 'omi'
+import { WeElement, define, render } from 'omi'
 import './my-first-element'
 
-@tag('other-element')
-class OtherElement extends WeElement {
+define('other-element', class extends WeElement {
   render() {
     return (
       <div>
@@ -58,10 +56,9 @@ class OtherElement extends WeElement {
 ### Props
 
 ```js
-import { WeElement, tag, render } from 'omi'
+import { WeElement, define, render } from 'omi'
 
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   render(props) {
     return (
       <h1>Hello, {props.name}!</h1>
@@ -75,10 +72,9 @@ render(<my-first-element name="world"></my-first-element>, 'body')
 You can also transmit any type of data to props:
 
 ```js
-import { WeElement, tag, render } from 'omi'
+import { WeElement, define, render } from 'omi'
 
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   render(props) {
     return (
       <h1>Hello, {props.myObj.name}!</h1>
@@ -94,7 +90,7 @@ The `my-obj` will map to myObj with camel-case.
 ### Event
 
 ```js
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   onClick = (evt) => {
     alert('Hello Omi!')
   }
@@ -104,14 +100,13 @@ class MyFirstElement extends WeElement {
       <h1 onClick={this.onClick}>Hello, world!</h1>
     )
   }
-}
+})
 ```
 
 ### Custom Event
 
 ```js
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   onClick = (evt) => {
     this.fire('myevent', { name: 'abc' })
   }
@@ -121,7 +116,7 @@ class MyFirstElement extends WeElement {
       <h1 onClick={this.onClick}>Hello, world!</h1>
     )
   }
-}
+})
 
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
@@ -131,8 +126,7 @@ Trigger custom event by `this.fire` and get the data by  `evt.detail`.
 ### CSS
 
 ```js
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   css() {
     return `h1 { color: red; }`
   }
@@ -171,11 +165,11 @@ You can also write CSS, less and sass separately to another file using [to-strin
 Then:
 
 ```js
-import { tag, WeElement } from 'omi'
+import { define, WeElement } from 'omi'
 import style from '../style/_button.scss'
 
-@tag('el-button', true)
-class ElButton extends WeElement {
+define('el-button', class extends WeElement {
+    static pure = true
 
     css() {
         return style
@@ -187,8 +181,7 @@ class ElButton extends WeElement {
 ### Ref
 
 ```js
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   onClick = (evt) => {
     console.log(this.h1)
   }
@@ -200,7 +193,7 @@ class MyFirstElement extends WeElement {
       </div>
     )
   }
-}
+})
 
 render(<my-first-element></my-first-element>, 'body')
 ```
@@ -211,10 +204,7 @@ Add `ref={e => { this.anyNameYouWant = e }}` to attrs of the element, then you c
 ### Store
 
 ```js
-import { WeElement, tag, render } from 'omi'
-
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   //You must declare data here for view updating
   static get data() {
     return { name: null }
@@ -231,7 +221,7 @@ class MyFirstElement extends WeElement {
       <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
     )
   }
-}
+})
 
 const store = {
   data: { name: 'Omi' }
@@ -240,6 +230,7 @@ render(<my-first-element name="world"></my-first-element>, 'body', store)
 ```
 
 The static data will be transform to path for partial view updating, for example:
+
 ```js
 static get data() {
   return {
@@ -279,10 +270,10 @@ If you hit one condition above, you can update it.
 
 Summary is as long as updatePath or updatePath sub nodes are updated.
 
-Can we see that the store system is a centralization system? So how do we centralization of some components? Use the second parameters of tag:
+Can we see that the store system is a centralization system? So how do we centralization of some components? Use the static prop: `pure` :
 
 ```js
-@tag('my-first-element', true)
+static pure = true
 ```
 
 Pure element! Store will not be injected!
@@ -292,10 +283,7 @@ Pure element! Store will not be injected!
 The HTML `<slot>` element—part of the Web Components technology suite—is a placeholder inside a web component that you can fill with your own markup, which lets you create separate DOM trees and present them together.
 
 ```jsx
-import { tag, render, WeElement } from 'omi'
-
-@tag('hello-element')
-class HelloElement extends WeElement {
+define('hello-element', class extends WeElement {
   render() {
     return (
       <div onClick={this.onClick}>
@@ -303,10 +291,9 @@ class HelloElement extends WeElement {
       </div>
     )
   }
-}
+})
 
-@tag('my-app')
-class MyApp extends WeElement {
+define('my-app', class extends WeElement {
   render() {
     return (
       <div >
@@ -330,11 +317,9 @@ render(<my-app></my-app>, 'body')
 You can also use observe to create response views for element who no need `store`, such as:
 
 ```js
-import { tag, WeElement, observe } from "omi"
+define("my-app", class extends WeElement {
+  static observe = true
 
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
   install() {
     this.data.name = "omi"
   }

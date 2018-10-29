@@ -19,10 +19,9 @@
 ### My First Element
 
 ```js
-import { WeElement, tag, render } from 'omi'
+import { WeElement, define, render } from 'omi'
 
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   render() {
     return (
       <h1>Hello, world!</h1>
@@ -43,10 +42,9 @@ render(<my-first-element></my-first-element>, 'body')
 ### Props
 
 ```js
-import { WeElement, tag, render } from 'omi'
+import { WeElement, define, render } from 'omi'
 
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   render(props) {
     return (
       <h1>Hello, {props.name}!</h1>
@@ -60,10 +58,9 @@ render(<my-first-element name="world"></my-first-element>, 'body')
 你也可以传任意类型的数据给 props:
 
 ```js
-import { WeElement, tag, render } from 'omi'
+import { WeElement, define, render } from 'omi'
 
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   render(props) {
     return (
       <h1>Hello, {props.myObj.name}!</h1>
@@ -80,24 +77,23 @@ render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ### Event
 
 ```js
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   onClick = (evt) => {
     alert('Hello Omi!')
   }
 
   render() {
     return (
-      <h1 onClick={this.onClick}>Hello, wrold!</h1>
+      <h1 onClick={this.onClick}>Hello, world!</h1>
     )
   }
-}
+})
 ```
 
 ### Custom Event
 
 ```js
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   onClick = (evt) => {
     this.fire('myevent', { name: 'abc' })
   }
@@ -107,7 +103,7 @@ class MyFirstElement extends WeElement {
       <h1 onClick={this.onClick}>Hello, world!</h1>
     )
   }
-}
+})
 
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
@@ -117,8 +113,7 @@ render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-fi
 ### CSS
 
 ```js
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   css() {
     return `h1 { color: red; }`
   }
@@ -157,11 +152,11 @@ render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-fi
 然后:
 
 ```js
-import { tag, WeElement } from 'omi'
+import { define, WeElement } from 'omi'
 import style from '../style/_button.scss'
 
-@tag('el-button', true)
-class ElButton extends WeElement {
+define('el-button', class extends WeElement {
+    static pure = true
 
     css() {
         return style
@@ -173,8 +168,7 @@ class ElButton extends WeElement {
 ### Ref
 
 ```js
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   onClick = (evt) => {
     console.log(this.h1)
   }
@@ -186,23 +180,17 @@ class MyFirstElement extends WeElement {
       </div>
     )
   }
-}
+})
 
 render(<my-first-element></my-first-element>, 'body')
 ```
 
-
 在元素上添加 `ref={e => { this.anyNameYouWant = e }}` ，然后你就可以 JS 代码里使用 `this.anyNameYouWant` 访问该元素。
-
-
 
 ### Store
 
 ```js
-import { WeElement, tag, render } from 'omi'
-
-@tag('my-first-element')
-class MyFirstElement extends WeElement {
+define('my-first-element', class extends WeElement {
   //You must declare data here for view updating
   static get data() {
     return { name: null }
@@ -214,12 +202,12 @@ class MyFirstElement extends WeElement {
   }
 
   render(props, data) {
-    //data === this.store.data when using store stystem
+    //data === this.store.data when using store system
     return (
       <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
     )
   }
-}
+})
 
 const store = {
   data: { name: 'Omi' }
@@ -281,10 +269,7 @@ static get data() {
 HTML`<slot>`元素（Web组件技术套件的一部分）是Web组件内部的占位符，您可以用自己的标记填充该占位符，该标记允许您创建单独的DOM树并将它们一起呈现。
 
 ```jsx
-import { tag, render, WeElement } from 'omi'
-
-@tag('hello-element')
-class HelloElement extends WeElement {
+define('hello-element', class extends WeElement {
   render() {
     return (
       <div onClick={this.onClick}>
@@ -292,10 +277,9 @@ class HelloElement extends WeElement {
       </div>
     )
   }
-}
+})
 
-@tag('my-app')
-class MyApp extends WeElement {
+define('my-app', class extends WeElement {
   render() {
     return (
       <div >
@@ -319,11 +303,9 @@ render(<my-app></my-app>, 'body')
 你可以为那些不需要 store 的自定义元素使用 observe 创建响应式视图，比如:
 
 ```js
-import { tag, WeElement, observe } from "omi"
+define("my-app", class extends WeElement {
+  static observe = true
 
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
   install() {
     this.data.name = "omi"
   }
