@@ -293,16 +293,17 @@ render(<my-app></my-app>, 'body')
 
 支持手势列表:
 
-| **手势**    |
-| onTap  |
-| onMultipointStart    |
-| onLongTap   |
-| onSwipe    |
-| onPinch   |
-| onRotate    |
-| onPressMove    |
-| onMultipointEnd    |
-| onDoubleTap*   |
+| **手势**    | 
+| -----  | 
+| onTap  | 
+| onMultipointStart   | 
+| onLongTap | 
+| onSwipe   | 
+| onPinch  | 
+| onRotate   | 
+| onPressMove   | 
+| onMultipointEnd    | 
+| onDoubleTap | 
 
 ## omi-mobx
 
