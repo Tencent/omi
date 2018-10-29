@@ -341,10 +341,9 @@ class MyApp extends WeElement {
 아래는 상대적으로 완벽한 TodoApp 예입니다:
 
 ```js
-import { tag, WeElement, render } from "omi";
+import { render, WeElement, define } from 'omi'
 
-@tag("todo-list")
-class TodoList extends WeElement {
+define('todo-list', class extends WeElement {
   render(props) {
     return (
       <ul>
@@ -352,14 +351,15 @@ class TodoList extends WeElement {
           <li key={item.id}>{item.text}</li>
         ))}
       </ul>
-    );
+    )
   }
-}
+})
 
-@tag("todo-app")
-class TodoApp extends WeElement {
+define('todo-app', class extends WeElement {
+  static observe = true
+
   static get data() {
-    return { items: [], text: "" };
+    return { items: [], text: '' }
   }
 
   render() {
@@ -376,29 +376,27 @@ class TodoApp extends WeElement {
           <button>Add #{this.data.items.length + 1}</button>
         </form>
       </div>
-    );
+    )
   }
 
   handleChange = e => {
-    this.data.text = e.target.value;
-  };
+    this.data.text = e.target.value
+  }
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     if (!this.data.text.trim().length) {
-      return;
+      return
     }
-
     this.data.items.push({
       text: this.data.text,
       id: Date.now()
-    });
-    this.data.text = "";
-    this.update();
-  };
-}
+    })
+    this.data.text = ''
+  }
+})
 
-render(<todo-app />, "body");
+render(<todo-app />, 'body')
 ```
 
 ### Store
