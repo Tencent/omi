@@ -68,7 +68,7 @@ function initPr(args) {
 		);
 
 		vfs
-			.src(["**/*", "!mode_modules/**/*"], {
+			.src(["**/*", "!node_modules/**/*"], {
 				cwd: tpl,
 				cwdbase: true,
 				dot: true
