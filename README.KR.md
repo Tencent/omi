@@ -34,7 +34,8 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 ---
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
-- [Add Omi in One Minute](#add-omi-in-one-minute)
+- [Omi 1분 추가 가이드](#Omi-1분-추가-가이드)
+- [Omi 30초 추가 가이드](#Omi-30초-추가-가이드)
 - [Getting Started](#getting-started)
   - [Install](#install)
   - [Hello Element](#hello-element)
@@ -70,9 +71,9 @@ Other:
 - [https://www.webcomponents.org/](https://www.webcomponents.org/)
 - [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
-## 하나의 HTML 파일로 실행 가능
+## Omi 1분 추가 가이드
 
-이 페이지는 어떤 번들링 툴 사용없이 실행가능합니다.
+이 페이지는 어떤 번들링 툴 사용없이 Omi를 실행가능합니다.
 
 - [Online Demo!](https://tencent.github.io/omi/assets/)
 - [Omi.js CDN](https://unpkg.com/omi)
@@ -130,6 +131,46 @@ Other:
   <like-button />
 </body>
 ```
+
+### Omi 30초 추가 가이드
+
+당신은 Omi 프로젝트를 현대의 자바스크립트를 사용해서 빠르게 빌드할 수 있습니다:
+
+```js
+import { render, WeElement, tag, observe } from "omi"
+
+
+@observe
+@tag("my-counter")
+class MyApp extends WeElement {
+
+  data = {
+    count: 0
+  }
+
+  sub = () => {
+    this.data.count--
+  }
+
+  add = () => {
+    this.data.count++
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+}
+
+render(<my-counter />, "body")
+```
+
+[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
 
 ## Getting Started
 
