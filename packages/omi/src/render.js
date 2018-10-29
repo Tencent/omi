@@ -1,8 +1,8 @@
-import { diff } from "./vdom/diff"
-import JSONProxy from "./proxy"
+import { diff } from './vdom/diff'
+import JSONProxy from './proxy'
 
 export function render(vnode, parent, store) {
-  parent = typeof parent === "string" ? document.querySelector(parent) : parent
+  parent = typeof parent === 'string' ? document.querySelector(parent) : parent
   if (store) {
     store.instances = []
     extendStoreUpate(store)
@@ -10,7 +10,7 @@ export function render(vnode, parent, store) {
     let patchs = {}
     store.data = new JSONProxy(store.data).observe(false, function(patch) {
       clearTimeout(timeout)
-      if (patch.op === "remove") {
+      if (patch.op === 'remove') {
         // fix arr splice
         const kv = getArrayPatch(patch.path, store)
         patchs[kv.k] = kv.v
@@ -88,7 +88,7 @@ export function needUpdate(diffResult, updatePath) {
 function includePath(pathA, pathB) {
   if (pathA.indexOf(pathB) === 0) {
     const next = pathA.substr(pathB.length, 1)
-    if (next === "[" || next === ".") {
+    if (next === '[' || next === '.') {
       return true
     }
   }
@@ -96,14 +96,14 @@ function includePath(pathA, pathB) {
 }
 
 export function fixPath(path) {
-  let mpPath = ""
-  const arr = path.replace("/", "").split("/")
+  let mpPath = ''
+  const arr = path.replace('/', '').split('/')
   arr.forEach((item, index) => {
     if (index) {
       if (isNaN(Number(item))) {
-        mpPath += "." + item
+        mpPath += '.' + item
       } else {
-        mpPath += "[" + item + "]"
+        mpPath += '[' + item + ']'
       }
     } else {
       mpPath += item
@@ -113,7 +113,7 @@ export function fixPath(path) {
 }
 
 function getArrayPatch(path, store) {
-  const arr = path.replace("/", "").split("/")
+  const arr = path.replace('/', '').split('/')
   let current = store.data[arr[0]]
   for (let i = 1, len = arr.length; i < len - 1; i++) {
     current = current[arr[i]]
@@ -122,16 +122,16 @@ function getArrayPatch(path, store) {
 }
 
 function fixArrPath(path) {
-  let mpPath = ""
-  const arr = path.replace("/", "").split("/")
+  let mpPath = ''
+  const arr = path.replace('/', '').split('/')
   const len = arr.length
   arr.forEach((item, index) => {
     if (index < len - 1) {
       if (index) {
         if (isNaN(Number(item))) {
-          mpPath += "." + item
+          mpPath += '.' + item
         } else {
-          mpPath += "[" + item + "]"
+          mpPath += '[' + item + ']'
         }
       } else {
         mpPath += item

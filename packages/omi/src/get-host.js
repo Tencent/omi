@@ -1,9 +1,9 @@
 export function getHost(ele) {
   let p = ele.parentNode
   while (p) {
-    if(p.host){
+    if (p.host) {
       return p.host
-    }else{
+    } else {
       p = p.parentNode
     }
   }

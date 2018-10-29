@@ -1,7 +1,7 @@
-import { define } from "./define"
+import { define } from './define'
 import WeElement from './we-element'
 
-const FUNCTION = "function"
+const FUNCTION = 'function'
 
 export function tag(name, pure) {
   if (typeof pure === FUNCTION) {
@@ -20,7 +20,7 @@ export function tag(name, pure) {
 
     customElements.define(name, CustomElement)
   } else {
-    return function (target) {
+    return function(target) {
       target.pure = pure
       define(name, target)
     }

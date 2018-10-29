@@ -1,6 +1,6 @@
-import { cssToDom, nProps, isArray } from "./util"
-import { diff } from "./vdom/diff"
-import options from "./options"
+import { cssToDom, nProps, isArray } from './util'
+import { diff } from './vdom/diff'
+import options from './options'
 import { proxyUpdate } from './observe'
 
 export default class WeElement extends HTMLElement {
@@ -23,7 +23,7 @@ export default class WeElement extends HTMLElement {
     }
 
     this.install()
-    const shadowRoot = this.attachShadow({ mode: "open" })
+    const shadowRoot = this.attachShadow({ mode: 'open' })
 
     this.css && shadowRoot.appendChild(cssToDom(this.css()))
     this.beforeRender()

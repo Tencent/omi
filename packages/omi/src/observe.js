@@ -1,4 +1,4 @@
-import JSONProxy from "./proxy"
+import JSONProxy from './proxy'
 
 export function observe(target) {
   target.observable = true
