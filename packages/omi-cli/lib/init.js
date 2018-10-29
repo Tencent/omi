@@ -80,6 +80,11 @@ function init(args) {
 					renameSync(join(dest, "gitignore"), join(dest, ".gitignore"));
 					if (customPrjName) {
 						try {
+							const appPackage = require(join(dest,"package.json"));
+							appPackage.name = customPrjName;
+							fs.writeFile(join(dest,"package.json"), JSON.stringify(appPackage, null, 2), (err) => {
+								if (err) return console.log(err);
+							})
 							process.chdir(customPrjName);
 						} catch (err) {
 							console.log(error(err));
