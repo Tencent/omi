@@ -92,34 +92,33 @@ This page demonstrates using Omi **with no build tooling**.
 <body>
   <script src="https://unpkg.com/omi"></script>
   <script>
-    const { WeElement, h, render, define } = Omi
+		const { WeElement, h, render, define } = Omi
 
-    class LikeButton extends WeElement {
-      install() {
-        this.data = { liked: false }
-      }
+		define('like-button',
+			class extends WeElement {
+				install() {
+					this.data = { liked: false }
+				}
 
-      render() {
-        if (this.data.liked) {
-          return 'You liked this.'
-        }
+				render() {
+					if (this.data.liked) {
+						return 'You liked this.'
+					}
 
-        return h(
-          'button',
-          {
-            onClick: () => {
-              this.data.liked = true
-              this.update()
-            }
-          },
-          'Like'
-        )
-      }
-    }
+					return h(
+						'button',
+						{
+							onClick: () => {
+								this.data.liked = true
+								this.update()
+							}
+						},
+						'Like'
+					)
+				}
+			})
 
-    define('like-button', LikeButton)
-
-    render(h('like-button'), 'body')
+		render(h('like-button'), 'body')
   </script>
 </body>
 
@@ -143,7 +142,7 @@ import { render, WeElement, tag, observe } from "omi"
 
 @observe
 @tag("my-counter")
-class MyApp extends WeElement {
+class MyCounter extends WeElement {
 
   data = {
     count: 0
@@ -172,6 +171,40 @@ render(<my-counter />, "body")
 ```
 
 [→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
+
+You will find that the `MyCounter` class name defined above is never used. So you can also use the following way to avoid Eslint hints:
+
+```js
+import { render, WeElement, define, observe } from 'omi'
+
+define('my-counter',
+	@observe
+	class extends WeElement {
+		data = {
+			count: 1
+		}
+
+		sub = () => {
+			this.data.count--
+		}
+
+		add = () => {
+			this.data.count++
+		}
+
+		render() {
+			return (
+				<div>
+					<button onClick={this.sub}>-</button>
+					<span>{this.data.count}</span>
+					<button onClick={this.add}>+</button>
+				</div>
+			)
+		}
+	})
+
+render(<my-counter />, 'body')
+```
 
 ## Getting Started
 

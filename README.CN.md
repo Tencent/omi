@@ -95,32 +95,31 @@
   <script>
     const { WeElement, h, render, define } = Omi
 
-    class LikeButton extends WeElement {
-      install() {
-        this.data = { liked: false }
-      }
+		define('like-button',
+			class extends WeElement {
+				install() {
+					this.data = { liked: false }
+				}
 
-      render() {
-        if (this.data.liked) {
-          return 'You liked this.'
-        }
+				render() {
+					if (this.data.liked) {
+						return 'You liked this.'
+					}
 
-        return h(
-          'button',
-          {
-            onClick: () => {
-              this.data.liked = true
-              this.update()
-            }
-          },
-          'Like'
-        )
-      }
-    }
+					return h(
+						'button',
+						{
+							onClick: () => {
+								this.data.liked = true
+								this.update()
+							}
+						},
+						'Like'
+					)
+				}
+			})
 
-    define('like-button', LikeButton)
-
-    render(h('like-button'), 'body')
+		render(h('like-button'), 'body')
   </script>
 </body>
 
@@ -173,6 +172,41 @@ render(<my-counter />, "body")
 ```
 
 [→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
+
+
+你会发现 `MyCounter` 从未使用过，所以你可以使用下面代码达到同样效果并且避免 Eslint 提示错误:
+
+```js
+import { render, WeElement, define, observe } from 'omi'
+
+define('my-counter',
+	@observe
+	class extends WeElement {
+		data = {
+			count: 1
+		}
+
+		sub = () => {
+			this.data.count--
+		}
+
+		add = () => {
+			this.data.count++
+		}
+
+		render() {
+			return (
+				<div>
+					<button onClick={this.sub}>-</button>
+					<span>{this.data.count}</span>
+					<button onClick={this.add}>+</button>
+				</div>
+			)
+		}
+	})
+
+render(<my-counter />, 'body')
+```
 
 ## 快速入门
 

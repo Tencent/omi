@@ -1,29 +1,29 @@
-import { render, WeElement, tag, observe } from '../../src/omi'
+import { render, WeElement, define, observe } from '../../src/omi'
 
-@observe
-@tag('my-counter')
-class MyApp extends WeElement {
-	data = {
-	  count: 0
-	}
+define('my-counter',
+	@observe
+	class extends WeElement {
+		data = {
+			count: 1
+		}
 
-	sub = () => {
-	  this.data.count--
-	}
+		sub = () => {
+			this.data.count--
+		}
 
-	add = () => {
-	  this.data.count++
-	}
+		add = () => {
+			this.data.count++
+		}
 
-	render() {
-	  return (
-	    <div>
-	      <button onClick={this.sub}>-</button>
-	      <span>{this.data.count}</span>
-	      <button onClick={this.add}>+</button>
-	    </div>
-	  )
-	}
-}
+		render() {
+			return (
+				<div>
+					<button onClick={this.sub}>-</button>
+					<span>{this.data.count}</span>
+					<button onClick={this.add}>+</button>
+				</div>
+			)
+		}
+	})
 
 render(<my-counter />, 'body')
