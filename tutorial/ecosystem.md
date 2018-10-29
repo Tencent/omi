@@ -22,6 +22,7 @@ Omi 4.0 发布至今，收到了大量的意见和建议以及真刀真枪的 PR
 我们现在拥有了三个语言版本的开发文档:
 
 | **语言**    | **快速入门**                       |**主要概念**  |
+|  -----   |  -----                    | -----   |
 | 英语        | [English](https://github.com/Tencent/omi/blob/master/README.md)             |[English](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)  |
 | 中文        | [简体中文](https://github.com/Tencent/omi/blob/master/README.CN.md)             |[简体中文](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)  |
 | 韩文        | [한국어](https://github.com/Tencent/omi/blob/master/README.KR.md)                     |[한국어](https://github.com/Tencent/omi/blob/master/docs/main-concepts.kr.md)  |
