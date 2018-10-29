@@ -13,7 +13,7 @@
 - 利用[Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)轻松调试，[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)
 - 符合浏览器的发展趋势以及API设计理念
 - [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) + [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 相互融合为一个框架 Omi
-- 通过 omi-mobx 让 omi 和 mobx 一起良好地制作响应式视图(免去 `this.update`)
+- 内置 observe 制作响应式视图(免去 `this.update`)
 - Web Components 也可以数据驱动视图, `UI = fn(data)`
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
 - 独创的 `Path Updating` 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback`

@@ -13,7 +13,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 - Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
 - Compliance with browser trend and API design.
 - Merge [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) and [**JSX**](https://reactjs.org/docs/introducing-jsx.html)  into one framework.
-- Work well with mobx by omi-mobx (No need to call `this.update()`).
+- Built in observe feature (No need to call `this.update()`).
 - Web Components can also be a data-driven view, **`UI = fn(data)`**.
 - JSX is the best development experience (code intelligent completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals).
 - The original **Path Updating** system. Proxy-based automatic **accurate** update, **low power consumption**, high degree of freedom, excellent performance, easy integration of `requestIdleCallback`
