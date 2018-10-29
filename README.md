@@ -141,7 +141,6 @@ You can also quickly build omi projects using modern JS code:
 ```js
 import { render, WeElement, tag, observe } from "omi"
 
-
 @observe
 @tag("my-counter")
 class MyApp extends WeElement {
