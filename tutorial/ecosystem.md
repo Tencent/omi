@@ -358,6 +358,7 @@ Omi 版本的 element-ui, omi 版本的 weui 也在同步进行当中，期待�
 非常感谢各位为 Omi 生态的贡献:
 
 * [土耳其的大神 F](https://github.com/f)
+* [韩国的 LeeHyungGeun ](https://github.com/LeeHyungGeun)
 * [韩国的 validalias ](https://github.com/validalias)
 * [腾讯的 xcatliu](https://github.com/xcatliu)
 * [腾讯的 vorshen](https://github.com/vorshen)
