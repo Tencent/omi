@@ -11,12 +11,6 @@ class ElCard extends WeElement {
     }
 
     install(){
-        this.data.classStr = 'el-card ' + (this.props.class ? this.props.class : '')
-        this.data.style = this.props.style
-        this.data.header = this.props.header
-        this.data.bodyStyle = this.props.bodyStyle
-        this.data.shadow = this.props.shadow
-
         if (!this.data.header) {
           let dom = Array.prototype.slice.call(this.children)
           dom.map((item)=>{
@@ -30,21 +24,20 @@ class ElCard extends WeElement {
     }
 
     render(props, data) {
-        let { shadow, header, classStr } = data
+        let { style, shadow, bodyStyle } = props
+        let { header } = data
+        let classStr = 'el-card ' + (this.props.class ? this.props.class : '')
         return (
             <div class={shadow ? classStr + ' is-' + shadow + '-shadow' : classStr + ' is-always-shadow'}>
                 {
-                    header ?
-                    <div class="el-card__header">
-                        <slot name="header">{ header }</slot>
-                    </div>
-                    : header
+                    header && (<div class="el-card__header">
+                                  <slot name="header">{ header }</slot>
+                               </div>)
                 }
-                <div class="el-card__body" style="bodyStyle">
+                <div class="el-card__body" style={bodyStyle}>
                     <slot></slot>
                 </div>
             </div>
         )
-      
     }
 }
