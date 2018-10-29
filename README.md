@@ -92,33 +92,33 @@ This page demonstrates using Omi **with no build tooling**.
 <body>
   <script src="https://unpkg.com/omi"></script>
   <script>
-		const { WeElement, h, render, define } = Omi
+    const { WeElement, h, render, define } = Omi
 
-		define('like-button',
-			class extends WeElement {
-				install() {
-					this.data = { liked: false }
-				}
+    define('like-button',
+      class extends WeElement {
+        install() {
+          this.data = { liked: false }
+        }
 
-				render() {
-					if (this.data.liked) {
-						return 'You liked this.'
-					}
+        render() {
+          if (this.data.liked) {
+            return 'You liked this.'
+          }
 
-					return h(
-						'button',
-						{
-							onClick: () => {
-								this.data.liked = true
-								this.update()
-							}
-						},
-						'Like'
-					)
-				}
-			})
+          return h(
+            'button',
+            {
+              onClick: () => {
+                this.data.liked = true
+                this.update()
+              }
+            },
+            'Like'
+          )
+        }
+      })
 
-		render(h('like-button'), 'body')
+    render(h('like-button'), 'body')
   </script>
 </body>
 
@@ -178,30 +178,30 @@ You will find that the `MyCounter` class name defined above is never used. So yo
 import { render, WeElement, define, observe } from 'omi'
 
 define('my-counter',
-	@observe
-	class extends WeElement {
-		data = {
-			count: 1
-		}
+  @observe
+  class extends WeElement {
+    data = {
+      count: 1
+    }
 
-		sub = () => {
-			this.data.count--
-		}
+    sub = () => {
+      this.data.count--
+    }
 
-		add = () => {
-			this.data.count++
-		}
+    add = () => {
+      this.data.count++
+    }
 
-		render() {
-			return (
-				<div>
-					<button onClick={this.sub}>-</button>
-					<span>{this.data.count}</span>
-					<button onClick={this.add}>+</button>
-				</div>
-			)
-		}
-	})
+    render() {
+      return (
+        <div>
+          <button onClick={this.sub}>-</button>
+          <span>{this.data.count}</span>
+          <button onClick={this.add}>+</button>
+        </div>
+      )
+    }
+  })
 
 render(<my-counter />, 'body')
 ```
