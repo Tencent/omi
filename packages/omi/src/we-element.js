@@ -28,7 +28,7 @@ export default class WeElement extends HTMLElement {
     this.css && shadowRoot.appendChild(cssToDom(this.css()))
     this.beforeRender()
     options.afterInstall && options.afterInstall(this)
-    if (this.constructor.observable) {
+    if (this.constructor.observe) {
       proxyUpdate(this)
     }
     this.host = diff(

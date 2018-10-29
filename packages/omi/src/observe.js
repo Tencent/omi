@@ -1,7 +1,7 @@
 import JSONProxy from './proxy'
 
 export function observe(target) {
-  target.observable = true
+  target.observe = true
 }
 
 export function proxyUpdate(ele) {
