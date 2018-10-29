@@ -1369,7 +1369,7 @@
   		}
 
   		return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = {
-  			count: 10
+  			count: 0
   		}, _this.sub = function () {
   			_this.data.count--;
   		}, _this.add = function () {

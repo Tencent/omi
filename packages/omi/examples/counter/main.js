@@ -6,7 +6,7 @@ import { render, WeElement, tag, observe } from "../../src/omi"
 class MyApp extends WeElement {
 
 	data = {
-		count: 10
+		count: 0
 	}
 
 	sub = () => {
