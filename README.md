@@ -198,6 +198,21 @@ Directory description:
 │  └─ index.js    //Entry js of compiler，will build to index.html
 ```
 
+About compiled website URL：
+
+* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
+* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
+
+Such as in windows:
+
+```json
+"scripts": {
+  "start": "node scripts/start.js",
+  "_build": "node scripts/build.js",
+  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
+}
+```
+
 TypeScript Template(omi-cli v3.0.3+):
 
 ```bash
@@ -208,7 +223,7 @@ $ npm start                         # develop
 $ npm run build                     # release
 ```
 
-CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
+CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)
 
 ### Hello Element
 

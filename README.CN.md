@@ -199,6 +199,22 @@ $ npm run build                  # release
 │  └─ index.js    //入口文件，会 build 成  index.html
 ```
 
+关机编译的前缀 url 的设置：
+
+* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
+* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
+
+比如在 windows 下:
+
+```json
+"scripts": {
+  "start": "node scripts/start.js",
+  "_build": "node scripts/build.js",
+  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
+}
+```
+
+
 使用 TypeScript 模板(omi-cli v3.0.3+):
 
 ```bash
@@ -209,7 +225,7 @@ $ npm start                         # develop
 $ npm run build                     # release
 ```
 
-Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)。
+Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
 
 ### Hello Element
 
