@@ -5,27 +5,27 @@ import { render, WeElement, tag, observe } from "../../src/omi"
 @tag("my-counter")
 class MyApp extends WeElement {
 
-  install() {
-    this.data.count = 0
-  }
+	data = {
+		count: 10
+	}
 
-  sub = () => {
-    this.data.count--
-  }
+	sub = () => {
+		this.data.count--
+	}
 
-  add = () => {
-    this.data.count++
-  }
+	add = () => {
+		this.data.count++
+	}
 
-  render() {
-    return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{this.data.count}</span>
-        <button onClick={this.add}>+</button>
-      </div>
-    )
-  }
+	render() {
+		return (
+			<div>
+				<button onClick={this.sub}>-</button>
+				<span>{this.data.count}</span>
+				<button onClick={this.add}>+</button>
+			</div>
+		)
+	}
 }
 
 render(<my-counter />, "body")
