@@ -175,11 +175,11 @@ render(<my-counter />, "body")
 You will find that the `MyCounter` class name defined above is never used. So you can also use the following way to avoid Eslint hints:
 
 ```js
-import { render, WeElement, define, observe } from 'omi'
+import { render, WeElement, define } from 'omi'
 
-define('my-counter',
-  @observe
-  class extends WeElement {
+define('my-counter', class extends WeElement {
+    static observe = true
+    
     data = {
       count: 1
     }

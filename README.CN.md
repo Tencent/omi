@@ -177,11 +177,11 @@ render(<my-counter />, "body")
 你会发现 `MyCounter` 从未使用过，所以你可以使用下面代码达到同样效果并且避免 Eslint 提示错误:
 
 ```js
-import { render, WeElement, define, observe } from 'omi'
+import { render, WeElement, define } from 'omi'
 
-define('my-counter',
-  @observe
-  class extends WeElement {
+define('my-counter', class extends WeElement {
+    static observe = true
+    
     data = {
       count: 1
     }
