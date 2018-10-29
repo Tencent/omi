@@ -50,6 +50,7 @@
 - [相关链接](#相关链接)
 - [贡献代码](#贡献代码)
 - [感谢](#感谢)
+- [Web Components 资源](#web-components-资源)
 - [License](#license)
 
 ## Omi 生态
@@ -619,6 +620,12 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
+
+## Web Components 资源
+
+[Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
+[Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
+[Web Components Org](https://www.webcomponents.org/introduction)
 
 ## License
 
