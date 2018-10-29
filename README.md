@@ -35,6 +35,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
+- [Add Omi in 30 Seconds](#add-omi-in-30-seconds)
 - [Getting Started](#getting-started)
   - [Install](#install)
   - [Hello Element](#hello-element)
@@ -130,6 +131,46 @@ You can also use `like-button` tag directly in HTML：
   <like-button />
 </body>
 ```
+
+### Add Omi in 30 Seconds
+
+You can also quickly build omi projects using modern JS code:
+
+```js
+import { render, WeElement, tag, observe } from "omi"
+
+
+@observe
+@tag("my-counter")
+class MyApp extends WeElement {
+
+  install() {
+    this.data.count = 0
+  }
+
+  sub = () => {
+    this.data.count--
+  }
+
+  add = () => {
+    this.data.count++
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+}
+
+render(<my-counter />, "body")
+```
+
+[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
 
 ## Getting Started
 
