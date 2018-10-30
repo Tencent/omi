@@ -13,7 +13,7 @@
 - [Omi DevTools Extension](https://github.com/f/omi-devtools) 를 통한 쉬운 디버깅 [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
 - 브라우저 트렌드 및 API 디자인 준수.
 - [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) 와 [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 가 하나의 프레임워크에.
-- omi-mbox를 통한 omi 와 mobx 를 함께 사용 (`this.update()` 호출 필요 없음).
+- omi-mobx를 통한 omi 와 mobx 를 함께 사용 (`this.update()` 호출 필요 없음).
 - Web Components 가 데이터 기반(data-driven)의 뷰가 될수 있음, **`UI = fn(data)`**.
 - JSX 는 최소의 UI 표현식으로 최상의 개발경험을 제공 (코드 인텔리전트 와 팁)  [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals).
 - 독창적인 **Path Updating** 시스템. Proxy 기반 자동 **정확한** 업데이트, **저손실**, 높은 자유도, 뛰어난 성능, `requestIdleCallback` 로 통합하기 쉬움.
@@ -551,7 +551,7 @@ class MyApp extends WeElement {
 }
 ```
 
-만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mbox` 를 사용해주세요.
+만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mobx` 를 사용해주세요.
 
 ### Omi Mobx
 
@@ -640,7 +640,7 @@ Omi 4.0+ 부터 주요 브라우저(Safari 10+, IE 11+, Chrome, Firefox, Edge)�
 
 > 당신은 IE11 환경에서 동적으로 이 프로젝트의 JS를 로드할 수 있습니다. 그리고 Proxy 버전은 여전히 다른 환경을 사용합니다.
 
-> 당신은 store 시스템을 포기하고, omi-mbox 를 사용하여 IE11을 호환할 수 있습니다.
+> 당신은 store 시스템을 포기하고, omi-mobx 를 사용하여 IE11을 호환할 수 있습니다.
 
 ## Contribution
 
