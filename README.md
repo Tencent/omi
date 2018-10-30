@@ -653,6 +653,7 @@ Please contact us for any questions:
 * [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
 * [Web Components Org](https://www.webcomponents.org/introduction)
+* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 
 ## License
 

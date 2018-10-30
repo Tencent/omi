@@ -654,6 +654,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 * [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
 * [Web Components Org](https://www.webcomponents.org/introduction)
+* [Proxy MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 
 ## License
 
