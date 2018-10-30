@@ -140,8 +140,12 @@ define('my-first-element', class extends WeElement {
     )
   }
 })
+```
 
-render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
+Bind event on the element:
+
+```jsx
+<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>
 ```
 
 Trigger custom event by `this.fire` and get the data by  `evt.detail`.
