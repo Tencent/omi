@@ -36,7 +36,7 @@
 |  el-menu|   @zhengbao   |
 |  el-tabs|   @zhengbao   |
 |  ~~el-breadcrumb~~|     @wadellg  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/breadcrumb/index.js)|
-|  el-dropdown|       |
+|  el-dropdown|    shijiezou   |
 |  el-steps|  @daizhan    |
 |  el-dialog|       |
 |  el-tooltip|      |
