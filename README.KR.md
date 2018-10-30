@@ -49,6 +49,8 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 - [Debugging](#debugging)
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
+- [Thanks](#thanks)
+- [Web Components Resource](#web-components-resource)
 - [License](#license)
 
 ## Ecosystem of Omi
@@ -171,6 +173,40 @@ render(<my-counter />, "body")
 
 [→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
 
+아마 당신은 위에 정의된 `MyCounter` 라는 클래스 명을 사용하지 않았다는 것을 알게 될겁니다. 그래서 당신은 Eslint hints를 피하기 위해 아래의 방법을 사용해야 합니다. :
+
+```js
+import { render, WeElement, define } from 'omi'
+
+define('my-counter', class extends WeElement {
+    static observe = true
+    
+    data = {
+      count: 1
+    }
+
+    sub = () => {
+      this.data.count--
+    }
+
+    add = () => {
+      this.data.count++
+    }
+
+    render() {
+      return (
+        <div>
+          <button onClick={this.sub}>-</button>
+          <span>{this.data.count}</span>
+          <button onClick={this.add}>+</button>
+        </div>
+      )
+    }
+  })
+
+render(<my-counter />, 'body')
+```
+
 ## Getting Started
 
 ### Install
@@ -195,6 +231,21 @@ Directory description:
 │  ├─ store       //Store all this store of pages
 │  ├─ admin.js    //Entry js of compiler，will build to admin.html
 │  └─ index.js    //Entry js of compiler，will build to index.html
+```
+
+About compiled website URL：
+
+* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
+* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
+
+Such as in windows:
+
+```json
+"scripts": {
+  "start": "node scripts/start.js",
+  "_build": "node scripts/build.js",
+  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
+}
 ```
 
 TypeScript Template(omi-cli v3.0.3+):
@@ -604,6 +655,17 @@ Please contact us for any questions:
 - [@f](https://github.com/f)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
+
+## Thanks
+
+* [preact](https://github.com/developit/preact)
+* [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
+
+## Web Components Resource
+
+* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
+* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
+* [Web Components Org](https://www.webcomponents.org/introduction)
 
 ## License
 
