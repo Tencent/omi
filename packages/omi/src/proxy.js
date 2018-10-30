@@ -11,9 +11,9 @@ const JSONPatcherProxy = (function() {
 	 */
   function deepClone(obj) {
     switch (typeof obj) {
-    case "object":
+    case 'object':
       return JSON.parse(JSON.stringify(obj)) //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
-    case "undefined":
+    case 'undefined':
       return null //this is how JSON.stringify behaves for array items
     default:
       return obj //no need to clone primitives
@@ -22,8 +22,8 @@ const JSONPatcherProxy = (function() {
   JSONPatcherProxy.deepClone = deepClone
 
   function escapePathComponent(str) {
-    if (str.indexOf("/") == -1 && str.indexOf("~") == -1) return str
-    return str.replace(/~/g, "~0").replace(/\//g, "~1")
+    if (str.indexOf('/') == -1 && str.indexOf('~') == -1) return str
+    return str.replace(/~/g, '~0').replace(/\//g, '~1')
   }
   JSONPatcherProxy.escapePathComponent = escapePathComponent
 
@@ -41,10 +41,10 @@ const JSONPatcherProxy = (function() {
       parentAndPath = instance.parenthoodMap.get(parentAndPath.parent)
     }
     if (pathComponents.length) {
-      const path = pathComponents.join("/")
-      return "/" + path
+      const path = pathComponents.join('/')
+      return '/' + path
     }
-    return ""
+    return ''
   }
   /**
 	 * A callback to be used as th proxy set trap callback.
@@ -57,7 +57,7 @@ const JSONPatcherProxy = (function() {
   function setTrap(instance, target, key, newValue) {
     const parentPath = findObjectPath(instance, target)
 
-    const destinationPropKey = parentPath + "/" + escapePathComponent(key)
+    const destinationPropKey = parentPath + '/' + escapePathComponent(key)
 
     if (instance.proxifiedObjectsMap.has(newValue)) {
       const newValueOriginalObject = instance.proxifiedObjectsMap.get(newValue)
@@ -96,7 +96,7 @@ const JSONPatcherProxy = (function() {
     // if the new value is an object, make sure to watch it
     if (
       newValue &&
-			typeof newValue == "object" &&
+			typeof newValue == 'object' &&
 			!instance.proxifiedObjectsMap.has(newValue)
     ) {
       instance.parenthoodMap.set(newValue, {
@@ -107,10 +107,10 @@ const JSONPatcherProxy = (function() {
     }
     // let's start with this operation, and may or may not update it later
     const operation = {
-      op: "remove",
+      op: 'remove',
       path: destinationPropKey
     }
-    if (typeof newValue == "undefined") {
+    if (typeof newValue == 'undefined') {
       // applying De Morgan's laws would be a tad faster, but less readable
       if (!Array.isArray(target) && !target.hasOwnProperty(key)) {
         // `undefined` is being set to an already undefined value, keep silent
@@ -119,7 +119,7 @@ const JSONPatcherProxy = (function() {
       // when array element is set to `undefined`, should generate replace to `null`
       if (Array.isArray(target)) {
         // undefined array elements are JSON.stringified to `null`
-        (operation.op = "replace"), (operation.value = null)
+        ;(operation.op = 'replace'), (operation.value = null)
       }
       const oldValue = instance.proxifiedObjectsMap.get(target[key])
       // was the deleted a proxified object?
@@ -131,17 +131,17 @@ const JSONPatcherProxy = (function() {
     } else {
       if (Array.isArray(target) && !Number.isInteger(+key.toString())) {
         /* array props (as opposed to indices) don't emit any patches, to avoid needless `length` patches */
-        if (key != "length") {
+        if (key != 'length') {
           console.warn(
-            "JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch"
+            'JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch'
           )
         }
         return Reflect.set(target, key, newValue)
       }
-      operation.op = "add"
+      operation.op = 'add'
       if (target.hasOwnProperty(key)) {
-        if (typeof target[key] !== "undefined" || Array.isArray(target)) {
-          operation.op = "replace" // setting `undefined` array elements is a `replace` op
+        if (typeof target[key] !== 'undefined' || Array.isArray(target)) {
+          operation.op = 'replace' // setting `undefined` array elements is a `replace` op
         }
       }
       operation.value = newValue
@@ -158,9 +158,9 @@ const JSONPatcherProxy = (function() {
 	 * @param {String} key the effected property's name
 	 */
   function deleteTrap(instance, target, key) {
-    if (typeof target[key] !== "undefined") {
+    if (typeof target[key] !== 'undefined') {
       const parentPath = findObjectPath(instance, target)
-      const destinationPropKey = parentPath + "/" + escapePathComponent(key)
+      const destinationPropKey = parentPath + '/' + escapePathComponent(key)
 
       const revokableProxyInstance = instance.proxifiedObjectsMap.get(
         target[key]
@@ -186,7 +186,7 @@ const JSONPatcherProxy = (function() {
       const reflectionResult = Reflect.deleteProperty(target, key)
 
       instance.defaultCallback({
-        op: "remove",
+        op: 'remove',
         path: destinationPropKey
       })
 
@@ -218,7 +218,7 @@ const JSONPatcherProxy = (function() {
     this.proxifiedObjectsMap = new Map()
     this.parenthoodMap = new Map()
     // default to true
-    if (typeof showDetachedWarning !== "boolean") {
+    if (typeof showDetachedWarning !== 'boolean') {
       showDetachedWarning = true
     }
 
@@ -294,7 +294,7 @@ const JSONPatcherProxy = (function() {
     const proxifiedObject = this._proxifyObjectTreeRecursively(
       undefined,
       root,
-      ""
+      ''
     )
     /* OK you can record now */
     this.isProxifyingTreeNow = false
@@ -347,7 +347,7 @@ const JSONPatcherProxy = (function() {
 	 */
   JSONPatcherProxy.prototype.observe = function(record, callback) {
     if (!record && !callback) {
-      throw new Error("You need to either record changes or pass a callback")
+      throw new Error('You need to either record changes or pass a callback')
     }
     this.isRecording = record
     this.userCallback = callback
@@ -366,7 +366,7 @@ const JSONPatcherProxy = (function() {
 	 */
   JSONPatcherProxy.prototype.generate = function() {
     if (!this.isRecording) {
-      throw new Error("You should set record to true to get patches later")
+      throw new Error('You should set record to true to get patches later')
     }
     return this.patches.splice(0, this.patches.length)
   }

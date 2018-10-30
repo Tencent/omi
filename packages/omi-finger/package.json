@@ -1,0 +1,38 @@
+{
+  "name": "omi-finger",
+  "version": "2.0.0",
+  "description": "Support touch and gesture events in your Omi project.",
+  "main": "index.js",
+  "scripts": {
+    "simple": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "keywords": [
+    "gesture",
+    "omi",
+    "alloyfinger",
+    "touch"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-omi": "^0.1.1",
+    "esprima-fb": "^15001.1001.0-dev-harmony-fb",
+    "webpack": "^3.4.1"
+  },
+  "dependencies": {
+    "omi": "latest"
+  },
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi"
+}

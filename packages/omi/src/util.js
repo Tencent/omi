@@ -14,7 +14,7 @@
  * this.constructor so that the native HTMLElement constructor can access the
  * current under-construction element's definition.
  */
-(function() {
+;(function() {
   if (
   // No Reflect, no classes, no need for shim because native custom elements
   // require ES2015 classes or Reflect.
@@ -22,7 +22,7 @@
 		window.customElements === undefined ||
 		// The webcomponentsjs custom elements polyfill doesn't require
 		// ES2015-compatible construction (`super()` or `Reflect.construct`).
-		window.customElements.hasOwnProperty("polyfillWrapFlushCallback")
+		window.customElements.hasOwnProperty('polyfillWrapFlushCallback')
   ) {
     return
   }
@@ -36,7 +36,7 @@
 })()
 
 export function cssToDom(css) {
-  const node = document.createElement("style")
+  const node = document.createElement('style')
   node.textContent = css
   return node
 }
@@ -58,7 +58,7 @@ export function extend(obj, props) {
  */
 export function applyRef(ref, value) {
   if (ref != null) {
-    if (typeof ref == "function") ref(value)
+    if (typeof ref == 'function') ref(value)
     else ref.current = value
   }
 }
@@ -70,12 +70,12 @@ export function applyRef(ref, value) {
  * @type {(callback: function) => void}
  */
 export const defer =
-	typeof Promise == "function"
+	typeof Promise == 'function'
 	  ? Promise.resolve().then.bind(Promise.resolve())
 	  : setTimeout
 
 export function isArray(obj) {
-  return Object.prototype.toString.call(obj) === "[object Array]"
+  return Object.prototype.toString.call(obj) === '[object Array]'
 }
 
 export function nProps(props) {

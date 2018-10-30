@@ -12,6 +12,7 @@ var error = logger.error;
 var success = logger.success;
 var isCnFun = require("./utils").isCnFuc;
 var emptyFs = require("./utils").emptyFs;
+var isSafeToCreateProjectIn = require("./utils").isSafeToCreateProjectIn;
 
 function initPr(args) {
 	var omiCli = chalk.bold.cyan("Omi-Cli");
@@ -30,32 +31,13 @@ function initPr(args) {
 				? " will execute init-pr command... "
 				: " 即将执行 init-pr 命令...")
 	);
-
 	if (existsSync(dest) && !emptyDir.sync(dest)) {
-		console.log();
-		process.stdout.write(
-			!isCn
-				? "This directory isn't empty, empty it? [Y/N] "
-				: "此文件夹不为空，是否需要清空？ [Y/N]: "
-		);
-		process.stdin.resume();
-		process.stdin.setEncoding("utf-8");
-		process.stdin.on("data", chunk => {
-			chunk = chunk.replace(/\s\n|\r\n/g, "");
-			if (chunk !== "y" && chunk !== "Y") {
-				process.exit(0);
-			} else {
-				console.log(
-					chalk.bold.cyan("Omi-Cli") +
-						(!isCn ? " is emptying this directory..." : " 正在清空此文件夹...")
-				);
-				emptyFs(dest);
-				createPr();
-			}
-		});
-	} else {
-		createPr();
+		if (!isSafeToCreateProjectIn(dest, projectName)) {
+			process.exit(1);
+		}
 	}
+		
+	createPr();
 
 	function createPr() {
 		console.log();
@@ -68,7 +50,7 @@ function initPr(args) {
 		);
 
 		vfs
-			.src(["**/*", "!mode_modules/**/*"], {
+			.src(["**/*", "!node_modules/**/*"], {
 				cwd: tpl,
 				cwdbase: true,
 				dot: true

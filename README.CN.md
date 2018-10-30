@@ -1,4 +1,4 @@
-[English](./README.md) | 简体中文
+[English](./README.md) | 简体中文 | [한국어](./README.KR.md)
 
 <p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一</h2>
@@ -13,7 +13,7 @@
 - 利用[Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)轻松调试，[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)
 - 符合浏览器的发展趋势以及API设计理念
 - [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) + [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 相互融合为一个框架 Omi
-- 通过 omi-mobx 让 omi 和 mobx 一起良好地制作响应式视图(免去 `this.update`)
+- 内置 observe 制作响应式视图(免去 `this.update`)
 - Web Components 也可以数据驱动视图, `UI = fn(data)`
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
 - 独创的 `Path Updating` 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback`
@@ -33,27 +33,52 @@
 
 ---
 
+- [Omi 生态](#omi-生态)
 - [一个 HTML 完全上手](#一个-html-完全上手)
+- [再花 30 秒完全上手](#再花-30-秒完全上手)
 - [快速入门](#快速入门)
   - [安装](#安装)
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
+  - [Observe](#observe)
+    - [Omi Observe](#omi-observe)
+    - [Omi Mobx](#omi-mobx)
   - [生命周期](#生命周期)
-- [生态](#生态)
 - [调试工具](#调试工具)
-- [Omi Mobx](#omi-mobx)
 - [浏览器兼容](#浏览器兼容)
 - [相关链接](#相关链接)
 - [贡献代码](#贡献代码)
+- [感谢](#感谢)
+- [Web Components 资源](#web-components-资源)
 - [License](#license)
+
+## Omi 生态
+
+| **项目**                         | **描述**                           |
+| ------------------------------- | ----------------------------------- |
+| [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
+| [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
+| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，支持 Javascript 和 Typescript |
+|[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
+| [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi项目中变得超级简单.|
+| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
+| [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
+| [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
+| [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx 适配器|
+|[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi 版本的 element-ui|
+|[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
+
+你也可以在 `webcomponents.org` 里面查找你想要的组件，直接使用，或者花几分钟就能转换成 Omi Element（把模板拷贝到 render 方法，style拷贝到 css 方法）。
+
+* [https://www.webcomponents.org/](https://www.webcomponents.org/)
+* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
 ## 一个 HTML 完全上手
 
 下面这个页面不需要任何构建工具就可以执行
 
 * [点击这里看执行结果](https://tencent.github.io/omi/assets/)
-* [Omi 文档](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)
 * [Omi.js CDN](https://unpkg.com/omi)
 
 ```html
@@ -70,30 +95,29 @@
   <script>
     const { WeElement, h, render, define } = Omi
 
-    class LikeButton extends WeElement {
-      install() {
-        this.data = { liked: false }
-      }
-
-      render() {
-        if (this.data.liked) {
-          return 'You liked this.'
+    define('like-button',
+      class extends WeElement {
+        install() {
+          this.data = { liked: false }
         }
 
-        return h(
-          'button',
-          {
-            onClick: () => {
-              this.data.liked = true
-              this.update()
-            }
-          },
-          'Like'
-        )
-      }
-    }
+        render() {
+          if (this.data.liked) {
+            return 'You liked this.'
+          }
 
-    define('like-button', LikeButton)
+          return h(
+            'button',
+            {
+              onClick: () => {
+                this.data.liked = true
+                this.update()
+              }
+            },
+            'Like'
+          )
+        }
+      })
 
     render(h('like-button'), 'body')
   </script>
@@ -108,6 +132,80 @@
 <body>
     <like-button></like-button>
 </body>
+```
+
+## 再花 30 秒完全上手
+
+你也可以使用现代化的 JS 语法，快速构建 Omi 项目:
+
+```js
+import { render, WeElement, tag, observe } from "omi"
+
+@observe
+@tag("my-counter")
+class MyApp extends WeElement {
+
+  data = {
+    count: 0
+  }
+
+  sub = () => {
+    this.data.count--
+  }
+
+  add = () => {
+    this.data.count++
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+}
+
+render(<my-counter />, "body")
+```
+
+[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
+
+
+你会发现 `MyCounter` 从未使用过，所以你可以使用下面代码达到同样效果并且避免 Eslint 提示错误:
+
+```js
+import { render, WeElement, define } from 'omi'
+
+define('my-counter', class extends WeElement {
+    static observe = true
+    
+    data = {
+      count: 1
+    }
+
+    sub = () => {
+      this.data.count--
+    }
+
+    add = () => {
+      this.data.count++
+    }
+
+    render() {
+      return (
+        <div>
+          <button onClick={this.sub}>-</button>
+          <span>{this.data.count}</span>
+          <button onClick={this.add}>+</button>
+        </div>
+      )
+    }
+  })
+
+render(<my-counter />, 'body')
 ```
 
 ## 快速入门
@@ -136,6 +234,22 @@ $ npm run build                  # release
 │  └─ index.js    //入口文件，会 build 成  index.html
 ```
 
+关于编译网站的 url 前缀的设置，可以参考两个地址：
+
+* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
+* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
+
+比如在 windows 下:
+
+```json
+"scripts": {
+  "start": "node scripts/start.js",
+  "_build": "node scripts/build.js",
+  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
+}
+```
+
+
 使用 TypeScript 模板(omi-cli v3.0.3+):
 
 ```bash
@@ -146,80 +260,80 @@ $ npm start                         # develop
 $ npm run build                     # release
 ```
 
-Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)。
+Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
 
 ### Hello Element
 
 先创建一个自定义元素:
 
 ```js
-import { tag, WeElement, render } from 'omi'
+import { define, WeElement } from 'omi'
 
-@tag('hello-element')
-class HelloElement extends WeElement {
+define('hello-element', class extends WeElement {
+  onClick = evt => {
+    // trigger CustomEvent
+    this.fire('abc', { name: 'dntzhang', age: 12 })
+    evt.stopPropagation()
+  }
 
-    onClick = (evt) => {
-        //trigger CustomEvent
-        this.fire('abc', { name : 'dntzhang', age: 12 })
-        evt.stopPropagation()
-    }
+  css() {
+    return `
+        div {
+          color: red;
+          cursor: pointer;
+        }`
+  }
 
-    css() {
-        return `
-         div{
-             color: red;
-             cursor: pointer;
-         }`
-    }
-
-    render(props) {
-        return (
-            <div onClick={this.onClick}>
-                Hello {props.msg} {props.propFromParent}
-                <div>Click Me!</div>
-            </div>
-        )
-    }
-}
+  render(props) {
+    return (
+      <div onClick={this.onClick}>
+        Hello {props.msg} {props.propFromParent}
+        <div>Click Me!</div>
+      </div>
+    )
+  }
+})
 ```
 
 使用该元素:
 
-``` js
-import { tag, WeElement, render } from 'omi'
+```js
+import { define, render, WeElement } from 'omi'
 import './hello-element'
 
-@tag('my-app')
-class MyApp extends WeElement {
-    static get data() {
-        return { abc: '', passToChild: '' }
-    }
+define('my-app', class extends WeElement {
+  data = { abc: 'abc', passToChild: 123 }
 
-    //bind CustomEvent
-    onAbc = (evt) => {
-        // get evt data by evt.detail
-        this.data.abc = ' by ' + evt.detail.name
-        this.update()
-    }
+  // define CustomEvent Handler
+  onAbc = evt => {
+    // get evt data by evt.detail
+    this.data.abc = ' by ' + evt.detail.name
+    this.data.passToChild = 1234
+    this.update()
+  }
 
-    css() {
-        return `
+  css() {
+    return `
          div{
              color: green;
          }`
-    }
+  }
 
-    render(props, data) {
-        return (
-            <div>
-                Hello {props.name} {data.abc}
-                <hello-element onAbc={this.onAbc} prop-from-parent={data.passToChild} msg="WeElement"></hello-element>
-            </div>
-        )
-    }
-}
+  render(props, data) {
+    return (
+      <div>
+        Hello {props.name} {data.abc}
+        <hello-element
+          onAbc={this.onAbc}
+          prop-from-parent={data.passToChild}
+          msg="WeElement"
+        />
+      </div>
+    )
+  }
+})
 
-render(<my-app name='Omi v4.0'></my-app>, 'body')
+render(<my-app name="Omi v4.0" />, 'body')
 ```
 
 告诉 Babel 把 JSX 转化成 Omi.h() 的调用:
@@ -235,6 +349,27 @@ render(<my-app name='Omi v4.0'></my-app>, 'body')
 ``` bash
 "babel-preset-env": "^1.6.0",
 "babel-preset-omi": "^0.1.1",
+```
+
+如果你使用 babel7，也可以使用如下包和配置：
+
+```bash
+npm install --save-dev @babel/preset-env
+npm install --save-dev @babel/preset-react
+```
+
+```js
+{
+  "presets": [
+    "@babel/preset-env",
+    [
+      "@babel/preset-react",
+      {
+        "pragma": "Omi.h", 
+      }
+    ]
+  ]
+}
 ```
 
 如果不想把 css 写在 js 里，你可以使用 webpack [to-string-loader](https://www.npmjs.com/package/to-string-loader), 比如下面配置:
@@ -267,70 +402,69 @@ class MyApp extends WeElement {
   ...
 ```
 
+你也可以忘掉这一对繁琐的配置直接使用 omi-cli，不需要你配置任何东西。
+
 ### TodoApp
 
 下面列举一个相对完整的 TodoApp 的例子:
 
 ```js
-import { tag, WeElement, render } from 'omi'
+import { render, WeElement, define } from 'omi'
 
-@tag('todo-list')
-class TodoList extends WeElement {
-    render(props) {
-        return (
-            <ul>
-                {props.items.map(item => (
-                    <li key={item.id}>{item.text}</li>
-                ))}
-            </ul>
-        );
+define('todo-list', class extends WeElement {
+  render(props) {
+    return (
+      <ul>
+        {props.items.map(item => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
+    )
+  }
+})
+
+define('todo-app', class extends WeElement {
+  static observe = true
+
+  static get data() {
+    return { items: [], text: '' }
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>TODO</h3>
+        <todo-list items={this.data.items} />
+        <form onSubmit={this.handleSubmit}>
+          <input
+            id="new-todo"
+            onChange={this.handleChange}
+            value={this.data.text}
+          />
+          <button>Add #{this.data.items.length + 1}</button>
+        </form>
+      </div>
+    )
+  }
+
+  handleChange = e => {
+    this.data.text = e.target.value
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    if (!this.data.text.trim().length) {
+      return
     }
-}
+    this.data.items.push({
+      text: this.data.text,
+      id: Date.now()
+    })
+    this.data.text = ''
+  }
+})
 
-@tag('todo-app')
-class TodoApp extends WeElement {
-    static get data() {
-        return { items: [], text: '' }
-    }
-
-    render() {
-        return (
-            <div>
-                <h3>TODO</h3>
-                <todo-list items={this.data.items} />
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        id="new-todo"
-                        onChange={this.handleChange}
-                        value={this.data.text}
-                    />
-                    <button>
-                        Add #{this.data.items.length + 1}
-                    </button>
-                </form>
-            </div>
-        );
-    }
-
-    handleChange = (e) => {
-        this.data.text = e.target.value
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        if (!this.data.text.trim().length) {
-            return;
-        }
-        this.data.items.push({
-            text: this.data.text,
-            id: Date.now()
-        })
-        this.data.text = '';
-  this.update()
-    }
-}
-
-render(<todo-app></todo-app>, 'body')
+render(<todo-app />, 'body')
 ```
 
 ### Store
@@ -369,7 +503,7 @@ export default {
 自定义 Element 需要声明依赖的 data，这样 Omi store 根据自定义组件上声明的 data 计算依赖 path 并会按需局部更新。如:
 
 ```js
-class TodoApp extends WeElement {
+define('todo-app', class extends WeElement {
     static get data() {
         //如果你用了 store，这个只是用来声明依赖，按需 Path Updating
         return { items: [], text: '' }
@@ -385,7 +519,7 @@ class TodoApp extends WeElement {
         e.preventDefault()
         this.store.add()
     }
-}
+})
 ```
 
 * 数据的逻辑都封装在了 store 定义的方法里 (如 store.add)
@@ -406,6 +540,63 @@ render(<todo-app></todo-app>, 'body', store)
 * 如果页面简单组件很少，可以 updateAll 设置成 true，并且组件和页面不需要声明 data，也就不会按需更新
 * globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path
 
+## Observe
+
+### Omi Observe
+
+你可以为那些不需要 store 的自定义元素使用 observe 创建响应式视图，比如:
+
+```js
+import { define, WeElement } from "omi"
+
+define("my-app", class extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+})
+```
+
+如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 obersve，往下看..
+
+### Omi Mobx
+
+```js
+import { tag, WeElement } from "omi"
+import { observe } from "omi-mobx"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
+
 ### 生命周期
 
 | Lifecycle method | When it gets called                          |
@@ -417,27 +608,6 @@ render(<todo-app></todo-app>, 'body', store)
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
 
-## 生态
-
-- [omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)
-- [omijs.org](http://omijs.org/)
-- [Omi.js DevTools](https://github.com/f/omi-devtools)
-- [omi-i18n](https://github.com/i18next/omi-i18n)
-- [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)
-- [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) 
-- [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)
-- [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)
-- [https://www.webcomponents.org/](https://www.webcomponents.org/)
-- [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
-- [westore](https://github.com/dntzhang/westore)
-
-你也可以在 `webcomponents.org` 里面查找你想要的组件，直接使用，或者花几分钟就能转换成 Omi Element（把模板拷贝到 render 方法，style拷贝到 css 方法）。
-
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
-
-
-
 ## 调试工具
 
 使用 [Omi 开发工具](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd) 可以非常简单地调试和管理你的 UI。不需要任何配置，你只要安装然后就能调试。
@@ -445,36 +615,6 @@ render(<todo-app></todo-app>, 'body', store)
 既然  Omi 使用了 Web Components 和 Shadow-DOM, 所以不需要像 React 和 Vue 一样安装其他元素面板，只需要使用 Chrome 自带的 **Elements' sidebar** 便可，它和 React and Vue 开发者工具一样强大。
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
-
-## Omi Mobx
-
-你也可以放弃 store 体系，使用 omi-mobx 来制作响应式视图：
-
-```js
-import { tag, WeElement } from 'omi'
-import { observe } from 'omi-mobx'
-
-@observe
-@tag('my-app')
-class MyApp extends WeElement {
-
-  install() {
-    this.data.name = 'omi'
-  }
-
-  onClick = () => {
-    this.data.name = 'Omi V4.0'
-  }
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1 >Welcome to {data.name}</h1>
-      </div>
-    )
-  }
-}
-```
 
 ## 浏览器兼容
 
@@ -503,6 +643,17 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 - [@f](https://github.com/f)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
+
+## 感谢
+
+* [preact](https://github.com/developit/preact)
+* [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
+
+## Web Components 资源
+
+* [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
+* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
+* [Web Components Org](https://www.webcomponents.org/introduction)
 
 ## License
 

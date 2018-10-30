@@ -1,6 +1,6 @@
 {
   "name": "omi-tap",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Support tap event in your Omi project.",
   "main": "index.js",
   "scripts": {

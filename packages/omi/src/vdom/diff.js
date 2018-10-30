@@ -1,8 +1,8 @@
-import { ATTR_KEY } from "../constants"
-import { isSameNodeType, isNamedNode } from "./index"
-import { createNode, setAccessor } from "../dom/index"
-import { npn, isArray } from "../util"
-import { removeNode } from "../dom/index"
+import { ATTR_KEY } from '../constants'
+import { isSameNodeType, isNamedNode } from './index'
+import { createNode, setAccessor } from '../dom/index'
+import { npn, isArray } from '../util'
+import { removeNode } from '../dom/index'
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
@@ -34,36 +34,31 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
   }
   if (isArray(vnode)) {
     ret = []
-    let parentNode = null	
+    let parentNode = null
     if (isArray(dom)) {
       parentNode = dom[0].parentNode
-      dom.forEach(function (item, index) {
-        ret.push(
-          idiff(item, vnode[index], context, mountAll, componentRoot)
-        )
+      dom.forEach(function(item, index) {
+        ret.push(idiff(item, vnode[index], context, mountAll, componentRoot))
       })
     } else {
-      vnode.forEach(function (item) {
-        ret.push(
-          idiff(dom, item, context, mountAll, componentRoot)
-        )
+      vnode.forEach(function(item) {
+        ret.push(idiff(dom, item, context, mountAll, componentRoot))
       })
-    }; 
+    }
     if (parent) {
-      ret.forEach(function (vnode) {
+      ret.forEach(function(vnode) {
         parent.appendChild(vnode)
       })
     } else if (isArray(dom)) {
-      dom.forEach(function (node) {
+      dom.forEach(function(node) {
         parentNode.appendChild(node)
       })
     }
   } else {
     ret = idiff(dom, vnode, context, mountAll, componentRoot)
     // append the element if its a new parent
-    if (parent && ret.parentNode !== parent) parent.appendChild(ret)	
+    if (parent && ret.parentNode !== parent) parent.appendChild(ret)
   }
-	
 
   // diffLevel being reduced to 0 means we're exiting the diff
   if (!--diffLevel) {
@@ -76,14 +71,17 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, context, mountAll, componentRoot) {
+  if (dom && dom.props) {
+    dom.props.children = vnode.children
+  }
   let out = dom,
     prevSvgMode = isSvgMode
 
   // empty values (null, undefined, booleans) render as empty Text nodes
-  if (vnode == null || typeof vnode === "boolean") vnode = ""
+  if (vnode == null || typeof vnode === 'boolean') vnode = ''
 
   // Fast case: Strings & Numbers create/update Text nodes.
-  if (typeof vnode === "string" || typeof vnode === "number") {
+  if (typeof vnode === 'string' || typeof vnode === 'number') {
     // update if it's already a Text node:
     if (
       dom &&
@@ -114,9 +112,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // Tracks entering and exiting SVG namespace when descending through the tree.
   isSvgMode =
-		vnodeName === "svg"
+		vnodeName === 'svg'
 		  ? true
-		  : vnodeName === "foreignObject"
+		  : vnodeName === 'foreignObject'
 		    ? false
 		    : isSvgMode
 
@@ -152,7 +150,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     !hydrating &&
 		vchildren &&
 		vchildren.length === 1 &&
-		typeof vchildren[0] === "string" &&
+		typeof vchildren[0] === 'string' &&
 		fc != null &&
 		fc.splitText !== undefined &&
 		fc.nextSibling == null
@@ -174,9 +172,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // Apply attributes/props from VNode to the DOM Element:
   diffAttributes(out, vnode.attributes, props)
-
-  out.props && (out.props.children = vnode.children)
-
+  if (out.props) {
+    out.props.children = vnode.children
+  }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode
 
@@ -344,15 +342,15 @@ function diffAttributes(dom, attrs, old) {
   for (name in attrs) {
     //diable when using store system?
     //!dom.store &&
-    if (isWeElement && typeof attrs[name] === "object") {
+    if (isWeElement && typeof attrs[name] === 'object') {
       dom.props[npn(name)] = attrs[name]
       update = true
     } else if (
-      name !== "children" &&
-			name !== "innerHTML" &&
+      name !== 'children' &&
+			name !== 'innerHTML' &&
 			(!(name in old) ||
 				attrs[name] !==
-					(name === "value" || name === "checked" ? dom[name] : old[name]))
+					(name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
       if (isWeElement) {

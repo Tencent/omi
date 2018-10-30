@@ -1,7 +1,9 @@
 module.exports = {
 	parser: "babel-eslint",
-	extends: "eslint:recommended",
-	plugins: ["react"],
+	// extends: "eslint:recommended",
+	// plugins: ["react"],
+	"extends": ["prettier"],
+    "plugins": ["prettier"],
 	env: {
 		browser: true,
 		mocha: true,
@@ -19,6 +21,7 @@ module.exports = {
 		expect: true
 	},
 	rules: {
+		"prettier/prettier": "error",
 		"react/jsx-uses-react": 2,
 		"react/jsx-uses-vars": 2,
 		"no-unused-vars": [1, { varsIgnorePattern: "^h$" }],
@@ -59,6 +62,7 @@ module.exports = {
 		"no-useless-concat": 2,
 		"no-var": 2,
 		"object-shorthand": 2,
-		"prefer-arrow-callback": 2
+		"prefer-arrow-callback": 2,
+		"quotes": [1, "single"]
 	}
 };

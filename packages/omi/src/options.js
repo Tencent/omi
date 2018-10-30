@@ -1,6 +1,6 @@
 function getGlobal() {
   if (
-    typeof global !== "object" ||
+    typeof global !== 'object' ||
 		!global ||
 		global.Math !== Math ||
 		global.Array !== Array

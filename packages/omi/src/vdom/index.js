@@ -1,4 +1,4 @@
-import { extend } from "../util"
+import { extend } from '../util'
 
 /**
  * Check if two nodes are equivalent.
@@ -9,10 +9,10 @@ import { extend } from "../util"
  * @private
  */
 export function isSameNodeType(node, vnode, hydrating) {
-  if (typeof vnode === "string" || typeof vnode === "number") {
+  if (typeof vnode === 'string' || typeof vnode === 'number') {
     return node.splitText !== undefined
   }
-  if (typeof vnode.nodeName === "string") {
+  if (typeof vnode.nodeName === 'string') {
     return !node._componentConstructor && isNamedNode(node, vnode.nodeName)
   }
   return hydrating || node._componentConstructor === vnode.nodeName

@@ -1,10 +1,10 @@
-import { WeElement, define } from 'omi'
+import { WeElement, define, getHost } from 'omi'
 import Transform from 'css3transform'
 
 class CSS3Transform extends WeElement {
 
 	install() {
-		this.css = this.parentNode.host.css
+		this.css = getHost(this).css
 	}
 
 	installed() {

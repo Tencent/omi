@@ -13,6 +13,7 @@ var error = require("./logger").error;
 var success = require("./logger").success;
 var isCnFun = require("./utils").isCnFuc;
 var emptyFs = require("./utils").emptyFs;
+var isSafeToCreateProjectIn = require("./utils").isSafeToCreateProjectIn;
 
 function init(args) {
 	var omiCli = chalk.bold.cyan("Omi-Cli");
@@ -29,32 +30,13 @@ function init(args) {
 		omiCli +
 			(!isCn ? " will execute init command... " : " 即将执行 init 命令...")
 	);
-
 	if (existsSync(dest) && !emptyDir.sync(dest)) {
-		console.log();
-		process.stdout.write(
-			!isCn
-				? "This directory isn't empty, empty it? [Y/N] "
-				: "此文件夹不为空，是否需要清空？ [Y/N]: "
-		);
-		process.stdin.resume();
-		process.stdin.setEncoding("utf-8");
-		process.stdin.on("data", chunk => {
-			chunk = chunk.replace(/\s\n|\r\n/g, "");
-			if (chunk !== "y" && chunk !== "Y") {
-				process.exit(0);
-			} else {
-				console.log(
-					chalk.bold.cyan("Omi-Cli") +
-						(!isCn ? " is emptying this directory..." : " 正在清空此文件夹...")
-				);
-				emptyFs(dest);
-				createApp();
-			}
-		});
-	} else {
-		createApp();
+		if (!isSafeToCreateProjectIn(dest, projectName)) {
+			process.exit(1);
+		}
 	}
+		
+	createApp();
 
 	function createApp() {
 		console.log();
@@ -67,7 +49,7 @@ function init(args) {
 		);
 
 		vfs
-			.src(["**/*", "!mode_modules/**/*"], {
+			.src(["**/*", "!node_modules/**/*"], {
 				cwd: tpl,
 				cwdbase: true,
 				dot: true
@@ -80,6 +62,11 @@ function init(args) {
 					renameSync(join(dest, "gitignore"), join(dest, ".gitignore"));
 					if (customPrjName) {
 						try {
+							var appPackage = require(join(dest,"package.json"));
+							appPackage.name = customPrjName;
+							fs.writeFile(join(dest,"package.json"), JSON.stringify(appPackage, null, 2), (err) => {
+								if (err) return console.log(err);
+							})
 							process.chdir(customPrjName);
 						} catch (err) {
 							console.log(error(err));
