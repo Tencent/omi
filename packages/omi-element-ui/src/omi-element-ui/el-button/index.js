@@ -1,12 +1,13 @@
-import { tag, WeElement } from 'omi'
+import { define, WeElement } from 'omi'
 import '../style/global/index.css'
+import icon from '../style/global/_icon.scss'
 import style from '../style/_button.scss'
 
-@tag('el-button', true)
-class ElButton extends WeElement {
+define('el-button', class extends WeElement {
+    static pure = true
 
     css() {
-        return style
+        return icon + style
     }
 
     render(props, data) {
@@ -74,4 +75,4 @@ class ElButton extends WeElement {
             }
         }
     }
-}
+})
