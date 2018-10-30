@@ -503,7 +503,7 @@ export default {
 自定义 Element 需要声明依赖的 data，这样 Omi store 根据自定义组件上声明的 data 计算依赖 path 并会按需局部更新。如:
 
 ```js
-class TodoApp extends WeElement {
+define('todo-app', class extends WeElement {
     static get data() {
         //如果你用了 store，这个只是用来声明依赖，按需 Path Updating
         return { items: [], text: '' }
@@ -519,7 +519,7 @@ class TodoApp extends WeElement {
         e.preventDefault()
         this.store.add()
     }
-}
+})
 ```
 
 * 数据的逻辑都封装在了 store 定义的方法里 (如 store.add)
@@ -547,11 +547,9 @@ render(<todo-app></todo-app>, 'body', store)
 你可以为那些不需要 store 的自定义元素使用 observe 创建响应式视图，比如:
 
 ```js
-import { tag, WeElement, observe } from "omi"
+import { define, WeElement } from "omi"
 
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
+define("my-app", class extends WeElement {
   install() {
     this.data.name = "omi"
   }
@@ -567,7 +565,7 @@ class MyApp extends WeElement {
       </div>
     )
   }
-}
+})
 ```
 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 obersve，往下看..

@@ -502,7 +502,7 @@ export default {
 Custom Element requires declaring dependent data so that Omi stores compute the dependency path based on the data declared on the custom component and update it locally as needed. Such as:
 
 ```js
-class TodoApp extends WeElement {
+define('todo-app', class extends WeElement {
   // If you use store, the data is only used to declare dependencies.
   static get data() {
     return { items: [], text: "" };
@@ -516,7 +516,7 @@ class TodoApp extends WeElement {
     e.preventDefault();
     this.store.add();
   };
-}
+})
 ```
 
 - The logic of data is **encapsulated in the store definition method** (such as `store.add`).
@@ -544,11 +544,11 @@ render(<todo-app />, "body", store);
 You can also use observe to create response views for element who no need `store`, such as:
 
 ```js
-import { tag, WeElement, observe } from "omi"
+import { define, WeElement } from "omi"
 
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
+define("my-app", class extends WeElement {
+  static observe = true
+
   install() {
     this.data.name = "omi"
   }
@@ -564,7 +564,7 @@ class MyApp extends WeElement {
       </div>
     )
   }
-}
+})
 ```
 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own obersve.
