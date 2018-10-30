@@ -267,73 +267,73 @@ Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成�
 先创建一个自定义元素:
 
 ```js
-import { tag, WeElement, render } from 'omi'
+import { define, WeElement } from 'omi'
 
-@tag('hello-element')
-class HelloElement extends WeElement {
+define('hello-element', class extends WeElement {
+  onClick = evt => {
+    // trigger CustomEvent
+    this.fire('abc', { name: 'dntzhang', age: 12 })
+    evt.stopPropagation()
+  }
 
-    onClick = (evt) => {
-        //trigger CustomEvent
-        this.fire('abc', { name : 'dntzhang', age: 12 })
-        evt.stopPropagation()
-    }
+  css() {
+    return `
+        div {
+          color: red;
+          cursor: pointer;
+        }`
+  }
 
-    css() {
-        return `
-         div{
-             color: red;
-             cursor: pointer;
-         }`
-    }
-
-    render(props) {
-        return (
-            <div onClick={this.onClick}>
-                Hello {props.msg} {props.propFromParent}
-                <div>Click Me!</div>
-            </div>
-        )
-    }
-}
+  render(props) {
+    return (
+      <div onClick={this.onClick}>
+        Hello {props.msg} {props.propFromParent}
+        <div>Click Me!</div>
+      </div>
+    )
+  }
+})
 ```
 
 使用该元素:
 
-``` js
-import { tag, WeElement, render } from 'omi'
+```js
+import { define, render, WeElement } from 'omi'
 import './hello-element'
 
-@tag('my-app')
-class MyApp extends WeElement {
-    static get data() {
-        return { abc: '', passToChild: '' }
-    }
+define('my-app', class extends WeElement {
+  data = { abc: 'abc', passToChild: 123 }
 
-    //bind CustomEvent
-    onAbc = (evt) => {
-        // get evt data by evt.detail
-        this.data.abc = ' by ' + evt.detail.name
-        this.update()
-    }
+  // define CustomEvent Handler
+  onAbc = evt => {
+    // get evt data by evt.detail
+    this.data.abc = ' by ' + evt.detail.name
+    this.data.passToChild = 1234
+    this.update()
+  }
 
-    css() {
-        return `
+  css() {
+    return `
          div{
              color: green;
          }`
-    }
+  }
 
-    render(props, data) {
-        return (
-            <div>
-                Hello {props.name} {data.abc}
-                <hello-element onAbc={this.onAbc} prop-from-parent={data.passToChild} msg="WeElement"></hello-element>
-            </div>
-        )
-    }
-}
+  render(props, data) {
+    return (
+      <div>
+        Hello {props.name} {data.abc}
+        <hello-element
+          onAbc={this.onAbc}
+          prop-from-parent={data.passToChild}
+          msg="WeElement"
+        />
+      </div>
+    )
+  }
+})
 
-render(<my-app name='Omi v4.0'></my-app>, 'body')
+render(<my-app name="Omi v4.0" />, 'body')
 ```
 
 告诉 Babel 把 JSX 转化成 Omi.h() 的调用:

@@ -261,25 +261,24 @@ CLI's auto-created project scaffolding is based on a single-page create-react-ap
 
 ### Hello Element
 
-Define a custom element by extending **`WeElement`** base class and name it using **`@tag`** decorator:
+Define a custom element by extending **`WeElement`** base class:
 
 ```js
-import { tag, WeElement, render } from "omi";
+import { define, WeElement } from 'omi'
 
-@tag("hello-element")
-class HelloElement extends WeElement {
+define('hello-element', class extends WeElement {
   onClick = evt => {
     // trigger CustomEvent
-    this.fire("abc", { name: "dntzhang", age: 12 });
-    evt.stopPropagation();
-  };
+    this.fire('abc', { name: 'dntzhang', age: 12 })
+    evt.stopPropagation()
+  }
 
   css() {
     return `
         div {
           color: red;
           cursor: pointer;
-        }`;
+        }`
   }
 
   render(props) {
@@ -288,35 +287,33 @@ class HelloElement extends WeElement {
         Hello {props.msg} {props.propFromParent}
         <div>Click Me!</div>
       </div>
-    );
+    )
   }
-}
+})
 ```
 
 Using `hello-element`:
 
 ```js
-import { tag, WeElement, render } from "omi";
-import "./hello-element";
+import { define, render, WeElement } from 'omi'
+import './hello-element'
 
-@tag("my-app")
-class MyApp extends WeElement {
-  static get data() {
-    return { abc: "", passToChild: "" };
-  }
+define('my-app', class extends WeElement {
+  data = { abc: 'abc', passToChild: 123 }
 
-  // bind CustomEvent
+  // define CustomEvent Handler
   onAbc = evt => {
     // get evt data by evt.detail
-    this.data.abc = ` by ${evt.detail.name}`;
-    this.update();
-  };
+    this.data.abc = ' by ' + evt.detail.name
+    this.data.passToChild = 1234
+    this.update()
+  }
 
   css() {
     return `
-      div {
-        color: green;
-      }`;
+         div{
+             color: green;
+         }`
   }
 
   render(props, data) {
@@ -329,11 +326,11 @@ class MyApp extends WeElement {
           msg="WeElement"
         />
       </div>
-    );
+    )
   }
-}
+})
 
-render(<my-app name="Omi v4.0" />, "body");
+render(<my-app name="Omi v4.0" />, 'body')
 ```
 
 Tell Babel to transform JSX into `Omi.h()` call:
