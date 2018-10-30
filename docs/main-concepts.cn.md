@@ -71,8 +71,30 @@ define('my-first-element', class extends WeElement {
 render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ```
 
-`my-obj` 将映射到 myObj，驼峰的方式。
+`my-obj` 将映射到 myObj，驼峰的方式。你可以通过静态属性 `props` 来设置默认值:
 
+```js
+import { WeElement, define, render } from 'omi'
+
+define('my-first-element', class extends WeElement {
+  static props = {
+    name: {
+      value: 'Omi'
+    },
+    myAge: {
+      value: 18
+    }
+  }
+
+  render(props) {
+    return (
+      <h1>Hello, {props.name}! Age {props.myAge}</h1>
+    )
+  }
+}
+
+render(<my-first-element name="world"></my-first-element>, 'body')
+```
 
 ### Event
 

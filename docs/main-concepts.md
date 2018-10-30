@@ -85,7 +85,30 @@ define('my-first-element', class extends WeElement {
 render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ```
 
-The `my-obj` will map to myObj with camel-case.
+The `my-obj` will map to myObj with camel-case. You can set default values for props in the following way:
+
+```js
+import { WeElement, define, render } from 'omi'
+
+define('my-first-element', class extends WeElement {
+  static props = {
+    name: {
+      value: 'Omi'
+    },
+    myAge: {
+      value: 18
+    }
+  }
+
+  render(props) {
+    return (
+      <h1>Hello, {props.name}! Age {props.myAge}</h1>
+    )
+  }
+}
+
+render(<my-first-element name="world"></my-first-element>, 'body')
+```
 
 ### Event
 
