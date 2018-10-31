@@ -700,17 +700,17 @@
           will emit
           {op: replace, path: '/arr/1', value: arr_2}
           {op: remove, path: '/arr/2'}
-           by default, the second operation would revoke the proxy, and this renders arr revoked.
+            by default, the second operation would revoke the proxy, and this renders arr revoked.
           That's why we need to remember the proxies that are inherited.
         */
       var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
       /*
       Why do we need to check instance.isProxifyingTreeNow?
-       We need to make sure we mark revokables as inherited ONLY when we're observing,
+        We need to make sure we mark revokables as inherited ONLY when we're observing,
       because throughout the first proxification, a sub-object is proxified and then assigned to
       its parent object. This assignment of a pre-proxified object can fool us into thinking
       that it's a proxified object moved around, while in fact it's the first assignment ever.
-       Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
+        Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
       but in fact is is a proxified object moved around the tree
       */
       if (revokableInstance && !instance.isProxifyingTreeNow) {
@@ -787,7 +787,7 @@
               this is an inherited proxy (an already proxified object that was moved around),
               we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
               And we know that because we mark moved proxies with `inherited` flag when we move them
-               it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
+                it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
               We DO want to revoke the proxy if it was removed again.
             */
             revokableProxyInstance.inherited = false;
@@ -1261,27 +1261,35 @@
           return ctor.call(this);
         };
 
-        Element.prototype.useData = function useData(value) {
+        Element.prototype.beforeRender = function beforeRender() {
+          this._useId = 0;
+        };
+
+        Element.prototype.use = function use(option) {
           var _this2 = this;
 
+          this._useId++;
           var updater = function updater(newValue) {
-            _this2._useMap[_this2._useId] = newValue;
+
+            var item = _this2._useMap[updater.id];
+
+            item.data = newValue;
+
             _this2.update();
-            _this2._effectFn();
+            item.effect && item.effect();
           };
 
+          updater.id = this._useId;
           if (!this._isInstalled) {
-            return [value, updater];
+            this._useMap[this._useId] = option;
+            return [option.data, updater];
           }
-          return [this._useMap[this._useId++], updater];
+
+          return [this._useMap[this._useId].data, updater];
         };
 
         Element.prototype.installed = function installed() {
           this._isInstalled = true;
-        };
-
-        Element.prototype.useEffect = function useEffect(fn) {
-          this._effectFn = fn;
         };
 
         return Element;
@@ -1335,30 +1343,11 @@
     });
   }
 
-  var FUNCTION = 'function';
-
   function tag(name, pure) {
-    if (typeof pure === FUNCTION) {
-      var CustomElement = function CustomElement() {
-        return Reflect.construct(WeElement, [], CustomElement);
-      };
-
-      if (window.Reflect === undefined) {
-        throw 'Do not use pure element in browsers that do not support Reflect.';
-      }
-
-      CustomElement.pure = true;
-      CustomElement.prototype.render = pure;
-      Object.setPrototypeOf(CustomElement.prototype, WeElement.prototype);
-      Object.setPrototypeOf(CustomElement, WeElement);
-
-      customElements.define(name, CustomElement);
-    } else {
-      return function (target) {
-        target.pure = pure;
-        define(name, target);
-      };
-    }
+    return function (target) {
+      target.pure = pure;
+      define(name, target);
+    };
   }
 
   /**
@@ -1396,16 +1385,26 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.0.13';
+  options.root.Omi.version = '4.0.14';
 
   define('my-counter', function () {
-    var _useData = this.useData(0),
-        count = _useData[0],
-        setCount = _useData[1];
+    var _use = this.use({
+      data: 0,
+      effect: function effect() {
+        document.title = 'The num is ' + this.data + '.';
+      }
+    }),
+        count = _use[0],
+        setCount = _use[1];
 
-    this.useEffect(function () {
-      document.title = 'The num is ' + count;
-    });
+    var _use2 = this.use({
+      data: [{ text: 'Omi' }],
+      effect: function effect() {
+        console.log('The items count is ' + this.data.length + '.');
+      }
+    }),
+        items = _use2[0],
+        setItems = _use2[1];
 
     return Omi.h(
       'div',
@@ -1428,6 +1427,31 @@
             return setCount(count + 1);
           } },
         '+'
+      ),
+      Omi.h(
+        'ul',
+        null,
+        items.map(function (item) {
+          return Omi.h(
+            'li',
+            null,
+            item.text
+          );
+        })
+      ),
+      Omi.h(
+        'button',
+        { onClick: function onClick() {
+            return setItems([].concat(items, [{ text: 'new item' }]));
+          } },
+        'add'
+      ),
+      Omi.h(
+        'button',
+        { onClick: function onClick() {
+            return setItems([]);
+          } },
+        'empty'
       )
     );
   });

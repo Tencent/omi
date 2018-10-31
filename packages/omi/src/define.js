@@ -19,24 +19,32 @@ export function define(name, ctor) {
         return ctor.call(this)
       }
 
-      useData(value) {
+      beforeRender() {
+        this._useId = 0
+      }
+
+      use(option) {
+        this._useId++
         const updater = newValue => {
-          this._useMap[this._useId] = newValue
+          const item = this._useMap[updater.id]
+
+          item.data = newValue
+
           this.update()
-          this._effectFn()
+          item.effect && item.effect()
         }
 
+        updater.id = this._useId
         if (!this._isInstalled) {
-          return [value, updater]
+          this._useMap[this._useId] = option
+          return [option.data, updater]
         }
-        return [this._useMap[this._useId++], updater]
+
+        return [this._useMap[this._useId].data, updater]
       }
 
       installed() {
         this._isInstalled = true
-      }
-      useEffect(fn) {
-        this._effectFn = fn
       }
     }
     customElements.define(name, Element)
