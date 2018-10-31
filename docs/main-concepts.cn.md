@@ -256,10 +256,10 @@ static get data() {
 
 总结就是只要等于 updatePath 或者在 updatePath 子节点下都进行更新！
 
-看可以看到 store 体系是中心化的体系？那么怎么做到部分组件去中心化？使用 tag 的第二个参数:
+看可以看到 store 体系是中心化的体系？那么怎么做到部分组件去中心化？为自定义元素加上静态属性 pure 并设置为 ture:
 
 ```js
-@tag('my-first-element', true)
+static pure = true
 ```
 
 纯元素！不会注入 store!
