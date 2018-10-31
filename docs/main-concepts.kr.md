@@ -85,7 +85,28 @@ class MyFirstElement extends WeElement {
 
 render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ```
-`my-obj`는 camel-case로 myObj에 매핑됩니다.
+
+위 코드의 `my-obj`는 camel-case로 myObj에 매핑됩니다. 그래서 props에 기본 값들을 선언하고 아래의 코드처럼 사용하시면 됩니다:
+
+```js
+import { WeElement, define, render } from 'omi'
+ define('my-first-element', class extends WeElement {
+  static props = {
+    name: {
+      value: 'Omi'
+    },
+    myAge: {
+      value: 18
+    }
+  }
+   render(props) {
+    return (
+      <h1>Hello, {props.name}! Age {props.myAge}</h1>
+    )
+  }
+}
+ render(<my-first-element name="world"></my-first-element>, 'body')
+```
 
 ### Event
 
@@ -118,8 +139,12 @@ class MyFirstElement extends WeElement {
     )
   }
 }
+```
 
-render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
+그런 다음 커스텀 엘리먼트에 이벤트를 바인딩 합니다:
+
+```js
+<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>
 ```
 
 `this.fire` 로 커스텀 이벤트를 실행할 수 있고, `evt.detail` 로 데이터를 가져올 수 있습니다.

@@ -13,7 +13,7 @@
 - [Omi DevTools Extension](https://github.com/f/omi-devtools) 를 통한 쉬운 디버깅 [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
 - 브라우저 트렌드 및 API 디자인 준수.
 - [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) 와 [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 가 하나의 프레임워크에.
-- omi-mbox를 통한 omi 와 mobx 를 함께 사용 (`this.update()` 호출 필요 없음).
+- omi-mobx를 통한 omi 와 mobx 를 함께 사용 (`this.update()` 호출 필요 없음).
 - Web Components 가 데이터 기반(data-driven)의 뷰가 될수 있음, **`UI = fn(data)`**.
 - JSX 는 최소의 UI 표현식으로 최상의 개발경험을 제공 (코드 인텔리전트 와 팁)  [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals).
 - 독창적인 **Path Updating** 시스템. Proxy 기반 자동 **정확한** 업데이트, **저손실**, 높은 자유도, 뛰어난 성능, `requestIdleCallback` 로 통합하기 쉬움.
@@ -49,6 +49,8 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 - [Debugging](#debugging)
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
+- [Thanks](#thanks)
+- [Web Components Resource](#web-components-resource)
 - [License](#license)
 
 ## Ecosystem of Omi
@@ -171,6 +173,40 @@ render(<my-counter />, "body")
 
 [→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
 
+아마 당신은 위에 정의된 `MyCounter` 라는 클래스 명을 사용하지 않았다는 것을 알게 될겁니다. 그래서 당신은 Eslint hints를 피하기 위해 아래의 방법을 사용해야 합니다. :
+
+```js
+import { render, WeElement, define } from 'omi'
+
+define('my-counter', class extends WeElement {
+    static observe = true
+    
+    data = {
+      count: 1
+    }
+
+    sub = () => {
+      this.data.count--
+    }
+
+    add = () => {
+      this.data.count++
+    }
+
+    render() {
+      return (
+        <div>
+          <button onClick={this.sub}>-</button>
+          <span>{this.data.count}</span>
+          <button onClick={this.add}>+</button>
+        </div>
+      )
+    }
+  })
+
+render(<my-counter />, 'body')
+```
+
 ## Getting Started
 
 ### Install
@@ -195,6 +231,21 @@ Directory description:
 │  ├─ store       //Store all this store of pages
 │  ├─ admin.js    //Entry js of compiler，will build to admin.html
 │  └─ index.js    //Entry js of compiler，will build to index.html
+```
+
+About compiled website URL：
+
+* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
+* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
+
+Such as in windows:
+
+```json
+"scripts": {
+  "start": "node scripts/start.js",
+  "_build": "node scripts/build.js",
+  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
+}
 ```
 
 TypeScript Template(omi-cli v3.0.3+):
@@ -500,7 +551,7 @@ class MyApp extends WeElement {
 }
 ```
 
-만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mbox` 를 사용해주세요.
+만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mobx` 를 사용해주세요.
 
 ### Omi Mobx
 
@@ -589,7 +640,7 @@ Omi 4.0+ 부터 주요 브라우저(Safari 10+, IE 11+, Chrome, Firefox, Edge)�
 
 > 당신은 IE11 환경에서 동적으로 이 프로젝트의 JS를 로드할 수 있습니다. 그리고 Proxy 버전은 여전히 다른 환경을 사용합니다.
 
-> 당신은 store 시스템을 포기하고, omi-mbox 를 사용하여 IE11을 호환할 수 있습니다.
+> 당신은 store 시스템을 포기하고, omi-mobx 를 사용하여 IE11을 호환할 수 있습니다.
 
 ## Contribution
 
@@ -604,6 +655,18 @@ Please contact us for any questions:
 - [@f](https://github.com/f)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
+
+## Thanks
+
+* [preact](https://github.com/developit/preact)
+* [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
+
+## Web Components Resource
+
+* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
+* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
+* [Web Components Org](https://www.webcomponents.org/introduction)
+* [Proxy MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 
 ## License
 

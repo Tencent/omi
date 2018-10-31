@@ -71,8 +71,30 @@ define('my-first-element', class extends WeElement {
 render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ```
 
-`my-obj` 将映射到 myObj，驼峰的方式。
+`my-obj` 将映射到 myObj，驼峰的方式。你可以通过静态属性 `props` 来设置默认值:
 
+```js
+import { WeElement, define, render } from 'omi'
+
+define('my-first-element', class extends WeElement {
+  static props = {
+    name: {
+      value: 'Omi'
+    },
+    myAge: {
+      value: 18
+    }
+  }
+
+  render(props) {
+    return (
+      <h1>Hello, {props.name}! Age {props.myAge}</h1>
+    )
+  }
+}
+
+render(<my-first-element name="world"></my-first-element>, 'body')
+```
 
 ### Event
 
@@ -104,8 +126,12 @@ define('my-first-element', class extends WeElement {
     )
   }
 })
+```
 
-render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
+然后在你的自定义元素上绑定事件：
+
+```js
+<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>
 ```
 
 通过 `this.fire` 触发自定义事件，fire 第一个参数是事件名称，第二个参数是传递的数据。通过 `evt.detail` 可以获取到传递的数据。

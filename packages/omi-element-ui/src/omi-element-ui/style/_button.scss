@@ -3,7 +3,6 @@
 @import "mixins/button";
 @import "mixins/mixins";
 @import "mixins/utils";
-@import "icon.scss";
 
 @include b(button) {
   display: inline-block;
