@@ -208,7 +208,7 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body')
 ```
 
-쉽게 Pure Function의 폼으로 정의할 수 있습니다.
+간단하게 Pure Function 폼을 정의할 수 있습니다.
 
 ```js
 import { define, render } from 'omi'
