@@ -234,6 +234,12 @@ define('my-counter', function() {
 render(<my-counter />, 'body')
 ```
 
+如果你不需要 effect 方法, 可以直接使用 `useData`:
+
+```js
+const [count, setCount] = this.useData(0)
+```
+
 ## 快速入门
 
 ### 安装

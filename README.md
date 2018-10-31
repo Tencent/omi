@@ -232,6 +232,12 @@ define('my-counter', function() {
 render(<my-counter />, 'body')
 ```
 
+If you don't need effect, you can use `useData` directly:
+
+```js
+const [count, setCount] = this.useData(0)
+```
+
 ## Getting Started
 
 ### Install
