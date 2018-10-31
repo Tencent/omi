@@ -361,9 +361,68 @@
         });
         return mpPath;
     }
+    function _classCallCheck$1(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
+    function _possibleConstructorReturn$1(self, call) {
+        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
+    }
+    function _inherits$1(subClass, superClass) {
+        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
     function define(name, ctor) {
-        customElements.define(name, ctor);
-        if (ctor.data && !ctor.pure) ctor.updatePath = getUpdatePath(ctor.data);
+        if ('WeElement' === ctor.is) {
+            customElements.define(name, ctor);
+            if (ctor.data && !ctor.pure) ctor.updatePath = getUpdatePath(ctor.data);
+        } else {
+            var Element = function(_WeElement) {
+                function Element() {
+                    var _temp, _this, _ret;
+                    _classCallCheck$1(this, Element);
+                    for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) args[key] = arguments[key];
+                    return _ret = (_temp = _this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [ this ].concat(args))), 
+                    _this.C = 0, _this.D = {}, _temp), _possibleConstructorReturn$1(_this, _ret);
+                }
+                _inherits$1(Element, _WeElement);
+                Element.prototype.render = function() {
+                    return ctor.call(this);
+                };
+                Element.prototype.beforeRender = function() {
+                    this.C = 0;
+                };
+                Element.prototype.use = function(option) {
+                    var _this2 = this;
+                    this.C++;
+                    var updater = function updater(newValue) {
+                        var item = _this2.D[updater.id];
+                        item.data = newValue;
+                        _this2.update();
+                        item.effect && item.effect();
+                    };
+                    updater.id = this.C;
+                    if (!this.B) {
+                        this.D[this.C] = option;
+                        return [ option.data, updater ];
+                    }
+                    return [ this.D[this.C].data, updater ];
+                };
+                Element.prototype.installed = function() {
+                    this.B = !0;
+                };
+                return Element;
+            }(WeElement);
+            customElements.define(name, Element);
+        }
     }
     function getUpdatePath(data) {
         var result = {};
@@ -394,17 +453,7 @@
         });
     }
     function tag(name, pure) {
-        if ('function' == typeof pure) {
-            var CustomElement = function CustomElement() {
-                return Reflect.construct(WeElement, [], CustomElement);
-            };
-            if (void 0 === window.Reflect) throw 'Do not use pure element in browsers that do not support Reflect.';
-            CustomElement.pure = !0;
-            CustomElement.prototype.render = pure;
-            Object.setPrototypeOf(CustomElement.prototype, WeElement.prototype);
-            Object.setPrototypeOf(CustomElement, WeElement);
-            customElements.define(name, CustomElement);
-        } else return function(target) {
+        return function(target) {
             target.pure = pure;
             define(name, target);
         };
@@ -696,6 +745,7 @@
         WeElement.prototype.beforeRender = function() {};
         return WeElement;
     }(HTMLElement);
+    WeElement.is = 'WeElement';
     var omi = {
         tag: tag,
         WeElement: WeElement,
@@ -709,7 +759,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.13';
+    options.root.Omi.version = '4.0.14';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

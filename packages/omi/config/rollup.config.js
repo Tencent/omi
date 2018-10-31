@@ -48,6 +48,9 @@ export default {
 						}
 					}
 				]
+			],
+			plugins: [
+				"transform-class-properties"
 			]
 		}),
 		licensePlugin
