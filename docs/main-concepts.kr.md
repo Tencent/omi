@@ -300,10 +300,10 @@ If you hit one condition above, you can update it.
 
 Summary is as long as updatePath or updatePath sub nodes are updated.
 
-우리가 store 시스템이 중앙화 되었는지 확인할 수 있나요? 그렇다면 어떻게 다른 컴포넌트들을 중앙화 할까요? tag의 두번째 파라미터를 사용하세요:
+우리는 store 시스템이 중앙 집중 방식으로 관리되고 있다는 것을 알수 있지 않나요? 그렇다면 특정 엘리먼트에서 이 부분을 분리시킬까요? 커스텀 엘리먼트에 static 변수 pure를 선언하고 true로 설정하면 가능합니다:
 
 ```js
-@tag('my-first-element', true)
+static pure = true
 ```
 
 Pure element! Store가 삽입되지 않을겁니다!
