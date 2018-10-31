@@ -4,6 +4,8 @@ import options from './options'
 import { proxyUpdate } from './observe'
 
 export default class WeElement extends HTMLElement {
+  static is = 'WeElement'
+
   constructor() {
     super()
     this.props = nProps(this.constructor.props)

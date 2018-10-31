@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "4.0.13",
+  "version": "4.0.14",
   "description": "Next generation web framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -13,6 +13,7 @@
     "copy-typescript-definition": "copyfiles -f src/omi.d.ts dist",
     "build": "npm-run-all --silent clean transpile copy-typescript-definition strip optimize minify size",
     "slot": "rollup -c config/rollup.example.js --watch",
+    "use": "rollup -c config/rollup.example.js --watch",
     "decorators": "rollup -c config/rollup.example.js --watch",
     "mobx": "rollup -c config/rollup.example.js --watch",
     "todo-app": "rollup -c config/rollup.example.js --watch",

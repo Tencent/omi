@@ -1,10 +1,45 @@
+import WeElement from './we-element'
+
 const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
 
 export function define(name, ctor) {
-  customElements.define(name, ctor)
-  if (ctor.data && !ctor.pure) {
-    ctor.updatePath = getUpdatePath(ctor.data)
+  if (ctor.is === 'WeElement') {
+    customElements.define(name, ctor)
+    if (ctor.data && !ctor.pure) {
+      ctor.updatePath = getUpdatePath(ctor.data)
+    }
+  } else {
+    class Element extends WeElement {
+      _useId = 0
+
+      _useMap = {}
+
+      render() {
+        return ctor.call(this)
+      }
+
+      useData(value) {
+        const updater = newValue => {
+          this._useMap[this._useId] = newValue
+          this.update()
+          this._effectFn()
+        }
+
+        if (!this._isInstalled) {
+          return [value, updater]
+        }
+        return [this._useMap[this._useId++], updater]
+      }
+
+      installed() {
+        this._isInstalled = true
+      }
+      useEffect(fn) {
+        this._effectFn = fn
+      }
+    }
+    customElements.define(name, Element)
   }
 }
 
