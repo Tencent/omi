@@ -66,6 +66,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)|Support tap event in your omi project|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Support touch and gesture events in your Omi project.|
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
+| [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 |[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi version of element-ui|
 
 Other:
@@ -202,6 +203,31 @@ define('my-counter', class extends WeElement {
       )
     }
   })
+
+render(<my-counter />, 'body')
+```
+
+You can also be defined as a form of pure functions:
+
+```js
+import { define, render } from 'omi'
+
+define('my-counter', function() {
+  const [count, setCount] = this.use({
+    data: 0,
+    effect: function() {
+      document.title = `The num is ${this.data}.`
+    }
+  })
+
+  return (
+    <div>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  )
+})
 
 render(<my-counter />, 'body')
 ```

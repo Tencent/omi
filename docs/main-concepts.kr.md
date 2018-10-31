@@ -11,7 +11,11 @@
   - [Ref](#ref)
   - [Store](#store)
   - [Slot](#slot)
+  - [Observe](#observe)
+  - [Use](#use)
   - [SSR](#ssr)
+
+[→ Omi Simple Examples](https://github.com/Tencent/omi/tree/master/packages/omi/examples)
 
 ### My First Element
 
@@ -343,6 +347,104 @@ render(<my-app></my-app>, 'body')
 ```
 
 [→ Slot MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots#Adding_flexibility_with_slots)
+
+## Observe
+
+### Omi Observe
+observe를 사용해서 `store`가 필요 없는 element에 대한 반응형 뷰를 만들수 있습니다:
+
+```js
+define("my-app", class extends WeElement {
+  static observe = true
+
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
+
+만약 IE11과 호환하기를 원하시면 omi 의 observe 대신 `omi-mobx`를 사용하세요.
+
+### Omi Mobx
+
+```js
+import { tag, WeElement } from "omi"
+import { observe } from "omi-mobx"
+
+@observe
+@tag("my-app")
+class MyApp extends WeElement {
+  install() {
+    this.data.name = "omi"
+  }
+
+  onClick = () => {
+    this.data.name = "Omi V4.0"
+  }
+
+  render(props, data) {
+    return (
+      <div onClick={this.onClick}>
+        <h1>Welcome to {data.name}</h1>
+      </div>
+    )
+  }
+}
+```
+
+### Use
+
+```js
+import { define, render } from 'omi'
+
+define('my-counter', function() {
+  const [count, setCount] = this.use({
+    data: 0,
+    effect: function() {
+      document.title = `The num is ${this.data}.`
+    }
+  })
+
+  const [items, setItems] = this.use({
+    data: [{ text: 'Omi' }],
+    effect: function() {
+      console.log(`The items count is ${this.data.length}.`)
+    }
+  })
+
+  return (
+    <div>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>+</button>
+
+      <ul>
+        {items.map(item => {
+          return <li>{item.text}</li>
+        })}
+      </ul>
+      <button onClick={() => setItems([...items, { text: 'new item' }])}>
+        add
+      </button>
+      <button onClick={() => setItems([])}>empty</button>
+    </div>
+  )
+})
+
+render(<my-counter />, 'body')
+```
 
 ### SSR
 
