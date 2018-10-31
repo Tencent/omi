@@ -44,9 +44,9 @@ function extendStoreUpate(store) {
       this.instances.forEach(instance => {
         if (
           updateAll ||
-					this.updateAll ||
-					(instance.constructor.updatePath &&
-						needUpdate(patch, instance.constructor.updatePath))
+          this.updateAll ||
+          (instance.constructor.updatePath &&
+            needUpdate(patch, instance.constructor.updatePath))
         ) {
           instance.update()
         }

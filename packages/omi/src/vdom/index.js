@@ -27,7 +27,7 @@ export function isSameNodeType(node, vnode, hydrating) {
 export function isNamedNode(node, nodeName) {
   return (
     node.normalizedNodeName === nodeName ||
-		node.nodeName.toLowerCase() === nodeName.toLowerCase()
+    node.nodeName.toLowerCase() === nodeName.toLowerCase()
   )
 }
 

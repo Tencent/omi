@@ -83,9 +83,9 @@ export function setAccessor(node, name, old, value, isSvg) {
       }
       for (let i in value) {
         node.style[i] =
-					typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false
-					  ? value[i] + 'px'
-					  : value[i]
+          typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false
+            ? value[i] + 'px'
+            : value[i]
       }
     }
   } else if (name === 'dangerouslySetInnerHTML') {

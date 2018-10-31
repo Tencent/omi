@@ -85,9 +85,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     // update if it's already a Text node:
     if (
       dom &&
-			dom.splitText !== undefined &&
-			dom.parentNode &&
-			(!dom._component || componentRoot)
+      dom.splitText !== undefined &&
+      dom.parentNode &&
+      (!dom._component || componentRoot)
     ) {
       /* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
       if (dom.nodeValue != vnode) {
@@ -112,11 +112,11 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // Tracks entering and exiting SVG namespace when descending through the tree.
   isSvgMode =
-		vnodeName === 'svg'
-		  ? true
-		  : vnodeName === 'foreignObject'
-		    ? false
-		    : isSvgMode
+    vnodeName === 'svg'
+      ? true
+      : vnodeName === 'foreignObject'
+        ? false
+        : isSvgMode
 
   // If there's no existing element or it's the wrong type, create a new one:
   vnodeName = String(vnodeName)
@@ -148,12 +148,12 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   // Optimization: fast-path for elements containing a single TextNode:
   if (
     !hydrating &&
-		vchildren &&
-		vchildren.length === 1 &&
-		typeof vchildren[0] === 'string' &&
-		fc != null &&
-		fc.splitText !== undefined &&
-		fc.nextSibling == null
+    vchildren &&
+    vchildren.length === 1 &&
+    typeof vchildren[0] === 'string' &&
+    fc != null &&
+    fc.splitText !== undefined &&
+    fc.nextSibling == null
   ) {
     if (fc.nodeValue != vchildren[0]) {
       fc.nodeValue = vchildren[0]
@@ -209,21 +209,21 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
       let child = originalChildren[i],
         props = child[ATTR_KEY],
         key =
-					vlen && props
-					  ? child._component
-					    ? child._component.__key
-					    : props.key
-					  : null
+          vlen && props
+            ? child._component
+              ? child._component.__key
+              : props.key
+            : null
       if (key != null) {
         keyedLen++
         keyed[key] = child
       } else if (
         props ||
-				(child.splitText !== undefined
-				  ? isHydrating
-				    ? child.nodeValue.trim()
-				    : true
-				  : isHydrating)
+        (child.splitText !== undefined
+          ? isHydrating
+            ? child.nodeValue.trim()
+            : true
+          : isHydrating)
       ) {
         children[childrenLen++] = child
       }
@@ -249,7 +249,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
         for (j = min; j < childrenLen; j++) {
           if (
             children[j] !== undefined &&
-						isSameNodeType((c = children[j]), vchild, isHydrating)
+            isSameNodeType((c = children[j]), vchild, isHydrating)
           ) {
             child = c
             children[j] = undefined
@@ -347,10 +347,10 @@ function diffAttributes(dom, attrs, old) {
       update = true
     } else if (
       name !== 'children' &&
-			name !== 'innerHTML' &&
-			(!(name in old) ||
-				attrs[name] !==
-					(name === 'value' || name === 'checked' ? dom[name] : old[name]))
+      name !== 'innerHTML' &&
+      (!(name in old) ||
+        attrs[name] !==
+          (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
       if (isWeElement) {
