@@ -206,6 +206,31 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body')
 ```
 
+You can also be defined as a form of pure functions:
+
+```js
+import { define, render } from 'omi'
+
+define('my-counter', function() {
+  const [count, setCount] = this.use({
+    data: 0,
+    effect: function() {
+      document.title = `The num is ${this.data}.`
+    }
+  })
+
+  return (
+    <div>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  )
+})
+
+render(<my-counter />, 'body')
+```
+
 ## Getting Started
 
 ### Install

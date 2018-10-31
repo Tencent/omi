@@ -208,6 +208,31 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body')
 ```
 
+你也可以定义成纯函数的形式:
+
+```js
+import { define, render } from 'omi'
+
+define('my-counter', function() {
+  const [count, setCount] = this.use({
+    data: 0,
+    effect: function() {
+      document.title = `The num is ${this.data}.`
+    }
+  })
+
+  return (
+    <div>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  )
+})
+
+render(<my-counter />, 'body')
+```
+
 ## 快速入门
 
 ### 安装
