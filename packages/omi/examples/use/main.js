@@ -1,12 +1,7 @@
 import { define, render } from '../../src/omi'
 
 define('my-counter', function() {
-  const [count, setCount] = this.use({
-    data: 0,
-    effect: function() {
-      document.title = `The num is ${this.data}.`
-    }
-  })
+  const [count, setCount] = this.useData(0)
 
   const [items, setItems] = this.use({
     data: [{ text: 'Omi' }],

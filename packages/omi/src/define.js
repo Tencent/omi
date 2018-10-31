@@ -23,6 +23,10 @@ export function define(name, ctor) {
         this._useId = 0
       }
 
+      useData(data) {
+        return this.use({ data: data })
+      }
+
       use(option) {
         this._useId++
         const updater = newValue => {

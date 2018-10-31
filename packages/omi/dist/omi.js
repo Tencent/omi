@@ -400,6 +400,11 @@
                 Element.prototype.beforeRender = function() {
                     this.C = 0;
                 };
+                Element.prototype.useData = function(data) {
+                    return this.use({
+                        data: data
+                    });
+                };
                 Element.prototype.use = function(option) {
                     var _this2 = this;
                     this.C++;
@@ -759,7 +764,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.14';
+    options.root.Omi.version = '4.0.15';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
