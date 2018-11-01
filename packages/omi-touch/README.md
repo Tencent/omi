@@ -11,8 +11,7 @@ import { render, define, WeElement } from 'omi'
 import 'omi-touch'
 
 define('my-app', class extends WeElement {
-
-  onChange = (value) => {
+  onChange = value => {
     console.log(value)
   }
 
@@ -20,12 +19,16 @@ define('my-app', class extends WeElement {
     return (
       <div class="main">
         <omi-touch min={-1750} max={0} change={this.onChange}>
-          <div class="touchArea" >
-            <ul >
+          <div class="touchArea">
+            <ul>
               <li>Hello, Omi-Touch!</li>
+              <li>AlloyTouch</li>
               <li>Omi</li>
               ...
               ...
+              ...
+              <li> row 20</li>
+              <li> row 21</li>
               <li> row 22</li>
               <li> row 23</li>
               <li> row 24</li>
@@ -36,11 +39,9 @@ define('my-app', class extends WeElement {
       </div>
     )
   }
-
 })
 
-render(<my-app></my-app>, 'body')
-
+render(<my-app />, 'body')
 ```
 
 ## License
