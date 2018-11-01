@@ -1,6 +1,6 @@
 ## 渲染 Web Components 到 Native 方案
 
-怎么渲染 Web Components 到 Native？这里拿 [Omi 框架](https://github.com/Tencent/omi) 为例，以为 Omi 是[基于 Web Components](https://github.com/Tencent/omi#why-omi) 设计的。
+怎么渲染 Web Components 到 Native？这里拿 [Omi 框架](https://github.com/Tencent/omi) 为例，因为 Omi 是[基于 Web Components](https://github.com/Tencent/omi#why-omi) 设计的。
 
 
 ## 行业现状
@@ -15,7 +15,7 @@
   * 使用 Javascript 语言开发
   * JSCore 和 Native 各自维护同样的一棵 DOM 树
 
-这里 Omi 使用第二种方式实现 [→ omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)。
+这里 Omi 使用第二种方式实现 [→ omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)。
 
 ## 预研
 
