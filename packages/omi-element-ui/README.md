@@ -44,8 +44,6 @@
 |  el-card|   @wadellg    |
 |  el-carousel|       |
 |  el-collapse|       |
-|  el-touch|    dntzhang  |
-|  el-finger|       dntzhang|
 |  notice|      |   |
 
 ## Develop
