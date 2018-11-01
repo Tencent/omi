@@ -65,6 +65,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)|Support tap event in your omi project|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Support touch and gesture events in your Omi project.|
+| [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to naitve|
@@ -600,7 +601,7 @@ define("my-app", class extends WeElement {
 })
 ```
 
-If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own obersve.
+If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
 
 ### Omi Mobx
 
