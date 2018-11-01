@@ -601,14 +601,14 @@ define("my-app", class extends WeElement {
 })
 ```
 
-It should be noted that if `observe` is used, do not set the value of data in the following functions:
+It should be noted that if `observe` is used, do not set the value of data in some of the following functions: some complex objects such as obj or arr:
 
 * render
 * beforeRender
 * beforeUpdate
 * afterUpdate
 
-Because data setter triggers update, update triggers the above function, and it is infinite recursion.
+Because data settings will simply compare the value before and after, complex objects will not be deep contrast, the contrast value will trigger different update, update will trigger the above function, infinite recursion.
 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
 

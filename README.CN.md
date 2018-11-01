@@ -604,14 +604,14 @@ define("my-app", class extends WeElement {
 })
 ```
 
-需要特别注意的是，如果使用了 `observe`，不要在以下函数里设置 data 的值: 
+需要特别注意的是，如果使用了 `observe`，不要在以下函数里设置 data 的值某些属性为 obj 或 arr等复杂对象: 
 
 * render
 * beforeRender
 * beforeUpdate
 * afterUpdate
 
-因为 data 设置会触发 update ，update 会触发上面函数，就无限递归了。
+因为 data 设置只会简单对比前后的值，复杂对象不会深对比，对比值不同会触发 update ，update 会触发上面函数，就无限递归了。
 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
 
