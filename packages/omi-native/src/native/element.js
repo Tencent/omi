@@ -53,7 +53,7 @@ export default class Element {
 
       this.appendChild(node)
 
-      return;
+      return
     }
 
     this.firstChild = this.childNodes[0]
@@ -73,7 +73,12 @@ export default class Element {
   insertBefore(node, before) {
     if (!node.parentNode) {
       linkParent(node, this)
-      const index = insertIndex(node, this.childNodes, this.childNodes.indexOf(before), true)
+      const index = insertIndex(
+        node,
+        this.childNodes,
+        this.childNodes.indexOf(before),
+        true
+      )
       if (this.docId != undefined) {
         registerNode(this.docId, node)
       }
@@ -84,7 +89,7 @@ export default class Element {
     } else {
       node.parentNode.removeChild(node)
       this.insertBefore(node, before)
-      return;
+      return
     }
     if (this.didMount) {
       this._setDidMount(node, true)
@@ -104,7 +109,11 @@ export default class Element {
     }
     if (!node.parentNode) {
       linkParent(node, this)
-      const index = insertIndex(node, this.childNodes, this.childNodes.indexOf(after) + 1, true)
+      const index = insertIndex(
+        node,
+        this.childNodes,
+        this.childNodes.indexOf(after) + 1,
+        true
       )
 
       if (this.docId != undefined) {
@@ -146,7 +155,6 @@ export default class Element {
 
     this.firstChild = this.childNodes[0]
   }
-
 
   setAttribute(key, value, silent) {
     if (this.attributes[key] === value && silent !== false) {
@@ -207,7 +215,9 @@ export default class Element {
     if (!this.event[type]) {
       this.event[type] = handler
 
-      sendBridgeFlag[this.docId] && this.didMount && this.ownerDocument.addEvent(this.ref, type)
+      sendBridgeFlag[this.docId] &&
+        this.didMount &&
+        this.ownerDocument.addEvent(this.ref, type)
     }
   }
 
@@ -215,8 +225,14 @@ export default class Element {
     if (this.event[type]) {
       delete this.event[type]
       let doc = getDoc(this.docId)
-      doc.nodeMap[this.ref] && doc.nodeMap[this.ref].event && doc.nodeMap[this.ref].event[type] ? doc.nodeMap[this.ref].event[type] = null : ''
-      sendBridgeFlag[this.docId] && this.didMount && this.ownerDocument.removeEvent(this.ref, type)
+      doc.nodeMap[this.ref] &&
+      doc.nodeMap[this.ref].event &&
+      doc.nodeMap[this.ref].event[type]
+        ? (doc.nodeMap[this.ref].event[type] = null)
+        : ''
+      sendBridgeFlag[this.docId] &&
+        this.didMount &&
+        this.ownerDocument.removeEvent(this.ref, type)
     }
   }
 
