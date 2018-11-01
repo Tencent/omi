@@ -15,7 +15,7 @@
 - [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) 와 [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 가 하나의 프레임워크에.
 - omi-mobx를 통한 omi 와 mobx 를 함께 사용 (`this.update()` 호출 필요 없음).
 - Web Components 가 데이터 기반(data-driven)의 뷰가 될수 있음, **`UI = fn(data)`**.
-- JSX 는 최소의 UI 표현식으로 최상의 개발경험을 제공 (코드 인텔리전트 와 팁)  [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals).
+- JSX 는 최소의 UI 표현식으로 최상의 개발경험을 제공 (코드 인텔리전트 와 팁)  [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals) 그리고 완벽하게 튜링됨(템플릿 엔진은 X).
 - 독창적인 **Path Updating** 시스템. Proxy 기반 자동 **정확한** 업데이트, **저손실**, 높은 자유도, 뛰어난 성능, `requestIdleCallback` 로 통합하기 쉬움.
 - **store system** 을 사용해서 `this.update` 와 작별하세요! store  가 자동으로 데이터와 관련된 UI를 업데이트 합니다.
 - 봐주세요 [Facebook React vs Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi 는 이것들의 강점을 결합하여 개발자가 자유롭게 자신이 원하는 방식을 선택할 수 있게 해줍니다.
@@ -65,8 +65,10 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | [page](https://github.com/visionmedia/page.js) 를 통한 소형의 클라이언트 사이드 라우터 |
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 탭 이벤트 지원 |
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)| 터치 와 제스처 이벤트 지원 |
+| [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)| 부드러운 스크롤링, Rotation, 웹 페이지를 위한 어떤 모션도 Refresh |
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)| Omi Mobx Adapter |
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)| React Hooks 방식 API |
+| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)| Web Components Native 렌더링 |
 | [omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)| Omi 버전의 element-ui |
 
 Other:
@@ -579,6 +581,15 @@ class MyApp extends WeElement {
   }
 }
 ```
+
+`observe`를 사용하면 다음 함수에서 데이터의 값을 설정하지 말아야 한다는 점을 유의해야 합니다. 일부 속성은 obj 또는 arr 과 같은 복잡한 객체입니다.
+
+* render
+* beforeRender
+* beforeUpdate
+* afterUpdate
+
+왜냐하면 data는 단순히 이전과 이후의 값을 비교하기 때문에 복잡한 오브젝트는 완전히 대조되지 않고 비교 값은은 업데이트를 트리거하고 업데이트는 위의 함수를 트리거하며 무한 반복됩니다.
 
 만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mobx` 를 사용해주세요.
 
