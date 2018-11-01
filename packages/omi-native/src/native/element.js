@@ -40,7 +40,9 @@ export default class Element {
     if (!node.parentNode) {
       linkParent(node, this)
       insertIndex(node, this.childNodes, this.childNodes.length, true)
-
+      if(this.connectedCallback){
+		  this.connectedCallback()
+	  }
       if (this.docId != undefined) {
         registerNode(this.docId, node)
       }
@@ -143,7 +145,9 @@ export default class Element {
   removeChild(node) {
     if (node.parentNode) {
       removeIndex(node, this.childNodes, true)
-
+      if(this.disconnectedCallback){
+		this.disconnectedCallback()
+	  }
       if (this.didMount && sendBridgeFlag[this.docId]) {
         this.ownerDocument.removeElement(node.ref)
       }
