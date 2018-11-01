@@ -1,57 +1,46 @@
-# omi-finger
+# omi-touch
 
-Support touch and gesture events in your Omi project.
+Smooth scrolling, rotation, pull to refresh and any motion for the web.
 
-[→ touch the mobile demo](https://tencent.github.io/omi/packages/omi-finger/examples/simple/)
+[→ touch the mobile demo](https://tencent.github.io/omi/packages/omi-touch/examples/simple/)
 
 ## Usage
 
 ```js
-import { render, tag, WeElement } from 'omi'
-import 'omi-finger'
+import { render, define, WeElement } from 'omi'
+import 'omi-touch'
 
-@tag('my-app')
-class MyApp extends WeElement {
-  install() {
-    this.data.wording = 'Tap or Swipe Me!'
-  }
+define('my-app', class extends WeElement {
 
-  handleTap = (evt) => {
-    this.data.wording += '\r\nTap'
-    this.update()
-  }
-
-  handleSwipe = (evt) => {
-    this.data.wording += '\r\nSwipe-' + evt.direction
-    this.update()
+  onChange = (value) => {
+    console.log(value)
   }
 
   render() {
     return (
-      <div>
-        <omi-finger onTap={this.handleTap} abc={{a:1}} onSwipe={this.handleSwipe}>
+      <div class="main">
+        <omi-touch min={-1750} max={0} change={this.onChange}>
           <div class="touchArea" >
-            {this.data.wording}
+            <ul >
+              <li>Hello, Omi-Touch!</li>
+              <li>Omi</li>
+              ...
+              ...
+              <li> row 22</li>
+              <li> row 23</li>
+              <li> row 24</li>
+              <li style="border-bottom: none;"> row 25</li>
+            </ul>
           </div>
-        </omi-finger>
+        </omi-touch>
       </div>
     )
   }
 
-  css() {
-    return `.touchArea{
-                  background-color: green;
-                  width: 200px;
-                  min-height: 200px;
-                  text-align: center;
-                  color:white;
-                  height:auto;
-                  white-space: pre-line;
-              }`
-  }
-}
+})
 
 render(<my-app></my-app>, 'body')
+
 ```
 
 ## License
