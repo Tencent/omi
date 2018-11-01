@@ -31,7 +31,7 @@
 |  ~~el-progress~~| dntzhang      |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/progress/index.js#L18-L42)|
 |  el-tree|       |
 |  el-pagination| dntzhang      |
-|  el-badge|      |
+|  el-badge|  hilkbahar    |
 |  ~~el-alert~~|  @zhengbao   |
 |  el-menu|   @zhengbao   |
 |  el-tabs|   @zhengbao   |
