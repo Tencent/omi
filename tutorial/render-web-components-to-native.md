@@ -96,7 +96,7 @@ Among them, HTMLElement inherits from Element, what APIs needs to be implemented
   * createElement
 
 So as long as the implementation of the above APIs will ensure that the Omi project can run in JSCore without error, but just not giving an error is not enough. You need to send command back and forth.
-The meaning of instruction transfer is to make the DOM tree maintained by Native and the DOM tree maintained by JScore consistent. The frequency of command transmission directly affects the time consuming, and the lower the command transmission frequency, the better. Thus, when injecting bridge communication into appendChild, remove Child, etc., the principles to fllow are:
+The meaning of instruction transfer is to make the DOM tree maintained by Native and the DOM tree maintained by JSCore consistent. The frequency of command transmission directly affects the time consuming, and the lower the command transmission frequency, the better. Thus, when injecting bridge communication into appendChild, remove Child, etc., the principles to fllow are:
 
 * Only DOM operations that actually fall on the tree send command.
 
