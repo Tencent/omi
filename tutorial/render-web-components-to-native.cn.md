@@ -15,7 +15,7 @@
   * 使用 Javascript 语言开发
   * JSCore 和 Native 各自维护同样的一棵 DOM 树
 
-这里 Omi 使用第二种方式实现 [→ omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)。
+这里 Omi 使用第二种方式实现 [→ omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)。
 
 ## 预研
 
