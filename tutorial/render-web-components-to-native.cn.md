@@ -171,8 +171,11 @@ Omi 的生命周期完全依赖 `HTMLElement` 的 `connectedCallback` 和 `disco
     if (node.parentNode) {
       removeIndex(node, this.childNodes, true)
       if(this.disconnectedCallback){
-    this.disconnectedCallback()
+        this.disconnectedCallback()
+      }
     }
+    ...
+  }
 ```
 
 ## 事件绑定
