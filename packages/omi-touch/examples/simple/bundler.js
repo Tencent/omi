@@ -1893,7 +1893,6 @@ var OmiTouch = function (_WeElement) {
   _createClass(OmiTouch, [{
     key: 'install',
     value: function install() {
-
       this.css = (0, _omi.getHost)(this).css;
     }
   }, {
@@ -1907,7 +1906,7 @@ var OmiTouch = function (_WeElement) {
         touch: this.host,
         vertical: this.props.vertical === false ? false : true,
         target: target,
-        property: this.props.property || "translateY",
+        property: this.props.property || 'translateY',
         min: this.props.min,
         max: this.props.max,
         sensitivity: this.props.sensitivity,
@@ -1922,7 +1921,6 @@ var OmiTouch = function (_WeElement) {
         tap: this.props.tap,
         pressMove: this.props.pressMove,
         animationEnd: this.props.animationEnd
-
       });
     }
   }, {

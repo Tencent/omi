@@ -2,8 +2,7 @@
 import '../../index'
 
 define('my-app', class extends WeElement {
-
-  onChange = (value) => {
+  onChange = value => {
     console.log(value)
   }
 
@@ -11,9 +10,8 @@ define('my-app', class extends WeElement {
     return (
       <div class="main">
         <omi-touch min={-1750} max={0} change={this.onChange}>
-
-          <div class="touchArea" >
-            <ul >
+          <div class="touchArea">
+            <ul>
               <li>Hello, Omi-Touch!</li>
               <li>AlloyTouch</li>
               <li>Omix</li>
@@ -66,7 +64,6 @@ define('my-app', class extends WeElement {
               <li style="border-bottom: none;"> row 25</li>
             </ul>
           </div>
-
         </omi-touch>
       </div>
     )
@@ -115,4 +112,4 @@ define('my-app', class extends WeElement {
   }
 })
 
-render(<my-app></my-app>, 'body')
+render(<my-app />, 'body')
