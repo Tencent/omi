@@ -15,7 +15,7 @@
 - [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) + [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 相互融合为一个框架 Omi
 - 内置 observe 制作响应式视图(免去 `this.update`)
 - Web Components 也可以数据驱动视图, `UI = fn(data)`
-- JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)的 UI 表达式
+- JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)、图灵完备的 UI 表达式
 - 独创的 `Path Updating` 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback`
 - 对 this.update 说再见吧！只要使用 `store` 系统，它就会自动化按需更新局部视图
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
@@ -65,9 +65,10 @@
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
+| [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx 适配器|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
-| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 naitve，比如 IOS 、Android|
+| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
 |[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi 版本的 element-ui|
 |[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
 
@@ -583,6 +584,8 @@ render(<todo-app></todo-app>, 'body', store)
 import { define, WeElement } from "omi"
 
 define("my-app", class extends WeElement {
+  static observe = true
+
   install() {
     this.data.name = "omi"
   }
@@ -601,7 +604,16 @@ define("my-app", class extends WeElement {
 })
 ```
 
-如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 obersve，往下看..
+需要特别注意的是，如果使用了 `observe`，不要在以下函数里设置 data 的值某些属性为 obj 或 arr等复杂对象: 
+
+* render
+* beforeRender
+* beforeUpdate
+* afterUpdate
+
+因为 data 设置只会简单对比前后的值，复杂对象不会深对比，对比值不同会触发 update ，update 会触发上面函数，就无限递归了。
+
+如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
 
 ### Omi Mobx
 

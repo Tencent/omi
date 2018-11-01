@@ -38,14 +38,12 @@
 |  ~~el-breadcrumb~~|     @wadellg  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/breadcrumb/index.js)|
 |  el-dropdown|    shijiezou   |
 |  el-steps|  @daizhan    |
-|  el-dialog|       |
+|  el-dialog|  shijiezou     |
 |  el-tooltip|      |
 |  el-popover|      |
 |  el-card|   @wadellg    |
 |  el-carousel|       |
 |  el-collapse|       |
-|  el-touch|    dntzhang  |
-|  el-finger|       dntzhang|
 |  notice|      |   |
 
 ## Develop

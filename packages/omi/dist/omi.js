@@ -243,11 +243,16 @@
     }
     function proxyUpdate(ele) {
         var timeout = null;
-        ele.data = new JSONPatcherProxy(ele.data).observe(!1, function() {
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                ele.update();
-            }, 16.6);
+        ele.data = new JSONPatcherProxy(ele.data).observe(!1, function(info) {
+            if (preValue !== info.value || prePath !== info.path || preEle !== ele) {
+                preValue = info.value;
+                prePath = info.path;
+                preEle = ele;
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    ele.update();
+                }, 16.6);
+            }
         });
     }
     function _classCallCheck(instance, Constructor) {
@@ -691,6 +696,9 @@
         };
         return JSONPatcherProxy;
     }();
+    var preValue = null;
+    var prePath = null;
+    var preEle = null;
     var WeElement = function(_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
@@ -764,7 +772,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.15';
+    options.root.Omi.version = '4.0.16';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
