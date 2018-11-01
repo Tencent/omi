@@ -68,7 +68,7 @@
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx 适配器|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
-| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 naitve，比如 IOS 、Android|
+| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
 |[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi 版本的 element-ui|
 |[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
 
@@ -603,6 +603,15 @@ define("my-app", class extends WeElement {
   }
 })
 ```
+
+需要特别注意的是，如果使用了 `observe`，不要在以下函数里设置 data 的值: 
+
+* render
+* beforeRender
+* beforeUpdate
+* afterUpdate
+
+因为 data change 会触发 update ，update 会触发上面函数，就无限递归了。
 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
 

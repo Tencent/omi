@@ -68,7 +68,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
-| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to naitve|
+| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 |[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi version of element-ui|
 
 Other:
@@ -600,6 +600,15 @@ define("my-app", class extends WeElement {
   }
 })
 ```
+
+It should be noted that if `observe` is used, do not set the value of data in the following functions:
+
+* render
+* beforeRender
+* beforeUpdate
+* afterUpdate
+
+Because data change triggers update, update triggers the above function, and it is infinite recursion.
 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
 
