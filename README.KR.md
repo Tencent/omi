@@ -230,6 +230,12 @@ import { define, render } from 'omi'
  render(<my-counter />, 'body')
 ```
 
+만약 위의 `effect` 방식이 필요 없다면 `useData` 를 직접 사용해도 됩니다.
+
+```js
+const [count, setCount] = this.useData(0)
+```
+
 ## Getting Started
 
 ### Install
