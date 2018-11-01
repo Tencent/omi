@@ -1,5 +1,5 @@
 {
-  "name": "omi-finger",
+  "name": "omi-touch",
   "version": "2.0.0",
   "description": "Smooth scrolling, rotation, pull to refresh and any motion for the web.",
   "main": "index.js",
