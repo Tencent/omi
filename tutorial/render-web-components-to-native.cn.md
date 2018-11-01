@@ -1,6 +1,6 @@
 ## 渲染 Web Components 到 Native 方案
 
-怎么渲染 Web Components 到 Native？这里拿 [Omi 框架](https://github.com/Tencent/omi) 为例，以为 Omi 是[基于 Web Components](https://github.com/Tencent/omi#why-omi) 设计的。
+怎么渲染 Web Components 到 Native？这里拿 [Omi 框架](https://github.com/Tencent/omi) 为例，因为 Omi 是[基于 Web Components](https://github.com/Tencent/omi#why-omi) 设计的。
 
 
 ## 行业现状
