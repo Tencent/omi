@@ -674,6 +674,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 任何 Omi 相关问题欢迎联系我们:
 
 - [@f](https://github.com/f)
+- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
 

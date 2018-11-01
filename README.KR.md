@@ -682,6 +682,7 @@ Omi 4.0+ 부터 주요 브라우저(Safari 10+, IE 11+, Chrome, Firefox, Edge)�
 Please contact us for any questions:
 
 - [@f](https://github.com/f)
+- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
 

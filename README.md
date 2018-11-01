@@ -673,6 +673,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 Please contact us for any questions:
 
 - [@f](https://github.com/f)
+- [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
 
