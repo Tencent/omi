@@ -1,25 +1,25 @@
 ## Render Web Components to Native
 
-How to render Web Components to Native? There is an [Omi Framework](https://github.com/Tencent/omi) because Omi is designed [based on Web Components](https://github.com/Tencent/omi#why-omi)
+How to render Web Components to Native? [Omi Framework](https://github.com/Tencent/omi) is one of example because Omi is designed as [Web Components based](https://github.com/Tencent/omi#why-omi).
 
 
 ## Industry Status
 
-Now, there has two genres to render to Native：
+Now, there are two genres rendering to Native：
 
 * Flutter
-  * Use Skia high performance rendering engin to draw GPU directly
+  * Use Skia high performance rendering engin to render by GPU directly
   * Develop using the Dart language
 * React Native, Weex, Taro, Hippy, Plato
-  * Through Bridge and JSCore command to transfer to draw
+  * Through Bridge and JSCore transmit command to render
   * Develop using JavaScript language
-  * JSCore and Native each maintain the same DOM tree树
+  * JSCore and Native each maintain the same DOM tree
 
-Here, Omi uses the second way to achieve [→ omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)。
+Here, Omi uses the second way to achieve [→ omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native).
 
 ## Pre research
 
-Becase Web Components is based on `HTMLElement`. It can be seen a custom element of Omi is inherited from `WeElement`:
+Because Web Components is based on `HTMLElement`. You can see that a custom element of Omi is inherited from `WeElement`:
 
 ```js
 import { render, WeElement, define } from 'omi'
@@ -61,23 +61,24 @@ class WeElement extends HTMLElement {
 }
 ```
 
-既然要在 JSCore 里向 Native 发送指令，那么首先要保证能正常运行。但是在 JSCore 里是没有 DOM 和 BOM, `HTMLElement` 属于 DOM, 自然也就没有。所以 Omi 的项目在 JSCore 里会报错。所以解决这个问题的答案也就浮出水面。
 
-## 模拟 HTMLElement
+Since you want to send command to Native in JSCore, first you must make sure that it works correctly. However in JSCore, there is no DOM and BOM, even though `HTMLElement` is belong to DOM, it is basically not. Thus, Omi project will report an error in JSCore so the answer to the problem is surface.
 
-在浏览器的设计当中：
+## Simulation HTMLElement
 
-* HTMLElement 继承自父接口 Element 和 GlobalEventHandlers 的属性
-* Element 继承自 Node (常用的 appendChild、removeChild、insertBefore 都定义在 Node 中)
-* Node 从其父类EventTarget 继承属性
+In Browser Design：
 
-但是我们实现未必需要和浏览器的实现完全一致，更加不用实现所有的 API。所以 `omi-native` 仅仅实现了:
+* HTMLElement inherits from the parent interfaces: Element and GlobalEventHandlers
+* Element inherits from Node (which appendChild, removeChild, insertBefore defined in)
+* Node inherits properties from its parent class EventTarget
+
+However our implementation does not necesaaarily need to be exactly the same as the browser implementation, not to implement all APIs so `omi-native` is only implemented:
 
 * Element
 * HTMLElement
 * Document
 
-其中 HTMLElement 继承自 Element，具体需要实现哪些API，这里优先梳理出 Omi 使用的 DOM API:
+Among them, HTMLElement inherits from Element, what APIs needs to be implemented, it is a simple introduce DOM API which Omi are using:
 
 * HTMLElement
   * connectedCallback
@@ -94,16 +95,16 @@ class WeElement extends HTMLElement {
 * Document
   * createElement
 
-所以只要实现包括上面这些 API 就能保证 Omi 项目能够在 JSCore 里跑起来不报错。但是仅仅不报错，是不够的，还需要来回发送指令。
-指令传输的意义在于让 Native 维护的 DOM Tree 和 JSCore 维护的 DOM Tree 保持一致。而指令发送的频率会直接影响耗时，指令发送频率越低越好。所以在把 bridge 通讯注入到 appendChild、removeChild 等方法中时，遵循的原则是：
+So as long as the implementation of the above APIs will ensure that the Omi project can run in JSCore without error, but just not giving an error is not enough. You need to send command back and forth.
+The meaning of instruction transfer is to make the DOM tree maintained by Native and the DOM tree maintained by JScore consistent. The frequency of command transmission directly affects the time consuming, and the lower the command transmission frequency, the better. Thus, when injecting bridge communication into appendChild, remove Child, etc., the principles to fllow are:
 
-* 只有真正落在树上的 DOM 操作才发送指令
+* Only DOM operations that actually fall on the tree send command.
 
-所以可想而知，`document.createElement` 或者悬空节点的 `appendChild`、`removeChild` 是不发送任何指令
+So it is conceivable that `document.createElement` or `appendChild`, `removeChild` which over node are not sending any commands.
 
-## 生命周期
+## Life cycle
 
-Omi 自定义元素的生命周期如下所以:
+Omi Life cycle of custome element is as following:
 
 | Lifecycle method | When it gets called                          |
 | ---------------- | -------------------------------------------- |
@@ -114,7 +115,7 @@ Omi 自定义元素的生命周期如下所以:
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
 
-怎么保证 Omi 的生命周期在 JSCore 中正常执行。通过 Omi WeElement 的源码可以发现:
+How to ensure that Omi's life cycle is performed normally in JSCore. Through Omi WeElement, it can be known.
 
 ```js
   connectedCallback() {
@@ -145,12 +146,12 @@ Omi 自定义元素的生命周期如下所以:
   }
 ```
 
-Omi 的生命周期完全依赖 `HTMLElement` 的 `connectedCallback` 和 `disconnectedCallback`
+Omi's life cycle relies entirely on the `connectedCallback` and `disconnectedCallback` of `HTMLElement`.
 
-* connectedCallback 元素被插入到页面时候触发
-* disconnectedCallback 元素从页面移除时触发
+* connectedCallback triggered when an element is inserted into the page
+* disconnectedCallback triggered when an element is removed from the page
 
-既然 `HTMLElement` 和 `Element` 都是自己实现，所以可以控制 `connectedCallback` 和 `disconnectedCallback` 的执行时机。因为你知道元素什么时候被插入到 DOM 树里。比如 append 的时候:
+Since `HTMLElement` and `Element` are both self-implemented so you can  control execution time of `connectedCallback` and `disconnectedCallback` because you know when the element is inserted into the DOM tree. For example, when append:
 
 ```js
   appendChild(node) {
@@ -164,7 +165,7 @@ Omi 的生命周期完全依赖 `HTMLElement` 的 `connectedCallback` 和 `disco
   }
 ```
 
-比如移除时：
+When removed：
 
 ```js
   removeChild(node) {
@@ -178,9 +179,9 @@ Omi 的生命周期完全依赖 `HTMLElement` 的 `connectedCallback` 和 `disco
   }
 ```
 
-## 事件绑定
+## Event binding
 
-由于 JS 里事件绑定的回调函数包含上下文信息，不能传输给客户端，所以只需要告诉 native 元素的 id 和事件绑定的类型，当客户端触发的时候只需传输回元素的 id 和事件的类型。
+Since the callback function of the event binding in JS contains context information and cannot be transmitted to the client. It only needs to tell the id of the native element and the type of the event binding. When the client triggers, it only needs to transfer the id of the element and the type of the event.
 
 ```js
  addEventListener(type, handler) {
@@ -191,4 +192,4 @@ Omi 的生命周期完全依赖 `HTMLElement` 的 `connectedCallback` 和 `disco
   }
 ```
 
-[→ 戳这里看下源码](https://github.com/Tencent/omi/tree/master/packages/omi-native/src/native)
+[→ Fork to see the source code](https://github.com/Tencent/omi/tree/master/packages/omi-native/src/native)
