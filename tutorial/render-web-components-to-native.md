@@ -115,7 +115,7 @@ Omi Life cycle of custome element is as following:
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
 
-How to ensure that Omi's life cycle is performed normally in JSCore. Through Omi WeElement, it can be known.
+How to ensure that Omi's life cycle is performed normally in JSCore. Through Omi WeElement, it can be known:
 
 ```js
   connectedCallback() {
