@@ -608,7 +608,7 @@ It should be noted that if `observe` is used, do not set the value of data in th
 * beforeUpdate
 * afterUpdate
 
-Because data change triggers update, update triggers the above function, and it is infinite recursion.
+Because data setter triggers update, update triggers the above function, and it is infinite recursion.
 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
 

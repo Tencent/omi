@@ -611,7 +611,7 @@ define("my-app", class extends WeElement {
 * beforeUpdate
 * afterUpdate
 
-因为 data change 会触发 update ，update 会触发上面函数，就无限递归了。
+因为 data 设置会触发 update ，update 会触发上面函数，就无限递归了。
 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
 
