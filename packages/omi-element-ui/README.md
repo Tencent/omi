@@ -53,6 +53,12 @@ npm install
 npm start
 ```
 
+Eslint fix
+
+``` bash
+npm run fix
+```
+
 ## Element UI Docs
 
 * [English Docs](http://element-cn.eleme.io/#/en-US/component/)
