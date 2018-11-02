@@ -18,7 +18,7 @@
     "omi",
     "cli",
     "omi-cli",
-    "webpack2"
+    "webpack"
   ],
   "author": "pasturn,heyli,vorshen,dntzhang",
   "license": "MIT",
