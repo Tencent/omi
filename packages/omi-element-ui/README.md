@@ -4,7 +4,7 @@
 
 ## Contribute
 
-* Updtate the readme and pull request to claim elements to be developed.
+* Update the readme and pull request to claim elements to be developed.
 * Create the element directory in the [omi-element-ui](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui/src/omi-element-ui) and finish it then pull request.
 
 | Element | Owner  |Usage  |
