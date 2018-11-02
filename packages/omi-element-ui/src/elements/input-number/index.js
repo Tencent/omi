@@ -4,12 +4,11 @@ import '../../omi-element-ui/el-input-number'
 
 @tag('my-app')
 class MyApp extends WeElement {
-
   css() {
     return style
   }
 
-  onChange = (e) => {
+  onChange = e => {
     console.log(e.detail.value)
   }
 
@@ -17,7 +16,14 @@ class MyApp extends WeElement {
     return (
       <div>
         <div>
-          <el-input-number change={this.onChange} min={1} max={10} step={1} value={2} label="描述文字"></el-input-number>
+          <el-input-number
+            change={this.onChange}
+            min={1}
+            max={10}
+            step={1}
+            value={2}
+            label="描述文字"
+          />
         </div>
       </div>
     )

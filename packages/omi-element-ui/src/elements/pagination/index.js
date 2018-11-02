@@ -4,12 +4,11 @@ import '../../omi-element-ui/el-pagination'
 
 @tag('my-app')
 class MyApp extends WeElement {
-
   css() {
     return style
   }
 
-  onChange = (e) => {
+  onChange = e => {
     console.log('page index', e.detail.index)
   }
 
@@ -17,13 +16,8 @@ class MyApp extends WeElement {
     return (
       <div>
         <div>
-          <el-pagination
-            onChange={this.onChange}
-            total={1000}>
-          </el-pagination>
+          <el-pagination onChange={this.onChange} total={1000} />
         </div>
-
-
       </div>
     )
   }

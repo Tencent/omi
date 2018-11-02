@@ -1,7 +1,6 @@
-
 export default {
   data: { name: 'Omi' },
-  rename: function (name) {
+  rename(name) {
     this.data.name = name
   }
 }
