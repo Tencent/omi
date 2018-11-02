@@ -443,26 +443,22 @@ class MyApp extends WeElement {
 下面列举一个相对完整的 TodoApp 的例子:
 
 ```js
-import { render, WeElement, define } from 'omi'
+import { define, render, WeElement } from 'omi'
 
-define('todo-list', class extends WeElement {
-  render(props) {
-    return (
-      <ul>
-        {props.items.map(item => (
-          <li key={item.id}>{item.text}</li>
-        ))}
-      </ul>
-    )
-  }
+define('todo-list', function(props) {
+  return (
+    <ul>
+      {props.items.map(item => (
+        <li key={item.id}>{item.text}</li>
+      ))}
+    </ul>
+  )
 })
 
 define('todo-app', class extends WeElement {
   static observe = true
 
-  static get data() {
-    return { items: [], text: '' }
-  }
+  data = { items: [], text: '' }
 
   render() {
     return (

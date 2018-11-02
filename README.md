@@ -442,26 +442,22 @@ You can also forget the tedious configuration and use omi-cli directly, no need 
 Here is a relatively complete example of TodoApp:
 
 ```js
-import { render, WeElement, define } from 'omi'
+import { define, render, WeElement } from 'omi'
 
-define('todo-list', class extends WeElement {
-  render(props) {
-    return (
-      <ul>
-        {props.items.map(item => (
-          <li key={item.id}>{item.text}</li>
-        ))}
-      </ul>
-    )
-  }
+define('todo-list', function(props) {
+  return (
+    <ul>
+      {props.items.map(item => (
+        <li key={item.id}>{item.text}</li>
+      ))}
+    </ul>
+  )
 })
 
 define('todo-app', class extends WeElement {
   static observe = true
 
-  static get data() {
-    return { items: [], text: '' }
-  }
+  data = { items: [], text: '' }
 
   render() {
     return (

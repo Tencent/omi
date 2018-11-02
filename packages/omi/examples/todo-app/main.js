@@ -1,23 +1,19 @@
-import { render, WeElement, tag } from '../../src/omi'
+import { render, WeElement, define } from '../../src/omi'
 
-@tag('todo-list')
-class TodoList extends WeElement {
-  render(props) {
-    return (
-      <ul>
-        {props.items.map(item => (
-          <li key={item.id}>{item.text}</li>
-        ))}
-      </ul>
-    )
-  }
-}
+define('todo-list', function(props) {
+  return (
+    <ul>
+      {props.items.map(item => (
+        <li key={item.id}>{item.text}</li>
+      ))}
+    </ul>
+  )
+})
 
-@tag('todo-app')
-class TodoApp extends WeElement {
-  static get data() {
-    return { items: [], text: '' }
-  }
+define('todo-app', class extends WeElement {
+  static observe = true
+
+  data = { items: [], text: '' }
 
   render() {
     return (
@@ -50,8 +46,7 @@ class TodoApp extends WeElement {
       id: Date.now()
     })
     this.data.text = ''
-    this.update()
   }
-}
+})
 
 render(<todo-app />, 'body')

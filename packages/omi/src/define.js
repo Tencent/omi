@@ -15,8 +15,8 @@ export function define(name, ctor) {
 
       _useMap = {}
 
-      render() {
-        return ctor.call(this)
+      render(props, data) {
+        return ctor.call(this, props, data)
       }
 
       beforeRender() {

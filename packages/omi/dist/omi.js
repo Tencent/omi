@@ -399,8 +399,8 @@
                     _this.C = 0, _this.D = {}, _temp), _possibleConstructorReturn$1(_this, _ret);
                 }
                 _inherits$1(Element, _WeElement);
-                Element.prototype.render = function() {
-                    return ctor.call(this);
+                Element.prototype.render = function(props, data) {
+                    return ctor.call(this, props, data);
                 };
                 Element.prototype.beforeRender = function() {
                     this.C = 0;
@@ -772,7 +772,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.16';
+    options.root.Omi.version = '4.0.17';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
