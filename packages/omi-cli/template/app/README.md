@@ -11,6 +11,12 @@ npm start
 npm build
 ```
 
+## Eslint + Prettier
+
+``` bash
+npm run fix
+```
+
 ## Directory description
 
 ```
