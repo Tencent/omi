@@ -4,7 +4,7 @@
 
 ## Contribute
 
-* Updtate the readme and pull request to claim elements to be developed.
+* Update the readme and pull request to claim elements to be developed.
 * Create the element directory in the [omi-element-ui](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui/src/omi-element-ui) and finish it then pull request.
 
 | Element | Owner  |Usage  |
@@ -31,7 +31,7 @@
 |  ~~el-progress~~| dntzhang      |[Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/progress/index.js#L18-L42)|
 |  el-tree|       |
 |  el-pagination| dntzhang      |
-|  el-badge|      |
+|  el-badge|   qiupanfeng   |
 |  ~~el-alert~~|  @zhengbao   |
 |  el-menu|   @zhengbao   |
 |  el-tabs|   @zhengbao   |
