@@ -405,6 +405,11 @@
                 Element.prototype.beforeRender = function() {
                     this.C = 0;
                 };
+                Element.prototype.useCss = function(css) {
+                    var style = this.shadowRoot.querySelector('style');
+                    style && this.shadowRoot.removeChild(style);
+                    this.shadowRoot.appendChild(cssToDom(css));
+                };
                 Element.prototype.useData = function(data) {
                     return this.use({
                         data: data
@@ -772,7 +777,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.17';
+    options.root.Omi.version = '4.0.18';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

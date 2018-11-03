@@ -1,4 +1,5 @@
 import WeElement from './we-element'
+import { cssToDom } from './util'
 
 const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
@@ -21,6 +22,12 @@ export function define(name, ctor) {
 
       beforeRender() {
         this._useId = 0
+      }
+
+      useCss(css) {
+        const style = this.shadowRoot.querySelector('style')
+        style && this.shadowRoot.removeChild(style)
+        this.shadowRoot.appendChild(cssToDom(css))
       }
 
       useData(data) {
