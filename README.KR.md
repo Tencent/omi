@@ -221,7 +221,10 @@ import { define, render } from 'omi'
       document.title = `The num is ${this.data}.`
     }
   })
-   return (
+
+  this.useCss(`button{ color: red; }`)
+
+  return (
     <div>
       <button onClick={() => setCount(count - 1)}>-</button>
       <span>{count}</span>

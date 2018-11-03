@@ -222,6 +222,8 @@ define('my-counter', function() {
     }
   })
 
+  this.useCss(`button{ color: red; }`)
+
   return (
     <div>
       <button onClick={() => setCount(count - 1)}>-</button>
