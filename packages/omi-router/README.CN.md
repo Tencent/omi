@@ -27,7 +27,7 @@ npm install omi-router
 
 
 ```js
-import route from '../../index'
+import route from 'omi-router'
 import { define, WeElement, render } from 'omi'
 import './about'
 import './home'
