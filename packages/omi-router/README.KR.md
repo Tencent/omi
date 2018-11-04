@@ -83,7 +83,7 @@ render(<my-app />, "#container")
 
 ## 동적매치
 
-| 양식 | 매칭주소 | route.params |
+| Rule | Path | route.params |
 |---------|------|--------|
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
