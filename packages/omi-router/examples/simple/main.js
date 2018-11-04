@@ -1,4 +1,4 @@
-﻿import route from '../../index'
+﻿import '../../index'
 import { define, WeElement, render } from 'omi'
 import './about'
 import './home'

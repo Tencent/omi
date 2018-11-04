@@ -27,7 +27,8 @@ npm install omi-router
 
 
 ```js
-import route from 'omi-router'
+//You can visit route in the global context.
+import 'omi-router'
 import { define, WeElement, render } from 'omi'
 import './about'
 import './home'

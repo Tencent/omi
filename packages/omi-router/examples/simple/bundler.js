@@ -1562,9 +1562,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _class, _temp2;
 
-var _index = __webpack_require__(3);
-
-var _index2 = _interopRequireDefault(_index);
+__webpack_require__(3);
 
 var _omi = __webpack_require__(0);
 
@@ -1575,8 +1573,6 @@ __webpack_require__(6);
 __webpack_require__(7);
 
 __webpack_require__(8);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1606,23 +1602,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     value: function install() {
       var _this2 = this;
 
-      (0, _index2.default)('/', function (info) {
+      route('/', function (info) {
         _this2.data.tag = 'my-home';
       });
 
-      (0, _index2.default)('/about', function (info) {
+      route('/about', function (info) {
         _this2.data.tag = 'my-about';
       });
 
-      (0, _index2.default)('/user-list', function (info) {
+      route('/user-list', function (info) {
         _this2.data.tag = 'user-list';
       });
 
-      (0, _index2.default)('/user/:name/category/:category', function (info) {
+      route('/user/:name/category/:category', function (info) {
         _this2.data.tag = 'my-user';
       });
 
-      (0, _index2.default)('*', function () {
+      route('*', function () {
         console.log('not found');
       });
     }
