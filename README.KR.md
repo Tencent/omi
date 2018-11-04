@@ -62,6 +62,7 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
 |[omi-i18n](https://github.com/i18next/omi-i18n)| i18next 에코시스템을 사용한 omi.js 다국어 지원 방식 |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. 초간단 CSS3 Transform |
+| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | [page](https://github.com/visionmedia/page.js) 를 통한 소형의 클라이언트 사이드 라우터 |
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 탭 이벤트 지원 |
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)| 터치 와 제스처 이벤트 지원 |
