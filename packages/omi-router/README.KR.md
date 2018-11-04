@@ -88,7 +88,7 @@ render(<my-app />, "#container")
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
 
-구성 요소 트리의 모든 구성 요소는 `route.params`를 통해 해시가 전달한 데이터에 엑세스할 수 있습니다.
+구성 요소 트리의 모든 구성 요소는 `route.params` 를 통해 해시에 의해 전송된 데이터에 엑세스할 수 있습니다.
 
 
 ### 레퍼런스
