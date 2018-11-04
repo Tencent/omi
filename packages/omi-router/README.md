@@ -1,6 +1,22 @@
 ﻿# omi-router
 
+omi-router is a router plugin of [Omi](http://omijs.org), and it is lightweight, easy and powerful to use. It is a solution to build Omi's SPA(Single Page Application).
+
+The advantage of SPA is very clear.
+
+* No refresh to load a content
+* No refresh to previous/forward page
+* Shareable link (Other can see the same page as you see)
+* No blank page and transmission animation
+* Reusable resource (If multi-page, same resource shold be loaded multi times)
+
+Yes, there are many advantages. Let's do it.
+
+
 ## Install
+
+
+### NPM
 
 ```js
 npm install omi-router
