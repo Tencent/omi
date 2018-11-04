@@ -93,8 +93,8 @@ render(<my-app />, "#container")
 
 ### 地址
 
-* [在线演示地址](http://tencent.github.io/omi/packages/omi-router/example/simple/)
-* [源码地址](https://github.com/Tencent/omi/tree/master/packages/omi-router/example/simple)
+* [在线演示地址](https://tencent.github.io/omi/packages/omi-router/examples/simple/)
+* [源码地址](https://github.com/Tencent/omi/tree/master/packages/omi-router/examples/simple)
 
 ## License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
