@@ -1,13 +1,10 @@
 {
   "name": "omi-router",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Router for Omi.",
   "main": "index.js",
   "scripts": {
-    "lazy": "webpack -w",
-    "simple": "webpack -w",
-    "build": "webpack",
-    "build-min": "webpack"
+    "simple": "webpack -w"
   },
   "repository": {
     "type": "git",
