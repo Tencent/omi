@@ -83,7 +83,7 @@ render(<my-app />, "#container")
 
 ## 动态匹配
 
-| 模式 | 匹配路径 | $route.params |
+| 模式 | 匹配路径 | route.params |
 |---------|------|--------|
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
