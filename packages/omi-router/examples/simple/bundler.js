@@ -60,596 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _class, _temp2;
-
-var _index = __webpack_require__(1);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _omi = __webpack_require__(3);
-
-__webpack_require__(5);
-
-__webpack_require__(6);
-
-__webpack_require__(7);
-
-__webpack_require__(8);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-(0, _omi.define)('my-app', (_temp2 = _class = function (_WeElement) {
-  _inherits(_class, _WeElement);
-
-  function _class() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, _class);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = { tag: 'my-home' }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(_class, [{
-    key: 'install',
-    value: function install() {
-      var _this2 = this;
-
-      (0, _index2.default)('/', function (info) {
-        _this2.data.tag = 'my-home';
-      });
-
-      (0, _index2.default)('/about', function (info) {
-        _this2.data.tag = 'my-about';
-      });
-
-      (0, _index2.default)('/user-list', function (info) {
-        _this2.data.tag = 'user-list';
-      });
-
-      (0, _index2.default)('/user/:name/category/:category', function (info) {
-        _this2.data.tag = 'my-user';
-      });
-
-      (0, _index2.default)('*', function () {
-        console.log('not found');
-      });
-    }
-  }, {
-    key: 'css',
-    value: function css() {
-      return '\n      ul{\n          border-bottom: 1px solid #ccc;\n          padding-bottom:5px;\n      }\n      li{\n          display:inline-block;\n          margin-left:4px;\n      }\n      #view li{\n          display:block;\n      }\n      #view ul{\n          border-width: 0px;\n      }\n      ';
-    }
-  }, {
-    key: 'render',
-    value: function render(props, data) {
-      console.log(data.tag);
-      return Omi.h(
-        'div',
-        null,
-        Omi.h(
-          'ul',
-          null,
-          Omi.h(
-            'li',
-            null,
-            Omi.h(
-              'a',
-              { href: '#/' },
-              'Home'
-            )
-          ),
-          Omi.h(
-            'li',
-            null,
-            Omi.h(
-              'a',
-              { href: '#/about' },
-              'About'
-            )
-          ),
-          Omi.h(
-            'li',
-            null,
-            Omi.h(
-              'a',
-              { href: '#/user-list' },
-              'UserList'
-            )
-          )
-        ),
-        Omi.h(
-          'div',
-          { id: 'view' },
-          Omi.h(data.tag, null)
-        )
-      );
-    }
-  }]);
-
-  return _class;
-}(_omi.WeElement), _class.observe = true, _temp2));
-
-(0, _omi.render)(Omi.h('my-app', null), "#container");
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.default = route;
-/*!
- *  omi-router v1.0.0 by dntzhang
- *  Router for Omi.
- *  Github: https://github.com/Tencent/omi
- *  MIT Licensed.
- */
-
-var p2r = __webpack_require__(2);
-var mapping = {};
-var root = getGlobal();
-
-root.route = route;
-root.route.params = null;
-
-window.addEventListener('hashchange', function () {
-  var path = window.location.hash.replace('#', '');
-  var notFound = true;
-  Object.keys(mapping).every(function (key) {
-    var toArr = path.match(mapping[key].reg);
-    if (toArr) {
-      var pathArr = key.match(mapping[key].reg);
-      root.route.params = getParams(toArr, pathArr);
-      mapping[key].callback(root.route.params);
-      notFound = false;
-      return false;
-    }
-    return true;
-  });
-
-  if (notFound) {
-    mapping['*'] && mapping['*'].callback();
-  }
-});
-
-function getParams(toArr, pathArr) {
-  var params = {};
-  toArr.forEach(function (item, index) {
-    if (index > 0) {
-      params[pathArr[index].replace(':', '')] = item;
-    }
-  });
-  return params;
-}
-
-function route(path, callback) {
-  mapping[path] = {
-    callback: callback,
-    reg: p2r(path)
-  };
-}
-
-function getGlobal() {
-  if ((typeof global === 'undefined' ? 'undefined' : _typeof(global)) !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
-    return self || window || global || function () {
-      return this;
-    }();
-  }
-  return global;
-}
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-/**
- * Expose `pathToRegexp`.
- */
-module.exports = pathToRegexp;
-module.exports.parse = parse;
-module.exports.compile = compile;
-module.exports.tokensToFunction = tokensToFunction;
-module.exports.tokensToRegExp = tokensToRegExp;
-
-/**
- * Default configs.
- */
-var DEFAULT_DELIMITER = '/';
-var DEFAULT_DELIMITERS = './';
-
-/**
- * The main path matching regexp utility.
- *
- * @type {RegExp}
- */
-var PATH_REGEXP = new RegExp([
-// Match escaped characters that would otherwise appear in future matches.
-// This allows the user to escape special characters that won't transform.
-'(\\\\.)',
-// Match Express-style parameters and un-named parameters with a prefix
-// and optional suffixes. Matches appear as:
-//
-// ":test(\\d+)?" => ["test", "\d+", undefined, "?"]
-// "(\\d+)"  => [undefined, undefined, "\d+", undefined]
-'(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?'].join('|'), 'g');
-
-/**
- * Parse a string for the raw tokens.
- *
- * @param  {string}  str
- * @param  {Object=} options
- * @return {!Array}
- */
-function parse(str, options) {
-  var tokens = [];
-  var key = 0;
-  var index = 0;
-  var path = '';
-  var defaultDelimiter = options && options.delimiter || DEFAULT_DELIMITER;
-  var delimiters = options && options.delimiters || DEFAULT_DELIMITERS;
-  var pathEscaped = false;
-  var res;
-
-  while ((res = PATH_REGEXP.exec(str)) !== null) {
-    var m = res[0];
-    var escaped = res[1];
-    var offset = res.index;
-    path += str.slice(index, offset);
-    index = offset + m.length;
-
-    // Ignore already escaped sequences.
-    if (escaped) {
-      path += escaped[1];
-      pathEscaped = true;
-      continue;
-    }
-
-    var prev = '';
-    var next = str[index];
-    var name = res[2];
-    var capture = res[3];
-    var group = res[4];
-    var modifier = res[5];
-
-    if (!pathEscaped && path.length) {
-      var k = path.length - 1;
-
-      if (delimiters.indexOf(path[k]) > -1) {
-        prev = path[k];
-        path = path.slice(0, k);
-      }
-    }
-
-    // Push the current path onto the tokens.
-    if (path) {
-      tokens.push(path);
-      path = '';
-      pathEscaped = false;
-    }
-
-    var partial = prev !== '' && next !== undefined && next !== prev;
-    var repeat = modifier === '+' || modifier === '*';
-    var optional = modifier === '?' || modifier === '*';
-    var delimiter = prev || defaultDelimiter;
-    var pattern = capture || group;
-
-    tokens.push({
-      name: name || key++,
-      prefix: prev,
-      delimiter: delimiter,
-      optional: optional,
-      repeat: repeat,
-      partial: partial,
-      pattern: pattern ? escapeGroup(pattern) : '[^' + escapeString(delimiter) + ']+?'
-    });
-  }
-
-  // Push any remaining characters.
-  if (path || index < str.length) {
-    tokens.push(path + str.substr(index));
-  }
-
-  return tokens;
-}
-
-/**
- * Compile a string to a template function for the path.
- *
- * @param  {string}             str
- * @param  {Object=}            options
- * @return {!function(Object=, Object=)}
- */
-function compile(str, options) {
-  return tokensToFunction(parse(str, options));
-}
-
-/**
- * Expose a method for transforming tokens into the path function.
- */
-function tokensToFunction(tokens) {
-  // Compile all the tokens into regexps.
-  var matches = new Array(tokens.length);
-
-  // Compile all the patterns before compilation.
-  for (var i = 0; i < tokens.length; i++) {
-    if (_typeof(tokens[i]) === 'object') {
-      matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$');
-    }
-  }
-
-  return function (data, options) {
-    var path = '';
-    var encode = options && options.encode || encodeURIComponent;
-
-    for (var i = 0; i < tokens.length; i++) {
-      var token = tokens[i];
-
-      if (typeof token === 'string') {
-        path += token;
-        continue;
-      }
-
-      var value = data ? data[token.name] : undefined;
-      var segment;
-
-      if (Array.isArray(value)) {
-        if (!token.repeat) {
-          throw new TypeError('Expected "' + token.name + '" to not repeat, but got array');
-        }
-
-        if (value.length === 0) {
-          if (token.optional) continue;
-
-          throw new TypeError('Expected "' + token.name + '" to not be empty');
-        }
-
-        for (var j = 0; j < value.length; j++) {
-          segment = encode(value[j], token);
-
-          if (!matches[i].test(segment)) {
-            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '"');
-          }
-
-          path += (j === 0 ? token.prefix : token.delimiter) + segment;
-        }
-
-        continue;
-      }
-
-      if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-        segment = encode(String(value), token);
-
-        if (!matches[i].test(segment)) {
-          throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but got "' + segment + '"');
-        }
-
-        path += token.prefix + segment;
-        continue;
-      }
-
-      if (token.optional) {
-        // Prepend partial segment prefixes.
-        if (token.partial) path += token.prefix;
-
-        continue;
-      }
-
-      throw new TypeError('Expected "' + token.name + '" to be ' + (token.repeat ? 'an array' : 'a string'));
-    }
-
-    return path;
-  };
-}
-
-/**
- * Escape a regular expression string.
- *
- * @param  {string} str
- * @return {string}
- */
-function escapeString(str) {
-  return str.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1');
-}
-
-/**
- * Escape the capturing group by escaping special characters and meaning.
- *
- * @param  {string} group
- * @return {string}
- */
-function escapeGroup(group) {
-  return group.replace(/([=!:$/()])/g, '\\$1');
-}
-
-/**
- * Get the flags for a regexp from the options.
- *
- * @param  {Object} options
- * @return {string}
- */
-function flags(options) {
-  return options && options.sensitive ? '' : 'i';
-}
-
-/**
- * Pull out keys from a regexp.
- *
- * @param  {!RegExp} path
- * @param  {Array=}  keys
- * @return {!RegExp}
- */
-function regexpToRegexp(path, keys) {
-  if (!keys) return path;
-
-  // Use a negative lookahead to match only capturing groups.
-  var groups = path.source.match(/\((?!\?)/g);
-
-  if (groups) {
-    for (var i = 0; i < groups.length; i++) {
-      keys.push({
-        name: i,
-        prefix: null,
-        delimiter: null,
-        optional: false,
-        repeat: false,
-        partial: false,
-        pattern: null
-      });
-    }
-  }
-
-  return path;
-}
-
-/**
- * Transform an array into a regexp.
- *
- * @param  {!Array}  path
- * @param  {Array=}  keys
- * @param  {Object=} options
- * @return {!RegExp}
- */
-function arrayToRegexp(path, keys, options) {
-  var parts = [];
-
-  for (var i = 0; i < path.length; i++) {
-    parts.push(pathToRegexp(path[i], keys, options).source);
-  }
-
-  return new RegExp('(?:' + parts.join('|') + ')', flags(options));
-}
-
-/**
- * Create a path regexp from string input.
- *
- * @param  {string}  path
- * @param  {Array=}  keys
- * @param  {Object=} options
- * @return {!RegExp}
- */
-function stringToRegexp(path, keys, options) {
-  return tokensToRegExp(parse(path, options), keys, options);
-}
-
-/**
- * Expose a function for taking tokens and returning a RegExp.
- *
- * @param  {!Array}  tokens
- * @param  {Array=}  keys
- * @param  {Object=} options
- * @return {!RegExp}
- */
-function tokensToRegExp(tokens, keys, options) {
-  options = options || {};
-
-  var strict = options.strict;
-  var start = options.start !== false;
-  var end = options.end !== false;
-  var delimiter = escapeString(options.delimiter || DEFAULT_DELIMITER);
-  var delimiters = options.delimiters || DEFAULT_DELIMITERS;
-  var endsWith = [].concat(options.endsWith || []).map(escapeString).concat('$').join('|');
-  var route = start ? '^' : '';
-  var isEndDelimited = tokens.length === 0;
-
-  // Iterate over the tokens and create our regexp string.
-  for (var i = 0; i < tokens.length; i++) {
-    var token = tokens[i];
-
-    if (typeof token === 'string') {
-      route += escapeString(token);
-      isEndDelimited = i === tokens.length - 1 && delimiters.indexOf(token[token.length - 1]) > -1;
-    } else {
-      var capture = token.repeat ? '(?:' + token.pattern + ')(?:' + escapeString(token.delimiter) + '(?:' + token.pattern + '))*' : token.pattern;
-
-      if (keys) keys.push(token);
-
-      if (token.optional) {
-        if (token.partial) {
-          route += escapeString(token.prefix) + '(' + capture + ')?';
-        } else {
-          route += '(?:' + escapeString(token.prefix) + '(' + capture + '))?';
-        }
-      } else {
-        route += escapeString(token.prefix) + '(' + capture + ')';
-      }
-    }
-  }
-
-  if (end) {
-    if (!strict) route += '(?:' + delimiter + ')?';
-
-    route += endsWith === '$' ? '$' : '(?=' + endsWith + ')';
-  } else {
-    if (!strict) route += '(?:' + delimiter + '(?=' + endsWith + '))?';
-    if (!isEndDelimited) route += '(?=' + delimiter + '|' + endsWith + ')';
-  }
-
-  return new RegExp(route, flags(options));
-}
-
-/**
- * Normalize the given path string, returning a regular expression.
- *
- * An empty array can be passed in for the keys, which will hold the
- * placeholder key descriptions. For example, using `/user/:id`, `keys` will
- * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
- *
- * @param  {(string|RegExp|Array)} path
- * @param  {Array=}                keys
- * @param  {Object=}               options
- * @return {!RegExp}
- */
-function pathToRegexp(path, keys, options) {
-  if (path instanceof RegExp) {
-    return regexpToRegexp(path, keys);
-  }
-
-  if (Array.isArray(path)) {
-    return arrayToRegexp( /** @type {!Array} */path, keys, options);
-  }
-
-  return stringToRegexp( /** @type {string} */path, keys, options);
-}
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2104,10 +1519,10 @@ exports.observe = observe;
 exports.cloneElement = cloneElement;
 exports.getHost = getHost;
 //# sourceMappingURL=omi.esm.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 4 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2137,6 +1552,591 @@ try {
 module.exports = g;
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp2;
+
+var _index = __webpack_require__(3);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _omi = __webpack_require__(0);
+
+__webpack_require__(5);
+
+__webpack_require__(6);
+
+__webpack_require__(7);
+
+__webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('my-app', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, _class);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = { tag: 'my-home' }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(_class, [{
+    key: 'install',
+    value: function install() {
+      var _this2 = this;
+
+      (0, _index2.default)('/', function (info) {
+        _this2.data.tag = 'my-home';
+      });
+
+      (0, _index2.default)('/about', function (info) {
+        _this2.data.tag = 'my-about';
+      });
+
+      (0, _index2.default)('/user-list', function (info) {
+        _this2.data.tag = 'user-list';
+      });
+
+      (0, _index2.default)('/user/:name/category/:category', function (info) {
+        _this2.data.tag = 'my-user';
+      });
+
+      (0, _index2.default)('*', function () {
+        console.log('not found');
+      });
+    }
+  }, {
+    key: 'css',
+    value: function css() {
+      return '\n      ul{\n          border-bottom: 1px solid #ccc;\n          padding-bottom:5px;\n      }\n      li{\n          display:inline-block;\n          margin-left:4px;\n      }\n      #view li{\n          display:block;\n      }\n      #view ul{\n          border-width: 0px;\n      }\n      ';
+    }
+  }, {
+    key: 'render',
+    value: function render(props, data) {
+      console.log(data.tag);
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'ul',
+          null,
+          Omi.h(
+            'li',
+            null,
+            Omi.h(
+              'a',
+              { href: '#/' },
+              'Home'
+            )
+          ),
+          Omi.h(
+            'li',
+            null,
+            Omi.h(
+              'a',
+              { href: '#/about' },
+              'About'
+            )
+          ),
+          Omi.h(
+            'li',
+            null,
+            Omi.h(
+              'a',
+              { href: '#/user-list' },
+              'UserList'
+            )
+          )
+        ),
+        Omi.h(
+          'div',
+          { id: 'view' },
+          Omi.h(data.tag, null)
+        )
+      );
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement), _class.observe = true, _temp2));
+
+(0, _omi.render)(Omi.h('my-app', null), "#container");
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.default = route;
+/*!
+ *  omi-router v1.0.0 by dntzhang
+ *  Router for Omi.
+ *  Github: https://github.com/Tencent/omi
+ *  MIT Licensed.
+ */
+
+var p2r = __webpack_require__(4);
+var mapping = {};
+var root = getGlobal();
+
+root.route = route;
+root.route.params = null;
+
+window.addEventListener('hashchange', function () {
+  var path = window.location.hash.replace('#', '');
+  var notFound = true;
+  Object.keys(mapping).every(function (key) {
+    var toArr = path.match(mapping[key].reg);
+    if (toArr) {
+      var pathArr = key.match(mapping[key].reg);
+      root.route.params = getParams(toArr, pathArr);
+      mapping[key].callback(root.route.params);
+      notFound = false;
+      return false;
+    }
+    return true;
+  });
+
+  if (notFound) {
+    mapping['*'] && mapping['*'].callback();
+  }
+});
+
+function getParams(toArr, pathArr) {
+  var params = {};
+  toArr.forEach(function (item, index) {
+    if (index > 0) {
+      params[pathArr[index].replace(':', '')] = item;
+    }
+  });
+  return params;
+}
+
+function route(path, callback) {
+  mapping[path] = {
+    callback: callback,
+    reg: p2r(path)
+  };
+}
+
+function getGlobal() {
+  if ((typeof global === 'undefined' ? 'undefined' : _typeof(global)) !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
+    return self || window || global || function () {
+      return this;
+    }();
+  }
+  return global;
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/**
+ * Expose `pathToRegexp`.
+ */
+module.exports = pathToRegexp;
+module.exports.parse = parse;
+module.exports.compile = compile;
+module.exports.tokensToFunction = tokensToFunction;
+module.exports.tokensToRegExp = tokensToRegExp;
+
+/**
+ * Default configs.
+ */
+var DEFAULT_DELIMITER = '/';
+var DEFAULT_DELIMITERS = './';
+
+/**
+ * The main path matching regexp utility.
+ *
+ * @type {RegExp}
+ */
+var PATH_REGEXP = new RegExp([
+// Match escaped characters that would otherwise appear in future matches.
+// This allows the user to escape special characters that won't transform.
+'(\\\\.)',
+// Match Express-style parameters and un-named parameters with a prefix
+// and optional suffixes. Matches appear as:
+//
+// ":test(\\d+)?" => ["test", "\d+", undefined, "?"]
+// "(\\d+)"  => [undefined, undefined, "\d+", undefined]
+'(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?'].join('|'), 'g');
+
+/**
+ * Parse a string for the raw tokens.
+ *
+ * @param  {string}  str
+ * @param  {Object=} options
+ * @return {!Array}
+ */
+function parse(str, options) {
+  var tokens = [];
+  var key = 0;
+  var index = 0;
+  var path = '';
+  var defaultDelimiter = options && options.delimiter || DEFAULT_DELIMITER;
+  var delimiters = options && options.delimiters || DEFAULT_DELIMITERS;
+  var pathEscaped = false;
+  var res;
+
+  while ((res = PATH_REGEXP.exec(str)) !== null) {
+    var m = res[0];
+    var escaped = res[1];
+    var offset = res.index;
+    path += str.slice(index, offset);
+    index = offset + m.length;
+
+    // Ignore already escaped sequences.
+    if (escaped) {
+      path += escaped[1];
+      pathEscaped = true;
+      continue;
+    }
+
+    var prev = '';
+    var next = str[index];
+    var name = res[2];
+    var capture = res[3];
+    var group = res[4];
+    var modifier = res[5];
+
+    if (!pathEscaped && path.length) {
+      var k = path.length - 1;
+
+      if (delimiters.indexOf(path[k]) > -1) {
+        prev = path[k];
+        path = path.slice(0, k);
+      }
+    }
+
+    // Push the current path onto the tokens.
+    if (path) {
+      tokens.push(path);
+      path = '';
+      pathEscaped = false;
+    }
+
+    var partial = prev !== '' && next !== undefined && next !== prev;
+    var repeat = modifier === '+' || modifier === '*';
+    var optional = modifier === '?' || modifier === '*';
+    var delimiter = prev || defaultDelimiter;
+    var pattern = capture || group;
+
+    tokens.push({
+      name: name || key++,
+      prefix: prev,
+      delimiter: delimiter,
+      optional: optional,
+      repeat: repeat,
+      partial: partial,
+      pattern: pattern ? escapeGroup(pattern) : '[^' + escapeString(delimiter) + ']+?'
+    });
+  }
+
+  // Push any remaining characters.
+  if (path || index < str.length) {
+    tokens.push(path + str.substr(index));
+  }
+
+  return tokens;
+}
+
+/**
+ * Compile a string to a template function for the path.
+ *
+ * @param  {string}             str
+ * @param  {Object=}            options
+ * @return {!function(Object=, Object=)}
+ */
+function compile(str, options) {
+  return tokensToFunction(parse(str, options));
+}
+
+/**
+ * Expose a method for transforming tokens into the path function.
+ */
+function tokensToFunction(tokens) {
+  // Compile all the tokens into regexps.
+  var matches = new Array(tokens.length);
+
+  // Compile all the patterns before compilation.
+  for (var i = 0; i < tokens.length; i++) {
+    if (_typeof(tokens[i]) === 'object') {
+      matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$');
+    }
+  }
+
+  return function (data, options) {
+    var path = '';
+    var encode = options && options.encode || encodeURIComponent;
+
+    for (var i = 0; i < tokens.length; i++) {
+      var token = tokens[i];
+
+      if (typeof token === 'string') {
+        path += token;
+        continue;
+      }
+
+      var value = data ? data[token.name] : undefined;
+      var segment;
+
+      if (Array.isArray(value)) {
+        if (!token.repeat) {
+          throw new TypeError('Expected "' + token.name + '" to not repeat, but got array');
+        }
+
+        if (value.length === 0) {
+          if (token.optional) continue;
+
+          throw new TypeError('Expected "' + token.name + '" to not be empty');
+        }
+
+        for (var j = 0; j < value.length; j++) {
+          segment = encode(value[j], token);
+
+          if (!matches[i].test(segment)) {
+            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '"');
+          }
+
+          path += (j === 0 ? token.prefix : token.delimiter) + segment;
+        }
+
+        continue;
+      }
+
+      if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+        segment = encode(String(value), token);
+
+        if (!matches[i].test(segment)) {
+          throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but got "' + segment + '"');
+        }
+
+        path += token.prefix + segment;
+        continue;
+      }
+
+      if (token.optional) {
+        // Prepend partial segment prefixes.
+        if (token.partial) path += token.prefix;
+
+        continue;
+      }
+
+      throw new TypeError('Expected "' + token.name + '" to be ' + (token.repeat ? 'an array' : 'a string'));
+    }
+
+    return path;
+  };
+}
+
+/**
+ * Escape a regular expression string.
+ *
+ * @param  {string} str
+ * @return {string}
+ */
+function escapeString(str) {
+  return str.replace(/([.+*?=^!:${}()[\]|/\\])/g, '\\$1');
+}
+
+/**
+ * Escape the capturing group by escaping special characters and meaning.
+ *
+ * @param  {string} group
+ * @return {string}
+ */
+function escapeGroup(group) {
+  return group.replace(/([=!:$/()])/g, '\\$1');
+}
+
+/**
+ * Get the flags for a regexp from the options.
+ *
+ * @param  {Object} options
+ * @return {string}
+ */
+function flags(options) {
+  return options && options.sensitive ? '' : 'i';
+}
+
+/**
+ * Pull out keys from a regexp.
+ *
+ * @param  {!RegExp} path
+ * @param  {Array=}  keys
+ * @return {!RegExp}
+ */
+function regexpToRegexp(path, keys) {
+  if (!keys) return path;
+
+  // Use a negative lookahead to match only capturing groups.
+  var groups = path.source.match(/\((?!\?)/g);
+
+  if (groups) {
+    for (var i = 0; i < groups.length; i++) {
+      keys.push({
+        name: i,
+        prefix: null,
+        delimiter: null,
+        optional: false,
+        repeat: false,
+        partial: false,
+        pattern: null
+      });
+    }
+  }
+
+  return path;
+}
+
+/**
+ * Transform an array into a regexp.
+ *
+ * @param  {!Array}  path
+ * @param  {Array=}  keys
+ * @param  {Object=} options
+ * @return {!RegExp}
+ */
+function arrayToRegexp(path, keys, options) {
+  var parts = [];
+
+  for (var i = 0; i < path.length; i++) {
+    parts.push(pathToRegexp(path[i], keys, options).source);
+  }
+
+  return new RegExp('(?:' + parts.join('|') + ')', flags(options));
+}
+
+/**
+ * Create a path regexp from string input.
+ *
+ * @param  {string}  path
+ * @param  {Array=}  keys
+ * @param  {Object=} options
+ * @return {!RegExp}
+ */
+function stringToRegexp(path, keys, options) {
+  return tokensToRegExp(parse(path, options), keys, options);
+}
+
+/**
+ * Expose a function for taking tokens and returning a RegExp.
+ *
+ * @param  {!Array}  tokens
+ * @param  {Array=}  keys
+ * @param  {Object=} options
+ * @return {!RegExp}
+ */
+function tokensToRegExp(tokens, keys, options) {
+  options = options || {};
+
+  var strict = options.strict;
+  var start = options.start !== false;
+  var end = options.end !== false;
+  var delimiter = escapeString(options.delimiter || DEFAULT_DELIMITER);
+  var delimiters = options.delimiters || DEFAULT_DELIMITERS;
+  var endsWith = [].concat(options.endsWith || []).map(escapeString).concat('$').join('|');
+  var route = start ? '^' : '';
+  var isEndDelimited = tokens.length === 0;
+
+  // Iterate over the tokens and create our regexp string.
+  for (var i = 0; i < tokens.length; i++) {
+    var token = tokens[i];
+
+    if (typeof token === 'string') {
+      route += escapeString(token);
+      isEndDelimited = i === tokens.length - 1 && delimiters.indexOf(token[token.length - 1]) > -1;
+    } else {
+      var capture = token.repeat ? '(?:' + token.pattern + ')(?:' + escapeString(token.delimiter) + '(?:' + token.pattern + '))*' : token.pattern;
+
+      if (keys) keys.push(token);
+
+      if (token.optional) {
+        if (token.partial) {
+          route += escapeString(token.prefix) + '(' + capture + ')?';
+        } else {
+          route += '(?:' + escapeString(token.prefix) + '(' + capture + '))?';
+        }
+      } else {
+        route += escapeString(token.prefix) + '(' + capture + ')';
+      }
+    }
+  }
+
+  if (end) {
+    if (!strict) route += '(?:' + delimiter + ')?';
+
+    route += endsWith === '$' ? '$' : '(?=' + endsWith + ')';
+  } else {
+    if (!strict) route += '(?:' + delimiter + '(?=' + endsWith + '))?';
+    if (!isEndDelimited) route += '(?=' + delimiter + '|' + endsWith + ')';
+  }
+
+  return new RegExp(route, flags(options));
+}
+
+/**
+ * Normalize the given path string, returning a regular expression.
+ *
+ * An empty array can be passed in for the keys, which will hold the
+ * placeholder key descriptions. For example, using `/user/:id`, `keys` will
+ * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
+ *
+ * @param  {(string|RegExp|Array)} path
+ * @param  {Array=}                keys
+ * @param  {Object=}               options
+ * @return {!RegExp}
+ */
+function pathToRegexp(path, keys, options) {
+  if (path instanceof RegExp) {
+    return regexpToRegexp(path, keys);
+  }
+
+  if (Array.isArray(path)) {
+    return arrayToRegexp( /** @type {!Array} */path, keys, options);
+  }
+
+  return stringToRegexp( /** @type {string} */path, keys, options);
+}
+
+/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2145,7 +2145,7 @@ module.exports = g;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _omi = __webpack_require__(3);
+var _omi = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2154,26 +2154,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (0, _omi.define)('my-about', function (_WeElement) {
-    _inherits(_class, _WeElement);
+  _inherits(_class, _WeElement);
 
-    function _class() {
-        _classCallCheck(this, _class);
+  function _class() {
+    _classCallCheck(this, _class);
 
-        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'render',
+    value: function render() {
+      return Omi.h(
+        'div',
+        null,
+        'About'
+      );
     }
+  }]);
 
-    _createClass(_class, [{
-        key: 'render',
-        value: function render() {
-            return Omi.h(
-                'div',
-                null,
-                'About'
-            );
-        }
-    }]);
-
-    return _class;
+  return _class;
 }(_omi.WeElement));
 
 /***/ }),
@@ -2185,7 +2185,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _omi = __webpack_require__(3);
+var _omi = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2194,26 +2194,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (0, _omi.define)('my-home', function (_WeElement) {
-    _inherits(_class, _WeElement);
+  _inherits(_class, _WeElement);
 
-    function _class() {
-        _classCallCheck(this, _class);
+  function _class() {
+    _classCallCheck(this, _class);
 
-        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'render',
+    value: function render() {
+      return Omi.h(
+        'div',
+        null,
+        'Home'
+      );
     }
+  }]);
 
-    _createClass(_class, [{
-        key: 'render',
-        value: function render() {
-            return Omi.h(
-                'div',
-                null,
-                'Home'
-            );
-        }
-    }]);
-
-    return _class;
+  return _class;
 }(_omi.WeElement));
 
 /***/ }),
@@ -2225,7 +2225,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _omi = __webpack_require__(3);
+var _omi = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2234,84 +2234,81 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (0, _omi.define)('my-user', function (_WeElement) {
-    _inherits(_class, _WeElement);
+  _inherits(_class, _WeElement);
 
-    function _class() {
-        _classCallCheck(this, _class);
+  function _class() {
+    _classCallCheck(this, _class);
 
-        return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'install',
+    value: function install() {
+      var params = route.params;
+      this.name = params.name;
+
+      this.category = params.category;
+      this.info = this.queryInfo(this.name);
+      this.age = this.info.age;
+      this.sex = this.info.sex;
     }
+  }, {
+    key: 'queryInfo',
+    value: function queryInfo(name) {
+      this.mockData = {
+        'yanagao': { age: 18, sex: 'female' },
+        'vorshen': { age: 20, sex: 'male' },
+        'dntzhang': { age: 22, sex: 'male' }
+      };
+      return this.mockData[name];
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'button',
+          { onclick: function onclick() {
+              history.back();
+            } },
+          'back'
+        ),
+        Omi.h(
+          'ul',
+          null,
+          Omi.h(
+            'li',
+            null,
+            'name:',
+            this.name
+          ),
+          Omi.h(
+            'li',
+            null,
+            'age:',
+            this.age
+          ),
+          Omi.h(
+            'li',
+            null,
+            'sex:',
+            this.sex
+          ),
+          Omi.h(
+            'li',
+            null,
+            'category:',
+            this.category
+          )
+        )
+      );
+    }
+  }]);
 
-    _createClass(_class, [{
-        key: 'install',
-        value: function install() {
-            var params = route.params;
-            this.name = params.name;
-
-            this.category = params.category;
-            this.info = this.queryInfo(this.name);
-            this.age = this.info.age;
-            this.sex = this.info.sex;
-        }
-    }, {
-        key: 'queryInfo',
-        value: function queryInfo(name) {
-            this.mockData = {
-                'yanagao': { age: 18, sex: 'female' },
-                'vorshen': { age: 20, sex: 'male' },
-                'dntzhang': { age: 22, sex: 'male' }
-            };
-            return this.mockData[name];
-        }
-    }, {
-        key: 'back',
-        value: function back() {
-            history.back();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return Omi.h(
-                'div',
-                null,
-                Omi.h(
-                    'button',
-                    { onclick: this.back.bind(this) },
-                    'back'
-                ),
-                Omi.h(
-                    'ul',
-                    null,
-                    Omi.h(
-                        'li',
-                        null,
-                        'name:',
-                        this.name
-                    ),
-                    Omi.h(
-                        'li',
-                        null,
-                        'age:',
-                        this.age
-                    ),
-                    Omi.h(
-                        'li',
-                        null,
-                        'sex:',
-                        this.sex
-                    ),
-                    Omi.h(
-                        'li',
-                        null,
-                        'category:',
-                        this.category
-                    )
-                )
-            );
-        }
-    }]);
-
-    return _class;
+  return _class;
 }(_omi.WeElement));
 
 /***/ }),
@@ -2323,7 +2320,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _omi = __webpack_require__(3);
+var _omi = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 

@@ -1,7 +1,7 @@
-﻿import {WeElement,define} from 'omi'
+﻿import { WeElement, define } from 'omi'
 
-define('my-home',class extends WeElement {
-    render() {
-        return  <div >Home</div>
-    }
+define('my-home', class extends WeElement {
+  render() {
+    return <div >Home</div>
+  }
 })
