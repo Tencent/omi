@@ -17,7 +17,7 @@
 |  ~~el-input-number~~|   dntzhang    | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/input-number/index.js#L18-L22) |
 |  el-select|       |
 |  el-cascader|       |
-|  el-switch|       |
+|  el-switch|  @elfman   |
 |  el-slider|       |
 |  el-time-select|      |
 |  el-date-picker|      |
