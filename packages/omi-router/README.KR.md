@@ -1,17 +1,16 @@
-﻿# omi-router
+# omi-router
 
-omi-router is a router plugin of [Omi](http://omijs.org), and it is lightweight, easy and powerful to use. It is a solution to build Omi's SPA(Single Page Application).
+omi-router는 [Omi](http://omijs.org)의 라우터 플러그인으로 파일크기가 작고 사용하기 쉬우며 매우 강력합니다. Omi의 단일페이지 (SPA: Single Page Application) 웹을 만드는데 사용되는 솔루션입니다.
 
-The advantage of SPA is very clear.
+단일페이지의 장점은 매우 분명합니다:
 
-* No refresh to load a content
-* No refresh to previous/forward page
-* Shareable link (Other can see the same page as you see)
-* No blank page and transmission animation
-* Reusable resource (If multi-page, same resource shold be loaded multi times)
+* 페이지의 컨텐츠 로딩을 위해 페이지 새로고침할 필요 없음
+* 이전/다음 페이지로 이동시 페이지 새로고침이 없음
+* 페이지의 주소를 공유할 수 있음 (공유 받은 사람도 동일한 페이지를 보게됨)
+* 페이지 전환시 빈공백 및 전환애니메이션이 없음
+* 페이지의 리소스의 재사용성 (단일페이지이기 때문에 리소스를 공유함. 만약 멀티 페이지일경우 동일한 리소스를 여러번 로드해야함.）
 
-Yes, there are many advantages. Let's do it.
-
+이와 같이 많은 장점이 있습니다. 설치후 한번 사용해보죠.
 
 ## Install
 
@@ -22,7 +21,10 @@ Yes, there are many advantages. Let's do it.
 npm install omi-router
 ```
 
+
+
 ## Usage
+
 
 ```js
 import route from 'omi-router'
@@ -75,23 +77,24 @@ define('my-app', class extends WeElement {
   }
 })
 
+
 render(<my-app />, "#container")
 ```
 
-## Match
+## 동적매치
 
 | Rule | Path | route.params |
 |---------|------|--------|
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
 
-Any component in the component tree can access data transmitted by hash through `route.params`.
+구성 요소 트리의 모든 구성 요소는 `route.params` 를 통해 해시에 의해 전송된 데이터에 엑세스할 수 있습니다.
 
 
-## Links
+### 레퍼런스
 
-* [DEMO](https://tencent.github.io/omi/packages/omi-router/examples/simple/)
-* [Source](https://github.com/Tencent/omi/tree/master/packages/omi-router/examples/simple)
+* [데모](https://tencent.github.io/omi/packages/omi-router/examples/simple/)
+* [소스코드](https://github.com/Tencent/omi/tree/master/packages/omi-router/examples/simple)
 
 ## License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
