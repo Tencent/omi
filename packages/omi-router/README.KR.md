@@ -23,7 +23,7 @@ npm install omi-router
 
 
 
-## Start
+## Usage
 
 
 ```js
