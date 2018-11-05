@@ -1,4 +1,6 @@
-﻿# omi-router
+﻿[English](./README.md) | 简体中文 | [한국어](./README.KR.md)
+
+# omi-router
 
 omi-router是 [Omi](http://omijs.org) 专属的router插件，文件尺寸轻量，使用简便，功能强大。用于Omi制作Web单页应用的首选解决方案。
 

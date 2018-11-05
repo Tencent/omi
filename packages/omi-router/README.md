@@ -1,4 +1,6 @@
-﻿# omi-router
+﻿English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
+
+# omi-router
 
 omi-router is a router plugin of [Omi](http://omijs.org), and it is lightweight, easy and powerful to use. It is a solution to build Omi's SPA(Single Page Application).
 
