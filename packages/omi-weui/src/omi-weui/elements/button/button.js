@@ -1,12 +1,12 @@
-import React from 'react'
+import { define, WeElement } from 'omi'
 import PropTypes from 'prop-types'
 import classNames from '../../utils/classnames'
-
+import css from '../../style/widget/weui-button/_weui-button.less'
 /**
  *  Button usage：OK(primary)、Cancel(default)、Warn(warn).
  *
  */
-export default class Button extends React.Component {
+define('ow-button', class extends WeElement {
   static propTypes = {
     disabled: PropTypes.bool,
     /**
@@ -25,6 +25,10 @@ export default class Button extends React.Component {
     disabled: false,
     type: 'primary',
     size: 'normal'
+  }
+
+  css() {
+    return css
   }
 
   render() {
@@ -64,4 +68,4 @@ export default class Button extends React.Component {
       </Component>
     )
   }
-}
+})
