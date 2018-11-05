@@ -78,14 +78,10 @@ render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 import { WeElement, define, render } from 'omi'
 
 define('my-first-element', class extends WeElement {
-  static props = {
-    name: {
-      value: 'Omi'
-    },
-    myAge: {
-      value: 18
-    }
-  }
+  static defaultProps = {
+		name: 'Omi',
+		myAge: 18
+	}
 
   render(props) {
     return (

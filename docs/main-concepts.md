@@ -92,14 +92,10 @@ The `my-obj` will map to myObj with camel-case. You can set default values for p
 import { WeElement, define, render } from 'omi'
 
 define('my-first-element', class extends WeElement {
-  static props = {
-    name: {
-      value: 'Omi'
-    },
-    myAge: {
-      value: 18
-    }
-  }
+  static defaultProps = {
+		name: 'Omi',
+		myAge: 18
+	}
 
   render(props) {
     return (

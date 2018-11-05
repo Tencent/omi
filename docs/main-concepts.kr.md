@@ -95,21 +95,19 @@ render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ```js
 import { WeElement, define, render } from 'omi'
  define('my-first-element', class extends WeElement {
-  static props = {
-    name: {
-      value: 'Omi'
-    },
-    myAge: {
-      value: 18
-    }
+   static defaultProps = {
+		name: 'Omi',
+		myAge: 18
   }
-   render(props) {
+  
+  render(props) {
     return (
       <h1>Hello, {props.name}! Age {props.myAge}</h1>
     )
   }
 }
- render(<my-first-element name="world"></my-first-element>, 'body')
+
+render(<my-first-element name="world"></my-first-element>, 'body')
 ```
 
 ### Event
