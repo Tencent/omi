@@ -16,7 +16,7 @@ class ElTable extends WeElement {
     return (
       <div
         className="el-table el-table--fit el-table--enable-row-hover el-table--enable-row-transition"
-        style={{ width: "100%" }}
+        style={{ width: "100%" }}>
         <div className="el-table__header-wrapper">
           <table cellSpacing={0} cellPadding={0} border={0} className="el-table__header" >
           >
