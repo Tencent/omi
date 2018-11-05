@@ -19,6 +19,7 @@
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
     "eslint": "^4.18.2",
+    "prettier": "^1.14.3",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-loader": "1.9.0",
