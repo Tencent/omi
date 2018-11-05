@@ -12,15 +12,15 @@ class ElPagination extends WeElement {
     this.data = Object.assign(
       {
         total: 0,
-      pageSize: 10,
+        pageSize: 10,
         numDisplay: 5,
-      currentPage: 0,
+        currentPage: 0,
         numEdge: 3,
         linkTo: "#",
         prevText: "Prev",
         nextText: "Next",
         ellipseText: "...",
-      prevShow: true,
+        prevShow: true,
         nextShow: true
       },
       this.props
@@ -78,7 +78,7 @@ class ElPagination extends WeElement {
         <ul class="el-pager">
           {arr.map(p => {
         return p
-      })
+            })}
         </ul>{" "}
         {opt.nextShow && this.getNext()}
       </div>
