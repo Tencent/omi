@@ -94,7 +94,8 @@ render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 
 ```js
 import { WeElement, define, render } from 'omi'
- define('my-first-element', class extends WeElement {
+
+define('my-first-element', class extends WeElement {
    static defaultProps = {
 		name: 'Omi',
 		myAge: 18
@@ -105,7 +106,7 @@ import { WeElement, define, render } from 'omi'
       <h1>Hello, {props.name}! Age {props.myAge}</h1>
     )
   }
-}
+})
 
 render(<my-first-element name="world"></my-first-element>, 'body')
 ```
@@ -370,7 +371,7 @@ define("my-app", class extends WeElement {
       </div>
     )
   }
-}
+})
 ```
 
 만약 IE11과 호환하기를 원하시면 omi 의 observe 대신 `omi-mobx`를 사용하세요.

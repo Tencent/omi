@@ -28,7 +28,7 @@ define('my-first-element', class extends WeElement {
       <h1>Hello, world!</h1>
     )
   }
-}
+})
 
 render(<my-first-element></my-first-element>, 'body')
 ```
@@ -51,7 +51,7 @@ define('other-element', class extends WeElement {
       </div>
     )
   }
-}
+})
 ```
 
 ### Props
@@ -65,7 +65,7 @@ define('my-first-element', class extends WeElement {
       <h1>Hello, {props.name}!</h1>
     )
   }
-}
+})
 
 render(<my-first-element name="world"></my-first-element>, 'body')
 ```
@@ -81,7 +81,7 @@ define('my-first-element', class extends WeElement {
       <h1>Hello, {props.myObj.name}!</h1>
     )
   }
-}
+})
 
 render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ```
@@ -102,7 +102,7 @@ define('my-first-element', class extends WeElement {
       <h1>Hello, {props.name}! Age {props.myAge}</h1>
     )
   }
-}
+})
 
 render(<my-first-element name="world"></my-first-element>, 'body')
 ```
@@ -160,7 +160,7 @@ define('my-first-element', class extends WeElement {
       <h1>Hello, world!</h1>
     )
   }
-}
+})
 
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
 ```
@@ -264,7 +264,6 @@ static get data() {
     e: []
   }
 }
-
 ```
 
 Transformed path：
@@ -327,7 +326,7 @@ define('my-app', class extends WeElement {
       </div>
     )
   }
-}
+})
 
 render(<my-app></my-app>, 'body')
 ```
@@ -359,7 +358,7 @@ define("my-app", class extends WeElement {
       </div>
     )
   }
-}
+})
 ```
 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own obersve.
