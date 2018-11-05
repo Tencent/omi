@@ -23,13 +23,31 @@
 - 99.9% 的项目不需要什么时间旅行调试(`Time travel debugging`),而且也不仅仅 redux 能时间旅行,请不要上来就 `redux`，Omi `store` 系统可以满足所有项目。
 - 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:`Radium`，`jsxstyle`，`react-style`；与webpack绑定使用生成独特的className`文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
 
-对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构:
+对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构，Omi 使用 Shadow DOM 隔离样式和语义化结构:
 
 | **Omi** | **React** |
 |-|-|
 | ![Omi](./assets/omi-render.jpg) | ![React](./assets/react-render.jpg) |
 
-左边是Omi，右边是 React，Omi 使用 Shadow DOM 隔离样式和语义化结构。
+## Omi 生态
+
+| **项目**                         | **描述**                           |
+| ------------------------------- | ----------------------------------- |
+| [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
+| [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
+| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，支持 Javascript 和 Typescript |
+|[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
+| [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi项目中变得超级简单.|
+| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由 |
+| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
+| [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
+| [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
+| [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
+| [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx 适配器|
+| [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
+| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
+|[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi 版本的 element-ui|
+|[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
 
 ---
 
@@ -53,31 +71,6 @@
 - [感谢](#感谢)
 - [Web Components 资源](#web-components-资源)
 - [License](#license)
-
-## Omi 生态
-
-| **项目**                         | **描述**                           |
-| ------------------------------- | ----------------------------------- |
-| [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
-| [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，支持 Javascript 和 Typescript |
-|[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
-| [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi项目中变得超级简单.|
-| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由 |
-| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
-| [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
-| [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
-| [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
-| [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx 适配器|
-| [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
-| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
-|[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi 版本的 element-ui|
-|[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
-
-你也可以在 `webcomponents.org` 里面查找你想要的组件，直接使用，或者花几分钟就能转换成 Omi Element（把模板拷贝到 render 方法，style拷贝到 css 方法）。
-
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
 ## 一个 HTML 完全上手
 
@@ -712,6 +705,8 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
 * [Web Components Org](https://www.webcomponents.org/introduction)
 * [Proxy MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+* [https://www.webcomponents.org/](https://www.webcomponents.org/)
+* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
 ## License
 
