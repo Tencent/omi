@@ -1,0 +1,55 @@
+.react-weui-swiper {
+    &__container {
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+    }
+
+    &__wrapper {
+        overflow: hidden;
+    }
+
+    &__item {
+
+    }
+
+    &__pagination {
+        position: absolute;
+        text-align: center;
+        transition: all .3s;
+        z-index: 10;
+
+        &-bullet {
+            border-radius: 100%;
+            background: #eee;
+            width: 8px;
+            height: 8px;
+            display: inline-block;
+        }
+
+        &-bullet.active {
+            background: #1AAD19;
+        }
+    }
+
+    &__container&__container-horizontal &__pagination{
+        bottom: 10px;
+        width: 100%;
+
+        &-bullet {
+            margin: 0 5px;
+        }
+    }
+
+    &__container&__container-vertical &__pagination{
+        right: 10px;
+        top: 50%;
+        transform: translate3d(0,-50%,0);
+
+        &-bullet {
+            margin: 5px 0;
+            display: block;
+        }
+    }
+}

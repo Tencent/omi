@@ -1,0 +1,14 @@
+//patch before weui
+.weui-skin_android {
+    .weui-actionsheet_toggle {
+        opacity: 1 !important;
+        top: 50% !important;
+        bottom: auto !important;
+    }
+    .weui-actionsheet {
+        opacity: 0;
+        transition: opacity .3s;
+        top: 150%;
+        bottom: 0;
+    }
+}

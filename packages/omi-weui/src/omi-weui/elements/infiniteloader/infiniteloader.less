@@ -1,0 +1,11 @@
+.react-weui-infiniteloader{
+
+    overflow: scroll;
+
+    &__content {
+        //height: 100%;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1; // fix 滑动几次后可滚动区域会卡住的问题
+    }
+}
