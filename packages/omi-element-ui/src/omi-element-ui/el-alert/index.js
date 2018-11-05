@@ -77,7 +77,7 @@ class ElAlert extends WeElement {
             </i>
           )}
         </div>
-      )
+      </div>
     );
   }
 }
