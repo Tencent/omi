@@ -708,7 +708,7 @@
         function WeElement() {
             _classCallCheck(this, WeElement);
             var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
-            _this.props = nProps(_this.constructor.props);
+            _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
             _this.data = _this.constructor.data || {};
             return _this;
         }
@@ -764,9 +764,11 @@
         return WeElement;
     }(HTMLElement);
     WeElement.is = 'WeElement';
+    var Component = WeElement;
     var omi = {
         tag: tag,
         WeElement: WeElement,
+        Component: Component,
         render: render,
         h: h,
         createElement: h,
@@ -777,7 +779,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.18';
+    options.root.Omi.version = '4.0.19';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

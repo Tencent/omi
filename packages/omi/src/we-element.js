@@ -8,7 +8,10 @@ export default class WeElement extends HTMLElement {
 
   constructor() {
     super()
-    this.props = nProps(this.constructor.props)
+    this.props = Object.assign(
+      nProps(this.constructor.props),
+      this.constructor.defaultProps
+    )
     this.data = this.constructor.data || {}
   }
 

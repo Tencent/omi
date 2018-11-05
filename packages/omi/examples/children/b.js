@@ -1024,7 +1024,7 @@
 
       var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-      _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
+      _this.props = Object.assign({}, nProps(_this.constructor.props), _this.constructor.defaultProps);
       _this.data = _this.constructor.data || {};
       return _this;
     }
@@ -1410,114 +1410,57 @@
   options.root.Omi = omi;
   options.root.Omi.version = '4.0.19';
 
-  var _class$1, _temp2;
-
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('hello-element', (_temp2 = _class$1 = function (_WeElement) {
-    _inherits$2(_class, _WeElement);
+  define('my-p', function (_WeElement) {
+  	_inherits$2(_class, _WeElement);
 
-    function _class() {
-      var _temp, _this, _ret;
+  	function _class() {
+  		_classCallCheck$2(this, _class);
 
-      _classCallCheck$2(this, _class);
+  		return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+  	}
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
+  	_class.prototype.render = function render$$1(props) {
+  		return props.children;
+  	};
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {
-        // trigger CustomEvent
-        _this.fire('abc', { name: 'dntzhang', age: 12 });
-        evt.stopPropagation();
-      }, _temp), _possibleConstructorReturn$2(_this, _ret);
-    }
-
-    _class.prototype.css = function css() {
-      return '\n        div {\n          color: red;\n          cursor: pointer;\n        }';
-    };
-
-    _class.prototype.render = function render$$1(props) {
-      return Omi.h(
-        'div',
-        { onClick: this.onClick },
-        'Hello ',
-        props.msg,
-        ' ',
-        props.propFromParent,
-        Omi.h(
-          'div',
-          null,
-          'Click Me!'
-        ),
-        Omi.h(
-          'div',
-          null,
-          props.testDefault
-        )
-      );
-    };
-
-    return _class;
-  }(WeElement), _class$1.defaultProps = {
-    msg: '',
-    propFromParent: '123111',
-    testDefault: 'abc'
-  }, _temp2));
-
-  function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-  function _possibleConstructorReturn$3(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-  function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-  define('my-app', function (_WeElement) {
-    _inherits$3(_class2, _WeElement);
-
-    function _class2() {
-      var _temp, _this, _ret;
-
-      _classCallCheck$3(this, _class2);
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = { abc: 'abc', passToChild: 123 }, _this.onAbc = function (evt) {
-        _this.data.abc = ' by ' + evt.detail.name;
-        _this.data.passToChild = 1234;
-        _this.update();
-      }, _temp), _possibleConstructorReturn$3(_this, _ret);
-    }
-
-    _class2.prototype.css = function css() {
-      return '\n         div{\n             color: green;\n         }';
-    };
-
-    _class2.prototype.render = function render$$1(props, data) {
-      return Omi.h(
-        'div',
-        null,
-        'Hello ',
-        props.name,
-        ' ',
-        data.abc,
-        Omi.h('hello-element', {
-          onAbc: this.onAbc,
-          'prop-from-parent': data.passToChild,
-          msg: 'WeElement'
-        })
-      );
-    };
-
-    return _class2;
+  	return _class;
   }(WeElement));
 
-  render(Omi.h('my-app', { name: 'Omi v4.0' }), 'body');
+  define('my-app', function (_WeElement2) {
+  	_inherits$2(_class2, _WeElement2);
+
+  	function _class2() {
+  		_classCallCheck$2(this, _class2);
+
+  		return _possibleConstructorReturn$2(this, _WeElement2.apply(this, arguments));
+  	}
+
+  	_class2.prototype.render = function render$$1() {
+  		return Omi.h(
+  			'div',
+  			null,
+  			Omi.h(
+  				'my-p',
+  				null,
+  				Omi.h(
+  					'h2',
+  					null,
+  					'Hello World'
+  				)
+  			)
+  		);
+  	};
+
+  	return _class2;
+  }(WeElement));
+
+  render(Omi.h('my-app', null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map

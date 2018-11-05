@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "4.0.18",
+  "version": "4.0.19",
   "description": "Next generation web framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -18,6 +18,7 @@
     "mobx": "rollup -c config/rollup.example.js --watch",
     "todo-app": "rollup -c config/rollup.example.js --watch",
     "observe": "rollup -c config/rollup.example.js --watch",
+    "children": "rollup -c config/rollup.example.js --watch",
     "store": "rollup -c config/rollup.example.js --watch",
     "pure": "rollup -c config/rollup.example.js --watch",
     "counter": "rollup -c config/rollup.example.js --watch",

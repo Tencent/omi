@@ -24,7 +24,7 @@ declare namespace Omi {
 
 	/**
 	 * Use this to manually set the attributes of a custom element
-	 * 
+	 *
 	 * declare global {
 	 *     namespace JSX {
 	 * 	       interface IntrinsicElements {
@@ -64,7 +64,37 @@ declare namespace Omi {
 		beforeRender?(): void;
 	}
 
+	interface Component<P, D> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+		beforeRender?(): void;
+	}
+
 	abstract class WeElement<P = {}, D = {}> {
+		constructor();
+
+		// Allow static members to reference class type parameters
+		// https://github.com/Microsoft/TypeScript/issues/24018
+		static props: object;
+		static data: object;
+
+		props: RenderableProps<P>;
+		data: D;
+		host: HTMLElement;
+
+		css(): void;
+		update(): void;
+		fire(name: string, data?: object): void;
+
+		// Abstract methods don't infer argument types
+		// https://github.com/Microsoft/TypeScript/issues/14887
+		abstract render(props: RenderableProps<P>, data: D): void;
+	}
+
+	abstract class Component<P = {}, D = {}> {
 		constructor();
 
 		// Allow static members to reference class type parameters
@@ -123,6 +153,9 @@ declare global {
 		}
 
 		interface ElementClass extends Omi.WeElement<any, any> {
+		}
+
+		interface ElementClass extends Omi.Component<any, any> {
 		}
 
 		interface ElementAttributesProperty {
