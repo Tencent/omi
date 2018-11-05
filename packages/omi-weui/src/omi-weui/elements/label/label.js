@@ -1,22 +1,22 @@
-import React from 'react';
-import classNames from '../../utils/classnames';
+import React from 'react'
+import classNames from '../../utils/classnames'
 
 /**
  * WeUI Label Wrapper
  *
  */
-const Label = (props) => {
-    const { className, ...others } = props;
-    const cls = classNames({
-        'weui-label': true,
-        [className]: className
-    });
+const Label = props => {
+  const { className, ...others } = props
+  const cls = classNames({
+    'weui-label': true,
+    [className]: className
+  })
 
-    return (
-        <div>
-            <label className={cls} {...others}/>
-        </div>
-    );
-};
+  return (
+    <div>
+      <label className={cls} {...others} />
+    </div>
+  )
+}
 
-export default Label;
+export default Label

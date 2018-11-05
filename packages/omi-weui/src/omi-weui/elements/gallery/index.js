@@ -1,7 +1,4 @@
-import Gallery from './gallery';
-import GalleryDelete from './gallery_delete';
+import Gallery from './gallery'
+import GalleryDelete from './gallery_delete'
 
-export {
-    GalleryDelete,
-    Gallery
-};
+export { GalleryDelete, Gallery }

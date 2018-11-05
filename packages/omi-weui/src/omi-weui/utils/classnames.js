@@ -6,31 +6,31 @@
   with fix with es6 export default
 */
 
-var hasOwn = {}.hasOwnProperty;
+let hasOwn = {}.hasOwnProperty
 
-function classNames () {
-	var classes = [];
+function classNames() {
+  let classes = []
 
-	for (var i = 0; i < arguments.length; i++) {
-		var arg = arguments[i];
-		if (!arg) continue;
+  for (let i = 0; i < arguments.length; i++) {
+    let arg = arguments[i]
+    if (!arg) continue
 
-		var argType = typeof arg;
+    let argType = typeof arg
 
-		if (argType === 'string' || argType === 'number') {
-			classes.push(arg);
-		} else if (Array.isArray(arg)) {
-			classes.push(classNames.apply(null, arg));
-		} else if (argType === 'object') {
-			for (var key in arg) {
-				if (hasOwn.call(arg, key) && arg[key]) {
-					classes.push(key);
-				}
-			}
-		}
-	}
+    if (argType === 'string' || argType === 'number') {
+      classes.push(arg)
+    } else if (Array.isArray(arg)) {
+      classes.push(classNames(...arg))
+    } else if (argType === 'object') {
+      for (let key in arg) {
+        if (hasOwn.call(arg, key) && arg[key]) {
+          classes.push(key)
+        }
+      }
+    }
+  }
 
-	return classes.join(' ');
+  return classes.join(' ')
 }
 
-export default classNames;
+export default classNames

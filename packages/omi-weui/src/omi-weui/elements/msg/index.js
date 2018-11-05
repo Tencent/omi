@@ -1,3 +1,3 @@
-import Msg from './msg';
+import Msg from './msg'
 
-export default Msg;
+export default Msg

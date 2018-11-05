@@ -95,7 +95,8 @@
     ],
     "plugins": [
       "transform-class-properties",
-      "transform-decorators-legacy"
+      "transform-decorators-legacy",
+      "transform-object-rest-spread"
     ]
   },
   "prettier": {
@@ -103,5 +104,10 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0"
   }
 }

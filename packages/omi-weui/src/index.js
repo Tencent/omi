@@ -1,4 +1,4 @@
-import {render} from 'omi'
+import { render } from 'omi'
 import './elements/my-app'
 
-render(<my-app></my-app>, '#root')
+render(<my-app />, '#root')

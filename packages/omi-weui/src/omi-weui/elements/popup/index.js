@@ -1,7 +1,4 @@
-import Popup from './popup';
-import PopupHeader from './popup_header';
+import Popup from './popup'
+import PopupHeader from './popup_header'
 
-export {
-    Popup,
-    PopupHeader
-};
+export { Popup, PopupHeader }

@@ -1,4 +1,3 @@
+import Dialog from './dialog'
 
-import Dialog from './dialog';
-
-export default Dialog;
+export default Dialog

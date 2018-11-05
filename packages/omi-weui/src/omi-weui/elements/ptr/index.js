@@ -1,3 +1,3 @@
-import PullToRefresh from './ptr';
+import PullToRefresh from './ptr'
 
-export default PullToRefresh;
+export default PullToRefresh

@@ -1,20 +1,22 @@
-import React from 'react';
-import classNames from '../../utils/classnames';
+import React from 'react'
+import classNames from '../../utils/classnames'
 
 /**
  * Content of Panel
  *
  */
 export default class PanelBody extends React.Component {
-    render() {
-        const {className, children, ...others} = this.props;
-        const cls = classNames({
-            'weui-panel__bd': true,
-            [className]: className
-        });
+  render() {
+    const { className, children, ...others } = this.props
+    const cls = classNames({
+      'weui-panel__bd': true,
+      [className]: className
+    })
 
-        return (
-            <div className={cls} {...others}>{children}</div>
-        );
-    }
-};
+    return (
+      <div className={cls} {...others}>
+        {children}
+      </div>
+    )
+  }
+}
