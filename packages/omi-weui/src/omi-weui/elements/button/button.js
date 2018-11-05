@@ -1,12 +1,12 @@
-import React from 'react'
+import { define, WeElement } from 'omi'
 import PropTypes from 'prop-types'
 import classNames from '../../utils/classnames'
-
+import css from '../../style/widget/weui-button/_weui-button.less'
 /**
  *  Button usage：OK(primary)、Cancel(default)、Warn(warn).
  *
  */
-export default class Button extends React.Component {
+define('ow-button', class extends WeElement {
   static propTypes = {
     disabled: PropTypes.bool,
     /**
@@ -25,6 +25,10 @@ export default class Button extends React.Component {
     disabled: false,
     type: 'primary',
     size: 'normal'
+  }
+
+  css() {
+    return css
   }
 
   render() {
@@ -48,14 +52,14 @@ export default class Button extends React.Component {
         : classNames({
           'weui-btn': true,
           'weui-btn_mini': size === 'small',
-            'weui-btn_primary': type === 'primary' && !plain,
-            'weui-btn_default': type === 'default' && !plain,
+          'weui-btn_primary': type === 'primary' && !plain,
+          'weui-btn_default': type === 'default' && !plain,
           'weui-btn_warn': type === 'warn',
-            'weui-btn_plain-primary': type === 'primary' && plain,
-            'weui-btn_plain-default': type === 'default' && plain,
+          'weui-btn_plain-primary': type === 'primary' && plain,
+          'weui-btn_plain-default': type === 'default' && plain,
           'weui-btn_disabled': this.props.disabled && !plain,
-            'weui-btn_plain-disabled': this.props.disabled && plain,
-            [className]: className
+          'weui-btn_plain-disabled': this.props.disabled && plain,
+          [className]: className
         })
 
     return (
@@ -64,4 +68,4 @@ export default class Button extends React.Component {
       </Component>
     )
   }
-}
+})
