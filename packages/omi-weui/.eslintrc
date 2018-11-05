@@ -20,8 +20,6 @@
 	},
 	"rules": {
 		"prettier/prettier": "error",
-		"react/jsx-uses-react": 2,
-		"react/jsx-uses-vars": 2,
 		"no-cond-assign": 1,
 		"no-empty": 0,
 		"no-console": 1,

@@ -22,8 +22,6 @@ module.exports = {
 	},
 	rules: {
 		"prettier/prettier": "error",
-		"react/jsx-uses-react": 2,
-		"react/jsx-uses-vars": 2,
 		"no-unused-vars": [1, { varsIgnorePattern: "^h$" }],
 		"no-cond-assign": 1,
 		"no-empty": 0,
