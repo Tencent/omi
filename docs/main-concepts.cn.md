@@ -265,7 +265,7 @@ static get data() {
 
 举例说明 Path 命中规则:
 
-| Proxy Path | updatePath | 是否更新 |
+| Proxy Path(由数据更改产生) | updatePath(定义在组件的静态data上) | 是否更新 |
 | ---------- | ---------- | -------- |
 | abc        | abc        | 更新     |
 | abc[1]     | abc        | 更新     |
