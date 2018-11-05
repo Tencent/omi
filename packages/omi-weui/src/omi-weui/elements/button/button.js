@@ -1,25 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import {WeElement} from 'omi';
 import classNames from '../../utils/classnames';
 
 /**
  *  Button usage：OK(primary)、Cancel(default)、Warn(warn).
  *
  */
-export default class Button extends React.Component {
-    static propTypes = {
-        disabled: PropTypes.bool,
-        /**
-         * Options: primary, default, warn, vcode
-         *
-         */
-        type: PropTypes.string,
-        /**
-         * Options: normal, small
-         *
-         */
-        size: PropTypes.string,
-    };
+define('ow-button', class extends WeElement {
 
     static defaultProps = {
         disabled: false,
@@ -47,4 +33,4 @@ export default class Button extends React.Component {
             <Component { ...others } className={ cls }>{ children }</Component>
         );
     }
-};
+})

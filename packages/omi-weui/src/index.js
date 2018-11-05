@@ -1,2 +1,4 @@
-//you can change this to debug your elemnts
-location.href = 'dropdown.html'
+import {render} from 'omi'
+import './elements/my-app'
+
+render(<my-app></my-app>, '#root')

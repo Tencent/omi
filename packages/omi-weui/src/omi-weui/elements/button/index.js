@@ -5,11 +5,11 @@
 
 
 import Button from './button';
-import ButtonArea from './button_area';
-import PreviewButton from './button_preview';
+// import ButtonArea from './button_area';
+// import PreviewButton from './button_preview';
 
 export {
     Button,
-    ButtonArea,
-    PreviewButton
+    // ButtonArea,
+    // PreviewButton
 };
