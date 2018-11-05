@@ -1,7 +1,11 @@
-div{ 
-  margin:10px; 
+.el-dropdown-link{
+	cursor: pointer;
+	color: #409eff;
 }
-
-div{ 
-  margin:10px; 
+.dropdown-group{
+	clear: both;
+}
+.dropdown-group el-dropdown {
+	float: left;
+	margin: 30px;
 }
