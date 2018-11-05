@@ -66,6 +66,7 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
     - [Omi Mobx](#omi-mobx)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
+- [React to Omi](#react-to-omi)
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
 - [Thanks](#thanks)
@@ -634,34 +635,16 @@ Omi는 Web Components 와 Shadow-DOM을 사용하기 때문에 React 및 Vue 처
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
 
-## Omi Mobx
+## React to Omi
 
-당신은 store 시스템을 버리고, omi-mobx를 사용하여 반응형 뷰를 만들수 있습니다:
+예를들면, 아래는 weui React 의 button 을 weui Omi의 button 으로 마이그레이션 하는 예제 입니다:
 
-```js
-import { tag, WeElement } from "omi";
-import { observe } from "omi-mobx";
+![react to omi](./assets/react-to-omi.png)
 
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
-  install() {
-    this.data.name = "omi";
-  }
-
-  onClick = () => {
-    this.data.name = "Omi V4.0";
-  };
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    );
-  }
-}
-```
+* [Diff Split](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=split)
+* [Diff Unified](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=unified)
+* [Before](https://github.com/Tencent/omi/blob/c8af654f1d5865dc557c0b4b8ad524f702a69be5/packages/omi-weui/src/omi-weui/elements/button/button.js)
+* [After](https://github.com/Tencent/omi/blob/9790fadaaf20cfede80bcf9213756a83fc8c3949/packages/omi-weui/src/omi-weui/elements/button/button.js)
 
 ## Browsers Support
 
