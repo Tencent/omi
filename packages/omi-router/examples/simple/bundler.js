@@ -1594,7 +1594,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = { tag: 'my-home' }, _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = { tag: 'my-home' }, _this.onClick = function () {
+      route.to('/user/vorshen/category/html');
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(_class, [{
@@ -1602,20 +1604,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     value: function install() {
       var _this2 = this;
 
-      route('/', function (info) {
+      route('/', function () {
         _this2.data.tag = 'my-home';
       });
 
-      route('/about', function (info) {
+      route('/about', function () {
         _this2.data.tag = 'my-about';
       });
 
-      route('/user-list', function (info) {
+      route('/user-list', function () {
         _this2.data.tag = 'user-list';
       });
 
-      route('/user/:name/category/:category', function (info) {
+      route('/user/:name/category/:category', function (params) {
         _this2.data.tag = 'my-user';
+        _this2.data.params = params;
       });
 
       route('*', function () {
@@ -1668,7 +1671,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         Omi.h(
           'div',
           { id: 'view' },
-          Omi.h(data.tag, null)
+          Omi.h(data.tag, { params: data.params })
+        ),
+        Omi.h(
+          'div',
+          null,
+          Omi.h(
+            'button',
+            { onClick: this.onClick },
+            'Test route.to'
+          )
         )
       );
     }
@@ -1694,7 +1706,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = route;
 /*!
- *  omi-router v1.0.0 by dntzhang
+ *  omi-router v2.0.1 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -1706,6 +1718,14 @@ var root = getGlobal();
 
 root.route = route;
 root.route.params = null;
+
+root.route.to = function (path) {
+  if (path[0] === '#') {
+    location.hash = path;
+  } else {
+    location.hash = '#' + path;
+  }
+};
 
 window.addEventListener('hashchange', function () {
   var path = window.location.hash.replace('#', '');
@@ -2239,9 +2259,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'install',
-    value: function install() {
-      var params = route.params;
+    key: 'beforeRender',
+    value: function beforeRender() {
+      var params = this.props.params;
       this.name = params.name;
 
       this.category = params.category;

@@ -11,25 +11,30 @@ define('my-app', class extends WeElement {
   data = { tag: 'my-home' }
   install() {
 
-    route('/', (info) => {
+    route('/', () => {
       this.data.tag = 'my-home'
     })
 
-    route('/about', (info) => {
+    route('/about', () => {
       this.data.tag = 'my-about'
     })
 
-    route('/user-list', (info) => {
+    route('/user-list', () => {
       this.data.tag = 'user-list'
     })
 
-    route('/user/:name/category/:category', (info) => {
+    route('/user/:name/category/:category', (params) => {
       this.data.tag = 'my-user'
+      this.data.params = params
     })
 
     route('*', function () {
       console.log('not found')
     })
+  }
+
+  onClick = () => {
+    route.to('/user/vorshen/category/html')
   }
 
   css() {
@@ -61,8 +66,9 @@ define('my-app', class extends WeElement {
           <li><a href="#/user-list" >UserList</a></li>
         </ul>
         <div id="view">
-          <data.tag />
+          <data.tag params={data.params} />
         </div>
+        <div><button onClick={this.onClick}>Test route.to</button></div>
       </div>
     )
   }

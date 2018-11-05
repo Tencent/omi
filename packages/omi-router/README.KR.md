@@ -27,7 +27,6 @@ npm install omi-router
 
 ## Usage
 
-
 ```js
 //You can visit route in the global context.
 import 'omi-router'
@@ -41,27 +40,33 @@ define('my-app', class extends WeElement {
   static observe = true
 
   data = { tag: 'my-home' }
+
   install() {
 
-    route('/', (info) => {
+    route('/', () => {
       this.data.tag = 'my-home'
     })
 
-    route('/about', (info) => {
+    route('/about', () => {
       this.data.tag = 'my-about'
     })
 
-    route('/user-list', (info) => {
+    route('/user-list', () => {
       this.data.tag = 'user-list'
     })
 
-    route('/user/:name/category/:category', (info) => {
+    route('/user/:name/category/:category', (params) => {
       this.data.tag = 'my-user'
+      this.data.params = params
     })
 
     route('*', function () {
       console.log('not found')
     })
+  }
+
+  onClick = () => {
+    route.to('/user/vorshen/category/html')
   }
 
   render(props, data) {
@@ -73,13 +78,13 @@ define('my-app', class extends WeElement {
           <li><a href="#/user-list" >UserList</a></li>
         </ul>
         <div id="view">
-          <data.tag />
+          <data.tag params={data.params} />
         </div>
+        <div><button onClick={this.onClick}>Test route.to</button></div>
       </div>
     )
   }
 })
-
 
 render(<my-app />, "#container")
 ```
@@ -90,8 +95,6 @@ render(<my-app />, "#container")
 |---------|------|--------|
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
-
-구성 요소 트리의 모든 구성 요소는 `route.params` 를 통해 해시에 의해 전송된 데이터에 엑세스할 수 있습니다.
 
 
 ### 레퍼런스

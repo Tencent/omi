@@ -3,8 +3,8 @@
 
 define('my-user', class extends WeElement {
 
-  install() {
-    let params = route.params
+  beforeRender() {
+    let params = this.props.params
     this.name = params.name
 
     this.category = params.category

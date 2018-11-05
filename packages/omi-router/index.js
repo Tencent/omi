@@ -1,5 +1,5 @@
 /*!
- *  omi-router v1.0.0 by dntzhang
+ *  omi-router v2.0.1 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -11,6 +11,14 @@ const root = getGlobal()
 
 root.route = route
 root.route.params = null
+
+root.route.to = function (path) {
+  if (path[0] === '#') {
+    location.hash = path
+  } else {
+    location.hash = '#' + path
+  }
+}
 
 window.addEventListener('hashchange', function () {
   const path = window.location.hash.replace('#', '')
