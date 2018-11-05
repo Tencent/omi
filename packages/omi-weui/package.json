@@ -47,7 +47,11 @@
     "webpack-manifest-plugin": "1.3.2",
     "whatwg-fetch": "2.0.3",
     "node-sass": "^4.9.4",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "prop-types": "^15.6.2"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -104,10 +108,5 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
-  },
-  "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "less": "^3.8.1",
-    "less-loader": "^4.1.0"
   }
 }
