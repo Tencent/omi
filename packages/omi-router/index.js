@@ -1,5 +1,5 @@
 /*!
- *  omi-router v2.0.1 by dntzhang
+ *  omi-router v2.0.2 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -20,7 +20,9 @@ root.route.to = function (path) {
   }
 }
 
-window.addEventListener('hashchange', function () {
+window.addEventListener('hashchange', change)
+
+function change() {
   const path = window.location.hash.replace('#', '')
   let notFound = true
   Object.keys(mapping).every(key => {
@@ -38,9 +40,9 @@ window.addEventListener('hashchange', function () {
   if (notFound) {
     mapping['*'] && mapping['*'].callback()
   }
+}
 
-
-})
+document.addEventListener('DOMContentLoaded', change)
 
 function getParams(toArr, pathArr) {
   var params = {}

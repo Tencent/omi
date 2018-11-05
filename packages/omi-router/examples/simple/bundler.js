@@ -1706,7 +1706,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = route;
 /*!
- *  omi-router v2.0.1 by dntzhang
+ *  omi-router v2.0.2 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -1727,7 +1727,9 @@ root.route.to = function (path) {
   }
 };
 
-window.addEventListener('hashchange', function () {
+window.addEventListener('hashchange', change);
+
+function change() {
   var path = window.location.hash.replace('#', '');
   var notFound = true;
   Object.keys(mapping).every(function (key) {
@@ -1745,7 +1747,9 @@ window.addEventListener('hashchange', function () {
   if (notFound) {
     mapping['*'] && mapping['*'].callback();
   }
-});
+}
+
+document.addEventListener('DOMContentLoaded', change);
 
 function getParams(toArr, pathArr) {
   var params = {};
