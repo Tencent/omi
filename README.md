@@ -655,7 +655,7 @@ Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another el
 
 ## React to Omi
 
-For example:
+For example, the below is about migration React button as weui Omi button:
 
 ![react to omi](./assets/react-to-omi.png)
 
