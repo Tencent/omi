@@ -159,4 +159,4 @@ this.data.rotateZ = this.animDiv.rotateZ
 
 ## Star & Fork
 
-[omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)
+[→ omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)
