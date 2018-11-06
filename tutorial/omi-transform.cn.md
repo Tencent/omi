@@ -68,7 +68,7 @@ define("my-app", class extends WeElement {
       <css3-transform rotateZ={data.rotateZ} translateX={0} perspective={0} >
         <div ref={this.linkRef}>
           omi-transform
-          </div>
+        </div>
       </css3-transform>
     )
   }
@@ -89,7 +89,7 @@ render(<my-app />, "body")
 
 > 使用 `this.data.rotateZ` 来同步运动 DOM 的状态防止意外的刷新(`update`)
 
-[→ 演示](http://tencent.github.io/omi/packages/omi-transform/examples/simple/)
+[→ 演示](https://tencent.github.io/omi/packages/omi/examples/css3transform/)
 
 ## 支持的属性
 
