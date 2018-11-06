@@ -70,7 +70,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
 - [Thanks](#thanks)
-- [Web Components Resource](#web-components-resource)
+- [Useful Resources](#useful-resources)
 - [License](#license)
 
 ## Add Omi in One Minute
@@ -698,7 +698,7 @@ Please contact us for any questions:
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
 
-## Web Components Resource
+## Useful Resources
 
 * [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
@@ -706,6 +706,9 @@ Please contact us for any questions:
 * [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 * [https://www.webcomponents.org/](https://www.webcomponents.org/)
 * [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
+* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
+* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
+* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 
 ## License
 

@@ -69,7 +69,7 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
 - [Thanks](#thanks)
-- [Web Components Resource](#web-components-resource)
+- [Useful Resources](#useful-resources)
 - [License](#license)
 
 ## Omi 1분 추가 가이드
@@ -697,14 +697,17 @@ Please contact us for any questions:
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
 
-## Web Components Resource
+## Useful Resources
 
 * [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
 * [Web Components Org](https://www.webcomponents.org/introduction)
-* [Proxy MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 * [https://www.webcomponents.org/](https://www.webcomponents.org/)
 * [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
+* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
+* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
+* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 
 ## License
 

@@ -69,7 +69,7 @@
 - [相关链接](#相关链接)
 - [贡献代码](#贡献代码)
 - [感谢](#感谢)
-- [Web Components 资源](#web-components-资源)
+- [必须收藏的资源](#必须收藏的资源)
 - [License](#license)
 
 ## 一个 HTML 完全上手
@@ -699,7 +699,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
 
-## Web Components 资源
+## 必须收藏的资源
 
 * [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
@@ -707,6 +707,9 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 * [Proxy MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 * [https://www.webcomponents.org/](https://www.webcomponents.org/)
 * [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
+* [CSS Variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables)
+* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
+* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 
 ## License
 
