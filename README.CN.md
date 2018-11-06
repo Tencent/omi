@@ -49,9 +49,22 @@
 |[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi 版本的 element-ui|
 |[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
 
+## 必须收藏的资源
+
+* [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
+* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
+* [Web Components Org](https://www.webcomponents.org/introduction)
+* [Proxy MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+* [https://www.webcomponents.org/](https://www.webcomponents.org/)
+* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
+* [CSS Variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables)
+* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
+* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
+
 ---
 
 - [Omi 生态](#omi-生态)
+- [必须收藏的资源](#必须收藏的资源)
 - [一个 HTML 完全上手](#一个-html-完全上手)
 - [再花 30 秒完全上手](#再花-30-秒完全上手)
 - [快速入门](#快速入门)
@@ -69,7 +82,6 @@
 - [相关链接](#相关链接)
 - [贡献代码](#贡献代码)
 - [感谢](#感谢)
-- [必须收藏的资源](#必须收藏的资源)
 - [License](#license)
 
 ## 一个 HTML 完全上手
@@ -698,18 +710,6 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
-
-## 必须收藏的资源
-
-* [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
-* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
-* [Web Components Org](https://www.webcomponents.org/introduction)
-* [Proxy MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
-* [CSS Variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables)
-* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
-* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 
 ## License
 

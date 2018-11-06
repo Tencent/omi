@@ -50,9 +50,22 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)| Web Components Native 렌더링 |
 | [omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)| Omi 버전의 element-ui |
 
+## Useful Resources
+
+* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
+* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
+* [Web Components Org](https://www.webcomponents.org/introduction)
+* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+* [https://www.webcomponents.org/](https://www.webcomponents.org/)
+* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
+* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
+* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
+* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
+
 ---
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
+- [Useful Resources](#useful-resources)
 - [Omi 1분 추가 가이드](#Omi-1분-추가-가이드)
 - [Omi 30초 추가 가이드](#Omi-30초-추가-가이드)
 - [Getting Started](#getting-started)
@@ -70,7 +83,6 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
 - [Thanks](#thanks)
-- [Useful Resources](#useful-resources)
 - [License](#license)
 
 ## Omi 1분 추가 가이드
@@ -679,18 +691,6 @@ Please contact us for any questions:
 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
-
-## Useful Resources
-
-* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
-* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
-* [Web Components Org](https://www.webcomponents.org/introduction)
-* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
-* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
-* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
-* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 
 ## License
 
