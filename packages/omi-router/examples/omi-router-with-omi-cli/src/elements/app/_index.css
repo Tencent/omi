@@ -22,7 +22,9 @@
 .app-logo {
   width: 40px;
   padding-right: 10px;
-  vertical-align: middle;
+	vertical-align: middle;
+	position: relative;
+	top: -4px;
 }
 
 .main-nav {

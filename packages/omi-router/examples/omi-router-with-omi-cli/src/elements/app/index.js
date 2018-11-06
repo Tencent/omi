@@ -29,40 +29,50 @@ define('my-app', class extends WeElement {
   initRoute(routeInfo) {
     let routeList = []
     for (let mainNav of navInfo) {
-      for (let childNav of mainNav.children) {
-        let childRouteList = []
-        if (childNav.children && childNav.children.length) {
-          for (let pageNav of childNav.children) {
-            childRouteList.push({
-              title: pageNav.label,
-              labelbList: [mainNav.label, childNav.label, pageNav.label],
-              path: '/' + [mainNav.code, childNav.code, pageNav.code].join('/'),
-              tag: [mainNav.code, childNav.code, pageNav.code].join('-')
-            })
+      if (mainNav.children) {
+        for (let childNav of mainNav.children) {
+          let childRouteList = []
+          if (childNav.children && childNav.children.length) {
+            for (let pageNav of childNav.children) {
+              childRouteList.push({
+                title: pageNav.label,
+                labelbList: [mainNav.label, childNav.label, pageNav.label],
+                path: '/' + [mainNav.code, childNav.code, pageNav.code].join('/'),
+                tag: [mainNav.code, childNav.code, pageNav.code].join('-')
+              })
+            }
+          }
+          if (childRouteList.length) {
+            if (!mainNav.path) {
+              mainNav.path = childRouteList[0].path
+            }
+            if (!childNav.path) {
+              childNav.path = childRouteList[0].path
+            }
+            routeList = routeList.concat(childRouteList)
+          } else {
+            if (!childNav.path) {
+              childNav.path = '/' + mainNav.code + '/' + childNav.code
+              routeList.push({
+                title: childNav.label,
+                labelbList: [mainNav.label, childNav.label],
+                path: childNav.path,
+                tag: [mainNav.code, childNav.code].join('-')
+              })
+            }
+            if (!mainNav.path) {
+              mainNav.path = '/' + mainNav.code + '/' + childNav.code
+            }
           }
         }
-        if (childRouteList.length) {
-          if (!mainNav.path) {
-            mainNav.path = childRouteList[0].path
-          }
-          if (!childNav.path) {
-            childNav.path = childRouteList[0].path
-          }
-          routeList = routeList.concat(childRouteList)
-        } else {
-          if (!childNav.path) {
-            childNav.path = '/' + mainNav.code + '/' + childNav.code
-            routeList.push({
-              title: childNav.label,
-              labelbList: [mainNav.label, childNav.label],
-              path: childNav.path,
-              tag: [mainNav.code, childNav.code].join('-')
-            })
-          }
-          if (!mainNav.path) {
-            mainNav.path = '/' + mainNav.code + '/' + childNav.code
-          }
-        }
+      } else {
+        mainNav.path = '/' + mainNav.code
+        routeList.push({
+          title: mainNav.label,
+          labelbList: [mainNav.label],
+          path: '/' + mainNav.code,
+          tag: mainNav.code
+        })
       }
     }
     route('/', params => {
@@ -78,13 +88,28 @@ define('my-app', class extends WeElement {
         this.updateFramework(this.data.navInfo, item.path.slice(1).split('/'))
       })
     }
+
+    route('/home-page', params => {
+        window.document.title = 'home-page'
+        this.data.tag = 'home-page'
+        this.data.pageContainerClass = ['no-page-title', 'no-side-nav']
+        this.data.routeParams = null
+        this.data.pageTitle = ''
+        this.updateFramework(this.data.navInfo, [], true)
+        this.data.navInfo[0].selected = true
+    })
     route('*', () => {
-      window.document.title = '404 NotFound'
-      this.data.tag = 'not-found'
-      this.data.pageContainerClass = ['no-page-title', 'no-side-nav']
-      this.data.routeParams = null
-      this.data.pageTitle = ''
-      this.updateFramework(this.data.navInfo, [], true)
+      if (location.hash === '') {
+        this.data.tag = 'home-page'
+        this.data.pageContainerClass = ['no-page-title', 'no-side-nav']
+      } else {
+        window.document.title = '404 NotFound'
+        this.data.tag = 'not-found'
+        this.data.pageContainerClass = ['no-page-title', 'no-side-nav']
+        this.data.routeParams = null
+        this.data.pageTitle = ''
+        this.updateFramework(this.data.navInfo, [], true)
+      }
     })
 
     route.before = event => {
@@ -175,7 +200,7 @@ define('my-app', class extends WeElement {
       currentTitle = this.data.pageTitle[this.data.pageTitle.length - 1]
       return (
         <h2 class="page-title">
-          {parentTitle.join(' / ')} / <strong>{currentTitle}</strong>
+          {parentTitle.join(' / ')} {parentTitle.length > 0 && '/'} <strong>{currentTitle}</strong>
         </h2>
       )
     }
@@ -191,7 +216,7 @@ define('my-app', class extends WeElement {
           <h1 class="app-title">
             <a href="#/">
               <img src={logo} class="app-logo" alt="logo" />
-              Omi Router Sample
+              Omi SPA
             </a>
           </h1>
           <nav class="main-nav">

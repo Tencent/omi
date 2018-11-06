@@ -2,8 +2,14 @@ import '../views/nav1/module1/page1'
 import '../views/nav1/module2/page1'
 import '../views/nav2/module1/page1'
 import '../views/nav2/module2/page1'
+import '../views/home-page'
 
 export default [
+  {
+    label: 'Home',
+    code: 'home-page',
+    selected: true
+  },
   {
     label: 'nav one',
     code: 'nav1',
