@@ -63,6 +63,15 @@ define('my-app', class extends WeElement {
     route('*', function () {
       console.log('not found')
     })
+
+    route.before = (evt) => {
+      console.log('before')
+      //prevent route when return false
+      //return false
+    }
+     route.after = (evt) => {
+      console.log('after')
+    }
   }
 
   onClick = () => {
