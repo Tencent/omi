@@ -36,15 +36,15 @@
 |  el-menu|   @zhengbao   |
 |  el-tabs|   @zhengbao   |
 |  ~~el-breadcrumb~~|     @wadellg  | [Usage](https://github.com/Tencent/omi/blob/master/packages/omi-element-ui/src/elements/breadcrumb/index.js)|
-|  el-dropdown|    @jayZOU   |
+|  el-dropdown|    [@jayZOU](https://github.com/jayZOU)   |
 |  el-steps|  @daizhan    |
-|  el-dialog|  @jayZOU     |
+|  el-dialog|  [@jayZOU](https://github.com/jayZOU)     |
 |  el-tooltip|      |
 |  el-popover|      |
 |  el-card|   @wadellg    |
 |  el-carousel|       |
 |  el-collapse|       |
-|  notice|    @jayZOU  |   |
+|  notice|    [@jayZOU](https://github.com/jayZOU)  |   |
 
 ## Develop
 
