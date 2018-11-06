@@ -64,6 +64,8 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 ---
 
+# Overview of the Readme
+
 - [Ecosystem of Omi](#ecosystem-of-omi)
 - [Useful Resources](#useful-resources)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
