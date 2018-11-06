@@ -1,15 +1,19 @@
 import { tag, render, WeElement } from '../../src/omi'
 
-@tag('hello-element')
+@tag('fancy-tabs')
 class HelloElement extends WeElement {
+  static noSlot = true
+
   render() {
-    return (
-      <div onClick={this.onClick}>
-        <p>
-          <slot name="my-text">My default text</slot>
-        </p>
-      </div>
-    )
+    return [
+      <div id="tabs">
+        <slot id="tabsSlot" name="title" />
+      </div>,
+      <div id="panels">
+        <slot id="panelsSlot" />
+      </div>,
+      <div>Show me only when noSlot is true!</div>
+    ]
   }
 }
 
@@ -18,9 +22,16 @@ class MyApp extends WeElement {
   render() {
     return (
       <div>
-        <hello-element>
-          <span slot="my-text">Let's have some different text!</span>
-        </hello-element>
+        <fancy-tabs>
+          <button slot="title">Title</button>
+          <button slot="title" selected>
+            Title 2
+          </button>
+          <button slot="title">Title 3</button>
+          <section>content panel 1</section>
+          <section>content panel 2</section>
+          <section>content panel 3</section>
+        </fancy-tabs>
       </div>
     )
   }
