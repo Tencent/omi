@@ -295,6 +295,16 @@ $ npm run build                  # release
 }
 ```
 
+在 mac os 中:
+
+```json
+"scripts": {
+    "start": "node scripts/start.js",
+    "_build": "node scripts/build.js",
+    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
+    "fix": "eslint src --fix"
+  },
+```
 
 使用 TypeScript 模板(omi-cli v3.0.3+):
 

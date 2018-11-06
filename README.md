@@ -295,6 +295,17 @@ Such as in windows:
 }
 ```
 
+In mac os:
+
+```json
+"scripts": {
+    "start": "node scripts/start.js",
+    "_build": "node scripts/build.js",
+    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
+    "fix": "eslint src --fix"
+  },
+```
+
 TypeScript Template(omi-cli v3.0.3+):
 
 ```bash
