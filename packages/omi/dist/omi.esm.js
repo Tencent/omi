@@ -1,5 +1,5 @@
 /**
- * omi v4.0.19  http://omijs.org
+ * omi v4.0.20  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -451,7 +451,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
   // otherwise, if there are existing or new children, diff them:
   else if (vchildren && vchildren.length || fc != null) {
-      innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+      if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
+        innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+      }
     }
 
   // Apply attributes/props from VNode to the DOM Element:
@@ -1041,7 +1043,18 @@ var WeElement = function (_HTMLElement) {
     }
 
     this.install();
-    var shadowRoot = this.attachShadow({ mode: 'open' });
+    var shadowRoot;
+    if (!this.shadowRoot) {
+      shadowRoot = this.attachShadow({
+        mode: 'open'
+      });
+    } else {
+      shadowRoot = this.shadowRoot;
+      var fc;
+      while (fc = shadowRoot.firstChild) {
+        shadowRoot.removeChild(fc);
+      }
+    }
 
     this.css && shadowRoot.appendChild(cssToDom(this.css()));
     this.beforeRender();
@@ -1406,7 +1419,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.0.19';
+options.root.Omi.version = '4.0.20';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost };
