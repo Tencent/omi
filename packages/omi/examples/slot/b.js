@@ -1421,9 +1421,9 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.0.19';
+  options.root.Omi.version = '4.0.20';
 
-  var _dec, _class$1, _class2, _temp$1, _dec2, _class3;
+  var _class$1, _temp$1;
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1431,86 +1431,86 @@
 
   function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  var HelloElement = (_dec = tag('fancy-tabs'), _dec(_class$1 = (_temp$1 = _class2 = function (_WeElement) {
-  	_inherits$2(HelloElement, _WeElement);
+  define('fancy-tabs', (_temp$1 = _class$1 = function (_WeElement) {
+    _inherits$2(_class, _WeElement);
 
-  	function HelloElement() {
-  		_classCallCheck$2(this, HelloElement);
+    function _class() {
+      _classCallCheck$2(this, _class);
 
-  		return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
-  	}
+      return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+    }
 
-  	HelloElement.prototype.render = function render$$1() {
-  		return [Omi.h(
-  			'div',
-  			{ id: 'tabs' },
-  			Omi.h('slot', { id: 'tabsSlot', name: 'title' })
-  		), Omi.h(
-  			'div',
-  			{ id: 'panels' },
-  			Omi.h('slot', { id: 'panelsSlot' })
-  		), Omi.h(
-  			'div',
-  			null,
-  			'Show me only when noSlot is true!'
-  		)];
-  	};
+    _class.prototype.render = function render$$1() {
+      return [Omi.h(
+        'div',
+        { id: 'tabs' },
+        Omi.h('slot', { id: 'tabsSlot', name: 'title' })
+      ), Omi.h(
+        'div',
+        { id: 'panels' },
+        Omi.h('slot', { id: 'panelsSlot' })
+      ), Omi.h(
+        'div',
+        null,
+        'Show me only when noSlot is true!'
+      )];
+    };
 
-  	return HelloElement;
-  }(WeElement), _class2.noSlot = true, _temp$1)) || _class$1);
-  var MyApp = (_dec2 = tag('my-app'), _dec2(_class3 = function (_WeElement2) {
-  	_inherits$2(MyApp, _WeElement2);
+    return _class;
+  }(WeElement), _class$1.noSlot = true, _temp$1));
 
-  	function MyApp() {
-  		_classCallCheck$2(this, MyApp);
+  define('my-app', function (_WeElement2) {
+    _inherits$2(_class2, _WeElement2);
 
-  		return _possibleConstructorReturn$2(this, _WeElement2.apply(this, arguments));
-  	}
+    function _class2() {
+      _classCallCheck$2(this, _class2);
 
-  	MyApp.prototype.render = function render$$1() {
-  		return Omi.h(
-  			'div',
-  			null,
-  			Omi.h(
-  				'fancy-tabs',
-  				null,
-  				Omi.h(
-  					'button',
-  					{ slot: 'title' },
-  					'Title'
-  				),
-  				Omi.h(
-  					'button',
-  					{ slot: 'title', selected: true },
-  					'Title 2'
-  				),
-  				Omi.h(
-  					'button',
-  					{ slot: 'title' },
-  					'Title 3'
-  				),
-  				Omi.h(
-  					'section',
-  					null,
-  					'content panel 1'
-  				),
-  				Omi.h(
-  					'section',
-  					null,
-  					'content panel 2'
-  				),
-  				Omi.h(
-  					'section',
-  					null,
-  					'content panel 3'
-  				)
-  			)
-  		);
-  	};
+      return _possibleConstructorReturn$2(this, _WeElement2.apply(this, arguments));
+    }
 
-  	return MyApp;
-  }(WeElement)) || _class3);
+    _class2.prototype.render = function render$$1() {
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'fancy-tabs',
+          null,
+          Omi.h(
+            'button',
+            { slot: 'title' },
+            'Title'
+          ),
+          Omi.h(
+            'button',
+            { slot: 'title', selected: true },
+            'Title 2'
+          ),
+          Omi.h(
+            'button',
+            { slot: 'title' },
+            'Title 3'
+          ),
+          Omi.h(
+            'section',
+            null,
+            'content panel 1'
+          ),
+          Omi.h(
+            'section',
+            null,
+            'content panel 2'
+          ),
+          Omi.h(
+            'section',
+            null,
+            'content panel 3'
+          )
+        )
+      );
+    };
 
+    return _class2;
+  }(WeElement));
 
   render(Omi.h('my-app', null), 'body');
 

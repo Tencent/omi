@@ -1,7 +1,6 @@
-import { tag, render, WeElement } from '../../src/omi'
+import { define, render, WeElement } from '../../src/omi'
 
-@tag('fancy-tabs')
-class HelloElement extends WeElement {
+define('fancy-tabs', class extends WeElement {
   static noSlot = true
 
   render() {
@@ -15,10 +14,9 @@ class HelloElement extends WeElement {
       <div>Show me only when noSlot is true!</div>
     ]
   }
-}
+})
 
-@tag('my-app')
-class MyApp extends WeElement {
+define('my-app', class extends WeElement {
   render() {
     return (
       <div>
@@ -35,6 +33,6 @@ class MyApp extends WeElement {
       </div>
     )
   }
-}
+})
 
 render(<my-app />, 'body')
