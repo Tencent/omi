@@ -77,7 +77,7 @@ Object.defineProperty(exports, "__esModule", {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
- * omi v4.0.18  http://omijs.org
+ * omi v4.0.19  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1113,7 +1113,7 @@ var WeElement = function (_HTMLElement) {
 
     var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-    _this.props = nProps(_this.constructor.props);
+    _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
     _this.data = _this.constructor.data || {};
     return _this;
   }
@@ -1491,9 +1491,12 @@ function getHost(ele) {
   }
 }
 
+var Component = WeElement;
+
 var omi = {
   tag: tag,
   WeElement: WeElement,
+  Component: Component,
   render: render,
   h: h,
   createElement: h,
@@ -1505,11 +1508,12 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.0.18';
+options.root.Omi.version = '4.0.19';
 
 exports.default = omi;
 exports.tag = tag;
 exports.WeElement = WeElement;
+exports.Component = Component;
 exports.render = render;
 exports.h = h;
 exports.createElement = h;
@@ -1624,6 +1628,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       route('*', function () {
         console.log('not found');
       });
+
+      route.before = function (evt) {
+        console.log('before');
+        //prevent route when return false
+        //return false
+      };
+
+      route.after = function (evt) {
+        console.log('after');
+      };
     }
   }, {
     key: 'css',
@@ -1706,7 +1720,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = route;
 /*!
- *  omi-router v2.0.2 by dntzhang
+ *  omi-router v2.0.3 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -1729,7 +1743,12 @@ root.route.to = function (path) {
 
 window.addEventListener('hashchange', change);
 
-function change() {
+function change(evt) {
+  var prevent = false;
+  if (evt.type === 'hashchange' && root.route.before) {
+    prevent = root.route.before(evt) === false;
+  }
+  if (prevent) return;
   var path = window.location.hash.replace('#', '');
   var notFound = true;
   Object.keys(mapping).every(function (key) {
@@ -1746,6 +1765,10 @@ function change() {
 
   if (notFound) {
     mapping['*'] && mapping['*'].callback();
+  }
+
+  if (evt.type === 'hashchange' && root.route.after) {
+    root.route.after(evt);
   }
 }
 
