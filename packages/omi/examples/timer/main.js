@@ -1,34 +1,27 @@
 import { render, WeElement, define } from '../../src/omi'
 
-define('my-timer',
-	class extends WeElement {
-		static observe = true
+define('my-timer', class extends WeElement {
+  static observe = true
 
-		data = {
-			seconds: 0
-		}
+  data = {
+    seconds: 0
+  }
 
-		tick() {
-			this.data.seconds++
-		}
+  tick() {
+    this.data.seconds++
+  }
 
-		install() {
-			this.interval = setInterval(() => this.tick(), 1000)
-		}
+  install() {
+    this.interval = setInterval(() => this.tick(), 1000)
+  }
 
-		uninstall() {
-			clearInterval(this.interval);
-		}
+  uninstall() {
+    clearInterval(this.interval)
+  }
 
-		render() {
-			return (
-				<div>
-					Seconds: {this.data.seconds}
-				</div>
-			);
-		}
-	})
+  render() {
+    return <div>Seconds: {this.data.seconds}</div>
+  }
+})
 
 render(<my-timer />, 'body')
-
-

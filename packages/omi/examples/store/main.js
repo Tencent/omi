@@ -38,40 +38,40 @@ class TodoApp extends WeElement {
     )
   }
 
-	handleChange = e => {
-	  this.store.data.text = e.target.value
-	}
+  handleChange = e => {
+    this.store.data.text = e.target.value
+  }
 
-	handleSubmit = e => {
-	  e.preventDefault()
-	  this.store.add()
-	}
+  handleSubmit = e => {
+    e.preventDefault()
+    this.store.add()
+  }
 
-	installed() {
-	  setTimeout(() => {
-	    this.store.rename()
-	  }, 2000)
+  installed() {
+    setTimeout(() => {
+      this.store.rename()
+    }, 2000)
 
-	  setTimeout(() => {
-	    this.store.data.items.push({ text: 'abc' })
-	  }, 4000)
+    setTimeout(() => {
+      this.store.data.items.push({ text: 'abc' })
+    }, 4000)
 
-	  setTimeout(() => {
-	    this.store.data.items[2].text = 'changed'
-	  }, 6000)
+    setTimeout(() => {
+      this.store.data.items[2].text = 'changed'
+    }, 6000)
 
-	  setTimeout(() => {
-	    this.store.data.items.splice(1, 1)
-	  }, 8000)
+    setTimeout(() => {
+      this.store.data.items.splice(1, 1)
+    }, 8000)
 
-	  setTimeout(() => {
-	    this.store.data.showList = false
-	  }, 10000)
+    setTimeout(() => {
+      this.store.data.showList = false
+    }, 10000)
 
-	  setTimeout(() => {
-	    this.store.data.showList = true
-	  }, 12000)
-	}
+    setTimeout(() => {
+      this.store.data.showList = true
+    }, 12000)
+  }
 }
 
 const store = {
