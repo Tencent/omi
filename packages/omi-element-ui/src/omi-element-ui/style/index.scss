@@ -1,6 +1,6 @@
 @import "./base.scss";
 @import "./pagination.scss";
-@import "./dialog.scss";
+@import "dialog";
 @import "./autocomplete.scss";
 @import "./dropdown.scss";
 @import "./dropdown-menu.scss";
@@ -38,7 +38,7 @@
 @import "./tag.scss";
 @import "./tree.scss";
 @import "./alert.scss";
-@import "./notification.scss";
+@import "notification";
 @import "./slider.scss";
 @import "./loading.scss";
 @import "./row.scss";

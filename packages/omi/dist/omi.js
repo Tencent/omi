@@ -163,7 +163,7 @@
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
-        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
+        } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
         diffAttributes(out, vnode.attributes, props);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
@@ -723,9 +723,14 @@
                 if (this.store) this.store.instances.push(this);
             }
             this.install();
-            var shadowRoot = this.attachShadow({
+            var shadowRoot;
+            if (!this.shadowRoot) shadowRoot = this.attachShadow({
                 mode: 'open'
-            });
+            }); else {
+                shadowRoot = this.shadowRoot;
+                var fc;
+                while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
+            }
             this.css && shadowRoot.appendChild(cssToDom(this.css()));
             this.beforeRender();
             options.afterInstall && options.afterInstall(this);
@@ -779,7 +784,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.19';
+    options.root.Omi.version = '4.0.20';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -4,7 +4,7 @@ import { tag, render, WeElement } from '../../src/omi'
 class HelloElement extends WeElement {
   render(props) {
     const { count } = props
-    return [<div>Hello</div>, <div>Element</div>,<div>{count}</div>]
+    return [<div>Hello</div>, <div>Element</div>, <div>{count}</div>]
   }
 }
 

@@ -40,20 +40,6 @@ class MyApp extends WeElement {
     }
   }
 
-  css() {
-    return `
-         div{
-             color: red;
-       cursor: pointer;
-       width:150px;
-       height:150px;
-       line-height:150px;
-       text-align: center;
-       border: 1px solid green;
-
-         }`;
-  }
-
   installed() {
     setInterval(() => {
       //slow

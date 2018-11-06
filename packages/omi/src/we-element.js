@@ -28,15 +28,15 @@ export default class WeElement extends HTMLElement {
     }
 
     this.install()
-    var shadowRoot
+    let shadowRoot
     if (!this.shadowRoot) {
       shadowRoot = this.attachShadow({
         mode: 'open'
       })
     } else {
       shadowRoot = this.shadowRoot
-      var fc
-      while (fc = shadowRoot.firstChild) {
+      let fc
+      while ((fc = shadowRoot.firstChild)) {
         shadowRoot.removeChild(fc)
       }
     }

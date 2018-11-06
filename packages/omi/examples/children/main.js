@@ -1,28 +1,21 @@
 import { render, define, WeElement } from '../../src/omi'
 
-define('my-p',
-	class extends WeElement {
+define('my-p', class extends WeElement {
+  render(props) {
+    return props.children
+  }
+})
 
-		render(props) {
-			return props.children
-		}
-	})
+define('my-app', class extends WeElement {
+  render() {
+    return (
+      <div>
+        <my-p>
+          <h2>Hello World</h2>
+        </my-p>
+      </div>
+    )
+  }
+})
 
-define('my-app',
-	class extends WeElement {
-
-		render() {
-			return (
-				<div>
-					<my-p>
-						<h2>Hello World</h2>
-					</my-p>
-				</div>
-			)
-		}
-	})
-
-render(
-	<my-app />,
-	'body'
-)
+render(<my-app />, 'body')

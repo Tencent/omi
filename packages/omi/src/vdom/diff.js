@@ -161,13 +161,15 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
   // otherwise, if there are existing or new children, diff them:
   else if ((vchildren && vchildren.length) || fc != null) {
-    innerDiffNode(
-      out,
-      vchildren,
-      context,
-      mountAll,
-      hydrating || props.dangerouslySetInnerHTML != null
-    )
+    if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
+      innerDiffNode(
+        out,
+        vchildren,
+        context,
+        mountAll,
+        hydrating || props.dangerouslySetInnerHTML != null
+      )
+    }
   }
 
   // Apply attributes/props from VNode to the DOM Element:

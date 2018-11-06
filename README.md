@@ -15,7 +15,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 - Merge [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) and [**JSX**](https://reactjs.org/docs/introducing-jsx.html)  into one framework.
 - Built in observe feature (No need to call `this.update()`).
 - Web Components can also be a data-driven view, **`UI = fn(data)`**.
-- JSX is the best development experience (code intelligent completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals) and it's turing complete(template engine is not).
+- JSX is the best development experience (code intelligent completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals) and it's turing complete(template engine is not, es template string is but grammatical noise is too loud).
 - The original **Path Updating** system. Proxy-based automatic **accurate** update, **low power consumption**, high degree of freedom, excellent performance, easy integration of `requestIdleCallback`
 - Say goodbye to `this.update` method when using **store system**! It will automatically update UI partially when data is changed.
 - Look at [Facebook React vs Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi **combines their advantages** and gives developers the **freedom to choose the way they like**.
@@ -49,10 +49,26 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 |[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi version of element-ui|
+| [omi-weui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-weui)|Weui for Omi.|
+
+## Useful Resources
+
+* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
+* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
+* [Web Components Org](https://www.webcomponents.org/introduction)
+* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+* [https://www.webcomponents.org/](https://www.webcomponents.org/)
+* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
+* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
+* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
+* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 
 ---
 
+# Overview of the Readme
+
 - [Ecosystem of Omi](#ecosystem-of-omi)
+- [Useful Resources](#useful-resources)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Add Omi in 30 Seconds](#add-omi-in-30-seconds)
 - [Getting Started](#getting-started)
@@ -70,7 +86,6 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
 - [Thanks](#thanks)
-- [Web Components Resource](#web-components-resource)
 - [License](#license)
 
 ## Add Omi in One Minute
@@ -655,7 +670,7 @@ Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another el
 
 ## React to Omi
 
-For example:
+For example, the below is about migration React button as weui Omi button:
 
 ![react to omi](./assets/react-to-omi.png)
 
@@ -697,15 +712,6 @@ Please contact us for any questions:
 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
-
-## Web Components Resource
-
-* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
-* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
-* [Web Components Org](https://www.webcomponents.org/introduction)
-* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
 ## License
 
