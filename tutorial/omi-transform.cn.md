@@ -1,12 +1,12 @@
 ## 写在前面
 
-[Omi 框架](https://github.com/AlloyTeam/omi/) 正式发布了 [→ omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)。
+[Omi 框架](https://github.com/Tencent/omi/) 正式发布了 [→ omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)。
 
 > Made css3 transform super easy.
 
-![](./css3transform/asset/transform.gif)
+![](https://github.com/Tencent/omi/raw/master/packages/omi-transform/css3transform/asset/transform.gif)
 
-作为 Omi 组件化开发特效运动解决方案，让你轻松在Omi项目里快速简便支持CSS3 Transform设置。先说说 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) (npm上的名字是 css3transform)。css3transform 作为移动 Web 特效解决方案，在微信、手Q兴趣部落、日迹、QQ群、QQ附近等项目中广泛使用，以激进的**修改**DOM属性为代价，带来极为便利的可编程性。
+作为 Omi 组件化开发特效运动解决方案，让你轻松在Omi项目里快速简便支持CSS3 Transform设置。先说说 css3transform，css3transform 作为移动 Web 特效解决方案，在微信、手Q兴趣部落、日迹、QQ群、QQ附近等项目中广泛使用，以激进的**修改**DOM属性为代价，带来极为便利的可编程性。
 
 你可以通过[css3transform 官方首页](https://tencent.github.io/omi/packages/omi-transform/css3transform/)快速了解它。
 
@@ -39,8 +39,8 @@ npm install omi-transform
 
 
 ```js
-import { render, WeElement, define } from "omi";
-import "omi-transform";
+import { render, WeElement, define } from "omi"
+import "omi-transform"
 
 define("my-app", class extends WeElement {
   install() {
@@ -74,7 +74,7 @@ define("my-app", class extends WeElement {
   }
 })
 
-render(<my-app />, "body");
+render(<my-app />, "body")
 ```
 
 * 在需要使用 css3transform 的DOM上标记 `ref` 用来直接操作 DOM
@@ -92,7 +92,6 @@ render(<my-app />, "body");
 [→ 演示](http://tencent.github.io/omi/packages/omi-transform/examples/simple/)
 
 ## 支持的属性
-
 
 | **Property**    | **Describe**                           |
 | --------- | ---------------------- |
