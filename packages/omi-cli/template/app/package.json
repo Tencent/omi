@@ -10,6 +10,7 @@
     "babel-loader": "7.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-omi": "^0.1.1",
     "babel-runtime": "6.26.0",
@@ -94,7 +95,8 @@
     ],
     "plugins": [
       "transform-class-properties",
-      "transform-decorators-legacy"
+      "transform-decorators-legacy",
+      "transform-object-rest-spread"
     ]
   },
   "prettier": {
