@@ -21,7 +21,7 @@ render() {
           originX={0.5}>
           <div>你要运动的 DOM</div>
         </Transform>
-    );
+    )
 }
 ```
 
@@ -43,6 +43,8 @@ import { render, WeElement, define } from "omi"
 import "omi-transform"
 
 define("my-app", class extends WeElement {
+  static observe = true
+
   install() {
     this.data.rotateZ = 30
     this.linkRef = (e) => {
@@ -53,8 +55,7 @@ define("my-app", class extends WeElement {
   installed() {
     setInterval(() => {
       //slow
-      // this.data.rotateZ += 2
-      // this.update()
+      //this.data.rotateZ += 2
 
       //fast
       this.animDiv.rotateZ += 2
@@ -77,15 +78,15 @@ define("my-app", class extends WeElement {
 render(<my-app />, "body")
 ```
 
-* 在需要使用 css3transform 的DOM上标记 `ref` 用来直接操作 DOM
-* 在组件函数里便可以使用 this.refs.xxx 来读取或者设置 css transform属性
+* 把需要运动的 DOM 使用 `<css3-transform></css3-transform>` 包裹
+* 在需要使用 css3transform 的 DOM 上标记 `ref` 用来直接操作 DOM
+* 在组件函数里便可以使用 this.refs.animDiv 来读取或者设置 css transform属性
 * this.refs.xxx 支持 "translateX", "translateY", "translateZ", "scaleX", "scaleY", "scaleZ", "rotateX", "rotateY", "rotateZ", "skewX", "skewY", "originX", "originY", "originZ", "perspective" 这些属性设置和读取
 * perspective 表示透视投影的距离
 
 组件里的某个 DOM 在运动过程中，可能会由于其他逻辑，进行 update。有可能是用户交互，有可能是数据返回的回调。所以，update 前后，DOM 的状态的保留显得尤其重要，不然的话就会有闪烁、跳跃的效果或者其他显示逻辑错误。
 
-可以看到上面的代码在 DOM 运动过程中时不进行 Diff ？组件不进行 update ？
-万一组件 update，所有运动的状态都会丢失？Omi 怎么解决这个问题？上面的代码已经给出了答案：
+可以看到上面的代码在 DOM 运动过程中时不进行 Diff ？组件不进行 update ？万一组件 update，所有运动的状态都会丢失？Omi 怎么解决这个问题？上面的代码已经给出了答案：
 
 > 使用 `this.data.rotateZ` 来同步运动 DOM 的状态防止意外的刷新(`update`)
 
@@ -115,7 +116,7 @@ render(<my-app />, "body")
 
 ## 性能对比
 
-因为 react 版本会有 diff 过程，然后 apply diff to dom 的过程，state 改变不会整个 innerHTML 全部替换，所以对浏览器渲染来说还是很便宜，但是在 js 里 diff 的过程的耗时还是需要去 profiles 一把，如果耗时严重，不在 webworker 里跑还是会卡住UI线程导致卡顿，交互延缓等。所以要看一看 CPU 的耗时还是很有必要的。
+因为 react 版本会有 diff 过程，然后 apply diff to dom 的过程，state 改变不会整个 innerHTML 全部替换，所以对浏览器渲染来说还是很便宜，但是在 js 里 diff 的过程的耗时还是需要去 profiles 一把，如果耗时严重，不在 webworker 里跑还是会卡住UI线程导致卡顿，动画卡顿丢帧、交互延缓等。所以要看一看 CPU 的耗时还是很有必要的。
 
 下面数据是对比 omi-transform 和 react-transform，两种方式使用 chrome profiles 了一把。
 
@@ -140,7 +141,6 @@ omi-transform：
 ```js
 //slow
 this.data.rotateZ += 2
-this.update()
 ```
 
 ```js
@@ -187,26 +187,25 @@ npm install css3transform
 
 ## API
 ```js
-Transform(domElement, [notPerspective]);
+Transform(domElement, [notPerspective])
 ```
 
-通过上面一行代码的调用，就可以设置或者读取 domElement的"translateX", "translateY", "translateZ", "scaleX", "scaleY", "scaleZ", "rotateX", "rotateY", "rotateZ", "skewX", "skewY", "originX", "originY", "originZ"！
+通过上面一行代码的调用，就可以设置或者读取 domElement 的"translateX", "translateY", "translateZ", "scaleX", "scaleY", "scaleZ", "rotateX", "rotateY", "rotateZ", "skewX", "skewY", "originX", "originY", "originZ"！
 
 大道至简。
-
 
 ## 使用姿势
 
 ```js
-Transform(domElement);//or Transform(domElement, true);
+Transform(domElement)//or Transform(domElement, true);
 
-//set "translateX", "translateY", "translateZ", "scaleX", "scaleY", "scaleZ", "rotateX", "rotateY", "rotateZ", "skewX", "skewY", "originX", "originY", "originZ"
-domElement.translateX = 100;
-domElement.scaleX = 0.5;
-domElement.originX = 50;
+//set 
+domElement.translateX = 100
+domElement.scaleX = 0.5
+domElement.originX = 50
 
-//get "translateX", "translateY", "translateZ", "scaleX", "scaleY", "scaleZ", "rotateX", "rotateY", "rotateZ", "skewX", "skewY", "originX", "originY", "originZ"
-console.log(domElement.translateX )
+//get 
+console.log(domElement.translateX)
 ```
 
 ## 传统的CSS3编程的问题
@@ -245,15 +244,15 @@ tween.js姿势
 
 ```js
 var position = { x: 100, y: 100, rotation: 0 },
-    target = document.getElementById('target');
+    target = document.getElementById('target')
 
     new TWEEN.Tween(position)
     .to({ x: 700, y: 200, rotation: 359 }, 2000)
     .delay(1000)
     .easing(TWEEN.Easing.Elastic.InOut)
     .onUpdate(function update() {
-        var t_str= 'translateX(' + position.x + 'px) translateY(' + position.y + 'px) rotate(' + Math.floor(position.rotation) + 'deg)';
-        element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = t_str;
+        var t_str= 'translateX(' + position.x + 'px) translateY(' + position.y + 'px) rotate(' + Math.floor(position.rotation) + 'deg)'
+        element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = t_str
     });
 ```
 
@@ -310,15 +309,15 @@ transform的旋转点基准点默认是在中心，但是有些是时候，不�
 你可以配合 createjs 的 tweenjs ，轻松制作出上面的摇摆特效:
 
 ```js
-var element = document.querySelector("#test");
-Transform(element);
-element.originY = 100;
-element.skewX = -20;
+var element = document.querySelector("#test")
+Transform(element)
+element.originY = 100
+element.skewX = -20
 
 var Tween = createjs.Tween,
-    sineInOutEase = createjs.Ease.sineInOut;
-Tween.get(element, {loop: true}).to({scaleY: .8}, 450, sineInOutEase).to({scaleY: 1}, 450, sineInOutEase);
-Tween.get(element, {loop: true}).to({skewX: 20}, 900, sineInOutEase).to({skewX: -20}, 900, sineInOutEase);
+    sineInOutEase = createjs.Ease.sineInOut
+Tween.get(element, {loop: true}).to({scaleY: .8}, 450, sineInOutEase).to({scaleY: 1}, 450, sineInOutEase)
+Tween.get(element, {loop: true}).to({skewX: 20}, 900, sineInOutEase).to({skewX: -20}, 900, sineInOutEase)
 ```
 
 上面的代码很精简。这里稍微解释下：
@@ -330,7 +329,7 @@ Tween.get(element, {loop: true}).to({skewX: 20}, 900, sineInOutEase).to({skewX: 
 
 ## 原理
 
-css3transform不仅仅可以mix CSS3 transform到DOM元素，还能mix到任意的对象字面量，也可以把css3transform当作工具，他提供一些基础的数学能力。
+css3transform 不仅仅可以mix CSS3 transform 到 DOM 元素，还能 mix 到任意的对象字面量，也可以把 css3transform 当作工具，他提供一些基础的数学能力。
 
 > 这里需要特别注意，以前的姿势可以继续使用，这里另外三种使用姿势。
 
@@ -346,30 +345,31 @@ Transform(obj, [notPerspective]);
 
 ```js
 var element = document.querySelector("#test"),
-    obj = {};
+    obj = {}
 
-Transform(obj);
+Transform(obj)
 
-obj.rotateZ = 90;
+obj.rotateZ = 90
 
-element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = obj.transform;
+element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = obj.transform
 ```
-看到了没有，你不仅可以传DOM元素进去，也可以传对象字面量。你可以把obj.transform打印出来，上面是选择了90度，所以它生成出来的matrix是：
+看到了没有，你不仅可以传 DOM 元素进去，也可以传对象字面量。你可以把 obj.transform 打印出来，上面是选择了90度，所以它生成出来的 matrix 是：
 
 ```js
 perspective(500px) matrix3d(0,1,0,0,-1,0,0,0,0,0,1,0,0,0,0,1)
 ```
 
 你同样也可以关闭透视投影，如：
+
 ```js
 var element = document.querySelector("#test"),
-    obj = {};
+    obj = {}
 //关闭透视投影
-Transform(obj, true);
+Transform(obj, true)
 
-obj.rotateZ = 90;
+obj.rotateZ = 90
 
-element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = obj.transform;
+element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = obj.transform
 ```
 
 生成出来的matrix是：
@@ -381,22 +381,22 @@ matrix3d(0,1,0,0,-1,0,0,0,0,0,1,0,0,0,0,1)
 那么运动的姿势呢？这里配合[tween.js](https://github.com/tweenjs/tween.js)的示例如下：
 ```js
 var element = document.querySelector("#test"),
-    obj = { translateX: 0, translateY: 0 };
+    obj = { translateX: 0, translateY: 0 }
 
 Transform(obj);
 
 var tween = new TWEEN.Tween(obj)
     .to({ translateX: 100, translateY: 100 }, 1000)
     .onUpdate(function () {
-        element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = obj.transform;
+        element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = obj.transform
     })
-    .start();
+    .start()
 
-requestAnimationFrame(animate);
+requestAnimationFrame(animate)
 
 function animate(time) {
-    requestAnimationFrame(animate);
-    TWEEN.update(time);
+    requestAnimationFrame(animate)
+    TWEEN.update(time)
 }
 ```
 
@@ -404,9 +404,9 @@ function animate(time) {
 
 
 ```js
-var element = document.querySelector("#test");
+var element = document.querySelector("#test")
 
-Transform(element);
+Transform(element)
 
 var tween = new TWEEN.Tween({ translateX: element.translateX, translateY: element.translateY })
     .to({ translateX: 100, translateY: 100 }, 1000)
@@ -414,13 +414,13 @@ var tween = new TWEEN.Tween({ translateX: element.translateX, translateY: elemen
         element.translateX = this.translateX
         element.translateY = this.translateY
     })
-    .start();
+    .start()
 
-requestAnimationFrame(animate);
+requestAnimationFrame(animate)
 
 function animate(time) {
-    requestAnimationFrame(animate);
-    TWEEN.update(time);
+    requestAnimationFrame(animate)
+    TWEEN.update(time)
 }
 ```
 
@@ -428,7 +428,7 @@ function animate(time) {
 ```js
  // Set all starting values present on the target object
 for (var field in object) {
-    _valuesStart[field] = parseFloat(object[field], 10);
+    _valuesStart[field] = parseFloat(object[field], 10)
 }
 ```
 
@@ -436,39 +436,39 @@ for (var field in object) {
 因为在start之前，程序其实已经可以完全收集到所有需要to的属性，去运动便可以。我们可以自己封装一个tween去支持这种简便的方式。如：
 ```js
 var Tween = function (obj) {
-    this.obj = obj;
-    return this;
+    this.obj = obj
+    return this
 }
 
 Tween.prototype = {
     to: function (targets, duration, easing) {
-        this.duration = duration;
-        this.targets = targets;
-        return this;
+        this.duration = duration
+        this.targets = targets
+        return this
     },
     start: function () {
-        this.startTime = new Date();
-        this._beginTick();
+        this.startTime = new Date()
+        this._beginTick()
     },
     _beginTick: function () {
         var _startValues = {},
-            targets = this.targets;
+            targets = this.targets
         for (var key in targets) {
             if (targets.hasOwnProperty(key)) {
-                _startValues[key] = this.obj[key];
+                _startValues[key] = this.obj[key]
             }
         }
-        var self  = this;
+        var self  = this
         this._interval = setInterval(function () {
-            var dt = new Date() - self.startTime;
+            var dt = new Date() - self.startTime
             for (var key in targets) {
                 if (targets.hasOwnProperty(key)) {
                     if (dt >= self.duration) {
-                        clearInterval(self._interval);
+                        clearInterval(self._interval)
                     } else {
                         var p = dt / self.duration;
-                        var dv = targets[key] - self.obj[key];
-                        self.obj[key] += dv * p;
+                        var dv = targets[key] - self.obj[key]
+                        self.obj[key] += dv * p
                     }
                 }
             }
@@ -479,9 +479,10 @@ Tween.prototype = {
 ```
 
 这里为了简便使用setInterval去进行loop，当然可以换成其他方式。现在便可以使用如下方式：
+
 ```js
-var element = document.querySelector("#test");
-Transform(element);
+var element = document.querySelector("#test")
+Transform(element)
 var tween = new Tween(element)
     .to({ translateX: 100, translateY: 100 }, 1000)
     .start();
@@ -502,8 +503,8 @@ var matrix3d = Transform.getMatrix3D({
     translateX: 0,
     translateY: 100,
     scaleX:2
-});
-console.log(matrix3d);
+})
+console.log(matrix3d)
 ```
 打印出来你将得到下面的值：
 
@@ -625,7 +626,7 @@ var matrix = Transform.getMatrix2D({
     scaleY: 0.5,
     translateX: 100
 });
-ele.style.transform = ele.style.msTransform = ele.style.OTransform = ele.style.MozTransform = ele.style.webkitTransform = "matrix(" + [matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty].join(",") + ")";
+ele.style.transform = ele.style.msTransform = ele.style.OTransform = ele.style.MozTransform = ele.style.webkitTransform = "matrix(" + [matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty].join(",") + ")"
 ```
 
 **用于Canvas和SVG Transformation**
@@ -635,7 +636,7 @@ ele.style.transform = ele.style.msTransform = ele.style.OTransform = ele.style.M
 var canvas = document.getElementById("ourCanvas"),
     ctx = canvas.getContext("2d"),
     img = new Image(),
-    rotation = 30 * Math.PI / 180;
+    rotation = 30 * Math.PI / 180
 
 img.onload = function () {
     ctx.sava();
@@ -643,19 +644,19 @@ img.onload = function () {
         0.5 * Math.cos(rotation), 0.5 * Math.sin(rotation),
         -0.5 * Math.sin(rotation), 0.5 * Math.cos(rotation),
         200, 200
-    );
-    ctx.drawImage(img, 0, 0);
-    ctx.restore();
+    )
+    ctx.drawImage(img, 0, 0)
+    ctx.restore()
 };
 
-img.src = "asset/img/test.png";
+img.src = "asset/img/test.png"
 ```
 上面是我们传统的姿势。使用Transform.getMatrix2D 之后，变成这个样子：
 
 ```js
 var canvas = document.getElementById("ourCanvas"),
     ctx = canvas.getContext("2d"),
-    img = new Image();
+    img = new Image()
 
 var matrix = Transform.getMatrix2D({
     rotation: 30,
@@ -670,12 +671,13 @@ img.onload = function () {
     ctx.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
     ctx.drawImage(img, 0, 0);
     ctx.restore();
-};
+}
 
-img.src = "asset/img/test.png";
+img.src = "asset/img/test.png"
 ```
 
 可以看到，这里让开发者不用自己去拼凑matrix。SVG的粒子就不再举例，和用于DOM的例子差不多，相信大家能够很快搞定。
+
 ## Star & Fork
 
 [→ omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)
