@@ -631,6 +631,22 @@ It should be noted that if `observe` is used, do not set the value of data in so
 
 Because data settings will simply compare the value before and after, complex objects will not be deep contrast, the contrast value will trigger different update, update will trigger the above function, infinite recursion.
 
+For Example:
+
+❌Wrong way:
+```js
+beforeRender(){
+  this.data.a = { b: 1 }
+}
+```
+
+✅ Right way:
+```js
+beforeRender(){
+  this.data.a.b = 1 
+}
+```
+
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
 
 ### Omi Mobx

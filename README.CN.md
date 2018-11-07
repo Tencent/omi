@@ -631,6 +631,22 @@ define("my-app", class extends WeElement {
 
 因为 data 设置只会简单对比前后的值，复杂对象不会深对比，对比值不同会触发 update ，update 会触发上面函数，就无限递归了。
 
+举例说明:
+
+❌错误方式:
+```js
+beforeRender(){
+  this.data.a = { b: 1 }
+}
+```
+
+✅ 正确方式:
+```js
+beforeRender(){
+  this.data.a.b = 1 
+}
+```
+
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
 
 ### Omi Mobx
