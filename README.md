@@ -312,7 +312,7 @@ TypeScript Template(omi-cli v3.0.5+):
 $ omi init-ts your_project_name    
 ```
 
-SPA Template(omi-cli v3.0.10+):
+[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+):
 
 ```bash
 $ omi init-spa your_project_name    

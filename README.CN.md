@@ -312,7 +312,7 @@ $ npm run build                  # release
 $ omi init-ts your_project_name    
 ```
 
-使用  omi-router 单页应用模板 (omi-cli v3.0.10+):
+使用  omi-router [单页应用模板](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) (omi-cli v3.0.10+):
 
 ```bash
 $ omi init-spa your_project_name    
