@@ -36,10 +36,13 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     ret = []
     let parentNode = null
     if (isArray(dom)) {
-      parentNode = dom[0].parentNode
-      dom.forEach(function(item, index) {
-        ret.push(idiff(item, vnode[index], context, mountAll, componentRoot))
-      })
+      var domLength = dom.length;
+      var vnodeLength = vnode.length;
+      var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
+      parentNode = dom[0].parentNode;
+      for(var i = 0; i < maxLength ; i++){
+          ret.push(idiff(dom[i],vnode[i],context,mountAll,componentRoot));
+      }
     } else {
       vnode.forEach(function(item) {
         ret.push(idiff(dom, item, context, mountAll, componentRoot))
@@ -71,7 +74,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, context, mountAll, componentRoot) {
-  if (dom && dom.props) {
+  if (dom && vnode && dom.props) {
     dom.props.children = vnode.children
   }
   let out = dom,
