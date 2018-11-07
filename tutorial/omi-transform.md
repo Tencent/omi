@@ -1,4 +1,4 @@
-## Prologue
+## 60FPS Web Animation in Omi Project
 
 [Omi Framework](https://github.com/Tencent/omi/) Official Release [→ omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)。
 
