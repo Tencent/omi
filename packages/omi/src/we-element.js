@@ -27,7 +27,7 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    this.install()
+    !this._isInstalled && this.install()
     let shadowRoot
     if (!this.shadowRoot) {
       shadowRoot = this.attachShadow({
@@ -42,7 +42,7 @@ export default class WeElement extends HTMLElement {
     }
 
     this.css && shadowRoot.appendChild(cssToDom(this.css()))
-    this.beforeRender()
+    !this._isInstalled && this.beforeRender()
     options.afterInstall && options.afterInstall(this)
     if (this.constructor.observe) {
       proxyUpdate(this)
@@ -65,7 +65,7 @@ export default class WeElement extends HTMLElement {
     } else {
       shadowRoot.appendChild(this.host)
     }
-    this.installed()
+    !this._isInstalled && this.installed()
     this._isInstalled = true
   }
 
