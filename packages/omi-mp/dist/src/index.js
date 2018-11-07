@@ -1,9 +1,8 @@
 import { render } from 'omi'
 import 'omi-router'
+import './utils/mp'
 import './assets/index.css'
-import './elements/app'
-import registerServiceWorker from './assets/register-service-worker'
+import './mp/app'
 import store from './store/app-store'
 
 render(<my-app />, '#root', store)
-registerServiceWorker()

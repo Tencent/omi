@@ -1,3 +1,6 @@
+import './pages/index/index'
+import './pages/logs/logs'
+
 //app.js
 App({
   onLaunch: function () {
