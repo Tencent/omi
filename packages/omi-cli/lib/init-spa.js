@@ -1,24 +1,25 @@
 var path = require("path");
 var join = path.join;
 var basename = path.basename;
+var fs = require("fs");
 var vfs = require("vinyl-fs");
-var existsSync = require("fs").existsSync;
+var renameSync = fs.renameSync;
+var existsSync = fs.existsSync;
 var chalk = require("chalk");
 var through = require("through2");
 var emptyDir = require("empty-dir");
-var logger = require("./logger");
-var info = logger.info;
-var error = logger.error;
-var success = logger.success;
+var info = require("./logger").info;
+var error = require("./logger").error;
+var success = require("./logger").success;
 var isCnFun = require("./utils").isCnFuc;
 var emptyFs = require("./utils").emptyFs;
 var isSafeToCreateProjectIn = require("./utils").isSafeToCreateProjectIn;
 
-function initPr(args) {
+function init(args) {
 	var omiCli = chalk.bold.cyan("Omi-Cli");
 	var isCn = isCnFun(args.language);
 	var customPrjName = args.project || "";
-	var tpl = join(__dirname, "../template/pr");
+	var tpl = join(__dirname, "../template/spa");
 	var dest = join(process.cwd(), customPrjName);
 	var projectName = basename(dest);
 	var mirror = args.mirror;
@@ -27,25 +28,23 @@ function initPr(args) {
 	console.log(omiCli + (!isCn ? " is booting... " : " 正在启动..."));
 	console.log(
 		omiCli +
-			(!isCn
-				? " will execute init-pr command... "
-				: " 即将执行 init-pr 命令...")
+			(!isCn ? " will execute init command... " : " 即将执行 init 命令...")
 	);
 	if (existsSync(dest) && !emptyDir.sync(dest)) {
 		if (!isSafeToCreateProjectIn(dest, projectName)) {
 			process.exit(1);
 		}
 	}
-		
-	createPr();
 
-	function createPr() {
+	createApp();
+
+	function createApp() {
 		console.log();
 		console.log(
 			chalk.bold.cyan("Omi-Cli") +
 				(!isCn
-					? " will creating a new omi-pr in "
-					: " 即将创建一个新的omi-pr在 ") +
+					? " will creating a new omi app in "
+					: " 即将创建一个新的应用在 ") +
 				dest
 		);
 
@@ -59,6 +58,8 @@ function initPr(args) {
 			.pipe(vfs.dest(dest))
 			.on("end", function() {
 				try {
+					info("Rename", "gitignore -> .gitignore");
+					renameSync(join(dest, "gitignore"), join(dest, ".gitignore"));
 					if (customPrjName) {
 						try {
 							process.chdir(customPrjName);
@@ -66,6 +67,10 @@ function initPr(args) {
 							console.log(error(err));
 						}
 					}
+					info(
+						"Install",
+						"We will install dependencies, if you refuse, press ctrl+c to abort, and install dependencies by yourself. :>"
+					);
 					console.log();
 					require("./install")(mirror, done);
 				} catch (e) {
@@ -79,14 +84,17 @@ function initPr(args) {
 		console.log();
 		console.log();
 		console.log();
-		success(`Congratulation! a Omi-pr has been created successful! `);
+		success(`Congratulation! "${projectName}" has been created successful! `);
 		console.log(`
+
+Using the scaffold with  Webpack ,
 
 if you are not in ${projectName}, please run 'cd ${projectName}', then you can:
 
-    > ${chalk.bold.white("omi pr")}        compile your project`);
+    > ${chalk.bold.white("npm run dev")}         Starts the development server
+    > ${chalk.bold.white("npm run dist")}        Publish your project`);
 		console.log();
-		console.log(`${chalk.bold.cyan("Omi!")} https://alloyteam.github.io/omi`);
+		console.log(`${chalk.bold.cyan("Omix!")} https://alloyteam.github.io/omix`);
 	}
 }
 
@@ -102,4 +110,4 @@ function template(dest, cwd) {
 	});
 }
 
-module.exports = initPr;
+module.exports = init;
