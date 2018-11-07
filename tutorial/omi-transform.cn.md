@@ -304,7 +304,7 @@ transform的旋转点基准点默认是在中心，但是有些是时候，不�
 
 ## 实战
 
-![](https://lc-api-gold-cdn.xitu.io/a4db68a46e2fe49b0f79.gif?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![](https://github.com/Tencent/omi/raw/master/packages/omi-transform/css3transform/asset/transform.gif)
 
 你可以配合 createjs 的 tweenjs ，轻松制作出上面的摇摆特效:
 
