@@ -1,4 +1,5 @@
 import { render } from 'omi'
+import 'omi-router'
 import './assets/index.css'
 import './elements/app'
 import registerServiceWorker from './assets/register-service-worker'
