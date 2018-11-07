@@ -1,6 +1,6 @@
 # omi-mp - 微信小程序开发 Web
 
-目前开发形态还在规划中，先放出 [【WXML 编译器】](https://github.com/dntzhang/westore/blob/master/packages/westore-web/scripts/index.js)给大家看看，感兴趣的也可以参与进来:
+目前开发形态还在规划中，先放出 [【WXML 编译器】](https://github.com/Tencent/omi/blob/master/packages/omi-mp/scripts/index.js)给大家看看，感兴趣的也可以参与进来:
 
 ```js
 npm install    //安装
@@ -36,7 +36,7 @@ function render() {
 }
 ```
 
-完成的测试用例[点击这里](https://github.com/dntzhang/westore/blob/master/packages/westore-web/test/index.js)
+完成的测试用例[点击这里](https://github.com/Tencent/omi/blob/master/packages/omi-mp/test/index.js)
 
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
