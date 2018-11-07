@@ -1,0 +1,15 @@
+{
+  "name": "westore-web",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "author": "dntzhang",
+  "license": "MIT",
+  "dependencies": {
+    "html2json": "^1.0.2",
+    "webpack": "^4.20.2"
+  }
+}
