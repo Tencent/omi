@@ -57,7 +57,7 @@ const JSONPatcherProxy = (function() {
   function setTrap(instance, target, key, newValue) {
     const parentPath = findObjectPath(instance, target)
 
-    const destinationPropKey = parentPath + '/' + escapePathComponent(key)
+		const destinationPropKey = parentPath + '/' + escapePathComponent(key)
 
     if (instance.proxifiedObjectsMap.has(newValue)) {
       const newValueOriginalObject = instance.proxifiedObjectsMap.get(newValue)
@@ -145,7 +145,8 @@ const JSONPatcherProxy = (function() {
         }
       }
       operation.value = newValue
-    }
+		}
+		operation.oldValue = target[key]
     const reflectionResult = Reflect.set(target, key, newValue)
     instance.defaultCallback(operation)
     return reflectionResult
