@@ -15,7 +15,7 @@ define('omi-weui-page', class extends WeElement {
     return (
       <div>
         <p>WeUI Components build with Omi is coming soon.</p>
-        <a href="https://github.com/omijs/omi-weui">
+        <a href="https://github.com/Tencent/omi/tree/master/packages/omi-weui">
           learn more about omi-weui
         </a>
       </div>
