@@ -1,7 +1,7 @@
 var htmlToJson = require('html2json').html2json
 
-function compile(wxml) {
-  return walk(htmlToJson(minifier(wxml)))
+function parse(wxml, fnName) {
+  return walk(htmlToJson(minifier(wxml)), fnName)
 }
 
 function minifier(wxml) {
@@ -10,10 +10,13 @@ function minifier(wxml) {
   }).replace(/<!--[\s\S]*?-->/g, '')
 }
 
-function walk(node) {
+function walk(node,fnName) {
   return (
-    `function render(){
-  return ${_walk(node)}
+`function ${fnName}() {
+  0.0
+  return (
+    ${_walk(node)}
+  )
 }`)
 }
 
@@ -124,4 +127,4 @@ function bracesText(str) {
   return str.replace(/{{([\S\s]*?)}}/g, function (a, b) { return '${' + b + '}' })
 }
 
-module.exports = compile
+module.exports = parse
