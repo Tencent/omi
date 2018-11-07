@@ -155,7 +155,18 @@ this.data.rotateZ = this.animDiv.rotateZ
 | ------------------------------- | ----------------------------------- |
 | ![Omi](../assets/css3transform-update.jpg) | ![React](../assets/css3transform.jpg) |
 
-可以看到 omi 的两种方式都拥有很高性能，10秒钟内拥有大量的空闲时间，但是 fast 确实更加 fast，scripting 的耗时更短。但是优势不明显是为什么？因为 DOM 结构简单，如果 DOM 结构越复杂， fast 直接操作 DOM 的方式会把 slow 的方式甩开一大截！
+可以看到 omi 的两种方式都拥有很高性能，10秒钟内拥有大量的空闲时间，但是 fast 确实更加 fast，scripting 的耗时更短。但是优势不明显是为什么？因为 DOM 结构简单，如果 DOM 结构越复杂， fast 直接操作 DOM 的方式会把 slow 的方式甩开一大截！下面进行验证一下:
+
+先发 render 的 DOM 结构修改成复杂的:
+
+![Omi](../assets/mock.jpg) 
+
+打开谷歌浏览器的 Performance 运行 10 秒左右，打开 Summary 对比:
+
+| **Slow**                         | **Fast**                           |
+| ------------------------------- | ----------------------------------- |
+| ![Omi](../assets/css3transform-update2.jpg) | ![React](../assets/css3transform2.jpg) |
+
 
 ## Star & Fork
 

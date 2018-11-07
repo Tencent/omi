@@ -109,7 +109,7 @@
     "npm-run-all": "^4.0.0",
     "omi-mobx": "^0.2.2",
     "omi-tap": "^2.0.2",
-    "omi-transform": "^2.0.1",
+    "omi-transform": "^2.0.2",
     "prettier": "^1.14.3",
     "rimraf": "^2.5.3",
     "rollup": "^0.57.1",
