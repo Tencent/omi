@@ -20,13 +20,19 @@ define('app-frame', class extends WeElement {
 
   install() {}
 
+  onClickNavBar(event) {
+    this.data.showMiniNavBar = !this.data.showMiniNavBar
+  }
+
   getRenderedNav(props, data) {
     let mainNav = []
     for (let nav of props.routeList) {
       if (nav.path !== '*') {
         mainNav.push(
           <li class={nav.selected ? 'selected' : ''}>
-            <a href={'#' + nav.path}>{nav.label}</a>
+            <a href={'#' + nav.path} onClick={e => this.onClickNavBar(e)}>
+              {nav.label}
+            </a>
           </li>
         )
       }
@@ -45,7 +51,12 @@ define('app-frame', class extends WeElement {
               {this.data.name}
             </a>
           </h1>
-          <nav class="main-nav">
+          <div class="nav-bar" onClick={e => this.onClickNavBar(e)}>
+            <span class="icon-bar" />
+            <span class="second-bar icon-bar" />
+            <span class="icon-bar" />
+          </div>
+          <nav class={'main-nav ' + (this.data.showMiniNavBar ? 'show' : '')}>
             <ul>{mainNav}</ul>
           </nav>
           <div class="user-info">

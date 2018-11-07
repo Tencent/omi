@@ -14,7 +14,7 @@ define('omi-weui-page', class extends WeElement {
   render() {
     return (
       <div>
-        <p>WeUI Components build with Omi is coming soon</p>
+        <p>WeUI Components build with Omi is coming soon.</p>
         <a href="https://github.com/omijs/omi-weui">
           learn more about omi-weui
         </a>

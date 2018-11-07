@@ -15,7 +15,7 @@ define('home-page', class extends WeElement {
     return (
       <div>
         <p>Hi Welcome to Omi.</p>
-        <p>the Next Generation Web Framework in 4kb JavaScript</p>
+        <p>The Next Generation Web Framework in 4kb JavaScript.</p>
         <a href="https://github.com/Tencent/omi">learn more about Omi</a>
       </div>
     )

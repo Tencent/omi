@@ -3,6 +3,18 @@
   line-height: 64px;
   background-color: #001529;
   padding: 0 30px;
+  position: relative;
+  z-index: 1;
+}
+.app-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #001529;
+  z-index: -1;
 }
 .app-title {
   float: left;
@@ -22,9 +34,32 @@
 .app-logo {
   width: 40px;
   padding-right: 10px;
-	vertical-align: middle;
-	position: relative;
-	top: -4px;
+  vertical-align: middle;
+  position: relative;
+  top: -4px;
+}
+
+.nav-bar {
+  display: none;
+  margin-top: 22px;
+  float: right;
+  width: 22px;
+  padding: 4px 4px;
+  height: 12px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.nav-bar span{
+  float: left;
+  width: 100%;
+  height: 2px;
+  background: #fff
+}
+.nav-bar:hover span{
+  background-color: #1890FF;
+}
+.nav-bar .second-bar {
+  margin: 3px 0;
 }
 
 .main-nav {
@@ -72,6 +107,41 @@
   margin-left: 10px;
 }
 
+@media (max-width: 768px) {
+  .user-info {
+    display: none;
+  }
+  .nav-bar {
+    display: block;
+  }
+  .main-nav.show {
+    transform: translate(0, 0);
+    transition: all 0.4s;
+  }
+  .main-nav {
+    transform: translate(0, -100%);
+    position: absolute;
+    z-index: -10;
+    top: 64px;
+    left: 0;
+    right: 0;
+    height: auto;
+  }
+  .main-nav ul {
+    width: 100%;
+    height: auto;
+  }
+  .main-nav ul li{
+    height: 48px;
+    float: none;
+    background-color: #001529;
+  }
+  .main-nav ul li a{
+    line-height: 48px;
+    padding: 0 30px;
+  }
+}
+
 .page-container {
   padding: 20px;
   background: #F0F2F5;
@@ -80,8 +150,8 @@
 .page-content {
   position: relative;
   background: #fff;
-  min-height: 500px;
   padding: 20px;
+  min-height: 300px;
 }
 
 footer {

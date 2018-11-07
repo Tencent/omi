@@ -18,7 +18,7 @@ define('omi-router-page', class extends WeElement {
           omi-router is the Omi official router plugin of Omi.
           <br />
           it's lightweight, easy and powerful to build Omi's SPA(Single Page
-          Application)
+          Application).
         </p>
         <a href="https://github.com/Tencent/omi/tree/master/packages/omi-router">
           learn more about omi-router
