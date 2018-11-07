@@ -1,2 +1,2 @@
 //you can change this to debug your elemnts
-location.href = 'switch.html'
+location.href = 'button.html'
