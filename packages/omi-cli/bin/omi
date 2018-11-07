@@ -35,10 +35,10 @@ program
     })
 
 program
-    .command('init-pr [projectName]')
-    .description('Initialize a new Omi-Pr in the current folder')
+    .command('init-spa [projectName]')
+    .description('Initialize a new SPA with omi-router in the current folder')
     .action(function(projectName, option){
-        var cmd = 'init-pr';
+        var cmd = 'init-spa';
         if(option.parent.mirror && typeof option.parent.mirror === "string"){
             options.mirror = option.parent.mirror;
         }
@@ -101,9 +101,9 @@ function executable(cmd) {
 function help() {
     console.log('  Commands:');
     console.log();
-    console.log(`     ${chalk.green('init  [project-name]')}           Initialize a new Omi application in the current folder `);
-    console.log(`     ${chalk.green('init-pr  [project-name]')}        Initialize a new Omi-Pr in the current folder `)
-    console.log(`     ${chalk.green('pr')}                             Compile your omi project `)
+    console.log(`     ${chalk.green('init  [project-name]')}           Initialize a new omi application in the current folder `);
+		console.log(`     ${chalk.green('init-ts  [project-name]')}        Initialize a new omi project with typescript in the current folder `)
+		console.log(`     ${chalk.green('init-spa  [project-name]')}        Initialize a new omi spa  with omi-router in the current folder `)
     console.log();
     console.log('  All commands can be run with -h (or --help) for more information.')
 }

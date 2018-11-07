@@ -36,9 +36,9 @@
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，支持 Javascript 和 Typescript |
+| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi项目中变得超级简单.|
-| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
@@ -52,12 +52,12 @@
 
 ## 必须收藏的资源
 
+* [60FPS Animation in omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
+* [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)
 * [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
 * [Web Components Org](https://www.webcomponents.org/introduction)
 * [Proxy MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 * [CSS Variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables)
 * [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
 * [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
@@ -156,7 +156,7 @@ import { render, WeElement, tag, observe } from "omi"
 
 @observe
 @tag("my-counter")
-class MyApp extends WeElement {
+class MyCounter extends WeElement {
 
   data = {
     count: 0
@@ -295,15 +295,27 @@ $ npm run build                  # release
 }
 ```
 
+在 mac os 中:
 
-使用 TypeScript 模板(omi-cli v3.0.3+):
+```json
+"scripts": {
+    "start": "node scripts/start.js",
+    "_build": "node scripts/build.js",
+    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
+    "fix": "eslint src --fix"
+  },
+```
+
+使用 TypeScript 模板(omi-cli v3.0.5+):
 
 ```bash
-$ npm i omi-cli -g                  # install cli
-$ omi init-ts your_project_name     # init project, you can also exec 'omi init-ts' in an empty folder
-$ cd your_project_name              # please ignore this command if you executed 'omi init' in an empty folder
-$ npm start                         # develop
-$ npm run build                     # release
+$ omi init-ts your_project_name    
+```
+
+使用  omi-router [单页应用模板](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) (omi-cli v3.0.10+):
+
+```bash
+$ omi init-spa your_project_name    
 ```
 
 Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
@@ -620,6 +632,22 @@ define("my-app", class extends WeElement {
 * afterUpdate
 
 因为 data 设置只会简单对比前后的值，复杂对象不会深对比，对比值不同会触发 update ，update 会触发上面函数，就无限递归了。
+
+举例说明:
+
+❌错误方式:
+```js
+beforeRender(){
+  this.data.a = { b: 1 }
+}
+```
+
+✅ 正确方式:
+```js
+beforeRender(){
+  this.data.a.b = 1 
+}
+```
 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
 

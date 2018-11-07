@@ -1,0 +1,162 @@
+.app-header {
+  height: 64px;
+  line-height: 64px;
+  background-color: #001529;
+  padding: 0 30px;
+  position: relative;
+  z-index: 1;
+}
+.app-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #001529;
+  z-index: -1;
+}
+.app-title {
+  float: left;
+  height: inherit;
+  margin-right: 30px;
+  line-height: inherit;
+}
+.app-title a {
+  display: block;
+  color: white;
+  font-size: 24px;
+  font-weight: normal;
+  height: inherit;
+  line-height: inherit;
+}
+
+.app-logo {
+  width: 40px;
+  padding-right: 10px;
+  vertical-align: middle;
+  position: relative;
+  top: -4px;
+}
+
+.nav-bar {
+  display: none;
+  margin-top: 22px;
+  float: right;
+  width: 22px;
+  padding: 4px 4px;
+  height: 12px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.nav-bar span{
+  float: left;
+  width: 100%;
+  height: 2px;
+  background: #fff
+}
+.nav-bar:hover span{
+  background-color: #1890FF;
+}
+.nav-bar .second-bar {
+  margin: 3px 0;
+}
+
+.main-nav {
+  height: inherit;
+  float: left;
+}
+.main-nav ul {
+  height: inherit;
+  float: left;
+}
+.main-nav ul li a{
+  display: block;
+  height: inherit;
+  line-height: 64px;
+  padding: 0 15px;
+}
+.main-nav ul li{
+  float: left;
+  height: inherit;
+  color: rgba(255,255,255,0.65);
+}
+.main-nav ul li:hover{
+  color: #fff;
+}
+.main-nav ul li.selected{
+  color: #fff;
+  background-color: #1890FF;
+}
+
+.user-info {
+  height: inherit;
+  line-height: inherit;
+  float: right;
+  color: #1890FF;
+}
+.user-info p {
+  cursor: pointer;
+  line-height: inherit;
+}
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .user-info {
+    display: none;
+  }
+  .nav-bar {
+    display: block;
+  }
+  .main-nav.show {
+    transform: translate(0, 0);
+    transition: all 0.4s;
+  }
+  .main-nav {
+    transform: translate(0, -100%);
+    position: absolute;
+    z-index: -10;
+    top: 64px;
+    left: 0;
+    right: 0;
+    height: auto;
+  }
+  .main-nav ul {
+    width: 100%;
+    height: auto;
+  }
+  .main-nav ul li{
+    height: 48px;
+    float: none;
+    background-color: #001529;
+  }
+  .main-nav ul li a{
+    line-height: 48px;
+    padding: 0 30px;
+  }
+}
+
+.page-container {
+  padding: 20px;
+  background: #F0F2F5;
+}
+
+.page-content {
+  position: relative;
+  background: #fff;
+  padding: 20px;
+  min-height: 300px;
+}
+
+footer {
+  clear: both;
+  text-align: center;
+  padding: 30px;
+  background-color: white;
+}

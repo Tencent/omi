@@ -146,6 +146,7 @@ const JSONPatcherProxy = (function() {
       }
       operation.value = newValue
     }
+    operation.oldValue = target[key]
     const reflectionResult = Reflect.set(target, key, newValue)
     instance.defaultCallback(operation)
     return reflectionResult
