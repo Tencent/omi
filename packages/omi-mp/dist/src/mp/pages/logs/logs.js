@@ -6,7 +6,9 @@ function css(){
 }
 
 function render(){
-
+  return h('view',{'class': `containerlog-list`},[h('block',{},logs.map((log,index)=>{
+        h('text',{'class': `log-item`},[`${index + 1}. ${log}`])
+      }))])
 }
 
 //logs.js

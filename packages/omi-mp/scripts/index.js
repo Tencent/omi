@@ -13,7 +13,7 @@ function minifier(wxml) {
 function walk(node) {
   return (
     `function render(){
-  return ${_walk(node)} 
+  return ${_walk(node)}
 }`)
 }
 
@@ -105,10 +105,10 @@ function stringify(attr) {
       var str = attr[key].join ? attr[key].join('') : attr[key]
       if (str.indexOf('{{') === 0) {
         attr[key] = braces(str)
-        result += key + ': ' + attr[key] + (maxIndex === index ? '' : ',')
+        result += "'" + key + "': " + attr[key] + (maxIndex === index ? '' : ',')
       } else {
         attr[key] = bracesText(str)
-        result += key + ': `' + attr[key] + (maxIndex === index ? '`' : '`,')
+        result += "'" + key + "': `" + attr[key] + (maxIndex === index ? '`' : '`,')
       }
     })
     return result += '}'

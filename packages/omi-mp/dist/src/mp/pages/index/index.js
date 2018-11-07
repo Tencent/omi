@@ -6,7 +6,7 @@ function css(){
 }
 
 function render(){
-
+  return h('view',{'class': `container`},[h('view',{'class': `userinfo`},[!hasUserInfo&&canIUse?h('button',{'open-type': `getUserInfo`,'bindgetuserinfo': `getUserInfo`},[`获取头像昵称`]):h('block',{},[h('image',{'bindtap': `bindViewTap`,'class': `userinfo-avatar`,'src': userInfo.avatarUrl,'mode': `cover`},[]),h('text',{'class': `userinfo-nickname`},[`${userInfo.nickName}`])])]),h('view',{'class': `usermotto`},[h('text',{'class': `user-motto`},[`${motto}`])])])
 }
 
 //index.js
