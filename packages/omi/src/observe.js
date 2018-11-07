@@ -4,7 +4,6 @@ export function observe(target) {
   target.observe = true
 }
 
-
 export function proxyUpdate(ele) {
   let timeout = null
   ele.data = new JSONProxy(ele.data).observe(false, info => {
