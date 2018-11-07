@@ -1,4 +1,4 @@
-## 写在前面
+## Omi 拥抱 60FPS 的 Web 动画
 
 [Omi 框架](https://github.com/Tencent/omi/) 正式发布了 [→ omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)。
 
