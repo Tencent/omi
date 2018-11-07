@@ -149,7 +149,7 @@ this.animDiv.rotateZ += 2
 this.data.rotateZ = this.animDiv.rotateZ
 ```
 
-主要对比上面两个代码块的执行效率，直接看对比结果:
+主要对比上面两个代码块的执行效率，打开谷歌浏览器的 Performance 运行 10 秒左右，打开 Summary 对比:
 
 | **Slow**                         | **Fast**                           |
 | ------------------------------- | ----------------------------------- |
