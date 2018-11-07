@@ -2,11 +2,11 @@
 
 [Omi 框架](https://github.com/Tencent/omi/) 正式发布了 [→ omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)。
 
-> Made css3 transform super easy.
+> Made css3 transform super easy. Made 60 FPS easy.
 
 ![](https://github.com/Tencent/omi/raw/master/packages/omi-transform/css3transform/asset/transform.gif)
 
-作为 Omi 组件化开发特效运动解决方案，让你轻松在Omi项目里快速简便支持CSS3 Transform设置。先说说 css3transform，css3transform 作为移动 Web 特效解决方案，在微信、手Q兴趣部落、日迹、QQ群、QQ附近等项目中广泛使用，以激进的**修改**DOM属性为代价，带来极为便利的可编程性。
+作为 Omi 组件化开发特效运动解决方案，让你轻松在Omi项目里快速简便支持CSS3 Transform设置。css3transform 是经受过海量项目洗礼的，作为移动 Web 特效解决方案，在微信、手Q兴趣部落、日迹、QQ群、QQ附近等项目中广泛使用，以激进的**修改**DOM属性为代价，带来极为便利的可编程性。
 
 你可以通过[css3transform 官方首页](https://tencent.github.io/omi/packages/omi-transform/css3transform/)快速了解它。
 
@@ -80,12 +80,12 @@ render(<my-app />, "body")
 * 在需要使用 css3transform 的DOM上标记 `ref` 用来直接操作 DOM
 * 在组件函数里便可以使用 this.refs.xxx 来读取或者设置 css transform属性
 * this.refs.xxx 支持 "translateX", "translateY", "translateZ", "scaleX", "scaleY", "scaleZ", "rotateX", "rotateY", "rotateZ", "skewX", "skewY", "originX", "originY", "originZ", "perspective" 这些属性设置和读取
-* 没有标记 perspective 的话默认不使用透视投影
+* perspective 表示透视投影的距离
 
-组件里的某个DOM在运动过程中，可能会由于其他逻辑，进行update。有可能是用户交互，有可能是数据返回的回调。所以，update前后，DOM的状态的保留显得尤其重要，不然的话就会有闪烁、跳跃的效果或者其他显示逻辑错误。
+组件里的某个 DOM 在运动过程中，可能会由于其他逻辑，进行 update。有可能是用户交互，有可能是数据返回的回调。所以，update 前后，DOM 的状态的保留显得尤其重要，不然的话就会有闪烁、跳跃的效果或者其他显示逻辑错误。
 
-可以看到上面的代码在 DOM 运动过程中时不进行 Diff ？意思就是组件不进行 update ？
-意思就是万一组件update，所有运动的状态都会丢失？Omi怎么解决这个问题？
+可以看到上面的代码在 DOM 运动过程中时不进行 Diff ？组件不进行 update ？
+万一组件 update，所有运动的状态都会丢失？Omi 怎么解决这个问题？上面的代码已经给出了答案：
 
 > 使用 `this.data.rotateZ` 来同步运动 DOM 的状态防止意外的刷新(`update`)
 
@@ -133,7 +133,7 @@ omi-transform：
 
 在不进行 profiles 就能想象到 react 是一定会更慢一些，因为 state 的改变要走把 react 生命周期走一遍，但是可以看到 react 的耗时还是在可以接受的范围，没有慢到难以接受。
 
-而 Omi 的方式则和传统的原生 js 的耗时一模一样。以为运动过程不进行DOM Diff!!
+而 Omi 的方式则和传统的原生 js 的耗时一模一样。因为运动过程不进行DOM Diff，直接操作 DOM!!
 
 ## Omi 自身对比
 
