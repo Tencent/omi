@@ -14,8 +14,12 @@ function Component(){
 
 }
 
+function noop() {}
+const wx = {}
+wx.canIUse = noop
 
-this.App = App
-this.getApp = getApp
-this.Page = Page
-this.Component = Component
+window.wx = wx
+window.App = App
+window.getApp = getApp
+window.Page = Page
+window.Component = Component
