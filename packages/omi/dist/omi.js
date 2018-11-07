@@ -244,10 +244,7 @@
     function proxyUpdate(ele) {
         var timeout = null;
         ele.data = new JSONPatcherProxy(ele.data).observe(!1, function(info) {
-            if (preValue !== info.value || prePath !== info.path || preEle !== ele) {
-                preValue = info.value;
-                prePath = info.path;
-                preEle = ele;
+            if (info.oldValue !== info.value) {
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     ele.update();
@@ -576,6 +573,7 @@
                 if (target.hasOwnProperty(key)) if (void 0 !== target[key] || Array.isArray(target)) operation.op = 'replace';
                 operation.value = newValue;
             }
+            operation.oldValue = target[key];
             var reflectionResult = Reflect.set(target, key, newValue);
             instance.defaultCallback(operation);
             return reflectionResult;
@@ -701,9 +699,6 @@
         };
         return JSONPatcherProxy;
     }();
-    var preValue = null;
-    var prePath = null;
-    var preEle = null;
     var WeElement = function(_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
@@ -784,7 +779,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.20';
+    options.root.Omi.version = '4.0.21';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
