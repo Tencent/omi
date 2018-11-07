@@ -5,10 +5,13 @@ function css(){
   return appCss + logsCss
 }
 
-function render(){
-  return h('view',{'class': `containerlog-list`},[h('block',{},logs.map((log,index)=>{
+function render() {
+  const { logs } = Object.assign({}, this.data, this.props)
+  return (
+    h('view',{'class': `containerlog-list`},[h('block',{},logs.map((log,index)=>{
         h('text',{'class': `log-item`},[`${index + 1}. ${log}`])
       }))])
+  )
 }
 
 //logs.js
