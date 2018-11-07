@@ -153,7 +153,7 @@ this.data.rotateZ = this.animDiv.rotateZ
 
 | **Slow**                         | **Fast**                           |
 | ------------------------------- | ----------------------------------- |
-| ![Omi](../assets/css3transform-update.jpg) | ![React](../assets/css3transform.jpg) |
+| ![Omi](../assets/css3transform-update.jpg) | ![Omi](../assets/css3transform.jpg) |
 
 可以看到 omi 的两种方式都拥有很高性能，10秒钟内拥有大量的空闲时间，但是 fast 确实更加 fast，scripting 的耗时更短。但是优势不明显是为什么？因为 DOM 结构简单，如果 DOM 结构越复杂， fast 直接操作 DOM 的方式会把 slow 的方式甩开一大截！下面进行验证一下:
 
@@ -165,8 +165,20 @@ this.data.rotateZ = this.animDiv.rotateZ
 
 | **Slow**                         | **Fast**                           |
 | ------------------------------- | ----------------------------------- |
-| ![Omi](../assets/css3transform-update2.jpg) | ![React](../assets/css3transform2.jpg) |
+| ![Omi](../assets/css3transform-update2.jpg) | ![Omi](../assets/css3transform2.jpg) |
 
+可以看到 Scripting Time 已经拉开了差距！
+
+对比前后两次的数据：
+
+|DOM 结构| **Slow**                         | **Fast**                           |
+|-----------| ------------------------------- | ----------------------------------- |
+|简单| ![Omi](../assets/css3transform-update.jpg) | ![Omi](../assets/css3transform.jpg) |
+|复杂| ![Omi](../assets/css3transform-update2.jpg) | ![Omi](../assets/css3transform2.jpg) |
+
+可以看到 Fast 的前后两次没有太大差别，Slow 前后两次差距巨大。那么 Fast 内核 css3transform 原理是什么？
+
+## css3transform
 
 ## Star & Fork
 
