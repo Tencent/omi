@@ -1,9 +1,9 @@
 import { define, WeElement } from 'omi'
-import normalizeStyle from '../../../assets/_normalize.css'
+import normalizeStyle from '../../../../assets/_normalize.css'
 
-define('home-page', class extends WeElement {
+define('omi-weui-page', class extends WeElement {
   static observe = true
-
+  install() {}
   css() {
     return (
       normalizeStyle +
@@ -14,9 +14,10 @@ define('home-page', class extends WeElement {
   render() {
     return (
       <div>
-        <p>Hi Welcome to Omi.</p>
-        <p>The Next Generation Web Framework in 4kb JavaScript.</p>
-        <a href="https://github.com/Tencent/omi">learn more about Omi</a>
+        <p>WeUI Components build with Omi is coming soon.</p>
+        <a href="https://github.com/omijs/omi-weui">
+          learn more about omi-weui
+        </a>
       </div>
     )
   }

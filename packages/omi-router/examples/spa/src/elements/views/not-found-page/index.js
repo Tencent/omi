@@ -1,7 +1,7 @@
 import { define, WeElement } from 'omi'
 import normalizeStyle from '../../../assets/_normalize.css'
 
-define('not-found', class extends WeElement {
+define('not-found-page', class extends WeElement {
   static observe = true
 
   css() {

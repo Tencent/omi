@@ -52,7 +52,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "_build": "node scripts/build.js",
-  "build":"PUBLIC_URL=https://tencent.github.io/omi/packages/omi-router/examples/spa/build npm run _build",
+    "build": "PUBLIC_URL=https://tencent.github.io/omi/packages/omi-router/examples/spa/build npm run _build",
     "fix": "eslint src --fix"
   },
   "jest": {
