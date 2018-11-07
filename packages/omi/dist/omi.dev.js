@@ -1,5 +1,5 @@
 /**
- * omi v4.0.21  http://omijs.org
+ * omi v4.0.22  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -346,10 +346,13 @@
       ret = [];
       var parentNode = null;
       if (isArray(dom)) {
+        var domLength = dom.length;
+        var vnodeLength = vnode.length;
+        var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
         parentNode = dom[0].parentNode;
-        dom.forEach(function (item, index) {
-          ret.push(idiff(item, vnode[index], context, mountAll, componentRoot));
-        });
+        for (var i = 0; i < maxLength; i++) {
+          ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
+        }
       } else {
         vnode.forEach(function (item) {
           ret.push(idiff(dom, item, context, mountAll, componentRoot));
@@ -381,7 +384,7 @@
 
   /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
   function idiff(dom, vnode, context, mountAll, componentRoot) {
-    if (dom && dom.props) {
+    if (dom && vnode && dom.props) {
       dom.props.children = vnode.children;
     }
     var out = dom,
@@ -1039,7 +1042,7 @@
         }
       }
 
-      this.install();
+      !this._isInstalled && this.install();
       var shadowRoot;
       if (!this.shadowRoot) {
         shadowRoot = this.attachShadow({
@@ -1054,7 +1057,7 @@
       }
 
       this.css && shadowRoot.appendChild(cssToDom(this.css()));
-      this.beforeRender();
+      !this._isInstalled && this.beforeRender();
       options.afterInstall && options.afterInstall(this);
       if (this.constructor.observe) {
         proxyUpdate(this);
@@ -1067,7 +1070,7 @@
       } else {
         shadowRoot.appendChild(this.host);
       }
-      this.installed();
+      !this._isInstalled && this.installed();
       this._isInstalled = true;
     };
 
@@ -1416,7 +1419,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.0.21';
+  options.root.Omi.version = '4.0.22';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

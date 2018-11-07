@@ -109,10 +109,11 @@
             ret = [];
             var parentNode = null;
             if (isArray(dom)) {
+                var domLength = dom.length;
+                var vnodeLength = vnode.length;
+                var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
                 parentNode = dom[0].parentNode;
-                dom.forEach(function(item, index) {
-                    ret.push(idiff(item, vnode[index], context, mountAll, componentRoot));
-                });
+                for (var i = 0; i < maxLength; i++) ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
             } else vnode.forEach(function(item) {
                 ret.push(idiff(dom, item, context, mountAll, componentRoot));
             });
@@ -129,7 +130,7 @@
         return ret;
     }
     function idiff(dom, vnode, context, mountAll, componentRoot) {
-        if (dom && dom.props) dom.props.children = vnode.children;
+        if (dom && vnode && dom.props) dom.props.children = vnode.children;
         var out = dom, prevSvgMode = isSvgMode;
         if (null == vnode || 'boolean' == typeof vnode) vnode = '';
         if ('string' == typeof vnode || 'number' == typeof vnode) {
@@ -717,7 +718,7 @@
                 }
                 if (this.store) this.store.instances.push(this);
             }
-            this.install();
+            !this.B && this.install();
             var shadowRoot;
             if (!this.shadowRoot) shadowRoot = this.attachShadow({
                 mode: 'open'
@@ -727,14 +728,14 @@
                 while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
             }
             this.css && shadowRoot.appendChild(cssToDom(this.css()));
-            this.beforeRender();
+            !this.B && this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             if (this.constructor.observe) proxyUpdate(this);
             this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, !1, null, !1);
             if (isArray(this.host)) this.host.forEach(function(item) {
                 shadowRoot.appendChild(item);
             }); else shadowRoot.appendChild(this.host);
-            this.installed();
+            !this.B && this.installed();
             this.B = !0;
         };
         WeElement.prototype.disconnectedCallback = function() {
@@ -779,7 +780,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.21';
+    options.root.Omi.version = '4.0.22';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
