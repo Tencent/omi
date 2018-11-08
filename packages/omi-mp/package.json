@@ -14,7 +14,6 @@
     "gulp": "^3.9.1",
     "gulp-tap": "^1.0.1",
     "html2json": "^1.0.2",
-    "uglify-js": "^3.4.9",
-    "webpack": "^4.20.2"
+    "uglify-js": "^3.4.9"
   }
 }

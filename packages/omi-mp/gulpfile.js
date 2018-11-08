@@ -5,7 +5,7 @@ var compile = require('./scripts/index')
 var fs = require('fs');
 
 gulp.task('components', ['copy'], function () {
-  return gulp.src('dist/src/source/components/*/*.js')
+  return gulp.src('web/src/source/components/*/*.js')
     .pipe(tap(function (file) {
       var name = path.basename(file.path).replace('.js', '')
       var dir = path.dirname(file.path)
@@ -56,17 +56,17 @@ customElements.define('${name}', Element)
         `)
       ])
     }))
-    .pipe(gulp.dest('dist/src/source/components/'))
+    .pipe(gulp.dest('web/src/source/components/'))
 })
 
 gulp.task('copy', function () {
   return gulp.src('src/**/*')
-    .pipe(gulp.dest('dist/src/source'))
+    .pipe(gulp.dest('web/src/source'))
 });
 
 
 gulp.task('pages', ['copy'], function () {
-  return gulp.src('dist/src/source/pages/*/*.js')
+  return gulp.src('web/src/source/pages/*/*.js')
     .pipe(tap(function (file) {
       var name = path.basename(file.path).replace('.js', '')
       var dir = path.dirname(file.path)
@@ -118,7 +118,7 @@ customElements.define('we-${name}', Element)
         `)
       ])
     }))
-    .pipe(gulp.dest('dist/src/source/pages/'))
+    .pipe(gulp.dest('web/src/source/pages/'))
 })
 
 gulp.task('appjs', function () {
@@ -131,7 +131,7 @@ gulp.task('appjs', function () {
         new Buffer(list2require(list))
       ])
     }))
-    .pipe(gulp.dest('dist/src/source'))
+    .pipe(gulp.dest('web/src/source'))
 });
 
 gulp.task('default', ['copy', 'components', 'pages', 'appjs'])
