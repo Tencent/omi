@@ -1,11 +1,12 @@
-import React from 'react'
+import { define, WeElement } from 'omi'
 import classNames from '../../utils/classnames'
 
 /**
  * WeUI Label Wrapper
  *
  */
-const Label = props => {
+
+define('ow-label', props => {
   const { className, ...others } = props
   const cls = classNames({
     'weui-label': true,
@@ -17,6 +18,4 @@ const Label = props => {
       <label className={cls} {...others} />
     </div>
   )
-}
-
-export default Label
+})

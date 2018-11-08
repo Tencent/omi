@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { define, WeElement } from 'omi'
 import classNames from '../../utils/classnames'
 import Icon from '../icon'
 
@@ -7,7 +6,15 @@ import Icon from '../icon'
  * Loadmore Indicators.
  *
  */
-const LoadMore = props => {
+const defaultProps = {
+  loading: false,
+  showLine: false,
+  showDot: false
+}
+
+define('load-more', props => {
+  
+  if (!props) props = defaultProps
   const { className, children, loading, showLine, showDot, ...others } = props
   const cls = classNames({
     'weui-loadmore': true,
@@ -22,30 +29,4 @@ const LoadMore = props => {
       <span className="weui-loadmore__tips">{children}</span>
     </div>
   )
-}
-
-LoadMore.propTypes = {
-  /**
-   * display laoding spinner
-   *
-   */
-  loading: PropTypes.bool,
-  /**
-   * display side lines
-   *
-   */
-  showLine: PropTypes.bool,
-  /**
-   * display dot in the center
-   *
-   */
-  showDot: PropTypes.bool
-}
-
-LoadMore.defaultProps = {
-  loading: false,
-  showLine: false,
-  showDot: false
-}
-
-export default LoadMore
+})

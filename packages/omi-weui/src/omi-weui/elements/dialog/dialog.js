@@ -1,4 +1,4 @@
-import {define,weElement} from 'omi'
+import { define, weElement } from 'omi'
 import classNames from '../../utils/classnames'
 import Mask from '../mask/index'
 
@@ -6,8 +6,9 @@ import Mask from '../mask/index'
  * Modals provide feedback to user
  *
  */
-class extends Component {
- 
+
+define('ow-dialog', class extends weElement {
+  
   static defaultProps = {
     buttons: [],
     show: false,
@@ -73,6 +74,4 @@ class extends Component {
       </div>
     )
   }
-}
-
-export default Dialog
+})

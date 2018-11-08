@@ -1,12 +1,18 @@
 import { define, WeElement } from 'omi'
 import '../../omi-weui/elements/button'
-import '../../omi-weui/elements/button'
+import '../../omi-weui/elements/article'
 
 
 define('my-app', class extends WeElement {
   render() {
     return (
       <div class="page">
+        <ow-article>
+          <div className="main">
+            <h1>这里是标题</h1>
+            <p>这里是正文</p>
+          </div>
+        </ow-article>
         <ow-button>Normal</ow-button>
         <ow-button disabled>Disabled</ow-button>
 

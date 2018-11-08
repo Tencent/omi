@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { define, WeElement } from 'omi'
 import classNames from '../../utils/classnames'
 import Mask from '../mask/index'
 import './actionsheet.less'
@@ -7,34 +6,8 @@ import './actionsheet.less'
 /**
  * Used to display a collection of actions that contain a set of interactivity, including descriptions, links, and so on. Popup from the bottom, generally used to respond to user clicks on the page.
  */
-class ActionSheet extends Component {
-  static propTypes = {
-    /**
-     * Array of Objects for menus, `label` property is Required
-     *
-     */
-    menus: PropTypes.array,
-    /**
-     * Array of Objects for actions, `label` property is Required
-     *
-     */
-    actions: PropTypes.array,
-    /**
-     * To display ActionSheet
-     *
-     */
-    show: PropTypes.bool,
-    /**
-     * Function triggers when user click on the mask
-     *
-     */
-    onRequestClose: PropTypes.func,
-    /**
-     * style: ios/android
-     */
-    type: PropTypes.string
-  }
 
+define('actions-sheet', class extends WeElement {
   static defaultProps = {
     type: '',
     menus: [],
@@ -106,6 +79,4 @@ class ActionSheet extends Component {
       </div>
     )
   }
-}
-
-export default ActionSheet
+})
