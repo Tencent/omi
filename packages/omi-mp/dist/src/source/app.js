@@ -37,3 +37,5 @@ App({
     userInfo: null
   }
 })
+require('./pages/index/index')
+require('./pages/logs/logs')

@@ -10,10 +10,12 @@ gulp.task('components', ['copy'], function () {
       var name = path.basename(file.path).replace('.js', '')
       var dir = path.dirname(file.path)
       var wxml = fs.readFileSync(dir + '/' + name + '.wxml', 'utf8')
+      var json = require(dir + '/' + name + '.json')
+      var importStr = json2import(json)
       var hyperscript = compile(wxml)
       file.contents = Buffer.concat([
         new Buffer(
-          `import myChildCss from './${name}.wxss'
+          `${importStr}import myChildCss from './${name}.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
 
@@ -70,9 +72,12 @@ gulp.task('pages', ['copy'], function () {
       var dir = path.dirname(file.path)
       var wxml = fs.readFileSync(dir + '/' + name + '.wxml', 'utf8')
       var hyperscript = compile(wxml)
+      var json = require(dir + '/' + name + '.json')
+      var importStr = json2import(json)
+      var hyperscript = compile(wxml)
       file.contents = Buffer.concat([
         new Buffer(
-          `import appCss from '../../app.wxss'
+          `${importStr}import appCss from '../../app.wxss'
 import indexCss from './${name}.wxss'
 import { h, WeElement } from 'omi'
 
@@ -113,5 +118,45 @@ customElements.define('we-${name}', Element)
     .pipe(gulp.dest('dist/src/source/pages/'))
 })
 
+gulp.task('appjs', function () {
+  return gulp.src('src/app.js')
+    .pipe(tap(function (file) {
 
-gulp.task('default', ['copy', 'components', 'pages'])
+      var list = walk('src/pages')
+      file.contents = Buffer.concat([
+        file.contents,
+        new Buffer(list2require(list))
+      ])
+    }))
+    .pipe(gulp.dest('dist/src/source'))
+});
+
+gulp.task('default', ['copy', 'components', 'pages', 'appjs'])
+
+function json2import(json) {
+  var arr = []
+  if (json.usingComponents) {
+    Object.keys(json.usingComponents).forEach(key => {
+      arr.push(`import '${json.usingComponents[key]}'`)
+    })
+  }
+  return arr.join('\r\n') + '\r\n'
+}
+
+function list2require(list) {
+  return '\r\n'+list.map(item => {
+    return `require('./pages/${item}/${item}')`
+  }).join('\r\n')
+}
+
+function walk(path) {
+  var dirList = fs.readdirSync(path)
+  var fileList = []
+  dirList.forEach(function (item) {
+    if (fs.statSync(path + '/' + item).isDirectory()) {
+      fileList.push(item)
+    }
+  })
+
+  return fileList
+}

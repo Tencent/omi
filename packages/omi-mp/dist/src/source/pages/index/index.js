@@ -1,3 +1,4 @@
+
 import appCss from '../../app.wxss'
 import indexCss from './index.wxss'
 import { h, WeElement } from 'omi'

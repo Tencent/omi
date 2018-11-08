@@ -1,3 +1,4 @@
+import '../../components/my-ele/my-ele'
 import appCss from '../../app.wxss'
 import indexCss from './logs.wxss'
 import { h, WeElement } from 'omi'

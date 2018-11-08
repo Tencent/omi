@@ -1,3 +1,4 @@
+
 import myChildCss from './my-child.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
