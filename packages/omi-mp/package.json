@@ -11,8 +11,10 @@
   "dependencies": {
     "@babel/core": "^7.1.5",
     "babel-preset-env": "^1.7.0",
+    "gulp-header": "^2.0.5",
     "html2json": "^1.0.2",
     "uglify-js": "^3.4.9",
-    "webpack": "^4.20.2"
+    "webpack": "^4.20.2",
+    "gulp": "^3.9.1"
   }
 }
