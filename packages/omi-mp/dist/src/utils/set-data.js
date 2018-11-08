@@ -2,7 +2,6 @@ export function setData(info) {
   Object.keys(info).forEach(key => {
     updateByPath(this.data, key, info[key])
   })
-  console.log(this.data)
   this.update()
 }
 
