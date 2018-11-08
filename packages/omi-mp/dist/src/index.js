@@ -4,7 +4,7 @@ import './utils/mp'
 import './assets/index.css'
 import './mp/app'
 //import store from './store/app-store'
-
+//[todo] set document.title
 route('*', p => {
   const ele = document
   .querySelector('#root')
