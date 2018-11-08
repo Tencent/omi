@@ -731,7 +731,7 @@
             !this.B && this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             if (this.constructor.observe) proxyUpdate(this);
-            this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, !1, null, !1);
+            this.host = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
             if (isArray(this.host)) this.host.forEach(function(item) {
                 shadowRoot.appendChild(item);
             }); else shadowRoot.appendChild(this.host);
@@ -748,7 +748,7 @@
         WeElement.prototype.update = function() {
             this.beforeUpdate();
             this.beforeRender();
-            diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
+            diff(this.host, this.render(this.props, this.data, this.store));
             this.afterUpdate();
         };
         WeElement.prototype.fire = function(name, data) {
@@ -780,7 +780,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.22';
+    options.root.Omi.version = '4.0.23';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
