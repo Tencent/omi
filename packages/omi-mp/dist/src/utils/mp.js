@@ -1,8 +1,14 @@
 import omi from 'omi'
 
-function App() { }
+let appOption = null
+function App(option) {
+  appOption = option
+}
 
-function getApp() { }
+function getApp() {
+
+  return appOption
+}
 
 function Page(option) {
   return option
@@ -23,6 +29,10 @@ wx.getSystemInfoSync = function () {
     windowWidth: window.innerWidth,
     windowHeight: window.innerHeight
   }
+}
+
+wx.getUserInfo = function(){
+
 }
 
 //用户可以有个开关不转

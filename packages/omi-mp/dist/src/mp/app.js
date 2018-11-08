@@ -1,6 +1,3 @@
-import './pages/index/index'
-import './pages/logs/logs'
-
 //app.js
 App({
   onLaunch() {
@@ -40,3 +37,6 @@ App({
     userInfo: null
   }
 })
+
+require('./pages/index/index')
+require('./pages/logs/logs')
