@@ -1,5 +1,7 @@
 import { define, WeElement } from 'omi'
 import '../../omi-weui/elements/button'
+import '../../omi-weui/elements/button'
+
 
 define('my-app', class extends WeElement {
   render() {
