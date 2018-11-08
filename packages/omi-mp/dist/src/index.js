@@ -3,10 +3,20 @@ import 'omi-router'
 import './utils/mp'
 import './assets/index.css'
 import './mp/app'
-import store from './store/app-store'
+//import store from './store/app-store'
 
-route('../logs/logs', p => {
-  render(<we-logs />, '#root')
+route('*', p => {
+  const ele = document
+  .querySelector('#root')
+  .getElementsByTagName('we-logs')[0]
+  ele && ele.remove()
+  render(<we-index />, '#root')
 })
 
-render(<we-index />, '#root', store)
+route('../logs/logs', p => {
+  const ele = document
+    .querySelector('#root')
+    .getElementsByTagName('we-index')[0]
+  ele && ele.remove()
+  render(<we-logs />, '#root')
+})
