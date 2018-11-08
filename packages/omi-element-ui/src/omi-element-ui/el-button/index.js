@@ -37,7 +37,7 @@ define('el-button', class extends WeElement {
     }
     if (props.iconRight) {
       return (
-        <button onClick={this.onClick} class={classStr}>
+        <button style={props.style} onClick={this.onClick} class={classStr}>
           <slot />
           {props.icon && <i class={props.icon} />}
         </button>
@@ -45,7 +45,7 @@ define('el-button', class extends WeElement {
     }
 
     return (
-      <button onClick={this.onClick} class={classStr}>
+      <button style={props.style} onClick={this.onClick} class={classStr}>
         {props.icon && <i class={props.icon} />}
         <slot />
       </button>

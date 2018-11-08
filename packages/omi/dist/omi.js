@@ -83,8 +83,20 @@
             var useCapture = name !== (name = name.replace(/Capture$/, ''));
             name = name.toLowerCase().substring(2);
             if (value) {
-                if (!old) node.addEventListener(name, eventProxy, useCapture);
-            } else node.removeEventListener(name, eventProxy, useCapture);
+                if (!old) {
+                    node.addEventListener(name, eventProxy, useCapture);
+                    if ('tap' == name) {
+                        node.addEventListener('touchstart', touchStart, useCapture);
+                        node.addEventListener('touchstart', touchEnd, useCapture);
+                    }
+                }
+            } else {
+                node.removeEventListener(name, eventProxy, useCapture);
+                if ('tap' == name) {
+                    node.removeEventListener('touchstart', touchStart, useCapture);
+                    node.removeEventListener('touchstart', touchEnd, useCapture);
+                }
+            }
             (node.__l || (node.__l = {}))[name] = value;
         } else if ('list' !== name && 'type' !== name && !isSvg && name in node) {
             try {
@@ -99,6 +111,16 @@
     function eventProxy(e) {
         return this.__l[e.type](options.event && options.event(e) || e);
     }
+    function touchStart(e) {
+        this.F = e.touches[0].pageX;
+        this.G = e.touches[0].pageY;
+        this.H = document.body.scrollTop;
+    }
+    function touchEnd(e) {
+        if (Math.abs(e.changedTouches[0].pageX - this.F) < 30 && Math.abs(e.changedTouches[0].pageY - this.G) < 30 && Math.abs(document.body.scrollTop - this.H) < 30) this.dispatchEvent(new CustomEvent('tap', {
+            detail: e
+        }));
+    }
     function diff(dom, vnode, context, mountAll, parent, componentRoot) {
         var ret;
         if (!diffLevel++) {
@@ -109,10 +131,11 @@
             ret = [];
             var parentNode = null;
             if (isArray(dom)) {
+                var domLength = dom.length;
+                var vnodeLength = vnode.length;
+                var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
                 parentNode = dom[0].parentNode;
-                dom.forEach(function(item, index) {
-                    ret.push(idiff(item, vnode[index], context, mountAll, componentRoot));
-                });
+                for (var i = 0; i < maxLength; i++) ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
             } else vnode.forEach(function(item) {
                 ret.push(idiff(dom, item, context, mountAll, componentRoot));
             });
@@ -129,7 +152,7 @@
         return ret;
     }
     function idiff(dom, vnode, context, mountAll, componentRoot) {
-        if (dom && dom.props) dom.props.children = vnode.children;
+        if (dom && vnode && dom.props) dom.props.children = vnode.children;
         var out = dom, prevSvgMode = isSvgMode;
         if (null == vnode || 'boolean' == typeof vnode) vnode = '';
         if ('string' == typeof vnode || 'number' == typeof vnode) {
@@ -163,7 +186,7 @@
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
-        } else if (vchildren && vchildren.length || null != fc) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
+        } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
         diffAttributes(out, vnode.attributes, props);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
@@ -244,10 +267,7 @@
     function proxyUpdate(ele) {
         var timeout = null;
         ele.data = new JSONPatcherProxy(ele.data).observe(!1, function(info) {
-            if (preValue !== info.value || prePath !== info.path || preEle !== ele) {
-                preValue = info.value;
-                prePath = info.path;
-                preEle = ele;
+            if (info.oldValue !== info.value) {
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     ele.update();
@@ -576,6 +596,7 @@
                 if (target.hasOwnProperty(key)) if (void 0 !== target[key] || Array.isArray(target)) operation.op = 'replace';
                 operation.value = newValue;
             }
+            operation.oldValue = target[key];
             var reflectionResult = Reflect.set(target, key, newValue);
             instance.defaultCallback(operation);
             return reflectionResult;
@@ -701,9 +722,6 @@
         };
         return JSONPatcherProxy;
     }();
-    var preValue = null;
-    var prePath = null;
-    var preEle = null;
     var WeElement = function(_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
@@ -722,19 +740,24 @@
                 }
                 if (this.store) this.store.instances.push(this);
             }
-            this.install();
-            var shadowRoot = this.attachShadow({
+            !this.B && this.install();
+            var shadowRoot;
+            if (!this.shadowRoot) shadowRoot = this.attachShadow({
                 mode: 'open'
-            });
+            }); else {
+                shadowRoot = this.shadowRoot;
+                var fc;
+                while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
+            }
             this.css && shadowRoot.appendChild(cssToDom(this.css()));
-            this.beforeRender();
+            !this.B && this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             if (this.constructor.observe) proxyUpdate(this);
-            this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, !1, null, !1);
+            this.host = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
             if (isArray(this.host)) this.host.forEach(function(item) {
                 shadowRoot.appendChild(item);
             }); else shadowRoot.appendChild(this.host);
-            this.installed();
+            !this.B && this.installed();
             this.B = !0;
         };
         WeElement.prototype.disconnectedCallback = function() {
@@ -747,7 +770,7 @@
         WeElement.prototype.update = function() {
             this.beforeUpdate();
             this.beforeRender();
-            diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
+            diff(this.host, this.render(this.props, this.data, this.store));
             this.afterUpdate();
         };
         WeElement.prototype.fire = function(name, data) {
@@ -779,7 +802,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.19';
+    options.root.Omi.version = '4.0.24';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

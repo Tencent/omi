@@ -15,7 +15,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 - Merge [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) and [**JSX**](https://reactjs.org/docs/introducing-jsx.html)  into one framework.
 - Built in observe feature (No need to call `this.update()`).
 - Web Components can also be a data-driven view, **`UI = fn(data)`**.
-- JSX is the best development experience (code intelligent completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals) and it's turing complete(template engine is not).
+- JSX is the best development experience (code intelligent completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals) and it's turing complete(template engine is not, es template string is but grammatical noise is too loud).
 - The original **Path Updating** system. Proxy-based automatic **accurate** update, **low power consumption**, high degree of freedom, excellent performance, easy integration of `requestIdleCallback`
 - Say goodbye to `this.update` method when using **store system**! It will automatically update UI partially when data is changed.
 - Look at [Facebook React vs Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi **combines their advantages** and gives developers the **freedom to choose the way they like**.
@@ -38,21 +38,38 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi official documents |
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
+| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router. [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. Made css3 transform super easy in your Omi project.|
-| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)|Support tap event in your omi project|
+| [omi-tap2](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Native tap event support(omi v4.0.24+）|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Support touch and gesture events in your Omi project.|
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 |[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi version of element-ui|
+| [omi-weui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-weui)|Weui for Omi.|
+
+## Useful Resources
+
+* [60FPS Animation in omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)
+* [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)
+* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
+* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
+* [Web Components Org](https://www.webcomponents.org/introduction)
+* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
+* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
+* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 
 ---
 
+# Overview of the Readme
+
 - [Ecosystem of Omi](#ecosystem-of-omi)
+- [Useful Resources](#useful-resources)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Add Omi in 30 Seconds](#add-omi-in-30-seconds)
 - [Getting Started](#getting-started)
@@ -70,7 +87,6 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 - [Browsers Support](#browsers-support)
 - [Contribution](#contribution)
 - [Thanks](#thanks)
-- [Web Components Resource](#web-components-resource)
 - [License](#license)
 
 ## Add Omi in One Minute
@@ -280,15 +296,29 @@ Such as in windows:
 }
 ```
 
-TypeScript Template(omi-cli v3.0.3+):
+In mac os:
+
+```json
+"scripts": {
+    "start": "node scripts/start.js",
+    "_build": "node scripts/build.js",
+    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
+    "fix": "eslint src --fix"
+  },
+```
+
+TypeScript Template(omi-cli v3.0.5+):
 
 ```bash
-$ npm i omi-cli -g                  # install cli
-$ omi init-ts your_project_name     # init project, you can also exec 'omi init-ts' in an empty folder
-$ cd your_project_name              # please ignore this command if you executed 'omi init' in an empty folder
-$ npm start                         # develop
-$ npm run build                     # release
+$ omi init-ts your_project_name    
 ```
+
+[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+):
+
+```bash
+$ omi init-spa your_project_name    
+```
+
 
 CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)
 
@@ -605,6 +635,22 @@ It should be noted that if `observe` is used, do not set the value of data in so
 
 Because data settings will simply compare the value before and after, complex objects will not be deep contrast, the contrast value will trigger different update, update will trigger the above function, infinite recursion.
 
+For Example:
+
+❌Wrong way:
+```js
+beforeRender(){
+  this.data.a = { b: 1 }
+}
+```
+
+✅ Right way:
+```js
+beforeRender(){
+  this.data.a.b = 1 
+}
+```
+
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
 
 ### Omi Mobx
@@ -655,7 +701,7 @@ Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another el
 
 ## React to Omi
 
-For example:
+For example, the below is about migration React button as weui Omi button:
 
 ![react to omi](./assets/react-to-omi.png)
 
@@ -697,15 +743,6 @@ Please contact us for any questions:
 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
-
-## Web Components Resource
-
-* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
-* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
-* [Web Components Org](https://www.webcomponents.org/introduction)
-* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
 
 ## License
 

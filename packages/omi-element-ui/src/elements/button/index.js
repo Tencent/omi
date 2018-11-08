@@ -17,8 +17,8 @@ class MyApp extends WeElement {
     return (
       <div>
         <div>
-          <el-button onClick={this.onClick}>默认按钮1</el-button>
-          <el-button type="primary">主要按钮</el-button>
+          <el-button onClick={this.onClick} style="color:red;">默认按钮1</el-button>
+          <el-button type="primary" style={{color:'red'}}>主要按钮</el-button>
           <el-button type="success">成功按钮</el-button>
           <el-button type="info">信息按钮</el-button>
           <el-button type="warning">警告按钮</el-button>

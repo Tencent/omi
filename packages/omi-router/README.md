@@ -4,6 +4,8 @@
 
 omi-router is a router plugin of [Omi](http://omijs.org), and it is lightweight, easy and powerful to use. It is a solution to build Omi's SPA(Single Page Application).
 
+[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)
+
 The advantage of SPA is very clear.
 
 * No refresh to load a content
@@ -39,7 +41,7 @@ define('my-app', class extends WeElement {
   static observe = true
 
   data = { tag: 'my-home' }
-
+  
   install() {
 
     route('/', () => {
@@ -62,6 +64,16 @@ define('my-app', class extends WeElement {
     route('*', function () {
       console.log('not found')
     })
+
+    route.before = (evt) => {
+      console.log('before')
+      //prevent route when return false
+      //return false
+    }
+
+    route.after = (evt) => {
+      console.log('after')
+    }
   }
 
   onClick = () => {

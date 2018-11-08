@@ -36,10 +36,13 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     ret = []
     let parentNode = null
     if (isArray(dom)) {
+      let domLength = dom.length
+      let vnodeLength = vnode.length
+      let maxLength = domLength >= vnodeLength ? domLength : vnodeLength
       parentNode = dom[0].parentNode
-      dom.forEach(function(item, index) {
-        ret.push(idiff(item, vnode[index], context, mountAll, componentRoot))
-      })
+      for (let i = 0; i < maxLength; i++) {
+        ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot))
+      }
     } else {
       vnode.forEach(function(item) {
         ret.push(idiff(dom, item, context, mountAll, componentRoot))
@@ -71,7 +74,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, context, mountAll, componentRoot) {
-  if (dom && dom.props) {
+  if (dom && vnode && dom.props) {
     dom.props.children = vnode.children
   }
   let out = dom,
@@ -161,13 +164,15 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
   // otherwise, if there are existing or new children, diff them:
   else if ((vchildren && vchildren.length) || fc != null) {
-    innerDiffNode(
-      out,
-      vchildren,
-      context,
-      mountAll,
-      hydrating || props.dangerouslySetInnerHTML != null
-    )
+    if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
+      innerDiffNode(
+        out,
+        vchildren,
+        context,
+        mountAll,
+        hydrating || props.dangerouslySetInnerHTML != null
+      )
+    }
   }
 
   // Apply attributes/props from VNode to the DOM Element:

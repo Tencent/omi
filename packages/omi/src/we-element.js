@@ -27,21 +27,29 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    this.install()
-    const shadowRoot = this.attachShadow({ mode: 'open' })
+    !this._isInstalled && this.install()
+    let shadowRoot
+    if (!this.shadowRoot) {
+      shadowRoot = this.attachShadow({
+        mode: 'open'
+      })
+    } else {
+      shadowRoot = this.shadowRoot
+      let fc
+      while ((fc = shadowRoot.firstChild)) {
+        shadowRoot.removeChild(fc)
+      }
+    }
 
     this.css && shadowRoot.appendChild(cssToDom(this.css()))
-    this.beforeRender()
+    !this._isInstalled && this.beforeRender()
     options.afterInstall && options.afterInstall(this)
     if (this.constructor.observe) {
       proxyUpdate(this)
     }
     this.host = diff(
       null,
-      this.render(
-        this.props,
-        !this.constructor.pure && this.store ? this.store.data : this.data
-      ),
+      this.render(this.props, this.data, this.store),
       {},
       false,
       null,
@@ -54,7 +62,7 @@ export default class WeElement extends HTMLElement {
     } else {
       shadowRoot.appendChild(this.host)
     }
-    this.installed()
+    !this._isInstalled && this.installed()
     this._isInstalled = true
   }
 
@@ -73,13 +81,7 @@ export default class WeElement extends HTMLElement {
   update() {
     this.beforeUpdate()
     this.beforeRender()
-    diff(
-      this.host,
-      this.render(
-        this.props,
-        !this.constructor.pure && this.store ? this.store.data : this.data
-      )
-    )
+    diff(this.host, this.render(this.props, this.data, this.store))
     this.afterUpdate()
   }
 

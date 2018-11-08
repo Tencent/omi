@@ -1,7 +1,6 @@
-import { render, WeElement, tag } from '../../src/omi'
+import { render, WeElement, define } from '../../src/omi'
 
-@tag('todo-list', true)
-class TodoList extends WeElement {
+define('todo-list', class extends WeElement {
   render(props) {
     return (
       <ul>
@@ -11,10 +10,9 @@ class TodoList extends WeElement {
       </ul>
     )
   }
-}
+})
 
-@tag('todo-app')
-class TodoApp extends WeElement {
+define('todo-app', class extends WeElement {
   static get data() {
     return {
       showList: null,
@@ -25,54 +23,58 @@ class TodoApp extends WeElement {
     }
   }
 
-  render(props, data) {
+  render(props, data, store) {
     return (
       <div>
-        <h3>TODO by {data.fullName()}</h3>
-        {data.showList && <todo-list items={data.items} />}
+        <h3>TODO by {store.data.fullName()}</h3>
+        {store.data.showList && <todo-list items={store.data.items} />}
         <form onSubmit={this.handleSubmit}>
-          <input id="new-todo" onChange={this.handleChange} value={data.text} />
-          <button>Add #{data.items.length + 1}</button>
+          <input
+            id="new-todo"
+            onChange={this.handleChange}
+            value={store.data.text}
+          />
+          <button>Add #{store.data.items.length + 1}</button>
         </form>
       </div>
     )
   }
 
-	handleChange = e => {
-	  this.store.data.text = e.target.value
-	}
+  handleChange = e => {
+    this.store.data.text = e.target.value
+  }
 
-	handleSubmit = e => {
-	  e.preventDefault()
-	  this.store.add()
-	}
+  handleSubmit = e => {
+    e.preventDefault()
+    this.store.add()
+  }
 
-	installed() {
-	  setTimeout(() => {
-	    this.store.rename()
-	  }, 2000)
+  installed() {
+    setTimeout(() => {
+      this.store.rename()
+    }, 2000)
 
-	  setTimeout(() => {
-	    this.store.data.items.push({ text: 'abc' })
-	  }, 4000)
+    setTimeout(() => {
+      this.store.data.items.push({ text: 'abc' })
+    }, 4000)
 
-	  setTimeout(() => {
-	    this.store.data.items[2].text = 'changed'
-	  }, 6000)
+    setTimeout(() => {
+      this.store.data.items[2].text = 'changed'
+    }, 6000)
 
-	  setTimeout(() => {
-	    this.store.data.items.splice(1, 1)
-	  }, 8000)
+    setTimeout(() => {
+      this.store.data.items.splice(1, 1)
+    }, 8000)
 
-	  setTimeout(() => {
-	    this.store.data.showList = false
-	  }, 10000)
+    setTimeout(() => {
+      this.store.data.showList = false
+    }, 10000)
 
-	  setTimeout(() => {
-	    this.store.data.showList = true
-	  }, 12000)
-	}
-}
+    setTimeout(() => {
+      this.store.data.showList = true
+    }, 12000)
+  }
+})
 
 const store = {
   data: {

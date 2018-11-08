@@ -1,0 +1,1 @@
+{"version":3,"sources":["assets/index.css"],"names":[],"mappings":"AAAA,KACE,SACA,UACA,sDACA,eACA,eAAiB","file":"static/css/index.f6e7fd22.css","sourcesContent":["body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n  font-size: 14px;\n  line-height: 1.7;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/assets/index.css"],"sourceRoot":""}

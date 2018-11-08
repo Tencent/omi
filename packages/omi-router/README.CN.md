@@ -4,6 +4,8 @@
 
 omi-router是 [Omi](http://omijs.org) 专属的router插件，文件尺寸轻量，使用简便，功能强大。用于Omi制作Web单页应用的首选解决方案。
 
+[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)
+
 单页的好处也是非常明显:
 
 * 无刷新加载页面内容
@@ -40,7 +42,7 @@ define('my-app', class extends WeElement {
   static observe = true
 
   data = { tag: 'my-home' }
-
+  
   install() {
 
     route('/', () => {
@@ -63,6 +65,16 @@ define('my-app', class extends WeElement {
     route('*', function () {
       console.log('not found')
     })
+
+    route.before = (evt) => {
+      console.log('before')
+      //prevent route when return false
+      //return false
+    }
+
+    route.after = (evt) => {
+      console.log('after')
+    }
   }
 
   onClick = () => {

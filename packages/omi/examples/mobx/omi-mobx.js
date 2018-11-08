@@ -21,24 +21,24 @@ import { options } from '../../src/omi'
  * @see https://developers.google.com/web/updates/2015/08/using-requestidlecallback
  */
 window.requestIdleCallback =
-	window.requestIdleCallback ||
-	function(cb) {
-	  return setTimeout(() => {
-	    let start = Date.now()
-	    cb({
-	      didTimeout: false,
-	      timeRemaining() {
-	        return Math.max(0, 50 - (Date.now() - start))
-	      }
-	    })
-	  }, 1)
-	}
+  window.requestIdleCallback ||
+  function(cb) {
+    return setTimeout(() => {
+      let start = Date.now()
+      cb({
+        didTimeout: false,
+        timeRemaining() {
+          return Math.max(0, 50 - (Date.now() - start))
+        }
+      })
+    }, 1)
+  }
 
 window.cancelIdleCallback =
-	window.cancelIdleCallback ||
-	function(id) {
-	  clearTimeout(id)
-	}
+  window.cancelIdleCallback ||
+  function(id) {
+    clearTimeout(id)
+  }
 
 options.afterInstall = function(ele) {
   if (ele.constructor.observe) {

@@ -1,13 +1,13 @@
 /*!
- *  omi-router v2.0.2 by dntzhang
+ *  omi-router v2.0.4 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
  */
 
-const p2r = require('path-to-regexp')
-const mapping = {}
-const root = getGlobal()
+var p2r = require('path-to-regexp')
+var mapping = {}
+var root = getGlobal()
 
 root.route = route
 root.route.params = null
@@ -22,13 +22,18 @@ root.route.to = function (path) {
 
 window.addEventListener('hashchange', change)
 
-function change() {
-  const path = window.location.hash.replace('#', '')
-  let notFound = true
-  Object.keys(mapping).every(key => {
-    const toArr = path.match(mapping[key].reg)
+function change(evt) {
+  var prevent = false
+  if (evt.type === 'hashchange' && root.route.before) {
+    prevent = root.route.before(evt) === false
+  }
+  if (prevent) return
+  var path = window.location.hash.replace('#', '')
+  var notFound = true
+  Object.keys(mapping).every(function(key){
+    var toArr = path.match(mapping[key].reg)
     if (toArr) {
-      const pathArr = key.match(mapping[key].reg)
+      var pathArr = key.match(mapping[key].reg)
       root.route.params = getParams(toArr, pathArr)
       mapping[key].callback(root.route.params)
       notFound = false
@@ -39,6 +44,10 @@ function change() {
 
   if (notFound) {
     mapping['*'] && mapping['*'].callback()
+  }
+
+  if (evt.type === 'hashchange' && root.route.after) {
+    root.route.after(evt)
   }
 }
 
@@ -57,7 +66,7 @@ function getParams(toArr, pathArr) {
 
 export default function route(path, callback) {
   mapping[path] = {
-    callback,
+    callback: callback,
     reg: p2r(path)
   }
 }
