@@ -1,4 +1,5 @@
 var htmlToJson = require('html2json').html2json
+var map = require('./tag-mapping')
 
 function parse(wxml, fnName) {
   return walk(htmlToJson(minifier(wxml)), fnName)
@@ -10,9 +11,9 @@ function minifier(wxml) {
   }).replace(/<!--[\s\S]*?-->/g, '')
 }
 
-function walk(node,fnName) {
+function walk(node, fnName) {
   return (
-`function ${fnName}() {
+    `function ${fnName}() {
   0.0
   return (
     ${_walk(node)}
@@ -83,17 +84,24 @@ function _walk(node, currentIndex, children) {
       delete node.attr['wx:for']
       delete node.attr['wx:for-index']
       delete node.attr['wx:for-item']
-
-      result = `${ifCond}h('${node.tag}',${stringify(node.attr)},${current})`
+      if (node.tag == 'block') {
+        result = `${ifCond} ${current}`
+      } else {
+        result = `${ifCond}h('${map(node.tag)}',${stringify(node.attr)},${current})`
+      }
     } else {
-      result = `${ifCond}h('${node.tag}',${stringify(node.attr)},[${c}])`
+      if (node.tag == 'block') {
+        result = `${ifCond} ${c}`
+      } else {
+        result = `${ifCond}h('${map(node.tag)}',${stringify(node.attr)},[${c}])`
+      }
     }
 
     if (isThree) {
       result += ':'
     }
   } else {
-    result = `h('${node.tag}',${stringify(node.attr)},[${c}])`
+    result = `h('${map(node.tag)}',${stringify(node.attr)},[${c}])`
   }
   return result
 }

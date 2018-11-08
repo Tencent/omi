@@ -1,18 +1,10 @@
-function App(){
+function App() {}
 
-}
+function getApp() {}
 
-function getApp(){
+function Page() {}
 
-}
-
-function Page(){
-
-}
-
-function Component(){
-
-}
+function Component() {}
 
 function noop() {}
 const wx = {}

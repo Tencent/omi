@@ -1,16 +1,41 @@
 import appCss from '../../app.wxss'
 import indexCss from './index.wxss'
-import { h, define, WeElement } from 'omi'
+import { h, WeElement } from 'omi'
 
 function css() {
   return appCss + indexCss
 }
 
 function render() {
-  const { hasUserInfo,canIUse,userInfo,motto } = Object.assign({}, this.data, this.props)
-  return (
-    h('view',{'class': `container`},[h('view',{'class': `userinfo`},[!hasUserInfo&&canIUse?h('button',{'open-type': `getUserInfo`,'bindgetuserinfo': `getUserInfo`},[`获取头像昵称`]):h('block',{},[h('image',{'bindtap': `bindViewTap`,'class': `userinfo-avatar`,'src': userInfo.avatarUrl,'mode': `cover`},[]),h('text',{'class': `userinfo-nickname`},[`${userInfo.nickName}`])])]),h('view',{'class': `usermotto`},[h('text',{'class': `user-motto`},[`${motto}`])])])
+  const { hasUserInfo, canIUse, userInfo, motto } = Object.assign(
+    {},
+    this.data,
+    this.props
   )
+  return h('div', { class: 'container' }, [
+    h('div', { class: 'userinfo' }, [
+      !hasUserInfo && canIUse
+        ? h(
+          'button',
+          { 'open-type': 'getUserInfo', bindgetuserinfo: 'getUserInfo' },
+          ['获取头像昵称']
+        )
+        : h(
+          'img',
+          {
+            bindtap: 'bindViewTap',
+            class: 'userinfo-avatar',
+            src: userInfo.avatarUrl,
+            mode: 'cover'
+          },
+          []
+        ),
+      h('span', { class: 'userinfo-nickname' }, [`${userInfo.nickName}`])
+    ]),
+    h('div', { class: 'usermotto' }, [
+      h('span', { class: 'user-motto' }, [`${motto}`])
+    ])
+  ])
 }
 
 //index.js
@@ -25,12 +50,12 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
-  bindViewTap: function () {
+  bindViewTap() {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad() {
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -58,7 +83,7 @@ Page({
       })
     }
   },
-  getUserInfo: function (e) {
+  getUserInfo(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
@@ -68,4 +93,30 @@ Page({
   }
 })
 
-define('my-app', render)
+class Element extends WeElement {
+  install() {
+    this.data = {
+      motto: 'Hello World',
+      userInfo: {},
+      hasUserInfo: false,
+      canIUse: wx.canIUse('button.open-type.getUserInfo')
+    }
+    console.log(111)
+  }
+
+  render = render
+
+  beforeRender() {
+    this._useId = 0
+  }
+
+  beforeUpdate() {}
+
+  afterUpdate() {}
+
+  uninstall() {}
+
+  installed() {}
+}
+
+customElements.define('my-app', Element)
