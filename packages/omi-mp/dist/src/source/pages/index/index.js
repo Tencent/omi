@@ -19,7 +19,11 @@ const app = getApp()
 const mpOption = Page({
   data: {
     motto: 'Hello World',
-    userInfo: {},
+    userInfo: {
+      nickName: 'dntzhang',
+      avatarUrl:
+        'https://github.com/Tencent/omi/raw/master/assets/omi-logo.svg?sanitize=true'
+    },
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
