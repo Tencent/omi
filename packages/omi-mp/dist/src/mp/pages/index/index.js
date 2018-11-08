@@ -98,6 +98,8 @@ class Element extends WeElement {
 
   render = render
 
+  css = css
+
   beforeRender() {
     this._useId = 0
   }
