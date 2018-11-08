@@ -1,4 +1,0 @@
-<view>
-  <my-child />
-  <view>my-ele</view>
-</view>
