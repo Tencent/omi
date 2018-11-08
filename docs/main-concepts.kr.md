@@ -249,10 +249,9 @@ class MyFirstElement extends WeElement {
     this.store.data.name = 'abc'
   }
 
-  render(props, data) {
-    //data === this.store.data when using store system
+  render(props, data, store) {
     return (
-      <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
+      <h1 onClick={this.onClick}>Hello, {store.data.name}!</h1>
     )
   }
 }
