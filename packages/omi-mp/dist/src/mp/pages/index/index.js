@@ -100,13 +100,13 @@ class Element extends WeElement {
 
   css = css
 
-  beforeRender() {
-    this._useId = 0
-  }
+  beforeRender() { }
 
   beforeUpdate() { }
 
   afterUpdate() { }
+
+  install() { }
 
   uninstall() { }
 
