@@ -1,3 +1,15 @@
+import appCss from '../../app.wxss'
+import indexCss from './index.wxss'
+import { h, WeElement } from 'omi'
+
+function css() {
+  return rpx2px(appCss + indexCss)
+}
+function render() {
+  const { hasUserInfo,canIUse,userInfo,motto } = Object.assign({}, this.data, this.props)
+  return h('div',{'class': `container`},[h('div',{'class': `userinfo`},[!hasUserInfo&&canIUse?h('button',{'open-type': `getUserInfo`,'ongetuserinfo': this.getUserInfo},[`获取头像昵称`]): h('img',{'ontap': this.bindViewTap,'class': `userinfo-avatar`,'src': userInfo.avatarUrl,'mode': `cover`},[]),h('span',{'class': `userinfo-nickname`},[`${userInfo.nickName}`])]),h('div',{'class': `usermotto`},[h('span',{'class': `user-motto`},[`${motto}`])])])
+
+}
 //index.js
 //获取应用实例
 const app = getApp()
@@ -52,3 +64,30 @@ Page({
     })
   }
 })
+
+class Element extends WeElement {
+  data = mpOption.data
+
+  render = render
+
+  css = css
+
+  beforeRender() {}
+
+  beforeUpdate() {}
+
+  afterUpdate() {}
+
+  install() {}
+
+  uninstall() {}
+
+  installed = mpOption.onLoad
+}
+
+Object.keys(mpOption).forEach(key => {
+  Element.prototype[key] = mpOption[key]
+})
+
+customElements.define('we-index', Element)
+        
