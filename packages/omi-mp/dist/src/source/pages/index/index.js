@@ -1,11 +1,11 @@
 
 import appCss from '../../app.wxss'
-import indexCss from './index.wxss'
+import pageCss from './index.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
 
 function css() {
-  return rpx2px(appCss + indexCss)
+  return rpx2px(appCss + pageCss)
 }
 function render() {
   const { hasUserInfo,canIUse,userInfo,motto } = Object.assign({}, this.data, this.props)

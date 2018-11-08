@@ -1,11 +1,11 @@
 
-import myChildCss from './my-child.wxss'
+import componentCss from './my-child.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
 
 
 function css() {
-  return rpx2px(myChildCss)
+  return rpx2px(componentCss)
 }
 function render() {
   

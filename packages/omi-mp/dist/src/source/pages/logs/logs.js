@@ -1,11 +1,11 @@
 import '../../components/my-ele/my-ele'
 import appCss from '../../app.wxss'
-import indexCss from './logs.wxss'
+import pageCss from './logs.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
 
 function css() {
-  return rpx2px(appCss + indexCss)
+  return rpx2px(appCss + pageCss)
 }
 function render() {
   const { logs } = Object.assign({}, this.data, this.props)

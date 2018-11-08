@@ -15,13 +15,13 @@ gulp.task('components', ['copy'], function () {
       var hyperscript = compile(wxml)
       file.contents = Buffer.concat([
         new Buffer(
-          `${importStr}import myChildCss from './${name}.wxss'
+          `${importStr}import componentCss from './${name}.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
 
 
 function css() {
-  return rpx2px(myChildCss)
+  return rpx2px(componentCss)
 }
 `+ hyperscript + '\r\n'),
         new Buffer(file.contents.toString().replace('Component({', 'const mpOption = Component({')),
@@ -78,12 +78,12 @@ gulp.task('pages', ['copy'], function () {
       file.contents = Buffer.concat([
         new Buffer(
           `${importStr}import appCss from '../../app.wxss'
-import indexCss from './${name}.wxss'
+import pageCss from './${name}.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
 
 function css() {
-  return rpx2px(appCss + indexCss)
+  return rpx2px(appCss + pageCss)
 }
 `+ hyperscript + '\r\n'),
         new Buffer(file.contents.toString().replace('Page({', 'const mpOption = Page({')),
