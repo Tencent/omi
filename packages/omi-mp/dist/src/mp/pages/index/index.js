@@ -42,10 +42,10 @@ function render() {
 //获取应用实例
 const app = getApp()
 
-Page({
+const mpOption = Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
+    motto: 'Hello omi-mp',
+    userInfo: { nickName: 'dntzhang' },
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
@@ -94,15 +94,7 @@ Page({
 })
 
 class Element extends WeElement {
-  install() {
-    this.data = {
-      motto: 'Hello World',
-      userInfo: {},
-      hasUserInfo: false,
-      canIUse: wx.canIUse('button.open-type.getUserInfo')
-    }
-    console.log(111)
-  }
+  data = mpOption.data
 
   render = render
 
@@ -110,13 +102,13 @@ class Element extends WeElement {
     this._useId = 0
   }
 
-  beforeUpdate() {}
+  beforeUpdate() { }
 
-  afterUpdate() {}
+  afterUpdate() { }
 
-  uninstall() {}
+  uninstall() { }
 
-  installed() {}
+  installed() { }
 }
 
 customElements.define('my-app', Element)

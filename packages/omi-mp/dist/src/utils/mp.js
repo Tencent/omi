@@ -1,10 +1,16 @@
+import omi from 'omi'
+
 function App() {}
 
 function getApp() {}
 
-function Page() {}
+function Page(option) {
+  return option
+}
 
-function Component() {}
+function Component(option) {
+  return option
+}
 
 function noop() {}
 const wx = {}
