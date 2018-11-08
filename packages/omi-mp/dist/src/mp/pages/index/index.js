@@ -3,7 +3,7 @@ import indexCss from './index.wxss'
 import { h, WeElement } from 'omi'
 
 function css() {
-  return appCss + indexCss
+  return rpx2px(appCss + indexCss)
 }
 
 function render() {
@@ -45,7 +45,7 @@ const app = getApp()
 const mpOption = Page({
   data: {
     motto: 'Hello omi-mp',
-    userInfo: { nickName: 'dntzhang' },
+    userInfo: { nickName: 'dntzhang', avatarUrl: 'https://github.com/Tencent/omi/raw/master/assets/omi-logo.svg?sanitize=true' },
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },

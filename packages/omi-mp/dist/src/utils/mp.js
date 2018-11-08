@@ -25,18 +25,10 @@ wx.getSystemInfoSync = function () {
   }
 }
 
-`width: 128rpx;
-  height: 54rpx;`.replace(/([0-9]*)(rpx)/g,function(a,b,c){
-    console.log(a,b,c)
-
-
-    return Number(b)
-  })
-
 //用户可以有个开关不转
-window.rpx2px = function(str){
- return str.replace(/([0-9]*)rpx/g,function(a,b,c){
-    console.log(a,b,c)
+window.rpx2px = function (str) {
+  return str.replace(/([0-9]*)rpx/g, function (a, b) {
+    return window.innerWidth * Number(b) / 750 + 'px'
   })
 }
 
