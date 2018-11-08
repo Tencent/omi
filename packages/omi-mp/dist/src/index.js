@@ -3,7 +3,6 @@ import 'omi-router'
 import './utils/mp'
 import './assets/index.css'
 import './source/app'
-//import store from './store/app-store'
 //[todo] set document.title
 route('*', p => {
   const ele = document.querySelector('#root').getElementsByTagName('we-logs')[0]
