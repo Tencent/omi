@@ -2,7 +2,7 @@ import { render } from 'omi'
 import 'omi-router'
 import './utils/mp'
 import './assets/index.css'
-import './mp/app'
+import './source/app'
 //import store from './store/app-store'
 //[todo] set document.title
 route('*', p => {

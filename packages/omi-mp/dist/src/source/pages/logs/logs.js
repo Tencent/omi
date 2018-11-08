@@ -2,6 +2,7 @@ import '../../components/my-ele/my-ele'
 import appCss from '../../app.wxss'
 import indexCss from './logs.wxss'
 import { h, WeElement } from 'omi'
+import { setData } from '../../../utils/set-data'
 
 function css() {
   return rpx2px(appCss + indexCss)
@@ -16,7 +17,7 @@ function render() {
 //logs.js
 const util = require('../../utils/util.js')
 
-Page({
+const mpOption = Page({
   data: {
     logs: []
   },
@@ -47,6 +48,8 @@ class Element extends WeElement {
   uninstall() {}
 
   installed = mpOption.onLoad
+
+  setData = setData
 }
 
 Object.keys(mpOption).forEach(key => {

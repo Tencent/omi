@@ -2,6 +2,7 @@
 import appCss from '../../app.wxss'
 import indexCss from './index.wxss'
 import { h, WeElement } from 'omi'
+import { setData } from '../../../utils/set-data'
 
 function css() {
   return rpx2px(appCss + indexCss)
@@ -15,7 +16,7 @@ function render() {
 //获取应用实例
 const app = getApp()
 
-Page({
+const mpOption = Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
@@ -84,6 +85,8 @@ class Element extends WeElement {
   uninstall() {}
 
   installed = mpOption.onLoad
+
+  setData = setData
 }
 
 Object.keys(mpOption).forEach(key => {

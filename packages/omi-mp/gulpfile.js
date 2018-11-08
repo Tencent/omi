@@ -80,12 +80,13 @@ gulp.task('pages', ['copy'], function () {
           `${importStr}import appCss from '../../app.wxss'
 import indexCss from './${name}.wxss'
 import { h, WeElement } from 'omi'
+import { setData } from '../../../utils/set-data'
 
 function css() {
   return rpx2px(appCss + indexCss)
 }
 `+ hyperscript + '\r\n'),
-        new Buffer(file.contents.toString().replace('Component({', 'const mpOption = Component({')),
+        new Buffer(file.contents.toString().replace('Page({', 'const mpOption = Page({')),
         new Buffer(`
 class Element extends WeElement {
   data = mpOption.data
@@ -105,6 +106,8 @@ class Element extends WeElement {
   uninstall() {}
 
   installed = mpOption.onLoad
+
+  setData = setData
 }
 
 Object.keys(mpOption).forEach(key => {
