@@ -17,13 +17,13 @@ function render() {
       !hasUserInfo && canIUse
         ? h(
           'button',
-          { 'open-type': 'getUserInfo', bindgetuserinfo: 'getUserInfo' },
+          { 'open-type': 'getUserInfo', ongetuserinfo: this.getUserInfo },
           ['获取头像昵称']
         )
         : h(
           'img',
           {
-            bindtap: 'bindViewTap',
+            ontap: this.bindViewTap,
             class: 'userinfo-avatar',
             src: userInfo.avatarUrl,
             mode: 'cover'
@@ -45,7 +45,11 @@ const app = getApp()
 const mpOption = Page({
   data: {
     motto: 'Hello omi-mp',
-    userInfo: { nickName: 'dntzhang', avatarUrl: 'https://github.com/Tencent/omi/raw/master/assets/omi-logo.svg?sanitize=true' },
+    userInfo: {
+      nickName: 'dntzhang',
+      avatarUrl:
+        'https://github.com/Tencent/omi/raw/master/assets/omi-logo.svg?sanitize=true'
+    },
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
@@ -100,20 +104,20 @@ class Element extends WeElement {
 
   css = css
 
-  beforeRender() { }
+  beforeRender() {}
 
-  beforeUpdate() { }
+  beforeUpdate() {}
 
-  afterUpdate() { }
+  afterUpdate() {}
 
-  install() { }
+  install() {}
 
-  uninstall() { }
+  uninstall() {}
 
   installed = mpOption.onLoad
 }
 
-Object.keys(mpOption).forEach(key=>{
+Object.keys(mpOption).forEach(key => {
   Element.prototype[key] = mpOption[key]
 })
 

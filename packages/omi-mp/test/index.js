@@ -10,22 +10,22 @@ var wxml1 = `
 </view>
 `
 
-console.log(compile(wxml1) === 
+console.log(compile(wxml1) ===
 `function render(){
   return h('view',{},[1,2,3,4,5,6,7,8,9].map((i,index)=>{
         h('view',{},[1,2,3,4,5,6,7,8,9].map((j,index)=>{
         i<=j&&h('view',{},[\`\${i} * \${j} = \${i * j}\`])
       }))
-      })) 
+      }))
 }`)
 
 var wxml2 = `
 <view> {{ message }} </view>
 `
 
-console.log(compile(wxml2) === 
+console.log(compile(wxml2) ===
 `function render(){
-  return h('view',null,[\`\${ message }\`]) 
+  return h('view',null,[\`\${ message }\`])
 }`)
 
 
@@ -33,18 +33,18 @@ var wxml3 = `
 <view id="item-{{id}}"> </view>
 `
 
-console.log(compile(wxml3) === 
+console.log(compile(wxml3) ===
 `function render(){
-  return h('view',{id: \`item-\${id}\`},[]) 
+  return h('view',{id: \`item-\${id}\`},[])
 }`)
 
 var wxml4 = `
 <view wx:if="{{condition}}"> </view>
 `
 
-console.log(compile(wxml4) === 
+console.log(compile(wxml4) ===
 `function render(){
-  return condition&&h('view',{},[]) 
+  return condition&&h('view',{},[])
 }`)
 
 
@@ -53,9 +53,9 @@ var wxml5 = `
 <checkbox checked="{{ false }}"> </checkbox>
 `
 
-console.log(compile(wxml5) === 
+console.log(compile(wxml5) ===
 `function render(){
-  return h('checkbox',{checked: false},[]) 
+  return h('checkbox',{checked: false},[])
 }`)
 
 
@@ -65,7 +65,7 @@ var wxml6 = `
 
 console.log(compile(wxml6)===
 `function render(){
-  return h('checkbox',{checked: \`false\`},[]) 
+  return h('checkbox',{checked: \`false\`},[])
 }`
 )
 
@@ -76,7 +76,7 @@ var wxml7 = `
 
 console.log(compile(wxml7)===
 `function render(){
-  return h('view',{hidden: flag?true:false},[\`Hidden\`]) 
+  return h('view',{hidden: flag?true:false},[\`Hidden\`])
 }`
 )
 
@@ -87,7 +87,7 @@ var wxml8 = `
 
 console.log(compile(wxml8)===
 `function render(){
-  return h('view',null,[\`\${a + b} + \${c} + d\`]) 
+  return h('view',null,[\`\${a + b} + \${c} + d\`])
 }`
 )
 
@@ -98,7 +98,7 @@ var wxml9 = `
 
 console.log(compile(wxml9)===
 `function render(){
-  return length>5&&h('view',{},[]) 
+  return length>5&&h('view',{},[])
 }`
 )
 
@@ -110,7 +110,7 @@ var wxml10 = `
 
 console.log(compile(wxml10)===
 `function render(){
-  return h('view',null,[\`\${"hello" + name}\`]) 
+  return h('view',null,[\`\${"hello" + name}\`])
 }`
 )
 
@@ -121,7 +121,7 @@ var wxml11 = `
 
 console.log(compile(wxml11)===
 `function render(){
-  return h('view',null,[\`\${object.key} \${array[0]}\`]) 
+  return h('view',null,[\`\${object.key} \${array[0]}\`])
 }`
 )
 
@@ -134,7 +134,7 @@ console.log(compile(wxml12)===
 `function render(){
   return h('view',{},[zero,1,2,3,4].map((item,index)=>{
         \`\${item}\`
-      })) 
+      }))
 }`
 )
 
@@ -149,7 +149,7 @@ console.log(compile(wxml13)===
 `function render(){
   return h('view',{},array.map((item,index)=>{
         \`\${index}: \${item.message}\`
-      })) 
+      }))
 }`
 )
 
@@ -165,7 +165,7 @@ console.log(compile(wxml14)===
 `function render(){
   return h('view',{},array.map((itemName,idx)=>{
         \`\${idx}: \${itemName.message}\`
-      })) 
+      }))
 }`
 )
 
@@ -180,7 +180,7 @@ var wxml15 = `
 
 console.log(compile(wxml15)===
 `function render(){
-  return h('view',null,[length>5&&h('view',{},[\`1\`]),h('view',null,[\`3\`])]) 
+  return h('view',null,[length>5&&h('view',{},[\`1\`]),h('view',null,[\`3\`])])
 }`
 )
 
@@ -193,7 +193,7 @@ var wxml16 = `
 
 console.log(compile(wxml16)===
 `function render(){
-  return length>5?h('view',{},[\`1\`]):length>2?h('view',{},[\`2\`]):h('view',{},[\`3\`]) 
+  return length>5?h('view',{},[\`1\`]):length>2?h('view',{},[\`2\`]):h('view',{},[\`3\`])
 }`
 )
 
@@ -207,7 +207,7 @@ var wxml17 = `
 
 console.log(compile(wxml17)===
 `function render(){
-  return h('view',null,[\`abc\`]) 
+  return h('view',null,[\`abc\`])
 }`
 )
 
@@ -221,6 +221,26 @@ console.log(compile(wxml18)===
 `function render(){
   return h('block',{},[1,2,3].map((item,index)=>{
         h('view',null,[\`\${index}:\`]),h('view',null,[\`\${item}\`])
-      })) 
+      }))
 }`
 )
+
+
+
+var demo = `
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
+
+`
+
+console.log(compile(demo))

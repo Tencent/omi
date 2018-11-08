@@ -6,7 +6,6 @@ function App(option) {
 }
 
 function getApp() {
-
   return appOption
 }
 
@@ -18,27 +17,25 @@ function Component(option) {
   return option
 }
 
-function noop() { }
+function noop() {}
 const wx = {}
-wx.canIUse = function () {
+wx.canIUse = function() {
   return false
 }
 
-wx.getSystemInfoSync = function () {
+wx.getSystemInfoSync = function() {
   return {
     windowWidth: window.innerWidth,
     windowHeight: window.innerHeight
   }
 }
 
-wx.getUserInfo = function(){
-
-}
+wx.getUserInfo = function() {}
 
 //用户可以有个开关不转
-window.rpx2px = function (str) {
-  return str.replace(/([0-9]*)rpx/g, function (a, b) {
-    return window.innerWidth * Number(b) / 750 + 'px'
+window.rpx2px = function(str) {
+  return str.replace(/([0-9]*)rpx/g, (a, b) => {
+    return (window.innerWidth * Number(b)) / 750 + 'px'
   })
 }
 

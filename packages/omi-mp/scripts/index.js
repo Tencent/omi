@@ -11,7 +11,9 @@ function getRef(fn) {
     var name = node.name;
     if (node.scope) {
       if (!isInScopeChainVariables(node.scope, name)) {
-        result[name] = true;
+        if(name !== 'this'){
+          result[name] = true;
+        }
       }
     }
 

@@ -113,13 +113,23 @@ function stringify(attr) {
     var keys = Object.keys(attr)
     var maxIndex = keys.length - 1
     keys.forEach((key, index) => {
-      var str = attr[key].join ? attr[key].join('') : attr[key]
+      var v = attr[key]
+      var isBind = false
+      if(key.indexOf('bind') === 0){
+        key = key.replace('bind', 'on')
+        isBind = true
+      }
+      var str = v.join ? v.join('') : v
       if (str.indexOf('{{') === 0) {
         attr[key] = braces(str)
         result += "'" + key + "': " + attr[key] + (maxIndex === index ? '' : ',')
       } else {
         attr[key] = bracesText(str)
-        result += "'" + key + "': `" + attr[key] + (maxIndex === index ? '`' : '`,')
+        if(isBind){
+          result += "'" + key + "': this." + attr[key] + (maxIndex === index ? '' : ',')
+        }else{
+          result += "'" + key + "': `" + attr[key] + (maxIndex === index ? '`' : '`,')
+        }
       }
     })
     return result += '}'
