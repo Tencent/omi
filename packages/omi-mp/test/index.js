@@ -1,4 +1,4 @@
-var compile = require('../scripts/index')
+var compile = require('../scripts/mp/index')
 
 var wxml1 = `
 <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="i">

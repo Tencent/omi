@@ -1,11 +1,11 @@
 var gulp = require('gulp')
 var path = require('path')
 var tap = require('gulp-tap')
-var compile = require('./scripts/index')
+var compile = require('./scripts/mp/index')
 var fs = require('fs');
 
 gulp.task('components', ['copy'], function () {
-  return gulp.src('web/src/source/components/*/*.js')
+  return gulp.src('src/mp/components/*/*.js')
     .pipe(tap(function (file) {
       var name = path.basename(file.path).replace('.js', '')
       var dir = path.dirname(file.path)
@@ -56,17 +56,17 @@ customElements.define('${name}', Element)
         `)
       ])
     }))
-    .pipe(gulp.dest('web/src/source/components/'))
+    .pipe(gulp.dest('src/mp/components/'))
 })
 
 gulp.task('copy', function () {
-  return gulp.src('src/**/*')
-    .pipe(gulp.dest('web/src/source'))
+  return gulp.src('src-mp/**/*')
+    .pipe(gulp.dest('src/mp'))
 });
 
 
 gulp.task('pages', ['copy'], function () {
-  return gulp.src('web/src/source/pages/*/*.js')
+  return gulp.src('src/mp/pages/*/*.js')
     .pipe(tap(function (file) {
       var name = path.basename(file.path).replace('.js', '')
       var dir = path.dirname(file.path)
@@ -118,20 +118,20 @@ customElements.define('we-${name}', Element)
         `)
       ])
     }))
-    .pipe(gulp.dest('web/src/source/pages/'))
+    .pipe(gulp.dest('src/mp/pages/'))
 })
 
 gulp.task('appjs', function () {
-  return gulp.src('src/app.js')
+  return gulp.src('src-mp/app.js')
     .pipe(tap(function (file) {
 
-      var list = walk('src/pages')
+      var list = walk('src-mp/pages')
       file.contents = Buffer.concat([
         file.contents,
         new Buffer(list2require(list))
       ])
     }))
-    .pipe(gulp.dest('web/src/source'))
+    .pipe(gulp.dest('src/mp'))
 });
 
 gulp.task('default', ['copy', 'components', 'pages', 'appjs'])
