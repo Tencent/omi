@@ -6,9 +6,7 @@ import './mp/app'
 //import store from './store/app-store'
 //[todo] set document.title
 route('*', p => {
-  const ele = document
-  .querySelector('#root')
-  .getElementsByTagName('we-logs')[0]
+  const ele = document.querySelector('#root').getElementsByTagName('we-logs')[0]
   ele && ele.remove()
   render(<we-index />, '#root')
 })

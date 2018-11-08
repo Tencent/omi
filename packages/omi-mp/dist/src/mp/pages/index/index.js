@@ -5,7 +5,6 @@ import { h, WeElement } from 'omi'
 function css() {
   return rpx2px(appCss + indexCss)
 }
-
 function render() {
   const { hasUserInfo, canIUse, userInfo, motto } = Object.assign(
     {},

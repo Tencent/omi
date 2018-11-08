@@ -6,16 +6,14 @@ import { setData } from '../../../utils/set-data'
 function css() {
   return rpx2px(appCss + logsCss)
 }
-
 function render() {
   const { logs } = Object.assign({}, this.data, this.props)
-  return h('div', { class: 'containerlog-list' }, [
+  return h('div', { class: 'container log-list' }, [
     logs.map((log, index) => {
       return h('span', { class: 'log-item' }, [`${index + 1}. ${log}`])
     })
   ])
 }
-
 //logs.js
 const util = require('../../utils/util.js')
 

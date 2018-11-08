@@ -118,7 +118,7 @@ function stringify(attr) {
         key = key.replace('bind', 'on')
         isBind = true
       }
-      var str = v.join ? v.join('') : v
+      var str = v.join ? v.join(' ') : v
       if (str.indexOf('{{') === 0) {
         attr[key] = braces(str)
         result += "'" + key + "': " + attr[key] + (maxIndex === index ? '' : ',')
