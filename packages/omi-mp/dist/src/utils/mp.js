@@ -1,4 +1,5 @@
 import omi from 'omi'
+import 'omi-router';
 
 let appOption = null
 function App(option) {
@@ -37,6 +38,10 @@ window.rpx2px = function(str) {
   return str.replace(/([0-9]*)rpx/g, (a, b) => {
     return (window.innerWidth * Number(b)) / 750 + 'px'
   })
+}
+
+wx.navigateTo = function(option){
+  route.to(option.url)
 }
 
 window.wx = wx
