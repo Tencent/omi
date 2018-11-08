@@ -1,4 +1,3 @@
-import omi from 'omi'
 import 'omi-router';
 
 let appOption = null
