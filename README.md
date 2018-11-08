@@ -50,7 +50,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 |[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi version of element-ui|
-| [omi-weui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-weui)|Weui for Omi.|
+| [omi-weui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-weui)|Weui for Omi by [@132yse](https://github.com/132yse).|
 
 ## Useful Resources
 
