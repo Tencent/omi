@@ -1,5 +1,3 @@
-import 'omi-router';
-
 let appOption = null
 function App(option) {
   appOption = option
@@ -23,6 +21,8 @@ wx.canIUse = function() {
   return false
 }
 
+wx.getStorageSync = noop
+
 wx.getSystemInfoSync = function() {
   return {
     windowWidth: window.innerWidth,
@@ -39,7 +39,7 @@ window.rpx2px = function(str) {
   })
 }
 
-wx.navigateTo = function(option){
+wx.navigateTo = function(option) {
   route.to(option.url)
 }
 

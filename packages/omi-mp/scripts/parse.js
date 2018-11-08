@@ -78,7 +78,7 @@ function _walk(node, currentIndex, children) {
       var index = node.attr['wx:for-index'] || 'index'
       var item = node.attr['wx:for-item'] || 'item'
       var current = `${str}.map((${item},${index})=>{
-        ${c}
+        return ${c}
       })`
 
       delete node.attr['wx:for']

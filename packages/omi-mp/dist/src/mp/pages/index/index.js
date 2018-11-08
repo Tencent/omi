@@ -121,4 +121,4 @@ Object.keys(mpOption).forEach(key => {
   Element.prototype[key] = mpOption[key]
 })
 
-customElements.define('my-app', Element)
+customElements.define('we-index', Element)
