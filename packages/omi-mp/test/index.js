@@ -256,3 +256,13 @@ var logs =`
 `
 
 console.log(compile(logs))
+
+console.log(compile('<text>my-child</text>'))
+
+console.log(compile(`
+<view>
+  <my-child />
+  <view>my-ele</view>
+</view>
+
+`))

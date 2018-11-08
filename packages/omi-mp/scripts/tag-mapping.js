@@ -3,11 +3,14 @@ var tagMapping = {
   'view': 'div',
   'text': 'span',
   'image': 'img',
-  'button':'button',
+  'button': 'button'
 
 }
 
-function map(key){
+function map(key) {
+  if (key.indexOf('-') !== -1) {
+    return key
+  }
   return tagMapping[key]
 }
 
