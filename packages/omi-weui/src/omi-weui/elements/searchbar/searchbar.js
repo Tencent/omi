@@ -1,6 +1,4 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
+import { define, WeElment } from 'omi'
 import classNames from '../../utils/classnames'
 import Icon from '../icon'
 
@@ -8,50 +6,8 @@ import Icon from '../icon'
  *  weui search component
  *
  */
-class SearchBar extends React.Component {
-  static propTypes = {
-    /**
-     * default value for the searchbar if any
-     *
-     */
-    defaultValue: PropTypes.string,
-    /**
-     * default place holder text
-     *
-     */
-    placeholder: PropTypes.string,
-    /**
-     * name of the input component
-     *
-     */
-    searchName: PropTypes.string,
-    /**
-     * trigger when text change on input pass `text` property
-     *
-     */
-    onChange: PropTypes.func,
-    /**
-     * trigger when user click clear icon
-     *
-     */
-    onClear: PropTypes.func,
-    /**
-     * trigger when user click cancel button
-     *
-     */
-    onCancel: PropTypes.func,
-    /**
-     * trigger when user submit (enter action)
-     *
-     */
-    onSubmit: PropTypes.func,
-    /**
-     * language object consists of `cancel` property
-     *
-     */
-    lang: PropTypes.object
-  }
 
+define('search-bar', class extends WeElment {
   static defaultProps = {
     placeholder: '搜索',
     searchName: 'q',
@@ -70,9 +26,9 @@ class SearchBar extends React.Component {
       focus: this.props.defaultValue ? true : false,
       clearing: false,
       text: this.props.defaultValue ? this.props.defaultValue : ''
-    };
+    }
 
-    if (this.props.defaultValue !== ''){
+    if (this.props.defaultValue !== '') {
       if (this.props.onChange) this.props.onChange(this.state.text)
     }
   }
@@ -80,7 +36,7 @@ class SearchBar extends React.Component {
   changeHandle(e) {
     let text = e.target.value
     if (this.props.onChange) this.props.onChange(text, e)
-    this.setState({text})
+    this.setState({ text })
   }
 
   cancelHandle(e) {
@@ -96,7 +52,7 @@ class SearchBar extends React.Component {
     e.preventDefault()
     e.stopPropagation()
 
-    this.setState({text: '', clearing: true})
+    this.setState({ text: '', clearing: true })
     if (this.props.onClear) this.props.onClear(e)
     // In most cases, you can attach a ref to the DOM node and avoid using findDOMNode at all.
     // When render returns null or false, findDOMNode returns null.
@@ -107,8 +63,8 @@ class SearchBar extends React.Component {
   }
 
   blurHandle(e) {
-    if (this.state.text === ''){
-      this.setState({ focus: false})
+    if (this.state.text === '') {
+      this.setState({ focus: false })
     }
   }
 
@@ -121,24 +77,33 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const {children, defaultValue, autocomplete, placeholder, className, searchName} = this.props
+    const {
+      children,
+      defaultValue,
+      autocomplete,
+      placeholder,
+      className,
+      searchName
+    } = this.props
     const clz = classNames({
       'weui-search-bar': true,
       'weui-search-bar_focusing': this.state.focus
-    },
-      className
+    })
     return (
       <div className={clz}>
-        <form className='weui-search-bar__form' onSubmit={this.submitHandle.bind(this)}>
-          <div className='weui-search-bar__box'>
-            <Icon value='search'/>
+        <form
+          className="weui-search-bar__form"
+          onSubmit={this.submitHandle.bind(this)}
+        >
+          <div className="weui-search-bar__box">
+            <Icon value="search" />
             <input
-              ref='searchInput'
-              type='search'
+              ref="searchInput"
+              type="search"
               name={searchName}
-              className='weui-search-bar__input'
+              className="weui-search-bar__input"
               placeholder={placeholder}
-              onFocus={e=>this.setState({focus: true})}
+              onFocus={e => this.setState({ focus: true })}
               onBlur={this.blurHandle.bind(this)}
               onChange={this.changeHandle.bind(this)}
               value={this.state.text}
@@ -146,28 +111,31 @@ class SearchBar extends React.Component {
             />
             {/*React will not trigger onMouseDown when not onClick presented*/}
             <a
-              className='weui-icon-clear'
+              className="weui-icon-clear"
               onClick={this.clearHandle.bind(this)}
             />
           </div>
           <label
-            className='weui-search-bar__label'
-            onClick={()=>{
+            className="weui-search-bar__label"
+            onClick={() => {
               let searchInput = this.refs.searchInput
               if (searchInput) {
                 searchInput.focus()
               }
             }}
-            style={{display: this.state.text ? 'none' : null}}
+            style={{ display: this.state.text ? 'none' : null }}
           >
-            <Icon value='search'/>
+            <Icon value="search" />
             <span>{placeholder}</span>
           </label>
         </form>
-        <a className='weui-search-bar__cancel-btn' onClick={this.cancelHandle.bind(this)}>{this.props.lang.cancel}</a>
+        <a
+          className="weui-search-bar__cancel-btn"
+          onClick={this.cancelHandle.bind(this)}
+        >
+          {this.props.lang.cancel}
+        </a>
       </div>
-    );
+    )
   }
-}
-
-export default SearchBar
+})

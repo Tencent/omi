@@ -1,5 +1,4 @@
 import { define, WeElement } from 'omi'
-import PropTypes from 'prop-types'
 import classNames from '../../utils/classnames'
 import css from '../../style/widget/weui-button/_weui-button.less'
 /**
@@ -7,19 +6,6 @@ import css from '../../style/widget/weui-button/_weui-button.less'
  *
  */
 define('ow-button', class extends WeElement {
-  static propTypes = {
-    disabled: PropTypes.bool,
-    /**
-     * Options: primary, default, warn, vcode
-     *
-     */
-    type: PropTypes.string,
-    /**
-     * Options: normal, small
-     *
-     */
-    size: PropTypes.string
-  }
 
   static defaultProps = {
     disabled: false,

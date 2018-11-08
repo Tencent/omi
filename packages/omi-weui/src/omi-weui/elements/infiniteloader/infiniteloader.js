@@ -1,58 +1,10 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
+import {define,WeElement} from 'omi'
 import classNames from '../../utils/classnames'
 import LoadMore from '../loadmore'
 
 import './infiniteloader.less'
 
-/**
- *  A Container trigger loading once it reach certain scrolltop
- *
- */
-class InfiniteLoader extends Component {
-  static propTypes = {
-    /**
-     * height for the container, use string like '10px', default for '100vh'
-     *
-     */
-    height: PropTypes.string,
-    /**
-     * element(icon) for default loader when there is no more content
-     *
-     */
-    loaderDefaultIcon: PropTypes.object,
-    /**
-     * element(icon) for loading loader
-     *
-     */
-    loaderLoadingIcon: PropTypes.object,
-    /**
-     * percentage of scrollTop to trigger loading
-     *
-     */
-    triggerPercent: PropTypes.number,
-    /**
-     * callback when user scroll the content, pass event
-     *
-     */
-    onScroll: PropTypes.func,
-    /**
-     * callback when user did not scroll for 150ms
-     *
-     */
-    onScrollEnd: PropTypes.func,
-    /**
-     * callback when it's requesting for more content, pass resolve function and finish function
-     *
-     */
-    onLoadMore: PropTypes.func,
-    /**
-     * disable the loader
-     *
-     */
-    disable: PropTypes.bool
-  }
+define('infinite-loader',class extends WeElement {
 
   static defaultProps = {
     height: '100vh',
@@ -100,7 +52,6 @@ class InfiniteLoader extends Component {
     )
       return
 
-    //setup for scrollend event
     clearTimeout(this.state.scrollTimer)
     this.setState({
       scrollTimer: setTimeout(() => {
@@ -174,6 +125,10 @@ class InfiniteLoader extends Component {
       </div>
     )
   }
-}
+})
 
-export default InfiniteLoader
+/**
+ *  A Container trigger loading once it reach certain scrolltop
+ *
+ */
+

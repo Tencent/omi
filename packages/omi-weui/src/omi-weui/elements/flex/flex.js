@@ -1,15 +1,14 @@
 //1.0.0 components
 
-import React from 'react'
+import { define } from 'omi'
 
 /**
  * FlexItem Container
  *
  */
-const Flex = props => (
+
+define('ow-flex', props => {
   <div className="weui-flex" {...props}>
     {props.children}
   </div>
-)
-
-export default Flex
+})

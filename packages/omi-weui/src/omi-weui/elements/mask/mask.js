@@ -1,35 +1,27 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { define, WeElement } from 'omi'
 import classNames from '../../utils/classnames'
+import css from '../../style/widget/weui-tips/_weui-mask.less'
 
 /**
  * screen mask, use in `Dialog`, `ActionSheet`, `Popup`.
  *
  */
-class Mask extends React.Component {
-  static propTypes = {
-    /**
-     * Whather mask should be transparent (no color)
-     *
-     */
-    transparent: PropTypes.bool
-  }
 
+define('ow-mask', class extends WeElement {
   static defaultProps = {
     transparent: false
   }
 
+  css(){
+    return css
+  }
+
   render() {
-    const {transparent, className, ...others} = this.props
+    const { transparent, className, ...others } = this.props
     const clz = classNames({
       'weui-mask': !transparent,
       'weui-mask_transparent': transparent
-    },
-      className
-    return (
-      <div className={clz} {...others}></div>
-    );
+    })
+    return <div className={clz} {...others} />
   }
-}
-
-export default Mask
+})

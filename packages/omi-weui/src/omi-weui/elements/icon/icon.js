@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { define, WeElement } from 'omi'
 import classNames from '../../utils/classnames'
 import deprecationWarning from '../../utils/deprecationWarning'
+
 
 const deprecateValue = {
   safe_success: 'safe-success',
@@ -16,20 +16,8 @@ const deprecateValue = {
  * WeUI Icons
  *
  */
-class Icon extends React.Component {
-  static propTypes = {
-    /**
-     * types of [weui icons](https://github.com/weui/weui/wiki/Icon)
-     *
-     */
-    value: PropTypes.string,
-    /**
-     * size of icon, options: small/large
-     *
-     */
-    size: PropTypes.string
-  }
 
+define('ow-icon', class extends WeElement {
   static defaultProps = {
     value: 'success',
     size: 'small'
@@ -52,6 +40,4 @@ class Icon extends React.Component {
 
     return <i {...others} className={cls} />
   }
-}
-
-export default Icon
+})

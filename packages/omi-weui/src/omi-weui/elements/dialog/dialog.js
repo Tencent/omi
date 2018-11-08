@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { define, weElement } from 'omi'
 import classNames from '../../utils/classnames'
 import Mask from '../mask/index'
 
@@ -7,30 +6,9 @@ import Mask from '../mask/index'
  * Modals provide feedback to user
  *
  */
-class Dialog extends Component {
-  static propTypes = {
-    /**
-     * Object Arrays of buttons, `label` property is require
-     *
-     */
-    buttons: PropTypes.array,
-    /**
-     * to display the dialog
-     *
-     */
-    show: PropTypes.bool,
-    /**
-     * Title of dialog
-     *
-     */
-    title: PropTypes.string,
-    /**
-     * Specify display style: ios/android, default is ios when autoDetect not on
-     *
-     */
-    type: PropTypes.string
-  }
 
+define('ow-dialog', class extends weElement {
+  
   static defaultProps = {
     buttons: [],
     show: false,
@@ -40,7 +18,6 @@ class Dialog extends Component {
 
   constructor(props) {
     super(props)
-
     this.state = {
       isAndroid: ''
     }
@@ -97,6 +74,4 @@ class Dialog extends Component {
       </div>
     )
   }
-}
-
-export default Dialog
+})
