@@ -1,6 +1,6 @@
 {
   "props": {
-    "cname": 29,
+    "cname": 33,
     "props": {
       "$_dirty": "__d",
       "$_disable": "__x",
@@ -29,7 +29,10 @@
       "$_proxifyObjectTreeRecursively": "A",
       "$_isInstalled": "B",
       "$_useId": "C",
-      "$_useMap": "D"
+      "$_useMap": "D",
+      "$___touchX": "F",
+      "$___touchY": "G",
+      "$___scrollTop": "H"
     }
   },
   "vars": {
