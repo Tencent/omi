@@ -251,8 +251,8 @@ var logs =`
   <block wx:for="{{logs}}" wx:for-item="log">
     <text class="log-item">{{index + 1}}. {{log}}</text>
   </block>
+  <my-ele />
 </view>
-
 `
 
 console.log(compile(logs))

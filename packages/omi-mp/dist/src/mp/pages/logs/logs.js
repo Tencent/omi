@@ -2,18 +2,22 @@ import appCss from '../../app.wxss'
 import logsCss from './logs.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
+import '../../components/my-ele/my-ele'
 
 function css() {
   return rpx2px(appCss + logsCss)
 }
+
 function render() {
   const { logs } = Object.assign({}, this.data, this.props)
   return h('div', { class: 'container log-list' }, [
     logs.map((log, index) => {
       return h('span', { class: 'log-item' }, [`${index + 1}. ${log}`])
-    })
+    }),
+    h('my-ele', null, [])
   ])
 }
+
 //logs.js
 const util = require('../../utils/util.js')
 
