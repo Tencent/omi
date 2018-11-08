@@ -15,9 +15,8 @@ function walk(node, fnName) {
   return (
     `function ${fnName}() {
   0.0
-  return (
-    ${_walk(node)}
-  )
+  return ${_walk(node)}
+
 }`)
 }
 
