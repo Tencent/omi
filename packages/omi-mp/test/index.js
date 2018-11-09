@@ -1,4 +1,4 @@
-var compile = require('../scripts/mp/index')
+var compile = require('./compile')
 
 var wxml1 = `
 <view wx:for="{{[1, 2, 3, 4, 5, 6, 7, 8, 9]}}" wx:for-item="i">
@@ -227,42 +227,42 @@ console.log(compile(wxml18)===
 
 
 
-var demo = `
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view>
+// var demo = `
+// <view class="container">
+//   <view class="userinfo">
+//     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+//     <block wx:else>
+//       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+//       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+//     </block>
+//   </view>
+//   <view class="usermotto">
+//     <text class="user-motto">{{motto}}</text>
+//   </view>
+// </view>
 
-`
+// `
 
-console.log(compile(demo))
+// console.log(compile(demo))
 
-var logs =`
-<!--logs.wxml-->
-<view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
-  <my-ele />
-</view>
-`
+// var logs =`
+// <!--logs.wxml-->
+// <view class="container log-list">
+//   <block wx:for="{{logs}}" wx:for-item="log">
+//     <text class="log-item">{{index + 1}}. {{log}}</text>
+//   </block>
+//   <my-ele />
+// </view>
+// `
 
-console.log(compile(logs))
+// console.log(compile(logs))
 
-console.log(compile('<text>my-child</text>'))
+// console.log(compile('<text>my-child</text>'))
 
-console.log(compile(`
-<view>
-  <my-child />
-  <view>my-ele</view>
-</view>
+// console.log(compile(`
+// <view>
+//   <my-child />
+//   <view>my-ele</view>
+// </view>
 
-`))
+// `))
