@@ -6,6 +6,13 @@
 
 ![](../../assets/mp2.jpg)
 
+# 快速体验
+
+```bash
+npm start  //开发
+npm build  //发布
+```
+
 # 原理
 
 目前除了 template，其余基本都支持，不支持的欢迎反馈或 PR。
