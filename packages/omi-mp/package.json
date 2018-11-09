@@ -7,6 +7,7 @@
   "dependencies": {
     "@babel/core": "^7.1.5",
     "babel-preset-env": "^1.7.0",
+    "concurrently": "^4.0.1",
     "gulp": "^3.9.1",
     "gulp-tap": "^1.0.1",
     "gulp-watch": "^5.0.1",
@@ -64,8 +65,8 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
+    "start": "concurrently --kill-others \"gulp\" \"node scripts/start.js\"",
     "test": "node test/index.js",
-    "start": "gulp & node scripts/start.js",
     "build": "node scripts/build.js",
     "fix": "eslint src --fix",
     "fix-s": "eslint scripts --fix",

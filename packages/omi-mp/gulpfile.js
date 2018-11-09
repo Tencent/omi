@@ -145,7 +145,7 @@ customElements.define('we-${name}', Element)
     .pipe(gulp.dest('src/mp/pages/'))
 })
 
-gulp.task('appjs', () => {
+gulp.task('appjs', ['copy'], () => {
   return gulp
     .src('src-mp/app.js')
     .pipe(
