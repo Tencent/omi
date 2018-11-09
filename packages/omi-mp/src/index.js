@@ -31,3 +31,4 @@ function empty(selector) {
 function title(value) {
   document.title = value
 }
+    

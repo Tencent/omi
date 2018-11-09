@@ -58,8 +58,8 @@ class Element extends WeElement {
   setData = setData
 }
 
-Object.keys(mpOption).forEach(key => {
-  Element.prototype[key] = mpOption[key]
+Object.keys(mpOption.methods).forEach(key => {
+  Element.prototype[key] = mpOption.methods[key]
 })
 
 customElements.define('${name}', Element)
@@ -167,7 +167,6 @@ gulp.task('route', ['copy'], (cb) => {
   fs.writeFile('./src/index.js', `import { render } from 'omi'
 import 'omi-router'
 import './utils/mp'
-import './assets/index.css'
 import './mp/app'
 
 route('*', p => {

@@ -1,4 +1,4 @@
 <view>
   <my-child />
-  <view>my-ele</view>
+  <view bindtap="myMethods">my-ele</view>
 </view>

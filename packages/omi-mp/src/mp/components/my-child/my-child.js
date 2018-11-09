@@ -58,8 +58,8 @@ class Element extends WeElement {
   setData = setData
 }
 
-Object.keys(mpOption).forEach(key => {
-  Element.prototype[key] = mpOption[key]
+Object.keys(mpOption.methods).forEach(key => {
+  Element.prototype[key] = mpOption.methods[key]
 })
 
 customElements.define('my-child', Element)

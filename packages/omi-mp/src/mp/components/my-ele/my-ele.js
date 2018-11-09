@@ -9,7 +9,7 @@ function css() {
 }
 function render() {
   
-  return h('div',null,[h('my-child',null,[]),h('div',null,[`my-ele`])])
+  return h('div',null,[h('my-child',null,[]),h('div',{'ontap': this.myMethods},[`my-ele`])])
 
 }
 // components/my-ele/my-ele.js
@@ -32,7 +32,9 @@ const mpOption = Component({
    * 组件的方法列表
    */
   methods: {
-
+    myMethods: function() {
+      console.log('myMethods')
+    }
   }
 })
 
@@ -58,8 +60,8 @@ class Element extends WeElement {
   setData = setData
 }
 
-Object.keys(mpOption).forEach(key => {
-  Element.prototype[key] = mpOption[key]
+Object.keys(mpOption.methods).forEach(key => {
+  Element.prototype[key] = mpOption.methods[key]
 })
 
 customElements.define('my-ele', Element)
