@@ -10,8 +10,9 @@ gulp.task('components', ['copy'], () => {
     .src('src/mp/components/*/*.js')
     .pipe(
       tap(file => {
-        let name = path.basename(file.path).replace('.js', '')
         let dir = path.dirname(file.path)
+        let arr = dir.split('\\')
+        let name = arr[arr.length-1]
         let wxml = fs.readFileSync(dir + '/' + name + '.wxml', 'utf8')
         let json = require(dir + '/' + name + '.json')
         let importStr = json2import(json)

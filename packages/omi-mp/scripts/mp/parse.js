@@ -115,6 +115,19 @@ function _walk(node, currentIndex, children) {
   return result
 }
 
+function joinNestArray(arr){
+  let str = ''
+  arr.forEach(item => {
+    if(typeof item === 'string'){
+      str += item + ' '
+    }else if(item.join){
+      str += joinNestArray(item)
+    }
+  })
+
+  return str
+}
+
 function stringify(attr) {
   if (attr) {
     let result = '{'
@@ -127,7 +140,8 @@ function stringify(attr) {
         key = key.replace('bind', 'on')
         isBind = true
       }
-      let str = v.join ? v.join(' ') : v
+      let str = v.join ? joinNestArray(v) : v
+
       if (str.indexOf('{{') === 0) {
         attr[key] = braces(str)
         result +=
