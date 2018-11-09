@@ -3,17 +3,26 @@ import 'omi-router'
 import './utils/mp'
 import './assets/index.css'
 import './mp/app'
-//[todo] set document.title
+
 route('*', p => {
-  const ele = document.querySelector('#root').getElementsByTagName('we-logs')[0]
-  ele && ele.remove()
+  title('index')
+  empty('#root')
   render(<we-index />, '#root')
 })
 
 route('../logs/logs', p => {
-  const ele = document
-    .querySelector('#root')
-    .getElementsByTagName('we-index')[0]
-  ele && ele.remove()
+  title('logs')
+  empty('#root')
   render(<we-logs />, '#root')
 })
+
+function empty(selector) {
+  const node = document.querySelector(selector)
+  while (node.firstChild) {
+    node.removeChild(node.firstChild)
+  }
+}
+
+function title(value) {
+  document.title = value
+}

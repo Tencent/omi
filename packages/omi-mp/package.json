@@ -65,7 +65,7 @@
   },
   "scripts": {
     "test": "node test/index.js",
-    "start": "node scripts/start.js",
+    "start": "gulp & node scripts/start.js",
     "build": "node scripts/build.js",
     "fix": "eslint src --fix",
     "fix-s": "eslint scripts --fix",

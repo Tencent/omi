@@ -4,9 +4,9 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
+    motto: 'Hello omi-mp',
     userInfo: {
-      nickName: 'dntzhang',
+      nickName: 'Omi',
       avatarUrl:
         'https://github.com/Tencent/omi/raw/master/assets/omi-logo.svg?sanitize=true'
     },
