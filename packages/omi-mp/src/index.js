@@ -1,7 +1,6 @@
 import { render } from 'omi'
 import 'omi-router'
 import './utils/mp'
-import './assets/index.css'
 import './mp/app'
 
 route('*', p => {
@@ -32,4 +31,3 @@ function empty(selector) {
 function title(value) {
   document.title = value
 }
-    

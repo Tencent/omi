@@ -38,5 +38,27 @@ function render() {
 
 完成的测试用例[点击这里](https://github.com/Tencent/omi/blob/master/packages/omi-mp/test/index.js)
 
+## 小程序生命周期
+
+### 页面生命周期函数
+
+| 名称 | 描述  |
+| ------ | ------  |
+| onLoad | 	监听页面加载	  |
+| onShow | 监听页面显示	  |
+| onReady | 监听页面初次渲染完成  |
+| onHide | 监听页面隐藏	  |
+| onUnload | 监听页面卸载  |
+
+### 组件生命周期函数
+
+| 名称 | 描述  |
+| ------ | ------  |
+| created | 	在组件实例进入页面节点树时执行，注意此时不能调用 setData	  |
+| attached | 在组件实例进入页面节点树时执行	  |
+| ready | 在组件布局完成后执行，此时可以获取节点信息（使用 SelectorQuery ）	  |
+| moved | 在组件实例被移动到节点树另一个位置时执行	  |
+| detached | 在组件实例被从页面节点树移除时执行  |
+
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
