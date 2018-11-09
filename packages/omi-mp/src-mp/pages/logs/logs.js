@@ -11,5 +11,9 @@ Page({
         return util.formatTime(new Date(log))
       })
     })
+  },
+  myEventHandler: function (evt) {
+    //output -> dntzhang
+    console.log(evt.detail.name)
   }
 })

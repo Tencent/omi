@@ -1,2 +1,2 @@
 <!--components/my-child/my-child.wxml-->
-<text>my-child</text>
+<text>I am child component</text>

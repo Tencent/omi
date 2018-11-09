@@ -19,7 +19,7 @@ Component({
    */
   methods: {
     myMethods: function() {
-      console.log('myMethods')
+      this.triggerEvent('myevent', { name: 'dntzhang' })
     }
   }
 })
