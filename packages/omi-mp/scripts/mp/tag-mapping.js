@@ -1,10 +1,8 @@
-
-var tagMapping = {
-  'view': 'div',
-  'text': 'span',
-  'image': 'img',
-  'button': 'button'
-
+let tagMapping = {
+  view: 'div',
+  text: 'span',
+  image: 'img',
+  button: 'button'
 }
 
 function map(key) {
