@@ -1,11 +1,10 @@
 # omi-mp - 微信小程序开发 Web
 
-目前开发形态还在规划中，先放出 [【WXML 编译器】](https://github.com/Tencent/omi/blob/master/packages/omi-mp/scripts/index.js)给大家看看，感兴趣的也可以参与进来:
+![](../../assets/mp1.jpg)
 
-```js
-npm install    //安装
-npm run test   //测试
-```
+![](../../assets/mp2.jpg)
+
+# 原理
 
 目前除了 template，其余基本都支持，不支持的欢迎反馈或 PR。
 
@@ -36,29 +35,27 @@ function render() {
 }
 ```
 
-完成的测试用例[点击这里](https://github.com/Tencent/omi/blob/master/packages/omi-mp/test/index.js)
-
 ## 小程序生命周期
 
 ### 页面生命周期函数
 
 | 名称 | 描述  |
 | ------ | ------  |
-| onLoad | 	监听页面加载	  |
+| onLoad | 	监听页面加载,对应 Omi installed	  |
 | onShow | 监听页面显示	  |
-| onReady | 监听页面初次渲染完成  |
+| onReady | 监听页面初次渲染完成 ,对应 Omi installed	 |
 | onHide | 监听页面隐藏	  |
-| onUnload | 监听页面卸载  |
+| onUnload | 监听页面卸载  ,对应 Omi uninstall	|
 
 ### 组件生命周期函数
 
 | 名称 | 描述  |
 | ------ | ------  |
-| created | 	在组件实例进入页面节点树时执行，注意此时不能调用 setData	  |
-| attached | 在组件实例进入页面节点树时执行	  |
-| ready | 在组件布局完成后执行，此时可以获取节点信息（使用 SelectorQuery ）	  |
+| created | 	在组件实例进入页面节点树时执行，注意此时不能调用 setData	,对应 Omi install   |
+| attached | 在组件实例进入页面节点树时执行	,对应 Omi installed   |
+| ready | 在组件布局完成后执行，此时可以获取节点信息（使用 SelectorQuery ）	,对应 Omi installed  |
 | moved | 在组件实例被移动到节点树另一个位置时执行	  |
-| detached | 在组件实例被从页面节点树移除时执行  |
+| detached | 在组件实例被从页面节点树移除时执行 ,对应 Omi uninstall |
 
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
