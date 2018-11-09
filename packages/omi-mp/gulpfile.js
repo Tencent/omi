@@ -156,11 +156,56 @@ gulp.task('appjs', () => {
 
 gulp.task('watch', () => {
   watch('src-mp/**/*', () => {
-    gulp.start(['copy', 'components', 'pages', 'appjs'])
+    gulp.start(['copy', 'components', 'pages', 'appjs', 'route'])
   })
 })
 
-gulp.task('default', ['copy', 'components', 'pages', 'appjs', 'watch'])
+gulp.task('route', ['copy'], (cb) => {
+  let json = require('./src/mp/app.json')
+  //fs.unlinkSync('./src/index.js')
+
+  fs.writeFile('./src/index.js', `import { render } from 'omi'
+import 'omi-router'
+import './utils/mp'
+import './assets/index.css'
+import './mp/app'
+
+route('*', p => {
+  title('index')
+  empty('#root')
+  render(<we-index />, '#root')
+})
+
+${route(json.pages)}
+function empty(selector) {
+  const node = document.querySelector(selector)
+  while (node.firstChild) {
+    node.removeChild(node.firstChild)
+  }
+}
+
+function title(value) {
+  document.title = value
+}
+    `, cb);
+
+})
+
+gulp.task('default', ['copy', 'components', 'pages', 'appjs', 'route', 'watch'])
+
+function route(arr) {
+  let result = []
+  arr.forEach(item => {
+    const name = item.split('/')[1]
+    result.push(`route('${item.replace('pages', '..')}', p => {
+  title('${name}')
+  empty('#root')
+  render(<we-${name} />, '#root')
+})
+`)
+  })
+  return result.join('\r\n')
+}
 
 function json2import(json) {
   let arr = []

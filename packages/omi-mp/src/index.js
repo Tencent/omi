@@ -10,6 +10,12 @@ route('*', p => {
   render(<we-index />, '#root')
 })
 
+route('../index/index', p => {
+  title('index')
+  empty('#root')
+  render(<we-index />, '#root')
+})
+
 route('../logs/logs', p => {
   title('logs')
   empty('#root')
@@ -26,3 +32,4 @@ function empty(selector) {
 function title(value) {
   document.title = value
 }
+    
