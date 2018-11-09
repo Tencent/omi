@@ -149,8 +149,10 @@ function stringify(attr) {
       } else {
         attr[key] = bracesText(str)
         if (isBind) {
-          result +=
-            "'" + key + "': this." + attr[key] + (maxIndex === index ? '' : ',')
+          if(attr[key] !== ''){
+            result +=
+              "'" + key + "': this." + attr[key] + (maxIndex === index ? '' : ',')
+          }
         } else {
           result +=
             "'" + key + "': `" + attr[key] + (maxIndex === index ? '`' : '`,')
