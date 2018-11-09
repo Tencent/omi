@@ -2,11 +2,15 @@
 
 > 使用小程序生成 Web 的 H5 SPA (基于Omi + omi-router)
 
+内测中，正式版马上到来...
+
 ![](../../assets/mp1.jpg)
 
 ![](../../assets/mp2.jpg)
 
 # 快速体验
+
+把小程序项目拷贝到 src-mp 目录，然后执行:
 
 ```bash
 npm start  //开发
