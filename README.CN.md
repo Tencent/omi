@@ -47,7 +47,6 @@
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx 适配器|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
-|[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi 版本的 element-ui|
 |[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
 | [omi-weui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-weui)|Weui for Omi by [@132yse](https://github.com/132yse).|
 
