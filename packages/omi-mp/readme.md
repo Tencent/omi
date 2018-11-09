@@ -1,6 +1,6 @@
 # omi-mp - 微信小程序开发 Web
 
-> 使用小程序生成 Web 的 H5 SPA (基于Omi + omi-router)
+> 使用小程序生成 Web 的 H5 SPA (基于Omi + omi-router)
 
 ![](../../assets/mp1.jpg)
 
