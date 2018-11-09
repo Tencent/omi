@@ -49,11 +49,14 @@ class Element extends WeElement {
 
   afterUpdate() {}
 
-  install() {}
+  install = mpOption.created || function() {}
 
-  uninstall() {}
+  uninstall = mpOption.detached || function() {}
 
-  installed() {}
+  installed = function() {
+    mpOption.attached && mpOption.attached.call(this)
+    mpOption.ready && mpOption.ready.call(this)
+  }
 
   setData = setData
 }

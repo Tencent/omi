@@ -86,9 +86,12 @@ class Element extends WeElement {
 
   install() {}
 
-  uninstall() {}
+  uninstall = mpOption.onUnload || function() {}
 
-  installed = mpOption.onLoad
+  installed = function(){
+    mpOption.onLoad && mpOption.onLoad.call(this)
+    mpOption.onReady && mpOption.onReady.call(this)
+  }
 
   setData = setData
 }

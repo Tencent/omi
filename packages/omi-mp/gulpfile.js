@@ -49,11 +49,14 @@ class Element extends WeElement {
 
   afterUpdate() {}
 
-  install() {}
+  install = mpOption.created || function() {}
 
-  uninstall() {}
+  uninstall = mpOption.detached || function() {}
 
-  installed() {}
+  installed = function() {
+    mpOption.attached && mpOption.attached.call(this)
+    mpOption.ready && mpOption.ready.call(this)
+  }
 
   setData = setData
 }
@@ -120,9 +123,12 @@ class Element extends WeElement {
 
   install() {}
 
-  uninstall() {}
+  uninstall = mpOption.onUnload || function() {}
 
-  installed = mpOption.onLoad
+  installed = function(){
+    mpOption.onLoad && mpOption.onLoad.call(this)
+    mpOption.onReady && mpOption.onReady.call(this)
+  }
 
   setData = setData
 }
