@@ -2,7 +2,8 @@ var gulp = require('gulp')
 var path = require('path')
 var tap = require('gulp-tap')
 var compile = require('./scripts/mp/index')
-var fs = require('fs');
+var fs = require('fs')
+var watch = require('gulp-watch')
 
 gulp.task('components', ['copy'], function () {
   return gulp.src('src/mp/components/*/*.js')
@@ -134,7 +135,13 @@ gulp.task('appjs', function () {
     .pipe(gulp.dest('src/mp'))
 });
 
-gulp.task('default', ['copy', 'components', 'pages', 'appjs'])
+gulp.task('watch', function () {
+   watch('src-mp/app.js', function(){
+    gulp.start('appjs');
+   })
+});
+
+gulp.task('default', ['copy', 'components', 'pages', 'appjs', 'watch'])
 
 function json2import(json) {
   var arr = []
