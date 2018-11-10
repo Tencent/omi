@@ -2,11 +2,22 @@
 
 > 通过微信小程序开发和一键生成 Web 的 H5 SPA (基于Omi + omi-router)
 
-内测中，正式版马上到来...
+看下官方模板的转换例子：
 
 ![](../../assets/mp1.jpg)
 
 ![](../../assets/mp2.jpg)
+
+因为 Web 里拉取不到用户登录态，更换了用户头像和名称。
+
+再看下豆瓣 DEMO 转换的例子:
+
+| **小程序**                         | **Web SPA**                           |
+| ------------------------------- | ----------------------------------- |
+|![](../../assets/mp-db1.jpg)| ![](../../assets/web-db1.jpg)|
+|![](../../assets/mp-db2.jpg)|![](../../assets/web-db2.jpg)|
+
+你可以[在这里找](https://github.com/Tencent/omi/tree/master/packages/omi-mp-douban)到这个豆瓣小程序。
 
 # 快速体验
 
@@ -19,7 +30,7 @@ npm build  //发布
 
 # 原理
 
-目前除了 template，其余基本都支持，不支持的欢迎反馈或 PR。
+## WXML 编译
 
 举个99乘法表的例子:
 
@@ -48,6 +59,24 @@ function render() {
 }
 ```
 
+## WXSS 编译
+
+编译前：
+
+```css
+view image .image{
+  color: red;
+}
+```
+
+编译后:
+
+```css
+div img .image{
+  color: red;
+}
+```
+
 ## 小程序生命周期
 
 ### 页面生命周期函数
@@ -69,6 +98,10 @@ function render() {
 | ready | 在组件布局完成后执行，此时可以获取节点信息（使用 SelectorQuery ）	,对应 Omi installed  |
 | moved | 在组件实例被移动到节点树另一个位置时执行	  |
 | detached | 在组件实例被从页面节点树移除时执行 ,对应 Omi uninstall |
+
+## 注意
+
+目前除了 template 标签，欢迎试用反馈或 PR。
 
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
