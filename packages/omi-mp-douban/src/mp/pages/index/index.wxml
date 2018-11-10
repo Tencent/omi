@@ -1,0 +1,56 @@
+<block wx:if="{{showLoading}}">
+  <view class="page-loading">
+    <text class="weui-loading"/><text class="loading-text">玩命加载中</text>
+  </view>
+</block>
+<block wx:else>
+  <scroll-view style="height: 100%;" scroll-y="true" class="container film-list" bindscroll="scroll" bindscrolltolower="scrolltolower">
+    <block wx:for-items="{{films}}" wx:for-item="film">
+      <view class="film-item" bindtap="viewDetail" data-id="{{film.id}}" data-title="{{film.title}}">
+        <view class="film-image">
+          <image src="{{film.images.medium}}"></image>
+        </view>
+        <view class="film-info">
+          <view>
+            <text class="film-title">{{film.title}}</text>
+            <text class="film-year">{{film.year}}</text>
+          </view>
+          <view class="film-rating">
+            <block wx:if="{{film.rating.average > 0}}">
+              <text class="label">评分</text>
+              <text class="rating">{{film.rating.average}}</text>
+            </block>
+            <block wx:else>
+              <text class="label">暂无评分</text>
+            </block>
+          </view>
+          <view class="directors">
+            <text class="label">导演</text>
+            <block wx:for-items="{{film.directors}}" wx:for-item="director">
+              <text class="person">{{director.name}}</text>
+            </block>
+          </view>
+          <view class="casts">
+            <text class="label">主演</text>
+            <block wx:for-items="{{film.casts}}" wx:for-item="cast">
+              <text class="person">{{cast.name}}</text>
+            </block>
+          </view>
+        </view> 
+      </view>
+    </block>
+    <view class="load-more-wrap">
+      <block wx:if="{{hasMore}}">
+        <view class="load-content">
+          <text class="weui-loading"/><text class="loading-text">玩命加载中</text>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="load-content">
+          <text>没有更多内容了</text>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</block>
+

@@ -30,6 +30,10 @@ wx.getSystemInfoSync = function() {
   }
 }
 
+wx.setNavigationBarTitle = function(option){
+  document.title = option.title
+}
+
 wx.getUserInfo = function() {}
 
 //用户可以有个开关不转
@@ -59,10 +63,6 @@ function getUrlParam(name, url){
   var reg = new RegExp('(?:[?&]|^)' + name + '=([^?&#]*)', 'i')
   var match = url.match(reg)
   return !match ? '' : match[1]
-}
-
-wx.setNavigationBarTitle = function(option){
-  document.title = option.title
 }
 
 function getUrlParams(url) {
