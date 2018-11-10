@@ -49,7 +49,8 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
-| [omi-weui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-weui)|Weui for Omi by [@132yse](https://github.com/132yse).|
+| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) working |Weui for Omi by [@132yse](https://github.com/132yse).|
+| [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp) working| Convert wechat mini program to web HTML5 Single-Page Applications.|
 
 ## Useful Resources
 
