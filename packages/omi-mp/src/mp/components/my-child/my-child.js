@@ -3,16 +3,7 @@ import componentCss from './my-child.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
 
-
-function css() {
-  return rpx2px(componentCss)
-}
-function render() {
-  
-  return h('span',null,[`I am child component`])
-
-}
-// components/my-child/my-child.js
+  // components/my-child/my-child.js
 const mpOption = Component({
   /**
    * 组件的属性列表
@@ -76,5 +67,15 @@ Object.keys(mpOption.methods).forEach(key => {
   Element.prototype[key] = mpOption.methods[key]
 })
 
+function css() {
+  return rpx2px(componentCss)
+}
+
+function render() {
+  
+  return h('span',null,[`I am child component`])
+
+}
+
 customElements.define('my-child', Element)
-        
+          

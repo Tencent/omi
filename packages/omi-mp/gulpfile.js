@@ -21,8 +21,8 @@ gulp.task('components', ['copy'], () => {
           file.contents = Buffer.concat([
             new Buffer(
               `${importStr}import componentCss from './${name}.wxss'
-  import { h, WeElement } from 'omi'
-  import { setData } from '../../../utils/set-data'
+import { h, WeElement } from 'omi'
+import { setData } from '../../../utils/set-data'
 
   `
             ),
@@ -32,53 +32,53 @@ gulp.task('components', ['copy'], () => {
                 .replace('Component({', 'const mpOption = Component({')
             ),
             new Buffer(`
-  class Element extends WeElement {
-    data = mpOption.data
+class Element extends WeElement {
+  data = mpOption.data
 
-    render = render
+  render = render
 
-    css = css
+  css = css
 
-    beforeRender() {}
+  beforeRender() {}
 
-    beforeUpdate() {}
+  beforeUpdate() {}
 
-    afterUpdate() {}
+  afterUpdate() {}
 
-    install = function() {
-      mpOption.created && mpOption.created.call(this)
-      Object.keys(mpOption.methods).forEach(key => {
-        if(typeof mpOption.methods[key] === 'function'){
-          this[key] = mpOption.methods[key].bind(this)
-        }
-      })
-    }
-
-    uninstall = mpOption.detached || function() {}
-
-    installed = function() {
-      mpOption.attached && mpOption.attached.call(this)
-      mpOption.ready && mpOption.ready.call(this)
-    }
-
-    triggerEvent = function(name, data) {
-      this.fire(name, data)
-    }
-
-    setData = setData
+  install = function() {
+    mpOption.created && mpOption.created.call(this)
+    Object.keys(mpOption.methods).forEach(key => {
+      if(typeof mpOption.methods[key] === 'function'){
+        this[key] = mpOption.methods[key].bind(this)
+      }
+    })
   }
 
-  Object.keys(mpOption.methods).forEach(key => {
-    Element.prototype[key] = mpOption.methods[key]
-  })
+  uninstall = mpOption.detached || function() {}
 
-  function css() {
-    return rpx2px(componentCss)
+  installed = function() {
+    mpOption.attached && mpOption.attached.call(this)
+    mpOption.ready && mpOption.ready.call(this)
   }
 
-  ${hyperscript}
+  triggerEvent = function(name, data) {
+    this.fire(name, data)
+  }
 
-  customElements.define('${name}', Element)
+  setData = setData
+}
+
+Object.keys(mpOption.methods).forEach(key => {
+  Element.prototype[key] = mpOption.methods[key]
+})
+
+function css() {
+  return rpx2px(componentCss)
+}
+
+${hyperscript}
+
+customElements.define('${name}', Element)
           `)
           ])
         }
@@ -107,9 +107,9 @@ gulp.task('pages', ['copy'], () => {
           file.contents = Buffer.concat([
             new Buffer(
               `${importStr}import appCss from '../../app.wxss'
-  import pageCss from './${name}.wxss'
-  import { h, WeElement } from 'omi'
-  import { setData } from '../../../utils/set-data'
+import pageCss from './${name}.wxss'
+import { h, WeElement } from 'omi'
+import { setData } from '../../../utils/set-data'
 
   `
             ),
@@ -119,42 +119,42 @@ gulp.task('pages', ['copy'], () => {
                 .replace('Page({', 'const mpOption = Page({')
             ),
             new Buffer(`
-  class Element extends WeElement {
-    data = mpOption.data
+class Element extends WeElement {
+  data = mpOption.data
 
-    render = render
+  render = render
 
-    css = css
+  css = css
 
-    beforeRender() {}
+  beforeRender() {}
 
-    beforeUpdate() {}
+  beforeUpdate() {}
 
-    afterUpdate() {}
+  afterUpdate() {}
 
-    install() {}
+  install() {}
 
-    uninstall = mpOption.onUnload || function() {}
+  uninstall = mpOption.onUnload || function() {}
 
-    installed = function(){
-      mpOption.onLoad && mpOption.onLoad.call(this, route._params)
-      mpOption.onReady && mpOption.onReady.call(this, route._params)
-    }
-
-    setData = setData
+  installed = function(){
+    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
+    mpOption.onReady && mpOption.onReady.call(this, route._params)
   }
 
-  Object.keys(mpOption).forEach(key => {
-    Element.prototype[key] = mpOption[key]
-  })
+  setData = setData
+}
 
-  function css() {
-    return rpx2px(appCss + pageCss)
-  }
+Object.keys(mpOption).forEach(key => {
+  Element.prototype[key] = mpOption[key]
+})
 
-  ${hyperscript}
+function css() {
+  return rpx2px(appCss + pageCss)
+}
 
-  customElements.define('we-${name}', Element)
+${hyperscript}
+
+customElements.define('we-${name}', Element)
           `)
           ])
         }
