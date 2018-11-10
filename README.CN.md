@@ -49,7 +49,7 @@
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
 |[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
 | [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) working |Weui for Omi by [@132yse](https://github.com/132yse).|
-| [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp) working| 小程序转成 Web 单页应用(H5 SPA)|
+| [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp) working| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
 
 ## 必须收藏的资源
 
