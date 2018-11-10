@@ -181,7 +181,7 @@ gulp.task('appjs', ['copy'], () => {
 
 gulp.task('watch', () => {
   watch('src-mp/**/*', () => {
-    gulp.start(['components', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route'])
+    gulp.start(['components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route'])
   })
 })
 
@@ -268,7 +268,6 @@ gulp.task('pages-wxss', ['copy'], () => {
     .src('src/mp/pages/*/*.wxss')
     .pipe(
       tap(file => {
-        console.log(file.contents)
         file.contents = new Buffer(compileWxss(file.contents.toString()))
 
       })
@@ -281,7 +280,6 @@ gulp.task('components-wxss', ['copy'], () => {
     .src('src/mp/components/*/*.wxss')
     .pipe(
       tap(file => {
-        console.log(file.contents)
         file.contents = new Buffer(compileWxss(file.contents.toString()))
 
       })
@@ -289,4 +287,17 @@ gulp.task('components-wxss', ['copy'], () => {
     .pipe(gulp.dest('src/mp/components/'))
 })
 
-gulp.task('default', ['copy', 'components', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route', 'watch'])
+
+gulp.task('app-wxss', ['copy'], () => {
+  return gulp
+    .src('src-mp/app.wxss')
+    .pipe(
+      tap(file => {
+        file.contents = new Buffer(compileWxss(file.contents.toString()))
+
+      })
+    )
+    .pipe(gulp.dest('src/mp'))
+})
+
+gulp.task('default', ['copy', 'components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route', 'watch'])

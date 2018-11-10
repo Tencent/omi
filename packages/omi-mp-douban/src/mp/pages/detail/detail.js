@@ -1,8 +1,8 @@
 
 import appCss from '../../app.wxss'
-  import pageCss from './detail.wxss'
-  import { h, WeElement } from 'omi'
-  import { setData } from '../../../utils/set-data'
+import pageCss from './detail.wxss'
+import { h, WeElement } from 'omi'
+import { setData } from '../../../utils/set-data'
 
   import mockData from './mock-data'
 
@@ -24,40 +24,40 @@ const mpOption = Page({
   }
 })
 
-  class Element extends WeElement {
-    data = mpOption.data
+class Element extends WeElement {
+  data = mpOption.data
 
-    render = render
+  render = render
 
-    css = css
+  css = css
 
-    beforeRender() {}
+  beforeRender() {}
 
-    beforeUpdate() {}
+  beforeUpdate() {}
 
-    afterUpdate() {}
+  afterUpdate() {}
 
-    install() {}
+  install() {}
 
-    uninstall = mpOption.onUnload || function() {}
+  uninstall = mpOption.onUnload || function() {}
 
-    installed = function(){
-      mpOption.onLoad && mpOption.onLoad.call(this, route._params)
-      mpOption.onReady && mpOption.onReady.call(this, route._params)
-    }
-
-    setData = setData
+  installed = function(){
+    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
+    mpOption.onReady && mpOption.onReady.call(this, route._params)
   }
 
-  Object.keys(mpOption).forEach(key => {
-    Element.prototype[key] = mpOption[key]
-  })
+  setData = setData
+}
 
-  function css() {
-    return rpx2px(appCss + pageCss)
-  }
+Object.keys(mpOption).forEach(key => {
+  Element.prototype[key] = mpOption[key]
+})
 
-  function render() {
+function css() {
+  return rpx2px(appCss + pageCss)
+}
+
+function render() {
   const { showLoading,film } = Object.assign({}, this.data, this.props)
   return showLoading? [h('div',{'class': `page-loading`},[h('span',{'class': `weui-loading`},[]),h('span',{'class': `loading-text`},[`玩命加载中`])])]: [h('div',{'class': `container film-detail `},[h('div',{'class': `film-item`},[h('div',{'class': `film-image`},[h('img',{'src': film.images.medium},[])]),h('div',{'class': `film-info`},[h('div',null,[h('span',{'class': `film-title`},[`${film.title}`]),h('span',{'class': `film-year`},[`${film.year}`])]),h('div',{'class': `film-rating`},[film.rating.average>0? [h('span',{'class': `label`},[`评分：`]),h('span',{'class': `rating`},[`${film.rating.average}`])]: [h('span',{'class': `label`},[`暂无评分`])]]),h('div',{'class': `directors`},[h('span',{'class': `label`},[`导演：`]), [film.directors.map((director,index)=>{
         return h('span',{'class': `person`},[`${director.name}`])
@@ -71,5 +71,5 @@ const mpOption = Page({
 
 }
 
-  customElements.define('we-detail', Element)
+customElements.define('we-detail', Element)
           

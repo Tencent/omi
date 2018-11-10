@@ -1,8 +1,8 @@
 
 import appCss from '../../app.wxss'
-  import pageCss from './coming_soon.wxss'
-  import { h, WeElement } from 'omi'
-  import { setData } from '../../../utils/set-data'
+import pageCss from './coming_soon.wxss'
+import { h, WeElement } from 'omi'
+import { setData } from '../../../utils/set-data'
 
   
 const mpOption = Page({
@@ -13,44 +13,44 @@ const mpOption = Page({
   
 })
 
-  class Element extends WeElement {
-    data = mpOption.data
+class Element extends WeElement {
+  data = mpOption.data
 
-    render = render
+  render = render
 
-    css = css
+  css = css
 
-    beforeRender() {}
+  beforeRender() {}
 
-    beforeUpdate() {}
+  beforeUpdate() {}
 
-    afterUpdate() {}
+  afterUpdate() {}
 
-    install() {}
+  install() {}
 
-    uninstall = mpOption.onUnload || function() {}
+  uninstall = mpOption.onUnload || function() {}
 
-    installed = function(){
-      mpOption.onLoad && mpOption.onLoad.call(this, route._params)
-      mpOption.onReady && mpOption.onReady.call(this, route._params)
-    }
-
-    setData = setData
+  installed = function(){
+    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
+    mpOption.onReady && mpOption.onReady.call(this, route._params)
   }
 
-  Object.keys(mpOption).forEach(key => {
-    Element.prototype[key] = mpOption[key]
-  })
+  setData = setData
+}
 
-  function css() {
-    return rpx2px(appCss + pageCss)
-  }
+Object.keys(mpOption).forEach(key => {
+  Element.prototype[key] = mpOption[key]
+})
 
-  function render() {
+function css() {
+  return rpx2px(appCss + pageCss)
+}
+
+function render() {
   
   return h('div',{'class': `ctn`},[h('span',null,[`敬请期待`])])
 
 }
 
-  customElements.define('we-coming_soon', Element)
+customElements.define('we-coming_soon', Element)
           
