@@ -94,6 +94,13 @@ define('my-first-element', class extends WeElement {
 render(<my-first-element name="world"></my-first-element>, 'body')
 ```
 
+通过 props ，你可以透传 style 或者 class 给根节点，比如 [→ 这里](https://github.com/Tencent/omi/commit/cdea37ca7a15d109718fcc3731d6fe6d1548ffab) 透传 style:
+
+```jsx
+<el-button onClick={this.onClick} style="color:red;">默认按钮1</el-button>
+<el-button type="primary" style={{color:'red'}}>主要按钮</el-button>
+```
+
 ### Event
 
 ```js
@@ -268,10 +275,9 @@ define('my-first-element', class extends WeElement {
     this.store.data.name = 'abc'
   }
 
-  render(props, data) {
-    //data === this.store.data when using store system
+  render(props, data, store) {
     return (
-      <h1 onClick={this.onClick}>Hello, {data.name}!</h1>
+      <h1 onClick={this.onClick}>Hello, {store.data.name}!</h1>
     )
   }
 })

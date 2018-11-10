@@ -15,10 +15,10 @@ define('hello-element', class extends WeElement {
     return style
   }
 
-  render(props, data) {
+  render(props, data, store) {
     return (
       <div class="hello">
-        <h1> {data.name} </h1>
+        <h1> {store.data.name} </h1>
         <div> I am hello element.</div>
         <div class="omi" />
       </div>

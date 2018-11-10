@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "4.0.21",
+  "version": "4.0.24",
   "description": "Next generation web framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -26,6 +26,7 @@
     "render-array": "rollup -c config/rollup.example.js --watch",
     "css3transform": "rollup -c config/rollup.example.js --watch",
     "tap": "rollup -c config/rollup.example.js --watch",
+    "tap2": "rollup -c config/rollup.example.js --watch",
     "simple": "rollup -c config/rollup.example.js --watch",
     "transpile:main": "rollup -c config/rollup.config.js",
     "transpile:esm": "rollup -c config/rollup.config.esm.js",

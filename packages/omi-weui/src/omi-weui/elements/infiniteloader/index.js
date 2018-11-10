@@ -1,3 +1,2 @@
-import InfiniteLoader from './infiniteloader'
+import './infiniteloader'
 
-export default InfiniteLoader

@@ -1,0 +1,4 @@
+<view>
+  <button bindtap="myMethods">Click me will log dntzhang to the console panel</button>
+	<my-child />
+</view>

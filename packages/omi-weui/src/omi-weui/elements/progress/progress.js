@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import {define,WeElement} from 'omi'
 import classNames from '../../utils/classnames'
 import Icon from '../icon'
 
@@ -7,7 +6,7 @@ import Icon from '../icon'
  *  progress bar
  *
  */
-const Progress = props => {
+define('ow-progress',props=>{
   const { className, showCancel, value, onClick, ...others } = props
   const cls = classNames({
     'weui-progress': true,
@@ -40,24 +39,8 @@ const Progress = props => {
       )}
     </div>
   )
-}
-
-Progress.propTypes = {
-  /**
-   * value of the bar
-   *
-   */
-  value: PropTypes.number,
-  /**
-   * enable cancel button
-   *
-   */
-  showCancel: PropTypes.bool
-}
-
+})
 Progress.defaultProps = {
   value: 0,
   showCancel: true
 }
-
-export default Progress

@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { define, WeElement } from 'omi'
 import classNames from '../../utils/classnames'
 import Mask from '../mask/index'
 import Icon from '../icon/index'
@@ -8,25 +7,7 @@ import Icon from '../icon/index'
  *  pop out indicator to inform users
  *
  */
-class Toast extends Component {
-  static propTypes = {
-    /**
-     * Icon Value
-     *
-     */
-    icon: PropTypes.string,
-    /**
-     * Icon Size
-     *
-     */
-    iconSize: PropTypes.string,
-    /**
-     * display toast
-     *
-     */
-    show: PropTypes.bool
-  }
-
+define('ow-toast', class extends WeElement {
   static defaultProps = {
     icon: 'toast',
     show: false
@@ -47,6 +28,4 @@ class Toast extends Component {
       </div>
     )
   }
-}
-
-export default Toast
+})

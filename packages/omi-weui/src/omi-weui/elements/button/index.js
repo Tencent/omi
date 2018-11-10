@@ -4,11 +4,3 @@
 
 import './button'
 import './button-area'
-// import ButtonArea from './button_area';
-// import PreviewButton from './button_preview';
-
-// export {
-//     Button,
-//     ButtonArea,
-//     PreviewButton
-// };

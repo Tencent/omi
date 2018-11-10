@@ -2,6 +2,5 @@
  * Created by jf on 15/10/27.
  */
 
-import Mask from './mask'
+import './mask'
 
-export default Mask

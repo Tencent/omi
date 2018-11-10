@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { define, WeElement } from 'omi'
 import classNames from '../../utils/classnames'
 
 const presetStyles = {
@@ -21,20 +20,9 @@ const presetStyles = {
  * Small status descriptors for UI elements.
  *
  */
-class Badge extends Component {
-  static propTypes = {
-    /**
-     * display dot style without content
-     *
-     */
-    dot: PropTypes.bool,
-    /**
-     * some preset layout for other UI elements, include 'header', 'body', 'footer'
-     *
-     */
-    preset: PropTypes.string
-  }
 
+define('ow-badge', class extends WeElement {
+  
   static defaultProps = {
     dot: false,
     preset: 'default'
@@ -44,11 +32,12 @@ class Badge extends Component {
     const { children, className, dot, style, preset, ...domProps } = this.props
     let clz = classNames('weui-badge', {
       'weui-badge_dot': dot
-    },
-      className
+    })
     let stylez = Object.assign({}, presetStyles[preset], style)
-    return <span className={clz} style={stylez} {...domProps}>{children}</span>
+    return (
+      <span className={clz} style={stylez} {...domProps}>
+        {children}
+      </span>
+    )
   }
-}
-
-export default Badge
+})

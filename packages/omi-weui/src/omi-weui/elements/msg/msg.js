@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { define, WeElement } from 'omi'
 import classNames from '../../utils/classnames'
 import { Button, ButtonArea } from '../button/index'
 import { Footer, FooterLinks, FooterLink } from '../footer'
@@ -10,45 +9,8 @@ import deprecationWarning from '../../utils/deprecationWarning'
  * A full notification page to indicate results
  *
  */
-class Msg extends Component {
-  static propTypes = {
-    /**
-     * Icon type
-     *
-     */
-    type: PropTypes.string,
-    /**
-     * Object array of Buttons, require at least `label` property
-     *
-     */
-    buttons: PropTypes.array,
-    /**
-     * Page Title
-     *
-     */
-    title: PropTypes.string,
-    /**
-     * Page Description
-     *
-     */
-    description: PropTypes.string,
-    /**
-     * deprecated property from 0.4.x
-     *
-     */
-    extraHref: PropTypes.string,
-    /**
-     * deprecated property from 0.4.x
-     *
-     */
-    extraText: PropTypes.string,
-    /**
-     * Footer Element of Page
-     *
-     */
-    footer: PropTypes.any
-  }
-
+define('ow-msg', class extends WeElement {
+  
   static defaultProps = {
     type: 'success',
     buttons: []
@@ -117,6 +79,4 @@ class Msg extends Component {
       </div>
     )
   }
-}
-
-export default Msg
+})

@@ -1,5 +1,5 @@
 /**
- * omi v4.0.21  http://omijs.org
+ * omi v4.0.24  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -276,9 +276,19 @@ function setAccessor(node, name, old, value, isSvg) {
     var useCapture = name !== (name = name.replace(/Capture$/, ''));
     name = name.toLowerCase().substring(2);
     if (value) {
-      if (!old) node.addEventListener(name, eventProxy, useCapture);
+      if (!old) {
+        node.addEventListener(name, eventProxy, useCapture);
+        if (name == 'tap') {
+          node.addEventListener('touchstart', touchStart, useCapture);
+          node.addEventListener('touchstart', touchEnd, useCapture);
+        }
+      }
     } else {
       node.removeEventListener(name, eventProxy, useCapture);
+      if (name == 'tap') {
+        node.removeEventListener('touchstart', touchStart, useCapture);
+        node.removeEventListener('touchstart', touchEnd, useCapture);
+      }
     }
 (node._listeners || (node._listeners = {}))[name] = value;
   } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
@@ -314,6 +324,18 @@ function eventProxy(e) {
   return this._listeners[e.type](options.event && options.event(e) || e);
 }
 
+function touchStart(e) {
+  this.___touchX = e.touches[0].pageX;
+  this.___touchY = e.touches[0].pageY;
+  this.___scrollTop = document.body.scrollTop;
+}
+
+function touchEnd(e) {
+  if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
+    this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+  }
+}
+
 /** Diff recursion count, used to track the end of the diff cycle. */
 var diffLevel = 0;
 
@@ -343,10 +365,13 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     ret = [];
     var parentNode = null;
     if (isArray(dom)) {
+      var domLength = dom.length;
+      var vnodeLength = vnode.length;
+      var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
       parentNode = dom[0].parentNode;
-      dom.forEach(function (item, index) {
-        ret.push(idiff(item, vnode[index], context, mountAll, componentRoot));
-      });
+      for (var i = 0; i < maxLength; i++) {
+        ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
+      }
     } else {
       vnode.forEach(function (item) {
         ret.push(idiff(dom, item, context, mountAll, componentRoot));
@@ -378,7 +403,7 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, context, mountAll, componentRoot) {
-  if (dom && dom.props) {
+  if (dom && vnode && dom.props) {
     dom.props.children = vnode.children;
   }
   var out = dom,
@@ -1036,7 +1061,7 @@ var WeElement = function (_HTMLElement) {
       }
     }
 
-    this.install();
+    !this._isInstalled && this.install();
     var shadowRoot;
     if (!this.shadowRoot) {
       shadowRoot = this.attachShadow({
@@ -1051,12 +1076,12 @@ var WeElement = function (_HTMLElement) {
     }
 
     this.css && shadowRoot.appendChild(cssToDom(this.css()));
-    this.beforeRender();
+    !this._isInstalled && this.beforeRender();
     options.afterInstall && options.afterInstall(this);
     if (this.constructor.observe) {
       proxyUpdate(this);
     }
-    this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
+    this.host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
     if (isArray(this.host)) {
       this.host.forEach(function (item) {
         shadowRoot.appendChild(item);
@@ -1064,7 +1089,7 @@ var WeElement = function (_HTMLElement) {
     } else {
       shadowRoot.appendChild(this.host);
     }
-    this.installed();
+    !this._isInstalled && this.installed();
     this._isInstalled = true;
   };
 
@@ -1083,7 +1108,7 @@ var WeElement = function (_HTMLElement) {
   WeElement.prototype.update = function update() {
     this.beforeUpdate();
     this.beforeRender();
-    diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
+    diff(this.host, this.render(this.props, this.data, this.store));
     this.afterUpdate();
   };
 
@@ -1413,7 +1438,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.0.21';
+options.root.Omi.version = '4.0.24';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost };

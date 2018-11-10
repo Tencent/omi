@@ -36,20 +36,21 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi official documents |
+| [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp) working| Develop and generate Web HTML5 Single-Page Applications by wechat mini program.|
+| [omi-router![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router. [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
-| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router. [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
-|[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. Made css3 transform super easy in your Omi project.|
-| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
+| [omi-tap2![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Native tap event support(omi v4.0.24+）|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)|Support tap event in your omi project|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Support touch and gesture events in your Omi project.|
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
-|[omi element ui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-element-ui)|Omi version of element-ui|
-| [omi-weui(working)](https://github.com/Tencent/omi/tree/master/packages/omi-weui)|Weui for Omi.|
+| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) working |Weui for Omi by [@132yse](https://github.com/132yse).|
+|[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
+| [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
 
 ## Useful Resources
 
@@ -76,15 +77,12 @@ Omi uses Shadow DOM based style isolation and semantic structure.
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
-    - [Summary：](#summary)
   - [Observe](#observe)
-    - [Omi Observe](#omi-observe)
-    - [Omi Mobx](#omi-mobx)    
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
 - [React to Omi](#react-to-omi)
 - [Browsers Support](#browsers-support)
-- [Contribution](#contribution)
+- [Q & A](#q--a)
 - [Thanks](#thanks)
 - [License](#license)
 
@@ -723,20 +721,14 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 > You can also give up the store system and use omi-mobx to be compatible with IE11.
 
-## Contribution
-
-1. Fork it (https://github.com/Tencent/omi/fork)
-2. Create your branch (`git checkout -b my-urgent-hotfix`)
-3. Commit your changes (`git commit -am 'Fixed something'`)
-4. Push to the branch (`git push origin my-urgent-hotfix`)
-5. Create a new Pull Request
-
-Please contact us for any questions:
+## Q & A 
 
 - [@f](https://github.com/f)
 - [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
+
+Please contact us for any questions.
 
 ## Thanks
 
