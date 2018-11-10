@@ -21,12 +21,14 @@ const mpOption = Page({
   data: {
     logs: []
   },
-  onLoad: function () {
+  onLoad: function (options) {
     this.setData({
       logs: (wx.getStorageSync('logs') || [Date.now()]).map(log => {
         return util.formatTime(new Date(log))
       })
     })
+
+    console.log(options.name, options.age)
   },
   myEventHandler: function (evt) {
     //output -> dntzhang
@@ -52,8 +54,8 @@ class Element extends WeElement {
   uninstall = mpOption.onUnload || function() {}
 
   installed = function(){
-    mpOption.onLoad && mpOption.onLoad.call(this)
-    mpOption.onReady && mpOption.onReady.call(this)
+    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
+    mpOption.onReady && mpOption.onReady.call(this, route._params)
   }
 
   setData = setData

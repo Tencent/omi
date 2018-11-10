@@ -30,7 +30,7 @@ const mpOption = Page({
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
-      url: '../logs/logs?name=dntzhang'
+      url: '../logs/logs?name=dntzhang&age=18'
     })
   },
   onLoad: function () {
@@ -89,8 +89,8 @@ class Element extends WeElement {
   uninstall = mpOption.onUnload || function() {}
 
   installed = function(){
-    mpOption.onLoad && mpOption.onLoad.call(this)
-    mpOption.onReady && mpOption.onReady.call(this)
+    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
+    mpOption.onReady && mpOption.onReady.call(this, route._params)
   }
 
   setData = setData

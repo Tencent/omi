@@ -16,7 +16,7 @@ Page({
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
-      url: '../logs/logs?name=dntzhang'
+      url: '../logs/logs?name=dntzhang&age=18'
     })
   },
   onLoad: function () {
