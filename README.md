@@ -85,7 +85,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 - [Debugging](#debugging)
 - [React to Omi](#react-to-omi)
 - [Browsers Support](#browsers-support)
-- [Contribution](#contribution)
+- [Q & A](#q-&-a)
 - [Thanks](#thanks)
 - [License](#license)
 
@@ -724,7 +724,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 > You can also give up the store system and use omi-mobx to be compatible with IE11.
 
-## QA 
+## Q & A 
 
 - [@f](https://github.com/f)
 - [@LeeHyungGeun](https://github.com/LeeHyungGeun)
