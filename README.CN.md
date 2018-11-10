@@ -77,8 +77,6 @@
   - [TodoApp](#todoapp)
   - [Store](#store)
   - [Observe](#observe)
-    - [Omi Observe](#omi-observe)
-    - [Omi Mobx](#omi-mobx)
   - [生命周期](#生命周期)
 - [调试工具](#调试工具)
 - [浏览器兼容](#浏览器兼容)
