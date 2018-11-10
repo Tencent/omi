@@ -1,4 +1,4 @@
-# omi-mp - 微信小程序开发和一键生成 Web 页面
+# omi-mp - 微信小程序开发和生成 Web
 
 > 通过微信小程序开发和一键生成 Web 的 H5 SPA (基于Omi + omi-router)
 
