@@ -38,9 +38,9 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi 공식 문서 |
 | [omi-devtools](https://github.com/f/omi-devtools)| 브라우저 개발자 확장도구 |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
+| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router. [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 |[omi-i18n](https://github.com/i18next/omi-i18n)| i18next 에코시스템을 사용한 omi.js 다국어 지원 방식 |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. 초간단 CSS3 Transform |
-| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | [page](https://github.com/visionmedia/page.js) 를 통한 소형의 클라이언트 사이드 라우터 |
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 탭 이벤트 지원 |
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)| 터치 와 제스처 이벤트 지원 |
@@ -51,6 +51,8 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 
 ## Useful Resources
 
+* [60FPS Animation in omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)
+* [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)
 * [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
 * [Web Components Org](https://www.webcomponents.org/introduction)
@@ -287,15 +289,29 @@ Such as in windows:
 }
 ```
 
-TypeScript Template(omi-cli v3.0.3+):
+mac os 에서:
+
+···json
+"scripts": {
+    "start": "node scripts/start.js",
+    "_build": "node scripts/build.js",
+    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
+    "fix": "eslint src --fix"
+  },
+···
+
+TypeScript Template(omi-cli v3.0.5+):
 
 ```bash
-$ npm i omi-cli -g                  # install cli
-$ omi init-ts your_project_name     # init project, you can also exec 'omi init-ts' in an empty folder
-$ cd your_project_name              # please ignore this command if you executed 'omi init' in an empty folder
-$ npm start                         # develop
-$ npm run build                     # release
+$ omi init-ts your_project_name
 ```
+
+[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+):
+
+```bash
+$ omi init-spa your_project_name
+```
+
 
 CLI 자동 프로젝트 생성 scaffolding 는 한 페이지의 create-react-app을 여러 페이지로 변환합니다. 설정(configuration) 이슈는 [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) 을 봐주세요.
 
@@ -594,6 +610,21 @@ class MyApp extends WeElement {
 * afterUpdate
 
 왜냐하면 data는 단순히 이전과 이후의 값을 비교하기 때문에 복잡한 오브젝트는 완전히 대조되지 않고 비교 값은은 업데이트를 트리거하고 업데이트는 위의 함수를 트리거하며 무한 반복됩니다.
+
+예를들면:
+
+❌Wrong way:
+```js
+beforeRender(){
+  this.data.a = { b: 1 }
+}
+```
+ ✅ Right way:
+```js
+beforeRender(){
+  this.data.a.b = 1 
+}
+```
 
 만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mobx` 를 사용해주세요.
 
