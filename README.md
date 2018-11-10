@@ -724,20 +724,14 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 > You can also give up the store system and use omi-mobx to be compatible with IE11.
 
-## Contribution
-
-1. Fork it (https://github.com/Tencent/omi/fork)
-2. Create your branch (`git checkout -b my-urgent-hotfix`)
-3. Commit your changes (`git commit -am 'Fixed something'`)
-4. Push to the branch (`git push origin my-urgent-hotfix`)
-5. Create a new Pull Request
-
-Please contact us for any questions:
+## QA 
 
 - [@f](https://github.com/f)
 - [@LeeHyungGeun](https://github.com/LeeHyungGeun)
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
+
+Please contact us for any questions.
 
 ## Thanks
 
