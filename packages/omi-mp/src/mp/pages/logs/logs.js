@@ -9,9 +9,9 @@ function css() {
 }
 function render() {
   const { logs } = Object.assign({}, this.data, this.props)
-  return h('div',{'class': `container log-list`},[ logs.map((log,index)=>{
+  return h('div',{'class': `container log-list `},[ logs.map((log,index)=>{
         return h('span',{'class': `log-item`},[`${index + 1}. ${log}`])
-      }),h('my-ele',null,[])])
+      }),h('my-ele',{'onmyevent': this.myEventHandler},[])])
 
 }
 //logs.js
@@ -27,6 +27,10 @@ const mpOption = Page({
         return util.formatTime(new Date(log))
       })
     })
+  },
+  myEventHandler: function (evt) {
+    //output -> dntzhang
+    console.log(evt.detail.name)
   }
 })
 

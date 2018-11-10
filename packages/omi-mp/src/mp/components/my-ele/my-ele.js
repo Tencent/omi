@@ -9,7 +9,7 @@ function css() {
 }
 function render() {
   
-  return h('div',null,[h('my-child',null,[]),h('div',{'ontap': this.myMethods},[`my-ele`])])
+  return h('div',null,[h('button',{'ontap': this.myMethods},[`Click me will log dntzhang to the console panel`]),h('my-child',null,[])])
 
 }
 // components/my-ele/my-ele.js
@@ -33,7 +33,7 @@ const mpOption = Component({
    */
   methods: {
     myMethods: function() {
-      console.log('myMethods')
+      this.triggerEvent('myevent', { name: 'dntzhang' })
     }
   }
 })
@@ -51,13 +51,24 @@ class Element extends WeElement {
 
   afterUpdate() {}
 
-  install = mpOption.created || function() {}
+  install = function() {
+    mpOption.created && mpOption.created.call(this)
+    Object.keys(mpOption.methods).forEach(key => {
+      if(typeof mpOption.methods[key] === 'function'){
+        this[key] = mpOption.methods[key].bind(this)
+      }
+    })
+  }
 
   uninstall = mpOption.detached || function() {}
 
   installed = function() {
     mpOption.attached && mpOption.attached.call(this)
     mpOption.ready && mpOption.ready.call(this)
+  }
+
+  triggerEvent = function(name, data) {
+    this.fire(name, data)
   }
 
   setData = setData

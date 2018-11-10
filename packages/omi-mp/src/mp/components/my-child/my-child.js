@@ -9,7 +9,7 @@ function css() {
 }
 function render() {
   
-  return h('span',null,[`my-child`])
+  return h('span',null,[`I am child component`])
 
 }
 // components/my-child/my-child.js
@@ -49,13 +49,24 @@ class Element extends WeElement {
 
   afterUpdate() {}
 
-  install = mpOption.created || function() {}
+  install = function() {
+    mpOption.created && mpOption.created.call(this)
+    Object.keys(mpOption.methods).forEach(key => {
+      if(typeof mpOption.methods[key] === 'function'){
+        this[key] = mpOption.methods[key].bind(this)
+      }
+    })
+  }
 
   uninstall = mpOption.detached || function() {}
 
   installed = function() {
     mpOption.attached && mpOption.attached.call(this)
     mpOption.ready && mpOption.ready.call(this)
+  }
+
+  triggerEvent = function(name, data) {
+    this.fire(name, data)
   }
 
   setData = setData

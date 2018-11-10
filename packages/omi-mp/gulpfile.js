@@ -11,7 +11,7 @@ gulp.task('components', ['copy'], () => {
     .pipe(
       tap(file => {
         let dir = path.dirname(file.path)
-        let arr = dir.split('\\')
+        let arr = dir.split(/\\|\//)
         let name = arr[arr.length-1]
         let wxml = fs.readFileSync(dir + '/' + name + '.wxml', 'utf8')
         let json = require(dir + '/' + name + '.json')
@@ -50,13 +50,24 @@ class Element extends WeElement {
 
   afterUpdate() {}
 
-  install = mpOption.created || function() {}
+  install = function() {
+    mpOption.created && mpOption.created.call(this)
+    Object.keys(mpOption.methods).forEach(key => {
+      if(typeof mpOption.methods[key] === 'function'){
+        this[key] = mpOption.methods[key].bind(this)
+      }
+    })
+  }
 
   uninstall = mpOption.detached || function() {}
 
   installed = function() {
     mpOption.attached && mpOption.attached.call(this)
     mpOption.ready && mpOption.ready.call(this)
+  }
+
+  triggerEvent = function(name, data) {
+    this.fire(name, data)
   }
 
   setData = setData
