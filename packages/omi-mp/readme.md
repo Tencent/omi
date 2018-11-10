@@ -119,7 +119,7 @@ div img .image{
 
 ## 注意
 
-目前除了 template 标签，欢迎试用反馈或 PR。
+目前不支持 template 标签，欢迎试用反馈或 PR。
 
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
