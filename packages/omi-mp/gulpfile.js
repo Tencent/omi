@@ -174,7 +174,7 @@ gulp.task('appjs', ['copy'], () => {
 
 gulp.task('watch', () => {
   watch('src-mp/**/*', () => {
-    gulp.start(['copy', 'components', 'pages', 'appjs', 'route'])
+    gulp.start(['components', 'pages', 'appjs', 'route'])
   })
 })
 

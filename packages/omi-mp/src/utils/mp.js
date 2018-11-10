@@ -40,7 +40,7 @@ window.rpx2px = function(str) {
 }
 
 wx.navigateTo = function(option) {
-  route.to(option.url)
+  route.to(option.url.split('?')[0], getUrlParams(option.url))
 }
 
 window.wx = wx
@@ -48,3 +48,27 @@ window.App = App
 window.getApp = getApp
 window.Page = Page
 window.Component = Component
+
+function getUrlParam(name, url){
+  if(!name){
+      return ''
+  }
+  url = url || location.search
+  name = name.replace(/(?=[\\^$*+?.():|{}])/, '\\')
+  var reg = new RegExp('(?:[?&]|^)' + name + '=([^?&#]*)', 'i')
+  var match = url.match(reg)
+  return !match ? '' : match[1]
+}
+
+function getUrlParams(url) {
+  url = url.replace(/#.*$/, '')
+  var queryArray = url.split(/[?&]/).slice(1)
+  var i, args = {}
+  for (i = 0; i < queryArray.length; i++) {
+      var match = queryArray[i].match(/([^=]+)=([^=]+)/)
+      if (match !== null) {
+          args[match[1]] = decodeURIComponent(match[2])
+      }
+  }
+  return args
+}
