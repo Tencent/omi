@@ -85,7 +85,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 - [Debugging](#debugging)
 - [React to Omi](#react-to-omi)
 - [Browsers Support](#browsers-support)
-- [Q & A](#q-&-a)
+- [Q & A](#q--a)
 - [Thanks](#thanks)
 - [License](#license)
 
