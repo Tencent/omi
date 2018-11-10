@@ -36,7 +36,7 @@
               <text class="person">{{cast.name}}</text>
             </block>
           </view>
-        </view> 
+        </view>
       </view>
     </block>
     <view class="load-more-wrap">
