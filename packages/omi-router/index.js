@@ -1,5 +1,5 @@
 /*!
- *  omi-router v2.0.6 by dntzhang
+ *  omi-router v2.0.7 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -50,7 +50,7 @@ function change(evt) {
   })
 
   if (notFound) {
-    mapping['*'] && mapping['*'].callback()
+    mapping['*'] && mapping['*'].callback({})
   }
 
   if (evt.type === 'hashchange' && root.route.after) {
