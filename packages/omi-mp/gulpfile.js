@@ -138,8 +138,8 @@ class Element extends WeElement {
   uninstall = mpOption.onUnload || function() {}
 
   installed = function(){
-    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
-    mpOption.onReady && mpOption.onReady.call(this, route._params)
+    mpOption.onLoad && mpOption.onLoad.call(this, route.query)
+    mpOption.onReady && mpOption.onReady.call(this, route.query)
   }
 
   setData = setData

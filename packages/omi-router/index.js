@@ -1,5 +1,5 @@
 /*!
- *  omi-router v2.0.4 by dntzhang
+ *  omi-router v2.0.5 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -35,6 +35,7 @@ function change(evt) {
     if (toArr) {
       var pathArr = key.match(mapping[key].reg)
       root.route.params = getParams(toArr, pathArr)
+      root.route.query = getUrlParams(path)
       mapping[key].callback(root.route.params, getUrlParams(path))
       notFound = false
       return false

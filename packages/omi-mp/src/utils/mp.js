@@ -40,8 +40,8 @@ window.rpx2px = function(str) {
 }
 
 wx.navigateTo = function(option) {
-  route._params = getUrlParams(option.url)
-  route.to(option.url.split('?')[0])
+  route.query = getUrlParams(option.url)
+  route.to(option.url)
 }
 
 window.wx = wx
