@@ -34,7 +34,7 @@ wx.getUserInfo = function() {}
 
 wx.navigateTo = function(option) {
   route.query = getUrlParams(option.url)
-  route.to(option.url)
+  route.to(option.url, option)
 }
 
 window.wx = wx
