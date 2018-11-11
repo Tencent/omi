@@ -1,7 +1,7 @@
 
 import appCss from '../../app.wxss'
 import pageCss from './coming_soon.wxss'
-import { h, WeElement } from 'omi'
+import { h, WeElement, rpx } from 'omi'
 import { setData } from '../../../utils/set-data'
 
   
@@ -43,7 +43,7 @@ Object.keys(mpOption).forEach(key => {
 })
 
 function css() {
-  return rpx2px(appCss + pageCss)
+  return rpx(appCss + pageCss)
 }
 
 function render() {
