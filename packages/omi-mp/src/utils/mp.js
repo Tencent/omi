@@ -34,7 +34,7 @@ wx.getUserInfo = function() {}
 
 //用户可以有个开关不转
 window.rpx2px = function(str) {
-  return str.replace(/([0-9]*)rpx/g, (a, b) => {
+  return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, (a, b) => {
     return (window.innerWidth * Number(b)) / 750 + 'px'
   })
 }

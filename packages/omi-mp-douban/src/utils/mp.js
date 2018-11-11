@@ -30,15 +30,11 @@ wx.getSystemInfoSync = function() {
   }
 }
 
-wx.setNavigationBarTitle = function(option){
-  document.title = option.title
-}
-
 wx.getUserInfo = function() {}
 
 //用户可以有个开关不转
 window.rpx2px = function(str) {
-  return str.replace(/([0-9]*)rpx/g, (a, b) => {
+  return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, (a, b) => {
     return (window.innerWidth * Number(b)) / 750 + 'px'
   })
 }
@@ -63,6 +59,10 @@ function getUrlParam(name, url){
   var reg = new RegExp('(?:[?&]|^)' + name + '=([^?&#]*)', 'i')
   var match = url.match(reg)
   return !match ? '' : match[1]
+}
+
+wx.setNavigationBarTitle = function(option){
+  document.title = option.title
 }
 
 function getUrlParams(url) {
