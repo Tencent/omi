@@ -4,15 +4,7 @@ import pageCss from './index.wxss'
 import { h, WeElement } from 'omi'
 import { setData } from '../../../utils/set-data'
 
-function css() {
-  return rpx2px(appCss + pageCss)
-}
-function render() {
-  const { hasUserInfo,canIUse,userInfo,motto } = Object.assign({}, this.data, this.props)
-  return h('div',{'class': `container`},[h('div',{'class': `userinfo`},[!hasUserInfo&&canIUse?h('button',{'open-type': `getUserInfo`,'ongetuserinfo': this.getUserInfo},[`获取头像昵称`]): h('img',{'ontap': this.bindViewTap,'class': `userinfo-avatar`,'src': userInfo.avatarUrl,'mode': `cover`},[]),h('span',{'class': `userinfo-nickname`},[`${userInfo.nickName}`])]),h('div',{'class': `usermotto`},[h('span',{'class': `user-motto`},[`${motto}`])])])
-
-}
-//index.js
+  //index.js
 //获取应用实例
 const app = getApp()
 
@@ -100,5 +92,15 @@ Object.keys(mpOption).forEach(key => {
   Element.prototype[key] = mpOption[key]
 })
 
+function css() {
+  return rpx2px(appCss + pageCss)
+}
+
+function render() {
+  const { hasUserInfo,canIUse,userInfo,motto } = Object.assign({}, this.data, this.props)
+  return h('div',{'class': `container`},[h('div',{'class': `userinfo`},[!hasUserInfo&&canIUse?h('button',{'open-type': `getUserInfo`,'ongetuserinfo': this.getUserInfo},[`获取头像昵称`]): [h('img',{'ontap': this.bindViewTap,'class': `userinfo-avatar`,'src': userInfo.avatarUrl,'mode': `cover`},[]),h('span',{'class': `userinfo-nickname`},[`${userInfo.nickName}`])]]),h('div',{'class': `usermotto`},[h('span',{'class': `user-motto`},[`${motto}`])])])
+
+}
+
 customElements.define('we-index', Element)
-        
+          

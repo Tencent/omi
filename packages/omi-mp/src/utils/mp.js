@@ -61,6 +61,10 @@ function getUrlParam(name, url){
   return !match ? '' : match[1]
 }
 
+wx.setNavigationBarTitle = function(option){
+  document.title = option.title
+}
+
 function getUrlParams(url) {
   url = url.replace(/#.*$/, '')
   var queryArray = url.split(/[?&]/).slice(1)

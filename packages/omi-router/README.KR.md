@@ -4,6 +4,8 @@
 
 omi-router는 [Omi](http://omijs.org)의 라우터 플러그인으로 파일크기가 작고 사용하기 쉬우며 매우 강력합니다. Omi의 단일페이지 (SPA: Single Page Application) 웹을 만드는데 사용되는 솔루션입니다.
 
+[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)
+
 단일페이지의 장점은 매우 분명합니다:
 
 * 페이지의 컨텐츠 로딩을 위해 페이지 새로고침할 필요 없음
