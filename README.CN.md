@@ -34,7 +34,7 @@
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
-| [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp)working| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
+| [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
 | [omi-router![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，支持 Javascript 和 Typescript |
