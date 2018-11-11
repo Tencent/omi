@@ -20,8 +20,8 @@
 - 对 this.update 说再见吧！只要使用 `store` 系统，它就会自动化按需更新局部视图
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 - `Shadow DOM` 与 `Virtual DOM` 融合，Omi 既使用了`虚拟 DOM`，也是使用真实 `Shadow DOM`，让视图更新更准确更迅速
-- 99.9% 的项目不需要什么时间旅行调试(`Time travel debugging`),而且也不仅仅 redux 能时间旅行,请不要上来就 `redux`，Omi `store` 系统可以满足所有项目。
-- 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:`Radium`，`jsxstyle`，`react-style`；与webpack绑定使用生成独特的className`文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
+- 99.9% 的项目不需要什么时间旅行，也不需要时间旅行调试(`Time travel debugging`),而且也不仅仅 redux 能时间旅行,请不要上来就 `redux`，Omi `store` 系统可以满足所有项目。
+- 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:`Radium`，`jsxstyle`，`react-style`；与webpack绑定使用生成独特的className`文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，还有运行时注入`scoped atrr` 的方式，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构，Omi 使用 Shadow DOM 隔离样式和语义化结构:
 
@@ -46,10 +46,22 @@
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx 适配器|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
-|[westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
+| [westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
 | [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) working |Weui for Omi by [@132yse](https://github.com/132yse).|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
+
+## omi-mp 
+
+> 通过微信小程序开发和一键生成 Web 的 H5 SPA (基于 omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
+
+看下官方模板的转换例子：
+
+| **Index**                         | **Logs**                           |
+| ------------------------------- | ----------------------------------- |
+|![](../assets/mp1.jpg)| ![](../assets/mp2.jpg)|
+
+因为 Web 里拉取不到用户登录态，更换了用户头像和名称。
 
 ## 必须收藏的资源
 
@@ -68,6 +80,7 @@
 # 目录
 
 - [Omi 生态](#omi-生态)
+- [omi-mp](#omi-mp)
 - [必须收藏的资源](#必须收藏的资源)
 - [一个 HTML 完全上手](#一个-html-完全上手)
 - [再花 30 秒完全上手](#再花-30-秒完全上手)
