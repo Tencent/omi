@@ -15,8 +15,8 @@ define('my-app', class extends WeElement {
       this.data.tag = 'my-home'
     })
 
-    route('/about', (params, query) => {
-      console.log(query)
+    route('/about', (evt) => {
+      console.log(evt.query)
       this.data.tag = 'my-about'
     })
 
@@ -24,9 +24,9 @@ define('my-app', class extends WeElement {
       this.data.tag = 'user-list'
     })
 
-    route('/user/:name/category/:category', (params) => {
+    route('/user/:name/category/:category', (evt) => {
       this.data.tag = 'my-user'
-      this.data.params = params
+      this.data.params = evt.params
     })
 
     route('*', function () {

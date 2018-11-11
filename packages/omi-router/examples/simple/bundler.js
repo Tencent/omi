@@ -77,7 +77,7 @@ Object.defineProperty(exports, "__esModule", {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
- * omi v4.0.19  http://omijs.org
+ * omi v4.0.26  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -354,9 +354,19 @@ function setAccessor(node, name, old, value, isSvg) {
     var useCapture = name !== (name = name.replace(/Capture$/, ''));
     name = name.toLowerCase().substring(2);
     if (value) {
-      if (!old) node.addEventListener(name, eventProxy, useCapture);
+      if (!old) {
+        node.addEventListener(name, eventProxy, useCapture);
+        if (name == 'tap') {
+          node.addEventListener('touchstart', touchStart, useCapture);
+          node.addEventListener('touchstart', touchEnd, useCapture);
+        }
+      }
     } else {
       node.removeEventListener(name, eventProxy, useCapture);
+      if (name == 'tap') {
+        node.removeEventListener('touchstart', touchStart, useCapture);
+        node.removeEventListener('touchstart', touchEnd, useCapture);
+      }
     }
     (node._listeners || (node._listeners = {}))[name] = value;
   } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
@@ -392,6 +402,18 @@ function eventProxy(e) {
   return this._listeners[e.type](options.event && options.event(e) || e);
 }
 
+function touchStart(e) {
+  this.___touchX = e.touches[0].pageX;
+  this.___touchY = e.touches[0].pageY;
+  this.___scrollTop = document.body.scrollTop;
+}
+
+function touchEnd(e) {
+  if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
+    this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+  }
+}
+
 /** Diff recursion count, used to track the end of the diff cycle. */
 var diffLevel = 0;
 
@@ -421,10 +443,13 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     ret = [];
     var parentNode = null;
     if (isArray(dom)) {
+      var domLength = dom.length;
+      var vnodeLength = vnode.length;
+      var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
       parentNode = dom[0].parentNode;
-      dom.forEach(function (item, index) {
-        ret.push(idiff(item, vnode[index], context, mountAll, componentRoot));
-      });
+      for (var i = 0; i < maxLength; i++) {
+        ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
+      }
     } else {
       vnode.forEach(function (item) {
         ret.push(idiff(dom, item, context, mountAll, componentRoot));
@@ -456,7 +481,7 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, context, mountAll, componentRoot) {
-  if (dom && dom.props) {
+  if (dom && vnode && dom.props) {
     dom.props.children = vnode.children;
   }
   var out = dom,
@@ -529,7 +554,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
   // otherwise, if there are existing or new children, diff them:
   else if (vchildren && vchildren.length || fc != null) {
-      innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+      if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
+        innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+      }
     }
 
   // Apply attributes/props from VNode to the DOM Element:
@@ -842,6 +869,7 @@ var JSONPatcherProxy = function () {
       }
       operation.value = newValue;
     }
+    operation.oldValue = target[key];
     var reflectionResult = Reflect.set(target, key, newValue);
     instance.defaultCallback(operation);
     return reflectionResult;
@@ -1065,20 +1093,13 @@ function observe(target) {
   target.observe = true;
 }
 
-var preValue = null;
-var prePath = null;
-var preEle = null;
-
 function proxyUpdate(ele) {
   var timeout = null;
   ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-    if (preValue === info.value && prePath === info.path && preEle === ele) {
+    if (info.oldValue === info.value) {
       return;
     }
 
-    preValue = info.value;
-    prePath = info.path;
-    preEle = ele;
     clearTimeout(timeout);
 
     timeout = setTimeout(function () {
@@ -1130,16 +1151,27 @@ var WeElement = function (_HTMLElement) {
       }
     }
 
-    this.install();
-    var shadowRoot = this.attachShadow({ mode: 'open' });
+    !this._isInstalled && this.install();
+    var shadowRoot;
+    if (!this.shadowRoot) {
+      shadowRoot = this.attachShadow({
+        mode: 'open'
+      });
+    } else {
+      shadowRoot = this.shadowRoot;
+      var fc;
+      while (fc = shadowRoot.firstChild) {
+        shadowRoot.removeChild(fc);
+      }
+    }
 
     this.css && shadowRoot.appendChild(cssToDom(this.css()));
-    this.beforeRender();
+    !this._isInstalled && this.beforeRender();
     options.afterInstall && options.afterInstall(this);
     if (this.constructor.observe) {
       proxyUpdate(this);
     }
-    this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
+    this.host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
     if (isArray(this.host)) {
       this.host.forEach(function (item) {
         shadowRoot.appendChild(item);
@@ -1147,7 +1179,7 @@ var WeElement = function (_HTMLElement) {
     } else {
       shadowRoot.appendChild(this.host);
     }
-    this.installed();
+    !this._isInstalled && this.installed();
     this._isInstalled = true;
   };
 
@@ -1166,7 +1198,7 @@ var WeElement = function (_HTMLElement) {
   WeElement.prototype.update = function update() {
     this.beforeUpdate();
     this.beforeRender();
-    diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
+    this.host = diff(this.host, this.render(this.props, this.data, this.store));
     this.afterUpdate();
   };
 
@@ -1491,6 +1523,12 @@ function getHost(ele) {
   }
 }
 
+function rpx(str) {
+  return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
+    return window.innerWidth * Number(b) / 750 + 'px';
+  });
+}
+
 var Component = WeElement;
 
 var omi = {
@@ -1504,11 +1542,12 @@ var omi = {
   define: define,
   observe: observe,
   cloneElement: cloneElement,
-  getHost: getHost
+  getHost: getHost,
+  rpx: rpx
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.0.19';
+options.root.Omi.version = '4.0.26';
 
 exports.default = omi;
 exports.tag = tag;
@@ -1522,6 +1561,7 @@ exports.define = define;
 exports.observe = observe;
 exports.cloneElement = cloneElement;
 exports.getHost = getHost;
+exports.rpx = rpx;
 //# sourceMappingURL=omi.esm.js.map
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -1612,8 +1652,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         _this2.data.tag = 'my-home';
       });
 
-      route('/about', function (params, query) {
-        console.log(query);
+      route('/about', function (evt) {
+        console.log(evt.query);
         _this2.data.tag = 'my-about';
       });
 
@@ -1621,9 +1661,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         _this2.data.tag = 'user-list';
       });
 
-      route('/user/:name/category/:category', function (params) {
+      route('/user/:name/category/:category', function (evt) {
         _this2.data.tag = 'my-user';
-        _this2.data.params = params;
+        _this2.data.params = evt.params;
       });
 
       route('*', function () {
@@ -1730,7 +1770,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = route;
 /*!
- *  omi-router v2.0.4 by dntzhang
+ *  omi-router v2.0.6 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -1743,7 +1783,8 @@ var root = getGlobal();
 root.route = route;
 root.route.params = null;
 
-root.route.to = function (path) {
+root.route.to = function (path, data) {
+  root.route.data = data;
   if (path[0] === '#') {
     location.hash = path;
   } else {
@@ -1766,7 +1807,13 @@ function change(evt) {
     if (toArr) {
       var pathArr = key.match(mapping[key].reg);
       root.route.params = getParams(toArr, pathArr);
-      mapping[key].callback(root.route.params, getUrlParams(path));
+      root.route.query = getUrlParams(path);
+      mapping[key].callback({
+        params: root.route.params,
+        query: getUrlParams(path),
+        data: root.route.data
+      });
+      root.route.data = null;
       notFound = false;
       return false;
     }
