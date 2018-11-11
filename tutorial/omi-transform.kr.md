@@ -10,7 +10,7 @@ Omi Transform 은 특수 모션 솔루션으로 Omi 프로젝트에서 CSS Trans
 
 [css3transform 공식 홈페이지](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 를 통해 빠르게 확인할 수 있습니다.
 
-공식 웹사이트의 예는 Native JS를 사용한 예이고이고 css3transform의 React 버전도 있습니다. 그래서 React 의 선언전 프로그래밍 방식으로도 css3transform 을 사용할 수 있습니다:
+공식 웹사이트의 예는 Native JS를 사용한 예이고이고 css3transform의 React 버전도 있습니다. 그래서 React 의 선언적 프로그래밍 방식으로도 css3transform 을 사용할 수 있습니다:
 
 ``` js
 render() {
