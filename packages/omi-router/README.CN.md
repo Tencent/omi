@@ -42,14 +42,15 @@ define('my-app', class extends WeElement {
   static observe = true
 
   data = { tag: 'my-home' }
-  
+
   install() {
 
     route('/', () => {
       this.data.tag = 'my-home'
     })
 
-    route('/about', () => {
+    route('/about', (evt) => {
+      console.log(evt.query)
       this.data.tag = 'my-about'
     })
 
@@ -57,9 +58,9 @@ define('my-app', class extends WeElement {
       this.data.tag = 'user-list'
     })
 
-    route('/user/:name/category/:category', (params) => {
+    route('/user/:name/category/:category', (evt) => {
       this.data.tag = 'my-user'
-      this.data.params = params
+      this.data.params = evt.params
     })
 
     route('*', function () {
@@ -88,6 +89,7 @@ define('my-app', class extends WeElement {
           <li><a href="#/" >Home</a></li>
           <li><a href="#/about" >About</a></li>
           <li><a href="#/user-list" >UserList</a></li>
+          <li><a href="#/about?name=dntzhang&age=18" >About Dntzhang</a></li>
         </ul>
         <div id="view">
           <data.tag params={data.params} />
@@ -115,9 +117,9 @@ render(<my-app />, "#container")
 ```
 
 ```js
-route('/about', (params, query) => {
+route('/about', (evt) => {
   //点击上面的标签会输出 { name: 'dntzhang', age : '18' } 
-  console.log(query)
+  console.log(evt.query)
 })
 ```
 
