@@ -9,6 +9,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 - Tiny size. _(**4kb** gzipped)_
 - Supports TypeScript.
 - Reactive data-binding
+- Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26)) base on **750** screen width
 - [Based on Shadow DOM](https://developers.google.com/web/fundamentals/web-components/shadowdom)
 - Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
 - Compliance with browser trend and API design.
