@@ -1,12 +1,11 @@
 import { render, WeElement, define, rpx } from '../../src/omi'
 
-define('my-counter',
-class extends WeElement {
-	static observe = true
+define('my-counter', class extends WeElement {
+  static observe = true
 
-	css() {
-		return rpx(`div{font-size:375rpx}`)
-	}
+  css() {
+    return rpx(`div{font-size:375rpx}`)
+  }
 
   data = {
     count: 1

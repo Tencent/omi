@@ -500,6 +500,11 @@
         var p = ele.parentNode;
         while (p) if (p.host) return p.host; else p = p.parentNode;
     }
+    function rpx(str) {
+        return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
+            return window.innerWidth * Number(b) / 750 + 'px';
+        });
+    }
     var options = {
         store: null,
         root: function() {
@@ -799,10 +804,11 @@
         define: define,
         observe: observe,
         cloneElement: cloneElement,
-        getHost: getHost
+        getHost: getHost,
+        rpx: rpx
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.25';
+    options.root.Omi.version = '4.0.26';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

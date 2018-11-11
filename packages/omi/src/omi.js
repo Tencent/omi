@@ -22,8 +22,8 @@ const omi = {
   define,
   observe,
   cloneElement,
-	getHost,
-	rpx
+  getHost,
+  rpx
 }
 
 options.root.Omi = omi
@@ -42,6 +42,6 @@ export {
   define,
   observe,
   cloneElement,
-	getHost,
-	rpx
+  getHost,
+  rpx
 }
