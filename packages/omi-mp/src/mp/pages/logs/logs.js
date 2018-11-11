@@ -68,3 +68,4 @@ function render() {
 }
 
 customElements.define('we-logs', Element)
+          
