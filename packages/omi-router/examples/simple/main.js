@@ -15,7 +15,8 @@ define('my-app', class extends WeElement {
       this.data.tag = 'my-home'
     })
 
-    route('/about', () => {
+    route('/about', (params, query) => {
+      console.log(query)
       this.data.tag = 'my-about'
     })
 
@@ -74,6 +75,7 @@ define('my-app', class extends WeElement {
           <li><a href="#/" >Home</a></li>
           <li><a href="#/about" >About</a></li>
           <li><a href="#/user-list" >UserList</a></li>
+          <li><a href="#/about?name=dntzhang&age=18" >About Dntzhang</a></li>
         </ul>
         <div id="view">
           <data.tag params={data.params} />

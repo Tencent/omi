@@ -1612,7 +1612,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         _this2.data.tag = 'my-home';
       });
 
-      route('/about', function () {
+      route('/about', function (params, query) {
+        console.log(query);
         _this2.data.tag = 'my-about';
       });
 
@@ -1680,6 +1681,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
               { href: '#/user-list' },
               'UserList'
             )
+          ),
+          Omi.h(
+            'li',
+            null,
+            Omi.h(
+              'a',
+              { href: '#/about?name=dntzhang&age=18' },
+              'About Dntzhang'
+            )
           )
         ),
         Omi.h(
@@ -1720,7 +1730,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = route;
 /*!
- *  omi-router v2.0.3 by dntzhang
+ *  omi-router v2.0.4 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -1752,11 +1762,11 @@ function change(evt) {
   var path = window.location.hash.replace('#', '');
   var notFound = true;
   Object.keys(mapping).every(function (key) {
-    var toArr = path.match(mapping[key].reg);
+    var toArr = path.split('?')[0].match(mapping[key].reg);
     if (toArr) {
       var pathArr = key.match(mapping[key].reg);
       root.route.params = getParams(toArr, pathArr);
-      mapping[key].callback(root.route.params);
+      mapping[key].callback(root.route.params, getUrlParams(path));
       notFound = false;
       return false;
     }
@@ -1798,6 +1808,20 @@ function getGlobal() {
     }();
   }
   return global;
+}
+
+function getUrlParams(url) {
+  url = url.replace(/#.*$/, '');
+  var queryArray = url.split(/[?&]/).slice(1);
+  var i,
+      args = {};
+  for (i = 0; i < queryArray.length; i++) {
+    var match = queryArray[i].match(/([^=]+)=([^=]+)/);
+    if (match !== null) {
+      args[match[1]] = decodeURIComponent(match[2]);
+    }
+  }
+  return args;
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 

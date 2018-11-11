@@ -31,11 +31,11 @@ function change(evt) {
   var path = window.location.hash.replace('#', '')
   var notFound = true
   Object.keys(mapping).every(function(key){
-    var toArr = path.match(mapping[key].reg)
+    var toArr = path.split('?')[0].match(mapping[key].reg)
     if (toArr) {
       var pathArr = key.match(mapping[key].reg)
       root.route.params = getParams(toArr, pathArr)
-      mapping[key].callback(root.route.params)
+      mapping[key].callback(root.route.params, getUrlParams(path))
       notFound = false
       return false
     }
@@ -90,3 +90,15 @@ function getGlobal() {
   return global
 }
 
+function getUrlParams(url) {
+  url = url.replace(/#.*$/, '')
+  var queryArray = url.split(/[?&]/).slice(1)
+  var i, args = {}
+  for (i = 0; i < queryArray.length; i++) {
+      var match = queryArray[i].match(/([^=]+)=([^=]+)/)
+      if (match !== null) {
+          args[match[1]] = decodeURIComponent(match[2])
+      }
+  }
+  return args
+}
