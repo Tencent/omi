@@ -107,6 +107,19 @@ render(<my-app />, "#container")
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
 
+## With Query Parameter
+
+```html
+<li><a href="#/about?name=dntzhang&age=18" >About</a></li>
+```
+
+```js
+route('/about', (params, query) => {
+  //output { name: 'dntzhang', age : '18' } when click the a tag above
+  console.log(query)
+})
+```
+
 ## Links
 
 * [DEMO](https://tencent.github.io/omi/packages/omi-router/examples/simple/)

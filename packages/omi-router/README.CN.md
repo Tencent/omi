@@ -108,6 +108,18 @@ render(<my-app />, "#container")
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
 
+## 另一种携带查询参数方法
+
+```html
+<li><a href="#/about?name=dntzhang&age=18" >About</a></li>
+```
+
+```js
+route('/about', (params, query) => {
+  //点击上面的标签会输出 { name: 'dntzhang', age : '18' } 
+  console.log(query)
+})
+```
 
 ### 地址
 
