@@ -741,7 +741,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
 
-任何 Omi 相关问题欢迎联系我们。
+任何 Omi 相关问题欢迎联系我们。也可以[加入 Omi QQ 群](https://github.com/Tencent/omi/issues/169)进行讨论交流。
 
 ## 感谢
 
