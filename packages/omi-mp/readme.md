@@ -1,6 +1,6 @@
 # omi-mp - 微信小程序开发和生成 Web
 
-> 通过微信小程序开发和一键生成 Web 的 H5 SPA (基于Omi + omi-router)
+> 通过微信小程序开发和一键生成 Web 的 H5 SPA (基于 omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
 
 看下官方模板的转换例子：
 
@@ -66,14 +66,16 @@ compile(`
 ```js
 function render() {
   return (
-    h('view', {}, [1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
-      h('view', {}, [1, 2, 3, 4, 5, 6, 7, 8, 9].map((j, index) => {
-        i <= j && h('view', {}, [`${i} * ${j} = ${i * j}`])
+    h('div', {}, [1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
+      h('div', {}, [1, 2, 3, 4, 5, 6, 7, 8, 9].map((j, index) => {
+        i <= j && h('div', {}, [`${i} * ${j} = ${i * j}`])
       }))
     }))
   )
 }
 ```
+
+Wxml 会被编译成 hyperscript，并且对应的标签会被[转换成 HTML 标签](https://github.com/Tencent/omi/blob/master/packages/omi-mp/scripts/mp/tag-mapping.js#L1-L17)。
 
 ## WXSS 编译
 
