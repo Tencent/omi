@@ -770,7 +770,7 @@
         WeElement.prototype.update = function() {
             this.beforeUpdate();
             this.beforeRender();
-            diff(this.host, this.render(this.props, this.data, this.store));
+            this.host = diff(this.host, this.render(this.props, this.data, this.store));
             this.afterUpdate();
         };
         WeElement.prototype.fire = function(name, data) {
@@ -802,7 +802,7 @@
         getHost: getHost
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.24';
+    options.root.Omi.version = '4.0.25';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
