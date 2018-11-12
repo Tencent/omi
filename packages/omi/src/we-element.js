@@ -81,7 +81,13 @@ export default class WeElement extends HTMLElement {
   update() {
     this.beforeUpdate()
     this.beforeRender()
-    this.host = diff(this.host, this.render(this.props, this.data, this.store))
+    this.host = diff(
+      this.host,
+      this.render(this.props, this.data, this.store), 
+      null,
+      null,
+      this.shadowRoot
+    )
     this.afterUpdate()
   }
 

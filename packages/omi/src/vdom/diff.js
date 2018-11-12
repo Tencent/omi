@@ -58,7 +58,11 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
       })
     }
   } else {
-    ret = idiff(dom, vnode, context, mountAll, componentRoot)
+    if (isArray(dom)) {
+      ret = idiff(dom[0], vnode, context, mountAll, componentRoot)
+    } else {
+      ret = idiff(dom, vnode, context, mountAll, componentRoot)
+    }
     // append the element if its a new parent
     if (parent && ret.parentNode !== parent) parent.appendChild(ret)
   }
