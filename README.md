@@ -735,6 +735,8 @@ Please contact us for any questions.
 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
+* [create-react-app](https://github.com/facebook/create-react-app)
+* [JSX](https://github.com/facebook/jsx)
 
 ## License
 
