@@ -1,39 +1,36 @@
-import { render } from 'omi'
 import 'omi-router'
-import './utils/mp'
+import { routeUpdate } from './utils/mp'
 import './mp/app'
 
-route('*', p => {
+const root = document.querySelector('#root')
+
+route('*', evt => {
   title('index')
-  empty('#root')
-  render(<we-index />, '#root')
+  routeUpdate(<we-index />, 'we-index', evt.byNative, root)
 })
 
-route('../index/index', p => {
+route('../index/index', evt => {
   title('index')
-  empty('#root')
-  render(<we-index />, '#root')
+  routeUpdate(<we-index />, 'we-index', evt.byNative, root)
 })
 
-route('../coming_soon/coming_soon', p => {
+route('../coming_soon/coming_soon', evt => {
   title('coming_soon')
-  empty('#root')
-  render(<we-coming_soon />, '#root')
+  routeUpdate(<we-coming_soon />, 'we-coming_soon', evt.byNative, root)
 })
 
-route('../detail/detail', p => {
+route('../detail/detail', evt => {
   title('detail')
-  empty('#root')
-  render(<we-detail />, '#root')
+  routeUpdate(<we-detail />, 'we-detail', evt.byNative, root)
 })
 
-function empty(selector) {
-  const node = document.querySelector(selector)
-  while (node.firstChild) {
-    node.removeChild(node.firstChild)
-  }
-  document.documentElement.scrollTop = 0
-  document.body.scrollTop = 0
+
+window.onscroll = function(){
+  root.childNodes.forEach(child => {
+    if(child.style.display !== 'none'){
+      child._preScrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+    }
+  })
 }
 
 function title(value) {

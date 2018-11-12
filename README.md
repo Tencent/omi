@@ -49,9 +49,22 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
+| [westore](https://github.com/dntzhang/westore)| Wechat Mini Program Solution westore, inspired Omi each other |
 | [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) working |Weui for Omi by [@132yse](https://github.com/132yse).|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
+
+## omi-mp
+
+> Through Wechat Mini Program, develop HTML5 SPA and onclick generate Web (Based on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
+
+Conversion example of the official template:
+
+| **Index**                         | **Logs**                           |
+| ------------------------------- | ----------------------------------- |
+|![](./assets/mp1.jpg)| ![](./assets/mp2.jpg)|
+
+Because in the web cannot take the user login state, the user avatar and name are replaced.
 
 ## Useful Resources
 
@@ -70,6 +83,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 # Overview of the Readme
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
+- [omi-mp](#omi-mp)
 - [Useful Resources](#useful-resources)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Add Omi in 30 Seconds](#add-omi-in-30-seconds)
@@ -729,12 +743,14 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
 
-Please contact us for any questions.
+Please contact us for any questions. Also, Add [Omi QQ Group](https://github.com/Tencent/omi/issues/169).
 
 ## Thanks
 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
+* [create-react-app](https://github.com/facebook/create-react-app)
+* [JSX](https://github.com/facebook/jsx)
 
 ## License
 

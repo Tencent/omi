@@ -748,6 +748,8 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
+* [create-react-app](https://github.com/facebook/create-react-app)
+* [JSX](https://github.com/facebook/jsx)
 
 ## License
 
