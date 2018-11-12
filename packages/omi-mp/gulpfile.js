@@ -189,25 +189,25 @@ gulp.task('route', ['copy'], (cb) => {
   let json = require('./src/mp/app.json')
   //fs.unlinkSync('./src/index.js')
 
-  fs.writeFile('./src/index.js', `import { render } from 'omi'
-import 'omi-router'
-import './utils/mp'
+  fs.writeFile('./src/index.js', `import 'omi-router'
+import { routeUpdate } from './utils/mp'
 import './mp/app'
+
+const root = document.querySelector('#root')
 
 route('*', evt => {
   title('index')
-  empty('#root')
-  render(<we-index />, '#root')
+  routeUpdate(<we-index />, 'we-index', evt.byNative, root)
 })
 
 ${route(json.pages)}
-function empty(selector) {
-  const node = document.querySelector(selector)
-  while (node.firstChild) {
-    node.removeChild(node.firstChild)
-  }
-  document.documentElement.scrollTop = 0
-  document.body.scrollTop = 0
+
+window.onscroll = function(){
+  root.childNodes.forEach(child => {
+    if(child.style.display !== 'none'){
+      child._preScrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+    }
+  })
 }
 
 function title(value) {
@@ -223,8 +223,7 @@ function route(arr) {
     const name = item.split('/')[1]
     result.push(`route('${item.replace('pages', '..')}', evt => {
   title('${name}')
-  empty('#root')
-  render(<we-${name} />, '#root')
+  routeUpdate(<we-${name} />, 'we-${name}', evt.byNative, root)
 })
 `)
   })

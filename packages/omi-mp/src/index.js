@@ -19,6 +19,16 @@ route('../logs/logs', evt => {
   routeUpdate(<we-logs />, 'we-logs', evt.byNative, root)
 })
 
+
+window.onscroll = function(){
+  root.childNodes.forEach(child => {
+    if(child.style.display !== 'none'){
+      child._preScrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+    }
+  })
+}
+
 function title(value) {
   document.title = value
 }
+    

@@ -75,9 +75,6 @@ function getUrlParams(url) {
 
 export function routeUpdate(node, selector, byNative, root) {
   root.childNodes.forEach(child => {
-    if(child.style.display !== 'none'){
-      child._preScrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-    }
     child.style.display = 'none'
   })
   if (byNative) {
