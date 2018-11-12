@@ -117,7 +117,7 @@ render(<my-app />, "#container")
 
 ```js
 route('/about', (evt) => {
-  //output { name: 'dntzhang', age : '18' } when click the a tag above
+  //output { name: 'dntzhang', age : '18' } when click the tag above
   console.log(evt.query)
 })
 ```
