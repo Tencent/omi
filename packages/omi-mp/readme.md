@@ -123,7 +123,7 @@ div img .image{
 
 ## 注意
 
-目前不支持 template 标签，欢迎试用反馈或 PR。
+目前不支持 template 标签和一些原生组件标签，需要一些时间翻译成对应的 HTML 自定义元素，欢迎试用反馈或 PR。
 
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
