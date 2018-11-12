@@ -1,6 +1,7 @@
 import { getUpdatePath } from "../src/define";
 import { matchGlobalData, needUpdate, fixPath } from "../src/render";
 import { npn, nProps } from "../src/util";
+
 //proxy test
 //https://github.com/Palindrom/JSONPatcherProxy/blob/master/test/spec/proxySpec.js
 
@@ -74,4 +75,22 @@ test("nProps", () => {
 	expect(
 		nProps({ a: { value: 1 }, b: { value: 2 }, abC: { value: 3 } })
 	).toEqual({ a: 1, b: 2, abC: 3 });
+});
+
+function rpx(str) {
+  return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, (a, b, c) => {
+    return (375 * Number(b)) / 750 + 'px'
+  })
+}
+
+test("rpx", () => {
+	expect(
+		rpx('div{ width: 100rpx}')
+	).toEqual('div{ width: 50px}');
+});
+
+test("rpx", () => {
+	expect(
+		rpx('div{ width: 100.5rpx}')
+	).toEqual('div{ width: 50px}');
 });
