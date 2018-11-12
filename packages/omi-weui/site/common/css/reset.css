@@ -1,0 +1,18 @@
+* ,ul{
+  margin: 0;
+  padding: 0;
+}
+
+textarea,
+input {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: #00c800;
+}
+
+li {
+  list-style: none;
+}
