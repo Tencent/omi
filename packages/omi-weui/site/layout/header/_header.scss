@@ -1,0 +1,33 @@
+.header {
+  padding: 10px;
+  width: 1000px;
+  margin: 0 auto;
+  .wrap {
+    display: flex;
+    align-items: center
+  }
+  .logo {
+    justify-content: left;
+    font-size: 20px;
+    color: #00c800;
+  }
+  .menu {
+    justify-content: right;
+    flex: 1;
+    a {
+      color: #333;
+    }
+    ul{
+      text-align: right;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      padding: 10px;
+    }
+  }
+  .clear {
+    clear: both;
+  }
+}

@@ -1,0 +1,10 @@
+body {
+  font: 14px 微软雅黑;
+  color: #555;
+  background: #fffffd;
+}
+
+.wrap {
+  width: 1000px;
+  margin: 0 auto;
+}

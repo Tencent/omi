@@ -1,39 +1,12 @@
-# Omi WeUI
+# omi-weui
+> weui for Omi
 
-> Omi version of [weui](https://github.com/Tencent/weui).
+这里是 weui 开发版本，会整体重构
 
+src 为组件源码 line为线上文档
 
-默认先瞎糊一波，后续会重构√
-逻辑复杂的组件，如 picker、popup 会直接重新封装
+后编译配置通过 babel-loader 的 include 选项
 
-### Progress
-
-- [x] button
-- [x] article
-- [x] mark
-- [x] flex
-- [x] flex-item
-- [x] search-bar
-- [x] msg
-- [x] toast
-- [x] dialog
-- [x] badge
-- [x] toptip
-- [x] label
-- [x] progress
-- [x] loadmore
-- [x] actionsheet
-- [x] infiniteloader
-- [ ] picker
-- [ ] swaper
-- [ ] tab
-- [ ] form
-- [ ] cell
-- [ ] mediabox
-- [ ] grid
-- [ ] gallery
-
-
-
-
-
+```shell
+yarn dev
+```
