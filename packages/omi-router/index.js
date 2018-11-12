@@ -1,5 +1,5 @@
 /*!
- *  omi-router v2.0.4 by dntzhang
+ *  omi-router v2.0.7 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -12,7 +12,8 @@ var root = getGlobal()
 root.route = route
 root.route.params = null
 
-root.route.to = function (path) {
+root.route.to = function (path, data) {
+  root.route.data = data
   if (path[0] === '#') {
     location.hash = path
   } else {
@@ -31,11 +32,17 @@ function change(evt) {
   var path = window.location.hash.replace('#', '')
   var notFound = true
   Object.keys(mapping).every(function(key){
-    var toArr = path.match(mapping[key].reg)
+    var toArr = path.split('?')[0].match(mapping[key].reg)
     if (toArr) {
       var pathArr = key.match(mapping[key].reg)
       root.route.params = getParams(toArr, pathArr)
-      mapping[key].callback(root.route.params)
+      root.route.query = getUrlParams(path)
+      mapping[key].callback({
+        params: root.route.params,
+        query: getUrlParams(path),
+        data: root.route.data
+      })
+      root.route.data = null
       notFound = false
       return false
     }
@@ -43,7 +50,7 @@ function change(evt) {
   })
 
   if (notFound) {
-    mapping['*'] && mapping['*'].callback()
+    mapping['*'] && mapping['*'].callback({})
   }
 
   if (evt.type === 'hashchange' && root.route.after) {
@@ -90,3 +97,15 @@ function getGlobal() {
   return global
 }
 
+function getUrlParams(url) {
+  url = url.replace(/#.*$/, '')
+  var queryArray = url.split(/[?&]/).slice(1)
+  var i, args = {}
+  for (i = 0; i < queryArray.length; i++) {
+      var match = queryArray[i].match(/([^=]+)=([^=]+)/)
+      if (match !== null) {
+          args[match[1]] = decodeURIComponent(match[2])
+      }
+  }
+  return args
+}

@@ -1,6 +1,6 @@
 import '../my-child/my-child'
 import componentCss from './my-ele.wxss'
-import { h, WeElement } from 'omi'
+import { h, WeElement, rpx } from 'omi'
 import { setData } from '../../../utils/set-data'
 
   // components/my-ele/my-ele.js
@@ -70,7 +70,7 @@ Object.keys(mpOption.methods).forEach(key => {
 })
 
 function css() {
-  return rpx2px(componentCss)
+  return rpx(componentCss)
 }
 
 function render() {

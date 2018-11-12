@@ -9,6 +9,7 @@
 - 小巧的尺寸(gzip压缩后仅4kb)
 - 支持 `TypeScript`
 - 响应式数据绑定
+- 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
 - [基于 Shadow Dom 设计](https://developers.google.cn/web/fundamentals/web-components/shadowdom?hl=zh-cn)
 - 利用[Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)轻松调试，[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)
 - 符合浏览器的发展趋势以及API设计理念
@@ -741,7 +742,7 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 - [@dntzhang](https://github.com/dntzhang)
 - [@xcatliu](https://github.com/xcatliu)
 
-任何 Omi 相关问题欢迎联系我们。
+任何 Omi 相关问题欢迎联系我们。也可以[加入 Omi QQ 群](https://github.com/Tencent/omi/issues/169)进行讨论交流。
 
 ## 感谢
 

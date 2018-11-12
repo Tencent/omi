@@ -1,7 +1,7 @@
 import '../../components/my-ele/my-ele'
 import appCss from '../../app.wxss'
 import pageCss from './logs.wxss'
-import { h, WeElement } from 'omi'
+import { h, WeElement, rpx } from 'omi'
 import { setData } from '../../../utils/set-data'
 
   //logs.js
@@ -44,8 +44,8 @@ class Element extends WeElement {
   uninstall = mpOption.onUnload || function() {}
 
   installed = function(){
-    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
-    mpOption.onReady && mpOption.onReady.call(this, route._params)
+    mpOption.onLoad && mpOption.onLoad.call(this, route.query)
+    mpOption.onReady && mpOption.onReady.call(this, route.query)
   }
 
   setData = setData
@@ -56,7 +56,7 @@ Object.keys(mpOption).forEach(key => {
 })
 
 function css() {
-  return rpx2px(appCss + pageCss)
+  return rpx(appCss + pageCss)
 }
 
 function render() {

@@ -22,7 +22,7 @@ gulp.task('components', ['copy'], () => {
           file.contents = Buffer.concat([
             new Buffer(
               `${importStr}import componentCss from './${name}.wxss'
-import { h, WeElement } from 'omi'
+import { h, WeElement, rpx } from 'omi'
 import { setData } from '../../../utils/set-data'
 
   `
@@ -74,7 +74,7 @@ Object.keys(mpOption.methods).forEach(key => {
 })
 
 function css() {
-  return rpx2px(componentCss)
+  return rpx(componentCss)
 }
 
 ${hyperscript}
@@ -109,7 +109,7 @@ gulp.task('pages', ['copy'], () => {
             new Buffer(
               `${importStr}import appCss from '../../app.wxss'
 import pageCss from './${name}.wxss'
-import { h, WeElement } from 'omi'
+import { h, WeElement, rpx } from 'omi'
 import { setData } from '../../../utils/set-data'
 
   `
@@ -138,8 +138,8 @@ class Element extends WeElement {
   uninstall = mpOption.onUnload || function() {}
 
   installed = function(){
-    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
-    mpOption.onReady && mpOption.onReady.call(this, route._params)
+    mpOption.onLoad && mpOption.onLoad.call(this, route.query)
+    mpOption.onReady && mpOption.onReady.call(this, route.query)
   }
 
   setData = setData
@@ -150,7 +150,7 @@ Object.keys(mpOption).forEach(key => {
 })
 
 function css() {
-  return rpx2px(appCss + pageCss)
+  return rpx(appCss + pageCss)
 }
 
 ${hyperscript}
@@ -206,6 +206,8 @@ function empty(selector) {
   while (node.firstChild) {
     node.removeChild(node.firstChild)
   }
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
 }
 
 function title(value) {

@@ -1,8 +1,21 @@
 {
-  "name": "omi-router-sample",
-  "version": "0.1.0",
-  "private": true,
+  "name": "omi-mp-web",
+  "version": "0.0.0",
+  "author": "dntzhang",
+  "license": "MIT",
   "dependencies": {
+    "@babel/core": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "concurrently": "^4.0.1",
+    "css": "^2.2.4",
+    "css-what": "^2.1.2",
+    "gulp": "^3.9.1",
+    "gulp-tap": "^1.0.1",
+    "gulp-watch": "^5.0.1",
+    "html2json": "^1.0.2",
+    "uglify-js": "^3.4.9"
+  },
+  "devDependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
     "babel-eslint": "7.2.3",
@@ -53,10 +66,12 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "_build": "node scripts/build.js",
-    "build": "PUBLIC_URL=https://tencent.github.io/omi/packages/omi-router/examples/spa/build npm run _build",
-    "fix": "eslint src --fix"
+    "start": "concurrently --kill-others \"gulp\" \"node scripts/start.js\"",
+    "test": "node test/index.js",
+    "build": "node scripts/build.js",
+    "fix": "eslint src --fix",
+    "fix-s": "eslint scripts --fix",
+    "fix-gulp": "eslint gulpfile.js --fix"
   },
   "jest": {
     "collectCoverageFrom": [

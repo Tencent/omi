@@ -32,6 +32,8 @@ function empty(selector) {
   while (node.firstChild) {
     node.removeChild(node.firstChild)
   }
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
 }
 
 function title(value) {

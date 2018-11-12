@@ -32,16 +32,9 @@ wx.getSystemInfoSync = function() {
 
 wx.getUserInfo = function() {}
 
-//用户可以有个开关不转
-window.rpx2px = function(str) {
-  return str.replace(/([0-9]*)rpx/g, (a, b) => {
-    return (window.innerWidth * Number(b)) / 750 + 'px'
-  })
-}
-
 wx.navigateTo = function(option) {
-  route._params = getUrlParams(option.url)
-  route.to(option.url.split('?')[0])
+  route.query = getUrlParams(option.url)
+  route.to(option.url, option)
 }
 
 window.wx = wx

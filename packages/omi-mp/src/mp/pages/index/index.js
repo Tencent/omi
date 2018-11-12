@@ -1,7 +1,7 @@
 
 import appCss from '../../app.wxss'
 import pageCss from './index.wxss'
-import { h, WeElement } from 'omi'
+import { h, WeElement, rpx } from 'omi'
 import { setData } from '../../../utils/set-data'
 
   //index.js
@@ -22,7 +22,10 @@ const mpOption = Page({
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
-      url: '../logs/logs?name=dntzhang&age=18'
+      url: '../logs/logs?name=dntzhang&age=18',
+      alive: true,  //当前视图是否alive，默认ture
+      scollTop: 0  //目标url的scollTop，不传scollTop的话使用以前保留的
+      // 浏览器后退行为刚好 alive用true，scollTop不传
     })
   },
   onLoad: function () {
@@ -81,8 +84,8 @@ class Element extends WeElement {
   uninstall = mpOption.onUnload || function() {}
 
   installed = function(){
-    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
-    mpOption.onReady && mpOption.onReady.call(this, route._params)
+    mpOption.onLoad && mpOption.onLoad.call(this, route.query)
+    mpOption.onReady && mpOption.onReady.call(this, route.query)
   }
 
   setData = setData
@@ -93,7 +96,7 @@ Object.keys(mpOption).forEach(key => {
 })
 
 function css() {
-  return rpx2px(appCss + pageCss)
+  return rpx(appCss + pageCss)
 }
 
 function render() {
@@ -103,4 +106,3 @@ function render() {
 }
 
 customElements.define('we-index', Element)
-          

@@ -41,14 +41,15 @@ define('my-app', class extends WeElement {
   static observe = true
 
   data = { tag: 'my-home' }
-  
+
   install() {
 
     route('/', () => {
       this.data.tag = 'my-home'
     })
 
-    route('/about', () => {
+    route('/about', (evt) => {
+      console.log(evt.query)
       this.data.tag = 'my-about'
     })
 
@@ -56,9 +57,9 @@ define('my-app', class extends WeElement {
       this.data.tag = 'user-list'
     })
 
-    route('/user/:name/category/:category', (params) => {
+    route('/user/:name/category/:category', (evt) => {
       this.data.tag = 'my-user'
-      this.data.params = params
+      this.data.params = evt.params
     })
 
     route('*', function () {
@@ -87,6 +88,7 @@ define('my-app', class extends WeElement {
           <li><a href="#/" >Home</a></li>
           <li><a href="#/about" >About</a></li>
           <li><a href="#/user-list" >UserList</a></li>
+          <li><a href="#/about?name=dntzhang&age=18" >About Dntzhang</a></li>
         </ul>
         <div id="view">
           <data.tag params={data.params} />
@@ -106,6 +108,19 @@ render(<my-app />, "#container")
 |---------|------|--------|
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
+
+## With Query Parameter
+
+```html
+<li><a href="#/about?name=dntzhang&age=18" >About</a></li>
+```
+
+```js
+route('/about', (evt) => {
+  //output { name: 'dntzhang', age : '18' } when click the a tag above
+  console.log(evt.query)
+})
+```
 
 ## Links
 
