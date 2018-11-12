@@ -1,0 +1,8 @@
+
+Page({
+ 
+  onLoad: function () {
+   
+  }
+  
+})

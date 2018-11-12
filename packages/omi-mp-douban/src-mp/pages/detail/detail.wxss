@@ -1,0 +1,25 @@
+.film-detail .film-info{
+    line-height: 1.2;
+}
+.film-detail .film-info view{
+  margin-bottom: 6px;
+}
+.summary{
+    padding: 0 10px;
+}
+.summary .title{
+    font-size: 16px;
+    margin: 15px 0;
+}
+.summary .content{
+    text-indent: 2em;
+}
+.collect-wish view{
+    display: inline-block;
+}
+.collect-wish view:first-child{
+    margin-right: 5px;
+}
+.collect-wish text{
+    color: #666;
+}

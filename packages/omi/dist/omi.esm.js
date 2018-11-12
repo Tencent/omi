@@ -1,5 +1,5 @@
 /**
- * omi v4.0.24  http://omijs.org
+ * omi v4.0.26  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1108,7 +1108,7 @@ var WeElement = function (_HTMLElement) {
   WeElement.prototype.update = function update() {
     this.beforeUpdate();
     this.beforeRender();
-    diff(this.host, this.render(this.props, this.data, this.store));
+    this.host = diff(this.host, this.render(this.props, this.data, this.store));
     this.afterUpdate();
   };
 
@@ -1421,6 +1421,12 @@ function getHost(ele) {
   }
 }
 
+function rpx(str) {
+  return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
+    return window.innerWidth * Number(b) / 750 + 'px';
+  });
+}
+
 var Component = WeElement;
 
 var omi = {
@@ -1434,12 +1440,13 @@ var omi = {
   define: define,
   observe: observe,
   cloneElement: cloneElement,
-  getHost: getHost
+  getHost: getHost,
+  rpx: rpx
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.0.24';
+options.root.Omi.version = '4.0.26';
 
 export default omi;
-export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost };
+export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx };
 //# sourceMappingURL=omi.esm.js.map

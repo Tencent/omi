@@ -197,7 +197,7 @@ Transform(domElement, [notPerspective])
 ## 使用姿势
 
 ```js
-Transform(domElement)//or Transform(domElement, true);
+Transform(domElement)//or Transform(domElement, true)
 
 //set 
 domElement.translateX = 100
@@ -253,7 +253,7 @@ var position = { x: 100, y: 100, rotation: 0 },
     .onUpdate(function update() {
         var t_str= 'translateX(' + position.x + 'px) translateY(' + position.y + 'px) rotate(' + Math.floor(position.rotation) + 'deg)'
         element.style.transform = element.style.msTransform = element.style.OTransform = element.style.MozTransform = element.style.webkitTransform = t_str
-    });
+    })
 ```
 
 使用字符串的方式，看着就心累。更别提写的过程要遭受多少折磨。
@@ -336,7 +336,7 @@ css3transform 不仅仅可以mix CSS3 transform 到 DOM 元素，还能 mix 到�
 #### 语法1
 
 ```js
-Transform(obj, [notPerspective]);
+Transform(obj, [notPerspective])
 ```
 如你所见，其他方式都不用变。只是第一个参数不仅仅可以传DOM元素，也可以传任意对象字面量等。
 
@@ -383,7 +383,7 @@ matrix3d(0,1,0,0,-1,0,0,0,0,0,1,0,0,0,0,1)
 var element = document.querySelector("#test"),
     obj = { translateX: 0, translateY: 0 }
 
-Transform(obj);
+Transform(obj)
 
 var tween = new TWEEN.Tween(obj)
     .to({ translateX: 100, translateY: 100 }, 1000)
@@ -485,7 +485,7 @@ var element = document.querySelector("#test")
 Transform(element)
 var tween = new Tween(element)
     .to({ translateX: 100, translateY: 100 }, 1000)
-    .start();
+    .start()
 ```
 当然这有点跑题了。这里只是对比直接使用DOM挂载和使用第三方对象挂载的区别。第三方挂载有点隔山打牛的感觉。
 当然..，还没有完，不仅仅可以上面那个样子。那还可以把css3transform完全当作一个计算工具来用。
@@ -553,8 +553,8 @@ var matrix2d = Transform.getMatrix2D({
     translateX: 0,
     translateY: 100,
     scaleX:2
-});
-console.log(matrix2d);
+})
+console.log(matrix2d)
 ```
 打印出来你将得到下面的值：
 
@@ -569,10 +569,10 @@ console.log(matrix2d);
 
 那么得到这个Matrix2D有什么用?
 
-- 缩放：scale(sx, sy) 等同于 matrix(sx, 0, 0, sy, 0, 0);
-- 平移：translate(tx, ty) 等同于 matrix(1, 0, 0, 1, tx, ty);
-- 旋转：rotate(deg) 等同于 matrix(cos(deg), sin(deg), -sin(deg), cos(deg), 0, 0);
-- 拉伸：skew(degx, degy) 等同于 matrix(1, tan(degy), tan(degx), 1, 0, 0);
+- 缩放：scale(sx, sy) 等同于 matrix(sx, 0, 0, sy, 0, 0)
+- 平移：translate(tx, ty) 等同于 matrix(1, 0, 0, 1, tx, ty)
+- 旋转：rotate(deg) 等同于 matrix(cos(deg), sin(deg), -sin(deg), cos(deg), 0, 0)
+- 拉伸：skew(degx, degy) 等同于 matrix(1, tan(degy), tan(degx), 1, 0, 0)
 
 看css3transform源码可以得到 Transform.getMatrix2D一共支持的属性：
 
@@ -598,7 +598,7 @@ Transform.getMatrix2D = function(option){
 ## 特别注意事项
 
 Transform.getMatrix2D 和Transform.getMatrix3D都是支持origin特性，请和transform-origin说拜拜
-Transform.getMatrix2D 和Transform.getMatrix3D没有使用传统的Math.tan去实现shew，取而代之的是half of rotation
+Transform.getMatrix2D 和Transform.getMatrix3D没有使用传统的Math.tan去实现skew，取而代之的是half of rotation
 
 如2d的skew：
 ```js
@@ -625,7 +625,7 @@ var matrix = Transform.getMatrix2D({
     scaleX: 0.5,
     scaleY: 0.5,
     translateX: 100
-});
+})
 ele.style.transform = ele.style.msTransform = ele.style.OTransform = ele.style.MozTransform = ele.style.webkitTransform = "matrix(" + [matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty].join(",") + ")"
 ```
 
@@ -639,7 +639,7 @@ var canvas = document.getElementById("ourCanvas"),
     rotation = 30 * Math.PI / 180
 
 img.onload = function () {
-    ctx.sava();
+    ctx.sava()
     ctx.setTransform(
         0.5 * Math.cos(rotation), 0.5 * Math.sin(rotation),
         -0.5 * Math.sin(rotation), 0.5 * Math.cos(rotation),
@@ -664,13 +664,13 @@ var matrix = Transform.getMatrix2D({
     scaleY: 0.5,
     translateX: 200,
     translateY: 200
-});
+})
 
 img.onload = function () {
-    ctx.sava();
-    ctx.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-    ctx.drawImage(img, 0, 0);
-    ctx.restore();
+    ctx.sava()
+    ctx.setTransform(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty)
+    ctx.drawImage(img, 0, 0)
+    ctx.restore()
 }
 
 img.src = "asset/img/test.png"

@@ -1,20 +1,10 @@
 import '../../components/my-ele/my-ele'
 import appCss from '../../app.wxss'
 import pageCss from './logs.wxss'
-import { h, WeElement } from 'omi'
+import { h, WeElement, rpx } from 'omi'
 import { setData } from '../../../utils/set-data'
 
-function css() {
-  return rpx2px(appCss + pageCss)
-}
-function render() {
-  const { logs } = Object.assign({}, this.data, this.props)
-  return h('div',{'class': `container log-list `},[ logs.map((log,index)=>{
-        return h('span',{'class': `log-item`},[`${index + 1}. ${log}`])
-      }),h('my-ele',{'onmyevent': this.myEventHandler},[])])
-
-}
-//logs.js
+  //logs.js
 const util = require('../../utils/util.js')
 
 const mpOption = Page({
@@ -54,8 +44,8 @@ class Element extends WeElement {
   uninstall = mpOption.onUnload || function() {}
 
   installed = function(){
-    mpOption.onLoad && mpOption.onLoad.call(this, route._params)
-    mpOption.onReady && mpOption.onReady.call(this, route._params)
+    mpOption.onLoad && mpOption.onLoad.call(this, route.query)
+    mpOption.onReady && mpOption.onReady.call(this, route.query)
   }
 
   setData = setData
@@ -65,5 +55,17 @@ Object.keys(mpOption).forEach(key => {
   Element.prototype[key] = mpOption[key]
 })
 
+function css() {
+  return rpx(appCss + pageCss)
+}
+
+function render() {
+  const { logs } = Object.assign({}, this.data, this.props)
+  return h('div',{'class': `container log-list `},[ [logs.map((log,index)=>{
+        return h('span',{'class': `log-item`},[`${index + 1}. ${log}`])
+      })],h('my-ele',{'onmyevent': this.myEventHandler},[])])
+
+}
+
 customElements.define('we-logs', Element)
-        
+          

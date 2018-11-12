@@ -35,7 +35,7 @@
     "jest": "20.0.4",
     "object-assign": "4.1.1",
     "omi": "latest",
-    "omi-router": "^2.0.4",
+    "omi-router": "latest",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "prettier": "^1.14.3",
