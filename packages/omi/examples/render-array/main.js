@@ -1,4 +1,4 @@
-import { tag, render, WeElement } from './omi'
+import { tag, render, WeElement } from '../../src/omi'
 
 @tag('hello-element')
 class HelloElement extends WeElement {
