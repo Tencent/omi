@@ -9,6 +9,7 @@
 - 작은 파일 사이즈. _(**4kb** gzip 압축후)_
 - TypeScript 지원.
 - 반응형 데이터 바인딩
+- Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26) **750** width 사이즈를 기본으로한
 - [쉐도우 DOM 기반 설계](https://developers.google.com/web/fundamentals/web-components/shadowdom)
 - [Omi DevTools Extension](https://github.com/f/omi-devtools) 를 통한 쉬운 디버깅 [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
 - 브라우저 트렌드 및 API 디자인 준수.
@@ -48,9 +49,22 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)| Omi Mobx Adapter |
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)| React Hooks 방식 API |
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)| Web Components Native 렌더링 |
+| [westore](https://github.com/dntzhang/westore)| Wechat Mini Program Solution westore, Omi와 서로 서로 영감받음 |
 | [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) working | Omi 버전의 Weui [@132yse](https://github.com/132yse).|
 | [omi-i18n](https://github.com/i18next/omi-i18n)| i18next 에코시스템을 사용한 omi.js 다국어 지원 방식 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | [page](https://github.com/visionmedia/page.js) 를 통한 소형의 클라이언트 사이드 라우터 |
+
+## omi-mp
+
+> Wechat Mini Program을 통한 HTML5 SPA 개발 및 원 클릭 웹 생성 (based on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
+
+공식 템플릿 변환:
+
+| **Index**                         | **Logs**                           |
+| ------------------------------- | ----------------------------------- |
+|![](./assets/mp1.jpg)| ![](./assets/mp2.jpg)|
+
+웹에서 사용자 로그인 정보를 취득하지 못하기 때문에 사용자 아바타와 이름이 변경되었습니다.
 
 ## Useful Resources
 
@@ -69,6 +83,7 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 ---
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
+- [omi-mp](#omi-mp)
 - [Useful Resources](#useful-resources)
 - [Omi 1분 추가 가이드](#Omi-1분-추가-가이드)
 - [Omi 30초 추가 가이드](#Omi-30초-추가-가이드)
@@ -710,7 +725,7 @@ Omi 4.0+ 부터 주요 브라우저(Safari 10+, IE 11+, Chrome, Firefox, Edge)�
 4. Push to the branch (`git push origin my-urgent-hotfix`)
 5. Create a new Pull Request
 
-Please contact us for any questions:
+Omi 관련된관련하여 문제가 있을 경우 언제든지 저희에게 연락주세요. 혹은 [Omi QQ Group](https://github.com/Tencent/omi/issues/169) 추가 부탁 드립니다.
 
 - [@f](https://github.com/f)
 - [@LeeHyungGeun](https://github.com/LeeHyungGeun)
@@ -721,6 +736,9 @@ Please contact us for any questions:
 
 * [preact](https://github.com/developit/preact)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
+* [create-react-app](https://github.com/facebook/create-react-app)
+* [JSX](https://github.com/facebook/jsx)
+
 
 ## License
 
