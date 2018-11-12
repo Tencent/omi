@@ -1,3 +1,5 @@
+import { render } from 'omi'
+
 let appOption = null
 function App(option) {
   appOption = option
@@ -69,4 +71,36 @@ function getUrlParams(url) {
       }
   }
   return args
+}
+
+export function routeUpdate(node, selector, byNative, root) {
+  root.childNodes.forEach(child => {
+    if(child.style.display !== 'none'){
+      child._preScrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+    }
+    child.style.display = 'none'
+  })
+  if (byNative) {
+    const ele = document.querySelector(selector)
+    if (ele) {
+      ele.style.display = 'block'
+      document.documentElement.scrollTop = ele._preScrollTop
+      document.body.scrollTop = ele._preScrollTop
+      //set twice
+      setTimeout(function(){
+        document.documentElement.scrollTop = ele._preScrollTop
+        document.body.scrollTop = ele._preScrollTop
+      }, 0)
+    } else {
+      render(node, root)
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
+    }
+  } else {
+    const ele = document.querySelector(selector)
+    ele && ele.parentNode.removeChild(ele)
+    render(node, root)
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+  }
 }

@@ -1,5 +1,5 @@
 /*!
- *  omi-router v2.0.7 by dntzhang
+ *  omi-router v2.0.8 by dntzhang
  *  Router for Omi.
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
@@ -11,8 +11,10 @@ var root = getGlobal()
 
 root.route = route
 root.route.params = null
+root.historyLength = 0
 
 root.route.to = function (path, data) {
+  root.route._routeByTo = true
   root.route.data = data
   if (path[0] === '#') {
     location.hash = path
@@ -24,6 +26,14 @@ root.route.to = function (path, data) {
 window.addEventListener('hashchange', change)
 
 function change(evt) {
+  var byNative = false
+  //need to fix a line by omi-link
+  if(window.history.length === root.historyLength && !root.route._routeByTo){
+    //keep alive mode
+    byNative = true
+  }
+  root.route._routeByTo = false
+  root.historyLength = window.history.length
   var prevent = false
   if (evt.type === 'hashchange' && root.route.before) {
     prevent = root.route.before(evt) === false
@@ -40,7 +50,8 @@ function change(evt) {
       mapping[key].callback({
         params: root.route.params,
         query: getUrlParams(path),
-        data: root.route.data
+        data: root.route.data,
+        byNative: byNative
       })
       root.route.data = null
       notFound = false
@@ -50,7 +61,7 @@ function change(evt) {
   })
 
   if (notFound) {
-    mapping['*'] && mapping['*'].callback({})
+    mapping['*'] && mapping['*'].callback({ byNative: byNative })
   }
 
   if (evt.type === 'hashchange' && root.route.after) {

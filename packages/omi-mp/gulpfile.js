@@ -194,7 +194,7 @@ import 'omi-router'
 import './utils/mp'
 import './mp/app'
 
-route('*', p => {
+route('*', evt => {
   title('index')
   empty('#root')
   render(<we-index />, '#root')
@@ -221,7 +221,7 @@ function route(arr) {
   let result = []
   arr.forEach(item => {
     const name = item.split('/')[1]
-    result.push(`route('${item.replace('pages', '..')}', p => {
+    result.push(`route('${item.replace('pages', '..')}', evt => {
   title('${name}')
   empty('#root')
   render(<we-${name} />, '#root')

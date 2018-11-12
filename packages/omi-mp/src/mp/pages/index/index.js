@@ -22,10 +22,7 @@ const mpOption = Page({
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
-      url: '../logs/logs?name=dntzhang&age=18',
-      alive: true,  //当前视图是否alive，默认ture
-      scollTop: 0  //目标url的scollTop，不传scollTop的话使用以前保留的
-      // 浏览器后退行为刚好 alive用true，scollTop不传
+      url: '../logs/logs?name=dntzhang&age=18'
     })
   },
   onLoad: function () {
