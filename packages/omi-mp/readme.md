@@ -23,6 +23,14 @@
 
 # 快速体验
 
+```bash
+$ npm i omi-cli -g              
+$ omi init-mp your_project_name    
+$ cd your_project_name        
+$ npm start                  
+$ npm run build             
+```
+
 把小程序项目拷贝到 src-mp 目录，如果是新的小程序，可以在 src-mp 目录创建小程序，目录要求：
 
 目录说明:
