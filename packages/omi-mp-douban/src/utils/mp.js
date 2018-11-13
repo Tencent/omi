@@ -81,14 +81,18 @@ function getUrlParams(url) {
   return args
 }
 
-export function routeUpdate(node, selector, byNative, root) {
+export function routeUpdate(vnode, selector, byNative, root) {
   root.childNodes.forEach(child => {
-    child.style.display = 'none'
+    if(child.style.display !== 'none'){
+      child.style.display = 'none'
+      child.onHide && child.onHide()
+    }
   })
   if (byNative) {
     const ele = document.querySelector(selector)
     if (ele) {
       ele.style.display = 'block'
+      ele.onShow && ele.onShow()
       document.documentElement.scrollTop = ele._preScrollTop
       document.body.scrollTop = ele._preScrollTop
       //set twice
@@ -97,14 +101,16 @@ export function routeUpdate(node, selector, byNative, root) {
         document.body.scrollTop = ele._preScrollTop
       }, 0)
     } else {
-      render(node, root)
+      const node = render(vnode, root)
+      node.onShow && node.onShow()
       document.documentElement.scrollTop = 0
       document.body.scrollTop = 0
     }
   } else {
     const ele = document.querySelector(selector)
     ele && ele.parentNode.removeChild(ele)
-    render(node, root)
+    const node = render(vnode, root)
+    node.onShow && node.onShow()
     document.documentElement.scrollTop = 0
     document.body.scrollTop = 0
   }
