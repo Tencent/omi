@@ -22,6 +22,12 @@ Page({
       // 浏览器后退行为刚好 alive用true，scollTop不传
     })
   },
+  onShow:function(){
+    console.log('show')
+  },
+  onHide:function(){
+    console.log('hide')
+  },
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({

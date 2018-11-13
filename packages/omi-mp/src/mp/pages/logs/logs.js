@@ -20,6 +20,12 @@ const mpOption = Page({
 
     console.log(options.name, options.age)
   },
+  onShow:function(){
+    console.log('show2')
+  },
+  onHide:function(){
+    console.log('hide2')
+  },
   myEventHandler: function (evt) {
     //output -> dntzhang
     console.log(evt.detail.name)
