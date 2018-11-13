@@ -1,0 +1,5 @@
+<view>
+  <button bindtap="myMethods">Click me will log dntzhang to the console panel</button>
+	<view>props - name:{{name}}, age:{{age}}</view>
+	<my-child />
+</view>
