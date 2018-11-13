@@ -133,6 +133,8 @@ div img .image{
 - [x] this.setData
 - [x] this.triggerEvent
 
+支持事件绑定，自定义事件绑定，支持 props、data 属性等等。
+
 ## 注意
 
 目前不支持导入 template 标签和一些原生组件标签，需要一些时间翻译成对应的 HTML 自定义元素，欢迎试用反馈或 PR。
