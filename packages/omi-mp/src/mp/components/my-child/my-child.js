@@ -58,6 +58,8 @@ class Element extends WeElement {
     mpOption.ready && mpOption.ready.call(this)
   }
 
+  adoptedCallback = mpOption.moved || function() {}
+
   triggerEvent = function(name, data) {
     this.fire(name, data)
   }
