@@ -267,7 +267,7 @@
     function proxyUpdate(ele) {
         var timeout = null;
         ele.data = new JSONPatcherProxy(ele.data).observe(!1, function(info) {
-            if (info.oldValue !== info.value) {
+            if ('replace' !== info.op || info.oldValue !== info.value) {
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     ele.update();
@@ -808,7 +808,7 @@
         rpx: rpx
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.27';
+    options.root.Omi.version = '4.0.28';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
