@@ -34,6 +34,8 @@ import { setData } from '../../../utils/set-data'
             ),
             new Buffer(`
 class Element extends WeElement {
+  static props = mpOption.properties
+
   data = mpOption.data
 
   render = render

@@ -28,6 +28,8 @@ const mpOption = Component({
 })
 
 class Element extends WeElement {
+  static props = mpOption.properties
+
   data = mpOption.data
 
   render = render

@@ -9,7 +9,12 @@ const mpOption = Component({
    * 组件的属性列表
    */
   properties: {
-
+    name:{
+      value: '',
+    },
+    age:{
+      value: 18
+    }
   },
 
   /**
@@ -30,6 +35,8 @@ const mpOption = Component({
 })
 
 class Element extends WeElement {
+  static props = mpOption.properties
+
   data = mpOption.data
 
   render = render
@@ -74,8 +81,8 @@ function css() {
 }
 
 function render() {
-  
-  return h('div',null,[h('button',{'ontap': this.myMethods},[`Click me will log dntzhang to the console panel`]),h('my-child',null,[])])
+  const { name,age } = Object.assign({}, this.data, this.props)
+  return h('div',null,[h('button',{'ontap': this.myMethods},[`Click me will log dntzhang to the console panel`]),h('div',null,[`props - name:${name}, age:${age}`]),h('my-child',null,[])])
 
 }
 
