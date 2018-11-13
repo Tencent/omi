@@ -19,7 +19,9 @@ function Component(option) {
 }
 
 function noop() {}
+
 const wx = {}
+
 wx.canIUse = function() {
   return false
 }
@@ -29,22 +31,27 @@ wx.getStorageSync = noop
 wx.getSystemInfoSync = function() {
   return {
     windowWidth: window.innerWidth,
-    windowHeight: window.innerHeight
+    windowHeight: window.innerHeight,
+    pixelRatio: window.devicePixelRadio
   }
 }
 
-wx.getUserInfo = function() {}
+wx.getSystemInfo = function(options){
+  options.success({
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight,
+    pixelRatio: window.devicePixelRadio
+  })
+}
+
+wx.getUserInfo = function() {
+  console.warn('wx.getUserInfo method cannot be invoked in browser.')
+}
 
 wx.navigateTo = function(option) {
   route.query = getUrlParams(option.url)
   route.to(option.url, option)
 }
-
-window.wx = wx
-window.App = App
-window.getApp = getApp
-window.Page = Page
-window.Component = Component
 
 function getUrlParam(name, url){
   if(!name){
@@ -118,3 +125,9 @@ wx.request = function(options){
     })
   })
 }
+
+window.wx = wx
+window.App = App
+window.getApp = getApp
+window.Page = Page
+window.Component = Component
