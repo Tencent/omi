@@ -121,9 +121,21 @@ div img .image{
 | moved | 在组件实例被移动到节点树另一个位置时执行	  | 支持|
 | detached | 在组件实例被从页面节点树移除时执行 |  支持 |
 
+## 支持的 API
+
+- [x] wx.request
+- [x] wx.navigateTo
+- [x] wx.getSystemInfo
+- [x] wx.getSystemInfoSync
+- [x] wx.setNavigationBarTitle
+
+
+- [x] this.setData
+- [x] this.triggerEvent
+
 ## 注意
 
-目前不支持 template 标签和一些原生组件标签，需要一些时间翻译成对应的 HTML 自定义元素，欢迎试用反馈或 PR。
+目前不支持导入 template 标签和一些原生组件标签，需要一些时间翻译成对应的 HTML 自定义元素，欢迎试用反馈或 PR。
 
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
