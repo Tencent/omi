@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.1.5",
+    "@fdaciuk/ajax": "^3.0.4",
     "babel-preset-env": "^1.7.0",
     "concurrently": "^4.0.1",
     "css": "^2.2.4",

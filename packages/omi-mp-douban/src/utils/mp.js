@@ -1,4 +1,5 @@
 import { render } from 'omi'
+import ajax from '@fdaciuk/ajax'
 
 let appOption = null
 function App(option) {
@@ -100,4 +101,20 @@ export function routeUpdate(node, selector, byNative, root) {
     document.documentElement.scrollTop = 0
     document.body.scrollTop = 0
   }
+}
+
+wx.request = function(options){
+  const request = ajax({
+    method: options.method || 'GET',
+    url: options.url,
+    data: options.data,
+    headers: options.header
+  })
+
+  request.then((data, xhr)=>{
+    options.success({
+      data: data,
+      statusCode: xhr.status
+    })
+  })
 }
