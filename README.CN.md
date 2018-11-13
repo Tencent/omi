@@ -332,6 +332,12 @@ $ omi init-ts your_project_name
 $ omi init-spa your_project_name    
 ```
 
+小程序开发 Web 模板(omi-cli v3.0.13+):
+
+```bash
+$ omi init-mp your_project_name    
+```
+
 Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
 
 ### Hello Element

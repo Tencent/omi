@@ -331,6 +331,11 @@ $ omi init-ts your_project_name
 $ omi init-spa your_project_name    
 ```
 
+omi-mp Template(omi-cli v3.0.13+):
+
+```bash
+$ omi init-mp your_project_name    
+```
 
 CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)
 
