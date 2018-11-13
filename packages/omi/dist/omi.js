@@ -145,7 +145,7 @@
                 parentNode.appendChild(node);
             });
         } else {
-            ret = idiff(dom, vnode, context, mountAll, componentRoot);
+            if (isArray(dom)) ret = idiff(dom[0], vnode, context, mountAll, componentRoot); else ret = idiff(dom, vnode, context, mountAll, componentRoot);
             if (parent && ret.parentNode !== parent) parent.appendChild(ret);
         }
         if (!--diffLevel) hydrating = !1;
@@ -775,7 +775,7 @@
         WeElement.prototype.update = function() {
             this.beforeUpdate();
             this.beforeRender();
-            this.host = diff(this.host, this.render(this.props, this.data, this.store));
+            this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
             this.afterUpdate();
         };
         WeElement.prototype.fire = function(name, data) {
@@ -808,7 +808,7 @@
         rpx: rpx
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.26';
+    options.root.Omi.version = '4.0.27';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

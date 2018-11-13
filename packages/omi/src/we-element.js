@@ -83,7 +83,7 @@ export default class WeElement extends HTMLElement {
     this.beforeRender()
     this.host = diff(
       this.host,
-      this.render(this.props, this.data, this.store), 
+      this.render(this.props, this.data, this.store),
       null,
       null,
       this.shadowRoot
