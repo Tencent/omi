@@ -103,23 +103,23 @@ div img .image{
 
 ### 页面生命周期函数
 
-| 名称 | 描述  |  Omi 对应 |
+| 名称 | 描述  |  Omi 是否支持 |
 | ------ | ------  |------  |
-| onLoad | 	监听页面加载|  installed	  |
-| onShow | 监听页面显示	  |
-| onReady | 监听页面初次渲染完成 |  installed	 |
-| onHide | 监听页面隐藏	  |
-| onUnload | 监听页面卸载  |  uninstall	|
+| onLoad | 	监听页面加载|  支持	  |
+| onShow | 监听页面显示	  | 支持 |
+| onReady | 监听页面初次渲染完成 |  支持	 |
+| onHide | 监听页面隐藏	  | 支持|
+| onUnload | 监听页面卸载  |  支持	|
 
 ### 组件生命周期函数
 
-| 名称 | 描述  |Omi 对应 |
+| 名称 | 描述  |Omi 是否支持 |
 | ------ | ------  |------  |
-| created | 	在组件实例进入页面节点树时执行，注意此时不能调用 setData	|  install   |
-| attached | 在组件实例进入页面节点树时执行	|  installed   |
-| ready | 在组件布局完成后执行，此时可以获取节点信息（使用 SelectorQuery ）	|  installed  |
-| moved | 在组件实例被移动到节点树另一个位置时执行	  ||
-| detached | 在组件实例被从页面节点树移除时执行 |  uninstall |
+| created | 	在组件实例进入页面节点树时执行，注意此时不能调用 setData	|  支持   |
+| attached | 在组件实例进入页面节点树时执行	|  支持   |
+| ready | 在组件布局完成后执行，此时可以获取节点信息（使用 SelectorQuery ）	|  支持  |
+| moved | 在组件实例被移动到节点树另一个位置时执行	  | 支持|
+| detached | 在组件实例被从页面节点树移除时执行 |  支持 |
 
 ## 注意
 
