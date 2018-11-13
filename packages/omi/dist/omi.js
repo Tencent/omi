@@ -321,7 +321,7 @@
             });
             parent.store = store;
         }
-        diff(null, vnode, {}, !1, parent, !1);
+        return diff(null, vnode, {}, !1, parent, !1);
     }
     function update(patch, store) {
         store.update(patch);
@@ -808,7 +808,7 @@
         rpx: rpx
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.28';
+    options.root.Omi.version = '4.0.29';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
