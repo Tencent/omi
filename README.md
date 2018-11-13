@@ -68,6 +68,7 @@ Because in the web cannot take the user login state, the user avatar and name ar
 
 ## Useful Resources
 
+* [Shadow Dom](https://gist.github.com/praveenpuglia/0832da687ed5a5d7a0907046c9ef1813)
 * [60FPS Animation in omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)
 * [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)
 * [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)

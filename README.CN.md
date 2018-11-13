@@ -66,6 +66,7 @@
 
 ## 必须收藏的资源
 
+* [Shadow Dom](https://gist.github.com/praveenpuglia/0832da687ed5a5d7a0907046c9ef1813)
 * [60FPS Animation in omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
 * [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)
 * [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
