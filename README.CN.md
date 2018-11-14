@@ -76,6 +76,7 @@
 * [CSS Variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables)
 * [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
 * [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
+* [Platform HTML5](https://platform.html5.org/)
 
 ---
 

@@ -77,6 +77,7 @@ Because in the web cannot take the user login state, the user avatar and name ar
 * [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
 * [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
 * [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
+* [Platform HTML5](https://platform.html5.org/)
 
 ---
 

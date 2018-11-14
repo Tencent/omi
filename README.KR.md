@@ -80,6 +80,7 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 * [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
 * [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
 * [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
+* [Platform HTML5](https://platform.html5.org/)
 
 ---
 
