@@ -2,21 +2,16 @@ import { define, render, WeElement } from '../../src/omi'
 import tpl from './my-template'
 
 define('my-app', class extends WeElement {
-
-	css() {
-		return `
+  css() {
+    return `
          div{
              color: green;
          }`
-	}
+  }
 
-	render(props, data) {
-		return (
-			<div>
-				{tpl({ name: 'zhanglei', age: 18 })}
-			</div>
-		)
-	}
+  render() {
+    return <div>{tpl({ name: 'zhanglei', age: 18 })}</div>
+  }
 })
 
 render(<my-app name="Omi v4.0" />, 'body')
