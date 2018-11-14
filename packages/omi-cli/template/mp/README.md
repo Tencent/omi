@@ -2,26 +2,15 @@
 
 > 通过微信小程序开发和一键生成 Web 的 H5 SPA (基于 omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
 
-看下官方模板的转换例子：
-
-
-| **Index**                         | **Logs**                           |
-| ------------------------------- | ----------------------------------- |
-|![](../../assets/mp1.jpg)| ![](../../assets/mp2.jpg)|
-
-
-因为 Web 里拉取不到用户登录态，更换了用户头像和名称。
-
-再看下豆瓣 DEMO 转换的例子:
-
-| **小程序**                         | **Web SPA**                           |
-| ------------------------------- | ----------------------------------- |
-|![](../../assets/mp-db1.jpg)| ![](../../assets/web-db1.jpg)|
-|![](../../assets/mp-db2.jpg)|![](../../assets/web-db2.jpg)|
-
-你可以[在这里找](https://github.com/Tencent/omi/tree/master/packages/omi-mp-douban)到这个豆瓣小程序。
-
 # 快速体验
+
+```bash
+$ npm i omi-cli -g              
+$ omi init-mp your_project_name    
+$ cd your_project_name        
+$ npm start                  
+$ npm run build             
+```
 
 把小程序项目拷贝到 src-mp 目录，如果是新的小程序，可以在 src-mp 目录创建小程序，目录要求：
 
