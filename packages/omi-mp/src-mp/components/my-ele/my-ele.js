@@ -5,9 +5,11 @@ Component({
    */
   properties: {
     name:{
+      type: String,
       value: '',
     },
     age:{
+      type: Number,
       value: 18
     }
   },
