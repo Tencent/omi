@@ -1,5 +1,6 @@
 let htmlToJson = require('html2json').html2json
 let map = require('./tag-mapping')
+let reURL = /^(https?):\/\/.+$/;
 
 function parse(wxml, fnName) {
   return walk(htmlToJson(minifier(wxml)), fnName)
@@ -101,20 +102,21 @@ function _walk(node, currentIndex, children) {
         result = `${ifCond} [${current}]`
       } else {
         result = `${ifCond}h('${map(node.tag)}',${stringify(
-          node.attr
+          node.attr,
+          map(node.tag)
         )},${current})`
       }
     } else if (node.tag == 'block') {
       result = `${ifCond} [${c}]`
     } else {
-      result = `${ifCond}h('${map(node.tag)}',${stringify(node.attr)},[${c}])`
+      result = `${ifCond}h('${map(node.tag)}',${stringify(node.attr, map(node.tag))},[${c}])`
     }
 
     if (isThree) {
       result += ':'
     }
   } else {
-    result = `h('${map(node.tag)}',${stringify(node.attr)},[${c}])`
+    result = `h('${map(node.tag)}',${stringify(node.attr, map(node.tag))},[${c}])`
   }
   return result
 }
@@ -132,11 +134,12 @@ function joinNestArray(arr){
   return str
 }
 
-function stringify(attr) {
+function stringify(attr, tag) {
   if (attr) {
     let result = '{'
     let keys = Object.keys(attr)
     let maxIndex = keys.length - 1
+    let isImg = tag === 'img'
     keys.forEach((key, index) => {
       let v = attr[key]
       let isBind = false
@@ -152,7 +155,9 @@ function stringify(attr) {
           "'" + key + "': " + attr[key] + (maxIndex === index ? '' : ',')
       } else {
         attr[key] = bracesText(str)
-        if (isBind) {
+        if(isImg && key === 'src'){
+          result += `'src': ${fixImgSrc(v)}`
+        } else if (isBind) {
           if(attr[key] !== ''){
             result +=
               "'" + key + "': this." + attr[key] + (maxIndex === index ? '' : ',')
@@ -162,10 +167,19 @@ function stringify(attr) {
             "'" + key + "': `" + attr[key] + (maxIndex === index ? '`' : '`,')
         }
       }
+
     })
     return (result += '}')
   }
   return null
+}
+
+function fixImgSrc(src) {
+  if (reURL.test(src)) {
+    return src
+  } else {
+    return `require('${src}')`
+  }
 }
 
 function braces(str) {

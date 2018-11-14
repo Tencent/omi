@@ -69,7 +69,7 @@ function render() {
   const { logs } = Object.assign({}, this.data, this.props)
   return h('div',{'class': `container log-list `},[ [logs.map((log,index)=>{
         return h('span',{'class': `log-item`},[`${index + 1}. ${log}`])
-      })],h('my-ele',{'onmyevent': this.myEventHandler,'name': `dntzhang`},[])])
+      })],h('my-ele',{'onmyevent': this.myEventHandler,'name': `dntzhang`},[]),h('img',{'src': require('../../images/wechat.png')},[])])
 
 }
 
