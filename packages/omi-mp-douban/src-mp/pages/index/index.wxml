@@ -4,7 +4,7 @@
   </view>
 </block>
 <block wx:else>
-  <scroll-view style="height: 100%;" scroll-y="true" class="container film-list" bindscroll="scroll" bindscrolltolower="scrolltolower">
+  <view scroll-y="true" class="container film-list" >
     <block wx:for-items="{{films}}" wx:for-item="film">
       <view class="film-item" bindtap="viewDetail" data-id="{{film.id}}" data-title="{{film.title}}">
         <view class="film-image">
@@ -51,6 +51,6 @@
         </view>
       </block>
     </view>
-  </scroll-view>
+  </view>
 </block>
 

@@ -26,7 +26,8 @@ page{
 }
 .film-item{
   padding: 10px;
-  display: flex;
+	display: flex;
+	width:95%;
 }
 .film-image{
   width: 128px;
