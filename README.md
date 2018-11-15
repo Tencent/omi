@@ -72,7 +72,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 ## omi-mp
 
-> Through Wechat Mini Program, develop HTML5 SPA and onclick generate Web (Based on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
+> Develop and generate HTML5 SPA through Wechat Mini Programe. (The output source is base on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
 
 Conversion example of the official template:
 
