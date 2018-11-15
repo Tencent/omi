@@ -55,17 +55,20 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 ## Useful Resources
 
-* [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)
-* [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)
-* [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)
-* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
-* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
-* [Web Components Org](https://www.webcomponents.org/introduction)
-* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
-* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
-* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
-* [Platform HTML5](https://platform.html5.org/)
+| **Title Name**                         | **Other language versions**               |
+| ------------------------------- | ----------------------------------- |
+| [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)|
+| [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)|[简体中文]
+(https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)|
+| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)| 简体中文求翻译|
+|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|简体中文求翻译|
+|  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)|
+|  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
+|  [Web Components Org](https://www.webcomponents.org/introduction)|
+|  [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|
+|  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|
+|  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
+|  [Platform HTML5](https://platform.html5.org/)|
 
 ## omi-mp
 
