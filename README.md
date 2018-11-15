@@ -56,11 +56,11 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 ## Useful Resources
 
 | **Title Name**  | **Other language** | **Related**|
-| ------------------------------- | ------------------- |---------------------|
+| ----------------------------------------- | ------------------ |-----------------|
 | [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)|
 | [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)|
-| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)| 简体中文求翻译|
-|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|简体中文求翻译|
+| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)| 求翻译|
+|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
 |  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
 |  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
 |  [Web Components Org](https://www.webcomponents.org/introduction)|
@@ -68,7 +68,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 |  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables)|
 |  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
 |  [Platform HTML5](https://platform.html5.org/)|
-| [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A requestIdleCallback polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
+| [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
 
 ## omi-mp
 
