@@ -53,18 +53,6 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
 
-## omi-mp
-
-> Through Wechat Mini Program, develop HTML5 SPA and onclick generate Web (Based on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
-
-Conversion example of the official template:
-
-| **Index**                         | **Logs**                           |
-| ------------------------------- | ----------------------------------- |
-|![](./assets/mp1.jpg)| ![](./assets/mp2.jpg)|
-
-Because in the web cannot take the user login state, the user avatar and name are replaced.
-
 ## Useful Resources
 
 * [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)
@@ -79,13 +67,25 @@ Because in the web cannot take the user login state, the user avatar and name ar
 * [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 * [Platform HTML5](https://platform.html5.org/)
 
+## omi-mp
+
+> Through Wechat Mini Program, develop HTML5 SPA and onclick generate Web (Based on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
+
+Conversion example of the official template:
+
+| **Index**                         | **Logs**                           |
+| ------------------------------- | ----------------------------------- |
+|![](./assets/mp1.jpg)| ![](./assets/mp2.jpg)|
+
+Because in the web cannot take the user login state, the user avatar and name are replaced.
+
 ---
 
 # Overview of the Readme
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
-- [omi-mp](#omi-mp)
 - [Useful Resources](#useful-resources)
+- [omi-mp](#omi-mp)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Add Omi in 30 Seconds](#add-omi-in-30-seconds)
 - [Getting Started](#getting-started)
