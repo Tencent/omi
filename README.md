@@ -56,7 +56,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 ## Useful Resources
 
 | **Title Name**  | **Other language** | **Related**|
-| ------------------------------- | ----------------------------------- |
+| ------------------------------- | ------------------- |---------------------|
 | [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)|
 | [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)|
 | [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)| 简体中文求翻译|
