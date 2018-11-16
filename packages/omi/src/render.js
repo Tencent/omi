@@ -17,14 +17,14 @@ export function render(vnode, parent, store) {
         timeout = setTimeout(() => {
           update(patchs, store)
           patchs = {}
-        }, 16.6)
+        }, 0)
       } else {
         const key = fixPath(patch.path)
         patchs[key] = patch.value
         timeout = setTimeout(() => {
           update(patchs, store)
           patchs = {}
-        }, 16.6)
+        }, 0)
       }
     })
     parent.store = store

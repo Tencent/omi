@@ -1,20 +1,37 @@
 import JSONProxy from './proxy'
+import { fireTick } from './tick'
 
 export function observe(target) {
   target.observe = true
 }
 
+let idMap = {}
+let elements = []
+
 export function proxyUpdate(ele) {
   let timeout = null
   ele.data = new JSONProxy(ele.data).observe(false, info => {
-    if (info.op === 'replace' && info.oldValue === info.value) {
-      return
+    if (!idMap[ele.__elementId]) {
+      idMap[ele.__elementId] = true
+      elements.push(ele)
+      if (info.op === 'replace' && info.oldValue === info.value) {
+        return
+      }
+
+      clearTimeout(timeout)
+
+      timeout = setTimeout(() => {
+        updateElements()
+      }, 0)
     }
-
-    clearTimeout(timeout)
-
-    timeout = setTimeout(() => {
-      ele.update()
-    }, 16.6)
   })
+}
+
+function updateElements() {
+  elements.forEach(ele => {
+    ele.update()
+  })
+  fireTick()
+  elements.length = 0
+  idMap = {}
 }

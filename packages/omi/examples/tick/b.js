@@ -1,11 +1,3 @@
-/**
- * omi v4.1.0  http://omijs.org
- * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
- * By dntzhang https://github.com/dntzhang
- * Github: https://github.com/Tencent/omi
- * MIT Licensed.
- */
-
 (function () {
   'use strict';
 
@@ -35,10 +27,10 @@
 
   function h(nodeName, attributes) {
     var children = EMPTY_CHILDREN,
-        lastSimple,
-        child,
-        simple,
-        i;
+        lastSimple = void 0,
+        child = void 0,
+        simple = void 0,
+        i = void 0;
     for (i = arguments.length; i-- > 2;) {
       stack.push(arguments[i]);
     }
@@ -159,6 +151,10 @@
     return result;
   }
 
+  // render modes
+
+  var ATTR_KEY = '__preactattr_';
+
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
@@ -269,8 +265,8 @@
             if (!(i in value)) node.style[i] = '';
           }
         }
-        for (var i in value) {
-          node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+        for (var _i in value) {
+          node.style[_i] = typeof value[_i] === 'number' && IS_NON_DIMENSIONAL.test(_i) === false ? value[_i] + 'px' : value[_i];
         }
       }
     } else if (name === 'dangerouslySetInnerHTML') {
@@ -356,13 +352,13 @@
    */
   function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
-    var ret;
+    var ret = void 0;
     if (!diffLevel++) {
       // when first starting the diff, check if we're diffing an SVG or within an SVG
       isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
       // hydration is indicated by the existing element to be diffed not having a prop cache
-      hydrating = dom != null && !('__preactattr_' in dom);
+      hydrating = dom != null && !(ATTR_KEY in dom);
     }
     if (isArray(vnode)) {
       ret = [];
@@ -436,7 +432,7 @@
         }
       }
 
-      out['__preactattr_'] = true;
+      out[ATTR_KEY] = true;
 
       return out;
     }
@@ -465,11 +461,11 @@
     }
 
     var fc = out.firstChild,
-        props = out['__preactattr_'],
+        props = out[ATTR_KEY],
         vchildren = vnode.children;
 
     if (props == null) {
-      props = out['__preactattr_'] = {};
+      props = out[ATTR_KEY] = {};
       for (var a = out.attributes, i = a.length; i--;) {
         props[a[i].name] = a[i].value;
       }
@@ -515,17 +511,17 @@
         len = originalChildren.length,
         childrenLen = 0,
         vlen = vchildren ? vchildren.length : 0,
-        j,
-        c,
-        f,
-        vchild,
-        child;
+        j = void 0,
+        c = void 0,
+        f = void 0,
+        vchild = void 0,
+        child = void 0;
 
     // Build up a map of keyed children and an Array of unkeyed children:
     if (len !== 0) {
       for (var i = 0; i < len; i++) {
         var _child = originalChildren[i],
-            props = _child['__preactattr_'],
+            props = _child[ATTR_KEY],
             key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
         if (key != null) {
           keyedLen++;
@@ -537,16 +533,16 @@
     }
 
     if (vlen !== 0) {
-      for (var i = 0; i < vlen; i++) {
-        vchild = vchildren[i];
+      for (var _i = 0; _i < vlen; _i++) {
+        vchild = vchildren[_i];
         child = null;
 
         // attempt to find a node based on key matching
-        var key = vchild.key;
-        if (key != null) {
-          if (keyedLen && keyed[key] !== undefined) {
-            child = keyed[key];
-            keyed[key] = undefined;
+        var _key = vchild.key;
+        if (_key != null) {
+          if (keyedLen && keyed[_key] !== undefined) {
+            child = keyed[_key];
+            keyed[_key] = undefined;
             keyedLen--;
           }
         }
@@ -566,7 +562,7 @@
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, context, mountAll);
 
-        f = originalChildren[i];
+        f = originalChildren[_i];
         if (child && child !== dom && child !== f) {
           if (f == null) {
             dom.appendChild(child);
@@ -581,8 +577,8 @@
 
     // remove unused keyed children:
     if (keyedLen) {
-      for (var i in keyed) {
-        if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
+      for (var _i2 in keyed) {
+        if (keyed[_i2] !== undefined) recollectNodeTree(keyed[_i2], false);
       }
     }
 
@@ -599,9 +595,9 @@
   function recollectNodeTree(node, unmountOnly) {
     // If the node's VNode had a ref function, invoke it with null here.
     // (this is part of the React spec, and smart for unsetting references)
-    if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
+    if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null);
 
-    if (unmountOnly === false || node['__preactattr_'] == null) {
+    if (unmountOnly === false || node[ATTR_KEY] == null) {
       removeNode(node);
     }
 
@@ -627,7 +623,7 @@
    *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
    */
   function diffAttributes(dom, attrs, old) {
-    var name;
+    var name = void 0;
     var update = false;
     var isWeElement = dom.update;
     // remove attributes no longer present on the vnode by setting them to undefined
@@ -1021,49 +1017,51 @@
   var callbacks = [];
 
   function tick(fn, scope) {
-    callbacks.push({ fn: fn, scope: scope });
+  	callbacks.push({ fn: fn, scope: scope });
   }
 
   function fireTick() {
-    callbacks.forEach(function (item) {
-      item.fn.call(item.scope);
-    });
+  	callbacks.forEach(function (item) {
+  		item.fn.call(item.scope);
+  	});
   }
 
   function observe(target) {
-    target.observe = true;
+  	target.observe = true;
   }
 
   var idMap = {};
   var elements = [];
 
   function proxyUpdate(ele) {
-    var timeout = null;
-    ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-      if (!idMap[ele.__elementId]) {
-        idMap[ele.__elementId] = true;
-        elements.push(ele);
-        if (info.op === 'replace' && info.oldValue === info.value) {
-          return;
-        }
+  	var timeout = null;
+  	ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
+  		if (!idMap[ele.__elementId]) {
+  			idMap[ele.__elementId] = true;
+  			elements.push(ele);
+  			if (info.op === 'replace' && info.oldValue === info.value) {
+  				return;
+  			}
 
-        clearTimeout(timeout);
+  			clearTimeout(timeout);
 
-        timeout = setTimeout(function () {
-          updateElements();
-        }, 0);
-      }
-    });
+  			timeout = setTimeout(function () {
+  				updateElements();
+  			}, 0);
+  		}
+  	});
   }
 
   function updateElements() {
-    elements.forEach(function (ele) {
-      ele.update();
-    });
-    fireTick();
-    elements.length = 0;
-    idMap = {};
+  	elements.forEach(function (ele) {
+  		ele.update();
+  	});
+  	fireTick();
+  	elements.length = 0;
+  	idMap = {};
   }
+
+  var _class, _temp;
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1073,7 +1071,7 @@
 
   var id = 0;
 
-  var WeElement = function (_HTMLElement) {
+  var WeElement = (_temp = _class = function (_HTMLElement) {
     _inherits(WeElement, _HTMLElement);
 
     function WeElement() {
@@ -1100,14 +1098,14 @@
       }
 
       !this._isInstalled && this.install();
-      var shadowRoot;
+      var shadowRoot = void 0;
       if (!this.shadowRoot) {
         shadowRoot = this.attachShadow({
           mode: 'open'
         });
       } else {
         shadowRoot = this.shadowRoot;
-        var fc;
+        var fc = void 0;
         while (fc = shadowRoot.firstChild) {
           shadowRoot.removeChild(fc);
         }
@@ -1167,9 +1165,7 @@
     WeElement.prototype.beforeRender = function beforeRender() {};
 
     return WeElement;
-  }(HTMLElement);
-
-  WeElement.is = 'WeElement';
+  }(HTMLElement), _class.is = 'WeElement', _temp);
 
   function render(vnode, parent, store) {
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
@@ -1314,6 +1310,9 @@
 
   function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+  var OBJECTTYPE = '[object Object]';
+  var ARRAYTYPE = '[object Array]';
+
   function define(name, ctor) {
     if (ctor.is === 'WeElement') {
       customElements.define(name, ctor);
@@ -1329,8 +1328,8 @@
 
           _classCallCheck$1(this, Element);
 
-          for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
-            args[key] = arguments[key];
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
           }
 
           return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _temp), _possibleConstructorReturn$1(_this, _ret);
@@ -1397,9 +1396,9 @@
     Object.keys(data).forEach(function (key) {
       result[key] = true;
       var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
+      if (type === OBJECTTYPE) {
         _objToPath(data[key], key, result);
-      } else if (type === '[object Array]') {
+      } else if (type === ARRAYTYPE) {
         _arrayToPath(data[key], key, result);
       }
     });
@@ -1410,9 +1409,9 @@
       result[path + '.' + key] = true;
       delete result[path];
       var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
+      if (type === OBJECTTYPE) {
         _objToPath(data[key], path + '.' + key, result);
-      } else if (type === '[object Array]') {
+      } else if (type === ARRAYTYPE) {
         _arrayToPath(data[key], path + '.' + key, result);
       }
     });
@@ -1423,9 +1422,9 @@
       result[path + '[' + index + ']'] = true;
       delete result[path];
       var type = Object.prototype.toString.call(item);
-      if (type === '[object Object]') {
+      if (type === OBJECTTYPE) {
         _objToPath(item, path + '[' + index + ']', result);
-      } else if (type === '[object Array]') {
+      } else if (type === ARRAYTYPE) {
         _arrayToPath(item, path + '[' + index + ']', result);
       }
     });
@@ -1484,8 +1483,126 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.1.0';
+  options.root.Omi.version = '4.0.29';
 
-  if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class2, _temp2;
+
+  function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  define('todo-list', function (_WeElement) {
+    _inherits$2(_class, _WeElement);
+
+    function _class() {
+      _classCallCheck$2(this, _class);
+
+      return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+    }
+
+    _class.prototype.render = function render$$1(props) {
+      return Omi.h(
+        'ul',
+        null,
+        props.items.map(function (item) {
+          return Omi.h(
+            'li',
+            { key: item.id },
+            item.text
+          );
+        })
+      );
+    };
+
+    return _class;
+  }(WeElement));
+
+  define('todo-app', (_temp2 = _class2 = function (_WeElement2) {
+    _inherits$2(_class2, _WeElement2);
+
+    function _class2() {
+      var _temp, _this2, _ret;
+
+      _classCallCheck$2(this, _class2);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this2 = _possibleConstructorReturn$2(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this2), _this2.handleChange = function (e) {
+        _this2.data.text = e.target.value;
+      }, _this2.handleSubmit = function (e) {
+        e.preventDefault();
+        if (!_this2.data.text.trim().length) {
+          return;
+        }
+        _this2.data.items.push({
+          text: _this2.data.text,
+          id: Date.now()
+        });
+        _this2.data.text = '';
+      }, _temp), _possibleConstructorReturn$2(_this2, _ret);
+    }
+
+    _class2.prototype.install = function install() {
+      tick(function () {
+        console.log('tick');
+      });
+
+      tick(function () {
+        console.log('tick2');
+      });
+    };
+
+    _class2.prototype.installed = function installed() {
+      console.log('installed');
+    };
+
+    _class2.prototype.render = function render$$1() {
+      this.data.a = { c: 2 };
+      console.log('render');
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'h3',
+          null,
+          'TODO'
+        ),
+        Omi.h('todo-list', { items: this.data.items }),
+        Omi.h(
+          'form',
+          { onSubmit: this.handleSubmit },
+          Omi.h('input', {
+            id: 'new-todo',
+            onChange: this.handleChange,
+            value: this.data.text
+          }),
+          Omi.h(
+            'button',
+            null,
+            'Add #',
+            this.data.items.length + 1
+          )
+        )
+      );
+    };
+
+    _createClass(_class2, null, [{
+      key: 'data',
+      get: function get() {
+        return { items: [], a: { b: 1 }, text: '' };
+      }
+    }]);
+
+    return _class2;
+  }(WeElement), _class2.observe = true, _temp2));
+
+  render(Omi.h('todo-app', null), 'body');
+
 }());
-//# sourceMappingURL=omi.dev.js.map
+//# sourceMappingURL=b.js.map

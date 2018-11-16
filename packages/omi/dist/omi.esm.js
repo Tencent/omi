@@ -1,5 +1,5 @@
 /**
- * omi v4.0.29  http://omijs.org
+ * omi v4.1.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1015,23 +1015,51 @@ operation.op = 'replace', operation.value = null;
   return JSONPatcherProxy;
 }();
 
+var callbacks = [];
+
+function tick(fn, scope) {
+  callbacks.push({ fn: fn, scope: scope });
+}
+
+function fireTick() {
+  callbacks.forEach(function (item) {
+    item.fn.call(item.scope);
+  });
+}
+
 function observe(target) {
   target.observe = true;
 }
 
+var idMap = {};
+var elements = [];
+
 function proxyUpdate(ele) {
   var timeout = null;
   ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-    if (info.op === 'replace' && info.oldValue === info.value) {
-      return;
+    if (!idMap[ele.__elementId]) {
+      idMap[ele.__elementId] = true;
+      elements.push(ele);
+      if (info.op === 'replace' && info.oldValue === info.value) {
+        return;
+      }
+
+      clearTimeout(timeout);
+
+      timeout = setTimeout(function () {
+        updateElements();
+      }, 0);
     }
-
-    clearTimeout(timeout);
-
-    timeout = setTimeout(function () {
-      ele.update();
-    }, 16.6);
   });
+}
+
+function updateElements() {
+  elements.forEach(function (ele) {
+    ele.update();
+  });
+  fireTick();
+  elements.length = 0;
+  idMap = {};
 }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1039,6 +1067,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var id = 0;
 
 var WeElement = function (_HTMLElement) {
   _inherits(WeElement, _HTMLElement);
@@ -1049,6 +1079,7 @@ var WeElement = function (_HTMLElement) {
     var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
     _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
+    _this.__elementId = id++;
     _this.data = _this.constructor.data || {};
     return _this;
   }
@@ -1153,14 +1184,14 @@ function render(vnode, parent, store) {
         timeout = setTimeout(function () {
           update(patchs, store);
           patchs = {};
-        }, 16.6);
+        }, 0);
       } else {
         var key = fixPath(patch.path);
         patchs[key] = patch.value;
         timeout = setTimeout(function () {
           update(patchs, store);
           patchs = {};
-        }, 16.6);
+        }, 0);
       }
     });
     parent.store = store;
@@ -1445,12 +1476,13 @@ var omi = {
   observe: observe,
   cloneElement: cloneElement,
   getHost: getHost,
-  rpx: rpx
+  rpx: rpx,
+  tick: tick
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.0.29';
+options.root.Omi.version = '4.1.0';
 
 export default omi;
-export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx };
+export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick };
 //# sourceMappingURL=omi.esm.js.map

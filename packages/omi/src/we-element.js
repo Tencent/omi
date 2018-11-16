@@ -3,6 +3,8 @@ import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
 
+let id = 0
+
 export default class WeElement extends HTMLElement {
   static is = 'WeElement'
 
@@ -12,6 +14,7 @@ export default class WeElement extends HTMLElement {
       nProps(this.constructor.props),
       this.constructor.defaultProps
     )
+    this.__elementId = id++
     this.data = this.constructor.data || {}
   }
 
