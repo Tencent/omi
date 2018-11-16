@@ -44,7 +44,8 @@ define('todo-app', class extends WeElement {
   }
 
   render() {
-    this.data.a = { c: 2 }
+		//don't do this
+    //this.data.a = { c: 2 }
     console.log('render')
     return (
       <div>

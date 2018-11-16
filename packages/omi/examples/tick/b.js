@@ -1040,35 +1040,20 @@
     target.observe = true;
   }
 
-  var idMap = {};
-  var elements = [];
-
   function proxyUpdate(ele) {
     var timeout = null;
     ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-      if (!idMap[ele.__elementId]) {
-        idMap[ele.__elementId] = true;
-        elements.push(ele);
-        if (info.op === 'replace' && info.oldValue === info.value) {
-          return;
-        }
-
-        clearTimeout(timeout);
-
-        timeout = setTimeout(function () {
-          updateElements();
-        }, 0);
+      if (info.op === 'replace' && info.oldValue === info.value) {
+        return;
       }
-    });
-  }
 
-  function updateElements() {
-    elements.forEach(function (ele) {
-      ele.update();
+      clearTimeout(timeout);
+
+      timeout = setTimeout(function () {
+        ele.update();
+        fireTick();
+      }, 16.6);
     });
-    fireTick();
-    elements.length = 0;
-    idMap = {};
   }
 
   var _class, _temp;
@@ -1193,14 +1178,14 @@
           timeout = setTimeout(function () {
             update(patchs, store);
             patchs = {};
-          }, 0);
+          }, 16.6);
         } else {
           var key = fixPath(patch.path);
           patchs[key] = patch.value;
           timeout = setTimeout(function () {
             update(patchs, store);
             patchs = {};
-          }, 0);
+          }, 16.6);
         }
       });
       parent.store = store;
@@ -1494,7 +1479,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.1.0';
+  options.root.Omi.version = '4.1.3';
 
   var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1585,7 +1570,8 @@
     };
 
     _class2.prototype.render = function render$$1() {
-      this.data.a = { c: 2 };
+      //don't do this
+      //this.data.a = { c: 2 }
       console.log('render');
       return Omi.h(
         'div',
