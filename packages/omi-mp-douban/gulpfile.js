@@ -185,9 +185,15 @@ gulp.task('appjs', ['copy'], () => {
     .pipe(gulp.dest('src/mp'))
 })
 
+gulp.task('copyThen', () => {
+  gulp.src('src-mp/**/*').pipe(gulp.dest('src/mp')).on('end', function(){
+    gulp.start(['components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route'])
+  })
+})
+
 gulp.task('watch', () => {
   watch('src-mp/**/*', () => {
-    gulp.start(['components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route'])
+    gulp.start('copyThen')
   })
 })
 
