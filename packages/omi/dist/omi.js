@@ -288,23 +288,14 @@
     function proxyUpdate(ele) {
         var timeout = null;
         ele.data = new JSONPatcherProxy(ele.data).observe(!1, function(info) {
-            if (!idMap[ele.I]) {
-                idMap[ele.I] = !0;
-                elements.push(ele);
+            if ('replace' !== info.op || info.oldValue !== info.value) {
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
-                    updateElements();
-                }, 0);
+                    ele.update();
+                    fireTick();
+                }, 16.6);
             }
         });
-    }
-    function updateElements() {
-        elements.forEach(function(ele) {
-            ele.update();
-        });
-        fireTick();
-        elements.length = 0;
-        idMap = {};
     }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -340,14 +331,14 @@
                     timeout = setTimeout(function() {
                         update(patchs, store);
                         patchs = {};
-                    }, 0);
+                    }, 16.6);
                 } else {
                     var key = fixPath(patch.path);
                     patchs[key] = patch.value;
                     timeout = setTimeout(function() {
                         update(patchs, store);
                         patchs = {};
-                    }, 0);
+                    }, 16.6);
                 }
             });
             parent.store = store;
@@ -760,8 +751,6 @@
     }();
     var callbacks = [];
     var nextTickCallback = [];
-    var idMap = {};
-    var elements = [];
     var id = 0;
     var WeElement = function(_HTMLElement) {
         function WeElement() {
@@ -847,7 +836,7 @@
         nextTick: nextTick
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.1.2';
+    options.root.Omi.version = '4.1.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

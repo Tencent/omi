@@ -1,5 +1,5 @@
 /**
- * omi v4.1.2  http://omijs.org
+ * omi v4.1.3  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1044,31 +1044,20 @@
     target.observe = true;
   }
 
-  var idMap = {};
-  var elements = [];
-
   function proxyUpdate(ele) {
     var timeout = null;
     ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-      if (!idMap[ele.__elementId]) {
-        idMap[ele.__elementId] = true;
-        elements.push(ele);
-        clearTimeout(timeout);
-
-        timeout = setTimeout(function () {
-          updateElements();
-        }, 0);
+      if (info.op === 'replace' && info.oldValue === info.value) {
+        return;
       }
-    });
-  }
 
-  function updateElements() {
-    elements.forEach(function (ele) {
-      ele.update();
+      clearTimeout(timeout);
+
+      timeout = setTimeout(function () {
+        ele.update();
+        fireTick();
+      }, 16.6);
     });
-    fireTick();
-    elements.length = 0;
-    idMap = {};
   }
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1193,14 +1182,14 @@
           timeout = setTimeout(function () {
             update(patchs, store);
             patchs = {};
-          }, 0);
+          }, 16.6);
         } else {
           var key = fixPath(patch.path);
           patchs[key] = patch.value;
           timeout = setTimeout(function () {
             update(patchs, store);
             patchs = {};
-          }, 0);
+          }, 16.6);
         }
       });
       parent.store = store;
@@ -1491,7 +1480,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.1.2';
+  options.root.Omi.version = '4.1.3';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

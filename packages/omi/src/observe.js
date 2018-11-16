@@ -5,29 +5,18 @@ export function observe(target) {
   target.observe = true
 }
 
-let idMap = {}
-let elements = []
-
 export function proxyUpdate(ele) {
   let timeout = null
   ele.data = new JSONProxy(ele.data).observe(false, info => {
-    if (!idMap[ele.__elementId]) {
-      idMap[ele.__elementId] = true
-      elements.push(ele)
-      clearTimeout(timeout)
-
-      timeout = setTimeout(() => {
-        updateElements()
-      }, 0)
+    if (info.op === 'replace' && info.oldValue === info.value) {
+      return
     }
-  })
-}
 
-function updateElements() {
-  elements.forEach(ele => {
-    ele.update()
+    clearTimeout(timeout)
+
+    timeout = setTimeout(() => {
+      ele.update()
+      fireTick()
+    }, 16.6)
   })
-  fireTick()
-  elements.length = 0
-  idMap = {}
 }
