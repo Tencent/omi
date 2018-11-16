@@ -89,9 +89,11 @@ class Element extends WeElement {
 
   uninstall = mpOption.onUnload || function() {}
 
-  installed = function(){
+  installed = function() {
     mpOption.onLoad && mpOption.onLoad.call(this, route.query)
     mpOption.onReady && mpOption.onReady.call(this, route.query)
+
+    mpOption.onReachBottom && wx._bindReachBottom(mpOption.onReachBottom, this)
   }
 
   setData = setData
