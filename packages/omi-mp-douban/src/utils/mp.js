@@ -81,6 +81,8 @@ function getUrlParams(url) {
   return args
 }
 
+wx.currentPage = null
+
 export function routeUpdate(vnode, selector, byNative, root) {
   root.childNodes.forEach(child => {
     if (child.style.display !== 'none') {
@@ -93,6 +95,7 @@ export function routeUpdate(vnode, selector, byNative, root) {
     if (ele) {
       ele.style.display = 'block'
       ele.onShow && ele.onShow()
+      wx.currentPage = ele
       document.documentElement.scrollTop = ele._preScrollTop
       document.body.scrollTop = ele._preScrollTop
       //set twice
@@ -103,6 +106,7 @@ export function routeUpdate(vnode, selector, byNative, root) {
     } else {
       const node = render(vnode, root)
       node.onShow && node.onShow()
+      wx.currentPage = node
       document.documentElement.scrollTop = 0
       document.body.scrollTop = 0
     }
@@ -111,6 +115,7 @@ export function routeUpdate(vnode, selector, byNative, root) {
     ele && ele.parentNode.removeChild(ele)
     const node = render(vnode, root)
     node.onShow && node.onShow()
+    wx.currentPage = node
     document.documentElement.scrollTop = 0
     document.body.scrollTop = 0
   }
@@ -135,7 +140,9 @@ wx.request = function (options) {
 wx._bindReachBottom = function (callback, context) {
   window.addEventListener('scroll', () => {
     if (getScrollHeight() - getScrollTop() - getWindowHeight() < 30) {
-      throttle(callback, context)
+      if(context === wx.currentPage){
+        throttle(callback, context)
+      }
     }
   })
 }
