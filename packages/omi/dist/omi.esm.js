@@ -1,5 +1,5 @@
 /**
- * omi v4.1.0  http://omijs.org
+ * omi v4.1.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1016,6 +1016,7 @@ operation.op = 'replace', operation.value = null;
 }();
 
 var callbacks = [];
+var nextTickCallback = [];
 
 function tick(fn, scope) {
   callbacks.push({ fn: fn, scope: scope });
@@ -1025,6 +1026,15 @@ function fireTick() {
   callbacks.forEach(function (item) {
     item.fn.call(item.scope);
   });
+
+  nextTickCallback.forEach(function (nextItem) {
+    nextItem.fn.call(nextItem.scope);
+  });
+  nextTickCallback.length = 0;
+}
+
+function nextTick(fn, scope) {
+  nextTickCallback.push({ fn: fn, scope: scope });
 }
 
 function observe(target) {
@@ -1477,12 +1487,13 @@ var omi = {
   cloneElement: cloneElement,
   getHost: getHost,
   rpx: rpx,
-  tick: tick
+  tick: tick,
+  nextTick: nextTick
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.1.0';
+options.root.Omi.version = '4.1.1';
 
 export default omi;
-export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick };
+export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick };
 //# sourceMappingURL=omi.esm.js.map

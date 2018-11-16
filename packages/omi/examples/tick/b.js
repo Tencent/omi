@@ -1015,50 +1015,60 @@
   }();
 
   var callbacks = [];
+  var nextTickCallback = [];
 
   function tick(fn, scope) {
-  	callbacks.push({ fn: fn, scope: scope });
+    callbacks.push({ fn: fn, scope: scope });
   }
 
   function fireTick() {
-  	callbacks.forEach(function (item) {
-  		item.fn.call(item.scope);
-  	});
+    callbacks.forEach(function (item) {
+      item.fn.call(item.scope);
+    });
+
+    nextTickCallback.forEach(function (nextItem) {
+      nextItem.fn.call(nextItem.scope);
+    });
+    nextTickCallback.length = 0;
+  }
+
+  function nextTick(fn, scope) {
+    nextTickCallback.push({ fn: fn, scope: scope });
   }
 
   function observe(target) {
-  	target.observe = true;
+    target.observe = true;
   }
 
   var idMap = {};
   var elements = [];
 
   function proxyUpdate(ele) {
-  	var timeout = null;
-  	ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-  		if (!idMap[ele.__elementId]) {
-  			idMap[ele.__elementId] = true;
-  			elements.push(ele);
-  			if (info.op === 'replace' && info.oldValue === info.value) {
-  				return;
-  			}
+    var timeout = null;
+    ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
+      if (!idMap[ele.__elementId]) {
+        idMap[ele.__elementId] = true;
+        elements.push(ele);
+        if (info.op === 'replace' && info.oldValue === info.value) {
+          return;
+        }
 
-  			clearTimeout(timeout);
+        clearTimeout(timeout);
 
-  			timeout = setTimeout(function () {
-  				updateElements();
-  			}, 0);
-  		}
-  	});
+        timeout = setTimeout(function () {
+          updateElements();
+        }, 0);
+      }
+    });
   }
 
   function updateElements() {
-  	elements.forEach(function (ele) {
-  		ele.update();
-  	});
-  	fireTick();
-  	elements.length = 0;
-  	idMap = {};
+    elements.forEach(function (ele) {
+      ele.update();
+    });
+    fireTick();
+    elements.length = 0;
+    idMap = {};
   }
 
   var _class, _temp;
@@ -1479,11 +1489,12 @@
     cloneElement: cloneElement,
     getHost: getHost,
     rpx: rpx,
-    tick: tick
+    tick: tick,
+    nextTick: nextTick
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.0.29';
+  options.root.Omi.version = '4.1.0';
 
   var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1556,6 +1567,17 @@
       tick(function () {
         console.log('tick2');
       });
+    };
+
+    _class2.prototype.beforeRender = function beforeRender() {
+      nextTick(function () {
+        console.log('nextTick');
+      });
+
+      // don't using tick in beforeRender
+      // tick(() => {
+      //   console.log(Math.random())
+      // })
     };
 
     _class2.prototype.installed = function installed() {

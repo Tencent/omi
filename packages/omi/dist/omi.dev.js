@@ -1,5 +1,5 @@
 /**
- * omi v4.1.0  http://omijs.org
+ * omi v4.1.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1019,6 +1019,7 @@
   }();
 
   var callbacks = [];
+  var nextTickCallback = [];
 
   function tick(fn, scope) {
     callbacks.push({ fn: fn, scope: scope });
@@ -1028,6 +1029,15 @@
     callbacks.forEach(function (item) {
       item.fn.call(item.scope);
     });
+
+    nextTickCallback.forEach(function (nextItem) {
+      nextItem.fn.call(nextItem.scope);
+    });
+    nextTickCallback.length = 0;
+  }
+
+  function nextTick(fn, scope) {
+    nextTickCallback.push({ fn: fn, scope: scope });
   }
 
   function observe(target) {
@@ -1480,11 +1490,12 @@
     cloneElement: cloneElement,
     getHost: getHost,
     rpx: rpx,
-    tick: tick
+    tick: tick,
+    nextTick: nextTick
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.1.0';
+  options.root.Omi.version = '4.1.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

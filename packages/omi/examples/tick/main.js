@@ -1,4 +1,4 @@
-import { render, WeElement, define, tick } from '../../src/omi'
+import { render, WeElement, define, tick, nextTick } from '../../src/omi'
 
 define('todo-list', class extends WeElement {
   render(props) {
@@ -26,6 +26,17 @@ define('todo-app', class extends WeElement {
     tick(() => {
       console.log('tick2')
     })
+  }
+
+  beforeRender() {
+    nextTick(() => {
+      console.log('nextTick')
+    })
+
+    // don't using tick in beforeRender
+    // tick(() => {
+    //   console.log(Math.random())
+    // })
   }
 
   installed() {

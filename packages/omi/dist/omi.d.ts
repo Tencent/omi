@@ -131,6 +131,7 @@ declare namespace Omi {
 	function define(name: string, ctor: any): void;
 	function tag(name: string, pure?: boolean): (ctor: any) => void;
 	function tick(callback: function, scope?: any): void;
+	function nextTick(callback: function, scope?: any): void;
 
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
