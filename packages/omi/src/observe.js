@@ -14,10 +14,6 @@ export function proxyUpdate(ele) {
     if (!idMap[ele.__elementId]) {
       idMap[ele.__elementId] = true
       elements.push(ele)
-      if (info.op === 'replace' && info.oldValue === info.value) {
-        return
-      }
-
       clearTimeout(timeout)
 
       timeout = setTimeout(() => {
