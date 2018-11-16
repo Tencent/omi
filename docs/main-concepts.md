@@ -13,6 +13,7 @@ English | [简体中文](./main-concepts.cn.md) | [한국어](./main-concepts.kr
   - [Store](#store)
   - [Slot](#slot)
   - [Observe](#observe)
+  - [Tick and NextTick](#tick-and-nexttick)
   - [Use](#use)
   - [SSR](#ssr)
 
@@ -440,6 +441,94 @@ class MyApp extends WeElement {
     )
   }
 }
+```
+
+### Tick and NextTick
+
+If observe is used, the view does not change immediately after the data changes. If you want to get the real changed dom, you can use tick or nextTick.
+
+```js
+import { render, WeElement, define, tick, nextTick } from 'omi'
+
+define('todo-list', class extends WeElement {
+  render(props) {
+    return (
+      <ul>
+        {props.items.map(item => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
+    )
+  }
+})
+
+define('todo-app', class extends WeElement {
+  static observe = true
+
+  static get data() {
+    return { items: [], text: '' }
+  }
+  install() {
+    tick(() => {
+      console.log('tick')
+    })
+
+    tick(() => {
+      console.log('tick2')
+    })
+  }
+
+  beforeRender() {
+    nextTick(() => {
+      console.log('nextTick')
+    })
+
+    // don't using tick in beforeRender or beforeUpdate or render or afterUpdate
+    // tick(() => {
+    //   console.log(Math.random())
+    // })
+  }
+
+  installed() {
+    console.log('installed')
+  }
+
+  render() {
+    console.log('render')
+    return (
+      <div>
+        <h3>TODO</h3>
+        <todo-list items={this.data.items} />
+        <form onSubmit={this.handleSubmit}>
+          <input
+            id="new-todo"
+            onChange={this.handleChange}
+            value={this.data.text}
+          />
+          <button>Add #{this.data.items.length + 1}</button>
+        </form>
+      </div>
+    )
+  }
+
+  handleChange = e => {
+    this.data.text = e.target.value
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    if (!this.data.text.trim().length) {
+      return
+    }
+    this.data.items.push({
+      text: this.data.text,
+      id: Date.now()
+    })
+    this.data.text = ''
+  }
+})
+
+render(<todo-app />, 'body')
 ```
 
 ### Use
