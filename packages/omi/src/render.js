@@ -1,7 +1,9 @@
 import { diff } from './vdom/diff'
+import {rename} from './util'
 import JSONProxy from './proxy'
 
 export function render(vnode, parent, store) {
+  vnode.nodeName = rename(vnode.nodeName)
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent
   if (store) {
     store.instances = []

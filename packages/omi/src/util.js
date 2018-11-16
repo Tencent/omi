@@ -86,3 +86,10 @@ export function nProps(props) {
   })
   return result
 }
+
+export function rename(name) {
+  if (typeof name !== 'string') return name
+  name = name.toLowerCase()
+  if (!/-/.test(name) && (name = name.split('')) && name.splice(1, 0, '-')) name = name.join('')
+  return name
+}

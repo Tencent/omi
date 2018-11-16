@@ -1,11 +1,12 @@
 import WeElement from './we-element'
-import { cssToDom } from './util'
+import { cssToDom, rename } from './util'
 
 const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
 
 export function define(name, ctor) {
   if (ctor.is === 'WeElement') {
+    name = rename(name)
     customElements.define(name, ctor)
     if (ctor.data && !ctor.pure) {
       ctor.updatePath = getUpdatePath(ctor.data)
