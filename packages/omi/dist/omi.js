@@ -291,7 +291,6 @@
             if (!idMap[ele.I]) {
                 idMap[ele.I] = !0;
                 elements.push(ele);
-                if ('replace' === info.op && info.oldValue === info.value) return;
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     updateElements();
@@ -848,7 +847,7 @@
         nextTick: nextTick
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.1.1';
+    options.root.Omi.version = '4.1.2';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
