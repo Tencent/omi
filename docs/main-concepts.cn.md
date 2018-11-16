@@ -12,6 +12,7 @@
   - [Ref](#ref)
   - [Store](#store)
   - [Slot](#slot)
+  - [noSlot](#noslot)
   - [Observe](#observe)
   - [Tick and NextTick](#tick-and-nexttick)
   - [Use](#use)
@@ -369,6 +370,51 @@ render(<my-app></my-app>, 'body')
 ```
 
 [→ Slot MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots#Adding_flexibility_with_slots)
+
+## noSlot
+
+对于写一些 omi 插件，noSlot 非常有用，它不会把 children 插入到 DOM 中，兵器你可以在插件中通过 props.children 拿到虚拟 DOM。
+
+```js
+import { define, render, WeElement } from 'omi'
+
+define('fancy-tabs', class extends WeElement {
+  static noSlot = true
+
+  render() {
+    return [
+      <div id="tabs">
+        <slot id="tabsSlot" name="title" />
+      </div>,
+      <div id="panels">
+        <slot id="panelsSlot" />
+      </div>,
+      <div>Show me only when noSlot is true!</div>
+    ]
+  }
+})
+
+define('my-app', class extends WeElement {
+  render() {
+    return (
+      <div>
+        <fancy-tabs>
+          <button slot="title">Title</button>
+          <button slot="title" selected>
+            Title 2
+          </button>
+          <button slot="title">Title 3</button>
+          <section>content panel 1</section>
+          <section>content panel 2</section>
+          <section>content panel 3</section>
+        </fancy-tabs>
+      </div>
+    )
+  }
+})
+
+render(<my-app />, 'body')
+```
 
 ### Observe
 
