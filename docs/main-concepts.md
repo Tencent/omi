@@ -577,6 +577,14 @@ define('todo-app', class extends WeElement {
 render(<todo-app />, 'body')
 ```
 
+You can also execute `this.update` manually and then get the dom after update. 
+Please note that do not exec this.update in the following functions, it will lead to infinite recursion：
+
+* render
+* beforeRender
+* beforeUpdate
+* afterUpdate
+
 ### Use
 
 ```js

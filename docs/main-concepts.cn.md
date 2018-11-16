@@ -561,6 +561,13 @@ define('todo-app', class extends WeElement {
 render(<todo-app />, 'body')
 ```
 
+你也可以手动执行 this.update ，然后在它后面获取真实的 dom，但是主要不要在下面这些方法里执行 this.update，不然无限递归:
+
+* render
+* beforeRender
+* beforeUpdate
+* afterUpdate
+
 ### Use
 
 ```js
