@@ -622,30 +622,6 @@ class MyApp extends WeElement {
 }
 ```
 
-`observe`를 사용하면 다음 함수에서 데이터의 값을 설정하지 말아야 한다는 점을 유의해야 합니다. 일부 속성은 obj 또는 arr 과 같은 복잡한 객체입니다.
-
-* render
-* beforeRender
-* beforeUpdate
-* afterUpdate
-
-왜냐하면 data는 단순히 이전과 이후의 값을 비교하기 때문에 복잡한 오브젝트는 완전히 대조되지 않고 비교 값은은 업데이트를 트리거하고 업데이트는 위의 함수를 트리거하며 무한 반복됩니다.
-
-예를들면:
-
-❌Wrong way:
-```js
-beforeRender(){
-  this.data.a = { b: 1 }
-}
-```
- ✅ Right way:
-```js
-beforeRender(){
-  this.data.a.b = 1 
-}
-```
-
 만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mobx` 를 사용해주세요.
 
 ### Omi Mobx
