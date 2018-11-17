@@ -1,8 +1,10 @@
 import { WeElement, define } from 'omi'
 import cax from 'cax'
 
+const caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'skewY', 'originX', 'originY', 'alpha', 'compositeOperation', 'cursor', 'fixed', 'shadow']
+
 define('omi-canvas', class extends WeElement {
-  static noSlot = true
+  //static noSlot = true
 
   install() {
 
@@ -10,22 +12,13 @@ define('omi-canvas', class extends WeElement {
 
   installed() {
     this.stage = new cax.Stage(this.canvas)
-    const text = new cax.Text('Hello omi-canvas', {
-      font: '20px Arial',
-      color: '#ff7700',
-      baseline: 'top'
-    })
-    this.stage.add(text)
-    this.stage.update()
-  }
-
-  css() {
-    return `canvas{ border: 1px solid #ccc; }`
+    render(this.props.children, this.stage)
   }
 
   render(props) {
     return (
       <canvas
+        style={props.css}
         ref={e => { this.canvas = e }}
         width={props.width}
         height={props.height}>
@@ -33,3 +26,38 @@ define('omi-canvas', class extends WeElement {
     )
   }
 })
+
+
+function render(children, stage) {
+  children.forEach(child => {
+    const attr = child.attributes
+    switch (child.nodeName) {
+      case 'text':
+        const text = new cax.Text(attr.text, {
+          font: attr.font,
+          color: attr.color,
+          baseline: attr.baseline
+        })
+        mix(attr, text)
+        console.log(text.x)
+        stage.add(text)
+        break
+      case 'bitmap':
+        const bitmap = new cax.Bitmap(attr.src, () => {
+          stage.update()
+        })
+        stage.add(bitmap)
+        mix(attr, bitmap)
+    }
+  })
+
+  stage.update()
+}
+
+function mix(attr, obj) {
+  caxProps.forEach(prop => {
+    if (attr.hasOwnProperty(prop)) {
+      obj[prop] = attr[prop]
+    }
+  })
+}

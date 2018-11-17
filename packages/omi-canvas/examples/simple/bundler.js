@@ -1612,8 +1612,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'install',
-    value: function install() {}
+    key: 'css',
+    value: function css() {
+      return '\n        div{\n          text-align: center;\n        }';
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -1627,9 +1629,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         ),
         Omi.h(
           'omi-canvas',
-          { width: 400, height: 400 },
-          Omi.h('text', { text: 'Hello omi' }),
-          Omi.h('bitmap', { src: _omi3['default'] })
+          { width: 400, height: 400, css: 'border: 1px solid #ccc;' },
+          Omi.h('text', {
+            text: 'Hello omi-canvas',
+            font: '30px Segoe UI',
+            color: '#ff7700',
+            baseline: 'top',
+            x: 80,
+            y: 100
+          }),
+          Omi.h('bitmap', {
+            src: _omi3['default'],
+            scale: 0.5,
+            x: 130,
+            y: 140
+          })
         )
       );
     }
@@ -1638,7 +1652,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   return _class;
 }(_omi.WeElement));
 
-(0, _omi.render)(Omi.h('my-app', null), "body");
+(0, _omi.render)(Omi.h('my-app', null), 'body');
 
 /***/ }),
 /* 2 */
@@ -1679,8 +1693,6 @@ module.exports = g;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _class, _temp;
-
 var _omi = __webpack_require__(0);
 
 var _cax = __webpack_require__(4);
@@ -1695,7 +1707,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('omi-canvas', (_temp = _class = function (_WeElement) {
+var caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'skewY', 'originX', 'originY', 'alpha', 'compositeOperation', 'cursor', 'fixed', 'shadow'];
+
+(0, _omi.define)('omi-canvas', function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -1706,37 +1720,67 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
   _createClass(_class, [{
     key: 'install',
+
+    //static noSlot = true
+
     value: function install() {}
   }, {
     key: 'installed',
     value: function installed() {
       this.stage = new _cax2['default'].Stage(this.canvas);
-      var text = new _cax2['default'].Text('Hello omi-canvas', {
-        font: '20px Arial',
-        color: '#ff7700',
-        baseline: 'top'
-      });
-      this.stage.add(text);
-      this.stage.update();
-    }
-  }, {
-    key: 'css',
-    value: function css() {
-      return 'canvas{ border: 1px solid #ccc; }';
+      render(this.props.children, this.stage);
     }
   }, {
     key: 'render',
     value: function render(props) {
       var _this2 = this;
 
-      return Omi.h('canvas', { ref: function ref(e) {
+      return Omi.h('canvas', {
+        style: props.css,
+        ref: function ref(e) {
           _this2.canvas = e;
-        }, width: props.width, height: props.height });
+        },
+        width: props.width,
+        height: props.height });
     }
   }]);
 
   return _class;
-}(_omi.WeElement), _class.noSlot = true, _temp));
+}(_omi.WeElement));
+
+function render(children, stage) {
+  children.forEach(function (child) {
+    var attr = child.attributes;
+    switch (child.nodeName) {
+      case 'text':
+        var text = new _cax2['default'].Text(attr.text, {
+          font: attr.font,
+          color: attr.color,
+          baseline: attr.baseline
+        });
+        mix(attr, text);
+        console.log(text.x);
+        stage.add(text);
+        break;
+      case 'bitmap':
+        var bitmap = new _cax2['default'].Bitmap(attr.src, function () {
+          stage.update();
+        });
+        stage.add(bitmap);
+        mix(attr, bitmap);
+    }
+  });
+
+  stage.update();
+}
+
+function mix(attr, obj) {
+  caxProps.forEach(function (prop) {
+    if (attr.hasOwnProperty(prop)) {
+      obj[prop] = attr[prop];
+    }
+  });
+}
 
 /***/ }),
 /* 4 */
