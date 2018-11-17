@@ -45,11 +45,11 @@ define('todo-app', class extends WeElement {
 
   render() {
 		//don't do this
-    //this.data.a = { c: 2 }
+    this.data.a = { c: 2 }
     console.log('render')
     return (
       <div>
-        <h3>TODO</h3>
+        <h3>TODO{this.data.a.c}</h3>
         <todo-list items={this.data.items} />
         <form onSubmit={this.handleSubmit}>
           <input

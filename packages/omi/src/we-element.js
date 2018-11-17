@@ -82,6 +82,7 @@ export default class WeElement extends HTMLElement {
   }
 
   update() {
+    this._willUpdate = true
     this.beforeUpdate()
     this.beforeRender()
     this.host = diff(
@@ -92,6 +93,7 @@ export default class WeElement extends HTMLElement {
       this.shadowRoot
     )
     this.afterUpdate()
+    this._willUpdate = false
   }
 
   fire(name, data) {

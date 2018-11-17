@@ -1,5 +1,5 @@
 /**
- * omi v4.1.3  http://omijs.org
+ * omi v4.1.4  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -191,38 +191,14 @@
   }
 
   /**
-   * A DOM event listener
-   * @typedef {(e: Event) => void} EventListner
-   */
-
-  /**
-   * A mapping of event types to event listeners
-   * @typedef {Object.<string, EventListener>} EventListenerMap
-   */
-
-  /**
-   * Properties Preact adds to elements it creates
-   * @typedef PreactElementExtensions
-   * @property {string} [normalizedNodeName] A normalized node name to use in diffing
-   * @property {EventListenerMap} [_listeners] A map of event listeners added by components to this DOM node
-   * @property {import('../component').Component} [_component] The component that rendered this DOM node
-   * @property {function} [_componentConstructor] The constructor of the component that rendered this DOM node
-   */
-
-  /**
-   * A DOM element that has been extended with Preact properties
-   * @typedef {Element & ElementCSSInlineStyle & PreactElementExtensions} PreactElement
-   */
-
-  /**
    * Create an element with the given nodeName.
    * @param {string} nodeName The DOM node to create
    * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
    *  namespace.
-   * @returns {PreactElement} The created DOM node
+   * @returns {Element} The created DOM node
    */
   function createNode(nodeName, isSvg) {
-    /** @type {PreactElement} */
+    /** @type {Element} */
     var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
     node.normalizedNodeName = nodeName;
     return node;
@@ -241,7 +217,7 @@
    * Set a named attribute on the given Node, with special behavior for some names
    * and event handlers. If `value` is `null`, the attribute/handler will be
    * removed.
-   * @param {PreactElement} node An element to mutate
+   * @param {Element} node An element to mutate
    * @param {string} name The name/key to set, such as an event or attribute name
    * @param {*} old The last value that was set for this name/node pair
    * @param {*} value An attribute value, such as a function to be used as an
@@ -362,7 +338,7 @@
       isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
       // hydration is indicated by the existing element to be diffed not having a prop cache
-      hydrating = dom != null && !('__preactattr_' in dom);
+      hydrating = dom != null && !('__omiattr_' in dom);
     }
     if (isArray(vnode)) {
       ret = [];
@@ -436,7 +412,7 @@
         }
       }
 
-      out['__preactattr_'] = true;
+      out['__omiattr_'] = true;
 
       return out;
     }
@@ -465,11 +441,11 @@
     }
 
     var fc = out.firstChild,
-        props = out['__preactattr_'],
+        props = out['__omiattr_'],
         vchildren = vnode.children;
 
     if (props == null) {
-      props = out['__preactattr_'] = {};
+      props = out['__omiattr_'] = {};
       for (var a = out.attributes, i = a.length; i--;) {
         props[a[i].name] = a[i].value;
       }
@@ -525,7 +501,7 @@
     if (len !== 0) {
       for (var i = 0; i < len; i++) {
         var _child = originalChildren[i],
-            props = _child['__preactattr_'],
+            props = _child['__omiattr_'],
             key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
         if (key != null) {
           keyedLen++;
@@ -599,9 +575,9 @@
   function recollectNodeTree(node, unmountOnly) {
     // If the node's VNode had a ref function, invoke it with null here.
     // (this is part of the React spec, and smart for unsetting references)
-    if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
+    if (node['__omiattr_'] != null && node['__omiattr_'].ref) node['__omiattr_'].ref(null);
 
-    if (unmountOnly === false || node['__preactattr_'] == null) {
+    if (unmountOnly === false || node['__omiattr_'] == null) {
       removeNode(node);
     }
 
@@ -1047,7 +1023,7 @@
   function proxyUpdate(ele) {
     var timeout = null;
     ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-      if (info.op === 'replace' && info.oldValue === info.value) {
+      if (ele._willUpdate || info.op === 'replace' && info.oldValue === info.value) {
         return;
       }
 
@@ -1139,10 +1115,12 @@
     };
 
     WeElement.prototype.update = function update() {
+      this._willUpdate = true;
       this.beforeUpdate();
       this.beforeRender();
       this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
       this.afterUpdate();
+      this._willUpdate = false;
     };
 
     WeElement.prototype.fire = function fire(name, data) {
@@ -1480,7 +1458,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.1.3';
+  options.root.Omi.version = '4.1.4';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

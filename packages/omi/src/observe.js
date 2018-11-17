@@ -8,7 +8,10 @@ export function observe(target) {
 export function proxyUpdate(ele) {
   let timeout = null
   ele.data = new JSONProxy(ele.data).observe(false, info => {
-    if (info.op === 'replace' && info.oldValue === info.value) {
+    if (
+      ele._willUpdate ||
+      (info.op === 'replace' && info.oldValue === info.value)
+    ) {
       return
     }
 

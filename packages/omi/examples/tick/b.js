@@ -1043,7 +1043,7 @@
   function proxyUpdate(ele) {
     var timeout = null;
     ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-      if (info.op === 'replace' && info.oldValue === info.value) {
+      if (ele._willUpdate || info.op === 'replace' && info.oldValue === info.value) {
         return;
       }
 
@@ -1137,10 +1137,12 @@
     };
 
     WeElement.prototype.update = function update() {
+      this._willUpdate = true;
       this.beforeUpdate();
       this.beforeRender();
       this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
       this.afterUpdate();
+      this._willUpdate = false;
     };
 
     WeElement.prototype.fire = function fire(name, data) {
@@ -1479,7 +1481,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.1.3';
+  options.root.Omi.version = '4.1.4';
 
   var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1571,7 +1573,7 @@
 
     _class2.prototype.render = function render$$1() {
       //don't do this
-      //this.data.a = { c: 2 }
+      this.data.a = { c: 2 };
       console.log('render');
       return Omi.h(
         'div',
@@ -1579,7 +1581,8 @@
         Omi.h(
           'h3',
           null,
-          'TODO'
+          'TODO',
+          this.data.a.c
         ),
         Omi.h('todo-list', { items: this.data.items }),
         Omi.h(
