@@ -20,8 +20,25 @@ var config  = {
                 loader: 'babel-loader',
                 test: /\.js$/,
                 query: {
-                    presets: 'env'
+                    presets: ['env','omi'],
+                    plugins : [
+                      "transform-es3-property-literals",
+                      "transform-es3-member-expression-literals",
+                      "transform-class-properties",
+                      "transform-object-rest-spread"
+                  ]
                 }
+            },
+            {
+              test: /\.(png|jpg|gif)$/i,
+              use: [
+                {
+                  loader: 'url-loader',
+                  options: {
+                    limit: 8192
+                  }
+                }
+              ]
             }
         ]
     },
@@ -60,10 +77,12 @@ if(ENV === 'build'||ENV === 'build-min'){
                     loader: 'babel-loader',
                     test: path.join(__dirname, 'src'),
                     query: {
-                        presets: 'env',
+                        presets: ['env','omi'],
                         plugins : [
                             "transform-es3-property-literals",
-                            "transform-es3-member-expression-literals"
+                            "transform-es3-member-expression-literals",
+                            "transform-class-properties",
+                            "transform-object-rest-spread"
                         ]
                     },
                 }
@@ -85,7 +104,7 @@ if(ENV === 'build'||ENV === 'build-min'){
     if(ENV === 'build-min'){
         config.plugins.push(new webpack.optimize.UglifyJsPlugin());
         config.entry = {
-            'omi-canvas.min': './index.js'
+            'omi-canvas.min': './src/index.js'
         };
     }
 }
