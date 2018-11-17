@@ -123,3 +123,8 @@ Usage:
 ```js
 obj.stage
 ```
+
+
+## License
+
+MIT © [dntzhang](https://github.com/dntzhang/)
