@@ -2,7 +2,7 @@
 
 Perfect fusion of web components, jsx and canvas
 
-[→ Online DEMO](http://tencent.github.io/omi/packages/omi-canvas/examples/simple/)
+[→ Online DEMO](https://tencent.github.io/omi/packages/omi-canvas/examples/simple/)
 
 ```js
 import { render, define, WeElement } from 'omi'
