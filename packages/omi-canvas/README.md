@@ -22,7 +22,10 @@ define('my-app', class extends WeElement {
     return (
       <div>
         <h1>Omi</h1>
-        <omi-canvas width={400} height={400} css='border: 1px solid #ccc;'>
+        <omi-canvas 
+          width={400} 
+          height={400} 
+          css='border: 1px solid #ccc;'>
           <text
             text='Hello omi-canvas'
             font='30px Segoe UI'
