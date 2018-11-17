@@ -1603,15 +1603,25 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (0, _omi.define)('my-app', function (_WeElement) {
-  _inherits(_class, _WeElement);
+  _inherits(_class2, _WeElement);
 
-  function _class() {
-    _classCallCheck(this, _class);
+  function _class2() {
+    var _ref;
 
-    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, _class2);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (evt) {
+      alert('Hello omi-canvas');
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class, [{
+  _createClass(_class2, [{
     key: 'css',
     value: function css() {
       return '\n        div{\n          text-align: center;\n        }';
@@ -1639,7 +1649,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             y: 100
           }),
           Omi.h('bitmap', {
+            onClick: this.onClick,
             src: _omi3['default'],
+            cursor: 'pointer',
             scale: 0.5,
             x: 130,
             y: 140
@@ -1649,7 +1661,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class;
+  return _class2;
 }(_omi.WeElement));
 
 (0, _omi.render)(Omi.h('my-app', null), 'body');
@@ -1759,7 +1771,6 @@ function render(children, stage) {
           baseline: attr.baseline
         });
         mix(attr, text);
-        console.log(text.x);
         stage.add(text);
         break;
       case 'bitmap':
@@ -1778,6 +1789,13 @@ function mix(attr, obj) {
   caxProps.forEach(function (prop) {
     if (attr.hasOwnProperty(prop)) {
       obj[prop] = attr[prop];
+    }
+  });
+
+  Object.keys(attr).forEach(function (key) {
+    if (key[0] == 'o' && key[1] == 'n') {
+      var type = key.toLowerCase().substring(2);
+      obj.on(type, attr[key]);
     }
   });
 }

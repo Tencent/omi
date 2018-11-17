@@ -20,14 +20,18 @@ define('my-app', class extends WeElement {
         }`
   }
 
+  onClick = (evt)=> {
+    alert('Hello omi-canvas')
+  }
+
   render() {
     return (
       <div>
         <h1>Omi</h1>
         <omi-canvas 
           width={400} 
-          height={400} 
-          css='border: 1px solid #ccc;'>
+          height={400}
+         css='border: 1px solid #ccc;'>
           <text
             text='Hello omi-canvas'
             font='30px Segoe UI'
@@ -37,7 +41,9 @@ define('my-app', class extends WeElement {
             y={100}
           />
           <bitmap
+            onClick={this.onClick}
             src={omiUrl}
+            cursor='pointer'
             scale={0.5}
             x={130}
             y={140}

@@ -39,7 +39,6 @@ function render(children, stage) {
           baseline: attr.baseline
         })
         mix(attr, text)
-        console.log(text.x)
         stage.add(text)
         break
       case 'bitmap':
@@ -58,6 +57,13 @@ function mix(attr, obj) {
   caxProps.forEach(prop => {
     if (attr.hasOwnProperty(prop)) {
       obj[prop] = attr[prop]
+    }
+  })
+
+  Object.keys(attr).forEach(key => {
+    if (key[0] == 'o' && key[1] == 'n') {
+      const type = key.toLowerCase().substring(2)
+      obj.on(type, attr[key])
     }
   })
 }

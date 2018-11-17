@@ -12,6 +12,10 @@ define('my-app', class extends WeElement {
         }`
   }
 
+  onClick = (evt)=> {
+    alert('Hello omi-canvas')
+  }
+
   render() {
     return (
       <div>
@@ -26,7 +30,9 @@ define('my-app', class extends WeElement {
             y={100}
           />
           <bitmap
+            onClick={this.onClick}
             src={omiUrl}
+            cursor='pointer'
             scale={0.5}
             x={130}
             y={140}
