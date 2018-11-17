@@ -104,25 +104,17 @@ Notice that if you don't have a definition of compositeOperation to look up, fin
 Usage:
 
 ```js
-obj.shadow = {
+<text
+  text='omi'
+  shadow = {
     color: '#42B035',
     offsetX: -5,
     offsetY: 5,
     blur: 10
-}
+    } 
+/>
 ```
 
-### Stage
-
-|Name      |Describe   |
-|---|---|
-| stage | get the root stage|
-
-Usage:
-
-```js
-obj.stage
-```
 
 
 ## License
