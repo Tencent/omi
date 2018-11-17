@@ -126,7 +126,23 @@ Usage:
 />
 ```
 
+## Event
 
+|**Supported List**|
+|----------|
+|onClick|
+|onTouchStart|
+|onTouchMove|
+|onTouchEnd|
+|onTouchCancel|
+|onMouseMove|
+|onMouseDown|
+|onMouseUp|
+|onMouseOver|
+|onMouseOut|
+|onDblClick|
+|onContextMenu|
+|onDrag|
 
 ## License
 
