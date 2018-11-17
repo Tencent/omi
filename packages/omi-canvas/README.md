@@ -126,7 +126,7 @@ Usage:
 />
 ```
 
-## Event
+## Events Supported in omi-canvas
 
 |**Supported List**|
 |----------|
