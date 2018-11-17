@@ -1,6 +1,8 @@
 # omi-canvas
 
-Perfect fusion of web components, jsx and canvas
+> Perfect fusion of web components, jsx and canvas.
+
+The current version is v0.0.0. v1.0.0 is coming soon.
 
 [→ Online DEMO](https://tencent.github.io/omi/packages/omi-canvas/examples/simple/)
 
