@@ -118,6 +118,7 @@ div img .image{
 | onReady | 监听页面初次渲染完成 |  支持	 |
 | onHide | 监听页面隐藏	  | 支持|
 | onUnload | 监听页面卸载  |  支持	|
+| onReachBottom | 监听页面滚到底部  |  支持	|
 
 ### 组件生命周期函数
 
