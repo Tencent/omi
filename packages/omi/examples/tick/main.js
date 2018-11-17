@@ -39,6 +39,10 @@ define('todo-app', class extends WeElement {
     // })
   }
 
+	afterUpdate(){
+		console.log('afterUpdate')
+	}
+
   installed() {
     console.log('installed')
   }

@@ -153,7 +153,7 @@
 
   // render modes
 
-  var ATTR_KEY = '__preactattr_';
+  var ATTR_KEY = '__omiattr_';
 
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -187,38 +187,14 @@
   }
 
   /**
-   * A DOM event listener
-   * @typedef {(e: Event) => void} EventListner
-   */
-
-  /**
-   * A mapping of event types to event listeners
-   * @typedef {Object.<string, EventListener>} EventListenerMap
-   */
-
-  /**
-   * Properties Preact adds to elements it creates
-   * @typedef PreactElementExtensions
-   * @property {string} [normalizedNodeName] A normalized node name to use in diffing
-   * @property {EventListenerMap} [_listeners] A map of event listeners added by components to this DOM node
-   * @property {import('../component').Component} [_component] The component that rendered this DOM node
-   * @property {function} [_componentConstructor] The constructor of the component that rendered this DOM node
-   */
-
-  /**
-   * A DOM element that has been extended with Preact properties
-   * @typedef {Element & ElementCSSInlineStyle & PreactElementExtensions} PreactElement
-   */
-
-  /**
    * Create an element with the given nodeName.
    * @param {string} nodeName The DOM node to create
    * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
    *  namespace.
-   * @returns {PreactElement} The created DOM node
+   * @returns {Element} The created DOM node
    */
   function createNode(nodeName, isSvg) {
-    /** @type {PreactElement} */
+    /** @type {Element} */
     var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
     node.normalizedNodeName = nodeName;
     return node;
@@ -237,7 +213,7 @@
    * Set a named attribute on the given Node, with special behavior for some names
    * and event handlers. If `value` is `null`, the attribute/handler will be
    * removed.
-   * @param {PreactElement} node An element to mutate
+   * @param {Element} node An element to mutate
    * @param {string} name The name/key to set, such as an event or attribute name
    * @param {*} old The last value that was set for this name/node pair
    * @param {*} value An attribute value, such as a function to be used as an
@@ -1052,7 +1028,7 @@
       timeout = setTimeout(function () {
         ele.update();
         fireTick();
-      }, 16.6);
+      }, 0);
     });
   }
 
@@ -1180,14 +1156,14 @@
           timeout = setTimeout(function () {
             update(patchs, store);
             patchs = {};
-          }, 16.6);
+          }, 0);
         } else {
           var key = fixPath(patch.path);
           patchs[key] = patch.value;
           timeout = setTimeout(function () {
             update(patchs, store);
             patchs = {};
-          }, 16.6);
+          }, 0);
         }
       });
       parent.store = store;
@@ -1567,12 +1543,15 @@
       // })
     };
 
+    _class2.prototype.afterUpdate = function afterUpdate() {
+      console.log('afterUpdate');
+    };
+
     _class2.prototype.installed = function installed() {
       console.log('installed');
     };
 
     _class2.prototype.render = function render$$1() {
-      //don't do this
       this.data.a = { c: 2 };
       console.log('render');
       return Omi.h(

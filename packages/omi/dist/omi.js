@@ -293,7 +293,7 @@
                 timeout = setTimeout(function() {
                     ele.update();
                     fireTick();
-                }, 16.6);
+                }, 0);
             }
         });
     }
@@ -331,14 +331,14 @@
                     timeout = setTimeout(function() {
                         update(patchs, store);
                         patchs = {};
-                    }, 16.6);
+                    }, 0);
                 } else {
                     var key = fixPath(patch.path);
                     patchs[key] = patch.value;
                     timeout = setTimeout(function() {
                         update(patchs, store);
                         patchs = {};
-                    }, 16.6);
+                    }, 0);
                 }
             });
             parent.store = store;

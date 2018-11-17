@@ -20,6 +20,6 @@ export function proxyUpdate(ele) {
     timeout = setTimeout(() => {
       ele.update()
       fireTick()
-    }, 16.6)
+    }, 0)
   })
 }
