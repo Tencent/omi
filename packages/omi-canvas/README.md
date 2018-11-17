@@ -6,7 +6,7 @@ Perfect fusion of web components, jsx and canvas
 
 ```js
 import { render, define, WeElement } from 'omi'
-import '../../src/index'
+import 'omi-canvas'
 import omiUrl from './omi.jpg'
 
 define('my-app', class extends WeElement {
