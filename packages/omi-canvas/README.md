@@ -21,7 +21,7 @@ define('my-app', class extends WeElement {
   }
 
   onClick = (evt)=> {
-    alert('Hello omi-canvas')
+    this.data.scale = 0.55
   }
 
   render() {
@@ -44,7 +44,7 @@ define('my-app', class extends WeElement {
             onClick={this.onClick}
             src={omiUrl}
             cursor='pointer'
-            scale={0.5}
+            scale={this.data.scale}
             x={130}
             y={140}
           />
