@@ -16,7 +16,7 @@ define('omi-canvas', class extends WeElement {
   }
 
   afterUpdate(){
-    //rerender
+    render(this.props.children, this.stage)
   }
 
   render(props) {
@@ -33,6 +33,7 @@ define('omi-canvas', class extends WeElement {
 
 
 function render(children, stage) {
+  stage.empty()
   children.forEach(child => {
     const attr = child.attributes
     switch (child.nodeName) {

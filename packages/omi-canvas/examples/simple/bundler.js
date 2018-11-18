@@ -77,7 +77,7 @@ Object.defineProperty(exports, "__esModule", {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /**
- * omi v4.1.4  http://omijs.org
+ * omi v4.1.5  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1561,7 +1561,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.1.4';
+options.root.Omi.version = '4.1.5';
 
 exports['default'] = omi;
 exports.tag = tag;
@@ -1626,8 +1626,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       scale: 0.5
     }, _this.onClick = function (evt) {
       _this.data.scale = 0.55;
-
-      alert('Hello omi-canvas');
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -1637,15 +1635,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       return '\n        div{\n          text-align: center;\n        }';
     }
   }, {
-    key: 'installed',
-    value: function installed() {
-      console.log(this.canvas.__omiattr_.children);
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return Omi.h(
         'div',
         null,
@@ -1656,9 +1647,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         ),
         Omi.h(
           'omi-canvas',
-          { ref: function ref(e) {
-              _this2.canvas = e;
-            }, width: 400, height: 400, css: 'border: 1px solid #ccc;' },
+          { width: 400, height: 400, css: 'border: 1px solid #ccc;' },
           Omi.h('text', {
             text: 'Hello omi-canvas',
             font: '30px Segoe UI',
@@ -1764,7 +1753,7 @@ var caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'ske
   }, {
     key: 'afterUpdate',
     value: function afterUpdate() {
-      console.log('fff');
+      render(this.props.children, this.stage);
     }
   }, {
     key: 'render',
@@ -1785,6 +1774,7 @@ var caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'ske
 }(_omi.WeElement));
 
 function render(children, stage) {
+  stage.empty();
   children.forEach(function (child) {
     var attr = child.attributes;
     switch (child.nodeName) {
