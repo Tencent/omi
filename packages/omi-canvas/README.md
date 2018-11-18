@@ -31,7 +31,7 @@ define('my-app', class extends WeElement {
         <omi-canvas 
           width={400} 
           height={400}
-         css='border: 1px solid #ccc;'>
+          css='border: 1px solid #ccc;'>
           <text
             text='Hello omi-canvas'
             font='30px Segoe UI'
