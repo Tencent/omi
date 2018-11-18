@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1579,243 +1579,10 @@ exports.rpx = rpx;
 exports.tick = tick;
 exports.nextTick = nextTick;
 //# sourceMappingURL=omi.esm.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _class, _temp2;
-
-var _omi = __webpack_require__(0);
-
-__webpack_require__(3);
-
-var _omi2 = __webpack_require__(6);
-
-var _omi3 = _interopRequireDefault(_omi2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-(0, _omi.define)('my-app', (_temp2 = _class = function (_WeElement) {
-  _inherits(_class, _WeElement);
-
-  function _class() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, _class);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = {
-      scale: 0.5
-    }, _this.onClick = function (evt) {
-      _this.data.scale = 0.55;
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return '\n        div{\n          text-align: center;\n        }';
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return Omi.h(
-        'div',
-        null,
-        Omi.h(
-          'h1',
-          null,
-          'Omi'
-        ),
-        Omi.h(
-          'omi-canvas',
-          { width: 400, height: 400, css: 'border: 1px solid #ccc;' },
-          Omi.h('text', {
-            text: 'Hello omi-canvas',
-            font: '30px Segoe UI',
-            color: '#ff7700',
-            baseline: 'top',
-            x: 80,
-            y: 100
-          }),
-          Omi.h('bitmap', {
-            onClick: this.onClick,
-            src: _omi3['default'],
-            cursor: 'pointer',
-            scale: this.data.scale,
-            x: 130,
-            y: 140
-          })
-        )
-      );
-    }
-  }]);
-
-  return _class;
-}(_omi.WeElement), _class.observe = true, _temp2));
-
-(0, _omi.render)(Omi.h('my-app', null), 'body');
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var g;
-
-// This works in non-strict mode
-g = function () {
-	return this;
-}();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _omi = __webpack_require__(0);
-
-var _cax = __webpack_require__(4);
-
-var _cax2 = _interopRequireDefault(_cax);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'skewY', 'originX', 'originY', 'alpha', 'compositeOperation', 'cursor', 'fixed', 'shadow'];
-
-(0, _omi.define)('omi-canvas', function (_WeElement) {
-  _inherits(_class, _WeElement);
-
-  function _class() {
-    _classCallCheck(this, _class);
-
-    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
-  }
-
-  _createClass(_class, [{
-    key: 'install',
-
-    //static noSlot = true
-
-    value: function install() {}
-  }, {
-    key: 'installed',
-    value: function installed() {
-      this.stage = new _cax2['default'].Stage(this.canvas);
-      render(this.props.children, this.stage);
-    }
-  }, {
-    key: 'afterUpdate',
-    value: function afterUpdate() {
-      render(this.props.children, this.stage);
-    }
-  }, {
-    key: 'render',
-    value: function render(props) {
-      var _this2 = this;
-
-      return Omi.h('canvas', {
-        style: props.css,
-        ref: function ref(e) {
-          _this2.canvas = e;
-        },
-        width: props.width,
-        height: props.height });
-    }
-  }]);
-
-  return _class;
-}(_omi.WeElement));
-
-function render(children, stage) {
-  stage.empty();
-  children.forEach(function (child) {
-    var attr = child.attributes;
-    switch (child.nodeName) {
-      case 'text':
-        var text = new _cax2['default'].Text(attr.text, {
-          font: attr.font,
-          color: attr.color,
-          baseline: attr.baseline
-        });
-        mix(attr, text);
-        stage.add(text);
-        break;
-      case 'bitmap':
-        var bitmap = new _cax2['default'].Bitmap(attr.src, function () {
-          stage.update();
-        });
-        stage.add(bitmap);
-        mix(attr, bitmap);
-    }
-  });
-
-  stage.update();
-}
-
-function mix(attr, obj) {
-  caxProps.forEach(function (prop) {
-    if (attr.hasOwnProperty(prop)) {
-      obj[prop] = attr[prop];
-    }
-  });
-
-  Object.keys(attr).forEach(function (key) {
-    if (key[0] == 'o' && key[1] == 'n') {
-      var type = key.toLowerCase().substring(2);
-      obj.on(type, attr[key]);
-    }
-  });
-}
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8861,6 +8628,214 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp2;
+
+var _omi = __webpack_require__(0);
+
+__webpack_require__(4);
+
+var _omi2 = __webpack_require__(7);
+
+var _omi3 = _interopRequireDefault(_omi2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('my-app', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, _class);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = {
+      scale: 0.5
+    }, _this.onClick = function (evt) {
+      _this.data.scale = 0.55;
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(_class, [{
+    key: 'css',
+    value: function css() {
+      return '\n        div{\n          text-align: center;\n        }';
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'h1',
+          null,
+          'Omi'
+        ),
+        Omi.h(
+          'omi-canvas',
+          { width: 400, height: 400, css: 'border: 1px solid #ccc;' },
+          Omi.h('text', {
+            text: 'Hello omi-canvas',
+            font: '30px Segoe UI',
+            color: '#ff7700',
+            baseline: 'top',
+            x: 80,
+            y: 100
+          }),
+          Omi.h('bitmap', {
+            onClick: this.onClick,
+            src: _omi3['default'],
+            cursor: 'pointer',
+            scale: this.data.scale,
+            x: 130,
+            y: 140
+          })
+        )
+      );
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement), _class.observe = true, _temp2));
+
+(0, _omi.render)(Omi.h('my-app', null), 'body');
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var g;
+
+// This works in non-strict mode
+g = function () {
+	return this;
+}();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+var _cax = __webpack_require__(1);
+
+var _cax2 = _interopRequireDefault(_cax);
+
+var _objectPool = __webpack_require__(6);
+
+var _objectPool2 = _interopRequireDefault(_objectPool);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('omi-canvas', function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    _classCallCheck(this, _class);
+
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'install',
+
+    //static noSlot = true
+
+    value: function install() {}
+  }, {
+    key: 'installed',
+    value: function installed() {
+      this.stage = new _cax2['default'].Stage(this.canvas);
+      this._objectPool = new _objectPool2['default']();
+      render(this.props.children, this.stage, this._objectPool);
+    }
+  }, {
+    key: 'afterUpdate',
+    value: function afterUpdate() {
+      update(this.props.children, this.stage, this._objectPool);
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this2 = this;
+
+      return Omi.h('canvas', {
+        style: props.css,
+        ref: function ref(e) {
+          _this2.canvas = e;
+        },
+        width: props.width,
+        height: props.height });
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement));
+
+function render(children, stage, pool) {
+  children.forEach(function (child) {
+    stage.add(pool.getObj(child.nodeName, child, stage));
+  });
+  stage.update();
+}
+
+function update(children, stage, pool) {
+  stage.empty();
+  pool.reset();
+  render(children, stage, pool);
+}
+
+/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8892,6 +8867,161 @@ module.exports = function (module) {
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _cax = __webpack_require__(1);
+
+var _cax2 = _interopRequireDefault(_cax);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'skewY', 'originX', 'originY', 'alpha', 'compositeOperation', 'cursor', 'fixed', 'shadow'];
+
+var ObjectPool = function () {
+  function ObjectPool() {
+    _classCallCheck(this, ObjectPool);
+
+    this.textList = [];
+    this.bitmapList = [];
+    this.testListUsing = [];
+    this.bitmapListUsing = [];
+  }
+
+  _createClass(ObjectPool, [{
+    key: 'reset',
+    value: function reset() {
+      var _this = this;
+
+      this.testListUsing.forEach(function (item) {
+        _this.textList.push(item);
+      });
+      this.bitmapListUsing.forEach(function (item) {
+        _this.bitmapList.push(item);
+      });
+    }
+  }, {
+    key: 'getObj',
+    value: function getObj(type, vnode, stage) {
+      var attr = vnode.attributes;
+      switch (type) {
+        case 'text':
+          if (this.textList.length > 0) {
+            var obj = this.textList[0];
+            mix(attr, obj);
+            return obj;
+          } else {
+            //https://github.com/dntzhang/cax/blob/master/packages/cax/src/render/display/text.js
+            var text = new _cax2['default'].Text(attr.text, {
+              font: attr.font,
+              color: attr.color,
+              baseline: attr.baseline
+            });
+            mix(attr, text);
+            this.testListUsing.push(text);
+            return text;
+          }
+
+        case 'bitmap':
+          if (this.bitmapList.length > 0) {
+            var _obj = this.bitmapList[0];
+            mix(attr, _obj);
+            return _obj;
+          } else {
+            var bitmap = new _cax2['default'].Bitmap(attr.src, function () {
+              stage.update();
+            });
+
+            mix(attr, bitmap);
+
+            this.bitmapListUsing.push(bitmap);
+
+            return bitmap;
+          }
+
+      }
+    }
+  }, {
+    key: 'add',
+    value: function add(type) {
+      switch (type) {
+        case 'text':
+          break;
+        case 'bitmap':
+          break;
+      }
+    }
+  }]);
+
+  return ObjectPool;
+}();
+
+exports['default'] = ObjectPool;
+
+
+function reset(obj) {
+  obj.x = 0;
+  obj.y = 0;
+  obj.scale = 1;
+  obj.rotation = 0;
+  obj.skewX = 0;
+  obj.skewY = 0;
+  obj.originX = 0;
+  obj.originY = 0;
+  obj.alpha = 1;
+  obj.compositeOperation = null;
+  obj.cursor = 'default';
+  obj.fixed = false;
+  obj.shadow = null;
+}
+
+function mix(attr, obj) {
+  caxProps.forEach(function (prop) {
+    if (attr.hasOwnProperty(prop)) {
+      obj[prop] = attr[prop];
+    }
+  });
+
+  Object.keys(attr).forEach(function (key) {
+    if (key[0] == 'o' && key[1] == 'n') {
+      var type = key.toLowerCase().substring(2);
+      obj.on(type, attr[key]);
+    }
+  });
+}
+
+// getImageInfo(attr.src, (w, h, img) => {
+//   obj.rect[0] = 0
+//   obj.rect[1] = 0
+//   obj.rect[2] = w
+//   obj.rect[3] = h
+//   obj.width = w
+//   obj.height = h
+//   obj.img = img
+
+
+// })
+// const img = new Image()
+// function getImageInfo(src, callback) {
+
+//   img.onload = () => {
+//     callback(img.width, img.height, img)
+//   }
+//   img.src = src
+// }
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "2142d30dbef3a367658c98a9e57756ef.jpg";

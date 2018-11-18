@@ -1,7 +1,7 @@
 import { WeElement, define } from 'omi'
 import cax from 'cax'
+import ObjectPool from './object-pool'
 
-const caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'skewY', 'originX', 'originY', 'alpha', 'compositeOperation', 'cursor', 'fixed', 'shadow']
 
 define('omi-canvas', class extends WeElement {
   //static noSlot = true
@@ -12,11 +12,12 @@ define('omi-canvas', class extends WeElement {
 
   installed() {
     this.stage = new cax.Stage(this.canvas)
-    render(this.props.children, this.stage)
+    this._objectPool = new ObjectPool()
+    render(this.props.children, this.stage, this._objectPool)
   }
 
-  afterUpdate(){
-    render(this.props.children, this.stage)
+  afterUpdate() {
+    update(this.props.children, this.stage, this._objectPool)
   }
 
   render(props) {
@@ -32,43 +33,16 @@ define('omi-canvas', class extends WeElement {
 })
 
 
-function render(children, stage) {
-  stage.empty()
+function render(children, stage, pool) {
   children.forEach(child => {
-    const attr = child.attributes
-    switch (child.nodeName) {
-      case 'text':
-        const text = new cax.Text(attr.text, {
-          font: attr.font,
-          color: attr.color,
-          baseline: attr.baseline
-        })
-        mix(attr, text)
-        stage.add(text)
-        break
-      case 'bitmap':
-        const bitmap = new cax.Bitmap(attr.src, () => {
-          stage.update()
-        })
-        stage.add(bitmap)
-        mix(attr, bitmap)
-    }
+    stage.add(pool.getObj(child.nodeName, child, stage))
   })
-
   stage.update()
 }
 
-function mix(attr, obj) {
-  caxProps.forEach(prop => {
-    if (attr.hasOwnProperty(prop)) {
-      obj[prop] = attr[prop]
-    }
-  })
 
-  Object.keys(attr).forEach(key => {
-    if (key[0] == 'o' && key[1] == 'n') {
-      const type = key.toLowerCase().substring(2)
-      obj.on(type, attr[key])
-    }
-  })
+function update(children, stage, pool) {
+  stage.empty()
+  pool.reset()
+  render(children, stage, pool)
 }
