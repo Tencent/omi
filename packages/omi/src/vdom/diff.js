@@ -180,7 +180,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props)
+  diffAttributes(out, vnode.attributes, props, vnode.children)
   if (out.props) {
     out.props.children = vnode.children
   }
@@ -332,7 +332,7 @@ export function removeChildren(node) {
  *	@param {Object} attrs		The desired end-state key-value attribute pairs
  *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom, attrs, old) {
+function diffAttributes(dom, attrs, old, children) {
   let name
   let update = false
   let isWeElement = dom.update
@@ -369,5 +369,9 @@ function diffAttributes(dom, attrs, old) {
     }
   }
 
-  dom.parentNode && update && isWeElement && dom.update()
+  if (isWeElement && dom.parentNode) {
+    if (update || children.length > 0) {
+      dom.update()
+    }
+  }
 }

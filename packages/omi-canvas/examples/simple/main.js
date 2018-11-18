@@ -4,6 +4,11 @@ import '../../src/index'
 import omiUrl from './omi.jpg'
 
 define('my-app', class extends WeElement {
+  static observe = true
+
+  data = {
+    scale: 0.5
+  }
 
   css() {
     return `
@@ -13,6 +18,8 @@ define('my-app', class extends WeElement {
   }
 
   onClick = (evt)=> {
+    this.data.scale = 0.55
+
     alert('Hello omi-canvas')
   }
 
@@ -33,7 +40,7 @@ define('my-app', class extends WeElement {
             onClick={this.onClick}
             src={omiUrl}
             cursor='pointer'
-            scale={0.5}
+            scale={this.data.scale}
             x={130}
             y={140}
           />

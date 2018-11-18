@@ -15,6 +15,10 @@ define('omi-canvas', class extends WeElement {
     render(this.props.children, this.stage)
   }
 
+  afterUpdate(){
+    //rerender
+  }
+
   render(props) {
     return (
       <canvas

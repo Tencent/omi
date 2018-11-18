@@ -540,7 +540,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props);
+  diffAttributes(out, vnode.attributes, props, vnode.children);
   if (out.props) {
     out.props.children = vnode.children;
   }
@@ -677,7 +677,7 @@ function removeChildren(node) {
  *	@param {Object} attrs		The desired end-state key-value attribute pairs
  *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom, attrs, old) {
+function diffAttributes(dom, attrs, old, children) {
   var name;
   var update = false;
   var isWeElement = dom.update;
@@ -708,7 +708,11 @@ function diffAttributes(dom, attrs, old) {
     }
   }
 
-  dom.parentNode && update && isWeElement && dom.update();
+  if (isWeElement && dom.parentNode) {
+    if (update || children.length > 0) {
+      dom.update();
+    }
+  }
 }
 
 /*!
@@ -1586,6 +1590,8 @@ exports.nextTick = nextTick;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 __webpack_require__(3);
@@ -1602,33 +1608,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('my-app', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('my-app', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (evt) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = {
+      scale: 0.5
+    }, _this.onClick = function (evt) {
+      _this.data.scale = 0.55;
+
       alert('Hello omi-canvas');
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
+  _createClass(_class, [{
     key: 'css',
     value: function css() {
       return '\n        div{\n          text-align: center;\n        }';
     }
   }, {
+    key: 'installed',
+    value: function installed() {
+      console.log(this.canvas.__omiattr_.children);
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return Omi.h(
         'div',
         null,
@@ -1639,7 +1656,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         ),
         Omi.h(
           'omi-canvas',
-          { width: 400, height: 400, css: 'border: 1px solid #ccc;' },
+          { ref: function ref(e) {
+              _this2.canvas = e;
+            }, width: 400, height: 400, css: 'border: 1px solid #ccc;' },
           Omi.h('text', {
             text: 'Hello omi-canvas',
             font: '30px Segoe UI',
@@ -1652,7 +1671,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             onClick: this.onClick,
             src: _omi3['default'],
             cursor: 'pointer',
-            scale: 0.5,
+            scale: this.data.scale,
             x: 130,
             y: 140
           })
@@ -1661,8 +1680,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.observe = true, _temp2));
 
 (0, _omi.render)(Omi.h('my-app', null), 'body');
 
@@ -1741,6 +1760,11 @@ var caxProps = ['x', 'y', 'scaleX', 'scaleY', 'scale', 'rotation', 'skewX', 'ske
     value: function installed() {
       this.stage = new _cax2['default'].Stage(this.canvas);
       render(this.props.children, this.stage);
+    }
+  }, {
+    key: 'afterUpdate',
+    value: function afterUpdate() {
+      console.log('fff');
     }
   }, {
     key: 'render',
