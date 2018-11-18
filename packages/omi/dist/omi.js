@@ -187,7 +187,7 @@
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
         } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
-        diffAttributes(out, vnode.attributes, props);
+        diffAttributes(out, vnode.attributes, props, vnode.children);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
         return out;
@@ -238,7 +238,7 @@
             node = next;
         }
     }
-    function diffAttributes(dom, attrs, old) {
+    function diffAttributes(dom, attrs, old, children) {
         var name;
         var update = !1;
         var isWeElement = dom.update;
@@ -259,7 +259,7 @@
                 update = !0;
             }
         }
-        dom.parentNode && update && isWeElement && dom.update();
+        if (isWeElement && dom.parentNode) if (update || children.length > 0) dom.update();
     }
     function tick(fn, scope) {
         callbacks.push({
@@ -838,7 +838,7 @@
         nextTick: nextTick
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.1.4';
+    options.root.Omi.version = '4.1.5';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

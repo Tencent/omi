@@ -1,5 +1,5 @@
 /**
- * omi v4.1.4  http://omijs.org
+ * omi v4.1.5  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -462,7 +462,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props);
+  diffAttributes(out, vnode.attributes, props, vnode.children);
   if (out.props) {
     out.props.children = vnode.children;
   }
@@ -599,7 +599,7 @@ function removeChildren(node) {
  *	@param {Object} attrs		The desired end-state key-value attribute pairs
  *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom, attrs, old) {
+function diffAttributes(dom, attrs, old, children) {
   var name;
   var update = false;
   var isWeElement = dom.update;
@@ -630,7 +630,11 @@ function diffAttributes(dom, attrs, old) {
     }
   }
 
-  dom.parentNode && update && isWeElement && dom.update();
+  if (isWeElement && dom.parentNode) {
+    if (update || children.length > 0) {
+      dom.update();
+    }
+  }
 }
 
 /*!
@@ -1455,7 +1459,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.1.4';
+options.root.Omi.version = '4.1.5';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick };

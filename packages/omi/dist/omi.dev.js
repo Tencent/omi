@@ -1,5 +1,5 @@
 /**
- * omi v4.1.4  http://omijs.org
+ * omi v4.1.5  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -465,7 +465,7 @@
       }
 
     // Apply attributes/props from VNode to the DOM Element:
-    diffAttributes(out, vnode.attributes, props);
+    diffAttributes(out, vnode.attributes, props, vnode.children);
     if (out.props) {
       out.props.children = vnode.children;
     }
@@ -602,7 +602,7 @@
    *	@param {Object} attrs		The desired end-state key-value attribute pairs
    *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
    */
-  function diffAttributes(dom, attrs, old) {
+  function diffAttributes(dom, attrs, old, children) {
     var name;
     var update = false;
     var isWeElement = dom.update;
@@ -633,7 +633,11 @@
       }
     }
 
-    dom.parentNode && update && isWeElement && dom.update();
+    if (isWeElement && dom.parentNode) {
+      if (update || children.length > 0) {
+        dom.update();
+      }
+    }
   }
 
   /*!
@@ -1458,7 +1462,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.1.4';
+  options.root.Omi.version = '4.1.5';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
