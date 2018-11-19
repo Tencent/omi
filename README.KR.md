@@ -1,5 +1,6 @@
 [English](./README.md) | [简体中文](./README.CN.md) | 한국어
 
+<p align="right">v<strong>4.1.5</strong></p>
 <p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi: 4kb 자바스크립트 차세대 웹 프레임워크</h2>
 <p align="center"><b>JSX, Web Components, Proxy, Store, Path Updating 지원</b></p>
