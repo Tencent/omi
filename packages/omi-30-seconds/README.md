@@ -4,7 +4,7 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 
 ## Overview of the Readme
 
-- Share css between parent and child nodes[#share-css-between-parent-and-child-nodes]
+- [Share css between parent and child nodes](#share-css-between-parent-and-child-nodes)
 
 
 ## Share css between parent and child nodes
@@ -45,7 +45,7 @@ Share css by `getHost` method. You can also recombine with the parent node's css
 
 ```js
 define('my-ele', class extends WeElement {
-  
+
   css() {
     return getHost().css() + `
       font-size: 34px;
