@@ -74,11 +74,11 @@ The effect shown below:
 
 ## Tag Supported
 
-|**Name**|
-| ----|
-|text|
-|bitmap|
-|group|
+|**Name**|**Describe**|
+| ----|---------|
+|text| Used to display text|
+|bitmap|Used to display image|
+|group|Used to group elements. Group can nested group.|
 
 ## Property
 
