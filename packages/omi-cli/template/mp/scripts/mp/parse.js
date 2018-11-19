@@ -14,12 +14,42 @@ function minifier(wxml) {
     .replace(/<!--[\s\S]*?-->/g, '')
 }
 
+function checkIsArray(json) {
+  let count = 0
+  for (let i = 0, len = json.child.length; i < len; i++) {
+    let tagName = json.child[i].tag
+    if (tagName) {
+      if (tagName === 'block') {
+        if (json.child[i].attr['wx:if']) {
+          count++
+        }
+      } else {
+        count++
+      }
+    }
+    if (count > 1) {
+      return true
+    }
+  }
+
+  return false
+}
+
 function walk(node, fnName) {
-  return `function ${fnName}() {
+  if(checkIsArray(node)){
+ return `function ${fnName}() {
+  0.0
+  return [ ${_walk(node)} ]
+
+}`
+  } else {
+ return `function ${fnName}() {
   0.0
   return ${_walk(node)}
 
 }`
+  }
+
 }
 
 function _walk(node, currentIndex, children) {
@@ -156,7 +186,7 @@ function stringify(attr, tag) {
       } else {
         attr[key] = bracesText(str)
         if(isImg && key === 'src'){
-          result += `'src': ${fixImgSrc(v)}`
+          result += `'src': ${fixImgSrc(v)}` + (maxIndex === index ? '' : ',')
         } else if (isBind) {
           if(attr[key] !== ''){
             result +=
