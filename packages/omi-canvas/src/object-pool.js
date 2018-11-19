@@ -8,6 +8,9 @@ export default class ObjectPool {
     this.bitmapList = []
     this.testListUsing = []
     this.bitmapListUsing = []
+
+    this.groupList = []
+    this.groupListUsing = []
   }
 
   reset() {
@@ -17,6 +20,9 @@ export default class ObjectPool {
     this.bitmapListUsing.forEach(item => {
       this.bitmapList.push(item)
     })
+    this.groupListUsing.forEach(item => {
+      this.groupList.push(item)
+    })
   }
 
   getObj(type, vnode, stage) {
@@ -25,6 +31,7 @@ export default class ObjectPool {
       case 'text':
         if (this.textList.length > 0) {
           const obj = this.textList[0]
+          reset(obj)
           mix(attr, obj)
           return obj
         } else {
@@ -38,10 +45,26 @@ export default class ObjectPool {
           this.testListUsing.push(text)
           return text
         }
+      case 'group':
+        if (this.groupList.length > 0) {
+          const obj = this.groupList[0]
+          reset(obj)
+          mix(attr, obj)
+          return obj
+        } else {
+          const group = new cax.Group()
+          mix(attr, group)
+          this.groupListUsing.push(group)
+          vnode.children.forEach(child =>{
+            group.add(this.getObj(child.nodeName,child,stage))
+          })
+          return group
+        }
 
       case 'bitmap':
         if (this.bitmapList.length > 0) {
           const obj = this.bitmapList[0]
+          reset(obj)
           mix(attr, obj)
           return obj
         } else {
@@ -90,6 +113,7 @@ function reset(obj) {
 
 
 function mix(attr, obj) {
+  if(!attr) return
   caxProps.forEach(prop => {
     if (attr.hasOwnProperty(prop)) {
       obj[prop] = attr[prop]

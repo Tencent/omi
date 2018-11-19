@@ -17,8 +17,8 @@ define('my-app', class extends WeElement {
         }`
   }
 
-  onClick = (evt)=> {
-    this.data.scale = 0.55
+  onClick = (evt) => {
+    this.data.scale = 0.5 + Math.random() * 0.1
   }
 
   render() {
@@ -42,6 +42,15 @@ define('my-app', class extends WeElement {
             x={130}
             y={140}
           />
+          <group alpha={0.5} y={270}>
+            <text
+              text='I am in a group.'
+              font='30px Segoe UI'
+              color='#ff7700'
+              baseline='top'
+              x={80}
+            />
+          </group>
         </omi-canvas>
       </div>
     )

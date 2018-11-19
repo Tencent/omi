@@ -8671,7 +8671,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = {
       scale: 0.5
     }, _this.onClick = function (evt) {
-      _this.data.scale = 0.55;
+      _this.data.scale = 0.5 + Math.random() * 0.1;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -8709,7 +8709,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             scale: this.data.scale,
             x: 130,
             y: 140
-          })
+          }),
+          Omi.h(
+            'group',
+            { alpha: 0.5, y: 270 },
+            Omi.h('text', {
+              text: 'I am in a group.',
+              font: '30px Segoe UI',
+              color: '#ff7700',
+              baseline: 'top',
+              x: 80
+            })
+          )
         )
       );
     }
@@ -8896,6 +8907,9 @@ var ObjectPool = function () {
     this.bitmapList = [];
     this.testListUsing = [];
     this.bitmapListUsing = [];
+
+    this.groupList = [];
+    this.groupListUsing = [];
   }
 
   _createClass(ObjectPool, [{
@@ -8909,15 +8923,21 @@ var ObjectPool = function () {
       this.bitmapListUsing.forEach(function (item) {
         _this.bitmapList.push(item);
       });
+      this.groupListUsing.forEach(function (item) {
+        _this.groupList.push(item);
+      });
     }
   }, {
     key: 'getObj',
     value: function getObj(type, vnode, stage) {
+      var _this2 = this;
+
       var attr = vnode.attributes;
       switch (type) {
         case 'text':
           if (this.textList.length > 0) {
             var obj = this.textList[0];
+            reset(obj);
             mix(attr, obj);
             return obj;
           } else {
@@ -8931,12 +8951,28 @@ var ObjectPool = function () {
             this.testListUsing.push(text);
             return text;
           }
+        case 'group':
+          if (this.groupList.length > 0) {
+            var _obj = this.groupList[0];
+            reset(_obj);
+            mix(attr, _obj);
+            return _obj;
+          } else {
+            var group = new _cax2['default'].Group();
+            mix(attr, group);
+            this.groupListUsing.push(group);
+            vnode.children.forEach(function (child) {
+              group.add(_this2.getObj(child.nodeName, child, stage));
+            });
+            return group;
+          }
 
         case 'bitmap':
           if (this.bitmapList.length > 0) {
-            var _obj = this.bitmapList[0];
-            mix(attr, _obj);
-            return _obj;
+            var _obj2 = this.bitmapList[0];
+            reset(_obj2);
+            mix(attr, _obj2);
+            return _obj2;
           } else {
             var bitmap = new _cax2['default'].Bitmap(attr.src, function () {
               stage.update();
@@ -8986,6 +9022,7 @@ function reset(obj) {
 }
 
 function mix(attr, obj) {
+  if (!attr) return;
   caxProps.forEach(function (prop) {
     if (attr.hasOwnProperty(prop)) {
       obj[prop] = attr[prop];
