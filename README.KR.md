@@ -55,6 +55,25 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-i18n](https://github.com/i18next/omi-i18n)| i18next 에코시스템을 사용한 omi.js 다국어 지원 방식 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | [page](https://github.com/visionmedia/page.js) 를 통한 소형의 클라이언트 사이드 라우터 |
 
+## Useful Resources
+
+| **Title Name**  | **Other language** | **Related**|
+| ----------------------------------------- | ------------------ |-----------------|
+| [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.kr.md)|
+| [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.kr.md)|
+| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)| 求翻译|
+|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
+|  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
+|  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
+|  [Web Components Org](https://www.webcomponents.org/introduction)|
+|  [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy) [한국어](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|
+|  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
+|  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
+|  [Platform HTML5](https://platform.html5.org/)|
+| [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
+| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|
+
+
 ## omi-mp
 
 > Wechat Mini Program을 통한 HTML5 SPA 개발 및 원 클릭 웹 생성 (based on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
@@ -67,27 +86,13 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 
 웹에서 사용자 로그인 정보를 취득하지 못하기 때문에 사용자 아바타와 이름이 변경되었습니다.
 
-## Useful Resources
-
-* [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)
-* [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)
-* [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)
-* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
-* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
-* [Web Components Org](https://www.webcomponents.org/introduction)
-* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
-* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
-* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
-* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
-* [Platform HTML5](https://platform.html5.org/)
-
 ---
 
+# Overview of the Readme
+
 - [Ecosystem of Omi](#ecosystem-of-omi)
-- [omi-mp](#omi-mp)
 - [Useful Resources](#useful-resources)
+- [omi-mp](#omi-mp)
 - [Omi 1분 추가 가이드](#Omi-1분-추가-가이드)
 - [Omi 30초 추가 가이드](#Omi-30초-추가-가이드)
 - [Getting Started](#getting-started)
@@ -333,6 +338,11 @@ $ omi init-ts your_project_name
 $ omi init-spa your_project_name
 ```
 
+omi-mp (Omi Wechat Mini Program Module) Template(omi-cli v3.0.13+):
+
+```bash
+$ omi init-mp your_project_name
+```
 
 CLI 자동 프로젝트 생성 scaffolding 는 한 페이지의 create-react-app을 여러 페이지로 변환합니다. 설정(configuration) 이슈는 [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) 을 봐주세요.
 
