@@ -39,9 +39,9 @@ define('todo-app', class extends WeElement {
     // })
   }
 
-	afterUpdate(){
-		console.log('afterUpdate')
-	}
+  afterUpdate() {
+    console.log('afterUpdate')
+  }
 
   installed() {
     console.log('installed')
@@ -52,7 +52,10 @@ define('todo-app', class extends WeElement {
     console.log('render')
     return (
       <div>
-        <h3>TODO{this.data.a.c}</h3>
+        <h3>
+          TODO
+          {this.data.a.c}
+        </h3>
         <todo-list items={this.data.items} />
         <form onSubmit={this.handleSubmit}>
           <input
