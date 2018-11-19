@@ -1,6 +1,6 @@
 {
   "name": "css3transform",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Made css3 transform super easy.",
   "main": "dist/css3transform.js",
   "jsnext:main": "dist/css3transform.esm.js",
