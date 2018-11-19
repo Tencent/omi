@@ -72,6 +72,14 @@ The effect shown below:
 
 ![](./assets/omi-canvas2.jpg)
 
+## Tag Supported
+
+|**Name**|
+| ----|
+|text|
+|bitmap|
+|group|
+
 ## Property
 
 ### Transform
@@ -137,7 +145,7 @@ Usage:
 />
 ```
 
-## Events Supported in omi-canvas
+## Events Supported
 
 |**Supported List**|
 |----------|
