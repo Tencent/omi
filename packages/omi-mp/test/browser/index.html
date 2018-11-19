@@ -31,39 +31,47 @@
 
 
   var json = html2json(`
+<block wx:if="{{showLoading}}">
+  <view class="page-loading">
+    <text class="weui-loading" />
+    <text class="loading-text">玩命加载中</text>
+  </view>
+</block>
+<block wx:else>
+  <view class="page-loading"> </view>
+</block>
 
-<view class='top'>
+<block wx:if="{{showLoading}}">
+  <view class="page-loading">
+    <text class="weui-loading" />
+    <text class="loading-text">玩命加载中</text>
+  </view>
+</block>
+<block wx:else>
+  <view class="page-loading"> </view>
+</block>
+`);
 
- <view class='top'>
-  b
- </view>
- <view class='top'>
-  b
- </view>
-</view> 
-<view class='top'>
-  b
- </view>
- <view class='top'>
-  b
- </view>
-
-
-`.trim());
-
-  function checkIsArray(json) {
-    let count = 0
-    for (let i = 0, len = json.child.length; i < len; i++) {
-      if (json.child[i].tag) {
+function checkIsArray(json) {
+  let count = 0
+  for (let i = 0, len = json.child.length; i < len; i++) {
+    let tagName = json.child[i].tag
+    if (tagName) {
+      if (tagName === 'block') {
+        if (json.child[i].attr['wx:if']) {
+          count++
+        }
+      } else {
         count++
       }
-      if (count > 1) {
-        return true
-      }
     }
-
-    return false
+    if (count > 1) {
+      return true
+    }
   }
+
+  return false
+}
 
   console.log(checkIsArray(json))
 </script>

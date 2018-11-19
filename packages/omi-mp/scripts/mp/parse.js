@@ -17,8 +17,15 @@ function minifier(wxml) {
 function checkIsArray(json) {
   let count = 0
   for (let i = 0, len = json.child.length; i < len; i++) {
-    if (json.child[i].tag) {
-      count++
+    let tagName = json.child[i].tag
+    if (tagName) {
+      if (tagName === 'block') {
+        if (json.child[i].attr['wx:if']) {
+          count++
+        }
+      } else {
+        count++
+      }
     }
     if (count > 1) {
       return true
@@ -28,9 +35,8 @@ function checkIsArray(json) {
   return false
 }
 
-
 function walk(node, fnName) {
-  if(checkIsArray){
+  if(checkIsArray(node)){
  return `function ${fnName}() {
   0.0
   return [ ${_walk(node)} ]
