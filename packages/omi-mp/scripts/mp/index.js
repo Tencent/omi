@@ -44,6 +44,8 @@ function addPropsAndData(ref, code) {
 
 function compile(wxml, fnName) {
   let code = parse(wxml, fnName || 'render')
+  //debug
+  //console.log(code)
   let ref = getRef(
     babel
       .transform(code, { presets: ['env'] })

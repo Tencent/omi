@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>html2json example</title>
+<div id="mocha"></div>
+
+<h1>see the source and console</h1>
+
+<script src="./htmlparser.js"></script>
+<script src="./html2json.js"></script>
+
+<script>
+  // var html = document.body.innerHTML.trim();
+  // //console.log(html);
+  // var json = html2json(html);
+  // // console.log(JSON.stringify(json, ' ', ' '));
+  // //true
+  // console.log(html === json2html(json));
+
+
+  console.log(html2json(`
+
+  <view class='top'>
+   a
+  </view>
+  <view class='top'>
+    b
+   </view>
+
+
+`))
+
+
+  var json = html2json(`
+
+<view class='top'>
+
+ <view class='top'>
+  b
+ </view>
+ <view class='top'>
+  b
+ </view>
+</view> 
+<view class='top'>
+  b
+ </view>
+ <view class='top'>
+  b
+ </view>
+
+
+`.trim());
+
+  function checkIsArray(json) {
+    let count = 0
+    for (let i = 0, len = json.child.length; i < len; i++) {
+      if (json.child[i].tag) {
+        count++
+      }
+      if (count > 1) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+  console.log(checkIsArray(json))
+</script>
