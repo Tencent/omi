@@ -371,7 +371,7 @@ function diffAttributes(dom, attrs, old, children) {
 
   if (isWeElement && dom.parentNode) {
     if (update || children.length > 0) {
-			dom.receiveProps(dom.props, dom.data)
+      dom.receiveProps(dom.props, dom.data)
       dom.update()
     }
   }

@@ -259,7 +259,10 @@
                 update = !0;
             }
         }
-        if (isWeElement && dom.parentNode) if (update || children.length > 0) dom.update();
+        if (isWeElement && dom.parentNode) if (update || children.length > 0) {
+            dom.receiveProps(dom.props, dom.data);
+            dom.update();
+        }
     }
     function tick(fn, scope) {
         callbacks.push({
@@ -817,6 +820,7 @@
         WeElement.prototype.beforeUpdate = function() {};
         WeElement.prototype.afterUpdate = function() {};
         WeElement.prototype.beforeRender = function() {};
+        WeElement.prototype.receiveProps = function() {};
         return WeElement;
     }(HTMLElement);
     WeElement.is = 'WeElement';
@@ -838,7 +842,7 @@
         nextTick: nextTick
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.1.5';
+    options.root.Omi.version = '4.1.6';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
