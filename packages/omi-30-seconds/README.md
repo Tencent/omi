@@ -99,32 +99,26 @@ import mitt from 'mitt'
 import { render, WeElement, define } from 'omi'
 
 define('child-ele', class extends WeElement {
-	onClick = () => {
-		this.store.emitter.emit('foo', { a: 'b' })
-	}
-	render() {
-		return (
-			<div onClick={this.onClick}>
-				child-ele
-    </div>
-		)
-	}
+  onClick = () => {
+    this.store.emitter.emit('foo', { a: 'b' })
+  }
+  render() {
+    return <div onClick={this.onClick}>child-ele</div>
+  }
 })
 
 define('my-app', class extends WeElement {
+  install() {
+    this.store.emitter.on('foo', e => console.log('foo', e))
+  }
 
-	install() {
-		this.store.emitter.on('foo', e => console.log('foo', e))
-	}
-
-	render() {
-		return (
-			<div>
-				<child-ele />
-			</div>
-		)
-	}
-
+  render() {
+    return (
+      <div>
+        <child-ele />
+      </div>
+    )
+  }
 })
 
 render(<my-app />, 'body', { emitter: mitt() })
