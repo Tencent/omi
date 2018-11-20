@@ -48,7 +48,9 @@ define('my-ele', class extends WeElement {
 
   css() {
     return getHost().css() + `
-      font-size: 34px;
+      h1 {
+        font-size: 34px;
+      }
     `
   }
 
