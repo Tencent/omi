@@ -8,6 +8,7 @@
   - [Event](#event)
   - [Custom Event](#custom-event)
   - [CSS](#css)
+  - [Lifecycle](#lifecycle)
   - [Ref](#ref)
   - [Store](#store)
   - [Slot](#slot)
@@ -209,6 +210,18 @@ class ElButton extends WeElement {
     ...
     ...
 ```
+
+### Lifecycle
+
+| Lifecycle method | When it gets called                          |
+| ---------------- | -------------------------------------------- |
+| `install`        | before the component gets mounted to the DOM |
+| `installed`      | after the component gets mounted to the DOM  |
+| `uninstall`      | prior to removal from the DOM                |
+| `beforeUpdate`   | before update                           |
+| `afterUpdate`    | after update                             |
+| `beforeRender`   | before `render()`                           |
+| `receiveProps`   | parent element re-render will trigger it      |
 
 ### Ref
 

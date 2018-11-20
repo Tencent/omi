@@ -208,6 +208,7 @@ define('el-button', class extends WeElement {
 | `beforeUpdate`   | before update                           |
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
+| `receiveProps`   | parent element re-render will trigger it      |
 
 For example:
 

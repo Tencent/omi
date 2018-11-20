@@ -672,6 +672,7 @@ class MyApp extends WeElement {
 | `beforeUpdate`   | before update                           |
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
+| `receiveProps`   | parent element re-render will trigger it      |
 
 ## Debugging
 
