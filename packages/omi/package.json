@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "4.1.5",
+  "version": "4.1.6",
   "description": "Next generation web framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -16,6 +16,7 @@
     "use": "rollup -c config/rollup.example.js --watch",
     "decorators": "rollup -c config/rollup.example.js --watch",
     "mobx": "rollup -c config/rollup.example.js --watch",
+    "receive-props": "rollup -c config/rollup.example.js --watch",
     "rpx": "rollup -c config/rollup.example.js --watch",
     "tree": "rollup -c config/rollup.example.js --watch",
     "todo-app": "rollup -c config/rollup.example.js --watch",

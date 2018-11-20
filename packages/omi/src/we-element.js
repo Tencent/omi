@@ -110,5 +110,7 @@ export default class WeElement extends HTMLElement {
 
   afterUpdate() {}
 
-  beforeRender() {}
+	beforeRender() {}
+
+	receiveProps() {}
 }
