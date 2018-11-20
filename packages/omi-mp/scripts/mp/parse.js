@@ -20,7 +20,7 @@ function checkIsArray(json) {
     let tagName = json.child[i].tag
     if (tagName) {
       if (tagName === 'block') {
-        if (json.child[i].attr['wx:if']) {
+        if (json.child[i].attr['wx:if'] || json.child[i].attr['wx:for']) {
           count++
         }
       } else {
@@ -49,7 +49,7 @@ function walk(node, fnName) {
 
 }`
   }
- 
+
 }
 
 function _walk(node, currentIndex, children) {
