@@ -5,7 +5,7 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 ## Overview of the Readme
 
 - [Share css between parent and child nodes](#share-css-between-parent-and-child-nodes)
-
+- [Cross component communication](#cross-component-communication)
 
 ## Share css between parent and child nodes
 
@@ -58,4 +58,71 @@ define('my-ele', class extends WeElement {
     return props.children[0]
   }
 })
+```
+
+## Cross component communication
+
+If the distance between components is far away, you have two ways to communicate.
+
+* store system
+* mitt
+
+Using mitt in pure js:
+
+```js
+import mitt from 'mitt'
+
+const emitter = mitt()
+
+// listen to an event
+emitter.on('foo', e => console.log('foo', e) )
+
+// listen to all events
+emitter.on('*', (type, e) => console.log(type, e) )
+
+// fire an event
+emitter.emit('foo', { a: 'b' })
+
+// working with handler references:
+function onFoo() {}
+emitter.on('foo', onFoo)   // listen
+emitter.off('foo', onFoo)  // unlisten
+```
+
+Using mitt in omi project:
+
+
+```js
+import mitt from 'mitt'
+import { render, WeElement, define } from 'omi'
+
+define('child-ele', function(props) {
+  onClick = () => {
+    this.store.emitter.emit('foo', { a: 'b' })
+  }
+
+  return (
+    <div onClick={this.onClick}>
+      child-ele
+    </div>
+  )
+})
+
+define('todo-app', class extends WeElement {
+
+  install(){
+    this.store.emitter.on('foo', e => console.log('foo', e) )
+  }
+
+  render() {
+    return (
+      <div>
+        <child-ele />
+      </div>
+    )
+  }
+
+})
+
+render(<todo-app />, 'body', { emitter: mitt() })
 ```
