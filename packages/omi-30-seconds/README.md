@@ -96,33 +96,34 @@ Using mitt in omi project:
 import mitt from 'mitt'
 import { render, WeElement, define } from 'omi'
 
-define('child-ele', function(props) {
-  onClick = () => {
-    this.store.emitter.emit('foo', { a: 'b' })
-  }
-
-  return (
-    <div onClick={this.onClick}>
-      child-ele
+define('child-ele', class extends WeElement {
+	onClick = () => {
+		this.store.emitter.emit('foo', { a: 'b' })
+	}
+	render() {
+		return (
+			<div onClick={this.onClick}>
+				child-ele
     </div>
-  )
+		)
+	}
 })
 
-define('todo-app', class extends WeElement {
+define('my-app', class extends WeElement {
 
-  install(){
-    this.store.emitter.on('foo', e => console.log('foo', e) )
-  }
+	install() {
+		this.store.emitter.on('foo', e => console.log('foo', e))
+	}
 
-  render() {
-    return (
-      <div>
-        <child-ele />
-      </div>
-    )
-  }
+	render() {
+		return (
+			<div>
+				<child-ele />
+			</div>
+		)
+	}
 
 })
 
-render(<todo-app />, 'body', { emitter: mitt() })
+render(<my-app />, 'body', { emitter: mitt() })
 ```
