@@ -67,6 +67,8 @@ If the distance between components is far away, you have two ways to communicate
 * store system
 * mitt
 
+The following is the way to use mitt, but it also needs store to be injected from the root node.
+
 Using mitt in pure js:
 
 ```js
