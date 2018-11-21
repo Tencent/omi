@@ -289,6 +289,8 @@ $ npm start                      # develop
 $ npm run build                  # release
 ```
 
+> `npx omi-cli init your_project_name` is also supported(npm v5.2.0+).
+
 Directory description:
 
 ```

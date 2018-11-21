@@ -286,6 +286,8 @@ $ npm start                      # develop
 $ npm run build                  # release
 ```
 
+> `npx omi-cli init your_project_name` 也支持(要求 npm v5.2.0+)
+
 目录说明:
 
 ```
