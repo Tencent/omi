@@ -4,7 +4,6 @@ import {
   Component,
   render,
   h,
-  createElement,
   options,
   define,
   observe,
@@ -17,8 +16,7 @@ import htm from 'htm'
 
 const html = htm.bind(h)
 
-
-export default {
+const Omi = {
   tag: tag,
   WeElement: WeElement,
   Component: Component,
@@ -35,3 +33,9 @@ export default {
   nextTick: nextTick,
   html: html
 }
+
+if(typeof window != 'undefined'){
+  window.Omi = Omi
+}
+
+export default Omi

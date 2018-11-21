@@ -1,5 +1,5 @@
 /*!
- *  omi-html v0.2.0 By dntzhang 
+ *  omi-html v0.2.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -91,8 +91,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 const html = __WEBPACK_IMPORTED_MODULE_1_htm__["a" /* default */].bind(__WEBPACK_IMPORTED_MODULE_0_omi__["f" /* h */])
 
-
-/* harmony default export */ __webpack_exports__["default"] = ({
+const Omi = {
   tag: __WEBPACK_IMPORTED_MODULE_0_omi__["l" /* tag */],
   WeElement: __WEBPACK_IMPORTED_MODULE_0_omi__["b" /* WeElement */],
   Component: __WEBPACK_IMPORTED_MODULE_0_omi__["a" /* Component */],
@@ -108,7 +107,13 @@ const html = __WEBPACK_IMPORTED_MODULE_1_htm__["a" /* default */].bind(__WEBPACK
   tick: __WEBPACK_IMPORTED_MODULE_0_omi__["m" /* tick */],
   nextTick: __WEBPACK_IMPORTED_MODULE_0_omi__["g" /* nextTick */],
   html: html
-});
+}
+
+if(typeof window != 'undefined'){
+  window.Omi = Omi
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Omi);
 
 
 /***/ }),

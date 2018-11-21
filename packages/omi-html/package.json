@@ -1,6 +1,6 @@
 {
   "name": "omi-html",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Omi Htm integration.",
   "main": "dist/omi-html.js",
   "jsnext:main": "./omi.esm.js",
