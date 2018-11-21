@@ -1,5 +1,5 @@
 /*!
- *  omi-html v0.2.2 By dntzhang 
+ *  omi-html v0.2.4 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -86,7 +86,7 @@ var Omi =  true
   ? __webpack_require__(1)
   : window.Omi
 
-if(!Omi){
+if (!Omi) {
   Omi = window.Omi
 }
 
@@ -100,7 +100,9 @@ if (true) {
   module.exports = html
 } else if (typeof define == "function" && define.amd) {
   define([], function () { return html })
-} else {
+}
+
+if (typeof window !== 'undefined') {
   window.html = html
 }
 

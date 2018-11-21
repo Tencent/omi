@@ -1705,7 +1705,9 @@ if (( false ? 'undefined' : _typeof(exports)) == "object") {
     return html;
   }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-} else {
+}
+
+if (typeof window !== 'undefined') {
   window.html = html;
 }
 
