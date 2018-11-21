@@ -99,6 +99,7 @@ Because in the web cannot take the user login state, the user avatar and name ar
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
+  - [Mitt](#mitt)
   - [Observe](#observe)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
@@ -619,6 +620,12 @@ render(<todo-app />, "body", store);
 - The static data of the element is used to list the attributes of the dependent store.data _(Omi will record path)_ and update on demand.
 - If there are few simple components on the page, `updateAll` can be set to `true`, and components and pages don't need to declare data, and they don't update on demand
 - The path declared in `globalData` refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties path
+
+## Mitt
+
+If you don't want to use store's data system, you can also use publish subscribe mode. For example, using [mitt](https://github.com/developit/mitt) across component communication in Omi:
+
+* [cross-component-communication](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds#cross-component-communication)
 
 ## Observe
 
