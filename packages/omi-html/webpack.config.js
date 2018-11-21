@@ -65,9 +65,9 @@ if(ENV === 'build'||ENV === 'build-min'){
             filename:  '[name].js'
             //umdNamedDefine: true
         },
-        // externals: {
-        //     "omi": 'omi'
-        // },
+        externals: {
+            "omi": 'omi'
+        },
         module: {
             loaders: [
                 {

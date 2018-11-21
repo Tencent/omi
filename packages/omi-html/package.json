@@ -1,11 +1,8 @@
 {
   "name": "omi-html",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Omi Htm integration.",
   "main": "dist/omi-html.js",
-  "jsnext:main": "./omi.esm.js",
-  "module": "./omi.esm.js",
-  "minified:main": "dist/omi.min.js",
   "scripts": {
     "counter": "webpack -w",
     "build": "webpack -w",

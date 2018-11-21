@@ -1,4 +1,5 @@
-import { define, render, WeElement, html }  from '../../index.esm'
+import { define, render, WeElement }  from 'omi'
+import html from '../../index'
 
 define('my-counter', class extends WeElement {
   static observe = true

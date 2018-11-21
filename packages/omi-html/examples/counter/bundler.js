@@ -60,108 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _class, _temp2;
-
-var _templateObject = _taggedTemplateLiteral(['\n      <div>\n        <button onClick=', '>-</button>\n        <span>', '</span>\n        <button onClick=', '>+</button>\n      </div>'], ['\n      <div>\n        <button onClick=', '>-</button>\n        <span>', '</span>\n        <button onClick=', '>+</button>\n      </div>']),
-    _templateObject2 = _taggedTemplateLiteral(['<my-counter />'], ['<my-counter />']);
-
-var _index = __webpack_require__(1);
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-(0, _index.define)('my-counter', (_temp2 = _class = function (_WeElement) {
-  _inherits(_class, _WeElement);
-
-  function _class() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, _class);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = {
-      count: 1
-    }, _this.sub = function () {
-      _this.data.count--;
-    }, _this.add = function () {
-      _this.data.count++;
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(_class, [{
-    key: 'render',
-    value: function render() {
-      return (0, _index.html)(_templateObject, this.sub, this.data.count, this.add);
-    }
-  }]);
-
-  return _class;
-}(_index.WeElement), _class.observe = true, _temp2));
-
-(0, _index.render)((0, _index.html)(_templateObject2), 'body');
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.html = exports.nextTick = exports.tick = exports.rpx = exports.getHost = exports.cloneElement = exports.observe = exports.define = exports.options = exports.createElement = exports.h = exports.render = exports.Component = exports.WeElement = exports.tag = undefined;
-
-var _omi = __webpack_require__(2);
-
-var _htm = __webpack_require__(4);
-
-var _htm2 = _interopRequireDefault(_htm);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var html = _htm2.default.bind(_omi.h);
-
-exports.tag = _omi.tag;
-exports.WeElement = _omi.WeElement;
-exports.Component = _omi.Component;
-exports.render = _omi.render;
-exports.h = _omi.h;
-exports.createElement = _omi.createElement;
-exports.options = _omi.options;
-exports.define = _omi.define;
-exports.observe = _omi.observe;
-exports.cloneElement = _omi.cloneElement;
-exports.getHost = _omi.getHost;
-exports.rpx = _omi.rpx;
-exports.tick = _omi.tick;
-exports.nextTick = _omi.nextTick;
-exports.html = html;
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1679,10 +1582,75 @@ exports.rpx = rpx;
 exports.tick = tick;
 exports.nextTick = nextTick;
 //# sourceMappingURL=omi.esm.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 3 */
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp2;
+
+var _templateObject = _taggedTemplateLiteral(['\n      <div>\n        <button onClick=', '>-</button>\n        <span>', '</span>\n        <button onClick=', '>+</button>\n      </div>'], ['\n      <div>\n        <button onClick=', '>-</button>\n        <span>', '</span>\n        <button onClick=', '>+</button>\n      </div>']),
+    _templateObject2 = _taggedTemplateLiteral(['<my-counter />'], ['<my-counter />']);
+
+var _omi = __webpack_require__(0);
+
+var _index = __webpack_require__(3);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('my-counter', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, _class);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = {
+      count: 1
+    }, _this.sub = function () {
+      _this.data.count--;
+    }, _this.add = function () {
+      _this.data.count++;
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(_class, [{
+    key: 'render',
+    value: function render() {
+      return (0, _index2.default)(_templateObject, this.sub, this.data.count, this.add);
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement), _class.observe = true, _temp2));
+
+(0, _omi.render)((0, _index2.default)(_templateObject2), 'body');
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1710,6 +1678,36 @@ try {
 // easier to handle this case. if(!global) { ...}
 
 module.exports = g;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var Omi =  true ? __webpack_require__(0) : window.Omi;
+
+if (!Omi) {
+  Omi = window.Omi;
+}
+
+var htm =  true ? __webpack_require__(4) : window.htm;
+
+var html = htm.default ? htm.default.bind(Omi.h) : html.bind(Omi.h);
+
+if (( false ? 'undefined' : _typeof(exports)) == "object") {
+  module.exports = html;
+} else if (true) {
+  !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+    return html;
+  }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+} else {
+  window.html = html;
+}
 
 /***/ }),
 /* 4 */
