@@ -38,6 +38,10 @@ define('my-counter', class extends WeElement {
 render(html`<my-counter />`, 'body')
 ```
 
+## Syntax highlighting
+
+* [lit-html VSCode extension](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html)
+
 ## License
 
 MIT © dntzhang
