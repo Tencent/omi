@@ -1,4 +1,4 @@
-## Omi 30 Seconds
+# Omi 30 Seconds
 
 Curated collection of useful Omi snippets that you can understand in 30 seconds or less.
 
@@ -6,6 +6,7 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 
 - [Share css between parent and child nodes](#share-css-between-parent-and-child-nodes)
 - [Cross component communication](#cross-component-communication)
+- [Implement tree view](#implement-tree-view)
 
 ## Share css between parent and child nodes
 
@@ -124,7 +125,7 @@ define('my-app', class extends WeElement {
 render(<my-app />, 'body', { emitter: mitt() })
 ```
 
-## Using omi to implement tree view
+## Implement tree view
 
 To implement the tree view, we need to rely on self dependence. For example, the following `my-node`.
 
