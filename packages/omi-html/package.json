@@ -1,6 +1,6 @@
 {
   "name": "omi-html",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Omi Htm Adapter.",
   "main": "index.js",
   "scripts": {
