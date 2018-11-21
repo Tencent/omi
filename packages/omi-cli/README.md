@@ -1,4 +1,4 @@
-## CLI
+## omi-cli
 
 ```bash
 $ npm i omi-cli -g               # install cli

@@ -1,6 +1,6 @@
 {
   "name": "omi-cli",
-  "version": "3.0.18",
+  "version": "3.0.20",
   "description": "Create website with no build configuration. be friendly to [Omi](https://github.com/Tencent/omi) framework.",
   "main": "bin/omi",
   "engines": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlloyTeam/omi-cli.git"
+    "url": "git+https://github.com/Tencent/omi.git"
   },
   "keywords": [
     "omi",
@@ -21,7 +21,7 @@
     "omi-cli",
     "webpack"
   ],
-  "author": "pasturn,heyli,vorshen,dntzhang",
+  "author": "pasturn,LeeHyungGeun,xcatliu,vorshen,dntzhang",
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.24.1",
@@ -44,7 +44,7 @@
     "which": "^1.2.14"
   },
   "bugs": {
-    "url": "https://github.com/AlloyTeam/omi-cli/issues"
+    "url": "https://github.com/Tencent/omi/issues"
   },
-  "homepage": "https://github.com/AlloyTeam/omi-cli#readme"
+  "homepage": "https://github.com/Tencent/omi/tree/master/packages/omi-cli"
 }
