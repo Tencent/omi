@@ -2,7 +2,7 @@ var Omi = typeof require === 'function'
   ? require('omi')
   : window.Omi
 
-if(!Omi){
+if (!Omi) {
   Omi = window.Omi
 }
 
@@ -16,6 +16,8 @@ if (typeof exports == "object") {
   module.exports = html
 } else if (typeof define == "function" && define.amd) {
   define([], function () { return html })
-} else {
+}
+
+if (typeof window !== 'undefined') {
   window.html = html
 }

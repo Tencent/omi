@@ -1,6 +1,6 @@
 {
   "name": "omi-html",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Omi Htm integration.",
   "main": "dist/omi-html.js",
   "scripts": {
