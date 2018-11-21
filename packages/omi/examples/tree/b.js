@@ -631,6 +631,7 @@
 
     if (isWeElement && dom.parentNode) {
       if (update || children.length > 0) {
+        dom.receiveProps(dom.props, dom.data);
         dom.update();
       }
     }
@@ -1141,6 +1142,8 @@
 
     WeElement.prototype.beforeRender = function beforeRender() {};
 
+    WeElement.prototype.receiveProps = function receiveProps() {};
+
     return WeElement;
   }(HTMLElement), _class.is = 'WeElement', _temp);
 
@@ -1461,7 +1464,9 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.1.5';
+  options.root.Omi.version = '4.1.6';
+
+  var _class$1, _temp2;
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1469,36 +1474,75 @@
 
   function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('my-node', function (_WeElement) {
+  define('my-node', (_temp2 = _class$1 = function (_WeElement) {
   	_inherits$2(_class, _WeElement);
 
   	function _class() {
+  		var _temp, _this, _ret;
+
   		_classCallCheck$2(this, _class);
 
-  		return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+  		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+  			args[_key] = arguments[_key];
+  		}
+
+  		return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.open = function () {
+  			_this.data.open = !_this.data.open;
+  		}, _this.extend = function () {
+  			if (!_this.data.children) {
+  				_this.data.children = [{ name: 'new child' }];
+  			} else {
+  				_this.addChild();
+  			}
+  			_this.data.open = true;
+  		}, _this.addChild = function () {
+  			_this.data.children.push({ name: 'new child' });
+  		}, _temp), _possibleConstructorReturn$2(_this, _ret);
   	}
 
-  	_class.prototype.render = function render$$1(props) {
+  	_class.prototype.install = function install() {
+  		this.data = this.props.node;
+  	};
+
+  	_class.prototype.css = function css() {
+  		return '\n\t\t.add, h4{\n\t\t\tcursor:pointer;\n\t\t}';
+  	};
+
+  	_class.prototype.render = function render$$1(props, data) {
+  		var children = data.children;
+  		var canOpen = children && children.length;
   		return Omi.h(
   			'li',
   			null,
   			Omi.h(
-  				'h1',
-  				null,
-  				props.node.name
-  			),
-  			props.node.children && props.node.children.map(function (child) {
-  				return Omi.h(
-  					'ul',
+  				'h4',
+  				{ onclick: this.open, ondblclick: this.extend },
+  				this.data.name,
+  				canOpen && Omi.h(
+  					'span',
   					null,
-  					Omi.h('my-node', { node: child })
-  				);
-  			})
+  					'[',
+  					data.open ? '-' : '+',
+  					']'
+  				)
+  			),
+  			canOpen && data.open && Omi.h(
+  				'ul',
+  				null,
+  				children.map(function (child) {
+  					return Omi.h('my-node', { node: child });
+  				}),
+  				Omi.h(
+  					'li',
+  					{ 'class': 'add', onclick: this.addChild },
+  					'+'
+  				)
+  			)
   		);
   	};
 
   	return _class;
-  }(WeElement));
+  }(WeElement), _class$1.observe = true, _temp2));
 
   define('my-tree', function (_WeElement2) {
   	_inherits$2(_class2, _WeElement2);
@@ -1521,7 +1565,7 @@
   }(WeElement));
 
   var node = {
-  	name: 'a',
+  	name: 'my-tree',
   	data: { x: 1 },
   	children: [{
   		name: 'a-1'
