@@ -1,6 +1,6 @@
 {
   "name": "omi-finger",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Support touch and gesture events in your Omi project.",
   "main": "index.js",
   "scripts": {
