@@ -7,8 +7,7 @@ Using [htm](https://github.com/developit/htm) in omi.
 ## Usage
 
 ```js
-import { define, render, WeElement } from 'omi'
-import html from 'omi-html'
+import { define, render, WeElement, html }  from 'omi-html'
 
 define('my-counter', class extends WeElement {
   static observe = true

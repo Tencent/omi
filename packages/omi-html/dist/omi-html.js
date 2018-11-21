@@ -1,4 +1,19 @@
-/******/ (function(modules) { // webpackBootstrap
+/*!
+ *  omi-html v0.2.0 By dntzhang 
+ *  Github: https://github.com/AlloyTeam/omi
+ *  MIT Licensed.
+ */
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["html"] = factory();
+	else
+		root["html"] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -65,114 +80,56 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_omi__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_htm__ = __webpack_require__(3);
 
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _class, _temp2;
+const html = __WEBPACK_IMPORTED_MODULE_1_htm__["a" /* default */].bind(__WEBPACK_IMPORTED_MODULE_0_omi__["f" /* h */])
 
-var _templateObject = _taggedTemplateLiteral(['\n      <div>\n        <button onClick=', '>-</button>\n        <span>', '</span>\n        <button onClick=', '>+</button>\n      </div>'], ['\n      <div>\n        <button onClick=', '>-</button>\n        <span>', '</span>\n        <button onClick=', '>+</button>\n      </div>']),
-    _templateObject2 = _taggedTemplateLiteral(['<my-counter />'], ['<my-counter />']);
 
-var _index = __webpack_require__(1);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  tag: __WEBPACK_IMPORTED_MODULE_0_omi__["l" /* tag */],
+  WeElement: __WEBPACK_IMPORTED_MODULE_0_omi__["b" /* WeElement */],
+  Component: __WEBPACK_IMPORTED_MODULE_0_omi__["a" /* Component */],
+  render: __WEBPACK_IMPORTED_MODULE_0_omi__["j" /* render */],
+  h: __WEBPACK_IMPORTED_MODULE_0_omi__["f" /* h */],
+  createElement: __WEBPACK_IMPORTED_MODULE_0_omi__["f" /* h */],
+  options: __WEBPACK_IMPORTED_MODULE_0_omi__["i" /* options */],
+  define: __WEBPACK_IMPORTED_MODULE_0_omi__["d" /* define */],
+  observe: __WEBPACK_IMPORTED_MODULE_0_omi__["h" /* observe */],
+  cloneElement: __WEBPACK_IMPORTED_MODULE_0_omi__["c" /* cloneElement */],
+  getHost: __WEBPACK_IMPORTED_MODULE_0_omi__["e" /* getHost */],
+  rpx: __WEBPACK_IMPORTED_MODULE_0_omi__["k" /* rpx */],
+  tick: __WEBPACK_IMPORTED_MODULE_0_omi__["m" /* tick */],
+  nextTick: __WEBPACK_IMPORTED_MODULE_0_omi__["g" /* nextTick */],
+  html: html
+});
 
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-(0, _index.define)('my-counter', (_temp2 = _class = function (_WeElement) {
-  _inherits(_class, _WeElement);
-
-  function _class() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, _class);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = {
-      count: 1
-    }, _this.sub = function () {
-      _this.data.count--;
-    }, _this.add = function () {
-      _this.data.count++;
-    }, _temp), _possibleConstructorReturn(_this, _ret);
-  }
-
-  _createClass(_class, [{
-    key: 'render',
-    value: function render() {
-      return (0, _index.html)(_templateObject, this.sub, this.data.count, this.add);
-    }
-  }]);
-
-  return _class;
-}(_index.WeElement), _class.observe = true, _temp2));
-
-(0, _index.render)((0, _index.html)(_templateObject2), 'body');
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.html = exports.nextTick = exports.tick = exports.rpx = exports.getHost = exports.cloneElement = exports.observe = exports.define = exports.options = exports.createElement = exports.h = exports.render = exports.Component = exports.WeElement = exports.tag = undefined;
-
-var _omi = __webpack_require__(2);
-
-var _htm = __webpack_require__(4);
-
-var _htm2 = _interopRequireDefault(_htm);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var html = _htm2.default.bind(_omi.h);
-
-exports.tag = _omi.tag;
-exports.WeElement = _omi.WeElement;
-exports.Component = _omi.Component;
-exports.render = _omi.render;
-exports.h = _omi.h;
-exports.createElement = _omi.createElement;
-exports.options = _omi.options;
-exports.define = _omi.define;
-exports.observe = _omi.observe;
-exports.cloneElement = _omi.cloneElement;
-exports.getHost = _omi.getHost;
-exports.rpx = _omi.rpx;
-exports.tick = _omi.tick;
-exports.nextTick = _omi.nextTick;
-exports.html = html;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return tag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return WeElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Component; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return h; });
+/* unused harmony export createElement */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return options; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return define; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return observe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return cloneElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getHost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return rpx; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return tick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return nextTick; });
 /**
  * omi v4.1.6  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
@@ -185,7 +142,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 function VNode() {}
 
 function getGlobal() {
-  if ((typeof global === 'undefined' ? 'undefined' : _typeof(global)) !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
+  if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
     return self || window || global || function () {
       return this;
     }();
@@ -411,7 +368,7 @@ function setAccessor(node, name, old, value, isSvg) {
     if (!value || typeof value === 'string' || typeof old === 'string') {
       node.style.cssText = value || '';
     }
-    if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object') {
+    if (value && typeof value === 'object') {
       if (typeof old !== 'string') {
         for (var i in old) {
           if (!(i in value)) node.style[i] = '';
@@ -441,7 +398,7 @@ function setAccessor(node, name, old, value, isSvg) {
         node.removeEventListener('touchstart', touchEnd, useCapture);
       }
     }
-    (node._listeners || (node._listeners = {}))[name] = value;
+(node._listeners || (node._listeners = {}))[name] = value;
   } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
     // Attempt to set a DOM property to the given value.
     // IE & FF throw for certain property-value combinations.
@@ -793,7 +750,7 @@ function diffAttributes(dom, attrs, old, children) {
   for (name in attrs) {
     //diable when using store system?
     //!dom.store &&
-    if (isWeElement && _typeof(attrs[name]) === 'object') {
+    if (isWeElement && typeof attrs[name] === 'object') {
       dom.props[npn(name)] = attrs[name];
       update = true;
     } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
@@ -825,7 +782,7 @@ var JSONPatcherProxy = function () {
    * Deep clones your object and returns a new object.
    */
   function deepClone(obj) {
-    switch (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) {
+    switch (typeof obj) {
       case 'object':
         return JSON.parse(JSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
       case 'undefined':
@@ -906,7 +863,7 @@ var JSONPatcherProxy = function () {
     }
 
     // if the new value is an object, make sure to watch it
-    if (newValue && (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {
+    if (newValue && typeof newValue == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {
       instance.parenthoodMap.set(newValue, {
         parent: target,
         path: key
@@ -926,7 +883,7 @@ var JSONPatcherProxy = function () {
       }
       // when array element is set to `undefined`, should generate replace to `null`
       if (Array.isArray(target)) {
-        operation.op = 'replace', operation.value = null;
+operation.op = 'replace', operation.value = null;
       }
       var oldValue = instance.proxifiedObjectsMap.get(target[key]);
       // was the deleted a proxified object?
@@ -1213,23 +1170,11 @@ function proxyUpdate(ele) {
   });
 }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var id = 0;
 
@@ -1472,23 +1417,11 @@ function fixArrPath(path) {
   return mpPath;
 }
 
-function _classCallCheck$1(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
+function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn$1(self, call) {
-  if (!self) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-}
+function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits$1(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
-  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-}
+function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function define(name, ctor) {
   if (ctor.is === 'WeElement') {
@@ -1663,46 +1596,30 @@ var omi = {
 options.root.Omi = omi;
 options.root.Omi.version = '4.1.6';
 
-exports.default = omi;
-exports.tag = tag;
-exports.WeElement = WeElement;
-exports.Component = Component;
-exports.render = render;
-exports.h = h;
-exports.createElement = h;
-exports.options = options;
-exports.define = define;
-exports.observe = observe;
-exports.cloneElement = cloneElement;
-exports.getHost = getHost;
-exports.rpx = rpx;
-exports.tick = tick;
-exports.nextTick = nextTick;
+/* unused harmony default export */ var _unused_webpack_default_export = (omi);
+
 //# sourceMappingURL=omi.esm.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+/* 2 */
+/***/ (function(module, exports) {
 
 var g;
 
 // This works in non-strict mode
-g = function () {
+g = (function() {
 	return this;
-}();
+})();
 
 try {
 	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
 	// This works if the window reference is available
-	if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === "object") g = window;
+	if(typeof window === "object")
+		g = window;
 }
 
 // g can still be undefined, but nothing to do about it...
@@ -1711,14 +1628,15 @@ try {
 
 module.exports = g;
 
+
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var t={},e=document.createElement("template"),r=/(\$_h\[\d+\])/g;function n(t,e){var n=t.match(r),a=JSON.stringify(t);if(null!=n){if(n[0]===t)return t;a=a.replace(r,'"'+e+"$1"+e+'"').replace(/"[+,]"/g,""),","==e&&(a="["+a+"]")}return a}/* harmony default export */ __webpack_exports__["default"] = (function(r){return(t[r]||(t[r]=function(t){for(var r=t[0],a=1;a<t.length;)r+="$_h["+a+"]"+t[a++];return e.innerHTML=r.replace(/<(?:(\/)\/|(\/?)(\$_h\[\d+\]))/g,"<$1$2c c@=$3").replace(/<([\w:-]+)(?:\s[^<>]*?)?(\/?)>/g,function(t,e,r){return t.replace(/(?:'.*?'|".*?"|([A-Z]))/g,function(t,e){return e?":::"+e:t})+(r?"</"+e+">":"")}).trim(),Function("h","$_h","return "+function t(e){if(1!=e.nodeType)return 3==e.nodeType&&e.data?n(e.data,","):"null";for(var r="",a=n(e.localName,r),i="",u=",({",c=0;c<e.attributes.length;c++){var l=e.attributes[c].name,o=e.attributes[c].value;"c@"==l?a=o:"..."==l.substring(0,3)?(i="",u=",Object.assign({",r+="},"+l.substring(3)+",{"):(r+=i+'"'+l.replace(/:::(\w)/g,function(t,e){return e.toUpperCase()})+'":'+(!o||n(o,"+")),i=",")}r="h("+a+u+r+"})";for(var f=e.firstChild;f;)r+=","+t(f),f=f.nextSibling;return r+")"}((e.content||e).firstChild))}(r)))(this,arguments)});
+var t={},e=document.createElement("template"),r=/(\$_h\[\d+\])/g;function n(t,e){var n=t.match(r),a=JSON.stringify(t);if(null!=n){if(n[0]===t)return t;a=a.replace(r,'"'+e+"$1"+e+'"').replace(/"[+,]"/g,""),","==e&&(a="["+a+"]")}return a}/* harmony default export */ __webpack_exports__["a"] = (function(r){return(t[r]||(t[r]=function(t){for(var r=t[0],a=1;a<t.length;)r+="$_h["+a+"]"+t[a++];return e.innerHTML=r.replace(/<(?:(\/)\/|(\/?)(\$_h\[\d+\]))/g,"<$1$2c c@=$3").replace(/<([\w:-]+)(?:\s[^<>]*?)?(\/?)>/g,function(t,e,r){return t.replace(/(?:'.*?'|".*?"|([A-Z]))/g,function(t,e){return e?":::"+e:t})+(r?"</"+e+">":"")}).trim(),Function("h","$_h","return "+function t(e){if(1!=e.nodeType)return 3==e.nodeType&&e.data?n(e.data,","):"null";for(var r="",a=n(e.localName,r),i="",u=",({",c=0;c<e.attributes.length;c++){var l=e.attributes[c].name,o=e.attributes[c].value;"c@"==l?a=o:"..."==l.substring(0,3)?(i="",u=",Object.assign({",r+="},"+l.substring(3)+",{"):(r+=i+'"'+l.replace(/:::(\w)/g,function(t,e){return e.toUpperCase()})+'":'+(!o||n(o,"+")),i=",")}r="h("+a+u+r+"})";for(var f=e.firstChild;f;)r+=","+t(f),f=f.nextSibling;return r+")"}((e.content||e).firstChild))}(r)))(this,arguments)});
 
 
 /***/ })
 /******/ ]);
+});

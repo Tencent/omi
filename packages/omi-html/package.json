@@ -1,10 +1,15 @@
 {
   "name": "omi-html",
-  "version": "0.1.1",
-  "description": "Omi Htm Adapter.",
-  "main": "index.js",
+  "version": "0.2.0",
+  "description": "Omi Htm integration.",
+  "main": "dist/omi-html.js",
+  "jsnext:main": "./omi.esm.js",
+  "module": "./omi.esm.js",
+  "minified:main": "dist/omi.min.js",
   "scripts": {
-    "counter": "webpack -w"
+    "counter": "webpack -w",
+    "build": "webpack -w",
+    "build-min": "webpack -w"
   },
   "repository": {
     "type": "git",
@@ -32,6 +37,7 @@
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "babel-preset-env": "^1.6.0",
     "babel-preset-omi": "^0.1.1",

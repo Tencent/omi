@@ -1,17 +1,37 @@
-var Omi = typeof require === 'function'
-  ? require('omi')
-  : window.Omi
+import {
+  tag,
+  WeElement,
+  Component,
+  render,
+  h,
+  createElement,
+  options,
+  define,
+  observe,
+  cloneElement,
+  getHost,
+  rpx,
+  tick,
+  nextTick } from 'omi'
+import htm from 'htm'
 
-var htm = typeof require === 'function'
-  ? require('htm')
-  : window.htm
+const html = htm.bind(h)
 
-var html = htm.default ? htm.default.bind(Omi.h) : html.bind(Omi.h)
 
-if (typeof exports == "object") {
-  module.exports = html
-} else if (typeof define == "function" && define.amd) {
-  define([], function () { return html })
-} else {
-  window.html = html
+export default {
+  tag: tag,
+  WeElement: WeElement,
+  Component: Component,
+  render: render,
+  h: h,
+  createElement: h,
+  options: options,
+  define: define,
+  observe: observe,
+  cloneElement: cloneElement,
+  getHost: getHost,
+  rpx: rpx,
+  tick: tick,
+  nextTick: nextTick,
+  html: html
 }
