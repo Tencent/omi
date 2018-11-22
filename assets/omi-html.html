@@ -13,28 +13,34 @@
 	<script>
 		const { define, WeElement, render } = Omi
 
-		define('like-button', class extends WeElement {
+		define('my-counter', class extends WeElement {
+
 			install() {
-				this.data = { liked: false }
+				this.constructor.observe = true
+				this.data.count = 1
+				this.sub = this.sub.bind(this)
+				this.add = this.add.bind(this)
+			}
+
+			sub() {
+				this.data.count--
+			}
+
+			add() {
+				this.data.count++
 			}
 
 			render() {
-				if (this.data.liked) {
-					return 'You liked this.'
-				}
-
 				return html`
-					<button onClick=${() => {
-						this.data.liked = true
-						this.update()
-					}}>
-						Like
-					</button>
-				`
-			}
+					<div>
+						<button onClick=${this.sub}>-</button>
+						<span>${this.data.count}</span>
+						<button onClick=${this.add}>+</button>
+					</div>
+					`}
 		})
 
-		render(html`<like-button />`, 'body')
+		render(html`<my-counter />`, 'body')
 	</script>
 
 	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
