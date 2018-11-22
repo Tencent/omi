@@ -12,6 +12,7 @@ define('my-app', class extends WeElement {
   data = {
     pageTitle: '',
     routeParams: null,
+    routeQuery: null,
     routeList: []
   }
 
@@ -26,7 +27,7 @@ define('my-app', class extends WeElement {
   render(props, data) {
     return (
       <app-frame routeList={this.data.routeList}>
-        <this.data.tag slot="page-content" params={this.data.params} />
+        <this.data.tag slot="page-content" params={this.data.routeParams} query={this.data.routeQuery}/>
       </app-frame>
     )
   }

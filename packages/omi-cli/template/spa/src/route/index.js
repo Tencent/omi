@@ -8,6 +8,7 @@ export default function(omiElement) {
       omiElement.data.pageTitle = item.label
       omiElement.data.tag = item.tag
       omiElement.data.routeParams = evt.params
+      omiElement.data.routeQuery = evt.query
       routeList.forEach(routeItem => (routeItem.selected = false))
       item.selected = true
     })
