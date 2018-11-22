@@ -1,6 +1,6 @@
 {
   "name": "omi-cli",
-  "version": "3.0.20",
+  "version": "3.0.21",
   "description": "Create website with no build configuration. be friendly to [Omi](https://github.com/Tencent/omi) framework.",
   "main": "bin/omi",
   "engines": {
@@ -21,7 +21,7 @@
     "omi-cli",
     "webpack"
   ],
-  "author": "pasturn,LeeHyungGeun,xcatliu,vorshen,dntzhang",
+  "author": "pasturn,LeeHyungGeun,daizhan,xcatliu,vorshen,dntzhang",
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.24.1",
