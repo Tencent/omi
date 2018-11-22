@@ -629,7 +629,7 @@ render(<todo-app />, "body", store);
 
 If you don't want to use store's data system, you can also use publish subscribe mode. For example, using [mitt](https://github.com/developit/mitt) across component communication in Omi:
 
-* [cross-component-communication](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds#cross-component-communication)
+* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
 
 ## Observe
 
