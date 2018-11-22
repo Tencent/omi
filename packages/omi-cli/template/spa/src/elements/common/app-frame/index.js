@@ -40,7 +40,7 @@ define('app-frame', class extends WeElement {
     return mainNav
   }
 
-  render(props, data) {
+  render(props, data, store) {
     let mainNav = this.getRenderedNav(props, data)
     return (
       <div class="app">
@@ -48,7 +48,7 @@ define('app-frame', class extends WeElement {
           <h1 class="app-title">
             <a href="#/">
               <img src={logo} class="app-logo" alt="logo" />
-              {this.data.name}
+              {data.name}
             </a>
           </h1>
           <div class="nav-bar" onClick={e => this.onClickNavBar(e)}>
@@ -56,7 +56,7 @@ define('app-frame', class extends WeElement {
             <span class="second-bar icon-bar" />
             <span class="icon-bar" />
           </div>
-          <nav class={'main-nav ' + (this.data.showMiniNavBar ? 'show' : '')}>
+          <nav class={'main-nav ' + (data.showMiniNavBar ? 'show' : '')}>
             <ul>{mainNav}</ul>
           </nav>
           <div class="user-info">
