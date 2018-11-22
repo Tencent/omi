@@ -1,15 +1,11 @@
 
 ## HTM - JSX 的替代品？还是另一种选择？
 
-<h1 align="center">
-  HTM (Hyperscript Tagged Markup)
-  <a href="https://www.npmjs.org/package/htm"><img src="https://img.shields.io/npm/v/htm.svg?style=flat" alt="npm"></a>
-</h1>
 <p align="center">
   <img src="https://i.imgur.com/0ph8dbS.png" width="572" alt="hyperscript tagged markup demo">
 </p>
 
-[`htm`](https://github.com/developit/htm) 是一款与 JSX 语法类似的东西，相比 JSX 它最大的优点是:
+[`htm`](https://github.com/developit/htm) 全称是 Hyperscript Tagged Markup，是一款与 JSX 语法类似的东西，相比 JSX 它最大的优点是:
 
 * 不需要编译器
 * 直接在现代浏览器中运行，只要你的浏览器支持 [Tagged templates] 就行
