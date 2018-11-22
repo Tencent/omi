@@ -1600,11 +1600,7 @@ var _templateObject = _taggedTemplateLiteral(['\n      <div>\n        <button on
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(3);
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+__webpack_require__(3);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -1640,14 +1636,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   _createClass(_class, [{
     key: 'render',
     value: function render() {
-      return (0, _index2.default)(_templateObject, this.sub, this.data.count, this.add);
+      return html(_templateObject, this.sub, this.data.count, this.add);
     }
   }]);
 
   return _class;
 }(_omi.WeElement), _class.observe = true, _temp2));
 
-(0, _omi.render)((0, _index2.default)(_templateObject2), 'body');
+(0, _omi.render)(html(_templateObject2), 'body');
 
 /***/ }),
 /* 2 */

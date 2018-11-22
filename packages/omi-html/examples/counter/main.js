@@ -1,5 +1,5 @@
 import { define, render, WeElement }  from 'omi'
-import html from '../../index'
+import '../../index'
 
 define('my-counter', class extends WeElement {
   static observe = true
