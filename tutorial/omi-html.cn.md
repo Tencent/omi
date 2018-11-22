@@ -3,7 +3,7 @@
 
 | **[Preact](https://github.com/developit/preact)**                         | **[Omi](https://github.com/Tencent/omi)**                           |
 | ------------------------------- | ----------------------------------- |
-| <img src="https://i.imgur.com/0ph8dbS.png" width="400" alt="hyperscript tagged markup demo">| <img src="../assets/omi-html.jpg" width="400" alt="hyperscript tagged markup demo"> |
+| <img src="../assets/preact-htm.jpg" width="381" alt="hyperscript tagged markup demo">| <img src="../assets/omi-html.jpg" width="381" alt="hyperscript tagged markup demo"> |
 
 
 [`htm`](https://github.com/developit/htm) 全称是 Hyperscript Tagged Markup，是一款与 JSX 语法类似的东西，相比 JSX 它最大的优点是:
