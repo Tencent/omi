@@ -10,9 +10,9 @@
 [`htm`](https://github.com/developit/htm) 是一款与 JSX 语法类似的东西，相比 JSX 它最大的优点是:
 
 * 不需要编译器
-* 直接在现代浏览器中运行，只要你的浏览器支持 [Tagged_templates] 就行
+* 直接在现代浏览器中运行，只要你的浏览器支持 [Tagged templates] 就行
 
-所以，你可以直接在 react、preact 或者 omi 中使用并且直接在浏览器中运行，不需要任何编译。它利用了 [Tagged_templates] 和浏览器自带的 HTML parser。
+所以，你可以直接在 react、preact 或者 omi 中使用并且直接在浏览器中运行，不需要任何编译。它利用了 [Tagged templates] 和浏览器自带的 HTML parser。
 
 ## 极小的尺寸
 
@@ -245,6 +245,44 @@ define('my-counter', class extends WeElement {
 render(html`<my-counter />`, 'body')
 ```
 
+## 直接运行在浏览器
+
+```html
+<script src="https://unpkg.com/omi"></script>
+<script src="https://unpkg.com/omi-html"></script>
+<script>
+  const { define, WeElement, render } = Omi
+
+  define('my-counter', class extends WeElement {
+
+    install() {
+      this.constructor.observe = true
+      this.data.count = 1
+      this.sub = this.sub.bind(this)
+      this.add = this.add.bind(this)
+    }
+
+    sub() {
+      this.data.count--
+    }
+
+    add() {
+      this.data.count++
+    }
+
+    render() {
+      return html`
+        <div>
+          <button onClick=${this.sub}>-</button>
+          <span>${this.data.count}</span>
+          <button onClick=${this.add}>+</button>
+        </div>
+        `}
+  })
+
+  render(html`<my-counter />`, 'body')
+</script>
+```
 
 
 [Tagged Templates]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates
