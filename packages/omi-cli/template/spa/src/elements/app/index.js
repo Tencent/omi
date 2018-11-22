@@ -24,10 +24,10 @@ define('my-app', class extends WeElement {
     }
   }
 
-  render(props, data) {
+  render(props, data, store) {
     return (
-      <app-frame routeList={this.data.routeList}>
-        <this.data.tag slot="page-content" params={this.data.routeParams} query={this.data.routeQuery}/>
+      <app-frame routeList={data.routeList}>
+        <data.tag slot="page-content" params={data.routeParams} query={data.routeQuery}/>
       </app-frame>
     )
   }
