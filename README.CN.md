@@ -70,6 +70,7 @@
 
 ## 必须收藏的资源
 
+* [HTM - JSX 的替代品？还是另一种选择？](https://github.com/Tencent/omi/blob/master/tutorial/omi-html.cn.md)
 * [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)
 * [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
 * [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)
