@@ -627,7 +627,7 @@ render(<todo-app></todo-app>, 'body', store)
 
 如果不想使用 store 的 data 体系，也可以使用发布订阅模式。比如在 Omi 中使用 [mitt](https://github.com/developit/mitt) 跨组件通讯:
 
-* [cross-component-communication](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds#cross-component-communication)
+* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
 
 ## Observe
 
