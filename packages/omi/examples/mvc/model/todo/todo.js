@@ -1,6 +1,6 @@
 import TodoItem from './todo-item'
 
-class Todo {
+export default class Todo {
   constructor() {
     this.items = []
   }
@@ -54,11 +54,8 @@ class Todo {
   }
 }
 
+
 //mock
 function requestData(callback) {
   callback(['Task One', 'TaskTwo'])
 }
-
-const todo = new Todo()
-
-export default todo

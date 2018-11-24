@@ -1548,10 +1548,6 @@
 
     return Todo;
   }();
-
-  //mock
-
-
   function requestData(callback) {
     callback(['Task One', 'TaskTwo']);
   }
