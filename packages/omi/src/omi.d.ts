@@ -62,6 +62,7 @@ declare namespace Omi {
 		beforeUpdate?(): void;
 		afterUpdate?(): void;
 		beforeRender?(): void;
+		receiveProps?(): void;
 	}
 
 	interface Component<P, D> {
@@ -71,6 +72,7 @@ declare namespace Omi {
 		beforeUpdate?(): void;
 		afterUpdate?(): void;
 		beforeRender?(): void;
+		receiveProps?(): void;
 	}
 
 	abstract class WeElement<P = {}, D = {}> {
