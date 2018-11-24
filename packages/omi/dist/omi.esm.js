@@ -1,5 +1,5 @@
 /**
- * omi v4.1.6  http://omijs.org
+ * omi v4.1.7  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -346,20 +346,17 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
       var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
       parentNode = dom[0].parentNode;
       for (var i = 0; i < maxLength; i++) {
-        ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
+        var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
+        ret.push(ele);
+        if (i > domLength - 1) {
+          parentNode.appendChild(ele);
+        }
       }
     } else {
       vnode.forEach(function (item) {
-        ret.push(idiff(dom, item, context, mountAll, componentRoot));
-      });
-    }
-    if (parent) {
-      ret.forEach(function (vnode) {
-        parent.appendChild(vnode);
-      });
-    } else if (isArray(dom)) {
-      dom.forEach(function (node) {
-        parentNode.appendChild(node);
+        var ele = idiff(dom, item, context, mountAll, componentRoot);
+        ret.push(ele);
+        parent && parent.appendChild(ele);
       });
     }
   } else {
@@ -1462,7 +1459,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.1.6';
+options.root.Omi.version = '4.1.7';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick };

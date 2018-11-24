@@ -135,14 +135,15 @@
                 var vnodeLength = vnode.length;
                 var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
                 parentNode = dom[0].parentNode;
-                for (var i = 0; i < maxLength; i++) ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
+                for (var i = 0; i < maxLength; i++) {
+                    var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
+                    ret.push(ele);
+                    if (i > domLength - 1) parentNode.appendChild(ele);
+                }
             } else vnode.forEach(function(item) {
-                ret.push(idiff(dom, item, context, mountAll, componentRoot));
-            });
-            if (parent) ret.forEach(function(vnode) {
-                parent.appendChild(vnode);
-            }); else if (isArray(dom)) dom.forEach(function(node) {
-                parentNode.appendChild(node);
+                var ele = idiff(dom, item, context, mountAll, componentRoot);
+                ret.push(ele);
+                parent && parent.appendChild(ele);
             });
         } else {
             if (isArray(dom)) ret = idiff(dom[0], vnode, context, mountAll, componentRoot); else ret = idiff(dom, vnode, context, mountAll, componentRoot);
@@ -842,7 +843,7 @@
         nextTick: nextTick
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.1.6';
+    options.root.Omi.version = '4.1.7';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
