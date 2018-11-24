@@ -345,20 +345,17 @@
         var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
         parentNode = dom[0].parentNode;
         for (var i = 0; i < maxLength; i++) {
-          ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
+          var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
+          ret.push(ele);
+          if (i > domLength - 1) {
+            parentNode.appendChild(ele);
+          }
         }
       } else {
         vnode.forEach(function (item) {
-          ret.push(idiff(dom, item, context, mountAll, componentRoot));
-        });
-      }
-      if (parent) {
-        ret.forEach(function (vnode) {
-          parent.appendChild(vnode);
-        });
-      } else if (isArray(dom)) {
-        dom.forEach(function (node) {
-          parentNode.appendChild(node);
+          var ele = idiff(dom, item, context, mountAll, componentRoot);
+          ret.push(ele);
+          parent && parent.appendChild(ele);
         });
       }
     } else {
@@ -1464,7 +1461,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.1.6';
+  options.root.Omi.version = '4.1.7';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1573,10 +1570,8 @@
     }
 
     TodoViewData.prototype.sync = function sync(todo) {
-      //待优化，深拷贝
-      console.log(11);
+      //To be optimized, deep copy
       this.data.items = JSON.parse(JSON.stringify(todo.items));
-      console.log(this.data.items);
     };
 
     return TodoViewData;

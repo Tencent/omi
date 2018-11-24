@@ -6,10 +6,8 @@ class TodoViewData {
   }
 
   sync(todo) {
-    //待优化，深拷贝
-    console.log(11)
+    //To be optimized, deep copy
     this.data.items = JSON.parse(JSON.stringify(todo.items))
-    console.log(this.data.items)
   }
 }
 
