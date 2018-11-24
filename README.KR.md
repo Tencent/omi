@@ -1,5 +1,6 @@
 [English](./README.md) | [简体中文](./README.CN.md) | 한국어
 
+<p align="right">v<strong>4.1.6</strong></p>
 <p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi: 4kb 자바스크립트 차세대 웹 프레임워크</h2>
 <p align="center"><b>JSX, Web Components, Proxy, Store, Path Updating 지원</b></p>
@@ -50,9 +51,28 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)| React Hooks 방식 API |
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)| Web Components Native 렌더링 |
 | [westore](https://github.com/dntzhang/westore)| Wechat Mini Program Solution westore, Omi와 서로 서로 영감받음 |
-| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) working | Omi 버전의 Weui [@132yse](https://github.com/132yse).|
+| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui)  | Omi 버전의 [Weui](https://weui.io/) by [@132yse](https://github.com/132yse).|
 | [omi-i18n](https://github.com/i18next/omi-i18n)| i18next 에코시스템을 사용한 omi.js 다국어 지원 방식 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | [page](https://github.com/visionmedia/page.js) 를 통한 소형의 클라이언트 사이드 라우터 |
+
+## Useful Resources
+
+| **Title Name**  | **Other language** | **Related**|
+| ----------------------------------------- | ------------------ |-----------------|
+| [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.kr.md)|
+| [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.kr.md)|
+| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)| 求翻译|
+|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
+|  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
+|  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
+|  [Web Components Org](https://www.webcomponents.org/introduction)|
+|  [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy) [한국어](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|
+|  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
+|  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
+|  [Platform HTML5](https://platform.html5.org/)|
+| [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
+| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|
+
 
 ## omi-mp
 
@@ -66,25 +86,13 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 
 웹에서 사용자 로그인 정보를 취득하지 못하기 때문에 사용자 아바타와 이름이 변경되었습니다.
 
-## Useful Resources
-
-* [60FPS Animation in omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)
-* [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)
-* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
-* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
-* [Web Components Org](https://www.webcomponents.org/introduction)
-* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-* [https://www.webcomponents.org/](https://www.webcomponents.org/)
-* [https://www.webcomponents.org/elements](https://www.webcomponents.org/elements)
-* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
-* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
-* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
-
 ---
 
+# Overview of the Readme
+
 - [Ecosystem of Omi](#ecosystem-of-omi)
-- [omi-mp](#omi-mp)
 - [Useful Resources](#useful-resources)
+- [omi-mp](#omi-mp)
 - [Omi 1분 추가 가이드](#Omi-1분-추가-가이드)
 - [Omi 30초 추가 가이드](#Omi-30초-추가-가이드)
 - [Getting Started](#getting-started)
@@ -330,6 +338,11 @@ $ omi init-ts your_project_name
 $ omi init-spa your_project_name
 ```
 
+omi-mp (Omi Wechat Mini Program Module) Template(omi-cli v3.0.13+):
+
+```bash
+$ omi init-mp your_project_name
+```
 
 CLI 자동 프로젝트 생성 scaffolding 는 한 페이지의 create-react-app을 여러 페이지로 변환합니다. 설정(configuration) 이슈는 [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) 을 봐주세요.
 
@@ -620,30 +633,6 @@ class MyApp extends WeElement {
 }
 ```
 
-`observe`를 사용하면 다음 함수에서 데이터의 값을 설정하지 말아야 한다는 점을 유의해야 합니다. 일부 속성은 obj 또는 arr 과 같은 복잡한 객체입니다.
-
-* render
-* beforeRender
-* beforeUpdate
-* afterUpdate
-
-왜냐하면 data는 단순히 이전과 이후의 값을 비교하기 때문에 복잡한 오브젝트는 완전히 대조되지 않고 비교 값은은 업데이트를 트리거하고 업데이트는 위의 함수를 트리거하며 무한 반복됩니다.
-
-예를들면:
-
-❌Wrong way:
-```js
-beforeRender(){
-  this.data.a = { b: 1 }
-}
-```
- ✅ Right way:
-```js
-beforeRender(){
-  this.data.a.b = 1 
-}
-```
-
 만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mobx` 를 사용해주세요.
 
 ### Omi Mobx
@@ -683,6 +672,7 @@ class MyApp extends WeElement {
 | `beforeUpdate`   | before update                           |
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
+| `receiveProps`   | parent element re-render will trigger it      |
 
 ## Debugging
 

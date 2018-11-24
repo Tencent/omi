@@ -8,6 +8,7 @@ import { observe } from './observe'
 import { cloneElement } from './clone-element'
 import { getHost } from './get-host'
 import { rpx } from './rpx'
+import { tick, nextTick } from './tick'
 
 const Component = WeElement
 
@@ -23,11 +24,13 @@ const omi = {
   observe,
   cloneElement,
   getHost,
-  rpx
+  rpx,
+  tick,
+  nextTick
 }
 
 options.root.Omi = omi
-options.root.Omi.version = '4.0.26'
+options.root.Omi.version = '4.1.7'
 
 export default omi
 
@@ -43,5 +46,7 @@ export {
   observe,
   cloneElement,
   getHost,
-  rpx
+  rpx,
+  tick,
+  nextTick
 }

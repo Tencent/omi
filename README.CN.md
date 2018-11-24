@@ -1,5 +1,6 @@
 [English](./README.md) | 简体中文 | [한국어](./README.KR.md)
 
+<p align="right">v<strong>4.1.6</strong></p>
 <p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一</h2>
 <p align="center"><b>让 JSX, Web Components, Proxy, Store, Path Updating 在一起</b></p>
@@ -35,12 +36,15 @@
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
+| [omi-html![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-html)| Using [htm](https://github.com/developit/htm) in omi.|
+| [omi-30-seconds![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| 30 秒理解一段有用的 Omi 代码片段.|
+| [omi-canvas![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
 | [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
-| [omi-router![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
+| [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，支持 Javascript 和 Typescript |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi项目中变得超级简单.|
-| [omi-tap2![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Omi 原生之后 tap 事件（omi v4.0.24+）|
+| [omi-tap2](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Omi 原生支持 tap 事件（omi v4.0.24+）|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
@@ -48,7 +52,7 @@
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
 | [westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
-| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) working |Weui for Omi by [@132yse](https://github.com/132yse).|
+| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui)  |[Weui](https://weui.io/)  for Omi by [@132yse](https://github.com/132yse).|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
 
@@ -66,7 +70,9 @@
 
 ## 必须收藏的资源
 
-* [60FPS Animation in omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
+* [HTM - JSX 的替代品？还是另一种选择？](https://github.com/Tencent/omi/blob/master/tutorial/omi-html.cn.md)
+* [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)
+* [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
 * [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)
 * [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
 * [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
@@ -75,6 +81,7 @@
 * [CSS Variables](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables)
 * [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
 * [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
+* [Platform HTML5](https://platform.html5.org/)
 
 ---
 
@@ -90,6 +97,7 @@
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
+  - [Mitt](#mitt)
   - [Observe](#observe)
   - [生命周期](#生命周期)
 - [调试工具](#调试工具)
@@ -279,6 +287,8 @@ $ npm start                      # develop
 $ npm run build                  # release
 ```
 
+> `npx omi-cli init your_project_name` 也支持(要求 npm v5.2.0+)
+
 目录说明:
 
 ```
@@ -329,6 +339,12 @@ $ omi init-ts your_project_name
 
 ```bash
 $ omi init-spa your_project_name    
+```
+
+小程序开发 Web 模板(omi-cli v3.0.13+):
+
+```bash
+$ omi init-mp your_project_name    
 ```
 
 Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
@@ -607,6 +623,12 @@ render(<todo-app></todo-app>, 'body', store)
 * 如果页面简单组件很少，可以 updateAll 设置成 true，并且组件和页面不需要声明 data，也就不会按需更新
 * globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path
 
+## Mitt
+
+如果不想使用 store 的 data 体系，也可以使用发布订阅模式。比如在 Omi 中使用 [mitt](https://github.com/developit/mitt) 跨组件通讯:
+
+* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
+
 ## Observe
 
 ### Omi Observe
@@ -635,31 +657,6 @@ define("my-app", class extends WeElement {
     )
   }
 })
-```
-
-需要特别注意的是，如果使用了 `observe`，不要在以下函数里设置 data 的值某些属性为 obj 或 arr等复杂对象: 
-
-* render
-* beforeRender
-* beforeUpdate
-* afterUpdate
-
-因为 data 设置只会简单对比前后的值，复杂对象不会深对比，对比值不同会触发 update ，update 会触发上面函数，就无限递归了。
-
-举例说明:
-
-❌错误方式:
-```js
-beforeRender(){
-  this.data.a = { b: 1 }
-}
-```
-
-✅ 正确方式:
-```js
-beforeRender(){
-  this.data.a.b = 1 
-}
 ```
 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
@@ -701,6 +698,7 @@ class MyApp extends WeElement {
 | `beforeUpdate`   | before update                           |
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
+| `receiveProps`   | parent element re-render will trigger it      |
 
 ## 调试工具
 

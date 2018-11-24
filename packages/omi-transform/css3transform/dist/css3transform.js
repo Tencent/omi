@@ -311,6 +311,6 @@
     }
 
 
-    if ('undefined' != typeof module) module.exports = Transform; else self.Transform = Transform;
+    if ('undefined' != typeof module) module.exports = Transform; else window.Transform = Transform;
 
 })();

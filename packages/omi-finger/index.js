@@ -157,7 +157,7 @@ class OmiFinger extends WeElement {
     }
   }
 
-  _handleTouchCancel() {
+  _handleTouchCancel(evt) {
     this._emitEvent('onTouchCancel', evt);
     clearInterval(this.singleTapTimeout);
     clearInterval(this.tapTimeout);
@@ -222,21 +222,17 @@ class OmiFinger extends WeElement {
   }
 
   _swipeDirection(x1, x2, y1, y2) {
-    if (Math.abs(x1 - x2) > 80 || this.end - this.now < 250) {
-      return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down');
-    } else {
-      return 'Nochange';
-    }
+    return Math.abs(x1 - x2) >=
+      Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
   }
 
   render(props) {
-    var a =  cloneElement(props.children[0], {
+    return cloneElement(props.children[0], {
       onTouchStart: this._handleTouchStart,
       onTouchMove: this._handleTouchMove,
       onTouchCancel: this._handleTouchCancel,
       onTouchEnd: this._handleTouchEnd
     })
-    return a
   }
 }
 

@@ -3,38 +3,14 @@ import { applyRef } from '../util'
 import options from '../options'
 
 /**
- * A DOM event listener
- * @typedef {(e: Event) => void} EventListner
- */
-
-/**
- * A mapping of event types to event listeners
- * @typedef {Object.<string, EventListener>} EventListenerMap
- */
-
-/**
- * Properties Preact adds to elements it creates
- * @typedef PreactElementExtensions
- * @property {string} [normalizedNodeName] A normalized node name to use in diffing
- * @property {EventListenerMap} [_listeners] A map of event listeners added by components to this DOM node
- * @property {import('../component').Component} [_component] The component that rendered this DOM node
- * @property {function} [_componentConstructor] The constructor of the component that rendered this DOM node
- */
-
-/**
- * A DOM element that has been extended with Preact properties
- * @typedef {Element & ElementCSSInlineStyle & PreactElementExtensions} PreactElement
- */
-
-/**
  * Create an element with the given nodeName.
  * @param {string} nodeName The DOM node to create
  * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
  *  namespace.
- * @returns {PreactElement} The created DOM node
+ * @returns {Element} The created DOM node
  */
 export function createNode(nodeName, isSvg) {
-  /** @type {PreactElement} */
+  /** @type {Element} */
   let node = isSvg
     ? document.createElementNS('http://www.w3.org/2000/svg', nodeName)
     : document.createElement(nodeName)
@@ -55,7 +31,7 @@ export function removeNode(node) {
  * Set a named attribute on the given Node, with special behavior for some names
  * and event handlers. If `value` is `null`, the attribute/handler will be
  * removed.
- * @param {PreactElement} node An element to mutate
+ * @param {Element} node An element to mutate
  * @param {string} name The name/key to set, such as an event or attribute name
  * @param {*} old The last value that was set for this name/node pair
  * @param {*} value An attribute value, such as a function to be used as an

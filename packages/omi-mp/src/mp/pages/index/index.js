@@ -28,6 +28,12 @@ const mpOption = Page({
       // 浏览器后退行为刚好 alive用true，scollTop不传
     })
   },
+  onShow:function(){
+    console.log('show')
+  },
+  onHide:function(){
+    console.log('hide')
+  },
   onLoad: function () {
     if (app.globalData.userInfo) {
       this.setData({
@@ -83,9 +89,11 @@ class Element extends WeElement {
 
   uninstall = mpOption.onUnload || function() {}
 
-  installed = function(){
+  installed = function() {
     mpOption.onLoad && mpOption.onLoad.call(this, route.query)
     mpOption.onReady && mpOption.onReady.call(this, route.query)
+
+    mpOption.onReachBottom && wx._bindReachBottom(mpOption.onReachBottom, this)
   }
 
   setData = setData

@@ -125,7 +125,7 @@
         var ret;
         if (!diffLevel++) {
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
-            hydrating = null != dom && !('__preactattr_' in dom);
+            hydrating = null != dom && !('__omiattr_' in dom);
         }
         if (isArray(vnode)) {
             ret = [];
@@ -135,17 +135,18 @@
                 var vnodeLength = vnode.length;
                 var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
                 parentNode = dom[0].parentNode;
-                for (var i = 0; i < maxLength; i++) ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
+                for (var i = 0; i < maxLength; i++) {
+                    var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
+                    ret.push(ele);
+                    if (i > domLength - 1) parentNode.appendChild(ele);
+                }
             } else vnode.forEach(function(item) {
-                ret.push(idiff(dom, item, context, mountAll, componentRoot));
-            });
-            if (parent) ret.forEach(function(vnode) {
-                parent.appendChild(vnode);
-            }); else if (isArray(dom)) dom.forEach(function(node) {
-                parentNode.appendChild(node);
+                var ele = idiff(dom, item, context, mountAll, componentRoot);
+                ret.push(ele);
+                parent && parent.appendChild(ele);
             });
         } else {
-            ret = idiff(dom, vnode, context, mountAll, componentRoot);
+            if (isArray(dom)) ret = idiff(dom[0], vnode, context, mountAll, componentRoot); else ret = idiff(dom, vnode, context, mountAll, componentRoot);
             if (parent && ret.parentNode !== parent) parent.appendChild(ret);
         }
         if (!--diffLevel) hydrating = !1;
@@ -165,7 +166,7 @@
                     recollectNodeTree(dom, !0);
                 }
             }
-            out.t = !0;
+            out.__omiattr_ = !0;
             return out;
         }
         var vnodeName = vnode.nodeName;
@@ -179,15 +180,15 @@
                 recollectNodeTree(dom, !0);
             }
         }
-        var fc = out.firstChild, props = out.t, vchildren = vnode.children;
+        var fc = out.firstChild, props = out.__omiattr_, vchildren = vnode.children;
         if (null == props) {
-            props = out.t = {};
+            props = out.__omiattr_ = {};
             for (var a = out.attributes, i = a.length; i--; ) props[a[i].name] = a[i].value;
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
             if (fc.nodeValue != vchildren[0]) fc.nodeValue = vchildren[0];
         } else if (vchildren && vchildren.length || null != fc) if ('WeElement' != out.constructor.is || !out.constructor.noSlot) innerDiffNode(out, vchildren, context, mountAll, hydrating || null != props.dangerouslySetInnerHTML);
-        diffAttributes(out, vnode.attributes, props);
+        diffAttributes(out, vnode.attributes, props, vnode.children);
         if (out.props) out.props.children = vnode.children;
         isSvgMode = prevSvgMode;
         return out;
@@ -195,7 +196,7 @@
     function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
         var j, c, f, vchild, child, originalChildren = dom.childNodes, children = [], keyed = {}, keyedLen = 0, min = 0, len = originalChildren.length, childrenLen = 0, vlen = vchildren ? vchildren.length : 0;
         if (0 !== len) for (var i = 0; i < len; i++) {
-            var _child = originalChildren[i], props = _child.t, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
+            var _child = originalChildren[i], props = _child.__omiattr_, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
             if (null != key) {
                 keyedLen++;
                 keyed[key] = _child;
@@ -226,8 +227,8 @@
         while (min <= childrenLen) if (void 0 !== (child = children[childrenLen--])) recollectNodeTree(child, !1);
     }
     function recollectNodeTree(node, unmountOnly) {
-        if (null != node.t && node.t.ref) node.t.ref(null);
-        if (!1 === unmountOnly || null == node.t) removeNode(node);
+        if (null != node.__omiattr_ && node.__omiattr_.ref) node.__omiattr_.ref(null);
+        if (!1 === unmountOnly || null == node.__omiattr_) removeNode(node);
         removeChildren(node);
     }
     function removeChildren(node) {
@@ -238,7 +239,7 @@
             node = next;
         }
     }
-    function diffAttributes(dom, attrs, old) {
+    function diffAttributes(dom, attrs, old, children) {
         var name;
         var update = !1;
         var isWeElement = dom.update;
@@ -259,7 +260,31 @@
                 update = !0;
             }
         }
-        dom.parentNode && update && isWeElement && dom.update();
+        if (isWeElement && dom.parentNode) if (update || children.length > 0) {
+            dom.receiveProps(dom.props, dom.data);
+            dom.update();
+        }
+    }
+    function tick(fn, scope) {
+        callbacks.push({
+            fn: fn,
+            scope: scope
+        });
+    }
+    function fireTick() {
+        callbacks.forEach(function(item) {
+            item.fn.call(item.scope);
+        });
+        nextTickCallback.forEach(function(nextItem) {
+            nextItem.fn.call(nextItem.scope);
+        });
+        nextTickCallback.length = 0;
+    }
+    function nextTick(fn, scope) {
+        nextTickCallback.push({
+            fn: fn,
+            scope: scope
+        });
     }
     function observe(target) {
         target.observe = !0;
@@ -267,11 +292,12 @@
     function proxyUpdate(ele) {
         var timeout = null;
         ele.data = new JSONPatcherProxy(ele.data).observe(!1, function(info) {
-            if (info.oldValue !== info.value) {
+            if (!(ele.J || 'replace' === info.op && info.oldValue === info.value)) {
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     ele.update();
-                }, 16.6);
+                    fireTick();
+                }, 0);
             }
         });
     }
@@ -309,19 +335,19 @@
                     timeout = setTimeout(function() {
                         update(patchs, store);
                         patchs = {};
-                    }, 16.6);
+                    }, 0);
                 } else {
                     var key = fixPath(patch.path);
                     patchs[key] = patch.value;
                     timeout = setTimeout(function() {
                         update(patchs, store);
                         patchs = {};
-                    }, 16.6);
+                    }, 0);
                 }
             });
             parent.store = store;
         }
-        diff(null, vnode, {}, !1, parent, !1);
+        return diff(null, vnode, {}, !1, parent, !1);
     }
     function update(patch, store) {
         store.update(patch);
@@ -727,11 +753,15 @@
         };
         return JSONPatcherProxy;
     }();
+    var callbacks = [];
+    var nextTickCallback = [];
+    var id = 0;
     var WeElement = function(_HTMLElement) {
         function WeElement() {
             _classCallCheck(this, WeElement);
             var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
             _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
+            _this.I = id++;
             _this.data = _this.constructor.data || {};
             return _this;
         }
@@ -773,10 +803,12 @@
             }
         };
         WeElement.prototype.update = function() {
+            this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
-            this.host = diff(this.host, this.render(this.props, this.data, this.store));
+            this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
             this.afterUpdate();
+            this.J = !1;
         };
         WeElement.prototype.fire = function(name, data) {
             this.dispatchEvent(new CustomEvent(name, {
@@ -789,6 +821,7 @@
         WeElement.prototype.beforeUpdate = function() {};
         WeElement.prototype.afterUpdate = function() {};
         WeElement.prototype.beforeRender = function() {};
+        WeElement.prototype.receiveProps = function() {};
         return WeElement;
     }(HTMLElement);
     WeElement.is = 'WeElement';
@@ -805,10 +838,12 @@
         observe: observe,
         cloneElement: cloneElement,
         getHost: getHost,
-        rpx: rpx
+        rpx: rpx,
+        tick: tick,
+        nextTick: nextTick
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.0.26';
+    options.root.Omi.version = '4.1.7';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

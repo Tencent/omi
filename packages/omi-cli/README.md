@@ -1,4 +1,4 @@
-## CLI
+## omi-cli
 
 ```bash
 $ npm i omi-cli -g               # install cli
@@ -7,6 +7,8 @@ $ cd your_project_name           # please ignore this command if you executed 'o
 $ npm start                      # develop
 $ npm run build                  # release
 ```
+
+> `npx omi-cli init your_project_name` is also supported(npm v5.2.0+).
 
 Directory description:
 

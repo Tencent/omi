@@ -34,6 +34,8 @@ import { setData } from '../../../utils/set-data'
             ),
             new Buffer(`
 class Element extends WeElement {
+  static props = mpOption.properties
+
   data = mpOption.data
 
   render = render
@@ -61,6 +63,8 @@ class Element extends WeElement {
     mpOption.attached && mpOption.attached.call(this)
     mpOption.ready && mpOption.ready.call(this)
   }
+
+  adoptedCallback = mpOption.moved || function() {}
 
   triggerEvent = function(name, data) {
     this.fire(name, data)
@@ -137,9 +141,11 @@ class Element extends WeElement {
 
   uninstall = mpOption.onUnload || function() {}
 
-  installed = function(){
+  installed = function() {
     mpOption.onLoad && mpOption.onLoad.call(this, route.query)
     mpOption.onReady && mpOption.onReady.call(this, route.query)
+
+    mpOption.onReachBottom && wx._bindReachBottom(mpOption.onReachBottom, this)
   }
 
   setData = setData
@@ -179,9 +185,15 @@ gulp.task('appjs', ['copy'], () => {
     .pipe(gulp.dest('src/mp'))
 })
 
+gulp.task('copyThen', () => {
+  gulp.src('src-mp/**/*').pipe(gulp.dest('src/mp')).on('end', function(){
+    gulp.start(['components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route'])
+  })
+})
+
 gulp.task('watch', () => {
   watch('src-mp/**/*', () => {
-    gulp.start(['components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route'])
+    gulp.start('copyThen')
   })
 })
 

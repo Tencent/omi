@@ -1,5 +1,6 @@
 English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 
+<p align="right">v<strong>4.1.6</strong></p>
 <p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi: Next Generation Web Framework in 4kb JavaScript</h2>
 <p align="center"><b>Merge JSX, Web Components, Proxy, Store, Path Updating together</b></p>
@@ -37,26 +38,46 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi official documents |
+| [omi-html![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-html)| Using [htm](https://github.com/developit/htm) in omi.|
+| [omi-30-seconds![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| Useful Omi snippets that you can understand in 30 seconds.|
+| [omi-canvas![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Perfect fusion of web components, jsx and canvas.|
 | [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| Develop and generate Web HTML5 Single-Page Applications by wechat mini program.|
-| [omi-router![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router. [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
+| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router. [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. Made css3 transform super easy in your Omi project.|
-| [omi-tap2![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Native tap event support(omi v4.0.24+）|
+| [omi-tap2](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Native tap event support(omi v4.0.24+）|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)|Support tap event in your omi project|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Support touch and gesture events in your Omi project.|
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
-| [westore](https://github.com/dntzhang/westore)| Wechat Mini Program Solution westore, inspired Omi each other |
-| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) working |Weui for Omi by [@132yse](https://github.com/132yse).|
+| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) |[Weui](https://weui.io/) for Omi by [@132yse](https://github.com/132yse).|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
 
+## Useful Resources
+
+| **Title Name**  | **Other language** | **Related**|
+| ----------------------------------------- | ------------------ |-----------------|
+| [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.kr.md)|
+| [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.kr.md)|
+| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)| 求翻译|
+|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
+|  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
+|  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
+|  [Web Components Org](https://www.webcomponents.org/introduction)|
+|  [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy) [한국어](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|
+|  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
+|  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
+|  [Platform HTML5](https://platform.html5.org/)|
+| [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
+| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|
+
 ## omi-mp
 
-> Through Wechat Mini Program, develop HTML5 SPA and onclick generate Web (Based on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
+> Develop and generate HTML5 SPA through Wechat Mini Programe. (The output source is base on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
 
 Conversion example of the official template:
 
@@ -66,25 +87,13 @@ Conversion example of the official template:
 
 Because in the web cannot take the user login state, the user avatar and name are replaced.
 
-## Useful Resources
-
-* [60FPS Animation in omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)
-* [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)
-* [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
-* [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)
-* [Web Components Org](https://www.webcomponents.org/introduction)
-* [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
-* [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)
-* [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
-* [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
-
 ---
 
 # Overview of the Readme
 
 - [Ecosystem of Omi](#ecosystem-of-omi)
-- [omi-mp](#omi-mp)
 - [Useful Resources](#useful-resources)
+- [omi-mp](#omi-mp)
 - [Add Omi in One Minute](#add-omi-in-one-minute)
 - [Add Omi in 30 Seconds](#add-omi-in-30-seconds)
 - [Getting Started](#getting-started)
@@ -92,6 +101,7 @@ Because in the web cannot take the user login state, the user avatar and name ar
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
+  - [Mitt](#mitt)
   - [Observe](#observe)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
@@ -122,8 +132,7 @@ This page demonstrates using Omi **with no build tooling**.
   <script>
     const { WeElement, h, render, define } = Omi
 
-    define('like-button',
-      class extends WeElement {
+    define('like-button', class extends WeElement {
         install() {
           this.data = { liked: false }
         }
@@ -279,6 +288,8 @@ $ npm start                      # develop
 $ npm run build                  # release
 ```
 
+> `npx omi-cli init your_project_name` is also supported(npm v5.2.0+).
+
 Directory description:
 
 ```
@@ -331,6 +342,11 @@ $ omi init-ts your_project_name
 $ omi init-spa your_project_name    
 ```
 
+omi-mp Template(omi-cli v3.0.13+):
+
+```bash
+$ omi init-mp your_project_name    
+```
 
 CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)
 
@@ -608,6 +624,12 @@ render(<todo-app />, "body", store);
 - If there are few simple components on the page, `updateAll` can be set to `true`, and components and pages don't need to declare data, and they don't update on demand
 - The path declared in `globalData` refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties path
 
+## Mitt
+
+If you don't want to use store's data system, you can also use publish subscribe mode. For example, using [mitt](https://github.com/developit/mitt) across component communication in Omi:
+
+* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
+
 ## Observe
 
 ### Omi Observe
@@ -636,31 +658,6 @@ define("my-app", class extends WeElement {
     )
   }
 })
-```
-
-It should be noted that if `observe` is used, do not set the value of data in some of the following functions: some complex objects such as obj or arr:
-
-* render
-* beforeRender
-* beforeUpdate
-* afterUpdate
-
-Because data settings will simply compare the value before and after, complex objects will not be deep contrast, the contrast value will trigger different update, update will trigger the above function, infinite recursion.
-
-For Example:
-
-❌Wrong way:
-```js
-beforeRender(){
-  this.data.a = { b: 1 }
-}
-```
-
-✅ Right way:
-```js
-beforeRender(){
-  this.data.a.b = 1 
-}
 ```
 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
@@ -702,6 +699,7 @@ class MyApp extends WeElement {
 | `beforeUpdate`   | before update                           |
 | `afterUpdate`    | after update                             |
 | `beforeRender`   | before `render()`                           |
+| `receiveProps`   | parent element re-render will trigger it      |
 
 ## Debugging
 

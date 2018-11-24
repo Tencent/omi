@@ -11,7 +11,7 @@ function getRef(fn) {
       let name = node.name
       if (node.scope) {
         if (!isInScopeChainVariables(node.scope, name)) {
-          if (name !== 'this') {
+          if (name !== 'this' && name !== 'require') {
             result[name] = true
           }
         }
@@ -44,6 +44,8 @@ function addPropsAndData(ref, code) {
 
 function compile(wxml, fnName) {
   let code = parse(wxml, fnName || 'render')
+  //debug
+  //console.log(code)
   let ref = getRef(
     babel
       .transform(code, { presets: ['env'] })

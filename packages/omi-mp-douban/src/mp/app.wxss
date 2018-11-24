@@ -33,6 +33,7 @@ page {
 .film-item {
   padding: 10px;
   display: flex;
+  width: 95%;
 }
 
 .film-image {

@@ -3,6 +3,8 @@ import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
 
+let id = 0
+
 export default class WeElement extends HTMLElement {
   static is = 'WeElement'
 
@@ -12,6 +14,7 @@ export default class WeElement extends HTMLElement {
       nProps(this.constructor.props),
       this.constructor.defaultProps
     )
+    this.__elementId = id++
     this.data = this.constructor.data || {}
   }
 
@@ -79,16 +82,18 @@ export default class WeElement extends HTMLElement {
   }
 
   update() {
+    this._willUpdate = true
     this.beforeUpdate()
     this.beforeRender()
     this.host = diff(
       this.host,
-      this.render(this.props, this.data, this.store), 
+      this.render(this.props, this.data, this.store),
       null,
       null,
       this.shadowRoot
     )
     this.afterUpdate()
+    this._willUpdate = false
   }
 
   fire(name, data) {
@@ -106,4 +111,6 @@ export default class WeElement extends HTMLElement {
   afterUpdate() {}
 
   beforeRender() {}
+
+  receiveProps() {}
 }

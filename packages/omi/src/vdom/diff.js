@@ -41,20 +41,17 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
       let maxLength = domLength >= vnodeLength ? domLength : vnodeLength
       parentNode = dom[0].parentNode
       for (let i = 0; i < maxLength; i++) {
-        ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot))
+        let ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot)
+        ret.push(ele)
+        if (i > domLength - 1) {
+          parentNode.appendChild(ele)
+        }
       }
     } else {
       vnode.forEach(function(item) {
-        ret.push(idiff(dom, item, context, mountAll, componentRoot))
-      })
-    }
-    if (parent) {
-      ret.forEach(function(vnode) {
-        parent.appendChild(vnode)
-      })
-    } else if (isArray(dom)) {
-      dom.forEach(function(node) {
-        parentNode.appendChild(node)
+        let ele = idiff(dom, item, context, mountAll, componentRoot)
+        ret.push(ele)
+        parent && parent.appendChild(ele)
       })
     }
   } else {
@@ -180,7 +177,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props)
+  diffAttributes(out, vnode.attributes, props, vnode.children)
   if (out.props) {
     out.props.children = vnode.children
   }
@@ -332,7 +329,7 @@ export function removeChildren(node) {
  *	@param {Object} attrs		The desired end-state key-value attribute pairs
  *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom, attrs, old) {
+function diffAttributes(dom, attrs, old, children) {
   let name
   let update = false
   let isWeElement = dom.update
@@ -369,5 +366,10 @@ function diffAttributes(dom, attrs, old) {
     }
   }
 
-  dom.parentNode && update && isWeElement && dom.update()
+  if (isWeElement && dom.parentNode) {
+    if (update || children.length > 0) {
+      dom.receiveProps(dom.props, dom.data)
+      dom.update()
+    }
+  }
 }

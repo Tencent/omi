@@ -62,6 +62,7 @@ declare namespace Omi {
 		beforeUpdate?(): void;
 		afterUpdate?(): void;
 		beforeRender?(): void;
+		receiveProps?(): void;
 	}
 
 	interface Component<P, D> {
@@ -71,6 +72,7 @@ declare namespace Omi {
 		beforeUpdate?(): void;
 		afterUpdate?(): void;
 		beforeRender?(): void;
+		receiveProps?(): void;
 	}
 
 	abstract class WeElement<P = {}, D = {}> {
@@ -130,6 +132,8 @@ declare namespace Omi {
 
 	function define(name: string, ctor: any): void;
 	function tag(name: string, pure?: boolean): (ctor: any) => void;
+	function tick(callback: function, scope?: any): void;
+	function nextTick(callback: function, scope?: any): void;
 
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;

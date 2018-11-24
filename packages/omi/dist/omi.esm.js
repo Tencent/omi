@@ -1,5 +1,5 @@
 /**
- * omi v4.0.26  http://omijs.org
+ * omi v4.1.7  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -188,38 +188,14 @@ function isNamedNode(node, nodeName) {
 }
 
 /**
- * A DOM event listener
- * @typedef {(e: Event) => void} EventListner
- */
-
-/**
- * A mapping of event types to event listeners
- * @typedef {Object.<string, EventListener>} EventListenerMap
- */
-
-/**
- * Properties Preact adds to elements it creates
- * @typedef PreactElementExtensions
- * @property {string} [normalizedNodeName] A normalized node name to use in diffing
- * @property {EventListenerMap} [_listeners] A map of event listeners added by components to this DOM node
- * @property {import('../component').Component} [_component] The component that rendered this DOM node
- * @property {function} [_componentConstructor] The constructor of the component that rendered this DOM node
- */
-
-/**
- * A DOM element that has been extended with Preact properties
- * @typedef {Element & ElementCSSInlineStyle & PreactElementExtensions} PreactElement
- */
-
-/**
  * Create an element with the given nodeName.
  * @param {string} nodeName The DOM node to create
  * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
  *  namespace.
- * @returns {PreactElement} The created DOM node
+ * @returns {Element} The created DOM node
  */
 function createNode(nodeName, isSvg) {
-  /** @type {PreactElement} */
+  /** @type {Element} */
   var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
   node.normalizedNodeName = nodeName;
   return node;
@@ -238,7 +214,7 @@ function removeNode(node) {
  * Set a named attribute on the given Node, with special behavior for some names
  * and event handlers. If `value` is `null`, the attribute/handler will be
  * removed.
- * @param {PreactElement} node An element to mutate
+ * @param {Element} node An element to mutate
  * @param {string} name The name/key to set, such as an event or attribute name
  * @param {*} old The last value that was set for this name/node pair
  * @param {*} value An attribute value, such as a function to be used as an
@@ -359,7 +335,7 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
     // hydration is indicated by the existing element to be diffed not having a prop cache
-    hydrating = dom != null && !('__preactattr_' in dom);
+    hydrating = dom != null && !('__omiattr_' in dom);
   }
   if (isArray(vnode)) {
     ret = [];
@@ -370,24 +346,25 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
       var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
       parentNode = dom[0].parentNode;
       for (var i = 0; i < maxLength; i++) {
-        ret.push(idiff(dom[i], vnode[i], context, mountAll, componentRoot));
+        var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
+        ret.push(ele);
+        if (i > domLength - 1) {
+          parentNode.appendChild(ele);
+        }
       }
     } else {
       vnode.forEach(function (item) {
-        ret.push(idiff(dom, item, context, mountAll, componentRoot));
-      });
-    }
-    if (parent) {
-      ret.forEach(function (vnode) {
-        parent.appendChild(vnode);
-      });
-    } else if (isArray(dom)) {
-      dom.forEach(function (node) {
-        parentNode.appendChild(node);
+        var ele = idiff(dom, item, context, mountAll, componentRoot);
+        ret.push(ele);
+        parent && parent.appendChild(ele);
       });
     }
   } else {
-    ret = idiff(dom, vnode, context, mountAll, componentRoot);
+    if (isArray(dom)) {
+      ret = idiff(dom[0], vnode, context, mountAll, componentRoot);
+    } else {
+      ret = idiff(dom, vnode, context, mountAll, componentRoot);
+    }
     // append the element if its a new parent
     if (parent && ret.parentNode !== parent) parent.appendChild(ret);
   }
@@ -429,7 +406,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
       }
     }
 
-    out['__preactattr_'] = true;
+    out['__omiattr_'] = true;
 
     return out;
   }
@@ -458,11 +435,11 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
 
   var fc = out.firstChild,
-      props = out['__preactattr_'],
+      props = out['__omiattr_'],
       vchildren = vnode.children;
 
   if (props == null) {
-    props = out['__preactattr_'] = {};
+    props = out['__omiattr_'] = {};
     for (var a = out.attributes, i = a.length; i--;) {
       props[a[i].name] = a[i].value;
     }
@@ -482,7 +459,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props);
+  diffAttributes(out, vnode.attributes, props, vnode.children);
   if (out.props) {
     out.props.children = vnode.children;
   }
@@ -518,7 +495,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
   if (len !== 0) {
     for (var i = 0; i < len; i++) {
       var _child = originalChildren[i],
-          props = _child['__preactattr_'],
+          props = _child['__omiattr_'],
           key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
       if (key != null) {
         keyedLen++;
@@ -592,9 +569,9 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
 function recollectNodeTree(node, unmountOnly) {
   // If the node's VNode had a ref function, invoke it with null here.
   // (this is part of the React spec, and smart for unsetting references)
-  if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
+  if (node['__omiattr_'] != null && node['__omiattr_'].ref) node['__omiattr_'].ref(null);
 
-  if (unmountOnly === false || node['__preactattr_'] == null) {
+  if (unmountOnly === false || node['__omiattr_'] == null) {
     removeNode(node);
   }
 
@@ -619,7 +596,7 @@ function removeChildren(node) {
  *	@param {Object} attrs		The desired end-state key-value attribute pairs
  *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
  */
-function diffAttributes(dom, attrs, old) {
+function diffAttributes(dom, attrs, old, children) {
   var name;
   var update = false;
   var isWeElement = dom.update;
@@ -650,7 +627,12 @@ function diffAttributes(dom, attrs, old) {
     }
   }
 
-  dom.parentNode && update && isWeElement && dom.update();
+  if (isWeElement && dom.parentNode) {
+    if (update || children.length > 0) {
+      dom.receiveProps(dom.props, dom.data);
+      dom.update();
+    }
+  }
 }
 
 /*!
@@ -1011,6 +993,28 @@ operation.op = 'replace', operation.value = null;
   return JSONPatcherProxy;
 }();
 
+var callbacks = [];
+var nextTickCallback = [];
+
+function tick(fn, scope) {
+  callbacks.push({ fn: fn, scope: scope });
+}
+
+function fireTick() {
+  callbacks.forEach(function (item) {
+    item.fn.call(item.scope);
+  });
+
+  nextTickCallback.forEach(function (nextItem) {
+    nextItem.fn.call(nextItem.scope);
+  });
+  nextTickCallback.length = 0;
+}
+
+function nextTick(fn, scope) {
+  nextTickCallback.push({ fn: fn, scope: scope });
+}
+
 function observe(target) {
   target.observe = true;
 }
@@ -1018,7 +1022,7 @@ function observe(target) {
 function proxyUpdate(ele) {
   var timeout = null;
   ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-    if (info.oldValue === info.value) {
+    if (ele._willUpdate || info.op === 'replace' && info.oldValue === info.value) {
       return;
     }
 
@@ -1026,7 +1030,8 @@ function proxyUpdate(ele) {
 
     timeout = setTimeout(function () {
       ele.update();
-    }, 16.6);
+      fireTick();
+    }, 0);
   });
 }
 
@@ -1035,6 +1040,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var id = 0;
 
 var WeElement = function (_HTMLElement) {
   _inherits(WeElement, _HTMLElement);
@@ -1045,6 +1052,7 @@ var WeElement = function (_HTMLElement) {
     var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
     _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
+    _this.__elementId = id++;
     _this.data = _this.constructor.data || {};
     return _this;
   }
@@ -1106,10 +1114,12 @@ var WeElement = function (_HTMLElement) {
   };
 
   WeElement.prototype.update = function update() {
+    this._willUpdate = true;
     this.beforeUpdate();
     this.beforeRender();
-    this.host = diff(this.host, this.render(this.props, this.data, this.store));
+    this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
     this.afterUpdate();
+    this._willUpdate = false;
   };
 
   WeElement.prototype.fire = function fire(name, data) {
@@ -1127,6 +1137,8 @@ var WeElement = function (_HTMLElement) {
   WeElement.prototype.afterUpdate = function afterUpdate() {};
 
   WeElement.prototype.beforeRender = function beforeRender() {};
+
+  WeElement.prototype.receiveProps = function receiveProps() {};
 
   return WeElement;
 }(HTMLElement);
@@ -1149,19 +1161,19 @@ function render(vnode, parent, store) {
         timeout = setTimeout(function () {
           update(patchs, store);
           patchs = {};
-        }, 16.6);
+        }, 0);
       } else {
         var key = fixPath(patch.path);
         patchs[key] = patch.value;
         timeout = setTimeout(function () {
           update(patchs, store);
           patchs = {};
-        }, 16.6);
+        }, 0);
       }
     });
     parent.store = store;
   }
-  diff(null, vnode, {}, false, parent, false);
+  return diff(null, vnode, {}, false, parent, false);
 }
 
 function update(patch, store) {
@@ -1441,12 +1453,14 @@ var omi = {
   observe: observe,
   cloneElement: cloneElement,
   getHost: getHost,
-  rpx: rpx
+  rpx: rpx,
+  tick: tick,
+  nextTick: nextTick
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.0.26';
+options.root.Omi.version = '4.1.7';
 
 export default omi;
-export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx };
+export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick };
 //# sourceMappingURL=omi.esm.js.map

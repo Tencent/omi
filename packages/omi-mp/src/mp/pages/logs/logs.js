@@ -20,6 +20,12 @@ const mpOption = Page({
 
     console.log(options.name, options.age)
   },
+  onShow:function(){
+    console.log('show2')
+  },
+  onHide:function(){
+    console.log('hide2')
+  },
   myEventHandler: function (evt) {
     //output -> dntzhang
     console.log(evt.detail.name)
@@ -43,9 +49,11 @@ class Element extends WeElement {
 
   uninstall = mpOption.onUnload || function() {}
 
-  installed = function(){
+  installed = function() {
     mpOption.onLoad && mpOption.onLoad.call(this, route.query)
     mpOption.onReady && mpOption.onReady.call(this, route.query)
+
+    mpOption.onReachBottom && wx._bindReachBottom(mpOption.onReachBottom, this)
   }
 
   setData = setData
@@ -63,7 +71,7 @@ function render() {
   const { logs } = Object.assign({}, this.data, this.props)
   return h('div',{'class': `container log-list `},[ [logs.map((log,index)=>{
         return h('span',{'class': `log-item`},[`${index + 1}. ${log}`])
-      })],h('my-ele',{'onmyevent': this.myEventHandler},[])])
+      })],h('my-ele',{'onmyevent': this.myEventHandler,'name': `dntzhang`},[]),h('img',{'src': require('../../images/wechat.png')},[])])
 
 }
 
