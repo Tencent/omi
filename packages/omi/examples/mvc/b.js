@@ -1483,6 +1483,23 @@
     return TodoItem;
   }();
 
+  //mock
+  var list = [{
+  	text: 'Task One'
+  }, {
+  	text: 'Task Two'
+  }];
+
+  function getAll(callback) {
+  	callback(JSON.parse(JSON.stringify(list)));
+  }
+
+  function add(item) {
+  	list.push({
+  		text: item.text
+  	});
+  }
+
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var Todo = function () {
@@ -1495,13 +1512,15 @@
     Todo.prototype.initItems = function initItems(list) {
       var _this = this;
 
-      list.forEach(function (content) {
-        _this.items.push(new TodoItem(content));
+      list.forEach(function (item) {
+        _this.items.push(new TodoItem(item.text));
       });
     };
 
-    Todo.prototype.add = function add(content) {
-      this.items.push(new TodoItem(content));
+    Todo.prototype.add = function add$$1(content) {
+      var item = new TodoItem(content);
+      this.items.push(item);
+      add(item);
     };
 
     Todo.prototype.updateContent = function updateContent(id, content) {
@@ -1540,7 +1559,7 @@
     Todo.prototype.fetch = function fetch(callback) {
       var _this3 = this;
 
-      requestData(function (list) {
+      getAll(function (list) {
         _this3.initItems(list);
         callback();
       });
@@ -1548,9 +1567,6 @@
 
     return Todo;
   }();
-  function requestData(callback) {
-    callback(['Task One', 'TaskTwo']);
-  }
 
   var todo = new Todo();
 
@@ -1575,12 +1591,12 @@
 
   var vd = new TodoViewData();
 
-  function add(text) {
+  function add$1(text) {
     todo.add(text);
     vd.sync(todo);
   }
 
-  function getAll() {
+  function getAll$1() {
     todo.fetch(function () {
       vd.sync(todo);
     });
@@ -1624,13 +1640,13 @@
         _this.data.text = e.target.value;
       }, _this.handleSubmit = function (e) {
         e.preventDefault();
-        add(_this.data.text);
+        add$1(_this.data.text);
         _this.data.text = '';
       }, _temp), _possibleConstructorReturn$2(_this, _ret);
     }
 
     _class.prototype.install = function install() {
-      getAll();
+      getAll$1();
     };
 
     _class.prototype.render = function render$$1() {

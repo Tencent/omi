@@ -1,4 +1,5 @@
 import TodoItem from './todo-item'
+import { getAll, add } from './todo-server'
 
 export default class Todo {
   constructor() {
@@ -6,13 +7,15 @@ export default class Todo {
   }
 
   initItems(list) {
-    list.forEach(content => {
-      this.items.push(new TodoItem(content))
+    list.forEach(item => {
+      this.items.push(new TodoItem(item.text))
     })
   }
 
   add(content) {
-    this.items.push(new TodoItem(content))
+    const item = new TodoItem(content)
+    this.items.push(item)
+    add(item)
   }
 
   updateContent(id, content) {
@@ -47,15 +50,9 @@ export default class Todo {
   }
 
   fetch(callback) {
-    requestData(list => {
+    getAll(list => {
       this.initItems(list)
       callback()
     })
   }
-}
-
-
-//mock
-function requestData(callback) {
-  callback(['Task One', 'TaskTwo'])
 }
