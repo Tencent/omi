@@ -1485,19 +1485,19 @@
 
   //mock
   var list = [{
-  	text: 'Task One'
+    text: 'Task One'
   }, {
-  	text: 'Task Two'
+    text: 'Task Two'
   }];
 
   function getAll(callback) {
-  	callback(JSON.parse(JSON.stringify(list)));
+    callback(JSON.parse(JSON.stringify(list)));
   }
 
   function add(item) {
-  	list.push({
-  		text: item.text
-  	});
+    list.push({
+      text: item.text
+    });
   }
 
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1556,7 +1556,7 @@
       this.items.length = 0;
     };
 
-    Todo.prototype.fetch = function fetch(callback) {
+    Todo.prototype.getAll = function getAll$$1(callback) {
       var _this3 = this;
 
       getAll(function (list) {
@@ -1581,7 +1581,7 @@
       };
     }
 
-    TodoViewData.prototype.sync = function sync(todo) {
+    TodoViewData.prototype.update = function update(todo) {
       //To be optimized, deep copy
       this.data.items = JSON.parse(JSON.stringify(todo.items));
     };
@@ -1591,15 +1591,39 @@
 
   var vd = new TodoViewData();
 
+  function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  var OtherViewData = function () {
+    function OtherViewData() {
+      _classCallCheck$5(this, OtherViewData);
+
+      this.data = {
+        num: 0,
+        length: vd.data.items.length
+      };
+    }
+
+    OtherViewData.prototype.update = function update() {
+      this.data.num = Math.random();
+      this.data.length = vd.data.items.length;
+    };
+
+    return OtherViewData;
+  }();
+
+  var vd$1 = new OtherViewData();
+
   function add$1(text) {
-    todo.add(text);
-    vd.sync(todo);
+  		todo.add(text);
+  		vd.update(todo);
+  		vd$1.update();
   }
 
   function getAll$1() {
-    todo.fetch(function () {
-      vd.sync(todo);
-    });
+  		todo.getAll(function () {
+  				vd.update(todo);
+  				vd$1.update();
+  		});
   }
 
   define('todo-list', function (props) {
@@ -1618,31 +1642,81 @@
 
   var _class$1, _temp2;
 
-  function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('todo-app', (_temp2 = _class$1 = function (_WeElement) {
+  define('other-view', (_temp2 = _class$1 = function (_WeElement) {
     _inherits$2(_class, _WeElement);
 
     function _class() {
       var _temp, _this, _ret;
 
-      _classCallCheck$5(this, _class);
+      _classCallCheck$6(this, _class);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = vd.data, _this.handleChange = function (e) {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = vd$1, _temp), _possibleConstructorReturn$2(_this, _ret);
+    }
+
+    _class.prototype.render = function render$$1() {
+
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'h3',
+          null,
+          'Other View'
+        ),
+        Omi.h(
+          'div',
+          null,
+          vd$1.data.num
+        ),
+        Omi.h(
+          'div',
+          null,
+          'Todo List Length: ',
+          vd$1.data.length
+        )
+      );
+    };
+
+    return _class;
+  }(WeElement), _class$1.observe = true, _temp2));
+
+  var _class$2, _temp2$1;
+
+  function _classCallCheck$7(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$3(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  define('todo-app', (_temp2$1 = _class$2 = function (_WeElement) {
+    _inherits$3(_class, _WeElement);
+
+    function _class() {
+      var _temp, _this, _ret;
+
+      _classCallCheck$7(this, _class);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = vd, _this.handleChange = function (e) {
         _this.data.text = e.target.value;
       }, _this.handleSubmit = function (e) {
         e.preventDefault();
         add$1(_this.data.text);
         _this.data.text = '';
-      }, _temp), _possibleConstructorReturn$2(_this, _ret);
+      }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
     _class.prototype.install = function install() {
@@ -1658,27 +1732,28 @@
           null,
           'TODO'
         ),
-        Omi.h('todo-list', { items: this.data.items }),
+        Omi.h('todo-list', { items: vd.data.items }),
         Omi.h(
           'form',
           { onSubmit: this.handleSubmit },
           Omi.h('input', {
             id: 'new-todo',
             onChange: this.handleChange,
-            value: this.data.text
+            value: vd.data.text
           }),
           Omi.h(
             'button',
             null,
             'Add #',
-            this.data.items.length + 1
+            vd.data.items.length + 1
           )
-        )
+        ),
+        Omi.h('other-view', null)
       );
     };
 
     return _class;
-  }(WeElement), _class$1.observe = true, _temp2));
+  }(WeElement), _class$2.observe = true, _temp2$1));
 
   render(Omi.h('todo-app', null), 'body');
 

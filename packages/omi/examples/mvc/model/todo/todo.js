@@ -49,7 +49,7 @@ export default class Todo {
     this.items.length = 0
   }
 
-  fetch(callback) {
+  getAll(callback) {
     getAll(list => {
       this.initItems(list)
       callback()

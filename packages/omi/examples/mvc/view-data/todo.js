@@ -5,9 +5,9 @@ class TodoViewData {
     }
   }
 
-  sync(todo) {
+  update(todo) {
     //To be optimized, deep copy
-    this.data.items = JSON.parse(JSON.stringify(todo.items))
+		this.data.items = JSON.parse(JSON.stringify(todo.items))
   }
 }
 

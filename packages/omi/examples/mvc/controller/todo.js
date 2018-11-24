@@ -1,13 +1,16 @@
 import todo from '../model/todo'
-import viewData from '../view-data/todo'
+import tvd from '../view-data/todo'
+import ovd from '../view-data/other'
 
 export function add(text) {
   todo.add(text)
-  viewData.sync(todo)
+	tvd.update(todo)
+	ovd.update()
 }
 
 export function getAll() {
-  todo.fetch(function() {
-    viewData.sync(todo)
+  todo.getAll(function() {
+		tvd.update(todo)
+		ovd.update()
   })
 }
