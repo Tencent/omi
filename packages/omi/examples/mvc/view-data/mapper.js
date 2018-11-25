@@ -1,9 +1,7 @@
 /**
  * Auto map object's props to object's props.
  * @method mapper
- * @param {Object} From Object
- * @param {Object} To Object(可选)
- * @param {Object} Mapping Rules
+ * @param {Object} options {from: .., to: .., rule: .. }
  * @return {Object} To Object
  */
 const mapper = function(options) {
