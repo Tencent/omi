@@ -19,8 +19,6 @@ class TodoViewData {
         }
       })
     })
-
-    console.log(this.data.items[0])
   }
 }
 
