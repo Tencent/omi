@@ -94,6 +94,7 @@
 - [再花 30 秒完全上手](#再花-30-秒完全上手)
 - [快速入门](#快速入门)
   - [安装](#安装)
+  - [项目模板](#项目模板)
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
