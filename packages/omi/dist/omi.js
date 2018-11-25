@@ -531,6 +531,25 @@
             return window.innerWidth * Number(b) / 750 + 'px';
         });
     }
+    function _classCallCheck$2(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
+    function _possibleConstructorReturn$2(self, call) {
+        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
+    }
+    function _inherits$2(subClass, superClass) {
+        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
     var options = {
         store: null,
         root: function() {
@@ -775,7 +794,9 @@
                 }
                 if (this.store) this.store.instances.push(this);
             }
+            this.beforeInstall();
             !this.B && this.install();
+            this.afterInstall();
             var shadowRoot;
             if (!this.shadowRoot) shadowRoot = this.attachShadow({
                 mode: 'open'
@@ -787,8 +808,13 @@
             this.css && shadowRoot.appendChild(cssToDom(this.css()));
             !this.B && this.beforeRender();
             options.afterInstall && options.afterInstall(this);
-            if (this.constructor.observe) proxyUpdate(this);
+            if (this.constructor.observe) {
+                this.beforeObserve();
+                proxyUpdate(this);
+                this.observed();
+            }
             this.host = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
+            this.rendered();
             if (isArray(this.host)) this.host.forEach(function(item) {
                 shadowRoot.appendChild(item);
             }); else shadowRoot.appendChild(this.host);
@@ -797,6 +823,7 @@
         };
         WeElement.prototype.disconnectedCallback = function() {
             this.uninstall();
+            this.B = !1;
             if (this.store) for (var i = 0, len = this.store.instances.length; i < len; i++) if (this.store.instances[i] === this) {
                 this.store.instances.splice(i, 1);
                 break;
@@ -808,6 +835,7 @@
             this.beforeRender();
             this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
             this.afterUpdate();
+            this.updated();
             this.J = !1;
         };
         WeElement.prototype.fire = function(name, data) {
@@ -815,16 +843,37 @@
                 detail: data
             }));
         };
+        WeElement.prototype.beforeInstall = function() {};
         WeElement.prototype.install = function() {};
+        WeElement.prototype.afterInstall = function() {};
         WeElement.prototype.installed = function() {};
         WeElement.prototype.uninstall = function() {};
         WeElement.prototype.beforeUpdate = function() {};
         WeElement.prototype.afterUpdate = function() {};
+        WeElement.prototype.updated = function() {};
         WeElement.prototype.beforeRender = function() {};
+        WeElement.prototype.rendered = function() {};
         WeElement.prototype.receiveProps = function() {};
+        WeElement.prototype.beforeObserve = function() {};
+        WeElement.prototype.observed = function() {};
         return WeElement;
     }(HTMLElement);
     WeElement.is = 'WeElement';
+    var ModelView = function(_WeElement) {
+        function ModelView() {
+            _classCallCheck$2(this, ModelView);
+            return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+        }
+        _inherits$2(ModelView, _WeElement);
+        ModelView.prototype.beforeInstall = function() {
+            this.data = this.vm.data;
+        };
+        ModelView.prototype.observed = function() {
+            this.vm.data = this.data;
+        };
+        return ModelView;
+    }(WeElement);
+    ModelView.observe = !0;
     var Component = WeElement;
     var omi = {
         tag: tag,
@@ -840,10 +889,11 @@
         getHost: getHost,
         rpx: rpx,
         tick: tick,
-        nextTick: nextTick
+        nextTick: nextTick,
+        ModelView: ModelView
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.1.7';
+    options.root.Omi.version = '5.0.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

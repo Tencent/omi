@@ -61,6 +61,18 @@ declare namespace Omi {
 		uninstall?(): void;
 		beforeUpdate?(): void;
 		afterUpdate?(): void;
+		updated?(): void;
+		beforeRender?(): void;
+		receiveProps?(): void;
+	}
+
+	interface ModelView<P, D> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+		updated?(): void;
 		beforeRender?(): void;
 		receiveProps?(): void;
 	}
@@ -71,11 +83,33 @@ declare namespace Omi {
 		uninstall?(): void;
 		beforeUpdate?(): void;
 		afterUpdate?(): void;
+		updated?(): void;
 		beforeRender?(): void;
 		receiveProps?(): void;
 	}
 
 	abstract class WeElement<P = {}, D = {}> {
+		constructor();
+
+		// Allow static members to reference class type parameters
+		// https://github.com/Microsoft/TypeScript/issues/24018
+		static props: object;
+		static data: object;
+
+		props: RenderableProps<P>;
+		data: D;
+		host: HTMLElement;
+
+		css(): void;
+		update(): void;
+		fire(name: string, data?: object): void;
+
+		// Abstract methods don't infer argument types
+		// https://github.com/Microsoft/TypeScript/issues/14887
+		abstract render(props: RenderableProps<P>, data: D): void;
+	}
+
+	abstract class ModelView<P = {}, D = {}> {
 		constructor();
 
 		// Allow static members to reference class type parameters

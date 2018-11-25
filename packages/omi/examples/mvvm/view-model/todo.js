@@ -1,5 +1,7 @@
 import mapper from './mapper'
 import shared from './shared'
+import todo from '../model/todo'
+import ovd from './other'
 
 class TodoViewData {
   constructor() {
@@ -23,6 +25,27 @@ class TodoViewData {
       })
 
     this.data.projName = shared.projName
+  }
+
+  add(text) {
+    todo.add(text)
+    this.update(todo)
+    ovd.update()
+    this.update()
+  }
+
+  getAll() {
+    todo.getAll(() => {
+      this.update(todo)
+      ovd.update()
+      this.update()
+    })
+  }
+
+  changeSharedData() {
+    shared.projName = 'I love omi-mvc.'
+    ovd.update()
+    this.update()
   }
 }
 

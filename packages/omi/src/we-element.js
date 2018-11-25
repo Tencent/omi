@@ -29,8 +29,9 @@ export default class WeElement extends HTMLElement {
         this.store.instances.push(this)
       }
     }
-
+    this.beforeInstall()
     !this._isInstalled && this.install()
+    this.afterInstall()
     let shadowRoot
     if (!this.shadowRoot) {
       shadowRoot = this.attachShadow({
@@ -48,7 +49,9 @@ export default class WeElement extends HTMLElement {
     !this._isInstalled && this.beforeRender()
     options.afterInstall && options.afterInstall(this)
     if (this.constructor.observe) {
+      this.beforeObserve()
       proxyUpdate(this)
+      this.observed()
     }
     this.host = diff(
       null,
@@ -58,6 +61,7 @@ export default class WeElement extends HTMLElement {
       null,
       false
     )
+    this.rendered()
     if (isArray(this.host)) {
       this.host.forEach(function(item) {
         shadowRoot.appendChild(item)
@@ -71,6 +75,7 @@ export default class WeElement extends HTMLElement {
 
   disconnectedCallback() {
     this.uninstall()
+    this._isInstalled = false
     if (this.store) {
       for (let i = 0, len = this.store.instances.length; i < len; i++) {
         if (this.store.instances[i] === this) {
@@ -93,6 +98,7 @@ export default class WeElement extends HTMLElement {
       this.shadowRoot
     )
     this.afterUpdate()
+    this.updated()
     this._willUpdate = false
   }
 
@@ -100,7 +106,11 @@ export default class WeElement extends HTMLElement {
     this.dispatchEvent(new CustomEvent(name, { detail: data }))
   }
 
+  beforeInstall() {}
+
   install() {}
+
+  afterInstall() {}
 
   installed() {}
 
@@ -108,9 +118,17 @@ export default class WeElement extends HTMLElement {
 
   beforeUpdate() {}
 
-  afterUpdate() {}
+  afterUpdate() {} //deprecated, please use updated
+
+  updated() {}
 
   beforeRender() {}
 
+  rendered() {}
+
   receiveProps() {}
+
+  beforeObserve() {}
+
+  observed() {}
 }

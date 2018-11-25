@@ -1,5 +1,5 @@
 /**
- * omi v4.1.7  http://omijs.org
+ * omi v5.0.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1068,8 +1068,9 @@ var WeElement = function (_HTMLElement) {
         this.store.instances.push(this);
       }
     }
-
+    this.beforeInstall();
     !this._isInstalled && this.install();
+    this.afterInstall();
     var shadowRoot;
     if (!this.shadowRoot) {
       shadowRoot = this.attachShadow({
@@ -1087,9 +1088,12 @@ var WeElement = function (_HTMLElement) {
     !this._isInstalled && this.beforeRender();
     options.afterInstall && options.afterInstall(this);
     if (this.constructor.observe) {
+      this.beforeObserve();
       proxyUpdate(this);
+      this.observed();
     }
     this.host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
+    this.rendered();
     if (isArray(this.host)) {
       this.host.forEach(function (item) {
         shadowRoot.appendChild(item);
@@ -1103,6 +1107,7 @@ var WeElement = function (_HTMLElement) {
 
   WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
     this.uninstall();
+    this._isInstalled = false;
     if (this.store) {
       for (var i = 0, len = this.store.instances.length; i < len; i++) {
         if (this.store.instances[i] === this) {
@@ -1119,6 +1124,7 @@ var WeElement = function (_HTMLElement) {
     this.beforeRender();
     this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
     this.afterUpdate();
+    this.updated();
     this._willUpdate = false;
   };
 
@@ -1126,7 +1132,11 @@ var WeElement = function (_HTMLElement) {
     this.dispatchEvent(new CustomEvent(name, { detail: data }));
   };
 
+  WeElement.prototype.beforeInstall = function beforeInstall() {};
+
   WeElement.prototype.install = function install() {};
+
+  WeElement.prototype.afterInstall = function afterInstall() {};
 
   WeElement.prototype.installed = function installed() {};
 
@@ -1134,11 +1144,19 @@ var WeElement = function (_HTMLElement) {
 
   WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
-  WeElement.prototype.afterUpdate = function afterUpdate() {};
+  WeElement.prototype.afterUpdate = function afterUpdate() {}; //deprecated, please use updated
+
+  WeElement.prototype.updated = function updated() {};
 
   WeElement.prototype.beforeRender = function beforeRender() {};
 
+  WeElement.prototype.rendered = function rendered() {};
+
   WeElement.prototype.receiveProps = function receiveProps() {};
+
+  WeElement.prototype.beforeObserve = function beforeObserve() {};
+
+  WeElement.prototype.observed = function observed() {};
 
   return WeElement;
 }(HTMLElement);
@@ -1439,6 +1457,34 @@ function rpx(str) {
   });
 }
 
+function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModelView = function (_WeElement) {
+  _inherits$2(ModelView, _WeElement);
+
+  function ModelView() {
+    _classCallCheck$2(this, ModelView);
+
+    return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+  }
+
+  ModelView.prototype.beforeInstall = function beforeInstall() {
+    this.data = this.vm.data;
+  };
+
+  ModelView.prototype.observed = function observed() {
+    this.vm.data = this.data;
+  };
+
+  return ModelView;
+}(WeElement);
+
+ModelView.observe = true;
+
 var Component = WeElement;
 
 var omi = {
@@ -1455,12 +1501,13 @@ var omi = {
   getHost: getHost,
   rpx: rpx,
   tick: tick,
-  nextTick: nextTick
+  nextTick: nextTick,
+  ModelView: ModelView
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.1.7';
+options.root.Omi.version = '5.0.0';
 
 export default omi;
-export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick };
+export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView };
 //# sourceMappingURL=omi.esm.js.map

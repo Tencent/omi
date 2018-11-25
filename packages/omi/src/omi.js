@@ -9,6 +9,7 @@ import { cloneElement } from './clone-element'
 import { getHost } from './get-host'
 import { rpx } from './rpx'
 import { tick, nextTick } from './tick'
+import ModelView from './model-view'
 
 const Component = WeElement
 
@@ -26,11 +27,12 @@ const omi = {
   getHost,
   rpx,
   tick,
-  nextTick
+  nextTick,
+  ModelView
 }
 
 options.root.Omi = omi
-options.root.Omi.version = '4.1.7'
+options.root.Omi.version = '5.0.0'
 
 export default omi
 
@@ -48,5 +50,6 @@ export {
   getHost,
   rpx,
   tick,
-  nextTick
+  nextTick,
+  ModelView
 }

@@ -14,6 +14,10 @@ class OtherViewData {
     this.data.projName = shared.projName
     this.data.length = tvd.data.items.length
   }
+
+  random() {
+    this.update()
+  }
 }
 
 const vd = new OtherViewData()
