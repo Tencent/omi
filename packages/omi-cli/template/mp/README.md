@@ -6,8 +6,8 @@
 
 ```bash
 $ npm i omi-cli -g              
-$ omi init-mp your_project_name    
-$ cd your_project_name        
+$ omi init-mp my-app    
+$ cd my-app        
 $ npm start                  
 $ npm run build             
 ```

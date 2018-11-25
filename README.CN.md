@@ -281,13 +281,13 @@ const [count, setCount] = this.useData(0)
 
 ```bash
 $ npm i omi-cli -g               # install cli
-$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
+$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                      # develop
 $ npm run build                  # release
 ```
 
-> `npx omi-cli init your_project_name` 也支持(要求 npm v5.2.0+)
+> `npx omi-cli init my-app` 也支持(要求 npm v5.2.0+)
 
 目录说明:
 
@@ -332,19 +332,19 @@ $ npm run build                  # release
 使用 TypeScript 模板(omi-cli v3.0.5+):
 
 ```bash
-$ omi init-ts your_project_name    
+$ omi init-ts my-app    
 ```
 
 使用  omi-router [单页应用模板](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) (omi-cli v3.0.10+):
 
 ```bash
-$ omi init-spa your_project_name    
+$ omi init-spa my-app    
 ```
 
 小程序开发 Web 模板(omi-cli v3.0.13+):
 
 ```bash
-$ omi init-mp your_project_name    
+$ omi init-mp my-app    
 ```
 
 Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。

@@ -282,13 +282,13 @@ const [count, setCount] = this.useData(0)
 
 ```bash
 $ npm i omi-cli -g               # install cli
-$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
+$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                      # develop
 $ npm run build                  # release
 ```
 
-> `npx omi-cli init your_project_name` is also supported(npm v5.2.0+).
+> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
 
 Directory description:
 
@@ -333,19 +333,19 @@ In mac os:
 TypeScript Template(omi-cli v3.0.5+):
 
 ```bash
-$ omi init-ts your_project_name    
+$ omi init-ts my-app    
 ```
 
 [SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+):
 
 ```bash
-$ omi init-spa your_project_name    
+$ omi init-spa my-app    
 ```
 
 omi-mp Template(omi-cli v3.0.13+):
 
 ```bash
-$ omi init-mp your_project_name    
+$ omi init-mp my-app    
 ```
 
 CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)

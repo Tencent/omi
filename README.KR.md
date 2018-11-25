@@ -280,8 +280,8 @@ const [count, setCount] = this.useData(0)
 
 ```bash
 $ npm i omi-cli -g               # install cli
-$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
+$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                      # develop
 $ npm run build                  # release
 ```
@@ -329,19 +329,19 @@ mac os 에서:
 TypeScript Template(omi-cli v3.0.5+):
 
 ```bash
-$ omi init-ts your_project_name
+$ omi init-ts my-app
 ```
 
 [SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+):
 
 ```bash
-$ omi init-spa your_project_name
+$ omi init-spa my-app
 ```
 
 omi-mp (Omi Wechat Mini Program Module) Template(omi-cli v3.0.13+):
 
 ```bash
-$ omi init-mp your_project_name
+$ omi init-mp my-app
 ```
 
 CLI 자동 프로젝트 생성 scaffolding 는 한 페이지의 create-react-app을 여러 페이지로 변환합니다. 설정(configuration) 이슈는 [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) 을 봐주세요.
