@@ -1,0 +1,61 @@
+<script>
+
+	var from = {
+		same: 10,
+		bleh: 4,
+		firstName: 'dnt',
+		lastName: 'zhang',
+		a: {
+			c: 10
+		}
+	}
+
+
+	/**
+		* Auto map object's props to object's props.
+		* @method mapper
+		* @param {Object} From Object
+		* @param {Object} To Object(可选)
+		* @param {Object} Mapping Rules
+		* @return {Object} To Object
+		*/
+	const mapper = function (from, to, rules) {
+		let res
+		if (arguments.length === 2) {
+			rules = to
+			res = {}
+		} else {
+			res = to
+		}
+
+		Object.keys(rules).forEach(key => {
+			const rule = rules[key]
+			if (typeof rule === 'function') {
+				res[key] = rule.call(from)
+			} else {
+				res[key] = rule
+			}
+		})
+		return res
+
+	}
+
+	//mapper 独立发布
+	var res = mapper(from, { aa: 1 }, {
+		dumb: 12,
+		func: function () {
+			return 8
+		},
+		bar: function () {
+			return this.bleh
+		},
+		fullName: function () {
+			return this.firstName + this.lastName
+		},
+		'a.b[0]': function () {
+			return this.a.c
+		}
+	})
+
+	console.log(res)
+</script>
