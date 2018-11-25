@@ -1,16 +1,4 @@
 <script>
-
-	var from = {
-		same: 10,
-		bleh: 4,
-		firstName: 'dnt',
-		lastName: 'zhang',
-		a: {
-			c: 10
-		}
-	}
-
-
 	/**
 		* Auto map object's props to object's props.
 		* @method mapper
@@ -30,32 +18,94 @@
 
 		Object.keys(rules).forEach(key => {
 			const rule = rules[key]
+			const isPath = key.match(/\.|\[/)
 			if (typeof rule === 'function') {
-				res[key] = rule.call(from)
+				if (isPath) {
+					setPathValue(res, key, rule.call(from))
+				} else {
+					res[key] = rule.call(from)
+				}
+
 			} else {
-				res[key] = rule
+				if (isPath) {
+					setPathValue(res, key, rule)
+				} else {
+					res[key] = rule
+				}
+
 			}
 		})
 		return res
 
 	}
 
-	//mapper 独立发布
-	var res = mapper(from, { aa: 1 }, {
-		dumb: 12,
-		func: function () {
-			return 8
-		},
-		bar: function () {
-			return this.bleh
-		},
-		fullName: function () {
-			return this.firstName + this.lastName
-		},
-		'a.b[0]': function () {
-			return this.a.c
-		}
-	})
+	function setPathValue(obj, path, value) {
+		const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
 
-	console.log(res)
+		let current = obj
+		for (let i = 0, len = arr.length; i < len; i++) {
+			const key = arr[i]
+			let temp = current[key]
+			if (i === len - 1) {
+				current[arr[len - 1]] = value
+			} else {
+				if (temp === undefined) {
+					if(isNaN(Number(arr[i+1]))){
+						current[key] = {}
+					}else{
+						current[key] = []
+					}
+
+					temp = current[key]
+				}
+			}
+
+			current = temp
+		}
+
+	}
+
+	//mapper 独立发布
+	var res = mapper({
+		same: 10,
+		bleh: 4,
+		firstName: 'dnt',
+		lastName: 'zhang',
+		a: {
+			c: 10
+		}
+	}, { aa: 1 }, {
+			dumb: 12,
+			func: function () {
+				return 8
+			},
+			bar: function () {
+				return this.bleh
+			},
+			fullName: function () {
+				return this.firstName + this.lastName
+			},
+			'a[2].b[0]': function () {
+				return this.a.c
+			}
+		})
+
+	console.log(JSON.stringify(res,null,2))
+// <!-- output
+// 	{
+//   "aa": 1,
+//   "dumb": 12,
+//   "func": 8,
+//   "bar": 4,
+//   "fullName": "dntzhang",
+//   "a": [
+//     null,
+//     null,
+//     {
+//       "b": [
+//         10
+//       ]
+//     }
+//   ]
+// } -->
 </script>
