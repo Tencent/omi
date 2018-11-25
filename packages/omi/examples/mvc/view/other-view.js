@@ -18,6 +18,7 @@ define('other-view', class extends WeElement {
         <div>{vd.data.num} </div>
         <button onClick={this.onClick}>random</button>
         <div>Todo List Length: {vd.data.length}</div>
+        <div>{vd.data.projName}</div>
       </div>
     )
   }

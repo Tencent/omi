@@ -1,4 +1,5 @@
 import mapper from './mapper'
+import shared from './shared'
 
 class TodoViewData {
   constructor() {
@@ -8,17 +9,20 @@ class TodoViewData {
   }
 
   update(todo) {
-    todo.items.forEach((item, index) => {
-      this.data.items[index] = mapper({
-        from: item,
-        to: this.data.items[index],
-        rule: {
-          fullName: function() {
-            return this.author.firstName + this.author.lastName
+    todo &&
+      todo.items.forEach((item, index) => {
+        this.data.items[index] = mapper({
+          from: item,
+          to: this.data.items[index],
+          rule: {
+            fullName: function() {
+              return this.author.firstName + this.author.lastName
+            }
           }
-        }
+        })
       })
-    })
+
+    this.data.projName = shared.projName
   }
 }
 

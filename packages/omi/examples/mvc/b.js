@@ -1637,6 +1637,10 @@
     }
   }
 
+  var shared = {
+  	projName: 'omi-mvc'
+  };
+
   function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var TodoViewData = function () {
@@ -1651,7 +1655,7 @@
     TodoViewData.prototype.update = function update(todo) {
       var _this = this;
 
-      todo.items.forEach(function (item, index) {
+      todo && todo.items.forEach(function (item, index) {
         _this.data.items[index] = mapper({
           from: item,
           to: _this.data.items[index],
@@ -1662,6 +1666,8 @@
           }
         });
       });
+
+      this.data.projName = shared.projName;
     };
 
     return TodoViewData;
@@ -1677,12 +1683,13 @@
 
       this.data = {
         num: 0,
-        length: vd.data.items.length
+        length: 0
       };
     }
 
     OtherViewData.prototype.update = function update() {
       this.data.num = Math.random();
+      this.data.projName = shared.projName;
       this.data.length = vd.data.items.length;
     };
 
@@ -1692,16 +1699,24 @@
   var vd$1 = new OtherViewData();
 
   function add$1(text) {
-    todo.add(text);
-    vd.update(todo);
-    vd$1.update();
+  		todo.add(text);
+  		vd.update(todo);
+  		vd$1.update();
+  		vd.update();
   }
 
   function getAll$1() {
-    todo.getAll(function () {
-      vd.update(todo);
-      vd$1.update();
-    });
+  		todo.getAll(function () {
+  				vd.update(todo);
+  				vd$1.update();
+  				vd.update();
+  		});
+  }
+
+  function changeSharedData() {
+  		shared.projName = 'I love omi-mvc.';
+  		vd$1.update();
+  		vd.update();
   }
 
   define('todo-list', function (props) {
@@ -1740,52 +1755,57 @@
   function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
   define('other-view', (_temp2 = _class$1 = function (_WeElement) {
-  	_inherits$2(_class, _WeElement);
+    _inherits$2(_class, _WeElement);
 
-  	function _class() {
-  		var _temp, _this, _ret;
+    function _class() {
+      var _temp, _this, _ret;
 
-  		_classCallCheck$6(this, _class);
+      _classCallCheck$6(this, _class);
 
-  		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-  			args[_key] = arguments[_key];
-  		}
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
 
-  		return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = vd$1, _this.onClick = function () {
-  			random();
-  		}, _temp), _possibleConstructorReturn$2(_this, _ret);
-  	}
+      return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = vd$1, _this.onClick = function () {
+        random();
+      }, _temp), _possibleConstructorReturn$2(_this, _ret);
+    }
 
-  	_class.prototype.render = function render$$1() {
-  		return Omi.h(
-  			'div',
-  			null,
-  			Omi.h(
-  				'h3',
-  				null,
-  				'Other View'
-  			),
-  			Omi.h(
-  				'div',
-  				null,
-  				vd$1.data.num,
-  				' '
-  			),
-  			Omi.h(
-  				'button',
-  				{ onClick: this.onClick },
-  				'random'
-  			),
-  			Omi.h(
-  				'div',
-  				null,
-  				'Todo List Length: ',
-  				vd$1.data.length
-  			)
-  		);
-  	};
+    _class.prototype.render = function render$$1() {
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'h3',
+          null,
+          'Other View'
+        ),
+        Omi.h(
+          'div',
+          null,
+          vd$1.data.num,
+          ' '
+        ),
+        Omi.h(
+          'button',
+          { onClick: this.onClick },
+          'random'
+        ),
+        Omi.h(
+          'div',
+          null,
+          'Todo List Length: ',
+          vd$1.data.length
+        ),
+        Omi.h(
+          'div',
+          null,
+          vd$1.data.projName
+        )
+      );
+    };
 
-  	return _class;
+    return _class;
   }(WeElement), _class$1.observe = true, _temp2));
 
   var _class$2, _temp2$1;
@@ -1808,7 +1828,9 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = vd, _this.handleChange = function (e) {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = vd, _this.onClick = function () {
+        changeSharedData();
+      }, _this.handleChange = function (e) {
         _this.data.text = e.target.value;
       }, _this.handleSubmit = function (e) {
         e.preventDefault();
@@ -1841,6 +1863,16 @@
             'Add #',
             vd.data.items.length + 1
           )
+        ),
+        Omi.h(
+          'div',
+          null,
+          vd.data.projName
+        ),
+        Omi.h(
+          'button',
+          { onClick: this.onClick },
+          'Change Shared Data'
         ),
         Omi.h('other-view', null)
       );

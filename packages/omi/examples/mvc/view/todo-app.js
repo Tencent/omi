@@ -1,5 +1,5 @@
 import { WeElement, define } from '../../../src/omi'
-import { add, getAll } from '../controller/todo'
+import { add, getAll, changeSharedData } from '../controller/todo'
 import vd from '../view-data/todo'
 import './todo-list'
 import './other-view'
@@ -8,6 +8,10 @@ define('todo-app', class extends WeElement {
   static observe = true
 
   data = vd
+
+  onClick = () => {
+    changeSharedData()
+  }
 
   install() {
     getAll()
@@ -22,7 +26,8 @@ define('todo-app', class extends WeElement {
           <input onChange={this.handleChange} value={vd.data.text} />
           <button>Add #{vd.data.items.length + 1}</button>
         </form>
-
+        <div>{vd.data.projName}</div>
+        <button onClick={this.onClick}>Change Shared Data</button>
         <other-view />
       </div>
     )
