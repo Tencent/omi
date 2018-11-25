@@ -98,6 +98,7 @@ Because in the web cannot take the user login state, the user avatar and name ar
 - [Add Omi in 30 Seconds](#add-omi-in-30-seconds)
 - [Getting Started](#getting-started)
   - [Install](#install)
+  - [Project Template](#project-template)
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
