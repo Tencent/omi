@@ -4,7 +4,9 @@ define('todo-list', function(props) {
   return (
     <ul>
       {props.items.map(item => (
-        <li key={item.id}>{item.text}</li>
+        <li key={item.id}>
+          {item.text} [by {item.fullName}]
+        </li>
       ))}
     </ul>
   )

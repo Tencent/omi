@@ -12,7 +12,12 @@ class TodoViewData {
     todo.items.forEach((item, index) => {
       this.data.items[index] = mapper({
         from: item,
-        to: this.data.items[index]
+        to: this.data.items[index],
+        rule: {
+          fullName: function() {
+            return this.author.firstName + this.author.lastName
+          }
+        }
       })
     })
 

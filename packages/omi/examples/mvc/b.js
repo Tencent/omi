@@ -1474,6 +1474,11 @@
       this.id = id$1++;
       this.text = text;
       this.completed = completed || false;
+
+      this.author = {
+        firstName: 'dnt',
+        lastName: 'zhang'
+      };
     }
 
     TodoItem.prototype.clone = function clone() {
@@ -1571,68 +1576,67 @@
   var todo = new Todo();
 
   /**
-  		* Auto map object's props to object's props.
-  		* @method mapper
-  		* @param {Object} From Object
-  		* @param {Object} To Object(可选)
-  		* @param {Object} Mapping Rules
-  		* @return {Object} To Object
-  		*/
+   * Auto map object's props to object's props.
+   * @method mapper
+   * @param {Object} From Object
+   * @param {Object} To Object(可选)
+   * @param {Object} Mapping Rules
+   * @return {Object} To Object
+   */
   var mapper = function mapper(options) {
+    var from = options.from;
+    var to = options.to;
+    var rules = options.rule;
 
-  	var from = options.from;
-  	var to = options.to;
-  	var rules = options.rules;
+    var res = to || {};
 
-  	var res = to || {};
+    Object.keys(from).forEach(function (key) {
+      res[key] = from[key];
+    });
 
-  	Object.keys(from).forEach(function (key) {
-  		res[key] = from[key];
-  	});
-
-  	rules && Object.keys(rules).forEach(function (key) {
-  		var rule = rules[key];
-  		var isPath = key.match(/\.|\[/);
-  		if (typeof rule === 'function') {
-  			if (isPath) {
-  				setPathValue(res, key, rule.call(from));
-  			} else {
-  				res[key] = rule.call(from);
-  			}
-  		} else {
-  			if (isPath) {
-  				setPathValue(res, key, rule);
-  			} else {
-  				res[key] = rule;
-  			}
-  		}
-  	});
-  	return res;
+    rules && Object.keys(rules).forEach(function (key) {
+      var rule = rules[key];
+      var isPath = key.match(/\.|\[/);
+      if (typeof rule === 'function') {
+        if (isPath) {
+          setPathValue(res, key, rule.call(from));
+        } else {
+          res[key] = rule.call(from);
+        }
+      } else {
+        if (isPath) {
+          setPathValue(res, key, rule);
+        } else {
+          res[key] = rule;
+        }
+      }
+    });
+    return res;
   };
 
   function setPathValue(obj, path, value) {
-  	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+    var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
 
-  	var current = obj;
-  	for (var i = 0, len = arr.length; i < len; i++) {
-  		var key = arr[i];
-  		var temp = current[key];
-  		if (i === len - 1) {
-  			current[arr[len - 1]] = value;
-  		} else {
-  			if (temp === undefined) {
-  				if (isNaN(Number(arr[i + 1]))) {
-  					current[key] = {};
-  				} else {
-  					current[key] = [];
-  				}
+    var current = obj;
+    for (var i = 0, len = arr.length; i < len; i++) {
+      var key = arr[i];
+      var temp = current[key];
+      if (i === len - 1) {
+        current[arr[len - 1]] = value;
+      } else {
+        if (temp === undefined) {
+          if (isNaN(Number(arr[i + 1]))) {
+            current[key] = {};
+          } else {
+            current[key] = [];
+          }
 
-  				temp = current[key];
-  			}
-  		}
+          temp = current[key];
+        }
+      }
 
-  		current = temp;
-  	}
+      current = temp;
+    }
   }
 
   function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1653,7 +1657,12 @@
       todo.items.forEach(function (item, index) {
         _this.data.items[index] = mapper({
           from: item,
-          to: _this.data.items[index]
+          to: _this.data.items[index],
+          rule: {
+            fullName: function fullName() {
+              return this.author.firstName + this.author.lastName;
+            }
+          }
         });
       });
 
@@ -1688,16 +1697,16 @@
   var vd$1 = new OtherViewData();
 
   function add$1(text) {
-  		todo.add(text);
-  		vd.update(todo);
-  		vd$1.update();
+    todo.add(text);
+    vd.update(todo);
+    vd$1.update();
   }
 
   function getAll$1() {
-  		todo.getAll(function () {
-  				vd.update(todo);
-  				vd$1.update();
-  		});
+    todo.getAll(function () {
+      vd.update(todo);
+      vd$1.update();
+    });
   }
 
   define('todo-list', function (props) {
@@ -1708,7 +1717,10 @@
         return Omi.h(
           'li',
           { key: item.id },
-          item.text
+          item.text,
+          ' [by ',
+          item.fullName,
+          ']'
         );
       })
     );
@@ -1738,7 +1750,6 @@
     }
 
     _class.prototype.render = function render$$1() {
-
       return Omi.h(
         'div',
         null,

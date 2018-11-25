@@ -9,7 +9,7 @@
 const mapper = function(options) {
   const from = options.from
   const to = options.to
-  const rules = options.rules
+  const rules = options.rule
 
   let res = to || {}
 
