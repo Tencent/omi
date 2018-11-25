@@ -46,6 +46,17 @@ program
 		})
 
 program
+    .command('init-mvvm [projectName]')
+    .description('Initialize a new MVVM project in the current folder')
+    .action(function(projectName, option){
+        var cmd = 'init-mvvm';
+        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+            options.mirror = option.parent.mirror;
+        }
+        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
+		})
+
+program
     .command('init-mp [projectName]')
     .description('Initialize a new omi-mp project in the current folder')
     .action(function(projectName, option){
@@ -115,6 +126,7 @@ function help() {
     console.log(`     ${chalk.green('init  [project-name]')}           Initialize a new omi application in the current folder `);
 		console.log(`     ${chalk.green('init-ts  [project-name]')}        Initialize a new omi project with typescript in the current folder `)
 		console.log(`     ${chalk.green('init-spa  [project-name]')}        Initialize a new omi spa  with omi-router in the current folder `)
+		console.log(`     ${chalk.green('init-mvvm  [project-name]')}        Initialize a new omi mvvm project in the current folder `)
 		console.log(`     ${chalk.green('init-mp  [project-name]')}        Initialize a new omi-mp in the current folder `)
     console.log();
     console.log('  All commands can be run with -h (or --help) for more information.')
