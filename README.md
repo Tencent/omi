@@ -333,9 +333,9 @@ In mac os:
 
 ### Project Template
 
-| **Template Type**|  **command**|  **Describe**|
+| **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
-|Base Template|`omi init-ts my-app`| Basic template for omi project.|
+|Base Template|`omi init my-app`| Basic template for omi project.|
 |TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`|Basic template with typescript.|
 |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.|
 |omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |Developing web with mini program template.|
