@@ -8,7 +8,6 @@ class TodoViewData {
   }
 
   update(todo) {
-    //To be optimized, deep copy
     todo.items.forEach((item, index) => {
       this.data.items[index] = mapper({
         from: item,
