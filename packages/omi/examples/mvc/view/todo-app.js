@@ -19,11 +19,7 @@ define('todo-app', class extends WeElement {
         <h3>TODO</h3>
         <todo-list items={vd.data.items} />
         <form onSubmit={this.handleSubmit}>
-          <input
-            id="new-todo"
-            onChange={this.handleChange}
-            value={vd.data.text}
-          />
+          <input onChange={this.handleChange} value={vd.data.text} />
           <button>Add #{vd.data.items.length + 1}</button>
         </form>
 

@@ -1578,9 +1578,7 @@
   /**
    * Auto map object's props to object's props.
    * @method mapper
-   * @param {Object} From Object
-   * @param {Object} To Object(可选)
-   * @param {Object} Mapping Rules
+   * @param {Object} options {from: .., to: .., rule: .. }
    * @return {Object} To Object
    */
   var mapper = function mapper(options) {
@@ -1653,7 +1651,6 @@
     TodoViewData.prototype.update = function update(todo) {
       var _this = this;
 
-      //To be optimized, deep copy
       todo.items.forEach(function (item, index) {
         _this.data.items[index] = mapper({
           from: item,
@@ -1665,8 +1662,6 @@
           }
         });
       });
-
-      console.log(this.data.items[0]);
     };
 
     return TodoViewData;
@@ -1710,6 +1705,8 @@
   }
 
   define('todo-list', function (props) {
+    this.useCss('\n\t span{\n\t\t\tcolor: #888;\n\t\t\tfont-size: 11px;\n\t\t}\n\t');
+
     return Omi.h(
       'ul',
       null,
@@ -1718,9 +1715,13 @@
           'li',
           { key: item.id },
           item.text,
-          ' [by ',
-          item.fullName,
-          ']'
+          ' ',
+          Omi.h(
+            'span',
+            null,
+            'by ',
+            item.fullName
+          )
         );
       })
     );
@@ -1821,11 +1822,7 @@
         Omi.h(
           'form',
           { onSubmit: this.handleSubmit },
-          Omi.h('input', {
-            id: 'new-todo',
-            onChange: this.handleChange,
-            value: vd.data.text
-          }),
+          Omi.h('input', { onChange: this.handleChange, value: vd.data.text }),
           Omi.h(
             'button',
             null,
