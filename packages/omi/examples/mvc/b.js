@@ -1727,6 +1727,10 @@
     );
   });
 
+  function random() {
+    vd$1.update();
+  }
+
   var _class$1, _temp2;
 
   function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1736,44 +1740,52 @@
   function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
   define('other-view', (_temp2 = _class$1 = function (_WeElement) {
-    _inherits$2(_class, _WeElement);
+  	_inherits$2(_class, _WeElement);
 
-    function _class() {
-      var _temp, _this, _ret;
+  	function _class() {
+  		var _temp, _this, _ret;
 
-      _classCallCheck$6(this, _class);
+  		_classCallCheck$6(this, _class);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
+  		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+  			args[_key] = arguments[_key];
+  		}
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = vd$1, _temp), _possibleConstructorReturn$2(_this, _ret);
-    }
+  		return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = vd$1, _this.onClick = function () {
+  			random();
+  		}, _temp), _possibleConstructorReturn$2(_this, _ret);
+  	}
 
-    _class.prototype.render = function render$$1() {
-      return Omi.h(
-        'div',
-        null,
-        Omi.h(
-          'h3',
-          null,
-          'Other View'
-        ),
-        Omi.h(
-          'div',
-          null,
-          vd$1.data.num
-        ),
-        Omi.h(
-          'div',
-          null,
-          'Todo List Length: ',
-          vd$1.data.length
-        )
-      );
-    };
+  	_class.prototype.render = function render$$1() {
+  		return Omi.h(
+  			'div',
+  			null,
+  			Omi.h(
+  				'h3',
+  				null,
+  				'Other View'
+  			),
+  			Omi.h(
+  				'div',
+  				null,
+  				vd$1.data.num,
+  				' '
+  			),
+  			Omi.h(
+  				'button',
+  				{ onClick: this.onClick },
+  				'random'
+  			),
+  			Omi.h(
+  				'div',
+  				null,
+  				'Todo List Length: ',
+  				vd$1.data.length
+  			)
+  		);
+  	};
 
-    return _class;
+  	return _class;
   }(WeElement), _class$1.observe = true, _temp2));
 
   var _class$2, _temp2$1;
