@@ -7,10 +7,10 @@ import './other-view'
 define('todo-app', class extends WeElement {
   static observe = true
 
-	data = vd
+  data = vd
 
   install() {
-		getAll()
+    getAll()
   }
 
   render() {
@@ -27,7 +27,7 @@ define('todo-app', class extends WeElement {
           <button>Add #{vd.data.items.length + 1}</button>
         </form>
 
-				<other-view></other-view>
+        <other-view />
       </div>
     )
   }

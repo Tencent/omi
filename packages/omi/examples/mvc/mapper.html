@@ -7,16 +7,19 @@
 		* @param {Object} Mapping Rules
 		* @return {Object} To Object
 		*/
-	const mapper = function (from, to, rules) {
-		let res
-		if (arguments.length === 2) {
-			rules = to
-			res = {}
-		} else {
-			res = to
-		}
+	const mapper = function (options) {
 
-		Object.keys(rules).forEach(key => {
+		const from = options.from
+		const to = options.to
+		const rules = options.rules
+
+		let res = to || {}
+
+		Object.keys(from).forEach(key => {
+			res[key] = from[key]
+		})
+
+		rules && Object.keys(rules).forEach(key => {
 			const rule = rules[key]
 			const isPath = key.match(/\.|\[/)
 			if (typeof rule === 'function') {
@@ -50,9 +53,9 @@
 				current[arr[len - 1]] = value
 			} else {
 				if (temp === undefined) {
-					if(isNaN(Number(arr[i+1]))){
+					if (isNaN(Number(arr[i + 1]))) {
 						current[key] = {}
-					}else{
+					} else {
 						current[key] = []
 					}
 
@@ -67,14 +70,17 @@
 
 	//mapper 独立发布
 	var res = mapper({
-		same: 10,
-		bleh: 4,
-		firstName: 'dnt',
-		lastName: 'zhang',
-		a: {
-			c: 10
-		}
-	}, { aa: 1 }, {
+		from: {
+			same: 10,
+			bleh: 4,
+			firstName: 'dnt',
+			lastName: 'zhang',
+			a: {
+				c: 10
+			}
+		},
+		to: { aa: 1 },
+		rules: {
 			dumb: 12,
 			func: function () {
 				return 8
@@ -88,9 +94,11 @@
 			'a[2].b[0]': function () {
 				return this.a.c
 			}
-		})
+		}
+	}
+	)
 
-	console.log(JSON.stringify(res,null,2))
+	console.log(JSON.stringify(res, null, 2))
 // <!-- output
 // 	{
 //   "aa": 1,

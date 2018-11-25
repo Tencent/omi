@@ -1,3 +1,5 @@
+import mapper from './mapper'
+
 class TodoViewData {
   constructor() {
     this.data = {
@@ -7,7 +9,14 @@ class TodoViewData {
 
   update(todo) {
     //To be optimized, deep copy
-		this.data.items = JSON.parse(JSON.stringify(todo.items))
+    todo.items.forEach((item, index) => {
+      this.data.items[index] = mapper({
+        from: item,
+        to: this.data.items[index]
+      })
+    })
+
+    console.log(this.data.items[0])
   }
 }
 

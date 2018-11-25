@@ -1570,6 +1570,71 @@
 
   var todo = new Todo();
 
+  /**
+  		* Auto map object's props to object's props.
+  		* @method mapper
+  		* @param {Object} From Object
+  		* @param {Object} To Object(可选)
+  		* @param {Object} Mapping Rules
+  		* @return {Object} To Object
+  		*/
+  var mapper = function mapper(options) {
+
+  	var from = options.from;
+  	var to = options.to;
+  	var rules = options.rules;
+
+  	var res = to || {};
+
+  	Object.keys(from).forEach(function (key) {
+  		res[key] = from[key];
+  	});
+
+  	rules && Object.keys(rules).forEach(function (key) {
+  		var rule = rules[key];
+  		var isPath = key.match(/\.|\[/);
+  		if (typeof rule === 'function') {
+  			if (isPath) {
+  				setPathValue(res, key, rule.call(from));
+  			} else {
+  				res[key] = rule.call(from);
+  			}
+  		} else {
+  			if (isPath) {
+  				setPathValue(res, key, rule);
+  			} else {
+  				res[key] = rule;
+  			}
+  		}
+  	});
+  	return res;
+  };
+
+  function setPathValue(obj, path, value) {
+  	var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+
+  	var current = obj;
+  	for (var i = 0, len = arr.length; i < len; i++) {
+  		var key = arr[i];
+  		var temp = current[key];
+  		if (i === len - 1) {
+  			current[arr[len - 1]] = value;
+  		} else {
+  			if (temp === undefined) {
+  				if (isNaN(Number(arr[i + 1]))) {
+  					current[key] = {};
+  				} else {
+  					current[key] = [];
+  				}
+
+  				temp = current[key];
+  			}
+  		}
+
+  		current = temp;
+  	}
+  }
+
   function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var TodoViewData = function () {
@@ -1582,8 +1647,17 @@
     }
 
     TodoViewData.prototype.update = function update(todo) {
+      var _this = this;
+
       //To be optimized, deep copy
-      this.data.items = JSON.parse(JSON.stringify(todo.items));
+      todo.items.forEach(function (item, index) {
+        _this.data.items[index] = mapper({
+          from: item,
+          to: _this.data.items[index]
+        });
+      });
+
+      console.log(this.data.items[0]);
     };
 
     return TodoViewData;
