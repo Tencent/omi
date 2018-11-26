@@ -16,7 +16,7 @@
     const html = `<table><tbody>
       ${arr.map(subArr => {
         let tds = subArr.map(info => {
-          return `<td><a target="_blank"  href="https://github.com${info.author.path}"><img width="60px"  src="${info.author.avatar}"></a></td>`
+          return `<td width="60px"><a target="_blank"  href="https://github.com${info.author.path}"><img width="60px"  src="${info.author.avatar}"></a></td>`
         })
         return `<tr>${tds.join('')}</tr>`
       }).join('')}</tbody></table>`
