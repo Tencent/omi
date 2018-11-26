@@ -109,8 +109,8 @@ Todo 就省略不贴出来了,太长了，可以直接 [看这里](https://githu
 ```js
 import mapper from './mapper'
 import shared from './shared'
-import todo from '../model/todo'
-import ovd from './other'
+import todoModel from '../model/todo'
+import ovm from './other'
 
 class TodoViewModel {
   constructor() {
@@ -138,23 +138,23 @@ class TodoViewModel {
   }
 
   add(text) {
-    todo.add(text)
-    this.update(todo)
-    ovd.update()
+    todoModel.add(text)
+    this.update(todoModel)
+    ovm.update()
     this.update()
   }
-
+  
   getAll() {
-    todo.getAll(() => {
-      this.update(todo)
-      ovd.update()
+    todoModel.getAll(() => {
+      this.update(todoModel)
+      ovm.update()
       this.update()
     })
   }
 
   changeSharedData() {
     shared.projName = 'I love omi-mvvm.'
-    ovd.update()
+    ovm.update()
     this.update()
   }
 }
@@ -180,10 +180,12 @@ define('todo-app', class extends ModelView {
   vm = vm
 
   onClick = () => {
+    //view model 发送指令
     vm.changeSharedData()
   }
 
   install() {
+    //view model 发送指令
     vm.getAll()
   }
 
@@ -210,6 +212,7 @@ define('todo-app', class extends ModelView {
   handleSubmit = e => {
     e.preventDefault()
     if(this.text !== ''){
+      //view model 发送指令
       vm.add(this.text)
       this.text = ''
     }
