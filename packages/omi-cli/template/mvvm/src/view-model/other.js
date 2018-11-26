@@ -1,7 +1,7 @@
 import tvd from './todo'
 import shared from './shared'
 
-class OtherViewData {
+class OtherViewModel {
   constructor() {
     this.data = {
       num: 0,
@@ -20,6 +20,6 @@ class OtherViewData {
   }
 }
 
-const vd = new OtherViewData()
+const vd = new OtherViewModel()
 
 export default vd

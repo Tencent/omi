@@ -3,7 +3,7 @@ import shared from './shared'
 import todo from '../model/todo'
 import ovd from './other'
 
-class TodoViewData {
+class TodoViewModel {
   constructor() {
     this.data = {
       items: []
@@ -49,6 +49,6 @@ class TodoViewData {
   }
 }
 
-const vd = new TodoViewData()
+const vd = new TodoViewModel()
 
 export default vd

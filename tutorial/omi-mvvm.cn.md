@@ -6,6 +6,27 @@ Omi 正式发布 5.0，依然专注于 View，但是对 MVVM 架构更加友好�
 
 ![mvvm](../assets/mvvm.png)
 
+你可以通过 omi-cli 快速体验 MVVM:
+
+```bash
+$ npm i omi-cli -g        
+$ omi init-mvvm my-app    
+$ cd my-app         
+$ npm start                   
+$ npm run build             
+```
+
+> `npx omi-cli init-mvvm my-app` 也支持(要求 npm v5.2.0+)
+
+其他模板：
+
+| **Template Type**|  **Command**|  **Describe**|
+| ------------ |  -----------|  ----------------- |
+|Base Template|`omi init my-app`| 基础模板|
+|TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`|使用 TypeScript 的模板|
+|[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|使用  omi-router 单页应用的模板|
+|omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |小程序开发 Web 的模板|
+
 ### MVVM 演化
 
 MVVM 其实本质是由 MVC、MVP 演化而来。
@@ -56,9 +77,146 @@ const vmData = mapper({
 })
 ```
 
-### Omi MVVM 实战
+### Omi MVVM Todo 实战
 
+定义 Model:
 
+```js
+let id = 0
+
+export default class TodoItem {
+  constructor(text, completed) {
+    this.id = id++
+    this.text = text
+    this.completed = completed || false
+
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
+  }
+
+  clone() {
+    return new TodoItem(this.text, this.completed)
+  }
+}
+```
+
+Todo 就省略不贴出来了,太长了，可以直接 [看这里](https://github.com/Tencent/omi/blob/master/packages/omi-cli/template/mvvm/src/model/todo/todo.js)。反正同意按照面向对象程序设计进行抽象。
+
+定义 ViewModel:
+
+```js
+import mapper from './mapper'
+import shared from './shared'
+import todo from '../model/todo'
+import ovd from './other'
+
+class TodoViewModel {
+  constructor() {
+    this.data = {
+      items: []
+    }
+  }
+
+  update(todo) {
+    //这里进行影射
+    todo &&
+      todo.items.forEach((item, index) => {
+        this.data.items[index] = mapper({
+          from: item,
+          to: this.data.items[index],
+          rule: {
+            fullName: function() {
+              return this.author.firstName + this.author.lastName
+            }
+          }
+        })
+      })
+
+    this.data.projName = shared.projName
+  }
+
+  add(text) {
+    todo.add(text)
+    this.update(todo)
+    ovd.update()
+    this.update()
+  }
+
+  getAll() {
+    todo.getAll(() => {
+      this.update(todo)
+      ovd.update()
+      this.update()
+    })
+  }
+
+  changeSharedData() {
+    shared.projName = 'I love omi-mvvm.'
+    ovd.update()
+    this.update()
+  }
+}
+
+const vd = new TodoViewModel()
+
+export default vd
+```
+
+定义 View， 注意下面是继承自 ModelView 而非 WeElement。
+
+```js
+import { ModelView, define } from 'omi'
+import vm from '../view-model/todo'
+import './todo-list'
+import './other-view'
+
+define('todo-app', class extends ModelView {
+  vm = vm
+
+  onClick = () => {
+    vm.changeSharedData()
+  }
+
+  install() {
+    vm.getAll()
+  }
+
+  render(props, data) {
+    return (
+      <div>
+        <h3>TODO</h3>
+        <todo-list items={data.items} />
+        <form onSubmit={this.handleSubmit}>
+          <input onChange={this.handleChange} value={this.text} />
+          <button>Add #{data.items.length + 1}</button>
+        </form>
+        <div>{data.projName}</div>
+        <button onClick={this.onClick}>Change Shared Data</button>
+        <other-view />
+      </div>
+    )
+  }
+
+  handleChange = e => {
+    this.text = e.target.value
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    if(this.text !== ''){
+      vm.add(this.text)
+      this.text = ''
+    }
+  }
+})
+```
+
+*　所有数据通过 vm 注入
+*　所以指令通过 vm 发出
+
+[→ 完整代码戳这里](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm)
 
 ### 小结
 
