@@ -112,7 +112,7 @@ declare namespace Omi {
 
 	// The class type (not instance of class)
 	// https://stackoverflow.com/q/42753968/2777142
-	type WeElementConstructor = {
+	interface WeElementConstructor {
 		new(): WeElement;
 	}
 
