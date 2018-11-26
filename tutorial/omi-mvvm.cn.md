@@ -120,7 +120,7 @@ class TodoViewModel {
   }
 
   update(todo) {
-    //这里进行影射
+    //这里进行映射
     todo &&
       todo.items.forEach((item, index) => {
         this.data.items[index] = mapper({
