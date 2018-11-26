@@ -5,16 +5,16 @@
     <desc>Created with Sketch.</desc>
     <defs>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#FF661F" offset="0%"></stop>
-            <stop stop-color="#0053DB" offset="100%"></stop>
+            <stop stop-color="#FFD4DE" offset="0%"></stop>
+            <stop stop-color="#D0021B" offset="100%"></stop>
         </linearGradient>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
-            <stop stop-color="#FF661F" offset="0%"></stop>
-            <stop stop-color="#0053DB" offset="100%"></stop>
+            <stop stop-color="#00375E" offset="0%"></stop>
+            <stop stop-color="#9ECAFD" offset="100%"></stop>
         </linearGradient>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
-            <stop stop-color="#FF661F" offset="0%"></stop>
-            <stop stop-color="#FF661F" offset="100%"></stop>
+            <stop stop-color="#B4EC51" offset="0%"></stop>
+            <stop stop-color="#429321" offset="100%"></stop>
         </linearGradient>
     </defs>
     <g id="OMI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
