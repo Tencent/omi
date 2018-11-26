@@ -225,7 +225,7 @@ define('todo-app', class extends ModelView {
 * All data is injected through VM
 * So instructions are sent through VM
 
-[→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm)
+[→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm/src)
 
 ### Summary
 

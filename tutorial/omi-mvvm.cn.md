@@ -223,7 +223,7 @@ define('todo-app', class extends ModelView {
 * 所有数据通过 vm 注入
 * 所以指令通过 vm 发出
 
-[→ 完整代码戳这里](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm)
+[→ 完整代码戳这里](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm/src)
 
 ### 小结
 
