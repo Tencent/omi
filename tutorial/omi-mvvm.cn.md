@@ -164,6 +164,10 @@ const vd = new TodoViewModel()
 export default vd
 ```
 
+* vm 只专注于 update 数据，视图会自动更新
+* 公共的数据或 vm 可通过 import 依赖
+
+
 定义 View， 注意下面是继承自 ModelView 而非 WeElement。
 
 ```js
@@ -213,8 +217,8 @@ define('todo-app', class extends ModelView {
 })
 ```
 
-*　所有数据通过 vm 注入
-*　所以指令通过 vm 发出
+* 所有数据通过 vm 注入
+* 所以指令通过 vm 发出
 
 [→ 完整代码戳这里](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm)
 
