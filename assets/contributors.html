@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <title></title>
+</head>
+
+<body>
+
+  <div></div>
+  <script src="./list.js"></script>
+  <script>
+    const arr = sliceArr(list.reverse(), 8)
+    const html = `<table><tbody>
+      ${arr.map(subArr => {
+        let tds = subArr.map(info => {
+          return `<td><a target="_blank" style="display:inline-block;border: 1px solid #94D75D;width:64px;border-radius: 50%;height:64px;" href="https://github.com${info.author.path}"><img style="width:60px;height:60px;border-radius: 50%;position: relative;top: 2px;left: 2px;" src="${info.author.avatar}"></a></td>`
+        })
+        return `<tr>${tds.join('')}</tr>`
+      }).join('')}</tbody></table>`
+    console.log(html)
+    document.querySelector('div').innerHTML = html
+
+
+
+    function sliceArr(array, size) {
+      var result = [];
+      for (let x = 0; x < Math.ceil(array.length / size); x++) {
+        let start = x * size;
+        let end = start + size;
+        result.push(array.slice(start, end));
+      }
+      return result;
+    }
+  </script>
+</body>
+
+</html>
