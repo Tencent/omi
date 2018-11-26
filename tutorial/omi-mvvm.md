@@ -247,8 +247,8 @@ Summarized as follows:
 | | Model | ViewModel  | View |
 |---|-----|--------|---------|
 |Model | many-to-many | many-to-many | unrelated |
-|ViewModel | many-to-many | many-to-many | One-to-one |
-|View | unrelated |  One-to-one|  many-to-many |
+|ViewModel | many-to-many | many-to-many | one-to-one |
+|View | unrelated |  one-to-one|  many-to-many |
 
 ## Star & Fork
 
