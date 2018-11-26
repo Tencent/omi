@@ -236,7 +236,7 @@ define('todo-app', class extends ModelView {
 总结如下：
 
 || Model| ViewModel|View|
-|---|----|----|
+|---|----|----|-----|
 |Model|多对多|多对多|无关联|
 |ViewModel|多对多|多对多|一对一|
 |View|无关联|一多一|多对多|
