@@ -102,7 +102,7 @@ export default class TodoItem {
 }
 ```
 
-Todo 就省略不贴出来了,太长了，可以直接 [看这里](https://github.com/Tencent/omi/blob/master/packages/omi-cli/template/mvvm/src/model/todo/todo.js)。反正同意按照面向对象程序设计进行抽象。
+Todo 就省略不贴出来了,太长了，可以直接 [看这里](https://github.com/Tencent/omi/blob/master/packages/omi-cli/template/mvvm/src/model/todo/todo.js)。反正统一按照面向对象程序设计进行抽象和封装。
 
 定义 ViewModel:
 
