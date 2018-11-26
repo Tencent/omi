@@ -2,6 +2,7 @@ export = Omi;
 export as namespace Omi;
 
 declare namespace Omi {
+	type Callback = (...args: any[]) => void;
 	type Key = string | number;
 	type Ref<T> = (instance: T) => void;
 	type ComponentChild = VNode<any> | object | string | number | boolean | null;
@@ -109,6 +110,12 @@ declare namespace Omi {
 		abstract render(props: RenderableProps<P>, data: D): void;
 	}
 
+	// The class type (not instance of class)
+	// https://stackoverflow.com/q/42753968/2777142
+	interface WeElementConstructor {
+		new(): WeElement;
+	}
+
 	abstract class ModelView<P = {}, D = {}> {
 		constructor();
 
@@ -164,10 +171,11 @@ declare namespace Omi {
 
 	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): void;
 
-	function define(name: string, ctor: any): void;
-	function tag(name: string, pure?: boolean): (ctor: any) => void;
-	function tick(callback: () => void, scope?: any): void;
-	function nextTick(callback: () => void, scope?: any): void;
+	function define(name: string, ctor: WeElementConstructor): void;
+	function tag(name: string, pure?: boolean): (ctor: WeElementConstructor) => void;
+	function tick(callback: Callback, scope?: any): void;
+	function nextTick(callback: Callback, scope?: any): void;
+	function observe(target: WeElementConstructor): void;
 
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
