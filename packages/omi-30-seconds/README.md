@@ -18,21 +18,26 @@ define('my-ele', class extends WeElement {
     this.css = getHost(this).css
   }
 
-  render() {
+  render(props) {
     return props.children[0]
   }
 })
 
 define('my-parent-ele', class extends WeElement {
   css() {
-    return `div { color: red; }`
+    return `
+    p { 
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc; 
+    }`
   }
 
   render() {
     return (
       <div>
         <my-ele>
-          <div>content</div>
+          <p>content</p>
         </my-ele>
       </div>
     )
@@ -55,7 +60,7 @@ define('my-ele', class extends WeElement {
     `
   }
 
-  render() {
+  render(props) {
     return props.children[0]
   }
 })

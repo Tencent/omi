@@ -23,7 +23,7 @@ export default class WeElement extends HTMLElement {
       let p = this.parentNode
       while (p && !this.store) {
         this.store = p.store
-        p = p.parentNode || p.host
+        p = p.parentNode || p._host
       }
       if (this.store) {
         this.store.instances.push(this)
@@ -53,7 +53,7 @@ export default class WeElement extends HTMLElement {
       proxyUpdate(this)
       this.observed()
     }
-    this.host = diff(
+    this._host = diff(
       null,
       this.render(this.props, this.data, this.store),
       {},
@@ -62,12 +62,12 @@ export default class WeElement extends HTMLElement {
       false
     )
     this.rendered()
-    if (isArray(this.host)) {
-      this.host.forEach(function(item) {
+    if (isArray(this._host)) {
+      this._host.forEach(function(item) {
         shadowRoot.appendChild(item)
       })
     } else {
-      shadowRoot.appendChild(this.host)
+      shadowRoot.appendChild(this._host)
     }
     !this._isInstalled && this.installed()
     this._isInstalled = true
@@ -90,8 +90,8 @@ export default class WeElement extends HTMLElement {
     this._willUpdate = true
     this.beforeUpdate()
     this.beforeRender()
-    this.host = diff(
-      this.host,
+    this._host = diff(
+      this._host,
       this.render(this.props, this.data, this.store),
       null,
       null,
