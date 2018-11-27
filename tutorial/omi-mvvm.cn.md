@@ -1,5 +1,7 @@
 ## Omi 5.0 发布 - Web 前端 MVVM 王者归来
 
+<p align="center"><img src="https://github.com/Tencent/omi/blob/master/assets/omi3.png" alt="omi" width="300"/></p>
+
 ### 写在前面
 
 Omi 正式发布 5.0，依然专注于 View，但是对 MVVM 架构更加友好的集成，彻底分离视图与业务逻辑的架构。
@@ -37,7 +39,7 @@ MVVM 其实本质是由 MVC、MVP 演化而来。
 
 ### Mapper
 
-当然 MVVM 这里会出现一个问题, Model 里的数据映射到 ViewModel 提供该视图绑定，怎么映射？手动映射？自动映射？在 ASP.NET MVC 中，有强大的 [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) 用来映射。针对 JS 环境，我特地封装了 [mapper.js](https://github.com/Tencent/omi/blob/master/packages/omi-cli/template/mvvm/src/view-model/mapper.js) 用来映射 Model 到 ViewModel。
+当然 MVVM 这里会出现一个问题, Model 里的数据映射到 ViewModel 提供该视图绑定，怎么映射？手动映射？自动映射？在 ASP.NET MVC 中，有强大的 [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) 用来映射。针对 JS 环境，我特地封装了 [mapper.js](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 用来映射 Model 到 ViewModel。
 
 ```js
 const testObj = {
@@ -74,6 +76,82 @@ const vmData = mapper({
       return this.a.c
     }
   }
+})
+```
+
+你可以通后 npm 安装使用:
+
+```js
+npm i mappingjs
+```
+
+再举例说明：
+
+```js
+var a = { a: 1 }
+var b = { b: 2 }
+
+assert.deepEqual(mapping({
+  from: a,
+  to: b
+}), { a: 1, b: 2 })
+```
+
+Deep mapping:
+
+```js
+
+QUnit.test("", function (assert) {
+  var A = { a: [{ name: 'abc', age: 18 }, { name: 'efg', age: 20 }], e: 'aaa' }
+  var B = mapping({
+    from: A,
+    to: { d: 'test' },
+    rule: {
+      a: null,
+      c: 13,
+      list: function () {
+        return this.a.map(function (item) {
+          return mapping({ from: item })
+        })
+      }
+    }
+  })
+
+  assert.deepEqual(B.a, null)
+  assert.deepEqual(B.list[0], A.a[0])
+  assert.deepEqual(B.c, 13)
+  assert.deepEqual(B.d, 'test')
+  assert.deepEqual(B.e, 'aaa')
+  assert.deepEqual(B.list[0] === A.a[0], false)
+})
+```
+
+Deep deep mapping:
+
+```js
+
+QUnit.test("", function (assert) {
+  var A = { a: [{ name: 'abc', age: 18, obj: { f: 'a', l: 'b' } }, { name: 'efg', age: 20, obj: { f: 'a', l: 'b' } }], e: 'aaa' }
+  var B = mapping({
+    from: A,
+    rule: {
+      list: function () {
+        return this.a.map(function (item) {
+          return mapping({
+            from: item, rule: {
+              obj: function () {
+                return mapping({ from: this.obj })
+              }
+            }
+          })
+        })
+      }
+    }
+  })
+
+  assert.deepEqual(A.a, B.list)
+  assert.deepEqual(A.a[0].obj, B.list[0].obj)
+  assert.deepEqual(A.a[0].obj === B.list[0].obj, false)
 })
 ```
 

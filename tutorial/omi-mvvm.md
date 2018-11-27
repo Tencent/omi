@@ -39,7 +39,7 @@ The purpose is to separate views and models, but in MVC, views depend on models,
 
 ### Mapper
 
-Of course, there is a problem with MVVM. Data in Model is mapped to ViewModel to provide the view binding. How to map? Manual mapping? Automatic mapping? In ASP.NET MVC, there are powerful [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) for mapping. For the JS environment, I specially encapsulated [mapper.js](https://github.com/Tencent/omi/blob/master/packages/omi-cli/template/mvvm/src/view-model/mapper.js) to map Model to ViewModel.
+Of course, there is a problem with MVVM. Data in Model is mapped to ViewModel to provide the view binding. How to map? Manual mapping? Automatic mapping? In ASP.NET MVC, there are powerful [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) for mapping. For the JS environment, I specially encapsulated [mapper.js](https://github.com/Tencent/omi/tree/master/packages/mappingjs) to map Model to ViewModel.
 
 ```js
 const testObj = {
