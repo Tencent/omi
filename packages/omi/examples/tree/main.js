@@ -41,14 +41,13 @@ define('my-node', class extends WeElement {
           {canOpen && <span>[{data.open ? '-' : '+'}]</span>}
         </h4>
 
-        {canOpen &&
-          data.open && (
+        {canOpen && data.open && (
           <ul>
             {children.map(child => {
               return <my-node node={child} />
             })}
             <li class="add" onclick={this.addChild}>
-                +
+              +
             </li>
           </ul>
         )}
