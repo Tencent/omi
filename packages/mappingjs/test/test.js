@@ -1,20 +1,20 @@
 QUnit.test("", function (assert) {
-  var a = { a: 1 }
-  var b = { b: 2 }
+  var A = { a: 1 }
+  var B = { b: 2 }
 
   assert.deepEqual(mapping({
-    from: a,
-    to: b
+    from: A,
+    to: B
   }), { a: 1, b: 2 })
 })
 
 QUnit.test("", function (assert) {
-  var a = { a: 1 }
-  var b = { b: 2 }
+  var A = { a: 1 }
+  var B = { b: 2 }
 
   assert.deepEqual(mapping({
-    from: a,
-    to: b,
+    from: A,
+    to: B,
     rule: {
       'aa.bb': function () {
         return this.a
@@ -24,12 +24,12 @@ QUnit.test("", function (assert) {
 })
 
 QUnit.test("", function (assert) {
-  var a = { a: 1 }
-  var b = { b: 2 }
+  var A = { a: 1 }
+  var B = { b: 2 }
 
   assert.deepEqual(mapping({
-    from: a,
-    to: b,
+    from: A,
+    to: B,
     rule: {
       'aa.bb': function () {
         return this.a
@@ -43,27 +43,27 @@ QUnit.test("", function (assert) {
 
 
 QUnit.test("", function (assert) {
-  var a = { a: 1 }
+  var A = { a: 1 }
 
   assert.deepEqual(mapping({
-    from: a
+    from: A
   }), { a: 1 })
 })
 
 
 QUnit.test("", function (assert) {
-  var a = { a: 1 }
-  var b = mapping({
-    from: a
+  var A = { a: 1 }
+  var B = mapping({
+    from: A
   })
-  assert.deepEqual(b === a, false)
+  assert.deepEqual(B === A, false)
 })
 
 
 QUnit.test("", function (assert) {
-  var a = { a: { b: 2 } }
-  var b = mapping({
-    from: a,
+  var A = { a: { b: 2 } }
+  var B = mapping({
+    from: A,
     rule: {
       a: function () {
         return mapping({ from: this.a })
@@ -71,9 +71,9 @@ QUnit.test("", function (assert) {
     }
   })
 
-  assert.deepEqual(b.a, a.a)
+  assert.deepEqual(B.a, A.a)
 
-  assert.deepEqual(b.a === a.a, false)
+  assert.deepEqual(B.a === A.a, false)
 })
 
 QUnit.test("", function (assert) {
