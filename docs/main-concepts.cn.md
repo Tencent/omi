@@ -375,7 +375,7 @@ render(<my-app></my-app>, 'body')
 
 ## noSlot
 
-对于写一些 omi 插件，noSlot 非常有用，它不会把 children 插入到 DOM 中，兵器你可以在插件中通过 props.children 拿到虚拟 DOM。
+对于写一些 omi 插件，noSlot 非常有用，它不会把 children 插入到 DOM 中，并且你可以在插件中通过 props.children 拿到虚拟 DOM。
 
 ```js
 import { define, render, WeElement } from 'omi'
