@@ -8,6 +8,39 @@ QUnit.test("", function (assert) {
   }), { a: 1, b: 2 })
 })
 
+QUnit.test("", function (assert) {
+  var a = { a: 1 }
+  var b = { b: 2 }
+
+  assert.deepEqual(mapping({
+    from: a,
+    to: b,
+    rule: {
+      'aa.bb': function () {
+        return this.a
+      }
+    }
+  }), { a: 1, b: 2, aa: { bb: 1 } })
+})
+
+QUnit.test("", function (assert) {
+  var a = { a: 1 }
+  var b = { b: 2 }
+
+  assert.deepEqual(mapping({
+    from: a,
+    to: b,
+    rule: {
+      'aa.bb': function () {
+        return this.a
+      },
+      'cc[2].bb': function () {
+        return this.a
+      }
+    }
+  }), { a: 1, b: 2, aa: { bb: 1 }, cc: [undefined, undefined, { bb: 1 }] })
+})
+
 
 QUnit.test("", function (assert) {
   var a = { a: 1 }
