@@ -37,9 +37,9 @@ MVVM 其实本质是由 MVC、MVP 演化而来。
 
 目的都是分离视图和模型，但是在 MVC 中，视图依赖模型，耦合度太高，导致视图的可移植性大大降低，在 MVP 模式中，视图不直接依赖模型，由 P(Presenter)负责完成 Model 和 View 的交互。MVVM 和 MVP 的模式比较接近。ViewModel 担任这 Presenter 的角色，并且提供 UI 视图所需要的数据源，而不是直接让 View 使用 Model 的数据源，这样大大提高了 View 和 Model 的可移植性，比如同样的 Model 切换使用 Flash、HTML、WPF 渲染，比如同样 View 使用不同的 Model，只要 Model 和 ViewModel 映射好，View 可以改动很小甚至不用改变。
 
-### Mapper
+### Mappingjs
 
-当然 MVVM 这里会出现一个问题, Model 里的数据映射到 ViewModel 提供该视图绑定，怎么映射？手动映射？自动映射？在 ASP.NET MVC 中，有强大的 [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) 用来映射。针对 JS 环境，我特地封装了 [mapper.js](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 用来映射 Model 到 ViewModel。
+当然 MVVM 这里会出现一个问题, Model 里的数据映射到 ViewModel 提供该视图绑定，怎么映射？手动映射？自动映射？在 ASP.NET MVC 中，有强大的 [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) 用来映射。针对 JS 环境，我特地封装了 [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 用来映射 Model 到 ViewModel。
 
 ```js
 const testObj = {
@@ -52,7 +52,7 @@ const testObj = {
   }
 }
 
-const vmData = mapper({
+const vmData = mapping({
   from: testObj,
   to: { aa: 1 },
   rule: {
@@ -62,7 +62,7 @@ const vmData = mapper({
     },
     b: function () {
       //可递归映射
-      return mapper({ from: this.a })
+      return mapping({ from: this.a })
     },
     bar: function () {
       return this.bleh
@@ -185,7 +185,7 @@ Todo 就省略不贴出来了,太长了，可以直接 [看这里](https://githu
 定义 ViewModel:
 
 ```js
-import mapper from './mapper'
+import mapping from 'mappingjs'
 import shared from './shared'
 import todoModel from '../model/todo'
 import ovm from './other'
@@ -201,7 +201,7 @@ class TodoViewModel {
     //这里进行映射
     todo &&
       todo.items.forEach((item, index) => {
-        this.data.items[index] = mapper({
+        this.data.items[index] = mapping({
           from: item,
           to: this.data.items[index],
           rule: {
