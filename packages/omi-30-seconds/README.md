@@ -15,7 +15,7 @@ import { define, WeElement, render, getHost } from 'omi'
 
 define('my-ele', class extends WeElement {
   install() {
-    this.css = getHost().css
+    this.css = getHost(this).css
   }
 
   render() {
@@ -48,7 +48,7 @@ Share css by `getHost` method. You can also recombine with the parent node's css
 define('my-ele', class extends WeElement {
 
   css() {
-    return getHost().css() + `
+    return getHost(this).css() + `
       h1 {
         font-size: 34px;
       }
