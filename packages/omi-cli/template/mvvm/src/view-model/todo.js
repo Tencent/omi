@@ -1,4 +1,4 @@
-import mapper from './mapper'
+import mapping from 'mappingjs'
 import shared from './shared'
 import todoModel from '../model/todo'
 import ovm from './other'
@@ -13,7 +13,7 @@ class TodoViewModel {
   update(todo) {
     todo &&
       todo.items.forEach((item, index) => {
-        this.data.items[index] = mapper({
+        this.data.items[index] = mapping({
           from: item,
           to: this.data.items[index],
           rule: {
