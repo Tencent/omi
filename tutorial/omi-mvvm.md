@@ -143,14 +143,12 @@ class TodoViewModel {
     todoModel.add(text)
     this.update(todoModel)
     ovm.update()
-    this.update()
   }
   
   getAll() {
     todoModel.getAll(() => {
       this.update(todoModel)
       ovm.update()
-      this.update()
     })
   }
 
