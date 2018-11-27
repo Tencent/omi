@@ -527,7 +527,7 @@
     }
     function getHost(ele) {
         var p = ele.parentNode;
-        while (p) if (p.host) return p.host; else p = p.parentNode;
+        while (p) if (p.host) return p.host; else if (p.shadowRoot && p.shadowRoot.host) return p.shadowRoot.host; else p = p.parentNode;
     }
     function rpx(str) {
         return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
@@ -793,7 +793,7 @@
                 var p = this.parentNode;
                 while (p && !this.store) {
                     this.store = p.store;
-                    p = p.parentNode || p.host;
+                    p = p.parentNode || p.L;
                 }
                 if (this.store) this.store.instances.push(this);
             }
@@ -816,11 +816,11 @@
                 proxyUpdate(this);
                 this.observed();
             }
-            this.host = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
+            this.L = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
             this.rendered();
-            if (isArray(this.host)) this.host.forEach(function(item) {
+            if (isArray(this.L)) this.L.forEach(function(item) {
                 shadowRoot.appendChild(item);
-            }); else shadowRoot.appendChild(this.host);
+            }); else shadowRoot.appendChild(this.L);
             !this.B && this.installed();
             this.B = !0;
         };
@@ -836,7 +836,7 @@
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
-            this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+            this.L = diff(this.L, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
             this.afterUpdate();
             this.updated();
             this.J = !1;
@@ -896,7 +896,7 @@
         ModelView: ModelView
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.3';
+    options.root.Omi.version = '5.0.4';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

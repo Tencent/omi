@@ -1,5 +1,5 @@
 /**
- * omi v5.0.3  http://omijs.org
+ * omi v5.0.4  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -710,17 +710,17 @@ var JSONPatcherProxy = function () {
         will emit
         {op: replace, path: '/arr/1', value: arr_2}
         {op: remove, path: '/arr/2'}
-         by default, the second operation would revoke the proxy, and this renders arr revoked.
+          by default, the second operation would revoke the proxy, and this renders arr revoked.
         That's why we need to remember the proxies that are inherited.
       */
     var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
     /*
     Why do we need to check instance.isProxifyingTreeNow?
-     We need to make sure we mark revokables as inherited ONLY when we're observing,
+      We need to make sure we mark revokables as inherited ONLY when we're observing,
     because throughout the first proxification, a sub-object is proxified and then assigned to
     its parent object. This assignment of a pre-proxified object can fool us into thinking
     that it's a proxified object moved around, while in fact it's the first assignment ever.
-     Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
+      Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
     but in fact is is a proxified object moved around the tree
     */
     if (revokableInstance && !instance.isProxifyingTreeNow) {
@@ -798,7 +798,7 @@ operation.op = 'replace', operation.value = null;
             this is an inherited proxy (an already proxified object that was moved around),
             we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
             And we know that because we mark moved proxies with `inherited` flag when we move them
-             it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
+              it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
             We DO want to revoke the proxy if it was removed again.
           */
           revokableProxyInstance.inherited = false;
@@ -1062,7 +1062,7 @@ var WeElement = function (_HTMLElement) {
       var p = this.parentNode;
       while (p && !this.store) {
         this.store = p.store;
-        p = p.parentNode || p.host;
+        p = p.parentNode || p._host;
       }
       if (this.store) {
         this.store.instances.push(this);
@@ -1092,14 +1092,14 @@ var WeElement = function (_HTMLElement) {
       proxyUpdate(this);
       this.observed();
     }
-    this.host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
+    this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
     this.rendered();
-    if (isArray(this.host)) {
-      this.host.forEach(function (item) {
+    if (isArray(this._host)) {
+      this._host.forEach(function (item) {
         shadowRoot.appendChild(item);
       });
     } else {
-      shadowRoot.appendChild(this.host);
+      shadowRoot.appendChild(this._host);
     }
     !this._isInstalled && this.installed();
     this._isInstalled = true;
@@ -1122,7 +1122,7 @@ var WeElement = function (_HTMLElement) {
     this._willUpdate = true;
     this.beforeUpdate();
     this.beforeRender();
-    this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+    this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
     this.afterUpdate();
     this.updated();
     this._willUpdate = false;
@@ -1449,6 +1449,8 @@ function getHost(ele) {
   while (p) {
     if (p.host) {
       return p.host;
+    } else if (p.shadowRoot && p.shadowRoot.host) {
+      return p.shadowRoot.host;
     } else {
       p = p.parentNode;
     }
@@ -1510,7 +1512,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '5.0.3';
+options.root.Omi.version = '5.0.4';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView };
