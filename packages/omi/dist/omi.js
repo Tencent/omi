@@ -442,7 +442,7 @@
                     _classCallCheck$1(this, Element);
                     for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) args[key] = arguments[key];
                     return _ret = (_temp = _this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [ this ].concat(args))), 
-                    _this.C = 0, _this.D = {}, _temp), _possibleConstructorReturn$1(_this, _ret);
+                    _this.C = 0, _this.D = {}, _this.K = null, _temp), _possibleConstructorReturn$1(_this, _ret);
                 }
                 _inherits$1(Element, _WeElement);
                 Element.prototype.render = function(props, data) {
@@ -452,9 +452,12 @@
                     this.C = 0;
                 };
                 Element.prototype.useCss = function(css) {
-                    var style = this.shadowRoot.querySelector('style');
-                    style && this.shadowRoot.removeChild(style);
-                    this.shadowRoot.appendChild(cssToDom(css));
+                    if (css !== this.K) {
+                        this.K = css;
+                        var style = this.shadowRoot.querySelector('style');
+                        style && this.shadowRoot.removeChild(style);
+                        this.shadowRoot.appendChild(cssToDom(css));
+                    }
                 };
                 Element.prototype.useData = function(data) {
                     return this.use({
@@ -893,7 +896,7 @@
         ModelView: ModelView
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.2';
+    options.root.Omi.version = '5.0.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
