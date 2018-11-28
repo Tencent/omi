@@ -229,3 +229,49 @@ QUnit.test("", function (assert) {
   assert.deepEqual(res.items[6][0].aa === list.items[6][0].aa, false)
 
 })
+
+
+
+QUnit.test("", function (assert) {
+  let id = 0
+
+  class TodoItem {
+    constructor(text, completed) {
+      this.id = id++
+      this.text = text
+      this.completed = completed || false
+
+      this.author = {
+        firstName: 'dnt',
+        lastName: 'zhang'
+      }
+    }
+  }
+
+  class TodoList {
+    constructor(items) {
+      this.items = items || []
+      this.ee = 111
+      this.dd = 3
+      this.obj = { a: 2 }
+    }
+  }
+
+  const list = new TodoList([
+    new TodoItem('task1'),
+    new TodoItem('task2'),
+    new TodoItem('task3'),
+    123,
+    [2, 3, 4],
+    [{ aa: 1 }],
+    [{ "aa": { bb: 2 } }]
+  ])
+
+  var cc = { a: 3 }
+  var bb = {}
+  var dd = { author: {} }
+  var res = mapping.auto(list, { items: [bb, dd], dd: 2, obj: cc })
+  assert.deepEqual(cc === res.obj, true)
+  assert.deepEqual(bb === res.items[0], true)
+  assert.deepEqual(dd.author === res.items[1].author, true)
+})

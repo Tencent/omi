@@ -76,7 +76,7 @@ mapping.auto = function (from, to) {
 function arrayMapping(from, to) {
   from.forEach(function (item, index) {
     if (isArray(item)) {
-      to[index] = []
+      to[index] = to[index] || []
       arrayMapping(item, to[index])
     } else if (isObject(item)) {
       to[index] = objMapping(item, to[index])
@@ -91,10 +91,10 @@ function objMapping(from, to) {
   Object.keys(from).forEach(key => {
     var obj = from[key]
     if (isArray(obj)) {
-      res[key] = []
+      res[key] = res[key] || []
       arrayMapping(obj, res[key])
     } else if (isObject(obj)) {
-      res[key] = {}
+      res[key] = res[key] || {}
       objMapping(obj, res[key])
     } else {
       res[key] = obj
