@@ -299,7 +299,95 @@ define('todo-app', class extends ModelView {
 * All data is injected through VM
 * So instructions are sent through VM
 
+```js
+define('todo-list', function(props) {
+  return (
+    <ul>
+      {props.items.map(item => (
+        <li key={item.id}>
+          {item.text} <span>by {item.fullName}</span>
+        </li>
+      ))}
+    </ul>
+  )
+})
+```
+
+You can see that todo-list can use `fullName` directly.
+
 [→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm/src)
+
+### mapping.auto
+
+Do you feel that mapping is a little bit troublesome? Simple enough, complex objects can be very deep embedded. It doesn't matter `mapping.auto` saves you!
+
+> mapping.auto(from, [to])
+
+The to is optional parameter.
+
+For example:
+
+```js
+class TodoItem {
+  constructor(text, completed) {
+    this.text = text
+    this.completed = completed || false
+
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
+  }
+}
+
+const res = mapping.auto(new TodoItem('task'))
+
+deepEqual(res, {
+  author: {
+    firstName: "dnt",
+    lastName: "zhang"
+  },
+  completed: false,
+  text: "task"
+})
+```
+
+You can map any class to a simple JSON object! Then start to modify this ViewModel:
+
+```js
+class TodoViewModel {
+  constructor() {
+    this.data = {
+      items: []
+    }
+  }
+
+  update(todo) {
+    todo && mapping.auto(todo, this.data)
+
+    this.data.projName = shared.projName
+  }
+  ...
+  ...
+  ...
+```
+
+The previous mapping logic turned into a line of code.： `mapping.auto(todo, this.data)`.
+Of course, because there is no fullName attribute, we need to directly use the mapped author in the view.
+
+```js
+define('todo-list', function(props) {
+  return (
+    <ul>
+      {props.items.map(item => (
+        <li key={item.id}>
+          {item.text} <span>by {item.author.firstName + item.author.lastName}</span>
+        </li>
+      ))}
+    </ul>
+  )
+})
+```
 
 ### Summary
 
