@@ -4,11 +4,6 @@ import vm from '../view-model/todo'
 define('todo-list', class extends WeElement {
   css() {
     return `
-    span{
-       color: #888;
-       font-size: 11px;
-     }
-
     .completed{
       color: #d9d9d9;
       text-decoration: line-through;
@@ -25,7 +20,6 @@ define('todo-list', class extends WeElement {
   }
 
   render(props) {
-    console.log(props.items)
     return (
       <ul>
         {props.items.map(item => (
@@ -36,8 +30,7 @@ define('todo-list', class extends WeElement {
                 this.onChange(evt, item.id)
               }}
             />
-            {item.text}{' '}
-            <span>by {item.author.firstName + item.author.lastName}</span>
+            {item.text}
           </li>
         ))}
       </ul>

@@ -9,13 +9,24 @@ define('todo-app', class extends ModelView {
     vm.getAll()
   }
 
+  css() {
+    return `
+    span{
+       color: #888;
+       font-size: 11px;
+     }
+    `
+  }
+
   render(props, data) {
     return (
       <div>
-        <h3>TODO</h3>
+        <h3>
+          TODO by <span>by {data.author.firstName + data.author.lastName}</span>
+        </h3>
         <todo-list items={data.items} />
         <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} value={data.text} />
+          <input onChange={this.handleChange} value={this.text} />
           <button>Add #{data.items.length + 1}</button>
         </form>
         <other-view />
@@ -24,12 +35,14 @@ define('todo-app', class extends ModelView {
   }
 
   handleChange = e => {
-    this.data.text = e.target.value
+    this.text = e.target.value
   }
 
   handleSubmit = e => {
     e.preventDefault()
-    vm.add(this.data.text)
-    this.data.text = ''
+    if (this.text !== '') {
+      vm.add(this.text)
+      this.text = ''
+    }
   }
 })

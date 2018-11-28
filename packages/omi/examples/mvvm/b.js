@@ -1643,26 +1643,13 @@
 
   var id$1 = 0;
 
-  var TodoItem = function () {
-    function TodoItem(text, completed) {
-      _classCallCheck$3(this, TodoItem);
+  var TodoItem = function TodoItem(text, completed) {
+    _classCallCheck$3(this, TodoItem);
 
-      this.id = id$1++;
-      this.text = text;
-      this.completed = completed || false;
-
-      this.author = {
-        firstName: 'dnt',
-        lastName: 'zhang'
-      };
-    }
-
-    TodoItem.prototype.clone = function clone() {
-      return new TodoItem(this.text, this.completed);
-    };
-
-    return TodoItem;
-  }();
+    this.id = id$1++;
+    this.text = text;
+    this.completed = completed || false;
+  };
 
   //mock
   var list = [{
@@ -1688,6 +1675,11 @@
       _classCallCheck$4(this, Todo);
 
       this.items = [];
+
+      this.author = {
+        firstName: 'dnt',
+        lastName: 'zhang'
+      };
     }
 
     Todo.prototype.initItems = function initItems(list) {
@@ -1833,13 +1825,12 @@
     }
 
     _class2.prototype.css = function css() {
-      return '\n    span{\n       color: #888;\n       font-size: 11px;\n     }\n\n    .completed{\n      color: #d9d9d9;\n      text-decoration: line-through;\n    }\n   ';
+      return '\n    .completed{\n      color: #d9d9d9;\n      text-decoration: line-through;\n    }\n   ';
     };
 
     _class2.prototype.render = function render$$1(props) {
       var _this2 = this;
 
-      console.log(props.items);
       return Omi.h(
         'ul',
         null,
@@ -1847,17 +1838,13 @@
           return Omi.h(
             'li',
             { 'class': item.completed && 'completed' },
-            Omi.h('input', { type: 'checkbox', onChange: function onChange(evt) {
+            Omi.h('input', {
+              type: 'checkbox',
+              onChange: function onChange(evt) {
                 _this2.onChange(evt, item.id);
-              } }),
-            item.text,
-            ' ',
-            Omi.h(
-              'span',
-              null,
-              'by ',
-              item.author.firstName + item.author.lastName
-            )
+              }
+            }),
+            item.text
           );
         })
       );
@@ -1885,16 +1872,22 @@
       }
 
       return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _ModelView.call.apply(_ModelView, [this].concat(args))), _this), _this.vm = vd, _this.handleChange = function (e) {
-        _this.data.text = e.target.value;
+        _this.text = e.target.value;
       }, _this.handleSubmit = function (e) {
         e.preventDefault();
-        vd.add(_this.data.text);
-        _this.data.text = '';
+        if (_this.text !== '') {
+          vd.add(_this.text);
+          _this.text = '';
+        }
       }, _temp), _possibleConstructorReturn$4(_this, _ret);
     }
 
     _class2.prototype.install = function install() {
       vd.getAll();
+    };
+
+    _class2.prototype.css = function css() {
+      return '\n    span{\n       color: #888;\n       font-size: 11px;\n     }\n    ';
     };
 
     _class2.prototype.render = function render$$1(props, data) {
@@ -1904,13 +1897,19 @@
         Omi.h(
           'h3',
           null,
-          'TODO'
+          'TODO by ',
+          Omi.h(
+            'span',
+            null,
+            'by ',
+            data.author.firstName + data.author.lastName
+          )
         ),
         Omi.h('todo-list', { items: data.items }),
         Omi.h(
           'form',
           { onSubmit: this.handleSubmit },
-          Omi.h('input', { onChange: this.handleChange, value: data.text }),
+          Omi.h('input', { onChange: this.handleChange, value: this.text }),
           Omi.h(
             'button',
             null,

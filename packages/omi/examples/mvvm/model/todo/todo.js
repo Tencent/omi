@@ -4,6 +4,11 @@ import { getAll, add } from './todo-server'
 export default class Todo {
   constructor() {
     this.items = []
+
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
   }
 
   initItems(list) {
