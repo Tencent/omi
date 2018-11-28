@@ -52,7 +52,7 @@ deepEqual(res, {
 
 ```
 
-### Auto Mapping with init value
+Auto Mapping with init value：
 
 ```js
 class TodoItem {
@@ -80,7 +80,7 @@ deepEqual(res, {
 })
 ```
 
-### Deep mapping
+### Manual mapping
 
 ```js
 
@@ -107,7 +107,7 @@ deepEqual(B.e, 'aaa')
 deepEqual(B.list[0] === A.a[0], false)
 ```
 
-### Deep deep mapping
+Manual deep mapping:
 
 ```js
 var A = { a: [{ name: 'abc', age: 18, obj: { f: 'a', l: 'b' } }, { name: 'efg', age: 20, obj: { f: 'a', l: 'b' } }], e: 'aaa' }
