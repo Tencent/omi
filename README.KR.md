@@ -38,6 +38,10 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi 공식 문서 |
+| [omi-mvvm![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)| MVVM 도입. [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 강력 지원 |
+| [omi-html![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-html)| [htm](https://github.com/developit/htm) 사용 |
+| [omi-30-seconds![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| Omi 스니펫 - 30초 가이드 |
+| [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Component, jsx 그리고 canvas의 완벽한 조합 |
 | [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp) working| Wechat 미니프로그램 개발을 위한 Singe Page |
 | [omi-router![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-router) | Omi 공식 라우터 [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 | [omi-devtools](https://github.com/f/omi-devtools)| 브라우저 개발자 확장도구 |
@@ -72,6 +76,7 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 |  [Platform HTML5](https://platform.html5.org/)|
 | [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
 | [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|
+|[ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
 
 
 ## omi-mp
@@ -97,6 +102,7 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 - [Omi 30초 추가 가이드](#Omi-30초-추가-가이드)
 - [Getting Started](#getting-started)
   - [Install](#install)
+  - [Project Template](#project-template)
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
@@ -286,6 +292,8 @@ $ npm start                      # develop
 $ npm run build                  # release
 ```
 
+> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
+
 Directory description:
 
 ```
@@ -326,23 +334,15 @@ mac os 에서:
   },
 ···
 
-TypeScript Template(omi-cli v3.0.5+):
+### Project Template
 
-```bash
-$ omi init-ts my-app
-```
-
-[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+):
-
-```bash
-$ omi init-spa my-app
-```
-
-omi-mp (Omi Wechat Mini Program Module) Template(omi-cli v3.0.13+):
-
-```bash
-$ omi init-mp my-app
-```
+| **Template Type**|  **Command**|  **Describe**|
+| ------------ |  -----------|  ----------------- |
+|Base Template|`omi init my-app`| Omi Project의 기본 템플릿 |
+|TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`| Type Script 기본 템플릿 |
+|[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`| omi-router를 사용한 Single Page Application 템플릿 |
+|omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  | 위챗 미니 프로그램 템플릿 웹 개발 |
+|MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  | MVVM 템플릿 |
 
 CLI 자동 프로젝트 생성 scaffolding 는 한 페이지의 create-react-app을 여러 페이지로 변환합니다. 설정(configuration) 이슈는 [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) 을 봐주세요.
 
@@ -602,6 +602,13 @@ render(<todo-app />, "body", store);
 - 구성 요소 및 페이지의 데이터는 종속 store.data 의 속성을 나열하는 데 사용 되며 (omi는 경로를 기록 합니다.) 그리고 필요에 따라 업데이트 됩니다.
 - 만약 페이지에 간단한 컴포넌트가 거의 없는 경우, `updateAll`을 `true`로 선언할 수 있습니다. 그리고 컴포넌트와 페이지들은 데이터를 선언할 필요 없으며 그것들은 필요에 따라 업데이트 되지 않습니다.
 - globalData에 선언된 경로(path)는 해당경로의 값이 수정되는 한 모든 페이지와 구성 요소를 새로고침 하며 globalData를 사용하여 모든 페이지 또는 공용(public) 속성(property)를 나열할 수 있습니다.
+
+## Mitt
+
+store 의 data 시스템을 사용하기를 원하지 않으면 publish subscribe 모드를 사용하면 됩니닫. 예를 들어 [mitt](https://github.com/developit/mitt) 를 사용해서 Omi component 간의 커뮤니케이션을 하면됩니다:
+
+* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
+
 
 ## Observe
 
