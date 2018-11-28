@@ -1,6 +1,6 @@
 {
   "name": "mappingjs",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Objects mapping for javascript. [Omi MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)'s best partner.",
   "main": "index.js",
   "scripts": {
