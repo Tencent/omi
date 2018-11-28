@@ -83,7 +83,10 @@
 * [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
 * [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 * [Platform HTML5](https://platform.html5.org/)
-
+* [使用 requestIdleCallback](https://div.io/topic/1370)
+* [A requestIdleCallback polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)
+* [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)
+* [ShadowRoot](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)
 ---
 
 # 目录
