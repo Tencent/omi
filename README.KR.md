@@ -605,7 +605,7 @@ render(<todo-app />, "body", store);
 
 ## Mitt
 
-store 의 data 시스템을 사용하기를 원하지 않으면 publish subscribe 모드를 사용하면 됩니닫. 예를 들어 [mitt](https://github.com/developit/mitt) 를 사용해서 Omi component 간의 커뮤니케이션을 하면됩니다:
+store 의 data 시스템을 사용하기를 원하지 않으면 publish/subscribe 모드를 사용하면 됩니다. 예를 들어 [mitt](https://github.com/developit/mitt) 를 사용해서 Omi component 간의 커뮤니케이션을 하면됩니다:
 
 * [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
 
