@@ -275,3 +275,57 @@ QUnit.test("", function (assert) {
   assert.deepEqual(bb === res.items[0], true)
   assert.deepEqual(dd.author === res.items[1].author, true)
 })
+
+
+
+QUnit.test("", function (assert) {
+  class TodoItem {
+    constructor(text, completed) {
+      this.text = text
+      this.completed = completed || false
+
+      this.author = {
+        firstName: 'dnt',
+        lastName: 'zhang'
+      }
+    }
+  }
+
+  const res = mapping.auto(new TodoItem('task'))
+
+  assert.deepEqual(res, {
+    author: {
+      firstName: "dnt",
+      lastName: "zhang"
+    },
+    completed: false,
+    text: "task"
+  })
+})
+
+
+QUnit.test("", function (assert) {
+  class TodoItem {
+    constructor(text, completed) {
+      this.text = text
+      this.completed = completed || false
+
+      this.author = {
+        firstName: 'dnt',
+        lastName: 'zhang'
+      }
+    }
+  }
+
+  const res = mapping.auto(new TodoItem('task'), { author: { a: 1 } })
+
+  assert.deepEqual(res, {
+    author: {
+      firstName: "dnt",
+      lastName: "zhang",
+      a: 1
+    },
+    completed: false,
+    text: "task"
+  })
+})
