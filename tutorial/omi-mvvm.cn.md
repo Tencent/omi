@@ -299,6 +299,22 @@ define('todo-app', class extends ModelView {
 * 所有数据通过 vm 注入
 * 所以指令通过 vm 发出
 
+```js
+define('todo-list', function(props) {
+  return (
+    <ul>
+      {props.items.map(item => (
+        <li key={item.id}>
+          {item.text} <span>by {item.fullName}</span>
+        </li>
+      ))}
+    </ul>
+  )
+})
+```
+
+可以看到 todo-list 可以直接使用 `fullName`。
+
 [→ 完整代码戳这里](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm/src)
 
 ### mapping.auto
@@ -334,7 +350,41 @@ deepEqual(res, {
 })
 ```
 
-你可以把任意 class 映射到简单的 json obj！
+你可以把任意 class 映射到简单的 json obj！那么开始改造 ViewModel:
+
+```js
+class TodoViewModel {
+  constructor() {
+    this.data = {
+      items: []
+    }
+  }
+
+  update(todo) {
+    todo && mapping.auto(todo, this.data)
+
+    this.data.projName = shared.projName
+  }
+  ...
+  ...
+  ...
+```
+
+以前的一堆映射逻辑变成了一行代码： `mapping.auto(todo, this.data)`。当然由于没有 fullName 属性了，这里需要在视图里直接使用映射过来的 author:
+
+```js
+define('todo-list', function(props) {
+  return (
+    <ul>
+      {props.items.map(item => (
+        <li key={item.id}>
+          {item.text} <span>by {item.author.firstName + item.author.lastName}</span>
+        </li>
+      ))}
+    </ul>
+  )
+})
+```
 
 ### 小结
 
