@@ -128,7 +128,9 @@
     "sinon-chai": "^3.0.0",
     "typescript": "^2.8.1",
     "uglify-js": "^2.7.5",
-    "webpack": "^4.3.0"
+    "webpack": "^4.3.0",
+    "mappingjs": "latest",
+    "rollup-plugin-commonjs": "^9.2.0"
   },
   "greenkeeper": {
     "ignore": [

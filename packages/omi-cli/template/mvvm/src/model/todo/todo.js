@@ -33,6 +33,7 @@ export default class Todo {
         item.completed = true
         return false
       }
+      return true
     })
   }
 

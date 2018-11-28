@@ -33,6 +33,17 @@ export default class Todo {
         item.completed = true
         return false
       }
+      return true
+    })
+  }
+
+  uncomplete(id) {
+    this.items.every(item => {
+      if (id === item.id) {
+        item.completed = false
+        return false
+      }
+      return true
     })
   }
 

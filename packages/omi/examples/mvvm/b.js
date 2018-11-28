@@ -1063,7 +1063,7 @@
         var p = this.parentNode;
         while (p && !this.store) {
           this.store = p.store;
-          p = p.parentNode || p.host;
+          p = p.parentNode || p._host;
         }
         if (this.store) {
           this.store.instances.push(this);
@@ -1093,14 +1093,14 @@
         proxyUpdate(this);
         this.observed();
       }
-      this.host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
+      this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
       this.rendered();
-      if (isArray(this.host)) {
-        this.host.forEach(function (item) {
+      if (isArray(this._host)) {
+        this._host.forEach(function (item) {
           shadowRoot.appendChild(item);
         });
       } else {
-        shadowRoot.appendChild(this.host);
+        shadowRoot.appendChild(this._host);
       }
       !this._isInstalled && this.installed();
       this._isInstalled = true;
@@ -1123,7 +1123,7 @@
       this._willUpdate = true;
       this.beforeUpdate();
       this.beforeRender();
-      this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+      this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
       this.afterUpdate();
       this.updated();
       this._willUpdate = false;
@@ -1145,7 +1145,7 @@
 
     WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
-    WeElement.prototype.afterUpdate = function afterUpdate() {}; //rendered, please use updated
+    WeElement.prototype.afterUpdate = function afterUpdate() {}; //deprecated, please use updated
 
     WeElement.prototype.updated = function updated() {};
 
@@ -1327,7 +1327,7 @@
             args[_key] = arguments[_key];
           }
 
-          return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _temp), _possibleConstructorReturn$1(_this, _ret);
+          return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn$1(_this, _ret);
         }
 
         Element.prototype.render = function render(props, data) {
@@ -1339,6 +1339,10 @@
         };
 
         Element.prototype.useCss = function useCss(css) {
+          if (css === this._preCss) {
+            return;
+          }
+          this._preCss = css;
           var style = this.shadowRoot.querySelector('style');
           style && this.shadowRoot.removeChild(style);
           this.shadowRoot.appendChild(cssToDom(css));
@@ -1447,6 +1451,8 @@
     while (p) {
       if (p.host) {
         return p.host;
+      } else if (p.shadowRoot && p.shadowRoot.host) {
+        return p.shadowRoot.host;
       } else {
         p = p.parentNode;
       }
@@ -1467,25 +1473,24 @@
 
   function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  //add mapper to this
   var ModelView = (_temp$1 = _class$1 = function (_WeElement) {
-  	_inherits$2(ModelView, _WeElement);
+    _inherits$2(ModelView, _WeElement);
 
-  	function ModelView() {
-  		_classCallCheck$2(this, ModelView);
+    function ModelView() {
+      _classCallCheck$2(this, ModelView);
 
-  		return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
-  	}
+      return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+    }
 
-  	ModelView.prototype.beforeInstall = function beforeInstall() {
-  		this.data = this.vm.data;
-  	};
+    ModelView.prototype.beforeInstall = function beforeInstall() {
+      this.data = this.vm.data;
+    };
 
-  	ModelView.prototype.observed = function observed() {
-  		this.vm.data = this.data;
-  	};
+    ModelView.prototype.observed = function observed() {
+      this.vm.data = this.data;
+    };
 
-  	return ModelView;
+    return ModelView;
   }(WeElement), _class$1.observe = true, _temp$1);
 
   var Component = WeElement;
@@ -1509,15 +1514,25 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '5.0.0';
+  options.root.Omi.version = '5.0.4';
 
+  function createCommonjsModule(fn, module) {
+  	return module = { exports: {} }, fn(module, module.exports), module.exports;
+  }
+
+  var mappingjs = createCommonjsModule(function (module, exports) {
   /**
-   * Auto map object's props to object's props.
-   * @method mapper
+   * mappingjs v1.0.0 by dntzhang
+   * Objects mapping for javascript. Omi MVVM's best partner.
+   * @method mapping
    * @param {Object} options {from: .., to: .., rule: .. }
    * @return {Object} To Object
    */
-  var mapper = function mapper(options) {
+
+  var ARRAYTYPE = '[object Array]';
+  var OBJECTTYPE = '[object Object]';
+
+  var mapping = function (options) {
     var from = options.from;
     var to = options.to;
     var rules = options.rule;
@@ -1528,28 +1543,32 @@
       res[key] = from[key];
     });
 
-    rules && Object.keys(rules).forEach(function (key) {
-      var rule = rules[key];
-      var isPath = key.match(/\.|\[/);
-      if (typeof rule === 'function') {
-        if (isPath) {
-          setPathValue(res, key, rule.call(from));
+    rules &&
+      Object.keys(rules).forEach(function (key) {
+        var rule = rules[key];
+        var isPath = key.match(/\.|\[/);
+        if (typeof rule === 'function') {
+          if (isPath) {
+            setPathValue(res, key, rule.call(from));
+          } else {
+            res[key] = rule.call(from);
+          }
         } else {
-          res[key] = rule.call(from);
+          if (isPath) {
+            setPathValue(res, key, rule);
+          } else {
+            res[key] = rule;
+          }
         }
-      } else {
-        if (isPath) {
-          setPathValue(res, key, rule);
-        } else {
-          res[key] = rule;
-        }
-      }
-    });
-    return res;
+      });
+    return res
   };
 
   function setPathValue(obj, path, value) {
-    var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+    var arr = path
+      .replace(/]/g, '')
+      .replace(/\[/g, '.')
+      .split('.');
 
     var current = obj;
     for (var i = 0, len = arr.length; i < len; i++) {
@@ -1573,9 +1592,52 @@
     }
   }
 
-  var shared = {
-    projName: 'omi-mvc'
+  mapping.auto = function (from, to) {
+    return objMapping(from, to)
   };
+
+  function arrayMapping(from, to) {
+    from.forEach(function (item, index) {
+      if (isArray(item)) {
+        to[index] = to[index] || [];
+        arrayMapping(item, to[index]);
+      } else if (isObject(item)) {
+        to[index] = objMapping(item, to[index]);
+      } else {
+        to[index] = item;
+      }
+    });
+  }
+
+  function objMapping(from, to) {
+    var res = to || {};
+    Object.keys(from).forEach(key => {
+      var obj = from[key];
+      if (isArray(obj)) {
+        res[key] = res[key] || [];
+        arrayMapping(obj, res[key]);
+      } else if (isObject(obj)) {
+        res[key] = res[key] || {};
+        objMapping(obj, res[key]);
+      } else {
+        res[key] = obj;
+      }
+    });
+    return res
+  }
+
+  function isArray(obj) {
+    return Object.prototype.toString.call(obj) === ARRAYTYPE
+  }
+
+  function isObject(obj) {
+    return Object.prototype.toString.call(obj) === OBJECTTYPE
+  }
+
+  {
+    module.exports = mapping;
+  }
+  });
 
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1657,6 +1719,17 @@
           item.completed = true;
           return false;
         }
+        return true;
+      });
+    };
+
+    Todo.prototype.uncomplete = function uncomplete(id) {
+      this.items.every(function (item) {
+        if (id === item.id) {
+          item.completed = false;
+          return false;
+        }
+        return true;
       });
     };
 
@@ -1691,172 +1764,109 @@
 
   function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var OtherViewData = function () {
-  	function OtherViewData() {
-  		_classCallCheck$5(this, OtherViewData);
-
-  		this.data = {
-  			num: 0,
-  			length: 0
-  		};
-  	}
-
-  	OtherViewData.prototype.update = function update() {
-  		this.data.num = Math.random();
-  		this.data.projName = shared.projName;
-  		this.data.length = vd$1.data.items.length;
-  	};
-
-  	OtherViewData.prototype.random = function random() {
-  		this.update();
-  	};
-
-  	return OtherViewData;
-  }();
-
-  var vd = new OtherViewData();
-
-  function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
   var TodoViewData = function () {
     function TodoViewData() {
-      _classCallCheck$6(this, TodoViewData);
+      _classCallCheck$5(this, TodoViewData);
 
       this.data = {
         items: []
       };
     }
 
-    TodoViewData.prototype.update = function update(todo$$1) {
-      var _this = this;
+    TodoViewData.prototype.update = function update() {
+      mappingjs.auto(todo, this.data);
+    };
 
-      todo$$1 && todo$$1.items.forEach(function (item, index) {
-        _this.data.items[index] = mapper({
-          from: item,
-          to: _this.data.items[index],
-          rule: {
-            fullName: function fullName() {
-              return this.author.firstName + this.author.lastName;
-            }
-          }
-        });
-      });
+    TodoViewData.prototype.complete = function complete(id) {
+      todo.complete(id);
+      this.update();
+    };
 
-      this.data.projName = shared.projName;
+    TodoViewData.prototype.uncomplete = function uncomplete(id) {
+      todo.uncomplete(id);
+      this.update();
     };
 
     TodoViewData.prototype.add = function add(text) {
       todo.add(text);
-      this.update(todo);
-      vd.update();
       this.update();
     };
 
     TodoViewData.prototype.getAll = function getAll() {
-      var _this2 = this;
+      var _this = this;
 
       todo.getAll(function () {
-        _this2.update(todo);
-        vd.update();
-        _this2.update();
+        _this.update();
       });
-    };
-
-    TodoViewData.prototype.changeSharedData = function changeSharedData() {
-      shared.projName = 'I love omi-mvc.';
-      vd.update();
-      this.update();
     };
 
     return TodoViewData;
   }();
 
-  var vd$1 = new TodoViewData();
+  var vd = new TodoViewData();
 
-  define('todo-list', function (props) {
-    this.useCss('\n\t span{\n\t\t\tcolor: #888;\n\t\t\tfont-size: 11px;\n\t\t}\n\t');
-
-    return Omi.h(
-      'ul',
-      null,
-      props.items.map(function (item) {
-        return Omi.h(
-          'li',
-          { key: item.id },
-          item.text,
-          ' ',
-          Omi.h(
-            'span',
-            null,
-            'by ',
-            item.fullName
-          )
-        );
-      })
-    );
-  });
-
-  function _classCallCheck$7(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$3(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('other-view', function (_ModelView) {
-    _inherits$3(_class2, _ModelView);
+  define('todo-list', function (_WeElement) {
+    _inherits$3(_class2, _WeElement);
 
     function _class2() {
       var _temp, _this, _ret;
 
-      _classCallCheck$7(this, _class2);
+      _classCallCheck$6(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _ModelView.call.apply(_ModelView, [this].concat(args))), _this), _this.vm = vd, _this.onClick = function () {
-        vd.random();
+      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (evt, id) {
+        if (evt.target.checked) {
+          vd.complete(id);
+        } else {
+          vd.uncomplete(id);
+        }
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
-    _class2.prototype.render = function render$$1(props, data) {
+    _class2.prototype.css = function css() {
+      return '\n    span{\n       color: #888;\n       font-size: 11px;\n     }\n\n    .completed{\n      color: #d9d9d9;\n      text-decoration: line-through;\n    }\n   ';
+    };
+
+    _class2.prototype.render = function render$$1(props) {
+      var _this2 = this;
+
+      console.log(props.items);
       return Omi.h(
-        'div',
+        'ul',
         null,
-        Omi.h(
-          'h3',
-          null,
-          'Other View2'
-        ),
-        Omi.h(
-          'div',
-          null,
-          data.num,
-          ' '
-        ),
-        Omi.h(
-          'button',
-          { onClick: this.onClick },
-          'random'
-        ),
-        Omi.h(
-          'div',
-          null,
-          'Todo List Length: ',
-          data.length
-        ),
-        Omi.h(
-          'div',
-          null,
-          data.projName
-        )
+        props.items.map(function (item) {
+          return Omi.h(
+            'li',
+            { 'class': item.completed && 'completed' },
+            Omi.h('input', { type: 'checkbox', onChange: function onChange(evt) {
+                _this2.onChange(evt, item.id);
+              } }),
+            item.text,
+            ' ',
+            Omi.h(
+              'span',
+              null,
+              'by ',
+              item.author.firstName + item.author.lastName
+            )
+          );
+        })
       );
     };
 
     return _class2;
-  }(ModelView));
+  }(WeElement));
 
-  function _classCallCheck$8(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function _classCallCheck$7(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$4(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -1868,25 +1878,23 @@
     function _class2() {
       var _temp, _this, _ret;
 
-      _classCallCheck$8(this, _class2);
+      _classCallCheck$7(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _ModelView.call.apply(_ModelView, [this].concat(args))), _this), _this.vm = vd$1, _this.onClick = function () {
-        vd$1.changeSharedData();
-      }, _this.handleChange = function (e) {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _ModelView.call.apply(_ModelView, [this].concat(args))), _this), _this.vm = vd, _this.handleChange = function (e) {
         _this.data.text = e.target.value;
       }, _this.handleSubmit = function (e) {
         e.preventDefault();
-        vd$1.add(_this.data.text);
+        vd.add(_this.data.text);
         _this.data.text = '';
       }, _temp), _possibleConstructorReturn$4(_this, _ret);
     }
 
     _class2.prototype.install = function install() {
-      vd$1.getAll();
+      vd.getAll();
     };
 
     _class2.prototype.render = function render$$1(props, data) {
@@ -1909,16 +1917,6 @@
             'Add #',
             data.items.length + 1
           )
-        ),
-        Omi.h(
-          'div',
-          null,
-          data.projName
-        ),
-        Omi.h(
-          'button',
-          { onClick: this.onClick },
-          'Change Shared Data'
         ),
         Omi.h('other-view', null)
       );

@@ -1,14 +1,9 @@
 import { ModelView, define } from '../../../src/omi'
 import vm from '../view-model/todo'
 import './todo-list'
-import './other-view'
 
 define('todo-app', class extends ModelView {
   vm = vm
-
-  onClick = () => {
-    vm.changeSharedData()
-  }
 
   install() {
     vm.getAll()
@@ -23,8 +18,6 @@ define('todo-app', class extends ModelView {
           <input onChange={this.handleChange} value={data.text} />
           <button>Add #{data.items.length + 1}</button>
         </form>
-        <div>{data.projName}</div>
-        <button onClick={this.onClick}>Change Shared Data</button>
         <other-view />
       </div>
     )
