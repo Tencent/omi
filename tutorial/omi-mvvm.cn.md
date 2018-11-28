@@ -2,6 +2,10 @@
 
 <p align="center"><img src="https://github.com/Tencent/omi/blob/master/assets/omi3.png" alt="omi" width="300"/></p>
 
+* [→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi/examples/mvvm)
+* [→ Online Demo](https://tencent.github.io/omi/packages/omi/examples/mvvm/)
+* [英文文档(内容略微不同)](./omi-mvvm.md)
+
 ### 写在前面
 
 Omi 正式发布 5.0，依然专注于 View，但是对 MVVM 架构更加友好的集成，彻底分离视图与业务逻辑的架构。
