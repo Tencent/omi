@@ -147,3 +147,85 @@ QUnit.test("", function (assert) {
   assert.deepEqual(A.a[0].obj, B.list[0].obj)
   assert.deepEqual(A.a[0].obj === B.list[0].obj, false)
 })
+
+
+QUnit.test("", function (assert) {
+  let id = 0
+
+  class TodoItem {
+    constructor(text, completed) {
+      this.id = id++
+      this.text = text
+      this.completed = completed || false
+
+      this.author = {
+        firstName: 'dnt',
+        lastName: 'zhang'
+      }
+    }
+  }
+
+  class TodoList {
+    constructor(items) {
+      this.items = items || []
+      this.ee = 111
+    }
+  }
+
+  const list = new TodoList([
+    new TodoItem('task1'),
+    new TodoItem('task2'),
+    new TodoItem('task3'),
+    123,
+    [2, 3, 4],
+    [{ aa: 1 }],
+    [{ "aa": { bb: 2 } }]
+  ])
+
+  const res = mapping.auto(list)
+
+  assert.deepEqual(res, {
+    "items": [
+      {
+        "id": 0,
+        "text": "task1",
+        "completed": false,
+        "author": {
+          "firstName": "dnt",
+          "lastName": "zhang"
+        }
+      },
+      {
+        "id": 1,
+        "text": "task2",
+        "completed": false,
+        "author": {
+          "firstName": "dnt",
+          "lastName": "zhang"
+        }
+      },
+      {
+        "id": 2,
+        "text": "task3",
+        "completed": false,
+        "author": {
+          "firstName": "dnt",
+          "lastName": "zhang"
+        }
+      },
+      123,
+      [2, 3, 4],
+      [{ "aa": 1 }],
+      [{ "aa": { bb: 2 } }]
+    ],
+    "ee": 111
+  })
+
+  assert.deepEqual(res.items === list.items, false)
+  assert.deepEqual(res.items[0] === list.items[0], false)
+  assert.deepEqual(res.items[0].author === list.items[0].author, false)
+  assert.deepEqual(res.items[4] === list.items[4], false)
+  assert.deepEqual(res.items[5][0] === list.items[5][0], false)
+  assert.deepEqual(res.items[6][0].aa === list.items[6][0].aa, false)
+
+})
