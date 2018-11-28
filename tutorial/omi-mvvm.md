@@ -1,5 +1,8 @@
 ## Omi 5.0 Released - MVVM comes back bravely
 
+* [→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi/examples/mvvm)
+* [→ Online Demo](https://tencent.github.io/omi/packages/omi/examples/mvvm/)
+
 ### Written in front
 
 Omi officially released 5.0, still focusing on View, but more friendly integration of MVVM architecture, a complete separation of view and business logic architecture.
@@ -42,290 +45,22 @@ The purpose is to separate views and models, but in MVC, views depend on models,
 Of course, there is a problem with MVVM. Data in Model is mapped to ViewModel to provide the view binding. How to map? Manual mapping? Automatic mapping? In ASP.NET MVC, there are powerful [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) for mapping. For the JS environment, I specially encapsulated [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) to map Model to ViewModel.
 
 ```js
-const testObj = {
-  same: 10,
-  bleh: 4,
-  firstName: 'dnt',
-  lastName: 'zhang',
-  a: {
-    c: 10
-  }
-}
-
-const vmData = mapping({
-  from: testObj,
-  to: { aa: 1 },
-  rule: {
-    dumb: 12,
-    func: function () {
-      return 8
-    },
-    b: function () {
-      //Recursive mapping
-      return mapping({ from: this.a })
-    },
-    bar: function () {
-      return this.bleh
-    },
-    //You can reorganize attributes.
-    fullName: function () {
-      return this.firstName + this.lastName
-    },
-    //Can be mapped to path
-    'd[2].b[0]': function () {
-      return this.a.c
-    }
-  }
-})
-```
-
-Install mappingjs via npm:
-
-```js
 npm i mappingjs
 ```
 
-Simple mapping：
+#### Usage
 
 ```js
 var a = { a: 1 }
 var b = { b: 2 }
 
-assert.deepEqual(mapping({
+deepEqual(mapping({
   from: a,
   to: b
 }), { a: 1, b: 2 })
 ```
 
-Deep mapping:
-
-```js
-
-QUnit.test("", function (assert) {
-  var A = { a: [{ name: 'abc', age: 18 }, { name: 'efg', age: 20 }], e: 'aaa' }
-  var B = mapping({
-    from: A,
-    to: { d: 'test' },
-    rule: {
-      a: null,
-      c: 13,
-      list: function () {
-        return this.a.map(function (item) {
-          return mapping({ from: item })
-        })
-      }
-    }
-  })
-
-  assert.deepEqual(B.a, null)
-  assert.deepEqual(B.list[0], A.a[0])
-  assert.deepEqual(B.c, 13)
-  assert.deepEqual(B.d, 'test')
-  assert.deepEqual(B.e, 'aaa')
-  assert.deepEqual(B.list[0] === A.a[0], false)
-})
-```
-
-Deep deep mapping:
-
-```js
-
-QUnit.test("", function (assert) {
-  var A = { a: [{ name: 'abc', age: 18, obj: { f: 'a', l: 'b' } }, { name: 'efg', age: 20, obj: { f: 'a', l: 'b' } }], e: 'aaa' }
-  var B = mapping({
-    from: A,
-    rule: {
-      list: function () {
-        return this.a.map(function (item) {
-          return mapping({
-            from: item, rule: {
-              obj: function () {
-                return mapping({ from: this.obj })
-              }
-            }
-          })
-        })
-      }
-    }
-  })
-
-  assert.deepEqual(A.a, B.list)
-  assert.deepEqual(A.a[0].obj, B.list[0].obj)
-  assert.deepEqual(A.a[0].obj === B.list[0].obj, false)
-})
-```
-
-### Omi MVVM Todo 
-
-Define Model:
-
-```js
-let id = 0
-
-export default class TodoItem {
-  constructor(text, completed) {
-    this.id = id++
-    this.text = text
-    this.completed = completed || false
-
-    this.author = {
-      firstName: 'dnt',
-      lastName: 'zhang'
-    }
-  }
-
-  clone() {
-    return new TodoItem(this.text, this.completed)
-  }
-}
-```
-
-Todo is omitted and not posted. Todo is too long to be directly [see here](https://github.com/Tencent/omi/blob/master/packages/omi-cli/template/mvm/src/model/todo/todo.js). Anyway, they are abstracted and encapsulated according to object-oriented programming.
-
-Define ViewModel:
-
-```js
-import mapping from 'mappingjs'
-import shared from './shared'
-import todoModel from '../model/todo'
-import ovm from './other'
-
-class TodoViewModel {
-  constructor() {
-    this.data = {
-      items: []
-    }
-  }
-
-  update(todo) {
-    //Model and ViewModel mapping here
-    todo &&
-      todo.items.forEach((item, index) => {
-        this.data.items[index] = mapping({
-          from: item,
-          to: this.data.items[index],
-          rule: {
-            fullName: function() {
-              return this.author.firstName + this.author.lastName
-            }
-          }
-        })
-      })
-
-    this.data.projName = shared.projName
-  }
-
-  add(text) {
-    todoModel.add(text)
-    this.update(todoModel)
-    ovm.update()
-  }
-  
-  getAll() {
-    todoModel.getAll(() => {
-      this.update(todoModel)
-      ovm.update()
-    })
-  }
-
-  changeSharedData() {
-    shared.projName = 'I love omi-mvvm.'
-    ovm.update()
-    this.update()
-  }
-}
-
-const vd = new TodoViewModel()
-
-export default vd
-```
-
-* VM only focuses on update data, and views are automatically updated
-* Common data or VM can depend on import
-
-
-Define View, note that the following inherits from ModelView not WeElement.
-
-```js
-import { ModelView, define } from 'omi'
-import vm from '../view-model/todo'
-import './todo-list'
-import './other-view'
-
-define('todo-app', class extends ModelView {
-  vm = vm
-
-  onClick = () => {
-    //view model send action
-    vm.changeSharedData()
-  }
-
-  install() {
-    //view model send action
-    vm.getAll()
-  }
-
-  render(props, data) {
-    return (
-      <div>
-        <h3>TODO</h3>
-        <todo-list items={data.items} />
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} value={this.text} />
-          <button>Add #{data.items.length + 1}</button>
-        </form>
-        <div>{data.projName}</div>
-        <button onClick={this.onClick}>Change Shared Data</button>
-        <other-view />
-      </div>
-    )
-  }
-
-  handleChange = e => {
-    this.text = e.target.value
-  }
-
-  handleSubmit = e => {
-    e.preventDefault()
-    if(this.text !== ''){
-      //view model send action
-      vm.add(this.text)
-      this.text = ''
-    }
-  }
-})
-```
-
-* All data is injected through VM
-* So instructions are sent through VM
-
-```js
-define('todo-list', function(props) {
-  return (
-    <ul>
-      {props.items.map(item => (
-        <li key={item.id}>
-          {item.text} <span>by {item.fullName}</span>
-        </li>
-      ))}
-    </ul>
-  )
-})
-```
-
-You can see that todo-list can use `fullName` directly.
-
-[→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm/src)
-
-### mapping.auto
-
-Do you feel that mapping is a little bit troublesome? Simple enough, complex objects can be very deep embedded. It doesn't matter `mapping.auto` saves you!
-
-> mapping.auto(from, [to])
-
-The to is optional parameter.
-
-For example:
+#### Auto Mapping
 
 ```js
 class TodoItem {
@@ -352,42 +87,268 @@ deepEqual(res, {
 })
 ```
 
-You can map any class to a simple JSON object! Then start to modify this ViewModel:
+Auto Mapping with init value：
 
 ```js
-class TodoViewModel {
+const res = mapping.auto(new TodoItem('task'), { author: { a: 1 } })
+
+deepEqual(res, {
+  author: {
+    firstName: "dnt",
+    lastName: "zhang",
+    a: 1
+  },
+  completed: false,
+  text: "task"
+})
+```
+
+### Omi MVVM Todo 
+
+Define TodoItem Model:
+
+```js
+let id = 0
+
+export default class TodoItem {
+  constructor(text, completed) {
+    this.id = id++
+    this.text = text
+    this.completed = completed || false
+  }
+}
+```
+
+Define TodoItem Model:
+
+```js
+import TodoItem from './todo-item'
+import { getAll, add } from './todo-server'
+
+export default class Todo {
+  constructor() {
+    this.items = []
+
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
+  }
+
+  initItems(list) {
+    list.forEach(item => {
+      this.items.push(new TodoItem(item.text))
+    })
+  }
+
+  add(content) {
+    const item = new TodoItem(content)
+    this.items.push(item)
+    add(item)
+  }
+
+  updateContent(id, content) {
+    this.items.every(item => {
+      if (id === item.id) {
+        item.content = content
+        return false
+      }
+    })
+  }
+
+  complete(id) {
+    this.items.every(item => {
+      if (id === item.id) {
+        item.completed = true
+        return false
+      }
+      return true
+    })
+  }
+
+  uncomplete(id) {
+    this.items.every(item => {
+      if (id === item.id) {
+        item.completed = false
+        return false
+      }
+      return true
+    })
+  }
+
+  remove(id) {
+    this.items.every((item, index) => {
+      if (id === item.id) {
+        this.items.splice(index, 1)
+        return false
+      }
+    })
+  }
+
+  clear() {
+    this.items.length = 0
+  }
+
+  getAll(callback) {
+    getAll(list => {
+      this.initItems(list)
+      callback()
+    })
+  }
+}
+```
+
+Define ViewModel:
+
+```js
+import mapping from 'mappingjs'
+import todo from '../model/todo'
+
+class TodoViewData {
   constructor() {
     this.data = {
       items: []
     }
   }
 
-  update(todo) {
-    todo && mapping.auto(todo, this.data)
-
-    this.data.projName = shared.projName
+  update() {
+    //auto mapping here!!!!
+    mapping.auto(todo, this.data)
   }
-  ...
-  ...
-  ...
+
+  complete(id) {
+    todo.complete(id)
+    this.update()
+  }
+
+  uncomplete(id) {
+    todo.uncomplete(id)
+    this.update()
+  }
+
+  add(text) {
+    todo.add(text)
+    this.update()
+  }
+
+  getAll() {
+    todo.getAll(() => {
+      this.update()
+    })
+  }
+}
+
+const vd = new TodoViewData()
+
+export default vd
 ```
 
-The previous mapping logic turned into a line of code.： `mapping.auto(todo, this.data)`.
-Of course, because there is no fullName attribute, we need to directly use the mapped author in the view.
+> VM only focuses on update data, and views are automatically updated
+
+
+
+Define View, note that the following inherits from ModelView not WeElement.
 
 ```js
-define('todo-list', function(props) {
-  return (
-    <ul>
-      {props.items.map(item => (
-        <li key={item.id}>
-          {item.text} <span>by {item.author.firstName + item.author.lastName}</span>
-        </li>
-      ))}
-    </ul>
-  )
+import { ModelView, define } from 'omi'
+import vm from '../view-model/todo'
+import './todo-list'
+
+define('todo-app', class extends ModelView {
+  vm = vm
+
+  install() {
+    vm.getAll()
+  }
+
+  css() {
+    return `
+    span{
+       color: #888;
+       font-size: 11px;
+     }
+    `
+  }
+
+  render(props, data) {
+    return (
+      <div>
+        <h3>
+          TODO by <span>by {data.author.firstName + data.author.lastName}</span>
+        </h3>
+        <todo-list items={data.items} />
+        <form onSubmit={this.handleSubmit}>
+          <input onChange={this.handleChange} value={this.text} />
+          <button>Add #{data.items.length + 1}</button>
+        </form>
+        <other-view />
+      </div>
+    )
+  }
+
+  handleChange = e => {
+    this.text = e.target.value
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    if (this.text !== '') {
+      //send action to vm
+      vm.add(this.text)
+      this.text = ''
+    }
+  }
 })
 ```
+
+* All data is injected through VM
+* So instructions are sent through VM
+
+Define TodoList View:
+
+```js
+import { define, WeElement } from '../../../src/omi'
+import vm from '../view-model/todo'
+
+define('todo-list', class extends WeElement {
+  css() {
+    return `
+    .completed{
+      color: #d9d9d9;
+      text-decoration: line-through;
+    }
+   `
+  }
+
+  onChange = (evt, id) => {
+    if (evt.target.checked) {
+      vm.complete(id)
+    } else {
+      vm.uncomplete(id)
+    }
+  }
+
+  render(props) {
+    return (
+      <ul>
+        {props.items.map(item => (
+          <li class={item.completed && 'completed'}>
+            <input
+              type="checkbox"
+              onChange={evt => {
+                this.onChange(evt, item.id)
+              }}
+            />
+            {item.text}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+})
+```
+
+[→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi/examples/mvvm)
 
 ### Summary
 

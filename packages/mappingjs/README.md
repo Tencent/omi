@@ -49,24 +49,11 @@ deepEqual(res, {
   completed: false,
   text: "task"
 })
-
 ```
 
 Auto Mapping with init value：
 
 ```js
-class TodoItem {
-  constructor(text, completed) {
-    this.text = text
-    this.completed = completed || false
-
-    this.author = {
-      firstName: 'dnt',
-      lastName: 'zhang'
-    }
-  }
-}
-
 const res = mapping.auto(new TodoItem('task'), { author: { a: 1 } })
 
 deepEqual(res, {
