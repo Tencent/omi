@@ -301,6 +301,41 @@ define('todo-app', class extends ModelView {
 
 [→ 完整代码戳这里](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm/src)
 
+### mapping.auto
+
+是不是感觉映射写起来略微麻烦？？ 简单的还好，复杂对象嵌套很深就会很费劲。没关系 `mapping.auto` 拯救你！
+
+* mapping.auto(from, [to]) 其中 to 是可选参数
+
+举个例子:
+
+```js
+class TodoItem {
+  constructor(text, completed) {
+    this.text = text
+    this.completed = completed || false
+
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
+  }
+}
+
+const res = mapping.auto(new TodoItem('task'))
+
+deepEqual(res, {
+  author: {
+    firstName: "dnt",
+    lastName: "zhang"
+  },
+  completed: false,
+  text: "task"
+})
+```
+
+你可以把任意 class 映射到简单的 json obj！
+
 ### 小结
 
 从宏观的角度来看，Omi 的 MVVM 架构也属性网状架构，网状架构目前来看有:

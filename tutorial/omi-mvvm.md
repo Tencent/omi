@@ -301,6 +301,43 @@ define('todo-app', class extends ModelView {
 
 [→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm/src)
 
+### mapping.auto
+
+Do you feel that mapping is a little bit troublesome? Simple enough, complex objects can be very deep embedded. It doesn't matter `mapping.auto` saves you!
+
+> mapping.auto(from, [to])
+
+The to is optional parameter.
+
+For example:
+
+```js
+class TodoItem {
+  constructor(text, completed) {
+    this.text = text
+    this.completed = completed || false
+
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
+  }
+}
+
+const res = mapping.auto(new TodoItem('task'))
+
+deepEqual(res, {
+  author: {
+    firstName: "dnt",
+    lastName: "zhang"
+  },
+  completed: false,
+  text: "task"
+})
+```
+
+You can map any class to a simple JSON object!
+
 ### Summary
 
 From a macro perspective, Omi's MVVM architecture also has attributed mesh architecture. At present, mesh architecture has:
