@@ -1,3 +1,5 @@
+<p align="center"><img src="../../assets/mappingjs.png" alt="mappingjs" /></p>
+
 ## Mappingjs
 
 > Objects mapping for javascript. [Omi MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)'s best partner.
