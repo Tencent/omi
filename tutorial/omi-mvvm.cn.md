@@ -4,7 +4,6 @@
 
 * [→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi/examples/mvvm)
 * [→ Online Demo](https://tencent.github.io/omi/packages/omi/examples/mvvm/)
-* [英文文档(内容略微不同)](./omi-mvvm.md)
 
 ### 写在前面
 
