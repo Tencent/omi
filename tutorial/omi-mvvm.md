@@ -44,6 +44,8 @@ The purpose is to separate views and models, but in MVC, views depend on models,
 
 Of course, there is a problem with MVVM. Data in Model is mapped to ViewModel to provide the view binding. How to map? Manual mapping? Automatic mapping? In ASP.NET MVC, there are powerful [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) for mapping. For the JS environment, I specially encapsulated [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) to map Model to ViewModel.
 
+![](https://github.com/Tencent/omi/raw/master/assets/mappingjs.png)
+
 ```js
 npm i mappingjs
 ```
