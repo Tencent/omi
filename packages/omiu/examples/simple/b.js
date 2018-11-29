@@ -1463,6 +1463,7 @@
 
   options.root.Omi = omi;
   options.root.Omi.version = '4.1.7';
+  //# sourceMappingURL=omi.esm.js.map
 
   var _css = "div{\n  color: rgba(0,0,0,.65);\n}\n* {\n  box-sizing: border-box;\n}\nul,li{\n  padding: 0;\n  margin: 0;\n}\n\nli{\n  display: inline-block;\n  min-width:32px;\n  height: 32px;\n  border: 1px solid #ccc;\n  vertical-align: middle;\n  line-height: 32px;\n  text-align: center;\n  margin: 0 3px 0 3px; \n  cursor: pointer;\n  border-radius: 3px;\n}\n\n.o-pager{\n  display: inline-block;\n}\n\nbutton{\n  width: 32px;\n  height: 32px;\n  appearance: none;\n  -webkit-appearance: none;\n  position: relative;\n  border: 1px solid #ccc;\n  background: none;\n  top:1px;\n  border-radius: 3px;\n  cursor: pointer;\n}\n\nbutton:disabled\n{ \n  border-color: #eee;\n  cursor: default;\n}\n\n.more:after{\n  content: '...';\n}\n\n.more{\n  border: none;\n  cursor: default;\n}\n\n.active{\n  border-color: rgb(61, 111, 185);\n  color:rgb(61, 111, 185);\n}";
 
@@ -1705,23 +1706,33 @@
   function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
   define('my-app', function (_WeElement) {
-    _inherits$3(_class, _WeElement);
+    _inherits$3(_class2, _WeElement);
 
-    function _class() {
-      _classCallCheck$3(this, _class);
+    function _class2() {
+      var _temp, _this, _ret;
 
-      return _possibleConstructorReturn$3(this, _WeElement.apply(this, arguments));
+      _classCallCheck$3(this, _class2);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (evt) {
+        console.log('page' + evt.detail.index);
+      }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
-    _class.prototype.render = function render$$1() {
+    _class2.prototype.render = function render$$1() {
       return Omi.h(
         'div',
         null,
-        Omi.h('o-pagination', { total: 125, currentPage: 2, pageSize: 10 })
+        Omi.h('o-pagination', { total: 125, currentPage: 2, pageSize: 10,
+          onChange: this.onChange
+        })
       );
     };
 
-    return _class;
+    return _class2;
   }(WeElement));
 
   render(Omi.h('my-app', null), 'body');
