@@ -383,7 +383,7 @@ define('todo-list', class extends WeElement {
 |---|----|----|-----|
 |Model|多对多|多对多|无关联|
 |ViewModel|多对多|多对多|一对一|
-|View|无关联|一多一|多对多|
+|View|无关联|一对一|多对多|
 
 
 ## Star & Fork
