@@ -12,6 +12,7 @@ import { tick, nextTick } from './tick'
 import ModelView from './model-view'
 
 const Component = WeElement
+const defineElement = define
 
 const omi = {
   tag,
@@ -28,11 +29,12 @@ const omi = {
   rpx,
   tick,
   nextTick,
-  ModelView
+  ModelView,
+  defineElement
 }
 
 options.root.Omi = omi
-options.root.Omi.version = '5.0.4'
+options.root.Omi.version = '5.0.5'
 
 export default omi
 
@@ -51,5 +53,6 @@ export {
   rpx,
   tick,
   nextTick,
-  ModelView
+  ModelView,
+  defineElement
 }

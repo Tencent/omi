@@ -23,7 +23,7 @@ export default class WeElement extends HTMLElement {
       let p = this.parentNode
       while (p && !this.store) {
         this.store = p.store
-        p = p.parentNode || p._host
+        p = p.parentNode || p.host
       }
       if (this.store) {
         this.store.instances.push(this)

@@ -793,7 +793,7 @@
                 var p = this.parentNode;
                 while (p && !this.store) {
                     this.store = p.store;
-                    p = p.parentNode || p.L;
+                    p = p.parentNode || p.host;
                 }
                 if (this.store) this.store.instances.push(this);
             }
@@ -878,6 +878,7 @@
     }(WeElement);
     ModelView.observe = !0;
     var Component = WeElement;
+    var defineElement = define;
     var omi = {
         tag: tag,
         WeElement: WeElement,
@@ -893,10 +894,11 @@
         rpx: rpx,
         tick: tick,
         nextTick: nextTick,
-        ModelView: ModelView
+        ModelView: ModelView,
+        defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.4';
+    options.root.Omi.version = '5.0.5';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
