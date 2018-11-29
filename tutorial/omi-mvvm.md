@@ -119,7 +119,7 @@ export default class TodoItem {
 }
 ```
 
-Define TodoItem Model:
+Define Todo Model:
 
 ```js
 import TodoItem from './todo-item'
@@ -307,7 +307,7 @@ define('todo-app', class extends ModelView {
 Define TodoList View:
 
 ```js
-import { define, WeElement } from '../../../src/omi'
+import { define, WeElement } from 'omi'
 import vm from '../view-model/todo'
 
 define('todo-list', class extends WeElement {

@@ -45,43 +45,7 @@ MVVM 其实本质是由 MVC、MVP 演化而来。
 
 当然 MVVM 这里会出现一个问题, Model 里的数据映射到 ViewModel 提供该视图绑定，怎么映射？手动映射？自动映射？在 ASP.NET MVC 中，有强大的 [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) 用来映射。针对 JS 环境，我特地封装了 [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 用来映射 Model 到 ViewModel。
 
-```js
-const testObj = {
-  same: 10,
-  bleh: 4,
-  firstName: 'dnt',
-  lastName: 'zhang',
-  a: {
-    c: 10
-  }
-}
 
-const vmData = mapping({
-  from: testObj,
-  to: { aa: 1 },
-  rule: {
-    dumb: 12,
-    func: function () {
-      return 8
-    },
-    b: function () {
-      //可递归映射
-      return mapping({ from: this.a })
-    },
-    bar: function () {
-      return this.bleh
-    },
-    //可以重组属性
-    fullName: function () {
-      return this.firstName + this.lastName
-    },
-    //可以映射到 path
-    'd[2].b[0]': function () {
-      return this.a.c
-    }
-  }
-})
-```
 
 你可以通后 npm 安装使用:
 
@@ -89,79 +53,65 @@ const vmData = mapping({
 npm i mappingjs
 ```
 
-再举例说明：
+
+#### 使用方式
 
 ```js
 var a = { a: 1 }
 var b = { b: 2 }
 
-assert.deepEqual(mapping({
+deepEqual(mapping({
   from: a,
   to: b
 }), { a: 1, b: 2 })
 ```
 
-Deep mapping:
+#### 自动 Mapping
 
 ```js
+class TodoItem {
+  constructor(text, completed) {
+    this.text = text
+    this.completed = completed || false
 
-QUnit.test("", function (assert) {
-  var A = { a: [{ name: 'abc', age: 18 }, { name: 'efg', age: 20 }], e: 'aaa' }
-  var B = mapping({
-    from: A,
-    to: { d: 'test' },
-    rule: {
-      a: null,
-      c: 13,
-      list: function () {
-        return this.a.map(function (item) {
-          return mapping({ from: item })
-        })
-      }
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
     }
-  })
+  }
+}
 
-  assert.deepEqual(B.a, null)
-  assert.deepEqual(B.list[0], A.a[0])
-  assert.deepEqual(B.c, 13)
-  assert.deepEqual(B.d, 'test')
-  assert.deepEqual(B.e, 'aaa')
-  assert.deepEqual(B.list[0] === A.a[0], false)
+const res = mapping.auto(new TodoItem('task'))
+
+deepEqual(res, {
+  author: {
+    firstName: "dnt",
+    lastName: "zhang"
+  },
+  completed: false,
+  text: "task"
 })
 ```
 
-Deep deep mapping:
+带有初始值`{ author: { a: 1 } }`的自动映射:
 
 ```js
+const res = mapping.auto(new TodoItem('task'), { author: { a: 1 } })
 
-QUnit.test("", function (assert) {
-  var A = { a: [{ name: 'abc', age: 18, obj: { f: 'a', l: 'b' } }, { name: 'efg', age: 20, obj: { f: 'a', l: 'b' } }], e: 'aaa' }
-  var B = mapping({
-    from: A,
-    rule: {
-      list: function () {
-        return this.a.map(function (item) {
-          return mapping({
-            from: item, rule: {
-              obj: function () {
-                return mapping({ from: this.obj })
-              }
-            }
-          })
-        })
-      }
-    }
-  })
-
-  assert.deepEqual(A.a, B.list)
-  assert.deepEqual(A.a[0].obj, B.list[0].obj)
-  assert.deepEqual(A.a[0].obj === B.list[0].obj, false)
+deepEqual(res, {
+  author: {
+    firstName: "dnt",
+    lastName: "zhang",
+    a: 1
+  },
+  completed: false,
+  text: "task"
 })
 ```
 
 ### Omi MVVM Todo 实战
 
-定义 Model:
+定义 TodoItem Model:
 
 ```js
 let id = 0
@@ -180,7 +130,84 @@ export default class TodoItem {
 }
 ```
 
-Todo 就省略不贴出来了,太长了，可以直接 [看这里](https://github.com/Tencent/omi/blob/master/packages/omi-cli/template/mvvm/src/model/todo/todo.js)。反正统一按照面向对象程序设计进行抽象和封装。
+定义 Todo Model:
+
+```js
+import TodoItem from './todo-item'
+import { getAll, add } from './todo-server'
+
+export default class Todo {
+  constructor() {
+    this.items = []
+
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
+  }
+
+  initItems(list) {
+    list.forEach(item => {
+      this.items.push(new TodoItem(item.text))
+    })
+  }
+
+  add(content) {
+    const item = new TodoItem(content)
+    this.items.push(item)
+    add(item)
+  }
+
+  updateContent(id, content) {
+    this.items.every(item => {
+      if (id === item.id) {
+        item.content = content
+        return false
+      }
+    })
+  }
+
+  complete(id) {
+    this.items.every(item => {
+      if (id === item.id) {
+        item.completed = true
+        return false
+      }
+      return true
+    })
+  }
+
+  uncomplete(id) {
+    this.items.every(item => {
+      if (id === item.id) {
+        item.completed = false
+        return false
+      }
+      return true
+    })
+  }
+
+  remove(id) {
+    this.items.every((item, index) => {
+      if (id === item.id) {
+        this.items.splice(index, 1)
+        return false
+      }
+    })
+  }
+
+  clear() {
+    this.items.length = 0
+  }
+
+  getAll(callback) {
+    getAll(list => {
+      this.initItems(list)
+      callback()
+    })
+  }
+}
+```
 
 定义 ViewModel:
 
@@ -198,20 +225,8 @@ class TodoViewModel {
   }
 
   update(todo) {
-    //这里进行映射
-    todo &&
-      todo.items.forEach((item, index) => {
-        this.data.items[index] = mapping({
-          from: item,
-          to: this.data.items[index],
-          rule: {
-            fullName: function() {
-              return this.author.firstName + this.author.lastName
-            }
-          }
-        })
-      })
-
+    //这里进行自动映射，一行代码轻松搞定 
+    mapping.auto(todo, this.data)
     this.data.projName = shared.projName
   }
 
@@ -268,7 +283,7 @@ define('todo-app', class extends ModelView {
   render(props, data) {
     return (
       <div>
-        <h3>TODO</h3>
+        TODO by <span>by {data.author.firstName + data.author.lastName}</span>
         <todo-list items={data.items} />
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} value={this.text} />
@@ -299,92 +314,54 @@ define('todo-app', class extends ModelView {
 * 所有数据通过 vm 注入
 * 所以指令通过 vm 发出
 
+
+定义 TodoList View:
+
 ```js
-define('todo-list', function(props) {
-  return (
-    <ul>
-      {props.items.map(item => (
-        <li key={item.id}>
-          {item.text} <span>by {item.fullName}</span>
-        </li>
-      ))}
-    </ul>
-  )
+import { define, WeElement } from 'omi'
+import vm from '../view-model/todo'
+
+define('todo-list', class extends WeElement {
+  css() {
+    return `
+    .completed{
+      color: #d9d9d9;
+      text-decoration: line-through;
+    }
+   `
+  }
+
+  onChange = (evt, id) => {
+    if (evt.target.checked) {
+      vm.complete(id)
+    } else {
+      vm.uncomplete(id)
+    }
+  }
+
+  render(props) {
+    return (
+      <ul>
+        {props.items.map(item => (
+          <li class={item.completed && 'completed'}>
+            <input
+              type="checkbox"
+              onChange={evt => {
+                this.onChange(evt, item.id)
+              }}
+            />
+            {item.text}
+          </li>
+        ))}
+      </ul>
+    )
+  }
 })
 ```
 
-可以看到 todo-list 可以直接使用 `fullName`。
 
 [→ 完整代码戳这里](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm/src)
 
-### mapping.auto
-
-是不是感觉映射写起来略微麻烦？？ 简单的还好，复杂对象嵌套很深就会很费劲。没关系 `mapping.auto` 拯救你！
-
-* mapping.auto(from, [to]) 其中 to 是可选参数
-
-举个例子:
-
-```js
-class TodoItem {
-  constructor(text, completed) {
-    this.text = text
-    this.completed = completed || false
-
-    this.author = {
-      firstName: 'dnt',
-      lastName: 'zhang'
-    }
-  }
-}
-
-const res = mapping.auto(new TodoItem('task'))
-
-deepEqual(res, {
-  author: {
-    firstName: "dnt",
-    lastName: "zhang"
-  },
-  completed: false,
-  text: "task"
-})
-```
-
-你可以把任意 class 映射到简单的 json obj！那么开始改造 ViewModel:
-
-```js
-class TodoViewModel {
-  constructor() {
-    this.data = {
-      items: []
-    }
-  }
-
-  update(todo) {
-    todo && mapping.auto(todo, this.data)
-
-    this.data.projName = shared.projName
-  }
-  ...
-  ...
-  ...
-```
-
-以前的一堆映射逻辑变成了一行代码： `mapping.auto(todo, this.data)`。当然由于没有 fullName 属性了，这里需要在视图里直接使用映射过来的 author:
-
-```js
-define('todo-list', function(props) {
-  return (
-    <ul>
-      {props.items.map(item => (
-        <li key={item.id}>
-          {item.text} <span>by {item.author.firstName + item.author.lastName}</span>
-        </li>
-      ))}
-    </ul>
-  )
-})
-```
 
 ### 小结
 

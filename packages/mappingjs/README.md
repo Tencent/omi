@@ -120,6 +120,43 @@ deepEqual(A.a[0].obj, B.list[0].obj)
 deepEqual(A.a[0].obj === B.list[0].obj, false)
 ```
 
+## Other example
+
+```js
+const testObj = {
+  same: 10,
+  bleh: 4,
+  firstName: 'dnt',
+  lastName: 'zhang',
+  a: {
+    c: 10
+  }
+}
+
+const vmData = mapping({
+  from: testObj,
+  to: { aa: 1 },
+  rule: {
+    dumb: 12,
+    func: function () {
+      return 8
+    },
+    b: function () {
+      return mapping({ from: this.a })
+    },
+    bar: function () {
+      return this.bleh
+    },
+    fullName: function () {
+      return this.firstName + this.lastName
+    },
+    'd[2].b[0]': function () {
+      return this.a.c
+    }
+  }
+})
+```
+
 ## License
 
 MIT © [dntzhang](https://github.com/dntzhang)
