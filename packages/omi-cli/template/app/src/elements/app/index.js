@@ -9,7 +9,7 @@ define('my-app', class extends WeElement {
   }
 
   clickHandler = () => {
-    this.store.rename('Omi V4.0')
+    this.store.rename('Omi V5.0')
   }
 
   css() {
