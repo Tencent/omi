@@ -4,6 +4,11 @@ import { getAll, add } from './todo-server'
 export default class Todo {
   constructor() {
     this.items = []
+    
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
   }
 
   initItems(list) {
@@ -24,6 +29,7 @@ export default class Todo {
         item.content = content
         return false
       }
+      return true
     })
   }
 
@@ -36,6 +42,16 @@ export default class Todo {
       return true
     })
   }
+  
+  uncomplete(id) {
+    this.items.every(item => {
+      if (id === item.id) {
+        item.completed = false
+        return false
+      }
+      return true
+    })
+  }
 
   remove(id) {
     this.items.every((item, index) => {
@@ -43,6 +59,7 @@ export default class Todo {
         this.items.splice(index, 1)
         return false
       }
+      return true
     })
   }
 

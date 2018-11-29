@@ -1,6 +1,6 @@
 import mapping from 'mappingjs'
 import shared from './shared'
-import todoModel from '../model/todo'
+import todo from '../model/todo'
 import ovm from './other'
 
 class TodoViewModel {
@@ -10,32 +10,30 @@ class TodoViewModel {
     }
   }
 
-  update(todo) {
-    todo &&
-      todo.items.forEach((item, index) => {
-        this.data.items[index] = mapping({
-          from: item,
-          to: this.data.items[index],
-          rule: {
-            fullName: function() {
-              return this.author.firstName + this.author.lastName
-            }
-          }
-        })
-      })
-
+  update() {
+    mapping.auto(todo, this.data)
     this.data.projName = shared.projName
   }
 
+  complete(id) {
+    todo.complete(id)
+    this.update()
+  }
+
+  uncomplete(id) {
+    todo.uncomplete(id)
+    this.update()
+  }
+
   add(text) {
-    todoModel.add(text)
-    this.update(todoModel)
+    todo.add(text)
+    this.update()
     ovm.update()
   }
 
   getAll() {
-    todoModel.getAll(() => {
-      this.update(todoModel)
+    todo.getAll(() => {
+      this.update()
       ovm.update()
     })
   }

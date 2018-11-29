@@ -1,20 +1,39 @@
-import { define } from 'omi'
+import { define, WeElement } from 'omi'
+import vm from '../view-model/todo'
 
-define('todo-list', function(props) {
-  this.useCss(`
-	 span{
-			color: #888;
-			font-size: 11px;
-		}
-	`)
+define('todo-list', class extends WeElement {
+  css() {
+    return `
+    .completed{
+      color: #d9d9d9;
+      text-decoration: line-through;
+    }
+   `
+  }
 
-  return (
-    <ul>
-      {props.items.map(item => (
-        <li key={item.id}>
-          {item.text} <span>by {item.fullName}</span>
-        </li>
-      ))}
-    </ul>
-  )
+  onChange = (evt, id) => {
+    if (evt.target.checked) {
+      vm.complete(id)
+    } else {
+      vm.uncomplete(id)
+    }
+  }
+
+  render(props) {
+    return (
+      <ul>
+        {props.items.map(item => (
+          <li class={item.completed && 'completed'}>
+            <input
+              type="checkbox"
+              onChange={evt => {
+                this.onChange(evt, item.id)
+              }}
+            />
+            {item.text}
+          </li>
+        ))}
+      </ul>
+    )
+  }
 })

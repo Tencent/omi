@@ -29,6 +29,7 @@ export default class Todo {
         item.content = content
         return false
       }
+      return true
     })
   }
 
@@ -58,6 +59,7 @@ export default class Todo {
         this.items.splice(index, 1)
         return false
       }
+      return true
     })
   }
 
