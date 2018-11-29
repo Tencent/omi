@@ -177,10 +177,6 @@ export default class TodoItem {
       lastName: 'zhang'
     }
   }
-
-  clone() {
-    return new TodoItem(this.text, this.completed)
-  }
 }
 ```
 
