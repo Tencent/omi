@@ -44,7 +44,7 @@ MVVM 其实本质是由 MVC、MVP 演化而来。
 
 当然 MVVM 这里会出现一个问题, Model 里的数据映射到 ViewModel 提供该视图绑定，怎么映射？手动映射？自动映射？在 ASP.NET MVC 中，有强大的 [AutoMapper](https://www.c-sharpcorner.com/UploadFile/tirthacs/using-automapper-in-mvc/) 用来映射。针对 JS 环境，我特地封装了 [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 用来映射 Model 到 ViewModel。
 
-
+![](https://github.com/Tencent/omi/raw/master/assets/mappingjs.png)
 
 你可以通后 npm 安装使用:
 
