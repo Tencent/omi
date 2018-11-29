@@ -131,7 +131,8 @@
     "uglify-js": "^2.7.5",
     "webpack": "^4.3.0",
     "mappingjs": "latest",
-    "rollup-plugin-commonjs": "^9.2.0"
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-string": "^2.0.2"
   },
   "greenkeeper": {
     "ignore": [
@@ -154,8 +155,5 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
-  },
-  "dependencies": {
-    "rollup-plugin-string": "^2.0.2"
   }
 }
