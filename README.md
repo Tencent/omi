@@ -8,6 +8,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 ## Why Omi?
 
 - Tiny size. _(**4kb** gzipped)_
+- Real [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md) with [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) strong support.
 - Supports TypeScript.
 - Reactive data-binding
 - Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26) base on **750** screen width
@@ -54,7 +55,6 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
-| [westore](https://github.com/dntzhang/westore)| Wechat Mini Program Solution with omi |
 | [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) |[Weui](https://weui.io/) for Omi by [@132yse](https://github.com/132yse).|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|

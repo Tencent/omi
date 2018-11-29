@@ -8,6 +8,7 @@
 ## Why Omi?
 
 - 작은 파일 사이즈. _(**4kb** gzip 압축후)_
+- [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md) 지원.
 - TypeScript 지원.
 - 반응형 데이터 바인딩
 - Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26) **750** width 사이즈를 기본으로한

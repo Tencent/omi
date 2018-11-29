@@ -8,6 +8,7 @@
 ### 特性
 
 - 小巧的尺寸(gzip压缩后仅4kb)
+- 真正的 [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md), [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力支持
 - 支持 `TypeScript`
 - 响应式数据绑定
 - 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
