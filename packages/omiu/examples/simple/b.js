@@ -1463,9 +1463,8 @@
 
   options.root.Omi = omi;
   options.root.Omi.version = '4.1.7';
-  //# sourceMappingURL=omi.esm.js.map
 
-  var _css = "div{\r\n  color:red;\r\n}";
+  var _css = "div{\n  color: rgba(0,0,0,.65);\n}\n* {\n  box-sizing: border-box;\n}\nul,li{\n  padding: 0;\n  margin: 0;\n}\n\nli{\n  display: inline-block;\n  min-width:32px;\n  height: 32px;\n  border: 1px solid #ccc;\n  vertical-align: middle;\n  line-height: 32px;\n  text-align: center;\n  margin: 0 3px 0 3px; \n  cursor: pointer;\n  border-radius: 3px;\n}\n\n.o-pager{\n  display: inline-block;\n}\n\nbutton{\n  width: 32px;\n  height: 32px;\n  appearance: none;\n  -webkit-appearance: none;\n  position: relative;\n  border: 1px solid #ccc;\n  background: none;\n  top:1px;\n  border-radius: 3px;\n  cursor: pointer;\n}\n\nbutton:disabled\n{ \n  border-color: #eee;\n  cursor: default;\n}\n\n.more:after{\n  content: '...';\n}\n\n.more{\n  border: none;\n  cursor: default;\n}\n\n.active{\n  border-color: rgb(61, 111, 185);\n  color:rgb(61, 111, 185);\n}";
 
   var _class, _temp;
 
@@ -1475,7 +1474,6 @@
 
   function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  console.log(_css);
   define('o-pagination', (_temp = _class = function (_WeElement) {
     _inherits$2(_class, _WeElement);
 
@@ -1525,11 +1523,6 @@
     };
 
     _class.prototype.render = function render$$1() {
-      return Omi.h(
-        'div',
-        null,
-        'abc'
-      );
       var arr = [];
       var opt = this.data,
           interval = this.getInterval();
@@ -1591,7 +1584,19 @@
         return Omi.h(
           'button',
           { type: 'button', 'class': 'btn-prev', disabled: 'disabled' },
-          Omi.h('i', { 'class': 'o-icon o-icon-arrow-left' })
+          Omi.h(
+            'svg',
+            {
+              viewBox: '64 64 896 896',
+              'class': '',
+              'data-icon': 'left',
+              width: '1em',
+              height: '1em',
+              fill: 'currentColor',
+              'aria-hidden': 'true'
+            },
+            Omi.h('path', { d: 'M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z' })
+          )
         );
       }
 
@@ -1604,7 +1609,19 @@
             _this2.goto(_this2.data.currentPage - 1);
           }
         },
-        Omi.h('i', { 'class': 'o-icon o-icon-arrow-left' })
+        Omi.h(
+          'svg',
+          {
+            viewBox: '64 64 896 896',
+            'class': '',
+            'data-icon': 'left',
+            width: '1em',
+            height: '1em',
+            fill: 'currentColor',
+            'aria-hidden': 'true'
+          },
+          Omi.h('path', { d: 'M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z' })
+        )
       );
     };
 
@@ -1615,7 +1632,19 @@
         return Omi.h(
           'button',
           { type: 'button', 'class': 'btn-next', disabled: 'disabled' },
-          Omi.h('i', { 'class': 'o-icon o-icon-arrow-right' })
+          Omi.h(
+            'svg',
+            {
+              viewBox: '64 64 896 896',
+              'class': '',
+              'data-icon': 'right',
+              width: '1em',
+              height: '1em',
+              fill: 'currentColor',
+              'aria-hidden': 'true'
+            },
+            Omi.h('path', { d: 'M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z' })
+          )
         );
       }
 
@@ -1628,7 +1657,19 @@
             _this3.goto(_this3.data.currentPage + 1);
           }
         },
-        Omi.h('i', { 'class': 'o-icon o-icon-arrow-right' })
+        Omi.h(
+          'svg',
+          {
+            viewBox: '64 64 896 896',
+            'class': '',
+            'data-icon': 'right',
+            width: '1em',
+            height: '1em',
+            fill: 'currentColor',
+            'aria-hidden': 'true'
+          },
+          Omi.h('path', { d: 'M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z' })
+        )
       );
     };
 
@@ -1664,40 +1705,26 @@
   function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
   define('my-app', function (_WeElement) {
-    _inherits$3(_class2, _WeElement);
+    _inherits$3(_class, _WeElement);
 
-    function _class2() {
-      var _temp, _this, _ret;
+    function _class() {
+      _classCallCheck$3(this, _class);
 
-      _classCallCheck$3(this, _class2);
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = { abc: 'abc', passToChild: 123 }, _this.onAbc = function (evt) {
-        _this.data.abc = ' by ' + evt.detail.name;
-        _this.data.passToChild = 1234;
-        _this.update();
-      }, _temp), _possibleConstructorReturn$3(_this, _ret);
+      return _possibleConstructorReturn$3(this, _WeElement.apply(this, arguments));
     }
 
-    _class2.prototype.css = function css() {
-      return '\n         div{\n             color: green;\n         }';
-    };
-
-    _class2.prototype.render = function render$$1(props, data) {
+    _class.prototype.render = function render$$1() {
       return Omi.h(
         'div',
         null,
-        Omi.h('o-pagination', null)
+        Omi.h('o-pagination', { total: 125, currentPage: 2, pageSize: 10 })
       );
     };
 
-    return _class2;
+    return _class;
   }(WeElement));
 
-  render(Omi.h('my-app', { name: 'Omi v4.0' }), 'body');
+  render(Omi.h('my-app', null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map
