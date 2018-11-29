@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.site.js --mode production",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.site.js --mode development"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.site.js --mode development",
+    "start": "npm run dev"
   },
   "repository": {
     "type": "git",
