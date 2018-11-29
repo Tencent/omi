@@ -1699,13 +1699,15 @@
     return _class;
   }(WeElement), _class.observe = true, _temp));
 
+  var _css$1 = "span{\n  position: absolute;\n  border: 1px solid #ccc;\n  width: 32px;\n  height: 32px;\n  background-color: white;\n  cursor: pointer;\n  text-align: center;\n  line-height: 29px;\n}\n\n*{\n  box-sizing: border-box;\n}\n\n.decrease{\n  left: 1px;\n  border-radius: 3px 0px 0px 3px;\n}\n\n.increase{\n  right: 1px;\n  border-radius: 0px 3px 3px 0px;\n}\n\n.ctn{\n  position: relative;\n  width: 150px;\n}\n\n.input{\n  width: 100%;\n}\n\ninput{\n  width:100px;\n  height: 32px;\n  margin: 0 auto;\n  display: block;\n  text-align: center;\n  border: 1px solid #ccc;\n}\n";
+
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$3(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('my-app', function (_WeElement) {
+  define('o-adjustment', function (_WeElement) {
     _inherits$3(_class2, _WeElement);
 
     function _class2() {
@@ -1717,17 +1719,129 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (evt) {
-        console.log('page' + evt.detail.index);
+      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.minus = function () {
+        if (_this.data.mDisabled) return;
+        _this.data.value -= _this.props.step;
+        _this.data.mDisabled = _this.data.value <= _this.props.min;
+        if (_this.data.mDisabled) {
+          _this.data.value = _this.props.min;
+        }
+
+        _this.data.pDisabled = _this.data.value >= _this.props.max;
+        _this.update();
+        _this.fire('change', { value: _this.data.value });
+      }, _this.plus = function () {
+        if (_this.data.pDisabled) return;
+        _this.data.value += _this.props.step;
+        _this.data.pDisabled = _this.data.value >= _this.props.max;
+
+        if (_this.data.pDisabled) {
+          _this.data.value = _this.props.max;
+        }
+        _this.data.mDisabled = _this.data.value <= _this.props.min;
+
+        _this.update();
+        _this.fire('change', { value: _this.data.value });
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
+    }
+
+    _class2.prototype.css = function css() {
+      return _css$1;
+    };
+
+    _class2.prototype.install = function install() {
+      this.data.value = this.props.value;
+    };
+
+    _class2.prototype.render = function render$$1(props, data) {
+      return Omi.h(
+        'div',
+        { 'class': 'ctn' },
+        Omi.h(
+          'span',
+          {
+            role: 'button',
+            'class': 'decrease' + (data.mDisabled ? ' is-disabled' : ''),
+            onClick: this.minus
+          },
+          '-'
+        ),
+        Omi.h(
+          'span',
+          {
+            role: 'button',
+            'class': 'increase' + (data.pDisabled ? ' is-disabled' : ''),
+            onClick: this.plus
+          },
+          '+'
+        ),
+        Omi.h(
+          'div',
+          { 'class': 'input' },
+          Omi.h('input', {
+            type: 'text',
+            autocomplete: 'off',
+            'aria-label': '\u63CF\u8FF0\u6587\u5B57',
+            max: '10',
+            min: '1',
+            'class': 'o-input__inner',
+            role: 'spinbutton',
+            'aria-valuemax': '10',
+            'aria-valuemin': '1',
+            'aria-valuenow': '1',
+            value: data.value,
+            'aria-disabled': 'undefined'
+          })
+        )
+      );
+    };
+
+    return _class2;
+  }(WeElement));
+
+  function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$4(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$4(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  define('my-app', function (_WeElement) {
+    _inherits$4(_class2, _WeElement);
+
+    function _class2() {
+      var _temp, _this, _ret;
+
+      _classCallCheck$4(this, _class2);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (evt) {
+        console.log('page' + evt.detail.index);
+      }, _this.onAdjustmentChange = function (evt) {
+        console.log(evt.detail.value);
+      }, _temp), _possibleConstructorReturn$4(_this, _ret);
     }
 
     _class2.prototype.render = function render$$1() {
       return Omi.h(
         'div',
         null,
-        Omi.h('o-pagination', { total: 125, currentPage: 2, pageSize: 10,
+        Omi.h('o-pagination', {
+          total: 125,
+          currentPage: 2,
+          pageSize: 10,
           onChange: this.onChange
+        }),
+        Omi.h('br', null),
+        Omi.h('o-adjustment', {
+          onChange: this.onAdjustmentChange,
+          min: 1,
+          max: 10,
+          step: 1,
+          value: 2,
+          label: '\u63CF\u8FF0\u6587\u5B57'
         })
       );
     };
