@@ -228,7 +228,7 @@ const node = {
 render(<my-tree node={node} />, 'body')
 ```
 
-###@font-face doesn't work in Shadow DOM
+### @font-face doesn't work in Shadow DOM
 
 ```js
 import { render, WeElement, define } from 'omi'
