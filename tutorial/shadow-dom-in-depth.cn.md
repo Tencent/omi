@@ -18,8 +18,8 @@
 * Chrome : 支持
 * Firefox : 支持
 * Opera : 支持
-* Safari : 大部分支持
-* Edge :  暂不支持
+* Safari : 大部分支持(polyfill支持)
+* Edge :  暂不支持(polyfill支持)
 
 您可以从这里查看全面的浏览器支持信息 - https://caniuse.com/#feat=shadowdomv1.
 
