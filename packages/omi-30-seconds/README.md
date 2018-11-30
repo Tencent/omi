@@ -7,6 +7,7 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 - [Share css between parent and child nodes](#share-css-between-parent-and-child-nodes)
 - [Cross component communication](#cross-component-communication)
 - [Implement tree view](#implement-tree-view)
+- [@font-face doesn't work in Shadow DOM]([#@font-face-doesn't-work-in-shadow-dom])
 
 ## Share css between parent and child nodes
 
@@ -226,3 +227,49 @@ const node = {
 
 render(<my-tree node={node} />, 'body')
 ```
+
+###@font-face doesn't work in Shadow DOM
+
+```js
+import { render, WeElement, define } from 'omi'
+
+define('my-app', class extends WeElement {
+  css() {
+    return `
+      @font-face {
+        font-family: 'FontAwesome';
+        src: url('../fonts/fontawesome-webfont.eot?v=4.0.3');
+        src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    `
+  }
+
+  render() {
+    return (
+      <div>abc</div>
+    )
+  }
+})
+
+render(<my-app />, 'body', { emitter: mitt() })
+```
+
+Put font-face css in the global context to fix this, for example:
+
+```html
+<head>
+  <style>
+      @font-face {
+          font-family: 'FontAwesome';
+          src: url('../fonts/fontawesome-webfont.eot?v=4.0.3');
+          src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+          font-weight: normal;
+          font-style: normal;
+        }
+  </style>
+</head>
+```
+
+[→ Related article](http://robdodson.me/at-font-face-doesnt-work-in-shadow-dom/?tdsourcetag=s_pcqq_aiomsg)
