@@ -7,7 +7,7 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 - [Share css between parent and child nodes](#share-css-between-parent-and-child-nodes)
 - [Cross component communication](#cross-component-communication)
 - [Implement tree view](#implement-tree-view)
-- [@font-face doesn't work in Shadow DOM]([#@font-face-doesn't-work-in-shadow-dom])
+- [@font-face doesn't work in Shadow DOM](#font-face-doesnt-work-in-shadow-dom)
 
 ## Share css between parent and child nodes
 
