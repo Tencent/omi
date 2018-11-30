@@ -1,4 +1,4 @@
-# Shadow DOM
+# 深入浅出 Shadow DOM
 
 > 打起精神了~  本文讲述的是关于Shadow DOM V1规范那些事儿！
 
