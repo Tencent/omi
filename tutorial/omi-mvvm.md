@@ -206,7 +206,7 @@ Define ViewModel:
 import mapping from 'mappingjs'
 import todo from '../model/todo'
 
-class TodoViewData {
+class TodoViewModel {
   constructor() {
     this.data = {
       items: []
@@ -240,7 +240,7 @@ class TodoViewData {
   }
 }
 
-const vd = new TodoViewData()
+const vd = new TodoViewModel()
 
 export default vd
 ```
