@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js start
+  C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add babel/plugin-proposal-class-properties -D
 
 PATH: 
   C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\admin\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Program Files\MySQL\MySQL Utilities 1.6;C:\Program Files\MongoDB\Server\3.4\bin;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Go\bin;D:\Program Files\Microsoft VS Code\bin;D:\Program Files\Microsoft VS Code\bin;C:\Users\admin\AppData\Roaming\npm;C:\Users\admin\go\bin
@@ -5088,14 +5088,24 @@ Lockfile:
       yargs-parser "^5.0.0"
 
 Trace: 
-  Error: Command "start" not found.
-      at new MessageError (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:186:110)
-      at C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:87307:17
-      at Generator.next (<anonymous>)
-      at step (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:98:30)
-      at C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:116:14
-      at new Promise (<anonymous>)
-      at new F (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:23451:28)
-      at C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:95:12
-      at runCommand (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:87312:22)
-      at Object.<anonymous> (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:87412:14)
+  Error: Command failed.
+  Exit code: 128
+  Command: git
+  Arguments: ls-remote --tags --heads ssh://git@github.com/babel/plugin-proposal-class-properties.git
+  Directory: F:\www\omi-weui
+  Output:
+  git@github.com: Permission denied (publickey).
+  fatal: Could not read from remote repository.
+  
+  Please make sure you have the correct access rights
+  and the repository exists.
+      at ProcessTermError.MessageError (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:186:110)
+      at new ProcessTermError (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:226:113)
+      at ChildProcess.<anonymous> (C:\Users\admin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:30281:17)
+      at emitTwo (events.js:126:13)
+      at ChildProcess.emit (events.js:214:7)
+      at maybeClose (internal/child_process.js:925:16)
+      at Socket.stream.socket.on (internal/child_process.js:346:11)
+      at emitOne (events.js:116:13)
+      at Socket.emit (events.js:211:7)
+      at Pipe._handle.close [as _onclose] (net.js:557:12)

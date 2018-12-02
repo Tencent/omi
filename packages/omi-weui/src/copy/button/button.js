@@ -1,17 +1,6 @@
 import { define, WeElement } from 'omi'
-import classNames from '../../utils/classnames'
-import css from '../../style/widget/weui-button/_weui-button.less'
-/**
- *  Button usage：OK(primary)、Cancel(default)、Warn(warn).
- *
- */
-define('ow-button', class extends WeElement {
 
-  static defaultProps = {
-    disabled: false,
-    type: 'primary',
-    size: 'normal'
-  }
+define('ow-button', class extends WeElement {
 
   css() {
     return css
