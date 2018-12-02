@@ -1,4 +1,4 @@
-## 为什么我们写 super(props)?
+## React 为什么要写 super(props)?
 
 突然看到 dan 的第一篇 blog，解释为什么 react 需要写 `super(props)`,为后面 hooks 不需要 super 和 this 作铺垫。
 本文也会对比下 [Omi 框架](https://github.com/Tencent/omi), 解释下 Omi 为什么从一开始就不需要写 `constructor` 和 `super`, 更不需要传递 `props`, 使用 install 足够,而且 install 里可以直接使用 `this.props`。
