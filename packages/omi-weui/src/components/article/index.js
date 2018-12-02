@@ -1,5 +1,11 @@
-/**
- * Created by jf on 15/12/11.
- */
+import { define, WeElement } from 'omi'
+import style from './_index.scss'
 
-import './article'
+define('ow-article', class extends WeElement {
+  css() {
+    return style
+  }
+  render(props) {
+    return <div className="article">{props.children}</div>
+  }
+})
