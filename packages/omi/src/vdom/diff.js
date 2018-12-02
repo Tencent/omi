@@ -333,6 +333,10 @@ function diffAttributes(dom, attrs, old, children) {
   let name
   let update = false
   let isWeElement = dom.update
+  let oldClone
+  if (dom.receiveProps) {
+    oldClone = Object.assign({}, old)
+  }
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {
@@ -368,7 +372,7 @@ function diffAttributes(dom, attrs, old, children) {
 
   if (isWeElement && dom.parentNode) {
     if (update || children.length > 0) {
-      dom.receiveProps(dom.props, dom.data)
+      dom.receiveProps(dom.props, dom.data, oldClone)
       dom.update()
     }
   }
