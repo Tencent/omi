@@ -221,3 +221,68 @@ class ModelView extends WeElement {
 类的构造函数 constructor 总是先调用 super() 来建立正确的原型链继承关系。HTMLElement 继承自父接口 Element 和 GlobalEventHandlers 的属性,所以一些节点增删改查的操作以及时间监听和绑定都是通过 super 建立起来。 
 
 对 Omi 框架的使用者，完全不需要 constructor、super等。props 和 data 以及 store 都会在内部注入进去。而且是在生命周期勾子 install 之前就注入了，所以你可以在 install 的时候使用 this.props this.data 甚至 this.store(如果从根节点注入了 store 的话)。
+
+```js
+import { render, WeElement, define } from 'omi'
+
+define('my-counter', class extends WeElement {
+    static observe = true
+    
+    data = {
+      count: 1
+    }
+
+    sub = () => {
+      this.data.count--
+    }
+
+    add = () => {
+      this.data.count++
+    }
+
+    render() {
+      return (
+        <div>
+          <button onClick={this.sub}>-</button>
+          <span>{this.data.count}</span>
+          <button onClick={this.add}>+</button>
+        </div>
+      )
+    }
+  })
+
+render(<my-counter />, 'body')
+```
+
+或者：
+
+```js
+import { define, render } from 'omi'
+
+define('my-counter', function() {
+  const [count, setCount] = this.use({
+    data: 0,
+    effect: function() {
+      document.title = `The num is ${this.data}.`
+    }
+  })
+
+  this.useCss(`button{ color: red; }`)
+
+  return (
+    <div>
+      <button onClick={() => setCount(count - 1)}>-</button>
+      <span>{count}</span>
+      <button onClick={() => setCount(count + 1)}>+</button>
+    </div>
+  )
+})
+
+render(<my-counter />, 'body')
+```
+
+如果没有 effect,可以直接使用 useData：
+
+```js
+const [count, setCount] = this.useData(0)
+```
