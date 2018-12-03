@@ -4,7 +4,7 @@
 
 这里是 weui 开发版本，会整体重构
 
-src 为组件源码 line 为线上文档
+src 为组件源码 site 为线上demo
 
 开发
 ```shell
@@ -34,4 +34,6 @@ yarn dev
 	 }
   }]
 ]
-````
+```
+### P.S.
+由于 web-components 机制的原因，导致 css 丧失了复用的能力，覆盖样式建议直接修改源码

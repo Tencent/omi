@@ -12,3 +12,6 @@ package-lock.json
 .idea/
 
 /packages/*/node_modules
+
+/packages/*/yarn.lock
+/packages/*/yarn-error.log

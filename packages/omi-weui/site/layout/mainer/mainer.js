@@ -6,6 +6,10 @@ import '../../../src/components/article'
 import '../../../src/components/dialog'
 import '../../../src/components/loading'
 import '../../../src/components/toptip'
+import '../../../src/components/icon'
+import '../../../src/components/msg'
+import '../../../src/components/cell'
+import '../../../src/components/list'
 
 define('ow-mainer', class extends WeElement {
   static observe = true
@@ -112,6 +116,69 @@ define('ow-mainer', class extends WeElement {
           show={data.showToptip}
           hide={this.hide}
         />
+
+        <section>
+          <h1>icons</h1>
+          <p>type:success…… size:big/small</p>
+
+          <div className="content">
+            <ow-icon size="big" />
+            <ow-icon type="info" size="big" />
+            <ow-icon type="warn" size="big" />
+            <ow-icon />
+            <ow-icon type="success-circle" />
+            <ow-icon type="success-no-circle" />
+            <ow-icon type="info" />
+            <ow-icon type="waiting" />
+            <ow-icon type="waiting-circle" />
+            <ow-icon type="circle" />
+            <ow-icon type="warn" />
+            <ow-icon type="info-circle" />
+            <ow-icon type="cancel" />
+            <ow-icon type="clear" />
+            <ow-icon type="search" />
+          </div>
+        </section>
+
+        <section>
+          <h1>msg</h1>
+          <p>type:success…… title content</p>
+          <ow-msg type="success" title="结婚证" content="炸炸×贱贱" />
+        </section>
+
+        <section>
+          <h1>cell</h1>
+          <p>title content icon</p>
+          <div style="background:#F8F8F8; padding:20px 0">
+            <ow-cell
+              icon="https://ws1.sinaimg.cn/large/0065Zy9egy1fxtcp1sc5fj30nw0sfjsq.jpg"
+              title="Title"
+              content="Content"
+              access
+            />
+          </div>
+        </section>
+
+        <section>
+          <h1>list</h1>
+          <p>children title</p>
+          <div style="background:#F8F8F8; padding:20px 0">
+            <ow-list title="到哪里结婚好呢……">
+              <ow-cell
+                icon="https://ws1.sinaimg.cn/large/0065Zy9egy1fxtdkt9566j305k05kdfs.jpg"
+                title="Title"
+                content="Content"
+                access
+              />
+              <ow-cell
+                icon="https://ws1.sinaimg.cn/large/0065Zy9egy1fxtdkt8yvmj305k05kweh.jpg"
+                title="Title"
+                content="Content"
+                access
+              />
+            </ow-list>
+          </div>
+        </section>
       </div>
     )
   }

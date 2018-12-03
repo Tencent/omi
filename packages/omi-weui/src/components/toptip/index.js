@@ -6,12 +6,12 @@ define('ow-toptip', class extends WeElement {
     return style
   }
   hide(){
+    clearTimeout(this.timer)
     this.props.hide()
   }
   render(props) {
-    let display = props.show ? 'block' : 'none'
     let top = props.show ? '0' : '-40px'
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.hide()
     }, 4000)
     const type = props.type

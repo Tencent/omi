@@ -20,14 +20,11 @@ define('ow-app', class extends WeElement {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.weui-loading:before { content: "\e600"; }
     `
   }
   render() {
     return (
       <div className="page">
-      <i class="ow weui-loading"></i>
         <ow-header />
         <ow-mainer />
       </div>
