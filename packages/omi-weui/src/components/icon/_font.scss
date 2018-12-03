@@ -1,0 +1,65 @@
+[class^='weui-icon-'],
+[class*=' weui-icon-'] {
+	display: inline-block;
+	vertical-align: middle;
+	font: normal normal normal 14px/1 'weui';
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	&::before {
+		display: inline-block;
+		margin: 5px;
+	}
+}
+
+.weui-icon-circle:before {
+	content: '\EA01';
+}
+.weui-icon-download:before {
+	content: '\EA02';
+}
+.weui-icon-info:before {
+	content: '\EA03';
+}
+.weui-icon-safe-success:before {
+	content: '\EA04';
+}
+.weui-icon-safe-warn:before {
+	content: '\EA05';
+}
+.weui-icon-success:before {
+	content: '\EA06';
+}
+.weui-icon-success-circle:before {
+	content: '\EA07';
+}
+.weui-icon-success-no-circle:before {
+	content: '\EA08';
+}
+.weui-icon-waiting:before {
+	content: '\EA09';
+}
+.weui-icon-waiting-circle:before {
+	content: '\EA0A';
+}
+.weui-icon-warn:before {
+	content: '\EA0B';
+}
+.weui-icon-info-circle:before {
+	content: '\EA0C';
+}
+.weui-icon-cancel:before {
+	content: '\EA0D';
+}
+.weui-icon-search:before {
+	content: '\EA0E';
+}
+.weui-icon-clear:before {
+	content: '\EA0F';
+}
+.weui-icon-back:before {
+	content: '\EA10';
+}
+.weui-icon-delete:before {
+	content: '\EA11';
+}
