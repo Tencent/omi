@@ -8,9 +8,6 @@ import css from '../../style/widget/weui-tips/_weui-mask.less'
  */
 
 define('ow-mask', class extends WeElement {
-  static defaultProps = {
-    transparent: false
-  }
 
   css(){
     return css

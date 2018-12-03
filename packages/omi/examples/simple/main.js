@@ -4,9 +4,14 @@ import './hello-element'
 define('my-app', class extends WeElement {
   data = { abc: 'abc', passToChild: 123 }
 
+  install() {
+    this.dd = { a: 1 }
+  }
+  
   onAbc = evt => {
     this.data.abc = ' by ' + evt.detail.name
     this.data.passToChild = 1234
+    this.dd.a++
     this.update()
   }
 
@@ -20,10 +25,11 @@ define('my-app', class extends WeElement {
   render(props, data) {
     return (
       <div>
-        Hello {props.name} {data.abc}
+        Hello {props.name} {data.abc} {this.dd.a}
         <hello-element
           onAbc={this.onAbc}
           prop-from-parent={data.passToChild}
+          dd={this.dd}
           msg="WeElement"
         />
       </div>

@@ -1,6 +1,6 @@
 [English](./README.md) | 简体中文 | [한국어](./README.KR.md)
 
-<p align="right">v<strong>5.0.5</strong></p>
+<p align="right">v<strong>5.0.6</strong></p>
 <p align="center"><img src="./assets/omi3.png" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一</h2>
 <p align="center"><b>让 JSX, Web Components, Proxy, Store, Path Updating 在一起</b></p>

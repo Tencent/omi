@@ -353,6 +353,15 @@ function diffAttributes(dom, attrs, old, children) {
     //diable when using store system?
     //!dom.store &&
     if (isWeElement && typeof attrs[name] === 'object') {
+      if (dom.receiveProps) {
+        try {
+          old[name] = JSON.parse(JSON.stringify(attrs[name]))
+        } catch (e) {
+          console.warn(
+            'When using receiveProps, you cannot pass prop of cyclic dependencies down.'
+          )
+        }
+      }
       dom.props[npn(name)] = attrs[name]
       update = true
     } else if (

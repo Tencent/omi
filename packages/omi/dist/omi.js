@@ -243,6 +243,8 @@
         var name;
         var update = !1;
         var isWeElement = dom.update;
+        var oldClone;
+        if (dom.receiveProps) oldClone = Object.assign({}, old);
         for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) {
             setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
             if (isWeElement) {
@@ -251,6 +253,11 @@
             }
         }
         for (name in attrs) if (isWeElement && 'object' == typeof attrs[name]) {
+            if (dom.receiveProps) try {
+                old[name] = JSON.parse(JSON.stringify(attrs[name]));
+            } catch (e) {
+                console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
+            }
             dom.props[npn(name)] = attrs[name];
             update = !0;
         } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
@@ -261,7 +268,7 @@
             }
         }
         if (isWeElement && dom.parentNode) if (update || children.length > 0) {
-            dom.receiveProps(dom.props, dom.data);
+            dom.receiveProps(dom.props, dom.data, oldClone);
             dom.update();
         }
     }
@@ -898,7 +905,7 @@
         defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.5';
+    options.root.Omi.version = '5.0.6';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
