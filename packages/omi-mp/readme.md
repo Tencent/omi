@@ -31,7 +31,7 @@ $ npm start
 $ npm run build             
 ```
 
-> 特别注意，如果你 npm start 报错，可以试着分两个命令行执行，和 npm start 同样的效果:
+> 特别注意，由于 concurrently 不明原因起不来导致 npm start 报错，可以试着分两个命令行执行，和 npm start 同样的效果:
 
 ```bash
 gulp
