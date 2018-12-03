@@ -1,5 +1,5 @@
 /**
- * omi v5.0.5  http://omijs.org
+ * omi v5.0.6  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -600,6 +600,10 @@ function diffAttributes(dom, attrs, old, children) {
   var name;
   var update = false;
   var isWeElement = dom.update;
+  var oldClone;
+  if (dom.receiveProps) {
+    oldClone = Object.assign({}, old);
+  }
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {
@@ -616,6 +620,13 @@ function diffAttributes(dom, attrs, old, children) {
     //diable when using store system?
     //!dom.store &&
     if (isWeElement && typeof attrs[name] === 'object') {
+      if (dom.receiveProps) {
+        try {
+          old[name] = JSON.parse(JSON.stringify(attrs[name]));
+        } catch (e) {
+          console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
+        }
+      }
       dom.props[npn(name)] = attrs[name];
       update = true;
     } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
@@ -629,7 +640,7 @@ function diffAttributes(dom, attrs, old, children) {
 
   if (isWeElement && dom.parentNode) {
     if (update || children.length > 0) {
-      dom.receiveProps(dom.props, dom.data);
+      dom.receiveProps(dom.props, dom.data, oldClone);
       dom.update();
     }
   }
@@ -710,17 +721,17 @@ var JSONPatcherProxy = function () {
         will emit
         {op: replace, path: '/arr/1', value: arr_2}
         {op: remove, path: '/arr/2'}
-          by default, the second operation would revoke the proxy, and this renders arr revoked.
+         by default, the second operation would revoke the proxy, and this renders arr revoked.
         That's why we need to remember the proxies that are inherited.
       */
     var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
     /*
     Why do we need to check instance.isProxifyingTreeNow?
-      We need to make sure we mark revokables as inherited ONLY when we're observing,
+     We need to make sure we mark revokables as inherited ONLY when we're observing,
     because throughout the first proxification, a sub-object is proxified and then assigned to
     its parent object. This assignment of a pre-proxified object can fool us into thinking
     that it's a proxified object moved around, while in fact it's the first assignment ever.
-      Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
+     Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
     but in fact is is a proxified object moved around the tree
     */
     if (revokableInstance && !instance.isProxifyingTreeNow) {
@@ -798,7 +809,7 @@ operation.op = 'replace', operation.value = null;
             this is an inherited proxy (an already proxified object that was moved around),
             we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
             And we know that because we mark moved proxies with `inherited` flag when we move them
-              it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
+             it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
             We DO want to revoke the proxy if it was removed again.
           */
           revokableProxyInstance.inherited = false;
@@ -1514,7 +1525,7 @@ var omi = {
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '5.0.5';
+options.root.Omi.version = '5.0.6';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement };
