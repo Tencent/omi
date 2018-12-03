@@ -1,5 +1,5 @@
 import { define, WeElement } from 'omi'
-import '../../common/index.css'
+import './font-face.css'
 import style from './_index.scss'
 import font from './_font.scss'
 
