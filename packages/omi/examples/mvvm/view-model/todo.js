@@ -9,7 +9,7 @@ class TodoViewModel {
   }
 
   update() {
-		//will automatically update the view!!!
+    //will automatically update the view!!!
     mapping.auto(todo, this.data)
   }
 
