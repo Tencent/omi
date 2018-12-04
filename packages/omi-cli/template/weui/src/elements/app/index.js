@@ -12,6 +12,7 @@ import 'omi-weui/cells'
 import 'omi-router'
 import '../button-panel'
 import '../list-panel'
+import '../article-panel'
 import route from 'omi-router'
 
 define('my-app', class extends WeElement {
@@ -23,7 +24,8 @@ define('my-app', class extends WeElement {
 
   data = {
     visible: {
-      form: true
+      form: false,
+      layout: false
     },
     tag: null,
     atHome: true
@@ -40,6 +42,23 @@ define('my-app', class extends WeElement {
       this.data.atHome = false
     })
 
+    route('/input', () => {
+      alert('开发中，敬请期待')
+    })
+
+    route('/article', () => {
+      this.data.tag = 'article-panel'
+      this.data.atHome = false
+    })
+
+    route('/slider', () => {
+      alert('开发中，敬请期待')
+    })
+
+    route('/uploader', () => {
+      alert('开发中，敬请期待')
+    })
+
     route('*', () => {
       this.data.atHome = true
     })
@@ -49,6 +68,11 @@ define('my-app', class extends WeElement {
     this.data.visible.form = !this.data.visible.form
   }
 
+  clickLayout = () => {
+    this.data.visible.layout = !this.data.visible.layout
+  }
+
+  
   render(props, data) {
     return (
       <div>
@@ -72,21 +96,21 @@ define('my-app', class extends WeElement {
                 <div class="page__category js_categoryInner">
                   <ow-cells class="page__category-content">
                     <ow-cell href="#/button">Button</ow-cell>
-                    <ow-cell>Input</ow-cell>
+                    <ow-cell href="#/input">Input</ow-cell>
                     <ow-cell href="#/list">List</ow-cell>
-                    <ow-cell>Slider</ow-cell>
-                    <ow-cell>Uploader</ow-cell>
+                    <ow-cell href="#/slider">Slider</ow-cell>
+                    <ow-cell href="#/uploader">Uploader</ow-cell>
                   </ow-cells>
                 </div>
               </li>
-              <li>
-                <div class="weui-flex js_category">
+              <li class={data.visible.layout && 'js_show'}>
+                <div class="weui-flex js_category"  onClick={this.clickLayout}>
                   <p class="weui-flex__item">基础组件</p>
                   <img src={iconNavLayout} alt="" />
                 </div>
                 <div class="page__category js_categoryInner">
-                  <ow-cells>
-                    <ow-cell>Article</ow-cell>
+                  <ow-cells class="page__category-content">
+                    <ow-cell href="#/article">Article</ow-cell>
                     <ow-cell>Badge</ow-cell>
                     <ow-cell>Flex</ow-cell>
                     <ow-cell>Footer</ow-cell>
@@ -106,7 +130,7 @@ define('my-app', class extends WeElement {
                   <img src={iconNavFeedback} alt="" />
                 </div>
                 <div class="page__category js_categoryInner">
-                  <ow-cells>
+                  <ow-cells class="page__category-content">
                     <ow-cell>Actionsheet</ow-cell>
                     <ow-cell>Dialog</ow-cell>
                     <ow-cell>Msg</ow-cell>
@@ -121,7 +145,7 @@ define('my-app', class extends WeElement {
                   <img src={iconNavNav} alt="" />
                 </div>
                 <div class="page__category js_categoryInner">
-                  <ow-cells>
+                  <ow-cells class="page__category-content">
                     <ow-cell>Navbar</ow-cell>
                     <ow-cell>Tabbar</ow-cell>
                   </ow-cells>
@@ -133,7 +157,7 @@ define('my-app', class extends WeElement {
                   <img src={iconNavSearch} alt="" />
                 </div>
                 <div class="page__category js_categoryInner">
-                  <ow-cells>
+                  <ow-cells class="page__category-content">
                     <ow-cell>Search Bar</ow-cell>
                   </ow-cells>
                 </div>

@@ -7,7 +7,7 @@ define('list-panel', class extends WeElement {
     return style
   }
 
-  render(props, data) {
+  render() {
     return (
       <div>
         <ow-list title="如果爱情有天意……">
