@@ -21,13 +21,13 @@ define('ow-cell', class extends WeElement {
     return style
   }
 
-  render() {
+  render(props) {
     return (
-      <a class="weui-cell weui-cell_access" href="javascript:;">
-        <div class="weui-cell__bd">
+      <a class='weui-cell weui-cell_access' href={props.href ? props.href : 'javascript:;'}>
+        <div class='weui-cell__bd'>
           <p><slot></slot></p>
         </div>
-        <div class="weui-cell__ft">
+        <div class='weui-cell__ft'>
         </div>
       </a>
     )
