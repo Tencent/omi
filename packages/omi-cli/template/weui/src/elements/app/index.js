@@ -13,6 +13,7 @@ import 'omi-router'
 import '../button-panel'
 import '../list-panel'
 import '../article-panel'
+import '../dialog-panel'
 import route from 'omi-router'
 
 define('my-app', class extends WeElement {
@@ -25,7 +26,8 @@ define('my-app', class extends WeElement {
   data = {
     visible: {
       form: false,
-      layout: false
+      layout: false,
+      feedback: false
     },
     tag: null,
     atHome: true
@@ -51,6 +53,11 @@ define('my-app', class extends WeElement {
       this.data.atHome = false
     })
 
+    route('/dialog', () => {
+      this.data.tag = 'dialog-panel'
+      this.data.atHome = false
+    })
+
     route('/slider', () => {
       alert('开发中，敬请期待')
     })
@@ -72,6 +79,9 @@ define('my-app', class extends WeElement {
     this.data.visible.layout = !this.data.visible.layout
   }
 
+  clickFeedback = () => {
+    this.data.visible.feedback = !this.data.visible.feedback
+  }
   
   render(props, data) {
     return (
@@ -124,15 +134,15 @@ define('my-app', class extends WeElement {
                   </ow-cells>
                 </div>
               </li>
-              <li>
-                <div class="weui-flex js_category">
+              <li class={data.visible.feedback && 'js_show'}>
+                <div class="weui-flex js_category" onClick={this.clickFeedback}>
                   <p class="weui-flex__item">操作反馈</p>
                   <img src={iconNavFeedback} alt="" />
                 </div>
                 <div class="page__category js_categoryInner">
                   <ow-cells class="page__category-content">
                     <ow-cell>Actionsheet</ow-cell>
-                    <ow-cell>Dialog</ow-cell>
+                    <ow-cell href="#/dialog">Dialog</ow-cell>
                     <ow-cell>Msg</ow-cell>
                     <ow-cell>Picker</ow-cell>
                     <ow-cell>Toast</ow-cell>
