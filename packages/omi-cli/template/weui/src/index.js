@@ -5,4 +5,3 @@ import './elements/app'
 import store from './store/app-store'
 
 render(<my-app />, '#root', store)
-

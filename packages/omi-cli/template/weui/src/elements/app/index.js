@@ -11,7 +11,7 @@ import iconNavZIndex from './icon_nav_z-index.png'
 import 'omi-weui/cells'
 import 'omi-router'
 import '../button-panel'
-import route from 'omi-router';
+import route from 'omi-router'
 
 define('my-app', class extends WeElement {
   static observe = true
@@ -22,25 +22,26 @@ define('my-app', class extends WeElement {
 
   data = {
     visible: {
-      form: true,
+      form: true
     },
     tag: null,
     atHome: true
   }
 
-  install(){
-    route('/button',()=>{
+  install() {
+    route('/button', () => {
       this.data.tag = 'button-panel'
       this.data.atHome = false
+    })
+
+    route('*', () => {
+      this.data.atHome = true
     })
   }
 
   clickForm = () => {
     this.data.visible.form = !this.data.visible.form
-    
   }
-  
-  
 
   render(props, data) {
     return (
@@ -50,18 +51,21 @@ define('my-app', class extends WeElement {
             <h1 class="page__title">
               <img src={logo} alt="WeUI" style="height:21px;" />
             </h1>
-            <p class="page__desc">WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。</p>
+            <p class="page__desc">
+              WeUI
+              是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。
+            </p>
           </div>
           <div class="page__bd page__bd_spacing">
             <ul>
               <li class={data.visible.form && 'js_show'}>
-                <div class="weui-flex js_category"  onClick={this.clickForm}>
+                <div class="weui-flex js_category" onClick={this.clickForm}>
                   <p class="weui-flex__item">表单</p>
                   <img src={iconNavForm} alt="" />
                 </div>
                 <div class="page__category js_categoryInner">
                   <ow-cells class="page__category-content">
-                    <ow-cell href="sbutton">Button</ow-cell>
+                    <ow-cell href="#/button">Button</ow-cell>
                     <ow-cell>Input</ow-cell>
                     <ow-cell>List</ow-cell>
                     <ow-cell>Slider</ow-cell>
@@ -137,14 +141,17 @@ define('my-app', class extends WeElement {
             </ul>
           </div>
           <div class="page__ft">
-            <a href="javascript:home()"><img src={iconFooter} /></a>
+            <a href="javascript:home()">
+              <img src={iconFooter} />
+            </a>
           </div>
         </div>
-        <div class={data.atHome?'page detail slideOut':'page detail slideIn'}>
-          <data.tag ></data.tag >
+        <div
+          class={data.atHome ? 'page detail slideOut' : 'page detail slideIn'}
+        >
+          <data.tag />
         </div>
       </div>
-
     )
   }
 })

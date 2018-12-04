@@ -4,9 +4,7 @@ import 'omi-weui/button'
 
 define('button-panel', class extends WeElement {
   css() {
-    return (
-      style
-    )
+    return style
   }
 
   render(props, data) {
