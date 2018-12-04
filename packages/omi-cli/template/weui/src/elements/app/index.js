@@ -1,25 +1,24 @@
 import { define, WeElement } from 'omi'
 import style from './_index.css'
 import logo from './logo.png'
-import '../app-intro'
-import 'omi-weui/button'
+import iconFooter from './icon_footer.png'
+import iconNavForm from './icon_nav_form.png'
+import iconNavLayout from './icon_nav_layout.png'
+import iconNavFeedback from './icon_nav_feedback.png'
+import iconNavNav from './icon_nav_nav.png'
+import iconNavSearch from './icon_nav_search.png'
+import iconNavZIndex from './icon_nav_z-index.png'
+import 'omi-weui/cells'
+
 
 define('my-app', class extends WeElement {
-  static get data() {
-    return { name: '' }
-  }
-
-  clickHandler = () => {
-    this.store.rename('Omi V5.0')
-  }
-
   css() {
     return style
   }
 
-  render(props, data, store) {
+  render() {
     return (
-      <div class="page">
+      <div class="page home">
         <div class="page__hd">
           <h1 class="page__title">
             <img src={logo} alt="WeUI" style="height:21px;" />
@@ -31,207 +30,87 @@ define('my-app', class extends WeElement {
             <li>
               <div class="weui-flex js_category">
                 <p class="weui-flex__item">表单</p>
-                <img src="./images/icon_nav_form.png" alt="" />
+                <img src={iconNavForm} alt="" />
               </div>
               <div class="page__category js_categoryInner">
-                <div class="weui-cells page__category-content">
-                  <a class="weui-cell weui-cell_access js_item" data-id="button" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Button</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="input" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Input</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="list" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>List</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="slider" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Slider</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="uploader" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Uploader</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                </div>
+                <ow-cells>
+                  <ow-cell>Button</ow-cell>
+                  <ow-cell>Input</ow-cell>
+                  <ow-cell>List</ow-cell>
+                  <ow-cell>Slider</ow-cell>
+                  <ow-cell>Uploader</ow-cell>
+                </ow-cells>
               </div>
             </li>
             <li>
               <div class="weui-flex js_category">
                 <p class="weui-flex__item">基础组件</p>
-                <img src="./images/icon_nav_layout.png" alt="" />
+                <img src={iconNavLayout} alt="" />
               </div>
               <div class="page__category js_categoryInner">
-                <div class="weui-cells page__category-content">
-                  <a class="weui-cell weui-cell_access js_item" data-id="article" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Article</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="badge" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Badge</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="flex" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Flex</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="footer" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Footer</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="gallery" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Gallery</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="grid" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Grid</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="icons" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Icons</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="loadmore" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Loadmore</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="panel" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Panel</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="preview" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Preview</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="progress" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Progress</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                </div>
+                <ow-cells>
+                  <ow-cell>Article</ow-cell>
+                  <ow-cell>Badge</ow-cell>
+                  <ow-cell>Flex</ow-cell>
+                  <ow-cell>Footer</ow-cell>
+                  <ow-cell>Gallery</ow-cell>
+                  <ow-cell>Grid</ow-cell>
+                  <ow-cell>Icons</ow-cell>
+                  <ow-cell>Loadmore</ow-cell>
+                  <ow-cell>Panel</ow-cell>
+                  <ow-cell>Preview</ow-cell>
+                  <ow-cell>Progress</ow-cell>
+                </ow-cells>
               </div>
             </li>
             <li>
               <div class="weui-flex js_category">
                 <p class="weui-flex__item">操作反馈</p>
-                <img src="./images/icon_nav_feedback.png" alt="" />
+                <img src={iconNavFeedback} alt="" />
               </div>
               <div class="page__category js_categoryInner">
-                <div class="weui-cells page__category-content">
-                  <a class="weui-cell weui-cell_access js_item" data-id="actionsheet" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Actionsheet</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="dialog" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Dialog</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="msg" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Msg</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="picker" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Picker</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="toast" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Toast</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                </div>
+                <ow-cells>
+                  <ow-cell>Actionsheet</ow-cell>
+                  <ow-cell>Dialog</ow-cell>
+                  <ow-cell>Msg</ow-cell>
+                  <ow-cell>Picker</ow-cell>
+                  <ow-cell>Toast</ow-cell>
+                </ow-cells>
               </div>
             </li>
             <li>
               <div class="weui-flex js_category">
                 <p class="weui-flex__item">导航相关</p>
-                <img src="./images/icon_nav_nav.png" alt="" />
+                <img src={iconNavNav} alt="" />
               </div>
               <div class="page__category js_categoryInner">
-                <div class="weui-cells page__category-content">
-                  <a class="weui-cell weui-cell_access js_item" data-id="navbar" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Navbar</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                  <a class="weui-cell weui-cell_access js_item" data-id="tabbar" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Tabbar</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                </div>
+                <ow-cells>
+                  <ow-cell>Navbar</ow-cell>
+                  <ow-cell>Tabbar</ow-cell>
+                </ow-cells>
               </div>
             </li>
             <li>
               <div class="weui-flex js_category">
                 <p class="weui-flex__item">搜索相关</p>
-                <img src="./images/icon_nav_search.png" alt="" />
+                <img src={iconNavSearch} alt="" />
               </div>
               <div class="page__category js_categoryInner">
-                <div class="weui-cells page__category-content">
-                  <a class="weui-cell weui-cell_access js_item" data-id="searchbar" href="javascript:;">
-                    <div class="weui-cell__bd">
-                      <p>Search Bar</p>
-                    </div>
-                    <div class="weui-cell__ft"></div>
-                  </a>
-                </div>
+                <ow-cells>
+                  <ow-cell>Search Bar</ow-cell>
+                </ow-cells>
               </div>
             </li>
             <li>
               <div class="weui-flex js_item" data-id="layers">
                 <p class="weui-flex__item">层级规范</p>
-                <img src="./images/icon_nav_z-index.png" alt="" />
+                <img src={iconNavZIndex} alt="" />
               </div>
             </li>
           </ul>
         </div>
         <div class="page__ft">
-          <a href="javascript:home()"><img src="./images/icon_footer.png" /></a>
+          <a href="javascript:home()"><img src={iconFooter} /></a>
         </div>
       </div>
     )

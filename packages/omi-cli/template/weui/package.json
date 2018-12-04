@@ -36,7 +36,7 @@
     "node-sass": "^4.10.0",
     "object-assign": "4.1.1",
     "omi": "latest",
-    "omi-weui": "0.0.2",
+    "omi-weui": "latest",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "prettier": "^1.14.3",
