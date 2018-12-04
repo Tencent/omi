@@ -36,6 +36,7 @@
     "node-sass": "^4.10.0",
     "object-assign": "4.1.1",
     "omi": "latest",
+    "omi-router": "latest",
     "omi-weui": "latest",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
