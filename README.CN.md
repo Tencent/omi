@@ -88,6 +88,7 @@
 * [A requestIdleCallback polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)
 * [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)
 * [ShadowRoot](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)
+* [Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)
 ---
 
 # 目录
