@@ -11,6 +11,7 @@ import iconNavZIndex from './icon_nav_z-index.png'
 import 'omi-weui/cells'
 import 'omi-router'
 import '../button-panel'
+import '../list-panel'
 import route from 'omi-router'
 
 define('my-app', class extends WeElement {
@@ -31,6 +32,11 @@ define('my-app', class extends WeElement {
   install() {
     route('/button', () => {
       this.data.tag = 'button-panel'
+      this.data.atHome = false
+    })
+
+    route('/list', () => {
+      this.data.tag = 'list-panel'
       this.data.atHome = false
     })
 
@@ -67,7 +73,7 @@ define('my-app', class extends WeElement {
                   <ow-cells class="page__category-content">
                     <ow-cell href="#/button">Button</ow-cell>
                     <ow-cell>Input</ow-cell>
-                    <ow-cell>List</ow-cell>
+                    <ow-cell href="#/list">List</ow-cell>
                     <ow-cell>Slider</ow-cell>
                     <ow-cell>Uploader</ow-cell>
                   </ow-cells>

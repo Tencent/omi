@@ -1,7 +1,7 @@
 import { define, WeElement } from 'omi'
 import style from './_index.scss'
 
-define('ow-cell', class extends WeElement {
+define('ow-list-item', class extends WeElement {
   css() {
     return style
   }
