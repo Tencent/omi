@@ -27,7 +27,7 @@ define('my-app', class extends WeElement {
         </div>
         <div class="page__bd page__bd_spacing">
           <ul>
-            <li>
+            <li class="js_show">
               <div class="weui-flex js_category">
                 <p class="weui-flex__item">表单</p>
                 <img src={iconNavForm} alt="" />
