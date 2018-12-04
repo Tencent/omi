@@ -12,11 +12,23 @@ import 'omi-weui/cells'
 
 
 define('my-app', class extends WeElement {
+  static observe = true
+
   css() {
     return style
   }
 
-  render() {
+  data = {
+    visible:{
+      form: true,
+
+    }
+  }
+  clickForm = ()=>{
+    this.data.visible.form = !this.data.visible.form
+  }
+
+  render(props, data) {
     return (
       <div class="page home">
         <div class="page__hd">
@@ -27,7 +39,7 @@ define('my-app', class extends WeElement {
         </div>
         <div class="page__bd page__bd_spacing">
           <ul>
-            <li class="js_show">
+            <li class={data.visible.form && 'js_show'} onClick={this.clickForm}>
               <div class="weui-flex js_category">
                 <p class="weui-flex__item">表单</p>
                 <img src={iconNavForm} alt="" />

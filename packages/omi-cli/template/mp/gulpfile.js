@@ -49,6 +49,7 @@ class Element extends WeElement {
   afterUpdate() {}
 
   install = function() {
+    this.properties = this.props
     mpOption.created && mpOption.created.call(this)
     Object.keys(mpOption.methods).forEach(key => {
       if(typeof mpOption.methods[key] === 'function'){
@@ -137,11 +138,13 @@ class Element extends WeElement {
 
   afterUpdate() {}
 
-  install() {}
+  install() {
+    this.properties = this.props
+  }
 
   uninstall = mpOption.onUnload || function() {}
 
-  installed = function(){
+  installed = function() {
     mpOption.onLoad && mpOption.onLoad.call(this, route.query)
     mpOption.onReady && mpOption.onReady.call(this, route.query)
 
