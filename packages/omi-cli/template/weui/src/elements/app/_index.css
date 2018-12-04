@@ -150,7 +150,8 @@ ul {
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
 	-webkit-transition: .3s;
-	transition: .3s
+  transition: .3s;
+  display: block;
 }
 
 .page.home .weui-flex {

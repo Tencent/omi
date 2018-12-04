@@ -8,6 +8,7 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 - [Cross component communication](#cross-component-communication)
 - [Implement tree view](#implement-tree-view)
 - [@font-face doesn't work in Shadow DOM](#font-face-doesnt-work-in-shadow-dom)
+- [CSS3 transform not working with custom element](#css3-transform-not-working-with-custom-element)
 
 ## Share css between parent and child nodes
 
@@ -273,3 +274,20 @@ Put font-face css in the global context to fix this, for example:
 ```
 
 [→ Related article](http://robdodson.me/at-font-face-doesnt-work-in-shadow-dom/?tdsourcetag=s_pcqq_aiomsg)
+
+### CSS3 transform not working with custom element
+
+```js
+console.log(getComputedStyle(document.querySelector('your-element')).display) //inline 
+```
+
+ Apply `display: block` or `display: inline-block` to your elmenet to fix it:
+
+ ```css
+ your-element{
+   display: block;
+   transform: translateX(100px);
+ }
+ ``` 
+
+ Then your  css3 transform props can take effect.

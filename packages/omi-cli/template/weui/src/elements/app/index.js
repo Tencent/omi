@@ -45,7 +45,7 @@ define('my-app', class extends WeElement {
                 <img src={iconNavForm} alt="" />
               </div>
               <div class="page__category js_categoryInner">
-                <ow-cells>
+                <ow-cells class="page__category-content">
                   <ow-cell>Button</ow-cell>
                   <ow-cell>Input</ow-cell>
                   <ow-cell>List</ow-cell>
