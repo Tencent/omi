@@ -87,14 +87,14 @@
                     node.addEventListener(name, eventProxy, useCapture);
                     if ('tap' == name) {
                         node.addEventListener('touchstart', touchStart, useCapture);
-                        node.addEventListener('touchstart', touchEnd, useCapture);
+                        node.addEventListener('touchend', touchEnd, useCapture);
                     }
                 }
             } else {
                 node.removeEventListener(name, eventProxy, useCapture);
                 if ('tap' == name) {
                     node.removeEventListener('touchstart', touchStart, useCapture);
-                    node.removeEventListener('touchstart', touchEnd, useCapture);
+                    node.removeEventListener('touchend', touchEnd, useCapture);
                 }
             }
             (node.__l || (node.__l = {}))[name] = value;
@@ -906,7 +906,7 @@
         defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.8';
+    options.root.Omi.version = '5.0.9';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
