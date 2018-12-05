@@ -1,6 +1,6 @@
 import { define, WeElement } from 'omi'
 import style from './_index.css'
-import 'omi-weui/list'
+import '../../weui/list'
 
 define('list-panel', class extends WeElement {
   css() {

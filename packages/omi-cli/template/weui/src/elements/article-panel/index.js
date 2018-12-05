@@ -1,6 +1,6 @@
 import { define, WeElement } from 'omi'
 import style from './_index.css'
-import 'omi-weui/article'
+import '../../weui/article'
 import picArticle from './pic_article.png'
 
 define('article-panel', class extends WeElement {

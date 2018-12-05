@@ -1,7 +1,7 @@
 import { define, WeElement } from 'omi'
 import style from './_index.css'
-import 'omi-weui/dialog'
-import 'omi-weui/button'
+import '../../weui/dialog'
+import '../../weui/button'
 
 define('dialog-panel', class extends WeElement {
   static observe = true

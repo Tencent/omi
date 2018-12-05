@@ -15,6 +15,9 @@ import '../list-panel'
 import '../article-panel'
 import '../dialog-panel'
 import '../icon-panel'
+import '../loading-panel'
+import '../msg-panel'
+import '../toptip-panel'
 import route from 'omi-router'
 
 define('my-app', class extends WeElement {
@@ -45,8 +48,23 @@ define('my-app', class extends WeElement {
       this.data.atHome = false
     })
 
+    route('/msg', () => {
+      this.data.tag = 'msg-panel'
+      this.data.atHome = false
+    })
+
+    route('/toptip', () => {
+      this.data.tag = 'toptip-panel'
+      this.data.atHome = false
+    })
+
     route('/icon', () => {
       this.data.tag = 'icon-panel'
+      this.data.atHome = false
+    })
+
+    route('/loading', () => {
+      this.data.tag = 'loading-panel'
       this.data.atHome = false
     })
 
@@ -149,9 +167,12 @@ define('my-app', class extends WeElement {
                   <ow-cells class="page__category-content">
                     <ow-cell>Actionsheet</ow-cell>
                     <ow-cell href="#/dialog">Dialog</ow-cell>
-                    <ow-cell>Msg</ow-cell>
+                    <ow-cell href="#/msg">Msg</ow-cell>
+                    <ow-cell href="#/toptip">Toptip</ow-cell>
                     <ow-cell>Picker</ow-cell>
                     <ow-cell>Toast</ow-cell>
+                    <ow-cell href="#/loading">Loading</ow-cell>
+                    
                   </ow-cells>
                 </div>
               </li>

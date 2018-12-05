@@ -1,6 +1,6 @@
 import { define, WeElement } from 'omi'
 import style from './_index.css'
-import 'omi-weui/button'
+import '../../weui/button'
 
 define('button-panel', class extends WeElement {
   css() {
