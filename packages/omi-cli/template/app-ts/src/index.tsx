@@ -93,4 +93,4 @@ class MyApp extends WeElement<MyAppProps, MyAppData> {
     }
 }
 
-render(<my-app name='Omi v4.0'></my-app>, '#root')
+render(<my-app name='Omi v5.0'></my-app>, '#root')
