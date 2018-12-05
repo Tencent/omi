@@ -28,7 +28,7 @@ class MyApp extends WeElement {
 				Hello {props.name} {data.abc}
 				<hello-element
 					onAbc={this.onAbc}
-					prop-from-parent={data.passToChild}
+					propFromParent={data.passToChild}
 					msg="WeElement"
 				/>
 			</div>

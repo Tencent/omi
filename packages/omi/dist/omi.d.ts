@@ -30,7 +30,7 @@ declare namespace Omi {
 	 *     namespace JSX {
 	 * 	       interface IntrinsicElements {
 	 *             'hello-element': CustomElementBaseAttributes & {
-	 *                 'prop-from-parent': string;
+	 *                 propFromParent: string;
 	 *             }
 	 *         }
 	 *     }
