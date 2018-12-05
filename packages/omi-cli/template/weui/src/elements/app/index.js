@@ -14,6 +14,7 @@ import '../button-panel'
 import '../list-panel'
 import '../article-panel'
 import '../dialog-panel'
+import '../icon-panel'
 import route from 'omi-router'
 
 define('my-app', class extends WeElement {
@@ -41,6 +42,11 @@ define('my-app', class extends WeElement {
 
     route('/list', () => {
       this.data.tag = 'list-panel'
+      this.data.atHome = false
+    })
+
+    route('/icon', () => {
+      this.data.tag = 'icon-panel'
       this.data.atHome = false
     })
 
@@ -126,7 +132,7 @@ define('my-app', class extends WeElement {
                     <ow-cell>Footer</ow-cell>
                     <ow-cell>Gallery</ow-cell>
                     <ow-cell>Grid</ow-cell>
-                    <ow-cell>Icons</ow-cell>
+                    <ow-cell href="#/icon">Icons</ow-cell>
                     <ow-cell>Loadmore</ow-cell>
                     <ow-cell>Panel</ow-cell>
                     <ow-cell>Preview</ow-cell>
