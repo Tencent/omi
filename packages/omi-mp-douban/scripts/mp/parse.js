@@ -123,21 +123,21 @@ function _walk(node, currentIndex, children) {
       let index = node.attr['wx:for-index'] || 'index'
       let item = node.attr['wx:for-item'] || 'item'
       let current = `${str}.map((${item},${index})=>{
-        return ${c}
+          return h('${map(node.tag)}',${stringify(
+            node.attr,
+            map(node.tag)
+          )},
+           ${c}
+        )
       })`
 
       delete node.attr['wx:for']
       delete node.attr['wx:for-items']
       delete node.attr['wx:for-index']
       delete node.attr['wx:for-item']
-      if (node.tag == 'block') {
-        result = `${ifCond} [${current}]`
-      } else {
-        result = `${ifCond}h('${map(node.tag)}',${stringify(
-          node.attr,
-          map(node.tag)
-        )},${current})`
-      }
+     
+      result = `${ifCond} ${current}`
+      
     } else if (node.tag == 'block') {
       result = isArray ? `${ifCond} [${c}]` : `${ifCond} ${c}`
     } else {
