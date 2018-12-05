@@ -253,6 +253,7 @@
             }
         }
         for (name in attrs) if (isWeElement && 'object' == typeof attrs[name]) {
+            if ('style' === name) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
             if (dom.receiveProps) try {
                 old[name] = JSON.parse(JSON.stringify(attrs[name]));
             } catch (e) {
@@ -905,7 +906,7 @@
         defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.6';
+    options.root.Omi.version = '5.0.7';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
