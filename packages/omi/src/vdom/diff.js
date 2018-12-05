@@ -350,9 +350,10 @@ function diffAttributes(dom, attrs, old, children) {
 
   // add new & update changed attributes
   for (name in attrs) {
-    //diable when using store system?
-    //!dom.store &&
     if (isWeElement && typeof attrs[name] === 'object') {
+      if (name === 'style') {
+        setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
+      }
       if (dom.receiveProps) {
         try {
           old[name] = JSON.parse(JSON.stringify(attrs[name]))
