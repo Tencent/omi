@@ -74,14 +74,14 @@ export function setAccessor(node, name, old, value, isSvg) {
         node.addEventListener(name, eventProxy, useCapture)
         if (name == 'tap') {
           node.addEventListener('touchstart', touchStart, useCapture)
-          node.addEventListener('touchstart', touchEnd, useCapture)
+          node.addEventListener('touchend', touchEnd, useCapture)
         }
       }
     } else {
       node.removeEventListener(name, eventProxy, useCapture)
       if (name == 'tap') {
         node.removeEventListener('touchstart', touchStart, useCapture)
-        node.removeEventListener('touchstart', touchEnd, useCapture)
+        node.removeEventListener('touchend', touchEnd, useCapture)
       }
     }
     ;(node._listeners || (node._listeners = {}))[name] = value
