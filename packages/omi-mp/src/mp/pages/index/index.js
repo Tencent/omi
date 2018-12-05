@@ -85,7 +85,9 @@ class Element extends WeElement {
 
   afterUpdate() {}
 
-  install() {}
+  install() {
+    this.properties = this.props
+  }
 
   uninstall = mpOption.onUnload || function() {}
 
