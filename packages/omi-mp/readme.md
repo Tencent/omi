@@ -155,5 +155,13 @@ div img .image{
 
 目前不支持导入 template 标签和一些原生组件标签，需要一些时间翻译成对应的 HTML 自定义元素，欢迎试用反馈或 PR。
 
+
+bindtap 的时候，在js里通过 evt.currentTarget.dataset.id 一定需要字符串，所以如果是字数需要转成字符串:
+
+```
+<view bindtap="tapHandler" data-id="{{item.id+''}}"></view>
+```
+
+
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
