@@ -27,6 +27,8 @@ const mpOption = Page({
     console.log('hide2')
   },
   myEventHandler: function (evt) {
+    //output -> <we-logs>...</we-logs>
+    console.log(this)
     //output -> dntzhang
     console.log(evt.detail.name)
   }
@@ -47,6 +49,11 @@ class Element extends WeElement {
 
   install() {
     this.properties = this.props
+    Object.keys(mpOption).forEach(key => {
+      if (typeof mpOption[key] === 'function') {
+        Element.prototype[key] = mpOption[key].bind(this)
+      }
+    })
   }
 
   uninstall = mpOption.onUnload || function() {}

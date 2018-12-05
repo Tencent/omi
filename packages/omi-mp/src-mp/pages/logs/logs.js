@@ -21,6 +21,8 @@ Page({
     console.log('hide2')
   },
   myEventHandler: function (evt) {
+    //output -> <we-logs>...</we-logs>
+    console.log(this)
     //output -> dntzhang
     console.log(evt.detail.name)
   }
