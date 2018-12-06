@@ -18,6 +18,7 @@ import '../loading-panel'
 import '../msg-panel'
 import '../toptip-panel'
 import '../selection-panel'
+import '../switch-panel'
 import route from 'omi-router'
 
 define('my-app', class extends WeElement {
@@ -63,6 +64,12 @@ define('my-app', class extends WeElement {
       this.data.atHome = false
     })
 
+    route('/switch', () => {
+      this.data.tag = 'switch-panel'
+      this.data.atHome = false
+    })
+
+
     route('/icon', () => {
       this.data.tag = 'icon-panel'
       this.data.atHome = false
@@ -73,9 +80,7 @@ define('my-app', class extends WeElement {
       this.data.atHome = false
     })
 
-    route('/input', () => {
-      alert('开发中，敬请期待')
-    })
+    
 
     route('/article', () => {
       this.data.tag = 'article-panel'
@@ -87,13 +92,10 @@ define('my-app', class extends WeElement {
       this.data.atHome = false
     })
 
-    route('/slider', () => {
-      alert('开发中，敬请期待')
-    })
+    // route('/slider', () => {
+    //   alert('开发中，敬请期待')
+    // })
 
-    route('/uploader', () => {
-      alert('开发中，敬请期待')
-    })
 
     route('*', () => {
       this.data.atHome = true
@@ -138,7 +140,7 @@ define('my-app', class extends WeElement {
                     <ow-cell href="#/selection">Selection</ow-cell>
                     <ow-cell href="#/list">List</ow-cell>
                     <ow-cell href="#/slider">Slider</ow-cell>
-                    <ow-cell href="#/uploader">Uploader</ow-cell>
+                    <ow-cell href="#/switch">Switch</ow-cell>
                   </ow-cells>
                 </div>
               </li>
@@ -177,7 +179,6 @@ define('my-app', class extends WeElement {
                     <ow-cell>Picker</ow-cell>
                     <ow-cell>Toast</ow-cell>
                     <ow-cell href="#/loading">Loading</ow-cell>
-                    
                   </ow-cells>
                 </div>
               </li>
