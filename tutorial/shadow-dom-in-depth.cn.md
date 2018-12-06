@@ -1,3 +1,5 @@
+[English Repo Link](https://github.com/praveenpuglia/shadow-dom-in-depth/blob/master/README.md)
+
 # Shadow DOM
 
 > 打起精神了~  本文讲述的是关于Shadow DOM V1规范那些事儿！
