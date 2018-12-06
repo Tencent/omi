@@ -14,12 +14,16 @@ export function proxyUpdate(ele) {
     ) {
       return
     }
+    if (ele.constructor.mergeUpdate) {
+      clearTimeout(timeout)
 
-    clearTimeout(timeout)
-
-    timeout = setTimeout(() => {
+      timeout = setTimeout(() => {
+        ele.update()
+        fireTick()
+      }, 0)
+    } else {
       ele.update()
       fireTick()
-    }, 0)
+    }
   })
 }
