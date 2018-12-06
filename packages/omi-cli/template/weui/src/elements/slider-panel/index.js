@@ -3,6 +3,8 @@ import style from './_index.css'
 import '../../weui/slider'
 
 define('slider-panel', class extends WeElement {
+  static observe = true
+  
   css() {
     return style
   }
