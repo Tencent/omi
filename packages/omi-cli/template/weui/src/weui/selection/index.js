@@ -14,25 +14,26 @@ define('ow-selection', class extends WeElement {
   }
 
   onSelectSingle = (index) => {
-    this.props.selectedIndex = index
     this.fire('select', { index: index })
   }
 
 
   onSelect = (index) => {
-    this.props.items[index].selected = !this.props.items[index].selected
-
-    const arr = []
-    this.props.items.map((item, index) => {
-      if (item.selected) {
-        arr.push(index)
-      }
-    })
-    this.fire('select', { indexs: arr })
+    const cloneIdxs = this.props.selectedIndexs.slice(0)
+    const position = this.props.selectedIndexs.indexOf(index)
+    if(position===-1){
+      cloneIdxs.push(index)
+    }else{
+      cloneIdxs.splice(position,1)
+    }
+    //Prevent repeated tap width setTimeout
+    setTimeout(()=>{
+      this.fire('select', { indexs: cloneIdxs })
+    },600)
+   
   }
 
   render(props) {
-
     if (props.single) {
       return (
         <div class="weui-cells weui-cells_radio">
@@ -59,18 +60,16 @@ define('ow-selection', class extends WeElement {
     } else {
       return (
         <div class="weui-cells weui-cells_checkbox">
-
           {props.items.map((item, index) => (
-
             <label class="weui-cell weui-check__label" for={`x_${this.__elementId}_${index}`} ontap={() => {
               this.onSelect(index)
             }}>
               <div class="weui-cell__hd">
-                <input type="checkbox" class="weui-check" name="checkbox1" id={`x_${this.__elementId}_${index}`} checked={item.selected} />
+                <input type="checkbox" class="weui-check" name="checkbox1" id={`x_${this.__elementId}_${index}`} checked={props.selectedIndexs.indexOf(index)!==-1} />
                 <i class="weui-icon-checked"></i>
               </div>
               <div class="weui-cell__bd">
-                <p>standard is dealt for u.</p>
+                <p>{item.text}</p>
               </div>
             </label>
           ))}
