@@ -20,6 +20,6 @@ class OtherViewModel {
   }
 }
 
-const vd = new OtherViewModel()
+const vm = new OtherViewModel()
 
-export default vd
+export default vm

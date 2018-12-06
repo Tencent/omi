@@ -45,6 +45,6 @@ class TodoViewModel {
   }
 }
 
-const vd = new TodoViewModel()
+const vm = new TodoViewModel()
 
-export default vd
+export default vm
