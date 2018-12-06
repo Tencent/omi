@@ -14,7 +14,7 @@
   - [Slot](#slot)
   - [noSlot](#noslot)
   - [Observe](#observe)
-  - [Tick and NextTick](#tick-and-nexttick)
+  - [MergeUpdate](#mergeupdate)
   - [Use](#use)
   - [SSR](#ssr)
 
@@ -475,9 +475,21 @@ class MyApp extends WeElement {
 }
 ```
 
-### Tick and NextTick
+### MergeUpdate
 
-如果使用了observe，数据更改之后视图不是立即变更，如果你想获取真实变更后的dom，你可以使用tick或者nextTick。
+如果使用了observe 和 mergeUpdate，数据更改之后视图不是立即变更，
+
+```js
+define('todo-list', class extends WeElement {
+  static observe = true
+
+  static mergeUpdate = true
+
+  ....
+})
+```
+
+如果你想获取真实变更后的dom，你可以使用tick或者nextTick。
 
 ```js
 import { render, WeElement, define, tick, nextTick } from 'omi'

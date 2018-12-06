@@ -25,7 +25,8 @@ define('ow-slider', class extends WeElement {
     this.percentage > 100 && (this.percentage = 100)
     this._x = evt.touches[0].pageX
     //Update immediately!For Smoother interaction！
-    this.update()
+    //omi v5.0.10 fix this
+    //this.update()
     this.fire('change', this.percentage)
   }
 
