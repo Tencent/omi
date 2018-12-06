@@ -19,6 +19,7 @@ import '../msg-panel'
 import '../toptip-panel'
 import '../selection-panel'
 import '../switch-panel'
+import '../slider-panel'
 import route from 'omi-router'
 
 define('my-app', class extends WeElement {
@@ -92,9 +93,10 @@ define('my-app', class extends WeElement {
       this.data.atHome = false
     })
 
-    // route('/slider', () => {
-    //   alert('开发中，敬请期待')
-    // })
+    route('/slider', () => {
+      this.data.tag = 'slider-panel'
+      this.data.atHome = false
+    })
 
 
     route('*', () => {
