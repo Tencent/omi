@@ -96,6 +96,8 @@ declare namespace Omi {
 		// https://github.com/Microsoft/TypeScript/issues/24018
 		static props: object;
 		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
 
 		props: RenderableProps<P>;
 		data: D;
@@ -123,6 +125,8 @@ declare namespace Omi {
 		// https://github.com/Microsoft/TypeScript/issues/24018
 		static props: object;
 		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
 
 		props: RenderableProps<P>;
 		data: D;
@@ -144,6 +148,8 @@ declare namespace Omi {
 		// https://github.com/Microsoft/TypeScript/issues/24018
 		static props: object;
 		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
 
 		props: RenderableProps<P>;
 		data: D;
