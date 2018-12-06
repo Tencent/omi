@@ -1,0 +1,6 @@
+<view >
+  {{name}}
+  <button class="btn" type="primary" bindtap="onTap">
+    Random
+  </button>
+</view>

@@ -8,4 +8,6 @@
       <button class="button" bindtap="tapHandler">Add{{items.length}}</button>
     </view>
   </view>
+
+  <other-view />
 </view>

@@ -11,12 +11,24 @@ create.Page = function(vm, options) {
     vm.data = new JSONProxy(vm.data).observe(false, info => {
       this.setData(vm.data)
     })
+    this.setData(vm.data)
     onLoad && onLoad.call(this, e)
   }
   Page(options)
 }
 
-create.Component = function() {}
+create.Component = function(vm, options) {
+
+  const ready = options.ready
+  options.ready = function(e) {
+    vm.data = new JSONProxy(vm.data).observe(false, info => {
+      this.setData(vm.data)
+    })
+    this.setData(vm.data)
+    ready && ready.call(this, e)
+  }
+  Component(options)
+}
 
 if (typeof exports == 'object') {
   module.exports = create
