@@ -1,6 +1,5 @@
 import { define, WeElement } from 'omi'
 import style from './_index.css'
-import logo from './logo.png'
 import iconFooter from './icon_footer.png'
 import iconNavForm from './icon_nav_form.png'
 import iconNavLayout from './icon_nav_layout.png'
@@ -113,7 +112,7 @@ define('my-app', class extends WeElement {
         <div class="page home">
           <div class="page__hd">
             <h1 class="page__title">
-              <img src={logo} alt="WeUI" style="height:21px;" />
+              Omi-WeUI
             </h1>
             <p class="page__desc">
               WeUI
