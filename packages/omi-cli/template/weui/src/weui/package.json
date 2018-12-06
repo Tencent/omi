@@ -1,6 +1,6 @@
 {
   "name": "omi-weui",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "> weui for Omi",
   "main": "dist/index.js",
   "directories": {
