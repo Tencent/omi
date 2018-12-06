@@ -1,19 +1,20 @@
-
 import vm from '../../view-model/todo'
 import create from '../../utils/create'
 
 create.Page(vm, {
-  data:{
-    value:''
+  data: {
+    text: ''
   },
-  onLoad: function () {
+  onLoad: function() {
     vm.getAll()
   },
-  tapHandler:function(){
-    vm.add('abc')
+  inputHandler: function(e) {
+    this.text = e.detail.value
+  },
+  tapHandler: function() {
+    vm.add(this.text)
     this.setData({
-      value:''
+      text: ''
     })
   }
 })
-

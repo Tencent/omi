@@ -9,19 +9,19 @@
 var ARRAYTYPE = '[object Array]'
 var OBJECTTYPE = '[object Object]'
 
-var mapping = function (options) {
+var mapping = function(options) {
   var from = options.from
   var to = options.to
   var rules = options.rule
 
   var res = to || {}
 
-  Object.keys(from).forEach(function (key) {
+  Object.keys(from).forEach(function(key) {
     res[key] = from[key]
   })
 
   rules &&
-    Object.keys(rules).forEach(function (key) {
+    Object.keys(rules).forEach(function(key) {
       var rule = rules[key]
       var isPath = key.match(/\.|\[/)
       if (typeof rule === 'function') {
@@ -69,12 +69,12 @@ function setPathValue(obj, path, value) {
   }
 }
 
-mapping.auto = function (from, to) {
+mapping.auto = function(from, to) {
   return objMapping(from, to)
 }
 
 function arrayMapping(from, to) {
-  from.forEach(function (item, index) {
+  from.forEach(function(item, index) {
     if (isArray(item)) {
       to[index] = to[index] || []
       arrayMapping(item, to[index])
@@ -111,10 +111,12 @@ function isObject(obj) {
   return Object.prototype.toString.call(obj) === OBJECTTYPE
 }
 
-if (typeof exports == "object") {
+if (typeof exports == 'object') {
   module.exports = mapping
-} else if (typeof define == "function" && define.amd) {
-  define([], function () { return mapping })
+} else if (typeof define == 'function' && define.amd) {
+  define([], function() {
+    return mapping
+  })
 } else {
   window.mapping = mapping
 }

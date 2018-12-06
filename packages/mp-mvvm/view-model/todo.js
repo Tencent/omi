@@ -23,7 +23,7 @@ class TodoViewModel {
     this.update()
   }
 
-  toogleComplete(id){
+  toogleComplete(id) {
     todo.toogleComplete(id)
     this.update()
   }

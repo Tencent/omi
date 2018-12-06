@@ -56,7 +56,7 @@ export default class Todo {
   toogleComplete(id) {
     this.items.every(item => {
       if (id === item.id) {
-        item.completed = !item.completed 
+        item.completed = !item.completed
         return false
       }
       return true

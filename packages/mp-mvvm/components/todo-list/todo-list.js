@@ -1,17 +1,15 @@
-
 import vm from '../../view-model/todo'
 
 Component({
   properties: {
-    items:{
+    items: {
       type: Array,
-      value:[]
+      value: []
     }
   },
 
-  ready: function () {
-  },
-  
+  ready: function() {},
+
   methods: {
     checkboxChange: function(e) {
       vm.toogleComplete(e.currentTarget.dataset.id)
