@@ -17,6 +17,7 @@ import '../icon-panel'
 import '../loading-panel'
 import '../msg-panel'
 import '../toptip-panel'
+import '../selection-panel'
 import route from 'omi-router'
 
 define('my-app', class extends WeElement {
@@ -49,6 +50,11 @@ define('my-app', class extends WeElement {
 
     route('/msg', () => {
       this.data.tag = 'msg-panel'
+      this.data.atHome = false
+    })
+
+    route('/selection', () => {
+      this.data.tag = 'selection-panel'
       this.data.atHome = false
     })
 
@@ -129,7 +135,7 @@ define('my-app', class extends WeElement {
                 <div class="page__category js_categoryInner">
                   <ow-cells class="page__category-content">
                     <ow-cell href="#/button">Button</ow-cell>
-                    <ow-cell href="#/input">Input</ow-cell>
+                    <ow-cell href="#/selection">Selection</ow-cell>
                     <ow-cell href="#/list">List</ow-cell>
                     <ow-cell href="#/slider">Slider</ow-cell>
                     <ow-cell href="#/uploader">Uploader</ow-cell>
