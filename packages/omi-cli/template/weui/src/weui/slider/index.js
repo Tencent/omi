@@ -6,10 +6,9 @@ define('ow-slider', class extends WeElement {
     return style
   }
 
-  onChange = () => {
-    this.fire('change', this.percentage)
+  install(){
+    this.percentage = this.props.percentage
   }
-
   installed() {
     this._width = this._ele.getBoundingClientRect().width
   }
@@ -21,11 +20,11 @@ define('ow-slider', class extends WeElement {
   }
 
   move = (evt) => {
-    this.props.percentage += (evt.touches[0].pageX - this._x) / this._width * 100
-    this.props.percentage < 0 && (this.props.percentage = 0)
-    this.props.percentage > 100 && (this.props.percentage = 100)
-    this.update()
+    this.percentage += (evt.touches[0].pageX - this._x) / this._width * 100
+    this.percentage < 0 && (this.percentage = 0)
+    this.percentage > 100 && (this.percentage = 100)
     this._x = evt.touches[0].pageX
+    this.fire('change', this.percentage)
   }
 
   end = () => {

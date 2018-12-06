@@ -7,12 +7,12 @@ define('slider-panel', class extends WeElement {
     return style
   }
 
-  onChangeA = (e) => {
-    console.log(e.detail)
+  install(){
+    this.data.percentage = 30
   }
 
-  onChangeB = (e) => {
-    console.log(e.detail)
+  onChange= (e) => {
+    this.data.percentage = e.detail
   }
 
   render() {
@@ -25,7 +25,7 @@ define('slider-panel', class extends WeElement {
         <div class="page__bd page__bd_spacing">
           <ow-slider disabled></ow-slider>
 
-          <ow-slider percentage={30}></ow-slider>
+          <ow-slider onChange={this.onChange} percentage={this.data.percentage}></ow-slider>
         </div>
       </div>
     )
