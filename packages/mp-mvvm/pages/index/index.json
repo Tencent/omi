@@ -1,0 +1,6 @@
+{
+
+  "usingComponents": {
+    "todo-list": "/components/todo-list/todo-list"
+  }
+}

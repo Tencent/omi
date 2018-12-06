@@ -1,0 +1,5 @@
+<view >
+  <label class="checkbox {{item.completed&&'completed'}}" wx:for="{{items}}">
+    <checkbox bindtap="checkboxChange" data-id="{{item.id}}" checked="{{item.completed}}"/>{{item.text}}
+  </label>
+</view>
