@@ -7,6 +7,18 @@ define('selection-panel', class extends WeElement {
     return style
   }
 
+  onTapMore = () => {
+    console.log(1)
+  }
+
+  onSelectSingle = (e) => {
+    console.log(e.detail.index) 
+  }
+
+  onSelect = (e) => {
+    console.log(e.detail.indexs)
+  }
+
   render(props, data) {
     return (
       <div>
@@ -16,19 +28,31 @@ define('selection-panel', class extends WeElement {
         </div>
         <div>
           <div class="weui-cells__title">单选列表项</div>
-          <ow-selection items={[
-            { text: 'item1' },
-            { text: 'item2' },
-            { text: 'item3' }
-          ]} single></ow-selection>
+          <ow-selection
+            items={[
+              { text: 'item1' },
+              { text: 'item2'},
+              { text: 'item3' }
+            ]}
+            selectedIndex={1}
+            single
+            onTapMore={this.onTapMore}
+            onSelect={this.onSelectSingle}
+          >
+          </ow-selection>
 
 
-<div class="weui-cells__title">多选列表项</div>
-          <ow-selection items={[
-            { text: 'item1' },
-            { text: 'item2' },
-            { text: 'item3' }
-          ]} ></ow-selection>
+          <div class="weui-cells__title">多选列表项</div>
+          <ow-selection
+            items={[
+              { text: 'item1' },
+              { text: 'item2', selected: true},
+              { text: 'item3' }
+            ]}
+            onSelect={this.onSelect}
+          >
+
+          </ow-selection>
         </div>
       </div>
     )

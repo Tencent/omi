@@ -9,6 +9,7 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 - [Implement tree view](#implement-tree-view)
 - [@font-face doesn't work in Shadow DOM](#font-face-doesnt-work-in-shadow-dom)
 - [CSS3 transform not working with custom element](#css3-transform-not-working-with-custom-element)
+- [Rendering checkbox in the loop](#rendering-checkbox-in-the-loop)
 
 ## Share css between parent and child nodes
 
@@ -291,3 +292,13 @@ console.log(getComputedStyle(document.querySelector('your-element')).display) //
  ``` 
 
  Then your  css3 transform props can take effect.
+
+### Rendering checkbox in the loop
+
+```js
+ {props.items.map((item, index) => (
+  <label for={`x_${this.__elementId}_${index}`}>
+      <input type="checkbox" id={`x_${this.__elementId}_${index}`} checked={item.selected} />
+  </label>
+))}
+```
