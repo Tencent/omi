@@ -5,7 +5,7 @@
     <todo-list items="{{items}}" />
     <view class="form">
       <input class="input" bindinput="inputHandler" type="text" placeholder="Input your task" value="{{text}}" />
-      <button class="button" bindtap="tapHandler">Add{{items.length}}</button>
+      <button class="button" bindtap="tapHandler">Add{{items.length+1}}</button>
     </view>
   </view>
 
