@@ -33,6 +33,11 @@ class TodoViewModel {
     this.update()
   }
 
+  remove(id) {
+    todo.remove(id)
+    this.update()
+  }
+
   getAll() {
     todo.getAll(() => {
       this.update()

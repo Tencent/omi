@@ -255,14 +255,14 @@
           node.addEventListener(name, eventProxy, useCapture);
           if (name == 'tap') {
             node.addEventListener('touchstart', touchStart, useCapture);
-            node.addEventListener('touchstart', touchEnd, useCapture);
+            node.addEventListener('touchend', touchEnd, useCapture);
           }
         }
       } else {
         node.removeEventListener(name, eventProxy, useCapture);
         if (name == 'tap') {
           node.removeEventListener('touchstart', touchStart, useCapture);
-          node.removeEventListener('touchstart', touchEnd, useCapture);
+          node.removeEventListener('touchend', touchEnd, useCapture);
         }
       }
   (node._listeners || (node._listeners = {}))[name] = value;
@@ -599,6 +599,10 @@
     var name = void 0;
     var update = false;
     var isWeElement = dom.update;
+    var oldClone = void 0;
+    if (dom.receiveProps) {
+      oldClone = Object.assign({}, old);
+    }
     // remove attributes no longer present on the vnode by setting them to undefined
     for (name in old) {
       if (!(attrs && attrs[name] != null) && old[name] != null) {
@@ -612,9 +616,17 @@
 
     // add new & update changed attributes
     for (name in attrs) {
-      //diable when using store system?
-      //!dom.store &&
       if (isWeElement && typeof attrs[name] === 'object') {
+        if (name === 'style') {
+          setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+        }
+        if (dom.receiveProps) {
+          try {
+            old[name] = JSON.parse(JSON.stringify(attrs[name]));
+          } catch (e) {
+            console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
+          }
+        }
         dom.props[npn(name)] = attrs[name];
         update = true;
       } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
@@ -628,7 +640,7 @@
 
     if (isWeElement && dom.parentNode) {
       if (update || children.length > 0) {
-        dom.receiveProps(dom.props, dom.data);
+        dom.receiveProps(dom.props, dom.data, oldClone);
         dom.update();
       }
     }
@@ -1020,17 +1032,22 @@
 
   function proxyUpdate(ele) {
     var timeout = null;
-    ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-      if (ele._willUpdate || info.op === 'replace' && info.oldValue === info.value) {
+    ele.data = new JSONPatcherProxy(ele.data).observe(false, function () {
+      if (ele._willUpdate) {
         return;
       }
+      if (ele.constructor.mergeUpdate) {
+        clearTimeout(timeout);
 
-      clearTimeout(timeout);
-
-      timeout = setTimeout(function () {
+        timeout = setTimeout(function () {
+          ele.update();
+          fireTick();
+        }, 0);
+      } else {
+        console.log(1111);
         ele.update();
         fireTick();
-      }, 0);
+      }
     });
   }
 
@@ -1063,7 +1080,7 @@
         var p = this.parentNode;
         while (p && !this.store) {
           this.store = p.store;
-          p = p.parentNode || p._host;
+          p = p.parentNode || p.host;
         }
         if (this.store) {
           this.store.instances.push(this);
@@ -1494,6 +1511,7 @@
   }(WeElement), _class$1.observe = true, _temp$1);
 
   var Component = WeElement;
+  var defineElement = define;
 
   var omi = {
     tag: tag,
@@ -1510,11 +1528,12 @@
     rpx: rpx,
     tick: tick,
     nextTick: nextTick,
-    ModelView: ModelView
+    ModelView: ModelView,
+    defineElement: defineElement
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '5.0.4';
+  options.root.Omi.version = '5.0.10';
 
   function createCommonjsModule(fn, module) {
   	return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -1702,6 +1721,7 @@
           item.content = content;
           return false;
         }
+        return true;
       });
     };
 
@@ -1733,6 +1753,7 @@
           _this2.items.splice(index, 1);
           return false;
         }
+        return true;
       });
     };
 
@@ -1756,35 +1777,45 @@
 
   function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var TodoViewData = function () {
-    function TodoViewData() {
-      _classCallCheck$5(this, TodoViewData);
+  var TodoViewModel = function () {
+    function TodoViewModel() {
+      _classCallCheck$5(this, TodoViewModel);
 
       this.data = {
         items: []
       };
     }
 
-    TodoViewData.prototype.update = function update() {
+    TodoViewModel.prototype.update = function update() {
+      //will automatically update the view!!!
       mappingjs.auto(todo, this.data);
     };
 
-    TodoViewData.prototype.complete = function complete(id) {
+    TodoViewModel.prototype.complete = function complete(id) {
       todo.complete(id);
       this.update();
     };
 
-    TodoViewData.prototype.uncomplete = function uncomplete(id) {
+    TodoViewModel.prototype.uncomplete = function uncomplete(id) {
       todo.uncomplete(id);
       this.update();
     };
 
-    TodoViewData.prototype.add = function add(text) {
+    TodoViewModel.prototype.add = function add(text) {
       todo.add(text);
       this.update();
     };
 
-    TodoViewData.prototype.getAll = function getAll() {
+    TodoViewModel.prototype.remove = function remove(id) {
+      todo.remove(id);
+      console.log(id);
+      console.log(this.data.items);
+      //empty first
+      this.data.items.length = 0;
+      this.update();
+    };
+
+    TodoViewModel.prototype.getAll = function getAll() {
       var _this = this;
 
       todo.getAll(function () {
@@ -1792,10 +1823,10 @@
       });
     };
 
-    return TodoViewData;
+    return TodoViewModel;
   }();
 
-  var vd = new TodoViewData();
+  var vm = new TodoViewModel();
 
   function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1817,10 +1848,12 @@
 
       return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (evt, id) {
         if (evt.target.checked) {
-          vd.complete(id);
+          vm.complete(id);
         } else {
-          vd.uncomplete(id);
+          vm.uncomplete(id);
         }
+      }, _this.onClick = function (id) {
+        vm.remove(id);
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
@@ -1844,7 +1877,14 @@
                 _this2.onChange(evt, item.id);
               }
             }),
-            item.text
+            item.text,
+            Omi.h(
+              'button',
+              { onClick: function onClick() {
+                  _this2.onClick(item.id);
+                } },
+              'remove'
+            )
           );
         })
       );
@@ -1871,19 +1911,20 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _ModelView.call.apply(_ModelView, [this].concat(args))), _this), _this.vm = vd, _this.handleChange = function (e) {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _ModelView.call.apply(_ModelView, [this].concat(args))), _this), _this.vm = vm, _this.handleChange = function (e) {
         _this.text = e.target.value;
       }, _this.handleSubmit = function (e) {
         e.preventDefault();
-        if (_this.text !== '') {
-          vd.add(_this.text);
+        var text = _this.text;
+        if (text !== '') {
           _this.text = '';
+          vm.add(text);
         }
       }, _temp), _possibleConstructorReturn$4(_this, _ret);
     }
 
     _class2.prototype.install = function install() {
-      vd.getAll();
+      vm.getAll();
     };
 
     _class2.prototype.css = function css() {

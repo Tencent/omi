@@ -19,6 +19,10 @@ define('todo-list', class extends WeElement {
     }
   }
 
+  onClick = id => {
+    vm.remove(id)
+  }
+
   render(props) {
     return (
       <ul>
@@ -31,6 +35,13 @@ define('todo-list', class extends WeElement {
               }}
             />
             {item.text}
+            <button
+              onClick={() => {
+                this.onClick(item.id)
+              }}
+            >
+              remove
+            </button>
           </li>
         ))}
       </ul>

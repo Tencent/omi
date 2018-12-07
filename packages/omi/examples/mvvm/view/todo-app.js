@@ -40,9 +40,10 @@ define('todo-app', class extends ModelView {
 
   handleSubmit = e => {
     e.preventDefault()
-    if (this.text !== '') {
-      vm.add(this.text)
+    const text = this.text
+    if (text !== '') {
       this.text = ''
+      vm.add(text)
     }
   }
 })

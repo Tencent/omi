@@ -7,7 +7,7 @@ define('my-app', class extends WeElement {
   install() {
     this.dd = { a: 1 }
   }
-  
+
   onAbc = evt => {
     this.data.abc = ' by ' + evt.detail.name
     this.data.passToChild = 1234

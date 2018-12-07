@@ -299,8 +299,8 @@
     }
     function proxyUpdate(ele) {
         var timeout = null;
-        ele.data = new JSONPatcherProxy(ele.data).observe(!1, function(info) {
-            if (!(ele.J || 'replace' === info.op && info.oldValue === info.value)) if (ele.constructor.mergeUpdate) {
+        ele.data = new JSONPatcherProxy(ele.data).observe(!1, function() {
+            if (!ele.J) if (ele.constructor.mergeUpdate) {
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     ele.update();
@@ -909,7 +909,7 @@
         defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.10';
+    options.root.Omi.version = '5.0.11';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

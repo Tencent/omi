@@ -28,6 +28,15 @@ class TodoViewModel {
     this.update()
   }
 
+  remove(id) {
+    todo.remove(id)
+    console.log(id)
+    console.log(this.data.items)
+    //empty first
+    this.data.items.length = 0
+    this.update()
+  }
+
   getAll() {
     todo.getAll(() => {
       this.update()

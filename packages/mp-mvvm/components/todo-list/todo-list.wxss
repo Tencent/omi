@@ -6,3 +6,16 @@
   color: #d9d9d9;
   text-decoration: line-through;
 }
+
+image{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 0px;
+  top: 2px;
+}
+
+label{
+  position: relative;
+  margin-top: 4px; 
+}
