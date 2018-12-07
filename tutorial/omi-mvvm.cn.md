@@ -358,17 +358,6 @@ define('todo-list', class extends WeElement {
 })
 ```
 
-需要特别强调的是，当你从数组中移除的时候，需要先清空数组：
-
-```js
-remove(id) {
-  todo.remove(id)
-  //empty first
-  this.data.items.length = 0
-  mapping.auto(todo, this.data)
-}
-```
-
 [→ 完整代码戳这里](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template/mvvm/src)
 
 
