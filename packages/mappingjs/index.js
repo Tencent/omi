@@ -1,5 +1,5 @@
 /**
- * mappingjs v1.0.0 by dntzhang
+ * mappingjs v1.0.1 by dntzhang
  * Objects mapping for javascript. Omi MVVM's best partner.
  * @method mapping
  * @param {Object} options {from: .., to: .., rule: .. }
@@ -74,6 +74,9 @@ mapping.auto = function (from, to) {
 }
 
 function arrayMapping(from, to) {
+  if (from.length < to.length) {
+    to.length = from.length
+  }
   from.forEach(function (item, index) {
     if (isArray(item)) {
       to[index] = to[index] || []

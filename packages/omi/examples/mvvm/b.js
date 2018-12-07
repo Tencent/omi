@@ -1540,7 +1540,7 @@
 
   var mappingjs = createCommonjsModule(function (module, exports) {
   /**
-   * mappingjs v1.0.0 by dntzhang
+   * mappingjs v1.0.1 by dntzhang
    * Objects mapping for javascript. Omi MVVM's best partner.
    * @method mapping
    * @param {Object} options {from: .., to: .., rule: .. }
@@ -1615,6 +1615,9 @@
   };
 
   function arrayMapping(from, to) {
+    if (from.length < to.length) {
+      to.length = from.length;
+    }
     from.forEach(function (item, index) {
       if (isArray(item)) {
         to[index] = to[index] || [];
@@ -1807,8 +1810,6 @@
 
     TodoViewModel.prototype.remove = function remove(id) {
       todo.remove(id);
-      //empty first
-      this.data.items.length = 0;
       this.update();
     };
 

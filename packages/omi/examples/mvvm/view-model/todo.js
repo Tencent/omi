@@ -30,8 +30,6 @@ class TodoViewModel {
 
   remove(id) {
     todo.remove(id)
-    //empty first
-    this.data.items.length = 0
     this.update()
   }
 
