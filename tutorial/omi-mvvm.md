@@ -350,6 +350,17 @@ define('todo-list', class extends WeElement {
 })
 ```
 
+Needing to pay attention to is that, when you remove item from an array, you need to clear the array first, then using mapping.atuo:
+
+```js
+remove(id) {
+  todo.remove(id)
+  //empty first
+  this.data.items.length = 0
+  mapping.auto(todo, this.data)
+}
+```
+
 [→ All the source code](https://github.com/Tencent/omi/tree/master/packages/omi/examples/mvvm)
 
 ### Summary

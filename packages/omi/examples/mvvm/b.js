@@ -1044,7 +1044,6 @@
           fireTick();
         }, 0);
       } else {
-        console.log(1111);
         ele.update();
         fireTick();
       }
@@ -1533,7 +1532,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '5.0.10';
+  options.root.Omi.version = '5.0.11';
 
   function createCommonjsModule(fn, module) {
   	return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -1808,8 +1807,6 @@
 
     TodoViewModel.prototype.remove = function remove(id) {
       todo.remove(id);
-      console.log(id);
-      console.log(this.data.items);
       //empty first
       this.data.items.length = 0;
       this.update();
@@ -1880,9 +1877,11 @@
             item.text,
             Omi.h(
               'button',
-              { onClick: function onClick() {
+              {
+                onClick: function onClick() {
                   _this2.onClick(item.id);
-                } },
+                }
+              },
               'remove'
             )
           );
