@@ -10,7 +10,7 @@ npm i omi-ex
 
 ### Usage
 
-* Supports Router/Route(react-router like)，
+* Supports Router/Route(react-router like)
 * Supports keepAlive
 * Sharing data with subcomponents
   * appData.routerData.query
