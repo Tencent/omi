@@ -12,21 +12,8 @@ npm i mappingjs
 
 ## Usage
 
-```js
-var a = { a: 1 }
-var b = { b: 2 }
-
-deepEqual(mapping({
-  from: a,
-  to: b
-}), { a: 1, b: 2 })
-```
-
-### Auto Mapping
-
 
 ```js
-
 class TodoItem {
   constructor(text, completed) {
     this.text = text
@@ -39,34 +26,23 @@ class TodoItem {
   }
 }
 
-const res = mapping.auto(new TodoItem('task'))
+
+const res = mapping(new TodoItem('task'), { author: { other: 'lei' } })
 
 deepEqual(res, {
   author: {
-    firstName: "dnt",
-    lastName: "zhang"
+    firstName: 'dnt',
+    lastName: 'zhang',
+    other: 'lei'
   },
   completed: false,
-  text: "task"
+  text: 'task'
 })
 ```
 
-Auto Mapping with init value：
-
-```js
-const res = mapping.auto(new TodoItem('task'), { author: { a: 1 } })
-
-deepEqual(res, {
-  author: {
-    firstName: "dnt",
-    lastName: "zhang",
-    a: 1
-  },
-  completed: false,
-  text: "task"
-})
-```
-
+### Auto Mapping with rule
+ 
+<!---
 ### Manual mapping
 
 ```js
@@ -156,6 +132,37 @@ const vmData = mapping({
   }
 })
 ```
+-->
+
+
+
+<!---
+```js
+
+class TodoItem {
+  constructor(text, completed) {
+    this.text = text
+    this.completed = completed || false
+
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
+  }
+}
+
+const res = mapping.auto(new TodoItem('task'))
+
+deepEqual(res, {
+  author: {
+    firstName: "dnt",
+    lastName: "zhang"
+  },
+  completed: false,
+  text: "task"
+})
+```
+-->
 
 ## License
 
