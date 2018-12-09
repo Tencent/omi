@@ -11,7 +11,6 @@ create.Page = function (vm, options) {
   options.onLoad = function (e) {
     vm.data = new JSONProxy(vm.data).observe(false, patch => {
       clearTimeout(timeout)
-      console.log(patch )
       if (patch.op === 'remove') {//fix arr splice 
         const kv = getArrayPatch(patch.path)
         patchs[kv.k] = kv.v
