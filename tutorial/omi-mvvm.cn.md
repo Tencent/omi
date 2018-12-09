@@ -56,18 +56,6 @@ npm i mappingjs
 #### 使用方式
 
 ```js
-var a = { a: 1 }
-var b = { b: 2 }
-
-deepEqual(mapping({
-  from: a,
-  to: b
-}), { a: 1, b: 2 })
-```
-
-#### 自动 Mapping
-
-```js
 class TodoItem {
   constructor(text, completed) {
     this.text = text
@@ -80,22 +68,7 @@ class TodoItem {
   }
 }
 
-const res = mapping.auto(new TodoItem('task'))
-
-deepEqual(res, {
-  author: {
-    firstName: "dnt",
-    lastName: "zhang"
-  },
-  completed: false,
-  text: "task"
-})
-```
-
-带有初始值`{ author: { a: 1 } }`的自动映射:
-
-```js
-const res = mapping.auto(new TodoItem('task'), { author: { a: 1 } })
+const res = mapping(new TodoItem('task'), { author: { a: 1 } })
 
 deepEqual(res, {
   author: {

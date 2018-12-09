@@ -11,7 +11,11 @@ class TodoViewModel {
   }
 
   update() {
-    mapping.auto(todo, this.data)
+    mapping(todo, this.data, {
+      fullName: function(){
+        return this.author.firstName + this.author.lastName
+      }
+    })
     this.data.projName = shared.projName
   }
 

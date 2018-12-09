@@ -26,7 +26,7 @@ define('todo-app', class extends ModelView {
   render(props, data) {
     return (
       <div>
-        <h3>TODO <span>by {data.author.firstName + data.author.lastName}</span></h3>
+        <h3>TODO <span>by {data.fullName}</span></h3>
         <todo-list items={data.items} />
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} value={this.text} />
@@ -49,9 +49,10 @@ define('todo-app', class extends ModelView {
 
   handleSubmit = e => {
     e.preventDefault()
-    if (this.text !== '') {
-      vm.add(this.text)
+    const text = this.text
+    if (text !== '') {
       this.text = ''
+      vm.add(text)
     }
   }
 })
