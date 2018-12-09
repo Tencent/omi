@@ -42,103 +42,7 @@ deepEqual(res, {
 
 ### Auto Mapping with rule
  
-<!---
-### Manual mapping
-
-```js
-
-var A = { a: [{ name: 'abc', age: 18 }, { name: 'efg', age: 20 }], e: 'aaa' }
-var B = mapping({
-  from: A,
-  to: { d: 'test' },
-  rule: {
-    a: null,
-    c: 13,
-    list: function () {
-      return this.a.map(function (item) {
-        return mapping({ from: item })
-      })
-    }
-  }
-})
-
-deepEqual(B.a, null)
-deepEqual(B.list[0], A.a[0])
-deepEqual(B.c, 13)
-deepEqual(B.d, 'test')
-deepEqual(B.e, 'aaa')
-deepEqual(B.list[0] === A.a[0], false)
-```
-
-Manual deep mapping:
-
-```js
-var A = { a: [{ name: 'abc', age: 18, obj: { f: 'a', l: 'b' } }, { name: 'efg', age: 20, obj: { f: 'a', l: 'b' } }], e: 'aaa' }
-var B = mapping({
-  from: A,
-  rule: {
-    list: function () {
-      return this.a.map(function (item) {
-        return mapping({
-          from: item, rule: {
-            obj: function () {
-              return mapping({ from: this.obj })
-            }
-          }
-        })
-      })
-    }
-  }
-})
-
-deepEqual(A.a, B.list)
-deepEqual(A.a[0].obj, B.list[0].obj)
-deepEqual(A.a[0].obj === B.list[0].obj, false)
-```
-
-## Other example
-
-```js
-const testObj = {
-  same: 10,
-  bleh: 4,
-  firstName: 'dnt',
-  lastName: 'zhang',
-  a: {
-    c: 10
-  }
-}
-
-const vmData = mapping({
-  from: testObj,
-  to: { aa: 1 },
-  rule: {
-    dumb: 12,
-    func: function () {
-      return 8
-    },
-    b: function () {
-      return mapping({ from: this.a })
-    },
-    bar: function () {
-      return this.bleh
-    },
-    fullName: function () {
-      return this.firstName + this.lastName
-    },
-    'd[2].b[0]': function () {
-      return this.a.c
-    }
-  }
-})
-```
--->
-
-
-
-<!---
-```js
-
+ ```js
 class TodoItem {
   constructor(text, completed) {
     this.text = text
@@ -151,18 +55,147 @@ class TodoItem {
   }
 }
 
-const res = mapping.auto(new TodoItem('task'))
+const res = mapping(new TodoItem('task'), {}, {
+  fullName: function () {
+    return this.author.firstName + this.author.lastName
+  }
+})
 
-deepEqual(res, {
+assert.deepEqual(res, {
   author: {
     firstName: "dnt",
     lastName: "zhang"
   },
+  fullName: 'dntzhang',
   completed: false,
   text: "task"
 })
 ```
--->
+
+Here's a more complex example:
+
+```js
+let id = 0
+
+class TodoItem {
+  constructor(text, completed) {
+    this.id = id++
+    this.text = text
+    this.completed = completed || false
+
+    this.author = {
+      firstName: 'dnt',
+      lastName: 'zhang'
+    }
+
+    this.test = 3
+
+    this.arr = [{ f: 3 }, { f: 5 }, { f: 10 }]
+  }
+}
+
+class TodoList {
+  constructor(items) {
+    this.items = items || []
+    this.ee = 111
+    this.dd = 3
+    this.obj = { a: 2 }
+  }
+}
+
+const list = new TodoList([
+  new TodoItem('task1'),
+  new TodoItem('task2')
+])
+
+
+const res = mapping({ a: { b: 2, e: [{ f: 3 }, { f: 5 }, { f: 10 }] }, list: list }, {}, {
+  'a.test': 1,
+  'a.squareB': function () {
+    return this.b * this.b
+  },
+  'a.e[0].squareF': function () {
+    return this.f * this.f
+  },
+  'a.e[1].squareF': function () {
+    return this.f * this.f
+  },
+  'a.e[2]': function () {
+    return 'change array item!'
+  },
+  'a.e[3]': function () {
+    return 'add array item!'
+  },
+  'list.items[*].fullName': function () {
+    return this.author.firstName + this.author.lastName
+  },
+  'list.items[*].squareTest': function () {
+    return this.test * this.test
+  },
+  'list.items[*].arr[*].squareF': function () {
+    return this.f * this.f
+  }
+})
+```
+
+Output:
+
+```json
+{
+  "a": {
+    "b": 2,
+    "e": [
+      {
+        "f": 3,
+        "squareF": 9
+      },
+      {
+        "f": 5,
+        "squareF": 25
+      },
+      "change array item!",
+      "add array item!"
+    ],
+    "squareB": 4,
+    "test": 1
+  },
+  "list": {
+    "items": [
+      {
+        "id": 0,
+        "text": "task1",
+        "completed": false,
+        "author": {
+          "firstName": "dnt",
+          "lastName": "zhang"
+        },
+        "fullName": "dntzhang",
+        "squareTest": 9,
+        "test": 3,
+        "arr": [{ f: 3, squareF: 9 }, { f: 5, squareF: 25 }, { f: 10, squareF: 100 }]
+      },
+      {
+        "id": 1,
+        "text": "task2",
+        "completed": false,
+        "author": {
+          "firstName": "dnt",
+          "lastName": "zhang"
+        },
+        "fullName": "dntzhang",
+        "squareTest": 9,
+        "test": 3,
+        "arr": [{ f: 3, squareF: 9 }, { f: 5, squareF: 25 }, { f: 10, squareF: 100 }]
+      }
+    ],
+    "ee": 111,
+    "dd": 3,
+    "obj": {
+      "a": 2
+    }
+  }
+}
+```
 
 ## License
 

@@ -247,7 +247,7 @@ QUnit.test("", function (assert) {
   ])
 
 
-  var res = mapping({ a: { b: 2, e: [{ f: 3 }, { f: 5 }, { f: 10 }] }, list: list }, {}, {
+  const res = mapping({ a: { b: 2, e: [{ f: 3 }, { f: 5 }, { f: 10 }] }, list: list }, {}, {
     'a.test': 1,
     'a.squareB': function () {
       return this.b * this.b
