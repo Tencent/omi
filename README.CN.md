@@ -46,7 +46,7 @@
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选。 |
-| [omi-ex](https://github.com/rainmanhhh/omi-ex)| Omi.js 扩展(TypeScript) |
+| [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js 扩展(TypeScript) |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi项目中变得超级简单.|
 | [omi-tap2](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Omi 原生支持 tap 事件（omi v4.0.24+）|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
