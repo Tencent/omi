@@ -33,6 +33,7 @@ define('todo-list', class extends WeElement {
               onChange={evt => {
                 this.onChange(evt, item.id)
               }}
+              checked={item.completed}
             />
             {item.text}
             <button

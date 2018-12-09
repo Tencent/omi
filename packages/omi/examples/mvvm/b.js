@@ -721,17 +721,17 @@
           will emit
           {op: replace, path: '/arr/1', value: arr_2}
           {op: remove, path: '/arr/2'}
-           by default, the second operation would revoke the proxy, and this renders arr revoked.
+            by default, the second operation would revoke the proxy, and this renders arr revoked.
           That's why we need to remember the proxies that are inherited.
         */
       var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
       /*
       Why do we need to check instance.isProxifyingTreeNow?
-       We need to make sure we mark revokables as inherited ONLY when we're observing,
+        We need to make sure we mark revokables as inherited ONLY when we're observing,
       because throughout the first proxification, a sub-object is proxified and then assigned to
       its parent object. This assignment of a pre-proxified object can fool us into thinking
       that it's a proxified object moved around, while in fact it's the first assignment ever.
-       Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
+        Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
       but in fact is is a proxified object moved around the tree
       */
       if (revokableInstance && !instance.isProxifyingTreeNow) {
@@ -809,7 +809,7 @@
               this is an inherited proxy (an already proxified object that was moved around),
               we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
               And we know that because we mark moved proxies with `inherited` flag when we move them
-               it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
+                it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
               We DO want to revoke the proxy if it was removed again.
             */
             revokableProxyInstance.inherited = false;
@@ -1540,111 +1540,129 @@
 
   var mappingjs = createCommonjsModule(function (module, exports) {
   /**
-   * mappingjs v1.0.1 by dntzhang
+   * mappingjs v2.0.0 by dntzhang
    * Objects mapping for javascript. Omi MVVM's best partner.
    * @method mapping
-   * @param {Object} options {from: .., to: .., rule: .. }
+   * @param {from} options
+   * @param {to} options
+   * @param {rule} options
    * @return {Object} To Object
    */
 
   var ARRAYTYPE = '[object Array]';
   var OBJECTTYPE = '[object Object]';
 
-  var mapping = function (options) {
-    var from = options.from;
-    var to = options.to;
-    var rules = options.rule;
-
+  function mapping(from, to, rule) {
+    var tempRule = Object.assign({}, rule);
     var res = to || {};
-
     Object.keys(from).forEach(function (key) {
-      res[key] = from[key];
+      var obj = from[key];
+      if (isArray(obj)) {
+        res[key] = res[key] || [];
+        arrayMapping(obj, res[key], tempRule, key);
+      } else if (isObject(obj)) {
+        res[key] = res[key] || {};
+        objMapping(obj, res[key], tempRule, key);
+      } else {
+        res[key] = obj;
+      }
     });
 
-    rules &&
-      Object.keys(rules).forEach(function (key) {
-        var rule = rules[key];
-        var isPath = key.match(/\.|\[/);
-        if (typeof rule === 'function') {
-          if (isPath) {
-            setPathValue(res, key, rule.call(from));
-          } else {
-            res[key] = rule.call(from);
-          }
-        } else {
-          if (isPath) {
-            setPathValue(res, key, rule);
-          } else {
-            res[key] = rule;
-          }
-        }
-      });
-    return res
-  };
+    rule && Object.keys(tempRule).forEach(function (key) {
+      var arr = key
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.');
 
-  function setPathValue(obj, path, value) {
-    var arr = path
-      .replace(/]/g, '')
-      .replace(/\[/g, '.')
-      .split('.');
-
-    var current = obj;
-    for (var i = 0, len = arr.length; i < len; i++) {
-      var key = arr[i];
-      var temp = current[key];
-      if (i === len - 1) {
-        current[arr[len - 1]] = value;
-      } else {
-        if (temp === undefined) {
-          if (isNaN(Number(arr[i + 1]))) {
-            current[key] = {};
-          } else {
-            current[key] = [];
-          }
-
-          temp = current[key];
-        }
+      if (arr.length === 1) {
+        res[key] = tempRule[key].call ? tempRule[key].call(from) : tempRule[key];
+        delete tempRule[key];
       }
+    });
 
-      current = temp;
-    }
+    return res
   }
 
-  mapping.auto = function (from, to) {
-    return objMapping(from, to)
-  };
 
-  function arrayMapping(from, to) {
+  function arrayMapping(from, to, rule, path) {
     if (from.length < to.length) {
       to.length = from.length;
     }
     from.forEach(function (item, index) {
       if (isArray(item)) {
         to[index] = to[index] || [];
-        arrayMapping(item, to[index]);
+        arrayMapping(item, to[index], rule, path + '[' + index + ']');
       } else if (isObject(item)) {
-        to[index] = objMapping(item, to[index]);
+        to[index] = objMapping(item, to[index], rule, path + '[' + index + ']');
       } else {
         to[index] = item;
       }
     });
+
+
+    rule && Object.keys(rule).forEach(function (key) {
+      var arr = key
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.');
+      var pathArr = path
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.');
+
+      var dl = arr.length - pathArr.length;
+      if (dl === 1 && equalArr(arr, pathArr)) {
+        to[arr[arr.length - 1]] = rule[key].call ? rule[key].call(from) : rule[key];
+        delete rule[key];
+      }
+    });
   }
 
-  function objMapping(from, to) {
+  function objMapping(from, to, rule, path) {
     var res = to || {};
-    Object.keys(from).forEach(key => {
+    Object.keys(from).forEach(function (key) {
       var obj = from[key];
       if (isArray(obj)) {
         res[key] = res[key] || [];
-        arrayMapping(obj, res[key]);
+        arrayMapping(obj, res[key], rule, path + '.' + key);
       } else if (isObject(obj)) {
         res[key] = res[key] || {};
-        objMapping(obj, res[key]);
+        objMapping(obj, res[key], rule, path + '.' + key);
       } else {
         res[key] = obj;
       }
     });
+
+    rule && Object.keys(rule).forEach(function (key) {
+      var arr = key
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.');
+      var pathArr = path
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.');
+
+      if (arr.length - pathArr.length === 1 && equalArr(arr, pathArr)) {
+        res[arr[arr.length - 1]] = rule[key].call ? rule[key].call(from) : rule[key];
+        if (arr.indexOf('*') === -1) {
+          delete rule[key];
+        }
+      }
+
+    });
+
     return res
+  }
+
+  function equalArr(arrA, arrB) {
+    var i = 0, len = arrB.length;
+    for (; i < len; i++) {
+      if (arrA[i] !== arrB[i] && !(arrA[i] === '*' && !isNaN(Number(arrB[i])))) {
+        return false
+      }
+    }
+    return true
   }
 
   function isArray(obj) {
@@ -1654,6 +1672,9 @@
   function isObject(obj) {
     return Object.prototype.toString.call(obj) === OBJECTTYPE
   }
+
+  //Compatible with older versions
+  mapping.auto = mapping;
 
   {
     module.exports = mapping;
@@ -1790,7 +1811,7 @@
 
     TodoViewModel.prototype.update = function update() {
       //will automatically update the view!!!
-      mappingjs.auto(todo, this.data);
+      mappingjs(todo, this.data);
     };
 
     TodoViewModel.prototype.complete = function complete(id) {
@@ -1873,7 +1894,8 @@
               type: 'checkbox',
               onChange: function onChange(evt) {
                 _this2.onChange(evt, item.id);
-              }
+              },
+              checked: item.completed
             }),
             item.text,
             Omi.h(
