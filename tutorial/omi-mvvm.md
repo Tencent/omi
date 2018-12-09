@@ -52,16 +52,6 @@ npm i mappingjs
 
 #### Usage
 
-```js
-var a = { a: 1 }
-var b = { b: 2 }
-
-deepEqual(mapping({
-  from: a,
-  to: b
-}), { a: 1, b: 2 })
-```
-
 #### Auto Mapping
 
 ```js
@@ -77,22 +67,7 @@ class TodoItem {
   }
 }
 
-const res = mapping.auto(new TodoItem('task'))
-
-deepEqual(res, {
-  author: {
-    firstName: "dnt",
-    lastName: "zhang"
-  },
-  completed: false,
-  text: "task"
-})
-```
-
-Auto Mapping with init value：
-
-```js
-const res = mapping.auto(new TodoItem('task'), { author: { a: 1 } })
+const res = mapping(new TodoItem('task'), { author: { a: 1 } })
 
 deepEqual(res, {
   author: {
