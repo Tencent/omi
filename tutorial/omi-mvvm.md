@@ -38,7 +38,7 @@ MVVM is actually evolved from MVC and MVP.
 
 ![mvvm](../assets/mvx.png)
 
-The purpose is to separate views and models, but in MVC, views depend on models, and the degree of coupling is too high, which leads to a great reduction in the portability of views. In MVC, views do not depend on models directly, and P(Presenter) is responsible for completing the interaction between Models and Views. MVVM and MVP are similar. ViewModel plays the role of Presenter and provides the data source needed for UI view, instead of directly letting View use the data source of Model. This greatly improves the portability of View and Model, such as using Flash, HTML, WPF rendering for the same model switch, such as using different models for the same View. As long as the Model and ViewModel are mapped well, View can be changed very little or not.
+The purpose is to separate views and models, but in MVC, views depend on models, and the degree of coupling is too high, which leads to a great reduction in the portability of views. In MVP, views do not depend on models directly, and P(Presenter) is responsible for completing the interaction between Models and Views. MVVM and MVP are similar. ViewModel plays the role of Presenter and provides the data source needed for UI view, instead of directly letting View use the data source of Model. This greatly improves the portability of View and Model, such as using Flash, HTML, WPF rendering for the same model switch, such as using different models for the same View. As long as the Model and ViewModel are mapped well, View can be changed very little or not.
 
 ### Mappingjs
 
