@@ -2,9 +2,6 @@ import vm from '../../view-model/todo'
 import create from '../../utils/create'
 
 create.Page(vm, {
-  data: {
-    text: ''
-  },
   onLoad: function() {
     vm.getAll()
   },

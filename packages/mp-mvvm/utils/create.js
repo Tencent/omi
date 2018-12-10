@@ -15,7 +15,6 @@ create.Page = function (vm, options) {
         const kv = getArrayPatch(patch.path)
         patchs[kv.k] = kv.v
         timeout = setTimeout(() => {
-          console.log(patchs)
           this.setData(patchs)
           patchs = {}
         })
@@ -42,13 +41,11 @@ create.Component = function (vm, options) {
 
   options.ready = function (e) {
     vm.data = new JSONProxy(vm.data).observe(false, patch => {
-      console.log(11)
       clearTimeout(timeout)
       if (patch.op === 'remove') {//fix arr splice 
         const kv = getArrayPatch(patch.path)
         patchs[kv.k] = kv.v
         timeout = setTimeout(() => {
-          console.log(patchs)
           this.setData(patchs)
           patchs = {}
         })
