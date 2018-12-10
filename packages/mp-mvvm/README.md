@@ -155,5 +155,16 @@ const res = mapping({ a: { b: 2, e: [{ f: 3 }, { f: 5 }, { f: 10 }] }, list: lis
 })
 ```
 
+说完 mappingjs，来看下 mp-mvvm。你会发现，mp-mvvm 和 omi-mvvm 的 web 模板有很多代码是一模一样的！
+
+* Model 一模一样
+* ViewModel 一模一样
+* View 不一样，mp-mvvm 使用小程序渲染，omi-mvvm 使用了 web 渲染
+
+这也体现了 MVVM 的优势和特点：
+
+> 领域模型复用不变，View 可以移植成任意技术进行渲染
+
+
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
