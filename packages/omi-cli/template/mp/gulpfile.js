@@ -3,7 +3,6 @@ let path = require('path')
 let tap = require('gulp-tap')
 let compile = require('./scripts/mp/index')
 let fs = require('fs')
-let watch = require('gulp-watch')
 let compileWxss = require('./scripts/mp/wxss')
 
 gulp.task('components', ['copy'], () => {
@@ -200,7 +199,7 @@ gulp.task('copyThen', () => {
 })
 
 gulp.task('watch', () => {
-  watch('src-mp/**/*', () => {
+  gulp.watch('src-mp/**/*', () => {
     gulp.start('copyThen')
   })
 })

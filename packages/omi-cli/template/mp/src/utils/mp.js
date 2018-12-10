@@ -68,6 +68,10 @@ wx.setNavigationBarTitle = function (option) {
   document.title = option.title
 }
 
+wx.navigateBack = function (option) {
+  history.go(option.delta * -1)
+}
+
 function getUrlParams(url) {
   url = url.replace(/#.*$/, '')
   var queryArray = url.split(/[?&]/).slice(1)
