@@ -47,15 +47,15 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-router![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-router) | Omi 공식 라우터 [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 | [omi-devtools](https://github.com/f/omi-devtools)| 브라우저 개발자 확장도구 |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
+| [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js extension(TypeScript) |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. 초간단 CSS3 Transform |
-| [omi-tap2![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Native 탭 이벤트 지원(omi v4.0.24+）|
+| [omi-tap2](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Native 탭 이벤트 지원(omi v4.0.24+）|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap) | 탭 이벤트 지원 |
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)| 터치 와 제스처 이벤트 지원 |
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)| 부드러운 스크롤링, Rotation, 웹 페이지를 위한 어떤 모션도 Refresh |
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)| Omi Mobx Adapter |
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)| React Hooks 방식 API |
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)| Web Components Native 렌더링 |
-| [westore](https://github.com/dntzhang/westore)| Wechat Mini Program Solution westore, Omi와 서로 서로 영감받음 |
 | [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui)  | Omi 버전의 [Weui](https://weui.io/) by [@132yse](https://github.com/132yse).|
 | [omi-i18n](https://github.com/i18next/omi-i18n)| i18next 에코시스템을 사용한 omi.js 다국어 지원 방식 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | [page](https://github.com/visionmedia/page.js) 를 통한 소형의 클라이언트 사이드 라우터 |
@@ -64,20 +64,22 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 
 | **Title Name**  | **Other language** | **Related**|
 | ----------------------------------------- | ------------------ |-----------------|
+| [Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)|||
+| [Develop W3C Web Components with WebAssembly](https://medium.com/coinmonks/develop-w3c-web-components-with-webassembly-d65938284255)||
 | [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.kr.md)|
 | [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.kr.md)|
-| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)| 求翻译|
-|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
-|  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
-|  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
-|  [Web Components Org](https://www.webcomponents.org/introduction)|
-|  [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy) [한국어](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|
-|  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
-|  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
-|  [Platform HTML5](https://platform.html5.org/)|
+| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)|  [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)|
+| [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
+| [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
+| [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
+| [Web Components Org](https://www.webcomponents.org/introduction)|
+| [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy) [한국어](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|
+| [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
+| [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
+| [Platform HTML5](https://platform.html5.org/)|
 | [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
-| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|
-|[ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
+| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|求翻译|
+| [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
 
 
 ## omi-mp
