@@ -125,6 +125,35 @@ mapping({ arr: [{ name: 'zhangsan' }, { name: 'lisi' }] }, {}, {
 Mappingjs 的强大不再举例，这里是一个复杂的例子来说明他的大部分能力：
 [→ 复杂的例子](https://github.com/Tencent/omi/blob/master/packages/mappingjs/test/test.js#L250-L276)
 
+```js
+const res = mapping({ a: { b: 2, e: [{ f: 3 }, { f: 5 }, { f: 10 }] }, list: list }, {}, {
+  'a.test': 1, //支持非函数类型的直接赋值
+  'a.squareB': function () { //支持 path
+    return this.b * this.b
+  },
+  'a.e[0].squareF': function () {//支持带有数组 index 的 path
+    return this.f * this.f
+  },
+  'a.e[1].squareF': function () {//支持带有数组 index 的 path
+    return this.f * this.f
+  },
+  'a.e[2]': function () {//支持带有数组 index 的 path
+    return 'change array item!'
+  },
+  'a.e[3]': function () {//支持带有数组 index 的 path
+    return 'add array item!'
+  },
+  'list.items[*].fullName': function () {//支持 * 来映射所有数组项
+    return this.author.firstName + this.author.lastName
+  },
+  'list.items[*].squareTest': function () {//支持 * 来映射所有数组项
+    return this.test * this.test
+  },
+  'list.items[*].arr[*].squareF': function () {//支持任意复杂的 path
+    return this.f * this.f
+  }
+})
+```
 
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
