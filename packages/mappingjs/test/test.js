@@ -334,12 +334,105 @@ QUnit.test("", function (assert) {
 
 
 
+QUnit.test("", function (assert) {
+  class TodoItem {
+    constructor(text, completed) {
+      this.text = text
+      this.completed = completed || false
+
+      this.author = {
+        firstName: 'dnt',
+        lastName: 'zhang'
+      }
+    }
+  }
+
+  const res = mapping(new TodoItem('task'), {}, {
+    'author.fullName': function () {
+      return this.firstName + this.lastName
+    }
+  })
+
+  assert.deepEqual(res, {
+    author: {
+      firstName: "dnt",
+      lastName: "zhang",
+      fullName: 'dntzhang'
+    },
+    completed: false,
+    text: "task"
+  })
+})
+
+
+
+
+QUnit.test("", function (assert) {
+  class TodoItem {
+    constructor(text, completed) {
+      this.text = text
+      this.completed = completed || false
+
+      this.author = {
+        firstName: 'dnt',
+        lastName: 'zhang'
+      }
+    }
+  }
+
+  const res = mapping(new TodoItem('task'), { author: { age: 18 } }, {
+    'author.fullName': function () {
+      return this.firstName + this.lastName
+    }
+  })
+
+  assert.deepEqual(res, {
+    author: {
+      firstName: "dnt",
+      lastName: "zhang",
+      fullName: 'dntzhang',
+      age: 18
+    },
+    completed: false,
+    text: "task"
+  })
+})
 
 
 
 
 
+QUnit.test("", function (assert) {
 
+  const res = mapping({ arr: [{ name: 'zhangsan' }, { name: ' lisi' }] }, {}, {
+    'arr[0]': { name: 'wangwu' },
+    'arr[1]': function () {
+      //请注意这里的 this 已指向 arr，超方便
+      return { name: this[1].name + '2' }
+    }
+  })
+
+  assert.deepEqual(res, {
+    arr: [{ name: 'wangwu' }, { name: ' lisi2' }]
+  })
+})
+
+
+
+
+QUnit.test("", function (assert) {
+
+  const res = mapping({ arr: [{ name: 'zhangsan' }, { name: 'lisi' }] }, {}, {
+    'arr[*].name2': function () {
+      //请注意这里的 this 已指向 item，超方便
+      return this.name + '2'
+    }
+  })
+
+  assert.deepEqual(res, {
+    arr: [{ name: 'zhangsan', name2: 'zhangsan2' }, { name: 'lisi', name2: 'lisi2' }]
+  })
+})
 
 
 
