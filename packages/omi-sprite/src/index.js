@@ -58,7 +58,7 @@ function parseVNode(vdom) {
   return h(sel, props, children.map(child => parseVNode(child)))
 }
 
-define('omi-spritejs', class extends WeElement {
+define('omi-sprite', class extends WeElement {
   install() {
 
   }

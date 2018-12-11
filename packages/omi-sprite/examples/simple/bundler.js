@@ -4220,7 +4220,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
           'Omi'
         ),
         Omi.h(
-          'omi-spritejs',
+          'omi-sprite',
           { viewport: [400, 400], resolution: 'flex' },
           Omi.h(
             'layer',
@@ -4382,7 +4382,7 @@ function parseVNode(vdom) {
   }));
 }
 
-(0, _omi.define)('omi-spritejs', function (_WeElement) {
+(0, _omi.define)('omi-sprite', function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
