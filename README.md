@@ -730,6 +730,10 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 
 [→ Polyfills](https://github.com/webcomponents/webcomponentsjs)
 
+```html
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
+```
+
 > If you want to be compatible with IE11, use the Omi file of [→ this project](https://github.com/Tencent/omi/tree/master/packages/omi-ie11). This project uses JSON Diff + Timer instead of Proxy.
 
 > You can dynamically load the JS of this project in the IE11 environment, and the proxy version is still used in other environments.
