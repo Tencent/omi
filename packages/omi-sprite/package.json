@@ -1,5 +1,5 @@
 {
-  "name": "omi-spritejs",
+  "name": "omi-sprite",
   "version": "0.0.0",
   "description": "Omi spritejs.",
   "main": "dist/index.js",
@@ -15,9 +15,9 @@
     "url": "https://github.com/Tencent/omi.git"
   },
   "keywords": [
-    "omi-spritejs",
+    "omi-sprite",
     "spritejs",
-    "cax"
+    "canvas"
   ],
   "dependencies": {
     "file-loader": "^2.0.0",

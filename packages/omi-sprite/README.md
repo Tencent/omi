@@ -4,6 +4,8 @@
 
 The current version is v0.0.0. v1.0.0 is coming soon.
 
+[→ Online DEMO](https://tencent.github.io/omi/packages/omi-sprite/examples/simple/)
+
 ```js
 import { render, define, WeElement } from 'omi'
 import '../../src/index'
