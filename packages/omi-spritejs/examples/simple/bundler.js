@@ -4206,7 +4206,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   _createClass(_class, [{
     key: 'css',
     value: function css() {
-      return '\n        sprite.block{\n          width: 100px;\n          height: 100px;\n          background-color: red;\n          --sprite-x: 50;\n          --sprite-y: 300px;\n          --sprite-anchor: 0, 0.5;\n        }';
+      return '\n        div{\n          width: 400px;\n          height: 400px;\n          text-align: center;\n        }\n        label {\n          font-size: 3rem;\n          --sprite-anchor: 0.5, 0.5;\n          --sprite-bgcolor: #aaa;\n        }\n        sprite.block{\n          width: 100px;\n          height: 100px;\n          background-color: red;\n          --sprite-x: 100;\n          --sprite-y: 400px;\n          --sprite-anchor: 0, 0.5;\n        }';
     }
   }, {
     key: 'render',
@@ -4221,15 +4221,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         ),
         Omi.h(
           'omi-spritejs',
-          { viewport: [600, 600] },
+          { viewport: [400, 400], resolution: 'flex' },
           Omi.h(
             'layer',
             { id: 'fglayer' },
             Omi.h(
               'group',
               null,
+              Omi.h('label', { text: 'SpriteJS', y: 100, x: 400 }),
               Omi.h('sprite', { 'class': 'block' }),
-              Omi.h('sprite', { x: 300, y: 300, anchor: [0.5, 0.5], textures: _omi3['default'],
+              Omi.h('sprite', { x: 400, y: 400, anchor: [0.5, 0.5], textures: _omi3['default'],
                 scale: this.data.scale,
                 onClick: this.onClick
               })
