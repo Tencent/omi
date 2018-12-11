@@ -41,6 +41,37 @@
         );
       }
     })
+
+    define('chart-line', class extends WeElement {
+      installed() {
+        this.chart = new Chart(this.canvas.getContext('2d'), {
+          type: 'line',
+          data: this.props.data,
+          options: this.props.options
+        })
+      }
+
+      receiveProps(props) {
+        this.chart.data = props.data
+        this.chart.options = props.options
+        this.chart.update()
+      }
+
+      render(props) {
+        return createElement(
+          'div',
+          { style: { width: props.width + 'px', height: props.height + 'px' } },
+          createElement(
+            'canvas',
+            {
+              ref: e => {
+                this.canvas = e;
+              }
+            }
+          )
+        );
+      }
+    })
   </script>
 </head>
 

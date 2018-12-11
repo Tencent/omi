@@ -12,4 +12,4 @@
   - [Multi Axis](https://tencent.github.io/omi/packages/omi-chart/repl/bar-multi-axis.html)
   - [Stacked Group](https://tencent.github.io/omi/packages/omi-chart/repl/bar-stacked-group.html)
 - Line charts
-  - [Simple](#install)
+  - [Base](#https://tencent.github.io/omi/packages/omi-chart/repl/line-base.html)
