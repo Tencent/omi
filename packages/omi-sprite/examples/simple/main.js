@@ -32,7 +32,7 @@ define('my-app', class extends WeElement {
   }
 
   onClick = (evt) => {
-    // console.log(evt)
+    console.log(evt)
     this.data.scale = 0.5 + Math.random() * 0.1
   }
 

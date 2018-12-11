@@ -8,7 +8,8 @@
     "lazy": "webpack -w",
     "simple": "webpack -w",
     "build": "webpack",
-    "build-min": "webpack"
+    "build-min": "webpack",
+    "prepublishOnly": "npm run build && npm run build-min"
   },
   "repository": {
     "type": "git",

@@ -18,13 +18,15 @@ function updateEvents(oldVnode, vnode) {
     oldEvents.forEach(([type, f]) => {
       oldVnode.elm.removeEventListener(type, f)
     })
+    oldVnode.events = []
   }
   if(vnode.elm && attrs) {
     Object.entries(attrs).forEach(([key, val]) => {
       if(key.indexOf('on') === 0 && typeof val === 'function') {
-        vnode.elm.addEventListener(key.slice(2).toLowerCase(), val)
+        const eventType = key.slice(2).toLowerCase()
+        vnode.elm.addEventListener(eventType, val)
         vnode.events = vnode.events || []
-        vnode.events.push([key, val])
+        vnode.events.push([eventType, val])
         delete attrs[key]
       }
     })
@@ -98,6 +100,8 @@ function render(scene, children) {
   children.forEach((layer) => {
     if(!layer.attributes.id) layer.attributes.id = `layer_${Math.random().toString(36).slice(2)}`
     const layerEl = scene.layer(layer.attributes.id)
-    patch(layerEl, parseVNode(layer))
+    const node = layerEl.vnode_ || layerEl
+    layerEl.vnode_ = parseVNode(layer)
+    patch(node, layerEl.vnode_)
   })
 }
