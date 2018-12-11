@@ -4,7 +4,7 @@ import Chart from 'chart.js'
 define('chart-bar', class extends WeElement {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
-      type: 'bar',
+      type: this.props.horizontal ? 'horizontalBar' : 'bar',
       data: this.props.data,
       options: this.props.options
     })
