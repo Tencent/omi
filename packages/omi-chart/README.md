@@ -8,5 +8,7 @@
 - Bar charts
   - [Simple](https://tencent.github.io/omi/packages/omi-chart/repl/index.html)
   - [Vertical](https://tencent.github.io/omi/packages/omi-chart/repl/bar-vertical.html)
+  - [Horizontal](https://tencent.github.io/omi/packages/omi-chart/repl/bar-horizontal.html)
+  - [Multi Axis](https://tencent.github.io/omi/packages/omi-chart/repl/bar-multi-axis.html)
 - Line charts
   - [Simple](#install)
