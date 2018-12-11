@@ -63,7 +63,7 @@ render(<my-app />, 'body')
 
 The effect shown below:
 
-![](./assets/omi-spritejs.jpg)
+![](./assets/omi-spritejs2.jpg)
 
 ## License
 
