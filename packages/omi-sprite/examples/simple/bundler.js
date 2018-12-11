@@ -4198,7 +4198,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.data = {
       scale: 0.5
     }, _this.onClick = function (evt) {
-      // console.log(evt)
+      console.log(evt);
       _this.data.scale = 0.5 + Math.random() * 0.1;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -4335,6 +4335,7 @@ function updateEvents(oldVnode, vnode) {
 
       oldVnode.elm.removeEventListener(type, f);
     });
+    oldVnode.events = [];
   }
   if (vnode.elm && attrs) {
     Object.entries(attrs).forEach(function (_ref3) {
@@ -4343,9 +4344,10 @@ function updateEvents(oldVnode, vnode) {
           val = _ref4[1];
 
       if (key.indexOf('on') === 0 && typeof val === 'function') {
-        vnode.elm.addEventListener(key.slice(2).toLowerCase(), val);
+        var eventType = key.slice(2).toLowerCase();
+        vnode.elm.addEventListener(eventType, val);
         vnode.events = vnode.events || [];
-        vnode.events.push([key, val]);
+        vnode.events.push([eventType, val]);
         delete attrs[key];
       }
     });
@@ -4436,7 +4438,9 @@ function render(scene, children) {
   children.forEach(function (layer) {
     if (!layer.attributes.id) layer.attributes.id = 'layer_' + Math.random().toString(36).slice(2);
     var layerEl = scene.layer(layer.attributes.id);
-    patch(layerEl, parseVNode(layer));
+    var node = layerEl.vnode_ || layerEl;
+    layerEl.vnode_ = parseVNode(layer);
+    patch(node, layerEl.vnode_);
   });
 }
 

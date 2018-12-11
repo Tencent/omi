@@ -235,6 +235,7 @@ function updateEvents(oldVnode, vnode) {
 
       oldVnode.elm.removeEventListener(type, f);
     });
+    oldVnode.events = [];
   }
   if (vnode.elm && attrs) {
     Object.entries(attrs).forEach(function (_ref3) {
@@ -243,9 +244,10 @@ function updateEvents(oldVnode, vnode) {
           val = _ref4[1];
 
       if (key.indexOf('on') === 0 && typeof val === 'function') {
-        vnode.elm.addEventListener(key.slice(2).toLowerCase(), val);
+        var eventType = key.slice(2).toLowerCase();
+        vnode.elm.addEventListener(eventType, val);
         vnode.events = vnode.events || [];
-        vnode.events.push([key, val]);
+        vnode.events.push([eventType, val]);
         delete attrs[key];
       }
     });
@@ -336,7 +338,9 @@ function render(scene, children) {
   children.forEach(function (layer) {
     if (!layer.attributes.id) layer.attributes.id = 'layer_' + Math.random().toString(36).slice(2);
     var layerEl = scene.layer(layer.attributes.id);
-    patch(layerEl, parseVNode(layer));
+    var node = layerEl.vnode_ || layerEl;
+    layerEl.vnode_ = parseVNode(layer);
+    patch(node, layerEl.vnode_);
   });
 }
 
