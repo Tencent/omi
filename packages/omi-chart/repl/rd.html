@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function getQueryString(){for(var d,a={},b=location.search.slice(1),c=/([^&=]+)=([^&]*)/g;d=c.exec(b);)a[decodeURIComponent(d[1])]=decodeURIComponent(d[2]);return a};
+
+        function goto(url){
+            window.location.href = url;
+        }
+
+        var type=getQueryString().type;
+        if(type ==='bz-simple') {
+            goto('https://alloyteam.github.io/AlloyRender/repl/index.html?code=let%20Stage%20%3D%20AlloyRender.Stage%2C%0A%20%20%20%20Graphics%20%3D%20AlloyRender.Graphics%0A%0Alet%20stage%20%3D%20new%20Stage(%27%23myCanvas%27)%0Alet%20curve%20%3D%20new%20Graphics()%3B%0Astage.add(curve)%0Alet%20points%20%3D%20%5B100%2C100%2C200%2C20%2C300%2C200%2C337%2C154%5D%0A%0Afunction%20renderCurve()%7B%0A%20%20%0A%20%20curve.clear().beginPath()%0A%20%20%20%20%20%20.moveTo(points%5B0%5D%2Cpoints%5B1%5D)%0A%20%20%20%20%20%20.bezierCurveTo(points%5B2%5D%2Cpoints%5B3%5D%2Cpoints%5B4%5D%2Cpoints%5B5%5D%2Cpoints%5B6%5D%2Cpoints%5B7%5D)%0A%20%20%20%20%20%20.strokeStyle(%22%23046ab4%22)%0A%20%20%20%20%20%20.lineWidth(2)%0A%20%20%20%20%20%20.stroke()%0A%20%20%09%09.beginPath()%0A%20%20%20%20%20%20.moveTo(points%5B0%5D%2Cpoints%5B1%5D)%0A%20%20%20%20%20%20.lineTo(points%5B2%5D%2Cpoints%5B3%5D)%0A%20%20%20%20%09.lineTo(points%5B4%5D%2Cpoints%5B5%5D)%0A%20%20%09%09.lineTo(points%5B6%5D%2Cpoints%5B7%5D)%0A%20%20%20%20%20%20.strokeStyle(%27red%27)%0A%20%20%20%20%20%20.stroke()%0A%7D%0A%0Afunction%20addPoint(x%2Cy%2Cindex)%7B%0A%20%20let%20graphics%20%3D%20new%20Graphics()%3B%0A%20%20graphics.cursor%20%3D%20%27move%27%0A%20%20graphics.beginPath()%0A%20%20%20%20%20%20.arc(x%2Cy%2C5%2C0%2CMath.PI*2)%0A%20%20%09%09.lineWidth(3)%0A%20%20%20%20%20%20.stroke()%0A%20%20%09%09.fillStyle(%27green%27)%0A%20%20%09%09.fill()%0A%20%20stage.add(graphics)%0A%20%20graphics.addEventListener(%27drag%27%2Cfunction(evt)%7B%0A%20%20%09this.x%20%2B%3D%20evt.dx%20%0A%20%20%20%20this.y%20%2B%3D%20evt.dy%0A%20%20%20%20points%5Bindex*2%5D%20%2B%3D%20evt.dx%0A%20%20%20%20points%5Bindex*2%2B1%5D%20%2B%3D%20evt.dy%0A%20%20%20%20renderCurve()%0A%20%20%7D)%0A%20%20%0A%20%20%0A%7D%0A%0ArenderCurve()%0AaddPoint(points%5B0%5D%2Cpoints%5B1%5D%2C0)%0AaddPoint(points%5B2%5D%2Cpoints%5B3%5D%2C1)%0AaddPoint(points%5B4%5D%2Cpoints%5B5%5D%2C2)%0AaddPoint(points%5B6%5D%2Cpoints%5B7%5D%2C3)%0A%0Afunction%20tick()%7B%0A%20%20stage.update()%0A%09requestAnimationFrame(tick)%0A%7D%0A%0Atick()')
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
+
+
