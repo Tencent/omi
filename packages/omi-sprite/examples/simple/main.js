@@ -40,7 +40,7 @@ define('my-app', class extends WeElement {
     return (
       <div>
         <h1>Omi</h1>
-        <omi-spritejs viewport={[400, 400]} resolution="flex">
+        <omi-sprite viewport={[400, 400]} resolution="flex">
           <layer id="fglayer">
             <group>
               <label text="SpriteJS" y={100} x={400}></label>
@@ -51,7 +51,7 @@ define('my-app', class extends WeElement {
               ></sprite>
             </group>
           </layer>
-        </omi-spritejs>
+        </omi-sprite>
       </div>
     )
   }

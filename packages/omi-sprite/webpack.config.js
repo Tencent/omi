@@ -57,7 +57,7 @@ var config  = {
 if(ENV === 'build'||ENV === 'build-min'){
     config = {
         entry: {
-            'omi-spritejs': './src/index.js'
+            'omi-sprite': './src/index.js'
         },
         output: {
             // path: __dirname,
@@ -69,7 +69,7 @@ if(ENV === 'build'||ENV === 'build-min'){
         },
         externals: {
             "omi": 'omi',
-            "cax": 'cax'
+            "spritejs": "spritejs",
         },
         resolve: {
             alias: {
@@ -95,7 +95,7 @@ if(ENV === 'build'||ENV === 'build-min'){
         },
         plugins: [
             // Avoid publishing files when compilation fails
-            new webpack.BannerPlugin(" omi-spritejs v"+packageJSON.version+" By akira-cn \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
+            new webpack.BannerPlugin(" omi-sprite v"+packageJSON.version+" By akira-cn \r\n Github: https://github.com/AlloyTeam/omi\r\n MIT Licensed."),
             new webpack.NoEmitOnErrorsPlugin()
         ],
         stats: {
@@ -109,7 +109,7 @@ if(ENV === 'build'||ENV === 'build-min'){
     if(ENV === 'build-min'){
         config.plugins.push(new webpack.optimize.UglifyJsPlugin());
         config.entry = {
-            'omi-spritejs.min': './src/index.js'
+            'omi-sprite.min': './src/index.js'
         };
     }
 }
