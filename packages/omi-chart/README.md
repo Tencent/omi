@@ -1,7 +1,7 @@
 ﻿<p align="right">v<strong>0.1.0</strong></p>
 <p align="center"><img src="./assets/omi-chart.svg" alt="omi" width="300"/></p>
 <h2 align="center">omi-chart</h2>
-<p  align="center">Simple HTML5 Charts using the  tag powered by <a href="https://github.com/Tencent/omi">omi</a> and <a href="https://www.chartjs.org/" rel="nofollow">chart.js</a>.</p>
+<p  align="center">Simple HTML5 Charts using `<chart-x />` tag powered by <a href="https://github.com/Tencent/omi">omi</a> and <a href="https://www.chartjs.org/" rel="nofollow">chart.js</a>.</p>
 
 ---
 
