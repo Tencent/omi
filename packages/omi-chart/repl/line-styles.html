@@ -36,31 +36,64 @@
     </div>
     <div class="playground">
       <div class="editor">
-        <textarea id="editor">define('my-app', class extends WeElement {
+        <textarea id="editor">
+const chartColors = {
+  red: 'rgb(255, 99, 132)',
+  orange: 'rgb(255, 159, 64)',
+  yellow: 'rgb(255, 205, 86)',
+  green: 'rgb(75, 192, 192)',
+  blue: 'rgb(54, 162, 235)',
+  purple: 'rgb(153, 102, 255)',
+  grey: 'rgb(201, 203, 207)'
+}   
+
+define('my-app', class extends WeElement {
   install(){
-    const datapoints = [0, 20, 20, 60, 60, 120, NaN, 180, 120, 125, 105, 110, 170];
     this.chartData = {
-      labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [{
-        label: 'Cubic interpolation (monotone)',
-        data: datapoints,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(0, 0, 0, 0)',
+        label: 'Unfilled',
         fill: false,
-        cubicInterpolationMode: 'monotone'
+        backgroundColor: chartColors.blue,
+        borderColor: chartColors.blue,
+        data: [
+          rd(),
+          rd(),
+          rd(),
+          rd(),
+          rd(),
+          rd(),
+          rd()
+        ],
       }, {
-        label: 'Cubic interpolation (default)',
-        data: datapoints,
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(0, 0, 0, 0)',
+        label: 'Dashed',
         fill: false,
+        backgroundColor: chartColors.green,
+        borderColor: chartColors.green,
+        borderDash: [5, 5],
+        data: [
+          rd(),
+          rd(),
+          rd(),
+          rd(),
+          rd(),
+          rd(),
+          rd()
+        ],
       }, {
-        label: 'Linear interpolation',
-        data: datapoints,
-        borderColor: 'rgb(201, 203, 207)',
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        fill: false,
-        lineTension: 0
+        label: 'Filled',
+        backgroundColor: chartColors.red,
+        borderColor: chartColors.red,
+        data: [
+          rd(),
+          rd(),
+          rd(),
+          rd(),
+          rd(),
+          rd(),
+          rd()
+        ],
+        fill: true,
       }]
     }
     
@@ -68,16 +101,22 @@
       responsive: true,
       title: {
         display: true,
-        text: 'Omi-chart Line Chart - Cubic interpolation mode'
+        text: 'Omi-chart Line Chart'
       },
       tooltips: {
-        mode: 'index'
+        mode: 'index',
+        intersect: false,
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
       },
       scales: {
         xAxes: [{
           display: true,
           scaleLabel: {
-            display: true
+            display: true,
+            labelString: 'Month'
           }
         }],
         yAxes: [{
@@ -85,38 +124,26 @@
           scaleLabel: {
             display: true,
             labelString: 'Value'
-          },
-          ticks: {
-            suggestedMin: -10,
-            suggestedMax: 200,
           }
         }]
       }
     }
   }
 
-  onClick = ()=>{
-    this.chartData.datasets.forEach(dataset => {
-      dataset.data.forEach((item, index) => {
-        dataset.data[index] = Math.random() * 100
-      })
-    })
-    this.update()
-  }
-
   render(props, data) {
     return (
       <div>
         <chart-line width={600} data={this.chartData} options={this.chartOptions} />
-        <div>
-          <button onClick={this.onClick}>Change data</button>
-        </div>
       </div>
     )
   }
 })
 
-render(<my-app />, 'body')</textarea>
+render(<my-app />, 'body')
+
+function rd(){
+  return Math.random() * 100
+}</textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>
