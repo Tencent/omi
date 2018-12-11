@@ -98,10 +98,10 @@
 
   render(props, data) {
     return (
-      <div class="app">
+      <div>
         <chart-bar width={375} data={this.chartData} options={this.chartOptions} />
         <div>
-          <button onClick={this.onClick}>Change data of chart</button>
+          <button onClick={this.onClick}>Change data</button>
           <button onClick={this.addDataset}>Add dataset</button>
         </div>
       </div>
