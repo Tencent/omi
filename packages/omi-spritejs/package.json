@@ -1,0 +1,52 @@
+{
+  "name": "omi-spritejs",
+  "version": "0.0.0",
+  "description": "Omi spritejs.",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "npm run simple & http-server examples/simple -p3000 -c-1",
+    "lazy": "webpack -w",
+    "simple": "webpack -w",
+    "build": "webpack",
+    "build-min": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "keywords": [
+    "omi-spritejs",
+    "spritejs",
+    "cax"
+  ],
+  "dependencies": {
+    "file-loader": "^2.0.0",
+    "omi": "latest"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-inline-package-json": "^2.0.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-runtime": "^0.4.0",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+    "babel-plugin-transform-es3-property-literals": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-omi": "^0.1.1",
+    "esprima-fb": "^15001.1001.0-dev-harmony-fb",
+    "http-server": "^0.11.1",
+    "omi": "latest",
+    "snabbdom": "^0.7.2",
+    "spritejs": "^2.24.8",
+    "url-loader": "^1.1.2",
+    "webpack": "^3.4.1"
+  },
+  "author": "akira-cn <19511344@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi"
+}
