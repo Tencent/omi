@@ -1,7 +1,7 @@
 {
   "name": "omi-chart",
   "version": "0.0.0",
-  "description": "Simple HTML5 Charts using the <chart-x> tag.",
+  "description": "Simple HTML5 Charts using the <chart-x> tag powered by [omi](https://github.com/Tencent/omi) and [chart.js](https://www.chartjs.org/).",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
