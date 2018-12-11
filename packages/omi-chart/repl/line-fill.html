@@ -36,80 +36,58 @@
     </div>
     <div class="playground">
       <div class="editor">
-        <textarea id="editor">
-const chartColors = {
-  red: 'rgb(255, 99, 132)',
-  orange: 'rgb(255, 159, 64)',
-  yellow: 'rgb(255, 205, 86)',
-  green: 'rgb(75, 192, 192)',
-  blue: 'rgb(54, 162, 235)',
-  purple: 'rgb(153, 102, 255)',
-  grey: 'rgb(201, 203, 207)'
-}   
-
-define('my-app', class extends WeElement {
+        <textarea id="editor">define('my-app', class extends WeElement {
   install(){
-    this.chartData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [{
-        label: 'Unfilled',
-        fill: false,
-        backgroundColor: chartColors.blue,
-        borderColor: chartColors.blue,
-        data: [rd(), rd(),rd(),rd(),rd(),rd(),rd()],
-      }, {
-        label: 'Dashed',
-        fill: false,
-        backgroundColor: chartColors.green,
-        borderColor: chartColors.green,
-        borderDash: [5, 5],
-        data: [rd(), rd(),rd(),rd(),rd(),rd(),rd()],
-      }, {
-        label: 'Filled',
-        backgroundColor: chartColors.red,
-        borderColor: chartColors.red,
-        data: [rd(), rd(),rd(),rd(),rd(),rd(),rd()],
-        fill: true,
-      }]
-    }
-    
-    this.chartOptions = {
-      responsive: true,
-      title: {
-        display: true,
-        text: 'Omi-chart Line Chart'
-      },
-      tooltips: {
-        mode: 'index',
-        intersect: false,
-      },
-      hover: {
-        mode: 'nearest',
-        intersect: true
-      },
-      scales: {
-        xAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Month'
-          }
-        }],
-        yAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Value'
-          }
-        }]
-      }
-    }
-  }
+    this.configs = [];
+    [false, 'origin', 'start', 'end'].forEach((boundary, index) => {
 
+			this.configs.push({
+				data: {
+					labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+					datasets: [{
+						backgroundColor: 'rgba(255, 99, 132, 0.2)',
+						borderColor: 'rgb(255, 99, 132)',
+						data: [ rd(), rd() ,rd(), rd(), rd(), rd(), rd(), rd() ],
+						label: 'Dataset',
+						fill: boundary
+					}]
+				},
+        options: {
+          title: {
+						text: 'fill: ' + boundary,
+						display: true
+					},
+          maintainAspectRatio: false, //set width and height to canvas
+          spanGaps: false,
+          elements: {
+            line: {
+              tension: 0.000001
+            }
+          },
+          plugins: {
+            filler: {
+              propagate: false
+            }
+          },
+          scales: {
+            xAxes: [{
+              ticks: {
+                autoSkip: false,
+                maxRotation: 0
+              }
+            }]
+          }
+        }
+			})
+		});
+
+  }
   render(props, data) {
     return (
       <div>
-        <chart-line width={600} data={this.chartData} options={this.chartOptions} />
+          {this.configs.map(config => (
+            <chart-line width={475} height={275} data={config.data} options={config.options} />
+          ))}
       </div>
     )
   }
@@ -117,9 +95,33 @@ define('my-app', class extends WeElement {
 
 render(<my-app />, 'body')
 
+function createConfig(details, data) {
+  return {
+    data: {
+      labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6'],
+      datasets: [{
+        label: 'steppedLine: ' + details.steppedLine,
+        steppedLine: details.steppedLine,
+        data: data,
+        borderColor: details.color,
+        fill: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      title: {
+        display: true,
+        text: details.label,
+      }
+    }
+  };
+}
+
 function rd(){
-  return Math.random() * 100
-}</textarea>
+  return Math.random() * 100 - 50
+}
+
+</textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>
