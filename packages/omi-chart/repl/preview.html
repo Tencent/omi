@@ -1,22 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <script src="https://unpkg.com/omi"></script>
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
+  <script src="https://unpkg.com/omi"></script>
+  <script>
+    var createElement = Omi.createElement
+    var define = Omi.define
+    var WeElement = Omi.WeElement
+    var render = Omi.render
+
+    define('chart-bar', class extends WeElement {
+      installed() {
+        this.chart = new Chart(this.canvas.getContext('2d'), {
+          type: 'bar',
+          data: this.props.data,
+          options: this.props.options
+        })
+      }
+
+      receiveProps(props) {
+        this.chart.data = props.data
+        this.chart.options = props.options
+        this.chart.update()
+      }
+
+      render(props) {
+        return createElement(
+          'div',
+          { style: { width: props.width + 'px', height: props.height + 'px' } },
+          createElement(
+            'canvas',
+            {
+              ref: e => {
+                this.canvas = e;
+              }
+            }
+          )
+        );
+      }
+    })
+  </script>
 </head>
+
 <body style="background-color:#eee;">
 
-    <script>
-        var createElement = Omi.createElement
-        var define = Omi.define
-        var WeElement = Omi.WeElement
-        var render = Omi.render
-        var script = document.createElement("script");
-        script.innerHTML =  parent._sourceCode;
-        document.body.appendChild(script)
-
-
-    </script>
+  <script>
+    var script = document.createElement("script");
+    script.innerHTML = parent._sourceCode;
+    document.body.appendChild(script)
+  </script>
 </body>
 </html>
