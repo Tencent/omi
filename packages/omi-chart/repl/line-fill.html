@@ -38,6 +38,7 @@
       <div class="editor">
         <textarea id="editor">define('my-app', class extends WeElement {
   install(){
+    this.smooth = false
     this.configs = [];
     [false, 'origin', 'start', 'end'].forEach((boundary, index) => {
 
@@ -79,13 +80,22 @@
           }
         }
 			})
-		});
-
+		})
   }
+
+  onClick = ()=> {
+    this.smooth = !this.smooth
+    this.configs.forEach((config,index) => {
+      config.options.elements.line.tension = this.smooth ? 0.4 : 0.000001
+    })
+    this.update()
+  }
+
   render(props, data) {
     return (
       <div>
-          {this.configs.map(config => (
+          <button onClick={this.onClick}>toggle smooth</button>
+          {this.configs.map((config, index) => (
             <chart-line width={475} height={275} data={config.data} options={config.options} />
           ))}
       </div>

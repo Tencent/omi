@@ -93,7 +93,7 @@ define('my-app', class extends WeElement {
     }
   }
 
-  onClick = ()=>{
+  onClick = ()=> {
     this.chartData.datasets.forEach(dataset => {
       dataset.data.forEach((item, index) => {
         dataset.data[index] = Math.random() * 100
