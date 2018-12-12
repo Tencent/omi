@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>obaa test</title>
+	<script src="deep-equal.js"></script>
+	<script src="../index.js"></script>
+</head>
+
+<body>
+	<a href="https://github.com/Tencent/omi" target="_blank" style="position:absolute;right:0;top:0;">
+		<img src="http://alloyteam.github.io/github.png" alt="" />
+	</a>
+
+	<script>
+		var result = [
+			['a', 2, 1, '#'],
+			['a', { b: 1 }, 2, '#'],
+			['b', 'abc', 1, '#-a'],
+			['c', 4, 3, '#'],
+			[1, 3, 2, '#']
+		]
+		var count = 0
+		var obj = { a: 1 }
+		obaa(obj, function (prop, value, old, path) {
+			count++
+			var item = result.shift()
+			console.log(deepEqual(prop, item[0]), deepEqual(value, item[1]), deepEqual(old, item[2]), deepEqual(path, item[3]))
+		})
+
+
+		obj.a = 2
+		obj.a = { b: 1 }
+		obj.a.b = 'abc'
+
+
+
+		obaa.set(obj, 'c', 3);
+		obj.c = 4;//c__4__3__#
+
+		console.log(count === 4)
+
+
+		var arr = [1, 2]
+		obaa(arr, function (prop, value, old, path) {
+			count++
+			if (count === 6) {
+				console.log(deepEqual(prop, 'Array-push'), deepEqual(value[2], 'abc'), deepEqual(old, [1, 3]), deepEqual(path, '#'))
+			} else if (count === 7) {
+
+			} else if (count === 8) {
+				console.log(prop === 'newItem', value === 22, old === 11, path === '#-3')
+
+			} else if (count === 9) {
+				console.log(prop === 'Array-size', value.length === 2, old.length === 4, path === '#')
+
+			} else if (count === 10) {
+				//console.log(prop, value, old, path)
+
+
+			} else {
+				var item = result.shift()
+				console.log(deepEqual(prop, item[0]), deepEqual(value, item[1]), deepEqual(old, item[2]), deepEqual(path, item[3]))
+			}
+
+		})
+
+		arr[1] = 3
+
+		arr.push('abc')
+
+		arr.push({ newItem: 11 })
+
+		arr[3].newItem = 22
+
+		//out range using push or obaa.set!! don't do this blow
+		//	arr[4] = 5
+
+		//please use size,don't  use length
+		arr.size(2)
+
+		arr.push(111)
+		//will not trigger callback
+		arr.purePush(111)
+		console.log(count === 10)
+	</script>
+
+
+</body>
+
+</html>

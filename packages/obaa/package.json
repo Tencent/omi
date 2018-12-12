@@ -1,7 +1,7 @@
 {
   "name": "obaa",
-  "version": "0.0.0",
-  "description": "Observe any object's any change",
+  "version": "1.0.0",
+  "description": "Observe any object's any change.",
   "main": "index.js",
   "scripts": {
   },
