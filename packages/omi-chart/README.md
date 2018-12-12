@@ -1,9 +1,11 @@
 ﻿<p align="right">v<strong>0.1.0</strong></p>
-<p align="center"><img src="./assets/omi-chart.svg" alt="omi" width="300"/></p>
+<p align="center"><img src="./assets/omi-chart.svg" alt="omi-chart" width="300"/></p>
 <h2 align="center">omi-chart</h2>
 <p  align="center">Simple HTML5 Charts using <strong>chart-x</strong> tag powered by <a href="https://github.com/Tencent/omi">omi</a> and <a href="https://www.chartjs.org/" rel="nofollow">chart.js</a>.</p>
 
 ---
+
+![omi-chart](./assets/omi-chart.png)
 
 - Bar charts
   - [Simple](https://tencent.github.io/omi/packages/omi-chart/repl/index.html)
