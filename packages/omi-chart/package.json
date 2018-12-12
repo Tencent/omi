@@ -1,8 +1,10 @@
 {
   "name": "omi-chart",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Simple HTML5 Charts using the <chart-x> tag powered by [omi](https://github.com/Tencent/omi) and [chart.js](https://www.chartjs.org/).",
-  "main": "index.js",
+  "main": "index.es5.js",
+  "jsnext:main": "index.js",
+  "module": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +18,10 @@
   "dependencies": {
     "omi": "latest",
     "chart.js": "latest"
-  }
+  },
+  "files": [
+    "index.js",
+    "index.es5.js",
+    "assets"
+  ]
 }
