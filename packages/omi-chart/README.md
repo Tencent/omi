@@ -5,7 +5,7 @@
 
 ---
 
-![omi-chart](./assets/omi-chart.png)
+[![omi-chart](./assets/omi-chart2.png)](https://tencent.github.io/omi/packages/omi-chart/repl/index.html)
 
 - Bar charts
   - [Simple](https://tencent.github.io/omi/packages/omi-chart/repl/index.html)
