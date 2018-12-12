@@ -1,7 +1,7 @@
 import { define, WeElement } from 'omi'
 import logo from './logo.svg'
 import style from './_index.css'
-import '../../chart/bar'
+import '../../chart'
 
 define('my-app', class extends WeElement {
 
@@ -80,6 +80,8 @@ define('my-app', class extends WeElement {
           <h1 class="app-title">Welcome to omi-chart</h1>
         </header>
         <chart-bar width={375} data={this.chartData} options={this.chartOptions} />
+        <chart-line width={375} data={this.chartData} options={this.chartOptions} />
+        <chart-radar width={375} data={this.chartData} options={this.chartOptions} />
         <div>
           <button onClick={this.onClick}>Change data of chart</button>
           <button onClick={this.addDataset}>Add dataset</button>

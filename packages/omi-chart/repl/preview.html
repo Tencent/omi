@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
   <meta charset="UTF-8">
   <title></title>
@@ -11,7 +12,30 @@
     var WeElement = Omi.WeElement
     var render = Omi.render
 
-    define('chart-bar', class extends WeElement {
+    class ChartBase extends WeElement {
+      receiveProps(props) {
+        this.chart.data = props.data
+        this.chart.options = props.options
+        this.chart.update()
+      }
+
+      render(props) {
+        return createElement(
+          'div',
+          { style: { width: props.width + 'px', height: props.height + 'px' } },
+          createElement(
+            'canvas',
+            {
+              ref: e => {
+                this.canvas = e;
+              }
+            }
+          )
+        )
+      }
+    }
+
+    define('chart-bar', class extends ChartBase {
       installed() {
         this.chart = new Chart(this.canvas.getContext('2d'), {
           type: this.props.horizontal ? 'horizontalBar' : 'bar',
@@ -19,30 +43,10 @@
           options: this.props.options
         })
       }
-
-      receiveProps(props) {
-        this.chart.data = props.data
-        this.chart.options = props.options
-        this.chart.update()
-      }
-
-      render(props) {
-        return createElement(
-          'div',
-          { style: { width: props.width + 'px', height: props.height + 'px' } },
-          createElement(
-            'canvas',
-            {
-              ref: e => {
-                this.canvas = e;
-              }
-            }
-          )
-        );
-      }
     })
 
-    define('chart-line', class extends WeElement {
+
+    define('chart-line', class extends ChartBase {
       installed() {
         this.chart = new Chart(this.canvas.getContext('2d'), {
           type: 'line',
@@ -50,26 +54,16 @@
           options: this.props.options
         })
       }
+    })
 
-      receiveProps(props) {
-        this.chart.data = props.data
-        this.chart.options = props.options
-        this.chart.update()
-      }
 
-      render(props) {
-        return createElement(
-          'div',
-          { style: { width: props.width + 'px', height: props.height + 'px' } },
-          createElement(
-            'canvas',
-            {
-              ref: e => {
-                this.canvas = e;
-              }
-            }
-          )
-        );
+    define('chart-radar', class extends ChartBase {
+      installed() {
+        this.chart = new Chart(this.canvas.getContext('2d'), {
+          type: 'radar',
+          data: this.props.data,
+          options: this.props.options
+        })
       }
     })
   </script>
@@ -83,4 +77,5 @@
     document.body.appendChild(script)
   </script>
 </body>
+
 </html>
