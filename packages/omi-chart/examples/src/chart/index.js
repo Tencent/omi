@@ -68,3 +68,22 @@ define('chart-doughnut', class extends ChartBase {
     })
   }
 })
+
+define('chart-pie', class extends ChartBase {
+  installed() {
+    this.chart = new Chart(this.canvas.getContext('2d'), {
+      type: 'pie',
+      data: this.props.data,
+      options: this.props.options
+    })
+  }
+})
+
+define('chart-polar-area', class extends ChartBase {
+  installed() {
+    this.chart = new Chart.PolarArea(this.canvas.getContext('2d'), {
+      data: this.props.data,
+      options: this.props.options
+    })
+  }
+})
