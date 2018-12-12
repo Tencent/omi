@@ -32,6 +32,55 @@
   - [PolarArea](https://tencent.github.io/omi/packages/omi-chart/repl/polar-area.html)
   - [Bar Line](https://tencent.github.io/omi/packages/omi-chart/repl/bar-line.html)
 
+## Usage
+
+```js
+define('my-app', class extends WeElement {
+  install(){
+    this.chartData = {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: '#f391a9',
+        borderColor: '#ef5b9c',
+        borderWidth: 1
+      }]
+    }
+    
+    this.chartOptions = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  }
+
+  render(props, data) {
+    return (
+      <div>
+        <chart-bar width={600} data={this.chartData} options={this.chartOptions} />
+      </div>
+    )
+  }
+})
+
+render(<my-app />, 'body')
+```
+
+## Supports type
+
+* `<chart-bar />`
+* `<chart-line />`
+* `<chart-scatter />`
+* `<chart-pie />`
+* `<chart-doughnut />`
+* `<chart-radar />`
+* `<chart-polar-area />`
+
 ## Principle
 
 ```js
