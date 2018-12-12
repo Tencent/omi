@@ -14,7 +14,7 @@ npm install obaa
 
 ```js
 var obj = { a: 1 };
-observe(obj, function (name, value , old) {
+obaa(obj, function (name, value , old) {
     console.log(name + "__" + value + "__" + old);
 });
 obj.a = 2; //a__2__1 
@@ -24,7 +24,7 @@ obj.a = 2; //a__2__1
 
 ```js
 var arr = [1, 2, 3];
-observe(arr, function (name, value, old) {
+obaa(arr, function (name, value, old) {
     console.log(name + "__" + value+"__"+old);
 });
 arr.push(4);//Array-push__[1,2,3,4]__[1,2,3] 
@@ -38,7 +38,7 @@ var User = function (name, age) {
     this.name = name;
     this.age = age;
     //observe name only
-    observe(this, ["name"], function (name, value, oldValue) {
+    obaa(this, ["name"], function (name, value, oldValue) {
         console.log(name + "__" + value + "__" + oldValue);
     });
 }
@@ -48,7 +48,6 @@ user.age = 20; //nothing output
 ```
 
 ## Other
-
 
 ```js
 arr.push(111) //trigger observe callback
