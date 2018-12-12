@@ -68,7 +68,7 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
-  render(props, data) {
+  render() {
     return (
       <div class="app">
         <header class="app-header">
@@ -83,8 +83,8 @@ define('my-app', class extends WeElement {
         <chart-line width={375} data={this.chartData} options={this.chartOptions} />
         <chart-radar width={375} data={this.chartData} options={this.chartOptions} />
         <div>
-          <button onClick={this.onClick}>Change data of chart</button>
-          <button onClick={this.addDataset}>Add dataset</button>
+          <button onClick={this.onClick}>random data</button>
+          <button onClick={this.addDataset}>add dataset</button>
         </div>
       </div>
     )

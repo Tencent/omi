@@ -34,3 +34,15 @@
 chart-bar {
 	display: inline-block;
 }
+
+chart-line {
+	display: inline-block;
+}
+
+chart-radar {
+	display: inline-block;
+}
+
+button{
+  margin: 10px;
+}
