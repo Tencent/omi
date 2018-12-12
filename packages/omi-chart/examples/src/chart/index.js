@@ -58,3 +58,13 @@ define('chart-scatter', class extends ChartBase {
     })
   }
 })
+
+define('chart-doughnut', class extends ChartBase {
+  installed() {
+    this.chart = new Chart(this.canvas.getContext('2d'), {
+      type: 'doughnut',
+      data: this.props.data,
+      options: this.props.options
+    })
+  }
+})

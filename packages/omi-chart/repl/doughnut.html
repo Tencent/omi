@@ -58,99 +58,64 @@
     </div>
     <div class="playground">
       <div class="editor">
-        <textarea id="editor">const chartColors = {
-  red: 'rgb(255, 99, 132)',
-  orange: 'rgb(255, 159, 64)',
-  yellow: 'rgb(255, 205, 86)',
-  green: 'rgb(75, 192, 192)',
-  blue: 'rgb(54, 162, 235)',
-  purple: 'rgb(153, 102, 255)',
-  grey: 'rgb(201, 203, 207)'
-}  
-            
-define('my-app', class extends WeElement {
+        <textarea id="editor">define('my-app', class extends WeElement {
   install(){
     this.chartData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
       datasets: [{
-        label: 'dataset - big points',
-        data: [ rd(), rd(), rd(), rd(), rd(), rd(), rd() ],
-        backgroundColor: chartColors.red,
-        borderColor: chartColors.red,
-        fill: false,
-        borderDash: [5, 5],
-        pointRadius: 15,
-        pointHoverRadius: 10,
-      }, {
-        label: 'dataset - individual point sizes',
-        data: [ rd(), rd(), rd(), rd(), rd(), rd(), rd() ],
-        backgroundColor: chartColors.blue,
-        borderColor: chartColors.blue,
-        fill: false,
-        borderDash: [5, 5],
-        pointRadius: [2, 4, 6, 18, 0, 12, 20],
-      }, {
-        label: 'dataset - large pointHoverRadius',
-        data: [ rd(), rd(), rd(), rd(), rd(), rd(), rd() ],
-        backgroundColor: chartColors.green,
-        borderColor: chartColors.green,
-        fill: false,
-        pointHoverRadius: 30,
-      }, {
-        label: 'dataset - large pointHitRadius',
-        data: [ rd(), rd(), rd(), rd(), rd(), rd(), rd() ],
-        backgroundColor: chartColors.yellow,
-        borderColor: chartColors.yellow,
-        fill: false,
-        pointHitRadius: 20,
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderColor: 'white',
+        borderWidth: 1
       }]
     }
     
     this.chartOptions = {
       responsive: true,
       legend: {
-        position: 'bottom',
-      },
-      hover: {
-        mode: 'index'
-      },
-      scales: {
-        xAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Month'
-          }
-        }],
-        yAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Value'
-          }
-        }]
+        position: 'top',
       },
       title: {
         display: true,
-        text: 'Omi-chart Line Chart - Different point sizes'
+        text: 'Omi-chart Doughnut Chart'
+      },
+      animation: {
+        animateScale: true,
+        animateRotate: true
       }
     }
+  }
+
+  onClick = ()=>{
+    this.chartData.datasets.forEach(dataset => {
+      dataset.data.forEach((item, index) => {
+        dataset.data[index] = Math.random() * 100
+      })
+    })
+    this.update()
   }
 
   render(props, data) {
     return (
       <div>
-        <chart-line width={Math.min(window.innerWidth-30, 575)} data={this.chartData} options={this.chartOptions} />
+        <chart-doughnut width={Math.min(window.innerWidth-30, 575)} data={this.chartData} options={this.chartOptions} />
+        <div>
+          <button onClick={this.onClick}>random data</button>
+        </div>
       </div>
     )
   }
 })
 
-render(<my-app />, 'body')
-
-function rd(){
-  return Math.random() * 100
-}</textarea>
+render(<my-app />, 'body')</textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>
@@ -185,14 +150,14 @@ function rd(){
       lastScript && b.removeChild(lastScript);
       c = document.createElement("script");
       c.innerHTML = a;
-      _sourceCode = a
+      window._sourceCode = a
       lastScript = c;
       b.appendChild(c)
     }
 
     function compile(a, b) {
       var c, d; a = a || "", lastCode = a, hideNotify(), c = "/* @jsx createElement */\n"; try { d = Babel.transform(c + a, { presets: ["react", "es2015", "stage-1"] }).code } catch (e) { return console.error(e), showNotify(e), void 0 }
-      _sourceCode = d
+      window._sourceCode = d
       return d;
       //return isReady?(runCompiled(d),void 0):(!b&&showNotify("Preview.html is not ready!",3e3),void 0)
     }
@@ -210,8 +175,7 @@ function rd(){
       if (document.querySelector('#autoCheckbox').checked) {
         frame.contentWindow.location.reload(true);
       }
-      console.log(encodeURIComponent(b))
-      // history.pushState({a:1}, "My Profile",location.protocol + "//alloyteam.github.io/AlloyRender/repl/index.html?code="+encodeURIComponent(b));
+      // window.history.pushState({a:1}, "My Profile",window.location.protocol + "//alloyteam.github.io/AlloyRender/repl/index.html?code="+encodeURIComponent(b));
     });
   </script>
 </body>
