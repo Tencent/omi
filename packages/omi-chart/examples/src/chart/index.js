@@ -49,3 +49,12 @@ define('chart-radar', class extends ChartBase {
     })
   }
 })
+
+define('chart-scatter', class extends ChartBase {
+  installed() {
+    this.chart = new Chart.Scatter(this.canvas.getContext('2d'), {
+      data: this.props.data,
+      options: this.props.options
+    })
+  }
+})

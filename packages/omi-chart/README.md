@@ -24,3 +24,6 @@
   - [Point Styles](https://tencent.github.io/omi/packages/omi-chart/repl/line-point-styles.html)    
 - Radar charts
   - [Base](https://tencent.github.io/omi/packages/omi-chart/repl/radar-base.html)
+- Scatter charts
+  - [Base](https://tencent.github.io/omi/packages/omi-chart/repl/scatter-base.html)
+  - [Multi Axis](https://tencent.github.io/omi/packages/omi-chart/repl/radar-multi-axis.html)
