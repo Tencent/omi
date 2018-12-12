@@ -1,0 +1,36 @@
+{
+  "name": "omi-finger",
+  "version": "1.0.0",
+  "description": "AlloyFinger / Omi integration. Support touch and gesture events in your Omi project. ",
+  "main": "index.js",
+  "scripts": {
+    "simple": "webpack -w",
+    "dynamic": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlloyTeam/omi.git"
+  },
+  "dependencies": {
+    "alloyfinger": "^0.1.10"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-omi": "^0.1.1",
+    "esprima-fb": "^15001.1001.0-dev-harmony-fb",
+    "webpack": "^3.4.1"
+  },
+  "keywords": [
+    "omi",
+    "omi-finger",
+    "alloyfinger"
+  ],
+  "author": "dntzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlloyTeam/omi/issues"
+  },
+  "homepage": "https://github.com/AlloyTeam/omi#readme"
+}
