@@ -16,12 +16,34 @@
     .editor{
             overflow: hidden;
         }
-        .tool-bar{
-            height: 40px;
-            line-height: 40px;
-            border-bottom: 1px solid #ccc;
+        
+    .tool-bar{
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    @media screen and (max-width: 500px) {  
+          .playground {
+            display: block;
+          }
+
+        .playground .editor{
+          position: absolute;
+          top:270px;
+          width: 100%;
+          
         }
-    </style>
+
+        .playground .preview{
+          display: inline-block;
+          width: 100%;
+          min-height: 270px;
+          position: absolute;
+          top:0px;
+        }
+    }
+  </style>
 </head>
 
 <body>
