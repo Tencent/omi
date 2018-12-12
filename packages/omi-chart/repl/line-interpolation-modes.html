@@ -65,7 +65,7 @@
     }
     
     this.chartOptions = {
-      responsive: true,
+      maintainAspectRatio: false,
       title: {
         display: true,
         text: 'Omi-chart Line Chart - Cubic interpolation mode'
@@ -107,7 +107,7 @@
   render(props, data) {
     return (
       <div>
-        <chart-line width={600} data={this.chartData} options={this.chartOptions} />
+        <chart-line width={700} height={500} data={this.chartData} options={this.chartOptions} />
         <div>
           <button onClick={this.onClick}>Change data</button>
         </div>
