@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>obaa</title>
+	<script src="index.js"></script>
+</head>
+
+<body>
+	<a href="https://github.com/Tencent/omi" target="_blank" style="position:absolute;right:0;top:0;">
+		<img src="http://alloyteam.github.io/github.png" alt="" />
+	</a>
+	<p>open your browser's dev tool to compare the result.</p>
+	<div>
+		<div>expected result:</div>
+		<br /> c__2__33__#
+		<br /> c__2__33__#
+		<br /> b__4__undefined__#
+		<br /> c__33__2__#-1-a-1
+		<br /> Array-push__1,[object Object],3,4__1,[object Object],3__#
+		<br /> 3__5__4__#
+		<br /> Array-size__1,[object Object]__1,[object Object],3,5,5__#
+		<br /> d__100__4__#-c-0
+		<br /> b__[object Object]__2__#
+		<br /> a__3__2__#-b
+		<br /> 0__[object Object]__[object Object]__#-c
+		<br /> ccc__333__1__#-c-0
+		<br /> Array-push__[object Object],[object Object]__[object Object]__#-c
+		<br /> fff__3333__2__#-c-1
+		<br /> c__[object Object]__[object Object],[object Object]__#
+		<br /> e__111111111__5__#-c-0
+		<br /> name__wangwu__lisi__#
+		<br /> Array-push__11____#
+		<br /> Array-push__cccc____#
+	</div>
+	<script>
+		var obj = { a: 1, c: 33 };
+		//watch obj
+		obaa(obj, function (name, value, old, path) {
+			console.log(name + "__" + value + "__" + old + "__" + path);
+		});
+		obaa(obj, "c", function (name, value, old, path) {
+			console.log(name + "__" + value + "__" + old + "__" + path);
+		});
+		obj.c = 2;//twice==> c__2__33__#
+		obaa.add(obj, "b", 3);
+		obj.b = 4;//b__4__3__#
+
+		var arr = [1, { a: [1, { c: 2 }, 3] }, 3];
+		//watch array
+		obaa(arr, function (name, value, old, path) {
+			console.log(name + "__" + value + "__" + old + "__" + path);
+		});
+		arr[1].a[1].c = 33;//c__33__2__#-1-a-1
+		arr.push(4);//Array-push__1,[object Object],3,4__1,[object Object],3__#
+		arr[3] = 5;//3__5__4__#
+		//不建议下面，建议arr.push(5);
+		arr[4] = 5;
+		arr.size(2);//Array-size__1,[object Object]__1,[object Object],3,5,5__#
+
+		var complexObj = { a: 1, b: 2, c: [{ d: [4] }] };
+		//watch complexObj
+		obaa(complexObj, function (name, value, old, path) {
+			console.log(name + "__" + value + "__" + old + "__" + path);
+		});
+		complexObj.c[0].d = 100; //d__100__4__#-c-0
+		complexObj.b = { a: 2 };//b__[object Object]__2__#
+		complexObj.b.a = 3;//a__3__2__#-b
+		complexObj.c[0] = { ccc: 1 };//0__[object Object]__[object Object]__#-c
+		complexObj.c[0].ccc = 333;//ccc__333__1__#-c-0
+		complexObj.c.push({ fff: 2 });//Array-push__[object Object],[object Object]__[object Object]__#-c
+		complexObj.c[1].fff = 3333;//fff__3333__2__#-c-1
+		complexObj.c = [{ e: 5 }];//c__[object Object]__[object Object],[object Object]__#
+		complexObj.c[0].e = 111111111;//e__111111111__5__#-c-0
+		var User = function (name, age) {
+			this.name = name;
+			this.age = age;
+			//watch User's instance
+			obaa(this, ["name"], function (name, value, old, path) {
+				console.log(name + "__" + value + "__" + old + "__" + path);
+			});
+		};
+		var user = new User("lisi", 25);
+		user.name = "wangwu";//name__wangwu__lisi__#
+		user.age = 100;
+
+		var emptyArr = [];
+		obaa(emptyArr, function (name, value, old, path) {
+			console.log(name + "__" + value + "__" + old + "__" + path);
+		});
+		emptyArr.push(11);
+
+		var emptyArr2 = { items: [] };
+		obaa(emptyArr2, function (name, value, old, path) {
+			console.log(name + "__" + value + "__" + old + "__" + path);
+		});
+
+		emptyArr2.items.push("cccc");
+		//real push
+		emptyArr2.items.realPush("ddd");
+	</script>
+</body>
+
+</html>

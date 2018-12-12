@@ -1,0 +1,24 @@
+{
+  "name": "obaa",
+  "version": "0.0.0",
+  "description": "Observe any object's any change",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tencent/omi.git"
+  },
+  "keywords": [
+    "obaa",
+    "omi",
+    "observe",
+    "observable"
+  ],
+  "author": "dntzhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi#readme"
+}
