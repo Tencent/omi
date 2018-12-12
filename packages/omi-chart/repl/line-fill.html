@@ -118,7 +118,7 @@
       <div>
           <button onClick={this.onClick}>toggle smooth</button>
           {this.configs.map((config, index) => (
-            <chart-line width={475} height={275} data={config.data} options={config.options} />
+            <chart-line width={Math.min(window.innerWidth-30, 575)} height={275} data={config.data} options={config.options} />
           ))}
       </div>
     )

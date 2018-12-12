@@ -116,7 +116,7 @@ define('my-app', class extends WeElement {
   render(props, data) {
     return (
       <div>
-        <chart-bar horizontal width={575} data={this.chartData} options={this.chartOptions} />
+        <chart-bar horizontal width={Math.min(window.innerWidth-30, 575)} data={this.chartData} options={this.chartOptions} />
         <div>
           <button onClick={this.onClick}>Change data</button>
           <button onClick={this.addDataset}>Add dataset</button>

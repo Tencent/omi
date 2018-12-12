@@ -90,7 +90,7 @@
     return (
       <div>
           {this.configs.map(config => (
-            <chart-line width={575} data={config.data} options={config.options} />
+            <chart-line width={Math.min(window.innerWidth-30, 575)} data={config.data} options={config.options} />
           ))}
       </div>
     )

@@ -129,7 +129,7 @@
   render(props, data) {
     return (
       <div>
-        <chart-line width={700} height={500} data={this.chartData} options={this.chartOptions} />
+        <chart-line width={Math.min(window.innerWidth-30, 700)} height={500} data={this.chartData} options={this.chartOptions} />
         <div>
           <button onClick={this.onClick}>Change data</button>
         </div>
