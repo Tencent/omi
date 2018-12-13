@@ -29,7 +29,7 @@ module.exports = {
 
 ## Differences to omi
 
-What's the difference between the `css` and the `staticCss` method? For example：
+Omio supports `staticCss`, omi does not support it. What's the difference between the `css` and the `staticCss` method? For example：
 
 ``` js
 render() {

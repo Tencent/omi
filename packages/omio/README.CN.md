@@ -28,7 +28,7 @@ module.exports = {
 
 ### 与 omi 不同之处
 
-`css` 和 `staticCss` 的区别是 ? 例如：
+omio 支持 `staticCss`，omi 是不支持的。`css` 和 `staticCss` 的区别是 ? 例如：
 
 ``` js
 render() {
