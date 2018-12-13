@@ -35,9 +35,9 @@ Omio supports `staticCss`, omi does not support it. What's the difference betwee
 render() {
   return (
     <div>
-      <Hello name={this.name}></Hello>
-      <Hello name={this.name}></Hello>
-      <Hello name={this.name}></Hello>
+      <my-ele name={this.name}></my-ele>
+      <my-ele name={this.name}></my-ele>
+      <my-ele name={this.name}></my-ele>
     </div>
   )
 }

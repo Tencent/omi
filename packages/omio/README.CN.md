@@ -34,9 +34,9 @@ omio 支持 `staticCss`，omi 是不支持的。`css` 和 `staticCss` 的区别�
 render() {
   return (
     <div>
-      <Hello name={this.name}></Hello>
-      <Hello name={this.name}></Hello>
-      <Hello name={this.name}></Hello>
+      <my-ele name={this.name}></my-ele>
+      <my-ele name={this.name}></my-ele>
+      <my-ele name={this.name}></my-ele>
     </div>
   )
 }
