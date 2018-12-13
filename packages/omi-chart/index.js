@@ -87,3 +87,14 @@ define('chart-polar-area', class extends ChartBase {
     })
   }
 })
+
+define('chart-bubble', class extends ChartBase {
+  installed() {
+    this.chart = new Chart(this.canvas.getContext('2d'), {
+      type: 'bubble',
+      data: this.props.data,
+      options: this.props.options
+    })
+  }
+})
+

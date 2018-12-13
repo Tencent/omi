@@ -208,3 +208,26 @@ var ChartBase = function (_WeElement) {
 
   return _class7;
 }(ChartBase));
+
+(0, _omi.define)('chart-bubble', function (_ChartBase8) {
+  _inherits(_class8, _ChartBase8);
+
+  function _class8() {
+    _classCallCheck(this, _class8);
+
+    return _possibleConstructorReturn(this, (_class8.__proto__ || Object.getPrototypeOf(_class8)).apply(this, arguments));
+  }
+
+  _createClass(_class8, [{
+    key: 'installed',
+    value: function installed() {
+      this.chart = new _chart2.default(this.canvas.getContext('2d'), {
+        type: 'bubble',
+        data: this.props.data,
+        options: this.props.options
+      });
+    }
+  }]);
+
+  return _class8;
+}(ChartBase));

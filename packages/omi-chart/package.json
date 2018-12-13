@@ -1,6 +1,6 @@
 {
   "name": "omi-chart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple HTML5 Charts using the <chart-x> tag powered by [omi](https://github.com/Tencent/omi) and [chart.js](https://www.chartjs.org/).",
   "main": "index.es5.js",
   "jsnext:main": "index.js",
