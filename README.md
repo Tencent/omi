@@ -733,7 +733,7 @@ For example, the below is about migration React button as weui Omi button:
 
 ## Browsers Support
 
-> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - 兼容老浏览器的 Omi 版本(支持到IE9+和移动端浏览器)
+> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - Omi for old browsers(IE9+ and mobile browsers)
 
 Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
