@@ -29,7 +29,7 @@
     "strip:esm": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omi.esm.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omi.esm.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omi.esm.js",
     "strip": "npm-run-all strip:main strip:esm",
     "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size --raw dist/omi.min.js",
-    "test": "npm-run-all lint --parallel test:mocha test:karma test:ts test:flow test:size",
+    "test": "npm-run-all --parallel test:mocha test:karma test:ts test:flow test:size",
     "fix": "eslint src --fix",
     "fix-e": "eslint examples --fix",
     "test:flow": "flow check",
