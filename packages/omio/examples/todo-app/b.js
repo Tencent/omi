@@ -26,7 +26,7 @@
    */
   var options = {
     scopedStyle: true,
-    $store: null,
+    store: null,
     mapping: {},
     isWeb: true,
     staticStyleMapping: {},
@@ -898,7 +898,7 @@
       inst.constructor = Ctor;
       inst.render = doRender;
     }
-    inst.$store = options.$store;
+    inst.store = options.store;
     if (window && window.Omi) {
       window.Omi.instances.push(inst);
     }
@@ -1048,7 +1048,7 @@
    * MIT Licensed.
    */
 
-  var obaa$1 = function obaa(target, arr, callback) {
+  var obaa = function obaa(target, arr, callback) {
     var _observe = function _observe(target, arr, callback) {
       if (!target.$observer) target.$observer = this;
       var $observer = target.$observer;
@@ -1166,41 +1166,41 @@
     return new _observe(target, arr, callback);
   };
 
-  obaa$1.methods = ['concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size'];
-  obaa$1.triggerStr = ['concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size'].join(',');
+  obaa.methods = ['concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size'];
+  obaa.triggerStr = ['concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size'].join(',');
 
-  obaa$1.isArray = function (obj) {
+  obaa.isArray = function (obj) {
     return Object.prototype.toString.call(obj) === '[object Array]';
   };
 
-  obaa$1.isString = function (obj) {
+  obaa.isString = function (obj) {
     return typeof obj === 'string';
   };
 
-  obaa$1.isInArray = function (arr, item) {
+  obaa.isInArray = function (arr, item) {
     for (var i = arr.length; --i > -1;) {
       if (item === arr[i]) return true;
     }
     return false;
   };
 
-  obaa$1.isFunction = function (obj) {
+  obaa.isFunction = function (obj) {
     return Object.prototype.toString.call(obj) == '[object Function]';
   };
 
-  obaa$1._getRootName = function (prop, path) {
+  obaa._getRootName = function (prop, path) {
     if (path === '#') {
       return prop;
     }
     return path.split('-')[1];
   };
 
-  obaa$1.add = function (obj, prop) {
+  obaa.add = function (obj, prop) {
     var $observer = obj.$observer;
     $observer.watch(obj, prop);
   };
 
-  obaa$1.set = function (obj, prop, value, exec) {
+  obaa.set = function (obj, prop, value, exec) {
     if (!exec) {
       obj[prop] = value;
     }
@@ -1232,7 +1232,7 @@
       if (component.componentWillMount) component.componentWillMount();
       if (component.install) component.install();
       if (component.constructor.observe) {
-        obaa$1(component.data, function () {
+        obaa(component.data, function () {
           component.update();
         });
       }
@@ -1527,7 +1527,7 @@
 
     this._preStyle = null;
 
-    this.$store = null;
+    this.store = null;
   }
 
   Component.is = 'WeElement';
@@ -1594,66 +1594,17 @@
    *	const Thing = ({ name }) => <span>{ name }</span>;
    *	render(<Thing name="one" />, document.querySelector('#foo'));
    */
-  function render(vnode, parent, merge) {
-    merge = Object.assign({
-      store: {}
-    }, merge);
-    if (typeof window === 'undefined') {
-      if (vnode instanceof Component && merge) {
-        vnode.$store = merge.store;
-      }
-      return;
-    }
+  function render(vnode, parent, store) {
 
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 
-    if (merge.merge) {
-      merge.merge = typeof merge.merge === 'string' ? document.querySelector(merge.merge) : merge.merge;
-    }
-    if (merge.empty) {
-      while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-      }
-    }
-    merge.store.ssrData = options.root.__omiSsrData;
-    options.$store = merge.store;
-
-    if (vnode instanceof Component) {
-      if (window && window.Omi) {
-        window.Omi.instances.push(vnode);
-      }
-
-      vnode.$store = merge.store;
-
-      if (vnode.componentWillMount) vnode.componentWillMount();
-      if (vnode.install) vnode.install();
-      if (vnode.constructor.observe) {
-        obaa(vnode.data, function () {
-          vnode.update();
-        });
-      }
-      var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
-
-      //don't rerender
-      if (vnode.staticCss) {
-        addScopedAttrStatic(rendered, vnode.staticCss(), '_style_' + getCtorName(vnode.constructor));
-      }
-
-      if (vnode.css) {
-        addScopedAttr(rendered, vnode.css(), '_style_' + vnode._id, vnode);
-      }
-
-      vnode.base = diff(merge.merge, rendered, {}, false, parent, false);
-
-      if (vnode.componentDidMount) vnode.componentDidMount();
-      if (vnode.installed) vnode.installed();
-
-      return vnode.base;
+    if (store && store.merge) {
+      store.merge = typeof store.merge === 'string' ? document.querySelector(store.merge) : store.merge;
     }
 
-    var result = diff(merge.merge, vnode, {}, false, parent, false);
+    options.store = store;
 
-    return result;
+    return diff(store && store.merge, vnode, {}, false, parent, false);
   }
 
   var OBJECTTYPE = '[object Object]';
