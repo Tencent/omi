@@ -69,6 +69,11 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 	// empty values (null, undefined, booleans) render as empty Text nodes
 	if (vnode==null || typeof vnode==='boolean') vnode = '';
 
+	// If the VNode represents a Component, perform a component diff:
+	let vnodeName = vnode.nodeName;
+	if (vnodeName.is === 'WeElement') {
+		return buildComponentFromVNode(dom, vnode, context, mountAll);
+	}
 
 	// Fast case: Strings & Numbers create/update Text nodes.
 	if (typeof vnode==='string' || typeof vnode==='number') {
@@ -93,14 +98,6 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
 		return out;
 	}
-
-
-	// If the VNode represents a Component, perform a component diff:
-	let vnodeName = vnode.nodeName;
-	if (typeof vnodeName==='function') {
-		return buildComponentFromVNode(dom, vnode, context, mountAll);
-	}
-
 
 	// Tracks entering and exiting SVG namespace when descending through the tree.
 	isSvgMode = vnodeName==='svg' ? true : vnodeName==='foreignObject' ? false : isSvgMode;

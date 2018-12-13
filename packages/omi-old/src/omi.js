@@ -6,6 +6,7 @@ import { rerender } from './render-queue';
 import options from './options';
 
 const instances = [];
+const WeElement = Component
 
 options.root.Omi = {
 	h,
@@ -15,7 +16,8 @@ options.root.Omi = {
 	render,
 	rerender,
 	options,
-	instances
+	instances,
+	WeElement
 };
 
 options.root.Omi.version = '3.0.6';
@@ -28,7 +30,8 @@ export default {
 	render,
 	rerender,
 	options,
-	instances
+	instances,
+	WeElement
 };
 
 export {
@@ -39,5 +42,6 @@ export {
 	render,
 	rerender,
 	options,
-	instances
+	instances,
+	WeElement
 };

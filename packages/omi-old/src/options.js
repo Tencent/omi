@@ -10,7 +10,7 @@ function getGlobal() {
 		return (function(){
 			return this;
 		})();
-		
+
 	}
 	return global;
 }
@@ -23,6 +23,7 @@ export default {
 
 	scopedStyle: true,
 	$store: null,
+	mapping: {},
 	isWeb: true,
 	staticStyleMapping: {},
 	doc: typeof document === 'object' ? document : null,

@@ -44,6 +44,8 @@ export function Component(props, context) {
 
 }
 
+Component.is = 'WeElement';
+
 
 extend(Component.prototype, {
 
