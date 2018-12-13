@@ -12,8 +12,22 @@ English | [简体中文](./README.CN.md)
 npm i omio
 ```
 
+## Webpack Alias
 
-### Differences to omi
+If you want to use omio under existing omi projects, no code changes are required through the following configuration:
+
+```js
+module.exports = {
+  //...
+  resolve: {
+    alias: {
+      omi: 'omio'
+    }
+  }
+};
+```
+
+## Differences to omi
 
 What's the difference between the `css` and the `staticCss` method? For example：
 
@@ -31,8 +45,6 @@ render() {
 
 The `css` method will render three times to html head element, the `staticCss` will render one times only !
 When you update the component `css` method will rerender, but the `staticCss` will not rerender.
-
-
 
 ## License
 

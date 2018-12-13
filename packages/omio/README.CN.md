@@ -11,6 +11,20 @@
 ``` bash
 npm i omi
 ```
+## Webpack Alias
+
+如果你想在已经存在的 omi 项目下使用 omio，你可以使用下面配置，不用任何代码更改:
+
+```js
+module.exports = {
+  //...
+  resolve: {
+    alias: {
+      omi: 'omio'
+    }
+  }
+};
+```
 
 ### 与 omi 不同之处
 
