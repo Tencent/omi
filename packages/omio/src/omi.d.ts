@@ -2,42 +2,42 @@ export = Omi;
 export as namespace Omi;
 
 declare namespace Omi {
+	type Callback = (...args: any[]) => void;
 	type Key = string | number;
 	type Ref<T> = (instance: T) => void;
-	type ComponentChild = JSX.Element | string | number | null;
-	type ComponentChildren = ComponentChild[];
-
-	/**
-	 * @deprecated
-	 *
-	 * Use Attributes instead
-	 */
-	type ComponentProps = Attributes;
-
-	/**
-	 * @deprecated
-	 *
-	 * Use ClassAttributes instead
-	 */
-	type PreactHTMLAttributes = ClassAttributes<any>;
+	type ComponentChild = VNode<any> | object | string | number | boolean | null;
+	type ComponentChildren = ComponentChild[] | ComponentChild;
 
 	interface Attributes {
 		key?: string | number | any;
-		jsx?: boolean;
 	}
 
 	interface ClassAttributes<T> extends Attributes {
 		ref?: Ref<T>;
 	}
 
-	interface PreactDOMAttributes {
+	interface OmiDOMAttributes {
 		children?: ComponentChildren;
 		dangerouslySetInnerHTML?: {
 			__html: string;
 		};
 	}
 
-	type ComponentFactory<P> = ComponentConstructor<P> | FunctionalComponent<P>;
+	/**
+	 * Use this to manually set the attributes of a custom element
+	 *
+	 * declare global {
+	 *     namespace JSX {
+	 * 	       interface IntrinsicElements {
+	 *             'hello-element': CustomElementBaseAttributes & {
+	 *                 propFromParent: string;
+	 *             }
+	 *         }
+	 *     }
+	 * }
+	 */
+	interface CustomElementBaseAttributes extends ClassAttributes<any>, OmiDOMAttributes {}
+
 	/**
 	 * Define the contract for a virtual node in omi.
 	 *
@@ -45,8 +45,8 @@ declare namespace Omi {
 	 * of child {VNode}s and a key. The key is used by omi for
 	 * internal purposes.
 	 */
-	interface VNode<P> {
-		nodeName: ComponentFactory<P> | string;
+	interface VNode<P = any> {
+		nodeName: string;
 		attributes: P;
 		children: Array<VNode<any> | string>;
 		key?: Key | null;
@@ -56,82 +56,155 @@ declare namespace Omi {
 		P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> }
 	>;
 
-	interface FunctionalComponent<P = {}> {
-		(props: RenderableProps<P>, context?: any): VNode<any> | null;
-		displayName?: string;
-		defaultProps?: Partial<P>;
+	interface WeElement<P, D> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+		updated?(): void;
+		beforeRender?(): void;
+		receiveProps?(): void;
 	}
 
-	interface ComponentConstructor<P = {}, S = {}> {
-		new (props: P, context?: any): Component<P, S>;
-		displayName?: string;
-		defaultProps?: Partial<P>;
+	interface ModelView<P, D> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+		updated?(): void;
+		beforeRender?(): void;
+		receiveProps?(): void;
 	}
 
-	// Type alias for a component considered generally, whether stateless or stateful.
-	type AnyComponent<P = {}, S = {}> = FunctionalComponent<P> | Component<P, S>;
-
-	interface Component<P = {}, S = {}> {
-		componentWillMount?(): void;
-		componentDidMount?(): void;
-		componentWillUnmount?(): void;
-		getChildContext?(): object;
-		componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
-		shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
-		componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
-		componentDidUpdate?(previousProps: Readonly<P>, previousState: Readonly<S>, previousContext: any): void;
+	interface Component<P, D> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+		updated?(): void;
+		beforeRender?(): void;
+		receiveProps?(): void;
 	}
 
-	abstract class Component<P, S> {
-		constructor(props?: P, context?: any);
+	abstract class WeElement<P = {}, D = {}> {
+		constructor();
 
-		static displayName?: string;
-		static defaultProps?: any;
+		// Allow static members to reference class type parameters
+		// https://github.com/Microsoft/TypeScript/issues/24018
+		static props: object;
+		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
 
-		state: Readonly<S>;
 		props: RenderableProps<P>;
-		context: any;
-		base?: HTMLElement;
+		data: D;
+		host: HTMLElement;
 
-		setState<K extends keyof S>(state: Pick<S, K>, callback?: () => void): void;
-		setState<K extends keyof S>(fn: (prevState: S, props: P) => Pick<S, K>, callback?: () => void): void;
+		css(): void;
+		update(): void;
+		fire(name: string, data?: object): void;
 
-		forceUpdate(callback?: () => void): void;
+		// Abstract methods don't infer argument types
+		// https://github.com/Microsoft/TypeScript/issues/14887
+		abstract render(props: RenderableProps<P>, data: D): void;
+	}
 
-		abstract render(props?: RenderableProps<P>, state?: Readonly<S>, context?: any): JSX.Element | null;
+	// The class type (not instance of class)
+	// https://stackoverflow.com/q/42753968/2777142
+	interface WeElementConstructor {
+		new(): WeElement;
+	}
+
+	abstract class ModelView<P = {}, D = {}> {
+		constructor();
+
+		// Allow static members to reference class type parameters
+		// https://github.com/Microsoft/TypeScript/issues/24018
+		static props: object;
+		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
+
+		props: RenderableProps<P>;
+		data: D;
+		host: HTMLElement;
+
+		css(): void;
+		update(): void;
+		fire(name: string, data?: object): void;
+
+		// Abstract methods don't infer argument types
+		// https://github.com/Microsoft/TypeScript/issues/14887
+		abstract render(props: RenderableProps<P>, data: D): void;
+	}
+
+	abstract class Component<P = {}, D = {}> {
+		constructor();
+
+		// Allow static members to reference class type parameters
+		// https://github.com/Microsoft/TypeScript/issues/24018
+		static props: object;
+		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
+
+		props: RenderableProps<P>;
+		data: D;
+		host: HTMLElement;
+
+		css(): void;
+		update(): void;
+		fire(name: string, data?: object): void;
+
+		// Abstract methods don't infer argument types
+		// https://github.com/Microsoft/TypeScript/issues/14887
+		abstract render(props: RenderableProps<P>, data: D): void;
 	}
 
 	function h<P>(
-		node: ComponentFactory<P>,
+		node: string,
 		params: Attributes & P | null,
-		...children: (ComponentChild | ComponentChildren)[]
+		...children: ComponentChildren[]
 	): VNode<any>;
 	function h(
 		node: string,
 		params: JSX.HTMLAttributes & JSX.SVGAttributes & Record<string, any> | null,
-		...children: (ComponentChild | ComponentChildren)[]
+		...children: ComponentChildren[]
 	): VNode<any>;
 
-	function render(node: ComponentChild, parent: Element | Document, mergeWith?: Element): Element;
-	function rerender(): void;
-	function cloneElement(element: JSX.Element, props: any): JSX.Element;
+	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): void;
+
+	function define(name: string, ctor: WeElementConstructor): void;
+	function tag(name: string, pure?: boolean): (ctor: WeElementConstructor) => void;
+	function tick(callback: Callback, scope?: any): void;
+	function nextTick(callback: Callback, scope?: any): void;
+	function observe(target: WeElementConstructor): void;
 
 	var options: {
-		syncComponentUpdates?: boolean;
-		debounceRendering?: (render: () => void) => void;
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
 	};
 }
 
-declare module "omi/devtools" {
-	// Empty. This module initializes the React Developer Tools integration
-	// when imported.
-}
+
+type Defaultize<Props, Defaults> =
+	// Distribute over unions
+	Props extends any
+		? 	// Make any properties included in Default optional
+			& Partial<Pick<Props, Extract<keyof Props, keyof Defaults>>>
+			// Include the remaining properties from Props
+			& Pick<Props, Exclude<keyof Props, keyof Defaults>>
+		: never;
 
 declare global {
 	namespace JSX {
 		interface Element extends Omi.VNode<any> {
+		}
+
+		interface ElementClass extends Omi.WeElement<any, any> {
 		}
 
 		interface ElementClass extends Omi.Component<any, any> {
@@ -140,6 +213,15 @@ declare global {
 		interface ElementAttributesProperty {
 			props: any;
 		}
+
+		interface ElementChildrenAttribute {
+			children: any;
+		}
+
+		type LibraryManagedAttributes<Component, Props> =
+			Component extends { defaultProps: infer Defaults }
+				? Defaultize<Props, Defaults>
+				: Props;
 
 		interface SVGAttributes extends HTMLAttributes {
 			accentHeight?: number | string;
@@ -403,105 +485,196 @@ declare global {
 		type AnimationEventHandler = EventHandler<AnimationEvent>;
 		type TransitionEventHandler = EventHandler<TransitionEvent>;
 		type GenericEventHandler = EventHandler<Event>;
+		type PointerEventHandler = EventHandler<PointerEvent>;
 
-		interface DOMAttributes extends Omi.PreactDOMAttributes {
+		interface DOMAttributes extends Omi.OmiDOMAttributes {
 			// Image Events
 			onLoad?: GenericEventHandler;
+			onError?: GenericEventHandler;
+			onLoadCapture?: GenericEventHandler;
 
 			// Clipboard Events
 			onCopy?: ClipboardEventHandler;
+			onCopyCapture?: ClipboardEventHandler;
 			onCut?: ClipboardEventHandler;
+			onCutCapture?: ClipboardEventHandler;
 			onPaste?: ClipboardEventHandler;
+			onPasteCapture?: ClipboardEventHandler;
 
 			// Composition Events
 			onCompositionEnd?: CompositionEventHandler;
+			onCompositionEndCapture?: CompositionEventHandler;
 			onCompositionStart?: CompositionEventHandler;
+			onCompositionStartCapture?: CompositionEventHandler;
 			onCompositionUpdate?: CompositionEventHandler;
+			onCompositionUpdateCapture?: CompositionEventHandler;
 
 			// Focus Events
 			onFocus?: FocusEventHandler;
+			onFocusCapture?: FocusEventHandler;
 			onBlur?: FocusEventHandler;
+			onBlurCapture?: FocusEventHandler;
 
 			// Form Events
 			onChange?: GenericEventHandler;
+			onChangeCapture?: GenericEventHandler;
 			onInput?: GenericEventHandler;
+			onInputCapture?: GenericEventHandler;
 			onSearch?: GenericEventHandler;
+			onSearchCapture?: GenericEventHandler;
 			onSubmit?: GenericEventHandler;
+			onSubmitCapture?: GenericEventHandler;
 
 			// Keyboard Events
 			onKeyDown?: KeyboardEventHandler;
+			onKeyDownCapture?: KeyboardEventHandler;
 			onKeyPress?: KeyboardEventHandler;
+			onKeyPressCapture?: KeyboardEventHandler;
 			onKeyUp?: KeyboardEventHandler;
+			onKeyUpCapture?: KeyboardEventHandler;
 
 			// Media Events
 			onAbort?: GenericEventHandler;
+			onAbortCapture?: GenericEventHandler;
 			onCanPlay?: GenericEventHandler;
+			onCanPlayCapture?: GenericEventHandler;
 			onCanPlayThrough?: GenericEventHandler;
+			onCanPlayThroughCapture?: GenericEventHandler;
 			onDurationChange?: GenericEventHandler;
+			onDurationChangeCapture?: GenericEventHandler;
 			onEmptied?: GenericEventHandler;
+			onEmptiedCapture?: GenericEventHandler;
 			onEncrypted?: GenericEventHandler;
+			onEncryptedCapture?: GenericEventHandler;
 			onEnded?: GenericEventHandler;
+			onEndedCapture?: GenericEventHandler;
 			onLoadedData?: GenericEventHandler;
+			onLoadedDataCapture?: GenericEventHandler;
 			onLoadedMetadata?: GenericEventHandler;
+			onLoadedMetadataCapture?: GenericEventHandler;
 			onLoadStart?: GenericEventHandler;
+			onLoadStartCapture?: GenericEventHandler;
 			onPause?: GenericEventHandler;
+			onPauseCapture?: GenericEventHandler;
 			onPlay?: GenericEventHandler;
+			onPlayCapture?: GenericEventHandler;
 			onPlaying?: GenericEventHandler;
+			onPlayingCapture?: GenericEventHandler;
 			onProgress?: GenericEventHandler;
+			onProgressCapture?: GenericEventHandler;
 			onRateChange?: GenericEventHandler;
+			onRateChangeCapture?: GenericEventHandler;
 			onSeeked?: GenericEventHandler;
+			onSeekedCapture?: GenericEventHandler;
 			onSeeking?: GenericEventHandler;
+			onSeekingCapture?: GenericEventHandler;
 			onStalled?: GenericEventHandler;
+			onStalledCapture?: GenericEventHandler;
 			onSuspend?: GenericEventHandler;
+			onSuspendCapture?: GenericEventHandler;
 			onTimeUpdate?: GenericEventHandler;
+			onTimeUpdateCapture?: GenericEventHandler;
 			onVolumeChange?: GenericEventHandler;
+			onVolumeChangeCapture?: GenericEventHandler;
 			onWaiting?: GenericEventHandler;
+			onWaitingCapture?: GenericEventHandler;
 
 			// MouseEvents
 			onClick?: MouseEventHandler;
+			onClickCapture?: MouseEventHandler;
 			onContextMenu?: MouseEventHandler;
+			onContextMenuCapture?: MouseEventHandler;
 			onDblClick?: MouseEventHandler;
+			onDblClickCapture?: MouseEventHandler;
 			onDrag?: DragEventHandler;
+			onDragCapture?: DragEventHandler;
 			onDragEnd?: DragEventHandler;
+			onDragEndCapture?: DragEventHandler;
 			onDragEnter?: DragEventHandler;
+			onDragEnterCapture?: DragEventHandler;
 			onDragExit?: DragEventHandler;
+			onDragExitCapture?: DragEventHandler;
 			onDragLeave?: DragEventHandler;
+			onDragLeaveCapture?: DragEventHandler;
 			onDragOver?: DragEventHandler;
+			onDragOverCapture?: DragEventHandler;
 			onDragStart?: DragEventHandler;
+			onDragStartCapture?: DragEventHandler;
 			onDrop?: DragEventHandler;
+			onDropCapture?: DragEventHandler;
 			onMouseDown?: MouseEventHandler;
+			onMouseDownCapture?: MouseEventHandler;
 			onMouseEnter?: MouseEventHandler;
+			onMouseEnterCapture?: MouseEventHandler;
 			onMouseLeave?: MouseEventHandler;
+			onMouseLeaveCapture?: MouseEventHandler;
 			onMouseMove?: MouseEventHandler;
+			onMouseMoveCapture?: MouseEventHandler;
 			onMouseOut?: MouseEventHandler;
+			onMouseOutCapture?: MouseEventHandler;
 			onMouseOver?: MouseEventHandler;
+			onMouseOverCapture?: MouseEventHandler;
 			onMouseUp?: MouseEventHandler;
+			onMouseUpCapture?: MouseEventHandler;
 
 			// Selection Events
 			onSelect?: GenericEventHandler;
+			onSelectCapture?: GenericEventHandler;
 
 			// Touch Events
 			onTouchCancel?: TouchEventHandler;
+			onTouchCancelCapture?: TouchEventHandler;
 			onTouchEnd?: TouchEventHandler;
+			onTouchEndCapture?: TouchEventHandler;
 			onTouchMove?: TouchEventHandler;
+			onTouchMoveCapture?: TouchEventHandler;
 			onTouchStart?: TouchEventHandler;
+			onTouchStartCapture?: TouchEventHandler;
+
+			// Pointer Events
+			onPointerOver?: PointerEventHandler;
+			onPointerOverCapture?: PointerEventHandler;
+			onPointerEnter?: PointerEventHandler;
+			onPointerEnterCapture?: PointerEventHandler;
+			onPointerDown?: PointerEventHandler;
+			onPointerDownCapture?: PointerEventHandler;
+			onPointerMove?: PointerEventHandler;
+			onPointerMoveCapture?: PointerEventHandler;
+			onPointerUp?: PointerEventHandler;
+			onPointerUpCapture?: PointerEventHandler;
+			onPointerCancel?: PointerEventHandler;
+			onPointerCancelCapture?: PointerEventHandler;
+			onPointerOut?: PointerEventHandler;
+			onPointerOutCapture?: PointerEventHandler;
+			onPointerLeave?: PointerEventHandler;
+			onPointerLeaveCapture?: PointerEventHandler;
+			onGotPointerCapture?: PointerEventHandler;
+			onGotPointerCaptureCapture?: PointerEventHandler;
+			onLostPointerCapture?: PointerEventHandler;
+			onLostPointerCaptureCapture?: PointerEventHandler;
 
 			// UI Events
 			onScroll?: UIEventHandler;
+			onScrollCapture?: UIEventHandler;
 
 			// Wheel Events
 			onWheel?: WheelEventHandler;
+			onWheelCapture?: WheelEventHandler;
 
 			// Animation Events
 			onAnimationStart?: AnimationEventHandler;
+			onAnimationStartCapture?: AnimationEventHandler;
 			onAnimationEnd?: AnimationEventHandler;
+			onAnimationEndCapture?: AnimationEventHandler;
 			onAnimationIteration?: AnimationEventHandler;
+			onAnimationIterationCapture?: AnimationEventHandler;
 
 			// Transition Events
 			onTransitionEnd?: TransitionEventHandler;
+			onTransitionEndCapture?: TransitionEventHandler;
 		}
 
-		interface HTMLAttributes extends Omi.PreactHTMLAttributes, DOMAttributes {
+		interface HTMLAttributes extends Omi.ClassAttributes<any>, DOMAttributes {
 			// Standard HTML Attributes
 			accept?: string;
 			acceptCharset?: string;
@@ -528,6 +701,7 @@ declare global {
 			contentEditable?: boolean;
 			contextMenu?: string;
 			controls?: boolean;
+			controlsList?: string;
 			coords?: string;
 			crossOrigin?: string;
 			data?: string;
@@ -585,6 +759,7 @@ declare global {
 			optimum?: number;
 			pattern?: string;
 			placeholder?: string;
+			playsInline?: boolean;
 			poster?: string;
 			preload?: string;
 			radioGroup?: string;
@@ -605,7 +780,7 @@ declare global {
 			sizes?: string;
 			slot?: string;
 			span?: number;
-			spellCheck?: boolean;
+			spellcheck?: boolean;
 			src?: string;
 			srcset?: string;
 			srcDoc?: string;
@@ -795,6 +970,7 @@ declare global {
 			text: SVGAttributes;
 			tspan: SVGAttributes;
 			use: SVGAttributes;
+			[tagName: string]: any;
 		}
 	}
 }
