@@ -1,4 +1,4 @@
-import { render, Component } from '../../dist/omi.esm';
+import { render, Component } from '../../dist/omi.esm'
 
 class Hello extends Component {
   // install() {
@@ -20,22 +20,26 @@ class App extends Component {
     this.$store.rename('Hello Omi !')
   }
 
-
   render() {
     return (
       <div>
-        <Hello ref={c => { this.hello = c }} ></Hello>
-        <button onclick={this.handleClick}>Click me to call this.$store.rename('Hello Omi !') </button>
+        <Hello
+          ref={c => {
+            this.hello = c
+          }}
+        />
+        <button onclick={this.handleClick}>
+          Click me to call this.$store.rename('Hello Omi !'){' '}
+        </button>
       </div>
     )
   }
 }
 
-
 class AppStore {
   constructor(data, callbacks) {
     this.name = data.name || ''
-    this.onRename = callbacks.onRename || function () { }
+    this.onRename = callbacks.onRename || function() {}
   }
 
   rename(name) {
@@ -44,18 +48,18 @@ class AppStore {
   }
 }
 
-
 const app = new App()
-const store = new AppStore({ name: 'Omi' }, {
-  onRename: () => {
-    //app.update()
-    //or
-    app.hello.update()
-    //or
-    //store.hello.update()
+const store = new AppStore(
+  { name: 'Omi' },
+  {
+    onRename: () => {
+      //app.update()
+      //or
+      app.hello.update()
+      //or
+      //store.hello.update()
+    }
   }
-})
+)
 
 render(app, document.body, { store })
-
-

@@ -6,8 +6,8 @@
  *  @private
  */
 export function extend(obj, props) {
-	for (let i in props) obj[i] = props[i];
-	return obj;
+  for (let i in props) obj[i] = props[i]
+  return obj
 }
 
 /**
@@ -18,18 +18,27 @@ export function extend(obj, props) {
  * @param {Function} callback
  */
 
-let usePromise = typeof Promise == 'function';
+let usePromise = typeof Promise == 'function'
 
 // for native
-if (typeof document !== 'object' && typeof global !== 'undefined' && global.__config__) {
-	if (global.__config__.platform === 'android') {
-		usePromise = true;
-	} else {
-		let systemVersion = global.__config__.systemVersion && global.__config__.systemVersion.split('.')[0] || 0;
-		if (systemVersion > 8) {
-			usePromise = true;
-		}
-	}
+if (
+  typeof document !== 'object' &&
+  typeof global !== 'undefined' &&
+  global.__config__
+) {
+  if (global.__config__.platform === 'android') {
+    usePromise = true
+  } else {
+    let systemVersion =
+      (global.__config__.systemVersion &&
+        global.__config__.systemVersion.split('.')[0]) ||
+      0
+    if (systemVersion > 8) {
+      usePromise = true
+    }
+  }
 }
 
-export const defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+export const defer = usePromise
+  ? Promise.resolve().then.bind(Promise.resolve())
+  : setTimeout

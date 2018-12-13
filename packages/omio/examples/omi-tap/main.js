@@ -1,21 +1,20 @@
-import {  cloneElement, render, Component } from '../../src/omi';
+import { cloneElement, render, Component } from '../../src/omi'
 import OmiTap from './omi-tap'
 
 class TapExample extends Component {
-
-  constructor(){
+  constructor() {
     super()
     this.tapState = 'tap me'
     this.tapHandler = this.tapHandler.bind(this)
   }
 
-  tapHandler(evt){
+  tapHandler(evt) {
     console.log(evt)
-    this.tapState  = 'taped'
+    this.tapState = 'taped'
     this.update()
   }
 
-  style(){
+  style() {
     return `
     .tapDiv{
       width: 100px;
@@ -29,17 +28,16 @@ class TapExample extends Component {
     `
   }
 
-    render() {
-      return (
-        <div>
-          <h3>Hello OmiTap</h3>
-          <OmiTap  onTap={this.tapHandler}  >
-            <div class="tapDiv">{this.tapState}</div>
-          </OmiTap>
-        </div>
-      )
-    }
+  render() {
+    return (
+      <div>
+        <h3>Hello OmiTap</h3>
+        <OmiTap onTap={this.tapHandler}>
+          <div class="tapDiv">{this.tapState}</div>
+        </OmiTap>
+      </div>
+    )
   }
-  
-  render(<TapExample  />, 'body')
+}
 
+render(<TapExample />, 'body')

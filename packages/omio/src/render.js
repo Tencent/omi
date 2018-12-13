@@ -1,7 +1,7 @@
-import { diff } from './vdom/diff';
-import { Component } from './component';
-import options from './options';
-import {addScopedAttr, addScopedAttrStatic, getCtorName} from './style';
+import { diff } from './vdom/diff'
+import { Component } from './component'
+import options from './options'
+import { addScopedAttr, addScopedAttrStatic, getCtorName } from './style'
 
 /** Render JSX into a `parent` Element.
  *	@param {VNode} vnode		A (JSX) VNode to render
@@ -19,58 +19,68 @@ import {addScopedAttr, addScopedAttrStatic, getCtorName} from './style';
  *	render(<Thing name="one" />, document.querySelector('#foo'));
  */
 export function render(vnode, parent, merge) {
-	merge = Object.assign({
-		store: {}
-	}, merge);
-	if (typeof window === 'undefined') {
-		if (vnode instanceof Component&&merge){
-			vnode.$store = merge.store;
-		}
-		return;
-	}
+  merge = Object.assign(
+    {
+      store: {}
+    },
+    merge
+  )
+  if (typeof window === 'undefined') {
+    if (vnode instanceof Component && merge) {
+      vnode.$store = merge.store
+    }
+    return
+  }
 
-	parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-	
-	if (merge.merge){
-		merge.merge =  typeof merge.merge === 'string' ? document.querySelector(merge.merge) : merge.merge;
-	}
-	if (merge.empty){
-		while (parent.firstChild){
-			parent.removeChild(parent.firstChild);
-		}
-	}
-	merge.store.ssrData = options.root.__omiSsrData;
-	options.$store = merge.store;
+  parent = typeof parent === 'string' ? document.querySelector(parent) : parent
 
-	if (vnode instanceof Component) {
-		if (window && window.Omi){
-			window.Omi.instances.push(vnode);
-		}
-		
-		vnode.$store = merge.store;
-		
-		if (vnode.componentWillMount) vnode.componentWillMount();
-		if (vnode.install) vnode.install();
-		const rendered =  vnode.render(vnode.props, vnode.state, vnode.context);
-	
-		//don't rerender
-		if (vnode.staticStyle){
-			addScopedAttrStatic(rendered,vnode.staticStyle(),'_style_'+getCtorName(vnode.constructor));
-		}
+  if (merge.merge) {
+    merge.merge =
+      typeof merge.merge === 'string'
+        ? document.querySelector(merge.merge)
+        : merge.merge
+  }
+  if (merge.empty) {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild)
+    }
+  }
+  merge.store.ssrData = options.root.__omiSsrData
+  options.$store = merge.store
 
-		if (vnode.style){
-			addScopedAttr(rendered,vnode.style(),'_style_'+vnode._id,vnode);
-		}
+  if (vnode instanceof Component) {
+    if (window && window.Omi) {
+      window.Omi.instances.push(vnode)
+    }
 
-		vnode.base = diff(merge.merge, rendered, {}, false, parent, false);
-		
-		if (vnode.componentDidMount) vnode.componentDidMount();
-		if (vnode.installed) vnode.installed();
-		
-		return vnode.base;
-	}
+    vnode.$store = merge.store
 
-	let result = diff(merge.merge, vnode, {}, false, parent, false);
-	
-	return result;
+    if (vnode.componentWillMount) vnode.componentWillMount()
+    if (vnode.install) vnode.install()
+    const rendered = vnode.render(vnode.props, vnode.state, vnode.context)
+
+    //don't rerender
+    if (vnode.staticStyle) {
+      addScopedAttrStatic(
+        rendered,
+        vnode.staticStyle(),
+        '_style_' + getCtorName(vnode.constructor)
+      )
+    }
+
+    if (vnode.style) {
+      addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode)
+    }
+
+    vnode.base = diff(merge.merge, rendered, {}, false, parent, false)
+
+    if (vnode.componentDidMount) vnode.componentDidMount()
+    if (vnode.installed) vnode.installed()
+
+    return vnode.base
+  }
+
+  let result = diff(merge.merge, vnode, {}, false, parent, false)
+
+  return result
 }
