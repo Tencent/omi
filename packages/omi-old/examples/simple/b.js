@@ -4,6 +4,22 @@
 	/** Virtual DOM Node */
 	function VNode() {}
 
+	function getGlobal() {
+		if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
+			if (typeof self !== 'undefined') {
+				return self;
+			} else if (typeof window !== 'undefined') {
+				return window;
+			} else if (typeof global !== 'undefined') {
+				return global;
+			}
+			return function () {
+				return this;
+			}();
+		}
+		return global;
+	}
+
 	/** Global options
 	 *	@public
 	 *	@namespace options {Object}
@@ -12,9 +28,13 @@
 
 		scopedStyle: true,
 		$store: null,
+		mapping: {},
 		isWeb: true,
-		staticStyleRendered: false,
-		doc: typeof document === 'object' ? document : null
+		staticStyleMapping: {},
+		doc: typeof document === 'object' ? document : null,
+		root: getGlobal(),
+		//styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
+		styleCache: []
 		//componentChange(component, element) { },
 		/** If `true`, `prop` changes trigger synchronous component updates.
 	  *	@name syncComponentUpdates
@@ -624,6 +644,13 @@
 		// empty values (null, undefined, booleans) render as empty Text nodes
 		if (vnode == null || typeof vnode === 'boolean') vnode = '';
 
+		// If the VNode represents a Component, perform a component diff:
+		var vnodeName = vnode.nodeName;
+		if (options.mapping[vnodeName]) {
+			vnode.nodeName = options.mapping[vnodeName];
+			return buildComponentFromVNode(dom, vnode, context, mountAll);
+		}
+
 		// Fast case: Strings & Numbers create/update Text nodes.
 		if (typeof vnode === 'string' || typeof vnode === 'number') {
 
@@ -645,12 +672,6 @@
 			out[ATTR_KEY] = true;
 
 			return out;
-		}
-
-		// If the VNode represents a Component, perform a component diff:
-		var vnodeName = vnode.nodeName;
-		if (typeof vnodeName === 'function') {
-			return buildComponentFromVNode(dom, vnode, context, mountAll);
 		}
 
 		// Tracks entering and exiting SVG namespace when descending through the tree.
@@ -902,6 +923,25 @@
 		return this.constructor(props, context);
 	}
 
+	var styleId = 0;
+
+	function getCtorName(ctor) {
+
+		for (var i = 0, len = options.styleCache.length; i < len; i++) {
+			var item = options.styleCache[i];
+
+			if (item.ctor === ctor) {
+				return item.attrName;
+			}
+		}
+
+		var attrName = 'static_' + styleId;
+		options.styleCache.push({ ctor: ctor, attrName: attrName });
+		styleId++;
+
+		return attrName;
+	}
+
 	// many thanks to https://github.com/thomaspark/scoper/
 	function scoper(css, prefix) {
 		prefix = '[' + prefix.toLowerCase() + ']';
@@ -986,11 +1026,13 @@
 	function addScopedAttrStatic(vdom, style, attr) {
 		if (options.scopedStyle) {
 			scopeVdom(attr, vdom);
-			if (!options.staticStyleRendered) {
+			if (!options.staticStyleMapping[attr]) {
 				addStyle(scoper(style, attr), attr);
+				options.staticStyleMapping[attr] = true;
 			}
-		} else if (!options.staticStyleRendered) {
+		} else if (!options.staticStyleMapping[attr]) {
 			addStyleWithoutId(style);
+			options.staticStyleMapping[attr] = true;
 		}
 	}
 
@@ -1091,13 +1133,13 @@
 		if (!skip) {
 			rendered = component.render(props, state, context);
 
-			if (component.style) {
-				addScopedAttr(rendered, component.style(), '_style_' + component._id, component);
-			}
-
 			//don't rerender
 			if (component.staticStyle) {
-				addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + component.constructor.name);
+				addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + getCtorName(component.constructor));
+			}
+
+			if (component.style) {
+				addScopedAttr(rendered, component.style(), '_style_' + component._id, component);
 			}
 
 			// context to pass to the child, can be updated via (grand-)parent component
@@ -1314,6 +1356,8 @@
 		this.$store = null;
 	}
 
+	Component.is = 'WeElement';
+
 	extend(Component.prototype, {
 
 		/** Returns a `boolean` indicating if the component should re-render when receiving the given `props` and `state`.
@@ -1362,18 +1406,6 @@
 		render: function render() {}
 	});
 
-	function isElement(obj) {
-		try {
-			//Using W3 DOM2 (works for FF, Opera and Chrome)
-			return obj instanceof HTMLElement;
-		} catch (e) {
-			//Browsers not supporting W3 DOM2 don't have HTMLElement and
-			//an exception is thrown and we end up here. Testing some
-			//properties that all elements have (works on IE7)
-			return typeof obj === "object" && obj.nodeType === 1 && typeof obj.style === "object" && typeof obj.ownerDocument === "object";
-		}
-	}
-
 	/** Render JSX into a `parent` Element.
 	 *	@param {VNode} vnode		A (JSX) VNode to render
 	 *	@param {Element} parent		DOM element to render into
@@ -1390,65 +1422,122 @@
 	 *	render(<Thing name="one" />, document.querySelector('#foo'));
 	 */
 	function render(vnode, parent, merge) {
-		options.staticStyleRendered = false;
+		merge = Object.assign({
+			store: {}
+		}, merge);
+		if (typeof window === 'undefined') {
+			if (vnode instanceof Component && merge) {
+				vnode.$store = merge.store;
+			}
+			return;
+		}
+
 		parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-		if (merge === true) {
+
+		if (merge.merge) {
+			merge.merge = typeof merge.merge === 'string' ? document.querySelector(merge.merge) : merge.merge;
+		}
+		if (merge.empty) {
 			while (parent.firstChild) {
 				parent.removeChild(parent.firstChild);
 			}
 		}
-		var m = isElement(merge) || merge === undefined;
+		merge.store.ssrData = options.root.__omiSsrData;
+		options.$store = merge.store;
+
 		if (vnode instanceof Component) {
 			if (window && window.Omi) {
 				window.Omi.instances.push(vnode);
 			}
-			if (!m) {
-				vnode.$store = options.$store = merge;
-			}
+
+			vnode.$store = merge.store;
+
 			if (vnode.componentWillMount) vnode.componentWillMount();
 			if (vnode.install) vnode.install();
 			var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
+
+			//don't rerender
+			if (vnode.staticStyle) {
+				addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + getCtorName(vnode.constructor));
+			}
+
 			if (vnode.style) {
 				addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode);
 			}
 
-			//don't rerender
-			if (vnode.staticStyle) {
-				addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + vnode.constructor.name, !vnode.base);
-			}
-
-			vnode.base = diff(m ? merge : undefined, rendered, {}, false, parent, false);
+			vnode.base = diff(merge.merge, rendered, {}, false, parent, false);
 
 			if (vnode.componentDidMount) vnode.componentDidMount();
 			if (vnode.installed) vnode.installed();
-			options.staticStyleRendered = true;
+
 			return vnode.base;
 		}
 
-		var result = diff(merge, vnode, {}, false, parent, false);
-		options.staticStyleRendered = true;
+		var result = diff(merge.merge, vnode, {}, false, parent, false);
+
 		return result;
 	}
 
-	function getGlobal() {
-		if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
-			if (typeof self !== 'undefined') {
-				return self;
-			} else if (typeof window !== 'undefined') {
-				return window;
-			} else if (typeof global !== 'undefined') {
-				return global;
-			}
-			return function () {
-				return this;
-			}();
-		}
-		return global;
+	var OBJECTTYPE = '[object Object]';
+	var ARRAYTYPE = '[object Array]';
+
+	function define(name, ctor) {
+	  if (ctor.is === 'WeElement') {
+	    options.mapping[name] = ctor;
+	    if (ctor.data && !ctor.pure) {
+	      ctor.updatePath = getUpdatePath(ctor.data);
+	    }
+	  }
+	}
+
+	function getUpdatePath(data) {
+	  var result = {};
+	  dataToPath(data, result);
+	  return result;
+	}
+
+	function dataToPath(data, result) {
+	  Object.keys(data).forEach(function (key) {
+	    result[key] = true;
+	    var type = Object.prototype.toString.call(data[key]);
+	    if (type === OBJECTTYPE) {
+	      _objToPath(data[key], key, result);
+	    } else if (type === ARRAYTYPE) {
+	      _arrayToPath(data[key], key, result);
+	    }
+	  });
+	}
+
+	function _objToPath(data, path, result) {
+	  Object.keys(data).forEach(function (key) {
+	    result[path + '.' + key] = true;
+	    delete result[path];
+	    var type = Object.prototype.toString.call(data[key]);
+	    if (type === OBJECTTYPE) {
+	      _objToPath(data[key], path + '.' + key, result);
+	    } else if (type === ARRAYTYPE) {
+	      _arrayToPath(data[key], path + '.' + key, result);
+	    }
+	  });
+	}
+
+	function _arrayToPath(data, path, result) {
+	  data.forEach(function (item, index) {
+	    result[path + '[' + index + ']'] = true;
+	    delete result[path];
+	    var type = Object.prototype.toString.call(item);
+	    if (type === OBJECTTYPE) {
+	      _objToPath(item, path + '[' + index + ']', result);
+	    } else if (type === ARRAYTYPE) {
+	      _arrayToPath(item, path + '[' + index + ']', result);
+	    }
+	  });
 	}
 
 	var instances = [];
-	var root = getGlobal();
-	root.Omi = {
+	var WeElement = Component;
+
+	options.root.Omi = {
 		h: h,
 		createElement: h,
 		cloneElement: cloneElement,
@@ -1456,10 +1545,12 @@
 		render: render,
 		rerender: rerender,
 		options: options,
-		instances: instances
+		instances: instances,
+		WeElement: WeElement,
+		define: define
 	};
 
-	root.Omi.version = '3.0.2';
+	options.root.Omi.version = '3.0.6';
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1467,16 +1558,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Hello = function (_Component) {
-	    _inherits(Hello, _Component);
+	define('my-hello', function (_Component) {
+	    _inherits(_class, _Component);
 
-	    function Hello() {
-	        _classCallCheck(this, Hello);
+	    function _class() {
+	        _classCallCheck(this, _class);
 
 	        return _possibleConstructorReturn(this, _Component.apply(this, arguments));
 	    }
 
-	    Hello.prototype.render = function render$$1() {
+	    _class.prototype.render = function render$$1() {
 	        return Omi.h(
 	            'h3',
 	            null,
@@ -1485,16 +1576,16 @@
 	        );
 	    };
 
-	    return Hello;
-	}(Component);
+	    return _class;
+	}(Component));
 
-	var App = function (_Component2) {
-	    _inherits(App, _Component2);
+	define('my-app', function (_Component2) {
+	    _inherits(_class3, _Component2);
 
-	    function App() {
+	    function _class3() {
 	        var _temp, _this2, _ret;
 
-	        _classCallCheck(this, App);
+	        _classCallCheck(this, _class3);
 
 	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	            args[_key] = arguments[_key];
@@ -1506,23 +1597,23 @@
 	        }, _temp), _possibleConstructorReturn(_this2, _ret);
 	    }
 
-	    App.prototype.install = function install() {
+	    _class3.prototype.install = function install() {
 	        this.name = 'Omi';
 	    };
 
-	    App.prototype.style = function style() {
+	    _class3.prototype.style = function style() {
 	        return 'h3{\n                    cursor:pointer;\n                    color: ' + (Math.random() > 0.5 ? 'red' : 'green') + ';\n                }';
 	    };
 
-	    App.prototype.staticStyle = function staticStyle() {
+	    _class3.prototype.staticStyle = function staticStyle() {
 	        return 'div{\n                    font-size:20px;\n                }';
 	    };
 
-	    App.prototype.render = function render$$1() {
+	    _class3.prototype.render = function render$$1() {
 	        return Omi.h(
 	            'div',
 	            null,
-	            Omi.h(Hello, { name: this.name }),
+	            Omi.h('my-hello', { name: this.name }),
 	            Omi.h(
 	                'h3',
 	                { onclick: this.handleClick },
@@ -1531,10 +1622,10 @@
 	        );
 	    };
 
-	    return App;
-	}(Component);
+	    return _class3;
+	}(Component));
 
-	render(Omi.h(App, null), 'body');
+	render(Omi.h('my-app', null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map

@@ -1,12 +1,12 @@
-import { render, Component } from '../../src/omi';
+import { define, render, Component } from '../../src/omi';
 
-class Hello extends Component {
+define('my-hello', class extends Component {
     render() {
         return <h3> {this.props.name}</h3>
     }
-}
+})
 
-class App extends Component {
+define('my-app', class extends Component {
     install() {
         this.name = 'Omi'
     }
@@ -32,11 +32,11 @@ class App extends Component {
     render() {
         return (
 			<div>
-				<Hello name={this.name}></Hello>
+				<my-hello name={this.name}></my-hello>
 				<h3 onclick={this.handleClick}>Scoped css and event test! click me!</h3>
 			</div>
 		)
     }
-}
+})
 
-render(<App />, 'body')
+render(<my-app />, 'body')

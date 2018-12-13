@@ -44,7 +44,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 		// hydration is indicated by the existing element to be diffed not having a prop cache
 		hydrating = dom!=null && !(ATTR_KEY in dom);
 	}
-
+	
 	let ret = idiff(dom, vnode, context, mountAll, componentRoot);
 
 	// append the element if its a new parent
@@ -71,7 +71,8 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
 	// If the VNode represents a Component, perform a component diff:
 	let vnodeName = vnode.nodeName;
-	if (vnodeName.is === 'WeElement') {
+	if (options.mapping[vnodeName]) {
+		vnode.nodeName = options.mapping[vnodeName]
 		return buildComponentFromVNode(dom, vnode, context, mountAll);
 	}
 

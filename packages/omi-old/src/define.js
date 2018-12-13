@@ -1,4 +1,4 @@
-import options from '../options';
+import options from './options';
 
 const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
