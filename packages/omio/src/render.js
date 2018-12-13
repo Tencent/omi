@@ -1,7 +1,5 @@
 import { diff } from './vdom/diff'
-import { Component } from './component'
 import options from './options'
-import { addScopedAttr, addScopedAttrStatic, getCtorName } from './style'
 
 /** Render JSX into a `parent` Element.
  *	@param {VNode} vnode		A (JSX) VNode to render
@@ -18,74 +16,18 @@ import { addScopedAttr, addScopedAttrStatic, getCtorName } from './style'
  *	const Thing = ({ name }) => <span>{ name }</span>;
  *	render(<Thing name="one" />, document.querySelector('#foo'));
  */
-export function render(vnode, parent, merge) {
-  merge = Object.assign(
-    {
-      store: {}
-    },
-    merge
-  )
-  if (typeof window === 'undefined') {
-    if (vnode instanceof Component && merge) {
-      vnode.$store = merge.store
-    }
-    return
-  }
-
+export function render(vnode, parent, store) {
+  
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent
 
-  if (merge.merge) {
-    merge.merge =
-      typeof merge.merge === 'string'
-        ? document.querySelector(merge.merge)
-        : merge.merge
+  if (store && store.merge) {
+    store.merge =
+      typeof store.merge === 'string'
+        ? document.querySelector(store.merge)
+        : store.merge
   }
-  if (merge.empty) {
-    while (parent.firstChild) {
-      parent.removeChild(parent.firstChild)
-    }
-  }
-  merge.store.ssrData = options.root.__omiSsrData
-  options.$store = merge.store
+ 
+  options.store = store
 
-  if (vnode instanceof Component) {
-    if (window && window.Omi) {
-      window.Omi.instances.push(vnode)
-    }
-
-    vnode.$store = merge.store
-
-    if (vnode.componentWillMount) vnode.componentWillMount()
-    if (vnode.install) vnode.install()
-    if (vnode.constructor.observe) {
-      obaa(vnode.data, () => {
-        vnode.update()
-      })
-    }
-    const rendered = vnode.render(vnode.props, vnode.state, vnode.context)
-
-    //don't rerender
-    if (vnode.staticCss) {
-      addScopedAttrStatic(
-        rendered,
-        vnode.staticCss(),
-        '_style_' + getCtorName(vnode.constructor)
-      )
-    }
-
-    if (vnode.css) {
-      addScopedAttr(rendered, vnode.css(), '_style_' + vnode._id, vnode)
-    }
-
-    vnode.base = diff(merge.merge, rendered, {}, false, parent, false)
-
-    if (vnode.componentDidMount) vnode.componentDidMount()
-    if (vnode.installed) vnode.installed()
-
-    return vnode.base
-  }
-
-  let result = diff(merge.merge, vnode, {}, false, parent, false)
-
-  return result
+  return diff(store && store.merge, vnode, {}, false, parent, false)
 }

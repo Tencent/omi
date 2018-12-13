@@ -26,7 +26,7 @@
    */
   var options = {
     scopedStyle: true,
-    $store: null,
+    store: null,
     mapping: {},
     isWeb: true,
     staticStyleMapping: {},
@@ -898,7 +898,7 @@
       inst.constructor = Ctor;
       inst.render = doRender;
     }
-    inst.$store = options.$store;
+    inst.store = options.store;
     if (window && window.Omi) {
       window.Omi.instances.push(inst);
     }
@@ -1042,6 +1042,179 @@
     }
   }
 
+  /* obaa 1.0.0
+   * By dntzhang
+   * Github: https://github.com/Tencent/omi
+   * MIT Licensed.
+   */
+
+  var obaa = function obaa(target, arr, callback) {
+    var _observe = function _observe(target, arr, callback) {
+      if (!target.$observer) target.$observer = this;
+      var $observer = target.$observer;
+      var eventPropArr = [];
+      if (obaa.isArray(target)) {
+        if (target.length === 0) {
+          target.$observeProps = {};
+          target.$observeProps.$observerPath = '#';
+        }
+        $observer.mock(target);
+      }
+      for (var prop in target) {
+        if (target.hasOwnProperty(prop)) {
+          if (callback) {
+            if (obaa.isArray(arr) && obaa.isInArray(arr, prop)) {
+              eventPropArr.push(prop);
+              $observer.watch(target, prop);
+            } else if (obaa.isString(arr) && prop == arr) {
+              eventPropArr.push(prop);
+              $observer.watch(target, prop);
+            }
+          } else {
+            eventPropArr.push(prop);
+            $observer.watch(target, prop);
+          }
+        }
+      }
+      $observer.target = target;
+      if (!$observer.propertyChangedHandler) $observer.propertyChangedHandler = [];
+      var propChanged = callback ? callback : arr;
+      $observer.propertyChangedHandler.push({
+        all: !callback,
+        propChanged: propChanged,
+        eventPropArr: eventPropArr
+      });
+    };
+    _observe.prototype = {
+      onPropertyChanged: function onPropertyChanged(prop, value, oldValue, target, path) {
+        if (value !== oldValue && this.propertyChangedHandler) {
+          var rootName = obaa._getRootName(prop, path);
+          for (var i = 0, len = this.propertyChangedHandler.length; i < len; i++) {
+            var handler = this.propertyChangedHandler[i];
+            if (handler.all || obaa.isInArray(handler.eventPropArr, rootName) || rootName.indexOf('Array-') === 0) {
+              handler.propChanged.call(this.target, prop, value, oldValue, path);
+            }
+          }
+        }
+        if (prop.indexOf('Array-') !== 0 && typeof value === 'object') {
+          this.watch(target, prop, target.$observeProps.$observerPath);
+        }
+      },
+      mock: function mock(target) {
+        var self = this;
+        obaa.methods.forEach(function (item) {
+          target[item] = function () {
+            var old = Array.prototype.slice.call(this, 0);
+            var result = Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+            if (new RegExp('\\b' + item + '\\b').test(obaa.triggerStr)) {
+              for (var cprop in this) {
+                if (this.hasOwnProperty(cprop) && !obaa.isFunction(this[cprop])) {
+                  self.watch(this, cprop, this.$observeProps.$observerPath);
+                }
+              }
+              //todo
+              self.onPropertyChanged('Array-' + item, this, old, this, this.$observeProps.$observerPath);
+            }
+            return result;
+          };
+          target['pure' + item.substring(0, 1).toUpperCase() + item.substring(1)] = function () {
+            return Array.prototype[item].apply(this, Array.prototype.slice.call(arguments));
+          };
+        });
+      },
+      watch: function watch(target, prop, path) {
+        if (prop === '$observeProps' || prop === '$observer') return;
+        if (obaa.isFunction(target[prop])) return;
+        if (!target.$observeProps) target.$observeProps = {};
+        if (path !== undefined) {
+          target.$observeProps.$observerPath = path;
+        } else {
+          target.$observeProps.$observerPath = '#';
+        }
+        var self = this;
+        var currentValue = target.$observeProps[prop] = target[prop];
+        Object.defineProperty(target, prop, {
+          get: function get() {
+            return this.$observeProps[prop];
+          },
+          set: function set(value) {
+            var old = this.$observeProps[prop];
+            this.$observeProps[prop] = value;
+            self.onPropertyChanged(prop, value, old, this, target.$observeProps.$observerPath);
+          }
+        });
+        if (typeof currentValue == 'object') {
+          if (obaa.isArray(currentValue)) {
+            this.mock(currentValue);
+            if (currentValue.length === 0) {
+              if (!currentValue.$observeProps) currentValue.$observeProps = {};
+              if (path !== undefined) {
+                currentValue.$observeProps.$observerPath = path;
+              } else {
+                currentValue.$observeProps.$observerPath = '#';
+              }
+            }
+          }
+          for (var cprop in currentValue) {
+            if (currentValue.hasOwnProperty(cprop)) {
+              this.watch(currentValue, cprop, target.$observeProps.$observerPath + '-' + prop);
+            }
+          }
+        }
+      }
+    };
+    return new _observe(target, arr, callback);
+  };
+
+  obaa.methods = ['concat', 'copyWithin', 'entries', 'every', 'fill', 'filter', 'find', 'findIndex', 'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map', 'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice', 'some', 'sort', 'splice', 'toLocaleString', 'toString', 'unshift', 'values', 'size'];
+  obaa.triggerStr = ['concat', 'copyWithin', 'fill', 'pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift', 'size'].join(',');
+
+  obaa.isArray = function (obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]';
+  };
+
+  obaa.isString = function (obj) {
+    return typeof obj === 'string';
+  };
+
+  obaa.isInArray = function (arr, item) {
+    for (var i = arr.length; --i > -1;) {
+      if (item === arr[i]) return true;
+    }
+    return false;
+  };
+
+  obaa.isFunction = function (obj) {
+    return Object.prototype.toString.call(obj) == '[object Function]';
+  };
+
+  obaa._getRootName = function (prop, path) {
+    if (path === '#') {
+      return prop;
+    }
+    return path.split('-')[1];
+  };
+
+  obaa.add = function (obj, prop) {
+    var $observer = obj.$observer;
+    $observer.watch(obj, prop);
+  };
+
+  obaa.set = function (obj, prop, value, exec) {
+    if (!exec) {
+      obj[prop] = value;
+    }
+    var $observer = obj.$observer;
+    $observer.watch(obj, prop);
+    if (exec) {
+      obj[prop] = value;
+    }
+  };
+
+  Array.prototype.size = function (length) {
+    this.length = length;
+  };
+
   /** Set a component's `props` (generally derived from JSX attributes).
    *	@param {Object} props
    *	@param {Object} [opts]
@@ -1058,6 +1231,11 @@
     if (!component.base || mountAll) {
       if (component.componentWillMount) component.componentWillMount();
       if (component.install) component.install();
+      if (component.constructor.observe) {
+        obaa(component.data, function () {
+          component.update();
+        });
+      }
     } else if (component.componentWillReceiveProps) {
       component.componentWillReceiveProps(props, context);
     }
@@ -1145,20 +1323,21 @@
 
       var childComponent = rendered && rendered.nodeName,
           toUnmount = void 0,
-          base = void 0;
+          base = void 0,
+          ctor = options.mapping[childComponent];
 
-      if (typeof childComponent === 'function') {
+      if (ctor) {
         // set up high order component link
 
         var childProps = getNodeProps(rendered);
         inst = initialChildComponent;
 
-        if (inst && inst.constructor === childComponent && childProps.key == inst.__key) {
+        if (inst && inst.constructor === ctor && childProps.key == inst.__key) {
           setComponentProps(inst, childProps, SYNC_RENDER, context, false);
         } else {
           toUnmount = inst;
 
-          component._component = inst = createComponent(childComponent, childProps, context);
+          component._component = inst = createComponent(ctor, childProps, context);
           inst.nextBase = inst.nextBase || nextBase;
           inst._parentComponent = component;
           setComponentProps(inst, childProps, NO_RENDER, context, false);
@@ -1348,7 +1527,7 @@
 
     this._preStyle = null;
 
-    this.$store = null;
+    this.store = null;
   }
 
   Component.is = 'WeElement';
@@ -1415,61 +1594,17 @@
    *	const Thing = ({ name }) => <span>{ name }</span>;
    *	render(<Thing name="one" />, document.querySelector('#foo'));
    */
-  function render(vnode, parent, merge) {
-    merge = Object.assign({
-      store: {}
-    }, merge);
-    if (typeof window === 'undefined') {
-      if (vnode instanceof Component && merge) {
-        vnode.$store = merge.store;
-      }
-      return;
-    }
+  function render(vnode, parent, store) {
 
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 
-    if (merge.merge) {
-      merge.merge = typeof merge.merge === 'string' ? document.querySelector(merge.merge) : merge.merge;
-    }
-    if (merge.empty) {
-      while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-      }
-    }
-    merge.store.ssrData = options.root.__omiSsrData;
-    options.$store = merge.store;
-
-    if (vnode instanceof Component) {
-      if (window && window.Omi) {
-        window.Omi.instances.push(vnode);
-      }
-
-      vnode.$store = merge.store;
-
-      if (vnode.componentWillMount) vnode.componentWillMount();
-      if (vnode.install) vnode.install();
-      var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
-
-      //don't rerender
-      if (vnode.staticCss) {
-        addScopedAttrStatic(rendered, vnode.staticCss(), '_style_' + getCtorName(vnode.constructor));
-      }
-
-      if (vnode.css) {
-        addScopedAttr(rendered, vnode.css(), '_style_' + vnode._id, vnode);
-      }
-
-      vnode.base = diff(merge.merge, rendered, {}, false, parent, false);
-
-      if (vnode.componentDidMount) vnode.componentDidMount();
-      if (vnode.installed) vnode.installed();
-
-      return vnode.base;
+    if (store && store.merge) {
+      store.merge = typeof store.merge === 'string' ? document.querySelector(store.merge) : store.merge;
     }
 
-    var result = diff(merge.merge, vnode, {}, false, parent, false);
+    options.store = store;
 
-    return result;
+    return diff(store && store.merge, vnode, {}, false, parent, false);
   }
 
   var OBJECTTYPE = '[object Object]';

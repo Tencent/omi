@@ -1,65 +1,39 @@
-import { render, Component } from '../../dist/omi.esm'
+import { define, render, Component } from '../../src/omi'
 
-class Hello extends Component {
-  // install() {
-  //   this.$store.hello = this
-  // }
+define('my-hello', class extends Component {
 
   render() {
-    return <div>{this.$store.name}</div>
+    return <div>{this.store.name}</div>
   }
-}
+})
 
-class App extends Component {
-  constructor() {
-    super()
-    this.handleClick = this.handleClick.bind(this)
-  }
+define('my-app', class extends Component {
 
-  handleClick() {
-    this.$store.rename('Hello Omi !')
+  handleClick = () => {
+    this.store.rename('Hello Omi !')
+    this.update()
   }
 
   render() {
     return (
       <div>
-        <Hello
+        <my-hello
           ref={c => {
             this.hello = c
           }}
         />
         <button onclick={this.handleClick}>
-          Click me to call this.$store.rename('Hello Omi !'){' '}
+          Click me to call this.store.rename('Hello Omi !'){' '}
         </button>
       </div>
     )
   }
-}
+})
 
-class AppStore {
-  constructor(data, callbacks) {
-    this.name = data.name || ''
-    this.onRename = callbacks.onRename || function() {}
-  }
 
-  rename(name) {
+render(<my-app />, document.body, {
+  name: 'abc',
+  rename: function (name) {
     this.name = name
-    this.onRename()
   }
-}
-
-const app = new App()
-const store = new AppStore(
-  { name: 'Omi' },
-  {
-    onRename: () => {
-      //app.update()
-      //or
-      app.hello.update()
-      //or
-      //store.hello.update()
-    }
-  }
-)
-
-render(app, document.body, { store })
+})

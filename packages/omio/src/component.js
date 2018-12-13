@@ -39,7 +39,7 @@ export function Component(props, context) {
 
   this._preStyle = null
 
-  this.$store = null
+  this.store = null
 }
 
 Component.is = 'WeElement'

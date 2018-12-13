@@ -43,6 +43,8 @@ export function setComponentProps(component, props, opts, context, mountAll) {
         component.update()
       })
     }
+  } else if (component.receiveProps) {
+    component.receiveProps(props, component.data, component.props)
   } else if (component.componentWillReceiveProps) {
     component.componentWillReceiveProps(props, context)
   }

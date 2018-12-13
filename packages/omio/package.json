@@ -1,7 +1,7 @@
 {
-  "name": "omi",
-  "version": "3.0.7",
-  "description": "Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.",
+  "name": "omio",
+  "version": "0.0.1",
+  "description": "Omi for old browsers(IE9+ and mobile browsers).",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
   "module": "dist/omi.esm.js",
@@ -50,7 +50,7 @@
   "typings": "./dist/omi.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AlloyTeam/omi.git"
+    "url": "https://github.com/Tencent/omi.git"
   },
   "files": [
     "devtools",
@@ -64,6 +64,7 @@
     "typings.json"
   ],
   "keywords": [
+    "omio",
     "omi",
     "preact",
     "react",
@@ -76,9 +77,9 @@
   "author": "dntzhang <dntzhang@qq.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlloyTeam/omi/issues"
+    "url": "https://github.com/Tencent/omi/issues"
   },
-  "homepage": "https://github.com/AlloyTeam/omi",
+  "homepage": "https://github.com/Tencent/omi/tree/master/packages/omio",
   "devDependencies": {
     "@types/chai": "^4.1.2",
     "@types/mocha": "^5.0.0",

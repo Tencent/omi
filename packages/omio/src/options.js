@@ -25,7 +25,7 @@ function getGlobal() {
  */
 export default {
   scopedStyle: true,
-  $store: null,
+  store: null,
   mapping: {},
   isWeb: true,
   staticStyleMapping: {},

@@ -25,7 +25,7 @@ export function createComponent(Ctor, props, context) {
     inst.constructor = Ctor
     inst.render = doRender
   }
-  inst.$store = options.$store
+  inst.store = options.store
   if (window && window.Omi) {
     window.Omi.instances.push(inst)
   }
