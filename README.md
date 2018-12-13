@@ -340,6 +340,13 @@ In mac os:
   },
 ```
 
+If you only want to use relative addresses:
+
+```
+"build":"set PUBLIC_URL=.&& npm run _build"  //windows
+"build":"PUBLIC_URL=. npm run _build",       //mac os
+```
+
 ### Project Template
 
 | **Template Type**|  **Command**|  **Describe**|

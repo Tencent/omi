@@ -341,6 +341,13 @@ $ npm run build                  # release
   },
 ```
 
+如果你只想使用相对地址:
+
+```
+"build":"set PUBLIC_URL=.&& npm run _build"  //windows
+"build":"PUBLIC_URL=. npm run _build",       //mac os
+```
+
 ### 项目模板
 
 | **Template Type**|  **Command**|  **Describe**|
