@@ -29,7 +29,9 @@ module.exports = {
 
 ## Differences to omi
 
-Omio supports `staticCss`, omi does not support it. What's the difference between the `css` and the `staticCss` method? For example：
+* Omio supports `staticCss`, omi does not support it. 
+
+What's the difference between the `css` and the `staticCss` method? For example：
 
 ``` js
 render() {
@@ -45,6 +47,9 @@ render() {
 
 The `css` method will render three times to html head element, the `staticCss` will render one times only !
 When you update the component `css` method will rerender, but the `staticCss` will not rerender.
+
+* Omio does not support slot, please use `props.children` instead like react 
+* Omio does not support store path updating
 
 ## License
 
