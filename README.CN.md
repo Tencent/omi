@@ -3,7 +3,7 @@
 <p align="right">v<strong>5.0.11</strong></p>
 <p align="center"><img src="./assets/omi3.png" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一</h2>
-<p align="center"><b>让 JSX, Web Components, Proxy, Store, Path Updating 在一起</b></p>
+<p align="center"><b>基于 Web Components 并使用 omio 兼容老浏览器(IE9+)，很容易实现 MVVM 架构</b></p>
 
 ### 特性
 
