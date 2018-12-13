@@ -60,16 +60,16 @@ export function render(vnode, parent, merge) {
     const rendered = vnode.render(vnode.props, vnode.state, vnode.context)
 
     //don't rerender
-    if (vnode.staticStyle) {
+    if (vnode.staticCss) {
       addScopedAttrStatic(
         rendered,
-        vnode.staticStyle(),
+        vnode.staticCss(),
         '_style_' + getCtorName(vnode.constructor)
       )
     }
 
-    if (vnode.style) {
-      addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode)
+    if (vnode.css) {
+      addScopedAttr(rendered, vnode.css(), '_style_' + vnode._id, vnode)
     }
 
     vnode.base = diff(merge.merge, rendered, {}, false, parent, false)

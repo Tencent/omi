@@ -1130,12 +1130,12 @@
       rendered = component.render(props, state, context);
 
       //don't rerender
-      if (component.staticStyle) {
-        addScopedAttrStatic(rendered, component.staticStyle(), '_style_' + getCtorName(component.constructor));
+      if (component.staticCss) {
+        addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
       }
 
-      if (component.style) {
-        addScopedAttr(rendered, component.style(), '_style_' + component._id, component);
+      if (component.css) {
+        addScopedAttr(rendered, component.css(), '_style_' + component._id, component);
       }
 
       // context to pass to the child, can be updated via (grand-)parent component
@@ -1451,12 +1451,12 @@
       var rendered = vnode.render(vnode.props, vnode.state, vnode.context);
 
       //don't rerender
-      if (vnode.staticStyle) {
-        addScopedAttrStatic(rendered, vnode.staticStyle(), '_style_' + getCtorName(vnode.constructor));
+      if (vnode.staticCss) {
+        addScopedAttrStatic(rendered, vnode.staticCss(), '_style_' + getCtorName(vnode.constructor));
       }
 
-      if (vnode.style) {
-        addScopedAttr(rendered, vnode.style(), '_style_' + vnode._id, vnode);
+      if (vnode.css) {
+        addScopedAttr(rendered, vnode.css(), '_style_' + vnode._id, vnode);
       }
 
       vnode.base = diff(merge.merge, rendered, {}, false, parent, false);
@@ -1595,11 +1595,11 @@
       this.name = 'Omi';
     };
 
-    _class3.prototype.style = function style() {
+    _class3.prototype.css = function css() {
       return 'h3{\n                    cursor:pointer;\n                    color: ' + (Math.random() > 0.5 ? 'red' : 'green') + ';\n                }';
     };
 
-    _class3.prototype.staticStyle = function staticStyle() {
+    _class3.prototype.staticCss = function staticCss() {
       return 'div{\n                    font-size:20px;\n                }';
     };
 

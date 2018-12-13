@@ -58,14 +58,14 @@ class App extends Component {
         this.update()
     }
 
-    style() {
+    css() {
         return `h3{
                     cursor:pointer;
                     color: ${Math.random() > 0.5 ? 'red' :'green'};
                 }`
     }
 
-    staticStyle() {
+    staticCss() {
         return `div{
                     font-size:20px;
                 }`
@@ -105,7 +105,7 @@ render(<App />, 'body')
 
 ### Scoped CSS
 
-`style` 和 `staticStyle` 的区别是 ? 例如：
+`css` 和 `staticCss` 的区别是 ? 例如：
 
 ``` js
 render() {
@@ -119,8 +119,8 @@ render() {
     }
 ```
 
-如上面的例子,`style`方法会渲染三次，并插入到 head，而`staticStyle` 只会渲染一次。
-当你 update 组件或者 setState 时候，`style`方法会渲染三次，并更新head里对应三个地方的样式，`staticStyle` 不再渲染。
+如上面的例子,`css`方法会渲染三次，并插入到 head，而`staticCss` 只会渲染一次。
+当你 update 组件或者 setState 时候，`css`方法会渲染三次，并更新head里对应三个地方的样式，`staticCss` 不再渲染。
 
 
 如果你想使用 scoped css 但又不想写在 js 里, 你可以使用 [to-string-loader](https://www.npmjs.com/package/to-string-loader), 看下 [omi-cli config](https://github.com/AlloyTeam/omi-cli/blob/master/template/app/config/webpack.config.dev.js#L156-L162)：
@@ -145,11 +145,11 @@ import style from './_index.css'
 
 class App extends Omi.Component {
 
-  staticStyle() {
+  staticCss() {
     return style
   }
 
-  style() {
+  css() {
     return `
       code{
         color: ${Math.random() > 0.5 ? 'red' : 'blue'}

@@ -16,14 +16,14 @@ define('my-app', class extends Component {
     this.update()
   }
 
-  style() {
+  css() {
     return `h3{
                     cursor:pointer;
                     color: ${Math.random() > 0.5 ? 'red' : 'green'};
                 }`
   }
 
-  staticStyle() {
+  staticCss() {
     return `div{
                     font-size:20px;
                 }`

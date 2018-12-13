@@ -56,14 +56,14 @@ class App extends Component {
         this.update()
     }
 
-    style() {
+    css() {
         return `h3{
                     cursor:pointer;
                     color: ${Math.random() > 0.5 ? 'red' :'green'};
                 }`
     }
 
-    staticStyle() {
+    staticCss() {
         return `div{
                     font-size:20px;
                 }`
@@ -101,7 +101,7 @@ You need install env and omi preset for the config:
 
 ### Scoped CSS
 
-What's the difference between the `style` and the `staticStyle` method? For example：
+What's the difference between the `css` and the `staticCss` method? For example：
 
 ``` js
 render() {
@@ -115,8 +115,8 @@ render() {
     }
 ```
 
-The `style` method will render three times to html head element, the `staticStyle` will render one times only !
-When you update the component `style` method will rerender, but the `staticStyle` will not rerender.
+The `css` method will render three times to html head element, the `staticCss` will render one times only !
+When you update the component `css` method will rerender, but the `staticCss` will not rerender.
 
 
 If you want to use the scoped css but you did not want write it in your javascript, you may need [to-string-loader](https://www.npmjs.com/package/to-string-loader), see the [omi-cli config](https://github.com/AlloyTeam/omi-cli/blob/master/template/app/config/webpack.config.dev.js#L156-L162)：
@@ -140,11 +140,11 @@ import style from './_index.css'
 
 class App extends Omi.Component {
 
-  staticStyle() {
+  staticCss() {
     return style
   }
 
-  style() {
+  css() {
     return `
       code{
         color: ${Math.random() > 0.5 ? 'red' : 'blue'}
