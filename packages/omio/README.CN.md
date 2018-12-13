@@ -32,14 +32,14 @@ omio 支持 `staticCss`，omi 是不支持的。`css` 和 `staticCss` 的区别�
 
 ``` js
 render() {
-        return (
-		<div>
-			<Hello name={this.name}></Hello>
-			<Hello name={this.name}></Hello>
-			<Hello name={this.name}></Hello>
-		</div>
-		)
-    }
+  return (
+    <div>
+      <Hello name={this.name}></Hello>
+      <Hello name={this.name}></Hello>
+      <Hello name={this.name}></Hello>
+    </div>
+  )
+}
 ```
 
 如上面的例子,`css`方法会渲染三次，并插入到 head，而`staticCss` 只会渲染一次。

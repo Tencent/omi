@@ -33,14 +33,14 @@ Omio supports `staticCss`, omi does not support it. What's the difference betwee
 
 ``` js
 render() {
-        return (
-		<div>
-			<Hello name={this.name}></Hello>
-			<Hello name={this.name}></Hello>
-			<Hello name={this.name}></Hello>
-		</div>
-		)
-    }
+  return (
+    <div>
+      <Hello name={this.name}></Hello>
+      <Hello name={this.name}></Hello>
+      <Hello name={this.name}></Hello>
+    </div>
+  )
+}
 ```
 
 The `css` method will render three times to html head element, the `staticCss` will render one times only !
