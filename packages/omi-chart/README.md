@@ -33,9 +33,17 @@
   - [Bubble](https://tencent.github.io/omi/packages/omi-chart/repl/bubble.html)
   - [Bar Line](https://tencent.github.io/omi/packages/omi-chart/repl/bar-line.html)
 
+## Install
+
+```bash
+npm i omi-chart
+```
+
 ## Usage
 
 ```js
+import 'omi-chart'
+
 define('my-app', class extends WeElement {
   install(){
     this.chartData = {
