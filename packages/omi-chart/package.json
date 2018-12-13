@@ -23,5 +23,13 @@
     "index.js",
     "index.es5.js",
     "assets"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi/tree/master/packages/omi-chart"
 }

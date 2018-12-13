@@ -1,4 +1,4 @@
-﻿<p align="right">v<strong>1.0.0</strong></p>
+﻿<p align="right">v<strong>1.0.1</strong></p>
 <p align="center"><img src="./assets/omi-chart.svg" alt="omi-chart" width="300"/></p>
 <h2 align="center">omi-chart</h2>
 <p  align="center">Simple HTML5 Charts using <strong>chart-x</strong> tag powered by <a href="https://github.com/Tencent/omi">omi</a> and <a href="https://www.chartjs.org/" rel="nofollow">chart.js</a>.</p>
@@ -30,6 +30,7 @@
   - [Doughnut](https://tencent.github.io/omi/packages/omi-chart/repl/doughnut.html)
   - [Radar](https://tencent.github.io/omi/packages/omi-chart/repl/radar.html)
   - [PolarArea](https://tencent.github.io/omi/packages/omi-chart/repl/polar-area.html)
+  - [Bubble](https://tencent.github.io/omi/packages/omi-chart/repl/bubble.html)
   - [Bar Line](https://tencent.github.io/omi/packages/omi-chart/repl/bar-line.html)
 
 ## Usage
@@ -80,6 +81,7 @@ render(<my-app />, 'body')
 * `<chart-doughnut />`
 * `<chart-radar />`
 * `<chart-polar-area />`
+* `<chart-bubble />`
 
 ## Principle
 
