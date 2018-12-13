@@ -1,22 +1,9 @@
 English | [简体中文](./README.CN.md) 
 
-# Omi <a href="https://www.npmjs.com/package/omi"><img src="https://img.shields.io/npm/v/omi.svg" alt="Version"></a> 
+# Omio
 
-> Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
+> Omi for old browsers(IE9+ and mobile browsers)
 
-<p align="center">
-  <a href="##Omi"><img src="./assets/omi.png" alt="Omi"></a>
-</p>
-
-Omi has prosperous ecology and strong features through the second-hand preact developments:
-
-- Super tiny size and Super fast
-- Extensive React/Preact/Omi compatibility, compatibility with IE9+
-- Scoped CSS, made css selector simple, lazy evaluation and package with it's component
-- Each component has a update method, you can continue to use setState
-- Store system, data and logic of components management for omi without other frameworks dependencies 
-- Server side render, Native Suppport, ES6+, JSX, VDOM, React DevTools, HMR ...
-- Create website with no build configuration if you use omi-cli, the same as multi-page support of create-react-app
 
 ---
 

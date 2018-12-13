@@ -1,24 +1,9 @@
 [English](./README.md) | 简体中文
 
-# Omi <a href="https://www.npmjs.com/package/omi"><img src="https://img.shields.io/npm/v/omi.svg" alt="Version"></a> <a href="https://travis-ci.org/Tencent/omi"><img src="https://api.travis-ci.org/Tencent/omi.svg?branch=master"></a> 
+# Omio
 
-> Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
+> 兼容老浏览器的 Omi 版本(支持到IE9+和移动端浏览器)
 
-<p align="center">
-  <a href="##Omi"><img src="./assets/omi.png" alt="Omi"></a>
-</p>
-
-由于有段时间 react native 授权协议问题，内部的rn急需替代品。所以我们自研了 plato 代替 rn。做了一些权衡之后，我决定基于 preact 二次开发，把 preact 的 dom 模块更加抽象了针对浏览器和向 native 发指令。相对于 react，preact 代码尺寸更小，速度更快，jsx里的约定更贴合web的习惯
-，通过 preact compat 几乎百分百兼容react，在一些方面还在走在 react 前面 ，preact 没有自己实现事件体系，内部直接 addEventListener 实现,这也是性能出众和尺度极小的原因之一。Omi 从 3.0 开始基于 preact 二次开发，完全可以共享 preact 和 react 的生态，也有了自己独特的风格和优势：
-
-- 超小的尺寸和超快的速度
-- 兼容 React/Preact/Omi API
-- Scoped CSS, 让 CSS 选择器更加简单，延迟执行，与归属组件智能打包
-- 每个组件都有 update 方法，当然你也可以继续 setState
-- Store system, 内置的，不需要依赖任何库 
-- 创建网站无需任何配置的脚手架工具 omi-cli （相当于 create-react-app 多页面版本）
-- 想要的一切都有：Server side render, ES6+, JSX, VDOM, React DevTools, HMR ...
-- Native 支持，目前接入和正在接入的项目有: **腾讯课堂** **QQ群** **兴趣部落** **QQ空间玩吧**
 
 ---
 
