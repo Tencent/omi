@@ -49,7 +49,6 @@ define('todo-app', class extends WeElement {
       id: Date.now()
     })
     this.data.text = ''
-    this.update()
   }
 })
 

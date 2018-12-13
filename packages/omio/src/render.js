@@ -57,6 +57,11 @@ export function render(vnode, parent, merge) {
 
     if (vnode.componentWillMount) vnode.componentWillMount()
     if (vnode.install) vnode.install()
+    if (vnode.constructor.observe) {
+      obaa(vnode.data, () => {
+        vnode.update()
+      })
+    }
     const rendered = vnode.render(vnode.props, vnode.state, vnode.context)
 
     //don't rerender

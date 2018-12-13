@@ -20,6 +20,7 @@ import {
 import { createComponent, collectComponent } from './component-recycler'
 import { removeNode } from '../dom/index'
 import { addScopedAttr, addScopedAttrStatic, getCtorName } from '../style'
+import obaa from '../obaa'
 
 /** Set a component's `props` (generally derived from JSX attributes).
  *	@param {Object} props
@@ -37,6 +38,11 @@ export function setComponentProps(component, props, opts, context, mountAll) {
   if (!component.base || mountAll) {
     if (component.componentWillMount) component.componentWillMount()
     if (component.install) component.install()
+    if (component.constructor.observe) {
+      obaa(component.data, () => {
+        component.update()
+      })
+    }
   } else if (component.componentWillReceiveProps) {
     component.componentWillReceiveProps(props, context)
   }
@@ -143,27 +149,19 @@ export function renderComponent(component, opts, mountAll, isChild) {
       toUnmount,
       base,
       ctor = options.mapping[childComponent]
-    
+
     if (ctor) {
       // set up high order component link
 
       let childProps = getNodeProps(rendered)
       inst = initialChildComponent
 
-      if (
-        inst &&
-        inst.constructor === ctor &&
-        childProps.key == inst.__key
-      ) {
+      if (inst && inst.constructor === ctor && childProps.key == inst.__key) {
         setComponentProps(inst, childProps, SYNC_RENDER, context, false)
       } else {
         toUnmount = inst
 
-        component._component = inst = createComponent(
-          ctor,
-          childProps,
-          context
-        )
+        component._component = inst = createComponent(ctor, childProps, context)
         inst.nextBase = inst.nextBase || nextBase
         inst._parentComponent = component
         setComponentProps(inst, childProps, NO_RENDER, context, false)
