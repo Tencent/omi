@@ -141,9 +141,10 @@ export function renderComponent(component, opts, mountAll, isChild) {
 
     let childComponent = rendered && rendered.nodeName,
       toUnmount,
-      base
-
-    if (typeof childComponent === 'function') {
+      base,
+      ctor = options.mapping[childComponent]
+    
+    if (ctor) {
       // set up high order component link
 
       let childProps = getNodeProps(rendered)
@@ -151,7 +152,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
 
       if (
         inst &&
-        inst.constructor === childComponent &&
+        inst.constructor === ctor &&
         childProps.key == inst.__key
       ) {
         setComponentProps(inst, childProps, SYNC_RENDER, context, false)
@@ -159,7 +160,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
         toUnmount = inst
 
         component._component = inst = createComponent(
-          childComponent,
+          ctor,
           childProps,
           context
         )
