@@ -20,7 +20,7 @@ import {
 import { createComponent, collectComponent } from './component-recycler'
 import { removeNode } from '../dom/index'
 import { addScopedAttr, addScopedAttrStatic, getCtorName } from '../style'
-import { proxyUpdate } from './observe'
+import { proxyUpdate } from '../observe'
 
 /** Set a component's `props` (generally derived from JSX attributes).
  *	@param {Object} props
