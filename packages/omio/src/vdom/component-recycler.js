@@ -1,4 +1,4 @@
-import { Component } from '../component'
+import Component from '../component'
 import options from '../options'
 /** Retains a pool of Components for re-use, keyed on component name.
  *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
