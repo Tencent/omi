@@ -23,10 +23,12 @@ export default class Component {
   }
 
   update(callback) {
+    this._willUpdate = true
     if (callback)
       (this._renderCallbacks = this._renderCallbacks || []).push(callback)
     renderComponent(this, FORCE_RENDER)
     if (options.componentChange) options.componentChange(this, this.base)
+    this._willUpdate = false
   }
 
   render() { }

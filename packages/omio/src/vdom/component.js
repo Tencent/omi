@@ -20,7 +20,7 @@ import {
 import { createComponent, collectComponent } from './component-recycler'
 import { removeNode } from '../dom/index'
 import { addScopedAttr, addScopedAttrStatic, getCtorName } from '../style'
-import obaa from '../obaa'
+import { proxyUpdate } from './observe'
 
 /** Set a component's `props` (generally derived from JSX attributes).
  *	@param {Object} props
@@ -40,9 +40,7 @@ export function setComponentProps(component, props, opts, context, mountAll) {
     if (component.beforeInstall) component.beforeInstall()
     if (component.install) component.install()
     if (component.constructor.observe) {
-      obaa(component.data, () => {
-        component.update()
-      })
+      proxyUpdate(component)
     }
   } else if (component.receiveProps) {
     component.receiveProps(props, component.data, component.props)
