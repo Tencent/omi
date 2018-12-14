@@ -1,4 +1,4 @@
-import obaa from '../obaa'
+import obaa from './obaa'
 import { fireTick } from './tick'
 
 export function proxyUpdate(ele) {
