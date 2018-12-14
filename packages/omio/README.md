@@ -6,25 +6,14 @@ English | [简体中文](./README.CN.md)
 
 ---
 
-## Install
+## Use immediately
 
-``` bash
-npm i omio
-```
-
-## Webpack Alias
-
-If you want to use omio under existing omi projects, no code changes are required through the following configuration:
-
-```js
-module.exports = {
-  //...
-  resolve: {
-    alias: {
-      omi: 'omio'
-    }
-  }
-};
+```bash
+$ npm i omi-cli -g             
+$ omi init-o my-app   
+$ cd my-app           
+$ npm start                     
+$ npm run build               
 ```
 
 ## Differences to omi
@@ -54,6 +43,28 @@ When you update the component `css` method will rerender, but the `staticCss` wi
 * Omio does not support store path updating
 * Omio does not support return array in the render method, each component must have a root node(todo)
 * Omio does not support `fire` custom event, you can use `props.xxx()` to trigger the custom event. Omi supports `fire` and `props.xxx()`.
+
+
+## Use in omi project
+
+``` bash
+npm i omio
+```
+
+### Webpack Alias
+
+If you want to use omio under existing omi projects, no code changes are required through the following configuration:
+
+```js
+module.exports = {
+  //...
+  resolve: {
+    alias: {
+      omi: 'omio'
+    }
+  }
+};
+```
 
 ## License
 
