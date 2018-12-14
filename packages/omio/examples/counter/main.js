@@ -1,4 +1,4 @@
-import { render, WeElement, define, observe } from '../../src/omi'
+import { render, WeElement, define } from '../../src/omi'
 
 define('my-counter', class extends WeElement {
   static observe = true

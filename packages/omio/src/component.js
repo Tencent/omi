@@ -8,13 +8,14 @@ let id = 0
 export default class Component {
   static is = 'WeElement'
 
-  constructor() {
+  constructor(props) {
     this.props = Object.assign(
       nProps(this.constructor.props),
-      this.constructor.defaultProps
+      this.constructor.defaultProps,
+      props
     )
     this.elementId = id++
-    this.data = this.constructor.data || {}
+    this.data = this.constructor.data || this.data || {}
 
     this._preCss = null
 
