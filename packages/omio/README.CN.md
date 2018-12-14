@@ -28,6 +28,8 @@ module.exports = {
 
 ### 与 omi 不同之处
 
+omio 拥有 omi一样的语法，但是也有一些差异需要注意：
+
 * omio 支持 `staticCss`，omi 是不支持的
 
 `css` 和 `staticCss` 的区别是 ? 例如：
