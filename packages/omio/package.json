@@ -19,6 +19,7 @@
     "children": "rollup -c config/rollup.example.js --watch",
     "counter": "rollup -c config/rollup.example.js --watch",
     "receive-props": "rollup -c config/rollup.example.js --watch",
+    "rpx": "rollup -c config/rollup.example.js --watch",
     "omi-tap": "rollup -c config/rollup.example.js --watch",
     "simple": "rollup -c config/rollup.example.js --watch",
     "transpile:main": "rollup -c config/rollup.config.js",
