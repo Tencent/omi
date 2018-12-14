@@ -13,9 +13,9 @@ export function isSameNodeType(node, vnode, hydrating) {
     return node.splitText !== undefined
   }
   const ctor = options.mapping[vnode.nodeName]
-  if(ctor){
+  if (ctor) {
     return hydrating || node._componentConstructor === ctor
-  } 
+  }
   return !node._componentConstructor && isNamedNode(node, vnode.nodeName)
 }
 

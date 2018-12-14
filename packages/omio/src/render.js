@@ -17,7 +17,6 @@ import options from './options'
  *	render(<Thing name="one" />, document.querySelector('#foo'));
  */
 export function render(vnode, parent, store) {
-  
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent
 
   if (store && store.merge) {
@@ -26,7 +25,7 @@ export function render(vnode, parent, store) {
         ? document.querySelector(store.merge)
         : store.merge
   }
- 
+
   options.store = store
 
   return diff(store && store.merge, vnode, {}, false, parent, false)

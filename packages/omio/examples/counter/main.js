@@ -1,7 +1,6 @@
 import { render, WeElement, define, observe } from '../../src/omi'
 
-define('my-counter', 
-class extends WeElement {
+define('my-counter', class extends WeElement {
   static observe = true
 
   data = {
