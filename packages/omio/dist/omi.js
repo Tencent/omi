@@ -28,6 +28,17 @@
         for (var i in props) obj[i] = props[i];
         return obj;
     }
+    function isArray(obj) {
+        return '[object Array]' === Object.prototype.toString.call(obj);
+    }
+    function nProps(props) {
+        if (!props || isArray(props)) return {};
+        var result = {};
+        Object.keys(props).forEach(function(key) {
+            result[key] = props[key].value;
+        });
+        return result;
+    }
     function cloneElement(vnode, props) {
         return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
     }
@@ -340,9 +351,9 @@
         if (options.scopedStyle) {
             scopeVdom(attr, vdom);
             style = scoper(style, attr);
-            if (style !== component.r) addStyle(style, attr);
-        } else if (style !== component.r) addStyleWithoutId(style);
-        component.r = style;
+            if (style !== component.z) addStyle(style, attr);
+        } else if (style !== component.z) addStyleWithoutId(style);
+        component.z = style;
     }
     function addScopedAttrStatic(vdom, style, attr) {
         if (options.scopedStyle) {
@@ -365,6 +376,30 @@
             });
         }
     }
+    function fireTick() {
+        callbacks.forEach(function(item) {
+            item.fn.call(item.scope);
+        });
+        nextTickCallback.forEach(function(nextItem) {
+            nextItem.fn.call(nextItem.scope);
+        });
+        nextTickCallback.length = 0;
+    }
+    function proxyUpdate(ele) {
+        var timeout = null;
+        obaa(ele.data, function() {
+            if (!ele.A) if (ele.constructor.mergeUpdate) {
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    ele.update();
+                    fireTick();
+                }, 0);
+            } else {
+                ele.update();
+                fireTick();
+            }
+        });
+    }
     function setComponentProps(component, props, opts, context, mountAll) {
         if (!component.__x) {
             component.__x = !0;
@@ -374,9 +409,7 @@
                 if (component.componentWillMount) component.componentWillMount();
                 if (component.beforeInstall) component.beforeInstall();
                 if (component.install) component.install();
-                if (component.constructor.observe) obaa(component.data, function() {
-                    component.update();
-                });
+                if (component.constructor.observe) proxyUpdate(component);
             } else if (component.receiveProps) component.receiveProps(props, component.data, component.props); else if (component.componentWillReceiveProps) component.componentWillReceiveProps(props, context);
             if (context && context !== component.context) {
                 if (!component.__c) component.__c = component.context;
@@ -405,7 +438,7 @@
             if (!skip) {
                 rendered = component.render(props, data, context);
                 if (component.staticCss) addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
-                if (component.css) addScopedAttr(rendered, component.css(), '_style_' + component.s, component);
+                if (component.css) addScopedAttr(rendered, component.css(), '_style_' + component.elementId, component);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
                 if (ctor) {
@@ -500,16 +533,8 @@
         }
         if (component.__r) component.__r(null);
     }
-    function getId() {
-        return id++;
-    }
-    function Component(props, context) {
-        this.context = context;
-        this.props = props;
-        this.data = this.data || {};
-        this.s = getId();
-        this.r = null;
-        this.store = null;
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
     function render(vnode, parent, store) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
@@ -556,7 +581,7 @@
             return window.innerWidth * Number(b) / 750 + 'px';
         });
     }
-    function _classCallCheck(instance, Constructor) {
+    function _classCallCheck$1(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
     function _possibleConstructorReturn(self, call) {
@@ -842,22 +867,32 @@
     Array.prototype.size = function(length) {
         this.length = length;
     };
+    var callbacks = [];
+    var nextTickCallback = [];
     var id = 0;
-    Component.is = 'WeElement';
-    extend(Component.prototype, {
-        forceUpdate: function(callback) {
+    var Component = function() {
+        function Component(props) {
+            _classCallCheck(this, Component);
+            this.props = Object.assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
+            this.elementId = id++;
+            this.data = this.constructor.data || this.data || {};
+            this.z = null;
+            this.store = null;
+        }
+        Component.prototype.update = function(callback) {
+            this.A = !0;
             if (callback) (this.__h = this.__h || []).push(callback);
             renderComponent(this, 2);
             if (options.componentChange) options.componentChange(this, this.base);
-        },
-        update: function(callback) {
-            this.forceUpdate(callback);
-        },
-        render: function() {}
-    });
+            this.A = !1;
+        };
+        Component.prototype.render = function() {};
+        return Component;
+    }();
+    Component.is = 'WeElement';
     var ModelView = function(_Component) {
         function ModelView() {
-            _classCallCheck(this, ModelView);
+            _classCallCheck$1(this, ModelView);
             return _possibleConstructorReturn(this, _Component.apply(this, arguments));
         }
         _inherits(ModelView, _Component);
@@ -867,6 +902,7 @@
         return ModelView;
     }(Component);
     ModelView.observe = !0;
+    ModelView.mergeUpdate = !0;
     var instances = [];
     var WeElement = Component;
     options.root.Omi = {
@@ -883,7 +919,7 @@
         rpx: rpx,
         ModelView: ModelView
     };
-    options.root.Omi.version = 'omio-0.0.3';
+    options.root.Omi.version = 'omio-0.1.0';
     var Omi = {
         h: h,
         createElement: h,

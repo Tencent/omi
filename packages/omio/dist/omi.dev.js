@@ -1,5 +1,5 @@
 /**
- * omi v0.0.3  http://omijs.org
+ * omi v0.1.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -326,6 +326,19 @@
   }
 
   var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+
+  function isArray(obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]';
+  }
+
+  function nProps(props) {
+    if (!props || isArray(props)) return {};
+    var result = {};
+    Object.keys(props).forEach(function (key) {
+      result[key] = props[key].value;
+    });
+    return result;
+  }
 
   /**
    * Clones the given VNode, optionally adding attributes/props and replacing its children.
@@ -1010,13 +1023,13 @@
     if (options.scopedStyle) {
       scopeVdom(attr, vdom);
       style = scoper(style, attr);
-      if (style !== component._preStyle) {
+      if (style !== component._preCss) {
         addStyle(style, attr);
       }
-    } else if (style !== component._preStyle) {
+    } else if (style !== component._preCss) {
       addStyleWithoutId(style);
     }
-    component._preStyle = style;
+    component._preCss = style;
   }
 
   function addScopedAttrStatic(vdom, style, attr) {
@@ -1215,6 +1228,40 @@
     this.length = length;
   };
 
+  var callbacks = [];
+  var nextTickCallback = [];
+
+  function fireTick() {
+    callbacks.forEach(function (item) {
+      item.fn.call(item.scope);
+    });
+
+    nextTickCallback.forEach(function (nextItem) {
+      nextItem.fn.call(nextItem.scope);
+    });
+    nextTickCallback.length = 0;
+  }
+
+  function proxyUpdate(ele) {
+    var timeout = null;
+    obaa(ele.data, function () {
+      if (ele._willUpdate) {
+        return;
+      }
+      if (ele.constructor.mergeUpdate) {
+        clearTimeout(timeout);
+
+        timeout = setTimeout(function () {
+          ele.update();
+          fireTick();
+        }, 0);
+      } else {
+        ele.update();
+        fireTick();
+      }
+    });
+  }
+
   /** Set a component's `props` (generally derived from JSX attributes).
    *	@param {Object} props
    *	@param {Object} [opts]
@@ -1233,9 +1280,7 @@
       if (component.beforeInstall) component.beforeInstall();
       if (component.install) component.install();
       if (component.constructor.observe) {
-        obaa(component.data, function () {
-          component.update();
-        });
+        proxyUpdate(component);
       }
     } else if (component.receiveProps) {
       component.receiveProps(props, component.data, component.props);
@@ -1316,7 +1361,7 @@
       }
 
       if (component.css) {
-        addScopedAttr(rendered, component.css(), '_style_' + component._id, component);
+        addScopedAttr(rendered, component.css(), '_style_' + component.elementId, component);
       }
 
       // context to pass to the child, can be updated via (grand-)parent component
@@ -1499,70 +1544,37 @@
     if (component.__ref) component.__ref(null);
   }
 
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
   var id = 0;
-  function getId() {
-    return id++;
-  }
-  /** Base Component class.
-   *	Provides `setState()` and `forceUpdate()`, which trigger rendering.
-   *	@public
-   *
-   *	@example
-   *	class MyFoo extends Component {
-   *		render(props, data) {
-   *			return <div />;
-   *		}
-   *	}
-   */
-  function Component(props, context) {
-    /** @public
-     *	@type {object}
-     */
-    this.context = context;
 
-    /** @public
-     *	@type {object}
-     */
-    this.props = props;
+  var Component = function () {
+    function Component(props) {
+      _classCallCheck(this, Component);
 
-    /** @public
-     *	@type {object}
-     */
-    this.data = this.data || {};
+      this.props = Object.assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
+      this.elementId = id++;
+      this.data = this.constructor.data || this.data || {};
 
-    this._id = getId();
+      this._preCss = null;
 
-    this._preStyle = null;
+      this.store = null;
+    }
 
-    this.store = null;
-  }
-
-  Component.is = 'WeElement';
-
-  extend(Component.prototype, {
-    /** Immediately perform a synchronous re-render of the component.
-     *	@param {function} callback		A function to be called after component is re-rendered.
-     *	@private
-     */
-    forceUpdate: function forceUpdate(callback) {
+    Component.prototype.update = function update(callback) {
+      this._willUpdate = true;
       if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
       renderComponent(this, 2);
       if (options.componentChange) options.componentChange(this, this.base);
-    },
-    update: function update(callback) {
-      this.forceUpdate(callback);
-    },
+      this._willUpdate = false;
+    };
 
+    Component.prototype.render = function render() {};
 
-    /** Accepts `props` and `data`, and returns a new Virtual DOM tree to build.
-     *	Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
-     *	@param {object} props		Props (eg: JSX attributes) received from parent element/component
-     *	@param {object} data		The component's current data
-     *	@param {object} context		Context object (if a parent component has provided context)
-     *	@returns VNode
-     */
-    render: function render() {}
-  });
+    return Component;
+  }();
+
+  Component.is = 'WeElement';
 
   /** Render JSX into a `parent` Element.
    *	@param {VNode} vnode		A (JSX) VNode to render
@@ -1650,7 +1662,7 @@
     });
   }
 
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -1660,7 +1672,7 @@
     _inherits(ModelView, _Component);
 
     function ModelView() {
-      _classCallCheck(this, ModelView);
+      _classCallCheck$1(this, ModelView);
 
       return _possibleConstructorReturn(this, _Component.apply(this, arguments));
     }
@@ -1673,6 +1685,7 @@
   }(Component);
 
   ModelView.observe = true;
+  ModelView.mergeUpdate = true;
 
   var instances = [];
   var WeElement = Component;
@@ -1692,7 +1705,7 @@
     ModelView: ModelView
   };
 
-  options.root.Omi.version = 'omio-0.0.3';
+  options.root.Omi.version = 'omio-0.1.0';
 
   var Omi = {
     h: h,
