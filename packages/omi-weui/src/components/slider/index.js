@@ -6,10 +6,9 @@ define('ow-slider', class extends WeElement {
     return style
   }
 
-  onChange = () => {
-    this.fire('change', this.percentage)
+  install(){
+    this.percentage = this.props.percentage
   }
-
   installed() {
     this._width = this._ele.getBoundingClientRect().width
   }
@@ -21,11 +20,14 @@ define('ow-slider', class extends WeElement {
   }
 
   move = (evt) => {
-    this.props.percentage += (evt.touches[0].pageX - this._x) / this._width * 100
-    this.props.percentage < 0 && (this.props.percentage = 0)
-    this.props.percentage > 100 && (this.props.percentage = 100)
-    this.update()
+    this.percentage += (evt.touches[0].pageX - this._x) / this._width * 100
+    this.percentage < 0 && (this.percentage = 0)
+    this.percentage > 100 && (this.percentage = 100)
     this._x = evt.touches[0].pageX
+    //Update immediately!For Smoother interaction！
+    //omi v5.0.10 fix this
+    //this.update()
+    this.fire('change', this.percentage)
   }
 
   end = () => {
@@ -50,11 +52,11 @@ define('ow-slider', class extends WeElement {
       <div class="weui-slider-box" onTouchStart={this.start}  >
         <div class="weui-slider">
           <div ref={e => { this._ele = e }} class="weui-slider__inner">
-            <div id="sliderTrack" style={`width: ${props.percentage}%;`} class="weui-slider__track"></div>
-            <div id="sliderHandler" ref={e => { this._handler = e }} style={`left: ${props.percentage}%;`} class="weui-slider__handler"></div>
+            <div id="sliderTrack" style={`width: ${this.percentage}%;`} class="weui-slider__track"></div>
+            <div id="sliderHandler" ref={e => { this._handler = e }} style={`left: ${this.percentage}%;`} class="weui-slider__handler"></div>
           </div>
         </div>
-        <div id="sliderValue" class="weui-slider-box__value">{Math.round(props.percentage)}</div>
+        <div id="sliderValue" class="weui-slider-box__value">{Math.round(this.percentage)}</div>
       </div>
     )
   }
