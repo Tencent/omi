@@ -14,8 +14,8 @@ define('ow-switch', class extends WeElement {
     if (props.checked) {
       return (
 
-        <label for={`x_${this.__elementId}`} class="weui-switch-cp">
-          <input id={`x_${this.__elementId}`} ref={(e)=>{this._ele = e}} class="weui-switch-cp__input" type="checkbox" onChange={this.onChange} checked="checked" />
+        <label for={`x_${this.elementId}`} class="weui-switch-cp">
+          <input id={`x_${this.elementId}`} ref={(e)=>{this._ele = e}} class="weui-switch-cp__input" type="checkbox" onChange={this.onChange} checked="checked" />
           <div class="weui-switch-cp__box"></div>
         </label>
       )
