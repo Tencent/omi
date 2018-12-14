@@ -1,5 +1,5 @@
 /**
- * omi v0.0.2  http://omijs.org
+ * omi v0.0.3  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -913,7 +913,7 @@ function createComponent(Ctor, props, context) {
 }
 
 /** The `.render()` method for a PFC backing instance. */
-function doRender(props, state, context) {
+function doRender(props, data, context) {
   return this.constructor(props, context);
 }
 
@@ -1227,6 +1227,7 @@ function setComponentProps(component, props, opts, context, mountAll) {
 
   if (!component.base || mountAll) {
     if (component.componentWillMount) component.componentWillMount();
+    if (component.beforeInstall) component.beforeInstall();
     if (component.install) component.install();
     if (component.constructor.observe) {
       obaa(component.data, function () {
@@ -1270,10 +1271,10 @@ function renderComponent(component, opts, mountAll, isChild) {
   if (component._disable) return;
 
   var props = component.props,
-      state = component.state,
+      data = component.data,
       context = component.context,
       previousProps = component.prevProps || props,
-      previousState = component.prevState || state,
+      previousState = component.prevState || data,
       previousContext = component.prevContext || context,
       isUpdate = component.base,
       nextBase = component.nextBase,
@@ -1287,24 +1288,24 @@ function renderComponent(component, opts, mountAll, isChild) {
   // if updating
   if (isUpdate) {
     component.props = previousProps;
-    component.state = previousState;
+    component.data = previousState;
     component.context = previousContext;
-    if (opts !== 2 && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
+    if (opts !== 2 && component.shouldComponentUpdate && component.shouldComponentUpdate(props, data, context) === false) {
       skip = true;
     } else if (component.componentWillUpdate) {
-      component.componentWillUpdate(props, state, context);
+      component.componentWillUpdate(props, data, context);
     } else if (component.beforeUpdate) {
-      component.beforeUpdate(props, state, context);
+      component.beforeUpdate(props, data, context);
     }
     component.props = props;
-    component.state = state;
+    component.data = data;
     component.context = context;
   }
 
   component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
 
   if (!skip) {
-    rendered = component.render(props, state, context);
+    rendered = component.render(props, data, context);
 
     //don't rerender
     if (component.staticCss) {
@@ -1399,7 +1400,11 @@ function renderComponent(component, opts, mountAll, isChild) {
       component.componentDidUpdate(previousProps, previousState, previousContext);
     }
     if (component.afterUpdate) {
+      //deprecated
       component.afterUpdate(previousProps, previousState, previousContext);
+    }
+    if (component.updated) {
+      component.updated(previousProps, previousState, previousContext);
     }
     if (options.afterUpdate) options.afterUpdate(component);
   }
@@ -1501,7 +1506,7 @@ function getId() {
  *
  *	@example
  *	class MyFoo extends Component {
- *		render(props, state) {
+ *		render(props, data) {
  *			return <div />;
  *		}
  *	}
@@ -1520,7 +1525,7 @@ function Component(props, context) {
   /** @public
    *	@type {object}
    */
-  this.state = this.state || {};
+  this.data = this.data || {};
 
   this._id = getId();
 
@@ -1532,28 +1537,6 @@ function Component(props, context) {
 Component.is = 'WeElement';
 
 extend(Component.prototype, {
-  /** Returns a `boolean` indicating if the component should re-render when receiving the given `props` and `state`.
-   *	@param {object} nextProps
-   *	@param {object} nextState
-   *	@param {object} nextContext
-   *	@returns {Boolean} should the component re-render
-   *	@name shouldComponentUpdate
-   *	@function
-   */
-
-  /** Update component state by copying properties from `state` to `this.state`.
-   *	@param {object} state		A hash of state properties to update with new values
-   *	@param {function} callback	A function to be called once component state is updated
-   */
-  setState: function setState(state, callback) {
-    var s = this.state;
-    if (!this.prevState) this.prevState = extend({}, s);
-    extend(s, typeof state === 'function' ? state(s, this.props) : state);
-    if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
-    enqueueRender(this);
-  },
-
-
   /** Immediately perform a synchronous re-render of the component.
    *	@param {function} callback		A function to be called after component is re-rendered.
    *	@private
@@ -1568,10 +1551,10 @@ extend(Component.prototype, {
   },
 
 
-  /** Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
+  /** Accepts `props` and `data`, and returns a new Virtual DOM tree to build.
    *	Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
    *	@param {object} props		Props (eg: JSX attributes) received from parent element/component
-   *	@param {object} state		The component's current state
+   *	@param {object} data		The component's current data
    *	@param {object} context		Context object (if a parent component has provided context)
    *	@returns VNode
    */
@@ -1658,6 +1641,36 @@ function _arrayToPath(data, path, result) {
   });
 }
 
+function rpx(str) {
+  return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
+    return window.innerWidth * Number(b) / 750 + 'px';
+  });
+}
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModelView = function (_Component) {
+  _inherits(ModelView, _Component);
+
+  function ModelView() {
+    _classCallCheck(this, ModelView);
+
+    return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+  }
+
+  ModelView.prototype.beforeInstall = function beforeInstall() {
+    this.data = this.vm.data;
+  };
+
+  return ModelView;
+}(Component);
+
+ModelView.observe = true;
+
 var instances = [];
 var WeElement = Component;
 
@@ -1671,10 +1684,12 @@ options.root.Omi = {
   options: options,
   instances: instances,
   WeElement: WeElement,
-  define: define
+  define: define,
+  rpx: rpx,
+  ModelView: ModelView
 };
 
-options.root.Omi.version = '3.0.6';
+options.root.Omi.version = 'omio-0.0.3';
 
 var omi = {
   h: h,
@@ -1686,9 +1701,11 @@ var omi = {
   options: options,
   instances: instances,
   WeElement: WeElement,
-  define: define
+  define: define,
+  rpx: rpx,
+  ModelView: ModelView
 };
 
 export default omi;
-export { h, h as createElement, cloneElement, Component, render, rerender, options, instances, WeElement, define };
+export { h, h as createElement, cloneElement, Component, render, rerender, options, instances, WeElement, define, rpx, ModelView };
 //# sourceMappingURL=omi.esm.js.map

@@ -237,7 +237,8 @@ export function renderComponent(component, opts, mountAll, isChild) {
         previousContext
       )
     }
-    if (component.afterUpdate) { //deprecated
+    if (component.afterUpdate) {
+      //deprecated
       component.afterUpdate(previousProps, previousState, previousContext)
     }
     if (component.updated) {

@@ -290,7 +290,7 @@
         }
         return inst;
     }
-    function doRender(props, state, context) {
+    function doRender(props, data, context) {
         return this.constructor(props, context);
     }
     function getCtorName(ctor) {
@@ -372,6 +372,7 @@
             if (component.__k = props.key) delete props.key;
             if (!component.base || mountAll) {
                 if (component.componentWillMount) component.componentWillMount();
+                if (component.beforeInstall) component.beforeInstall();
                 if (component.install) component.install();
                 if (component.constructor.observe) obaa(component.data, function() {
                     component.update();
@@ -390,19 +391,19 @@
     }
     function renderComponent(component, opts, mountAll, isChild) {
         if (!component.__x) {
-            var rendered, inst, cbase, props = component.props, state = component.state, context = component.context, previousProps = component.__p || props, previousState = component.__s || state, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
+            var rendered, inst, cbase, props = component.props, data = component.data, context = component.context, previousProps = component.__p || props, previousState = component.__s || data, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
             if (isUpdate) {
                 component.props = previousProps;
-                component.state = previousState;
+                component.data = previousState;
                 component.context = previousContext;
-                if (2 !== opts && component.shouldComponentUpdate && !1 === component.shouldComponentUpdate(props, state, context)) skip = !0; else if (component.componentWillUpdate) component.componentWillUpdate(props, state, context); else if (component.beforeUpdate) component.beforeUpdate(props, state, context);
+                if (2 !== opts && component.shouldComponentUpdate && !1 === component.shouldComponentUpdate(props, data, context)) skip = !0; else if (component.componentWillUpdate) component.componentWillUpdate(props, data, context); else if (component.beforeUpdate) component.beforeUpdate(props, data, context);
                 component.props = props;
-                component.state = state;
+                component.data = data;
                 component.context = context;
             }
             component.__p = component.__s = component.__c = component.__b = null;
             if (!skip) {
-                rendered = component.render(props, state, context);
+                rendered = component.render(props, data, context);
                 if (component.staticCss) addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
                 if (component.css) addScopedAttr(rendered, component.css(), '_style_' + component.s, component);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
@@ -450,6 +451,7 @@
             if (!isUpdate || mountAll) mounts.unshift(component); else if (!skip) {
                 if (component.componentDidUpdate) component.componentDidUpdate(previousProps, previousState, previousContext);
                 if (component.afterUpdate) component.afterUpdate(previousProps, previousState, previousContext);
+                if (component.updated) component.updated(previousProps, previousState, previousContext);
                 if (options.afterUpdate) options.afterUpdate(component);
             }
             if (null != component.__h) while (component.__h.length) component.__h.pop().call(component);
@@ -504,7 +506,7 @@
     function Component(props, context) {
         this.context = context;
         this.props = props;
-        this.state = this.state || {};
+        this.data = this.data || {};
         this.s = getId();
         this.r = null;
         this.store = null;
@@ -548,6 +550,30 @@
             var type = Object.prototype.toString.call(item);
             if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
         });
+    }
+    function rpx(str) {
+        return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
+            return window.innerWidth * Number(b) / 750 + 'px';
+        });
+    }
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
+    function _possibleConstructorReturn(self, call) {
+        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
+    }
+    function _inherits(subClass, superClass) {
+        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
     var options = {
         scopedStyle: !0,
@@ -819,13 +845,6 @@
     var id = 0;
     Component.is = 'WeElement';
     extend(Component.prototype, {
-        setState: function(state, callback) {
-            var s = this.state;
-            if (!this.__s) this.__s = extend({}, s);
-            extend(s, 'function' == typeof state ? state(s, this.props) : state);
-            if (callback) (this.__h = this.__h || []).push(callback);
-            enqueueRender(this);
-        },
         forceUpdate: function(callback) {
             if (callback) (this.__h = this.__h || []).push(callback);
             renderComponent(this, 2);
@@ -836,6 +855,18 @@
         },
         render: function() {}
     });
+    var ModelView = function(_Component) {
+        function ModelView() {
+            _classCallCheck(this, ModelView);
+            return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+        }
+        _inherits(ModelView, _Component);
+        ModelView.prototype.beforeInstall = function() {
+            this.data = this.vm.data;
+        };
+        return ModelView;
+    }(Component);
+    ModelView.observe = !0;
     var instances = [];
     var WeElement = Component;
     options.root.Omi = {
@@ -848,9 +879,11 @@
         options: options,
         instances: instances,
         WeElement: WeElement,
-        define: define
+        define: define,
+        rpx: rpx,
+        ModelView: ModelView
     };
-    options.root.Omi.version = '3.0.6';
+    options.root.Omi.version = 'omio-0.0.3';
     var Omi = {
         h: h,
         createElement: h,
@@ -861,7 +894,9 @@
         options: options,
         instances: instances,
         WeElement: WeElement,
-        define: define
+        define: define,
+        rpx: rpx,
+        ModelView: ModelView
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();

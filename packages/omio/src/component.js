@@ -45,7 +45,6 @@ export function Component(props, context) {
 Component.is = 'WeElement'
 
 extend(Component.prototype, {
-  
   /** Immediately perform a synchronous re-render of the component.
    *	@param {function} callback		A function to be called after component is re-rendered.
    *	@private

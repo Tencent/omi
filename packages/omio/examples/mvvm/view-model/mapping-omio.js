@@ -14,7 +14,7 @@ var OBJECTTYPE = '[object Object]'
 function mapping(from, to, rule) {
   var tempRule = Object.assign({}, rule)
   var res = to || {}
-  Object.keys(from).forEach(function (key) {
+  Object.keys(from).forEach(function(key) {
     var obj = from[key]
     if (isArray(obj)) {
       res[key] = res[key] || []
@@ -27,21 +27,21 @@ function mapping(from, to, rule) {
     }
   })
 
-  rule && Object.keys(tempRule).forEach(function (key) {
-    var arr = key
-      .replace(/]/g, '')
-      .replace(/\[/g, '.')
-      .split('.')
+  rule &&
+    Object.keys(tempRule).forEach(function(key) {
+      var arr = key
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.')
 
-    if (arr.length === 1) {
-      res[key] = tempRule[key].call ? tempRule[key].call(from) : tempRule[key]
-      delete tempRule[key]
-    }
-  })
+      if (arr.length === 1) {
+        res[key] = tempRule[key].call ? tempRule[key].call(from) : tempRule[key]
+        delete tempRule[key]
+      }
+    })
 
   return res
 }
-
 
 function arrayMapping(from, to, rule, path) {
   if (from.length < to.length) {
@@ -53,7 +53,7 @@ function arrayMapping(from, to, rule, path) {
     }
   }
 
-  from.forEach(function (item, index) {
+  from.forEach(function(item, index) {
     //push method can trigger obaa callback
     if (index > to.length - 1) {
       if (isArray(item)) {
@@ -73,31 +73,32 @@ function arrayMapping(from, to, rule, path) {
         to[index] = item
       }
     }
-
   })
 
+  rule &&
+    Object.keys(rule).forEach(function(key) {
+      var arr = key
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.')
+      var pathArr = path
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.')
 
-  rule && Object.keys(rule).forEach(function (key) {
-    var arr = key
-      .replace(/]/g, '')
-      .replace(/\[/g, '.')
-      .split('.')
-    var pathArr = path
-      .replace(/]/g, '')
-      .replace(/\[/g, '.')
-      .split('.')
-
-    var dl = arr.length - pathArr.length
-    if (dl === 1 && equalArr(arr, pathArr)) {
-      to[arr[arr.length - 1]] = rule[key].call ? rule[key].call(from) : rule[key]
-      delete rule[key]
-    }
-  })
+      var dl = arr.length - pathArr.length
+      if (dl === 1 && equalArr(arr, pathArr)) {
+        to[arr[arr.length - 1]] = rule[key].call
+          ? rule[key].call(from)
+          : rule[key]
+        delete rule[key]
+      }
+    })
 }
 
 function objMapping(from, to, rule, path) {
   var res = to || {}
-  Object.keys(from).forEach(function (key) {
+  Object.keys(from).forEach(function(key) {
     var obj = from[key]
     if (isArray(obj)) {
       res[key] = res[key] || []
@@ -110,30 +111,33 @@ function objMapping(from, to, rule, path) {
     }
   })
 
-  rule && Object.keys(rule).forEach(function (key) {
-    var arr = key
-      .replace(/]/g, '')
-      .replace(/\[/g, '.')
-      .split('.')
-    var pathArr = path
-      .replace(/]/g, '')
-      .replace(/\[/g, '.')
-      .split('.')
+  rule &&
+    Object.keys(rule).forEach(function(key) {
+      var arr = key
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.')
+      var pathArr = path
+        .replace(/]/g, '')
+        .replace(/\[/g, '.')
+        .split('.')
 
-    if (arr.length - pathArr.length === 1 && equalArr(arr, pathArr)) {
-      res[arr[arr.length - 1]] = rule[key].call ? rule[key].call(from) : rule[key]
-      if (arr.indexOf('*') === -1) {
-        delete rule[key]
+      if (arr.length - pathArr.length === 1 && equalArr(arr, pathArr)) {
+        res[arr[arr.length - 1]] = rule[key].call
+          ? rule[key].call(from)
+          : rule[key]
+        if (arr.indexOf('*') === -1) {
+          delete rule[key]
+        }
       }
-    }
-
-  })
+    })
 
   return res
 }
 
 function equalArr(arrA, arrB) {
-  var i = 0, len = arrB.length
+  var i = 0,
+    len = arrB.length
   for (; i < len; i++) {
     if (arrA[i] !== arrB[i] && !(arrA[i] === '*' && !isNaN(Number(arrB[i])))) {
       return false
