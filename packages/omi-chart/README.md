@@ -33,6 +33,17 @@
   - [Bubble](https://tencent.github.io/omi/packages/omi-chart/repl/bubble.html)
   - [Bar Line](https://tencent.github.io/omi/packages/omi-chart/repl/bar-line.html)
 
+## Supports type
+
+* `<chart-bar />`
+* `<chart-line />`
+* `<chart-scatter />`
+* `<chart-pie />`
+* `<chart-doughnut />`
+* `<chart-radar />`
+* `<chart-polar-area />`
+* `<chart-bubble />`
+
 ## Install
 
 ```bash
@@ -80,16 +91,7 @@ define('my-app', class extends WeElement {
 render(<my-app />, 'body')
 ```
 
-## Supports type
-
-* `<chart-bar />`
-* `<chart-line />`
-* `<chart-scatter />`
-* `<chart-pie />`
-* `<chart-doughnut />`
-* `<chart-radar />`
-* `<chart-polar-area />`
-* `<chart-bubble />`
+For detailed options and data formats, see the [chart.js document](https://www.chartjs.org/docs/latest/).
 
 ## Principle
 
