@@ -888,6 +888,7 @@
         return ModelView;
     }(WeElement);
     ModelView.observe = !0;
+    ModelView.mergeUpdate = !0;
     var Component = WeElement;
     var defineElement = define;
     var omi = {
@@ -909,7 +910,7 @@
         defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.11';
+    options.root.Omi.version = '5.0.12';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
