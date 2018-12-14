@@ -1,4 +1,4 @@
-import { Component } from './component'
+import Component from './component'
 
 export default class ModelView extends Component {
   static observe = true

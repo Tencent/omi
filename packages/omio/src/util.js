@@ -42,3 +42,16 @@ if (
 export const defer = usePromise
   ? Promise.resolve().then.bind(Promise.resolve())
   : setTimeout
+
+  export function isArray(obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]'
+  }
+  
+  export function nProps(props) {
+    if (!props || isArray(props)) return {}
+    const result = {}
+    Object.keys(props).forEach(key => {
+      result[key] = props[key].value
+    })
+    return result
+  }

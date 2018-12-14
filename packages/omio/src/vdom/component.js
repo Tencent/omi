@@ -138,7 +138,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
       addScopedAttr(
         rendered,
         component.css(),
-        '_style_' + component._id,
+        '_style_' + component.elementId,
         component
       )
     }
