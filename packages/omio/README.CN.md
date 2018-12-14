@@ -6,24 +6,14 @@
 
 ---
 
-## Install
+## 立即使用
 
-``` bash
-npm i omi
-```
-## Webpack Alias
-
-如果你想在已经存在的 omi 项目下使用 omio，你可以使用下面配置，不用任何代码更改:
-
-```js
-module.exports = {
-  //...
-  resolve: {
-    alias: {
-      omi: 'omio'
-    }
-  }
-};
+```bash
+$ npm i omi-cli -g             
+$ omi init-o my-app   
+$ cd my-app           
+$ npm start                     
+$ npm run build               
 ```
 
 ### 与 omi 不同之处
@@ -53,6 +43,27 @@ render() {
 * Omio 支持 store 注入，但不支持 store path updating
 * Omio 不支持 render array，未来可能支持
 * Omio 不支持 `fire` 触发自定义事件，可以和 react 一样使用 `props.xxx()` 去触发。Omi 同时支持 `fire` and `props.xxx()` 两种方式。
+
+
+## 在 Omi 项目中使用
+
+``` bash
+npm i omio
+```
+### Webpack Alias
+
+如果你想在已经存在的 omi 项目下使用 omio，你可以使用下面配置，不用任何代码更改:
+
+```js
+module.exports = {
+  //...
+  resolve: {
+    alias: {
+      omi: 'omio'
+    }
+  }
+};
+```
 
 ## License
 
