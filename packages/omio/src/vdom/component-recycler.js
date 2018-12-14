@@ -43,6 +43,6 @@ export function createComponent(Ctor, props, context) {
 }
 
 /** The `.render()` method for a PFC backing instance. */
-function doRender(props, state, context) {
+function doRender(props, data, context) {
   return this.constructor(props, context)
 }

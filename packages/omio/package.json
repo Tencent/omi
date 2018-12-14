@@ -20,6 +20,7 @@
     "counter": "rollup -c config/rollup.example.js --watch",
     "receive-props": "rollup -c config/rollup.example.js --watch",
     "rpx": "rollup -c config/rollup.example.js --watch",
+    "mvvm": "rollup -c config/rollup.example.js --watch",
     "omi-tap": "rollup -c config/rollup.example.js --watch",
     "simple": "rollup -c config/rollup.example.js --watch",
     "transpile:main": "rollup -c config/rollup.config.js",
@@ -136,7 +137,8 @@
     "sinon-chai": "^3.0.0",
     "typescript": "^2.8.1",
     "uglify-js": "^2.7.5",
-    "webpack": "^4.3.0"
+    "webpack": "^4.3.0",
+    "rollup-plugin-commonjs": "^9.2.0"
   },
   "greenkeeper": {
     "ignore": [

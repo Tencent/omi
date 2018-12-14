@@ -1,6 +1,7 @@
 import nodeResolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import memory from 'rollup-plugin-memory';
+import commonjs from "rollup-plugin-commonjs";
 
 var ENV = process.env.npm_lifecycle_event;
 
@@ -25,6 +26,9 @@ export default {
 		}),
 		nodeResolve({
 			main: true
+		}),
+		commonjs({
+			include: 'node_modules/**'
 		}),
 		babel({
 			sourceMap: true,

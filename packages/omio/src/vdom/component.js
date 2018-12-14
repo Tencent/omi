@@ -37,6 +37,7 @@ export function setComponentProps(component, props, opts, context, mountAll) {
 
   if (!component.base || mountAll) {
     if (component.componentWillMount) component.componentWillMount()
+    if (component.beforeInstall) component.beforeInstall()
     if (component.install) component.install()
     if (component.constructor.observe) {
       obaa(component.data, () => {
@@ -84,10 +85,10 @@ export function renderComponent(component, opts, mountAll, isChild) {
   if (component._disable) return
 
   let props = component.props,
-    state = component.state,
+    data = component.data,
     context = component.context,
     previousProps = component.prevProps || props,
-    previousState = component.prevState || state,
+    previousState = component.prevState || data,
     previousContext = component.prevContext || context,
     isUpdate = component.base,
     nextBase = component.nextBase,
@@ -101,28 +102,28 @@ export function renderComponent(component, opts, mountAll, isChild) {
   // if updating
   if (isUpdate) {
     component.props = previousProps
-    component.state = previousState
+    component.data = previousState
     component.context = previousContext
     if (
       opts !== FORCE_RENDER &&
       component.shouldComponentUpdate &&
-      component.shouldComponentUpdate(props, state, context) === false
+      component.shouldComponentUpdate(props, data, context) === false
     ) {
       skip = true
     } else if (component.componentWillUpdate) {
-      component.componentWillUpdate(props, state, context)
+      component.componentWillUpdate(props, data, context)
     } else if (component.beforeUpdate) {
-      component.beforeUpdate(props, state, context)
+      component.beforeUpdate(props, data, context)
     }
     component.props = props
-    component.state = state
+    component.data = data
     component.context = context
   }
 
   component.prevProps = component.prevState = component.prevContext = component.nextBase = null
 
   if (!skip) {
-    rendered = component.render(props, state, context)
+    rendered = component.render(props, data, context)
 
     //don't rerender
     if (component.staticCss) {
@@ -236,8 +237,11 @@ export function renderComponent(component, opts, mountAll, isChild) {
         previousContext
       )
     }
-    if (component.afterUpdate) {
+    if (component.afterUpdate) { //deprecated
       component.afterUpdate(previousProps, previousState, previousContext)
+    }
+    if (component.updated) {
+      component.updated(previousProps, previousState, previousContext)
     }
     if (options.afterUpdate) options.afterUpdate(component)
   }

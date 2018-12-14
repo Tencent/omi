@@ -6,6 +6,7 @@ import { rerender } from './render-queue'
 import options from './options'
 import { define } from './define'
 import { rpx } from './rpx'
+import ModelView from './model-view'
 
 const instances = []
 const WeElement = Component
@@ -21,7 +22,8 @@ options.root.Omi = {
   instances,
   WeElement,
   define,
-  rpx
+  rpx,
+  ModelView
 }
 
 options.root.Omi.version = 'omio-0.0.3'
@@ -37,7 +39,8 @@ export default {
   instances,
   WeElement,
   define,
-  rpx
+  rpx,
+  ModelView
 }
 
 export {
@@ -51,5 +54,6 @@ export {
   instances,
   WeElement,
   define,
-  rpx
+  rpx,
+  ModelView
 }
