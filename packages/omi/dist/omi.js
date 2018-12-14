@@ -794,7 +794,7 @@
             _classCallCheck(this, WeElement);
             var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
             _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
-            _this.I = id++;
+            _this.elementId = id++;
             _this.data = _this.constructor.data || {};
             return _this;
         }
@@ -910,7 +910,7 @@
         defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.12';
+    options.root.Omi.version = '5.0.13';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
