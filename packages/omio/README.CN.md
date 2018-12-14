@@ -49,6 +49,7 @@ render() {
 
 * Omio 不支持 slot, 请使用 `props.children` 代替，像 react 一样
 * Omio 支持 store 注入，但不支持 store path updating
+* Omio 不支持 render array，未来可能支持
 
 ## License
 
