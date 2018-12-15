@@ -163,7 +163,7 @@ module.exports = {
           {
             test: /\.md$/,
             use: [
-                'to-string-loader'
+                'md-text-loader'
             ]
           },
           // "postcss" loader applies autoprefixer to our CSS.

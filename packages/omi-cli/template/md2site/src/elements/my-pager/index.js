@@ -2,9 +2,6 @@ import { define, WeElement } from 'omi';
 import css from './_index.css'
 
 define('my-pager', class extends WeElement {
-  constructor(data, option) {
-    super(data, option);
-  }
 
   next() {
     this.$store.next();

@@ -3,9 +3,6 @@ import { list } from 'postcss';
 import css from './_index.css'
 
 define('my-list', class extends WeElement {
-  constructor(data, option) {
-    super(data, option);
-  }
 
   goto(md, index) {
     this.$store.goto(md, index)

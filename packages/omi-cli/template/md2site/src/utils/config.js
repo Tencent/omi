@@ -5,5 +5,5 @@ module.exports = {
    */
   cdn : '',
   //whether or not to load markdown async
-  async: true
+  async: false
 }

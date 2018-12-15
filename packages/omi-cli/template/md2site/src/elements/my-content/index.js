@@ -6,13 +6,12 @@ import css from './_index.css'
 
 
 define('my-content', class extends WeElement {
-  constructor(data, option) {
-    super(data, option);
+  install() {
     this.md = new Remarkable({ html: true });
   }
 
   installed() {
-    this.initCodeStyle();
+    //this.initCodeStyle();
   }
 
   install() {
@@ -22,7 +21,7 @@ define('my-content', class extends WeElement {
   }
 
   afterUpdate() {
-    this.initCodeStyle();
+    //this.initCodeStyle();
   }
 
   getMarkDown(name, lan) {
@@ -80,7 +79,7 @@ define('my-content', class extends WeElement {
     // }
     // return tpl;
     <div class="content">
-      {{ html }}
+      { this.store.html }
     </div>
   }
 

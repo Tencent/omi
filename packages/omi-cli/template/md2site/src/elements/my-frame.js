@@ -11,9 +11,9 @@ define('my-frame', class extends WeElement {
     this.setViewport();
     window.onresize = () => {
       if (window.innerWidth < 768) {
-        this.refs.main.style.width = '100%';
+        this.mainDiv.style.width = '100%';
       } else {
-        this.refs.main.style.width = (window.innerWidth - 220) + 'px';
+        this.mainDiv.style.width = (window.innerWidth - 220) + 'px';
       }
     }
   }
@@ -53,8 +53,8 @@ define('my-frame', class extends WeElement {
     return (
       <div>
         <my-head />
-        <div class="main" ref="main" style="width:{{width}};">
-          <my-content omi-id="content" ddd />
+        <div class="main" ref={e=>{this.mainDiv=e}} style="width:{{width}};">
+          <my-content omi-id="content" />
           <my-pager omi-id="pager" />
         </div>
         <my-sidebar omi-id="sidebar" />
