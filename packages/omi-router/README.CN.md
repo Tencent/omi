@@ -108,7 +108,7 @@ render(<my-app />, "#container")
 | 模式 | 匹配路径 | route.params |
 |---------|------|--------|
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
-| /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: js }` |
+| /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: 'js' }` |
 
 ## 另一种携带查询参数方法
 

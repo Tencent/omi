@@ -25,10 +25,17 @@
 
 ```bash
 $ npm i omi-cli -g              
-$ omi init-mp your_project_name    
-$ cd your_project_name        
+$ omi init-mp my-app    
+$ cd my-app        
 $ npm start                  
 $ npm run build             
+```
+
+> 特别注意，由于 concurrently 不明原因起不来导致 npm start 报错，可以试着分两个命令行执行，和 npm start 同样的效果:
+
+```bash
+gulp
+node scripts/start.js
 ```
 
 把小程序项目拷贝到 src-mp 目录，如果是新的小程序，可以在 src-mp 目录创建小程序，目录要求：
@@ -147,6 +154,14 @@ div img .image{
 ## 注意
 
 目前不支持导入 template 标签和一些原生组件标签，需要一些时间翻译成对应的 HTML 自定义元素，欢迎试用反馈或 PR。
+
+
+bindtap 的时候，在js里通过 evt.currentTarget.dataset.id 一定需要字符串，所以如果是字数需要转成字符串:
+
+```
+<view bindtap="tapHandler" data-id="{{item.id+''}}"></view>
+```
+
 
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)

@@ -14,7 +14,7 @@ English | [简体中文](./main-concepts.cn.md) | [한국어](./main-concepts.kr
   - [Slot](#slot)
   - [noSlot](#noslot)
   - [Observe](#observe)
-  - [Tick and NextTick](#tick-and-nexttick)
+  - [MergeUpdate](#mergeupdate)
   - [Use](#use)
   - [SSR](#ssr)
 
@@ -222,7 +222,8 @@ define('el-button', class extends WeElement {
 | `installed`      | after the component gets mounted to the DOM  |
 | `uninstall`      | prior to removal from the DOM                |
 | `beforeUpdate`   | before update                           |
-| `afterUpdate`    | after update                             |
+| `afterUpdate`    | after update  (deprecated)                           |
+| `updated`    | after update                             |
 | `beforeRender`   | before `render()`                           |
 | `receiveProps`   | parent element re-render will trigger it      |
 
@@ -490,9 +491,21 @@ class MyApp extends WeElement {
 }
 ```
 
-### Tick and NextTick
+### MergeUpdate
 
-If observe is used, the view does not change immediately after the data changes. If you want to get the real changed dom, you can use tick or nextTick.
+If `observe` and `mergeUpdate` is used, the view does not change immediately after the data changes. 
+
+```js
+define('todo-list', class extends WeElement {
+  static observe = true
+
+  static mergeUpdate = true
+
+  ....
+})
+```
+
+If you want to get the real changed dom, you can use tick or nextTick.
 
 ```js
 import { render, WeElement, define, tick, nextTick } from 'omi'

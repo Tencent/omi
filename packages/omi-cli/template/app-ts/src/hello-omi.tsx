@@ -9,7 +9,7 @@ declare global {
         interface IntrinsicElements {
             'hello-omi': Omi.CustomElementBaseAttributes & {
                 msg: string;
-                'prop-from-parent': string;
+                propFromParent: string;
                 onAbc: (e: Event) => void;
             };
         }

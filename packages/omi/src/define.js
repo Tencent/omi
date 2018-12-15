@@ -16,6 +16,8 @@ export function define(name, ctor) {
 
       _useMap = {}
 
+      _preCss = null
+
       render(props, data) {
         return ctor.call(this, props, data)
       }
@@ -25,6 +27,10 @@ export function define(name, ctor) {
       }
 
       useCss(css) {
+        if (css === this._preCss) {
+          return
+        }
+        this._preCss = css
         const style = this.shadowRoot.querySelector('style')
         style && this.shadowRoot.removeChild(style)
         this.shadowRoot.appendChild(cssToDom(css))

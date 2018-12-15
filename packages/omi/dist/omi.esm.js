@@ -1,5 +1,5 @@
 /**
- * omi v4.1.7  http://omijs.org
+ * omi v5.0.13  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -256,14 +256,14 @@ function setAccessor(node, name, old, value, isSvg) {
         node.addEventListener(name, eventProxy, useCapture);
         if (name == 'tap') {
           node.addEventListener('touchstart', touchStart, useCapture);
-          node.addEventListener('touchstart', touchEnd, useCapture);
+          node.addEventListener('touchend', touchEnd, useCapture);
         }
       }
     } else {
       node.removeEventListener(name, eventProxy, useCapture);
       if (name == 'tap') {
         node.removeEventListener('touchstart', touchStart, useCapture);
-        node.removeEventListener('touchstart', touchEnd, useCapture);
+        node.removeEventListener('touchend', touchEnd, useCapture);
       }
     }
 (node._listeners || (node._listeners = {}))[name] = value;
@@ -600,6 +600,10 @@ function diffAttributes(dom, attrs, old, children) {
   var name;
   var update = false;
   var isWeElement = dom.update;
+  var oldClone;
+  if (dom.receiveProps) {
+    oldClone = Object.assign({}, old);
+  }
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {
@@ -613,9 +617,17 @@ function diffAttributes(dom, attrs, old, children) {
 
   // add new & update changed attributes
   for (name in attrs) {
-    //diable when using store system?
-    //!dom.store &&
     if (isWeElement && typeof attrs[name] === 'object') {
+      if (name === 'style') {
+        setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+      }
+      if (dom.receiveProps) {
+        try {
+          old[name] = JSON.parse(JSON.stringify(attrs[name]));
+        } catch (e) {
+          console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
+        }
+      }
       dom.props[npn(name)] = attrs[name];
       update = true;
     } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
@@ -629,7 +641,7 @@ function diffAttributes(dom, attrs, old, children) {
 
   if (isWeElement && dom.parentNode) {
     if (update || children.length > 0) {
-      dom.receiveProps(dom.props, dom.data);
+      dom.receiveProps(dom.props, dom.data, oldClone);
       dom.update();
     }
   }
@@ -1021,17 +1033,21 @@ function observe(target) {
 
 function proxyUpdate(ele) {
   var timeout = null;
-  ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-    if (ele._willUpdate || info.op === 'replace' && info.oldValue === info.value) {
+  ele.data = new JSONPatcherProxy(ele.data).observe(false, function () {
+    if (ele._willUpdate) {
       return;
     }
+    if (ele.constructor.mergeUpdate) {
+      clearTimeout(timeout);
 
-    clearTimeout(timeout);
-
-    timeout = setTimeout(function () {
+      timeout = setTimeout(function () {
+        ele.update();
+        fireTick();
+      }, 0);
+    } else {
       ele.update();
       fireTick();
-    }, 0);
+    }
   });
 }
 
@@ -1052,7 +1068,7 @@ var WeElement = function (_HTMLElement) {
     var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
     _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
-    _this.__elementId = id++;
+    _this.elementId = id++;
     _this.data = _this.constructor.data || {};
     return _this;
   }
@@ -1068,8 +1084,9 @@ var WeElement = function (_HTMLElement) {
         this.store.instances.push(this);
       }
     }
-
+    this.beforeInstall();
     !this._isInstalled && this.install();
+    this.afterInstall();
     var shadowRoot;
     if (!this.shadowRoot) {
       shadowRoot = this.attachShadow({
@@ -1087,15 +1104,18 @@ var WeElement = function (_HTMLElement) {
     !this._isInstalled && this.beforeRender();
     options.afterInstall && options.afterInstall(this);
     if (this.constructor.observe) {
+      this.beforeObserve();
       proxyUpdate(this);
+      this.observed();
     }
-    this.host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
-    if (isArray(this.host)) {
-      this.host.forEach(function (item) {
+    this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
+    this.rendered();
+    if (isArray(this._host)) {
+      this._host.forEach(function (item) {
         shadowRoot.appendChild(item);
       });
     } else {
-      shadowRoot.appendChild(this.host);
+      shadowRoot.appendChild(this._host);
     }
     !this._isInstalled && this.installed();
     this._isInstalled = true;
@@ -1103,6 +1123,7 @@ var WeElement = function (_HTMLElement) {
 
   WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
     this.uninstall();
+    this._isInstalled = false;
     if (this.store) {
       for (var i = 0, len = this.store.instances.length; i < len; i++) {
         if (this.store.instances[i] === this) {
@@ -1117,8 +1138,9 @@ var WeElement = function (_HTMLElement) {
     this._willUpdate = true;
     this.beforeUpdate();
     this.beforeRender();
-    this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+    this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
     this.afterUpdate();
+    this.updated();
     this._willUpdate = false;
   };
 
@@ -1126,7 +1148,11 @@ var WeElement = function (_HTMLElement) {
     this.dispatchEvent(new CustomEvent(name, { detail: data }));
   };
 
+  WeElement.prototype.beforeInstall = function beforeInstall() {};
+
   WeElement.prototype.install = function install() {};
+
+  WeElement.prototype.afterInstall = function afterInstall() {};
 
   WeElement.prototype.installed = function installed() {};
 
@@ -1134,11 +1160,19 @@ var WeElement = function (_HTMLElement) {
 
   WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
-  WeElement.prototype.afterUpdate = function afterUpdate() {};
+  WeElement.prototype.afterUpdate = function afterUpdate() {}; //deprecated, please use updated
+
+  WeElement.prototype.updated = function updated() {};
 
   WeElement.prototype.beforeRender = function beforeRender() {};
 
+  WeElement.prototype.rendered = function rendered() {};
+
   WeElement.prototype.receiveProps = function receiveProps() {};
+
+  WeElement.prototype.beforeObserve = function beforeObserve() {};
+
+  WeElement.prototype.observed = function observed() {};
 
   return WeElement;
 }(HTMLElement);
@@ -1307,7 +1341,7 @@ function define(name, ctor) {
           args[key] = arguments[key];
         }
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _temp), _possibleConstructorReturn$1(_this, _ret);
+        return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn$1(_this, _ret);
       }
 
       Element.prototype.render = function render(props, data) {
@@ -1319,6 +1353,10 @@ function define(name, ctor) {
       };
 
       Element.prototype.useCss = function useCss(css) {
+        if (css === this._preCss) {
+          return;
+        }
+        this._preCss = css;
         var style = this.shadowRoot.querySelector('style');
         style && this.shadowRoot.removeChild(style);
         this.shadowRoot.appendChild(cssToDom(css));
@@ -1427,6 +1465,8 @@ function getHost(ele) {
   while (p) {
     if (p.host) {
       return p.host;
+    } else if (p.shadowRoot && p.shadowRoot.host) {
+      return p.shadowRoot.host;
     } else {
       p = p.parentNode;
     }
@@ -1439,7 +1479,37 @@ function rpx(str) {
   });
 }
 
+function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModelView = function (_WeElement) {
+  _inherits$2(ModelView, _WeElement);
+
+  function ModelView() {
+    _classCallCheck$2(this, ModelView);
+
+    return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+  }
+
+  ModelView.prototype.beforeInstall = function beforeInstall() {
+    this.data = this.vm.data;
+  };
+
+  ModelView.prototype.observed = function observed() {
+    this.vm.data = this.data;
+  };
+
+  return ModelView;
+}(WeElement);
+
+ModelView.observe = true;
+ModelView.mergeUpdate = true;
+
 var Component = WeElement;
+var defineElement = define;
 
 var omi = {
   tag: tag,
@@ -1455,12 +1525,14 @@ var omi = {
   getHost: getHost,
   rpx: rpx,
   tick: tick,
-  nextTick: nextTick
+  nextTick: nextTick,
+  ModelView: ModelView,
+  defineElement: defineElement
 };
 
 options.root.Omi = omi;
-options.root.Omi.version = '4.1.7';
+options.root.Omi.version = '5.0.13';
 
 export default omi;
-export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick };
+export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement };
 //# sourceMappingURL=omi.esm.js.map

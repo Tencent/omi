@@ -1,0 +1,13 @@
+<!-- index.wxml -->
+<view class="container">
+  <view class="title">Hello MVVM</view>
+  <view>
+    <todo-list items="{{items}}" />
+    <view class="form">
+      <input class="input" bindinput="inputHandler" type="text" placeholder="Input your task" value="{{text}}" />
+      <button class="button" bindtap="tapHandler">Add{{items.length+1}}</button>
+    </view>
+  </view>
+
+  <other-view />
+</view>

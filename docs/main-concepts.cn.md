@@ -14,7 +14,7 @@
   - [Slot](#slot)
   - [noSlot](#noslot)
   - [Observe](#observe)
-  - [Tick and NextTick](#tick-and-nexttick)
+  - [MergeUpdate](#mergeupdate)
   - [Use](#use)
   - [SSR](#ssr)
 
@@ -206,7 +206,8 @@ define('el-button', class extends WeElement {
 | `installed`      | after the component gets mounted to the DOM  |
 | `uninstall`      | prior to removal from the DOM                |
 | `beforeUpdate`   | before update                           |
-| `afterUpdate`    | after update                             |
+| `afterUpdate`    | after update  (deprecated)                           |
+| `updated`    | after update                             |
 | `beforeRender`   | before `render()`                           |
 | `receiveProps`   | parent element re-render will trigger it      |
 
@@ -374,7 +375,7 @@ render(<my-app></my-app>, 'body')
 
 ## noSlot
 
-对于写一些 omi 插件，noSlot 非常有用，它不会把 children 插入到 DOM 中，兵器你可以在插件中通过 props.children 拿到虚拟 DOM。
+对于写一些 omi 插件，noSlot 非常有用，它不会把 children 插入到 DOM 中，并且你可以在插件中通过 props.children 拿到虚拟 DOM。
 
 ```js
 import { define, render, WeElement } from 'omi'
@@ -474,9 +475,21 @@ class MyApp extends WeElement {
 }
 ```
 
-### Tick and NextTick
+### MergeUpdate
 
-如果使用了observe，数据更改之后视图不是立即变更，如果你想获取真实变更后的dom，你可以使用tick或者nextTick。
+如果使用了observe 和 mergeUpdate，数据更改之后视图不是立即变更，
+
+```js
+define('todo-list', class extends WeElement {
+  static observe = true
+
+  static mergeUpdate = true
+
+  ....
+})
+```
+
+如果你想获取真实变更后的dom，你可以使用tick或者nextTick。
 
 ```js
 import { render, WeElement, define, tick, nextTick } from 'omi'

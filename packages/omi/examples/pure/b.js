@@ -153,7 +153,7 @@
 
   // render modes
 
-  var ATTR_KEY = '__preactattr_';
+  var ATTR_KEY = '__omiattr_';
 
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -187,38 +187,14 @@
   }
 
   /**
-   * A DOM event listener
-   * @typedef {(e: Event) => void} EventListner
-   */
-
-  /**
-   * A mapping of event types to event listeners
-   * @typedef {Object.<string, EventListener>} EventListenerMap
-   */
-
-  /**
-   * Properties Preact adds to elements it creates
-   * @typedef PreactElementExtensions
-   * @property {string} [normalizedNodeName] A normalized node name to use in diffing
-   * @property {EventListenerMap} [_listeners] A map of event listeners added by components to this DOM node
-   * @property {import('../component').Component} [_component] The component that rendered this DOM node
-   * @property {function} [_componentConstructor] The constructor of the component that rendered this DOM node
-   */
-
-  /**
-   * A DOM element that has been extended with Preact properties
-   * @typedef {Element & ElementCSSInlineStyle & PreactElementExtensions} PreactElement
-   */
-
-  /**
    * Create an element with the given nodeName.
    * @param {string} nodeName The DOM node to create
    * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
    *  namespace.
-   * @returns {PreactElement} The created DOM node
+   * @returns {Element} The created DOM node
    */
   function createNode(nodeName, isSvg) {
-    /** @type {PreactElement} */
+    /** @type {Element} */
     var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
     node.normalizedNodeName = nodeName;
     return node;
@@ -237,7 +213,7 @@
    * Set a named attribute on the given Node, with special behavior for some names
    * and event handlers. If `value` is `null`, the attribute/handler will be
    * removed.
-   * @param {PreactElement} node An element to mutate
+   * @param {Element} node An element to mutate
    * @param {string} name The name/key to set, such as an event or attribute name
    * @param {*} old The last value that was set for this name/node pair
    * @param {*} value An attribute value, such as a function to be used as an
@@ -275,9 +251,19 @@
       var useCapture = name !== (name = name.replace(/Capture$/, ''));
       name = name.toLowerCase().substring(2);
       if (value) {
-        if (!old) node.addEventListener(name, eventProxy, useCapture);
+        if (!old) {
+          node.addEventListener(name, eventProxy, useCapture);
+          if (name == 'tap') {
+            node.addEventListener('touchstart', touchStart, useCapture);
+            node.addEventListener('touchstart', touchEnd, useCapture);
+          }
+        }
       } else {
         node.removeEventListener(name, eventProxy, useCapture);
+        if (name == 'tap') {
+          node.removeEventListener('touchstart', touchStart, useCapture);
+          node.removeEventListener('touchstart', touchEnd, useCapture);
+        }
       }
   (node._listeners || (node._listeners = {}))[name] = value;
     } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
@@ -313,6 +299,18 @@
     return this._listeners[e.type](options.event && options.event(e) || e);
   }
 
+  function touchStart(e) {
+    this.___touchX = e.touches[0].pageX;
+    this.___touchY = e.touches[0].pageY;
+    this.___scrollTop = document.body.scrollTop;
+  }
+
+  function touchEnd(e) {
+    if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
+      this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+    }
+  }
+
   /** Diff recursion count, used to track the end of the diff cycle. */
   var diffLevel = 0;
 
@@ -342,26 +340,30 @@
       ret = [];
       var parentNode = null;
       if (isArray(dom)) {
+        var domLength = dom.length;
+        var vnodeLength = vnode.length;
+        var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
         parentNode = dom[0].parentNode;
-        dom.forEach(function (item, index) {
-          ret.push(idiff(item, vnode[index], context, mountAll, componentRoot));
-        });
+        for (var i = 0; i < maxLength; i++) {
+          var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
+          ret.push(ele);
+          if (i > domLength - 1) {
+            parentNode.appendChild(ele);
+          }
+        }
       } else {
         vnode.forEach(function (item) {
-          ret.push(idiff(dom, item, context, mountAll, componentRoot));
-        });
-      }
-      if (parent) {
-        ret.forEach(function (vnode) {
-          parent.appendChild(vnode);
-        });
-      } else if (isArray(dom)) {
-        dom.forEach(function (node) {
-          parentNode.appendChild(node);
+          var ele = idiff(dom, item, context, mountAll, componentRoot);
+          ret.push(ele);
+          parent && parent.appendChild(ele);
         });
       }
     } else {
-      ret = idiff(dom, vnode, context, mountAll, componentRoot);
+      if (isArray(dom)) {
+        ret = idiff(dom[0], vnode, context, mountAll, componentRoot);
+      } else {
+        ret = idiff(dom, vnode, context, mountAll, componentRoot);
+      }
       // append the element if its a new parent
       if (parent && ret.parentNode !== parent) parent.appendChild(ret);
     }
@@ -377,7 +379,7 @@
 
   /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
   function idiff(dom, vnode, context, mountAll, componentRoot) {
-    if (dom && dom.props) {
+    if (dom && vnode && dom.props) {
       dom.props.children = vnode.children;
     }
     var out = dom,
@@ -450,11 +452,13 @@
     }
     // otherwise, if there are existing or new children, diff them:
     else if (vchildren && vchildren.length || fc != null) {
-        innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+        if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
+          innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+        }
       }
 
     // Apply attributes/props from VNode to the DOM Element:
-    diffAttributes(out, vnode.attributes, props);
+    diffAttributes(out, vnode.attributes, props, vnode.children);
     if (out.props) {
       out.props.children = vnode.children;
     }
@@ -591,7 +595,7 @@
    *	@param {Object} attrs		The desired end-state key-value attribute pairs
    *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
    */
-  function diffAttributes(dom, attrs, old) {
+  function diffAttributes(dom, attrs, old, children) {
     var name = void 0;
     var update = false;
     var isWeElement = dom.update;
@@ -622,7 +626,12 @@
       }
     }
 
-    dom.parentNode && update && isWeElement && dom.update();
+    if (isWeElement && dom.parentNode) {
+      if (update || children.length > 0) {
+        dom.receiveProps(dom.props, dom.data);
+        dom.update();
+      }
+    }
   }
 
   /*!
@@ -763,6 +772,7 @@
         }
         operation.value = newValue;
       }
+      operation.oldValue = target[key];
       var reflectionResult = Reflect.set(target, key, newValue);
       instance.defaultCallback(operation);
       return reflectionResult;
@@ -982,29 +992,45 @@
     return JSONPatcherProxy;
   }();
 
+  var callbacks = [];
+  var nextTickCallback = [];
+
+  function tick(fn, scope) {
+    callbacks.push({ fn: fn, scope: scope });
+  }
+
+  function fireTick() {
+    callbacks.forEach(function (item) {
+      item.fn.call(item.scope);
+    });
+
+    nextTickCallback.forEach(function (nextItem) {
+      nextItem.fn.call(nextItem.scope);
+    });
+    nextTickCallback.length = 0;
+  }
+
+  function nextTick(fn, scope) {
+    nextTickCallback.push({ fn: fn, scope: scope });
+  }
+
   function observe(target) {
     target.observe = true;
   }
 
-  var preValue = null;
-  var prePath = null;
-  var preEle = null;
-
   function proxyUpdate(ele) {
     var timeout = null;
     ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-      if (preValue === info.value && prePath === info.path && preEle === ele) {
+      if (ele._willUpdate || info.op === 'replace' && info.oldValue === info.value) {
         return;
       }
 
-      preValue = info.value;
-      prePath = info.path;
-      preEle = ele;
       clearTimeout(timeout);
 
       timeout = setTimeout(function () {
         ele.update();
-      }, 16.6);
+        fireTick();
+      }, 0);
     });
   }
 
@@ -1016,6 +1042,8 @@
 
   function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+  var id = 0;
+
   var WeElement = (_temp = _class = function (_HTMLElement) {
     _inherits(WeElement, _HTMLElement);
 
@@ -1024,7 +1052,8 @@
 
       var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
-      _this.props = nProps(_this.constructor.props);
+      _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
+      _this.__elementId = id++;
       _this.data = _this.constructor.data || {};
       return _this;
     }
@@ -1040,17 +1069,32 @@
           this.store.instances.push(this);
         }
       }
-
-      this.install();
-      var shadowRoot = this.attachShadow({ mode: 'open' });
+      this.beforeInstall();
+      !this._isInstalled && this.install();
+      this.afterInstall();
+      var shadowRoot = void 0;
+      if (!this.shadowRoot) {
+        shadowRoot = this.attachShadow({
+          mode: 'open'
+        });
+      } else {
+        shadowRoot = this.shadowRoot;
+        var fc = void 0;
+        while (fc = shadowRoot.firstChild) {
+          shadowRoot.removeChild(fc);
+        }
+      }
 
       this.css && shadowRoot.appendChild(cssToDom(this.css()));
-      this.beforeRender();
+      !this._isInstalled && this.beforeRender();
       options.afterInstall && options.afterInstall(this);
       if (this.constructor.observe) {
+        this.beforeObserve();
         proxyUpdate(this);
+        this.observed();
       }
-      this.host = diff(null, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data), {}, false, null, false);
+      this.host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
+      this.rendered();
       if (isArray(this.host)) {
         this.host.forEach(function (item) {
           shadowRoot.appendChild(item);
@@ -1058,12 +1102,13 @@
       } else {
         shadowRoot.appendChild(this.host);
       }
-      this.installed();
+      !this._isInstalled && this.installed();
       this._isInstalled = true;
     };
 
     WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
       this.uninstall();
+      this._isInstalled = false;
       if (this.store) {
         for (var i = 0, len = this.store.instances.length; i < len; i++) {
           if (this.store.instances[i] === this) {
@@ -1075,17 +1120,24 @@
     };
 
     WeElement.prototype.update = function update() {
+      this._willUpdate = true;
       this.beforeUpdate();
       this.beforeRender();
-      diff(this.host, this.render(this.props, !this.constructor.pure && this.store ? this.store.data : this.data));
+      this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
       this.afterUpdate();
+      this.updated();
+      this._willUpdate = false;
     };
 
     WeElement.prototype.fire = function fire(name, data) {
       this.dispatchEvent(new CustomEvent(name, { detail: data }));
     };
 
+    WeElement.prototype.beforeInstall = function beforeInstall() {};
+
     WeElement.prototype.install = function install() {};
+
+    WeElement.prototype.afterInstall = function afterInstall() {};
 
     WeElement.prototype.installed = function installed() {};
 
@@ -1093,9 +1145,19 @@
 
     WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
-    WeElement.prototype.afterUpdate = function afterUpdate() {};
+    WeElement.prototype.afterUpdate = function afterUpdate() {}; //deprecated, please use updated
+
+    WeElement.prototype.updated = function updated() {};
 
     WeElement.prototype.beforeRender = function beforeRender() {};
+
+    WeElement.prototype.rendered = function rendered() {};
+
+    WeElement.prototype.receiveProps = function receiveProps() {};
+
+    WeElement.prototype.beforeObserve = function beforeObserve() {};
+
+    WeElement.prototype.observed = function observed() {};
 
     return WeElement;
   }(HTMLElement), _class.is = 'WeElement', _temp);
@@ -1116,19 +1178,19 @@
           timeout = setTimeout(function () {
             update(patchs, store);
             patchs = {};
-          }, 16.6);
+          }, 0);
         } else {
           var key = fixPath(patch.path);
           patchs[key] = patch.value;
           timeout = setTimeout(function () {
             update(patchs, store);
             patchs = {};
-          }, 16.6);
+          }, 0);
         }
       });
       parent.store = store;
     }
-    diff(null, vnode, {}, false, parent, false);
+    return diff(null, vnode, {}, false, parent, false);
   }
 
   function update(patch, store) {
@@ -1265,7 +1327,7 @@
             args[_key] = arguments[_key];
           }
 
-          return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _temp), _possibleConstructorReturn$1(_this, _ret);
+          return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn$1(_this, _ret);
         }
 
         Element.prototype.render = function render(props, data) {
@@ -1277,6 +1339,10 @@
         };
 
         Element.prototype.useCss = function useCss(css) {
+          if (css === this._preCss) {
+            return;
+          }
+          this._preCss = css;
           var style = this.shadowRoot.querySelector('style');
           style && this.shadowRoot.removeChild(style);
           this.shadowRoot.appendChild(cssToDom(css));
@@ -1391,9 +1457,46 @@
     }
   }
 
+  function rpx(str) {
+    return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
+      return window.innerWidth * Number(b) / 750 + 'px';
+    });
+  }
+
+  var _class$1, _temp$1;
+
+  function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var ModelView = (_temp$1 = _class$1 = function (_WeElement) {
+    _inherits$2(ModelView, _WeElement);
+
+    function ModelView() {
+      _classCallCheck$2(this, ModelView);
+
+      return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+    }
+
+    ModelView.prototype.beforeInstall = function beforeInstall() {
+      this.data = this.vm.data;
+    };
+
+    ModelView.prototype.observed = function observed() {
+      this.vm.data = this.data;
+    };
+
+    return ModelView;
+  }(WeElement), _class$1.observe = true, _temp$1);
+
+  var Component = WeElement;
+
   var omi = {
     tag: tag,
     WeElement: WeElement,
+    Component: Component,
     render: render,
     h: h,
     createElement: h,
@@ -1401,15 +1504,24 @@
     define: define,
     observe: observe,
     cloneElement: cloneElement,
-    getHost: getHost
+    getHost: getHost,
+    rpx: rpx,
+    tick: tick,
+    nextTick: nextTick,
+    ModelView: ModelView
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '4.0.17';
+  options.root.Omi.version = '5.0.2';
 
   //Do not use pure element in browsers that do not support Reflect, such as ie11.
   define('my-ele', function (props) {
-    this.useCss('ul{ color:red; }');
+    var _this = this;
+
+    this.useCss('ul{ color:' + (Math.random() > 0.5 ? 'red' : 'green') + '; }');
+    setTimeout(function () {
+      _this.update();
+    }, 5000);
     return Omi.h(
       'ul',
       null,

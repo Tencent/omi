@@ -87,14 +87,14 @@
                     node.addEventListener(name, eventProxy, useCapture);
                     if ('tap' == name) {
                         node.addEventListener('touchstart', touchStart, useCapture);
-                        node.addEventListener('touchstart', touchEnd, useCapture);
+                        node.addEventListener('touchend', touchEnd, useCapture);
                     }
                 }
             } else {
                 node.removeEventListener(name, eventProxy, useCapture);
                 if ('tap' == name) {
                     node.removeEventListener('touchstart', touchStart, useCapture);
-                    node.removeEventListener('touchstart', touchEnd, useCapture);
+                    node.removeEventListener('touchend', touchEnd, useCapture);
                 }
             }
             (node.__l || (node.__l = {}))[name] = value;
@@ -243,6 +243,8 @@
         var name;
         var update = !1;
         var isWeElement = dom.update;
+        var oldClone;
+        if (dom.receiveProps) oldClone = Object.assign({}, old);
         for (name in old) if ((!attrs || null == attrs[name]) && null != old[name]) {
             setAccessor(dom, name, old[name], old[name] = void 0, isSvgMode);
             if (isWeElement) {
@@ -251,6 +253,12 @@
             }
         }
         for (name in attrs) if (isWeElement && 'object' == typeof attrs[name]) {
+            if ('style' === name) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+            if (dom.receiveProps) try {
+                old[name] = JSON.parse(JSON.stringify(attrs[name]));
+            } catch (e) {
+                console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
+            }
             dom.props[npn(name)] = attrs[name];
             update = !0;
         } else if (!('children' === name || 'innerHTML' === name || name in old && attrs[name] === ('value' === name || 'checked' === name ? dom[name] : old[name]))) {
@@ -261,7 +269,7 @@
             }
         }
         if (isWeElement && dom.parentNode) if (update || children.length > 0) {
-            dom.receiveProps(dom.props, dom.data);
+            dom.receiveProps(dom.props, dom.data, oldClone);
             dom.update();
         }
     }
@@ -291,13 +299,16 @@
     }
     function proxyUpdate(ele) {
         var timeout = null;
-        ele.data = new JSONPatcherProxy(ele.data).observe(!1, function(info) {
-            if (!(ele.J || 'replace' === info.op && info.oldValue === info.value)) {
+        ele.data = new JSONPatcherProxy(ele.data).observe(!1, function() {
+            if (!ele.J) if (ele.constructor.mergeUpdate) {
                 clearTimeout(timeout);
                 timeout = setTimeout(function() {
                     ele.update();
                     fireTick();
                 }, 0);
+            } else {
+                ele.update();
+                fireTick();
             }
         });
     }
@@ -442,7 +453,7 @@
                     _classCallCheck$1(this, Element);
                     for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) args[key] = arguments[key];
                     return _ret = (_temp = _this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [ this ].concat(args))), 
-                    _this.C = 0, _this.D = {}, _temp), _possibleConstructorReturn$1(_this, _ret);
+                    _this.C = 0, _this.D = {}, _this.K = null, _temp), _possibleConstructorReturn$1(_this, _ret);
                 }
                 _inherits$1(Element, _WeElement);
                 Element.prototype.render = function(props, data) {
@@ -452,9 +463,12 @@
                     this.C = 0;
                 };
                 Element.prototype.useCss = function(css) {
-                    var style = this.shadowRoot.querySelector('style');
-                    style && this.shadowRoot.removeChild(style);
-                    this.shadowRoot.appendChild(cssToDom(css));
+                    if (css !== this.K) {
+                        this.K = css;
+                        var style = this.shadowRoot.querySelector('style');
+                        style && this.shadowRoot.removeChild(style);
+                        this.shadowRoot.appendChild(cssToDom(css));
+                    }
                 };
                 Element.prototype.useData = function(data) {
                     return this.use({
@@ -524,12 +538,31 @@
     }
     function getHost(ele) {
         var p = ele.parentNode;
-        while (p) if (p.host) return p.host; else p = p.parentNode;
+        while (p) if (p.host) return p.host; else if (p.shadowRoot && p.shadowRoot.host) return p.shadowRoot.host; else p = p.parentNode;
     }
     function rpx(str) {
         return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
             return window.innerWidth * Number(b) / 750 + 'px';
         });
+    }
+    function _classCallCheck$2(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
+    function _possibleConstructorReturn$2(self, call) {
+        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
+    }
+    function _inherits$2(subClass, superClass) {
+        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
     var options = {
         store: null,
@@ -761,7 +794,7 @@
             _classCallCheck(this, WeElement);
             var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
             _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
-            _this.I = id++;
+            _this.elementId = id++;
             _this.data = _this.constructor.data || {};
             return _this;
         }
@@ -775,7 +808,9 @@
                 }
                 if (this.store) this.store.instances.push(this);
             }
+            this.beforeInstall();
             !this.B && this.install();
+            this.afterInstall();
             var shadowRoot;
             if (!this.shadowRoot) shadowRoot = this.attachShadow({
                 mode: 'open'
@@ -787,16 +822,22 @@
             this.css && shadowRoot.appendChild(cssToDom(this.css()));
             !this.B && this.beforeRender();
             options.afterInstall && options.afterInstall(this);
-            if (this.constructor.observe) proxyUpdate(this);
-            this.host = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
-            if (isArray(this.host)) this.host.forEach(function(item) {
+            if (this.constructor.observe) {
+                this.beforeObserve();
+                proxyUpdate(this);
+                this.observed();
+            }
+            this.L = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
+            this.rendered();
+            if (isArray(this.L)) this.L.forEach(function(item) {
                 shadowRoot.appendChild(item);
-            }); else shadowRoot.appendChild(this.host);
+            }); else shadowRoot.appendChild(this.L);
             !this.B && this.installed();
             this.B = !0;
         };
         WeElement.prototype.disconnectedCallback = function() {
             this.uninstall();
+            this.B = !1;
             if (this.store) for (var i = 0, len = this.store.instances.length; i < len; i++) if (this.store.instances[i] === this) {
                 this.store.instances.splice(i, 1);
                 break;
@@ -806,8 +847,9 @@
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
-            this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+            this.L = diff(this.L, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
             this.afterUpdate();
+            this.updated();
             this.J = !1;
         };
         WeElement.prototype.fire = function(name, data) {
@@ -815,17 +857,40 @@
                 detail: data
             }));
         };
+        WeElement.prototype.beforeInstall = function() {};
         WeElement.prototype.install = function() {};
+        WeElement.prototype.afterInstall = function() {};
         WeElement.prototype.installed = function() {};
         WeElement.prototype.uninstall = function() {};
         WeElement.prototype.beforeUpdate = function() {};
         WeElement.prototype.afterUpdate = function() {};
+        WeElement.prototype.updated = function() {};
         WeElement.prototype.beforeRender = function() {};
+        WeElement.prototype.rendered = function() {};
         WeElement.prototype.receiveProps = function() {};
+        WeElement.prototype.beforeObserve = function() {};
+        WeElement.prototype.observed = function() {};
         return WeElement;
     }(HTMLElement);
     WeElement.is = 'WeElement';
+    var ModelView = function(_WeElement) {
+        function ModelView() {
+            _classCallCheck$2(this, ModelView);
+            return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+        }
+        _inherits$2(ModelView, _WeElement);
+        ModelView.prototype.beforeInstall = function() {
+            this.data = this.vm.data;
+        };
+        ModelView.prototype.observed = function() {
+            this.vm.data = this.data;
+        };
+        return ModelView;
+    }(WeElement);
+    ModelView.observe = !0;
+    ModelView.mergeUpdate = !0;
     var Component = WeElement;
+    var defineElement = define;
     var omi = {
         tag: tag,
         WeElement: WeElement,
@@ -840,10 +905,12 @@
         getHost: getHost,
         rpx: rpx,
         tick: tick,
-        nextTick: nextTick
+        nextTick: nextTick,
+        ModelView: ModelView,
+        defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '4.1.7';
+    options.root.Omi.version = '5.0.13';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

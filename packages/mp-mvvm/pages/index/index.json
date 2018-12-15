@@ -1,0 +1,7 @@
+{
+
+  "usingComponents": {
+    "todo-list": "/components/todo-list/todo-list",
+    "other-view": "/components/other-view/other-view"
+  }
+}

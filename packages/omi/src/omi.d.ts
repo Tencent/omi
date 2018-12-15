@@ -2,6 +2,7 @@ export = Omi;
 export as namespace Omi;
 
 declare namespace Omi {
+	type Callback = (...args: any[]) => void;
 	type Key = string | number;
 	type Ref<T> = (instance: T) => void;
 	type ComponentChild = VNode<any> | object | string | number | boolean | null;
@@ -29,7 +30,7 @@ declare namespace Omi {
 	 *     namespace JSX {
 	 * 	       interface IntrinsicElements {
 	 *             'hello-element': CustomElementBaseAttributes & {
-	 *                 'prop-from-parent': string;
+	 *                 propFromParent: string;
 	 *             }
 	 *         }
 	 *     }
@@ -61,6 +62,18 @@ declare namespace Omi {
 		uninstall?(): void;
 		beforeUpdate?(): void;
 		afterUpdate?(): void;
+		updated?(): void;
+		beforeRender?(): void;
+		receiveProps?(): void;
+	}
+
+	interface ModelView<P, D> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+		updated?(): void;
 		beforeRender?(): void;
 		receiveProps?(): void;
 	}
@@ -71,6 +84,7 @@ declare namespace Omi {
 		uninstall?(): void;
 		beforeUpdate?(): void;
 		afterUpdate?(): void;
+		updated?(): void;
 		beforeRender?(): void;
 		receiveProps?(): void;
 	}
@@ -82,6 +96,37 @@ declare namespace Omi {
 		// https://github.com/Microsoft/TypeScript/issues/24018
 		static props: object;
 		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
+
+		props: RenderableProps<P>;
+		data: D;
+		host: HTMLElement;
+
+		css(): void;
+		update(): void;
+		fire(name: string, data?: object): void;
+
+		// Abstract methods don't infer argument types
+		// https://github.com/Microsoft/TypeScript/issues/14887
+		abstract render(props: RenderableProps<P>, data: D): void;
+	}
+
+	// The class type (not instance of class)
+	// https://stackoverflow.com/q/42753968/2777142
+	interface WeElementConstructor {
+		new(): WeElement;
+	}
+
+	abstract class ModelView<P = {}, D = {}> {
+		constructor();
+
+		// Allow static members to reference class type parameters
+		// https://github.com/Microsoft/TypeScript/issues/24018
+		static props: object;
+		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
 
 		props: RenderableProps<P>;
 		data: D;
@@ -103,6 +148,8 @@ declare namespace Omi {
 		// https://github.com/Microsoft/TypeScript/issues/24018
 		static props: object;
 		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
 
 		props: RenderableProps<P>;
 		data: D;
@@ -130,10 +177,11 @@ declare namespace Omi {
 
 	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object): void;
 
-	function define(name: string, ctor: any): void;
-	function tag(name: string, pure?: boolean): (ctor: any) => void;
-	function tick(callback: function, scope?: any): void;
-	function nextTick(callback: function, scope?: any): void;
+	function define(name: string, ctor: WeElementConstructor): void;
+	function tag(name: string, pure?: boolean): (ctor: WeElementConstructor) => void;
+	function tick(callback: Callback, scope?: any): void;
+	function nextTick(callback: Callback, scope?: any): void;
+	function observe(target: WeElementConstructor): void;
 
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;

@@ -1,0 +1,8 @@
+{
+  "presets": [
+      "env","omi"
+  ],
+  "plugins": [
+    "transform-class-properties"
+  ]
+}

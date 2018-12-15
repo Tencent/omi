@@ -46,8 +46,8 @@ Omi 4.0 发布至今，收到了大量的意见和建议以及真刀真枪的 PR
 
 ```bash
 $ npm i omi-cli -g               # install cli
-$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
+$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                      # develop
 $ npm run build                  # release
 ```
@@ -70,8 +70,8 @@ $ npm run build                  # release
 
 ```bash
 $ npm i omi-cli -g                  # install cli
-$ omi init-ts your_project_name     # init project, you can also exec 'omi init-ts' in an empty folder
-$ cd your_project_name              # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init-ts my-app     # init project, you can also exec 'omi init-ts' in an empty folder
+$ cd my-app              # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                         # develop
 $ npm run build                     # release
 ```

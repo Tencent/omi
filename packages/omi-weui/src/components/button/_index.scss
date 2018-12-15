@@ -1,0 +1,68 @@
+$primary-color: #1aad19;
+$primary-disabled-color: #9ed99d;
+$warn-color: #e64340;
+$warn-disabled-color: #ec8b89;
+$secondary-color: #353535;
+$secondary-disabled-color: rgba(0, 0, 0, .3);
+
+.ow-button{
+  padding: 10px 20px
+}
+
+.weui-button {
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  padding: 14px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box
+}
+
+.weui-button-small {
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 10px;
+}
+
+.weui-button-primary {
+  background: $primary-color;
+}
+
+.weui-button-secondary {
+  background: $primary-color;
+}
+
+.weui-button-disabled {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.weui-button-warn {
+  background: $warn-color;
+}
+
+.weui-button-secondary {
+  background: transparent;
+  color: $secondary-color;
+  border: 1px solid $secondary-color;
+}
+
+.weui-button-disabled.weui-button-primary {
+  background: $primary-disabled-color;
+}
+
+.weui-button-disabled.weui-button-warn {
+  background: $warn-disabled-color;
+}
+
+.weui-button-disabled.weui-button-secondary {
+  color: $secondary-disabled-color;
+  border: 1px solid $secondary-disabled-color;
+}

@@ -3,7 +3,6 @@ let path = require('path')
 let tap = require('gulp-tap')
 let compile = require('./scripts/mp/index')
 let fs = require('fs')
-let watch = require('gulp-watch')
 let compileWxss = require('./scripts/mp/wxss')
 
 gulp.task('components', ['copy'], () => {
@@ -30,13 +29,15 @@ import { setData } from '../../../utils/set-data'
             new Buffer(
               file.contents
                 .toString()
-                .replace('Component({', 'const mpOption = Component({')
-            ),
+                .replace('Component({', 
+                `const mpOption = function () {
+  return ({`)+`
+}`),
             new Buffer(`
 class Element extends WeElement {
-  static props = mpOption.properties
+  static props = mpOption().properties
 
-  data = mpOption.data
+  data = mpOption().data
 
   render = render
 
@@ -49,22 +50,24 @@ class Element extends WeElement {
   afterUpdate() {}
 
   install = function() {
-    mpOption.created && mpOption.created.call(this)
-    Object.keys(mpOption.methods).forEach(key => {
-      if(typeof mpOption.methods[key] === 'function'){
-        this[key] = mpOption.methods[key].bind(this)
+    this.properties = this.props
+    this._mpOption = mpOption()
+    this._mpOption.created && this._mpOption.created.call(this)
+    Object.keys(this._mpOption.methods).forEach(key => {
+      if(typeof this._mpOption.methods[key] === 'function'){
+        this[key] = this._mpOption.methods[key].bind(this)
       }
     })
   }
 
-  uninstall = mpOption.detached || function() {}
+  uninstall = mpOption().detached || function() {}
 
   installed = function() {
-    mpOption.attached && mpOption.attached.call(this)
-    mpOption.ready && mpOption.ready.call(this)
+    this._mpOption.attached && this._mpOption.attached.call(this)
+    this._mpOption.ready && this._mpOption.ready.call(this)
   }
 
-  adoptedCallback = mpOption.moved || function() {}
+  adoptedCallback = mpOption().moved || function() {}
 
   triggerEvent = function(name, data) {
     this.fire(name, data)
@@ -72,10 +75,6 @@ class Element extends WeElement {
 
   setData = setData
 }
-
-Object.keys(mpOption.methods).forEach(key => {
-  Element.prototype[key] = mpOption.methods[key]
-})
 
 function css() {
   return rpx(componentCss)
@@ -121,11 +120,14 @@ import { setData } from '../../../utils/set-data'
             new Buffer(
               file.contents
                 .toString()
-                .replace('Page({', 'const mpOption = Page({')
+                .replace('Page({', 
+`const mpOption = function () {
+  return ({`)+`
+}`
             ),
             new Buffer(`
 class Element extends WeElement {
-  data = mpOption.data
+  data = mpOption().data
 
   render = render
 
@@ -137,23 +139,27 @@ class Element extends WeElement {
 
   afterUpdate() {}
 
-  install() {}
+  install() {
+    this.properties = this.props
+    this._mpOption = mpOption()
+    Object.keys(this._mpOption).forEach(key => {
+      if (typeof this._mpOption[key] === 'function') {
+        Element.prototype[key] = this._mpOption[key].bind(this)
+      }
+    })
+  }
 
-  uninstall = mpOption.onUnload || function() {}
+  uninstall = mpOption().onUnload || function() {}
 
-  installed = function(){
-    mpOption.onLoad && mpOption.onLoad.call(this, route.query)
-    mpOption.onReady && mpOption.onReady.call(this, route.query)
+  installed = function() {
+    this._mpOption.onLoad && this._mpOption.onLoad.call(this, route.query)
+    this._mpOption.onReady && this._mpOption.onReady.call(this, route.query)
 
-    mpOption.onReachBottom && wx._bindReachBottom(mpOption.onReachBottom, this)
+    this._mpOption.onReachBottom && wx._bindReachBottom(this._mpOption.onReachBottom, this)
   }
 
   setData = setData
 }
-
-Object.keys(mpOption).forEach(key => {
-  Element.prototype[key] = mpOption[key]
-})
 
 function css() {
   return rpx(appCss + pageCss)
@@ -192,7 +198,7 @@ gulp.task('copyThen', () => {
 })
 
 gulp.task('watch', () => {
-  watch('src-mp/**/*', () => {
+  gulp.watch('src-mp/**/*', () => {
     gulp.start('copyThen')
   })
 })

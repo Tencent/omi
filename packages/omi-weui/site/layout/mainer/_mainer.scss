@@ -1,13 +1,20 @@
-.mainer{
-  width: 1000px;
+.mainer {
+  width: 100%;
   margin: 20px auto;
   text-align: center;
-  h1{
+  h1 {
     font-size: 32px;
     font-weight: lighter;
-    margin: 0;
+    margin: 30px 0;
   }
-  p{
-    font-size: 18px
+
+  p {
+    background: #eafee8;
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .content{
+    padding: 10px
   }
 }

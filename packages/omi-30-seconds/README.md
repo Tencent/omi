@@ -7,6 +7,9 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 - [Share css between parent and child nodes](#share-css-between-parent-and-child-nodes)
 - [Cross component communication](#cross-component-communication)
 - [Implement tree view](#implement-tree-view)
+- [@font-face doesn't work in Shadow DOM](#font-face-doesnt-work-in-shadow-dom)
+- [CSS3 transform not working with custom element](#css3-transform-not-working-with-custom-element)
+- [Rendering checkbox in the loop](#rendering-checkbox-in-the-loop)
 
 ## Share css between parent and child nodes
 
@@ -15,24 +18,29 @@ import { define, WeElement, render, getHost } from 'omi'
 
 define('my-ele', class extends WeElement {
   install() {
-    this.css = getHost().css
+    this.css = getHost(this).css
   }
 
-  render() {
+  render(props) {
     return props.children[0]
   }
 })
 
 define('my-parent-ele', class extends WeElement {
   css() {
-    return `div { color: red; }`
+    return `
+    p { 
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc; 
+    }`
   }
 
   render() {
     return (
       <div>
         <my-ele>
-          <div>content</div>
+          <p>content</p>
         </my-ele>
       </div>
     )
@@ -48,14 +56,14 @@ Share css by `getHost` method. You can also recombine with the parent node's css
 define('my-ele', class extends WeElement {
 
   css() {
-    return getHost().css() + `
+    return getHost(this).css() + `
       h1 {
         font-size: 34px;
       }
     `
   }
 
-  render() {
+  render(props) {
     return props.children[0]
   }
 })
@@ -220,4 +228,77 @@ const node = {
 }
 
 render(<my-tree node={node} />, 'body')
+```
+
+### @font-face doesn't work in Shadow DOM
+
+```js
+import { render, WeElement, define } from 'omi'
+
+define('my-app', class extends WeElement {
+  css() {
+    return `
+      @font-face {
+        font-family: 'FontAwesome';
+        src: url('../fonts/fontawesome-webfont.eot?v=4.0.3');
+        src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+    `
+  }
+
+  render() {
+    return (
+      <div>abc</div>
+    )
+  }
+})
+
+render(<my-app />, 'body', { emitter: mitt() })
+```
+
+Put font-face css in the global context to fix this, for example:
+
+```html
+<head>
+  <style>
+      @font-face {
+          font-family: 'FontAwesome';
+          src: url('../fonts/fontawesome-webfont.eot?v=4.0.3');
+          src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.0.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff?v=4.0.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.0.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular') format('svg');
+          font-weight: normal;
+          font-style: normal;
+        }
+  </style>
+</head>
+```
+
+[→ Related article](http://robdodson.me/at-font-face-doesnt-work-in-shadow-dom/?tdsourcetag=s_pcqq_aiomsg)
+
+### CSS3 transform not working with custom element
+
+```js
+console.log(getComputedStyle(document.querySelector('your-element')).display) //inline 
+```
+
+ Apply `display: block` or `display: inline-block` to your elmenet to fix it:
+
+ ```css
+ your-element{
+   display: block;
+   transform: translateX(100px);
+ }
+ ``` 
+
+ Then your  css3 transform props can take effect.
+
+### Rendering checkbox in the loop
+
+```js
+ {props.items.map((item, index) => (
+  <label for={`x_${this.__elementId}_${index}`}>
+      <input type="checkbox" id={`x_${this.__elementId}_${index}`} checked={item.selected} />
+  </label>
+))}
 ```

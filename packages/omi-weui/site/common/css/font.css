@@ -1,0 +1,19 @@
+
+@font-face {font-family: "ow";
+  src: url('//at.alicdn.com/t/font_942829_d3il6ornt6g.eot?t=1543494918111'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_942829_d3il6ornt6g.eot?t=1543494918111#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAASMAAsAAAAAB5QAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFY8dkfyY21hcAAAAYAAAABKAAABcOcotapnbHlmAAABzAAAANoAAAHkt9IP7mhlYWQAAAKoAAAALwAAADYTa0AJaGhlYQAAAtgAAAAcAAAAJAfeA4NobXR4AAAC9AAAAAgAAAAICAAAAGxvY2EAAAL8AAAABgAAAAYA8gAAbWF4cAAAAwQAAAAgAAAAIAEkAKhuYW1lAAADJAAAAUUAAAIlw4yV5nBvc3QAAARsAAAAIAAAADHW7slteJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2BkYWCcwMDKwMHUyXSGgYGhH0IzvmYwYuRgYGBiYGVmwAoC0lxTGByeMTxjYG7438AQw9zA0AAUZgTJAQDdJQvjeJztkLENgDAQA8/KQ4EYgSo1s1Cxf8kaycfAFrF0lnz66oEFKMmZBOhGjFxpZV/Y7IPqmxj+obW/c4cbrczs7uNb/tUL6ijqCWkAAHicnY8/D8FQFMXPTZN2IV386xMkRDtoI+l7ZRApo4FZ2PEB+ABsFnZGX8ZsNvsaVG8MTQiR3JzkvJzzu++iANxv2kETAFJIw4KADQcSCj30McQIE0wxxwJLrLDGBjvscQRI1vwSZWqy2iVVISdnku7k7ZBaCZPPBpkGVYOs6pBvUltvkt02okwuYQzmMLNJXI0xCeMwh5khcTXGJAxdZVlGc3GLnpCC9WSZwht7rAM1k3Km6sK0Ise6dYUb5bziU88vQvz2K4G7rJr4lvhvx9tffroTeADREU9LAAB4nGNgZGBgAOKj66Pvx/PbfGXgZmEAgRuq/9gQ9P9nLAzMUkAuBwMTSBQAPbgKcQB4nGNgZGBgbvjfwBDDwgACQJKRARUwAQBHCAJrBAAAAAQAAAAAAAAAAPIAAAABAAAAAgCcABgAAAAAAAIAAAAKAAoAAAD/AAAAAAAAeJxdkT1Ow0AQhZ/zh3AkChDQoYWCAoSdpEwbKelTpKBLnHV+ZHut9SZWTkLBCSgocgoK7sBZeHEmFNja0Tdv3sysbACX+IGH43PNc2QPNWZHruEMt8J1ZnfCDbISbqKNB+EW9RdhH88Ihdu4wisneI1zZk9IhT1OehOu4QLvwnXqH8INvp/CTdxgL9yi/iXsY4Jv4TYevXt/YPXU6bma7dQqMllsMuebcqwXm2RqTWnKibbFymSqG3RMOdKZtid/sV30nItVbE2qhmzUSWJUbs1aRy5YOpf3wzAWPYhMyvUDWGhM4Rjn/DQz7BhXiGCQIa6io8+gxJieBTZI6LeVcjgTqhYFew5ehS4CdKrKiJWsqv6fX2DLST2qjjsUz2FeShrKRs0tCVkhr2prKhH1AMuqK0efPyn8u+HJH1Q3T38BvX5akgAAAHicY2BigAAuBuyAiZGJkZmBPSc/MSUzL52BAQAUIAL7') format('woff'),
+  url('//at.alicdn.com/t/font_942829_d3il6ornt6g.ttf?t=1543494918111') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_942829_d3il6ornt6g.svg?t=1543494918111#ow') format('svg'); /* iOS 4.1- */
+}
+
+.ow {
+  font-family:"ow" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.weui-loading:before { content: "\e600"; }
+   

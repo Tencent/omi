@@ -333,6 +333,10 @@ function diffAttributes(dom, attrs, old, children) {
   let name
   let update = false
   let isWeElement = dom.update
+  let oldClone
+  if (dom.receiveProps) {
+    oldClone = Object.assign({}, old)
+  }
   // remove attributes no longer present on the vnode by setting them to undefined
   for (name in old) {
     if (!(attrs && attrs[name] != null) && old[name] != null) {
@@ -346,9 +350,19 @@ function diffAttributes(dom, attrs, old, children) {
 
   // add new & update changed attributes
   for (name in attrs) {
-    //diable when using store system?
-    //!dom.store &&
     if (isWeElement && typeof attrs[name] === 'object') {
+      if (name === 'style') {
+        setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
+      }
+      if (dom.receiveProps) {
+        try {
+          old[name] = JSON.parse(JSON.stringify(attrs[name]))
+        } catch (e) {
+          console.warn(
+            'When using receiveProps, you cannot pass prop of cyclic dependencies down.'
+          )
+        }
+      }
       dom.props[npn(name)] = attrs[name]
       update = true
     } else if (
@@ -368,7 +382,7 @@ function diffAttributes(dom, attrs, old, children) {
 
   if (isWeElement && dom.parentNode) {
     if (update || children.length > 0) {
-      dom.receiveProps(dom.props, dom.data)
+      dom.receiveProps(dom.props, dom.data, oldClone)
       dom.update()
     }
   }

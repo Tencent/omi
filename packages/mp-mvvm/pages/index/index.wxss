@@ -1,0 +1,38 @@
+/**index.wxss**/
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px; 
+  margin-bottom:40px; 
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.form{
+  margin-top: 5px;
+}
+
+.button{
+  margin-left:10rpx; 
+  height: 30px;
+  line-height: 30px;
+  display: inline-block;
+  font-size: 30rpx; 
+  
+}
+
+.input{
+  height:30px;
+  width: 300rpx;
+  text-indent: 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  font-size: 30rpx; 
+  border-radius: 8rpx;
+}

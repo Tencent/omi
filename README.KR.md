@@ -1,13 +1,14 @@
 [English](./README.md) | [简体中文](./README.CN.md) | 한국어
 
-<p align="right">v<strong>4.1.6</strong></p>
-<p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
+<p align="right">v<strong>5.0.13</strong></p>
+<p align="center"><img src="./assets/omi3.png" alt="omi" width="300"/></p>
 <h2 align="center">Omi: 4kb 자바스크립트 차세대 웹 프레임워크</h2>
 <p align="center"><b>JSX, Web Components, Proxy, Store, Path Updating 지원</b></p>
 
 ## Why Omi?
 
 - 작은 파일 사이즈. _(**4kb** gzip 압축후)_
+- [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md) 지원.
 - TypeScript 지원.
 - 반응형 데이터 바인딩
 - Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26) **750** width 사이즈를 기본으로한
@@ -38,19 +39,23 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi 공식 문서 |
+| [omi-mvvm![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)| MVVM 도입. [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 강력 지원 |
+| [omi-html![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-html)| [htm](https://github.com/developit/htm) 사용 |
+| [omi-30-seconds![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| Omi 스니펫 - 30초 가이드 |
+| [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Component, jsx 그리고 canvas의 완벽한 조합 |
 | [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp) working| Wechat 미니프로그램 개발을 위한 Singe Page |
 | [omi-router![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-router) | Omi 공식 라우터 [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 | [omi-devtools](https://github.com/f/omi-devtools)| 브라우저 개발자 확장도구 |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
+| [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js extension(TypeScript) |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. 초간단 CSS3 Transform |
-| [omi-tap2![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Native 탭 이벤트 지원(omi v4.0.24+）|
+| [omi-tap2](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Native 탭 이벤트 지원(omi v4.0.24+）|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap) | 탭 이벤트 지원 |
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)| 터치 와 제스처 이벤트 지원 |
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)| 부드러운 스크롤링, Rotation, 웹 페이지를 위한 어떤 모션도 Refresh |
 | [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)| Omi Mobx Adapter |
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)| React Hooks 방식 API |
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)| Web Components Native 렌더링 |
-| [westore](https://github.com/dntzhang/westore)| Wechat Mini Program Solution westore, Omi와 서로 서로 영감받음 |
 | [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui)  | Omi 버전의 [Weui](https://weui.io/) by [@132yse](https://github.com/132yse).|
 | [omi-i18n](https://github.com/i18next/omi-i18n)| i18next 에코시스템을 사용한 omi.js 다국어 지원 방식 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | [page](https://github.com/visionmedia/page.js) 를 통한 소형의 클라이언트 사이드 라우터 |
@@ -59,19 +64,22 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 
 | **Title Name**  | **Other language** | **Related**|
 | ----------------------------------------- | ------------------ |-----------------|
+| [Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)|||
+| [Develop W3C Web Components with WebAssembly](https://medium.com/coinmonks/develop-w3c-web-components-with-webassembly-d65938284255)||
 | [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.md)| [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.kr.md)|
 | [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.md)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md) [한국어](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.kr.md)|
-| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)| 求翻译|
-|  [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
-|  [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
-|  [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
-|  [Web Components Org](https://www.webcomponents.org/introduction)|
-|  [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy) [한국어](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|
-|  [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
-|  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
-|  [Platform HTML5](https://platform.html5.org/)|
+| [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)|  [简体中文](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)|
+| [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)|求翻译|
+| [Web Components MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)| [简体中文](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)|
+| [Web Components Google](https://developers.google.com/web/fundamentals/web-components/)|
+| [Web Components Org](https://www.webcomponents.org/introduction)|
+| [Proxy MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy) [한국어](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Proxy)|
+| [CSS Variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_variables) [한국어](https://developer.mozilla.org/ko-KR/docs/Web/CSS/Using_CSS_variables)|
+| [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
+| [Platform HTML5](https://platform.html5.org/)|
 | [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
-| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|
+| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|求翻译|
+| [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
 
 
 ## omi-mp
@@ -97,6 +105,7 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 - [Omi 30초 추가 가이드](#Omi-30초-추가-가이드)
 - [Getting Started](#getting-started)
   - [Install](#install)
+  - [Project Template](#project-template)
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
@@ -280,11 +289,13 @@ const [count, setCount] = this.useData(0)
 
 ```bash
 $ npm i omi-cli -g               # install cli
-$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
+$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                      # develop
 $ npm run build                  # release
 ```
+
+> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
 
 Directory description:
 
@@ -326,23 +337,15 @@ mac os 에서:
   },
 ···
 
-TypeScript Template(omi-cli v3.0.5+):
+### Project Template
 
-```bash
-$ omi init-ts your_project_name
-```
-
-[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+):
-
-```bash
-$ omi init-spa your_project_name
-```
-
-omi-mp (Omi Wechat Mini Program Module) Template(omi-cli v3.0.13+):
-
-```bash
-$ omi init-mp your_project_name
-```
+| **Template Type**|  **Command**|  **Describe**|
+| ------------ |  -----------|  ----------------- |
+|Base Template|`omi init my-app`| Omi Project의 기본 템플릿 |
+|TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`| Type Script 기본 템플릿 |
+|[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`| omi-router를 사용한 Single Page Application 템플릿 |
+|omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  | 위챗 미니 프로그램 템플릿 웹 개발 |
+|MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  | MVVM 템플릿 |
 
 CLI 자동 프로젝트 생성 scaffolding 는 한 페이지의 create-react-app을 여러 페이지로 변환합니다. 설정(configuration) 이슈는 [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md) 을 봐주세요.
 
@@ -412,7 +415,7 @@ class MyApp extends WeElement {
         Hello {props.name} {data.abc}
         <hello-element
           onAbc={this.onAbc}
-          prop-from-parent={data.passToChild}
+          propFromParent={data.passToChild}
           msg="WeElement"
         />
       </div>
@@ -603,6 +606,13 @@ render(<todo-app />, "body", store);
 - 만약 페이지에 간단한 컴포넌트가 거의 없는 경우, `updateAll`을 `true`로 선언할 수 있습니다. 그리고 컴포넌트와 페이지들은 데이터를 선언할 필요 없으며 그것들은 필요에 따라 업데이트 되지 않습니다.
 - globalData에 선언된 경로(path)는 해당경로의 값이 수정되는 한 모든 페이지와 구성 요소를 새로고침 하며 globalData를 사용하여 모든 페이지 또는 공용(public) 속성(property)를 나열할 수 있습니다.
 
+## Mitt
+
+store 의 data 시스템을 사용하기를 원하지 않으면 publish/subscribe 모드를 사용하면 됩니다. 예를 들어 [mitt](https://github.com/developit/mitt) 를 사용해서 Omi component 간의 커뮤니케이션을 하면됩니다:
+
+* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
+
+
 ## Observe
 
 ### Omi Observe
@@ -670,7 +680,8 @@ class MyApp extends WeElement {
 | `installed`      | after the component gets mounted to the DOM  |
 | `uninstall`      | prior to removal from the DOM                |
 | `beforeUpdate`   | before update                           |
-| `afterUpdate`    | after update                             |
+| `afterUpdate`    | after update  (deprecated)                           |
+| `updated`    | after update                             |
 | `beforeRender`   | before `render()`                           |
 | `receiveProps`   | parent element re-render will trigger it      |
 
@@ -701,12 +712,21 @@ Omi 4.0+ 부터 주요 브라우저(Safari 10+, IE 11+, Chrome, Firefox, Edge)�
 
 [→ Polyfills](https://github.com/webcomponents/webcomponentsjs)
 
+```html
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
+```
+
 > 만약 IE11과 호환하기를 원한다면, [→ this project](https://github.com/Tencent/omi/tree/master/packages/omi-ie11) 의 Omi 파일을 사용하세요. 이 프로젝트는 Proxy 대신에 JSON DIFF 와 Timer를 사용합니다.
 
 > 당신은 IE11 환경에서 동적으로 이 프로젝트의 JS를 로드할 수 있습니다. 그리고 Proxy 버전은 여전히 다른 환경을 사용합니다.
 
 > 당신은 store 시스템을 포기하고, omi-mobx 를 사용하여 IE11을 호환할 수 있습니다.
 
+## Contributors
+
+<table><tbody>
+      <tr><td><a target="_blank" href="https://github.com/dntzhang"><img width="60px" src="https://avatars2.githubusercontent.com/u/7917954?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/LeeHyungGeun"><img width="60px" src="https://avatars2.githubusercontent.com/u/2471651?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/xcatliu"><img width="60px" src="https://avatars1.githubusercontent.com/u/5453359?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/yanceyou"><img width="60px" src="https://avatars2.githubusercontent.com/u/16320418?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/1921622004"><img width="60px" src="https://avatars1.githubusercontent.com/u/19359217?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/f"><img width="60px" src="https://avatars0.githubusercontent.com/u/196477?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/pasturn"><img width="60px" src="https://avatars0.githubusercontent.com/u/6126885?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ghostzhang"><img width="60px" src="https://avatars3.githubusercontent.com/u/194242?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/jayZOU"><img width="60px" src="https://avatars3.githubusercontent.com/u/8576977?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/zhengbao"><img width="60px" src="https://avatars3.githubusercontent.com/u/1736166?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/vorshen"><img width="60px" src="https://avatars3.githubusercontent.com/u/10334783?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/akira-cn"><img width="60px" src="https://avatars3.githubusercontent.com/u/316498?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/loo41"><img width="60px" src="https://avatars3.githubusercontent.com/u/28095677?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/rainmanhhh"><img width="60px" src="https://avatars3.githubusercontent.com/u/13862623?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/nbompetsis"><img width="60px" src="https://avatars3.githubusercontent.com/u/11991105?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/CodeFalling"><img width="60px" src="https://avatars1.githubusercontent.com/u/5436704?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/daizhan"><img width="60px" src="https://avatars0.githubusercontent.com/u/5318547?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/validalias"><img width="60px" src="https://avatars1.githubusercontent.com/u/44221844?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/elfman"><img width="60px" src="https://avatars3.githubusercontent.com/u/948001?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/132yse"><img width="60px" src="https://avatars3.githubusercontent.com/u/12951461?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/NoBey"><img width="60px" src="https://avatars3.githubusercontent.com/u/10740524?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/hilkbahar"><img width="60px" src="https://avatars2.githubusercontent.com/u/12161006?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/KidneyFlower"><img width="60px" src="https://avatars1.githubusercontent.com/u/16027183?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/zhangsanshi"><img width="60px" src="https://avatars1.githubusercontent.com/u/3771933?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/xland"><img width="60px" src="https://avatars0.githubusercontent.com/u/2980915?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/winstonxie"><img width="60px" src="https://avatars3.githubusercontent.com/u/16422642?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ritschwumm"><img width="60px" src="https://avatars2.githubusercontent.com/u/547138?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/kahwee"><img width="60px" src="https://avatars3.githubusercontent.com/u/262105?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/alanyinjs"><img width="60px" src="https://avatars3.githubusercontent.com/u/25688258?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/electerious"><img width="60px" src="https://avatars2.githubusercontent.com/u/499088?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/nanhupatar"><img width="60px" src="https://avatars1.githubusercontent.com/u/27266016?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ilker0"><img width="60px" src="https://avatars1.githubusercontent.com/u/23511412?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/MrGrabazu"><img width="60px" src="https://avatars2.githubusercontent.com/u/6928672?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/Tagir-A"><img width="60px" src="https://avatars2.githubusercontent.com/u/23556586?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/mahmut-gundogdu"><img width="60px" src="https://avatars2.githubusercontent.com/u/2217899?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/howel52"><img width="60px" src="https://avatars3.githubusercontent.com/u/9854818?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/tcdona"><img width="60px" src="https://avatars1.githubusercontent.com/u/352931?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/eyea"><img width="60px" src="https://avatars0.githubusercontent.com/u/17020223?s=60&amp;v=4"></a></td></tr></tbody></table>
+      
 ## Contribution
 
 1. Fork it (https://github.com/Tencent/omi/fork)

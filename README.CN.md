@@ -1,13 +1,14 @@
 [English](./README.md) | 简体中文 | [한국어](./README.KR.md)
 
-<p align="right">v<strong>4.1.6</strong></p>
-<p align="center"><img src="./assets/omi-logo.svg" alt="omi" width="300"/></p>
+<p align="right">v<strong>5.0.13</strong></p>
+<p align="center"><img src="./assets/omi3.png" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一</h2>
-<p align="center"><b>让 JSX, Web Components, Proxy, Store, Path Updating 在一起</b></p>
+<p align="center"><b>基于 Web Components 并使用 omio 兼容老浏览器(IE9+)，很容易实现 MVVM 架构</b></p>
 
 ### 特性
 
 - 小巧的尺寸(gzip压缩后仅4kb)
+- 真正的 [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md), 拥有 [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力支持
 - 支持 `TypeScript`
 - 响应式数据绑定
 - 增强了 CSS, [支持 rpx 单位](https://github.com/Tencent/omi/releases/tag/v4.0.26)，基于 **750** 屏幕宽度
@@ -36,13 +37,19 @@
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
-| [omi-html![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-html)| Using [htm](https://github.com/developit/htm) in omi.|
+| [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到IE9+和移动端浏览器)。|
+| [omi-mvvm![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md)| MVVM 王者归来, [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力加持。|
+| [omi-chart![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| 一个 chart-x 标签搞定报表|
+| [mp-mvvm![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/mp-mvvm)| 小程序插上 MVVM 的翅膀, [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力加持。|
+| [omi-html](https://github.com/Tencent/omi/tree/master/packages/omi-html)| Using [htm](https://github.com/developit/htm) in omi.|
 | [omi-30-seconds![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| 30 秒理解一段有用的 Omi 代码片段.|
-| [omi-canvas![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
+| [omi-sprite](https://github.com/Tencent/omi/tree/master/packages/omi-sprite)| Web Components, JSX 和 Canvas 的完美融合|
+| [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
 | [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，支持 Javascript 和 Typescript |
+| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选。 |
+| [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js 扩展(TypeScript) |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi 和 [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) 完美结合. 让 css3 transform 在你的 Omi项目中变得超级简单.|
 | [omi-tap2](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Omi 原生支持 tap 事件（omi v4.0.24+）|
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
@@ -70,8 +77,8 @@
 
 ## 必须收藏的资源
 
+* [深入浅出 Shadow Dom](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)
 * [HTM - JSX 的替代品？还是另一种选择？](https://github.com/Tencent/omi/blob/master/tutorial/omi-html.cn.md)
-* [Shadow Dom In Depth](https://github.com/praveenpuglia/shadow-dom-in-depth)
 * [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
 * [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)
 * [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
@@ -82,7 +89,11 @@
 * [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)
 * [Part Theme Explainer](https://meowni.ca/posts/part-theme-explainer/)
 * [Platform HTML5](https://platform.html5.org/)
-
+* [使用 requestIdleCallback](https://div.io/topic/1370)
+* [A requestIdleCallback polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)
+* [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)
+* [ShadowRoot](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)
+* [Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)
 ---
 
 # 目录
@@ -94,6 +105,7 @@
 - [再花 30 秒完全上手](#再花-30-秒完全上手)
 - [快速入门](#快速入门)
   - [安装](#安装)
+  - [项目模板](#项目模板)
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
@@ -104,7 +116,8 @@
 - [浏览器兼容](#浏览器兼容)
 - [React 组件转成 Omi](#react-组件转成-omi)
 - [相关链接](#相关链接)
-- [问答](#问答)
+- [贡献者们](#贡献者们)
+- [维护者](#维护者)
 - [感谢](#感谢)
 - [License](#license)
 
@@ -281,13 +294,13 @@ const [count, setCount] = this.useData(0)
 
 ```bash
 $ npm i omi-cli -g               # install cli
-$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
+$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                      # develop
 $ npm run build                  # release
 ```
 
-> `npx omi-cli init your_project_name` 也支持(要求 npm v5.2.0+)
+> `npx omi-cli init my-app` 也支持(要求 npm v5.2.0+)
 
 目录说明:
 
@@ -329,23 +342,24 @@ $ npm run build                  # release
   },
 ```
 
-使用 TypeScript 模板(omi-cli v3.0.5+):
+如果你只想使用相对地址:
 
-```bash
-$ omi init-ts your_project_name    
+```
+"build":"set PUBLIC_URL=.&& npm run _build"  //windows
+"build":"PUBLIC_URL=. npm run _build",       //mac os
 ```
 
-使用  omi-router [单页应用模板](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) (omi-cli v3.0.10+):
+### 项目模板
 
-```bash
-$ omi init-spa your_project_name    
-```
-
-小程序开发 Web 模板(omi-cli v3.0.13+):
-
-```bash
-$ omi init-mp your_project_name    
-```
+| **Template Type**|  **Command**|  **Describe**|
+| ------------ |  -----------|  ----------------- |
+|Base Template|`omi init my-app`| 基础模板|
+|Omio Template|`omi init-o my-app`| 使用 omio，兼容 IE9 和移动 Web 的模板|
+|Mobile Template|`omi init-weui my-app`| 使用了 weui 和 omi-router 的移动 web app 模板|
+|TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`|使用 TypeScript 的模板|
+|[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|使用  omi-router 单页应用的模板|
+|omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |小程序开发 Web 的模板|
+|MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM 模板|
 
 Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
 
@@ -412,7 +426,7 @@ define('my-app', class extends WeElement {
         Hello {props.name} {data.abc}
         <hello-element
           onAbc={this.onAbc}
-          prop-from-parent={data.passToChild}
+          propFromParent={data.passToChild}
           msg="WeElement"
         />
       </div>
@@ -696,7 +710,8 @@ class MyApp extends WeElement {
 | `installed`      | after the component gets mounted to the DOM  |
 | `uninstall`      | prior to removal from the DOM                |
 | `beforeUpdate`   | before update                           |
-| `afterUpdate`    | after update                             |
+| `afterUpdate`    | after update  (deprecated)                           |
+| `updated`    | after update                             |
 | `beforeRender`   | before `render()`                           |
 | `receiveProps`   | parent element re-render will trigger it      |
 
@@ -721,19 +736,28 @@ class MyApp extends WeElement {
 
 ## 浏览器兼容
 
+> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - 兼容老浏览器的 Omi 版本(支持到IE9+和移动端浏览器)
+
+
 Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 
 ![→ Browsers Support](./assets/browsers-support.png)
 
 [→ polyfills](https://github.com/webcomponents/webcomponentsjs)
 
-> 如果你想兼容IE11,使用[→ 这个项目](https://github.com/Tencent/omi/tree/master/packages/omi-ie11)的 Omi 文件,这个项目使用 JSON Diff 和 定时器 代替 Proxy。
-
-> 你可以在 IE9 的环境动态加载这个项目的 js，其他环境依旧使用 proxy 版本。
+```html
+<script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
+```
 
 > 你也可以放弃 store 体系，使用 omi-mobx 来兼容IE11
 
-## 问答
+
+## 贡献者们
+
+<table><tbody>
+      <tr><td><a target="_blank" href="https://github.com/dntzhang"><img width="60px" src="https://avatars2.githubusercontent.com/u/7917954?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/LeeHyungGeun"><img width="60px" src="https://avatars2.githubusercontent.com/u/2471651?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/xcatliu"><img width="60px" src="https://avatars1.githubusercontent.com/u/5453359?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/yanceyou"><img width="60px" src="https://avatars2.githubusercontent.com/u/16320418?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/1921622004"><img width="60px" src="https://avatars1.githubusercontent.com/u/19359217?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/f"><img width="60px" src="https://avatars0.githubusercontent.com/u/196477?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/pasturn"><img width="60px" src="https://avatars0.githubusercontent.com/u/6126885?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ghostzhang"><img width="60px" src="https://avatars3.githubusercontent.com/u/194242?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/jayZOU"><img width="60px" src="https://avatars3.githubusercontent.com/u/8576977?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/zhengbao"><img width="60px" src="https://avatars3.githubusercontent.com/u/1736166?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/vorshen"><img width="60px" src="https://avatars3.githubusercontent.com/u/10334783?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/akira-cn"><img width="60px" src="https://avatars3.githubusercontent.com/u/316498?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/loo41"><img width="60px" src="https://avatars3.githubusercontent.com/u/28095677?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/rainmanhhh"><img width="60px" src="https://avatars3.githubusercontent.com/u/13862623?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/nbompetsis"><img width="60px" src="https://avatars3.githubusercontent.com/u/11991105?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/CodeFalling"><img width="60px" src="https://avatars1.githubusercontent.com/u/5436704?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/daizhan"><img width="60px" src="https://avatars0.githubusercontent.com/u/5318547?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/validalias"><img width="60px" src="https://avatars1.githubusercontent.com/u/44221844?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/elfman"><img width="60px" src="https://avatars3.githubusercontent.com/u/948001?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/132yse"><img width="60px" src="https://avatars3.githubusercontent.com/u/12951461?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/NoBey"><img width="60px" src="https://avatars3.githubusercontent.com/u/10740524?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/hilkbahar"><img width="60px" src="https://avatars2.githubusercontent.com/u/12161006?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/KidneyFlower"><img width="60px" src="https://avatars1.githubusercontent.com/u/16027183?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/zhangsanshi"><img width="60px" src="https://avatars1.githubusercontent.com/u/3771933?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/xland"><img width="60px" src="https://avatars0.githubusercontent.com/u/2980915?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/winstonxie"><img width="60px" src="https://avatars3.githubusercontent.com/u/16422642?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ritschwumm"><img width="60px" src="https://avatars2.githubusercontent.com/u/547138?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/kahwee"><img width="60px" src="https://avatars3.githubusercontent.com/u/262105?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/alanyinjs"><img width="60px" src="https://avatars3.githubusercontent.com/u/25688258?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/electerious"><img width="60px" src="https://avatars2.githubusercontent.com/u/499088?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/nanhupatar"><img width="60px" src="https://avatars1.githubusercontent.com/u/27266016?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/ilker0"><img width="60px" src="https://avatars1.githubusercontent.com/u/23511412?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/MrGrabazu"><img width="60px" src="https://avatars2.githubusercontent.com/u/6928672?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/Tagir-A"><img width="60px" src="https://avatars2.githubusercontent.com/u/23556586?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/mahmut-gundogdu"><img width="60px" src="https://avatars2.githubusercontent.com/u/2217899?s=60&amp;v=4"></a></td></tr><tr><td><a target="_blank" href="https://github.com/howel52"><img width="60px" src="https://avatars3.githubusercontent.com/u/9854818?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/tcdona"><img width="60px" src="https://avatars1.githubusercontent.com/u/352931?s=60&amp;v=4"></a></td><td><a target="_blank" href="https://github.com/eyea"><img width="60px" src="https://avatars0.githubusercontent.com/u/17020223?s=60&amp;v=4"></a></td></tr></tbody></table>
+
+## 维护者
 
 - [@f](https://github.com/f)
 - [@LeeHyungGeun](https://github.com/LeeHyungGeun)

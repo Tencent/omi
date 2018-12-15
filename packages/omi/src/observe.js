@@ -7,19 +7,20 @@ export function observe(target) {
 
 export function proxyUpdate(ele) {
   let timeout = null
-  ele.data = new JSONProxy(ele.data).observe(false, info => {
-    if (
-      ele._willUpdate ||
-      (info.op === 'replace' && info.oldValue === info.value)
-    ) {
+  ele.data = new JSONProxy(ele.data).observe(false, () => {
+    if (ele._willUpdate) {
       return
     }
+    if (ele.constructor.mergeUpdate) {
+      clearTimeout(timeout)
 
-    clearTimeout(timeout)
-
-    timeout = setTimeout(() => {
+      timeout = setTimeout(() => {
+        ele.update()
+        fireTick()
+      }, 0)
+    } else {
       ele.update()
       fireTick()
-    }, 0)
+    }
   })
 }

@@ -1,0 +1,24 @@
+{
+  "name": "mappingjs",
+  "version": "2.0.0",
+  "description": "Tiny size objects mapping lib for javascript. [Omi MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)'s best partner.",
+  "main": "index.js",
+  "scripts": {
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "keywords": [
+    "mapping",
+    "mappingjs",
+    "omi"
+  ],
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi"
+}

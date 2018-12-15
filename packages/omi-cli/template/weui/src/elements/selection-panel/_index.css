@@ -1,0 +1,26 @@
+.page__title {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 400;
+  margin-left:40px ;
+}
+
+.page__desc {
+  margin-top: 5px;
+  color: #888;
+  text-align: left;
+  font-size: 14px;
+  margin-left:40px ;
+}
+
+.weui-cells__title{
+  margin-top:.77em;
+  margin-bottom:.3em;
+  padding-left:15px;
+  padding-right:15px;
+  color:#808080;
+  font-size:14px;
+}
+.weui-cells__title + .weui-cells{
+  margin-top:0;
+}

@@ -2,13 +2,13 @@
 
 ```bash
 $ npm i omi-cli -g               # install cli
-$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
+$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                      # develop
 $ npm run build                  # release
 ```
 
-> `npx omi-cli init your_project_name` is also supported(npm v5.2.0+).
+> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
 
 Directory description:
 
@@ -24,17 +24,18 @@ Directory description:
 │  └─ index.js    //Entry js of compiler，will build to index.html
 ```
 
-TypeScript Template(omi-cli v3.0.5+):
+## Project Template
 
-```bash
-$ omi init-ts your_project_name  
-```
+| **Template Type**|  **Command**|  **Describe**|
+| ------------ |  -----------|  ----------------- |
+|Base Template|`omi init my-app`| Basic template for omi project.|
+|Omio Template|`omi init-o my-app`| Basic omi project template for old browsers(IE9+ and mobile browsers).|
+|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
+|TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`|Basic template with typescript.|
+|[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.|
+|omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |Developing web with mini program template.|
+|MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM template.|
 
-[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+):
-
-```bash
-$ omi init-spa your_project_name    
-```
 
 CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
 

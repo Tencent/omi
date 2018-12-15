@@ -21,6 +21,10 @@ define('hello-element', class extends WeElement {
         }`
   }
 
+  receiveProps(props, data, oldProps) {
+    console.log(props, data, oldProps)
+  }
+
   render(props) {
     return (
       <div onClick={this.onClick}>

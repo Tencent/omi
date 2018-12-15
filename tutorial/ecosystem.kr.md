@@ -46,8 +46,8 @@ Omi가 Web Components 와 Shadow-DOM 하기 떄문에 React 와 Vue 처럼 기�
 
 ```bash
 $ npm i omi-cli -g               # install cli
-$ omi init your_project_name     # init project, you can also exec 'omi init' in an empty folder
-$ cd your_project_name           # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
+$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                      # develop
 $ npm run build                  # release
 ```
@@ -70,8 +70,8 @@ TypeScript 템플릿 사용 (omi-cli v3.0.3+):
 
 ```bash
 $ npm i omi-cli -g                  # install cli
-$ omi init-ts your_project_name     # init project, you can also exec 'omi init-ts' in an empty folder
-$ cd your_project_name              # please ignore this command if you executed 'omi init' in an empty folder
+$ omi init-ts my-app     # init project, you can also exec 'omi init-ts' in an empty folder
+$ cd my-app              # please ignore this command if you executed 'omi init' in an empty folder
 $ npm start                         # develop
 $ npm run build                     # release
 ```

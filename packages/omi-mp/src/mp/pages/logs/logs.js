@@ -13,7 +13,7 @@ const mpOption = Page({
   },
   onLoad: function (options) {
     this.setData({
-      logs: (wx.getStorageSync('logs') || [Date.now()]).map(log => {
+      logs: (wx.getStorageSync('logs') || [Date.now(),Date.now()]).map(log => {
         return util.formatTime(new Date(log))
       })
     })
@@ -27,6 +27,8 @@ const mpOption = Page({
     console.log('hide2')
   },
   myEventHandler: function (evt) {
+    //output -> <we-logs>...</we-logs>
+    console.log(this)
     //output -> dntzhang
     console.log(evt.detail.name)
   }
@@ -45,7 +47,14 @@ class Element extends WeElement {
 
   afterUpdate() {}
 
-  install() {}
+  install() {
+    this.properties = this.props
+    Object.keys(mpOption).forEach(key => {
+      if (typeof mpOption[key] === 'function') {
+        Element.prototype[key] = mpOption[key].bind(this)
+      }
+    })
+  }
 
   uninstall = mpOption.onUnload || function() {}
 
@@ -69,9 +78,11 @@ function css() {
 
 function render() {
   const { logs } = Object.assign({}, this.data, this.props)
-  return h('div',{'class': `container log-list `},[ [logs.map((log,index)=>{
-        return h('span',{'class': `log-item`},[`${index + 1}. ${log}`])
-      })],h('my-ele',{'onmyevent': this.myEventHandler,'name': `dntzhang`},[]),h('img',{'src': require('../../images/wechat.png')},[])])
+  return h('div',{'class': `container log-list `},[ logs.map((log,index)=>{
+          return h('block',{'wx:for': logs,'wx:for-item': `log`},
+           h('span',{'class': `log-item`},[`${index + 1}. ${log}`]),h('span',{'class': `log-item`},[`by omi-mp`])
+        )
+      }),h('my-ele',{'onmyevent': this.myEventHandler,'name': `dntzhang`},[]),h('img',{'src': require('../../images/wechat.png')},[])])
 
 }
 

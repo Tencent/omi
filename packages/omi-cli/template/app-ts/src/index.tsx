@@ -87,10 +87,10 @@ class MyApp extends WeElement<MyAppProps, MyAppData> {
 					<h1 class="app-title">Welcome to {props.name}</h1>
 				</header>
                 Hello {this.props.name} {this.data.abc}
-                <hello-omi onAbc={this.onAbc} prop-from-parent={this.data.passToChild} msg="Omi"></hello-omi>
+                <hello-omi onAbc={this.onAbc} propFromParent={this.data.passToChild} msg="Omi"></hello-omi>
 			</div>
         )
     }
 }
 
-render(<my-app name='Omi v4.0'></my-app>, '#root')
+render(<my-app name='Omi v5.0'></my-app>, '#root')
