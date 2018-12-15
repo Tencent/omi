@@ -23,9 +23,7 @@ define('my-content', class extends WeElement {
     //this.initCodeStyle();
   }
 
-  getMarkDown(name, lan) {
-    return require('../../docs/' + lan + '/' + name + '.md')
-  }
+
 
   initCodeStyle() {
     let codes = Omi.$$('code')

@@ -22,7 +22,10 @@ class AppStore {
          ]
      }
      */
-    this.html = '<div>Hello md2site</div>'
+    this.lan = 'en'
+    this.md = 'installation'
+    this.remarkable = new Remarkable({ html: true })
+    this.html = this.remarkable.render(this.getMarkDown(this.md, this.lan))
     this.data = Object.assign({ menus: config.menus[data.lan] }, data)
 
     this.data.menus[0].list[0].selected = true
@@ -34,7 +37,7 @@ class AppStore {
         return
       }
     })
-    this.md = new Remarkable({ html: true })
+
 
     this.updatePager()
   }
@@ -64,6 +67,10 @@ class AppStore {
       this.update()
       document.body.scrollTop = 0
     }
+  }
+
+  getMarkDown(name, lan) {
+    return require('../docs/' + lan + '/' + name + '.md')
   }
 
   loadMarkdown(url, callback) {
