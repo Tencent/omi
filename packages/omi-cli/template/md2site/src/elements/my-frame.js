@@ -1,45 +1,37 @@
-import Omi from 'omi';
-import Content from './content/index.js';
-import Sidebar from './sidebar/index.js';
-import Head from './head/index.js';
-import Pager from './pager/index.js';
+import { define, WeElement } from 'omi';
+import './my-head';
 
-Omi.makeHTML('Content', Content);
-Omi.makeHTML('Sidebar', Sidebar);
-Omi.makeHTML('Head', Head);
-Omi.makeHTML('Pager', Pager);
+// import Content from './content/index.js';
+// import Sidebar from './sidebar/index.js';
+// import Pager from './pager/index.js';
 
-class Frame extends Omi.Component {
-    constructor(data) {
-        super(data);
+define('my-frame', class extends WeElement {
+
+  install() {
+    this.setViewport();
+    window.onresize = () => {
+      if (window.innerWidth < 768) {
+        this.refs.main.style.width = '100%';
+      } else {
+        this.refs.main.style.width = (window.innerWidth - 220) + 'px';
+      }
     }
+  }
 
-    install() {
-        this.$store.addView(this);
-        this.setViewport();
-        window.onresize = ()=> {
-            if(  window.innerWidth < 768) {
-                this.refs.main.style.width = '100%';
-            }else{
-                this.refs.main.style.width = (window.innerWidth - 220)+'px';
-            }
-        }
+  setViewport() {
+    if (window.innerWidth < 768) {
+      this.data.width = '100%';
+    } else {
+      this.data.width = (window.innerWidth - 220) + 'px';
     }
+  }
 
-    setViewport (){
-        if(  window.innerWidth < 768) {
-            this.data.width = '100%';
-        }else{
-            this.data.width = (window.innerWidth - 220)+'px';
-        }
-    }
+  beforeRender() {
+    this.setViewport();
+  }
 
-    beforeRender(){
-        this.setViewport();
-    }
-
-    style() {
-        return `
+  css() {
+    return `
     <style>
         .main{
             position: absolute;
@@ -55,18 +47,16 @@ class Frame extends Omi.Component {
         }
     </style>
         `;
-    }
+  }
 
-    render() {
-        return `<div>
-                    <Head />
-                    <div class="main" ref="main"  style="width:{{width}};">
+  render() {
+    return <div>
+      <my-head />
+      {/* <div class="main" ref="main"  style="width:{{width}};">
                         <Content  omi-id="content" ddd />
                         <Pager omi-id="pager" />
                     </div>
-                    <Sidebar omi-id="sidebar" />
-                </div>`;
-    }
-}
-
-export default Frame;
+                    <Sidebar omi-id="sidebar" /> */}
+    </div>
+  }
+})

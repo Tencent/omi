@@ -117,7 +117,7 @@ module.exports = {
       //       options: {
       //         formatter: eslintFormatter,
       //         eslintPath: require.resolve('eslint'),
-              
+
       //       },
       //       loader: require.resolve('eslint-loader'),
       //     },
@@ -146,7 +146,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
@@ -158,6 +158,12 @@ module.exports = {
             use: [
                 'to-string-loader',
                 'css-loader'
+            ]
+          },
+          {
+            test: /\.md$/,
+            use: [
+                'to-string-loader'
             ]
           },
           // "postcss" loader applies autoprefixer to our CSS.
