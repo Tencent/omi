@@ -6,29 +6,35 @@
     width:100%;
     background-color:#303030;
     z-index:100;
-
+    top: 0;
 }
+
 ul,li{
     display: inline-block;
 }
+
 .logo_box{
     width:100px;
     display: inline-block;
     text-align:center;
     line-height: 60px;
 }
+
 .menu a,.logo_box a{
     display: inline-block;
     height:45px;
     color:#ddd;
 }
+
 .menu{
     position: absolute;
     right:20px;
 }
+
 .menu li{
     margin-left:15px;
 }
+
 .logo_box a{
     font-size: 34px;
     font-weight: bold;
@@ -37,6 +43,7 @@ ul,li{
     line-height: 45px;
     cursor: pointer;
 }
+
 .menu a:hover{
     color: white;
 }
@@ -46,13 +53,11 @@ ul,li{
     display:none;
 }
 
+.menu li{
+  display:inline-block;
+}
+
 @media only screen and (max-width: 768px) {
-    .menu li{
-        display:none;
-    }
-    .menu .m_show{
-        display:block;
-    }
 
     .logo_box{
         display:inline-block;
@@ -63,7 +68,6 @@ ul,li{
     }
 
     .m_menu{
-
         top:0;
         left:0;
         display:block;
@@ -71,6 +75,7 @@ ul,li{
         height:50px;
         padding-top: 6px;
     }
+
     .m_menu img{
         width:30px;
     }

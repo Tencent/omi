@@ -1,7 +1,7 @@
 import { define, WeElement } from 'omi'
 
 import highlightLines from './highlight-lines.js'
-import proj_config from '../../utils/config'
+import proj_config from '../../docs/config'
 import css from './_index.css'
 
 define('my-content', class extends WeElement {

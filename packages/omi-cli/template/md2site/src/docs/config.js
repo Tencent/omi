@@ -1,10 +1,9 @@
-let config = {
+const config = {
+  lan: 'en',
   menus: {
     cn: [
       {
-        active: true,
         title: '快速开始',
-        currentIndex: 0,
         list: [
           { name: '安装', md: 'installation' },
           { name: '组件', md: 'components' },
@@ -14,9 +13,7 @@ let config = {
     ],
     en: [
       {
-        active: true,
         title: 'QUICK START',
-        currentIndex: 0,
         list: [
           { name: 'Installation', md: 'installation' },
           { name: 'Components', md: 'components' },
@@ -24,7 +21,14 @@ let config = {
         ]
       }
     ]
-  }
+  },
+  /*
+   your cdn address , such as:
+   cdn : '//s.url.cn/'
+   */
+  cdn: '',
+  //whether or not to load markdown async
+  async: false
 }
 
 export default config

@@ -1,45 +1,13 @@
 import config from '../docs/config.js'
 
 class AppStore {
-  constructor(data, isReady) {
-    /*
-     this.data =
-     {
-         html: '<h1>hello</h1>',
-         md: 'components'
-         lan: 'cn',
-         menus:[
-             {
-                 active: true,
-                 title: '���ٿ�ʼ',
-                 currentIndex: 0,
-                 list: [
-                     {name: '��װ', md: 'installation', index: 0, active: true},
-                     {name: '���', md: 'components'},
-                     {name: '���ͨѶ', md: 'communication'}
-                 ]
-             }
-         ]
-     }
-     */
-    this.lan = 'en'
-    this.md = 'installation'
+  constructor() {
+    this.lan = config.lan
+    this.md = config.menus[this.lan][0].list[0].md
     this.remarkable = new Remarkable({ html: true })
     this.html = this.remarkable.render(this.getMarkDown(this.md, this.lan))
-    this.data = Object.assign({ menus: config.menus[data.lan] }, data)
 
-    this.data.menus[0].list[0].selected = true
-
-    let items = this.data.menus
-    items.every(item => {
-      if (item.active) {
-        this.data.md = item.list[item.currentIndex].md
-        return
-      }
-    })
-
-
-    this.updatePager()
+    //this.updatePager()
   }
 
   goto(md, index) {

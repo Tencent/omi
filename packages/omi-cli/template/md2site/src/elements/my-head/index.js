@@ -69,26 +69,16 @@ define('my-head', class extends WeElement {
           touchEnd="handleTouchEnd"
         >
           {' '}
-          <img src="./component/head/menu.png" alt="" />
+          <img src={require('./menu.png')} alt="" />
         </div>
-        <div class="logo_box">
-          <a href="https://github.com/AlloyTeam/omi">Omi</a>
-        </div>
+
 
         <ul class="menu">
           <li class="github_li">
-            <a href="https://github.com/AlloyTeam/omi">Github</a>
+            <a href="https://github.com/Tencent/omi">Github</a>
           </li>
-          <li>
-            <a href="http://alloyteam.github.io/omi/example/playground/">
-              Playground
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/AlloyTeam/omi/tree/master/docs">
-              [Edit the Docs]
-            </a>
-          </li>
+
+
           <li class="github_li m_show">
             {data.isEnLan ? (
               <a href="docs-cn.html">中文</a>
