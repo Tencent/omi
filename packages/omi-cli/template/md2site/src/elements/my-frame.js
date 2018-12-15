@@ -1,9 +1,9 @@
 import { define, WeElement } from 'omi';
 import './my-head';
 
-// import Content from './content/index.js';
-// import Sidebar from './sidebar/index.js';
-// import Pager from './pager/index.js';
+import './my-content';
+import './my-sidebar';
+import './my-pager';
 
 define('my-frame', class extends WeElement {
 
@@ -50,13 +50,15 @@ define('my-frame', class extends WeElement {
   }
 
   render() {
-    return <div>
-      <my-head />
-      {/* <div class="main" ref="main"  style="width:{{width}};">
-                        <Content  omi-id="content" ddd />
-                        <Pager omi-id="pager" />
-                    </div>
-                    <Sidebar omi-id="sidebar" /> */}
-    </div>
+    return (
+      <div>
+        <my-head />
+        <div class="main" ref="main" style="width:{{width}};">
+          <my-content omi-id="content" ddd />
+          <my-pager omi-id="pager" />
+        </div>
+        <my-sidebar omi-id="sidebar" />
+      </div>
+    )
   }
 })

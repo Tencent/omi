@@ -1,24 +1,32 @@
-import Omi from 'omi';
+import { define, WeElement } from 'omi';
+import { list } from 'postcss';
+import css from './_index.css'
 
-const tpl = require('./index.html');
-const css = require('./index.css');
+define('my-list', class extends WeElement {
+  constructor(data, option) {
+    super(data, option);
+  }
 
-class List extends Omi.Component {
-    constructor(data,option) {
-        super(data,option);
-    }
+  goto(md, index) {
+    this.$store.goto(md, index)
+  }
 
-    goto(md,index){
-        this.$store.goto(md,index)
-    }
+  render() {
+    return (
+      <ul>
+        <li class="title">{{ title }}</li>
+        {list.map(item => (
+          <li>
+            <a href="#" onclick="goto('{{md}}',{{index}})" class={selected ? 'current' : ''}>{{ name }}</a>
+          </li>
+        ))}
 
-    render() {
-        return tpl;
-    }
+      </ul>
+    )
+  }
 
-    style() {
-        return css;
-    }
-}
+  style() {
+    return css;
+  }
+})
 
-export default List;
