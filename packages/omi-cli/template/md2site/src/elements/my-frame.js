@@ -1,33 +1,32 @@
-import { define, WeElement } from 'omi';
-import './my-head';
+import { define, WeElement } from 'omi'
+import './my-head'
 
-import './my-content';
-import './my-sidebar';
-import './my-pager';
+import './my-content'
+import './my-sidebar'
+import './my-pager'
 
 define('my-frame', class extends WeElement {
-
   install() {
-    this.setViewport();
+    this.setViewport()
     window.onresize = () => {
       if (window.innerWidth < 768) {
-        this.mainDiv.style.width = '100%';
+        this.mainDiv.style.width = '100%'
       } else {
-        this.mainDiv.style.width = (window.innerWidth - 220) + 'px';
+        this.mainDiv.style.width = window.innerWidth - 220 + 'px'
       }
     }
   }
 
   setViewport() {
     if (window.innerWidth < 768) {
-      this.data.width = '100%';
+      this.data.width = '100%'
     } else {
-      this.data.width = (window.innerWidth - 220) + 'px';
+      this.data.width = window.innerWidth - 220 + 'px'
     }
   }
 
   beforeRender() {
-    this.setViewport();
+    this.setViewport()
   }
 
   css() {
@@ -46,14 +45,20 @@ define('my-frame', class extends WeElement {
             }
         }
     </style>
-        `;
+        `
   }
 
   render() {
     return (
       <div>
         <my-head />
-        <div class="main" ref={e=>{this.mainDiv=e}} style="width:{{width}};">
+        <div
+          class="main"
+          ref={e => {
+            this.mainDiv = e
+          }}
+          style="width:{{width}};"
+        >
           <my-content omi-id="content" />
           <my-pager omi-id="pager" />
         </div>

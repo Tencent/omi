@@ -1,18 +1,17 @@
-import { define, WeElement } from 'omi';
+import { define, WeElement } from 'omi'
 import css from './_index.css'
 
 define('my-pager', class extends WeElement {
-
   next() {
-    this.$store.next();
+    this.$store.next()
   }
 
   pre() {
-    this.$store.pre();
+    this.$store.pre()
   }
 
   handleTap(evt) {
-    let dir = evt.target.getAttribute('data-dir');
+    let dir = evt.target.getAttribute('data-dir')
     if (dir === 'next') {
       this.next()
     } else {
@@ -22,9 +21,11 @@ define('my-pager', class extends WeElement {
 
   isMobile() {
     const browser = {
-      versions: function () {
-        var u = navigator.userAgent, app = navigator.appVersion;
-        return {//移动终端浏览器版本信息
+      versions: (function() {
+        let u = navigator.userAgent,
+          app = navigator.appVersion
+        return {
+          //移动终端浏览器版本信息
           trident: u.indexOf('Trident') > -1, //IE内核
           presto: u.indexOf('Presto') > -1, //opera内核
           webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
@@ -35,36 +36,71 @@ define('my-pager', class extends WeElement {
           iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
           iPad: u.indexOf('iPad') > -1, //是否iPad
           webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-        };
-      }(),
+        }
+      })(),
       language: (navigator.browserLanguage || navigator.language).toLowerCase()
     }
 
-    if (browser.versions.mobile || browser.versions.ios || browser.versions.android ||
-      browser.versions.iPhone || browser.versions.iPad) {
-      return true;
+    if (
+      browser.versions.mobile ||
+      browser.versions.ios ||
+      browser.versions.android ||
+      browser.versions.iPhone ||
+      browser.versions.iPad
+    ) {
+      return true
     }
-    return false;
+    return false
   }
 
   render(props, data) {
     if (this.isMobile()) {
       return (
         <div class="pager">
-          {this.store.preName && <a class="pre" href="#" omi-finger tap="handleTap" data-dir="pre" data-name="{{preMd}}">←{this.store.preName }</a>}
-          {this.store.nextName && <a class="next" href="#" omi-finger tap="handleTap" data-dir="next" data-name="{{nextMd}}">{this.store.nextName }→</a>}
-        </div>)
-    } else {
+          {this.store.preName && (
+            <a
+              class="pre"
+              href="#"
+              omi-finger
+              tap="handleTap"
+              data-dir="pre"
+              data-name="{{preMd}}"
+            >
+              ←{this.store.preName}
+            </a>
+          )}
+          {this.store.nextName && (
+            <a
+              class="next"
+              href="#"
+              omi-finger
+              tap="handleTap"
+              data-dir="next"
+              data-name="{{nextMd}}"
+            >
+              {this.store.nextName}→
+            </a>
+          )}
+        </div>
+      )
       return (
         <div class="pager">
-          {this.store.preName && <a class="pre" href="#" onclick="pre('{{preMd}}','pre')">←{ this.store.preName }</a>}
-          {this.store.nextName && <a class="next" href="#" onclick="next('{{nextMd}}','next')">{this.store.nextName }→</a>}
-        </div>)
+          {this.store.preName && (
+            <a class="pre" href="#" onclick="pre('{{preMd}}','pre')">
+              ←{this.store.preName}
+            </a>
+          )}
+          {this.store.nextName && (
+            <a class="next" href="#" onclick="next('{{nextMd}}','next')">
+              {this.store.nextName}→
+            </a>
+          )}
+        </div>
+      )
     }
   }
 
   css() {
     return css
   }
-
 })
