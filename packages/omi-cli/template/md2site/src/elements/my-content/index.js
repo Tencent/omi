@@ -78,7 +78,7 @@ define('my-content', class extends WeElement {
     //     this.data.html = this.md.render(this.getMarkDown(this.$store.data.md, this.$store.data.lan));
     // }
     // return tpl;
-    ;<div class="content">{this.store.html}</div>
+    return <div class="content" dangerouslySetInnerHTML={{ __html: this.store.html }}></div>
   }
 
   css() {

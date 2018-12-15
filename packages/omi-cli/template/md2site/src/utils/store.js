@@ -22,6 +22,7 @@ class AppStore {
          ]
      }
      */
+    this.html = '<div>Hello md2site</div>'
     this.data = Object.assign({ menus: config.menus[data.lan] }, data)
 
     this.data.menus[0].list[0].selected = true
