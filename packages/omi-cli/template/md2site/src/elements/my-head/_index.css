@@ -1,10 +1,10 @@
 .head{
     position:fixed;
-    height:45px;
-    line-height: 45px;
+    height:60px;
+    line-height: 60px;
     border-bottom: 1px solid #eee;
     width:100%;
-    background-color:#303030;
+    background-color:#24292e;
     z-index:100;
     top: 0;
 }
@@ -22,8 +22,8 @@ ul,li{
 
 .menu a,.logo_box a{
     display: inline-block;
-    height:45px;
-    color:#ddd;
+    height:60px;
+    color: white;
 }
 
 .menu{
@@ -40,7 +40,7 @@ ul,li{
     font-weight: bold;
     color: #00bff3;
     padding: 0px 15px;
-    line-height: 45px;
+    line-height: 60px;
     cursor: pointer;
 }
 
