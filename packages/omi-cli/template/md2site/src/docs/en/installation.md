@@ -17,15 +17,14 @@ $ npm run dist
 |    | Hexo        | Md2site  |
 | ------------- |:-------------:|:-----:|
 | Markdown support | ★★★★★| ★★★★★ |
-| File size of generated website | ★★★☆☆   |   ★★★★★ |
-| Difficulty of getting started  | ★★★★★| ★★★★★ |
-|  Secondary development | ★★★★☆     |   ★★★★★ |
-| Themes and plugins  | ★★★★★     |   ★★★★☆ |
-| Code specifies row highlight | ★★★★☆    |   ★★★★★ |
-| Multi language support | ★★★★☆    |   ★★★★★ |
+| File size of generated website | ★★★☆☆   |   ★★★☆☆ |
+| Difficulty of getting started  | ★★★☆☆| ★★★☆☆ |
+|  Secondary development | ★★★★☆     |   ★★★★☆ |
+| Themes and plugins  | ★★★★☆     |   ★★★★☆ |
+| Code specifies row highlight | ★★★★☆    |   ★★★★☆ |
+| Multi language support | ★★★★☆    |   ★★★★☆ |
 | Responsive | ★★★★★    |   ★★★★★ |
 
-    Note: more stars mean win.
 
 
 
