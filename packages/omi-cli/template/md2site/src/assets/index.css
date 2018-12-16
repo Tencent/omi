@@ -27,6 +27,9 @@ table,td,th{
   border: 1px solid #ccc;
 }
 
+td,th{
+  padding: 4px 8px;
+}
 
 @media only screen and (max-width: 640px) {
   html,body{

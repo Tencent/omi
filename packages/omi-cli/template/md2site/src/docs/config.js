@@ -27,16 +27,57 @@ const config = {
           { name: 'Components2', md: 'components' },
           { name: 'Communication2', md: 'communication' }
         ]
+      },
+      {
+        title: 'QUICK START2',
+        list: [
+          { name: 'Installation2', md: 'installation' },
+          { name: 'Components2', md: 'components' },
+          { name: 'Communication2', md: 'communication' }
+        ]
+      },
+      {
+        title: 'QUICK START2',
+        list: [
+          { name: 'Installation2', md: 'installation' },
+          { name: 'Components2', md: 'components' },
+          { name: 'Communication2', md: 'communication' }
+        ]
+      },
+      {
+        title: 'QUICK START2',
+        list: [
+          { name: 'Installation2', md: 'installation' },
+          { name: 'Components2', md: 'components' },
+          { name: 'Communication2', md: 'communication' }
+        ]
+      },
+      {
+        title: 'QUICK START2',
+        list: [
+          { name: 'Installation2', md: 'installation' },
+          { name: 'Components2', md: 'components' },
+          { name: 'Communication2', md: 'communication' }
+        ]
+      },
+      {
+        title: 'QUICK START2',
+        list: [
+          { name: 'Installation2', md: 'installation' },
+          { name: 'Components2', md: 'components' },
+          { name: 'Communication2', md: 'communication' }
+        ]
+      },
+      {
+        title: 'QUICK START2',
+        list: [
+          { name: 'Installation2', md: 'installation' },
+          { name: 'Components2', md: 'components' },
+          { name: 'Communication2', md: 'communication' }
+        ]
       }
     ]
-  },
-  /*
-   your cdn address , such as:
-   cdn : '//s.url.cn/'
-   */
-  cdn: '',
-  //whether or not to load markdown async
-  async: false
+  }
 }
 
 export default config

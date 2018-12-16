@@ -36,11 +36,11 @@ define('my-frame', class extends WeElement {
         .main{
             position: absolute;
             left:220px;
-            top:45px;
+            top:60px;
             height:auto;
         }
 
-        @media only screen and (max-width: 768px) {
+        @media only screen and (max-width: 640px) {
             .main{
                 left:0%;
             }
@@ -58,7 +58,6 @@ define('my-frame', class extends WeElement {
           ref={e => {
             this.mainDiv = e
           }}
-          style="width:{{width}};"
         >
           <my-content omi-id="content" />
           <my-pager omi-id="pager" />
