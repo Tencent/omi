@@ -15,12 +15,12 @@ define('my-pager', class extends WeElement {
       <div class="pager">
         {this.store.preName && (
           <a class="pre" href="#" onclick={this.pre}>
-            ←{this.store.preName}
+            ← {this.store.preName}
           </a>
         )}
         {this.store.nextName && (
           <a class="next" href="#" onclick={this.next}>
-            {this.store.nextName}→
+            {this.store.nextName} →
             </a>
         )}
       </div>

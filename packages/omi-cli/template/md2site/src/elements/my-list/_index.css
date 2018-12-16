@@ -1,26 +1,27 @@
 li.title{
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     margin-bottom:10px;
     margin-top:10px;
     text-indent: 23px;
 }
 li{
-    margin-bottom:3px;
+    margin-bottom:1px;
     text-indent: 33px;
 }
 li a{
     display:block;
     font-size:14px;
-    height:20px;
-    line-height:20px;
-    color: #666;
+    height:30px;
+    line-height:30px;
+    color: black;
+    background-color:#eee;
 }
-li a.current{
-    background-color:#c3d4fc;
-    color:white;
+li a.current,li a.current:hover{
+  background-color:#24292e;
+  color: white;
+  cursor: default;
 }
 li a:hover{
-    background-color:#b3d4fc;
-    color:white;
+    background-color:#f0f8ff;
 }

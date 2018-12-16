@@ -1,13 +1,16 @@
 .content{
     width: 80%;
     margin-top: 60px;
+    padding-top: 1px;
     padding-left: 10px;
+    color: #24292e;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 }
 
 h3{
     color:#444444;
 }
-
 
 pre{
     border: 1px solid #eee;

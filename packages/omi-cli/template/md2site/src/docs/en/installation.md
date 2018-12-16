@@ -26,3 +26,62 @@ $ npm run dist
 | Responsive | ★★★★★    |   ★★★★★ |
 
     Note: more stars mean win.
+
+
+
+## Usage
+
+``` js
+$ npm install md2site -g
+$ md2site init your_project_name
+$ cd your_project_name
+$ npm run dev
+$ npm run dist
+```
+
+
+
+## Usage
+
+``` js
+$ npm install md2site -g
+$ md2site init your_project_name
+$ cd your_project_name
+$ npm run dev
+$ npm run dist
+```
+
+
+
+
+## Usage
+
+``` js
+$ npm install md2site -g
+$ md2site init your_project_name
+$ cd your_project_name
+$ npm run dev
+$ npm run dist
+```
+
+
+## Usage
+
+``` js
+$ npm install md2site -g
+$ md2site init your_project_name
+$ cd your_project_name
+$ npm run dev
+$ npm run dist
+```
+
+
+## Usage
+
+``` js
+$ npm install md2site -g
+$ md2site init your_project_name
+$ cd your_project_name
+$ npm run dev
+$ npm run dist
+```

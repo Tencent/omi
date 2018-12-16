@@ -8,21 +8,22 @@ import './my-pager'
 define('my-frame', class extends WeElement {
   install() {
     this.setViewport()
-    window.onresize = () => {
-      if (window.innerWidth < 768) {
-        this.mainDiv.style.width = '100%'
-      } else {
-        this.mainDiv.style.width = window.innerWidth - 220 + 'px'
-      }
-    }
+    // window.onresize = () => {
+    //   if (window.innerWidth < 768) {
+    //     this.mainDiv.style.width = '100%'
+    //   } else {
+    //     this.mainDiv.style.width = window.innerWidth - 220 + 'px'
+    //   }
+    // }
   }
 
   setViewport() {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 640) {
       this.data.width = '100%'
-    } else {
-      this.data.width = window.innerWidth - 220 + 'px'
     }
+    // else {
+    //   this.data.width = window.innerWidth - 220 + 'px'
+    // }
   }
 
   beforeRender() {

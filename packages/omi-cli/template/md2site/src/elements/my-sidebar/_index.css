@@ -19,14 +19,16 @@
 }
 
 .list{
-    width:200px;
+    width:20%;
     text-indent: 20px;
     border-right: 1px solid #eee;
     overflow-x: hidden;
     overflow-y: auto;
     position:fixed;
     top:60px;
-    right: 0px;
+    left: 80%;
+    background-color: white;
+    height: 100%;
 }
 .version{
     height:20px;

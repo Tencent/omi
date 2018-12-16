@@ -1,9 +1,10 @@
 .pager {
-    width:85%;
+    width:80%;
     height:80px;
     line-height:80px;
     position: relative;
     font-size:16px;
+    /* background-color: #77797c; */
 }
 
 @media only screen and (max-width: 768px) {
@@ -16,9 +17,11 @@
     position: absolute;
     left:10px;
     top:10px;
+
 }
 .next{
     position: absolute;
     right:10px;
     top:10px;
+
 }

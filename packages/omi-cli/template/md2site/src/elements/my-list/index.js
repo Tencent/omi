@@ -14,7 +14,7 @@ define('my-list', class extends WeElement {
           <li>
             <a
               href="#"
-              onClick={this.goto(item.md,index)}
+              onClick={()=>{this.goto(item.md,index)}}
               class={item.selected ? 'current' : ''}
             >
               { item.name }
@@ -25,7 +25,7 @@ define('my-list', class extends WeElement {
     )
   }
 
-  style() {
+  staticCss() {
     return css
   }
 })

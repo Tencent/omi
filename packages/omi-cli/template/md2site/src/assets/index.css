@@ -2,9 +2,8 @@ html,body{
   margin: 0;
   padding: 0;
   border: 0;
-  background-color: #f9f9f9;
+  background-color: #f6f8fa;
   font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto, PT Sans, DejaVu Sans, Arial,Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
-  overflow-x: hidden;
 }
 
 img,ul,li{
@@ -19,6 +18,7 @@ ul,li{
 
 a{
   text-decoration: none;
+  color: #0366d6;
 }
 table{
   border-collapse: collapse;
@@ -28,8 +28,11 @@ table,td,th{
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 640px) {
+  html,body{
 
+    overflow-x: hidden;
+  }
 
   .content img{
       width: 100%;

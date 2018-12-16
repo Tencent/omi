@@ -9,6 +9,8 @@ class AppStore {
     this.html = this.remarkable.render(this.getMarkDown(this.md, this.lan))
     this.menus[0].active = true
     this.menus[0].currentIndex = 0
+    this.menus[0].list[0].selected = true
+
     this.updatePager()
   }
 
@@ -83,14 +85,12 @@ class AppStore {
       this.nextMd = next.md
       this.nextName = next.name
     }
-    console.log(this.preName, this.nextName)
   }
 
   getCurrentMenu() {
     let menu = null
 
     let items = this.menus
-    console.log(items)
     items.every(item => {
       if (item.active) {
         menu = item
