@@ -57,10 +57,22 @@ ul,li{
   display:inline-block;
 }
 
+.logo{
+  width: 40px;
+  height: 40px;
+  margin-left: 3px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 768px) {
 
     .logo_box{
         display:inline-block;
+    }
+
+    .logo{
+      display: none;
     }
 
     .head{

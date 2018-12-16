@@ -1,9 +1,14 @@
 .content{
     width: 80%;
+    margin-top: 60px;
+    padding-left: 10px;
 }
+
 h3{
     color:#444444;
 }
+
+
 pre{
     border: 1px solid #eee;
     width: 100%;

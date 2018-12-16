@@ -1,5 +1,6 @@
 import { define, WeElement } from 'omi'
 import css from './_index.css'
+import logo from './omi-logo.svg'
 
 define('my-head', class extends WeElement {
   install() {
@@ -68,11 +69,11 @@ define('my-head', class extends WeElement {
           tap="toggleMenus"
           touchEnd="handleTouchEnd"
         >
-          {' '}
+
           <img src={require('./menu.png')} alt="" />
         </div>
 
-
+        <a href="http://omijs.org"><img class='logo' src={logo}></img></a>
         <ul class="menu">
           <li class="github_li">
             <a href="https://github.com/Tencent/omi">Github</a>

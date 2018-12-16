@@ -25,7 +25,8 @@
     overflow-x: hidden;
     overflow-y: auto;
     position:fixed;
-    top:45px;
+    top:60px;
+    right: 0px;
 }
 .version{
     height:20px;
