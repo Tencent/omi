@@ -21,7 +21,7 @@ define('my-pager', class extends WeElement {
         {this.store.nextName && (
           <a class="next" href="#" onclick={this.next}>
             {this.store.nextName} →
-            </a>
+          </a>
         )}
       </div>
     )

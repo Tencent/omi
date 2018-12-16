@@ -6,24 +6,16 @@ import css from './_index.css'
 
 define('my-content', class extends WeElement {
   install() {
-    this.md = new Remarkable({ html: true })
+    this.store.myContent = this
   }
 
   installed() {
     //this.initCodeStyle();
   }
 
-  install() {
-    if (proj_config.async) {
-      this.$store.asyncUpdate()
-    }
-  }
-
   afterUpdate() {
     //this.initCodeStyle();
   }
-
-
 
   initCodeStyle() {
     let codes = Omi.$$('code')
@@ -76,7 +68,12 @@ define('my-content', class extends WeElement {
     //     this.data.html = this.md.render(this.getMarkDown(this.$store.data.md, this.$store.data.lan));
     // }
     // return tpl;
-    return <div class="content" dangerouslySetInnerHTML={{ __html: this.store.html }}></div>
+    return (
+      <div
+        class="content"
+        dangerouslySetInnerHTML={{ __html: this.store.html }}
+      />
+    )
   }
 
   css() {

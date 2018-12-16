@@ -69,16 +69,16 @@ define('my-head', class extends WeElement {
           tap="toggleMenus"
           touchEnd="handleTouchEnd"
         >
-
           <img src={require('./menu.png')} alt="" />
         </div>
 
-        <a href="http://omijs.org"><img class='logo' src={logo}></img></a>
+        <a href="http://omijs.org">
+          <img class="logo" src={logo} />
+        </a>
         <ul class="menu">
           <li class="github_li">
             <a href="https://github.com/Tencent/omi">Github</a>
           </li>
-
 
           <li class="github_li m_show">
             {data.isEnLan ? (

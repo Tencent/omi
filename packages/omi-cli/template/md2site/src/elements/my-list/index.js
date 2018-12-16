@@ -9,18 +9,21 @@ define('my-list', class extends WeElement {
   render(props) {
     return (
       <ul>
-        <li class="title">{ props.menu.title }</li>
-        {props.menu.list&&props.menu.list.map((item,index) => (
-          <li>
-            <a
-              href="#"
-              onClick={()=>{this.goto(item.md,index)}}
-              class={item.selected ? 'current' : ''}
-            >
-              { item.name }
-            </a>
-          </li>
-        ))}
+        <li class="title">{props.menu.title}</li>
+        {props.menu.list &&
+          props.menu.list.map((item, index) => (
+            <li>
+              <a
+                href="#"
+                onClick={() => {
+                  this.goto(item.md, index)
+                }}
+                class={item.selected ? 'current' : ''}
+              >
+                {item.name}
+              </a>
+            </li>
+          ))}
       </ul>
     )
   }

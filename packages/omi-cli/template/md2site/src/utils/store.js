@@ -6,7 +6,11 @@ class AppStore {
     this.menus = config.menus[this.lan]
     this.md = this.menus[0].list[0].md
     this.remarkable = new Remarkable({ html: true })
-    this.html = this.remarkable.render(this.getMarkDown(this.md, this.lan))
+    this.getMarkDown(this.md, this.lan, m => {
+      this.html = this.remarkable.render(m)
+      this.myContent.update()
+    })
+
     this.menus[0].active = true
     this.menus[0].currentIndex = 0
     this.menus[0].list[0].selected = true
@@ -33,39 +37,18 @@ class AppStore {
       }
     })
     this.updatePager()
-    if (config.async) {
-      this.asyncUpdate()
-    } else {
+
+    this.getMarkDown(this.md, this.lan, m => {
+      this.html = this.remarkable.render(m)
+      this.myContent.update()
       document.body.scrollTop = 0
-    }
+    })
   }
 
-  getMarkDown(name, lan) {
-    return require('../docs/' + lan + '/' + name + '.md')
-  }
-
-  loadMarkdown(url, callback) {
-    let xobj = new XMLHttpRequest()
-    //xobj.overrideMimeType("application/json");
-    xobj.open('GET', url, true) // Replace 'my_data' with the path to your file
-    xobj.onreadystatechange = function () {
-      if (xobj.readyState == 4 && xobj.status == '200') {
-        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-        callback(xobj.responseText)
-      }
-    }
-    xobj.send(null)
-  }
-
-  asyncUpdate() {
-    this.loadMarkdown(
-      '../docs/' + this.data.lan + '/' + this.data.md + '.md',
-      md => {
-        this.data.html = this.md.render(md)
-        this.update()
-        document.body.scrollTop = 0
-      }
-    )
+  getMarkDown(name, lan, callback) {
+    import('../docs/' + lan + '/' + name + '.md').then(m => {
+      callback(m)
+    })
   }
 
   updatePager() {
