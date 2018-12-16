@@ -10,6 +10,7 @@ import ModelView from './model-view'
 
 const instances = []
 const WeElement = Component
+const defineElement = define
 
 options.root.Omi = {
   h,
@@ -23,7 +24,8 @@ options.root.Omi = {
   WeElement,
   define,
   rpx,
-  ModelView
+	ModelView,
+	defineElement
 }
 
 options.root.Omi.version = 'omio-0.1.0'
@@ -40,7 +42,8 @@ export default {
   WeElement,
   define,
   rpx,
-  ModelView
+	ModelView,
+	defineElement
 }
 
 export {
@@ -55,5 +58,6 @@ export {
   WeElement,
   define,
   rpx,
-  ModelView
+	ModelView,
+	defineElement
 }
