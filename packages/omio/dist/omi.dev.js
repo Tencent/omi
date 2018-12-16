@@ -1,5 +1,5 @@
 /**
- * omi v0.1.0  http://omijs.org
+ * omi v0.1.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -34,7 +34,6 @@
    */
   var options = {
     scopedStyle: true,
-    store: null,
     mapping: {},
     isWeb: true,
     staticStyleMapping: {},
@@ -911,10 +910,6 @@
       inst.constructor = Ctor;
       inst.render = doRender;
     }
-    inst.store = options.store;
-    if (window && window.Omi) {
-      window.Omi.instances.push(inst);
-    }
 
     if (list) {
       for (var i = list.length; i--;) {
@@ -1046,7 +1041,7 @@
   }
 
   function scopeVdom(attr, vdom) {
-    if (typeof vdom !== 'string') {
+    if (typeof vdom === 'object') {
       vdom.attributes = vdom.attributes || {};
       vdom.attributes[attr] = '';
       vdom.children.forEach(function (child) {
@@ -1549,7 +1544,7 @@
   var id = 0;
 
   var Component = function () {
-    function Component(props) {
+    function Component(props, store) {
       _classCallCheck(this, Component);
 
       this.props = Object.assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
@@ -1558,7 +1553,7 @@
 
       this._preCss = null;
 
-      this.store = null;
+      this.store = store;
     }
 
     Component.prototype.update = function update(callback) {
@@ -1579,17 +1574,8 @@
   /** Render JSX into a `parent` Element.
    *	@param {VNode} vnode		A (JSX) VNode to render
    *	@param {Element} parent		DOM element to render into
-   *	@param {Element} [merge]	Attempt to re-use an existing DOM tree rooted at `merge`
+   *	@param {object} [store]
    *	@public
-   *
-   *	@example
-   *	// render a div into <body>:
-   *	render(<div id="hello">hello!</div>, document.body);
-   *
-   *	@example
-   *	// render a "Thing" component into #foo:
-   *	const Thing = ({ name }) => <span>{ name }</span>;
-   *	render(<Thing name="one" />, document.querySelector('#foo'));
    */
   function render(vnode, parent, store) {
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
@@ -1598,9 +1584,7 @@
       store.merge = typeof store.merge === 'string' ? document.querySelector(store.merge) : store.merge;
     }
 
-    options.store = store;
-
-    return diff(store && store.merge, vnode, {}, false, parent, false);
+    return diff(store && store.merge, vnode, store, false, parent, false);
   }
 
   function define(name, ctor) {
@@ -1687,8 +1671,8 @@
   ModelView.observe = true;
   ModelView.mergeUpdate = true;
 
-  var instances = [];
   var WeElement = Component;
+  var defineElement = define;
 
   options.root.Omi = {
     h: h,
@@ -1698,14 +1682,14 @@
     render: render,
     rerender: rerender,
     options: options,
-    instances: instances,
     WeElement: WeElement,
     define: define,
     rpx: rpx,
-    ModelView: ModelView
+    ModelView: ModelView,
+    defineElement: defineElement
   };
 
-  options.root.Omi.version = 'omio-0.1.0';
+  options.root.Omi.version = 'omio-0.1.1';
 
   var Omi = {
     h: h,
@@ -1715,11 +1699,11 @@
     render: render,
     rerender: rerender,
     options: options,
-    instances: instances,
     WeElement: WeElement,
     define: define,
     rpx: rpx,
-    ModelView: ModelView
+    ModelView: ModelView,
+    defineElement: defineElement
   };
 
   if (typeof module != 'undefined') module.exports = Omi;else self.Omi = Omi;
