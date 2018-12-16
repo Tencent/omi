@@ -10,11 +10,11 @@ define('my-content', class extends WeElement {
   }
 
   installed() {
-    this.initCodeStyle();
+    this.initCodeStyle()
   }
 
   afterUpdate() {
-    this.initCodeStyle();
+    this.initCodeStyle()
   }
 
   initCodeStyle() {
@@ -31,10 +31,34 @@ define('my-content', class extends WeElement {
       codeHlNumArr.push(hllNums)
     })
 
-    highlightLines()
-
     codes.forEach((code, index) => {
-      this._hll(code, codeHlNumArr[index])
+      let newP = document.createElement('div')
+      newP.className = '_code-ctn'
+      let pre = code.parentNode
+      let ctn = pre.parentNode
+
+      ctn.insertBefore(newP, pre)
+
+      let hl = document.createElement('div')
+      hl.className = '_hl'
+      newP.appendChild(hl)
+      newP.appendChild(pre)
+      let nums = codeHlNumArr[index]
+
+      let max = Math.max.apply(null, nums)
+
+
+      let inner = ''
+      for (let i = 0; i < max; i++) {
+        if (nums.indexOf(i) == -1) {
+          inner += '<br />'
+        } else {
+          inner += '<div class="_hll"></div>'
+        }
+      }
+      hl.innerHTML = inner
+
+      //this._hll(code, codeHlNumArr[index])
     })
   }
 
@@ -53,14 +77,6 @@ define('my-content', class extends WeElement {
       }
     })
     return arr
-  }
-
-  _hll(code, hllNums) {
-    let spans = document.querySelectorAll('.line', code)
-    hllNums &&
-      hllNums.forEach(num => {
-        spans[num] && spans[num].classList.add('highlight')
-      })
   }
 
   render() {

@@ -100,3 +100,46 @@ code.hljs{
 .line {
   display: block;
 }
+
+
+
+._code-ctn{
+  position: relative;
+  height: auto;
+  background-color: #f7d87c;
+}
+
+._hl{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding-top: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  line-height: 14px;
+
+}
+
+._hll{
+  background-color: red;
+  height: 14px;
+  width: 100%;
+
+}
+
+
+._code-ctn pre{
+  background: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+
+._code-ctn code{
+  background: transparent;
+    position: relative;
+    z-index: 1;
+}

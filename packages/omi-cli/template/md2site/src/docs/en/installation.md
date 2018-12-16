@@ -4,7 +4,7 @@ Md2site is a fast, simple & powerful framework that can be used for transformati
 
 ## Usage
 
-``` js {2}
+``` js {2,4-7}
 $ npm install md2site -g
 $ md2site init your_project_name
 $ cd your_project_name
