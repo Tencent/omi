@@ -8,7 +8,6 @@ import { define } from './define'
 import { rpx } from './rpx'
 import ModelView from './model-view'
 
-const instances = []
 const WeElement = Component
 const defineElement = define
 
@@ -20,7 +19,6 @@ options.root.Omi = {
   render,
   rerender,
   options,
-  instances,
   WeElement,
   define,
   rpx,
@@ -38,7 +36,6 @@ export default {
   render,
   rerender,
   options,
-  instances,
   WeElement,
   define,
   rpx,
@@ -54,7 +51,6 @@ export {
   render,
   rerender,
   options,
-  instances,
   WeElement,
   define,
   rpx,
