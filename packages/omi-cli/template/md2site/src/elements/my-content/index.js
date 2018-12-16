@@ -10,15 +10,15 @@ define('my-content', class extends WeElement {
   }
 
   installed() {
-    //this.initCodeStyle();
+    this.initCodeStyle();
   }
 
   afterUpdate() {
-    //this.initCodeStyle();
+    this.initCodeStyle();
   }
 
   initCodeStyle() {
-    let codes = Omi.$$('code')
+    let codes = document.querySelectorAll('code')
     let codeHlNumArr = []
     codes.forEach(code => {
       hljs.highlightBlock(code)
@@ -56,7 +56,7 @@ define('my-content', class extends WeElement {
   }
 
   _hll(code, hllNums) {
-    let spans = Omi.$$('.line', code)
+    let spans = document.querySelectorAll('.line', code)
     hllNums &&
       hllNums.forEach(num => {
         spans[num] && spans[num].classList.add('highlight')

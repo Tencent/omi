@@ -1,10 +1,10 @@
 ## 简介
 
-Md2site是基于[Omi](https://github.com/AlloyTeam/omi)的一款Markdown转网站工具，使用简单，生成的文件轻巧，功能强大。
+Md2site是基于[Omi](https://github.com/Tencent/omi)的一款Markdown转网站工具，使用简单，生成的文件轻巧，功能强大。
 
 ## 安装使用 md2site
 
-``` js
+``` js {2,4-5}
 $ npm install md2site -g
 $ md2site init your_project_name
 $ cd your_project_name
