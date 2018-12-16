@@ -1,24 +1,23 @@
 import { define, WeElement } from 'omi'
-import { list } from 'postcss'
 import css from './_index.css'
 
 define('my-list', class extends WeElement {
   goto(md, index) {
-    this.$store.goto(md, index)
+    this.store.goto(md, index)
   }
 
-  render() {
+  render(props) {
     return (
       <ul>
-        <li class="title">{{ title }}</li>
-        {list.map(item => (
+        <li class="title">{ props.menu.title }</li>
+        {props.menu.list&&props.menu.list.map((item,index) => (
           <li>
             <a
               href="#"
-              onclick="goto('{{md}}',{{index}})"
-              class={selected ? 'current' : ''}
+              onClick={this.goto(item.md,index)}
+              class={item.selected ? 'current' : ''}
             >
-              {{ name }}
+              { item.name }
             </a>
           </li>
         ))}

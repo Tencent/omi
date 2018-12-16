@@ -34,7 +34,6 @@ class AppStore {
     if (config.async) {
       this.asyncUpdate()
     } else {
-      this.update()
       document.body.scrollTop = 0
     }
   }
