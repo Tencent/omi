@@ -71,27 +71,48 @@ td,th{
 *{
   box-sizing: border-box;
 }
+
 pre code.hljs{
   padding-left: 14px;
   display: block;
   overflow-x: auto;
-
-
 }
+
 .hljs{
   font-size: 14px;
 }
+
 code.hljs{
   display: inline-block;
   overflow-x: hidden;
   text-indent: 0;
-
   position: relative;
-  top: 3px;
+  top: 8px;
+  background-color:rgba(27,31,35,.05); 
+  border-radius: 3px;
 }
 
+blockquote::before{
+  content: '';
+  position: absolute;
+  left: 0;
+  top:10px;
+  background-color: #dfe2e5;
+  height: 24px;
+  width: 4px;
+}
 
+blockquote {
+  position: relative;
+  margin: 0;
+  padding-left: 20px; 
+}
 
+._code-ctn code.hljs{
+  top: 2px;
+  background-color:transparent;
+  border-radius: 0px;
+}
 
 ._code-ctn{
   position: relative;

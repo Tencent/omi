@@ -1,139 +1,32 @@
 ## Introduction 
 
-Md2site is a fast, simple & powerful framework that can be used for transformation of markdown to website based on [Omi](https://github.com/Tencent/omi).
+Md2site is a fast, simple & powerful tool that can be used for transformation of markdown to website powered by [Omi framework](https://github.com/Tencent/omi).
 
 ## Usage
 
-``` js {2}
-$ npm install md2site -g
-$ md2site init your_project_name
-$ cd your_project_name
-$ npm run dev
-$ npm run dist
+``` bash {2}
+npm i omi-cli -g           
+omi init-md2site my-app  
+cd my-app           
+npm start               
+npm run build            
 ```
 
+> `npx omi-cli init-md2site my-app` is also supported(npm v5.2.0+).
 
-``` js
-function $initHighlight(block, cls) {
-  try {
-    if (cls.search(/\bno\-highlight\b/) != -1)
-      return process(block, true, 0x0F) +
-             ` class="${cls}"`;
-  } catch (e) {
-    /* handle exception */
-  }
-  for (var i = 0 / 2; i < classes.length; i++) {
-    if (checkCondition(classes[i]) === undefined)
-      console.log('undefined');
-  }
-}
+Directory description:
 
-export  $initHighlight;
 ```
-
-
-
-### Hexo VS Md2site
-
-|    | Hexo        | Md2site  |
-| ------------- |:-------------:|:-----:|
-| Markdown support | ★★★★★| ★★★★★ |
-| File size of generated website | ★★★☆☆   |   ★★★☆☆ |
-| Difficulty of getting started  | ★★★☆☆| ★★★☆☆ |
-|  Secondary development | ★★★★☆     |   ★★★★☆ |
-| Themes and plugins  | ★★★★☆     |   ★★★★☆ |
-| Code specifies row highlight | ★★★★☆    |   ★★★★☆ |
-| Multi language support | ★★★★☆    |   ★★★★☆ |
-| Responsive | ★★★★★    |   ★★★★★ |
-
-```js  {2,4,7-9,51-53,130}
-import { render, WeElement, define } from 'omi'
-
-define('my-counter', class extends WeElement {
-    static observe = true
-    
-    data = {
-      count: 1
-    }
-
-    sub = () => {
-      this.data.count--
-    }
-
-    add = () => {
-      this.data.count++
-    }
-
-    render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
-  })
-
-render(<my-counter />, 'body')
-```
-
-
-
-## Usage
-
-``` js
-$ npm install md2site -g
-$ md2site init your_project_name
-$ cd your_project_name
-$ npm run dev
-$ npm run dist
-```
-
-
-
-
-## Usage
-
-``` js
-$ npm install md2site -g
-$ md2site init your_project_name
-$ cd your_project_name
-$ npm run dev
-$ npm run dist
-```
-
-
-
-
-## Usage
-
-``` js
-$ npm install md2site -g
-$ md2site init your_project_name
-$ cd your_project_name
-$ npm run dev
-$ npm run dist
-```
-
-
-## Usage
-
-``` js
-$ npm install md2site -g
-$ md2site init your_project_name
-$ cd your_project_name
-$ npm run dev
-$ npm run dist
-```
-
-
-## Usage
-
-``` js
-$ npm install md2site -g
-$ md2site init your_project_name
-$ cd your_project_name
-$ npm run dev
-$ npm run dist
+├─ config
+├─ public
+├─ scripts
+├─ src
+│  ├─ assets
+│  ├─ docs        //Store all your md of docs 
+│  │   ├─ en      //Store all your md of docs 
+│  │   └─ zh-cn   //Store all your md of docs 
+│  ├─ elements    //Store all custom elements
+│  ├─ store       //Store all this store of pages
+│  ├─ index.js    //Entry js of compiler，will build to index.html
+│  └─ zh-cn.js    //Entry js of compiler，will build to zh-cn.html
 ```

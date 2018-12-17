@@ -588,7 +588,7 @@ hljs.registerLanguage('javascript', e => {
   n.c = [e.ASM, e.QSM, c, a, e.RM]
   let s = n.c.concat([e.CBCM, e.CLCM])
   return {
-    aliases: ['js', 'jsx'],
+    aliases: ['js', 'jsx', 'bash'],
     k: t,
     c: [
       { cN: 'meta', r: 10, b: /^\s*['"]use (strict|asm)['"]/ },
