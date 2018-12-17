@@ -60,7 +60,7 @@ define('my-frame', class extends WeElement {
           }}
         >
           <my-content omi-id="content" />
-          <my-pager omi-id="pager" />
+          {/* <my-pager omi-id="pager" /> */}
         </div>
         <my-sidebar omi-id="sidebar" />
       </div>

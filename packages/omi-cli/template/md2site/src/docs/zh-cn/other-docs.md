@@ -1,6 +1,6 @@
-# Other Docs
+## Other Docs
 
-## Markdown 扩展
+### Markdown 扩展
 
 你可以通过下面的语法高亮代码块中的某些行:
 

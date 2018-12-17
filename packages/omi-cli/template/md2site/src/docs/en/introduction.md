@@ -2,6 +2,15 @@
 
 Md2site is a fast, simple & powerful tool that can be used for transformation of markdown to website powered by [Omi framework](https://github.com/Tencent/omi).
 
+## Features
+
+* Complete markdown syntax support
+* Line Highlighting of code block with Simple syntax
+* Multi-Language Support
+* Responsive design
+* Dynamic loading of MD files
+* Based on [Omio framework](https://github.com/Tencent/omi/tree/master/packages/omio) and [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router)
+
 ## Usage
 
 ``` bash {2}
@@ -31,3 +40,17 @@ Directory description:
 │  ├─ index.js       //Entry js of compiler，will build to index.html
 │  └─ zh-cn.js       //Entry js of compiler，will build to zh-cn.html
 ```
+
+
+### Table Test
+
+|    | Hexo        | Md2site  |
+| ------------- |:-------------:|:-----:|
+| Markdown support | ★★★★★| ★★★★★ |
+| File size of generated website | ★★★☆☆   |   ★★★☆☆ |
+| Difficulty of getting started  | ★★★☆☆| ★★★☆☆ |
+|  Secondary development | ★★★★☆     |   ★★★★☆ |
+| Themes and plugins  | ★★★★☆     |   ★★★★☆ |
+| Code highlight | ★★★★☆    |   ★★★★☆ |
+| Multi language support | ★★★★☆    |   ★★★★☆ |
+| Responsive | ★★★★★    |   ★★★★★ |

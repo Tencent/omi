@@ -1,4 +1,4 @@
-# 配置
+## 配置
 
 ```js
 const config = {

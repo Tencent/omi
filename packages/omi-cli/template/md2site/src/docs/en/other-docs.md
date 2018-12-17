@@ -1,6 +1,6 @@
-# Other Docs
+## Other Docs
 
-## Markdown Extensions
+### Markdown Extensions
 
 You can highlight some lines in the code block through the following syntax.
 

@@ -25,3 +25,8 @@ li a.current,li a.current:hover{
 li a:hover{
     background-color:#f0f8ff;
 }
+
+
+ul,li{
+  list-style:none;
+}

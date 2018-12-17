@@ -1,4 +1,4 @@
-# Config
+## Config
 
 ```js
 const config = {
