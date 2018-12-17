@@ -1,4 +1,52 @@
-```js  {2,4,7-9,51-53, 116}
+## Introduction 
+
+Md2site is a fast, simple & powerful framework that can be used for transformation of markdown to website based on [Omi](https://github.com/Tencent/omi).
+
+## Usage
+
+``` js {2}
+$ npm install md2site -g
+$ md2site init your_project_name
+$ cd your_project_name
+$ npm run dev
+$ npm run dist
+```
+
+
+``` js
+function $initHighlight(block, cls) {
+  try {
+    if (cls.search(/\bno\-highlight\b/) != -1)
+      return process(block, true, 0x0F) +
+             ` class="${cls}"`;
+  } catch (e) {
+    /* handle exception */
+  }
+  for (var i = 0 / 2; i < classes.length; i++) {
+    if (checkCondition(classes[i]) === undefined)
+      console.log('undefined');
+  }
+}
+
+export  $initHighlight;
+```
+
+
+
+### Hexo VS Md2site
+
+|    | Hexo        | Md2site  |
+| ------------- |:-------------:|:-----:|
+| Markdown support | ★★★★★| ★★★★★ |
+| File size of generated website | ★★★☆☆   |   ★★★☆☆ |
+| Difficulty of getting started  | ★★★☆☆| ★★★☆☆ |
+|  Secondary development | ★★★★☆     |   ★★★★☆ |
+| Themes and plugins  | ★★★★☆     |   ★★★★☆ |
+| Code specifies row highlight | ★★★★☆    |   ★★★★☆ |
+| Multi language support | ★★★★☆    |   ★★★★☆ |
+| Responsive | ★★★★★    |   ★★★★★ |
+
+```js  {2,4,7-9,51-53,130}
 import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
@@ -25,127 +73,10 @@ define('my-counter', class extends WeElement {
         </div>
       )
     }
-
-     render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
-
-
-     render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
-
-
-     render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
-
-
-     render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
-
-
-
-     render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
-
-
-     render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
-
-
-     render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
-
-     render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
   })
 
 render(<my-counter />, 'body')
 ```
-
-## Introduction 
-
-Md2site is a fast, simple & powerful framework that can be used for transformation of markdown to website based on [Omi](https://github.com/Tencent/omi).
-
-## Usage
-
-``` js {2}
-$ npm install md2site -g
-$ md2site init your_project_name
-$ cd your_project_name
-$ npm run dev
-$ npm run dist
-```
-
-
-
-### Hexo VS Md2site
-
-|    | Hexo        | Md2site  |
-| ------------- |:-------------:|:-----:|
-| Markdown support | ★★★★★| ★★★★★ |
-| File size of generated website | ★★★☆☆   |   ★★★☆☆ |
-| Difficulty of getting started  | ★★★☆☆| ★★★☆☆ |
-|  Secondary development | ★★★★☆     |   ★★★★☆ |
-| Themes and plugins  | ★★★★☆     |   ★★★★☆ |
-| Code specifies row highlight | ★★★★☆    |   ★★★★☆ |
-| Multi language support | ★★★★☆    |   ★★★★☆ |
-| Responsive | ★★★★★    |   ★★★★★ |
-
 
 
 

@@ -90,28 +90,19 @@ code.hljs{
   top: 3px;
 }
 
-.line.highlight{
-  background-color: #f7ebc6;
-  border-left: 5px solid #f7d87c;
-  display: block;
-  margin-left: -14px;
-  padding-left: 9px;
-}
-.line {
-  display: block;
-}
 
 
 
 ._code-ctn{
   position: relative;
   height: auto;
-  background-color: #f7d87c;
+  background-color: #282C34;
   border-radius: 3px;
   padding-top:1px;  
   margin-top: 15px; 
   padding-bottom:1px; 
   line-height: 18px;
+  max-width: 900px;
 }
 
 ._hl{
@@ -129,11 +120,9 @@ code.hljs{
 }
 
 ._hll{
-  background-color: red;
+  background-color: rgb(72, 77, 87);
   height: 18px;
   width: 100%;
-  position: relative;
-  top:-6px;
 
 }
 
