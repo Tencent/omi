@@ -14,6 +14,10 @@ define('my-content', class extends WeElement {
     this.initCodeStyle()
   }
 
+  touchEnd = ()=> {
+    this.store.hideSidebar()
+  }
+
   initCodeStyle() {
     let codes = document.querySelectorAll('code')
     let codeHlNumArr = []
@@ -75,13 +79,9 @@ define('my-content', class extends WeElement {
   }
 
   render() {
-    // if(!proj_config.async) {
-    //     this.data.html = this.md.render(this.getMarkDown(this.$store.data.md, this.$store.data.lan));
-    // }
-    // return tpl;
     return (
       <div
-        class="content"
+        class="content" ontouchend={this.touchEnd}
         dangerouslySetInnerHTML={{ __html: this.store.html }}
       />
     )

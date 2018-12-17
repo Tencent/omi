@@ -3,17 +3,6 @@ import css from './_index.css'
 import logo from './omi-logo.svg'
 
 define('my-head', class extends WeElement {
-  install() {
-    document.body.addEventListener(
-      'touchend',
-      () => {
-        setTimeout(() => {
-          this.removeClass(Omi.get('sidebar').node, 'show')
-        }, 300)
-      },
-      false
-    )
-  }
 
   beforeRender() {
     this.data.isEnLan = this.$store.data.lan === 'en'
@@ -27,7 +16,7 @@ define('my-head', class extends WeElement {
     return css
   }
 
-  render(props, data) {
+  render() {
     return (
       <div class="head bord-btm">
         <div class="m_menu" onClick={this.toggleMenus}>
