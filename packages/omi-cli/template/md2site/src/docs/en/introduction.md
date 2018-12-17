@@ -22,11 +22,12 @@ Directory description:
 ├─ scripts
 ├─ src
 │  ├─ assets
-│  ├─ docs        //Store all your md of docs 
-│  │   ├─ en      //Store all your md of docs 
-│  │   └─ zh-cn   //Store all your md of docs 
-│  ├─ elements    //Store all custom elements
-│  ├─ store       //Store all this store of pages
-│  ├─ index.js    //Entry js of compiler，will build to index.html
-│  └─ zh-cn.js    //Entry js of compiler，will build to zh-cn.html
+│  ├─ docs           //Store all your md of docs 
+│  │   ├─ en         //Store all your md of docs 
+│  │   ├─ zh-cn      //Store all your md of docs 
+│  │   └─ config.js  //Config of your app
+│  ├─ elements       //Store all custom elements
+│  ├─ store          //Store all this store of pages
+│  ├─ index.js       //Entry js of compiler，will build to index.html
+│  └─ zh-cn.js       //Entry js of compiler，will build to zh-cn.html
 ```

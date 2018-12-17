@@ -1,3 +1,6 @@
+# Config
+
+```js
 const config = {
   lan: 'en',
   menus: {
@@ -35,3 +38,4 @@ const config = {
 }
 
 export default config
+```
