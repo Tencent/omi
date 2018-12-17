@@ -7,6 +7,8 @@
         -o-transition: all .6s ease;
         -webkit-transition: all .6s ease;
         transition: all .6s ease;
+        width: 70% !important;
+        z-index: 1000;
     }
 
     .list.show {

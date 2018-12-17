@@ -21,13 +21,20 @@ class AppStore {
 
     this.preIndex = 0
     this.preSubIndex = 0
+
+    this.sideBarShow = window.innerWidth > 768
   }
 
-  initRouter(){
-    this.menus.forEach(item=>{
-      item.list.forEach(subItem=>{
-        route('/'+subItem.md,(evt)=>{
-          this.menus[this.preIndex ].list[this.preSubIndex].selected = false
+  toogleSidebar() {
+    this.sideBarShow = !this.sideBarShow
+    this.mySidebar.update()
+  }
+
+  initRouter() {
+    this.menus.forEach(item => {
+      item.list.forEach(subItem => {
+        route('/' + subItem.md, evt => {
+          this.menus[this.preIndex].list[this.preSubIndex].selected = false
           this.menus[evt.query.index].list[evt.query.subIndex].selected = true
           this.preIndex = evt.query.index
           this.preSubIndex = evt.query.subIndex

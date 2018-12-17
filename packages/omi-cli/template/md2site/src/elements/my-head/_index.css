@@ -51,6 +51,7 @@ ul,li{
 .m_menu{
     position:fixed;
     display:none;
+    cursor: pointer;
 }
 
 .menu li{

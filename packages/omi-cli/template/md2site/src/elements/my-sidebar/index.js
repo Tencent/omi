@@ -13,7 +13,7 @@ define('my-sidebar', class extends WeElement {
 
   render() {
     return (
-      <div class="list" style="height:{{height}}px;">
+      <div class={`list${this.store.sideBarShow ? ' show' : ''}`}>
         {this.store.menus.map((menu, index) => (
           <my-list menu={menu} index={index} />
         ))}

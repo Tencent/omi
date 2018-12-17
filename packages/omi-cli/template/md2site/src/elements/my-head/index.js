@@ -19,13 +19,8 @@ define('my-head', class extends WeElement {
     this.data.isEnLan = this.$store.data.lan === 'en'
   }
 
-  toggleMenus(evt) {
-    this.toggleClass(Omi.get('sidebar').node, 'show')
-    evt.stopPropagation()
-  }
-
-  handleTouchEnd(evt) {
-    evt.stopPropagation()
+  toggleMenus = evt => {
+    this.store.toogleSidebar()
   }
 
   toggleClass(element, className) {
@@ -63,12 +58,7 @@ define('my-head', class extends WeElement {
   render(props, data) {
     return (
       <div class="head bord-btm">
-        <div
-          class="m_menu"
-          omi-finger
-          tap="toggleMenus"
-          touchEnd="handleTouchEnd"
-        >
+        <div class="m_menu" onClick={this.toggleMenus}>
           <img src={require('./menu.png')} alt="" />
         </div>
 

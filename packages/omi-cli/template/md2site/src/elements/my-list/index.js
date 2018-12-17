@@ -2,8 +2,6 @@ import { define, WeElement } from 'omi'
 import css from './_index.css'
 
 define('my-list', class extends WeElement {
-
-
   render(props) {
     return (
       <ul>
@@ -12,7 +10,9 @@ define('my-list', class extends WeElement {
           props.menu.list.map((item, subIndex) => (
             <li>
               <a
-                href={`#/`+item.md+`?index=${props.index}&subIndex=${subIndex}`}
+                href={
+                  '#/' + item.md + `?index=${props.index}&subIndex=${subIndex}`
+                }
                 class={item.selected ? 'current' : ''}
               >
                 {item.name}
