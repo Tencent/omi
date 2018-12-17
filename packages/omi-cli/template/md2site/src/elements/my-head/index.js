@@ -3,11 +3,6 @@ import css from './_index.css'
 import logo from './omi-logo.svg'
 
 define('my-head', class extends WeElement {
-
-  beforeRender() {
-    this.data.isEnLan = this.$store.data.lan === 'en'
-  }
-
   toggleMenus = evt => {
     this.store.toogleSidebar()
   }
