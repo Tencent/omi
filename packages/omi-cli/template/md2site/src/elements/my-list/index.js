@@ -9,10 +9,10 @@ define('my-list', class extends WeElement {
       <ul>
         <li class="title">{props.menu.title}</li>
         {props.menu.list &&
-          props.menu.list.map((item, index) => (
+          props.menu.list.map((item, subIndex) => (
             <li>
               <a
-                href={`#/`+item.md}
+                href={`#/`+item.md+`?index=${props.index}&subIndex=${subIndex}`}
                 class={item.selected ? 'current' : ''}
               >
                 {item.name}

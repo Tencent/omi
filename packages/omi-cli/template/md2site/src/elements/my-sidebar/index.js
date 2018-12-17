@@ -3,8 +3,8 @@ import '../my-list'
 import css from './_index.css'
 
 define('my-sidebar', class extends WeElement {
-  beforeRender() {
-    this.data.height = window.innerHeight - 45
+  install() {
+    this.store.mySidebar = this
   }
 
   css() {
@@ -14,8 +14,8 @@ define('my-sidebar', class extends WeElement {
   render() {
     return (
       <div class="list" style="height:{{height}}px;">
-        {this.store.menus.map(menu => (
-          <my-list menu={menu} />
+        {this.store.menus.map((menu, index) => (
+          <my-list menu={menu} index={index} />
         ))}
       </div>
     )

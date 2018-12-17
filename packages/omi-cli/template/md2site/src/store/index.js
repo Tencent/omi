@@ -18,12 +18,20 @@ class AppStore {
 
     this.updatePager()
     this.initRouter()
+
+    this.preIndex = 0
+    this.preSubIndex = 0
   }
 
   initRouter(){
     this.menus.forEach(item=>{
       item.list.forEach(subItem=>{
-        route('/'+subItem.md,()=>{
+        route('/'+subItem.md,(evt)=>{
+          this.menus[this.preIndex ].list[this.preSubIndex].selected = false
+          this.menus[evt.query.index].list[evt.query.subIndex].selected = true
+          this.preIndex = evt.query.index
+          this.preSubIndex = evt.query.subIndex
+          this.mySidebar.update()
           this.getMarkDown(subItem.md, this.lan, m => {
             this.html = this.remarkable.render(m)
             this.myContent.update()
