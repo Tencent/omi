@@ -2,7 +2,7 @@
     .list{
         transform: translateX(-100%);
         background-color:white;
-
+        left:0 !important;
         -moz-transition: all .6s ease;
         -o-transition: all .6s ease;
         -webkit-transition: all .6s ease;

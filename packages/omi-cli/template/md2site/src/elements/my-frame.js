@@ -18,7 +18,7 @@ define('my-frame', class extends WeElement {
   }
 
   setViewport() {
-    if (window.innerWidth < 640) {
+    if (window.innerWidth < 768) {
       this.data.width = '100%'
     }
     // else {
@@ -40,7 +40,7 @@ define('my-frame', class extends WeElement {
             height:auto;
         }
 
-        @media only screen and (max-width: 640px) {
+        @media only screen and (max-width: 768px) {
             .main{
                 left:0%;
             }

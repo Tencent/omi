@@ -31,7 +31,7 @@ td,th{
   padding: 4px 8px;
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 768px) {
   html,body{
 
     overflow-x: hidden;
@@ -96,7 +96,7 @@ blockquote::before{
   content: '';
   position: absolute;
   left: 0;
-  top:10px;
+  top:11px;
   background-color: #dfe2e5;
   height: 24px;
   width: 4px;
