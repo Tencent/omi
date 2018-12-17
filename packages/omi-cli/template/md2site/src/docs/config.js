@@ -1,11 +1,10 @@
 const config = {
-  lan: 'en',
   menus: {
-    cn: [
+    'zh-cn': [
       {
         title: '快速开始',
         list: [
-          { name: '安装', md: 'installation' },
+          { name: '简介', md: 'introduction' },
           { name: '配置', md: 'config' }
         ]
       },

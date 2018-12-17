@@ -1,6 +1,6 @@
 import { render } from 'omi'
 import './assets/index.css'
 import './elements/my-frame.js'
-import store from './store'
+import Store from './store'
 
-render(<my-frame />, '#root', store)
+render(<my-frame />, '#root', new Store({ lan: 'en' }))

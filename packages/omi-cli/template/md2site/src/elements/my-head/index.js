@@ -23,34 +23,6 @@ define('my-head', class extends WeElement {
     this.store.toogleSidebar()
   }
 
-  toggleClass(element, className) {
-    if (!element || !className) {
-      return
-    }
-
-    let classString = element.className,
-      nameIndex = classString.indexOf(className)
-    if (nameIndex == -1) {
-      classString += ' ' + className
-    } else {
-      classString =
-        classString.substr(0, nameIndex) +
-        classString.substr(nameIndex + className.length)
-    }
-    element.className = classString
-  }
-
-  removeClass(element, className) {
-    let classString = element.className,
-      nameIndex = classString.indexOf(className)
-    if (nameIndex !== -1) {
-      classString =
-        classString.substr(0, nameIndex) +
-        classString.substr(nameIndex + className.length)
-    }
-    element.className = classString
-  }
-
   css() {
     return css
   }
@@ -71,10 +43,10 @@ define('my-head', class extends WeElement {
           </li>
 
           <li class="github_li m_show">
-            {data.isEnLan ? (
-              <a href="docs-cn.html">中文</a>
+            {this.store.lan === 'en' ? (
+              <a href="zh-cn.html">中文</a>
             ) : (
-              <a href="docs-en.html">English</a>
+              <a href="index.html">English</a>
             )}
           </li>
         </ul>
