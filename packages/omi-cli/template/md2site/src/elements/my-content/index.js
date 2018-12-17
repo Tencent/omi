@@ -19,7 +19,7 @@ define('my-content', class extends WeElement {
     let codeHlNumArr = []
     codes.forEach(code => {
       hljs.highlightBlock(code)
-      let arr = code.className.match(/{\S*}/)
+      let arr = code.className.match(/{[\S\s]*}/)
       let hllNums = null
       if (arr) {
         let numArr = arr[0].replace(/[{|}]/g, '').split(',')
@@ -46,7 +46,7 @@ define('my-content', class extends WeElement {
 
 
       let inner = ''
-      for (let i = 0; i < max; i++) {
+      for (let i = 0; i <= max; i++) {
         if (nums.indexOf(i) == -1) {
           inner += '<br />'
         } else {

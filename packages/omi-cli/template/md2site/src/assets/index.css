@@ -107,6 +107,11 @@ code.hljs{
   position: relative;
   height: auto;
   background-color: #f7d87c;
+  border-radius: 3px;
+  padding-top:1px;  
+  margin-top: 15px; 
+  padding-bottom:1px; 
+  line-height: 18px;
 }
 
 ._hl{
@@ -119,14 +124,16 @@ code.hljs{
   top: 0;
   left: 0;
   width: 100%;
-  line-height: 14px;
+  line-height: 18px;
 
 }
 
 ._hll{
   background-color: red;
-  height: 14px;
+  height: 18px;
   width: 100%;
+  position: relative;
+  top:-6px;
 
 }
 
