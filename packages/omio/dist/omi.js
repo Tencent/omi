@@ -540,10 +540,8 @@
         return diff(store && store.merge, vnode, store, !1, parent, !1);
     }
     function define(name, ctor) {
-        if ('WeElement' === ctor.is) {
-            options.mapping[name] = ctor;
-            if (ctor.data && !ctor.pure) ctor.updatePath = getUpdatePath(ctor.data);
-        }
+        options.mapping[name] = ctor;
+        if (ctor.data && !ctor.pure) ctor.updatePath = getUpdatePath(ctor.data);
     }
     function getUpdatePath(data) {
         var result = {};
@@ -737,6 +735,7 @@
         'contact-button': 'contact-button',
         block: 'block'
     };
+    if ('function' != typeof Object.assign) Object;
     var usePromise = 'function' == typeof Promise;
     if ('object' != typeof document && 'undefined' != typeof global && global.v) if ('android' === global.v.platform) usePromise = !0; else {
         var systemVersion = global.v.systemVersion && global.v.systemVersion.split('.')[0] || 0;
@@ -915,7 +914,7 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-0.1.1';
+    options.root.Omi.version = 'omio-0.1.2';
     var Omi = {
         h: h,
         createElement: h,
