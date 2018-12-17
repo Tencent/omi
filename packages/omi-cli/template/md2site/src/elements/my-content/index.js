@@ -20,8 +20,9 @@ define('my-content', class extends WeElement {
 
   initCodeStyle() {
     let codes = document.querySelectorAll('code')
+    let codesArr = Array.prototype.slice.call(codes);
     let codeHlNumArr = []
-    codes.forEach(code => {
+    codesArr.forEach(code => {
       hljs.highlightBlock(code)
       let arr = code.className.match(/{[\S\s]*}/)
       let hllNums = null
@@ -32,7 +33,7 @@ define('my-content', class extends WeElement {
       codeHlNumArr.push(hllNums)
     })
 
-    codes.forEach((code, index) => {
+    codesArr.forEach((code, index) => {
       let newP = document.createElement('div')
       newP.className = '_code-ctn'
       let pre = code.parentNode
