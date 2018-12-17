@@ -46,7 +46,7 @@ td,th{
   .content pre[class*="language-"] {
       font-family: Consolas, "Liberation Mono", Courier, monospace;
       line-height: 18px;
-      font-size: 12px;
+      font-size: 13px;
       margin:  0;
       width: 100%;
       box-sizing: border-box;
@@ -133,7 +133,7 @@ blockquote {
   user-select: none;
   padding-top: 5px;
   position: absolute;
-  top: 0;
+  top: -1px;
   left: 0;
   width: 100%;
   line-height: 18px;

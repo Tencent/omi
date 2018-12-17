@@ -35,7 +35,7 @@ define('my-counter', class extends WeElement {
         </div>
       )
     }
-  })
+})
 
 render(<my-counter />, 'body')
 ```
