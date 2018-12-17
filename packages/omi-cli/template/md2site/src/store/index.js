@@ -1,4 +1,5 @@
 import config from '../docs/config.js'
+import 'omi-router'
 
 class AppStore {
   constructor() {
@@ -16,6 +17,21 @@ class AppStore {
     this.menus[0].list[0].selected = true
 
     this.updatePager()
+    this.initRouter()
+  }
+
+  initRouter(){
+    this.menus.forEach(item=>{
+      item.list.forEach(subItem=>{
+        route('/'+subItem.md,()=>{
+          this.getMarkDown(subItem.md, this.lan, m => {
+            this.html = this.remarkable.render(m)
+            this.myContent.update()
+            document.body.scrollTop = 0
+          })
+        })
+      })
+    })
   }
 
   goto(md, index) {

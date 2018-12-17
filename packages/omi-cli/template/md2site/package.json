@@ -35,6 +35,7 @@
     "jest": "20.0.4",
     "md-text-loader": "^0.1.0",
     "object-assign": "4.1.1",
+    "omi-router": "latest",
     "omio": "latest",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",

@@ -2,9 +2,7 @@ import { define, WeElement } from 'omi'
 import css from './_index.css'
 
 define('my-list', class extends WeElement {
-  goto(md, index) {
-    this.store.goto(md, index)
-  }
+
 
   render(props) {
     return (
@@ -14,10 +12,7 @@ define('my-list', class extends WeElement {
           props.menu.list.map((item, index) => (
             <li>
               <a
-                href="#"
-                onClick={() => {
-                  this.goto(item.md, index)
-                }}
+                href={`#/`+item.md}
                 class={item.selected ? 'current' : ''}
               >
                 {item.name}

@@ -33,29 +33,29 @@ define('my-content', class extends WeElement {
       newP.className = '_code-ctn'
       let pre = code.parentNode
       let ctn = pre.parentNode
+      if(pre.nodeName === 'PRE'){
+        ctn.insertBefore(newP, pre)
 
-      ctn.insertBefore(newP, pre)
-
-      let hl = document.createElement('div')
-      hl.className = '_hl'
-      newP.appendChild(hl)
-      newP.appendChild(pre)
-      let nums = codeHlNumArr[index]
-
-      let max = Math.max.apply(null, nums)
-
-
-      let inner = ''
-      for (let i = 0; i <= max; i++) {
-        if (nums.indexOf(i) == -1) {
-          inner += '<br />'
-        } else {
-          inner += '<div class="_hll"></div>'
+        let hl = document.createElement('div')
+        hl.className = '_hl'
+        newP.appendChild(hl)
+        newP.appendChild(pre)
+        let nums = codeHlNumArr[index]
+  
+        let max = Math.max.apply(null, nums)
+  
+  
+        let inner = ''
+        for (let i = 0; i <= max; i++) {
+          if (nums.indexOf(i) == -1) {
+            inner += '<br />'
+          } else {
+            inner += '<div class="_hll"></div>'
+          }
         }
+        hl.innerHTML = inner
+  
       }
-      hl.innerHTML = inner
-
-      //this._hll(code, codeHlNumArr[index])
     })
   }
 
