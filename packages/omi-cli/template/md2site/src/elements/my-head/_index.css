@@ -1,42 +1,49 @@
 .head{
     position:fixed;
-    height:45px;
-    line-height: 45px;
+    height:60px;
+    line-height: 60px;
     border-bottom: 1px solid #eee;
     width:100%;
-    background-color:#303030;
+    background-color:#24292e;
     z-index:100;
-
+    top: 0;
 }
+
 ul,li{
     display: inline-block;
 }
+
 .logo_box{
     width:100px;
     display: inline-block;
     text-align:center;
     line-height: 60px;
 }
+
 .menu a,.logo_box a{
     display: inline-block;
-    height:45px;
-    color:#ddd;
+    height:60px;
+    color: white;
 }
+
 .menu{
     position: absolute;
     right:20px;
 }
+
 .menu li{
     margin-left:15px;
 }
+
 .logo_box a{
     font-size: 34px;
     font-weight: bold;
     color: #00bff3;
     padding: 0px 15px;
-    line-height: 45px;
+    line-height: 60px;
     cursor: pointer;
 }
+
 .menu a:hover{
     color: white;
 }
@@ -44,18 +51,29 @@ ul,li{
 .m_menu{
     position:fixed;
     display:none;
+    cursor: pointer;
+}
+
+.menu li{
+  display:inline-block;
+}
+
+.logo{
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 768px) {
-    .menu li{
-        display:none;
-    }
-    .menu .m_show{
-        display:block;
-    }
 
     .logo_box{
         display:inline-block;
+    }
+
+    .logo{
+      display: none;
     }
 
     .head{
@@ -63,7 +81,6 @@ ul,li{
     }
 
     .m_menu{
-
         top:0;
         left:0;
         display:block;
@@ -71,6 +88,7 @@ ul,li{
         height:50px;
         padding-top: 6px;
     }
+
     .m_menu img{
         width:30px;
     }

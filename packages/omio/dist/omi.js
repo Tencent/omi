@@ -292,8 +292,6 @@
             inst.constructor = Ctor;
             inst.render = doRender;
         }
-        inst.store = options.store;
-        if (window && window.Omi) window.Omi.instances.push(inst);
         if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
             inst.__b = list[i].__b;
             list.splice(i, 1);
@@ -368,7 +366,7 @@
         }
     }
     function scopeVdom(attr, vdom) {
-        if ('string' != typeof vdom) {
+        if ('object' == typeof vdom) {
             vdom.attributes = vdom.attributes || {};
             vdom.attributes[attr] = '';
             vdom.children.forEach(function(child) {
@@ -539,14 +537,11 @@
     function render(vnode, parent, store) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
         if (store && store.merge) store.merge = 'string' == typeof store.merge ? document.querySelector(store.merge) : store.merge;
-        options.store = store;
-        return diff(store && store.merge, vnode, {}, !1, parent, !1);
+        return diff(store && store.merge, vnode, store, !1, parent, !1);
     }
     function define(name, ctor) {
-        if ('WeElement' === ctor.is) {
-            options.mapping[name] = ctor;
-            if (ctor.data && !ctor.pure) ctor.updatePath = getUpdatePath(ctor.data);
-        }
+        options.mapping[name] = ctor;
+        if (ctor.data && !ctor.pure) ctor.updatePath = getUpdatePath(ctor.data);
     }
     function getUpdatePath(data) {
         var result = {};
@@ -602,7 +597,6 @@
     }
     var options = {
         scopedStyle: !0,
-        store: null,
         mapping: {},
         isWeb: !0,
         staticStyleMapping: {},
@@ -741,6 +735,7 @@
         'contact-button': 'contact-button',
         block: 'block'
     };
+    if ('function' != typeof Object.assign) Object;
     var usePromise = 'function' == typeof Promise;
     if ('object' != typeof document && 'undefined' != typeof global && global.v) if ('android' === global.v.platform) usePromise = !0; else {
         var systemVersion = global.v.systemVersion && global.v.systemVersion.split('.')[0] || 0;
@@ -871,13 +866,13 @@
     var nextTickCallback = [];
     var id = 0;
     var Component = function() {
-        function Component(props) {
+        function Component(props, store) {
             _classCallCheck(this, Component);
             this.props = Object.assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
             this.elementId = id++;
             this.data = this.constructor.data || this.data || {};
             this.z = null;
-            this.store = null;
+            this.store = store;
         }
         Component.prototype.update = function(callback) {
             this.A = !0;
@@ -903,8 +898,8 @@
     }(Component);
     ModelView.observe = !0;
     ModelView.mergeUpdate = !0;
-    var instances = [];
     var WeElement = Component;
+    var defineElement = define;
     options.root.Omi = {
         h: h,
         createElement: h,
@@ -913,13 +908,13 @@
         render: render,
         rerender: rerender,
         options: options,
-        instances: instances,
         WeElement: WeElement,
         define: define,
         rpx: rpx,
-        ModelView: ModelView
+        ModelView: ModelView,
+        defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-0.1.0';
+    options.root.Omi.version = 'omio-0.1.2';
     var Omi = {
         h: h,
         createElement: h,
@@ -928,11 +923,11 @@
         render: render,
         rerender: rerender,
         options: options,
-        instances: instances,
         WeElement: WeElement,
         define: define,
         rpx: rpx,
-        ModelView: ModelView
+        ModelView: ModelView,
+        defineElement: defineElement
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();

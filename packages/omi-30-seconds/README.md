@@ -10,6 +10,8 @@ Curated collection of useful Omi snippets that you can understand in 30 seconds 
 - [@font-face doesn't work in Shadow DOM](#font-face-doesnt-work-in-shadow-dom)
 - [CSS3 transform not working with custom element](#css3-transform-not-working-with-custom-element)
 - [Rendering checkbox in the loop](#rendering-checkbox-in-the-loop)
+- [Rendering checkbox in the loop](#rendering-checkbox-in-the-loop)
+- [Can not call class as a function](#can-not-call-class-as-a-function)
 
 ## Share css between parent and child nodes
 
@@ -302,3 +304,33 @@ console.log(getComputedStyle(document.querySelector('your-element')).display) //
   </label>
 ))}
 ```
+
+### Can not call class as a function
+
+When you use define of AMD:
+
+```js
+define('my-ele', class extends WeElement{
+  ...
+  ...
+})
+```
+
+You'll get this error:
+
+```js
+Can not call class as a function
+```
+
+Please using `define` from omi, not define of AMD:
+
+```js
+import { define } from 'omi'
+```
+
+So how to use AMD and define of Omi at the same time ? Use the `defineElement`!
+
+```js
+import { defineElement } from 'omi'
+```
+

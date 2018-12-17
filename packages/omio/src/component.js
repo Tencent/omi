@@ -8,7 +8,7 @@ let id = 0
 export default class Component {
   static is = 'WeElement'
 
-  constructor(props) {
+  constructor(props, store) {
     this.props = Object.assign(
       nProps(this.constructor.props),
       this.constructor.defaultProps,
@@ -19,7 +19,7 @@ export default class Component {
 
     this._preCss = null
 
-    this.store = null
+    this.store = store
   }
 
   update(callback) {

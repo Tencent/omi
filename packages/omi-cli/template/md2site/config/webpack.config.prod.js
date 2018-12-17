@@ -194,7 +194,7 @@ module.exports = {
           {
             test: /\.md$/,
             use: [
-                'to-string-loader'
+                'md-text-loader'
             ]
           },
           // The notation here is somewhat confusing.

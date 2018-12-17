@@ -1,25 +1,23 @@
-import Omi from 'omi';
-import List from '../list/index.js';
+import { define, WeElement } from 'omi'
+import '../my-list'
+import css from './_index.css'
 
+define('my-sidebar', class extends WeElement {
+  install() {
+    this.store.mySidebar = this
+  }
 
-Omi.makeHTML('List', List);
+  css() {
+    return css
+  }
 
-class Sidebar extends Omi.Component {
-    constructor(data,option) {
-        super(data,option);
-    }
-
-    beforeRender(){
-        this.data.height = window.innerHeight -45;
-    }
-
-    style () {
-        return require('./index.css');
-    }
-
-    render () {
-        return require('./index.html');
-    }
-}
-
-export default Sidebar;
+  render() {
+    return (
+      <div class={`list${this.store.sideBarShow ? ' show' : ''}`}>
+        {this.store.menus.map((menu, index) => (
+          <my-list menu={menu} index={index} />
+        ))}
+      </div>
+    )
+  }
+})
