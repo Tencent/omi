@@ -1,7 +1,7 @@
 import { FORCE_RENDER } from './constants'
 import { renderComponent } from './vdom/component'
 import options from './options'
-import { nProps } from './util'
+import { nProps, assign } from './util'
 
 let id = 0
 
@@ -9,7 +9,7 @@ export default class Component {
   static is = 'WeElement'
 
   constructor(props, store) {
-    this.props = Object.assign(
+    this.props = assign(
       nProps(this.constructor.props),
       this.constructor.defaultProps,
       props
@@ -33,4 +33,3 @@ export default class Component {
 
   render() { }
 }
-

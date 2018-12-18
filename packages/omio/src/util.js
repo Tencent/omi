@@ -1,31 +1,90 @@
-if (typeof Object.assign != 'function') {
-  // Must be writable: true, enumerable: false, configurable: true
-  Object.defineProperty(Object, "assign", {
-    value: function assign(target, varArgs) { // .length of function is 2
-      'use strict';
-      if (target == null) { // TypeError if undefined or null
-        throw new TypeError('Cannot convert undefined or null to object');
+'use strict';
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+export function assign(target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+!window.addEventListener && (function (WindowPrototype, DocumentPrototype, ElementPrototype, addEventListener, removeEventListener, dispatchEvent, registry) {
+	WindowPrototype[addEventListener] = DocumentPrototype[addEventListener] = ElementPrototype[addEventListener] = function (type, listener) {
+		var target = this;
+
+		registry.unshift([target, type, listener, function (event) {
+			event.currentTarget = target;
+			event.preventDefault = function () { event.returnValue = false };
+			event.stopPropagation = function () { event.cancelBubble = true };
+			event.target = event.srcElement || target;
+
+			listener.call(target, event);
+		}]);
+
+		this.attachEvent("on" + type, registry[0][3]);
+	};
+
+	WindowPrototype[removeEventListener] = DocumentPrototype[removeEventListener] = ElementPrototype[removeEventListener] = function (type, listener) {
+		for (var index = 0, register; register = registry[index]; ++index) {
+			if (register[0] == this && register[1] == type && register[2] == listener) {
+				return this.detachEvent("on" + type, registry.splice(index, 1)[0][3]);
+			}
+		}
+	};
+
+	WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
+		return this.fireEvent("on" + eventObject.type, eventObject);
+	};
+})(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);
+
+if (typeof Object.create !== "function") {
+  Object.create = function (proto, propertiesObject) {
+      if (typeof proto !== 'object' && typeof proto !== 'function') {
+          throw new TypeError('Object prototype may only be an Object: ' + proto);
+      } else if (proto === null) {
+          throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
       }
 
-      var to = Object(target);
+      // if (typeof propertiesObject != 'undefined') {
+      //     throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+      // }
 
-      for (var index = 1; index < arguments.length; index++) {
-        var nextSource = arguments[index];
+      function F() {}
+      F.prototype = proto;
 
-        if (nextSource != null) { // Skip over if undefined or null
-          for (var nextKey in nextSource) {
-            // Avoid bugs when hasOwnProperty is shadowed
-            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-              to[nextKey] = nextSource[nextKey];
-            }
-          }
-        }
-      }
-      return to;
-    },
-    writable: true,
-    configurable: true
-  });
+      return new F();
+  };
 }
 
 /**
