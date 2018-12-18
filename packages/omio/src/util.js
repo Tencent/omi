@@ -92,6 +92,7 @@ if (typeof Object.create !== 'function') {
     } else if (proto === null) {
       throw new Error(
         "This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument."
+      )
     }
 
     // if (typeof propertiesObject != 'undefined') {
