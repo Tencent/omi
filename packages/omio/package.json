@@ -34,7 +34,7 @@
     "fix-e": "eslint examples --fix",
     "test:flow": "flow check",
     "test:ts": "tsc -p test/ts/ && mocha --require babel-register test/ts/**/*-test.js",
-    "test:mocha": "mocha --recursive --require babel-register test/shared test/node",
+    "test:mocha": "mocha --recursive --require babel-register test/shared test/node test/browser",
     "test:karma": "karma start test/karma.conf.js --single-run",
     "test:mocha:watch": "npm run test:mocha -- --watch",
     "test:karma:watch": "npm run test:karma -- no-single-run",

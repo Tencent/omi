@@ -1,11 +1,3 @@
-/**
- * omi v0.0.2  http://omijs.org
- * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
- * By dntzhang https://github.com/dntzhang
- * Github: https://github.com/Tencent/omi
- * MIT Licensed.
- */
-
 (function () {
   'use strict';
 
@@ -234,61 +226,61 @@
      * @public
      */
   };function h(nodeName, attributes) {
-      var children = EMPTY_CHILDREN,
-          lastSimple,
-          child,
-          simple,
-          i;
-      for (i = arguments.length; i-- > 2;) {
-        stack.push(arguments[i]);
-      }
-      if (attributes && attributes.children != null) {
-        if (!stack.length) stack.push(attributes.children);
-        delete attributes.children;
-      }
-      while (stack.length) {
-        if ((child = stack.pop()) && child.pop !== undefined) {
-          for (i = child.length; i--;) {
-            stack.push(child[i]);
-          }
-        } else {
-          if (typeof child === 'boolean') child = null;
-
-          if (simple = typeof nodeName !== 'function') {
-            if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
-          }
-
-          if (simple && lastSimple) {
-            children[children.length - 1] += child;
-          } else if (children === EMPTY_CHILDREN) {
-            children = [child];
-          } else {
-            children.push(child);
-          }
-
-          lastSimple = simple;
-        }
-      }
-
-      var p = new VNode();
-      p.nodeName = options.isWeb ? nodeName : map[nodeName];
-      p.attributes = attributes == null ? undefined : attributes;
-      if (children && typeof children[0] === 'string' && !options.isWeb) {
-        if (p.attributes) {
-          p.attributes.value = children[0];
-        } else {
-          p.attributes = { value: children[0] };
+    var children = EMPTY_CHILDREN,
+        lastSimple = void 0,
+        child = void 0,
+        simple = void 0,
+        i = void 0;
+    for (i = arguments.length; i-- > 2;) {
+      stack.push(arguments[i]);
+    }
+    if (attributes && attributes.children != null) {
+      if (!stack.length) stack.push(attributes.children);
+      delete attributes.children;
+    }
+    while (stack.length) {
+      if ((child = stack.pop()) && child.pop !== undefined) {
+        for (i = child.length; i--;) {
+          stack.push(child[i]);
         }
       } else {
-        p.children = children;
+        if (typeof child === 'boolean') child = null;
+
+        if (simple = typeof nodeName !== 'function') {
+          if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
+        }
+
+        if (simple && lastSimple) {
+          children[children.length - 1] += child;
+        } else if (children === EMPTY_CHILDREN) {
+          children = [child];
+        } else {
+          children.push(child);
+        }
+
+        lastSimple = simple;
       }
-      p.key = attributes == null ? undefined : attributes.key;
-
-      // if a "vnode hook" is defined, pass every created VNode to it
-      if (options.vnode !== undefined) options.vnode(p);
-
-      return p;
     }
+
+    var p = new VNode();
+    p.nodeName = options.isWeb ? nodeName : map[nodeName];
+    p.attributes = attributes == null ? undefined : attributes;
+    if (children && typeof children[0] === 'string' && !options.isWeb) {
+      if (p.attributes) {
+        p.attributes.value = children[0];
+      } else {
+        p.attributes = { value: children[0] };
+      }
+    } else {
+      p.children = children;
+    }
+    p.key = attributes == null ? undefined : attributes.key;
+
+    // if a "vnode hook" is defined, pass every created VNode to it
+    if (options.vnode !== undefined) options.vnode(p);
+
+    return p;
+  }
 
   /**
    *  Copy all properties from `props` onto `obj`.
@@ -337,6 +329,15 @@
     return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
   }
 
+  // render modes
+
+  var NO_RENDER = 0;
+  var SYNC_RENDER = 1;
+  var FORCE_RENDER = 2;
+  var ASYNC_RENDER = 3;
+
+  var ATTR_KEY = '__preactattr_';
+
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
@@ -351,10 +352,10 @@
   }
 
   function rerender() {
-    var p,
+    var p = void 0,
         list = items;
     items = [];
-    var element;
+    var element = void 0;
     while (p = list.pop()) {
       element = p.base;
       renderComponent(p);
@@ -446,16 +447,16 @@
         return x && x.trim();
       });
     });
-    for (var i = properties, i = Array.isArray(i), i = 0, i = i ? i : i[Symbol.iterator]();;) {
+    for (var _iterator = properties, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
       var _ref3;
 
-      if (i) {
-        if (i >= i.length) break;
-        _ref3 = i[i++];
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref3 = _iterator[_i++];
       } else {
-        i = i.next();
-        if (i.done) break;
-        _ref3 = i.value;
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref3 = _i.value;
       }
 
       var _ref2 = _ref3;
@@ -503,8 +504,8 @@
               if (!(i in value)) node.style[i] = '';
             }
           }
-          for (var i in value) {
-            node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+          for (var _i2 in value) {
+            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
           }
         }
       } else {
@@ -596,7 +597,7 @@
 
   /** Invoke queued componentDidMount lifecycle methods */
   function flushMounts() {
-    var c;
+    var c = void 0;
     while (c = mounts.pop()) {
       if (options.afterMount) options.afterMount(c);
       if (c.componentDidMount) c.componentDidMount();
@@ -617,7 +618,7 @@
       isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
       // hydration is indicated by the existing element to be diffed not having a prop cache
-      hydrating = dom != null && !('__preactattr_' in dom);
+      hydrating = dom != null && !(ATTR_KEY in dom);
     }
 
     var ret = idiff(dom, vnode, context, mountAll, componentRoot);
@@ -667,7 +668,7 @@
         }
       }
 
-      out['__preactattr_'] = true;
+      out[ATTR_KEY] = true;
 
       return out;
     }
@@ -693,11 +694,11 @@
     }
 
     var fc = out.firstChild,
-        props = out['__preactattr_'],
+        props = out[ATTR_KEY],
         vchildren = vnode.children;
 
     if (props == null) {
-      props = out['__preactattr_'] = {};
+      props = out[ATTR_KEY] = {};
       for (var a = out.attributes, i = a.length; i--;) {
         props[a[i].name] = a[i].value;
       }
@@ -739,17 +740,17 @@
         len = originalChildren.length,
         childrenLen = 0,
         vlen = vchildren ? vchildren.length : 0,
-        j,
-        c,
-        f,
-        vchild,
-        child;
+        j = void 0,
+        c = void 0,
+        f = void 0,
+        vchild = void 0,
+        child = void 0;
 
     // Build up a map of keyed children and an Array of unkeyed children:
     if (len !== 0) {
       for (var i = 0; i < len; i++) {
         var _child = originalChildren[i],
-            props = _child['__preactattr_'],
+            props = _child[ATTR_KEY],
             key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
         if (key != null) {
           keyedLen++;
@@ -761,16 +762,16 @@
     }
 
     if (vlen !== 0) {
-      for (var i = 0; i < vlen; i++) {
-        vchild = vchildren[i];
+      for (var _i = 0; _i < vlen; _i++) {
+        vchild = vchildren[_i];
         child = null;
 
         // attempt to find a node based on key matching
-        var key = vchild.key;
-        if (key != null) {
-          if (keyedLen && keyed[key] !== undefined) {
-            child = keyed[key];
-            keyed[key] = undefined;
+        var _key = vchild.key;
+        if (_key != null) {
+          if (keyedLen && keyed[_key] !== undefined) {
+            child = keyed[_key];
+            keyed[_key] = undefined;
             keyedLen--;
           }
         }
@@ -790,7 +791,7 @@
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, context, mountAll);
 
-        f = originalChildren[i];
+        f = originalChildren[_i];
         if (child && child !== dom && child !== f) {
           if (f == null) {
             dom.appendChild(child);
@@ -805,8 +806,8 @@
 
     // remove unused keyed children:
     if (keyedLen) {
-      for (var i in keyed) {
-        if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
+      for (var _i2 in keyed) {
+        if (keyed[_i2] !== undefined) recollectNodeTree(keyed[_i2], false);
       }
     }
 
@@ -828,9 +829,9 @@
     } else {
       // If the node's VNode had a ref function, invoke it with null here.
       // (this is part of the React spec, and smart for unsetting references)
-      if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
+      if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null);
 
-      if (unmountOnly === false || node['__preactattr_'] == null) {
+      if (unmountOnly === false || node[ATTR_KEY] == null) {
         removeNode(node);
       }
 
@@ -857,7 +858,7 @@
    *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
    */
   function diffAttributes(dom, attrs, old) {
-    var name;
+    var name = void 0;
 
     // remove attributes no longer present on the vnode by setting them to undefined
     for (name in old) {
@@ -888,7 +889,7 @@
   /** Create a component. Normalizes differences between PFC's and classful Components. */
   function createComponent(Ctor, props, context) {
     var list = components[Ctor.name],
-        inst;
+        inst = void 0;
 
     if (Ctor.prototype && Ctor.prototype.render) {
       inst = new Ctor(props, context);
@@ -1252,9 +1253,9 @@
 
     component._disable = false;
 
-    if (opts !== 0) {
-      if (opts === 1 || options.syncComponentUpdates !== false || !component.base) {
-        renderComponent(component, 1, mountAll);
+    if (opts !== NO_RENDER) {
+      if (opts === SYNC_RENDER || options.syncComponentUpdates !== false || !component.base) {
+        renderComponent(component, SYNC_RENDER, mountAll);
       } else {
         enqueueRender(component);
       }
@@ -1283,16 +1284,16 @@
         initialBase = isUpdate || nextBase,
         initialChildComponent = component._component,
         skip = false,
-        rendered,
-        inst,
-        cbase;
+        rendered = void 0,
+        inst = void 0,
+        cbase = void 0;
 
     // if updating
     if (isUpdate) {
       component.props = previousProps;
       component.state = previousState;
       component.context = previousContext;
-      if (opts !== 2 && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
+      if (opts !== FORCE_RENDER && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
         skip = true;
       } else if (component.componentWillUpdate) {
         component.componentWillUpdate(props, state, context);
@@ -1324,8 +1325,8 @@
       }
 
       var childComponent = rendered && rendered.nodeName,
-          toUnmount,
-          base,
+          toUnmount = void 0,
+          base = void 0,
           ctor = options.mapping[childComponent];
 
       if (ctor) {
@@ -1335,15 +1336,15 @@
         inst = initialChildComponent;
 
         if (inst && inst.constructor === ctor && childProps.key == inst.__key) {
-          setComponentProps(inst, childProps, 1, context, false);
+          setComponentProps(inst, childProps, SYNC_RENDER, context, false);
         } else {
           toUnmount = inst;
 
           component._component = inst = createComponent(ctor, childProps, context);
           inst.nextBase = inst.nextBase || nextBase;
           inst._parentComponent = component;
-          setComponentProps(inst, childProps, 0, context, false);
-          renderComponent(inst, 1, mountAll, true);
+          setComponentProps(inst, childProps, NO_RENDER, context, false);
+          renderComponent(inst, SYNC_RENDER, mountAll, true);
         }
 
         base = inst.base;
@@ -1356,7 +1357,7 @@
           cbase = component._component = null;
         }
 
-        if (initialBase || opts === 1) {
+        if (initialBase || opts === SYNC_RENDER) {
           if (cbase) cbase._component = null;
           base = diff(cbase, rendered, context, mountAll || !isUpdate, initialBase && initialBase.parentNode, true);
         }
@@ -1434,7 +1435,7 @@
     }
 
     if (c && isOwner && (!mountAll || c._component)) {
-      setComponentProps(c, props, 3, context, mountAll);
+      setComponentProps(c, props, ASYNC_RENDER, context, mountAll);
       dom = c.base;
     } else {
       if (originalComponent && !isDirectOwner) {
@@ -1448,7 +1449,7 @@
         // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
         oldDom = null;
       }
-      setComponentProps(c, props, 1, context, mountAll);
+      setComponentProps(c, props, SYNC_RENDER, context, mountAll);
       dom = c.base;
 
       if (oldDom && dom !== oldDom) {
@@ -1481,7 +1482,7 @@
     if (inner) {
       unmountComponent(inner);
     } else if (base) {
-      if (base['__preactattr_'] && base['__preactattr_'].ref) base['__preactattr_'].ref(null);
+      if (base[ATTR_KEY] && base[ATTR_KEY].ref) base[ATTR_KEY].ref(null);
 
       component.nextBase = base;
 
@@ -1563,7 +1564,7 @@
      */
     forceUpdate: function forceUpdate(callback) {
       if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
-      renderComponent(this, 2);
+      renderComponent(this, FORCE_RENDER);
       if (options.componentChange) options.componentChange(this, this.base);
     },
     update: function update(callback) {
@@ -1597,6 +1598,7 @@
    *	render(<Thing name="one" />, document.querySelector('#foo'));
    */
   function render(vnode, parent, store) {
+
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 
     if (store && store.merge) {
@@ -1607,6 +1609,9 @@
 
     return diff(store && store.merge, vnode, {}, false, parent, false);
   }
+
+  var OBJECTTYPE = '[object Object]';
+  var ARRAYTYPE = '[object Array]';
 
   function define(name, ctor) {
     if (ctor.is === 'WeElement') {
@@ -1627,9 +1632,9 @@
     Object.keys(data).forEach(function (key) {
       result[key] = true;
       var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
+      if (type === OBJECTTYPE) {
         _objToPath(data[key], key, result);
-      } else if (type === '[object Array]') {
+      } else if (type === ARRAYTYPE) {
         _arrayToPath(data[key], key, result);
       }
     });
@@ -1640,9 +1645,9 @@
       result[path + '.' + key] = true;
       delete result[path];
       var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
+      if (type === OBJECTTYPE) {
         _objToPath(data[key], path + '.' + key, result);
-      } else if (type === '[object Array]') {
+      } else if (type === ARRAYTYPE) {
         _arrayToPath(data[key], path + '.' + key, result);
       }
     });
@@ -1653,9 +1658,9 @@
       result[path + '[' + index + ']'] = true;
       delete result[path];
       var type = Object.prototype.toString.call(item);
-      if (type === '[object Object]') {
+      if (type === OBJECTTYPE) {
         _objToPath(item, path + '[' + index + ']', result);
-      } else if (type === '[object Array]') {
+      } else if (type === ARRAYTYPE) {
         _arrayToPath(item, path + '[' + index + ']', result);
       }
     });
@@ -1679,19 +1684,101 @@
 
   options.root.Omi.version = '3.0.6';
 
-  var Omi = {
-    h: h,
-    createElement: h,
-    cloneElement: cloneElement,
-    Component: Component,
-    render: render,
-    rerender: rerender,
-    options: options,
-    instances: instances,
-    WeElement: WeElement,
-    define: define
-  };
+  var _class, _temp2;
 
-  if (typeof module != 'undefined') module.exports = Omi;else self.Omi = Omi;
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  define('my-counter', (_temp2 = _class = function (_WeElement) {
+    _inherits(_class, _WeElement);
+
+    function _class() {
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, _class);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = {
+        count: 1
+      }, _this.sub = function () {
+        _this.data.count--;
+      }, _this.add = function () {
+        _this.data.count++;
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _class.prototype.receiveProps = function receiveProps(props, data, old) {
+      console.log(old);
+      data.count = props.value;
+    };
+
+    _class.prototype.render = function render$$1() {
+      console.log(111);
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'button',
+          { onClick: this.sub },
+          '-'
+        ),
+        Omi.h(
+          'span',
+          null,
+          this.data.count
+        ),
+        Omi.h(
+          'button',
+          { onClick: this.add },
+          '+'
+        )
+      );
+    };
+
+    return _class;
+  }(WeElement), _class.observe = true, _temp2));
+
+  define('my-app', function (_WeElement2) {
+    _inherits(_class3, _WeElement2);
+
+    function _class3() {
+      var _temp3, _this2, _ret2;
+
+      _classCallCheck(this, _class3);
+
+      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return _ret2 = (_temp3 = (_this2 = _possibleConstructorReturn(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this2), _this2.reset = function () {
+        _this2.value = Math.floor(Math.random() * 100);
+        _this2.update();
+      }, _temp3), _possibleConstructorReturn(_this2, _ret2);
+    }
+
+    _class3.prototype.render = function render$$1() {
+      return Omi.h(
+        'div',
+        null,
+        Omi.h('my-counter', { value: this.value }),
+        Omi.h(
+          'button',
+          { onClick: this.reset },
+          'reset value'
+        )
+      );
+    };
+
+    return _class3;
+  }(WeElement));
+
+  render(Omi.h('my-app', null), 'body');
+
 }());
-//# sourceMappingURL=omi.dev.js.map
+//# sourceMappingURL=b.js.map

@@ -46,7 +46,8 @@
     }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
-        if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else return hydrating || node._componentConstructor === vnode.nodeName;
+        var ctor = options.mapping[vnode.nodeName];
+        if (ctor) return hydrating || node._componentConstructor === ctor; else return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
     }
     function isNamedNode(node, nodeName) {
         return node.__n === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();

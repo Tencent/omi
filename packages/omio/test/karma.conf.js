@@ -116,7 +116,11 @@ module.exports = function(config) {
 						loader: 'babel-loader',
 						options: {
 							comments: false,
-							compact: true
+							compact: true,
+							plugins: [
+								'transform-class-properties',
+								["transform-react-jsx", { "pragma": "Omi.h" }]
+							]
 						}
 					},
 					/* Only Instrument our source files for coverage */

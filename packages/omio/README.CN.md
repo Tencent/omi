@@ -28,7 +28,11 @@ module.exports = {
 
 ### 与 omi 不同之处
 
-omio 支持 `staticCss`，omi 是不支持的。`css` 和 `staticCss` 的区别是 ? 例如：
+omio 拥有 omi一样的语法，但是也有一些差异需要注意：
+
+* omio 支持 `staticCss`，omi 是不支持的
+
+`css` 和 `staticCss` 的区别是 ? 例如：
 
 ``` js
 render() {
@@ -44,6 +48,11 @@ render() {
 
 如上面的例子,`css`方法会渲染三次，并插入到 head，而`staticCss` 只会渲染一次。
 当你 update 组件或者 setState 时候，`css`方法会渲染三次，并更新head里对应三个地方的样式，`staticCss` 不再渲染。
+
+* Omio 不支持 slot, 请使用 `props.children` 代替，像 react 一样
+* Omio 支持 store 注入，但不支持 store path updating
+* Omio 不支持 render array，未来可能支持
+* Omio 不支持 `fire` 出发自定义事件，你可以是和 react 一样使用 `props.xxx()` 去触发。Omi 同时支持 `fire` and `props.xxx()` 两种方式。
 
 ## License
 
