@@ -1,0 +1,29 @@
+.content{
+    width: 75%;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    padding: 1px 10px 10px 10px;
+    color: #24292e;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+}
+
+h3{
+    color:#444444;
+}
+
+pre{
+    border: 1px solid #eee;
+    width: 100%;
+}
+li{
+    text-indent: 20px;
+    list-style:disc inside ;
+}
+
+@media only screen and (max-width: 768px) {
+    .content{
+        width: 100%;
+    }
+}

@@ -14,7 +14,7 @@ export default class WeElement extends HTMLElement {
       nProps(this.constructor.props),
       this.constructor.defaultProps
     )
-    this.__elementId = id++
+    this.elementId = id++
     this.data = this.constructor.data || {}
   }
 

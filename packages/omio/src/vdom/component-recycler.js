@@ -1,4 +1,4 @@
-import { Component } from '../component'
+import Component from '../component'
 import options from '../options'
 /** Retains a pool of Components for re-use, keyed on component name.
  *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
@@ -25,10 +25,6 @@ export function createComponent(Ctor, props, context) {
     inst.constructor = Ctor
     inst.render = doRender
   }
-  inst.store = options.store
-  if (window && window.Omi) {
-    window.Omi.instances.push(inst)
-  }
 
   if (list) {
     for (let i = list.length; i--; ) {
@@ -43,6 +39,6 @@ export function createComponent(Ctor, props, context) {
 }
 
 /** The `.render()` method for a PFC backing instance. */
-function doRender(props, state, context) {
+function doRender(props, data, context) {
   return this.constructor(props, context)
 }

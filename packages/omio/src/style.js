@@ -94,13 +94,13 @@ export function addScopedAttr(vdom, style, attr, component) {
   if (options.scopedStyle) {
     scopeVdom(attr, vdom)
     style = scoper(style, attr)
-    if (style !== component._preStyle) {
+    if (style !== component._preCss) {
       addStyle(style, attr)
     }
-  } else if (style !== component._preStyle) {
+  } else if (style !== component._preCss) {
     addStyleWithoutId(style)
   }
-  component._preStyle = style
+  component._preCss = style
 }
 
 export function addScopedAttrStatic(vdom, style, attr) {
@@ -117,7 +117,7 @@ export function addScopedAttrStatic(vdom, style, attr) {
 }
 
 export function scopeVdom(attr, vdom) {
-  if (typeof vdom !== 'string') {
+  if (typeof vdom === 'object') {
     vdom.attributes = vdom.attributes || {}
     vdom.attributes[attr] = ''
     vdom.children.forEach(child => scopeVdom(attr, child))

@@ -1,14 +1,12 @@
 import { define, render, Component } from '../../src/omi'
 
 define('my-hello', class extends Component {
-
   render() {
     return <div>{this.store.name}</div>
   }
 })
 
 define('my-app', class extends Component {
-
   handleClick = () => {
     this.store.rename('Hello Omi !')
     this.update()
@@ -30,10 +28,9 @@ define('my-app', class extends Component {
   }
 })
 
-
 render(<my-app />, document.body, {
   name: 'abc',
-  rename: function (name) {
+  rename: function(name) {
     this.name = name
   }
 })

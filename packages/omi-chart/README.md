@@ -7,6 +7,8 @@
 
 [![omi-chart](./assets/omi-chart2.png)](https://tencent.github.io/omi/packages/omi-chart/repl/index.html)
 
+## DEMO
+
 - Bar charts
   - [Simple](https://tencent.github.io/omi/packages/omi-chart/repl/index.html)
   - [Vertical](https://tencent.github.io/omi/packages/omi-chart/repl/bar-vertical.html)
@@ -32,6 +34,17 @@
   - [PolarArea](https://tencent.github.io/omi/packages/omi-chart/repl/polar-area.html)
   - [Bubble](https://tencent.github.io/omi/packages/omi-chart/repl/bubble.html)
   - [Bar Line](https://tencent.github.io/omi/packages/omi-chart/repl/bar-line.html)
+
+## Supports type
+
+* `<chart-bar />`
+* `<chart-line />`
+* `<chart-scatter />`
+* `<chart-pie />`
+* `<chart-doughnut />`
+* `<chart-radar />`
+* `<chart-polar-area />`
+* `<chart-bubble />`
 
 ## Install
 
@@ -80,16 +93,7 @@ define('my-app', class extends WeElement {
 render(<my-app />, 'body')
 ```
 
-## Supports type
-
-* `<chart-bar />`
-* `<chart-line />`
-* `<chart-scatter />`
-* `<chart-pie />`
-* `<chart-doughnut />`
-* `<chart-radar />`
-* `<chart-polar-area />`
-* `<chart-bubble />`
+For detailed options and data formats, see the [chart.js document](https://www.chartjs.org/docs/latest/).
 
 ## Principle
 

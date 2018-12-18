@@ -1,11 +1,11 @@
 ## omi-cli
 
 ```bash
-$ npm i omi-cli -g               # install cli
-$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
-$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
-$ npm start                      # develop
-$ npm run build                  # release
+$ npm i omi-cli -g     # install cli
+$ omi init my-app      # init project, you can also exec 'omi init' in an empty folder
+$ cd my-app            # please ignore this command if you executed 'omi init' in an empty folder
+$ npm start            # develop
+$ npm run build        # release
 ```
 
 > `npx omi-cli init my-app` is also supported(npm v5.2.0+).
@@ -29,6 +29,8 @@ Directory description:
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
 |Base Template|`omi init my-app`| Basic template for omi project.|
+|Omio Template|`omi init-o my-app`| Basic omi project template for old browsers(IE8+ and mobile browsers).|
+|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
 |TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`|Basic template with typescript.|
 |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.|
 |omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |Developing web with mini program template.|

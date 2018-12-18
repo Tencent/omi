@@ -1,5 +1,5 @@
 /**
- * omi v0.0.1  http://omijs.org
+ * omi v1.0.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -34,7 +34,6 @@
    */
   var options = {
     scopedStyle: true,
-    store: null,
     mapping: {},
     isWeb: true,
     staticStyleMapping: {},
@@ -69,226 +68,224 @@
 
   var EMPTY_CHILDREN = [];
 
-  var map = {
-    br: 'view',
-    hr: 'view',
-
-    p: 'view',
-    h1: 'view',
-    h2: 'view',
-    h3: 'view',
-    h4: 'view',
-    h5: 'view',
-    h6: 'view',
-    abbr: 'view',
-    address: 'view',
-    b: 'view',
-    bdi: 'view',
-    bdo: 'view',
-    blockquote: 'view',
-    cite: 'view',
-    code: 'view',
-    del: 'view',
-    ins: 'view',
-    dfn: 'view',
-    em: 'view',
-    strong: 'view',
-    samp: 'view',
-    kbd: 'view',
-    var: 'view',
-    i: 'view',
-    mark: 'view',
-    pre: 'view',
-    q: 'view',
-    ruby: 'view',
-    rp: 'view',
-    rt: 'view',
-    s: 'view',
-    small: 'view',
-    sub: 'view',
-    sup: 'view',
-    time: 'view',
-    u: 'view',
-    wbr: 'view',
-
-    form: 'form',
-    input: 'input',
-    textarea: 'textarea',
-    button: 'button',
-    select: 'picker',
-    option: 'view',
-    optgroup: 'view',
-    label: 'label',
-    fieldset: 'view',
-    datalist: 'picker',
-    legend: 'view',
-    output: 'view',
-
-    iframe: 'view',
-
-    img: 'image',
-    canvas: 'canvas',
-    figure: 'view',
-    figcaption: 'view',
-
-    audio: 'audio',
-    source: 'audio',
-    video: 'video',
-    track: 'video',
-
-    a: 'navigator',
-    nav: 'view',
-    link: 'navigator',
-
-    ul: 'view',
-    ol: 'view',
-    li: 'view',
-    dl: 'view',
-    dt: 'view',
-    dd: 'view',
-    menu: 'view',
-    command: 'view',
-
-    table: 'view',
-    caption: 'view',
-    th: 'view',
-    td: 'view',
-    tr: 'view',
-    thead: 'view',
-    tbody: 'view',
-    tfoot: 'view',
-    col: 'view',
-    colgroup: 'view',
-
-    div: 'view',
-    main: 'view',
-    //'span': 'label',
-    span: 'text',
-    header: 'view',
-    footer: 'view',
-    section: 'view',
-    article: 'view',
-    aside: 'view',
-    details: 'view',
-    dialog: 'view',
-    summary: 'view',
-
-    progress: 'progress',
-    meter: 'progress',
-    head: 'view',
-    meta: 'view',
-    base: 'text',
-    map: 'map',
-    area: 'navigator',
-
-    script: 'view',
-    noscript: 'view',
-    embed: 'view',
-    object: 'view',
-    param: 'view',
-
-    view: 'view',
-    'scroll-view': 'scroll-view',
-    swiper: 'swiper',
-    icon: 'icon',
-    text: 'text',
-
-    checkbox: 'checkbox',
-    radio: 'radio',
-    picker: 'picker',
-    'picker-view': 'picker-view',
-    slider: 'slider',
-    switch: 'switch',
-    navigator: 'navigator',
-
-    image: 'image',
-    'contact-button': 'contact-button',
-    block: 'block'
-
-    /**
-     * JSX/hyperscript reviver.
-     * @see http://jasonformat.com/wtf-is-jsx
-     * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
-     *
-     * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
-     *
-     * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
-     * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
-     * the current _actual_ DOM structure, and applying only the differences.
-     *
-     * `h()`/`createElement()` accepts an element name, a list of attributes/props,
-     * and optionally children to append to the element.
-     *
-     * @example The following DOM tree
-     *
-     * `<div id="foo" name="bar">Hello!</div>`
-     *
-     * can be constructed using this function as:
-     *
-     * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
-     *
-     * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
-     * @param {Object} attributes	Any attributes/props to set on the created element.
-     * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
-     *
-     * @public
-     */
-  };function h(nodeName, attributes) {
-      var children = EMPTY_CHILDREN,
-          lastSimple,
-          child,
-          simple,
-          i;
-      for (i = arguments.length; i-- > 2;) {
-        stack.push(arguments[i]);
-      }
-      if (attributes && attributes.children != null) {
-        if (!stack.length) stack.push(attributes.children);
-        delete attributes.children;
-      }
-      while (stack.length) {
-        if ((child = stack.pop()) && child.pop !== undefined) {
-          for (i = child.length; i--;) {
-            stack.push(child[i]);
-          }
-        } else {
-          if (typeof child === 'boolean') child = null;
-
-          if (simple = typeof nodeName !== 'function') {
-            if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
-          }
-
-          if (simple && lastSimple) {
-            children[children.length - 1] += child;
-          } else if (children === EMPTY_CHILDREN) {
-            children = [child];
-          } else {
-            children.push(child);
-          }
-
-          lastSimple = simple;
-        }
-      }
-
-      var p = new VNode();
-      p.nodeName = options.isWeb ? nodeName : map[nodeName];
-      p.attributes = attributes == null ? undefined : attributes;
-      if (children && typeof children[0] === 'string' && !options.isWeb) {
-        if (p.attributes) {
-          p.attributes.value = children[0];
-        } else {
-          p.attributes = { value: children[0] };
+  /**
+   * JSX/hyperscript reviver.
+   * @see http://jasonformat.com/wtf-is-jsx
+   * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
+   *
+   * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
+   *
+   * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
+   * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
+   * the current _actual_ DOM structure, and applying only the differences.
+   *
+   * `h()`/`createElement()` accepts an element name, a list of attributes/props,
+   * and optionally children to append to the element.
+   *
+   * @example The following DOM tree
+   *
+   * `<div id="foo" name="bar">Hello!</div>`
+   *
+   * can be constructed using this function as:
+   *
+   * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
+   *
+   * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
+   * @param {Object} attributes	Any attributes/props to set on the created element.
+   * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
+   *
+   * @public
+   */
+  function h(nodeName, attributes) {
+    var children = EMPTY_CHILDREN,
+        lastSimple,
+        child,
+        simple,
+        i;
+    for (i = arguments.length; i-- > 2;) {
+      stack.push(arguments[i]);
+    }
+    if (attributes && attributes.children != null) {
+      if (!stack.length) stack.push(attributes.children);
+      delete attributes.children;
+    }
+    while (stack.length) {
+      if ((child = stack.pop()) && child.pop !== undefined) {
+        for (i = child.length; i--;) {
+          stack.push(child[i]);
         }
       } else {
-        p.children = children;
+        if (typeof child === 'boolean') child = null;
+
+        if (simple = typeof nodeName !== 'function') {
+          if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
+        }
+
+        if (simple && lastSimple) {
+          children[children.length - 1] += child;
+        } else if (children === EMPTY_CHILDREN) {
+          children = [child];
+        } else {
+          children.push(child);
+        }
+
+        lastSimple = simple;
       }
-      p.key = attributes == null ? undefined : attributes.key;
-
-      // if a "vnode hook" is defined, pass every created VNode to it
-      if (options.vnode !== undefined) options.vnode(p);
-
-      return p;
     }
+
+    var p = new VNode();
+    p.nodeName = nodeName;
+    p.attributes = attributes == null ? undefined : attributes;
+    if (children && typeof children[0] === 'string' && !options.isWeb) {
+      if (p.attributes) {
+        p.attributes.value = children[0];
+      } else {
+        p.attributes = { value: children[0] };
+      }
+    } else {
+      p.children = children;
+    }
+    p.key = attributes == null ? undefined : attributes.key;
+
+    // if a "vnode hook" is defined, pass every created VNode to it
+    if (options.vnode !== undefined) options.vnode(p);
+
+    return p;
+  }
+
+  /* eslint-disable no-unused-vars */
+
+  var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+  function toObject(val) {
+    if (val === null || val === undefined) {
+      throw new TypeError('Object.assign cannot be called with null or undefined');
+    }
+
+    return Object(val);
+  }
+
+  function assign(target, source) {
+    var from;
+    var to = toObject(target);
+    var symbols;
+
+    for (var s = 1; s < arguments.length; s++) {
+      from = Object(arguments[s]);
+
+      for (var key in from) {
+        if (hasOwnProperty.call(from, key)) {
+          to[key] = from[key];
+        }
+      }
+
+      if (getOwnPropertySymbols) {
+        symbols = getOwnPropertySymbols(from);
+        for (var i = 0; i < symbols.length; i++) {
+          if (propIsEnumerable.call(from, symbols[i])) {
+            to[symbols[i]] = from[symbols[i]];
+          }
+        }
+      }
+    }
+
+    return to;
+  }
+
+  if (!Element.prototype.addEventListener) {
+    var runListeners = function runListeners(oEvent) {
+      if (!oEvent) {
+        oEvent = window.event;
+      }
+      for (var iLstId = 0, iElId = 0, oEvtListeners = oListeners[oEvent.type]; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          for (iLstId; iLstId < oEvtListeners.aEvts[iElId].length; iLstId++) {
+            oEvtListeners.aEvts[iElId][iLstId].call(this, oEvent);
+          }
+          break;
+        }
+      }
+    };
+
+    var oListeners = {};
+
+    Element.prototype.addEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (oListeners.hasOwnProperty(sEventType)) {
+        var oEvtListeners = oListeners[sEventType];
+        for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+          if (oEvtListeners.aEls[iElId] === this) {
+            nElIdx = iElId;break;
+          }
+        }
+        if (nElIdx === -1) {
+          oEvtListeners.aEls.push(this);
+          oEvtListeners.aEvts.push([fListener]);
+          this["on" + sEventType] = runListeners;
+        } else {
+          var aElListeners = oEvtListeners.aEvts[nElIdx];
+          if (this["on" + sEventType] !== runListeners) {
+            aElListeners.splice(0);
+            this["on" + sEventType] = runListeners;
+          }
+          for (var iLstId = 0; iLstId < aElListeners.length; iLstId++) {
+            if (aElListeners[iLstId] === fListener) {
+              return;
+            }
+          }
+          aElListeners.push(fListener);
+        }
+      } else {
+        oListeners[sEventType] = { aEls: [this], aEvts: [[fListener]] };
+        this["on" + sEventType] = runListeners;
+      }
+    };
+    Element.prototype.removeEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (!oListeners.hasOwnProperty(sEventType)) {
+        return;
+      }
+      var oEvtListeners = oListeners[sEventType];
+      for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          nElIdx = iElId;break;
+        }
+      }
+      if (nElIdx === -1) {
+        return;
+      }
+      for (var iLstId = 0, aElListeners = oEvtListeners.aEvts[nElIdx]; iLstId < aElListeners.length; iLstId++) {
+        if (aElListeners[iLstId] === fListener) {
+          aElListeners.splice(iLstId, 1);
+        }
+      }
+    };
+  }
+
+  if (typeof Object.create !== 'function') {
+    Object.create = function (proto, propertiesObject) {
+      if (typeof proto !== 'object' && typeof proto !== 'function') {
+        throw new TypeError('Object prototype may only be an Object: ' + proto);
+      } else if (proto === null) {
+        throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+      }
+
+      // if (typeof propertiesObject != 'undefined') {
+      //     throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+      // }
+
+      function F() {}
+      F.prototype = proto;
+
+      return new F();
+    };
+  }
+
+  if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    };
+  }
 
   /**
    *  Copy all properties from `props` onto `obj`.
@@ -326,6 +323,19 @@
   }
 
   var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+
+  function isArray(obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]';
+  }
+
+  function nProps(props) {
+    if (!props || isArray(props)) return {};
+    var result = {};
+    Object.keys(props).forEach(function (key) {
+      result[key] = props[key].value;
+    });
+    return result;
+  }
 
   /**
    * Clones the given VNode, optionally adding attributes/props and replacing its children.
@@ -376,10 +386,11 @@
     if (typeof vnode === 'string' || typeof vnode === 'number') {
       return node.splitText !== undefined;
     }
-    if (typeof vnode.nodeName === 'string') {
-      return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+    var ctor = options.mapping[vnode.nodeName];
+    if (ctor) {
+      return hydrating || node._componentConstructor === ctor;
     }
-    return hydrating || node._componentConstructor === vnode.nodeName;
+    return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
   }
 
   /**
@@ -666,7 +677,10 @@
         }
       }
 
-      out['__preactattr_'] = true;
+      //ie8 error
+      try {
+        out['__preactattr_'] = true;
+      } catch (e) {}
 
       return out;
     }
@@ -897,10 +911,6 @@
       inst.constructor = Ctor;
       inst.render = doRender;
     }
-    inst.store = options.store;
-    if (window && window.Omi) {
-      window.Omi.instances.push(inst);
-    }
 
     if (list) {
       for (var i = list.length; i--;) {
@@ -915,7 +925,7 @@
   }
 
   /** The `.render()` method for a PFC backing instance. */
-  function doRender(props, state, context) {
+  function doRender(props, data, context) {
     return this.constructor(props, context);
   }
 
@@ -1009,13 +1019,13 @@
     if (options.scopedStyle) {
       scopeVdom(attr, vdom);
       style = scoper(style, attr);
-      if (style !== component._preStyle) {
+      if (style !== component._preCss) {
         addStyle(style, attr);
       }
-    } else if (style !== component._preStyle) {
+    } else if (style !== component._preCss) {
       addStyleWithoutId(style);
     }
-    component._preStyle = style;
+    component._preCss = style;
   }
 
   function addScopedAttrStatic(vdom, style, attr) {
@@ -1032,7 +1042,7 @@
   }
 
   function scopeVdom(attr, vdom) {
-    if (typeof vdom !== 'string') {
+    if (typeof vdom === 'object') {
       vdom.attributes = vdom.attributes || {};
       vdom.attributes[attr] = '';
       vdom.children.forEach(function (child) {
@@ -1214,6 +1224,40 @@
     this.length = length;
   };
 
+  var callbacks = [];
+  var nextTickCallback = [];
+
+  function fireTick() {
+    callbacks.forEach(function (item) {
+      item.fn.call(item.scope);
+    });
+
+    nextTickCallback.forEach(function (nextItem) {
+      nextItem.fn.call(nextItem.scope);
+    });
+    nextTickCallback.length = 0;
+  }
+
+  function proxyUpdate(ele) {
+    var timeout = null;
+    obaa(ele.data, function () {
+      if (ele._willUpdate) {
+        return;
+      }
+      if (ele.constructor.mergeUpdate) {
+        clearTimeout(timeout);
+
+        timeout = setTimeout(function () {
+          ele.update();
+          fireTick();
+        }, 0);
+      } else {
+        ele.update();
+        fireTick();
+      }
+    });
+  }
+
   /** Set a component's `props` (generally derived from JSX attributes).
    *	@param {Object} props
    *	@param {Object} [opts]
@@ -1229,11 +1273,10 @@
 
     if (!component.base || mountAll) {
       if (component.componentWillMount) component.componentWillMount();
+      if (component.beforeInstall) component.beforeInstall();
       if (component.install) component.install();
       if (component.constructor.observe) {
-        obaa(component.data, function () {
-          component.update();
-        });
+        proxyUpdate(component);
       }
     } else if (component.receiveProps) {
       component.receiveProps(props, component.data, component.props);
@@ -1272,10 +1315,10 @@
     if (component._disable) return;
 
     var props = component.props,
-        state = component.state,
+        data = component.data,
         context = component.context,
         previousProps = component.prevProps || props,
-        previousState = component.prevState || state,
+        previousState = component.prevState || data,
         previousContext = component.prevContext || context,
         isUpdate = component.base,
         nextBase = component.nextBase,
@@ -1289,24 +1332,25 @@
     // if updating
     if (isUpdate) {
       component.props = previousProps;
-      component.state = previousState;
+      component.data = previousState;
       component.context = previousContext;
-      if (opts !== 2 && component.shouldComponentUpdate && component.shouldComponentUpdate(props, state, context) === false) {
+      if (opts !== 2 && component.shouldComponentUpdate && component.shouldComponentUpdate(props, data, context) === false) {
         skip = true;
       } else if (component.componentWillUpdate) {
-        component.componentWillUpdate(props, state, context);
+        component.componentWillUpdate(props, data, context);
       } else if (component.beforeUpdate) {
-        component.beforeUpdate(props, state, context);
+        component.beforeUpdate(props, data, context);
       }
       component.props = props;
-      component.state = state;
+      component.data = data;
       component.context = context;
     }
 
     component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
 
     if (!skip) {
-      rendered = component.render(props, state, context);
+      component.beforeRender && component.beforeRender();
+      rendered = component.render(props, data, context);
 
       //don't rerender
       if (component.staticCss) {
@@ -1314,7 +1358,7 @@
       }
 
       if (component.css) {
-        addScopedAttr(rendered, component.css(), '_style_' + component._id, component);
+        addScopedAttr(rendered, component.css(), '_style_' + component.elementId, component);
       }
 
       // context to pass to the child, can be updated via (grand-)parent component
@@ -1401,7 +1445,11 @@
         component.componentDidUpdate(previousProps, previousState, previousContext);
       }
       if (component.afterUpdate) {
+        //deprecated
         component.afterUpdate(previousProps, previousState, previousContext);
+      }
+      if (component.updated) {
+        component.updated(previousProps, previousState, previousContext);
       }
       if (options.afterUpdate) options.afterUpdate(component);
     }
@@ -1493,127 +1541,58 @@
     if (component.__ref) component.__ref(null);
   }
 
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
   var id = 0;
-  function getId() {
-    return id++;
-  }
-  /** Base Component class.
-   *	Provides `setState()` and `forceUpdate()`, which trigger rendering.
-   *	@public
-   *
-   *	@example
-   *	class MyFoo extends Component {
-   *		render(props, state) {
-   *			return <div />;
-   *		}
-   *	}
-   */
-  function Component(props, context) {
-    /** @public
-     *	@type {object}
-     */
-    this.context = context;
 
-    /** @public
-     *	@type {object}
-     */
-    this.props = props;
+  var Component = function () {
+    function Component(props, store) {
+      _classCallCheck(this, Component);
 
-    /** @public
-     *	@type {object}
-     */
-    this.state = this.state || {};
+      this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
+      this.elementId = id++;
+      this.data = this.constructor.data || this.data || {};
 
-    this._id = getId();
+      this._preCss = null;
 
-    this._preStyle = null;
+      this.store = store;
+    }
 
-    this.store = null;
-  }
-
-  Component.is = 'WeElement';
-
-  extend(Component.prototype, {
-    /** Returns a `boolean` indicating if the component should re-render when receiving the given `props` and `state`.
-     *	@param {object} nextProps
-     *	@param {object} nextState
-     *	@param {object} nextContext
-     *	@returns {Boolean} should the component re-render
-     *	@name shouldComponentUpdate
-     *	@function
-     */
-
-    /** Update component state by copying properties from `state` to `this.state`.
-     *	@param {object} state		A hash of state properties to update with new values
-     *	@param {function} callback	A function to be called once component state is updated
-     */
-    setState: function setState(state, callback) {
-      var s = this.state;
-      if (!this.prevState) this.prevState = extend({}, s);
-      extend(s, typeof state === 'function' ? state(s, this.props) : state);
-      if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
-      enqueueRender(this);
-    },
-
-
-    /** Immediately perform a synchronous re-render of the component.
-     *	@param {function} callback		A function to be called after component is re-rendered.
-     *	@private
-     */
-    forceUpdate: function forceUpdate(callback) {
+    Component.prototype.update = function update(callback) {
+      this._willUpdate = true;
       if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
       renderComponent(this, 2);
       if (options.componentChange) options.componentChange(this, this.base);
-    },
-    update: function update(callback) {
-      this.forceUpdate(callback);
-    },
+      this._willUpdate = false;
+    };
 
+    Component.prototype.render = function render() {};
 
-    /** Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
-     *	Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
-     *	@param {object} props		Props (eg: JSX attributes) received from parent element/component
-     *	@param {object} state		The component's current state
-     *	@param {object} context		Context object (if a parent component has provided context)
-     *	@returns VNode
-     */
-    render: function render() {}
-  });
+    return Component;
+  }();
+
+  Component.is = 'WeElement';
 
   /** Render JSX into a `parent` Element.
    *	@param {VNode} vnode		A (JSX) VNode to render
    *	@param {Element} parent		DOM element to render into
-   *	@param {Element} [merge]	Attempt to re-use an existing DOM tree rooted at `merge`
+   *	@param {object} [store]
    *	@public
-   *
-   *	@example
-   *	// render a div into <body>:
-   *	render(<div id="hello">hello!</div>, document.body);
-   *
-   *	@example
-   *	// render a "Thing" component into #foo:
-   *	const Thing = ({ name }) => <span>{ name }</span>;
-   *	render(<Thing name="one" />, document.querySelector('#foo'));
    */
   function render(vnode, parent, store) {
-
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 
     if (store && store.merge) {
       store.merge = typeof store.merge === 'string' ? document.querySelector(store.merge) : store.merge;
     }
 
-    options.store = store;
-
-    return diff(store && store.merge, vnode, {}, false, parent, false);
+    return diff(store && store.merge, vnode, store, false, parent, false);
   }
 
   function define(name, ctor) {
-    if (ctor.is === 'WeElement') {
-      options.mapping[name] = ctor;
-      if (ctor.data && !ctor.pure) {
-        ctor.updatePath = getUpdatePath(ctor.data);
-      }
+    options.mapping[name] = ctor;
+    if (ctor.data && !ctor.pure) {
+      ctor.updatePath = getUpdatePath(ctor.data);
     }
   }
 
@@ -1661,8 +1640,39 @@
     });
   }
 
-  var instances = [];
+  function rpx(str) {
+    return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
+      return window.innerWidth * Number(b) / 750 + 'px';
+    });
+  }
+
+  function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var ModelView = function (_Component) {
+    _inherits(ModelView, _Component);
+
+    function ModelView() {
+      _classCallCheck$1(this, ModelView);
+
+      return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+    }
+
+    ModelView.prototype.beforeInstall = function beforeInstall() {
+      this.data = this.vm.data;
+    };
+
+    return ModelView;
+  }(Component);
+
+  ModelView.observe = true;
+  ModelView.mergeUpdate = true;
+
   var WeElement = Component;
+  var defineElement = define;
 
   options.root.Omi = {
     h: h,
@@ -1672,12 +1682,14 @@
     render: render,
     rerender: rerender,
     options: options,
-    instances: instances,
     WeElement: WeElement,
-    define: define
+    define: define,
+    rpx: rpx,
+    ModelView: ModelView,
+    defineElement: defineElement
   };
 
-  options.root.Omi.version = '3.0.6';
+  options.root.Omi.version = 'omio-1.0.1';
 
   var Omi = {
     h: h,
@@ -1687,9 +1699,11 @@
     render: render,
     rerender: rerender,
     options: options,
-    instances: instances,
     WeElement: WeElement,
-    define: define
+    define: define,
+    rpx: rpx,
+    ModelView: ModelView,
+    defineElement: defineElement
   };
 
   if (typeof module != 'undefined') module.exports = Omi;else self.Omi = Omi;

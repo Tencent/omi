@@ -15,7 +15,7 @@
             lastSimple = simple;
         }
         var p = new VNode();
-        p.nodeName = options.isWeb ? nodeName : map[nodeName];
+        p.nodeName = nodeName;
         p.attributes = null == attributes ? void 0 : attributes;
         if (children && 'string' == typeof children[0] && !options.isWeb) if (p.attributes) p.attributes.value = children[0]; else p.attributes = {
             value: children[0]
@@ -24,9 +24,38 @@
         if (void 0 !== options.vnode) options.vnode(p);
         return p;
     }
+    function toObject(val) {
+        if (null === val || void 0 === val) throw new TypeError('Object.assign cannot be called with null or undefined');
+        return Object(val);
+    }
+    function assign(target, source) {
+        var from;
+        var to = toObject(target);
+        var symbols;
+        for (var s = 1; s < arguments.length; s++) {
+            from = Object(arguments[s]);
+            for (var key in from) if (hasOwnProperty.call(from, key)) to[key] = from[key];
+            if (getOwnPropertySymbols) {
+                symbols = getOwnPropertySymbols(from);
+                for (var i = 0; i < symbols.length; i++) if (propIsEnumerable.call(from, symbols[i])) to[symbols[i]] = from[symbols[i]];
+            }
+        }
+        return to;
+    }
     function extend(obj, props) {
         for (var i in props) obj[i] = props[i];
         return obj;
+    }
+    function isArray(obj) {
+        return '[object Array]' === Object.prototype.toString.call(obj);
+    }
+    function nProps(props) {
+        if (!props || isArray(props)) return {};
+        var result = {};
+        Object.keys(props).forEach(function(key) {
+            result[key] = props[key].value;
+        });
+        return result;
     }
     function cloneElement(vnode, props) {
         return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
@@ -46,7 +75,8 @@
     }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
-        if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else return hydrating || node._componentConstructor === vnode.nodeName;
+        var ctor = options.mapping[vnode.nodeName];
+        if (ctor) return hydrating || node._componentConstructor === ctor; else return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
     }
     function isNamedNode(node, nodeName) {
         return node.__n === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
@@ -187,7 +217,9 @@
                     recollectNodeTree(dom, !0);
                 }
             }
-            out.t = !0;
+            try {
+                out.t = !0;
+            } catch (e) {}
             return out;
         }
         isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
@@ -280,8 +312,6 @@
             inst.constructor = Ctor;
             inst.render = doRender;
         }
-        inst.store = options.store;
-        if (window && window.Omi) window.Omi.instances.push(inst);
         if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
             inst.__b = list[i].__b;
             list.splice(i, 1);
@@ -289,7 +319,7 @@
         }
         return inst;
     }
-    function doRender(props, state, context) {
+    function doRender(props, data, context) {
         return this.constructor(props, context);
     }
     function getCtorName(ctor) {
@@ -339,9 +369,9 @@
         if (options.scopedStyle) {
             scopeVdom(attr, vdom);
             style = scoper(style, attr);
-            if (style !== component.r) addStyle(style, attr);
-        } else if (style !== component.r) addStyleWithoutId(style);
-        component.r = style;
+            if (style !== component.z) addStyle(style, attr);
+        } else if (style !== component.z) addStyleWithoutId(style);
+        component.z = style;
     }
     function addScopedAttrStatic(vdom, style, attr) {
         if (options.scopedStyle) {
@@ -356,13 +386,37 @@
         }
     }
     function scopeVdom(attr, vdom) {
-        if ('string' != typeof vdom) {
+        if ('object' == typeof vdom) {
             vdom.attributes = vdom.attributes || {};
             vdom.attributes[attr] = '';
             vdom.children.forEach(function(child) {
                 return scopeVdom(attr, child);
             });
         }
+    }
+    function fireTick() {
+        callbacks.forEach(function(item) {
+            item.fn.call(item.scope);
+        });
+        nextTickCallback.forEach(function(nextItem) {
+            nextItem.fn.call(nextItem.scope);
+        });
+        nextTickCallback.length = 0;
+    }
+    function proxyUpdate(ele) {
+        var timeout = null;
+        obaa(ele.data, function() {
+            if (!ele.A) if (ele.constructor.mergeUpdate) {
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    ele.update();
+                    fireTick();
+                }, 0);
+            } else {
+                ele.update();
+                fireTick();
+            }
+        });
     }
     function setComponentProps(component, props, opts, context, mountAll) {
         if (!component.__x) {
@@ -371,10 +425,9 @@
             if (component.__k = props.key) delete props.key;
             if (!component.base || mountAll) {
                 if (component.componentWillMount) component.componentWillMount();
+                if (component.beforeInstall) component.beforeInstall();
                 if (component.install) component.install();
-                if (component.constructor.observe) obaa(component.data, function() {
-                    component.update();
-                });
+                if (component.constructor.observe) proxyUpdate(component);
             } else if (component.receiveProps) component.receiveProps(props, component.data, component.props); else if (component.componentWillReceiveProps) component.componentWillReceiveProps(props, context);
             if (context && context !== component.context) {
                 if (!component.__c) component.__c = component.context;
@@ -389,21 +442,22 @@
     }
     function renderComponent(component, opts, mountAll, isChild) {
         if (!component.__x) {
-            var rendered, inst, cbase, props = component.props, state = component.state, context = component.context, previousProps = component.__p || props, previousState = component.__s || state, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
+            var rendered, inst, cbase, props = component.props, data = component.data, context = component.context, previousProps = component.__p || props, previousState = component.__s || data, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
             if (isUpdate) {
                 component.props = previousProps;
-                component.state = previousState;
+                component.data = previousState;
                 component.context = previousContext;
-                if (2 !== opts && component.shouldComponentUpdate && !1 === component.shouldComponentUpdate(props, state, context)) skip = !0; else if (component.componentWillUpdate) component.componentWillUpdate(props, state, context); else if (component.beforeUpdate) component.beforeUpdate(props, state, context);
+                if (2 !== opts && component.shouldComponentUpdate && !1 === component.shouldComponentUpdate(props, data, context)) skip = !0; else if (component.componentWillUpdate) component.componentWillUpdate(props, data, context); else if (component.beforeUpdate) component.beforeUpdate(props, data, context);
                 component.props = props;
-                component.state = state;
+                component.data = data;
                 component.context = context;
             }
             component.__p = component.__s = component.__c = component.__b = null;
             if (!skip) {
-                rendered = component.render(props, state, context);
+                component.beforeRender && component.beforeRender();
+                rendered = component.render(props, data, context);
                 if (component.staticCss) addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
-                if (component.css) addScopedAttr(rendered, component.css(), '_style_' + component.s, component);
+                if (component.css) addScopedAttr(rendered, component.css(), '_style_' + component.elementId, component);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
                 if (ctor) {
@@ -449,6 +503,7 @@
             if (!isUpdate || mountAll) mounts.unshift(component); else if (!skip) {
                 if (component.componentDidUpdate) component.componentDidUpdate(previousProps, previousState, previousContext);
                 if (component.afterUpdate) component.afterUpdate(previousProps, previousState, previousContext);
+                if (component.updated) component.updated(previousProps, previousState, previousContext);
                 if (options.afterUpdate) options.afterUpdate(component);
             }
             if (null != component.__h) while (component.__h.length) component.__h.pop().call(component);
@@ -497,28 +552,17 @@
         }
         if (component.__r) component.__r(null);
     }
-    function getId() {
-        return id++;
-    }
-    function Component(props, context) {
-        this.context = context;
-        this.props = props;
-        this.state = this.state || {};
-        this.s = getId();
-        this.r = null;
-        this.store = null;
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
     function render(vnode, parent, store) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
         if (store && store.merge) store.merge = 'string' == typeof store.merge ? document.querySelector(store.merge) : store.merge;
-        options.store = store;
-        return diff(store && store.merge, vnode, {}, !1, parent, !1);
+        return diff(store && store.merge, vnode, store, !1, parent, !1);
     }
     function define(name, ctor) {
-        if ('WeElement' === ctor.is) {
-            options.mapping[name] = ctor;
-            if (ctor.data && !ctor.pure) ctor.updatePath = getUpdatePath(ctor.data);
-        }
+        options.mapping[name] = ctor;
+        if (ctor.data && !ctor.pure) ctor.updatePath = getUpdatePath(ctor.data);
     }
     function getUpdatePath(data) {
         var result = {};
@@ -548,9 +592,32 @@
             if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
         });
     }
+    function rpx(str) {
+        return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
+            return window.innerWidth * Number(b) / 750 + 'px';
+        });
+    }
+    function _classCallCheck$1(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
+    function _possibleConstructorReturn(self, call) {
+        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
+    }
+    function _inherits(subClass, superClass) {
+        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
     var options = {
         scopedStyle: !0,
-        store: null,
         mapping: {},
         isWeb: !0,
         staticStyleMapping: {},
@@ -568,126 +635,65 @@
     };
     var stack = [];
     var EMPTY_CHILDREN = [];
-    var map = {
-        br: 'view',
-        hr: 'view',
-        p: 'view',
-        h1: 'view',
-        h2: 'view',
-        h3: 'view',
-        h4: 'view',
-        h5: 'view',
-        h6: 'view',
-        abbr: 'view',
-        address: 'view',
-        b: 'view',
-        bdi: 'view',
-        bdo: 'view',
-        blockquote: 'view',
-        cite: 'view',
-        code: 'view',
-        del: 'view',
-        ins: 'view',
-        dfn: 'view',
-        em: 'view',
-        strong: 'view',
-        samp: 'view',
-        kbd: 'view',
-        var: 'view',
-        i: 'view',
-        mark: 'view',
-        pre: 'view',
-        q: 'view',
-        ruby: 'view',
-        rp: 'view',
-        rt: 'view',
-        s: 'view',
-        small: 'view',
-        sub: 'view',
-        sup: 'view',
-        time: 'view',
-        u: 'view',
-        wbr: 'view',
-        form: 'form',
-        input: 'input',
-        textarea: 'textarea',
-        button: 'button',
-        select: 'picker',
-        option: 'view',
-        optgroup: 'view',
-        label: 'label',
-        fieldset: 'view',
-        datalist: 'picker',
-        legend: 'view',
-        output: 'view',
-        iframe: 'view',
-        img: 'image',
-        canvas: 'canvas',
-        figure: 'view',
-        figcaption: 'view',
-        audio: 'audio',
-        source: 'audio',
-        video: 'video',
-        track: 'video',
-        a: 'navigator',
-        nav: 'view',
-        link: 'navigator',
-        ul: 'view',
-        ol: 'view',
-        li: 'view',
-        dl: 'view',
-        dt: 'view',
-        dd: 'view',
-        menu: 'view',
-        command: 'view',
-        table: 'view',
-        caption: 'view',
-        th: 'view',
-        td: 'view',
-        tr: 'view',
-        thead: 'view',
-        tbody: 'view',
-        tfoot: 'view',
-        col: 'view',
-        colgroup: 'view',
-        div: 'view',
-        main: 'view',
-        span: 'text',
-        header: 'view',
-        footer: 'view',
-        section: 'view',
-        article: 'view',
-        aside: 'view',
-        details: 'view',
-        dialog: 'view',
-        summary: 'view',
-        progress: 'progress',
-        meter: 'progress',
-        head: 'view',
-        meta: 'view',
-        base: 'text',
-        map: 'map',
-        area: 'navigator',
-        script: 'view',
-        noscript: 'view',
-        embed: 'view',
-        object: 'view',
-        param: 'view',
-        view: 'view',
-        'scroll-view': 'scroll-view',
-        swiper: 'swiper',
-        icon: 'icon',
-        text: 'text',
-        checkbox: 'checkbox',
-        radio: 'radio',
-        picker: 'picker',
-        'picker-view': 'picker-view',
-        slider: 'slider',
-        switch: 'switch',
-        navigator: 'navigator',
-        image: 'image',
-        'contact-button': 'contact-button',
-        block: 'block'
+    var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+    if (!Element.prototype.addEventListener) {
+        var runListeners = function(oEvent) {
+            if (!oEvent) oEvent = window.event;
+            for (var iLstId = 0, iElId = 0, oEvtListeners = oListeners[oEvent.type]; iElId < oEvtListeners.aEls.length; iElId++) if (oEvtListeners.aEls[iElId] === this) {
+                for (iLstId; iLstId < oEvtListeners.aEvts[iElId].length; iLstId++) oEvtListeners.aEvts[iElId][iLstId].call(this, oEvent);
+                break;
+            }
+        };
+        var oListeners = {};
+        Element.prototype.addEventListener = function(sEventType, fListener) {
+            if (oListeners.hasOwnProperty(sEventType)) {
+                var oEvtListeners = oListeners[sEventType];
+                for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) if (oEvtListeners.aEls[iElId] === this) {
+                    nElIdx = iElId;
+                    break;
+                }
+                if (-1 === nElIdx) {
+                    oEvtListeners.aEls.push(this);
+                    oEvtListeners.aEvts.push([ fListener ]);
+                    this["on" + sEventType] = runListeners;
+                } else {
+                    var aElListeners = oEvtListeners.aEvts[nElIdx];
+                    if (this["on" + sEventType] !== runListeners) {
+                        aElListeners.splice(0);
+                        this["on" + sEventType] = runListeners;
+                    }
+                    for (var iLstId = 0; iLstId < aElListeners.length; iLstId++) if (aElListeners[iLstId] === fListener) return;
+                    aElListeners.push(fListener);
+                }
+            } else {
+                oListeners[sEventType] = {
+                    aEls: [ this ],
+                    aEvts: [ [ fListener ] ]
+                };
+                this["on" + sEventType] = runListeners;
+            }
+        };
+        Element.prototype.removeEventListener = function(sEventType, fListener) {
+            if (oListeners.hasOwnProperty(sEventType)) {
+                var oEvtListeners = oListeners[sEventType];
+                for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) if (oEvtListeners.aEls[iElId] === this) {
+                    nElIdx = iElId;
+                    break;
+                }
+                if (-1 !== nElIdx) for (var iLstId = 0, aElListeners = oEvtListeners.aEvts[nElIdx]; iLstId < aElListeners.length; iLstId++) if (aElListeners[iLstId] === fListener) aElListeners.splice(iLstId, 1);
+            }
+        };
+    }
+    if ('function' != typeof Object.create) Object.create = function(proto, propertiesObject) {
+        function F() {}
+        if ('object' != typeof proto && 'function' != typeof proto) throw new TypeError('Object prototype may only be an Object: ' + proto); else if (null === proto) throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+        F.prototype = proto;
+        return new F();
+    };
+    if (!String.prototype.trim) String.prototype.trim = function() {
+        return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
     };
     var usePromise = 'function' == typeof Promise;
     if ('object' != typeof document && 'undefined' != typeof global && global.v) if ('android' === global.v.platform) usePromise = !0; else {
@@ -815,28 +821,44 @@
     Array.prototype.size = function(length) {
         this.length = length;
     };
+    var callbacks = [];
+    var nextTickCallback = [];
     var id = 0;
-    Component.is = 'WeElement';
-    extend(Component.prototype, {
-        setState: function(state, callback) {
-            var s = this.state;
-            if (!this.__s) this.__s = extend({}, s);
-            extend(s, 'function' == typeof state ? state(s, this.props) : state);
-            if (callback) (this.__h = this.__h || []).push(callback);
-            enqueueRender(this);
-        },
-        forceUpdate: function(callback) {
+    var Component = function() {
+        function Component(props, store) {
+            _classCallCheck(this, Component);
+            this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
+            this.elementId = id++;
+            this.data = this.constructor.data || this.data || {};
+            this.z = null;
+            this.store = store;
+        }
+        Component.prototype.update = function(callback) {
+            this.A = !0;
             if (callback) (this.__h = this.__h || []).push(callback);
             renderComponent(this, 2);
             if (options.componentChange) options.componentChange(this, this.base);
-        },
-        update: function(callback) {
-            this.forceUpdate(callback);
-        },
-        render: function() {}
-    });
-    var instances = [];
+            this.A = !1;
+        };
+        Component.prototype.render = function() {};
+        return Component;
+    }();
+    Component.is = 'WeElement';
+    var ModelView = function(_Component) {
+        function ModelView() {
+            _classCallCheck$1(this, ModelView);
+            return _possibleConstructorReturn(this, _Component.apply(this, arguments));
+        }
+        _inherits(ModelView, _Component);
+        ModelView.prototype.beforeInstall = function() {
+            this.data = this.vm.data;
+        };
+        return ModelView;
+    }(Component);
+    ModelView.observe = !0;
+    ModelView.mergeUpdate = !0;
     var WeElement = Component;
+    var defineElement = define;
     options.root.Omi = {
         h: h,
         createElement: h,
@@ -845,11 +867,13 @@
         render: render,
         rerender: rerender,
         options: options,
-        instances: instances,
         WeElement: WeElement,
-        define: define
+        define: define,
+        rpx: rpx,
+        ModelView: ModelView,
+        defineElement: defineElement
     };
-    options.root.Omi.version = '3.0.6';
+    options.root.Omi.version = 'omio-1.0.1';
     var Omi = {
         h: h,
         createElement: h,
@@ -858,9 +882,11 @@
         render: render,
         rerender: rerender,
         options: options,
-        instances: instances,
         WeElement: WeElement,
-        define: define
+        define: define,
+        rpx: rpx,
+        ModelView: ModelView,
+        defineElement: defineElement
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();

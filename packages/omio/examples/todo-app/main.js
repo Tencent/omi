@@ -1,7 +1,6 @@
 import { render, WeElement, define } from '../../src/omi'
 
 define('todo-list', class extends WeElement {
-
   render(props) {
     return (
       <ul>
