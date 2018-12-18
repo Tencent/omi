@@ -454,6 +454,7 @@
             }
             component.__p = component.__s = component.__c = component.__b = null;
             if (!skip) {
+                component.beforeRender && component.beforeRender();
                 rendered = component.render(props, data, context);
                 if (component.staticCss) addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
                 if (component.css) addScopedAttr(rendered, component.css(), '_style_' + component.elementId, component);
@@ -872,7 +873,7 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-1.0.0';
+    options.root.Omi.version = 'omio-1.0.1';
     var Omi = {
         h: h,
         createElement: h,

@@ -1,6 +1,6 @@
 {
   "name": "omio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Omi for old browsers(IE8+ and mobile browsers).",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
