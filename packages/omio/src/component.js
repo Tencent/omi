@@ -31,5 +31,5 @@ export default class Component {
     this._willUpdate = false
   }
 
-  render() { }
+  render() {}
 }

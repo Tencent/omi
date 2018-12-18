@@ -95,13 +95,11 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
         recollectNodeTree(dom, true)
       }
     }
-    
-    //ie8 error
-    try{
-      out[ATTR_KEY] = true
-    }catch(e){
 
-    }
+    //ie8 error
+    try {
+      out[ATTR_KEY] = true
+    } catch (e) {}
 
     return out
   }
