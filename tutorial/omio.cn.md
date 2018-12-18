@@ -307,11 +307,11 @@ mappingjs 完全利用的 proxy，所以数据 mapping 的过程中会自动更�
 
 [md2site](https://tencent.github.io/omi/assets/md2site/) 完全使用 omio 打造，拥有良好的阅读体验和兼容性。
 
-![](https://github.com/Tencent/omi/blob/master/assets/ie9a.png)
+![](https://github.com/Tencent/omi/blob/master/assets/ie9a.jpg)
 
-![](https://github.com/Tencent/omi/blob/master/assets/ie9b.png)
+![](https://github.com/Tencent/omi/blob/master/assets/ie9b.jpg)
 
-![](https://github.com/Tencent/omi/blob/master/assets/mobile.png)
+![](https://github.com/Tencent/omi/blob/master/assets/mobile.jpg)
 
 ## 开始使用吧
 
