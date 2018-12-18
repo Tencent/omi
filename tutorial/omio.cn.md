@@ -315,6 +315,226 @@ mappingjs 完全利用的 proxy，所以数据 mapping 的过程中会自动更�
 
 ![](https://github.com/Tencent/omi/blob/master/assets/mobile.jpg)
 
+## 兼容 IE8 
+
+### 第一坑 - 关键字作为 key
+
+```js
+const map = {
+  var: 'view',
+  switch: 'switch'
+}
+```
+
+要改成：
+
+```js
+const map = {
+  'var': 'view',
+  'switch': 'switch'
+}
+```
+
+关键字不能作为 JSON 的 key。
+
+### 第二坑 - Object.assign polyfill 不可用
+
+Object.assign polyfill 使用了 `Object.defineProperty`, IE8 下报错，所以把 Object.assign 替换成了 `object-assign`：
+
+```js
+'use strict'
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols
+var hasOwnProperty = Object.prototype.hasOwnProperty
+var propIsEnumerable = Object.prototype.propertyIsEnumerable
+
+function toObject(val) {
+  if (val === null || val === undefined) {
+    throw new TypeError('Object.assign cannot be called with null or undefined')
+  }
+
+  return Object(val)
+}
+
+export function assign(target, source) {
+  var from
+  var to = toObject(target)
+  var symbols
+
+  for (var s = 1; s < arguments.length; s++) {
+    from = Object(arguments[s])
+
+    for (var key in from) {
+      if (hasOwnProperty.call(from, key)) {
+        to[key] = from[key]
+      }
+    }
+
+    if (getOwnPropertySymbols) {
+      symbols = getOwnPropertySymbols(from)
+      for (var i = 0; i < symbols.length; i++) {
+        if (propIsEnumerable.call(from, symbols[i])) {
+          to[symbols[i]] = from[symbols[i]]
+        }
+      }
+    }
+  }
+
+  return to
+}
+```
+
+### 第三坑 - Object.create 不可用
+
+使用 polyfill 并且要注释掉下面的代码！因为传递二个参数没法 polyfill！
+
+```js
+if (typeof Object.create !== 'function') {
+  Object.create = function(proto, propertiesObject) {
+    if (typeof proto !== 'object' && typeof proto !== 'function') {
+      throw new TypeError('Object prototype may only be an Object: ' + proto)
+    } else if (proto === null) {
+      throw new Error(
+        "This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument."
+      )
+    }
+
+    // if (typeof propertiesObject != 'undefined') {
+    //     throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+    // }
+
+    function F() {}
+    F.prototype = proto
+
+    return new F()
+  }
+}
+```
+
+### 第四坑 - text 节点设置属性
+
+```
+//ie8 error
+try {
+  out[ATTR_KEY] = true
+} catch (e) {}
+```
+
+直接 try catch 包起来，测试下来目前不影响正常使用。
+
+### 第五坑 - addEventListener 和 removeEventListener
+
+这里直接使用了 mdn 的 polyfill，其他 polyfill 都有坑！
+
+```js
+if (!Element.prototype.addEventListener) {
+  var oListeners = {};
+  function runListeners(oEvent) {
+    if (!oEvent) { oEvent = window.event; }
+    for (var iLstId = 0, iElId = 0, oEvtListeners = oListeners[oEvent.type]; iElId < oEvtListeners.aEls.length; iElId++) {
+      if (oEvtListeners.aEls[iElId] === this) {
+        for (iLstId; iLstId < oEvtListeners.aEvts[iElId].length; iLstId++) { oEvtListeners.aEvts[iElId][iLstId].call(this, oEvent); }
+        break;
+      }
+    }
+  }
+  Element.prototype.addEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+    if (oListeners.hasOwnProperty(sEventType)) {
+      var oEvtListeners = oListeners[sEventType];
+      for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) { nElIdx = iElId; break; }
+      }
+      if (nElIdx === -1) {
+        oEvtListeners.aEls.push(this);
+        oEvtListeners.aEvts.push([fListener]);
+        this["on" + sEventType] = runListeners;
+      } else {
+        var aElListeners = oEvtListeners.aEvts[nElIdx];
+        if (this["on" + sEventType] !== runListeners) {
+          aElListeners.splice(0);
+          this["on" + sEventType] = runListeners;
+        }
+        for (var iLstId = 0; iLstId < aElListeners.length; iLstId++) {
+          if (aElListeners[iLstId] === fListener) { return; }
+        }
+        aElListeners.push(fListener);
+      }
+    } else {
+      oListeners[sEventType] = { aEls: [this], aEvts: [[fListener]] };
+      this["on" + sEventType] = runListeners;
+    }
+  };
+  Element.prototype.removeEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+    if (!oListeners.hasOwnProperty(sEventType)) { return; }
+    var oEvtListeners = oListeners[sEventType];
+    for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+      if (oEvtListeners.aEls[iElId] === this) { nElIdx = iElId; break; }
+    }
+    if (nElIdx === -1) { return; }
+    for (var iLstId = 0, aElListeners = oEvtListeners.aEvts[nElIdx]; iLstId < aElListeners.length; iLstId++) {
+      if (aElListeners[iLstId] === fListener) { aElListeners.splice(iLstId, 1); }
+    }
+  };
+}
+```
+
+### 第六坑 - string trim 不支持
+
+```js
+if (!String.prototype.trim) {
+  String.prototype.trim = function () {
+    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '')
+  }
+}
+```
+
+### 第七坑 - 数据监听
+
+```js
+import { render, WeElement, define } from '../../src/omi'
+
+define('my-counter', class extends WeElement {
+  //ie8 不能使用 observe
+  //static observe = true
+
+  data = {
+    count: 1
+  }
+
+  sub = () => {
+    this.data.count--
+    //手动 update
+    this.update()
+  }
+
+  add = () => {
+    this.data.count++
+    //手动 update
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+})
+
+render(<my-counter />, 'body')
+```
+
+如果你不需要兼容 IE8，你可以使用 `static observe = true` 进行数据监听自动更新视图。
+
+### 第八坑 - ES5 Shim
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
+```
+
 ## 开始使用吧
 
 [→ Omi Github](https://github.com/Tencent/omi/tree/master/packages/omio)
