@@ -66,6 +66,47 @@ module.exports = {
 };
 ```
 
+## Supports IE8
+
+```js
+import { render, WeElement, define } from '../../src/omi'
+
+define('my-counter', class extends WeElement {
+  //commented out for ie8
+  //static observe = true
+
+  data = {
+    count: 1
+  }
+
+  sub = () => {
+    this.data.count--
+    //no observe, so call this.update for ie8
+    this.update()
+  }
+
+  add = () => {
+    this.data.count++
+    //no observe, so call this.update for ie8
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+})
+
+render(<my-counter />, 'body')
+```
+
+If you only need to be compatible with IE9 and IE9+，you can use `static observe = true`.
+
 ## License
 
 MIT © [dntzhang](https://github.com/dntzhang)

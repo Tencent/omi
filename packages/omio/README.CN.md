@@ -65,6 +65,48 @@ module.exports = {
 };
 ```
 
+
+## 兼容 IE8
+
+```js
+import { render, WeElement, define } from '../../src/omi'
+
+define('my-counter', class extends WeElement {
+  //ie8 不能使用 observe
+  //static observe = true
+
+  data = {
+    count: 1
+  }
+
+  sub = () => {
+    this.data.count--
+    //手动 update
+    this.update()
+  }
+
+  add = () => {
+    this.data.count++
+    //手动 update
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+})
+
+render(<my-counter />, 'body')
+```
+
+如果你不需要兼容 IE8，你可以使用 `static observe = true` 进行数据监听自动更新视图。
+
 ## License
 
 MIT © [dntzhang](https://github.com/dntzhang)
