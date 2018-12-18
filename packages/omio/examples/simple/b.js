@@ -185,6 +185,7 @@
 
     return to;
   }
+
   !window.addEventListener && function (WindowPrototype, DocumentPrototype, ElementPrototype, addEventListener, removeEventListener, dispatchEvent, registry) {
     WindowPrototype[addEventListener] = DocumentPrototype[addEventListener] = ElementPrototype[addEventListener] = function (type, listener) {
       var target = this;
@@ -216,9 +217,9 @@
     WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
       return this.fireEvent("on" + eventObject.type, eventObject);
     };
-  }(Window.prototype, HTMLDocument.prototype, Element.prototype, "addEventListener", "removeEventListener", "dispatchEvent", []);
+  }(Window.prototype, HTMLDocument.prototype, Element.prototype, 'addEventListener', 'removeEventListener', 'dispatchEvent', []);
 
-  if (typeof Object.create !== "function") {
+  if (typeof Object.create !== 'function') {
     Object.create = function (proto, propertiesObject) {
       if (typeof proto !== 'object' && typeof proto !== 'function') {
         throw new TypeError('Object prototype may only be an Object: ' + proto);

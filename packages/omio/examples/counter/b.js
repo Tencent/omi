@@ -60,171 +60,35 @@
 
   var EMPTY_CHILDREN = [];
 
-  var map = {
-    br: 'view',
-    hr: 'view',
-
-    p: 'view',
-    h1: 'view',
-    h2: 'view',
-    h3: 'view',
-    h4: 'view',
-    h5: 'view',
-    h6: 'view',
-    abbr: 'view',
-    address: 'view',
-    b: 'view',
-    bdi: 'view',
-    bdo: 'view',
-    blockquote: 'view',
-    cite: 'view',
-    code: 'view',
-    del: 'view',
-    ins: 'view',
-    dfn: 'view',
-    em: 'view',
-    strong: 'view',
-    samp: 'view',
-    kbd: 'view',
-    var: 'view',
-    i: 'view',
-    mark: 'view',
-    pre: 'view',
-    q: 'view',
-    ruby: 'view',
-    rp: 'view',
-    rt: 'view',
-    s: 'view',
-    small: 'view',
-    sub: 'view',
-    sup: 'view',
-    time: 'view',
-    u: 'view',
-    wbr: 'view',
-
-    form: 'form',
-    input: 'input',
-    textarea: 'textarea',
-    button: 'button',
-    select: 'picker',
-    option: 'view',
-    optgroup: 'view',
-    label: 'label',
-    fieldset: 'view',
-    datalist: 'picker',
-    legend: 'view',
-    output: 'view',
-
-    iframe: 'view',
-
-    img: 'image',
-    canvas: 'canvas',
-    figure: 'view',
-    figcaption: 'view',
-
-    audio: 'audio',
-    source: 'audio',
-    video: 'video',
-    track: 'video',
-
-    a: 'navigator',
-    nav: 'view',
-    link: 'navigator',
-
-    ul: 'view',
-    ol: 'view',
-    li: 'view',
-    dl: 'view',
-    dt: 'view',
-    dd: 'view',
-    menu: 'view',
-    command: 'view',
-
-    table: 'view',
-    caption: 'view',
-    th: 'view',
-    td: 'view',
-    tr: 'view',
-    thead: 'view',
-    tbody: 'view',
-    tfoot: 'view',
-    col: 'view',
-    colgroup: 'view',
-
-    div: 'view',
-    main: 'view',
-    //'span': 'label',
-    span: 'text',
-    header: 'view',
-    footer: 'view',
-    section: 'view',
-    article: 'view',
-    aside: 'view',
-    details: 'view',
-    dialog: 'view',
-    summary: 'view',
-
-    progress: 'progress',
-    meter: 'progress',
-    head: 'view',
-    meta: 'view',
-    base: 'text',
-    map: 'map',
-    area: 'navigator',
-
-    script: 'view',
-    noscript: 'view',
-    embed: 'view',
-    object: 'view',
-    param: 'view',
-
-    view: 'view',
-    'scroll-view': 'scroll-view',
-    swiper: 'swiper',
-    icon: 'icon',
-    text: 'text',
-
-    checkbox: 'checkbox',
-    radio: 'radio',
-    picker: 'picker',
-    'picker-view': 'picker-view',
-    slider: 'slider',
-    switch: 'switch',
-    navigator: 'navigator',
-
-    image: 'image',
-    'contact-button': 'contact-button',
-    block: 'block'
-
-    /**
-     * JSX/hyperscript reviver.
-     * @see http://jasonformat.com/wtf-is-jsx
-     * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
-     *
-     * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
-     *
-     * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
-     * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
-     * the current _actual_ DOM structure, and applying only the differences.
-     *
-     * `h()`/`createElement()` accepts an element name, a list of attributes/props,
-     * and optionally children to append to the element.
-     *
-     * @example The following DOM tree
-     *
-     * `<div id="foo" name="bar">Hello!</div>`
-     *
-     * can be constructed using this function as:
-     *
-     * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
-     *
-     * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
-     * @param {Object} attributes	Any attributes/props to set on the created element.
-     * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
-     *
-     * @public
-     */
-  };function h(nodeName, attributes) {
+  /**
+   * JSX/hyperscript reviver.
+   * @see http://jasonformat.com/wtf-is-jsx
+   * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
+   *
+   * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
+   *
+   * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
+   * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
+   * the current _actual_ DOM structure, and applying only the differences.
+   *
+   * `h()`/`createElement()` accepts an element name, a list of attributes/props,
+   * and optionally children to append to the element.
+   *
+   * @example The following DOM tree
+   *
+   * `<div id="foo" name="bar">Hello!</div>`
+   *
+   * can be constructed using this function as:
+   *
+   * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
+   *
+   * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
+   * @param {Object} attributes	Any attributes/props to set on the created element.
+   * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
+   *
+   * @public
+   */
+  function h(nodeName, attributes) {
     var children = EMPTY_CHILDREN,
         lastSimple = void 0,
         child = void 0,
@@ -262,7 +126,7 @@
     }
 
     var p = new VNode();
-    p.nodeName = options.isWeb ? nodeName : map[nodeName];
+    p.nodeName = nodeName;
     p.attributes = attributes == null ? undefined : attributes;
     if (children && typeof children[0] === 'string' && !options.isWeb) {
       if (p.attributes) {
@@ -281,36 +145,138 @@
     return p;
   }
 
-  if (typeof Object.assign != 'function') {
-    // Must be writable: true, enumerable: false, configurable: true
-    Object.defineProperty(Object, "assign", {
-      value: function assign(target, varArgs) {
+  /* eslint-disable no-unused-vars */
 
-        if (target == null) {
-          // TypeError if undefined or null
-          throw new TypeError('Cannot convert undefined or null to object');
+  var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+  function toObject(val) {
+    if (val === null || val === undefined) {
+      throw new TypeError('Object.assign cannot be called with null or undefined');
+    }
+
+    return Object(val);
+  }
+
+  function assign(target, source) {
+    var from;
+    var to = toObject(target);
+    var symbols;
+
+    for (var s = 1; s < arguments.length; s++) {
+      from = Object(arguments[s]);
+
+      for (var key in from) {
+        if (hasOwnProperty.call(from, key)) {
+          to[key] = from[key];
         }
+      }
 
-        var to = Object(target);
-
-        for (var index = 1; index < arguments.length; index++) {
-          var nextSource = arguments[index];
-
-          if (nextSource != null) {
-            // Skip over if undefined or null
-            for (var nextKey in nextSource) {
-              // Avoid bugs when hasOwnProperty is shadowed
-              if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-                to[nextKey] = nextSource[nextKey];
-              }
-            }
+      if (getOwnPropertySymbols) {
+        symbols = getOwnPropertySymbols(from);
+        for (var i = 0; i < symbols.length; i++) {
+          if (propIsEnumerable.call(from, symbols[i])) {
+            to[symbols[i]] = from[symbols[i]];
           }
         }
-        return to;
-      },
-      writable: true,
-      configurable: true
-    });
+      }
+    }
+
+    return to;
+  }
+
+  if (!Element.prototype.addEventListener) {
+    var runListeners = function runListeners(oEvent) {
+      if (!oEvent) {
+        oEvent = window.event;
+      }
+      for (var iLstId = 0, iElId = 0, oEvtListeners = oListeners[oEvent.type]; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          for (iLstId; iLstId < oEvtListeners.aEvts[iElId].length; iLstId++) {
+            oEvtListeners.aEvts[iElId][iLstId].call(this, oEvent);
+          }
+          break;
+        }
+      }
+    };
+
+    var oListeners = {};
+
+    Element.prototype.addEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (oListeners.hasOwnProperty(sEventType)) {
+        var oEvtListeners = oListeners[sEventType];
+        for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+          if (oEvtListeners.aEls[iElId] === this) {
+            nElIdx = iElId;break;
+          }
+        }
+        if (nElIdx === -1) {
+          oEvtListeners.aEls.push(this);
+          oEvtListeners.aEvts.push([fListener]);
+          this["on" + sEventType] = runListeners;
+        } else {
+          var aElListeners = oEvtListeners.aEvts[nElIdx];
+          if (this["on" + sEventType] !== runListeners) {
+            aElListeners.splice(0);
+            this["on" + sEventType] = runListeners;
+          }
+          for (var iLstId = 0; iLstId < aElListeners.length; iLstId++) {
+            if (aElListeners[iLstId] === fListener) {
+              return;
+            }
+          }
+          aElListeners.push(fListener);
+        }
+      } else {
+        oListeners[sEventType] = { aEls: [this], aEvts: [[fListener]] };
+        this["on" + sEventType] = runListeners;
+      }
+    };
+    Element.prototype.removeEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (!oListeners.hasOwnProperty(sEventType)) {
+        return;
+      }
+      var oEvtListeners = oListeners[sEventType];
+      for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          nElIdx = iElId;break;
+        }
+      }
+      if (nElIdx === -1) {
+        return;
+      }
+      for (var iLstId = 0, aElListeners = oEvtListeners.aEvts[nElIdx]; iLstId < aElListeners.length; iLstId++) {
+        if (aElListeners[iLstId] === fListener) {
+          aElListeners.splice(iLstId, 1);
+        }
+      }
+    };
+  }
+
+  if (typeof Object.create !== 'function') {
+    Object.create = function (proto, propertiesObject) {
+      if (typeof proto !== 'object' && typeof proto !== 'function') {
+        throw new TypeError('Object prototype may only be an Object: ' + proto);
+      } else if (proto === null) {
+        throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+      }
+
+      // if (typeof propertiesObject != 'undefined') {
+      //     throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+      // }
+
+      function F() {}
+      F.prototype = proto;
+
+      return new F();
+    };
+  }
+
+  if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    };
   }
 
   /**
@@ -712,7 +678,10 @@
         }
       }
 
-      out[ATTR_KEY] = true;
+      //ie8 error
+      try {
+        out[ATTR_KEY] = true;
+      } catch (e) {}
 
       return out;
     }
@@ -1580,7 +1549,7 @@
     function Component(props, store) {
       _classCallCheck(this, Component);
 
-      this.props = Object.assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
+      this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
       this.elementId = id++;
       this.data = this.constructor.data || this.data || {};
 
@@ -1723,9 +1692,7 @@
     defineElement: defineElement
   };
 
-  options.root.Omi.version = 'omio-0.1.1';
-
-  var _class, _temp2;
+  options.root.Omi.version = 'omio-0.1.2';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1733,13 +1700,13 @@
 
   function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('my-counter', (_temp2 = _class = function (_WeElement) {
-    _inherits$1(_class, _WeElement);
+  define('my-counter', function (_WeElement) {
+    _inherits$1(_class2, _WeElement);
 
-    function _class() {
+    function _class2() {
       var _temp, _this, _ret;
 
-      _classCallCheck$2(this, _class);
+      _classCallCheck$2(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
@@ -1749,12 +1716,18 @@
         count: 1
       }, _this.sub = function () {
         _this.data.count--;
+        //no observe, so call this.update for ie8
+        _this.update();
       }, _this.add = function () {
         _this.data.count++;
+        //no observe, so call this.update for ie8
+        _this.update();
       }, _temp), _possibleConstructorReturn$1(_this, _ret);
     }
+    //commented out for ie8
+    //static observe = true
 
-    _class.prototype.render = function render$$1() {
+    _class2.prototype.render = function render$$1() {
       return Omi.h(
         'div',
         null,
@@ -1776,8 +1749,8 @@
       );
     };
 
-    return _class;
-  }(WeElement), _class.observe = true, _temp2));
+    return _class2;
+  }(WeElement));
 
   render(Omi.h('my-counter', null), 'body');
 
