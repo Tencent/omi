@@ -9,7 +9,7 @@ Md2site 是基于 [Omi](https://github.com/Tencent/omi) 的一款 Markdown 转�
 * 多语言支持
 * 响应式设计，手机阅读体验友好
 * 动态加载 md 文件
-* 基于 [Omio framework](https://github.com/Tencent/omi/tree/master/packages/omio) 和 [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router)，兼容 IE9+
+* 基于 [Omio framework](https://github.com/Tencent/omi/tree/master/packages/omio) 和 [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router)，兼容 IE8+
 
 ## 安装
 

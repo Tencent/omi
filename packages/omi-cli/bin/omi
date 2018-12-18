@@ -47,7 +47,7 @@ program
 
 program
     .command('init-o [projectName]')
-    .description('Initialize a new omio(IE9+) project in the current folder')
+    .description('Initialize a new omio(IE8+) project in the current folder')
     .action(function(projectName, option){
         var cmd = 'init-o';
         if(option.parent.mirror && typeof option.parent.mirror === "string"){
@@ -157,7 +157,7 @@ function help() {
     console.log('  Commands:');
     console.log();
     console.log(`     ${chalk.green('init  [project-name]')}           Initialize a new omi application in the current folder `);
-    console.log(`     ${chalk.green('init-o  [project-name]')}        Initialize a new omio(IE9+) project in the current folder `)
+    console.log(`     ${chalk.green('init-o  [project-name]')}        Initialize a new omio(IE8+) project in the current folder `)
     console.log(`     ${chalk.green('init-weui  [project-name]')}        Initialize a mobile project with weui in the current folder `)
 		console.log(`     ${chalk.green('init-ts  [project-name]')}        Initialize a new omi project with typescript in the current folder `)
 		console.log(`     ${chalk.green('init-spa  [project-name]')}        Initialize a new omi spa  with omi-router in the current folder `)

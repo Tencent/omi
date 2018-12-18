@@ -105,7 +105,7 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body')
 ```
 
-如果你不需要兼容 IE8，你可以使用 `static observe = true` 进行数据监听自动更新视图。
+如果你不需要兼容 IE8，只需要兼容 IE9+，你可以使用 `static observe = true` 进行数据监听自动更新视图。
 
 ## License
 
