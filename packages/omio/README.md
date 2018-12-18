@@ -2,7 +2,7 @@ English | [简体中文](./README.CN.md)
 
 # Omio
 
-> Omi for old browsers(IE9+ and mobile browsers)
+> Omi for old browsers(IE8+ and mobile browsers)
 
 ---
 

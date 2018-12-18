@@ -15,7 +15,7 @@
             lastSimple = simple;
         }
         var p = new VNode();
-        p.nodeName = options.isWeb ? nodeName : map[nodeName];
+        p.nodeName = nodeName;
         p.attributes = null == attributes ? void 0 : attributes;
         if (children && 'string' == typeof children[0] && !options.isWeb) if (p.attributes) p.attributes.value = children[0]; else p.attributes = {
             value: children[0]
@@ -23,6 +23,24 @@
         p.key = null == attributes ? void 0 : attributes.key;
         if (void 0 !== options.vnode) options.vnode(p);
         return p;
+    }
+    function toObject(val) {
+        if (null === val || void 0 === val) throw new TypeError('Object.assign cannot be called with null or undefined');
+        return Object(val);
+    }
+    function assign(target, source) {
+        var from;
+        var to = toObject(target);
+        var symbols;
+        for (var s = 1; s < arguments.length; s++) {
+            from = Object(arguments[s]);
+            for (var key in from) if (hasOwnProperty.call(from, key)) to[key] = from[key];
+            if (getOwnPropertySymbols) {
+                symbols = getOwnPropertySymbols(from);
+                for (var i = 0; i < symbols.length; i++) if (propIsEnumerable.call(from, symbols[i])) to[symbols[i]] = from[symbols[i]];
+            }
+        }
+        return to;
     }
     function extend(obj, props) {
         for (var i in props) obj[i] = props[i];
@@ -199,7 +217,9 @@
                     recollectNodeTree(dom, !0);
                 }
             }
-            out.t = !0;
+            try {
+                out.t = !0;
+            } catch (e) {}
             return out;
         }
         isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
@@ -614,128 +634,66 @@
     };
     var stack = [];
     var EMPTY_CHILDREN = [];
-    var map = {
-        br: 'view',
-        hr: 'view',
-        p: 'view',
-        h1: 'view',
-        h2: 'view',
-        h3: 'view',
-        h4: 'view',
-        h5: 'view',
-        h6: 'view',
-        abbr: 'view',
-        address: 'view',
-        b: 'view',
-        bdi: 'view',
-        bdo: 'view',
-        blockquote: 'view',
-        cite: 'view',
-        code: 'view',
-        del: 'view',
-        ins: 'view',
-        dfn: 'view',
-        em: 'view',
-        strong: 'view',
-        samp: 'view',
-        kbd: 'view',
-        var: 'view',
-        i: 'view',
-        mark: 'view',
-        pre: 'view',
-        q: 'view',
-        ruby: 'view',
-        rp: 'view',
-        rt: 'view',
-        s: 'view',
-        small: 'view',
-        sub: 'view',
-        sup: 'view',
-        time: 'view',
-        u: 'view',
-        wbr: 'view',
-        form: 'form',
-        input: 'input',
-        textarea: 'textarea',
-        button: 'button',
-        select: 'picker',
-        option: 'view',
-        optgroup: 'view',
-        label: 'label',
-        fieldset: 'view',
-        datalist: 'picker',
-        legend: 'view',
-        output: 'view',
-        iframe: 'view',
-        img: 'image',
-        canvas: 'canvas',
-        figure: 'view',
-        figcaption: 'view',
-        audio: 'audio',
-        source: 'audio',
-        video: 'video',
-        track: 'video',
-        a: 'navigator',
-        nav: 'view',
-        link: 'navigator',
-        ul: 'view',
-        ol: 'view',
-        li: 'view',
-        dl: 'view',
-        dt: 'view',
-        dd: 'view',
-        menu: 'view',
-        command: 'view',
-        table: 'view',
-        caption: 'view',
-        th: 'view',
-        td: 'view',
-        tr: 'view',
-        thead: 'view',
-        tbody: 'view',
-        tfoot: 'view',
-        col: 'view',
-        colgroup: 'view',
-        div: 'view',
-        main: 'view',
-        span: 'text',
-        header: 'view',
-        footer: 'view',
-        section: 'view',
-        article: 'view',
-        aside: 'view',
-        details: 'view',
-        dialog: 'view',
-        summary: 'view',
-        progress: 'progress',
-        meter: 'progress',
-        head: 'view',
-        meta: 'view',
-        base: 'text',
-        map: 'map',
-        area: 'navigator',
-        script: 'view',
-        noscript: 'view',
-        embed: 'view',
-        object: 'view',
-        param: 'view',
-        view: 'view',
-        'scroll-view': 'scroll-view',
-        swiper: 'swiper',
-        icon: 'icon',
-        text: 'text',
-        checkbox: 'checkbox',
-        radio: 'radio',
-        picker: 'picker',
-        'picker-view': 'picker-view',
-        slider: 'slider',
-        switch: 'switch',
-        navigator: 'navigator',
-        image: 'image',
-        'contact-button': 'contact-button',
-        block: 'block'
+    var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+    if (!Element.prototype.addEventListener) {
+        var runListeners = function(oEvent) {
+            if (!oEvent) oEvent = window.event;
+            for (var iLstId = 0, iElId = 0, oEvtListeners = oListeners[oEvent.type]; iElId < oEvtListeners.aEls.length; iElId++) if (oEvtListeners.aEls[iElId] === this) {
+                for (iLstId; iLstId < oEvtListeners.aEvts[iElId].length; iLstId++) oEvtListeners.aEvts[iElId][iLstId].call(this, oEvent);
+                break;
+            }
+        };
+        var oListeners = {};
+        Element.prototype.addEventListener = function(sEventType, fListener) {
+            if (oListeners.hasOwnProperty(sEventType)) {
+                var oEvtListeners = oListeners[sEventType];
+                for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) if (oEvtListeners.aEls[iElId] === this) {
+                    nElIdx = iElId;
+                    break;
+                }
+                if (-1 === nElIdx) {
+                    oEvtListeners.aEls.push(this);
+                    oEvtListeners.aEvts.push([ fListener ]);
+                    this["on" + sEventType] = runListeners;
+                } else {
+                    var aElListeners = oEvtListeners.aEvts[nElIdx];
+                    if (this["on" + sEventType] !== runListeners) {
+                        aElListeners.splice(0);
+                        this["on" + sEventType] = runListeners;
+                    }
+                    for (var iLstId = 0; iLstId < aElListeners.length; iLstId++) if (aElListeners[iLstId] === fListener) return;
+                    aElListeners.push(fListener);
+                }
+            } else {
+                oListeners[sEventType] = {
+                    aEls: [ this ],
+                    aEvts: [ [ fListener ] ]
+                };
+                this["on" + sEventType] = runListeners;
+            }
+        };
+        Element.prototype.removeEventListener = function(sEventType, fListener) {
+            if (oListeners.hasOwnProperty(sEventType)) {
+                var oEvtListeners = oListeners[sEventType];
+                for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) if (oEvtListeners.aEls[iElId] === this) {
+                    nElIdx = iElId;
+                    break;
+                }
+                if (-1 !== nElIdx) for (var iLstId = 0, aElListeners = oEvtListeners.aEvts[nElIdx]; iLstId < aElListeners.length; iLstId++) if (aElListeners[iLstId] === fListener) aElListeners.splice(iLstId, 1);
+            }
+        };
+    }
+    if ('function' != typeof Object.create) Object.create = function(proto, propertiesObject) {
+        function F() {}
+        if ('object' != typeof proto && 'function' != typeof proto) throw new TypeError('Object prototype may only be an Object: ' + proto); else if (null === proto) throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+        F.prototype = proto;
+        return new F();
     };
-    if ('function' != typeof Object.assign) Object;
+    if (!String.prototype.trim) String.prototype.trim = function() {
+        return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    };
     var usePromise = 'function' == typeof Promise;
     if ('object' != typeof document && 'undefined' != typeof global && global.v) if ('android' === global.v.platform) usePromise = !0; else {
         var systemVersion = global.v.systemVersion && global.v.systemVersion.split('.')[0] || 0;
@@ -868,7 +826,7 @@
     var Component = function() {
         function Component(props, store) {
             _classCallCheck(this, Component);
-            this.props = Object.assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
+            this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
             this.elementId = id++;
             this.data = this.constructor.data || this.data || {};
             this.z = null;
@@ -914,7 +872,7 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-0.1.2';
+    options.root.Omi.version = 'omio-1.0.0';
     var Omi = {
         h: h,
         createElement: h,
