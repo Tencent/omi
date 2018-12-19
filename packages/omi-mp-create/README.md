@@ -8,6 +8,8 @@
 
 * `create.Page(option)`             创建页面
 * `create.Component(option)`        创建组件
+* `create.mitt()`                   事件发送和监听器
+* `create.emitter`                  事件发送和监听器
 * `this.oData`                      操作页面或组件的数据（会自动更新视图）
 * `this.store`                      页面注入的 store，页面和页面所有组件可以拿到
 
@@ -23,6 +25,8 @@ const app = getApp()
 create.Page({
   store: {
     abc: '公共数据从页面注入到页面的所有组件'
+    //事件发送和监听器,或者 create.mitt()
+    emitter: create.emitter
   },
   data: {
     motto: 'Hello World',
@@ -37,7 +41,8 @@ create.Page({
     ...
     ...
     ...
-    console.log(this.store)
+    //监听事件
+    this.store.emitter.on('foo', e => console.log('foo', e) )
     setTimeout(() => {
       this.oData.userInfo = {
         nickName: 'dnt',
@@ -84,6 +89,8 @@ create.Component({
   ready: function () {
     //这里可以或者组件所属页面注入的 store
     console.log(this.store)
+    //触发事件
+    this.store.emitter.emit('foo', { a: 'b' })
     setTimeout(()=>{
       this.oData.a.b = 1
     },3000)
@@ -131,6 +138,28 @@ this.oData.arr.size(2) //会触发视图更新
 this.oData.arr.length = 2 //不会触发视图更新
 
 ```
+
+## mitt 语法
+
+```js
+const emitter = mitt()
+
+// listen to an event
+emitter.on('foo', e => console.log('foo', e) )
+
+// listen to all events
+emitter.on('*', (type, e) => console.log(type, e) )
+
+// fire an event
+emitter.emit('foo', { a: 'b' })
+
+// working with handler references:
+function onFoo() {}
+emitter.on('foo', onFoo)   // listen
+emitter.off('foo', onFoo)  // unlisten
+```
+
+[详细参见 mitt github](https://github.com/developit/mitt)
 
 ## Todo
 
