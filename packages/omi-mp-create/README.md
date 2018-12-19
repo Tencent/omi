@@ -1,6 +1,6 @@
 ## omi-mp-create
 
-> 极小确精巧的小程序框架
+> 极小却精巧的小程序框架
 
 ## 5分钟精通 omi-mp-create
 
@@ -130,6 +130,8 @@ this.oData.arr.length = 2 //不会触发视图更新
 
 * supports option.store 
 * supports fn props
+
+## 谁在使用
 
 
 ## MTI Lic
