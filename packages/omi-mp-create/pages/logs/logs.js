@@ -14,5 +14,10 @@ create.Page({
       this.oData.logs[0] = 'Changed!'
     }, 1000)
 
+
+    setTimeout(() => {
+      this.oData.logs.push(Math.random(), Math.random())
+    }, 2000)
+
   }
 })

@@ -14,7 +14,11 @@ function _Page(option) {
     this.oData = JSON.parse(JSON.stringify(option.data))
     obaa(this.oData, (prop, value, old, path) => {
       const data = {}
-      data[fixPath(path + '-' + prop)] = value
+      if (prop.indexOf('Array-') === 0) {
+        data[fixPath(path)] = value
+      } else {
+        data[fixPath(path + '-' + prop)] = value
+      }
       this.setData(data)
     })
     onLoad && onLoad.call(this, e)
@@ -30,7 +34,11 @@ function _Component(option) {
     this.oData = JSON.parse(JSON.stringify(option.data))
     obaa(this.oData, (prop, value, old, path) => {
       const data = {}
-      data[fixPath(path + '-' + prop)] = value
+      if (prop.indexOf('Array-') === 0) {
+        data[fixPath(path)] = value
+      } else {
+        data[fixPath(path + '-' + prop)] = value
+      }
       this.setData(data)
     })
     ready && ready.call(this)
