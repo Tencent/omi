@@ -1,6 +1,6 @@
 {
   "name": "omi-cli",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Create website, app with no build configuration. be friendly to [Omi](https://github.com/Tencent/omi) framework.",
   "main": "bin/omi",
   "engines": {
