@@ -252,7 +252,8 @@
 
   if (
     typeof module != 'undefined' &&
-    module.exports) {
+    module.exports 
+  ) {
     module.exports = obaa
   } else if (typeof define === 'function' && define.amd) {
     define(obaa)
