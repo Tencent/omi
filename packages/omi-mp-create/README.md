@@ -9,6 +9,7 @@
 * `create.Page(option)`             创建页面
 * `create.Component(option)`        创建组件
 * `this.oData`                      操作页面或组件的数据（会自动更新视图）
+* `this.store`                      页面注入的 store，页面和页面所有组件可以拿到
 
 ### 实战
 
@@ -20,6 +21,9 @@ import create from '../../utils/create'
 const app = getApp()
 
 create.Page({
+  store: {
+    abc: '公共数据从页面注入到页面的所有组件'
+  },
   data: {
     motto: 'Hello World',
     userInfo: { },
@@ -33,6 +37,7 @@ create.Page({
     ...
     ...
     ...
+    console.log(this.store)
     setTimeout(() => {
       this.oData.userInfo = {
         nickName: 'dnt',
@@ -77,6 +82,8 @@ create.Component({
   },
 
   ready: function () {
+    //这里可以或者组件所属页面注入的 store
+    console.log(this.store)
     setTimeout(()=>{
       this.oData.a.b = 1
     },3000)
@@ -125,11 +132,9 @@ this.oData.arr.length = 2 //不会触发视图更新
 
 ```
 
-
 ## Todo
 
-* supports option.store 
-* supports fn props
+* supports function props
 
 ## 谁在使用
 

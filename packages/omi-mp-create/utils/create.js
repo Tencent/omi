@@ -9,6 +9,7 @@ import obaa from './obaa'
 function _Page(option) {
   const onLoad = option.onLoad
   option.onLoad = function (e) {
+    this.store = option.store
     this.oData = JSON.parse(JSON.stringify(option.data))
     obaa(this.oData, (prop, value, old, path) => {
       const data = {}
@@ -23,6 +24,8 @@ function _Page(option) {
 function _Component(option) {
   const ready = option.ready
   option.ready = function () {
+    const page = getCurrentPages()[getCurrentPages().length - 1]
+    this.store = option.store || page.store
     this.oData = JSON.parse(JSON.stringify(option.data))
     obaa(this.oData, (prop, value, old, path) => {
       const data = {}

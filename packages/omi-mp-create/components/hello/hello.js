@@ -17,6 +17,7 @@ create.Component({
   },
 
   ready: function () {
+    console.log(this.store)
     setTimeout(()=>{
       this.oData.a.b = 1
     },3000)

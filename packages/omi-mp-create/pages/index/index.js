@@ -3,6 +3,9 @@ import create from '../../utils/create'
 const app = getApp()
 
 create.Page({
+  store: {
+    abc: '公共数据从页面注入到页面的所有组件'
+  },
   data: {
     motto: 'Hello World',
     userInfo: { },
@@ -16,6 +19,7 @@ create.Page({
     })
   },
   onLoad: function () {
+    console.log(this.store)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
