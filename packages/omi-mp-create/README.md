@@ -133,5 +133,6 @@ this.oData.arr.length = 2 //不会触发视图更新
 
 ## 谁在使用
 
+![微信支付](../../assets/wepay.png)
 
 ## MTI Lic
