@@ -169,4 +169,4 @@ emitter.off('foo', onFoo)  // unlisten
 
 ![微信支付](../../assets/wepay.png)
 
-## MTI Lic
+## MIT Lic
