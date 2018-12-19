@@ -5,6 +5,7 @@
 */
 
 import obaa from './obaa'
+import mitt from './mitt'
 
 function _Page(option) {
   const onLoad = option.onLoad
@@ -57,5 +58,7 @@ function fixPath(path) {
 export default {
   Page: _Page,
   Component: _Component,
-  obaa: obaa
+  obaa: obaa,
+  mitt: mitt,
+  emitter: mitt()
 }

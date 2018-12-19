@@ -4,7 +4,9 @@ const app = getApp()
 
 create.Page({
   store: {
-    abc: '公共数据从页面注入到页面的所有组件'
+    abc: '公共数据从页面注入到页面的所有组件',
+    //事件发送和监听器,或者 create.mitt()
+    emitter: create.emitter
   },
   data: {
     motto: 'Hello World',
@@ -47,7 +49,7 @@ create.Page({
       })
     }
 
-
+    this.store.emitter.on('foo', e => console.log('foo', e) )
 
     setTimeout(() => {
       this.oData.userInfo = {
