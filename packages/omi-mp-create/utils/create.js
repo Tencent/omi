@@ -12,15 +12,7 @@ function _Page(option) {
   option.onLoad = function (e) {
     this.store = option.store
     this.oData = JSON.parse(JSON.stringify(option.data))
-    obaa(this.oData, (prop, value, old, path) => {
-      const data = {}
-      if (prop.indexOf('Array-') === 0) {
-        data[fixPath(path)] = value
-      } else {
-        data[fixPath(path + '-' + prop)] = value
-      }
-      this.setData(data)
-    })
+    observe(this)
     onLoad && onLoad.call(this, e)
   }
   Page(option)
@@ -32,15 +24,7 @@ function _Component(option) {
     const page = getCurrentPages()[getCurrentPages().length - 1]
     this.store = option.store || page.store
     this.oData = JSON.parse(JSON.stringify(option.data))
-    obaa(this.oData, (prop, value, old, path) => {
-      const data = {}
-      if (prop.indexOf('Array-') === 0) {
-        data[fixPath(path)] = value
-      } else {
-        data[fixPath(path + '-' + prop)] = value
-      }
-      this.setData(data)
-    })
+    observe(this)
     ready && ready.call(this)
   }
   Component(option)
@@ -61,6 +45,24 @@ function fixPath(path) {
     }
   })
   return mpPath
+}
+
+function observe(ele) {
+  let timeout = null
+  let patch = {}
+  obaa(ele.oData, (prop, value, old, path) => {
+    clearTimeout(timeout)
+    if (prop.indexOf('Array-') === 0) {
+      patch[fixPath(path)] = value
+    } else {
+      patch[fixPath(path + '-' + prop)] = value
+    }
+
+    timeout = setTimeout(() => {
+      ele.setData(patch)
+      patch = {}
+    }, 0)
+  })
 }
 
 export default {
