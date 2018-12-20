@@ -1,13 +1,13 @@
-/**
- * omi v5.0.14  http://omijs.org
- * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
- * By dntzhang https://github.com/dntzhang
- * Github: https://github.com/Tencent/omi
- * MIT Licensed.
- */
-
 (function () {
   'use strict';
+
+  /**
+   * omi v4.1.7  http://omijs.org
+   * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
+   * By dntzhang https://github.com/dntzhang
+   * Github: https://github.com/Tencent/omi
+   * MIT Licensed.
+   */
 
   /** Virtual DOM Node */
   function VNode() {}
@@ -259,14 +259,14 @@
           node.addEventListener(name, eventProxy, useCapture);
           if (name == 'tap') {
             node.addEventListener('touchstart', touchStart, useCapture);
-            node.addEventListener('touchend', touchEnd, useCapture);
+            node.addEventListener('touchstart', touchEnd, useCapture);
           }
         }
       } else {
         node.removeEventListener(name, eventProxy, useCapture);
         if (name == 'tap') {
           node.removeEventListener('touchstart', touchStart, useCapture);
-          node.removeEventListener('touchend', touchEnd, useCapture);
+          node.removeEventListener('touchstart', touchEnd, useCapture);
         }
       }
   (node._listeners || (node._listeners = {}))[name] = value;
@@ -284,7 +284,7 @@
       // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
       if (value == null || value === false) {
         if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
-      } else if (typeof value !== 'function') {
+      } else if (typeof value === 'string') {
         if (ns) {
           node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
         } else {
@@ -603,10 +603,6 @@
     var name;
     var update = false;
     var isWeElement = dom.update;
-    var oldClone;
-    if (dom.receiveProps) {
-      oldClone = Object.assign({}, old);
-    }
     // remove attributes no longer present on the vnode by setting them to undefined
     for (name in old) {
       if (!(attrs && attrs[name] != null) && old[name] != null) {
@@ -620,17 +616,9 @@
 
     // add new & update changed attributes
     for (name in attrs) {
+      //diable when using store system?
+      //!dom.store &&
       if (isWeElement && typeof attrs[name] === 'object') {
-        if (name === 'style') {
-          setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
-        }
-        if (dom.receiveProps) {
-          try {
-            old[name] = JSON.parse(JSON.stringify(attrs[name]));
-          } catch (e) {
-            console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
-          }
-        }
         dom.props[npn(name)] = attrs[name];
         update = true;
       } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
@@ -644,7 +632,7 @@
 
     if (isWeElement && dom.parentNode) {
       if (update || children.length > 0) {
-        dom.receiveProps(dom.props, dom.data, oldClone);
+        dom.receiveProps(dom.props, dom.data);
         dom.update();
       }
     }
@@ -1036,21 +1024,17 @@
 
   function proxyUpdate(ele) {
     var timeout = null;
-    ele.data = new JSONPatcherProxy(ele.data).observe(false, function () {
-      if (ele._willUpdate) {
+    ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
+      if (ele._willUpdate || info.op === 'replace' && info.oldValue === info.value) {
         return;
       }
-      if (ele.constructor.mergeUpdate) {
-        clearTimeout(timeout);
 
-        timeout = setTimeout(function () {
-          ele.update();
-          fireTick();
-        }, 0);
-      } else {
+      clearTimeout(timeout);
+
+      timeout = setTimeout(function () {
         ele.update();
         fireTick();
-      }
+      }, 0);
     });
   }
 
@@ -1071,7 +1055,7 @@
       var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
       _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
-      _this.elementId = id++;
+      _this.__elementId = id++;
       _this.data = _this.constructor.data || {};
       return _this;
     }
@@ -1087,9 +1071,8 @@
           this.store.instances.push(this);
         }
       }
-      this.beforeInstall();
+
       !this._isInstalled && this.install();
-      this.afterInstall();
       var shadowRoot;
       if (!this.shadowRoot) {
         shadowRoot = this.attachShadow({
@@ -1107,18 +1090,15 @@
       !this._isInstalled && this.beforeRender();
       options.afterInstall && options.afterInstall(this);
       if (this.constructor.observe) {
-        this.beforeObserve();
         proxyUpdate(this);
-        this.observed();
       }
-      this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
-      this.rendered();
-      if (isArray(this._host)) {
-        this._host.forEach(function (item) {
+      this.host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
+      if (isArray(this.host)) {
+        this.host.forEach(function (item) {
           shadowRoot.appendChild(item);
         });
       } else {
-        shadowRoot.appendChild(this._host);
+        shadowRoot.appendChild(this.host);
       }
       !this._isInstalled && this.installed();
       this._isInstalled = true;
@@ -1126,7 +1106,6 @@
 
     WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
       this.uninstall();
-      this._isInstalled = false;
       if (this.store) {
         for (var i = 0, len = this.store.instances.length; i < len; i++) {
           if (this.store.instances[i] === this) {
@@ -1141,9 +1120,8 @@
       this._willUpdate = true;
       this.beforeUpdate();
       this.beforeRender();
-      this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+      this.host = diff(this.host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
       this.afterUpdate();
-      this.updated();
       this._willUpdate = false;
     };
 
@@ -1151,11 +1129,7 @@
       this.dispatchEvent(new CustomEvent(name, { detail: data }));
     };
 
-    WeElement.prototype.beforeInstall = function beforeInstall() {};
-
     WeElement.prototype.install = function install() {};
-
-    WeElement.prototype.afterInstall = function afterInstall() {};
 
     WeElement.prototype.installed = function installed() {};
 
@@ -1163,19 +1137,11 @@
 
     WeElement.prototype.beforeUpdate = function beforeUpdate() {};
 
-    WeElement.prototype.afterUpdate = function afterUpdate() {}; //deprecated, please use updated
-
-    WeElement.prototype.updated = function updated() {};
+    WeElement.prototype.afterUpdate = function afterUpdate() {};
 
     WeElement.prototype.beforeRender = function beforeRender() {};
 
-    WeElement.prototype.rendered = function rendered() {};
-
     WeElement.prototype.receiveProps = function receiveProps() {};
-
-    WeElement.prototype.beforeObserve = function beforeObserve() {};
-
-    WeElement.prototype.observed = function observed() {};
 
     return WeElement;
   }(HTMLElement);
@@ -1344,7 +1310,7 @@
             args[key] = arguments[key];
           }
 
-          return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn$1(_this, _ret);
+          return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _temp), _possibleConstructorReturn$1(_this, _ret);
         }
 
         Element.prototype.render = function render(props, data) {
@@ -1356,10 +1322,6 @@
         };
 
         Element.prototype.useCss = function useCss(css) {
-          if (css === this._preCss) {
-            return;
-          }
-          this._preCss = css;
           var style = this.shadowRoot.querySelector('style');
           style && this.shadowRoot.removeChild(style);
           this.shadowRoot.appendChild(cssToDom(css));
@@ -1468,8 +1430,6 @@
     while (p) {
       if (p.host) {
         return p.host;
-      } else if (p.shadowRoot && p.shadowRoot.host) {
-        return p.shadowRoot.host;
       } else {
         p = p.parentNode;
       }
@@ -1482,37 +1442,7 @@
     });
   }
 
-  function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-  function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-  function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-  var ModelView = function (_WeElement) {
-    _inherits$2(ModelView, _WeElement);
-
-    function ModelView() {
-      _classCallCheck$2(this, ModelView);
-
-      return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
-    }
-
-    ModelView.prototype.beforeInstall = function beforeInstall() {
-      this.data = this.vm.data;
-    };
-
-    ModelView.prototype.observed = function observed() {
-      this.vm.data = this.data;
-    };
-
-    return ModelView;
-  }(WeElement);
-
-  ModelView.observe = true;
-  ModelView.mergeUpdate = true;
-
   var Component = WeElement;
-  var defineElement = define;
 
   var omi = {
     tag: tag,
@@ -1528,14 +1458,240 @@
     getHost: getHost,
     rpx: rpx,
     tick: tick,
-    nextTick: nextTick,
-    ModelView: ModelView,
-    defineElement: defineElement
+    nextTick: nextTick
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '5.0.14';
+  options.root.Omi.version = '4.1.7';
+  //# sourceMappingURL=omi.esm.js.map
 
-  if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
+  function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var TodoItem = function (_WeElement) {
+      _inherits$2(TodoItem, _WeElement);
+
+      function TodoItem() {
+          var _temp, _this, _ret;
+
+          _classCallCheck$2(this, TodoItem);
+
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+              args[_key] = arguments[_key];
+          }
+
+          return _ret = (_temp = (_this = _possibleConstructorReturn$2(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.handleOnRemoved = function (e) {
+              _this.fire('removed', {
+                  data: _this.props.index
+              });
+          }, _this.handleOnChecked = function (e) {
+              _this.fire('checked', {
+                  data: _this.props.index
+              });
+          }, _temp), _possibleConstructorReturn$2(_this, _ret);
+      }
+
+      TodoItem.prototype.css = function css() {
+          return '\n            :host {\n                display: block;\n            }\n\n            li.item {\n                font-size: 24px;\n                display: block;\n                position: relative;\n                border-bottom: 1px solid #ededed;\n            }\n\n            li.item input {\n                text-align: center;\n                width: 40px;\n                /* auto, since non-WebKit browsers doesn\'t support input styling */\n                height: auto;\n                position: absolute;\n                top: 9px;\n                bottom: 0;\n                margin: auto 0;\n                border: none;\n                /* Mobile Safari */\n                -webkit-appearance: none;\n                appearance: none;\n            }\n\n            li.item input:after {\n                content: url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>\');\n            }\n\n            li.item input:checked:after {\n                content: url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>\');\n            }\n\n            li.item label {\n                white-space: pre;\n                word-break: break-word;\n                padding: 15px 60px 15px 15px;\n                margin-left: 45px;\n                display: block;\n                line-height: 1.2;\n                transition: color 0.4s;\n            }\n\n            li.item.completed label {\n                color: #d9d9d9;\n                text-decoration: line-through;\n            }\n\n            li.item button,\n                li.item input[type="checkbox"] {\n                outline: none;\n            }\n\n            li.item button {\n                margin: 0;\n                padding: 0;\n                border: 0;\n                background: none;\n                font-size: 100%;\n                vertical-align: baseline;\n                font-family: inherit;\n                font-weight: inherit;\n                color: inherit;\n                -webkit-appearance: none;\n                appearance: none;\n                -webkit-font-smoothing: antialiased;\n                -moz-font-smoothing: antialiased;\n                font-smoothing: antialiased;\n            }\n\n            li.item .destroy {\n                position: absolute;\n                top: 0;\n                right: 10px;\n                bottom: 0;\n                width: 40px;\n                height: 40px;\n                margin: auto 0;\n                font-size: 30px;\n                color: #cc9a9a;\n                margin-bottom: 11px;\n                transition: color 0.2s ease-out;\n            }\n\n            li.item .destroy:hover {\n                color: #af5b5e;\n            }\n        ';
+      };
+
+      TodoItem.prototype.render = function render$$1(props) {
+          return Omi.h(
+              'li',
+              { 'class': 'item' + (props.checked ? ' completed' : '') },
+              Omi.h('input', { type: 'checkbox', checked: props.checked, onChange: this.handleOnChecked }),
+              Omi.h(
+                  'label',
+                  null,
+                  props.text
+              ),
+              Omi.h(
+                  'button',
+                  { 'class': 'destroy', onClick: this.handleOnRemoved },
+                  'x'
+              )
+          );
+      };
+
+      return TodoItem;
+  }(WeElement);
+
+  define('todo-item', TodoItem);
+
+  function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$3(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var TodoInput = function (_WeElement) {
+      _inherits$3(TodoInput, _WeElement);
+
+      function TodoInput() {
+          var _temp, _this, _ret;
+
+          _classCallCheck$3(this, TodoInput);
+
+          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+              args[_key] = arguments[_key];
+          }
+
+          return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.handleInput = function (e) {
+              _this.inputValue = e.target.value;
+          }, _this.handleSubmit = function (e) {
+              e.preventDefault();
+              if (!_this.inputValue) return;
+              _this.fire('submit', {
+                  data: _this.inputValue
+              });
+
+              _this.$input.value = '';
+              _this.inputValue = '';
+              _this.$input.blur();
+          }, _temp), _possibleConstructorReturn$3(_this, _ret);
+      }
+
+      TodoInput.prototype.install = function install() {
+          this.inputValue = '';
+      };
+
+      TodoInput.prototype.css = function css() {
+          return '\n            #new-todo-form {\n                position: relative;\n                font-size: 24px;\n                border-bottom: 1px solid #ededed;\n            }\n\n            #new-todo {\n                padding: 16px 16px 16px 60px;\n                border: none;\n                background: rgba(0, 0, 0, 0.003);\n                position: relative;\n                margin: 0;\n                width: 100%;\n                font-size: 24px;\n                font-family: inherit;\n                font-weight: inherit;\n                line-height: 1.4em;\n                border: 0;\n                outline: none;\n                color: inherit;\n                padding: 6px;\n                border: 1px solid #CCC;\n                box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);\n                box-sizing: border-box;\n            }\n        ';
+      };
+
+      TodoInput.prototype.render = function render$$1() {
+          var _this2 = this;
+
+          return Omi.h(
+              'form',
+              { id: 'new-todo-form', onSubmit: this.handleSubmit },
+              Omi.h('input', { id: 'new-todo', ref: function ref(e) {
+                      _this2.$input = e;
+                  }, type: 'text', placeholder: 'What needs to be done?', onInput: this.handleInput, value: this.inputValue })
+          );
+      };
+
+      return TodoInput;
+  }(WeElement);
+
+  define('todo-input', TodoInput);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$4(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$4(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var MyTodo = function (_WeElement) {
+    _inherits$4(MyTodo, _WeElement);
+
+    function MyTodo() {
+      var _temp, _this, _ret;
+
+      _classCallCheck$4(this, MyTodo);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.addItem = function (e) {
+        // ... odesn't work with jstransform...  
+        var a = _this.store.data.list;
+        var b = [{
+          id: _this.store.data.list.length,
+          text: e.detail.data,
+          checked: false
+        }];
+        _this.store.data.list = a.concat(b);
+      }, _this.removeItem = function (e) {
+        var itemIndex = _this.store.data.list.findIndex(function (el) {
+          return el.id === e.detail.data;
+        });
+        var a = _this.store.data.list.slice(0, itemIndex);
+        var b = _this.store.data.list.slice(itemIndex + 1);
+        _this.store.data.list = a.concat(b);
+      }, _this.toggleItem = function (e) {
+        var item = _this.store.data.list.find(function (el) {
+          return el.id === e.detail.data;
+        });
+        _this.store.data.list[e.detail.data] = Object.assign({}, item, {
+          checked: !item.checked
+        });
+      }, _temp), _possibleConstructorReturn$4(_this, _ret);
+    }
+
+    MyTodo.prototype.css = function css() {
+      return '\n      h1 {\n        font-size: 100px;\n        font-weight: 100;\n        text-align: center;\n        color: rgba(175, 47, 47, 0.15);\n      }\n\n      section {\n        background: #fff;\n        margin: 130px 0 40px 0;\n        position: relative;\n        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);\n      }\n\n      #list-container {\n        margin: 0;\n        padding: 0;\n        list-style: none;\n        border-top: 1px solid #e6e6e6;\n      }\n    ';
+    };
+
+    MyTodo.prototype.render = function render$$1() {
+      var _this2 = this;
+
+      return Omi.h(
+        'div',
+        null,
+        Omi.h(
+          'h1',
+          null,
+          'Todos Omi'
+        ),
+        Omi.h(
+          'section',
+          null,
+          Omi.h('todo-input', { onSubmit: this.addItem }),
+          Omi.h(
+            'ul',
+            { id: 'list-container' },
+            this.store.data.list.map(function (todo) {
+              return Omi.h('todo-item', { text: todo.text, checked: todo.checked, index: todo.id,
+                onRemoved: _this2.removeItem,
+                onChecked: _this2.toggleItem });
+            })
+          )
+        )
+      );
+    };
+
+    _createClass(MyTodo, null, [{
+      key: 'data',
+      get: function get() {
+        return { list: null };
+      }
+    }]);
+
+    return MyTodo;
+  }(WeElement);
+
+  define('my-todo', MyTodo);
+
+  var store = {
+    data: {
+      list: [{
+        id: 0,
+        text: 'my initial todo',
+        checked: false
+      }, {
+        id: 1,
+        text: 'Learn about Web Components',
+        checked: true
+      }]
+    }
+  };
+  render(Omi.h(
+    'div',
+    null,
+    Omi.h(
+      'a',
+      { href: 'https://vogloblinsky.github.io/web-components-benchmark/', id: 'back' },
+      '\u2B05 Back to other implementations'
+    ),
+    Omi.h('my-todo', null)
+  ), 'body', store);
+
 }());
-//# sourceMappingURL=omi.dev.js.map
+//# sourceMappingURL=b.js.map

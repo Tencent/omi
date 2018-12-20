@@ -105,7 +105,7 @@ export function setAccessor(node, name, old, value, isSvg) {
           name.toLowerCase()
         )
       else node.removeAttribute(name)
-    } else if (typeof value === 'string') {
+    } else if (typeof value !== 'function') {
       if (ns) {
         node.setAttributeNS(
           'http://www.w3.org/1999/xlink',

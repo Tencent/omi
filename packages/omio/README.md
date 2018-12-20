@@ -114,4 +114,4 @@ If you only need to be compatible with IE9 and IE9+，you can use `static observ
 
 ## License
 
-MIT © [dntzhang](https://github.com/dntzhang)
+[MIT](https://github.com/Tencent/omi/blob/master/LICENSE) © [dntzhang](https://github.com/dntzhang)

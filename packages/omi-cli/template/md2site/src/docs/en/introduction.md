@@ -9,7 +9,7 @@ Md2site is a fast, simple & powerful tool that can be used for transformation of
 * Multi-Language Support
 * Responsive design
 * Dynamic loading of MD files
-* Based on [Omio framework](https://github.com/Tencent/omi/tree/master/packages/omio) and [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router)
+* Based on [Omio framework](https://github.com/Tencent/omi/tree/master/packages/omio) and [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router), compatible with IE8+
 
 ## Usage
 
