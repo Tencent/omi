@@ -179,6 +179,9 @@ function stringify(attr, tag) {
         key = key.replace('bind', 'on')
         isBind = true
       }
+      if (key.indexOf('on') === 0) {
+        isBind = true
+      }
       let str = v.join ? joinNestArray(v) : v
 
       if (str.indexOf('{{') === 0) {
