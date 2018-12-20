@@ -1,14 +1,15 @@
 import { h, h as createElement } from './h'
 import { cloneElement } from './clone-element'
-import { Component } from './component'
+import Component from './component'
 import { render } from './render'
 import { rerender } from './render-queue'
 import options from './options'
 import { define } from './define'
 import { rpx } from './rpx'
+import ModelView from './model-view'
 
-const instances = []
 const WeElement = Component
+const defineElement = define
 
 options.root.Omi = {
   h,
@@ -18,13 +19,14 @@ options.root.Omi = {
   render,
   rerender,
   options,
-  instances,
   WeElement,
   define,
-  rpx
+  rpx,
+  ModelView,
+  defineElement
 }
 
-options.root.Omi.version = 'omio-0.0.3'
+options.root.Omi.version = 'omio-1.0.1'
 
 export default {
   h,
@@ -34,10 +36,11 @@ export default {
   render,
   rerender,
   options,
-  instances,
   WeElement,
   define,
-  rpx
+  rpx,
+  ModelView,
+  defineElement
 }
 
 export {
@@ -48,8 +51,9 @@ export {
   render,
   rerender,
   options,
-  instances,
   WeElement,
   define,
-  rpx
+  rpx,
+  ModelView,
+  defineElement
 }

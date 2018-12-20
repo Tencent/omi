@@ -1,7 +1,8 @@
-import { render, WeElement, define, observe } from '../../src/omi'
+import { render, WeElement, define } from '../../src/omi'
 
 define('my-counter', class extends WeElement {
-  static observe = true
+  //commented out for ie8
+  //static observe = true
 
   data = {
     count: 1
@@ -9,10 +10,14 @@ define('my-counter', class extends WeElement {
 
   sub = () => {
     this.data.count--
+    //no observe, so call this.update for ie8
+    this.update()
   }
 
   add = () => {
     this.data.count++
+    //no observe, so call this.update for ie8
+    this.update()
   }
 
   render() {

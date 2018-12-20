@@ -117,10 +117,10 @@ module.exports = function(config) {
 						options: {
 							comments: false,
 							compact: true,
-							plugins: [
+							plugins : [ 
 								'transform-class-properties',
-								["transform-react-jsx", { "pragma": "Omi.h" }]
-							]
+								["transform-react-jsx", { "pragma":"Omi.h" }] 
+							] 
 						}
 					},
 					/* Only Instrument our source files for coverage */

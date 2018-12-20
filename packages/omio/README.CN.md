@@ -2,28 +2,18 @@
 
 # Omio
 
-> 兼容老浏览器的 Omi 版本(支持到IE9+和移动端浏览器)
+> 兼容老浏览器的 Omi 版本(支持到IE8+和移动端浏览器)
 
 ---
 
-## Install
+## 立即使用
 
-``` bash
-npm i omi
-```
-## Webpack Alias
-
-如果你想在已经存在的 omi 项目下使用 omio，你可以使用下面配置，不用任何代码更改:
-
-```js
-module.exports = {
-  //...
-  resolve: {
-    alias: {
-      omi: 'omio'
-    }
-  }
-};
+```bash
+$ npm i omi-cli -g             
+$ omi init-o my-app   
+$ cd my-app           
+$ npm start                     
+$ npm run build               
 ```
 
 ### 与 omi 不同之处
@@ -52,7 +42,70 @@ render() {
 * Omio 不支持 slot, 请使用 `props.children` 代替，像 react 一样
 * Omio 支持 store 注入，但不支持 store path updating
 * Omio 不支持 render array，未来可能支持
-* Omio 不支持 `fire` 出发自定义事件，你可以是和 react 一样使用 `props.xxx()` 去触发。Omi 同时支持 `fire` and `props.xxx()` 两种方式。
+* Omio 不支持 `fire` 触发自定义事件，可以和 react 一样使用 `props.xxx()` 去触发。Omi 同时支持 `fire` and `props.xxx()` 两种方式。
+
+
+## 在 Omi 项目中使用
+
+``` bash
+npm i omio
+```
+### Webpack Alias
+
+如果你想在已经存在的 omi 项目下使用 omio，你可以使用下面配置，不用任何代码更改:
+
+```js
+module.exports = {
+  //...
+  resolve: {
+    alias: {
+      omi: 'omio'
+    }
+  }
+};
+```
+
+
+## 兼容 IE8
+
+```js
+import { render, WeElement, define } from '../../src/omi'
+
+define('my-counter', class extends WeElement {
+  //ie8 不能使用 observe
+  //static observe = true
+
+  data = {
+    count: 1
+  }
+
+  sub = () => {
+    this.data.count--
+    //手动 update
+    this.update()
+  }
+
+  add = () => {
+    this.data.count++
+    //手动 update
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+})
+
+render(<my-counter />, 'body')
+```
+
+如果你不需要兼容 IE8，只需要兼容 IE9+，你可以使用 `static observe = true` 进行数据监听自动更新视图。
 
 ## License
 

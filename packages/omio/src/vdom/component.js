@@ -20,7 +20,7 @@ import {
 import { createComponent, collectComponent } from './component-recycler'
 import { removeNode } from '../dom/index'
 import { addScopedAttr, addScopedAttrStatic, getCtorName } from '../style'
-import obaa from '../obaa'
+import { proxyUpdate } from '../observe'
 
 /** Set a component's `props` (generally derived from JSX attributes).
  *	@param {Object} props
@@ -37,11 +37,10 @@ export function setComponentProps(component, props, opts, context, mountAll) {
 
   if (!component.base || mountAll) {
     if (component.componentWillMount) component.componentWillMount()
+    if (component.beforeInstall) component.beforeInstall()
     if (component.install) component.install()
     if (component.constructor.observe) {
-      obaa(component.data, () => {
-        component.update()
-      })
+      proxyUpdate(component)
     }
   } else if (component.receiveProps) {
     component.receiveProps(props, component.data, component.props)
@@ -84,10 +83,10 @@ export function renderComponent(component, opts, mountAll, isChild) {
   if (component._disable) return
 
   let props = component.props,
-    state = component.state,
+    data = component.data,
     context = component.context,
     previousProps = component.prevProps || props,
-    previousState = component.prevState || state,
+    previousState = component.prevState || data,
     previousContext = component.prevContext || context,
     isUpdate = component.base,
     nextBase = component.nextBase,
@@ -101,28 +100,29 @@ export function renderComponent(component, opts, mountAll, isChild) {
   // if updating
   if (isUpdate) {
     component.props = previousProps
-    component.state = previousState
+    component.data = previousState
     component.context = previousContext
     if (
       opts !== FORCE_RENDER &&
       component.shouldComponentUpdate &&
-      component.shouldComponentUpdate(props, state, context) === false
+      component.shouldComponentUpdate(props, data, context) === false
     ) {
       skip = true
     } else if (component.componentWillUpdate) {
-      component.componentWillUpdate(props, state, context)
+      component.componentWillUpdate(props, data, context)
     } else if (component.beforeUpdate) {
-      component.beforeUpdate(props, state, context)
+      component.beforeUpdate(props, data, context)
     }
     component.props = props
-    component.state = state
+    component.data = data
     component.context = context
   }
 
   component.prevProps = component.prevState = component.prevContext = component.nextBase = null
 
   if (!skip) {
-    rendered = component.render(props, state, context)
+    component.beforeRender && component.beforeRender()
+    rendered = component.render(props, data, context)
 
     //don't rerender
     if (component.staticCss) {
@@ -137,7 +137,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
       addScopedAttr(
         rendered,
         component.css(),
-        '_style_' + component._id,
+        '_style_' + component.elementId,
         component
       )
     }
@@ -237,7 +237,11 @@ export function renderComponent(component, opts, mountAll, isChild) {
       )
     }
     if (component.afterUpdate) {
+      //deprecated
       component.afterUpdate(previousProps, previousState, previousContext)
+    }
+    if (component.updated) {
+      component.updated(previousProps, previousState, previousContext)
     }
     if (options.afterUpdate) options.afterUpdate(component)
   }

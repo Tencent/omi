@@ -1,0 +1,162 @@
+html,body{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: #f6f8fa;
+  font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto, PT Sans, DejaVu Sans, Arial,Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
+}
+
+img,ul,li{
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+ul,li{
+  list-style:disc inside ;
+}
+
+a{
+  text-decoration: none;
+  color: #0366d6;
+}
+table{
+  border-collapse: collapse;
+}
+table,td,th{
+  border: 1px solid #ccc;
+}
+
+td,th{
+  padding: 4px 8px;
+}
+
+@media only screen and (max-width: 768px) {
+  html,body{
+
+    overflow-x: hidden;
+  }
+
+  .content img{
+      width: 100%;
+  }
+
+
+  .content code[class*="language-"],
+  .content pre[class*="language-"] {
+      font-family: Consolas, "Liberation Mono", Courier, monospace;
+      line-height: 18px;
+      font-size: 13px;
+      margin:  0;
+      width: 100%;
+      box-sizing: border-box;
+  }
+
+  .content pre[class*="language-"] {
+      padding-left: 10px;
+  }
+  .content p{
+      font-size: 14px;
+  }
+  .content p,.content h1,.content h2,.content h3,.content h4,.content h5{
+      padding-left:10px;
+      padding-right:10px;
+  }
+
+  .line-highlight:before, .line-highlight[data-end]:after{
+      top: 0em;
+  }
+}
+
+*{
+  box-sizing: border-box;
+}
+
+pre code.hljs{
+  padding-left: 14px;
+  display: block;
+  overflow-x: auto;
+}
+
+.hljs{
+  font-size: 14px;
+}
+
+code.hljs{
+  display: inline-block;
+  overflow-x: hidden;
+  text-indent: 0;
+  position: relative;
+  top: 8px;
+  background-color:rgba(27,31,35,.05); 
+  border-radius: 3px;
+}
+
+blockquote::before{
+  content: '';
+  position: absolute;
+  left: 0;
+  top:11px;
+  background-color: #dfe2e5;
+  height: 24px;
+  width: 4px;
+}
+
+blockquote {
+  position: relative;
+  margin: 0;
+  padding-left: 20px; 
+}
+
+._code-ctn code.hljs{
+  top: 2px;
+  background-color:transparent;
+  border-radius: 0px;
+}
+
+._code-ctn{
+  position: relative;
+  height: auto;
+  background-color: #282C34;
+  border-radius: 3px;
+  padding-top:1px;  
+  margin-top: 15px; 
+  padding-bottom:1px; 
+  line-height: 18px;
+  max-width: 900px;
+}
+
+._hl{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding-top: 5px;
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  line-height: 18px;
+
+}
+
+._hll{
+  background-color: rgb(72, 77, 87);
+  height: 18px;
+  width: 100%;
+
+}
+
+
+._code-ctn pre{
+  background: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+
+._code-ctn code{
+  background: transparent;
+    position: relative;
+    z-index: 1;
+}

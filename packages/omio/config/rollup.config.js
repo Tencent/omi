@@ -42,6 +42,9 @@ export default {
 						browsers: ['last 2 versions', 'IE >= 9']
 					}
 				}]
+			],
+			plugins: [
+				"transform-class-properties"
 			]
 		}),
 		licensePlugin
