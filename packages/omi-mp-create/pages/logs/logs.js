@@ -19,5 +19,8 @@ create.Page({
       this.oData.logs.push(Math.random(), Math.random())
     }, 2000)
 
+    setTimeout(() => {
+      this.oData.logs.splice(this.oData.logs.length-1,1)
+    }, 4000)
   }
 })

@@ -52,7 +52,12 @@ function observe(ele) {
   let patch = {}
   obaa(ele.oData, (prop, value, old, path) => {
     clearTimeout(timeout)
-    if (prop.indexOf('Array-') === 0) {
+    if (prop.indexOf('Array-push') === 0) {
+      let dl = value.length - old.length
+      for (let i = 0; i < dl; i++) {
+        patch[fixPath(path + '-' + (old.length + i))] = value[(old.length + i)]
+      }
+    } else if (prop.indexOf('Array-') === 0) {
       patch[fixPath(path)] = value
     } else {
       patch[fixPath(path + '-' + prop)] = value
