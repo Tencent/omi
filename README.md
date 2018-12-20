@@ -7,6 +7,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 ## Why Omi?
 
 - Tiny size. _(**4kb** gzipped)_
+- Excellent compatibility(IE8+) with [omio](https://github.com/Tencent/omi/tree/master/packages/omio)
 - Real [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md) with [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) strong support
 - Supports TypeScript
 - Reactive data-binding
