@@ -1,0 +1,42 @@
+span{
+  position: absolute;
+  border: 1px solid #ccc;
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  cursor: pointer;
+  text-align: center;
+  line-height: 29px;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.decrease{
+  left: 1px;
+  border-radius: 3px 0px 0px 3px;
+}
+
+.increase{
+  right: 1px;
+  border-radius: 0px 3px 3px 0px;
+}
+
+.ctn{
+  position: relative;
+  width: 150px;
+}
+
+.input{
+  width: 100%;
+}
+
+input{
+  width:100px;
+  height: 32px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  border: 1px solid #ccc;
+}
