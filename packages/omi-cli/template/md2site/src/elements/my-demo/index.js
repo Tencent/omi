@@ -1,10 +1,8 @@
 import { define, WeElement } from 'omi'
-import '../my-list'
 import css from './_index.css'
 
 define('my-demo', class extends WeElement {
   install() {
-    this.store.mySidebar = this
     this.show = false
   }
 
