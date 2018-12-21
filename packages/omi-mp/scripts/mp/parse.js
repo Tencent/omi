@@ -173,36 +173,37 @@ function stringify(attr, tag) {
     let maxIndex = keys.length - 1
     let isImg = tag === 'img'
     keys.forEach((key, index) => {
-      let v = attr[key]
-      let isBind = false
-      if (key.indexOf('bind') === 0) {
-        key = key.replace('bind', 'on')
-        isBind = true
-      }
-      if (key.indexOf('on') === 0) {
-        isBind = true
-      }
-      let str = v.join ? joinNestArray(v) : v
-
-      if (str.indexOf('{{') === 0) {
-        attr[key] = braces(str)
-        result +=
-          "'" + key + "': " + attr[key] + (maxIndex === index ? '' : ',')
-      } else {
-        attr[key] = bracesText(str)
-        if(isImg && key === 'src'){
-          result += `'src': ${fixImgSrc(v)}` + (maxIndex === index ? '' : ',')
-        } else if (isBind) {
-          if(attr[key] !== ''){
-            result +=
-              "'" + key + "': this." + attr[key] + (maxIndex === index ? '' : ',')
-          }
-        } else {
+      if(key.indexOf(':') == -1){
+        let v = attr[key]
+        let isBind = false
+        if (key.indexOf('bind') === 0) {
+          key = key.replace('bind', 'on')
+          isBind = true
+        }
+        if (key.indexOf('on') === 0) {
+          isBind = true
+        }
+        let str = v.join ? joinNestArray(v) : v
+  
+        if (str.indexOf('{{') === 0) {
+          attr[key] = braces(str)
           result +=
-            "'" + key + "': `" + attr[key] + (maxIndex === index ? '`' : '`,')
+            "'" + key + "': " + attr[key] + (maxIndex === index ? '' : ',')
+        } else {
+          attr[key] = bracesText(str)
+          if(isImg && key === 'src'){
+            result += `'src': ${fixImgSrc(v)}` + (maxIndex === index ? '' : ',')
+          } else if (isBind) {
+            if(attr[key] !== ''){
+              result +=
+                "'" + key + "': this." + attr[key] + (maxIndex === index ? '' : ',')
+            }
+          } else {
+            result +=
+              "'" + key + "': `" + attr[key] + (maxIndex === index ? '`' : '`,')
+          }
         }
       }
-
     })
     return (result += '}')
   }

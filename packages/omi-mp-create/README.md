@@ -169,6 +169,12 @@ emitter.off('foo', onFoo)  // unlisten
 
 [详细参见 mitt github](https://github.com/developit/mitt)
 
+omi-mp-create 为 mitt 新增的语法：
+
+```js
+emitter.off('foo') // unlisten all foo callback
+```
+
 ### 实战中心化 API
 
 定义 store:
