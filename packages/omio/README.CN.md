@@ -42,8 +42,6 @@ render() {
 * Omio 不支持 slot, 请使用 `props.children` 代替，像 react 一样
 * Omio 支持 store 注入，但不支持 store path updating
 * Omio 不支持 render array，未来可能支持
-* Omio 不支持 `fire` 触发自定义事件，可以和 react 一样使用 `props.xxx()` 去触发。Omi 同时支持 `fire` and `props.xxx()` 两种方式。
-
 
 ## 在 Omi 项目中使用
 
