@@ -73,5 +73,11 @@ create.Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+
+  onTap: function(){
+    wx.navigateTo({
+      url: "/pages/other/other"
+   });
   }
 })

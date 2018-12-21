@@ -101,7 +101,7 @@ function create(store, option) {
     store.ready = function () {
       this.page = getCurrentPages()[getCurrentPages().length - 1]
       this.store = this.page.store
-      Object.assign(this.store.data, JSON.parse(JSON.stringify(store.data)))
+      store.data && Object.assign(this.store.data, JSON.parse(JSON.stringify(store.data)))
 
       this.setData.call(this, this.store.data)
 

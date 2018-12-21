@@ -11,4 +11,5 @@
     <text class="user-motto">{{motto}}</text>
   </view>
   <hello c="{{abc}}"  ddd="{{ddd}}"></hello>
+  <button bindtap="onTap">点击我测试全局单一 store</button>
 </view>
