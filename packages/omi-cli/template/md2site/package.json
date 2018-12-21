@@ -34,6 +34,7 @@
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "md-text-loader": "^0.1.0",
+    "ncp": "^2.0.0",
     "object-assign": "4.1.1",
     "omi-router": "latest",
     "omio": "latest",
@@ -55,7 +56,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "PUBLIC_URL=. node scripts/build.js && ncp src/repl build/repl",
+    "build_w": "set PUBLIC_URL=.&& node scripts/build.js && ncp src/repl build/repl",
     "fix": "eslint src --fix"
   },
   "jest": {

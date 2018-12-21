@@ -5,7 +5,7 @@ const config = {
         title: '快速开始',
         list: [
           { name: '简介', md: 'introduction' },
-          { name: '配置', md: 'config', demo: 'https://tencent.github.io/omi/packages/omi-chart/repl/index.html' }
+          { name: '配置', md: 'config', demo: './repl/index.html' }
         ]
       },
       {
@@ -19,7 +19,7 @@ const config = {
       {
         title: 'QUICK START',
         list: [
-          { name: 'Introduction', md: 'introduction' ,demo: 'https://tencent.github.io/omi/packages/omi-chart/repl/index.html'},
+          { name: 'Introduction', md: 'introduction' ,demo: './repl/index.html'},
           { name: 'Config', md: 'config' }
         ]
       },
