@@ -37,7 +37,7 @@ define('my-demo', class extends WeElement {
           <img src={require('./close.png')}></img>
         </div>}
 
-        {this.show && <iframe src='http://localhost:8080/packages/omi-chart/repl/index.html' ></iframe>
+        {this.show && <iframe src='https://tencent.github.io/omi/packages/omi-chart/repl/index.html' ></iframe>
         }
 
       </div>

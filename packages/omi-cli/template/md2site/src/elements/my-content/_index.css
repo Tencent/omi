@@ -5,6 +5,7 @@
     padding: 1px 10px 10px 20px;
     color: #24292e;
     overflow: hidden;
+    max-width: 900px;
 }
 
 h3{
