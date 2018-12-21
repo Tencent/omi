@@ -20,7 +20,7 @@ define('o-adjustment', class extends WeElement {
 
     this.data.pDisabled = this.data.value >= this.props.max
     this.update()
-    this.fire('change', {value:this.data.value})
+    this.props.onChange(this.data.value)
   }
 
   plus = () => {
@@ -34,7 +34,7 @@ define('o-adjustment', class extends WeElement {
     this.data.mDisabled = this.data.value <= this.props.min
     
     this.update()
-    this.fire('change', {value:this.data.value})
+    this.props.onChange(this.data.value)
   }
 
   render(props, data) {

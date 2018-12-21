@@ -1463,9 +1463,8 @@
 
   options.root.Omi = omi;
   options.root.Omi.version = '4.1.7';
-  //# sourceMappingURL=omi.esm.js.map
 
-  var _css = "div{\n  color: rgba(0,0,0,.65);\n}\n* {\n  box-sizing: border-box;\n}\nul,li{\n  padding: 0;\n  margin: 0;\n}\n\nli{\n  display: inline-block;\n  min-width:32px;\n  height: 32px;\n  border: 1px solid #ccc;\n  vertical-align: middle;\n  line-height: 32px;\n  text-align: center;\n  margin: 0 3px 0 3px; \n  cursor: pointer;\n  border-radius: 3px;\n}\n\n.o-pager{\n  display: inline-block;\n}\n\nbutton{\n  width: 32px;\n  height: 32px;\n  appearance: none;\n  -webkit-appearance: none;\n  position: relative;\n  border: 1px solid #ccc;\n  background: none;\n  top:1px;\n  border-radius: 3px;\n  cursor: pointer;\n}\n\nbutton:disabled\n{ \n  border-color: #eee;\n  cursor: default;\n}\n\n.more:after{\n  content: '...';\n}\n\n.more{\n  border: none;\n  cursor: default;\n}\n\n.active{\n  border-color: rgb(61, 111, 185);\n  color:rgb(61, 111, 185);\n}";
+  var _css = "div{\r\n  color: rgba(0,0,0,.65);\r\n}\r\n* {\r\n  box-sizing: border-box;\r\n}\r\nul,li{\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\nli{\r\n  display: inline-block;\r\n  min-width:32px;\r\n  height: 32px;\r\n  border: 1px solid #ccc;\r\n  vertical-align: middle;\r\n  line-height: 32px;\r\n  text-align: center;\r\n  margin: 0 3px 0 3px; \r\n  cursor: pointer;\r\n  border-radius: 3px;\r\n}\r\n\r\n.o-pager{\r\n  display: inline-block;\r\n}\r\n\r\nbutton{\r\n  width: 32px;\r\n  height: 32px;\r\n  appearance: none;\r\n  -webkit-appearance: none;\r\n  position: relative;\r\n  border: 1px solid #ccc;\r\n  background: none;\r\n  top:1px;\r\n  border-radius: 3px;\r\n  cursor: pointer;\r\n}\r\n\r\nbutton:disabled\r\n{ \r\n  border-color: #eee;\r\n  cursor: default;\r\n}\r\n\r\n.more:after{\r\n  content: '...';\r\n}\r\n\r\n.more{\r\n  border: none;\r\n  cursor: default;\r\n}\r\n\r\n.active{\r\n  border-color: rgb(61, 111, 185);\r\n  color:rgb(61, 111, 185);\r\n}";
 
   var _class, _temp;
 
@@ -1519,7 +1518,7 @@
 
     _class.prototype.goto = function goto(index) {
       this.data.currentPage = index;
-      this.fire('change', { index: index });
+      this.props.onChange(index);
       this.update();
     };
 
@@ -1699,7 +1698,7 @@
     return _class;
   }(WeElement), _class.observe = true, _temp));
 
-  var _css$1 = "span{\n  position: absolute;\n  border: 1px solid #ccc;\n  width: 32px;\n  height: 32px;\n  background-color: white;\n  cursor: pointer;\n  text-align: center;\n  line-height: 29px;\n}\n\n*{\n  box-sizing: border-box;\n}\n\n.decrease{\n  left: 1px;\n  border-radius: 3px 0px 0px 3px;\n}\n\n.increase{\n  right: 1px;\n  border-radius: 0px 3px 3px 0px;\n}\n\n.ctn{\n  position: relative;\n  width: 150px;\n}\n\n.input{\n  width: 100%;\n}\n\ninput{\n  width:100px;\n  height: 32px;\n  margin: 0 auto;\n  display: block;\n  text-align: center;\n  border: 1px solid #ccc;\n}\n";
+  var _css$1 = "span{\r\n  position: absolute;\r\n  border: 1px solid #ccc;\r\n  width: 32px;\r\n  height: 32px;\r\n  background-color: white;\r\n  cursor: pointer;\r\n  text-align: center;\r\n  line-height: 29px;\r\n}\r\n\r\n*{\r\n  box-sizing: border-box;\r\n}\r\n\r\n.decrease{\r\n  left: 1px;\r\n  border-radius: 3px 0px 0px 3px;\r\n}\r\n\r\n.increase{\r\n  right: 1px;\r\n  border-radius: 0px 3px 3px 0px;\r\n}\r\n\r\n.ctn{\r\n  position: relative;\r\n  width: 150px;\r\n}\r\n\r\n.input{\r\n  width: 100%;\r\n}\r\n\r\ninput{\r\n  width:100px;\r\n  height: 32px;\r\n  margin: 0 auto;\r\n  display: block;\r\n  text-align: center;\r\n  border: 1px solid #ccc;\r\n}\r\n";
 
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1729,7 +1728,7 @@
 
         _this.data.pDisabled = _this.data.value >= _this.props.max;
         _this.update();
-        _this.fire('change', { value: _this.data.value });
+        _this.props.onChange(_this.data.value);
       }, _this.plus = function () {
         if (_this.data.pDisabled) return;
         _this.data.value += _this.props.step;
@@ -1741,7 +1740,7 @@
         _this.data.mDisabled = _this.data.value <= _this.props.min;
 
         _this.update();
-        _this.fire('change', { value: _this.data.value });
+        _this.props.onChange(_this.data.value);
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
@@ -1799,29 +1798,63 @@
     return _class2;
   }(WeElement));
 
+  var _css$2 = ".progress{\r\n  width: 100%;\r\n  height: 12px;\r\n  background-color: #009B3D;\r\n  border-radius: 6px; \r\n}\r\n\r\n.inner{\r\n  height: 12px;\r\n  width: 60%;\r\n  background-color: white;\r\n  border-radius: 6px; \r\n}";
+
+  var _class$1, _temp$1;
+
   function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$4(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits$4(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+  define('o-progress', (_temp$1 = _class$1 = function (_WeElement) {
+    _inherits$4(_class, _WeElement);
+
+    function _class() {
+      _classCallCheck$4(this, _class);
+
+      return _possibleConstructorReturn$4(this, _WeElement.apply(this, arguments));
+    }
+
+    _class.prototype.css = function css() {
+      return _css$2;
+    };
+
+    _class.prototype.render = function render$$1(props) {
+      return Omi.h(
+        'div',
+        { 'class': 'progress', style: 'background-color: ' + props.bgColor + ';' },
+        Omi.h('div', { 'class': 'inner', style: 'width:' + props.value + '%;background-color: ' + props.innerColor + ';' })
+      );
+    };
+
+    return _class;
+  }(WeElement), _class$1.observe = true, _temp$1));
+
+  function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$5(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$5(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
   define('my-app', function (_WeElement) {
-    _inherits$4(_class2, _WeElement);
+    _inherits$5(_class2, _WeElement);
 
     function _class2() {
       var _temp, _this, _ret;
 
-      _classCallCheck$4(this, _class2);
+      _classCallCheck$5(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (evt) {
-        console.log('page' + evt.detail.index);
-      }, _this.onAdjustmentChange = function (evt) {
-        console.log(evt.detail.value);
-      }, _temp), _possibleConstructorReturn$4(_this, _ret);
+      return _ret = (_temp = (_this = _possibleConstructorReturn$5(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (v) {
+        console.log('page' + v);
+      }, _this.onAdjustmentChange = function (v) {
+        console.log(v);
+      }, _temp), _possibleConstructorReturn$5(_this, _ret);
     }
 
     _class2.prototype.render = function render$$1() {
@@ -1842,6 +1875,12 @@
           step: 1,
           value: 2,
           label: '\u63CF\u8FF0\u6587\u5B57'
+        }),
+        Omi.h('br', null),
+        Omi.h('o-progress', {
+          bgColor: '#ccc',
+          innerColor: 'green',
+          value: 50
         })
       );
     };

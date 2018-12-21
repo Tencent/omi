@@ -42,7 +42,7 @@ define('o-pagination', class extends WeElement {
 
   goto(index) {
     this.data.currentPage = index
-    this.fire('change', { index })
+    this.props.onChange(index)
     this.update()
   }
 
