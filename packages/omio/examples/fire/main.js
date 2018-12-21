@@ -5,7 +5,6 @@ define('my-hello', class extends Component {
     this.fire('myevent', { a: 2 })
   }
 
-
   render() {
     return <h3 onclick={this.handleClick}> {this.props.name}</h3>
   }
@@ -16,11 +15,9 @@ define('my-app', class extends Component {
     this.name = 'Omi'
   }
 
-
   onMyEvent = e => {
     console.log(e.detail)
   }
-
 
   render() {
     return (

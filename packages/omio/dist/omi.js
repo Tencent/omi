@@ -840,6 +840,18 @@
             if (options.componentChange) options.componentChange(this, this.base);
             this.A = !1;
         };
+        Component.prototype.fire = function(type, data) {
+            var _this = this;
+            Object.keys(this.props).every(function(key) {
+                if ('on' + type === key.toLowerCase()) {
+                    _this.props[key]({
+                        detail: data
+                    });
+                    return !1;
+                }
+                return !0;
+            });
+        };
         Component.prototype.render = function() {};
         return Component;
     }();
@@ -873,7 +885,7 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-1.0.1';
+    options.root.Omi.version = 'omio-1.0.2';
     var Omi = {
         h: h,
         createElement: h,
