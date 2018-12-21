@@ -3,7 +3,9 @@ import css from './_index.css'
 
 define('my-demo', class extends WeElement {
   install() {
+    this.store.myDemo = this
     this.show = false
+    this.demo = this.store.demo
   }
 
   css() {
@@ -26,17 +28,15 @@ define('my-demo', class extends WeElement {
   render() {
     return (
       <div>
-        {!this.show && <div class="switch code" onClick={this.onShow}>
+        {this.demo && !this.show && <div class="switch code" onClick={this.onShow}>
           <img src={require('./code.png')}></img>
-        </div>
-        }
+        </div>}
 
-        {this.show && <div class="switch close" onClick={this.onClose}>
+        {this.demo && this.show && <div class="switch close" onClick={this.onClose}>
           <img src={require('./close.png')}></img>
         </div>}
 
-        {this.show && <iframe src='https://tencent.github.io/omi/packages/omi-chart/repl/index.html' ></iframe>
-        }
+        {this.demo && this.show && <iframe src={this.demo} ></iframe>}
 
       </div>
     )

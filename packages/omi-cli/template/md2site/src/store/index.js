@@ -15,7 +15,7 @@ class Store {
     this.menus[0].active = true
     this.menus[0].currentIndex = 0
     this.menus[0].list[0].selected = true
-
+    this.demo = this.menus[0].list[0].demo
     this.initRouter()
 
     this.preIndex = 0
@@ -39,7 +39,11 @@ class Store {
       item.list.forEach(subItem => {
         route('/' + subItem.md, evt => {
           this.menus[this.preIndex].list[this.preSubIndex].selected = false
-          this.menus[evt.query.index].list[evt.query.subIndex].selected = true
+          const item = this.menus[evt.query.index].list[evt.query.subIndex]
+          item.selected = true
+          this.myDemo.show = false
+          this.myDemo.demo = item.demo
+          this.myDemo.update()
           this.preIndex = evt.query.index
           this.preSubIndex = evt.query.subIndex
           this.sideBarShow = false
