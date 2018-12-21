@@ -31,5 +31,15 @@ export default class Component {
     this._willUpdate = false
   }
 
-  render() {}
+  fire(type, data) {
+    Object.keys(this.props).every(key => {
+      if ('on' + type === key.toLowerCase()) {
+        this.props[key]({ detail: data })
+        return false
+      }
+      return true
+    })
+  }
+
+  render() { }
 }
