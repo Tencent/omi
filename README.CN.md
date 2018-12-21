@@ -8,6 +8,7 @@
 ### 特性
 
 - 小巧的尺寸(gzip压缩后仅4kb)
+- 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
 - 真正的 [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md), 拥有 [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力支持
 - 支持 `TypeScript`
 - 响应式数据绑定

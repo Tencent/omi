@@ -69,18 +69,20 @@ function init(args) {
               fs.writeFile(join(dest, 'package.json'), JSON.stringify(appPackage, null, 2), (err) => {
                 if (err) return console.log(err);
               });
+
+              process.chdir(customPrjName || '.');
+
+              // install ndoe package modules
+              info(
+                'Install',
+                'We will install dependencies, if you refuse, press ctrl+c to abort, and install dependencies by yourself. :>'
+              );
+              console.log();
+              require('./install')(mirror, done); // npm install
             }
-            process.chdir(customPrjName || '.');
           } catch (e) {
             console.log(error(e));
           }
-        info(
-          'Install',
-          'We will install dependencies, if you refuse, press ctrl+c to abort, and install dependencies by yourself. :>'
-        );
-        console.log();
-        // install ndoe package modules
-        require('./install')(mirror, done);
       } catch (e) {
         console.log(error(e));
       }
