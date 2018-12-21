@@ -6,6 +6,8 @@
 
 ### API
 
+#### 去中心化 API
+
 * `create.Page(option)`             创建页面
 * `create.Component(option)`        创建组件
 * `this.oData`                      操作页面或组件的数据（会自动更新视图）
@@ -13,7 +15,13 @@
 * `create.mitt()`                   事件发送和监听器
 * `create.emitter`                  事件发送和监听器，不同于 mitt() 每次会创建新的实例，emitter 是全局唯一，可以用于跨页面通讯
 
-### 实战
+#### 中心化 API
+
+* `create(store, option)`      创建页面
+* `create(option)`             创建组件
+* `this.store.data`            全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
+
+### 实战去中心化 API
 
 #### 页面
 
@@ -76,7 +84,7 @@ this.oData.userInfo = {
     ...
 ```
 
-### 组件
+#### 组件
 
 ```js
 import create from '../../utils/create'
@@ -98,7 +106,7 @@ create.Component({
 })
 ```
 
-### 数组
+#### 数组
 
 ```js
 import create from '../../utils/create'
@@ -127,7 +135,7 @@ create.Page({
 this.oData.yourArray.size(3)
 ```
 
-## 其他
+#### 其他
 
 ```js
 this.oData.arr.push(111) //会触发视图更新
@@ -139,7 +147,7 @@ this.oData.arr.length = 2 //不会触发视图更新
 
 ```
 
-## mitt 语法
+#### mitt 语法
 
 ```js
 const emitter = mitt()
@@ -160,6 +168,79 @@ emitter.off('foo', onFoo)  // unlisten
 ```
 
 [详细参见 mitt github](https://github.com/developit/mitt)
+
+### 实战中心化 API
+
+定义 store:
+
+```js
+export default {
+  data: {
+    logs: []
+  }
+}
+```
+
+定义页面:
+
+```js
+import create from '../../utils/create'
+import util from '../../utils/util'
+import store from '../../store'
+
+create(store, {
+  onLoad: function () {
+    this.store.data.logs = (wx.getStorageSync('logs') || []).map(log => {
+      return util.formatTime(new Date(log))
+    })
+
+
+    setTimeout(() => {
+      this.store.data.logs[0] = 'Changed!'
+    }, 1000)
+
+
+    setTimeout(() => {
+      this.store.data.logs.push(Math.random(), Math.random())
+    }, 2000)
+
+    setTimeout(() => {
+      this.store.data.logs.splice(this.store.data.logs.length - 1, 1)
+    }, 3000)
+  }
+})
+```
+
+```html
+<view class="container log-list">
+  <block wx:for="{{logs}}" wx:for-item="log">
+    <text class="log-item">{{index + 1}}. {{log}}</text>
+  </block>
+  <view>
+    <test-store></test-store>
+  </view>
+</view>
+```
+
+可以看到里面使用 test-store 组件, 看下组件源码:
+
+```js
+import create from '../../utils/create'
+
+create({
+  
+})
+```
+
+```html
+<view class="ctn">
+  <view>
+    <text>Log Length: {{logs.length}}</text>
+  </view>
+</view>
+```
+
+喜欢中心化还是喜欢去中心化任你挑选，或者同一个小程序可以混合两种模式。
 <!-- 
 ## 原理
 

@@ -1,3 +1,5 @@
 export default {
-  data: { logs: [] }
+  data: {
+    logs: []
+  }
 }
