@@ -1,6 +1,7 @@
 import { define, render, WeElement } from 'omi'
 import './omiu/pagination'
 import './omiu/adjustment'
+import './omiu/progress'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -28,6 +29,12 @@ define('my-app', class extends WeElement {
           step={1}
           value={2}
           label="描述文字"
+        />
+        <br />
+        <o-progress
+        bgColor='#ccc'
+        innerColor='green'
+          value={50}
         />
       </div>
     )

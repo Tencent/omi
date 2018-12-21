@@ -1,0 +1,13 @@
+.progress{
+  width: 100%;
+  height: 12px;
+  background-color: #009B3D;
+  border-radius: 6px; 
+}
+
+.inner{
+  height: 12px;
+  width: 60%;
+  background-color: white;
+  border-radius: 6px; 
+}
