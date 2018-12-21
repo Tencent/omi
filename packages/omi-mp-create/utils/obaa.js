@@ -6,8 +6,8 @@
 ;(function(win) {
   var obaa = function(target, arr, callback) {
     var _observe = function(target, arr, callback) {
-      if (!target.$observer) target.$observer = this
-      var $observer = target.$observer
+      //if (!target.$observer) target.$observer = this
+      var $observer = this
       var eventPropArr = []
       if (obaa.isArray(target)) {
         if (target.length === 0) {

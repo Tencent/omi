@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "查看启动日志",
+  "usingComponents": {
+    "test-store": "/components/test-store/test-store"
+  }
+}
