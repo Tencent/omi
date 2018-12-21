@@ -186,7 +186,9 @@ declare namespace Omi {
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
-	};
+  };
+  
+  function getHost(element: WeElement): WeElement;
 }
 
 
