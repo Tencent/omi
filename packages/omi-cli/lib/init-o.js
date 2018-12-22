@@ -92,16 +92,8 @@ function init(args) {
 		console.log();
 		console.log();
 		success(`Congratulation! "${projectName}" has been created successful! `);
-		console.log(`
-
-    Using the scaffold with  Webpack ,
-
-if you are not in ${projectName}, please run 'cd ${projectName}', then you can:
-
-    > ${chalk.bold.white("npm run dev")}         Starts the development server
-    > ${chalk.bold.white("npm run dist")}        Publish your project`);
 		console.log();
-		console.log(`${chalk.bold.cyan("Omio!")} https://omijs.org`);
+		console.log(`${chalk.bold.cyan("Omio")} https://github.com/Tencent/omi`);
 	}
 }
 
