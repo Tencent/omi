@@ -96,7 +96,6 @@ Please check on https://github.com/omijs
     }
 	}
 
-  // NOTE - to edit as template paragraph.
 	function done() {
 		console.log();
 		console.log();
