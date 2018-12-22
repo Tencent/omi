@@ -13,7 +13,7 @@ module.exports = function(mirror, done) {
 			if (resolved) pkgtool = mirror;
 		} catch (e) {
 			console.log(e);
-			return secede(spawn(pkgtool, ["install"], { stdio: "inherit" }));
+			return secede(spawn(pkgtool, ["install"], { stdio: "inherit" }), done);
 		}
 	} else if (mirror !== "default") {
 		registry = ["--registry", require("./mirror")[mirror]];
@@ -21,12 +21,13 @@ module.exports = function(mirror, done) {
 	return secede(
 		spawn(pkgtool, registry ? [].concat(["install"], registry) : ["install"], {
 			stdio: "inherit"
-		})
+		}), done
 	);
 };
 
-function secede(line) {
+function secede(line, done) {
 	line.on("close", function(code) {
+		done && typeof done === 'function' && done();
 		process.exit(code);
 	});
 

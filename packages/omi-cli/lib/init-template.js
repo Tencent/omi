@@ -79,6 +79,8 @@ function init(args) {
               );
               console.log();
               require('./install')(mirror, done); // npm install
+            } else {
+              done();
             }
           } catch (e) {
             console.log(error(e));
@@ -94,22 +96,13 @@ Please check on https://github.com/omijs
     }
 	}
 
-  // NOTE - to edit as template paragraph.
 	function done() {
 		console.log();
 		console.log();
 		console.log();
 		success(`Congratulation! "${projectName}" has been created successful! `);
-		console.log(`
-
-Using the scaffold with Gulp + Webpack + Babel + BrowserSync,
-
-if you are not in ${projectName}, please run 'cd ${projectName}', then you can:
-
-    > ${chalk.bold.white("npm run dev")}         Starts the development server
-    > ${chalk.bold.white("npm run dist")}        Publish your project`);
 		console.log();
-		console.log(`${chalk.bold.cyan("Omi!")} https://alloyteam.github.io/omi`);
+		console.log(`${chalk.bold.cyan("Omi " + templateName)} https://github.com/Tencent/omi`);
 	}
 }
 

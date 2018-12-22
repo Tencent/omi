@@ -85,16 +85,8 @@ function init(args) {
 		console.log();
 		console.log();
 		success(`Congratulation! "${projectName}" has been created successful! `);
-		console.log(`
-
-Using the scaffold with  Webpack ,
-
-if you are not in ${projectName}, please run 'cd ${projectName}', then you can:
-
-    > ${chalk.bold.white("npm run dev")}         Starts the development server
-    > ${chalk.bold.white("npm run dist")}        Publish your project`);
 		console.log();
-		console.log(`${chalk.bold.cyan("Omix!")} https://alloyteam.github.io/omix`);
+		console.log(`${chalk.bold.cyan("Omi mp")} https://github.com/Tencent/omi`);
 	}
 }
 
