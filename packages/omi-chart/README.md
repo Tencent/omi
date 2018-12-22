@@ -35,6 +35,11 @@
   - [Bubble](https://tencent.github.io/omi/packages/omi-chart/repl/bubble.html)
   - [Bar Line](https://tencent.github.io/omi/packages/omi-chart/repl/bar-line.html)
 
+## Compatible with IE
+
+- [→ Demo by Omio](https://tencent.github.io/omi/packages/omi-chart/repl/ie-test.html)
+- [→ Source Code](https://github.com/Tencent/omi/blob/master/packages/omi-chart/repl/ie-test.html)
+
 ## Supports type
 
 * `<chart-bar />`
