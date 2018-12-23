@@ -44,10 +44,46 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     hydrating = dom != null && !(ATTR_KEY in dom)
   }
 
-  let ret = idiff(dom, vnode, context, mountAll, componentRoot)
-
-  // append the element if its a new parent
-  if (parent && ret.parentNode !== parent) parent.appendChild(ret)
+  let ret;
+  if (isArray(vnode)) {
+      ret = []
+      let parentNode = null
+      if (isArray(dom)) {
+        let domLength = dom.length
+        let vnodeLength = vnode.length
+        let maxLength = domLength >= vnodeLength ? domLength : vnodeLength
+        parentNode = dom[0].parentNode
+        for (let i = 0; i < maxLength; i++) {
+          let ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot)
+            ret.push(ele)
+            if (i > domLength - 1) {
+                parentNode.appendChild(ele)
+            }
+        }
+      } else {
+          vnode.forEach(function (item) {
+              var ele = idiff(dom, item, context, mountAll, componentRoot)
+              let.push(ele)
+              parent && parent.appendChild(ele)
+          })
+      }
+  } else {
+      if (isArray(dom)) {
+          ret = idiff(dom[0], vnode, context, mountAll, componentRoot)
+      } else {
+          ret = idiff(dom, vnode, context, mountAll, componentRoot)
+      }
+      // append the element if its a new parent
+      if (parent && ret.parentNode !== parent) {
+          if(isArray(ret)){
+              ret.forEach(function (domNode){
+                  parent.appendChild(domNode);
+              })
+          } else {
+              parent.appendChild(ret)
+          }
+      }
+  }
 
   // diffLevel being reduced to 0 means we're exiting the diff
   if (!--diffLevel) {
