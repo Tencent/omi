@@ -5,6 +5,7 @@ import { createNode, setAccessor } from '../dom/index'
 import { unmountComponent } from './component'
 import options from '../options'
 import { removeNode } from '../dom/index'
+import { isArray } from "../util";
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
@@ -63,7 +64,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
       } else {
           vnode.forEach(function (item) {
               var ele = idiff(dom, item, context, mountAll, componentRoot)
-              let.push(ele)
+              ret.push(ele)
               parent && parent.appendChild(ele)
           })
       }
@@ -290,7 +291,6 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
 
       // morph the matched/found/created DOM child to match vchild (deep)
       child = idiff(child, vchild, context, mountAll)
-
       f = originalChildren[i]
       if (child && child !== dom && child !== f) {
         if (f == null) {
