@@ -1,14 +1,15 @@
 import { define, render, WeElement } from 'omi'
 import '../../src/pagination'
 import '../../src/adjustment'
+import '../../src/progress'
 
 define('my-app', class extends WeElement {
-  onChange = evt => {
-    console.log('page' + evt.detail.index)
+  onChange = v => {
+    console.log('page' + v)
   }
 
-  onAdjustmentChange = evt => {
-    console.log(evt.detail.value)
+  onAdjustmentChange = v => {
+    console.log(v)
   }
 
   render() {
@@ -28,6 +29,12 @@ define('my-app', class extends WeElement {
           step={1}
           value={2}
           label="描述文字"
+        />
+        <br />
+        <o-progress
+        bgColor='#ccc'
+        innerColor='green'
+          value={50}
         />
       </div>
     )

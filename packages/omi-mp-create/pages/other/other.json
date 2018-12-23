@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "测试全局单一 store",
+  "usingComponents": {
+    "test-store": "/components/test-store/test-store"
+  }
+}

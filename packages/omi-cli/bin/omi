@@ -28,87 +28,87 @@ program
     .description('Initialize a new Omi application in the current folder')
     .action(function(projectName, option){
         var cmd = 'init';
-        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+        if (option.parent.mirror && typeof option.parent.mirror === 'string') {
             options.mirror = option.parent.mirror;
         }
-        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
-    })
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+    });
 
 program
     .command('init-spa [projectName]')
     .description('Initialize a new SPA with omi-router in the current folder')
     .action(function(projectName, option){
         var cmd = 'init-spa';
-        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+        if (option.parent.mirror && typeof option.parent.mirror === 'string') {
             options.mirror = option.parent.mirror;
         }
-        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
-		})
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+    })
 
 program
     .command('init-o [projectName]')
-    .description('Initialize a new omio(IE9+) project in the current folder')
+    .description('Initialize a new omio(IE8+) project in the current folder')
     .action(function(projectName, option){
         var cmd = 'init-o';
-        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+        if (option.parent.mirror && typeof option.parent.mirror === 'string') {
             options.mirror = option.parent.mirror;
         }
-        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
-        })
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+    });
 
 program
-        .command('init-weui [projectName]')
-        .description('Initialize a mobile project with weui in the current folder')
-        .action(function(projectName, option){
-            var cmd = 'init-o';
-            if(option.parent.mirror && typeof option.parent.mirror === "string"){
-                options.mirror = option.parent.mirror;
-            }
-            switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
-            })
+    .command('init-weui [projectName]')
+    .description('Initialize a mobile project with weui in the current folder')
+    .action(function(projectName, option){
+        var cmd = 'init-o';
+        if (option.parent.mirror && typeof option.parent.mirror === 'string') {
+            options.mirror = option.parent.mirror;
+        }
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+    });
 
 program
     .command('init-mvvm [projectName]')
     .description('Initialize a new MVVM project in the current folder')
     .action(function(projectName, option){
         var cmd = 'init-mvvm';
-        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+        if(option.parent.mirror && typeof option.parent.mirror === 'string'){
             options.mirror = option.parent.mirror;
         }
-        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
-		})
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+    });
 
 program
     .command('init-mp [projectName]')
     .description('Initialize a new omi-mp project in the current folder')
     .action(function(projectName, option){
         var cmd = 'init-mp';
-        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+        if(option.parent.mirror && typeof option.parent.mirror === 'string'){
             options.mirror = option.parent.mirror;
         }
-        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
-		})
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+    });
 
 program
     .command('init-md2site [projectName]')
     .description('Initialize a new omi-md2site project in the current folder')
     .action(function(projectName, option){
         var cmd = 'init-md2site';
-        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+        if(option.parent.mirror && typeof option.parent.mirror === 'string'){
             options.mirror = option.parent.mirror;
         }
-        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
-    })
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
+    });
     
 program
     .command('init-ts [projectName]')
     .description('Initialize a new omi project with typescript in the current folder')
     .action(function(projectName, option){
         var cmd = 'init-ts';
-        if(option.parent.mirror && typeof option.parent.mirror === "string"){
+        if(option.parent.mirror && typeof option.parent.mirror === 'string'){
             options.mirror = option.parent.mirror;
         }
-        switchCommand(cmd, {project: projectName, mirror: options.mirror, language: options.language})
+        switchCommand(cmd, { project: projectName, mirror: options.mirror, language: options.language });
     })
 
 program
@@ -116,15 +116,29 @@ program
     .description('Compile your omi project')
     .action(function(option){
         var cmd = 'pr';
-        switchCommand(cmd, {language: options.language})
-    })
+        switchCommand(cmd, { language: options.language });
+    });
 
 
 program
     .command('*')
-    .action(function(){
-        spawn('omi', ['-h'], { stdio: 'inherit'})
-    })
+    .action(function(cmd){
+        const templateName = isInitTemplate(cmd); // verify init-{templateName}
+        const option = arguments[2] || arguments[1]; // if no arguments[2], second parameter is an option.
+        const projectName = typeof arguments[1] === 'string' ? arguments[1] : ''; // if arguments[1] is not a string, no project name input.
+        // init a template
+        if (templateName) {
+            var cmd = 'init-template';
+            if(option.parent.mirror && typeof option.parent.mirror === 'string'){
+                options.mirror = option.parent.mirror;
+            }
+            // omi init-{templateName} {projectName}
+            switchCommand(cmd, { project: projectName, template: templateName, mirror: options.mirror, language: options.language });
+        } else {
+            // default, if it is not init a template
+            spawn('omi', ['-h'], { stdio: 'inherit' })
+        }
+    });
 
 program.parse(process.argv);
 
@@ -136,16 +150,22 @@ function switchCommand (cmd, args) {
     }
 }
 
-function isCnFuc(language){
+function isCnFuc(language) {
     return language === "cn" ? true : false
 }
 
-function selectLanguage(language){
+function selectLanguage(language) {
     if(language !== 'en' && language !== 'cn'){
         language = 'en';
     }
     options.language = language;
     return language;
+}
+
+// verify a command is init a template, and return a template name without init-
+// i.e. init-omi-cli to omi-cli
+function isInitTemplate(cmd) {
+    return /init-(.)+/.test(cmd) && /init-([^\ ]+)/.exec(cmd)[1];
 }
 
 function executable(cmd) {
@@ -157,7 +177,7 @@ function help() {
     console.log('  Commands:');
     console.log();
     console.log(`     ${chalk.green('init  [project-name]')}           Initialize a new omi application in the current folder `);
-    console.log(`     ${chalk.green('init-o  [project-name]')}        Initialize a new omio(IE9+) project in the current folder `)
+    console.log(`     ${chalk.green('init-o  [project-name]')}        Initialize a new omio(IE8+) project in the current folder `)
     console.log(`     ${chalk.green('init-weui  [project-name]')}        Initialize a mobile project with weui in the current folder `)
 		console.log(`     ${chalk.green('init-ts  [project-name]')}        Initialize a new omi project with typescript in the current folder `)
 		console.log(`     ${chalk.green('init-spa  [project-name]')}        Initialize a new omi spa  with omi-router in the current folder `)
@@ -167,5 +187,3 @@ function help() {
     console.log();
     console.log('  All commands can be run with -h (or --help) for more information.')
 }
-
-

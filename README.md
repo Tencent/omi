@@ -1,12 +1,13 @@
 English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 
-<p align="right">v<strong>5.0.13</strong></p>
+<p align="right">v<strong>5.0.16</strong></p>
 <p align="center"><img src="./assets/omi3.png" alt="omi" width="300"/></p>
-<h2 align="center">Omi - Next generation web framework using web components with omio fallback(IE9+) in 4kb JavaScript. Easy to MVVM.</h2>
+<h2 align="center">Omi - Next generation web framework using web components with omio fallback(IE8+) in 4kb JavaScript. Easy to MVVM.</h2>
 
 ## Why Omi?
 
 - Tiny size. _(**4kb** gzipped)_
+- Excellent compatibility(IE8+) with [omio](https://github.com/Tencent/omi/tree/master/packages/omio)
 - Real [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md) with [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) strong support
 - Supports TypeScript
 - Reactive data-binding
@@ -38,7 +39,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi official documents |
-| [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| Omi for old browsers(IE9+ and mobile browsers).|
+| [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| Omi for old browsers(IE8+ and mobile browsers).|
 | [md2site![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://tencent.github.io/omi/assets/md2site/)| Static Site Generator with markdown powered by Omio.|
 | [omi-mvvm![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)| MVVM comes back bravely with [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) strong support.|
 | [omi-chart![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| Simple HTML5 Charts using chart-x tag.|
@@ -80,7 +81,7 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 |  [CSS Shadow Parts](https://drafts.csswg.org/css-shadow-parts-1/)|
 |  [Platform HTML5](https://platform.html5.org/)|
 | [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
-| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|求翻译|
+| [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|[简体中文](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)|
 |[ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
 
 # Overview of the Readme
@@ -338,7 +339,7 @@ If you only want to use relative addresses:
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
 |Base Template|`omi init my-app`| Basic omi project template.|
-|Omio Template|`omi init-o my-app`| Basic omi project template for old browsers(IE9+ and mobile browsers).|
+|Omio Template|`omi init-o my-app`| Basic omi project template for old browsers(IE8+ and mobile browsers).|
 |Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
 |TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`|Basic template with typescript.|
 |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.|
@@ -720,7 +721,7 @@ For example, the below is about migration React button as weui Omi button:
 
 ## Browsers Support
 
-> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - Omi for old browsers(IE9+ and mobile browsers)
+> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - Omi for old browsers(IE8+ and mobile browsers)
 
 Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 11+, and the evergreen Chrome, Firefox, and Edge.
 

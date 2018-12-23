@@ -4,10 +4,10 @@ const OBJECTTYPE = '[object Object]'
 const ARRAYTYPE = '[object Array]'
 
 export function define(name, ctor) {
-    options.mapping[name] = ctor
-    if (ctor.data && !ctor.pure) {
-      ctor.updatePath = getUpdatePath(ctor.data)
-    }
+  options.mapping[name] = ctor
+  if (ctor.data && !ctor.pure) {
+    ctor.updatePath = getUpdatePath(ctor.data)
+  }
 }
 
 export function getUpdatePath(data) {

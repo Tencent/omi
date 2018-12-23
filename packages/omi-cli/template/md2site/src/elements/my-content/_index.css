@@ -1,12 +1,11 @@
 .content{
-    width: 75%;
     margin-top: 60px;
     margin-bottom: 30px;
-    padding: 1px 10px 10px 10px;
+    margin-left: 260px;
+    padding: 1px 10px 10px 20px;
     color: #24292e;
-    border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;
     overflow: hidden;
+    max-width: 900px;
 }
 
 h3{
@@ -24,6 +23,8 @@ li{
 
 @media only screen and (max-width: 768px) {
     .content{
-        width: 100%;
+        margin-left: 0;
+        border-left: none;
+        padding: 1px 10px 10px 10px;
     }
 }

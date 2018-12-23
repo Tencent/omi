@@ -1,0 +1,60 @@
+div{
+  color: rgba(0,0,0,.65);
+}
+* {
+  box-sizing: border-box;
+}
+ul,li{
+  padding: 0;
+  margin: 0;
+}
+
+li{
+  display: inline-block;
+  min-width:32px;
+  height: 32px;
+  border: 1px solid #ccc;
+  vertical-align: middle;
+  line-height: 32px;
+  text-align: center;
+  margin: 0 3px 0 3px; 
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.o-pager{
+  display: inline-block;
+}
+
+button{
+  width: 32px;
+  height: 32px;
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  border: 1px solid #ccc;
+  background: none;
+  top:1px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:disabled
+{ 
+  border-color: #eee;
+  cursor: default;
+}
+
+.more:after{
+  content: '...';
+}
+
+.more{
+  border: none;
+  cursor: default;
+}
+
+.active{
+  border-color: rgb(61, 111, 185);
+  color:rgb(61, 111, 185);
+}

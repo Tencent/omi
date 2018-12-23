@@ -3,6 +3,7 @@ import { define, WeElement } from 'omi'
 import './my-head'
 import './my-content'
 import './my-sidebar'
+import './my-demo'
 
 define('my-frame', class extends WeElement {
 
@@ -10,15 +11,11 @@ define('my-frame', class extends WeElement {
     return (
       <div>
         <my-head />
-        <div
-          class="main"
-          ref={e => {
-            this.mainDiv = e
-          }}
-        >
-          <my-content omi-id="content" />
+        <div class="main">
+          <my-content />
         </div>
-        <my-sidebar omi-id="sidebar" />
+        <my-sidebar />
+        <my-demo />
       </div>
     )
   }

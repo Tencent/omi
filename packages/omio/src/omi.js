@@ -22,11 +22,11 @@ options.root.Omi = {
   WeElement,
   define,
   rpx,
-	ModelView,
-	defineElement
+  ModelView,
+  defineElement
 }
 
-options.root.Omi.version = 'omio-0.1.2'
+options.root.Omi.version = 'omio-1.0.2'
 
 export default {
   h,
@@ -39,8 +39,8 @@ export default {
   WeElement,
   define,
   rpx,
-	ModelView,
-	defineElement
+  ModelView,
+  defineElement
 }
 
 export {
@@ -54,6 +54,6 @@ export {
   WeElement,
   define,
   rpx,
-	ModelView,
-	defineElement
+  ModelView,
+  defineElement
 }

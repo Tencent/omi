@@ -1,5 +1,5 @@
 /**
- * omi v0.1.2  http://omijs.org
+ * omi v1.0.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -68,257 +68,223 @@
 
   var EMPTY_CHILDREN = [];
 
-  var map = {
-    br: 'view',
-    hr: 'view',
-
-    p: 'view',
-    h1: 'view',
-    h2: 'view',
-    h3: 'view',
-    h4: 'view',
-    h5: 'view',
-    h6: 'view',
-    abbr: 'view',
-    address: 'view',
-    b: 'view',
-    bdi: 'view',
-    bdo: 'view',
-    blockquote: 'view',
-    cite: 'view',
-    code: 'view',
-    del: 'view',
-    ins: 'view',
-    dfn: 'view',
-    em: 'view',
-    strong: 'view',
-    samp: 'view',
-    kbd: 'view',
-    var: 'view',
-    i: 'view',
-    mark: 'view',
-    pre: 'view',
-    q: 'view',
-    ruby: 'view',
-    rp: 'view',
-    rt: 'view',
-    s: 'view',
-    small: 'view',
-    sub: 'view',
-    sup: 'view',
-    time: 'view',
-    u: 'view',
-    wbr: 'view',
-
-    form: 'form',
-    input: 'input',
-    textarea: 'textarea',
-    button: 'button',
-    select: 'picker',
-    option: 'view',
-    optgroup: 'view',
-    label: 'label',
-    fieldset: 'view',
-    datalist: 'picker',
-    legend: 'view',
-    output: 'view',
-
-    iframe: 'view',
-
-    img: 'image',
-    canvas: 'canvas',
-    figure: 'view',
-    figcaption: 'view',
-
-    audio: 'audio',
-    source: 'audio',
-    video: 'video',
-    track: 'video',
-
-    a: 'navigator',
-    nav: 'view',
-    link: 'navigator',
-
-    ul: 'view',
-    ol: 'view',
-    li: 'view',
-    dl: 'view',
-    dt: 'view',
-    dd: 'view',
-    menu: 'view',
-    command: 'view',
-
-    table: 'view',
-    caption: 'view',
-    th: 'view',
-    td: 'view',
-    tr: 'view',
-    thead: 'view',
-    tbody: 'view',
-    tfoot: 'view',
-    col: 'view',
-    colgroup: 'view',
-
-    div: 'view',
-    main: 'view',
-    //'span': 'label',
-    span: 'text',
-    header: 'view',
-    footer: 'view',
-    section: 'view',
-    article: 'view',
-    aside: 'view',
-    details: 'view',
-    dialog: 'view',
-    summary: 'view',
-
-    progress: 'progress',
-    meter: 'progress',
-    head: 'view',
-    meta: 'view',
-    base: 'text',
-    map: 'map',
-    area: 'navigator',
-
-    script: 'view',
-    noscript: 'view',
-    embed: 'view',
-    object: 'view',
-    param: 'view',
-
-    view: 'view',
-    'scroll-view': 'scroll-view',
-    swiper: 'swiper',
-    icon: 'icon',
-    text: 'text',
-
-    checkbox: 'checkbox',
-    radio: 'radio',
-    picker: 'picker',
-    'picker-view': 'picker-view',
-    slider: 'slider',
-    switch: 'switch',
-    navigator: 'navigator',
-
-    image: 'image',
-    'contact-button': 'contact-button',
-    block: 'block'
-
-    /**
-     * JSX/hyperscript reviver.
-     * @see http://jasonformat.com/wtf-is-jsx
-     * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
-     *
-     * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
-     *
-     * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
-     * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
-     * the current _actual_ DOM structure, and applying only the differences.
-     *
-     * `h()`/`createElement()` accepts an element name, a list of attributes/props,
-     * and optionally children to append to the element.
-     *
-     * @example The following DOM tree
-     *
-     * `<div id="foo" name="bar">Hello!</div>`
-     *
-     * can be constructed using this function as:
-     *
-     * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
-     *
-     * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
-     * @param {Object} attributes	Any attributes/props to set on the created element.
-     * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
-     *
-     * @public
-     */
-  };function h(nodeName, attributes) {
-      var children = EMPTY_CHILDREN,
-          lastSimple,
-          child,
-          simple,
-          i;
-      for (i = arguments.length; i-- > 2;) {
-        stack.push(arguments[i]);
-      }
-      if (attributes && attributes.children != null) {
-        if (!stack.length) stack.push(attributes.children);
-        delete attributes.children;
-      }
-      while (stack.length) {
-        if ((child = stack.pop()) && child.pop !== undefined) {
-          for (i = child.length; i--;) {
-            stack.push(child[i]);
-          }
-        } else {
-          if (typeof child === 'boolean') child = null;
-
-          if (simple = typeof nodeName !== 'function') {
-            if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
-          }
-
-          if (simple && lastSimple) {
-            children[children.length - 1] += child;
-          } else if (children === EMPTY_CHILDREN) {
-            children = [child];
-          } else {
-            children.push(child);
-          }
-
-          lastSimple = simple;
-        }
-      }
-
-      var p = new VNode();
-      p.nodeName = options.isWeb ? nodeName : map[nodeName];
-      p.attributes = attributes == null ? undefined : attributes;
-      if (children && typeof children[0] === 'string' && !options.isWeb) {
-        if (p.attributes) {
-          p.attributes.value = children[0];
-        } else {
-          p.attributes = { value: children[0] };
+  /**
+   * JSX/hyperscript reviver.
+   * @see http://jasonformat.com/wtf-is-jsx
+   * Benchmarks: https://esbench.com/bench/57ee8f8e330ab09900a1a1a0
+   *
+   * Note: this is exported as both `h()` and `createElement()` for compatibility reasons.
+   *
+   * Creates a VNode (virtual DOM element). A tree of VNodes can be used as a lightweight representation
+   * of the structure of a DOM tree. This structure can be realized by recursively comparing it against
+   * the current _actual_ DOM structure, and applying only the differences.
+   *
+   * `h()`/`createElement()` accepts an element name, a list of attributes/props,
+   * and optionally children to append to the element.
+   *
+   * @example The following DOM tree
+   *
+   * `<div id="foo" name="bar">Hello!</div>`
+   *
+   * can be constructed using this function as:
+   *
+   * `h('div', { id: 'foo', name : 'bar' }, 'Hello!');`
+   *
+   * @param {string} nodeName	An element name. Ex: `div`, `a`, `span`, etc.
+   * @param {Object} attributes	Any attributes/props to set on the created element.
+   * @param rest			Additional arguments are taken to be children to append. Can be infinitely nested Arrays.
+   *
+   * @public
+   */
+  function h(nodeName, attributes) {
+    var children = EMPTY_CHILDREN,
+        lastSimple,
+        child,
+        simple,
+        i;
+    for (i = arguments.length; i-- > 2;) {
+      stack.push(arguments[i]);
+    }
+    if (attributes && attributes.children != null) {
+      if (!stack.length) stack.push(attributes.children);
+      delete attributes.children;
+    }
+    while (stack.length) {
+      if ((child = stack.pop()) && child.pop !== undefined) {
+        for (i = child.length; i--;) {
+          stack.push(child[i]);
         }
       } else {
-        p.children = children;
+        if (typeof child === 'boolean') child = null;
+
+        if (simple = typeof nodeName !== 'function') {
+          if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
+        }
+
+        if (simple && lastSimple) {
+          children[children.length - 1] += child;
+        } else if (children === EMPTY_CHILDREN) {
+          children = [child];
+        } else {
+          children.push(child);
+        }
+
+        lastSimple = simple;
       }
-      p.key = attributes == null ? undefined : attributes.key;
-
-      // if a "vnode hook" is defined, pass every created VNode to it
-      if (options.vnode !== undefined) options.vnode(p);
-
-      return p;
     }
 
-  if (typeof Object.assign != 'function') {
-    // Must be writable: true, enumerable: false, configurable: true
-    Object.defineProperty(Object, "assign", {
-      value: function assign(target, varArgs) {
+    var p = new VNode();
+    p.nodeName = nodeName;
+    p.attributes = attributes == null ? undefined : attributes;
+    if (children && typeof children[0] === 'string' && !options.isWeb) {
+      if (p.attributes) {
+        p.attributes.value = children[0];
+      } else {
+        p.attributes = { value: children[0] };
+      }
+    } else {
+      p.children = children;
+    }
+    p.key = attributes == null ? undefined : attributes.key;
 
-        if (target == null) {
-          // TypeError if undefined or null
-          throw new TypeError('Cannot convert undefined or null to object');
+    // if a "vnode hook" is defined, pass every created VNode to it
+    if (options.vnode !== undefined) options.vnode(p);
+
+    return p;
+  }
+
+  /* eslint-disable no-unused-vars */
+
+  var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+  function toObject(val) {
+    if (val === null || val === undefined) {
+      throw new TypeError('Object.assign cannot be called with null or undefined');
+    }
+
+    return Object(val);
+  }
+
+  function assign(target, source) {
+    var from;
+    var to = toObject(target);
+    var symbols;
+
+    for (var s = 1; s < arguments.length; s++) {
+      from = Object(arguments[s]);
+
+      for (var key in from) {
+        if (hasOwnProperty.call(from, key)) {
+          to[key] = from[key];
         }
+      }
 
-        var to = Object(target);
-
-        for (var index = 1; index < arguments.length; index++) {
-          var nextSource = arguments[index];
-
-          if (nextSource != null) {
-            // Skip over if undefined or null
-            for (var nextKey in nextSource) {
-              // Avoid bugs when hasOwnProperty is shadowed
-              if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-                to[nextKey] = nextSource[nextKey];
-              }
-            }
+      if (getOwnPropertySymbols) {
+        symbols = getOwnPropertySymbols(from);
+        for (var i = 0; i < symbols.length; i++) {
+          if (propIsEnumerable.call(from, symbols[i])) {
+            to[symbols[i]] = from[symbols[i]];
           }
         }
-        return to;
-      },
-      writable: true,
-      configurable: true
-    });
+      }
+    }
+
+    return to;
+  }
+
+  if (!Element.prototype.addEventListener) {
+    var runListeners = function runListeners(oEvent) {
+      if (!oEvent) {
+        oEvent = window.event;
+      }
+      for (var iLstId = 0, iElId = 0, oEvtListeners = oListeners[oEvent.type]; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          for (iLstId; iLstId < oEvtListeners.aEvts[iElId].length; iLstId++) {
+            oEvtListeners.aEvts[iElId][iLstId].call(this, oEvent);
+          }
+          break;
+        }
+      }
+    };
+
+    var oListeners = {};
+
+    Element.prototype.addEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (oListeners.hasOwnProperty(sEventType)) {
+        var oEvtListeners = oListeners[sEventType];
+        for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+          if (oEvtListeners.aEls[iElId] === this) {
+            nElIdx = iElId;break;
+          }
+        }
+        if (nElIdx === -1) {
+          oEvtListeners.aEls.push(this);
+          oEvtListeners.aEvts.push([fListener]);
+          this["on" + sEventType] = runListeners;
+        } else {
+          var aElListeners = oEvtListeners.aEvts[nElIdx];
+          if (this["on" + sEventType] !== runListeners) {
+            aElListeners.splice(0);
+            this["on" + sEventType] = runListeners;
+          }
+          for (var iLstId = 0; iLstId < aElListeners.length; iLstId++) {
+            if (aElListeners[iLstId] === fListener) {
+              return;
+            }
+          }
+          aElListeners.push(fListener);
+        }
+      } else {
+        oListeners[sEventType] = { aEls: [this], aEvts: [[fListener]] };
+        this["on" + sEventType] = runListeners;
+      }
+    };
+    Element.prototype.removeEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (!oListeners.hasOwnProperty(sEventType)) {
+        return;
+      }
+      var oEvtListeners = oListeners[sEventType];
+      for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          nElIdx = iElId;break;
+        }
+      }
+      if (nElIdx === -1) {
+        return;
+      }
+      for (var iLstId = 0, aElListeners = oEvtListeners.aEvts[nElIdx]; iLstId < aElListeners.length; iLstId++) {
+        if (aElListeners[iLstId] === fListener) {
+          aElListeners.splice(iLstId, 1);
+        }
+      }
+    };
+  }
+
+  if (typeof Object.create !== 'function') {
+    Object.create = function (proto, propertiesObject) {
+      if (typeof proto !== 'object' && typeof proto !== 'function') {
+        throw new TypeError('Object prototype may only be an Object: ' + proto);
+      } else if (proto === null) {
+        throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+      }
+
+      // if (typeof propertiesObject != 'undefined') {
+      //     throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+      // }
+
+      function F() {}
+      F.prototype = proto;
+
+      return new F();
+    };
+  }
+
+  if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+    };
   }
 
   /**
@@ -711,7 +677,10 @@
         }
       }
 
-      out['__preactattr_'] = true;
+      //ie8 error
+      try {
+        out['__preactattr_'] = true;
+      } catch (e) {}
 
       return out;
     }
@@ -1380,6 +1349,7 @@
     component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
 
     if (!skip) {
+      component.beforeRender && component.beforeRender();
       rendered = component.render(props, data, context);
 
       //don't rerender
@@ -1579,7 +1549,7 @@
     function Component(props, store) {
       _classCallCheck(this, Component);
 
-      this.props = Object.assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
+      this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
       this.elementId = id++;
       this.data = this.constructor.data || this.data || {};
 
@@ -1594,6 +1564,18 @@
       renderComponent(this, 2);
       if (options.componentChange) options.componentChange(this, this.base);
       this._willUpdate = false;
+    };
+
+    Component.prototype.fire = function fire(type, data) {
+      var _this = this;
+
+      Object.keys(this.props).every(function (key) {
+        if ('on' + type === key.toLowerCase()) {
+          _this.props[key]({ detail: data });
+          return false;
+        }
+        return true;
+      });
     };
 
     Component.prototype.render = function render() {};
@@ -1719,7 +1701,7 @@
     defineElement: defineElement
   };
 
-  options.root.Omi.version = 'omio-0.1.2';
+  options.root.Omi.version = 'omio-1.0.2';
 
   var Omi = {
     h: h,

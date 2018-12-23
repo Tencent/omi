@@ -121,6 +121,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
   component.prevProps = component.prevState = component.prevContext = component.nextBase = null
 
   if (!skip) {
+    component.beforeRender && component.beforeRender()
     rendered = component.render(props, data, context)
 
     //don't rerender

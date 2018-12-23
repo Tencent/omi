@@ -96,7 +96,10 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
       }
     }
 
-    out[ATTR_KEY] = true
+    //ie8 error
+    try {
+      out[ATTR_KEY] = true
+    } catch (e) {}
 
     return out
   }

@@ -182,11 +182,12 @@ declare namespace Omi {
 	function tick(callback: Callback, scope?: any): void;
 	function nextTick(callback: Callback, scope?: any): void;
 	function observe(target: WeElementConstructor): void;
-
+	function getHost(element: WeElement): WeElement;
+	
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
-	};
+  };
 }
 
 
