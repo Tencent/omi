@@ -191,7 +191,12 @@
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
             hydrating = null != dom && !('__preactattr_' in dom);
         }
-        var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+        var ret;
+        if (isArray(vnode)) vnode = {
+            nodeName: 'span',
+            children: vnode
+        };
+        ret = idiff(dom, vnode, context, mountAll, componentRoot);
         if (parent && ret.parentNode !== parent) parent.appendChild(ret);
         if (!--diffLevel) {
             hydrating = !1;
@@ -885,7 +890,7 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-1.0.2';
+    options.root.Omi.version = 'omio-1.0.3';
     var Omi = {
         h: h,
         createElement: h,

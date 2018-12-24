@@ -1,5 +1,5 @@
 /**
- * omi v1.0.2  http://omijs.org
+ * omi v1.0.3  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -626,9 +626,16 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !('__preactattr_' in dom);
   }
+  var ret;
 
-  var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+  if (isArray(vnode)) {
+    vnode = {
+      nodeName: 'span',
+      children: vnode
+    };
+  }
 
+  ret = idiff(dom, vnode, context, mountAll, componentRoot);
   // append the element if its a new parent
   if (parent && ret.parentNode !== parent) parent.appendChild(ret);
 
@@ -1698,7 +1705,7 @@ options.root.Omi = {
   defineElement: defineElement
 };
 
-options.root.Omi.version = 'omio-1.0.2';
+options.root.Omi.version = 'omio-1.0.3';
 
 var omi = {
   h: h,
