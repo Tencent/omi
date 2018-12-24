@@ -35,6 +35,8 @@
 
 ## Omi 生态
 
+![→ Omi 生态学习路线图](./assets/omi-rm-v1.png)
+
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
