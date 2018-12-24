@@ -35,7 +35,7 @@
 
 ## Omi 生态
 
-[→ Omi 生态学习路线图](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds/rm.md)
+[→ Omi 生态学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
 
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
