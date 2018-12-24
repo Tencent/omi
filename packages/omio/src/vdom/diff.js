@@ -44,8 +44,6 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !(ATTR_KEY in dom)
   }
-  let ret
-
   let ret;
   if (isArray(vnode)) {
       ret = []
@@ -57,10 +55,15 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
         parentNode = dom[0].parentNode
         for (let i = 0; i < maxLength; i++) {
           let ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot)
-            ret.push(ele)
-            if (i > domLength - 1) {
-                parentNode.appendChild(ele)
+          ret.push(ele)
+          if (i > domLength - 1) {
+            let nextSibling = ret[i - 1].nextSibling;
+            if(nextSibling) {
+              parentNode.insertBefore(ele, nextSibling);
+            } else {
+              parentNode.appendChild(ele)
             }
+          }
         }
       } else {
           vnode.forEach(function (item) {
@@ -261,8 +264,10 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
   }
 
   if (vlen !== 0) {
-    for (let i = 0; i < vlen; i++) {
-      vchild = vchildren[i]
+    let i = 0
+    let vchildIndex = 0
+    for (; vchildIndex < vlen; vchildIndex++) {
+      vchild = vchildren[vchildIndex]
       child = null
 
       // attempt to find a node based on key matching
@@ -295,13 +300,21 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
       f = originalChildren[i]
       if (child && child !== dom && child !== f) {
         if (f == null) {
+          if(isArray(child)){
+            child.forEach(function (domNode){
+              dom.appendChild(domNode);
+            });
+            i += child.length;
+          } else {
           dom.appendChild(child)
+          }
         } else if (child === f.nextSibling) {
           removeNode(f)
         } else {
           dom.insertBefore(child, f)
         }
       }
+      i++
     }
   }
 
