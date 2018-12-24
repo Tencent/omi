@@ -1,7 +1,7 @@
 import { define, render, WeElement } from 'omi'
-import '../../src/pagination'
-import '../../src/adjustment'
-import '../../src/progress'
+import '../../src/components/data/pagination'
+import '../../src/components/form/adjustment'
+import '../../src/components/data/progress'
 
 define('my-app', class extends WeElement {
   onChange = v => {

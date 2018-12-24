@@ -1463,6 +1463,7 @@
 
   options.root.Omi = omi;
   options.root.Omi.version = '4.1.7';
+  //# sourceMappingURL=omi.esm.js.map
 
   var _css = "div{\r\n  color: rgba(0,0,0,.65);\r\n}\r\n* {\r\n  box-sizing: border-box;\r\n}\r\nul,li{\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\nli{\r\n  display: inline-block;\r\n  min-width:32px;\r\n  height: 32px;\r\n  border: 1px solid #ccc;\r\n  vertical-align: middle;\r\n  line-height: 32px;\r\n  text-align: center;\r\n  margin: 0 3px 0 3px; \r\n  cursor: pointer;\r\n  border-radius: 3px;\r\n}\r\n\r\n.o-pager{\r\n  display: inline-block;\r\n}\r\n\r\nbutton{\r\n  width: 32px;\r\n  height: 32px;\r\n  appearance: none;\r\n  -webkit-appearance: none;\r\n  position: relative;\r\n  border: 1px solid #ccc;\r\n  background: none;\r\n  top:1px;\r\n  border-radius: 3px;\r\n  cursor: pointer;\r\n}\r\n\r\nbutton:disabled\r\n{ \r\n  border-color: #eee;\r\n  cursor: default;\r\n}\r\n\r\n.more:after{\r\n  content: '...';\r\n}\r\n\r\n.more{\r\n  border: none;\r\n  cursor: default;\r\n}\r\n\r\n.active{\r\n  border-color: rgb(61, 111, 185);\r\n  color:rgb(61, 111, 185);\r\n}";
 
