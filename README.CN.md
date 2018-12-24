@@ -35,6 +35,8 @@
 
 ## Omi 生态
 
+[→ Omi 生态学习路线图](https://github.com/Tencent/omi/tree/master/assets/rm.md)
+
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
@@ -58,7 +60,6 @@
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)| 让 Omi 项目轻松支持 tap 事件|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
-| [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx 适配器|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
 | [westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
@@ -675,7 +676,7 @@ define("my-app", class extends WeElement {
   }
 })
 ```
-
+<!-- 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
 
 ### Omi Mobx
@@ -703,7 +704,7 @@ class MyApp extends WeElement {
     )
   }
 }
-```
+``` -->
 
 ### 生命周期
 
@@ -751,9 +752,6 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 ```html
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
 ```
-
-> 你也可以放弃 store 体系，使用 omi-mobx 来兼容IE11
-
 
 ## 贡献者们
 

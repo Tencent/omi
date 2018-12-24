@@ -41,7 +41,6 @@ When you update the component `css` method will rerender, but the `staticCss` wi
 
 * Omio does not support slot, please use `props.children` instead like react 
 * Omio does not support store path updating
-* Omio does not support return array in the render method, each component must have a root node(todo)
 
 
 ## Use in omi project

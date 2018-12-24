@@ -79,6 +79,25 @@ describe('install()', () => {
     expect(scratch.innerHTML).to.equal('<div foo="bar"></div>')
   })
 
+  it('should render array', () => {
+
+    class C2 extends Component {
+
+      render(props) {
+        return [<div>a</div>,<div>b</div>]
+      }
+    }
+    sinon.spy(C2.prototype, 'render')
+
+    define('c2-ele', C2)
+    render(<c2-ele />, scratch)
+
+  
+    expect(scratch.innerHTML).to.equal('<span><div>a</div><div>b</div></span>')
+  })
+
+
+
   it('should clone components', () => {
     let instance = <a-b a />
     let clone = cloneElement(instance)

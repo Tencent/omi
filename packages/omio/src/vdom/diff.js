@@ -5,7 +5,7 @@ import { createNode, setAccessor } from '../dom/index'
 import { unmountComponent } from './component'
 import options from '../options'
 import { removeNode } from '../dom/index'
-import { isArray } from "../util";
+import { isArray } from '../util'
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
@@ -44,6 +44,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !(ATTR_KEY in dom)
   }
+  let ret
 
   let ret;
   if (isArray(vnode)) {

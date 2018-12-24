@@ -1,6 +1,6 @@
 {
   "name": "omio",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Omi for old browsers(IE8+ and mobile browsers).",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -16,8 +16,8 @@
     "flow": "flow",
     "todo-app": "rollup -c config/rollup.example.js --watch",
     "store": "rollup -c config/rollup.example.js --watch",
+    "render-array": "rollup -c config/rollup.example.js --watch",
     "children": "rollup -c config/rollup.example.js --watch",
-    "array": "rollup -c config/rollup.example.js --watch",
     "counter": "rollup -c config/rollup.example.js --watch",
     "fire": "rollup -c config/rollup.example.js --watch",
     "receive-props": "rollup -c config/rollup.example.js --watch",
