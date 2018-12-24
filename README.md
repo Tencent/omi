@@ -56,7 +56,6 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap)|Support tap event in your omi project|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Support touch and gesture events in your Omi project.|
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|Smooth scrolling, rotation, pull to refresh and any motion for the web.|
-| [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)|Omi Mobx Adapter|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md#use)|React hooks like API|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 | [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui) |[Weui](https://weui.io/) for Omi by [@132yse](https://github.com/132yse).|
@@ -657,7 +656,7 @@ define("my-app", class extends WeElement {
   }
 })
 ```
-
+<!-- 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
 
 ### Omi Mobx
@@ -685,7 +684,7 @@ class MyApp extends WeElement {
     )
   }
 }
-```
+``` -->
 
 ### Lifecycle
 
@@ -733,7 +732,6 @@ Omi 4.0+ works in the latest two versions of all major browsers: Safari 10+, IE 
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
 ```
 
-> You can also give up the store system and use omi-mobx to be compatible with IE11.
 
 ## Contributors
 
