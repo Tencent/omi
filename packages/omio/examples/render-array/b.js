@@ -329,6 +329,18 @@
     return result;
   }
 
+  function flat(array) {
+    var ret = [];
+    array.forEach(function (item) {
+      if (isArray$1(item)) {
+        ret = ret.concat(flat(item));
+      } else {
+        ret = ret.concat([item]);
+      }
+    });
+    return ret;
+  }
+
   /**
    * Clones the given VNode, optionally adding attributes/props and replacing its children.
    * @param {VNode} vnode		The virtual DOM element to clone
@@ -667,6 +679,7 @@
       // append the element if its a new parent
       if (parent && ret.parentNode !== parent) {
         if (isArray$1(ret)) {
+          ret = flat(ret);
           ret.forEach(function (domNode) {
             parent.appendChild(domNode);
           });
@@ -1781,6 +1794,10 @@
       setTimeout(function () {
         _this2.aa = 1;
         _this2.update();
+        setTimeout(function () {
+          _this2.aa = 2;
+          _this2.update();
+        }, 3000);
       }, 1000);
     };
 
@@ -1798,6 +1815,13 @@
           'div',
           null,
           'Element222'
+        )];
+      }
+      if (this.aa === 2) {
+        return [Omi.h(
+          'div',
+          null,
+          'last'
         )];
       }
       return [Omi.h(
@@ -1824,16 +1848,11 @@
     }
 
     _class2.prototype.render = function render$$1(props) {
-      return Omi.h(
+      return [Omi.h('hello-element', null), Omi.h(
         'div',
         null,
-        Omi.h('hello-element', null),
-        Omi.h(
-          'div',
-          null,
-          '111111'
-        )
-      );
+        '111111'
+      )];
     };
 
     return _class2;
