@@ -5,7 +5,7 @@ import { createNode, setAccessor } from '../dom/index'
 import { unmountComponent } from './component'
 import options from '../options'
 import { removeNode } from '../dom/index'
-import { isArray } from '../util'
+import { isArray, flat } from '../util'
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
@@ -81,6 +81,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
       // append the element if its a new parent
       if (parent && ret.parentNode !== parent) {
           if(isArray(ret)){
+              ret = flat(ret);
               ret.forEach(function (domNode){
                   parent.appendChild(domNode);
               })

@@ -174,3 +174,15 @@ export function nProps(props) {
   })
   return result
 }
+
+export function flat(array) {
+  var ret = []
+  array.forEach(function(item){
+    if(isArray(item)){
+      ret = ret.concat(flat(item))
+    } else {
+      ret = ret.concat([item])
+    }
+  })
+  return ret
+}
