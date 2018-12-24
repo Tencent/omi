@@ -1833,29 +1833,159 @@
     return _class;
   }(WeElement), _class$1.observe = true, _temp$1));
 
+  var _css$3 = ".ctn{\r\n  font-size: 12px; \r\n  padding-top: 30px;\r\n}\r\n\r\n.item{\r\n  border-left: 1px solid #D9D9D9; \r\n  position: relative;\r\n  height: 50px;\r\n}\r\n\r\n.item:last-child{ \r\n  height: 35px;\r\n}\r\n\r\n.circle{\r\n  border-radius:50%;\r\n  background-color: #D9D9D9;\r\n  width: 6px;\r\n  height: 6px;\r\n  position: absolute;\r\n  top:-3px;\r\n  left:-3px;\r\n}\r\n\r\n.time{\r\n  color: #7C7C7C;\r\n  position: relative;\r\n  top: -8px;\r\n  right: -10px;\r\n}\r\n\r\n.des{\r\n  position: absolute;\r\n  left: 100px;\r\n  top: -8px;\r\n}";
+
   function _classCallCheck$5(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$5(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits$5(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+  define('o-timeline', function (_WeElement) {
+    _inherits$5(_class, _WeElement);
+
+    function _class() {
+      _classCallCheck$5(this, _class);
+
+      return _possibleConstructorReturn$5(this, _WeElement.apply(this, arguments));
+    }
+
+    _class.prototype.css = function css() {
+      return _css$3;
+    };
+
+    _class.prototype.render = function render$$1(props) {
+      return Omi.h(
+        'div',
+        { 'class': 'ctn' },
+        Omi.h(
+          'div',
+          { 'class': 'item' },
+          Omi.h('div', { 'class': 'circle' }),
+          Omi.h(
+            'div',
+            { 'class': 'time' },
+            Omi.h(
+              'div',
+              null,
+              '2018.11.11'
+            ),
+            Omi.h(
+              'div',
+              null,
+              '19:05:30'
+            )
+          ),
+          Omi.h(
+            'div',
+            { 'class': 'des' },
+            Omi.h(
+              'div',
+              null,
+              '\u521B\u5EFA\u6D4B\u8BD5\u9879\u76EE'
+            ),
+            Omi.h(
+              'div',
+              null,
+              '[\u725B\u987F\u503C\u53D6\u6D88\u89C4\u5219]'
+            )
+          )
+        ),
+        Omi.h(
+          'div',
+          { 'class': 'item' },
+          Omi.h('div', { 'class': 'circle' }),
+          Omi.h(
+            'div',
+            { 'class': 'time' },
+            Omi.h(
+              'div',
+              null,
+              '2018.11.11'
+            ),
+            Omi.h(
+              'div',
+              null,
+              '19:05:30'
+            )
+          ),
+          Omi.h(
+            'div',
+            { 'class': 'des' },
+            Omi.h(
+              'div',
+              null,
+              '\u521B\u5EFA\u6D4B\u8BD5\u9879\u76EE'
+            ),
+            Omi.h(
+              'div',
+              null,
+              '[\u725B\u987F\u503C\u53D6\u6D88\u89C4\u5219]'
+            )
+          )
+        ),
+        Omi.h(
+          'div',
+          { 'class': 'item' },
+          Omi.h('div', { 'class': 'circle' }),
+          Omi.h(
+            'div',
+            { 'class': 'time' },
+            Omi.h(
+              'div',
+              null,
+              '2018.11.11'
+            ),
+            Omi.h(
+              'div',
+              null,
+              '19:05:30'
+            )
+          ),
+          Omi.h(
+            'div',
+            { 'class': 'des' },
+            Omi.h(
+              'div',
+              null,
+              '\u521B\u5EFA\u6D4B\u8BD5\u9879\u76EE'
+            ),
+            Omi.h(
+              'div',
+              null,
+              '[\u725B\u987F\u503C\u53D6\u6D88\u89C4\u5219]'
+            )
+          )
+        )
+      );
+    };
+
+    return _class;
+  }(WeElement));
+
+  function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$6(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$6(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
   define('my-app', function (_WeElement) {
-    _inherits$5(_class2, _WeElement);
+    _inherits$6(_class2, _WeElement);
 
     function _class2() {
       var _temp, _this, _ret;
 
-      _classCallCheck$5(this, _class2);
+      _classCallCheck$6(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$5(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (v) {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$6(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (v) {
         console.log('page' + v);
       }, _this.onAdjustmentChange = function (v) {
         console.log(v);
-      }, _temp), _possibleConstructorReturn$5(_this, _ret);
+      }, _temp), _possibleConstructorReturn$6(_this, _ret);
     }
 
     _class2.prototype.render = function render$$1() {
@@ -1879,6 +2009,11 @@
         }),
         Omi.h('br', null),
         Omi.h('o-progress', {
+          bgColor: '#ccc',
+          innerColor: 'green',
+          value: 50
+        }),
+        Omi.h('o-timeline', {
           bgColor: '#ccc',
           innerColor: 'green',
           value: 50

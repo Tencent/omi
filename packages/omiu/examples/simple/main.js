@@ -2,6 +2,7 @@ import { define, render, WeElement } from 'omi'
 import '../../src/components/data/pagination'
 import '../../src/components/form/adjustment'
 import '../../src/components/data/progress'
+import '../../src/components/data/timeline'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -32,8 +33,13 @@ define('my-app', class extends WeElement {
         />
         <br />
         <o-progress
-        bgColor='#ccc'
-        innerColor='green'
+          bgColor='#ccc'
+          innerColor='green'
+          value={50}
+        />
+        <o-timeline
+          bgColor='#ccc'
+          innerColor='green'
           value={50}
         />
       </div>

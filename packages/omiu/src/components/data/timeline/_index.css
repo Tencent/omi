@@ -1,0 +1,37 @@
+.ctn{
+  font-size: 12px; 
+  padding-top: 30px;
+}
+
+.item{
+  border-left: 1px solid #D9D9D9; 
+  position: relative;
+  height: 50px;
+}
+
+.item:last-child{ 
+  height: 35px;
+}
+
+.circle{
+  border-radius:50%;
+  background-color: #D9D9D9;
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  top:-3px;
+  left:-3px;
+}
+
+.time{
+  color: #7C7C7C;
+  position: relative;
+  top: -8px;
+  right: -10px;
+}
+
+.des{
+  position: absolute;
+  left: 100px;
+  top: -8px;
+}
