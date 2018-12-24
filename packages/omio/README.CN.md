@@ -104,6 +104,10 @@ render(<my-counter />, 'body')
 
 如果你不需要兼容 IE8，只需要兼容 IE9+，你可以使用 `static observe = true` 进行数据监听自动更新视图。
 
+## 相关文章
+
+* [Omio 兼容 IE8 踩坑之路](https://github.com/Tencent/omi/blob/master/tutorial/omio.cn.md)
+
 ## License
 
 MIT © [dntzhang](https://github.com/dntzhang)
