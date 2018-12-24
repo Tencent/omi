@@ -16,4 +16,16 @@ define('hello-element', class extends WeElement {
   }
 })
 
-render(<hello-element />, 'body')
+define('my-app',class extends WeElement {
+
+  render(props){
+    return (
+      <div>
+        <hello-element/>
+        <div>111111</div>
+      </div>
+    )
+  }
+})
+
+render(<my-app />, 'body')

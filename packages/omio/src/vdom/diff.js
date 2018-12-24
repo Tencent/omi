@@ -44,18 +44,51 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     // hydration is indicated by the existing element to be diffed not having a prop cache
     hydrating = dom != null && !(ATTR_KEY in dom)
   }
-  let ret
-
-  if(isArray(vnode)){
-    vnode = {
-      nodeName: 'span',
-      children: vnode
-    }
-  } 
-  
-  ret = idiff(dom, vnode, context, mountAll, componentRoot)
-  // append the element if its a new parent
-  if (parent && ret.parentNode !== parent) parent.appendChild(ret)
+  let ret;
+  if (isArray(vnode)) {
+      ret = []
+      let parentNode = null
+      if (isArray(dom)) {
+        let domLength = dom.length
+        let vnodeLength = vnode.length
+        let maxLength = domLength >= vnodeLength ? domLength : vnodeLength
+        parentNode = dom[0].parentNode
+        for (let i = 0; i < maxLength; i++) {
+          let ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot)
+          ret.push(ele)
+          if (i > domLength - 1) {
+            let nextSibling = ret[i - 1].nextSibling;
+            if(nextSibling) {
+              parentNode.insertBefore(ele, nextSibling);
+            } else {
+              parentNode.appendChild(ele)
+            }
+          }
+        }
+      } else {
+          vnode.forEach(function (item) {
+              var ele = idiff(dom, item, context, mountAll, componentRoot)
+              ret.push(ele)
+              parent && parent.appendChild(ele)
+          })
+      }
+  } else {
+      if (isArray(dom)) {
+          ret = idiff(dom[0], vnode, context, mountAll, componentRoot)
+      } else {
+          ret = idiff(dom, vnode, context, mountAll, componentRoot)
+      }
+      // append the element if its a new parent
+      if (parent && ret.parentNode !== parent) {
+          if(isArray(ret)){
+              ret.forEach(function (domNode){
+                  parent.appendChild(domNode);
+              })
+          } else {
+              parent.appendChild(ret)
+          }
+      }
+  }
 
   // diffLevel being reduced to 0 means we're exiting the diff
   if (!--diffLevel) {
@@ -231,8 +264,10 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
   }
 
   if (vlen !== 0) {
-    for (let i = 0; i < vlen; i++) {
-      vchild = vchildren[i]
+    let i = 0
+    let vchildIndex = 0
+    for (; vchildIndex < vlen; vchildIndex++) {
+      vchild = vchildren[vchildIndex]
       child = null
 
       // attempt to find a node based on key matching
@@ -262,17 +297,24 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
 
       // morph the matched/found/created DOM child to match vchild (deep)
       child = idiff(child, vchild, context, mountAll)
-
       f = originalChildren[i]
       if (child && child !== dom && child !== f) {
         if (f == null) {
+          if(isArray(child)){
+            child.forEach(function (domNode){
+              dom.appendChild(domNode);
+            });
+            i += child.length;
+          } else {
           dom.appendChild(child)
+          }
         } else if (child === f.nextSibling) {
           removeNode(f)
         } else {
           dom.insertBefore(child, f)
         }
       }
+      i++
     }
   }
 
