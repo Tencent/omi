@@ -117,6 +117,11 @@ export function addScopedAttrStatic(vdom, style, attr) {
 }
 
 export function scopeVdom(attr, vdom) {
+  if (isArray(vdom)) {
+    return vdom.forEach(function (dom) {
+        return scopeVdom(attr, dom)
+    })
+  };
   if (typeof vdom === 'object') {
     vdom.attributes = vdom.attributes || {}
     vdom.attributes[attr] = ''

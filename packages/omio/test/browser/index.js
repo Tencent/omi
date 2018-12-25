@@ -81,10 +81,18 @@ describe('install()', () => {
 
   it('should render array', () => {
 
+    class C3 extends Component {
+      render(props){
+        return [<div>1</div>,<div>2</div>]
+      }
+    }
+    sinon.spy(C3.prototype, 'render')
+    define('c3-ele', C3)
+
     class C2 extends Component {
 
       render(props) {
-        return [<div>a</div>,<div>b</div>]
+        return [<div>a</div>,<c3-ele />]
       }
     }
     sinon.spy(C2.prototype, 'render')
@@ -93,7 +101,7 @@ describe('install()', () => {
     render(<c2-ele />, scratch)
 
   
-    expect(scratch.innerHTML).to.equal('<span><div>a</div><div>b</div></span>')
+    expect(scratch.innerHTML).to.equal('<div>a</div><div>1</div><div>2</div>')
   })
 
 

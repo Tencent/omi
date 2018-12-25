@@ -316,17 +316,29 @@
 
   var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
 
-  function isArray(obj) {
+  function isArray$1(obj) {
     return Object.prototype.toString.call(obj) === '[object Array]';
   }
 
   function nProps(props) {
-    if (!props || isArray(props)) return {};
+    if (!props || isArray$1(props)) return {};
     var result = {};
     Object.keys(props).forEach(function (key) {
       result[key] = props[key].value;
     });
     return result;
+  }
+
+  function flat(array) {
+    var ret = [];
+    array.forEach(function (item) {
+      if (isArray$1(item)) {
+        ret = ret.concat(flat(item));
+      } else {
+        ret = ret.concat([item]);
+      }
+    });
+    return ret;
   }
 
   /**
@@ -631,17 +643,51 @@
       hydrating = dom != null && !(ATTR_KEY in dom);
     }
     var ret = void 0;
-
-    if (isArray(vnode)) {
-      vnode = {
-        nodeName: 'span',
-        children: vnode
-      };
+    if (isArray$1(vnode)) {
+      ret = [];
+      var parentNode = null;
+      if (isArray$1(dom)) {
+        var domLength = dom.length;
+        var vnodeLength = vnode.length;
+        var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
+        parentNode = dom[0].parentNode;
+        for (var i = 0; i < maxLength; i++) {
+          var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
+          ret.push(ele);
+          if (i > domLength - 1) {
+            var nextSibling = ret[i - 1].nextSibling;
+            if (nextSibling) {
+              parentNode.insertBefore(ele, nextSibling);
+            } else {
+              parentNode.appendChild(ele);
+            }
+          }
+        }
+      } else {
+        vnode.forEach(function (item) {
+          var ele = idiff(dom, item, context, mountAll, componentRoot);
+          ret.push(ele);
+          parent && parent.appendChild(ele);
+        });
+      }
+    } else {
+      if (isArray$1(dom)) {
+        ret = idiff(dom[0], vnode, context, mountAll, componentRoot);
+      } else {
+        ret = idiff(dom, vnode, context, mountAll, componentRoot);
+      }
+      // append the element if its a new parent
+      if (parent && ret.parentNode !== parent) {
+        if (isArray$1(ret)) {
+          ret = flat(ret);
+          ret.forEach(function (domNode) {
+            parent.appendChild(domNode);
+          });
+        } else {
+          parent.appendChild(ret);
+        }
+      }
     }
-
-    ret = idiff(dom, vnode, context, mountAll, componentRoot);
-    // append the element if its a new parent
-    if (parent && ret.parentNode !== parent) parent.appendChild(ret);
 
     // diffLevel being reduced to 0 means we're exiting the diff
     if (! --diffLevel) {
@@ -782,8 +828,10 @@
     }
 
     if (vlen !== 0) {
-      for (var _i = 0; _i < vlen; _i++) {
-        vchild = vchildren[_i];
+      var _i = 0;
+      var vchildIndex = 0;
+      for (; vchildIndex < vlen; vchildIndex++) {
+        vchild = vchildren[vchildIndex];
         child = null;
 
         // attempt to find a node based on key matching
@@ -810,17 +858,24 @@
 
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, context, mountAll);
-
         f = originalChildren[_i];
         if (child && child !== dom && child !== f) {
           if (f == null) {
-            dom.appendChild(child);
+            if (isArray$1(child)) {
+              child.forEach(function (domNode) {
+                dom.appendChild(domNode);
+              });
+              _i += child.length;
+            } else {
+              dom.appendChild(child);
+            }
           } else if (child === f.nextSibling) {
             removeNode(f);
           } else {
             dom.insertBefore(child, f);
           }
         }
+        _i++;
       }
     }
 
@@ -1050,7 +1105,11 @@
   }
 
   function scopeVdom(attr, vdom) {
-    if (typeof vdom === 'object') {
+    if (isArray(vdom)) {
+      return vdom.forEach(function (dom) {
+        return scopeVdom(attr, dom);
+      });
+    }  if (typeof vdom === 'object') {
       vdom.attributes = vdom.attributes || {};
       vdom.attributes[attr] = '';
       vdom.children.forEach(function (child) {
@@ -1712,7 +1771,7 @@
     defineElement: defineElement
   };
 
-  options.root.Omi.version = 'omio-1.0.2';
+  options.root.Omi.version = 'omio-1.0.3';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1735,6 +1794,10 @@
       setTimeout(function () {
         _this2.aa = 1;
         _this2.update();
+        setTimeout(function () {
+          _this2.aa = 2;
+          _this2.update();
+        }, 3000);
       }, 1000);
     };
 
@@ -1754,6 +1817,13 @@
           'Element222'
         )];
       }
+      if (this.aa === 2) {
+        return [Omi.h(
+          'div',
+          null,
+          'last'
+        )];
+      }
       return [Omi.h(
         'div',
         null,
@@ -1768,7 +1838,27 @@
     return _class;
   }(WeElement));
 
-  render(Omi.h('hello-element', null), 'body');
+  define('my-app', function (_WeElement2) {
+    _inherits$1(_class2, _WeElement2);
+
+    function _class2() {
+      _classCallCheck$2(this, _class2);
+
+      return _possibleConstructorReturn$1(this, _WeElement2.apply(this, arguments));
+    }
+
+    _class2.prototype.render = function render$$1(props) {
+      return [Omi.h('hello-element', null), Omi.h(
+        'div',
+        null,
+        '111111'
+      )];
+    };
+
+    return _class2;
+  }(WeElement));
+
+  render(Omi.h('my-app', null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map
