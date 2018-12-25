@@ -2,12 +2,12 @@
 
 <p align="right">v<strong>5.0.16</strong></p>
 <p align="center"><img src="./assets/omi3.png" alt="omi" width="300"/></p>
-<h2 align="center">Omi: 4kb 자바스크립트 차세대 웹 프레임워크</h2>
-<p align="center"><b>JSX, Web Components, Proxy, Store, Path Updating 지원</b></p>
+<h2 align="center">Omi - Web Components를 사용한 차세대 웹 프레임워크. 구 버전 브라우저 지원(IE8+) by Omio. 4kb 경량의 자바스크립트 프레임워크. MVVM 하기 쉬움 </h2>
 
 ## Why Omi?
 
 - 작은 파일 사이즈. _(**4kb** gzip 압축후)_
+- 훌륭한 브라우저 호환성(IE8+) [omio](https://github.com/Tencent/omi/tree/master/packages/omio)
 - [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md) 지원.
 - TypeScript 지원.
 - 반응형 데이터 바인딩
@@ -16,7 +16,7 @@
 - [Omi DevTools Extension](https://github.com/f/omi-devtools) 를 통한 쉬운 디버깅 [[Install from Chrome WebStore](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd)]
 - 브라우저 트렌드 및 API 디자인 준수.
 - [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) 와 [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 가 하나의 프레임워크에.
-- omi-mobx를 통한 omi 와 mobx 를 함께 사용 (`this.update()` 호출 필요 없음).
+- observe feature 로 개발됨 (`this.update()` 호출 필요 없음).
 - Web Components 가 데이터 기반(data-driven)의 뷰가 될수 있음, **`UI = fn(data)`**.
 - JSX 는 최소의 UI 표현식으로 최상의 개발경험을 제공 (코드 인텔리전트 와 팁)  [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals) 그리고 완벽하게 튜링됨(템플릿 엔진은 튜링 되지 않으며 ES 템플릿 스트링은 튜링 되지만 Syntax가 매우 복잡합니다).
 - 독창적인 **Path Updating** 시스템. Proxy 기반 자동 **정확한** 업데이트, **저손실**, 높은 자유도, 뛰어난 성능, `requestIdleCallback` 로 통합하기 쉬움.
@@ -39,12 +39,15 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi 공식 문서 |
+| [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| Omi 의 구 브라우전 지원 버전 (IE8+, 모바일 브라우저).|
+| [md2site![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://tencent.github.io/omi/assets/md2site/)| Omio로 개발되고 마크다운으로 제너레이트 된 정적 사이트. |
 | [omi-mvvm![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)| MVVM 도입. [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 강력 지원 |
-| [omi-html![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-html)| [htm](https://github.com/developit/htm) 사용 |
+| [omi-chart![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| chart-x tag를 사용한 심플 HTML5 차트. |
+| [omi-html](https://github.com/Tencent/omi/tree/master/packages/omi-html)| [htm](https://github.com/developit/htm) 사용 |
 | [omi-30-seconds![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| Omi 스니펫 - 30초 가이드 |
 | [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Component, jsx 그리고 canvas의 완벽한 조합 |
 | [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp) working| Wechat 미니프로그램 개발을 위한 Singe Page |
-| [omi-router![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-router) | Omi 공식 라우터 [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
+| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) | Omi 공식 라우터 [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
 | [omi-devtools](https://github.com/f/omi-devtools)| 브라우저 개발자 확장도구 |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
 | [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js extension(TypeScript) |
@@ -53,7 +56,6 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-tap](https://github.com/Tencent/omi/tree/master/packages/omi-tap) | 탭 이벤트 지원 |
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)| 터치 와 제스처 이벤트 지원 |
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)| 부드러운 스크롤링, Rotation, 웹 페이지를 위한 어떤 모션도 Refresh |
-| [omi-mobx](https://github.com/Tencent/omi/tree/master/packages/omi-mobx)| Omi Mobx Adapter |
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)| React Hooks 방식 API |
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)| Web Components Native 렌더링 |
 | [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui)  | Omi 버전의 [Weui](https://weui.io/) by [@132yse](https://github.com/132yse).|
@@ -80,21 +82,6 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [Using requestIdleCallback](https://developers.google.com/web/updates/2015/08/using-requestidlecallback)|[简体中文](https://div.io/topic/1370)| [A polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)|
 | [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)|求翻译|
 | [ShadowRoot](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot)|[简体中文](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)||
-
-
-## omi-mp
-
-> Wechat Mini Program을 통한 HTML5 SPA 개발 및 원 클릭 웹 생성 (based on omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
-
-공식 템플릿 변환:
-
-| **Index**                         | **Logs**                           |
-| ------------------------------- | ----------------------------------- |
-|![](./assets/mp1.jpg)| ![](./assets/mp2.jpg)|
-
-웹에서 사용자 로그인 정보를 취득하지 못하기 때문에 사용자 아바타와 이름이 변경되었습니다.
-
----
 
 # Overview of the Readme
 
@@ -337,11 +324,20 @@ mac os 에서:
   },
 ···
 
+만약 상대적 주소를 사용하고 싶으면:
+```
+"build":"set PUBLIC_URL=.&& npm run _build"  // Windows
+"build":"PUBLIC_URL=. npm run _build",       // Mac OS
+```
+
+
 ### Project Template
 
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
-|Base Template|`omi init my-app`| Omi Project의 기본 템플릿 |
+|Base Template|`omi init my-app`| 기본 Omi 프로젝트 템플릿. |
+|Omio Template|`omi init-o my-app`| 구 버전 브라우저를 위한 Omi 템플릿 (IE8+ 와 모바일 브라우저). |
+|Mobile Template|`omi init-weui my-app`| weui 와 omi-router를 사용한 모바일 웹앱 템플릿. |
 |TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`| Type Script 기본 템플릿 |
 |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`| omi-router를 사용한 Single Page Application 템플릿 |
 |omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  | 위챗 미니 프로그램 템플릿 웹 개발 |
@@ -643,6 +639,7 @@ class MyApp extends WeElement {
 }
 ```
 
+<!--
 만약 IE11과 호환하기를 원하시면, omi의 observe 대신 `omi-mobx` 를 사용해주세요.
 
 ### Omi Mobx
@@ -670,7 +667,7 @@ class MyApp extends WeElement {
     )
   }
 }
-```
+``` -->
 
 ### Lifecycle
 
@@ -706,6 +703,8 @@ Omi는 Web Components 와 Shadow-DOM을 사용하기 때문에 React 및 Vue 처
 
 ## Browsers Support
 
+> [Omio](https://github.com/Tencent/omi/tree/master/packages/omio) - Omi 의 구 버전 브라우저 지원 버전(IE8+ 와 모바일 브라우저)
+
 Omi 4.0+ 부터 주요 브라우저(Safari 10+, IE 11+, Chrome, Firefox, Edge)의 마지막 두 버전을 지원합니다.
 
 ![→ Browsers Support](./assets/browsers-support.png)
@@ -716,11 +715,6 @@ Omi 4.0+ 부터 주요 브라우저(Safari 10+, IE 11+, Chrome, Firefox, Edge)�
 <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.0/webcomponents-bundle.js"></script>
 ```
 
-> 만약 IE11과 호환하기를 원한다면, [→ this project](https://github.com/Tencent/omi/tree/master/packages/omi-ie11) 의 Omi 파일을 사용하세요. 이 프로젝트는 Proxy 대신에 JSON DIFF 와 Timer를 사용합니다.
-
-> 당신은 IE11 환경에서 동적으로 이 프로젝트의 JS를 로드할 수 있습니다. 그리고 Proxy 버전은 여전히 다른 환경을 사용합니다.
-
-> 당신은 store 시스템을 포기하고, omi-mobx 를 사용하여 IE11을 호환할 수 있습니다.
 
 ## Contributors
 
