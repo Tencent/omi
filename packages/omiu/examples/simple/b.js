@@ -1874,7 +1874,7 @@
     return _class;
   }(WeElement), _class$1.observe = true, _temp$1));
 
-  var _css$4 = ".ctn{\r\n  font-size: 12px; \r\n  padding-top: 30px;\r\n}\r\n\r\n.item{\r\n  border-left: 1px solid #D9D9D9; \r\n  position: relative;\r\n  height: 50px;\r\n}\r\n\r\n.item:last-child{ \r\n  height: 35px;\r\n}\r\n\r\n.circle{\r\n  border-radius:50%;\r\n  background-color: #D9D9D9;\r\n  width: 6px;\r\n  height: 6px;\r\n  position: absolute;\r\n  top:-3px;\r\n  left:-3px;\r\n}\r\n\r\n.time{\r\n  color: #7C7C7C;\r\n  position: relative;\r\n  top: -8px;\r\n  right: -10px;\r\n}\r\n\r\n.des{\r\n  position: absolute;\r\n  left: 100px;\r\n  top: -8px;\r\n}";
+  var _css$4 = ".ctn{\r\n  font-size: 12px; \r\n  padding-top: 30px;\r\n}\r\n\r\n.item{\r\n  border-left: 1px solid #D9D9D9; \r\n  position: relative;\r\n  height: 50px;\r\n}\r\n\r\n.item:last-child{ \r\n  height: 35px;\r\n}\r\n\r\n.circle{\r\n  border-radius:50%;\r\n  background-color: #D9D9D9;\r\n  width: 6px;\r\n  height: 6px;\r\n  position: absolute;\r\n  top:-3px;\r\n  left:-3px;\r\n}\r\n\r\n.time{\r\n  color: #7C7C7C;\r\n  position: relative;\r\n  top: -8px;\r\n  right: -10px;\r\n  max-width: 400px;\r\n}\r\n\r\n.des{\r\n  position: absolute;\r\n  left: 100px;\r\n  top: -8px;\r\n}";
 
   function _classCallCheck$6(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2063,32 +2063,93 @@
     return _class2;
   }(WeElement));
 
+  var _css$6 = ".o-dialog {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: fixed;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n  left:0;\r\n  top: 0;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}";
+
   function _classCallCheck$8(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$8(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits$8(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+  define('o-dialog', function (_WeElement) {
+    _inherits$8(_class, _WeElement);
+
+    function _class() {
+      _classCallCheck$8(this, _class);
+
+      return _possibleConstructorReturn$8(this, _WeElement.apply(this, arguments));
+    }
+
+    _class.prototype.css = function css() {
+      return _css$6;
+    };
+
+    _class.prototype.render = function render$$1(props) {
+      console.log(this);
+      return Omi.h(
+        'div',
+        { 'class': 'o-dialog' },
+        Omi.h(
+          'div',
+          { 'class': 'header' },
+          Omi.h(
+            'span',
+            null,
+            '\u6807\u9898'
+          ),
+          Omi.h(
+            'span',
+            null,
+            '\u5173\u95ED\u6309\u94AE'
+          )
+        ),
+        props.children,
+        Omi.h(
+          'div',
+          { 'class': 'footer' },
+          Omi.h(
+            'o-button',
+            null,
+            '\u53D6\u6D88'
+          ),
+          Omi.h(
+            'o-button',
+            { type: 'primary' },
+            '\u786E\u5B9A'
+          )
+        )
+      );
+    };
+
+    return _class;
+  }(WeElement));
+
+  function _classCallCheck$9(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$9(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$9(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
   define('my-app', function (_WeElement) {
-    _inherits$8(_class2, _WeElement);
+    _inherits$9(_class2, _WeElement);
 
     function _class2() {
       var _temp, _this, _ret;
 
-      _classCallCheck$8(this, _class2);
+      _classCallCheck$9(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$8(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (v) {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$9(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (v) {
         console.log('page' + v);
       }, _this.onAdjustmentChange = function (v) {
         console.log(v);
       }, _this.navChange = function (index) {
         _this.navIndex = index;
         _this.update();
-      }, _temp), _possibleConstructorReturn$8(_this, _ret);
+      }, _temp), _possibleConstructorReturn$9(_this, _ret);
     }
 
     _class2.prototype.install = function install() {
@@ -2152,8 +2213,33 @@
             { active: this.navIndex === 1 },
             '\u6240\u6709\u9879\u76EE'
           )
+        ),
+        Omi.h('br', null),
+        Omi.h('br', null),
+        Omi.h(
+          'o-button',
+          { onClick: function onClick() {
+              console.log(1);
+            } },
+          '\u663E\u793A\u5F39\u7A97'
+        ),
+        Omi.h(
+          'o-dialog',
+          { onClick: function onClick() {
+              console.log(1);
+            } },
+          Omi.h(
+            'button',
+            null,
+            'abc'
+          )
         )
       );
+    };
+
+    _class2.prototype.css = function css() {
+      //test scoped css
+      return 'button{color:red;}';
     };
 
     return _class2;

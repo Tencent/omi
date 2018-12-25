@@ -28,6 +28,7 @@
   position: relative;
   top: -8px;
   right: -10px;
+  max-width: 400px;
 }
 
 .des{

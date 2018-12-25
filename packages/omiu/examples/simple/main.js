@@ -5,6 +5,7 @@ import '../../src/components/form/button'
 import '../../src/components/data/progress'
 import '../../src/components/data/timeline'
 import '../../src/components/others/nav'
+import '../../src/components/others/dialog'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -52,8 +53,7 @@ define('my-app', class extends WeElement {
         />
 
         <br />
-        <o-timeline
-        />
+        <o-timeline />
 
         <br />
         <o-button type='primary'>创建新项目</o-button>
@@ -67,8 +67,22 @@ define('my-app', class extends WeElement {
           <item active={this.navIndex === 0}>我的项目</item>
           <item active={this.navIndex === 1}>所有项目</item>
         </o-nav>
+
+        <br />
+        <br />
+        <o-button onClick={() => { console.log(1) }}>显示弹窗</o-button>
+
+
+        <o-dialog onClick={() => { console.log(1) }}>
+          <button>abc</button>
+        </o-dialog>
       </div>
     )
+  }
+
+  css(){
+    //test scoped css
+    return `button{color:red;}`
   }
 })
 
