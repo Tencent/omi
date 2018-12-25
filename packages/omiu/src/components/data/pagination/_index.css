@@ -55,6 +55,6 @@ button:disabled
 }
 
 .active{
-  border-color: rgb(61, 111, 185);
-  color:rgb(61, 111, 185);
+  border-color:#01DE6C;
+  color:rgb(4, 161, 80);
 }

@@ -1,0 +1,21 @@
+.o-btn{
+  height: 30px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 30px;
+  font-size: 14px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border-radius: 4px; 
+}
+
+.primary{
+  background-color: #01DE6C;
+  color:white;
+}
+
+.default{
+  background-color: white;
+  color:black;
+}
+
