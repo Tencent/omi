@@ -329,18 +329,6 @@
     return result;
   }
 
-  function flat(array) {
-    var ret = [];
-    array.forEach(function (item) {
-      if (isArray$1(item)) {
-        ret = ret.concat(flat(item));
-      } else {
-        ret = ret.concat([item]);
-      }
-    });
-    return ret;
-  }
-
   /**
    * Clones the given VNode, optionally adding attributes/props and replacing its children.
    * @param {VNode} vnode		The virtual DOM element to clone
@@ -643,51 +631,17 @@
       hydrating = dom != null && !(ATTR_KEY in dom);
     }
     var ret = void 0;
+
     if (isArray$1(vnode)) {
-      ret = [];
-      var parentNode = null;
-      if (isArray$1(dom)) {
-        var domLength = dom.length;
-        var vnodeLength = vnode.length;
-        var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
-        parentNode = dom[0].parentNode;
-        for (var i = 0; i < maxLength; i++) {
-          var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
-          ret.push(ele);
-          if (i > domLength - 1) {
-            var nextSibling = ret[i - 1].nextSibling;
-            if (nextSibling) {
-              parentNode.insertBefore(ele, nextSibling);
-            } else {
-              parentNode.appendChild(ele);
-            }
-          }
-        }
-      } else {
-        vnode.forEach(function (item) {
-          var ele = idiff(dom, item, context, mountAll, componentRoot);
-          ret.push(ele);
-          parent && parent.appendChild(ele);
-        });
-      }
-    } else {
-      if (isArray$1(dom)) {
-        ret = idiff(dom[0], vnode, context, mountAll, componentRoot);
-      } else {
-        ret = idiff(dom, vnode, context, mountAll, componentRoot);
-      }
-      // append the element if its a new parent
-      if (parent && ret.parentNode !== parent) {
-        if (isArray$1(ret)) {
-          ret = flat(ret);
-          ret.forEach(function (domNode) {
-            parent.appendChild(domNode);
-          });
-        } else {
-          parent.appendChild(ret);
-        }
-      }
+      vnode = {
+        nodeName: 'span',
+        children: vnode
+      };
     }
+
+    ret = idiff(dom, vnode, context, mountAll, componentRoot);
+    // append the element if its a new parent
+    if (parent && ret.parentNode !== parent) parent.appendChild(ret);
 
     // diffLevel being reduced to 0 means we're exiting the diff
     if (! --diffLevel) {
@@ -828,10 +782,8 @@
     }
 
     if (vlen !== 0) {
-      var _i = 0;
-      var vchildIndex = 0;
-      for (; vchildIndex < vlen; vchildIndex++) {
-        vchild = vchildren[vchildIndex];
+      for (var _i = 0; _i < vlen; _i++) {
+        vchild = vchildren[_i];
         child = null;
 
         // attempt to find a node based on key matching
@@ -858,24 +810,17 @@
 
         // morph the matched/found/created DOM child to match vchild (deep)
         child = idiff(child, vchild, context, mountAll);
+
         f = originalChildren[_i];
         if (child && child !== dom && child !== f) {
           if (f == null) {
-            if (isArray$1(child)) {
-              child.forEach(function (domNode) {
-                dom.appendChild(domNode);
-              });
-              _i += child.length;
-            } else {
-              dom.appendChild(child);
-            }
+            dom.appendChild(child);
           } else if (child === f.nextSibling) {
             removeNode(f);
           } else {
             dom.insertBefore(child, f);
           }
         }
-        _i++;
       }
     }
 
@@ -1794,10 +1739,6 @@
       setTimeout(function () {
         _this2.aa = 1;
         _this2.update();
-        setTimeout(function () {
-          _this2.aa = 2;
-          _this2.update();
-        }, 3000);
       }, 1000);
     };
 
@@ -1817,13 +1758,6 @@
           'Element222'
         )];
       }
-      if (this.aa === 2) {
-        return [Omi.h(
-          'div',
-          null,
-          'last'
-        )];
-      }
       return [Omi.h(
         'div',
         null,
@@ -1838,27 +1772,7 @@
     return _class;
   }(WeElement));
 
-  define('my-app', function (_WeElement2) {
-    _inherits$1(_class2, _WeElement2);
-
-    function _class2() {
-      _classCallCheck$2(this, _class2);
-
-      return _possibleConstructorReturn$1(this, _WeElement2.apply(this, arguments));
-    }
-
-    _class2.prototype.render = function render$$1(props) {
-      return [Omi.h('hello-element', null), Omi.h(
-        'div',
-        null,
-        '111111'
-      )];
-    };
-
-    return _class2;
-  }(WeElement));
-
-  render(Omi.h('my-app', null), 'body');
+  render(Omi.h('hello-element', null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map
