@@ -19,3 +19,10 @@
   color:black;
 }
 
+.primary:active{
+  background-color: rgb(5, 202, 100);
+}
+
+.default:active{
+  background-color: rgb(243, 239, 239);
+}

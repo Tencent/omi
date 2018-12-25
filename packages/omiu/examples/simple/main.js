@@ -4,6 +4,7 @@ import '../../src/components/form/adjustment'
 import '../../src/components/form/button'
 import '../../src/components/data/progress'
 import '../../src/components/data/timeline'
+import '../../src/components/others/nav'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -12,6 +13,15 @@ define('my-app', class extends WeElement {
 
   onAdjustmentChange = v => {
     console.log(v)
+  }
+
+  install() {
+    this.navIndex = 0
+  }
+
+  navChange = (index) => {
+    this.navIndex = index
+    this.update()
   }
 
   render() {
@@ -23,7 +33,7 @@ define('my-app', class extends WeElement {
           pageSize={10}
           onChange={this.onChange}
         />
-        
+
         <br />
         <o-adjustment
           onChange={this.onAdjustmentChange}
@@ -49,7 +59,14 @@ define('my-app', class extends WeElement {
         <o-button type='primary'>创建新项目</o-button>
         <br />
         <br />
-        <o-button>管理项目</o-button>
+        <o-button onClick={() => { console.log(1) }}>管理项目</o-button>
+
+        <br />
+        <br />
+        <o-nav onChange={this.navChange}>
+          <item active={this.navIndex === 0}>我的项目</item>
+          <item active={this.navIndex === 1}>所有项目</item>
+        </o-nav>
       </div>
     )
   }

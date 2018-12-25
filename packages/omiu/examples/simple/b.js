@@ -1799,7 +1799,7 @@
     return _class2;
   }(WeElement));
 
-  var _css$2 = ".o-btn{\r\n  height: 30px;\r\n  text-align: center;\r\n  text-decoration: none;\r\n  line-height: 30px;\r\n  font-size: 14px;\r\n  padding: 5px 10px;\r\n  box-sizing: border-box;\r\n  border-radius: 4px; \r\n}\r\n\r\n.primary{\r\n  background-color: #01DE6C;\r\n  color:white;\r\n}\r\n\r\n.default{\r\n  background-color: white;\r\n  color:black;\r\n}\r\n\r\n";
+  var _css$2 = ".o-btn{\r\n  height: 30px;\r\n  text-align: center;\r\n  text-decoration: none;\r\n  line-height: 30px;\r\n  font-size: 14px;\r\n  padding: 5px 10px;\r\n  box-sizing: border-box;\r\n  border-radius: 4px; \r\n}\r\n\r\n.primary{\r\n  background-color: #01DE6C;\r\n  color:white;\r\n}\r\n\r\n.default{\r\n  background-color: white;\r\n  color:black;\r\n}\r\n\r\n.primary:active{\r\n  background-color: rgb(5, 202, 100);\r\n}\r\n\r\n.default:active{\r\n  background-color: rgb(243, 239, 239);\r\n}";
 
   function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1808,27 +1808,36 @@
   function _inherits$4(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
   define('o-button', function (_WeElement) {
-    _inherits$4(_class, _WeElement);
+    _inherits$4(_class2, _WeElement);
 
-    function _class() {
-      _classCallCheck$4(this, _class);
+    function _class2() {
+      var _temp, _this, _ret;
 
-      return _possibleConstructorReturn$4(this, _WeElement.apply(this, arguments));
+      _classCallCheck$4(this, _class2);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (e) {
+        _this.props.onClick(e);
+        e.stopPropagation();
+      }, _temp), _possibleConstructorReturn$4(_this, _ret);
     }
 
-    _class.prototype.css = function css() {
+    _class2.prototype.css = function css() {
       return _css$2;
     };
 
-    _class.prototype.render = function render$$1(props, data) {
+    _class2.prototype.render = function render$$1(props, data) {
       return Omi.h(
         'a',
-        { href: 'javascript:;', 'class': 'o-btn ' + (props.type || 'default') },
+        { href: 'javascript:;', onClick: this.onClick, 'class': 'o-btn ' + (props.type || 'default') },
         props.children[0]
       );
     };
 
-    return _class;
+    return _class2;
   }(WeElement));
 
   var _css$3 = ".progress{\r\n  width: 100%;\r\n  height: 12px;\r\n  background-color: #01DE6C;\r\n  border-radius: 6px; \r\n}\r\n\r\n.inner{\r\n  height: 12px;\r\n  width: 60%;\r\n  background-color: white;\r\n  border-radius: 6px; \r\n}";
@@ -1995,13 +2004,15 @@
     return _class;
   }(WeElement));
 
+  var _css$5 = "ul,li{\r\n  list-style: none;\r\n  padding: 0;\r\n  margin: 0;\r\n  color:#1A1A1A;\r\n}\r\n\r\nli{\r\n  display: inline-block;\r\n  margin-right: 35px;\r\n  line-height: 35px;\r\n  cursor: pointer;\r\n}\r\n\r\nli.active{\r\n  color:  #01DE6C;\r\n  border-bottom: 2px solid rgb(3, 196, 96);\r\n  cursor: default;\r\n}";
+
   function _classCallCheck$7(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$7(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits$7(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('my-app', function (_WeElement) {
+  define('o-nav', function (_WeElement) {
     _inherits$7(_class2, _WeElement);
 
     function _class2() {
@@ -2013,12 +2024,76 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$7(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (v) {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$7(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (index) {
+        _this.props.onChange(index);
+      }, _temp), _possibleConstructorReturn$7(_this, _ret);
+    }
+
+    _class2.prototype.css = function css() {
+      return _css$5;
+    };
+
+    _class2.prototype.render = function render$$1(props) {
+      var _this2 = this;
+
+      return Omi.h(
+        'ul',
+        { 'class': 'o-nav' },
+        props.children.map(function (item, index) {
+          var props = {};
+          var isActive = item.attributes && item.attributes.active;
+
+          if (isActive) {
+            props.class = 'active';
+          } else {
+            props.onClick = function () {
+              return _this2.onClick(index);
+            };
+          }
+
+          return Omi.h(
+            'li',
+            props,
+            item.children[0]
+          );
+        })
+      );
+    };
+
+    return _class2;
+  }(WeElement));
+
+  function _classCallCheck$8(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn$8(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits$8(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  define('my-app', function (_WeElement) {
+    _inherits$8(_class2, _WeElement);
+
+    function _class2() {
+      var _temp, _this, _ret;
+
+      _classCallCheck$8(this, _class2);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn$8(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onChange = function (v) {
         console.log('page' + v);
       }, _this.onAdjustmentChange = function (v) {
         console.log(v);
-      }, _temp), _possibleConstructorReturn$7(_this, _ret);
+      }, _this.navChange = function (index) {
+        _this.navIndex = index;
+        _this.update();
+      }, _temp), _possibleConstructorReturn$8(_this, _ret);
     }
+
+    _class2.prototype.install = function install() {
+      this.navIndex = 0;
+    };
 
     _class2.prototype.render = function render$$1() {
       return Omi.h(
@@ -2057,8 +2132,26 @@
         Omi.h('br', null),
         Omi.h(
           'o-button',
-          null,
+          { onClick: function onClick() {
+              console.log(1);
+            } },
           '\u7BA1\u7406\u9879\u76EE'
+        ),
+        Omi.h('br', null),
+        Omi.h('br', null),
+        Omi.h(
+          'o-nav',
+          { onChange: this.navChange },
+          Omi.h(
+            'item',
+            { active: this.navIndex === 0 },
+            '\u6211\u7684\u9879\u76EE'
+          ),
+          Omi.h(
+            'item',
+            { active: this.navIndex === 1 },
+            '\u6240\u6709\u9879\u76EE'
+          )
         )
       );
     };
