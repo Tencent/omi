@@ -17,9 +17,10 @@ define('o-icon', class extends WeElement {
     if (this.props.rotate) {
       props.class = 'rotate '
     }
+    props.scale = this.props.scale || 2
     return (
       <i class={`o-icon ${this.props.class || ''}`} onClick={this.onClick}>
-        <svg viewBox="0 0 1024 1024" {...props} data-icon="loading" width="2em" height="2em" fill="currentColor" aria-hidden="true">
+        <svg viewBox="0 0 1024 1024" {...props} data-icon="loading" width={props.scale+"em"} height={props.scale+"em"} fill="currentColor" aria-hidden="true">
           <path d={path[this.props.type][this.props.isFill?1:0]||path[this.props.type][0]}></path>
         </svg>
       </i>

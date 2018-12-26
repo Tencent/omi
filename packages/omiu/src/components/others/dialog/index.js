@@ -23,7 +23,7 @@ define('o-dialog', class extends WeElement {
         <div class='content'>
           <div class='header'>
             <span class='title'>添加模块</span>
-            <o-icon class="close" type='close' onClick={this.close} ></o-icon>
+            <o-icon class="close" scale={1} type='close' onClick={this.close} ></o-icon>
           </div>
           <div class='main'>
             {props.children}
