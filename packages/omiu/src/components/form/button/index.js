@@ -6,12 +6,21 @@ define('o-button', class extends WeElement {
     return css
   }
 
-  onClick = (e)=>{
+  onClick = (e) => {
     this.props.onClick(e)
     e.stopPropagation()
   }
 
-  render(props, data) {
-    return <a href="javascript:;" onClick={this.onClick} class={`o-btn ${props.type||'default'}`}>{props.children[0]}</a>
+  render() {
+    const props = {}
+
+    if (!this.props.disabled) {
+      props.onClick = this.onClick
+      props.class = `o-button ${this.props.type || 'default'}`
+    } else {
+      props.class = 'o-button disabled'
+
+    }
+    return <a href="javascript:;" {...props}>{this.props.children[0]}</a>
   }
 })

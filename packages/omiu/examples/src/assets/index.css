@@ -4,3 +4,7 @@ body {
   font-family: sans-serif;
   background-color: #eee;
 }
+
+.o-button{
+  margin-right: 10px; 
+}

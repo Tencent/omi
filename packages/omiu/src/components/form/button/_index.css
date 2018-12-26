@@ -1,4 +1,4 @@
-.o-btn{
+.o-button{
   height: 30px;
   text-align: center;
   text-decoration: none;
@@ -25,4 +25,9 @@
 
 .default:active{
   background-color: rgb(243, 239, 239);
+}
+
+.disabled {
+  background-color:#9CE6BF;
+  color: #D7F5E5;
 }

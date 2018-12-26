@@ -1,4 +1,5 @@
 import { define, render, WeElement } from 'omi'
+import './assets/index.css'
 import '../../src/components/data/pagination'
 import '../../src/components/form/adjustment'
 import '../../src/components/form/button'
@@ -57,12 +58,10 @@ define('my-app', class extends WeElement {
 
         <br />
         <o-button type='primary'>创建新项目</o-button>
-        <br />
-        <br />
         <o-button onClick={() => { console.log(1) }}>管理项目</o-button>
+        <o-button type='disabled'>创建新项目</o-button>
+        <br />
 
-        <br />
-        <br />
         <o-nav onChange={this.navChange}>
           <item active={this.navIndex === 0}>我的项目</item>
           <item active={this.navIndex === 1}>所有项目</item>
