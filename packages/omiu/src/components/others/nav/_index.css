@@ -13,7 +13,7 @@ li{
 }
 
 li.active{
-  color:  #01DE6C;
+  color:  #07C160;
   border-bottom: 2px solid rgb(3, 196, 96);
   cursor: default;
 }
