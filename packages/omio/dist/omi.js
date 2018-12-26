@@ -858,7 +858,7 @@
         Component.prototype.fire = function(type, data) {
             var _this = this;
             Object.keys(this.props).every(function(key) {
-                if ('on' + type === key.toLowerCase()) {
+                if ('on' + type.toLowerCase() === key.toLowerCase()) {
                     _this.props[key]({
                         detail: data
                     });
@@ -900,7 +900,7 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-1.1.1';
+    options.root.Omi.version = 'omio-1.1.2';
     var Omi = {
         h: h,
         createElement: h,
