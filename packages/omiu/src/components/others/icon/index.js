@@ -19,8 +19,8 @@ define('o-icon', class extends WeElement {
     }
     return (
       <i class={`o-icon ${this.props.class || ''}`} onClick={this.onClick}>
-        <svg viewBox="0 0 1024 1024" {...props} data-icon="loading" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-          <path d={path[this.props.type]}></path>
+        <svg viewBox="0 0 1024 1024" {...props} data-icon="loading" width="2em" height="2em" fill="currentColor" aria-hidden="true">
+          <path d={path[this.props.type][this.props.isFill?1:0]||path[this.props.type][0]}></path>
         </svg>
       </i>
     )

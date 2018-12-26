@@ -9,6 +9,7 @@ import '../../src/components/others/nav'
 import '../../src/components/others/dialog'
 import '../../src/components/others/icon'
 import '../../src/components/others/tab'
+import '../../src/components/others/menu'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -107,9 +108,12 @@ define('my-app', class extends WeElement {
 
         <br />
         <br />
-        <o-icon type='loading' rotate></o-icon>
-        <o-icon type='close' ></o-icon>
-
+        <o-icon type='loading' rotate isFill></o-icon>
+        <o-icon type='close' isFill></o-icon>
+        <o-icon type='pay' isFill></o-icon>
+        <o-icon type='chat' isFill></o-icon>
+        <o-icon type='scan' isFill></o-icon>
+        <o-icon type='add-friend' isFill></o-icon>
         <br />
         <br />
 
@@ -117,7 +121,13 @@ define('my-app', class extends WeElement {
           <item active={this.tabIndex === 0}>朋友相册</item>
           <item active={this.tabIndex === 1}>时刻视频</item>
         </o-tab>
-        
+        <br />
+        <br />
+
+        <o-menu onChange={this.tabChange}>
+          <item active={this.tabIndex === 0}>朋友相册</item>
+          <item active={this.tabIndex === 1}>时刻视频</item>
+        </o-menu>
       </div>
     )
   }

@@ -1,0 +1,58 @@
+.o-menu{
+  border-radius: 5px;
+  max-width: 160px;
+  background-color: #4C4B4C;
+  color: #F2F2F2;
+  position: relative;
+}
+
+ul,li{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul{
+  overflow: hidden;
+}
+
+li{
+  text-align: center;
+  position: relative;
+  line-height: 35px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: left;
+  height: 60px;
+}
+
+li.active{
+  color:  white;
+  background-color: #171717; 
+  cursor: default;
+}
+
+.icon {
+  position:absolute;
+  left:20px;
+  top:13px;
+}
+
+.wd{
+  margin-left: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #555555; 
+}
+
+.arrow{
+  position:absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #4C4B4C; 
+  transform: rotate(45deg);
+  border-radius: 2px;
+
+  top:-4px;
+  right: 15px;;
+
+}
