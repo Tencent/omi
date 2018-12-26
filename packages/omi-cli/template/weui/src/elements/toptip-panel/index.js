@@ -25,7 +25,7 @@ define('toptip-panel', class extends WeElement {
   confirm = () => {
     this.data.showToptip = false
   }
-  render(data) {
+  render(props, data) {
     return (
       <div>
         <ow-button type="primary" onClick={this.onClick}>点击我显示弹窗</ow-button>
@@ -33,7 +33,7 @@ define('toptip-panel', class extends WeElement {
           msg="出现了一个异常"
           type="warn"
           show={data.showToptip}
-          hide={this.hide}
+          hide={this.close}
         />
       </div>
     )

@@ -7,10 +7,10 @@ define('ow-toptip', class extends WeElement {
   }
   hide(){
     clearTimeout(this.timer)
-    this.props.hide()
+    this.props.hide && this.props.hide()
   }
   render(props) {
-    let top = props.show ? '0' : '-40px'
+    let top = props.show ? '0' : '-42px'
     this.timer = setTimeout(() => {
       this.hide()
     }, 4000)
