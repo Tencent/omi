@@ -35,7 +35,7 @@ define('my-app', class extends WeElement {
   
   render() {
     return (
-      <div>
+      <div class='ctn'>
         <o-pagination
           total={125}
           currentPage={2}
@@ -80,26 +80,11 @@ define('my-app', class extends WeElement {
 
 
         <o-dialog onClose={this.closeDialog} show={this.dialogShow}>
-          <button>abc</button>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
-          <div>sss</div>
+          
+          <div>我是内容</div>
+          <div>我是内容</div>
+          <div>我是内容</div>
+          <div>我是内容</div>
         </o-dialog>
 
 
@@ -111,8 +96,10 @@ define('my-app', class extends WeElement {
   }
 
   css(){
-    //test scoped css
-    return `button{color:red;}`
+    return `
+    .ctn{
+      margin: 10px;
+    }`
   }
 })
 
