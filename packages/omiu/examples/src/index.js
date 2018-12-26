@@ -20,6 +20,7 @@ define('my-app', class extends WeElement {
 
   install() {
     this.navIndex = 0
+    this.dialogShow = true
   }
 
   navChange = (index) => {
@@ -27,6 +28,11 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
+  closeDialog = () => {
+    this.dialogShow = false
+    this.update()
+  }
+  
   render() {
     return (
       <div>
@@ -73,7 +79,7 @@ define('my-app', class extends WeElement {
         <o-button onClick={() => { console.log(1) }}>显示弹窗</o-button>
 
 
-        <o-dialog onClick={() => { console.log(1) }}>
+        <o-dialog onClose={this.closeDialog} show={this.dialogShow}>
           <button>abc</button>
           <div>sss</div>
           <div>sss</div>

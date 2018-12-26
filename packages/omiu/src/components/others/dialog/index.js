@@ -8,19 +8,28 @@ define('o-dialog', class extends WeElement {
     return css
   }
 
+  close = () => {
+    this.props.onClose && this.props.onClose()
+  }
+
+  confirm = () => {
+    this.props.onConfirm && this.props.onConfirm()
+  }
+
   render(props) {
+    if(!props.show) return
     return (
-      <div class='o-dialog'>
+       <div class='o-dialog'>
         <div class='content'>
           <div class='header'>
             <span class='title'>添加模块</span>
-            <o-icon class="close" type='close' ></o-icon>
+            <o-icon class="close" type='close' onClick={this.close} ></o-icon>
           </div>
           <div class='main'>
             {props.children}
             <div class='footer'>
-              <o-button>取消</o-button>
-              <o-button type='primary'>确定</o-button>
+              <o-button onClick={this.close}>取消</o-button>
+              <o-button onClick={this.confirm} type='primary'>确定</o-button>
             </div>
           </div>
 
