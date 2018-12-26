@@ -75,6 +75,25 @@ define('my-app', class extends WeElement {
 
         <o-dialog onClick={() => { console.log(1) }}>
           <button>abc</button>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
+          <div>sss</div>
         </o-dialog>
 
 

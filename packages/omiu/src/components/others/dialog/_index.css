@@ -18,10 +18,36 @@
   position: fixed;
   left: 25%;
   top: 20%;
+  border-radius: 4px; 
 }
 
-.abc{
+.header {
+  height: 40px;
+  border-bottom: 1px solid #ccc;
+  margin: 15px 10px; 
+}
+
+.close{
   position: absolute;
   right: 10px;
-  top: 10ppx;
+  top: 20px;
+  cursor: pointer;
+}
+
+.title{
+  position: absolute;
+  left: 10px;
+  top: 20px;
+}
+
+.main{
+  margin: 0 auto;
+ 
+  margin-bottom: 20px; 
+  width: 70%;
+}
+
+.footer{
+  text-align: right;
+  margin-top: 10px;
 }
