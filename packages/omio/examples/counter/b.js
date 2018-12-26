@@ -346,7 +346,7 @@
   var FORCE_RENDER = 2;
   var ASYNC_RENDER = 3;
 
-  var ATTR_KEY = '__preactattr_';
+  var ATTR_KEY = '__omiattr_';
 
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -630,9 +630,16 @@
       // hydration is indicated by the existing element to be diffed not having a prop cache
       hydrating = dom != null && !(ATTR_KEY in dom);
     }
+    var ret = void 0;
 
-    var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+    if (isArray(vnode)) {
+      vnode = {
+        nodeName: 'span',
+        children: vnode
+      };
+    }
 
+    ret = idiff(dom, vnode, context, mountAll, componentRoot);
     // append the element if its a new parent
     if (parent && ret.parentNode !== parent) parent.appendChild(ret);
 
@@ -900,7 +907,7 @@
   }
 
   /** Create a component. Normalizes differences between PFC's and classful Components. */
-  function createComponent(Ctor, props, context) {
+  function createComponent(Ctor, props, context, vnode) {
     var list = components[Ctor.name],
         inst = void 0;
 
@@ -912,6 +919,7 @@
       inst.constructor = Ctor;
       inst.render = doRender;
     }
+    inst.___scopedCssAttr = vnode.css;
 
     if (list) {
       for (var i = list.length; i--;) {
@@ -941,7 +949,7 @@
       }
     }
 
-    var attrName = 'static_' + styleId;
+    var attrName = 's' + styleId;
     options.styleCache.push({ ctor: ctor, attrName: attrName });
     styleId++;
 
@@ -1018,7 +1026,6 @@
 
   function addScopedAttr(vdom, style, attr, component) {
     if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
       style = scoper(style, attr);
       if (style !== component._preCss) {
         addStyle(style, attr);
@@ -1031,7 +1038,6 @@
 
   function addScopedAttrStatic(vdom, style, attr) {
     if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
       if (!options.staticStyleMapping[attr]) {
         addStyle(scoper(style, attr), attr);
         options.staticStyleMapping[attr] = true;
@@ -1046,9 +1052,19 @@
     if (typeof vdom === 'object') {
       vdom.attributes = vdom.attributes || {};
       vdom.attributes[attr] = '';
+      vdom.css = vdom.css || {};
+      vdom.css[attr] = '';
       vdom.children.forEach(function (child) {
         return scopeVdom(attr, child);
       });
+    }
+  }
+
+  function scopeHost(vdom, css) {
+    if (typeof vdom === 'object' && css) {
+      for (var key in css) {
+        vdom.attributes[key] = '';
+      }
     }
   }
 
@@ -1350,16 +1366,23 @@
     component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
 
     if (!skip) {
+      component.beforeRender && component.beforeRender();
       rendered = component.render(props, data, context);
 
+      var stiatcAttr = '_s' + getCtorName(component.constructor);
+      scopeVdom(stiatcAttr, rendered);
       //don't rerender
       if (component.staticCss) {
-        addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
+        addScopedAttrStatic(rendered, component.staticCss(), stiatcAttr);
       }
 
+      var attr = '_s' + component.elementId;
+      scopeVdom(attr, rendered);
       if (component.css) {
-        addScopedAttr(rendered, component.css(), '_style_' + component.elementId, component);
+        addScopedAttr(rendered, component.css(), attr, component);
       }
+
+      scopeHost(rendered, component.___scopedCssAttr);
 
       // context to pass to the child, can be updated via (grand-)parent component
       if (component.getChildContext) {
@@ -1489,7 +1512,7 @@
         dom = oldDom = null;
       }
 
-      c = createComponent(vnode.nodeName, props, context);
+      c = createComponent(vnode.nodeName, props, context, vnode);
       if (dom && !c.nextBase) {
         c.nextBase = dom;
         // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
@@ -1564,6 +1587,18 @@
       renderComponent(this, FORCE_RENDER);
       if (options.componentChange) options.componentChange(this, this.base);
       this._willUpdate = false;
+    };
+
+    Component.prototype.fire = function fire(type, data) {
+      var _this = this;
+
+      Object.keys(this.props).every(function (key) {
+        if ('on' + type === key.toLowerCase()) {
+          _this.props[key]({ detail: data });
+          return false;
+        }
+        return true;
+      });
     };
 
     Component.prototype.render = function render() {};
@@ -1692,7 +1727,7 @@
     defineElement: defineElement
   };
 
-  options.root.Omi.version = 'omio-0.1.2';
+  options.root.Omi.version = 'omio-1.1.0';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
