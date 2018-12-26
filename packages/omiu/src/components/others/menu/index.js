@@ -30,19 +30,19 @@ define('o-menu', class extends WeElement {
         </li>
       })} */}
           <a>
-            <o-icon class='icon' type='chat'></o-icon>
+            <o-icon class='icon' color="#F2F2F2" type='chat'></o-icon>
             <div class='wd'>发起群聊</div>
           </a>
           <a>
-            <o-icon class='icon' type='add-friend'></o-icon>
+            <o-icon class='icon' color="#F2F2F2" type='add-friend'></o-icon>
             <div class='wd'>添加朋友</div>
           </a>
           <a>
-            <o-icon class='icon' type='scan'></o-icon>
+            <o-icon class='icon' color="#F2F2F2" type='scan'></o-icon>
             <div class='wd'>扫一扫吧</div>
           </a>
           <a>
-            <o-icon class='icon' type='pay'></o-icon>
+            <o-icon class='icon' color="#F2F2F2" type='pay'></o-icon>
             <div class='wd'>收款支付</div>
           </a>
         </div>
