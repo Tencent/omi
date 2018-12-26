@@ -13,13 +13,13 @@
 * `this.oData`                      操作页面或组件的数据（会自动更新视图）
 * `this.store`                      页面注入的 store，页面和页面所有组件可以拿到
 * `create.mitt()`                   事件发送和监听器
-* `create.emitter`                  事件发送和监听器，不同于 mitt() 每次会创建新的实例，emitter 是全局唯一，可以用于跨页面通讯
 
 #### 中心化 API
 
 * `create(store, option)`      创建页面
 * `create(option)`             创建组件
 * `this.store.data`            全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
+* `create.emitter`                  事件发送和监听器，不同于 mitt() 每次会创建新的实例，emitter 是全局唯一，可以用于跨页面通讯
 
 ### 实战去中心化 API
 
