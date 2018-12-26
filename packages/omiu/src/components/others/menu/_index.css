@@ -1,23 +1,18 @@
 .o-menu{
-  border-radius: 5px;
   max-width: 160px;
-  background-color: #4C4B4C;
-  color: #F2F2F2;
   position: relative;
 }
 
-ul,li{
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-ul{
+.ctn{
+  border-radius: 5px;
+  background-color: #4C4B4C;
+  color: #F2F2F2;
   overflow: hidden;
 }
 
-li{
+.ctn>a{
   text-align: center;
+  display: block;
   position: relative;
   line-height: 35px;
   cursor: pointer;
@@ -26,10 +21,8 @@ li{
   height: 60px;
 }
 
-li.active{
-  color:  white;
-  background-color: #171717; 
-  cursor: default;
+a:active{
+  background-color:rgb(63, 63, 63);
 }
 
 .icon {
@@ -51,7 +44,7 @@ li.active{
   background-color: #4C4B4C; 
   transform: rotate(45deg);
   border-radius: 2px;
-
+  z-index: -1;
   top:-4px;
   right: 15px;;
 
