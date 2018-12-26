@@ -8,6 +8,7 @@ import '../../src/components/data/timeline'
 import '../../src/components/others/nav'
 import '../../src/components/others/dialog'
 import '../../src/components/others/icon'
+import '../../src/components/others/tab'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -20,11 +21,17 @@ define('my-app', class extends WeElement {
 
   install() {
     this.navIndex = 0
+    this.tabIndex = 0
     this.dialogShow = false
   }
 
   navChange = (index) => {
     this.navIndex = index
+    this.update()
+  }
+
+  tabChange = (index) => {
+    this.tabIndex = index
     this.update()
   }
 
@@ -98,9 +105,18 @@ define('my-app', class extends WeElement {
           <div>我是内容</div>
         </o-dialog>
 
-
+        <br />
+        <br />
         <o-icon type='loading' rotate></o-icon>
         <o-icon type='close' ></o-icon>
+
+        <br />
+        <br />
+
+        <o-tab onChange={this.tabChange}>
+          <item active={this.tabIndex === 0}>朋友相册</item>
+          <item active={this.tabIndex === 1}>时刻视频</item>
+        </o-tab>
         
       </div>
     )
