@@ -124,7 +124,7 @@ define('my-first-element', class extends WeElement {
 ```js
 define('my-first-element', class extends WeElement {
   onClick = (evt) => {
-    this.fire('myevent', { name: 'abc' })
+    this.fire('myEvent', { name: 'abc' })
   }
 
   render(props) {
