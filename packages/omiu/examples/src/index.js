@@ -137,7 +137,7 @@ define('my-app', class extends WeElement {
         <br />
         <br />
         <o-badge number={99}>
-          <o-icon type='chat' isFill color='#07C160'></o-icon>
+          <o-icon type='pay' isFill color='#07C160'></o-icon>
         </o-badge>
         <br />
         <br />
