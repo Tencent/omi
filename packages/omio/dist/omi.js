@@ -373,6 +373,7 @@
     }
     function addScopedAttr(vdom, style, attr, component) {
         if (options.scopedStyle) {
+            scopeVdom(attr, vdom);
             style = scoper(style, attr);
             if (style !== component.z) addStyle(style, attr);
         } else if (style !== component.z) addStyleWithoutId(style);
@@ -380,6 +381,7 @@
     }
     function addScopedAttrStatic(vdom, style, attr) {
         if (options.scopedStyle) {
+            scopeVdom(attr, vdom);
             if (!options.staticStyleMapping[attr]) {
                 addStyle(scoper(style, attr), attr);
                 options.staticStyleMapping[attr] = !0;
@@ -401,7 +403,10 @@
         }
     }
     function scopeHost(vdom, css) {
-        if ('object' == typeof vdom && css) for (var key in css) vdom.attributes[key] = '';
+        if ('object' == typeof vdom && css) {
+            vdom.attributes = vdom.attributes || {};
+            for (var key in css) vdom.attributes[key] = '';
+        }
     }
     function fireTick() {
         callbacks.forEach(function(item) {
@@ -465,12 +470,8 @@
             if (!skip) {
                 component.beforeRender && component.beforeRender();
                 rendered = component.render(props, data, context);
-                var stiatcAttr = '_s' + getCtorName(component.constructor);
-                scopeVdom(stiatcAttr, rendered);
-                if (component.staticCss) addScopedAttrStatic(rendered, component.staticCss(), stiatcAttr);
-                var attr = '_s' + component.elementId;
-                scopeVdom(attr, rendered);
-                if (component.css) addScopedAttr(rendered, component.css(), attr, component);
+                if (component.staticCss) addScopedAttrStatic(rendered, component.staticCss(), '_s' + getCtorName(component.constructor));
+                if (component.css) addScopedAttr(rendered, component.css(), '_s' + component.elementId, component);
                 scopeHost(rendered, component.B);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
@@ -899,7 +900,7 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-1.1.0';
+    options.root.Omi.version = 'omio-1.1.1';
     var Omi = {
         h: h,
         createElement: h,

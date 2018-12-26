@@ -1,5 +1,5 @@
 /**
- * omi v1.1.0  http://omijs.org
+ * omi v1.1.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1025,6 +1025,7 @@
 
   function addScopedAttr(vdom, style, attr, component) {
     if (options.scopedStyle) {
+      scopeVdom(attr, vdom);
       style = scoper(style, attr);
       if (style !== component._preCss) {
         addStyle(style, attr);
@@ -1037,6 +1038,7 @@
 
   function addScopedAttrStatic(vdom, style, attr) {
     if (options.scopedStyle) {
+      scopeVdom(attr, vdom);
       if (!options.staticStyleMapping[attr]) {
         addStyle(scoper(style, attr), attr);
         options.staticStyleMapping[attr] = true;
@@ -1061,6 +1063,7 @@
 
   function scopeHost(vdom, css) {
     if (typeof vdom === 'object' && css) {
+      vdom.attributes = vdom.attributes || {};
       for (var key in css) {
         vdom.attributes[key] = '';
       }
@@ -1368,17 +1371,13 @@
       component.beforeRender && component.beforeRender();
       rendered = component.render(props, data, context);
 
-      var stiatcAttr = '_s' + getCtorName(component.constructor);
-      scopeVdom(stiatcAttr, rendered);
       //don't rerender
       if (component.staticCss) {
-        addScopedAttrStatic(rendered, component.staticCss(), stiatcAttr);
+        addScopedAttrStatic(rendered, component.staticCss(), '_s' + getCtorName(component.constructor));
       }
 
-      var attr = '_s' + component.elementId;
-      scopeVdom(attr, rendered);
       if (component.css) {
-        addScopedAttr(rendered, component.css(), attr, component);
+        addScopedAttr(rendered, component.css(), '_s' + component.elementId, component);
       }
 
       scopeHost(rendered, component.___scopedCssAttr);
@@ -1723,7 +1722,7 @@
     defineElement: defineElement
   };
 
-  options.root.Omi.version = 'omio-1.1.0';
+  options.root.Omi.version = 'omio-1.1.1';
 
   var Omi = {
     h: h,
