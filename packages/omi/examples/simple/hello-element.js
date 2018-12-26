@@ -9,7 +9,7 @@ define('hello-element', class extends WeElement {
 
   onClick = evt => {
     // trigger CustomEvent
-    this.fire('abc', { name: 'dntzhang', age: 12 })
+    this.fire('myEvent', { name: 'dntzhang', age: 12 })
     evt.stopPropagation()
   }
 
