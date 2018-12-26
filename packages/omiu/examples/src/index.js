@@ -10,6 +10,7 @@ import '../../src/components/others/dialog'
 import '../../src/components/others/icon'
 import '../../src/components/others/tab'
 import '../../src/components/others/menu'
+import '../../src/components/others/badge'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -50,8 +51,8 @@ define('my-app', class extends WeElement {
     this.dialogShow = false
     this.update()
   }
-  
-  
+
+
   render() {
     return (
       <div class='ctn'>
@@ -99,7 +100,7 @@ define('my-app', class extends WeElement {
 
 
         <o-dialog onClose={this.closeDialog} onConfirm={this.onConfirm} show={this.dialogShow}>
-          
+
           <div>我是内容</div>
           <div>我是内容</div>
           <div>我是内容</div>
@@ -128,11 +129,27 @@ define('my-app', class extends WeElement {
           <item active={this.tabIndex === 0}>朋友相册</item>
           <item active={this.tabIndex === 1}>时刻视频</item>
         </o-menu>
+
+        <br />
+        <o-badge number={8}>
+          <o-icon type='chat' isFill color='#07C160'></o-icon>
+        </o-badge>
+        <br />
+        <br />
+        <o-badge number={99}>
+          <o-icon type='chat' isFill color='#07C160'></o-icon>
+        </o-badge>
+        <br />
+        <br />
+        <o-badge>
+          <o-icon type='chat' isFill color='#07C160'></o-icon>
+        </o-badge>
+
       </div>
     )
   }
 
-  css(){
+  css() {
     return `
     .ctn{
       margin: 10px;
