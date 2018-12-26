@@ -1,0 +1,16 @@
+.ow-toptip {
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+  color: #fff;
+  padding: 10px 0;
+  transition: 0.5s ease;
+}
+.weui-toptip-primary {
+  background: #1aad19;
+}
+.weui-toptip-warn {
+  background: #e64340;
+}
