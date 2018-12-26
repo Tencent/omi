@@ -92,6 +92,7 @@ export function addStyleWithoutId(cssText) {
 
 export function addScopedAttr(vdom, style, attr, component) {
   if (options.scopedStyle) {
+    scopeVdom(attr, vdom)
     style = scoper(style, attr)
     if (style !== component._preCss) {
       addStyle(style, attr)
@@ -104,6 +105,7 @@ export function addScopedAttr(vdom, style, attr, component) {
 
 export function addScopedAttrStatic(vdom, style, attr) {
   if (options.scopedStyle) {
+    scopeVdom(attr, vdom)
     if (!options.staticStyleMapping[attr]) {
       addStyle(scoper(style, attr), attr)
       options.staticStyleMapping[attr] = true
@@ -126,6 +128,7 @@ export function scopeVdom(attr, vdom) {
 
 export function scopeHost(vdom, css) {
   if (typeof vdom === 'object' && css) {
+    vdom.attributes = vdom.attributes || {}
     for(let key in css){
       vdom.attributes[key] = ''
     }

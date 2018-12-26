@@ -124,24 +124,20 @@ export function renderComponent(component, opts, mountAll, isChild) {
     component.beforeRender && component.beforeRender()
     rendered = component.render(props, data, context)
 
-    const stiatcAttr = '_s' + getCtorName(component.constructor)
-    scopeVdom(stiatcAttr, rendered)
     //don't rerender
     if (component.staticCss) {
       addScopedAttrStatic(
         rendered,
         component.staticCss(),
-        stiatcAttr
+        '_s' + getCtorName(component.constructor)
       )
     }
     
-    const attr = '_s' + component.elementId
-    scopeVdom(attr, rendered)
     if (component.css) {
       addScopedAttr(
         rendered,
         component.css(),
-        attr,
+        '_s' + component.elementId,
         component
       )
     }
