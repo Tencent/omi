@@ -2,7 +2,8 @@ import { define, render, Component } from '../../src/omi'
 
 define('my-hello', class extends Component {
   render() {
-    return <h3> {this.props.name}</h3>
+    //can get the parent's div style, can't get the h3's style
+    return <div><h3> {this.props.name}</h3></div>
   }
 })
 
@@ -25,7 +26,7 @@ define('my-app', class extends Component {
 
   staticCss() {
     return `div{
-                    font-size:20px;
+                    font-size:30px;
                 }`
   }
 

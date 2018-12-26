@@ -19,7 +19,7 @@ import {
 } from './diff'
 import { createComponent, collectComponent } from './component-recycler'
 import { removeNode } from '../dom/index'
-import { addScopedAttr, addScopedAttrStatic, getCtorName } from '../style'
+import { addScopedAttr, addScopedAttrStatic, getCtorName, scopeVdom, scopeHost } from '../style'
 import { proxyUpdate } from '../observe'
 
 /** Set a component's `props` (generally derived from JSX attributes).
@@ -124,23 +124,29 @@ export function renderComponent(component, opts, mountAll, isChild) {
     component.beforeRender && component.beforeRender()
     rendered = component.render(props, data, context)
 
+    const stiatcAttr = '_s' + getCtorName(component.constructor)
+    scopeVdom(stiatcAttr, rendered)
     //don't rerender
     if (component.staticCss) {
       addScopedAttrStatic(
         rendered,
         component.staticCss(),
-        '_style_' + getCtorName(component.constructor)
+        stiatcAttr
       )
     }
-
+    
+    const attr = '_s' + component.elementId
+    scopeVdom(attr, rendered)
     if (component.css) {
       addScopedAttr(
         rendered,
         component.css(),
-        '_style_' + component.elementId,
+        attr,
         component
       )
     }
+
+    scopeHost(rendered, component.___scopedCssAttr)
 
     // context to pass to the child, can be updated via (grand-)parent component
     if (component.getChildContext) {
@@ -280,7 +286,7 @@ export function buildComponentFromVNode(dom, vnode, context, mountAll) {
       dom = oldDom = null
     }
 
-    c = createComponent(vnode.nodeName, props, context)
+    c = createComponent(vnode.nodeName, props, context, vnode)
     if (dom && !c.nextBase) {
       c.nextBase = dom
       // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:

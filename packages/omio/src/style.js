@@ -11,7 +11,7 @@ export function getCtorName(ctor) {
     }
   }
 
-  let attrName = 'static_' + styleId
+  let attrName = 's' + styleId
   options.styleCache.push({ ctor, attrName })
   styleId++
 
@@ -92,7 +92,6 @@ export function addStyleWithoutId(cssText) {
 
 export function addScopedAttr(vdom, style, attr, component) {
   if (options.scopedStyle) {
-    scopeVdom(attr, vdom)
     style = scoper(style, attr)
     if (style !== component._preCss) {
       addStyle(style, attr)
@@ -105,7 +104,6 @@ export function addScopedAttr(vdom, style, attr, component) {
 
 export function addScopedAttrStatic(vdom, style, attr) {
   if (options.scopedStyle) {
-    scopeVdom(attr, vdom)
     if (!options.staticStyleMapping[attr]) {
       addStyle(scoper(style, attr), attr)
       options.staticStyleMapping[attr] = true
@@ -117,14 +115,19 @@ export function addScopedAttrStatic(vdom, style, attr) {
 }
 
 export function scopeVdom(attr, vdom) {
-  if (isArray(vdom)) {
-    return vdom.forEach(function (dom) {
-        return scopeVdom(attr, dom)
-    })
-  };
   if (typeof vdom === 'object') {
     vdom.attributes = vdom.attributes || {}
     vdom.attributes[attr] = ''
+    vdom.css = vdom.css || {}
+    vdom.css[attr] = ''
     vdom.children.forEach(child => scopeVdom(attr, child))
+  }
+}
+
+export function scopeHost(vdom, css) {
+  if (typeof vdom === 'object' && css) {
+    for(let key in css){
+      vdom.attributes[key] = ''
+    }
   }
 }

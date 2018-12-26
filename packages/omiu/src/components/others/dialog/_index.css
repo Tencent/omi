@@ -9,3 +9,19 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.content {
+  width: 50%;
+  height: auto;
+  min-height: 400px;
+  background-color: white;
+  position: fixed;
+  left: 25%;
+  top: 20%;
+}
+
+.abc{
+  position: absolute;
+  right: 10px;
+  top: 10ppx;
+}

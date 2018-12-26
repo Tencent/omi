@@ -7,6 +7,7 @@ import '../../src/components/data/progress'
 import '../../src/components/data/timeline'
 import '../../src/components/others/nav'
 import '../../src/components/others/dialog'
+import '../../src/components/others/icon'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -75,6 +76,11 @@ define('my-app', class extends WeElement {
         <o-dialog onClick={() => { console.log(1) }}>
           <button>abc</button>
         </o-dialog>
+
+
+        <o-icon type='loading' rotate></o-icon>
+        <o-icon type='close' ></o-icon>
+        
       </div>
     )
   }

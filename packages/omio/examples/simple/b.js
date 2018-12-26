@@ -186,38 +186,73 @@
     return to;
   }
 
-  !window.addEventListener && function (WindowPrototype, DocumentPrototype, ElementPrototype, addEventListener, removeEventListener, dispatchEvent, registry) {
-    WindowPrototype[addEventListener] = DocumentPrototype[addEventListener] = ElementPrototype[addEventListener] = function (type, listener) {
-      var target = this;
-
-      registry.unshift([target, type, listener, function (event) {
-        event.currentTarget = target;
-        event.preventDefault = function () {
-          event.returnValue = false;
-        };
-        event.stopPropagation = function () {
-          event.cancelBubble = true;
-        };
-        event.target = event.srcElement || target;
-
-        listener.call(target, event);
-      }]);
-
-      this.attachEvent("on" + type, registry[0][3]);
-    };
-
-    WindowPrototype[removeEventListener] = DocumentPrototype[removeEventListener] = ElementPrototype[removeEventListener] = function (type, listener) {
-      for (var index = 0, register; register = registry[index]; ++index) {
-        if (register[0] == this && register[1] == type && register[2] == listener) {
-          return this.detachEvent("on" + type, registry.splice(index, 1)[0][3]);
+  if (!Element.prototype.addEventListener) {
+    var runListeners = function runListeners(oEvent) {
+      if (!oEvent) {
+        oEvent = window.event;
+      }
+      for (var iLstId = 0, iElId = 0, oEvtListeners = oListeners[oEvent.type]; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          for (iLstId; iLstId < oEvtListeners.aEvts[iElId].length; iLstId++) {
+            oEvtListeners.aEvts[iElId][iLstId].call(this, oEvent);
+          }
+          break;
         }
       }
     };
 
-    WindowPrototype[dispatchEvent] = DocumentPrototype[dispatchEvent] = ElementPrototype[dispatchEvent] = function (eventObject) {
-      return this.fireEvent("on" + eventObject.type, eventObject);
+    var oListeners = {};
+
+    Element.prototype.addEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (oListeners.hasOwnProperty(sEventType)) {
+        var oEvtListeners = oListeners[sEventType];
+        for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+          if (oEvtListeners.aEls[iElId] === this) {
+            nElIdx = iElId;break;
+          }
+        }
+        if (nElIdx === -1) {
+          oEvtListeners.aEls.push(this);
+          oEvtListeners.aEvts.push([fListener]);
+          this["on" + sEventType] = runListeners;
+        } else {
+          var aElListeners = oEvtListeners.aEvts[nElIdx];
+          if (this["on" + sEventType] !== runListeners) {
+            aElListeners.splice(0);
+            this["on" + sEventType] = runListeners;
+          }
+          for (var iLstId = 0; iLstId < aElListeners.length; iLstId++) {
+            if (aElListeners[iLstId] === fListener) {
+              return;
+            }
+          }
+          aElListeners.push(fListener);
+        }
+      } else {
+        oListeners[sEventType] = { aEls: [this], aEvts: [[fListener]] };
+        this["on" + sEventType] = runListeners;
+      }
     };
-  }(Window.prototype, HTMLDocument.prototype, Element.prototype, 'addEventListener', 'removeEventListener', 'dispatchEvent', []);
+    Element.prototype.removeEventListener = function (sEventType, fListener /*, useCapture (will be ignored!) */) {
+      if (!oListeners.hasOwnProperty(sEventType)) {
+        return;
+      }
+      var oEvtListeners = oListeners[sEventType];
+      for (var nElIdx = -1, iElId = 0; iElId < oEvtListeners.aEls.length; iElId++) {
+        if (oEvtListeners.aEls[iElId] === this) {
+          nElIdx = iElId;break;
+        }
+      }
+      if (nElIdx === -1) {
+        return;
+      }
+      for (var iLstId = 0, aElListeners = oEvtListeners.aEvts[nElIdx]; iLstId < aElListeners.length; iLstId++) {
+        if (aElListeners[iLstId] === fListener) {
+          aElListeners.splice(iLstId, 1);
+        }
+      }
+    };
+  }
 
   if (typeof Object.create !== 'function') {
     Object.create = function (proto, propertiesObject) {
@@ -235,6 +270,12 @@
       F.prototype = proto;
 
       return new F();
+    };
+  }
+
+  if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+      return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
     };
   }
 
@@ -305,7 +346,7 @@
   var FORCE_RENDER = 2;
   var ASYNC_RENDER = 3;
 
-  var ATTR_KEY = '__preactattr_';
+  var ATTR_KEY = '__omiattr_';
 
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
@@ -589,9 +630,16 @@
       // hydration is indicated by the existing element to be diffed not having a prop cache
       hydrating = dom != null && !(ATTR_KEY in dom);
     }
+    var ret = void 0;
 
-    var ret = idiff(dom, vnode, context, mountAll, componentRoot);
+    if (isArray(vnode)) {
+      vnode = {
+        nodeName: 'span',
+        children: vnode
+      };
+    }
 
+    ret = idiff(dom, vnode, context, mountAll, componentRoot);
     // append the element if its a new parent
     if (parent && ret.parentNode !== parent) parent.appendChild(ret);
 
@@ -859,7 +907,7 @@
   }
 
   /** Create a component. Normalizes differences between PFC's and classful Components. */
-  function createComponent(Ctor, props, context) {
+  function createComponent(Ctor, props, context, vnode) {
     var list = components[Ctor.name],
         inst = void 0;
 
@@ -871,6 +919,7 @@
       inst.constructor = Ctor;
       inst.render = doRender;
     }
+    inst.___scopedCssAttr = vnode.css;
 
     if (list) {
       for (var i = list.length; i--;) {
@@ -900,7 +949,7 @@
       }
     }
 
-    var attrName = 'static_' + styleId;
+    var attrName = 's' + styleId;
     options.styleCache.push({ ctor: ctor, attrName: attrName });
     styleId++;
 
@@ -977,7 +1026,6 @@
 
   function addScopedAttr(vdom, style, attr, component) {
     if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
       style = scoper(style, attr);
       if (style !== component._preCss) {
         addStyle(style, attr);
@@ -990,7 +1038,6 @@
 
   function addScopedAttrStatic(vdom, style, attr) {
     if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
       if (!options.staticStyleMapping[attr]) {
         addStyle(scoper(style, attr), attr);
         options.staticStyleMapping[attr] = true;
@@ -1005,9 +1052,19 @@
     if (typeof vdom === 'object') {
       vdom.attributes = vdom.attributes || {};
       vdom.attributes[attr] = '';
+      vdom.css = vdom.css || {};
+      vdom.css[attr] = '';
       vdom.children.forEach(function (child) {
         return scopeVdom(attr, child);
       });
+    }
+  }
+
+  function scopeHost(vdom, css) {
+    if (typeof vdom === 'object' && css) {
+      for (var key in css) {
+        vdom.attributes[key] = '';
+      }
     }
   }
 
@@ -1309,16 +1366,23 @@
     component.prevProps = component.prevState = component.prevContext = component.nextBase = null;
 
     if (!skip) {
+      component.beforeRender && component.beforeRender();
       rendered = component.render(props, data, context);
 
+      var stiatcAttr = '_s' + getCtorName(component.constructor);
+      scopeVdom(stiatcAttr, rendered);
       //don't rerender
       if (component.staticCss) {
-        addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
+        addScopedAttrStatic(rendered, component.staticCss(), stiatcAttr);
       }
 
+      var attr = '_s' + component.elementId;
+      scopeVdom(attr, rendered);
       if (component.css) {
-        addScopedAttr(rendered, component.css(), '_style_' + component.elementId, component);
+        addScopedAttr(rendered, component.css(), attr, component);
       }
+
+      scopeHost(rendered, component.___scopedCssAttr);
 
       // context to pass to the child, can be updated via (grand-)parent component
       if (component.getChildContext) {
@@ -1448,7 +1512,7 @@
         dom = oldDom = null;
       }
 
-      c = createComponent(vnode.nodeName, props, context);
+      c = createComponent(vnode.nodeName, props, context, vnode);
       if (dom && !c.nextBase) {
         c.nextBase = dom;
         // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
@@ -1523,6 +1587,18 @@
       renderComponent(this, FORCE_RENDER);
       if (options.componentChange) options.componentChange(this, this.base);
       this._willUpdate = false;
+    };
+
+    Component.prototype.fire = function fire(type, data) {
+      var _this = this;
+
+      Object.keys(this.props).every(function (key) {
+        if ('on' + type === key.toLowerCase()) {
+          _this.props[key]({ detail: data });
+          return false;
+        }
+        return true;
+      });
     };
 
     Component.prototype.render = function render() {};
@@ -1651,7 +1727,7 @@
     defineElement: defineElement
   };
 
-  options.root.Omi.version = 'omio-0.1.2';
+  options.root.Omi.version = 'omio-1.0.3';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1669,11 +1745,16 @@
     }
 
     _class.prototype.render = function render$$1() {
+      //can get the parent's div style, can't get the h3's style
       return Omi.h(
-        'h3',
+        'div',
         null,
-        ' ',
-        this.props.name
+        Omi.h(
+          'h3',
+          null,
+          ' ',
+          this.props.name
+        )
       );
     };
 
@@ -1707,7 +1788,7 @@
     };
 
     _class3.prototype.staticCss = function staticCss() {
-      return 'div{\n                    font-size:20px;\n                }';
+      return 'div{\n                    font-size:30px;\n                }';
     };
 
     _class3.prototype.render = function render$$1() {

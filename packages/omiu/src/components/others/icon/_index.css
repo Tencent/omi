@@ -1,0 +1,8 @@
+.rotate{
+    display: inline-block;
+    -webkit-animation: rotate 1s infinite linear;
+    animation: rotate 1s infinite linear;
+}
+
+@-webkit-keyframes rotate{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
+@keyframes rotate{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
