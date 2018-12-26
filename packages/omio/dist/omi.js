@@ -189,7 +189,7 @@
     function diff(dom, vnode, context, mountAll, parent, componentRoot) {
         if (!diffLevel++) {
             isSvgMode = null != parent && void 0 !== parent.ownerSVGElement;
-            hydrating = null != dom && !('__preactattr_' in dom);
+            hydrating = null != dom && !('__omiattr_' in dom);
         }
         var ret;
         if (isArray(vnode)) vnode = {
@@ -223,7 +223,7 @@
                 }
             }
             try {
-                out.t = !0;
+                out.__omiattr_ = !0;
             } catch (e) {}
             return out;
         }
@@ -237,9 +237,9 @@
                 recollectNodeTree(dom, !0);
             }
         }
-        var fc = out.firstChild, props = out.t, vchildren = vnode.children;
+        var fc = out.firstChild, props = out.__omiattr_, vchildren = vnode.children;
         if (null == props) {
-            props = out.t = {};
+            props = out.__omiattr_ = {};
             for (var a = out.attributes, i = a.length; i--; ) props[a[i].name] = a[i].value;
         }
         if (!hydrating && vchildren && 1 === vchildren.length && 'string' == typeof vchildren[0] && null != fc && void 0 !== fc.splitText && null == fc.nextSibling) {
@@ -252,7 +252,7 @@
     function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
         var j, c, f, vchild, child, originalChildren = dom.childNodes, children = [], keyed = {}, keyedLen = 0, min = 0, len = originalChildren.length, childrenLen = 0, vlen = vchildren ? vchildren.length : 0;
         if (0 !== len) for (var i = 0; i < len; i++) {
-            var _child = originalChildren[i], props = _child.t, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
+            var _child = originalChildren[i], props = _child.__omiattr_, key = vlen && props ? _child._component ? _child._component.__k : props.key : null;
             if (null != key) {
                 keyedLen++;
                 keyed[key] = _child;
@@ -285,8 +285,8 @@
     function recollectNodeTree(node, unmountOnly) {
         var component = node._component;
         if (component) unmountComponent(component); else {
-            if (null != node.t && node.t.ref) node.t.ref(null);
-            if (!1 === unmountOnly || null == node.t) removeNode(node);
+            if (null != node.__omiattr_ && node.__omiattr_.ref) node.__omiattr_.ref(null);
+            if (!1 === unmountOnly || null == node.__omiattr_) removeNode(node);
             removeChildren(node);
         }
     }
@@ -307,7 +307,7 @@
         var name = component.constructor.name;
         (components[name] || (components[name] = [])).push(component);
     }
-    function createComponent(Ctor, props, context) {
+    function createComponent(Ctor, props, context, vnode) {
         var inst, list = components[Ctor.name];
         if (Ctor.prototype && Ctor.prototype.render) {
             inst = new Ctor(props, context);
@@ -317,6 +317,7 @@
             inst.constructor = Ctor;
             inst.render = doRender;
         }
+        inst.B = vnode.css;
         if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
             inst.__b = list[i].__b;
             list.splice(i, 1);
@@ -332,7 +333,7 @@
             var item = options.styleCache[i];
             if (item.ctor === ctor) return item.attrName;
         }
-        var attrName = 'static_' + styleId;
+        var attrName = 's' + styleId;
         options.styleCache.push({
             ctor: ctor,
             attrName: attrName
@@ -372,7 +373,6 @@
     }
     function addScopedAttr(vdom, style, attr, component) {
         if (options.scopedStyle) {
-            scopeVdom(attr, vdom);
             style = scoper(style, attr);
             if (style !== component.z) addStyle(style, attr);
         } else if (style !== component.z) addStyleWithoutId(style);
@@ -380,7 +380,6 @@
     }
     function addScopedAttrStatic(vdom, style, attr) {
         if (options.scopedStyle) {
-            scopeVdom(attr, vdom);
             if (!options.staticStyleMapping[attr]) {
                 addStyle(scoper(style, attr), attr);
                 options.staticStyleMapping[attr] = !0;
@@ -394,10 +393,15 @@
         if ('object' == typeof vdom) {
             vdom.attributes = vdom.attributes || {};
             vdom.attributes[attr] = '';
+            vdom.css = vdom.css || {};
+            vdom.css[attr] = '';
             vdom.children.forEach(function(child) {
                 return scopeVdom(attr, child);
             });
         }
+    }
+    function scopeHost(vdom, css) {
+        if ('object' == typeof vdom && css) for (var key in css) vdom.attributes[key] = '';
     }
     function fireTick() {
         callbacks.forEach(function(item) {
@@ -461,8 +465,13 @@
             if (!skip) {
                 component.beforeRender && component.beforeRender();
                 rendered = component.render(props, data, context);
-                if (component.staticCss) addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
-                if (component.css) addScopedAttr(rendered, component.css(), '_style_' + component.elementId, component);
+                var stiatcAttr = '_s' + getCtorName(component.constructor);
+                scopeVdom(stiatcAttr, rendered);
+                if (component.staticCss) addScopedAttrStatic(rendered, component.staticCss(), stiatcAttr);
+                var attr = '_s' + component.elementId;
+                scopeVdom(attr, rendered);
+                if (component.css) addScopedAttr(rendered, component.css(), attr, component);
+                scopeHost(rendered, component.B);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
                 if (ctor) {
@@ -526,7 +535,7 @@
                 unmountComponent(originalComponent);
                 dom = oldDom = null;
             }
-            c = createComponent(vnode.nodeName, props, context);
+            c = createComponent(vnode.nodeName, props, context, vnode);
             if (dom && !c.__b) {
                 c.__b = dom;
                 oldDom = null;
@@ -549,7 +558,7 @@
         component.base = null;
         var inner = component._component;
         if (inner) unmountComponent(inner); else if (base) {
-            if (base.t && base.t.ref) base.t.ref(null);
+            if (base.__omiattr_ && base.__omiattr_.ref) base.__omiattr_.ref(null);
             component.__b = base;
             removeNode(base);
             collectComponent(component);
@@ -890,7 +899,7 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-1.0.3';
+    options.root.Omi.version = 'omio-1.1.0';
     var Omi = {
         h: h,
         createElement: h,

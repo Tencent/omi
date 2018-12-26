@@ -1,5 +1,5 @@
 /**
- * omi v1.0.3  http://omijs.org
+ * omi v1.1.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -624,7 +624,7 @@ function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
 
     // hydration is indicated by the existing element to be diffed not having a prop cache
-    hydrating = dom != null && !('__preactattr_' in dom);
+    hydrating = dom != null && !('__omiattr_' in dom);
   }
   var ret;
 
@@ -683,7 +683,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
     //ie8 error
     try {
-      out['__preactattr_'] = true;
+      out['__omiattr_'] = true;
     } catch (e) {}
 
     return out;
@@ -710,11 +710,11 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
 
   var fc = out.firstChild,
-      props = out['__preactattr_'],
+      props = out['__omiattr_'],
       vchildren = vnode.children;
 
   if (props == null) {
-    props = out['__preactattr_'] = {};
+    props = out['__omiattr_'] = {};
     for (var a = out.attributes, i = a.length; i--;) {
       props[a[i].name] = a[i].value;
     }
@@ -766,7 +766,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
   if (len !== 0) {
     for (var i = 0; i < len; i++) {
       var _child = originalChildren[i],
-          props = _child['__preactattr_'],
+          props = _child['__omiattr_'],
           key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
       if (key != null) {
         keyedLen++;
@@ -845,9 +845,9 @@ function recollectNodeTree(node, unmountOnly) {
   } else {
     // If the node's VNode had a ref function, invoke it with null here.
     // (this is part of the React spec, and smart for unsetting references)
-    if (node['__preactattr_'] != null && node['__preactattr_'].ref) node['__preactattr_'].ref(null);
+    if (node['__omiattr_'] != null && node['__omiattr_'].ref) node['__omiattr_'].ref(null);
 
-    if (unmountOnly === false || node['__preactattr_'] == null) {
+    if (unmountOnly === false || node['__omiattr_'] == null) {
       removeNode(node);
     }
 
@@ -903,7 +903,7 @@ function collectComponent(component) {
 }
 
 /** Create a component. Normalizes differences between PFC's and classful Components. */
-function createComponent(Ctor, props, context) {
+function createComponent(Ctor, props, context, vnode) {
   var list = components[Ctor.name],
       inst;
 
@@ -915,6 +915,7 @@ function createComponent(Ctor, props, context) {
     inst.constructor = Ctor;
     inst.render = doRender;
   }
+  inst.___scopedCssAttr = vnode.css;
 
   if (list) {
     for (var i = list.length; i--;) {
@@ -944,7 +945,7 @@ function getCtorName(ctor) {
     }
   }
 
-  var attrName = 'static_' + styleId;
+  var attrName = 's' + styleId;
   options.styleCache.push({ ctor: ctor, attrName: attrName });
   styleId++;
 
@@ -1021,7 +1022,6 @@ function addStyleWithoutId(cssText) {
 
 function addScopedAttr(vdom, style, attr, component) {
   if (options.scopedStyle) {
-    scopeVdom(attr, vdom);
     style = scoper(style, attr);
     if (style !== component._preCss) {
       addStyle(style, attr);
@@ -1034,7 +1034,6 @@ function addScopedAttr(vdom, style, attr, component) {
 
 function addScopedAttrStatic(vdom, style, attr) {
   if (options.scopedStyle) {
-    scopeVdom(attr, vdom);
     if (!options.staticStyleMapping[attr]) {
       addStyle(scoper(style, attr), attr);
       options.staticStyleMapping[attr] = true;
@@ -1049,9 +1048,19 @@ function scopeVdom(attr, vdom) {
   if (typeof vdom === 'object') {
     vdom.attributes = vdom.attributes || {};
     vdom.attributes[attr] = '';
+    vdom.css = vdom.css || {};
+    vdom.css[attr] = '';
     vdom.children.forEach(function (child) {
       return scopeVdom(attr, child);
     });
+  }
+}
+
+function scopeHost(vdom, css) {
+  if (typeof vdom === 'object' && css) {
+    for (var key in css) {
+      vdom.attributes[key] = '';
+    }
   }
 }
 
@@ -1356,14 +1365,20 @@ function renderComponent(component, opts, mountAll, isChild) {
     component.beforeRender && component.beforeRender();
     rendered = component.render(props, data, context);
 
+    var stiatcAttr = '_s' + getCtorName(component.constructor);
+    scopeVdom(stiatcAttr, rendered);
     //don't rerender
     if (component.staticCss) {
-      addScopedAttrStatic(rendered, component.staticCss(), '_style_' + getCtorName(component.constructor));
+      addScopedAttrStatic(rendered, component.staticCss(), stiatcAttr);
     }
 
+    var attr = '_s' + component.elementId;
+    scopeVdom(attr, rendered);
     if (component.css) {
-      addScopedAttr(rendered, component.css(), '_style_' + component.elementId, component);
+      addScopedAttr(rendered, component.css(), attr, component);
     }
+
+    scopeHost(rendered, component.___scopedCssAttr);
 
     // context to pass to the child, can be updated via (grand-)parent component
     if (component.getChildContext) {
@@ -1493,7 +1508,7 @@ function buildComponentFromVNode(dom, vnode, context, mountAll) {
       dom = oldDom = null;
     }
 
-    c = createComponent(vnode.nodeName, props, context);
+    c = createComponent(vnode.nodeName, props, context, vnode);
     if (dom && !c.nextBase) {
       c.nextBase = dom;
       // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
@@ -1532,7 +1547,7 @@ function unmountComponent(component) {
   if (inner) {
     unmountComponent(inner);
   } else if (base) {
-    if (base['__preactattr_'] && base['__preactattr_'].ref) base['__preactattr_'].ref(null);
+    if (base['__omiattr_'] && base['__omiattr_'].ref) base['__omiattr_'].ref(null);
 
     component.nextBase = base;
 
@@ -1705,7 +1720,7 @@ options.root.Omi = {
   defineElement: defineElement
 };
 
-options.root.Omi.version = 'omio-1.0.3';
+options.root.Omi.version = 'omio-1.1.0';
 
 var omi = {
   h: h,
