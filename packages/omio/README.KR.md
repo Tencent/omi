@@ -105,6 +105,10 @@ render(<my-counter />, 'body')
 
 만약 당신이 IE9 와 IE9+ 부터 지원한다면 `static observe = true`를 사용할 수 있습니다.
 
+## 관련문서
+
+* [Omio는 IE8과 호환됩니다](https://github.com/Tencent/omi/blob/master/tutorial/omio.kr.md)
+
 ## License
 
 [MIT](https://github.com/Tencent/omi/blob/master/LICENSE) © [dntzhang](https://github.com/dntzhang)
