@@ -28,8 +28,8 @@ define('o-popup', class extends WeElement {
           <div class='main'>
             {props.children}
             <div class='footer'>
-              <o-button onClick={this.close}>取消</o-button>
-              <o-button onClick={this.confirm} type='primary'>确定</o-button>
+              <o-button size="small" type="default" onClick={this.close}>取消</o-button>
+              <o-button size="small" class='okBtn' onClick={this.confirm} type='primary'>确定</o-button>
             </div>
           </div>
 

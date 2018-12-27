@@ -20,10 +20,12 @@ define('o-button', class extends WeElement {
       type,
       size,
       plain,
-      className,
+      //className,
       children,
       ...others
     } = this.props
+
+    const className = this.props.class
 
     const Component = component
       ? component

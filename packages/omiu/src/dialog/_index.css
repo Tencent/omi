@@ -13,11 +13,11 @@
 }
 
 .content {
-  width: 50%;
+  width: 80%;
   height: auto;
   background-color: white;
   position: fixed;
-  left: 25%;
+  left: 10%;
   top: 20%;
   border-radius: 4px; 
   text-align: center;

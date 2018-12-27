@@ -12,12 +12,12 @@
 }
 
 .content {
-  width: 50%;
+  width: 80%;
   height: auto;
   min-height: 200px;
   background-color: white;
   position: fixed;
-  left: 25%;
+  left: 10%;
   top: 20%;
   border-radius: 4px; 
 }
@@ -51,4 +51,8 @@
 .footer{
   text-align: right;
   margin-top: 10px;
+}
+
+.okBtn{
+  margin-left: 10px; 
 }
