@@ -64,7 +64,7 @@ module.exports = {
 };
 ```
 
-## Supports IE8
+## Support IE8
 
 ```js
 import { render, WeElement, define } from '../../src/omi'

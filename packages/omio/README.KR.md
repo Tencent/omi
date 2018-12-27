@@ -51,7 +51,7 @@ npm i omio
 
 ### Webpack Alias
 
-만약 기존 Omi 프로젝트에서 Omio를 사용한다면, 기존 코드는 수정할 필요 없이 설정(configuration) 만 설정하면 됩니다:
+만약 기존 Omi 프로젝트에서 Omio를 사용한다면, 기존 코드는 수정할 필요 없이 설정(configuration) 만 수정하면 됩니다:
 
 ```js
 module.exports = {
@@ -64,7 +64,7 @@ module.exports = {
 };
 ```
 
-## Supports IE8
+## Support IE8
 
 ```js
 import { render, WeElement, define } from '../../src/omi'
