@@ -30,7 +30,7 @@ define('o-selection', class extends WeElement {
     //Prevent repeated tap width setTimeout
     setTimeout(()=>{
       this.fire('select', { indexs: cloneIdxs })
-    },600)
+    },500)
    
   }
 
@@ -67,7 +67,7 @@ define('o-selection', class extends WeElement {
             }}>
               <div class="weui-cell__hd">
                 <input type="checkbox" class="weui-check" name="checkbox1" id={`x_${this.elementId}_${index}`} checked={props.selectedIndexs.indexOf(index)!==-1} />
-                <o-icon class='icon' type={props.selectedIndexs.indexOf(index)!==-1?'check-square':'rect'} scale='1' color={props.selectedIndexs.indexOf(index)!==-1?'#07C160':'#ccc'}></o-icon> 
+                <o-icon class='icon' type={props.selectedIndexs.indexOf(index)!==-1?'check-square':'rect'} scale='1.3' color={props.selectedIndexs.indexOf(index)!==-1?'#07C160':'#ccc'}></o-icon> 
               </div>
               <div class="weui-cell__bd">
                 <p>{item.text}</p>

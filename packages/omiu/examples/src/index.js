@@ -41,28 +41,24 @@ define('my-app', class extends WeElement {
     this.alertShow = false
   }
 
-
   data = {
     selectedIndex: 2,
     selectedIndexs: [0, 1],
     percentage: 30
   }
 
-
   onTapMore = () => {
     console.log(1)
   }
 
-  onSelectSingle = (e) => {
+  onSelectSingle = e => {
     this.data.selectedIndex = e.detail.index
     this.update()
   }
 
-  onSelect = (e) => {
-    console.log(e.detail.index)
+  onSelect = e => {
     this.data.selectedIndexs = e.detail.indexs
     this.update()
-
   }
 
   navChange = index => {
@@ -308,47 +304,40 @@ define('my-app', class extends WeElement {
         <br />
         <o-msg type="success" title="提示" content="欢迎使用 Omiu" />
 
-
         <div>
-        <br />
-        <br />
+          <br />
+          <br />
           <o-selection
-            items={[
-              { text: 'item1' },
-              { text: 'item2' },
-              { text: 'item3' }
-            ]}
+            items={[{ text: 'item1' }, { text: 'item2' }, { text: 'item3' }]}
             selectedIndex={data.selectedIndex}
             single
             onTapMore={this.onTapMore}
             onSelect={this.onSelectSingle}
-          >
-          </o-selection>
-
+          />
 
           <br />
           <br />
           <o-selection
             selectedIndexs={data.selectedIndexs}
-            items={[
-              { text: 'item1' },
-              { text: 'item2' },
-              { text: 'item3' }
-            ]}
+            items={[{ text: 'item1' }, { text: 'item2' }, { text: 'item3' }]}
             onSelect={this.onSelect}
-          >
-
-          </o-selection>
+          />
         </div>
         <br />
         <br />
-        <o-slider disabled></o-slider>
+        <o-slider disabled />
 
-        <o-slider onChange={this.onSliderChange} percentage={this.data.percentage}></o-slider>
+        <o-slider
+          onChange={this.onSliderChange}
+          percentage={this.data.percentage}
+        />
 
-
-        <o-switch onChange={this.onChangeA} checked={true}> </o-switch>
-        <o-switch onChange={this.onChangeB} checked={false}> </o-switch>
+        <o-switch onChange={this.onChangeA} checked={true}>
+          {' '}
+        </o-switch>
+        <o-switch onChange={this.onChangeB} checked={false}>
+          {' '}
+        </o-switch>
         <br />
         <br />
         <br />
@@ -397,20 +386,17 @@ define('my-app', class extends WeElement {
             </o-icon>
           </o-badge>
         </o-tab-bar>
-
-
-
       </div>
     )
   }
-  onChangeA = (e) => {
+  onChangeA = e => {
     console.log(e.detail)
   }
 
-  onChangeB = (e) => {
+  onChangeB = e => {
     console.log(e.detail)
   }
-  onSliderChange = (e) => {
+  onSliderChange = e => {
     this.data.percentage = e.detail
     this.update()
   }
