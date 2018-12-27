@@ -26,6 +26,7 @@ span{
 .ctn{
   position: relative;
   width: 150px;
+  display: inline-block;
 }
 
 .input{

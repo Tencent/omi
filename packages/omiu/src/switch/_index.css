@@ -1,7 +1,13 @@
 .weui-switch{
   -webkit-appearance:none;
           appearance:none;
+          display: inline-block;
 }
+
+.weui-switch-cp{
+  display: inline-block;
+}
+
 .weui-switch,
 .weui-switch-cp__box{
   position:relative;
@@ -48,8 +54,8 @@
 }
 .weui-switch:checked,
 .weui-switch-cp__input:checked ~ .weui-switch-cp__box{
-  border-color:#1AAD19;
-  background-color:#1AAD19;
+  border-color:#07C160;
+  background-color:#07C160;
 }
 .weui-switch:checked:before,
 .weui-switch-cp__input:checked ~ .weui-switch-cp__box:before{

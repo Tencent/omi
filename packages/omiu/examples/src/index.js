@@ -107,6 +107,9 @@ define('my-app', class extends WeElement {
   }
 
   tabBarChange = index => {
+    if (index === 3) {
+      location.href = 'https://github.com/Tencent/omi'
+    }
     this.tabBarIndex = index
     this.update()
   }
@@ -152,24 +155,26 @@ define('my-app', class extends WeElement {
             Mini
           </o-button>
         </o-equal-space>
-
-        <o-pagination
-          total={125}
-          currentPage={2}
-          pageSize={10}
-          onChange={this.onChange}
-        />
-
+        <br></br>
+        <o-equal-space>
+          <o-pagination
+            total={25}
+            currentPage={2}
+            pageSize={5}
+            onChange={this.onChange}
+          />
+        </o-equal-space>
         <br />
-        <o-adjustment
-          onChange={this.onAdjustmentChange}
-          min={1}
-          max={10}
-          step={1}
-          value={2}
-          label="描述文字"
-        />
-
+        <o-equal-space>
+          <o-adjustment
+            onChange={this.onAdjustmentChange}
+            min={1}
+            max={10}
+            step={1}
+            value={2}
+            label="描述文字"
+          />
+        </o-equal-space>
         <br />
         <o-progress bgColor="#ccc" innerColor="#01DE6C" value={50} />
 
@@ -193,19 +198,18 @@ define('my-app', class extends WeElement {
         <o-icon type="add-friend" isFill />
         <br />
         <br />
-        <o-icon type="loading" rotate isFill>
-          Loading
+
+        <o-equal-space>
+          <o-icon type="loading" rotate isFill>
+            Loading
         </o-icon>
-        <br />
-        <br />
-        <o-icon type="close" isFill>
-          Close
+          <o-icon type="close" isFill>
+            Close
         </o-icon>
-        <br />
-        <br />
-        <o-icon type="pay" isFill>
-          Pay
+          <o-icon type="pay" isFill>
+            Pay
         </o-icon>
+        </o-equal-space>
         <br />
         <br />
 
@@ -298,8 +302,7 @@ define('my-app', class extends WeElement {
         </o-list>
         <br />
         <br />
-
-        <o-loading size="40px" />
+        <o-equal-space><o-loading size="40px" /></o-equal-space>
         <br />
         <br />
         <o-msg type="success" title="提示" content="欢迎使用 Omiu" />
@@ -332,21 +335,21 @@ define('my-app', class extends WeElement {
           percentage={this.data.percentage}
         />
 
-        <o-switch onChange={this.onChangeA} checked={true}>
-          {' '}
-        </o-switch>
-        <o-switch onChange={this.onChangeB} checked={false}>
-          {' '}
-        </o-switch>
+        <o-equal-space>
+          <o-switch onChange={this.onChangeB} checked={false}>
+          </o-switch>
+        </o-equal-space>
+
+        <o-equal-space>
+          <o-switch onChange={this.onChangeA} checked={true}>
+          </o-switch>
+        </o-equal-space>
+
         <br />
         <br />
         <br />
         <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+
         <br />
         <o-tab-bar onChange={this.tabBarChange} index={this.tabBarIndex}>
           <o-badge number={8}>
@@ -378,11 +381,11 @@ define('my-app', class extends WeElement {
           </o-badge>
           <o-badge>
             <o-icon
-              type="scan"
+              type="github"
               isFill={this.tabBarIndex === 3}
               color={this.tabBarIndex === 3 ? '#07C160' : '#070707'}
             >
-              扫描
+              Omiu
             </o-icon>
           </o-badge>
         </o-tab-bar>
