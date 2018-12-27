@@ -4,7 +4,7 @@ import css from './_index.css'
 define('o-pagination', class extends WeElement {
   static observe = true
 
-  css() {
+  staticCss() {
     return css
   }
 

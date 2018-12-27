@@ -4,7 +4,7 @@ import '../button'
 import '../icon'
 
 define('o-popup', class extends WeElement {
-  css() {
+  staticCss() {
     return css
   }
 

@@ -3,7 +3,7 @@ import css from './_index.css'
 
 define('o-timeline', class extends WeElement {
 
-  css() {
+  staticCss() {
     return css
   }
 

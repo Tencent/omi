@@ -3,7 +3,7 @@ import css from './_index.css'
 import path from './path'
 
 define('o-icon', class extends WeElement {
-  css() {
+  staticCss() {
     return css
   }
 

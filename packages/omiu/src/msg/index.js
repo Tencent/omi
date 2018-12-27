@@ -12,7 +12,7 @@ define('o-msg', class extends WeElement {
     this.props.confirm()
   }
 
-  css() {
+  staticCss() {
     return style
   }
 

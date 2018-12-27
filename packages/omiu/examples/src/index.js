@@ -55,11 +55,13 @@ define('my-app', class extends WeElement {
 
   onSelectSingle = (e) => {
     this.data.selectedIndex = e.detail.index
+    this.update()
   }
 
   onSelect = (e) => {
-
+    console.log(e.detail.index)
     this.data.selectedIndexs = e.detail.indexs
+    this.update()
 
   }
 
@@ -308,7 +310,8 @@ define('my-app', class extends WeElement {
 
 
         <div>
-          <div class="weui-cells__title">单选列表项</div>
+        <br />
+        <br />
           <o-selection
             items={[
               { text: 'item1' },
@@ -323,7 +326,8 @@ define('my-app', class extends WeElement {
           </o-selection>
 
 
-          <div class="weui-cells__title">多选列表项</div>
+          <br />
+          <br />
           <o-selection
             selectedIndexs={data.selectedIndexs}
             items={[

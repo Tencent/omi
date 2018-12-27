@@ -2,7 +2,7 @@ import { define, WeElement } from 'omi'
 import css from './_index.css'
 
 define('o-adjustment', class extends WeElement {
-  css() {
+  staticCss() {
     return css
   }
 

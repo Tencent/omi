@@ -11,7 +11,7 @@ define('o-dialog', class extends WeElement {
     this.props.onConfirm && this.props.onConfirm()
   }
 
-  css() {
+  staticCss() {
     return style
   }
 

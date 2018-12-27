@@ -10,7 +10,7 @@ define('o-button', class extends WeElement {
     size: 'normal'
   }
 
-  css() {
+  staticCss() {
     return css
   }
 

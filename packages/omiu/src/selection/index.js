@@ -1,11 +1,12 @@
 import { define, WeElement } from 'omi'
 import style from './_index.css'
+import '../icon'
 // import cellStyle from '../cells/_index.css'
 // import '../icon/font-face.css'
 // import fontStyle from '../icon/_font.scss'
 
 define('o-selection', class extends WeElement {
-  css() {
+  staticCss() {
     return style  
   }
 
@@ -14,11 +15,13 @@ define('o-selection', class extends WeElement {
   }
 
   onSelectSingle = (index) => {
+    console.log(111)
     this.fire('select', { index: index })
   }
 
 
   onSelect = (index) => {
+    console.log(111)
     const cloneIdxs = this.props.selectedIndexs.slice(0)
     const position = this.props.selectedIndexs.indexOf(index)
     if(position===-1){
@@ -39,7 +42,7 @@ define('o-selection', class extends WeElement {
         <div class="weui-cells weui-cells_radio">
 
           {props.items.map((item, index) => (
-            <label class="weui-cell weui-check__label" for={`x_${this.elementId}_${index}`} ontap={() => {
+            <label class="weui-cell weui-check__label" for={`x_${this.elementId}_${index}`} onClick={() => {
               this.onSelectSingle(index)
             }}>
               <div class="weui-cell__bd">
@@ -47,7 +50,7 @@ define('o-selection', class extends WeElement {
               </div>
               <div class="weui-cell__ft">
                 <input type="radio" class="weui-check" checked={props.selectedIndex === index} name="radio1" id={`x_${this.elementId}_${index}`} />
-                <span class="weui-icon-checked"></span>
+                {props.selectedIndex === index&&<o-icon class='icon' type='check' scale='1' color='#07C160'></o-icon>}
               </div>
             </label>
           ))}
@@ -61,12 +64,12 @@ define('o-selection', class extends WeElement {
       return (
         <div class="weui-cells weui-cells_checkbox">
           {props.items.map((item, index) => (
-            <label class="weui-cell weui-check__label" for={`x_${this.elementId}_${index}`} ontap={() => {
+            <label class="weui-cell weui-check__label" for={`x_${this.elementId}_${index}`} onClick={() => {
               this.onSelect(index)
             }}>
               <div class="weui-cell__hd">
                 <input type="checkbox" class="weui-check" name="checkbox1" id={`x_${this.elementId}_${index}`} checked={props.selectedIndexs.indexOf(index)!==-1} />
-                <i class="weui-icon-checked"></i>
+                <o-icon class='icon' type={props.selectedIndexs.indexOf(index)!==-1?'check-square':'rect'} scale='1' color={props.selectedIndexs.indexOf(index)!==-1?'#07C160':'#ccc'}></o-icon> 
               </div>
               <div class="weui-cell__bd">
                 <p>{item.text}</p>

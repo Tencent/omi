@@ -3,7 +3,7 @@ import css from './_index.css'
 import '../icon'
 
 define('o-menu', class extends WeElement {
-  css() {
+  staticCss() {
     return css
   }
 

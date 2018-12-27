@@ -217,7 +217,10 @@ a{
   padding-top:6.5px;
   padding-bottom:6.5px;
 }
-
+.icon{
+  position: relative;
+  top:3px;
+}
 
 .weui-cell_select{
   padding:0;
