@@ -8,7 +8,7 @@ define('o-button', class extends WeElement {
 
   onClick = (e) => {
     this.props.onClick && this.props.onClick(e)
-    e.stopPropagation()
+    //e.stopPropagation()
   }
 
   render() {

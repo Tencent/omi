@@ -12,11 +12,15 @@ define('o-tab-bar', class extends WeElement {
 
   render(props) {
     return <ul class="o-tab-bar">
-    {props.children.map(child=>(
+      {props.children.map((child, index) => {
+         const props = {}
+   
+         if(index !== props.index){
+           props.onClick= () =>  this.onClick(index) 
+         }
 
-      <li class="item"><a href="">{child}</a></li>
-    ))}
-      
+        return <li class="item" {...props}>{child}</li>
+      })}
     </ul>
   }
 })

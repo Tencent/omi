@@ -9,7 +9,7 @@ define('o-icon', class extends WeElement {
 
   onClick = (e) => {
     this.props.onClick && this.props.onClick(e)
-    e.stopPropagation()
+    //e.stopPropagation()
   }
 
   render(pops) {
@@ -23,7 +23,7 @@ define('o-icon', class extends WeElement {
         <svg viewBox="0 0 1024 1024" {...props} data-icon="loading" width={props.scale + "em"} height={props.scale + "em"} fill={this.props.color} aria-hidden="true">
           <path d={path[this.props.type][this.props.isFill ? 1 : 0] || path[this.props.type][0]}></path>
         </svg>
-        {this.props.children && <div>{this.props.children[0]}</div>}
+        {this.props.children && <div style={`color:${this.props.color||'black'};`}>{this.props.children[0]}</div>}
       </i>
     )
 

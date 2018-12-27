@@ -27,6 +27,7 @@ define('my-app', class extends WeElement {
     this.navIndex = 0
     this.tabIndex = 0
     this.dialogShow = false
+    this.tabBarIndex = 0
   }
 
   navChange = (index) => {
@@ -54,6 +55,10 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
+  tabBarChange = (index) => {
+    this.tabBarIndex = index
+    this.update()
+  }
 
   render() {
     return (
@@ -164,18 +169,18 @@ define('my-app', class extends WeElement {
         <br />
         <br />
         <br />
-        <o-tab-bar>
+        <o-tab-bar onChange={this.tabBarChange} index={this.tabBarIndex}>
           <o-badge number={8}>
-            <o-icon type='pay' isFill color='#07C160'>支付</o-icon>
+            <o-icon type='pay' isFill={this.tabBarIndex === 0} color={this.tabBarIndex === 0 ? '#07C160' : '#070707'}>支付</o-icon>
           </o-badge>
           <o-badge number={99}>
-            <o-icon type='chat' isFill color='#07C160'>消息</o-icon>
+            <o-icon type='chat' isFill={this.tabBarIndex === 1} color={this.tabBarIndex === 1 ? '#07C160' : '#070707'}>消息</o-icon>
           </o-badge>
           <o-badge dot>
-            <o-icon type='add-friend' isFill color='#07C160'>好友</o-icon>
+            <o-icon type='add-friend' isFill={this.tabBarIndex === 2} color={this.tabBarIndex === 2 ? '#07C160' : '#070707'}>好友</o-icon>
           </o-badge>
           <o-badge >
-            <o-icon type='scan' isFill color='#07C160'>扫描</o-icon>
+            <o-icon type='scan' isFill={this.tabBarIndex === 3} color={this.tabBarIndex === 3 ? '#07C160' : '#070707'}>扫描</o-icon>
           </o-badge>
         </o-tab-bar>
       </div>
