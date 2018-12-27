@@ -1,7 +1,7 @@
 import { define, WeElement } from 'omi'
 import style from './_index.css'
 
-define('ow-switch', class extends WeElement {
+define('o-switch', class extends WeElement {
   css() {
     return style 
   }

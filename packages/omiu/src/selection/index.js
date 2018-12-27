@@ -1,12 +1,12 @@
 import { define, WeElement } from 'omi'
 import style from './_index.css'
-import cellStyle from '../cells/_index.css'
-import '../icon/font-face.css'
-import fontStyle from '../icon/_font.scss'
+// import cellStyle from '../cells/_index.css'
+// import '../icon/font-face.css'
+// import fontStyle from '../icon/_font.scss'
 
 define('o-selection', class extends WeElement {
   css() {
-    return style + cellStyle + fontStyle
+    return style  
   }
 
   onTapMore = () => {
