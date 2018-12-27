@@ -14,6 +14,8 @@ import '../../src/badge'
 import '../../src/input'
 import '../../src/tab-bar'
 import '../../src/popup'
+import '../../src/list'
+import '../../src/list-item'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -197,6 +199,22 @@ define('my-app', class extends WeElement {
 
         </o-dialog>
 
+        <br />
+        <br />
+        <o-list title="列表标题">
+          <o-list-item
+            icon="https://ws1.sinaimg.cn/large/0065Zy9egy1fxtdkt9566j305k05kdfs.jpg"
+            title="Title"
+            content="Content"
+            access
+          />
+          <o-list-item
+            icon="https://ws1.sinaimg.cn/large/0065Zy9egy1fxtdkt8yvmj305k05kweh.jpg"
+            title="Title"
+            content="Content"
+            access
+          />
+        </o-list>
         <br />
         <br />
         <br />

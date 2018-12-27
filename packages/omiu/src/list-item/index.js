@@ -6,12 +6,9 @@ define('o-list-item', class extends WeElement {
     return style
   }
   render(props) {
-    let border =
-    this.parentNode.className === 'ow-item'
-        ? 'border-bottom-1px'
-        : 'border-1px'
+    let border = props.__inList ? 'border-bottom-1px': 'border-1px'
     return (
-      <li className={border}>
+      <li class={border}>
         {props.icon ? <img src={props.icon} /> : null}
         <span class="title">{props.title}</span>
         <span class="content">{props.content}</span>
