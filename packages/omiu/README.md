@@ -1,3 +1,4 @@
 # Omiu
 
-> Omi ui.
+> Omio ui.
+> input
