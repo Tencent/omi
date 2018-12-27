@@ -8,7 +8,7 @@ define('o-loading', class extends WeElement {
   render(props) {
     return (
       <div
-        class="ow-loading"
+        class="o-loading"
         style={{ width: props.size, height: props.size }}
       />
     )

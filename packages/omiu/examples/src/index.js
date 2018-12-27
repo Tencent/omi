@@ -16,6 +16,7 @@ import '../../src/tab-bar'
 import '../../src/popup'
 import '../../src/list'
 import '../../src/list-item'
+import '../../src/loading'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -63,7 +64,7 @@ define('my-app', class extends WeElement {
     this.popupShow = true
     this.update()
   }
-  
+
 
   onConfirm = () => {
     this.dialogShow = false
@@ -215,6 +216,10 @@ define('my-app', class extends WeElement {
             access
           />
         </o-list>
+        <br />
+        <br />
+
+        <o-loading size="40px" />
         <br />
         <br />
         <br />
