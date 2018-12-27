@@ -1,6 +1,6 @@
 import { define, WeElement } from 'omi'
 import css from './_index.css'
-import '../../others/icon'
+import '../icon'
 
 define('o-menu', class extends WeElement {
   css() {

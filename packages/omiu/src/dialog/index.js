@@ -1,6 +1,6 @@
 import { define, WeElement } from 'omi'
 import css from './_index.css'
-import '../../form/button'
+import '../button'
 import '../icon'
 
 define('o-dialog', class extends WeElement {
