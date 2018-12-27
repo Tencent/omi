@@ -176,7 +176,7 @@ define('my-app', class extends WeElement {
           />
         </o-equal-space>
         <br />
-        <o-progress bgColor="#ccc" innerColor="#01DE6C" value={50} />
+        <o-progress bgColor="#ccc" innerColor="#07C160" value={50} />
 
         <br />
         <o-timeline />
