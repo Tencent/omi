@@ -1,6 +1,6 @@
 import { define, render, WeElement } from 'omi'
 import './assets/index.css'
-import '../../src/components/data/pagination'
+import '../../src/components/navigation/pagination'
 import '../../src/components/form/adjustment'
 import '../../src/components/form/button'
 import '../../src/components/data/progress'
