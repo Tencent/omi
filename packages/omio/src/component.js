@@ -33,7 +33,7 @@ export default class Component {
 
   fire(type, data) {
     Object.keys(this.props).every(key => {
-      if ('on' + type === key.toLowerCase()) {
+      if ('on' + type.toLowerCase() === key.toLowerCase()) {
         this.props[key]({ detail: data })
         return false
       }

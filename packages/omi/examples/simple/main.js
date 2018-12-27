@@ -8,7 +8,7 @@ define('my-app', class extends WeElement {
     this.dd = { a: 1 }
   }
 
-  onAbc = evt => {
+  onMyEvent = evt => {
     this.data.abc = ' by ' + evt.detail.name
     this.data.passToChild = 1234
     this.dd.a++
@@ -27,7 +27,7 @@ define('my-app', class extends WeElement {
       <div>
         Hello {props.name} {data.abc} {this.dd.a}
         <hello-element
-          onAbc={this.onAbc}
+          onMyEvent={this.onMyEvent}
           propFromParent={data.passToChild}
           dd={this.dd}
           msg="WeElement"

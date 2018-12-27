@@ -255,14 +255,14 @@
           node.addEventListener(name, eventProxy, useCapture);
           if (name == 'tap') {
             node.addEventListener('touchstart', touchStart, useCapture);
-            node.addEventListener('touchstart', touchEnd, useCapture);
+            node.addEventListener('touchend', touchEnd, useCapture);
           }
         }
       } else {
         node.removeEventListener(name, eventProxy, useCapture);
         if (name == 'tap') {
           node.removeEventListener('touchstart', touchStart, useCapture);
-          node.removeEventListener('touchstart', touchEnd, useCapture);
+          node.removeEventListener('touchend', touchEnd, useCapture);
         }
       }
   (node._listeners || (node._listeners = {}))[name] = value;
@@ -280,7 +280,7 @@
       // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
       if (value == null || value === false) {
         if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
-      } else if (typeof value === 'string') {
+      } else if (typeof value !== 'function') {
         if (ns) {
           node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
         } else {
@@ -616,9 +616,10 @@
 
     // add new & update changed attributes
     for (name in attrs) {
-      //diable when using store system?
-      //!dom.store &&
       if (isWeElement && typeof attrs[name] === 'object') {
+        if (name === 'style') {
+          setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+        }
         if (dom.receiveProps) {
           try {
             old[name] = JSON.parse(JSON.stringify(attrs[name]));
@@ -1031,17 +1032,21 @@
 
   function proxyUpdate(ele) {
     var timeout = null;
-    ele.data = new JSONPatcherProxy(ele.data).observe(false, function (info) {
-      if (ele._willUpdate || info.op === 'replace' && info.oldValue === info.value) {
+    ele.data = new JSONPatcherProxy(ele.data).observe(false, function () {
+      if (ele._willUpdate) {
         return;
       }
+      if (ele.constructor.mergeUpdate) {
+        clearTimeout(timeout);
 
-      clearTimeout(timeout);
-
-      timeout = setTimeout(function () {
+        timeout = setTimeout(function () {
+          ele.update();
+          fireTick();
+        }, 0);
+      } else {
         ele.update();
         fireTick();
-      }, 0);
+      }
     });
   }
 
@@ -1064,7 +1069,7 @@
       var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
 
       _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
-      _this.__elementId = id++;
+      _this.elementId = id++;
       _this.data = _this.constructor.data || {};
       return _this;
     }
@@ -1141,7 +1146,7 @@
     };
 
     WeElement.prototype.fire = function fire(name, data) {
-      this.dispatchEvent(new CustomEvent(name, { detail: data }));
+      this.dispatchEvent(new CustomEvent(name.toLowerCase(), { detail: data }));
     };
 
     WeElement.prototype.beforeInstall = function beforeInstall() {};
@@ -1502,7 +1507,7 @@
     };
 
     return ModelView;
-  }(WeElement), _class$1.observe = true, _temp$1);
+  }(WeElement), _class$1.observe = true, _class$1.mergeUpdate = true, _temp$1);
 
   var Component = WeElement;
   var defineElement = define;
@@ -1527,7 +1532,7 @@
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '5.0.5';
+  options.root.Omi.version = '5.0.17';
 
   var _class$2, _temp2;
 
@@ -1551,7 +1556,7 @@
 
       return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.onClick = function (evt) {
         // trigger CustomEvent
-        _this.fire('abc', { name: 'dntzhang', age: 12 });
+        _this.fire('myEvent', { name: 'dntzhang', age: 12 });
         evt.stopPropagation();
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
@@ -1560,8 +1565,8 @@
       return '\n        div {\n          color: red;\n          cursor: pointer;\n        }';
     };
 
-    _class.prototype.receiveProps = function receiveProps(a, b, c) {
-      console.log(a, b, c);
+    _class.prototype.receiveProps = function receiveProps(props, data, oldProps) {
+      console.log(props, data, oldProps);
     };
 
     _class.prototype.render = function render$$1(props) {
@@ -1610,7 +1615,7 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = { abc: 'abc', passToChild: 123 }, _this.onAbc = function (evt) {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.data = { abc: 'abc', passToChild: 123 }, _this.onMyEvent = function (evt) {
         _this.data.abc = ' by ' + evt.detail.name;
         _this.data.passToChild = 1234;
         _this.dd.a++;
@@ -1637,8 +1642,8 @@
         ' ',
         this.dd.a,
         Omi.h('hello-element', {
-          onAbc: this.onAbc,
-          'prop-from-parent': data.passToChild,
+          onMyEvent: this.onMyEvent,
+          propFromParent: data.passToChild,
           dd: this.dd,
           msg: 'WeElement'
         })

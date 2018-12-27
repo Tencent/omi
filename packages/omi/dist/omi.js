@@ -853,7 +853,7 @@
             this.J = !1;
         };
         WeElement.prototype.fire = function(name, data) {
-            this.dispatchEvent(new CustomEvent(name, {
+            this.dispatchEvent(new CustomEvent(name.toLowerCase(), {
                 detail: data
             }));
         };
@@ -910,7 +910,7 @@
         defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.16';
+    options.root.Omi.version = '5.0.17';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

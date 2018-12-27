@@ -103,7 +103,7 @@ export default class WeElement extends HTMLElement {
   }
 
   fire(name, data) {
-    this.dispatchEvent(new CustomEvent(name, { detail: data }))
+    this.dispatchEvent(new CustomEvent(name.toLowerCase(), { detail: data }))
   }
 
   beforeInstall() {}
