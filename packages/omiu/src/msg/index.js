@@ -1,5 +1,5 @@
 import { define, WeElement } from 'omi'
-import style from './_index.scss'
+import style from './_index.css'
 import '../icon'
 import '../button'
 
@@ -20,11 +20,11 @@ define('o-msg', class extends WeElement {
     const button = props.type === 'warn' ? 'warn' : 'primary'
     return (
       <div className="ow-msg">
-        <ow-icon type={props.type} size='big'/>
+        <o-icon type={props.type} scale={4} isFill color={ props.type === 'warn'?'#F95050':'#07C160'}/>
         <h2 className="title">{props.title}</h2>
         <p>{props.content}</p>
-        <ow-button type={button}>Ok</ow-button>
-        <ow-button type="secondary">Cancel</ow-button>
+        <o-button type={button}>Ok</o-button>
+        <o-button type="default">Cancel</o-button>
       </div>
     )
   }

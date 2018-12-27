@@ -13,6 +13,9 @@
   ],
   "plugins": [
     "transform-class-properties",
-    ["transform-react-jsx", { "pragma": "Omi.h" }]
+    ["transform-react-jsx", { "pragma": "Omi.h" }],
+    "transform-decorators-legacy",
+    "transform-object-rest-spread",
+    "syntax-dynamic-import"
   ]
 }

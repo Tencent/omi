@@ -6,7 +6,7 @@ import '../app-intro'
 define('my-app', class extends WeElement {
   static observe = true
 
-  data = { name :'Omio'}
+  data = { name: 'Omio' }
 
   clickHandler = () => {
     this.data.name = 'Omio by Tencent'

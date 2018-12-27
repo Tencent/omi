@@ -1,26 +1,57 @@
 import { define, WeElement } from 'omi'
+import classNames from 'classnames'
 import css from './_index.css'
 
 define('o-button', class extends WeElement {
+
+  static defaultProps = {
+    disabled: false,
+    type: 'primary',
+    size: 'normal'
+  }
+
   css() {
     return css
   }
 
-  onClick = (e) => {
-    this.props.onClick && this.props.onClick(e)
-    //e.stopPropagation()
-  }
-
   render() {
-    const props = {}
+    const {
+      component,
+      type,
+      size,
+      plain,
+      className,
+      children,
+      ...others
+    } = this.props
 
-    if (!this.props.disabled) {
-      props.onClick = this.onClick
-      props.class = `o-button ${this.props.type || 'default'}`
-    } else {
-      props.class = 'o-button disabled'
+    const Component = component
+      ? component
+      : this.props.href || type === 'vcode'
+        ? 'a'
+        : 'button'
+    const cls =
+      type === 'vcode'
+        ? classNames('weui-vcode-btn', { [className]: className })
+        : classNames({
+          'weui-btn': true,
+          'weui-btn_mini': size === 'small',
+          'weui-btn_primary': type === 'primary' && !plain,
+          'weui-btn_default': type === 'default' && !plain,
+          'weui-btn_warn': type === 'warn',
+          'weui-btn_plain-primary': type === 'primary' && plain,
+          'weui-btn_plain-default': type === 'default' && plain,
+          'weui-btn_disabled': this.props.disabled && !plain,
+          'weui-btn_plain-disabled': this.props.disabled && plain,
+          [className]: className
+        })
 
-    }
-    return <a href="javascript:;" {...props}>{this.props.children[0]}</a>
+    return (
+      <Component {...others} className={cls}>
+        {children}
+      </Component>
+    )
+
+    return <div>s</div>
   }
 })
