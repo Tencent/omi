@@ -1,3 +1,4 @@
+
 .o-dialog {
   width: 100%;
   height: 100%;
@@ -14,41 +15,43 @@
 .content {
   width: 50%;
   height: auto;
-  min-height: 200px;
   background-color: white;
   position: fixed;
   left: 25%;
   top: 20%;
   border-radius: 4px; 
+  text-align: center;
 }
 
-.header {
-  height: 40px;
-  border-bottom: 1px solid #ccc;
-  margin: 15px 10px; 
+
+
+h1 {
+  font-size: 18px;
+  font-weight: normal;
+  padding: 20px;
+  margin: 0px;
+}
+p {
+  font-size: 16px;
+  color: #666;
+  padding-bottom: 20px;
+  margin: 0px;
+  
+  border-bottom: 1px solid #eee;
 }
 
-.close{
-  position: absolute;
-  right: 10px;
-  top: 20px;
-  cursor: pointer;
+a {
+  padding: 15px;
+  text-align: center;
+  font-size: 16px;
+  display: inline-block;
+  width: 50%;
+  box-sizing: border-box;
 }
 
-.title{
-  position: absolute;
-  left: 10px;
-  top: 20px;
+.ok {
+  color: #07C160;
 }
-
-.main{
-  margin: 0 auto;
- 
-  margin-bottom: 20px; 
-  width: 70%;
-}
-
-.footer{
-  text-align: right;
-  margin-top: 10px;
+.close {
+  border-right: 1px solid #eee;
 }

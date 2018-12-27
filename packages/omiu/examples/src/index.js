@@ -13,6 +13,7 @@ import '../../src/menu'
 import '../../src/badge'
 import '../../src/input'
 import '../../src/tab-bar'
+import '../../src/popup'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -28,6 +29,7 @@ define('my-app', class extends WeElement {
     this.tabIndex = 0
     this.dialogShow = false
     this.tabBarIndex = 0
+    this.popupShow = false
   }
 
   navChange = (index) => {
@@ -49,6 +51,17 @@ define('my-app', class extends WeElement {
     this.dialogShow = true
     this.update()
   }
+
+  closePopup = () => {
+    this.popupShow = false
+    this.update()
+  }
+
+  showPopup = () => {
+    this.popupShow = true
+    this.update()
+  }
+  
 
   onConfirm = () => {
     this.dialogShow = false
@@ -101,18 +114,6 @@ define('my-app', class extends WeElement {
           <item active={this.navIndex === 1}>所有项目</item>
         </o-nav>
 
-        <br />
-        <br />
-        <o-button onClick={this.showDialog}>显示弹窗</o-button>
-
-
-        <o-dialog onClose={this.closeDialog} onConfirm={this.onConfirm} show={this.dialogShow}>
-
-          <div>我是内容</div>
-          <div>我是内容</div>
-          <div>我是内容</div>
-          <div>我是内容</div>
-        </o-dialog>
 
         <br />
         <br />
@@ -163,6 +164,39 @@ define('my-app', class extends WeElement {
         <br />
         <br />
         <o-input class='o-input' placeholder='请输入用户名' />
+
+
+        <br />
+        <br />
+        <o-button onClick={this.showPopup}>显示弹窗</o-button>
+
+
+        <o-popup onClose={this.closePopup} onConfirm={this.onConfirm} show={this.popupShow}>
+
+          <div>我是内容</div>
+          <div>我是内容</div>
+          <div>我是内容</div>
+          <div>我是内容</div>
+        </o-popup>
+
+        <br />
+        <br />
+        <o-button onClick={this.showDialog}>显示对话窗</o-button>
+
+
+        <o-dialog title='信息确认' content='确认支付？' onClose={this.closeDialog} onConfirm={this.onConfirm} show={this.dialogShow}>
+
+        </o-dialog>
+
+        <br />
+        <br />
+        <o-button onClick={this.showDialog}>显示对话窗</o-button>
+
+
+        <o-dialog title='信息确认' type='confirm' content='确认支付？' onClose={this.closeDialog} onConfirm={this.onConfirm} show={this.dialogShow}>
+
+        </o-dialog>
+
         <br />
         <br />
         <br />
@@ -183,6 +217,9 @@ define('my-app', class extends WeElement {
             <o-icon type='scan' isFill={this.tabBarIndex === 3} color={this.tabBarIndex === 3 ? '#07C160' : '#070707'}>扫描</o-icon>
           </o-badge>
         </o-tab-bar>
+
+
+
       </div>
     )
   }

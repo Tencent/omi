@@ -1,0 +1,54 @@
+.o-popup {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  left:0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.content {
+  width: 50%;
+  height: auto;
+  min-height: 200px;
+  background-color: white;
+  position: fixed;
+  left: 25%;
+  top: 20%;
+  border-radius: 4px; 
+}
+
+.header {
+  height: 40px;
+  border-bottom: 1px solid #ccc;
+  margin: 15px 10px; 
+}
+
+.close{
+  position: absolute;
+  right: 10px;
+  top: 20px;
+  cursor: pointer;
+}
+
+.title{
+  position: absolute;
+  left: 10px;
+  top: 20px;
+}
+
+.main{
+  margin: 0 auto;
+ 
+  margin-bottom: 20px; 
+  width: 70%;
+}
+
+.footer{
+  text-align: right;
+  margin-top: 10px;
+}

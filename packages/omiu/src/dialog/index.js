@@ -1,13 +1,8 @@
 import { define, WeElement } from 'omi'
-import css from './_index.css'
-import '../button'
-import '../icon'
+import style from './_index.css'
+
 
 define('o-dialog', class extends WeElement {
-  css() {
-    return css
-  }
-
   close = () => {
     this.props.onClose && this.props.onClose()
   }
@@ -16,25 +11,34 @@ define('o-dialog', class extends WeElement {
     this.props.onConfirm && this.props.onConfirm()
   }
 
-  render(props) {
-    if(!props.show) return
-    return (
-       <div class='o-dialog'>
-        <div class='content'>
-          <div class='header'>
-            <span class='title'>添加模块</span>
-            <o-icon class="close" scale={1} type='close' onClick={this.close} ></o-icon>
-          </div>
-          <div class='main'>
-            {props.children}
-            <div class='footer'>
-              <o-button onClick={this.close}>取消</o-button>
-              <o-button onClick={this.confirm} type='primary'>确定</o-button>
-            </div>
-          </div>
+  css() {
+    return style
+  }
 
+  render(props) {
+    const display = props.show ? 'block' : 'none'
+    return (
+
+      <div class="o-dialog" style={{ display }}>
+        <div class='content'>
+
+
+          <h1>{props.title}</h1>
+          <p>{props.content}</p>
+          {props.type === 'confirm' ? (
+            <div>
+              <a class="close" onClick={this.close}>
+                取消
+              </a>
+              <a class="ok" onClick={this.confirm}>确定</a>
+            </div>
+          ) : (
+              <a class="ok" onClick={this.confirm}>确定</a>
+            )}
         </div>
       </div>
+
+
     )
   }
 })
