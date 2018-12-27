@@ -11,6 +11,7 @@ import '../../src/components/others/icon'
 import '../../src/components/navigation/tab'
 import '../../src/components/navigation/menu'
 import '../../src/components/others/badge'
+import '../../src/components/form/input'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -144,13 +145,19 @@ define('my-app', class extends WeElement {
         <o-badge>
           <o-icon type='chat' isFill color='#07C160'></o-icon>
         </o-badge>
-
+        <br />
+        <br />
+        <o-input class='o-input' placeholder='请输入用户名' />
+       
       </div>
     )
   }
 
   css() {
     return `
+    .o-input{
+       width: 180px;
+    }
     .ctn{
       margin: 10px;
     }`
