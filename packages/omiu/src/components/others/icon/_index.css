@@ -1,7 +1,16 @@
+.o-icon {
+  text-align: center;
+  display: inline-block;
+}
+
 .rotate{
     display: inline-block;
     -webkit-animation: rotate 1s infinite linear;
     animation: rotate 1s infinite linear;
+}
+
+i div{
+  font-style:normal;
 }
 
 @-webkit-keyframes rotate{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}

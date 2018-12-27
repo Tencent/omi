@@ -11,21 +11,12 @@ define('o-tab-bar', class extends WeElement {
   }
 
   render(props) {
-    return <ul class='o-tab'>
-      {props.children.map((item, index) => {
-        const props = {}
-        const isActive = item.attributes && item.attributes.active
-        
-        if(isActive){
-          props.class= 'active'
-        }else{
-          props.onClick= () =>  this.onClick(index) 
-        }
-        
-        return <li {...props}>      
-          {item.children[0]}
-        </li>
-      })}
+    return <ul class="o-tab-bar">
+    {props.children.map(child=>(
+
+      <li class="item"><a href="">{child}</a></li>
+    ))}
+      
     </ul>
   }
 })

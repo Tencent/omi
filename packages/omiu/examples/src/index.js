@@ -12,6 +12,7 @@ import '../../src/components/navigation/tab'
 import '../../src/components/navigation/menu'
 import '../../src/components/others/badge'
 import '../../src/components/form/input'
+import '../../src/components/navigation/tab-bar'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -118,6 +119,15 @@ define('my-app', class extends WeElement {
         <o-icon type='add-friend' isFill></o-icon>
         <br />
         <br />
+        <o-icon type='loading' rotate isFill>Loading</o-icon>
+        <br />
+        <br />
+        <o-icon type='close' isFill>Close</o-icon>
+        <br />
+        <br />
+        <o-icon type='pay' isFill>Pay</o-icon>
+        <br />
+        <br />
 
         <o-tab onChange={this.tabChange}>
           <item active={this.tabIndex === 0}>朋友相册</item>
@@ -148,7 +158,26 @@ define('my-app', class extends WeElement {
         <br />
         <br />
         <o-input class='o-input' placeholder='请输入用户名' />
-       
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <o-tab-bar>
+          <o-badge number={8}>
+            <o-icon type='pay' isFill color='#07C160'>支付</o-icon>
+          </o-badge>
+          <o-badge number={99}>
+            <o-icon type='chat' isFill color='#07C160'>消息</o-icon>
+          </o-badge>
+          <o-badge dot>
+            <o-icon type='add-friend' isFill color='#07C160'>好友</o-icon>
+          </o-badge>
+          <o-badge >
+            <o-icon type='scan' isFill color='#07C160'>扫描</o-icon>
+          </o-badge>
+        </o-tab-bar>
       </div>
     )
   }

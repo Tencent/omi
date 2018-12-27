@@ -20,9 +20,10 @@ define('o-icon', class extends WeElement {
     props.scale = this.props.scale || 2
     return (
       <i class={`o-icon ${this.props.class || ''}`} onClick={this.onClick}>
-        <svg viewBox="0 0 1024 1024" {...props} data-icon="loading" width={props.scale+"em"} height={props.scale+"em"} fill={this.props.color} aria-hidden="true">
-          <path d={path[this.props.type][this.props.isFill?1:0]||path[this.props.type][0]}></path>
+        <svg viewBox="0 0 1024 1024" {...props} data-icon="loading" width={props.scale + "em"} height={props.scale + "em"} fill={this.props.color} aria-hidden="true">
+          <path d={path[this.props.type][this.props.isFill ? 1 : 0] || path[this.props.type][0]}></path>
         </svg>
+        {this.props.children && <div>{this.props.children[0]}</div>}
       </i>
     )
 
