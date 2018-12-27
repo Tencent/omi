@@ -15,13 +15,11 @@ define('o-selection', class extends WeElement {
   }
 
   onSelectSingle = (index) => {
-    console.log(111)
     this.fire('select', { index: index })
   }
 
 
   onSelect = (index) => {
-    console.log(111)
     const cloneIdxs = this.props.selectedIndexs.slice(0)
     const position = this.props.selectedIndexs.indexOf(index)
     if(position===-1){
