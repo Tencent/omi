@@ -1,3 +1,3 @@
 # Omiu
 
-> Omio ui.
+> Omi ui.
