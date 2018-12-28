@@ -8,10 +8,9 @@ Paging component.
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| type  | string|  ||
-| scale | number   |   2 | |
-| color | bool| black ||
-| isFill | bool| false ||
-| rotate | bool| false ||
-
-[→ 所有的 type 可以在这里找到](https://github.com/Tencent/omi/blob/master/packages/omiu/src/icon/path.js)
+| total         | number|       |              |
+| currentPage  | number          |   0 |           |
+| pageSize | number            | 10   |        |
+| numDisplay | number| 5 ||
+| numEdge | number| 3 ||
+| ellipseText | string| ... ||

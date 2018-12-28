@@ -79,13 +79,19 @@
     <div class="playground">
       <div class="editor">
         <textarea id="editor">define('my-app', class extends WeElement {
+  page = 0
+
+  onChange = index => {
+    this.page = index
+    console.log('page' + index)
+  }
 
   render() {
     return (
       <o-equal-space>
         <o-pagination
           total={25}
-          currentPage={2}
+          currentPage={this.page}
           pageSize={5}
           onChange={this.onChange}
         />
