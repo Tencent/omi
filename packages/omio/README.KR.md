@@ -20,25 +20,6 @@ $ npm run build
 
 Omio 의 사용 신택스는 Omi와 같습니다. 하지만, 여기에는 조금 다른 점이 있습니다:
 
-* Omio 는 `staticCss`를 지원합니다, Omi는 지원하지 않습니다.
-
-`css` 와 `staticCss` 메서드는 뭐가 다를까요? 예를들면:
-
-``` js
-render() {
-  return (
-    <div>
-      <my-ele name={this.name}></my-ele>
-      <my-ele name={this.name}></my-ele>
-      <my-ele name={this.name}></my-ele>
-    </div>
-  )
-}
-```
-
-`css` 메서드는 head 엘리먼트에 세번 렌더를 합니다. `staticCss`는 오직 한번만 렌더 합니다!
-컴포넌트가 업데이트되면 `css` 메서드는 새로 렌더 합니다, 그러나 `staticCss`는 새로 렌더하지 않습니다.
-
 * Omio 는 slot을 지원하지 않습니다. React 처럼 `props.children`을 대신 사용해주세요.
 * Omio는 store path 업데이트를 지원하지 않습니다.
 

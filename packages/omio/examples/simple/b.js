@@ -1026,6 +1026,7 @@
 
   function addScopedAttr(vdom, style, attr, component) {
     if (options.scopedStyle) {
+      scopeVdom(attr, vdom);
       style = scoper(style, attr);
       if (style !== component._preCss) {
         addStyle(style, attr);
@@ -1038,6 +1039,7 @@
 
   function addScopedAttrStatic(vdom, style, attr) {
     if (options.scopedStyle) {
+      scopeVdom(attr, vdom);
       if (!options.staticStyleMapping[attr]) {
         addStyle(scoper(style, attr), attr);
         options.staticStyleMapping[attr] = true;
@@ -1062,6 +1064,7 @@
 
   function scopeHost(vdom, css) {
     if (typeof vdom === 'object' && css) {
+      vdom.attributes = vdom.attributes || {};
       for (var key in css) {
         vdom.attributes[key] = '';
       }
@@ -1369,17 +1372,13 @@
       component.beforeRender && component.beforeRender();
       rendered = component.render(props, data, context);
 
-      var stiatcAttr = '_s' + getCtorName(component.constructor);
-      scopeVdom(stiatcAttr, rendered);
       //don't rerender
-      if (component.staticCss) {
-        addScopedAttrStatic(rendered, component.staticCss(), stiatcAttr);
+      if (component.css) {
+        addScopedAttrStatic(rendered, component.css(), '_s' + getCtorName(component.constructor));
       }
 
-      var attr = '_s' + component.elementId;
-      scopeVdom(attr, rendered);
-      if (component.css) {
-        addScopedAttr(rendered, component.css(), attr, component);
+      if (component.dynamicCss) {
+        addScopedAttr(rendered, component.dynamicCss(), '_s' + component.elementId, component);
       }
 
       scopeHost(rendered, component.___scopedCssAttr);
@@ -1593,7 +1592,7 @@
       var _this = this;
 
       Object.keys(this.props).every(function (key) {
-        if ('on' + type === key.toLowerCase()) {
+        if ('on' + type.toLowerCase() === key.toLowerCase()) {
           _this.props[key]({ detail: data });
           return false;
         }
@@ -1727,7 +1726,7 @@
     defineElement: defineElement
   };
 
-  options.root.Omi.version = 'omio-1.0.3';
+  options.root.Omi.version = 'omio-1.2.0';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1783,11 +1782,11 @@
       this.name = 'Omi';
     };
 
-    _class3.prototype.css = function css() {
+    _class3.prototype.dynamicCss = function dynamicCss() {
       return 'h3{\n                    cursor:pointer;\n                    color: ' + (Math.random() > 0.5 ? 'red' : 'green') + ';\n                }';
     };
 
-    _class3.prototype.staticCss = function staticCss() {
+    _class3.prototype.css = function css() {
       return 'div{\n                    font-size:30px;\n                }';
     };
 

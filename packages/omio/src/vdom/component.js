@@ -125,18 +125,18 @@ export function renderComponent(component, opts, mountAll, isChild) {
     rendered = component.render(props, data, context)
 
     //don't rerender
-    if (component.staticCss) {
+    if (component.css) {
       addScopedAttrStatic(
         rendered,
-        component.staticCss(),
+        component.css(),
         '_s' + getCtorName(component.constructor)
       )
     }
     
-    if (component.css) {
+    if (component.dynamicCss) {
       addScopedAttr(
         rendered,
-        component.css(),
+        component.dynamicCss(),
         '_s' + component.elementId,
         component
       )

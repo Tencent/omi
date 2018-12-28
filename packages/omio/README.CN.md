@@ -20,27 +20,8 @@ $ npm run build
 
 omio 拥有 omi一样的语法，但是也有一些差异需要注意：
 
-* omio 支持 `staticCss` 来提高渲染性能，omi 有 shadow dom 隔离不需要支持也支持不了
-
-`css` 和 `staticCss` 的区别是 ? 例如：
-
-``` js
-render() {
-  return (
-    <div>
-      <my-ele name={this.name}></my-ele>
-      <my-ele name={this.name}></my-ele>
-      <my-ele name={this.name}></my-ele>
-    </div>
-  )
-}
-```
-
-如上面的例子,`css`方法会渲染三次，并插入到 head，而`staticCss` 只会渲染一次。
-当你 update 组件或者 setState 时候，`css`方法会渲染三次，并更新head里对应三个地方的样式，`staticCss` 不再渲染。
-
 * Omio 不支持 slot, 请使用 `props.children` 代替，像 react 一样
-* Omio 支持 store，但不会去监听 store.data 变化，store 仅仅只是从根节点注入
+* Omio 也支持 store，但不会去监听 store.data 变化，store 仅仅只是从根节点注入
 
 ## 在 Omi 项目中使用
 
