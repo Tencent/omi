@@ -5,7 +5,7 @@ const config = {
         title: '基础元素',
         list: [
           { name: 'Button', md: 'button' },
-          { name: 'Icon', md: 'icon', demo: './repl/index.html' }
+          { name: 'Icon', md: 'icon', demo: '../../repl/index.html' }
         ]
       },
       {
@@ -19,7 +19,7 @@ const config = {
       {
         title: 'Base Element',
         list: [
-          { name: 'Button', md: 'button' ,demo: './repl/index.html'},
+          { name: 'Button', md: 'button' ,demo: '../../repl/index.html'},
           { name: 'Icon', md: 'icon' }
         ]
       },

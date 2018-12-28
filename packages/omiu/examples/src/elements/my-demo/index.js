@@ -28,16 +28,7 @@ define('my-demo', class extends WeElement {
   render() {
     return (
       <div>
-        {this.demo && !this.show && <div class="switch code" onClick={this.onShow}>
-          <img src={require('./code.png')}></img>
-        </div>}
-
-        {this.demo && this.show && <div class="switch close" onClick={this.onClose}>
-          <img src={require('./close.png')}></img>
-        </div>}
-
-        {this.demo && this.show && <iframe src={this.demo} ></iframe>}
-
+        <iframe src={this.demo} ></iframe>
       </div>
     )
   }
