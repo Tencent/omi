@@ -470,8 +470,8 @@
             if (!skip) {
                 component.beforeRender && component.beforeRender();
                 rendered = component.render(props, data, context);
-                if (component.staticCss) addScopedAttrStatic(rendered, component.staticCss(), '_s' + getCtorName(component.constructor));
-                if (component.css) addScopedAttr(rendered, component.css(), '_s' + component.elementId, component);
+                if (component.css) addScopedAttrStatic(rendered, component.css(), '_s' + getCtorName(component.constructor));
+                if (component.dynamicCss) addScopedAttr(rendered, component.dynamicCss(), '_s' + component.elementId, component);
                 scopeHost(rendered, component.B);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
@@ -900,7 +900,7 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-1.1.2';
+    options.root.Omi.version = 'omio-1.2.0';
     var Omi = {
         h: h,
         createElement: h,
