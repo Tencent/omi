@@ -11,7 +11,7 @@ const config = {
       {
         title: '导航',
         list: [
-          { name: '测试其他', md: 'other-docs' }
+          { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' }
         ]
       }
     ],
@@ -26,7 +26,7 @@ const config = {
       {
         title: 'Navigation',
         list: [
-          { name: 'Pagination', md: 'pagination',demo: './repl/pagination.html' }
+          { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' }
         ]
       }
     ]
