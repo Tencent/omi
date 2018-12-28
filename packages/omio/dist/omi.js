@@ -317,7 +317,7 @@
             inst.constructor = Ctor;
             inst.render = doRender;
         }
-        inst.B = vnode.css;
+        vnode && (inst.B = vnode.css);
         if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
             inst.__b = list[i].__b;
             list.splice(i, 1);
@@ -901,7 +901,7 @@
         defineElement: defineElement
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.2.1';
+    options.root.Omi.version = 'omio-1.2.2';
     var Omi$1 = {
         h: h,
         createElement: h,

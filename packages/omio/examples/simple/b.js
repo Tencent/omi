@@ -919,7 +919,7 @@
       inst.constructor = Ctor;
       inst.render = doRender;
     }
-    inst.___scopedCssAttr = vnode.css;
+    vnode && (inst.___scopedCssAttr = vnode.css);
 
     if (list) {
       for (var i = list.length; i--;) {
@@ -1725,8 +1725,8 @@
     ModelView: ModelView,
     defineElement: defineElement
   };
-
-  options.root.Omi.version = 'omio-1.2.0';
+  options.root.omi = Omi;
+  options.root.Omi.version = 'omio-1.2.2';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1791,16 +1791,7 @@
     };
 
     _class3.prototype.render = function render$$1() {
-      return Omi.h(
-        'div',
-        null,
-        Omi.h('my-hello', { name: this.name }),
-        Omi.h(
-          'h3',
-          { onclick: this.handleClick },
-          'Scoped css and event test! click me!'
-        )
-      );
+      return Omi.h('my-hello', { name: this.name });
     };
 
     return _class3;

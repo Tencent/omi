@@ -32,10 +32,9 @@ define('my-app', class extends Component {
 
   render() {
     return (
-      <div>
+
         <my-hello name={this.name} />
-        <h3 onclick={this.handleClick}>Scoped css and event test! click me!</h3>
-      </div>
+      
     )
   }
 })

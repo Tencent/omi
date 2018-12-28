@@ -26,7 +26,7 @@ options.root.Omi = {
   defineElement
 }
 options.root.omi = Omi
-options.root.Omi.version = 'omio-1.2.1'
+options.root.Omi.version = 'omio-1.2.2'
 
 export default {
   h,

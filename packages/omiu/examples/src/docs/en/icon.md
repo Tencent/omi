@@ -13,3 +13,5 @@ Icon using svg.
 | color | bool| black ||
 | isFill | bool| false ||
 | rotate | bool| false ||
+
+[→ All the type you can find here](https://github.com/Tencent/omi/blob/master/packages/omiu/src/icon/path.js)

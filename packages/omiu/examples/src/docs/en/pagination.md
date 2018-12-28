@@ -1,6 +1,6 @@
-## Icon 
+## Pagination 
 
-SVG 制作的 Icon.
+Paging component.
 
 ## API
 

@@ -9,7 +9,7 @@ const config = {
         ]
       },
       {
-        title: '其他版块',
+        title: '导航',
         list: [
           { name: '测试其他', md: 'other-docs' }
         ]
@@ -24,9 +24,9 @@ const config = {
         ]
       },
       {
-        title: 'Other',
+        title: 'Navigation',
         list: [
-          { name: 'Other Docs', md: 'other-docs' }
+          { name: 'Pagination', md: 'pagination',demo: './repl/pagination.html' }
         ]
       }
     ]
