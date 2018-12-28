@@ -80,41 +80,40 @@
       <div class="editor">
         <textarea id="editor">define('my-app', class extends WeElement {
 
-  render(props, data) {
+  render() {
     return (
       <div>
-      <o-icon type="loading" rotate isFill />
-      <o-icon type="close" isFill />
-      <o-icon type="pay" isFill />
-      <o-icon type="chat" isFill />
-      <o-icon type="scan" isFill />
-      <o-icon type="add-friend" isFill />
+        <o-icon type="loading" rotate isFill />
+        <o-icon type="close" isFill />
+        <o-icon type="pay" isFill />
+        <o-icon type="chat" isFill />
+        <o-icon type="scan" isFill />
+        <o-icon type="add-friend" isFill />
 
+        <o-equal-space>
+          <o-icon type="loading" rotate isFill>
+            Loading
+          </o-icon>
+          <o-icon type="close" isFill>
+            Close
+          </o-icon>
+          <o-icon type="pay" isFill>
+            Pay
+          </o-icon>
+        </o-equal-space>
 
-      <o-equal-space>
-        <o-icon type="loading" rotate isFill>
-          Loading
-      </o-icon>
-        <o-icon type="close" isFill>
-          Close
-      </o-icon>
-        <o-icon type="pay" isFill>
-          Pay
-      </o-icon>
-      </o-equal-space>
-
-      <o-equal-space>
+        <o-equal-space>
           <o-icon type="loading" color='#07C160' rotate isFill>
             Loading
-        </o-icon>
+          </o-icon>
           <o-icon type="close" color='#07C160' isFill>
             Close
-        </o-icon>
+          </o-icon>
           <o-icon type="pay" color='#07C160' isFill>
             Pay
-        </o-icon>
+          </o-icon>
         </o-equal-space>
-    </div>
+      </div>
     )
   }
 })

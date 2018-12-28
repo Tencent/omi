@@ -1,41 +1,15 @@
-## Config
+## Icon 
 
-```js
-const config = {
-  lan: 'en',
-  menus: {
-    cn: [
-      {
-        title: '基础元素',
-        list: [
-          { name: '安装', md: 'installation' },
-          { name: '配置', md: 'config' }
-        ]
-      },
-      {
-        title: '其他版块',
-        list: [
-          { name: '测试其他', md: 'other-docs' }
-        ]
-      }
-    ],
-    en: [
-      {
-        title: 'Base Element',
-        list: [
-          { name: 'Introduction', md: 'introduction' },
-          { name: 'Config', md: 'config' }
-        ]
-      },
-      {
-        title: 'Other',
-        list: [
-          { name: 'Other Docs', md: 'other-docs' }
-        ]
-      }
-    ]
-  }
-}
+Icon using svg.
 
-export default config
-```
+## API
+
+### Props
+
+|  **Name**  | **Type**        | **Defaults**  | **Details**  |
+| ------------- |:-------------:|:-----:|:-------------:|
+| type  | string|  ||
+| scale | number   |   2 | |
+| color | bool| black ||
+| isFill | bool| false ||
+| rotate | bool| false ||
