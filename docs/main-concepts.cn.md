@@ -445,7 +445,7 @@ define("my-app", class extends WeElement {
   }
 })
 ```
-
+<!-- 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 obersve，往下看..
 
 #### Omi Mobx
@@ -473,7 +473,7 @@ class MyApp extends WeElement {
     )
   }
 }
-```
+``` -->
 
 ### MergeUpdate
 
