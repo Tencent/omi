@@ -67,9 +67,9 @@
 </head>
 
 <body>
-  <a href="https://github.com/Tencent/omi/tree/master/packages/omi-chart" target="_blank" style="position: absolute;z-index: 1000; right: 0; top: 0;">
+  <!-- <a href="https://github.com/Tencent/omi/tree/master/packages/omiu" target="_blank" style="position: absolute;z-index: 1000; right: 0; top: 0;">
     <img src="https://alloyteam.github.io/github.png" alt="" />
-  </a>
+  </a> -->
   <div class="container">
     <div class="tool-bar" style="display:none;">
       <button style="margin-left:20px;" onclick="run()">Run</button>
@@ -78,13 +78,7 @@
     </div>
     <div class="playground">
       <div class="editor">
-        <textarea id="editor">
-                    
-          
-import { define, render, WeElement } from 'omi'
-import { button } from 'omiu'
-
-define('my-app', class extends WeElement {
+        <textarea id="editor">define('my-app', class extends WeElement {
 
   render(props, data) {
     return (
@@ -133,9 +127,7 @@ define('my-app', class extends WeElement {
   }
 })
 
-render(<my-app />, 'body')
-
-        </textarea>
+render(<my-app />, 'body')</textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>
