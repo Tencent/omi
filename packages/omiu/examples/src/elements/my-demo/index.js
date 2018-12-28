@@ -13,22 +13,19 @@ define('my-demo', class extends WeElement {
   }
 
   onShow = () => {
-
     this.show = true
     this.update()
   }
 
   onClose = () => {
-
     this.show = false
     this.update()
   }
-
   
   render() {
     return (
       <div>
-        <iframe src={this.demo} ></iframe>
+        <iframe style={`height:${window.innerHeight-59}px`} src={this.demo} ></iframe>
       </div>
     )
   }
