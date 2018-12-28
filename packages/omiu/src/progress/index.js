@@ -4,7 +4,7 @@ import css from './_index.css'
 define('o-progress', class extends WeElement {
   static observe = true
 
-  staticCss() {
+  css() {
     return css
   }
   

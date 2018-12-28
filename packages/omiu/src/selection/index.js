@@ -6,7 +6,7 @@ import '../icon'
 // import fontStyle from '../icon/_font.scss'
 
 define('o-selection', class extends WeElement {
-  staticCss() {
+  css() {
     return style  
   }
 

@@ -2,7 +2,7 @@ import { define, WeElement } from 'omi'
 import style from './_index.scss'
 
 define('o-toptip', class extends WeElement {
-  staticCss() {
+  css() {
     return style
   }
   hide(){

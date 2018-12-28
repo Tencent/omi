@@ -2,7 +2,7 @@ import { define, WeElement } from 'omi'
 import style from './_index.css'
 
 define('o-slider', class extends WeElement {
-  staticCss() {
+  css() {
     return style
   }
 

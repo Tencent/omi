@@ -3,7 +3,7 @@ import style from './_index.css'
 import '../list-item'
 
 define('o-list', class extends WeElement {
-  staticCss() {
+  css() {
     return style
   }
   render(props) {

@@ -2,7 +2,7 @@ import { define, WeElement } from 'omi'
 import css from './_index.css'
 
 define('o-input', class extends WeElement {
-  staticCss() {
+  css() {
     return css
   }
 
