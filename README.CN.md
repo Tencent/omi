@@ -259,7 +259,7 @@ define('my-counter', class extends WeElement {
 
 render(<my-counter />, 'body')
 ```
-
+<!-- 
 你也可以定义成纯函数的形式:
 
 ```js
@@ -291,7 +291,7 @@ render(<my-counter />, 'body')
 
 ```js
 const [count, setCount] = this.useData(0)
-```
+``` -->
 
 ## 快速入门
 

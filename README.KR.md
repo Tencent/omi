@@ -239,7 +239,7 @@ define('my-counter', class extends WeElement {
 
 render(<my-counter />, 'body')
 ```
-
+<!-- 
 간단하게 Pure Function 폼을 정의할 수 있습니다.
 
 ```js
@@ -269,7 +269,7 @@ import { define, render } from 'omi'
 
 ```js
 const [count, setCount] = this.useData(0)
-```
+``` -->
 
 ## Getting Started
 

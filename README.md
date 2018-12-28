@@ -239,7 +239,7 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body')
 ```
 
-You can also be defined as a form of pure functions:
+<!-- You can also be defined as a form of pure functions:
 
 ```js
 import { define, render } from 'omi'
@@ -270,7 +270,7 @@ If you don't need effect, you can use `useData` directly:
 
 ```js
 const [count, setCount] = this.useData(0)
-```
+``` -->
 
 ## Getting Started
 
