@@ -2,10 +2,10 @@ const config = {
   menus: {
     'zh-cn': [
       {
-        title: '快速开始',
+        title: '基础元素',
         list: [
-          { name: '简介', md: 'introduction' },
-          { name: '配置', md: 'config', demo: './repl/index.html' }
+          { name: 'Button', md: 'button' },
+          { name: 'Icon', md: 'icon', demo: './repl/index.html' }
         ]
       },
       {
@@ -17,10 +17,10 @@ const config = {
     ],
     en: [
       {
-        title: 'QUICK START',
+        title: 'Base Element',
         list: [
-          { name: 'Introduction', md: 'introduction' ,demo: './repl/index.html'},
-          { name: 'Config', md: 'config' }
+          { name: 'Button', md: 'button' ,demo: './repl/index.html'},
+          { name: 'Icon', md: 'icon' }
         ]
       },
       {

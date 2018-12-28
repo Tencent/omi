@@ -23,9 +23,9 @@ define('my-head', class extends WeElement {
         </a>
         <ul class="menu">
           <li class="github_li">
-            <a href="https://github.com/Tencent/omi">Github</a>
+            <a href="https://github.com/Tencent/omi/tree/master/packages/omiu">Omiu Github</a>
           </li>
-
+          <li style='color:#aaa;'>|</li>
           <li class="github_li m_show">
             {this.store.lan === 'en' ? (
               <a href="zh-cn.html">中文</a>
