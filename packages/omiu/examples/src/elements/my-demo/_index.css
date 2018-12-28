@@ -1,11 +1,12 @@
 iframe{
   width: 750px;
   height: 100%;
-  top: 60px;
+  top: 59px;
   right: 0;
   position: fixed;
   border: none;
   z-index: 9999;
+  border-left: 2px solid #24292E; 
 }
 
 .switch{
