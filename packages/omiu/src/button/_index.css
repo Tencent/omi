@@ -1,12 +1,18 @@
 
-.disabled {
+.weui-btn {
   background-color:#9CE6BF;
   color: #D7F5E5;
 }
-
+.weui-btn_disabled.weui-btn{
+  cursor: default;
+}
+.weui-btn_plain-disabled.weui-btn{
+  cursor: default;
+}
 
 button.weui-btn,
 input.weui-btn{
+  cursor: pointer;
   width:100%;
   border-width:0;
   outline:0;

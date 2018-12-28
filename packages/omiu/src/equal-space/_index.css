@@ -5,9 +5,8 @@
   display: flex;
   text-align: center;
   border-top: 1px solid #ddd;
-  padding-top: 13px; 
-  padding-bottom: 5px; 
-
+  padding-top: 10px; 
+  padding-bottom: 10px; 
   width: 100%;
   background-color: #F9F9F9;
 }
@@ -20,11 +19,9 @@ ul,li{
 
 a{
   text-decoration: none;
-  
 }
 
 .item{
-  cursor: pointer;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;

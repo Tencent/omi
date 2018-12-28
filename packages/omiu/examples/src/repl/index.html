@@ -82,19 +82,19 @@
 
   render(props, data) {
     return (
-      <div class="ctn">
+      <div>
         <o-button
           onClick={() => {
-            console.log(1)
+            console.log('Hello button!')
           }}
         >
           Normal
         </o-button>
         <o-button disabled>Disabled</o-button>
 
-        <o-button type="default">Secondary Normal</o-button>
+        <o-button type="default">Default Normal</o-button>
         <o-button type="default" disabled>
-          Secondary Disabled
+          Default Disabled
         </o-button>
 
         <o-button type="warn">Warn Normal</o-button>
@@ -102,17 +102,20 @@
           Disabled
         </o-button>
 
-        <o-button type="primary" plain>
-          o-button
+        <o-equal-space itemMargin='10px'>
+          <o-button type="default" plain>
+            Default Plain
         </o-button>
+          <o-button type="primary" plain>
+            Primary Plain
+        </o-button>
+        </o-equal-space>
+
         <o-button type="primary" plain disabled>
-          o-button
-        </o-button>
-        <o-button type="default" plain>
-          o-button
+          Primary Plain Disabled
         </o-button>
 
-        <o-equal-space>
+        <o-equal-space style='margin-top:10px;background-color:#ddd;'>
           <o-button size="small">Mini</o-button>
           <o-button type="default" size="small">
             Mini

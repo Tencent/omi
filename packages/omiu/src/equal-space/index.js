@@ -6,14 +6,20 @@ define('o-equal-space', class extends WeElement {
     return css
   }
 
-  onClick = (index) => {
-    this.props.onChange(index)
-  }
-
   render(props) {
-    return <ul class="o-equal-space">
+    const className = 'o-equal-space' + (props.class ? (' ' + props.class) : '')
+    delete props.class
+
+    let itemProps = null
+    if (props.itemMargin) {
+      itemProps = { style: `margin:${props.itemMargin};` }
+    }
+    delete props.itemMargin
+
+
+    return <ul class={className} {...props}>
       {props.children.map((child) => {
-        return <li class="item">{child}</li>
+        return <li class="item" {...itemProps}>{child}</li>
       })}
     </ul>
   }
