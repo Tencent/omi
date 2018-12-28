@@ -11,7 +11,12 @@
       var eventPropArr = []
       if (obaa.isArray(target)) {
         if (target.length === 0) {
-          target.$observeProps = {}
+          Object.defineProperty(target, '$observeProps', {
+            configurable: true,
+            enumerable: false,
+            writable: true,
+            value: {}
+          })
           target.$observeProps.$observerPath = '#'
         }
         $observer.mock(target)
@@ -107,7 +112,14 @@
       watch: function(target, prop, path) {
         if (prop === '$observeProps' || prop === '$observer') return
         if (obaa.isFunction(target[prop])) return
-        if (!target.$observeProps) target.$observeProps = {}
+        if (!target.$observeProps){
+          Object.defineProperty(target, '$observeProps', {
+            configurable: true,
+            enumerable: false,
+            writable: true,
+            value: {}
+          })
+        }
         if (path !== undefined) {
           target.$observeProps.$observerPath = path
         } else {
@@ -135,7 +147,14 @@
           if (obaa.isArray(currentValue)) {
             this.mock(currentValue)
             if (currentValue.length === 0) {
-              if (!currentValue.$observeProps) currentValue.$observeProps = {}
+              if (!currentValue.$observeProps){
+                Object.defineProperty(currentValue, '$observeProps', {
+                  configurable: true,
+                  enumerable: false,
+                  writable: true,
+                  value: {}
+                })
+              }
               if (path !== undefined) {
                 currentValue.$observeProps.$observerPath = path
               } else {
