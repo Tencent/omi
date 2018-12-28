@@ -53,7 +53,5 @@ define('o-button', class extends WeElement {
         {children}
       </Component>
     )
-
-    return <div>s</div>
   }
 })
