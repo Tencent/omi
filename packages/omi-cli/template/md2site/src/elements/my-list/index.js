@@ -23,7 +23,7 @@ define('my-list', class extends WeElement {
     )
   }
 
-  staticCss() {
+  css() {
     return css
   }
 })
