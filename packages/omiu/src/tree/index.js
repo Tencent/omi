@@ -6,8 +6,8 @@
  */
 
 import { define } from 'omi';
-import Tree from './Tree';
-import TreeNode from './TreeNode';
+import Tree from './tree';
+import TreeNode from './tree-node';
 
 define('tree-node', TreeNode);
 

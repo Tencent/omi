@@ -1,7 +1,7 @@
 import {define, WeElement} from 'omi';
 // import toArray from 'rc-util/lib/Children/toArray';
 import warning from 'warning';
-import TreeNode from './TreeNode';
+import TreeNode from './tree-node';
 
 const DRAG_SIDE_RANGE = 0.25;
 const DRAG_MIN_GAP = 2;

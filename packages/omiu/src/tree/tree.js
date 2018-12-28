@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import warning from 'warning';
 
-import { treeContextTypes } from './contextTypes';
+import { treeContextTypes } from './context-types';
 
 import {
   convertTreeToEntities, 

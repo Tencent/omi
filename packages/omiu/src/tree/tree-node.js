@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import style from './_index.css'
 
-import { nodeContextTypes } from './contextTypes';
+import { nodeContextTypes } from './context-types';
 
 import {
     getNodeChildren,
