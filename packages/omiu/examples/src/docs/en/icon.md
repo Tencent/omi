@@ -6,7 +6,7 @@ const config = {
   menus: {
     cn: [
       {
-        title: '快速开始',
+        title: '基础元素',
         list: [
           { name: '安装', md: 'installation' },
           { name: '配置', md: 'config' }
@@ -21,7 +21,7 @@ const config = {
     ],
     en: [
       {
-        title: 'QUICK START',
+        title: 'Base Element',
         list: [
           { name: 'Introduction', md: 'introduction' },
           { name: 'Config', md: 'config' }
