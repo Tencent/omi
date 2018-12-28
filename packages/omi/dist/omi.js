@@ -910,7 +910,8 @@
         defineElement: defineElement
     };
     options.root.Omi = omi;
-    options.root.Omi.version = '5.0.17';
+    options.root.omi = omi;
+    options.root.Omi.version = '5.0.18';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
