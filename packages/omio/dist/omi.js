@@ -900,8 +900,9 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    options.root.Omi.version = 'omio-1.2.0';
-    var Omi = {
+    options.root.omi = Omi;
+    options.root.Omi.version = 'omio-1.2.1';
+    var Omi$1 = {
         h: h,
         createElement: h,
         cloneElement: cloneElement,
@@ -915,6 +916,6 @@
         ModelView: ModelView,
         defineElement: defineElement
     };
-    if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
+    if ('undefined' != typeof module) module.exports = Omi$1; else self.Omi = Omi$1;
 }();
 //# sourceMappingURL=omi.js.map

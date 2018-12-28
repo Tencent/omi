@@ -1,5 +1,5 @@
 /**
- * omi v1.2.0  http://omijs.org
+ * omi v1.2.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1721,10 +1721,10 @@
     ModelView: ModelView,
     defineElement: defineElement
   };
+  options.root.omi = Omi;
+  options.root.Omi.version = 'omio-1.2.1';
 
-  options.root.Omi.version = 'omio-1.2.0';
-
-  var Omi = {
+  var Omi$1 = {
     h: h,
     createElement: h,
     cloneElement: cloneElement,
@@ -1739,6 +1739,6 @@
     defineElement: defineElement
   };
 
-  if (typeof module != 'undefined') module.exports = Omi;else self.Omi = Omi;
+  if (typeof module != 'undefined') module.exports = Omi$1;else self.Omi = Omi$1;
 }());
 //# sourceMappingURL=omi.dev.js.map
