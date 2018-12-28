@@ -25,8 +25,8 @@ options.root.Omi = {
   ModelView,
   defineElement
 }
-
-options.root.Omi.version = 'omio-1.2.0'
+options.root.omi = Omi
+options.root.Omi.version = 'omio-1.2.1'
 
 export default {
   h,
