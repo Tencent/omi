@@ -19,7 +19,13 @@ import {
 } from './diff'
 import { createComponent, collectComponent } from './component-recycler'
 import { removeNode } from '../dom/index'
-import { addScopedAttr, addScopedAttrStatic, getCtorName, scopeVdom, scopeHost } from '../style'
+import {
+  addScopedAttr,
+  addScopedAttrStatic,
+  getCtorName,
+  scopeVdom,
+  scopeHost
+} from '../style'
 import { proxyUpdate } from '../observe'
 
 /** Set a component's `props` (generally derived from JSX attributes).
@@ -132,7 +138,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
         '_s' + getCtorName(component.constructor)
       )
     }
-    
+
     if (component.dynamicCss) {
       addScopedAttr(
         rendered,

@@ -631,6 +631,33 @@
         });
         if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
+    function classNames() {
+        var classes = [];
+        for (var i = 0; i < arguments.length; i++) {
+            var arg = arguments[i];
+            if (arg) {
+                var argType = typeof arg;
+                if ('string' === argType || 'number' === argType) classes.push(arg); else if (Array.isArray(arg) && arg.length) {
+                    var inner = classNames.apply(null, arg);
+                    if (inner) classes.push(inner);
+                } else if ('object' === argType) for (var key in arg) if (hasOwn.call(arg, key) && arg[key]) classes.push(key);
+            }
+        }
+        return classes.join(' ');
+    }
+    function extractClass() {
+        var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0), props = _Array$prototype$slic[0], args = _Array$prototype$slic.slice(1);
+        if (props.class) {
+            args.unshift(props.class);
+            delete props.class;
+        } else if (props.className) {
+            args.unshift(props.className);
+            delete props.className;
+        }
+        if (args.length > 0) return {
+            class: classNames.apply(null, args)
+        };
+    }
     var options = {
         scopedStyle: !0,
         mapping: {},
@@ -884,6 +911,7 @@
     }(Component);
     ModelView.observe = !0;
     ModelView.mergeUpdate = !0;
+    var hasOwn = {}.hasOwnProperty;
     var WeElement = Component;
     var defineElement = define;
     options.root.Omi = {
@@ -898,10 +926,12 @@
         define: define,
         rpx: rpx,
         ModelView: ModelView,
-        defineElement: defineElement
+        defineElement: defineElement,
+        classNames: classNames,
+        extractClass: extractClass
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.2.2';
+    options.root.Omi.version = 'omio-1.2.3';
     var Omi$1 = {
         h: h,
         createElement: h,
@@ -914,7 +944,9 @@
         define: define,
         rpx: rpx,
         ModelView: ModelView,
-        defineElement: defineElement
+        defineElement: defineElement,
+        classNames: classNames,
+        extractClass: extractClass
     };
     if ('undefined' != typeof module) module.exports = Omi$1; else self.Omi = Omi$1;
 }();

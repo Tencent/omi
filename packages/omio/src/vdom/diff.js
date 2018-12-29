@@ -46,13 +46,13 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
   }
   let ret
 
-  if(isArray(vnode)){
+  if (isArray(vnode)) {
     vnode = {
       nodeName: 'span',
       children: vnode
     }
-  } 
-  
+  }
+
   ret = idiff(dom, vnode, context, mountAll, componentRoot)
   // append the element if its a new parent
   if (parent && ret.parentNode !== parent) parent.appendChild(ret)

@@ -129,7 +129,7 @@ export function scopeVdom(attr, vdom) {
 export function scopeHost(vdom, css) {
   if (typeof vdom === 'object' && css) {
     vdom.attributes = vdom.attributes || {}
-    for(let key in css){
+    for (let key in css) {
       vdom.attributes[key] = ''
     }
   }
