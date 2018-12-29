@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-nav', class extends WeElement {
@@ -11,7 +11,8 @@ define('o-nav', class extends WeElement {
   }
 
   render(props) {
-    return <ul class='o-nav'>
+    
+    return <ul {...extractClass(props, 'o-nav')}>
       {props.children.map((item, index) => {
         const props = {}
         const isActive = item.attributes && item.attributes.active
