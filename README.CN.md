@@ -2,12 +2,12 @@
 
 <p align="right">v<strong>5.0.18</strong></p>
 <p align="center"><img src="./assets/omi3.png" alt="omi" width="300"/></p>
-<h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一</h2>
-<p align="center"><b>基于 Web Components 并使用 omio 兼容老浏览器(IE8+)，很容易实现 MVVM 架构</b></p>
+<h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一点点 JS</h2>
+<p align="center"><b>基于 Web Components 并使用 omio 兼容老浏览器(IE8+)</b></p>
 
 ### 特性
 
-- 小巧的尺寸(gzip压缩后仅4kb)
+- 小巧的尺寸
 - 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
 - 真正的 [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md), 拥有 [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力支持
 - 支持 `TypeScript`
