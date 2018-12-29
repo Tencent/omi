@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-equal-space', class extends WeElement {
@@ -7,17 +7,15 @@ define('o-equal-space', class extends WeElement {
   }
 
   render(props) {
-    const className = 'o-equal-space' + (props.class ? (' ' + props.class) : '')
-    delete props.class
 
     let itemProps = null
     if (props.itemMargin) {
       itemProps = { style: `margin:${props.itemMargin};` }
+      delete props.itemMargin
     }
-    delete props.itemMargin
+    const cls = extractClass(props, 'o-equal-space')
 
-
-    return <ul class={className} {...props}>
+    return <ul {...cls} {...props}>
       {props.children.map((child) => {
         return <li class="item" {...itemProps}>{child}</li>
       })}

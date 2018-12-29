@@ -7,6 +7,7 @@ import options from './options'
 import { define } from './define'
 import { rpx } from './rpx'
 import ModelView from './model-view'
+import { classNames, extractClass } from './class'
 
 const WeElement = Component
 const defineElement = define
@@ -23,10 +24,12 @@ options.root.Omi = {
   define,
   rpx,
   ModelView,
-  defineElement
+  defineElement,
+  classNames,
+  extractClass
 }
 options.root.omi = Omi
-options.root.Omi.version = 'omio-1.2.2'
+options.root.Omi.version = 'omio-1.2.3'
 
 export default {
   h,
@@ -40,7 +43,9 @@ export default {
   define,
   rpx,
   ModelView,
-  defineElement
+  defineElement,
+  classNames,
+  extractClass
 }
 
 export {
@@ -55,5 +60,7 @@ export {
   define,
   rpx,
   ModelView,
-  defineElement
+  defineElement,
+  classNames,
+  extractClass
 }

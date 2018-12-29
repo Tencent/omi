@@ -10,6 +10,7 @@ import { getHost } from './get-host'
 import { rpx } from './rpx'
 import { tick, nextTick } from './tick'
 import ModelView from './model-view'
+import { classNames, extractClass } from './class'
 
 const Component = WeElement
 const defineElement = define
@@ -30,12 +31,14 @@ const omi = {
   tick,
   nextTick,
   ModelView,
-  defineElement
+  defineElement,
+  classNames,
+  extractClass
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '5.0.18'
+options.root.Omi.version = '5.0.19'
 
 export default omi
 
@@ -55,5 +58,7 @@ export {
   tick,
   nextTick,
   ModelView,
-  defineElement
+  defineElement,
+  classNames,
+  extractClass
 }
