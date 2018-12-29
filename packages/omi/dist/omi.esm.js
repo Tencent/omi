@@ -1,5 +1,5 @@
 /**
- * omi v5.0.18  http://omijs.org
+ * omi v5.0.19  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1508,6 +1508,61 @@ var ModelView = function (_WeElement) {
 ModelView.observe = true;
 ModelView.mergeUpdate = true;
 
+/**
+ * classNames based on https://github.com/JedWatson/classnames
+ * by Jed Watson
+ * Licensed under the MIT License
+ * https://github.com/JedWatson/classnames/blob/master/LICENSE
+ * modified by dntzhang
+ */
+
+var hasOwn = {}.hasOwnProperty;
+
+function classNames() {
+  var classes = [];
+
+  for (var i = 0; i < arguments.length; i++) {
+    var arg = arguments[i];
+    if (!arg) continue;
+
+    var argType = typeof arg;
+
+    if (argType === 'string' || argType === 'number') {
+      classes.push(arg);
+    } else if (Array.isArray(arg) && arg.length) {
+      var inner = classNames.apply(null, arg);
+      if (inner) {
+        classes.push(inner);
+      }
+    } else if (argType === 'object') {
+      for (var key in arg) {
+        if (hasOwn.call(arg, key) && arg[key]) {
+          classes.push(key);
+        }
+      }
+    }
+  }
+
+  return classes.join(' ');
+}
+
+function extractClass() {
+  var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0),
+      props = _Array$prototype$slic[0],
+      args = _Array$prototype$slic.slice(1);
+
+  if (props.class) {
+    args.unshift(props.class);
+    delete props.class;
+  } else if (props.className) {
+    args.unshift(props.className);
+    delete props.className;
+  }
+  if (args.length > 0) {
+    return { class: classNames.apply(null, args) };
+  }
+}
+
 var Component = WeElement;
 var defineElement = define;
 
@@ -1527,13 +1582,15 @@ var omi = {
   tick: tick,
   nextTick: nextTick,
   ModelView: ModelView,
-  defineElement: defineElement
+  defineElement: defineElement,
+  classNames: classNames,
+  extractClass: extractClass
 };
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '5.0.18';
+options.root.Omi.version = '5.0.19';
 
 export default omi;
-export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement };
+export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass };
 //# sourceMappingURL=omi.esm.js.map
