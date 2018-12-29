@@ -13,6 +13,12 @@ const config = {
         list: [
           { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' }
         ]
+      },
+      {
+        title: '操作反馈',
+        list: [
+          { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' }
+        ]
       }
     ],
     en: [
@@ -27,6 +33,12 @@ const config = {
         title: 'Navigation',
         list: [
           { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' }
+        ]
+      },
+      {
+        title: 'Operational Feedback',
+        list: [
+          { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' }
         ]
       }
     ]
