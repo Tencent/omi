@@ -8,11 +8,13 @@ define('my-app', class extends WeElement {
   loadingShow = false
 
   showSuccess =() => {
+    this.loadingShow = false
     this.successShow = true
     this.update()
   }
 
   showLoading =() => {
+    this.successShow = false
     this.loadingShow = true
     this.update()
   }

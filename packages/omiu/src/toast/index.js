@@ -23,7 +23,7 @@ define('o-toast', class extends WeElement {
         <div className={cls} {...others}>
           {type === 'success'?
           <o-icon type={'check'}  color='white' class='icon' scale={4} className="weui-icon_toast" />:
-          <o-icon type={'loading'} rotate color='white' class='icon-l' scale={3.5} className="weui-icon_toast" />}
+          <o-icon type={'loading'} rotate color='white' class='icon-l' scale={3} className="weui-icon_toast" />}
           
           <p className="weui-toast_content">{children}</p>
         </div>
