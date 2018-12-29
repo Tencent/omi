@@ -186,6 +186,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(20);
@@ -204,58 +206,55 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-icon', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-icon', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (e) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (e) {
       _this.props.onClick && _this.props.onClick(e);
       //e.stopPropagation()
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
+  _createClass(_class, [{
     key: 'css',
     value: function css() {
       return _index2['default'];
     }
   }, {
     key: 'render',
-    value: function render(pops) {
-      var props = {};
-      if (this.props.rotate) {
-        props['class'] = 'rotate ';
-      }
-      props.scale = this.props.scale || 2;
+    value: function render(props) {
       return Omi.h(
         'i',
-        { 'class': 'o-icon ' + (this.props['class'] || ''), onClick: this.onClick },
+        _extends({}, (0, _omi.extractClass)(props, 'o-icon'), { onClick: this.onClick }),
         Omi.h(
           'svg',
-          _extends({ viewBox: '0 0 1024 1024' }, props, { 'data-icon': 'loading', width: props.scale + "em", height: props.scale + "em", fill: this.props.color, 'aria-hidden': 'true' }),
-          Omi.h('path', { d: _path2['default'][this.props.type][this.props.isFill ? 1 : 0] || _path2['default'][this.props.type][0] })
+          { viewBox: '0 0 1024 1024', 'class': (0, _omi.classNames)({ 'rotate': props.rotate }), width: props.scale + "em", height: props.scale + "em", fill: props.color, 'aria-hidden': 'true' },
+          Omi.h('path', { d: props.path ? props.path : _path2['default'][props.type][props.isFill ? 1 : 0] || _path2['default'][props.type][0] })
         ),
-        this.props.children && Omi.h(
+        props.children && Omi.h(
           'div',
-          { style: 'color:' + (this.props.color || 'black') + ';' },
-          this.props.children[0]
+          { style: 'color:' + (props.color || 'black') + ';' },
+          props.children[0]
         )
       );
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.defaultProps = {
+  scale: 2
+}, _temp2));
 
 /***/ }),
 /* 3 */
@@ -887,18 +886,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }, {
     key: 'render',
     value: function render(props) {
-      var className = 'o-equal-space' + (props['class'] ? ' ' + props['class'] : '');
-      delete props['class'];
 
       var itemProps = null;
       if (props.itemMargin) {
         itemProps = { style: 'margin:' + props.itemMargin + ';' };
+        delete props.itemMargin;
       }
-      delete props.itemMargin;
+      var cls = (0, _omi.extractClass)(props, 'o-equal-space');
 
       return Omi.h(
         'ul',
-        _extends({ 'class': className }, props),
+        _extends({}, cls, props),
         props.children.map(function (child) {
           return Omi.h(
             'li',
@@ -1686,7 +1684,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
       return Omi.h(
         'ul',
-        { 'class': 'o-nav' },
+        (0, _omi.extractClass)(props, 'o-nav'),
         props.children.map(function (item, index) {
           var props = {};
           var isActive = item.attributes && item.attributes.active;

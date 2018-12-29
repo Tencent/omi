@@ -1,2 +1,0 @@
-webpackJsonp([6],{44:function(n,r){n.exports="## Icon \r\n\r\nIcon using svg.\r\n\r\n## API\r\n\r\n### Props\r\n\r\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\r\n| ------------- |:-------------:|:-----:|:-------------:|\r\n| type  | string|  ||\r\n| scale | number   |   2 | |\r\n| color | bool| black ||\r\n| isFill | bool| false ||\r\n| rotate | bool| false ||\r\n\r\n[\u2192 All the type you can find here](https://github.com/Tencent/omi/blob/master/packages/omiu/src/icon/path.js)"}});
-//# sourceMappingURL=6.56320a4d.chunk.js.map
