@@ -43,7 +43,7 @@ define('my-app', class extends WeElement {
           actions={this.data.actions}
           show={this.data.ios_show}
           type="ios"
-          onRequestClose={e => { this.data.ios_show = false; this.update(); }}
+          onClose={e => { this.data.ios_show = false; this.update(); }}
         />
 
         <br />
@@ -57,7 +57,7 @@ define('my-app', class extends WeElement {
           actions={this.data.actions}
           show={this.data.android_show}
           type="android"
-          onRequestClose={e => { this.data.android_show = false; this.update(); }}
+          onClose={e => { this.data.android_show = false; this.update(); }}
         />
       </div>
     );

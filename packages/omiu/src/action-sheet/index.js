@@ -43,11 +43,11 @@ define('o-action-sheet', class extends WeElement {
   }
 
   handleMaskClick = (e) => {
-    if (this.props.onRequestClose) this.props.onRequestClose(e);
+    if (this.props.onClose) this.props.onClose(e);
   }
 
   render() {
-    const { show, type, onRequestClose, menus, actions, ...others } = this.props;
+    const { show, type, onClose, menus, actions, ...others } = this.props;
     const cls = classNames({
       'weui-actionsheet': true,
       'weui-actionsheet_toggle': show
