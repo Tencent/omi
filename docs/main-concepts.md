@@ -10,6 +10,7 @@ English | [简体中文](./main-concepts.cn.md) | [한국어](./main-concepts.kr
   - [CSS](#css)
   - [Lifecycle](#lifecycle)
   - [Ref](#ref)
+  - [extractClass](#extractclass)
   - [Store](#store)
   - [Slot](#slot)
   - [noSlot](#noslot)
@@ -281,6 +282,30 @@ render(<my-first-element></my-first-element>, 'body')
 
 Add `ref={e => { this.anyNameYouWant = e }}` to attrs of the element, then you can get it by `this.anyNameYouWant`.
 
+### extractClass
+
+```js
+import { classNames, extractClass } from 'omi'
+
+define('my-element', class extends WeElement {
+  render(props) {
+    //extractClass will take out this class/className from props and merge the other classNames to obj
+    const cls = extractClass(props, 'o-my-class', {
+      'other-class': true,
+      'other-class-b': this.xxx === 1
+    })
+
+    return (
+      <div {...cls} {...props}>
+        Test
+      </div>
+    )
+  }
+})
+  
+```
+
+The `classNames` is the same as [classnames](https://github.com/JedWatson/classnames) of [npm](https://www.npmjs.com/package/classnames).
 
 ### Store
 
