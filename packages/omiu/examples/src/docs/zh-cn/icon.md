@@ -16,8 +16,8 @@ SVG 制作的 Icon.
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| path  | string|  ||
-| type  | string|  | 不推荐，建议用 path |
+| path  | string|--  ||
+| type  | string| -- | 不推荐，建议用 path |
 | scale | number   |   2 | |
 | color | bool| black ||
 | isFill | bool| false |不推荐，建议用 path|

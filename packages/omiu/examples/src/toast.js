@@ -27,7 +27,7 @@ define('my-app', class extends WeElement {
         <o-toast show={this.successShow}>支付成功</o-toast>
         <o-toast type='loading' show={this.loadingShow}>加载中</o-toast>
       </div>
-    );
+    )
   }
 })
 

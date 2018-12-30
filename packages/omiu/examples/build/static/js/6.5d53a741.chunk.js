@@ -1,2 +1,0 @@
-webpackJsonp([6],{46:function(n,e){n.exports="## Button \n\nClick or touch it to trigger an operation. The encapsulated logic is triggered in response to user clicks.\n\n\n## API\n\n### Props\n\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\n| ------------ |:----------:|:-----:|:-------------:|\n| type  | string| primary |Options: primary, default, warn, vcode|\n| size | string   |   normal |Options: normal, small|\n| disabled | bool| \u2605\u2605\u2605\u2605\u2605 ||"}});
-//# sourceMappingURL=6.5d53a741.chunk.js.map

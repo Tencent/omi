@@ -8,7 +8,7 @@ Paging component.
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| total         | number|       |              |
+| total         | number|    --   |             |
 | currentPage  | number          |   0 |           |
 | pageSize | number            | 10   |        |
 | numDisplay | number| 5 ||

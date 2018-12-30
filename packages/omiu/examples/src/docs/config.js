@@ -17,7 +17,8 @@ const config = {
       {
         title: '操作反馈',
         list: [
-          { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' }
+          { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' },
+          { name: 'Toast', md: 'toast', demo: './repl/toast.html' }
         ]
       }
     ],
@@ -38,7 +39,8 @@ const config = {
       {
         title: 'Operational Feedback',
         list: [
-          { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' }
+          { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' },
+          { name: 'Toast', md: 'toast', demo: './repl/toast.html' }
         ]
       }
     ]

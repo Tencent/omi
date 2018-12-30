@@ -16,8 +16,8 @@ Icon using svg.
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| path  | string|  ||
-| type  | string|  |deprecated|
+| path  | string| -- ||
+| type  | string| -- |deprecated|
 | scale | number   |   2 | |
 | color | bool| black ||
 | isFill | bool| false |deprecated|
