@@ -687,7 +687,7 @@ class MyApp extends WeElement {
 
 사용 [Omi DevTools](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd) 당신은 어떤 설정(configuration)없이 간단히 디버그와 UI를 매니지 할 수 있습니다. 그냥 설치하고 디버그하세요.
 
-Omi는 Web Components 와 Shadow-DOM을 사용하기 때문에 React 및 Vue 처럼 개발자 도구와 Chrome 에서 제공되는 **Elements 사이드바** 를 사용하여 다른 요소 패널을 설치할 필요가 없습니다.
+Omi는 Web Components 와 Shadow-DOM을 사용하기 때문에 React 처럼 개발자 도구와 Chrome 에서 제공되는 **Elements 사이드바** 를 사용하여 다른 요소 패널을 설치할 필요가 없습니다.
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
 
