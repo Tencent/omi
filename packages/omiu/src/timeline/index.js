@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-timeline', class extends WeElement {
@@ -8,8 +8,7 @@ define('o-timeline', class extends WeElement {
 
 
   render(props) {
-    
-    return  <div class="ctn">
+    return  <div {...extractClass(props, 'o-timeline')}>
     {props.data.map(item=>(
       <div class="item">
       <div class="circle" />

@@ -12,10 +12,9 @@ define('o-equal-space', class extends WeElement {
       itemProps = { style: `margin:${props.itemMargin};` }
       delete props.itemMargin
     }
-    const cls = extractClass(props, 'o-equal-space')
 
     return (
-      <ul {...cls} {...props}>
+      <ul {...extractClass(props, 'o-equal-space')} {...props}>
         {props.children.map(child => {
           return (
             <li class="item" {...itemProps}>
