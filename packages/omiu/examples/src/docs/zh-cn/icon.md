@@ -23,5 +23,5 @@ SVG 制作的 Icon.
 | isFill | bool| false |不推荐，建议用 path|
 | rotate | bool| false ||
 
-[→ 所有的 type 可以在这里找到](https://github.com/Tencent/omi/blob/master/packages/omiu/src/icon/path.js)
+[→ 你可以直接使用 antd 的海量 svg path 作为 icon 的 path](https://ant.design/components/icon-cn/),你可以通过开发者工具查看对应 icon 的 path。
 

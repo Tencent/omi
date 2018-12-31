@@ -23,4 +23,5 @@ Icon using svg.
 | isFill | bool| false |deprecated|
 | rotate | bool| false ||
 
-[→ All the type you can find here](https://github.com/Tencent/omi/blob/master/packages/omiu/src/icon/path.js)
+[→ You can use antd's SVG path directly](https://ant.design/components/icon/)
+
