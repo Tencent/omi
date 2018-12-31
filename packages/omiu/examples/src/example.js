@@ -2,7 +2,7 @@
 import { define, render, WeElement } from 'omi'
 import './assets/index.css'
 import '../../src/pagination'
-import '../../src/adjustment'
+import '../../src/input-number'
 import '../../src/button'
 import '../../src/progress'
 import '../../src/timeline'
@@ -31,7 +31,7 @@ define('my-app', class extends WeElement {
     console.log('page' + v)
   }
 
-  onAdjustmentChange = v => {
+  onInputNumberChange = v => {
     console.log(v)
   }
 
@@ -255,8 +255,8 @@ define('my-app', class extends WeElement {
         </o-equal-space>
         <br />
         <o-equal-space>
-          <o-adjustment
-            onChange={this.onAdjustmentChange}
+          <o-input-number
+            onChange={this.onInputNumberChange}
             min={1}
             max={10}
             step={1}

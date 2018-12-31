@@ -1,4 +1,4 @@
-import './adjustment'
+import './input-number'
 import './badge'
 import './button'
 import './dialog'

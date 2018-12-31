@@ -1,7 +1,7 @@
 import { define, WeElement } from 'omi'
 import css from './_index.css'
 
-define('o-adjustment', class extends WeElement {
+define('o-input-number', class extends WeElement {
   css() {
     return css
   }

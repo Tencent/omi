@@ -1,34 +1,26 @@
 import { WeElement, define, render } from 'omi'
-import '../../src/toast'
-import '../../src/button'
+import '../../src/input-number'
 
 define('my-app', class extends WeElement {
 
-  successShow = false
-  loadingShow = false
-
-  showSuccess =() => {
-    this.loadingShow = false
-    this.successShow = true
-    this.update()
-  }
-
-  showLoading =() => {
-    this.successShow = false
-    this.loadingShow = true
-    this.update()
+  onInputNumberChange = (num) => {
+    console.log(num)
   }
 
   render() {
     return (
-      <div>
-        <o-button onClick={this.showSuccess}>Show Success Toast</o-button>
-        <o-button onClick={this.showLoading}>Show Loading Toast</o-button>
-        <o-toast show={this.successShow}>支付成功</o-toast>
-        <o-toast type='loading' show={this.loadingShow}>加载中</o-toast>
-      </div>
+      <o-equal-space>
+        <o-input-number
+          onChange={this.onInputNumberChange}
+          min={1}
+          max={10}
+          step={1}
+          value={2}
+          label="描述文字"
+        />
+      </o-equal-space>
     )
   }
 })
 
-render(<my-app />, '#root')
+render(<my-app />, 'body')

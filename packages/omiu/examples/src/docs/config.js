@@ -20,6 +20,12 @@ const config = {
           { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' },
           { name: 'Toast', md: 'toast', demo: './repl/toast.html' }
         ]
+      },
+      {
+        title: '表单',
+        list: [
+          { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' }
+        ]
       }
     ],
     en: [
@@ -41,6 +47,12 @@ const config = {
         list: [
           { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' },
           { name: 'Toast', md: 'toast', demo: './repl/toast.html' }
+        ]
+      },
+      {
+        title: 'Form',
+        list: [
+          { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' }
         ]
       }
     ]

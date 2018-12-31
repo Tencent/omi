@@ -58,3 +58,8 @@ button:disabled
   border-color:#07C160;
   color:rgb(4, 161, 80);
 }
+
+svg{
+  position: relative;
+  top:2px;
+}
