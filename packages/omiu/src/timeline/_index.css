@@ -24,16 +24,25 @@
   left:-3px;
 }
 
-.time{
-  color: #7C7C7C;
+.msgs{
   position: relative;
-  top: -8px;
-  right: -10px;
-  max-width: 400px;
+  top:-5px;
+  left: 10px;
 }
 
-.des{
-  position: absolute;
-  left: 100px;
-  top: -8px;
+.left{
+  width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.two{
+  color: #7C7C7C;
+}
+
+.msg{
+  height: 15px;
+  line-height: 15px;
+  vertical-align: top;
+  display: inline-block;
+
 }

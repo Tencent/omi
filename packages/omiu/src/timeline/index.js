@@ -8,21 +8,18 @@ define('o-timeline', class extends WeElement {
 
 
   render(props) {
-    return  <div {...extractClass(props, 'o-timeline')}>
-    {props.data.map(item=>(
-      <div class="item">
-      <div class="circle" />
-      <div class="time">
-        <div>{item.msgA}</div>
-        <div>{item.msgC}</div>
-      </div>
-      <div class="des">
-        <div>{item.msgB}</div>
-        <div>{item.msgD}</div>
-      </div>
+    return <div {...extractClass(props, 'o-timeline')}>
+      {props.data.map(item => (
+        <div class="item">
+          <div class="circle" />
+          <div class="msgs">
+           <div class='one'> <div class='msg left'>{item.msgA}</div> <div  class='msg'>{item.msgB}</div></div>
+           <div  class='two'>  <div  class='msg left'>{item.msgC}</div> <div  class='msg'>{item.msgD}</div></div>
+          </div>
+        
+        </div>
+      ))}
+
     </div>
-    ))}
-    
-  </div>
   }
 })

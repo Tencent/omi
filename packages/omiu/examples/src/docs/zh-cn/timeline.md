@@ -18,5 +18,5 @@
 ### Props
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
-| ------------- |:-------------:|:-----:|:-------------:|
-| data         | json array|    --       |  数组项的结构:  { msgA: '2018.11.11', msgB: '15:22:09', msgC: 'create project', msgD: '[sub msg]' }     |
+| ------------- |:-------------:|:-----:|:-------------|
+| data         | json array|    --       |  数组项的结构: <br> { <br>　msgA: '2018.11.11',<br>　msgB: '15:22:09', <br>　msgC: 'create project',<br>　msgD: '[sub msg]' <br>}     |　

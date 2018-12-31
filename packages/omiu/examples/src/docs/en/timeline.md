@@ -18,5 +18,5 @@ Time or step schedule.
 ### Props
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
-| ------------- |:-------------:|:-----:|:-------------:|
-| data         | json array|    --       |  Structure of item:  { msgA: '2018.11.11', msgB: '15:22:09', msgC: 'create project', msgD: '[sub msg]' }     |
+| ------------- |:-------------:|:-----:|:-------------|
+| data         | json array|    --       |  Structure of item: <br> { <br>　msgA: '2018.11.11',<br>　msgB: '15:22:09', <br>　msgC: 'create project',<br>　msgD: '[sub msg]' <br>}     |
