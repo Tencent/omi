@@ -1,24 +1,10 @@
 import { WeElement, define, render } from 'omi'
-import '../../src/input-number'
+import '../../src/progress'
 
 define('my-app', class extends WeElement {
-
-  onInputNumberChange = (num) => {
-    console.log(num)
-  }
-
   render() {
     return (
-      <o-equal-space>
-        <o-input-number
-          onChange={this.onInputNumberChange}
-          min={1}
-          max={10}
-          step={1}
-          value={2}
-          label="描述文字"
-        />
-      </o-equal-space>
+      <o-progress bgColor="#ccc" innerColor="#07C160" value={50} />
     )
   }
 })
