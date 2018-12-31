@@ -1,21 +1,22 @@
 import { WeElement, define, render } from 'omi'
-import '../../src/timeline'
+import '../../src/nav'
 
 
 define('my-app', class extends WeElement {
 
+  navIndex = 0
+
+  navChange = index => {
+    this.navIndex = index
+    this.update()
+  }
 
   render() {
     return (
-
-      <o-timeline data={[
-        { msgA: '2018.11.11', msgB: '15:22:09', msgC: 'create project', msgD: '[sub msg]' },
-        { msgA: '2018.11.11', msgB: '15:22:09', msgC: 'delete readme', msgD: '[sub msg]' },
-        { msgA: '2018.11.11', msgB: '15:22:09', msgC: 'update readme', msgD: '[sub msg]' },
-        { msgA: '2018.11.11', msgB: '15:22:09', msgC: 'others', msgD: '[others]' }
-      ]} />
-
-
+      <o-nav onChange={this.navChange}>
+        <item active={this.navIndex === 0}>我的项目</item>
+        <item active={this.navIndex === 1}>所有项目</item>
+      </o-nav>
     )
   }
 })

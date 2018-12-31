@@ -12,7 +12,8 @@ const config = {
         title: '导航',
         list: [
           { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' },
-          { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' }
+          { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' },
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
         ]
       },
       {
@@ -42,7 +43,8 @@ const config = {
         title: 'Navigation',
         list: [
           { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' },
-          { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' }
+          { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' },
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
         ]
       },
       {
