@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import style from './_index.css'
 import '../icon'
 // import cellStyle from '../cells/_index.css'
@@ -35,7 +35,7 @@ define('o-selection', class extends WeElement {
   render(props) {
     if (props.single) {
       return (
-        <div class="weui-cells weui-cells_radio">
+        <div {...extractClass(props, 'weui-cells weui-cells_radio')}>
           {props.items.map((item, index) => (
             <label
               class="weui-cell weui-check__label"
@@ -75,7 +75,7 @@ define('o-selection', class extends WeElement {
       )
     } else {
       return (
-        <div class="weui-cells weui-cells_checkbox">
+        <div {...extractClass(props, 'weui-cells weui-cells_checkbox')}>
           {props.items.map((item, index) => (
             <label
               class="weui-cell weui-check__label"

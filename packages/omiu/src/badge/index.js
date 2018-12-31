@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import style from './_index.css'
 
 define('o-badge', class extends WeElement {
@@ -8,7 +8,7 @@ define('o-badge', class extends WeElement {
 
   render(props) {
     if (props.number !== undefined) {
-      return <div class='o-badge'>
+      return <div {...extractClass(props, 'o-badge')}>
         {props.children[0]}
         <span class="badge" style="position: absolute;top: -.7em;right: -1em;">{props.number}</span>
       </div>

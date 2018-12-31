@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import style from './_index.css'
 
 define('o-switch', class extends WeElement {
@@ -12,7 +12,7 @@ define('o-switch', class extends WeElement {
   render(props) {
     if (props.checked) {
       return (
-        <label for={`x_${this.elementId}`} class="weui-switch-cp">
+        <label for={`x_${this.elementId}`} {...extractClass(props, 'weui-switch-cp')}>
           <input
             id={`x_${this.elementId}`}
             ref={e => {
@@ -30,7 +30,7 @@ define('o-switch', class extends WeElement {
 
     return (
       <input
-        class="weui-switch"
+        {...extractClass(props, 'weui-switch')}
         type="checkbox"
         ref={e => {
           this._ele = e

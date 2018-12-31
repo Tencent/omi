@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import style from './_index.css'
 
 define('o-loading', class extends WeElement {
@@ -7,8 +7,7 @@ define('o-loading', class extends WeElement {
   }
   render(props) {
     return (
-      <div
-        class="o-loading"
+      <div {...extractClass(props, 'o-loading')}
         style={{ width: props.size, height: props.size }}
       />
     )

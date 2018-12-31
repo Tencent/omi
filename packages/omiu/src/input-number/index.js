@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-input-number', class extends WeElement {
@@ -39,7 +39,7 @@ define('o-input-number', class extends WeElement {
 
   render(props, data) {
     return (
-      <div class="ctn">
+      <div {...extractClass(props, 'o-input-number')}>
         <span
           role="button"
           class={'decrease' + (data.mDisabled ? ' is-disabled' : '')}

@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import style from './_index.css'
 
 define('o-slider', class extends WeElement {
@@ -38,7 +38,7 @@ define('o-slider', class extends WeElement {
   render(props) {
     if (props.disabled) {
       return (
-        <div class="weui-slider">
+        <div {...extractClass(props, 'weui-slider')}>
           <div
             ref={e => {
               this._ele = e
@@ -53,7 +53,7 @@ define('o-slider', class extends WeElement {
     }
 
     return (
-      <div class="weui-slider-box" onTouchStart={this.start}>
+      <div {...extractClass(props, 'weui-slider-box')} onTouchStart={this.start}>
         <div class="weui-slider">
           <div
             ref={e => {

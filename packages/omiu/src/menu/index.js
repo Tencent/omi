@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 import '../icon'
 
@@ -13,7 +13,9 @@ define('o-menu', class extends WeElement {
 
   render(props) {
     return (
-      <div class="o-menu">
+      <div {...extractClass(props, 'o-menu')}>
+      
+      <span class="arrow" />
         <div class="ctn">
           {/* {props.children.map((item, index) => {
         const props = {}
@@ -46,7 +48,6 @@ define('o-menu', class extends WeElement {
             <div class="wd">收款支付</div>
           </a>
         </div>
-        <span class="arrow" />
       </div>
     )
   }

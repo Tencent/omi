@@ -45,7 +45,6 @@ a:active{
   background-color: #4C4B4C; 
   transform: rotate(45deg);
   border-radius: 2px;
-  z-index: -1;
   top:-4px;
   right: 15px;;
 

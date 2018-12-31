@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import style from './_index.css'
 import '../list-item'
 
@@ -11,7 +11,7 @@ define('o-list', class extends WeElement {
       child.attributes.__inList = true
     })
     return (
-      <div>
+      <div {...extractClass(props, 'o-list')}>
         <h2 class="title">{props.title}</h2>
         <div>{props.children}</div>
       </div>

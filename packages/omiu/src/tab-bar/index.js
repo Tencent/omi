@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-tab-bar', class extends WeElement {
@@ -12,7 +12,7 @@ define('o-tab-bar', class extends WeElement {
 
   render(props) {
     return (
-      <ul class="o-tab-bar">
+      <ul {...extractClass(props, 'o-tab-bar')}>
         {props.children.map((child, index) => {
           const props = {}
 

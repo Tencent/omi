@@ -1,3 +1,9 @@
+.o-input-number{
+  position: relative;
+  width: 150px;
+  display: inline-block;
+}
+
 span{
   position: absolute;
   border: 1px solid #ccc;
@@ -23,12 +29,6 @@ span{
   right: 1px;
   border-radius: 0px 3px 3px 0px;
   user-select: none;
-}
-
-.ctn{
-  position: relative;
-  width: 150px;
-  display: inline-block;
 }
 
 .input{

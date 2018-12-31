@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-input', class extends WeElement {
@@ -10,14 +10,9 @@ define('o-input', class extends WeElement {
     this.props.onChange(index)
   }
 
-  render() {
-    const props = {
-      class: `o-input ${this.props.class || ''}`,
-      placeholder: this.props.placeholder || ''
-    }
-
+  render(props) {
     return (
-      <div {...props}>
+      <div {...extractClass(props, 'o-input')} {...props}>
         <input placeholder={props.placeholder} />
       </div>
     )

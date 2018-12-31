@@ -107,17 +107,12 @@ define('o-tree', class extends WeElement {
     return css
   }
 
-  render(props, data) {
-    console.log()
+  render(props) {
     return (
       <div class='o-tree'>
         <ul class="tree-wp">
-    
           <tree-node data={props.data}></tree-node>
-      
-          
         </ul>
-
         {/* <div class="bg-wp">
           <div o-repeat="c in emptyArr" class="bg"></div>
         </div> */}

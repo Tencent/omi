@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-pagination', class extends WeElement {
@@ -46,7 +46,7 @@ define('o-pagination', class extends WeElement {
     this.update()
   }
 
-  render() {
+  render(props) {
     let arr = []
     let opt = this.data,
       interval = this.getInterval()
@@ -77,7 +77,7 @@ define('o-pagination', class extends WeElement {
     }
 
     return (
-      <div class="o-pagination is-background">
+      <div {...extractClass(props, 'o-pagination is-background')}>
         {opt.prevShow && this.getPrev()}{' '}
         <ul class="o-pager">
           {arr.map(p => {
