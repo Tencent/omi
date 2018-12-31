@@ -6,44 +6,24 @@ define('o-timeline', class extends WeElement {
     return css
   }
 
-  render(props) {
-    return (
-      <div class="ctn">
-        <div class="item">
-          <div class="circle" />
-          <div class="time">
-            <div>2018.11.11</div>
-            <div>19:05:30</div>
-          </div>
-          <div class="des">
-            <div>创建测试项目</div>
-            <div>[牛顿值取消规则]</div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="circle" />
-          <div class="time">
-            <div>2018.11.11</div>
-            <div>19:05:30</div>
-          </div>
-          <div class="des">
-            <div>创建测试项目</div>
-            <div>[牛顿值取消规则]</div>
-          </div>
-        </div>
 
-        <div class="item">
-          <div class="circle" />
-          <div class="time">
-            <div>2018.11.11</div>
-            <div>19:05:30</div>
-          </div>
-          <div class="des">
-            <div>创建测试项目</div>
-            <div>[牛顿值取消规则]</div>
-          </div>
-        </div>
+  render(props) {
+    
+    return  <div class="ctn">
+    {props.data.map(item=>(
+      <div class="item">
+      <div class="circle" />
+      <div class="time">
+        <div>{item.msgA}</div>
+        <div>{item.msgC}</div>
       </div>
-    )
+      <div class="des">
+        <div>{item.msgB}</div>
+        <div>{item.msgD}</div>
+      </div>
+    </div>
+    ))}
+    
+  </div>
   }
 })

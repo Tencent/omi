@@ -185,7 +185,12 @@ define('my-app', class extends WeElement {
         <o-progress bgColor="#ccc" innerColor="#07C160" value={50} />
 
         <br />
-        <o-timeline />
+        <o-timeline data={[
+            { msgA: '2018.11.111111111111111111',msgB:'15:22:09',msgC:'创建测试项目',msgD:'[牛顿值取消规则]' },
+            { msgA: '2018.11.11',msgB:'15:22:09',msgC:'创建测试项目',msgD:'[牛顿值取消规则]' },
+            { msgA: '2018.11.11',msgB:'15:22:09',msgC:'创建测试项目',msgD:'[牛顿值取消规则]' },
+            { msgA: '2018.11.11',msgB:'15:22:09',msgC:'创建测试项目',msgD:'[牛顿值取消规则]' }
+        ]} />
 
         <br />
 

@@ -11,7 +11,8 @@ const config = {
       {
         title: '导航',
         list: [
-          { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' }
+          { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' },
+          { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' }
         ]
       },
       {
@@ -40,7 +41,8 @@ const config = {
       {
         title: 'Navigation',
         list: [
-          { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' }
+          { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' },
+          { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' }
         ]
       },
       {
