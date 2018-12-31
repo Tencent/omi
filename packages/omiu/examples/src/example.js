@@ -1,4 +1,3 @@
-
 import { define, render, WeElement } from 'omi'
 import './assets/index.css'
 import '../../src/pagination'
@@ -47,39 +46,8 @@ define('my-app', class extends WeElement {
   data = {
     selectedIndex: 2,
     selectedIndexs: [0, 1],
-    percentage: 30,
-    //defaultExpandedKeys: keys,   //默认展开 keys节点
-    //defaultSelectedKeys: keys,  //默认选中(高亮) keys节点
-    //defaultCheckedKeys: keys,  //默认Checked keys节点
-    defaultExpandedKeys: [],
-    defaultSelectedKeys: [],
-    defaultCheckedKeys: [],
-    expandedKeys: [],
-    selectedKeys: [],
-    checkedKeys: [],
-    switchIt: true,
-    treeData: [
-      { title: 'dynamic 1', key: '0-0-0', level: 1 },
-      { title: 'dynamic 2', key: '0-0-1', level: 1 }
-    ],
-    treeData2: [
-      {
-        title: 'edit', key: '0-0-0', level: 1, child: [
-          {
-            title: '子节点1', key: '0-0-0-0', level: 2, child: [
-              { title: '子子节点1', key: '0-0-0-0-1', level: 3 },
-            ]
-          },
-          { title: '子节点2', key: '0-0-0-1', level: 2 },
-        ]
-      },
-      {
-        title: '父节点', key: '0-0-1', level: 1, child: [
-          { title: '子节点1', key: '0-0-1-0', level: 2 },
-          { title: '子节点2', key: '0-0-1-1', level: 2 }
-        ]
-      }
-    ]
+    percentage: 30
+    
   }
 
   onTapMore = () => {
@@ -151,58 +119,7 @@ define('my-app', class extends WeElement {
 
   render(props, data) {
 
-    //先查出根节点
-    function findRoot(treeData) {
-      var nodeStr = treeData.map(function (node) {
-        return (
-          <tree-node title={node.title} key={node.key}>{findChild(node)}</tree-node>
-        );
-      });
-      return nodeStr;
-    }
-    //循环递归展开树
-    function findChild(node) {
-      if (node != null) {
-        if (node.child != null) {
-          var str = node.child.map(function (n) {
-            return (
-              <tree-node title={n.title} key={n.key}>{findChild(n)}</tree-node>
-            );
-          })
-          return str;
-        }
-      }
-    }
-
-    var dynamicNodeList = (
-      <tree-node title="根节点" key="0-0">
-        {findRoot(this.data.treeData)}
-      </tree-node>
-    );
-
-    var treeNodeList = (
-      <tree-node title="根节点" key="0-0">
-        {findRoot(this.data.treeData2)}
-      </tree-node>
-    );
-
-    const animation = {
-      enter(node, done) {
-        return animate(node, true, done);
-      },
-      leave(node, done) {
-        return animate(node, false, done);
-      },
-      appear(node, done) {
-        return animate(node, true, done);
-      }
-    };
-
-    const customLabel = (
-      <span className="cus-label">
-        <span>operations </span>
-      </span>
-    );
+    
 
     return (
       <div class="ctn">
@@ -434,27 +351,6 @@ define('my-app', class extends WeElement {
           </o-switch>
         </o-equal-space>
 
-        <h2>基础树</h2>
-        <o-tree
-          className="myCls" showLine checkable
-          defaultExpandedKeys={this.data.defaultExpandedKeys}
-          onExpand={this.onExpand}
-          defaultSelectedKeys={this.data.defaultSelectedKeys}
-          defaultCheckedKeys={this.data.defaultCheckedKeys}
-          onSelect={this.onSelect} onCheck={this.onCheck}
-        // openAnimation={animation}
-        >
-          <tree-node title="parent 1" key="0-0">
-            <tree-node title={customLabel} key="0-0-0">
-              <tree-node title="leaf" key="0-0-0-0" />
-              <tree-node title="leaf" key="0-0-0-1" />
-            </tree-node>
-            <tree-node title="parent 1-1" key="0-0-1">
-              <tree-node title="parent 1-1-0" key="0-0-1-0" />
-              <tree-node title="parent 1-1-1" key="0-0-1-1" />
-            </tree-node>
-          </tree-node>
-        </o-tree>
 
         <br />
         <br />
@@ -527,3 +423,117 @@ define('my-app', class extends WeElement {
 })
 
 render(<my-app />, 'body')
+
+
+
+// //defaultExpandedKeys: keys,   //默认展开 keys节点
+//     //defaultSelectedKeys: keys,  //默认选中(高亮) keys节点
+//     //defaultCheckedKeys: keys,  //默认Checked keys节点
+//     defaultExpandedKeys: [],
+//     defaultSelectedKeys: [],
+//     defaultCheckedKeys: [],
+//     expandedKeys: [],
+//     selectedKeys: [],
+//     checkedKeys: [],
+//     switchIt: true,
+//     treeData: [
+//       { title: 'dynamic 1', key: '0-0-0', level: 1 },
+//       { title: 'dynamic 2', key: '0-0-1', level: 1 }
+//     ],
+//     treeData2: [
+//       {
+//         title: 'edit', key: '0-0-0', level: 1, child: [
+//           {
+//             title: '子节点1', key: '0-0-0-0', level: 2, child: [
+//               { title: '子子节点1', key: '0-0-0-0-1', level: 3 },
+//             ]
+//           },
+//           { title: '子节点2', key: '0-0-0-1', level: 2 },
+//         ]
+//       },
+//       {
+//         title: '父节点', key: '0-0-1', level: 1, child: [
+//           { title: '子节点1', key: '0-0-1-0', level: 2 },
+//           { title: '子节点2', key: '0-0-1-1', level: 2 }
+//         ]
+//       }
+//     ]
+
+
+//     //先查出根节点
+//     function findRoot(treeData) {
+//       var nodeStr = treeData.map(function (node) {
+//         return (
+//           <tree-node title={node.title} key={node.key}>{findChild(node)}</tree-node>
+//         );
+//       });
+//       return nodeStr;
+//     }
+//     //循环递归展开树
+//     function findChild(node) {
+//       if (node != null) {
+//         if (node.child != null) {
+//           var str = node.child.map(function (n) {
+//             return (
+//               <tree-node title={n.title} key={n.key}>{findChild(n)}</tree-node>
+//             );
+//           })
+//           return str;
+//         }
+//       }
+//     }
+
+//     var dynamicNodeList = (
+//       <tree-node title="根节点" key="0-0">
+//         {findRoot(this.data.treeData)}
+//       </tree-node>
+//     );
+
+//     var treeNodeList = (
+//       <tree-node title="根节点" key="0-0">
+//         {findRoot(this.data.treeData2)}
+//       </tree-node>
+//     );
+
+//     const animation = {
+//       enter(node, done) {
+//         return animate(node, true, done);
+//       },
+//       leave(node, done) {
+//         return animate(node, false, done);
+//       },
+//       appear(node, done) {
+//         return animate(node, true, done);
+//       }
+//     };
+
+//     const customLabel = (
+//       <span className="cus-label">
+//         <span>operations </span>
+//       </span>
+//     );
+
+
+
+    
+//     <h2>基础树</h2>
+//     <o-rc-tree
+//       className="myCls" showLine checkable
+//       defaultExpandedKeys={this.data.defaultExpandedKeys}
+//       onExpand={this.onExpand}
+//       defaultSelectedKeys={this.data.defaultSelectedKeys}
+//       defaultCheckedKeys={this.data.defaultCheckedKeys}
+//       onSelect={this.onSelect} onCheck={this.onCheck}
+//     // openAnimation={animation}
+//     >
+//       <tree-node title="parent 1" key="0-0">
+//         <tree-node title={customLabel} key="0-0-0">
+//           <tree-node title="leaf" key="0-0-0-0" />
+//           <tree-node title="leaf" key="0-0-0-1" />
+//         </tree-node>
+//         <tree-node title="parent 1-1" key="0-0-1">
+//           <tree-node title="parent 1-1-0" key="0-0-1-0" />
+//           <tree-node title="parent 1-1-1" key="0-0-1-1" />
+//         </tree-node>
+//       </tree-node>
+//     </o-tree>
