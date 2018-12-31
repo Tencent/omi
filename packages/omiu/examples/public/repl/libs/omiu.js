@@ -190,11 +190,11 @@ var _class, _temp2;
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(20);
+var _index = __webpack_require__(19);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _path = __webpack_require__(22);
+var _path = __webpack_require__(21);
 
 var _path2 = _interopRequireDefault(_path);
 
@@ -280,11 +280,7 @@ var _class, _temp;
 
 var _omi = __webpack_require__(0);
 
-var _classnames = __webpack_require__(11);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _index = __webpack_require__(12);
+var _index = __webpack_require__(11);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -328,7 +324,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       var className = this.props['class'];
 
       var Component = component ? component : this.props.href || type === 'vcode' ? 'a' : 'button';
-      var cls = type === 'vcode' ? (0, _classnames2['default'])('weui-vcode-btn', _defineProperty({}, className, className)) : (0, _classnames2['default'])(_defineProperty({
+      var cls = type === 'vcode' ? (0, _omi.classNames)('weui-vcode-btn', _defineProperty({}, className, className)) : (0, _omi.classNames)(_defineProperty({
         'weui-btn': true,
         'weui-btn_mini': size === 'small',
         'weui-btn_primary': type === 'primary' && !plain,
@@ -368,47 +364,47 @@ __webpack_require__(8);
 
 __webpack_require__(3);
 
-__webpack_require__(14);
+__webpack_require__(13);
 
-__webpack_require__(17);
+__webpack_require__(16);
 
 __webpack_require__(2);
 
-__webpack_require__(23);
+__webpack_require__(22);
 
-__webpack_require__(26);
+__webpack_require__(25);
 
-__webpack_require__(32);
+__webpack_require__(31);
 
-__webpack_require__(37);
+__webpack_require__(36);
 
-__webpack_require__(40);
+__webpack_require__(39);
 
-__webpack_require__(43);
+__webpack_require__(42);
 
-__webpack_require__(46);
+__webpack_require__(45);
 
-__webpack_require__(49);
+__webpack_require__(48);
 
-__webpack_require__(52);
+__webpack_require__(51);
 
-__webpack_require__(55);
+__webpack_require__(54);
 
-__webpack_require__(58);
+__webpack_require__(57);
 
-__webpack_require__(61);
+__webpack_require__(60);
 
-__webpack_require__(64);
+__webpack_require__(63);
 
-__webpack_require__(67);
+__webpack_require__(66);
 
-__webpack_require__(70);
+__webpack_require__(69);
 
-__webpack_require__(73);
+__webpack_require__(72);
 
-__webpack_require__(76);
+__webpack_require__(75);
 
-__webpack_require__(79);
+__webpack_require__(78);
 
 /***/ }),
 /* 5 */
@@ -553,7 +549,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "span{\r\n  position: absolute;\r\n  border: 1px solid #ccc;\r\n  width: 32px;\r\n  height: 32px;\r\n  background-color: white;\r\n  cursor: pointer;\r\n  text-align: center;\r\n  line-height: 29px;\r\n}\r\n\r\n*{\r\n  box-sizing: border-box;\r\n}\r\n\r\n.decrease{\r\n  left: 1px;\r\n  border-radius: 3px 0px 0px 3px;\r\n}\r\n\r\n.increase{\r\n  right: 1px;\r\n  border-radius: 0px 3px 3px 0px;\r\n}\r\n\r\n.ctn{\r\n  position: relative;\r\n  width: 150px;\r\n  display: inline-block;\r\n}\r\n\r\n.input{\r\n  width: 100%;\r\n}\r\n\r\ninput{\r\n  width:100px;\r\n  height: 32px;\r\n  margin: 0 auto;\r\n  display: block;\r\n  text-align: center;\r\n  border: 1px solid #ccc;\r\n}\r\n", ""]);
+exports.push([module.i, "span{\r\n  position: absolute;\r\n  border: 1px solid #ccc;\r\n  width: 32px;\r\n  height: 32px;\r\n  background-color: white;\r\n  cursor: pointer;\r\n  text-align: center;\r\n  line-height: 29px;\r\n}\r\n\r\n*{\r\n  box-sizing: border-box;\r\n}\r\n\r\n.decrease{\r\n  left: 1px;\r\n  border-radius: 3px 0px 0px 3px;\r\n  user-select: none;\r\n}\r\n\r\n.increase{\r\n  right: 1px;\r\n  border-radius: 0px 3px 3px 0px;\r\n  user-select: none;\r\n}\r\n\r\n.ctn{\r\n  position: relative;\r\n  width: 150px;\r\n  display: inline-block;\r\n}\r\n\r\n.input{\r\n  width: 100%;\r\n}\r\n\r\ninput{\r\n  width:100px;\r\n  height: 32px;\r\n  margin: 0 auto;\r\n  display: block;\r\n  text-align: center;\r\n  border: 1px solid #ccc;\r\n}\r\n", ""]);
 
 
 
@@ -657,69 +653,10 @@ exports.push([module.i, ".o-badge{\r\n  position: relative;\r\n  display: inline
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-  Copyright (c) 2017 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames () {
-		var classes = [];
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg;
-
-			if (argType === 'string' || argType === 'number') {
-				classes.push(arg);
-			} else if (Array.isArray(arg) && arg.length) {
-				var inner = classNames.apply(null, arg);
-				if (inner) {
-					classes.push(inner);
-				}
-			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
-			}
-		}
-
-		return classes.join(' ');
-	}
-
-	if (typeof module !== 'undefined' && module.exports) {
-		classNames.default = classNames;
-		module.exports = classNames;
-	} else if (true) {
-		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-			return classNames;
-		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {
-		window.classNames = classNames;
-	}
-}());
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 
-var result = __webpack_require__(13);
+var result = __webpack_require__(12);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -728,7 +665,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -738,7 +675,7 @@ exports.push([module.i, "\r\n.weui-btn {\r\n  background-color:#9CE6BF;\r\n  col
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -748,7 +685,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(15);
+var _index = __webpack_require__(14);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -833,13 +770,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(16);
+var result = __webpack_require__(15);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -848,7 +785,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -858,7 +795,7 @@ exports.push([module.i, "\r\n.o-dialog {\r\n  width: 100%;\r\n  height: 100%;\r\
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -870,7 +807,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(18);
+var _index = __webpack_require__(17);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -904,11 +841,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         itemProps = { style: 'margin:' + props.itemMargin + ';' };
         delete props.itemMargin;
       }
-      var cls = (0, _omi.extractClass)(props, 'o-equal-space');
 
       return Omi.h(
         'ul',
-        _extends({}, cls, props),
+        _extends({}, (0, _omi.extractClass)(props, 'o-equal-space'), props),
         props.children.map(function (child) {
           return Omi.h(
             'li',
@@ -924,13 +860,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(19);
+var result = __webpack_require__(18);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -939,7 +875,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -949,13 +885,13 @@ exports.push([module.i, "/*ul*/  \r\n.o-equal-space{\r\n  display: -webkit-box;\
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(21);
+var result = __webpack_require__(20);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -964,7 +900,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -974,7 +910,7 @@ exports.push([module.i, ".o-icon {\r\n  text-align: center;\r\n  display: inline
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -999,7 +935,7 @@ exports['default'] = {
 };
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1009,7 +945,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(24);
+var _index = __webpack_require__(23);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -1065,13 +1001,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(25);
+var result = __webpack_require__(24);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -1080,7 +1016,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -1090,7 +1026,7 @@ exports.push([module.i, ".o-input{\r\n  position: relative;\r\n  display: inline
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1100,11 +1036,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(27);
+var _index = __webpack_require__(26);
 
 var _index2 = _interopRequireDefault(_index);
 
-__webpack_require__(29);
+__webpack_require__(28);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -1155,13 +1091,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(28);
+var result = __webpack_require__(27);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -1170,7 +1106,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -1180,7 +1116,7 @@ exports.push([module.i, "h2.title{\r\n  font-size: 14px;\r\n  font-weight: norma
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1190,7 +1126,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(30);
+var _index = __webpack_require__(29);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -1243,13 +1179,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(31);
+var result = __webpack_require__(30);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -1258,7 +1194,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -1268,7 +1204,7 @@ exports.push([module.i, "\r\nli {\r\n  background: #fff;\r\n  position: relative
 
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1278,7 +1214,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(33);
+var _index = __webpack_require__(32);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -1318,13 +1254,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(34);
+var result = __webpack_require__(33);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -1333,13 +1269,13 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Imports
-var urlEscape = __webpack_require__(35);
-var ___CSS_LOADER_URL___0___ = urlEscape(__webpack_require__(36));
+var urlEscape = __webpack_require__(34);
+var ___CSS_LOADER_URL___0___ = urlEscape(__webpack_require__(35));
 
 // Module
 exports.push([module.i, ".o-loading {\r\n  display: inline-block;\r\n  -webkit-animation: e 1s steps(12) infinite;\r\n  animation: e 1s steps(12) infinite;\r\n  background: url(" + ___CSS_LOADER_URL___0___ + ");\r\n  background-size: 100%;\r\n}\r\n\r\n@keyframes e {\r\n  0% {\r\n    -webkit-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(1turn);\r\n    transform: rotate(1turn);\r\n  }\r\n}\r\n", ""]);
@@ -1347,7 +1283,7 @@ exports.push([module.i, ".o-loading {\r\n  display: inline-block;\r\n  -webkit-a
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1373,7 +1309,7 @@ module.exports = function escape(url, needQuotes) {
 };
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1398,7 +1334,7 @@ Omi.h(
 );
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1408,7 +1344,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(38);
+var _index = __webpack_require__(37);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -1505,13 +1441,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(39);
+var result = __webpack_require__(38);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -1520,7 +1456,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -1530,7 +1466,7 @@ exports.push([module.i, ".o-menu{\r\n  max-width: 160px;\r\n  position: relative
 
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1540,7 +1476,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(41);
+var _index = __webpack_require__(40);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -1621,13 +1557,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(42);
+var result = __webpack_require__(41);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -1636,7 +1572,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -1646,7 +1582,7 @@ exports.push([module.i, "h2{\r\n  font-size: 20px;\r\n}\r\n\r\np{\r\n  font-size
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1656,7 +1592,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(44);
+var _index = __webpack_require__(43);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -1726,13 +1662,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(45);
+var result = __webpack_require__(44);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -1741,7 +1677,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -1751,7 +1687,7 @@ exports.push([module.i, "ul,li{\r\n  list-style: none;\r\n  padding: 0;\r\n  mar
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1763,7 +1699,7 @@ var _class, _temp;
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(47);
+var _index = __webpack_require__(46);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2013,13 +1949,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement), _class.observe = true, _temp));
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(48);
+var result = __webpack_require__(47);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -2028,7 +1964,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2038,7 +1974,7 @@ exports.push([module.i, "div{\r\n  color: rgba(0,0,0,.65);\r\n}\r\n* {\r\n  box-
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2048,7 +1984,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(50);
+var _index = __webpack_require__(49);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2143,13 +2079,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(51);
+var result = __webpack_require__(50);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -2158,7 +2094,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2168,7 +2104,7 @@ exports.push([module.i, ".o-popup {\r\n  width: 100%;\r\n  height: 100%;\r\n  po
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2180,7 +2116,7 @@ var _class, _temp;
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(53);
+var _index = __webpack_require__(52);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2224,13 +2160,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement), _class.observe = true, _temp));
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(54);
+var result = __webpack_require__(53);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -2239,7 +2175,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2249,7 +2185,7 @@ exports.push([module.i, ".progress{\r\n  width: 100%;\r\n  height: 12px;\r\n  ba
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2259,7 +2195,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(56);
+var _index = __webpack_require__(55);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2431,13 +2367,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(57);
+var result = __webpack_require__(56);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -2446,7 +2382,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2456,7 +2392,7 @@ exports.push([module.i, "\r\n\r\n.weui-check__label{\r\n  -webkit-tap-highlight-
 
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2466,7 +2402,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(59);
+var _index = __webpack_require__(58);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2591,13 +2527,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(60);
+var result = __webpack_require__(59);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -2606,7 +2542,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2616,7 +2552,7 @@ exports.push([module.i, ".weui-slider{\r\n  padding:15px 18px;\r\n  -webkit-user
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2626,7 +2562,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(62);
+var _index = __webpack_require__(61);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2700,13 +2636,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(63);
+var result = __webpack_require__(62);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -2715,7 +2651,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2725,7 +2661,7 @@ exports.push([module.i, ".weui-switch{\r\n  -webkit-appearance:none;\r\n        
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2735,7 +2671,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(65);
+var _index = __webpack_require__(64);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2805,13 +2741,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(66);
+var result = __webpack_require__(65);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -2820,7 +2756,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2830,7 +2766,7 @@ exports.push([module.i, ".o-tab{\r\n  border: 1px solid #171717;\r\n  border-rad
 
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2842,7 +2778,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(68);
+var _index = __webpack_require__(67);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2909,13 +2845,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(69);
+var result = __webpack_require__(68);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -2924,7 +2860,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -2934,7 +2870,7 @@ exports.push([module.i, "/*ul*/  \r\n.o-tab-bar{\r\n  display: -webkit-box;\r\n 
 
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2944,7 +2880,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(71);
+var _index = __webpack_require__(70);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2973,10 +2909,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }, {
     key: 'render',
     value: function render(props) {
-
       return Omi.h(
         'div',
-        { 'class': 'ctn' },
+        (0, _omi.extractClass)(props, 'o-timeline'),
         props.data.map(function (item) {
           return Omi.h(
             'div',
@@ -2984,30 +2919,38 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             Omi.h('div', { 'class': 'circle' }),
             Omi.h(
               'div',
-              { 'class': 'time' },
+              { 'class': 'msgs' },
               Omi.h(
                 'div',
-                null,
-                item.msgA
+                { 'class': 'one' },
+                ' ',
+                Omi.h(
+                  'div',
+                  { 'class': 'msg left' },
+                  item.msgA
+                ),
+                ' ',
+                Omi.h(
+                  'div',
+                  { 'class': 'msg' },
+                  item.msgB
+                )
               ),
               Omi.h(
                 'div',
-                null,
-                item.msgC
-              )
-            ),
-            Omi.h(
-              'div',
-              { 'class': 'des' },
-              Omi.h(
-                'div',
-                null,
-                item.msgB
-              ),
-              Omi.h(
-                'div',
-                null,
-                item.msgD
+                { 'class': 'two' },
+                '  ',
+                Omi.h(
+                  'div',
+                  { 'class': 'msg left' },
+                  item.msgC
+                ),
+                ' ',
+                Omi.h(
+                  'div',
+                  { 'class': 'msg' },
+                  item.msgD
+                )
               )
             )
           );
@@ -3020,13 +2963,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(72);
+var result = __webpack_require__(71);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -3035,17 +2978,17 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".ctn{\r\n  font-size: 12px; \r\n  padding-top: 30px;\r\n}\r\n\r\n.item{\r\n  border-left: 1px solid #D9D9D9; \r\n  position: relative;\r\n  height: 50px;\r\n}\r\n\r\n.item:last-child{ \r\n  height: 35px;\r\n}\r\n\r\n.circle{\r\n  border-radius:50%;\r\n  background-color: #D9D9D9;\r\n  width: 6px;\r\n  height: 6px;\r\n  position: absolute;\r\n  top:-3px;\r\n  left:-3px;\r\n}\r\n\r\n.time{\r\n  color: #7C7C7C;\r\n  position: relative;\r\n  top: -8px;\r\n  right: -10px;\r\n  max-width: 400px;\r\n}\r\n\r\n.des{\r\n  position: absolute;\r\n  left: 100px;\r\n  top: -8px;\r\n}", ""]);
+exports.push([module.i, ".o-timeline{\r\n  font-size: 12px; \r\n  padding-top: 30px;\r\n  text-align: left;\r\n}\r\n\r\n.item{\r\n  border-left: 1px solid #D9D9D9; \r\n  position: relative;\r\n  height: 50px;\r\n}\r\n\r\n.item:last-child{ \r\n  height: 35px;\r\n}\r\n\r\n.circle{\r\n  border-radius:50%;\r\n  background-color: #D9D9D9;\r\n  width: 6px;\r\n  height: 6px;\r\n  position: absolute;\r\n  top:-3px;\r\n  left:-3px;\r\n}\r\n\r\n.msgs{\r\n  position: relative;\r\n  top:-5px;\r\n  left: 10px;\r\n}\r\n\r\n.left{\r\n  width: 140px;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n.two{\r\n  color: #7C7C7C;\r\n}\r\n\r\n.msg{\r\n  height: 15px;\r\n  line-height: 15px;\r\n  vertical-align: top;\r\n  display: inline-block;\r\n\r\n}", ""]);
 
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3055,7 +2998,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(74);
+var _index = __webpack_require__(73);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -3109,13 +3052,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement));
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(75);
+var result = __webpack_require__(74);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -3124,7 +3067,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -3134,7 +3077,7 @@ exports.push([module.i, ".ow-toptip {\r\n  position: fixed;\r\n  text-align: cen
 
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3148,7 +3091,7 @@ var _class, _temp2;
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(77);
+var _index = __webpack_require__(76);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -3279,13 +3222,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }, _temp2));
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(78);
+var result = __webpack_require__(77);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -3294,7 +3237,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -3304,7 +3247,7 @@ exports.push([module.i, ".weui-actionsheet {\r\n  position: fixed;\r\n  left: 0;
 
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3318,7 +3261,7 @@ var _class, _temp;
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(80);
+var _index = __webpack_require__(79);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -3387,13 +3330,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }, _temp));
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var result = __webpack_require__(81);
+var result = __webpack_require__(80);
 
 if (typeof result === "string") {
     module.exports = result;
@@ -3402,7 +3345,7 @@ if (typeof result === "string") {
 }
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);

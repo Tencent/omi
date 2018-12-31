@@ -16,11 +16,13 @@ span{
 .decrease{
   left: 1px;
   border-radius: 3px 0px 0px 3px;
+  user-select: none;
 }
 
 .increase{
   right: 1px;
   border-radius: 0px 3px 3px 0px;
+  user-select: none;
 }
 
 .ctn{
