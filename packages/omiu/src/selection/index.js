@@ -7,79 +7,118 @@ import '../icon'
 
 define('o-selection', class extends WeElement {
   css() {
-    return style  
+    return style
   }
 
   onTapMore = () => {
     this.fire('tapmore')
   }
 
-  onSelectSingle = (index) => {
+  onSelectSingle = index => {
     this.fire('select', { index: index })
   }
 
-
-  onSelect = (index) => {
+  onSelect = index => {
     const cloneIdxs = this.props.selectedIndexs.slice(0)
     const position = this.props.selectedIndexs.indexOf(index)
-    if(position===-1){
+    if (position === -1) {
       cloneIdxs.push(index)
-    }else{
-      cloneIdxs.splice(position,1)
+    } else {
+      cloneIdxs.splice(position, 1)
     }
     //Prevent repeated tap width setTimeout
-    setTimeout(()=>{
+    setTimeout(() => {
       this.fire('select', { indexs: cloneIdxs })
-    },500)
-   
+    }, 500)
   }
 
   render(props) {
     if (props.single) {
       return (
         <div class="weui-cells weui-cells_radio">
-
           {props.items.map((item, index) => (
-            <label class="weui-cell weui-check__label" for={`x_${this.elementId}_${index}`} onClick={() => {
-              this.onSelectSingle(index)
-            }}>
+            <label
+              class="weui-cell weui-check__label"
+              for={`x_${this.elementId}_${index}`}
+              onClick={() => {
+                this.onSelectSingle(index)
+              }}
+            >
               <div class="weui-cell__bd">
                 <p>{item.text}</p>
               </div>
               <div class="weui-cell__ft">
-                <input type="radio" class="weui-check" checked={props.selectedIndex === index} name="radio1" id={`x_${this.elementId}_${index}`} />
-                {props.selectedIndex === index&&<o-icon class='icon' type='check' scale='1' color='#07C160'></o-icon>}
+                <input
+                  type="radio"
+                  class="weui-check"
+                  checked={props.selectedIndex === index}
+                  name="radio1"
+                  id={`x_${this.elementId}_${index}`}
+                />
+                {props.selectedIndex === index && (
+                  <o-icon class="icon" type="check" scale="1" color="#07C160" />
+                )}
               </div>
             </label>
           ))}
 
-          {props.onTapMore && <a href="javascript:void(0);" ontap={this.onTapMore} class="weui-cell weui-cell_link">
-            <div class="weui-cell__bd">添加更多</div>
-          </a>}
+          {props.onTapMore && (
+            <a
+              href="javascript:void(0);"
+              ontap={this.onTapMore}
+              class="weui-cell weui-cell_link"
+            >
+              <div class="weui-cell__bd">添加更多</div>
+            </a>
+          )}
         </div>
       )
     } else {
       return (
         <div class="weui-cells weui-cells_checkbox">
           {props.items.map((item, index) => (
-            <label class="weui-cell weui-check__label" for={`x_${this.elementId}_${index}`} onClick={() => {
-              this.onSelect(index)
-            }}>
+            <label
+              class="weui-cell weui-check__label"
+              for={`x_${this.elementId}_${index}`}
+              onClick={() => {
+                this.onSelect(index)
+              }}
+            >
               <div class="weui-cell__hd">
-                <input type="checkbox" class="weui-check" name="checkbox1" id={`x_${this.elementId}_${index}`} checked={props.selectedIndexs.indexOf(index)!==-1} />
-                <o-icon class='icon' type={props.selectedIndexs.indexOf(index)!==-1?'check-square':'rect'} scale='1.3' color={props.selectedIndexs.indexOf(index)!==-1?'#07C160':'#ccc'}></o-icon> 
+                <input
+                  type="checkbox"
+                  class="weui-check"
+                  name="checkbox1"
+                  id={`x_${this.elementId}_${index}`}
+                  checked={props.selectedIndexs.indexOf(index) !== -1}
+                />
+                <o-icon
+                  class="icon"
+                  type={
+                    props.selectedIndexs.indexOf(index) !== -1
+                      ? 'check-square'
+                      : 'rect'
+                  }
+                  scale="1.3"
+                  color={
+                    props.selectedIndexs.indexOf(index) !== -1
+                      ? '#07C160'
+                      : '#ccc'
+                  }
+                />
               </div>
               <div class="weui-cell__bd">
                 <p>{item.text}</p>
               </div>
             </label>
           ))}
-          {props.more && <a href="javascript:void(0);" class="weui-cell weui-cell_link">
-            <div class="weui-cell__bd">添加更多</div>
-          </a>}
+          {props.more && (
+            <a href="javascript:void(0);" class="weui-cell weui-cell_link">
+              <div class="weui-cell__bd">添加更多</div>
+            </a>
+          )}
         </div>
       )
     }
-
   }
 })

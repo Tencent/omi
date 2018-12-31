@@ -6,7 +6,7 @@ define('o-input', class extends WeElement {
     return css
   }
 
-  onClick = (index) => {
+  onClick = index => {
     this.props.onChange(index)
   }
 
@@ -16,8 +16,10 @@ define('o-input', class extends WeElement {
       placeholder: this.props.placeholder || ''
     }
 
-    return <div {...props}>
-      <input placeholder={props.placeholder}></input>
-    </div>
+    return (
+      <div {...props}>
+        <input placeholder={props.placeholder} />
+      </div>
+    )
   }
 })

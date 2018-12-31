@@ -11,7 +11,7 @@ define('o-icon', class extends WeElement {
     scale: 2
   }
 
-  onClick = (e) => {
+  onClick = e => {
     this.props.onClick && this.props.onClick(e)
     //e.stopPropagation()
   }
@@ -19,12 +19,28 @@ define('o-icon', class extends WeElement {
   render(props) {
     return (
       <i {...extractClass(props, 'o-icon')} onClick={this.onClick}>
-        <svg viewBox="0 0 1024 1024" class={classNames({ 'rotate': props.rotate })} width={props.scale + "em"} height={props.scale + "em"} fill={props.color} aria-hidden="true">
-          <path d={props.path ? props.path : (path[props.type][props.isFill ? 1 : 0] || path[props.type][0])}></path>
+        <svg
+          viewBox="0 0 1024 1024"
+          class={classNames({ rotate: props.rotate })}
+          width={props.scale + 'em'}
+          height={props.scale + 'em'}
+          fill={props.color}
+          aria-hidden="true"
+        >
+          <path
+            d={
+              props.path
+                ? props.path
+                : path[props.type][props.isFill ? 1 : 0] || path[props.type][0]
+            }
+          />
         </svg>
-        {props.children && <div style={`color:${props.color || 'black'};`}>{props.children[0]}</div>}
+        {props.children && (
+          <div style={`color:${props.color || 'black'};`}>
+            {props.children[0]}
+          </div>
+        )}
       </i>
     )
-
   }
 })

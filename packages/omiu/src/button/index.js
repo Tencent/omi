@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import css from './_index.css'
 
 define('o-button', class extends WeElement {
-
   static defaultProps = {
     disabled: false,
     type: 'primary',

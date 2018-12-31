@@ -11,7 +11,7 @@ define('o-input-number', class extends WeElement {
   }
 
   minus = () => {
-    if(this.data.mDisabled) return
+    if (this.data.mDisabled) return
     this.data.value -= this.props.step
     this.data.mDisabled = this.data.value <= this.props.min
     if (this.data.mDisabled) {
@@ -24,7 +24,7 @@ define('o-input-number', class extends WeElement {
   }
 
   plus = () => {
-    if(this.data.pDisabled) return
+    if (this.data.pDisabled) return
     this.data.value += this.props.step
     this.data.pDisabled = this.data.value >= this.props.max
 
@@ -32,7 +32,7 @@ define('o-input-number', class extends WeElement {
       this.data.value = this.props.max
     }
     this.data.mDisabled = this.data.value <= this.props.min
-    
+
     this.update()
     this.props.onChange(this.data.value)
   }
@@ -42,18 +42,18 @@ define('o-input-number', class extends WeElement {
       <div class="ctn">
         <span
           role="button"
-          class={
-            'decrease' + (data.mDisabled ? ' is-disabled' : '')
-          }
+          class={'decrease' + (data.mDisabled ? ' is-disabled' : '')}
           onClick={this.minus}
-        >-</span>
+        >
+          -
+        </span>
         <span
           role="button"
-          class={
-            'increase' + (data.pDisabled ? ' is-disabled' : '')
-          }
+          class={'increase' + (data.pDisabled ? ' is-disabled' : '')}
           onClick={this.plus}
-        >+</span>
+        >
+          +
+        </span>
         <div class="input">
           <input
             type="text"

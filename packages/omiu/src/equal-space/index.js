@@ -7,7 +7,6 @@ define('o-equal-space', class extends WeElement {
   }
 
   render(props) {
-
     let itemProps = null
     if (props.itemMargin) {
       itemProps = { style: `margin:${props.itemMargin};` }
@@ -15,10 +14,16 @@ define('o-equal-space', class extends WeElement {
     }
     const cls = extractClass(props, 'o-equal-space')
 
-    return <ul {...cls} {...props}>
-      {props.children.map((child) => {
-        return <li class="item" {...itemProps}>{child}</li>
-      })}
-    </ul>
+    return (
+      <ul {...cls} {...props}>
+        {props.children.map(child => {
+          return (
+            <li class="item" {...itemProps}>
+              {child}
+            </li>
+          )
+        })}
+      </ul>
+    )
   }
 })

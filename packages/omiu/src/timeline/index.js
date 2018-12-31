@@ -2,7 +2,6 @@ import { define, WeElement } from 'omi'
 import css from './_index.css'
 
 define('o-timeline', class extends WeElement {
-
   css() {
     return css
   }
@@ -10,9 +9,9 @@ define('o-timeline', class extends WeElement {
   render(props) {
     return (
       <div class="ctn">
-        <div class='item'>
-          <div class='circle'></div>
-          <div class='time'>
+        <div class="item">
+          <div class="circle" />
+          <div class="time">
             <div>2018.11.11</div>
             <div>19:05:30</div>
           </div>
@@ -21,9 +20,9 @@ define('o-timeline', class extends WeElement {
             <div>[牛顿值取消规则]</div>
           </div>
         </div>
-        <div class='item'>
-          <div class='circle'></div>
-          <div class='time'>
+        <div class="item">
+          <div class="circle" />
+          <div class="time">
             <div>2018.11.11</div>
             <div>19:05:30</div>
           </div>
@@ -33,9 +32,9 @@ define('o-timeline', class extends WeElement {
           </div>
         </div>
 
-        <div class='item'>
-          <div class='circle'></div>
-          <div class='time'>
+        <div class="item">
+          <div class="circle" />
+          <div class="time">
             <div>2018.11.11</div>
             <div>19:05:30</div>
           </div>

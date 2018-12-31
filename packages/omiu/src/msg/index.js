@@ -20,7 +20,12 @@ define('o-msg', class extends WeElement {
     const button = props.type === 'warn' ? 'warn' : 'primary'
     return (
       <div className="ow-msg">
-        <o-icon type={props.type} scale={4} isFill color={ props.type === 'warn'?'#F95050':'#07C160'}/>
+        <o-icon
+          type={props.type}
+          scale={4}
+          isFill
+          color={props.type === 'warn' ? '#F95050' : '#07C160'}
+        />
         <h2 className="title">{props.title}</h2>
         <p>{props.content}</p>
         <o-button type={button}>Ok</o-button>

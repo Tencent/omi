@@ -3,7 +3,7 @@
  * When util.js imports the TreeNode for tree generate will cause treeContextTypes be empty.
  */
 
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 export const treeContextTypes = {
   rcTree: PropTypes.shape({
@@ -14,10 +14,7 @@ export const treeContextTypes = {
     showIcon: PropTypes.bool,
     icon: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     draggable: PropTypes.bool,
-    checkable: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.node,
-    ]),
+    checkable: PropTypes.oneOfType([PropTypes.bool, PropTypes.node]),
     checkStrictly: PropTypes.bool,
     disabled: PropTypes.bool,
     openTransitionName: PropTypes.string,
@@ -42,13 +39,13 @@ export const treeContextTypes = {
     onNodeDragOver: PropTypes.func,
     onNodeDragLeave: PropTypes.func,
     onNodeDragEnd: PropTypes.func,
-    onNodeDrop: PropTypes.func,
-  }),
-};
+    onNodeDrop: PropTypes.func
+  })
+}
 
 export const nodeContextTypes = {
   ...treeContextTypes,
   rcTreeNode: PropTypes.shape({
-    onUpCheckConduct: PropTypes.func,
-  }),
-};
+    onUpCheckConduct: PropTypes.func
+  })
+}

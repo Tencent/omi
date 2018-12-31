@@ -7,15 +7,13 @@ define('o-list', class extends WeElement {
     return style
   }
   render(props) {
-    props.children.forEach(child=>{
+    props.children.forEach(child => {
       child.attributes.__inList = true
     })
     return (
       <div>
         <h2 class="title">{props.title}</h2>
-        <div>
-          {props.children}
-        </div>
+        <div>{props.children}</div>
       </div>
     )
   }
