@@ -79,20 +79,21 @@
     <div class="playground">
       <div class="editor">
         <textarea id="editor">define('my-app', class extends WeElement {
-
-  tabIndex = 0
-
-  tabChange = index => {
-    this.tabIndex = index
-    this.update()
-  }
-
   render() {
     return (
-      <o-tab onChange={this.tabChange}>
-        <item active={this.tabIndex === 0}>朋友相册</item>
-        <item active={this.tabIndex === 1}>时刻视频</item>
-      </o-tab>
+      <o-equal-space>
+        <o-badge number={8}>
+          <o-icon type="chat" isFill color="#07C160" />
+        </o-badge>
+
+        <o-badge number={99}>
+          <o-icon type="pay" isFill color="#07C160" />
+        </o-badge>
+
+        <o-badge>
+          <o-icon type="github" isFill color="black" />
+        </o-badge>
+      </o-equal-space>
     )
   }
 })
