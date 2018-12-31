@@ -1,22 +1,23 @@
 import { WeElement, define, render } from 'omi'
-import '../../src/nav'
-
-
+import '../../src/equal-space'
+import '../../src/badge'
+import '../../src/icon'
 define('my-app', class extends WeElement {
-
-  navIndex = 0
-
-  navChange = index => {
-    this.navIndex = index
-    this.update()
-  }
-
   render() {
     return (
-      <o-nav onChange={this.navChange}>
-        <item active={this.navIndex === 0}>我的项目</item>
-        <item active={this.navIndex === 1}>所有项目</item>
-      </o-nav>
+      <o-equal-space>
+        <o-badge number={8}>
+          <o-icon type="chat" isFill color="#07C160" />
+        </o-badge>
+
+        <o-badge number={99}>
+          <o-icon type="pay" isFill color="#07C160" />
+        </o-badge>
+
+        <o-badge>
+          <o-icon type="github" isFill color="black" />
+        </o-badge>
+      </o-equal-space>
     )
   }
 })

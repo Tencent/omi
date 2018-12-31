@@ -237,20 +237,19 @@ define('my-app', class extends WeElement {
         </o-menu>
 
         <br />
+        <o-equal-space>
         <o-badge number={8}>
           <o-icon type="chat" isFill color="#07C160" />
         </o-badge>
-        <br />
-        <br />
+     
         <o-badge number={99}>
           <o-icon type="pay" isFill color="#07C160" />
         </o-badge>
-        <br />
-        <br />
+     
         <o-badge>
           <o-icon type="chat" isFill color="#07C160" />
         </o-badge>
-        <br />
+        </o-equal-space>
         <br />
         <o-input class="o-input" placeholder="请输入用户名" />
 

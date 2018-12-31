@@ -13,7 +13,8 @@ const config = {
         list: [
           { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' },
           { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' },
-          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
+          { name: 'Tab', md: 'tab', demo: './repl/tab.html' }
         ]
       },
       {
@@ -28,6 +29,12 @@ const config = {
         title: '表单',
         list: [
           { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' }
+        ]
+      },
+      {
+        title: '数据展示',
+        list: [
+          { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
         ]
       }
     ],
@@ -44,7 +51,8 @@ const config = {
         list: [
           { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' },
           { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' },
-          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
+          { name: 'Tab', md: 'tab', demo: './repl/tab.html' }
         ]
       },
       {
@@ -59,6 +67,12 @@ const config = {
         title: 'Form',
         list: [
           { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' }
+        ]
+      },
+      {
+        title: 'Data',
+        list: [
+          { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
         ]
       }
     ]
