@@ -24,6 +24,7 @@ import '../../src/selection'
 import '../../src/slider'
 import '../../src/switch'
 import '../../src/tree'
+import { loading, close } from 'path-d'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -57,21 +58,27 @@ define('my-app', class extends WeElement {
     selectedKeys: [],
     checkedKeys: [],
     switchIt: true,
-    treeData:[
-        {title: 'dynamic 1', key: '0-0-0' ,level:1},
-        {title: 'dynamic 2', key: '0-0-1' ,level:1}
+    treeData: [
+      { title: 'dynamic 1', key: '0-0-0', level: 1 },
+      { title: 'dynamic 2', key: '0-0-1', level: 1 }
     ],
-    treeData2:[
-        {title: 'edit',  key: '0-0-0' ,level:1,child:[
-            {title: '子节点1', key: '0-0-0-0',level:2,child:[
-                {title: '子子节点1', key: '0-0-0-0-1',level:3},
-            ]},
-            {title: '子节点2', key: '0-0-0-1',level:2},
-        ]},
-        {title: '父节点', key: '0-0-1',level:1,child:[
-            {title: '子节点1', key: '0-0-1-0',level:2},
-            {title: '子节点2', key: '0-0-1-1',level:2}
-        ]}
+    treeData2: [
+      {
+        title: 'edit', key: '0-0-0', level: 1, child: [
+          {
+            title: '子节点1', key: '0-0-0-0', level: 2, child: [
+              { title: '子子节点1', key: '0-0-0-0-1', level: 3 },
+            ]
+          },
+          { title: '子节点2', key: '0-0-0-1', level: 2 },
+        ]
+      },
+      {
+        title: '父节点', key: '0-0-1', level: 1, child: [
+          { title: '子节点1', key: '0-0-1-0', level: 2 },
+          { title: '子节点2', key: '0-0-1-1', level: 2 }
+        ]
+      }
     ]
   }
 
@@ -146,20 +153,20 @@ define('my-app', class extends WeElement {
 
     //先查出根节点
     function findRoot(treeData) {
-      var nodeStr=treeData.map(function(node){
+      var nodeStr = treeData.map(function (node) {
         return (
-            <tree-node title={node.title} key={node.key}>{findChild(node)}</tree-node>
+          <tree-node title={node.title} key={node.key}>{findChild(node)}</tree-node>
         );
       });
       return nodeStr;
     }
     //循环递归展开树
-    function findChild(node){
-      if(node!=null){
-        if(node.child!=null){
-          var str=node.child.map(function(n){
-            return(
-                <tree-node title={n.title} key={n.key}>{findChild(n)}</tree-node>
+    function findChild(node) {
+      if (node != null) {
+        if (node.child != null) {
+          var str = node.child.map(function (n) {
+            return (
+              <tree-node title={n.title} key={n.key}>{findChild(n)}</tree-node>
             );
           })
           return str;
@@ -167,13 +174,13 @@ define('my-app', class extends WeElement {
       }
     }
 
-    var dynamicNodeList=(
+    var dynamicNodeList = (
       <tree-node title="根节点" key="0-0">
         {findRoot(this.data.treeData)}
       </tree-node>
     );
 
-    var treeNodeList=(
+    var treeNodeList = (
       <tree-node title="根节点" key="0-0">
         {findRoot(this.data.treeData2)}
       </tree-node>
@@ -196,7 +203,7 @@ define('my-app', class extends WeElement {
         <span>operations </span>
       </span>
     );
-    
+
     return (
       <div class="ctn">
         <o-button
@@ -272,8 +279,8 @@ define('my-app', class extends WeElement {
 
         <br />
         <br />
-        <o-icon type="loading" rotate isFill />
-        <o-icon type="close" isFill />
+        <o-icon path={loading()} rotate />
+        <o-icon path={close()} />
         <o-icon type="pay" isFill />
         <o-icon type="chat" isFill />
         <o-icon type="scan" isFill />
@@ -282,10 +289,10 @@ define('my-app', class extends WeElement {
         <br />
 
         <o-equal-space>
-          <o-icon type="loading" rotate isFill>
+          <o-icon path={loading()} rotate >
             Loading
         </o-icon>
-          <o-icon type="close" isFill>
+          <o-icon path={close()} >
             Close
         </o-icon>
           <o-icon type="pay" isFill>
@@ -429,24 +436,24 @@ define('my-app', class extends WeElement {
 
         <h2>基础树</h2>
         <o-tree
-            className="myCls" showLine checkable
-            defaultExpandedKeys={this.data.defaultExpandedKeys}
-            onExpand={this.onExpand}
-            defaultSelectedKeys={this.data.defaultSelectedKeys}
-            defaultCheckedKeys={this.data.defaultCheckedKeys}
-            onSelect={this.onSelect} onCheck={this.onCheck}
-            // openAnimation={animation}
-            >
-            <tree-node title="parent 1" key="0-0">
-                <tree-node title={customLabel} key="0-0-0">
-                    <tree-node title="leaf" key="0-0-0-0" />
-                    <tree-node title="leaf" key="0-0-0-1" />
-                </tree-node>
-                <tree-node title="parent 1-1" key="0-0-1">
-                    <tree-node title="parent 1-1-0" key="0-0-1-0" />
-                    <tree-node title="parent 1-1-1" key="0-0-1-1" />
-                </tree-node>
+          className="myCls" showLine checkable
+          defaultExpandedKeys={this.data.defaultExpandedKeys}
+          onExpand={this.onExpand}
+          defaultSelectedKeys={this.data.defaultSelectedKeys}
+          defaultCheckedKeys={this.data.defaultCheckedKeys}
+          onSelect={this.onSelect} onCheck={this.onCheck}
+        // openAnimation={animation}
+        >
+          <tree-node title="parent 1" key="0-0">
+            <tree-node title={customLabel} key="0-0-0">
+              <tree-node title="leaf" key="0-0-0-0" />
+              <tree-node title="leaf" key="0-0-0-1" />
             </tree-node>
+            <tree-node title="parent 1-1" key="0-0-1">
+              <tree-node title="parent 1-1-0" key="0-0-1-0" />
+              <tree-node title="parent 1-1-1" key="0-0-1-1" />
+            </tree-node>
+          </tree-node>
         </o-tree>
 
         <br />

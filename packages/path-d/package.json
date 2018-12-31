@@ -1,6 +1,6 @@
 {
   "name": "path-d",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Collection of all SVG path data for tree-shaking.",
   "main": "dist/path-d.js",
   "jsnext:main": "dist/path-d.esm.js",
