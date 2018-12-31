@@ -1,0 +1,34 @@
+{
+  "name": "path-d",
+  "version": "0.0.0",
+  "description": "Collection of all SVG path data for tree-shaking.",
+  "main": "dist/path-d.js",
+  "jsnext:main": "dist/path-d.esm.js",
+  "module": "dist/path-d.esm.js",
+  "minified:main": "dist/path-d.min.js",
+  "scripts": {
+    
+  },
+  "eslintConfig": {
+    "extends": "./config/eslint-config.js"
+  },
+  "typings": "./dist/omi.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "keywords": [
+    "path-d",
+    "omi",
+    "svg",
+    "jsx",
+    "omiu",
+    "path"
+  ],
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi"
+}
