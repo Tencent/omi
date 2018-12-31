@@ -40,7 +40,6 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-omi": "^0.1.1",
     "cax": "^1.2.10",
-    "classnames": "^2.2.6",
     "css-loader": "^2.1.0",
     "esprima-fb": "^15001.1001.0-dev-harmony-fb",
     "file-loader": "^2.0.0",

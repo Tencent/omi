@@ -1,5 +1,4 @@
-import { define, WeElement } from 'omi'
-import classNames from 'classnames'
+import { define, WeElement, classNames } from 'omi'
 import css from './_index.css'
 
 define('o-button', class extends WeElement {
