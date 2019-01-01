@@ -6,6 +6,7 @@ define('o-checkbox', class extends WeElement {
   css() {
     return css
   }
+  
   render(props) {
     const checked = props.checked ? { checked: true } : null
     delete props.checked

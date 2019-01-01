@@ -1,0 +1,70 @@
+/*the container must be positioned relative:*/
+.o-dropdown {
+  position: relative;
+  color: black;
+  font-size: 14px;
+}
+
+.select-selected {
+  background-color: white;
+  border-radius: 4px; 
+  color: black;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 11px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: black transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent black transparent;
+  top: 5px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div {
+  color: black;
+  padding: 4px 8px;
+  border-bottom: 1px solid #ddd; 
+  cursor: pointer;
+  user-select: none;
+}
+
+.select-selected {
+  color: black;
+  padding: 4px 8px;
+  background-color: #eee;
+  border-bottom: 1px solid #ddd; 
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: #eee;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  overflow: hidden; 
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgb(181, 247, 212);
+}
