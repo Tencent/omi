@@ -97,6 +97,110 @@ describe('install()', () => {
   })
 
 
+  it('should rerender', () => {
+
+    let count = 0
+    class C2 extends Component {
+
+      render(props) {
+        count++
+        return <div><div>a</div><div>b</div></div>
+      }
+    }
+
+    define('c2-ele', C2)
+
+    class C3 extends Component {
+
+      install(){
+        this.aa = 1
+      }
+      render(props) {
+        return <div><c2-ele name={this.aa} /></div>
+      }
+
+      installed(){
+        this.aa = 1
+        this.update()
+      }
+    }
+    define('c3-ele', C3)
+    render(<c3-ele />, scratch)
+
+  
+    expect(count).to.equal(1)
+  })
+
+
+  it('should rerender', () => {
+
+    let count = 0
+    class C2 extends Component {
+
+      render(props) {
+        count++
+        return <div><div>a</div><div>b</div></div>
+      }
+    }
+
+    define('c2-ele', C2)
+
+    class C3 extends Component {
+
+      install(){
+        this.aa = 1
+      }
+      render(props) {
+        return <div><c2-ele name={this.aa} /></div>
+      }
+
+      installed(){
+        this.aa = 2
+        this.update()
+      }
+    }
+    define('c3-ele', C3)
+    render(<c3-ele />, scratch)
+
+  
+    expect(count).to.equal(2)
+  })
+
+
+
+  it('should rerender', () => {
+
+    let count = 0
+    class C2 extends Component {
+
+      render(props) {
+        count++
+        return <div><div>a</div><div>b</div></div>
+      }
+    }
+
+    define('c2-ele', C2)
+
+    class C3 extends Component {
+
+      install(){
+        this.aa = {}
+      }
+      render(props) {
+        return <div><c2-ele name={this.aa} /></div>
+      }
+
+      installed(){
+        this.update()
+      }
+    }
+    define('c3-ele', C3)
+    render(<c3-ele />, scratch)
+
+  
+    expect(count).to.equal(2)
+  })
+
 
   it('should clone components', () => {
     let instance = <a-b a />
