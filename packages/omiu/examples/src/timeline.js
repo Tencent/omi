@@ -1,11 +1,11 @@
 import { WeElement, define, render } from 'omi'
-import '../../src/checkbox'
+import '../../src/radio'
 define('my-app', class extends WeElement {
   render() {
     return (
       <div>
-         <o-checkbox checked label='label' />
-         <o-checkbox label='试试中文' />
+         <o-radio checked label='label' name='abc' />
+         <o-radio label='试试中文'  name='abc'  />
       </div>
        
   
