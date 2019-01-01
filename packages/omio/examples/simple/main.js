@@ -24,6 +24,12 @@ define('my-app', class extends Component {
                 }`
   }
 
+  installed(){
+    setTimeout(()=>{
+      this.name = 11
+      this.update()
+    },1000)
+  }
   css() {
     return `div{
                     font-size:30px;
@@ -32,9 +38,9 @@ define('my-app', class extends Component {
 
   render() {
     return (
-
+        <div>
         <my-hello name={this.name} />
-      
+        </div>
     )
   }
 })

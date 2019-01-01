@@ -12,16 +12,10 @@ export function enqueueRender(component) {
   }
 }
 
+/** Rerender all enqueued dirty components */
 export function rerender() {
-  let p,
-    list = items
-  items = []
-  let element
-  while ((p = list.pop())) {
-    element = p.base
+	let p
+	while ( (p = items.pop()) ) {
     renderComponent(p)
-  }
-  if (!list.length) {
-    if (options.componentChange) options.componentChange(p, element)
-  }
+	}
 }

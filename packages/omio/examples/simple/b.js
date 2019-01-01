@@ -127,16 +127,8 @@
 
     var p = new VNode();
     p.nodeName = nodeName;
+    p.children = children;
     p.attributes = attributes == null ? undefined : attributes;
-    if (children && typeof children[0] === 'string' && !options.isWeb) {
-      if (p.attributes) {
-        p.attributes.value = children[0];
-      } else {
-        p.attributes = { value: children[0] };
-      }
-    } else {
-      p.children = children;
-    }
     p.key = attributes == null ? undefined : attributes.key;
 
     // if a "vnode hook" is defined, pass every created VNode to it
@@ -361,17 +353,11 @@
     }
   }
 
+  /** Rerender all enqueued dirty components */
   function rerender() {
-    var p = void 0,
-        list = items;
-    items = [];
-    var element = void 0;
-    while (p = list.pop()) {
-      element = p.base;
+    var p = void 0;
+    while (p = items.pop()) {
       renderComponent(p);
-    }
-    if (!list.length) {
-      if (options.componentChange) options.componentChange(p, element);
     }
   }
 
@@ -610,7 +596,6 @@
     var c = void 0;
     while (c = mounts.pop()) {
       if (options.afterMount) options.afterMount(c);
-      if (c.componentDidMount) c.componentDidMount();
       if (c.installed) c.installed();
     }
   }
@@ -1292,7 +1277,6 @@
     if (component.__key = props.key) delete props.key;
 
     if (!component.base || mountAll) {
-      if (component.componentWillMount) component.componentWillMount();
       if (component.beforeInstall) component.beforeInstall();
       if (component.install) component.install();
       if (component.constructor.observe) {
@@ -1300,8 +1284,6 @@
       }
     } else if (component.receiveProps) {
       component.receiveProps(props, component.data, component.props);
-    } else if (component.componentWillReceiveProps) {
-      component.componentWillReceiveProps(props, context);
     }
 
     if (context && context !== component.context) {
@@ -1323,6 +1305,31 @@
     }
 
     if (component.__ref) component.__ref(component);
+  }
+
+  function shallowComparison(old, attrs) {
+    var name = void 0;
+
+    for (name in old) {
+      if (attrs[name] == null && old[name] != null) {
+        return true;
+      }
+    }
+
+    if (old.children.length > 0 || attrs.children.length > 0) {
+      return true;
+    }
+
+    for (name in attrs) {
+      if (name != 'children') {
+        var type = typeof attrs[name];
+        if (type == 'function' || type == 'object') {
+          return true;
+        } else if (attrs[name] != old[name]) {
+          return true;
+        }
+      }
+    }
   }
 
   /** Render a Component, triggering necessary lifecycle events and taking High-Order Components into account.
@@ -1354,12 +1361,13 @@
       component.props = previousProps;
       component.data = previousState;
       component.context = previousContext;
-      if (opts !== FORCE_RENDER && component.shouldComponentUpdate && component.shouldComponentUpdate(props, data, context) === false) {
+      if (opts == FORCE_RENDER || shallowComparison(previousProps, props)) {
+        skip = false;
+        if (component.beforeUpdate) {
+          component.beforeUpdate(props, data, context);
+        }
+      } else {
         skip = true;
-      } else if (component.componentWillUpdate) {
-        component.componentWillUpdate(props, data, context);
-      } else if (component.beforeUpdate) {
-        component.beforeUpdate(props, data, context);
       }
       component.props = props;
       component.data = data;
@@ -1463,9 +1471,7 @@
       // Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
       // flushMounts();
 
-      if (component.componentDidUpdate) {
-        component.componentDidUpdate(previousProps, previousState, previousContext);
-      }
+
       if (component.afterUpdate) {
         //deprecated
         component.afterUpdate(previousProps, previousState, previousContext);
@@ -1540,7 +1546,6 @@
 
     component._disable = true;
 
-    if (component.componentWillUnmount) component.componentWillUnmount();
     if (component.uninstall) component.uninstall();
 
     component.base = null;
@@ -1708,6 +1713,61 @@
   ModelView.observe = true;
   ModelView.mergeUpdate = true;
 
+  /**
+   * classNames based on https://github.com/JedWatson/classnames
+   * by Jed Watson
+   * Licensed under the MIT License
+   * https://github.com/JedWatson/classnames/blob/master/LICENSE
+   * modified by dntzhang
+   */
+
+  var hasOwn = {}.hasOwnProperty;
+
+  function classNames() {
+    var classes = [];
+
+    for (var i = 0; i < arguments.length; i++) {
+      var arg = arguments[i];
+      if (!arg) continue;
+
+      var argType = typeof arg;
+
+      if (argType === 'string' || argType === 'number') {
+        classes.push(arg);
+      } else if (Array.isArray(arg) && arg.length) {
+        var inner = classNames.apply(null, arg);
+        if (inner) {
+          classes.push(inner);
+        }
+      } else if (argType === 'object') {
+        for (var key in arg) {
+          if (hasOwn.call(arg, key) && arg[key]) {
+            classes.push(key);
+          }
+        }
+      }
+    }
+
+    return classes.join(' ');
+  }
+
+  function extractClass() {
+    var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0),
+        props = _Array$prototype$slic[0],
+        args = _Array$prototype$slic.slice(1);
+
+    if (props.class) {
+      args.unshift(props.class);
+      delete props.class;
+    } else if (props.className) {
+      args.unshift(props.className);
+      delete props.className;
+    }
+    if (args.length > 0) {
+      return { class: classNames.apply(null, args) };
+    }
+  }
+
   var WeElement = Component;
   var defineElement = define;
 
@@ -1723,10 +1783,12 @@
     define: define,
     rpx: rpx,
     ModelView: ModelView,
-    defineElement: defineElement
+    defineElement: defineElement,
+    classNames: classNames,
+    extractClass: extractClass
   };
   options.root.omi = Omi;
-  options.root.Omi.version = 'omio-1.2.2';
+  options.root.Omi.version = 'omio-1.2.3';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1786,12 +1848,25 @@
       return 'h3{\n                    cursor:pointer;\n                    color: ' + (Math.random() > 0.5 ? 'red' : 'green') + ';\n                }';
     };
 
+    _class3.prototype.installed = function installed() {
+      var _this3 = this;
+
+      setTimeout(function () {
+        _this3.name = 11;
+        _this3.update();
+      }, 1000);
+    };
+
     _class3.prototype.css = function css() {
       return 'div{\n                    font-size:30px;\n                }';
     };
 
     _class3.prototype.render = function render$$1() {
-      return Omi.h('my-hello', { name: this.name });
+      return Omi.h(
+        'div',
+        null,
+        Omi.h('my-hello', { name: this.name })
+      );
     };
 
     return _class3;

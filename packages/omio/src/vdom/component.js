@@ -23,7 +23,6 @@ import {
   addScopedAttr,
   addScopedAttrStatic,
   getCtorName,
-  scopeVdom,
   scopeHost
 } from '../style'
 import { proxyUpdate } from '../observe'
@@ -42,7 +41,6 @@ export function setComponentProps(component, props, opts, context, mountAll) {
   if ((component.__key = props.key)) delete props.key
 
   if (!component.base || mountAll) {
-    if (component.componentWillMount) component.componentWillMount()
     if (component.beforeInstall) component.beforeInstall()
     if (component.install) component.install()
     if (component.constructor.observe) {
@@ -50,9 +48,7 @@ export function setComponentProps(component, props, opts, context, mountAll) {
     }
   } else if (component.receiveProps) {
     component.receiveProps(props, component.data, component.props)
-  } else if (component.componentWillReceiveProps) {
-    component.componentWillReceiveProps(props, context)
-  }
+  } 
 
   if (context && context !== component.context) {
     if (!component.prevContext) component.prevContext = component.context
@@ -77,6 +73,31 @@ export function setComponentProps(component, props, opts, context, mountAll) {
   }
 
   if (component.__ref) component.__ref(component)
+}
+
+function shallowComparison(old, attrs) {
+  let name
+
+  for (name in old) {
+    if (attrs[name] == null && old[name] != null) {
+      return true
+    }
+  }
+
+  if (old.children.length > 0 || attrs.children.length > 0) {
+    return true
+  }
+
+  for (name in attrs) {
+    if (name != 'children') {
+      let type = typeof attrs[name]
+      if (type == 'function' || type == 'object') {
+        return true
+      } else if (attrs[name] != old[name]) {
+        return true
+      }
+    }
+  }
 }
 
 /** Render a Component, triggering necessary lifecycle events and taking High-Order Components into account.
@@ -108,16 +129,13 @@ export function renderComponent(component, opts, mountAll, isChild) {
     component.props = previousProps
     component.data = previousState
     component.context = previousContext
-    if (
-      opts !== FORCE_RENDER &&
-      component.shouldComponentUpdate &&
-      component.shouldComponentUpdate(props, data, context) === false
-    ) {
+    if (opts == FORCE_RENDER || shallowComparison(previousProps, props)) {
+      skip = false
+      if (component.beforeUpdate) {
+        component.beforeUpdate(props, data, context)
+      }
+    } else {
       skip = true
-    } else if (component.componentWillUpdate) {
-      component.componentWillUpdate(props, data, context)
-    } else if (component.beforeUpdate) {
-      component.beforeUpdate(props, data, context)
     }
     component.props = props
     component.data = data
@@ -237,13 +255,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
     // Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
     // flushMounts();
 
-    if (component.componentDidUpdate) {
-      component.componentDidUpdate(
-        previousProps,
-        previousState,
-        previousContext
-      )
-    }
+   
     if (component.afterUpdate) {
       //deprecated
       component.afterUpdate(previousProps, previousState, previousContext)
@@ -317,7 +329,6 @@ export function unmountComponent(component) {
 
   component._disable = true
 
-  if (component.componentWillUnmount) component.componentWillUnmount()
   if (component.uninstall) component.uninstall()
 
   component.base = null

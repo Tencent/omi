@@ -24,7 +24,6 @@ export function flushMounts() {
   let c
   while ((c = mounts.pop())) {
     if (options.afterMount) options.afterMount(c)
-    if (c.componentDidMount) c.componentDidMount()
     if (c.installed) c.installed()
   }
 }

@@ -72,16 +72,8 @@ export function h(nodeName, attributes) {
 
   let p = new VNode()
   p.nodeName = nodeName
-  p.attributes = attributes == null ? undefined : attributes
-  if (children && typeof children[0] === 'string' && !options.isWeb) {
-    if (p.attributes) {
-      p.attributes.value = children[0]
-    } else {
-      p.attributes = { value: children[0] }
-    }
-  } else {
-    p.children = children
-  }
+  p.children = children
+	p.attributes = attributes == null ? undefined : attributes
   p.key = attributes == null ? undefined : attributes.key
 
   // if a "vnode hook" is defined, pass every created VNode to it
