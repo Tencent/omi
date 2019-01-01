@@ -20,19 +20,19 @@ define('o-dialog', class extends WeElement {
       <div class="o-dialog" style={{ display }}>
         <div class="content">
           <h1>{props.title}</h1>
-          <p>{props.content}</p>
+          <p>{props.msg}</p>
           {props.type === 'confirm' ? (
             <div>
               <a class="close" onClick={this.close}>
-                取消
+                {props.cancelText}
               </a>
               <a class="ok" onClick={this.confirm}>
-                确定
+                {props.confirmText}
               </a>
             </div>
           ) : (
             <a class="ok" onClick={this.confirm}>
-              确定
+              {props.confirmText}
             </a>
           )}
         </div>

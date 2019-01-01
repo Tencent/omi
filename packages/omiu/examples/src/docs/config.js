@@ -23,7 +23,8 @@ const config = {
           { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' },
           { name: 'Toast', md: 'toast', demo: './repl/toast.html' },
           { name: 'Progress', md: 'progress', demo: './repl/progress.html' },
-          { name: 'Popup', md: 'popup', demo: './repl/popup.html' }
+          { name: 'Popup', md: 'popup', demo: './repl/popup.html' },
+          { name: 'Dialog', md: 'dialog', demo: './repl/dialog.html' }
         ]
       },
       {
@@ -63,7 +64,8 @@ const config = {
           { name: 'ActionSheet', md: 'action-sheet', demo: './repl/action-sheet.html' },
           { name: 'Toast', md: 'toast', demo: './repl/toast.html' },
           { name: 'Progress', md: 'progress', demo: './repl/progress.html' },
-          { name: 'Popup', md: 'popup', demo: './repl/popup.html' }
+          { name: 'Popup', md: 'popup', demo: './repl/popup.html' },
+          { name: 'Dialog', md: 'dialog', demo: './repl/dialog.html' }
         ]
       },
       {

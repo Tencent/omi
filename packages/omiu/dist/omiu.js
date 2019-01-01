@@ -741,7 +741,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
           Omi.h(
             'p',
             null,
-            props.content
+            props.msg
           ),
           props.type === 'confirm' ? Omi.h(
             'div',
@@ -749,17 +749,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             Omi.h(
               'a',
               { 'class': 'close', onClick: this.close },
-              '\u53D6\u6D88'
+              props.cancelText
             ),
             Omi.h(
               'a',
               { 'class': 'ok', onClick: this.confirm },
-              '\u786E\u5B9A'
+              props.confirmText
             )
           ) : Omi.h(
             'a',
             { 'class': 'ok', onClick: this.confirm },
-            '\u786E\u5B9A'
+            props.confirmText
           )
         )
       );
