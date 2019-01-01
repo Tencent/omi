@@ -22,14 +22,14 @@ define('o-popup', class extends WeElement {
       <div class="o-popup">
         <div class="content">
           <div class="header">
-            <span class="title">添加模块</span>
+            <span class="title">{props.title}</span>
             <o-icon class="close" scale={1} type="close" onClick={this.close} />
           </div>
           <div class="main">
             {props.children}
             <div class="footer">
               <o-button size="small" type="default" onClick={this.close}>
-                取消
+                {props.cancelText}
               </o-button>
               <o-button
                 size="small"
@@ -37,7 +37,7 @@ define('o-popup', class extends WeElement {
                 onClick={this.confirm}
                 type="primary"
               >
-                确定
+                {props.confirmText}
               </o-button>
             </div>
           </div>

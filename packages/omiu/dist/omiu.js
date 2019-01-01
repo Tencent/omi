@@ -484,7 +484,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     value: function render(props, data) {
       return Omi.h(
         'div',
-        { 'class': 'ctn' },
+        (0, _omi.extractClass)(props, 'o-input-number'),
         Omi.h(
           'span',
           {
@@ -549,7 +549,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "span{\r\n  position: absolute;\r\n  border: 1px solid #ccc;\r\n  width: 32px;\r\n  height: 32px;\r\n  background-color: white;\r\n  cursor: pointer;\r\n  text-align: center;\r\n  line-height: 29px;\r\n}\r\n\r\n*{\r\n  box-sizing: border-box;\r\n}\r\n\r\n.decrease{\r\n  left: 1px;\r\n  border-radius: 3px 0px 0px 3px;\r\n  user-select: none;\r\n}\r\n\r\n.increase{\r\n  right: 1px;\r\n  border-radius: 0px 3px 3px 0px;\r\n  user-select: none;\r\n}\r\n\r\n.ctn{\r\n  position: relative;\r\n  width: 150px;\r\n  display: inline-block;\r\n}\r\n\r\n.input{\r\n  width: 100%;\r\n}\r\n\r\ninput{\r\n  width:100px;\r\n  height: 32px;\r\n  margin: 0 auto;\r\n  display: block;\r\n  text-align: center;\r\n  border: 1px solid #ccc;\r\n}\r\n", ""]);
+exports.push([module.i, ".o-input-number{\r\n  position: relative;\r\n  width: 150px;\r\n  display: inline-block;\r\n}\r\n\r\nspan{\r\n  position: absolute;\r\n  border: 1px solid #ccc;\r\n  width: 32px;\r\n  height: 32px;\r\n  background-color: white;\r\n  cursor: pointer;\r\n  text-align: center;\r\n  line-height: 29px;\r\n}\r\n\r\n*{\r\n  box-sizing: border-box;\r\n}\r\n\r\n.decrease{\r\n  left: 1px;\r\n  border-radius: 3px 0px 0px 3px;\r\n  user-select: none;\r\n}\r\n\r\n.increase{\r\n  right: 1px;\r\n  border-radius: 0px 3px 3px 0px;\r\n  user-select: none;\r\n}\r\n\r\n.input{\r\n  width: 100%;\r\n}\r\n\r\ninput{\r\n  width:100px;\r\n  height: 32px;\r\n  margin: 0 auto;\r\n  display: block;\r\n  text-align: center;\r\n  border: 1px solid #ccc;\r\n}\r\n", ""]);
 
 
 
@@ -596,7 +596,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       if (props.number !== undefined) {
         return Omi.h(
           'div',
-          { 'class': 'o-badge' },
+          (0, _omi.extractClass)(props, 'o-badge'),
           props.children[0],
           Omi.h(
             'span',
@@ -790,7 +790,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "\r\n.o-dialog {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: fixed;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n  left:0;\r\n  top: 0;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n}\r\n\r\n.content {\r\n  width: 80%;\r\n  height: auto;\r\n  background-color: white;\r\n  position: fixed;\r\n  left: 10%;\r\n  top: 20%;\r\n  border-radius: 4px; \r\n  text-align: center;\r\n}\r\n\r\n\r\n\r\nh1 {\r\n  font-size: 18px;\r\n  font-weight: normal;\r\n  padding: 20px;\r\n  margin: 0px;\r\n}\r\np {\r\n  font-size: 16px;\r\n  color: #666;\r\n  padding-bottom: 20px;\r\n  margin: 0px;\r\n  \r\n  border-bottom: 1px solid #eee;\r\n}\r\n\r\na {\r\n  padding: 15px;\r\n  text-align: center;\r\n  font-size: 16px;\r\n  display: inline-block;\r\n  width: 50%;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.ok {\r\n  color: #07C160;\r\n}\r\n.close {\r\n  border-right: 1px solid #eee;\r\n}", ""]);
+exports.push([module.i, "\r\n.o-dialog {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: fixed;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n  left:0;\r\n  top: 0;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n}\r\n\r\n.content {\r\n  width: 80%;\r\n  height: auto;\r\n  background-color: white;\r\n  position: fixed;\r\n  left: 10%;\r\n  top: 20%;\r\n  border-radius: 4px; \r\n  text-align: center;\r\n}\r\n\r\n\r\n\r\nh1 {\r\n  font-size: 18px;\r\n  font-weight: normal;\r\n  padding: 20px;\r\n  margin: 0px;\r\n}\r\np {\r\n  font-size: 16px;\r\n  color: #666;\r\n  padding-bottom: 20px;\r\n  margin: 0px;\r\n  \r\n  border-bottom: 1px solid #eee;\r\n}\r\n\r\na {\r\n  padding: 15px;\r\n  text-align: center;\r\n  font-size: 16px;\r\n  display: inline-block;\r\n  width: 50%;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.ok {\r\n  color: #07C160;\r\n}\r\n.close {\r\n  border-right: 1px solid #eee;\r\n  color: black;\r\n}", ""]);
 
 
 
@@ -941,6 +941,8 @@ exports['default'] = {
 "use strict";
 
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _omi = __webpack_require__(0);
@@ -983,15 +985,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }, {
     key: 'render',
-    value: function render() {
-      var props = {
-        'class': 'o-input ' + (this.props['class'] || ''),
-        placeholder: this.props.placeholder || ''
-      };
-
+    value: function render(props) {
       return Omi.h(
         'div',
-        props,
+        _extends({}, (0, _omi.extractClass)(props, 'o-input'), props),
         Omi.h('input', { placeholder: props.placeholder })
       );
     }
@@ -1072,7 +1069,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       });
       return Omi.h(
         'div',
-        null,
+        (0, _omi.extractClass)(props, 'o-list'),
         Omi.h(
           'h2',
           { 'class': 'title' },
@@ -1210,6 +1207,8 @@ exports.push([module.i, "\r\nli {\r\n  background: #fff;\r\n  position: relative
 "use strict";
 
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _omi = __webpack_require__(0);
@@ -1243,10 +1242,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }, {
     key: 'render',
     value: function render(props) {
-      return Omi.h('div', {
-        'class': 'o-loading',
+      return Omi.h('div', _extends({}, (0, _omi.extractClass)(props, 'o-loading'), {
         style: { width: props.size, height: props.size }
-      });
+      }));
     }
   }]);
 
@@ -1387,7 +1385,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     value: function render(props) {
       return Omi.h(
         'div',
-        { 'class': 'o-menu' },
+        (0, _omi.extractClass)(props, 'o-menu'),
+        Omi.h('span', { 'class': 'arrow' }),
         Omi.h(
           'div',
           { 'class': 'ctn' },
@@ -1431,8 +1430,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
               '\u6536\u6B3E\u652F\u4ED8'
             )
           )
-        ),
-        Omi.h('span', { 'class': 'arrow' })
+        )
       );
     }
   }]);
@@ -1461,7 +1459,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-menu{\r\n  max-width: 160px;\r\n  position: relative;\r\n}\r\n\r\n.ctn{\r\n  border-radius: 5px;\r\n  background-color: #4C4B4C;\r\n  color: #F2F2F2;\r\n  overflow: hidden;\r\n}\r\n\r\n.ctn>a{\r\n  text-align: center;\r\n  display: block;\r\n  position: relative;\r\n  line-height: 35px;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  text-align: left;\r\n  height: 60px;\r\n  color: #F2F2F2;\r\n}\r\n\r\na:active{\r\n  background-color:rgb(63, 63, 63);\r\n}\r\n\r\n.icon {\r\n  position:absolute;\r\n  left:20px;\r\n  top:13px;\r\n}\r\n\r\n.wd{\r\n  margin-left: 60px;\r\n  line-height: 60px;\r\n  border-bottom: 1px solid #555555; \r\n}\r\n\r\n.arrow{\r\n  position:absolute;\r\n  width: 10px;\r\n  height: 10px;\r\n  background-color: #4C4B4C; \r\n  transform: rotate(45deg);\r\n  border-radius: 2px;\r\n  z-index: -1;\r\n  top:-4px;\r\n  right: 15px;;\r\n\r\n}", ""]);
+exports.push([module.i, ".o-menu{\r\n  max-width: 160px;\r\n  position: relative;\r\n}\r\n\r\n.ctn{\r\n  border-radius: 5px;\r\n  background-color: #4C4B4C;\r\n  color: #F2F2F2;\r\n  overflow: hidden;\r\n}\r\n\r\n.ctn>a{\r\n  text-align: center;\r\n  display: block;\r\n  position: relative;\r\n  line-height: 35px;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  text-align: left;\r\n  height: 60px;\r\n  color: #F2F2F2;\r\n}\r\n\r\na:active{\r\n  background-color:rgb(63, 63, 63);\r\n}\r\n\r\n.icon {\r\n  position:absolute;\r\n  left:20px;\r\n  top:13px;\r\n}\r\n\r\n.wd{\r\n  margin-left: 60px;\r\n  line-height: 60px;\r\n  border-bottom: 1px solid #555555; \r\n}\r\n\r\n.arrow{\r\n  position:absolute;\r\n  width: 10px;\r\n  height: 10px;\r\n  background-color: #4C4B4C; \r\n  transform: rotate(45deg);\r\n  border-radius: 2px;\r\n  top:-4px;\r\n  right: 15px;;\r\n\r\n}", ""]);
 
 
 
@@ -1522,7 +1520,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       var button = props.type === 'warn' ? 'warn' : 'primary';
       return Omi.h(
         'div',
-        { className: 'ow-msg' },
+        (0, _omi.extractClass)(props, 'o-msg'),
         Omi.h('o-icon', {
           type: props.type,
           scale: 4,
@@ -1531,7 +1529,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         }),
         Omi.h(
           'h2',
-          { className: 'title' },
+          { 'class': 'title' },
           props.title
         ),
         Omi.h(
@@ -1767,7 +1765,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }, {
     key: 'render',
-    value: function render() {
+    value: function render(props) {
       var arr = [];
       var opt = this.data,
           interval = this.getInterval();
@@ -1799,7 +1797,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
       return Omi.h(
         'div',
-        { 'class': 'o-pagination is-background' },
+        (0, _omi.extractClass)(props, 'o-pagination is-background'),
         opt.prevShow && this.getPrev(),
         ' ',
         Omi.h(
@@ -2042,7 +2040,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             Omi.h(
               'span',
               { 'class': 'title' },
-              '\u6DFB\u52A0\u6A21\u5757'
+              props.title
             ),
             Omi.h('o-icon', { 'class': 'close', scale: 1, type: 'close', onClick: this.close })
           ),
@@ -2056,7 +2054,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
               Omi.h(
                 'o-button',
                 { size: 'small', type: 'default', onClick: this.close },
-                '\u53D6\u6D88'
+                props.cancelText
               ),
               Omi.h(
                 'o-button',
@@ -2066,7 +2064,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                   onClick: this.confirm,
                   type: 'primary'
                 },
-                '\u786E\u5B9A'
+                props.confirmText
               )
             )
           )
@@ -2110,6 +2108,8 @@ exports.push([module.i, ".o-popup {\r\n  width: 100%;\r\n  height: 100%;\r\n  po
 "use strict";
 
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _class, _temp;
@@ -2147,7 +2147,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     value: function render(props) {
       return Omi.h(
         'div',
-        { 'class': 'progress', style: 'background-color: ' + props.bgColor + ';' },
+        _extends({}, (0, _omi.extractClass)(props, 'o-progress'), { style: 'background-color: ' + props.bgColor + ';' }),
         Omi.h('div', {
           'class': 'inner',
           style: 'width:' + props.value + '%;background-color: ' + props.innerColor + ';'
@@ -2180,7 +2180,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".progress{\r\n  width: 100%;\r\n  height: 12px;\r\n  background-color: #ccc;\r\n  border-radius: 6px; \r\n}\r\n\r\n.inner{\r\n  height: 12px;\r\n  width: 60%;\r\n  background-color: #07C160;\r\n  border-radius: 6px; \r\n}", ""]);
+exports.push([module.i, ".o-progress{\r\n  width: 100%;\r\n  height: 12px;\r\n  background-color: #ccc;\r\n  border-radius: 6px; \r\n}\r\n\r\n.inner{\r\n  height: 12px;\r\n  width: 60%;\r\n  background-color: #07C160;\r\n  border-radius: 6px; \r\n}", ""]);
 
 
 
@@ -2259,7 +2259,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       if (props.single) {
         return Omi.h(
           'div',
-          { 'class': 'weui-cells weui-cells_radio' },
+          (0, _omi.extractClass)(props, 'weui-cells weui-cells_radio'),
           props.items.map(function (item, index) {
             return Omi.h(
               'label',
@@ -2310,7 +2310,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       } else {
         return Omi.h(
           'div',
-          { 'class': 'weui-cells weui-cells_checkbox' },
+          (0, _omi.extractClass)(props, 'weui-cells weui-cells_checkbox'),
           props.items.map(function (item, index) {
             return Omi.h(
               'label',
@@ -2398,6 +2398,8 @@ exports.push([module.i, "\r\n\r\n.weui-check__label{\r\n  -webkit-tap-highlight-
 "use strict";
 
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _omi = __webpack_require__(0);
@@ -2470,7 +2472,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       if (props.disabled) {
         return Omi.h(
           'div',
-          { 'class': 'weui-slider' },
+          (0, _omi.extractClass)(props, 'weui-slider'),
           Omi.h(
             'div',
             {
@@ -2487,7 +2489,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
       return Omi.h(
         'div',
-        { 'class': 'weui-slider-box', onTouchStart: this.start },
+        _extends({}, (0, _omi.extractClass)(props, 'weui-slider-box'), { onTouchStart: this.start }),
         Omi.h(
           'div',
           { 'class': 'weui-slider' },
@@ -2558,6 +2560,8 @@ exports.push([module.i, ".weui-slider{\r\n  padding:15px 18px;\r\n  -webkit-user
 "use strict";
 
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _omi = __webpack_require__(0);
@@ -2606,7 +2610,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       if (props.checked) {
         return Omi.h(
           'label',
-          { 'for': 'x_' + this.elementId, 'class': 'weui-switch-cp' },
+          _extends({ 'for': 'x_' + this.elementId }, (0, _omi.extractClass)(props, 'weui-switch-cp')),
           Omi.h('input', {
             id: 'x_' + this.elementId,
             ref: function ref(e) {
@@ -2621,14 +2625,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         );
       }
 
-      return Omi.h('input', {
-        'class': 'weui-switch',
+      return Omi.h('input', _extends({}, (0, _omi.extractClass)(props, 'weui-switch'), {
         type: 'checkbox',
         ref: function ref(e) {
           _this2._ele = e;
         },
         onChange: this.onChange
-      });
+      }));
     }
   }]);
 
@@ -2714,7 +2717,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
       return Omi.h(
         'ul',
-        { 'class': 'o-tab' },
+        (0, _omi.extractClass)(props, 'o-tab'),
         props.children.map(function (item, index) {
           var props = {};
           var isActive = item.attributes && item.attributes.active;
@@ -2821,7 +2824,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
       return Omi.h(
         'ul',
-        { 'class': 'o-tab-bar' },
+        (0, _omi.extractClass)(props, 'o-tab-bar'),
         props.children.map(function (child, index) {
           var props = {};
 
@@ -3295,27 +3298,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }, {
     key: 'render',
-    value: function render() {
-      var _props = this.props,
-          className = _props.className,
-          type = _props.type,
-          show = _props.show,
-          children = _props.children,
-          iconSize = _props.iconSize,
-          others = _objectWithoutProperties(_props, ['className', 'type', 'show', 'children', 'iconSize']);
+    value: function render(props) {
+      var cls = (0, _omi.extractClass)(props, 'weui-toast');
 
-      var cls = (0, _omi.classNames)('weui-toast', _defineProperty({}, className, className));
+      var type = props.type,
+          show = props.show,
+          children = props.children,
+          iconSize = props.iconSize,
+          others = _objectWithoutProperties(props, ['type', 'show', 'children', 'iconSize']);
 
       return Omi.h(
         'div',
         { style: { display: show ? 'block' : 'none' } },
         Omi.h(
           'div',
-          _extends({ className: cls }, others),
-          type === 'success' ? Omi.h('o-icon', { type: 'check', color: 'white', 'class': 'icon', scale: 4, className: 'weui-icon_toast' }) : Omi.h('o-icon', { type: 'loading', rotate: true, color: 'white', 'class': 'icon-l', scale: 3, className: 'weui-icon_toast' }),
+          _extends({}, cls, others),
+          type === 'success' ? Omi.h('o-icon', _defineProperty({ type: 'check', color: 'white', 'class': 'icon', scale: 4 }, 'class', 'weui-icon_toast')) : Omi.h('o-icon', _defineProperty({ type: 'loading', rotate: true, color: 'white', 'class': 'icon-l', scale: 3 }, 'class', 'weui-icon_toast')),
           Omi.h(
             'p',
-            { className: 'weui-toast_content' },
+            { 'class': 'weui-toast_content' },
             children
           )
         )
