@@ -16,10 +16,8 @@
         }
         var p = new VNode();
         p.nodeName = nodeName;
+        p.children = children;
         p.attributes = null == attributes ? void 0 : attributes;
-        if (children && 'string' == typeof children[0] && !options.isWeb) if (p.attributes) p.attributes.value = children[0]; else p.attributes = {
-            value: children[0]
-        }; else p.children = children;
         p.key = null == attributes ? void 0 : attributes.key;
         if (void 0 !== options.vnode) options.vnode(p);
         return p;
@@ -64,14 +62,8 @@
         if (1 == items.push(component)) (options.debounceRendering || defer)(rerender);
     }
     function rerender() {
-        var p, list = items;
-        items = [];
-        var element;
-        while (p = list.pop()) {
-            element = p.base;
-            renderComponent(p);
-        }
-        if (!list.length) if (options.componentChange) options.componentChange(p, element);
+        var p;
+        while (p = items.pop()) renderComponent(p);
     }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
@@ -182,7 +174,6 @@
         var c;
         while (c = mounts.pop()) {
             if (options.afterMount) options.afterMount(c);
-            if (c.componentDidMount) c.componentDidMount();
             if (c.installed) c.installed();
         }
     }
@@ -438,11 +429,10 @@
             if (component.__r = props.ref) delete props.ref;
             if (component.__k = props.key) delete props.key;
             if (!component.base || mountAll) {
-                if (component.componentWillMount) component.componentWillMount();
                 if (component.beforeInstall) component.beforeInstall();
                 if (component.install) component.install();
                 if (component.constructor.observe) proxyUpdate(component);
-            } else if (component.receiveProps) component.receiveProps(props, component.data, component.props); else if (component.componentWillReceiveProps) component.componentWillReceiveProps(props, context);
+            } else if (component.receiveProps) component.receiveProps(props, component.data, component.props);
             if (context && context !== component.context) {
                 if (!component.__c) component.__c = component.context;
                 component.context = context;
@@ -454,6 +444,15 @@
             if (component.__r) component.__r(component);
         }
     }
+    function shallowComparison(old, attrs) {
+        var name;
+        for (name in old) if (null == attrs[name] && null != old[name]) return !0;
+        if (old.children.length > 0 || attrs.children.length > 0) return !0;
+        for (name in attrs) if ('children' != name) {
+            var type = typeof attrs[name];
+            if ('function' == type || 'object' == type) return !0; else if (attrs[name] != old[name]) return !0;
+        }
+    }
     function renderComponent(component, opts, mountAll, isChild) {
         if (!component.__x) {
             var rendered, inst, cbase, props = component.props, data = component.data, context = component.context, previousProps = component.__p || props, previousState = component.__s || data, previousContext = component.__c || context, isUpdate = component.base, nextBase = component.__b, initialBase = isUpdate || nextBase, initialChildComponent = component._component, skip = !1;
@@ -461,7 +460,10 @@
                 component.props = previousProps;
                 component.data = previousState;
                 component.context = previousContext;
-                if (2 !== opts && component.shouldComponentUpdate && !1 === component.shouldComponentUpdate(props, data, context)) skip = !0; else if (component.componentWillUpdate) component.componentWillUpdate(props, data, context); else if (component.beforeUpdate) component.beforeUpdate(props, data, context);
+                if (2 == opts || shallowComparison(previousProps, props)) {
+                    skip = !1;
+                    if (component.beforeUpdate) component.beforeUpdate(props, data, context);
+                } else skip = !0;
                 component.props = props;
                 component.data = data;
                 component.context = context;
@@ -516,7 +518,6 @@
                 }
             }
             if (!isUpdate || mountAll) mounts.unshift(component); else if (!skip) {
-                if (component.componentDidUpdate) component.componentDidUpdate(previousProps, previousState, previousContext);
                 if (component.afterUpdate) component.afterUpdate(previousProps, previousState, previousContext);
                 if (component.updated) component.updated(previousProps, previousState, previousContext);
                 if (options.afterUpdate) options.afterUpdate(component);
@@ -554,7 +555,6 @@
         if (options.beforeUnmount) options.beforeUnmount(component);
         var base = component.base;
         component.__x = !0;
-        if (component.componentWillUnmount) component.componentWillUnmount();
         if (component.uninstall) component.uninstall();
         component.base = null;
         var inner = component._component;
@@ -931,7 +931,7 @@
         extractClass: extractClass
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.2.3';
+    options.root.Omi.version = 'omio-1.2.4';
     var Omi$1 = {
         h: h,
         createElement: h,
