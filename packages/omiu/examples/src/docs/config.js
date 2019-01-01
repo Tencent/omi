@@ -28,7 +28,8 @@ const config = {
       {
         title: '表单',
         list: [
-          { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' }
+          { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' },
+          { name: 'Input', md: 'input', demo: './repl/input.html' }
         ]
       },
       {
@@ -66,7 +67,8 @@ const config = {
       {
         title: 'Form',
         list: [
-          { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' }
+          { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' },
+          { name: 'Input', md: 'input', demo: './repl/input.html' }
         ]
       },
       {

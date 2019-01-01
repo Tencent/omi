@@ -15,3 +15,5 @@ package-lock.json
 
 /packages/*/yarn.lock
 /packages/*/yarn-error.log
+
+npm-debug.log
