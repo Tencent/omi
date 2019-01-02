@@ -404,6 +404,12 @@ __webpack_require__(75);
 
 __webpack_require__(78);
 
+__webpack_require__(81);
+
+__webpack_require__(84);
+
+__webpack_require__(87);
+
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -3322,6 +3328,292 @@ if (typeof result === "string") {
 exports = module.exports = __webpack_require__(1)(false);
 // Module
 exports.push([module.i, ".weui-toast{\n  position:fixed;\n  z-index:5000;\n  width:7.6em;\n  min-height:7.6em;\n  top:180px;\n  left:50%;\n  margin-left:-3.8em;\n  background:rgba(17, 17, 17, 0.7);\n  text-align:center;\n  border-radius:5px;\n  color:#FFFFFF;\n}\n.weui-icon_toast{\n  margin:22px 0 0;\n  display:block;\n}\n.weui-icon_toast.weui-icon-success-no-circle:before{\n  color:#FFFFFF;\n  font-size:55px;\n}\n.weui-icon_toast.weui-loading{\n  margin:30px 0 0;\n  width:38px;\n  height:38px;\n  vertical-align:baseline;\n}\n.weui-toast__content{\n  margin:0 0 15px;\n}\n\np{\n  margin: 0;\n  padding-bottom: 10px;\n}\n\n.icon{\n  margin-top: 5px;\n  position: relative;\n  top:10px;\n}\n\n.icon-l{\n  margin-top: 15px;\n  position: relative;\n  top:10px;\n  margin-bottom: 13px; \n}", ""]);
+
+
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+var _index = __webpack_require__(82);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('o-checkbox', function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    _classCallCheck(this, _class);
+
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'css',
+    value: function css() {
+      return _index2['default'];
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var checked = props.checked ? { checked: true } : null;
+      delete props.checked;
+
+      return Omi.h(
+        'label',
+        _extends({}, (0, _omi.extractClass)(props, "o-checkbox"), props),
+        props.label,
+        Omi.h('input', _extends({ type: 'checkbox' }, checked)),
+        Omi.h('span', { 'class': 'checkmark' })
+      );
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement));
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(83);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, "/* The o-checkbox */\n.o-checkbox {\n  display: block;\n  position: relative;\n  padding-left: 24px;\n  margin-bottom: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n\n/* Hide the browser's default checkbox */\n.o-checkbox input {\n  position: absolute;\n  opacity: 0;\n  cursor: pointer;\n  height: 0;\n  width: 0;\n}\n\n/* Create a custom checkbox */\n.checkmark {\n  position: absolute;\n  top: 2px;\n  left: 0;\n  height: 16px;\n  width: 16px;\n  background-color: #ccc;\n  border-radius: 10%;\n}\n\n/* On mouse-over, add a grey background color */\n.o-checkbox:hover input ~ .checkmark {\n  background-color: rgb(170, 169, 169);\n}\n\n/* When the checkbox is checked, add a blue background */\n.o-checkbox input:checked ~ .checkmark {\n  background-color: #07C160;\n}\n\n/* Create the checkmark/indicator (hidden when not checked) */\n.checkmark:after {\n  content: \"\";\n  position: absolute;\n  display: none;\n}\n\n/* Show the checkmark when checked */\n.o-checkbox input:checked ~ .checkmark:after {\n  display: block;\n}\n\n/* Style the checkmark/indicator */\n.o-checkbox .checkmark:after {\n  left: 5px;\n  top: 1px;\n  width: 4px;\n  height: 8px;\n  border: solid white;\n  border-width: 0 2px 2px 0;\n  -webkit-transform: rotate(45deg);\n  -ms-transform: rotate(45deg);\n  transform: rotate(45deg);\n}\n", ""]);
+
+
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+var _index = __webpack_require__(85);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('o-radio', function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    _classCallCheck(this, _class);
+
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'css',
+    value: function css() {
+      return _index2['default'];
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var checked = props.checked ? { checked: true } : null;
+      delete props.checked;
+      var name = props.name;
+      delete props.name;
+
+      return Omi.h(
+        'label',
+        _extends({}, (0, _omi.extractClass)(props, "o-radio"), props),
+        props.label,
+        Omi.h('input', _extends({ type: 'radio' }, checked, { name: name })),
+        Omi.h('span', { 'class': 'checkmark' })
+      );
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement));
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(86);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, ".o-radio {\n  display: block;\n  position: relative;\n  padding-left: 24px;\n  margin-bottom: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n\n/* Hide the browser's default radio button */\n.o-radio input {\n  position: absolute;\n  opacity: 0;\n  cursor: pointer;\n}\n\n/* Create a custom radio button */\n.checkmark {\n  position: absolute;\n  top: 2px;\n  left: 0;\n  height: 16px;\n  width: 16px;\n  background-color: #ccc;\n  border-radius: 50%;\n}\n\n/* On mouse-over, add a grey background color */\n.o-radio:hover input ~ .checkmark {\n  background-color: rgb(170, 169, 169);\n}\n\n/* When the radio button is checked, add a blue background */\n.o-radio input:checked ~ .checkmark {\n  background-color: #07C160;\n}\n\n/* Create the indicator (the dot/circle - hidden when not checked) */\n.checkmark:after {\n  content: \"\";\n  position: absolute;\n  display: none;\n}\n\n/* Show the indicator (dot/circle) when checked */\n.o-radio input:checked ~ .checkmark:after {\n  display: block;\n}\n\n/* Style the indicator (dot/circle) */\n.o-radio .checkmark:after {\n \ttop: 5px;\n\tleft: 5px;\n\twidth: 6px;\n\theight: 6px;\n\tborder-radius: 50%;\n\tbackground: white;\n}\n", ""]);
+
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+var _index = __webpack_require__(88);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('o-dropdown', function (_WeElement) {
+  _inherits(_class2, _WeElement);
+
+  function _class2() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, _class2);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onSelect = function (index) {
+      _this.props.onSelect && _this.props.onSelect(index);
+    }, _this.onToggle = function (index) {
+      _this.props.onToggle && _this.props.onToggle(index);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(_class2, [{
+    key: 'css',
+    value: function css() {
+      return _index2['default'];
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this2 = this;
+
+      return Omi.h(
+        'div',
+        _extends({}, (0, _omi.extractClass)(props, "o-dropdown"), props),
+        Omi.h(
+          'div',
+          { 'class': 'select-selected' + (props.show ? ' select-arrow-active' : ''), onClick: this.onToggle },
+          props.children[props.selectedIndex].children[0]
+        ),
+        props.show && Omi.h(
+          'div',
+          { 'class': 'select-items' },
+          props.children.map(function (child, index) {
+            if (index === props.selectedIndex) {
+              return Omi.h(
+                'div',
+                { onClick: function onClick(e) {
+                    _this2.onSelect(index);
+                  }, 'class': 'same-as-selected' },
+                child.children[0]
+              );
+            }
+            return Omi.h(
+              'div',
+              { onClick: function onClick(e) {
+                  _this2.onSelect(index);
+                } },
+              child.children[0]
+            );
+          })
+        )
+      );
+    }
+  }]);
+
+  return _class2;
+}(_omi.WeElement));
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(89);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, "/*the container must be positioned relative:*/\n.o-dropdown {\n  position: relative;\n  color: black;\n  font-size: 14px;\n}\n\n.select-selected {\n  background-color: white;\n  border-radius: 4px; \n  color: black;\n}\n\n/*style the arrow inside the select element:*/\n.select-selected:after {\n  position: absolute;\n  content: \"\";\n  top: 11px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: black transparent transparent transparent;\n}\n\n/*point the arrow upwards when the select box is open (active):*/\n.select-selected.select-arrow-active:after {\n  border-color: transparent transparent black transparent;\n  top: 5px;\n}\n\n/*style the items (options), including the selected item:*/\n.select-items div {\n  color: black;\n  padding: 4px 8px;\n  border-bottom: 1px solid #ddd; \n  cursor: pointer;\n  user-select: none;\n}\n\n.select-selected {\n  color: black;\n  padding: 4px 8px;\n  background-color: #eee;\n  border-bottom: 1px solid #ddd; \n  cursor: pointer;\n  user-select: none;\n}\n\n/*style items (options):*/\n.select-items {\n  position: absolute;\n  background-color: #eee;\n  top: 100%;\n  left: 0;\n  right: 0;\n  border: 1px solid #eee;\n  border-radius: 4px;\n  overflow: hidden; \n  z-index: 99;\n}\n\n/*hide the items when the select box is closed:*/\n.select-hide {\n  display: none;\n}\n\n.select-items div:hover, .same-as-selected {\n  background-color: rgb(181, 247, 212);\n}", ""]);
 
 
 

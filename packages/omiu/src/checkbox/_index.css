@@ -28,13 +28,13 @@
   left: 0;
   height: 16px;
   width: 16px;
-  background-color: #eee;
-  border-radius: 10%; 
+  background-color: #ccc;
+  border-radius: 10%;
 }
 
 /* On mouse-over, add a grey background color */
 .o-checkbox:hover input ~ .checkmark {
-  background-color: #ccc;
+  background-color: rgb(170, 169, 169);
 }
 
 /* When the checkbox is checked, add a blue background */
