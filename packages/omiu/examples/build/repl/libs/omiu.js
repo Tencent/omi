@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.1.0 By dntzhang 
+ *  omiu v0.1.0 By dntzhang
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -286,8 +286,6 @@ var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -312,7 +310,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }, {
     key: 'render',
-    value: function render() {
+    value: function render(props) {
+      var cls = (0, _omi.extractClass)(props) || {};
+
       var _props = this.props,
           component = _props.component,
           type = _props.type,
@@ -321,10 +321,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
           children = _props.children,
           others = _objectWithoutProperties(_props, ['component', 'type', 'size', 'plain', 'children']);
 
-      var className = this.props['class'];
-
       var Component = component ? component : this.props.href || type === 'vcode' ? 'a' : 'button';
-      var cls = type === 'vcode' ? (0, _omi.classNames)('weui-vcode-btn', _defineProperty({}, className, className)) : (0, _omi.classNames)(_defineProperty({
+      cls = type === 'vcode' ? (0, _omi.extractClass)(cls, 'weui-vcode-btn') : (0, _omi.extractClass)(cls, {
         'weui-btn': true,
         'weui-btn_mini': size === 'small',
         'weui-btn_primary': type === 'primary' && !plain,
@@ -334,11 +332,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         'weui-btn_plain-default': type === 'default' && plain,
         'weui-btn_disabled': this.props.disabled && !plain,
         'weui-btn_plain-disabled': this.props.disabled && plain
-      }, className, className));
+      });
 
       return Omi.h(
         Component,
-        _extends({}, others, { className: cls }),
+        _extends({}, others, cls),
         children
       );
     }
@@ -405,6 +403,12 @@ __webpack_require__(72);
 __webpack_require__(75);
 
 __webpack_require__(78);
+
+__webpack_require__(81);
+
+__webpack_require__(84);
+
+__webpack_require__(87);
 
 /***/ }),
 /* 5 */
@@ -549,7 +553,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-input-number{\r\n  position: relative;\r\n  width: 150px;\r\n  display: inline-block;\r\n}\r\n\r\nspan{\r\n  position: absolute;\r\n  border: 1px solid #ccc;\r\n  width: 32px;\r\n  height: 32px;\r\n  background-color: white;\r\n  cursor: pointer;\r\n  text-align: center;\r\n  line-height: 29px;\r\n}\r\n\r\n*{\r\n  box-sizing: border-box;\r\n}\r\n\r\n.decrease{\r\n  left: 1px;\r\n  border-radius: 3px 0px 0px 3px;\r\n  user-select: none;\r\n}\r\n\r\n.increase{\r\n  right: 1px;\r\n  border-radius: 0px 3px 3px 0px;\r\n  user-select: none;\r\n}\r\n\r\n.input{\r\n  width: 100%;\r\n}\r\n\r\ninput{\r\n  width:100px;\r\n  height: 32px;\r\n  margin: 0 auto;\r\n  display: block;\r\n  text-align: center;\r\n  border: 1px solid #ccc;\r\n}\r\n", ""]);
+exports.push([module.i, ".o-input-number{\n  position: relative;\n  width: 150px;\n  display: inline-block;\n}\n\nspan{\n  position: absolute;\n  border: 1px solid #ccc;\n  width: 32px;\n  height: 32px;\n  background-color: white;\n  cursor: pointer;\n  text-align: center;\n  line-height: 29px;\n}\n\n*{\n  box-sizing: border-box;\n}\n\n.decrease{\n  left: 1px;\n  border-radius: 3px 0px 0px 3px;\n  user-select: none;\n}\n\n.increase{\n  right: 1px;\n  border-radius: 0px 3px 3px 0px;\n  user-select: none;\n}\n\n.input{\n  width: 100%;\n}\n\ninput{\n  width:100px;\n  height: 32px;\n  margin: 0 auto;\n  display: block;\n  text-align: center;\n  border: 1px solid #ccc;\n}\n", ""]);
 
 
 
@@ -645,7 +649,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-badge{\r\n  position: relative;\r\n  display: inline-block;\r\n}\r\n\r\n.badge {\r\n  display: inline-block;\r\n  padding: .15em .4em;\r\n  min-width: 8px;\r\n  border-radius: 18px;\r\n  background-color: #F95050;\r\n  color: #FFFFFF;\r\n  line-height: 1.2;\r\n  text-align: center;\r\n  font-size: 12px;\r\n  vertical-align: middle;\r\n}\r\n\r\n.circle{\r\n  width: 10px;\r\n  height: 10px;\r\n  border-radius: 50%;\r\n  background-color: #F95050;\r\n}", ""]);
+exports.push([module.i, ".o-badge{\n  position: relative;\n  display: inline-block;\n}\n\n.badge {\n  display: inline-block;\n  padding: .15em .4em;\n  min-width: 8px;\n  border-radius: 18px;\n  background-color: #F95050;\n  color: #FFFFFF;\n  line-height: 1.2;\n  text-align: center;\n  font-size: 12px;\n  vertical-align: middle;\n}\n\n.circle{\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  background-color: #F95050;\n}", ""]);
 
 
 
@@ -670,7 +674,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "\r\n.weui-btn {\r\n  background-color:#9CE6BF;\r\n  color: #D7F5E5;\r\n}\r\n.weui-btn_disabled.weui-btn{\r\n  cursor: default;\r\n}\r\n.weui-btn_plain-disabled.weui-btn{\r\n  cursor: default;\r\n}\r\n\r\nbutton.weui-btn,\r\ninput.weui-btn{\r\n  cursor: pointer;\r\n  width:100%;\r\n  border-width:0;\r\n  outline:0;\r\n  -webkit-appearance:none;\r\n}\r\nbutton.weui-btn:focus,\r\ninput.weui-btn:focus{\r\n  outline:0;\r\n}\r\nbutton.weui-btn_inline,\r\ninput.weui-btn_inline,\r\nbutton.weui-btn_mini,\r\ninput.weui-btn_mini{\r\n  width:auto;\r\n}\r\nbutton.weui-btn_plain-primary,\r\ninput.weui-btn_plain-primary,\r\nbutton.weui-btn_plain-default,\r\ninput.weui-btn_plain-default{\r\n  border-width:1px;\r\n  background-color:transparent;\r\n}\r\n\r\n\r\n.weui-btn{\r\n  position:relative;\r\n  display:block;\r\n  margin-left:auto;\r\n  margin-right:auto;\r\n  padding-left:14px;\r\n  padding-right:14px;\r\n  box-sizing:border-box;\r\n  font-size:18px;\r\n  text-align:center;\r\n  text-decoration:none;\r\n  color:#FFFFFF;\r\n  line-height:2.55555556;\r\n  border-radius:3px;\r\n  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);\r\n  overflow:hidden;\r\n}\r\n.weui-btn:after{\r\n  content:\" \";\r\n  width:200%;\r\n  height:200%;\r\n  position:absolute;\r\n  top:0;\r\n  left:0;\r\n  /* border:1px solid rgba(0, 0, 0, 0.2); */\r\n  -webkit-transform:scale(0.5);\r\n          transform:scale(0.5);\r\n  -webkit-transform-origin:0 0;\r\n          transform-origin:0 0;\r\n  box-sizing:border-box;\r\n  border-radius:10px;\r\n}\r\n.weui-btn_inline{\r\n  display:inline-block;\r\n}\r\n.weui-btn_default{\r\n  background-color: #F8F7F8;\r\n  color:black;\r\n}\r\n.weui-btn_default:not(.weui-btn_disabled):visited{\r\n  color:#000000;\r\n}\r\n.weui-btn_default:not(.weui-btn_disabled):active{\r\n  background-color: rgb(243, 239, 239);\r\n}\r\n.weui-btn_primary{\r\n  background-color:#07C160;\r\n}\r\n.weui-btn_primary:not(.weui-btn_disabled):visited{\r\n  color:#FFFFFF;\r\n}\r\n.weui-btn_primary:not(.weui-btn_disabled):active{\r\n  background-color: rgb(5, 202, 100);;\r\n}\r\n.weui-btn_warn{\r\n  background-color:#F95050;\r\n}\r\n.weui-btn_warn:not(.weui-btn_disabled):visited{\r\n  color:#FFFFFF;\r\n}\r\n.weui-btn_warn:not(.weui-btn_disabled):active{\r\n  color:rgba(255, 255, 255, 0.6);\r\n  background-color:#F95050;\r\n}\r\n.weui-btn_disabled{\r\n  background-color:#9CE6BF;\r\n  color: #D7F5E5;\r\n}\r\n.weui-btn_disabled.weui-btn_default{\r\n  color:rgba(0, 0, 0, 0.3);\r\n  background-color:#F7F7F7;\r\n}\r\n.weui-btn_disabled.weui-btn_primary{\r\n  background-color:#9CE6BF;\r\n  color: #D7F5E5;\r\n}\r\n.weui-btn_disabled.weui-btn_warn{\r\n  background-color:rgb(240, 158, 157);\r\n}\r\n.weui-btn_loading .weui-loading{\r\n  margin:-0.2em 0.34em 0 0;\r\n}\r\n.weui-btn_loading.weui-btn_primary,\r\n.weui-btn_loading.weui-btn_warn{\r\n  color:rgba(255, 255, 255, 0.6);\r\n}\r\n\r\n.weui-btn_loading.weui-btn_warn{\r\n  background-color:#F95050;\r\n}\r\n.weui-btn_plain-primary{\r\n  color:#07C160;\r\n  border:1px solid #07C160;\r\n}\r\n.weui-btn_plain-primary:not(.weui-btn_plain-disabled):active{\r\n  color:#9ED99D;\r\n  border-color:#9ED99D;\r\n}\r\n.weui-btn_plain-primary:after{\r\n  border-width:0;\r\n}\r\n.weui-btn_plain-default{\r\n  color:#353535;\r\n  border:1px solid #353535;\r\n}\r\n.weui-btn_plain-default:not(.weui-btn_plain-disabled):active{\r\n  color:rgba(53, 53, 53, 0.6);\r\n  border-color:rgba(53, 53, 53, 0.6);\r\n}\r\n.weui-btn_plain-default:after{\r\n  border-width:0;\r\n}\r\n.weui-btn_plain-disabled{\r\n  color:rgba(0, 0, 0, 0.2);\r\n  border-color:rgba(0, 0, 0, 0.2);\r\n}\r\nbutton.weui-btn,{\r\n  width:100%;\r\n  border-width:0;\r\n  outline:0;\r\n  -webkit-appearance:none;\r\n}\r\nbutton.weui-btn:focus,{\r\n  outline:0;\r\n}\r\nbutton.weui-btn_inline,\r\ninput.weui-btn_inline,\r\nbutton.weui-btn_mini,\r\ninput.weui-btn_mini{\r\n  width:auto;\r\n}\r\nbutton.weui-btn_plain-primary,\r\ninput.weui-btn_plain-primary,\r\nbutton.weui-btn_plain-default,\r\ninput.weui-btn_plain-default{\r\n  border-width:1px;\r\n  background-color:transparent;\r\n}\r\n.weui-btn_mini{\r\n  display:inline-block;\r\n  padding:0 1.32em;\r\n  line-height:2.3;\r\n  font-size:13px;\r\n}\r\n.weui-btn + .weui-btn{\r\n  margin-top:15px;\r\n}\r\n.weui-btn.weui-btn_inline + .weui-btn.weui-btn_inline{\r\n  margin-top:auto;\r\n  margin-left:15px;\r\n}\r\n.weui-btn-area{\r\n  margin:1.17647059em 15px 0.3em;\r\n}\r\n.weui-btn-area_inline{\r\n  display:-webkit-box;\r\n  display:-webkit-flex;\r\n  display:flex;\r\n}\r\n.weui-btn-area_inline .weui-btn{\r\n  margin-top:auto;\r\n  margin-right:15px;\r\n  width:100%;\r\n  -webkit-box-flex:1;\r\n  -webkit-flex:1;\r\n          flex:1;\r\n}\r\n.weui-btn-area_inline .weui-btn:last-child{\r\n  margin-right:0;\r\n}\r\n", ""]);
+exports.push([module.i, "\n.weui-btn {\n  background-color:#9CE6BF;\n  color: #D7F5E5;\n}\n.weui-btn_disabled.weui-btn{\n  cursor: default;\n}\n.weui-btn_plain-disabled.weui-btn{\n  cursor: default;\n}\n\nbutton.weui-btn,\ninput.weui-btn{\n  cursor: pointer;\n  width:100%;\n  border-width:0;\n  outline:0;\n  -webkit-appearance:none;\n}\nbutton.weui-btn:focus,\ninput.weui-btn:focus{\n  outline:0;\n}\nbutton.weui-btn_inline,\ninput.weui-btn_inline,\nbutton.weui-btn_mini,\ninput.weui-btn_mini{\n  width:auto;\n}\nbutton.weui-btn_plain-primary,\ninput.weui-btn_plain-primary,\nbutton.weui-btn_plain-default,\ninput.weui-btn_plain-default{\n  border-width:1px;\n  background-color:transparent;\n}\n\n\n.weui-btn{\n  position:relative;\n  display:block;\n  margin-left:auto;\n  margin-right:auto;\n  padding-left:14px;\n  padding-right:14px;\n  box-sizing:border-box;\n  font-size:18px;\n  text-align:center;\n  text-decoration:none;\n  color:#FFFFFF;\n  line-height:2.55555556;\n  border-radius:3px;\n  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);\n  overflow:hidden;\n}\n.weui-btn:after{\n  content:\" \";\n  width:200%;\n  height:200%;\n  position:absolute;\n  top:0;\n  left:0;\n  /* border:1px solid rgba(0, 0, 0, 0.2); */\n  -webkit-transform:scale(0.5);\n          transform:scale(0.5);\n  -webkit-transform-origin:0 0;\n          transform-origin:0 0;\n  box-sizing:border-box;\n  border-radius:10px;\n}\n.weui-btn_inline{\n  display:inline-block;\n}\n.weui-btn_default{\n  background-color: #F8F7F8;\n  color:black;\n}\n.weui-btn_default:not(.weui-btn_disabled):visited{\n  color:#000000;\n}\n.weui-btn_default:not(.weui-btn_disabled):active{\n  background-color: rgb(243, 239, 239);\n}\n.weui-btn_primary{\n  background-color:#07C160;\n}\n.weui-btn_primary:not(.weui-btn_disabled):visited{\n  color:#FFFFFF;\n}\n.weui-btn_primary:not(.weui-btn_disabled):active{\n  background-color: rgb(5, 202, 100);;\n}\n.weui-btn_warn{\n  background-color:#F95050;\n}\n.weui-btn_warn:not(.weui-btn_disabled):visited{\n  color:#FFFFFF;\n}\n.weui-btn_warn:not(.weui-btn_disabled):active{\n  color:rgba(255, 255, 255, 0.6);\n  background-color:#F95050;\n}\n.weui-btn_disabled{\n  background-color:#9CE6BF;\n  color: #D7F5E5;\n}\n.weui-btn_disabled.weui-btn_default{\n  color:rgba(0, 0, 0, 0.3);\n  background-color:#F7F7F7;\n}\n.weui-btn_disabled.weui-btn_primary{\n  background-color:#9CE6BF;\n  color: #D7F5E5;\n}\n.weui-btn_disabled.weui-btn_warn{\n  background-color:rgb(240, 158, 157);\n}\n.weui-btn_loading .weui-loading{\n  margin:-0.2em 0.34em 0 0;\n}\n.weui-btn_loading.weui-btn_primary,\n.weui-btn_loading.weui-btn_warn{\n  color:rgba(255, 255, 255, 0.6);\n}\n\n.weui-btn_loading.weui-btn_warn{\n  background-color:#F95050;\n}\n.weui-btn_plain-primary{\n  color:#07C160;\n  border:1px solid #07C160;\n}\n.weui-btn_plain-primary:not(.weui-btn_plain-disabled):active{\n  color:#9ED99D;\n  border-color:#9ED99D;\n}\n.weui-btn_plain-primary:after{\n  border-width:0;\n}\n.weui-btn_plain-default{\n  color:#353535;\n  border:1px solid #353535;\n}\n.weui-btn_plain-default:not(.weui-btn_plain-disabled):active{\n  color:rgba(53, 53, 53, 0.6);\n  border-color:rgba(53, 53, 53, 0.6);\n}\n.weui-btn_plain-default:after{\n  border-width:0;\n}\n.weui-btn_plain-disabled{\n  color:rgba(0, 0, 0, 0.2);\n  border-color:rgba(0, 0, 0, 0.2);\n}\nbutton.weui-btn,{\n  width:100%;\n  border-width:0;\n  outline:0;\n  -webkit-appearance:none;\n}\nbutton.weui-btn:focus,{\n  outline:0;\n}\nbutton.weui-btn_inline,\ninput.weui-btn_inline,\nbutton.weui-btn_mini,\ninput.weui-btn_mini{\n  width:auto;\n}\nbutton.weui-btn_plain-primary,\ninput.weui-btn_plain-primary,\nbutton.weui-btn_plain-default,\ninput.weui-btn_plain-default{\n  border-width:1px;\n  background-color:transparent;\n}\n.weui-btn_mini{\n  display:inline-block;\n  padding:0 1.32em;\n  line-height:2.3;\n  font-size:13px;\n}\n.weui-btn + .weui-btn{\n  margin-top:15px;\n}\n.weui-btn.weui-btn_inline + .weui-btn.weui-btn_inline{\n  margin-top:auto;\n  margin-left:15px;\n}\n.weui-btn-area{\n  margin:1.17647059em 15px 0.3em;\n}\n.weui-btn-area_inline{\n  display:-webkit-box;\n  display:-webkit-flex;\n  display:flex;\n}\n.weui-btn-area_inline .weui-btn{\n  margin-top:auto;\n  margin-right:15px;\n  width:100%;\n  -webkit-box-flex:1;\n  -webkit-flex:1;\n          flex:1;\n}\n.weui-btn-area_inline .weui-btn:last-child{\n  margin-right:0;\n}\n", ""]);
 
 
 
@@ -741,7 +745,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
           Omi.h(
             'p',
             null,
-            props.content
+            props.msg
           ),
           props.type === 'confirm' ? Omi.h(
             'div',
@@ -749,17 +753,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             Omi.h(
               'a',
               { 'class': 'close', onClick: this.close },
-              '\u53D6\u6D88'
+              props.cancelText
             ),
             Omi.h(
               'a',
               { 'class': 'ok', onClick: this.confirm },
-              '\u786E\u5B9A'
+              props.confirmText
             )
           ) : Omi.h(
             'a',
             { 'class': 'ok', onClick: this.confirm },
-            '\u786E\u5B9A'
+            props.confirmText
           )
         )
       );
@@ -790,7 +794,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "\r\n.o-dialog {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: fixed;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n  left:0;\r\n  top: 0;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n}\r\n\r\n.content {\r\n  width: 80%;\r\n  height: auto;\r\n  background-color: white;\r\n  position: fixed;\r\n  left: 10%;\r\n  top: 20%;\r\n  border-radius: 4px; \r\n  text-align: center;\r\n}\r\n\r\n\r\n\r\nh1 {\r\n  font-size: 18px;\r\n  font-weight: normal;\r\n  padding: 20px;\r\n  margin: 0px;\r\n}\r\np {\r\n  font-size: 16px;\r\n  color: #666;\r\n  padding-bottom: 20px;\r\n  margin: 0px;\r\n  \r\n  border-bottom: 1px solid #eee;\r\n}\r\n\r\na {\r\n  padding: 15px;\r\n  text-align: center;\r\n  font-size: 16px;\r\n  display: inline-block;\r\n  width: 50%;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.ok {\r\n  color: #07C160;\r\n}\r\n.close {\r\n  border-right: 1px solid #eee;\r\n  color: black;\r\n}", ""]);
+exports.push([module.i, "\n.o-dialog {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left:0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n.content {\n  width: 80%;\n  height: auto;\n  background-color: white;\n  position: fixed;\n  left: 10%;\n  top: 20%;\n  border-radius: 4px; \n  text-align: center;\n}\n\n\n\nh1 {\n  font-size: 18px;\n  font-weight: normal;\n  padding: 20px;\n  margin: 0px;\n}\np {\n  font-size: 16px;\n  color: #666;\n  padding-bottom: 20px;\n  margin: 0px;\n  \n  border-bottom: 1px solid #eee;\n}\n\na {\n  padding: 15px;\n  text-align: center;\n  font-size: 16px;\n  display: inline-block;\n  width: 50%;\n  box-sizing: border-box;\n}\n\n.ok {\n  color: #07C160;\n}\n.close {\n  border-right: 1px solid #eee;\n  color: black;\n}", ""]);
 
 
 
@@ -880,7 +884,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "/*ul*/  \r\n.o-equal-space{\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  text-align: center;\r\n  border-top: 1px solid #ddd;\r\n  padding-top: 10px; \r\n  padding-bottom: 10px; \r\n  width: 100%;\r\n  background-color: #F9F9F9;\r\n}\r\n\r\nul,li{\r\n  padding: 0;\r\n  margin: 0;\r\n  list-style: none;\r\n}\r\n\r\na{\r\n  text-decoration: none;\r\n}\r\n\r\n.item{\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n  flex: 1;\r\n}", ""]);
+exports.push([module.i, "/*ul*/  \n.o-equal-space{\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  text-align: center;\n  border-top: 1px solid #ddd;\n  padding-top: 10px; \n  padding-bottom: 10px; \n  width: 100%;\n  background-color: #F9F9F9;\n}\n\nul,li{\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\na{\n  text-decoration: none;\n}\n\n.item{\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n  flex: 1;\n}", ""]);
 
 
 
@@ -905,7 +909,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-icon {\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n\r\n.rotate{\r\n    display: inline-block;\r\n    -webkit-animation: rotate 1s infinite linear;\r\n    animation: rotate 1s infinite linear;\r\n}\r\n\r\ni div{\r\n  font-style:normal;\r\n}\r\n\r\n@-webkit-keyframes rotate{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}\r\n@keyframes rotate{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}", ""]);
+exports.push([module.i, ".o-icon {\n  text-align: center;\n  display: inline-block;\n}\n\n.rotate{\n    display: inline-block;\n    -webkit-animation: rotate 1s infinite linear;\n    animation: rotate 1s infinite linear;\n}\n\ni div{\n  font-style:normal;\n}\n\n@-webkit-keyframes rotate{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}\n@keyframes rotate{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}", ""]);
 
 
 
@@ -1018,7 +1022,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-input{\r\n  position: relative;\r\n  display: inline-block;\r\n}\r\n\r\n\r\ninput:hover { border: 1px solid #07C160;}\r\ninput:focus { border: 1px solid #07C160;}\r\ninput:focus:hover { border: 1px solid #07C160;}\r\n\r\n\r\ninput{\r\n  -webkit-appearance: none;\r\n  display: inline-block;\r\n  width: 100%;\r\n  height: 32px;\r\n  line-height: 1.5;\r\n  padding: 4px 7px;\r\n  font-size: 14px;\r\n  outline: none;\r\n  border: 1px solid #DADADA;\r\n  border-radius: 4px;\r\n  color: #515a6e;\r\n  background-color: #fff;\r\n  background-image: none;\r\n  position: relative;\r\n  cursor: text;\r\n  transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;\r\n  /* caret-color:#07C160; */\r\n  text-indent: 5px;\r\n}", ""]);
+exports.push([module.i, ".o-input{\n  position: relative;\n  display: inline-block;\n}\n\n\ninput:hover { border: 1px solid #07C160;}\ninput:focus { border: 1px solid #07C160;}\ninput:focus:hover { border: 1px solid #07C160;}\n\n\ninput{\n  -webkit-appearance: none;\n  display: inline-block;\n  width: 100%;\n  height: 32px;\n  line-height: 1.5;\n  padding: 4px 7px;\n  font-size: 14px;\n  outline: none;\n  border: 1px solid #DADADA;\n  border-radius: 4px;\n  color: #515a6e;\n  background-color: #fff;\n  background-image: none;\n  position: relative;\n  cursor: text;\n  transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;\n  /* caret-color:#07C160; */\n  text-indent: 5px;\n}", ""]);
 
 
 
@@ -1108,7 +1112,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "h2.title{\r\n  font-size: 14px;\r\n  font-weight: normal;\r\n  color: #999;\r\n  text-align: left;\r\n  padding: 10px 15px;\r\n  margin: 0\r\n}", ""]);
+exports.push([module.i, "h2.title{\n  font-size: 14px;\n  font-weight: normal;\n  color: #999;\n  text-align: left;\n  padding: 10px 15px;\n  margin: 0\n}", ""]);
 
 
 
@@ -1196,7 +1200,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "\r\nli {\r\n  background: #fff;\r\n  position: relative;\r\n  display: inline-block;\r\n  display: flex;\r\n  padding: 10px;\r\n  align-items: center;\r\n  font-size: 16px;\r\n}\r\nli:active {\r\n  background: #f3f3f3;\r\n}\r\nli img {\r\n  height: 20px;\r\n  width: 20px;\r\n  margin: 5px;\r\n}\r\nli .title {\r\n  flex: 1;\r\n  text-align: left;\r\n}\r\nli .content {\r\n  padding: 0 5px;\r\n  color: #999;\r\n}\r\nli i {\r\n  content: ' ';\r\n  display: inline-block;\r\n  height: 6px;\r\n  width: 6px;\r\n  border-width: 2px 2px 0 0;\r\n  border-color: #c8c8cd;\r\n  border-style: solid;\r\n  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\r\n  margin: 5px;\r\n}\r\n.border-bottom-1px::after {\r\n  content: ' ';\r\n  width: 100%;\r\n  display: block;\r\n  position: absolute;\r\n  left: 0;\r\n  bottom: 0;\r\n  border-top: 1px solid #d9d9d9;\r\n}\r\n@media (min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5) {\r\n  .border-bottom-1px::after {\r\n    transform: scaleY(0.7);\r\n    -webkit-transform: scaleY(0.7);\r\n  }\r\n}\r\n@media (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 1.5) {\r\n  .border-bottom-1px::after {\r\n    transform: scaleY(0.5);\r\n    -webkit-transform: scaleY(0.5);\r\n  }\r\n}\r\n.border-1px::after {\r\n  content: ' ';\r\n  width: 100%;\r\n  display: block;\r\n  position: absolute;\r\n  left: 0;\r\n  bottom: 0;\r\n  border-top: 1px solid #d9d9d9;\r\n}\r\n.border-1px::before {\r\n  content: ' ';\r\n  width: 100%;\r\n  display: block;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  border-top: 1px solid #d9d9d9;\r\n}\r\n@media (min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5) {\r\n  .border-1px::after, .border-1px::before {\r\n    transform: scaleY(0.7);\r\n    -webkit-transform: scaleY(0.7);\r\n  }\r\n}\r\n@media (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 1.5) {\r\n  .border-1px::after, .border-1px::before {\r\n    transform: scaleY(0.5);\r\n    -webkit-transform: scaleY(0.5);\r\n  }\r\n}\r\n", ""]);
+exports.push([module.i, "\nli {\n  background: #fff;\n  position: relative;\n  display: inline-block;\n  display: flex;\n  padding: 10px;\n  align-items: center;\n  font-size: 16px;\n}\nli:active {\n  background: #f3f3f3;\n}\nli img {\n  height: 20px;\n  width: 20px;\n  margin: 5px;\n}\nli .title {\n  flex: 1;\n  text-align: left;\n}\nli .content {\n  padding: 0 5px;\n  color: #999;\n}\nli i {\n  content: ' ';\n  display: inline-block;\n  height: 6px;\n  width: 6px;\n  border-width: 2px 2px 0 0;\n  border-color: #c8c8cd;\n  border-style: solid;\n  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\n  margin: 5px;\n}\n.border-bottom-1px::after {\n  content: ' ';\n  width: 100%;\n  display: block;\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  border-top: 1px solid #d9d9d9;\n}\n@media (min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5) {\n  .border-bottom-1px::after {\n    transform: scaleY(0.7);\n    -webkit-transform: scaleY(0.7);\n  }\n}\n@media (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 1.5) {\n  .border-bottom-1px::after {\n    transform: scaleY(0.5);\n    -webkit-transform: scaleY(0.5);\n  }\n}\n.border-1px::after {\n  content: ' ';\n  width: 100%;\n  display: block;\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  border-top: 1px solid #d9d9d9;\n}\n.border-1px::before {\n  content: ' ';\n  width: 100%;\n  display: block;\n  position: absolute;\n  left: 0;\n  top: 0;\n  border-top: 1px solid #d9d9d9;\n}\n@media (min-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5) {\n  .border-1px::after, .border-1px::before {\n    transform: scaleY(0.7);\n    -webkit-transform: scaleY(0.7);\n  }\n}\n@media (min-device-pixel-ratio: 2), (-webkit-min-device-pixel-ratio: 1.5) {\n  .border-1px::after, .border-1px::before {\n    transform: scaleY(0.5);\n    -webkit-transform: scaleY(0.5);\n  }\n}\n", ""]);
 
 
 
@@ -1276,7 +1280,7 @@ var urlEscape = __webpack_require__(34);
 var ___CSS_LOADER_URL___0___ = urlEscape(__webpack_require__(35));
 
 // Module
-exports.push([module.i, ".o-loading {\r\n  display: inline-block;\r\n  -webkit-animation: e 1s steps(12) infinite;\r\n  animation: e 1s steps(12) infinite;\r\n  background: url(" + ___CSS_LOADER_URL___0___ + ");\r\n  background-size: 100%;\r\n}\r\n\r\n@keyframes e {\r\n  0% {\r\n    -webkit-transform: rotate(0deg);\r\n    transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(1turn);\r\n    transform: rotate(1turn);\r\n  }\r\n}\r\n", ""]);
+exports.push([module.i, ".o-loading {\n  display: inline-block;\n  -webkit-animation: e 1s steps(12) infinite;\n  animation: e 1s steps(12) infinite;\n  background: url(" + ___CSS_LOADER_URL___0___ + ");\n  background-size: 100%;\n}\n\n@keyframes e {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(1turn);\n    transform: rotate(1turn);\n  }\n}\n", ""]);
 
 
 
@@ -1390,46 +1394,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         Omi.h(
           'div',
           { 'class': 'ctn' },
-          Omi.h(
-            'a',
-            null,
-            Omi.h('o-icon', { 'class': 'icon', color: '#F2F2F2', type: 'chat' }),
-            Omi.h(
-              'div',
-              { 'class': 'wd' },
-              '\u53D1\u8D77\u7FA4\u804A'
-            )
-          ),
-          Omi.h(
-            'a',
-            null,
-            Omi.h('o-icon', { 'class': 'icon', color: '#F2F2F2', type: 'add-friend' }),
-            Omi.h(
-              'div',
-              { 'class': 'wd' },
-              '\u6DFB\u52A0\u670B\u53CB'
-            )
-          ),
-          Omi.h(
-            'a',
-            null,
-            Omi.h('o-icon', { 'class': 'icon', color: '#F2F2F2', type: 'scan' }),
-            Omi.h(
-              'div',
-              { 'class': 'wd' },
-              '\u626B\u4E00\u626B\u5427'
-            )
-          ),
-          Omi.h(
-            'a',
-            null,
-            Omi.h('o-icon', { 'class': 'icon', color: '#F2F2F2', type: 'pay' }),
-            Omi.h(
-              'div',
-              { 'class': 'wd' },
-              '\u6536\u6B3E\u652F\u4ED8'
-            )
-          )
+          props.children.map(function (item, index) {
+            return Omi.h(
+              'a',
+              null,
+              Omi.h('o-icon', { 'class': 'icon', color: item.attributes.icon.color, path: item.attributes.icon.path }),
+              Omi.h(
+                'div',
+                { 'class': 'wd' },
+                item.attributes.text
+              )
+            );
+          })
         )
       );
     }
@@ -1459,7 +1435,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-menu{\r\n  max-width: 160px;\r\n  position: relative;\r\n}\r\n\r\n.ctn{\r\n  border-radius: 5px;\r\n  background-color: #4C4B4C;\r\n  color: #F2F2F2;\r\n  overflow: hidden;\r\n}\r\n\r\n.ctn>a{\r\n  text-align: center;\r\n  display: block;\r\n  position: relative;\r\n  line-height: 35px;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  text-align: left;\r\n  height: 60px;\r\n  color: #F2F2F2;\r\n}\r\n\r\na:active{\r\n  background-color:rgb(63, 63, 63);\r\n}\r\n\r\n.icon {\r\n  position:absolute;\r\n  left:20px;\r\n  top:13px;\r\n}\r\n\r\n.wd{\r\n  margin-left: 60px;\r\n  line-height: 60px;\r\n  border-bottom: 1px solid #555555; \r\n}\r\n\r\n.arrow{\r\n  position:absolute;\r\n  width: 10px;\r\n  height: 10px;\r\n  background-color: #4C4B4C; \r\n  transform: rotate(45deg);\r\n  border-radius: 2px;\r\n  top:-4px;\r\n  right: 15px;;\r\n\r\n}", ""]);
+exports.push([module.i, ".o-menu{\n  max-width: 160px;\n  position: relative;\n}\n\n.ctn{\n  border-radius: 5px;\n  background-color: #4C4B4C;\n  color: #F2F2F2;\n  overflow: hidden;\n}\n\n.ctn>a{\n  text-align: center;\n  display: block;\n  position: relative;\n  line-height: 35px;\n  cursor: pointer;\n  white-space: nowrap;\n  text-align: left;\n  height: 60px;\n  color: #F2F2F2;\n}\n\na:active{\n  background-color:rgb(63, 63, 63);\n}\n\n.icon {\n  position:absolute;\n  left:20px;\n  top:13px;\n}\n\n.wd{\n  margin-left: 60px;\n  line-height: 60px;\n  border-bottom: 1px solid #555555;\n}\n\n.arrow{\n  position:absolute;\n  width: 10px;\n  height: 10px;\n  background-color: #4C4B4C;\n  transform: rotate(45deg);\n  border-radius: 2px;\n  top:-4px;\n  right: 15px;;\n\n}\n", ""]);
 
 
 
@@ -1575,7 +1551,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "h2{\r\n  font-size: 20px;\r\n}\r\n\r\np{\r\n  font-size: 16px;\r\n  color: #999\r\n}\r\n\r\ndiv{\r\n  text-align: center;\r\n}", ""]);
+exports.push([module.i, "h2{\n  font-size: 20px;\n}\n\np{\n  font-size: 16px;\n  color: #999\n}\n\ndiv{\n  text-align: center;\n}", ""]);
 
 
 
@@ -1680,7 +1656,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "ul,li{\r\n  list-style: none;\r\n  padding: 0;\r\n  margin: 0;\r\n  color:#1A1A1A;\r\n}\r\n\r\nli{\r\n  display: inline-block;\r\n  margin-right: 35px;\r\n  line-height: 35px;\r\n  cursor: pointer;\r\n}\r\n\r\nli.active{\r\n  color:  #07C160;\r\n  border-bottom: 2px solid rgb(3, 196, 96);\r\n  cursor: default;\r\n}", ""]);
+exports.push([module.i, "ul,li{\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  color:#1A1A1A;\n}\n\nli{\n  display: inline-block;\n  margin-right: 35px;\n  line-height: 35px;\n  cursor: pointer;\n}\n\nli.active{\n  color:  #07C160;\n  border-bottom: 2px solid rgb(3, 196, 96);\n  cursor: default;\n}", ""]);
 
 
 
@@ -1967,7 +1943,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "div{\r\n  color: rgba(0,0,0,.65);\r\n}\r\n* {\r\n  box-sizing: border-box;\r\n}\r\nul,li{\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\nli{\r\n  display: inline-block;\r\n  min-width:32px;\r\n  height: 32px;\r\n  border: 1px solid #ccc;\r\n  vertical-align: middle;\r\n  line-height: 32px;\r\n  text-align: center;\r\n  margin: 0 3px 0 3px; \r\n  cursor: pointer;\r\n  border-radius: 3px;\r\n}\r\n\r\n.o-pager{\r\n  display: inline-block;\r\n}\r\n\r\nbutton{\r\n  width: 32px;\r\n  height: 32px;\r\n  appearance: none;\r\n  -webkit-appearance: none;\r\n  position: relative;\r\n  border: 1px solid #ccc;\r\n  background: none;\r\n  top:1px;\r\n  border-radius: 3px;\r\n  cursor: pointer;\r\n}\r\n\r\nbutton:disabled\r\n{ \r\n  border-color: #eee;\r\n  cursor: default;\r\n}\r\n\r\n.more:after{\r\n  content: '...';\r\n}\r\n\r\n.more{\r\n  border: none;\r\n  cursor: default;\r\n}\r\n\r\n.active{\r\n  border-color:#07C160;\r\n  color:rgb(4, 161, 80);\r\n}\r\n\r\nsvg{\r\n  position: relative;\r\n  top:2px;\r\n}", ""]);
+exports.push([module.i, "div{\n  color: rgba(0,0,0,.65);\n}\n* {\n  box-sizing: border-box;\n}\nul,li{\n  padding: 0;\n  margin: 0;\n}\n\nli{\n  display: inline-block;\n  min-width:32px;\n  height: 32px;\n  border: 1px solid #ccc;\n  vertical-align: middle;\n  line-height: 32px;\n  text-align: center;\n  margin: 0 3px 0 3px; \n  cursor: pointer;\n  border-radius: 3px;\n}\n\n.o-pager{\n  display: inline-block;\n}\n\nbutton{\n  width: 32px;\n  height: 32px;\n  appearance: none;\n  -webkit-appearance: none;\n  position: relative;\n  border: 1px solid #ccc;\n  background: none;\n  top:1px;\n  border-radius: 3px;\n  cursor: pointer;\n}\n\nbutton:disabled\n{ \n  border-color: #eee;\n  cursor: default;\n}\n\n.more:after{\n  content: '...';\n}\n\n.more{\n  border: none;\n  cursor: default;\n}\n\n.active{\n  border-color:#07C160;\n  color:rgb(4, 161, 80);\n}\n\nsvg{\n  position: relative;\n  top:2px;\n}", ""]);
 
 
 
@@ -2097,7 +2073,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-popup {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: fixed;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n  left:0;\r\n  top: 0;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n}\r\n\r\n.content {\r\n  width: 80%;\r\n  height: auto;\r\n  min-height: 200px;\r\n  background-color: white;\r\n  position: fixed;\r\n  left: 10%;\r\n  top: 20%;\r\n  border-radius: 4px; \r\n}\r\n\r\n.header {\r\n  height: 40px;\r\n  border-bottom: 1px solid #ccc;\r\n  margin: 15px 10px; \r\n}\r\n\r\n.close{\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 20px;\r\n  cursor: pointer;\r\n}\r\n\r\n.title{\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 20px;\r\n}\r\n\r\n.main{\r\n  margin: 0 auto;\r\n \r\n  margin-bottom: 20px; \r\n  width: 70%;\r\n}\r\n\r\n.footer{\r\n  text-align: right;\r\n  margin-top: 10px;\r\n}\r\n\r\n.okBtn{\r\n  margin-left: 10px; \r\n}", ""]);
+exports.push([module.i, ".o-popup {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left:0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n.content {\n  width: 80%;\n  height: auto;\n  min-height: 200px;\n  background-color: white;\n  position: fixed;\n  left: 10%;\n  top: 20%;\n  border-radius: 4px; \n}\n\n.header {\n  height: 40px;\n  border-bottom: 1px solid #ccc;\n  margin: 15px 10px; \n}\n\n.close{\n  position: absolute;\n  right: 10px;\n  top: 20px;\n  cursor: pointer;\n}\n\n.title{\n  position: absolute;\n  left: 10px;\n  top: 20px;\n}\n\n.main{\n  margin: 0 auto;\n \n  margin-bottom: 20px; \n  width: 70%;\n}\n\n.footer{\n  text-align: right;\n  margin-top: 10px;\n}\n\n.okBtn{\n  margin-left: 10px; \n}", ""]);
 
 
 
@@ -2180,7 +2156,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-progress{\r\n  width: 100%;\r\n  height: 12px;\r\n  background-color: #ccc;\r\n  border-radius: 6px; \r\n}\r\n\r\n.inner{\r\n  height: 12px;\r\n  width: 60%;\r\n  background-color: #07C160;\r\n  border-radius: 6px; \r\n}", ""]);
+exports.push([module.i, ".o-progress{\n  width: 100%;\n  height: 12px;\n  background-color: #ccc;\n  border-radius: 6px; \n}\n\n.inner{\n  height: 12px;\n  width: 60%;\n  background-color: #07C160;\n  border-radius: 6px; \n}", ""]);
 
 
 
@@ -2387,7 +2363,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "\r\n\r\n.weui-check__label{\r\n  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);\r\n}\r\n.weui-check__label:active{\r\n  background-color:#ECECEC;\r\n}\r\n.weui-check{\r\n  position:absolute;\r\n  left:-9999em;\r\n}\r\n\r\n\r\n\r\n* {\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\na{\r\n  text-decoration: none;\r\n}\r\n\r\n.weui-cells{\r\n  background-color:#FFFFFF;\r\n  line-height:1.47058824;\r\n  font-size:17px;\r\n  overflow:hidden;\r\n  position:relative;\r\n}\r\n\r\n.weui-cells__title + .weui-cells{\r\n  margin-top:0;\r\n}\r\n.weui-cells__tips{\r\n  margin-top:.3em;\r\n  color:#808080;\r\n  padding-left:15px;\r\n  padding-right:15px;\r\n  font-size:14px;\r\n}\r\n.weui-cell{\r\n  padding:10px 15px;\r\n  position:relative;\r\n  display:-webkit-box;\r\n  display:-webkit-flex;\r\n  display:flex;\r\n  -webkit-box-align:center;\r\n  -webkit-align-items:center;\r\n          align-items:center;\r\n}\r\n.weui-cell:before{\r\n  content:\" \";\r\n  position:absolute;\r\n  left:0;\r\n  top:0;\r\n  right:0;\r\n  height:1px;\r\n  border-top:1px solid #e5e5e5;\r\n  color:#e5e5e5;\r\n  -webkit-transform-origin:0 0;\r\n          transform-origin:0 0;\r\n  -webkit-transform:scaleY(0.5);\r\n          transform:scaleY(0.5);\r\n  left:15px;\r\n  z-index:2;\r\n}\r\n.weui-cell:first-child:before{\r\n  display:none;\r\n}\r\n.weui-cell_primary{\r\n  -webkit-box-align:start;\r\n  -webkit-align-items:flex-start;\r\n          align-items:flex-start;\r\n}\r\n.weui-cell__bd{\r\n  -webkit-box-flex:1;\r\n  -webkit-flex:1;\r\n          flex:1;\r\n}\r\n.weui-cell__ft{\r\n  text-align:right;\r\n  color:#808080;\r\n}\r\n.weui-cell_swiped{\r\n  display:block;\r\n  padding:0;\r\n}\r\n.weui-cell_swiped > .weui-cell__bd{\r\n  position:relative;\r\n  z-index:1;\r\n  background-color:#FFFFFF;\r\n}\r\n.weui-cell_swiped > .weui-cell__ft{\r\n  position:absolute;\r\n  right:0;\r\n  top:0;\r\n  bottom:0;\r\n  display:-webkit-box;\r\n  display:-webkit-flex;\r\n  display:flex;\r\n  color:#FFFFFF;\r\n}\r\n\r\n.weui-cells_radio .weui-cell__ft{\r\n  padding-left:0.35em;\r\n}\r\n.weui-cells_radio .weui-check:checked + .weui-icon-checked:before{\r\n  display:block;\r\n  content:'\\EA08';\r\n  color:#07C160;\r\n  font-size:16px;\r\n}\r\n.weui-cells_checkbox .weui-cell__hd{\r\n  padding-right:0.35em;\r\n}\r\n.weui-cells_checkbox .weui-icon-checked:before{\r\n  content:'\\EA01';\r\n  color:#C9C9C9;\r\n  font-size:23px;\r\n  display:block;\r\n}\r\n.weui-cells_checkbox .weui-check:checked + .weui-icon-checked:before{\r\n  content:'\\EA06';\r\n  color:#07C160;\r\n}\r\n\r\n\r\n.weui-cells_form .weui-cell__ft{\r\n  font-size:0;\r\n}\r\n.weui-cells_form .weui-icon-warn{\r\n  display:none;\r\n}\r\n.weui-cells_form input,\r\n.weui-cells_form textarea,\r\n.weui-cells_form label[for]{\r\n  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);\r\n}\r\n.weui-cell_warn{\r\n  color:#E64340;\r\n}\r\n.weui-cell_warn .weui-icon-warn{\r\n  display:inline-block;\r\n}\r\n\r\n.weui-media-box_small-appmsg .weui-cells{\r\n  margin-top:0;\r\n}\r\n.weui-media-box_small-appmsg .weui-cells:before{\r\n  display:none;\r\n}\r\n\r\n\r\n\r\n.weui-cell_select-before{\r\n  padding-right:15px;\r\n}\r\n.weui-cell_select-before .weui-select{\r\n  width:105px;\r\n  box-sizing:border-box;\r\n}\r\n.weui-cell_select-before .weui-cell__hd{\r\n  position:relative;\r\n}\r\n.weui-cell_select-before .weui-cell__hd:after{\r\n  content:\" \";\r\n  position:absolute;\r\n  right:0;\r\n  top:0;\r\n  width:1px;\r\n  bottom:0;\r\n  border-right:1px solid #e5e5e5;\r\n  color:#e5e5e5;\r\n  -webkit-transform-origin:100% 0;\r\n          transform-origin:100% 0;\r\n  -webkit-transform:scaleX(0.5);\r\n          transform:scaleX(0.5);\r\n}\r\n.weui-cell_select-before .weui-cell__hd:before{\r\n  content:\" \";\r\n  display:inline-block;\r\n  height:6px;\r\n  width:6px;\r\n  border-width:2px 2px 0 0;\r\n  border-color:#C8C8CD;\r\n  border-style:solid;\r\n  -webkit-transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\r\n          transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\r\n  position:relative;\r\n  top:-2px;\r\n  position:absolute;\r\n  top:50%;\r\n  right:15px;\r\n  margin-top:-4px;\r\n}\r\n.weui-cell_select-before .weui-cell__bd{\r\n  padding-left:15px;\r\n}\r\n.weui-cell_select-before .weui-cell__bd:after{\r\n  display:none;\r\n}\r\n.weui-cell_select-after{\r\n  padding-left:15px;\r\n}\r\n.weui-cell_select-after .weui-select{\r\n  padding-left:0;\r\n}\r\n.weui-cell_vcode{\r\n  padding-top:0;\r\n  padding-right:0;\r\n  padding-bottom:0;\r\n}\r\n\r\n.weui-cell_switch{\r\n  padding-top:6.5px;\r\n  padding-bottom:6.5px;\r\n}\r\n.icon{\r\n  position: relative;\r\n  top:3px;\r\n}\r\n\r\n.weui-cell_select{\r\n  padding:0;\r\n}\r\n.weui-cell_select .weui-select{\r\n  padding-right:30px;\r\n}\r\n.weui-cell_select .weui-cell__bd:after{\r\n  content:\" \";\r\n  display:inline-block;\r\n  height:6px;\r\n  width:6px;\r\n  border-width:2px 2px 0 0;\r\n  border-color:#C8C8CD;\r\n  border-style:solid;\r\n  -webkit-transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\r\n          transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\r\n  position:relative;\r\n  top:-2px;\r\n  position:absolute;\r\n  top:50%;\r\n  right:15px;\r\n  margin-top:-4px;\r\n}\r\n\r\n.weui-cell_access{\r\n  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);\r\n  color:inherit;\r\n}\r\n.weui-cell_access:active{\r\n  background-color:#ECECEC;\r\n}\r\n.weui-cell_access .weui-cell__ft{\r\n  padding-right:13px;\r\n  position:relative;\r\n}\r\n.weui-cell_access .weui-cell__ft:after{\r\n  content:\" \";\r\n  display:inline-block;\r\n  height:6px;\r\n  width:6px;\r\n  border-width:2px 2px 0 0;\r\n  border-color:#C8C8CD;\r\n  border-style:solid;\r\n  -webkit-transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\r\n          transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\r\n  position:relative;\r\n  top:-2px;\r\n  position:absolute;\r\n  top:50%;\r\n  margin-top:-4px;\r\n  right:2px;\r\n}\r\n.weui-cell_link{\r\n  color:#586C94;\r\n  font-size:14px;\r\n}\r\n.weui-cell_link:first-child:before{\r\n  display:block;\r\n}\r\n\r\n\r\n.weui-cell_warn .weui-textarea-counter{\r\n  color:#E64340;\r\n}", ""]);
+exports.push([module.i, "\n\n.weui-check__label{\n  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);\n}\n.weui-check__label:active{\n  background-color:#ECECEC;\n}\n.weui-check{\n  position:absolute;\n  left:-9999em;\n}\n\n\n\n* {\n  margin: 0;\n  padding: 0;\n}\n\na{\n  text-decoration: none;\n}\n\n.weui-cells{\n  background-color:#FFFFFF;\n  line-height:1.47058824;\n  font-size:17px;\n  overflow:hidden;\n  position:relative;\n}\n\n.weui-cells__title + .weui-cells{\n  margin-top:0;\n}\n.weui-cells__tips{\n  margin-top:.3em;\n  color:#808080;\n  padding-left:15px;\n  padding-right:15px;\n  font-size:14px;\n}\n.weui-cell{\n  padding:10px 15px;\n  position:relative;\n  display:-webkit-box;\n  display:-webkit-flex;\n  display:flex;\n  -webkit-box-align:center;\n  -webkit-align-items:center;\n          align-items:center;\n}\n.weui-cell:before{\n  content:\" \";\n  position:absolute;\n  left:0;\n  top:0;\n  right:0;\n  height:1px;\n  border-top:1px solid #e5e5e5;\n  color:#e5e5e5;\n  -webkit-transform-origin:0 0;\n          transform-origin:0 0;\n  -webkit-transform:scaleY(0.5);\n          transform:scaleY(0.5);\n  left:15px;\n  z-index:2;\n}\n.weui-cell:first-child:before{\n  display:none;\n}\n.weui-cell_primary{\n  -webkit-box-align:start;\n  -webkit-align-items:flex-start;\n          align-items:flex-start;\n}\n.weui-cell__bd{\n  -webkit-box-flex:1;\n  -webkit-flex:1;\n          flex:1;\n}\n.weui-cell__ft{\n  text-align:right;\n  color:#808080;\n}\n.weui-cell_swiped{\n  display:block;\n  padding:0;\n}\n.weui-cell_swiped > .weui-cell__bd{\n  position:relative;\n  z-index:1;\n  background-color:#FFFFFF;\n}\n.weui-cell_swiped > .weui-cell__ft{\n  position:absolute;\n  right:0;\n  top:0;\n  bottom:0;\n  display:-webkit-box;\n  display:-webkit-flex;\n  display:flex;\n  color:#FFFFFF;\n}\n\n.weui-cells_radio .weui-cell__ft{\n  padding-left:0.35em;\n}\n.weui-cells_radio .weui-check:checked + .weui-icon-checked:before{\n  display:block;\n  content:'\\EA08';\n  color:#07C160;\n  font-size:16px;\n}\n.weui-cells_checkbox .weui-cell__hd{\n  padding-right:0.35em;\n}\n.weui-cells_checkbox .weui-icon-checked:before{\n  content:'\\EA01';\n  color:#C9C9C9;\n  font-size:23px;\n  display:block;\n}\n.weui-cells_checkbox .weui-check:checked + .weui-icon-checked:before{\n  content:'\\EA06';\n  color:#07C160;\n}\n\n\n.weui-cells_form .weui-cell__ft{\n  font-size:0;\n}\n.weui-cells_form .weui-icon-warn{\n  display:none;\n}\n.weui-cells_form input,\n.weui-cells_form textarea,\n.weui-cells_form label[for]{\n  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);\n}\n.weui-cell_warn{\n  color:#E64340;\n}\n.weui-cell_warn .weui-icon-warn{\n  display:inline-block;\n}\n\n.weui-media-box_small-appmsg .weui-cells{\n  margin-top:0;\n}\n.weui-media-box_small-appmsg .weui-cells:before{\n  display:none;\n}\n\n\n\n.weui-cell_select-before{\n  padding-right:15px;\n}\n.weui-cell_select-before .weui-select{\n  width:105px;\n  box-sizing:border-box;\n}\n.weui-cell_select-before .weui-cell__hd{\n  position:relative;\n}\n.weui-cell_select-before .weui-cell__hd:after{\n  content:\" \";\n  position:absolute;\n  right:0;\n  top:0;\n  width:1px;\n  bottom:0;\n  border-right:1px solid #e5e5e5;\n  color:#e5e5e5;\n  -webkit-transform-origin:100% 0;\n          transform-origin:100% 0;\n  -webkit-transform:scaleX(0.5);\n          transform:scaleX(0.5);\n}\n.weui-cell_select-before .weui-cell__hd:before{\n  content:\" \";\n  display:inline-block;\n  height:6px;\n  width:6px;\n  border-width:2px 2px 0 0;\n  border-color:#C8C8CD;\n  border-style:solid;\n  -webkit-transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\n          transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\n  position:relative;\n  top:-2px;\n  position:absolute;\n  top:50%;\n  right:15px;\n  margin-top:-4px;\n}\n.weui-cell_select-before .weui-cell__bd{\n  padding-left:15px;\n}\n.weui-cell_select-before .weui-cell__bd:after{\n  display:none;\n}\n.weui-cell_select-after{\n  padding-left:15px;\n}\n.weui-cell_select-after .weui-select{\n  padding-left:0;\n}\n.weui-cell_vcode{\n  padding-top:0;\n  padding-right:0;\n  padding-bottom:0;\n}\n\n.weui-cell_switch{\n  padding-top:6.5px;\n  padding-bottom:6.5px;\n}\n.icon{\n  position: relative;\n  top:3px;\n}\n\n.weui-cell_select{\n  padding:0;\n}\n.weui-cell_select .weui-select{\n  padding-right:30px;\n}\n.weui-cell_select .weui-cell__bd:after{\n  content:\" \";\n  display:inline-block;\n  height:6px;\n  width:6px;\n  border-width:2px 2px 0 0;\n  border-color:#C8C8CD;\n  border-style:solid;\n  -webkit-transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\n          transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\n  position:relative;\n  top:-2px;\n  position:absolute;\n  top:50%;\n  right:15px;\n  margin-top:-4px;\n}\n\n.weui-cell_access{\n  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);\n  color:inherit;\n}\n.weui-cell_access:active{\n  background-color:#ECECEC;\n}\n.weui-cell_access .weui-cell__ft{\n  padding-right:13px;\n  position:relative;\n}\n.weui-cell_access .weui-cell__ft:after{\n  content:\" \";\n  display:inline-block;\n  height:6px;\n  width:6px;\n  border-width:2px 2px 0 0;\n  border-color:#C8C8CD;\n  border-style:solid;\n  -webkit-transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\n          transform:matrix(0.71, 0.71, -0.71, 0.71, 0, 0);\n  position:relative;\n  top:-2px;\n  position:absolute;\n  top:50%;\n  margin-top:-4px;\n  right:2px;\n}\n.weui-cell_link{\n  color:#586C94;\n  font-size:14px;\n}\n.weui-cell_link:first-child:before{\n  display:block;\n}\n\n\n.weui-cell_warn .weui-textarea-counter{\n  color:#E64340;\n}", ""]);
 
 
 
@@ -2549,7 +2525,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".weui-slider{\r\n  padding:15px 18px;\r\n  -webkit-user-select:none;\r\n          user-select:none;\r\n}\r\n.weui-slider__inner{\r\n  position:relative;\r\n  height:2px;\r\n  background-color:#E9E9E9;\r\n}\r\n.weui-slider__track{\r\n  height:2px;\r\n  background-color:#07C160;\r\n  width:0;\r\n}\r\n.weui-slider__handler{\r\n  position:absolute;\r\n  left:0;\r\n  top:50%;\r\n  width:28px;\r\n  height:28px;\r\n  margin-left:-14px;\r\n  margin-top:-14px;\r\n  border-radius:50%;\r\n  background-color:#FFFFFF;\r\n  box-shadow:0 0 4px rgba(0, 0, 0, 0.2);\r\n}\r\n.weui-slider-box{\r\n  display:-webkit-box;\r\n  display:-webkit-flex;\r\n  display:flex;\r\n  -webkit-box-align:center;\r\n  -webkit-align-items:center;\r\n          align-items:center;\r\n}\r\n.weui-slider-box .weui-slider{\r\n  -webkit-box-flex:1;\r\n  -webkit-flex:1;\r\n          flex:1;\r\n}\r\n.weui-slider-box__value{\r\n  margin-left:.5em;\r\n  min-width:24px;\r\n  color:#808080;\r\n  text-align:center;\r\n  font-size:14px;\r\n}", ""]);
+exports.push([module.i, ".weui-slider{\n  padding:15px 18px;\n  -webkit-user-select:none;\n          user-select:none;\n}\n.weui-slider__inner{\n  position:relative;\n  height:2px;\n  background-color:#E9E9E9;\n}\n.weui-slider__track{\n  height:2px;\n  background-color:#07C160;\n  width:0;\n}\n.weui-slider__handler{\n  position:absolute;\n  left:0;\n  top:50%;\n  width:28px;\n  height:28px;\n  margin-left:-14px;\n  margin-top:-14px;\n  border-radius:50%;\n  background-color:#FFFFFF;\n  box-shadow:0 0 4px rgba(0, 0, 0, 0.2);\n}\n.weui-slider-box{\n  display:-webkit-box;\n  display:-webkit-flex;\n  display:flex;\n  -webkit-box-align:center;\n  -webkit-align-items:center;\n          align-items:center;\n}\n.weui-slider-box .weui-slider{\n  -webkit-box-flex:1;\n  -webkit-flex:1;\n          flex:1;\n}\n.weui-slider-box__value{\n  margin-left:.5em;\n  min-width:24px;\n  color:#808080;\n  text-align:center;\n  font-size:14px;\n}", ""]);
 
 
 
@@ -2659,7 +2635,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".weui-switch{\r\n  -webkit-appearance:none;\r\n          appearance:none;\r\n          display: inline-block;\r\n}\r\n\r\n.weui-switch-cp{\r\n  display: inline-block;\r\n}\r\n\r\n.weui-switch,\r\n.weui-switch-cp__box{\r\n  position:relative;\r\n  width:52px;\r\n  height:32px;\r\n  border:1px solid #DFDFDF;\r\n  outline:0;\r\n  border-radius:16px;\r\n  box-sizing:border-box;\r\n  background-color:#DFDFDF;\r\n  -webkit-transition:background-color 0.1s, border 0.1s;\r\n  transition:background-color 0.1s, border 0.1s;\r\n}\r\n.weui-switch:before,\r\n.weui-switch-cp__box:before{\r\n  content:\" \";\r\n  position:absolute;\r\n  top:0;\r\n  left:0;\r\n  width:50px;\r\n  height:30px;\r\n  border-radius:15px;\r\n  background-color:#FDFDFD;\r\n  -webkit-transition:-webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\r\n  transition:-webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\r\n  transition:transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\r\n  transition:transform 0.35s cubic-bezier(0.45, 1, 0.4, 1), -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\r\n}\r\n.weui-switch:after,\r\n.weui-switch-cp__box:after{\r\n  content:\" \";\r\n  position:absolute;\r\n  top:0;\r\n  left:0;\r\n  width:30px;\r\n  height:30px;\r\n  border-radius:15px;\r\n  background-color:#FFFFFF;\r\n  box-shadow:0 1px 3px rgba(0, 0, 0, 0.4);\r\n  -webkit-transition:-webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\r\n  transition:-webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\r\n  transition:transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\r\n  transition:transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35), -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\r\n}\r\n.weui-switch:checked,\r\n.weui-switch-cp__input:checked ~ .weui-switch-cp__box{\r\n  border-color:#07C160;\r\n  background-color:#07C160;\r\n}\r\n.weui-switch:checked:before,\r\n.weui-switch-cp__input:checked ~ .weui-switch-cp__box:before{\r\n  -webkit-transform:scale(0);\r\n          transform:scale(0);\r\n}\r\n.weui-switch:checked:after,\r\n.weui-switch-cp__input:checked ~ .weui-switch-cp__box:after{\r\n  -webkit-transform:translateX(20px);\r\n          transform:translateX(20px);\r\n}\r\n.weui-switch-cp__input{\r\n  position:absolute;\r\n  left:-9999px;\r\n}\r\n.weui-switch-cp__box{\r\n  display:block;\r\n}", ""]);
+exports.push([module.i, ".weui-switch{\n  -webkit-appearance:none;\n          appearance:none;\n          display: inline-block;\n}\n\n.weui-switch-cp{\n  display: inline-block;\n}\n\n.weui-switch,\n.weui-switch-cp__box{\n  position:relative;\n  width:52px;\n  height:32px;\n  border:1px solid #DFDFDF;\n  outline:0;\n  border-radius:16px;\n  box-sizing:border-box;\n  background-color:#DFDFDF;\n  -webkit-transition:background-color 0.1s, border 0.1s;\n  transition:background-color 0.1s, border 0.1s;\n}\n.weui-switch:before,\n.weui-switch-cp__box:before{\n  content:\" \";\n  position:absolute;\n  top:0;\n  left:0;\n  width:50px;\n  height:30px;\n  border-radius:15px;\n  background-color:#FDFDFD;\n  -webkit-transition:-webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n  transition:-webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n  transition:transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n  transition:transform 0.35s cubic-bezier(0.45, 1, 0.4, 1), -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);\n}\n.weui-switch:after,\n.weui-switch-cp__box:after{\n  content:\" \";\n  position:absolute;\n  top:0;\n  left:0;\n  width:30px;\n  height:30px;\n  border-radius:15px;\n  background-color:#FFFFFF;\n  box-shadow:0 1px 3px rgba(0, 0, 0, 0.4);\n  -webkit-transition:-webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n  transition:-webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n  transition:transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n  transition:transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35), -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);\n}\n.weui-switch:checked,\n.weui-switch-cp__input:checked ~ .weui-switch-cp__box{\n  border-color:#07C160;\n  background-color:#07C160;\n}\n.weui-switch:checked:before,\n.weui-switch-cp__input:checked ~ .weui-switch-cp__box:before{\n  -webkit-transform:scale(0);\n          transform:scale(0);\n}\n.weui-switch:checked:after,\n.weui-switch-cp__input:checked ~ .weui-switch-cp__box:after{\n  -webkit-transform:translateX(20px);\n          transform:translateX(20px);\n}\n.weui-switch-cp__input{\n  position:absolute;\n  left:-9999px;\n}\n.weui-switch-cp__box{\n  display:block;\n}", ""]);
 
 
 
@@ -2764,7 +2740,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-tab{\r\n  border: 1px solid #171717;\r\n  border-radius: 5px;\r\n  overflow: hidden;\r\n}\r\n\r\nul,li{\r\n  list-style: none;\r\n  padding: 0;\r\n  margin: 0;\r\n  color:#1A1A1A;\r\n}\r\n\r\nli{\r\n  display: inline-block;\r\n  text-align: center;\r\n  line-height: 35px;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  width: 50%;\r\n  color: #171717; \r\n  background-color: #F2F2F2; \r\n}\r\n\r\nli.active{\r\n  color:  white;\r\n  background-color: #171717; \r\n  cursor: default;\r\n}", ""]);
+exports.push([module.i, ".o-tab{\n  border: 1px solid #171717;\n  border-radius: 5px;\n  overflow: hidden;\n}\n\nul,li{\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  color:#1A1A1A;\n}\n\nli{\n  display: inline-block;\n  text-align: center;\n  line-height: 35px;\n  cursor: pointer;\n  white-space: nowrap;\n  width: 50%;\n  color: #171717; \n  background-color: #F2F2F2; \n}\n\nli.active{\n  color:  white;\n  background-color: #171717; \n  cursor: default;\n}", ""]);
 
 
 
@@ -2868,7 +2844,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "/*ul*/  \r\n.o-tab-bar{\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  text-align: center;\r\n  border-top: 1px solid #ddd;\r\n  padding-top: 13px; \r\n  padding-bottom: 5px; \r\n  position: fixed;\r\n  bottom: 0;\r\n  left: 0;\r\n  width: 100%;\r\n  background-color: #F9F9F9;\r\n}\r\n\r\nul,li{\r\n  padding: 0;\r\n  margin: 0;\r\n  list-style: none;\r\n}\r\n\r\na{\r\n  text-decoration: none;\r\n  \r\n}\r\n\r\n.item{\r\n  cursor: pointer;\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n  flex: 1;\r\n}", ""]);
+exports.push([module.i, "/*ul*/  \n.o-tab-bar{\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  text-align: center;\n  border-top: 1px solid #ddd;\n  padding-top: 13px; \n  padding-bottom: 5px; \n  position: fixed;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  background-color: #F9F9F9;\n}\n\nul,li{\n  padding: 0;\n  margin: 0;\n  list-style: none;\n}\n\na{\n  text-decoration: none;\n  \n}\n\n.item{\n  cursor: pointer;\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n  flex: 1;\n}", ""]);
 
 
 
@@ -2986,7 +2962,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-timeline{\r\n  font-size: 12px; \r\n  padding-top: 30px;\r\n  text-align: left;\r\n}\r\n\r\n.item{\r\n  border-left: 1px solid #D9D9D9; \r\n  position: relative;\r\n  height: 50px;\r\n}\r\n\r\n.item:last-child{ \r\n  height: 35px;\r\n}\r\n\r\n.circle{\r\n  border-radius:50%;\r\n  background-color: #D9D9D9;\r\n  width: 6px;\r\n  height: 6px;\r\n  position: absolute;\r\n  top:-3px;\r\n  left:-3px;\r\n}\r\n\r\n.msgs{\r\n  position: relative;\r\n  top:-5px;\r\n  left: 10px;\r\n}\r\n\r\n.left{\r\n  width: 140px;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n}\r\n.two{\r\n  color: #7C7C7C;\r\n}\r\n\r\n.msg{\r\n  height: 15px;\r\n  line-height: 15px;\r\n  vertical-align: top;\r\n  display: inline-block;\r\n\r\n}", ""]);
+exports.push([module.i, ".o-timeline{\n  font-size: 12px; \n  padding-top: 30px;\n  text-align: left;\n}\n\n.item{\n  border-left: 1px solid #D9D9D9; \n  position: relative;\n  height: 50px;\n}\n\n.item:last-child{ \n  height: 35px;\n}\n\n.circle{\n  border-radius:50%;\n  background-color: #D9D9D9;\n  width: 6px;\n  height: 6px;\n  position: absolute;\n  top:-3px;\n  left:-3px;\n}\n\n.msgs{\n  position: relative;\n  top:-5px;\n  left: 10px;\n}\n\n.left{\n  width: 140px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.two{\n  color: #7C7C7C;\n}\n\n.msg{\n  height: 15px;\n  line-height: 15px;\n  vertical-align: top;\n  display: inline-block;\n\n}", ""]);
 
 
 
@@ -3075,7 +3051,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".ow-toptip {\r\n  position: fixed;\r\n  text-align: center;\r\n  width: 100%;\r\n  top: 0;\r\n  z-index: 1;\r\n  color: #fff;\r\n  padding: 10px 0;\r\n  transition: 0.5s ease;\r\n}\r\n.weui-toptip-primary {\r\n  background: #1aad19;\r\n}\r\n.weui-toptip-warn {\r\n  background: #e64340;\r\n}", ""]);
+exports.push([module.i, ".ow-toptip {\n  position: fixed;\n  text-align: center;\n  width: 100%;\n  top: 0;\n  z-index: 1;\n  color: #fff;\n  padding: 10px 0;\n  transition: 0.5s ease;\n}\n.weui-toptip-primary {\n  background: #1aad19;\n}\n.weui-toptip-warn {\n  background: #e64340;\n}", ""]);
 
 
 
@@ -3245,7 +3221,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".weui-actionsheet {\r\n  position: fixed;\r\n  left: 0;\r\n  bottom: 0;\r\n  -webkit-transform: translate(0, 100%);\r\n  transform: translate(0, 100%);\r\n  -webkit-backface-visibility: hidden;\r\n  backface-visibility: hidden;\r\n  z-index: 5000;\r\n  width: 100%;\r\n  background-color: #EFEFF4;\r\n  -webkit-transition: -webkit-transform .3s;\r\n  transition: -webkit-transform .3s;\r\n  transition: transform .3s;\r\n  transition: transform .3s, -webkit-transform .3s;\r\n}\r\n\r\n.weui-actionsheet__title{\r\n  position:relative;\r\n  height:65px;\r\n  padding:0 20px;\r\n  line-height:1.4;\r\n  display:-webkit-box;\r\n  display:-webkit-flex;\r\n  display:flex;\r\n  -webkit-box-pack:center;\r\n  -webkit-justify-content:center;\r\n          justify-content:center;\r\n  -webkit-box-orient:vertical;\r\n  -webkit-box-direction:normal;\r\n  -webkit-flex-direction:column;\r\n          flex-direction:column;\r\n  text-align:center;\r\n  font-size:14px;\r\n  color:#808080;\r\n  background:#FCFCFD;\r\n}\r\n.weui-actionsheet__title:before{\r\n  content:\" \";\r\n  position:absolute;\r\n  left:0;\r\n  bottom:0;\r\n  right:0;\r\n  height:1px;\r\n  border-bottom:1px solid #e5e5e5;\r\n  color:#e5e5e5;\r\n  -webkit-transform-origin:0 100%;\r\n          transform-origin:0 100%;\r\n  -webkit-transform:scaleY(0.5);\r\n          transform:scaleY(0.5);\r\n}\r\n.weui-actionsheet__title .weui-actionsheet__title-text{\r\n  overflow:hidden;\r\n  text-overflow:ellipsis;\r\n  display:-webkit-box;\r\n  -webkit-box-orient:vertical;\r\n  -webkit-line-clamp:2;\r\n}\r\n.weui-actionsheet__menu{\r\n  background-color:#FCFCFD;\r\n}\r\n.weui-actionsheet__action{\r\n  margin-top:6px;\r\n  background-color:#FCFCFD;\r\n}\r\n.weui-actionsheet__cell{\r\n  position:relative;\r\n  padding:10px 0;\r\n  text-align:center;\r\n  font-size:18px;\r\n}\r\n.weui-actionsheet__cell:before{\r\n  content:\" \";\r\n  position:absolute;\r\n  left:0;\r\n  top:0;\r\n  right:0;\r\n  height:1px;\r\n  border-top:1px solid #e5e5e5;\r\n  color:#e5e5e5;\r\n  -webkit-transform-origin:0 0;\r\n          transform-origin:0 0;\r\n  -webkit-transform:scaleY(0.5);\r\n          transform:scaleY(0.5);\r\n}\r\n.weui-actionsheet__cell:active{\r\n  background-color:#ECECEC;\r\n}\r\n.weui-actionsheet__cell:first-child:before{\r\n  display:none;\r\n}\r\n.weui-skin_android .weui-actionsheet{\r\n  position:fixed;\r\n  left:50%;\r\n  top:50%;\r\n  bottom:auto;\r\n  -webkit-transform:translate(-50%, -50%);\r\n          transform:translate(-50%, -50%);\r\n  width:274px;\r\n  box-sizing:border-box;\r\n  -webkit-backface-visibility:hidden;\r\n          backface-visibility:hidden;\r\n  background:transparent;\r\n  -webkit-transition:-webkit-transform .3s;\r\n  transition:-webkit-transform .3s;\r\n  transition:transform .3s;\r\n  transition:transform .3s, -webkit-transform .3s;\r\n}\r\n.weui-skin_android .weui-actionsheet__action{\r\n  display:none;\r\n}\r\n.weui-skin_android .weui-actionsheet__menu{\r\n  border-radius:2px;\r\n  box-shadow:0 6px 30px 0 rgba(0, 0, 0, 0.1);\r\n}\r\n.weui-skin_android .weui-actionsheet__cell{\r\n  padding:13px 24px;\r\n  font-size:16px;\r\n  line-height:1.4;\r\n  text-align:left;\r\n}\r\n.weui-skin_android .weui-actionsheet__cell:first-child{\r\n  border-top-left-radius:2px;\r\n  border-top-right-radius:2px;\r\n}\r\n.weui-skin_android .weui-actionsheet__cell:last-child{\r\n  border-bottom-left-radius:2px;\r\n  border-bottom-right-radius:2px;\r\n}\r\n.weui-actionsheet_toggle{\r\n  -webkit-transform:translate(0, 0);\r\n          transform:translate(0, 0);\r\n}\r\n\r\n.mask{\r\n  position: fixed;\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: black;\r\n  opacity: 0.4;\r\n  z-index: 100;\r\n  left:0;\r\n  top:0;\r\n}\r\n\r\n.weui-skin_android .weui-actionsheet_toggle {\r\n  opacity: 1 !important;\r\n  top: 50% !important;\r\n  bottom: auto !important;\r\n}\r\n\r\n.weui-skin_android .weui-actionsheet {\r\n  opacity: 0;\r\n  transition: opacity .3s;\r\n  top: 150%;\r\n  bottom: 0;\r\n}\r\n", ""]);
+exports.push([module.i, ".weui-actionsheet {\n  position: fixed;\n  left: 0;\n  bottom: 0;\n  -webkit-transform: translate(0, 100%);\n  transform: translate(0, 100%);\n  -webkit-backface-visibility: hidden;\n  backface-visibility: hidden;\n  z-index: 5000;\n  width: 100%;\n  background-color: #EFEFF4;\n  -webkit-transition: -webkit-transform .3s;\n  transition: -webkit-transform .3s;\n  transition: transform .3s;\n  transition: transform .3s, -webkit-transform .3s;\n}\n\n.weui-actionsheet__title{\n  position:relative;\n  height:65px;\n  padding:0 20px;\n  line-height:1.4;\n  display:-webkit-box;\n  display:-webkit-flex;\n  display:flex;\n  -webkit-box-pack:center;\n  -webkit-justify-content:center;\n          justify-content:center;\n  -webkit-box-orient:vertical;\n  -webkit-box-direction:normal;\n  -webkit-flex-direction:column;\n          flex-direction:column;\n  text-align:center;\n  font-size:14px;\n  color:#808080;\n  background:#FCFCFD;\n}\n.weui-actionsheet__title:before{\n  content:\" \";\n  position:absolute;\n  left:0;\n  bottom:0;\n  right:0;\n  height:1px;\n  border-bottom:1px solid #e5e5e5;\n  color:#e5e5e5;\n  -webkit-transform-origin:0 100%;\n          transform-origin:0 100%;\n  -webkit-transform:scaleY(0.5);\n          transform:scaleY(0.5);\n}\n.weui-actionsheet__title .weui-actionsheet__title-text{\n  overflow:hidden;\n  text-overflow:ellipsis;\n  display:-webkit-box;\n  -webkit-box-orient:vertical;\n  -webkit-line-clamp:2;\n}\n.weui-actionsheet__menu{\n  background-color:#FCFCFD;\n}\n.weui-actionsheet__action{\n  margin-top:6px;\n  background-color:#FCFCFD;\n}\n.weui-actionsheet__cell{\n  position:relative;\n  padding:10px 0;\n  text-align:center;\n  font-size:18px;\n}\n.weui-actionsheet__cell:before{\n  content:\" \";\n  position:absolute;\n  left:0;\n  top:0;\n  right:0;\n  height:1px;\n  border-top:1px solid #e5e5e5;\n  color:#e5e5e5;\n  -webkit-transform-origin:0 0;\n          transform-origin:0 0;\n  -webkit-transform:scaleY(0.5);\n          transform:scaleY(0.5);\n}\n.weui-actionsheet__cell:active{\n  background-color:#ECECEC;\n}\n.weui-actionsheet__cell:first-child:before{\n  display:none;\n}\n.weui-skin_android .weui-actionsheet{\n  position:fixed;\n  left:50%;\n  top:50%;\n  bottom:auto;\n  -webkit-transform:translate(-50%, -50%);\n          transform:translate(-50%, -50%);\n  width:274px;\n  box-sizing:border-box;\n  -webkit-backface-visibility:hidden;\n          backface-visibility:hidden;\n  background:transparent;\n  -webkit-transition:-webkit-transform .3s;\n  transition:-webkit-transform .3s;\n  transition:transform .3s;\n  transition:transform .3s, -webkit-transform .3s;\n}\n.weui-skin_android .weui-actionsheet__action{\n  display:none;\n}\n.weui-skin_android .weui-actionsheet__menu{\n  border-radius:2px;\n  box-shadow:0 6px 30px 0 rgba(0, 0, 0, 0.1);\n}\n.weui-skin_android .weui-actionsheet__cell{\n  padding:13px 24px;\n  font-size:16px;\n  line-height:1.4;\n  text-align:left;\n}\n.weui-skin_android .weui-actionsheet__cell:first-child{\n  border-top-left-radius:2px;\n  border-top-right-radius:2px;\n}\n.weui-skin_android .weui-actionsheet__cell:last-child{\n  border-bottom-left-radius:2px;\n  border-bottom-right-radius:2px;\n}\n.weui-actionsheet_toggle{\n  -webkit-transform:translate(0, 0);\n          transform:translate(0, 0);\n}\n\n.mask{\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background-color: black;\n  opacity: 0.4;\n  z-index: 100;\n  left:0;\n  top:0;\n}\n\n.weui-skin_android .weui-actionsheet_toggle {\n  opacity: 1 !important;\n  top: 50% !important;\n  bottom: auto !important;\n}\n\n.weui-skin_android .weui-actionsheet {\n  opacity: 0;\n  transition: opacity .3s;\n  top: 150%;\n  bottom: 0;\n}\n", ""]);
 
 
 
@@ -3351,7 +3327,293 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".weui-toast{\r\n  position:fixed;\r\n  z-index:5000;\r\n  width:7.6em;\r\n  min-height:7.6em;\r\n  top:180px;\r\n  left:50%;\r\n  margin-left:-3.8em;\r\n  background:rgba(17, 17, 17, 0.7);\r\n  text-align:center;\r\n  border-radius:5px;\r\n  color:#FFFFFF;\r\n}\r\n.weui-icon_toast{\r\n  margin:22px 0 0;\r\n  display:block;\r\n}\r\n.weui-icon_toast.weui-icon-success-no-circle:before{\r\n  color:#FFFFFF;\r\n  font-size:55px;\r\n}\r\n.weui-icon_toast.weui-loading{\r\n  margin:30px 0 0;\r\n  width:38px;\r\n  height:38px;\r\n  vertical-align:baseline;\r\n}\r\n.weui-toast__content{\r\n  margin:0 0 15px;\r\n}\r\n\r\np{\r\n  margin: 0;\r\n  padding-bottom: 10px;\r\n}\r\n\r\n.icon{\r\n  margin-top: 5px;\r\n  position: relative;\r\n  top:10px;\r\n}\r\n\r\n.icon-l{\r\n  margin-top: 15px;\r\n  position: relative;\r\n  top:10px;\r\n  margin-bottom: 13px; \r\n}", ""]);
+exports.push([module.i, ".weui-toast{\n  position:fixed;\n  z-index:5000;\n  width:7.6em;\n  min-height:7.6em;\n  top:180px;\n  left:50%;\n  margin-left:-3.8em;\n  background:rgba(17, 17, 17, 0.7);\n  text-align:center;\n  border-radius:5px;\n  color:#FFFFFF;\n}\n.weui-icon_toast{\n  margin:22px 0 0;\n  display:block;\n}\n.weui-icon_toast.weui-icon-success-no-circle:before{\n  color:#FFFFFF;\n  font-size:55px;\n}\n.weui-icon_toast.weui-loading{\n  margin:30px 0 0;\n  width:38px;\n  height:38px;\n  vertical-align:baseline;\n}\n.weui-toast__content{\n  margin:0 0 15px;\n}\n\np{\n  margin: 0;\n  padding-bottom: 10px;\n}\n\n.icon{\n  margin-top: 5px;\n  position: relative;\n  top:10px;\n}\n\n.icon-l{\n  margin-top: 15px;\n  position: relative;\n  top:10px;\n  margin-bottom: 13px; \n}", ""]);
+
+
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+var _index = __webpack_require__(82);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('o-checkbox', function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    _classCallCheck(this, _class);
+
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'css',
+    value: function css() {
+      return _index2['default'];
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var checked = props.checked ? { checked: true } : null;
+      delete props.checked;
+
+      return Omi.h(
+        'label',
+        _extends({}, (0, _omi.extractClass)(props, "o-checkbox"), props),
+        props.label,
+        Omi.h('input', _extends({ type: 'checkbox' }, checked)),
+        Omi.h('span', { 'class': 'checkmark' })
+      );
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement));
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(83);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, "/* The o-checkbox */\n.o-checkbox {\n  display: block;\n  position: relative;\n  padding-left: 24px;\n  margin-bottom: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n\n/* Hide the browser's default checkbox */\n.o-checkbox input {\n  position: absolute;\n  opacity: 0;\n  cursor: pointer;\n  height: 0;\n  width: 0;\n}\n\n/* Create a custom checkbox */\n.checkmark {\n  position: absolute;\n  top: 2px;\n  left: 0;\n  height: 16px;\n  width: 16px;\n  background-color: #ccc;\n  border-radius: 10%;\n}\n\n/* On mouse-over, add a grey background color */\n.o-checkbox:hover input ~ .checkmark {\n  background-color: rgb(170, 169, 169);\n}\n\n/* When the checkbox is checked, add a blue background */\n.o-checkbox input:checked ~ .checkmark {\n  background-color: #07C160;\n}\n\n/* Create the checkmark/indicator (hidden when not checked) */\n.checkmark:after {\n  content: \"\";\n  position: absolute;\n  display: none;\n}\n\n/* Show the checkmark when checked */\n.o-checkbox input:checked ~ .checkmark:after {\n  display: block;\n}\n\n/* Style the checkmark/indicator */\n.o-checkbox .checkmark:after {\n  left: 5px;\n  top: 1px;\n  width: 4px;\n  height: 8px;\n  border: solid white;\n  border-width: 0 2px 2px 0;\n  -webkit-transform: rotate(45deg);\n  -ms-transform: rotate(45deg);\n  transform: rotate(45deg);\n}\n", ""]);
+
+
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+var _index = __webpack_require__(85);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('o-radio', function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    _classCallCheck(this, _class);
+
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'css',
+    value: function css() {
+      return _index2['default'];
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var checked = props.checked ? { checked: true } : null;
+      delete props.checked;
+      var name = props.name;
+      delete props.name;
+
+      return Omi.h(
+        'label',
+        _extends({}, (0, _omi.extractClass)(props, "o-radio"), props),
+        props.label,
+        Omi.h('input', _extends({ type: 'radio' }, checked, { name: name })),
+        Omi.h('span', { 'class': 'checkmark' })
+      );
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement));
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(86);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, ".o-radio {\n  display: block;\n  position: relative;\n  padding-left: 24px;\n  margin-bottom: 12px;\n  cursor: pointer;\n  font-size: 14px;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n}\n\n/* Hide the browser's default radio button */\n.o-radio input {\n  position: absolute;\n  opacity: 0;\n  cursor: pointer;\n}\n\n/* Create a custom radio button */\n.checkmark {\n  position: absolute;\n  top: 2px;\n  left: 0;\n  height: 16px;\n  width: 16px;\n  background-color: #ccc;\n  border-radius: 50%;\n}\n\n/* On mouse-over, add a grey background color */\n.o-radio:hover input ~ .checkmark {\n  background-color: rgb(170, 169, 169);\n}\n\n/* When the radio button is checked, add a blue background */\n.o-radio input:checked ~ .checkmark {\n  background-color: #07C160;\n}\n\n/* Create the indicator (the dot/circle - hidden when not checked) */\n.checkmark:after {\n  content: \"\";\n  position: absolute;\n  display: none;\n}\n\n/* Show the indicator (dot/circle) when checked */\n.o-radio input:checked ~ .checkmark:after {\n  display: block;\n}\n\n/* Style the indicator (dot/circle) */\n.o-radio .checkmark:after {\n \ttop: 5px;\n\tleft: 5px;\n\twidth: 6px;\n\theight: 6px;\n\tborder-radius: 50%;\n\tbackground: white;\n}\n", ""]);
+
+
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+var _index = __webpack_require__(88);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('o-dropdown', function (_WeElement) {
+  _inherits(_class2, _WeElement);
+
+  function _class2() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, _class2);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onSelect = function (index) {
+      _this.props.onSelect && _this.props.onSelect(index);
+    }, _this.onToggle = function (index) {
+      _this.props.onToggle && _this.props.onToggle(index);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(_class2, [{
+    key: 'css',
+    value: function css() {
+      return _index2['default'];
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this2 = this;
+
+      return Omi.h(
+        'div',
+        _extends({}, (0, _omi.extractClass)(props, "o-dropdown"), props),
+        Omi.h(
+          'div',
+          { 'class': 'select-selected' + (props.show ? ' select-arrow-active' : ''), onClick: this.onToggle },
+          props.children[props.selectedIndex].children[0]
+        ),
+        props.show && Omi.h(
+          'div',
+          { 'class': 'select-items' },
+          props.children.map(function (child, index) {
+            if (index === props.selectedIndex) {
+              return Omi.h(
+                'div',
+                { onClick: function onClick(e) {
+                    _this2.onSelect(index);
+                  }, 'class': 'same-as-selected' },
+                child.children[0]
+              );
+            }
+            return Omi.h(
+              'div',
+              { onClick: function onClick(e) {
+                  _this2.onSelect(index);
+                } },
+              child.children[0]
+            );
+          })
+        )
+      );
+    }
+  }]);
+
+  return _class2;
+}(_omi.WeElement));
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(89);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, "/*the container must be positioned relative:*/\n.o-dropdown {\n  position: relative;\n  color: black;\n  font-size: 14px;\n}\n\n.select-selected {\n  background-color: white;\n  border-radius: 4px; \n  color: black;\n}\n\n/*style the arrow inside the select element:*/\n.select-selected:after {\n  position: absolute;\n  content: \"\";\n  top: 11px;\n  right: 10px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n  border-color: black transparent transparent transparent;\n}\n\n/*point the arrow upwards when the select box is open (active):*/\n.select-selected.select-arrow-active:after {\n  border-color: transparent transparent black transparent;\n  top: 5px;\n}\n\n/*style the items (options), including the selected item:*/\n.select-items div {\n  color: black;\n  padding: 4px 8px;\n  border-bottom: 1px solid #ddd; \n  cursor: pointer;\n  user-select: none;\n}\n\n.select-selected {\n  color: black;\n  padding: 4px 8px;\n  background-color: #eee;\n  border-bottom: 1px solid #ddd; \n  cursor: pointer;\n  user-select: none;\n}\n\n/*style items (options):*/\n.select-items {\n  position: absolute;\n  background-color: #eee;\n  top: 100%;\n  left: 0;\n  right: 0;\n  border: 1px solid #eee;\n  border-radius: 4px;\n  overflow: hidden; \n  z-index: 99;\n}\n\n/*hide the items when the select box is closed:*/\n.select-hide {\n  display: none;\n}\n\n.select-items div:hover, .same-as-selected {\n  background-color: rgb(181, 247, 212);\n}", ""]);
 
 
 
