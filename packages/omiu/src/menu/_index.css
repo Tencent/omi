@@ -35,14 +35,14 @@ a:active{
 .wd{
   margin-left: 60px;
   line-height: 60px;
-  border-bottom: 1px solid #555555; 
+  border-bottom: 1px solid #555555;
 }
 
 .arrow{
   position:absolute;
   width: 10px;
   height: 10px;
-  background-color: #4C4B4C; 
+  background-color: #4C4B4C;
   transform: rotate(45deg);
   border-radius: 2px;
   top:-4px;

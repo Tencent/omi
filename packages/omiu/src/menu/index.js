@@ -14,39 +14,14 @@ define('o-menu', class extends WeElement {
   render(props) {
     return (
       <div {...extractClass(props, 'o-menu')}>
-      
-      <span class="arrow" />
+        <span class="arrow" />
         <div class="ctn">
-          {/* {props.children.map((item, index) => {
-        const props = {}
-        const isActive = item.attributes && item.attributes.active
-        
-        if(isActive){
-          props.class= 'active'
-        }else{
-          props.onClick= () =>  this.onClick(index) 
-        }
-        
-        return <li {...props}>      
-          {item.children[0]}
-        </li>
-      })} */}
-          <a>
-            <o-icon class="icon" color="#F2F2F2" type="chat" />
-            <div class="wd">发起群聊</div>
-          </a>
-          <a>
-            <o-icon class="icon" color="#F2F2F2" type="add-friend" />
-            <div class="wd">添加朋友</div>
-          </a>
-          <a>
-            <o-icon class="icon" color="#F2F2F2" type="scan" />
-            <div class="wd">扫一扫吧</div>
-          </a>
-          <a>
-            <o-icon class="icon" color="#F2F2F2" type="pay" />
-            <div class="wd">收款支付</div>
-          </a>
+          {props.children.map((item, index) => (
+            <a>
+              <o-icon class="icon" color={item.attributes.icon.color} path={item.attributes.icon.path} />
+              <div class="wd">{item.attributes.text}</div>
+            </a>
+          ))}
         </div>
       </div>
     )

@@ -24,6 +24,7 @@ import '../../src/slider'
 import '../../src/switch'
 import '../../src/tree'
 import { loading, close } from 'path-d'
+import path from './utils/path'
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -47,7 +48,7 @@ define('my-app', class extends WeElement {
     selectedIndex: 2,
     selectedIndexs: [0, 1],
     percentage: 30
-    
+
   }
 
   onTapMore = () => {
@@ -119,7 +120,7 @@ define('my-app', class extends WeElement {
 
   render(props, data) {
 
-    
+
 
     return (
       <div class="ctn">
@@ -186,10 +187,10 @@ define('my-app', class extends WeElement {
 
         <br />
         <o-timeline data={[
-            { msgA: '2018.11.111111111111111111',msgB:'15:22:09',msgC:'创建测试项目',msgD:'[牛顿值取消规则]' },
-            { msgA: '2018.11.11',msgB:'15:22:09',msgC:'创建测试项目',msgD:'[牛顿值取消规则]' },
-            { msgA: '2018.11.11',msgB:'15:22:09',msgC:'创建测试项目',msgD:'[牛顿值取消规则]' },
-            { msgA: '2018.11.11',msgB:'15:22:09',msgC:'创建测试项目',msgD:'[牛顿值取消规则]' }
+          { msgA: '2018.11.111111111111111111', msgB: '15:22:09', msgC: '创建测试项目', msgD: '[牛顿值取消规则]' },
+          { msgA: '2018.11.11', msgB: '15:22:09', msgC: '创建测试项目', msgD: '[牛顿值取消规则]' },
+          { msgA: '2018.11.11', msgB: '15:22:09', msgC: '创建测试项目', msgD: '[牛顿值取消规则]' },
+          { msgA: '2018.11.11', msgB: '15:22:09', msgC: '创建测试项目', msgD: '[牛顿值取消规则]' }
         ]} />
 
         <br />
@@ -231,24 +232,26 @@ define('my-app', class extends WeElement {
         <br />
         <br />
 
-        <o-menu onChange={this.tabChange}>
-          <item active={this.tabIndex === 0}>朋友相册</item>
-          <item active={this.tabIndex === 1}>时刻视频</item>
+        <o-menu >
+          <item icon={{ path: path.pathA, color: '#F2F2F2' }} text='发起群聊'></item>
+          <item icon={{ path: path.pathB, color: '#F2F2F2' }} text='添加朋友'></item>
+          <item icon={{ path: path.pathC, color: '#F2F2F2' }} text='扫一扫吧'></item>
+          <item icon={{ path: path.pathD, color: '#F2F2F2' }} text='收款支付'></item>
         </o-menu>
 
         <br />
         <o-equal-space>
-        <o-badge number={8}>
-          <o-icon type="chat" isFill color="#07C160" />
-        </o-badge>
-     
-        <o-badge number={99}>
-          <o-icon type="pay" isFill color="#07C160" />
-        </o-badge>
-     
-        <o-badge>
-          <o-icon type="chat" isFill color="#07C160" />
-        </o-badge>
+          <o-badge number={8}>
+            <o-icon type="chat" isFill color="#07C160" />
+          </o-badge>
+
+          <o-badge number={99}>
+            <o-icon type="pay" isFill color="#07C160" />
+          </o-badge>
+
+          <o-badge>
+            <o-icon type="chat" isFill color="#07C160" />
+          </o-badge>
         </o-equal-space>
         <br />
         <o-input class="o-input" placeholder="请输入用户名" />
@@ -519,7 +522,7 @@ render(<my-app />, 'body')
 
 
 
-    
+
 //     <h2>基础树</h2>
 //     <o-rc-tree
 //       className="myCls" showLine checkable

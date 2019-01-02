@@ -14,7 +14,8 @@ const config = {
           { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' },
           { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' },
           { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
-          { name: 'Tab', md: 'tab', demo: './repl/tab.html' }
+          { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
+          { name: 'Menu', md: 'menu', demo: './repl/menu.html' }
         ]
       },
       {
@@ -55,7 +56,8 @@ const config = {
           { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' },
           { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' },
           { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
-          { name: 'Tab', md: 'tab', demo: './repl/tab.html' }
+          { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
+          { name: 'Menu', md: 'menu', demo: './repl/menu.html' }
         ]
       },
       {
