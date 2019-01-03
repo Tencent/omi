@@ -7,10 +7,10 @@ define('o-badge', class extends WeElement {
   }
 
   render(props) {
-    if (props.number !== undefined) {
+    if (props.content !== undefined) {
       return <div {...extractClass(props, 'o-badge')}>
         {props.children[0]}
-        <span class="badge" style="position: absolute;top: -.7em;right: -1em;">{props.number}</span>
+        <span class="badge" style="top: -.7em;right: -1em;">{props.content}</span>
       </div>
       
     }

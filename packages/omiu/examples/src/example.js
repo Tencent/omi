@@ -241,16 +241,16 @@ define('my-app', class extends WeElement {
 
         <br />
         <o-equal-space>
-          <o-badge number={8}>
+          <o-badge content={8}>
             <o-icon type="chat" isFill color="#07C160" />
           </o-badge>
 
-          <o-badge number={99}>
+          <o-badge content={99}>
             <o-icon type="pay" isFill color="#07C160" />
           </o-badge>
 
-          <o-badge>
-            <o-icon type="chat" isFill color="#07C160" />
+          <o-badge content='new'>
+            <o-icon type="github" isFill color="#07C160" />
           </o-badge>
         </o-equal-space>
         <br />

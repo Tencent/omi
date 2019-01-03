@@ -5,7 +5,7 @@ The number of circular logo in the upper right corner of the icon.
 ## 使用
 
 ```js
-<o-badge number={8}>
+<o-badge content={8}>
   <o-icon type="chat" isFill color="#07C160" />
 </o-badge>
 ```
@@ -16,5 +16,5 @@ The number of circular logo in the upper right corner of the icon.
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------|
-| number         |   number  |    --   |             |　
+| content         |   string  |    --   |             |　
 | children         |    json array  |    --   |   The array's length is 1.        |　

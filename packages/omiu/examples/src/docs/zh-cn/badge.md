@@ -5,7 +5,7 @@
 ## 使用
 
 ```js
-<o-badge number={8}>
+<o-badge content={8}>
   <o-icon type="chat" isFill color="#07C160" />
 </o-badge>
 ```
@@ -16,6 +16,6 @@
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------|
-| number         |   number  |    --   |             |　
+| content         |   string  |    --   |             |　
 | children         |    json array  |    --   |   数组的长度为 1          |　
 
