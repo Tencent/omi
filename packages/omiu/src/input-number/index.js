@@ -66,6 +66,7 @@ define('o-input-number', class extends WeElement {
             aria-valuemax="10"
             aria-valuemin="1"
             aria-valuenow="1"
+            name={props.name}
             value={data.value}
             aria-disabled="undefined"
           />

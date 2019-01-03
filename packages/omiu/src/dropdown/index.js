@@ -16,9 +16,9 @@ define('o-dropdown', class extends WeElement {
   }
 
   render(props) {
-
     return (
       <div {...extractClass(props, "o-dropdown")} {...props} >
+        <input type='hidden' name={props.name} value={props.children[props.selectedIndex].attributes.value}></input>
         <div class={`select-selected${props.show?' select-arrow-active':''}`} onClick={this.onToggle}>{props.children[props.selectedIndex].children[0]}</div>
         {props.show && <div class="select-items">
           {props.children.map((child, index) => {

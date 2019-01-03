@@ -14,7 +14,7 @@ define('o-checkbox', class extends WeElement {
     return (
       <label {...extractClass(props, "o-checkbox")} {...props}>
         {props.label}
-        <input type="checkbox" {...checked} />
+        <input type="checkbox" {...checked} name={props.name} value={props.value} />
         <span class="checkmark"></span>
       </label>
     )

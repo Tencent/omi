@@ -16,7 +16,7 @@ define('o-radio', class extends WeElement {
     return (
       <label {...extractClass(props, "o-radio")} {...props}>
         {props.label}
-        <input type="radio" {...checked}   name={name} />
+        <input type="radio" {...checked} name={name} value={props.value} />
         <span class="checkmark"></span>
       </label>
     )
