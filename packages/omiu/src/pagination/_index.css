@@ -37,10 +37,16 @@ button{
   top:1px;
   border-radius: 3px;
   cursor: pointer;
+  outline: none;
+}
+
+button.btn-next:not(disabled):active,button.btn-prev:not(disabled):active{
+  background-color: #eee;
 }
 
 button:disabled
 { 
+  pointer-events: none;
   border-color: #eee;
   cursor: default;
 }
