@@ -34,7 +34,8 @@ const config = {
           { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' },
           { name: 'Input', md: 'input', demo: './repl/input.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
-          { name: 'Radio', md: 'radio', demo: './repl/radio.html' }
+          { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
+          { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' }
         ]
       },
       {
@@ -78,7 +79,8 @@ const config = {
           { name: 'InputNumber', md: 'input-number', demo: './repl/input-number.html' },
           { name: 'Input', md: 'input', demo: './repl/input.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
-          { name: 'Radio', md: 'radio', demo: './repl/radio.html' }
+          { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
+          { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' }
         ]
       },
       {
