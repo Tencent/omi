@@ -1,32 +1,44 @@
 import { WeElement, define, render } from 'omi'
-import '../../src/dropdown'
+import '../../src/table'
 define('my-app', class extends WeElement {
-  showSelect = false
+  dataSource = [{
+    name: 'xwang',
+    age: 18,
+    address: '腾讯大厦'
+  }, {
+    name: 'dntzhang',
+    age: 12,
+    address: '滨海大厦'
+  }, {
+    name: 'dntzhang2',
+    age: 12,
+    address: '滨海大厦'
+  }, {
+    name: 'dntzhang3',
+    age: 12,
+    address: '滨海大厦'
+  }, {
+    name: 'dntzhang4',
+    age: 12,
+    address: '滨海大厦'
+  }];
 
-  selectedIndex = 1
-
-  onSelect = (index) => {
-    this.selectedIndex = index
-    this.showSelect = false
-    this.update()
-  }
-
-  onToggle = () => {
-    this.showSelect = !this.showSelect
-    this.update()
-  }
+  columns = [{
+    title: '姓名',
+    key: 'name',
+  }, {
+    title: '年龄',
+    key: 'age',
+  }, {
+    title: '住址',
+    key: 'address',
+  }]
 
   render() {
     return (
       <div>
-        <o-dropdown selectedIndex={this.selectedIndex}
-          show={this.showSelect}
-          onToggle={this.onToggle}
-          onSelect={this.onSelect} style="width:200px;">
-          <item value={1}>Item 1</item>
-          <item value={2}>Item 2</item>
-          <item value={3}>Item 3</item>
-        </o-dropdown>
+        <o-table dataSource={this.dataSource} columns={this.columns}>
+        </o-table>
       </div>
 
 
