@@ -17,11 +17,11 @@ Icon using svg.
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
 | path  | string| -- ||
-| type  | string| -- |deprecated|
 | scale | number   |   2 | |
 | color | bool| black ||
-| isFill | bool| false |deprecated|
 | rotate | bool| false ||
+| isFill | bool| false |deprecated|
+| type  | string| -- |deprecated|
 
 [→ You can use antd's SVG path directly](https://ant.design/components/icon/)
 

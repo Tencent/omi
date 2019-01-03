@@ -17,11 +17,11 @@ SVG 制作的 Icon.
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
 | path  | string|--  ||
-| type  | string| -- | 不推荐，建议用 path |
 | scale | number   |   2 | |
 | color | bool| black ||
-| isFill | bool| false |不推荐，建议用 path|
 | rotate | bool| false ||
+| isFill | bool| false |不推荐，建议用 path|
+| type  | string| -- | 不推荐，建议用 path |
 
 [→ 你可以直接使用 antd 的海量 svg path 作为 icon 的 path](https://ant.design/components/icon-cn/),你可以通过开发者工具查看对应 icon 的 path。
 
