@@ -32,6 +32,7 @@ Directory description:
 |Omio Template|`omi init-o my-app`| Basic omi project template for old browsers(IE8+ and mobile browsers).|
 |Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
 |TypeScript Template(omi-cli v3.0.5+)|`omi init-ts my-app`|Basic template with typescript.|
+|TypeScript Template(omi-cli v3.2.4+)|`omi init-typescript my-app`|Template with typescript and scoped css.|
 |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.|
 |omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |Developing web with mini program template.|
 |MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM template.|
