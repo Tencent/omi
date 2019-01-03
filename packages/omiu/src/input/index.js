@@ -12,9 +12,7 @@ define('o-input', class extends WeElement {
 
   render(props) {
     return (
-      <div {...extractClass(props, 'o-input')} {...props}>
-        <input placeholder={props.placeholder} />
-      </div>
+        <input  {...extractClass(props, 'o-input')} {...props} placeholder={props.placeholder} />
     )
   }
 })
