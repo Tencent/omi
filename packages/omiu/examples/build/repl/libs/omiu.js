@@ -410,6 +410,8 @@ __webpack_require__(84);
 
 __webpack_require__(87);
 
+__webpack_require__(90);
+
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -521,6 +523,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
             'aria-valuemax': '10',
             'aria-valuemin': '1',
             'aria-valuenow': '1',
+            name: props.name,
             value: data.value,
             'aria-disabled': 'undefined'
           })
@@ -1356,7 +1359,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-menu', function (_WeElement) {
+(0, _omi.define)('o-dropdown-menu', function (_WeElement) {
   _inherits(_class2, _WeElement);
 
   function _class2() {
@@ -1385,7 +1388,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     value: function render(props) {
       return Omi.h(
         'div',
-        (0, _omi.extractClass)(props, 'o-menu'),
+        (0, _omi.extractClass)(props, 'o-dropdown-menu'),
         Omi.h('span', { 'class': 'arrow' }),
         Omi.h(
           'div',
@@ -1431,7 +1434,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-menu{\r\n  max-width: 160px;\r\n  position: relative;\r\n}\r\n\r\n.ctn{\r\n  border-radius: 5px;\r\n  background-color: #4C4B4C;\r\n  color: #F2F2F2;\r\n  overflow: hidden;\r\n}\r\n\r\n.ctn>a{\r\n  text-align: center;\r\n  display: block;\r\n  position: relative;\r\n  line-height: 35px;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  text-align: left;\r\n  height: 60px;\r\n  color: #F2F2F2;\r\n}\r\n\r\na:active{\r\n  background-color:rgb(63, 63, 63);\r\n}\r\n\r\n.icon {\r\n  position:absolute;\r\n  left:20px;\r\n  top:13px;\r\n}\r\n\r\n.wd{\r\n  margin-left: 60px;\r\n  line-height: 60px;\r\n  border-bottom: 1px solid #555555;\r\n}\r\n\r\n.arrow{\r\n  position:absolute;\r\n  width: 10px;\r\n  height: 10px;\r\n  background-color: #4C4B4C;\r\n  transform: rotate(45deg);\r\n  border-radius: 2px;\r\n  top:-4px;\r\n  right: 15px;;\r\n\r\n}\r\n", ""]);
+exports.push([module.i, ".o-dropdown-menu{\r\n  max-width: 160px;\r\n  position: relative;\r\n}\r\n\r\n.ctn{\r\n  border-radius: 5px;\r\n  background-color: #4C4B4C;\r\n  color: #F2F2F2;\r\n  overflow: hidden;\r\n}\r\n\r\n.ctn>a{\r\n  text-align: center;\r\n  display: block;\r\n  position: relative;\r\n  line-height: 35px;\r\n  cursor: pointer;\r\n  white-space: nowrap;\r\n  text-align: left;\r\n  height: 60px;\r\n  color: #F2F2F2;\r\n}\r\n\r\na:active{\r\n  background-color:rgb(63, 63, 63);\r\n}\r\n\r\n.icon {\r\n  position:absolute;\r\n  left:20px;\r\n  top:13px;\r\n}\r\n\r\n.wd{\r\n  margin-left: 60px;\r\n  line-height: 60px;\r\n  border-bottom: 1px solid #555555;\r\n}\r\n\r\n.arrow{\r\n  position:absolute;\r\n  width: 10px;\r\n  height: 10px;\r\n  background-color: #4C4B4C;\r\n  transform: rotate(45deg);\r\n  border-radius: 2px;\r\n  top:-4px;\r\n  right: 15px;;\r\n\r\n}\r\n", ""]);
 
 
 
@@ -3376,7 +3379,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         'label',
         _extends({}, (0, _omi.extractClass)(props, "o-checkbox"), props),
         props.label,
-        Omi.h('input', _extends({ type: 'checkbox' }, checked)),
+        Omi.h('input', _extends({ type: 'checkbox' }, checked, { name: props.name, value: props.value })),
         Omi.h('span', { 'class': 'checkmark' })
       );
     }
@@ -3461,7 +3464,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         'label',
         _extends({}, (0, _omi.extractClass)(props, "o-radio"), props),
         props.label,
-        Omi.h('input', _extends({ type: 'radio' }, checked, { name: name })),
+        Omi.h('input', _extends({ type: 'radio' }, checked, { name: name, value: props.value })),
         Omi.h('span', { 'class': 'checkmark' })
       );
     }
@@ -3554,6 +3557,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       return Omi.h(
         'div',
         _extends({}, (0, _omi.extractClass)(props, "o-dropdown"), props),
+        Omi.h('input', { type: 'hidden', name: props.name, value: props.children[props.selectedIndex].attributes.value }),
         Omi.h(
           'div',
           { 'class': 'select-selected' + (props.show ? ' select-arrow-active' : ''), onClick: this.onToggle },
@@ -3610,6 +3614,114 @@ if (typeof result === "string") {
 exports = module.exports = __webpack_require__(1)(false);
 // Module
 exports.push([module.i, "/*the container must be positioned relative:*/\r\n.o-dropdown {\r\n  position: relative;\r\n  color: black;\r\n  font-size: 14px;\r\n}\r\n\r\n.select-selected {\r\n  background-color: white;\r\n  border-radius: 4px; \r\n  color: black;\r\n}\r\n\r\n/*style the arrow inside the select element:*/\r\n.select-selected:after {\r\n  position: absolute;\r\n  content: \"\";\r\n  top: 11px;\r\n  right: 10px;\r\n  width: 0;\r\n  height: 0;\r\n  border: 6px solid transparent;\r\n  border-color: black transparent transparent transparent;\r\n}\r\n\r\n/*point the arrow upwards when the select box is open (active):*/\r\n.select-selected.select-arrow-active:after {\r\n  border-color: transparent transparent black transparent;\r\n  top: 5px;\r\n}\r\n\r\n/*style the items (options), including the selected item:*/\r\n.select-items div {\r\n  color: black;\r\n  padding: 4px 8px;\r\n  border-bottom: 1px solid #ddd; \r\n  cursor: pointer;\r\n  user-select: none;\r\n}\r\n\r\n.select-selected {\r\n  color: black;\r\n  padding: 4px 8px;\r\n  background-color: #eee;\r\n  border-bottom: 1px solid #ddd; \r\n  cursor: pointer;\r\n  user-select: none;\r\n}\r\n\r\n/*style items (options):*/\r\n.select-items {\r\n  position: absolute;\r\n  background-color: #eee;\r\n  top: 100%;\r\n  left: 0;\r\n  right: 0;\r\n  border: 1px solid #eee;\r\n  border-radius: 4px;\r\n  overflow: hidden; \r\n  z-index: 99;\r\n}\r\n\r\n/*hide the items when the select box is closed:*/\r\n.select-hide {\r\n  display: none;\r\n}\r\n\r\n.select-items div:hover, .same-as-selected {\r\n  background-color: rgb(181, 247, 212);\r\n}", ""]);
+
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+var _index = __webpack_require__(91);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('o-table', function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    _classCallCheck(this, _class);
+
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'css',
+    value: function css() {
+      return _index2['default'];
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+
+      return Omi.h(
+        'table',
+        { 'class': 'table-fill' },
+        Omi.h(
+          'thead',
+          null,
+          Omi.h(
+            'tr',
+            null,
+            props.columns.map(function (item) {
+              return Omi.h(
+                'th',
+                { 'class': 'text-left' },
+                item.title
+              );
+            })
+          )
+        ),
+        Omi.h(
+          'tbody',
+          { 'class': 'table-hover' },
+          props.dataSource.map(function (item) {
+            return Omi.h(
+              'tr',
+              null,
+              props.columns.map(function (subItem) {
+                return Omi.h(
+                  'td',
+                  { 'class': 'text-left' },
+                  item[subItem.key]
+                );
+              })
+            );
+          })
+        )
+      );
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement));
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(92);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, "\r\n.table-fill {\r\n  background: white;\r\n  border-radius:3px;\r\n  border-collapse: collapse;\r\n  margin: auto;\r\n  max-width: 600px;\r\n  padding:5px;\r\n  width: 100%;\r\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);\r\n  animation: float 5s infinite;\r\n}\r\n \r\nth {\r\n  color:white;;\r\n  background:#1b1e24;\r\n  border-right: 1px solid #343a45;\r\n  font-size:15px;\r\n  font-weight: 100;\r\n  padding:5px;\r\n  text-align:left;\r\n\r\n  vertical-align:middle;\r\n}\r\n\r\nth:first-child {\r\n  border-top-left-radius:3px;\r\n}\r\n \r\nth:last-child {\r\n  border-top-right-radius:3px;\r\n  border-right:none;\r\n}\r\n  \r\ntr {\r\n  border-top: 1px solid #C1C3D1;\r\n  color:#666B85;\r\n  font-size:16px;\r\n  font-weight:normal;\r\n}\r\n \r\ntr:hover td {\r\n  background:rgb(12, 201, 103,.1);\r\n}\r\n \r\ntr:first-child {\r\n  border-top:none;\r\n}\r\n\r\ntr:last-child {\r\n  border-bottom:none;\r\n}\r\n \r\ntr:nth-child(odd) td {\r\n  background:#EBEBEB;\r\n}\r\n \r\ntr:nth-child(odd):hover td {\r\n  background:rgb(12, 201, 103,.1);\r\n}\r\n\r\ntr:last-child td:first-child {\r\n  border-bottom-left-radius:3px;\r\n}\r\n \r\ntr:last-child td:last-child {\r\n  border-bottom-right-radius:3px;\r\n}\r\n \r\ntd {\r\n  background:#FFFFFF;\r\n  padding:5px;\r\n  text-align:left;\r\n  vertical-align:middle;\r\n  font-weight:300;\r\n  font-size:14px;\r\n  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\r\n  border-right: 1px solid #C1C3D1;\r\n}\r\n\r\ntd:last-child {\r\n  border-right: 0px;\r\n}\r\n\r\nth.text-left {\r\n  text-align: left;\r\n}\r\n\r\nth.text-center {\r\n  text-align: center;\r\n}\r\n\r\nth.text-right {\r\n  text-align: right;\r\n}\r\n\r\ntd.text-left {\r\n  text-align: left;\r\n}\r\n\r\ntd.text-center {\r\n  text-align: center;\r\n}\r\n\r\ntd.text-right {\r\n  text-align: right;\r\n}\r\n", ""]);
 
 
 
