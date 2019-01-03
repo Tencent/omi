@@ -2,7 +2,7 @@ import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 import '../icon'
 
-define('o-menu', class extends WeElement {
+define('o-dropdown-menu', class extends WeElement {
   css() {
     return css
   }
@@ -13,7 +13,7 @@ define('o-menu', class extends WeElement {
 
   render(props) {
     return (
-      <div {...extractClass(props, 'o-menu')}>
+      <div {...extractClass(props, 'o-dropdown-menu')}>
         <span class="arrow" />
         <div class="ctn">
           {props.children.map((item, index) => (

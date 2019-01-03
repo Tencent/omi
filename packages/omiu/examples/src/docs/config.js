@@ -15,7 +15,7 @@ const config = {
           { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' },
           { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Menu', md: 'menu', demo: './repl/menu.html' }
+          { name: 'DropdownMenu', md: 'dropdown-menu', demo: './repl/dropdown-menu.html' }
         ]
       },
       {
@@ -60,7 +60,7 @@ const config = {
           { name: 'Timeline', md: 'timeline', demo: './repl/timeline.html' },
           { name: 'Nav', md: 'nav', demo: './repl/nav.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Menu', md: 'menu', demo: './repl/menu.html' }
+          { name: 'DropdownMenu', md: 'dropdown-menu', demo: './repl/dropdown-menu.html' }
         ]
       },
       {
