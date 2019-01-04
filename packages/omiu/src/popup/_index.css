@@ -17,7 +17,8 @@
   min-height: 200px;
   background-color: white;
   position: fixed;
-  left: 10%;
+  left: 50%;
+  margin-left: -40%; 
   top: 20%;
   border-radius: 4px; 
 }

@@ -28,6 +28,7 @@
 | ------------- |:-------------:|:-----:|:-------------:|
 | show  | bool |   --    |           |
 | title  | string |   --    |           |
+| width  | number |   --    |           |
 | cancelText  | string |   --    |           |
 | confirmText  | string |   --    |           |
 | onClose  |function |    --   |           |

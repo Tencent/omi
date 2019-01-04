@@ -20,7 +20,7 @@ define('o-popup', class extends WeElement {
     if (!props.show) return
     return (
       <div class="o-popup">
-        <div class="content">
+        <div class="content" style={`width:${props.width}px;margin-left:${props.width/-2}px`}>
           <div class="header">
             <span class="title">{props.title}</span>
             <o-icon class="close" scale={1} type="close" onClick={this.close} />
