@@ -1,0 +1,62 @@
+
+.ipt{
+  display: inline-block;
+  width: 170px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  vertical-align: top;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+.row{
+  margin-top: 10px;
+}
+
+.item{
+
+  width: 470px;
+  height: 30px;
+  border-radius: 4px; 
+  display: inline-block;
+  margin-right: 4px; 
+  vertical-align: top;
+}
+
+span{
+  vertical-align: top;
+  display: inline-block;
+  padding: 2px 10px;
+  height: 30px;
+  background-color: #EEEEEF;
+  font-size: 12px;
+  line-height: 25px;
+}
+
+.span-center{
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.ipt1{
+  border-radius: 0px; 
+}
+
+.ipt2{
+  border-radius: 0px 4px 4px 0px; 
+}
+
+.span-left{
+  border: 1px solid #ccc;
+  border-right: none; 
+  border-radius: 4px 0px 0px 4px;
+}
+
+.btn{
+  height: 30px;
+  background-color: #EEEEEF;
+  vertical-align: top;
+}
