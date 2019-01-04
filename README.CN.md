@@ -41,6 +41,7 @@
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md)| Omi 官方文档 |
 | [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到IE8+和移动端浏览器)。|
+| [omiu![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) 即将到来，敬请期待... ](https://github.com/Tencent/omi/tree/master/packages/omiu)| Omi 官方 UI。|
 | [omi-mp-create![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp-create)| 极小却精巧的小程序框架。|
 | [md2site![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://tencent.github.io/omi/assets/md2site/)| 用 markdown 生成静态网站文档.|
 | [omi-mvvm![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md)| MVVM 王者归来, [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力加持。|
