@@ -24,7 +24,7 @@ define('my-demo', class extends WeElement {
   
   render() {
     return (
-      <div>
+      <div class='ctn'>
         <iframe style={`height:${window.innerHeight-59}px`} src={this.demo} ></iframe>
       </div>
     )

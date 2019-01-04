@@ -5,8 +5,8 @@
   "example.js.map": "static/js/example.f46ce006.js.map",
   "index.css": "static/css/index.fd06c8ea.css",
   "index.css.map": "static/css/index.fd06c8ea.css.map",
-  "index.js": "static/js/index.31beb401.js",
-  "index.js.map": "static/js/index.31beb401.js.map",
+  "index.js": "static/js/index.fabf569a.js",
+  "index.js.map": "static/js/index.fabf569a.js.map",
   "static/js/0.431d0e59.chunk.js": "static/js/0.431d0e59.chunk.js",
   "static/js/0.431d0e59.chunk.js.map": "static/js/0.431d0e59.chunk.js.map",
   "static/js/1.9bd61ec1.chunk.js": "static/js/1.9bd61ec1.chunk.js",
@@ -87,6 +87,6 @@
   "tree.js.map": "static/js/tree.f0c72bf9.js.map",
   "zh-cn.css": "static/css/zh-cn.fd06c8ea.css",
   "zh-cn.css.map": "static/css/zh-cn.fd06c8ea.css.map",
-  "zh-cn.js": "static/js/zh-cn.33700401.js",
-  "zh-cn.js.map": "static/js/zh-cn.33700401.js.map"
+  "zh-cn.js": "static/js/zh-cn.9ea917df.js",
+  "zh-cn.js.map": "static/js/zh-cn.9ea917df.js.map"
 }
