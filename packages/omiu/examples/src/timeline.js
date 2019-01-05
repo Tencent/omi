@@ -1,5 +1,7 @@
 import { WeElement, define, render } from 'omi'
 import '../../src/table'
+import '../../src/input-table'
+
 define('my-app', class extends WeElement {
   dataSource = [{
     name: 'xwang',
@@ -39,6 +41,11 @@ define('my-app', class extends WeElement {
       <div>
         <o-table dataSource={this.dataSource} columns={this.columns}>
         </o-table>
+
+        <o-input-table
+          dataSource={this.dataSource}
+
+          columns={this.columns}></o-input-table>
       </div>
 
 
