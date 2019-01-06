@@ -28,6 +28,18 @@ omio 拥有 omi一样的语法，但是也有一些差异需要注意：
 ``` bash
 npm i omio
 ```
+
+## Omiu
+
+> Omi ui.
+
+Simple UI framework, compatible with omi and omio.
+
+* [English Docs](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)
+* [中文文档](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)
+
+需要注意，Omio 的 UI 组件的 API 设计不要和 DOM 的 API（属性和方法） 重复，因为 omi 组件就是 DOM，为了让 omio 的组件能够无缝过渡到 omi 中使用需要记住这一点。
+
 ### Webpack Alias
 
 如果你想在已经存在的 omi 项目下使用 omio，你可以使用下面配置，不用任何代码更改:

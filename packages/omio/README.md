@@ -30,6 +30,15 @@ Omio has the same grammar as omi, but there are also some differences:
 npm i omio
 ```
 
+## Omiu
+
+> Omi ui.
+
+Simple UI framework, compatible with omi and omio.
+
+* [English Docs](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)
+* [中文文档](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)
+
 ### Webpack Alias
 
 If you want to use omio under existing omi projects, no code changes are required through the following configuration:

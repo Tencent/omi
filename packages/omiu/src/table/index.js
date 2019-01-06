@@ -7,6 +7,15 @@ define('o-table', class extends WeElement {
     return css
   }
 
+  install () {
+    this.dataSource = this.props.dataSource
+  }
+
+  removeItem = (item) => {
+    this.dataSource.splice(this.dataSource.indexOf(item), 1)
+    this.update()
+  }
+
   render(props) {
 
     return (
@@ -22,16 +31,12 @@ define('o-table', class extends WeElement {
           {props.dataSource.map(item => (
             <tr>
               {props.columns.map(subItem => (
-                <td class="text-left">{item[subItem.key]}</td>
+                <td class="text-left">{subItem.render ? subItem.render(item) : item[subItem.key]}</td>
               ))}
             </tr>
           ))}
-
-
         </tbody>
       </table>
     )
-
   }
-
 })
