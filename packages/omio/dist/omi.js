@@ -151,8 +151,20 @@
             var useCapture = name !== (name = name.replace(/Capture$/, ''));
             name = name.toLowerCase().substring(2);
             if (value) {
-                if (!old) node.addEventListener(name, eventProxy, useCapture);
-            } else node.removeEventListener(name, eventProxy, useCapture);
+                if (!old) {
+                    node.addEventListener(name, eventProxy, useCapture);
+                    if ('tap' == name) {
+                        node.addEventListener('touchstart', touchStart, useCapture);
+                        node.addEventListener('touchend', touchEnd, useCapture);
+                    }
+                }
+            } else {
+                node.removeEventListener(name, eventProxy, useCapture);
+                if ('tap' == name) {
+                    node.removeEventListener('touchstart', touchStart, useCapture);
+                    node.removeEventListener('touchend', touchEnd, useCapture);
+                }
+            }
             (node.__l || (node.__l = {}))[name] = value;
         } else if ('list' !== name && 'type' !== name && !isSvg && name in node) {
             setProperty(node, name, null == value ? '' : value);
@@ -169,6 +181,16 @@
     }
     function eventProxy(e) {
         return this.__l[e.type](options.event && options.event(e) || e);
+    }
+    function touchStart(e) {
+        this.C = e.touches[0].pageX;
+        this.D = e.touches[0].pageY;
+        this.F = document.body.scrollTop;
+    }
+    function touchEnd(e) {
+        if (Math.abs(e.changedTouches[0].pageX - this.C) < 30 && Math.abs(e.changedTouches[0].pageY - this.D) < 30 && Math.abs(document.body.scrollTop - this.F) < 30) this.dispatchEvent(new CustomEvent('tap', {
+            detail: e
+        }));
     }
     function flushMounts() {
         var c;
@@ -931,7 +953,7 @@
         extractClass: extractClass
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.2.4';
+    options.root.Omi.version = 'omio-1.2.5';
     var Omi$1 = {
         h: h,
         createElement: h,
