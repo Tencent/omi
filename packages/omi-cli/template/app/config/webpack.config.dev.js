@@ -13,6 +13,8 @@ const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const fileList = require('./entry');
 
+const pjson = require('../package.json');
+
 let entry = {};
 let htmlWebpackPlugins = [];
 
@@ -85,12 +87,7 @@ module.exports = {
     // `web` extension prefixes have been added for better support
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
-    alias: {
-      
-      // Support React Native Web
-      // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web',
-    },
+    alias: pjson.alias,
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
       // This often causes confusion because we only process files within src/ with babel.
@@ -117,7 +114,7 @@ module.exports = {
       //       options: {
       //         formatter: eslintFormatter,
       //         eslintPath: require.resolve('eslint'),
-              
+
       //       },
       //       loader: require.resolve('eslint-loader'),
       //     },
@@ -146,7 +143,7 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
-              
+
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
@@ -224,8 +221,9 @@ module.exports = {
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
-    new InterpolateHtmlPlugin(env.raw),
+
     ...htmlWebpackPlugins,
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
     // Generates an `index.html` file with the <script> injected.
     // new HtmlWebpackPlugin({
     //   inject: true,
@@ -253,7 +251,7 @@ module.exports = {
     // to restart the development server for Webpack to discover it. This plugin
     // makes the discovery automatic so you don't have to restart.
     // See https://github.com/facebookincubator/create-react-app/issues/186
-    new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+    //new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical
     // solution that requires the user to opt into importing specific locales.
@@ -276,4 +274,5 @@ module.exports = {
   performance: {
     hints: false,
   },
+  mode: 'development'
 };
