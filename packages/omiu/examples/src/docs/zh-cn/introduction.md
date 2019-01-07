@@ -16,11 +16,13 @@ Omiu 是 Omi 官方 UI 组件库，基于 Omio(IE8+) 且兼容 Omi,使用微信 
 
 ```
 npm i omi-cli -g             
-omi init-u my-app   
+omi init my-app   
 cd my-app           
 npm start                     
 npm run build    
 ```
+
+> `npx omi-cli init my-app` 也支持(要求 npm v5.2.0+)
 
 ## 现有项目使用
 

@@ -17,11 +17,13 @@ Omiu is the official UI component library of Omi, based on Omio(IE8+) and compat
 
 ```
 npm i omi-cli -g             
-omi init-u my-app   
+omi init my-app   
 cd my-app           
 npm start                     
 npm run build    
 ```
+
+> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
 
 ## Use it in existing project
 
@@ -40,7 +42,7 @@ define('my-app', class extends WeElement {
 
   render() {
     return (
-      <o-button onClick={this.onClick}>按钮</o-button>
+      <o-button onClick={this.onClick}>I am button.</o-button>
     )
   }
 })
