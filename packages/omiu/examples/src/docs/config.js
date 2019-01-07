@@ -2,6 +2,12 @@ const config = {
   menus: {
     'zh-cn': [
       {
+        title: 'Omiu',
+        list: [
+          { name: '简介', md: 'introduction' }
+        ]
+      },
+      {
         title: '基础元素',
         list: [
           { name: 'Button', md: 'button' , demo: './repl/button.html'},
@@ -48,6 +54,12 @@ const config = {
       }
     ],
     en: [
+      {
+        title: 'Omiu',
+        list: [
+          { name: 'Introduction', md: 'introduction' }
+        ]
+      },
       {
         title: 'Base Element',
         list: [
