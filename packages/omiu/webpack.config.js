@@ -61,7 +61,7 @@ if(ENV === 'build'||ENV === 'build-min'){
         },
         output: {
             // path: __dirname,
-            path: path.join(__dirname, 'dist/'),
+            path: path.join(__dirname, 'src/dist/'),
             library:'Omiu',
             libraryTarget: 'umd',
             filename:  '[name].js'
