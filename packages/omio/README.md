@@ -10,11 +10,13 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 
 ```bash
 $ npm i omi-cli -g             
-$ omi init-o my-app   
+$ omi init my-app   
 $ cd my-app           
 $ npm start                     
 $ npm run build               
 ```
+
+Required omi-cli v3.3.0+.
 
 ## Differences to omi
 

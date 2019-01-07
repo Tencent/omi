@@ -10,11 +10,13 @@
 
 ```bash
 $ npm i omi-cli -g             
-$ omi init-o my-app   
+$ omi init my-app   
 $ cd my-app           
 $ npm start                     
 $ npm run build               
 ```
+
+要求  omi-cli v3.3.0+。
 
 ### 与 omi 不同之处
 
