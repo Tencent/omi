@@ -39,7 +39,7 @@
     "mini-css-extract-plugin": "^0.5.0",
     "object-assign": "4.1.1",
     "omio": "latest",
-    "optimize-css-assets-webpack-plugin": "latest",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "prettier": "^1.14.3",
@@ -48,20 +48,22 @@
     "react-dev-utils": "6.0.0",
     "resolve": "1.6.0",
     "style-loader": "0.19.0",
-    "sw-precache-webpack-plugin": "latest",
-    "to-string-loader": "latest",
-    "url": "latest",
-    "url-loader": "latest",
+    "sw-precache-webpack-plugin": "^0.11.5",
+    "to-string-loader": "^1.1.5",
+    "url": "^0.11.0",
+    "url-loader": "^1.1.2",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
-    "webpack-manifest-plugin": "latest",
-    "webpack-merge": "latest",
-    "whatwg-fetch": "2.0.3"
+    "webpack-manifest-plugin": "^2.0.4",
+    "webpack-merge": "^4.2.1",
+    "whatwg-fetch": "2.0.3",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "PUBLIC_URL=. node scripts/build.js",
+    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
     "fix": "eslint src --fix"
   },
   "jest": {
@@ -116,8 +118,5 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
-  },
-  "devDependencies": {
-    "extract-text-webpack-plugin": "^4.0.0-beta.0"
   }
 }
