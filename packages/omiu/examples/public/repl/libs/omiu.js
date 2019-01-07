@@ -2008,7 +2008,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         { 'class': 'o-popup' },
         Omi.h(
           'div',
-          { 'class': 'content' },
+          { 'class': 'content', style: 'width:' + props.width + 'px;margin-left:' + props.width / -2 + 'px' },
           Omi.h(
             'div',
             { 'class': 'header' },
@@ -2072,7 +2072,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-popup {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: fixed;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n  left:0;\r\n  top: 0;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n}\r\n\r\n.content {\r\n  width: 80%;\r\n  height: auto;\r\n  min-height: 200px;\r\n  background-color: white;\r\n  position: fixed;\r\n  left: 10%;\r\n  top: 20%;\r\n  border-radius: 4px; \r\n}\r\n\r\n.header {\r\n  height: 40px;\r\n  border-bottom: 1px solid #ccc;\r\n  margin: 15px 10px; \r\n}\r\n\r\n.close{\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 20px;\r\n  cursor: pointer;\r\n}\r\n\r\n.title{\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 20px;\r\n}\r\n\r\n.main{\r\n  margin: 0 auto;\r\n \r\n  margin-bottom: 20px; \r\n  width: 70%;\r\n}\r\n\r\n.footer{\r\n  text-align: right;\r\n  margin-top: 10px;\r\n}\r\n\r\n.okBtn{\r\n  margin-left: 10px; \r\n}", ""]);
+exports.push([module.i, ".o-popup {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: fixed;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n  left:0;\r\n  top: 0;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n}\r\n\r\n.content {\r\n  width: 80%;\r\n  height: auto;\r\n  min-height: 200px;\r\n  background-color: white;\r\n  position: fixed;\r\n  left: 50%;\r\n  margin-left: -40%; \r\n  top: 20%;\r\n  border-radius: 4px; \r\n}\r\n\r\n.header {\r\n  height: 40px;\r\n  border-bottom: 1px solid #ccc;\r\n  margin: 15px 10px; \r\n}\r\n\r\n.close{\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 20px;\r\n  cursor: pointer;\r\n}\r\n\r\n.title{\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 20px;\r\n}\r\n\r\n.main{\r\n  margin: 0 auto;\r\n \r\n  margin-bottom: 20px; \r\n  width: 70%;\r\n}\r\n\r\n.footer{\r\n  text-align: right;\r\n  margin-top: 10px;\r\n}\r\n\r\n.okBtn{\r\n  margin-left: 10px; \r\n}", ""]);
 
 
 
@@ -3641,18 +3641,34 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (0, _omi.define)('o-table', function (_WeElement) {
-  _inherits(_class, _WeElement);
+  _inherits(_class2, _WeElement);
 
-  function _class() {
-    _classCallCheck(this, _class);
+  function _class2() {
+    var _ref;
 
-    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, _class2);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.removeItem = function (item) {
+      _this.dataSource.splice(_this.dataSource.indexOf(item), 1);
+      _this.update();
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class, [{
+  _createClass(_class2, [{
     key: 'css',
     value: function css() {
       return _index2['default'];
+    }
+  }, {
+    key: 'install',
+    value: function install() {
+      this.dataSource = this.props.dataSource;
     }
   }, {
     key: 'render',
@@ -3687,7 +3703,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                 return Omi.h(
                   'td',
                   { 'class': 'text-left' },
-                  item[subItem.key]
+                  subItem.render ? subItem.render(item) : item[subItem.key]
                 );
               })
             );
@@ -3697,7 +3713,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class;
+  return _class2;
 }(_omi.WeElement));
 
 /***/ }),
@@ -3721,7 +3737,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "\r\n.table-fill {\r\n  background: white;\r\n  border-radius:3px;\r\n  border-collapse: collapse;\r\n  margin: auto;\r\n  max-width: 600px;\r\n  padding:5px;\r\n  width: 100%;\r\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);\r\n  animation: float 5s infinite;\r\n}\r\n \r\nth {\r\n  color:white;;\r\n  background:#1b1e24;\r\n  border-right: 1px solid #343a45;\r\n  font-size:15px;\r\n  font-weight: 100;\r\n  padding:5px;\r\n  text-align:left;\r\n\r\n  vertical-align:middle;\r\n}\r\n\r\nth:first-child {\r\n  border-top-left-radius:3px;\r\n}\r\n \r\nth:last-child {\r\n  border-top-right-radius:3px;\r\n  border-right:none;\r\n}\r\n  \r\ntr {\r\n  border-top: 1px solid #C1C3D1;\r\n  color:#666B85;\r\n  font-size:16px;\r\n  font-weight:normal;\r\n}\r\n \r\ntr:hover td {\r\n  background:rgb(12, 201, 103,.1);\r\n}\r\n \r\ntr:first-child {\r\n  border-top:none;\r\n}\r\n\r\ntr:last-child {\r\n  border-bottom:none;\r\n}\r\n \r\ntr:nth-child(odd) td {\r\n  background:#EBEBEB;\r\n}\r\n \r\ntr:nth-child(odd):hover td {\r\n  background:rgb(12, 201, 103,.1);\r\n}\r\n\r\ntr:last-child td:first-child {\r\n  border-bottom-left-radius:3px;\r\n}\r\n \r\ntr:last-child td:last-child {\r\n  border-bottom-right-radius:3px;\r\n}\r\n \r\ntd {\r\n  background:#FFFFFF;\r\n  padding:5px;\r\n  text-align:left;\r\n  vertical-align:middle;\r\n  font-weight:300;\r\n  font-size:14px;\r\n  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\r\n  border-right: 1px solid #C1C3D1;\r\n}\r\n\r\ntd:last-child {\r\n  border-right: 0px;\r\n}\r\n\r\nth.text-left {\r\n  text-align: left;\r\n}\r\n\r\nth.text-center {\r\n  text-align: center;\r\n}\r\n\r\nth.text-right {\r\n  text-align: right;\r\n}\r\n\r\ntd.text-left {\r\n  text-align: left;\r\n}\r\n\r\ntd.text-center {\r\n  text-align: center;\r\n}\r\n\r\ntd.text-right {\r\n  text-align: right;\r\n}\r\n", ""]);
+exports.push([module.i, "\r\n.table-fill {\r\n  background: white;\r\n  border-radius:3px;\r\n  border-collapse: collapse;\r\n  margin: auto;\r\n  max-width: 600px;\r\n  padding:5px;\r\n  width: 100%;\r\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);\r\n  animation: float 5s infinite;\r\n}\r\n\r\nth {\r\n  color:white;;\r\n  background:#1b1e24;\r\n  border-right: 1px solid #343a45;\r\n  font-size:15px;\r\n  font-weight: 100;\r\n  padding:5px;\r\n  text-align:left;\r\n\r\n  vertical-align:middle;\r\n}\r\n\r\nth:first-child {\r\n  border-top-left-radius:3px;\r\n}\r\n\r\nth:last-child {\r\n  border-top-right-radius:3px;\r\n  border-right:none;\r\n}\r\n\r\ntr {\r\n  border-top: 1px solid #C1C3D1;\r\n  color:#666B85;\r\n  font-size:16px;\r\n  font-weight:normal;\r\n}\r\n\r\ntr:hover td {\r\n  background:rgb(12, 201, 103,.1);\r\n}\r\n\r\ntr:first-child {\r\n  border-top:none;\r\n}\r\n\r\ntr:last-child {\r\n  border-bottom:none;\r\n}\r\n\r\ntr:nth-child(odd) td {\r\n  background:rgb(245, 245, 245);\r\n}\r\n\r\ntr:nth-child(odd):hover td {\r\n  background:rgb(12, 201, 103,.1);\r\n}\r\n\r\ntr:last-child td:first-child {\r\n  border-bottom-left-radius:3px;\r\n}\r\n\r\ntr:last-child td:last-child {\r\n  border-bottom-right-radius:3px;\r\n}\r\n\r\ntd {\r\n  background:#FFFFFF;\r\n  padding:5px;\r\n  text-align:left;\r\n  vertical-align:middle;\r\n  font-weight:300;\r\n  font-size:14px;\r\n  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\r\n  border-right: 1px solid #C1C3D1;\r\n}\r\n\r\ntd:last-child {\r\n  border-right: 0px;\r\n}\r\n\r\nth.text-left {\r\n  text-align: left;\r\n}\r\n\r\nth.text-center {\r\n  text-align: center;\r\n}\r\n\r\nth.text-right {\r\n  text-align: right;\r\n}\r\n\r\ntd.text-left {\r\n  text-align: left;\r\n}\r\n\r\ntd.text-center {\r\n  text-align: center;\r\n}\r\n\r\ntd.text-right {\r\n  text-align: right;\r\n}\r\n\r\na{\r\n  text-decoration: none;\r\n  color: #07C160;\r\n}\r\n", ""]);
 
 
 

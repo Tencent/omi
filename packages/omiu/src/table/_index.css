@@ -52,7 +52,7 @@ tr:last-child {
 }
 
 tr:nth-child(odd) td {
-  background:#EBEBEB;
+  background:rgb(245, 245, 245);
 }
 
 tr:nth-child(odd):hover td {
@@ -108,4 +108,5 @@ td.text-right {
 
 a{
   text-decoration: none;
+  color: #07C160;
 }
