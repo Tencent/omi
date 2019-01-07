@@ -61,7 +61,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "PUBLIC_URL=. node scripts/build.js",
-    "build_w": "set PUBLIC_URL=.&& node scripts/build.js",
+    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
     "fix": "eslint src --fix"
   },
   "jest": {
