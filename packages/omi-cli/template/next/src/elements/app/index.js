@@ -4,19 +4,18 @@ import style from './_index.css'
 import '../app-intro'
 
 define('my-app', class extends WeElement {
-  static observe = true
-
-  data = { name :'Omio'}
+  name = 'Omi'
 
   clickHandler = () => {
-    this.data.name = 'Omio by Tencent'
+    this.name = 'Omio'
+    this.update()
   }
 
   css() {
     return style
   }
 
-  render(props, data) {
+  render() {
     return (
       <div class="app">
         <header class="app-header">
@@ -26,7 +25,7 @@ define('my-app', class extends WeElement {
             class="app-logo"
             alt="logo"
           />
-          <h1 class="app-title">Welcome to {data.name}</h1>
+          <h1 class="app-title">Welcome to {this.name}</h1>
         </header>
         <app-intro />
       </div>

@@ -473,7 +473,7 @@ npm install --save-dev @babel/preset-react
     [
       "@babel/preset-react",
       {
-        "pragma": "Omi.h", 
+        "pragma": "Omi.h"
       }
     ]
   ]
