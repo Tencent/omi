@@ -115,26 +115,14 @@
   }, {
     title: 'Address',
     key: 'address',
-  }, {
-    title: '操作',
-    render: (item) => (
-      <span>
-        <a href="javascript:;" onClick={e => { this.removeItem(item) }}>Delete</a>
-      </span>
-    )
   }]
-
-  removeItem = (item) => {
-    this.table.removeItem(item)
-  }
 
   render() {
     return (
-      <o-table 
-        ref={e => { this.table = e }} 
+      <o-input-table 
         dataSource={this.dataSource} 
         columns={this.columns}>
-      </o-table>
+      </o-input-table>
     )
   }
 })

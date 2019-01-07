@@ -42,6 +42,7 @@ const config = {
         title: '数据展示',
         list: [
           { name: 'Table', md: 'table', demo: './repl/table.html' },
+          { name: 'InputTable', md: 'input-table', demo: './repl/input-table.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
         ]
       }
@@ -88,6 +89,7 @@ const config = {
         title: 'Data',
         list: [
           { name: 'Table', md: 'table', demo: './repl/table.html' },
+          { name: 'InputTable', md: 'input-table', demo: './repl/input-table.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
         ]
       }

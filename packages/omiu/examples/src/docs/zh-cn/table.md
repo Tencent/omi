@@ -31,7 +31,7 @@ define('my-app', class extends WeElement {
     name: 'dntzhang4',
     age: 12,
     address: '滨海大厦'
-  }];
+  }]
 
   columns = [{
     title: '姓名',
