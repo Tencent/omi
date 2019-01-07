@@ -545,9 +545,19 @@
       var useCapture = name !== (name = name.replace(/Capture$/, ''));
       name = name.toLowerCase().substring(2);
       if (value) {
-        if (!old) node.addEventListener(name, eventProxy, useCapture);
+        if (!old) {
+          node.addEventListener(name, eventProxy, useCapture);
+          if (name == 'tap') {
+            node.addEventListener('touchstart', touchStart, useCapture);
+            node.addEventListener('touchend', touchEnd, useCapture);
+          }
+        }
       } else {
         node.removeEventListener(name, eventProxy, useCapture);
+        if (name == 'tap') {
+          node.removeEventListener('touchstart', touchStart, useCapture);
+          node.removeEventListener('touchend', touchEnd, useCapture);
+        }
       }
   (node._listeners || (node._listeners = {}))[name] = value;
     } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
@@ -577,6 +587,18 @@
    */
   function eventProxy(e) {
     return this._listeners[e.type](options.event && options.event(e) || e);
+  }
+
+  function touchStart(e) {
+    this.___touchX = e.touches[0].pageX;
+    this.___touchY = e.touches[0].pageY;
+    this.___scrollTop = document.body.scrollTop;
+  }
+
+  function touchEnd(e) {
+    if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
+      this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+    }
   }
 
   /** Queue of components that have been mounted and are awaiting componentDidMount */
@@ -1788,7 +1810,7 @@
     extractClass: extractClass
   };
   options.root.omi = Omi;
-  options.root.Omi.version = 'omio-1.2.3';
+  options.root.Omi.version = 'omio-1.2.5';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1834,7 +1856,7 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this2 = _possibleConstructorReturn$1(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.handleClick = function (e) {
+      return _ret = (_temp = (_this2 = _possibleConstructorReturn$1(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.handleTap = function (e) {
         _this2.name = 'Hello Omi !';
         _this2.update();
       }, _temp), _possibleConstructorReturn$1(_this2, _ret);
@@ -1865,6 +1887,11 @@
       return Omi.h(
         'div',
         null,
+        Omi.h(
+          'div',
+          { onTap: this.handleTap },
+          'tap me'
+        ),
         Omi.h('my-hello', { name: this.name })
       );
     };

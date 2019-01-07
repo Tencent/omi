@@ -110,9 +110,19 @@ export function setAccessor(node, name, old, value, isSvg) {
     let useCapture = name !== (name = name.replace(/Capture$/, ''))
     name = name.toLowerCase().substring(2)
     if (value) {
-      if (!old) node.addEventListener(name, eventProxy, useCapture)
+      if (!old) {
+        node.addEventListener(name, eventProxy, useCapture)
+        if (name == 'tap') {
+          node.addEventListener('touchstart', touchStart, useCapture)
+          node.addEventListener('touchend', touchEnd, useCapture)
+        }
+      }
     } else {
       node.removeEventListener(name, eventProxy, useCapture)
+      if (name == 'tap') {
+        node.removeEventListener('touchstart', touchStart, useCapture)
+        node.removeEventListener('touchend', touchEnd, useCapture)
+      }
     }
     ;(node._listeners || (node._listeners = {}))[name] = value
   } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
@@ -153,4 +163,20 @@ function setProperty(node, name, value) {
  */
 function eventProxy(e) {
   return this._listeners[e.type]((options.event && options.event(e)) || e)
+}
+
+function touchStart(e) {
+  this.___touchX = e.touches[0].pageX
+  this.___touchY = e.touches[0].pageY
+  this.___scrollTop = document.body.scrollTop
+}
+
+function touchEnd(e) {
+  if (
+    Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 &&
+    Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 &&
+    Math.abs(document.body.scrollTop - this.___scrollTop) < 30
+  ) {
+    this.dispatchEvent(new CustomEvent('tap', { detail: e }))
+  }
 }

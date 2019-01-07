@@ -12,7 +12,7 @@ define('my-app', class extends Component {
     this.name = 'Omi'
   }
 
-  handleClick = e => {
+  handleTap = e => {
     this.name = 'Hello Omi !'
     this.update()
   }
@@ -24,11 +24,11 @@ define('my-app', class extends Component {
                 }`
   }
 
-  installed(){
-    setTimeout(()=>{
+  installed() {
+    setTimeout(() => {
       this.name = 11
       this.update()
-    },1000)
+    }, 1000)
   }
   css() {
     return `div{
@@ -38,9 +38,10 @@ define('my-app', class extends Component {
 
   render() {
     return (
-        <div>
+      <div>
+        <div onTap={this.handleTap}>tap me</div>
         <my-hello name={this.name} />
-        </div>
+      </div>
     )
   }
 })
