@@ -41,6 +41,7 @@
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.5.0",
     "object-assign": "4.1.1",
+    "omi": "latest",
     "omio": "latest",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-flexbugs-fixes": "3.2.0",
@@ -114,7 +115,12 @@
     ],
     "plugins": [
       "@babel/plugin-proposal-class-properties",
-      ["@babel/plugin-proposal-decorators", { "legacy": true }],
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
       "@babel/plugin-proposal-function-bind",
       "@babel/plugin-proposal-object-rest-spread",
       "@babel/plugin-syntax-dynamic-import"
@@ -125,5 +131,8 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
+  },
+  "alias": {
+    "omi": "omio"
   }
 }
