@@ -52,7 +52,7 @@
 | [omi-sprite](https://github.com/Tencent/omi/tree/master/packages/omi-sprite)| Web Components, JSX 和 Canvas 的完美融合|
 | [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
 | [omi-mp![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
-| [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
+| [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选。 |
 | [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js 扩展(TypeScript) |
