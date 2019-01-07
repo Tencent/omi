@@ -1,4 +1,4 @@
-import { tag, WeElement, h } from 'omi'
+import { define, WeElement, h } from 'omi'
 
 // This is the only way to set the attributes type of a custom element
 // @TODO @xcatliu We are working on a tool to build the type definition automatically 
@@ -21,8 +21,7 @@ interface HelloOmiProps {
     propFromParent: string;
 }
 
-@tag('hello-omi')
-export default class HelloOmi extends WeElement<HelloOmiProps> {
+define('hello-omi', class extends WeElement<HelloOmiProps> {
 
     onClick = (evt: Event) => {
         // trigger CustomEvent
@@ -45,4 +44,4 @@ export default class HelloOmi extends WeElement<HelloOmiProps> {
             </div>
         )
     }
-}
+})

@@ -89,4 +89,4 @@ define('my-app', class extends WeElement<MyAppProps, MyAppData> {
   }
 })
 
-render(<my-app name='Omi v4.0'></my-app>, '#root')
+render(<my-app name='Omi'></my-app>, '#root')

@@ -25,7 +25,8 @@
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.4",
+    "opn": "^5.4.0"
   },
   "dependencies": {
     "omi": "latest",

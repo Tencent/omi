@@ -1,4 +1,4 @@
-import { tag, WeElement, render, h } from 'omi';
+import { WeElement, render, h, define } from 'omi';
 import './hello-omi';
 import './index.css';
 import * as logo from './logo.svg';
@@ -19,8 +19,7 @@ interface MyAppData {
     passToChild: string;
 }
 
-@tag('my-app')
-class MyApp extends WeElement<MyAppProps, MyAppData> {
+define('my-app', class extends WeElement<MyAppProps, MyAppData> {
     static get data(): MyAppData {
         return {
             abc: '',
@@ -91,6 +90,6 @@ class MyApp extends WeElement<MyAppProps, MyAppData> {
 			</div>
         )
     }
-}
+})
 
-render(<my-app name='Omi v4.0'></my-app>, '#root')
+render(<my-app name='Omi'></my-app>, '#root')
