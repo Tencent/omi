@@ -1,0 +1,34 @@
+{
+  "name": "ts-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --config ./build/webpack.dev.js",
+    "build": "webpack --config ./build/webpack.build.js"
+  },
+  "devDependencies": {
+    "css": "^2.2.4",
+    "css-loader": "^1.0.1",
+    "file": "^0.2.2",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.5",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "to-string-loader": "^1.1.5",
+    "ts-loader": "^5.3.1",
+    "typescript": "^3.2.1",
+    "url": "^0.11.0",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.1.4"
+  },
+  "dependencies": {
+    "omi": "latest",
+    "omio": "latest"
+  }
+}
