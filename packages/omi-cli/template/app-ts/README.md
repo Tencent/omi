@@ -1,8 +1,6 @@
-```
-npm install webpack webpack-cli webpack-dev-server -g
-```
+## Usage
 
 ```
-npm run start or yarn start
-npm run build or yarn build
+npm start 
+npm run build
 ```

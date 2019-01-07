@@ -2,10 +2,11 @@ const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = merge(require('./webpack.base'), {
-    mode: 'production'
-    , optimization: {
+    mode: 'production',
+    optimization: {
         minimizer: [
             new TerserPlugin({
                 exclude: /\.min\.js$/,
