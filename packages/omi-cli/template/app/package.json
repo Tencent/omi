@@ -43,6 +43,8 @@
     "object-assign": "4.1.1",
     "omi": "latest",
     "omio": "latest",
+    "omiu": "latest",
+    "omi-router": "latest",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
