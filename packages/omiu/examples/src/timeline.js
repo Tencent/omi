@@ -39,29 +39,17 @@ define('my-app', class extends WeElement {
   }, {
     title: '住址',
     key: 'address',
-  }, {
-    title: '操作',
-    render: (item) => (
-      <span>
-        <a href="javascript:;" onClick={e => { this.removeItem(item) }}>Delete</a>
-      </span>
-    )
   }]
 
-  removeItem = (item) => {
-    this.table.removeItem(item)
-  }
 
   render() {
     return (
       <div>
-        <o-table ref={e => { this.table = e }} dataSource={this.dataSource} columns={this.columns}>
-        </o-table>
 
         <o-input-table
           dataSource={this.dataSource}
-
-          columns={this.columns}></o-input-table>
+          columns={this.columns}>
+        </o-input-table>
       </div>
 
 

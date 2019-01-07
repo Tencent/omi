@@ -12,6 +12,28 @@ define('o-input-table', class extends WeElement {
     this.props.onChange(index)
   }
 
+  install() {
+    this.dataSource = this.props.dataSource
+  }
+
+  removeItem = (item) => {
+    this.dataSource.splice(this.dataSource.indexOf(item), 1)
+    this.update()
+  }
+
+  addItem = () => {
+    const item = JSON.parse(JSON.stringify(this.dataSource[0]))
+    Object.keys(item).forEach(key => {
+      item[key] = null
+    })
+    this.dataSource.push(item)
+    this.update()
+  }
+
+  itemInput = (e, key, item) => {
+    item[key] = e.target.value
+  }
+
   render(props) {
     const len = props.columns.length
     const dataLen = props.dataSource.length
@@ -24,11 +46,14 @@ define('o-input-table', class extends WeElement {
 
                 return <span>
                   <span class={colIndex === 0 ? 'span-left' : 'span-center'}>{columu.title}</span>
-                  <o-input class={'ipt ' + (colIndex === len - 1 ? 'ipt2' : 'ipt1')} value={item[columu.key]}></o-input>
+                  <o-input oninput={e => { this.itemInput(e, columu.key, item) }} class={'ipt ' + (colIndex === len - 1 ? 'ipt2' : 'ipt1')} value={item[columu.key]}></o-input>
 
                 </span>
               })}
-              <o-button class='btn' size="small" type='default'>{dataLen === 1 ? '+' : (index === dataLen - 1 ? '+' : '-')}</o-button>
+              {
+                index === dataLen - 1 ? <o-button class='btn' size="small" onClick={this.addItem} type='default'>+</o-button> : <o-button class='btn' onClick={e => { this.removeItem(item) }} size="small" type='default'>-</o-button>
+              }
+
             </div>
 
           </div>
