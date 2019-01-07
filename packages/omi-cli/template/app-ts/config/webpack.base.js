@@ -8,12 +8,10 @@ module.exports = {
         path.join(__dirname, '..', 'src/index.tsx')
     ],
 
-    output: {
-        filename: 'bundle.js',
-        path: path.join(__dirname, '..', 'build'),
-        publicPath: './'
+    devServer: {
+        port: 3000
     },
-
+    
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
         alias: {
