@@ -1,6 +1,6 @@
 {
   "props": {
-    "cname": 27,
+    "cname": 31,
     "props": {
       "$_dirty": "__d",
       "$_disable": "__x",
@@ -27,7 +27,10 @@
       "$_getRootName": "y",
       "$_preCss": "z",
       "$_willUpdate": "A",
-      "$___scopedCssAttr": "B"
+      "$___scopedCssAttr": "B",
+      "$___touchX": "C",
+      "$___touchY": "D",
+      "$___scrollTop": "F"
     }
   },
   "vars": {
