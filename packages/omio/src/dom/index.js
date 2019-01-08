@@ -1,5 +1,5 @@
 import { IS_NON_DIMENSIONAL } from '../constants'
-import { applyRef } from '../utils'
+import { applyRef } from '../util'
 import options from '../options'
 
 /** Create an element with the given nodeName.
