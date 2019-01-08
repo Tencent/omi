@@ -3,7 +3,8 @@ import {
   render,
   Component,
   cloneElement,
-  WeElement
+  WeElement,
+  createRef
 } from '../../src/omi'
 
 describe('install()', () => {
@@ -94,6 +95,79 @@ describe('install()', () => {
 
   
     expect(scratch.innerHTML).to.equal('<span><div>a</div><div>b</div></span>')
+  })
+
+  it('ref test', () => {
+
+    var text = ''
+    class C2 extends Component {
+      install(){
+        this.div = createRef()
+      }
+
+      installed(){
+        text = this.div.current.innerHTML
+      }
+      render(props) {
+        return <div><div ref={this.div}>aaa</div></div>
+      }
+    }
+    define('c2-ele', C2)
+    render(<c2-ele />, scratch)
+
+    expect(text).to.equal('aaa')
+  })
+
+  it('ref test2', () => {
+
+    var text = ''
+    class C2 extends Component {
+
+      installed(){
+         text = this.div.innerHTML
+      }
+      render(props) {
+        return <div><div ref={e=>{this.div=e}}>aaa</div></div>
+      }
+    }
+    define('c2-ele', C2)
+    render(<c2-ele />, scratch)
+
+  
+    expect(text).to.equal('aaa')
+  })
+
+  it('ref test3', () => {
+
+    class C3 extends Component {
+
+      install(){
+        this.name = 'abc'
+      }
+      render(props) {
+        return <div><div>a</div><div>b</div></div>
+      }
+    }
+
+    define('c3-ele', C3)
+
+    var text = ''
+    class C2 extends Component {
+      install(){
+        this.c3 = createRef()
+      }
+
+      installed(){
+        text = this.c3.current.name
+      }
+      render(props) {
+        return <div><c3-ele ref={this.c3}>aaa</c3-ele></div>
+      }
+    }
+    define('c2-ele', C2)
+    render(<c2-ele />, scratch)
+
+    expect(text).to.equal('abc')
   })
 
 
