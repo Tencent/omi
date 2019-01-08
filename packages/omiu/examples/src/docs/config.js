@@ -41,7 +41,8 @@ const config = {
           { name: 'Input', md: 'input', demo: './repl/input.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
-          { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' }
+          { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' },
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' }
         ]
       },
       {
@@ -50,6 +51,12 @@ const config = {
           { name: 'Table', md: 'table', demo: './repl/table.html' },
           { name: 'InputTable', md: 'input-table', demo: './repl/input-table.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
+        ]
+      },
+      {
+        title: 'Layout',
+        list: [
+          { name: 'EqualSpace', md: 'equal-space', demo: './repl/equal-space.html' }
         ]
       }
     ],
@@ -94,7 +101,8 @@ const config = {
           { name: 'Input', md: 'input', demo: './repl/input.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
-          { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' }
+          { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' },
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' }
         ]
       },
       {
@@ -103,6 +111,12 @@ const config = {
           { name: 'Table', md: 'table', demo: './repl/table.html' },
           { name: 'InputTable', md: 'input-table', demo: './repl/input-table.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
+        ]
+      },
+      {
+        title: 'Layout',
+        list: [
+          { name: 'EqualSpace', md: 'equal-space', demo: './repl/equal-space.html' }
         ]
       }
     ]
