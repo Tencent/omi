@@ -11,7 +11,7 @@
   z-index: 100;
 }
 
-.content {
+._content {
   width: 80%;
   height: auto;
   min-height: 200px;
@@ -23,37 +23,37 @@
   border-radius: 4px; 
 }
 
-.header {
+._header {
   height: 40px;
   border-bottom: 1px solid #ccc;
   margin: 15px 10px; 
 }
 
-.close{
+._close{
   position: absolute;
   right: 10px;
   top: 20px;
   cursor: pointer;
 }
 
-.title{
+._title{
   position: absolute;
   left: 10px;
   top: 20px;
 }
 
-.main{
+._main{
   margin: 0 auto;
  
   margin-bottom: 20px; 
   width: 70%;
 }
 
-.footer{
+._footer{
   text-align: right;
   margin-top: 10px;
 }
 
-.okBtn{
+._okBtn{
   margin-left: 10px; 
 }

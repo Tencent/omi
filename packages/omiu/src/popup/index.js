@@ -20,20 +20,20 @@ define('o-popup', class extends WeElement {
     if (!props.show) return
     return (
       <div class="o-popup">
-        <div class="content" style={`width:${props.width}px;margin-left:${props.width/-2}px`}>
-          <div class="header">
-            <span class="title">{props.title}</span>
-            <o-icon class="close" scale={1} type="close" onClick={this.close} />
+        <div class="_content" style={`width:${props.width}px;margin-left:${props.width/-2}px`}>
+          <div class="_header">
+            <span class="_title">{props.title}</span>
+            <o-icon class="_close" scale={1} type="close" onClick={this.close} />
           </div>
-          <div class="main">
+          <div class="_main">
             {props.children}
-            <div class="footer">
+            <div class="_footer">
               <o-button size="small" type="default" onClick={this.close}>
                 {props.cancelText}
               </o-button>
               <o-button
                 size="small"
-                class="okBtn"
+                class="_okBtn"
                 onClick={this.confirm}
                 type="primary"
               >

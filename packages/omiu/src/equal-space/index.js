@@ -17,7 +17,7 @@ define('o-equal-space', class extends WeElement {
       <ul {...extractClass(props, 'o-equal-space')} {...props}>
         {props.children.map(child => {
           return (
-            <li class="item" {...itemProps}>
+            <li class="_item" {...itemProps}>
               {child}
             </li>
           )
