@@ -11,7 +11,9 @@ import { classNames, extractClass } from './class'
 
 const WeElement = Component
 const defineElement = define
-const createRef = Object
+function createRef() {
+  return {}
+}
 
 options.root.Omi = {
   h,
