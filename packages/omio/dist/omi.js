@@ -44,6 +44,9 @@
         for (var i in props) obj[i] = props[i];
         return obj;
     }
+    function applyRef(ref, value) {
+        if (ref) if ('function' == typeof ref) ref(value); else ref.current = value;
+    }
     function isArray(obj) {
         return '[object Array]' === Object.prototype.toString.call(obj);
     }
@@ -121,8 +124,8 @@
     function setAccessor(node, name, old, value, isSvg) {
         if ('className' === name) name = 'class';
         if ('key' === name) ; else if ('ref' === name) {
-            if (old) old(null);
-            if (value) value(node);
+            applyRef(old, null);
+            applyRef(value, node);
         } else if ('class' === name && !isSvg) node.className = value || ''; else if ('style' === name) if (options.isWeb) {
             if (!value || 'string' == typeof value || 'string' == typeof old) node.style.cssText = value || '';
             if (value && 'object' == typeof value) {
@@ -298,7 +301,7 @@
     function recollectNodeTree(node, unmountOnly) {
         var component = node._component;
         if (component) unmountComponent(component); else {
-            if (null != node.__omiattr_ && node.__omiattr_.ref) node.__omiattr_.ref(null);
+            if (null != node.__omiattr_) applyRef(node.__omiattr_.ref, null);
             if (!1 === unmountOnly || null == node.__omiattr_) removeNode(node);
             removeChildren(node);
         }
@@ -463,7 +466,7 @@
             component.props = props;
             component.__x = !1;
             if (0 !== opts) if (1 === opts || !1 !== options.syncComponentUpdates || !component.base) renderComponent(component, 1, mountAll); else enqueueRender(component);
-            if (component.__r) component.__r(component);
+            applyRef(component.__r, component);
         }
     }
     function shallowComparison(old, attrs) {
@@ -581,13 +584,13 @@
         component.base = null;
         var inner = component._component;
         if (inner) unmountComponent(inner); else if (base) {
-            if (base.__omiattr_ && base.__omiattr_.ref) base.__omiattr_.ref(null);
+            if (null != base.__omiattr_) applyRef(base.__omiattr_.ref, null);
             component.__b = base;
             removeNode(base);
             collectComponent(component);
             removeChildren(base);
         }
-        if (component.__r) component.__r(null);
+        applyRef(component.__r, null);
     }
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
@@ -679,6 +682,9 @@
         if (args.length > 0) return {
             class: classNames.apply(null, args)
         };
+    }
+    function createRef() {
+        return {};
     }
     var options = {
         scopedStyle: !0,
@@ -940,6 +946,7 @@
         h: h,
         createElement: h,
         cloneElement: cloneElement,
+        createRef: createRef,
         Component: Component,
         render: render,
         rerender: rerender,
@@ -953,11 +960,12 @@
         extractClass: extractClass
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.2.5';
+    options.root.Omi.version = 'omio-1.2.6';
     var Omi$1 = {
         h: h,
         createElement: h,
         cloneElement: cloneElement,
+        createRef: createRef,
         Component: Component,
         render: render,
         rerender: rerender,

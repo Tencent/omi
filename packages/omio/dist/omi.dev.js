@@ -1,5 +1,5 @@
 /**
- * omi v1.2.5  http://omijs.org
+ * omi v1.2.6  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -292,6 +292,16 @@
     }return obj;
   }
 
+  /** Invoke or update a ref, depending on whether it is a function or object ref.
+   *  @param {object|function} [ref=null]
+   *  @param {any} [value]
+   */
+  function applyRef(ref, value) {
+    if (ref) {
+      if (typeof ref == 'function') ref(value);else ref.current = value;
+    }
+  }
+
   /**
    * Call a function asynchronously, as soon as possible. Makes
    * use of HTML Promise to schedule the callback if available,
@@ -484,8 +494,8 @@
     if (name === 'key') {
       // ignore
     } else if (name === 'ref') {
-      if (old) old(null);
-      if (value) value(node);
+      applyRef(old, null);
+      applyRef(value, node);
     } else if (name === 'class' && !isSvg) {
       node.className = value || '';
     } else if (name === 'style') {
@@ -855,7 +865,7 @@
     } else {
       // If the node's VNode had a ref function, invoke it with null here.
       // (this is part of the React spec, and smart for unsetting references)
-      if (node['__omiattr_'] != null && node['__omiattr_'].ref) node['__omiattr_'].ref(null);
+      if (node['__omiattr_'] != null) applyRef(node['__omiattr_'].ref, null);
 
       if (unmountOnly === false || node['__omiattr_'] == null) {
         removeNode(node);
@@ -1325,7 +1335,7 @@
       }
     }
 
-    if (component.__ref) component.__ref(component);
+    applyRef(component.__ref, component);
   }
 
   function shallowComparison(old, attrs) {
@@ -1492,7 +1502,6 @@
       // Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
       // flushMounts();
 
-
       if (component.afterUpdate) {
         //deprecated
         component.afterUpdate(previousProps, previousState, previousContext);
@@ -1576,7 +1585,7 @@
     if (inner) {
       unmountComponent(inner);
     } else if (base) {
-      if (base['__omiattr_'] && base['__omiattr_'].ref) base['__omiattr_'].ref(null);
+      if (base['__omiattr_'] != null) applyRef(base['__omiattr_'].ref, null);
 
       component.nextBase = base;
 
@@ -1586,7 +1595,7 @@
       removeChildren(base);
     }
 
-    if (component.__ref) component.__ref(null);
+    applyRef(component.__ref, null);
   }
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1788,11 +1797,15 @@
 
   var WeElement = Component;
   var defineElement = define;
+  function createRef() {
+    return {};
+  }
 
   options.root.Omi = {
     h: h,
     createElement: h,
     cloneElement: cloneElement,
+    createRef: createRef,
     Component: Component,
     render: render,
     rerender: rerender,
@@ -1806,12 +1819,13 @@
     extractClass: extractClass
   };
   options.root.omi = Omi;
-  options.root.Omi.version = 'omio-1.2.5';
+  options.root.Omi.version = 'omio-1.2.6';
 
   var Omi$1 = {
     h: h,
     createElement: h,
     cloneElement: cloneElement,
+    createRef: createRef,
     Component: Component,
     render: render,
     rerender: rerender,

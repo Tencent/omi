@@ -33,7 +33,7 @@ options.root.Omi = {
   extractClass
 }
 options.root.omi = Omi
-options.root.Omi.version = 'omio-1.2.5'
+options.root.Omi.version = 'omio-1.2.6'
 
 export default {
   h,
