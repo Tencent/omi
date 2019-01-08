@@ -1,5 +1,9 @@
 ## 你必须收藏的 ES6 语法密糖 - Spread Operator 技巧
 
+Spread Operator 是我最喜欢的语法糖，没有之一，在应用场景上也是最为广泛，下面说下使用场景和技巧。
+
+这是对应的 [babel 插件](https://babeljs.io/docs/en/next/babel-plugin-proposal-object-rest-spread.html),当然直接使用 typescript 或者直接使用 omi-cli 已经内置了这个特性，可以直接使用。
+
 ### 不使用 Apply 
 
 apply 和 call 可以执行函数，改变 this 执行，比如:
