@@ -62,8 +62,6 @@
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
-| [westore](https://github.com/dntzhang/westore)|小程序解决方案 westore，与 Omi 互相启发|
-| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui)  |[Weui](https://weui.io/)  for Omi by [@132yse](https://github.com/132yse).|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
 

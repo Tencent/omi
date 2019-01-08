@@ -58,7 +58,6 @@ Omi는 Shadow DOM 기반 스타일 분기 및 시멘틱 구조를 사용합니�
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)| 부드러운 스크롤링, Rotation, 웹 페이지를 위한 어떤 모션도 Refresh |
 | [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)| React Hooks 방식 API |
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)| Web Components Native 렌더링 |
-| [omi-weui](https://github.com/Tencent/omi/tree/master/packages/omi-weui)  | Omi 버전의 [Weui](https://weui.io/) by [@132yse](https://github.com/132yse).|
 | [omi-i18n](https://github.com/i18next/omi-i18n)| i18next 에코시스템을 사용한 omi.js 다국어 지원 방식 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | [page](https://github.com/visionmedia/page.js) 를 통한 소형의 클라이언트 사이드 라우터 |
 
