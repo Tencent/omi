@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.2 By dntzhang 
+ *  omiu v0.0.3 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -916,7 +916,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         props.children.map(function (child) {
           return Omi.h(
             'li',
-            _extends({ 'class': 'item' }, itemProps),
+            _extends({ 'class': '_item' }, itemProps),
             child
           );
         })
@@ -948,7 +948,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, "/*ul*/  \r\n.o-equal-space{\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  text-align: center;\r\n  border-top: 1px solid #ddd;\r\n  padding-top: 10px; \r\n  padding-bottom: 10px; \r\n  width: 100%;\r\n  background-color: #F9F9F9;\r\n}\r\n\r\nul,li{\r\n  padding: 0;\r\n  margin: 0;\r\n  list-style: none;\r\n}\r\n\r\na{\r\n  text-decoration: none;\r\n}\r\n\r\n.item{\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n  flex: 1;\r\n}", ""]);
+exports.push([module.i, "/*ul*/  \r\n.o-equal-space{\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  text-align: center;\r\n  border-top: 1px solid #ddd;\r\n  padding-top: 10px; \r\n  padding-bottom: 10px; \r\n  width: 100%;\r\n  background-color: #F9F9F9;\r\n}\r\n\r\nul,li{\r\n  padding: 0;\r\n  margin: 0;\r\n  list-style: none;\r\n}\r\n\r\na{\r\n  text-decoration: none;\r\n}\r\n\r\n._item{\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n  flex: 1;\r\n}", ""]);
 
 
 
@@ -2010,24 +2010,24 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         { 'class': 'o-popup' },
         Omi.h(
           'div',
-          { 'class': 'content', style: 'width:' + props.width + 'px;margin-left:' + props.width / -2 + 'px' },
+          { 'class': '_content', style: 'width:' + props.width + 'px;margin-left:' + props.width / -2 + 'px' },
           Omi.h(
             'div',
-            { 'class': 'header' },
+            { 'class': '_header' },
             Omi.h(
               'span',
-              { 'class': 'title' },
+              { 'class': '_title' },
               props.title
             ),
-            Omi.h('o-icon', { 'class': 'close', scale: 1, type: 'close', onClick: this.close })
+            Omi.h('o-icon', { 'class': '_close', scale: 1, type: 'close', onClick: this.close })
           ),
           Omi.h(
             'div',
-            { 'class': 'main' },
+            { 'class': '_main' },
             props.children,
             Omi.h(
               'div',
-              { 'class': 'footer' },
+              { 'class': '_footer' },
               Omi.h(
                 'o-button',
                 { size: 'small', type: 'default', onClick: this.close },
@@ -2037,7 +2037,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                 'o-button',
                 {
                   size: 'small',
-                  'class': 'okBtn',
+                  'class': '_okBtn',
                   onClick: this.confirm,
                   type: 'primary'
                 },
@@ -2074,7 +2074,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-popup {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: fixed;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n  left:0;\r\n  top: 0;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n}\r\n\r\n.content {\r\n  width: 80%;\r\n  height: auto;\r\n  min-height: 200px;\r\n  background-color: white;\r\n  position: fixed;\r\n  left: 50%;\r\n  margin-left: -40%; \r\n  top: 20%;\r\n  border-radius: 4px; \r\n}\r\n\r\n.header {\r\n  height: 40px;\r\n  border-bottom: 1px solid #ccc;\r\n  margin: 15px 10px; \r\n}\r\n\r\n.close{\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 20px;\r\n  cursor: pointer;\r\n}\r\n\r\n.title{\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 20px;\r\n}\r\n\r\n.main{\r\n  margin: 0 auto;\r\n \r\n  margin-bottom: 20px; \r\n  width: 70%;\r\n}\r\n\r\n.footer{\r\n  text-align: right;\r\n  margin-top: 10px;\r\n}\r\n\r\n.okBtn{\r\n  margin-left: 10px; \r\n}", ""]);
+exports.push([module.i, ".o-popup {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: fixed;\r\n  background-color: rgba(0, 0, 0, 0.4);\r\n  left:0;\r\n  top: 0;\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n}\r\n\r\n._content {\r\n  width: 80%;\r\n  height: auto;\r\n  min-height: 200px;\r\n  background-color: white;\r\n  position: fixed;\r\n  left: 50%;\r\n  margin-left: -40%; \r\n  top: 20%;\r\n  border-radius: 4px; \r\n}\r\n\r\n._header {\r\n  height: 40px;\r\n  border-bottom: 1px solid #ccc;\r\n  margin: 15px 10px; \r\n}\r\n\r\n._close{\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 20px;\r\n  cursor: pointer;\r\n}\r\n\r\n._title{\r\n  position: absolute;\r\n  left: 10px;\r\n  top: 20px;\r\n}\r\n\r\n._main{\r\n  margin: 0 auto;\r\n \r\n  margin-bottom: 20px; \r\n  width: 70%;\r\n}\r\n\r\n._footer{\r\n  text-align: right;\r\n  margin-top: 10px;\r\n}\r\n\r\n._okBtn{\r\n  margin-left: 10px; \r\n}", ""]);
 
 
 
