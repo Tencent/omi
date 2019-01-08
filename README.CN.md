@@ -320,7 +320,27 @@ $ npm run build                  # release
 │  └─ index.js    //入口文件，会 build 成  index.html
 ```
 
-关于编译网站的 url 前缀的设置，可以参考两个地址：
+#### Scripts
+
+```json
+"scripts": {
+    "start": "node scripts/start.js",
+    "build": "PUBLIC_URL=. node scripts/build.js",
+    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
+    "fix": "eslint src --fix"
+}
+```
+
+你也可以设置 PUBLIC_URL, 比如：
+
+```json
+...
+"build": "PUBLIC_URL=https://fe.wxpay.oa.com/dv node scripts/build.js",
+"build-windows": "set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& node scripts/build.js",
+...
+```
+
+<!-- 关于编译网站的 url 前缀的设置，可以参考两个地址：
 
 * [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
 * [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
@@ -351,7 +371,7 @@ $ npm run build                  # release
 ```
 "build":"set PUBLIC_URL=.&& npm run _build"  //windows
 "build":"PUBLIC_URL=. npm run _build",       //mac os
-```
+``` -->
 
 ### 项目模板
 

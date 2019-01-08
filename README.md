@@ -300,7 +300,7 @@ Directory description:
 │  └─ index.js    //Entry js of compiler，will build to index.html
 ```
 
-### scripts
+#### Scripts
 
 ```json
 "scripts": {
