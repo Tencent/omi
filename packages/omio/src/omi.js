@@ -11,11 +11,13 @@ import { classNames, extractClass } from './class'
 
 const WeElement = Component
 const defineElement = define
+const createRef = Object
 
 options.root.Omi = {
   h,
   createElement,
   cloneElement,
+  createRef,
   Component,
   render,
   rerender,
@@ -35,6 +37,7 @@ export default {
   h,
   createElement,
   cloneElement,
+  createRef,
   Component,
   render,
   rerender,
@@ -52,6 +55,7 @@ export {
   h,
   createElement,
   cloneElement,
+  createRef,
   Component,
   render,
   rerender,

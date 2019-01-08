@@ -1,4 +1,5 @@
 import { IS_NON_DIMENSIONAL } from '../constants'
+import { applyRef } from '../util'
 import options from '../options'
 
 /** Create an element with the given nodeName.
@@ -49,8 +50,8 @@ export function setAccessor(node, name, old, value, isSvg) {
   if (name === 'key') {
     // ignore
   } else if (name === 'ref') {
-    if (old) old(null)
-    if (value) value(node)
+    applyRef(old, null)
+    applyRef(value, node)
   } else if (name === 'class' && !isSvg) {
     node.className = value || ''
   } else if (name === 'style') {
