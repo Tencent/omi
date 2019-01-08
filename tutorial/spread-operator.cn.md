@@ -1,4 +1,4 @@
-## 你必须收藏的 ES6 语法糖 - Spread Operator 技巧
+## 你必须收藏的 ES6 语法密糖 - Spread Operator 技巧
 
 ### 不使用 Apply 
 
@@ -223,7 +223,87 @@ define('my-element', class extends WeElement {
 })
 ```
 
-extractClass 简直是写 UI 组件的神器，该方法会提取出 props 的 class 或者 className，并且进行类似 classNames 库的合并。最后通过扩展运算符增加到 JSX 上。
+`extractClass` 简直是写 UI 组件的神器，该方法会提取出 props 的 class 或者 className，并且进行类似 classNames 库的合并。最后通过扩展运算符增加到 JSX 上。
+
+### Omiu button 实战
+
+```js
+import { define, WeElement, extractClass } from 'omi'
+import css from './_index.css'
+
+define('o-button', class extends WeElement {
+  static defaultProps = {
+    disabled: false,
+    type: 'primary',
+    size: 'normal'
+  }
+
+  css() {
+    return css
+  }
+
+  render(props) {
+    //提取 class，并从 props 中去掉
+    let cls = extractClass(props) || {}
+    const {
+      component,
+      type,
+      size,
+      plain,
+      children,
+      ...others
+    } = this.props
+
+
+    const Component = component
+      ? component
+      : this.props.href || type === 'vcode'
+        ? 'a'
+        : 'button'
+    cls =
+      type === 'vcode'
+        ? extractClass(cls, 'weui-vcode-btn')
+        : extractClass(cls, {
+          'weui-btn': true,
+          'weui-btn_mini': size === 'small',
+          'weui-btn_primary': type === 'primary' && !plain,
+          'weui-btn_default': type === 'default' && !plain,
+          'weui-btn_warn': type === 'warn',
+          'weui-btn_plain-primary': type === 'primary' && plain,
+          'weui-btn_plain-default': type === 'default' && plain,
+          'weui-btn_disabled': this.props.disabled && !plain,
+          'weui-btn_plain-disabled': this.props.disabled && plain
+        })
+
+    return (
+      <Component {...others} {...cls}>
+        {children}
+      </Component>
+    )
+  }
+})
+```
+
+### extractClass 源码
+
+```js
+export function extractClass() {
+  //提取第一个参数 props 和剩余的 args
+  const [props, ...args] = Array.prototype.slice.call(arguments, 0)
+  if (props.class) {
+    args.unshift(props.class)
+    delete props.class
+  } else if (props.className) {
+    args.unshift(props.className)
+    delete props.className
+  }
+  if (args.length > 0) {
+    return { class: classNames.apply(null, args) }
+  }
+}
+```
+
+可以看到 extractClass 本身也用到了 Spread Operator，真实无处不在。
 
 ## 参考文档
 
