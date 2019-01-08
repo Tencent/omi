@@ -300,7 +300,27 @@ Directory description:
 │  └─ index.js    //Entry js of compiler，will build to index.html
 ```
 
-About compiled website URL：
+### scripts
+
+```json
+"scripts": {
+    "start": "node scripts/start.js",
+    "build": "PUBLIC_URL=. node scripts/build.js",
+    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
+    "fix": "eslint src --fix"
+}
+```
+
+You can set up the PUBLIC_URL, such as：
+
+```json
+...
+"build": "PUBLIC_URL=https://fe.wxpay.oa.com/dv node scripts/build.js",
+"build-windows": "set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& node scripts/build.js",
+...
+```
+    
+<!-- About compiled website URL：
 
 * [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
 * [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
@@ -331,7 +351,7 @@ If you only want to use relative addresses:
 ```
 "build":"set PUBLIC_URL=.&& npm run _build"  //windows
 "build":"PUBLIC_URL=. npm run _build",       //mac os
-```
+``` -->
 
 ### Project Template
 
