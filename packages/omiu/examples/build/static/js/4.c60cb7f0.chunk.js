@@ -1,0 +1,2 @@
+webpackJsonp([4],{95:function(n,r){n.exports="## Switch  \r\n\r\n\u5f00\u5173\u3002\r\n\r\n## \u4f7f\u7528\r\n\r\n```js\r\n<o-switch onChange={this.onChangeB} checked={false} />\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\r\n| ------------- |:-------------:|:-----:|:-------------:|\r\n| checked  | bool|  false     |           |\r\n| onChange  | function|  --     |           |"}});
+//# sourceMappingURL=4.c60cb7f0.chunk.js.map

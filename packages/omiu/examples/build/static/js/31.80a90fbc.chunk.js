@@ -1,2 +1,0 @@
-webpackJsonp([31],{64:function(n,e){n.exports='## Input  \n\nUser\'s input box, enter some content for submission to the server.\n\n## Usage\n\n```js\n<o-input  placeholder="Enter your name" />\n```\n\n## API\n\n### Props\n\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\n| ------------- |:-------------:|:-----:|:-------------:|\n| placeholder  | string|       |     \u5360\u4f4d\u5b57\u7b26\u4e32      |'}});
-//# sourceMappingURL=31.80a90fbc.chunk.js.map
