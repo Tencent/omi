@@ -6,7 +6,7 @@ import {
   ATTR_KEY
 } from '../constants'
 import options from '../options'
-import { extend } from '../util'
+import { extend, applyRef } from '../util'
 import { enqueueRender } from '../render-queue'
 import { getNodeProps } from './index'
 import {
@@ -48,7 +48,7 @@ export function setComponentProps(component, props, opts, context, mountAll) {
     }
   } else if (component.receiveProps) {
     component.receiveProps(props, component.data, component.props)
-  } 
+  }
 
   if (context && context !== component.context) {
     if (!component.prevContext) component.prevContext = component.context
@@ -72,7 +72,7 @@ export function setComponentProps(component, props, opts, context, mountAll) {
     }
   }
 
-  if (component.__ref) component.__ref(component)
+  applyRef(component.__ref, component)
 }
 
 function shallowComparison(old, attrs) {
@@ -255,7 +255,6 @@ export function renderComponent(component, opts, mountAll, isChild) {
     // Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
     // flushMounts();
 
-   
     if (component.afterUpdate) {
       //deprecated
       component.afterUpdate(previousProps, previousState, previousContext)
@@ -338,7 +337,7 @@ export function unmountComponent(component) {
   if (inner) {
     unmountComponent(inner)
   } else if (base) {
-    if (base[ATTR_KEY] && base[ATTR_KEY].ref) base[ATTR_KEY].ref(null)
+    if (base[ATTR_KEY] != null) applyRef(base[ATTR_KEY].ref, null)
 
     component.nextBase = base
 
@@ -348,5 +347,5 @@ export function unmountComponent(component) {
     removeChildren(base)
   }
 
-  if (component.__ref) component.__ref(null)
+  applyRef(component.__ref, null)
 }
