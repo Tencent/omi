@@ -333,7 +333,7 @@
             inst.constructor = Ctor;
             inst.render = doRender;
         }
-        vnode && (inst.B = vnode.css);
+        vnode && (inst.scopedCssAttr = vnode.css);
         if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
             inst.__b = list[i].__b;
             list.splice(i, 1);
@@ -499,7 +499,7 @@
                 rendered = component.render(props, data, context);
                 if (component.css) addScopedAttrStatic(rendered, component.css(), '_s' + getCtorName(component.constructor));
                 if (component.dynamicCss) addScopedAttr(rendered, component.dynamicCss(), '_s' + component.elementId, component);
-                scopeHost(rendered, component.B);
+                scopeHost(rendered, component.scopedCssAttr);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
                 if (ctor) {
@@ -672,7 +672,7 @@
     }
     function extractClass() {
         var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0), props = _Array$prototype$slic[0], args = _Array$prototype$slic.slice(1);
-        if (props.class) {
+        if (props) if (props.class) {
             args.unshift(props.class);
             delete props.class;
         } else if (props.className) {
@@ -960,7 +960,7 @@
         extractClass: extractClass
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.2.6';
+    options.root.Omi.version = 'omio-1.2.7';
     var Omi$1 = {
         h: h,
         createElement: h,

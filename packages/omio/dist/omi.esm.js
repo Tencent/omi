@@ -1,5 +1,5 @@
 /**
- * omi v1.2.6  http://omijs.org
+ * omi v1.2.7  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -932,7 +932,7 @@ function createComponent(Ctor, props, context, vnode) {
     inst.constructor = Ctor;
     inst.render = doRender;
   }
-  vnode && (inst.___scopedCssAttr = vnode.css);
+  vnode && (inst.scopedCssAttr = vnode.css);
 
   if (list) {
     for (var i = list.length; i--;) {
@@ -1417,7 +1417,7 @@ function renderComponent(component, opts, mountAll, isChild) {
       addScopedAttr(rendered, component.dynamicCss(), '_s' + component.elementId, component);
     }
 
-    scopeHost(rendered, component.___scopedCssAttr);
+    scopeHost(rendered, component.scopedCssAttr);
 
     // context to pass to the child, can be updated via (grand-)parent component
     if (component.getChildContext) {
@@ -1780,12 +1780,14 @@ function extractClass() {
       props = _Array$prototype$slic[0],
       args = _Array$prototype$slic.slice(1);
 
-  if (props.class) {
-    args.unshift(props.class);
-    delete props.class;
-  } else if (props.className) {
-    args.unshift(props.className);
-    delete props.className;
+  if (props) {
+    if (props.class) {
+      args.unshift(props.class);
+      delete props.class;
+    } else if (props.className) {
+      args.unshift(props.className);
+      delete props.className;
+    }
   }
   if (args.length > 0) {
     return { class: classNames.apply(null, args) };
@@ -1816,7 +1818,7 @@ options.root.Omi = {
   extractClass: extractClass
 };
 options.root.omi = Omi;
-options.root.Omi.version = 'omio-1.2.6';
+options.root.Omi.version = 'omio-1.2.7';
 
 var omi = {
   h: h,
