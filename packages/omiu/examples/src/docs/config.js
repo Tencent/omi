@@ -15,6 +15,13 @@ const config = {
         ]
       },
       {
+        title: 'Layout',
+        list: [
+          { name: 'Row', md: 'row', demo: './repl/row.html' },
+          { name: 'EqualSpace', md: 'equal-space', demo: './repl/equal-space.html' }
+        ]
+      },
+      {
         title: '导航',
         list: [
           { name: 'Pagination', md: 'pagination', demo: './repl/pagination.html' },
@@ -52,12 +59,6 @@ const config = {
           { name: 'InputTable', md: 'input-table', demo: './repl/input-table.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
         ]
-      },
-      {
-        title: 'Layout',
-        list: [
-          { name: 'EqualSpace', md: 'equal-space', demo: './repl/equal-space.html' }
-        ]
       }
     ],
     en: [
@@ -72,6 +73,13 @@ const config = {
         list: [
           { name: 'Button', md: 'button' ,demo: './repl/button.html'},
           { name: 'Icon', md: 'icon',demo: './repl/icon.html' }
+        ]
+      },
+      {
+        title: 'Layout',
+        list: [
+          { name: 'Row', md: 'row', demo: './repl/row.html' },
+          { name: 'EqualSpace', md: 'equal-space', demo: './repl/equal-space.html' }
         ]
       },
       {
@@ -111,12 +119,6 @@ const config = {
           { name: 'Table', md: 'table', demo: './repl/table.html' },
           { name: 'InputTable', md: 'input-table', demo: './repl/input-table.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
-        ]
-      },
-      {
-        title: 'Layout',
-        list: [
-          { name: 'EqualSpace', md: 'equal-space', demo: './repl/equal-space.html' }
         ]
       }
     ]

@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.3 By dntzhang 
+ *  omiu v0.0.4 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -472,6 +472,8 @@ __webpack_require__(87);
 __webpack_require__(90);
 
 __webpack_require__(93);
+
+__webpack_require__(96);
 
 /***/ }),
 /* 6 */
@@ -3886,6 +3888,95 @@ if (typeof result === "string") {
 exports = module.exports = __webpack_require__(1)(false);
 // Module
 exports.push([module.i, "\r\n.ipt{\r\n  display: inline-block;\r\n  width: 150px;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  font-size: 14px;\r\n  vertical-align: top;\r\n}\r\n\r\n*{\r\n  box-sizing: border-box;\r\n}\r\n\r\n.row{\r\n  margin-top: 10px;\r\n}\r\n\r\n.item{\r\n\r\n  width: auto;\r\n  height: 30px;\r\n  border-radius: 4px;\r\n  display: inline-block;\r\n  margin-right: 4px;\r\n  vertical-align: top;\r\n}\r\n\r\n.span-left,.span-center{\r\n  vertical-align: top;\r\n  display: inline-block;\r\n  padding: 2px 10px;\r\n  height: 30px;\r\n  background-color: #EEEEEF;\r\n  font-size: 12px;\r\n  line-height: 25px;\r\n}\r\n\r\n.span-center{\r\n  border-top: 1px solid #ccc;\r\n  border-bottom: 1px solid #ccc;\r\n}\r\n\r\n.ipt1{\r\n  border-radius: 0px;\r\n}\r\n\r\n.ipt2{\r\n  border-radius: 0px 4px 4px 0px;\r\n}\r\n\r\n.span-left{\r\n  border: 1px solid #ccc;\r\n  border-right: none;\r\n  border-radius: 4px 0px 0px 4px;\r\n}\r\n\r\n.btn{\r\n  height: 30px;\r\n  background-color: #EEEEEF;\r\n  vertical-align: top;\r\n  margin-left: 10px !important;\r\n}\r\n", ""]);
+
+
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+var _index = __webpack_require__(97);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('o-row', function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    _classCallCheck(this, _class);
+
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  }
+
+  _createClass(_class, [{
+    key: 'css',
+    value: function css() {
+      console.log(this);
+      return _index2['default'];
+    }
+  }, {
+    key: 'render',
+    value: function render(props) {
+      var _this2 = this;
+
+      console.log(this.props);
+      return Omi.h(
+        'div',
+        _extends({}, (0, _omi.extractClass)(props, "o-row"), props),
+        props.children.map(function (child) {
+
+          return Omi.h(
+            'div',
+            _extends({}, _this2.___scopedCssAttr, _this2.scopedCssAttr, (0, _omi.extractClass)(child.attributes, 'col' + child.attributes.span)),
+            child.children
+          );
+        })
+      );
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement));
+
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(98);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, "\r\n.o-row {\r\n  *zoom: 1;\r\n  width: 100%;\r\n}\r\n\r\n.o-row:before,\r\n.o-row:after {\r\n  display: table;\r\n  line-height: 0;\r\n  content: \"\";\r\n}\r\n\r\n.o-row:after {\r\n  clear: both;\r\n}\r\n\r\n.col1,\r\n.col2,\r\n.col3,\r\n.col4,\r\n.col5,\r\n.col6,\r\n.col7,\r\n.col8,\r\n.col9,\r\n.col10,\r\n.col11,\r\n.col12,\r\n.col13,\r\n.col14,\r\n.col15,\r\n.col16,\r\n.col17,\r\n.col18,\r\n.col19,\r\n.col20,\r\n.col21,\r\n.col22,\r\n.col23,\r\n.col24,\r\n  {\r\n  float: left;\r\n}\r\n\r\n.col1 {\r\n  width: 4.16666667%;\r\n  *width: 4.16666667%;\r\n}\r\n\r\n.col2 {\r\n  width: 8.33333333%;\r\n  *width: 8.33333333%;\r\n}\r\n\r\n.col3 {\r\n  width: 12.5%;\r\n  *width: 12.5%;\r\n}\r\n\r\n.col4 {\r\n  width: 16.66666667%;\r\n  *width: 16.66666667%;\r\n}\r\n\r\n.col5 {\r\n  width: 20.83333333%;\r\n  *width: 20.83333333%;\r\n}\r\n\r\n.col6 {\r\n  width: 25%;\r\n  *width: 25%;\r\n}\r\n\r\n.col7 {\r\n  width: 29.16666667%;\r\n  *width: 29.16666667%;\r\n}\r\n\r\n.col8 {\r\n  width: 33.33333333%;\r\n  *width: 33.33333333%;\r\n}\r\n\r\n.col9 {\r\n  width: 37.5%;\r\n  *width: 37.5%;\r\n}\r\n\r\n.col10 {\r\n  width: 41.66666667%;\r\n  *width: 41.66666667%;\r\n}\r\n\r\n.col11 {\r\n  width: 45.83333333%;\r\n  *width: 45.83333333%;\r\n}\r\n\r\n.col12 {\r\n  width: 50%;\r\n  *width: 50%;\r\n}\r\n\r\n.col13 {\r\n  width: 54.16666667%;\r\n  *width: 54.16666667%;\r\n}\r\n\r\n.col14 {\r\n  width: 58.33333333%;\r\n  *width: 58.33333333%;\r\n}\r\n\r\n.col15 {\r\n  width: 62.5%;\r\n  *width: 62.5%;\r\n}\r\n\r\n.col16 {\r\n  width: 66.66666667%;\r\n  *width: 66.66666667%;\r\n}\r\n\r\n.col17 {\r\n  width: 70.83333333%;\r\n  *width: 70.83333333%;\r\n}\r\n\r\n.col18 {\r\n  width: 75%;\r\n  *width: 75%;\r\n}\r\n\r\n.col19 {\r\n  width: 79.16666667%;\r\n  *width: 79.16666667%;\r\n}\r\n\r\n.col20 {\r\n  width: 83.33333333%;\r\n  *width: 83.33333333%;\r\n}\r\n\r\n.col21 {\r\n  width: 87.5%;\r\n  *width: 87.5%;\r\n}\r\n\r\n.col22 {\r\n  width: 91.66666667%;\r\n  *width: 91.66666667%;\r\n}\r\n\r\n.col23 {\r\n  width: 95.83333333%;\r\n  *width: 95.83333333%;\r\n}\r\n\r\n.col24 {\r\n  width: 100%;\r\n  *width: 100%;\r\n}", ""]);
 
 
 
