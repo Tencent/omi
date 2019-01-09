@@ -1,6 +1,6 @@
 {
   "name": "omi-html",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Omi Htm integration.",
   "main": "dist/omi-html.js",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/Tencent/omi",
   "dependencies": {
-    "htm": "^1.0.1",
+    "htm": "latest",
     "omi": "latest"
   },
   "devDependencies": {
