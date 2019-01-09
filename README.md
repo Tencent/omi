@@ -167,7 +167,7 @@ You can also use `like-button` tag directly in HTML：
 ### Add Omi in 30 Seconds
 
 You can also quickly build omi projects using modern JS code:
-
+<!-- 
 ```js
 import { render, WeElement, tag, observe } from "omi"
 
@@ -199,11 +199,9 @@ class MyCounter extends WeElement {
 }
 
 render(<my-counter />, "body")
-```
-
-[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
-
-You will find that the `MyCounter` class name defined above is never used. So you can also use the following way to avoid Eslint hints:
+``` -->
+<!-- 
+You will find that the `MyCounter` class name defined above is never used. So you can also use the following way to avoid Eslint hints: -->
 
 ```js
 import { render, WeElement, define } from 'omi'
@@ -236,6 +234,41 @@ define('my-counter', class extends WeElement {
 
 render(<my-counter />, 'body')
 ```
+
+You can also update the view manually then you can choose the best time to update.
+
+```js
+import { render, WeElement, define } from 'omi'
+
+define('my-counter', class extends WeElement {
+  count = 1
+
+  sub = () => {
+    this.count--
+    this.update()
+  }
+
+  add = () => {
+    this.count++
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+})
+
+render(<my-counter />, 'body')
+```
+
+
+[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
 
 <!-- You can also be defined as a form of pure functions:
 

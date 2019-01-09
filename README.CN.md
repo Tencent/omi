@@ -189,7 +189,7 @@
 
 你也可以使用现代化的 JS 语法，快速构建 Omi 项目:
 
-```js
+<!-- ```js
 import { render, WeElement, tag, observe } from "omi"
 
 @observe
@@ -222,10 +222,8 @@ class MyCounter extends WeElement {
 render(<my-counter />, "body")
 ```
 
-[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
 
-
-你会发现 `MyCounter` 从未使用过，所以你可以使用下面代码达到同样效果并且避免 Eslint 提示错误:
+你会发现 `MyCounter` 从未使用过，所以你可以使用下面代码达到同样效果并且避免 Eslint 提示错误: -->
 
 ```js
 import { render, WeElement, define } from 'omi'
@@ -258,6 +256,41 @@ define('my-counter', class extends WeElement {
 
 render(<my-counter />, 'body')
 ```
+
+也可以手动调用 `this.update`，这样你就可以选择最佳的时机进行更新，而且能够兼容 IE8。
+
+```js
+import { render, WeElement, define } from 'omi'
+
+define('my-counter', class extends WeElement {
+  count = 1
+
+  sub = () => {
+    this.count--
+    this.update()
+  }
+
+  add = () => {
+    this.count++
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+})
+
+render(<my-counter />, 'body')
+```
+
+[→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
+
 <!-- 
 你也可以定义成纯函数的形式:
 
