@@ -166,7 +166,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
       )
     }
 
-    scopeHost(rendered, component.___scopedCssAttr)
+    scopeHost(rendered, component.scopedCssAttr)
 
     // context to pass to the child, can be updated via (grand-)parent component
     if (component.getChildContext) {

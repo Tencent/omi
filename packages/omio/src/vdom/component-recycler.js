@@ -25,7 +25,7 @@ export function createComponent(Ctor, props, context, vnode) {
     inst.constructor = Ctor
     inst.render = doRender
   }
-  vnode && (inst.___scopedCssAttr = vnode.css)
+  vnode && (inst.scopedCssAttr = vnode.css)
 
   if (list) {
     for (let i = list.length; i--; ) {
