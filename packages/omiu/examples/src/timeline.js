@@ -1,6 +1,6 @@
 import { WeElement, define, render } from 'omi'
-import '../../src/button'
-import '../../src/row'
+import '../../src/date-picker'
+
 
 define('my-app', class extends WeElement {
 
@@ -27,75 +27,7 @@ define('my-app', class extends WeElement {
   render() {
     return (
       <div>
-        <o-row class='row'>
-          <col class='col' span={12}>col span 12</col>
-          <col class='col' span={12}>col span 12</col>
-        </o-row>
-
-        <o-row class='row'>
-          <col class='col' span={8}>col span 8</col>
-          <col class='col' span={8}>col span 8</col>
-          <col class='col' span={8}>col span 8</col>
-        </o-row>
-
-        <o-row class='row'>
-          <col class='col' span={6}>col span 6</col>
-          <col class='col' span={6}>col span 6</col>
-          <col class='col' span={6}>col span 6</col>
-          <col class='col' span={6}>col span 6</col>
-        </o-row>
-
-        <o-row class='row'>
-          <col class='col' span={18}>col span 18</col>
-          <col class='col' span={6}>col span 6</col>
-        </o-row>
-
-        <o-row class='row'>
-          <col class='col' span={6}>col span 6</col>
-          <col class='col' span={18}>col span 18</col>
-        </o-row>
-
-        <o-row class='row'>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-          <col class='col' span={2}>2</col>
-        </o-row>
-
-        <o-row class='row'>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-          <col class='col' span={1}>1</col>
-        </o-row>
+        <o-date-picker></o-date-picker>
       </div>
 
 

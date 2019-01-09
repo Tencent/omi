@@ -1,48 +1,13 @@
-.weui-toast{
-  position:fixed;
-  z-index:5000;
-  width:7.6em;
-  min-height:7.6em;
-  top:180px;
-  left:50%;
-  margin-left:-3.8em;
-  background:rgba(17, 17, 17, 0.7);
-  text-align:center;
-  border-radius:5px;
-  color:#FFFFFF;
-}
-.weui-icon_toast{
-  margin:22px 0 0;
-  display:block;
-}
-.weui-icon_toast.weui-icon-success-no-circle:before{
-  color:#FFFFFF;
-  font-size:55px;
-}
-.weui-icon_toast.weui-loading{
-  margin:30px 0 0;
-  width:38px;
-  height:38px;
-  vertical-align:baseline;
-}
-.weui-toast__content{
-  margin:0 0 15px;
+.o-date-picker{
+  color: #575757;
 }
 
-p{
-  margin: 0;
-  padding-bottom: 10px;
+
+._out-date{
+  color:#D1D1D1;
 }
 
-.icon{
-  margin-top: 5px;
-  position: relative;
-  top:10px;
-}
 
-.icon-l{
-  margin-top: 15px;
-  position: relative;
-  top:10px;
-  margin-bottom: 13px; 
+._today{
+  color:#07C160;
 }
