@@ -153,13 +153,13 @@ input.weui-btn_plain-default{
   color:rgba(0, 0, 0, 0.2);
   border-color:rgba(0, 0, 0, 0.2);
 }
-button.weui-btn,{
+button.weui-btn{
   width:100%;
   border-width:0;
   outline:0;
   -webkit-appearance:none;
 }
-button.weui-btn:focus,{
+button.weui-btn:focus{
   outline:0;
 }
 button.weui-btn_inline,
