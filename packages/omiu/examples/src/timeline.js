@@ -24,10 +24,30 @@ define('my-app', class extends WeElement {
  background:#F95050;
 }`
   }
+
+  showPicker = false
+
+  onToggle = () => {
+    this.showPicker = !this.showPicker
+    this.update()
+  }
+
+  onSelect = (date) => {
+    this.selectDate = date
+    console.log(this.selectDate)
+    this.update()
+  }
+
+
   render() {
     return (
       <div>
-        <o-date-picker></o-date-picker>
+        <o-date-picker
+          selectDate={this.selectDate}
+          onSelect={this.onSelect}
+          show={this.showPicker}
+          onToggle={this.onToggle}>
+        </o-date-picker>
       </div>
 
 

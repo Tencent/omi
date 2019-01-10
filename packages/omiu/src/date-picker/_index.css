@@ -1,11 +1,139 @@
 .o-date-picker {
-  color: #575757;
+  color: #1C1B1C;
+  position: relative;
+  width: 300px;
+}
+
+._ctn{
+  transition: all 4s;
+  
+  overflow: hidden;
+}
+
+.show{
+  height: 300px;
+}
+
+.hide{
+  height: 0px;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 ._out-date {
-  color: #D1D1D1;
+  color: #9C9C9C;
 }
 
 ._today {
   color: #07C160;
+}
+
+.input {
+  height: 40px;
+}
+
+.icon {
+  position: absolute;
+  right: -2px;
+  top: 12px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+}
+
+td,
+th {
+  width: 14.285714285714285%;
+  height: 35px;
+}
+
+td {
+  cursor: pointer;
+}
+
+table {
+  border: 1px solid #DADADA;
+  border-top: none;
+  position: relative;
+  top: -2px;
+  text-align: center;
+  border-radius: 0px 0px 4px 4px;
+  font-size: 12px;
+}
+
+._header {
+  position: relative;
+  top: -2px;
+ 
+  position: relative;
+  text-align: center;
+  border: 1px solid #DADADA;
+  border-top: none;
+  height: 30px;
+  line-height: 30px;
+}
+
+.prev-year-btn:after {
+  content: '\AB';
+}
+
+.prev-month-btn:after {
+  content: '\2039';
+}
+
+._now{
+  color: #07C160;
+}
+
+.selected{
+  display: block;
+  background-color: #07C160;
+  color: white;
+  border-radius: 50%; 
+  width: 30px;
+  height: 30px;
+  line-height: 28px;
+  position: relative;
+  top: 2px;
+  right: -5px;
+}
+
+.prev-year-btn {
+  position: absolute;
+  left: 12px;
+  cursor: pointer;
+}
+
+.prev-month-btn {
+  position: absolute;
+  left: 35px;
+  cursor: pointer;
+}
+
+.next-year-btn:after {
+  content: '\BB';
+}
+
+.next-month-btn:after {
+  content: '\203A';
+}
+
+.next-year-btn {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+}
+
+.next-month-btn {
+  position: absolute;
+  right: 35px;
+  cursor: pointer;
+}
+
+td:hover{
+  color:rgb(37, 124, 79);
 }
