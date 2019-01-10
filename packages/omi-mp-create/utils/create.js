@@ -1,5 +1,5 @@
 /*!
- *  omi-mp-create v0.1.0 by dntzhang
+ *  omi-mp-create v1.0.0 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -93,6 +93,7 @@ function create(store, option) {
 
       store.instances[this.route] = []
       store.instances[this.route].push(this)
+      this.setData.call(this, this.store.data)
       onLoad && onLoad.call(this, e)
     }
     Page(option)

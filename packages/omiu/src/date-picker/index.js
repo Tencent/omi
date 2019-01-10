@@ -58,6 +58,7 @@ define('o-date-picker', class extends WeElement {
 
     return (
       <div class='o-date-picker'>
+        <input></input>
         <table>
           <thead>
             <tr>
