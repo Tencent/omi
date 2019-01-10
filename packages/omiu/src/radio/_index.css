@@ -12,6 +12,7 @@
 }
 
 /* Hide the browser's default radio button */
+
 .o-radio input {
   position: absolute;
   opacity: 0;
@@ -19,6 +20,7 @@
 }
 
 /* Create a custom radio button */
+
 .checkmark {
   position: absolute;
   top: 2px;
@@ -30,16 +32,19 @@
 }
 
 /* On mouse-over, add a grey background color */
-.o-radio:hover input ~ .checkmark {
+
+.o-radio:hover input~.checkmark {
   background-color: rgb(170, 169, 169);
 }
 
 /* When the radio button is checked, add a blue background */
-.o-radio input:checked ~ .checkmark {
+
+.o-radio input:checked~.checkmark {
   background-color: #07C160;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
+
 .checkmark:after {
   content: "";
   position: absolute;
@@ -47,16 +52,18 @@
 }
 
 /* Show the indicator (dot/circle) when checked */
-.o-radio input:checked ~ .checkmark:after {
+
+.o-radio input:checked~.checkmark:after {
   display: block;
 }
 
 /* Style the indicator (dot/circle) */
+
 .o-radio .checkmark:after {
- 	top: 5px;
-	left: 5px;
-	width: 6px;
-	height: 6px;
-	border-radius: 50%;
-	background: white;
+  top: 5px;
+  left: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
 }

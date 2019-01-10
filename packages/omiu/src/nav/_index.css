@@ -1,19 +1,20 @@
-ul,li{
+ul,
+li {
   list-style: none;
   padding: 0;
   margin: 0;
-  color:#1A1A1A;
+  color: #1A1A1A;
 }
 
-li{
+li {
   display: inline-block;
   margin-right: 35px;
   line-height: 35px;
   cursor: pointer;
 }
 
-li.active{
-  color:  #07C160;
+li.active {
+  color: #07C160;
   border-bottom: 2px solid rgb(3, 196, 96);
   cursor: default;
 }

@@ -1,32 +1,35 @@
-div{
-  color: rgba(0,0,0,.65);
+div {
+  color: rgba(0, 0, 0, .65);
 }
+
 * {
   box-sizing: border-box;
 }
-ul,li{
+
+ul,
+li {
   padding: 0;
   margin: 0;
 }
 
-li{
+li {
   display: inline-block;
-  min-width:32px;
+  min-width: 32px;
   height: 32px;
   border: 1px solid #ccc;
   vertical-align: middle;
   line-height: 32px;
   text-align: center;
-  margin: 0 3px 0 3px; 
+  margin: 0 3px 0 3px;
   cursor: pointer;
   border-radius: 3px;
 }
 
-.o-pager{
+.o-pager {
   display: inline-block;
 }
 
-button{
+button {
   width: 32px;
   height: 32px;
   appearance: none;
@@ -34,38 +37,38 @@ button{
   position: relative;
   border: 1px solid #ccc;
   background: none;
-  top:1px;
+  top: 1px;
   border-radius: 3px;
   cursor: pointer;
   outline: none;
 }
 
-button.btn-next:not(disabled):active,button.btn-prev:not(disabled):active{
+button.btn-next:not(disabled):active,
+button.btn-prev:not(disabled):active {
   background-color: #eee;
 }
 
-button:disabled
-{ 
+button:disabled {
   pointer-events: none;
   border-color: #eee;
   cursor: default;
 }
 
-.more:after{
+.more:after {
   content: '...';
 }
 
-.more{
+.more {
   border: none;
   cursor: default;
 }
 
-.active{
-  border-color:#07C160;
-  color:rgb(4, 161, 80);
+.active {
+  border-color: #07C160;
+  color: rgb(4, 161, 80);
 }
 
-svg{
+svg {
   position: relative;
-  top:2px;
+  top: 2px;
 }

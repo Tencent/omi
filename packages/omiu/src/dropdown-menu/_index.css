@@ -1,16 +1,16 @@
-.o-dropdown-menu{
+.o-dropdown-menu {
   max-width: 160px;
   position: relative;
 }
 
-.ctn{
+.ctn {
   border-radius: 5px;
   background-color: #4C4B4C;
   color: #F2F2F2;
   overflow: hidden;
 }
 
-.ctn>a{
+.ctn>a {
   text-align: center;
   display: block;
   position: relative;
@@ -22,30 +22,30 @@
   color: #F2F2F2;
 }
 
-a:active{
-  background-color:rgb(63, 63, 63);
+a:active {
+  background-color: rgb(63, 63, 63);
 }
 
 .icon {
-  position:absolute;
-  left:20px;
-  top:13px;
+  position: absolute;
+  left: 20px;
+  top: 13px;
 }
 
-.wd{
+.wd {
   margin-left: 60px;
   line-height: 60px;
   border-bottom: 1px solid #555555;
 }
 
-.arrow{
-  position:absolute;
+.arrow {
+  position: absolute;
   width: 10px;
   height: 10px;
   background-color: #4C4B4C;
   transform: rotate(45deg);
   border-radius: 2px;
-  top:-4px;
-  right: 15px;;
-
+  top: -4px;
+  right: 15px;
+  ;
 }

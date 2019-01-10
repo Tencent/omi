@@ -1,5 +1,4 @@
-
-.ipt{
+.ipt {
   display: inline-block;
   width: 150px;
   height: 30px;
@@ -8,16 +7,15 @@
   vertical-align: top;
 }
 
-*{
+* {
   box-sizing: border-box;
 }
 
-.row{
+.row {
   margin-top: 10px;
 }
 
-.item{
-
+.item {
   width: auto;
   height: 30px;
   border-radius: 4px;
@@ -26,7 +24,8 @@
   vertical-align: top;
 }
 
-.span-left,.span-center{
+.span-left,
+.span-center {
   vertical-align: top;
   display: inline-block;
   padding: 2px 10px;
@@ -36,26 +35,26 @@
   line-height: 25px;
 }
 
-.span-center{
+.span-center {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
 
-.ipt1{
+.ipt1 {
   border-radius: 0px;
 }
 
-.ipt2{
+.ipt2 {
   border-radius: 0px 4px 4px 0px;
 }
 
-.span-left{
+.span-left {
   border: 1px solid #ccc;
   border-right: none;
   border-radius: 4px 0px 0px 4px;
 }
 
-.btn{
+.btn {
   height: 30px;
   background-color: #EEEEEF;
   vertical-align: top;

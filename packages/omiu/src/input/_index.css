@@ -1,15 +1,21 @@
-.o-input{
+.o-input {
   position: relative;
   display: inline-block;
 }
 
+input:hover {
+  border: 1px solid #07C160;
+}
 
-input:hover { border: 1px solid #07C160;}
-input:focus { border: 1px solid #07C160;}
-input:focus:hover { border: 1px solid #07C160;}
+input:focus {
+  border: 1px solid #07C160;
+}
 
+input:focus:hover {
+  border: 1px solid #07C160;
+}
 
-input{
+input {
   -webkit-appearance: none;
   display: inline-block;
   width: 100%;
@@ -25,7 +31,7 @@ input{
   background-image: none;
   position: relative;
   cursor: text;
-  transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
+  transition: border .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out;
   /* caret-color:#07C160; */
   text-indent: 5px;
 }

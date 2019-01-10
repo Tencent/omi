@@ -1,11 +1,11 @@
-.o-tree{
+.o-tree {
   position: relative;
   width: 240px;
-  height:auto;
+  height: auto;
   min-height: 200px;
 }
 
-.bg-wp{
+.bg-wp {
   position: absolute;
   z-index: 1;
   left: 0;
@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-.tree-wp{
+.tree-wp {
   position: absolute;
   left: 0;
   top: 0;
@@ -21,16 +21,26 @@
   width: 240px;
 }
 
-.tree-wp >li{
-margin-left: 10px;
+.tree-wp>li {
+  margin-left: 10px;
 }
 
-.bg{
+.bg {
   width: 100%;
   height: 32px;
 }
 
-.bg:nth-child(even) {background: #393B45}
-.bg:nth-child(odd) {background: #3D3F49}
+.bg:nth-child(even) {
+  background: #393B45
+}
 
-ul,li{list-style: none;padding: 0;margin: 0}
+.bg:nth-child(odd) {
+  background: #3D3F49
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0
+}

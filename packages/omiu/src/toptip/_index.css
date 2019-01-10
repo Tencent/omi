@@ -8,9 +8,11 @@
   padding: 10px 0;
   transition: 0.5s ease;
 }
+
 .weui-toptip-primary {
   background: #1aad19;
 }
+
 .weui-toptip-warn {
   background: #e64340;
 }

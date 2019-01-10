@@ -1,27 +1,29 @@
-/*ul*/  
-.o-equal-space{
+/*ul*/
+
+.o-equal-space {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   text-align: center;
   border-top: 1px solid #ddd;
-  padding-top: 10px; 
-  padding-bottom: 10px; 
+  padding-top: 10px;
+  padding-bottom: 10px;
   width: 100%;
   background-color: #F9F9F9;
 }
 
-ul,li{
+ul,
+li {
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-._item{
+._item {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;

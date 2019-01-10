@@ -1,209 +1,248 @@
-
 .weui-btn {
-  background-color:#9CE6BF;
+  background-color: #9CE6BF;
   color: #D7F5E5;
 }
-.weui-btn_disabled.weui-btn{
+
+.weui-btn_disabled.weui-btn {
   cursor: default;
 }
-.weui-btn_plain-disabled.weui-btn{
+
+.weui-btn_plain-disabled.weui-btn {
   cursor: default;
 }
 
 button.weui-btn,
-input.weui-btn{
+input.weui-btn {
   cursor: pointer;
-  width:100%;
-  border-width:0;
-  outline:0;
-  -webkit-appearance:none;
+  width: 100%;
+  border-width: 0;
+  outline: 0;
+  -webkit-appearance: none;
 }
+
 button.weui-btn:focus,
-input.weui-btn:focus{
-  outline:0;
+input.weui-btn:focus {
+  outline: 0;
 }
+
 button.weui-btn_inline,
 input.weui-btn_inline,
 button.weui-btn_mini,
-input.weui-btn_mini{
-  width:auto;
+input.weui-btn_mini {
+  width: auto;
 }
+
 button.weui-btn_plain-primary,
 input.weui-btn_plain-primary,
 button.weui-btn_plain-default,
-input.weui-btn_plain-default{
-  border-width:1px;
-  background-color:transparent;
+input.weui-btn_plain-default {
+  border-width: 1px;
+  background-color: transparent;
 }
 
-
-.weui-btn{
-  position:relative;
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
-  padding-left:14px;
-  padding-right:14px;
-  box-sizing:border-box;
-  font-size:18px;
-  text-align:center;
-  text-decoration:none;
-  color:#FFFFFF;
-  line-height:2.55555556;
-  border-radius:3px;
-  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
-  overflow:hidden;
+.weui-btn {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 14px;
+  padding-right: 14px;
+  box-sizing: border-box;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  color: #FFFFFF;
+  line-height: 2.55555556;
+  border-radius: 3px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  overflow: hidden;
 }
-.weui-btn:after{
-  content:" ";
-  width:200%;
-  height:200%;
-  position:absolute;
-  top:0;
-  left:0;
+
+.weui-btn:after {
+  content: " ";
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  top: 0;
+  left: 0;
   /* border:1px solid rgba(0, 0, 0, 0.2); */
-  -webkit-transform:scale(0.5);
-          transform:scale(0.5);
-  -webkit-transform-origin:0 0;
-          transform-origin:0 0;
-  box-sizing:border-box;
-  border-radius:10px;
+  -webkit-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  box-sizing: border-box;
+  border-radius: 10px;
 }
-.weui-btn_inline{
-  display:inline-block;
+
+.weui-btn_inline {
+  display: inline-block;
 }
-.weui-btn_default{
+
+.weui-btn_default {
   background-color: #F8F7F8;
-  color:black;
+  color: black;
 }
-.weui-btn_default:not(.weui-btn_disabled):visited{
-  color:#000000;
+
+.weui-btn_default:not(.weui-btn_disabled):visited {
+  color: #000000;
 }
-.weui-btn_default:not(.weui-btn_disabled):active{
+
+.weui-btn_default:not(.weui-btn_disabled):active {
   background-color: rgb(243, 239, 239);
 }
-.weui-btn_primary{
-  background-color:#07C160;
-}
-.weui-btn_primary:not(.weui-btn_disabled):visited{
-  color:#FFFFFF;
-}
-.weui-btn_primary:not(.weui-btn_disabled):active{
-  background-color: rgb(5, 202, 100);;
-}
-.weui-btn_warn{
-  background-color:#F95050;
-}
-.weui-btn_warn:not(.weui-btn_disabled):visited{
-  color:#FFFFFF;
-}
-.weui-btn_warn:not(.weui-btn_disabled):active{
-  color:rgba(255, 255, 255, 0.6);
-  background-color:#F95050;
-}
-.weui-btn_disabled{
-  background-color:#9CE6BF;
-  color: #D7F5E5;
-}
-.weui-btn_disabled.weui-btn_default{
-  color:rgba(0, 0, 0, 0.3);
-  background-color:#F7F7F7;
-}
-.weui-btn_disabled.weui-btn_primary{
-  background-color:#9CE6BF;
-  color: #D7F5E5;
-}
-.weui-btn_disabled.weui-btn_warn{
-  background-color:rgb(240, 158, 157);
-}
-.weui-btn_loading .weui-loading{
-  margin:-0.2em 0.34em 0 0;
-}
-.weui-btn_loading.weui-btn_primary,
-.weui-btn_loading.weui-btn_warn{
-  color:rgba(255, 255, 255, 0.6);
+
+.weui-btn_primary {
+  background-color: #07C160;
 }
 
-.weui-btn_loading.weui-btn_warn{
-  background-color:#F95050;
+.weui-btn_primary:not(.weui-btn_disabled):visited {
+  color: #FFFFFF;
 }
-.weui-btn_plain-primary{
-  color:#07C160;
-  border:1px solid #07C160;
+
+.weui-btn_primary:not(.weui-btn_disabled):active {
+  background-color: rgb(5, 202, 100);
+  ;
 }
-.weui-btn_plain-primary:not(.weui-btn_plain-disabled):active{
-  color:#9ED99D;
-  border-color:#9ED99D;
+
+.weui-btn_warn {
+  background-color: #F95050;
 }
-.weui-btn_plain-primary:after{
-  border-width:0;
+
+.weui-btn_warn:not(.weui-btn_disabled):visited {
+  color: #FFFFFF;
 }
-.weui-btn_plain-default{
-  color:#353535;
-  border:1px solid #353535;
+
+.weui-btn_warn:not(.weui-btn_disabled):active {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: #F95050;
 }
-.weui-btn_plain-default:not(.weui-btn_plain-disabled):active{
-  color:rgba(53, 53, 53, 0.6);
-  border-color:rgba(53, 53, 53, 0.6);
+
+.weui-btn_disabled {
+  background-color: #9CE6BF;
+  color: #D7F5E5;
 }
-.weui-btn_plain-default:after{
-  border-width:0;
+
+.weui-btn_disabled.weui-btn_default {
+  color: rgba(0, 0, 0, 0.3);
+  background-color: #F7F7F7;
 }
-.weui-btn_plain-disabled{
-  color:rgba(0, 0, 0, 0.2);
-  border-color:rgba(0, 0, 0, 0.2);
+
+.weui-btn_disabled.weui-btn_primary {
+  background-color: #9CE6BF;
+  color: #D7F5E5;
 }
-button.weui-btn{
-  width:100%;
-  border-width:0;
-  outline:0;
-  -webkit-appearance:none;
+
+.weui-btn_disabled.weui-btn_warn {
+  background-color: rgb(240, 158, 157);
 }
-button.weui-btn:focus{
-  outline:0;
+
+.weui-btn_loading .weui-loading {
+  margin: -0.2em 0.34em 0 0;
 }
+
+.weui-btn_loading.weui-btn_primary,
+.weui-btn_loading.weui-btn_warn {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.weui-btn_loading.weui-btn_warn {
+  background-color: #F95050;
+}
+
+.weui-btn_plain-primary {
+  color: #07C160;
+  border: 1px solid #07C160;
+}
+
+.weui-btn_plain-primary:not(.weui-btn_plain-disabled):active {
+  color: #9ED99D;
+  border-color: #9ED99D;
+}
+
+.weui-btn_plain-primary:after {
+  border-width: 0;
+}
+
+.weui-btn_plain-default {
+  color: #353535;
+  border: 1px solid #353535;
+}
+
+.weui-btn_plain-default:not(.weui-btn_plain-disabled):active {
+  color: rgba(53, 53, 53, 0.6);
+  border-color: rgba(53, 53, 53, 0.6);
+}
+
+.weui-btn_plain-default:after {
+  border-width: 0;
+}
+
+.weui-btn_plain-disabled {
+  color: rgba(0, 0, 0, 0.2);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+button.weui-btn {
+  width: 100%;
+  border-width: 0;
+  outline: 0;
+  -webkit-appearance: none;
+}
+
+button.weui-btn:focus {
+  outline: 0;
+}
+
 button.weui-btn_inline,
 input.weui-btn_inline,
 button.weui-btn_mini,
-input.weui-btn_mini{
-  width:auto;
+input.weui-btn_mini {
+  width: auto;
 }
+
 button.weui-btn_plain-primary,
 input.weui-btn_plain-primary,
 button.weui-btn_plain-default,
-input.weui-btn_plain-default{
-  border-width:1px;
-  background-color:transparent;
+input.weui-btn_plain-default {
+  border-width: 1px;
+  background-color: transparent;
 }
-.weui-btn_mini{
-  display:inline-block;
-  padding:0 1.32em;
-  line-height:2.3;
-  font-size:13px;
+
+.weui-btn_mini {
+  display: inline-block;
+  padding: 0 1.32em;
+  line-height: 2.3;
+  font-size: 13px;
 }
-.weui-btn + .weui-btn{
-  margin-top:15px;
+
+.weui-btn+.weui-btn {
+  margin-top: 15px;
 }
-.weui-btn.weui-btn_inline + .weui-btn.weui-btn_inline{
-  margin-top:auto;
-  margin-left:15px;
+
+.weui-btn.weui-btn_inline+.weui-btn.weui-btn_inline {
+  margin-top: auto;
+  margin-left: 15px;
 }
-.weui-btn-area{
-  margin:1.17647059em 15px 0.3em;
+
+.weui-btn-area {
+  margin: 1.17647059em 15px 0.3em;
 }
-.weui-btn-area_inline{
-  display:-webkit-box;
-  display:-webkit-flex;
-  display:flex;
+
+.weui-btn-area_inline {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
 }
-.weui-btn-area_inline .weui-btn{
-  margin-top:auto;
-  margin-right:15px;
-  width:100%;
-  -webkit-box-flex:1;
-  -webkit-flex:1;
-          flex:1;
+
+.weui-btn-area_inline .weui-btn {
+  margin-top: auto;
+  margin-right: 15px;
+  width: 100%;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
 }
-.weui-btn-area_inline .weui-btn:last-child{
-  margin-right:0;
+
+.weui-btn-area_inline .weui-btn:last-child {
+  margin-right: 0;
 }

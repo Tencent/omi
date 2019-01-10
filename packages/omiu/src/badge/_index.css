@@ -1,4 +1,4 @@
-.o-badge{
+.o-badge {
   position: relative;
   display: inline-block;
 }
@@ -19,7 +19,7 @@
   max-width: 35px;
 }
 
-.circle{
+.circle {
   width: 10px;
   height: 10px;
   border-radius: 50%;

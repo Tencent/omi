@@ -1,10 +1,10 @@
-.o-input-number{
+.o-input-number {
   position: relative;
   width: 150px;
   display: inline-block;
 }
 
-span{
+span {
   position: absolute;
   border: 1px solid #ccc;
   width: 32px;
@@ -15,28 +15,28 @@ span{
   line-height: 29px;
 }
 
-*{
+* {
   box-sizing: border-box;
 }
 
-.decrease{
+.decrease {
   left: 1px;
   border-radius: 3px 0px 0px 3px;
   user-select: none;
 }
 
-.increase{
+.increase {
   right: 1px;
   border-radius: 0px 3px 3px 0px;
   user-select: none;
 }
 
-.input{
+.input {
   width: 100%;
 }
 
-input{
-  width:100px;
+input {
+  width: 100px;
   height: 32px;
   margin: 0 auto;
   display: block;
