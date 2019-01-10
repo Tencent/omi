@@ -46,7 +46,7 @@ define('my-app', class extends WeElement {
     return (
       <div>
         <o-date-picker
-          selectedDate={this.selectedDate}
+          // selectedDate={this.selectedDate}
           onSelect={this.onSelect}
           show={this.showPicker}
           onToggle={this.onToggle}>

@@ -104,13 +104,13 @@ table {
 
 .prev-year-btn {
   position: absolute;
-  left: 12px;
+  left: 0;
   cursor: pointer;
 }
 
 .prev-month-btn {
   position: absolute;
-  left: 35px;
+  left: 25px;
   cursor: pointer;
 }
 
@@ -124,16 +124,22 @@ table {
 
 .next-year-btn {
   position: absolute;
-  right: 12px;
+  right: 0;
   cursor: pointer;
 }
 
 .next-month-btn {
   position: absolute;
-  right: 35px;
+  right: 25px;
   cursor: pointer;
 }
 
 td:hover{
   color:rgb(37, 124, 79);
+}
+
+.next-month-btn,.next-year-btn,.prev-year-btn,.prev-month-btn{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
 }
