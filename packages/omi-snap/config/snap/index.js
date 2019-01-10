@@ -19,7 +19,7 @@ const defaultOptions = {
   destination: null,
   concurrency: 4,
   include: ["/"],
-  userAgent: "ReactSnap",
+  userAgent: "OmiSnap",
   // 4 params below will be refactored to one: `puppeteer: {}`
   // https://github.com/stereobooster/react-snap/issues/120
   headless: true,
@@ -359,7 +359,7 @@ const inlineCss = async opt => {
           noscriptTag.appendChild(link.cloneNode(false));
           link.setAttribute("rel", "preload");
           link.setAttribute("as", "style");
-          link.setAttribute("react-snap-onload", "this.rel='stylesheet'");
+          link.setAttribute("omi-snap-onload", "this.rel='stylesheet'");
           document.head.appendChild(link);
         });
 
@@ -579,7 +579,7 @@ const fixFormFields = ({ page }) => {
 
 const saveAsHtml = async ({ page, filePath, options, route, fs }) => {
   let content = await page.content();
-  content = content.replace(/react-snap-onload/g, "onload");
+  content = content.replace(/omi-snap-onload/g, "onload");
   const title = await page.title();
   const minifiedContent = options.minifyHtml
     ? minify(content, options.minifyHtml)
@@ -652,7 +652,7 @@ const run = async (userOptions, { fs } = { fs: nativeFs }) => {
   //   fs.existsSync(path.join(sourceDir, "200.html"))
   // ) {
   //   console.log(
-  //     `🔥  200.html is present in the sourceDir (${sourceDir}). You can not run react-snap twice - this will break the build`
+  //     `🔥  200.html is present in the sourceDir (${sourceDir}). You can not run omi-snap twice - this will break the build`
   //   );
   //   return Promise.reject("");
   // }
