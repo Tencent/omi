@@ -179,9 +179,10 @@ const crawl = async opt => {
       uniqueUrls.add(newUrl);
       enqued++;
       queue.write(newUrl);
-      if (enqued == 2 && options.crawl) {
-        addToQueue(`${basePath}${publicPath}/404.html`);
-      }
+      // NOTE: we don't a 404.html to create, so comment below codes
+      // if (enqued == 2 && options.crawl) {
+        // addToQueue(`${basePath}${publicPath}/404.html`);
+      // }
     }
   };
 

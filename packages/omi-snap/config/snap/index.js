@@ -78,17 +78,48 @@ const defaultOptions = {
 };
 
 /**
+ * 
+ * update defaultOptions to add html files which in build directory into include parameter
+ * 
+ * @param (options) defaultOptions
+ * @return {*}
+ */
+const updateDefaultOptions = (options) => {
+  options.destination = options.destination || options.source;
+  const htmls = getHtmls(options.destination);
+  const include = [...options.include, ...htmls].filter(v => v !== '/').filter((v, i, s) => s.indexOf(v) === i);
+  options.include = include;
+}
+
+/**
+ * 
+ * @param (destination) destination path of build
+ * @return (htmls) html file list of a build directory
+ */
+const getHtmls = (destination) => {
+  const htmls = [];
+  nativeFs.readdirSync(destination).forEach(file => {
+    if (file.endsWith('.html')) {
+      htmls.push(`/${file}`);
+    }
+  });
+  return htmls;
+}
+
+/**
  *
  * @param {{source: ?string, destination: ?string, include: ?Array<string>, sourceMaps: ?boolean, skipThirdPartyRequests: ?boolean }} userOptions
  * @return {*}
  */
 const defaults = userOptions => {
+  // add html file lists to include property of `options`
+  updateDefaultOptions(defaultOptions);
   const options = {
     ...defaultOptions,
     ...userOptions
   };
   options.destination = options.destination || options.source;
-
+  
   let exit = false;
   if (!options.include || !options.include.length) {
     console.log("🔥  include option should be an non-empty array");
