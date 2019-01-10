@@ -32,7 +32,7 @@ $ npm run build
 
 ```bash
 npm start  //开发
-npm build  //发布
+npm run build  //发布
 ```
 
 # 原理

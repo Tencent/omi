@@ -8,7 +8,7 @@ npm start
 ## Release
 
 ```bash
-npm build
+npm run build
 ```
 
 ## Eslint + Prettier

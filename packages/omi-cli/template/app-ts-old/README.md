@@ -8,5 +8,5 @@ npm start
 ## Release
 
 ```bash
-npm build
+npm run build
 ```
