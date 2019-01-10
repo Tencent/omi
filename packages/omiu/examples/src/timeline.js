@@ -27,6 +27,8 @@ define('my-app', class extends WeElement {
 
   showPicker = false
 
+  selectedDate = '2019-1-12'
+  
   onToggle = () => {
     this.showPicker = !this.showPicker
     this.update()
@@ -34,6 +36,7 @@ define('my-app', class extends WeElement {
 
   onSelect = (date) => {
     this.selectDate = date
+    this.showPicker = false
     console.log(this.selectDate)
     this.update()
   }
@@ -43,7 +46,7 @@ define('my-app', class extends WeElement {
     return (
       <div>
         <o-date-picker
-          selectDate={this.selectDate}
+          selectedDate={this.selectedDate}
           onSelect={this.onSelect}
           show={this.showPicker}
           onToggle={this.onToggle}>
