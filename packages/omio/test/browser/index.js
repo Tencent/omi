@@ -4,7 +4,8 @@ import {
   Component,
   cloneElement,
   WeElement,
-  createRef
+  createRef,
+  getHost
 } from '../../src/omi'
 
 describe('install()', () => {
@@ -361,4 +362,155 @@ describe('install()', () => {
       })
     })
   })
+
+
+  describe('getHost test', () => {
+    it('', () => {
+      var a
+      define('my-p', class extends WeElement {
+        css() {
+          a = getHost(this)
+          return `div{}`
+        }
+        render(props) {
+          return props.children[0]
+        }
+      })
+
+      define('my-app', class extends WeElement {
+        abc = 111
+
+        render() {
+          return (
+            <div>
+              <my-p>
+                <h2>Hello World</h2>
+              </my-p>
+            </div>
+          )
+        }
+      })
+
+      render(<my-app />, scratch)
+
+      expect(a.abc).to.equal(111)
+    })
+  })
+
+
+  describe('getHost test', () => {
+    it('', () => {
+      let a, b
+
+      define('my-p-p', class extends WeElement {
+        css() {
+          a = getHost(this)
+          return `div{}`
+        }
+        render(props) {
+          return props.children[0]
+        }
+      })
+
+      define('my-p', class extends WeElement {
+        def = 222
+        css() {
+          b = getHost(this)
+          return `div{}`
+        }
+        render(props) {
+          return <div><my-p-p /></div>
+        }
+      })
+
+      define('my-app', class extends WeElement {
+        abc = 111
+
+        render() {
+          return (
+            <div>
+              <my-p>
+                <h2>Hello World</h2>
+              </my-p>
+            </div>
+          )
+        }
+      })
+
+      render(<my-app />, scratch)
+
+      expect(a.def).to.equal(222)
+      expect(b.abc).to.equal(111)
+    })
+  })
+
+  describe('getHost test', () => {
+    it('', () => {
+      let a, b
+
+      define('my-p-p', class extends WeElement {
+        css() {
+          a = getHost(this)
+          return `div{}`
+        }
+        render(props) {
+          return props.children[0]
+        }
+      })
+
+      define('my-p', class extends WeElement {
+        def = 222
+        css() {
+          b = getHost(this)
+          return `div{}`
+        }
+        render(props) {
+          return <my-p-p />
+        }
+      })
+
+      define('my-app', class extends WeElement {
+        abc = 111
+
+        render() {
+          return (
+            <div>
+              <my-p>
+                <h2>Hello World</h2>
+              </my-p>
+            </div>
+          )
+        }
+      })
+
+      render(<my-app />, scratch)
+
+      expect(a.abc).to.equal(111)
+      expect(b.abc).to.equal(111)
+    })
+  })
+
+
+  describe('scoped css', () => {
+    it('', () => {
+
+      define('my-app', class extends WeElement {
+        css() {
+          return `div{}`
+        }
+
+        render() {
+          return (
+            <div>a</div>
+          )
+        }
+      })
+
+      render(<my-app />, scratch)
+
+      expect(scratch.innerHTML).to.equal('<div _ss5=\"\">a</div>')
+    })
+  })
+
+
 })
