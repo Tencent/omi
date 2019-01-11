@@ -309,6 +309,50 @@ The `classNames` is the same as [classnames](https://github.com/JedWatson/classn
 
 ### Store
 
+Omi Store Architecture: Injected from the root component and shared across all subcomponents. It's very simple to use:
+
+```js
+import { define, render, WeElement } from 'omi'
+
+define('my-hello', class extends WeElement {
+  render() {
+    //use this.store in any method of any children components
+    return <div>{this.store.name}</div>
+  }
+})
+
+define('my-app', class extends WeElement {
+  handleClick = () => {
+     //use this.store in any method of any children components
+    this.store.reverse()
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <my-hello />
+        <button onclick={this.handleClick}>
+          Click me to call this.store.rename('Hello Omi !'){' '}
+        </button>
+      </div>
+    )
+  }
+})
+
+const store = {
+  name: 'abc',
+  reverse: function() {
+    this.name = this.name.split("").reverse().join("")
+  }
+}
+//Injection through a third parameter
+render(<my-app />, document.body, store)
+```
+
+Unlike global variables, when there are multiple root nodes, multiple stores can be injected, while there is only one global variable.
+
+<!-- 
 ```js
 define('my-first-element', class extends WeElement {
   //You must declare data here for view updating
@@ -374,13 +418,12 @@ If you hit one condition above, you can update it.
 
 Summary is as long as updatePath or updatePath sub nodes are updated.
 
-Can we see that the store system is a centralization system? So how do we centralization of some components? Use the static prop: `pure` :
+#### Summary
 
-```js
-static pure = true
-```
-
-Pure element! Store will not be injected!
+- `store.data` is used to list all attributes and default values (except the components of the view decided by props).
+- The static data of the element is used to list the attributes of the dependent store.data _(Omi will record path)_ and update on demand.
+- If there are few simple components on the page, `updateAll` can be set to `true`, and components and pages don't need to declare data, and they don't update on demand
+- The path declared in `globalData` refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties path -->
 
 ### Slot
 

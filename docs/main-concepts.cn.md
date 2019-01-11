@@ -293,6 +293,50 @@ define('my-element', class extends WeElement {
 
 ### Store
 
+Omi 的 Store 体系： 从根组件注入，在所有子组件可以共享。使用起来非常简单：
+
+```js
+import { define, render, WeElement } from 'omi'
+
+define('my-hello', class extends WeElement {
+  render() {
+    //任意子组件的任意方法都可以使用 this.store 访问注入的 store
+    return <div>{this.store.name}</div>
+  }
+})
+
+define('my-app', class extends WeElement {
+  handleClick = () => {
+     //任意子组件的任意方法都可以使用 this.store 访问注入的 store
+    this.store.reverse()
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <my-hello />
+        <button onclick={this.handleClick}>
+          Click me to call this.store.rename('Hello Omi !'){' '}
+        </button>
+      </div>
+    )
+  }
+})
+
+const store = {
+  name: 'abc',
+  reverse: function() {
+    this.name = this.name.split("").reverse().join("")
+  }
+}
+//通过第三个参数注入
+render(<my-app />, document.body, store)
+```
+
+与全局变量不同的是， 当有多个根节点的时候就可以注入多个 store，而全局变量只有一个。
+
+<!-- 
 ```js
 define('my-first-element', class extends WeElement {
   //You must declare data here for view updating
@@ -357,15 +401,8 @@ static get data() {
 
 以上只要命中一个条件就可以进行更新！
 
-总结就是只要等于 updatePath 或者在 updatePath 子节点下都进行更新！
+总结就是只要等于 updatePath 或者在 updatePath 子节点下都进行更新！ -->
 
-看可以看到 store 体系是中心化的体系？那么怎么做到部分组件去中心化？为自定义元素加上静态属性 pure 并设置为 ture:
-
-```js
-static pure = true
-```
-
-纯元素！不会注入 store!
 
 ### Slot
 

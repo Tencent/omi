@@ -17,15 +17,13 @@
 - 利用[Chrome 开发工具扩展 ](https://github.com/f/omi-devtools)轻松调试，[从 Chrome 应用商店安装](https://chrome.google.com/webstore/detail/omijs-devtools/pjgglfliglbhpcpalbpeloghnbceocmd/related)
 - 符合浏览器的发展趋势以及API设计理念
 - [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) + [**JSX**](https://reactjs.org/docs/introducing-jsx.html) 相互融合为一个框架 Omi
-- 内置 observe 制作响应式视图(免去 `this.update`)
 - Web Components 也可以数据驱动视图, `UI = fn(data)`
 - JSX 是开发体验最棒(智能提示)、[语法噪音最少](https://github.com/facebook/jsx#why-not-template-literals)、图灵完备的 UI 表达式，模板引擎不完备，模板字符串完备但是语法噪音太大
-- 独创的 `Path Updating` 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback`
-- 对 this.update 说再见吧！只要使用 `store` 系统，它就会自动化按需更新局部视图
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 - `Shadow DOM` 与 `Virtual DOM` 融合，Omi 既使用了`虚拟 DOM`，也是使用真实 `Shadow DOM`，让视图更新更准确更迅速
 - 99.9% 的项目不需要什么时间旅行，也不需要时间旅行调试(`Time travel debugging`),而且也不仅仅 redux 能时间旅行,请不要上来就 `redux`，Omi `store` 系统可以满足所有项目。
 - 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:`Radium`，`jsxstyle`，`react-style`；与webpack绑定使用生成独特的className`文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，还有运行时注入`scoped atrr` 的方式，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
+<!-- - 独创的 `Path Updating` 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback`,对 this.update 说再见吧！只要使用 `store` 系统，它就会自动化按需更新局部视图 -->
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构，Omi 使用 Shadow DOM 隔离样式和语义化结构:
 
@@ -622,6 +620,50 @@ render(<todo-app />, 'body')
 
 ### Store
 
+Omi 的 Store 体系： 从根组件注入，在所有子组件可以共享。使用起来非常简单：
+
+```js
+import { define, render, WeElement } from 'omi'
+
+define('my-hello', class extends WeElement {
+  render() {
+    //任意子组件的任意方法都可以使用 this.store 访问注入的 store
+    return <div>{this.store.name}</div>
+  }
+})
+
+define('my-app', class extends WeElement {
+  handleClick = () => {
+     //任意子组件的任意方法都可以使用 this.store 访问注入的 store
+    this.store.reverse()
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <my-hello />
+        <button onclick={this.handleClick}>
+          Click me to call this.store.rename('Hello Omi !'){' '}
+        </button>
+      </div>
+    )
+  }
+})
+
+const store = {
+  name: 'abc',
+  reverse: function() {
+    this.name = this.name.split("").reverse().join("")
+  }
+}
+//通过第三个参数注入
+render(<my-app />, document.body, store)
+```
+
+与全局变量不同的是， 当有多个根节点的时候就可以注入多个 store，而全局变量只有一个。
+
+<!-- 
 使用 Store 体系可以告别 update 方法，基于 Proxy 的全自动属性追踪和更新机制。强大的 Store 体系是高性能的原因，除了靠 props 决定组件状态的组件，其余组件所有 data 都挂载在 store 上,
 
 ```js
@@ -691,7 +733,7 @@ render(<todo-app></todo-app>, 'body', store)
 * store.data 用来列出所有属性和默认值(除去 props 决定的视图的组件)
 * 组件和页面的 data 用来列出依赖的 store.data 的属性 (omi会记录path)，按需更新
 * 如果页面简单组件很少，可以 updateAll 设置成 true，并且组件和页面不需要声明 data，也就不会按需更新
-* globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path
+* globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path -->
 
 ## Mitt
 

@@ -14,15 +14,13 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 - Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26) base on **750** screen width
 - Compliance with browser trend and API design
 - Merge [**Web Components**](https://developers.google.com/web/fundamentals/web-components/) and [**JSX**](https://reactjs.org/docs/introducing-jsx.html)  into one framework
-- Built in observe feature (No need to call `this.update()`)
 - Web Components can also be a data-driven view, **`UI = fn(data)`**.
 - JSX is the best development experience (code intelligent completion and tip) UI Expression with least [grammatical noise](https://github.com/facebook/jsx#why-not-template-literals) and it's turing complete(template engine is not, es template string is but grammatical noise is too loud)
-- The original **Path Updating** system. Proxy-based automatic **accurate** update, **low power consumption**, high degree of freedom, excellent performance, easy integration of `requestIdleCallback`
-- Say goodbye to `this.update` method when using **store system**! It will automatically update UI partially when data is changed
 - Look at [Facebook React vs Web Components](https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer)，Omi **combines their advantages** and gives developers the **freedom to choose the way they like**
 - **Shadow DOM merges with Virtual DOM**, Omi uses both virtual DOM and real Shadow DOM to make view updates more accurate and faster
 - With a Store system, 99.9% of projects don't need time travel, and not only Redux can travel, please don't come up on Redux, Omi store system can meet all projects
 - **Scoped CSS**'s best solution is [**Shadow DOM**](https://developers.google.com/web/fundamentals/web-components/shadowdom), the community churning out frameworks and libraries for Scoped CSS (using JS or JSON writing styles such as Radium, jsxstyle, react-style; binding to webpack using generated unique `className` `filename-classname-hash`, such as CSS Modules, Vue), are hack technologies; _and Shadow DOM Style is the perfect solution_.
+<!-- - The original **Path Updating** system. Proxy-based automatic **accurate** update, **low power consumption**, high degree of freedom, excellent performance, easy integration of `requestIdleCallback`, say goodbye to `this.update` method when using **store system**! It will automatically update UI partially when data is changed -->
 
 Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
@@ -602,7 +600,50 @@ render(<todo-app />, 'body')
 
 ### Store
 
-Say goodbye to `this.update` method when using store system! It will automatically update the UI partially when data is changed. The powerful **Store architecture** is high-performanced since all the data is mounted on the store, except for components that rely on props to determine the state of the component.
+Omi Store Architecture: Injected from the root component and shared across all subcomponents. It's very simple to use:
+
+```js
+import { define, render, WeElement } from 'omi'
+
+define('my-hello', class extends WeElement {
+  render() {
+    //use this.store in any method of any children components
+    return <div>{this.store.name}</div>
+  }
+})
+
+define('my-app', class extends WeElement {
+  handleClick = () => {
+     //use this.store in any method of any children components
+    this.store.reverse()
+    this.update()
+  }
+
+  render() {
+    return (
+      <div>
+        <my-hello />
+        <button onclick={this.handleClick}>
+          Click me to call this.store.rename('Hello Omi !'){' '}
+        </button>
+      </div>
+    )
+  }
+})
+
+const store = {
+  name: 'abc',
+  reverse: function() {
+    this.name = this.name.split("").reverse().join("")
+  }
+}
+//Injection through a third parameter
+render(<my-app />, document.body, store)
+```
+
+Unlike global variables, when there are multiple root nodes, multiple stores can be injected, while there is only one global variable.
+
+<!-- It will automatically update the UI partially when store.data is changed. The powerful **Store architecture** is high-performanced since all the data is mounted on the store.
 
 ```js
 export default {
@@ -662,14 +703,9 @@ You need to inject `store` from the root node at render time to use this store:
 render(<todo-app />, "body", store);
 ```
 
-[→ Store Source Code](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js)
+[→ Store Source Code](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js) -->
 
-#### Summary：
 
-- `store.data` is used to list all attributes and default values (except the components of the view decided by props).
-- The static data of the element is used to list the attributes of the dependent store.data _(Omi will record path)_ and update on demand.
-- If there are few simple components on the page, `updateAll` can be set to `true`, and components and pages don't need to declare data, and they don't update on demand
-- The path declared in `globalData` refreshes all pages and components by modifying the value of the corresponding path, which can be used to list all pages or most of the public properties path
 
 ## Mitt
 
