@@ -350,7 +350,7 @@ const store = {
 render(<my-app />, document.body, store)
 ```
 
-Unlike global variables, when there are multiple root nodes, multiple stores can be injected, while there is only one global variable.
+Unlike global variables, when there are multiple root nodes, multiple stores can be injected.
 
 <!-- 
 ```js
