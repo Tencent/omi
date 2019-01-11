@@ -195,11 +195,94 @@
             detail: e
         }));
     }
+    function getCtorName(ctor) {
+        for (var i = 0, len = options.styleCache.length; i < len; i++) {
+            var item = options.styleCache[i];
+            if (item.ctor === ctor) return item.attrName;
+        }
+        var attrName = 's' + styleId;
+        options.styleCache.push({
+            ctor: ctor,
+            attrName: attrName
+        });
+        styleId++;
+        return attrName;
+    }
+    function scoper(css, prefix) {
+        prefix = '[' + prefix.toLowerCase() + ']';
+        css = css.replace(/\/\*[^*]*\*+([^\/][^*]*\*+)*\//g, '');
+        var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|s*{)', 'g');
+        css = css.replace(re, function(g0, g1, g2, g3) {
+            if (void 0 === g2) g2 = '';
+            if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) return g1 + g2 + g3;
+            var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
+            return appendClass + g3;
+        });
+        return css;
+    }
+    function addStyle(cssText, id) {
+        id = id.toLowerCase();
+        var ele = document.getElementById(id);
+        var head = document.getElementsByTagName('head')[0];
+        if (ele && ele.parentNode === head) head.removeChild(ele);
+        var someThingStyles = document.createElement('style');
+        head.appendChild(someThingStyles);
+        someThingStyles.setAttribute('type', 'text/css');
+        someThingStyles.setAttribute('id', id);
+        if (window.ActiveXObject) someThingStyles.styleSheet.cssText = cssText; else someThingStyles.textContent = cssText;
+    }
+    function addStyleWithoutId(cssText) {
+        var head = document.getElementsByTagName('head')[0];
+        var someThingStyles = document.createElement('style');
+        head.appendChild(someThingStyles);
+        someThingStyles.setAttribute('type', 'text/css');
+        if (window.ActiveXObject) someThingStyles.styleSheet.cssText = cssText; else someThingStyles.textContent = cssText;
+    }
+    function addScopedAttr(vdom, style, attr, component) {
+        if (options.scopedStyle) {
+            scopeVdom(attr, vdom);
+            style = scoper(style, attr);
+            if (style !== component.z) addStyle(style, attr);
+        } else if (style !== component.z) addStyleWithoutId(style);
+        component.z = style;
+    }
+    function addScopedAttrStatic(vdom, attr) {
+        if (options.scopedStyle) scopeVdom(attr, vdom);
+    }
+    function addStyleToHead(style, attr) {
+        if (options.scopedStyle) {
+            if (!options.staticStyleMapping[attr]) {
+                addStyle(scoper(style, attr), attr);
+                options.staticStyleMapping[attr] = !0;
+            }
+        } else if (!options.staticStyleMapping[attr]) {
+            addStyleWithoutId(style);
+            options.staticStyleMapping[attr] = !0;
+        }
+    }
+    function scopeVdom(attr, vdom) {
+        if ('object' == typeof vdom) {
+            vdom.attributes = vdom.attributes || {};
+            vdom.attributes[attr] = '';
+            vdom.css = vdom.css || {};
+            vdom.css[attr] = '';
+            vdom.children.forEach(function(child) {
+                return scopeVdom(attr, child);
+            });
+        }
+    }
+    function scopeHost(vdom, css) {
+        if ('object' == typeof vdom && css) {
+            vdom.attributes = vdom.attributes || {};
+            for (var key in css) vdom.attributes[key] = '';
+        }
+    }
     function flushMounts() {
         var c;
         while (c = mounts.pop()) {
             if (options.afterMount) options.afterMount(c);
             if (c.installed) c.installed();
+            if (c.css) addStyleToHead(c.css(), '_s' + getCtorName(c.constructor));
         }
     }
     function diff(dom, vnode, context, mountAll, parent, componentRoot) {
@@ -344,86 +427,6 @@
     function doRender(props, data, context) {
         return this.constructor(props, context);
     }
-    function getCtorName(ctor) {
-        for (var i = 0, len = options.styleCache.length; i < len; i++) {
-            var item = options.styleCache[i];
-            if (item.ctor === ctor) return item.attrName;
-        }
-        var attrName = 's' + styleId;
-        options.styleCache.push({
-            ctor: ctor,
-            attrName: attrName
-        });
-        styleId++;
-        return attrName;
-    }
-    function scoper(css, prefix) {
-        prefix = '[' + prefix.toLowerCase() + ']';
-        css = css.replace(/\/\*[^*]*\*+([^\/][^*]*\*+)*\//g, '');
-        var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|s*{)', 'g');
-        css = css.replace(re, function(g0, g1, g2, g3) {
-            if (void 0 === g2) g2 = '';
-            if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) return g1 + g2 + g3;
-            var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-            return appendClass + g3;
-        });
-        return css;
-    }
-    function addStyle(cssText, id) {
-        id = id.toLowerCase();
-        var ele = document.getElementById(id);
-        var head = document.getElementsByTagName('head')[0];
-        if (ele && ele.parentNode === head) head.removeChild(ele);
-        var someThingStyles = document.createElement('style');
-        head.appendChild(someThingStyles);
-        someThingStyles.setAttribute('type', 'text/css');
-        someThingStyles.setAttribute('id', id);
-        if (window.ActiveXObject) someThingStyles.styleSheet.cssText = cssText; else someThingStyles.textContent = cssText;
-    }
-    function addStyleWithoutId(cssText) {
-        var head = document.getElementsByTagName('head')[0];
-        var someThingStyles = document.createElement('style');
-        head.appendChild(someThingStyles);
-        someThingStyles.setAttribute('type', 'text/css');
-        if (window.ActiveXObject) someThingStyles.styleSheet.cssText = cssText; else someThingStyles.textContent = cssText;
-    }
-    function addScopedAttr(vdom, style, attr, component) {
-        if (options.scopedStyle) {
-            scopeVdom(attr, vdom);
-            style = scoper(style, attr);
-            if (style !== component.z) addStyle(style, attr);
-        } else if (style !== component.z) addStyleWithoutId(style);
-        component.z = style;
-    }
-    function addScopedAttrStatic(vdom, style, attr) {
-        if (options.scopedStyle) {
-            scopeVdom(attr, vdom);
-            if (!options.staticStyleMapping[attr]) {
-                addStyle(scoper(style, attr), attr);
-                options.staticStyleMapping[attr] = !0;
-            }
-        } else if (!options.staticStyleMapping[attr]) {
-            addStyleWithoutId(style);
-            options.staticStyleMapping[attr] = !0;
-        }
-    }
-    function scopeVdom(attr, vdom) {
-        if ('object' == typeof vdom) {
-            vdom.attributes = vdom.attributes || {};
-            vdom.attributes[attr] = '';
-            vdom.css = vdom.css || {};
-            vdom.css[attr] = '';
-            vdom.children.forEach(function(child) {
-                return scopeVdom(attr, child);
-            });
-        }
-    }
-    function scopeHost(vdom, css) {
-        if ('object' == typeof vdom && css) {
-            vdom.attributes = vdom.attributes || {};
-            for (var key in css) vdom.attributes[key] = '';
-        }
-    }
     function fireTick() {
         callbacks.forEach(function(item) {
             item.fn.call(item.scope);
@@ -485,7 +488,7 @@
                 component.props = previousProps;
                 component.data = previousState;
                 component.context = previousContext;
-                if (2 == opts || shallowComparison(previousProps, props)) {
+                if (component.store || 2 == opts || shallowComparison(previousProps, props)) {
                     skip = !1;
                     if (component.beforeUpdate) component.beforeUpdate(props, data, context);
                 } else skip = !0;
@@ -497,7 +500,7 @@
             if (!skip) {
                 component.beforeRender && component.beforeRender();
                 rendered = component.render(props, data, context);
-                if (component.css) addScopedAttrStatic(rendered, component.css(), '_s' + getCtorName(component.constructor));
+                if (component.css) addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
                 if (component.dynamicCss) addScopedAttr(rendered, component.dynamicCss(), '_s' + component.elementId, component);
                 scopeHost(rendered, component.scopedCssAttr);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
@@ -595,10 +598,11 @@
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
-    function render(vnode, parent, store) {
+    function render(vnode, parent, store, empty, merge) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
-        if (store && store.merge) store.merge = 'string' == typeof store.merge ? document.querySelector(store.merge) : store.merge;
-        return diff(store && store.merge, vnode, store, !1, parent, !1);
+        if (empty) while (parent.firstChild) parent.removeChild(parent.firstChild);
+        if (merge) merge = 'string' == typeof merge ? document.querySelector(merge) : merge;
+        return diff(merge, vnode, store, !1, parent, !1);
     }
     function define(name, ctor) {
         options.mapping[name] = ctor;
@@ -682,6 +686,10 @@
         if (args.length > 0) return {
             class: classNames.apply(null, args)
         };
+    }
+    function getHost(component) {
+        var base = component.base;
+        if (base) while (base.parentNode) if (base.parentNode._component) return base.parentNode._component; else base = base.parentNode;
     }
     function createRef() {
         return {};
@@ -773,12 +781,12 @@
     var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
     var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
     var items = [];
+    var styleId = 0;
     var mounts = [];
     var diffLevel = 0;
     var isSvgMode = !1;
     var hydrating = !1;
     var components = {};
-    var styleId = 0;
     var obaa = function obaa(target, arr, callback) {
         var _observe = function(target, arr, callback) {
             if (!target.$observer) target.$observer = this;
@@ -957,10 +965,11 @@
         ModelView: ModelView,
         defineElement: defineElement,
         classNames: classNames,
-        extractClass: extractClass
+        extractClass: extractClass,
+        getHost: getHost
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.2.7';
+    options.root.Omi.version = 'omio-1.3.0';
     var Omi$1 = {
         h: h,
         createElement: h,
@@ -976,7 +985,8 @@
         ModelView: ModelView,
         defineElement: defineElement,
         classNames: classNames,
-        extractClass: extractClass
+        extractClass: extractClass,
+        getHost: getHost
     };
     if ('undefined' != typeof module) module.exports = Omi$1; else self.Omi = Omi$1;
 }();
