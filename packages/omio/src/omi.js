@@ -8,6 +8,7 @@ import { define } from './define'
 import { rpx } from './rpx'
 import ModelView from './model-view'
 import { classNames, extractClass } from './class'
+import { getHost } from './get-host'
 
 const WeElement = Component
 const defineElement = define
@@ -30,10 +31,11 @@ options.root.Omi = {
   ModelView,
   defineElement,
   classNames,
-  extractClass
+  extractClass,
+  getHost
 }
 options.root.omi = Omi
-options.root.Omi.version = 'omio-1.2.8'
+options.root.Omi.version = 'omio-1.3.0'
 
 export default {
   h,
@@ -50,7 +52,8 @@ export default {
   ModelView,
   defineElement,
   classNames,
-  extractClass
+  extractClass,
+  getHost
 }
 
 export {
@@ -68,5 +71,6 @@ export {
   ModelView,
   defineElement,
   classNames,
-  extractClass
+  extractClass,
+  getHost
 }

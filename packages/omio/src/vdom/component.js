@@ -152,7 +152,6 @@ export function renderComponent(component, opts, mountAll, isChild) {
     if (component.css) {
       addScopedAttrStatic(
         rendered,
-        component.css(),
         '_s' + getCtorName(component.constructor)
       )
     }

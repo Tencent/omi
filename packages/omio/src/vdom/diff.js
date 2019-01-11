@@ -7,7 +7,7 @@ import options from '../options'
 import { applyRef } from '../util'
 import { removeNode } from '../dom/index'
 import { isArray } from '../util'
-
+import { addStyleToHead, getCtorName } from '../style'
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
 
@@ -26,6 +26,9 @@ export function flushMounts() {
   while ((c = mounts.pop())) {
     if (options.afterMount) options.afterMount(c)
     if (c.installed) c.installed()
+    if(c.css){
+      addStyleToHead(c.css(), '_s' + getCtorName(c.constructor))
+    }
   }
 }
 

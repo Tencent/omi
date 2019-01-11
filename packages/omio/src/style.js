@@ -103,9 +103,14 @@ export function addScopedAttr(vdom, style, attr, component) {
   component._preCss = style
 }
 
-export function addScopedAttrStatic(vdom, style, attr) {
+export function addScopedAttrStatic(vdom, attr) {
   if (options.scopedStyle) {
     scopeVdom(attr, vdom)
+  } 
+}
+
+export function addStyleToHead(style, attr) {
+  if (options.scopedStyle) {
     if (!options.staticStyleMapping[attr]) {
       addStyle(scoper(style, attr), attr)
       options.staticStyleMapping[attr] = true
