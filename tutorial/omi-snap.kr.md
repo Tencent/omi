@@ -1,6 +1,6 @@
 # Omi Snap - Prerender를 위한 Snap 템플릿
 
-Omi 와 같은 프레임워크를 사용하면 자바스크립트 파일이 로드되기 전 화면에는 아무것도 나타나지 않게 됩니다. 그래서 사용자는 잠시동안 아무것도 없는 하얀 화면을 보게 되고 나쁜 User Experience를 경험하게 됩니다. Omi Snap은 이런 부분을 해소하기위해 렌더할 HTML과 CSS를 빌드 단계에서 미리 HTML 파일에 삽입을 해줍니다. 해당 템플릿은 빌드시 흰 화면 대신 볼수 있는 UI를 삽입하기 때문에 보다 낫은 User Experience를 제공할수 있게 됩니다.
+Omi 와 같은 프레임워크를 사용하면 자바스크립트 파일이 로드전 화면에는 아무것도 나타나지 않게 됩니다. 그래서 사용자는 잠시동안 아무것도 없는 화면을 보게 되서 나쁜 User Experience를 경험하게 됩니다. Omi Snap은 이런 부분을 해소하기 위해 렌더할 마크업(HTML/CSS)를 빌드 단계에서 HTML 파일에 삽입을 해줍니다. 그래서 사용자는 빈 화면 UI를 보게 되기 때문에 보다 낫은 User Experience를 제공할수 있게 됩니다.
 
 ---
 
@@ -8,9 +8,9 @@ Omi 와 같은 프레임워크를 사용하면 자바스크립트 파일이 로�
 
 ```bash
 $ npm i -g omi-cli # omi-cli 설치
-& omi init-snap myapp # omi-cli로 omi-snap 템플릿 생성
-& cd myapp
-& npm run build # 프로젝트 빌드 - 자동으로 snap기능 추가 되서 빌드됨
+$ omi init-snap myapp # omi-cli로 omi-snap 템플릿 생성
+$ cd myapp
+$ npm run build # 프로젝트 빌드 - 자동으로 snap기능 추가 되서 빌드됨
 ```
 
 ##  Snap(Prerender) 이란?
@@ -43,17 +43,17 @@ omi-cli로 템플릿을 생성하면 아래의 소스코드처럼 blank HTML을 
 
 ![initial](../assets/omi-snap/initial.png)
 
-아래의 이미지를 보면 위의 기존 템플릿과 다르게 아래의 snap기능을 사용하여 빌드한 마크업 에는 기본 CSS/HTML이 추가 되어있는 것을 확인할 수 있습니다.
+아래의 이미지를 보면 위의 기존 템플릿과 다르게 아래의 snap기능을 사용하여 빌드한 마크업 에는 기본 HTML/CSS이 추가 되어있는 것을 확인할 수 있습니다.
 
 ![html](../assets/omi-snap/comapre-snap-before-after.png)
 
-## omi 템플릿과 omi-snap 템플릿 비교
+## Omi 템플릿과 Omi Snap 템플릿 비교
 
-omi 템플릿
+Omi 템플릿
 
 ![omi-template](../assets/omi-snap/omi.gif)
 
-omi-snap 템플릿
+Omi Snap 템플릿
 
 ![omi-snap-template](../assets/omi-snap/omi-snap.gif)
 
