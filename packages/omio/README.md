@@ -23,8 +23,6 @@ Required omi-cli v3.3.0+.
 Omio has the same grammar as omi, but there are also some differences:
 
 * Omio does not support slot, please use `props.children` instead like react 
-* Omio does not support store path updating
-
 
 ## Use in omi project
 
