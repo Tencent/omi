@@ -49,7 +49,8 @@ const config = {
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
           { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' },
-          { name: 'Switch', md: 'switch', demo: './repl/switch.html' }
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
+          { name: 'DatePicker', md: 'date-picker', demo: './repl/date-picker.html' }
         ]
       },
       {
@@ -110,7 +111,8 @@ const config = {
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
           { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' },
-          { name: 'Switch', md: 'switch', demo: './repl/switch.html' }
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
+          { name: 'DatePicker', md: 'date-picker', demo: './repl/date-picker.html' }
         ]
       },
       {
