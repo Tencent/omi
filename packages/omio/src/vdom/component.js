@@ -129,7 +129,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
     component.props = previousProps
     component.data = previousState
     component.context = previousContext
-    if (opts == FORCE_RENDER || shallowComparison(previousProps, props)) {
+    if (component.store || opts == FORCE_RENDER || shallowComparison(previousProps, props)) {
       skip = false
       if (component.beforeUpdate) {
         component.beforeUpdate(props, data, context)

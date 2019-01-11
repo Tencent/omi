@@ -1,36 +1,34 @@
-import { define, render, Component } from '../../src/omi'
+import { define, render, WeElement } from '../../src/omi'
 
-define('my-hello', class extends Component {
+define('my-hello', class extends WeElement {
   render() {
+    //use this.store in any method of any children components
     return <div>{this.store.name}</div>
   }
 })
 
-define('my-app', class extends Component {
+define('my-app', class extends WeElement {
   handleClick = () => {
-    this.store.rename('Hello Omi !')
+    //use this.store in any method of any children components
+    this.store.reverse()
     this.update()
   }
 
   render() {
     return (
       <div>
-        <my-hello
-          ref={c => {
-            this.hello = c
-          }}
-        />
-        <button onclick={this.handleClick}>
-          Click me to call this.store.rename('Hello Omi !'){' '}
-        </button>
+        <my-hello />
+        <button onclick={this.handleClick}>reverse</button>
       </div>
     )
   }
 })
 
-render(<my-app />, document.body, {
-  name: 'abc',
-  rename: function(name) {
-    this.name = name
+const store = {
+  name: 'imO',
+  reverse: function () {
+    this.name = this.name.split("").reverse().join("")
   }
-})
+}
+//Injection through a third parameter
+render(<my-app />, document.body, store)

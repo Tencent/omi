@@ -316,9 +316,7 @@ define('my-app', class extends WeElement {
     return (
       <div>
         <my-hello />
-        <button onclick={this.handleClick}>
-          Click me to call this.store.rename('Hello Omi !'){' '}
-        </button>
+        <button onclick={this.handleClick}>reverse</button>
       </div>
     )
   }
