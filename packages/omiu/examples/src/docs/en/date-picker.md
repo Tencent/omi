@@ -21,7 +21,7 @@ Date picker.
 | ------------- |:-------------:|:-----:|:-------------:|
 | show  | bool|--  ||
 | selectedDate  | string| -- |  |
-| onToggle | function   |    | |
+| onToggle | function   |   -- | |
 | onSelect | function| -- ||
 
 
