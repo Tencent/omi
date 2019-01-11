@@ -13,7 +13,7 @@ describe('install()', () => {
 
   before(() => {
     scratch = document.createElement('div')
-    ;(document.body || document.documentElement).appendChild(scratch)
+      ; (document.body || document.documentElement).appendChild(scratch)
   })
 
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe('install()', () => {
   })
 
   it('should render components with props', () => {
-    const PROPS = { foo: 'bar', onBaz: () => {} }
+    const PROPS = { foo: 'bar', onBaz: () => { } }
     let constructorProps
 
     class C2 extends Component {
@@ -85,7 +85,7 @@ describe('install()', () => {
     class C2 extends Component {
 
       render(props) {
-        return [<div>a</div>,<div>b</div>]
+        return [<div>a</div>, <div>b</div>]
       }
     }
     sinon.spy(C2.prototype, 'render')
@@ -93,7 +93,7 @@ describe('install()', () => {
     define('c2-ele', C2)
     render(<c2-ele />, scratch)
 
-  
+
     expect(scratch.innerHTML).to.equal('<span><div>a</div><div>b</div></span>')
   })
 
@@ -101,11 +101,11 @@ describe('install()', () => {
 
     var text = ''
     class C2 extends Component {
-      install(){
+      install() {
         this.div = createRef()
       }
 
-      installed(){
+      installed() {
         text = this.div.current.innerHTML
       }
       render(props) {
@@ -123,17 +123,17 @@ describe('install()', () => {
     var text = ''
     class C2 extends Component {
 
-      installed(){
-         text = this.div.innerHTML
+      installed() {
+        text = this.div.innerHTML
       }
       render(props) {
-        return <div><div ref={e=>{this.div=e}}>aaa</div></div>
+        return <div><div ref={e => { this.div = e }}>aaa</div></div>
       }
     }
     define('c2-ele', C2)
     render(<c2-ele />, scratch)
 
-  
+
     expect(text).to.equal('aaa')
   })
 
@@ -141,7 +141,7 @@ describe('install()', () => {
 
     class C3 extends Component {
 
-      install(){
+      install() {
         this.name = 'abc'
       }
       render(props) {
@@ -153,11 +153,11 @@ describe('install()', () => {
 
     var text = ''
     class C2 extends Component {
-      install(){
+      install() {
         this.c3 = createRef()
       }
 
-      installed(){
+      installed() {
         text = this.c3.current.name
       }
       render(props) {
@@ -186,14 +186,14 @@ describe('install()', () => {
 
     class C3 extends Component {
 
-      install(){
+      install() {
         this.aa = 1
       }
       render(props) {
         return <div><c2-ele name={this.aa} /></div>
       }
 
-      installed(){
+      installed() {
         this.aa = 1
         this.update()
       }
@@ -201,7 +201,7 @@ describe('install()', () => {
     define('c3-ele', C3)
     render(<c3-ele />, scratch)
 
-  
+
     expect(count).to.equal(1)
   })
 
@@ -221,14 +221,14 @@ describe('install()', () => {
 
     class C3 extends Component {
 
-      install(){
+      install() {
         this.aa = 1
       }
       render(props) {
         return <div><c2-ele name={this.aa} /></div>
       }
 
-      installed(){
+      installed() {
         this.aa = 2
         this.update()
       }
@@ -236,7 +236,7 @@ describe('install()', () => {
     define('c3-ele', C3)
     render(<c3-ele />, scratch)
 
-  
+
     expect(count).to.equal(2)
   })
 
@@ -257,21 +257,21 @@ describe('install()', () => {
 
     class C3 extends Component {
 
-      install(){
+      install() {
         this.aa = {}
       }
       render(props) {
         return <div><c2-ele name={this.aa} /></div>
       }
 
-      installed(){
+      installed() {
         this.update()
       }
     }
     define('c3-ele', C3)
     render(<c3-ele />, scratch)
 
-  
+
     expect(count).to.equal(2)
   })
 
@@ -324,7 +324,7 @@ describe('install()', () => {
 
     let root
     function test(content) {
-      root = render(content, scratch, { merge: root })
+      root = render(content, scratch, null, null, root)
     }
 
     test(<c-d />)
