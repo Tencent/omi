@@ -22,8 +22,8 @@ $ npm run build
 
 omio 拥有 omi一样的语法，但是也有一些差异需要注意：
 
-* Omio 不支持 slot, 请使用 `props.children` 代替，像 react 一样
-* Omio 也支持 store，但不会去监听 store.data 变化，store 仅仅只是从根节点注入
+* Omio 不支持 slot, 请使用 `props.children` 代替，像 react 一样，omi 也支持 `props.children` 
+
 
 ## 在 Omi 项目中使用
 
