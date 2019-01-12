@@ -1,13 +1,19 @@
 import { WeElement, define, render } from 'omi'
 import '../../src/date-picker'
+import toast from '../../src/toast'
 
+toast.showLoading('loading')
+
+setTimeout(function(){
+  toast.hideLoading()
+},4000)
 
 define('my-app', class extends WeElement {
 
   showPicker = false
 
   selectedDate = '2019-1-10'
-  
+
   onToggle = () => {
     this.showPicker = !this.showPicker
     this.update()
