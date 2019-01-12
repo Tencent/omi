@@ -9,6 +9,19 @@ Simple reminder notification.
 <o-toast type='loading' show={false}>加载中</o-toast>
 ```
 
+You can also use methods of toast:
+
+```js
+import toast from 'omiu/toast'
+
+//show
+toast.showLoading()
+//hide
+toast.hideLoading()
+//Support for custom text
+toast.showLoading('In request...')
+```
+
 ## API
 
 ### Props
