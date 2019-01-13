@@ -56,7 +56,7 @@ define('o-tree', class extends WeElement {
   }
 
   getChildById(id, children) {
-
+    if (this.props.data.id === id) return this.props.data
     for (let i = 0, len = children.length; i < len; i++) {
       let child = children[i]
       if (child.id === id) {
@@ -85,7 +85,7 @@ define('o-tree', class extends WeElement {
   }
 
   toggle(id) {
-    let nodeData = this.getChildById(id, this.data.children)
+    let nodeData = this.getChildById(id, this.props.data.children)
     nodeData.expand = !nodeData.expand
     this.update()
   }
@@ -111,7 +111,7 @@ define('o-tree', class extends WeElement {
     return (
       <div class='o-tree'>
         <ul class="tree-wp">
-          <tree-node data={props.data}></tree-node>
+          <tree-node data={props.data} root={this}></tree-node>
         </ul>
         {/* <div class="bg-wp">
           <div o-repeat="c in emptyArr" class="bg"></div>

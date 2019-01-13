@@ -6,7 +6,18 @@ define('my-app', class extends WeElement {
   treeData = {
     name: 'Root',
     expand: true,
+    id: 0,
     children: [
+
+      {
+        name: 'Test English',
+        type: 'group',
+        id: 3,
+        children: [
+          { id: 6, name: 'Csfsdf1', children: [] },
+          { id: 9, name: 'C2dsfs', children: [] }
+        ]
+      },
       {
         name: '中文子',
         id: 1,
@@ -26,14 +37,6 @@ define('my-app', class extends WeElement {
         children: [
           { id: 5, name: '中文子', children: [] },
           { id: 8, name: 'B2', children: [] }
-        ]
-      },
-      {
-        name: 'Test English',
-        type: 'group',
-        id: 3, children: [
-          { id: 6, name: 'Csfsdf1', children: [] },
-          { id: 9, name: 'C2dsfs', children: [] }
         ]
       }
     ]

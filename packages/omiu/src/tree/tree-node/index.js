@@ -1,5 +1,6 @@
 import { define, WeElement } from 'omi'
 import css from './_index.css'
+import '../../icon'
 
 define('tree-node', class extends WeElement {
 
@@ -39,38 +40,24 @@ define('tree-node', class extends WeElement {
     return css
   }
 
-  toggle(evt, id) {
-    this.getRootInstance(this.parent).toggle(id)
+  toggle = (evt, id) => {
+    this.props.root.toggle(id)
+    this.props.root.update()
     evt.stopPropagation()
-  }
-
-  edit(evt) {
-    evt.stopPropagation()
-    evt.target.classList.add('editing')
-    this.editIpt.value = this.editIpt.value
-    this.editIpt.focus()
-  }
-
-  endEdit() {
-    this.nodeTitle.classList.remove('editing')
-    this.getRootInstance(this.parent).rename(this.nodeId, this.refs.editIpt.value)
   }
 
   render(props, data) {
-    console.log(props.data)
-    const { id, children, expand, type, name } = props.data
-    console.log(name)
+    const { id, children, expand, name } = props.data
     this.nodeId = id
     return (
       <li class="node-root" data-node-id={id} draggable="true" ondragstart={this.dragStartHandler} ondragleave={this.dragLeaveHandler} ondrop={this.dropHandler} ondragover={this.dragOverHandler} >
-        <div ondblclick={this.edit} ref={e => { this.nodeTitle = e }} class={`node-title arrow-${children.length > 0 ? (expand ? 'expand' : 'contract') : ''}`} data-node-id={id} onclick={e => this.toggle(e, { id })}>
-          <i data-node-id={id}></i><span data-node-id={id} class={type}></span>
+        <div ref={e => { this.nodeTitle = e }} class={`node-title arrow-${children.length > 0 ? (expand ? 'expand' : 'contract') : ''}`} data-node-id={id} >
+          {children.length > 0 && <o-icon onClick={e => this.toggle(e, id)} scale={1} color='#171717' class='icon' path={expand ? 'M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z' : 'M715.8 493.5L335 165.1c-14.2-12.2-35-1.2-35 18.5v656.8c0 19.7 20.8 30.7 35 18.5l380.8-328.4c10.9-9.4 10.9-27.6 0-37z'}></o-icon>}
           <span data-node-id={id} class="name">{name}</span>
-          <input data-node-id={id} onblur={this.endEdit} ref={e => { this.editIpt = e }} class="edit" value={name} type="text" />
         </div>
-        {children.length > 0 && expand && <ul data-node-id={id} o-if="">
+        {children.length > 0 && expand && <ul data-node-id={id}>
           {props.data.children.map(child => (
-            <tree-node data={child}></tree-node>
+            <tree-node data={child} root={this.props.root}></tree-node>
           ))}
         </ul>}
       </li>

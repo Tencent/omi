@@ -17,8 +17,9 @@ define('o-icon', class extends WeElement {
   }
 
   render(props) {
+    const style = { style: props.style }
     return (
-      <i {...extractClass(props, 'o-icon')} onClick={this.onClick}>
+      <i {...extractClass(props, 'o-icon')} {...style} onClick={this.onClick}>
         <svg
           viewBox="0 0 1024 1024"
           class={classNames({ rotate: props.rotate })}

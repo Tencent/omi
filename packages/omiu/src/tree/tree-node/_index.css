@@ -2,84 +2,10 @@
   border: 1px dashed white;
 }
 
-.text {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  background-image: url('./img/text.png');
-  position: relative;
-  top: 2px;
-  margin-left: 3px;
-}
-
-.img {
-  display: inline-block;
-  width: 17px;
-  height: 17px;
-  background-image: url('./img/img.png');
-  position: relative;
-  top: 3px;
-  margin-left: 2px;
-}
-
-.shape {
-  display: inline-block;
-  width: 15px;
-  height: 12px;
-  background-image: url('./img/shape.png');
-  position: relative;
-  top: 1px;
-  margin-left: 2px;
-}
-
-.group {
-  display: inline-block;
-  width: 16px;
-  height: 14px;
-  background-image: url('./img/group.png');
-  position: relative;
-  top: 2px;
-  margin-left: 3px;
-}
-
-.arrow-expand {
-  color: black;
-}
-
-.arrow-contract {
-  color: black;
-}
-
-.arrow-expand i {
-  cursor: pointer;
-  width: 12px;
-  height: 6px;
-  background-image: url('./img/arrow-expand.png');
-  position: relative;
-  top: -1px;
-  color: black;
-}
-
-.arrow-contract i {
-  cursor: pointer;
-  width: 6px;
-  height: 12px;
-  background-image: url('./img/arrow-contract.png');
-  position: relative;
-  top: 1px;
-  color: #fff;
-}
-
-i {
-  display: inline-block;
-  ;
-  margin-right: 4px;
-}
-
 .node-root {
-  color: #B4B9BF;
+  color: #171717;
   font-size: 12px;
-  margin-left: 40px;
+  margin-left: 10px;
 }
 
 .node-title {
@@ -87,26 +13,17 @@ i {
   line-height: 32px;
 }
 
-.edit {
-  display: none
-}
-
-.editing .edit {
-  display: inline-block;
-  border: none;
-  height: 25px;
-  line-height: 25px;
-  width: 80%;
-  font-size: 12px;
-}
-
-.editing .name {
-  display: none;
-}
-
 ul,
 li {
   list-style: none;
   padding: 0;
-  margin: 0
+  padding-left: 5px;
+  margin: 0 ;
+}
+
+
+.icon{
+  position: relative;
+  top: 1px;
+  cursor: pointer;
 }
