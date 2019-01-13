@@ -60,5 +60,3 @@ Omi Snap Template
 ## Let's start
 
 [→ omi-snap Github](https://github.com/Tencent/omi/tree/master/packages/omi-snap)
-
-[→ omi-snap template Github](https://github.com/omijs/template-snap)

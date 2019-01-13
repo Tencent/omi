@@ -1,6 +1,6 @@
 # Omi Snap - 做Prerender的Snap模版
 
-诸如Omi之类的JavaScript框架在JavaScript下载之前没有显示任何内容。 因此，用户会在一段时间内看到空白页面，获得糟糕的用户体验。 Omi Snap解决了这个问题，在构建中加入了标记（HTML / CSS），因此用户可以在下载JavaScript文件时看到UI内容，从而获得更好的用户体验。
+像 Omi，React 之类的 JavaScript 框架在 JavaScript 下载之前没有显示任何内容，所有的内容都是 JS 生成（HTML、CSS，以及延迟加载或者预加载的 chunk 都是 JS 在操纵）。 因此，用户会在一段时间内看到空白页面，获得糟糕的用户体验。 Omi Snap解决了这个问题，在构建中加入了标记（HTML / CSS），因此用户可以在下载 JavaScript 文件时就能看到 UI 内容，从而获得更好的用户体验。
 
 ---
 
@@ -14,6 +14,7 @@ $ npm run build # 建立模版 - 自动加入标记
 ```
 
 ## 什么是Snap(Prerender)？
+
 `omi-cli`创建一个默认的`omi`模板，HTML是一个空白，因为所有都是由JavaScript呈现的。
 
 ```html
@@ -64,5 +65,3 @@ Omi Snap模板
 ## 开始吧
 
 [→ omi-snap Github](https://github.com/Tencent/omi/tree/master/packages/omi-snap)
-
-[→ omi-snap template Github](https://github.com/omijs/template-snap)
