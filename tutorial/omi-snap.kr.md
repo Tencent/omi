@@ -10,6 +10,7 @@ Omi 와 같은 프레임워크를 사용하면 자바스크립트 파일이 로�
 $ npm i -g omi-cli # omi-cli 설치
 $ omi init-snap myapp # omi-cli로 omi-snap 템플릿 생성
 $ cd myapp
+$ npm start     # develop
 $ npm run build # 프로젝트 빌드 - 자동으로 snap기능 추가 되서 빌드됨
 ```
 

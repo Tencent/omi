@@ -10,6 +10,7 @@ JavaScript Framework such as Omi shows nothing before JavaScript has done downlo
 $ npm i -g omi-cli # omi-cli install
 $ omi init-snap myapp # create a omi-snap template using omi-cli
 $ cd myapp
+$ npm start     # develop
 $ npm run build # build a project - markup will be added automatically
 ```
 

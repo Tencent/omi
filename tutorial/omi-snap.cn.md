@@ -7,10 +7,11 @@
 ## Usage
 
 ```bash
-$ npm i -g omi-cli # 安装omi-cli
+$ npm i -g omi-cli    # 安装omi-cli
 $ omi init-snap myapp # 用omi-cli生成omi-snap模版
 $ cd myapp
-$ npm run build # 建立模版 - 自动加入标记
+$ npm start           # 开发   
+$ npm run build       # 建立模版 - 自动加入标记
 ```
 
 ## 什么是Snap(Prerender)？
