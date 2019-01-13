@@ -42,10 +42,16 @@ define('my-app', class extends WeElement {
     ]
   }
 
+  onNodeClick = (id, evt)=> {
+    console.log(id, evt)
+  }
+
   render() {
     return (
 
-      <o-tree data={this.treeData} />
+      <o-tree
+        data={this.treeData}
+        onNodeClick={this.onNodeClick} />
 
 
     )

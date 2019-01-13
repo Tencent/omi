@@ -13,6 +13,10 @@
   line-height: 32px;
 }
 
+.name {
+  cursor: pointer;
+}
+
 ul,
 li {
   list-style: none;
