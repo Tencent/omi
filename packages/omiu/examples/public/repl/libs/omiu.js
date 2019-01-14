@@ -4401,6 +4401,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       _this.props.onConfirm && _this.props.onConfirm();
     }, _this.left = 0, _this.top = 0, _this.bodyClickHandler = function () {
       _this.props.onClose && _this.props.onClose();
+    }, _this.mouseDownHandler = function (evt) {
+      evt.stopPropagation();
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -4412,12 +4414,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }, {
     key: 'installed',
     value: function installed() {
-      document.body.addEventListener('click', this.bodyClickHandler);
+      document.body.addEventListener('mousedown', this.bodyClickHandler);
     }
   }, {
     key: 'uninstall',
     value: function uninstall() {
-      document.body.removeEventListener('click', this.bodyClickHandler);
+      document.body.removeEventListener('mousedown', this.bodyClickHandler);
     }
   }, {
     key: 'updated',
@@ -4500,7 +4502,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       var cls = (0, _omi.classNames)('_arrow', '_' + props.direction);
       return Omi.h(
         'div',
-        { 'class': 'o-popover', style: { left: this.left, top: this.top } },
+        { 'class': 'o-popover', onMouseDown: this.mouseDownHandler, style: { left: this.left, top: this.top } },
         Omi.h('div', { 'class': cls }),
         Omi.h(
           'div',

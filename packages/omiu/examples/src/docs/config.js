@@ -38,7 +38,8 @@ const config = {
           { name: 'Toast', md: 'toast', demo: './repl/toast.html' },
           { name: 'Progress', md: 'progress', demo: './repl/progress.html' },
           { name: 'Popup', md: 'popup', demo: './repl/popup.html' },
-          { name: 'Dialog', md: 'dialog', demo: './repl/dialog.html' }
+          { name: 'Dialog', md: 'dialog', demo: './repl/dialog.html' },
+          { name: 'Popover', md: 'popover', demo: './repl/popover.html' }
         ]
       },
       {
@@ -100,7 +101,8 @@ const config = {
           { name: 'Toast', md: 'toast', demo: './repl/toast.html' },
           { name: 'Progress', md: 'progress', demo: './repl/progress.html' },
           { name: 'Popup', md: 'popup', demo: './repl/popup.html' },
-          { name: 'Dialog', md: 'dialog', demo: './repl/dialog.html' }
+          { name: 'Dialog', md: 'dialog', demo: './repl/dialog.html' },
+          { name: 'Popover', md: 'popover', demo: './repl/popover.html' }
         ]
       },
       {
