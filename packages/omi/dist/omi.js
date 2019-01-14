@@ -875,9 +875,9 @@
             this.beforeUpdate();
             this.beforeRender();
             this.L = diff(this.L, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+            this.J = !1;
             this.afterUpdate();
             this.updated();
-            this.J = !1;
         };
         WeElement.prototype.fire = function(name, data) {
             this.dispatchEvent(new CustomEvent(name.toLowerCase(), {
@@ -941,7 +941,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '5.0.19';
+    options.root.Omi.version = '5.0.20';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
