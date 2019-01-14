@@ -97,9 +97,9 @@ export default class WeElement extends HTMLElement {
       null,
       this.shadowRoot
     )
+    this._willUpdate = false
     this.afterUpdate()
     this.updated()
-    this._willUpdate = false
   }
 
   fire(name, data) {
