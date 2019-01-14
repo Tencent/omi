@@ -28,7 +28,7 @@ define('o-popover', class extends WeElement {
 
 
       switch (this.props.direction) {
-        case 'left-top':
+        case 'top-left':
           tempLeft = rectB.left + 'px'
           tempTop = (rectB.top - rectA.height - 10) + 'px'
           break
@@ -36,12 +36,53 @@ define('o-popover', class extends WeElement {
           tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2) + 'px'
           tempTop = (rectB.top - rectA.height - 10) + 'px'
           break
-        case 'right-top':
-          tempLeft = rectB.left +rectB.width - rectA.width  + 'px'
+        case 'top-right':
+          tempLeft = rectB.left + rectB.width - rectA.width + 'px'
           tempTop = (rectB.top - rectA.height - 10) + 'px'
           break
-      }
 
+        case 'left':
+          tempLeft = rectB.left  - rectA.width -10+ 'px'
+          tempTop =rectB.top + (rectB.height - rectA.height )/2 + 'px'
+          break
+          case 'left-top':
+          tempLeft = rectB.left  - rectA.width -10+ 'px'
+          tempTop =rectB.top  + 'px'
+          break
+
+          case 'left-bottom':
+          tempLeft = rectB.left  - rectA.width -10+ 'px'
+          tempTop = rectB.top + (rectB.height - rectA.height ) + 'px'
+          break
+
+          case 'bottom-left':
+          tempLeft = rectB.left + 'px'
+          tempTop = (rectB.top+rectB.height+ 10) + 'px'
+          break
+        case 'bottom':
+          tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2) + 'px'
+          tempTop = (rectB.top +rectB.height + 10) + 'px'
+          break
+        case 'bottom-right':
+          tempLeft = rectB.left + rectB.width - rectA.width + 'px'
+          tempTop = (rectB.top+rectB.height +10) + 'px'
+          break
+
+          
+        case 'right':
+        tempLeft = rectB.left  + rectB.width +10+ 'px'
+        tempTop =rectB.top + (rectB.height - rectA.height )/2 + 'px'
+        break
+        case 'right-top':
+        tempLeft = rectB.left  + rectB.width +10+ 'px'
+        tempTop =rectB.top  + 'px'
+        break
+
+        case 'right-bottom':
+        tempLeft = rectB.left   + rectB.width +10+ 'px'
+        tempTop = rectB.top + (rectB.height - rectA.height ) + 'px'
+        break
+      }
 
       if (this.left !== tempLeft || this.top !== tempTop) {
         this.left = tempLeft

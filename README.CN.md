@@ -1,7 +1,7 @@
 [English](./README.md) | 简体中文 | [한국어](./README.KR.md)
 
 <p align="right">v<strong>5.0.19</strong></p>
-<p align="center"><img src="./assets/omi3.png" alt="omi" width="300"/></p>
+<p align="center"><img src="./assets/omi-logo.old.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一点点 JS</h2>
 <p align="center"><b>基于 Web Components 并使用 omio 兼容老浏览器(IE8+)</b></p>
 

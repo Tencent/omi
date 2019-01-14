@@ -20,7 +20,7 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
-  css(){
+  css() {
     return `.btn{
       margin-right:5px !important;
     }`
@@ -30,11 +30,26 @@ define('my-app', class extends WeElement {
     return (
       <div>
         <div style='position:relative;left:120px;top:100px;'>
-          <o-button size='small' class='btn' onClick={this.popoverIt}>left-top</o-button>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>top-left</o-button>
           <o-button size='small' class='btn' onClick={this.popoverIt}>top</o-button>
-          <o-button size='small' class='btn' onClick={this.popoverIt}>right-top</o-button>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>top-right</o-button>
+        </div>
+        <div style='position:relative;left:120px;top:100px;'>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>left-top</o-button>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>left</o-button>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>left-bottom</o-button>
         </div>
 
+        <div style='position:relative;left:120px;top:100px;'>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>bottom-left</o-button>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>bottom</o-button>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>bottom-right</o-button>
+        </div>
+        <div style='position:relative;left:120px;top:100px;'>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>right-top</o-button>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>right</o-button>
+          <o-button size='small' class='btn' onClick={this.popoverIt}>right-bottom</o-button>
+        </div>
         <o-popover show={this.popoverShow} target={this.popoverTarget} direction={this.direction}>
           <div>测试内容....</div>
           <div>测试内容</div>
