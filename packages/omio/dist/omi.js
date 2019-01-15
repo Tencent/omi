@@ -940,7 +940,7 @@
         getHost: getHost
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.3.1';
+    options.root.Omi.version = 'omio-1.3.2';
     var Omi$1 = {
         h: h,
         createElement: h,

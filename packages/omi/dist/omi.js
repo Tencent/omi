@@ -846,7 +846,7 @@
                 var fc;
                 while (fc = shadowRoot.firstChild) shadowRoot.removeChild(fc);
             }
-            this.css && shadowRoot.appendChild(cssToDom(this.css()));
+            this.css && shadowRoot.appendChild(cssToDom('function' == typeof this.css ? this.css() : this.css));
             !this.B && this.beforeRender();
             options.afterInstall && options.afterInstall(this);
             if (this.constructor.observe) {
@@ -941,7 +941,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '5.0.20';
+    options.root.Omi.version = '5.0.21';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

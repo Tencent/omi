@@ -103,7 +103,7 @@ declare namespace Omi {
 		data: D;
 		host: HTMLElement;
 
-		css(): void;
+		css: () => void | string;
 		update(): void;
 		fire(name: string, data?: object): void;
 
@@ -132,7 +132,7 @@ declare namespace Omi {
 		data: D;
 		host: HTMLElement;
 
-		css(): void;
+		css: () => void | string;
 		update(): void;
 		fire(name: string, data?: object): void;
 
@@ -155,7 +155,7 @@ declare namespace Omi {
 		data: D;
 		host: HTMLElement;
 
-		css(): void;
+		css: () => void | string;
 		update(): void;
 		fire(name: string, data?: object): void;
 
