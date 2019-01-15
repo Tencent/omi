@@ -1,6 +1,6 @@
 English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 
-<p align="right">v<strong>5.0.20</strong></p>
+<p align="right">v<strong>5.0.21</strong></p>
 <p align="center"><img src="./assets/omi-logo.new.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - Next generation web framework using web components with omio fallback(IE8+) in tiny js.</h2>
 
