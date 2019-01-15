@@ -18,8 +18,10 @@ English | [简体中文](./main-concepts.cn.md) | [한국어](./main-concepts.kr
   - [MergeUpdate](#mergeupdate)
   - [Use](#use)
   - [SSR](#ssr)
+  - [Snap](#snap)
 
-[→ Omi Simple Examples](https://github.com/Tencent/omi/tree/master/packages/omi/examples)
+* [→ Omi Simple Examples](https://github.com/Tencent/omi/tree/master/packages/omi/examples)
+* [→ Omio Simple Examples](https://github.com/Tencent/omi/tree/master/packages/omio/examples)
 
 ### My First Element
 
@@ -707,3 +709,7 @@ Recommended class libraries:
 
 * https://github.com/skatejs/skatejs/tree/master/packages/ssr
 * https://www.youtube.com/watch?v=yT-EsESAmgA
+
+### Snap
+
+* https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.md
