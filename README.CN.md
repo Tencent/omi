@@ -382,6 +382,19 @@ $ npm run build                  # release
 ...
 ```
 
+#### 切换 omi 和 omio
+
+增加或删除 package.json 里的 alias config 可以切换 omi 和 omio 渲染:
+
+```js
+ ...
+ "alias": {
+    "omi": "omio"
+  }
+  ...
+```
+    
+
 <!-- 关于编译网站的 url 前缀的设置，可以参考两个地址：
 
 * [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)

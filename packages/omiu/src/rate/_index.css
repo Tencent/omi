@@ -1,2 +1,23 @@
 .o-rate {
+  
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+._star {
+  position: relative;
+}
+
+._star-first {
+  position: absolute;
+  z-index: 10;
+}
+
+._star-second {
+  position: absolute;
 }

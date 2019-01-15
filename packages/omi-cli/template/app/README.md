@@ -51,6 +51,18 @@ You can set up the PUBLIC_URL, such as:
 ...
 ```
 
+## Switch omi and omio
+
+Add or remove the alias config in package.json to switch omi and omio：
+
+```js
+ ...
+ "alias": {
+    "omi": "omio"
+  }
+  ...
+```
+
 ## License
 
 MIT 

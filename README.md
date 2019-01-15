@@ -359,6 +359,18 @@ You can set up the PUBLIC_URL, such as：
 "build-windows": "set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& node scripts/build.js",
 ...
 ```
+
+#### Switch omi and omio
+
+Add or remove the alias config in package.json to switch omi and omio：
+
+```js
+ ...
+ "alias": {
+    "omi": "omio"
+  }
+  ...
+```
     
 <!-- About compiled website URL：
 
