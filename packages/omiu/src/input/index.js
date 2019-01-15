@@ -1,18 +1,19 @@
-import { define, WeElement, extractClass } from 'omi'
-import css from './_index.css'
+import { define, WeElement, extractClass, createRef } from 'omi'
 
 define('o-input', class extends WeElement {
-  css() {
-    return css
-  }
+  css = require('./_index.css')
 
-  onClick = index => {
-    this.props.onChange(index)
+  value = ''
+
+  ref = createRef()
+
+  onInput = () => {
+    this.value = this.ref.current.value
   }
 
   render(props) {
     return (
-        <input  {...extractClass(props, 'o-input')} {...props} placeholder={props.placeholder} />
+      <input ref={this.ref} {...extractClass(props, 'o-input')} onInput={this.onInput} {...props} placeholder={props.placeholder} />
     )
   }
 })
