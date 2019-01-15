@@ -1,15 +1,13 @@
 import { define, WeElement } from 'omi'
-import style from './_index.css'
 
 define('hello-element', class extends WeElement {
+  css = require('./_index.css')
+  
   installed() {
     setTimeout(() => {
       this.store.name = 'Good Job!'
       this.update()
     }, 1000)
-  }
-  css() {
-    return style
   }
 
   render(props, data) {

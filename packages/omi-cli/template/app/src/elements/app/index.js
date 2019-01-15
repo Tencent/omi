@@ -1,19 +1,16 @@
 import { define, WeElement } from 'omi'
 import logo from './logo.svg'
-import style from './_index.css'
 import '../app-intro'
 import 'omiu/button'
 
 define('my-app', class extends WeElement {
+  css = require('./_index.css')
+
   name = 'Omi'
 
   clickHandler = () => {
     this.name = 'Omio'
     this.update()
-  }
-
-  css() {
-    return style
   }
 
   render() {
