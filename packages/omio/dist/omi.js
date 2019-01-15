@@ -282,7 +282,7 @@
         while (c = mounts.pop()) {
             if (options.afterMount) options.afterMount(c);
             if (c.installed) c.installed();
-            if (c.css) addStyleToHead(c.css(), '_s' + getCtorName(c.constructor));
+            if (c.css) addStyleToHead('function' == typeof c.css ? c.css() : c.css, '_s' + getCtorName(c.constructor));
         }
     }
     function diff(dom, vnode, context, mountAll, parent, componentRoot) {
@@ -606,35 +606,6 @@
     }
     function define(name, ctor) {
         options.mapping[name] = ctor;
-        if (ctor.data && !ctor.pure) ctor.updatePath = getUpdatePath(ctor.data);
-    }
-    function getUpdatePath(data) {
-        var result = {};
-        dataToPath(data, result);
-        return result;
-    }
-    function dataToPath(data, result) {
-        Object.keys(data).forEach(function(key) {
-            result[key] = !0;
-            var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], key, result); else if ('[object Array]' === type) _arrayToPath(data[key], key, result);
-        });
-    }
-    function _objToPath(data, path, result) {
-        Object.keys(data).forEach(function(key) {
-            result[path + '.' + key] = !0;
-            delete result[path];
-            var type = Object.prototype.toString.call(data[key]);
-            if ('[object Object]' === type) _objToPath(data[key], path + '.' + key, result); else if ('[object Array]' === type) _arrayToPath(data[key], path + '.' + key, result);
-        });
-    }
-    function _arrayToPath(data, path, result) {
-        data.forEach(function(item, index) {
-            result[path + '[' + index + ']'] = !0;
-            delete result[path];
-            var type = Object.prototype.toString.call(item);
-            if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
-        });
     }
     function rpx(str) {
         return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
@@ -969,7 +940,7 @@
         getHost: getHost
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.3.0';
+    options.root.Omi.version = 'omio-1.3.1';
     var Omi$1 = {
         h: h,
         createElement: h,

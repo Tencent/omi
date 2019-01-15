@@ -1,5 +1,5 @@
 /**
- * omi v1.3.0  http://omijs.org
+ * omi v1.3.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -764,7 +764,7 @@ function flushMounts() {
     if (options.afterMount) options.afterMount(c);
     if (c.installed) c.installed();
     if (c.css) {
-      addStyleToHead(c.css(), '_s' + getCtorName(c.constructor));
+      addStyleToHead(typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor));
     }
   }
 }
@@ -1671,53 +1671,6 @@ function render(vnode, parent, store, empty, merge) {
 
 function define(name, ctor) {
   options.mapping[name] = ctor;
-  if (ctor.data && !ctor.pure) {
-    ctor.updatePath = getUpdatePath(ctor.data);
-  }
-}
-
-function getUpdatePath(data) {
-  var result = {};
-  dataToPath(data, result);
-  return result;
-}
-
-function dataToPath(data, result) {
-  Object.keys(data).forEach(function (key) {
-    result[key] = true;
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], key, result);
-    }
-  });
-}
-
-function _objToPath(data, path, result) {
-  Object.keys(data).forEach(function (key) {
-    result[path + '.' + key] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], path + '.' + key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], path + '.' + key, result);
-    }
-  });
-}
-
-function _arrayToPath(data, path, result) {
-  data.forEach(function (item, index) {
-    result[path + '[' + index + ']'] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(item);
-    if (type === '[object Object]') {
-      _objToPath(item, path + '[' + index + ']', result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(item, path + '[' + index + ']', result);
-    }
-  });
 }
 
 function rpx(str) {
@@ -1846,7 +1799,7 @@ options.root.Omi = {
   getHost: getHost
 };
 options.root.omi = Omi;
-options.root.Omi.version = 'omio-1.3.0';
+options.root.Omi.version = 'omio-1.3.1';
 
 var omi = {
   h: h,

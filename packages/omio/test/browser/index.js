@@ -512,5 +512,26 @@ describe('install()', () => {
     })
   })
 
+  describe('scoped css', () => {
+    it('', () => {
+
+      define('my-app', class extends WeElement {
+        css = `div{ color:red; }`
+
+        render() {
+          return (
+            <div>a</div>
+          )
+        }
+      })
+
+      render(<my-app />, scratch)
+
+      expect(scratch.innerHTML).to.equal('<div _ss6=\"\">a</div>')
+
+      expect(document.head.querySelector('#_ss6').innerHTML).to.equal('div[_ss6]{ color:red; }')
+    })
+  })
+
 
 })
