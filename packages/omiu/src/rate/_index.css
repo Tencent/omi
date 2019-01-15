@@ -1,5 +1,7 @@
 .o-rate {
-  
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
 }
 
 ul,
@@ -11,13 +13,26 @@ li {
 
 ._star {
   position: relative;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  padding: 3px;
 }
 
 ._star-first {
   position: absolute;
   z-index: 10;
+  overflow: hidden;
 }
 
 ._star-second {
   position: absolute;
+}
+
+._star-half ._star-first {
+  width: 0.5em;
+}
+
+._star-empty ._star-first {
+  width: 0;
 }
