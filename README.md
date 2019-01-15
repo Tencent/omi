@@ -211,6 +211,12 @@ define('my-counter', class extends WeElement {
       count: 1
     }
 
+    css () {
+      return `span{
+        color: red;
+      }`
+    }
+
     sub = () => {
       this.data.count--
     }
@@ -240,6 +246,11 @@ import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
   count = 1
+
+  //You can also pass strings directly
+  css = `span{
+        color: red;
+      }`
 
   sub = () => {
     this.count--
@@ -410,12 +421,11 @@ define('hello-element', class extends WeElement {
     evt.stopPropagation()
   }
 
-  css() {
-    return `
-        div {
-          color: red;
-          cursor: pointer;
-        }`
+ css = `
+      div {
+        color: red;
+        cursor: pointer;
+      }`
   }
 
   render(props) {
@@ -446,11 +456,10 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
-  css() {
-    return `
-         div{
-             color: green;
-         }`
+  css = `
+      div{
+          color: green;
+      }`
   }
 
   render(props, data) {
@@ -521,18 +530,12 @@ For example, the following configuration:
 
 If your CSS file starts with "`_`", CSS will use `to-string-loader`., such as:
 
-```js
+``` js
 import { tag, WeElement render } from 'omi'
 
-// typeof cssStr is string
-import cssStr from './_index.css'
+define('my-app', class extends WeElement {
 
-@tag('my-app')
-class MyApp extends WeElement {
-
-  css() {
-    return cssStr
-  }
+  css = require('./_index.css')
   ...
   ...
   ...

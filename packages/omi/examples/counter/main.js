@@ -5,6 +5,10 @@ class extends WeElement {
   data = {
     count: 1
   }
+  
+  css = `span{
+    color: red;
+  }`
 
   sub = () => {
     this.data.count--

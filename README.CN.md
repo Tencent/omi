@@ -229,6 +229,12 @@ import { render, WeElement, define } from 'omi'
 define('my-counter', class extends WeElement {
     static observe = true
     
+    css () {
+      return `span{
+        color: red;
+      }`
+    }
+
     data = {
       count: 1
     }
@@ -262,6 +268,11 @@ import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
   count = 1
+
+  //也可以直接传递字符串
+  css = `span{
+        color: red;
+      }`
 
   sub = () => {
     this.count--
@@ -432,12 +443,11 @@ define('hello-element', class extends WeElement {
     evt.stopPropagation()
   }
 
-  css() {
-    return `
-        div {
-          color: red;
-          cursor: pointer;
-        }`
+  css = `
+      div {
+        color: red;
+        cursor: pointer;
+      }`
   }
 
   render(props) {
@@ -468,11 +478,10 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
-  css() {
-    return `
-         div{
-             color: green;
-         }`
+  css = `
+      div{
+          color: green;
+      }`
   }
 
   render(props, data) {
@@ -544,15 +553,10 @@ npm install --save-dev @babel/preset-react
 
 ``` js
 import { tag, WeElement render } from 'omi'
-//typeof cssStr is string
-import cssStr from './_index.css'
 
-@tag('my-app')
-class MyApp extends WeElement {
+define('my-app', class extends WeElement {
 
-  css() {
-    return cssStr
-  }
+  css = require('./_index.css')
   ...
   ...
   ...
