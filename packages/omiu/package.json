@@ -1,6 +1,6 @@
 {
   "name": "omiu",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Omi ui.",
   "main": "dist/omiu.js",
   "minified:main": "dist/omiu.min.js",

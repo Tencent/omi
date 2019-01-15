@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.6 By dntzhang 
+ *  omiu v0.0.7 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -363,12 +363,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _omi = __webpack_require__(0);
 
-var _index = __webpack_require__(23);
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -389,20 +383,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
-      _this.props.onChange(index);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.css = __webpack_require__(23), _this.value = '', _this.ref = (0, _omi.createRef)(), _this.onInput = function () {
+      _this.value = _this.ref.current.value;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
-      return Omi.h('input', _extends({}, (0, _omi.extractClass)(props, 'o-input'), props, { placeholder: props.placeholder }));
+      return Omi.h('input', _extends({ ref: this.ref }, (0, _omi.extractClass)(props, 'o-input'), { onInput: this.onInput }, props, { placeholder: props.placeholder }));
     }
   }]);
 
