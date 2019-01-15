@@ -1,2 +1,0 @@
-webpackJsonp([37],{62:function(n,r){n.exports="## Nav \r\n\r\nNavigation.\r\n\r\n## Usage\r\n\r\n```js\r\n<o-nav>\r\n  <item active={true}>NavA</item>\r\n  <item>NavB</item>\r\n</o-nav>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\r\n| ------------- |:-------------:|:-----:|:-------------|\r\n| onChange         |   function  |    --   |             |\u3000\r\n| children         |    json array  |    --   |             |\u3000"}});
-//# sourceMappingURL=37.07f8157a.chunk.js.map

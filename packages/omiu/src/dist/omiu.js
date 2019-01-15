@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.5 By dntzhang 
+ *  omiu v0.0.6 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -479,6 +479,8 @@ __webpack_require__(96);
 __webpack_require__(99);
 
 __webpack_require__(102);
+
+__webpack_require__(105);
 
 /***/ }),
 /* 6 */
@@ -4538,6 +4540,147 @@ if (typeof result === "string") {
 exports = module.exports = __webpack_require__(1)(false);
 // Module
 exports.push([module.i, ".o-popover {\r\n  width: auto;\r\n  height: auto;\r\n  position: absolute;\r\n  padding: 10px;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n  -webkit-box-sizing: border-box;\r\n  box-sizing: border-box;\r\n  background-color: #fff;\r\n  background-clip: padding-box;\r\n  border-radius: 4px;\r\n  -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);\r\n}\r\n\r\n.o-inner {\r\n  width: auto;\r\n  height: auto;\r\n  padding: 10px;\r\n  box-sizing: border-box;\r\n  z-index: 100;\r\n}\r\n\r\n._arrow {\r\n  box-sizing: border-box;\r\n  background: transparent;\r\n  width: 8.48528137px;\r\n  height: 8.48528137px;\r\n  -webkit-transform: rotate(45deg);\r\n  -ms-transform: rotate(45deg);\r\n  transform: rotate(45deg);\r\n  position: absolute;\r\n  display: block;\r\n  border-width: 4.24264069px;\r\n  border-style: solid;\r\n  -webkit-box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);\r\n  box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.1);\r\n  border-top-color: transparent;\r\n  border-right-color: #fff;\r\n  border-bottom-color: #fff;\r\n  border-left-color: transparent;\r\n  z-index: 10;\r\n}\r\n\r\n._top {\r\n  left: 50%;\r\n  top: 100%;\r\n  -webkit-transform: translateX(-50%) rotate(45deg);\r\n  -ms-transform: translateX(-50%) rotate(45deg);\r\n  transform: translateX(-50%) rotate(45deg);\r\n  margin-top: -4px;\r\n}\r\n\r\n._top-left {\r\n  left: 15%;\r\n  -webkit-transform: translateX(-50%) rotate(45deg);\r\n  -ms-transform: translateX(-50%) rotate(45deg);\r\n  transform: translateX(-50%) rotate(45deg);\r\n  top: 100%;\r\n  margin-top: -4px;\r\n}\r\n\r\n._top-right {\r\n  left: 85%;\r\n  -webkit-transform: translateX(-50%) rotate(45deg);\r\n  -ms-transform: translateX(-50%) rotate(45deg);\r\n  transform: translateX(-50%) rotate(45deg);\r\n  top: 100%;\r\n  margin-top: -4px;\r\n}\r\n\r\n._left {\r\n  left: 100%;\r\n  -webkit-transform: translateY(-50%) rotate(-45deg);\r\n  -ms-transform: translateY(-50%) rotate(-45deg);\r\n  transform: translateY(-50%) rotate(-45deg);\r\n  top: 50%;\r\n  margin-left: -4px;\r\n}\r\n\r\n._left-top {\r\n  left: 100%;\r\n  -webkit-transform: translateY(-50%) rotate(-45deg);\r\n  -ms-transform: translateY(-50%) rotate(-45deg);\r\n  transform: translateY(-50%) rotate(-45deg);\r\n  top: 15%;\r\n  margin-left: -4px;\r\n}\r\n\r\n._left-bottom {\r\n  left: 100%;\r\n  -webkit-transform: translateY(-50%) rotate(-45deg);\r\n  -ms-transform: translateY(-50%) rotate(-45deg);\r\n  transform: translateY(-50%) rotate(-45deg);\r\n  top: 85%;\r\n  margin-left: -4px;\r\n}\r\n\r\n._bottom {\r\n  left: 50%;\r\n  -webkit-transform: translateX(-50%) rotate(225deg);\r\n  -ms-transform: translateX(-50%) rotate(225deg);\r\n  transform: translateX(-50%) rotate(225deg);\r\n  margin-top: -13px;\r\n}\r\n\r\n._bottom-left {\r\n  left: 15%;\r\n  -webkit-transform: translateX(-50%) rotate(225deg);\r\n  -ms-transform: translateX(-50%) rotate(225deg);\r\n  transform: translateX(-50%) rotate(225deg);\r\n  margin-top: -13px;\r\n}\r\n\r\n._bottom-right {\r\n  left: 85%;\r\n  -webkit-transform: translateX(-50%) rotate(225deg);\r\n  -ms-transform: translateX(-50%) rotate(225deg);\r\n  transform: translateX(-50%) rotate(225deg);\r\n  margin-top: -13px;\r\n}\r\n\r\n._right {\r\n  -webkit-transform: translateY(-50%) rotate(-225deg);\r\n  -ms-transform: translateY(-50%) rotate(-225deg);\r\n  transform: translateY(-50%) rotate(-225deg);\r\n  top: 50%;\r\n  margin-left: -13px;\r\n}\r\n\r\n._right-top {\r\n  -webkit-transform: translateY(-50%) rotate(-225deg);\r\n  -ms-transform: translateY(-50%) rotate(-225deg);\r\n  transform: translateY(-50%) rotate(-225deg);\r\n  top: 15%;\r\n  margin-left: -13px;\r\n}\r\n\r\n._right-bottom {\r\n  -webkit-transform: translateY(-50%) rotate(-225deg);\r\n  -ms-transform: translateY(-50%) rotate(-225deg);\r\n  transform: translateY(-50%) rotate(-225deg);\r\n  top: 85%;\r\n  margin-left: -13px;\r\n}", ""]);
+
+
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp2;
+
+var _omi = __webpack_require__(0);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(0, _omi.define)('o-rate', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
+
+  function _class() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, _class);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.css = __webpack_require__(106), _this._current = 0, _this._rect = null, _this._hover = false, _this.onSelect = function (evt) {
+      _this._rect = _this.base.getBoundingClientRect();
+      var dx = evt.pageX - _this._rect.left;
+      var value = dx / _this._rect.width * _this.props.total;
+      var intValue = Math.floor(value);
+      _this.props.onSelect && _this.props.onSelect(intValue + (value - intValue > 0.5 ? 1 : 0.5));
+    }, _this.onMouseMove = function (evt) {
+      _this._rect = _this.base.getBoundingClientRect();
+      var dx = evt.pageX - _this._rect.left;
+      _this._current = dx / _this._rect.width * _this.props.total;
+      _this.update();
+    }, _this.onMouseEnter = function () {
+      _this._hover = true;
+    }, _this.onMouseLeave = function () {
+      _this._hover = false;
+      _this.update();
+    }, _this._getClass = function (i, current) {
+      if (i < current) {
+        if (current - i <= 0.5) {
+          return '_star _star-half ';
+        }
+        return '_star';
+      } else {
+        return '_star _star-empty ';
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(_class, [{
+    key: 'render',
+    value: function render(props) {
+      var _this2 = this;
+
+      return Omi.h(
+        'ul',
+        _extends({ onMouseMove: this.onMouseMove, onMouseEnter: this.onMouseEnter, onMouseLeave: this.onMouseLeave, onClick: this.onSelect }, (0, _omi.extractClass)(props, "o-rate"), props),
+        Array.apply(0, Array(props.total)).map(function (x, i) {
+          return Omi.h(
+            'li',
+            { 'class': _this2._getClass(i, _this2._hover ? _this2._current : props.value) },
+            Omi.h(
+              'div',
+              null,
+              Omi.h(
+                'div',
+                { 'class': '_star-first' },
+                Omi.h(
+                  'i',
+                  { 'class': 'anticon anticon-star' },
+                  Omi.h(
+                    'svg',
+                    { viewBox: '64 64 896 896', 'class': '', 'data-icon': 'star', width: '1em', height: '1em', fill: props.color || "#F95050", 'aria-hidden': 'true' },
+                    Omi.h('path', { d: 'M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z' })
+                  )
+                )
+              ),
+              Omi.h(
+                'div',
+                { 'class': '_star-second' },
+                Omi.h(
+                  'i',
+                  { 'class': 'anticon anticon-star' },
+                  Omi.h(
+                    'svg',
+                    { viewBox: '64 64 896 896', 'class': '', 'data-icon': 'star', width: '1em', height: '1em', fill: '#E8E8E8', 'aria-hidden': 'true' },
+                    Omi.h('path', { d: 'M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z' })
+                  )
+                )
+              )
+            )
+          );
+        })
+      );
+    }
+  }]);
+
+  return _class;
+}(_omi.WeElement), _class.defaultProps = {
+  value: 0
+}, _temp2));
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(107);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, ".o-rate {\r\n  display: inline-block;\r\n  text-align: center;\r\n  cursor: pointer;\r\n}\r\n\r\nul,\r\nli {\r\n  list-style: none;\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n\r\n._star {\r\n  position: relative;\r\n  width: 1em;\r\n  height: 1em;\r\n  display: inline-block;\r\n  padding: 3px;\r\n}\r\n\r\n._star-first {\r\n  position: absolute;\r\n  z-index: 10;\r\n  overflow: hidden;\r\n}\r\n\r\n._star-second {\r\n  position: absolute;\r\n}\r\n\r\n._star-half ._star-first {\r\n  width: 0.5em;\r\n}\r\n\r\n._star-empty ._star-first {\r\n  width: 0;\r\n}", ""]);
 
 
 

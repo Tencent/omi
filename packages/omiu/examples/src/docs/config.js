@@ -51,7 +51,8 @@ const config = {
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
           { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' },
           { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
-          { name: 'DatePicker', md: 'date-picker', demo: './repl/date-picker.html' }
+          { name: 'DatePicker', md: 'date-picker', demo: './repl/date-picker.html' },
+          { name: 'Rate', md: 'rate', demo: './repl/rate.html' }
         ]
       },
       {
@@ -114,7 +115,8 @@ const config = {
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
           { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' },
           { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
-          { name: 'DatePicker', md: 'date-picker', demo: './repl/date-picker.html' }
+          { name: 'DatePicker', md: 'date-picker', demo: './repl/date-picker.html' },
+          { name: 'Rate', md: 'rate', demo: './repl/rate.html' }
         ]
       },
       {
