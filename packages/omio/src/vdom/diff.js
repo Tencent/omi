@@ -27,7 +27,7 @@ export function flushMounts() {
     if (options.afterMount) options.afterMount(c)
     if (c.installed) c.installed()
     if(c.css){
-      addStyleToHead(c.css(), '_s' + getCtorName(c.constructor))
+      addStyleToHead(typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor))
     }
   }
 }

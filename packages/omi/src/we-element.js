@@ -45,7 +45,7 @@ export default class WeElement extends HTMLElement {
       }
     }
 
-    this.css && shadowRoot.appendChild(cssToDom(this.css()))
+    this.css && shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css))
     !this._isInstalled && this.beforeRender()
     options.afterInstall && options.afterInstall(this)
     if (this.constructor.observe) {
