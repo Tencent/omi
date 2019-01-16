@@ -15,8 +15,35 @@ const encodeEntities = s => String(s)
   .replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;');
 
+const indent = (s, char) => String(s).replace(/(\n+)/g, '$1' + (char || '\t'));
+
 const mapping = options.mapping
+
 const VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
+
+const isLargeString = (s, length, ignoreLines) => (String(s).length > (length || 40) || (!ignoreLines && String(s).indexOf('\n') !== -1) || String(s).indexOf('<') !== -1);
+
+const JS_TO_CSS = {};
+
+// Convert an Object style to a CSSText string
+function styleObjToCss(s) {
+  let str = '';
+  for (let prop in s) {
+    let val = s[prop];
+    if (val != null) {
+      if (str) str += ' ';
+      // str += jsToCss(prop);
+      str += JS_TO_CSS[prop] || (JS_TO_CSS[prop] = prop.replace(/([A-Z])/g, '-$1').toLowerCase());
+      str += ': ';
+      str += val;
+      if (typeof val === 'number' && IS_NON_DIMENSIONAL.test(prop) === false) {
+        str += 'px';
+      }
+      str += ';';
+    }
+  }
+  return str || undefined;
+}
 
 /** The default export is an alias of `render()`. */
 export function renderToString(vnode, store, opts, isSvgMode) {
