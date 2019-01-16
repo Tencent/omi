@@ -208,7 +208,6 @@ define('el-button', class extends WeElement {
 | `installed`      | after the component gets mounted to the DOM  |
 | `uninstall`      | prior to removal from the DOM                |
 | `beforeUpdate`   | before update                           |
-| `afterUpdate`    | after update  (deprecated)                           |
 | `updated`    | after update                             |
 | `beforeRender`   | before `render()`                           |
 | `receiveProps`   | parent element re-render will trigger it      |
