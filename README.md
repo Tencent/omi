@@ -616,7 +616,7 @@ render(<todo-app />, 'body')
 
 ### Store
 
-Omi Store Architecture: Injected from the root component and shared across all subcomponents. It's very simple to use:
+Omi Store provides a way to pass data through the component tree without having to pass props down manually at every level, injected from the root component and shared across all subcomponents. It's very simple to use:
 
 ```js
 import { define, render, WeElement } from 'omi'

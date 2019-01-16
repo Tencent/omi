@@ -23,6 +23,7 @@
     "fire": "rollup -c config/rollup.example.js --watch",
     "receive-props": "rollup -c config/rollup.example.js --watch",
     "rpx": "rollup -c config/rollup.example.js --watch",
+    "render-to-string": "rollup -c config/rollup.example.js --watch",
     "mvvm": "rollup -c config/rollup.example.js --watch",
     "omi-tap": "rollup -c config/rollup.example.js --watch",
     "simple": "rollup -c config/rollup.example.js --watch",
