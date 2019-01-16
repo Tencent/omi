@@ -1,5 +1,7 @@
 import { extend } from '../util'
 import options from '../options'
+
+const mapping = options.mapping
 /**
  * Check if two nodes are equivalent.
  *
@@ -12,11 +14,14 @@ export function isSameNodeType(node, vnode, hydrating) {
   if (typeof vnode === 'string' || typeof vnode === 'number') {
     return node.splitText !== undefined
   }
-  const ctor = options.mapping[vnode.nodeName]
-  if (ctor) {
-    return hydrating || node._componentConstructor === ctor
+  if (typeof vnode.nodeName === 'string') {
+    var ctor = mapping[vnode.nodeName]
+    if (ctor) {
+      return hydrating || node._componentConstructor === ctor
+    }
+    return !node._componentConstructor && isNamedNode(node, vnode.nodeName)
   }
-  return !node._componentConstructor && isNamedNode(node, vnode.nodeName)
+  return hydrating || node._componentConstructor === vnode.nodeName
 }
 
 /**

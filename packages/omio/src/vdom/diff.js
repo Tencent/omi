@@ -84,6 +84,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     vnode.nodeName = options.mapping[vnodeName]
     return buildComponentFromVNode(dom, vnode, context, mountAll)
   }
+  if (typeof vnodeName == 'function') {
+    return buildComponentFromVNode(dom, vnode, context, mountAll)
+  }
 
   // Fast case: Strings & Numbers create/update Text nodes.
   if (typeof vnode === 'string' || typeof vnode === 'number') {
