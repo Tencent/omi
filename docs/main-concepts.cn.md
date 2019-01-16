@@ -683,10 +683,13 @@ render(<my-counter />, 'body')
 
 ### SSR
 
-推荐尝试的框架:
+* https://github.com/Tencent/omi/blob/master/packages/omio/src/render-to-string.js
+* https://github.com/Tencent/omi/blob/master/packages/omio/examples/render-to-string/main.js#L57
+
+<!-- 推荐尝试的框架:
 
 * https://github.com/skatejs/skatejs/tree/master/packages/ssr
-* https://www.youtube.com/watch?v=yT-EsESAmgA
+* https://www.youtube.com/watch?v=yT-EsESAmgA -->
 
 ### Snap
 
