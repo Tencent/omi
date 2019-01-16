@@ -660,7 +660,7 @@ render(<todo-app />, 'body')
 ```
 
 You can also execute `this.update` manually and then get the dom after update. 
-
+<!-- 
 ### Use
 
 ```js
@@ -701,7 +701,7 @@ define('my-counter', function() {
 })
 
 render(<my-counter />, 'body')
-```
+``` -->
 
 ### SSR
 

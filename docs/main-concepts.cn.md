@@ -639,6 +639,7 @@ render(<todo-app />, 'body')
 
 你也可以手动执行 this.update ，然后在它后面获取真实的 dom 。
 
+<!-- 
 ### Use
 
 ```js
@@ -679,7 +680,7 @@ define('my-counter', function() {
 })
 
 render(<my-counter />, 'body')
-```
+``` -->
 
 ### SSR
 
