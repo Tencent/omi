@@ -25,6 +25,8 @@ import '../../src/switch'
 import '../../src/tree'
 import { loading, close } from 'path-d'
 import path from './utils/path'
+import toast from '../../src/toast'
+import { setTimeout } from 'timers';
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -109,6 +111,15 @@ define('my-app', class extends WeElement {
     this.dialogShow = false
     this.update()
   }
+
+  showToast = () => {
+    toast.showLoading()
+    setTimeout(function(){
+      toast.hideLoading()
+    },3000)
+  }
+
+  showToast
 
   tabBarChange = index => {
     if (index === 3) {
@@ -268,6 +279,9 @@ define('my-app', class extends WeElement {
           </o-button>
           <o-button size="small" onClick={this.showAlert}>
             Alert
+          </o-button>
+          <o-button size="small" onClick={this.showToast}>
+            Toast
           </o-button>
         </o-equal-space>
         <o-popup
