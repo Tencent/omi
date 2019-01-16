@@ -95,7 +95,7 @@ create.Component({
   },
 
   ready: function () {
-    //这里可以或者组件所属页面注入的 store
+    //这里可以获取组件所属页面注入的 store
     console.log(this.store)
     //触发事件
     this.store.emitter.emit('foo', { a: 'b' })
