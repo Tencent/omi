@@ -1,5 +1,5 @@
 /**
- * omi v1.3.2  http://omijs.org
+ * omi v1.3.3  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -347,7 +347,7 @@ function cloneElement(vnode, props) {
 }
 
 // DOM properties that should NOT have "px" added when numeric
-var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+var IS_NON_DIMENSIONAL$1 = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
 /** Managed queue of dirty components to be re-rendered */
 
@@ -367,6 +367,7 @@ function rerender() {
   }
 }
 
+var mapping = options.mapping;
 /**
  * Check if two nodes are equivalent.
  *
@@ -379,11 +380,14 @@ function isSameNodeType(node, vnode, hydrating) {
   if (typeof vnode === 'string' || typeof vnode === 'number') {
     return node.splitText !== undefined;
   }
-  var ctor = options.mapping[vnode.nodeName];
-  if (ctor) {
-    return hydrating || node._componentConstructor === ctor;
+  if (typeof vnode.nodeName === 'string') {
+    var ctor = mapping[vnode.nodeName];
+    if (ctor) {
+      return hydrating || node._componentConstructor === ctor;
+    }
+    return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
   }
-  return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+  return hydrating || node._componentConstructor === vnode.nodeName;
 }
 
 /**
@@ -507,7 +511,7 @@ function setAccessor(node, name, old, value, isSvg) {
           }
         }
         for (var i in value) {
-          node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+          node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL$1.test(i) === false ? value[i] + 'px' : value[i];
         }
       }
     } else {
@@ -819,6 +823,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   var vnodeName = vnode.nodeName;
   if (options.mapping[vnodeName]) {
     vnode.nodeName = options.mapping[vnodeName];
+    return buildComponentFromVNode(dom, vnode, context, mountAll);
+  }
+  if (typeof vnodeName == 'function') {
     return buildComponentFromVNode(dom, vnode, context, mountAll);
   }
 
@@ -1774,6 +1781,218 @@ function getHost(component) {
   }
 }
 
+/**
+ * preact-render-to-string based on preact-render-to-string
+ * by Jason Miller
+ * Licensed under the MIT License
+ * https://github.com/developit/preact-render-to-string
+ *
+ * modified by dntzhang
+ */
+
+var encodeEntities = function encodeEntities(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+};
+
+var indent = function indent(s, char) {
+  return String(s).replace(/(\n+)/g, '$1' + (char || '\t'));
+};
+
+var mapping$1 = options.mapping;
+
+var VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
+
+var isLargeString = function isLargeString(s, length, ignoreLines) {
+  return String(s).length > (length || 40) || !ignoreLines && String(s).indexOf('\n') !== -1 || String(s).indexOf('<') !== -1;
+};
+
+var JS_TO_CSS = {};
+
+// Convert an Object style to a CSSText string
+function styleObjToCss(s) {
+  var str = '';
+  for (var prop in s) {
+    var val = s[prop];
+    if (val != null) {
+      if (str) str += ' ';
+      // str += jsToCss(prop);
+      str += JS_TO_CSS[prop] || (JS_TO_CSS[prop] = prop.replace(/([A-Z])/g, '-$1').toLowerCase());
+      str += ': ';
+      str += val;
+      if (typeof val === 'number' && IS_NON_DIMENSIONAL.test(prop) === false) {
+        str += 'px';
+      }
+      str += ';';
+    }
+  }
+  return str || undefined;
+}
+
+/** The default export is an alias of `render()`. */
+function renderToString(vnode, store, opts, isSvgMode) {
+  if (vnode == null || typeof vnode === 'boolean') {
+    return '';
+  }
+
+  var nodeName = vnode.nodeName,
+      attributes = vnode.attributes,
+      isComponent = false;
+  store = store || {};
+  opts = opts || {};
+
+  var pretty = true && opts.pretty,
+      indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
+
+  // #text nodes
+  if (typeof vnode !== 'object' && !nodeName) {
+    return encodeEntities(vnode);
+  }
+
+  // components
+  var ctor = mapping$1[nodeName];
+  if (ctor) {
+    isComponent = true;
+
+    var props = getNodeProps$1(vnode),
+        rendered;
+    // class-based components
+    var c = new ctor(props, store);
+    // turn off stateful re-rendering:
+    c._disable = c.__x = true;
+    c.props = props;
+    c.store = store;
+    if (c.install) c.install();
+    if (c.beforeRender) c.beforeRender();
+    rendered = c.render(c.props, c.data, c.store);
+
+    return renderToString(rendered, store, opts);
+  }
+
+  // render JSX to HTML
+  var s = '',
+      html;
+
+  if (attributes) {
+    var attrs = Object.keys(attributes);
+
+    // allow sorting lexicographically for more determinism (useful for tests, such as via preact-jsx-chai)
+    if (opts && opts.sortAttributes === true) attrs.sort();
+
+    for (var i = 0; i < attrs.length; i++) {
+      var name = attrs[i],
+          v = attributes[name];
+      if (name === 'children') continue;
+
+      if (name.match(/[\s\n\\/='"\0<>]/)) continue;
+
+      if (!(opts && opts.allAttributes) && (name === 'key' || name === 'ref')) continue;
+
+      if (name === 'className') {
+        if (attributes.class) continue;
+        name = 'class';
+      } else if (isSvgMode && name.match(/^xlink:?./)) {
+        name = name.toLowerCase().replace(/^xlink:?/, 'xlink:');
+      }
+
+      if (name === 'style' && v && typeof v === 'object') {
+        v = styleObjToCss(v);
+      }
+
+      var hooked = opts.attributeHook && opts.attributeHook(name, v, store, opts, isComponent);
+      if (hooked || hooked === '') {
+        s += hooked;
+        continue;
+      }
+
+      if (name === 'dangerouslySetInnerHTML') {
+        html = v && v.__html;
+      } else if ((v || v === 0 || v === '') && typeof v !== 'function') {
+        if (v === true || v === '') {
+          v = name;
+          // in non-xml mode, allow boolean attributes
+          if (!opts || !opts.xml) {
+            s += ' ' + name;
+            continue;
+          }
+        }
+        s += ' ' + name + '="' + encodeEntities(v) + '"';
+      }
+    }
+  }
+
+  // account for >1 multiline attribute
+  if (pretty) {
+    var sub = s.replace(/^\n\s*/, ' ');
+    if (sub !== s && !~sub.indexOf('\n')) s = sub;else if (pretty && ~s.indexOf('\n')) s += '\n';
+  }
+
+  s = '<' + nodeName + s + '>';
+  if (String(nodeName).match(/[\s\n\\/='"\0<>]/)) throw s;
+
+  var isVoid = String(nodeName).match(VOID_ELEMENTS);
+  if (isVoid) s = s.replace(/>$/, ' />');
+
+  var pieces = [];
+  if (html) {
+    // if multiline, indent.
+    if (pretty && isLargeString(html)) {
+      html = '\n' + indentChar + indent(html, indentChar);
+    }
+    s += html;
+  } else if (vnode.children) {
+    var hasLarge = pretty && ~s.indexOf('\n');
+    for (var i = 0; i < vnode.children.length; i++) {
+      var child = vnode.children[i];
+      if (child != null && child !== false) {
+        var childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
+            ret = renderToString(child, store, opts, childSvgMode);
+        if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
+        if (ret) pieces.push(ret);
+      }
+    }
+    if (pretty && hasLarge) {
+      for (var i = pieces.length; i--;) {
+        pieces[i] = '\n' + indentChar + indent(pieces[i], indentChar);
+      }
+    }
+  }
+
+  if (pieces.length) {
+    s += pieces.join('');
+  } else if (opts && opts.xml) {
+    return s.substring(0, s.length - 1) + ' />';
+  }
+
+  if (!isVoid) {
+    if (pretty && ~s.indexOf('\n')) s += '\n';
+    s += '</' + nodeName + '>';
+  }
+
+  return s;
+}
+
+function assign$1(obj, props) {
+  for (var i in props) {
+    obj[i] = props[i];
+  }return obj;
+}
+
+function getNodeProps$1(vnode) {
+  var props = assign$1({}, vnode.attributes);
+  props.children = vnode.children;
+
+  var defaultProps = vnode.nodeName.defaultProps;
+  if (defaultProps !== undefined) {
+    for (var i in defaultProps) {
+      if (props[i] === undefined) {
+        props[i] = defaultProps[i];
+      }
+    }
+  }
+
+  return props;
+}
+
 var WeElement = Component;
 var defineElement = define;
 function createRef() {
@@ -1796,10 +2015,11 @@ options.root.Omi = {
   defineElement: defineElement,
   classNames: classNames,
   extractClass: extractClass,
-  getHost: getHost
+  getHost: getHost,
+  renderToString: renderToString
 };
 options.root.omi = Omi;
-options.root.Omi.version = 'omio-1.3.2';
+options.root.Omi.version = 'omio-1.3.3';
 
 var omi = {
   h: h,
@@ -1817,9 +2037,10 @@ var omi = {
   defineElement: defineElement,
   classNames: classNames,
   extractClass: extractClass,
-  getHost: getHost
+  getHost: getHost,
+  renderToString: renderToString
 };
 
 export default omi;
-export { h, h as createElement, cloneElement, createRef, Component, render, rerender, options, WeElement, define, rpx, ModelView, defineElement, classNames, extractClass, getHost };
+export { h, h as createElement, cloneElement, createRef, Component, render, rerender, options, WeElement, define, rpx, ModelView, defineElement, classNames, extractClass, getHost, renderToString };
 //# sourceMappingURL=omi.esm.js.map

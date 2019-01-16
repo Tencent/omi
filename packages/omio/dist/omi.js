@@ -70,8 +70,11 @@
     }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
-        var ctor = options.mapping[vnode.nodeName];
-        if (ctor) return hydrating || node._componentConstructor === ctor; else return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+        if ('string' == typeof vnode.nodeName) {
+            var ctor = mapping[vnode.nodeName];
+            if (ctor) return hydrating || node._componentConstructor === ctor; else return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+        }
+        return hydrating || node._componentConstructor === vnode.nodeName;
     }
     function isNamedNode(node, nodeName) {
         return node.__n === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
@@ -130,7 +133,7 @@
             if (!value || 'string' == typeof value || 'string' == typeof old) node.style.cssText = value || '';
             if (value && 'object' == typeof value) {
                 if ('string' != typeof old) for (var i in old) if (!(i in value)) node.style[i] = '';
-                for (var i in value) node.style[i] = 'number' == typeof value[i] && !1 === IS_NON_DIMENSIONAL.test(i) ? value[i] + 'px' : value[i];
+                for (var i in value) node.style[i] = 'number' == typeof value[i] && !1 === IS_NON_DIMENSIONAL$1.test(i) ? value[i] + 'px' : value[i];
             }
         } else {
             var oldJson = old, currentJson = value;
@@ -311,6 +314,7 @@
             vnode.nodeName = options.mapping[vnodeName];
             return buildComponentFromVNode(dom, vnode, context, mountAll);
         }
+        if ('function' == typeof vnodeName) return buildComponentFromVNode(dom, vnode, context, mountAll);
         if ('string' == typeof vnode || 'number' == typeof vnode) {
             if (dom && void 0 !== dom.splitText && dom.parentNode && (!dom._component || componentRoot)) {
                 if (dom.nodeValue != vnode) dom.nodeValue = vnode;
@@ -662,6 +666,111 @@
         var base = component.base;
         if (base) while (base.parentNode) if (base.parentNode._component) return base.parentNode._component; else base = base.parentNode;
     }
+    function styleObjToCss(s) {
+        var str = '';
+        for (var prop in s) {
+            var val = s[prop];
+            if (null != val) {
+                if (str) str += ' ';
+                str += JS_TO_CSS[prop] || (JS_TO_CSS[prop] = prop.replace(/([A-Z])/g, '-$1').toLowerCase());
+                str += ': ';
+                str += val;
+                if ('number' == typeof val && !1 === IS_NON_DIMENSIONAL.test(prop)) str += 'px';
+                str += ';';
+            }
+        }
+        return str || void 0;
+    }
+    function renderToString(vnode, store, opts, isSvgMode) {
+        if (null == vnode || 'boolean' == typeof vnode) return '';
+        var nodeName = vnode.nodeName, attributes = vnode.attributes, isComponent = !1;
+        store = store || {};
+        opts = opts || {};
+        var pretty = opts.pretty, indentChar = pretty && 'string' == typeof pretty ? pretty : '\t';
+        if ('object' != typeof vnode && !nodeName) return encodeEntities(vnode);
+        var ctor = mapping$1[nodeName];
+        if (ctor) {
+            isComponent = !0;
+            var rendered, props = getNodeProps$1(vnode);
+            var c = new ctor(props, store);
+            c.__x = c.G = !0;
+            c.props = props;
+            c.store = store;
+            if (c.install) c.install();
+            if (c.beforeRender) c.beforeRender();
+            rendered = c.render(c.props, c.data, c.store);
+            return renderToString(rendered, store, opts);
+        }
+        var html, s = '';
+        if (attributes) {
+            var attrs = Object.keys(attributes);
+            if (opts && !0 === opts.sortAttributes) attrs.sort();
+            for (var i = 0; i < attrs.length; i++) {
+                var name = attrs[i], v = attributes[name];
+                if ('children' !== name) if (!name.match(/[\s\n\\\/='"\0<>]/)) if (opts && opts.allAttributes || 'key' !== name && 'ref' !== name) {
+                    if ('className' === name) {
+                        if (attributes.class) continue;
+                        name = 'class';
+                    } else if (isSvgMode && name.match(/^xlink:?./)) name = name.toLowerCase().replace(/^xlink:?/, 'xlink:');
+                    if ('style' === name && v && 'object' == typeof v) v = styleObjToCss(v);
+                    var hooked = opts.attributeHook && opts.attributeHook(name, v, store, opts, isComponent);
+                    if (!hooked && '' !== hooked) {
+                        if ('dangerouslySetInnerHTML' === name) html = v && v.__html; else if ((v || 0 === v || '' === v) && 'function' != typeof v) {
+                            if (!0 === v || '' === v) {
+                                v = name;
+                                if (!opts || !opts.xml) {
+                                    s += ' ' + name;
+                                    continue;
+                                }
+                            }
+                            s += ' ' + name + '="' + encodeEntities(v) + '"';
+                        }
+                    } else s += hooked;
+                }
+            }
+        }
+        if (pretty) {
+            var sub = s.replace(/^\n\s*/, ' ');
+            if (sub !== s && !~sub.indexOf('\n')) s = sub; else if (pretty && ~s.indexOf('\n')) s += '\n';
+        }
+        s = '<' + nodeName + s + '>';
+        if (String(nodeName).match(/[\s\n\\\/='"\0<>]/)) throw s;
+        var isVoid = String(nodeName).match(VOID_ELEMENTS);
+        if (isVoid) s = s.replace(/>$/, ' />');
+        var pieces = [];
+        if (html) {
+            if (pretty && isLargeString(html)) html = '\n' + indentChar + indent(html, indentChar);
+            s += html;
+        } else if (vnode.children) {
+            var hasLarge = pretty && ~s.indexOf('\n');
+            for (var i = 0; i < vnode.children.length; i++) {
+                var child = vnode.children[i];
+                if (null != child && !1 !== child) {
+                    var childSvgMode = 'svg' === nodeName ? !0 : 'foreignObject' === nodeName ? !1 : isSvgMode, ret = renderToString(child, store, opts, childSvgMode);
+                    if (pretty && !hasLarge && isLargeString(ret)) hasLarge = !0;
+                    if (ret) pieces.push(ret);
+                }
+            }
+            if (pretty && hasLarge) for (var i = pieces.length; i--; ) pieces[i] = '\n' + indentChar + indent(pieces[i], indentChar);
+        }
+        if (pieces.length) s += pieces.join(''); else if (opts && opts.xml) return s.substring(0, s.length - 1) + ' />';
+        if (!isVoid) {
+            if (pretty && ~s.indexOf('\n')) s += '\n';
+            s += '</' + nodeName + '>';
+        }
+        return s;
+    }
+    function assign$1(obj, props) {
+        for (var i in props) obj[i] = props[i];
+        return obj;
+    }
+    function getNodeProps$1(vnode) {
+        var props = assign$1({}, vnode.attributes);
+        props.children = vnode.children;
+        var defaultProps = vnode.nodeName.defaultProps;
+        if (void 0 !== defaultProps) for (var i in defaultProps) if (void 0 === props[i]) props[i] = defaultProps[i];
+        return props;
+    }
     function createRef() {
         return {};
     }
@@ -750,8 +859,9 @@
         if (systemVersion > 8) usePromise = !0;
     }
     var defer = usePromise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
-    var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+    var IS_NON_DIMENSIONAL$1 = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
     var items = [];
+    var mapping = options.mapping;
     var styleId = 0;
     var mounts = [];
     var diffLevel = 0;
@@ -919,6 +1029,18 @@
     ModelView.observe = !0;
     ModelView.mergeUpdate = !0;
     var hasOwn = {}.hasOwnProperty;
+    var encodeEntities = function(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    };
+    var indent = function(s, char) {
+        return String(s).replace(/(\n+)/g, '$1' + (char || '\t'));
+    };
+    var mapping$1 = options.mapping;
+    var VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
+    var isLargeString = function(s, length, ignoreLines) {
+        return String(s).length > (length || 40) || !ignoreLines && -1 !== String(s).indexOf('\n') || -1 !== String(s).indexOf('<');
+    };
+    var JS_TO_CSS = {};
     var WeElement = Component;
     var defineElement = define;
     options.root.Omi = {
@@ -937,10 +1059,11 @@
         defineElement: defineElement,
         classNames: classNames,
         extractClass: extractClass,
-        getHost: getHost
+        getHost: getHost,
+        renderToString: renderToString
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.3.2';
+    options.root.Omi.version = 'omio-1.3.3';
     var Omi$1 = {
         h: h,
         createElement: h,
@@ -957,7 +1080,8 @@
         defineElement: defineElement,
         classNames: classNames,
         extractClass: extractClass,
-        getHost: getHost
+        getHost: getHost,
+        renderToString: renderToString
     };
     if ('undefined' != typeof module) module.exports = Omi$1; else self.Omi = Omi$1;
 }();
