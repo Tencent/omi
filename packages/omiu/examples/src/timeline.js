@@ -4,13 +4,8 @@ import '../../src/input-button'
 
 define('my-app', class extends WeElement {
 
-  valueA = 0
-  valueB = 2
-  valueC = 3.5
-
-  onSelect = (value) => {
-    this.valueA = value
-    this.update()
+  onClick = (e, value) => {
+    console.log(value)
   }
 
   render() {
@@ -18,7 +13,7 @@ define('my-app', class extends WeElement {
       <div>
         <o-input-label label='UserName' />
         <br />
-        <o-input-button buttonText='提交' />
+        <o-input-button buttonText='提交' onClick={this.onClick} />
         
       </div>
     )
