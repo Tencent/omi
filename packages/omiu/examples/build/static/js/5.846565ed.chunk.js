@@ -1,0 +1,2 @@
+webpackJsonp([5],{94:function(n,o){n.exports="## Row \n\n24\u6805\u683c\u5e03\u5c40\u91cc\u7684\u4e00\u884c\u3002\n\n## \u4f7f\u7528\n\n```js\n<o-row>\n  <col span={12}>col12</item>\n  <col span={12}>col12</item>\n</o-row>\n```\n\n## API\n\n### Props\n\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\n| ------------- |:-------------:|:-----:|:-------------|\n| children         |   json array with col   |    --   |             |\u3000"}});
+//# sourceMappingURL=5.846565ed.chunk.js.map

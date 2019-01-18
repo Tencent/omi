@@ -79,11 +79,18 @@
     <div class="playground">
       <div class="editor">
         <textarea id="editor">define('my-app', class extends WeElement {
+  onClick = (e, value) => {
+    console.log(value)
+  }
 
   render(props, data) {
     return (
       <div>
-        <o-input  placeholder="Enter your name" />
+        <o-input style="width:200px;" placeholder="Enter your name" />
+        <br /><br />
+        <o-input-label label='UserName' />
+        <br />
+        <o-input-button buttonText='提交' onClick={this.onClick} />
       </div>
     )
   }

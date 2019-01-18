@@ -15,3 +15,10 @@
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
 | placeholder  | string|       |     占位字符串      |
+
+## 其他类型
+
+```js
+<o-input-label label='UserName' />
+<o-input-button buttonText='提交' onClick={this.onClick} />
+```
