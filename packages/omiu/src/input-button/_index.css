@@ -1,0 +1,69 @@
+.o-input-button {
+  display: inline-block;
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  line-height: 1.5;
+  
+  
+  font-size: 14px;
+  border: 1px solid #DADADA;
+  border-radius: 4px;
+  color: #515a6e;
+  background-color: #fff;
+  background-image: none;
+  position: relative;
+  transition: border .2s ease-in-out, background .2s ease-in-out, box-shadow .2s ease-in-out;
+  overflow: hidden;
+  /* caret-color:#07C160; */
+
+  white-space: nowrap;
+  
+}
+
+.o-input-button:hover {
+  border: 1px solid #07C160;
+}
+
+.o-input-button:focus {
+  border: 1px solid #07C160;
+}
+
+.o-input-button:focus:hover {
+  border: 1px solid #07C160;
+}
+
+input {
+  -webkit-appearance: none;
+  outline: none;
+  cursor: text;
+  border: none;
+  font-size: 14px;
+  line-height: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  text-indent: 5px;
+  width: 100%;
+  padding-right: 130px;
+}
+
+button {
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  line-height: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #07C160;
+  width: 120px;
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+  /* text-indent: 5px; */
+}

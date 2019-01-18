@@ -1,5 +1,6 @@
 import { WeElement, define, render } from 'omi'
-import '../../src/rate'
+import '../../src/input-label'
+import '../../src/input-button'
 
 define('my-app', class extends WeElement {
 
@@ -15,11 +16,10 @@ define('my-app', class extends WeElement {
   render() {
     return (
       <div>
-        <o-rate total={5} value={this.valueA} color='#07C160' onSelect={this.onSelect} />
+        <o-input-label label='UserName' />
         <br />
-        <o-rate total={5} value={this.valueB} color='#07C160' />
-        <br />
-        <o-rate total={5} value={this.valueC} />
+        <o-input-button buttonText='提交' />
+        
       </div>
     )
   }
