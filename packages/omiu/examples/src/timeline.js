@@ -1,6 +1,12 @@
 import { WeElement, define, render } from 'omi'
-import '../../src/input-label'
-import '../../src/input-button'
+import '../../src/path-progress'
+
+//https://progressbarjs.readthedocs.io/en/latest/api/shape/
+const options = {
+  strokeWidth: 2,
+  color: '#07C160',
+  trailColor: '#ddd'
+};
 
 define('my-app', class extends WeElement {
 
@@ -11,11 +17,48 @@ define('my-app', class extends WeElement {
   render() {
     return (
       <div>
-        <o-input-label label='UserName' />
+        <o-path-progress
+          type='Line' progress={0.5}
+          text={'test'}
+          options={options}
+          initialAnimate={true}
+          containerStyle={{
+            width: '200px',
+            height: '20px'
+          }}
+          containerClassName={'.progressbar'}
+        ></o-path-progress>
         <br />
-        <o-input-button buttonText='提交' onClick={this.onClick} />
-        
+        <br /><br />
+        <o-path-progress
+          type='Circle' progress={0.5}
+
+          text={'test'}
+          options={options}
+          initialAnimate={true}
+          containerStyle={{
+            width: '200px',
+            height: '200px'
+          }}
+          containerClassName={'.progressbar'}
+        ></o-path-progress>
+        <br /><br /><br />
+        <o-path-progress
+          type='SemiCircle' progress={0.5}
+
+          text={'test'}
+          options={options}
+          initialAnimate={true}
+          containerStyle={{
+            width: '200px',
+            height: '100px'
+          }}
+          containerClassName={'.progressbar'}
+        ></o-path-progress>
+
       </div>
+
+
     )
   }
 })

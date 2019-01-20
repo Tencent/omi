@@ -44,6 +44,7 @@
     "esprima-fb": "^15001.1001.0-dev-harmony-fb",
     "file-loader": "^2.0.0",
     "omi": "latest",
+    "progressbar.js": "latest",
     "to-string-loader": "^1.1.5",
     "url-loader": "^1.1.2",
     "webpack": "^3.4.1"
