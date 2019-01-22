@@ -52,7 +52,8 @@ const config = {
           { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' },
           { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
           { name: 'DatePicker', md: 'date-picker', demo: './repl/date-picker.html' },
-          { name: 'Rate', md: 'rate', demo: './repl/rate.html' }
+          { name: 'Rate', md: 'rate', demo: './repl/rate.html' },
+          { name: 'SelectList', md: 'select-list', demo: './repl/select-list.html' }
         ]
       },
       {
@@ -116,7 +117,8 @@ const config = {
           { name: 'Dropdown', md: 'dropdown', demo: './repl/dropdown.html' },
           { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
           { name: 'DatePicker', md: 'date-picker', demo: './repl/date-picker.html' },
-          { name: 'Rate', md: 'rate', demo: './repl/rate.html' }
+          { name: 'Rate', md: 'rate', demo: './repl/rate.html' },
+          { name: 'SelectList', md: 'select-list', demo: './repl/select-list.html' }
         ]
       },
       {
