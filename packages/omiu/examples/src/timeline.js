@@ -10,10 +10,6 @@ const options = {
 
 define('my-app', class extends WeElement {
 
-  onClick = (e, value) => {
-    console.log(value)
-  }
-
   render() {
     return (
       <div>
@@ -28,11 +24,11 @@ define('my-app', class extends WeElement {
           }}
           containerClassName={'.progressbar'}
         ></o-path-progress>
-        <br />
-        <br /><br />
+
+        <br /><br /><br />
+
         <o-path-progress
           type='Circle' progress={0.5}
-
           text={'test'}
           options={options}
           initialAnimate={true}
@@ -42,10 +38,11 @@ define('my-app', class extends WeElement {
           }}
           containerClassName={'.progressbar'}
         ></o-path-progress>
+
         <br /><br /><br />
+
         <o-path-progress
           type='SemiCircle' progress={0.5}
-
           text={'test'}
           options={options}
           initialAnimate={true}
