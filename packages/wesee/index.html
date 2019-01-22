@@ -1,0 +1,355 @@
+<html>
+
+<head></head>
+
+<body>
+    <!-- 显示：联机Flex不会使Flex项显示为内联。它使Flex容器显示为内联。这是显示之间的唯一差异：内嵌Flex和显示：Flex。可以在display:inline-block和display:block之间进行类似的比较，以及几乎任何具有内联对应项的显示类型。
+
+
+
+        对flex项目的影响绝对没有差别；flex布局是相同的，无论flex容器是块级还是内联级。特别是，flex项本身的行为总是像块级框（虽然它们确实具有内联块的一些属性）。不能在线显示flex项，否则实际上没有Flex布局。不清楚你所说的“垂直对齐”究竟是什么意思，也不清楚你为什么想要内联显示内容，但我怀疑flexbox不是你试图完成的任何工作的合适工具。 -->
+    <script src="cax.js"></script>
+    <script>
+        const stage = new cax.Stage(640, 640, 'body')
+        //https://www.runoob.com/w3cnote/flex-grammar.html
+        //https://blog.csdn.net/yezitoo/article/details/78326694?locationNum=8&fps=1
+        //rpx布局
+        //flex 和 block
+        //默认
+        //flex 相当于 box-flex
+        //display flex 设置给父容器
+        let id = 0
+        class Node {
+            constructor(option) {
+                this.children = []
+                this.type = option.type
+                switch (this.type) {
+                    case 'text':
+                        this.value = option.value
+                        break
+                    case 'img':
+                        this.src = option.src
+                        break
+
+                }
+
+                this.id = id++
+                this.style = Object.assign({}, {
+                    position: 'static',
+                    //fontSize: 10,
+                    //color: 'black',
+                    //textAlign: 'left',
+                    zIndex: 0,
+                    //flex: 1,
+                    display: 'block',
+                    zindex: 0
+
+                }, option.style)
+
+
+
+
+            }
+        }
+
+
+        var html = {
+            type: 'div',
+            style: {
+                height: 300,
+                backgroundColor: 'green'
+            },
+            children: [{
+                type: 'div',
+                style: {
+                    height: 60,
+                    backgroundColor: 'red',
+                    display: 'flex'
+                },
+                children: [{
+                    type: 'div',
+                    style: {
+                        height: 60,
+                        backgroundColor: 'red',
+                        flex: 4,
+
+                    }
+                },
+                {
+                    type: 'div',
+                    style: {
+                        height: 60,
+                        backgroundColor: 'blue',
+                        flex: 1,
+                        color: 'white'
+                    },
+                    children: [{
+                        type: 'text',
+                        value: 'abc',
+                        style: {
+                            //position: 'absolute'
+                        }
+                    }
+                    ]
+                }
+
+                ]
+            },
+            {
+                type: 'div',
+                style: {
+                    height: 50,
+                    backgroundColor: 'yellow'
+
+                },
+                children: [{
+                    type: 'img',
+                    src: 'http://mat1.gtimg.com/www/qq2018/imgs/qq_logo_2018x2.png'
+                }]
+            },
+            {
+                type: 'div',
+                style: {
+                    display: 'block',
+                    height: 50,
+                    backgroundColor: '#970099'
+                }
+            },
+            {
+                type: 'div',
+                style: {
+                    width: 100,
+                    height: 60,
+                    backgroundColor: 'red',
+                    display: 'flex',
+                    position: 'relative'
+                },
+                children: [{
+                    type: 'div',
+                    style: {
+                        width: 100,
+                        height: 60,
+                        backgroundColor: '#111333',
+                        flex: 1,
+                        position: 'absolute'
+                    }
+                },
+                {
+                    type: 'div',
+                    style: {
+                        height: 60,
+                        backgroundColor: 'blue',
+                        flex: 3
+
+                    }
+                }
+
+                ]
+            }
+
+            ]
+        }
+
+        function json2tree(json) {
+            const root = new Node(json)
+            json.children && json.children.forEach((child, index) => {
+                const childNode = json2tree(child)
+                childNode.parent = root
+
+                root.children.push(childNode)
+                if (index > 0) {
+                    childNode.preNode = root.children[index - 1]
+                }
+            })
+            return root
+        }
+
+        function render(root, width, height) {
+            root.style.x = 0
+            root.style.y = 0
+            root.style._width = root.style.width === undefined ? width : root.style.width
+            root.style._height = root.style.height === undefined ? 0 : root.style.height
+
+
+
+            const group = draw(root, stage)
+            if (root.children) {
+                root.children.forEach(child => {
+                    child.style._color = child.style.color || root.style.color
+                    renderChildren(child, width, height, group)
+                })
+            }
+            return group
+        }
+
+        function draw(root, g) {
+            switch (root.type) {
+                case 'div':
+                    const group = new cax.Group()
+                    group.zIndex = root.style.zIndex
+                    group.position = root.style.position
+                    const rect = new cax.Rect(root.style._width, root.style._height, {
+                        fillStyle: root.style.backgroundColor
+                    })
+                    rect.x = root.style.x
+                    rect.y = root.style.y
+                    group.add(rect)
+                    g.add(group)
+
+                    return group
+                    break
+
+                case 'text':
+                    console.log(root)
+                    console.log(root.style._color)
+                    const text = new cax.Text(root.value, {
+                        color: root.style._color
+                    })
+                    text.x = root.style.x
+                    text.y = root.style.y
+
+                    g.add(text)
+
+                    return text
+                    break
+
+                case 'img':
+                    const bmp = new cax.Bitmap(root.src)
+                    bmp.x = root.style.x
+                    bmp.y = root.style.y
+
+                    g.add(bmp)
+
+                    return bmp
+
+            }
+
+        }
+
+        function getParent(root) {
+            if (!root.parent) {
+                return root
+            } else if (root.parent.style.position !== 'static') {
+
+                return root.parent
+
+            } else {
+                return getParent(root.parent)
+            }
+        }
+
+        function renderChildren(root, width, height, group) {
+            //fix it?
+            const display = root.parent.style.display
+            const position = root.style.position
+
+
+            if (position === 'absolute') {
+                const parent = getParent(root)
+
+                root.style.x = parent.style.x
+                root.style.y = parent.style.y
+                root.style._width = root.style.width === undefined ? 0 : root.style.width
+
+                root.style._height = root.style.height === undefined ? 0 : root.style.height
+
+            } else if (display === 'block') {
+                root.style._width = root.style.width === undefined ? root.parent.style._width : root.style.width
+                root.style._height = root.style.height === undefined ? 0 : root.style.height
+                root.style.x = root.parent.style.x
+                if (root.preNode) {
+                    root.style.y = root.preNode.style.y + root.preNode.style._height
+                } else {
+
+                    root.style.y = root.parent.style.y
+                }
+            } else if (display === 'flex') {
+
+                if (root.parent.totalFlex !== undefined) {
+                    root.style._flex = root.style.flex / root.parent.totalFlex
+                } else {
+                    root.parent.totalFlex = 0
+                    const len = root.parent.children.length
+                    if (len > 1) {
+                        root.parent.children.forEach(child => {
+                            if (child.style.position != 'absolute' && child.style.position != 'fixed') {
+                                child.style._flexPosition = root.parent.totalFlex
+                                root.parent.totalFlex += child.style.flex
+                            }
+                        })
+                    }
+                    root.style._flex = root.style.flex / root.parent.totalFlex
+                }
+
+                root.style.x = width * root.style._flexPosition / root.parent.totalFlex
+
+
+                root.style._width = width * root.style._flex
+                root.style._height = root.style.height === undefined ? 0 : root.style.height
+
+
+                root.style.y = root.parent.style.y
+            }
+
+
+
+            const newg = draw(root, group)
+
+            if (root.children) {
+                root.children.forEach(child => {
+                    child.style._color = child.style.color || root.style.color || root.style._color
+                    renderChildren(child, width, height, newg)
+                })
+            }
+
+
+        }
+
+        function fixZIndex(group) {
+
+            group.children.forEach(child => {
+                const arr = []
+                //过滤掉 rect？？
+                if (child.position === 'absolute') {
+                    arr.push(child)
+                }
+                arr.sort(function (a, b) { return a.zIndex - b.zIndex })
+
+                arr.forEach(child => {
+                    group.add(child)
+                })
+                if (child.children) {
+                    fixZIndex(child)
+                }
+
+            })
+        }
+
+        var root = json2tree(html)
+        const group = render(root, 640, 640)
+        fixZIndex(group)
+
+
+
+        cax.tick(function () {
+            stage.update()
+        })
+
+    </script>
+</body>
+
+</html>
+<!-- 
+switch (root.style.position) {
+    //脱离 flex 流
+    case 'absolute':
+        break
+    //脱离 flex 流   
+    case 'static':
+    //脱离 flex 流   
+    case 'fixed':
+        break
+    //默认值？
+    case 'relative':
+        break
+} -->
