@@ -48,3 +48,9 @@ define('my-app', class extends WeElement {
 
 render(<my-app />, 'body')
 ```
+
+由于发布的 dist `omiu/button` 等其他组件都是 E6+ 写的，所以你需要把 node modules 下的 js 也设置成经过 babel 或 ts 编译才能正常跑起来。或者直接导入所有：
+
+```js
+import 'omiu/dist/omiu.js'
+```

@@ -50,4 +50,8 @@ define('my-app', class extends WeElement {
 render(<my-app />, 'body')
 ```
 
+Because other components such as dist `omiu / button `published are written by E6 +, you need to set JS under node modules to run normally after Babel or TS compilation. Or import all:
 
+```js
+import 'omiu/dist/omiu.js'
+```
