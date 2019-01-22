@@ -8,6 +8,11 @@ define('o-popover', class extends WeElement {
     return css
   }
 
+  static defaultProps = {
+    x: 0,
+    y: 0
+  }
+
   close = () => {
     this.props.onClose && this.props.onClose()
   }
@@ -22,7 +27,7 @@ define('o-popover', class extends WeElement {
   bodyClickHandler = () => {
     this.props.onClose && this.props.onClose()
   }
-
+  
   uninstall() {
     document.body.removeEventListener('mousedown', this.bodyClickHandler)
   }
@@ -51,60 +56,63 @@ define('o-popover', class extends WeElement {
 
       switch (this.props.direction) {
         case 'top-left':
-          tempLeft = rectB.left + 'px'
-          tempTop = (rectB.top - rectA.height - 10) + st + 'px'
+          tempLeft = rectB.left
+          tempTop = (rectB.top - rectA.height - 10)
           break
         case 'top':
-          tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2) + 'px'
-          tempTop = (rectB.top - rectA.height - 10) + st + 'px'
+          tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2)
+          tempTop = (rectB.top - rectA.height - 10)
           break
         case 'top-right':
-          tempLeft = rectB.left + rectB.width - rectA.width + 'px'
-          tempTop = (rectB.top - rectA.height - 10) + st + 'px'
+          tempLeft = rectB.left + rectB.width - rectA.width
+          tempTop = (rectB.top - rectA.height - 10)
           break
 
         case 'left':
-          tempLeft = rectB.left - rectA.width - 10 + 'px'
-          tempTop = rectB.top + (rectB.height - rectA.height) / 2 + st + 'px'
+          tempLeft = rectB.left - rectA.width - 10
+          tempTop = rectB.top + (rectB.height - rectA.height) / 2
           break
         case 'left-top':
-          tempLeft = rectB.left - rectA.width - 10 + 'px'
-          tempTop = rectB.top + st + 'px'
+          tempLeft = rectB.left - rectA.width - 10
+          tempTop = rectB.top
           break
 
         case 'left-bottom':
-          tempLeft = rectB.left - rectA.width - 10 + 'px'
-          tempTop = rectB.top + (rectB.height - rectA.height) + st + 'px'
+          tempLeft = rectB.left - rectA.width - 10
+          tempTop = rectB.top + (rectB.height - rectA.height)
           break
 
         case 'bottom-left':
-          tempLeft = rectB.left + 'px'
-          tempTop = (rectB.top + rectB.height + 10) + st + 'px'
+          tempLeft = rectB.left
+          tempTop = (rectB.top + rectB.height + 10)
           break
         case 'bottom':
-          tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2) + 'px'
-          tempTop = (rectB.top + rectB.height + 10) + st + 'px'
+          tempLeft = rectB.left + (rectB.width / 2 - rectA.width / 2)
+          tempTop = (rectB.top + rectB.height + 10)
           break
         case 'bottom-right':
-          tempLeft = rectB.left + rectB.width - rectA.width + 'px'
-          tempTop = (rectB.top + rectB.height + 10) + st + 'px'
+          tempLeft = rectB.left + rectB.width - rectA.width
+          tempTop = (rectB.top + rectB.height + 10)
           break
 
 
         case 'right':
-          tempLeft = rectB.left + rectB.width + 10 + 'px'
-          tempTop = rectB.top + (rectB.height - rectA.height) / 2 + st + 'px'
+          tempLeft = rectB.left + rectB.width + 10
+          tempTop = rectB.top + (rectB.height - rectA.height) / 2
           break
         case 'right-top':
-          tempLeft = rectB.left + rectB.width + 10 + 'px'
-          tempTop = rectB.top + st + 'px'
+          tempLeft = rectB.left + rectB.width + 10
+          tempTop = rectB.top
           break
 
         case 'right-bottom':
-          tempLeft = rectB.left + rectB.width + 10 + 'px'
-          tempTop = rectB.top + (rectB.height - rectA.height) + st + 'px'
+          tempLeft = rectB.left + rectB.width + 10
+          tempTop = rectB.top + (rectB.height - rectA.height)
           break
       }
+
+      tempLeft = tempLeft + this.props.x + 'px'
+      tempTop = tempTop + this.props.y + st + 'px'
 
       if (this.left !== tempLeft || this.top !== tempTop) {
         this.left = tempLeft
