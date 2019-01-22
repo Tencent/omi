@@ -25,7 +25,7 @@ Progress by SVG.
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| type         | string|    -   |   支持 Circle,Line 和 SemiCircle     |
+| type         | string|    -   |   Support: Circle,Line and SemiCircle     |
 | progress         | number|    0   |             |
 | text         | string|    -   |             |
 | options         | json |       |             |

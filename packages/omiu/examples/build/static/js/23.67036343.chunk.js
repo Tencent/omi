@@ -1,2 +1,0 @@
-webpackJsonp([23],{76:function(n,e){n.exports='## Checkbox  \n\n\u590d\u9009\u6846\u3002\n\n## \u4f7f\u7528\n\n```js\n<o-checkbox checked label="my label" />\n```\n\n## API\n\n### Props\n\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\n| ------------- |:-------------:|:-----:|:-------------:|\n| checked  | bool|   false    |           |\n| label  | string|       |           |\n'}});
-//# sourceMappingURL=23.67036343.chunk.js.map
