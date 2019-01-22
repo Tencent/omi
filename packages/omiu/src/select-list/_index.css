@@ -1,0 +1,38 @@
+
+.o-select-list{
+  height: 150px;
+  width: 240px;
+  padding: 13px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  border-radius: 4px;
+  padding: 0px 0px; 
+  text-indent: 10px; 
+  font-size: 12px;
+  overflow-y: auto;  
+}
+
+ul,li{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.o-select-list li{
+  cursor: pointer;
+  height: 30px;
+  line-height: 30px;
+}
+
+.o-select-list li:last-child{
+  margin-bottom: 10px; 
+} 
+
+.o-select-list li:hover{
+  background-color: rgb(209, 226, 217);
+} 
+
+._slt{
+  background-color:#07C160; 
+  color: white;
+}
