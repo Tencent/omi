@@ -283,6 +283,30 @@ render(<my-first-element></my-first-element>, 'body')
 
 Add `ref={e => { this.anyNameYouWant = e }}` to attrs of the element, then you can get it by `this.anyNameYouWant`.
 
+You can also use `createRef`:
+
+```js
+import { define, WeElement, createRef } from 'omi'
+
+define('my-first-element', class extends WeElement {
+  onClick = (evt) => {
+    console.log(this.myRef.current)  //h1
+  }
+
+  myRef = createRef()
+
+  render(props) {
+    return (
+      <div>
+        <h1 ref={this.myRef} onClick={this.onClick}>Hello, world!</h1>
+      </div>
+    )
+  }
+})
+
+render(<my-first-element></my-first-element>, 'body')
+```
+
 ### extractClass
 
 ```js

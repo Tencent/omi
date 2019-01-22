@@ -17,7 +17,6 @@
 .o-inner {
   width: auto;
   height: auto;
-  padding: 10px;
   box-sizing: border-box;
   z-index: 100;
 }
