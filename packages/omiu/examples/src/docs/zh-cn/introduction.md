@@ -32,7 +32,11 @@ npm i omiu
 
 ```js
 import { WeElement, define, render } from 'omi'
+//node modules 下的 omiu 组件都是 E6+,你需要把 node modules 下的 js 也设置成经过 babel 或 ts 编译才能正常跑起来
 import 'omiu/button'
+
+//或者导入所有组件，node modules 的 omi.js 是 ES5 的，不需要额外配置
+//import 'omiu'
 
 define('my-app', class extends WeElement {
   onClick = () => {
@@ -47,10 +51,4 @@ define('my-app', class extends WeElement {
 })
 
 render(<my-app />, 'body')
-```
-
-由于发布的 dist `omiu/button` 等其他组件都是 E6+ 写的，所以你需要把 node modules 下的 js 也设置成经过 babel 或 ts 编译才能正常跑起来。或者直接导入所有：
-
-```js
-import 'omiu/dist/omiu.js'
 ```
