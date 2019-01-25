@@ -1,3 +1,7 @@
+.o-step{
+  
+}
+
 ._item-icon {
   border: 1px solid rgba(0, 0, 0, 0.25);
   width: 32px;
@@ -7,6 +11,13 @@
   border-radius: 32px;
   font-size: 16px;
   margin-right: 8px;
+  display: inline-block;
+}
+
+._item-content {
+  display: inline-block;
+  position: relative;
+  top: 20px;
 }
 
 ._item-finish ._item-icon {
@@ -14,11 +25,15 @@
   background-color: #fff;
 }
 
-.finish-icon{
+._item-description {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 13px;
+}
+
+.finish-icon {
   position: relative;
   top: 2px;
 }
-
 
 ._item-finish>._item-content>._item-title:after {
   background-color: #07C160;
@@ -31,10 +46,18 @@
   background: #e8e8e8;
   display: block;
   position: absolute;
-  top: 16px;
-  left: 100%;
+  top: 10px;
+  left: 90px;
 }
 
-._item{
+._item {
   position: relative;
+  display: inline-block;
+  margin-right: 50px; 
+  background-color: white;
+  
 }
+
+ ._item:last-child ._item-title:after{
+   display: none;
+ }
