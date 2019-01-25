@@ -1,6 +1,4 @@
-.o-step{
-  
-}
+.o-step {}
 
 ._item-icon {
   border: 1px solid rgba(0, 0, 0, 0.25);
@@ -47,17 +45,25 @@
   display: block;
   position: absolute;
   top: 10px;
-  left: 90px;
+  left: 100%;
 }
 
 ._item {
   position: relative;
   display: inline-block;
-  margin-right: 50px; 
   background-color: white;
-  
+  overflow: hidden;
+  height: 60px;
+  margin-right: 16px;
+  white-space: nowrap;
 }
 
- ._item:last-child ._item-title:after{
-   display: none;
- }
+._item:last-child ._item-title:after {
+  display: none;
+}
+
+._item-title {
+  position: relative;
+  display: inline-block;
+  padding-right: 16px;
+}
