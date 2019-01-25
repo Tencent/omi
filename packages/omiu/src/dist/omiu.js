@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.10 By dntzhang 
+ *  omiu v0.0.11 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1169,6 +1169,8 @@ __webpack_require__(115);
 __webpack_require__(118);
 
 __webpack_require__(123);
+
+__webpack_require__(126);
 
 /***/ }),
 /* 10 */
@@ -7611,6 +7613,149 @@ if (typeof result === "string") {
 exports = module.exports = __webpack_require__(1)(false);
 // Module
 exports.push([module.i, "\n.o-select-list{\n  height: 150px;\n  width: 240px;\n  padding: 13px;\n  border: 1px solid #ccc;\n  margin-top: 20px;\n  border-radius: 4px;\n  padding: 0px 0px; \n  text-indent: 10px; \n  font-size: 12px;\n  overflow-y: auto;  \n}\n\nul,li{\n  list-style: none;\n  padding: 0;\n  margin: 0;\n}\n\n.o-select-list li{\n  cursor: pointer;\n  height: 30px;\n  line-height: 30px;\n}\n\n.o-select-list li:last-child{\n  margin-bottom: 10px; \n} \n\n.o-select-list li:hover{\n  background-color: rgb(209, 226, 217);\n} \n\n._slt{\n  background-color:#07C160; \n  color: white;\n}", ""]);
+
+
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _omi = __webpack_require__(0);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var state = {
+  DONE: 0,
+  ERROR: 1,
+  DOING: 2,
+  TODO: 3
+};
+
+(0, _omi.define)('o-step', function (_WeElement) {
+  _inherits(_class2, _WeElement);
+
+  function _class2() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, _class2);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.css = __webpack_require__(127), _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(_class2, [{
+    key: 'render',
+    value: function render(props) {
+      return Omi.h(
+        'div',
+        (0, _omi.extractClass)(props, 'o-step _horizontal'),
+        props.items.map(function (item, index) {
+          return Omi.h(
+            'div',
+            { 'class': (0, _omi.classNames)('_item', {
+                '_item-finish': item.state === state.DONE,
+                '_item-block': item.state === state.ERROR,
+                '_item-process': item.state === state.DOING,
+                '_item-wait': item.state === state.TODO,
+                'next-error': props.items[index + 1] && props.items[index + 1].state === state.ERROR
+              }) },
+            Omi.h('div', { 'class': '_item-tail' }),
+            Omi.h(
+              'div',
+              { 'class': '_item-icon' },
+              Omi.h(
+                'span',
+                { 'class': 'icon' },
+                item.state === state.DONE && Omi.h(
+                  'i',
+                  { 'class': 'anticon anticon-check finish-icon' },
+                  Omi.h(
+                    'svg',
+                    { viewBox: '64 64 896 896', 'class': '', 'data-icon': 'check', width: '1em', height: '1em', fill: '#07C160', 'aria-hidden': 'true' },
+                    Omi.h('path', { d: 'M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z' })
+                  )
+                ),
+                item.state === state.ERROR && Omi.h(
+                  'i',
+                  { 'class': 'anticon anticon-close error-icon' },
+                  Omi.h(
+                    'svg',
+                    { viewBox: '64 64 896 896', 'class': '', 'data-icon': 'close', width: '1em', height: '1em', fill: '#F95050', 'aria-hidden': 'true' },
+                    Omi.h('path', { d: 'M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z' })
+                  )
+                ),
+                (item.state === state.DOING || item.state === state.TODO) && Omi.h(
+                  'span',
+                  { 'class': 'icon' },
+                  index + 1
+                )
+              )
+            ),
+            Omi.h(
+              'div',
+              { 'class': '_item-content' },
+              Omi.h(
+                'div',
+                { 'class': '_item-title' },
+                item.name
+              ),
+              Omi.h(
+                'div',
+                { 'class': '_item-description' },
+                item.description
+              )
+            )
+          );
+        })
+      );
+    }
+  }]);
+
+  return _class2;
+}(_omi.WeElement));
+
+exports['default'] = state;
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var result = __webpack_require__(128);
+
+if (typeof result === "string") {
+    module.exports = result;
+} else {
+    module.exports = result.toString();
+}
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// Module
+exports.push([module.i, ".o-step {}\n\n._item-icon {\n  border: 1px solid rgba(0, 0, 0, 0.25);\n  width: 32px;\n  height: 32px;\n  line-height: 32px;\n  text-align: center;\n  border-radius: 32px;\n  font-size: 16px;\n  margin-right: 8px;\n  display: inline-block;\n}\n\n._item-content {\n  display: inline-block;\n  position: relative;\n  top: 20px;\n}\n\n._item-finish ._item-icon {\n  border-color: #07C160;\n  background-color: #fff;\n}\n\n\n._item-process ._item-icon {\n  color: white;\n  border-color: #07C160;\n  background-color: #07C160;\n}\n\n\n._item-wait  {\n  color:rgba(0, 0, 0, 0.45);\n}\n\n\n._item-block ._item-icon {\n  border-color: #F95050;\n  background-color: #fff;\n}\n\n\n._item-block  {\n  color: #F95050;\n}\n\n._item-block ._item-description {\n  color: #F95050;\n}\n\n._item-description {\n  color: rgba(0, 0, 0, 0.45);\n  font-size: 13px;\n}\n\n.finish-icon {\n  position: relative;\n  top: 2px;\n}\n\n\n.error-icon {\n  position: relative;\n  top: 2px;\n}\n\n._item-finish>._item-content>._item-title:after {\n  background-color: #07C160;\n}\n\n._item.next-error ._item-title:after {\n  background: #F95050;\n}\n\n._item-title:after {\n  content: '';\n  height: 1px;\n  width: 9999px;\n  background: #e8e8e8;\n  display: block;\n  position: absolute;\n  top: 10px;\n  left: 100%;\n}\n\n._item {\n  position: relative;\n  display: inline-block;\n  /* background-color: white; */\n  overflow: hidden;\n  height: 60px;\n  margin-right: 16px;\n  white-space: nowrap;\n}\n\n._item:last-child ._item-title:after {\n  display: none;\n}\n\n._item-title {\n  position: relative;\n  display: inline-block;\n  padding-right: 16px;\n}\n", ""]);
 
 
 

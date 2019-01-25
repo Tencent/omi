@@ -23,6 +23,33 @@
   background-color: #fff;
 }
 
+
+._item-process ._item-icon {
+  color: white;
+  border-color: #07C160;
+  background-color: #07C160;
+}
+
+
+._item-wait  {
+  color:rgba(0, 0, 0, 0.45);
+}
+
+
+._item-block ._item-icon {
+  border-color: #F95050;
+  background-color: #fff;
+}
+
+
+._item-block  {
+  color: #F95050;
+}
+
+._item-block ._item-description {
+  color: #F95050;
+}
+
 ._item-description {
   color: rgba(0, 0, 0, 0.45);
   font-size: 13px;
@@ -33,8 +60,18 @@
   top: 2px;
 }
 
+
+.error-icon {
+  position: relative;
+  top: 2px;
+}
+
 ._item-finish>._item-content>._item-title:after {
   background-color: #07C160;
+}
+
+._item.next-error ._item-title:after {
+  background: #F95050;
 }
 
 ._item-title:after {
@@ -51,7 +88,7 @@
 ._item {
   position: relative;
   display: inline-block;
-  background-color: white;
+  /* background-color: white; */
   overflow: hidden;
   height: 60px;
   margin-right: 16px;
