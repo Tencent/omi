@@ -1063,7 +1063,7 @@
         renderToString: renderToString
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.3.3';
+    options.root.Omi.version = 'omio-1.3.4';
     var Omi$1 = {
         h: h,
         createElement: h,

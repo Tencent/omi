@@ -941,7 +941,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '5.0.21';
+    options.root.Omi.version = '5.0.22';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
