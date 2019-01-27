@@ -62,7 +62,8 @@ const config = {
           { name: 'InputTable', md: 'input-table', demo: './repl/input-table.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
           { name: 'Progress', md: 'progress', demo: './repl/progress.html' },
-          { name: 'PathProgress', md: 'path-progress', demo: './repl/path-progress.html' }
+          { name: 'PathProgress', md: 'path-progress', demo: './repl/path-progress.html' },
+          { name: 'Step', md: 'step', demo: './repl/step.html' }
         ]
       }
     ],
@@ -128,7 +129,8 @@ const config = {
           { name: 'InputTable', md: 'input-table', demo: './repl/input-table.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
           { name: 'Progress', md: 'progress', demo: './repl/progress.html' },
-          { name: 'PathProgress', md: 'path-progress', demo: './repl/path-progress.html' }
+          { name: 'PathProgress', md: 'path-progress', demo: './repl/path-progress.html' },
+          { name: 'Step', md: 'step', demo: './repl/step.html' }
         ]
       }
     ]
