@@ -103,7 +103,6 @@ declare namespace Omi {
 		data: D;
 		host: HTMLElement;
 
-		css: () => void | string;
 		update(): void;
 		fire(name: string, data?: object): void;
 
@@ -132,7 +131,6 @@ declare namespace Omi {
 		data: D;
 		host: HTMLElement;
 
-		css: () => void | string;
 		update(): void;
 		fire(name: string, data?: object): void;
 
@@ -155,7 +153,6 @@ declare namespace Omi {
 		data: D;
 		host: HTMLElement;
 
-		css: () => void | string;
 		update(): void;
 		fire(name: string, data?: object): void;
 
@@ -183,7 +180,7 @@ declare namespace Omi {
 	function nextTick(callback: Callback, scope?: any): void;
 	function observe(target: WeElementConstructor): void;
 	function getHost(element: WeElement): WeElement;
-	
+
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
