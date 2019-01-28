@@ -5,8 +5,8 @@
   "example.js.map": "static/js/example.07719909.js.map",
   "index.css": "static/css/index.fd06c8ea.css",
   "index.css.map": "static/css/index.fd06c8ea.css.map",
-  "index.js": "static/js/index.a5744c97.js",
-  "index.js.map": "static/js/index.a5744c97.js.map",
+  "index.js": "static/js/index.de9d0066.js",
+  "index.js.map": "static/js/index.de9d0066.js.map",
   "static/js/0.d0d17a50.chunk.js": "static/js/0.d0d17a50.chunk.js",
   "static/js/0.d0d17a50.chunk.js.map": "static/js/0.d0d17a50.chunk.js.map",
   "static/js/1.c5d4503e.chunk.js": "static/js/1.c5d4503e.chunk.js",
@@ -128,7 +128,7 @@
   "static/js/9.fa86f77b.chunk.js": "static/js/9.fa86f77b.chunk.js",
   "static/js/9.fa86f77b.chunk.js.map": "static/js/9.fa86f77b.chunk.js.map",
   "static/media/loading.svg": "static/media/loading.84a15aa0.svg",
-  "static/media/omi-logo.svg": "static/media/omi-logo.26631e67.svg",
+  "static/media/omi-logo2019.svg": "static/media/omi-logo2019.923166c3.svg",
   "step.js": "static/js/step.b2898a0d.js",
   "step.js.map": "static/js/step.b2898a0d.js.map",
   "timeline.js": "static/js/timeline.823e5ad2.js",
@@ -137,6 +137,6 @@
   "tree.js.map": "static/js/tree.e3a310be.js.map",
   "zh-cn.css": "static/css/zh-cn.fd06c8ea.css",
   "zh-cn.css.map": "static/css/zh-cn.fd06c8ea.css.map",
-  "zh-cn.js": "static/js/zh-cn.77ea5dab.js",
-  "zh-cn.js.map": "static/js/zh-cn.77ea5dab.js.map"
+  "zh-cn.js": "static/js/zh-cn.f1ff853e.js",
+  "zh-cn.js.map": "static/js/zh-cn.f1ff853e.js.map"
 }

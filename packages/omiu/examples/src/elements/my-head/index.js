@@ -1,6 +1,6 @@
 import { define, WeElement } from 'omi'
 import css from './_index.css'
-import logo from './omi-logo.svg'
+import logo from './omi-logo2019.svg'
 
 define('my-head', class extends WeElement {
   toggleMenus = evt => {
