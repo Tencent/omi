@@ -1,0 +1,41 @@
+{
+  "props": {
+    "cname": 32,
+    "props": {
+      "$_dirty": "__d",
+      "$_disable": "__x",
+      "$_listeners": "__l",
+      "$_renderCallbacks": "__h",
+      "$__key": "__k",
+      "$__ref": "__r",
+      "$normalizedNodeName": "__n",
+      "$nextBase": "__b",
+      "$prevContext": "__c",
+      "$prevProps": "__p",
+      "$prevState": "__s",
+      "$_parentComponent": "__u",
+      "$_componentConstructor": "_componentConstructor",
+      "$__html": "__html",
+      "$_component": "_component",
+      "$__omiattr_": "__omiattr_",
+      "$_preStyle": "r",
+      "$_id": "s",
+      "$__preactattr_": "t",
+      "$__config__": "v",
+      "$_isMockDocument": "w",
+      "$__omiSsrData": "x",
+      "$_getRootName": "y",
+      "$_preCss": "z",
+      "$_willUpdate": "A",
+      "$___scopedCssAttr": "B",
+      "$___touchX": "C",
+      "$___touchY": "D",
+      "$___scrollTop": "F",
+      "$__x": "G"
+    }
+  },
+  "vars": {
+    "cname": -1,
+    "props": {}
+  }
+}

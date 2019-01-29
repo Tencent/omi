@@ -7,7 +7,7 @@ Omi 小程序组件框架。
 index.js
 
 ```js
-import { render, WeElement, define } from 'omi'
+import { render, WeElement, define } from 'wesee'
 
 define('my-counter', class extends WeElement {
   count = 1
@@ -22,28 +22,24 @@ define('my-counter', class extends WeElement {
     this.update()
   }
 
+  buttonStyle = {
+    color: 'red'
+  }
+
+  testStyle = {
+    backgroundColor: 'red'
+  }
+
   render() {
     return (
       <div>
-        <button onClick={this.sub}>-</button>
-        <span class='my-class'>{this.count}</span>
-        <button onClick={this.add}>+</button>
+        <button style={this.buttonStyle} onClick={this.sub}>-</button>
+        <span style={this.testStyle}>{this.count}</span>
+        <button style={this.buttonStyle} onClick={this.add}>+</button>
       </div>
     )
   }
 })
 
 render(<my-counter />, 'body')
-```
-
-index.css
-
-```css
-button{
-  color: red;
-}
-
-.my-class{
-  background-color: red;
-}
 ```
