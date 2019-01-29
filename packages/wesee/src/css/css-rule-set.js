@@ -1,10 +1,10 @@
-import CssRule from './css-rule'
+import CSSRule from './css-rule'
 
-export default class CssRuleSet {
+export default class CSSRuleSet {
   constructor(selector) {
     //string
     this.selector = selector || ''
-    //Array<CssRule>;
+    //Array<CSSRule>;
     this.rules = new Array()
   }
 
@@ -46,7 +46,7 @@ export default class CssRuleSet {
     if (rule !== null) {
       rule.value = value
     } else {
-      this.rules.push(new CssRule(name, value))
+      this.rules.push(new CSSRule(name, value))
     }
   }
 

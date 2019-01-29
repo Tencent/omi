@@ -5,9 +5,9 @@ import CSSRuleSet from './css-rule-set'
  * class StyleSheet - An object representation of a CSS StyleSheet
  */
 class StyleSheet {
-  
+
   constructor(){
-    //Array<CssRuleSet>
+    //Array<CSSRuleSet>
     this.rulesets = []
   }
 
