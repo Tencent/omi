@@ -16,9 +16,13 @@ define('o-dialog', class extends WeElement {
 
   render(props) {
     const display = props.show ? 'block' : 'none'
+    const styleObj = {}
+    if (props.width) {
+      styleObj.style = { width: props.width + 'px', left: '50%', marginLeft: props.width / -2 + 'px' }
+    }
     return (
       <div class="o-dialog" style={{ display }}>
-        <div class="content">
+        <div class="content" {...styleObj}>
           <h1>{props.title}</h1>
           <p>{props.msg}</p>
           {props.type === 'confirm' ? (
@@ -31,10 +35,10 @@ define('o-dialog', class extends WeElement {
               </a>
             </div>
           ) : (
-            <a class="ok" onClick={this.confirm}>
-              {props.confirmText}
-            </a>
-          )}
+              <a class="ok" onClick={this.confirm}>
+                {props.confirmText}
+              </a>
+            )}
         </div>
       </div>
     )
