@@ -1,49 +1,35 @@
-import { define, render, Component } from '../../src/wesee'
+import { define, render, WeElement } from '../../src/wesee'
 
-define('my-hello', class extends Component {
-  render() {
-    //can get the parent's div style, can't get the h3's style
-    return <div><h3> {this.props.name}</h3></div>
-  }
-})
+define('my-counter', class extends WeElement {
+  count = 1
 
-define('my-app', class extends Component {
-  install() {
-    this.name = 'Omi'
-  }
-
-  handleTap = e => {
-    this.name = 'Hello Omi !'
+  sub = () => {
+    this.count--
     this.update()
   }
 
-  dynamicCss() {
-    return `h3{
-                    cursor:pointer;
-                    color: ${Math.random() > 0.5 ? 'red' : 'green'};
-                }`
+  add = () => {
+    this.count++
+    this.update()
   }
 
-  installed() {
-    setTimeout(() => {
-      this.name = 11
-      this.update()
-    }, 1000)
+  buttonStyle = {
+    color: 'red'
   }
-  css() {
-    return `div{
-                    font-size:30px;
-                }`
+
+  testStyle = {
+    backgroundColor: 'red'
   }
 
   render() {
     return (
       <div>
-        <div onTap={this.handleTap}>tap me</div>
-        <my-hello name={this.name} />
+        <button style={this.buttonStyle} onClick={this.sub}>-</button>
+        <span style={this.testStyle}>{this.count}</span>
+        <button style={this.buttonStyle} onClick={this.add}>+</button>
       </div>
     )
   }
 })
 
-render(<my-app />, 'body')
+render(<my-counter />, 'body')
