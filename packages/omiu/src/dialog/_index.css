@@ -48,9 +48,11 @@ a {
 
 .ok {
   color: #07C160;
+  cursor: pointer;
 }
 
 .close {
   border-right: 1px solid #eee;
   color: black;
+  cursor: pointer;
 }
