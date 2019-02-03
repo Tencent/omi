@@ -1,18 +1,34 @@
 import { h } from './h'
+import Component from './component'
+import { render } from './render'
+import { define } from './define'
 
+const WeElement = Component
 const root = getGlobal()
 root.wesee = {
-  h
+	h,
+	define,
+	Component,
+	render,
+	WeElement
 }
 root.wesee = wesee
 root.wesee.version = '0.0.0'
 
 export default {
-  h
+	h,
+	define,
+	Component,
+	render,
+	WeElement
 }
 
 export {
-  h
+	h,
+	define,
+	Component,
+	render,
+	WeElement
 }
 
 function getGlobal() {
