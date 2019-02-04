@@ -5,13 +5,16 @@ import { define } from './define'
 
 const WeElement = Component
 const root = getGlobal()
-root.wesee = {
+const wesee = {
 	h,
 	define,
 	Component,
 	render,
 	WeElement
 }
+
+root.Omi = wesee
+root.omi = wesee
 root.wesee = wesee
 root.wesee.version = '0.0.0'
 

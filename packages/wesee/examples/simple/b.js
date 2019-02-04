@@ -1518,13 +1518,16 @@
 
   var WeElement = Component;
   var root = getGlobal$1();
-  root.wesee = {
+  var wesee = {
     h: h,
     define: define,
     Component: Component,
     render: render,
     WeElement: WeElement
   };
+
+  root.Omi = wesee;
+  root.omi = wesee;
   root.wesee = wesee;
   root.wesee.version = '0.0.0';
 
