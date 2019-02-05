@@ -112,8 +112,9 @@ export function linkParent(node, parent) {
     node.ownerDocument = parent.ownerDocument
     node.ownerDocument.nodeMap[node.nodeId] = node
     node.depth = parent.depth + 1
-  }
-  node.childNodes.forEach(child => {
+	}
+
+  node.childNodes && node.childNodes.forEach(child => {
     linkParent(child, node)
   })
 }

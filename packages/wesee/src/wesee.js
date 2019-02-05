@@ -2,6 +2,7 @@ import { h } from './h'
 import Component from './component'
 import { render } from './render'
 import { define } from './define'
+import options from './options'
 
 const WeElement = Component
 const root = getGlobal()
@@ -10,7 +11,8 @@ const wesee = {
 	define,
 	Component,
 	render,
-	WeElement
+	WeElement,
+	options
 }
 
 root.Omi = wesee
@@ -23,7 +25,8 @@ export default {
 	define,
 	Component,
 	render,
-	WeElement
+	WeElement,
+	options
 }
 
 export {
@@ -31,7 +34,8 @@ export {
 	define,
 	Component,
 	render,
-	WeElement
+	WeElement,
+	options
 }
 
 function getGlobal() {

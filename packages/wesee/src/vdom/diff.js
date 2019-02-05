@@ -52,7 +52,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
     }
   }
 
-  ret = idiff(dom, vnode, context, mountAll, componentRoot)
+	ret = idiff(dom, vnode, context, mountAll, componentRoot)
   // append the element if its a new parent
   if (parent && ret.parentNode !== parent) parent.appendChild(ret)
 
@@ -99,7 +99,7 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
       }
     } else {
       // it wasn't a Text node: replace it with one and recycle the old Element
-      out = document.createTextNode(vnode)
+      out = options.doc.createTextNode(vnode)
       if (dom) {
         if (dom.parentNode) dom.parentNode.replaceChild(out, dom)
         recollectNodeTree(dom, true)
@@ -268,7 +268,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
       f = originalChildren[i]
       if (child && child !== dom && child !== f) {
         if (f == null) {
-          dom.appendChild(child)
+					dom.appendChild(child)
         } else if (child === f.nextSibling) {
           removeNode(f)
         } else {

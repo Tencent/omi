@@ -1,4 +1,5 @@
 import Element from './element'
+import TextNode from './text-node'
 import { addDoc, removeDoc } from './util'
 
 
@@ -28,7 +29,13 @@ export default class Document {
     el.ownerDocument = this
     el.docId = this.id
     return el
-  }
+	}
+
+	createTextNode(txt){
+		const node = new TextNode(txt)
+		node.docId = this.id
+		return node
+	}
 
   destroy() {
     delete this.listener

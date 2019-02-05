@@ -43,7 +43,7 @@ export default class Element {
 			}
 
 
-			this.ownerDocument.addElement(this.ref, node.toJSON(), -1)
+			//this.ownerDocument.addElement(this.ref, node.toJSON(), -1)
 
 		} else {
 			node.parentNode.removeChild(node)
@@ -72,7 +72,7 @@ export default class Element {
 			}
 
 
-			this.ownerDocument.addElement(this.ref, node.toJSON(), index)
+			//this.ownerDocument.addElement(this.ref, node.toJSON(), index)
 
 		} else {
 			node.parentNode.removeChild(node)
@@ -106,7 +106,7 @@ export default class Element {
 				registerNode(this.docId, node)
 			}
 
-			this.ownerDocument.addElement(this.ref, node.toJSON(), index)
+			//this.ownerDocument.addElement(this.ref, node.toJSON(), index)
 
 		} else {
 			const index = moveIndex(
@@ -115,7 +115,7 @@ export default class Element {
 				this.childNodes.indexOf(after) + 1
 			)
 
-			this.ownerDocument.moveElement(node.ref, this.ref, index)
+			//this.ownerDocument.moveElement(node.ref, this.ref, index)
 
 		}
 
@@ -197,7 +197,7 @@ export default class Element {
 		if (!this.event[type]) {
 			this.event[type] = handler
 
-			this.ownerDocument.addEvent(this.ref, type)
+			//this.ownerDocument.addEvent(this.ref, type)
 		}
 	}
 

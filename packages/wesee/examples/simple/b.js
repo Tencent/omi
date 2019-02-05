@@ -91,6 +91,469 @@
   // DOM properties that should NOT have "px" added when numeric
   var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
+  var nodeId = 1;
+  function uniqueId() {
+    return nodeId++;
+  }
+
+  var docMap = {};
+
+  function addDoc(id, doc) {
+    docMap[id] = doc;
+  }
+
+  function getDoc(id) {
+    return docMap[id];
+  }
+
+  function removeDoc(id) {
+    delete docMap[id];
+  }
+
+  function insertIndex(target, list, newIndex) {
+    if (newIndex < 0) {
+      newIndex = 0;
+    }
+    var before = list[newIndex - 1];
+    var after = list[newIndex];
+    list.splice(newIndex, 0, target);
+
+    before && (before.nextSibling = target);
+    target.previousSibling = before;
+    target.nextSibling = after;
+    after && (after.previousSibling = target);
+
+    return newIndex;
+  }
+
+  function moveIndex(target, list, newIndex) {
+    var index = list.indexOf(target);
+
+    if (index < 0) {
+      return -1;
+    }
+
+    var before = list[index - 1];
+    var after = list[index + 1];
+    before && (before.nextSibling = after);
+    after && (after.previousSibling = before);
+
+    list.splice(index, 1);
+    var newIndexAfter = newIndex;
+    if (index <= newIndex) {
+      newIndexAfter = newIndex - 1;
+    }
+    var beforeNew = list[newIndexAfter - 1];
+    var afterNew = list[newIndexAfter];
+    list.splice(newIndexAfter, 0, target);
+
+    beforeNew && (beforeNew.nextSibling = target);
+    target.previousSibling = beforeNew;
+    target.nextSibling = afterNew;
+    afterNew && (afterNew.previousSibling = target);
+
+    if (index === newIndexAfter) {
+      return -1;
+    }
+    return newIndex;
+  }
+
+  function removeIndex(target, list, changeSibling) {
+    var index = list.indexOf(target);
+
+    if (index < 0) {
+      return;
+    }
+    if (changeSibling) {
+      var before = list[index - 1];
+      var after = list[index + 1];
+      before && (before.nextSibling = after);
+      after && (after.previousSibling = before);
+    }
+    list.splice(index, 1);
+  }
+
+  function linkParent(node, parent) {
+    node.parentNode = parent;
+    if (parent.docId) {
+      node.docId = parent.docId;
+      node.ownerDocument = parent.ownerDocument;
+      node.ownerDocument.nodeMap[node.nodeId] = node;
+      node.depth = parent.depth + 1;
+    }
+
+    node.childNodes && node.childNodes.forEach(function (child) {
+      linkParent(child, node);
+    });
+  }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function registerNode(docId, node) {
+  	var doc = getDoc(docId);
+  	doc.nodeMap[node.nodeId] = node;
+  }
+
+  var Element$1 = function () {
+  	function Element(type) {
+  		_classCallCheck(this, Element);
+
+  		this.nodeType = 1;
+  		this.nodeId = uniqueId();
+  		this.ref = this.nodeId;
+  		this.type = type;
+  		this.attributes = {};
+  		this.style = {};
+  		this.classStyle = {};
+  		this.event = {};
+  		this.childNodes = [];
+
+  		this.nodeName = this.type;
+
+  		this.parentNode = null;
+  		this.nextSibling = null;
+  		this.previousSibling = null;
+  		this.firstChild = null;
+  	}
+
+  	Element.prototype.appendChild = function appendChild(node) {
+  		if (!node.parentNode) {
+  			linkParent(node, this);
+  			insertIndex(node, this.childNodes, this.childNodes.length, true);
+
+  			if (this.docId != undefined) {
+  				registerNode(this.docId, node);
+  			}
+
+  			//this.ownerDocument.addElement(this.ref, node.toJSON(), -1)
+  		} else {
+  			node.parentNode.removeChild(node);
+
+  			this.appendChild(node);
+
+  			return;
+  		}
+
+  		this.firstChild = this.childNodes[0];
+  	};
+
+  	Element.prototype.insertBefore = function insertBefore(node, before) {
+  		if (!node.parentNode) {
+  			linkParent(node, this);
+  			var index = insertIndex(node, this.childNodes, this.childNodes.indexOf(before), true);
+  			if (this.docId != undefined) {
+  				registerNode(this.docId, node);
+  			}
+
+  			//this.ownerDocument.addElement(this.ref, node.toJSON(), index)
+  		} else {
+  			node.parentNode.removeChild(node);
+  			this.insertBefore(node, before);
+  			return;
+  		}
+
+  		this.firstChild = this.childNodes[0];
+  	};
+
+  	Element.prototype.insertAfter = function insertAfter(node, after) {
+  		if (node.parentNode && node.parentNode !== this) {
+  			return;
+  		}
+  		if (node === after || node.previousSibling && node.previousSibling === after) {
+  			return;
+  		}
+  		if (!node.parentNode) {
+  			linkParent(node, this);
+  			var index = insertIndex(node, this.childNodes, this.childNodes.indexOf(after) + 1, true);
+
+  			if (this.docId != undefined) {
+  				registerNode(this.docId, node);
+  			}
+
+  			//this.ownerDocument.addElement(this.ref, node.toJSON(), index)
+  		} else {
+  			var _index = moveIndex(node, this.childNodes, this.childNodes.indexOf(after) + 1);
+
+  			//this.ownerDocument.moveElement(node.ref, this.ref, index)
+  		}
+
+  		this.firstChild = this.childNodes[0];
+  	};
+
+  	Element.prototype.removeChild = function removeChild(node) {
+  		if (node.parentNode) {
+  			removeIndex(node, this.childNodes, true);
+
+  			this.ownerDocument.removeElement(node.ref);
+  		}
+
+  		node.parentNode = null;
+
+  		this.firstChild = this.childNodes[0];
+  	};
+
+  	Element.prototype.setAttribute = function setAttribute(key, value, silent) {
+  		if (this.attributes[key] === value && silent !== false) {
+  			return;
+  		}
+  		this.attributes[key] = value;
+  		if (!silent) {
+  			var result = {};
+  			result[key] = value;
+
+  			this.ownerDocument.setAttr(this.ref, result);
+  		}
+  	};
+
+  	Element.prototype.removeAttribute = function removeAttribute(key) {
+  		if (this.attributes[key]) {
+  			delete this.attributes[key];
+  		}
+  	};
+
+  	Element.prototype.setStyle = function setStyle(key, value, silent) {
+  		if (this.style[key] === value && silent !== false) {
+  			return;
+  		}
+  		this.style[key] = value;
+  		if (!silent && this.ownerDocument) {
+  			var result = {};
+  			result[key] = value;
+
+  			this.ownerDocument.setStyles(this.ref, result);
+  		}
+  	};
+
+  	Element.prototype.setStyles = function setStyles(styles) {
+  		Object.assign(this.style, styles);
+  		if (this.ownerDocument) {
+
+  			this.ownerDocument.setStyles(this.ref, styles);
+  		}
+  	};
+
+  	Element.prototype.setClassStyle = function setClassStyle(classStyle) {
+  		for (var key in this.classStyle) {
+  			this.classStyle[key] = '';
+  		}
+
+  		Object.assign(this.classStyle, classStyle);
+
+  		this.ownerDocument.setStyles(this.ref, this.toStyle());
+  	};
+
+  	Element.prototype.addEventListener = function addEventListener(type, handler) {
+  		if (!this.event[type]) {
+  			this.event[type] = handler;
+
+  			//this.ownerDocument.addEvent(this.ref, type)
+  		}
+  	};
+
+  	Element.prototype.removeEventListener = function removeEventListener(type) {
+  		if (this.event[type]) {
+  			delete this.event[type];
+  			var doc = getDoc(this.docId);
+  			doc.nodeMap[this.ref] && doc.nodeMap[this.ref].event && doc.nodeMap[this.ref].event[type] ? doc.nodeMap[this.ref].event[type] = null : '';
+
+  			this.ownerDocument.removeEvent(this.ref, type);
+  		}
+  	};
+
+  	Element.prototype.fireEvent = function fireEvent(type, e) {
+  		var handler = this.event[type];
+  		if (handler) {
+  			return handler.call(this, e);
+  		}
+  	};
+
+  	Element.prototype.toStyle = function toStyle() {
+  		return Object.assign({}, this.classStyle, this.style);
+  	};
+
+  	Element.prototype.getComputedStyle = function getComputedStyle() {};
+
+  	Element.prototype.toJSON = function toJSON() {
+  		var result = {
+  			id: this.ref,
+  			type: this.type,
+  			docId: this.docId || -10000,
+  			attributes: this.attributes ? this.attributes : {}
+  		};
+  		result.attributes.style = this.toStyle();
+
+  		var event = Object.keys(this.event);
+  		if (event.length) {
+  			result.event = event;
+  		}
+
+  		if (this.childNodes.length) {
+  			result.children = this.childNodes.map(function (child) {
+  				return child.toJSON();
+  			});
+  		}
+  		return result;
+  	};
+
+  	Element.prototype.replaceChild = function replaceChild(newChild, oldChild) {
+  		this.insertBefore(newChild, oldChild);
+  		this.removeChild(oldChild);
+  	};
+
+  	Element.prototype.destroy = function destroy() {
+  		var doc = getDoc(this.docId);
+
+  		if (doc) {
+  			delete doc.nodeMap[this.nodeId];
+  		}
+
+  		this.parentNode = null;
+  		this.childNodes.forEach(function (child) {
+  			child.destroy();
+  		});
+  	};
+
+  	return Element;
+  }();
+
+  function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  var TextNode = function () {
+  	function TextNode(txt) {
+  		_classCallCheck$1(this, TextNode);
+
+  		this.nodeType = 3;
+  		this.nodeId = uniqueId();
+  		this.ref = this.nodeId;
+  		this.attributes = {};
+  		this.style = {};
+  		this.classStyle = {};
+  		this.event = {};
+  		this.txt = txt;
+  		this.parentNode = null;
+  		this.nextSibling = null;
+  		this.previousSibling = null;
+  		this.firstChild = null;
+  	}
+
+  	TextNode.prototype.setAttribute = function setAttribute(key, value, silent) {
+  		if (this.attributes[key] === value && silent !== false) {
+  			return;
+  		}
+  		this.attributes[key] = value;
+  		if (!silent) {
+  			var result = {};
+  			result[key] = value;
+
+  			this.ownerDocument.setAttr(this.ref, result);
+  		}
+  	};
+
+  	TextNode.prototype.removeAttribute = function removeAttribute(key) {
+  		if (this.attributes[key]) {
+  			delete this.attributes[key];
+  		}
+  	};
+
+  	TextNode.prototype.toStyle = function toStyle() {
+  		return Object.assign({}, this.classStyle, this.style);
+  	};
+
+  	TextNode.prototype.getComputedStyle = function getComputedStyle() {};
+
+  	TextNode.prototype.toJSON = function toJSON() {
+  		var result = {
+  			id: this.ref,
+  			type: this.type,
+  			docId: this.docId || -10000,
+  			attributes: this.attributes ? this.attributes : {}
+  		};
+  		result.attributes.style = this.toStyle();
+
+  		var event = Object.keys(this.event);
+  		if (event.length) {
+  			result.event = event;
+  		}
+
+  		return result;
+  	};
+
+  	TextNode.prototype.destroy = function destroy() {
+  		var doc = getDoc(this.docId);
+
+  		if (doc) {
+  			delete doc.nodeMap[this.nodeId];
+  		}
+
+  		this.parentNode = null;
+  	};
+
+  	return TextNode;
+  }();
+
+  function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  var Document = function () {
+    function Document(id) {
+      _classCallCheck$2(this, Document);
+
+      this.id = id;
+      addDoc(id, this);
+      this.nodeMap = {};
+      this._isMockDocument = true;
+    }
+
+    // createBody(type, props) {
+    //   if (!this.body) {
+    //     const el = new Element(type, props)
+    //     el.didMount = true
+    //     el.ownerDocument = this
+    //     el.docId = this.id
+    //     el.style.alignItems = 'flex-start'
+    //     this.body = el
+    //   }
+
+    //   return this.body
+    // }
+
+    Document.prototype.createElement = function createElement(tagName, props) {
+      var el = new Element$1(tagName, props);
+      el.ownerDocument = this;
+      el.docId = this.id;
+      return el;
+    };
+
+    Document.prototype.createTextNode = function createTextNode(txt) {
+      var node = new TextNode(txt);
+      node.docId = this.id;
+      return node;
+    };
+
+    Document.prototype.destroy = function destroy() {
+      delete this.listener;
+      delete this.nodeMap;
+      removeDoc(this.id);
+    };
+
+    Document.prototype.addEventListener = function addEventListener(ref, type) {
+      //document.addEvent(this.id, ref, type)
+    };
+
+    Document.prototype.removeEventListener = function removeEventListener(ref, type) {
+      //document.removeEvent(this.id, ref, type)
+    };
+
+    Document.prototype.scrollTo = function scrollTo(ref, x, y, animated) {
+      document.scrollTo(this.id, ref, x, y, animated);
+    };
+
+    return Document;
+  }();
+
+  var mock = {
+  	document: new Document(0)
+  };
+
   function getGlobal() {
     if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
       if (typeof self !== 'undefined') {
@@ -116,7 +579,8 @@
     mapping: {},
     isWeb: true,
     staticStyleMapping: {},
-    doc: typeof document === 'object' ? document : null,
+    doc: mock.document,
+    //doc: typeof document === 'object' ? document : null,
     root: getGlobal(),
     //styleCache :[{ctor:ctor,ctorName:ctorName,style:style}]
     styleCache: []
@@ -686,7 +1150,7 @@
         }
       } else {
         // it wasn't a Text node: replace it with one and recycle the old Element
-        out = document.createTextNode(vnode);
+        out = options.doc.createTextNode(vnode);
         if (dom) {
           if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
           recollectNodeTree(dom, true);
@@ -1448,13 +1912,13 @@
 
   var _class, _temp;
 
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var id = 0;
 
   var Component = (_temp = _class = function () {
     function Component(props, store) {
-      _classCallCheck(this, Component);
+      _classCallCheck$3(this, Component);
 
       this.props = assign(nProps(this.constructor.props), this.constructor.defaultProps, props);
       this.elementId = id++;
@@ -1523,7 +1987,8 @@
     define: define,
     Component: Component,
     render: render,
-    WeElement: WeElement
+    WeElement: WeElement,
+    options: options
   };
 
   root.Omi = wesee;
@@ -1547,7 +2012,7 @@
     return global;
   }
 
-  function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -1559,7 +2024,7 @@
     function _class2() {
       var _temp, _this, _ret;
 
-      _classCallCheck$1(this, _class2);
+      _classCallCheck$4(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
