@@ -7,7 +7,7 @@ import options from '../options'
 import { applyRef } from '../util'
 import { removeNode } from '../dom/index'
 import { isArray } from '../util'
-import { draw } from '../cax/index'
+import { draw } from '../cax/draw'
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
 
