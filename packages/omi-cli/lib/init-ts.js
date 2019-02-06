@@ -58,8 +58,12 @@ function init(args) {
 			.pipe(vfs.dest(dest))
 			.on("end", function() {
 				try {
-					info("Rename", "gitignore -> .gitignore");
-					renameSync(join(dest, "gitignore"), join(dest, ".gitignore"));
+					// rename gitignore file as .gitignore if `gitignore` exist
+					// (this was actually exist in app-ts-old)
+					if (existsSync(join(dest, "gitignore"))) {
+						info("Rename", "gitignore -> .gitignore");
+						renameSync(join(dest, "gitignore"), join(dest, ".gitignore"));
+					}
 					if (customPrjName) {
 						try {
 							process.chdir(customPrjName);
