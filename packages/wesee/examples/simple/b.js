@@ -1063,6 +1063,14 @@
     }
   }
 
+  function draw(element, innerWidth, innerHeight) {
+  	var canvas = document.createElement('canvas');
+  	//childNodes
+  	//parentNode
+  	console.log(element);
+  	return canvas;
+  }
+
   /** Queue of components that have been mounted and are awaiting componentDidMount */
   var mounts = [];
 
@@ -1090,7 +1098,7 @@
    *	@returns {Element} dom			The created/mutated element
    *	@private
    */
-  function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+  function diff(dom, vnode, context, mountAll, parent, componentRoot, fromRender) {
     // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
     if (!diffLevel++) {
       // when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -1110,7 +1118,13 @@
 
     ret = idiff(dom, vnode, context, mountAll, componentRoot);
     // append the element if its a new parent
-    if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+    if (parent && ret.parentNode !== parent) {
+      if (fromRender) {
+        parent.appendChild(draw(ret));
+      } else {
+        parent.appendChild(ret);
+      }
+    }
 
     // diffLevel being reduced to 0 means we're exiting the diff
     if (! --diffLevel) {
@@ -1973,7 +1987,7 @@
       merge = typeof merge === 'string' ? document.querySelector(merge) : merge;
     }
 
-    return diff(merge, vnode, store, false, parent, false);
+    return diff(merge, vnode, store, false, parent, false, true);
   }
 
   function define(name, ctor) {

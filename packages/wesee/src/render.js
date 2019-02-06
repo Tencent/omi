@@ -22,5 +22,5 @@ export function render(vnode, parent, store, empty, merge) {
         : merge
   }
 
-  return diff(merge, vnode, store, false, parent, false)
+  return diff(merge, vnode, store, false, parent, false, true)
 }

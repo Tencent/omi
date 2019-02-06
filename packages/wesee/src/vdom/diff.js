@@ -7,6 +7,7 @@ import options from '../options'
 import { applyRef } from '../util'
 import { removeNode } from '../dom/index'
 import { isArray } from '../util'
+import { draw } from '../render/index'
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
 
@@ -34,7 +35,7 @@ export function flushMounts() {
  *	@returns {Element} dom			The created/mutated element
  *	@private
  */
-export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+export function diff(dom, vnode, context, mountAll, parent, componentRoot, fromRender) {
   // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
   if (!diffLevel++) {
     // when first starting the diff, check if we're diffing an SVG or within an SVG
@@ -53,8 +54,14 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
   }
 
 	ret = idiff(dom, vnode, context, mountAll, componentRoot)
-  // append the element if its a new parent
-  if (parent && ret.parentNode !== parent) parent.appendChild(ret)
+	// append the element if its a new parent
+	if (parent && ret.parentNode !== parent) {
+		if (fromRender) {
+			parent.appendChild(draw(ret))
+		} else {
+			parent.appendChild(ret)
+		}
+	}
 
   // diffLevel being reduced to 0 means we're exiting the diff
   if (!--diffLevel) {

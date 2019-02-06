@@ -4,8 +4,10 @@ const defaultValue = {
 	color: black
 }
 
-function renderToCanvas(element, innerWidth, innerHeight){
-
+export function draw(element, innerWidth, innerHeight){
+	const canvas  = document.createElement('canvas')
 	//childNodes
 	//parentNode
+	console.log(element)
+	return canvas
 }
