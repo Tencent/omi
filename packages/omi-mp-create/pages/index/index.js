@@ -12,7 +12,10 @@ create.Page({
     motto: 'Hello World',
     userInfo: { },
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+		reverseMotto() {
+      return this.motto.split('').reverse().join('')
+    }
   },
   //事件处理函数
   bindViewTap: function () {
@@ -61,6 +64,10 @@ create.Page({
 
     setTimeout(() => {
       this.oData.userInfo.nickName = 'dntzhang'
+    }, 4000)
+
+		setTimeout(() => {
+      this.oData.motto = 'abc'
     }, 4000)
 
 

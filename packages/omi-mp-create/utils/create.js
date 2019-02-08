@@ -7,12 +7,19 @@
 import obaa from './obaa'
 import mitt from './mitt'
 
+const ARRAYTYPE = '[object Array]'
+const OBJECTTYPE = '[object Object]'
+const FUNCTIONTYPE = '[object Function]'
+
 function _Page(option) {
   const onLoad = option.onLoad
   option.onLoad = function (e) {
     this.store = option.store
     this.oData = JSON.parse(JSON.stringify(option.data))
-    observe(this)
+		walk(option.data)
+		//fn prop
+		this.setData(option.data)
+    observe(this, option.data)
     onLoad && onLoad.call(this, e)
   }
   Page(option)
@@ -24,7 +31,8 @@ function _Component(option) {
     const page = getCurrentPages()[getCurrentPages().length - 1]
     this.store = option.store || page.store
     this.oData = JSON.parse(JSON.stringify(option.data))
-    observe(this)
+		walk(option.data)
+    observe(this, option.data)
     ready && ready.call(this)
   }
   Component(option)
@@ -47,7 +55,7 @@ function fixPath(path) {
   return mpPath
 }
 
-function observe(ele) {
+function observe(ele, data) {
   let timeout = null
   let patch = {}
   obaa(ele.oData, (prop, value, old, path) => {
@@ -66,10 +74,19 @@ function observe(ele) {
     timeout = setTimeout(() => {
       ele.setData(patch)
       patch = {}
+			//update fn prop
+			updateByFnProp(ele, data)
     }, 0)
   })
 }
 
+function updateByFnProp(ele, data){
+	let patch = {}
+	for(let key in data.__fnMapping){
+		patch[key]  = data.__fnMapping[key].call(ele.oData)
+	}
+	ele.setData(patch)
+}
 
 let globalStore = null
 
@@ -146,6 +163,96 @@ function _update(kv) {
   globalStore.onChange && globalStore.onChange(kv)
 }
 
+
+function extendStoreMethod(data) {
+  data.method = function (path, fn) {
+        //fnMapping[path] = fn
+        //data??
+        data.__fnMapping = data.__fnMapping || {}
+		    data.__fnMapping[path] = fn
+        let ok = getObjByPath(path, data)
+        Object.defineProperty(ok.obj, ok.key, {
+            enumerable: true,
+            get: () => {
+                return fn.call(data)
+            },
+            set: () => {
+                console.warn('Please using this.data.method to set method prop of data!')
+            }
+        })
+    }
+}
+
+function getObjByPath(path, data) {
+    const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+    const len = arr.length
+    if (len > 1) {
+        let current = data[arr[0]]
+        for (let i = 1; i < len - 1; i++) {
+            current = current[arr[i]]
+        }
+        return { obj: current, key: arr[len - 1] }
+    } else {
+        return { obj: data, key: arr[0] }
+    }
+}
+
+function walk(data) {
+    Object.keys(data).forEach(key => {
+        const obj = data[key]
+        const tp = type(obj)
+        if (tp == FUNCTIONTYPE) {
+            setProp(key, obj, data)
+        } else if (tp == OBJECTTYPE) {
+            Object.keys(obj).forEach(subKey => {
+                _walk(obj[subKey], key + '.' + subKey)
+            })
+
+        } else if (tp == ARRAYTYPE) {
+            obj.forEach((item, index) => {
+                _walk(item, key + '[' + index + ']')
+            })
+
+        }
+    })
+}
+
+function _walk(obj, path) {
+    const tp = type(obj)
+    if (tp == FUNCTIONTYPE) {
+        setProp(path, obj, data)
+    } else if (tp == OBJECTTYPE) {
+        Object.keys(obj).forEach(subKey => {
+            _walk(obj[subKey], path + '.' + subKey)
+        })
+
+    } else if (tp == ARRAYTYPE) {
+        obj.forEach((item, index) => {
+            _walk(item, path + '[' + index + ']')
+        })
+
+    }
+}
+
+function setProp(path, fn, data) {
+    const ok = getObjByPath(path, data)
+    //fnMapping[path] = fn
+		data.__fnMapping = data.__fnMapping || {}
+		data.__fnMapping[path] = fn
+    Object.defineProperty(ok.obj, ok.key, {
+        enumerable: true,
+        get: () => {
+					return fn.call(ok.obj)
+        },
+        set: () => {
+            console.warn('Please using this.data.method to set method prop of data!')
+        }
+    })
+}
+
+function type(obj) {
+    return Object.prototype.toString.call(obj)
+}
 
 create.Page = _Page
 create.Component = _Component
