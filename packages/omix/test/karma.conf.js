@@ -135,7 +135,7 @@ module.exports = function(config) {
 				// The React DevTools integration requires preact as a module
 				// rather than referencing source files inside the module
 				// directly
-				alias: { Omi: '../src/wesee' },
+				alias: { Omi: '../src/omix' },
 				modules: [__dirname, 'node_modules']
 			},
 			plugins: [

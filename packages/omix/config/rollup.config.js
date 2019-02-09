@@ -5,23 +5,23 @@ import memory from 'rollup-plugin-memory';
 const license = require('rollup-plugin-license');
 const pkg = require('../package.json');
 const licensePlugin = license({
-	banner: " wesee v" + pkg.version + "  http://omijs.org\r\nOmi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/wesee\r\n MIT Licensed."
+	banner: " omix v" + pkg.version + "  http://omijs.org\r\nOmi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\r\nBy dntzhang https://github.com/dntzhang \r\n Github: https://github.com/Tencent/omix\r\n MIT Licensed."
 })
 
 export default {
-	input: 'src/wesee.js',
+	input: 'src/omix.js',
 	output: {
 		format: 'iife',
-		file: 'dist/wesee.dev.js',
-		name: 'wesee',
+		file: 'dist/omix.dev.js',
+		name: 'omix',
 		sourcemap: true,
 		strict: true
 	},
 	plugins: [
 		memory({
-			path: 'src/wesee.js',
+			path: 'src/omix.js',
 			contents: `
-				import Omi from './wesee';
+				import Omi from './omix';
 				if (typeof module!='undefined') module.exports = Omi;
 				else self.Omi = Omi;
 			`

@@ -1,4 +1,4 @@
-# Wesee
+# omix
 
 Omi 小程序组件框架。
 
@@ -7,7 +7,7 @@ Omi 小程序组件框架。
 index.js
 
 ```js
-import { render, WeElement, define } from 'wesee'
+import { render, WeElement, define } from 'omix'
 
 define('my-counter', class extends WeElement {
   count = 1

@@ -1,4 +1,4 @@
-import { define, render, WeElement } from '../../src/wesee'
+import { define, render, WeElement } from '../../src/omix'
 
 define('my-counter', class extends WeElement {
   count = 1

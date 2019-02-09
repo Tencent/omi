@@ -11,15 +11,15 @@ export default {
 	output: {
 		format: 'iife',
 		file: 'examples/'+ENV+'/b.js',
-		name: 'wesee',
+		name: 'omix',
 		sourcemap: true,
 		strict: true
 	},
 	plugins: [
 		memory({
-			path: 'src/wesee.js',
+			path: 'src/omix.js',
 			contents: `
-				import Omi from './wesee';
+				import Omi from './omix';
 				if (typeof module!='undefined') module.exports = Omi;
 				else self.Omi = Omi;
 			`

@@ -1,10 +1,10 @@
 /*
- * @Author: kinsonpeng 
- * @Date: 2018-12-14 11:49:33 
+ * @Author: kinsonpeng
+ * @Date: 2018-12-14 11:49:33
  * @Last Modified by: kinsonpeng
  * @Last Modified time: 2018-12-19 17:24:39
  */
-import { define, render, WeElement } from '../../src/wesee';
+import { define, render, WeElement } from '../../src/omix';
 // import { diffLevel } from '../../src/vdom/diff';
 
 describe('lifecycle', () => {
@@ -23,7 +23,7 @@ describe('lifecycle', () => {
 		scratch.parentNode.removeChild(scratch);
 		scratch = null;
 	});
-	
+
 	it('should render install', () => {
 		// 测试install生命周期
 		class M1 extends WeElement {
@@ -42,7 +42,7 @@ describe('lifecycle', () => {
 		expect(M1.prototype.install)
 			.to.have.been.calledOnce
 			.and.to.have.been.calledWithMatch()
-			
+
 		expect(scratch.innerHTML).to.equal('<div>M1</div>');
 	});
 
@@ -84,10 +84,10 @@ describe('lifecycle', () => {
 		expect(children.prototype.beforeRender)
 			.to.have.been.calledOnce
 			.and.to.have.been.calledWithMatch()
-			
+
 		expect(scratch.innerHTML).to.equal('<div><div>M2 18</div></div>');
 	});
-	
+
 	// 测试installed
 	it('should render installed', () => {
 		class M3 extends WeElement {
@@ -109,7 +109,7 @@ describe('lifecycle', () => {
 		expect(M3.prototype.installed)
 			.to.have.been.calledOnce
 			.and.to.have.been.calledWithMatch()
-			
+
 		expect(scratch.innerHTML).to.equal('<div>M3</div>');
 	});
 
@@ -126,7 +126,7 @@ describe('lifecycle', () => {
 			}
 			render () {
 				return <div>{
-					this.data.isShow ? 
+					this.data.isShow ?
 						<children name={this.data.name}></children>
 					:
 						<div>dl</div>

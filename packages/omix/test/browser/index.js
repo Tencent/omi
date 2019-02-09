@@ -6,7 +6,7 @@ import {
   WeElement,
   createRef,
   getHost
-} from '../../src/wesee'
+} from '../../src/omix'
 
 describe('install()', () => {
   let scratch

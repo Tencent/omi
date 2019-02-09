@@ -4,7 +4,7 @@
  * @Last Modified by: kinsonpeng
  * @Last Modified time: 2018-12-20 16:11:35
  */
-import { define, render, WeElement } from '../../src/wesee';
+import { define, render, WeElement } from '../../src/omix';
 import { relative } from 'path';
 
 function getAttributes(node) {

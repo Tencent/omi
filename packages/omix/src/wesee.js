@@ -6,7 +6,7 @@ import options from './options'
 
 const WeElement = Component
 const root = getGlobal()
-const wesee = {
+const omix = {
 	h,
 	define,
 	Component,
@@ -15,10 +15,10 @@ const wesee = {
 	options
 }
 
-root.Omi = wesee
-root.omi = wesee
-root.wesee = wesee
-root.wesee.version = '0.0.0'
+root.Omi = omix
+root.omi = omix
+root.omix = omix
+root.omix.version = '0.0.0'
 
 export default {
 	h,

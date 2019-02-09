@@ -11,7 +11,7 @@ describe('applyRef()', () => {
   it('should be called a ref function with value argument', () => {
     const ref = () => {}
     const cb = sinon.spy(ref)
-    const value = 'wesee'
+    const value = 'omix'
     applyRef(cb, value)
     expect(cb).to.have.been.calledWithMatch(value)
   })
@@ -20,8 +20,8 @@ describe('applyRef()', () => {
     const ref = {
       current: ''
     }
-    const value = 'wesee'
+    const value = 'omix'
     applyRef(ref, value)
-    expect(ref.current).to.equal('wesee')
+    expect(ref.current).to.equal('omix')
   })
 })

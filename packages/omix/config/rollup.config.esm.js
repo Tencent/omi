@@ -2,7 +2,7 @@ import config from './rollup.config';
 
 // ES output
 config.output.format = 'es';
-config.output.file = 'dist/wesee.esm.js';
+config.output.file = 'dist/omix.esm.js';
 
 // remove memory() plugin
 config.plugins.splice(0, 1);

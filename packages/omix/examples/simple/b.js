@@ -1996,7 +1996,7 @@
 
   var WeElement = Component;
   var root = getGlobal$1();
-  var wesee = {
+  var omix = {
     h: h,
     define: define,
     Component: Component,
@@ -2005,10 +2005,10 @@
     options: options
   };
 
-  root.Omi = wesee;
-  root.omi = wesee;
-  root.wesee = wesee;
-  root.wesee.version = '0.0.0';
+  root.Omi = omix;
+  root.omi = omix;
+  root.omix = omix;
+  root.omix.version = '0.0.0';
 
   function getGlobal$1() {
     if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
