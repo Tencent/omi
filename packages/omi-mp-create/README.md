@@ -147,6 +147,19 @@ this.oData.arr.length = 2 //不会触发视图更新
 
 ```
 
+####  函数属性
+
+```js
+data: {
+    motto: 'Hello World',
+		reverseMotto() {
+      return this.motto.split('').reverse().join('')
+    }
+},
+```
+
+其中 reverseMotto 可以直接绑定在 wxml 里，motto 更新会自动更新 reverseMotto 的值。
+
 #### mitt 语法
 
 ```js
