@@ -10,7 +10,7 @@ function registerNode(docId, node) {
 }
 
 export default class TextNode {
-	constructor(txt) {
+	constructor(value) {
 		this.nodeType = 3
 		this.nodeId = uniqueId()
 		this.ref = this.nodeId
@@ -18,11 +18,12 @@ export default class TextNode {
 		this.style = {}
 		this.classStyle = {}
 		this.event = {}
-		this.txt = txt
+		this.value = value
 		this.parentNode = null
 		this.nextSibling = null
 		this.previousSibling = null
 		this.firstChild = null
+		this.type = 'text'
 	}
 
 	setAttribute(key, value, silent) {

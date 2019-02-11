@@ -124,4 +124,4 @@ cax.loadImgs = function (option) {
   })
 }
 
-module.exports = cax
+export default cax

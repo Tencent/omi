@@ -762,12 +762,14 @@ TWEEN.Interpolation = {
 };
 
 // UMD (Universal Module Definition)
-(function (root) {
-  if (typeof module !== 'undefined' && typeof exports === 'object') {
-    // Node.js
-    module.exports = TWEEN
-  } else if (root !== undefined) {
-    // Global variable
-    root.TWEEN = TWEEN
-  }
-})(this)
+// (function (root) {
+//   if (typeof module !== 'undefined' && typeof exports === 'object') {
+//     // Node.js
+//     module.exports = TWEEN
+//   } else if (root !== undefined) {
+//     // Global variable
+//     root.TWEEN = TWEEN
+//   }
+// })(this)
+
+export default TWEEN
