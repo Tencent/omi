@@ -89,7 +89,7 @@
   var ATTR_KEY = '__omiattr_';
 
   // DOM properties that should NOT have "px" added when numeric
-  var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+  var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|x|y|ntw|ine[ch]|zoo|^ord/i;
 
   var nodeId = 1;
   function uniqueId() {
@@ -5995,8 +5995,8 @@
 
   function draw(root, width, height) {
   		var stage = new cax.Stage(window.innerWidth, window.innerHeight, 'body');
-  		root.style.x = 0;
-  		root.style.y = 0;
+  		// root.style.x = 0
+  		// root.style.y = 0
   		root.style._width = root.style.width === undefined ? width : root.style.width;
   		root.style._height = root.style.height === undefined ? 0 : root.style.height;
 
@@ -6029,8 +6029,9 @@
   						var rect = new cax.Rect(parseFloat(root.style._width), parseFloat(root.style._height), {
   								fillStyle: root.style.backgroundColor
   						});
-  						group.x = root.style.x + parseFloat(root.style.left) || 0;
-  						group.y = root.style.y + parseFloat(root.style.top) || 0;
+
+  						group.x = root.style.x;
+  						group.y = root.style.y;
   						group.add(rect);
   						root.childNodes.forEach(function (child) {
   								_draw(child, group);
@@ -6094,15 +6095,15 @@
   		if (position === 'absolute') {
   				var parent = getParent(root);
 
-  				root.style.x = (parent.style.x || 0) + parseFloat(root.style.left);
-  				root.style.y = (parent.style.y || 0) + parseFloat(root.style.top);
+  				// root.style.x = (parent.style.x || 0 )  + parseFloat( root.style.left)
+  				// root.style.y = (parent.style.y || 0 )  + parseFloat( root.style.top)
   				root.style._width = root.style.width === undefined ? 0 : root.style.width;
 
   				root.style._height = root.style.height === undefined ? 0 : root.style.height;
   		} else if (display === 'block') {
   				root.style._width = root.style.width === undefined ? root.parent ? root.parent.style._width : window.innerWidth : root.style.width;
   				root.style._height = root.style.height === undefined ? 0 : root.style.height;
-  				root.style.x = root.parent ? root.parent.style.x : 0;
+  				//root.style.x = root.parent?root.parent.style.x:0
   				if (root.preNode) {
   						root.style.y = root.preNode.style.y + root.preNode.style._height;
   				} else {
@@ -6127,7 +6128,8 @@
   						root.style._flex = root.style.flex / root.parent.totalFlex;
   				}
 
-  				root.style.x = width * root.style._flexPosition / root.parent.totalFlex;
+  				//root.style.x = width * root.style._flexPosition / root.parent.totalFlex
+
 
   				root.style._width = width * root.style._flex;
   				root.style._height = root.style.height === undefined ? 0 : root.style.height;
@@ -7129,11 +7131,11 @@
       }, _this.testStyle = {
         backgroundColor: 'red'
       }, _this.divStyle = {
-        position: 'absolute',
-        left: 100,
+        x: 100,
+        y: 100,
         width: 100,
         height: 100,
-        backgroundColor: 'red'
+        backgroundColor: 'green'
       }, _temp), _possibleConstructorReturn$21(_this, _ret);
     }
 

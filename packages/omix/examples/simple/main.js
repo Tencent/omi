@@ -22,11 +22,11 @@ define('my-counter', class extends WeElement {
   }
 
 	divStyle = {
-		position: 'absolute',
-		left: 100,
+		x: 100,
+		y: 100,
 		width: 100,
 		height: 100,
-		backgroundColor: 'red'
+		backgroundColor: 'green'
 	}
 
   render() {

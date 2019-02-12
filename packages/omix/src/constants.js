@@ -8,4 +8,4 @@ export const ASYNC_RENDER = 3
 export const ATTR_KEY = '__omiattr_'
 
 // DOM properties that should NOT have "px" added when numeric
-export const IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i
+export const IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|x|y|ntw|ine[ch]|zoo|^ord/i

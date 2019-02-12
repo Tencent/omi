@@ -8,8 +8,8 @@ const defaultValue = {
 
 export function draw(root, width, height) {
 	const stage = new cax.Stage(window.innerWidth, window.innerHeight, 'body')
-	// root.style.x = 0
-	// root.style.y = 0
+	root.style.x = 0
+	root.style.y = 0
 	root.style._width = root.style.width === undefined ? width : root.style.width
 	root.style._height = root.style.height === undefined ? 0 : root.style.height
 
@@ -44,9 +44,8 @@ function _draw(root, g) {
 					const rect = new cax.Rect(parseFloat(root.style._width), parseFloat(root.style._height), {
 							fillStyle: root.style.backgroundColor
 					})
-
-					group.x = root.style.x
-					group.y = root.style.y
+					group.x = root.style.x + parseFloat(root.style.left) || 0
+					group.y = root.style.y + parseFloat(root.style.top) || 0
 					group.add(rect)
 					root.childNodes.forEach(child => {
 						_draw(child, group)
@@ -113,8 +112,8 @@ function renderChildren(root, width, height, group) {
 	if (position === 'absolute') {
 			const parent = getParent(root)
 
-			// root.style.x = (parent.style.x || 0 )  + parseFloat( root.style.left)
-			// root.style.y = (parent.style.y || 0 )  + parseFloat( root.style.top)
+			root.style.x = (parent.style.x || 0 )  + parseFloat( root.style.left)
+			root.style.y = (parent.style.y || 0 )  + parseFloat( root.style.top)
 			root.style._width = root.style.width === undefined ? 0 : root.style.width
 
 			root.style._height = root.style.height === undefined ? 0 : root.style.height
@@ -122,7 +121,7 @@ function renderChildren(root, width, height, group) {
 	} else if (display === 'block') {
 			root.style._width = root.style.width === undefined ? (root.parent?root.parent.style._width:window.innerWidth ): root.style.width
 			root.style._height = root.style.height === undefined ? 0 : root.style.height
-			//root.style.x = root.parent?root.parent.style.x:0
+			root.style.x = root.parent?root.parent.style.x:0
 			if (root.preNode) {
 					root.style.y = root.preNode.style.y + root.preNode.style._height
 			} else {
@@ -147,7 +146,7 @@ function renderChildren(root, width, height, group) {
 					root.style._flex = root.style.flex / root.parent.totalFlex
 			}
 
-			//root.style.x = width * root.style._flexPosition / root.parent.totalFlex
+			root.style.x = width * root.style._flexPosition / root.parent.totalFlex
 
 
 			root.style._width = width * root.style._flex
