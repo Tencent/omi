@@ -14,16 +14,24 @@ define('my-counter', class extends WeElement {
   }
 
   buttonStyle = {
-    color: 'red'
+		color: 'red'
   }
 
   testStyle = {
     backgroundColor: 'red'
   }
 
+	divStyle = {
+		position: 'absolute',
+		left: 100,
+		width: 100,
+		height: 100,
+		backgroundColor: 'red'
+	}
+
   render() {
     return (
-      <div>
+      <div style={this.divStyle}>
         <button style={this.buttonStyle} onClick={this.sub}>-</button>
         <span style={this.testStyle}>{this.count}</span>
         <button style={this.buttonStyle} onClick={this.add}>+</button>

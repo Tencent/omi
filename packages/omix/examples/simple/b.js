@@ -189,6 +189,11 @@
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+  var displayMap = {
+  	div: 'block',
+  	span: 'inline-block'
+  };
+
   function registerNode(docId, node) {
   	var doc = getDoc(docId);
   	doc.nodeMap[node.nodeId] = node;
@@ -203,7 +208,9 @@
   		this.ref = this.nodeId;
   		this.type = type;
   		this.attributes = {};
-  		this.style = {};
+  		this.style = {
+  			display: displayMap[type]
+  		};
   		this.classStyle = {};
   		this.event = {};
   		this.childNodes = [];
@@ -426,7 +433,9 @@
   		this.nodeId = uniqueId();
   		this.ref = this.nodeId;
   		this.attributes = {};
-  		this.style = {};
+  		this.style = {
+  			display: 'inline'
+  		};
   		this.classStyle = {};
   		this.event = {};
   		this.value = value;
@@ -6016,23 +6025,21 @@
   						var group = new cax.Group();
   						group.zIndex = root.style.zIndex;
   						group.position = root.style.position;
-  						var rect = new cax.Rect(root.style._width, root.style._height, {
+  						//bg rect
+  						var rect = new cax.Rect(parseFloat(root.style._width), parseFloat(root.style._height), {
   								fillStyle: root.style.backgroundColor
   						});
-  						rect.x = root.style.x;
-  						rect.y = root.style.y;
+  						group.x = root.style.x + parseFloat(root.style.left) || 0;
+  						group.y = root.style.y + parseFloat(root.style.top) || 0;
   						group.add(rect);
   						root.childNodes.forEach(function (child) {
   								_draw(child, group);
   						});
   						g.add(group);
-
   						return group;
   						break;
 
   				case 'text':
-  						console.log(root);
-  						console.log(root.style._color);
   						var text = new cax.Text(root.value, {
   								color: root.style._color
   						});
@@ -6087,20 +6094,20 @@
   		if (position === 'absolute') {
   				var parent = getParent(root);
 
-  				root.style.x = parent.style.x;
-  				root.style.y = parent.style.y;
+  				root.style.x = (parent.style.x || 0) + parseFloat(root.style.left);
+  				root.style.y = (parent.style.y || 0) + parseFloat(root.style.top);
   				root.style._width = root.style.width === undefined ? 0 : root.style.width;
 
   				root.style._height = root.style.height === undefined ? 0 : root.style.height;
   		} else if (display === 'block') {
-  				root.style._width = root.style.width === undefined ? root.parent.style._width : root.style.width;
+  				root.style._width = root.style.width === undefined ? root.parent ? root.parent.style._width : window.innerWidth : root.style.width;
   				root.style._height = root.style.height === undefined ? 0 : root.style.height;
-  				root.style.x = root.parent.style.x;
+  				root.style.x = root.parent ? root.parent.style.x : 0;
   				if (root.preNode) {
   						root.style.y = root.preNode.style.y + root.preNode.style._height;
   				} else {
 
-  						root.style.y = root.parent.style.y;
+  						root.style.y = root.parent ? root.parent.style.y : 0;
   				}
   		} else if (display === 'flex') {
 
@@ -7121,13 +7128,19 @@
         color: 'red'
       }, _this.testStyle = {
         backgroundColor: 'red'
+      }, _this.divStyle = {
+        position: 'absolute',
+        left: 100,
+        width: 100,
+        height: 100,
+        backgroundColor: 'red'
       }, _temp), _possibleConstructorReturn$21(_this, _ret);
     }
 
     _class2.prototype.render = function render$$1() {
       return Omi.h(
         'div',
-        null,
+        { style: this.divStyle },
         Omi.h(
           'button',
           { style: this.buttonStyle, onClick: this.sub },

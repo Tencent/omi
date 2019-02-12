@@ -40,23 +40,21 @@ function _draw(root, g) {
 					const group = new cax.Group()
 					group.zIndex = root.style.zIndex
 					group.position = root.style.position
-					const rect = new cax.Rect(root.style._width, root.style._height, {
+					//bg rect
+					const rect = new cax.Rect(parseFloat(root.style._width), parseFloat(root.style._height), {
 							fillStyle: root.style.backgroundColor
 					})
-					rect.x = root.style.x
-					rect.y = root.style.y
+					group.x = root.style.x + parseFloat(root.style.left) || 0
+					group.y = root.style.y + parseFloat(root.style.top) || 0
 					group.add(rect)
 					root.childNodes.forEach(child => {
 						_draw(child, group)
 					})
 					g.add(group)
-
 					return group
 					break
 
 			case 'text':
-					console.log(root)
-					console.log(root.style._color)
 					const text = new cax.Text(root.value, {
 							color: root.style._color
 					})
@@ -114,21 +112,21 @@ function renderChildren(root, width, height, group) {
 	if (position === 'absolute') {
 			const parent = getParent(root)
 
-			root.style.x = parent.style.x
-			root.style.y = parent.style.y
+			root.style.x = (parent.style.x || 0 )  + parseFloat( root.style.left)
+			root.style.y = (parent.style.y || 0 )  + parseFloat( root.style.top)
 			root.style._width = root.style.width === undefined ? 0 : root.style.width
 
 			root.style._height = root.style.height === undefined ? 0 : root.style.height
 
 	} else if (display === 'block') {
-			root.style._width = root.style.width === undefined ? root.parent.style._width : root.style.width
+			root.style._width = root.style.width === undefined ? (root.parent?root.parent.style._width:window.innerWidth ): root.style.width
 			root.style._height = root.style.height === undefined ? 0 : root.style.height
-			root.style.x = root.parent.style.x
+			root.style.x = root.parent?root.parent.style.x:0
 			if (root.preNode) {
 					root.style.y = root.preNode.style.y + root.preNode.style._height
 			} else {
 
-					root.style.y = root.parent.style.y
+					root.style.y = root.parent?root.parent.style.y:0
 			}
 	} else if (display === 'flex') {
 

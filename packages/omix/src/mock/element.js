@@ -7,6 +7,10 @@ import {
 	removeIndex
 } from './util'
 
+const displayMap = {
+	div: 'block',
+	span: 'inline-block'
+}
 
 function registerNode(docId, node) {
 	const doc = getDoc(docId)
@@ -20,7 +24,9 @@ export default class Element {
 		this.ref = this.nodeId
 		this.type = type
 		this.attributes = {}
-		this.style = {}
+		this.style = {
+			display: displayMap[type]
+		}
 		this.classStyle = {}
 		this.event = {}
 		this.childNodes = []

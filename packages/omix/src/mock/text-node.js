@@ -15,7 +15,9 @@ export default class TextNode {
 		this.nodeId = uniqueId()
 		this.ref = this.nodeId
 		this.attributes = {}
-		this.style = {}
+		this.style = {
+			display: 'inline'
+		}
 		this.classStyle = {}
 		this.event = {}
 		this.value = value
