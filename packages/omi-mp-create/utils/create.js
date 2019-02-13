@@ -89,6 +89,7 @@ function updateByFnProp(ele, data){
 }
 
 let globalStore = null
+let walked = false
 
 function create(store, option) {
   if (arguments.length === 2) {
@@ -110,7 +111,10 @@ function create(store, option) {
 
       store.instances[this.route] = []
       store.instances[this.route].push(this)
-      walk(this.store.data)
+      if(!walked){
+        walk(this.store.data)
+        walked = true
+      }
       this.setData.call(this, this.store.data)
       onLoad && onLoad.call(this, e)
     }
