@@ -13,11 +13,18 @@ define('my-counter', class extends WeElement {
     this.update()
   }
 
-  buttonStyle = {
+  buttonAStyle = {
+    x: 0,
+		color: 'red'
+  }
+
+  buttonBStyle = {
+    x: 40,
 		color: 'red'
   }
 
   testStyle = {
+    x: 20,
     backgroundColor: 'red'
   }
 
@@ -32,9 +39,9 @@ define('my-counter', class extends WeElement {
   render() {
     return (
       <div style={this.divStyle}>
-        <button style={this.buttonStyle} onClick={this.sub}>-</button>
+        <button style={this.buttonAStyle} onClick={this.sub}>-</button>
         <span style={this.testStyle}>{this.count}</span>
-        <button style={this.buttonStyle} onClick={this.add}>+</button>
+        <button style={this.buttonBStyle} onClick={this.add}>+</button>
       </div>
     )
   }

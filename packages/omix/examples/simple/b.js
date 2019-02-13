@@ -5994,157 +5994,162 @@
   };
 
   function draw(root, width, height) {
-  		var stage = new cax.Stage(window.innerWidth, window.innerHeight, 'body');
-  		// root.style.x = 0
-  		// root.style.y = 0
-  		root.style._width = root.style.width === undefined ? width : root.style.width;
-  		root.style._height = root.style.height === undefined ? 0 : root.style.height;
+    var stage = new cax.Stage(window.innerWidth, window.innerHeight, 'body');
+    // root.style.x = 0
+    // root.style.y = 0
+    root.style._width = root.style.width === undefined ? width : root.style.width;
+    root.style._height = root.style.height === undefined ? 0 : root.style.height;
 
-  		var group = _draw(root, stage);
+    var group = _draw(root, stage);
 
-  		if (root.childNodes) {
-  				root.childNodes.forEach(function (child) {
-  						child.style._color = child.style.color || root.style.color;
-  						renderChildren(child, width, height, group);
-  				});
-  		}
+    if (root.childNodes) {
+      root.childNodes.forEach(function (child) {
+        child.style._color = child.style.color || root.style.color;
+        renderChildren(child, width, height, group);
+      });
+    }
 
-  		cax.tick(function () {
-  				stage.update();
-  		});
+    //debug
+    //window.stage = stage
+    //console.log(stage)
 
-  		return stage.canvas;
+    cax.tick(function () {
+      stage.update();
+    });
+
+    return stage.canvas;
   }
 
   function _draw(root, g) {
 
-  		switch (root.type) {
-  				case 'div':
-  				case 'button':
-  				case 'span':
-  						var group = new cax.Group();
-  						group.zIndex = root.style.zIndex;
-  						group.position = root.style.position;
-  						//bg rect
-  						var rect = new cax.Rect(parseFloat(root.style._width), parseFloat(root.style._height), {
-  								fillStyle: root.style.backgroundColor
-  						});
+    switch (root.type) {
+      case 'div':
+      case 'button':
+      case 'span':
+        var group = new cax.Group();
+        group.zIndex = root.style.zIndex;
+        group.position = root.style.position;
+        //bg rect
+        var rect = new cax.Rect(parseFloat(root.style._width), parseFloat(root.style._height), {
+          fillStyle: root.style.backgroundColor
+        });
 
-  						group.x = root.style.x;
-  						group.y = root.style.y;
-  						group.add(rect);
-  						root.childNodes.forEach(function (child) {
-  								_draw(child, group);
-  						});
-  						g.add(group);
-  						return group;
-  						break;
+        group.x = root.style.x || 0;
+        group.y = root.style.y || 0;
+        group.add(rect);
+        root.childNodes.forEach(function (child) {
+          _draw(child, group);
+        });
+        g.add(group);
+        return group;
+        break;
 
-  				case 'text':
-  						var text = new cax.Text(root.value, {
-  								color: root.style._color
-  						});
-  						text.x = root.style.x;
-  						text.y = root.style.y;
+      case 'text':
+        var text = new cax.Text(root.value, {
+          color: root.style._color
+        });
+        text.x = root.style.x || 0;
+        text.y = root.style.y || 0;
 
-  						g.add(text);
+        g.add(text);
 
-  						return text;
-  						break;
+        return text;
+        break;
 
-  				case 'img':
-  						var bmp = new cax.Bitmap(root.src);
-  						bmp.x = root.style.x;
-  						bmp.y = root.style.y;
+      case 'img':
+        var bmp = new cax.Bitmap(root.src);
+        bmp.x = root.style.x || 0;
+        bmp.y = root.style.y || 0;
 
-  						g.add(bmp);
+        g.add(bmp);
 
-  						return bmp;
-  				// case 'button':
+        return bmp;
+      // case 'button':
 
-  				// 	break
+      // 	break
 
-  				// case 'span':
+      // case 'span':
 
-  				// 	break
+      // 	break
 
-  				// case 'div':
+      // case 'div':
 
-  				// 	break
+      // 	break
 
-  		}
+    }
   }
 
   function getParent(root) {
-  		if (!root.parent) {
-  				return root;
-  		} else if (root.parent.style.position !== 'static') {
+    if (!root.parent) {
+      return root;
+    } else if (root.parent.style.position !== 'static') {
 
-  				return root.parent;
-  		} else {
-  				return getParent(root.parent);
-  		}
+      return root.parent;
+    } else {
+      return getParent(root.parent);
+    }
   }
 
   function renderChildren(root, width, height, group) {
-  		//fix it?
+    //fix it?
 
-  		var display = root.parentNode.style.display;
-  		var position = root.style.position;
+    var display = root.parentNode.style.display;
+    var position = root.style.position;
 
-  		if (position === 'absolute') {
-  				var parent = getParent(root);
+    if (position === 'absolute') {
+      var parent = getParent(root);
 
-  				// root.style.x = (parent.style.x || 0 )  + parseFloat( root.style.left)
-  				// root.style.y = (parent.style.y || 0 )  + parseFloat( root.style.top)
-  				root.style._width = root.style.width === undefined ? 0 : root.style.width;
+      // root.style.x = (parent.style.x || 0 )  + parseFloat( root.style.left)
+      // root.style.y = (parent.style.y || 0 )  + parseFloat( root.style.top)
+      root.style._width = root.style.width === undefined ? 0 : root.style.width;
 
-  				root.style._height = root.style.height === undefined ? 0 : root.style.height;
-  		} else if (display === 'block') {
-  				root.style._width = root.style.width === undefined ? root.parent ? root.parent.style._width : window.innerWidth : root.style.width;
-  				root.style._height = root.style.height === undefined ? 0 : root.style.height;
-  				//root.style.x = root.parent?root.parent.style.x:0
-  				if (root.preNode) {
-  						root.style.y = root.preNode.style.y + root.preNode.style._height;
-  				} else {
+      root.style._height = root.style.height === undefined ? 0 : root.style.height;
+    } else if (display === 'block') {
+      root.style._width = root.style.width === undefined ? root.parent ? root.parent.style._width : window.innerWidth : root.style.width;
+      root.style._height = root.style.height === undefined ? 0 : root.style.height;
+      //root.style.x = root.parent?root.parent.style.x:0
+      if (root.preNode) {
+        //	root.style.y = root.preNode.style.y + root.preNode.style._height
+      } else {
 
-  						root.style.y = root.parent ? root.parent.style.y : 0;
-  				}
-  		} else if (display === 'flex') {
+          //	root.style.y = root.parent?root.parent.style.y:0
+        }
+    } else if (display === 'flex') {
 
-  				if (root.parent.totalFlex !== undefined) {
-  						root.style._flex = root.style.flex / root.parent.totalFlex;
-  				} else {
-  						root.parent.totalFlex = 0;
-  						var len = root.parent.children.length;
-  						if (len > 1) {
-  								root.parent.children.forEach(function (child) {
-  										if (child.style.position != 'absolute' && child.style.position != 'fixed') {
-  												child.style._flexPosition = root.parent.totalFlex;
-  												root.parent.totalFlex += child.style.flex;
-  										}
-  								});
-  						}
-  						root.style._flex = root.style.flex / root.parent.totalFlex;
-  				}
+      if (root.parent.totalFlex !== undefined) {
+        root.style._flex = root.style.flex / root.parent.totalFlex;
+      } else {
+        root.parent.totalFlex = 0;
+        var len = root.parent.children.length;
+        if (len > 1) {
+          root.parent.children.forEach(function (child) {
+            if (child.style.position != 'absolute' && child.style.position != 'fixed') {
+              child.style._flexPosition = root.parent.totalFlex;
+              root.parent.totalFlex += child.style.flex;
+            }
+          });
+        }
+        root.style._flex = root.style.flex / root.parent.totalFlex;
+      }
 
-  				//root.style.x = width * root.style._flexPosition / root.parent.totalFlex
+      //root.style.x = width * root.style._flexPosition / root.parent.totalFlex
 
 
-  				root.style._width = width * root.style._flex;
-  				root.style._height = root.style.height === undefined ? 0 : root.style.height;
+      root.style._width = width * root.style._flex;
+      root.style._height = root.style.height === undefined ? 0 : root.style.height;
 
-  				root.style.y = root.parent.style.y;
-  		}
+      //root.style.y = root.parent.style.y
+    }
 
-  		var newg = _draw(root, group);
+    // const newg = _draw(root, group)
 
-  		if (root.children) {
-  				root.children.forEach(function (child) {
-  						child.style._color = child.style.color || root.style.color || root.style._color;
-  						renderChildren(child, width, height, newg);
-  				});
-  		}
+    // if (root.children) {
+    // 		root.children.forEach(child => {
+    // 				child.style._color = child.style.color || root.style.color || root.style._color
+    // 				renderChildren(child, width, height, newg)
+    // 		})
+    // }
+
   }
 
   /** Queue of components that have been mounted and are awaiting componentDidMount */
@@ -7126,9 +7131,14 @@
       }, _this.add = function () {
         _this.count++;
         _this.update();
-      }, _this.buttonStyle = {
+      }, _this.buttonAStyle = {
+        x: 0,
+        color: 'red'
+      }, _this.buttonBStyle = {
+        x: 40,
         color: 'red'
       }, _this.testStyle = {
+        x: 20,
         backgroundColor: 'red'
       }, _this.divStyle = {
         x: 100,
@@ -7145,7 +7155,7 @@
         { style: this.divStyle },
         Omi.h(
           'button',
-          { style: this.buttonStyle, onClick: this.sub },
+          { style: this.buttonAStyle, onClick: this.sub },
           '-'
         ),
         Omi.h(
@@ -7155,7 +7165,7 @@
         ),
         Omi.h(
           'button',
-          { style: this.buttonStyle, onClick: this.add },
+          { style: this.buttonBStyle, onClick: this.add },
           '+'
         )
       );
