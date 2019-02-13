@@ -11,6 +11,7 @@ create(store, {
 
     setTimeout(() => {
       this.store.data.logs[0] = 'Changed!'
+      this.store.data.motto = 'abc'
     }, 1000)
 
 

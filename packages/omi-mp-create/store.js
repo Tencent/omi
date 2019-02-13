@@ -1,5 +1,9 @@
 export default {
   data: {
-    logs: []
+    logs: [],
+    motto: 'Hello World',
+		reverseMotto() {
+      return this.motto.split('').reverse().join('')
+    }
   }
 }

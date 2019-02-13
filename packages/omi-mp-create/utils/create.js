@@ -110,6 +110,7 @@ function create(store, option) {
 
       store.instances[this.route] = []
       store.instances[this.route].push(this)
+      walk(this.store.data)
       this.setData.call(this, this.store.data)
       onLoad && onLoad.call(this, e)
     }
@@ -158,9 +159,18 @@ function _update(kv) {
   for (let key in globalStore.instances) {
     globalStore.instances[key].forEach(ins => {
       ins.setData.call(ins, kv)
+      updateStoreByFnProp(ins, globalStore.data)
     })
   }
   globalStore.onChange && globalStore.onChange(kv)
+}
+
+function updateStoreByFnProp(ele, data){
+	let patch = {}
+	for(let key in data.__fnMapping){
+		patch[key]  = data.__fnMapping[key].call(data)
+	}
+	ele.setData(patch)
 }
 
 
