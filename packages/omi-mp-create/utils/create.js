@@ -16,7 +16,9 @@ function _Page(option) {
   option.onLoad = function (e) {
     this.store = option.store
     this.oData = JSON.parse(JSON.stringify(option.data))
-		walk(option.data)
+    if(!option.data.___walked){
+      walk(option.data)
+    }
 		//fn prop
 		this.setData(option.data)
     observe(this, option.data)
@@ -31,7 +33,9 @@ function _Component(option) {
     const page = getCurrentPages()[getCurrentPages().length - 1]
     this.store = option.store || page.store
     this.oData = JSON.parse(JSON.stringify(option.data))
-		walk(option.data)
+		if(!option.data.___walked){
+      walk(option.data)
+    }
     observe(this, option.data)
     ready && ready.call(this)
   }
@@ -89,7 +93,6 @@ function updateByFnProp(ele, data){
 }
 
 let globalStore = null
-let walked = false
 
 function create(store, option) {
   if (arguments.length === 2) {
@@ -111,9 +114,8 @@ function create(store, option) {
 
       store.instances[this.route] = []
       store.instances[this.route].push(this)
-      if(!walked){
+      if(!option.data.___walked){
         walk(this.store.data)
-        walked = true
       }
       this.setData.call(this, this.store.data)
       onLoad && onLoad.call(this, e)
@@ -212,6 +214,7 @@ function getObjByPath(path, data) {
 }
 
 function walk(data) {
+    data.___walked = true
     Object.keys(data).forEach(key => {
         const obj = data[key]
         const tp = type(obj)
@@ -219,30 +222,30 @@ function walk(data) {
             setProp(key, obj, data)
         } else if (tp == OBJECTTYPE) {
             Object.keys(obj).forEach(subKey => {
-                _walk(obj[subKey], key + '.' + subKey)
+                _walk(obj[subKey], key + '.' + subKey, data)
             })
 
         } else if (tp == ARRAYTYPE) {
             obj.forEach((item, index) => {
-                _walk(item, key + '[' + index + ']')
+                _walk(item, key + '[' + index + ']', data)
             })
 
         }
     })
 }
 
-function _walk(obj, path) {
+function _walk(obj, path, data) {
     const tp = type(obj)
     if (tp == FUNCTIONTYPE) {
         setProp(path, obj, data)
     } else if (tp == OBJECTTYPE) {
         Object.keys(obj).forEach(subKey => {
-            _walk(obj[subKey], path + '.' + subKey)
+            _walk(obj[subKey], path + '.' + subKey, data)
         })
 
     } else if (tp == ARRAYTYPE) {
         obj.forEach((item, index) => {
-            _walk(item, path + '[' + index + ']')
+            _walk(item, path + '[' + index + ']', data)
         })
 
     }

@@ -1,5 +1,9 @@
 <!--logs.wxml-->
 <view class="container log-list">
+  <view class="usermotto">
+      <text class="user-motto">{{motto}}</text>
+      <text class="user-motto">-{{reverseMotto}}</text>
+  </view>
   <block wx:for="{{logs}}" wx:for-item="log">
     <text class="log-item">{{index + 1}}. {{log}}</text>
   </block>

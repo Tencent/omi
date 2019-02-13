@@ -3,7 +3,11 @@ import util from '../../utils/util'
 
 create.Page({
   data: {
-    logs: []
+    logs: [],
+    motto: 'Hello World',
+		reverseMotto() {
+      return this.motto.split('').reverse().join('')
+    }
   },
   onLoad: function () {
     this.oData.logs = (wx.getStorageSync('logs') || []).map(log => {
@@ -12,6 +16,7 @@ create.Page({
 
     setTimeout(() => {
       this.oData.logs[0] = 'Changed!'
+      this.oData.motto = Math.random() +  ''
     }, 1000)
 
 
