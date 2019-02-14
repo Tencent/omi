@@ -149,9 +149,7 @@ define('my-first-element', class extends WeElement {
 
 ```js
 define('my-first-element', class extends WeElement {
-  css() {
-    return `h1 { color: red; }`
-  }
+  css = `h1 { color: red; }`
 
   render(props) {
     return (
@@ -161,14 +159,6 @@ define('my-first-element', class extends WeElement {
 })
 
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
-```
-
-你也可以在 JS 里动态拼接 CSS:
-
-```js
- css() {
-    return `h1 { color: ${Math.random() > 0.5 ? "red" : "blue"}; }`
-  }
 ```
 
 你也可以另起一个文件用来写 CSS，但是需要配置一下 webpack [to-string-loader](https://www.npmjs.com/package/to-string-loader)：
@@ -188,16 +178,18 @@ render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-fi
 
 ```js
 import { define, WeElement } from 'omi'
-import style from '../style/_button.scss'
+import css from '../style/_button.scss'
 
 define('el-button', class extends WeElement {
-    static pure = true
+    css = css
+    ...
+    ...
+```
 
-    css() {
-        return style
-    }
-    ...
-    ...
+或者:
+
+```js
+css = require('../style/_button.scss')
 ```
 
 ### Lifecycle

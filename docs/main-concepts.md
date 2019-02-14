@@ -166,9 +166,7 @@ Trigger custom event by `this.fire` and get the data by  `evt.detail`.
 
 ```js
 define('my-first-element', class extends WeElement {
-  css() {
-    return `h1 { color: red; }`
-  }
+  css = `h1 { color: red; }`
 
   render(props) {
     return (
@@ -178,14 +176,6 @@ define('my-first-element', class extends WeElement {
 })
 
 render(<my-first-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-first-element>, 'body')
-```
-
-You can also dynamically generate the CSS:
-
-```js
- css() {
-    return `h1 { color: ${Math.random() > 0.5 ? "red" : "blue"}; }`
-  }
 ```
 
 You can also write CSS, less and sass separately to another file using [to-string-loader](https://www.npmjs.com/package/to-string-loader) of webpack：
@@ -205,16 +195,18 @@ Then:
 
 ```js
 import { define, WeElement } from 'omi'
-import style from '../style/_button.scss'
+import css from '../style/_button.scss'
 
 define('el-button', class extends WeElement {
-    static pure = true
+    css = css
+    ...
+    ...
+```
 
-    css() {
-        return style
-    }
-    ...
-    ...
+or：
+
+```js
+css = require('../style/_button.scss')
 ```
 
 ### Lifecycle
