@@ -19,7 +19,7 @@
     "get-host": "rollup -c config/rollup.example.js --watch",
     "render-array": "rollup -c config/rollup.example.js --watch",
     "children": "rollup -c config/rollup.example.js --watch",
-    "counter": "rollup -c config/rollup.example.js --watch",
+    "aabb": "rollup -c config/rollup.example.js --watch",
     "fire": "rollup -c config/rollup.example.js --watch",
     "receive-props": "rollup -c config/rollup.example.js --watch",
     "rpx": "rollup -c config/rollup.example.js --watch",
