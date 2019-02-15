@@ -5,9 +5,9 @@ var stage = new cax.Stage(100,100,'body')
 var group = new cax.Group()
 stage.hitAABB = true
 const circle = new cax.Circle(100, {
-  fillStyle: 'red'
+  fillStyle: 'green'
 })
-group.cursor = 'pointer' 
+group.cursor = 'pointer'
 group.width  = 50
 group.height = 50
 
@@ -16,7 +16,7 @@ group.height = 50
 // circle.height = 50
 
 group.on('click',function(){
-  alert(1)
+  console.log(1)
 })
 group.add(circle)
 stage.add(group)
