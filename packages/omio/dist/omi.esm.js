@@ -1,5 +1,5 @@
 /**
- * omi v1.3.4  http://omijs.org
+ * omi v1.3.5  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1829,7 +1829,7 @@ function styleObjToCss(s) {
 }
 
 /** The default export is an alias of `render()`. */
-function renderToString(vnode, store, opts, isSvgMode) {
+function renderToString(vnode, opts, store, isSvgMode, css) {
   if (vnode == null || typeof vnode === 'boolean') {
     return '';
   }
@@ -1838,7 +1838,9 @@ function renderToString(vnode, store, opts, isSvgMode) {
       attributes = vnode.attributes,
       isComponent = false;
   store = store || {};
-  opts = opts || {};
+  opts = Object.assign({
+    scopedCSS: true
+  }, opts);
 
   var pretty = true && opts.pretty,
       indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
@@ -1864,8 +1866,24 @@ function renderToString(vnode, store, opts, isSvgMode) {
     if (c.install) c.install();
     if (c.beforeRender) c.beforeRender();
     rendered = c.render(c.props, c.data, c.store);
+    var tempCss;
+    if (opts.scopedCSS) {
 
-    return renderToString(rendered, store, opts);
+      if (c.css) {
+        var cssStr = typeof c.css === 'function' ? c.css() : c.css;
+        var cssAttr = '_s' + getCtorName(c.constructor);
+
+        tempCss = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
+      }
+      if (c.css) {
+        addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
+      }
+
+      c.scopedCSSAttr = vnode.css;
+      scopeHost(rendered, c.scopedCSSAttr);
+    }
+
+    return renderToString(rendered, opts, store, false, tempCss);
   }
 
   // render JSX to HTML
@@ -1945,7 +1963,7 @@ function renderToString(vnode, store, opts, isSvgMode) {
       var child = vnode.children[i];
       if (child != null && child !== false) {
         var childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
-            ret = renderToString(child, store, opts, childSvgMode);
+            ret = renderToString(child, opts, store, childSvgMode);
         if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
         if (ret) pieces.push(ret);
       }
@@ -1968,6 +1986,7 @@ function renderToString(vnode, store, opts, isSvgMode) {
     s += '</' + nodeName + '>';
   }
 
+  if (css) return css + s;
   return s;
 }
 
@@ -2019,7 +2038,7 @@ options.root.Omi = {
   renderToString: renderToString
 };
 options.root.omi = Omi;
-options.root.Omi.version = 'omio-1.3.4';
+options.root.Omi.version = 'omio-1.3.5';
 
 var omi = {
   h: h,

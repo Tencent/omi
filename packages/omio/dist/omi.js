@@ -681,11 +681,13 @@
         }
         return str || void 0;
     }
-    function renderToString(vnode, store, opts, isSvgMode) {
+    function renderToString(vnode, opts, store, isSvgMode, css) {
         if (null == vnode || 'boolean' == typeof vnode) return '';
         var nodeName = vnode.nodeName, attributes = vnode.attributes, isComponent = !1;
         store = store || {};
-        opts = opts || {};
+        opts = Object.assign({
+            scopedCSS: !0
+        }, opts);
         var pretty = opts.pretty, indentChar = pretty && 'string' == typeof pretty ? pretty : '\t';
         if ('object' != typeof vnode && !nodeName) return encodeEntities(vnode);
         var ctor = mapping$1[nodeName];
@@ -699,7 +701,18 @@
             if (c.install) c.install();
             if (c.beforeRender) c.beforeRender();
             rendered = c.render(c.props, c.data, c.store);
-            return renderToString(rendered, store, opts);
+            var tempCss;
+            if (opts.scopedCSS) {
+                if (c.css) {
+                    var cssStr = 'function' == typeof c.css ? c.css() : c.css;
+                    var cssAttr = '_s' + getCtorName(c.constructor);
+                    tempCss = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
+                }
+                if (c.css) addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
+                c.scopedCSSAttr = vnode.css;
+                scopeHost(rendered, c.scopedCSSAttr);
+            }
+            return renderToString(rendered, opts, store, !1, tempCss);
         }
         var html, s = '';
         if (attributes) {
@@ -746,7 +759,7 @@
             for (var i = 0; i < vnode.children.length; i++) {
                 var child = vnode.children[i];
                 if (null != child && !1 !== child) {
-                    var childSvgMode = 'svg' === nodeName ? !0 : 'foreignObject' === nodeName ? !1 : isSvgMode, ret = renderToString(child, store, opts, childSvgMode);
+                    var childSvgMode = 'svg' === nodeName ? !0 : 'foreignObject' === nodeName ? !1 : isSvgMode, ret = renderToString(child, opts, store, childSvgMode);
                     if (pretty && !hasLarge && isLargeString(ret)) hasLarge = !0;
                     if (ret) pieces.push(ret);
                 }
@@ -758,7 +771,7 @@
             if (pretty && ~s.indexOf('\n')) s += '\n';
             s += '</' + nodeName + '>';
         }
-        return s;
+        if (css) return css + s; else return s;
     }
     function assign$1(obj, props) {
         for (var i in props) obj[i] = props[i];
@@ -1063,7 +1076,7 @@
         renderToString: renderToString
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.3.4';
+    options.root.Omi.version = 'omio-1.3.5';
     var Omi$1 = {
         h: h,
         createElement: h,
