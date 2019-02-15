@@ -3020,7 +3020,7 @@
       o.initAABB();
       if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
         // this._bubbleEvent(o, type, evt);
-
+        o.___$push = true;
         path.push(o);
         //return o
       }
@@ -3031,6 +3031,11 @@
         for (var i = l - 1; i >= 0; i--) {
           var child = list[i];
           this._hitAABB(child, evt, path);
+          if (child.___$push) {
+            delete child.___$push;
+            //同级只找一个就好了，所有 break
+            break;
+          }
           //if (target) return target
         }
       }

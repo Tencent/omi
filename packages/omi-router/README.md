@@ -122,6 +122,16 @@ route('/about', (evt) => {
 })
 ```
 
+## With Data
+
+```js
+route.to('/about',(evt) => {
+  //{ a: 1 }
+  console.log(evt.data)
+})
+route.to('/about', { a: 1 })
+```
+
 ## Links
 
 * [DEMO](https://tencent.github.io/omi/packages/omi-router/examples/simple/)

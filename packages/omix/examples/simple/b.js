@@ -974,6 +974,7 @@
           }
           for (var _i2 in value) {
             node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
+            console.log(_i2, IS_NON_DIMENSIONAL.test(_i2) === false, node.style[_i2]);
           }
         }
       } else {
@@ -4074,30 +4075,46 @@
       for (var i = l - 1; i >= 0; i--) {
         var child = list[i];
         // if (!this.isbindingEvent(child)) continue;
-        var target = this._hitAABB(child, evt);
-        if (target) return target;
+        var path = this._hitAABB(child, evt, [], true);
+
+        console.log(path);
+        if (path.length > 0) {
+          var target = path[path.length - 1];
+          this._dispatchEvent(target, evt);
+          return target;
+        }
       }
     };
 
-    HitRender.prototype._hitAABB = function _hitAABB(o, evt) {
+    HitRender.prototype._hitAABB = function _hitAABB(o, evt, path, rootCall) {
       if (o.ignoreHit || !o.isVisible()) {
         return;
       }
+
+      o.initAABB();
+      if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
+        // this._bubbleEvent(o, type, evt);
+        o.___$push = true;
+        path.push(o);
+        //return o
+      }
+
       if (o instanceof Group) {
         var list = o.children.slice(0),
             l = list.length;
         for (var i = l - 1; i >= 0; i--) {
           var child = list[i];
-          var target = this._hitAABB(child, evt);
-          if (target) return target;
+          this._hitAABB(child, evt, path);
+          if (child.___$push) {
+            delete child.___$push;
+            break;
+          }
+          //if (target) return target
         }
-      } else {
-        o.initAABB();
-        if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
-          // this._bubbleEvent(o, type, evt);
-          this._dispatchEvent(o, evt);
-          return o;
-        }
+      }
+
+      if (rootCall) {
+        return path;
       }
     };
 
@@ -6009,8 +6026,9 @@
       });
     }
 
+    stage.hitAABB = true;
     //debug
-    //window.stage = stage
+    window.stage = stage;
     //console.log(stage)
 
     cax.tick(function () {
@@ -6027,6 +6045,9 @@
       case 'button':
       case 'span':
         var group = new cax.Group();
+        group.width = parseFloat(root.style.width);
+        group.height = parseFloat(root.style.height);
+        group.cursor = root.style.cursor;
         group.zIndex = root.style.zIndex;
         group.position = root.style.position;
         //bg rect
@@ -7133,10 +7154,18 @@
         _this.update();
       }, _this.buttonAStyle = {
         x: 0,
-        color: 'red'
+        color: 'red',
+        cursor: 'pointer',
+        backgroundColor: 'green',
+        width: 20,
+        height: 20
       }, _this.buttonBStyle = {
         x: 40,
-        color: 'red'
+        color: 'red',
+        cursor: 'pointer',
+        backgroundColor: 'green',
+        width: 20,
+        height: 20
       }, _this.testStyle = {
         x: 20,
         backgroundColor: 'red'

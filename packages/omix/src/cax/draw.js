@@ -24,6 +24,7 @@ export function draw(root, width, height) {
     })
   }
 
+  stage.hitAABB = true
   //debug
   //window.stage = stage
   //console.log(stage)
@@ -42,6 +43,9 @@ function _draw(root, g) {
     case 'button':
     case 'span':
       const group = new cax.Group()
+      group.width = parseFloat(root.style.width)
+      group.height = parseFloat(root.style.height)
+      group.cursor = root.style.cursor
       group.zIndex = root.style.zIndex
       group.position = root.style.position
       //bg rect

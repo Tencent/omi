@@ -123,6 +123,16 @@ route('/about', (evt) => {
 })
 ```
 
+## 携带 JSON Data
+
+```js
+route.to('/about',(evt) => {
+  //{ a: 1 }
+  console.log(evt.data)
+})
+route.to('/about', { a: 1 })
+```
+
 ### 地址
 
 * [在线演示地址](https://tencent.github.io/omi/packages/omi-router/examples/simple/)
