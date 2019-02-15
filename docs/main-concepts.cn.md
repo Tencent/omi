@@ -700,7 +700,14 @@ render(<my-counter />, 'body')
 ### SSR
 
 * https://github.com/Tencent/omi/blob/master/packages/omio/src/render-to-string.js
-* https://github.com/Tencent/omi/blob/master/packages/omio/examples/render-to-string/main.js#L57
+* https://github.com/Tencent/omi/blob/master/packages/omio/examples/render-to-string/main.js#L61-L63
+
+```js
+renderToString(<todo-app />, {
+  //是否包含局部样式的开关
+  scopedCSS: true
+})
+```
 
 <!-- 推荐尝试的框架:
 
