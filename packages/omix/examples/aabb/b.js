@@ -3001,59 +3001,42 @@
           l = list.length;
       for (var i = l - 1; i >= 0; i--) {
         var child = list[i];
-        // if (!this.isbindingEvent(child)) continue; 
-        var target = this._hitAABB(child, evt, []);
-        console.log(target);
-        console.log(33);
-        if (target) {
-          if (Object.prototype.toString.call(target) !== "[object Array]") {
-            target.length > 0 && this._dispatchEvent(target[target.length - 1], evt);
-          }
+        // if (!this.isbindingEvent(child)) continue;
+        var path = this._hitAABB(child, evt, [], true);
+
+        if (path.length > 0) {
+          var target = path[path.length - 1];
+          this._dispatchEvent(target, evt);
           return target;
         }
       }
     };
 
-    HitRender.prototype._hitAABB = function _hitAABB(o, evt, evtPath) {
-
+    HitRender.prototype._hitAABB = function _hitAABB(o, evt, path, rootCall) {
       if (o.ignoreHit || !o.isVisible()) {
         return;
       }
+
+      o.initAABB();
+      if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
+        // this._bubbleEvent(o, type, evt);
+
+        path.push(o);
+        //return o
+      }
+
       if (o instanceof Group) {
-        o.initAABB();
-        if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
-          console.log(o);
-          evtPath.push(o);
-        }
         var list = o.children.slice(0),
             l = list.length;
         for (var i = l - 1; i >= 0; i--) {
           var child = list[i];
-          var target = this._hitAABB(child, evt, evtPath);
+          this._hitAABB(child, evt, path);
+          //if (target) return target
+        }
+      }
 
-          if (target) {
-            if (evtPath.length > 0 && i === 0) {
-              return evtPath;
-            }
-            return target;
-          }
-          // else if( evtPath.length > 0  && i === 0){
-          //   console.log(2)
-          //   return evtPath
-          // }
-          // if( evtPath.length > 0  && i === 0){
-          //     console.log(2)
-          //     return evtPath
-          // }
-        }
-      } else {
-        o.initAABB();
-        if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
-          console.log(4);
-          // this._bubbleEvent(o, type, evt);
-          this._dispatchEvent(o, evt);
-          return o;
-        }
+      if (rootCall) {
+        return path;
       }
     };
 
@@ -3618,12 +3601,7 @@
       }
       this.offset = this._getOffset(this.canvas);
       var obj = this._getObjectUnderPoint(evt);
-
-      if (Object.prototype.toString.call(obj) === "[object Array]") {
-        this.willDragObject = obj[obj.length - 1];
-      } else {
-        this.willDragObject = obj;
-      }
+      this.willDragObject = obj;
       this._mouseDownX = evt.stageX;
       this._mouseDownY = evt.stageY;
       this.preStageX = evt.stageX;
@@ -3679,16 +3657,6 @@
       }
       if (this.disableMoveDetection) return;
       var obj = this._getObjectUnderPoint(evt);
-
-      //event path only!
-      if (Object.prototype.toString.call(obj) === "[object Array]") {
-        for (var i = obj.length - 1; i > -1; i--) {
-          if (obj[i].cursor) {
-            this.canvas.style.cursor = obj[i].cursor;
-          }
-        }
-        obj = obj[obj.length - 1];
-      }
       var mockEvt = new Event();
       mockEvt.stageX = evt.stageX;
       mockEvt.stageY = evt.stageY;
@@ -4969,7 +4937,7 @@
   var group = new cax.Group();
   stage.hitAABB = true;
   var circle = new cax.Circle(100, {
-    fillStyle: 'red'
+    fillStyle: 'green'
   });
   group.cursor = 'pointer';
   group.width = 50;
@@ -4980,7 +4948,7 @@
   // circle.height = 50
 
   group.on('click', function () {
-    alert(1);
+    console.log(1);
   });
   group.add(circle);
   stage.add(group);
