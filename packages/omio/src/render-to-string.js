@@ -9,6 +9,14 @@
 
 import options from './options'
 
+import {
+  addScopedAttrStatic,
+  getCtorName,
+  scopeHost,
+  scoper
+} from './style'
+
+
 const encodeEntities = s => String(s)
   .replace(/&/g, '&amp;')
   .replace(/</g, '&lt;')
@@ -46,7 +54,7 @@ function styleObjToCss(s) {
 }
 
 /** The default export is an alias of `render()`. */
-export function renderToString(vnode, store, opts, isSvgMode) {
+export function renderToString(vnode, opts, store, isSvgMode, css) {
   if (vnode == null || typeof vnode === 'boolean') {
     return '';
   }
@@ -55,7 +63,9 @@ export function renderToString(vnode, store, opts, isSvgMode) {
     attributes = vnode.attributes,
     isComponent = false;
   store = store || {};
-  opts = opts || {};
+  opts = Object.assign({
+    scopedCSS: true
+  },opts)
 
   let pretty = true && opts.pretty,
     indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
@@ -81,10 +91,27 @@ export function renderToString(vnode, store, opts, isSvgMode) {
     if (c.install) c.install();
     if (c.beforeRender) c.beforeRender();
     rendered = c.render(c.props, c.data, c.store);
+    let tempCss 
+    if(opts.scopedCSS){
 
+      if(c.css){
+        const cssStr = typeof c.css === 'function' ? c.css() : c.css
+        const cssAttr = '_s' + getCtorName(c.constructor)
 
+        tempCss = `<style type="text/css" id="${cssAttr}">${scoper(cssStr, cssAttr)}</style>`
+      }
+      if (c.css) {
+        addScopedAttrStatic(
+          rendered,
+          '_s' + getCtorName(c.constructor)
+        )
+      }
+    
+      c.scopedCSSAttr = vnode.css
+      scopeHost(rendered, c.scopedCSSAttr)
+    }
 
-    return renderToString(rendered, store, opts);
+    return renderToString(rendered, opts, store, false, tempCss);
   }
 
 
@@ -168,7 +195,7 @@ export function renderToString(vnode, store, opts, isSvgMode) {
       let child = vnode.children[i];
       if (child != null && child !== false) {
         let childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
-          ret = renderToString(child, store, opts, childSvgMode);
+          ret = renderToString(child, opts, store, childSvgMode);
         if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
         if (ret) pieces.push(ret);
       }
@@ -192,6 +219,7 @@ export function renderToString(vnode, store, opts, isSvgMode) {
     s += `</${nodeName}>`;
   }
 
+  if(css) return css + s;
   return s;
 }
 

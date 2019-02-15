@@ -351,7 +351,7 @@
   var ATTR_KEY = '__omiattr_';
 
   // DOM properties that should NOT have "px" added when numeric
-  var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+  var IS_NON_DIMENSIONAL$1 = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
   /** Managed queue of dirty components to be re-rendered */
 
@@ -371,6 +371,7 @@
     }
   }
 
+  var mapping = options.mapping;
   /**
    * Check if two nodes are equivalent.
    *
@@ -383,11 +384,14 @@
     if (typeof vnode === 'string' || typeof vnode === 'number') {
       return node.splitText !== undefined;
     }
-    var ctor = options.mapping[vnode.nodeName];
-    if (ctor) {
-      return hydrating || node._componentConstructor === ctor;
+    if (typeof vnode.nodeName === 'string') {
+      var ctor = mapping[vnode.nodeName];
+      if (ctor) {
+        return hydrating || node._componentConstructor === ctor;
+      }
+      return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
     }
-    return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+    return hydrating || node._componentConstructor === vnode.nodeName;
   }
 
   /**
@@ -511,7 +515,7 @@
             }
           }
           for (var _i2 in value) {
-            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
+            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL$1.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
           }
         }
       } else {
@@ -823,6 +827,9 @@
     var vnodeName = vnode.nodeName;
     if (options.mapping[vnodeName]) {
       vnode.nodeName = options.mapping[vnodeName];
+      return buildComponentFromVNode(dom, vnode, context, mountAll);
+    }
+    if (typeof vnodeName == 'function') {
       return buildComponentFromVNode(dom, vnode, context, mountAll);
     }
 
@@ -1607,11 +1614,13 @@
     applyRef(component.__ref, null);
   }
 
+  var _class, _temp;
+
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var id = 0;
 
-  var Component = function () {
+  var Component = (_temp = _class = function () {
     function Component(props, store) {
       _classCallCheck(this, Component);
 
@@ -1647,9 +1656,7 @@
     Component.prototype.render = function render() {};
 
     return Component;
-  }();
-
-  Component.is = 'WeElement';
+  }(), _class.is = 'WeElement', _temp);
 
   /** Render JSX into a `parent` Element.
    *	@param {VNode} vnode		A (JSX) VNode to render
@@ -1683,13 +1690,15 @@
     });
   }
 
+  var _class$1, _temp$1;
+
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  var ModelView = function (_Component) {
+  var ModelView = (_temp$1 = _class$1 = function (_Component) {
     _inherits(ModelView, _Component);
 
     function ModelView() {
@@ -1703,10 +1712,7 @@
     };
 
     return ModelView;
-  }(Component);
-
-  ModelView.observe = true;
-  ModelView.mergeUpdate = true;
+  }(Component), _class$1.observe = true, _class$1.mergeUpdate = true, _temp$1);
 
   /**
    * classNames based on https://github.com/JedWatson/classnames
@@ -1791,11 +1797,42 @@
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   };
 
-  var mapping = options.mapping;
+  var indent = function indent(s, char) {
+    return String(s).replace(/(\n+)/g, '$1' + (char || '\t'));
+  };
+
+  var mapping$1 = options.mapping;
+
   var VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
 
+  var isLargeString = function isLargeString(s, length, ignoreLines) {
+    return String(s).length > (length || 40) || !ignoreLines && String(s).indexOf('\n') !== -1 || String(s).indexOf('<') !== -1;
+  };
+
+  var JS_TO_CSS = {};
+
+  // Convert an Object style to a CSSText string
+  function styleObjToCss(s) {
+    var str = '';
+    for (var prop in s) {
+      var val = s[prop];
+      if (val != null) {
+        if (str) str += ' ';
+        // str += jsToCss(prop);
+        str += JS_TO_CSS[prop] || (JS_TO_CSS[prop] = prop.replace(/([A-Z])/g, '-$1').toLowerCase());
+        str += ': ';
+        str += val;
+        if (typeof val === 'number' && IS_NON_DIMENSIONAL.test(prop) === false) {
+          str += 'px';
+        }
+        str += ';';
+      }
+    }
+    return str || undefined;
+  }
+
   /** The default export is an alias of `render()`. */
-  function renderToString(vnode, store, opts, isSvgMode) {
+  function renderToString(vnode, opts, store, isSvgMode, css) {
     if (vnode == null || typeof vnode === 'boolean') {
       return '';
     }
@@ -1804,7 +1841,9 @@
         attributes = vnode.attributes,
         isComponent = false;
     store = store || {};
-    opts = opts || {};
+    opts = Object.assign({
+      scopedCSS: true
+    }, opts);
 
     var pretty = true && opts.pretty,
         indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
@@ -1815,7 +1854,7 @@
     }
 
     // components
-    var ctor = mapping[nodeName];
+    var ctor = mapping$1[nodeName];
     if (ctor) {
       isComponent = true;
 
@@ -1830,8 +1869,24 @@
       if (c.install) c.install();
       if (c.beforeRender) c.beforeRender();
       rendered = c.render(c.props, c.data, c.store);
+      var tempCss = void 0;
+      if (opts.scopedCSS) {
 
-      return renderToString(rendered, store, opts);
+        if (c.css) {
+          var cssStr = typeof c.css === 'function' ? c.css() : c.css;
+          var cssAttr = '_s' + getCtorName(c.constructor);
+
+          tempCss = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
+        }
+        if (c.css) {
+          addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
+        }
+
+        c.scopedCSSAttr = vnode.css;
+        scopeHost(rendered, c.scopedCSSAttr);
+      }
+
+      return renderToString(rendered, opts, store, false, tempCss);
     }
 
     // render JSX to HTML
@@ -1911,7 +1966,7 @@
         var child = vnode.children[_i];
         if (child != null && child !== false) {
           var childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
-              ret = renderToString(child, store, opts, childSvgMode);
+              ret = renderToString(child, opts, store, childSvgMode);
           if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
           if (ret) pieces.push(ret);
         }
@@ -1934,6 +1989,7 @@
       s += '</' + nodeName + '>';
     }
 
+    if (css) return css + s;
     return s;
   }
 
@@ -1985,9 +2041,9 @@
     renderToString: renderToString
   };
   options.root.omi = Omi;
-  options.root.Omi.version = 'omio-1.3.2';
+  options.root.Omi.version = 'omio-1.3.4';
 
-  var _class2, _temp2;
+  var _class3, _temp3;
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1996,15 +2052,21 @@
   function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
   define('todo-list', function (_WeElement) {
-    _inherits$1(_class, _WeElement);
+    _inherits$1(_class2, _WeElement);
 
-    function _class() {
-      _classCallCheck$2(this, _class);
+    function _class2() {
+      var _temp, _this, _ret;
 
-      return _possibleConstructorReturn$1(this, _WeElement.apply(this, arguments));
+      _classCallCheck$2(this, _class2);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.css = 'li { color:green; }', _temp), _possibleConstructorReturn$1(_this, _ret);
     }
 
-    _class.prototype.render = function render$$1(props) {
+    _class2.prototype.render = function render$$1(props) {
       return Omi.h(
         'ul',
         null,
@@ -2018,22 +2080,22 @@
       );
     };
 
-    return _class;
+    return _class2;
   }(WeElement));
 
-  define('todo-app', (_temp2 = _class2 = function (_WeElement2) {
-    _inherits$1(_class2, _WeElement2);
+  define('todo-app', (_temp3 = _class3 = function (_WeElement2) {
+    _inherits$1(_class3, _WeElement2);
 
-    function _class2() {
-      var _temp, _this2, _ret;
+    function _class3() {
+      var _temp2, _this2, _ret2;
 
-      _classCallCheck$2(this, _class2);
+      _classCallCheck$2(this, _class3);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
+      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
       }
 
-      return _ret = (_temp = (_this2 = _possibleConstructorReturn$1(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this2), _this2.data = { items: [], text: '' }, _this2.handleChange = function (e) {
+      return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn$1(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this2), _this2.css = 'h3 { color:red; }', _this2.data = { items: [], text: '' }, _this2.handleChange = function (e) {
         _this2.data.text = e.target.value;
       }, _this2.handleSubmit = function (e) {
         e.preventDefault();
@@ -2045,10 +2107,10 @@
           id: Date.now()
         });
         _this2.data.text = '';
-      }, _temp), _possibleConstructorReturn$1(_this2, _ret);
+      }, _temp2), _possibleConstructorReturn$1(_this2, _ret2);
     }
 
-    _class2.prototype.render = function render$$1() {
+    _class3.prototype.render = function render$$1() {
       return Omi.h(
         'div',
         null,
@@ -2076,12 +2138,14 @@
       );
     };
 
-    return _class2;
-  }(WeElement), _class2.observe = true, _temp2));
+    return _class3;
+  }(WeElement), _class3.observe = true, _temp3));
 
   render(Omi.h('todo-app', null), 'body');
 
-  console.log(renderToString(Omi.h('todo-app', null)));
+  console.log(renderToString(Omi.h('todo-app', null), {
+    scopedCSS: true
+  }));
 
 }());
 //# sourceMappingURL=b.js.map

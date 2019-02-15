@@ -1,6 +1,8 @@
 import { render, WeElement, define, renderToString} from '../../src/omi'
 
 define('todo-list', class extends WeElement {
+  css = 'li { color:green; }'
+
   render(props) {
     return (
       <ul>
@@ -14,6 +16,8 @@ define('todo-list', class extends WeElement {
 
 define('todo-app', class extends WeElement {
   static observe = true
+  
+  css = 'h3 { color:red; }'
 
   data = { items: [], text: '' }
 
@@ -54,4 +58,6 @@ define('todo-app', class extends WeElement {
 render(<todo-app />, 'body')
 
 
-console.log(renderToString(<todo-app />))
+console.log(renderToString(<todo-app />,{
+  scopedCSS: true
+}))
