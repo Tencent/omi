@@ -426,7 +426,7 @@
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var TextNode = function () {
-  	function TextNode(value) {
+  	function TextNode(nodeValue) {
   		_classCallCheck$1(this, TextNode);
 
   		this.nodeType = 3;
@@ -438,7 +438,7 @@
   		};
   		this.classStyle = {};
   		this.event = {};
-  		this.value = value;
+  		this.nodeValue = nodeValue;
   		this.parentNode = null;
   		this.nextSibling = null;
   		this.previousSibling = null;
@@ -468,6 +468,8 @@
   	TextNode.prototype.toStyle = function toStyle() {
   		return Object.assign({}, this.classStyle, this.style);
   	};
+
+  	TextNode.prototype.splitText = function splitText() {};
 
   	TextNode.prototype.getComputedStyle = function getComputedStyle() {};
 
@@ -974,7 +976,6 @@
           }
           for (var _i2 in value) {
             node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
-            console.log(_i2, IS_NON_DIMENSIONAL.test(_i2) === false, node.style[_i2]);
           }
         }
       } else {
@@ -4077,7 +4078,6 @@
         // if (!this.isbindingEvent(child)) continue;
         var path = this._hitAABB(child, evt, [], true);
 
-        console.log(path);
         if (path.length > 0) {
           var target = path[path.length - 1];
           this._dispatchEvent(target, evt);
@@ -4107,6 +4107,7 @@
           this._hitAABB(child, evt, path);
           if (child.___$push) {
             delete child.___$push;
+            //同级只找一个就好了，所有 break
             break;
           }
           //if (target) return target
@@ -6028,7 +6029,7 @@
 
     stage.hitAABB = true;
     //debug
-    window.stage = stage;
+    //window.stage = stage
     //console.log(stage)
 
     cax.tick(function () {
@@ -6066,9 +6067,11 @@
         break;
 
       case 'text':
-        var text = new cax.Text(root.value, {
+        var text = new cax.Text(root.nodeValue, {
           color: root.style._color
         });
+        //link it by _renderText
+        root._renderText = text;
         text.x = root.style.x || 0;
         text.y = root.style.y || 0;
 
@@ -6316,6 +6319,8 @@
     if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {
       if (fc.nodeValue != vchildren[0]) {
         fc.nodeValue = vchildren[0];
+        //update rendering obj
+        fc._renderText.text = fc.nodeValue;
       }
     }
     // otherwise, if there are existing or new children, diff them:
@@ -7177,6 +7182,15 @@
         backgroundColor: 'green'
       }, _temp), _possibleConstructorReturn$21(_this, _ret);
     }
+
+    _class2.prototype.installed = function installed() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.count = 424;
+        _this2.update();
+      }, 3000);
+    };
 
     _class2.prototype.render = function render$$1() {
       return Omi.h(

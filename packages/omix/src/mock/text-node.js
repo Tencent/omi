@@ -10,7 +10,7 @@ function registerNode(docId, node) {
 }
 
 export default class TextNode {
-	constructor(value) {
+	constructor(nodeValue) {
 		this.nodeType = 3
 		this.nodeId = uniqueId()
 		this.ref = this.nodeId
@@ -20,7 +20,7 @@ export default class TextNode {
 		}
 		this.classStyle = {}
 		this.event = {}
-		this.value = value
+		this.nodeValue = nodeValue
 		this.parentNode = null
 		this.nextSibling = null
 		this.previousSibling = null
@@ -50,6 +50,10 @@ export default class TextNode {
 
 	toStyle() {
 		return Object.assign({}, this.classStyle, this.style)
+	}
+
+	splitText() {
+
 	}
 
 	getComputedStyle() { }

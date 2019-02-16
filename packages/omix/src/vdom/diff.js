@@ -167,7 +167,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     fc.nextSibling == null
   ) {
     if (fc.nodeValue != vchildren[0]) {
-      fc.nodeValue = vchildren[0]
+			fc.nodeValue = vchildren[0]
+			//update rendering obj
+			fc._renderText.text = fc.nodeValue
     }
   }
   // otherwise, if there are existing or new children, diff them:
@@ -291,7 +293,7 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
       if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false)
   }
 
-  // remove orphaned unkeyed children:
+	// remove orphaned unkeyed children:
   while (min <= childrenLen) {
     if ((child = children[childrenLen--]) !== undefined)
       recollectNodeTree(child, false)

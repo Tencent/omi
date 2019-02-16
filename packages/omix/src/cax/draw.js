@@ -64,9 +64,11 @@ function _draw(root, g) {
       break
 
     case 'text':
-      const text = new cax.Text(root.value, {
+      const text = new cax.Text(root.nodeValue, {
         color: root.style._color
-      })
+			})
+			//link it by _renderText
+			root._renderText = text
       text.x = root.style.x || 0
       text.y = root.style.y || 0
 

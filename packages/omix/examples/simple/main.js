@@ -44,11 +44,18 @@ define('my-counter', class extends WeElement {
 		backgroundColor: 'green'
 	}
 
+	installed(){
+		setTimeout(() => {
+			this.count = 424
+			this.update()
+		}, 3000)
+	}
+
   render() {
     return (
       <div style={this.divStyle}>
          <button style={this.buttonAStyle} onClick={this.sub}>-</button>
-        <span style={this.testStyle}>{this.count}</span> 
+        <span style={this.testStyle}>{this.count}</span>
         <button style={this.buttonBStyle} onClick={this.add}>+</button>
       </div>
     )
