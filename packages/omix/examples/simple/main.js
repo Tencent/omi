@@ -40,15 +40,8 @@ define('my-counter', class extends WeElement {
 		x: 100,
 		y: 100,
     width: 100,
-		height: 100,
-		backgroundColor: 'green'
-	}
-
-	installed(){
-		setTimeout(() => {
-			this.count = 424
-			this.update()
-		}, 3000)
+		height: 40,
+		backgroundColor: '#ccc'
 	}
 
   render() {
