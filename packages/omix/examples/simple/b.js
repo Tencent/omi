@@ -6070,13 +6070,14 @@
   			break;
 
   		case 'text':
+  			var lh = getLineHeight(root);
   			var text = new cax.Text(root.nodeValue, {
   				color: root.style._color
   			});
   			//link it by _renderText
   			root._renderText = text;
   			text.x = root.style.x || 0;
-  			text.y = root.style.y || 0;
+  			text.y = (root.style.y || 0) + lh / 2 - 5;
 
   			g.add(text);
 
@@ -6106,14 +6107,25 @@
   	}
   }
 
-  function getParent(root) {
-  	if (!root.parent) {
-  		return root;
-  	} else if (root.parent.style.position !== 'static') {
+  function getLineHeight(root) {
+  	if (!root.parentNode) {
+  		return 10;
+  	} else if (root.parentNode.style.display === 'block' && root.parentNode.style.lineHeight) {
 
-  		return root.parent;
+  		return root.parentNode.style.lineHeight;
   	} else {
-  		return getParent(root.parent);
+  		return getLineHeight(root.parentNode);
+  	}
+  }
+
+  function getParent(root) {
+  	if (!root.parentNode) {
+  		return root;
+  	} else if (root.parentNode.style.position !== 'static') {
+
+  		return root.parentNode;
+  	} else {
+  		return getParent(root.parentNode);
   	}
   }
 
@@ -7182,7 +7194,9 @@
         y: 100,
         width: 100,
         height: 40,
-        backgroundColor: '#ccc'
+        backgroundColor: '#ccc',
+        lineHeight: 40,
+        textAlign: 'center'
       }, _temp), _possibleConstructorReturn$21(_this, _ret);
     }
 

@@ -41,7 +41,9 @@ define('my-counter', class extends WeElement {
 		y: 100,
     width: 100,
 		height: 40,
-		backgroundColor: '#ccc'
+    backgroundColor: '#ccc',
+    lineHeight: 40,
+    textAlign: 'center'
 	}
 
   render() {

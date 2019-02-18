@@ -67,13 +67,14 @@ function _draw(root, g) {
 			break
 
 		case 'text':
+			const lh = getLineHeight(root)
 			const text = new cax.Text(root.nodeValue, {
 				color: root.style._color
 			})
 			//link it by _renderText
 			root._renderText = text
 			text.x = root.style.x || 0
-			text.y = root.style.y || 0
+			text.y = (root.style.y || 0) + lh / 2 - 5
 
 			g.add(text)
 
@@ -104,15 +105,28 @@ function _draw(root, g) {
 
 }
 
-function getParent(root) {
-	if (!root.parent) {
-		return root
-	} else if (root.parent.style.position !== 'static') {
 
-		return root.parent
+function getLineHeight(root) {
+	if (!root.parentNode) {
+		return 10
+	} else if (root.parentNode.style.display === 'block' && root.parentNode.style.lineHeight) {
+
+		return root.parentNode.style.lineHeight
 
 	} else {
-		return getParent(root.parent)
+		return getLineHeight(root.parentNode)
+	}
+}
+
+function getParent(root) {
+	if (!root.parentNode) {
+		return root
+	} else if (root.parentNode.style.position !== 'static') {
+
+		return root.parentNode
+
+	} else {
+		return getParent(root.parentNode)
 	}
 }
 
