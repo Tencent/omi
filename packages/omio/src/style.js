@@ -90,19 +90,6 @@ export function addStyleWithoutId(cssText) {
   }
 }
 
-export function addScopedAttr(vdom, style, attr, component) {
-  if (options.scopedStyle) {
-    scopeVdom(attr, vdom)
-    style = scoper(style, attr)
-    if (style !== component._preCss) {
-      addStyle(style, attr)
-    }
-  } else if (style !== component._preCss) {
-    addStyleWithoutId(style)
-  }
-  component._preCss = style
-}
-
 export function addScopedAttrStatic(vdom, attr) {
   if (options.scopedStyle) {
     scopeVdom(attr, vdom)

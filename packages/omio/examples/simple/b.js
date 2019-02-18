@@ -284,6 +284,16 @@
     }return obj;
   }
 
+  /** Invoke or update a ref, depending on whether it is a function or object ref.
+   *  @param {object|function} [ref=null]
+   *  @param {any} [value]
+   */
+  function applyRef(ref, value) {
+    if (ref) {
+      if (typeof ref == 'function') ref(value);else ref.current = value;
+    }
+  }
+
   /**
    * Call a function asynchronously, as soon as possible. Makes
    * use of HTML Promise to schedule the callback if available,
@@ -341,7 +351,7 @@
   var ATTR_KEY = '__omiattr_';
 
   // DOM properties that should NOT have "px" added when numeric
-  var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+  var IS_NON_DIMENSIONAL$1 = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
   /** Managed queue of dirty components to be re-rendered */
 
@@ -361,6 +371,7 @@
     }
   }
 
+  var mapping = options.mapping;
   /**
    * Check if two nodes are equivalent.
    *
@@ -373,11 +384,14 @@
     if (typeof vnode === 'string' || typeof vnode === 'number') {
       return node.splitText !== undefined;
     }
-    var ctor = options.mapping[vnode.nodeName];
-    if (ctor) {
-      return hydrating || node._componentConstructor === ctor;
+    if (typeof vnode.nodeName === 'string') {
+      var ctor = mapping[vnode.nodeName];
+      if (ctor) {
+        return hydrating || node._componentConstructor === ctor;
+      }
+      return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
     }
-    return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+    return hydrating || node._componentConstructor === vnode.nodeName;
   }
 
   /**
@@ -485,8 +499,8 @@
     if (name === 'key') {
       // ignore
     } else if (name === 'ref') {
-      if (old) old(null);
-      if (value) value(node);
+      applyRef(old, null);
+      applyRef(value, node);
     } else if (name === 'class' && !isSvg) {
       node.className = value || '';
     } else if (name === 'style') {
@@ -501,7 +515,7 @@
             }
           }
           for (var _i2 in value) {
-            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
+            node.style[_i2] = typeof value[_i2] === 'number' && IS_NON_DIMENSIONAL$1.test(_i2) === false ? value[_i2] + 'px' : value[_i2];
           }
         }
       } else {
@@ -601,6 +615,131 @@
     }
   }
 
+  var styleId = 0;
+
+  function getCtorName(ctor) {
+    for (var i = 0, len = options.styleCache.length; i < len; i++) {
+      var item = options.styleCache[i];
+
+      if (item.ctor === ctor) {
+        return item.attrName;
+      }
+    }
+
+    var attrName = 's' + styleId;
+    options.styleCache.push({ ctor: ctor, attrName: attrName });
+    styleId++;
+
+    return attrName;
+  }
+
+  // many thanks to https://github.com/thomaspark/scoper/
+  function scoper(css, prefix) {
+    prefix = '[' + prefix.toLowerCase() + ']';
+    // https://www.w3.org/TR/css-syntax-3/#lexical
+    css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
+    // eslint-disable-next-line
+    var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)', 'g');
+    /**
+     * Example:
+     *
+     * .classname::pesudo { color:red }
+     *
+     * g1 is normal selector `.classname`
+     * g2 is pesudo class or pesudo element
+     * g3 is the suffix
+     */
+    css = css.replace(re, function (g0, g1, g2, g3) {
+      if (typeof g2 === 'undefined') {
+        g2 = '';
+      }
+
+      /* eslint-ignore-next-line */
+      if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) {
+        return g1 + g2 + g3;
+      }
+
+      var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
+      //let prependClass = prefix + ' ' + g1.trim() + g2;
+
+      return appendClass + g3;
+      //return appendClass + ',' + prependClass + g3;
+    });
+
+    return css;
+  }
+
+  function addStyle(cssText, id) {
+    id = id.toLowerCase();
+    var ele = document.getElementById(id);
+    var head = document.getElementsByTagName('head')[0];
+    if (ele && ele.parentNode === head) {
+      head.removeChild(ele);
+    }
+
+    var someThingStyles = document.createElement('style');
+    head.appendChild(someThingStyles);
+    someThingStyles.setAttribute('type', 'text/css');
+    someThingStyles.setAttribute('id', id);
+    if (window.ActiveXObject) {
+      someThingStyles.styleSheet.cssText = cssText;
+    } else {
+      someThingStyles.textContent = cssText;
+    }
+  }
+
+  function addStyleWithoutId(cssText) {
+    var head = document.getElementsByTagName('head')[0];
+    var someThingStyles = document.createElement('style');
+    head.appendChild(someThingStyles);
+    someThingStyles.setAttribute('type', 'text/css');
+
+    if (window.ActiveXObject) {
+      someThingStyles.styleSheet.cssText = cssText;
+    } else {
+      someThingStyles.textContent = cssText;
+    }
+  }
+
+  function addScopedAttrStatic(vdom, attr) {
+    if (options.scopedStyle) {
+      scopeVdom(attr, vdom);
+    }
+  }
+
+  function addStyleToHead(style, attr) {
+    if (options.scopedStyle) {
+      if (!options.staticStyleMapping[attr]) {
+        addStyle(scoper(style, attr), attr);
+        options.staticStyleMapping[attr] = true;
+      }
+    } else if (!options.staticStyleMapping[attr]) {
+      addStyleWithoutId(style);
+      options.staticStyleMapping[attr] = true;
+    }
+  }
+
+  function scopeVdom(attr, vdom) {
+    if (typeof vdom === 'object') {
+      vdom.attributes = vdom.attributes || {};
+      vdom.attributes[attr] = '';
+      vdom.css = vdom.css || {};
+      vdom.css[attr] = '';
+      vdom.children.forEach(function (child) {
+        return scopeVdom(attr, child);
+      });
+    }
+  }
+
+  function scopeHost(vdom, css) {
+    if (typeof vdom === 'object' && css) {
+      vdom.attributes = vdom.attributes || {};
+      for (var key in css) {
+        vdom.attributes[key] = '';
+      }
+    }
+  }
+
   /** Queue of components that have been mounted and are awaiting componentDidMount */
   var mounts = [];
 
@@ -619,6 +758,9 @@
     while (c = mounts.pop()) {
       if (options.afterMount) options.afterMount(c);
       if (c.installed) c.installed();
+      if (c.css) {
+        addStyleToHead(typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor));
+      }
     }
   }
 
@@ -672,6 +814,9 @@
     var vnodeName = vnode.nodeName;
     if (options.mapping[vnodeName]) {
       vnode.nodeName = options.mapping[vnodeName];
+      return buildComponentFromVNode(dom, vnode, context, mountAll);
+    }
+    if (typeof vnodeName == 'function') {
       return buildComponentFromVNode(dom, vnode, context, mountAll);
     }
 
@@ -856,7 +1001,7 @@
     } else {
       // If the node's VNode had a ref function, invoke it with null here.
       // (this is part of the React spec, and smart for unsetting references)
-      if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null);
+      if (node[ATTR_KEY] != null) applyRef(node[ATTR_KEY].ref, null);
 
       if (unmountOnly === false || node[ATTR_KEY] == null) {
         removeNode(node);
@@ -926,7 +1071,7 @@
       inst.constructor = Ctor;
       inst.render = doRender;
     }
-    vnode && (inst.___scopedCssAttr = vnode.css);
+    vnode && (inst.scopedCssAttr = vnode.css);
 
     if (list) {
       for (var i = list.length; i--;) {
@@ -943,139 +1088,6 @@
   /** The `.render()` method for a PFC backing instance. */
   function doRender(props, data, context) {
     return this.constructor(props, context);
-  }
-
-  var styleId = 0;
-
-  function getCtorName(ctor) {
-    for (var i = 0, len = options.styleCache.length; i < len; i++) {
-      var item = options.styleCache[i];
-
-      if (item.ctor === ctor) {
-        return item.attrName;
-      }
-    }
-
-    var attrName = 's' + styleId;
-    options.styleCache.push({ ctor: ctor, attrName: attrName });
-    styleId++;
-
-    return attrName;
-  }
-
-  // many thanks to https://github.com/thomaspark/scoper/
-  function scoper(css, prefix) {
-    prefix = '[' + prefix.toLowerCase() + ']';
-    // https://www.w3.org/TR/css-syntax-3/#lexical
-    css = css.replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '');
-    // eslint-disable-next-line
-    var re = new RegExp('([^\r\n,{}:]+)(:[^\r\n,{}]+)?(,(?=[^{}]*{)|\s*{)', 'g');
-    /**
-     * Example:
-     *
-     * .classname::pesudo { color:red }
-     *
-     * g1 is normal selector `.classname`
-     * g2 is pesudo class or pesudo element
-     * g3 is the suffix
-     */
-    css = css.replace(re, function (g0, g1, g2, g3) {
-      if (typeof g2 === 'undefined') {
-        g2 = '';
-      }
-
-      /* eslint-ignore-next-line */
-      if (g1.match(/^\s*(@media|\d+%?|@-webkit-keyframes|@keyframes|to|from|@font-face)/)) {
-        return g1 + g2 + g3;
-      }
-
-      var appendClass = g1.replace(/(\s*)$/, '') + prefix + g2;
-      //let prependClass = prefix + ' ' + g1.trim() + g2;
-
-      return appendClass + g3;
-      //return appendClass + ',' + prependClass + g3;
-    });
-
-    return css;
-  }
-
-  function addStyle(cssText, id) {
-    id = id.toLowerCase();
-    var ele = document.getElementById(id);
-    var head = document.getElementsByTagName('head')[0];
-    if (ele && ele.parentNode === head) {
-      head.removeChild(ele);
-    }
-
-    var someThingStyles = document.createElement('style');
-    head.appendChild(someThingStyles);
-    someThingStyles.setAttribute('type', 'text/css');
-    someThingStyles.setAttribute('id', id);
-    if (window.ActiveXObject) {
-      someThingStyles.styleSheet.cssText = cssText;
-    } else {
-      someThingStyles.textContent = cssText;
-    }
-  }
-
-  function addStyleWithoutId(cssText) {
-    var head = document.getElementsByTagName('head')[0];
-    var someThingStyles = document.createElement('style');
-    head.appendChild(someThingStyles);
-    someThingStyles.setAttribute('type', 'text/css');
-
-    if (window.ActiveXObject) {
-      someThingStyles.styleSheet.cssText = cssText;
-    } else {
-      someThingStyles.textContent = cssText;
-    }
-  }
-
-  function addScopedAttr(vdom, style, attr, component) {
-    if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
-      style = scoper(style, attr);
-      if (style !== component._preCss) {
-        addStyle(style, attr);
-      }
-    } else if (style !== component._preCss) {
-      addStyleWithoutId(style);
-    }
-    component._preCss = style;
-  }
-
-  function addScopedAttrStatic(vdom, style, attr) {
-    if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
-      if (!options.staticStyleMapping[attr]) {
-        addStyle(scoper(style, attr), attr);
-        options.staticStyleMapping[attr] = true;
-      }
-    } else if (!options.staticStyleMapping[attr]) {
-      addStyleWithoutId(style);
-      options.staticStyleMapping[attr] = true;
-    }
-  }
-
-  function scopeVdom(attr, vdom) {
-    if (typeof vdom === 'object') {
-      vdom.attributes = vdom.attributes || {};
-      vdom.attributes[attr] = '';
-      vdom.css = vdom.css || {};
-      vdom.css[attr] = '';
-      vdom.children.forEach(function (child) {
-        return scopeVdom(attr, child);
-      });
-    }
-  }
-
-  function scopeHost(vdom, css) {
-    if (typeof vdom === 'object' && css) {
-      vdom.attributes = vdom.attributes || {};
-      for (var key in css) {
-        vdom.attributes[key] = '';
-      }
-    }
   }
 
   /* obaa 1.0.0
@@ -1326,7 +1338,7 @@
       }
     }
 
-    if (component.__ref) component.__ref(component);
+    applyRef(component.__ref, component);
   }
 
   function shallowComparison(old, attrs) {
@@ -1383,7 +1395,7 @@
       component.props = previousProps;
       component.data = previousState;
       component.context = previousContext;
-      if (opts == FORCE_RENDER || shallowComparison(previousProps, props)) {
+      if (component.store || opts == FORCE_RENDER || shallowComparison(previousProps, props)) {
         skip = false;
         if (component.beforeUpdate) {
           component.beforeUpdate(props, data, context);
@@ -1404,14 +1416,10 @@
 
       //don't rerender
       if (component.css) {
-        addScopedAttrStatic(rendered, component.css(), '_s' + getCtorName(component.constructor));
+        addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
       }
 
-      if (component.dynamicCss) {
-        addScopedAttr(rendered, component.dynamicCss(), '_s' + component.elementId, component);
-      }
-
-      scopeHost(rendered, component.___scopedCssAttr);
+      scopeHost(rendered, component.scopedCssAttr);
 
       // context to pass to the child, can be updated via (grand-)parent component
       if (component.getChildContext) {
@@ -1492,7 +1500,6 @@
       // are called before the componentDidUpdate() hook in the parent.
       // Note: disabled as it causes duplicate hooks, see https://github.com/developit/preact/issues/750
       // flushMounts();
-
 
       if (component.afterUpdate) {
         //deprecated
@@ -1577,7 +1584,7 @@
     if (inner) {
       unmountComponent(inner);
     } else if (base) {
-      if (base[ATTR_KEY] && base[ATTR_KEY].ref) base[ATTR_KEY].ref(null);
+      if (base[ATTR_KEY] != null) applyRef(base[ATTR_KEY].ref, null);
 
       component.nextBase = base;
 
@@ -1587,14 +1594,16 @@
       removeChildren(base);
     }
 
-    if (component.__ref) component.__ref(null);
+    applyRef(component.__ref, null);
   }
+
+  var _class, _temp;
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   var id = 0;
 
-  var Component = function () {
+  var Component = (_temp = _class = function () {
     function Component(props, store) {
       _classCallCheck(this, Component);
 
@@ -1630,9 +1639,7 @@
     Component.prototype.render = function render() {};
 
     return Component;
-  }();
-
-  Component.is = 'WeElement';
+  }(), _class.is = 'WeElement', _temp);
 
   /** Render JSX into a `parent` Element.
    *	@param {VNode} vnode		A (JSX) VNode to render
@@ -1640,68 +1647,24 @@
    *	@param {object} [store]
    *	@public
    */
-  function render(vnode, parent, store) {
+  function render(vnode, parent, store, empty, merge) {
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
 
-    if (store && store.merge) {
-      store.merge = typeof store.merge === 'string' ? document.querySelector(store.merge) : store.merge;
+    if (empty) {
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
     }
 
-    return diff(store && store.merge, vnode, store, false, parent, false);
-  }
+    if (merge) {
+      merge = typeof merge === 'string' ? document.querySelector(merge) : merge;
+    }
 
-  var OBJECTTYPE = '[object Object]';
-  var ARRAYTYPE = '[object Array]';
+    return diff(merge, vnode, store, false, parent, false);
+  }
 
   function define(name, ctor) {
     options.mapping[name] = ctor;
-    if (ctor.data && !ctor.pure) {
-      ctor.updatePath = getUpdatePath(ctor.data);
-    }
-  }
-
-  function getUpdatePath(data) {
-    var result = {};
-    dataToPath(data, result);
-    return result;
-  }
-
-  function dataToPath(data, result) {
-    Object.keys(data).forEach(function (key) {
-      result[key] = true;
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === OBJECTTYPE) {
-        _objToPath(data[key], key, result);
-      } else if (type === ARRAYTYPE) {
-        _arrayToPath(data[key], key, result);
-      }
-    });
-  }
-
-  function _objToPath(data, path, result) {
-    Object.keys(data).forEach(function (key) {
-      result[path + '.' + key] = true;
-      delete result[path];
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === OBJECTTYPE) {
-        _objToPath(data[key], path + '.' + key, result);
-      } else if (type === ARRAYTYPE) {
-        _arrayToPath(data[key], path + '.' + key, result);
-      }
-    });
-  }
-
-  function _arrayToPath(data, path, result) {
-    data.forEach(function (item, index) {
-      result[path + '[' + index + ']'] = true;
-      delete result[path];
-      var type = Object.prototype.toString.call(item);
-      if (type === OBJECTTYPE) {
-        _objToPath(item, path + '[' + index + ']', result);
-      } else if (type === ARRAYTYPE) {
-        _arrayToPath(item, path + '[' + index + ']', result);
-      }
-    });
   }
 
   function rpx(str) {
@@ -1710,13 +1673,15 @@
     });
   }
 
+  var _class$1, _temp$1;
+
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
   function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  var ModelView = function (_Component) {
+  var ModelView = (_temp$1 = _class$1 = function (_Component) {
     _inherits(ModelView, _Component);
 
     function ModelView() {
@@ -1730,10 +1695,7 @@
     };
 
     return ModelView;
-  }(Component);
-
-  ModelView.observe = true;
-  ModelView.mergeUpdate = true;
+  }(Component), _class$1.observe = true, _class$1.mergeUpdate = true, _temp$1);
 
   /**
    * classNames based on https://github.com/JedWatson/classnames
@@ -1778,25 +1740,275 @@
         props = _Array$prototype$slic[0],
         args = _Array$prototype$slic.slice(1);
 
-    if (props.class) {
-      args.unshift(props.class);
-      delete props.class;
-    } else if (props.className) {
-      args.unshift(props.className);
-      delete props.className;
+    if (props) {
+      if (props.class) {
+        args.unshift(props.class);
+        delete props.class;
+      } else if (props.className) {
+        args.unshift(props.className);
+        delete props.className;
+      }
     }
     if (args.length > 0) {
       return { class: classNames.apply(null, args) };
     }
   }
 
+  function getHost(component) {
+    var base = component.base;
+    if (base) {
+      while (base.parentNode) {
+        if (base.parentNode._component) {
+          return base.parentNode._component;
+        } else {
+          base = base.parentNode;
+        }
+      }
+    }
+  }
+
+  /**
+   * preact-render-to-string based on preact-render-to-string
+   * by Jason Miller
+   * Licensed under the MIT License
+   * https://github.com/developit/preact-render-to-string
+   *
+   * modified by dntzhang
+   */
+
+  var encodeEntities = function encodeEntities(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  };
+
+  var indent = function indent(s, char) {
+    return String(s).replace(/(\n+)/g, '$1' + (char || '\t'));
+  };
+
+  var mapping$1 = options.mapping;
+
+  var VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
+
+  var isLargeString = function isLargeString(s, length, ignoreLines) {
+    return String(s).length > (length || 40) || !ignoreLines && String(s).indexOf('\n') !== -1 || String(s).indexOf('<') !== -1;
+  };
+
+  var JS_TO_CSS = {};
+
+  // Convert an Object style to a CSSText string
+  function styleObjToCss(s) {
+    var str = '';
+    for (var prop in s) {
+      var val = s[prop];
+      if (val != null) {
+        if (str) str += ' ';
+        // str += jsToCss(prop);
+        str += JS_TO_CSS[prop] || (JS_TO_CSS[prop] = prop.replace(/([A-Z])/g, '-$1').toLowerCase());
+        str += ': ';
+        str += val;
+        if (typeof val === 'number' && IS_NON_DIMENSIONAL.test(prop) === false) {
+          str += 'px';
+        }
+        str += ';';
+      }
+    }
+    return str || undefined;
+  }
+
+  /** The default export is an alias of `render()`. */
+  function renderToString(vnode, opts, store, isSvgMode, css) {
+    if (vnode == null || typeof vnode === 'boolean') {
+      return '';
+    }
+
+    var nodeName = vnode.nodeName,
+        attributes = vnode.attributes,
+        isComponent = false;
+    store = store || {};
+    opts = Object.assign({
+      scopedCSS: true
+    }, opts);
+
+    var pretty = true && opts.pretty,
+        indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
+
+    // #text nodes
+    if (typeof vnode !== 'object' && !nodeName) {
+      return encodeEntities(vnode);
+    }
+
+    // components
+    var ctor = mapping$1[nodeName];
+    if (ctor) {
+      isComponent = true;
+
+      var props = getNodeProps$1(vnode),
+          rendered = void 0;
+      // class-based components
+      var c = new ctor(props, store);
+      // turn off stateful re-rendering:
+      c._disable = c.__x = true;
+      c.props = props;
+      c.store = store;
+      if (c.install) c.install();
+      if (c.beforeRender) c.beforeRender();
+      rendered = c.render(c.props, c.data, c.store);
+      var tempCss = void 0;
+      if (opts.scopedCSS) {
+
+        if (c.css) {
+          var cssStr = typeof c.css === 'function' ? c.css() : c.css;
+          var cssAttr = '_s' + getCtorName(c.constructor);
+
+          tempCss = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
+        }
+        if (c.css) {
+          addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
+        }
+
+        c.scopedCSSAttr = vnode.css;
+        scopeHost(rendered, c.scopedCSSAttr);
+      }
+
+      return renderToString(rendered, opts, store, false, tempCss);
+    }
+
+    // render JSX to HTML
+    var s = '',
+        html = void 0;
+
+    if (attributes) {
+      var attrs = Object.keys(attributes);
+
+      // allow sorting lexicographically for more determinism (useful for tests, such as via preact-jsx-chai)
+      if (opts && opts.sortAttributes === true) attrs.sort();
+
+      for (var i = 0; i < attrs.length; i++) {
+        var name = attrs[i],
+            v = attributes[name];
+        if (name === 'children') continue;
+
+        if (name.match(/[\s\n\\/='"\0<>]/)) continue;
+
+        if (!(opts && opts.allAttributes) && (name === 'key' || name === 'ref')) continue;
+
+        if (name === 'className') {
+          if (attributes.class) continue;
+          name = 'class';
+        } else if (isSvgMode && name.match(/^xlink:?./)) {
+          name = name.toLowerCase().replace(/^xlink:?/, 'xlink:');
+        }
+
+        if (name === 'style' && v && typeof v === 'object') {
+          v = styleObjToCss(v);
+        }
+
+        var hooked = opts.attributeHook && opts.attributeHook(name, v, store, opts, isComponent);
+        if (hooked || hooked === '') {
+          s += hooked;
+          continue;
+        }
+
+        if (name === 'dangerouslySetInnerHTML') {
+          html = v && v.__html;
+        } else if ((v || v === 0 || v === '') && typeof v !== 'function') {
+          if (v === true || v === '') {
+            v = name;
+            // in non-xml mode, allow boolean attributes
+            if (!opts || !opts.xml) {
+              s += ' ' + name;
+              continue;
+            }
+          }
+          s += ' ' + name + '="' + encodeEntities(v) + '"';
+        }
+      }
+    }
+
+    // account for >1 multiline attribute
+    if (pretty) {
+      var sub = s.replace(/^\n\s*/, ' ');
+      if (sub !== s && !~sub.indexOf('\n')) s = sub;else if (pretty && ~s.indexOf('\n')) s += '\n';
+    }
+
+    s = '<' + nodeName + s + '>';
+    if (String(nodeName).match(/[\s\n\\/='"\0<>]/)) throw s;
+
+    var isVoid = String(nodeName).match(VOID_ELEMENTS);
+    if (isVoid) s = s.replace(/>$/, ' />');
+
+    var pieces = [];
+    if (html) {
+      // if multiline, indent.
+      if (pretty && isLargeString(html)) {
+        html = '\n' + indentChar + indent(html, indentChar);
+      }
+      s += html;
+    } else if (vnode.children) {
+      var hasLarge = pretty && ~s.indexOf('\n');
+      for (var _i = 0; _i < vnode.children.length; _i++) {
+        var child = vnode.children[_i];
+        if (child != null && child !== false) {
+          var childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
+              ret = renderToString(child, opts, store, childSvgMode);
+          if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
+          if (ret) pieces.push(ret);
+        }
+      }
+      if (pretty && hasLarge) {
+        for (var _i2 = pieces.length; _i2--;) {
+          pieces[_i2] = '\n' + indentChar + indent(pieces[_i2], indentChar);
+        }
+      }
+    }
+
+    if (pieces.length) {
+      s += pieces.join('');
+    } else if (opts && opts.xml) {
+      return s.substring(0, s.length - 1) + ' />';
+    }
+
+    if (!isVoid) {
+      if (pretty && ~s.indexOf('\n')) s += '\n';
+      s += '</' + nodeName + '>';
+    }
+
+    if (css) return css + s;
+    return s;
+  }
+
+  function assign$1(obj, props) {
+    for (var i in props) {
+      obj[i] = props[i];
+    }return obj;
+  }
+
+  function getNodeProps$1(vnode) {
+    var props = assign$1({}, vnode.attributes);
+    props.children = vnode.children;
+
+    var defaultProps = vnode.nodeName.defaultProps;
+    if (defaultProps !== undefined) {
+      for (var i in defaultProps) {
+        if (props[i] === undefined) {
+          props[i] = defaultProps[i];
+        }
+      }
+    }
+
+    return props;
+  }
+
   var WeElement = Component;
   var defineElement = define;
+  function createRef() {
+    return {};
+  }
 
   options.root.Omi = {
     h: h,
     createElement: h,
     cloneElement: cloneElement,
+    createRef: createRef,
     Component: Component,
     render: render,
     rerender: rerender,
@@ -1807,10 +2019,12 @@
     ModelView: ModelView,
     defineElement: defineElement,
     classNames: classNames,
-    extractClass: extractClass
+    extractClass: extractClass,
+    getHost: getHost,
+    renderToString: renderToString
   };
   options.root.omi = Omi;
-  options.root.Omi.version = 'omio-1.2.5';
+  options.root.Omi.version = 'omio-1.3.5';
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1856,7 +2070,7 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this2 = _possibleConstructorReturn$1(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.handleTap = function (e) {
+      return _ret = (_temp = (_this2 = _possibleConstructorReturn$1(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.css = 'div{\n      font-size:30px;\n  }', _this2.handleTap = function (e) {
         _this2.name = 'Hello Omi !';
         _this2.update();
       }, _temp), _possibleConstructorReturn$1(_this2, _ret);
@@ -1866,10 +2080,6 @@
       this.name = 'Omi';
     };
 
-    _class3.prototype.dynamicCss = function dynamicCss() {
-      return 'h3{\n                    cursor:pointer;\n                    color: ' + (Math.random() > 0.5 ? 'red' : 'green') + ';\n                }';
-    };
-
     _class3.prototype.installed = function installed() {
       var _this3 = this;
 
@@ -1877,10 +2087,6 @@
         _this3.name = 11;
         _this3.update();
       }, 1000);
-    };
-
-    _class3.prototype.css = function css() {
-      return 'div{\n                    font-size:30px;\n                }';
     };
 
     _class3.prototype.render = function render$$1() {

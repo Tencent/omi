@@ -20,7 +20,6 @@ import {
 import { createComponent, collectComponent } from './component-recycler'
 import { removeNode } from '../dom/index'
 import {
-  addScopedAttr,
   addScopedAttrStatic,
   getCtorName,
   scopeHost
@@ -153,15 +152,6 @@ export function renderComponent(component, opts, mountAll, isChild) {
       addScopedAttrStatic(
         rendered,
         '_s' + getCtorName(component.constructor)
-      )
-    }
-
-    if (component.dynamicCss) {
-      addScopedAttr(
-        rendered,
-        component.dynamicCss(),
-        '_s' + component.elementId,
-        component
       )
     }
 

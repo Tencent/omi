@@ -8,6 +8,11 @@ define('my-hello', class extends Component {
 })
 
 define('my-app', class extends Component {
+  
+  css = `div{
+      font-size:30px;
+  }`
+
   install() {
     this.name = 'Omi'
   }
@@ -17,24 +22,13 @@ define('my-app', class extends Component {
     this.update()
   }
 
-  dynamicCss() {
-    return `h3{
-                    cursor:pointer;
-                    color: ${Math.random() > 0.5 ? 'red' : 'green'};
-                }`
-  }
-
   installed() {
     setTimeout(() => {
       this.name = 11
       this.update()
     }, 1000)
   }
-  css() {
-    return `div{
-                    font-size:30px;
-                }`
-  }
+  
 
   render() {
     return (
