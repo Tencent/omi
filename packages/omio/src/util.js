@@ -39,7 +39,7 @@ export function assign(target, source) {
   return to
 }
 
-if (!Element.prototype.addEventListener) {
+if (typeof Element !== 'undefined' && !Element.prototype.addEventListener) {
   var oListeners = {};
   function runListeners(oEvent) {
     if (!oEvent) { oEvent = window.event; }
