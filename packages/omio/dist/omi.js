@@ -241,14 +241,6 @@
         someThingStyles.setAttribute('type', 'text/css');
         if (window.ActiveXObject) someThingStyles.styleSheet.cssText = cssText; else someThingStyles.textContent = cssText;
     }
-    function addScopedAttr(vdom, style, attr, component) {
-        if (options.scopedStyle) {
-            scopeVdom(attr, vdom);
-            style = scoper(style, attr);
-            if (style !== component.z) addStyle(style, attr);
-        } else if (style !== component.z) addStyleWithoutId(style);
-        component.z = style;
-    }
     function addScopedAttrStatic(vdom, attr) {
         if (options.scopedStyle) scopeVdom(attr, vdom);
     }
@@ -505,7 +497,6 @@
                 component.beforeRender && component.beforeRender();
                 rendered = component.render(props, data, context);
                 if (component.css) addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
-                if (component.dynamicCss) addScopedAttr(rendered, component.dynamicCss(), '_s' + component.elementId, component);
                 scopeHost(rendered, component.scopedCssAttr);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
@@ -809,7 +800,7 @@
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-    if (!Element.prototype.addEventListener) {
+    if ('undefined' != typeof Element && !Element.prototype.addEventListener) {
         var runListeners = function(oEvent) {
             if (!oEvent) oEvent = window.event;
             for (var iLstId = 0, iElId = 0, oEvtListeners = oListeners[oEvent.type]; iElId < oEvtListeners.aEls.length; iElId++) if (oEvtListeners.aEls[iElId] === this) {
@@ -1076,7 +1067,7 @@
         renderToString: renderToString
     };
     options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.3.5';
+    options.root.Omi.version = 'omio-1.3.6';
     var Omi$1 = {
         h: h,
         createElement: h,

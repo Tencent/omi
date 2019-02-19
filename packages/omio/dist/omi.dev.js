@@ -186,7 +186,7 @@
     return to;
   }
 
-  if (!Element.prototype.addEventListener) {
+  if (typeof Element !== 'undefined' && !Element.prototype.addEventListener) {
     var runListeners = function runListeners(oEvent) {
       if (!oEvent) {
         oEvent = window.event;
@@ -698,19 +698,6 @@
     } else {
       someThingStyles.textContent = cssText;
     }
-  }
-
-  function addScopedAttr(vdom, style, attr, component) {
-    if (options.scopedStyle) {
-      scopeVdom(attr, vdom);
-      style = scoper(style, attr);
-      if (style !== component._preCss) {
-        addStyle(style, attr);
-      }
-    } else if (style !== component._preCss) {
-      addStyleWithoutId(style);
-    }
-    component._preCss = style;
   }
 
   function addScopedAttrStatic(vdom, attr) {
@@ -1431,10 +1418,6 @@
         addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
       }
 
-      if (component.dynamicCss) {
-        addScopedAttr(rendered, component.dynamicCss(), '_s' + component.elementId, component);
-      }
-
       scopeHost(rendered, component.scopedCssAttr);
 
       // context to pass to the child, can be updated via (grand-)parent component
@@ -2041,7 +2024,7 @@
     renderToString: renderToString
   };
   options.root.omi = Omi;
-  options.root.Omi.version = 'omio-1.3.5';
+  options.root.Omi.version = 'omio-1.3.6';
 
   var Omi$1 = {
     h: h,
