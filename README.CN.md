@@ -145,8 +145,7 @@
   <script>
     const { WeElement, h, render, define } = Omi
 
-    define('like-button',
-      class extends WeElement {
+    define('like-button', class extends WeElement {
         install() {
           this.data = { liked: false }
         }
