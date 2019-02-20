@@ -12,7 +12,7 @@ const baseOptions = {
 
 
 const baseCode = `
-import { define, render, WeElement } from '../../src/omi'
+import { define, render, WeElement } from 'omi'
 import './hello-element'
 
 define('my-app', class extends WeElement {
