@@ -36,8 +36,8 @@ options.root.Omi = {
   getHost,
   renderToString
 }
-options.root.omi = Omi
-options.root.Omi.version = 'omio-1.3.6'
+options.root.omi = options.root.Omi
+options.root.Omi.version = 'omio-1.3.7'
 
 export default {
   h,
