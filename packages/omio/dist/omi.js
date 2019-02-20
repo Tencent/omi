@@ -1066,9 +1066,9 @@
         getHost: getHost,
         renderToString: renderToString
     };
-    options.root.omi = Omi;
-    options.root.Omi.version = 'omio-1.3.6';
-    var Omi$1 = {
+    options.root.omi = options.root.Omi;
+    options.root.Omi.version = 'omio-1.3.7';
+    var Omi = {
         h: h,
         createElement: h,
         cloneElement: cloneElement,
@@ -1087,6 +1087,6 @@
         getHost: getHost,
         renderToString: renderToString
     };
-    if ('undefined' != typeof module) module.exports = Omi$1; else self.Omi = Omi$1;
+    if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();
 //# sourceMappingURL=omi.js.map
