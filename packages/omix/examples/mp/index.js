@@ -1,0 +1,2 @@
+import './pages/index'
+

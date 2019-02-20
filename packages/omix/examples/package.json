@@ -64,9 +64,12 @@
     "webpack-dev-server": "^3.1.10",
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-merge": "^4.2.1",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "2.0.3",
+    "gulp": "^3.9.1",
+    "gulp-tap": "^1.0.1"
   },
   "scripts": {
+    "gulp": "gulp",
     "start": "node scripts/start.js",
     "build": "PUBLIC_URL=. node scripts/build.js",
     "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
