@@ -4,7 +4,7 @@
   "private": true,
   "description": "",
   "scripts": {
-    "build:weapp": "taro build --type weapp",
+    "build:weapp": "node ../taro-cli/bin/taro build --type weapp",
     "build:swan": "taro build --type swan",
     "build:alipay": "taro build --type alipay",
     "build:tt": "taro build --type tt",
