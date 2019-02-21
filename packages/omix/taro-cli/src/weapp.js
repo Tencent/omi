@@ -430,6 +430,7 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
               })
             }
             if (!npmSkip) {
+              //拷贝 npm files
               source.value = getExactedNpmFilePath(value, filePath)
             } else {
               source.value = value
