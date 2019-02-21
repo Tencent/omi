@@ -350,7 +350,7 @@ function diffAttributes(dom, attrs, old, children) {
 
   // add new & update changed attributes
   for (name in attrs) {
-    if (isWeElement && typeof attrs[name] === 'object') {
+    if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
       if (name === 'style') {
         setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
       }

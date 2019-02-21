@@ -1,4 +1,4 @@
-import { define, render, WeElement } from '../../src/omi'
+import { define, render, WeElement, createRef } from '../../src/omi'
 import './hello-element'
 
 define('my-app', class extends WeElement {
@@ -6,6 +6,9 @@ define('my-app', class extends WeElement {
 
   install() {
     this.dd = { a: 1 }
+
+    this.a = createRef()
+    this.b = createRef()
   }
 
   onMyEvent = evt => {
@@ -22,11 +25,15 @@ define('my-app', class extends WeElement {
          }`
   }
 
+  installed(){
+    console.log(this.a)
+    console.log(this.b)
+  }
   render(props, data) {
     return (
       <div>
-        Hello {props.name} {data.abc} {this.dd.a}
-        <hello-element
+       <div ref={this.a}>Hello {props.name} {data.abc} {this.dd.a}</div>
+        <hello-element ref={this.b}
           onMyEvent={this.onMyEvent}
           propFromParent={data.passToChild}
           dd={this.dd}

@@ -616,7 +616,7 @@
 
     // add new & update changed attributes
     for (name in attrs) {
-      if (isWeElement && typeof attrs[name] === 'object') {
+      if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
         if (name === 'style') {
           setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
         }
@@ -1101,7 +1101,7 @@
         }
       }
 
-      this.css && shadowRoot.appendChild(cssToDom(this.css()));
+      this.css && shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
       !this._isInstalled && this.beforeRender();
       options.afterInstall && options.afterInstall(this);
       if (this.constructor.observe) {
@@ -1140,9 +1140,9 @@
       this.beforeUpdate();
       this.beforeRender();
       this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+      this._willUpdate = false;
       this.afterUpdate();
       this.updated();
-      this._willUpdate = false;
     };
 
     WeElement.prototype.fire = function fire(name, data) {
@@ -1509,6 +1509,65 @@
     return ModelView;
   }(WeElement), _class$1.observe = true, _class$1.mergeUpdate = true, _temp$1);
 
+  /**
+   * classNames based on https://github.com/JedWatson/classnames
+   * by Jed Watson
+   * Licensed under the MIT License
+   * https://github.com/JedWatson/classnames/blob/master/LICENSE
+   * modified by dntzhang
+   */
+
+  var hasOwn = {}.hasOwnProperty;
+
+  function classNames() {
+    var classes = [];
+
+    for (var i = 0; i < arguments.length; i++) {
+      var arg = arguments[i];
+      if (!arg) continue;
+
+      var argType = typeof arg;
+
+      if (argType === 'string' || argType === 'number') {
+        classes.push(arg);
+      } else if (Array.isArray(arg) && arg.length) {
+        var inner = classNames.apply(null, arg);
+        if (inner) {
+          classes.push(inner);
+        }
+      } else if (argType === 'object') {
+        for (var key in arg) {
+          if (hasOwn.call(arg, key) && arg[key]) {
+            classes.push(key);
+          }
+        }
+      }
+    }
+
+    return classes.join(' ');
+  }
+
+  function extractClass() {
+    var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0),
+        props = _Array$prototype$slic[0],
+        args = _Array$prototype$slic.slice(1);
+
+    if (props.class) {
+      args.unshift(props.class);
+      delete props.class;
+    } else if (props.className) {
+      args.unshift(props.className);
+      delete props.className;
+    }
+    if (args.length > 0) {
+      return { class: classNames.apply(null, args) };
+    }
+  }
+
+  function createRef() {
+    return {};
+  }
+
   var Component = WeElement;
   var defineElement = define;
 
@@ -1528,11 +1587,15 @@
     tick: tick,
     nextTick: nextTick,
     ModelView: ModelView,
-    defineElement: defineElement
+    defineElement: defineElement,
+    classNames: classNames,
+    extractClass: extractClass,
+    createRef: createRef
   };
 
   options.root.Omi = omi;
-  options.root.Omi.version = '5.0.17';
+  options.root.omi = omi;
+  options.root.Omi.version = '5.0.23';
 
   var _class$2, _temp2;
 
@@ -1625,23 +1688,35 @@
 
     _class2.prototype.install = function install() {
       this.dd = { a: 1 };
+
+      this.a = createRef();
+      this.b = createRef();
     };
 
     _class2.prototype.css = function css() {
       return '\n         div{\n             color: green;\n         }';
     };
 
+    _class2.prototype.installed = function installed() {
+      console.log(this.a);
+      console.log(this.b);
+    };
+
     _class2.prototype.render = function render$$1(props, data) {
       return Omi.h(
         'div',
         null,
-        'Hello ',
-        props.name,
-        ' ',
-        data.abc,
-        ' ',
-        this.dd.a,
-        Omi.h('hello-element', {
+        Omi.h(
+          'div',
+          { ref: this.a },
+          'Hello ',
+          props.name,
+          ' ',
+          data.abc,
+          ' ',
+          this.dd.a
+        ),
+        Omi.h('hello-element', { ref: this.b,
           onMyEvent: this.onMyEvent,
           propFromParent: data.passToChild,
           dd: this.dd,

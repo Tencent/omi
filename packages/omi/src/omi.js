@@ -12,6 +12,10 @@ import { tick, nextTick } from './tick'
 import ModelView from './model-view'
 import { classNames, extractClass } from './class'
 
+function createRef() {
+  return {}
+}
+
 const Component = WeElement
 const defineElement = define
 
@@ -33,12 +37,13 @@ const omi = {
   ModelView,
   defineElement,
   classNames,
-  extractClass
+  extractClass,
+  createRef
 }
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '5.0.22'
+options.root.Omi.version = '5.0.23'
 
 export default omi
 
@@ -60,5 +65,6 @@ export {
   ModelView,
   defineElement,
   classNames,
-  extractClass
+  extractClass,
+  createRef
 }
