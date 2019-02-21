@@ -1,179 +1,38 @@
-let gulp = require('gulp')
-let path = require('path')
-let tap = require('gulp-tap')
-// let compile = require('./scripts/mp/index')
-// let compileWxss = require('./scripts/mp/wxss')
-let fs = require('fs')
-
-gulp.task('components', ['copy'], () => {
-  return gulp
-    .src('src/mp/components/*/*.js')
-    .pipe(
-      tap(file => {
-        let dir = path.dirname(file.path)
-        let arr = dir.split(/\\|\//)
-        let name = arr[arr.length-1]
-        if(path.basename(file.path) == name+'.js') {
-          let wxml = fs.readFileSync(dir + '/' + name + '.wxml', 'utf8')
-          let json = require(dir + '/' + name + '.json')
-          let importStr = json2import(json)
-          let hyperscript = compile(wxml)
-          file.contents = Buffer.concat([
-            new Buffer(
-              `${importStr}import componentCss from './${name}.wxss'
-import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/set-data'
-
-  `
-            ),
-            new Buffer(
-              file.contents
-                .toString()
-                .replace('Component({', 
-                `const mpOption = function () {
-  return ({`)+`
-}`),
-            new Buffer(`
-class Element extends WeElement {
-  static props = mpOption().properties
-
-  data = mpOption().data
-
-  render = render
-
-  css = css
-
-  beforeRender() {}
-
-  beforeUpdate() {}
-
-  afterUpdate() {}
-
-  install = function() {
-    this.properties = this.props
-    this._mpOption = mpOption()
-    this._mpOption.created && this._mpOption.created.call(this)
-    Object.keys(this._mpOption.methods).forEach(key => {
-      if(typeof this._mpOption.methods[key] === 'function'){
-        this[key] = this._mpOption.methods[key].bind(this)
-      }
-    })
-  }
-
-  uninstall = mpOption().detached || function() {}
-
-  installed = function() {
-    this._mpOption.attached && this._mpOption.attached.call(this)
-    this._mpOption.ready && this._mpOption.ready.call(this)
-  }
-
-  adoptedCallback = mpOption().moved || function() {}
-
-  triggerEvent = function(name, data) {
-    this.fire(name, data)
-  }
-
-  setData = setData
-}
-
-function css() {
-  return rpx(componentCss)
-}
-
-${hyperscript}
-
-customElements.define('${name}', Element)
-          `)
-          ])
-        }
-      })
-    )
-    .pipe(gulp.dest('src/mp/components/'))
-})
+const gulp = require('gulp')
+const path = require('path')
+const tap = require('gulp-tap')
+const transform = require('@tarojs/transformer-wx')
+const fs = require('fs')
 
 gulp.task('copy', () => {
-  return gulp.src('src/**/*').pipe(gulp.dest('mp'))
+  return gulp.src(['src/**/*',,'!**/*.css']).pipe(gulp.dest('mp'))
 })
 
 gulp.task('pages', ['copy'], () => {
   return gulp
-    .src('src/mp/pages/*/*.js')
+    .src('src/pages/*/*.js')
     .pipe(
       tap(file => {
+        const res = transform({
+          isRoot: false,
+          isApp: false,
+          sourcePath: __dirname,
+          outputPath: __dirname,
+          code: file.contents.toString(),
+          isTyped: false
+        })
         let dir = path.dirname(file.path)
         let arr = dir.split(/\\|\//)
         let name = arr[arr.length-1]
-        if(path.basename(file.path) == name+'.js') {
-          let wxml = fs.readFileSync(dir + '/' + name + '.wxml', 'utf8')
-          let hyperscript = compile(wxml)
-          let json = require(dir + '/' + name + '.json')
-          let importStr = json2import(json)
-          file.contents = Buffer.concat([
-            new Buffer(
-              `${importStr}import appCss from '../../app.wxss'
-import pageCss from './${name}.wxss'
-import { h, WeElement, rpx } from 'omi'
-import { setData } from '../../../utils/set-data'
+        fs.writeFileSync('mp/pages/'+name+'/'+name+'.wxml', res.template)
 
-  `
-            ),
-            new Buffer(
-              file.contents
-                .toString()
-                .replace('Page({', 
-`const mpOption = function () {
-  return ({`)+`
-}`
-            ),
-            new Buffer(`
-class Element extends WeElement {
-  data = mpOption().data
-
-  render = render
-
-  css = css
-
-  beforeRender() {}
-
-  beforeUpdate() {}
-
-  afterUpdate() {}
-
-  install() {
-    this.properties = this.props
-    this._mpOption = mpOption()
-    Object.keys(this._mpOption).forEach(key => {
-      if (typeof this._mpOption[key] === 'function') {
-        Element.prototype[key] = this._mpOption[key].bind(this)
+        fs.writeFileSync('mp/pages/'+name+'/'+name+'.wxss', fs.readFileSync('src/pages/'+name+'/_'+name+'.css'))
+        
+        file.contents = Buffer.concat([
+           Buffer.from(res.code)])
       }
-    })
-  }
-
-  uninstall = mpOption().onUnload || function() {}
-
-  installed = function() {
-    this._mpOption.onLoad && this._mpOption.onLoad.call(this, route.query)
-    this._mpOption.onReady && this._mpOption.onReady.call(this, route.query)
-
-    this._mpOption.onReachBottom && wx._bindReachBottom(this._mpOption.onReachBottom, this)
-  }
-
-  setData = setData
-}
-
-function css() {
-  return rpx(appCss + pageCss)
-}
-
-${hyperscript}
-
-customElements.define('we-${name}', Element)
-          `)
-          ])
-        }
-      })
-    )
-    .pipe(gulp.dest('src/mp/pages/'))
+    ))
+    .pipe(gulp.dest('mp/pages/'))
 })
 
 gulp.task('appjs', ['copy'], () => {
@@ -322,4 +181,4 @@ gulp.task('app-wxss', ['copy'], () => {
 // gulp.task('default', ['copy', 'components', 'app-wxss', 'pages-wxss', 'components-wxss', 'pages', 'appjs', 'route', 'watch'])
 
 //import 保留，不进行变换
-gulp.task('default', ['copy'])
+gulp.task('default', ['copy', 'pages'])
