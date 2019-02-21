@@ -252,7 +252,7 @@
                 update = !0;
             }
         }
-        for (name in attrs) if (isWeElement && 'object' == typeof attrs[name]) {
+        for (name in attrs) if (isWeElement && 'object' == typeof attrs[name] && 'ref' !== name) {
             if ('style' === name) setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
             if (dom.receiveProps) try {
                 old[name] = JSON.parse(JSON.stringify(attrs[name]));
@@ -590,6 +590,9 @@
         if (args.length > 0) return {
             class: classNames.apply(null, args)
         };
+    }
+    function createRef() {
+        return {};
     }
     var options = {
         store: null,
@@ -937,11 +940,12 @@
         ModelView: ModelView,
         defineElement: defineElement,
         classNames: classNames,
-        extractClass: extractClass
+        extractClass: extractClass,
+        createRef: createRef
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '5.0.22';
+    options.root.Omi.version = '5.0.23';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

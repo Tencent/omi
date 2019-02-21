@@ -1,5 +1,5 @@
 /**
- * omi v5.0.22  http://omijs.org
+ * omi v5.0.23  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -620,7 +620,7 @@
 
     // add new & update changed attributes
     for (name in attrs) {
-      if (isWeElement && typeof attrs[name] === 'object') {
+      if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
         if (name === 'style') {
           setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
         }
@@ -1566,6 +1566,10 @@
     }
   }
 
+  function createRef() {
+    return {};
+  }
+
   var Component = WeElement;
   var defineElement = define;
 
@@ -1587,12 +1591,13 @@
     ModelView: ModelView,
     defineElement: defineElement,
     classNames: classNames,
-    extractClass: extractClass
+    extractClass: extractClass,
+    createRef: createRef
   };
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '5.0.22';
+  options.root.Omi.version = '5.0.23';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
