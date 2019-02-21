@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+const path = require('path')
+const fs = require('fs-extra')
+const program = require('commander')
+const chalk = require('chalk')
+const _ = require('lodash')
+
+const build = require('../src/build')
+const { PROJECT_CONFIG } = require('../src/util')
+const projectConfPath = path.join(process.cwd(), PROJECT_CONFIG)
+
+program
+  .option('--type [typeName]', 'Build type, weapp/h5/rn/swan/alipay/tt')
+  .option('--watch', 'Watch mode')
+  .option('--env [env]', 'Env type')
+  .option('--ui', 'Build Taro UI library')
+  .parse(process.argv)
+
+const args = program.args
+const { type, watch, ui } = program
+let { env } =  program
+
+env = process.env.NODE_ENV || env
+
+if (ui) {
+  console.log(chalk.green(`开始编译 UI 库`))
+  build(args, {
+    type: 'ui',
+    watch
+  })
+  return
+}
+
+if (!fs.existsSync(projectConfPath)) {
+  console.log(chalk.red(`找不到项目配置文件${PROJECT_CONFIG}，请确定当前目录是Taro项目根目录!`))
+  process.exit(1)
+}
+
+if (env) {
+  process.env.NODE_ENV = env
+} else {
+  if (watch) {
+    process.env.NODE_ENV = 'development'
+  } else {
+    process.env.NODE_ENV = 'production'
+  }
+}
+
+const projectConf = require(projectConfPath)(_.merge)
+console.log(chalk.green(`开始编译项目 ${chalk.bold(projectConf.projectName)}`))
+
+build(args, {
+  type,
+  watch
+})
