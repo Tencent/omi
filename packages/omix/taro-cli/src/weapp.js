@@ -770,6 +770,12 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
           case PARSE_AST_TYPE.PAGE:
             if (buildAdapter === Util.BUILD_TYPES.WEAPP) {
               //@fix 注释掉用来解决小程序报错
+              const arr = sourceFilePath.split('/')
+              const path = arr[arr.length - 3] + '/' + arr[arr.length - 2] + '/' + arr[arr.length-1].split('.')[0]      
+              const obj = JSON.parse(JSON.stringify(node.body[node.body.length-1].expression.arguments[0]))
+              obj.value = path
+              //给 define 增加第三个参数
+              node.body[node.body.length-1].expression.arguments.push(obj)
               node.body[node.body.length-1].expression.callee.name = 'global.Omi.definePage'
               //node.body.push(template(`Component(require('${taroMiniAppFrameworkPath}').default.createComponent(${exportVariableName}, true))`, babylonConfig)())
             } else {

@@ -14,10 +14,6 @@ const WeElement = Component
 
 
 
-function render(){
-
-}
-
 function VNode() {}
 
 const stack = []
@@ -90,10 +86,23 @@ function getGlobal() {
 }
 
 const root  = getGlobal()
-console.log(root)
+const mapping = {}
+let config = {}
 
-const definePage  =define
-const defineApp  = define
+const definePage  = function(name, ctor, path ){
+  mapping[path] ={
+    name,
+    ctor
+  }
+}
+const defineApp  = function(a,b){
+  const ins = new b()
+  config = ins.config
+}
+
+function render(){
+  console.error(mapping[config.pages[0]])
+}
 
 root.Omi = {
   define,
