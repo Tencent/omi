@@ -1,29 +1,32 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import './index.css'
 
-export default class Index extends Component {
+import  { WeElement, define} from 'omi'
 
-  config = {
-    navigationBarTitleText: '首页'
+
+
+define('my-counter', class extends WeElement {
+  count = 1
+
+  css = `span{
+        color: red;
+      }`
+
+  sub = () => {
+    this.count--
+    this.update()
   }
 
-  componentWillMount () { }
+  add = () => {
+    this.count++
+    this.update()
+  }
 
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
-  render () {
+  render() {
     return (
-      <View className='index'>
-        <Text>Hello world!</Text>
-      </View>
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
     )
   }
-}
-
+})

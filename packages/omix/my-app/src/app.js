@@ -1,17 +1,15 @@
-import Taro, { Component } from '@tarojs/taro'
-import Index from './pages/index'
-import omi from 'omi-router'
+
 import './app.css'
 
-console.log(omi)
 
-// 如果需要在 h5 环境中开启 React Devtools
-// 取消以下注释：
-// if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
-//   require('nerv-devtools')
-// }
+import './pages/index/index'
 
-class App extends Component {
+
+
+import { render, WeElement, define } from 'omi'
+
+//通过 config.pages 属性来判断是 app
+define('my-app', class extends WeElement {
 
   config = {
     pages: [
@@ -25,21 +23,22 @@ class App extends Component {
     }
   }
 
-  componentDidMount () {}
+  componentWillMount() { }
 
-  componentDidShow () {}
+  componentDidMount() { }
 
-  componentDidHide () {}
+  componentWillUnmount() { }
 
-  componentDidCatchError () {}
+  componentDidShow() { }
 
-  // 在 App 类中的 render() 函数没有实际作用
-  // 请勿修改此函数
-  render () {
+  componentDidHide() { }
+
+  render() {
     return (
-      <Index />
+      <my-counter />
     )
   }
-}
+})
 
-Taro.render(<App />, document.getElementById('app'))
+
+render(<my-app />, 'body')

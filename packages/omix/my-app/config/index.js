@@ -7,6 +7,10 @@ const config = {
     '750': 1,
     '828': 1.81 / 2
   },
+  alias: {
+    'omi': 'src/libs/omix.js',
+    '@tarojs': 'src/libs'
+  },
   sourceRoot: 'src',
   outputRoot: 'dist',
   plugins: {
@@ -20,7 +24,8 @@ const config = {
       plugins: [
         'transform-decorators-legacy',
         'transform-class-properties',
-        'transform-object-rest-spread'
+        'transform-object-rest-spread',
+        ['transform-react-jsx', { pragma: 'global.Omi.h' }]
       ]
     }
   },
