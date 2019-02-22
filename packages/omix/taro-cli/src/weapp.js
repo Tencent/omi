@@ -103,6 +103,7 @@ let constantsReplaceList = Object.assign({}, Util.generateEnvList(projectConfig.
 
 function getExactedNpmFilePath (npmName, filePath) {
   try {
+    //里面会递归 require 进行拷贝到 npm 目录
     const npmInfo = resolveNpmFilesPath(npmName, isProduction, weappNpmConfig, buildAdapter, appPath, compileInclude)
     const npmInfoMainPath = npmInfo.main
     let outputNpmPath
