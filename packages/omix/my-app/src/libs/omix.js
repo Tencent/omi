@@ -101,7 +101,7 @@ const defineApp  = function(a,b){
 }
 
 function render(){
-  console.error(mapping[config.pages[0]])
+  
 }
 
 root.Omi = {
@@ -117,6 +117,16 @@ root.Omi = {
 root.omi = root.Omi
 root.omix = root.Omi
 root.Omix = root.Omi
+root.create = {
+  Page: function(options){
+    console.log(options)
+    Page({})
+  }
+}
+
+root.getOptions = function(path){
+  return mapping[path]
+}
 
 export  {
   define,

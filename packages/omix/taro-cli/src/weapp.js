@@ -766,6 +766,12 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
             node.body[node.body.length-2].expression.callee.name = 'global.Omi.defineApp'
             //node.body.push(template(`App(require('${taroMiniAppFrameworkPath}').default.createApp(${exportVariableName}))`, babylonConfig)())
             //node.body.push(template(`Taro.initPxTransform(${JSON.stringify(pxTransformConfig)})`, babylonConfig)())
+            //@fix Please do not call Page constructor in files that not listed in "pages" section of app.json or plugin.json     
+            node.body.forEach((item, index) => {
+              if (item.type === 'ImportDeclaration' && item.source.value.indexOf('./pages/') === 0) {
+                node.body[index] = null
+              }
+            })
             break
           case PARSE_AST_TYPE.PAGE:
             if (buildAdapter === Util.BUILD_TYPES.WEAPP) {
@@ -777,6 +783,7 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
               //给 define 增加第三个参数
               node.body[node.body.length-1].expression.arguments.push(obj)
               node.body[node.body.length-1].expression.callee.name = 'global.Omi.definePage'
+              node.body.push(template(`global.create.Page(global.getOptions('${path}'))`, babylonConfig)())
               //node.body.push(template(`Component(require('${taroMiniAppFrameworkPath}').default.createComponent(${exportVariableName}, true))`, babylonConfig)())
             } else {
               node.body.push(template(`Page(require('${taroMiniAppFrameworkPath}').default.createComponent(${exportVariableName}, true))`, babylonConfig)())
