@@ -422,7 +422,7 @@ export function hasComplexExpression (path: NodePath<t.Node>) {
       if (
         jsxElement &&
         object.isThisExpression() &&
-        property.isIdentifier({ name: 'state' }) &&
+        property.isIdentifier({ name: 'data' }) &&
         parentPath.isMemberExpression() &&
         parentPath.parentPath.isMemberExpression()
       ) {

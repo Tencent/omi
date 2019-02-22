@@ -7,7 +7,7 @@ const traverse = require('babel-traverse').default
 const t = require('babel-types')
 const template = require('babel-template')
 const taroize = require('@tarojs/taroize')
-const wxTransformer = require('@tarojs/transformer-wx')
+const wxTransformer = require('../../taro-transformer-wx/lib/src/index.js').default
 const postcss = require('postcss')
 const unitTransform = require('postcss-taro-unit-transform')
 

@@ -20,8 +20,8 @@ import { Adapter } from './adapter'
 
 // @TODO
 // 重构 parseRender 和 parseLoop 失败
-// 尚不清楚 babel 的 state 和 context 传参机制
-// 目前先写两份代码，有时间看看 babel 具体对 state 和 context 做了什么导致传参失败
+// 尚不清楚 babel 的 data 和 context 传参机制
+// 目前先写两份代码，有时间看看 babel 具体对 data 和 context 做了什么导致传参失败
 export function parseLoopBody (
   body: NodePath<t.BlockStatement>,
   jsxDeclarations: Set<NodePath<t.Node>>,

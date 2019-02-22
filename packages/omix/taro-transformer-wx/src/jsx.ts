@@ -25,7 +25,7 @@ export function removeJSXThisProperty (path: NodePath<t.ThisExpression>) {
     const p = path.getSibling('property')
     if (
       p.isIdentifier({ name: 'props' }) ||
-      p.isIdentifier({ name: 'state' })
+      p.isIdentifier({ name: 'data' })
     ) {
       path.parentPath.replaceWithSourceString('this')
     } else {
@@ -143,8 +143,8 @@ function parseJSXChildren (
             })
             .code
           )
-          .replace(/(this\.props\.)|(this\.state\.)/g, '')
-          .replace(/(props\.)|(state\.)/g, '')
+          .replace(/(this\.props\.)|(this\.data\.)/g, '')
+          .replace(/(props\.)|(data\.)/g, '')
           .replace(/this\./g, '')
           .replace(/</g, lessThanSignPlacehold)
         }}`
@@ -206,7 +206,7 @@ export function parseJSXElement (element: t.JSXElement): string {
               concise: true
             }).code)
             .replace(/"/g, "'")
-            .replace(/(this\.props\.)|(this\.state\.)/g, '')
+            .replace(/(this\.props\.)|(this\.data\.)/g, '')
             .replace(/this\./g, '')
           if (
             Adapters.swan === Adapter.type &&

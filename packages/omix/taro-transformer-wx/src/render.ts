@@ -85,7 +85,7 @@ function buildAssignState (
     t.callExpression(
       t.memberExpression(t.identifier('Object'), t.identifier('assign')),
       [
-        t.memberExpression(t.thisExpression(), t.identifier('state')),
+        t.memberExpression(t.thisExpression(), t.identifier('data')),
         pendingState
       ]
     )
@@ -103,7 +103,7 @@ export class RenderParser {
   private usedThisState = new Set<string>()
   private loopComponents = new Map<NodePath<t.CallExpression>, NodePath<t.JSXElement>>()
   private loopRefIdentifiers = new Map<string, NodePath<t.CallExpression>>()
-  private reserveStateWords = new Set(['state', 'props'])
+  private reserveStateWords = new Set(['data', 'props'])
   private topLevelIfStatement = new Set<NodePath<t.IfStatement>>()
   private usedEvents = new Set<string>()
   private customComponentNames: Set<string>
@@ -359,10 +359,10 @@ export class RenderParser {
     }
   }
 
-  hasStateOrProps = (key: 'state' | 'props') => (p: t.AssignmentProperty | t.RestProperty) => t.isObjectProperty(p) && t.isIdentifier(p.key) && p.key.name === key
+  hasStateOrProps = (key: 'data' | 'props') => (p: t.AssignmentProperty | t.RestProperty) => t.isObjectProperty(p) && t.isIdentifier(p.key) && p.key.name === key
 
   private destructStateOrProps (
-    key: 'state' | 'props',
+    key: 'data' | 'props',
     path: NodePath<t.VariableDeclarator>,
     properties: (t.AssignmentProperty | t.RestProperty)[],
     parentPath: NodePath<t.Node>
@@ -372,7 +372,7 @@ export class RenderParser {
       return
     }
     if (hasStateOrProps.length !== properties.length) {
-      throw codeFrameError(path.node, 'state 或 props 只能单独从 this 中解构')
+      throw codeFrameError(path.node, 'data 或 props 只能单独从 this 中解构')
     }
     const declareState = template(`const ${key} = this.${key};`)()
     if (properties.length > 1) {
@@ -396,7 +396,7 @@ export class RenderParser {
         parentPath.isVariableDeclaration()
       ) {
         const { properties } = id.node
-        this.destructStateOrProps('state', path, properties, parentPath)
+        this.destructStateOrProps('data', path, properties, parentPath)
         this.destructStateOrProps('props', path, properties, parentPath)
       }
     },
@@ -557,7 +557,7 @@ export class RenderParser {
         if (isBlockIfStatement(ifStatement, blockStatement)) {
           const { test, alternate, consequent } = ifStatement.node
           // blockStatement.node.body.push(t.returnStatement(
-          //   t.memberExpression(t.thisExpression(), t.identifier('state'))
+          //   t.memberExpression(t.thisExpression(), t.identifier('data'))
           // ))
           if (alternate === blockStatement.node) {
             throw codeFrameError(parentNode.loc, '不必要的 else 分支，请遵从 ESLint consistent-return: https://eslint.org/docs/rules/consistent-return')
@@ -941,7 +941,7 @@ export class RenderParser {
           return
         }
         const reserves = new Set([
-          'state',
+          'data',
           'props',
           ...this.methods.keys()
         ])
@@ -971,7 +971,7 @@ export class RenderParser {
         if (
           t.isMemberExpression(object) &&
           t.isThisExpression(object.object) &&
-          t.isIdentifier(object.property, { name: 'state' })
+          t.isIdentifier(object.property, { name: 'data' })
         ) {
           if (t.isIdentifier(property)) {
             this.usedThisState.add(property.name)
@@ -1027,15 +1027,15 @@ export class RenderParser {
       let isDerivedFromState = false
       if (init.isMemberExpression()) {
         const object = init.get('object')
-        if (object.isMemberExpression() && object.get('object').isThisExpression() && object.get('property').isIdentifier({ name: 'state' })) {
+        if (object.isMemberExpression() && object.get('object').isThisExpression() && object.get('property').isIdentifier({ name: 'data' })) {
           isDerivedFromState = true
         }
-        if (object.isThisExpression() && init.get('property').isIdentifier({ name: 'state' })) {
+        if (object.isThisExpression() && init.get('property').isIdentifier({ name: 'data' })) {
           isDerivedFromState = true
         }
       }
       if (!isDerivedFromState) {
-        const errMsg = 'Warning: render 函数定义一个不从 this.state 解构或赋值而来的变量，此变量又与 this.state 下的变量重名可能会导致无法渲染。'
+        const errMsg = 'Warning: render 函数定义一个不从 this.data 解构或赋值而来的变量，此变量又与 this.data 下的变量重名可能会导致无法渲染。'
         if (id.isIdentifier()) {
           const name = id.node.name
           if (this.initState.has(name)) {
@@ -1145,13 +1145,13 @@ export class RenderParser {
   checkDuplicateData () {
     this.initState.forEach((stateName) => {
       if (this.templates.has(stateName)) {
-        throw codeFrameError(this.templates.get(stateName)!, `自定义变量组件名: \`${stateName}\` 和已有 this.state.${stateName} 重复。请使用另一个变量名。`)
+        throw codeFrameError(this.templates.get(stateName)!, `自定义变量组件名: \`${stateName}\` 和已有 this.data.${stateName} 重复。请使用另一个变量名。`)
       }
     })
 
     this.componentProperies.forEach((componentName) => {
       if (this.componentProperies.has(componentName)) {
-        throw codeFrameError(this.renderPath.node, `state: \`${componentName}\` 和已有 this.props.${componentName} 重复。请使用另一个变量名。`)
+        throw codeFrameError(this.renderPath.node, `data: \`${componentName}\` 和已有 this.props.${componentName} 重复。请使用另一个变量名。`)
       }
       if (this.templates.has(componentName)) {
         throw codeFrameError(this.templates.get(componentName)!, `自定义变量组件名: \`${componentName}\` 和已有 this.props.${componentName} 重复。请使用另一个变量名。`)
@@ -1330,12 +1330,12 @@ export class RenderParser {
             },
             MemberExpression (path) {
               const { object, property } = path.node
-              if (t.isThisExpression(object) && t.isIdentifier(property, { name: 'state' })) {
+              if (t.isThisExpression(object) && t.isIdentifier(property, { name: 'data' })) {
                 if (path.parentPath.isMemberExpression() && path.parentPath.parentPath.isMemberExpression()) {
                   // tslint:disable-next-line
                   console.warn(
                     codeFrameError(path.parentPath.parentPath.node,
-                      `在循环中使用 this.state.xx.xx 可能会存在问题，请给 xx 起一个别名，例如 const { xx } = this.state`
+                      `在循环中使用 this.data.xx.xx 可能会存在问题，请给 xx 起一个别名，例如 const { xx } = this.data`
                     )
                   )
                 }
@@ -1636,7 +1636,7 @@ export class RenderParser {
     this.renderPath.node.body.body = this.renderPath.node.body.body.concat(
       buildAssignState(pendingState),
       t.returnStatement(
-        t.memberExpression(t.thisExpression(), t.identifier('state'))
+        t.memberExpression(t.thisExpression(), t.identifier('data'))
       )
     )
   }
@@ -1646,7 +1646,7 @@ export class RenderParser {
     renderBody.traverse({
       ThisExpression (path) {
         const property = path.getSibling('property')
-        if (property.isIdentifier({ name : 'state' })) {
+        if (property.isIdentifier({ name : 'data' })) {
           property.replaceWith(t.identifier('__state'))
         }
         if (property.isIdentifier({ name : 'props' })) {
@@ -1663,7 +1663,7 @@ export class RenderParser {
     })
 
     this.renderPath.node.body.body.unshift(
-      template(`this.__state = arguments[0] || this.state || {};`)(),
+      template(`this.__state = arguments[0] || this.data || {};`)(),
       template(`this.__props = arguments[1] || this.props || {};`)(),
       template(`const __runloopRef = arguments[2];`)(),
       this.usedThisProperties.size

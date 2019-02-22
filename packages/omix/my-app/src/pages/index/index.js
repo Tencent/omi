@@ -1,22 +1,25 @@
 
 import { WeElement, define } from 'omi'
 
-
+//兼容 omi 下划线？
+import './index.css'
 
 define('my-counter', class extends WeElement {
-  count = 1
+  data = {
+    count: 1
+  }
 
   css = `span{
         color: red;
       }`
 
   sub = () => {
-    this.count--
+    this.data.count--
     this.update()
   }
 
   add = () => {
-    this.count++
+    this.data.count++
     this.update()
   }
 
@@ -24,7 +27,7 @@ define('my-counter', class extends WeElement {
     return (
       <view>
         <button onClick={this.sub}>-</button>
-        <text>{this.count}</text>
+        <text>{this.data.count}</text>
         <button onClick={this.add}>+</button>
       </view>
     )

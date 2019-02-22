@@ -308,7 +308,7 @@ class Transformer {
                   t.isMemberExpression(p.node.left) &&
                   t.isThisExpression(p.node.left.object) &&
                   t.isIdentifier(p.node.left.property) &&
-                  p.node.left.property.name === 'state' &&
+                  p.node.left.property.name === 'data' &&
                   t.isObjectExpression(p.node.right)
                 ) {
                   const properties = p.node.right.properties
@@ -336,7 +336,7 @@ class Transformer {
         if (t.isArrowFunctionExpression(value) || t.isFunctionExpression(value)) {
           self.methods.set(name, path)
         }
-        if (name === 'state' && t.isObjectExpression(value)) {
+        if (name === 'data' && t.isObjectExpression(value)) {
           value.properties.forEach(p => {
             if (t.isObjectProperty(p)) {
               if (t.isIdentifier(p.key)) {
@@ -354,7 +354,7 @@ class Transformer {
             const sibling = path.getSibling('property')
             if (
               path.get('object').isThisExpression() &&
-              (path.get('property').isIdentifier({ name: 'props' }) || path.get('property').isIdentifier({ name: 'state' })) &&
+              (path.get('property').isIdentifier({ name: 'props' }) || path.get('property').isIdentifier({ name: 'data' })) &&
               sibling.isIdentifier()
             ) {
               if (!isFunctionProp) {

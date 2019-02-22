@@ -71,8 +71,10 @@ root.omix = root.Omi
 root.Omix = root.Omi
 root.create = {
   Page: function (options) {
-    console.log(options)
-    Page({})
+    const ins =  new options.ctor
+    Page({
+      data: ins.data
+    })
   }
 }
 
