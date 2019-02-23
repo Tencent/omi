@@ -8,7 +8,7 @@ const config = {
     '828': 1.81 / 2
   },
   alias: {
-    'omi': 'src/libs/omix/index.js',
+    'omi': 'src/libs/omip/index.js',
     '@tarojs': 'src/libs'
   },
   sourceRoot: 'src',
