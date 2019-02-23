@@ -14,7 +14,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.4.1",
 	"appid": "wxfaf6dad43f57c6bd",
-	"projectname": "omi-mp-create",
+	"projectname": "omix",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
