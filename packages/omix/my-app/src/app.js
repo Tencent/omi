@@ -23,15 +23,15 @@ define('my-app', class extends WeElement {
     }
   }
 
-  componentWillMount() { }
+  install() { }
 
-  componentDidMount() { }
+  installed() { }
 
-  componentWillUnmount() { }
+  uninstall() { }
 
-  componentDidShow() { }
+  show() { }
 
-  componentDidHide() { }
+  hide() { }
 
   render() {
     return (
