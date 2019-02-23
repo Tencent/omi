@@ -7,14 +7,15 @@ function define() {
 
 class Component {
   constructor() {
-    this.a = 1
+  }
+
+  update() {
+    this._weappRef.setData(this.data)
   }
 }
 
 
 const WeElement = Component
-
-
 
 
 
@@ -71,10 +72,17 @@ root.omix = root.Omi
 root.Omix = root.Omi
 root.create = {
   Page: function (options) {
-    const ins =  new options.ctor
-    Page({
-      data: ins.data
+    const ins = new options.ctor
+    const config = {}
+    Object.keys(ins).forEach(key => {
+      config[key] = ins[key]
     })
+
+    config.onLoad = function () {
+      ins._weappRef = this
+    }
+
+    Page(config)
   }
 }
 
