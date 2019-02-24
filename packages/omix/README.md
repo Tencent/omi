@@ -8,15 +8,15 @@
 
 #### 去中心化 API
 
-* `create.Page(option)`             创建页面
+* `create.Page(option)`             创建页面，option.context 页面级别共享
 * `create.Component(option)`        创建组件
 * `this.oData`                      操作页面或组件的数据（会自动更新视图）
-* `this.store`                      页面注入的 store，页面和页面所有组件可以拿到
+* `this.context`                    页面注入的 context，页面和页面所有组件可以拿到
 * `create.mitt()`                   事件发送和监听器
 
 #### 中心化 API
 
-* `create(store, option)`      创建页面
+* `create(store, option)`      创建页面， store 可跨页面共享
 * `create(option)`             创建组件
 * `this.store.data`            全局 store 和 data，页面和页面所有组件可以拿到， 操作 data 会自动更新视图
 * `create.emitter`                  事件发送和监听器，不同于 mitt() 每次会创建新的实例，emitter 是全局唯一，可以用于跨页面通讯
@@ -31,7 +31,8 @@ import create from '../../utils/create'
 const app = getApp()
 
 create.Page({
-  store: {
+  //页面级别上下文，跨页面不共享
+  context: {
     abc: '公共数据从页面注入到页面的所有组件'
     //事件发送和监听器,或者 create.mitt()
     emitter: create.emitter
@@ -50,7 +51,7 @@ create.Page({
     ...
     ...
     //监听事件
-    this.store.emitter.on('foo', e => console.log('foo', e) )
+    this.context.emitter.on('foo', e => console.log('foo', e) )
     setTimeout(() => {
       this.oData.userInfo = {
         nickName: 'dnt',
@@ -96,9 +97,9 @@ create.Component({
 
   ready: function () {
     //这里可以获取组件所属页面注入的 store
-    console.log(this.store)
+    console.log(this.context)
     //触发事件
-    this.store.emitter.emit('foo', { a: 'b' })
+    this.context.emitter.emit('foo', { a: 'b' })
     setTimeout(()=>{
       this.oData.a.b = 1
     },3000)
@@ -152,7 +153,7 @@ this.oData.arr.length = 2 //不会触发视图更新
 ```js
 data: {
     motto: 'Hello World',
-		reverseMotto() {
+    reverseMotto() {
       return this.motto.split('').reverse().join('')
     }
 },
@@ -182,7 +183,7 @@ emitter.off('foo', onFoo)  // unlisten
 
 [详细参见 mitt github](https://github.com/developit/mitt)
 
-omi-mp-create 为 mitt 新增的语法：
+omix 为 mitt 新增的语法：
 
 ```js
 emitter.off('foo') // unlisten all foo callback
@@ -232,7 +233,7 @@ create(store, {
 
 ```html
 <view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log">
+  <block wx:for="{{store.logs}}" wx:for-item="log">
     <text class="log-item">{{index + 1}}. {{log}}</text>
   </block>
   <view>
@@ -254,7 +255,7 @@ create({
 ```html
 <view class="ctn">
   <view>
-    <text>Log Length: {{logs.length}}</text>
+    <text>Log Length: {{store.logs.length}}</text>
   </view>
 </view>
 ```
@@ -263,7 +264,7 @@ create({
 <!-- 
 ## 原理
 
-最开始 `omi-mp-create` 打算使用 proxy，但是调研了下兼容性，还是打算使用 obaa 来进行数据变更监听。
+最开始 `omix` 打算使用 proxy，但是调研了下兼容性，还是打算使用 obaa 来进行数据变更监听。
 
 因为小程序 IOS 使用内置的 jscore，安卓使用 x5，所以 Proxy 兼容性(IOS10+支持，安卓基本都支持)
 

@@ -17,7 +17,7 @@ create.Component({
   },
 
   ready: function () {
-    this.store.emitter.emit('foo', { a: 'b' })
+    this.context.emitter.emit('foo', { a: 'b' })
     setTimeout(()=>{
       this.oData.a.b = 1
     },3000)

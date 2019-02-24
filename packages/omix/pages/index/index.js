@@ -3,7 +3,7 @@ import create from '../../utils/create'
 const app = getApp()
 
 create.Page({
-  store: {
+  context: {
     abc: '公共数据从页面注入到页面的所有组件',
     //事件发送和监听器,或者 create.mitt()
     emitter: create.emitter
@@ -24,7 +24,7 @@ create.Page({
     })
   },
   onLoad: function () {
-    console.log(this.store)
+    console.log(this.context)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -52,7 +52,7 @@ create.Page({
       })
     }
 
-    this.store.emitter.on('foo', e => console.log('foo', e) )
+    this.context.emitter.on('foo', e => console.log('foo', e) )
 
     setTimeout(() => {
       this.oData.userInfo = {
