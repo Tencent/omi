@@ -110,9 +110,19 @@ function create(store, option) {
     option.onLoad = function (e) {
       this.store = store
 
+      this.context = option.context
+      const temp = option.data.store
+      delete option.data.store
+      this.oData = JSON.parse(JSON.stringify(option.data))
+      if (!option.data.___walked) {
+        walk(option.data, true)
+      }
+      observe(this, option.data)
+      option.data.store = temp
+    
       store.instances[this.route] = []
       store.instances[this.route].push(this)
-      if (!option.data.___walked) {
+      if (!option.data.store.___walked) {
         walk(this.store.data)
       }
       this.setData.call(this, option.data)
@@ -122,14 +132,15 @@ function create(store, option) {
   } else {
     const ready = store.ready
     store.ready = function () {
-      this.page = getCurrentPages()[getCurrentPages().length - 1]
-      this.store = this.page.store
+      const page = getCurrentPages()[getCurrentPages().length - 1]
+      this.context = store.context || page.context
+      this.store = page.store
       
       store.data = store.data || {}
       store.data.store = this.store.data
       this.setData.call(this, store.data)
 
-      this.store.instances[this.page.route].push(this)
+      this.store.instances[page.route].push(this)
       ready && ready.call(this)
     }
     Component(store)

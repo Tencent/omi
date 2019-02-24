@@ -4,7 +4,9 @@
       <text class="user-motto">{{store.motto}}</text>
       <text class="user-motto">-{{store.reverseMotto}}</text>
   </view>
-
+  <view class="usermotto">
+      <text class="user-motto">{{test}}</text>
+  </view>
   <block wx:for="{{store.logs}}" wx:for-item="log">
     <text class="log-item">{{index + 1}}. {{log}}</text>
   </block>

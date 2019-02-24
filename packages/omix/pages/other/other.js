@@ -3,11 +3,17 @@ import util from '../../utils/util'
 import store from '../../store'
 
 create(store, {
+  data : {
+    test: 'test data'
+  },
   onLoad: function () {
     this.store.data.logs = (wx.getStorageSync('logs') || []).map(log => {
       return util.formatTime(new Date(log))
     })
 
+    setTimeout(() => {
+      this.oData.test = 'test this.oData.test change'
+    }, 1000)
 
     setTimeout(() => {
       this.store.data.logs[0] = 'Changed!'
