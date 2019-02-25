@@ -790,7 +790,8 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
             }
             break
           case PARSE_AST_TYPE.COMPONENT:
-            node.body.push(template(`Component(require('${taroMiniAppFrameworkPath}').default.createComponent(${exportVariableName}))`, babylonConfig)())
+            //@fix 注释掉用来解决小程序报错
+            //node.body.push(template(`Component(require('${taroMiniAppFrameworkPath}').default.createComponent(${exportVariableName}))`, babylonConfig)())
             break
           default:
             break

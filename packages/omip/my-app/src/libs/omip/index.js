@@ -1,11 +1,8 @@
 
 import { h } from './h'
+import { define } from './define'
 
-function define() {
-
-}
-
-class Component {
+class Component{
   constructor() {
   }
 
@@ -13,7 +10,6 @@ class Component {
     this._weappRef.setData(this.data)
   }
 }
-
 
 const WeElement = Component
 

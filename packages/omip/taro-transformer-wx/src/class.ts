@@ -124,6 +124,8 @@ class Transformer {
   private loopStateName: Map<NodePath<t.CallExpression>, string> = new Map()
   private customComponentData: Array<t.ObjectProperty> = []
   private componentProperies: Set<string>
+  //@fix add arg => componentSourceMap
+  private componentSourceMap: Map<string, string[]>
   private sourcePath: string
   private refs: Ref[] = []
   private loopRefs: Map<t.JSXElement, LoopRef> = new Map()
@@ -132,10 +134,14 @@ class Transformer {
   constructor (
     path: NodePath<t.ClassDeclaration>,
     sourcePath: string,
-    componentProperies: string[]
+    componentProperies: string[],
+    //@fix add arg => componentSourceMap
+    componentSourceMap: Map<string, string[]>
   ) {
     this.classPath = path
     this.sourcePath = sourcePath
+    //@fix add arg => componentSourceMap
+    this.componentSourceMap = componentSourceMap
     this.moduleNames = Object.keys(path.scope.getAllBindings('module'))
     this.componentProperies = new Set(componentProperies)
     this.compile()
@@ -466,6 +472,18 @@ class Transformer {
       },
       JSXElement (path) {
         const id = path.node.openingElement.name
+        //@fix extrat xx-xx components to customComponents list
+        if (t.isJSXIdentifier(id) && id.name.indexOf('-') !== -1) {
+          for (let key of self.componentSourceMap) {
+            const arr = key[0].split('/')
+            if (arr[arr.length - 1] === id.name && key[1].length === 0) {
+              self.customComponents.set(id.name, {
+                sourcePath: key[0],
+                type: 'default'
+              });
+            }
+          }
+        }
         if (
           t.isJSXIdentifier(id) &&
           !DEFAULT_Component_SET.has(id.name) &&
