@@ -17,6 +17,9 @@ define('my-counter', class extends WeElement {
   sub = () => {
     this.data.count--
     this.update()
+    wx.navigateTo({
+      url: '../logs/index'
+    })
   }
 
   add = () => {

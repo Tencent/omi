@@ -2,13 +2,14 @@
 import { h } from './h'
 import { define } from './define'
 
-class Component{
-  constructor() {
-  }
+class Component {
+  constructor() { }
 
   update() {
     this._weappRef.setData(this.data)
   }
+
+  install() { }
 }
 
 const WeElement = Component
@@ -76,6 +77,7 @@ root.create = {
 
     config.onLoad = function () {
       ins._weappRef = this
+      ins.install()
     }
 
     Page(config)
