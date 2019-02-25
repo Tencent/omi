@@ -11,6 +11,8 @@ cd my-app
 npm start
 ```
 
+然后把小程序目录设置到 dist 目录就可以愉快的调试了。
+
 ## License
 
 MIT © dntzhang
