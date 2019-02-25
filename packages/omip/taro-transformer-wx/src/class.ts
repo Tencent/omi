@@ -142,6 +142,16 @@ class Transformer {
     this.sourcePath = sourcePath
     //@fix add arg => componentSourceMap
     this.componentSourceMap = componentSourceMap
+    //@fix import 却没使用的自定义组件
+    for (let key of this.componentSourceMap) {
+      const arr = key[0].split('/')
+      if (arr[arr.length - 1].indexOf('-') !== -1 && key[0].indexOf('components/') !== -1 && key[1].length === 0) {
+        this.customComponents.set(arr[arr.length - 1], {
+          sourcePath: key[0],
+          type: 'default'
+        });
+      }
+    }
     this.moduleNames = Object.keys(path.scope.getAllBindings('module'))
     this.componentProperies = new Set(componentProperies)
     this.compile()

@@ -3,7 +3,7 @@ import { WeElement, define } from 'omi'
 //兼容 omi 下划线？
 import './index.css'
 
-define('my-logs', class extends WeElement {
+define('page-logs', class extends WeElement {
   data = {
     logs: []
   }

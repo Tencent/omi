@@ -1,7 +1,5 @@
 
 import { WeElement, define } from 'omi'
-import '../../components/my-element'
-
 import './index.css'
 
 //获取应用实例
