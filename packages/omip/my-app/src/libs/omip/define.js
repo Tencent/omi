@@ -21,7 +21,7 @@ export function define(name, ctor) {
     ins._weappRef = this
   }
 
-  config.$usedState.forEach(prop => {
+  config.$usedState && config.$usedState.forEach(prop => {
     config.properties[prop] = null
   })
 

@@ -72,7 +72,7 @@ define('my-app', class extends WeElement {
 
   render() {
     return (
-      <my-counter />
+      <page-index />
     )
   }
 })
