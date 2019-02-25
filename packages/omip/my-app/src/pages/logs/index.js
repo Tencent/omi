@@ -13,10 +13,7 @@ define('my-logs', class extends WeElement {
       return util.formatTime(new Date(log))
     })
 
-    this.data.logs.push('abc')
-
     this.update()
-    console.log(this.data.logs.length)
 
   }
   render() {

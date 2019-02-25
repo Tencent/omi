@@ -37,7 +37,6 @@ function getGlobal() {
 
 const root = getGlobal()
 const mapping = {}
-let config = {}
 
 const definePage = function (name, ctor, path) {
   mapping[path] = {
@@ -45,9 +44,14 @@ const definePage = function (name, ctor, path) {
     ctor
   }
 }
-const defineApp = function (a, b) {
-  const ins = new b()
-  config = ins.config
+const defineApp = function (name, ctor) {
+  const ins = new ctor()
+  const config = {}
+  config.globalData = ins.globalData
+  config.onLaunch = function(){
+    ins.install && ins.install.call(this)
+  }
+  App(config)
 }
 
 function render() {
