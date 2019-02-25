@@ -4,7 +4,7 @@ define('my-element', class extends WeElement {
   render() {
     return (
       <view>
-        <text>Hello, Element!</text>
+        <text>Hello, {this.props.msg}!</text>
       </view>
     )
   }

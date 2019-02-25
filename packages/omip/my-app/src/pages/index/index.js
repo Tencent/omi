@@ -30,7 +30,7 @@ define('my-counter', class extends WeElement {
         <button onClick={this.sub}>-</button>
         <text>{this.data.count}</text>
         <button onClick={this.add}>+</button>
-        <my-element></my-element>
+        <my-element msg='omi'></my-element>
       </view>
     )
   }
