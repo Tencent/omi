@@ -1,7 +1,0 @@
-<block>
-    <div __triggerObserer="{{ _triggerObserer }}">
-        <button bindonclick="sub" __triggerObserer="{{ _triggerObserer }}" __fn_onClick="{{true}}">-</button>
-        <span __triggerObserer="{{ _triggerObserer }}">{{count}}</span>
-        <button bindonclick="add" __triggerObserer="{{ _triggerObserer }}" __fn_onClick="{{true}}">+</button>
-    </div>
-</block>
