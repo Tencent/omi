@@ -306,7 +306,7 @@ exports.getPkgItemByKey = function (key) {
 
 exports.printPkgVersion = function () {
   const taroVersion = exports.getPkgVersion()
-  console.log(`👽 Taro v${taroVersion}`)
+  console.log(`👽 Taro-Omi v${taroVersion}`)
   console.log()
 }
 
