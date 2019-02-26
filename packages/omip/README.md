@@ -10,7 +10,7 @@ omi init-p my-app
 cd my-app
 npm start
 ```
-    node 版本要求 >= 8
+> node 版本要求 >= 8
 
 把小程序目录设置到 dist 目录就可以愉快地调试了！
 
