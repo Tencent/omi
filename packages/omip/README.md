@@ -5,7 +5,7 @@
 ## 快速开始
 
 ```js
-omi i omi-cli -g
+npm i omi-cli -g
 omi init-p my-app
 cd my-app
 npm start
