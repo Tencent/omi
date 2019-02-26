@@ -7,10 +7,12 @@ class Store {
     this.menus = config.menus[this.lan]
     this.md = this.menus[0].list[0].md
     this.remarkable = new Remarkable({ html: true })
-    this.getMarkDown(this.md, this.lan, m => {
-      this.html = this.remarkable.render(m)
-      this.myContent.update()
-    })
+    if (location.hash === "") {
+      this.getMarkDown(this.md, this.lan, m => {
+        this.html = this.remarkable.render(m)
+        this.myContent.update()
+      })
+    }
 
     this.menus[0].active = true
     this.menus[0].currentIndex = 0
