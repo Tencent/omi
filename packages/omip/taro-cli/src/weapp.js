@@ -768,7 +768,7 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
             //node.body.push(template(`Taro.initPxTransform(${JSON.stringify(pxTransformConfig)})`, babylonConfig)())
             //@fix Please do not call Page constructor in files that not listed in "pages" section of app.json or plugin.json     
             node.body.forEach((item, index) => {
-              if (item.type === 'ImportDeclaration' && item.source.value.indexOf('./pages/') === 0) {
+              if (item.type === 'ImportDeclaration' && item.source.value.indexOf('./pages/') === 0 && node.body[index].specifiers.length === 0) {
                 node.body[index] = null
               }
             })
@@ -790,6 +790,16 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
             }
             break
           case PARSE_AST_TYPE.COMPONENT:
+
+            node.body.forEach((item, index) => {
+              if (item.type === 'ImportDeclaration') {
+                const v = node.body[index].source.value
+                if (v.indexOf('libs/taro/') === -1 && v.indexOf('libs/omip/') === -1 && node.body[index].specifiers.length === 0) {
+                  node.body[index] = null
+                }
+              }
+            })
+
             //@fix 注释掉用来解决小程序报错
             //node.body.push(template(`Component(require('${taroMiniAppFrameworkPath}').default.createComponent(${exportVariableName}))`, babylonConfig)())
             break

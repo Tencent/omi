@@ -22,10 +22,10 @@ export function define(name, ctor) {
   }
 
   config.$usedState && config.$usedState.forEach(prop => {
-    if(config.data && !config.data.hasOwnProperty(prop)){
+    if(!config.data || (config.data && !config.data.hasOwnProperty(prop))){
       config.properties[prop] = null
     }
   })
-
+  
   Component(config)
 }
