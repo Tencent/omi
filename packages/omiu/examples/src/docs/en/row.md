@@ -6,8 +6,8 @@ Row of the 24 grid system.
 
 ```js
 <o-row>
-  <col span={12}>col12</item>
-  <col span={12}>col12</item>
+  <col span={12}>col12</col>
+  <col span={12}>col12</col>
 </o-row>
 ```
 
