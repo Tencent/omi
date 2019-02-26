@@ -10,6 +10,10 @@ class Component {
   }
 
   install() { }
+
+  fire(type, data) { 
+    this._weappRef.triggerEvent(type, data)
+  }
 }
 
 const WeElement = Component

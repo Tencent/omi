@@ -2,7 +2,6 @@
 import { WeElement, define } from 'omi'
 import '../my-element'
 
-//兼容 omi 下划线？
 import './index.css'
 
 define('my-counter', class extends WeElement {
@@ -16,11 +15,13 @@ define('my-counter', class extends WeElement {
 
   sub = () => {
     this.data.count--
+    this.fire('change', this.data.count)
     this.update()
   }
 
   add = () => {
     this.data.count++
+    this.fire('change', this.data.count)
     this.update()
   }
 

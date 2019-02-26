@@ -1,7 +1,7 @@
 import util from '../../utils/util'
 import { WeElement, define } from 'omi'
 import '../../components/my-counter'
-//兼容 omi 下划线？
+
 import './index.css'
 
 define('page-logs', class extends WeElement {
@@ -15,12 +15,16 @@ define('page-logs', class extends WeElement {
     })
 
     this.update()
-
   }
+
+  counterChange = (evt)=> {
+    console.log(evt.detail)
+  }
+
   render() {
     return (
       <view>
-        <my-counter></my-counter>
+        <my-counter onChange={this.counterChange}></my-counter>
         <view class="container log-list">
           {this.data.logs.map((log, index) => (
             <text class="log-item">{index + 1}. {log}</text>
