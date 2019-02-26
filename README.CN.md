@@ -23,6 +23,7 @@
 | [mp-mvvm ](https://github.com/Tencent/omi/tree/master/packages/mp-mvvm)| 小程序插上 MVVM 的翅膀, [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力加持。|
 | [omi-html](https://github.com/Tencent/omi/tree/master/packages/omi-html)| Using [htm](https://github.com/developit/htm) in omi.|
 | [omi-30-seconds](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| 30 秒理解一段有用的 Omi 代码片段.|
+| [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
 | [omi-sprite](https://github.com/Tencent/omi/tree/master/packages/omi-sprite)| Web Components, JSX 和 Canvas 的完美融合|
 | [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
 | [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
