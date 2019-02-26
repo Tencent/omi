@@ -248,7 +248,9 @@ You can also update the view manually then you can choose the best time to updat
 import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
-  count = 1
+  data = {
+    count: 1
+  }
 
   //You can also pass strings directly
   css = `span{
@@ -256,12 +258,12 @@ define('my-counter', class extends WeElement {
       }`
 
   sub = () => {
-    this.count--
+    this.data.count--
     this.update()
   }
 
   add = () => {
-    this.count++
+    this.data.count++
     this.update()
   }
 
@@ -269,7 +271,7 @@ define('my-counter', class extends WeElement {
     return (
       <div>
         <button onClick={this.sub}>-</button>
-        <span>{this.count}</span>
+        <span>{this.data.count}</span>
         <button onClick={this.add}>+</button>
       </div>
     )

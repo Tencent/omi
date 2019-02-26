@@ -268,7 +268,9 @@ render(<my-counter />, 'body')
 import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
-  count = 1
+  data = {
+    count: 1
+  }
 
   //也可以直接传递字符串
   css = `span{
@@ -276,12 +278,12 @@ define('my-counter', class extends WeElement {
       }`
 
   sub = () => {
-    this.count--
+    this.data.count--
     this.update()
   }
 
   add = () => {
-    this.count++
+    this.data.count++
     this.update()
   }
 
@@ -289,7 +291,7 @@ define('my-counter', class extends WeElement {
     return (
       <div>
         <button onClick={this.sub}>-</button>
-        <span>{this.count}</span>
+        <span>{this.data.count}</span>
         <button onClick={this.add}>+</button>
       </div>
     )
