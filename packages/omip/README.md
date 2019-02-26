@@ -2,7 +2,7 @@
 
 使用 Omi 开发小程序
 
-> 现在，Omi 不仅仅可以开发桌面 web、移动 H5，还可以直接开发小程序！
+> 现在，Omi 不仅仅可以开发桌面 Web、移动 H5，还可以直接开发小程序！
 
 * Write Once, Run Anywhere
 * Learn Once, Write Anywhere
