@@ -2,6 +2,17 @@
 
 分页组件.
 
+## 使用
+
+```js
+<o-pagination
+  total={25}
+  currentPage={1}
+  pageSize={5}
+  onChange={this.onChange}
+/>
+```
+
 ## API
 
 ### Props
