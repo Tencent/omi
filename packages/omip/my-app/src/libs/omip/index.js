@@ -6,7 +6,10 @@ class Component {
   constructor() { }
 
   update() {
+    this.beforeUpdate && this.beforeUpdate()
+    this.beforeRender && this.beforeRender()
     this._weappRef.setData(this.data)
+    this.updated && this.updated()
   }
 
   install() { }
@@ -90,6 +93,7 @@ root.create = {
     config.onLoad = function () {
       ins._weappRef = this
       ins.install()
+      ins.beforeRender && ins.beforeRender()
     }
 
     config.onReady = function () {

@@ -20,6 +20,7 @@ export function define(name, ctor) {
   config.created = function () {
     ins._weappRef = this
     ins.install()
+    ins.beforeRender && ins.beforeRender()
   }
 
   config.attached = function () {
