@@ -3,8 +3,8 @@
 <p align="right">Omi <strong>v5.0.23</strong></p>
 <p align="right">Omio <strong>v1.3.7</strong></p>
 <p align="center"><img src="./assets/omi-logo2019.svg" alt="omi" width="300"/></p>
-<h2 align="center">Omi - 下一代 Web 框架，去万物糟粕，合精华为一点点 JS</h2>
-<p align="center"><b>基于 Web Components 并使用 omio 兼容老浏览器(IE8+)</b></p>
+<h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
+<p align="center"><b>基于 Web Components 并支持 IE8+(omio) 和 小程序(omip)</b></p>
 
 ## Omi 生态
 

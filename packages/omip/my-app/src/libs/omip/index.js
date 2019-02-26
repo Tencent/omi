@@ -18,7 +18,7 @@ class Component {
 
   uninstall() { }
 
-  fire(type, data) { 
+  fire(type, data) {
     this._weappRef.triggerEvent(type, data)
   }
 }
@@ -59,7 +59,7 @@ const defineApp = function (name, ctor) {
   const ins = new ctor()
   const config = {}
   config.globalData = ins.globalData
-  config.onLaunch = function(){
+  config.onLaunch = function () {
     ins.install && ins.install.call(this)
   }
   App(config)
@@ -92,6 +92,15 @@ root.create = {
 
     config.onLoad = function () {
       ins._weappRef = this
+      config.$$refs.forEach(ref => {
+        if (ref.type === 'component') {
+          if (ref.fn) {
+            ref.fn(this.selectComponent('#' + ref.id))
+          } else {
+            ins[ref.refName] = this.selectComponent('#' + ref.id)
+          }
+        }
+      })
       ins.install()
       ins.beforeRender && ins.beforeRender()
     }
@@ -111,7 +120,7 @@ root.create = {
     config.onHide = function () {
       ins.hide && ins.hide()
     }
-
+  
     Page(config)
   }
 }

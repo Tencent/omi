@@ -3,7 +3,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 <p align="right">Omi <strong>v5.0.23</strong></p>
 <p align="right">Omio <strong>v1.3.7</strong></p>
 <p align="center"><img src="./assets/omi-logo2019.svg" alt="omi" width="300"/></p>
-<h2 align="center">Omi - Next generation web framework using web components with omio fallback(IE8+) in tiny js.</h2>
+<h2 align="center">Omi - Next generation front end framework using web components with omio(IE8+) and omip(小程序) fallback in tiny js.</h2>
 
 ## Ecosystem of Omi
 
