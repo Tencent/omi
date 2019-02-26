@@ -1,4 +1,4 @@
-# omip
+# Omip
 
 使用 Omi 开发小程序
 

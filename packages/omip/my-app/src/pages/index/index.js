@@ -7,7 +7,7 @@ const app = getApp()
 
 define('page-index', class extends WeElement {
   data = {
-    motto: 'Hello World',
+    motto: 'Hello Omip',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
