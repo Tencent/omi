@@ -17,8 +17,25 @@ export function define(name, ctor) {
     }
   })
 
-  config.ready = function () {
+  config.created = function () {
     ins._weappRef = this
+    ins.install()
+  }
+
+  config.attached = function () {
+    
+  }
+
+  config.moved = function () {
+    
+  }
+
+  config.ready = function () {
+    ins.installed()
+  }
+
+  config.detached = function () {
+    ins.uninstall()
   }
 
   config.$usedState && config.$usedState.forEach(prop => {

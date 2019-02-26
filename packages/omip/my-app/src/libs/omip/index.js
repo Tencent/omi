@@ -11,6 +11,10 @@ class Component {
 
   install() { }
 
+  installed() { }
+
+  uninstall() { }
+
   fire(type, data) { 
     this._weappRef.triggerEvent(type, data)
   }
@@ -86,6 +90,22 @@ root.create = {
     config.onLoad = function () {
       ins._weappRef = this
       ins.install()
+    }
+
+    config.onReady = function () {
+      ins.installed()
+    }
+
+    config.onUnload = function () {
+      ins.uninstall()
+    }
+
+    config.onShow = function () {
+      ins.show && ins.show()
+    }
+
+    config.onHide = function () {
+      ins.hide && ins.hide()
     }
 
     Page(config)
