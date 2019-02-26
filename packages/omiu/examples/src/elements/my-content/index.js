@@ -14,7 +14,7 @@ define('my-content', class extends WeElement {
     this.initCodeStyle()
   }
 
-  touchEnd = ()=> {
+  touchEnd = () => {
     this.store.hideSidebar()
   }
 
@@ -25,16 +25,20 @@ define('my-content', class extends WeElement {
     let codeHlNumArr = []
     codesArr.forEach(code => {
       let arr = code.className.match(/{[\S\s]*}/)
-      if(code.className){
-        let pre = code.parentNode
+      let pre = code.parentNode
+      //bug!
+      //pre.setAttribute('data-line', '1,3-4')
+      if (code.className) {
         pre.className = code.className
-        if(code.className.indexOf('language-js')!==-1){
-          code.innerHTML = Prism.highlight(code.innerText, Prism.languages.javascript, 'javascript')
+     
+        const temp = code.className.match(/language-\w*/g)[0]
+        if (temp) {
+          code.innerHTML = Prism.highlight(code.innerText, Prism.languages[temp.split('-')[1]], temp.split('-')[1])
         }
-      }else{
+      } else {
         let pre = code.parentNode
         code.className = 'language-markup'
-        pre.className ='language-markup'
+        pre.className = 'language-markup'
         code.innerHTML = Prism.highlight(code.innerText, Prism.languages.markup, 'markup')
       }
       // let hllNums = null
