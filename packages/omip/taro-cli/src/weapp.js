@@ -776,7 +776,7 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
           case PARSE_AST_TYPE.PAGE:
             if (buildAdapter === Util.BUILD_TYPES.WEAPP) {
               //@fix 注释掉用来解决小程序报错
-              const arr = sourceFilePath.split('/')
+              const arr = sourceFilePath.split( isWindows ? '\\' : '/')
               const path = arr[arr.length - 3] + '/' + arr[arr.length - 2] + '/' + arr[arr.length-1].split('.')[0]      
               const obj = JSON.parse(JSON.stringify(node.body[node.body.length-1].expression.arguments[0]))
               obj.value = path
