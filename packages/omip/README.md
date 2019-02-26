@@ -27,5 +27,5 @@ MIT © dntzhang
 
 #### Open Source Software Licensed Under the MIT License:
 
-tarojs 1.2.13
+[tarojs](https://github.com/NervJS/taro) 1.2.13
 Copyright (c) 2019 O2Team
