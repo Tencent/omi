@@ -1,5 +1,6 @@
 import util from '../../utils/util'
 import { WeElement, define } from 'omi'
+import '../../components/my-counter'
 //兼容 omi 下划线？
 import './index.css'
 
@@ -18,10 +19,13 @@ define('page-logs', class extends WeElement {
   }
   render() {
     return (
-      <view class="container log-list">
-        {this.data.logs.map((log, index) => (
-          <text class="log-item">{index + 1}. {log}</text>
-        ))}
+      <view>
+        <my-counter></my-counter>
+        <view class="container log-list">
+          {this.data.logs.map((log, index) => (
+            <text class="log-item">{index + 1}. {log}</text>
+          ))}
+        </view>
       </view>
     )
   }
