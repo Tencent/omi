@@ -9,10 +9,6 @@ define('my-counter', class extends WeElement {
     count: 1
   }
 
-  css = `span{
-        color: red;
-      }`
-
   sub = () => {
     this.data.count--
     this.fire('change', this.data.count)

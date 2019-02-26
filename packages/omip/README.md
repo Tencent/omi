@@ -21,6 +21,39 @@ npm start
 
 把小程序目录设置到 dist 目录就可以愉快地调试了！
 
+## 代码示例
+
+```js
+import { WeElement, define } from 'omi'
+import './index.css'
+
+define('my-counter', class extends WeElement {
+  data = {
+    count: 1
+  }
+
+  sub = () => {
+    this.data.count--
+    this.update()
+  }
+
+  add = () => {
+    this.data.count++
+    this.update()
+  }
+
+  render() {
+    return (
+      <view>
+        <button onClick={this.sub}>-</button>
+        <text>{this.data.count}</text>
+        <button onClick={this.add}>+</button>
+      </view>
+    )
+  }
+})
+```
+
 ## License
 
 MIT © dntzhang
