@@ -28,7 +28,8 @@ cd my-app
 npm start
 ```
 > node 版本要求 >= 8
-> `npx omi-cli init-p my-app` 也支持(npm v5.2.0+)
+
+> 也支持一条命令 `npx omi-cli init-p my-app` (npm v5.2.0+)
 
 把小程序目录设置到 dist 目录就可以愉快地调试了！
 
