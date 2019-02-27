@@ -38,14 +38,16 @@ define('page-list', class extends WeElement {
     }, 500)
   }
 
-  viewDetail(e) {
+  viewDetail = (e)=> {
     var ds = e.currentTarget.dataset;
     wx.navigateTo({
-      url: '../detail/detail?id=' + ds.id + '&title=' + ds.title + '&type=ing'
+      url: '../detail/index?id=' + ds.id + '&title=' + ds.title + '&type=ing'
     })
   }
 
   render() {
+    const { showLoading, films } = this.data
+
     if (showLoading) {
       return (
         <view class="page-loading">
@@ -56,8 +58,8 @@ define('page-list', class extends WeElement {
 
     return (
       <view scroll-y="true" class="film-list" >
-        {this.data.films.map(film => (
-          <view class="film-item" bindtap="viewDetail" data-id={film.id} data-title={film.title}>
+        {films.map(film => (
+          <view class="film-item" bindtap={this.viewDetail} data-id={film.id} data-title={film.title}>
             <view class="film-image">
               <image src={film.images.medium}></image>
             </view>
