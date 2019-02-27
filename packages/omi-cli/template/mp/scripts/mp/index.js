@@ -32,7 +32,7 @@ function isInScopeChainVariables(scope, name) {
   return false
 }
 
-let refStr = 'const { 0.0 } = Object.assign({}, this.data, this.props)'
+let refStr = 'const { 0.0 } = this.data'
 
 function addPropsAndData(ref, code) {
   let listStr = Object.keys(ref).join(',')

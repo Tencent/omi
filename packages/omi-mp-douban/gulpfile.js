@@ -51,6 +51,7 @@ class Element extends WeElement {
 
   install = function() {
     this.properties = this.props
+    Object.assign(this.data, JSON.parse(JSON.stringify(this.props)))
     this._mpOption = mpOption()
     this._mpOption.created && this._mpOption.created.call(this)
     Object.keys(this._mpOption.methods).forEach(key => {
@@ -141,6 +142,7 @@ class Element extends WeElement {
 
   install() {
     this.properties = this.props
+    Object.assign(this.data, JSON.parse(JSON.stringify(this.props)))
     this._mpOption = mpOption()
     Object.keys(this._mpOption).forEach(key => {
       if (typeof this._mpOption[key] === 'function') {
