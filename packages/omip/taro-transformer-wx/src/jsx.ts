@@ -156,7 +156,8 @@ function parseJSXChildren (
 export function parseJSXElement (element: t.JSXElement): string {
   const children = element.children
   const { attributes, name } = element.openingElement
-  const TRIGGER_OBSERER = Adapter.type === Adapters.swan ? 'privateTriggerObserer' : '__triggerObserer'
+  //@fix
+  //const TRIGGER_OBSERER = Adapter.type === Adapters.swan ? 'privateTriggerObserer' : '__triggerObserer'
   if (t.isJSXMemberExpression(name)) {
     throw codeFrameError(name.loc, '暂不支持 JSX 成员表达式')
   }
@@ -261,12 +262,14 @@ export function parseJSXElement (element: t.JSXElement): string {
         }
       }
       if (!isDefaultComponent && !specialComponentName.includes(componentName)) {
-        obj[TRIGGER_OBSERER] = '{{ _triggerObserer }}'
+        //@fix
+        //obj[TRIGGER_OBSERER] = '{{ _triggerObserer }}'
       }
       return obj
     }, {})
   } else if (!isDefaultComponent && !specialComponentName.includes(componentName)) {
-    attributesTrans[TRIGGER_OBSERER] = '{{ _triggerObserer }}'
+    //@fix
+    //attributesTrans[TRIGGER_OBSERER] = '{{ _triggerObserer }}'
   }
 
   return createHTMLElement({
