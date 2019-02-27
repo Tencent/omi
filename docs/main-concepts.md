@@ -16,7 +16,6 @@ English | [简体中文](./main-concepts.cn.md) | [한국어](./main-concepts.kr
   - [noSlot](#noslot)
   - [Observe](#observe)
   - [MergeUpdate](#mergeupdate)
-  - [Use](#use)
   - [SSR](#ssr)
   - [Snap](#snap)
 

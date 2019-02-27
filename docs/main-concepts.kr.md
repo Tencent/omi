@@ -15,7 +15,6 @@
   - [noSlot](#noslot)
   - [Observe](#observe)
   - [Tick and NextTick](#tick-and-nexttick)
-  - [Use](#use)
   - [SSR](#ssr)
 
 [→ Omi Simple Examples](https://github.com/Tencent/omi/tree/master/packages/omi/examples)

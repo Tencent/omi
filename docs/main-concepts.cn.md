@@ -16,7 +16,6 @@
   - [noSlot](#noslot)
   - [Observe](#observe)
   - [MergeUpdate](#mergeupdate)
-  - [Use](#use)
   - [SSR](#ssr)
   - [Snap](#snap)
 
