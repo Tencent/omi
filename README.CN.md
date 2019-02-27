@@ -17,7 +17,8 @@
 | [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到IE8+和移动端浏览器)。|
 | [omiu![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)| Omi 官方 UI。|
 | [omix![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omix)| 极小却精巧的小程序框架。|
-| [md2site![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://tencent.github.io/omi/assets/md2site/)| 用 markdown 生成静态网站文档.|
+| [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
+| [md2site](https://tencent.github.io/omi/assets/md2site/)| 用 markdown 生成静态网站文档.|
 | [omi-mvvm](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md)| MVVM 王者归来, [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力加持。|
 | [omi-chart](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| 一个 chart-x 标签搞定报表|
 | [mp-mvvm ](https://github.com/Tencent/omi/tree/master/packages/mp-mvvm)| 小程序插上 MVVM 的翅膀, [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力加持。|
@@ -26,7 +27,6 @@
 | [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
 | [omi-sprite](https://github.com/Tencent/omi/tree/master/packages/omi-sprite)| Web Components, JSX 和 Canvas 的完美融合|
 | [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
-| [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选。 |
@@ -35,7 +35,6 @@
 | [omi-tap](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Omi 原生支持 tap 事件（omi v4.0.24+）|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
-| [omi-use](https://github.com/Tencent/omi/blob/master/docs/main-concepts.cn.md#use)|跟 React hooks 类似的方式定义纯组件|
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
