@@ -9,6 +9,16 @@
 
 ![](../../assets/omip.png)
 
+## Omip 特性
+
+* 一次学习，多处开发，一次开发，多处运行
+* 使用 JSX，表达能力和编程体验大于模板
+* 支持使用 npm/yarn 安装管理第三方依赖
+* 支持使用 ES6+
+* 支持使用 CSS 预编译器
+* 小程序 API 优化，异步 API Promise 化
+* 超轻量的依赖包，顺从小程序标签和组件的设计
+
 ## 快速开始
 
 ```js
@@ -18,6 +28,7 @@ cd my-app
 npm start
 ```
 > node 版本要求 >= 8
+> `npx omi-cli init-p my-app` 也支持(npm v5.2.0+)
 
 把小程序目录设置到 dist 目录就可以愉快地调试了！
 
@@ -27,7 +38,11 @@ npm start
 import { WeElement, define } from 'omi'
 import './index.css'
 
-define('my-counter', class extends WeElement {
+define('page-counter', class extends WeElement {
+  config = {
+    navigationBarTitleText: 'Counter'
+  }
+
   data = {
     count: 1
   }
@@ -53,6 +68,12 @@ define('my-counter', class extends WeElement {
   }
 })
 ```
+
+## 实战案例
+
+![](../../assets/omip-douban-list.png)
+
+![](../../assets/omip-douban-detail.png)
 
 ## License
 
