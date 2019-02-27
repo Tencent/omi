@@ -1,4 +1,4 @@
-English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
+English | [简体中文](./README.md) | [한국어](./README.KR.md)
 
 <p align="right">Omi <strong>v5.0.23</strong></p>
 <p align="right">Omio <strong>v1.3.7</strong></p>
