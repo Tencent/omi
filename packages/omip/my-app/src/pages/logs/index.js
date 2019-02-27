@@ -5,6 +5,10 @@ import '../../components/my-counter'
 import './index.css'
 
 define('page-logs', class extends WeElement {
+  config = {
+    navigationBarTitleText: '查看启动日志'
+  }
+
   data = {
     logs: []
   }
