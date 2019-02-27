@@ -90,7 +90,7 @@ root.create = {
       config[key] = ins[key]
     })
 
-    config.onLoad = function () {
+    config.onLoad = function (options) {
       ins._weappRef = this
       config.$$refs.forEach(ref => {
         if (ref.type === 'component') {
@@ -101,7 +101,7 @@ root.create = {
           }
         }
       })
-      ins.install()
+      ins.install(options)
       ins.beforeRender && ins.beforeRender()
     }
 

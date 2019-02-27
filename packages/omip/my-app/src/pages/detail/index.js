@@ -14,10 +14,10 @@ define('page-detail', class extends WeElement {
   }
 
   install(options) {
-    // wx.setNavigationBarTitle({
-    //   title: options.title
-    // })
-    //mockData.title = options.title
+    wx.setNavigationBarTitle({
+      title: options.title
+    })
+    mockData.title = options.title
     this.data.film = mockData
     this.data.showLoading = false
     this.update()

@@ -6,6 +6,11 @@ import mockData from './mock-data'
 
 
 define('page-list', class extends WeElement {
+  
+  config = {
+    navigationBarTitleText: '热门电影'
+  }
+  
   data = {
     films: [],
     hasMore: true,
