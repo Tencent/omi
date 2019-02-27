@@ -1,10 +1,50 @@
-import util from '../../utils/util'
 import { WeElement, define } from 'omi'
-import '../../components/my-counter'
 
 import './index.css'
 
+import mockData from './mock-data'
+
+
 define('page-list', class extends WeElement {
+  data = {
+    films: [],
+    hasMore: true,
+    showLoading: true,
+    start: 0
+  }
+
+  onPullDownRefresh() {
+    console.log('onPullDownRefresh', new Date())
+  }
+
+  onPageScroll() {
+    console.log('onPageScroll')
+  }
+
+  install() {
+    //setTimeout 模拟服务端请求耗时
+    setTimeout(() => {
+      this.data.films = mockData.subjects
+      this.data.showLoading = false
+      this.update()
+    }, 500)
+  }
+
+  onReachBottom() {
+    setTimeout(() => {
+      this.setData({
+        films: this.data.films.concat(mockData.subjects)
+      })
+    }, 500)
+  }
+
+  viewDetail(e) {
+    var ds = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: '../detail/detail?id=' + ds.id + '&title=' + ds.title + '&type=ing'
+    })
+  }
+
   render() {
     if (showLoading) {
       return (
@@ -15,7 +55,7 @@ define('page-list', class extends WeElement {
     }
 
     return (
-      <view scroll-y="true" class="container film-list" >
+      <view scroll-y="true" class="film-list" >
         {this.data.films.map(film => (
           <view class="film-item" bindtap="viewDetail" data-id={film.id} data-title={film.title}>
             <view class="film-image">
