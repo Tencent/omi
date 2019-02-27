@@ -120,7 +120,19 @@ root.create = {
     config.onHide = function () {
       ins.hide && ins.hide()
     }
+
+    if(ins.onReachBottom){
+      config.onReachBottom = ins.onReachBottom.bind(ins)
+    }
   
+    if(ins.onPullDownRefresh){
+      config.onPullDownRefresh = ins.onPullDownRefresh.bind(ins)
+    }
+
+    if(ins.onPageScroll){
+      config.onPageScroll = ins.onPageScroll.bind(ins)
+    }
+
     Page(config)
   }
 }

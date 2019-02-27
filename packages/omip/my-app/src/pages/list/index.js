@@ -10,7 +10,7 @@ define('page-list', class extends WeElement {
   config = {
     navigationBarTitleText: '热门电影'
   }
-  
+
   data = {
     films: [],
     hasMore: true,
@@ -37,10 +37,9 @@ define('page-list', class extends WeElement {
 
   onReachBottom() {
     setTimeout(() => {
-      this.setData({
-        films: this.data.films.concat(mockData.subjects)
-      })
-    }, 500)
+      this.data.films = this.data.films.concat(mockData.subjects)
+      this.update()
+    }, 100)
   }
 
   viewDetail = (e)=> {
