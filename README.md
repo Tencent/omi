@@ -65,18 +65,6 @@
 |-|-|
 | ![Omi](./assets/omi-render.jpg) | ![React](./assets/react-render.jpg) |
 
-## omi-mp 
-
-> 通过微信小程序开发和一键生成 Web 的 H5 SPA (基于 omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
-
-看下官方模板的转换例子：
-
-| **Index**                         | **Logs**                           |
-| ------------------------------- | ----------------------------------- |
-|![](./assets/mp1.jpg)| ![](./assets/mp2.jpg)|
-
-因为 Web 里拉取不到用户登录态，更换了用户头像和名称。
-
 ## 必须收藏的资源
 
 * [你必须收藏 ES6 Spread Operator 技巧](https://github.com/Tencent/omi/blob/master/tutorial/spread-operator.cn.md)
