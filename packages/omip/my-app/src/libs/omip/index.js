@@ -1,6 +1,7 @@
 
 import { h } from './h'
 import { define } from './define'
+import { updateData } from './update-data'
 
 class Component {
   constructor() { }
@@ -9,7 +10,10 @@ class Component {
     this.beforeUpdate && this.beforeUpdate()
     this.beforeRender && this.beforeRender()
     if (patch) {
-      this.data = Object.assign(this.data || {}, patch)
+      this.data = this.data || {}
+      Object.keys(patch).forEach(path =>{
+        updateData(this.data, path, patch[path])
+      })
     }
     this._weappRef.setData(this.data)
     this.updated && this.updated()
@@ -127,7 +131,7 @@ root.create = {
     if(ins.onReachBottom){
       config.onReachBottom = ins.onReachBottom.bind(ins)
     }
-  
+
     if(ins.onPullDownRefresh){
       config.onPullDownRefresh = ins.onPullDownRefresh.bind(ins)
     }
