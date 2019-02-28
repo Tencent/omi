@@ -1,5 +1,5 @@
 /*!
- *  omi-mp-create v1.0.0 by dntzhang
+ *  omix v1.0.0 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -119,7 +119,7 @@ function create(store, option) {
       }
       observe(this, option.data)
       option.data.store = temp
-    
+
       store.instances[this.route] = []
       store.instances[this.route].push(this)
       if (!option.data.store.___walked) {
@@ -135,7 +135,7 @@ function create(store, option) {
       const page = getCurrentPages()[getCurrentPages().length - 1]
       this.context = store.context || page.context
       this.store = page.store
-      
+
       store.data = store.data || {}
       store.data.store = this.store.data
       this.setData.call(this, store.data)
