@@ -74,7 +74,7 @@ define('page-counter', class extends WeElement {
 
 `this.update` 方法可以传递最短路径，进行更新，比如下面两种写法是等价的。
 
-```
+```js
 this.update({
   count: 1
 })
