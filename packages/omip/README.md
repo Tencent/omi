@@ -70,6 +70,23 @@ define('page-counter', class extends WeElement {
 })
 ```
 
+## 扩展
+
+`this.update` 方法可以传递最短路径，进行更新，比如下面两种写法是等价的。
+
+```
+this.update({
+  count: 1
+})
+```
+
+等价于:
+
+```js
+this.data.count = 1
+this.update()
+```
+
 ## 实战案例
 
 ![](../../assets/omip-douban-list.png)
