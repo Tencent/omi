@@ -5,10 +5,10 @@ import { define } from './define'
 class Component {
   constructor() { }
 
-  update() {
+  update(patch) {
     this.beforeUpdate && this.beforeUpdate()
     this.beforeRender && this.beforeRender()
-    this._weappRef.setData(this.data)
+    this._weappRef.setData(patch || this.data)
     this.updated && this.updated()
   }
 
