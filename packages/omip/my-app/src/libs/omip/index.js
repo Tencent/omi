@@ -8,7 +8,10 @@ class Component {
   update(patch) {
     this.beforeUpdate && this.beforeUpdate()
     this.beforeRender && this.beforeRender()
-    this._weappRef.setData(patch || this.data)
+    if (patch) {
+      this.data = Object.assign(this.data || {}, patch)
+    }
+    this._weappRef.setData(this.data)
     this.updated && this.updated()
   }
 
