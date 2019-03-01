@@ -399,22 +399,22 @@ function hasComplexExpression(path) {
             p.stop();
         },
         MemberExpression(path) {
-            const jsxElement = path.findParent(p => p.isJSXExpressionContainer());
-            const object = path.get('object');
-            const property = path.get('property');
-            const parentPath = path.parentPath;
-            if (jsxElement &&
-                object.isThisExpression() &&
-                //@fix
-                property.isIdentifier({ name: 'data' }) &&
-                parentPath.isMemberExpression() &&
-                parentPath.parentPath.isMemberExpression()) {
-                const sourceCode = parentPath.parentPath.getSource();
-                if (sourceCode.includes('[') && sourceCode.includes(']')) {
-                    matched = true;
-                    path.stop();
-                }
-            }
+            // @fix 放弃这个逻辑，导致后续变更 this.update 的 data 对应不上了
+            // const jsxElement = path.findParent(p => p.isJSXExpressionContainer());
+            // const object = path.get('object');
+            // const property = path.get('property');
+            // const parentPath = path.parentPath;
+            // if (jsxElement &&
+            //     object.isThisExpression() &&
+            //     property.isIdentifier({ name: 'data' }) &&
+            //     parentPath.isMemberExpression() &&
+            //     parentPath.parentPath.isMemberExpression()) {
+            //     const sourceCode = parentPath.parentPath.getSource();
+            //     if (sourceCode.includes('[') && sourceCode.includes(']')) {
+            //         matched = true;
+            //         path.stop();
+            //     }
+            // }
         }
     });
     return matched;
