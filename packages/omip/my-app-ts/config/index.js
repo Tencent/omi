@@ -1,11 +1,15 @@
 const config = {
-  projectName: 'my-app-ts',
-  date: '2019-3-1',
+  projectName: 'my-app',
+  date: '2019-2-21',
   designWidth: 750,
   deviceRatio: {
     '640': 2.34 / 2,
     '750': 1,
     '828': 1.81 / 2
+  },
+  alias: {
+    'omi': 'src/libs/omip/index.js',
+    '@tarojs': 'src/libs'
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
@@ -20,7 +24,8 @@ const config = {
       plugins: [
         'transform-decorators-legacy',
         'transform-class-properties',
-        'transform-object-rest-spread'
+        'transform-object-rest-spread',
+        ['transform-react-jsx', { pragma: 'global.Omi.h' }]
       ]
     }
   },
@@ -46,7 +51,7 @@ const config = {
           }
         },
         pxtransform: {
-          enable: true,
+          enable: false,
           config: {
 
           }

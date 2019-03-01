@@ -1,26 +1,16 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import Index from './pages/index'
 
 import './app.css'
+import './pages/index/index'
+import { render, WeElement, define } from 'omi'
 
-// 如果需要在 h5 环境中开启 React Devtools
-// 取消以下注释：
-// if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
-//   require('nerv-devtools')
-// }
+define('my-app', class extends WeElement {
 
-class App extends Component {
-
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
-  config: Config = {
+  config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/list/index',
+      'pages/detail/index',
+      'pages/logs/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -30,21 +20,54 @@ class App extends Component {
     }
   }
 
-  componentDidMount () {}
+  globalData = {
+    userInfo: null
+  }
 
-  componentDidShow () {}
+  install() { 
+    // 展示本地存储能力
+    var logs = wx.getStorageSync('logs') || []
+    logs.unshift(Date.now())
+    wx.setStorageSync('logs', logs)
 
-  componentDidHide () {}
+    // 登录
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      }
+    })
+    // 获取用户信息
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              // 可以将 res 发送给后台解码出 unionId
+              this.globalData.userInfo = res.userInfo
 
-  componentDidCatchError () {}
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res)
+              }
+            }
+          })
+        }
+      }
+    })
+  }
 
-  // 在 App 类中的 render() 函数没有实际作用
-  // 请勿修改此函数
-  render () {
+  onShow() { }
+
+  onHide() { }
+
+  render() {
     return (
-      <Index />
+      <page-index />
     )
   }
-}
+})
 
-Taro.render(<App />, document.getElementById('app'))
+
+render(<my-app />, 'body')
