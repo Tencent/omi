@@ -95,6 +95,14 @@ this.update({
 })
 ```
 
+## 获取最新的 omip 版本
+
+你只需要重新拉去模板便可以更新到最新的 omip:
+
+```
+omi init-p my-app
+```
+
 ## 实战案例
 
 ![](../../assets/omip-douban-list.png)
