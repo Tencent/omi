@@ -22,7 +22,10 @@
     "typeRoots": [
       "node_modules/@types",
       "global.d.ts"
-    ]
+    ],
+    "paths": {
+      "omi": ["src/libs/omip/omi.d.ts"]
+    }
   },
   "exclude": [
     "node_modules",
