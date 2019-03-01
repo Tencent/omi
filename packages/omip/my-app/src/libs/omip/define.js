@@ -17,6 +17,8 @@ export function define(name, ctor) {
     }
   })
 
+  config.data = ins._createData()
+
   config.created = function () {
     ins._weappRef = this
     config.$$refs.forEach(ref => {

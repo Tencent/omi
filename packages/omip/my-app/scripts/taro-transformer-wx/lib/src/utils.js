@@ -405,8 +405,8 @@ function hasComplexExpression(path) {
             const parentPath = path.parentPath;
             if (jsxElement &&
                 object.isThisExpression() &&
-                //不应该替换成 data，导致 wxml 里的 this.data.a[1] 转换失败
-                property.isIdentifier({ name: 'state' }) &&
+                //@fix
+                property.isIdentifier({ name: 'data' }) &&
                 parentPath.isMemberExpression() &&
                 parentPath.parentPath.isMemberExpression()) {
                 const sourceCode = parentPath.parentPath.getSource();
