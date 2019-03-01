@@ -87,6 +87,14 @@ this.data.count = 1
 this.update()
 ```
 
+也可以和 setData 一样传递 path:
+
+```js
+this.update({
+  'list[1].obj.name': 'Omip'
+})
+```
+
 ## 实战案例
 
 ![](../../assets/omip-douban-list.png)
