@@ -840,7 +840,7 @@ declare global {
 			details: HTMLAttributes;
 			dfn: HTMLAttributes;
 			dialog: HTMLAttributes;
-			div: HTMLAttributes;
+			view: HTMLAttributes;
 			dl: HTMLAttributes;
 			dt: HTMLAttributes;
 			em: HTMLAttributes;
@@ -902,7 +902,7 @@ declare global {
 			slot: HTMLAttributes;
 			small: HTMLAttributes;
 			source: HTMLAttributes;
-			span: HTMLAttributes;
+			text: HTMLAttributes;
 			strong: HTMLAttributes;
 			style: HTMLAttributes;
 			sub: HTMLAttributes;
@@ -965,7 +965,6 @@ declare global {
 			rect: SVGAttributes;
 			stop: SVGAttributes;
 			symbol: SVGAttributes;
-			text: SVGAttributes;
 			tspan: SVGAttributes;
 			use: SVGAttributes;
 			[tagName: string]: any;
