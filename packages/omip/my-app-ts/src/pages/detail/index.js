@@ -24,7 +24,7 @@ define('page-detail', class extends WeElement {
   }
 
   render() {
-    const { showLoading, film } = data
+    const { showLoading, film } = this.data
     if (showLoading) {
       return (
         <view class="page-loading">
