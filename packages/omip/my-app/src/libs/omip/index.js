@@ -6,16 +6,29 @@ import { updateData } from './update-data'
 class Component {
   constructor() { }
 
-  update(patch) {
+  update(patch, callback) {
     this.beforeUpdate && this.beforeUpdate()
     this.beforeRender && this.beforeRender()
-    if (patch) {
+
+    if (arguments.length === 0) {
+      this._weappRef.setData(this.data)
+    } else if (arguments.length === 1) {
+      if (typeof patch === 'function') {
+        this._weappRef.setData(this.data, patch)
+      } else {
+        this.data = this.data || {}
+        Object.keys(patch).forEach(path => {
+          updateData(this.data, path, patch[path])
+        })
+        this._weappRef.setData(this.data)
+      }
+    } else {
       this.data = this.data || {}
-      Object.keys(patch).forEach(path =>{
+      Object.keys(patch).forEach(path => {
         updateData(this.data, path, patch[path])
       })
+      this._weappRef.setData(this.data, callback)
     }
-    this._weappRef.setData(this.data)
     this.updated && this.updated()
   }
 
@@ -128,15 +141,15 @@ root.create = {
       ins.hide && ins.hide()
     }
 
-    if(ins.onReachBottom){
+    if (ins.onReachBottom) {
       config.onReachBottom = ins.onReachBottom.bind(ins)
     }
 
-    if(ins.onPullDownRefresh){
+    if (ins.onPullDownRefresh) {
       config.onPullDownRefresh = ins.onPullDownRefresh.bind(ins)
     }
 
-    if(ins.onPageScroll){
+    if (ins.onPageScroll) {
       config.onPageScroll = ins.onPageScroll.bind(ins)
     }
 
