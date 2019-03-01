@@ -64,13 +64,9 @@ define('my-app', class extends WeElement {
     })
   }
 
-  installed() { }
+  onShow() { }
 
-  uninstall() { }
-
-  show() { }
-
-  hide() { }
+  onHide() { }
 
   render() {
     return (

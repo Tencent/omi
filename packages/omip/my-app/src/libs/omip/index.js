@@ -82,6 +82,15 @@ const defineApp = function (name, ctor) {
   config.onLaunch = function () {
     ins.install && ins.install.call(this)
   }
+
+  config.onShow = function () {
+    ins.onShow && ins.onShow()
+  }
+
+  config.onHide = function () {
+    ins.onHide && ins.onHide()
+  }
+  
   App(config)
 }
 
@@ -134,11 +143,11 @@ root.create = {
     }
 
     config.onShow = function () {
-      ins.show && ins.show()
+      ins.onShow && ins.onShow()
     }
 
     config.onHide = function () {
-      ins.hide && ins.hide()
+      ins.onHide && ins.onHide()
     }
 
     if (ins.onReachBottom) {
