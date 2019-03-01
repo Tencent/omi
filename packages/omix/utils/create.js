@@ -1,5 +1,5 @@
 /*!
- *  omix v1.0.0 by dntzhang
+ *  omix v1.0.1 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
@@ -182,11 +182,13 @@ function _update(kv) {
 }
 
 function updateStoreByFnProp(ele, data) {
-  let patch = {}
-  for (let key in data.store.__fnMapping) {
-    patch['store.' + key] = data.store.__fnMapping[key].call(data)
+  if(data.store){
+    let patch = {}
+    for (let key in data.store.__fnMapping) {
+      patch['store.' + key] = data.store.__fnMapping[key].call(data)
+    }
+    ele.setData(patch)
   }
-  ele.setData(patch)
 }
 
 
