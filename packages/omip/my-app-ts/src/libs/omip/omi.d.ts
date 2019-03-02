@@ -53,7 +53,7 @@ declare namespace Omi {
 	}
 
 	type RenderableProps<P, RefType = any> = Readonly<
-		P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> }
+		P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> } & any
 	>;
 
 	interface WeElement<P, D> extends App.AppInstance {
@@ -103,8 +103,8 @@ declare namespace Omi {
 		data: D;
 		host: HTMLElement;
 
-		update(): void;
-		fire(name: string, data?: object): void;
+    update(patch?: object, callback?: () => void): void;
+    fire(name: string, data?: any): void;
 
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887

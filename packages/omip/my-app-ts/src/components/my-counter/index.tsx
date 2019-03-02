@@ -4,8 +4,12 @@ import '../my-element'
 
 import './index.css'
 
+interface IData {
+  count: number
+}
+
 define('my-counter', class extends WeElement {
-  data = {
+  data: IData = {
     count: 1
   }
 
