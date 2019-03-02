@@ -96,7 +96,6 @@
     "typescript": "^3.2.2"
   },
   "devDependencies": {
-    "@types/react": "^16.4.6",
     "@types/webpack-env": "^1.13.6",
     "@tarojs/plugin-babel": "1.2.15",
     "@tarojs/plugin-csso": "1.2.15",

@@ -826,7 +826,7 @@ declare global {
 			blockquote: HTMLAttributes;
 			body: HTMLAttributes;
 			br: HTMLAttributes;
-			button: HTMLAttributes;
+			//button: HTMLAttributes;
 			canvas: HTMLAttributes;
 			caption: HTMLAttributes;
 			cite: HTMLAttributes;
@@ -952,7 +952,7 @@ declare global {
 			filter: SVGAttributes;
 			foreignObject: SVGAttributes;
 			g: SVGAttributes;
-			image: SVGAttributes;
+			//image: SVGAttributes;
 			line: SVGAttributes;
 			linearGradient: SVGAttributes;
 			marker: SVGAttributes;
