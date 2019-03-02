@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "baseUrl": ".",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
     "module": "commonjs",
     "removeComments": false,
     "preserveConstEnums": true,
@@ -13,7 +18,6 @@
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "sourceMap": true,
-    "baseUrl": ".",
     "rootDir": ".",
     "jsx": "preserve",
     "jsxFactory": "Taro.createElement",

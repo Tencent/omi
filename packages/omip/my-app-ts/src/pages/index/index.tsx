@@ -5,8 +5,16 @@ import './index.css'
 //获取应用实例
 const app = getApp()
 
+interface IData{
+  motto: string,
+  userInfo: any,
+  hasUserInfo: boolean,
+  canIUse: boolean
+}
+
+
 define('page-index', class extends WeElement {
-  data = {
+  data: IData = {
     motto: 'Hello Omip',
     userInfo: {},
     hasUserInfo: false,

@@ -36,7 +36,7 @@ declare namespace Omi {
 	 *     }
 	 * }
 	 */
-	interface CustomElementBaseAttributes extends ClassAttributes<any>, OmiDOMAttributes {}
+	interface CustomElementBaseAttributes extends ClassAttributes<any>, OmiDOMAttributes { }
 
 	/**
 	 * Define the contract for a virtual node in omi.
@@ -56,7 +56,7 @@ declare namespace Omi {
 		P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> }
 	>;
 
-	interface WeElement<P, D> {
+	interface WeElement<P, D> extends App.AppInstance {
 		install?(): void;
 		installed?(): void;
 		uninstall?(): void;
@@ -184,18 +184,18 @@ declare namespace Omi {
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
-  };
+	};
 }
 
 
 type Defaultize<Props, Defaults> =
 	// Distribute over unions
 	Props extends any
-		? 	// Make any properties included in Default optional
-			& Partial<Pick<Props, Extract<keyof Props, keyof Defaults>>>
-			// Include the remaining properties from Props
-			& Pick<Props, Exclude<keyof Props, keyof Defaults>>
-		: never;
+	? 	// Make any properties included in Default optional
+	& Partial<Pick<Props, Extract<keyof Props, keyof Defaults>>>
+	// Include the remaining properties from Props
+	& Pick<Props, Exclude<keyof Props, keyof Defaults>>
+	: never;
 
 declare global {
 	namespace JSX {
@@ -218,8 +218,8 @@ declare global {
 
 		type LibraryManagedAttributes<Component, Props> =
 			Component extends { defaultProps: infer Defaults }
-				? Defaultize<Props, Defaults>
-				: Props;
+			? Defaultize<Props, Defaults>
+			: Props;
 
 		interface SVGAttributes extends HTMLAttributes {
 			accentHeight?: number | string;

@@ -3,6 +3,10 @@ import './app.css'
 import './pages/index/index'
 import { render, WeElement, define } from 'omi'
 
+interface IGlobalData {
+  userInfo: any
+}
+
 define('my-app', class extends WeElement {
 
   config = {
@@ -20,11 +24,11 @@ define('my-app', class extends WeElement {
     }
   }
 
-  globalData = {
+  globalData: IGlobalData = {
     userInfo: null
   }
 
-  install() { 
+  install() {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())

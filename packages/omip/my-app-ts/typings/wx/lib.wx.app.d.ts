@@ -1,5 +1,5 @@
 /*! *****************************************************************************
-Copyright (c) 2018 Tencent, Inc. All rights reserved. 
+Copyright (c) 2018 Tencent, Inc. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -31,75 +31,75 @@ declare namespace App {
   }
 
   type SceneValues = 1001
-  | 1005
-  | 1006
-  | 1007
-  | 1008
-  | 1011
-  | 1012
-  | 1013
-  | 1014
-  | 1017
-  | 1019
-  | 1020
-  | 1022
-  | 1023
-  | 1024
-  | 1025
-  | 1026
-  | 1027
-  | 1028
-  | 1029
-  | 1030
-  | 1031
-  | 1032
-  | 1034
-  | 1035
-  | 1036
-  | 1037
-  | 1038
-  | 1039
-  | 1042
-  | 1043
-  | 1044
-  | 1045
-  | 1046
-  | 1047
-  | 1048
-  | 1049
-  | 1052
-  | 1053
-  | 1054
-  | 1056
-  | 1057
-  | 1058
-  | 1059
-  | 1064
-  | 1067
-  | 1068
-  | 1069
-  | 1071
-  | 1072
-  | 1073
-  | 1074
-  | 1077
-  | 1078
-  | 1079
-  | 1081
-  | 1082
-  | 1084
-  | 1089
-  | 1090
-  | 1091
-  | 1092
-  | 1095
-  | 1096
-  | 1097
-  | 1099
-  | 1102
-  | 1103
-  | 1104
-  | number
+    | 1005
+    | 1006
+    | 1007
+    | 1008
+    | 1011
+    | 1012
+    | 1013
+    | 1014
+    | 1017
+    | 1019
+    | 1020
+    | 1022
+    | 1023
+    | 1024
+    | 1025
+    | 1026
+    | 1027
+    | 1028
+    | 1029
+    | 1030
+    | 1031
+    | 1032
+    | 1034
+    | 1035
+    | 1036
+    | 1037
+    | 1038
+    | 1039
+    | 1042
+    | 1043
+    | 1044
+    | 1045
+    | 1046
+    | 1047
+    | 1048
+    | 1049
+    | 1052
+    | 1053
+    | 1054
+    | 1056
+    | 1057
+    | 1058
+    | 1059
+    | 1064
+    | 1067
+    | 1068
+    | 1069
+    | 1071
+    | 1072
+    | 1073
+    | 1074
+    | 1077
+    | 1078
+    | 1079
+    | 1081
+    | 1082
+    | 1084
+    | 1089
+    | 1090
+    | 1091
+    | 1092
+    | 1095
+    | 1096
+    | 1097
+    | 1099
+    | 1102
+    | 1103
+    | 1104
+    | number
 
   interface ILaunchShowOption {
     /** 打开小程序的路径 */
@@ -194,37 +194,41 @@ declare namespace App {
   }
 
   interface AppInstance<T extends IAnyObject = {}> {
-  /** 生命周期回调—监听小程序初始化
-   *
-   * 小程序初始化完成时触发，全局只触发一次。
-   */
-  onLaunch?(options?: ILaunchShowOption): void
-  /** 生命周期回调—监听小程序显示
-   *
-   * 小程序启动，或从后台进入前台显示时
-   */
-  onShow?(options?: ILaunchShowOption): void
-  /** 生命周期回调—监听小程序隐藏
-   *
-   * 小程序从前台进入后台时
-   */
-  onHide?(): void
-  /** 错误监听函数
-   *
-   * 小程序发生脚本错误，或者 api
-   */
-  onError?(/** 错误信息，包含堆栈 */error?: string): void
-  /** 页面不存在监听函数
-   *
-   * 小程序要打开的页面不存在时触发，会带上页面信息回调该函数
-   *
-   * **注意：**
-   * 1. 如果开发者没有添加 `onPageNotFound` 监听，当跳转页面不存在时，将推入微信客户端原生的页面不存在提示页面。
-   * 2. 如果 `onPageNotFound` 回调中又重定向到另一个不存在的页面，将推入微信客户端原生的页面不存在提示页面，并且不再回调 `onPageNotFound`。
-   *
-   * 最低基础库： 1.9.90
-   */
-  onPageNotFound?(options?: IPageNotFoundOption): void
+    /** 生命周期回调—监听小程序初始化
+     *
+     * 小程序初始化完成时触发，全局只触发一次。
+     */
+    onLaunch?(options?: ILaunchShowOption): void
+    /** 生命周期回调—监听小程序显示
+     *
+     * 小程序启动，或从后台进入前台显示时
+     */
+    onShow?(options?: ILaunchShowOption): void
+    /** 生命周期回调—监听小程序隐藏
+     *
+     * 小程序从前台进入后台时
+     */
+    onHide?(): void
+    /** 错误监听函数
+     *
+     * 小程序发生脚本错误，或者 api
+     */
+    onError?(/** 错误信息，包含堆栈 */error?: string): void
+    /** 页面不存在监听函数
+     *
+     * 小程序要打开的页面不存在时触发，会带上页面信息回调该函数
+     *
+     * **注意：**
+     * 1. 如果开发者没有添加 `onPageNotFound` 监听，当跳转页面不存在时，将推入微信客户端原生的页面不存在提示页面。
+     * 2. 如果 `onPageNotFound` 回调中又重定向到另一个不存在的页面，将推入微信客户端原生的页面不存在提示页面，并且不再回调 `onPageNotFound`。
+     *
+     * 最低基础库： 1.9.90
+     */
+    onPageNotFound?(options?: IPageNotFoundOption): void
+
+    globalData?: any,
+    userInfoReadyCallback?(res: any): void
+
   }
 
   interface AppConstructor {
