@@ -9,6 +9,7 @@ Alert or confirm dialog.
   onClose={this.closePopup}
   onConfirm={this.onConfirm}
   show={this.popupShow}
+  type='confirm'
   title='My Title'
   msg='My Msg!'
   cancelText='cancel'
@@ -22,6 +23,7 @@ Alert or confirm dialog.
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
+| type  | string |   alert    | Options: alert, confirm  |
 | show  | bool |   --    |           |
 | title  | string |   --    |           |
 | msg  | string |    --   |           |
