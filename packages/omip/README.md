@@ -33,6 +33,14 @@ npm start
 
 把小程序目录设置到 dist 目录就可以愉快地调试了！
 
+也可以初始化 TypeScript 模板项目:
+
+```js
+omi init-p-ts my-app
+```
+
+> 也支持一条命令 `npx omi-cli init-p-ts my-app` (npm v5.2.0+)
+
 ## 代码示例
 
 ```js
