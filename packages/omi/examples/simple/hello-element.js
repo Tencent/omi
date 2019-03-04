@@ -13,13 +13,12 @@ define('hello-element', class extends WeElement {
     evt.stopPropagation()
   }
 
-  css() {
-    return `
+  static css = `
         div {
           color: red;
           cursor: pointer;
         }`
-  }
+  
 
   receiveProps(props, data, oldProps) {
     console.log(props, data, oldProps)

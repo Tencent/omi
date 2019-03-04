@@ -18,12 +18,11 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
-  css() {
-    return `
+  static css =`
          div{
              color: green;
          }`
-  }
+  
 
   installed(){
     console.log(this.a)

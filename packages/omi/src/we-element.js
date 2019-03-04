@@ -44,8 +44,11 @@ export default class WeElement extends HTMLElement {
         shadowRoot.removeChild(fc)
       }
     }
-
-    this.css && shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css))
+    if (this.constructor.css) {
+      shadowRoot.appendChild(cssToDom(this.constructor.css))
+    } else if (this.css) {
+      shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css))
+    }
     !this._isInstalled && this.beforeRender()
     options.afterInstall && options.afterInstall(this)
     if (this.constructor.observe) {

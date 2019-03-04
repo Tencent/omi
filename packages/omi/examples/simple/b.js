@@ -1100,8 +1100,11 @@
           shadowRoot.removeChild(fc);
         }
       }
-
-      this.css && shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
+      if (this.constructor.css) {
+        shadowRoot.appendChild(cssToDom(this.constructor.css));
+      } else if (this.css) {
+        shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
+      }
       !this._isInstalled && this.beforeRender();
       options.afterInstall && options.afterInstall(this);
       if (this.constructor.observe) {
@@ -1624,10 +1627,6 @@
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
-    _class.prototype.css = function css() {
-      return '\n        div {\n          color: red;\n          cursor: pointer;\n        }';
-    };
-
     _class.prototype.receiveProps = function receiveProps(props, data, oldProps) {
       console.log(props, data, oldProps);
     };
@@ -1658,7 +1657,9 @@
     msg: '',
     propFromParent: '123111',
     testDefault: 'abc'
-  }, _temp2));
+  }, _class$2.css = '\n        div {\n          color: red;\n          cursor: pointer;\n        }', _temp2));
+
+  var _class$3, _temp2$1;
 
   function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1666,13 +1667,13 @@
 
   function _inherits$4(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('my-app', function (_WeElement) {
-    _inherits$4(_class2, _WeElement);
+  define('my-app', (_temp2$1 = _class$3 = function (_WeElement) {
+    _inherits$4(_class, _WeElement);
 
-    function _class2() {
+    function _class() {
       var _temp, _this, _ret;
 
-      _classCallCheck$4(this, _class2);
+      _classCallCheck$4(this, _class);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
@@ -1686,23 +1687,19 @@
       }, _temp), _possibleConstructorReturn$4(_this, _ret);
     }
 
-    _class2.prototype.install = function install() {
+    _class.prototype.install = function install() {
       this.dd = { a: 1 };
 
       this.a = createRef();
       this.b = createRef();
     };
 
-    _class2.prototype.css = function css() {
-      return '\n         div{\n             color: green;\n         }';
-    };
-
-    _class2.prototype.installed = function installed() {
+    _class.prototype.installed = function installed() {
       console.log(this.a);
       console.log(this.b);
     };
 
-    _class2.prototype.render = function render$$1(props, data) {
+    _class.prototype.render = function render$$1(props, data) {
       return Omi.h(
         'div',
         null,
@@ -1725,8 +1722,8 @@
       );
     };
 
-    return _class2;
-  }(WeElement));
+    return _class;
+  }(WeElement), _class$3.css = '\n         div{\n             color: green;\n         }', _temp2$1));
 
   render(Omi.h('my-app', { name: 'Omi v4.0' }), 'body');
 
