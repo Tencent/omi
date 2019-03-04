@@ -277,7 +277,7 @@
         while (c = mounts.pop()) {
             if (options.afterMount) options.afterMount(c);
             if (c.installed) c.installed();
-            if (c.css) addStyleToHead('function' == typeof c.css ? c.css() : c.css, '_s' + getCtorName(c.constructor));
+            if (c.constructor.css || c.css) addStyleToHead(c.constructor.css ? c.constructor.css : 'function' == typeof c.css ? c.css() : c.css, '_s' + getCtorName(c.constructor));
         }
     }
     function diff(dom, vnode, context, mountAll, parent, componentRoot) {
@@ -496,7 +496,7 @@
             if (!skip) {
                 component.beforeRender && component.beforeRender();
                 rendered = component.render(props, data, context);
-                if (component.css) addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
+                if (component.constructor.css || component.css) addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
                 scopeHost(rendered, component.scopedCssAttr);
                 if (component.getChildContext) context = extend(extend({}, context), component.getChildContext());
                 var toUnmount, base, childComponent = rendered && rendered.nodeName, ctor = options.mapping[childComponent];
@@ -694,12 +694,12 @@
             rendered = c.render(c.props, c.data, c.store);
             var tempCss;
             if (opts.scopedCSS) {
-                if (c.css) {
-                    var cssStr = 'function' == typeof c.css ? c.css() : c.css;
+                if (c.constructor.css || c.css) {
+                    var cssStr = c.constructor.css ? c.constructor.css : 'function' == typeof c.css ? c.css() : c.css;
                     var cssAttr = '_s' + getCtorName(c.constructor);
                     tempCss = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
+                    addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
                 }
-                if (c.css) addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
                 c.scopedCSSAttr = vnode.css;
                 scopeHost(rendered, c.scopedCSSAttr);
             }
@@ -1067,7 +1067,7 @@
         renderToString: renderToString
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-1.3.7';
+    options.root.Omi.version = 'omio-1.3.8';
     var Omi = {
         h: h,
         createElement: h,

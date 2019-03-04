@@ -1,5 +1,5 @@
 /**
- * omi v1.3.7  http://omijs.org
+ * omi v1.3.8  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -757,8 +757,8 @@
     while (c = mounts.pop()) {
       if (options.afterMount) options.afterMount(c);
       if (c.installed) c.installed();
-      if (c.css) {
-        addStyleToHead(typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor));
+      if (c.constructor.css || c.css) {
+        addStyleToHead(c.constructor.css ? c.constructor.css : typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor));
       }
     }
   }
@@ -1414,7 +1414,7 @@
       rendered = component.render(props, data, context);
 
       //don't rerender
-      if (component.css) {
+      if (component.constructor.css || component.css) {
         addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
       }
 
@@ -1855,13 +1855,13 @@
       var tempCss;
       if (opts.scopedCSS) {
 
-        if (c.css) {
-          var cssStr = typeof c.css === 'function' ? c.css() : c.css;
+        if (c.constructor.css || c.css) {
+
+          var cssStr = c.constructor.css ? c.constructor.css : typeof c.css === 'function' ? c.css() : c.css;
           var cssAttr = '_s' + getCtorName(c.constructor);
 
           tempCss = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
-        }
-        if (c.css) {
+
           addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
         }
 
@@ -2024,7 +2024,7 @@
     renderToString: renderToString
   };
   options.root.omi = options.root.Omi;
-  options.root.Omi.version = 'omio-1.3.7';
+  options.root.Omi.version = 'omio-1.3.8';
 
   var Omi = {
     h: h,
