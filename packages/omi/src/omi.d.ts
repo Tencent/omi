@@ -98,6 +98,7 @@ declare namespace Omi {
 		static data: object;
 		static observe: boolean;
 		static mergeUpdate: boolean;
+		static css: string;
 
 		props: RenderableProps<P>;
 		data: D;
@@ -148,6 +149,7 @@ declare namespace Omi {
 		static data: object;
 		static observe: boolean;
 		static mergeUpdate: boolean;
+		static css: string;
 
 		props: RenderableProps<P>;
 		data: D;
