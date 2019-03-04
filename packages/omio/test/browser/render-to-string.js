@@ -26,7 +26,7 @@ describe('render()', () => {
   })
 
   define('todo-app2', class extends WeElement {
-    css = 'h3 { color:red; }'
+    static css = 'h3 { color:red; }'
 
     data = { items: [], text: '' }
 

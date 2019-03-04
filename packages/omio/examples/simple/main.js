@@ -3,15 +3,16 @@ import { define, render, Component } from '../../src/omi'
 define('my-hello', class extends Component {
   render() {
     //can get the parent's div style, can't get the h3's style
-    return <div><h3> {this.props.name}</h3></div>
+    return <span><h3> {this.props.name}</h3></span>
   }
 })
 
 define('my-app', class extends Component {
   
-  css = `div{
-      font-size:30px;
-  }`
+  static css = `div{
+      font-size:20px;
+  }
+  `
 
   install() {
     this.name = 'Omi'

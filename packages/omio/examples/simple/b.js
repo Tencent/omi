@@ -178,7 +178,7 @@
     return to;
   }
 
-  if (!Element.prototype.addEventListener) {
+  if (typeof Element !== 'undefined' && !Element.prototype.addEventListener) {
     var runListeners = function runListeners(oEvent) {
       if (!oEvent) {
         oEvent = window.event;
@@ -758,8 +758,8 @@
     while (c = mounts.pop()) {
       if (options.afterMount) options.afterMount(c);
       if (c.installed) c.installed();
-      if (c.css) {
-        addStyleToHead(typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor));
+      if (c.constructor.css || c.css) {
+        addStyleToHead(c.constructor.css ? c.constructor.css : typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor));
       }
     }
   }
@@ -1415,7 +1415,7 @@
       rendered = component.render(props, data, context);
 
       //don't rerender
-      if (component.css) {
+      if (component.constructor.css || component.css) {
         addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor));
       }
 
@@ -1855,13 +1855,13 @@
       var tempCss = void 0;
       if (opts.scopedCSS) {
 
-        if (c.css) {
-          var cssStr = typeof c.css === 'function' ? c.css() : c.css;
+        if (c.constructor.css || c.css) {
+
+          var cssStr = c.constructor.css ? c.constructor.css : typeof c.css === 'function' ? c.css() : c.css;
           var cssAttr = '_s' + getCtorName(c.constructor);
 
           tempCss = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
-        }
-        if (c.css) {
+
           addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
         }
 
@@ -2023,8 +2023,10 @@
     getHost: getHost,
     renderToString: renderToString
   };
-  options.root.omi = Omi;
-  options.root.Omi.version = 'omio-1.3.5';
+  options.root.omi = options.root.Omi;
+  options.root.Omi.version = 'omio-1.3.7';
+
+  var _class2, _temp2;
 
   function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2044,7 +2046,7 @@
     _class.prototype.render = function render$$1() {
       //can get the parent's div style, can't get the h3's style
       return Omi.h(
-        'div',
+        'span',
         null,
         Omi.h(
           'h3',
@@ -2058,29 +2060,29 @@
     return _class;
   }(Component));
 
-  define('my-app', function (_Component2) {
-    _inherits$1(_class3, _Component2);
+  define('my-app', (_temp2 = _class2 = function (_Component2) {
+    _inherits$1(_class2, _Component2);
 
-    function _class3() {
+    function _class2() {
       var _temp, _this2, _ret;
 
-      _classCallCheck$2(this, _class3);
+      _classCallCheck$2(this, _class2);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this2 = _possibleConstructorReturn$1(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.css = 'div{\n      font-size:30px;\n  }', _this2.handleTap = function (e) {
+      return _ret = (_temp = (_this2 = _possibleConstructorReturn$1(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.handleTap = function (e) {
         _this2.name = 'Hello Omi !';
         _this2.update();
       }, _temp), _possibleConstructorReturn$1(_this2, _ret);
     }
 
-    _class3.prototype.install = function install() {
+    _class2.prototype.install = function install() {
       this.name = 'Omi';
     };
 
-    _class3.prototype.installed = function installed() {
+    _class2.prototype.installed = function installed() {
       var _this3 = this;
 
       setTimeout(function () {
@@ -2089,7 +2091,7 @@
       }, 1000);
     };
 
-    _class3.prototype.render = function render$$1() {
+    _class2.prototype.render = function render$$1() {
       return Omi.h(
         'div',
         null,
@@ -2102,8 +2104,8 @@
       );
     };
 
-    return _class3;
-  }(Component));
+    return _class2;
+  }(Component), _class2.css = 'div{\n      font-size:20px;\n  }\n  ', _temp2));
 
   render(Omi.h('my-app', null), 'body');
 

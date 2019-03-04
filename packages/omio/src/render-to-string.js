@@ -94,13 +94,13 @@ export function renderToString(vnode, opts, store, isSvgMode, css) {
     let tempCss 
     if(opts.scopedCSS){
 
-      if(c.css){
-        const cssStr = typeof c.css === 'function' ? c.css() : c.css
+      if (c.constructor.css || c.css) {
+
+        const cssStr = c.constructor.css ? c.constructor.css : (typeof c.css === 'function' ? c.css() : c.css)
         const cssAttr = '_s' + getCtorName(c.constructor)
 
         tempCss = `<style type="text/css" id="${cssAttr}">${scoper(cssStr, cssAttr)}</style>`
-      }
-      if (c.css) {
+
         addScopedAttrStatic(
           rendered,
           '_s' + getCtorName(c.constructor)

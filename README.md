@@ -218,11 +218,11 @@ import { render, WeElement, define } from 'omi'
 define('my-counter', class extends WeElement {
     static observe = true
     
-    css () {
-      return `span{
-        color: red;
+    //也支持不加 static ，直接 css = ..
+    static css = `
+      span{
+          color: red;
       }`
-    }
 
     data = {
       count: 1
@@ -250,7 +250,7 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body')
 ```
 
-也可以手动调用 `this.update`，这样你就可以选择最佳的时机进行更新，而且能够兼容 IE8。
+也可以手动调用 `this.update`，这样你就可以选择最佳的时机进行更新， 比如:
 
 ```js
 import { render, WeElement, define } from 'omi'
@@ -260,10 +260,10 @@ define('my-counter', class extends WeElement {
     count: 1
   }
 
-  //也可以直接传递字符串
-  css = `span{
+  static css = `
+    span{
         color: red;
-      }`
+    }`
 
   sub = () => {
     this.data.count--

@@ -148,7 +148,7 @@ export function renderComponent(component, opts, mountAll, isChild) {
     rendered = component.render(props, data, context)
 
     //don't rerender
-    if (component.css) {
+    if (component.constructor.css || component.css) {
       addScopedAttrStatic(
         rendered,
         '_s' + getCtorName(component.constructor)

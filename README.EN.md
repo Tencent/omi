@@ -215,11 +215,10 @@ define('my-counter', class extends WeElement {
       count: 1
     }
 
-    css () {
-      return `span{
-        color: red;
+    static css = `
+      span{
+          color: red;
       }`
-    }
 
     sub = () => {
       this.data.count--
@@ -253,10 +252,10 @@ define('my-counter', class extends WeElement {
     count: 1
   }
 
-  //You can also pass strings directly
-  css = `span{
+  static css = `
+    span{
         color: red;
-      }`
+    }`
 
   sub = () => {
     this.data.count--

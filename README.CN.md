@@ -35,7 +35,7 @@
 | [omi-tap](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Omi 原生支持 tap 事件（omi v4.0.24+）|
 | [omi-finger](https://github.com/Tencent/omi/tree/master/packages/omi-finger)|Omi 官方手势库|
 | [omi-touch](https://github.com/Tencent/omi/tree/master/packages/omi-touch)|丝般顺滑的触摸运动|
-| [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|把 web components 渲染到 native，比如 IOS 、Android|
+| [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)|预渲染骨架屏|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Omi 国际化解决方案 |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) | 基于 [page.js](https://github.com/visionmedia/page.js) 的 Omi 路由|
 
@@ -64,18 +64,6 @@
 | **Omi** | **React** |
 |-|-|
 | ![Omi](./assets/omi-render.jpg) | ![React](./assets/react-render.jpg) |
-
-## omi-mp 
-
-> 通过微信小程序开发和一键生成 Web 的 H5 SPA (基于 omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
-
-看下官方模板的转换例子：
-
-| **Index**                         | **Logs**                           |
-| ------------------------------- | ----------------------------------- |
-|![](./assets/mp1.jpg)| ![](./assets/mp2.jpg)|
-
-因为 Web 里拉取不到用户登录态，更换了用户头像和名称。
 
 ## 必须收藏的资源
 
@@ -230,11 +218,11 @@ import { render, WeElement, define } from 'omi'
 define('my-counter', class extends WeElement {
     static observe = true
     
-    css () {
-      return `span{
-        color: red;
+    //也支持不加 static ，直接 css = ..
+    static css = `
+      span{
+          color: red;
       }`
-    }
 
     data = {
       count: 1
@@ -262,7 +250,7 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body')
 ```
 
-也可以手动调用 `this.update`，这样你就可以选择最佳的时机进行更新，而且能够兼容 IE8。
+也可以手动调用 `this.update`，这样你就可以选择最佳的时机进行更新， 比如:
 
 ```js
 import { render, WeElement, define } from 'omi'
@@ -272,10 +260,10 @@ define('my-counter', class extends WeElement {
     count: 1
   }
 
-  //也可以直接传递字符串
-  css = `span{
+  static css = `
+    span{
         color: red;
-      }`
+    }`
 
   sub = () => {
     this.data.count--
@@ -436,6 +424,7 @@ $ npm run build                  # release
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
 |基础模板(v3.3.0+)|`omi init my-app`| 基础模板，支持 omi 和 omio(IE8+)|
+|小程序模板(v3.3.5+)|`omi init-p my-app`| Omi 开发小程序 |
 |支持预渲染快照骨架的模板|`omi init-snap my-app`| 基础模板，支持 omi 和 omio(IE8+)，内置预渲染|
 |TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|使用 TypeScript 的模板|
 |Mobile Template|`omi init-weui my-app`| 使用了 weui 和 omi-router 的移动 web app 模板|

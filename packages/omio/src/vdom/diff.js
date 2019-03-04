@@ -26,8 +26,8 @@ export function flushMounts() {
   while ((c = mounts.pop())) {
     if (options.afterMount) options.afterMount(c)
     if (c.installed) c.installed()
-    if(c.css){
-      addStyleToHead(typeof c.css === 'function' ? c.css() : c.css, '_s' + getCtorName(c.constructor))
+    if (c.constructor.css || c.css) {
+      addStyleToHead(c.constructor.css ? c.constructor.css : (typeof c.css === 'function' ? c.css() : c.css), '_s' + getCtorName(c.constructor))
     }
   }
 }
