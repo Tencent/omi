@@ -21,6 +21,7 @@ Dropdown.
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
+| selectedIndex  | number|       |           |
 | show  | bool|   false    |           |
 | children  | json array|       |           |
 | onToggle  | function|       |           |
