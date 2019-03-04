@@ -165,7 +165,7 @@ Trigger custom event by `this.fire` and get the data by  `evt.detail`.
 
 ```js
 define('my-first-element', class extends WeElement {
-  css = `h1 { color: red; }`
+  static css = `h1 { color: red; }`
 
   render(props) {
     return (
@@ -197,7 +197,7 @@ import { define, WeElement } from 'omi'
 import css from '../style/_button.scss'
 
 define('el-button', class extends WeElement {
-    css = css
+    static css = css
     ...
     ...
 ```
@@ -205,7 +205,7 @@ define('el-button', class extends WeElement {
 or：
 
 ```js
-css = require('../style/_button.scss')
+static css = require('../style/_button.scss')
 ```
 
 ### Lifecycle

@@ -148,7 +148,7 @@ define('my-first-element', class extends WeElement {
 
 ```js
 define('my-first-element', class extends WeElement {
-  css = `h1 { color: red; }`
+  static css = `h1 { color: red; }`
 
   render(props) {
     return (
@@ -180,7 +180,7 @@ import { define, WeElement } from 'omi'
 import css from '../style/_button.scss'
 
 define('el-button', class extends WeElement {
-    css = css
+    static css = css
     ...
     ...
 ```
@@ -188,7 +188,7 @@ define('el-button', class extends WeElement {
 或者:
 
 ```js
-css = require('../style/_button.scss')
+static css = require('../style/_button.scss')
 ```
 
 ### Lifecycle
