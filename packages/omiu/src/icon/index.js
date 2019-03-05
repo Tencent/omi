@@ -28,13 +28,21 @@ define('o-icon', class extends WeElement {
           fill={props.color}
           aria-hidden="true"
         >
-          <path
-            d={
-              props.path
-                ? props.path
-                : path[props.type][props.isFill ? 1 : 0] || path[props.type][0]
-            }
-          />
+          {props.paths ? (
+            props.paths.map(item => {
+              const attrs = { d: item.path }
+              if (item.color) attrs.fill = item.color
+
+              return <path {...attrs}></path>
+            })
+          ) : <path
+              d={
+                props.path
+                  ? props.path
+                  : path[props.type][props.isFill ? 1 : 0] || path[props.type][0]
+              }
+            />}
+
         </svg>
         {props.children && (
           <div style={`color:${props.color || 'black'};`}>
