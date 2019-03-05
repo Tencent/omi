@@ -31,7 +31,7 @@ It can also support multiple paths:
 | paths  | json array |--  | pass in paths, path does not need to pass in  |
 | path  | string| -- ||
 | scale | number   |   2 | |
-| color | bool| black ||
+| color | string| black ||
 | rotate | bool| false ||
 | isFill | bool| false |deprecated|
 | type  | string| -- |deprecated|
