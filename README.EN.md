@@ -25,6 +25,7 @@ English | [简体中文](./README.md) | [한국어](./README.KR.md)
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
 | [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
+| [omi-vscode](https://github.com/ZainChen/vscode-omi)| Vscode extension for omi, [Install now!](https://marketplace.visualstudio.com/items?itemName=ZainChen.omi) |
 | [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js extension(TypeScript) |
 | [omi-transform](https://github.com/Tencent/omi/tree/master/packages/omi-transform)|Omi / [css3transform](https://tencent.github.io/omi/packages/omi-transform/css3transform/) integration. Made css3 transform super easy in your Omi project.|
 | [omi-tap](https://github.com/Tencent/omi/releases/tag/v4.0.24)| Native tap event support(omi v4.0.24+）|
