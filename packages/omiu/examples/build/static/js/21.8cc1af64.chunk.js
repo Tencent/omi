@@ -1,0 +1,2 @@
+webpackJsonp([21],{90:function(n,s){n.exports="## EqualSpace  \n\n\u6a2a\u5411\u5e73\u5206\u7a7a\u95f4\u5e03\u5c40\u3002\n\n## \u4f7f\u7528\n\n```js\n<o-equal-space>\n  <div class='a'></div>\n  <div class='b'></div>\n  <div class='c'></div>\n  <div class='d'></div>\n  <div class='e'></div>\n</o-equal-space>\n```\n\n## API\n\n### Props\n\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\n| ------------- |:-------------:|:-----:|:-------------:|\n| children  | json array |   --    |           |"}});
+//# sourceMappingURL=21.8cc1af64.chunk.js.map
