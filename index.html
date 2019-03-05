@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Omi - Next Front End Framework</title>
+    <link rel="shortcut icon" href="https://tencent.github.io/omi/packages/omiu/examples/build/favicon.ico">
+    <style>
+        html,body{
+            padding:0;
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas{
+            padding:0;
+            margin: 0;
+            border: 0;
+        }
+
+        #container{
+            text-align: center;
+        }
+    </style>
+
+    <style>
+        body {
+            background-color: #1e1d23;
+            /*opacity: 0;*/
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 2px;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /*body.ready { opacity: 1; }*/
+
+
+        .icon-text path,
+        .icon-text polygon {
+            /*opacity: 0;*/
+        }
+
+        .info {
+            text-align: center;
+        }
+
+        .description {
+            /*opacity: 0;*/
+            color: white;
+            margin-top: 20px;
+        }
+
+        .links {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 700px) {
+            .links {
+                -webkit-box-orient: horizontal;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: row;
+                flex-direction: row;
+
+            }
+        }
+
+        .button {
+            /*opacity: 0;*/
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            width: 180px;
+            height: 60px;
+            text-decoration: none;
+        }
+
+        .button.blue {
+            color: #5E89FB;
+        }
+
+        .button.green {
+            color: #07C160;
+        }
+
+        .button.red {
+            color: #F95050;
+        }
+
+        .button svg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            stroke-width: 1;
+            fill: none;
+            fill-rule: evenodd;
+            stroke: currentColor;
+        }
+
+        .button.green svg {
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        .button path {
+            scale: .9;
+            transform-origin: 50% 50%;
+        }
+
+        .credits {
+            /*opacity: 0;*/
+            margin-top: 20px;
+            color: #979797;
+        }
+
+        .credits a {
+            position: relative;
+            color: currentColor;
+            text-decoration: none;
+        }
+
+        .credits a:after {
+            content: "";
+            /*opacity: 0;*/
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 100%;
+            border-bottom: 1px solid currentColor;
+            transition: opacity .75s ease;
+        }
+
+        /*.credits a:hover:after {
+          opacity: 1;
+          transition: opacity .25s ease;
+        }*/
+
+        .credits a,
+        .credits span {
+            transition: color .75s ease;
+        }
+
+        .credits a:hover,
+        .highlighted {
+            color: white;
+            transition: color .25s ease;
+        }
+
+        #container{
+            margin-top:100px ;
+        }
+
+        @media only screen and (max-width: 500px) {
+            #container canvas{
+               width: 100%;
+            }
+        }
+
+#wp{
+  z-index: 10;
+}
+      
+    </style>
+</head>
+
+<body>
+  <div id="wp">
+      <div id="container">
+          <img style="width: 150px;height: 150px;"src="https://github.com/Tencent/omi/raw/master/assets/omi-logo2019.svg?sanitize=true">
+        </div>
+        <div class="info">
+            <p class="description">
+                Next Front End Framework - 下一代前端统一框架
+            </p>
+            <div class="links">
+                <a class="button red" href="https://github.com/Tencent/omi/blob/master/docs/main-concepts.md" target="_blank">
+                    <svg viewBox="0 0 180 60">
+                        <path d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z"></path>
+                    </svg>
+                    <span>Docs</span>
+                </a>
+                <a class="button green" href="https://alloyteam.github.io/curvejs/pg/rd.html?type=points-to" target="_blank">
+                    <svg viewBox="0 0 180 60">
+                        <path d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z"></path>
+                    </svg>
+                    <span>小程序开发</span>
+                </a>
+                <a class="button blue" href="https://github.com/Tencent/omi" target="_blank">
+                    <svg viewBox="0 0 180 60">
+                        <path d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z"></path>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+            <p class="credits">
+                v<span class="version">5.0.24</span> © <span class="date">2019</span> Tencent
+            </p>
+        </div>
+  </div>
+  <pre style="position:absolute;left:40px;top:40px;transform:rotateZ(5deg);pointer-events: none;text-transform:none;">
+      <code>
+import { render, WeElement, define } from 'omi'
+
+define('my-counter', class extends WeElement {
+  data = {
+    count: 1
+  }
+
+  static css = `
+    span{
+        color: red;
+    }`
+
+  sub = () => {
+    this.data.count--
+    this.update()
+  }
+
+  add = () => {
+    this.data.count++
+    this.update()
+  }
+
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;button onClick={this.sub}>-&lt;/button&gt;
+        &lt;span>{this.data.count}&lt;/span&gt;
+        &lt;button onClick={this.add}>+&lt;/button&gt;
+      &lt;/div&gt;
+    )
+  }
+})
+
+render(&lt;my-counter /&gt;, 'body')
+       </code>
+  </pre>
+   
+
+<script>
+document.querySelector('#wp').style.marginTop = (window.innerHeight - 700)/2+'px'
+</script>
+</body>
+</html>
