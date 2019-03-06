@@ -71,10 +71,21 @@ const DEVICE_RATIO = 'deviceRatio'
 if (projectConfig.hasOwnProperty(DEVICE_RATIO)) {
   pxTransformConfig[DEVICE_RATIO] = projectConfig.deviceRatio
 }
+//@fix
+if (!String.prototype.endsWith) {
+	String.prototype.endsWith = function(search, this_len) {
+		if (this_len === undefined || this_len > this.length) {
+			this_len = this.length;
+		}
+		return this.substring(this_len - search.length, this_len) === search;
+	};
+}
 
 let pages = []
 let tabBar
 let tabbarPos
+//@fix
+let appCSS = ''
 
 const FILE_TYPE = {
   ENTRY: 'ENTRY',
@@ -379,6 +390,13 @@ function processEntry (code, filePath) {
         const source = node.source
         const specifiers = node.specifiers
         let value = source.value
+        //@fix
+        if(value.endsWith('.css')){
+          appCSS = fs.readFileSync(filePath.replace('.js','.css'), 'utf-8').replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '')
+          // astPath.replaceWith(t.variableDeclaration('const',[t.variableDeclarator(t.identifier(`___css`),t.stringLiteral(appCSS))]))
+          astPath.remove()
+          return
+        }
         if (Util.isAliasPath(value, pathAlias)) {
           source.value = value = Util.replaceAliasPath(filePath, value, pathAlias)
         }
@@ -631,6 +649,11 @@ function processOthers (code, filePath, fileType) {
             'method', t.identifier('componentDidShow'), [],
             t.blockStatement([]), false, false))
         }
+        //@fix
+        astPath.unshiftContainer('body', t.classProperty(
+          t.identifier('static css'),
+          t.identifier('___css')
+        ))
       }
     }
   }
@@ -650,12 +673,31 @@ function processOthers (code, filePath, fileType) {
         }
       }
     } : {},
+    //@fix
+    ClassBody:{
+      enter (astPath) {
+      astPath.unshiftContainer('body', t.classProperty(
+        t.identifier('static css'),
+        t.identifier('___css')
+      ))
+      }
+    },
     ImportDeclaration: {
       enter (astPath) {
         const node = astPath.node
         const source = node.source
         let value = source.value
         const specifiers = node.specifiers
+        //@fix
+        if(value.endsWith('.css')){
+          let css = fs.readFileSync(filePath.replace('.js','.css'), 'utf-8').replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '')
+          //page里需要注入 appcss
+          if(filePath.indexOf('/src/pages/')!==-1||filePath.indexOf('\\src\\pages\\')!==-1){
+            css = appCSS + css
+          }
+          astPath.replaceWith(t.variableDeclaration('const',[t.variableDeclarator(t.identifier(`___css`),t.callExpression(t.identifier('Omi.rpx'),[t.stringLiteral(css)]),)]))
+          return
+        }
         if (Util.isAliasPath(value, pathAlias)) {
           source.value = value = Util.replaceAliasPath(filePath, value, pathAlias)
         }

@@ -1345,7 +1345,8 @@ function setComponentProps(component, props, opts, context, mountAll) {
 
   if (!component.base || mountAll) {
     if (component.beforeInstall) component.beforeInstall();
-    if (component.install) component.install();
+    //防止小程序 options 报错
+    if (component.install) component.install({});
     if (component.constructor.observe) {
       proxyUpdate(component);
     }
@@ -2060,6 +2061,7 @@ options.root.Omi = {
 options.root.omi = options.root.Omi;
 options.root.Omi.version = 'omio-1.3.8';
 options.root.Nerv = options.root.Omi
+options.root.___css = ''
 
 var omi = {
   h: h,
