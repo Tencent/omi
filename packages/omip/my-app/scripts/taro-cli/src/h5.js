@@ -405,9 +405,10 @@ function processEntry (code, filePath) {
             specifier.local.name = nervJsImportDefaultName
           } else if (!hasAddNervJsImportDefaultName) {
             hasAddNervJsImportDefaultName = true
-            node.specifiers.unshift(
-              t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
-            )
+            //@fix
+            // node.specifiers.unshift(
+            //   t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
+            // )
           }
           const taroApisSpecifiers = []
           const deletedIdx = []
@@ -673,10 +674,11 @@ function processOthers (code, filePath, fileType) {
             taroImportDefaultName = specifier.local.name
             specifier.local.name = nervJsImportDefaultName
           } else if (!hasAddNervJsImportDefaultName) {
-            hasAddNervJsImportDefaultName = true
-            node.specifiers.unshift(
-              t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
-            )
+            //@fix
+            //hasAddNervJsImportDefaultName = true
+            // node.specifiers.unshift(
+            //   t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
+            // )
           }
           const taroApisSpecifiers = []
           const deletedIdx = []
@@ -714,11 +716,12 @@ function processOthers (code, filePath, fileType) {
         }
         const node = astPath.node
         if (hasJSX && !hasAddNervJsImportDefaultName) {
-          node.body.unshift(
-            t.importDeclaration([
-              t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
-            ], t.stringLiteral(PACKAGES['nervjs']))
-          )
+          //@fix
+          // node.body.unshift(
+          //   t.importDeclaration([
+          //     t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
+          //   ], t.stringLiteral(PACKAGES['nervjs']))
+          // )
         }
         if (taroImportDefaultName) {
           const importTaro = toAst(`import ${taroImportDefaultName} from '${PACKAGES['@tarojs/taro-h5']}'`)
