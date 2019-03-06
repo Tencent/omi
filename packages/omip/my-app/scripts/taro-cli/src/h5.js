@@ -297,11 +297,12 @@ function processEntry (code, filePath) {
             'method', t.identifier('componentWillUnmount'), [],
             t.blockStatement([]), false, false))
         }
-        if (!hasConstructor) {
-          astPath.pushContainer('body', t.classMethod(
-            'method', t.identifier('constructor'), [t.identifier('props'), t.identifier('context')],
-            t.blockStatement([toAst('super(props, context)'), additionalConstructorNode]), false, false))
-        }
+        //@fix
+        // if (!hasConstructor) {
+        //   astPath.pushContainer('body', t.classMethod(
+        //     'method', t.identifier('constructor'), [t.identifier('props'), t.identifier('context')],
+        //     t.blockStatement([toAst('super(props, context)'), additionalConstructorNode]), false, false))
+        // }
         if (tabBar) {
           if (!hasComponentWillMount) {
             astPath.pushContainer('body', t.classMethod(
