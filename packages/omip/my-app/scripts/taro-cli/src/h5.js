@@ -515,6 +515,8 @@ function processEntry (code, filePath) {
       exit (astPath) {
         const importNervjsNode = t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
         const importRouterNode = toAst(`import { Router } from '${PACKAGES['@tarojs/router']}'`)
+        //@fix
+        const importMpNode = toAst(`import './libs/mp'`)
         const importTaroH5Node = toAst(`import ${taroImportDefaultName} from '${PACKAGES['@tarojs/taro-h5']}'`)
         const importComponentNode = toAst(`import { View, ${tabBarComponentName}, ${tabBarContainerComponentName}, ${tabBarPanelComponentName}} from '${PACKAGES['@tarojs/components']}'`)
         const lastImportIndex = _.findLastIndex(astPath.node.body, t.isImportDeclaration)
@@ -522,6 +524,7 @@ function processEntry (code, filePath) {
         const extraNodes = [
           //@fix
           //importTaroH5Node,
+          importMpNode,
           importRouterNode,
           //@fix
           //initPxTransformNode
