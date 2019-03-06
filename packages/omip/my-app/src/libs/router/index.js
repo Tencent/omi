@@ -6,6 +6,7 @@ define('o-router', class extends WeElement {
   _firstTime = true
 
   installed() {
+    let main
     this.props.routes.forEach(current => {
       route(current.path, () => {
         current.componentLoader()
@@ -17,6 +18,7 @@ define('o-router', class extends WeElement {
           })
       })
       if (current.isIndex) {
+        main = current
         current.componentLoader()
           .then(res => {
             const arr = this.props.routes[0].path.replace(/pages/, 'page').split('/')
@@ -28,6 +30,16 @@ define('o-router', class extends WeElement {
             console.log(res)
           })
       }
+    })
+
+    route('*', () => {
+      main.componentLoader()
+        .then(res => {
+          const arr = main.path.replace(/pages/, 'page').split('/')
+          render({ nodeName: arr[1] + '-' + arr[2] }, '#app', null, true)
+        }).catch(res => {
+          console.log(res)
+        })
     })
   }
 
