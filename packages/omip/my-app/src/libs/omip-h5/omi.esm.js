@@ -587,7 +587,26 @@ function setAccessor(node, name, old, value, isSvg) {
         node.removeEventListener('touchend', touchEnd, useCapture);
       }
     }
-(node._listeners || (node._listeners = {}))[name] = value;
+    (node._listeners || (node._listeners = {}))[name] = value;
+  } else if (name[0] == 'b' && name[1] == 'i' && name[2] == 'n' && name[3] == 'd') {
+    var useCapture = name !== (name = name.replace(/Capture$/, ''));
+    name = name.toLowerCase().substring(4);
+    if (value) {
+      if (!old) {
+        node.addEventListener(name, eventProxy, useCapture);
+        if (name == 'tap') {
+          node.addEventListener('touchstart', touchStart, useCapture);
+          node.addEventListener('touchend', touchEnd, useCapture);
+        }
+      }
+    } else {
+      node.removeEventListener(name, eventProxy, useCapture);
+      if (name == 'tap') {
+        node.removeEventListener('touchstart', touchStart, useCapture);
+        node.removeEventListener('touchend', touchEnd, useCapture);
+      }
+    }
+    (node._listeners || (node._listeners = {}))[name] = value;
   } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
     setProperty(node, name, value == null ? '' : value);
     if (value == null || value === false) node.removeAttribute(name);
