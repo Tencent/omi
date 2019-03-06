@@ -18,7 +18,9 @@ const CONFIG = require('./config')
 const { source: toAst, getObjKey } = require('./util/ast_convert')
 
 const appPath = process.cwd()
-const projectConfig = require(path.join(appPath, Util.PROJECT_CONFIG))(_.merge)
+//@fix
+const projectConfig = require(path.join(appPath, Util.PROJECT_CONFIG_H5))(_.merge)
+
 const h5Config = projectConfig.h5 || {}
 const routerConfig = h5Config.router || {}
 const routerMode = routerConfig.mode === 'browser' ? 'browser' : 'hash'
@@ -199,8 +201,8 @@ function processEntry (code, filePath) {
               isIndex: k === 0
             })
           })
-
-          funcBody = `<Router
+          //@fix
+          funcBody = `<o-router
             mode={${JSON.stringify(routerMode)}}
             publicPath={${JSON.stringify(routerMode === 'hash' ? '/' : publicPath)}}
             routes={[${routes.join(',')}]}
@@ -517,15 +519,18 @@ function processEntry (code, filePath) {
         const lastImportIndex = _.findLastIndex(astPath.node.body, t.isImportDeclaration)
         const lastImportNode = astPath.get(`body.${lastImportIndex > -1 ? lastImportIndex : 0}`)
         const extraNodes = [
-          importTaroH5Node,
+          //@fix
+          //importTaroH5Node,
           importRouterNode,
-          initPxTransformNode
+          //@fix
+          //initPxTransformNode
         ]
 
         astPath.traverse(programExitVisitor)
 
         if (hasJSX && !hasAddNervJsImportDefaultName) {
-          extraNodes.unshift(importNervjsNode)
+          //@fix
+          //extraNodes.unshift(importNervjsNode)
         }
         if (tabBar) {
           extraNodes.unshift(importComponentNode)
