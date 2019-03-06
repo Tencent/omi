@@ -150,6 +150,10 @@ function h(nodeName, attributes) {
   p.attributes = attributes == null ? undefined : attributes;
   p.key = attributes == null ? undefined : attributes.key;
 
+  //忽略掉 block
+  if(p.nodeName === 'block'){
+    return children
+  }
   // if a "vnode hook" is defined, pass every created VNode to it
   if (options.vnode !== undefined) options.vnode(p);
 
