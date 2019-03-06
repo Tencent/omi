@@ -1,16 +1,9 @@
-div{
-  width: 750px;
-  height: 100%;
-  top: 59px;
-  right: 0;
-  position: fixed;
-  z-index: 9999;
-  background-color: #ccc;
-}
-
 iframe{
   width: 750px;
   height: 100%;
+  top: 60px;
+  right: 0;
+  position: fixed;
   border: none;
   z-index: 9999;
   border-left: 2px solid #24292E; 
@@ -22,8 +15,8 @@ iframe{
   background-color: #AA0000;
   border-radius: 50%;
   position: fixed;
-  right: 60px;
-  bottom:80px;
+  right: 50px;
+  bottom: 50px;
   cursor: pointer;
   text-align: center;
   z-index: 10000;
@@ -46,9 +39,4 @@ iframe{
   iframe{
       width: 100%;
   }
-
-  .ctn{
-    width: 100%;
-  }
- 
 }
