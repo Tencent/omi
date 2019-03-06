@@ -37,7 +37,7 @@ wx.getUserInfo = function () {
 
 wx.navigateTo = function (option) {
   route.query = getUrlParams(option.url)
-  route.to(option.url, option)
+  route.to(option.url.replace('../','/pages/'), option)
 }
 
 function getUrlParam(name, url) {

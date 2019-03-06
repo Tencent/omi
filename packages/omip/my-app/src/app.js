@@ -70,4 +70,4 @@ define('my-app', class extends WeElement {
 })
 
 
-render(<my-app />, 'body')
+render(<my-app />, '#app')
