@@ -1,1 +1,7 @@
-window.getApp = function () { }
+window.getApp = function () {
+  return {
+    globalData: {
+      userInfo: null
+    }
+  }
+}

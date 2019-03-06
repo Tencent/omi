@@ -2,20 +2,30 @@ import { WeElement, define } from 'omi'
 
 define('o-router', class extends WeElement {
 
+  firstTime = true
 
   installed() {
     this.props.routes[0].componentLoader()
       .then(res => {
-        console.log(res)
-        console.log(Omi)
+        const arr = this.props.routes[0].path.replace(/pages/,'page').split('/')
 
+        this.vd = {nodeName:arr[1]+'-'+arr[2]}
+        this.update()
 
       }).catch(res => {
         console.log(res)
       })
+
+    
   }
   render() {
-    return <div><span>Hello, H5!</span></div>
+    if(this.firstTime){
+      this.firstTime = false
+      return <div><span>Hello, H5!</span></div>
+    }else{
+      return this.vd
+      console.log(1)
+    }
   }
 })
 
