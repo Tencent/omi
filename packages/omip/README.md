@@ -1,6 +1,6 @@
 # Omip
 
-使用 Omi 开发小程序
+使用 Omi 开发小程序或 H5 SPA
 
 > 现在，Omi 不仅仅可以开发桌面 Web、移动 H5，还可以直接开发小程序！
 
@@ -25,7 +25,9 @@
 npm i omi-cli -g
 omi init-p my-app
 cd my-app
-npm start
+npm start        //开发小程序
+npm run dev:h5   //开发 h5
+npm run build:h5 //发布 h5
 ```
 > node 版本要求 >= 8
 

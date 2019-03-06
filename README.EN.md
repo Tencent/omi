@@ -10,7 +10,7 @@ English | [简体中文](./README.md) | [한국어](./README.KR.md)
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://github.com/Tencent/omi/blob/master/docs/main-concepts.md)| Omi official documents |
-| [omip![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omip)| 直接使用 Omi 开发小程序！！！|
+| [omip![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omip)| 直接使用 Omi 开发小程序或 H5 SPA！！！|
 | [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| Omi for old browsers(IE8+ and mobile browsers).|
 | [omiu![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Omi official UI|
 | [omix![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omix)| Tiny size mini programe framework.|
