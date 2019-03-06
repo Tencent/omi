@@ -65,6 +65,20 @@ var stack = [];
 
 var EMPTY_CHILDREN = [];
 
+//
+var mapTag = {
+  'view': 'div',
+  'picker': 'select',
+  'image': 'img',
+  'navigator': 'a',
+  'text': 'span'
+}
+
+var getNodeName = function(name){
+  if(mapTag[name]) return mapTag[name]
+  return name
+}
+
 /**
  * JSX/hyperscript reviver.
  * @see http://jasonformat.com/wtf-is-jsx
@@ -131,7 +145,7 @@ function h(nodeName, attributes) {
   }
 
   var p = new VNode();
-  p.nodeName = nodeName;
+  p.nodeName = getNodeName(nodeName);
   p.children = children;
   p.attributes = attributes == null ? undefined : attributes;
   p.key = attributes == null ? undefined : attributes.key;
