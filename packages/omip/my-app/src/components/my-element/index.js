@@ -10,14 +10,14 @@ define('my-element', class extends WeElement {
   clickHandler = () => {
     console.log('clicked' + this.a)
 
-    // this.data.arr[0] = Math.random()
-    // this.data.arr[1] = Math.random()
-    // this.update()
-    //上面代码等同于:
-    this.update({
-      'arr[0]': Math.random(),
-      "arr[1]": Math.random()
-    })
+    this.data.arr[0] = Math.random()
+    this.data.arr[1] = Math.random()
+    this.update()
+    //上面代码等同于，注意 h5 不支持下面方式更新
+    // this.update({
+    //   'arr[0]': Math.random(),
+    //   "arr[1]": Math.random()
+    // })
   }
 
   render() {
