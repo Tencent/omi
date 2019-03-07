@@ -50,7 +50,6 @@ define('o-router', class extends WeElement {
       return null
     } else {
       return this.vd
-      console.log(1)
     }
   }
 })
