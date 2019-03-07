@@ -163,6 +163,8 @@ exports.CONFIG_MAP = {
 }
 
 exports.PROJECT_CONFIG = 'config/index.js'
+//@fix
+exports.PROJECT_CONFIG_H5 = 'config/h5.js'
 
 exports.DEVICE_RATIO = {
   '640': 2.34 / 2,
