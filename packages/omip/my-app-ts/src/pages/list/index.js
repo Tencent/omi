@@ -50,7 +50,7 @@ define('page-list', class extends WeElement {
   }
 
   render() {
-    const { showLoading, films } = this.data
+    const { showLoading, films, hasMore } = this.data
 
     if (showLoading) {
       return (
