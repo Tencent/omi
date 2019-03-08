@@ -1,6 +1,6 @@
 # Omi 多端开发之 - omip 适配 h5 
 
-最新的 omip 已经适配了 h5，如下方新增的两条命令，
+Omip 是腾讯 Omi 团队开发的跨端开发工具集，支持小程序和 H5 SPA，最新的 omip 已经适配了 h5，如下方新增的两条命令，
 
 ```js
 npm i omi-cli -g
@@ -23,7 +23,6 @@ npm run build:h5 //发布 h5
 * CSS rpx 转换问题
 * JSX 里的小程序标签映射
 * wx api 适配
-* wx 生命周期处理
 * 集成路由
 * app.css 作用域问题
 
@@ -101,6 +100,12 @@ function h(nodeName, attributes) {
 | 界面 api| 实现对应的omi组件 |
 | 数据存储 api| localStorage |
 
+### 生命周期处理
+
+* onShow
+* onHide
+
+这是 wx 里 Page 里的生命周期，而 omi 是不包含的。这里需要在 router 的回调函数中进行主动调用。
 
 未完待续..
 

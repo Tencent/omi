@@ -72,6 +72,7 @@ export function routeUpdate(vnode, selector, byNative, root) {
     if (child.style.display !== 'none') {
       child.style.display = 'none'
       child.onHide && child.onHide()
+      child._component && child._component.onHide && child._component.onHide()
     }
   })
   const item = getElement(selector)
@@ -81,6 +82,7 @@ export function routeUpdate(vnode, selector, byNative, root) {
       const ele = item.ele
       ele.style.display = item.display
       ele.onShow && ele.onShow()
+      ele._component && ele._component.onShow && ele._component.onShow()
       currentPage = ele
       document.documentElement.scrollTop = item.scrollTop
       document.body.scrollTop = item.scrollTop
@@ -92,6 +94,7 @@ export function routeUpdate(vnode, selector, byNative, root) {
     } else {
       const node = render(vnode, root)
       node.onShow && node.onShow()
+      node._component && node._component.onShow && node._component.onShow()
       currentPage = node
       document.documentElement.scrollTop = 0
       document.body.scrollTop = 0
@@ -104,6 +107,7 @@ export function routeUpdate(vnode, selector, byNative, root) {
     }
     const node = render(vnode, root)
     node.onShow && node.onShow()
+    node._component && node._component.onShow && node._component.onShow()
     currentPage = node
 
     const ele = root.childNodes[root.childNodes.length - 1]
