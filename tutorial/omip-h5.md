@@ -61,6 +61,23 @@ function rpx(str) {
 }
 ```
 
+从 rpx 源码可以看到，需要运行时转换 rpx，而非编译时！因为只有运行时能拿到 屏幕宽度，omi 早期版本已经支持运行时的 rpx 转换：
+
+```js
+import { WeElement, define, rpx } from 'omi'
+
+define('my-ele', class extends WeElement {
+
+  static css = rpx(`div { font-size: 375rpx }`)
+
+  render() {
+    return (
+      <div>my ele</div>
+    )
+  }
+})
+```
+
 ## app.css 作用域问题
 
 Shadow tree 与 omi 不一样，omi 是从根开始 shadow root，而小程序是从自定义组件开始，omio 则没有 shadow root。
