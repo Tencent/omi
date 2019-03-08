@@ -263,10 +263,78 @@ wx 特有的 api 还包括一些特有的生命周期函数，如：
 
 这是 wx 里 Page 里的生命周期，而 omi 是不包含的。这里需要在 router 的回调函数中进行主动调用。具体怎么出发且看路由管理。
 
-未完待续..
+## 集成路由
+
+先看 cli 编译出来的 app.js 路由部分:
+
+```js
+
+  render() {
+    return <o-router mode={"hash"} publicPath={"/"} routes={[{
+      path: '/pages/index/index',
+      componentLoader: () => import( /* webpackChunkName: "index_index" */'./pages/index/index'),
+      isIndex: true
+    }, {
+      path: '/pages/list/index',
+      componentLoader: () => import( /* webpackChunkName: "list_index" */'./pages/list/index'),
+      isIndex: false
+    }, {
+      path: '/pages/detail/index',
+      componentLoader: () => import( /* webpackChunkName: "detail_index" */'./pages/detail/index'),
+      isIndex: false
+    }, {
+      path: '/pages/logs/index',
+      componentLoader: () => import( /* webpackChunkName: "logs_index" */'./pages/logs/index'),
+      isIndex: false
+    }]} customRoutes={{}} basename={"/"} />;
+  }
+});
+
+render(<my-app />, '#app');
+```
+
+4个页面各自做了分包，这样可以加快首屏节省带宽按需加载。接下来看 `<o-router />` 的实现：
+
+```js
+import { WeElement, define, render } from "../omip-h5/omi.esm";
+import 'omi-router';
+
+let currentPage = null;
+let stackList = [];
+
+define('o-router', class extends WeElement {
+
+  _firstTime = true;
+
+  installed() {
+    ...
+    ...
+  }
+});
+
+export function routeUpdate(vnode, selector, byNative, root) {
+ ...
+ ...
+}
+
+window.onscroll = function () {
+  ...
+  ...
+};
+```
+
+具体实现细节可以去看 [o-router 源码](https://github.com/Tencent/omi/blob/master/packages/omip/my-app/src/libs/router/index.js)，主要实现了下面一些功能:
+
+* 依赖了 [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) 进行路由变更的兼容
+* 依赖 window.onscroll 记录了上一 page 的滚动位置，方便在回退时候还原滚动条位置
+* 记录了 page 容器的 display，不能无脑 display none 和 display block 切换，因为可能是 display flex 等
+* 依靠 omi-router 判断是否是系统后退行为
+* 在正确的时机触发页面的 onShow 和 onHide
+* 新开页面 scrollTop 重制为 0
+* wx.navigateTo 直接调用 omi-router 的 route 方法
 
 ## 开始使用吧
 
 [→ Omip Github](https://github.com/Tencent/omi/tree/master/packages/omip)
 
-Omi 相关任何问题[欢迎进群交流](https://github.com/Tencent/omi/issues/169)。
+Omi 相关任何问题疑问反馈意见[欢迎进群交流](https://github.com/Tencent/omi/issues/169)。
