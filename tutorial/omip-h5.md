@@ -1,6 +1,6 @@
 # Omi 多端开发之 - omip 适配 h5 原理揭秘
 
-Omi 是腾讯开源的下一代前端框架，提供桌面、移动和小程序整体解决方案(One framework. Mobile & Desktop & Mini Program), Omip 是腾讯 Omi 团队开发的跨端开发工具集，支持小程序和 H5 SPA，最新的 omip 已经适配了 h5，如下方新增的两条命令：
+[Omi 框架](https://github.com/Tencent/omi)是腾讯开源的下一代前端框架，提供桌面、移动和小程序整体解决方案(One framework. Mobile & Desktop & Mini Program), Omip 是腾讯 Omi 团队开发的跨端开发工具集，支持小程序和 H5 SPA，最新的 omip 已经适配了 h5，如下方新增的两条命令：
 
 ```js
 npm i omi-cli -g
