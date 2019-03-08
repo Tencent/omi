@@ -45,6 +45,7 @@ Omip 不仅可以一键生成小程序，还能一键生成 h5 SPA。怎么做�
 * CSS rpx 转换问题
 * app.css 作用域问题
 * JSX 里的小程序标签映射
+* CSS 里的小程序标签映射
 * wx api 适配
 * 集成路由
 
@@ -246,6 +247,52 @@ function h(nodeName, attributes) {
 * live-pusher
 
 这些组件如果你需要开发 h5,就别用上面这些组件。如果一定要使用上面的组件，那么请使用 omi 先实现上面的组件。
+
+## CSS 里的小程序标签映射
+
+```JS
+const map = require('./tag-mapping')
+const css = require('css')
+const cssWhat = require('css-what')
+const cssStringify = require('./css-stringify')
+
+function compileWxss(str) {
+  let obj = css.parse(str)
+  obj.stylesheet.rules.forEach(rule => {
+    rule.selectors && rule.selectors.forEach((selector, index) => {
+      let sltObjs = cssWhat(selector)
+      sltObjs.forEach(sltObj => {
+        sltObj.forEach(item => {
+          if (item.type == 'tag') {
+            item.name = map(item.name)
+          }
+        })
+
+      })
+
+      rule.selectors[index] = cssStringify(sltObjs)
+    })
+  })
+  return css.stringify(obj)
+}
+```
+
+转换前:
+
+```css
+.abc view {
+  color: red;
+}
+```
+
+转换后
+
+
+```css
+.abc div {
+  color: red;
+}
+```
 
 ## wx api 适配
 
