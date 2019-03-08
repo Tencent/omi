@@ -326,7 +326,7 @@ window.onscroll = function () {
 
 具体实现细节可以去看 [o-router 源码](https://github.com/Tencent/omi/blob/master/packages/omip/my-app/src/libs/router/index.js)，主要实现了下面一些功能:
 
-* 依赖了 [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) 进行路由变更的兼容
+* 依赖了 [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) 进行路由变更的监听(hash change)
 * 依赖 window.onscroll 记录了上一 page 的滚动位置，方便在回退时候还原滚动条位置
 * 记录了 page 容器的 display，不能无脑 display none 和 display block 切换，因为可能是 display flex 等
 * 依靠 omi-router 判断是否是系统后退行为
