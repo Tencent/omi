@@ -1,6 +1,6 @@
 # Omi 多端开发之 - omip 适配 h5 原理揭秘
 
-Omip 是腾讯 Omi 团队开发的跨端开发工具集，支持小程序和 H5 SPA，最新的 omip 已经适配了 h5，如下方新增的两条命令，
+Omi 是腾讯开源的下一代前端框架，提供桌面、移动和小程序整体解决方案(One framework. Mobile & desktop & mini program.), Omip 是腾讯 Omi 团队开发的跨端开发工具集，支持小程序和 H5 SPA，最新的 omip 已经适配了 h5，如下方新增的两条命令：
 
 ```js
 npm i omi-cli -g
@@ -23,10 +23,22 @@ omi init-p-ts my-app
 
 TypeScript 的其他命令和上面一样。
 
+![omip](https://github.com/Tencent/omi/raw/master/assets/omip.png)
+
+特性包括:
+
+* 一次学习，多处开发，一次开发，多处运行
+* 使用 JSX，表达能力和编程体验大于模板
+* 支持使用 npm/yarn 安装管理第三方依赖
+* 支持使用 ES6+,ES2015+,TypeScript
+* 支持使用 CSS 预编译器
+* 小程序 API 优化，异步 API Promise 化
+* 超轻量的依赖包，顺从小程序标签和组件的设计
+
 Omip 不仅可以一键生成小程序，还能一键生成 h5 SPA。怎么做到的？下面来一一列举难点，逐个击破。
 ---
 
-## 工作列表
+## 问题列表
 
 * CSS rpx 转换问题
 * app.css 作用域问题
