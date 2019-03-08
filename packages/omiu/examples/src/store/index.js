@@ -43,7 +43,6 @@ class Store {
           this.menus[this.preIndex].list[this.preSubIndex].selected = false
           const item = this.menus[evt.query.index].list[evt.query.subIndex]
           item.selected = true
-          this.myDemo.show = false
           this.myDemo.demo = item.demo
           this.myDemo.update()
           this.preIndex = evt.query.index

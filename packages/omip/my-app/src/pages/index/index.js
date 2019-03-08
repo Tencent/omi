@@ -61,6 +61,7 @@ define('page-index', class extends WeElement {
   }
 
   render() {
+    const { hasUserInfo, canIUse, userInfo, motto } = this.data
     return (
       <view class="container">
         <view class="userinfo">

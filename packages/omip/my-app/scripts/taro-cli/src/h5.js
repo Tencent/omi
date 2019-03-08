@@ -18,7 +18,9 @@ const CONFIG = require('./config')
 const { source: toAst, getObjKey } = require('./util/ast_convert')
 
 const appPath = process.cwd()
-const projectConfig = require(path.join(appPath, Util.PROJECT_CONFIG))(_.merge)
+//@fix
+const projectConfig = require(path.join(appPath, Util.PROJECT_CONFIG_H5))(_.merge)
+
 const h5Config = projectConfig.h5 || {}
 const routerConfig = h5Config.router || {}
 const routerMode = routerConfig.mode === 'browser' ? 'browser' : 'hash'
@@ -69,10 +71,21 @@ const DEVICE_RATIO = 'deviceRatio'
 if (projectConfig.hasOwnProperty(DEVICE_RATIO)) {
   pxTransformConfig[DEVICE_RATIO] = projectConfig.deviceRatio
 }
+//@fix
+if (!String.prototype.endsWith) {
+	String.prototype.endsWith = function(search, this_len) {
+		if (this_len === undefined || this_len > this.length) {
+			this_len = this.length;
+		}
+		return this.substring(this_len - search.length, this_len) === search;
+	};
+}
 
 let pages = []
 let tabBar
 let tabbarPos
+//@fix
+let appCSS = ''
 
 const FILE_TYPE = {
   ENTRY: 'ENTRY',
@@ -199,8 +212,8 @@ function processEntry (code, filePath) {
               isIndex: k === 0
             })
           })
-
-          funcBody = `<Router
+          //@fix
+          funcBody = `<o-router
             mode={${JSON.stringify(routerMode)}}
             publicPath={${JSON.stringify(routerMode === 'hash' ? '/' : publicPath)}}
             routes={[${routes.join(',')}]}
@@ -295,11 +308,12 @@ function processEntry (code, filePath) {
             'method', t.identifier('componentWillUnmount'), [],
             t.blockStatement([]), false, false))
         }
-        if (!hasConstructor) {
-          astPath.pushContainer('body', t.classMethod(
-            'method', t.identifier('constructor'), [t.identifier('props'), t.identifier('context')],
-            t.blockStatement([toAst('super(props, context)'), additionalConstructorNode]), false, false))
-        }
+        //@fix
+        // if (!hasConstructor) {
+        //   astPath.pushContainer('body', t.classMethod(
+        //     'method', t.identifier('constructor'), [t.identifier('props'), t.identifier('context')],
+        //     t.blockStatement([toAst('super(props, context)'), additionalConstructorNode]), false, false))
+        // }
         if (tabBar) {
           if (!hasComponentWillMount) {
             astPath.pushContainer('body', t.classMethod(
@@ -376,6 +390,13 @@ function processEntry (code, filePath) {
         const source = node.source
         const specifiers = node.specifiers
         let value = source.value
+        //@fix
+        if(value.endsWith('.css')){
+          appCSS = fs.readFileSync(filePath.replace('.js','.css'), 'utf-8').replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '')
+          // astPath.replaceWith(t.variableDeclaration('const',[t.variableDeclarator(t.identifier(`___css`),t.stringLiteral(appCSS))]))
+          astPath.remove()
+          return
+        }
         if (Util.isAliasPath(value, pathAlias)) {
           source.value = value = Util.replaceAliasPath(filePath, value, pathAlias)
         }
@@ -402,9 +423,10 @@ function processEntry (code, filePath) {
             specifier.local.name = nervJsImportDefaultName
           } else if (!hasAddNervJsImportDefaultName) {
             hasAddNervJsImportDefaultName = true
-            node.specifiers.unshift(
-              t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
-            )
+            //@fix
+            // node.specifiers.unshift(
+            //   t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
+            // )
           }
           const taroApisSpecifiers = []
           const deletedIdx = []
@@ -512,20 +534,26 @@ function processEntry (code, filePath) {
       exit (astPath) {
         const importNervjsNode = t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
         const importRouterNode = toAst(`import { Router } from '${PACKAGES['@tarojs/router']}'`)
+        //@fix
+        const importMpNode = toAst(`import './libs/mp'`)
         const importTaroH5Node = toAst(`import ${taroImportDefaultName} from '${PACKAGES['@tarojs/taro-h5']}'`)
         const importComponentNode = toAst(`import { View, ${tabBarComponentName}, ${tabBarContainerComponentName}, ${tabBarPanelComponentName}} from '${PACKAGES['@tarojs/components']}'`)
         const lastImportIndex = _.findLastIndex(astPath.node.body, t.isImportDeclaration)
         const lastImportNode = astPath.get(`body.${lastImportIndex > -1 ? lastImportIndex : 0}`)
         const extraNodes = [
-          importTaroH5Node,
+          //@fix
+          //importTaroH5Node,
+          importMpNode,
           importRouterNode,
-          initPxTransformNode
+          //@fix
+          //initPxTransformNode
         ]
 
         astPath.traverse(programExitVisitor)
 
         if (hasJSX && !hasAddNervJsImportDefaultName) {
-          extraNodes.unshift(importNervjsNode)
+          //@fix
+          //extraNodes.unshift(importNervjsNode)
         }
         if (tabBar) {
           extraNodes.unshift(importComponentNode)
@@ -621,6 +649,11 @@ function processOthers (code, filePath, fileType) {
             'method', t.identifier('componentDidShow'), [],
             t.blockStatement([]), false, false))
         }
+        //@fix
+        astPath.unshiftContainer('body', t.classProperty(
+          t.identifier('static css'),
+          t.identifier('___css')
+        ))
       }
     }
   }
@@ -640,12 +673,31 @@ function processOthers (code, filePath, fileType) {
         }
       }
     } : {},
+    //@fix
+    ClassBody:{
+      enter (astPath) {
+      astPath.unshiftContainer('body', t.classProperty(
+        t.identifier('static css'),
+        t.identifier('___css')
+      ))
+      }
+    },
     ImportDeclaration: {
       enter (astPath) {
         const node = astPath.node
         const source = node.source
         let value = source.value
         const specifiers = node.specifiers
+        //@fix
+        if(value.endsWith('.css')){
+          let css = fs.readFileSync(filePath.replace('.js','.css'), 'utf-8').replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '')
+          //page里需要注入 appcss
+          if(filePath.indexOf('/src/pages/')!==-1||filePath.indexOf('\\src\\pages\\')!==-1){
+            css = appCSS + css
+          }
+          astPath.replaceWith(t.variableDeclaration('const',[t.variableDeclarator(t.identifier(`___css`),t.callExpression(t.identifier('Omi.rpx'),[t.stringLiteral(css)]),)]))
+          return
+        }
         if (Util.isAliasPath(value, pathAlias)) {
           source.value = value = Util.replaceAliasPath(filePath, value, pathAlias)
         }
@@ -664,10 +716,11 @@ function processOthers (code, filePath, fileType) {
             taroImportDefaultName = specifier.local.name
             specifier.local.name = nervJsImportDefaultName
           } else if (!hasAddNervJsImportDefaultName) {
-            hasAddNervJsImportDefaultName = true
-            node.specifiers.unshift(
-              t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
-            )
+            //@fix
+            //hasAddNervJsImportDefaultName = true
+            // node.specifiers.unshift(
+            //   t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
+            // )
           }
           const taroApisSpecifiers = []
           const deletedIdx = []
@@ -705,11 +758,12 @@ function processOthers (code, filePath, fileType) {
         }
         const node = astPath.node
         if (hasJSX && !hasAddNervJsImportDefaultName) {
-          node.body.unshift(
-            t.importDeclaration([
-              t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
-            ], t.stringLiteral(PACKAGES['nervjs']))
-          )
+          //@fix
+          // node.body.unshift(
+          //   t.importDeclaration([
+          //     t.importDefaultSpecifier(t.identifier(nervJsImportDefaultName))
+          //   ], t.stringLiteral(PACKAGES['nervjs']))
+          // )
         }
         if (taroImportDefaultName) {
           const importTaro = toAst(`import ${taroImportDefaultName} from '${PACKAGES['@tarojs/taro-h5']}'`)

@@ -31,7 +31,7 @@ SVG 制作的 Icon.
 | paths  | json array |--  | 传入 paths ， path 不用传入  |
 | path  | string|--  ||
 | scale | number   |   2 | |
-| color | bool| black ||
+| color | string| black ||
 | rotate | bool| false ||
 | isFill | bool| false |不推荐，建议用 path|
 | type  | string| -- | 不推荐，建议用 path |

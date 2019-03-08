@@ -91,7 +91,7 @@ function init(args) {
 		console.log();
 		console.log();
 		console.log();
-		success(`Congratulation! "${projectName}" has been created successful! `);
+		success(`Congratulation! "${projectName}" has been created successfully! `);
 		console.log();
 		console.log(`${chalk.bold.cyan("Omio")} https://github.com/Tencent/omi`);
 	}
