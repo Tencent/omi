@@ -16,7 +16,7 @@ const Util = require('./util')
 const npmProcess = require('./util/npm')
 const CONFIG = require('./config')
 const { source: toAst, getObjKey } = require('./util/ast_convert')
-
+const compileWxss = require('./css/index')
 const appPath = process.cwd()
 //@fix
 const projectConfig = require(path.join(appPath, Util.PROJECT_CONFIG_H5))(_.merge)
@@ -695,7 +695,7 @@ function processOthers (code, filePath, fileType) {
           if(filePath.indexOf('/src/pages/')!==-1||filePath.indexOf('\\src\\pages\\')!==-1){
             css = appCSS + css
           }
-          astPath.replaceWith(t.variableDeclaration('const',[t.variableDeclarator(t.identifier(`___css`),t.callExpression(t.identifier('Omi.rpx'),[t.stringLiteral(css)]),)]))
+          astPath.replaceWith(t.variableDeclaration('const',[t.variableDeclarator(t.identifier(`___css`),t.callExpression(t.identifier('Omi.rpx'),[t.stringLiteral(compileWxss(css))]),)]))
           return
         }
         if (Util.isAliasPath(value, pathAlias)) {
