@@ -21,7 +21,7 @@ npm run build:h5 //发布 h5
 omi init-p-ts my-app
 ```
 
-TypeScript 的其他命令和上面一样。
+TypeScript 的其他命令和上面一样，也支持小程序和 h5 SPA 开发。
 
 ## 开发预览
 
