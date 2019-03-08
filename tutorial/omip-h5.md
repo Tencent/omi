@@ -80,10 +80,10 @@ define('my-ele', class extends WeElement {
 
 ## app.css 作用域问题
 
-Shadow tree 与 omi 不一样，omi 是从根开始 shadow root，而小程序是从自定义组件开始，omio 则没有 shadow root。
+小程序 Shadow tree 与 omi 有一点点不一样，omi 是从根开始 shadow root，而小程序是从自定义组件开始，omio 则没有 shadow root。
 
 | | **omi** | **omio** | **小程序**|
-|-|-|-|
+|-|-|-|-|
 | Shadow DOM| 从根节点开始 | 无 |从自定义组件开始|
 | Scoped CSS|  从根节点开始局部作用域，浏览器 scoped| 从根节点开始局部作用域(运行时 scoped)| 自定义组件局部作用域|
 
