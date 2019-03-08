@@ -23,7 +23,7 @@ omi init-p-ts my-app
 
 TypeScript 的其他命令和上面一样。
 
-![omip](https://github.com/Tencent/omi/raw/master/assets/omip.png)
+![omip](https://github.com/Tencent/omi/raw/master/assets/omip-pv.png)
 
 特性包括:
 
