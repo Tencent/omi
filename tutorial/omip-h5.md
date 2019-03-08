@@ -88,9 +88,7 @@ define('my-ele', class extends WeElement {
 | Shadow DOM| 从根节点开始 | 无 |从自定义组件开始|
 | Scoped CSS|  从根节点开始局部作用域，浏览器 scoped| 从根节点开始局部作用域(运行时 scoped)| 自定义组件局部作用域|
 
-所以，app.css 需要污染到 page 里的 WXML/JSX，在 omi 中怎么做？
-
-先看 app.js 源码：
+所以，app.css 需要污染到 page 里的 WXML/JSX，但在 omi 和 omio 中样式都是隔离的， 需要怎么做才能突破隔离？先看 app.js 源码：
 
 ```js
 import './app.css' //注意这行！！！
