@@ -269,3 +269,5 @@ wx 特有的 api 还包括一些特有的生命周期函数，如：
 ## 开始使用吧
 
 [→ Omip Github](https://github.com/Tencent/omi/tree/master/packages/omip)
+
+Omi 相关任何问题[欢迎进群交流](https://github.com/Tencent/omi/issues/169)。
