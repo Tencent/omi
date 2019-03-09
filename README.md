@@ -107,7 +107,6 @@
   - [TodoApp](#todoapp)
   - [Store](#store)
   - [Mitt](#mitt)
-  - [Observe](#observe)
   - [生命周期](#生命周期)
 - [调试工具](#调试工具)
 - [浏览器兼容](#浏览器兼容)
@@ -754,35 +753,6 @@ render(<todo-app></todo-app>, 'body', store)
 
 * [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
 
-## Observe
-
-### Omi Observe
-
-你可以为那些不需要 store 的自定义元素使用 observe 创建响应式视图，比如:
-
-```js
-import { define, WeElement } from "omi"
-
-define("my-app", class extends WeElement {
-  static observe = true
-
-  install() {
-    this.data.name = "omi"
-  }
-
-  onClick = () => {
-    this.data.name = "Omi V4.0"
-  }
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    )
-  }
-})
-```
 <!-- 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
 
