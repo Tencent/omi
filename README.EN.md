@@ -99,7 +99,6 @@ Omi uses Shadow DOM based style isolation and semantic structure.
   - [TodoApp](#todoapp)
   - [Store](#store)
   - [Mitt](#mitt)
-  - [Observe](#observe)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
 - [React to Omi](#react-to-omi)
@@ -734,35 +733,6 @@ If you don't want to use store's data system, you can also use publish subscribe
 
 * [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
 
-## Observe
-
-### Omi Observe
-
-You can also use observe to create response views for element who no need `store`, such as:
-
-```js
-import { define, WeElement } from "omi"
-
-define("my-app", class extends WeElement {
-  static observe = true
-
-  install() {
-    this.data.name = "omi"
-  }
-
-  onClick = () => {
-    this.data.name = "Omi V4.0"
-  }
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    )
-  }
-})
-```
 <!-- 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
 
