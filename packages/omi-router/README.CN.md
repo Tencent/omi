@@ -110,6 +110,8 @@ render(<my-app />, "#container")
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: 'js' }` |
 
+注意： 如果 hash 为空，会自动被识别为 `/`。
+
 ## 另一种携带查询参数方法
 
 ```html

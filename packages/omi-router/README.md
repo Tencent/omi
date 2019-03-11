@@ -109,6 +109,8 @@ render(<my-app />, "#container")
 | /user/:name | /user/dntzhang | `{ name: 'dntzhang' }` |
 | /user/:name/category/:category | /user/dntzhang/category/js | `{ name: 'dntzhang', category: 'js' }` |
 
+Note: If hash is empty, it will be automatically recognized as `/` 。
+
 ## With Query Parameter
 
 ```html
