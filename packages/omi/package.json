@@ -45,7 +45,7 @@
     "strip:esm": "jscodeshift --run-in-band -s -t config/codemod-strip-tdz.js dist/omi.esm.js && jscodeshift --run-in-band -s -t config/codemod-const.js dist/omi.esm.js && jscodeshift --run-in-band -s -t config/codemod-let-name.js dist/omi.esm.js",
     "strip": "npm-run-all strip:main strip:esm",
     "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size --raw dist/omi.min.js",
-    "test": "jest",
+    "test": "karma start test/karma.conf.js --single-run",
     "fix": "eslint src --fix",
     "fix-e": "eslint examples --fix",
     "lint": "eslint src test",
@@ -132,7 +132,19 @@
     "sinon-chai": "^3.0.0",
     "typescript": "^2.8.1",
     "uglify-js": "^2.7.5",
-    "webpack": "^4.3.0"
+    "webpack": "^4.3.0",
+    "karma": "^2.0.0",
+    "karma-babel-preprocessor": "^7.0.0",
+    "karma-chai-sinon": "^0.1.5",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.0.0",
+    "karma-mocha": "^1.1.1",
+    "karma-mocha-reporter": "^2.0.4",
+    "karma-sauce-launcher": "^1.1.0",
+    "karma-sinon": "^1.0.5",
+    "karma-source-map-support": "^1.2.0",
+    "karma-sourcemap-loader": "^0.3.6",
+    "karma-webpack": "^3.0.0"
   },
   "greenkeeper": {
     "ignore": [
