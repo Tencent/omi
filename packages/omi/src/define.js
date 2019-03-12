@@ -7,8 +7,8 @@ const ARRAYTYPE = '[object Array]'
 export function define(name, ctor) {
   if (ctor.is === 'WeElement') {
     customElements.define(name, ctor)
-    if (ctor.using) {
-      ctor.updatePath = getPath(ctor.using)
+    if (ctor.use) {
+      ctor.updatePath = getPath(ctor.use)
     } else if (ctor.data) { //Compatible with older versions
       ctor.updatePath = getUpdatePath(ctor.data)
     }

@@ -1,32 +1,57 @@
-import { define, render } from '../../src/omi'
+import { render, WeElement, define } from '../../src/omi'
 
-define('my-counter', function() {
-  const [count, setCount] = this.useData(0)
+define('my-counter', class extends WeElement {
+  static use = [
+    'count'
+  ]
+  // use = {
+  //   a: null,
+  //   b: null,
+  //   c: { d: [] },
+  //   e: []
+  // }
 
-  const [items, setItems] = this.use({
-    data: [{ text: 'Omi' }],
-    effect: function() {
-      console.log(`The items count is ${this.data.length}.`)
-    }
-  })
+  // //this.use[0]
+  // //this.use[1]
 
-  return (
-    <div>
-      <button onClick={() => setCount(count - 1)}>-</button>
-      <span>{count}</span>
-      <button onClick={() => setCount(count + 1)}>+</button>
+  // use = [
+  //   { path: 'a.b', alias: 'ab' },
+  //   'c[1]'
+  // ]
+  // //this.use.ab 或者 this.use[0]
+  // //this.use[1]
 
-      <ul>
-        {items.map(item => {
-          return <li>{item.text}</li>
-        })}
-      </ul>
-      <button onClick={() => setItems([...items, { text: 'new item' }])}>
-        add
-      </button>
-      <button onClick={() => setItems([])}>empty</button>
-    </div>
-  )
+  // use = [
+  //   { path: 'a.b', alias: 'ab', computed:(target) ={} },
+  //   'c[1]'
+  // ]
+  // //this.use.ab 或者 this.use[0]
+  // //this.use[1]
+  sub = () => this.store.sub()
+  add = () => this.store.add()
+
+  render() {
+    console.log(this.use[0])
+    return (
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.use[0]}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
 })
 
-render(<my-counter />, 'body')
+
+
+render(<my-counter />, 'body', {
+  data: { count: 0 },
+  sub() {
+    this.data.count--
+  },
+  add() {
+    this.data.count++
+  }
+})
+
+

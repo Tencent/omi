@@ -1,4 +1,4 @@
-import { cssToDom, nProps, isArray, getUsing } from './util'
+import { cssToDom, nProps, isArray, getUse } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
@@ -27,7 +27,7 @@ export default class WeElement extends HTMLElement {
     if (this.store) {
       this.store.instances.push(this)
     }
-    this.using = getUsing(this.store.data, this.constructor.using)
+    this.use = getUse(this.store.data, this.constructor.use)
     this.beforeInstall()
     !this._isInstalled && this.install()
     this.afterInstall()

@@ -87,7 +87,7 @@ export function nProps(props) {
   return result
 }
 
-export function getUsing(data, paths){
+export function getUse(data, paths){
   const obj = {}
   paths.forEach((path,index)=>{
     obj[index] = getTargetByPath(data, path)
