@@ -14,7 +14,7 @@
  * this.constructor so that the native HTMLElement constructor can access the
  * current under-construction element's definition.
  */
-;(function() {
+; (function () {
   if (
     // No Reflect, no classes, no need for shim because native custom elements
     // require ES2015 classes or Reflect.
@@ -87,10 +87,16 @@ export function nProps(props) {
   return result
 }
 
-export function getUse(data, paths){
+export function getUse(data, paths) {
   const obj = {}
-  paths.forEach((path,index)=>{
-    obj[index] = getTargetByPath(data, path)
+  paths.forEach((path, index) => {
+    const isPath = typeof path === 'string'
+    if (isPath) {
+      obj[index] = getTargetByPath(data, path)
+    } else {
+      const val = getTargetByPath(data, path.path)
+      obj[index] = path.computed ? path.computed(val) : val
+    }
   })
   return obj
 }
@@ -99,7 +105,7 @@ export function getTargetByPath(origin, path) {
   const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
   let current = origin
   for (let i = 0, len = arr.length; i < len; i++) {
-      current = current[arr[i]]
+    current = current[arr[i]]
   }
   return current
 }

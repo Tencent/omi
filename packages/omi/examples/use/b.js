@@ -154,7 +154,13 @@
   function getUse(data, paths) {
     var obj = {};
     paths.forEach(function (path, index) {
-      obj[index] = getTargetByPath(data, path);
+      var isPath = typeof path === 'string';
+      if (isPath) {
+        obj[index] = getTargetByPath(data, path);
+      } else {
+        var val = getTargetByPath(data, path.path);
+        obj[index] = path.computed ? path.computed(val) : val;
+      }
     });
     return obj;
   }
@@ -1664,32 +1670,10 @@
         return _this.store.add();
       }, _this.rename = function () {
         return _this.store.rename('dnt');
+      }, _this.changeMotto = function () {
+        return _this.store.changeMotto('Hello omi!');
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
-    // use = {
-    //   a: null,
-    //   b: null,
-    //   c: { d: [] },
-    //   e: []
-    // }
-
-    // //this.use[0]
-    // //this.use[1]
-
-    // use = [
-    //   { path: 'a.b', alias: 'ab' },
-    //   'c[1]'
-    // ]
-    // //this.use.ab 或者 this.use[0]
-    // //this.use[1]
-
-    // use = [
-    //   { path: 'a.b', alias: 'ab', computed:(target) ={} },
-    //   'c[1]'
-    // ]
-    // //this.use.ab 或者 this.use[0]
-    // //this.use[1]
-
 
     _class.prototype.render = function render$$1() {
       return Omi.h(
@@ -1719,17 +1703,34 @@
           'button',
           { onClick: this.rename },
           'rename'
+        ),
+        Omi.h('br', null),
+        Omi.h(
+          'div',
+          null,
+          this.use[2]
+        ),
+        Omi.h(
+          'button',
+          { onClick: this.changeMotto },
+          'change motto'
         )
       );
     };
 
     return _class;
-  }(WeElement), _class$2.use = ['count', 'arr[0]'], _temp2));
+  }(WeElement), _class$2.use = ['count', 'arr[0]', {
+    path: 'motto',
+    computed: function computed(target) {
+      return target.split('').reverse().join('');
+    }
+  }], _temp2));
 
   render(Omi.h('my-counter', null), 'body', {
     data: {
       count: 0,
-      arr: ['dntzhang']
+      arr: ['dntzhang'],
+      motto: 'I love omi.'
     },
     sub: function sub() {
       this.data.count--;
@@ -1739,6 +1740,9 @@
     },
     rename: function rename(newName) {
       this.data.arr[0] = newName;
+    },
+    changeMotto: function changeMotto(motto) {
+      this.data.motto = motto;
     }
   });
 
