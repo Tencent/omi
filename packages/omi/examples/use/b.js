@@ -1662,6 +1662,8 @@
         return _this.store.sub();
       }, _this.add = function () {
         return _this.store.add();
+      }, _this.rename = function () {
+        return _this.store.rename('dnt');
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
     // use = {
@@ -1690,7 +1692,6 @@
 
 
     _class.prototype.render = function render$$1() {
-      console.log(this.use[0]);
       return Omi.h(
         'div',
         null,
@@ -1708,20 +1709,36 @@
           'button',
           { onClick: this.add },
           '+'
+        ),
+        Omi.h(
+          'span',
+          null,
+          this.use[1]
+        ),
+        Omi.h(
+          'button',
+          { onClick: this.rename },
+          'rename'
         )
       );
     };
 
     return _class;
-  }(WeElement), _class$2.use = ['count'], _temp2));
+  }(WeElement), _class$2.use = ['count', 'arr[0]'], _temp2));
 
   render(Omi.h('my-counter', null), 'body', {
-    data: { count: 0 },
+    data: {
+      count: 0,
+      arr: ['dntzhang']
+    },
     sub: function sub() {
       this.data.count--;
     },
     add: function add() {
       this.data.count++;
+    },
+    rename: function rename(newName) {
+      this.data.arr[0] = newName;
     }
   });
 
