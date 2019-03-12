@@ -30,6 +30,7 @@
     "timer": "rollup -c config/rollup.example.js --watch",
     "store": "rollup -c config/rollup.example.js --watch",
     "store2": "rollup -c config/rollup.example.js --watch",
+    "using": "rollup -c config/rollup.example.js --watch",
     "pure": "rollup -c config/rollup.example.js --watch",
     "counter": "rollup -c config/rollup.example.js --watch",
     "render-array": "rollup -c config/rollup.example.js --watch",

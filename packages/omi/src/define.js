@@ -7,7 +7,9 @@ const ARRAYTYPE = '[object Array]'
 export function define(name, ctor) {
   if (ctor.is === 'WeElement') {
     customElements.define(name, ctor)
-    if (ctor.data && !ctor.pure) {
+    if (ctor.using) {
+      ctor.updatePath = getPath(ctor.using)
+    } else if (ctor.data) { //Compatible with older versions
       ctor.updatePath = getUpdatePath(ctor.data)
     }
   } else {
@@ -65,6 +67,23 @@ export function define(name, ctor) {
       }
     }
     customElements.define(name, Element)
+  }
+}
+
+function getPath(obj) {
+
+  if (Object.prototype.toString.call(obj) === '[object Array]') {
+    const result = {}
+    obj.forEach(item => {
+      if (typeof item === 'string') {
+        result[item] = true
+      } else {
+        result[item.path] = item
+      }
+    })
+    return result
+  } else {
+    return getUpdatePath(obj)
   }
 }
 

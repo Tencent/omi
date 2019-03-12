@@ -86,3 +86,20 @@ export function nProps(props) {
   })
   return result
 }
+
+export function getUsing(data, paths){
+  const obj = {}
+  paths.forEach((path,index)=>{
+    obj[index] = getTargetByPath(data, path)
+  })
+  return obj
+}
+
+export function getTargetByPath(origin, path) {
+  const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+  let current = origin
+  for (let i = 0, len = arr.length; i < len; i++) {
+      current = current[arr[i]]
+  }
+  return current
+}

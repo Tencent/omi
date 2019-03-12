@@ -1,4 +1,4 @@
-import { cssToDom, nProps, isArray } from './util'
+import { cssToDom, nProps, isArray, getUsing } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
@@ -15,20 +15,19 @@ export default class WeElement extends HTMLElement {
       this.constructor.defaultProps
     )
     this.elementId = id++
-    this.data = this.constructor.data || {}
+    this.data = {}
   }
 
   connectedCallback() {
-    if (!this.constructor.pure) {
-      let p = this.parentNode
-      while (p && !this.store) {
-        this.store = p.store
-        p = p.parentNode || p.host
-      }
-      if (this.store) {
-        this.store.instances.push(this)
-      }
+    let p = this.parentNode
+    while (p && !this.store) {
+      this.store = p.store
+      p = p.parentNode || p.host
     }
+    if (this.store) {
+      this.store.instances.push(this)
+    }
+    this.using = getUsing(this.store.data, this.constructor.using)
     this.beforeInstall()
     !this._isInstalled && this.install()
     this.afterInstall()
