@@ -1122,7 +1122,7 @@
       if (this.store) {
         this.store.instances.push(this);
       }
-      this.use = getUse(this.store.data, this.constructor.use);
+      this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
       this.beforeInstall();
       !this._isInstalled && this.install();
       this.afterInstall();
@@ -1667,7 +1667,7 @@
   options.root.omi = omi;
   options.root.Omi.version = '5.0.24';
 
-  var _class$2, _temp2;
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1675,73 +1675,127 @@
 
   function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('my-counter', (_temp2 = _class$2 = function (_WeElement) {
+  define('add-todo', function (_WeElement) {
     _inherits$3(_class, _WeElement);
 
     function _class() {
-      var _temp, _this, _ret;
-
       _classCallCheck$3(this, _class);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.add = function () {
-        return _this.store.add();
-      }, _this.sub = function () {
-        return _this.store.sub();
-      }, _this.addIfOdd = function () {
-        if (_this.use.count % 2 !== 0) {
-          _this.store.add();
-        }
-      }, _this.addAsync = function () {
-        setTimeout(function () {
-          return _this.store.add();
-        }, 1000);
-      }, _temp), _possibleConstructorReturn$3(_this, _ret);
+      return _possibleConstructorReturn$3(this, _WeElement.apply(this, arguments));
     }
 
     _class.prototype.render = function render$$1() {
+      var _this2 = this;
+
+      var input = void 0;
+
       return Omi.h(
-        'p',
+        'div',
         null,
-        'Clicked: ',
-        this.use.count,
-        ' times',
-        ' ',
         Omi.h(
-          'button',
-          { onClick: this.add },
-          '+'
-        ),
-        ' ',
-        Omi.h(
-          'button',
-          { onClick: this.sub },
-          '-'
-        ),
-        ' ',
-        Omi.h(
-          'button',
-          { onClick: this.addIfOdd },
-          'Add if odd'
-        ),
-        ' ',
-        Omi.h(
-          'button',
-          { onClick: this.addAsync },
-          'Add async'
+          'form',
+          { onSubmit: function onSubmit(e) {
+              e.preventDefault();
+              if (!input.value.trim()) {
+                return;
+              }
+              _this2.store.addTodo(input.value);
+              input.value = '';
+            } },
+          Omi.h('input', { ref: function ref(node) {
+              return input = node;
+            } }),
+          Omi.h(
+            'button',
+            { type: 'submit' },
+            'Add Todo'
+          )
         )
       );
     };
 
     return _class;
-  }(WeElement), _class$2.use = [{ count: 'count' }], _temp2));
+  }(WeElement));
 
-  render(Omi.h('my-counter', null), 'body', {
+  define('todo-list', function (_WeElement2) {
+    _inherits$3(_class2, _WeElement2);
+
+    function _class2() {
+      _classCallCheck$3(this, _class2);
+
+      return _possibleConstructorReturn$3(this, _WeElement2.apply(this, arguments));
+    }
+
+    _class2.prototype.render = function render$$1() {
+      Omi.h(
+        'ul',
+        null,
+        todos.map(function (todo) {
+          return Omi.h('todo-item', _extends({
+            key: todo.id
+          }, todo, {
+            onClick: function onClick() {
+              return toggleTodo(todo.id);
+            }
+          }));
+        })
+      );
+    };
+
+    return _class2;
+  }(WeElement));
+
+  define('todo-item', function (_WeElement3) {
+    _inherits$3(_class3, _WeElement3);
+
+    function _class3() {
+      _classCallCheck$3(this, _class3);
+
+      return _possibleConstructorReturn$3(this, _WeElement3.apply(this, arguments));
+    }
+
+    _class3.prototype.render = function render$$1() {
+
+      Omi.h(
+        'li',
+        {
+          onClick: onClick,
+          style: {
+            textDecoration: completed ? 'line-through' : 'none'
+          }
+        },
+        text
+      );
+    };
+
+    return _class3;
+  }(WeElement));
+
+  define('todo-app', function (_WeElement4) {
+    _inherits$3(_class4, _WeElement4);
+
+    function _class4() {
+      _classCallCheck$3(this, _class4);
+
+      return _possibleConstructorReturn$3(this, _WeElement4.apply(this, arguments));
+    }
+
+    _class4.prototype.render = function render$$1() {
+      return Omi.h(
+        'div',
+        null,
+        Omi.h('add-todo', null),
+        Omi.h('todo-list', null),
+        Omi.h('todo-footer', null)
+      );
+    };
+
+    return _class4;
+  }(WeElement));
+
+  render(Omi.h('todo-app', null), 'body', {
     data: {
-      count: 0
+      todos: []
     },
     sub: function sub() {
       this.data.count--;

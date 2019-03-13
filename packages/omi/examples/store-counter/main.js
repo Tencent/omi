@@ -5,16 +5,36 @@ define('my-counter', class extends WeElement {
     { count: 'count' }
   ]
 
-  sub = () => this.store.sub()
   add = () => this.store.add()
+  sub = () => this.store.sub()
+
+  addIfOdd = () => {
+    if (this.use.count % 2 !== 0) {
+      this.store.add()
+    }
+  }
+
+  addAsync = () => {
+    setTimeout(() => this.store.add(), 1000)
+  }
 
   render() {
     return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{this.use.count}</span>
+      <p>
+        Clicked: {this.use.count} times
+        {' '}
         <button onClick={this.add}>+</button>
-      </div>
+        {' '}
+        <button onClick={this.sub}>-</button>
+        {' '}
+        <button onClick={this.addIfOdd}>
+          Add if odd
+        </button>
+        {' '}
+        <button onClick={this.addAsync}>
+          Add async
+        </button>
+      </p>
     )
   }
 })

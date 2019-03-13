@@ -27,7 +27,7 @@ export default class WeElement extends HTMLElement {
     if (this.store) {
       this.store.instances.push(this)
     }
-    this.use = getUse(this.store.data, this.constructor.use)
+    this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use))
     this.beforeInstall()
     !this._isInstalled && this.install()
     this.afterInstall()
