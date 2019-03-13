@@ -162,6 +162,8 @@ root.create = {
       config.onPageScroll = ins.onPageScroll.bind(ins)
     }
 
+    ins._createData()
+    
     Page(config)
   }
 }
