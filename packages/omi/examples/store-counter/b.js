@@ -1691,12 +1691,6 @@
         return _this.store.sub();
       }, _this.add = function () {
         return _this.store.add();
-      }, _this.rename = function () {
-        return _this.store.rename('dnt');
-      }, _this.changeMotto = function () {
-        return _this.store.changeMotto('Hello omi!');
-      }, _this.changeFirstName = function () {
-        return _this.store.changeFirstName('Dnt');
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
@@ -1712,96 +1706,28 @@
         Omi.h(
           'span',
           null,
-          this.use[0]
+          this.use.count
         ),
         Omi.h(
           'button',
           { onClick: this.add },
           '+'
-        ),
-        Omi.h(
-          'div',
-          null,
-          Omi.h(
-            'span',
-            null,
-            this.use[1]
-          ),
-          Omi.h(
-            'button',
-            { onClick: this.rename },
-            'rename'
-          )
-        ),
-        Omi.h(
-          'div',
-          null,
-          this.use.reverseMotto
-        ),
-        Omi.h(
-          'button',
-          { onClick: this.changeMotto },
-          'change motto'
-        ),
-        Omi.h(
-          'div',
-          null,
-          this.use.name
-        ),
-        Omi.h(
-          'div',
-          null,
-          this.use[3]
-        ),
-        Omi.h(
-          'div',
-          null,
-          this.use.fullName,
-          Omi.h(
-            'button',
-            { onClick: this.changeFirstName },
-            'change first name'
-          )
         )
       );
     };
 
     return _class;
-  }(WeElement), _class$2.use = ['count', 'arr[0]', {
-    reverseMotto: ['motto', function (target) {
-      return target.split('').reverse().join('');
-    }]
-  }, { name: 'arr[1]' }, {
-    fullName: [['userInfo.firstName', 'userInfo.lastName'], function (firstName, lastName) {
-      return firstName + lastName;
-    }]
-  }], _temp2));
+  }(WeElement), _class$2.use = [{ count: 'count' }], _temp2));
 
   render(Omi.h('my-counter', null), 'body', {
     data: {
-      count: 0,
-      arr: ['china', 'tencent'],
-      motto: 'I love omi.',
-      userInfo: {
-        firstName: 'dnt',
-        lastName: 'zhang',
-        age: 18
-      }
+      count: 0
     },
     sub: function sub() {
       this.data.count--;
     },
     add: function add() {
       this.data.count++;
-    },
-    rename: function rename(newName) {
-      this.data.arr[0] = newName;
-    },
-    changeMotto: function changeMotto(motto) {
-      this.data.motto = motto;
-    },
-    changeFirstName: function changeFirstName(firstName) {
-      this.data.userInfo.firstName = firstName;
     }
   });
 

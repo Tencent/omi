@@ -100,7 +100,6 @@ export default class WeElement extends HTMLElement {
       this.shadowRoot
     )
     this._willUpdate = false
-    this.afterUpdate()
     this.updated()
   }
 
@@ -119,8 +118,6 @@ export default class WeElement extends HTMLElement {
   uninstall() {}
 
   beforeUpdate() {}
-
-  afterUpdate() {} //deprecated, please use updated
 
   updated() {}
 

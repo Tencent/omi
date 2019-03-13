@@ -77,11 +77,15 @@ function getPath(obj) {
       if (typeof item === 'string') {
         result[item] = true
       } else {
-        const tempPath = item[Object.keys(item)[0]][0]
+        const tempPath = item[Object.keys(item)[0]]
         if (typeof tempPath === 'string') {
           result[tempPath] = true
         } else {
-          tempPath.forEach(path => result[path] = true)
+          if(typeof tempPath[0] === 'string'){
+            result[tempPath[0]] = true
+          }else{
+            tempPath[0].forEach(path => result[path] = true)
+          }
         }
       }
     })
