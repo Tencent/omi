@@ -1667,6 +1667,8 @@
   options.root.omi = omi;
   options.root.Omi.version = '5.0.24';
 
+  var _class$2, _temp2;
+
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn$3(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1683,13 +1685,13 @@
     };
 
     for (var i = 1; i < 1000; i++) {
-      var _parentId = Math.floor(Math.pow(Math.random(), 2) * i);
+      var parentId = Math.floor(Math.pow(Math.random(), 2) * i);
       tree[i] = {
         id: i,
         counter: 0,
         childIds: []
       };
-      tree[_parentId].childIds.push(i);
+      tree[parentId].childIds.push(i);
     }
 
     return tree;
@@ -1697,19 +1699,37 @@
 
   var tree = generateTree();
 
-  define('tree-node', function (_WeElement) {
-    _inherits$3(_class2, _WeElement);
+  define('tree-node', (_temp2 = _class$2 = function (_WeElement) {
+    _inherits$3(_class, _WeElement);
 
-    function _class2() {
+    function _class() {
       var _temp, _this, _ret;
 
-      _classCallCheck$3(this, _class2);
+      _classCallCheck$3(this, _class);
 
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.renderChild = function (childId) {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$3(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.handleIncrementClick = function () {
+        _this.store.increment(_this.props.id);
+      }, _this.handleAddChildClick = function (e) {
+        e.preventDefault();
+
+        var id = _this.props.id;
+
+        var childId = _this.store.createNode().id;
+        _this.store.addChild(id, childId);
+      }, _this.handleRemoveClick = function (e) {
+        e.preventDefault();
+
+        var _this$props = _this.props,
+            parentId = _this$props.parentId,
+            id = _this$props.id;
+
+        _this.store.removeChild(parentId, id);
+        _this.store.deleteNode(id);
+      }, _this.renderChild = function (childId) {
         var id = _this.props.id;
 
         return Omi.h(
@@ -1720,11 +1740,12 @@
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
-    _class2.prototype.render = function render$$1() {
-      var _store$data$tree$prop = this.store.data.tree[this.props.id],
+    _class.prototype.render = function render$$1(props) {
+      var _store$data$tree$prop = this.store.data.tree[props.id],
           counter = _store$data$tree$prop.counter,
           childIds = _store$data$tree$prop.childIds;
 
+      var parentId = props.parentId;
 
       return Omi.h(
         'div',
@@ -1763,11 +1784,39 @@
       );
     };
 
-    return _class2;
-  }(WeElement));
+    return _class;
+  }(WeElement), _class$2.use = ['tree'], _temp2));
+
   render(Omi.h('tree-node', { id: 0 }), 'body', {
     data: {
       tree: tree
+    },
+    increment: function increment(id) {
+      this.data.tree[id].counter++;
+    },
+
+    id: 1000,
+    createNode: function createNode() {
+      var id = this.id++;
+      this.data.tree[id] = {
+        id: id,
+        counter: 0,
+        childIds: []
+      };
+      return this.data.tree[id];
+    },
+    addChild: function addChild(id, childId) {
+      var parent = this.data.tree[id];
+      parent.childIds.indexOf(childId) === -1 && parent.childIds.push(childId);
+    },
+    removeChild: function removeChild(parentId, childId) {
+      var parent = this.data.tree[parentId];
+      parent.childIds = parent.childIds.filter(function (id) {
+        return id !== childId;
+      });
+    },
+    deleteNode: function deleteNode(id) {
+      delete this.data.tree[id];
     }
   });
 

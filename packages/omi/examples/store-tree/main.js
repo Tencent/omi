@@ -25,6 +25,30 @@ function generateTree() {
 const tree = generateTree()
 
 define('tree-node', class extends WeElement {
+  static use = [
+    'tree'
+  ]
+
+  handleIncrementClick = () => {
+    this.store.increment(this.props.id)
+  }
+
+  handleAddChildClick = e => {
+    e.preventDefault()
+
+    const { id } = this.props
+    const childId = this.store.createNode().id
+    this.store.addChild(id, childId)
+  }
+
+  handleRemoveClick = e => {
+    e.preventDefault()
+
+    const { parentId, id } = this.props
+    this.store.removeChild(parentId, id)
+    this.store.deleteNode(id)
+  }
+
   renderChild = childId => {
     const { id } = this.props
     return (
@@ -34,9 +58,9 @@ define('tree-node', class extends WeElement {
     )
   }
 
-  render() {
-
-    const { counter, childIds } = this.store.data.tree[this.props.id]
+  render(props) {
+    const { counter, childIds } = this.store.data.tree[props.id]
+    const parentId = props.parentId
 
     return (
       <div>
@@ -66,8 +90,33 @@ define('tree-node', class extends WeElement {
     )
   }
 })
+
 render(<tree-node id={0} />, 'body', {
   data: {
-    tree: tree
+    tree
+  },
+  increment(id) {
+    this.data.tree[id].counter++
+  },
+  id: 1000,
+  createNode() {
+    const id = this.id++
+    this.data.tree[id] = {
+      id: id,
+      counter: 0,
+      childIds: []
+    }
+    return this.data.tree[id]
+  },
+  addChild(id, childId) {
+    const parent = this.data.tree[id]
+    parent.childIds.indexOf(childId) === -1 && parent.childIds.push(childId)
+  },
+  removeChild(parentId, childId) {
+    const parent = this.data.tree[parentId]
+    parent.childIds = parent.childIds.filter(id => id !== childId)
+  },
+  deleteNode(id) {
+    delete this.data.tree[id]
   }
 })
