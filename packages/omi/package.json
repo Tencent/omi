@@ -32,7 +32,7 @@
     "store-old": "rollup -c config/rollup.example.js --watch",
     "store-counter": "rollup -c config/rollup.example.js --watch",
     "store-todo": "rollup -c config/rollup.example.js --watch",
-    "use": "rollup -c config/rollup.example.js --watch",
+    "store-demo": "rollup -c config/rollup.example.js --watch",
     "pure": "rollup -c config/rollup.example.js --watch",
     "counter": "rollup -c config/rollup.example.js --watch",
     "render-array": "rollup -c config/rollup.example.js --watch",

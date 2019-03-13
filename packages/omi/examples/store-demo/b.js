@@ -678,7 +678,7 @@
     }
 
     if (isWeElement && dom.parentNode) {
-      if (update || children.length > 0) {
+      if (update || children.length > 0 || dom.store) {
         dom.receiveProps(dom.props, dom.data, oldClone);
         dom.update();
       }
@@ -1122,7 +1122,7 @@
       if (this.store) {
         this.store.instances.push(this);
       }
-      this.use = getUse(this.store.data, this.constructor.use);
+      this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
       this.beforeInstall();
       !this._isInstalled && this.install();
       this.afterInstall();
