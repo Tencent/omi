@@ -118,3 +118,7 @@ pre[data-line] {
 .line-highlight:before, .line-highlight[data-end]:after{
   display: none;
 }
+
+:not(pre) > code[class*="language-"], pre[class*="language-"] {
+  font-size: 0.8em;
+}
