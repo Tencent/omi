@@ -60,7 +60,6 @@ define('todo-app', class extends WeElement {
   ]
 
   render() {
-    console.log(1)
     return (
       <div>
         <add-todo />
@@ -79,7 +78,6 @@ render(<todo-app />, 'body', {
     }]
   },
   toggleTodo(id) {
-    console.log(id)
     this.data.todos.every(item => {
       if (id === item.id) {
         item.completed = !item.completed
@@ -88,7 +86,11 @@ render(<todo-app />, 'body', {
       return true
     })
   },
-  add() {
-
+  addTodo(text) {
+    this.data.todos.unshift({
+      id: ++this.id,
+      text: text
+    })
   },
+  id: 0
 })

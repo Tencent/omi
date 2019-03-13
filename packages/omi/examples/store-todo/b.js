@@ -1777,7 +1777,6 @@
     }
 
     _class4.prototype.render = function render$$1() {
-      console.log(1);
       return Omi.h(
         'div',
         null,
@@ -1798,7 +1797,6 @@
       }]
     },
     toggleTodo: function toggleTodo(id) {
-      console.log(id);
       this.data.todos.every(function (item) {
         if (id === item.id) {
           item.completed = !item.completed;
@@ -1807,7 +1805,14 @@
         return true;
       });
     },
-    add: function add() {}
+    addTodo: function addTodo(text) {
+      this.data.todos.unshift({
+        id: ++this.id,
+        text: text
+      });
+    },
+
+    id: 0
   });
 
 }());
