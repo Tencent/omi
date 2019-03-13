@@ -25,6 +25,14 @@ define('add-todo', class extends WeElement {
   }
 })
 
+
+export const VisibilityFilters = {
+  SHOW_ALL: 'SHOW_ALL',
+  SHOW_COMPLETED: 'SHOW_COMPLETED',
+  SHOW_ACTIVE: 'SHOW_ACTIVE'
+}
+
+
 define('todo-list', class extends WeElement {
 
   render() {
@@ -40,23 +48,70 @@ define('todo-list', class extends WeElement {
   }
 
   renderItem(todo) {
-    return <li
-      key={todo.id}
-      onClick={() => this.onClick(todo.id)}
-      style={{
-        textDecoration: todo.completed ? 'line-through' : 'none'
-      }}
-    >
-      {todo.text}
-    </li>
+    const filter = this.store.data.filter
+    if (filter === VisibilityFilters.SHOW_ALL ||
+      filter === VisibilityFilters.SHOW_ACTIVE && !todo.completed ||
+      filter === VisibilityFilters.SHOW_COMPLETED && todo.completed
+    )
+      return <li
+        key={todo.id}
+        onClick={() => this.onClick(todo.id)}
+        style={{
+          textDecoration: todo.completed ? 'line-through' : 'none'
+        }}
+      >
+        {todo.text}
+      </li>
   }
 })
 
 
+define('todo-footer', class extends WeElement {
+
+  render() {
+    return (
+      <div>
+        <span>Show: </span>
+        <filter-link filter={VisibilityFilters.SHOW_ALL}>
+          All
+        </filter-link>
+        <filter-link filter={VisibilityFilters.SHOW_ACTIVE}>
+          Active
+        </filter-link>
+        <filter-link filter={VisibilityFilters.SHOW_COMPLETED}>
+          Completed
+        </filter-link>
+      </div>
+    )
+  }
+})
+
+
+define('filter-link', class extends WeElement {
+  onClick = () => {
+    this.store.data.filter = this.props.filter
+  }
+
+  render(props) {
+    return (
+      <button
+        onClick={this.onClick}
+        disabled={props.filter === this.store.data.filter}
+        style={{
+          marginLeft: '4px',
+        }}
+      >
+        {props.children}
+      </button>
+    )
+  }
+})
+
 
 define('todo-app', class extends WeElement {
   static use = [
-    'todos'
+    'todos',
+    'filter'
   ]
 
   render() {
@@ -75,8 +130,10 @@ render(<todo-app />, 'body', {
     todos: [{
       id: 0,
       text: 'item1'
-    }]
+    }],
+    filter: VisibilityFilters.SHOW_ALL
   },
+  id: 0,
   toggleTodo(id) {
     this.data.todos.every(item => {
       if (id === item.id) {
@@ -91,6 +148,5 @@ render(<todo-app />, 'body', {
       id: ++this.id,
       text: text
     })
-  },
-  id: 0
+  }
 })

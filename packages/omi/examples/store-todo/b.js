@@ -1,4 +1,4 @@
-(function () {
+var omi = (function (exports) {
   'use strict';
 
   /** Virtual DOM Node */
@@ -1667,7 +1667,7 @@
   options.root.omi = omi;
   options.root.Omi.version = '5.0.24';
 
-  var _class4, _temp2;
+  var _class7, _temp3;
 
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1717,6 +1717,12 @@
     return _class;
   }(WeElement));
 
+  var VisibilityFilters = {
+    SHOW_ALL: 'SHOW_ALL',
+    SHOW_COMPLETED: 'SHOW_COMPLETED',
+    SHOW_ACTIVE: 'SHOW_ACTIVE'
+  };
+
   define('todo-list', function (_WeElement2) {
     _inherits$3(_class3, _WeElement2);
 
@@ -1749,7 +1755,8 @@
     _class3.prototype.renderItem = function renderItem(todo) {
       var _this5 = this;
 
-      return Omi.h(
+      var filter = this.store.data.filter;
+      if (filter === VisibilityFilters.SHOW_ALL || filter === VisibilityFilters.SHOW_ACTIVE && !todo.completed || filter === VisibilityFilters.SHOW_COMPLETED && todo.completed) return Omi.h(
         'li',
         {
           key: todo.id,
@@ -1767,7 +1774,7 @@
     return _class3;
   }(WeElement));
 
-  define('todo-app', (_temp2 = _class4 = function (_WeElement3) {
+  define('todo-footer', function (_WeElement3) {
     _inherits$3(_class4, _WeElement3);
 
     function _class4() {
@@ -1780,22 +1787,97 @@
       return Omi.h(
         'div',
         null,
+        Omi.h(
+          'span',
+          null,
+          'Show: '
+        ),
+        Omi.h(
+          'filter-link',
+          { filter: VisibilityFilters.SHOW_ALL },
+          'All'
+        ),
+        Omi.h(
+          'filter-link',
+          { filter: VisibilityFilters.SHOW_ACTIVE },
+          'Active'
+        ),
+        Omi.h(
+          'filter-link',
+          { filter: VisibilityFilters.SHOW_COMPLETED },
+          'Completed'
+        )
+      );
+    };
+
+    return _class4;
+  }(WeElement));
+
+  define('filter-link', function (_WeElement4) {
+    _inherits$3(_class6, _WeElement4);
+
+    function _class6() {
+      var _temp2, _this7, _ret2;
+
+      _classCallCheck$3(this, _class6);
+
+      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return _ret2 = (_temp2 = (_this7 = _possibleConstructorReturn$3(this, _WeElement4.call.apply(_WeElement4, [this].concat(args))), _this7), _this7.onClick = function () {
+        _this7.store.data.filter = _this7.props.filter;
+      }, _temp2), _possibleConstructorReturn$3(_this7, _ret2);
+    }
+
+    _class6.prototype.render = function render$$1(props) {
+      return Omi.h(
+        'button',
+        {
+          onClick: this.onClick,
+          disabled: props.filter === this.store.data.filter,
+          style: {
+            marginLeft: '4px'
+          }
+        },
+        props.children
+      );
+    };
+
+    return _class6;
+  }(WeElement));
+
+  define('todo-app', (_temp3 = _class7 = function (_WeElement5) {
+    _inherits$3(_class7, _WeElement5);
+
+    function _class7() {
+      _classCallCheck$3(this, _class7);
+
+      return _possibleConstructorReturn$3(this, _WeElement5.apply(this, arguments));
+    }
+
+    _class7.prototype.render = function render$$1() {
+      return Omi.h(
+        'div',
+        null,
         Omi.h('add-todo', null),
         Omi.h('todo-list', null),
         Omi.h('todo-footer', null)
       );
     };
 
-    return _class4;
-  }(WeElement), _class4.use = ['todos'], _temp2));
+    return _class7;
+  }(WeElement), _class7.use = ['todos', 'filter'], _temp3));
 
   render(Omi.h('todo-app', null), 'body', {
     data: {
       todos: [{
         id: 0,
         text: 'item1'
-      }]
+      }],
+      filter: VisibilityFilters.SHOW_ALL
     },
+    id: 0,
     toggleTodo: function toggleTodo(id) {
       this.data.todos.every(function (item) {
         if (id === item.id) {
@@ -1810,10 +1892,12 @@
         id: ++this.id,
         text: text
       });
-    },
-
-    id: 0
+    }
   });
 
-}());
+  exports.VisibilityFilters = VisibilityFilters;
+
+  return exports;
+
+}({}));
 //# sourceMappingURL=b.js.map
