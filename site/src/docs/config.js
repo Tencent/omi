@@ -8,9 +8,9 @@ const config = {
         ]
       },
       {
-        title: '基础元素',
+        title: '基础概念',
         list: [
-          { name: 'Button', md: 'button' , demo: './repl/button.html'},
+          { name: 'Store', md: 'store' },
           { name: 'Icon', md: 'icon', demo: './repl/icon.html' }
         ]
       },
