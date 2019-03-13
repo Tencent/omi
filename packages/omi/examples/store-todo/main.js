@@ -28,41 +28,39 @@ define('add-todo', class extends WeElement {
 define('todo-list', class extends WeElement {
 
   render() {
-    <ul>
-      {todos.map(todo =>
-        <todo-item
-          key={todo.id}
-          {...todo}
-          onClick={() => toggleTodo(todo.id)}
-        />
-      )}
-    </ul>
-
+    return (
+      <ul>
+        {this.store.data.todos.map(todo => this.renderItem(todo))}
+      </ul>
+    )
   }
-})
 
+  onClick = (id) => {
+    this.store.toggleTodo(id)
+  }
 
-define('todo-item', class extends WeElement {
-
-  render() {
-
-    <li
-      onClick={onClick}
+  renderItem(todo) {
+    return <li
+      key={todo.id}
+      onClick={() => this.onClick(todo.id)}
       style={{
-        textDecoration: completed ? 'line-through' : 'none'
+        textDecoration: todo.completed ? 'line-through' : 'none'
       }}
     >
-      {text}
+      {todo.text}
     </li>
-
   }
 })
 
 
 
 define('todo-app', class extends WeElement {
+  static use = [
+    'todos'
+  ]
 
   render() {
+    console.log(1)
     return (
       <div>
         <add-todo />
@@ -75,12 +73,22 @@ define('todo-app', class extends WeElement {
 
 render(<todo-app />, 'body', {
   data: {
-    todos: []
+    todos: [{
+      id: 0,
+      text: 'item1'
+    }]
   },
-  sub() {
-    this.data.count--
+  toggleTodo(id) {
+    console.log(id)
+    this.data.todos.every(item => {
+      if (id === item.id) {
+        item.completed = !item.completed
+        return false
+      }
+      return true
+    })
   },
   add() {
-    this.data.count++
+
   },
 })

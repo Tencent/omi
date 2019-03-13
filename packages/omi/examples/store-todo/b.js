@@ -678,7 +678,7 @@
     }
 
     if (isWeElement && dom.parentNode) {
-      if (update || children.length > 0) {
+      if (update || children.length > 0 || dom.store) {
         dom.receiveProps(dom.props, dom.data, oldClone);
         dom.update();
       }
@@ -1667,7 +1667,7 @@
   options.root.omi = omi;
   options.root.Omi.version = '5.0.24';
 
-  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+  var _class4, _temp2;
 
   function _classCallCheck$3(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1718,69 +1718,66 @@
   }(WeElement));
 
   define('todo-list', function (_WeElement2) {
-    _inherits$3(_class2, _WeElement2);
+    _inherits$3(_class3, _WeElement2);
 
-    function _class2() {
-      _classCallCheck$3(this, _class2);
+    function _class3() {
+      var _temp, _this3, _ret;
 
-      return _possibleConstructorReturn$3(this, _WeElement2.apply(this, arguments));
+      _classCallCheck$3(this, _class3);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this3 = _possibleConstructorReturn$3(this, _WeElement2.call.apply(_WeElement2, [this].concat(args))), _this3), _this3.onClick = function (id) {
+        _this3.store.toggleTodo(id);
+      }, _temp), _possibleConstructorReturn$3(_this3, _ret);
     }
 
-    _class2.prototype.render = function render$$1() {
-      Omi.h(
+    _class3.prototype.render = function render$$1() {
+      var _this4 = this;
+
+      return Omi.h(
         'ul',
         null,
-        todos.map(function (todo) {
-          return Omi.h('todo-item', _extends({
-            key: todo.id
-          }, todo, {
-            onClick: function onClick() {
-              return toggleTodo(todo.id);
-            }
-          }));
+        this.store.data.todos.map(function (todo) {
+          return _this4.renderItem(todo);
         })
       );
     };
 
-    return _class2;
-  }(WeElement));
+    _class3.prototype.renderItem = function renderItem(todo) {
+      var _this5 = this;
 
-  define('todo-item', function (_WeElement3) {
-    _inherits$3(_class3, _WeElement3);
-
-    function _class3() {
-      _classCallCheck$3(this, _class3);
-
-      return _possibleConstructorReturn$3(this, _WeElement3.apply(this, arguments));
-    }
-
-    _class3.prototype.render = function render$$1() {
-
-      Omi.h(
+      return Omi.h(
         'li',
         {
-          onClick: onClick,
+          key: todo.id,
+          onClick: function onClick() {
+            return _this5.onClick(todo.id);
+          },
           style: {
-            textDecoration: completed ? 'line-through' : 'none'
+            textDecoration: todo.completed ? 'line-through' : 'none'
           }
         },
-        text
+        todo.text
       );
     };
 
     return _class3;
   }(WeElement));
 
-  define('todo-app', function (_WeElement4) {
-    _inherits$3(_class4, _WeElement4);
+  define('todo-app', (_temp2 = _class4 = function (_WeElement3) {
+    _inherits$3(_class4, _WeElement3);
 
     function _class4() {
       _classCallCheck$3(this, _class4);
 
-      return _possibleConstructorReturn$3(this, _WeElement4.apply(this, arguments));
+      return _possibleConstructorReturn$3(this, _WeElement3.apply(this, arguments));
     }
 
     _class4.prototype.render = function render$$1() {
+      console.log(1);
       return Omi.h(
         'div',
         null,
@@ -1791,18 +1788,26 @@
     };
 
     return _class4;
-  }(WeElement));
+  }(WeElement), _class4.use = ['todos'], _temp2));
 
   render(Omi.h('todo-app', null), 'body', {
     data: {
-      todos: []
+      todos: [{
+        id: 0,
+        text: 'item1'
+      }]
     },
-    sub: function sub() {
-      this.data.count--;
+    toggleTodo: function toggleTodo(id) {
+      console.log(id);
+      this.data.todos.every(function (item) {
+        if (id === item.id) {
+          item.completed = !item.completed;
+          return false;
+        }
+        return true;
+      });
     },
-    add: function add() {
-      this.data.count++;
-    }
+    add: function add() {}
   });
 
 }());
