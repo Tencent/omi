@@ -109,3 +109,12 @@ blockquote {
   margin: 0;
   padding-left: 20px; 
 }
+
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 1em !important;
+}
+
+.line-highlight:before, .line-highlight[data-end]:after{
+  display: none;
+}

@@ -76,6 +76,8 @@ define('my-content', class extends WeElement {
     //     hl.innerHTML = inner
     //   }
     // })
+    //fix line-highlight
+    window.dispatchEvent(new Event('resize'));
   }
 
   _arrToNumber(numArr) {
