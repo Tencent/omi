@@ -94,8 +94,24 @@ export function getUse(data, paths) {
     if (isPath) {
       obj[index] = getTargetByPath(data, path)
     } else {
-      const val = getTargetByPath(data, path.path)
-      obj[index] = path.computed ? path.computed(val) : val
+      const key = Object.keys(path)[0]
+      const value = path[key]
+      if (typeof value === 'string') {
+        obj[index] = getTargetByPath(data, value)
+      } else {
+        const tempPath = value[0]
+        if (typeof tempPath === 'string') {
+          const tempVal = getTargetByPath(data, tempPath)
+          obj[index] = value[1] ? value[1](tempVal) : tempVal
+        } else {
+          const args = []
+          tempPath.forEach(path =>{
+            args.push(getTargetByPath(data, path))
+          })
+          obj[index] = value[1].apply(null, args)
+        }
+      }
+      obj[key] = obj[index]
     }
   })
   return obj

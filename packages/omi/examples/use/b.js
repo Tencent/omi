@@ -158,8 +158,24 @@
       if (isPath) {
         obj[index] = getTargetByPath(data, path);
       } else {
-        var val = getTargetByPath(data, path.path);
-        obj[index] = path.computed ? path.computed(val) : val;
+        var key = Object.keys(path)[0];
+        var value = path[key];
+        if (typeof value === 'string') {
+          obj[index] = getTargetByPath(data, value);
+        } else {
+          var tempPath = value[0];
+          if (typeof tempPath === 'string') {
+            var tempVal = getTargetByPath(data, tempPath);
+            obj[index] = value[1] ? value[1](tempVal) : tempVal;
+          } else {
+            var args = [];
+            tempPath.forEach(function (path) {
+              args.push(getTargetByPath(data, path));
+            });
+            obj[index] = value[1].apply(null, args);
+          }
+        }
+        obj[key] = obj[index];
       }
     });
     return obj;
@@ -1432,14 +1448,20 @@
   }
 
   function getPath(obj) {
-
     if (Object.prototype.toString.call(obj) === '[object Array]') {
       var result = {};
       obj.forEach(function (item) {
         if (typeof item === 'string') {
           result[item] = true;
         } else {
-          result[item.path] = item;
+          var tempPath = item[Object.keys(item)[0]][0];
+          if (typeof tempPath === 'string') {
+            result[tempPath] = true;
+          } else {
+            tempPath.forEach(function (path) {
+              return result[path] = true;
+            });
+          }
         }
       });
       return result;
@@ -1672,6 +1694,8 @@
         return _this.store.rename('dnt');
       }, _this.changeMotto = function () {
         return _this.store.changeMotto('Hello omi!');
+      }, _this.changeFirstName = function () {
+        return _this.store.changeFirstName('Dnt');
       }, _temp), _possibleConstructorReturn$3(_this, _ret);
     }
 
@@ -1695,42 +1719,73 @@
           '+'
         ),
         Omi.h(
-          'span',
+          'div',
           null,
-          this.use[1]
+          Omi.h(
+            'span',
+            null,
+            this.use[1]
+          ),
+          Omi.h(
+            'button',
+            { onClick: this.rename },
+            'rename'
+          )
         ),
-        Omi.h(
-          'button',
-          { onClick: this.rename },
-          'rename'
-        ),
-        Omi.h('br', null),
         Omi.h(
           'div',
           null,
-          this.use[2]
+          this.use.reverseMotto
         ),
         Omi.h(
           'button',
           { onClick: this.changeMotto },
           'change motto'
+        ),
+        Omi.h(
+          'div',
+          null,
+          this.use.name
+        ),
+        Omi.h(
+          'div',
+          null,
+          this.use[3]
+        ),
+        Omi.h(
+          'div',
+          null,
+          this.use.fullName,
+          Omi.h(
+            'button',
+            { onClick: this.changeFirstName },
+            'change first name'
+          )
         )
       );
     };
 
     return _class;
   }(WeElement), _class$2.use = ['count', 'arr[0]', {
-    path: 'motto',
-    computed: function computed(target) {
+    reverseMotto: ['motto', function (target) {
       return target.split('').reverse().join('');
-    }
+    }]
+  }, { name: 'arr[1]' }, {
+    fullName: [['userInfo.firstName', 'userInfo.lastName'], function (firstName, lastName) {
+      return firstName + lastName;
+    }]
   }], _temp2));
 
   render(Omi.h('my-counter', null), 'body', {
     data: {
       count: 0,
-      arr: ['dntzhang'],
-      motto: 'I love omi.'
+      arr: ['china', 'tencent'],
+      motto: 'I love omi.',
+      userInfo: {
+        firstName: 'dnt',
+        lastName: 'zhang',
+        age: 18
+      }
     },
     sub: function sub() {
       this.data.count--;
@@ -1743,6 +1798,9 @@
     },
     changeMotto: function changeMotto(motto) {
       this.data.motto = motto;
+    },
+    changeFirstName: function changeFirstName(firstName) {
+      this.data.userInfo.firstName = firstName;
     }
   });
 

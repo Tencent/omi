@@ -5,17 +5,25 @@ define('my-counter', class extends WeElement {
     'count',
     'arr[0]',
     {
-      path: 'motto',
-      computed(target) {
-        return target.split('').reverse().join('')
-      }
-    }
+      reverseMotto: [
+        'motto',
+        target => target.split('').reverse().join('')
+      ]
+    },
+    { name: 'arr[1]' },
+    {
+      fullName: [
+        ['userInfo.firstName', 'userInfo.lastName'],
+        (firstName, lastName) => firstName + lastName
+      ]
+    },
   ]
 
   sub = () => this.store.sub()
   add = () => this.store.add()
   rename = () => this.store.rename('dnt')
   changeMotto = () => this.store.changeMotto('Hello omi!')
+  changeFirstName = () => this.store.changeFirstName('Dnt')
 
   render() {
     return (
@@ -23,10 +31,17 @@ define('my-counter', class extends WeElement {
         <button onClick={this.sub}>-</button>
         <span>{this.use[0]}</span>
         <button onClick={this.add}>+</button>
-        <span>{this.use[1]}</span>
-        <button onClick={this.rename}>rename</button>
-        <br />
-        <div>{this.use[2]}</div><button onClick={this.changeMotto}>change motto</button>
+        <div>
+          <span>{this.use[1]}</span>
+          <button onClick={this.rename}>rename</button>
+        </div>
+        <div>{this.use.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
+        <div>{this.use.name}</div>
+        <div>{this.use[3]}</div>
+        <div>
+          {this.use.fullName}
+          <button onClick={this.changeFirstName}>change first name</button>
+        </div>
       </div>
     )
   }
@@ -35,8 +50,13 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body', {
   data: {
     count: 0,
-    arr: ['dntzhang'],
-    motto: 'I love omi.'
+    arr: ['china', 'tencent'],
+    motto: 'I love omi.',
+    userInfo: {
+      firstName: 'dnt',
+      lastName: 'zhang',
+      age: 18
+    }
   },
   sub() {
     this.data.count--
@@ -50,4 +70,7 @@ render(<my-counter />, 'body', {
   changeMotto(motto) {
     this.data.motto = motto
   },
+  changeFirstName(firstName) {
+    this.data.userInfo.firstName = firstName
+  }
 })
