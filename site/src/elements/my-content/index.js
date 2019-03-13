@@ -24,10 +24,10 @@ define('my-content', class extends WeElement {
     let codesArr = Array.prototype.slice.call(codes);
     let codeHlNumArr = []
     codesArr.forEach(code => {
-      let arr = code.className.match(/{[\S\s]*}/)
+      let arr = code.className.match(/{([\S\s]*)}/)
       let pre = code.parentNode
       //bug!
-      //pre.setAttribute('data-line', '1,3-4')
+      arr && pre.setAttribute('data-line', arr[1])
       if (code.className) {
         pre.className = code.className
      

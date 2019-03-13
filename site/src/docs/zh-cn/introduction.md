@@ -74,7 +74,7 @@ Omi (读音 /ˈomɪ/，类似于 欧米) 是定位于下一代框架，基于 We
 上面使用的是 hyperscript 的方式来书写 HTML 结构，你可以使用 JSX 来替代它。
 
 
-```js
+```js {9-12}
 import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
@@ -82,7 +82,6 @@ define('my-counter', class extends WeElement {
     count: 1
   }
 
-  //这里可以加样式，比如下面的 span 的作用域仅仅在组件内部
   static css = `
     span{
         color: red;
@@ -111,3 +110,12 @@ define('my-counter', class extends WeElement {
 
 render(<my-counter />, 'body')
 ```
+
+看上面高亮的部分，可以给组件加样式，比如上面的 span 的作用域仅仅在组件内部，不会污染别的组件。到现在你已经成功入门 Omi 了！你学会了:
+
+* 为组件添加**结构**，如上面使用 JSX 书写结构
+* 为组件添加**行为**，如上面的 `onClick` 绑定事件
+* 为组件添加**样式**，如上面的 `static css`
+* 渲染组件到 body，当然也可以把组件渲染到任意其他组件
+
+恭喜你！
