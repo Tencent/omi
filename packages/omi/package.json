@@ -22,6 +22,7 @@
     "rpx": "rollup -c config/rollup.example.js --watch",
     "tree": "rollup -c config/rollup.example.js --watch",
     "tree2": "rollup -c config/rollup.example.js --watch",
+    "store-tree": "rollup -c config/rollup.example.js --watch",
     "todo-app": "rollup -c config/rollup.example.js --watch",
     "tick": "rollup -c config/rollup.example.js --watch",
     "observe": "rollup -c config/rollup.example.js --watch",
