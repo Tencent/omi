@@ -1,7 +1,7 @@
 
 import { WeElement, define } from 'omi'
 import './index.css'
-
+import png from '../../assets/omi-html.jpg'
 //获取应用实例
 const app = getApp()
 
@@ -71,6 +71,7 @@ define('page-index', class extends WeElement {
   render() {
     return (
       <view class="container">
+      <image src={png}></image>
         <view class="userinfo">
           {(!this.data.hasUserInfo && this.data.canIUse) ? (
             <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
