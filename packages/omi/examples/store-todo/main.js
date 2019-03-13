@@ -129,7 +129,7 @@ render(<todo-app />, 'body', {
   data: {
     todos: [{
       id: 0,
-      text: 'item1'
+      text: 'Use Omi'
     }],
     filter: VisibilityFilters.SHOW_ALL
   },
