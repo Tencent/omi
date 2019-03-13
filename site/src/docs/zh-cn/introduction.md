@@ -1,54 +1,113 @@
-## Omiu 
+<p align="center"><img src="https://github.com/Tencent/omi/raw/master/assets/omi-logo2019.svg?sanitize=true" alt="omi" width="300"/></p>
+<h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
+<p align="center"><b>基于 Web Components 并支持 IE8+(omio) 和 小程序(omip)</b></p>
 
-Omiu 是 Omi 官方 UI 组件库，基于 Omio(IE8+) 且兼容 Omi,使用微信 7.0 设计风格。
 
-## 色彩
+## Omi 是什么？
 
-|  **颜色**  | **意义**  |
-| ------------- |:-------------:|
-| #07C160  | 尊贵活力绿 | 
-| #171717  | 沉稳典雅黑 |   
-| #FEFEFE  | 清新脱俗白 |   
-| #F95050  | 气质醒目红 |   
-| #ECECEC  | 迷惘淡泊灰 |   
+Omi (读音 /ˈomɪ/，类似于 欧米) 是定位于下一代框架，基于 Web Components 设计，支持 PC Web、移动 H5 和小程序开发(One framework. Mobile & desktop & mini program)。
 
-## 新项目快速使用
+## 一个 HTML 完全上手
 
+下面这个页面不需要任何构建工具就可以执行:
+
+```html
+<script src="https://unpkg.com/omi"></script>
+<script>
+  const { define, WeElement, h, render } = Omi
+
+  define('my-counter', class extends WeElement {
+    install() {
+      this.data.count = 1
+      this.sub = this.sub.bind(this)
+      this.add = this.add.bind(this)
+    }
+
+    sub() {
+      this.data.count--
+      this.update()
+    }
+
+    add() {
+      this.data.count++
+      this.update()
+    }
+
+    render() {
+      return h(
+        'div',
+        null,
+        h(
+          'button',
+          { onClick: this.sub },
+          '-'
+        ),
+        h(
+          'span',
+          null,
+          this.data.count
+        ),
+        h(
+          'button',
+          { onClick: this.add },
+          '+'
+        )
+      )
+    }
+  })
+
+  render(h('my-counter'), 'body')
+</script>
 ```
-npm i omi-cli -g             
-omi init my-app   
-cd my-app           
-npm start                     
-npm run build    
+
+通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 `my-counter` 标签：
+
+```jsx
+<body>
+  <my-counter></my-counter>
+</body>
 ```
 
-> `npx omi-cli init my-app` 也支持(要求 npm v5.2.0+)
+* [点击这里看执行结果](https://tencent.github.io/omi/assets/omi.html)
+* [Omi.js CDN](https://unpkg.com/omi)
 
-## 现有项目使用
+上面使用的是 hyperscript 的方式来书写 HTML 结构，你可以使用 JSX 来替代它。
+
 
 ```js
-npm i omiu
-```
+import { render, WeElement, define } from 'omi'
 
-```js
-import { WeElement, define, render } from 'omi'
-//node modules 下的 omiu 组件都是 E6+,你需要把 node modules 下的 js 也设置成经过 babel 或 ts 编译才能正常跑起来
-import 'omiu/button'
+define('my-counter', class extends WeElement {
+  data = {
+    count: 1
+  }
 
-//或者导入所有组件，node modules 的 omi.js 是 ES5 的，不需要额外配置
-//import 'omiu'
+  //这里可以加样式，比如下面的 span 的作用域仅仅在组件内部
+  static css = `
+    span{
+        color: red;
+    }`
 
-define('my-app', class extends WeElement {
-  onClick = () => {
-    console.log('Hello omiu!');
+  sub = () => {
+    this.data.count--
+    this.update()
+  }
+
+  add = () => {
+    this.data.count++
+    this.update()
   }
 
   render() {
     return (
-      <o-button onClick={this.onClick}>按钮</o-button>
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
     )
   }
 })
 
-render(<my-app />, 'body')
+render(<my-counter />, 'body')
 ```
