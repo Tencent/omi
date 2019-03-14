@@ -51,32 +51,37 @@ Directory description:
 ```
 
 
-About compiled website URL：
-
-* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
-* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
-
-Such as in windows:
-
-```json
-"scripts": {
-  "start": "node scripts/start.js",
-  "_build": "node scripts/build.js",
-  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
-}
-```
-
-In mac os:
+### Scripts
 
 ```json
 "scripts": {
     "start": "node scripts/start.js",
-    "_build": "node scripts/build.js",
-    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
+    "build": "PUBLIC_URL=. node scripts/build.js",
+    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
     "fix": "eslint src --fix"
-  },
+}
 ```
 
+You can set up the PUBLIC_URL, such as：
+
+```json
+...
+"build": "PUBLIC_URL=https://your.url.com/sub node scripts/build.js",
+"build-windows": "set PUBLIC_URL=https://your.url.com/sub&& node scripts/build.js",
+...
+```
+
+### Switch omi and omio
+
+Add or remove the alias config in package.json to switch omi and omio：
+
+```js
+ ...
+ "alias": {
+    "omi": "omio"
+  }
+  ...
+```
 
 ## Project Template
 
@@ -87,7 +92,6 @@ In mac os:
 |Base Template with snapshoot|`omi init-snap my-app`| Basic omi or omio(IE8+) project template with snapshoot prerendering.|
 |TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
 |Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
-|omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |Developing web with mini program template.|
 |MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM template.|
 
-CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
+CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)

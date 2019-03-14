@@ -22,7 +22,7 @@ npm i omi
 npm i omio
 ```
 
-## CLI
+## 命令行工具
 
 Omi 提供了官方的 CLI，你不需要去学习怎么配置 webpack、babel或者 TypeScript，CLI 帮你配置好了一切，且提供了各种模板满足不同的项目类型。
 
@@ -34,9 +34,9 @@ $ npm start            # develop
 $ npm run build        # release
 ```
 
-> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
+> `npx omi-cli init my-app` 也是支持的(npm v5.2.0+).
 
-Directory description:
+目录描述:
 
 ```
 ├─ config
@@ -51,43 +51,49 @@ Directory description:
 ```
 
 
-About compiled website URL：
-
-* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
-* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
-
-Such as in windows:
-
-```json
-"scripts": {
-  "start": "node scripts/start.js",
-  "_build": "node scripts/build.js",
-  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
-}
-```
-
-In mac os:
+### npm 脚本
 
 ```json
 "scripts": {
     "start": "node scripts/start.js",
-    "_build": "node scripts/build.js",
-    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
+    "build": "PUBLIC_URL=. node scripts/build.js",
+    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
     "fix": "eslint src --fix"
-  },
+}
 ```
 
+你也可以设置 PUBLIC_URL, 比如：
 
-## Project Template
+```json
+...
+"build": "PUBLIC_URL=https://your.url.com/sub node scripts/build.js",
+"build-windows": "set PUBLIC_URL=https://your.url.com/sub&& node scripts/build.js",
+...
+```
+
+### 切换 omi 和 omio
+
+增加或删除 package.json 里的 alias config 可以切换 omi 和 omio 渲染:
+
+```js
+ ...
+ "alias": {
+    "omi": "omio"
+  }
+  ...
+```
+    
+
+## 项目模板
 
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
-|Base Template(v3.3.0+)|`omi init my-app`| Basic omi or omio(IE8+) project template.|
+|基础模板(v3.3.0+)|`omi init my-app`| 基础模板，支持 omi 和 omio(IE8+)|
 |小程序模板(v3.3.5+)|`omi init-p my-app`| Omi 开发小程序 |
-|Base Template with snapshoot|`omi init-snap my-app`| Basic omi or omio(IE8+) project template with snapshoot prerendering.|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
-|Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
-|omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |Developing web with mini program template.|
-|MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM template.|
+|支持预渲染快照骨架的模板|`omi init-snap my-app`| 基础模板，支持 omi 和 omio(IE8+)，内置预渲染|
+|TypeScript 模板(omi-cli v3.3.0+)|`omi init-ts my-app`|使用 TypeScript 的模板|
+|Mobile 模板|`omi init-weui my-app`| 使用 weui 和 omi-router 的模板|
+|omi-mp 模板(omi-cli v3.0.13+)|`omi init-mp my-app`  |使用微信小程序开发 H5|
+|MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM 模板|
 
-CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
+Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
