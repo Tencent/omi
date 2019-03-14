@@ -364,6 +364,13 @@ const store = {
 render(<my-app />, document.body, store)
 ``` -->
 
+Store is Omi's built-in centralized data warehouse, which solves and provides the following problems and capabilities:
+
+* Component Tree Data Sharing
+* Data Change Updates Dependent Components on Demand
+
+![](https://github.com/Tencent/omi/raw/master/assets/store.jpg)
+
 Unlike global variables, when there are multiple root nodes, multiple stores can be injected.
 
 ```js
