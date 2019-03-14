@@ -2,7 +2,7 @@ html,body{
   margin: 0;
   padding: 0;
   border: 0;
-  background-color: #f6f8fa;
+  background-color: #eee;
   font-family:proxima-nova,"Helvetica Neue",Helvetica,Roboto, PT Sans, DejaVu Sans, Arial,Segoe UI Light,Segoe UI,Microsoft Jhenghei,Mirco Yahei,'sans-serif';
 }
 
@@ -20,6 +20,7 @@ a{
   text-decoration: none;
   color: #0366d6;
 }
+
 table{
   border-collapse: collapse;
 }
@@ -91,31 +92,12 @@ td,th{
   box-sizing: border-box;
 }
 
-pre code.hljs{
-  padding-left: 14px;
-  display: block;
-  overflow-x: auto;
-}
-
-.hljs{
-  font-size: 14px;
-}
-
-code.hljs{
-  display: inline-block;
-  overflow-x: hidden;
-  text-indent: 0;
-  position: relative;
-  top: 8px;
-  background-color:rgba(27,31,35,.05); 
-  border-radius: 3px;
-}
 
 blockquote::before{
   content: '';
   position: absolute;
   left: 0;
-  top:11px;
+  top: 0px;
   background-color: #dfe2e5;
   height: 24px;
   width: 4px;
@@ -127,55 +109,15 @@ blockquote {
   padding-left: 20px; 
 }
 
-._code-ctn code.hljs{
-  top: 2px;
-  background-color:transparent;
-  border-radius: 0px;
-}
-
-._code-ctn{
+pre[data-line] {
   position: relative;
-  height: auto;
-  background-color: #282C34;
-  border-radius: 3px;
-  padding-top:1px;  
-  margin-top: 15px; 
-  padding-bottom:1px; 
-  line-height: 18px;
-  max-width: 900px;
+  padding: 1em 0 1em 1em !important;
 }
 
-._hl{
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  padding-top: 5px;
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 100%;
-  line-height: 18px;
-
+.line-highlight:before, .line-highlight[data-end]:after{
+  display: none;
 }
 
-._hll{
-  background-color: rgb(72, 77, 87);
-  height: 18px;
-  width: 100%;
-
-}
-
-
-._code-ctn pre{
-  background: transparent;
-    position: relative;
-    z-index: 1;
-}
-
-
-._code-ctn code{
-  background: transparent;
-    position: relative;
-    z-index: 1;
+:not(pre) > code[class*="language-"], pre[class*="language-"] {
+  font-size: 0.8em;
 }
