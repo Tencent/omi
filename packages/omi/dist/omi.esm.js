@@ -1,5 +1,5 @@
 /**
- * omi v5.0.24  http://omijs.org
+ * omi v6.0.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -154,6 +154,45 @@ function nProps(props) {
     result[key] = props[key].value;
   });
   return result;
+}
+
+function getUse(data, paths) {
+  var obj = {};
+  paths.forEach(function (path, index) {
+    var isPath = typeof path === 'string';
+    if (isPath) {
+      obj[index] = getTargetByPath(data, path);
+    } else {
+      var key = Object.keys(path)[0];
+      var value = path[key];
+      if (typeof value === 'string') {
+        obj[index] = getTargetByPath(data, value);
+      } else {
+        var tempPath = value[0];
+        if (typeof tempPath === 'string') {
+          var tempVal = getTargetByPath(data, tempPath);
+          obj[index] = value[1] ? value[1](tempVal) : tempVal;
+        } else {
+          var args = [];
+          tempPath.forEach(function (path) {
+            args.push(getTargetByPath(data, path));
+          });
+          obj[index] = value[1].apply(null, args);
+        }
+      }
+      obj[key] = obj[index];
+    }
+  });
+  return obj;
+}
+
+function getTargetByPath(origin, path) {
+  var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+  var current = origin;
+  for (var i = 0, len = arr.length; i < len; i++) {
+    current = current[arr[i]];
+  }
+  return current;
 }
 
 // DOM properties that should NOT have "px" added when numeric
@@ -640,7 +679,7 @@ function diffAttributes(dom, attrs, old, children) {
   }
 
   if (isWeElement && dom.parentNode) {
-    if (update || children.length > 0) {
+    if (update || children.length > 0 || dom.store) {
       dom.receiveProps(dom.props, dom.data, oldClone);
       dom.update();
     }
@@ -1069,21 +1108,20 @@ var WeElement = function (_HTMLElement) {
 
     _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
     _this.elementId = id++;
-    _this.data = _this.constructor.data || {};
+    _this.data = {};
     return _this;
   }
 
   WeElement.prototype.connectedCallback = function connectedCallback() {
-    if (!this.constructor.pure) {
-      var p = this.parentNode;
-      while (p && !this.store) {
-        this.store = p.store;
-        p = p.parentNode || p.host;
-      }
-      if (this.store) {
-        this.store.instances.push(this);
-      }
+    var p = this.parentNode;
+    while (p && !this.store) {
+      this.store = p.store;
+      p = p.parentNode || p.host;
     }
+    if (this.store) {
+      this.store.instances.push(this);
+    }
+    this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
     this.beforeInstall();
     !this._isInstalled && this.install();
     this.afterInstall();
@@ -1143,7 +1181,6 @@ var WeElement = function (_HTMLElement) {
     this.beforeRender();
     this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
     this._willUpdate = false;
-    this.afterUpdate();
     this.updated();
   };
 
@@ -1162,8 +1199,6 @@ var WeElement = function (_HTMLElement) {
   WeElement.prototype.uninstall = function uninstall() {};
 
   WeElement.prototype.beforeUpdate = function beforeUpdate() {};
-
-  WeElement.prototype.afterUpdate = function afterUpdate() {}; //deprecated, please use updated
 
   WeElement.prototype.updated = function updated() {};
 
@@ -1226,6 +1261,8 @@ function extendStoreUpate(store) {
     if (Object.keys(patch).length > 0) {
       this.instances.forEach(function (instance) {
         if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath)) {
+          //update this.use
+          instance.use = getUse(store.data, instance.constructor.use);
           instance.update();
         }
       });
@@ -1328,7 +1365,10 @@ function _inherits$1(subClass, superClass) { if (typeof superClass !== "function
 function define(name, ctor) {
   if (ctor.is === 'WeElement') {
     customElements.define(name, ctor);
-    if (ctor.data && !ctor.pure) {
+    if (ctor.use) {
+      ctor.updatePath = getPath(ctor.use);
+    } else if (ctor.data) {
+      //Compatible with older versions
       ctor.updatePath = getUpdatePath(ctor.data);
     }
   } else {
@@ -1399,6 +1439,33 @@ function define(name, ctor) {
     }(WeElement);
 
     customElements.define(name, Element);
+  }
+}
+
+function getPath(obj) {
+  if (Object.prototype.toString.call(obj) === '[object Array]') {
+    var result = {};
+    obj.forEach(function (item) {
+      if (typeof item === 'string') {
+        result[item] = true;
+      } else {
+        var tempPath = item[Object.keys(item)[0]];
+        if (typeof tempPath === 'string') {
+          result[tempPath] = true;
+        } else {
+          if (typeof tempPath[0] === 'string') {
+            result[tempPath[0]] = true;
+          } else {
+            tempPath[0].forEach(function (path) {
+              return result[path] = true;
+            });
+          }
+        }
+      }
+    });
+    return result;
+  } else {
+    return getUpdatePath(obj);
   }
 }
 
@@ -1597,7 +1664,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '5.0.24';
+options.root.Omi.version = '6.0.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef };
