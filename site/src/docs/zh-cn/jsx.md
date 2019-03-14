@@ -46,13 +46,13 @@ define('my-element', class extends WeElement {
 
 表达式里也可以嵌入 JSX：
 
-```js
+```jsx
 <h1>{ user.age > 18 ? <div>成年</div> : <div>未成年</div> }<h1>
 ```
 
 上面的三元其实就是 if else，如果仅仅需要 if，可以：
 
-```js
+```jsx
 <h1>{ user.age > 18 && <div>成年</div> }<h1>
 ```
 
@@ -106,7 +106,7 @@ JSX 渲染:
 
 这里举一个九九乘法表:
 
-```js
+```jsx
 import { define, render, WeElement } from 'omi'
 
 define('my-app', class extends WeElement {

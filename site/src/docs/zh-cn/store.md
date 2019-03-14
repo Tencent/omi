@@ -9,7 +9,7 @@ Store 是 Omi 内置的中心化数据仓库，他解决和提供了下面问题
 
 ## 一段代码完全上手 Store
 
-```js
+```jsx
 import { render, WeElement, define } from '../../src/omi'
 
 define('my-counter', class extends WeElement {
@@ -69,7 +69,7 @@ render(<my-counter />, 'body', {
 
 下面举一个复杂的 `use` 例子：
 
-```js
+```jsx
 static use = [
   'count', //直接字符串，JSX 里可通过 this.use[0] 访问
   'arr[0]', //也支持 path，JSX 里可通过 this.use[1] 访问
