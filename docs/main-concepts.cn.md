@@ -63,8 +63,6 @@ render(<my-first-element name="world"></my-first-element>, 'body')
 你也可以传任意类型的数据给 props:
 
 ```js
-import { WeElement, define, render } from 'omi'
-
 define('my-first-element', class extends WeElement {
   render(props) {
     return (
@@ -72,15 +70,17 @@ define('my-first-element', class extends WeElement {
     )
   }
 })
-
-render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
 ```
 
-`my-obj` 将映射到 myObj，驼峰的方式。你可以通过静态属性 `props` 来设置默认值:
+使用元素:
+
+```JS
+<my-first-element myObj={{ name: 'world' }}></my-first-element>
+```
+
+你可以通过静态属性 `static defaultProps` 来设置默认值:
 
 ```js
-import { WeElement, define, render } from 'omi'
-
 define('my-first-element', class extends WeElement {
   static defaultProps = {
 		name: 'Omi',

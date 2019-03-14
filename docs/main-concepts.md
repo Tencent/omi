@@ -88,10 +88,10 @@ define('my-first-element', class extends WeElement {
   }
 })
 
-render(<my-first-element my-obj={{ name: 'world' }}></my-first-element>, 'body')
+render(<my-first-element myObj={{ name: 'world' }}></my-first-element>, 'body')
 ```
 
-The `my-obj` will map to myObj with camel-case. You can set default values for props in the following way:
+You can set default values for props in the following way:
 
 ```js
 import { WeElement, define, render } from 'omi'

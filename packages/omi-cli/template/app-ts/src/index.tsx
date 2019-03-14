@@ -86,7 +86,7 @@ define('my-app', class extends WeElement<MyAppProps, MyAppData> {
 					<h1 class="app-title">Welcome to {props.name}</h1>
 				</header>
                 Hello {this.props.name} {this.data.abc}
-                <hello-omi onAbc={this.onAbc} prop-from-parent={this.data.passToChild} msg="Omi"></hello-omi>
+                <hello-omi onAbc={this.onAbc} propFromParent={this.data.passToChild} msg="Omi"></hello-omi>
 			</div>
         )
     }
