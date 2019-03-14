@@ -2259,67 +2259,122 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.add = function () {
-        return _this.store.add();
-      }, _this.sub = function () {
+      return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.sub = function () {
         return _this.store.sub();
-      }, _this.addIfOdd = function () {
-        if (_this.use.count % 2 !== 0) {
-          _this.store.add();
-        }
-      }, _this.addAsync = function () {
-        setTimeout(function () {
-          return _this.store.add();
-        }, 1000);
+      }, _this.add = function () {
+        return _this.store.add();
+      }, _this.rename = function () {
+        return _this.store.rename('dnt');
+      }, _this.changeMotto = function () {
+        return _this.store.changeMotto('Hello omi!');
+      }, _this.changeFirstName = function () {
+        return _this.store.changeFirstName('Dnt');
       }, _temp), _possibleConstructorReturn$1(_this, _ret);
     }
 
     _class.prototype.render = function render$$1() {
       return Omi.h(
-        'p',
+        'div',
         null,
-        'Clicked: ',
-        this.use.count,
-        ' times',
-        ' ',
-        Omi.h(
-          'button',
-          { onClick: this.add },
-          '+'
-        ),
-        ' ',
         Omi.h(
           'button',
           { onClick: this.sub },
           '-'
         ),
-        ' ',
         Omi.h(
-          'button',
-          { onClick: this.addIfOdd },
-          'Add if odd'
+          'span',
+          null,
+          this.use[0]
         ),
-        ' ',
         Omi.h(
           'button',
-          { onClick: this.addAsync },
-          'Add async'
+          { onClick: this.add },
+          '+'
+        ),
+        Omi.h(
+          'div',
+          null,
+          Omi.h(
+            'span',
+            null,
+            this.use[1]
+          ),
+          Omi.h(
+            'button',
+            { onClick: this.rename },
+            'rename'
+          )
+        ),
+        Omi.h(
+          'div',
+          null,
+          this.use.reverseMotto
+        ),
+        Omi.h(
+          'button',
+          { onClick: this.changeMotto },
+          'change motto'
+        ),
+        Omi.h(
+          'div',
+          null,
+          this.use.name
+        ),
+        Omi.h(
+          'div',
+          null,
+          this.use[3]
+        ),
+        Omi.h(
+          'div',
+          null,
+          this.use.fullName,
+          Omi.h(
+            'button',
+            { onClick: this.changeFirstName },
+            'change first name'
+          )
         )
       );
     };
 
     return _class;
-  }(WeElement), _class$2.use = [{ count: 'count' }], _temp2));
+  }(WeElement), _class$2.use = ['count', 'arr[0]', {
+    reverseMotto: ['motto', function (target) {
+      return target.split('').reverse().join('');
+    }]
+  }, { name: 'arr[1]' }, {
+    fullName: [['userInfo.firstName', 'userInfo.lastName'], function (firstName, lastName) {
+      return firstName + lastName;
+    }]
+  }], _temp2));
 
   render(Omi.h('my-counter', null), 'body', {
     data: {
-      count: 0
+      count: 0,
+      arr: ['china', 'tencent'],
+      motto: 'I love omi.',
+      userInfo: {
+        firstName: 'dnt',
+        lastName: 'zhang',
+        age: 18
+      }
     },
     sub: function sub() {
       this.data.count--;
     },
     add: function add() {
       this.data.count++;
+    },
+    rename: function rename(newName) {
+      console.log(1);
+      this.data.arr[0] = newName;
+    },
+    changeMotto: function changeMotto(motto) {
+      this.data.motto = motto;
+    },
+    changeFirstName: function changeFirstName(firstName) {
+      this.data.userInfo.firstName = firstName;
     }
   });
 

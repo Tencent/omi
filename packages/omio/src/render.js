@@ -15,9 +15,9 @@ export function render(vnode, parent, store, empty, merge) {
     extendStoreUpate(store)
     let timeout = null
     let patchs = {}
-    obaa(store.data, (path,a,b)=> {
+    obaa(store.data, (prop, val, old, path) => {
       clearTimeout(timeout)
-      const key = fixPath(path)
+      const key = fixPath(path + '-' + prop)
       patchs[key] = true
       timeout = setTimeout(() => {
         store.update(patchs)
@@ -105,7 +105,7 @@ function includePath(pathA, pathB) {
 
 export function fixPath(path) {
   let mpPath = ''
-  const arr = path.replace('/', '').split('/')
+  const arr = path.replace('#-', '').split('-')
   arr.forEach((item, index) => {
     if (index) {
       if (isNaN(Number(item))) {
