@@ -37,7 +37,7 @@ options.root.Omi = {
   renderToString
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-1.3.8'
+options.root.Omi.version = 'omio-2.0.0'
 
 export default {
   h,

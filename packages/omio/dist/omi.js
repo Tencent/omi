@@ -58,6 +58,37 @@
         });
         return result;
     }
+    function getUse(data, paths) {
+        var obj = {};
+        paths.forEach(function(path, index) {
+            var isPath = 'string' == typeof path;
+            if (isPath) obj[index] = getTargetByPath(data, path); else {
+                var key = Object.keys(path)[0];
+                var value = path[key];
+                if ('string' == typeof value) obj[index] = getTargetByPath(data, value); else {
+                    var tempPath = value[0];
+                    if ('string' == typeof tempPath) {
+                        var tempVal = getTargetByPath(data, tempPath);
+                        obj[index] = value[1] ? value[1](tempVal) : tempVal;
+                    } else {
+                        var args = [];
+                        tempPath.forEach(function(path) {
+                            args.push(getTargetByPath(data, path));
+                        });
+                        obj[index] = value[1].apply(null, args);
+                    }
+                }
+                obj[key] = obj[index];
+            }
+        });
+        return obj;
+    }
+    function getTargetByPath(origin, path) {
+        var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+        var current = origin;
+        for (var i = 0, len = arr.length; i < len; i++) current = current[arr[i]];
+        return current;
+    }
     function cloneElement(vnode, props) {
         return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
     }
@@ -413,6 +444,10 @@
             inst.render = doRender;
         }
         vnode && (inst.scopedCssAttr = vnode.css);
+        if (inst.constructor.use && inst.store && inst.store.data) {
+            inst.store.instances.push(inst);
+            inst.use = getUse(inst.store.data, inst.constructor.use);
+        }
         if (list) for (var i = list.length; i--; ) if (list[i].constructor === Ctor) {
             inst.__b = list[i].__b;
             list.splice(i, 1);
@@ -595,12 +630,115 @@
     }
     function render(vnode, parent, store, empty, merge) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
+        if (store) {
+            store.instances = [];
+            extendStoreUpate(store);
+            var timeout = null;
+            var patchs = {};
+            obaa(store.data, function(prop, val, old, path) {
+                clearTimeout(timeout);
+                var key = fixPath(path + '-' + prop);
+                patchs[key] = !0;
+                timeout = setTimeout(function() {
+                    store.update(patchs);
+                    patchs = {};
+                }, 0);
+            });
+        }
         if (empty) while (parent.firstChild) parent.removeChild(parent.firstChild);
         if (merge) merge = 'string' == typeof merge ? document.querySelector(merge) : merge;
         return diff(merge, vnode, store, !1, parent, !1);
     }
+    function extendStoreUpate(store) {
+        store.update = function(patch) {
+            var _this = this;
+            var updateAll = matchGlobalData(this.globalData, patch);
+            if (Object.keys(patch).length > 0) {
+                this.instances.forEach(function(instance) {
+                    if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath)) {
+                        instance.use = getUse(store.data, instance.constructor.use);
+                        instance.update();
+                    }
+                });
+                this.onChange && this.onChange(patch);
+            }
+        };
+    }
+    function matchGlobalData(globalData, diffResult) {
+        if (!globalData) return !1;
+        for (var keyA in diffResult) {
+            if (globalData.indexOf(keyA) > -1) return !0;
+            for (var i = 0, len = globalData.length; i < len; i++) if (includePath(keyA, globalData[i])) return !0;
+        }
+        return !1;
+    }
+    function needUpdate(diffResult, updatePath) {
+        for (var keyA in diffResult) {
+            if (updatePath[keyA]) return !0;
+            for (var keyB in updatePath) if (includePath(keyA, keyB)) return !0;
+        }
+        return !1;
+    }
+    function includePath(pathA, pathB) {
+        if (0 === pathA.indexOf(pathB)) {
+            var next = pathA.substr(pathB.length, 1);
+            if ('[' === next || '.' === next) return !0;
+        }
+        return !1;
+    }
+    function fixPath(path) {
+        var mpPath = '';
+        var arr = path.replace('#-', '').split('-');
+        arr.forEach(function(item, index) {
+            if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
+        });
+        return mpPath;
+    }
     function define(name, ctor) {
         options.mapping[name] = ctor;
+        if (ctor.use) ctor.updatePath = getPath(ctor.use); else if (ctor.data) ctor.updatePath = getUpdatePath(ctor.data);
+    }
+    function getPath(obj) {
+        if ('[object Array]' === Object.prototype.toString.call(obj)) {
+            var result = {};
+            obj.forEach(function(item) {
+                if ('string' == typeof item) result[item] = !0; else {
+                    var tempPath = item[Object.keys(item)[0]];
+                    if ('string' == typeof tempPath) result[tempPath] = !0; else if ('string' == typeof tempPath[0]) result[tempPath[0]] = !0; else tempPath[0].forEach(function(path) {
+                        return result[path] = !0;
+                    });
+                }
+            });
+            return result;
+        } else return getUpdatePath(obj);
+    }
+    function getUpdatePath(data) {
+        var result = {};
+        dataToPath(data, result);
+        return result;
+    }
+    function dataToPath(data, result) {
+        Object.keys(data).forEach(function(key) {
+            result[key] = !0;
+            var type = Object.prototype.toString.call(data[key]);
+            if ('[object Object]' === type) _objToPath(data[key], key, result); else if ('[object Array]' === type) _arrayToPath(data[key], key, result);
+        });
+    }
+    function _objToPath(data, path, result) {
+        Object.keys(data).forEach(function(key) {
+            result[path + '.' + key] = !0;
+            delete result[path];
+            var type = Object.prototype.toString.call(data[key]);
+            if ('[object Object]' === type) _objToPath(data[key], path + '.' + key, result); else if ('[object Array]' === type) _arrayToPath(data[key], path + '.' + key, result);
+        });
+    }
+    function _arrayToPath(data, path, result) {
+        data.forEach(function(item, index) {
+            result[path + '[' + index + ']'] = !0;
+            delete result[path];
+            var type = Object.prototype.toString.call(item);
+            if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
+        });
     }
     function rpx(str) {
         return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function(a, b) {
@@ -1067,7 +1205,7 @@
         renderToString: renderToString
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-1.3.8';
+    options.root.Omi.version = 'omio-2.0.0';
     var Omi = {
         h: h,
         createElement: h,
