@@ -1,6 +1,6 @@
 [English](./README.EN.md) | 简体中文 | [한국어](./README.KR.md)
 
-<p align="right">Omi <strong>v5.0.24</strong></p>
+<p align="right">Omi <strong>v6.0.0</strong></p>
 <p align="right">Omio <strong>v1.3.8</strong></p>
 <p align="center"><img src="./assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>

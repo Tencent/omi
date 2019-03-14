@@ -1,4 +1,4 @@
-<p align="right">v<strong>5.0.19</strong></p>
+<p align="right">v<strong>6.0.0</strong></p>
 <p align="center"><img src="https://github.com/Tencent/omi/blob/master/assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - Next front end framework using web components with omio(IE8+) and omip(小程序) fallback in tiny js.</h2>
 
