@@ -40,7 +40,9 @@ define('my-element', class extends WeElement {
 
 还可以写表达式:
 
+```jsx
 <h1>{user.age > 18 ? '成年' : '未成年'}<h1>
+```
 
 表达式里也可以嵌入 JSX：
 
@@ -79,7 +81,6 @@ JSX 渲染:
 ```
 
 等同于:
-
 
 ```jsx
 <ul>
