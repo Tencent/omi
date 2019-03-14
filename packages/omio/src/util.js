@@ -185,3 +185,42 @@ export function nProps(props) {
   })
   return result
 }
+
+export function getUse(data, paths) {
+  const obj = {}
+  paths.forEach((path, index) => {
+    const isPath = typeof path === 'string'
+    if (isPath) {
+      obj[index] = getTargetByPath(data, path)
+    } else {
+      const key = Object.keys(path)[0]
+      const value = path[key]
+      if (typeof value === 'string') {
+        obj[index] = getTargetByPath(data, value)
+      } else {
+        const tempPath = value[0]
+        if (typeof tempPath === 'string') {
+          const tempVal = getTargetByPath(data, tempPath)
+          obj[index] = value[1] ? value[1](tempVal) : tempVal
+        } else {
+          const args = []
+          tempPath.forEach(path =>{
+            args.push(getTargetByPath(data, path))
+          })
+          obj[index] = value[1].apply(null, args)
+        }
+      }
+      obj[key] = obj[index]
+    }
+  })
+  return obj
+}
+
+export function getTargetByPath(origin, path) {
+  const arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.')
+  let current = origin
+  for (let i = 0, len = arr.length; i < len; i++) {
+    current = current[arr[i]]
+  }
+  return current
+}

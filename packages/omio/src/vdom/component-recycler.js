@@ -1,5 +1,5 @@
 import Component from '../component'
-import options from '../options'
+import { getUse } from '../util'
 /** Retains a pool of Components for re-use, keyed on component name.
  *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
  *	@private
@@ -26,6 +26,11 @@ export function createComponent(Ctor, props, context, vnode) {
     inst.render = doRender
   }
   vnode && (inst.scopedCssAttr = vnode.css)
+
+  if (inst.constructor.use && inst.store && inst.store.data) {
+    inst.store.instances.push(inst)
+    inst.use = getUse(inst.store.data, inst.constructor.use)
+  }
 
   if (list) {
     for (let i = list.length; i--; ) {
