@@ -325,7 +325,7 @@ The `classNames` is the same as [classnames](https://github.com/JedWatson/classn
 
 ### Store
 
-Omi Store Architecture: Injected from the root component and shared across all subcomponents. It's very simple to use:
+<!-- Omi Store Architecture: Injected from the root component and shared across all subcomponents. It's very simple to use:
 
 ```js
 import { define, render, WeElement } from 'omi'
@@ -362,26 +362,25 @@ const store = {
 }
 //Injection through a third parameter
 render(<my-app />, document.body, store)
-```
+``` -->
 
 Unlike global variables, when there are multiple root nodes, multiple stores can be injected.
 
-<!-- 
 ```js
 define('my-first-element', class extends WeElement {
-  //You must declare data here for view updating
-  static get data() {
-    return { name: null }
-  }
+  //You must declare use here for view updating
+  static use = [
+    { myName: 'name' }
+  ]
 
   onClick = () => {
     //auto update the view
     this.store.data.name = 'abc'
   }
 
-  render(props, data, store) {
+  render() {
     return (
-      <h1 onClick={this.onClick}>Hello, {store.data.name}!</h1>
+      <h1 onClick={this.onClick}>Hello, {this.use.myName}!</h1>
     )
   }
 })
@@ -392,33 +391,10 @@ const store = {
 render(<my-first-element name="world"></my-first-element>, 'body', store)
 ```
 
-The static data will be transform to path for partial view updating, for example:
-
-```js
-static get data() {
-  return {
-    a: null,
-    b: null,
-    c: { d: [] },
-    e: []
-  }
-}
-```
-
-Transformed path：
-
-```js
-{
-  a: true,
-  b: true,
-  'c.d':true,
-  e: true
-}
-```
 
 Exemplify the Path hit rule:
 
-| proxy path | updatePath | Update |
+| proxy path | use path | Update |
 | ---------- | ---------- | ------ |
 | abc        | abc        | true   |
 | abc[1]     | abc        | true   |
@@ -432,6 +408,7 @@ If you hit one condition above, you can update it.
 
 Summary is as long as updatePath or updatePath sub nodes are updated.
 
+<!-- 
 #### Summary
 
 - `store.data` is used to list all attributes and default values (except the components of the view decided by props).
