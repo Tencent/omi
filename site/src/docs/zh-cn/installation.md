@@ -4,8 +4,6 @@
 
 * [Omi 开发版本](https://unpkg.com/omi@latest/dist/omi.js)
 * [Omi 压缩版本](https://unpkg.com/omi@latest/dist/omi.min.js)
-* [Omio 开发版本](https://unpkg.com/omio@latest/dist/omi.js)
-* [Omio 压缩版本](https://unpkg.com/omi@latest/dist/omi.min.js)
 
 也可以通过 npm 安装
 
@@ -26,7 +24,7 @@ npm i omio
 
 ## CLI
 
-## omi-cli
+Omi 提供了官方的 CLI，你不需要去学习怎么配置 webpack、babel或者 TypeScript，CLI 帮你配置好了一切，且提供了各种模板满足不同的项目类型。
 
 ```bash
 $ npm i omi-cli -g     # install cli
