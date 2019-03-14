@@ -1,6 +1,6 @@
 ## 安装  
 
-直接下载并用 <script> 标签引入，Omi 会被注册为一个全局变量。
+直接下载并用 `<script>` 标签引入，Omi 会被注册为一个全局变量。
 
 * [Omi 开发版本](https://unpkg.com/omi@latest/dist/omi.js)
 * [Omi 压缩版本](https://unpkg.com/omi@latest/dist/omi.min.js)
