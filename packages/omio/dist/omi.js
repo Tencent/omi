@@ -614,6 +614,10 @@
         var base = component.base;
         component.__x = !0;
         if (component.uninstall) component.uninstall();
+        if (component.store) for (var i = 0, len = component.store.instances.length; i < len; i++) if (component.store.instances[i] === component) {
+            component.store.instances.splice(i, 1);
+            break;
+        }
         component.base = null;
         var inner = component._component;
         if (inner) unmountComponent(inner); else if (base) {
@@ -1205,7 +1209,7 @@
         renderToString: renderToString
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.0.0';
+    options.root.Omi.version = 'omio-2.0.1';
     var Omi = {
         h: h,
         createElement: h,
