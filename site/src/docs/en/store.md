@@ -65,7 +65,7 @@ render(<my-counter />, 'body', {
 ```
 
 * Declare a dependent path by `static use'.
-* `store `injects all components from the root node through the third parameter of render.
+* `store` injects all components from the root node through the third parameter of render.
 
 Here is a complicated example of `use':
 
