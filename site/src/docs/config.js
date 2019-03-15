@@ -13,7 +13,8 @@ const config = {
         list: [
           { name: 'JSX', md: 'jsx' },
           { name: 'Props', md: 'props' },
-          { name: 'Event', md: 'event' },
+          { name: '事件', md: 'event' },
+          { name: '生命周期', md: 'lifecycle' },
           { name: 'Store', md: 'store' }
         ]
       }
