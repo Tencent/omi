@@ -313,7 +313,7 @@ Store 是 Omi 内置的中心化数据仓库，他解决和提供了下面问题
 * 组件树数据共享
 * 数据变更按需更新依赖的组件
 
-![](https://github.com/Tencent/omi/raw/master/assets/store.jpg)
+![](https://github.com/Tencent/omi/raw/master/assets/store.cn.jpg)
 
 ## 一段代码完全上手 Store
 
