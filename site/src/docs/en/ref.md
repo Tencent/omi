@@ -16,12 +16,12 @@ define('my-element', class extends WeElement {
 })
 ```
 
-在元素上添加 `ref={e => { this.anyNameYouWant = e }}` ，然后你就可以 JS 代码里使用 `this.anyNameYouWant` 访问该元素。你可以使用两种方式来提高 update 的性能：
+Add `ref = {e => {this. anyNameYouWant = e} ` to the element, and then you can access the element using `this. anyNameYouWant` in the JS code. You can improve the performance of update in two ways:
 
-* 提前赋值
+* Assignment ahead of time
 * createRef
 
-### 提前赋值
+### Assignment ahead of time
 
 ```jsx
 define('my-element', class extends WeElement {
@@ -42,8 +42,6 @@ define('my-element', class extends WeElement {
 ```
 
 ### createRef
-
-你也可以使用 `createRef` 来得到更高的性能:
 
 ```jsx
 define('my-element', class extends WeElement {
