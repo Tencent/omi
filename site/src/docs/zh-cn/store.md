@@ -67,7 +67,24 @@ render(<my-counter />, 'body', {
 * 通过 `static use` 声明依赖的 path
 * `store` 通过 render 的第三个参数从根节点注入到所有组件。
 
-下面举一个复杂的 `use` 例子：
+下面举一个复杂的 `use` 例子。
+
+Store 里的 data:
+
+```json
+{
+  count: 0,
+  arr: ['china', 'tencent'],
+  motto: 'I love omi.',
+  userInfo: {
+    firstName: 'dnt',
+    lastName: 'zhang',
+    age: 18
+  }
+}
+```
+
+Static use:
 
 ```jsx
 static use = [

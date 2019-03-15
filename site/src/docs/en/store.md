@@ -67,12 +67,29 @@ render(<my-counter />, 'body', {
 * Declare a dependent path by `static use'.
 * `store` injects all components from the root node through the third parameter of render.
 
-Here is a complicated example of `use':
+Here is a complicated example of `use'.
+
+Data of store:
+
+```json
+{
+  count: 0,
+  arr: ['china', 'tencent'],
+  motto: 'I love omi.',
+  userInfo: {
+    firstName: 'dnt',
+    lastName: 'zhang',
+    age: 18
+  }
+}
+```
+
+Static use:
 
 ```jsx
 static use = [
   'count', //Direct string, accessible through this.use[0] 
-  'arr[0]', //It also supports path, which is accessible through this. use [1]
+  'arr[0]', //It also supports path, which is accessible through this.use[1]
   //Support JSON
   {
     //Alias, accessible through this.use.reverseMotto
@@ -121,4 +138,4 @@ render() {
 ...
 ```
 
-Without alias, you can also access it directly through `this. store. data. xxx'.
+Without alias, you can also access it directly through `this.store.data.xxx'.
