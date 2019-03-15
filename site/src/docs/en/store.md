@@ -1,4 +1,4 @@
-## Store 是什么？
+## What's Store?
 
 Store is Omi's built-in centralized data warehouse, which solves and provides the following problems and capabilities:
 
