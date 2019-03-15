@@ -1,22 +1,22 @@
-## 安装  
+## Installation  
 
-直接下载并用 `<script>` 标签引入，Omi 会被注册为一个全局变量。
+Simply download and include with `<script>`. Omi will be registered as a global variable.
 
-* [Omi 开发版本](https://unpkg.com/omi@latest/dist/omi.js)
-* [Omi 压缩版本](https://unpkg.com/omi@latest/dist/omi.min.js)
+* [Omi Development Version](https://unpkg.com/omi@latest/dist/omi.js)
+* [Omi Production Version](https://unpkg.com/omi@latest/dist/omi.min.js)
 
-也可以通过 npm 安装
+Install via npm:
 
 ```
 npm i omi
 ```
 
-如果需要兼容 IE8+，可以选择 omio，它拥有和 omi 几乎一样的 API，且 Omi 也会被注册为一个全局变量。
+If you need to be compatible with IE8+, you can choose omio, which has almost the same API as omi, and Omi will be registered as a global variable.
 
-* [Omio 开发版本](https://unpkg.com/omio@latest/dist/omi.js)
-* [Omio 压缩版本](https://unpkg.com/omi@latest/dist/omi.min.js)
+* [Omio Development Version](https://unpkg.com/omio@latest/dist/omi.js)
+* [Omio Production Version](https://unpkg.com/omi@latest/dist/omi.min.js)
 
-或者
+Install via npm:
 
 ```
 npm i omio
@@ -24,7 +24,7 @@ npm i omio
 
 ## CLI
 
-Omi 提供了官方的 CLI，你不需要去学习怎么配置 webpack、babel或者 TypeScript，CLI 帮你配置好了一切，且提供了各种模板满足不同的项目类型。
+Omi provides the official CLI. You don't need to learn how to configure webpack, Babel or TypeScript. CLI helps you configure everything and provides various templates for different project types.
 
 ```bash
 $ npm i omi-cli -g     # install cli
