@@ -15,7 +15,14 @@ const config = {
           { name: 'Props', md: 'props' },
           { name: '事件', md: 'event' },
           { name: '生命周期', md: 'lifecycle' },
+          { name: 'Ref', md: 'ref' },
           { name: 'Store', md: 'store' }
+        ]
+      },
+      {
+        title: '其他',
+        list: [
+          { name: '生态与例子', md: 'other' }
         ]
       }
     ],
