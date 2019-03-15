@@ -68,7 +68,7 @@ You can also use `like-button` tag directly in HTML：
 The HTML structure is written in hyperscript and JS is written in ES5. You can use JSX and ES2015 + instead.
 
 
-```jsx {9-12}
+```jsx {8-11}
 import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {

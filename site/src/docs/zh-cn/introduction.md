@@ -73,7 +73,7 @@ Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web C
 上面使用的是 hyperscript 的方式来书写 HTML 结构，用 ES5 书写 JS ，你可以使用 JSX 和 ES2015+ 来替代它们。
 
 
-```jsx {9-12}
+```jsx {8-11}
 import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
