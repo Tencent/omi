@@ -41,7 +41,7 @@ define('my-element', class extends WeElement {
 
 你可以通过静态属性 `static defaultProps` 来设置默认值:
 
-```js
+```jsx
 define('my-first-element', class extends WeElement {
   static defaultProps = {
 		name: 'Omi',

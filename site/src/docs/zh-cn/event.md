@@ -1,6 +1,6 @@
 ## Event
 
-```js
+```jsx
 define('my-element', class extends WeElement {
   onClick = (evt) => {
     alert('Hello Omi!')
@@ -16,7 +16,7 @@ define('my-element', class extends WeElement {
 
 ### Custom Event
 
-```js
+```jsx
 define('my-element', class extends WeElement {
   onClick = (evt) => {
     this.fire('myevent', { name: 'abc' })
@@ -32,7 +32,7 @@ define('my-element', class extends WeElement {
 
 然后在你的自定义元素上绑定事件：
 
-```js
+```jsx
 <my-element onMyEvent={(evt) => { alert(evt.detail.name) }}></my-element>
 ```
 

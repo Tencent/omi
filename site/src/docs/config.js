@@ -12,6 +12,8 @@ const config = {
         title: '基础概念',
         list: [
           { name: 'JSX', md: 'jsx' },
+          { name: 'Props', md: 'props' },
+          { name: 'Event', md: 'event' },
           { name: 'Store', md: 'store' }
         ]
       }
