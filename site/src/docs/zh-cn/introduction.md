@@ -7,6 +7,13 @@
 
 Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web Components 设计，支持 PC Web、移动 H5 和小程序开发(One framework. Mobile & desktop & mini program)。
 
+
+<em> Omi looks really neat!<br> </em>
+　　　　— [Jason Miller (Creator of Preact)](https://twitter.com/_developit/)
+
+<em> I really like the trend towards "frameworks" that:<br><br>"export default class WeElement extends HTMLElement {..}"<br> <br>This one, Omi, is from Tencent.</em>       
+　　　　— [Dion Almaer](https://twitter.com/dalmaer/)
+
 ## 一个 HTML 完全上手
 
 下面这个页面不需要任何构建工具就可以执行:

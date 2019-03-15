@@ -2,6 +2,12 @@
 
 Omi (pronounced /ˈomɪ/) is next front end framework base on Web Component. One framework. Mobile & desktop & mini program.
 
+<em> Omi looks really neat!<br> </em>
+　　　　— [Jason Miller (Creator of Preact)](https://twitter.com/_developit/)
+
+<em> I really like the trend towards "frameworks" that:<br><br>"export default class WeElement extends HTMLElement {..}"<br> <br>This one, Omi, is from Tencent.</em>       
+　　　　— [Dion Almaer](https://twitter.com/dalmaer/)
+
 ## Add Omi in One Minute
 
 This page demonstrates using Omi **with no build tooling**:
