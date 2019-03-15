@@ -1,15 +1,10 @@
-<!-- <p align="center"><img src="https://github.com/Tencent/omi/raw/master/assets/omi-logo2019.svg?sanitize=true" alt="omi" width="300"/></p>
-<h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
-<p align="center"><b>基于 Web Components 并支持 IE8+(omio) 和 小程序(omip)</b></p>
- -->
+## What's Omi ？
 
-## Omi 是什么？
+Omi (pronounced /ˈomɪ/) is next front end framework base on Web Component. One framework. Mobile & desktop & mini program.
 
-Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web Components 设计，支持 PC Web、移动 H5 和小程序开发(One framework. Mobile & desktop & mini program)。
+## Add Omi in One Minute
 
-## 一个 HTML 完全上手
-
-下面这个页面不需要任何构建工具就可以执行:
+This page demonstrates using Omi **with no build tooling**:
 
 ```html
 <script src="https://unpkg.com/omi"></script>
@@ -60,7 +55,7 @@ Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web C
 </script>
 ```
 
-通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 `my-counter` 标签：
+You can also use `like-button` tag directly in HTML：
 
 ```jsx
 <body>
@@ -68,9 +63,9 @@ Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web C
 </body>
 ```
 
-* [点击这里看执行结果](https://tencent.github.io/omi/assets/omi.html)
+- [Online Demo!](https://tencent.github.io/omi/assets/omi.html)
 
-上面使用的是 hyperscript 的方式来书写 HTML 结构，用 ES5 书写 JS ，你可以使用 JSX 和 ES2015+ 来替代它们。
+The HTML structure is written in hyperscript and JS is written in ES5. You can use JSX and ES2015 + instead.
 
 
 ```jsx {9-12}
@@ -110,11 +105,13 @@ define('my-counter', class extends WeElement {
 render(<my-counter />, 'body')
 ```
 
-看上面高亮的部分，可以给组件加样式，比如上面的 span 的作用域仅仅在组件内部，不会污染别的组件。到现在你已经成功入门 Omi 了！你学会了:
+Looking at the highlighted part above, you can style the components. For example, the scope of the span above is only within the components, and it does not pollute other components. So far you have successfully started Omi! You learned:
 
-* 为组件添加**结构**，如上面使用 JSX 书写结构
-* 为组件添加**行为**，如上面的 `onClick` 绑定事件
-* 为组件添加**样式**，如上面的 `static css`
-* 渲染组件到 body，当然也可以把组件渲染到任意其他组件
+* Add ** structure ** for components, such as JSX writing structure above
+* Add ** behavior ** to the component, such as the `onClick'binding event above
+* Add ** style ** to the component, such as `static css'above`
+* Rendering components to body, of course, can also render components to any other component
 
-恭喜你！
+
+
+Congratulations!
