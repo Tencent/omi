@@ -1,13 +1,13 @@
 ## Store 是什么？
 
-Store 是 Omi 内置的中心化数据仓库，他解决和提供了下面问题和能力：
+Store is Omi's built-in centralized data warehouse, which solves and provides the following problems and capabilities:
 
-* 组件树数据共享
-* 数据变更按需更新依赖的组件
+* Component Tree Data Sharing
+* Data Change Updates Dependent Components on Demand
 
 ![](https://github.com/Tencent/omi/raw/master/assets/store.jpg)
 
-## 一段代码完全上手 Store
+## A piece of code is completely ready for Store
 
 ```jsx
 import { render, WeElement, define } from '../../src/omi'
@@ -64,26 +64,26 @@ render(<my-counter />, 'body', {
 })
 ```
 
-* 通过 `static use` 声明依赖的 path
-* `store` 通过 render 的第三个参数从根节点注入到所有组件。
+* Declare a dependent path by `static use'.
+* `store `injects all components from the root node through the third parameter of render.
 
-下面举一个复杂的 `use` 例子：
+Here is a complicated example of `use':
 
 ```jsx
 static use = [
-  'count', //直接字符串，JSX 里可通过 this.use[0] 访问
-  'arr[0]', //也支持 path，JSX 里可通过 this.use[1] 访问
-  //支持 json
+  'count', //Direct string, accessible through this.use[0] 
+  'arr[0]', //It also supports path, which is accessible through this. use [1]
+  //Support JSON
   {
-    //alias，JSX 里可通过 this.use.reverseMotto 访问
+    //Alias, accessible through this.use.reverseMotto
     reverseMotto: [
       'motto', //path
       target => target.split('').reverse().join('')  //computed
     ]
   },
-  { name: 'arr[1]' }, //{ alias: path }，JSX 里可通过 this.use.name 访问
+  { name: 'arr[1]' }, //{ alias: path }，accessible through this.use.name
   {
-    //alias，JSX 里可通过 this.use.fullName 访问
+    //alias，accessible through this.use.fullName
     fullName: [
       ['userInfo.firstName', 'userInfo.lastName'], //path array
       (firstName, lastName) => firstName + lastName //computed
@@ -92,7 +92,7 @@ static use = [
 ]
 ```
 
-下面看看 JSX 中使用:
+Let's look at the use of JSX:
 
 ```jsx
 ...
@@ -121,4 +121,4 @@ render() {
 ...
 ```
 
-如果不带有 alias ，你也可以直接通过 `this.store.data.xxx` 访问。
+Without alias, you can also access it directly through `this. store. data. xxx'.

@@ -71,19 +71,19 @@ render(<my-counter />, 'body', {
 
 ```jsx
 static use = [
-  'count', //直接字符串，JSX 里可通过 this.use[0] 访问
-  'arr[0]', //也支持 path，JSX 里可通过 this.use[1] 访问
+  'count', //直接字符串，可通过 this.use[0] 访问
+  'arr[0]', //也支持 path，可通过 this.use[1] 访问
   //支持 json
   {
-    //alias，JSX 里可通过 this.use.reverseMotto 访问
+    //alias，可通过 this.use.reverseMotto 访问
     reverseMotto: [
       'motto', //path
       target => target.split('').reverse().join('')  //computed
     ]
   },
-  { name: 'arr[1]' }, //{ alias: path }，JSX 里可通过 this.use.name 访问
+  { name: 'arr[1]' }, //{ alias: path }，可通过 this.use.name 访问
   {
-    //alias，JSX 里可通过 this.use.fullName 访问
+    //alias，可通过 this.use.fullName 访问
     fullName: [
       ['userInfo.firstName', 'userInfo.lastName'], //path array
       (firstName, lastName) => firstName + lastName //computed
