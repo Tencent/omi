@@ -37,7 +37,18 @@ const config = {
       {
         title: 'Base',
         list: [
+          { name: 'JSX', md: 'jsx' },
+          { name: 'Props', md: 'props' },
+          { name: 'Event', md: 'event' },
+          { name: 'Lifecycle', md: 'lifecycle' },
+          { name: 'Ref', md: 'ref' },
           { name: 'Store', md: 'store' }
+        ]
+      },
+      {
+        title: 'Other',
+        list: [
+          { name: 'Ecosystem and examples', md: 'other' }
         ]
       }
     ]
