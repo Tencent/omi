@@ -102,6 +102,9 @@ const isWindows = os.platform() === 'win32'
 
 let constantsReplaceList = Object.assign({}, Util.generateEnvList(projectConfig.env || {}), Util.generateConstantsList(projectConfig.defineConstants || {}))
 
+//@fix
+exists(path.join('./src/cloud'), path.join('./dist/cloudfunctions'), copy)
+
 function getExactedNpmFilePath (npmName, filePath) {
   try {
     //里面会递归 require 进行拷贝到 npm 目录
@@ -2030,6 +2033,49 @@ function copyFileSync (from, to, options) {
   return fs.copySync(from, to, options)
 }
 
+const stat= fs.stat
+
+function copy(src,dst){
+    //读取目录
+    fs.readdir(src,function(err,paths){
+        if(err){
+            throw err;
+        }
+        paths.forEach(function(path){
+            var _src=src+'/'+path;
+            var _dst=dst+'/'+path;
+            var readable;
+            var writable;
+            stat(_src,function(err,st){
+                if(err){
+                    throw err;
+                }
+
+                if(st.isFile()){
+                    readable=fs.createReadStream(_src);//创建读取流
+                    writable=fs.createWriteStream(_dst);//创建写入流
+                    readable.pipe(writable);
+                }else if(st.isDirectory()){
+                    exists(_src,_dst,copy);
+                }
+            });
+        });
+    });
+}
+
+function exists(src,dst,callback){
+    //测试某个路径下文件是否存在
+    fs.exists(dst,function(exists){
+        if(exists){//不存在
+            callback(src,dst);
+        }else{//存在
+            fs.mkdir(dst,function(){//创建目录
+                callback(src,dst)
+            })
+        }
+    })
+}
+
 function copyFiles () {
   const copyConfig = projectConfig.copy || { patterns: [], options: {} }
   if (copyConfig.patterns && copyConfig.patterns.length) {
@@ -2142,7 +2188,14 @@ function watchFiles () {
               Util.printLog(Util.pocessTypeEnum.MODIFY, 'JS文件', modifySource)
               compileDepScripts([filePath])
             } else {
-              Util.printLog(Util.pocessTypeEnum.WARNING, 'JS文件', `${modifySource} 没有被引用到，不会被编译`)
+              //@fix
+              if (modifySource.indexOf('src/cloud/') !== -1 || modifySource.indexOf('src\\cloud\\') !== -1) {
+                exists(path.join('./src/cloud'), path.join('./dist/cloudfunctions'), copy)
+                Util.printLog(Util.pocessTypeEnum.MODIFY, '云端文件', modifySource)
+                Util.printLog(Util.pocessTypeEnum.COPY, '云端文件', modifySource.replace('dist/cloudfunctions/'))
+              } else {
+                Util.printLog(Util.pocessTypeEnum.WARNING, 'JS文件', `${modifySource} 没有被引用到，不会被编译`)
+              }
             }
           }
         }
