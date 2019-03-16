@@ -634,7 +634,7 @@
     }
     function render(vnode, parent, store, empty, merge) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
-        if (store) {
+        if (store && store.data) {
             store.instances = [];
             extendStoreUpate(store);
             var timeout = null;
@@ -1209,7 +1209,7 @@
         renderToString: renderToString
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.0.1';
+    options.root.Omi.version = 'omio-2.0.2';
     var Omi = {
         h: h,
         createElement: h,

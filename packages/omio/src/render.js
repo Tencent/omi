@@ -1,6 +1,6 @@
 import { diff } from './vdom/diff'
 import obaa from './obaa'
-import { getUse } from './util' 
+import { getUse } from './util'
 
 /** Render JSX into a `parent` Element.
  *	@param {VNode} vnode		A (JSX) VNode to render
@@ -10,7 +10,7 @@ import { getUse } from './util'
  */
 export function render(vnode, parent, store, empty, merge) {
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent
-  if (store) {
+  if (store && store.data) {
     store.instances = []
     extendStoreUpate(store)
     let timeout = null

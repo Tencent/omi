@@ -1,4 +1,4 @@
-# Omip
+## Omip
 
 使用 Omi 开发小程序或 H5 SPA
 
@@ -21,7 +21,7 @@
 
 ## 快速开始
 
-```js
+```bash
 npm i omi-cli -g
 omi init-p my-app
 cd my-app
@@ -45,7 +45,7 @@ omi init-p-ts my-app
 
 ## 代码示例
 
-```js
+```jsx
 import { WeElement, define } from 'omi'
 import './index.css'
 

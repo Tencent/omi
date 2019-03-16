@@ -1,5 +1,5 @@
 /**
- * omi v2.0.1  http://omijs.org
+ * omi v2.0.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1698,7 +1698,7 @@ Component.is = 'WeElement';
  */
 function render(vnode, parent, store, empty, merge) {
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-  if (store) {
+  if (store && store.data) {
     store.instances = [];
     extendStoreUpate(store);
     var timeout = null;
@@ -2240,7 +2240,7 @@ options.root.Omi = {
   renderToString: renderToString
 };
 options.root.omi = options.root.Omi;
-options.root.Omi.version = 'omio-2.0.1';
+options.root.Omi.version = 'omio-2.0.2';
 
 var omi = {
   h: h,

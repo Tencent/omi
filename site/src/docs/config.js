@@ -22,7 +22,8 @@ const config = {
       {
         title: '其他',
         list: [
-          { name: '生态与例子', md: 'other' }
+          { name: '生态与例子', md: 'other' },
+          { name: 'Omip 多端开发', md: 'omip' }
         ]
       }
     ],
