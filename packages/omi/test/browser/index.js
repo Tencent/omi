@@ -1,9 +1,8 @@
 import {
   define,
   render,
-  Component,
-  cloneElement,
   WeElement,
+  cloneElement,
   createRef,
   getHost
 } from '../../src/omi'
@@ -29,7 +28,7 @@ describe('install()', () => {
   })
 
   it('should render components', () => {
-    class Ele extends Component {
+    class Ele extends WeElement {
       render() {
         return <div>Ele</div>
       }
@@ -54,7 +53,7 @@ describe('install()', () => {
     const PROPS = { foo: 'bar', onBaz: () => { } }
     let constructorProps
 
-    class C2 extends Component {
+    class C2 extends WeElement {
       install() {
         constructorProps = this.props
       }
