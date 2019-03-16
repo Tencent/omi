@@ -90,7 +90,7 @@ const defineApp = function (name, ctor) {
   config.onHide = function () {
     ins.onHide && ins.onHide()
   }
-  
+
   App(config)
 }
 
@@ -160,6 +160,18 @@ root.create = {
 
     if (ins.onPageScroll) {
       config.onPageScroll = ins.onPageScroll.bind(ins)
+    }
+
+    if (ins.onShareAppMessage) {
+      config.onShareAppMessage = ins.onShareAppMessage.bind(ins)
+    }
+
+    if (ins.onResize) {
+      config.onResize = ins.onResize.bind(ins)
+    }
+
+    if (ins.onTabItemTap) {
+      config.onTabItemTap = ins.onTabItemTap.bind(ins)
     }
 
     ins._createData()
