@@ -123,6 +123,48 @@ this.update(() => {
 })
 ```
 
+## 注意事项
+
+在 JSX 或者一些要使用图片资源的 API，需要使用 import 或者 require 先导入图片再使用，不能直接使用相对地址！
+
+如：
+
+```js
+ onShareAppMessage(){
+		return {
+      title: '分享标题',
+      path: '/pages/index/index?id=123',
+      imageUrl: require('./share.jpg'),
+      success: (res) => {
+        console.log("转发成功", res);
+      },
+      fail: (res) => {
+        console.log("转发失败", res);
+      }
+    }
+  }
+```
+
+再比如:
+
+```jsx
+import src from './my-image.png'
+...
+...
+
+
+  render() {
+    return (
+      <view>
+        <image src={src}></image>
+      </view>
+    )
+  }
+...
+...
+
+```
+
 ## 获取最新的 omip 版本
 
 你只需要重新拉去模板便可以更新到最新的 omip:
