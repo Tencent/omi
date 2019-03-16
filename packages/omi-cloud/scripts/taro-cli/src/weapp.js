@@ -2192,7 +2192,7 @@ function watchFiles () {
               if (modifySource.indexOf('src/cloud/') !== -1 || modifySource.indexOf('src\\cloud\\') !== -1) {
                 exists(path.join('./src/cloud'), path.join('./dist/cloudfunctions'), copy)
                 Util.printLog(Util.pocessTypeEnum.MODIFY, '云端文件', modifySource)
-                Util.printLog(Util.pocessTypeEnum.COPY, '云端文件', modifySource.replace('dist/cloudfunctions/'))
+                Util.printLog(Util.pocessTypeEnum.COPY, '云端文件', modifySource.replace('src/cloud', 'dist/cloudfunctions/'))
               } else {
                 Util.printLog(Util.pocessTypeEnum.WARNING, 'JS文件', `${modifySource} 没有被引用到，不会被编译`)
               }
