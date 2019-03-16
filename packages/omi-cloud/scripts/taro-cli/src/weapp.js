@@ -1059,9 +1059,14 @@ function buildProjectConfig () {
     projectConfigFileName = 'project.config.json'
   }
   fs.ensureDirSync(outputDir)
+  //@fix
+  // fs.writeFileSync(
+  //   path.join(outputDir, projectConfigFileName),
+  //   JSON.stringify(Object.assign({}, origProjectConfig, { miniprogramRoot: './' }), null, 2)
+  // )
   fs.writeFileSync(
-    path.join(outputDir, projectConfigFileName),
-    JSON.stringify(Object.assign({}, origProjectConfig, { miniprogramRoot: './' }), null, 2)
+    path.join(path.resolve(outputDir, '..'), projectConfigFileName),
+    JSON.stringify(Object.assign({}, origProjectConfig), null, 2)
   )
   Util.printLog(Util.pocessTypeEnum.GENERATE, '工具配置', `${outputDirName}/${projectConfigFileName}`)
 }

@@ -26,6 +26,27 @@ define('page-index', class extends WeElement {
     })
   }
 
+  onGetOpenid = () => {
+    // 调用云函数
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        app.globalData.openid = res.result.openid
+        wx.navigateTo({
+          url: '../userConsole/userConsole',
+        })
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+        wx.navigateTo({
+          url: '../deployFunctions/deployFunctions',
+        })
+      }
+    })
+  }
+
   install() {
     if (app.globalData.userInfo) {
       this.data.userInfo = app.globalData.userInfo
@@ -71,6 +92,9 @@ define('page-index', class extends WeElement {
               <block>
                 <image bindtap={this.bindViewTap} class="userinfo-avatar" src={userInfo.avatarUrl} mode="cover"></image>
                 <text class="userinfo-nickname">{userInfo.nickName}</text>
+                <view >
+                  <button bindtap={this.onGetOpenid}>获取 openid</button>
+                </view>
               </block>
             )}
         </view>
