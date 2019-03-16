@@ -12,7 +12,7 @@ const config = {
     '@tarojs': 'src/libs'
   },
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  outputRoot: 'dist/miniprogram',
   plugins: {
     babel: {
       sourceMap: true,
