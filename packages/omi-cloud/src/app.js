@@ -63,6 +63,9 @@ define('my-app', class extends WeElement {
       wx.cloud.init({
         traceUser: true,
       })
+      this.globalData.db = wx.cloud.database({
+          env: 'test-06eb2e'
+      })
     }
   }
 
