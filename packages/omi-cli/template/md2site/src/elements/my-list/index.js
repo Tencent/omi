@@ -1,29 +1,33 @@
 import { define, WeElement } from 'omi'
-import css from './_index.css'
 
 define('my-list', class extends WeElement {
+  static css = require('./_index.css')
+
+  static use = [
+    'position'
+  ]
+
   render(props) {
+    const [position] = this.use
+
     return (
       <ul>
         <li class="title">{props.menu.title}</li>
         {props.menu.list &&
-          props.menu.list.map((item, subIndex) => (
-            <li>
+          props.menu.list.map((item, subIndex) => {
+            const cls = position[0] === props.index && position[1] === subIndex ? { class: 'current' } : null
+            return <li>
               <a
                 href={
                   '#/' + item.md + `?index=${props.index}&subIndex=${subIndex}`
                 }
-                class={item.selected ? 'current' : ''}
+                {...cls}
               >
                 {item.name}
               </a>
             </li>
-          ))}
+          })}
       </ul>
     )
-  }
-
-  css() {
-    return css
   }
 })

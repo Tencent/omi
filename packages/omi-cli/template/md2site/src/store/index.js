@@ -3,54 +3,76 @@ import 'omi-router'
 
 class Store {
   constructor(data) {
-    this.lan = data.lan
-    this.menus = config.menus[this.lan]
-    this.md = this.menus[0].list[0].md
-    this.remarkable = new Remarkable({ html: true })
-    this.getMarkDown(this.md, this.lan, m => {
-      this.html = this.remarkable.render(m)
-      this.myContent.update()
+    this.data = {
+      position: [-1, -1],
+      menus: config.menus,
+      lan: data.lan,
+      html: '',
+      sideBarShow: window.innerWidth > 768
+    }
+    let id = 0
+    this.map = {}
+    this.positionMap = {}
+    config.menus[this.data.lan].forEach((menu, index) => {
+      menu.list.forEach((item, subIndex) => {
+        item.id = id++
+        item.position = [index, subIndex]
+        this.map[item.id] = item
+        item.index = index
+        item.subIndex = subIndex
+        this.positionMap[index+'-'+subIndex] = item
+      })
     })
-
-    this.menus[0].active = true
-    this.menus[0].currentIndex = 0
-    this.menus[0].list[0].selected = true
-    this.demo = this.menus[0].list[0].demo
-    this.initRouter()
-
     this.preIndex = 0
     this.preSubIndex = 0
+  }
 
-    this.sideBarShow = window.innerWidth > 768
+  getNext(){
+    const item = this.positionMap[this.data.position.join('-')]
+    if(item){
+      return this.map[item.id+1]
+    }
+  }
+
+  getPre(){
+    const item = this.positionMap[this.data.position.join('-')]
+    if(item){
+      return this.map[item.id-1]
+    }
+  }
+
+  init() {
+    this.remarkable = new Remarkable({ html: true })
+    if (location.hash === "") {
+      this.data.position = [0, 0]
+      this.getMarkDown(this.data.menus[this.data.lan][0].list[0].md, this.data.lan, m => {
+        this.data.html = this.remarkable.render(m)
+      })
+    }
+    this.initRouter()
   }
 
   toogleSidebar() {
-    this.sideBarShow = !this.sideBarShow
-    this.mySidebar.update()
+    this.data.sideBarShow = !this.data.sideBarShow
   }
 
-  hideSidebar(){
-    this.sideBarShow = false
-    this.mySidebar.update()
+  hideSidebar() {
+    this.data.sideBarShow = false
   }
 
   initRouter() {
-    this.menus.forEach(item => {
+    const menus = this.data.menus[this.data.lan]
+    menus.forEach(item => {
       item.list.forEach(subItem => {
         route('/' + subItem.md, evt => {
-          this.menus[this.preIndex].list[this.preSubIndex].selected = false
-          const item = this.menus[evt.query.index].list[evt.query.subIndex]
-          item.selected = true
-          this.myDemo.show = false
-          this.myDemo.demo = item.demo
-          this.myDemo.update()
+          menus[this.preIndex].list[this.preSubIndex].selected = false
           this.preIndex = evt.query.index
           this.preSubIndex = evt.query.subIndex
-          this.sideBarShow = false
-          this.mySidebar.update()
-          this.getMarkDown(subItem.md, this.lan, m => {
-            this.html = this.remarkable.render(m)
-            this.myContent.update()
+          this.data.position = [Number(evt.query.index), Number(evt.query.subIndex)]
+          this.data.sideBarShow = false
+
+          this.getMarkDown(subItem.md, this.data.lan, m => {
+            this.data.html = this.remarkable.render(m)
             document.body.scrollTop = 0
             document.documentElement.scrollTop = 0
           })
@@ -66,4 +88,4 @@ class Store {
   }
 }
 
-export default Store 
+export default Store

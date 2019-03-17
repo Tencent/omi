@@ -1,7 +1,13 @@
 import { define, WeElement } from 'omi'
-import css from './_index.css'
+import '../my-footer'
 
 define('my-content', class extends WeElement {
+  static css = require('./_index.css')
+
+  static use = [
+    'html'
+  ]
+
   install() {
     this.store.myContent = this
   }
@@ -30,10 +36,9 @@ define('my-content', class extends WeElement {
       arr && pre.setAttribute('data-line', arr[1])
       if (code.className) {
         pre.className = code.className
-     
-        let temp = code.className.match(/language-\w*/g)[0]
+
+        const temp = code.className.match(/language-\w*/g)[0]
         if (temp) {
-         
           code.innerHTML = Prism.highlight(code.innerText, Prism.languages[temp.split('-')[1]], temp.split('-')[1])
         }
       } else {
@@ -42,8 +47,41 @@ define('my-content', class extends WeElement {
         pre.className = 'language-markup'
         code.innerHTML = Prism.highlight(code.innerText, Prism.languages.markup, 'markup')
       }
+      // let hllNums = null
+      // if (arr) {
+      //   let numArr = arr[0].replace(/[{|}]/g, '').split(',')
+      //   hllNums = this._arrToNumber(numArr)
+      // }
+      //codeHlNumArr.push(hllNums)
     })
 
+    // codesArr.forEach((code, index) => {
+    //   let newP = document.createElement('div')
+    //   newP.className = '_code-ctn'
+    //   let pre = code.parentNode
+    //   let ctn = pre.parentNode
+    //   if (pre.nodeName === 'PRE') {
+    //     ctn.insertBefore(newP, pre)
+
+    //     let hl = document.createElement('div')
+    //     hl.className = '_hl'
+    //     newP.appendChild(hl)
+    //     newP.appendChild(pre)
+    //     let nums = codeHlNumArr[index]
+
+    //     let max = Math.max.apply(null, nums)
+
+    //     let inner = ''
+    //     for (let i = 0; i <= max; i++) {
+    //       if (nums.indexOf(i) == -1) {
+    //         inner += '<br />'
+    //       } else {
+    //         inner += '<div class="_hll"></div>'
+    //       }
+    //     }
+    //     hl.innerHTML = inner
+    //   }
+    // })
     //fix line-highlight
     window.dispatchEvent(new Event('resize'));
   }
@@ -67,14 +105,13 @@ define('my-content', class extends WeElement {
 
   render() {
     return (
-      <div
-        class="content" ontouchend={this.touchEnd}
-        dangerouslySetInnerHTML={{ __html: this.store.html }}
-      />
+      <div class="content">
+        <div
+           ontouchend={this.touchEnd}
+          dangerouslySetInnerHTML={{ __html: this.store.data.html }}
+        />
+        <my-footer />
+      </div>
     )
-  }
-
-  css() {
-    return css
   }
 })

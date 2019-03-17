@@ -1,20 +1,21 @@
 import { define, WeElement } from 'omi'
 import '../my-list'
-import css from './_index.css'
 
 define('my-sidebar', class extends WeElement {
-  install() {
-    this.store.mySidebar = this
-  }
+  static css = require('./_index.css')
 
-  css() {
-    return css
-  }
+  static use = [
+    'menus',
+    'sideBarShow',
+    'lan'
+  ]
 
   render() {
+    const [menus, sideBarShow, lan] = this.use
+
     return (
-      <div class={`list${this.store.sideBarShow ? ' show' : ''}`}>
-        {this.store.menus.map((menu, index) => (
+      <div class={`list${sideBarShow ? ' show' : ''}`}>
+        {menus[lan].map((menu, index) => (
           <my-list menu={menu} index={index} />
         ))}
       </div>
