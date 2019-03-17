@@ -2,17 +2,16 @@ import { define, WeElement } from 'omi'
 import '../my-list'
 
 define('my-sidebar', class extends WeElement {
+  static css = require('./_index.css')
+
   static use = [
     'menus',
-    'position',
     'sideBarShow',
     'lan'
   ]
 
-  static css = require('./_index.css')
-
   render() {
-    const [ menus, position, sideBarShow, lan ] = this.use
+    const [menus, sideBarShow, lan] = this.use
 
     return (
       <div class={`list${sideBarShow ? ' show' : ''}`}>

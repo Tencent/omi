@@ -1,14 +1,11 @@
 import { define, WeElement } from 'omi'
-import css from './_index.css'
 import logo from './omi-logo2019.svg'
 
 define('my-head', class extends WeElement {
+  static css = require('./_index.css')
+
   toggleMenus = evt => {
     this.store.toogleSidebar()
-  }
-
-  css() {
-    return css
   }
 
   render() {
@@ -31,7 +28,7 @@ define('my-head', class extends WeElement {
           </li>
           <li style='color:#aaa;'>|</li>
           <li class="github_li m_show">
-            {this.store.lan === 'en' ? (
+            {this.store.data.lan === 'en' ? (
               <a href="cn.html">中文</a>
             ) : (
               <a href="index.html">English</a>
