@@ -10,7 +10,8 @@ define('page-index', class extends WeElement {
     motto: 'Hello Omip',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    todo: []
   }
 
   //事件处理函数
@@ -26,7 +27,7 @@ define('page-index', class extends WeElement {
     })
   }
 
-  onGetOpenid = () => {
+  installed = () => {
     // 调用云函数
     wx.cloud.callFunction({
       name: 'login',
@@ -55,22 +56,19 @@ define('page-index', class extends WeElement {
           //done: false
         })
           .get({
-            success(res) {
+            success: (res) => {
               // res.data 是包含以上定义的两条记录的数组
-              console.log(res.data)
+              this.data.todo = res.data
+              this.update()
             }
           })
 
 
-        wx.navigateTo({
-          url: '../userConsole/userConsole',
-        })
+
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
+
       }
     })
   }
@@ -110,9 +108,16 @@ define('page-index', class extends WeElement {
   }
 
   render() {
-    const { hasUserInfo, canIUse, userInfo, motto } = this.data
+    const { hasUserInfo, canIUse, userInfo, motto, todo } = this.data
     return (
       <view class="container">
+        <view>
+          <view class="todo-list">
+            {todo.map((item, index) => (
+              <text class="todo-item">{index + 1}. {item.text}</text>
+            ))}
+          </view>
+        </view>
         <view class="userinfo">
           {(!hasUserInfo && canIUse) ? (
             <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
@@ -120,9 +125,6 @@ define('page-index', class extends WeElement {
               <block>
                 <image bindtap={this.bindViewTap} class="userinfo-avatar" src={userInfo.avatarUrl} mode="cover"></image>
                 <text class="userinfo-nickname">{userInfo.nickName}</text>
-                <view >
-                  <button bindtap={this.onGetOpenid}>获取 openid</button>
-                </view>
               </block>
             )}
         </view>
