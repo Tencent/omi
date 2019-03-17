@@ -33,6 +33,7 @@ define('page-index', class extends WeElement {
   }
 
   newTodo = () => {
+    wx.showLoading()
     app.globalData.db.collection('todo').add({
       // data 字段表示需新增的 JSON 数据
       data: {
@@ -41,17 +42,26 @@ define('page-index', class extends WeElement {
         done: false,
         createTime: app.globalData.db.serverDate()
       },
-      success(res) {
+      success: (res) => {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
         console.log(res)
         this.data.inputText = ''
+        this.query()
+      },
+      fail: err => {
+        wx.hideLoading()
       }
     })
   }
 
   installed = () => {
-    // 调用云函数
-    wx.cloud.callFunction({
+    wx.showLoading()
+    this.query()
+  }
+
+  query(){
+     // 调用云函数
+     wx.cloud.callFunction({
       name: 'login',
       data: {},
       success: res => {
@@ -68,12 +78,13 @@ define('page-index', class extends WeElement {
             })
             this.data.todo = res.data
             this.update()
+            wx.hideLoading()
           }
         })
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
-
+        wx.hideLoading()
       }
     })
   }
@@ -113,12 +124,12 @@ define('page-index', class extends WeElement {
   }
 
   render() {
-    const { hasUserInfo, canIUse, userInfo, motto, todo } = this.data
+    const { inputText, todo } = this.data
     return (
       <view class="container">
         <view class="title">todos</view>
         <view class="form">
-          <input class="new-todo" bindinput={this.textInput} placeholder="What needs to be done?" autofocus=""></input>
+          <input class="new-todo" bindinput={this.textInput} value={inputText} placeholder="What needs to be done?" autofocus=""></input>
           <button class="add-btn" bindtap={this.newTodo}>确定</button>
         </view>
 
