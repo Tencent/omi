@@ -156,3 +156,34 @@ render() {
 以上只要命中一个条件就可以进行更新！
 
 总结： 只要注入组件的 path 等于 use 里声明 或者在 use 里声明的其中 path 子节点下就会进行更新！
+
+### 快速赋值
+
+```jsx
+import { define, WeElement } from 'omi'
+import '../my-list'
+
+define('my-sidebar', class extends WeElement {
+  static css = require('./_index.css')
+
+  static use = [
+    'menus',
+    'sideBarShow',
+    'lan'
+  ]
+
+  render() {
+    const [menus, sideBarShow, lan] = this.use
+
+    return (
+      <div class={`list${sideBarShow ? ' show' : ''}`}>
+        {menus[lan].map((menu, index) => (
+          <my-list menu={menu} index={index} />
+        ))}
+      </div>
+    )
+  }
+})
+```
+
+这里举了个例子使用 ES2015+ 语法  `const [xx, xxx] = xxxx` 的语法快速赋值。
