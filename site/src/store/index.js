@@ -10,15 +10,38 @@ class Store {
       html: '',
       sideBarShow: window.innerWidth > 768
     }
-
-
-
+    let id = 0
+    this.map = {}
+    this.positionMap = {}
+    config.menus[this.data.lan].forEach((menu, index) => {
+      menu.list.forEach((item, subIndex) => {
+        item.id = id++
+        item.position = [index, subIndex]
+        this.map[item.id] = item
+        item.index = index
+        item.subIndex = subIndex
+        this.positionMap[index+'-'+subIndex] = item
+      })
+    })
     this.preIndex = 0
     this.preSubIndex = 0
-
   }
 
-  init(){
+  getNext(){
+    const item = this.positionMap[this.data.position.join('-')]
+    if(item){
+      return this.map[item.id+1]
+    }
+  }
+
+  getPre(){
+    const item = this.positionMap[this.data.position.join('-')]
+    if(item){
+      return this.map[item.id-1]
+    }
+  }
+
+  init() {
     this.remarkable = new Remarkable({ html: true })
     if (location.hash === "") {
       this.data.position = [0, 0]
@@ -38,14 +61,14 @@ class Store {
   }
 
   initRouter() {
-    const menus  = this.data.menus[this.data.lan]
+    const menus = this.data.menus[this.data.lan]
     menus.forEach(item => {
       item.list.forEach(subItem => {
         route('/' + subItem.md, evt => {
           menus[this.preIndex].list[this.preSubIndex].selected = false
           this.preIndex = evt.query.index
           this.preSubIndex = evt.query.subIndex
-          this.data.position = [Number(evt.query.index), Number( evt.query.subIndex)]
+          this.data.position = [Number(evt.query.index), Number(evt.query.subIndex)]
           this.data.sideBarShow = false
 
           this.getMarkDown(subItem.md, this.data.lan, m => {

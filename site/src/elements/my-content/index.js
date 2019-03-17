@@ -1,4 +1,5 @@
 import { define, WeElement } from 'omi'
+import '../my-footer'
 
 define('my-content', class extends WeElement {
   static css = require('./_index.css')
@@ -104,10 +105,13 @@ define('my-content', class extends WeElement {
 
   render() {
     return (
-      <div
-        class="content" ontouchend={this.touchEnd}
-        dangerouslySetInnerHTML={{ __html: this.store.data.html }}
-      />
+      <div class="content">
+        <div
+           ontouchend={this.touchEnd}
+          dangerouslySetInnerHTML={{ __html: this.store.data.html }}
+        />
+        <my-footer />
+      </div>
     )
   }
 })
