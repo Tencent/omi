@@ -51,6 +51,7 @@
   appearance: none;
   -webkit-appearance:none;
   background: none;
+  line-height:82rpx;
 }
 
 .add-btn:after {

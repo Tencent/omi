@@ -33,7 +33,9 @@ define('page-index', class extends WeElement {
   }
 
   newTodo = () => {
-    wx.showLoading('加载中')
+    wx.showLoading({
+      title: '加载中'
+    })
     app.globalData.db.collection('todo').add({
       // data 字段表示需新增的 JSON 数据
       data: {
@@ -55,7 +57,9 @@ define('page-index', class extends WeElement {
   }
 
   installed = () => {
-    wx.showLoading('加载中')
+    wx.showLoading({
+      title: '加载中'
+    })
     this.query()
   }
 

@@ -15,7 +15,7 @@ define('my-app', class extends WeElement {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      navigationBarTitleText: 'Omi Cloud 备忘录',
       navigationBarTextStyle: 'black'
     }
   }
