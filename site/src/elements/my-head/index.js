@@ -6,11 +6,16 @@ define('my-head', class extends WeElement {
 
   toggleMenus = evt => {
     this.store.toogleSidebar()
+    evt.stopPropagation()
+  }
+
+  hideSidebar = evt => {
+    this.store.hideSidebar()
   }
 
   render() {
     return (
-      <div class="head bord-btm">
+      <div class="head bord-btm" onClick={this.hideSidebar}>
         <div class="m_menu" onClick={this.toggleMenus}>
           <img src={require('./menu.png')} alt="" />
         </div>

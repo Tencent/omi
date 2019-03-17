@@ -30,13 +30,11 @@ class Store {
   }
 
   toogleSidebar() {
-    this.sideBarShow = !this.sideBarShow
-    this.mySidebar.update()
+    this.data.sideBarShow = !this.data.sideBarShow
   }
 
   hideSidebar() {
-    this.sideBarShow = false
-    this.mySidebar.update()
+    this.data.sideBarShow = false
   }
 
   initRouter() {
