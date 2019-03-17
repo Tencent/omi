@@ -59,7 +59,7 @@
         return result;
     }
     function getUse(data, paths) {
-        var obj = {};
+        var obj = [];
         paths.forEach(function(path, index) {
             var isPath = 'string' == typeof path;
             if (isPath) obj[index] = getTargetByPath(data, path); else {
@@ -1209,7 +1209,7 @@
         renderToString: renderToString
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.0.2';
+    options.root.Omi.version = 'omio-2.0.3';
     var Omi = {
         h: h,
         createElement: h,
