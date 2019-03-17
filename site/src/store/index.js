@@ -3,27 +3,35 @@ import 'omi-router'
 
 class Store {
   constructor(data) {
-    this.lan = data.lan
-    this.menus = config.menus[this.lan]
-    this.md = this.menus[0].list[0].md
-    this.remarkable = new Remarkable({ html: true })
-    if (location.hash === "") {
-      this.getMarkDown(this.md, this.lan, m => {
-        this.html = this.remarkable.render(m)
-        this.myContent.update()
-      })
+    this.data = {
+      position: [0, 0],
+      menus: config.menus,
+      lan: data.lan,
+      html: '',
+      sideBarShow: window.innerWidth > 768
     }
 
-    this.menus[0].active = true
-    this.menus[0].currentIndex = 0
-    this.menus[0].list[0].selected = true
-    this.demo = this.menus[0].list[0].demo
-    this.initRouter()
+    // this.lan = data.lan
+    // this.menus = config.menus[this.lan]
+    // this.md = this.menus[0].list[0].md
+    // this.remarkable = new Remarkable({ html: true })
+    // if (location.hash === "") {
+    //   this.getMarkDown(this.md, this.lan, m => {
+    //     this.html = this.remarkable.render(m)
+    //     this.myContent.update()
+    //   })
+    // }
 
-    this.preIndex = 0
-    this.preSubIndex = 0
+    // this.menus[0].active = true
+    // this.menus[0].currentIndex = 0
+    // this.menus[0].list[0].selected = true
+    // this.demo = this.menus[0].list[0].demo
+    // this.initRouter()
 
-    this.sideBarShow = window.innerWidth > 768
+    // this.preIndex = 0
+    // this.preSubIndex = 0
+
+    // this.sideBarShow = window.innerWidth > 768
   }
 
   toogleSidebar() {
@@ -67,4 +75,4 @@ class Store {
   }
 }
 
-export default Store 
+export default Store
