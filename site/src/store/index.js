@@ -46,7 +46,7 @@ class Store {
           this.preIndex = evt.query.index
           this.preSubIndex = evt.query.subIndex
           this.data.position = [Number(evt.query.index), Number( evt.query.subIndex)]
-          this.sideBarShow = false
+          this.data.sideBarShow = false
 
           this.getMarkDown(subItem.md, this.data.lan, m => {
             this.data.html = this.remarkable.render(m)
