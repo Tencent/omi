@@ -51,7 +51,7 @@
         return result;
     }
     function getUse(data, paths) {
-        var obj = {};
+        var obj = [];
         paths.forEach(function(path, index) {
             var isPath = 'string' == typeof path;
             if (isPath) obj[index] = getTargetByPath(data, path); else {
@@ -990,7 +990,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.0.0';
+    options.root.Omi.version = '6.0.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

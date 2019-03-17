@@ -88,7 +88,7 @@ export function nProps(props) {
 }
 
 export function getUse(data, paths) {
-  const obj = {}
+  const obj = []
   paths.forEach((path, index) => {
     const isPath = typeof path === 'string'
     if (isPath) {
