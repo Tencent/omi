@@ -10,7 +10,8 @@ define('page-index', class extends WeElement {
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    todo: []
+    todo: [],
+    inputText: ''
   }
 
   //事件处理函数
@@ -26,6 +27,28 @@ define('page-index', class extends WeElement {
     })
   }
 
+  textInput = (evt) => {
+    console.log(evt.detail.value)
+    this.data.inputText = evt.detail.value
+  }
+
+  newTodo = () => {
+    app.globalData.db.collection('todo').add({
+      // data 字段表示需新增的 JSON 数据
+      data: {
+        // _id: 'todo-identifiant-aleatoire', // 可选自定义 _id，在此处场景下用数据库自动分配的就可以了
+        text: this.data.inputText,
+        done: false,
+        createTime: app.globalData.db.serverDate()
+      },
+      success(res) {
+        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+        console.log(res)
+        this.data.inputText = ''
+      }
+    })
+  }
+
   installed = () => {
     // 调用云函数
     wx.cloud.callFunction({
@@ -34,36 +57,19 @@ define('page-index', class extends WeElement {
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
-
-
-        // app.globalData.db.collection('todo').add({
-        //   // data 字段表示需新增的 JSON 数据
-        //   data: {
-        //     // _id: 'todo-identifiant-aleatoire', // 可选自定义 _id，在此处场景下用数据库自动分配的就可以了
-        //     text: 'learn omi cloud',
-        //     done: false
-        //   },
-        //   success(res) {
-        //     // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-        //     console.log(res)
-        //   }
-        // })
-
-
         app.globalData.db.collection('todo').where({
           _openid: app.globalData.openid
           //done: false
+        }).get({
+          success: (res) => {
+            // res.data 是包含以上定义的两条记录的数组
+            res.data.sort((a, b) => {
+              return b.createTime - a.createTime
+            })
+            this.data.todo = res.data
+            this.update()
+          }
         })
-          .get({
-            success: (res) => {
-              // res.data 是包含以上定义的两条记录的数组
-              this.data.todo = res.data
-              this.update()
-            }
-          })
-
-
-
       },
       fail: err => {
         console.error('[云函数] [login] 调用失败', err)
@@ -112,8 +118,8 @@ define('page-index', class extends WeElement {
       <view class="container">
         <view class="title">todos</view>
         <view class="form">
-          <input class="new-todo" placeholder="What needs to be done?" autofocus=""></input>
-          <button class="add-btn">确定</button>
+          <input class="new-todo" bindinput={this.textInput} placeholder="What needs to be done?" autofocus=""></input>
+          <button class="add-btn" bindtap={this.newTodo}>确定</button>
         </view>
 
         {/* <view class="userinfo">
