@@ -16,6 +16,101 @@
   color: #aaa;
 }
 
-.usermotto {
-  margin-top: 200px;
+.title{
+    width: 100%;
+    font-size: 100rpx;
+    font-weight: 100;
+    text-align: center;
+    color: rgba(175, 47, 47, 0.55);
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
 }
+
+.new-todo{
+  height: 80rpx;
+  border: none;
+  padding-left: 20rpx;
+  /* background: rgba(0, 0, 0, 0.003); */
+  display: inline-block;
+  width: 80%;
+}
+.new-todo:after{
+  border: none;
+}
+
+.add-btn{
+  position: absolute;
+  width: 20%;
+  height: 80rpx;
+  right: 0px;
+  top:0px;
+  border-left: 1px solid #ccc;
+  border-radius: 0px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance:none;
+  background: none;
+}
+
+.add-btn:after {
+  border: none;
+}
+
+.form{
+  position: relative;
+  width: 100%;
+  height: 80rpx;
+  border: 1px solid #ccc;
+}
+
+.todo-list{
+
+ width: 100%;
+}
+.todo-item{
+  position: relative;
+ height: 100rpx;
+ line-height: 100rpx;
+ padding-left: 145rpx;
+ border-bottom: 1px solid #ddd;
+}
+
+.toggle{
+  position: absolute;
+  left:20rpx;
+  width: 60rpx;
+  top:20rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  display: inline-block;
+}
+
+.toggle:after{
+  content: '✔';
+  position: relative;
+  top:-10px;
+  left:8px;
+  color: #79ddce;
+}
+
+
+.delete{
+  position: absolute;
+  right:20rpx;
+  width: 80rpx;
+  text-align: center;
+  height:80rpx;
+  display: inline-block;
+  color: rgba(175, 47, 47, 0.5)
+}
+.delete:after{
+  content: '✕'
+}
+
+.done{
+    color: #d9d9d9;
+    text-decoration: line-through;
+}
+

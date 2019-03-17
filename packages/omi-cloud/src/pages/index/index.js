@@ -7,7 +7,6 @@ const app = getApp()
 
 define('page-index', class extends WeElement {
   data = {
-    motto: 'Hello Omip',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -111,14 +110,13 @@ define('page-index', class extends WeElement {
     const { hasUserInfo, canIUse, userInfo, motto, todo } = this.data
     return (
       <view class="container">
-        <view>
-          <view class="todo-list">
-            {todo.map((item, index) => (
-              <text class="todo-item">{index + 1}. {item.text}</text>
-            ))}
-          </view>
+        <view class="title">todos</view>
+        <view class="form">
+          <input class="new-todo" placeholder="What needs to be done?" autofocus=""></input>
+          <button class="add-btn">确定</button>
         </view>
-        <view class="userinfo">
+
+        {/* <view class="userinfo">
           {(!hasUserInfo && canIUse) ? (
             <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
           ) : (
@@ -127,14 +125,21 @@ define('page-index', class extends WeElement {
                 <text class="userinfo-nickname">{userInfo.nickName}</text>
               </block>
             )}
-        </view>
-        <view class="usermotto">
-          <text class="user-motto">{motto}</text>
+        </view> */}
+
+        <view class="todo-list">
+          {todo.map((item, index) => (
+            <view class="todo-item">
+              <view class="toggle"></view>
+              <text >{index + 1}. {item.text}</text>
+              <view class="delete"></view>
+            </view>
+          ))}
         </view>
 
-        <view >
-          <button bindtap={this.gotoFilms}>点击打开 Omip 复杂案例</button>
-        </view>
+
+
+
       </view>
     )
   }
