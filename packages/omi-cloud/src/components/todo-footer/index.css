@@ -1,6 +1,7 @@
 button {
   background: none;
   font-size: 30rpx;
+  color: #777;
 }
 
 button:after {
@@ -23,7 +24,8 @@ button:after {
   width: 100%;
   font-size: 30rpx;
   position: relative;
-  background-color: rgb(247, 245, 245);
+  background-color: rgb(247, 247, 247);
+  color: #777;
 }
 
 .clear-completed {
@@ -38,4 +40,8 @@ button:after {
 
 .filters view {
   margin: 20rpx;
+}
+
+.selected{
+  border: 1px solid rgba(175, 47, 47, 0.3);
 }

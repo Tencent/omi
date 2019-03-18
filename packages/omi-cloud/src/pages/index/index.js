@@ -12,7 +12,9 @@ define('page-index', class extends WeElement {
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     todo: [],
-    inputText: ''
+    inputText: '',
+    left: 1,
+    type: 'all'
   }
 
   //事件处理函数
@@ -129,7 +131,7 @@ define('page-index', class extends WeElement {
   }
 
   render() {
-    const { inputText, todo } = this.data
+    const { inputText, todo, left, type } = this.data
     return (
       <view class="container">
         <view class="title">todos</view>
@@ -159,7 +161,7 @@ define('page-index', class extends WeElement {
           ))}
         </view>
         
-        <todo-footer></todo-footer>
+        <todo-footer left={left} type={type} ></todo-footer>
       </view>
     )
   }

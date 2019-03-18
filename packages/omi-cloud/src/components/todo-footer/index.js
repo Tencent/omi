@@ -7,16 +7,16 @@ define('todo-footer', class extends WeElement {
   render() {
     return (
       <view class="footer">
-        <view class="todo-count"><strong>0</strong> items left</view>
+        <view class="todo-count"><strong>{this.props.left}</strong> items left</view>
         <view class="filters">
           <view class='ib'>
-            <text class="selected" href="#/">All</text>
+            <text class={this.props.type === 'all' ? 'selected' : ''} >All</text>
           </view>
-          <view  class='ib'>
-            <text href="#/active">Active</text>
+          <view class='ib'>
+            <text class={this.props.type === 'active' ? 'selected' : ''} >Active</text>
           </view>
-          <view  class='ib'>
-            <text href="#/completed">Done</text>
+          <view class='ib'>
+            <text class={this.props.type === 'done' ? 'selected' : ''} >Done</text>
           </view>
         </view>
         <button class="clear-completed">Clear done</button>
