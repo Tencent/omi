@@ -10,7 +10,7 @@
   },
   "appid": "wxdf970566455966b0",
   "projectname": "omi-cloud",
-  "libVersion": "2.2.5",
+  "libVersion": "2.6.2",
   "condition": {
     "search": {
       "current": -1,
