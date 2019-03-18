@@ -31,35 +31,54 @@ define('page-index', class extends WeElement {
   }
 
   textInput = (evt) => {
-    console.log(evt.detail.value)
     this.data.inputText = evt.detail.value
   }
 
-  toggle = (evt)=>{
-    for(let i=0,len = this.data.todo.length;i<len;i++){
+  toggle = (evt) => {
+    for (let i = 0, len = this.data.todo.length; i < len; i++) {
       const item = this.data.todo[i]
-      if(item._id === evt.target.dataset.id){
+      if (item._id === evt.target.dataset.id) {
         item.done = !item.done
         this.update()
-        this.updateDb(item._id, {done:item.done})
+        this.updateDb(item._id, { done: item.done })
         break
       }
     }
   }
 
-  updateDb(id, json){
+  updateDb(id, json) {
     app.globalData.db.collection('todo').doc(id).update({
       // data 传入需要局部更新的数据
       data: json,
       success(res) {
-        console.log(res.data)
+        console.log(res)
+      }
+    })
+  }
+
+  delete = (evt) => {
+    for (let i = 0, len = this.data.todo.length; i < len; i++) {
+      const item = this.data.todo[i]
+      if (item._id === evt.target.dataset.id) {
+        this.data.todo.splice(i, 1)
+        this.update()
+        this.removeDb(item._id, { done: item.done })
+        break
+      }
+    }
+  }
+
+  removeDb(id) {
+    app.globalData.db.collection('todo').doc(id).remove({
+      success(res) {
+        console.log(res)
       }
     })
   }
 
   newTodo = () => {
 
-    if(this.data.inputText.trim() === ''){
+    if (this.data.inputText.trim() === '') {
       wx.showToast({
         title: '内容不能为空',
         icon: 'none',
@@ -68,7 +87,7 @@ define('page-index', class extends WeElement {
 
       return
     }
-   
+
 
     wx.showLoading({
       title: '加载中'
@@ -100,9 +119,9 @@ define('page-index', class extends WeElement {
     this.query()
   }
 
-  query(){
-     // 调用云函数
-     wx.cloud.callFunction({
+  query() {
+    // 调用云函数
+    wx.cloud.callFunction({
       name: 'login',
       data: {},
       success: res => {
@@ -187,14 +206,14 @@ define('page-index', class extends WeElement {
 
         <view class="todo-list">
           {todo.map((item, index) => (
-            <view class={`todo-item${item.done?' done':''}`}>
+            <view class={`todo-item${item.done ? ' done' : ''}`}>
               <view class="toggle" data-id={item._id} bindtap={this.toggle}></view>
-              <text >{index + 1}. {item.text}</text>
-              <view class="delete"></view>
+              <text >{item.text}</text>
+              <view class="delete" data-id={item._id} bindtap={this.delete}></view>
             </view>
           ))}
         </view>
-        
+
         <todo-footer left={left} type={type} ></todo-footer>
       </view>
     )
