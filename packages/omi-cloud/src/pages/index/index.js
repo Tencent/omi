@@ -47,7 +47,7 @@ define('page-index', class extends WeElement {
     }
   }
 
-  computeLeft(){
+  computeLeft() {
     this.data.left = 0
     for (let i = 0, len = this.data.todo.length; i < len; i++) {
       !(this.data.todo[i].done) && this.data.left++
@@ -193,6 +193,11 @@ define('page-index', class extends WeElement {
     this.update()
   }
 
+  filter = (evt) => {
+    this.data.type = evt.detail
+    this.update()
+  }
+
   render() {
     const { inputText, todo, left, type } = this.data
     return (
@@ -203,20 +208,9 @@ define('page-index', class extends WeElement {
           <button class="add-btn" bindtap={this.newTodo}>确定</button>
         </view>
 
-        {/* <view class="userinfo">
-          {(!hasUserInfo && canIUse) ? (
-            <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-          ) : (
-              <block>
-                <image bindtap={this.bindViewTap} class="userinfo-avatar" src={userInfo.avatarUrl} mode="cover"></image>
-                <text class="userinfo-nickname">{userInfo.nickName}</text>
-              </block>
-            )}
-        </view> */}
-
         <view class="todo-list">
-          {todo.map((item, index) => (
-            <view class={`todo-item${item.done ? ' done' : ''}`}>
+          {todo.map(item => (
+            (type === 'all' || (type === 'active' && !item.done) || (type === 'done' && item.done)) && <view class={`todo-item${item.done ? ' done' : ''}`}>
               <view class="toggle" data-id={item._id} bindtap={this.toggle}></view>
               <text >{item.text}</text>
               <view class="delete" data-id={item._id} bindtap={this.delete}></view>
@@ -224,7 +218,7 @@ define('page-index', class extends WeElement {
           ))}
         </view>
 
-        <todo-footer left={left} type={type} ></todo-footer>
+        <todo-footer onFilter={this.filter} left={left} type={type} ></todo-footer>
       </view>
     )
   }
