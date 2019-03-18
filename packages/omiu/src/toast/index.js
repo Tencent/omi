@@ -35,13 +35,19 @@ let toast = {},
   dom
 
 toast.showLoading = function (wording) {
+  if (dom) {
+    document.body.removeChild(dom)
+  }
   dom = render(<o-toast
     type='loading'
     show={true} >{wording || '加载中'}</o-toast>, 'body')
 }
 
 toast.hideLoading = function () {
-  document.body.removeChild(dom)
+  if (dom) {
+    document.body.removeChild(dom)
+    dom = null
+  }
 }
 
 export default toast
