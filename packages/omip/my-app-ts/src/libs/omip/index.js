@@ -7,6 +7,12 @@ class Component {
   constructor() { }
 
   update(patch, callback) {
+    try {
+      this._createData()
+    } catch (e) {
+      console.log(e)
+    }
+    
     this.beforeUpdate && this.beforeUpdate()
     this.beforeRender && this.beforeRender()
 

@@ -91,6 +91,11 @@
 }
 
 .toggle:after{
+  display: none;
+}
+
+.done .toggle:after{
+  display: block;
   content: '✔';
   position: relative;
   top:-19rpx;

@@ -35,6 +35,17 @@ define('page-index', class extends WeElement {
     this.data.inputText = evt.detail.value
   }
 
+  toggle = (evt)=>{
+    for(let i=0,len = this.data.todo.length;i<len;i++){
+      const item = this.data.todo[i]
+      if(item._id === evt.target.dataset.id){
+        item.done = !item.done
+        break
+      }
+    }
+  }
+
+
   newTodo = () => {
 
     if(this.data.inputText.trim() === ''){
@@ -165,8 +176,8 @@ define('page-index', class extends WeElement {
 
         <view class="todo-list">
           {todo.map((item, index) => (
-            <view class="todo-item">
-              <view class="toggle"></view>
+            <view class={`todo-item${item.done?' done':''}`}>
+              <view class="toggle" data-id={item._id} bindtap={this.toggle}></view>
               <text >{index + 1}. {item.text}</text>
               <view class="delete"></view>
             </view>
