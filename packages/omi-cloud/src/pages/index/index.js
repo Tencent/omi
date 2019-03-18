@@ -13,7 +13,7 @@ define('page-index', class extends WeElement {
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     todo: [],
     inputText: '',
-    left: 1,
+    left: 0,
     type: 'all'
   }
 
@@ -39,10 +39,18 @@ define('page-index', class extends WeElement {
       const item = this.data.todo[i]
       if (item._id === evt.target.dataset.id) {
         item.done = !item.done
+        this.computeLeft()
         this.update()
         this.updateDb(item._id, { done: item.done })
         break
       }
+    }
+  }
+
+  computeLeft(){
+    this.data.left = 0
+    for (let i = 0, len = this.data.todo.length; i < len; i++) {
+      !(this.data.todo[i].done) && this.data.left++
     }
   }
 
@@ -61,6 +69,7 @@ define('page-index', class extends WeElement {
       const item = this.data.todo[i]
       if (item._id === evt.target.dataset.id) {
         this.data.todo.splice(i, 1)
+        this.computeLeft()
         this.update()
         this.removeDb(item._id, { done: item.done })
         break
@@ -137,6 +146,7 @@ define('page-index', class extends WeElement {
               return b.createTime - a.createTime
             })
             this.data.todo = res.data
+            this.computeLeft()
             this.update()
             wx.hideLoading()
           }
