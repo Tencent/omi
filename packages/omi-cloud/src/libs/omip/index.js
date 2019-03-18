@@ -6,13 +6,15 @@ import { updateData } from './update-data'
 class Component {
   constructor() { }
 
+  data = {}
+
   update(patch, callback) {
     try {
       this._createData()
     } catch (e) {
       console.log(e)
     }
-    
+
     this.beforeUpdate && this.beforeUpdate()
     this.beforeRender && this.beforeRender()
 

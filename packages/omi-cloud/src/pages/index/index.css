@@ -128,3 +128,11 @@ todo-footer{
   bottom: 0;
   background-color: white;
 }
+
+.github{
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 50rpx;
+}

@@ -7,7 +7,8 @@ define('my-app', class extends WeElement {
 
   config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/about/index'
     ],
     window: {
       backgroundTextStyle: 'light',
