@@ -10,7 +10,7 @@ button:after {
 
 .todo-count {
   position: absolute;
-  left: 10rpx;
+  left: 20rpx;
   top: 20rpx;
 }
 
