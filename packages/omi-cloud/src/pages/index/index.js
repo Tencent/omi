@@ -40,11 +40,22 @@ define('page-index', class extends WeElement {
       const item = this.data.todo[i]
       if(item._id === evt.target.dataset.id){
         item.done = !item.done
+        this.update()
+        this.updateDb(item._id, {done:item.done})
         break
       }
     }
   }
 
+  updateDb(id, json){
+    app.globalData.db.collection('todo').doc(id).update({
+      // data 传入需要局部更新的数据
+      data: json,
+      success(res) {
+        console.log(res.data)
+      }
+    })
+  }
 
   newTodo = () => {
 
