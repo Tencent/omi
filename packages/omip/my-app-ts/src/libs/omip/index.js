@@ -6,6 +6,8 @@ import { updateData } from './update-data'
 class Component {
   constructor() { }
 
+  data = {}
+  
   update(patch, callback) {
     try {
       this._createData()
