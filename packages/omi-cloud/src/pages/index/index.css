@@ -42,6 +42,7 @@
 .add-btn{
   position: absolute;
   width: 20%;
+  min-width: 70px;
   height: 80rpx;
   right: 0px;
   top:0px;
@@ -66,9 +67,10 @@
 }
 
 .todo-list{
-
- width: 100%;
+  width: 100%;
+  padding-bottom: 100rpx; 
 }
+
 .todo-item{
   position: relative;
  height: 100rpx;
@@ -96,7 +98,6 @@
   color: #79ddce;
 }
 
-
 .delete{
   position: absolute;
   right:20rpx;
@@ -106,6 +107,7 @@
   display: inline-block;
   color: rgba(175, 47, 47, 0.5)
 }
+
 .delete:after{
   content: '✕'
 }
@@ -115,3 +117,9 @@
     text-decoration: line-through;
 }
 
+todo-footer{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+}

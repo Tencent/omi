@@ -1,6 +1,7 @@
 
 import { WeElement, define } from 'omi'
 import './index.css'
+import '../../components/todo-footer'
 
 //获取应用实例
 const app = getApp()
@@ -157,10 +158,8 @@ define('page-index', class extends WeElement {
             </view>
           ))}
         </view>
-
-
-
-
+        
+        <todo-footer></todo-footer>
       </view>
     )
   }

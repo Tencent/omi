@@ -1,0 +1,41 @@
+button {
+  background: none;
+  font-size: 30rpx;
+}
+
+button:after {
+  border: none;
+}
+
+.todo-count {
+  position: absolute;
+  left: 10rpx;
+  top: 20rpx;
+}
+
+.ib {
+  display: inline-block;
+}
+
+.footer {
+  height: 100rpx;
+  line-height: 66rpx;
+  width: 100%;
+  font-size: 30rpx;
+  position: relative;
+  background-color: rgb(247, 245, 245);
+}
+
+.clear-completed {
+  position: absolute;
+  top: 16rpx;
+  right: 10rpx;
+}
+
+.filters {
+  margin-left: 200rpx;
+}
+
+.filters view {
+  margin: 20rpx;
+}
