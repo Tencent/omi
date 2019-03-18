@@ -71,7 +71,7 @@ define('page-index', class extends WeElement {
         this.data.todo.splice(i, 1)
         this.computeLeft()
         this.update()
-        this.removeDb(item._id, { done: item.done })
+        this.removeDb(item._id)
         break
       }
     }
@@ -198,6 +198,40 @@ define('page-index', class extends WeElement {
     this.update()
   }
 
+  clear = (evt) => {
+    wx.showModal({
+      title: '提示',
+      content: '确定清空已完成任务？',
+      success: (res) => {
+        if (res.confirm) {
+          for (let i = 0, len = this.data.todo.length; i < len; i++) {
+            const item = this.data.todo[i]
+            if (item.done) {
+              this.data.todo.splice(i, 1)
+              len--
+              i--
+              this.removeDb(item._id)
+            }
+          }
+          this.data.left = 0
+          this.update()
+
+          wx.cloud.callFunction({
+            // 云函数名称
+            name: 'remove',
+            success(res) {
+              console.log(res.result.sum) // 3
+            },
+            fail: console.error
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    
+  }
+
   render() {
     const { inputText, todo, left, type } = this.data
     return (
@@ -218,7 +252,7 @@ define('page-index', class extends WeElement {
           ))}
         </view>
 
-        <todo-footer onFilter={this.filter} left={left} type={type} ></todo-footer>
+        <todo-footer onFilter={this.filter} onClear={this.clear} left={left} type={type} ></todo-footer>
       </view>
     )
   }

@@ -14,6 +14,10 @@ define('todo-footer', class extends WeElement {
     this.fire('filter', 'done')
   }
 
+  clearDone = () => {
+    this.fire('clear')
+  }
+
   render() {
     return (
       <view class="footer">
@@ -29,7 +33,7 @@ define('todo-footer', class extends WeElement {
             <text class={this.props.type === 'done' ? 'selected' : ''} >Done</text>
           </view>
         </view>
-        <button class="clear-completed">Clear done</button>
+        <button class="clear-completed" bindtap={this.clearDone}>Clear done</button>
       </view>
     )
   }
