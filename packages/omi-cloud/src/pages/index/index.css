@@ -93,8 +93,8 @@
 .toggle:after{
   content: '✔';
   position: relative;
-  top:-10px;
-  left:8px;
+  top:-19rpx;
+  left:16rpx;
   color: #79ddce;
 }
 

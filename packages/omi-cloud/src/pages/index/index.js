@@ -36,6 +36,18 @@ define('page-index', class extends WeElement {
   }
 
   newTodo = () => {
+
+    if(this.data.inputText.trim() === ''){
+      wx.showToast({
+        title: '内容不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+
+      return
+    }
+   
+
     wx.showLoading({
       title: '加载中'
     })
