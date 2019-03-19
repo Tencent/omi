@@ -814,13 +814,21 @@
         }
         return str || void 0;
     }
-    function renderToString(vnode, opts, store, isSvgMode, css) {
-        if (null == vnode || 'boolean' == typeof vnode) return '';
-        var nodeName = vnode.nodeName, attributes = vnode.attributes, isComponent = !1;
+    function renderToString(vnode, opts, store, isSvgMode) {
         store = store || {};
         opts = Object.assign({
             scopedCSS: !0
         }, opts);
+        var css = {};
+        var html = _renderToString(vnode, opts, store, isSvgMode, css);
+        return {
+            css: Object.values(css),
+            html: html
+        };
+    }
+    function _renderToString(vnode, opts, store, isSvgMode, css) {
+        if (null == vnode || 'boolean' == typeof vnode) return '';
+        var nodeName = vnode.nodeName, attributes = vnode.attributes, isComponent = !1;
         var pretty = opts.pretty, indentChar = pretty && 'string' == typeof pretty ? pretty : '\t';
         if ('object' != typeof vnode && !nodeName) return encodeEntities(vnode);
         var ctor = mapping$1[nodeName];
@@ -834,18 +842,17 @@
             if (c.install) c.install();
             if (c.beforeRender) c.beforeRender();
             rendered = c.render(c.props, c.data, c.store);
-            var tempCss;
             if (opts.scopedCSS) {
                 if (c.constructor.css || c.css) {
                     var cssStr = c.constructor.css ? c.constructor.css : 'function' == typeof c.css ? c.css() : c.css;
                     var cssAttr = '_s' + getCtorName(c.constructor);
-                    tempCss = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
+                    css[cssAttr] = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
                     addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
                 }
                 c.scopedCSSAttr = vnode.css;
                 scopeHost(rendered, c.scopedCSSAttr);
             }
-            return renderToString(rendered, opts, store, !1, tempCss);
+            return _renderToString(rendered, opts, store, !1, css);
         }
         var html, s = '';
         if (attributes) {
@@ -892,7 +899,7 @@
             for (var i = 0; i < vnode.children.length; i++) {
                 var child = vnode.children[i];
                 if (null != child && !1 !== child) {
-                    var childSvgMode = 'svg' === nodeName ? !0 : 'foreignObject' === nodeName ? !1 : isSvgMode, ret = renderToString(child, opts, store, childSvgMode);
+                    var childSvgMode = 'svg' === nodeName ? !0 : 'foreignObject' === nodeName ? !1 : isSvgMode, ret = _renderToString(child, opts, store, childSvgMode, css);
                     if (pretty && !hasLarge && isLargeString(ret)) hasLarge = !0;
                     if (ret) pieces.push(ret);
                 }
@@ -904,7 +911,7 @@
             if (pretty && ~s.indexOf('\n')) s += '\n';
             s += '</' + nodeName + '>';
         }
-        if (css) return css + s; else return s;
+        return s;
     }
     function assign$1(obj, props) {
         for (var i in props) obj[i] = props[i];
@@ -1209,7 +1216,7 @@
         renderToString: renderToString
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.0.4';
+    options.root.Omi.version = 'omio-2.0.5';
     var Omi = {
         h: h,
         createElement: h,
