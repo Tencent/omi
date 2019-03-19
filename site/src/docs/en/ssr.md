@@ -76,6 +76,6 @@ Rendering HTML structure:
 
 Preview:
 
-![](https://github.com/Tencent/omi/raw/master/assets/hello-ssr.jpg)
+![](https://github.com/Tencent/omi/raw/master/assets/hello-ssr.png)
 
 
