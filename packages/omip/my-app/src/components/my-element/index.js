@@ -21,12 +21,14 @@ define('my-element', class extends WeElement {
   }
 
   render() {
+    const { msg } = this.props
+    const { arr } = this.data
     return (
       <view>
-        <view>Hello, {this.props.msg}!</view>
+        <view>Hello, {msg}!</view>
         <button onClick={this.clickHandler}>点击我</button>
-        <view>{this.data.arr[0]}</view>
-        <view>{this.data.arr[1]}</view>
+        <view>{arr[0]}</view>
+        <view>{arr[1]}</view>
       </view>
     )
   }
