@@ -29,8 +29,8 @@ export function define(name, ctor) {
       }
     })
     ins.props = this.properties
-    ins.install()
-    ins.beforeRender && ins.beforeRender()
+    
+   
   }
 
   config.properties = ctor.properties
@@ -43,7 +43,11 @@ export function define(name, ctor) {
   })
 
   config.attached = function () {
-
+    ins.props = this.properties
+    ins.install.call(ins)
+    ins.beforeRender && ins.beforeRender.call(ins)
+    ins._createData()
+    this.setData(ins.data)
   }
 
   config.moved = function () {

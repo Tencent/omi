@@ -20,12 +20,17 @@ define('my-element', class extends WeElement {
     // })
   }
 
+  install(){
+    this.data.changedMsg = this.props.msg + " changed"
+  }
+
   render() {
     const { msg } = this.props
-    const { arr } = this.data
+    const { arr, changedMsg } = this.data
     return (
       <view>
         <view>Hello, {msg}!</view>
+        <view>Hello, {changedMsg}</view>
         <button onClick={this.clickHandler}>点击我</button>
         <view>{arr[0]}</view>
         <view>{arr[1]}</view>
