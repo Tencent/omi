@@ -58,16 +58,16 @@ export function renderToString(vnode, opts, store, isSvgMode){
   opts = Object.assign({
     scopedCSS: true
   },opts)
-  const arr = []
-  const html = _renderToString(vnode, opts, store, isSvgMode, arr)
+  const css = {}
+  const html = _renderToString(vnode, opts, store, isSvgMode, css)
   return {
-    css: arr,
+    css: Object.values(css),
     html: html
   }
 }
 
 /** The default export is an alias of `render()`. */
-function _renderToString(vnode, opts, store, isSvgMode, arr) {
+function _renderToString(vnode, opts, store, isSvgMode, css) {
   if (vnode == null || typeof vnode === 'boolean') {
     return '';
   }
@@ -108,8 +108,7 @@ function _renderToString(vnode, opts, store, isSvgMode, arr) {
 
         const cssStr = c.constructor.css ? c.constructor.css : (typeof c.css === 'function' ? c.css() : c.css)
         const cssAttr = '_s' + getCtorName(c.constructor)
-
-        arr.push(`<style type="text/css" id="${cssAttr}">${scoper(cssStr, cssAttr)}</style>`)
+        css[cssAttr] = `<style type="text/css" id="${cssAttr}">${scoper(cssStr, cssAttr)}</style>`
         addScopedAttrStatic(
           rendered,
           '_s' + getCtorName(c.constructor)
@@ -120,7 +119,7 @@ function _renderToString(vnode, opts, store, isSvgMode, arr) {
       scopeHost(rendered, c.scopedCSSAttr)
     }
 
-    return _renderToString(rendered, opts, store, false, arr);
+    return _renderToString(rendered, opts, store, false, css);
   }
 
 
@@ -204,7 +203,7 @@ function _renderToString(vnode, opts, store, isSvgMode, arr) {
       let child = vnode.children[i];
       if (child != null && child !== false) {
         let childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
-          ret = _renderToString(child, opts, store, childSvgMode, arr);
+          ret = _renderToString(child, opts, store, childSvgMode, css);
         if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
         if (ret) pieces.push(ret);
       }
