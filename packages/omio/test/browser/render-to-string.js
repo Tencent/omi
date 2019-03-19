@@ -171,7 +171,7 @@ describe('render()', () => {
 
 
   it('render to string with nest element and children elements', () => {
-    let res = renderToString(<todo-app4 />, { scopedCSS: true })
+    let res = renderToString(<todo-app4 />)
 
     expect(res.html).to.equal('<div _ss3><h3 _ss3>TODO</h3><ul _ss2 _ss3></ul><ul _ss2 _ss3></ul><ul _ss2 _ss3></ul><form _ss3><input id="new-todo" value _ss3 /><button _ss3>Add #1</button></form></div>');
     expect(res.css.join('')).to.equal('<style type="text/css" id="_ss3">h3[_ss3]{ color:red; }</style><style type="text/css" id="_ss2">li[_ss2]{ color:green; }</style>')
