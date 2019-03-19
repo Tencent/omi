@@ -23,7 +23,8 @@ const config = {
         title: '其他',
         list: [
           { name: '生态与例子', md: 'other' },
-          { name: 'Omip 多端开发', md: 'omip' }
+          { name: 'Omip 多端开发', md: 'omip' },
+          { name: '服务端渲染', md: 'ssr' }
         ]
       }
     ],
@@ -49,7 +50,8 @@ const config = {
       {
         title: 'Other',
         list: [
-          { name: 'Ecosystem and examples', md: 'other' }
+          { name: 'Ecosystem and examples', md: 'other' },
+          { name: 'Server-Side Rendering', md: 'ssr' }
         ]
       }
     ]
