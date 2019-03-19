@@ -17,8 +17,6 @@ export function define(name, ctor) {
     }
   })
 
-  config.data = ins._createData()
-
   config.created = function () {
     ins._weappRef = this
     config.$$refs.forEach(ref => {
@@ -30,16 +28,26 @@ export function define(name, ctor) {
         }
       }
     })
+    ins.props = this.properties
     ins.install()
     ins.beforeRender && ins.beforeRender()
   }
 
+  config.properties = ctor.properties
+
+  Object.keys(ctor.properties).forEach(key => {
+    ctor.properties[key].observer = function (newVal, oldVal, changedPath) {
+      ins.props[key] = newVal
+      ins._createData()
+    }
+  })
+
   config.attached = function () {
-    
+
   }
 
   config.moved = function () {
-    
+
   }
 
   config.ready = function () {
@@ -50,11 +58,7 @@ export function define(name, ctor) {
     ins.uninstall()
   }
 
-  config.$usedState && config.$usedState.forEach(prop => {
-    if(!config.data || (config.data && !config.data.hasOwnProperty(prop))){
-      config.properties[prop] = null
-    }
-  })
-  
+  config.data = ins._createData()
+
   Component(config)
 }

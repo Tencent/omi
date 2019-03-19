@@ -19,21 +19,22 @@ define('todo-footer', class extends WeElement {
   }
 
   render() {
+    let { left, type, done } = this.props
     return (
       <view class="footer">
-        <view class="todo-count"><text class="strong">{this.props.left + ' '}</text> items left</view>
+        <view class="todo-count"><text class="strong">{left + ' '}</text> items left</view>
         <view class="filters">
           <view class='ib' bindtap={this.showAll}>
-            <text class={this.props.type === 'all' ? 'selected' : ''} >All</text>
+            <text class={type === 'all' ? 'selected' : ''} >All</text>
           </view>
           <view class='ib' bindtap={this.showActive}>
-            <text class={this.props.type === 'active' ? 'selected' : ''} >Active</text>
+            <text class={type === 'active' ? 'selected' : ''} >Active</text>
           </view>
           <view class='ib' bindtap={this.showDone}>
-            <text class={this.props.type === 'done' ? 'selected' : ''} >Done</text>
+            <text class={type === 'done' ? 'selected' : ''} >Done</text>
           </view>
         </view>
-        <button class="clear-completed" bindtap={this.clearDone}>Clear done</button>
+        {done > 0 && <button class="clear-completed" bindtap={this.clearDone}>Clear done</button>}
       </view>
     )
   }

@@ -11,7 +11,8 @@ define('page-index', class extends WeElement {
     todo: [],
     inputText: '',
     left: 0,
-    type: 'all'
+    type: 'all',
+    done: 0
   }
 
   //事件处理函数
@@ -36,7 +37,7 @@ define('page-index', class extends WeElement {
       const item = this.data.todo[i]
       if (item._id === evt.target.dataset.id) {
         item.done = !item.done
-        this.computeLeft()
+        this.computeCount()
         this.update()
         this.updateDb(item._id, { done: item.done })
         break
@@ -44,10 +45,11 @@ define('page-index', class extends WeElement {
     }
   }
 
-  computeLeft() {
+  computeCount() {
     this.data.left = 0
+    this.data.done = 0
     for (let i = 0, len = this.data.todo.length; i < len; i++) {
-      !(this.data.todo[i].done) && this.data.left++
+      this.data.todo[i].done ?this.data.done++: this.data.left++
     }
   }
 
@@ -66,7 +68,7 @@ define('page-index', class extends WeElement {
       const item = this.data.todo[i]
       if (item._id === evt.target.dataset.id) {
         this.data.todo.splice(i, 1)
-        this.computeLeft()
+        this.computeCount()
         this.update()
         this.removeDb(item._id)
         break
@@ -143,7 +145,7 @@ define('page-index', class extends WeElement {
               return b.createTime - a.createTime
             })
             this.data.todo = res.data
-            this.computeLeft()
+            this.computeCount()
             this.update()
             wx.hideLoading()
           }
@@ -176,7 +178,7 @@ define('page-index', class extends WeElement {
               this.removeDb(item._id)
             }
           }
-          this.data.left = 0
+          this.data.done = 0
           this.update()
 
           wx.cloud.callFunction({
@@ -202,7 +204,7 @@ define('page-index', class extends WeElement {
   }
 
   render() {
-    const { inputText, todo, left, type } = this.data
+    const { inputText, todo, left, type, done } = this.data
     return (
       <view class="container">
         <view class="title">todos</view>
@@ -222,7 +224,7 @@ define('page-index', class extends WeElement {
           ))}
         </view>
 
-        <todo-footer onFilter={this.filter} onClear={this.clear} left={left} type={type} ></todo-footer>
+        <todo-footer onFilter={this.filter} onClear={this.clear} left={left} done={done} type={type} ></todo-footer>
       </view>
     )
   }
