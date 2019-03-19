@@ -1,8 +1,9 @@
 {
   "name": "omi-router",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "Router for Omi.",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "simple": "webpack -w"
   },
