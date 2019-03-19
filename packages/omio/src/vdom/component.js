@@ -319,7 +319,7 @@ export function unmountComponent(component) {
 
 	if (component.uninstall) component.uninstall()
 
-	if (component.store) {
+	if (component.store && component.store.instances) {
 		for (let i = 0, len = component.store.instances.length; i < len; i++) {
 			if (component.store.instances[i] === component) {
 				component.store.instances.splice(i, 1)

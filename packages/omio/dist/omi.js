@@ -614,7 +614,7 @@
         var base = component.base;
         component.__x = !0;
         if (component.uninstall) component.uninstall();
-        if (component.store) for (var i = 0, len = component.store.instances.length; i < len; i++) if (component.store.instances[i] === component) {
+        if (component.store && component.store.instances) for (var i = 0, len = component.store.instances.length; i < len; i++) if (component.store.instances[i] === component) {
             component.store.instances.splice(i, 1);
             break;
         }
@@ -1209,7 +1209,7 @@
         renderToString: renderToString
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.0.3';
+    options.root.Omi.version = 'omio-2.0.4';
     var Omi = {
         h: h,
         createElement: h,
