@@ -38,7 +38,10 @@ export function define(name, ctor) {
   Object.keys(ctor.properties).forEach(key => {
     ctor.properties[key].observer = function (newVal, oldVal, changedPath) {
       ins.props[key] = newVal
+      ins.beforeRender && ins.beforeRender.call(ins)
       ins._createData()
+      //自定过滤 undefined
+      this.setData(JSON.parse(JSON.stringify(ins.data)))
     }
   })
 
