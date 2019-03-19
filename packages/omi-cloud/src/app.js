@@ -13,7 +13,7 @@ define('my-app', class extends WeElement {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'Omi Cloud 备忘录',
+      navigationBarTitleText: 'Omi Cloud',
       navigationBarTextStyle: 'black'
     }
   }
