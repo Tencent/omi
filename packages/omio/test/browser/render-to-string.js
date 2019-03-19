@@ -20,9 +20,9 @@ describe('render()', () => {
     }
   })
   it('render to string without style', () => {
-    let str = renderToString(<todo-app />)
+    let res = renderToString(<todo-app />)
 
-    expect(str).to.equal('<div>ab</div>');
+    expect(res.html).to.equal('<div>ab</div>');
   })
 
   define('todo-app2', class extends WeElement {
@@ -38,16 +38,17 @@ describe('render()', () => {
   })
 
   it('render to string with style', () => {
-    let str = renderToString(<todo-app2 />)
+    let res = renderToString(<todo-app2 />)
 
-    expect(str).to.equal('<style type="text/css" id="_ss0">h3[_ss0]{ color:red; }</style><div _ss0>ab</div>');
+    expect(res.html).to.equal('<div _ss0>ab</div>');
+    expect(res.css+'').to.equal('<style type="text/css" id="_ss0">h3[_ss0]{ color:red; }</style>')
   })
 
 
   it('render to string without style', () => {
-    let str = renderToString(<todo-app2 />, { scopedCSS: false })
+    let res = renderToString(<todo-app2 />, { scopedCSS: false })
 
-    expect(str).to.equal('<div>ab</div>');
+    expect(res.html).to.equal('<div>ab</div>');
   })
 
 
@@ -109,17 +110,18 @@ define('todo-app3', class extends WeElement {
 
 
 it('render to string with nest element', () => {
-  let str = renderToString(<todo-app3 />, { scopedCSS: false })
+  let res = renderToString(<todo-app3 />, { scopedCSS: false })
 
-  expect(str).to.equal('<div><h3>TODO</h3><ul></ul><form><input id="new-todo" value /><button>Add #1</button></form></div>');
+  expect(res.html).to.equal('<div><h3>TODO</h3><ul></ul><form><input id="new-todo" value /><button>Add #1</button></form></div>');
 })
 
 
 
-it('render to string with nest element', () => {
-  let str = renderToString(<todo-app3 />, { scopedCSS: true })
+it('render to string with nest element and scoped css', () => {
+  let res = renderToString(<todo-app3 />, { scopedCSS: true })
 
-  expect(str).to.equal('<style type="text/css" id="_ss1">h3[_ss1]{ color:red; }</style><div _ss1><h3 _ss1>TODO</h3><style type="text/css" id="_ss2">li[_ss2]{ color:green; }</style><ul _ss2 _ss1></ul><form _ss1><input id="new-todo" value _ss1 /><button _ss1>Add #1</button></form></div>');
+  expect(res.html).to.equal('<div _ss1><h3 _ss1>TODO</h3><ul _ss2 _ss1></ul><form _ss1><input id="new-todo" value _ss1 /><button _ss1>Add #1</button></form></div>');
+  expect(res.css.join('')).to.equal('<style type="text/css" id="_ss1">h3[_ss1]{ color:red; }</style><style type="text/css" id="_ss2">li[_ss2]{ color:green; }</style>')
 })
 
 })

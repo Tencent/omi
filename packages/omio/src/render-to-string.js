@@ -53,8 +53,21 @@ function styleObjToCss(s) {
   return str || undefined;
 }
 
+export function renderToString(vnode, opts, store, isSvgMode){
+  store = store || {};
+  opts = Object.assign({
+    scopedCSS: true
+  },opts)
+  const arr = []
+  const html = _renderToString(vnode, opts, store, isSvgMode, arr)
+  return {
+    css: arr,
+    html: html
+  }
+}
+
 /** The default export is an alias of `render()`. */
-export function renderToString(vnode, opts, store, isSvgMode, css) {
+function _renderToString(vnode, opts, store, isSvgMode, arr) {
   if (vnode == null || typeof vnode === 'boolean') {
     return '';
   }
@@ -62,10 +75,7 @@ export function renderToString(vnode, opts, store, isSvgMode, css) {
   let nodeName = vnode.nodeName,
     attributes = vnode.attributes,
     isComponent = false;
-  store = store || {};
-  opts = Object.assign({
-    scopedCSS: true
-  },opts)
+  
 
   let pretty = true && opts.pretty,
     indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
@@ -91,7 +101,7 @@ export function renderToString(vnode, opts, store, isSvgMode, css) {
     if (c.install) c.install();
     if (c.beforeRender) c.beforeRender();
     rendered = c.render(c.props, c.data, c.store);
-    let tempCss 
+
     if(opts.scopedCSS){
 
       if (c.constructor.css || c.css) {
@@ -99,8 +109,7 @@ export function renderToString(vnode, opts, store, isSvgMode, css) {
         const cssStr = c.constructor.css ? c.constructor.css : (typeof c.css === 'function' ? c.css() : c.css)
         const cssAttr = '_s' + getCtorName(c.constructor)
 
-        tempCss = `<style type="text/css" id="${cssAttr}">${scoper(cssStr, cssAttr)}</style>`
-
+        arr.push(`<style type="text/css" id="${cssAttr}">${scoper(cssStr, cssAttr)}</style>`)
         addScopedAttrStatic(
           rendered,
           '_s' + getCtorName(c.constructor)
@@ -111,7 +120,7 @@ export function renderToString(vnode, opts, store, isSvgMode, css) {
       scopeHost(rendered, c.scopedCSSAttr)
     }
 
-    return renderToString(rendered, opts, store, false, tempCss);
+    return _renderToString(rendered, opts, store, false, arr);
   }
 
 
@@ -195,7 +204,7 @@ export function renderToString(vnode, opts, store, isSvgMode, css) {
       let child = vnode.children[i];
       if (child != null && child !== false) {
         let childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
-          ret = renderToString(child, opts, store, childSvgMode);
+          ret = _renderToString(child, opts, store, childSvgMode, arr);
         if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
         if (ret) pieces.push(ret);
       }
@@ -219,8 +228,7 @@ export function renderToString(vnode, opts, store, isSvgMode, css) {
     s += `</${nodeName}>`;
   }
 
-  if(css) return css + s;
-  return s;
+  return s
 }
 
 function assign(obj, props) {
