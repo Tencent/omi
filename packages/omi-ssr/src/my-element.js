@@ -5,6 +5,8 @@ define('my-element', class extends WeElement {
     this.data = { liked: false }
   }
 
+  static css = 'button{ color: red; }'
+
   render() {
     if (this.data.liked) {
       return 'You liked this.'

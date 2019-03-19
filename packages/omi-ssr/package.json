@@ -22,6 +22,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-es2015-parameters": "^6.24.1",
