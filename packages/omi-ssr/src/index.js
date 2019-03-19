@@ -7,7 +7,7 @@ app.get('/', function (req, res) {
   res.end(`<!DOCTYPE html>
 <html lang="en">
   <head><title>Omi SSR</title></head>
-  <body>${Omi.renderToString(<my-element />)}</body>
+  <body>${Omi.renderToString(<my-element />).html}</body>
 </html>`)
 })
 
