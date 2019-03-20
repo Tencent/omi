@@ -223,7 +223,7 @@ define('my-sidebar', class extends WeElement {
 
  > 当运行时的开销对于用户体验可以忽略不计，那么就选择运行时去做
 
- 运行时的好处非常明显，**不需要任何构建工具、编译工具，就可以在浏览器、node、javascript core 或者任何 javascript 环境直接运行**。凭什么让我学那么多构建工具、凭什么和一堆工具耦合在一起，我就是纯粹的 js，想在哪里跑都可以轻松复制粘贴或者直接  import/require 过去，而不强制带上任何工具。当然这里不是反对编译工具对前端带来的价值，omi-cli、omip、omi-mp 都大量使用了编译工具，只是没有编译工具，omi 也能运行良好，简单移植，不如 es module，比如 deno，直接 import 直接使用。
+ 运行时的好处非常明显，**不需要任何构建工具、编译工具，就可以在浏览器、node、javascript core 或者任何 javascript 环境直接运行**。凭什么让我学那么多构建工具、凭什么和一堆工具耦合在一起，我就是纯粹的 js，想在哪里跑都可以轻松复制粘贴或者直接  import/require 过去，而不强制带上任何工具。当然这里不是反对编译工具对前端带来的价值，omi-cli、omip、omi-mp 都大量使用了编译工具，只是没有编译工具，omi 也能运行良好，简单移植，比如 es module，比如 deno，直接 import 直接使用。
 
 ## 开始使用
 
