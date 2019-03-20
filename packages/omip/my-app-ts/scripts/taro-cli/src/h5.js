@@ -861,15 +861,16 @@ function getDist (filename, isScriptFile) {
 }
 
 function processFiles (filePath) {
-  const file = fs.readFileSync(filePath)
   const dirname = path.dirname(filePath)
   const extname = path.extname(filePath)
   const distDirname = dirname.replace(sourcePath, tempDir)
   const isScriptFile = Util.REG_SCRIPTS.test(extname)
   const distPath = getDist(filePath, isScriptFile)
+  const isStyleFile = Util.REG_STYLE.test(extname)
 
   try {
     if (isScriptFile) {
+      const file = fs.readFileSync(filePath)
       // 脚本文件 处理一下
       const fileType = classifyFiles(filePath)
       const content = file.toString()
@@ -879,6 +880,56 @@ function processFiles (filePath) {
       const jsCode = transformResult.code
       fs.ensureDirSync(distDirname)
       fs.writeFileSync(distPath, Buffer.from(jsCode))
+    }else if(isStyleFile){
+      
+      let tempFilePath = filePath.replace(/(.*)css/, '$1tsx')
+      let file
+      if (fs.existsSync(tempFilePath)) {
+        file = fs.readFileSync(tempFilePath)
+      }else{
+        tempFilePath = filePath.replace(/(.*)css/, '$1js')
+        if (fs.existsSync(tempFilePath)) {
+          file = fs.readFileSync(tempFilePath)
+        }else{
+          tempFilePath = filePath.replace(/(.*)css/, '$1jsx')
+          if (fs.existsSync(tempFilePath)) {
+            file = fs.readFileSync(tempFilePath)
+          }else{
+            tempFilePath = filePath.replace(/(.*)css/, '$1ts')
+            if (fs.existsSync(tempFilePath)) {
+              file = fs.readFileSync(tempFilePath)
+            }
+          }
+        }
+      }
+      // 脚本文件 处理一下
+      const fileType = classifyFiles(tempFilePath)
+      const content = file.toString()
+      const transformResult = fileType === FILE_TYPE.ENTRY
+        ? processEntry(content, tempFilePath)
+        : processOthers(content, tempFilePath, fileType)
+      const jsCode = transformResult.code
+      fs.ensureDirSync(distDirname)
+      let tempPath = distPath.replace(/(.*)css/, '$1tsx')
+      if (fs.existsSync(tempPath)) {
+        fs.writeFileSync(tempPath, Buffer.from(jsCode))
+      } else {
+        tempPath = distPath.replace(/(.*)css/, '$1js')
+        if (fs.existsSync(tempPath)) {
+          fs.writeFileSync(tempPath, Buffer.from(jsCode))
+        } else {
+          tempPath = distPath.replace(/(.*)css/, '$1jsx')
+          if (fs.existsSync(tempPath)) {
+            fs.writeFileSync(tempPath, Buffer.from(jsCode))
+          } else {
+            tempPath = distPath.replace(/(.*)css/, '$1ts')
+            if (fs.existsSync(tempPath)) {
+              fs.writeFileSync(tempPath, Buffer.from(jsCode))
+            }
+          }
+        }
+      }
+    
     } else {
       // 其他 直接复制
       fs.ensureDirSync(distDirname)

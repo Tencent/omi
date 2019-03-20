@@ -657,7 +657,7 @@ function processOthers (code, filePath, fileType) {
       }
     }
   }
-
+  
   traverse(ast, {
     ClassExpression: ClassDeclarationOrExpression,
     ClassDeclaration: ClassDeclarationOrExpression,
@@ -859,15 +859,17 @@ function getDist (filename, isScriptFile) {
 }
 
 function processFiles (filePath) {
-  const file = fs.readFileSync(filePath)
   const dirname = path.dirname(filePath)
   const extname = path.extname(filePath)
   const distDirname = dirname.replace(sourcePath, tempDir)
   const isScriptFile = Util.REG_SCRIPTS.test(extname)
   const distPath = getDist(filePath, isScriptFile)
-
+  const isStyleFile = Util.REG_STYLE.test(extname)
+ 
   try {
-    if (isScriptFile) {
+    if (isScriptFile || isStyleFile) {
+      filePath = filePath.replace(/(.*)css/, '$1js')
+      const file = fs.readFileSync(filePath)
       // 脚本文件 处理一下
       const fileType = classifyFiles(filePath)
       const content = file.toString()
@@ -876,7 +878,7 @@ function processFiles (filePath) {
         : processOthers(content, filePath, fileType)
       const jsCode = transformResult.code
       fs.ensureDirSync(distDirname)
-      fs.writeFileSync(distPath, Buffer.from(jsCode))
+      fs.writeFileSync(distPath.replace(/(.*)css/, '$1js'), Buffer.from(jsCode))
     } else {
       // 其他 直接复制
       fs.ensureDirSync(distDirname)
