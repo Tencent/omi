@@ -1,7 +1,7 @@
 [English](./README.EN.md) | [简体中文](./README.md) | 한국어
 
-<p align="right">Omi <strong>v6.0.1</strong></p>
-<p align="right">Omio <strong>v2.0.3</strong></p>
+<p align="right">Omi <strong>v6.0.2</strong></p>
+<p align="right">Omio <strong>v2.0.6</strong></p>
 <p align="center"><img src="./assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - Web Components를 사용한 차세대 웹 프레임워크. 구 버전 브라우저 지원(IE8+) by Omio. 4kb 경량의 자바스크립트 프레임워크. MVVM 하기 쉬움 </h2>
 
