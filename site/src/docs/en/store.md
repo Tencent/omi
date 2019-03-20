@@ -10,7 +10,7 @@ Store is Omi's built-in centralized data warehouse, which solves and provides th
 ## A piece of code is completely ready for Store
 
 ```jsx
-import { render, WeElement, define } from '../../src/omi'
+import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
   static use = [

@@ -10,7 +10,7 @@ Store 是 Omi 内置的中心化数据仓库，他解决和提供了下面问题
 ## 一段代码完全上手 Store
 
 ```jsx
-import { render, WeElement, define } from '../../src/omi'
+import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
   static use = [
