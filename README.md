@@ -452,12 +452,11 @@ define('hello-element', class extends WeElement {
     evt.stopPropagation()
   }
 
-  css = `
+  static css = `
       div {
         color: red;
         cursor: pointer;
       }`
-  }
 
   render(props) {
     return (
