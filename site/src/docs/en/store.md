@@ -140,7 +140,7 @@ render() {
 
 Without alias, you can also access it directly through `this.store.data.xxx'.
 
-### Fast assignment
+### Destructuring assignment
 
 ```jsx
 import { define, WeElement } from 'omi'
