@@ -2,7 +2,7 @@
     'use strict';
     function VNode() {}
     function h(nodeName, attributes) {
-        var lastSimple, child, simple, i, children = EMPTY_CHILDREN;
+        var lastSimple, child, simple, i, children = [];
         for (i = arguments.length; i-- > 2; ) stack.push(arguments[i]);
         if (attributes && null != attributes.children) {
             if (!stack.length) stack.push(attributes.children);
@@ -11,7 +11,7 @@
         while (stack.length) if ((child = stack.pop()) && void 0 !== child.pop) for (i = child.length; i--; ) stack.push(child[i]); else {
             if ('boolean' == typeof child) child = null;
             if (simple = 'function' != typeof nodeName) if (null == child) child = ''; else if ('number' == typeof child) child = String(child); else if ('string' != typeof child) simple = !1;
-            if (simple && lastSimple) children[children.length - 1] += child; else if (children === EMPTY_CHILDREN) children = [ child ]; else children.push(child);
+            if (simple && lastSimple) children[children.length - 1] += child; else if (0 === children.length) children = [ child ]; else children.push(child);
             lastSimple = simple;
         }
         var p = new VNode();
@@ -651,7 +651,6 @@
         }()
     };
     var stack = [];
-    var EMPTY_CHILDREN = [];
     !function() {
         if (void 0 !== window.Reflect && void 0 !== window.customElements && !window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
             var BuiltInHTMLElement = HTMLElement;
@@ -990,7 +989,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.0.1';
+    options.root.Omi.version = '6.0.2';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

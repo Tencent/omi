@@ -2,10 +2,9 @@ import { VNode } from './vnode'
 import options from './options'
 
 const stack = []
-const EMPTY_CHILDREN = []
 
 export function h(nodeName, attributes) {
-  let children = EMPTY_CHILDREN,
+  let children = [],
     lastSimple,
     child,
     simple,
@@ -31,7 +30,7 @@ export function h(nodeName, attributes) {
 
       if (simple && lastSimple) {
         children[children.length - 1] += child
-      } else if (children === EMPTY_CHILDREN) {
+      } else if (children.length === 0) {
         children = [child]
       } else {
         children.push(child)

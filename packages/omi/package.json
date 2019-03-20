@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "Next generation web framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -20,6 +20,7 @@
     "mvvm": "rollup -c config/rollup.example.js --watch",
     "receive-props": "rollup -c config/rollup.example.js --watch",
     "rpx": "rollup -c config/rollup.example.js --watch",
+    "children-bug": "rollup -c config/rollup.example.js --watch",
     "tree": "rollup -c config/rollup.example.js --watch",
     "tree2": "rollup -c config/rollup.example.js --watch",
     "store-tree": "rollup -c config/rollup.example.js --watch",

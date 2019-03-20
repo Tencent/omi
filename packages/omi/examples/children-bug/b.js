@@ -23,10 +23,9 @@
   };
 
   var stack = [];
-  var EMPTY_CHILDREN = [];
 
   function h(nodeName, attributes) {
-    var children = EMPTY_CHILDREN,
+    var children = [],
         lastSimple = void 0,
         child = void 0,
         simple = void 0,
@@ -52,7 +51,7 @@
 
         if (simple && lastSimple) {
           children[children.length - 1] += child;
-        } else if (children === EMPTY_CHILDREN) {
+        } else if (children.length === 0) {
           children = [child];
         } else {
           children.push(child);
@@ -1665,7 +1664,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.0.1';
+  options.root.Omi.version = '6.0.2';
 
   var _class$2, _temp2;
 
