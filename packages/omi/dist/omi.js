@@ -401,7 +401,7 @@
             if (Object.keys(patch).length > 0) {
                 this.instances.forEach(function(instance) {
                     if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath)) {
-                        instance.use = getUse(store.data, instance.constructor.use);
+                        instance.constructor.use && (instance.use = getUse(store.data, instance.constructor.use));
                         instance.update();
                     }
                 });
@@ -989,7 +989,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.0.2';
+    options.root.Omi.version = '6.0.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
