@@ -29,8 +29,8 @@ export function define(name, ctor) {
       }
     })
     ins.props = this.properties
-    ins.install()
-    ins.beforeRender && ins.beforeRender()
+    
+   
   }
 
   config.properties = ctor.properties
@@ -38,12 +38,19 @@ export function define(name, ctor) {
   Object.keys(ctor.properties).forEach(key => {
     ctor.properties[key].observer = function (newVal, oldVal, changedPath) {
       ins.props[key] = newVal
+      ins.beforeRender && ins.beforeRender.call(ins)
       ins._createData()
+      //自定过滤 undefined
+      this.setData(JSON.parse(JSON.stringify(ins.data)))
     }
   })
 
   config.attached = function () {
-
+    ins.props = this.properties
+    ins.install.call(ins)
+    ins.beforeRender && ins.beforeRender.call(ins)
+    ins._createData()
+    this.setData(ins.data)
   }
 
   config.moved = function () {
