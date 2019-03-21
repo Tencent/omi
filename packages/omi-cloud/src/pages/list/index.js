@@ -20,7 +20,9 @@ define('page-about', class extends WeElement {
   }
 
   installed() {
-    wx.showLoading()
+    wx.showLoading({
+      title: '加载中'
+    })
     wx.cloud.callFunction({
       name: 'login',
       data: {},

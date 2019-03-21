@@ -14,7 +14,7 @@ define('page-index', class extends WeElement {
     backgroundColor: '#eeeeee',
     backgroundTextStyle: 'light'
   }
-  
+
   data = {
     todo: [],
     inputText: '',
@@ -93,7 +93,7 @@ define('page-index', class extends WeElement {
 
 
     wx.showLoading({
-      title: '加载中'
+      title: '添加中'
     })
     app.globalData.db.collection('todo').add({
       // data 字段表示需新增的 JSON 数据

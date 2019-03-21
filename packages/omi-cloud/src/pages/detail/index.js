@@ -18,10 +18,13 @@ define('page-about', class extends WeElement {
   }
 
   install(options) {
-   
+    wx.showLoading({
+      title: '加载中'
+    })
     app.globalData.db.collection('article').doc(options.id).get().then(res=>{
       const article = md.render(res.data.md)
       WxParse.wxParse('article', 'html', article, this._weappRef, 5)
+      wx.hideLoading()
     })
   }
 
