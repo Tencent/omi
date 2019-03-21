@@ -142,7 +142,7 @@ function _renderToString(vnode, opts, store, isSvgMode, css) {
       if (!(opts && opts.allAttributes) && (name === 'key' || name === 'ref')) continue;
 
       if (name === 'className') {
-        if (attributes.class) continue;
+        if (attributes['class']) continue;
         name = 'class';
       }
       else if (isSvgMode && name.match(/^xlink:?./)) {
