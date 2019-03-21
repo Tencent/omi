@@ -39,11 +39,17 @@ define('page-about', class extends WeElement {
     })
   }
 
+  gotoDetail = (evt) => {
+    wx.navigateTo({
+      url: '../detail/index?id=' + evt.target.dataset.id
+    })
+  }
+
   render() {
     return (
       <view>
         {list.map(item=>(
-          <view class='item'> 
+          <view class='item' data-id={item._id} bindtap={this.gotoDetail}> 
            <text>{item.title}</text> 
            <image src={arrowPng}></image>
           </view>

@@ -5,6 +5,8 @@ import WxParse from '../../components/wxParse/wxParse'
 
 //获取应用实例
 const app = getApp()
+const Remarkable = require('remarkable')
+const md = new Remarkable()
 
 define('page-about', class extends WeElement {
   config = {
@@ -15,16 +17,14 @@ define('page-about', class extends WeElement {
     backgroundTextStyle: 'light'
   }
 
-  installed() {
-    const Remarkable = require('remarkable');
-    const md = new Remarkable();
-
-    const article = md.render(mdStr.data)
-    console.log(article)
-    WxParse.wxParse('article', 'html', article, this._weappRef, 5)
-
-    app.globalData.db.collection('article').doc('xx').get().then()
+  install(options) {
+   
+    app.globalData.db.collection('article').doc(options.id).get().then(res=>{
+      const article = md.render(res.data.md)
+      WxParse.wxParse('article', 'html', article, this._weappRef, 5)
+    })
   }
+
 
   render() {
     return (
