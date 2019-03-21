@@ -10,8 +10,8 @@ const md = new Remarkable()
 
 define('page-about', class extends WeElement {
   config = {
-    navigationBarBackgroundColor: '#ffffff',
-    navigationBarTextStyle: 'black',
+    navigationBarBackgroundColor: '#24292e',
+    navigationBarTextStyle: 'white',
     navigationBarTitleText: ' ',
     backgroundColor: '#eeeeee',
     backgroundTextStyle: 'light'

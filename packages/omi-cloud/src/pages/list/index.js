@@ -7,8 +7,8 @@ const app = getApp()
 
 define('page-about', class extends WeElement {
   config = {
-    navigationBarBackgroundColor: 'black',
-    navigationBarTextStyle: 'black',
+    navigationBarBackgroundColor: '#24292e',
+    navigationBarTextStyle: 'white',
     navigationBarTitleText: 'Omi',
     backgroundColor: '#ccc',
     backgroundTextStyle: 'light'
