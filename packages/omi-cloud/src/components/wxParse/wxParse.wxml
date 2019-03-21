@@ -23,7 +23,7 @@
 </template>
 
 <template name="WxEmojiView">
-  <text class="WxEmojiView wxParse-inline" style="{{item.styleStr}}" decode="{{true}}">
+  <text class="WxEmojiView wxParse-inline" style="{{item.styleStr}}">
     <block wx:for="{{item.textArray}}" wx:key="">
       <block class="{{item.text == '\\n' ? 'wxParse-hide':''}}" wx:if="{{item.node == 'text'}}">{{item.text}}</block>
       <block wx:elif="{{item.node == 'element'}}">
