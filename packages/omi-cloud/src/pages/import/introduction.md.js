@@ -1,104 +1,84 @@
 export default {
-  title: '安装',
+  title: '服务器端渲染',
   md:
-    `## 安装  
+`## 服务器端渲染
 
-直接下载并用 \`<script>\` 标签引入，Omi 会被注册为一个全局变量。
+服务器端渲染英文叫 Server-Side Rendering，简称 SSR，有两大优势:
 
-* [Omi 开发版本](https://unpkg.com/omi@latest/dist/omi.js)
-* [Omi 压缩版本](https://unpkg.com/omi@latest/dist/omi.min.js)
+* 对 SEO 友好
+* 更快的首屏展示时间
 
-也可以通过 npm 安装
+用服务器端渲染 (SSR) 也有缺点，比如增加服务器端开销。开发者可以自行权衡是否使用 SSR，或者直接使用 [omi-snap](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md) 预渲染，预渲染不需要服务器端额外的开销，直接在构建时候无头浏览器生成骨架屏，所以也就没有动态数据内容，而 SSR 可以返回动态数据生成的HTML，还可以把数据序列化与 HTML 一同返回。
 
-\`\`\`bash
-npm i omi
-\`\`\`
+## 快速入门
 
-如果需要兼容 IE8+，可以选择 omio，它拥有和 omi 几乎一样的 API，且 Omi 也会被注册为一个全局变量。
+定义组件：
 
-* [Omio 开发版本](https://unpkg.com/omio@latest/dist/omi.js)
-* [Omio 压缩版本](https://unpkg.com/omi@latest/dist/omi.min.js)
+\`\`\`jsx
+import { WeElement, define } from 'omio'
 
-或者
-
-\`\`\`bash
-npm i omio
-\`\`\`
-
-## 命令行工具
-
-Omi 提供了官方的 CLI，你不需要去学习怎么配置 webpack、babel或者 TypeScript，CLI 帮你配置好了一切，且提供了各种模板满足不同的项目类型。
-
-\`\`\`bash
-$ npm i omi-cli -g     # install cli
-$ omi init my-app      # init project
-$ cd my-app            
-$ npm start            # develop
-$ npm run build        # release
-\`\`\`
-
-> \`npx omi-cli init my-app\` 也是支持的(npm v5.2.0+).
-
-目录描述:
-
-\`\`\`
-├─ config
-├─ public
-├─ scripts
-├─ src
-│  ├─ assets
-│  ├─ elements    //Store all custom elements
-│  ├─ store       //Store all this store of pages
-│  ├─ admin.js    //Entry js of compiler，will build to admin.html
-│  └─ index.js    //Entry js of compiler，will build to index.html
-\`\`\`
-
-
-### npm 脚本
-
-\`\`\`json
-"scripts": {
-    "start": "node scripts/start.js",
-    "build": "PUBLIC_URL=. node scripts/build.js",
-    "build-windows": "set PUBLIC_URL=.&& node scripts/build.js",
-    "fix": "eslint src --fix"
-}
-\`\`\`
-
-你也可以设置 PUBLIC_URL, 比如：
-
-\`\`\`json
-...
-"build": "PUBLIC_URL=https://your.url.com/sub node scripts/build.js",
-"build-windows": "set PUBLIC_URL=https://your.url.com/sub&& node scripts/build.js",
-...
-\`\`\`
-
-### 切换 omi 和 omio
-
-增加或删除 package.json 里的 alias config 可以切换 omi 和 omio 渲染:
-
-\`\`\`js
- ...
- "alias": {
-    "omi": "omio"
+define('my-element', class extends WeElement {
+  install() {
+    this.data = { liked: false }
   }
-  ...
+
+  static css = 'button{ color: red; }'
+
+  render() {
+    if (this.data.liked) {
+      return 'You liked this.'
+    }
+
+    return <button onClick={() => {
+      this.data.liked = true
+      this.update()
+    }} >Like</button>
+  }
+})
 \`\`\`
-    
 
-## 项目模板
+注意这里使用了 omio，SSR 只能使用 omio，而不能使用 omi，因为 omi 是 web components，node 无法渲染 web components。
 
-| **Template Type**|  **Command**|  **Describe**|
-| ------------ |  -----------|  ----------------- |
-|基础模板(v3.3.0+)|\`omi init my-app\`| 基础模板，支持 omi 和 omio(IE8+)|
-|小程序模板(v3.3.5+)|\`omi init-p my-app\`| Omi 开发小程序 |
-|支持预渲染快照骨架的模板|\`omi init-snap my-app\`| 基础模板，支持 omi 和 omio(IE8+)，内置预渲染|
-|TypeScript 模板(omi-cli v3.3.0+)|\`omi init-ts my-app\`|使用 TypeScript 的模板|
-|Mobile 模板|\`omi init-weui my-app\`| 使用 weui 和 omi-router 的模板|
-|omi-mp 模板(omi-cli v3.0.13+)|\`omi init-mp my-app\`  |使用微信小程序开发 H5|
-|MVVM 模板(omi-cli v3.0.22+)|\`omi init-mvvm my-app\`  |MVVM 模板|
+> omi 和 omio 项目都必须使用 omio 进行 SSR
 
-Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
+起个 node 服务器:
+
+\`\`\`jsx
+var express = require('express')
+var app = express()
+var Omi = require('omio')
+require('./my-element')
+
+app.get('/', function (req, res) {
+  const obj = Omi.renderToString(<my-element />)
+  res.end(\`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Omi SSR</title>
+    \${obj.css.join('')}
+  </head>
+  <body>\${obj.html}</body>
+</html>\`)
+})
+
+app.listen(3000)
+\`\`\`
+
+直出的 HTML 结构:
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Omi SSR</title>
+    <style type="text/css" id="_ss0">button[_ss0]{color:red;}</style>
+  </head>
+  <body><button _ss0>Like</button></body>
+</html>
+\`\`\`
+
+显示效果:
+
+![](https://github.com/Tencent/omi/raw/master/assets/hello-ssr.png)
 `
 }
