@@ -7,6 +7,7 @@ define('my-app', class extends WeElement {
 
   config = {
     pages: [
+      'pages/code/index',
       'pages/index/index',
       'pages/about/index'
     ],
