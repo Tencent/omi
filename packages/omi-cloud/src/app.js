@@ -9,7 +9,7 @@ define('my-app', class extends WeElement {
     pages: [
       'pages/list/index',
       'pages/detail/index',
-      'pages/code/index',
+      'pages/import/index',
       'pages/index/index',
       'pages/about/index'
     ],

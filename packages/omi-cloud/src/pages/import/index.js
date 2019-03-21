@@ -1,7 +1,7 @@
 import { WeElement, define } from 'omi'
 import './index.css'
 import WxParse from '../../components/wxParse/wxParse'
-import mdStr from './introduction.md.js'
+import data from './introduction.md.js'
 
 
 //获取应用实例
@@ -20,7 +20,7 @@ define('page-about', class extends WeElement {
     const Remarkable = require('remarkable');
     const md = new Remarkable();
 
-    const article = md.render(mdStr.data)
+    const article = md.render(data.md)
     console.log(article)
     WxParse.wxParse('article', 'html', article, this._weappRef, 5)
 
@@ -36,8 +36,8 @@ define('page-about', class extends WeElement {
           // data 字段表示需新增的 JSON 数据
           data: {
             // _id: 'todo-identifiant-aleatoire', // 可选自定义 _id，在此处场景下用数据库自动分配的就可以了
-            md: mdStr.data,
-            title: 'abc',
+            md: data.md,
+            title: data.title,
             createTime: app.globalData.db.serverDate()
           },
           success: (res) => {
