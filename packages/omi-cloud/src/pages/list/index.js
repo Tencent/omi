@@ -79,7 +79,7 @@ define('page-about', class extends WeElement {
 
 
         <view class='item' bindtap={this.gotoAbout}>
-          <text>omijs.org</text>
+          <text>Github & omijs.org</text>
           <image src={arrowPng}></image>
         </view>
       </view>
