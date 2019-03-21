@@ -32,8 +32,10 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "db guide",
-					"pathName": "pages/databaseGuide/databaseGuide"
+					"name": "导入数据",
+					"pathName": "pages/import/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
