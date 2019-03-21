@@ -3,7 +3,6 @@ import './index.css'
 import WxParse from '../../components/wxParse/wxParse'
 import mdStr from './introduction.md.js'
 
-console.log(mdStr)
 define('page-about', class extends WeElement {
   config = {
     navigationBarBackgroundColor: '#ffffff',
@@ -14,8 +13,8 @@ define('page-about', class extends WeElement {
   }
 
   installed() {
-    var Remarkable = require('remarkable');
-var md = new Remarkable();
+    const Remarkable = require('remarkable');
+    const md = new Remarkable();
 
     const article = md.render(mdStr.data)
     console.log(article)
@@ -26,7 +25,7 @@ var md = new Remarkable();
     return (
       <view>
         <import src='../../components/wxParse/wxParse.wxml' />
-        <template is='wxParse' data='{{wxParseData:article.nodes}}'/>
+        <template is='wxParse' data='{{wxParseData:article.nodes}}' />
       </view>
     )
   }
