@@ -308,3 +308,19 @@ view {
 .wxParse-figure {
   overflow: hidden;
 }
+
+.wxParse-ul > text.WxEmojiView.wxParse-inline{
+  display: none;
+}
+
+.wxParse-tbody > text.WxEmojiView.wxParse-inline{
+  display: none;
+}
+
+.wxParse-table > text.WxEmojiView.wxParse-inline{
+  display: none;
+}
+
+.wxParse-thead > text.WxEmojiView.wxParse-inline{
+  display: none;
+}
