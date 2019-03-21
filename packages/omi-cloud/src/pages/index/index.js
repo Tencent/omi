@@ -7,25 +7,20 @@ import '../../components/todo-footer'
 const app = getApp()
 
 define('page-index', class extends WeElement {
+  config = {
+    navigationBarBackgroundColor: '#24292e',
+    navigationBarTextStyle: 'white',
+    navigationBarTitleText: ' ',
+    backgroundColor: '#eeeeee',
+    backgroundTextStyle: 'light'
+  }
+  
   data = {
     todo: [],
     inputText: '',
     left: 0,
     type: 'all',
     done: 0
-  }
-
-  //事件处理函数
-  bindViewTap = () => {
-    wx.navigateTo({
-      url: '../logs/index'
-    })
-  }
-
-  gotoFilms = () => {
-    wx.navigateTo({
-      url: '../list/index'
-    })
   }
 
   textInput = (evt) => {
