@@ -15,8 +15,7 @@ define('page-about', class extends WeElement {
   }
 
   data = {
-    list: [],
-    todoEntry: false
+    list: []
   }
 
   installed() {
@@ -33,10 +32,6 @@ define('page-about', class extends WeElement {
           this.data.list = res.data
           this.update()
           wx.hideLoading()
-        })
-        app.globalData.db.collection('config').get().then(res => {
-          this.data.todoEntry = res.data[0].todo
-          this.update()
         })
       },
       fail: err => {
@@ -74,10 +69,10 @@ define('page-about', class extends WeElement {
           </view>
         ))}
 
-        {todoEntry && <view class='item' bindtap={this.gotoTodo}>
+        <view class='item' bindtap={this.gotoTodo}>
           <text>Todo App【案例】 </text>
           <image src={arrowPng}></image>
-        </view>}
+        </view>
 
 
         <view class='item' bindtap={this.gotoAbout}>
