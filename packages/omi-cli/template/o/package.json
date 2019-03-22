@@ -95,8 +95,10 @@
   },
   "babel": {
     "presets": [
-      ["env", {
-          "loose" : true
+      [
+        "env",
+        {
+          "loose": true
         }
       ],
       "omi"

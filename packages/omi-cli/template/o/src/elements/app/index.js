@@ -1,5 +1,5 @@
 import { define, WeElement } from 'omi'
-import logo from './logo.svg'
+import logo from './omi.png'
 import style from './_index.css'
 import '../app-intro'
 
