@@ -26,6 +26,24 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root"></div>
+    <script> 
+      Object.setPrototypeOf || ({ __proto__: [] } instanceof Array ? setProtoOf : mixinProperties)
+
+      function setProtoOf (obj, proto) {
+        obj.__proto__ = proto
+        return obj
+      }
+
+      function mixinProperties (obj, proto) {
+        for (var prop in proto) {
+          if (!obj.hasOwnProperty(prop)) {
+            obj[prop] = proto[prop]
+          }
+        }
+        return obj
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-shim.min.js"></script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

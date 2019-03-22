@@ -294,17 +294,22 @@ module.exports = {
         // Pending further investigation:
         // https://github.com/mishoo/UglifyJS2/issues/2011
         comparisons: false,
+        screw_ie8: false
       },
       mangle: {
         safari10: true,
+        screw_ie8: false, 
+        except: ['$']
       },
       output: {
         comments: false,
+        screw_ie8: false,
         // Turned on because emoji and regex is not minified properly using default
         // https://github.com/facebookincubator/create-react-app/issues/2488
         ascii_only: true,
       },
       sourceMap: shouldUseSourceMap,
+      support_ie8: true
     }),
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
