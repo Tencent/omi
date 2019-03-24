@@ -7,35 +7,35 @@ class Component {
   constructor() { }
 
   data = {}
-  
+
   update(patch, callback) {
     try {
       this._createData()
     } catch (e) {
       console.log(e)
     }
-    
+
     this.beforeUpdate && this.beforeUpdate()
     this.beforeRender && this.beforeRender()
 
     if (arguments.length === 0) {
-      this._weappRef.setData(this.data)
+      this.$scope.setData(this.data)
     } else if (arguments.length === 1) {
       if (typeof patch === 'function') {
-        this._weappRef.setData(this.data, patch)
+        this.$scope.setData(this.data, patch)
       } else {
         this.data = this.data || {}
         Object.keys(patch).forEach(path => {
           updateData(this.data, path, patch[path])
         })
-        this._weappRef.setData(this.data)
+        this.$scope.setData(this.data)
       }
     } else {
       this.data = this.data || {}
       Object.keys(patch).forEach(path => {
         updateData(this.data, path, patch[path])
       })
-      this._weappRef.setData(this.data, callback)
+      this.$scope.setData(this.data, callback)
     }
     this.updated && this.updated()
   }
@@ -47,7 +47,7 @@ class Component {
   uninstall() { }
 
   fire(type, data) {
-    this._weappRef.triggerEvent(type, data)
+    this.$scope.triggerEvent(type, data)
   }
 }
 
@@ -128,7 +128,7 @@ root.create = {
     })
 
     config.onLoad = function (options) {
-      ins._weappRef = this
+      ins.$scope = this
       config.$$refs.forEach(ref => {
         if (ref.type === 'component') {
           if (ref.fn) {

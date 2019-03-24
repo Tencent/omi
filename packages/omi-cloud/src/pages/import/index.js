@@ -22,7 +22,7 @@ define('page-about', class extends WeElement {
 
     const article = md.render(data.md)
     console.log(article)
-    WxParse.wxParse('article', 'html', article, this._weappRef, 5)
+    WxParse.wxParse('article', 'html', article, this.$scope, 5)
 
 
     // 调用云函数

@@ -23,7 +23,7 @@ define('page-about', class extends WeElement {
     })
     app.globalData.db.collection('article').doc(options.id).get().then(res=>{
       const article = md.render(res.data.md)
-      WxParse.wxParse('article', 'html', article, this._weappRef, 5)
+      WxParse.wxParse('article', 'html', article, this.$scope, 5)
       wx.hideLoading()
     })
   }
