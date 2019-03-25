@@ -55,7 +55,7 @@ define('page-about', class extends WeElement {
 
   gotoDetail = (evt) => {
     wx.navigateTo({
-      url: '../detail/index?id=' + evt.target.dataset.id
+      url: '../detail/index?id=' + evt.currentTarget.dataset.id
     })
   }
 

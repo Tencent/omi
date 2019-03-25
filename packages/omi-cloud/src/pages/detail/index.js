@@ -25,6 +25,8 @@ define('page-about', class extends WeElement {
       const article = md.render(res.data.md)
       WxParse.wxParse('article', 'html', article, this.$scope, 5)
       wx.hideLoading()
+    }).catch(err => {
+      console.error(err)
     })
   }
 
