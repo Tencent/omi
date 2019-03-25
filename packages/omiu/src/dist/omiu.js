@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.12 By dntzhang 
+ *  omiu v0.0.13 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -4025,6 +4025,9 @@ var toast = {},
     dom = void 0;
 
 toast.showLoading = function (wording) {
+  if (dom) {
+    document.body.removeChild(dom);
+  }
   dom = (0, _omi.render)(Omi.h(
     'o-toast',
     {
@@ -4035,7 +4038,10 @@ toast.showLoading = function (wording) {
 };
 
 toast.hideLoading = function () {
-  document.body.removeChild(dom);
+  if (dom) {
+    document.body.removeChild(dom);
+    dom = null;
+  }
 };
 
 exports['default'] = toast;
