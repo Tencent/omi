@@ -1965,7 +1965,10 @@ function compileDepScripts (scriptFiles) {
       if (!isBuildingScripts[outputItem]) {
         isBuildingScripts[outputItem] = true
         try {
-          const code = fs.readFileSync(item).toString()
+          let code = fs.readFileSync(item).toString()
+          if (path.extname(item) === '.md') {
+            code = `export default { md: \`${code.replace(/`/g, '\\`')}\` }`
+          }
           const transformResult = wxTransformer({
             code,
             sourcePath: item,

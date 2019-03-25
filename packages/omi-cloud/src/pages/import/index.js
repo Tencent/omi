@@ -1,7 +1,7 @@
 import { WeElement, define } from 'omi'
 import './index.css'
 import WxParse from '../../components/wxParse/wxParse'
-import data from './introduction.md.js'
+import data from './test.md'
 
 
 //获取应用实例
@@ -37,7 +37,7 @@ define('page-about', class extends WeElement {
           data: {
             // _id: 'todo-identifiant-aleatoire', // 可选自定义 _id，在此处场景下用数据库自动分配的就可以了
             md: data.md,
-            title: data.title,
+            title: 'test',
             createTime: app.globalData.db.serverDate()
           },
           success: (res) => {
