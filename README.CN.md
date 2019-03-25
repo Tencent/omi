@@ -1,7 +1,7 @@
 [English](./README.md) | 简体中文 | [한국어](./README.KR.md)
 
-<p align="right">Omi <strong>v6.0.1</strong></p>
-<p align="right">Omio <strong>v2.0.3</strong></p>
+<p align="right">Omi <strong>v6.0.3</strong></p>
+<p align="right">Omio <strong>v2.0.8</strong></p>
 <p align="center"><img src="./assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
 <p align="center"><b>基于 Web Components 并支持 IE8+(omio) 和 小程序(omip)</b></p>
@@ -13,11 +13,12 @@
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://tencent.github.io/omi/site/docs/cn.html)| Omi 官方文档 |
-| [omip![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omip)| 直接使用 Omi 开发小程序！！！|
+| [omip![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omip)| 直接使用 Omi 开发小程序或 H5 SPA！！！|
 | [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到IE8+和移动端浏览器)。|
 | [omiu![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png)](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)| Omi 官方 UI。|
 | [omix![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omix)| 极小却精巧的小程序框架。|
 | [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
+| [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
 | [md2site](https://tencent.github.io/omi/assets/md2site/)| 用 markdown 生成静态网站文档.|
 | [omi-mvvm](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md)| MVVM 王者归来, [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力加持。|
 | [omi-chart](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| 一个 chart-x 标签搞定报表|
@@ -25,9 +26,9 @@
 | [omi-html](https://github.com/Tencent/omi/tree/master/packages/omi-html)| Using [htm](https://github.com/developit/htm) in omi.|
 | [omi-30-seconds](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| 30 秒理解一段有用的 Omi 代码片段.|
 | [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
+| [omi-vscode](https://github.com/ZainChen/omi-vscode)| Vscode extension for omi, [Install now!](https://marketplace.visualstudio.com/items?itemName=ZainChen.omi) |
 | [omi-sprite](https://github.com/Tencent/omi/tree/master/packages/omi-sprite)| Web Components, JSX 和 Canvas 的完美融合|
 | [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Web Components, JSX 和 Canvas 的完美融合|
-| [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js。[→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选。 |
 | [omi-ex](https://github.com/Tencent/omi/tree/master/packages/omi-ex)| Omi.js 扩展(TypeScript) |
@@ -41,6 +42,7 @@
 
 ### 特性
 
+- 提供桌面、移动和小程序整体解决方案
 - 小巧的尺寸
 - 拥有官方 UI 组件库 - [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)
 - 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
@@ -57,7 +59,7 @@
 - 看看[Facebook React 和 Web Components对比优势](https://www.cnblogs.com/rubylouvre/p/4072979.html)，Omi 融合了各自的优点，而且给开发者自由的选择喜爱的方式
 - `Shadow DOM` 与 `Virtual DOM` 融合，Omi 既使用了`虚拟 DOM`，也是使用真实 `Shadow DOM`，让视图更新更准确更迅速
 - 局部 CSS 最佳解决方案(`Shadow DOM`)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:`Radium`，`jsxstyle`，`react-style`；与webpack绑定使用生成独特的className`文件名—类名—hash值`，如：`CSS Modules`，`Vue`)，还有运行时注入`scoped atrr` 的方式，都是 hack 技术；`Shadow DOM Style` 是最完美的方案
-<!-- - 独创的 `Path Updating` 机制，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback`,对 this.update 说再见吧！只要使用 `store` 系统，它就会自动化按需更新局部视图 -->
+- 独创的 `Path Updating`的 `store` 系统，基于 Proxy 全自动化的精准更新，功耗低，自由度高，性能卓越，方便集成 `requestIdleCallback`，自动化按需更新局部视图
 
 对比同样开发 TodoApp， Omi 和 React 渲染完的 DOM 结构，Omi 使用 Shadow DOM 隔离样式和语义化结构:
 
@@ -67,10 +69,14 @@
 
 ## 必须收藏的资源
 
+* [Omip 编译 H5 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/omip-h5.md)
 * [你必须收藏 ES6 Spread Operator 技巧](https://github.com/Tencent/omi/blob/master/tutorial/spread-operator.cn.md)
+* [Omi snap 骨架屏与快照](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)
 * [Omio 兼容 IE8 踩坑之路](https://github.com/Tencent/omi/blob/master/tutorial/omio.cn.md)
+* [Omi 生态发布](https://github.com/Tencent/omi/blob/master/tutorial/ecosystem.cn.md)
 * [深入浅出 Shadow Dom](https://github.com/Tencent/omi/blob/master/tutorial/shadow-dom-in-depth.cn.md)
 * [HTM - JSX 的替代品？还是另一种选择？](https://github.com/Tencent/omi/blob/master/tutorial/omi-html.cn.md)
+* [MVVM 王者归来](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md)
 * [60FPS Animation In Omi](https://github.com/Tencent/omi/blob/master/tutorial/omi-transform.cn.md)
 * [Render Web Components To Native](https://github.com/Tencent/omi/blob/master/tutorial/render-web-components-to-native.cn.md)
 * [Web Components MDN](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)
@@ -83,7 +89,7 @@
 * [Platform HTML5](https://platform.html5.org/)
 * [使用 requestIdleCallback](https://div.io/topic/1370)
 * [A requestIdleCallback polyfill](https://gist.github.com/paullewis/55efe5d6f05434a96c36)
-* [The Power Of Web Components](https://hacks.mozilla.org/2018/11/the-power-of-web-components/)
+* [Web Components 的力量](https://github.com/Tencent/omi/blob/master/tutorial/the-power-of-web-components.cn.md)
 * [ShadowRoot](https://developer.mozilla.org/zh-CN/docs/Web/API/ShadowRoot)
 * [Developer Tools support for Web Components in Firefox 63](https://blog.nightly.mozilla.org/2018/09/06/developer-tools-support-for-web-components-in-firefox-63/)
 ---
@@ -91,7 +97,6 @@
 # 目录
 
 - [Omi 生态](#omi-生态)
-- [omi-mp](#omi-mp)
 - [必须收藏的资源](#必须收藏的资源)
 - [一个 HTML 完全上手](#一个-html-完全上手)
 - [再花 30 秒完全上手](#再花-30-秒完全上手)
@@ -102,7 +107,6 @@
   - [TodoApp](#todoapp)
   - [Store](#store)
   - [Mitt](#mitt)
-  - [Observe](#observe)
   - [生命周期](#生命周期)
 - [调试工具](#调试工具)
 - [浏览器兼容](#浏览器兼容)
@@ -449,12 +453,11 @@ define('hello-element', class extends WeElement {
     evt.stopPropagation()
   }
 
-  css = `
+  static css = `
       div {
         color: red;
         cursor: pointer;
       }`
-  }
 
   render(props) {
     return (
@@ -750,35 +753,6 @@ render(<todo-app></todo-app>, 'body', store)
 
 * [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
 
-## Observe
-
-### Omi Observe
-
-你可以为那些不需要 store 的自定义元素使用 observe 创建响应式视图，比如:
-
-```js
-import { define, WeElement } from "omi"
-
-define("my-app", class extends WeElement {
-  static observe = true
-
-  install() {
-    this.data.name = "omi"
-  }
-
-  onClick = () => {
-    this.data.name = "Omi V4.0"
-  }
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    )
-  }
-})
-```
 <!-- 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
 
