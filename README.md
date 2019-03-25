@@ -98,7 +98,6 @@ Omi uses Shadow DOM based style isolation and semantic structure.
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
-  - [Mitt](#mitt)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
 - [Browsers Support](#browsers-support)
@@ -724,12 +723,12 @@ render(<todo-app />, "body", store);
 [→ Store Source Code](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js) -->
 
 
-
+<!-- 
 ## Mitt
 
 If you don't want to use store's data system, you can also use publish subscribe mode. For example, using [mitt](https://github.com/developit/mitt) across component communication in Omi:
 
-* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
+* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication) -->
 
 <!-- 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.

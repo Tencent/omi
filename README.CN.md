@@ -106,7 +106,6 @@
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
-  - [Mitt](#mitt)
   - [生命周期](#生命周期)
 - [调试工具](#调试工具)
 - [浏览器兼容](#浏览器兼容)
@@ -745,12 +744,12 @@ render(<todo-app></todo-app>, 'body', store)
 * 组件和页面的 data 用来列出依赖的 store.data 的属性 (omi会记录path)，按需更新
 * 如果页面简单组件很少，可以 updateAll 设置成 true，并且组件和页面不需要声明 data，也就不会按需更新
 * globalData 里声明的 path，只要修改了对应 path 的值，就会刷新所有页面和组件，globalData 可以用来列出所有页面或大部分公共的属性 Path -->
-
+<!-- 
 ## Mitt
 
 如果不想使用 store 的 data 体系，也可以使用发布订阅模式。比如在 Omi 中使用 [mitt](https://github.com/developit/mitt) 跨组件通讯:
 
-* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
+* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication) -->
 
 <!-- 
 如果你想要兼容 IE11,请使用 `omi-mobx` 代替 omi 自带的 observe，往下看..
