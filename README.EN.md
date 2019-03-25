@@ -1,7 +1,7 @@
 English | [简体中文](./README.md) | [한국어](./README.KR.md)
 
-<p align="right">Omi <strong>v6.0.2</strong></p>
-<p align="right">Omio <strong>v2.0.6</strong></p>
+<p align="right">Omi <strong>v6.0.3</strong></p>
+<p align="right">Omio <strong>v2.0.8</strong></p>
 <p align="center"><img src="./assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - Next front end framework using web components with omio(IE8+) and omip(小程序) fallback in tiny js.</h2>
 
@@ -98,10 +98,8 @@ Omi uses Shadow DOM based style isolation and semantic structure.
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
   - [Store](#store)
-  - [Mitt](#mitt)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
-- [React to Omi](#react-to-omi)
 - [Browsers Support](#browsers-support)
 - [Contributors](#contributors)
 - [Maintainers](#maintainers)
@@ -725,12 +723,12 @@ render(<todo-app />, "body", store);
 [→ Store Source Code](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js) -->
 
 
-
+<!-- 
 ## Mitt
 
 If you don't want to use store's data system, you can also use publish subscribe mode. For example, using [mitt](https://github.com/developit/mitt) across component communication in Omi:
 
-* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication)
+* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication) -->
 
 <!-- 
 If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
@@ -781,7 +779,7 @@ Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[
 Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another elements panel such as React has. It just adds a panel to the **Elements' sidebar** and it's powerful as much as React DevTools.
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
-
+<!-- 
 ## React to Omi
 
 For example, the below is about migration React button as weui Omi button:
@@ -791,7 +789,7 @@ For example, the below is about migration React button as weui Omi button:
 * [Diff Split](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=split)
 * [Diff Unified](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=unified)
 * [Before](https://github.com/Tencent/omi/blob/c8af654f1d5865dc557c0b4b8ad524f702a69be5/packages/omi-weui/src/omi-weui/elements/button/button.js)
-* [After](https://github.com/Tencent/omi/blob/9790fadaaf20cfede80bcf9213756a83fc8c3949/packages/omi-weui/src/omi-weui/elements/button/button.js)
+* [After](https://github.com/Tencent/omi/blob/9790fadaaf20cfede80bcf9213756a83fc8c3949/packages/omi-weui/src/omi-weui/elements/button/button.js) -->
 
 ## Browsers Support
 
