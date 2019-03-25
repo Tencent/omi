@@ -110,7 +110,6 @@
   - [生命周期](#生命周期)
 - [调试工具](#调试工具)
 - [浏览器兼容](#浏览器兼容)
-- [React 组件转成 Omi](#react-组件转成-omi)
 - [相关链接](#相关链接)
 - [贡献者们](#贡献者们)
 - [维护者](#维护者)
@@ -802,7 +801,7 @@ class MyApp extends WeElement {
 既然  Omi 使用了 Web Components 和 Shadow-DOM, 所以不需要像 React 一样安装其他元素面板，只需要使用 Chrome 自带的 **Elements' sidebar** 便可，它和 React 开发者工具一样强大。
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
-
+<!-- 
 ## React 组件转成 Omi
 
 举个例子，下面是吧 weui react 的 button 转成 weui omi 的 button 的例子 :
@@ -812,7 +811,7 @@ class MyApp extends WeElement {
 * [Diff Split](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=split)
 * [Diff Unified](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=unified)
 * [Before](https://github.com/Tencent/omi/blob/c8af654f1d5865dc557c0b4b8ad524f702a69be5/packages/omi-weui/src/omi-weui/elements/button/button.js)
-* [After](https://github.com/Tencent/omi/blob/9790fadaaf20cfede80bcf9213756a83fc8c3949/packages/omi-weui/src/omi-weui/elements/button/button.js)
+* [After](https://github.com/Tencent/omi/blob/9790fadaaf20cfede80bcf9213756a83fc8c3949/packages/omi-weui/src/omi-weui/elements/button/button.js) -->
 
 ## 浏览器兼容
 

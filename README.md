@@ -101,7 +101,6 @@ Omi uses Shadow DOM based style isolation and semantic structure.
   - [Mitt](#mitt)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
-- [React to Omi](#react-to-omi)
 - [Browsers Support](#browsers-support)
 - [Contributors](#contributors)
 - [Maintainers](#maintainers)
@@ -781,7 +780,7 @@ Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[
 Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another elements panel such as React has. It just adds a panel to the **Elements' sidebar** and it's powerful as much as React DevTools.
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
-
+<!-- 
 ## React to Omi
 
 For example, the below is about migration React button as weui Omi button:
@@ -791,7 +790,7 @@ For example, the below is about migration React button as weui Omi button:
 * [Diff Split](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=split)
 * [Diff Unified](https://github.com/Tencent/omi/commit/9790fadaaf20cfede80bcf9213756a83fc8c3949?diff=unified)
 * [Before](https://github.com/Tencent/omi/blob/c8af654f1d5865dc557c0b4b8ad524f702a69be5/packages/omi-weui/src/omi-weui/elements/button/button.js)
-* [After](https://github.com/Tencent/omi/blob/9790fadaaf20cfede80bcf9213756a83fc8c3949/packages/omi-weui/src/omi-weui/elements/button/button.js)
+* [After](https://github.com/Tencent/omi/blob/9790fadaaf20cfede80bcf9213756a83fc8c3949/packages/omi-weui/src/omi-weui/elements/button/button.js) -->
 
 ## Browsers Support
 
