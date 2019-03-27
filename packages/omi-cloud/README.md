@@ -15,7 +15,6 @@ $ npm start
 
 ### 依赖的数据表
 
-![](../../assets/omi-cloud-db.jpg)
+<img src="../../assets/omi-cloud-db.jpg"  width="500">
 
-
-![](../../assets/omi-cloud-db-todo.jpg)
+<img src="../../assets/omi-cloud-db-todo.jpg"  width="500">
