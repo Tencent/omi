@@ -332,11 +332,11 @@ const [count, setCount] = this.useData(0)
 ### 安装
 
 ```bash
-$ npm i omi-cli -g               # install cli
-$ omi init my-app     # init project, you can also exec 'omi init' in an empty folder
-$ cd my-app           # please ignore this command if you executed 'omi init' in an empty folder
-$ npm start                      # develop
-$ npm run build                  # release
+$ npm i omi-cli -g    # install cli
+$ omi init my-app     # 初始化项目，也可以在空目录里执行 'omi init'
+$ cd my-app           # 如果在空目录里执行 'omi init' 忽略这条命令
+$ npm start           # 开发
+$ npm run build       # 编译发布
 ```
 
 > `npx omi-cli init my-app` 也支持(要求 npm v5.2.0+)
