@@ -18,6 +18,7 @@
 * 支持使用 CSS 预编译器
 * 小程序 API 优化，异步 API Promise 化
 * 超轻量的依赖包，顺从小程序标签和组件的设计
+* 支持[→ 小程序•云开发](https://github.com/Tencent/omi/tree/master/packages/omi-cloud)
 
 ## 快速开始
 
