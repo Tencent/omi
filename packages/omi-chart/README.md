@@ -60,6 +60,7 @@ npm i omi-chart
 ## Usage
 
 ```js
+import { define, WeElement, render } from 'omi'
 import 'omi-chart'
 
 define('my-app', class extends WeElement {
