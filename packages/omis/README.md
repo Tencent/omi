@@ -4,7 +4,6 @@ Omi server side rendering
 
 ## Getting Start
 
-
 ```bash
 $ npm i omi-cli -g      # install cli
 $ omi init-s my-app     # init project
@@ -67,3 +66,12 @@ $ npm start --release                    # Launch dev server in production mode
   plugins
 - `run.js` - Helps to launch other scripts with `babel-node` (e.g. `babel-node tools/run build`)
 - `.eslintrc` - ESLint overrides for built automation scripts
+
+## License
+
+MIT © dntzhang
+
+#### Open Source Software Licensed Under the MIT License:
+
+[react-starter-kit](https://github.com/kriasoft/react-starter-kit) 
+Copyright © 2014-present Kriasoft, LLC. 
