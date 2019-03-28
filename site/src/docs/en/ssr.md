@@ -9,6 +9,16 @@ Server-side rendering (SSR) also has drawbacks, such as increasing server-side o
 
 ## Usage
 
+```bash
+$ npm i omi-cli -g      # install cli
+$ omi init-s my-app     # init project
+$ cd my-app           
+$ npm start             # develop
+$ npm run build         # release
+```
+
+## Principle
+
 Define component:
 
 ```jsx
@@ -52,11 +62,20 @@ app.get('/', function (req, res) {
 <html lang="en">
   <head>
     <title>Omi SSR</title>
-    ${obj.css.join('')}
+    ${toString(obj.css)}
   </head>
   <body>${obj.html}</body>
 </html>`)
 })
+
+function toString(css){
+  return (
+     css.map(style => {
+          return `<style id="${style.id}">${style.css}</style>`
+      }
+    ))
+  )
+}
 
 app.listen(3000)
 ```
