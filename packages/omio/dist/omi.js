@@ -634,6 +634,12 @@
     }
     function render(vnode, parent, store, empty, merge) {
         parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
+        obsStore(store);
+        if (empty) while (parent.firstChild) parent.removeChild(parent.firstChild);
+        if (merge) merge = 'string' == typeof merge ? document.querySelector(merge) : merge;
+        return diff(merge, vnode, store, !1, parent, !1);
+    }
+    function obsStore(store) {
         if (store && store.data) {
             store.instances = [];
             extendStoreUpate(store);
@@ -649,9 +655,11 @@
                 }, 0);
             });
         }
-        if (empty) while (parent.firstChild) parent.removeChild(parent.firstChild);
-        if (merge) merge = 'string' == typeof merge ? document.querySelector(merge) : merge;
-        return diff(merge, vnode, store, !1, parent, !1);
+    }
+    function merge(vnode, merge, store) {
+        obsStore(store);
+        merge = 'string' == typeof merge ? document.querySelector(merge) : merge;
+        return diff(merge, vnode, store);
     }
     function extendStoreUpate(store) {
         store.update = function(patch) {
@@ -851,8 +859,11 @@
                 if (c.constructor.css || c.css) {
                     var cssStr = c.constructor.css ? c.constructor.css : 'function' == typeof c.css ? c.css() : c.css;
                     var cssAttr = '_s' + getCtorName(c.constructor);
-                    css[cssAttr] = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
-                    addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
+                    css[cssAttr] = {
+                        id: cssAttr,
+                        css: scoper(cssStr, cssAttr)
+                    };
+                    addScopedAttrStatic(rendered, cssAttr);
                 }
                 c.scopedCSSAttr = vnode.css;
                 scopeHost(rendered, c.scopedCSSAttr);
@@ -1218,10 +1229,11 @@
         extractClass: extractClass,
         getHost: getHost,
         renderToString: renderToString,
-        tag: tag
+        tag: tag,
+        merge: merge
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.0.9';
+    options.root.Omi.version = 'omio-2.1.0';
     var Omi = {
         h: h,
         createElement: h,
@@ -1240,7 +1252,8 @@
         extractClass: extractClass,
         getHost: getHost,
         renderToString: renderToString,
-        tag: tag
+        tag: tag,
+        merge: merge
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();
