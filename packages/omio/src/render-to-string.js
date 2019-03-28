@@ -108,10 +108,13 @@ function _renderToString(vnode, opts, store, isSvgMode, css) {
 
         const cssStr = c.constructor.css ? c.constructor.css : (typeof c.css === 'function' ? c.css() : c.css)
         const cssAttr = '_s' + getCtorName(c.constructor)
-        css[cssAttr] = `<style type="text/css" id="${cssAttr}">${scoper(cssStr, cssAttr)}</style>`
+        css[cssAttr] = {
+          id: cssAttr,
+          css: scoper(cssStr, cssAttr)
+        }
         addScopedAttrStatic(
           rendered,
-          '_s' + getCtorName(c.constructor)
+          cssAttr
         )
       }
     

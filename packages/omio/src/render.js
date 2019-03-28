@@ -10,21 +10,7 @@ import { getUse } from './util'
  */
 export function render(vnode, parent, store, empty, merge) {
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent
-  if (store && store.data) {
-    store.instances = []
-    extendStoreUpate(store)
-    let timeout = null
-    let patchs = {}
-    obaa(store.data, (prop, val, old, path) => {
-      clearTimeout(timeout)
-      const key = fixPath(path + '-' + prop)
-      patchs[key] = true
-      timeout = setTimeout(() => {
-        store.update(patchs)
-        patchs = {}
-      }, 0)
-    })
-  }
+  obsStore(store)
 
   if (empty) {
     while (parent.firstChild) {
@@ -42,6 +28,34 @@ export function render(vnode, parent, store, empty, merge) {
   return diff(merge, vnode, store, false, parent, false)
 }
 
+function obsStore(store){
+  if (store && store.data) {
+    store.instances = []
+    extendStoreUpate(store)
+    let timeout = null
+    let patchs = {}
+    obaa(store.data, (prop, val, old, path) => {
+      clearTimeout(timeout)
+      const key = fixPath(path + '-' + prop)
+      patchs[key] = true
+      timeout = setTimeout(() => {
+        store.update(patchs)
+        patchs = {}
+      }, 0)
+    })
+  }
+}
+
+export function merge(vnode, merge, store) {
+  obsStore(store)
+  
+  merge =
+    typeof merge === 'string'
+      ? document.querySelector(merge)
+      : merge
+
+  return diff(merge, vnode, store)
+}
 
 function extendStoreUpate(store) {
   store.update = function(patch) {

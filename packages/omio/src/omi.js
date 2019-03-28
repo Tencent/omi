@@ -1,7 +1,7 @@
 import { h, h as createElement } from './h'
 import { cloneElement } from './clone-element'
 import Component from './component'
-import { render } from './render'
+import { render, merge } from './render'
 import { rerender } from './render-queue'
 import options from './options'
 import { define } from './define'
@@ -36,10 +36,11 @@ options.root.Omi = {
   extractClass,
   getHost,
   renderToString,
-  tag
+  tag,
+  merge
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.0.9'
+options.root.Omi.version = 'omio-2.1.0'
 
 export default {
   h,
@@ -59,7 +60,8 @@ export default {
   extractClass,
   getHost,
   renderToString,
-  tag
+  tag,
+  merge
 }
 
 export {
@@ -80,5 +82,6 @@ export {
   extractClass,
   getHost,
   renderToString,
-  tag
+  tag,
+  merge
 }

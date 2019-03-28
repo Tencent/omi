@@ -41,7 +41,7 @@ describe('render()', () => {
     let res = renderToString(<todo-app2 />)
 
     expect(res.html).to.equal('<div _ss0>ab</div>');
-    expect(res.css + '').to.equal('<style type="text/css" id="_ss0">h3[_ss0]{ color:red; }</style>')
+    expect(res.css).to.deep.equal([{ id: '_ss0', css: 'h3[_ss0]{ color:red; }' }])
   })
 
 
@@ -121,7 +121,12 @@ describe('render()', () => {
     let res = renderToString(<todo-app3 />, { scopedCSS: true })
 
     expect(res.html).to.equal('<div _ss1><h3 _ss1>TODO</h3><ul _ss2 _ss1></ul><form _ss1><input id="new-todo" value _ss1 /><button _ss1>Add #1</button></form></div>');
-    expect(res.css.join('')).to.equal('<style type="text/css" id="_ss1">h3[_ss1]{ color:red; }</style><style type="text/css" id="_ss2">li[_ss2]{ color:green; }</style>')
+    expect(res.css).to.deep.equal(
+      [
+        { id: '_ss1', css: 'h3[_ss1]{ color:red; }' },
+        { id: '_ss2', css: 'li[_ss2]{ color:green; }' }
+      ]
+    )
   })
 
 
@@ -174,7 +179,14 @@ describe('render()', () => {
     let res = renderToString(<todo-app4 />)
 
     expect(res.html).to.equal('<div _ss3><h3 _ss3>TODO</h3><ul _ss2 _ss3></ul><ul _ss2 _ss3></ul><ul _ss2 _ss3></ul><form _ss3><input id="new-todo" value _ss3 /><button _ss3>Add #1</button></form></div>');
-    expect(res.css.join('')).to.equal('<style type="text/css" id="_ss3">h3[_ss3]{ color:red; }</style><style type="text/css" id="_ss2">li[_ss2]{ color:green; }</style>')
+    expect(res.css).to.deep.equal([{
+      id: '_ss3',
+      css: 'h3[_ss3]{ color:red; }'
+
+    }, {
+      id: '_ss2',
+      css: 'li[_ss2]{ color:green; }'
+    }])
   })
 
 
