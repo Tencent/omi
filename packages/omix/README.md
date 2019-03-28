@@ -310,8 +310,4 @@ setTimeout(() => {
 | detached | 在组件实例被从页面节点树移除时执行  | -->
 
 
-## 谁在使用
-
-![微信支付](../../assets/wepay.png)
-
 ## MIT Lic
