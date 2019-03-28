@@ -1,4 +1,19 @@
-# Build Automation Tools
+# Omis
+
+Omi server side rendering
+
+## Getting Start
+
+
+```bash
+$ npm i omi-cli -g      # install cli
+$ omi init-s my-app     # init project
+$ cd my-app           
+$ npm start             # develop
+$ npm run build         # release
+```
+
+## Other Cmds
 
 ### `npm start` (`start.js`)
 
