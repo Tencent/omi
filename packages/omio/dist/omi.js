@@ -749,6 +749,11 @@
             return window.innerWidth * Number(b) / 750 + 'px';
         });
     }
+    function tag(name) {
+        return function(target) {
+            define(name, target);
+        };
+    }
     function _classCallCheck$1(instance, Constructor) {
         if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
     }
@@ -1212,10 +1217,11 @@
         classNames: classNames,
         extractClass: extractClass,
         getHost: getHost,
-        renderToString: renderToString
+        renderToString: renderToString,
+        tag: tag
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.0.8';
+    options.root.Omi.version = 'omio-2.0.9';
     var Omi = {
         h: h,
         createElement: h,
@@ -1233,7 +1239,8 @@
         classNames: classNames,
         extractClass: extractClass,
         getHost: getHost,
-        renderToString: renderToString
+        renderToString: renderToString,
+        tag: tag
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();

@@ -6,6 +6,7 @@ import { rerender } from './render-queue'
 import options from './options'
 import { define } from './define'
 import { rpx } from './rpx'
+import { tag } from './tag'
 import ModelView from './model-view'
 import { classNames, extractClass } from './class'
 import { getHost } from './get-host'
@@ -34,10 +35,11 @@ options.root.Omi = {
   classNames,
   extractClass,
   getHost,
-  renderToString
+  renderToString,
+  tag
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.0.8'
+options.root.Omi.version = 'omio-2.0.9'
 
 export default {
   h,
@@ -56,7 +58,8 @@ export default {
   classNames,
   extractClass,
   getHost,
-  renderToString
+  renderToString,
+  tag
 }
 
 export {
@@ -76,5 +79,6 @@ export {
   classNames,
   extractClass,
   getHost,
-  renderToString
+  renderToString,
+  tag
 }

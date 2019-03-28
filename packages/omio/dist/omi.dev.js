@@ -1,5 +1,5 @@
 /**
- * omi v2.0.8  http://omijs.org
+ * omi v2.0.9  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1889,6 +1889,12 @@
     });
   }
 
+  function tag(name) {
+    return function (target) {
+      define(name, target);
+    };
+  }
+
   function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -2244,10 +2250,11 @@
     classNames: classNames,
     extractClass: extractClass,
     getHost: getHost,
-    renderToString: renderToString
+    renderToString: renderToString,
+    tag: tag
   };
   options.root.omi = options.root.Omi;
-  options.root.Omi.version = 'omio-2.0.8';
+  options.root.Omi.version = 'omio-2.0.9';
 
   var Omi = {
     h: h,
@@ -2266,7 +2273,8 @@
     classNames: classNames,
     extractClass: extractClass,
     getHost: getHost,
-    renderToString: renderToString
+    renderToString: renderToString,
+    tag: tag
   };
 
   if (typeof module != 'undefined') module.exports = Omi;else self.Omi = Omi;
