@@ -19,6 +19,12 @@ class Component {
       console.log(e)
     }
 
+    for (let key in this.data) {
+      if (this.data[key] === undefined) {
+        delete this.data[key]
+      }
+    }
+
     if (arguments.length === 0) {
       this.$scope.setData(this.data)
     } else if (arguments.length === 1) {
