@@ -9,14 +9,15 @@ class Component {
   data = {}
 
   update(patch, callback) {
+    
+    this.beforeUpdate && this.beforeUpdate()
+    this.beforeRender && this.beforeRender()
+
     try {
       this._createData()
     } catch (e) {
       console.log(e)
     }
-
-    this.beforeUpdate && this.beforeUpdate()
-    this.beforeRender && this.beforeRender()
 
     if (arguments.length === 0) {
       this.$scope.setData(this.data)
@@ -139,7 +140,7 @@ root.create = {
         }
       })
       ins.install(options)
-      ins.beforeRender && ins.beforeRender()
+      ins.update()
     }
 
     config.onReady = function () {
@@ -181,8 +182,6 @@ root.create = {
     if (ins.onTabItemTap) {
       config.onTabItemTap = ins.onTabItemTap.bind(ins)
     }
-
-    ins._createData()
 
     Page(config)
   }
