@@ -11,7 +11,8 @@ define('my-app', class extends WeElement {
       'pages/detail/index',
       'pages/import/index',
       'pages/index/index',
-      'pages/about/index'
+      'pages/about/index',
+      'pages/code/index'
     ],
     window: {
       backgroundTextStyle: 'light',
