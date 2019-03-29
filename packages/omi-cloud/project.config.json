@@ -28,13 +28,26 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
 					"name": "导入数据",
 					"pathName": "pages/import/index",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "代码高亮",
+					"pathName": "pages/code/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "入口",
+					"pathName": "pages/list/index",
 					"scene": null
 				}
 			]
