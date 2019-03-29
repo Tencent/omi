@@ -16,6 +16,9 @@ export const incrementId = () => {
   return () => id++
 }
 
+// tslint:disable-next-line:no-empty
+export const noop = function () {}
+
 export function getSuperClassCode (path: NodePath<t.ClassDeclaration>) {
   const superClass = path.node.superClass
   if (t.isIdentifier(superClass)) {
@@ -218,7 +221,26 @@ export function generateAnonymousState (
           t.returnStatement(func.body)
         ])
       } else {
-        func.body.body.splice(func.body.body.length - 1, 0, buildConstVariableDeclaration(variableName, expr))
+        if (ifExpr && ifExpr.isIfStatement() && ifExpr.findParent(p => p === callExpr)) {
+          const consequent = ifExpr.get('consequent')
+          const test = ifExpr.get('test')
+          if (consequent.isBlockStatement()) {
+            if (jsx === test || jsx.findParent(p => p === test)) {
+              func.body.body.unshift(buildConstVariableDeclaration(variableName, expr))
+            } else {
+              func.body.body.unshift(t.variableDeclaration('let', [t.variableDeclarator(t.identifier(variableName), t.nullLiteral())]))
+              consequent.node.body.push(t.expressionStatement(t.assignmentExpression(
+                '=',
+                t.identifier(variableName),
+                expr
+              )))
+            }
+          } else {
+            throw codeFrameError(consequent.node, 'if 表达式的结果必须由一个花括号包裹')
+          }
+        } else {
+          func.body.body.splice(func.body.body.length - 1, 0, buildConstVariableDeclaration(variableName, expr))
+        }
       }
     }
   }
