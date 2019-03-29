@@ -595,7 +595,7 @@ class RenderParser {
             NullLiteral(path) {
                 const statementParent = path.getStatementParent();
                 if (statementParent && statementParent.isReturnStatement() && !t.isBinaryExpression(path.parent) && !isChildrenOfJSXAttr(path)) {
-                    path.replaceWith(t.jSXElement(t.jSXOpeningElement(t.jSXIdentifier('View'), []), undefined, [], true));
+                    path.replaceWith(t.jSXElement(t.jSXOpeningElement(t.jSXIdentifier('view'), []), undefined, [], true));
                 }
             }, ReturnStatement: (path) => {
                 const parentPath = path.parentPath;

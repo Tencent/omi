@@ -1,56 +1,56 @@
 {
-	"miniprogramRoot": "miniprogram/",
-	"cloudfunctionRoot": "cloudfunctions/",
-	"setting": {
-		"urlCheck": true,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true
-	},
-	"appid": "wxdf970566455966b0",
-	"projectname": "omi-cloud",
-	"libVersion": "2.6.2",
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"list": []
-		},
-		"miniprogram": {
-			"current": 2,
-			"list": [
-				{
-					"id": -1,
-					"name": "导入数据",
-					"pathName": "pages/import/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "代码高亮",
-					"pathName": "pages/code/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "入口",
-					"pathName": "pages/list/index",
-					"scene": null
-				}
-			]
-		}
-	}
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true
+  },
+  "appid": "wxdf970566455966b0",
+  "projectname": "omi-cloud",
+  "libVersion": "2.6.2",
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "miniprogram": {
+      "current": 2,
+      "list": [
+        {
+          "id": -1,
+          "name": "导入数据",
+          "pathName": "pages/import/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "代码高亮",
+          "pathName": "pages/code/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "入口",
+          "pathName": "pages/list/index",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

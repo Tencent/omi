@@ -290,15 +290,24 @@ var _ = {
 		env.tokens = _.tokenize(env.code, env.grammar);
     _.hooks.run('after-tokenize', env);
 
-    // for (var i = 0, len = env.tokens.length; i < len; i++) {
-    //   var v = env.tokens[i]
-    //   if (typeof v === 'string') {
-
-    //     env.tokens[i] = { type: 'text', content: v }
-    //   }
-    // }
+		for (var i = 0, len = env.tokens.length; i < len; i++) {
+      var v = env.tokens[i]
+      if (Object.prototype.toString.call(v.content)=== '[object Array]') {
+        v.deep = true
+        this._walkContent(v.content)
+      }
+    }
     return env.tokens
-	},
+  },
+  
+  _walkContent(arr){
+    for (var i = 0, len = arr.length; i < len; i++) {
+      if (Object.prototype.toString.call(arr[i].content)=== '[object Array]') {
+        arr[i].deep = true
+        this._walkContent(arr[i].content)
+      }
+    }
+  },
 
 	matchGrammar: function (text, strarr, grammar, index, startPos, oneshot, target) {
 		for (var token in grammar) {
