@@ -168,6 +168,12 @@ import src from './my-image.png'
 
 ```
 
+## 访问原生小程序里的 this
+
+```js
+this.$scope
+```
+
 ## 获取最新的 omip 版本
 
 你只需要重新拉去模板便可以更新到最新的 omip:
