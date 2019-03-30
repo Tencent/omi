@@ -1,0 +1,19 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.4.0",
+	"projectname": "mp-jsx-ts",
+	"scripts": {
+		"beforeCompile": "npm run compile",
+		"beforePreview": "npm run compile",
+		"beforeUpload": "npm run compile"
+	},
+	"setting": {
+		"newFeature": true
+	},
+	"appid": "wxfaf6dad43f57c6bd",
+	"condition": {}
+}
