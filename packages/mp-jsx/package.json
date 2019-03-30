@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node _scripts/index.js",
+    "start": "gulp",
     "test": "node _scripts/test/index.js"
   },
   "keywords": [],

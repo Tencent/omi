@@ -2,7 +2,7 @@ let gulp = require('gulp')
 let path = require('path')
 let tap = require('gulp-tap')
 let fs = require('fs')
-let jsx2wxml = require('./jsx2wxml')
+let jsx2wxml = require('./_scripts/jsx2wxml')
 
 function buildComponent(code) {
   return `
@@ -22,15 +22,15 @@ const baseOptions = {
 }
 
 gulp.task('watch', () => {
-  gulp.watch('../**/*.jsx', () => {
-    gulp.start('cp')
+  gulp.watch(['./**/*.jsx','!./node_modules/**','!./_scripts/**'], () => {
+    gulp.start('compile')
   })
 })
 
 //加 cache？同样的字符串返回同样的结果
-gulp.task('cp', () => {
+gulp.task('compile', () => {
   return gulp
-    .src('../**/*.jsx')
+    .src(['./**/*.jsx','!./node_modules/**','!./_scripts/**'])
     .pipe(
       tap(file => {
 
@@ -53,6 +53,6 @@ gulp.task('cp', () => {
 
 })
 
-gulp.task('default', ['cp'])
+gulp.task('default', ['compile', 'watch'])
 console.log('【开始编译】...')
 gulp.start('default')

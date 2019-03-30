@@ -15,6 +15,9 @@
       },{
         "type": "file",
         "value": "package-lock.json"
+      },{
+        "type": "file",
+        "value": "gulpfile.js"
       }
 		]
 	},
