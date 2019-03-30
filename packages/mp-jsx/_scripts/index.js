@@ -33,13 +33,12 @@ gulp.task('watch', () => {
 })
 
 //加 cache？同样的字符串返回同样的结果
-gulp.task('cp', [],() => {
-  console.log(2)
+gulp.task('cp', () => {
   return gulp
     .src('../**/*.jsx')
     .pipe(
       tap(file => {
-        console.log(1111)
+
         let dir = path.dirname(file.path)
 
         let template = jsx2wxml.default({

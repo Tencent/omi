@@ -1,1 +1,0 @@
-<view>show</view>

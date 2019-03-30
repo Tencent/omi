@@ -12,6 +12,7 @@ package-lock.json
 .idea/
 
 /packages/*/node_modules
+/packages/mp-jsx/_scripts/test
 /packages/*/yarn.lock
 /packages/*/yarn-error.log
 
