@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "gulp",
-    "test": "node _scripts/test/index.js"
+    "_test": "node _scripts/test/index.js"
   },
   "keywords": [],
   "author": "",
