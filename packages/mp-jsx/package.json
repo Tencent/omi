@@ -1,0 +1,22 @@
+{
+  "name": "mp-jsx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/code-frame": "^7.0.0",
+    "@tarojs/transformer-wx": "^1.2.22",
+    "babel-core": "^6.26.3",
+    "babel-generator": "^6.26.1",
+    "babel-template": "^6.26.0",
+    "babel-traverse": "^6.26.0",
+    "babel-types": "^6.26.0",
+    "lodash": "^4.17.11"
+  }
+}
