@@ -3,9 +3,24 @@
   "version": "1.0.0",
   "scripts": {
     "tsc": "./node_modules/typescript/bin/tsc",
-    "compile": "tsc"
+    "compile": "tsc",
+    "start": "gulp",
+    "_test": "node _scripts/test/index.js"
   },
   "devDependencies": {
     "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "@babel/code-frame": "^7.0.0",
+    "@tarojs/transformer-wx": "^1.2.22",
+    "babel-core": "^6.26.3",
+    "babel-generator": "^6.26.1",
+    "babel-template": "^6.26.0",
+    "babel-traverse": "^6.26.0",
+    "babel-types": "^6.26.0",
+    "gulp": "^3.9.1",
+    "gulp-tap": "^1.0.1",
+    "gulp-watch": "^5.0.1",
+    "lodash": "^4.17.11"
   }
 }
