@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node _scripts/index.js",
     "test": "node _scripts/test/index.js"
   },
   "keywords": [],
@@ -17,6 +18,8 @@
     "babel-template": "^6.26.0",
     "babel-traverse": "^6.26.0",
     "babel-types": "^6.26.0",
+    "gulp": "^3.9.1",
+    "gulp-tap": "^1.0.1",
     "lodash": "^4.17.11"
   }
 }
