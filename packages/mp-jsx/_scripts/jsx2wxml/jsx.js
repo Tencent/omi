@@ -229,15 +229,15 @@ function parseJSXElement(element) {
                     obj[isDefaultComponent && !name.includes('-') && !name.includes(':') ? lodash_1.kebabCase(name) : name] = value;
                 }
             }
-            if (!isDefaultComponent && !specialComponentName.includes(componentName)) {
-                obj[TRIGGER_OBSERER] = '{{ _triggerObserer }}';
-            }
+            // if (!isDefaultComponent && !specialComponentName.includes(componentName)) {
+            //     obj[TRIGGER_OBSERER] = '{{ _triggerObserer }}';
+            // }
             return obj;
         }, {});
     }
-    else if (!isDefaultComponent && !specialComponentName.includes(componentName)) {
-        attributesTrans[TRIGGER_OBSERER] = '{{ _triggerObserer }}';
-    }
+    // else if (!isDefaultComponent && !specialComponentName.includes(componentName)) {
+    //     attributesTrans[TRIGGER_OBSERER] = '{{ _triggerObserer }}';
+    // }
     return create_html_element_1.createHTMLElement({
         name: lodash_1.kebabCase(componentName),
         attributes: attributesTrans,

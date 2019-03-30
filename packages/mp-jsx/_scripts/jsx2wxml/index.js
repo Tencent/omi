@@ -349,7 +349,7 @@ function transform(options) {
                 const modules = path.scope.getAllBindings('module');
                 const providerBinding = Object.values(modules).some((m) => m.identifier.name === 'Provider');
                 if (providerBinding) {
-                    path.node.name = t.jSXIdentifier('View');
+                    path.node.name = t.jSXIdentifier('view');
                     const store = path.node.attributes.find(attr => attr.name.name === 'store');
                     if (store && t.isJSXExpressionContainer(store.value) && t.isIdentifier(store.value.expression)) {
                         storeName = store.value.expression.name;

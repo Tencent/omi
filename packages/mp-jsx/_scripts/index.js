@@ -1,27 +1,36 @@
-const jsx  = require('./jsx2wxml/jsx')
-const bc = require('babel-core')
-//https://astexplorer.net/
+/* mp-jsx v0.1.0
+  base on taro-transformer-wx v1.2.22
+  https://github.com/NervJS/taro/tree/master/packages/taro-transformer-wx
+*/
+const jsx2wxml = require('./jsx2wxml/index')
+const fs = require('fs')
+const path = require('path')
 
-const code = `<div>abc</div>`;
-const ele = bc.transform(code,{
-  parserOpts: {
-    plugins: [
-      'classProperties',
-      'jsx',
-      'flow',
-      'flowComment',
-      'trailingFunctionCommas',
-      'asyncFunctions',
-      'exponentiationOperator',
-      'asyncGenerators',
-      'objectRestSpread',
-      'decorators',
-      'dynamicImport'
-    ]
+const baseOptions = {
+  isRoot: false,
+  isApp: false,
+  sourcePath: __dirname,
+  outputPath: __dirname,
+  code: '',
+  isTyped: false
+}
+
+const { template } = jsx2wxml.default({
+  ...baseOptions,
+  code: buildComponent(fs.readFileSync(path.join(__dirname, "./test.jsx"), 'utf8'))
+})
+
+
+console.log(template)
+
+
+function buildComponent(code) {
+  return `
+class WeElement {
+  render () {
+    return ${code}
   }
 }
-)
+`
+}
 
-//console.log(ele.ast.program.body[0].expression)
-const a = jsx.parseJSXElement(ele.ast.program.body[0].expression)
-console.log(a)
