@@ -20,6 +20,7 @@
     "babel-types": "^6.26.0",
     "gulp": "^3.9.1",
     "gulp-tap": "^1.0.1",
+    "gulp-watch": "^5.0.1",
     "lodash": "^4.17.11"
   }
 }
