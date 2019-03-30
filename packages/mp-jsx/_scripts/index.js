@@ -40,17 +40,20 @@ gulp.task('cp', () => {
       tap(file => {
 
         let dir = path.dirname(file.path)
-
+        let arr = dir.split(/\\|\//)
+        let name = arr[arr.length - 1]
         let template = jsx2wxml.default({
           ...baseOptions,
           code: buildComponent(file.contents.toString())
         }).template
 
         file.contents = new Buffer(template)
-        console.log(file.contents.toString())
+        console.log('编译' + file.path)
+
+        fs.writeFileSync(dir + '/' + name + '.wxml', file.contents.toString())
       })
     )
-    .pipe(gulp.dest('build'))
+
 })
 
 gulp.task('default', ['cp'])
