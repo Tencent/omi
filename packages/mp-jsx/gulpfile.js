@@ -38,7 +38,6 @@ gulp.task('compile', () => {
     .src(['./**/*.jsx', '!./node_modules/**', '!./_scripts/**'])
     .pipe(
       tap(file => {
-        console.log(1111)
         compile({
           path: file.path,
           contents: file.contents.toString()
