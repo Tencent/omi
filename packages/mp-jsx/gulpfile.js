@@ -8,7 +8,7 @@ function buildComponent(code) {
   return `
 class WeElement {
   render () {
-    return ${code}
+    return ${code.trim()}
   }
 }`}
 
