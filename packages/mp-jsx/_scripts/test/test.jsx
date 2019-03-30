@@ -1,1 +1,1 @@
-bb?<view>show</view>:<view>hide</view>
+<view>show</view>

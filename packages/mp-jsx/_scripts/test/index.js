@@ -6,6 +6,18 @@ const jsx2wxml = require('../jsx2wxml')
 const fs = require('fs')
 const path = require('path')
 
+
+function buildComponent(code) {
+  return `
+class WeElement {
+  render () {
+    return ${code}
+  }
+}
+`
+}
+
+
 const baseOptions = {
   isRoot: false,
   isApp: false,
@@ -15,10 +27,21 @@ const baseOptions = {
   isTyped: false
 }
 
-const { template } = jsx2wxml.default({
+let { template } = jsx2wxml.default({
   ...baseOptions,
   code: buildComponent(fs.readFileSync(path.join(__dirname, "./test.jsx"), 'utf8'))
 })
+
+
+console.log(template  ===
+`<block>
+    <view>show</view>
+</block>`)
+
+template = jsx2wxml.default({
+  ...baseOptions,
+  code: buildComponent(fs.readFileSync(path.join(__dirname, "./test.1.jsx"), 'utf8'))
+}).template
 
 
 console.log(template  ===
@@ -34,13 +57,18 @@ console.log(template  ===
 </block>`)
 
 
-function buildComponent(code) {
-  return `
-class WeElement {
-  render () {
-    return ${code}
-  }
-}
-`
-}
+
+template = jsx2wxml.default({
+  ...baseOptions,
+  code: buildComponent(fs.readFileSync(path.join(__dirname, "./test.2.jsx"), 'utf8'))
+}).template
+
+
+console.log(template ===
+`<block>
+    <view>
+        <view bindtap="onTap" wx:for="{{array}}" wx:for-item="item" wx:for-index="_anonIdx"><text>{{item.name}}</text>
+        </view>
+    </view>
+</block>`)
 
