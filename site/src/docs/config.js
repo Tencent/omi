@@ -25,7 +25,8 @@ const config = {
         list: [
           { name: '生态与例子', md: 'other' },
           { name: 'Omip 多端开发', md: 'omip' },
-          { name: '服务端渲染', md: 'ssr' }
+          { name: '服务端渲染', md: 'ssr' },
+          { name: '路由', md: 'router' }
         ]
       }
     ],
@@ -53,7 +54,8 @@ const config = {
         title: 'Other',
         list: [
           { name: 'Ecosystem and examples', md: 'other' },
-          { name: 'Server-Side Rendering', md: 'ssr' }
+          { name: 'Server-Side Rendering', md: 'ssr' },
+          { name: 'Router', md: 'router' }
         ]
       }
     ]
