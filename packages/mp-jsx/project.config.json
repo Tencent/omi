@@ -18,6 +18,9 @@
       },{
         "type": "file",
         "value": "gulpfile.js"
+      },{
+        "type": "suffix",
+        "value": ".jsx"
       }
 		]
 	},
