@@ -53,7 +53,7 @@ $ omi init-jsx-ts my-app
         }) : <text class={'token ' + stk.type}>{stk.content || stk}</text>
       })}</text> : <text class={'token ' + tk.type}>{tk.content || tk}</text>
     })}
-  </view>
+ </view>
 </view>
 ```
 
@@ -94,8 +94,28 @@ $ omi init-jsx-ts my-app
 </view>
 ```
 
-欢迎使用 Omi 的 mp-jsx 大幅提高开发效率，Have fun!
+## 老项目使用 mp-jsx
+
+拷贝以下文件到小程序根目录:
+
+* _scripts 目录所有文件
+* package.json
+* gulpfile.js
+
+设置 project.config.json 里的 packOptions.ignore 忽略以上的文件，然后:
+
+``` bash
+$ npm install
+$ npm start
+```
+
+欢迎使用腾讯 Omi 团队集合京东 O2Team 智慧联合打造的 mp-jsx 大幅提高开发效率，Have fun!
 
 ## License
 
 MIT © Tencent
+
+Open Source Software Licensed Under the MIT License:
+------------------------------------------------------
+@tarojs/transformer-wx 1.2.22
+Copyright (c) 2019 O2Team
