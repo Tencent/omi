@@ -116,6 +116,6 @@ $ npm start
 MIT © Tencent
 
 Open Source Software Licensed Under the MIT License:
-------------------------------------------------------
+
 @tarojs/transformer-wx 1.2.22
 Copyright (c) 2019 O2Team
