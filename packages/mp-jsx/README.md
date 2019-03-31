@@ -45,15 +45,15 @@ $ omi init-jsx-ts my-app
 
 ```jsx
 <view class='pre language-jsx'>
-	<view class='code'>
-		{tks.map(tk => {
-			return tk.type === 'tag' ? <text class={'token ' + tk.type}>{tk.content.map(stk => {
-				return stk.deep ? stk.content.map(sstk => {
-					return <text class={'token ' + sstk.type}>{sstk.content || sstk}</text>
-				}) : <text class={'token ' + stk.type}>{stk.content || stk}</text>
-			})}</text> : <text class={'token ' + tk.type}>{tk.content || tk}</text>
-		})}
-	</view>
+  <view class='code'>
+    {tks.map(tk => {
+      return tk.type === 'tag' ? <text class={'token ' + tk.type}>{tk.content.map(stk => {
+        return stk.deep ? stk.content.map(sstk => {
+          return <text class={'token ' + sstk.type}>{sstk.content || sstk}</text>
+        }) : <text class={'token ' + stk.type}>{stk.content || stk}</text>
+      })}</text> : <text class={'token ' + tk.type}>{tk.content || tk}</text>
+    })}
+  </view>
 </view>
 ```
 
