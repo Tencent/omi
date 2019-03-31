@@ -37,4 +37,61 @@ $ omi init-jsx-ts my-app
 
 > `npx omi-cli init-jsx-ts my-app` 也支持(npm v5.2.0+)
 
-欢迎使用，大幅提高开发效率。
+## JSX vs WXML
+
+这里是一个真实的案例说明 JSX 的精巧高效的表达能力:
+
+编译前:
+
+```jsx
+<view class='pre language-jsx'>
+	<view class='code'>
+		{tks.map(tk => {
+			return tk.type === 'tag' ? <text class={'token ' + tk.type}>{tk.content.map(stk => {
+				return stk.deep ? stk.content.map(sstk => {
+					return <text class={'token ' + sstk.type}>{sstk.content || sstk}</text>
+				}) : <text class={'token ' + stk.type}>{stk.content || stk}</text>
+			})}</text> : <text class={'token ' + tk.type}>{tk.content || tk}</text>
+		})}
+	</view>
+</view>
+```
+
+编译后:
+
+```jsx
+<view class="pre language-jsx">
+  <view class="code">
+    <block wx:for="{{tks}}" wx:for-item="tk" wx:for-index="_anonIdx4">
+      <block wx:if="{{tk.type === 'tag'}}"
+        ><text class="{{'token ' + tk.type}}"
+          ><block
+            wx:for="{{tk.content}}"
+            wx:for-item="stk"
+            wx:for-index="_anonIdx2"
+            ><block wx:if="{{stk.deep}}"
+              ><text
+                class="{{'token ' + sstk.type}}"
+                wx:for="{{stk.content}}"
+                wx:for-item="sstk"
+                wx:for-index="_anonIdx3"
+                >{{sstk.content || sstk}}</text
+              >
+            </block>
+            <block wx:else
+              ><text class="{{'token ' + stk.type}}"
+                >{{stk.content || stk}}</text
+              >
+            </block>
+          </block>
+        </text>
+      </block>
+      <block wx:else
+        ><text class="{{'token ' + tk.type}}">{{tk.content || tk}}</text>
+      </block>
+    </block>
+  </view>
+</view>
+```
+
+欢迎使用 Omi 的 mp-jsx 大幅提高开发效率，Have fun!
