@@ -2,7 +2,7 @@
 
 > 原生小程序插上 JSX 的翅膀
 
-mp-jsx 是什么？它让你直接在原生小程序使用 JSX 写 WXML，实时编译，实时预览。
+mp-jsx 是什么？众所周知，JSX 可以表达一切想表达的 UI 结构，mp-jsx 让开发者直接在原生小程序使用 JSX 写 WXML，实时编译，实时预览。
 
 ![](https://github.com/Tencent/omi/raw/master/assets/mp-jsx.jpg)
 
@@ -95,3 +95,7 @@ $ omi init-jsx-ts my-app
 ```
 
 欢迎使用 Omi 的 mp-jsx 大幅提高开发效率，Have fun!
+
+## License
+
+MIT © Tencent
