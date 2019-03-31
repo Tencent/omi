@@ -56,7 +56,7 @@ function compile(file) {
   var template = jsx2wxml.default({
     ...baseOptions,
     code: buildComponent(file.contents)
-  }).template
+  }).template.replace(/<block>/,'').replace(/([\s\S]*)<\/block>/,'$1')
   console.log('【编译完成】' + file.path)
 
 

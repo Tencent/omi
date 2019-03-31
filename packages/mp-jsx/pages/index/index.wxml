@@ -1,4 +1,4 @@
-<block>
+
     <view class="container">
         <view class="userinfo">
             <block>
@@ -15,4 +15,3 @@
         <view class="usermotto"><text class="user-motto">{{motto}}</text>
         </view>
     </view>
-</block>
