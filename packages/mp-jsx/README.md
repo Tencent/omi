@@ -41,7 +41,7 @@ $ omi init-jsx-ts my-app
 
 这里是一个真实的案例说明 JSX 的精巧高效的表达能力:
 
-编译前:
+编译前的 JSX:
 
 ```jsx
 <view class='pre language-jsx'>
@@ -57,7 +57,7 @@ $ omi init-jsx-ts my-app
 </view>
 ```
 
-编译后:
+编译后 WXML:
 
 ```jsx
 <view class="pre language-jsx">
