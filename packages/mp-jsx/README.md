@@ -19,6 +19,10 @@ mp-jsx 是什么？为什么需要 mp-jsx？先列举几个现状:
 - 实时编译，实时预览
 - 输出 WXML 自动美化
 
+## 效果预览
+
+![](https://github.com/Tencent/omi/raw/master/assets/mp-jsx.gif)
+
 ## 立即开始
 
 ```bash
