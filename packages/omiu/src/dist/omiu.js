@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.13 By dntzhang 
+ *  omiu v0.0.14 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -1453,6 +1453,10 @@ exports.push([module.i, ".weui-btn {\n  background-color: #9CE6BF;\n  color: #D7
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1547,6 +1551,34 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   return _class2;
 }(_omi.WeElement));
 
+var dialog = {},
+    dom = void 0;
+
+dialog.alert = function (msg, options) {
+  options = options || {};
+  if (dom) {
+    document.body.removeChild(dom);
+  }
+  dom = (0, _omi.render)(Omi.h('o-dialog', {
+    onConfirm: closeAlert,
+    width: options.width,
+    show: true,
+    type: 'alert',
+    title: options.title || '提示',
+    msg: msg,
+    confirmText: options.confirmText || '确定'
+  }), 'body');
+};
+
+function closeAlert() {
+  if (dom) {
+    document.body.removeChild(dom);
+    dom = null;
+  }
+}
+
+exports['default'] = dialog;
+
 /***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1568,7 +1600,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-dialog {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left: 0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n.content {\n  width: 80%;\n  height: auto;\n  background-color: white;\n  position: fixed;\n  left: 10%;\n  top: 20%;\n  border-radius: 4px;\n  text-align: center;\n}\n\nh1 {\n  font-size: 18px;\n  font-weight: normal;\n  padding: 20px;\n  margin: 0px;\n}\n\np {\n  font-size: 16px;\n  color: #666;\n  padding-bottom: 20px;\n  margin: 0px;\n  border-bottom: 1px solid #eee;\n}\n\na {\n  padding: 15px;\n  text-align: center;\n  font-size: 16px;\n  display: inline-block;\n  width: 50%;\n  box-sizing: border-box;\n}\n\n.ok {\n  color: #07C160;\n  cursor: pointer;\n}\n\n.close {\n  border-right: 1px solid #eee;\n  color: black;\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, ".o-dialog {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left: 0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n.content {\n  width: 80%;\n  height: auto;\n  background-color: white;\n  position: fixed;\n  left: 10%;\n  top: 20%;\n  border-radius: 4px;\n  text-align: center;\n  padding: 10px;\n}\n\nh1 {\n  font-size: 18px;\n  font-weight: normal;\n  padding: 20px;\n  margin: 0px;\n}\n\np {\n  font-size: 16px;\n  color: #666;\n  padding-bottom: 20px;\n  margin: 0px;\n  border-bottom: 1px solid #eee;\n}\n\na {\n  padding: 15px;\n  text-align: center;\n  font-size: 16px;\n  display: inline-block;\n  width: 50%;\n  box-sizing: border-box;\n}\n\n.ok {\n  color: #07C160;\n  cursor: pointer;\n}\n\n.close {\n  border-right: 1px solid #eee;\n  color: black;\n  cursor: pointer;\n}\n", ""]);
 
 
 
