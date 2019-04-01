@@ -2,13 +2,20 @@
 
 > 原生小程序插上 JSX 的翅膀
 
-mp-jsx 是什么？众所周知，JSX 可以表达一切想表达的 UI 结构，mp-jsx 让开发者直接在原生小程序使用 JSX 写 WXML，实时编译，实时预览。
+mp-jsx 是什么？为什么需要 mp-jsx？先列举几个现状:
+
+* 目前小程序开发使用最多的技术依然是原生小程序
+* 原生小程序的 API 在不断完善和进化中
+* JSX 是表达能力和编程体验最好的 UI 表达式
+* JSX 可以表达一切想表达的 UI 结构也就能够描述任意 WXML
+
+所以，就有了 mp-jsx。 让开发者直接在原生小程序使用 JSX 写 WXML，实时编译，实时预览。
 
 ![](https://github.com/Tencent/omi/raw/master/assets/mp-jsx.jpg)
 
 - JSX 代替 WXML 书写结构，精简高效
 - 对原生小程序零入侵
-- 支持 js 和 ts
+- 支持 JS 和 TS
 - 实时编译，实时预览
 - 输出 WXML 自动美化
 
