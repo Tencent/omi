@@ -49,6 +49,7 @@ let dialog = {},
   dom
 
 dialog.alert = function (msg, options) {
+  options = options || {}
   if (dom) {
     document.body.removeChild(dom)
   }
