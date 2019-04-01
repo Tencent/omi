@@ -28,8 +28,14 @@ define('page-about', class extends WeElement {
       success: res => {
         console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
-        app.globalData.db.collection('article').get().then(res => {
-          this.data.list = res.data
+        app.globalData.db.collection('article').field({
+          title: true,
+          _id: true,
+          order: true
+        }).get().then(res => {
+          this.data.list = res.data.sort(function (a, b) {
+            return a.order - b.order
+          })
           this.update()
           wx.hideLoading()
         })
