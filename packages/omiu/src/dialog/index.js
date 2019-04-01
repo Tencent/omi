@@ -48,18 +48,18 @@ define('o-dialog', class extends WeElement {
 let dialog = {},
   dom
 
-dialog.alert = function (msg) {
+dialog.alert = function (msg, options) {
   if (dom) {
     document.body.removeChild(dom)
   }
   dom = render(<o-dialog
     onConfirm={closeAlert}
-    width={400}
+    width={options.width}
     show={true}
     type='alert'
-    title='提示'
+    title={options.title || '提示'}
     msg={msg}
-    confirmText='确定'
+    confirmText={options.confirmText || '确定'}
   />, 'body')
 }
 
