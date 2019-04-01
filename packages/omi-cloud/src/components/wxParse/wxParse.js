@@ -14,6 +14,7 @@
  **/
 import showdown from './showdown.js';
 import HtmlToJson from './html2json.js';
+import prism from '../../libs/prism'
 /**
  * 配置及公有属性
  **/
@@ -33,12 +34,12 @@ function wxParse(bindName = 'wxParseData', type='html', data='<div class="color:
   var transData = {};//存放转化后的数据
   if (type == 'html') {
     transData = HtmlToJson.html2json(data, bindName);
-    console.log(JSON.stringify(transData, ' ', ' '));
+    //console.log(JSON.stringify(transData, ' ', ' '));
   } else if (type == 'md' || type == 'markdown') {
     var converter = new showdown.Converter();
     var html = converter.makeHtml(data);
     transData = HtmlToJson.html2json(html, bindName);
-    console.log(JSON.stringify(transData, ' ', ' '));
+    //console.log(JSON.stringify(transData, ' ', ' '));
   }
   transData.view = {};
   transData.view.imagePadding = 0;
@@ -47,10 +48,27 @@ function wxParse(bindName = 'wxParseData', type='html', data='<div class="color:
   }
   var bindData = {};
   bindData[bindName] = transData;
+  
+  transPre(transData)
+  
   that.setData(bindData)
   that.wxParseImgLoad = wxParseImgLoad;
   that.wxParseImgTap = wxParseImgTap;
 }
+
+function transPre(transData){
+  transData.nodes.forEach((node,index)=>{
+    if(node.tag == 'pre'){
+      var lan = 'markup'
+      if(node.nodes[0].classStr){
+        lan =node.nodes[0].classStr.split(' ')[0].replace('language-', '')
+      }
+      var tks = prism.tokens( node.nodes[0].nodes[0].text, prism.languages[lan], lan)
+      transData.nodes[index].tks = tks
+    }
+  })
+}
+
 // 图片点击事件
 function wxParseImgTap(e) {
   var that = this;

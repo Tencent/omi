@@ -22,6 +22,26 @@
   />
 </template>
 
+<!-- 千万 不要格式化下面的 wxml，不然 text 嵌套 text 导致换行全部出来了 -->
+<template name="wxParseCode">
+  <view class="pre language-jsx">
+      <view class="code">
+          <block wx:for="{{item.tks}}" wx:for-item="tk">
+              <block wx:if="{{tk.deep}}"><text class="{{'token ' + tk.type}}"><block wx:for="{{tk.content}}" wx:for-item="stk"><block wx:if="{{stk.deep}}"><text class="{{'token ' + sstk.type}}" wx:for="{{stk.content}}" wx:for-item="sstk">{{sstk.content || sstk}}</text>
+              </block>
+              <block wx:else><text class="{{'token ' + stk.type}}">{{stk.content || stk}}</text>
+              </block>
+          </block>
+          </text>
+  </block>
+  <block wx:else><text class="{{'token ' + tk.type}}">{{tk.content || tk}}</text>
+  </block>
+  </block>
+  </view>
+  </view>
+</template>
+
+
 <template name="WxEmojiView">
   <text class="WxEmojiView wxParse-inline" style="{{item.styleStr}}">
     <block wx:for="{{item.textArray}}" wx:key="">
@@ -105,8 +125,13 @@
     <!--其他块级标签-->
     <block wx:elif="{{item.tagType == 'block'}}">
       <view class="{{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
-        <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
-          <template is="wxParse1" data="{{item}}" />
+        <block wx:if="{{item.tag == 'pre'}}">
+           <template is="wxParseCode" data="{{item}}" />
+        </block>
+        <block wx:elif="{{item.tag != 'pre'}}" >
+          <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
+            <template is="wxParse1" data="{{item}}" />
+          </block>
         </block>
       </view>
     </block>
