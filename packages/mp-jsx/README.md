@@ -121,6 +121,10 @@ $ npm install
 $ npm start
 ```
 
+## 推荐搭配
+
+既然用了原生小程序的方案，所有可以轻松使用 mp-jsx + [omix](https://github.com/Tencent/omi/tree/master/packages/omix) 搭配一起使用。
+
 欢迎使用腾讯 Omi 团队集合京东 O2Team 智慧联合打造的 mp-jsx 大幅提高开发效率，Have fun!
 
 ## License
