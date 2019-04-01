@@ -1,4 +1,4 @@
-import { define, WeElement } from 'omi'
+import { define, WeElement, render } from 'omi'
 import style from './_index.css'
 
 define('o-dialog', class extends WeElement {
@@ -44,3 +44,30 @@ define('o-dialog', class extends WeElement {
     )
   }
 })
+
+let dialog = {},
+  dom
+
+dialog.alert = function (msg) {
+  if (dom) {
+    document.body.removeChild(dom)
+  }
+  dom = render(<o-dialog
+    onConfirm={closeAlert}
+    width={400}
+    show={true}
+    type='alert'
+    title='提示'
+    msg={msg}
+    confirmText='确定'
+  />, 'body')
+}
+
+function closeAlert() {
+  if (dom) {
+    document.body.removeChild(dom)
+    dom = null
+  }
+}
+
+export default dialog
