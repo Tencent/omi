@@ -121,6 +121,10 @@ $ npm install
 $ npm start
 ```
 
+## mps 约定
+
+公共的 less 文件必须放在 common-less 目录，@import 使用的时候不需要写路径。
+
 ## 推荐搭配
 
 既然用了原生小程序的方案，所有可以轻松使用 mps + [omix](https://github.com/Tencent/omi/tree/master/packages/omix) 搭配一起使用。
