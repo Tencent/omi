@@ -11,7 +11,7 @@ mps 是什么？为什么需要 mps？先列举几个现状:
 
 所以，就有了 mp-jsx。 让开发者直接在原生小程序使用 JSX 写 WXML，实时编译，实时预览。
 
-![](https://github.com/Tencent/omi/raw/master/assets/mp-jsx.jpg)
+![](https://github.com/Tencent/omi/raw/master/assets/mps.png)
 
 - JSX 代替 WXML 书写结构，精简高效
 - 对原生小程序零入侵
