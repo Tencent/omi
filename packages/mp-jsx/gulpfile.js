@@ -45,6 +45,12 @@ gulp.task('watchLess', () => {
   })
 })
 
+gulp.task('watchCommonLess', () => {
+  watch('./common-less/**', { events: ['add', 'change'] }, (evt, type) => {
+    gulp.start('compileLess')
+  })
+})
+
 
 //加 cache？同样的字符串返回同样的结果
 gulp.task('compile', () => {
@@ -120,7 +126,7 @@ gulp.task('compileLess', () => {
 
 })
 
-gulp.task('default', ['compile', 'compileLess', 'watch', 'watchLess'])
+gulp.task('default', ['compile', 'compileLess', 'watch', 'watchLess', 'watchCommonLess'])
 console.log('[开始编译]'.green ,'...')
 gulp.start('default',function(){
   console.log('[编译完成]'.green , '恭喜你全部文件编译完成。' )
