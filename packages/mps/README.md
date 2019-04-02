@@ -27,26 +27,26 @@ mps 是什么？为什么需要 mps？先列举几个现状:
 
 ```bash
 $ npm i omi-cli -g              
-$ omi init-jsx my-app    
+$ omi init-mps my-app    
 $ cd my-app        
 $ npm start               
 ```
 
 接着把小程序目录设置为 my-app 目录便可以愉快地开始开发调试了！ 
 
-> `npx omi-cli init-jsx my-app` 也支持(npm v5.2.0+)
+> `npx omi-cli init-mps my-app` 也支持(npm v5.2.0+)
 
 生成的目录和官方的模板一致，只不过多了 JSX 文件，只需要修改 JSX 文件就会实时修改 WXML。
 
 也支持 typescript:
 
 ```bash           
-$ omi init-jsx-ts my-app             
+$ omi init-mps-ts my-app             
 ```
 
 其他命令一样。
 
-> `npx omi-cli init-jsx-ts my-app` 也支持(npm v5.2.0+)
+> `npx omi-cli init-mps-ts my-app` 也支持(npm v5.2.0+)
 
 ## JSX vs WXML
 
