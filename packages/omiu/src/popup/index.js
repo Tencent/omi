@@ -16,11 +16,25 @@ define('o-popup', class extends WeElement {
     this.props.onConfirm && this.props.onConfirm()
   }
 
+  installed() {
+    this.computeTop()
+  }
+
+  computeTop() {
+    if (this.ctt) {
+      this.ctt.style.top = (window.innerHeight - parseInt(getComputedStyle(this.ctt).height)) / 2 + 'px'
+    }
+  }
+
+  afterUpdate() {
+    this.computeTop()
+  }
+
   render(props) {
     if (!props.show) return
     return (
       <div class="o-popup">
-        <div class="_content" style={`width:${props.width}px;margin-left:${props.width/-2}px`}>
+        <div class="_content" ref={(e) => { this.ctt = e }} style={`width:${props.width}px;margin-left:${props.width / -2}px`}>
           <div class="_header">
             <span class="_title">{props.title}</span>
             <o-icon class="_close" scale={1} type="close" onClick={this.close} />
