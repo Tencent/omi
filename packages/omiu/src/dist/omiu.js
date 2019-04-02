@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.14 By dntzhang 
+ *  omiu v0.0.15 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -2744,15 +2744,36 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       return _index2['default'];
     }
   }, {
+    key: 'installed',
+    value: function installed() {
+      this.computeTop();
+    }
+  }, {
+    key: 'computeTop',
+    value: function computeTop() {
+      if (this.ctt) {
+        this.ctt.style.top = (window.innerHeight - parseInt(getComputedStyle(this.ctt).height)) / 2 + 'px';
+      }
+    }
+  }, {
+    key: 'afterUpdate',
+    value: function afterUpdate() {
+      this.computeTop();
+    }
+  }, {
     key: 'render',
     value: function render(props) {
+      var _this2 = this;
+
       if (!props.show) return;
       return Omi.h(
         'div',
         { 'class': 'o-popup' },
         Omi.h(
           'div',
-          { 'class': '_content', style: 'width:' + props.width + 'px;margin-left:' + props.width / -2 + 'px' },
+          { 'class': '_content', ref: function ref(e) {
+              _this2.ctt = e;
+            }, style: 'width:' + props.width + 'px;margin-left:' + props.width / -2 + 'px' },
           Omi.h(
             'div',
             { 'class': '_header' },
@@ -2816,7 +2837,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-popup {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left: 0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n._content {\n  width: 80%;\n  height: auto;\n  min-height: 200px;\n  background-color: white;\n  position: fixed;\n  left: 50%;\n  margin-left: -40%;\n  top: 20%;\n  border-radius: 4px;\n}\n\n._header {\n  height: 40px;\n  border-bottom: 1px solid #ccc;\n  margin: 15px 10px;\n}\n\n._close {\n  position: absolute;\n  right: 10px;\n  top: 20px;\n  cursor: pointer;\n}\n\n._title {\n  position: absolute;\n  left: 10px;\n  top: 20px;\n}\n\n._main {\n  margin: 0 auto;\n  margin-bottom: 20px;\n  width: 70%;\n}\n\n._footer {\n  text-align: right;\n  margin-top: 10px;\n}\n\n._okBtn {\n  margin-left: 10px;\n}", ""]);
+exports.push([module.i, ".o-popup {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left: 0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n._content {\n  width: 80%;\n  height: auto;\n  min-height: 200px;\n  background-color: white;\n  position: fixed;\n  left: 50%;\n  margin-left: -40%;\n  border-radius: 4px;\n}\n\n._header {\n  height: 40px;\n  border-bottom: 1px solid #ccc;\n  margin: 15px 10px;\n}\n\n._close {\n  position: absolute;\n  right: 10px;\n  top: 20px;\n  cursor: pointer;\n}\n\n._title {\n  position: absolute;\n  left: 10px;\n  top: 20px;\n}\n\n._main {\n  margin: 0 auto;\n  margin-bottom: 20px;\n  width: 70%;\n}\n\n._footer {\n  text-align: right;\n  margin-top: 10px;\n}\n\n._okBtn {\n  margin-left: 10px;\n}", ""]);
 
 
 
