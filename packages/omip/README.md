@@ -1,6 +1,6 @@
 ## Omi 跨端云开发
 
-| **项目**                         | **描述**                           |
+| **Omi 跨端项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | omip| 直接使用 Omi 开发小程序或 H5 SPA！！！|
 | [mp-jsx](https://github.com/Tencent/omi/tree/master/packages/mp-jsx)| 【原生小程序】使用 JSX 写 WXML |
