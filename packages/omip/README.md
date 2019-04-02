@@ -3,7 +3,7 @@
 | **ProjectName**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
 | omip| 直接使用 Omi 开发小程序或 H5 SPA|
-| [mp-jsx](https://github.com/Tencent/omi/tree/master/packages/mp-jsx)| 【原生小程序】使用 JSX 写 WXML |
+| [mps](https://github.com/Tencent/omi/tree/master/packages/mps)| 【原生小程序】增强的小程序开发框架(JSX+Less 输出 WXML+WXSS) |
 | [omi-cloud](https://github.com/Tencent/omi/tree/master/packages/omi-cloud)| Omip + 小程序•云开发|
 | [omix](https://github.com/Tencent/omi/tree/master/packages/omix)| 【原生小程序】极小却精巧的小程序框架|
 | [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 【原生小程序】通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
