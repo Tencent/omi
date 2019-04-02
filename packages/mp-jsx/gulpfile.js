@@ -36,7 +36,7 @@ gulp.task('watch', () => {
 })
 
 gulp.task('watchLess', () => {
-  watch(['./**/*.less', '!./node_modules/**', '!./_scripts/**'], { events: ['add', 'change'] }, (evt, type) => {
+  watch(['./**/*.less', '!./node_modules/**', '!./_scripts/**', '!./common-less/**'], { events: ['add', 'change'] }, (evt, type) => {
     var contents = fs.readFileSync(evt.path)
     compileLess({
       path: evt.path,
@@ -89,7 +89,9 @@ function compileLess(file, watch) {
   var name = path.basename(file.path, '.less')
   console.log('[编译文件]'.green, file.path)
 
-  less.render(file.contents, function (e, output) {
+  less.render(file.contents, {
+      paths: ['.', './common-less'], 
+    }, function (e, output) {
     console.log('[编译完成]'.green, file.path)
 
     fs.writeFileSync(dir + '/' + name + '.wxss', output.css)
@@ -106,7 +108,7 @@ function compileLess(file, watch) {
 
 gulp.task('compileLess', () => {
   return gulp
-    .src(['./**/*.less', '!./node_modules/**', '!./_scripts/**'])
+    .src(['./**/*.less', '!./node_modules/**', '!./_scripts/**', '!./common-less/**'])
     .pipe(
       tap(file => {
         compileLess({
