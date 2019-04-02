@@ -21,7 +21,7 @@ mps 是什么？为什么需要 mps？先列举几个现状:
 
 ## 效果预览
 
-![](https://github.com/Tencent/omi/raw/master/assets/mp-jsx.gif)
+![](https://github.com/Tencent/omi/raw/master/assets/mps.gif)
 
 ## 立即开始
 
