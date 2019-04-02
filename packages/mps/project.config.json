@@ -3,32 +3,37 @@
 	"packOptions": {
 		"ignore": [
 			{
-        "type": "folder",
-        "value": "_scripts"
+				"type": "folder",
+				"value": "_scripts"
 			},
 			{
-        "type": "folder",
-        "value": "node_modules"
-      },{
-        "type": "file",
-        "value": "package.json"
-      },{
-        "type": "file",
-        "value": "package-lock.json"
-      },{
-        "type": "file",
-        "value": "gulpfile.js"
-      },{
-        "type": "suffix",
-        "value": ".jsx"
-      },{
-        "type": "suffix",
-        "value": ".less"
-      },
+				"type": "folder",
+				"value": "node_modules"
+			},
 			{
-        "type": "folder",
-        "value": "common-less"
-      }
+				"type": "file",
+				"value": "package.json"
+			},
+			{
+				"type": "file",
+				"value": "package-lock.json"
+			},
+			{
+				"type": "file",
+				"value": "gulpfile.js"
+			},
+			{
+				"type": "suffix",
+				"value": ".jsx"
+			},
+			{
+				"type": "suffix",
+				"value": ".less"
+			},
+			{
+				"type": "folder",
+				"value": "common-less"
+			}
 		]
 	},
 	"setting": {
@@ -42,7 +47,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.6.4",
 	"appid": "wxfaf6dad43f57c6bd",
-	"projectname": "mp-jsx",
+	"projectname": "mps",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
