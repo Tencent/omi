@@ -24,6 +24,10 @@
       },{
         "type": "suffix",
         "value": ".less"
+      },
+			{
+        "type": "folder",
+        "value": "common-less"
       }
 		]
 	},
