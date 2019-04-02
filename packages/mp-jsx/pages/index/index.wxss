@@ -1,11 +1,3 @@
-.box {
-  color: #fe33af;
-  border-color: #fdcdea;
-}
-.box div {
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
 .userinfo {
   display: flex;
   flex-direction: column;
