@@ -37,8 +37,10 @@
 
 ._title {
   position: absolute;
-  left: 10px;
+  left: 20px;
   top: 20px;
+  font-weight: bold; 
+  font-size: 16px;
 }
 
 ._main {
