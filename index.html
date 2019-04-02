@@ -217,7 +217,7 @@
                     </svg>
                     <span>Docs</span>
                 </a>
-                <a class="button green" href="https://github.com/Tencent/omi/tree/master/packages/omip" target="_blank">
+                <a class="button green" href="javascript:" id="ctBtn" target="_blank">
                     <svg viewBox="0 0 180 60">
                         <path d="M10,10 C10,10 50,9.98999977 90,9.98999977 C130,9.98999977 170,10 170,10 C170,10 170.009995,20 170.009995,30 C170.009995,40 170,50 170,50 C170,50 130,50.0099983 90,50.0099983 C50,50.0099983 10,50 10,50 C10,50 9.98999977,40 9.98999977,30 C9.98999977,20 10,10 10,10 Z"></path>
                     </svg>
@@ -276,7 +276,25 @@ render(&lt;my-counter /&gt;, 'body')
 
 
 <script>
-document.querySelector('#wp').style.marginTop = (window.innerHeight - 700)/2+'px'
+document.getElementById('wp').style.marginTop = (window.innerHeight - 700)/2+'px'
+
+function detectMobile() {
+   if(window.innerWidth <= 800 && window.innerHeight <= 900) {
+     return true;
+   } else {
+     return false;
+   }
+}
+
+document.getElementById('ctBtn').onclick = function () {
+    if (detectMobile()) {
+        location.href = 'https://github.com/Tencent/omi/blob/master/packages/omip/README.md'
+    }else{
+        location.href = 'https://github.com/Tencent/omi/tree/master/packages/omip'
+    }
+}
+
+
 </script>
 </body>
 </html>
