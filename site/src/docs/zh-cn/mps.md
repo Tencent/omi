@@ -1,17 +1,17 @@
-## mp-jsx
+## mps
 
-> 原生小程序插上 JSX 的翅膀
+> 原生小程序插上 JSX 和 Less 的翅膀，**mp + sweet**
 
-mp-jsx 是什么？为什么需要 mp-jsx？先列举几个现状:
+mps 是什么？为什么需要 mps？先列举几个现状:
 
 * 目前小程序开发使用最多的技术依然是原生小程序
 * 原生小程序的 API 在不断完善和进化中
 * JSX 是表达能力和编程体验最好的 UI 表达式
 * JSX 可以表达一切想表达的 UI 结构也就能够描述任意 WXML
 
-所以，就有了 mp-jsx。 让开发者直接在原生小程序使用 JSX 写 WXML，实时编译，实时预览。
+所以，就有了 mps，**mp + sweet**。 让开发者直接在原生小程序使用 JSX 写 WXML，用 Less 写 WXSS，实时编译，实时预览。
 
-![](https://github.com/Tencent/omi/raw/master/assets/mp-jsx.jpg)
+![](https://github.com/Tencent/omi/raw/master/assets/mps.png)
 
 - JSX 代替 WXML 书写结构，精简高效
 - 对原生小程序零入侵
@@ -21,32 +21,32 @@ mp-jsx 是什么？为什么需要 mp-jsx？先列举几个现状:
 
 ## 效果预览
 
-![](https://github.com/Tencent/omi/raw/master/assets/mp-jsx.gif)
+![](https://github.com/Tencent/omi/raw/master/assets/mps.gif)
 
 ## 立即开始
 
 ```bash
 $ npm i omi-cli -g              
-$ omi init-jsx my-app    
+$ omi init-mps my-app    
 $ cd my-app        
 $ npm start               
 ```
 
 接着把小程序目录设置为 my-app 目录便可以愉快地开始开发调试了！ 
 
-> `npx omi-cli init-jsx my-app` 也支持(npm v5.2.0+)
+> `npx omi-cli init-mps my-app` 也支持(npm v5.2.0+)
 
 生成的目录和官方的模板一致，只不过多了 JSX 文件，只需要修改 JSX 文件就会实时修改 WXML。
 
 也支持 typescript:
 
 ```bash           
-$ omi init-jsx-ts my-app             
+$ omi init-mps-ts my-app             
 ```
 
 其他命令一样。
 
-> `npx omi-cli init-jsx-ts my-app` 也支持(npm v5.2.0+)
+> `npx omi-cli init-mps-ts my-app` 也支持(npm v5.2.0+)
 
 ## JSX vs WXML
 
@@ -106,7 +106,7 @@ $ omi init-jsx-ts my-app
 </view>
 ```
 
-## 老项目使用 mp-jsx
+## 老项目使用 mps
 
 拷贝以下文件到小程序根目录:
 
@@ -121,4 +121,12 @@ $ npm install
 $ npm start
 ```
 
-欢迎使用 mp-jsx 大幅提高开发效率，Have fun!
+## mps 约定
+
+公共的 less 文件必须放在 common-less 目录，@import 使用的时候不需要写路径。
+
+## 推荐搭配
+
+既然用了原生小程序的方案，所有可以轻松使用 mps + [omix](https://github.com/Tencent/omi/tree/master/packages/omix) 搭配一起使用。
+
+欢迎使用 mps 大幅提高开发效率，Have fun!
