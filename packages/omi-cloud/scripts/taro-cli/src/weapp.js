@@ -1967,7 +1967,7 @@ function compileDepScripts (scriptFiles) {
         try {
           let code = fs.readFileSync(item).toString()
           if (path.extname(item) === '.md') {
-            code = `export default { md: \`${code.replace(/`/g, '\\`').replace(/$/g, '\\$')}\` }`
+            code = `export default { md: \`${code.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\` }`
           }
           const transformResult = wxTransformer({
             code,
