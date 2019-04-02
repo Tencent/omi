@@ -21,6 +21,9 @@
       },{
         "type": "suffix",
         "value": ".jsx"
+      },{
+        "type": "suffix",
+        "value": ".less"
       }
 		]
 	},
