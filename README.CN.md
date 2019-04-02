@@ -438,7 +438,7 @@ $ npm run build       # 编译发布
 |MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM 模板|
 <!-- |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|使用  omi-router 单页应用的模板| -->
 
-Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
+基础模板(`omi init my-app`)是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。
 
 ### Hello Element
 
