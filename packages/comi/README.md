@@ -74,7 +74,7 @@ define('page-index', class extends WeElement {
 
 css:
 
-```
+```css
 @import '../../components/comi/comi.wxss';
 ```
 
