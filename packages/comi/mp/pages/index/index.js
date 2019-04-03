@@ -20,7 +20,6 @@ Page({
 
 Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web Components 设计，支持 PC Web、移动 H5 和小程序开发(One framework. Mobile & desktop & mini program)。
 
-
 <em> Omi looks really neat!<br> </em>
 　　　　— [Jason Miller (Creator of Preact)](https://twitter.com/_developit/)
 
@@ -88,10 +87,7 @@ Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web C
 </body>
 \`\`\`
 
-* [点击这里看执行结果](https://tencent.github.io/omi/assets/omi.html)
-
 上面使用的是 hyperscript 的方式来书写 HTML 结构，用 ES5 书写 JS ，你可以使用 JSX 和 ES2015+ 来替代它们。
-
 
 \`\`\`jsx {8-11}
 import { render, WeElement, define } from 'omi'
