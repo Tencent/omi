@@ -12,7 +12,7 @@
 /**
  * utils函数引入
  **/
-import Remarkable from 'remarkable'
+import Remarkable from './remarkable'
 import HtmlToJson from './html2json.js';
 import prism from './prism'
 /**
