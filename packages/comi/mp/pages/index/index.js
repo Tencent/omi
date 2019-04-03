@@ -1,4 +1,4 @@
-var comi = require('../../comi/comi.js');
+const comi = require('../../comi/comi.js');
 
 
 Page({
@@ -15,7 +15,7 @@ Page({
     })
   },
   onLoad: function () {
-    var md =
+    const md =
       `## Omi 是什么？
 
 Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web Components 设计，支持 PC Web、移动 H5 和小程序开发(One framework. Mobile & desktop & mini program)。
