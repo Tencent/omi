@@ -1,0 +1,3 @@
+
+<import src="./wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:article.nodes}}"/>

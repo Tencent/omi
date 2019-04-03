@@ -1,12 +1,10 @@
 import { WeElement, define } from 'omi'
 import './index.css'
-import WxParse from '../../components/wxParse/wxParse'
+import comi from '../../components/comi/comi'
 
 
 //获取应用实例
 const app = getApp()
-const Remarkable = require('remarkable')
-const md = new Remarkable()
 
 define('page-about', class extends WeElement {
   config = {
@@ -22,8 +20,7 @@ define('page-about', class extends WeElement {
       title: '加载中'
     })
     app.globalData.db.collection('article').doc(options.id).get().then(res=>{
-      const article = md.render(res.data.md)
-      WxParse.wxParse('article', 'html', article, this.$scope, 5)
+      comi(res.data.md, this.$scope)
       wx.hideLoading()
     }).catch(err => {
       console.error(err)
@@ -34,8 +31,7 @@ define('page-about', class extends WeElement {
   render() {
     return (
       <view>
-        <import src='../../components/wxParse/wxParse.wxml' />
-        <template is='wxParse' data='{{wxParseData:article.nodes}}' />
+        <include src="../../components/comi/comi.wxml" />
       </view>
     )
   }
