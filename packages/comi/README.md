@@ -5,7 +5,7 @@ Comi 读 ['kəʊmɪ]，类似中文 科米，是腾讯 Omi 团队开发的小程
 
 ### 预览
 
-![](https://github.com/Tencent/omi/raw/master/assets/comi.jpg)
+<img src="https://github.com/Tencent/omi/raw/master/assets/comi.jpg" width="500">
 
 ### 体验
 
