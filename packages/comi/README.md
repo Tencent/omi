@@ -13,6 +13,8 @@ Comi 读 ['kəʊmɪ]，类似中文 科米，是腾讯 Omi 团队开发的小程
 
 ### 使用
 
+先拷贝 [此目录](https://github.com/Tencent/omi/tree/master/packages/comi/mp/comi) 到你的项目。
+
 js:
 
 ```js
@@ -41,6 +43,8 @@ wxss:
 简单把！
 
 ## 在 omip 中使用
+
+先拷贝 [此目录](https://github.com/Tencent/omi/tree/master/packages/comi/omip/src/components/comi) 到你的项目。
 
 js:
 
