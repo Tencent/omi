@@ -22,8 +22,7 @@ const comi = require('../../comi/comi.js');
 
 Page({
   onLoad: function () {
-    const md =`你也渲染的 md！`;
-    comi(md, this)
+    comi(`你要渲染的 md！`, this)
   }
 })
 ```
@@ -56,11 +55,8 @@ import comi from '../../components/comi/comi'
 define('page-index', class extends WeElement {
 
   install() {
-    const md =`你要渲染的 md`;
-
-    comi(md, this.$scope)
+    comi(`你要渲染的 md`, this.$scope)
   }
-
 
   render() {
     return (
