@@ -1,100 +1,145 @@
-
 import { WeElement, define } from 'omi'
 import './index.css'
-
-//获取应用实例
-const app = getApp()
+import comi from '../../components/comi/comi'
 
 define('page-index', class extends WeElement {
-  data = {
-    motto: 'Hello Omip',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+  config = {
+    navigationBarBackgroundColor: '#24292e',
+    navigationBarTextStyle: 'white',
+    navigationBarTitleText: 'Comi',
+    backgroundColor: '#eeeeee',
+    backgroundTextStyle: 'light'
   }
-
-  //事件处理函数
-  bindViewTap = () => {
-    wx.navigateTo({
-      url: '../logs/index'
-    })
-  }
-
-  gotoFilms = () => {
-    wx.navigateTo({
-      url: '../list/index'
-    })
-  }
-
-  onShareAppMessage(){
-		return {
-      title: '分享标题',
-      path: '/pages/index/index?id=123',
-      imageUrl: require('./share.jpg'),
-      success: (res) => {
-        console.log("转发成功", res);
-      },
-      fail: (res) => {
-        console.log("转发失败", res);
-      }
-    }
-	}
 
   install() {
-    if (app.globalData.userInfo) {
-      this.data.userInfo = app.globalData.userInfo
-      this.data.hasUserInfo = true
-      this.update()
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.data.userInfo = res.userInfo
-        this.data.hasUserInfo = true
-        this.update()
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.data.userInfo = res.userInfo
-          this.data.hasUserInfo = true
-          this.update()
-        }
-      })
+    const md =
+      `## Omi 是什么？
+
+Omi (读音 /ˈomɪ/，类似于 欧米) 是下一代前端框架，基于 Web Components 设计，支持 PC Web、移动 H5 和小程序开发(One framework. Mobile & desktop & mini program)。
+
+<em> Omi looks really neat!<br> </em>
+　　　　— [Jason Miller (Creator of Preact)](https://twitter.com/_developit/)
+
+<em> I really like the trend towards "frameworks" that:<br><br>"export default class WeElement extends HTMLElement {..}"<br> <br>This one, Omi, is from Tencent.</em>       
+　　　　— [Dion Almaer](https://twitter.com/dalmaer/)
+
+## 一个 HTML 完全上手
+
+下面这个页面不需要任何构建工具就可以执行:
+
+\`\`\`html
+<script src="https://unpkg.com/omi"></script>
+<script>
+  const { define, WeElement, h, render } = Omi
+
+  define('my-counter', class extends WeElement {
+    install() {
+      this.data.count = 1
+      this.sub = this.sub.bind(this)
+      this.add = this.add.bind(this)
     }
+
+    sub() {
+      this.data.count--
+      this.update()
+    }
+
+    add() {
+      this.data.count++
+      this.update()
+    }
+
+    render() {
+      return h(
+        'div',
+        null,
+        h(
+          'button',
+          { onClick: this.sub },
+          '-'
+        ),
+        h(
+          'span',
+          null,
+          this.data.count
+        ),
+        h(
+          'button',
+          { onClick: this.add },
+          '+'
+        )
+      )
+    }
+  })
+
+  render(h('my-counter'), 'body')
+</script>
+\`\`\`
+
+通过上面脚本的执行，你已经定义好了一个自定义标签，可以不使用 render 方法，直接使用 \`my-counter\` 标签：
+
+\`\`\`jsx
+<body>
+  <my-counter></my-counter>
+</body>
+\`\`\`
+
+上面使用的是 hyperscript 的方式来书写 HTML 结构，用 ES5 书写 JS ，你可以使用 JSX 和 ES2015+ 来替代它们。
+
+\`\`\`jsx {8-11}
+import { render, WeElement, define } from 'omi'
+
+define('my-counter', class extends WeElement {
+  data = {
+    count: 1
   }
 
-  getUserInfo = (e) => {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.data.userInfo = e.detail.userInfo
-    this.data.hasUserInfo = true
+  static css = \`
+    span{
+        color: red;
+    }\`
+
+  sub = () => {
+    this.data.count--
+    this.update()
+  }
+
+  add = () => {
+    this.data.count++
     this.update()
   }
 
   render() {
-    const { hasUserInfo, canIUse, userInfo, motto } = this.data
     return (
-      <view class="container">
-        <view class="userinfo">
-          {(!hasUserInfo && canIUse) ? (
-            <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-          ) : (
-              <block>
-                <image bindtap={this.bindViewTap} class="userinfo-avatar" src={userInfo.avatarUrl} mode="cover"></image>
-                <text class="userinfo-nickname">{userInfo.nickName}</text>
-              </block>
-            )}
-        </view>
-        <view class="usermotto">
-          <text class="user-motto">{motto}</text>
-        </view>
+      <div>
+        <button onClick={this.sub}>-</button>
+        <span>{this.data.count}</span>
+        <button onClick={this.add}>+</button>
+      </div>
+    )
+  }
+})
 
-        <view >
-          <button bindtap={this.gotoFilms}>点击打开 Omip 复杂案例</button>
-        </view>
+render(<my-counter />, 'body')
+\`\`\`
+
+看上面高亮的部分，可以给组件加样式，比如上面的 span 的作用域仅仅在组件内部，不会污染别的组件。到现在你已经成功入门 Omi 了！你学会了:
+
+* 为组件添加**结构**，如上面使用 JSX 书写结构
+* 为组件添加**行为**，如上面的 \`onClick\` 绑定事件
+* 为组件添加**样式**，如上面的 \`static css\`
+* 渲染组件到 body，当然也可以把组件渲染到任意其他组件
+
+恭喜你！`;
+
+    comi(md, this.$scope)
+  }
+
+
+  render() {
+    return (
+      <view>
+        <include src="../../components/comi/comi.wxml" />
       </view>
     )
   }
