@@ -27,17 +27,17 @@ class Ellipse extends Shape {
     this.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye)
     this.bezierCurveTo(xm - ox, ye, 0, ym + oy, 0, ym)
 
-    if (this.option.strokeStyle) {
+    if (this.option.fillStyle || this.option.fill) {
+      this.fillStyle(this.option.fillStyle || this.option.fill)
+      this.fill()
+    }
+
+    if (this.option.strokeStyle || this.option.stroke) {
       if (this.option.lineWidth !== undefined) {
         this.lineWidth(this.option.lineWidth)
       }
-      this.strokeStyle(this.option.strokeStyle)
+      this.strokeStyle(this.option.strokeStyle || this.option.stroke)
       this.stroke()
-    }
-
-    if (this.option.fillStyle) {
-      this.fillStyle(this.option.fillStyle)
-      this.fill()
     }
   }
 }

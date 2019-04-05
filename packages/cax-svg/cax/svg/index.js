@@ -1,6 +1,7 @@
 import Group from '../render/display/group'
 import { rect } from './rect'
 import { circle } from './circle'
+import { ellipse } from './ellipse'
 
 class SVG extends Group {
   constructor(vdom) {
@@ -26,6 +27,12 @@ class SVG extends Group {
       case 'circle':
       this.add(circle(vdomChild.props))
 
+      break;
+
+      case 'ellipse':
+      console.log(1)
+      this.add(ellipse(vdomChild.props))
+console.log(this)
       break;
     }
 

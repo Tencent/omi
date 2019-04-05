@@ -18,6 +18,9 @@ Page({
     const circle = new SVG(html`
     <svg >
         <circle cx="140" cy="40" r="24" style="stroke:#006600; fill:#00cc00"/>
+        <ellipse cx="240" cy="40" rx="30" ry="15"
+        style="stroke:#006600; fill:#00cc00"/>
+
     </svg>`)
 
     stage.add(circle)
