@@ -1,13 +1,13 @@
 import Shape from './shape'
 
 class Polygon extends Shape {
-  constructor (vertex, options) {
+  constructor (vertex, option) {
     super()
 
     this.vertex = vertex || []
-    this.options = options || {}
-    this.strokeColor = this.options.strokeColor
-    this.fillColor = this.options.fillColor
+    this.option = option || {}
+    this.strokeColor = this.option.strokeColor
+    this.fillColor = this.option.fillColor
   }
 
   draw () {
@@ -20,9 +20,9 @@ class Polygon extends Shape {
     }
     this.closePath()
     // 路径闭合
-    //  if (this.options.strokeStyle) {
+    //  if (this.option.strokeStyle) {
     //    this.strokeStyle = strokeStyle;
-    // this.lineWidth(this.options.width);
+    // this.lineWidth(this.option.width);
     // this.lineJoin('round');
     // this.stroke();
     //  }

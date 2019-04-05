@@ -3,6 +3,7 @@ import { rect } from './rect'
 import { circle } from './circle'
 import { ellipse } from './ellipse'
 import { line } from './line'
+import { polyline } from './polyline'
 
 class SVG extends Group {
   constructor(vdom) {
@@ -47,6 +48,10 @@ class SVG extends Group {
       case 'line':
     
       parent.add(line(vdomChild.props))
+
+      break;
+      case 'polyline':
+      parent.add(polyline(vdomChild.props))
 
       break;
     }

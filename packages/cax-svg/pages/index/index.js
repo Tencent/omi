@@ -32,6 +32,23 @@ Page({
         `)
     stage.add(lines)
     
+
+    const polyline = new SVG(html`
+    <svg x="100" y="100"> 
+    <polyline points="0,0  30,0  15,30"
+    style="stroke:#006600;"/>
+
+    <polyline points="30,2  80,2  55,52"
+    style="stroke:#006600; stroke-width: 4;
+           fill: #33cc33;"/>
+
+
+    <polyline points="110,2  160,2  135,52  110,2"
+    style="stroke:#006600; fill: #33cc33;"/>
+    </svg>
+        `)
+    stage.add(polyline)
+    
     stage.update()
 
 

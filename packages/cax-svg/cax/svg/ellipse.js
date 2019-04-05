@@ -14,7 +14,6 @@ export function ellipse(props) {
   ellipse.x = Number(options.cx)
   ellipse.y = Number(options.cy)
 
-  console.log(ellipse)
   return ellipse
 
 }
