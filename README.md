@@ -7,7 +7,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 
 ## Ecosystem of Omi
 
-### Base
+#### Base
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
@@ -19,7 +19,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
 | [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Omi official UI|
 
-### Mini Program
+#### Mini Program
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
@@ -30,7 +30,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 | [omi-mp](https://github.com/Tencent/omi/tree/master/packages/omi-mp)| 通过微信小程序开发和生成 Web 单页应用(H5 SPA)|
 | [comi](https://github.com/Tencent/omi/tree/master/packages/comi)| 小程序代码高亮和 markdown 渲染组件 |
 
-### Other
+#### Other
 
 | **Project**                         | **Description**                           |
 | ------------------------------- | ----------------------------------- |
