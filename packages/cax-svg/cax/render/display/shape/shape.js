@@ -14,7 +14,7 @@ class Shape extends Graphics {
     this.beginPath()
     this.draw()
 
-    if (this.option.fillStyle) {
+    if (this.option.fillStyle&&this.option.fillStyle!=='none') {
       this.fillStyle(this.option.fillStyle)
       this.fill()
     }

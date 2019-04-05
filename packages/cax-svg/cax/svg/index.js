@@ -5,6 +5,7 @@ import { ellipse } from './ellipse'
 import { line } from './line'
 import { polyline } from './polyline'
 import { polygon } from './polygon'
+import { path } from './path'
 
 class SVG extends Group {
   constructor(vdom) {
@@ -58,6 +59,11 @@ class SVG extends Group {
 
       case 'polygon':
         parent.add(polygon(vdomChild.props))
+
+        break;
+
+        case 'path':
+        parent.add(path(vdomChild.props))
 
         break;
     }
