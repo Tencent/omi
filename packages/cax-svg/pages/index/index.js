@@ -31,7 +31,7 @@ Page({
     </svg>
         `)
     stage.add(lines)
-    
+
 
     const polyline = new SVG(html`
     <svg x="100" y="100"> 
@@ -48,7 +48,23 @@ Page({
     </svg>
         `)
     stage.add(polyline)
+
+    const polygon = new SVG(html`
+    <svg x="100" y="100"> 
     
+    <polygon points="10,0  60,0  35,50"
+    style="stroke:#660000; fill:#cc3333;"/>
+
+
+  <polygon points="50,5   100,5  125,30  125,80 100,105
+  50,105  25,80  25, 30"
+style="stroke:#660000; fill:#cc3333; stroke-width: 3;"/>
+    </svg>
+        `)
+    stage.add(polygon)
+
+
+
     stage.update()
 
 

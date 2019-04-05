@@ -4,6 +4,7 @@ import { circle } from './circle'
 import { ellipse } from './ellipse'
 import { line } from './line'
 import { polyline } from './polyline'
+import { polygon } from './polygon'
 
 class SVG extends Group {
   constructor(vdom) {
@@ -16,7 +17,7 @@ class SVG extends Group {
       y: 0
     }, vdom.props)
 
-    this.vdom.children.forEach(vdomChild=>{
+    this.vdom.children.forEach(vdomChild => {
       this.generate(root, vdomChild)
     })
 
@@ -27,33 +28,38 @@ class SVG extends Group {
 
   }
 
-  generate(parent, vdomChild){
-    switch (vdomChild.type){
+  generate(parent, vdomChild) {
+    switch (vdomChild.type) {
       case 'rect':
 
-      parent.add(rect(vdomChild.props))
+        parent.add(rect(vdomChild.props))
 
-      break;
+        break;
 
       case 'circle':
-      parent.add(circle(vdomChild.props))
+        parent.add(circle(vdomChild.props))
 
-      break;
+        break;
 
       case 'ellipse':
-    
-      parent.add(ellipse(vdomChild.props))
 
-      break;
+        parent.add(ellipse(vdomChild.props))
+
+        break;
       case 'line':
-    
-      parent.add(line(vdomChild.props))
 
-      break;
+        parent.add(line(vdomChild.props))
+
+        break;
       case 'polyline':
-      parent.add(polyline(vdomChild.props))
+        parent.add(polyline(vdomChild.props))
 
-      break;
+        break;
+
+      case 'polygon':
+        parent.add(polygon(vdomChild.props))
+
+        break;
     }
 
 
