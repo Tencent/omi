@@ -90,11 +90,12 @@ $ npm run build        # release
 | ------------ |  -----------|  ----------------- |
 |基础模板(v3.3.0+)|`omi init my-app`| 基础模板，支持 omi 和 omio(IE8+)|
 |小程序模板(v3.3.5+)|`omi init-p my-app`| Omi 开发小程序 |
+|mps|`omi init-mps my-app`| 原生小程序增强框架(JSX + Less 输出 WXML + WXSS) |
+|mps ts 版本|`omi init-mps-ts my-app`| 原生小程序增强框架(JSX + Less 输出 WXML + WXSS) |
+|omi-cloud|`omi init-cloud my-app`| 小程序•云开发|
 |基础模板(v3.3.9+)|`omi init-o my-app`| 支持 IE8 的基础模板，只是 build 的时候支持 IE8，开发调试请用 IE9|
 |支持预渲染快照骨架的模板|`omi init-snap my-app`| 基础模板，支持 omi 和 omio(IE8+)，内置预渲染|
 |TypeScript 模板(omi-cli v3.3.0+)|`omi init-ts my-app`|使用 TypeScript 的模板|
 |Mobile 模板|`omi init-weui my-app`| 使用 weui 和 omi-router 的模板|
 |omi-mp 模板(omi-cli v3.0.13+)|`omi init-mp my-app`  |使用微信小程序开发 H5|
 |MVVM 模板(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM 模板|
-
-Cli 自动创建的项目脚手架是基于单页的 create-react-app 改造成多页的，有配置方面的问题可以查看 [create-react-app 用户指南](https://facebook.github.io/create-react-app/docs/getting-started)。

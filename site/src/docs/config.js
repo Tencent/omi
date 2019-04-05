@@ -24,7 +24,7 @@ const config = {
         title: '其他',
         list: [
           { name: '生态与例子', md: 'other' },
-          { name: 'MP-JSX', md: 'mp-jsx' },
+          { name: 'Mps', md: 'mps' },
           { name: 'Omip 多端开发', md: 'omip' },
           { name: '服务端渲染', md: 'ssr' },
           { name: '路由', md: 'router' },

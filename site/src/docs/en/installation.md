@@ -93,5 +93,3 @@ Add or remove the alias config in package.json to switch omi and omio：
 |TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
 |Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
 |MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM template.|
-
-CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)

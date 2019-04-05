@@ -424,7 +424,7 @@ If you only want to use relative addresses:
 |MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM template.|
 <!-- |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.| -->
 
-CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)
+The base Template(`omi init my-app`) is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://facebook.github.io/create-react-app/docs/getting-started)
 
 ### Hello Element
 
