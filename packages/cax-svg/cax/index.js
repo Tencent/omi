@@ -25,6 +25,9 @@ import EquilateralPolygon from './render/display/shape/equilateral-polygon'
 
 import {setRafInterval, clearRafInterval} from './common/raf-interval'
 
+import html from './svg/html'
+import SVG from './svg/index'
+
 To.easing = {
   linear: TWEEN.Easing.Linear.None
 }
@@ -38,7 +41,8 @@ const cax = {
       return min + Math.floor(Math.random() * (max - min + 1))
     }
   },
-
+  SVG,
+  html,
   Stage,
   WeStage,
   Graphics,

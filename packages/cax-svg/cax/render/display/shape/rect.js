@@ -10,13 +10,13 @@ class Rect extends Shape {
   }
 
   draw () {
-    if (this.option.fillStyle) {
-      this.fillStyle(this.option.fillStyle)
+    if (this.option.fillStyle || this.option.fill) {
+      this.fillStyle(this.option.fillStyle || this.option.fill)
       this.fillRect(0, 0, this.width, this.height)
     }
 
-    if (this.option.strokeStyle) {
-      this.strokeStyle(this.option.strokeStyle)
+    if (this.option.strokeStyle||  this.option.stroke) {
+      this.strokeStyle(this.option.strokeStyle ||  this.option.stroke)
       if(typeof this.option.lineWidth === 'number'){
         this.lineWidth(this.option.lineWidth)
       }
