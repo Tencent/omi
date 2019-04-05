@@ -1,4 +1,6 @@
 // https://github.com/colinmeinke/svg-arc-to-cubic-bezier
+//https://src.chromium.org/viewvc/blink/trunk/Source/core/svg/SVGPathParser.cpp?revision=195686#l225
+
 
 const TAU = Math.PI * 2
 
