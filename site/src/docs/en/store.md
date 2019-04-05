@@ -140,6 +140,22 @@ render() {
 
 Without alias, you can also access it directly through `this.store.data.xxx'.
 
+### Path hit rule
+
+| Proxy Path | path in static use   | update |
+| ---------- | ---------- | -------- |
+| abc        | abc        | true     |
+| abc[1]     | abc        | true     |
+| abc.a      | abc        | true     |
+| abc        | abc.a      | false   |
+| abc        | abc[1]     | false   |
+| abc        | abc[1].c   | false   |
+| abc.b      | abc.b      | true     |
+
+The above can be updated by hitting only one condition!
+
+Summary: As long as the path of the injected component is equal to that declared in use or under one of the path sub-nodes declared in use, it will be updated!
+
 ### Destructuring assignment
 
 ```jsx
