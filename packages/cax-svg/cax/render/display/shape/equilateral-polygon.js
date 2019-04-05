@@ -44,7 +44,6 @@ class EquilateralPolygon extends Shape {
   }
 
   draw () {
-    this.beginPath()
 
     this.moveTo(this.vertex[0][0], this.vertex[0][1])
 
@@ -53,19 +52,6 @@ class EquilateralPolygon extends Shape {
     }
     this.closePath()
 
-    if (this.options.fillStyle) {
-      this.fillStyle(this.options.fillStyle)
-      this.fill()
-    }
-
-  
-    if (this.options.strokeStyle) {
-      this.strokeStyle(this.options.strokeStyle)
-      if(typeof this.options.lineWidth === 'number'){
-        this.lineWidth(this.options.lineWidth)
-      }
-      this.stroke()
-    }
   }
 }
 

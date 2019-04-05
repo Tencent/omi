@@ -11,7 +11,7 @@ class Polygon extends Shape {
   }
 
   draw () {
-    this.clear().beginPath()
+  
     this.strokeStyle(this.strokeColor)
     this.moveTo(this.vertex[0][0], this.vertex[0][1])
 
@@ -26,14 +26,7 @@ class Polygon extends Shape {
     // this.lineJoin('round');
     // this.stroke();
     //  }
-    if (this.strokeColor) {
-      this.strokeStyle(this.strokeColor)
-      this.stroke()
-    }
-    if (this.fillColor) {
-      this.fillStyle(this.fillColor)
-      this.fill()
-    }
+
   }
 }
 

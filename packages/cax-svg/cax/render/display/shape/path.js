@@ -16,7 +16,6 @@ class Path extends Shape {
   draw () {
     const cmds = parse(this.d)
 
-    this.beginPath()
     // https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial/Paths
     // M = moveto
     // L = lineto
@@ -217,16 +216,6 @@ class Path extends Shape {
           preY += item[2]
           break
       }
-    }
-    if (this.option.fillStyle) {
-      this.fillStyle(this.option.fillStyle)
-      this.fill()
-    }
-
-    if (this.option.strokeStyle) {
-      this.lineWidth(this.option.lineWidth)
-      this.strokeStyle(this.option.strokeStyle)
-      this.stroke()
     }
   }
 

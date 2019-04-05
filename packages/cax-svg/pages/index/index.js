@@ -17,14 +17,21 @@ Page({
 
     const circle = new SVG(html`
     <svg >
-        <circle cx="140" cy="40" r="24" style="stroke:#006600; fill:#00cc00"/>
-        <ellipse cx="240" cy="40" rx="30" ry="15"
-        style="stroke:#006600; fill:#00cc00"/>
-
+      <circle cx="140" cy="40" r="24" style="stroke:#006600; fill:#00cc00"/>
+      <ellipse cx="240" cy="40" rx="30" ry="15"
+      style="stroke:#006600; fill:#00cc00"/>
     </svg>`)
-
     stage.add(circle)
-
+    const lines = new SVG(html`
+    <svg x="100" y="100"> 
+      <line x1="0"  y1="10" x2="0" y2="100" style="stroke:#006600;"/>
+      <line x1="10" y1="10" x2="100" y2="100" style="stroke:#006600;"/>
+      <line x1="20" y1="10" x2="100" y2="50"  style="stroke:#006600;"/>
+      <line x1="30" y1="10" x2="110" y2="10"  style="stroke:#006600;"/>
+    </svg>
+        `)
+    stage.add(lines)
+    
     stage.update()
 
 

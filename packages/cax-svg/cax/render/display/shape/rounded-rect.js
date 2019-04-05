@@ -31,7 +31,6 @@ class RoundedRect extends Shape {
       ex = 0,
       ey = 0
 
-    this.beginPath()
 
     this.moveTo(ax, ay)
     if (this.option.rt) {
@@ -56,18 +55,6 @@ class RoundedRect extends Shape {
       this.arcTo(ex, ey, ax, ay, r)
     } else {
       this.lineTo(ex, ey)
-    }
-
-    if (this.option.fillStyle) {
-      this.closePath()
-      this.fillStyle(this.option.fillStyle)
-      this.fill()
-    }
-
-    if (this.option.strokeStyle) {
-      this.lineWidth(this.option.lineWidth)
-      this.strokeStyle(this.option.strokeStyle)
-      this.stroke()
     }
   }
 }

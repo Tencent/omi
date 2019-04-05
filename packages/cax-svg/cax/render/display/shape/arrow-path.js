@@ -14,7 +14,7 @@ class ArrowPath extends Shape {
 
   draw () {
     const path = this.path
-    this.beginPath()
+  
     const len = path.length
     if (len === 2) {
       this.drawArrow(path[0].x, path[0].y, path[1].x, path[1].y, 30)
@@ -26,7 +26,7 @@ class ArrowPath extends Shape {
       this.drawArrow(path[len - 2].x, path[len - 2].y, path[len - 1].x, path[len - 1].y, 30)
     }
 
-    this.stroke()
+    //this.stroke()
   }
 
   drawArrow (fromX, fromY, toX, toY, theta) {
@@ -52,8 +52,8 @@ class ArrowPath extends Shape {
     arrowX = toX + botX
     arrowY = toY + botY
     this.lineTo(arrowX, arrowY)
-    this.strokeStyle(this.option.strokeStyle)
-    this.lineWidth(this.option.lineWidth)
+    // this.strokeStyle(this.option.strokeStyle)
+    // this.lineWidth(this.option.lineWidth)
   }
 }
 
