@@ -28,10 +28,17 @@ define('o-input-table', class extends WeElement {
     })
     this.dataSource.push(item)
     this.update()
+    this.props.onAdd && this.props.onAdd()
   }
 
-  itemInput = (e, key, item) => {
+  itemInput = (e, key, item, index) => {
     item[key] = e.target.value
+    for(let i=0,len=this.props.columns.length;i<len;i++){
+      if(this.props.columns[i].onInput&&this.props.columns[i].key === key){
+        this.props.columns[i].onInput(e, e.target.value.trim(), index)
+        break
+      }
+    }
   }
 
   render(props) {
@@ -46,7 +53,7 @@ define('o-input-table', class extends WeElement {
 
                 return <span>
                   <span class={colIndex === 0 ? 'span-left' : 'span-center'}>{columu.title}</span>
-                  <o-input oninput={e => { this.itemInput(e, columu.key, item) }} class={'ipt ' + (colIndex === len - 1 ? 'ipt2' : 'ipt1')} value={item[columu.key]}></o-input>
+                  <o-input oninput={e => { this.itemInput(e, columu.key, item, index) }} class={'ipt ' + (colIndex === len - 1 ? 'ipt2' : 'ipt1')} value={item[columu.key]}></o-input>
 
                 </span>
               })}
