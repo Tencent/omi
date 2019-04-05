@@ -1,7 +1,7 @@
 import Rect from '../render/display/shape/rect'
 import { parseStyle } from './parse-style'
 
-export function getRect(props) {
+export function rect(props) {
 
   const options = Object.assign({
     width: 0,

@@ -7,12 +7,20 @@ Page({
 
 
 
-    const svg = new SVG(html`<svg>
-    <rect x="10" y="10" height="100" width="100"
-          style="stroke:#ff0000; fill: #0000ff"/>
-  </svg>`)
+    const rect = new SVG(html`
+    <svg>
+      <rect x="10" y="10" height="100" width="100"
+            style="stroke:#ff0000; fill: #0000ff"/>
+    </svg>`)
 
-    stage.add(svg)
+    stage.add(rect)
+
+    const circle = new SVG(html`
+    <svg >
+        <circle cx="140" cy="40" r="24" style="stroke:#006600; fill:#00cc00"/>
+    </svg>`)
+
+    stage.add(circle)
 
     stage.update()
 

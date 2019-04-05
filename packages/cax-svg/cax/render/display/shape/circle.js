@@ -13,17 +13,17 @@ class Circle extends Shape {
     this.beginPath()
     this.arc(0, 0, this.r, 0, this._dp, false)
 
-    if (this.option.strokeStyle) {
+    if (this.option.fillStyle || this.option.fill) {
+      this.fillStyle(this.option.fillStyle || this.option.fill)
+      this.fill()
+    }
+
+    if (this.option.strokeStyle || this.option.stroke) {
       if (this.option.lineWidth !== undefined) {
         this.lineWidth(this.option.lineWidth)
       }
-      this.strokeStyle(this.option.strokeStyle)
+      this.strokeStyle(this.option.strokeStyle || this.option.stroke)
       this.stroke()
-    }
-
-    if (this.option.fillStyle) {
-      this.fillStyle(this.option.fillStyle)
-      this.fill()
     }
   }
 }

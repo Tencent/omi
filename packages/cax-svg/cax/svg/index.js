@@ -1,5 +1,6 @@
 import Group from '../render/display/group'
-import { getRect } from './rect'
+import { rect } from './rect'
+import { circle } from './circle'
 
 class SVG extends Group {
   constructor(vdom) {
@@ -18,10 +19,14 @@ class SVG extends Group {
     switch (vdomChild.type){
       case 'rect':
 
-      this.add(getRect(vdomChild.props))
+      this.add(rect(vdomChild.props))
 
       break;
 
+      case 'circle':
+      this.add(circle(vdomChild.props))
+
+      break;
     }
 
 
