@@ -2,6 +2,10 @@ page, page>view {
   background-color: #eee;
 }
 
+.ctn {
+  padding-bottom: 20px; 
+}
+
 .item{
   text-align: left;
   width: 700rpx;

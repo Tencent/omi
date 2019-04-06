@@ -67,7 +67,7 @@ define('page-about', class extends WeElement {
 
   render() {
     return (
-      <view>
+      <view class='ctn'>
         {list.map(item => (
           <view class='item' data-id={item._id} bindtap={this.gotoDetail}>
             <text>{item.title}</text>
@@ -81,10 +81,10 @@ define('page-about', class extends WeElement {
         </view>
 
 
-        <view class='item' bindtap={this.gotoAbout}>
+        {/* <view class='item' bindtap={this.gotoAbout}>
           <text>Github & omijs.org</text>
           <image src={arrowPng}></image>
-        </view>
+        </view> */}
       </view>
 
     )

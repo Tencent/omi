@@ -21,16 +21,22 @@ define('my-app', class extends WeElement {
       navigationBarTextStyle: 'black'
     },
     tabBar: {
+      color: "#575656",
+      selectedColor: "white",
+      borderStyle: "black",
+      backgroundColor: "black",
       list: [
         {
           pagePath: "pages/list/index",
           text: "首页",
-          "iconPath": "images/home-unslt.png",
+          iconPath: "images/home-unslt.png",
           "selectedIconPath": "images/home.png"
         },
         {
-          pagePath: "pages/code/index",
-          text: "日志" 
+          pagePath: "pages/about/index",
+          text: "omijs.org",
+          iconPath: "images/omi-unslt.png",
+          selectedIconPath: "images/omi.png"
         }
       ]
     }
@@ -80,7 +86,7 @@ define('my-app', class extends WeElement {
         traceUser: true,
       })
       this.globalData.db = wx.cloud.database({
-          env: 'test-06eb2e'
+        env: 'test-06eb2e'
       })
     }
   }
