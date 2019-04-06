@@ -22,7 +22,7 @@ class Shape extends Graphics {
     if (this.option.strokeStyle) {
       this.strokeStyle(this.option.strokeStyle )
       if(this.option.lineWidth !== undefined){
-        this.lineWidth(this.option.lineWidth)
+        this.lineWidth(parseFloat(this.option.lineWidth))
       }
       this.stroke()
     }

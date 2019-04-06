@@ -118,7 +118,17 @@ Page({
     "
     stroke="red"
  style=" fill: none;"/>
+
+
+ <path d="M50,50 L150,50 L150,100  Z"
+      style="stroke: green;
+             stroke-width: 2px;
+             fill  : red;"/>
+
+             <path d="M10,10   l100,0  0,50  -100,0  0,-50"
+      style="stroke: #000000; fill:none;" />
     </svg>
+
         `)
     stage.add(path2)
     
