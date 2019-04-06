@@ -19,6 +19,20 @@ define('my-app', class extends WeElement {
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'Omi Cloud',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      list: [
+        {
+          pagePath: "pages/list/index",
+          text: "首页",
+          "iconPath": "images/home-unslt.png",
+          "selectedIconPath": "images/home.png"
+        },
+        {
+          pagePath: "pages/code/index",
+          text: "日志" 
+        }
+      ]
     }
   }
 
