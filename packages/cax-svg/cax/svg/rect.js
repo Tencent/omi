@@ -1,5 +1,6 @@
 import Rect from '../render/display/shape/rect'
 import { parseStyle } from './parse-style'
+import { transform } from './parse-transform'
 
 export function rect(props) {
 
@@ -13,6 +14,8 @@ export function rect(props) {
   const rect = new Rect(Number(options.width), Number(options.height), parseStyle(props))
   rect.x = Number(options.x)
   rect.y = Number(options.y)
+
+  transform(props, rect)
 
   return rect
 

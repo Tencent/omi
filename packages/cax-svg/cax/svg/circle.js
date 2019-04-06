@@ -1,5 +1,6 @@
 import Circle from '../render/display/shape/circle'
 import { parseStyle } from './parse-style'
+import { transform } from './parse-transform'
 
 export function circle(props) {
 
@@ -13,6 +14,7 @@ export function circle(props) {
   circle.x = Number(options.cx)
   circle.y = Number(options.cy)
 
+  transform(props, circle)
   return circle
 
 }

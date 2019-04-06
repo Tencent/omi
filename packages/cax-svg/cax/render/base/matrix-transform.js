@@ -1,13 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["TransformationMatrix"] = factory();
-	else
-		root["TransformationMatrix"] = factory();
-})(window, function() {
+const mt =  function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -566,5 +557,8 @@ function fromTriangles(t1, t2) {
 
 /***/ })
 /******/ ]);
-});
+}
 //# sourceMappingURL=transformation-matrix.js.map
+
+
+export default mt()
