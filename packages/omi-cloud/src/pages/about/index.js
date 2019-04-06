@@ -7,7 +7,7 @@ define('page-about', class extends WeElement {
   config = {
     navigationBarBackgroundColor: '#24292e',
     navigationBarTextStyle: 'white',
-    navigationBarTitleText: ' ',
+    navigationBarTitleText: 'omijs.org',
     backgroundColor: '#eeeeee',
     backgroundTextStyle: 'light'
   }

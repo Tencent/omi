@@ -1,0 +1,30 @@
+page, page>view {
+  background-color: #eee;
+}
+
+.ctn {
+  padding-bottom: 20px; 
+}
+
+.item{
+  text-align: left;
+  width: 700rpx;
+  margin: 0 auto;
+  height: 100rpx;
+  line-height: 100rpx;
+  color: rgb(20, 19, 19);
+  background-color: white;
+  margin-top: 20rpx; 
+  border-radius: 5rpx;
+  text-indent: 25rpx; 
+  position: relative;
+}
+
+.item image{
+  position: absolute;
+  right: 20rpx;
+  top:37rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+

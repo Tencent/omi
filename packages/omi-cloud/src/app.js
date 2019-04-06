@@ -9,6 +9,7 @@ define('my-app', class extends WeElement {
     pages: [
       'pages/list/index',
       'pages/detail/index',
+      'pages/mp/index',
       'pages/import/index',
       'pages/index/index',
       'pages/about/index',
@@ -31,6 +32,12 @@ define('my-app', class extends WeElement {
           text: "首页",
           iconPath: "images/home-unslt.png",
           "selectedIconPath": "images/home.png"
+        },
+        {
+          pagePath: "pages/mp/index",
+          text: "小程序",
+          iconPath: "images/mp-unslt.png",
+          selectedIconPath: "images/mp.png"
         },
         {
           pagePath: "pages/about/index",
