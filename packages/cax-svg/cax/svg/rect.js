@@ -10,7 +10,7 @@ export function rect(props) {
     y: 0
   }, props)
 
-  const rect = new Rect(Number(options.width), Number(options.height), parseStyle(props.style))
+  const rect = new Rect(Number(options.width), Number(options.height), parseStyle(props))
   rect.x = Number(options.x)
   rect.y = Number(options.y)
 

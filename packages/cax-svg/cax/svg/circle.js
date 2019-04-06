@@ -9,7 +9,7 @@ export function circle(props) {
     cy: 0
   }, props)
 
-  const circle = new Circle(Number(options.r), parseStyle(props.style))
+  const circle = new Circle(Number(options.r), parseStyle(props))
   circle.x = Number(options.cx)
   circle.y = Number(options.cy)
 

@@ -10,7 +10,7 @@ export function ellipse(props) {
     cy: 0
   }, props)
 
-  const ellipse = new Ellipse(Number(options.rx)*2, Number(options.ry)*2, parseStyle(props.style))
+  const ellipse = new Ellipse(Number(options.rx)*2, Number(options.ry)*2, parseStyle(props))
   ellipse.x = Number(options.cx)
   ellipse.y = Number(options.cy)
 

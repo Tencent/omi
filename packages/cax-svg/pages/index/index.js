@@ -116,7 +116,8 @@ Page({
     a50,25 0 0,0 150,100
     q50,-50 70,-170 z
     "
- style="stroke: #006666; fill: none;"/>
+    stroke="red"
+ style=" fill: none;"/>
     </svg>
         `)
     stage.add(path2)
