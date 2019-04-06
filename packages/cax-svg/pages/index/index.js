@@ -109,11 +109,14 @@ Page({
 //     stage.add(path1)
 
     const path2 = new SVG(html`
-    <svg x="-40" y="-20"> 
+    <svg x="-80" y="-20"> 
   
-   
-    <path d="M100,100 L150,100 a50,25 0 0,0 150,100"
-      style="stroke: #006666; fill: none;"/>
+    <path d="M100,100
+    L150,100
+    a50,25 0 0,0 150,100
+    q50,-50 70,-170 z
+    "
+ style="stroke: #006666; fill: none;"/>
     </svg>
         `)
     stage.add(path2)

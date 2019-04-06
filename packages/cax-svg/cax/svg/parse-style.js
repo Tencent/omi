@@ -6,6 +6,7 @@ const map = {
 
 
 export function parseStyle(cssText) {
+  if(!cssText) return 
   let cssTxt = cssText.replace(/\/\*(.|\s)*?\*\//g, ' ').replace(/\s+/g, ' ')
   
   let style = {},
