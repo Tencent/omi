@@ -23,7 +23,7 @@ import Circle from './render/display/shape/circle'
 import Polygon from './render/display/shape/polygon'
 import EquilateralPolygon from './render/display/shape/equilateral-polygon'
 
-import {setRafInterval, clearRafInterval} from './common/raf-interval'
+import { setRafInterval, clearRafInterval } from './common/raf-interval'
 
 import html from './svg/html'
 import SVG from './svg/index'
@@ -75,7 +75,10 @@ const cax = {
 
   caxCanvasId: 0,
   TWEEN,
-  To
+  To,
+  h: function (type, props, ...children) {
+    return { type, props, children };
+  }
 };
 
 ['Quadratic',
@@ -88,15 +91,15 @@ const cax = {
   'Elastic',
   'Back',
   'Bounce'].forEach(item => {
-  const itemLower = item.toLowerCase()
-  cax.easing[itemLower + 'In'] = TWEEN.Easing[item].In
-  cax.easing[itemLower + 'Out'] = TWEEN.Easing[item].Out
-  cax.easing[itemLower + 'InOut'] = TWEEN.Easing[item].InOut
+    const itemLower = item.toLowerCase()
+    cax.easing[itemLower + 'In'] = TWEEN.Easing[item].In
+    cax.easing[itemLower + 'Out'] = TWEEN.Easing[item].Out
+    cax.easing[itemLower + 'InOut'] = TWEEN.Easing[item].InOut
 
-  To.easing[itemLower + 'In'] = TWEEN.Easing[item].In
-  To.easing[itemLower + 'Out'] = TWEEN.Easing[item].Out
-  To.easing[itemLower + 'InOut'] = TWEEN.Easing[item].InOut
-})
+    To.easing[itemLower + 'In'] = TWEEN.Easing[item].In
+    To.easing[itemLower + 'Out'] = TWEEN.Easing[item].Out
+    To.easing[itemLower + 'InOut'] = TWEEN.Easing[item].InOut
+  })
 
 const isWegame = typeof wx !== 'undefined' && wx.createCanvas
 
@@ -115,7 +118,7 @@ cax.loadImgs = function (option) {
   option.imgs.forEach((src, index) => {
     const img = isWegame ? wx.createImage() : new Image()
     img.onload = (function (i, img) {
-      return function(){
+      return function () {
         result[i] = img
         loaded++
         option.progress && option.progress(loaded / len, loaded, i, img, result)
@@ -123,7 +126,7 @@ cax.loadImgs = function (option) {
           option.complete && option.complete(result)
         }
       }
-    })(index,img)
+    })(index, img)
     img.src = src
   })
 }
