@@ -16,6 +16,16 @@ class WeElement {
   }
 }`}
 
+// var code = require("babel-core").transform("<div dd='1'>aaa</div>",{
+//   "plugins": [
+//     ["transform-react-jsx", {
+//       "pragma": "global.__h"
+//     }]
+//   ]
+// }).code;
+
+// console.log(code)
+
 var baseOptions = {
   isRoot: false,
   isApp: false,
@@ -96,7 +106,7 @@ function compileLess(file, watch) {
   console.log('[编译文件]'.green, file.path)
 
   less.render(file.contents, {
-      paths: ['.', './common-less'], 
+      paths: ['.', './common-less'],
     }, function (e, output) {
     console.log('[编译完成]'.green, file.path)
 

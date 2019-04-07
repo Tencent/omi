@@ -15,6 +15,7 @@
     "@tarojs/transformer-wx": "^1.2.22",
     "babel-core": "^6.26.3",
     "babel-generator": "^6.26.1",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-template": "^6.26.0",
     "babel-traverse": "^6.26.0",
     "babel-types": "^6.26.0",
