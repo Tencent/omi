@@ -8,4 +8,7 @@ todo:
 * Transformation
 * animation(using animejs)
 * event handler
-* jsx support(extend mps)
+* jsx support(extend omip)
+
+
+vscode 安装 lit-html 使 html`内容` 高亮
