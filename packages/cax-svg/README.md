@@ -12,3 +12,12 @@ todo:
 
 
 vscode 安装 lit-html 使 html`内容` 高亮
+
+
+import testSVG from 'svg/test'
+
+new cax.SVG(testSVG.bind(this)())
+
+没有方法：
+
+new cax.SVG(testSVG())
