@@ -391,6 +391,33 @@ wxss:
 
 大功告成，简单把！
 
+### 云函数与调试
+
+<img src="https://github.com/Tencent/omi/raw/master/assets/comi.jpg" width="420">
+
+在小程序里有个 todo 的案例，里面的 remove 使用了云函数，用于清空所有已完成的任务。
+
+```js
+const cloud = require('wx-server-sdk')
+cloud.init()
+
+const db = cloud.database()
+const _ = db.command
+
+exports.main = async (event, context) => {
+  try {
+    return await db.collection('todo').where({
+      done: true
+    }).remove()
+  } catch (e) {
+    console.error(e)
+  }
+}
+```
+
+<img src="https://github.com/Tencent/omi/raw/master/assets/debug-cloud-fn.jpg" width="820">
+
+不过最新的IED，云函数支持了本地调试功能，感兴趣的可以[点击这里](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/functions/local-debug.html)了解下。
 
 ## 相关链接
 
