@@ -1,4 +1,4 @@
-# Omi Cloud 
+# Omi Cloud 实战 markdown 内容发布系统
 
 开发小程序，但是：没有后端！没有运维！没有 DBA！没有域名！没有证书！没有钱！没有时间！没有精力！
 
@@ -175,14 +175,15 @@ if (path.extname(item) === '.md') {
 ### 请求 list 数据
 
 ```js
+ //先展示 loading
  wx.showLoading({
     title: '加载中'
   })
+  //调用云函数获取 openid
   wx.cloud.callFunction({
     name: 'login',
     data: {},
     success: res => {
-      console.log('[云函数] [login] user openid: ', res.result.openid)
       app.globalData.openid = res.result.openid
       app.globalData.db.collection('article').field({
         title: true,
@@ -198,17 +199,20 @@ if (path.extname(item) === '.md') {
     },
     fail: err => {
       console.error('[云函数] [login] 调用失败', err)
-
     }
   })
 ```
 
+- 请求 list，通过 field 方法筛选字段，毕竟 list 不需要 md 字段，这样可以减少数据传输，节约带宽
+- 通过 order 字段对 list 进行排序（这样管理员不需要发版本就可以手动调整 order 给 list 排序）
+
+<!-- 
 ### 依赖的数据表
 
 <img src="https://github.com/Tencent/omi/raw/master/assets/omi-cloud-db.jpg"  width="600">
 
 <img src="https://github.com/Tencent/omi/raw/master/assets/omi-cloud-db-todo.jpg"  width="600">
-
+ -->
 
 ## 官方链接
 
