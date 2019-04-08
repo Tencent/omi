@@ -55,7 +55,14 @@ $ npm start
 
 <img src="https://github.com/Tencent/omi/raw/master/assets/dir.jpg"  width="400">
 
-这里是使用 omip 作为脚手架，你也可以通过微信开发者工具创建云开发的脚手架。
+这里是使用 omip 作为脚手架，也支持 Omi mps-cloud 创建原生小程序的云开发的脚手架:
+
+```bash
+$ npm i omi-cli -g              
+$ omi init-mps-cloud my-app    
+$ cd my-app/miniprogram      
+$ npm start               
+```
 
 ### 3.项目初始化 app.js
 

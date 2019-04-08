@@ -48,6 +48,17 @@ $ omi init-mps-ts my-app
 
 > `npx omi-cli init-mps-ts my-app` 也支持(npm v5.2.0+)
 
+
+也支持 mps 云开发：
+
+```bash
+$ npm i omi-cli -g              
+$ omi init-mps-cloud my-app    
+$ cd my-app/miniprogram      
+$ npm start               
+```
+
+
 ## JSX vs WXML
 
 这里是一个真实的案例说明 JSX 的精巧高效的表达能力:
