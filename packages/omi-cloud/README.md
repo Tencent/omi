@@ -176,7 +176,11 @@ if (path.extname(item) === '.md') {
 上面的详细代码可以[点击这里](https://github.com/Tencent/omi/blob/master/packages/omi-cloud/scripts/taro-cli/src/weapp.js#L1968-L1971)查看到。
 
 
-### 请求 list 数据
+### 列表页
+
+<img src="https://github.com/Tencent/omi/raw/master/assets/omi-cloud-list.jpg" width="420">
+
+请求 list 数据
 
 ```js
  //先展示 loading
