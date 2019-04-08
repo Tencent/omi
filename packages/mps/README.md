@@ -48,8 +48,9 @@ $ omi init-mps-ts my-app
 
 > `npx omi-cli init-mps-ts my-app` 也支持(npm v5.2.0+)
 
+## mps-cloud
 
-也支持 mps 云开发：
+mps 也支持云开发：
 
 ```bash
 $ npm i omi-cli -g              
@@ -57,7 +58,6 @@ $ omi init-mps-cloud my-app
 $ cd my-app/miniprogram      
 $ npm start               
 ```
-
 
 ## JSX vs WXML
 
