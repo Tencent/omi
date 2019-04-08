@@ -53,6 +53,8 @@ $ cd my-app
 $ npm start          
 ```
 
+<img src="https://github.com/Tencent/omi/raw/master/assets/dir.jpg"  width="400">
+
 这里是使用 omip 作为脚手架，你也可以通过微信开发者工具创建云开发的脚手架。
 
 ### 3.项目初始化 app.js
