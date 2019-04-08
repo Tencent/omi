@@ -307,6 +307,91 @@ Omip 可以直接让你使用 jsx 书写 wxml 结构。编译出的 wxml 如下:
 <img src="https://github.com/Tencent/omi/raw/master/assets/omi-cloud-db-todo.jpg"  width="600">
  -->
 
+### 文章详情展示
+
+这里使用 Comi 进行 markdown 渲染！ Comi 读 ['kəʊmɪ]，类似中文 科米，是腾讯 Omi 团队开发的小程序代码高亮和 markdown 渲染组件。Comi 是基于下面几个优秀的社区组件进行二次开发而成。
+
+* wxParse
+* remarkable
+* html2json
+* htmlparser
+* prism
+
+效果预览：
+
+<img src="https://github.com/Tencent/omi/raw/master/assets/comi.jpg" width="320">
+
+```js
+import { WeElement, define } from 'omi'
+import './index.css'
+import comi from '../../components/comi/comi'
+
+//获取应用实例
+const app = getApp()
+
+define('page-about', class extends WeElement {
+  config = {
+    navigationBarBackgroundColor: '#24292e',
+    navigationBarTextStyle: 'white',
+    navigationBarTitleText: ' ',
+    backgroundColor: '#eeeeee',
+    backgroundTextStyle: 'light'
+  }
+
+  install(options) {
+    wx.showLoading({
+      title: '加载中'
+    })
+    app.globalData.db.collection('article').doc(options.id).get().then(res=>{
+      comi(res.data.md, this.$scope)
+      wx.hideLoading()
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+
+  render() {
+    return (
+      <view>
+        <include src="../../components/comi/comi.wxml" />
+      </view>
+    )
+  }
+})
+```
+
+除了在 omip 中使用，原生小程序也可以使用 Comi:
+
+先拷贝 [此目录](https://github.com/Tencent/omi/tree/master/packages/comi/mp/comi) 到你的项目。
+
+js:
+
+```js
+const comi = require('../../comi/comi.js');
+
+Page({
+  onLoad: function () {
+    comi(`你要渲染的 md！`, this)
+  }
+})
+```
+
+wxml:
+
+```html
+<include src="../../comi/comi.wxml" />
+```
+
+wxss:
+
+```css
+@import "../../comi/comi.wxss";
+```
+
+大功告成，简单把！
+
+
 ## 相关链接
 
 - [源码地址](https://github.com/Tencent/omi/tree/master/packages/omi-cloud)
