@@ -18,7 +18,7 @@
 
 ### 1.建表
 
-<img src="https://github.com/Tencent/omi/raw/master/assets/omi-cloud-db.jpg"  width="600">
+<img src="https://github.com/Tencent/omi/raw/master/assets/oc.jpg"  width="800">
 
 操作路径： 微信开发者工具→云开发→数据库→添加集合
 
