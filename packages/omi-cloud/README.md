@@ -208,6 +208,95 @@ if (path.extname(item) === '.md') {
 - 请求 list，通过 field 方法筛选字段，毕竟 list 不需要 md 字段，这样可以减少数据传输，节约带宽
 - 通过 order 字段对 list 进行排序（这样管理员不需要发版本就可以手动调整 order 给 list 排序）
 
+
+完整的代码:
+
+```jsx
+import { WeElement, define } from 'omi'
+import './index.css'
+import arrowPng from './arrow.png'
+
+//获取应用实例
+const app = getApp()
+
+define('page-about', class extends WeElement {
+  config = {
+    navigationBarBackgroundColor: '#24292e',
+    navigationBarTextStyle: 'white',
+    navigationBarTitleText: 'Omi',
+    backgroundColor: '#ccc',
+    backgroundTextStyle: 'light'
+  }
+
+  data = {
+    list: []
+  }
+
+  installed() {
+    wx.showLoading({
+      title: '加载中'
+    })
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        app.globalData.openid = res.result.openid
+        app.globalData.db.collection('article').field({
+          title: true,
+          _id: true,
+          order: true
+        }).get().then(res => {
+          this.data.list = res.data.sort(function (a, b) {
+            return a.order - b.order
+          })
+          this.update()
+          wx.hideLoading()
+        })
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+
+      }
+    })
+  }
+
+  gotoDetail = (evt) => {
+    wx.navigateTo({
+      url: '../detail/index?id=' + evt.currentTarget.dataset.id
+    })
+  }
+
+  render() {
+    return (
+      <view class='ctn'>
+        {list.map(item => (
+          <view class='item' data-id={item._id} bindtap={this.gotoDetail}>
+            <text>{item.title}</text>
+            <image src={arrowPng}></image>
+          </view>
+        ))}
+      </view>
+    )
+  }
+})
+```
+
+Omip 可以直接让你使用 jsx 书写 wxml 结构。编译出的 wxml 如下:
+
+```html
+<block>
+  <view class="ctn">
+    <view class="item" data-id="{{item._id}}" bindtap="gotoDetail" wx:for="{{list}}" wx:for-item="item"><text>{{item.title}}</text>
+      <image src="{{arrowPng}}"></image>
+    </view>
+  </view>
+</block>
+```
+
+这里需要注意，点击每一项跳转详情也一定要使用 `evt.currentTarget.dataset.id`，而不能使用 `evt.target.dataset.id`。这样点击到文字或者image
+上获取不到 id。
+
 <!-- 
 ### 依赖的数据表
 
