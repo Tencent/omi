@@ -88,7 +88,7 @@ function compile(file, watch) {
   }).template.replace(/<block>/,'').replace(/([\s\S]*)<\/block>/,'$1')
   console.log('[编译完成]'.green ,  file.path)
 
-  const res = prettier.format(template, { parser: "html" })
+  const res = prettier.format(template, { parser: "angular" })
   console.log('[代码美化]'.green , name + '.wxml' )
 
   fs.writeFileSync(dir + '/' + name + '.wxml', res)
