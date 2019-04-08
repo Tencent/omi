@@ -40,7 +40,7 @@ article 集合字段说明:
 
 很明显，这个表用来存储所有的文章。然后设置表的读写权限：
 
-<img src="https://github.com/Tencent/omi/raw/master/assets/db-config.jpg"  width="500">
+<img src="https://github.com/Tencent/omi/raw/master/assets/db-config.jpg"  width="300">
 
 因为后续可能支持用户发表文章，所有设置成第一个。
 
