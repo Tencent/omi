@@ -38,8 +38,9 @@ article 集合字段说明:
 |     order    |     文章的顺序     |
 |     title    |     文章的标题     |
 
+很明显，这个表用来存储所有的文章。
 
-### 快速小程序云开发
+### 2.初始化项目目录
 
 ```bash
 $ npm i omi-cli -g 
@@ -48,6 +49,61 @@ $ cd my-app
 $ npm start          
 ```
 
+这里是使用 omip 作为脚手架，你也可以通过微信开发者工具创建云开发的脚手架。
+
+### 3.项目初始化 app.js
+
+```js
+import './app.css'
+import './pages/index/index'
+import { render, WeElement, define } from 'omi'
+
+define('my-app', class extends WeElement {
+
+  config = {
+    pages: [
+      'pages/list/index',
+      'pages/detail/index',
+      'pages/import/index'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'Omi Cloud',
+      navigationBarTextStyle: 'black'
+    }
+  }
+
+  install() {
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
+    } else {
+      wx.cloud.init({
+        traceUser: true,
+      })
+      this.globalData.db = wx.cloud.database({
+        env: 'test-06eb2e'
+      })
+    }
+  }
+
+  render() {
+    return (
+      <page-index />
+    )
+  }
+})
+
+render(<my-app />, '#app')
+```
+
+<img src="https://github.com/Tencent/omi/raw/master/assets/env.jpg"  width="400">
+
+`wx.cloud.database` 代码参数里的 env 可以从上面获取到，一般创建两个环境，一个用户测试环境，一个用于生产环境。
+
+- pages/list/index   文章列表首页
+- pages/detail/index 文章详情夜
+- pages/import/index 文章导入页(先简单通过代码导入，没提供 UI)
 
 ### 依赖的数据表
 
