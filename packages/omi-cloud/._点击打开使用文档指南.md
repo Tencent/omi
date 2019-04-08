@@ -38,7 +38,11 @@ article 集合字段说明:
 |     order    |     文章的顺序     |
 |     title    |     文章的标题     |
 
-很明显，这个表用来存储所有的文章。
+很明显，这个表用来存储所有的文章。然后设置表的读写权限：
+
+<img src="https://github.com/Tencent/omi/raw/master/assets/env.jpg"  width="500">
+
+因为后续可能支持用户发表文章，所有设置成第一个。
 
 ### 2.初始化项目目录
 
@@ -53,9 +57,9 @@ $ npm start
 
 ### 3.项目初始化 app.js
 
-```js
+```jsx
 import './app.css'
-import './pages/index/index'
+import './pages/list/index'
 import { render, WeElement, define } from 'omi'
 
 define('my-app', class extends WeElement {
@@ -89,7 +93,7 @@ define('my-app', class extends WeElement {
 
   render() {
     return (
-      <page-index />
+      <page-list />
     )
   }
 })
@@ -97,13 +101,107 @@ define('my-app', class extends WeElement {
 render(<my-app />, '#app')
 ```
 
-<img src="https://github.com/Tencent/omi/raw/master/assets/env.jpg"  width="400">
+<img src="https://github.com/Tencent/omi/raw/master/assets/env.jpg"  width="600">
 
 `wx.cloud.database` 代码参数里的 env 可以从上面获取到，一般创建两个环境，一个用户测试环境，一个用于生产环境。
 
 - pages/list/index   文章列表首页
 - pages/detail/index 文章详情夜
-- pages/import/index 文章导入页(先简单通过代码导入，没提供 UI)
+- pages/import/index 文章导入页(先简单通过代码导入 markdown，没提供 UI)
+
+### 导入 markdown 数据
+
+```js
+import { WeElement, define } from 'omi'
+import data from './test.md'
+
+const app = getApp()
+
+define('page-import', class extends WeElement {
+
+  installed() {
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        app.globalData.openid = res.result.openid
+        app.globalData.db.collection('article').add({
+          data: {
+            md: data.md,
+            title: 'test',
+            createTime: app.globalData.db.serverDate()
+          },
+          success: (res) => {
+            console.log(res)
+          },
+          fail: err => {
+            console.error('[云函数] [login] 调用失败', err)
+          }
+        })
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+      }
+    })
+  }
+
+  ...
+  ...
+})
+```
+
+注意三点：
+
+- 通过 `wx.cloud.callFunction` 调用云函数进行登陆，且获取 openid，接着导入数据会自动带上提交该 openid。
+- 通过 `app.globalData.db.serverDate()` 获取服务端时间，客户端时间不可靠
+- 文章导入只由管理员负责
+
+注意 `import data from './test.md'`，这里通过修改 omip 里的 scripts 逻辑实现。
+
+这里解释下 import markdown 原理:
+
+```js
+let code = fs.readFileSync(item).toString()
+if (path.extname(item) === '.md') {
+  code = `export default { md: \`${code.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\` }`
+}
+```
+
+检测到 md 后缀的文件，把文件里的 markdown 字符串变成一个 js 模块。
+
+详细代码可以[点击这里](https://github.com/Tencent/omi/blob/master/packages/omi-cloud/scripts/taro-cli/src/weapp.js#L1968-L1971)查看到。
+
+
+### 请求 list 数据
+
+```js
+ wx.showLoading({
+    title: '加载中'
+  })
+  wx.cloud.callFunction({
+    name: 'login',
+    data: {},
+    success: res => {
+      console.log('[云函数] [login] user openid: ', res.result.openid)
+      app.globalData.openid = res.result.openid
+      app.globalData.db.collection('article').field({
+        title: true,
+        _id: true,
+        order: true
+      }).get().then(res => {
+        this.data.list = res.data.sort(function (a, b) {
+          return a.order - b.order
+        })
+        this.update()
+        wx.hideLoading()
+      })
+    },
+    fail: err => {
+      console.error('[云函数] [login] 调用失败', err)
+
+    }
+  })
+```
 
 ### 依赖的数据表
 

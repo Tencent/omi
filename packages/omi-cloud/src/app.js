@@ -1,6 +1,6 @@
 
 import './app.css'
-import './pages/index/index'
+import './pages/list/index'
 import { render, WeElement, define } from 'omi'
 
 define('my-app', class extends WeElement {
@@ -104,7 +104,7 @@ define('my-app', class extends WeElement {
 
   render() {
     return (
-      <page-index />
+      <page-list />
     )
   }
 })
