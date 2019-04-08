@@ -171,7 +171,9 @@ if (path.extname(item) === '.md') {
 
 检测到 md 后缀的文件，把文件里的 markdown 字符串对关键字进行转义然后变成一个 js 模块。
 
-详细代码可以[点击这里](https://github.com/Tencent/omi/blob/master/packages/omi-cloud/scripts/taro-cli/src/weapp.js#L1968-L1971)查看到。
+这也算是使用中间编译的好处之一吧，如果原生的小程序目前没办法 import markdown 文件，当然原生小程序 API 和周边生态在不断进化，腾讯 Omi 团队开发的 [mps 框架](https://github.com/Tencent/omi/tree/master/packages/mps) 就是让你在原生小程序中使用 jsx 和 less。
+
+上面的详细代码可以[点击这里](https://github.com/Tencent/omi/blob/master/packages/omi-cloud/scripts/taro-cli/src/weapp.js#L1968-L1971)查看到。
 
 
 ### 请求 list 数据
