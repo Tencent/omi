@@ -55,7 +55,8 @@ mps 也支持云开发：
 ```bash
 $ npm i omi-cli -g              
 $ omi init-mps-cloud my-app    
-$ cd my-app/miniprogram      
+$ cd my-app/miniprogram  
+$ npm install    
 $ npm start               
 ```
 
