@@ -1,6 +1,7 @@
 import Rect from '../render/display/shape/rect'
 import { parseStyle } from './parse-style'
 import { transform } from './parse-transform'
+import { parseEvent } from './parse-event'
 
 export function rect(props) {
 
@@ -16,7 +17,8 @@ export function rect(props) {
   rect.y = Number(options.y)
 
   transform(props, rect)
-
+  parseEvent(props, rect)
+  
   return rect
 
 }

@@ -7,9 +7,13 @@ Page({
 
 
 
+    function tapHandler(){
+        console.log('tapHandler')
+    }
+
     const rect = new SVG(html`
     <svg>
-      <rect x="10" y="10" height="100" width="100"
+      <rect x="10" y="10" onclick=${tapHandler} height="100" width="100"
             style="stroke:#ff0000; fill: #0000ff"/>
     </svg>`)
 
