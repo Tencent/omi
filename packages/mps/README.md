@@ -60,6 +60,8 @@ $ npm install
 $ npm start               
 ```
 
+使用云开发没有 dist 目录，直接把当前的 my-app 设置为微信开发者工具的目录。
+
 ## JSX vs WXML
 
 这里是一个真实的案例说明 JSX 的精巧高效的表达能力:
