@@ -167,7 +167,7 @@ if (path.extname(item) === '.md') {
 }
 ```
 
-检测到 md 后缀的文件，把文件里的 markdown 字符串变成一个 js 模块。
+检测到 md 后缀的文件，把文件里的 markdown 字符串对关键字进行转义然后变成一个 js 模块。
 
 详细代码可以[点击这里](https://github.com/Tencent/omi/blob/master/packages/omi-cloud/scripts/taro-cli/src/weapp.js#L1968-L1971)查看到。
 
