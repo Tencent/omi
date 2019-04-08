@@ -16,6 +16,10 @@
 
 本文将一步一步教你使用 小程序•云开发 + Omip + Comi 搭建一个支持 markdown 和代码高亮的小程序内容展示和发布系统。
 
+预览:
+
+![](https://github.com/Tencent/omi/raw/master/assets/omi-cloud.jpg)
+
 ### 1.建表
 
 <img src="https://github.com/Tencent/omi/raw/master/assets/oc.jpg"  width="800">
@@ -34,9 +38,6 @@ article 集合字段说明:
 |     order    |     文章的顺序     |
 |     title    |     文章的标题     |
 
-### 小程序码
-
-![](https://github.com/Tencent/omi/raw/master/assets/omi-cloud.jpg)
 
 ### 快速小程序云开发
 
