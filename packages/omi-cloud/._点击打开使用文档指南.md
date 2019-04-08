@@ -307,8 +307,9 @@ Omip 可以直接让你使用 jsx 书写 wxml 结构。编译出的 wxml 如下:
 <img src="https://github.com/Tencent/omi/raw/master/assets/omi-cloud-db-todo.jpg"  width="600">
  -->
 
-## 官方链接
+## 相关链接
 
+- [源码地址](https://github.com/Tencent/omi/tree/master/packages/omi-cloud)
 - [官方教程](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
 - [小程序端 API 文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-client-api/)
 - [服务端 API 文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/reference-server-api/)
