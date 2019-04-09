@@ -323,6 +323,20 @@ comi.wxss
 * include `comi.wxml` 
 * import `comi.wxss`
 
+另外，在 omip 使用 comi 时候发现不会拷贝 include 的文件到 dist，发现 taro/omip 的正则没有去匹配 include 文件，所以，把：
+
+```js
+exports.REG_WXML_IMPORT = /<[import](.*)?src=(?:(?:'([^']*)')|(?:"([^"]*)"))/gi
+```
+
+改成:
+
+```js
+exports.REG_WXML_IMPORT = /<[import|inculde](.*)?src=(?:(?:'([^']*)')|(?:"([^"]*)"))/gi
+```
+
+搞定。
+
 ## 开始使用吧
 
 * [Github](https://github.com/Tencent/omi/tree/master/packages/comi)
