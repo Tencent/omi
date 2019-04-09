@@ -10,7 +10,7 @@ function cacher(fn) {
   }
 }
 
-const add = cacher( (a, b) => a + b)
+const add = cacher((a, b) => a + b)
 
 
 add(1, 3) //第一次计算
