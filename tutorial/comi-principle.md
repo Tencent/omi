@@ -76,6 +76,8 @@ define('page-index', class extends WeElement {
 })
 ```
 
+WeElement 里的 this 并不是小程序里的 this，需要使用 `this.$scope` 访问小程序 Page或 Component 的 this。
+
 css:
 
 ```css
