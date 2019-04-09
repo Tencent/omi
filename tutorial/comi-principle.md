@@ -9,6 +9,7 @@ Comi 读 ['kəʊmɪ]，类似中文 科米，是腾讯 Omi 团队开发的小程
 感谢【小程序•云开发】提供技术支持。
 
 #### 预览
+
 <img src="https://github.com/Tencent/omi/raw/master/assets/comi.jpg" width="320">
 
 Comi 基于下面的 5 个组件进行开发：
@@ -158,6 +159,9 @@ Page({
     return env.tokens
   },
 ```
+
+<img src="https://github.com/Tencent/omi/raw/master/assets/comi-token.jpg" width="420">
+
 
 这段代码增加 tokens 方法到 prismjs 中，原库自带的 prism.highlight 的会把 tokens 转成 html，因为我们的目标的 wxml，所以这里提前把 tokens
 作为方法返回值。当然还做了一件事，就是扩展了 token item 的 deep 属性来决定是否需要继续向下遍历生成 wxml。
