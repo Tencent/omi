@@ -13,11 +13,13 @@ mps 是什么？为什么需要 mps？先列举几个现状:
 
 ![](https://github.com/Tencent/omi/raw/master/assets/mps.png)
 
-- JSX 代替 WXML 书写结构，精简高效
+- JSX 代替 WXML/QML 书写结构，精简高效
 - 对原生小程序零入侵
 - 支持 JS 和 TS
 - 实时编译，实时预览
-- 输出 WXML 自动美化
+- 输出 WXSS/QSS 自动美化
+- 输出 WXML/QML 自动美化
+* 同时支持微信小程序和 QQ 轻应用
 
 ## 效果预览
 
@@ -27,7 +29,7 @@ mps 是什么？为什么需要 mps？先列举几个现状:
 
 ```bash
 $ npm i omi-cli -g              
-$ omi init-mps my-app    
+$ omi init-mps my-app   //qq轻应用 omi init-mps-qq my-app  
 $ cd my-app        
 $ npm start               
 ```
@@ -47,6 +49,15 @@ $ omi init-mps-ts my-app
 其他命令一样。
 
 > `npx omi-cli init-mps-ts my-app` 也支持(npm v5.2.0+)
+
+## QQ 轻应用
+
+```bash
+$ npm i omi-cli -g              
+$ omi init-mps-qq my-app    
+$ cd my-app        
+$ npm start               
+```
 
 ## mps-cloud
 
