@@ -235,7 +235,7 @@ jsx 编译出生成的 wxml，把这段 wxml 嵌入到 wxparse 里:
 }
 ```
 
-使用上面的 prism.tokens 计算出代码片段的 tokens，用户 wxparse 的模板渲染：
+使用上面的 prism.tokens 计算出代码片段的 tokens，用于 wxparse 的模板渲染：
 
 ```js
 function transPre(transData) {
@@ -251,3 +251,79 @@ function transPre(transData) {
   })
 }
 ```
+
+language- 支持多少种呢？目前 comi 默认支持：
+
+* markup
+* css
+* clike
+* javascript
+* bash
+* json
+* typescript
+* jsx
+* tsx
+
+默认使用的主题 css 是 okaidia。如果 comi 默认的配置不支持你的需求，你可以：
+
+* 进 https://prismjs.com/download.html 这里自行下载
+* 劫持 prismjs tokens 拷贝进你下载的 prismjs 里
+* 把 prismjs 拷贝替换掉 comi 自带的 prismjs
+
+### 精简 comi 使用流程
+
+WXML 提供两种文件引用方式 import 和 include。和 import 不同，include 可以将目标文件除了 <template/> <wxs/> 外的整个代码引入，相当于是拷贝到 include 位置，如：
+
+``` html
+<!-- index.wxml -->
+<include src="header.wxml" />
+<view>body</view>
+<include src="footer.wxml" />
+```
+
+```html
+<!-- header.wxml -->
+<view>header</view>
+```
+
+```html
+<!-- footer.wxml -->
+<view>footer</view>
+```
+
+comi 利用了 import 和 include 特性简化使用流程：
+
+comi.wxml
+
+```html
+<import src="./wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+```
+
+comi.js
+
+```js
+var WxParse = require('./wxParse.js');
+
+module.exports = function comi(md, scope) {
+  WxParse.wxParse('article', 'md', md, scope, 5);
+}
+```
+
+comi.wxss
+
+```css
+@import './wxParse.wxss';
+@import './prism.wxss';
+```
+
+使用时，只需要 ：
+
+* import `comi.js`
+* include `comi.wxml` 
+* import `comi.wxss`
+
+## 开始使用吧
+
+* [Github](https://github.com/Tencent/omi/tree/master/packages/comi)
+* [Powered by Omi Team](https://tencent.github.io/omi/)
