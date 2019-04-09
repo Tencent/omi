@@ -139,16 +139,16 @@ Page({
 
 ```js
  tokens: function (text, grammar, language) {
-		var env = {
-			code: text,
-			grammar: grammar,
-			language: language
-		};
-		_.hooks.run('before-tokenize', env);
-		env.tokens = _.tokenize(env.code, env.grammar);
+    var env = {
+      code: text,
+      grammar: grammar,
+      language: language
+    };
+    _.hooks.run('before-tokenize', env);
+    env.tokens = _.tokenize(env.code, env.grammar);
     _.hooks.run('after-tokenize', env);
-
-		for (var i = 0, len = env.tokens.length; i < len; i++) {
+    
+    for (var i = 0, len = env.tokens.length; i < len; i++) {
       var v = env.tokens[i]
       if (Object.prototype.toString.call(v.content) === '[object Array]') {
         v.deep = true
