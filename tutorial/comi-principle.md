@@ -1,12 +1,13 @@
 # Comi - 小程序 markdown 渲染和代码高亮解决方案
 
-Comi 读 ['kəʊmɪ]，类似中文 科米，是腾讯 Omi 团队开发的小程序代码高亮和 markdown 渲染组件。
+Comi 读 ['kəʊmɪ]，类似中文 科米，是腾讯 Omi 团队开发的小程序代码高亮和 markdown 渲染组件。有了这个组件加持，小程序技术社区可以开始搞起来了。
 
-<img src="https://github.com/Tencent/omi/raw/master/assets/comi.jpg" width="320">
-
-### 体验
+#### 体验
 
 ![](https://github.com/Tencent/omi/raw/master/assets/omi-cloud.jpg)
+
+#### 预览
+<img src="https://github.com/Tencent/omi/raw/master/assets/comi.jpg" width="320">
 
 Comi 基于下面的 5 个组件进行开发：
 
