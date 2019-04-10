@@ -88,6 +88,7 @@
 
 * [Comi 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/comi-principle.md)
 * [Omip 编译 H5 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/omip-h5.md)
+* [如何通过小程序实现跨平台开发](https://developers.weixin.qq.com/community/develop/article/doc/00002cda45c930d87a380a74351813)
 * [你必须收藏 ES6 Spread Operator 技巧](https://github.com/Tencent/omi/blob/master/tutorial/spread-operator.cn.md)
 * [Omi snap 骨架屏与快照](https://github.com/Tencent/omi/blob/master/tutorial/omi-snap.cn.md)
 * [Omio 兼容 IE8 踩坑之路](https://github.com/Tencent/omi/blob/master/tutorial/omio.cn.md)
