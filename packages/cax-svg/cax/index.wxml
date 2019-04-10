@@ -4,7 +4,7 @@
     bindtouchmove="touchMove" 
     bindtouchend="touchEnd" 
     canvas-id="{{ id }}" 
-    style="border-top: 1px solid;border-bottom: 1px solid;width: {{width}}px; height: {{height}}px;">
+    style="width: {{width}}px; height: {{height}}px;">
     <slot></slot>
 </canvas>
 

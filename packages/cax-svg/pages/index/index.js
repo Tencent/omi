@@ -1,4 +1,4 @@
-import cax, { html, SVG } from '../../cax/index'
+import cax, { html, SVG } from '../../cax/cax'
 
 Page({
   onLoad: function (options) {

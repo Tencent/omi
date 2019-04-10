@@ -1,4 +1,4 @@
-import cax, { html, SVG } from './index'
+import cax, { html, SVG } from './cax'
 
 function svg(vdom, canvas, scope) {
   const stage = new cax.Stage(vdom.props.width, vdom.props.height, canvas, scope)
