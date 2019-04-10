@@ -1,4 +1,4 @@
-import cax from './index'
+import cax from './cax'
 import { define, WeElement } from 'omi'
 import './index.css'
 
@@ -17,29 +17,29 @@ define('cax-element', class extends WeElement {
     return this.data.id
   }
 
-  touchStart(evt) {
-    this.stage.touchStartHandler(evt)
-    this.stage.touchStart && this.stage.touchStart(evt)
+  touchStart = (evt) => {
+    this.$scope.stage.touchStartHandler(evt)
+    this.$scope.stage.touchStart && this.$scope.stage.touchStart(evt)
   }
 
-  touchMove(evt) {
-    this.stage.touchMoveHandler(evt)
-    this.stage.touchMove && this.stage.touchMove(evt)
+  touchMove= (evt) => {
+    this.$scope.stage.touchMoveHandler(evt)
+    this.$scope.stage.touchMove && this.$scope.stage.touchMove(evt)
   }
 
-  touchEnd(evt) {
-    this.stage.touchEndHandler(evt)
-    this.stage.touchEnd && this.stage.touchEnd(evt)
+  touchEnd= (evt) => {
+    this.$scope.stage.touchEndHandler(evt)
+    this.$scope.stage.touchEnd && this.$scope.stage.touchEnd(evt)
   }
 
   render(){
     return <canvas 
     class="cax-canvas"
-    bindtouchstart="touchStart" 
-    bindtouchmove="touchMove" 
-    bindtouchend="touchEnd" 
-    canvas-id="{{ id }}" 
-    style="border-top: 1px solid;border-bottom: 1px solid;width: {{width}}px; height: {{height}}px;">
+    bindtouchstart={this.touchStart} 
+    bindtouchmove={this.touchMove}
+    bindtouchend={this.touchEnd} 
+    canvas-id={id}
+    style="width: {{width}}px; height: {{height}}px;">
     <slot></slot>
 </canvas>
   }

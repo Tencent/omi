@@ -1,15 +1,15 @@
 import cax, { html, SVG } from './cax'
 
-function svg(vdom, canvas, scope) {
+function renderSVG(vdom, canvas, scope) {
   const stage = new cax.Stage(vdom.props.width, vdom.props.height, canvas, scope)
   const svg = new SVG(vdom)
   stage.add(svg)
   stage.update()
 
-  return { svg, stage }
+  return { renderSVG, stage }
 }
 
 export {
-  svg,
+  renderSVG,
   html
 }

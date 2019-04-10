@@ -13,7 +13,7 @@ class WeStage extends Group {
       height
     })
     component.stage = this
-    const canvasId = component.getCaxCanvasId()
+    const canvasId = component.data.id
 
     const ctx = wx.createCanvasContext(canvasId, component)
     const hitCtx = wx.createCanvasContext(canvasId + 'Hit', component)
