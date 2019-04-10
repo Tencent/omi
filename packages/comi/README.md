@@ -2,6 +2,7 @@
 
 Comi 读 ['kəʊmɪ]，类似中文 科米，是腾讯 Omi 团队开发的小程序代码高亮和 markdown 渲染组件。
 
+[→ Comi 原理点击这里](https://github.com/Tencent/omi/blob/master/tutorial/comi-principle.md#%E5%8E%9F%E7%90%86)
 
 ### 预览
 
