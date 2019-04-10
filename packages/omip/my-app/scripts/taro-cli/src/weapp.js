@@ -102,6 +102,8 @@ const isWindows = os.platform() === 'win32'
 
 let constantsReplaceList = Object.assign({}, Util.generateEnvList(projectConfig.env || {}), Util.generateConstantsList(projectConfig.defineConstants || {}))
 
+const noop = () => {}
+
 function getExactedNpmFilePath (npmName, filePath) {
   try {
     //里面会递归 require 进行拷贝到 npm 目录
@@ -762,8 +764,19 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
             if (projectConfig.hasOwnProperty(DEVICE_RATIO)) {
               pxTransformConfig[DEVICE_RATIO] = projectConfig.deviceRatio
             }
+
+            node.body.forEach(node => {
+              ({
+                ClassDeclaration () {},
+                ExpressionStatement () {
+                  const expression = node.expression
+                  if (expression.callee.name === 'define') {
+                    expression.callee.name = 'global.Omi.defineApp'
+                  }
+                }
+              }[node.type] || noop)()
+            })
             //@fix 注释掉用来解决小程序报错
-            node.body[node.body.length-2].expression.callee.name = 'global.Omi.defineApp'
             //node.body.push(template(`App(require('${taroMiniAppFrameworkPath}').default.createApp(${exportVariableName}))`, babylonConfig)())
             //node.body.push(template(`Taro.initPxTransform(${JSON.stringify(pxTransformConfig)})`, babylonConfig)())
             //@fix Please do not call Page constructor in files that not listed in "pages" section of app.json or plugin.json
@@ -778,11 +791,34 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
               //@fix 注释掉用来解决小程序报错
               const arr = sourceFilePath.split( isWindows ? '\\' : '/')
               const path = arr[arr.length - 3] + '/' + arr[arr.length - 2] + '/' + arr[arr.length-1].split('.')[0]
-              const obj = JSON.parse(JSON.stringify(node.body[node.body.length-1].expression.arguments[0]))
-              obj.value = path
               //给 define 增加第三个参数
-              node.body[node.body.length-1].expression.arguments.push(obj)
-              node.body[node.body.length-1].expression.callee.name = 'global.Omi.definePage'
+              const argument = {
+                type: 'StringLiteral',
+                value: path
+              }
+              node.body.forEach(node => {
+                ({
+                  ClassDeclaration () {
+                    if (node.decorators) {
+                      node.decorators.forEach(decorator => {
+                        const expression = decorator.expression
+                        // 配合decorator Page使用
+                        if (expression.callee.name === 'Page') {
+                          expression.arguments = [argument]
+                        }
+                      })
+                    }
+                  },
+                  ExpressionStatement () {
+                    const expression = node.expression
+                    if (expression.callee.name === 'define') {
+                      expression.arguments.push(argument)
+                      expression.callee.name = 'global.Omi.definePage'
+                    }
+                  }
+                }[node.type] || noop)()
+              })
+
               node.body.push(template(`global.create.Page(global.getOptions('${path}'))`, babylonConfig)())
               //node.body.push(template(`Component(require('${taroMiniAppFrameworkPath}').default.createComponent(${exportVariableName}, true))`, babylonConfig)())
 

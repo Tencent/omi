@@ -1,11 +1,13 @@
 
 import { WeElement, define } from 'omi'
 import './index.css'
+import Page from '../../decorator/Page'
 
 //获取应用实例
 const app = getApp()
 
-define('page-index', class extends WeElement {
+@Page()
+class PageIndex extends WeElement {
   config = {
     // 定义需要引入的第三方组件
     usingComponents: {
@@ -93,4 +95,4 @@ define('page-index', class extends WeElement {
       </view>
     )
   }
-})
+}
