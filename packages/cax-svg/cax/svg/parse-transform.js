@@ -50,4 +50,9 @@ export function transform(props, target){
     target.skewX = t.skewX
     target.skewY = t.skewY
   }
+
+  if(props.width && props.height){
+    target.width = parseFloat(props.width)
+    target.height = parseFloat(props.height)
+  }
 }

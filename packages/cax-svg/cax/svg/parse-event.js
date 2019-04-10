@@ -12,10 +12,10 @@ export function parseEvent(props, obj) {
 
     obj.on('touchend', (evt) => {
       if (_x !== null) {
-        console.log(Math.abs(evt.stageX - _x))
-        console.log(Math.abs(evt.stageY - _y))
         if (Math.abs(evt.stageX - _x) < 20 && Math.abs(evt.stageY - _y) < 20) {
           tapHandler(evt)
+          _x = null
+          _y = null
         }
       }
     })
