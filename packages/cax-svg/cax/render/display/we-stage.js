@@ -116,9 +116,9 @@ class WeStage extends Group {
   }
 
   _getObjectUnderPoint (evt, cb) {
-    const list = this.renderer.getHitRenderList(this)
+    //const list = this.renderer.getHitRenderList(this)
     if (this.hitAABB) {
-      return this._hitRender.hitAABB(list, evt, cb)
+      return this._hitRender.hitAABB(this, evt, cb)
     } else {
       this._hitRender.clear()
       this._hitRender.hit(list, evt, cb, list.length - 1)

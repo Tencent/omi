@@ -18,7 +18,7 @@ function parse(a) {
 }
 
 export function transform(props, target){
-
+  if(!props) return
 
   if (props.transform) {
     const obj = parse(props.transform)

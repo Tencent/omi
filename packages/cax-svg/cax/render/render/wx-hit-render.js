@@ -5,6 +5,7 @@ import Event from '../base/event.js'
 import Sprite from '../display/sprite.js'
 import Bitmap from '../display/bitmap.js'
 import Text from '../display/text.js'
+import Group from '../display/group'
 
 class WxHitRender extends Render {
   constructor (ctx, component, canvasId) {
@@ -22,17 +23,67 @@ class WxHitRender extends Render {
     this.ctx.clearRect(0, 0, 2, 2)
   }
 
-  hitAABB (list, evt, cb) {
-    const len = list.length
-    for (let i = len - 1; i >= 0; i--) {
-      let o = list[i]
+  // hitAABB (list, evt, cb) {
+  //   const len = list.length
+  //   for (let i = len - 1; i >= 0; i--) {
+  //     let o = list[i]
 
-      if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
-        this._dispatchEvent(o, evt)
-        cb(o)
-        return o
+  //     if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
+  //       this._dispatchEvent(o, evt)
+  //       cb(o)
+  //       return o
+  //     }
+  //   }
+  // }
+
+
+  hitAABB (o, evt) {
+    let list = o.children.slice(0),
+      l = list.length
+    for (let i = l - 1; i >= 0; i--) {
+      let child = list[i]
+      // if (!this.isbindingEvent(child)) continue;
+			let path = this._hitAABB(child, evt, [], true)
+
+      if (path.length > 0) {
+				let target = path[path.length - 1]
+				this._dispatchEvent(target, evt)
+				return target
+			}
+    }
+  }
+
+  _hitAABB (o, evt, path, rootCall) {
+    if (o.ignoreHit || !o.isVisible()) {
+      return
+		}
+
+		o.initAABB()
+		if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
+			// this._bubbleEvent(o, type, evt);
+      o.___$push = true
+			path.push(o)
+			//return o
+		}
+
+    if (o instanceof Group) {
+      let list = o.children.slice(0),
+        l = list.length
+      for (let i = l - 1; i >= 0; i--) {
+        let child = list[i]
+        this._hitAABB(child, evt, path)
+        if(child.___$push){
+          delete child.___$push
+          //同级只找一个就好了，所有 break
+          break
+        }
+        //if (target) return target
       }
     }
+
+		if(rootCall){
+			return path
+		}
   }
 
   checkPointInAABB (x, y, AABB) {

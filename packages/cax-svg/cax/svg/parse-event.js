@@ -1,4 +1,6 @@
 export function parseEvent(props, obj) {
+  if(!props) return
+  
   const tapHandler = props.bindtap || props.bindTap || props.onTap || props.ontap || props.onclick || props.onClick || props.bindclick || props.bindClick
   if (tapHandler) {
 
