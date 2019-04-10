@@ -2,6 +2,7 @@
 import { WeElement, define } from 'omi'
 import './index.css'
 import Page from '../../decorator/Page'
+import '../../components/cax-element'
 
 //获取应用实例
 const app = getApp()
@@ -73,6 +74,7 @@ class PageIndex extends WeElement {
     const { hasUserInfo, canIUse, userInfo, motto } = this.data
     return (
       <view class="container">
+        <cax-element></cax-element>
         <view class="userinfo">
           {(!hasUserInfo && canIUse) ? (
             <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
