@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "cax":"../../cax/index"
+    "cax-element":"../../cax/index"
   }
 }

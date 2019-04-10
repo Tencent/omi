@@ -1,5 +1,5 @@
 <!--index.wxml-->
 <view class="container">
-  <cax id="svg-a"></cax>
-  <cax id="svg-b"></cax>
+  <cax-element id="svg-a"></cax-element>
+  <cax-element id="svg-b"></cax-element>
 </view>
