@@ -1,4 +1,5 @@
 <!--index.wxml-->
 <view class="container">
-  <cax id="myCanvas"></cax>
+  <cax id="svg-a"></cax>
+  <cax id="svg-b"></cax>
 </view>
