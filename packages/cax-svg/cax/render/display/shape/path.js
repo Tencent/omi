@@ -68,6 +68,8 @@ class Path extends Shape {
             this.bezierCurveTo(preX + preItem[5] - preItem[3], preY + preItem[6] - preItem[4], item[1], item[2], item[3], item[4])
           } else if (preItem[0] === 'S' || preItem[0] === 's') {
             this.bezierCurveTo(preX + preItem[3] - preItem[1], preY + preItem[4] - preItem[2], item[1], item[2], item[3], item[4])
+          } else {
+            this.bezierCurveTo(preX, preY, item[1], item[2], item[3], item[4])
           }
           preX = item[3]
           preY = item[4]
