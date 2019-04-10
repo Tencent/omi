@@ -187,6 +187,31 @@ import src from './my-image.png'
 this.$scope
 ```
 
+## 使用原生的自定义组件
+
+```jsx
+import { WeElement, define } from 'omi'
+import './index.css'
+
+define('page-index', class extends WeElement {
+  config = {
+    // 定义需要引入的第三方组件
+    usingComponents: {
+      'pure-ele-test': '../../components/pure-ele-test/index' // 书写第三方组件的相对路径
+    }
+  }
+
+
+  render() {
+    return (
+      <view class="container">
+        <pure-ele-test></pure-ele-test>
+      </view>
+    )
+  }
+})
+```
+
 ## 获取最新的 omip 版本
 
 你只需要重新拉去模板便可以更新到最新的 omip:
