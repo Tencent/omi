@@ -4,6 +4,7 @@ let tap = require('gulp-tap')
 let compile = require('./scripts/mp/index')
 let fs = require('fs')
 let compileWxss = require('./scripts/mp/wxss')
+var prettier = require('prettier')
 
 gulp.task('components', ['copy'], () => {
   return gulp
@@ -19,21 +20,21 @@ gulp.task('components', ['copy'], () => {
           let importStr = json2import(json)
           let hyperscript = compile(wxml)
           file.contents = Buffer.concat([
-            new Buffer(
+            Buffer.from(
               `${importStr}import componentCss from './${name}.wxss'
 import { h, WeElement, rpx } from 'omi'
 import { setData } from '../../../utils/set-data'
 
   `
             ),
-            new Buffer(
+            Buffer.from(
               file.contents
                 .toString()
                 .replace('Component({', 
                 `const mpOption = function () {
   return ({`)+`
 }`),
-            new Buffer(`
+            Buffer.from(`
 class Element extends WeElement {
   static props = mpOption().properties
 
@@ -81,7 +82,7 @@ function css() {
   return rpx(componentCss)
 }
 
-${hyperscript}
+${prettier.format(hyperscript, { parser: "babel" })}
 
 customElements.define('${name}', Element)
           `)
@@ -110,7 +111,7 @@ gulp.task('pages', ['copy'], () => {
           let json = require(dir + '/' + name + '.json')
           let importStr = json2import(json)
           file.contents = Buffer.concat([
-            new Buffer(
+            Buffer.from(
               `${importStr}import appCss from '../../app.wxss'
 import pageCss from './${name}.wxss'
 import { h, WeElement, rpx } from 'omi'
@@ -118,7 +119,7 @@ import { setData } from '../../../utils/set-data'
 
   `
             ),
-            new Buffer(
+            Buffer.from(
               file.contents
                 .toString()
                 .replace('Page({', 
@@ -126,7 +127,7 @@ import { setData } from '../../../utils/set-data'
   return ({`)+`
 }`
             ),
-            new Buffer(`
+            Buffer.from(`
 class Element extends WeElement {
   data = mpOption().data
 
@@ -167,7 +168,7 @@ function css() {
   return rpx(appCss + pageCss)
 }
 
-${hyperscript}
+${prettier.format(hyperscript, { parser: "babel" })}
 
 customElements.define('we-${name}', Element)
           `)
@@ -186,7 +187,7 @@ gulp.task('appjs', ['copy'], () => {
         let list = walk('src-mp/pages')
         file.contents = Buffer.concat([
           file.contents,
-          new Buffer(list2require(list))
+          Buffer.from(list2require(list))
         ])
       })
     )
@@ -289,7 +290,7 @@ gulp.task('pages-wxss', ['copy'], () => {
     .src('src/mp/pages/*/*.wxss')
     .pipe(
       tap(file => {
-        file.contents = new Buffer(compileWxss(file.contents.toString()))
+        file.contents = Buffer.from(compileWxss(file.contents.toString()))
 
       })
     )
@@ -301,7 +302,7 @@ gulp.task('components-wxss', ['copy'], () => {
     .src('src/mp/components/*/*.wxss')
     .pipe(
       tap(file => {
-        file.contents = new Buffer(compileWxss(file.contents.toString()))
+        file.contents = Buffer.from(compileWxss(file.contents.toString()))
 
       })
     )
@@ -314,7 +315,7 @@ gulp.task('app-wxss', ['copy'], () => {
     .src('src-mp/app.wxss')
     .pipe(
       tap(file => {
-        file.contents = new Buffer(compileWxss(file.contents.toString()))
+        file.contents = Buffer.from(compileWxss(file.contents.toString()))
 
       })
     )

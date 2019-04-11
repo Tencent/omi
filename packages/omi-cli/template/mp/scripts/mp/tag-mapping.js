@@ -1,7 +1,9 @@
 let tagMapping = {
   view: 'div',
   text: 'span',
-  image: 'img'
+  image: 'img',
+  picker: 'select',
+  navigator: 'a',
 }
 
 function map(key) {

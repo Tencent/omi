@@ -7,7 +7,7 @@ Page({
   },
   onLoad: function (options) {
     this.setData({
-      logs: (wx.getStorageSync('logs') || [Date.now()]).map(log => {
+      logs: (wx.getStorageSync('logs') || [Date.now(),Date.now()]).map(log => {
         return util.formatTime(new Date(log))
       })
     })
@@ -21,6 +21,8 @@ Page({
     console.log('hide2')
   },
   myEventHandler: function (evt) {
+    //output -> <we-logs>...</we-logs>
+    console.log(this)
     //output -> dntzhang
     console.log(evt.detail.name)
   }

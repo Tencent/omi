@@ -52,7 +52,7 @@
     "omi-router": "latest",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
-    "prettier": "^1.14.3",
+    "prettier": "^1.16.4",
     "promise": "8.0.1",
     "raf": "3.4.0",
     "react-dev-utils": "^5.0.1",
@@ -68,8 +68,11 @@
   },
   "scripts": {
     "start": "concurrently --kill-others \"gulp\" \"node scripts/start.js\"",
+    "test": "node test/index.js",
     "build": "node scripts/build.js",
-    "fix": "eslint src --fix"
+    "fix": "eslint src --fix",
+    "fix-s": "eslint scripts --fix",
+    "fix-gulp": "eslint gulpfile.js --fix"
   },
   "jest": {
     "collectCoverageFrom": [

@@ -2,6 +2,25 @@
 
 > 通过微信小程序开发和一键生成 Web 的 H5 SPA (基于 omi + [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router))
 
+看下官方模板的转换例子：
+
+
+| **Index**                         | **Logs**                           |
+| ------------------------------- | ----------------------------------- |
+|![](../../assets/mp1.jpg)| ![](../../assets/mp2.jpg)|
+
+
+因为 Web 里拉取不到用户登录态，更换了用户头像和名称。
+
+再看下豆瓣 DEMO 转换的例子:
+
+| **小程序**                         | **Web SPA**                           |
+| ------------------------------- | ----------------------------------- |
+|![](../../assets/mp-db1.jpg)| ![](../../assets/web-db1.jpg)|
+|![](../../assets/mp-db2.jpg)|![](../../assets/web-db2.jpg)|
+
+你可以[在这里找](https://github.com/Tencent/omi/tree/master/packages/omi-mp-douban)到这个豆瓣小程序。
+
 # 快速体验
 
 ```bash
@@ -10,6 +29,13 @@ $ omi init-mp my-app
 $ cd my-app        
 $ npm start                  
 $ npm run build             
+```
+
+> 特别注意，由于 concurrently 不明原因起不来导致 npm start 报错，可以试着分两个命令行执行，和 npm start 同样的效果:
+
+```bash
+gulp
+node scripts/start.js
 ```
 
 把小程序项目拷贝到 src-mp 目录，如果是新的小程序，可以在 src-mp 目录创建小程序，目录要求：
@@ -66,7 +92,7 @@ function render() {
 }
 ```
 
-Wxml 会被编译成 hyperscript，并且对应的标签会被[转换成 HTML 标签](https://github.com/Tencent/omi/blob/master/packages/omi-mp/scripts/mp/tag-mapping.js#L1-L17)。
+WXML 会被编译成 hyperscript，并且对应的标签会被[转换成 HTML 标签](https://github.com/Tencent/omi/blob/master/packages/omi-mp/scripts/mp/tag-mapping.js#L1-L17)。
 
 ## WXSS 编译
 
@@ -99,6 +125,7 @@ div img .image{
 | onReady | 监听页面初次渲染完成 |  支持	 |
 | onHide | 监听页面隐藏	  | 支持|
 | onUnload | 监听页面卸载  |  支持	|
+| onReachBottom | 监听页面滚到底部  |  支持	|
 
 ### 组件生命周期函数
 
@@ -127,6 +154,14 @@ div img .image{
 ## 注意
 
 目前不支持导入 template 标签和一些原生组件标签，需要一些时间翻译成对应的 HTML 自定义元素，欢迎试用反馈或 PR。
+
+
+bindtap 的时候，在js里通过 evt.currentTarget.dataset.id 一定需要字符串，所以如果是字数需要转成字符串:
+
+```
+<view bindtap="tapHandler" data-id="{{item.id+''}}"></view>
+```
+
 
 ## License
 MIT [@dntzhang](https://github.com/dntzhang)
