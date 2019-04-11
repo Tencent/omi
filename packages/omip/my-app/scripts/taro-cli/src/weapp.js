@@ -770,7 +770,7 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
                 ClassDeclaration () {},
                 ExpressionStatement () {
                   const expression = node.expression
-                  if (expression.callee.name === 'define') {
+                  if (expression.callee && expression.callee.name === 'define') {
                     expression.callee.name = 'global.Omi.defineApp'
                   }
                 }
@@ -803,7 +803,7 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
                       node.decorators.forEach(decorator => {
                         const expression = decorator.expression
                         // 配合decorator Page使用
-                        if (expression.callee.name === 'Page') {
+                        if (expression.callee && expression.callee.name === 'Page') {
                           expression.arguments = [argument]
                         }
                       })
@@ -811,7 +811,7 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
                   },
                   ExpressionStatement () {
                     const expression = node.expression
-                    if (expression.callee.name === 'define') {
+                    if (expression.callee && expression.callee.name === 'define') {
                       expression.arguments.push(argument)
                       expression.callee.name = 'global.Omi.definePage'
                     }
