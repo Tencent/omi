@@ -8,7 +8,7 @@ Page({
     userInfo: {
       nickName: 'Omi',
       avatarUrl:
-        'https://github.com/Tencent/omi/raw/master/assets/omi-logo.svg?sanitize=true'
+        'https://github.com/Tencent/omi/raw/master/assets/omi-logo2019.svg?sanitize=true'
     },
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
