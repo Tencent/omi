@@ -1,12 +1,12 @@
 
-import { WeElement, define } from 'omi'
+import { WeElement } from 'omi'
 import './index.css'
-import Page from '../../decorator/Page'
+import { Page } from '../../decorator'
 
 //获取应用实例
 const app = getApp()
 
-@Page()
+@Page
 class PageIndex extends WeElement {
   config = {
     // 定义需要引入的第三方组件
