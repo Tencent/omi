@@ -765,16 +765,45 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
               pxTransformConfig[DEVICE_RATIO] = projectConfig.deviceRatio
             }
 
-            node.body.forEach(node => {
+            node.body.forEach((cnode, idx) => {
               ({
-                ClassDeclaration () {},
+                ClassDeclaration () {
+                  if (cnode.decorators) {
+                    for (let i = 0; i < cnode.decorators.length; i++) {
+                      const decorator = cnode.decorators[i]
+                      const expression = decorator.expression
+                      // 配合@App使用
+                      if (expression.name === 'App' || (expression.callee && expression.callee.name === 'App')) {
+                        const newNode = {
+                          expression: {
+                            arguments: [{
+                              type: 'StringLiteral',
+                              value: _.kebabCase(cnode.id.name)
+                            }, cnode],
+                            callee: {
+                              type: 'Identifier',
+                              name: 'global.Omi.defineApp'
+                            },
+                            type: 'CallExpression'
+                          },
+                          type: 'ExpressionStatement'
+                        }
+                        // 移除@App
+                        cnode.decorators.splice(i, 1)
+                        // 替换node.body上的节点
+                        node.body[idx] = newNode
+                        break
+                      }
+                    }
+                  }
+                },
                 ExpressionStatement () {
-                  const expression = node.expression
+                  const expression = cnode.expression
                   if (expression.callee && expression.callee.name === 'define') {
                     expression.callee.name = 'global.Omi.defineApp'
                   }
                 }
-              }[node.type] || noop)()
+              }[cnode.type] || noop)()
             })
             //@fix 注释掉用来解决小程序报错
             //node.body.push(template(`App(require('${taroMiniAppFrameworkPath}').default.createApp(${exportVariableName}))`, babylonConfig)())
@@ -796,27 +825,46 @@ function parseAst (type, ast, depComponents, sourceFilePath, filePath, npmSkip =
                 type: 'StringLiteral',
                 value: path
               }
-              node.body.forEach(node => {
+              node.body.forEach((cnode, idx) => {
                 ({
                   ClassDeclaration () {
-                    if (node.decorators) {
-                      node.decorators.forEach(decorator => {
+                    if (cnode.decorators) {
+                      for (let i = 0; i < cnode.decorators.length; i++) {
+                        const decorator = cnode.decorators[i]
                         const expression = decorator.expression
-                        // 配合decorator Page使用
-                        if (expression.callee && expression.callee.name === 'Page') {
-                          expression.arguments = [argument]
+                        // 配合@Page使用
+                        if (expression.name === 'Page' || (expression.callee && expression.callee.name === 'Page')) {
+                          const newNode = {
+                            expression: {
+                              arguments: [{
+                                type: 'StringLiteral',
+                                value: _.kebabCase(cnode.id.name)
+                              }, cnode, argument],
+                              callee: {
+                                type: 'Identifier',
+                                name: 'global.Omi.definePage'
+                              },
+                              type: 'CallExpression'
+                            },
+                            type: 'ExpressionStatement'
+                          }
+                          // 移除@Page
+                          cnode.decorators.splice(i, 1)
+                          // 替换node.body上的节点
+                          node.body[idx] = newNode
+                          break
                         }
-                      })
+                      }
                     }
                   },
                   ExpressionStatement () {
-                    const expression = node.expression
+                    const expression = cnode.expression
                     if (expression.callee && expression.callee.name === 'define') {
                       expression.arguments.push(argument)
                       expression.callee.name = 'global.Omi.definePage'
                     }
                   }
-                }[node.type] || noop)()
+                }[cnode.type] || noop)()
               })
 
               node.body.push(template(`global.create.Page(global.getOptions('${path}'))`, babylonConfig)())
