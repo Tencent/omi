@@ -11,7 +11,7 @@
   z-index: 100;
 }
 
-.content {
+._content {
   width: 80%;
   height: auto;
   background-color: white;
@@ -20,7 +20,7 @@
   top: 20%;
   border-radius: 4px;
   text-align: center;
-  padding: 10px;
+  white-space: pre;
 }
 
 h1 {
@@ -33,9 +33,11 @@ h1 {
 p {
   font-size: 16px;
   color: #666;
-  padding-bottom: 20px;
+  padding: 0 20px 20px;
   margin: 0px;
   border-bottom: 1px solid #eee;
+  word-break: break-all;
+  white-space: normal;
 }
 
 a {

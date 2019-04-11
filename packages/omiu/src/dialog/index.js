@@ -22,7 +22,7 @@ define('o-dialog', class extends WeElement {
     }
     return (
       <div class="o-dialog" style={{ display }}>
-        <div class="content" {...styleObj}>
+        <div class="_content" {...styleObj}>
           <h1>{props.title}</h1>
           <p>{props.msg}</p>
           {props.type === 'confirm' ? (
@@ -54,7 +54,7 @@ dialog.alert = function (msg, options) {
     document.body.removeChild(dom)
   }
   dom = render(<o-dialog
-    onConfirm={closeAlert}
+    onConfirm={closeDialog}
     width={options.width}
     show={true}
     type='alert'
@@ -64,7 +64,29 @@ dialog.alert = function (msg, options) {
   />, 'body')
 }
 
-function closeAlert() {
+dialog.confirm = function (msg, options) {
+  options = options || {}
+  if (dom) {
+    document.body.removeChild(dom)
+  }
+  dom = render(<o-dialog
+    onConfirm={()=>{
+      options.onConfirm&&options.onConfirm()
+      closeDialog()
+    }}
+    onClose={closeDialog}
+    width={options.width}
+    show={true}
+    type='confirm'
+    title={options.title || '提示'}
+    msg={msg}
+    cancelText={options.confirmText || '取消'}
+    confirmText={options.confirmText || '确定'}
+  />, 'body')
+}
+
+
+function closeDialog() {
   if (dom) {
     document.body.removeChild(dom)
     dom = null
