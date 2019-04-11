@@ -8,7 +8,8 @@ import { setData } from '../../../utils/set-data'
 //获取应用实例
 const app = getApp()
 
-const mpOption = Page({
+const mpOption = function () {
+  return ({
   data: {
     motto: 'Hello omi-mp',
     userInfo: {
@@ -72,8 +73,9 @@ const mpOption = Page({
   }
 })
 
+}
 class Element extends WeElement {
-  data = mpOption.data
+  data = mpOption().data
 
   render = render
 
@@ -87,38 +89,61 @@ class Element extends WeElement {
 
   install() {
     this.properties = this.props
-    Object.keys(mpOption).forEach(key => {
-      if (typeof mpOption[key] === 'function') {
-        Element.prototype[key] = mpOption[key].bind(this)
+    Object.assign(this.data, JSON.parse(JSON.stringify(this.props)))
+    this._mpOption = mpOption()
+    Object.keys(this._mpOption).forEach(key => {
+      if (typeof this._mpOption[key] === 'function') {
+        Element.prototype[key] = this._mpOption[key].bind(this)
       }
     })
   }
 
-  uninstall = mpOption.onUnload || function() {}
+  uninstall = mpOption().onUnload || function() {}
 
   installed = function() {
-    mpOption.onLoad && mpOption.onLoad.call(this, route.query)
-    mpOption.onReady && mpOption.onReady.call(this, route.query)
+    this._mpOption.onLoad && this._mpOption.onLoad.call(this, route.query)
+    this._mpOption.onReady && this._mpOption.onReady.call(this, route.query)
 
-    mpOption.onReachBottom && wx._bindReachBottom(mpOption.onReachBottom, this)
+    this._mpOption.onReachBottom && wx._bindReachBottom(this._mpOption.onReachBottom, this)
   }
 
   setData = setData
 }
-
-Object.keys(mpOption).forEach(key => {
-  Element.prototype[key] = mpOption[key]
-})
 
 function css() {
   return rpx(appCss + pageCss)
 }
 
 function render() {
-  const { hasUserInfo,canIUse,userInfo,motto } = Object.assign({}, this.data, this.props)
-  return h('div',{'class': `container`},[h('div',{'class': `userinfo`},[!hasUserInfo&&canIUse?h('button',{'open-type': `getUserInfo`,'ongetuserinfo': this.getUserInfo},[`获取头像昵称`]): [h('img',{'ontap': this.bindViewTap,'class': `userinfo-avatar`,'src': userInfo.avatarUrl,'mode': `cover`},[]),h('span',{'class': `userinfo-nickname`},[`${userInfo.nickName}`])]]),h('div',{'class': `usermotto`},[h('span',{'class': `user-motto`},[`${motto}`])])])
-
+  const { hasUserInfo, canIUse, userInfo, motto } = this.data;
+  return h("div", { class: `container` }, [
+    h("div", { class: `userinfo` }, [
+      !hasUserInfo && canIUse
+        ? h(
+            "button",
+            { "open-type": `getUserInfo`, ongetuserinfo: this.getUserInfo },
+            [`获取头像昵称`]
+          )
+        : [
+            h(
+              "img",
+              {
+                ontap: this.bindViewTap,
+                class: `userinfo-avatar`,
+                src: userInfo.avatarUrl,
+                mode: `cover`
+              },
+              []
+            ),
+            h("span", { class: `userinfo-nickname` }, [`${userInfo.nickName}`])
+          ]
+    ]),
+    h("div", { class: `usermotto` }, [
+      h("span", { class: `user-motto` }, [`${motto}`])
+    ])
+  ]);
 }
+
 
 customElements.define('we-index', Element)
           

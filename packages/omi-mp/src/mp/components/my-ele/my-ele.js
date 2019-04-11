@@ -4,7 +4,8 @@ import { h, WeElement, rpx } from 'omi'
 import { setData } from '../../../utils/set-data'
 
   // components/my-ele/my-ele.js
-const mpOption = Component({
+const mpOption = function () {
+  return ({
   /**
    * 组件的属性列表
    */
@@ -36,10 +37,11 @@ const mpOption = Component({
   }
 })
 
+}
 class Element extends WeElement {
-  static props = mpOption.properties
+  static props = mpOption().properties
 
-  data = mpOption.data
+  data = mpOption().data
 
   render = render
 
@@ -53,22 +55,24 @@ class Element extends WeElement {
 
   install = function() {
     this.properties = this.props
-    mpOption.created && mpOption.created.call(this)
-    Object.keys(mpOption.methods).forEach(key => {
-      if(typeof mpOption.methods[key] === 'function'){
-        this[key] = mpOption.methods[key].bind(this)
+    Object.assign(this.data, JSON.parse(JSON.stringify(this.props)))
+    this._mpOption = mpOption()
+    this._mpOption.created && this._mpOption.created.call(this)
+    Object.keys(this._mpOption.methods).forEach(key => {
+      if(typeof this._mpOption.methods[key] === 'function'){
+        this[key] = this._mpOption.methods[key].bind(this)
       }
     })
   }
 
-  uninstall = mpOption.detached || function() {}
+  uninstall = mpOption().detached || function() {}
 
   installed = function() {
-    mpOption.attached && mpOption.attached.call(this)
-    mpOption.ready && mpOption.ready.call(this)
+    this._mpOption.attached && this._mpOption.attached.call(this)
+    this._mpOption.ready && this._mpOption.ready.call(this)
   }
 
-  adoptedCallback = mpOption.moved || function() {}
+  adoptedCallback = mpOption().moved || function() {}
 
   triggerEvent = function(name, data) {
     this.fire(name, data)
@@ -77,19 +81,21 @@ class Element extends WeElement {
   setData = setData
 }
 
-Object.keys(mpOption.methods).forEach(key => {
-  Element.prototype[key] = mpOption.methods[key]
-})
-
 function css() {
   return rpx(componentCss)
 }
 
 function render() {
-  const { name,age } = Object.assign({}, this.data, this.props)
-  return h('div',null,[h('button',{'ontap': this.myMethods},[`Click me will log dntzhang to the console panel`]),h('div',null,[`props - name:${name}, age:${age}`]),h('my-child',null,[])])
-
+  const { name, age } = this.data;
+  return h("div", null, [
+    h("button", { ontap: this.myMethods }, [
+      `Click me will log dntzhang to the console panel`
+    ]),
+    h("div", null, [`props - name:${name}, age:${age}`]),
+    h("my-child", null, [])
+  ]);
 }
+
 
 customElements.define('my-ele', Element)
           
