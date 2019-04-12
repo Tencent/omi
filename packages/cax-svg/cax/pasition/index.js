@@ -1,4 +1,4 @@
-import arcToBezier from  './arc2bezier.js'
+import a2c from  '../render/base/a2c'
 import parser from './svg-path-parser.js'
 import { sort, sortCurves } from './sort.js'
 
@@ -123,6 +123,8 @@ pasition.path2shapes = function (path) {
                 }else if(preItem[0] ==='S'||preItem[0] ==='s'){
                     current.push([preX, preY, preX+  preItem[3] - preItem[1] ,preY+ preItem[4] - preItem[2], item[1], item[2], item[3], item[4]])
 
+                } else {
+                    current.push([preX, preY, preX, preY, item[1], item[2], item[3], item[4]])
                 }
                 preX = item[3]
                 preY = item[4]
@@ -147,57 +149,38 @@ pasition.path2shapes = function (path) {
 
                 break
             case 'a':
-                curves = arcToBezier({
-                    rx: item[1],
-                    ry:  item[2],
-                    px: preX,
-                    py: preY,
-                    xAxisRotation:  item[3],
-                    largeArcFlag:  item[4],
-                    sweepFlag:  item[5],
-                    cx:  preX+item[6],
-                    cy:  preX+item[7]
-                })
-                lastCurve = curves[curves.length-1]
+                curves = a2c(preX, preY, item[1], item[2], item[3], item[4], item[5], preX + item[6], preY + item[7])
+                
+                
+                curves.push([preX,preY,curves[0], curves[1], curves[2], curves[3], curves[4], curves[5]])
 
+                let tempX =  curves[4],
+                    tempY = curves[5]
+                for (let i = 6, len = curves.length; i < len; i += 6) {
+                    curves.push([tempX, tempY, curves[i], curves[i + 1], curves[i + 2], curves[i + 3], curves[i + 4], curves[i + 5]])
+                    tempX =  curves[i + 4]
+                    tempY = curves[i + 5]
+                }
+      
 
-                curves.forEach((curve,index)=>{
-                    if(index === 0) {
-                        current.push([preX,preY,curve.x1,curve.y1,curve.x2,curve.y2,curve.x,curve.y])
-                    }else{
-                        current.push([curves[index-1].x,curves[index-1].y,curve.x1,curve.y1,curve.x2,curve.y2,curve.x,curve.y])
-                    }
-                })
-
-                preX = lastCurve.x
-                preY = lastCurve.y
+                preX = preX + item[6]
+                preY = preY + item[7]
 
                 break
 
             case 'A':
 
-                curves = arcToBezier({
-                    rx: item[1],
-                    ry:  item[2],
-                    px: preX,
-                    py: preY,
-                    xAxisRotation:  item[3],
-                    largeArcFlag:  item[4],
-                    sweepFlag:  item[5],
-                    cx:  item[6],
-                    cy:  item[7]
-                })
-                lastCurve = curves[curves.length-1]
+                curves = a2c(preX, preY, item[1], item[2], item[3], item[4], item[5], item[6], item[7])
+                curves.push([preX,preY,curves[0], curves[1], curves[2], curves[3], curves[4], curves[5]])
 
-
-                curves.forEach((curve,index)=>{
-                    if(index === 0) {
-                        current.push([preX,preY,curve.x1,curve.y1,curve.x2,curve.y2,curve.x,curve.y])
-                    }else{
-                        current.push([curves[index-1].x,curves[index-1].y,curve.x1,curve.y1,curve.x2,curve.y2,curve.x,curve.y])
-                    }
-                })
-
+                let tempX =  curves[4],
+                    tempY = curves[5]
+                for (let i = 6, len = curves.length; i < len; i += 6) {
+                    curves.push([tempX, tempY, curves[i], curves[i + 1], curves[i + 2], curves[i + 3], curves[i + 4], curves[i + 5]])
+                    tempX =  curves[i + 4]
+                    tempY = curves[i + 5]
+                }
+      
                 preX = lastCurve.x
                 preY = lastCurve.y
 
