@@ -6,6 +6,7 @@ import { line } from './line'
 import { polyline } from './polyline'
 import { polygon } from './polygon'
 import { path } from './path'
+import { pasition } from './pasition'
 import { group } from './group'
 
 class SVG extends Group {
@@ -58,6 +59,10 @@ class SVG extends Group {
 
       case 'path':
         parent.add(path(vdomChild.props))
+        break
+
+      case 'pasition':
+        parent.add(pasition(vdomChild.props))
         break
 
       case 'g':

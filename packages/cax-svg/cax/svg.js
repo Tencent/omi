@@ -6,7 +6,7 @@ function renderSVG(vdom, canvas, scope) {
   stage.add(svg)
   stage.update()
 
-  return { svg, stage }
+  return svg.children[0]
 }
 
 export {

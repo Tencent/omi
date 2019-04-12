@@ -24,6 +24,7 @@ class WeStage extends Group {
     this.hitAABB = true
     this.width = width
     this.height = height
+    this.___instanceof = 'Stage'
   }
 
   touchStartHandler (evt) {

@@ -49,7 +49,9 @@ pasition.path2shapes = function (path) {
         preCY,
         sLen,
         curves,
-        lastCurve
+        lastCurve,
+        tempX,
+        tempY
 
 
     for (; j < len; j++) {
@@ -154,8 +156,8 @@ pasition.path2shapes = function (path) {
                 
                 curves.push([preX,preY,curves[0], curves[1], curves[2], curves[3], curves[4], curves[5]])
 
-                let tempX =  curves[4],
-                    tempY = curves[5]
+                tempX =  curves[4]
+                tempY = curves[5]
                 for (let i = 6, len = curves.length; i < len; i += 6) {
                     curves.push([tempX, tempY, curves[i], curves[i + 1], curves[i + 2], curves[i + 3], curves[i + 4], curves[i + 5]])
                     tempX =  curves[i + 4]
@@ -173,8 +175,8 @@ pasition.path2shapes = function (path) {
                 curves = a2c(preX, preY, item[1], item[2], item[3], item[4], item[5], item[6], item[7])
                 curves.push([preX,preY,curves[0], curves[1], curves[2], curves[3], curves[4], curves[5]])
 
-                let tempX =  curves[4],
-                    tempY = curves[5]
+                tempX =  curves[4]
+                tempY = curves[5]
                 for (let i = 6, len = curves.length; i < len; i += 6) {
                     curves.push([tempX, tempY, curves[i], curves[i + 1], curves[i + 2], curves[i + 3], curves[i + 4], curves[i + 5]])
                     tempX =  curves[i + 4]
@@ -410,6 +412,20 @@ pasition._lerp = function (pathA, pathB, t) {
     return shapes
 }
 
+let lastTime = 0;
+
+const requestAnimationFrame = function(callback) {
+    let currTime = new Date().getTime()
+    let timeToCall = Math.max(0, 16 - (currTime - lastTime))
+    let id = setTimeout(function() { callback(currTime + timeToCall); }, 
+      timeToCall)
+    lastTime = currTime + timeToCall
+    return id
+};
+
+const cancelAnimationFrame = function(id) {
+    clearTimeout(id)
+}
 
 pasition.animate = function (option) {
     let pathA = pasition.path2shapes(option.from)
@@ -428,20 +444,20 @@ pasition.animate = function (option) {
             },
         tickId = null,
         outShape = null,
-        time = option.time
+        duration = option.duration
 
     begin(pathA)
 
     let tick = function () {
         let dt = new Date() - beginTime
-        if (dt >= time) {
+        if (dt >= duration) {
             outShape = pathB
             progress(outShape, 1)
             end(outShape)
             cancelAnimationFrame(tickId)
             return
         }
-        let percent = easing(dt / time)
+        let percent = easing(dt / duration)
         outShape = pasition._lerp(pathArr[0], pathArr[1], percent)
         progress(outShape, percent)
         tickId = requestAnimationFrame(tick)
