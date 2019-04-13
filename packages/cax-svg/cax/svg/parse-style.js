@@ -8,12 +8,15 @@ const map = {
 
 const attrs = ['stroke', 'fill', 'stroke-width']
 export function parseStyle(props) {
+  let style = {}
   const cssText = props.style
-  if (!cssText) return
+  if(props['stroke-width']){
+    style.lineWidth = props['stroke-width']
+  }
+  if (!cssText) return style
   let cssTxt = cssText.replace(/\/\*(.|\s)*?\*\//g, ' ').replace(/\s+/g, ' ')
 
-  let style = {},
-    [a, b, rule] = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [a, b, cssTxt]
+  let [a, b, rule] = cssTxt.match(/ ?(.*?) ?{([^}]*)}/) || [a, b, cssTxt]
   //let cssToJs = s => s.replace(/\W+\w/g, match => match.slice(-1).toUpperCase())
 
   let properties = rule
