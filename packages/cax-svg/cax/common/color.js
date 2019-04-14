@@ -168,7 +168,7 @@ var hexTriplet = ("01".substr(-1) === "1" ?
 function hexToRgb(hex) {
     if (cache[hex]) return cache[hex]
     let cssColor = null
-    if (cssColors[hex]) {
+    if (cssColors.hasOwnProperty(hex) ) {
         cssColor = hex
         hex =  hexTriplet(cssColors[hex])
     }
@@ -191,7 +191,7 @@ function hexToRgb(hex) {
 
 function makeGradientColor(color1, color2, percent) {
     var newColor = {};
-
+    
     if (percent < 0)percent = 0;
     if (percent > 100)percent = 100;
     function makeChannel(a, b) {
