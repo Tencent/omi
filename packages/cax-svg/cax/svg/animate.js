@@ -9,6 +9,7 @@ export function animate(obj, option) {
   const duration = parseFloat(option.dur) / len * 1000
   function _animate() {
     const nextIndex = index + 1 === len ? 0 : index + 1
+    if (index + 1 === len) count++
     pathTransition.animate({
       from: valueList[index],
       to: valueList[nextIndex],
@@ -22,16 +23,12 @@ export function animate(obj, option) {
         stage.update()
       },
       end: function (shapes) {
-        count++
         index = nextIndex
         if (option.repeatCount === 'indefinite') {
           _animate()
-        } else {
-          if (count < Number(option.repeatCount)) {
-            _animate()
-          }
+        } else if (count < Number(option.repeatCount)) {
+          _animate()
         }
-
       }
     })
   }
