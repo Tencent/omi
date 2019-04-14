@@ -8,6 +8,7 @@ import { polygon } from './polygon'
 import { path } from './path'
 import { pasition } from './pasition'
 import { group } from './group'
+import { animate } from './animate'
 
 class SVG extends Group {
   constructor(vdom) {
@@ -58,7 +59,11 @@ class SVG extends Group {
         break
 
       case 'path':
-        parent.add(path(vdomChild.props))
+        const obj = path(vdomChild.props)
+        parent.add(obj)
+        if(vdomChild.children && vdomChild.children[0] && vdomChild.children[0].type === 'animate'){
+          animate(obj, vdomChild.children[0].props)
+        }
         break
 
       case 'pasition':
