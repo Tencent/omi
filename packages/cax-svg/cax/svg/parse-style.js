@@ -13,6 +13,12 @@ export function parseStyle(props) {
   if(props['stroke-width']){
     style.lineWidth = props['stroke-width']
   }
+  if(props['stroke']){
+    style.strokeStyle = props['stroke']
+  }
+  if(props['fill']){
+    style.fillStyle = props['fill']
+  }
   if (!cssText) return style
   let cssTxt = cssText.replace(/\/\*(.|\s)*?\*\//g, ' ').replace(/\s+/g, ' ')
 

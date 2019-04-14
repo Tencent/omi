@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<view class="container">
+  <cax-element id="svg-c"></cax-element>
+</view>
