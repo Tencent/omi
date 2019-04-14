@@ -2,14 +2,19 @@ http://tutorials.jenkov.com/svg/index.html
 
 todo:
 
+* bounds 权重高于 width 和 height？
+* 自动轮播支持 http://tavmjong.free.fr/blog/wp-content/uploads/BATMAN/batman_logos.svg
+* debug bounds box
+* pasition easing function
+* Transformation + animejs
+
 * text
 * image
 * SVG Viewport and View Box
-* Transformation
+
 * animation(using animejs)
 * event handler
 * jsx support(extend omip)
-* pasition easing function
 
 vscode 安装 lit-html 使 html`内容` 高亮
 
