@@ -4,6 +4,7 @@ import { transform } from './parse-transform'
 import { parseEvent } from './parse-event'
 import pathTransition from '../pasition/index'
 import color from '../common/color'
+import { toSVGString } from '../common/util'
 
 export function pasition(props) {
   const lerp = color.lerp
@@ -57,26 +58,3 @@ export function pasition(props) {
   }
   return obj
 }
-
-
-function toSVGString(shapes) {
-  return shapes.map(function (shape) {
-    shape.forEach(function (point, idx) {
-      if (!idx) {
-        /*
-         * 若是第一个点数组，那么对该点数组的处理是前面加M,然后前两个点后面加C
-         * */
-        point.splice(2, 0, "C");
-        point.unshift("M");
-      } else {
-        /*
-         * 除了第一个点数据外,所有的点数组的前两个点删除掉
-         * */
-        point.splice(0, 2, "C");
-      }
-    });
-    return shape.map(function (point) {
-      return point.join(" ");
-    }).join("");
-  }).join("")
-};
