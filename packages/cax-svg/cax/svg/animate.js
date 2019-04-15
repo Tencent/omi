@@ -2,7 +2,8 @@ import pathTransition from '../pasition/index'
 import { toSVGString } from '../common/util'
 
 export function animate(obj, option) {
-  const valueList = option.values.split(';').filter(item => item.trim() !== '')
+  const valueList = option.values.split(';').map(item=>{return item.replace(/\\\w/g, '').trim()}).filter(item => item !== '')
+
   let index = 0,
     count = 0,
     stage
