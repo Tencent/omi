@@ -1,18 +1,18 @@
 import DisplayObject from './display-object.js'
 
 class Group extends DisplayObject {
-  constructor (data) {
+  constructor(data) {
     super(data)
     this.children = []
   }
 
-  add (child) {
+  add(child) {
     const len = arguments.length
 
     for (let i = 0; i < len; i++) {
       const c = arguments[i]
       const parent = c.parent
-      if(parent){
+      if (parent) {
         parent.removeChildAt(parent.children.indexOf(c))
       }
       this.children.push(c)
@@ -20,26 +20,28 @@ class Group extends DisplayObject {
     }
   }
 
-  addChildAt (child, index) {
+  addChildAt(child, index) {
     var par = child.parent
     par && par.removeChildAt(par.children.indexOf(child))
     child.parent = this
     this.children.splice(index, 0, child)
   }
 
-  removeChildAt (index) {
+  removeChildAt(index) {
     var child = this.children[index]
-    if (child) { child.parent = null }
+    if (child) {
+      child.parent = null
+    }
     this.children.splice(index, 1)
   }
 
-  replace (current, pre) {
+  replace(current, pre) {
     const index = pre.parent.children.indexOf(pre)
     this.removeChildAt(index)
     this.addChildAt(current, index)
   }
 
-  remove (child) {
+  remove(child) {
     const len = arguments.length
     let cLen = this.children.length
 
@@ -55,14 +57,14 @@ class Group extends DisplayObject {
     }
   }
 
-  empty () {
+  empty() {
     this.children.forEach(child => {
       child.parent = null
     })
     this.children.length = 0
   }
 
-  destroy () {
+  destroy() {
     this.empty()
     // Stage does not have a parent
     this.parent && super.destroy()

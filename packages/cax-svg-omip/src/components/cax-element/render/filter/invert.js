@@ -1,5 +1,4 @@
-
-export function invert (pixels, ratio) {
+export function invert(pixels, ratio) {
   const d = pixels.data
   ratio = ratio === undefined ? 1 : ratio
   for (var i = 0; i < d.length; i += 4) {

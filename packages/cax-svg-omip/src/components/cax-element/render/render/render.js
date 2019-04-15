@@ -1,15 +1,9 @@
 class Render {
-  render () {
+  render() {}
 
-  }
+  renderGraphics() {}
 
-  renderGraphics () {
-
-  }
-
-  clear () {
-
-  }
+  clear() {}
 }
 
 export default Render

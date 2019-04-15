@@ -1,6 +1,6 @@
 import { createImageData } from './create-image-data'
 
-export function blur (pixels, diameter) {
+export function blur(pixels, diameter) {
   diameter = Math.abs(diameter)
   if (diameter <= 1) return pixels
   var radius = diameter / 2
@@ -24,14 +24,15 @@ export function blur (pixels, diameter) {
   return separableConvolve(pixels, weights, weights, false)
 }
 
-function separableConvolve (pixels, horizWeights, vertWeights, opaque) {
+function separableConvolve(pixels, horizWeights, vertWeights, opaque) {
   return horizontalConvolve(
     verticalConvolve(pixels, vertWeights, opaque),
-    horizWeights, opaque
+    horizWeights,
+    opaque
   )
 }
 
-function horizontalConvolve (pixels, weightsVector, opaque) {
+function horizontalConvolve(pixels, weightsVector, opaque) {
   var side = weightsVector.length
   var halfSide = Math.floor(side / 2)
 
@@ -51,7 +52,10 @@ function horizontalConvolve (pixels, weightsVector, opaque) {
       var sy = y
       var sx = x
       var dstOff = (y * w + x) * 4
-      var r = 0, g = 0, b = 0, a = 0
+      var r = 0,
+        g = 0,
+        b = 0,
+        a = 0
       for (var cx = 0; cx < side; cx++) {
         var scy = sy
         var scx = Math.min(sw - 1, Math.max(0, sx + cx - halfSide))
@@ -71,7 +75,7 @@ function horizontalConvolve (pixels, weightsVector, opaque) {
   return output
 }
 
-function verticalConvolve (pixels, weightsVector, opaque) {
+function verticalConvolve(pixels, weightsVector, opaque) {
   var side = weightsVector.length
   var halfSide = Math.floor(side / 2)
 
@@ -91,7 +95,10 @@ function verticalConvolve (pixels, weightsVector, opaque) {
       var sy = y
       var sx = x
       var dstOff = (y * w + x) * 4
-      var r = 0, g = 0, b = 0, a = 0
+      var r = 0,
+        g = 0,
+        b = 0,
+        a = 0
       for (var cy = 0; cy < side; cy++) {
         var scy = Math.min(sh - 1, Math.max(0, sy + cy - halfSide))
         var scx = sx
@@ -109,4 +116,4 @@ function verticalConvolve (pixels, weightsVector, opaque) {
     }
   }
   return output
-};
+}

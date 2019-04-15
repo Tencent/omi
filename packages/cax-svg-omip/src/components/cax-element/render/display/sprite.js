@@ -3,7 +3,7 @@ import util from '../../common/util'
 import Bitmap from './bitmap'
 
 class Sprite extends DisplayObject {
-  constructor (option) {
+  constructor(option) {
     super()
     this.option = option
     const len = this.option.imgs.length
@@ -13,7 +13,7 @@ class Sprite extends DisplayObject {
 
     if (util.isWeapp) {
       this.option.imgs.forEach(img => {
-        util.getImageInWx(img, (result) => {
+        util.getImageInWx(img, result => {
           this.imgMap[img] = result.img
           count++
           if (count === len) {
@@ -21,8 +21,7 @@ class Sprite extends DisplayObject {
             this.rect = [0, 0, 0, 0]
           }
         })
-      }
-      )
+      })
     } else {
       if (typeof firstImg === 'string') {
         const len = this.option.imgs.length
@@ -67,7 +66,7 @@ class Sprite extends DisplayObject {
     this.interval = 1e3 / option.framerate
 
     this.paused = false
-    this.animationEnd = option.animationEnd || function () {}
+    this.animationEnd = option.animationEnd || function() {}
     if (this.currentAnimation) {
       if (option.playOnce) {
         this.gotoAndPlayOnce(this.currentAnimation)
@@ -77,27 +76,27 @@ class Sprite extends DisplayObject {
     }
   }
 
-  play () {
+  play() {
     this.paused = false
   }
 
-  pause () {
+  pause() {
     this.paused = true
   }
 
-  reset () {
+  reset() {
     this.currentFrameIndex = 0
     this.animationFrameIndex = 0
   }
 
-  updateFrame () {
+  updateFrame() {
     if (!this.paused) {
       let opt = this.option
       this.dt = Date.now() - this.startTime
       let frames = opt.animations[this.currentAnimation].frames
       const len = frames.length
-      const index = Math.floor(this.dt / this.interval % len)
-      this.rect = opt.frames[ frames[ index ] ]
+      const index = Math.floor((this.dt / this.interval) % len)
+      this.rect = opt.frames[frames[index]]
       const rectLen = this.rect.length
 
       rectLen > 4 && (this.originX = this.rect[2] * this.rect[4])
@@ -107,7 +106,10 @@ class Sprite extends DisplayObject {
         this.img = typeof img === 'string' ? this.imgMap[img] : img
       }
 
-      if (index === len - 1 && (!this.endTime || Date.now() - this.endTime > this.interval)) {
+      if (
+        index === len - 1 &&
+        (!this.endTime || Date.now() - this.endTime > this.interval)
+      ) {
         this.endTime = Date.now()
         this.animationEnd()
         if (this._willDestroy) {
@@ -117,14 +119,14 @@ class Sprite extends DisplayObject {
     }
   }
 
-  gotoAndPlay (animation) {
+  gotoAndPlay(animation) {
     this.paused = false
     this.reset()
     this.currentAnimation = animation
     this.startTime = Date.now()
   }
 
-  gotoAndStop (animation) {
+  gotoAndStop(animation) {
     this.reset()
     this.paused = true
     this.currentAnimation = animation
@@ -143,7 +145,7 @@ class Sprite extends DisplayObject {
     }
   }
 
-  gotoAndPlayOnce (animation) {
+  gotoAndPlayOnce(animation) {
     this.gotoAndPlay(animation)
     this._willDestroy = true
   }

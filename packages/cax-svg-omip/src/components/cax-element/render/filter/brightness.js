@@ -1,4 +1,4 @@
-export function brightness (pixels, adjustment) {
+export function brightness(pixels, adjustment) {
   const data = pixels.data
   const length = data.length
   for (let i = 0; i < length; i += 4) {

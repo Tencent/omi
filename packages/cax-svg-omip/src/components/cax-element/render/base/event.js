@@ -1,19 +1,19 @@
-import option from "./stage-propagation-tag"
+import option from './stage-propagation-tag'
 
 class Event {
-  constructor () {
+  constructor() {
     this.propagationStopped = false
     this.stageX = null
     this.stageY = null
     this.pureEvent = null
   }
 
-  stopPropagation () {
+  stopPropagation() {
     option.stagePropagationStopped[this.type] = true
     this.propagationStopped = true
   }
 
-  preventDefault () {
+  preventDefault() {
     this.pureEvent.preventDefault()
   }
 }

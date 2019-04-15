@@ -4,7 +4,7 @@ import WxHitRender from '../render/wx-hit-render.js'
 import Event from '../base/event.js'
 
 class WeStage extends Group {
-  constructor (width, height, id, page) {
+  constructor(width, height, id, page) {
     super()
 
     const component = page.selectComponent('#' + id)
@@ -24,15 +24,16 @@ class WeStage extends Group {
     this.hitAABB = true
     this.width = width
     this.height = height
+    this.___instanceof = 'Stage'
   }
 
-  touchStartHandler (evt) {
+  touchStartHandler(evt) {
     const p1 = evt.changedTouches[0]
 
-    evt.stageX = Math.round(p1.x * this.scaleX);
-    evt.stageY = Math.round(p1.y * this.scaleY);
+    evt.stageX = Math.round(p1.x * this.scaleX)
+    evt.stageY = Math.round(p1.y * this.scaleY)
 
-    this._getObjectUnderPoint(evt, (obj) => {
+    this._getObjectUnderPoint(evt, obj => {
       this.willDragObject = obj
       this._mouseDownX = evt.stageX
       this._mouseDownY = evt.stageY
@@ -41,13 +42,13 @@ class WeStage extends Group {
     })
   }
 
-  touchMoveHandler (evt) {
+  touchMoveHandler(evt) {
     const p1 = evt.changedTouches[0]
 
-    evt.stageX = Math.round(p1.x * this.scaleX);
-    evt.stageY = Math.round(p1.y * this.scaleY);
+    evt.stageX = Math.round(p1.x * this.scaleX)
+    evt.stageY = Math.round(p1.y * this.scaleY)
 
-    this._getObjectUnderPoint(evt, (obj) => {
+    this._getObjectUnderPoint(evt, obj => {
       let mockEvt = new Event()
       mockEvt.stageX = evt.stageX
       mockEvt.stageY = evt.stageY
@@ -79,11 +80,11 @@ class WeStage extends Group {
     })
   }
 
-  touchEndHandler (evt) {
+  touchEndHandler(evt) {
     const p1 = evt.changedTouches[0]
 
-    evt.stageX = Math.round(p1.x * this.scaleX);
-    evt.stageY = Math.round(p1.y * this.scaleY);
+    evt.stageX = Math.round(p1.x * this.scaleX)
+    evt.stageY = Math.round(p1.y * this.scaleY)
 
     let mockEvt = new Event()
     mockEvt.stageX = evt.stageX
@@ -91,7 +92,7 @@ class WeStage extends Group {
 
     mockEvt.pureEvent = evt
 
-    this._getObjectUnderPoint(evt, (obj) => {
+    this._getObjectUnderPoint(evt, obj => {
       this._mouseUpX = evt.stageX
       this._mouseUpY = evt.stageY
 
@@ -99,14 +100,18 @@ class WeStage extends Group {
       this.preStageX = null
       this.preStageY = null
 
-      if (obj && Math.abs(this._mouseDownX - this._mouseUpX) < 30 && Math.abs(this._mouseDownY - this._mouseUpY) < 30) {
+      if (
+        obj &&
+        Math.abs(this._mouseDownX - this._mouseUpX) < 30 &&
+        Math.abs(this._mouseDownY - this._mouseUpY) < 30
+      ) {
         mockEvt.type = 'tap'
         obj.dispatchEvent(mockEvt)
       }
     })
   }
 
-  _handleMouseOut (evt) {
+  _handleMouseOut(evt) {
     this.dispatchEvent({
       pureEvent: evt,
       type: 'mouseout',
@@ -115,7 +120,7 @@ class WeStage extends Group {
     })
   }
 
-  _getObjectUnderPoint (evt, cb) {
+  _getObjectUnderPoint(evt, cb) {
     //const list = this.renderer.getHitRenderList(this)
     if (this.hitAABB) {
       return this._hitRender.hitAABB(this, evt, cb)
@@ -138,8 +143,8 @@ class WeStage extends Group {
         break
     }
   }
-  
-  update () {
+
+  update() {
     this.renderer.update(this)
   }
 }

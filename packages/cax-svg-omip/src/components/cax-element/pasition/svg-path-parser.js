@@ -1,4 +1,4 @@
-// https://github.com/jkroso/parse-svg-path/blob/master/index.js
+//https://github.com/jkroso/parse-svg-path/blob/master/index.js
 /**
  * expected argument lengths
  * @type {Object}
@@ -29,14 +29,14 @@ function parse(path) {
     args = parseValues(args)
 
     // overloaded moveTo
-    if (type === 'm' && args.length > 2) {
+    if (type == 'm' && args.length > 2) {
       data.push([command].concat(args.splice(0, 2)))
       type = 'l'
-      command = command === 'm' ? 'l' : 'L'
+      command = command == 'm' ? 'l' : 'L'
     }
 
     while (true) {
-      if (args.length === length[type]) {
+      if (args.length == length[type]) {
         args.unshift(command)
         return data.push(args)
       }

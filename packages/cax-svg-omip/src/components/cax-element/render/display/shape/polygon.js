@@ -1,14 +1,13 @@
 import Shape from './shape'
 
 class Polygon extends Shape {
-  constructor (points, option) {
+  constructor(points, option) {
     super()
     this.option = option || {}
     this.points = points
   }
 
-  draw () {
-  
+  draw() {
     this.moveTo(this.points[0], this.points[1])
 
     for (let i = 2, len = this.points.length; i < len; i += 2) {
@@ -22,7 +21,6 @@ class Polygon extends Shape {
     // this.lineJoin('round');
     // this.stroke();
     //  }
-
   }
 }
 

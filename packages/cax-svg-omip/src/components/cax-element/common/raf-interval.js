@@ -5,7 +5,7 @@
  */
 
 if (!Date.now) {
-  Date.now = function now () {
+  Date.now = function now() {
     return new Date().getTime()
   }
 }
@@ -25,17 +25,17 @@ let queue = [],
 let raf = isBrowser ? window.requestAnimationFrame : null
 let caf = isBrowser ? window.cancelAnimationFrame : null
 
-function mockRaf (callback, element) {
+function mockRaf(callback, element) {
   let currTime = now()
   let timeToCall = Math.max(0, 16 - (currTime - lastTime))
-  let id = setTimeout(function () {
+  let id = setTimeout(function() {
     callback(currTime + timeToCall)
   }, timeToCall)
   lastTime = currTime + timeToCall
   return id
 }
 
-function mockCaf (id) {
+function mockCaf(id) {
   clearTimeout(id)
 }
 
@@ -45,7 +45,8 @@ if (isBrowser) {
 
   for (; x < vendors.length && !window.requestAnimationFrame; ++x) {
     window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame']
-    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||
+    window.cancelAnimationFrame =
+      window[vendors[x] + 'CancelAnimationFrame'] ||
       window[vendors[x] + 'CancelRequestAnimationFrame']
   }
 
@@ -63,13 +64,13 @@ if (isBrowser) {
   caf = cancelAnimationFrame
 }
 
-export function setRafInterval (fn, interval) {
+export function setRafInterval(fn, interval) {
   id++
   queue.push({ id: id, fn: fn, interval: interval, lastTime: now() })
   if (!ticking) {
-    let tick = function () {
+    let tick = function() {
       tickId = raf(tick)
-      each(queue, function (item) {
+      each(queue, function(item) {
         if (item.interval < 17 || now() - item.lastTime >= item.interval) {
           item.fn()
           item.lastTime = now()
@@ -82,7 +83,7 @@ export function setRafInterval (fn, interval) {
   return id
 }
 
-export function clearRafInterval (id) {
+export function clearRafInterval(id) {
   let i = 0,
     len = queue.length
 
@@ -99,7 +100,7 @@ export function clearRafInterval (id) {
   }
 }
 
-function each (arr, fn) {
+function each(arr, fn) {
   if (Array.prototype.forEach) {
     arr.forEach(fn)
   } else {

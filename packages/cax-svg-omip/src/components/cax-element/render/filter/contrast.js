@@ -1,4 +1,4 @@
-export function contrast (pixels, contrast) {
+export function contrast(pixels, contrast) {
   const data = pixels.data
   const length = data.length
   const factor = (259 * (contrast + 255)) / (255 * (259 - contrast))
@@ -10,4 +10,4 @@ export function contrast (pixels, contrast) {
   }
 
   return pixels
-};
+}

@@ -1,7 +1,7 @@
 import Shape from './shape'
 
 class Rect extends Shape {
-  constructor (width, height, option) {
+  constructor(width, height, option) {
     super()
 
     this.width = width
@@ -9,7 +9,7 @@ class Rect extends Shape {
     this.option = option || {}
   }
 
-  draw () {
+  draw() {
     this.rect(0, 0, this.width, this.height)
   }
 }

@@ -7,7 +7,7 @@ import Bitmap from '../display/bitmap.js'
 import Text from '../display/text.js'
 
 class HitRender extends Render {
-  constructor () {
+  constructor() {
     super()
     if (typeof wx !== 'undefined' && wx.createCanvas) {
       this.canvas = wx.createCanvas()
@@ -28,38 +28,38 @@ class HitRender extends Render {
     this.disableEvents = ['mouseover', 'mouseout', 'mousemove', 'touchmove']
   }
 
-  clear () {
+  clear() {
     this.ctx.clearRect(0, 0, this.width, this.height)
   }
 
-  hitAABB (o, evt) {
+  hitAABB(o, evt) {
     let list = o.children.slice(0),
       l = list.length
     for (let i = l - 1; i >= 0; i--) {
       let child = list[i]
       // if (!this.isbindingEvent(child)) continue;
-			let path = this._hitAABB(child, evt, [], true)
+      let path = this._hitAABB(child, evt, [], true)
 
       if (path.length > 0) {
-				let target = path[path.length - 1]
-				this._dispatchEvent(target, evt)
-				return target
-			}
+        let target = path[path.length - 1]
+        this._dispatchEvent(target, evt)
+        return target
+      }
     }
   }
 
-  _hitAABB (o, evt, path, rootCall) {
+  _hitAABB(o, evt, path, rootCall) {
     if (o.ignoreHit || !o.isVisible()) {
       return
-		}
+    }
 
-		o.initAABB()
-		if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
-			// this._bubbleEvent(o, type, evt);
+    o.initAABB()
+    if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
+      // this._bubbleEvent(o, type, evt);
       o.___$push = true
-			path.push(o)
-			//return o
-		}
+      path.push(o)
+      //return o
+    }
 
     if (o instanceof Group) {
       let list = o.children.slice(0),
@@ -67,7 +67,7 @@ class HitRender extends Render {
       for (let i = l - 1; i >= 0; i--) {
         let child = list[i]
         this._hitAABB(child, evt, path)
-        if(child.___$push){
+        if (child.___$push) {
           delete child.___$push
           //同级只找一个就好了，所有 break
           break
@@ -76,12 +76,12 @@ class HitRender extends Render {
       }
     }
 
-		if(rootCall){
-			return path
-		}
+    if (rootCall) {
+      return path
+    }
   }
 
-  checkPointInAABB (x, y, AABB) {
+  checkPointInAABB(x, y, AABB) {
     let minX = AABB[0]
     if (x < minX) return false
     let minY = AABB[1]
@@ -93,7 +93,7 @@ class HitRender extends Render {
     return true
   }
 
-  hitPixel (o, evt) {
+  hitPixel(o, evt) {
     const ctx = this.ctx
     ctx.clearRect(0, 0, 2, 2)
     let mtx = o._hitMatrix
@@ -102,7 +102,17 @@ class HitRender extends Render {
     for (let i = l - 1; i >= 0; i--) {
       let child = list[i]
       mtx.initialize(1, 0, 0, 1, 0, 0)
-      mtx.appendTransform(o.x - evt.stageX, o.y - evt.stageY, o.scaleX, o.scaleY, o.rotation, o.skewX, o.skewY, o.originX, o.originY)
+      mtx.appendTransform(
+        o.x - evt.stageX,
+        o.y - evt.stageY,
+        o.scaleX,
+        o.scaleY,
+        o.rotation,
+        o.skewX,
+        o.skewY,
+        o.originX,
+        o.originY
+      )
       // if (!this.checkBoundEvent(child)) continue
       ctx.save()
       let target = this._hitPixel(child, evt, mtx)
@@ -111,25 +121,52 @@ class HitRender extends Render {
     }
   }
 
-  _hitPixel (o, evt, mtx) {
+  _hitPixel(o, evt, mtx) {
     if (o.ignoreHit || !o.isVisible()) return
     let ctx = this.ctx
-    if(o.fixed){
+    if (o.fixed) {
       o._hitMatrix.initialize(1, 0, 0, 1, -evt.stageX, -evt.stageY)
-    }else if (mtx) {
+    } else if (mtx) {
       o._hitMatrix.initialize(mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx, mtx.ty)
     } else {
       o._hitMatrix.initialize(1, 0, 0, 1, 0, 0)
     }
     mtx = o._hitMatrix
-    mtx.appendTransform(o.x, o.y, o.scaleX, o.scaleY, o.rotation, o.skewX, o.skewY, o.originX, o.originY)
+    mtx.appendTransform(
+      o.x,
+      o.y,
+      o.scaleX,
+      o.scaleY,
+      o.rotation,
+      o.skewX,
+      o.skewY,
+      o.originX,
+      o.originY
+    )
 
     const ocg = o.clipGraphics
     if (ocg) {
       ctx.beginPath()
       ocg._matrix.copy(mtx)
-      ocg._matrix.appendTransform(ocg.x, ocg.y, ocg.scaleX, ocg.scaleY, ocg.rotation, ocg.skewX, ocg.skewY, ocg.originX, ocg.originY)
-      ctx.setTransform(ocg._matrix.a, ocg._matrix.b, ocg._matrix.c, ocg._matrix.d, ocg._matrix.tx, ocg._matrix.ty)
+      ocg._matrix.appendTransform(
+        ocg.x,
+        ocg.y,
+        ocg.scaleX,
+        ocg.scaleY,
+        ocg.rotation,
+        ocg.skewX,
+        ocg.skewY,
+        ocg.originX,
+        ocg.originY
+      )
+      ctx.setTransform(
+        ocg._matrix.a,
+        ocg._matrix.b,
+        ocg._matrix.c,
+        ocg._matrix.d,
+        ocg._matrix.tx,
+        ocg._matrix.ty
+      )
       ocg.render(ctx)
       ctx.clip(o.clipRuleNonzero ? 'nonzero' : 'evenodd')
     }
@@ -138,8 +175,25 @@ class HitRender extends Render {
     if (oacg) {
       ctx.beginPath()
       oacg._matrix.initialize(1, 0, 0, 1, 0, 0)
-      oacg._matrix.appendTransform(oacg.x, oacg.y, oacg.scaleX, oacg.scaleY, oacg.rotation, oacg.skewX, oacg.skewY, oacg.originX, oacg.originY)
-      ctx.setTransform(oacg._matrix.a, oacg._matrix.b, oacg._matrix.c, oacg._matrix.d, oacg._matrix.tx, oacg._matrix.ty)
+      oacg._matrix.appendTransform(
+        oacg.x,
+        oacg.y,
+        oacg.scaleX,
+        oacg.scaleY,
+        oacg.rotation,
+        oacg.skewX,
+        oacg.skewY,
+        oacg.originX,
+        oacg.originY
+      )
+      ctx.setTransform(
+        oacg._matrix.a,
+        oacg._matrix.b,
+        oacg._matrix.c,
+        oacg._matrix.d,
+        oacg._matrix.tx,
+        oacg._matrix.ty
+      )
       oacg.render(ctx)
       ctx.clip(o.absClipRuleNonzero ? 'nonzero' : 'evenodd')
     }
@@ -167,36 +221,56 @@ class HitRender extends Render {
 
         o.updateFrame()
         let rect = o.rect
-        ctx.drawImage(o.img, rect[0], rect[1], rect[2], rect[3], 0, 0, rect[2], rect[3])
+        ctx.drawImage(
+          o.img,
+          rect[0],
+          rect[1],
+          rect[2],
+          rect[3],
+          0,
+          0,
+          rect[2],
+          rect[3]
+        )
       } else if (o instanceof Bitmap && o.rect) {
         this.setComplexProps(ctx, o)
 
         let bRect = o.rect
-        ctx.drawImage(o.img, bRect[0], bRect[1], bRect[2], bRect[3], 0, 0, bRect[2], bRect[3])
+        ctx.drawImage(
+          o.img,
+          bRect[0],
+          bRect[1],
+          bRect[2],
+          bRect[3],
+          0,
+          0,
+          bRect[2],
+          bRect[3]
+        )
       } else if (o instanceof Text) {
         this.setComplexProps(ctx, o)
 
         ctx.font = o.font
         ctx.fillStyle = o.color
-        ctx.textAlign= o.textAlign
+        ctx.textAlign = o.textAlign
         ctx.textBaseline = o.baseline
         ctx.fillText(o.text, 0, 0)
       }
     }
 
-    if(o.hitBox){
+    if (o.hitBox) {
       o.initAABB()
       if (this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
         this._dispatchEvent(o, evt)
         return o
       }
-    }else if (ctx.getImageData(0, 0, 1, 1).data[3] > 0) {
+    } else if (ctx.getImageData(0, 0, 1, 1).data[3] > 0) {
       this._dispatchEvent(o, evt)
       return o
     }
   }
 
-  setComplexProps (ctx, o) {
+  setComplexProps(ctx, o) {
     ctx.globalCompositeOperation = o.complexCompositeOperation
     ctx.globalAlpha = o.complexAlpha
     // The shadow does not trigger the event, so remove it
@@ -208,7 +282,7 @@ class HitRender extends Render {
     // }
   }
 
-  _dispatchEvent (obj, evt) {
+  _dispatchEvent(obj, evt) {
     if (this.disableEvents.indexOf(evt.type) !== -1) return
     let mockEvt = new Event()
     mockEvt.stageX = evt.stageX

@@ -1,9 +1,8 @@
-
 const DEG_TO_RAD = 0.017453292519943295
 const PI_2 = Math.PI * 2
 
 class Matrix2D {
-  constructor (a, b, c, d, tx, ty) {
+  constructor(a, b, c, d, tx, ty) {
     this.a = a == null ? 1 : a
     this.b = b || 0
     this.c = c || 0
@@ -13,13 +12,23 @@ class Matrix2D {
     return this
   }
 
-  identity () {
+  identity() {
     this.a = this.d = 1
     this.b = this.c = this.tx = this.ty = 0
     return this
   }
 
-  appendTransform (x, y, scaleX, scaleY, rotation, skewX, skewY, originX, originY) {
+  appendTransform(
+    x,
+    y,
+    scaleX,
+    scaleY,
+    rotation,
+    skewX,
+    skewY,
+    originX,
+    originY
+  ) {
     if (rotation % 360) {
       var r = rotation * DEG_TO_RAD
       var cos = Math.cos(r)
@@ -31,7 +40,14 @@ class Matrix2D {
     if (skewX || skewY) {
       skewX *= DEG_TO_RAD
       skewY *= DEG_TO_RAD
-      this.append(Math.cos(skewY), Math.sin(skewY), -Math.sin(skewX), Math.cos(skewX), x, y)
+      this.append(
+        Math.cos(skewY),
+        Math.sin(skewY),
+        -Math.sin(skewX),
+        Math.cos(skewX),
+        x,
+        y
+      )
       this.append(cos * scaleX, sin * scaleX, -sin * scaleY, cos * scaleY, 0, 0)
     } else {
       this.append(cos * scaleX, sin * scaleX, -sin * scaleY, cos * scaleY, x, y)
@@ -43,7 +59,7 @@ class Matrix2D {
     return this
   }
 
-  append (a, b, c, d, tx, ty) {
+  append(a, b, c, d, tx, ty) {
     var a1 = this.a
     var b1 = this.b
     var c1 = this.c
@@ -57,7 +73,7 @@ class Matrix2D {
     return this
   }
 
-  initialize (a, b, c, d, tx, ty) {
+  initialize(a, b, c, d, tx, ty) {
     this.a = a
     this.b = b
     this.c = c
@@ -67,7 +83,7 @@ class Matrix2D {
     return this
   }
 
-  setValues (a, b, c, d, tx, ty) {
+  setValues(a, b, c, d, tx, ty) {
     this.a = a == null ? 1 : a
     this.b = b || 0
     this.c = c || 0
@@ -77,7 +93,7 @@ class Matrix2D {
     return this
   }
 
-  invert () {
+  invert() {
     let a1 = this.a
     let b1 = this.b
     let c1 = this.c
@@ -92,45 +108,47 @@ class Matrix2D {
     this.tx = (c1 * this.ty - d1 * tx1) / n
     this.ty = -(a1 * this.ty - b1 * tx1) / n
     return this
-  };
+  }
 
-  copy (matrix) {
-    return this.setValues(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty)
+  copy(matrix) {
+    return this.setValues(
+      matrix.a,
+      matrix.b,
+      matrix.c,
+      matrix.d,
+      matrix.tx,
+      matrix.ty
+    )
   }
 }
 
-Matrix2D.decompose = function(a, b, c, d, tx, ty, transform){
-  const skewX = -Math.atan2(-c, d);
-  const skewY = Math.atan2(b, a);
+Matrix2D.decompose = function(a, b, c, d, tx, ty, transform) {
+  const skewX = -Math.atan2(-c, d)
+  const skewY = Math.atan2(b, a)
 
-  const delta = Math.abs(skewX + skewY);
+  const delta = Math.abs(skewX + skewY)
 
-  if (delta < 0.00001 || Math.abs(PI_2 - delta) < 0.00001)
-  {
-      transform.rotation = skewY;
+  if (delta < 0.00001 || Math.abs(PI_2 - delta) < 0.00001) {
+    transform.rotation = skewY
 
-      if (a < 0 && d >= 0)
-      {
-          transform.rotation += (transform.rotation <= 0) ? Math.PI : -Math.PI;
-      }
+    if (a < 0 && d >= 0) {
+      transform.rotation += transform.rotation <= 0 ? Math.PI : -Math.PI
+    }
 
-      transform.skewX = transform.skewY = 0;
-  }
-  else
-  {
-      transform.rotation = 0;
-      transform.skewX = skewX;
-      transform.skewY = skewY;
+    transform.skewX = transform.skewY = 0
+  } else {
+    transform.rotation = 0
+    transform.skewX = skewX
+    transform.skewY = skewY
   }
 
   // next set scale
-  transform.scaleX = Math.sqrt((a * a) + (b * b));
-  transform.scaleY = Math.sqrt((c * c) + (d * d));
+  transform.scaleX = Math.sqrt(a * a + b * b)
+  transform.scaleY = Math.sqrt(c * c + d * d)
 
   // next set position
-  transform.x = tx;
-  transform.y = ty;
-
+  transform.x = tx
+  transform.y = ty
 }
 
 export default Matrix2D

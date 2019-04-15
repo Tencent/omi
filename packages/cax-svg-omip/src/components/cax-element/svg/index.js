@@ -6,7 +6,9 @@ import { line } from './line'
 import { polyline } from './polyline'
 import { polygon } from './polygon'
 import { path } from './path'
+import { pasition } from './pasition'
 import { group } from './group'
+import { animate } from './animate'
 
 class SVG extends Group {
   constructor(vdom) {
@@ -14,10 +16,13 @@ class SVG extends Group {
     this.vdom = vdom
 
     const root = new Group()
-    const options = Object.assign({
-      x: 0,
-      y: 0
-    }, vdom.props)
+    const options = Object.assign(
+      {
+        x: 0,
+        y: 0
+      },
+      vdom.props
+    )
 
     this.vdom.children.forEach(vdomChild => {
       this.generate(root, vdomChild)
@@ -27,7 +32,6 @@ class SVG extends Group {
     root.y = Number(options.y)
 
     this.add(root)
-
   }
 
   generate(parent, vdomChild) {
@@ -57,7 +61,19 @@ class SVG extends Group {
         break
 
       case 'path':
-        parent.add(path(vdomChild.props))
+        const obj = path(vdomChild.props)
+        parent.add(obj)
+        if (
+        vdomChild.children &&
+          vdomChild.children[0] &&
+          vdomChild.children[0].type === 'animate'
+      ) {
+          animate(obj, vdomChild.children[0].props)
+        }
+        break
+
+      case 'pasition':
+        parent.add(pasition(vdomChild.props))
         break
 
       case 'g':
