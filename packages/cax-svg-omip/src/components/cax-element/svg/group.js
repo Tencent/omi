@@ -14,10 +14,10 @@ export function group(props) {
   )
 
   const obj = new Group()
-  obj.x = Number(options.x)
-  obj.y = Number(options.y)
+  // obj.x = Number(options.x)
+  // obj.y = Number(options.y)
 
-  transform(props, obj)
+  transform(props, obj, Number(options.x), Number(options.y))
   parseEvent(props, obj)
 
   return obj

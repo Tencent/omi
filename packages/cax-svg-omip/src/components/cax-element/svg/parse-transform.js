@@ -18,10 +18,14 @@ function parse(a) {
   }
 }
 
-export function transform(props, target) {
+export function transform(props, target, x, y) {
   if (!props) return
   const args = []
-  args.push(mt['translate'].apply(null, [Number(props.x), Number(props.y)]))
+  if (arguments.length > 2) {
+    args.push(mt['translate'].apply(null, [x, y]))
+    target.originX = x * -1
+    target.originY = y * -1
+  }
   if (props.transform) {
     const obj = parse(props.transform)
 
@@ -37,9 +41,8 @@ export function transform(props, target) {
       args.push(mt[prop].apply(null, obj.data[prop]))
     })
   }
-  target.originX = Number(props.x) * -1
-  target.originY = Number(props.y) * -1
-  const mts = mt.compose.apply(null, args)
+  
+  const mts = args.length > 0 ? mt.compose.apply(null, args) : {a:1,b:0,c:0,d:1,e:0,f:0}
 
   const t = {}
   Matrix2D.decompose(mts.a, mts.b, mts.c, mts.d, mts.e, mts.f, t)
@@ -53,7 +56,6 @@ export function transform(props, target) {
   target.scaleX = t.scaleX
   target.skewX = t.skewX
   target.skewY = t.skewY
-  
 
   if (props.width && props.height) {
     target.width = parseFloat(props.width)

@@ -25,7 +25,7 @@ export function rect(props) {
  
  
 
-  transform(props, rect)
+  transform(props, rect, Number(options.x), Number(options.y))
   parseEvent(props, rect)
 
   return rect

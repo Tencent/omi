@@ -19,9 +19,9 @@ export function ellipse(props) {
     Number(options.ry) * 2,
     parseStyle(props)
   )
-  ellipse.x = Number(options.cx)
-  ellipse.y = Number(options.cy)
-  transform(props, ellipse)
+  // ellipse.x = Number(options.cx)
+  // ellipse.y = Number(options.cy)
+  transform(props, ellipse, Number(options.cx), Number(options.cy))
   parseEvent(props, ellipse)
   return ellipse
 }

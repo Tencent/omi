@@ -1,9 +1,11 @@
 import cax, { html, SVG } from './cax'
 
 function renderSVG(vdom, canvas, scope) {
+  const w = vdom.props ? vdom.props.width : 300
+  const h = vdom.props ? vdom.props.height : 150
   const stage = new cax.Stage(
-    vdom.props.width,
-    vdom.props.height,
+    w,
+    h,
     canvas,
     scope
   )
