@@ -643,16 +643,11 @@
         if (store && store.data) {
             store.instances = [];
             extendStoreUpate(store);
-            var timeout = null;
-            var patchs = {};
             obaa(store.data, function(prop, val, old, path) {
-                clearTimeout(timeout);
+                var patchs = {};
                 var key = fixPath(path + '-' + prop);
                 patchs[key] = !0;
-                timeout = setTimeout(function() {
-                    store.update(patchs);
-                    patchs = {};
-                }, 0);
+                store.update(patchs);
             });
         }
     }
@@ -1233,7 +1228,7 @@
         merge: merge
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.1.0';
+    options.root.Omi.version = 'omio-2.1.1';
     var Omi = {
         h: h,
         createElement: h,

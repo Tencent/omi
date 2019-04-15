@@ -32,23 +32,19 @@ function obsStore(store){
   if (store && store.data) {
     store.instances = []
     extendStoreUpate(store)
-    let timeout = null
-    let patchs = {}
+
     obaa(store.data, (prop, val, old, path) => {
-      clearTimeout(timeout)
+			const patchs = {}
       const key = fixPath(path + '-' + prop)
       patchs[key] = true
-      timeout = setTimeout(() => {
-        store.update(patchs)
-        patchs = {}
-      }, 0)
+			store.update(patchs)
     })
   }
 }
 
 export function merge(vnode, merge, store) {
   obsStore(store)
-  
+
   merge =
     typeof merge === 'string'
       ? document.querySelector(merge)

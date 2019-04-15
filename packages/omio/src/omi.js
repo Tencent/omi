@@ -40,7 +40,7 @@ options.root.Omi = {
   merge
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.1.0'
+options.root.Omi.version = 'omio-2.1.1'
 
 export default {
   h,
