@@ -32,6 +32,7 @@ function _Component(option) {
   option.ready = function () {
     const page = getCurrentPages()[getCurrentPages().length - 1]
     this.context = option.context || page.context
+    option.data = option.data || {}
     this.oData = JSON.parse(JSON.stringify(option.data))
     if (!option.data.___walked) {
       walk(option.data, true)
