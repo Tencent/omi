@@ -38,11 +38,22 @@ export function transform(props, target, x, y) {
         // target.originY = obj.data[prop][2] * -1
         //}
       }
-      args.push(mt[prop].apply(null, obj.data[prop]))
+
+      if (prop === 'skewX') {
+        args.push(mt['skew'].apply(null, [obj.data[prop][0] * Math.PI / -180, 0]))
+      } else if (prop === 'skewY') {
+        args.push(mt['skew'].apply(null, [0, obj.data[prop][0] * Math.PI / 180]))
+      } else if (prop === 'skew') {
+        args.push(mt['skew'].apply(null, [obj.data[prop][0] * Math.PI / -180, obj.data[prop][1] * Math.PI / 180]))
+      } else {
+        args.push(mt[prop].apply(null, obj.data[prop]))
+      }
+
+
     })
   }
-  
-  const mts = args.length > 0 ? mt.compose.apply(null, args) : {a:1,b:0,c:0,d:1,e:0,f:0}
+
+  const mts = args.length > 0 ? mt.compose.apply(null, args) : { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 }
 
   const t = {}
   Matrix2D.decompose(mts.a, mts.b, mts.c, mts.d, mts.e, mts.f, t)
@@ -56,7 +67,7 @@ export function transform(props, target, x, y) {
   target.scaleX = t.scaleX
   target.skewX = t.skewX * 57.29577951308232
   target.skewY = t.skewY * 57.29577951308232
- 
+
   if (props.width && props.height) {
     target.width = parseFloat(props.width)
     target.height = parseFloat(props.height)

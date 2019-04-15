@@ -75,6 +75,33 @@ renderSVG(html` <svg width="300" height="220">
 </svg>`, 'svg-g', this)
    
 
+   renderSVG(html` <svg width="300" height="220">
+
+   <rect x="10" y="10" width="20" height="30"
+      style="stroke: #3333cc; fill:none;" />
+
+<rect x="50" y="10" width="20" height="30"
+      style="stroke: #000000; fill:none;"
+      transform="skewX(10)" />
+<rect x="100" y="10" width="20" height="30"
+      style="stroke: #000000; fill:none;"
+      transform="skewX(45)" />
+<rect x="150" y="10" width="20" height="30"
+      style="stroke: #000000; fill:none;"
+      transform="skewX(60)" />
+   </svg>`, 'svg-h', this)
+
+    
+
+
+renderSVG(html` <svg width="300" height="250">
+<rect x="10" y="10" width="20" height="30" style="stroke: #3333cc; fill:none;"></rect>
+
+<rect x="50" y="10" width="20" height="30" style="stroke: #000000; fill:none;" transform="skewY(60)"></rect>
+<rect x="100" y="10" width="20" height="30" style="stroke: #000000; fill:none;" transform="skewY(45)"></rect>
+<rect x="150" y="10" width="20" height="30" style="stroke: #000000; fill:none;" transform="skewY(10)"></rect>
+</svg>`, 'svg-i', this)
+
   },
 
   changePath: function (){
