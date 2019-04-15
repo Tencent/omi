@@ -173,7 +173,7 @@ function hexToRgb(hex) {
     cssColor = hex
     hex =  hexTriplet(cssColors[hex])
   }
-
+  
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
   let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
   hex = hex.replace(shorthandRegex, function (m, r, g, b) {
@@ -213,7 +213,6 @@ function makeGradientColor(color1, color2, percent) {
     newColor.g = makeChannel(color1.g, color2.g)
     newColor.b = makeChannel(color1.b, color2.b)
     newColor.cssColor = "#" +
-    '#' +
     makeColorPiece(newColor.r) +
     makeColorPiece(newColor.g) +
     makeColorPiece(newColor.b)
