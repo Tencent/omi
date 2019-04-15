@@ -1221,25 +1221,20 @@ function render(vnode, parent, store) {
   if (store) {
     store.instances = [];
     extendStoreUpate(store);
-    var timeout = null;
-    var patchs = {};
+
     store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
-      clearTimeout(timeout);
+      var patchs = {};
       if (patch.op === 'remove') {
         // fix arr splice
         var kv = getArrayPatch(patch.path, store);
         patchs[kv.k] = kv.v;
-        timeout = setTimeout(function () {
-          update(patchs, store);
-          patchs = {};
-        }, 0);
+
+        update(patchs, store);
       } else {
         var key = fixPath(patch.path);
         patchs[key] = patch.value;
-        timeout = setTimeout(function () {
-          update(patchs, store);
-          patchs = {};
-        }, 0);
+
+        update(patchs, store);
       }
     });
     parent.store = store;
@@ -1575,7 +1570,7 @@ var ModelView = function (_WeElement) {
 }(WeElement);
 
 ModelView.observe = true;
-ModelView.mergeUpdate = true;
+ModelView.mergeUpdate = false;
 
 /**
  * classNames based on https://github.com/JedWatson/classnames
@@ -1663,7 +1658,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.0.3';
+options.root.Omi.version = '6.0.4';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef };

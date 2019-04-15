@@ -7,25 +7,22 @@ export function render(vnode, parent, store) {
   if (store) {
     store.instances = []
     extendStoreUpate(store)
-    let timeout = null
-    let patchs = {}
+
     store.data = new JSONProxy(store.data).observe(false, function(patch) {
-      clearTimeout(timeout)
+			const patchs = {}
       if (patch.op === 'remove') {
         // fix arr splice
         const kv = getArrayPatch(patch.path, store)
         patchs[kv.k] = kv.v
-        timeout = setTimeout(() => {
-          update(patchs, store)
-          patchs = {}
-        }, 0)
+
+				update(patchs, store)
+
       } else {
         const key = fixPath(patch.path)
         patchs[key] = patch.value
-        timeout = setTimeout(() => {
-          update(patchs, store)
-          patchs = {}
-        }, 0)
+
+				update(patchs, store)
+
       }
     })
     parent.store = store

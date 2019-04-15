@@ -367,24 +367,16 @@
         if (store) {
             store.instances = [];
             extendStoreUpate(store);
-            var timeout = null;
-            var patchs = {};
             store.data = new JSONPatcherProxy(store.data).observe(!1, function(patch) {
-                clearTimeout(timeout);
+                var patchs = {};
                 if ('remove' === patch.op) {
                     var kv = getArrayPatch(patch.path, store);
                     patchs[kv.k] = kv.v;
-                    timeout = setTimeout(function() {
-                        update(patchs, store);
-                        patchs = {};
-                    }, 0);
+                    update(patchs, store);
                 } else {
                     var key = fixPath(patch.path);
                     patchs[key] = patch.value;
-                    timeout = setTimeout(function() {
-                        update(patchs, store);
-                        patchs = {};
-                    }, 0);
+                    update(patchs, store);
                 }
             });
             parent.store = store;
@@ -962,7 +954,7 @@
         return ModelView;
     }(WeElement);
     ModelView.observe = !0;
-    ModelView.mergeUpdate = !0;
+    ModelView.mergeUpdate = !1;
     var hasOwn = {}.hasOwnProperty;
     var Component = WeElement;
     var defineElement = define;
@@ -989,7 +981,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.0.3';
+    options.root.Omi.version = '6.0.4';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
