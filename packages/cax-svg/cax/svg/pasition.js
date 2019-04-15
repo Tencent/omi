@@ -13,10 +13,10 @@ export function pasition(props) {
   const ts = props['to-stroke']
   const ff = props['from-fill']
   const tf = props['to-fill']
-  if(fs){
+  if (fs) {
     obj.option.strokeStyle = fs
   }
-  if(ff){
+  if (ff) {
     obj.option.fillStyle = ff
   }
   obj.pasitionTo = props.to
@@ -24,33 +24,38 @@ export function pasition(props) {
   transform(props, obj)
   parseEvent(props, obj)
 
-  let stage, isFrom = true, animating = false
+  let stage,
+    isFrom = true,
+    animating = false
   obj.toggle = () => {
-    if(animating) return
+    if (animating) return
     pathTransition.animate({
       from: isFrom ? props.from : props.to,
       to: isFrom ? props.to : props.from,
-      duration: typeof props.duration !== "undefined" ? Number(props.duration) : 600,
-      easing: function (v) { return v },
-      begin: function () {
+      duration:
+        typeof props.duration !== 'undefined' ? Number(props.duration) : 600,
+      easing: function(v) {
+        return v
+      },
+      begin: function() {
         stage = obj.stage
         animating = true
       },
-      progress: function (shapes, percent) {
+      progress: function(shapes, percent) {
         obj.d = toSVGString(shapes)
-        percent*=100
-        if(isFrom){
-          fs&&(obj.option.strokeStyle =  lerp( fs,ts,percent))
-          ff &&(obj.option.fillStyle = lerp( ff,tf,percent))
-        } else{
-          fs&&(obj.option.strokeStyle =  lerp( ts,fs,percent))
-          ff &&(obj.option.fillStyle = lerp( tf,ff,percent))
+        percent *= 100
+        if (isFrom) {
+          fs && (obj.option.strokeStyle = lerp(fs, ts, percent))
+          ff && (obj.option.fillStyle = lerp(ff, tf, percent))
+        } else {
+          fs && (obj.option.strokeStyle = lerp(ts, fs, percent))
+          ff && (obj.option.fillStyle = lerp(tf, ff, percent))
         }
 
         stage.update()
         //
       },
-      end: function (shapes) {
+      end: function(shapes) {
         isFrom = !isFrom
         animating = false
       }

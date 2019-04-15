@@ -3,7 +3,7 @@ import EventDispatcher from '../base/event-dispatcher'
 import UID from '../base/uid.js'
 
 class DisplayObject extends EventDispatcher {
-  constructor () {
+  constructor() {
     super()
     this.alpha = this.complexAlpha = this.scaleX = this.scaleY = 1
     this.x = this.y = this.rotation = this.skewX = this.skewY = this.originX = this.originY = 0
@@ -25,22 +25,30 @@ class DisplayObject extends EventDispatcher {
       Object.defineProperties(this, {
         stage: { get: this._getStage },
         scale: {
-          get: function() { return this.scaleX; },
-          set: function(scale) { this.scaleX = this.scaleY = scale; }
+          get: function() {
+            return this.scaleX
+          },
+          set: function(scale) {
+            this.scaleX = this.scaleY = scale
+          }
         }
-      });
+      })
     } catch (e) {}
 
     this.hitBox = null
   }
 
-  isVisible () {
-    return this.visible && this.alpha > 0 && this.scaleX !== 0 && this.scaleY !== 0
+  isVisible() {
+    return (
+      this.visible && this.alpha > 0 && this.scaleX !== 0 && this.scaleY !== 0
+    )
   }
 
-  initAABB () {
-
-    if ((this.width === undefined || this.height === undefined) && !this.hitBox) {
+  initAABB() {
+    if (
+      (this.width === undefined || this.height === undefined) &&
+      !this.hitBox
+    ) {
       return
     }
 
@@ -52,7 +60,7 @@ class DisplayObject extends EventDispatcher {
       tx = mtx.tx,
       ty = mtx.ty
 
-    if(this.hitBox){
+    if (this.hitBox) {
       width = this.hitBox[2]
       height = this.hitBox[3]
       tx = this.hitBox[0] * mtx.a + this.hitBox[1] * mtx.c + tx
@@ -99,51 +107,56 @@ class DisplayObject extends EventDispatcher {
       maxY = y
     }
     this.AABB = [minX, minY, maxX - minX, maxY - minY]
-    this.rectPoints = [{
-      x: tx,
-      y: ty
-    }, {
-      x: xA + tx,
-      y: xB + ty
-    }, {
-      x: xA + yC + tx,
-      y: xB + yD + ty
-    }, {
-      x: yC + tx,
-      y: yD + ty
-    }]
+    this.rectPoints = [
+      {
+        x: tx,
+        y: ty
+      },
+      {
+        x: xA + tx,
+        y: xB + ty
+      },
+      {
+        x: xA + yC + tx,
+        y: xB + yD + ty
+      },
+      {
+        x: yC + tx,
+        y: yD + ty
+      }
+    ]
   }
 
-  destroy () {
+  destroy() {
     this.parent.remove(this)
   }
 
-  hover (over, out, move) {
+  hover(over, out, move) {
     this.on('mouseover', over)
     this.on('mouseout', out)
     move && this.on('mousemove', move)
   }
 
   // https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/clip
-  clip (graphics, notClipRuleNonzero) {
+  clip(graphics, notClipRuleNonzero) {
     this.clipGraphics = graphics
     this.clipRuleNonzero = !notClipRuleNonzero
   }
 
-  unclip () {
+  unclip() {
     this.clipGraphics = null
   }
 
-  absClip (graphics, notClipRuleNonzero) {
+  absClip(graphics, notClipRuleNonzero) {
     this.absClipGraphics = graphics
     this.absClipRuleNonzero = !notClipRuleNonzero
   }
 
-  unAbsClip () {
+  unAbsClip() {
     this.absClipGraphics = null
   }
 
-  cache (x, y, width, height, scale, cacheUpdating) {
+  cache(x, y, width, height, scale, cacheUpdating) {
     this._cacheData = {
       x: x || 0,
       y: y || 0,
@@ -168,47 +181,55 @@ class DisplayObject extends EventDispatcher {
     this._readyToCache = true
   }
 
-  uncache () {
+  uncache() {
     this.cacheCanvas = null
   }
 
   filter(filterName, filterBox) {
-    filterBox = Object.assign({}, {
-      x: 0,
-      y: 0,
-      width: this.width,
-      height: this.height
-    }, filterBox)
+    filterBox = Object.assign(
+      {},
+      {
+        x: 0,
+        y: 0,
+        width: this.width,
+        height: this.height
+      },
+      filterBox
+    )
     this.cache(filterBox.x, filterBox.y, filterBox.width, filterBox.height)
     this._readyToFilter = true
     this._filterName = filterName
   }
 
-  setTransform (x, y, scaleX, scaleY, rotation, skewX, skewY, originX, originY) {
-		this.x = x || 0;
-		this.y = y || 0;
-		this.scaleX = scaleX == null ? 1 : scaleX;
-		this.scaleY = scaleY == null ? 1 : scaleY;
-		this.rotation = rotation || 0;
-		this.skewX = skewX || 0;
-		this.skewY = skewY || 0;
-		this.originX = originX || 0;
-		this.originY = originY || 0;
+  setTransform(x, y, scaleX, scaleY, rotation, skewX, skewY, originX, originY) {
+    this.x = x || 0
+    this.y = y || 0
+    this.scaleX = scaleX == null ? 1 : scaleX
+    this.scaleY = scaleY == null ? 1 : scaleY
+    this.rotation = rotation || 0
+    this.skewX = skewX || 0
+    this.skewY = skewY || 0
+    this.originX = originX || 0
+    this.originY = originY || 0
   }
-  
-  setMatrix(a, b, c, d, tx, ty){
+
+  setMatrix(a, b, c, d, tx, ty) {
     Matrix2D.decompose(a, b, c, d, tx, ty, this)
   }
 
-  unfilter () {
+  unfilter() {
     this.uncache()
   }
 
-  _getStage () {
-		var o = this
-		while (o.parent) { o = o.parent }
-		if (o.___instanceof === 'Stage') { return o; }
-		return null
+  _getStage() {
+    var o = this
+    while (o.parent) {
+      o = o.parent
+    }
+    if (o.___instanceof === 'Stage') {
+      return o
+    }
+    return null
   }
 }
 

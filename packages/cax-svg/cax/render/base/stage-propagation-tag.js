@@ -1,3 +1,3 @@
 export default {
-    stagePropagationStopped:{}
+  stagePropagationStopped: {}
 }

@@ -1,21 +1,24 @@
 import Shape from './shape'
 
 class RoundedRect extends Shape {
-  constructor (width, height, r, option) {
+  constructor(width, height, r, option) {
     super()
-    this.option = Object.assign({
-      lineWidth: 1,
-      lt: true,
-      rt: true,
-      lb: true,
-      rb: true
-    }, option)
+    this.option = Object.assign(
+      {
+        lineWidth: 1,
+        lt: true,
+        rt: true,
+        lb: true,
+        rb: true
+      },
+      option
+    )
     this.r = r || 0
     this.width = width
     this.height = height
   }
 
-  draw () {
+  draw() {
     const width = this.width,
       height = this.height,
       r = this.r
@@ -30,7 +33,6 @@ class RoundedRect extends Shape {
       dy = height,
       ex = 0,
       ey = 0
-
 
     this.moveTo(ax, ay)
     if (this.option.rt) {

@@ -6,6 +6,6 @@ if (typeof document !== 'undefined') {
   tmpCtx = wx.createCanvas().getContext('2d')
 }
 
-export function createImageData (w, h) {
+export function createImageData(w, h) {
   return tmpCtx.createImageData(w, h)
 }

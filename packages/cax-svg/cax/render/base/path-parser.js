@@ -4,14 +4,14 @@
  * @type {Object}
  */
 
-var length = {a: 7, c: 6, h: 1, l: 2, m: 2, q: 4, s: 4, t: 2, v: 1, z: 0}
+var length = { a: 7, c: 6, h: 1, l: 2, m: 2, q: 4, s: 4, t: 2, v: 1, z: 0 }
 
 /**
  * segment pattern
  * @type {RegExp}
  */
 
-var segment = /([astvzqmhlc])([^astvzqmhlc]*)/ig
+var segment = /([astvzqmhlc])([^astvzqmhlc]*)/gi
 
 /**
  * parse an svg path data string. Generates an Array
@@ -22,9 +22,9 @@ var segment = /([astvzqmhlc])([^astvzqmhlc]*)/ig
  * @return {Array}
  */
 
-function parse (path) {
+function parse(path) {
   var data = []
-  path.replace(segment, function (_, command, args) {
+  path.replace(segment, function(_, command, args) {
     var type = command.toLowerCase()
     args = parseValues(args)
 
@@ -47,9 +47,9 @@ function parse (path) {
   return data
 }
 
-var number = /-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?/ig
+var number = /-?[0-9]*\.?[0-9]+(?:e[-+]?\d+)?/gi
 
-function parseValues (args) {
+function parseValues(args) {
   var numbers = args.match(number)
   return numbers ? numbers.map(Number) : []
 }

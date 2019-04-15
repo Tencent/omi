@@ -1,4 +1,4 @@
-export function grayscale (pixels, adjustment) {
+export function grayscale(pixels, adjustment) {
   const data = pixels.data
   const length = data.length
   for (let i = 0; i < length; i += 4) {
@@ -14,4 +14,4 @@ export function grayscale (pixels, adjustment) {
     data[i + 2] = b + (v - b) * adjustment
   }
   return pixels
-};
+}

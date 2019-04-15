@@ -66,22 +66,23 @@ const cax = {
 
   setInterval: setRafInterval,
   clearInterval: clearRafInterval,
-  tick: function (fn) {
+  tick: function(fn) {
     return setRafInterval(fn, 16)
   },
-  untick: function (tickId) {
+  untick: function(tickId) {
     clearRafInterval(tickId)
   },
 
   caxCanvasId: 0,
   TWEEN,
   To,
-  h: function (type, props, ...children) {
-    return { type, props, children };
+  h: function(type, props, ...children) {
+    return { type, props, children }
   }
-};
+}
 
-['Quadratic',
+;[
+  'Quadratic',
   'Cubic',
   'Quartic',
   'Quintic',
@@ -90,35 +91,36 @@ const cax = {
   'Circular',
   'Elastic',
   'Back',
-  'Bounce'].forEach(item => {
-    const itemLower = item.toLowerCase()
-    cax.easing[itemLower + 'In'] = TWEEN.Easing[item].In
-    cax.easing[itemLower + 'Out'] = TWEEN.Easing[item].Out
-    cax.easing[itemLower + 'InOut'] = TWEEN.Easing[item].InOut
+  'Bounce'
+].forEach(item => {
+  const itemLower = item.toLowerCase()
+  cax.easing[itemLower + 'In'] = TWEEN.Easing[item].In
+  cax.easing[itemLower + 'Out'] = TWEEN.Easing[item].Out
+  cax.easing[itemLower + 'InOut'] = TWEEN.Easing[item].InOut
 
-    To.easing[itemLower + 'In'] = TWEEN.Easing[item].In
-    To.easing[itemLower + 'Out'] = TWEEN.Easing[item].Out
-    To.easing[itemLower + 'InOut'] = TWEEN.Easing[item].InOut
-  })
+  To.easing[itemLower + 'In'] = TWEEN.Easing[item].In
+  To.easing[itemLower + 'Out'] = TWEEN.Easing[item].Out
+  To.easing[itemLower + 'InOut'] = TWEEN.Easing[item].InOut
+})
 
 const isWegame = typeof wx !== 'undefined' && wx.createCanvas
 
-cax.loadImg = function (option) {
+cax.loadImg = function(option) {
   const img = isWegame ? wx.createImage() : new Image()
-  img.onload = function () {
+  img.onload = function() {
     option.complete(this)
   }
   img.src = option.img
 }
 
-cax.loadImgs = function (option) {
+cax.loadImgs = function(option) {
   const result = []
   let loaded = 0
   const len = option.imgs.length
   option.imgs.forEach((src, index) => {
     const img = isWegame ? wx.createImage() : new Image()
-    img.onload = (function (i, img) {
-      return function () {
+    img.onload = (function(i, img) {
+      return function() {
         result[i] = img
         loaded++
         option.progress && option.progress(loaded / len, loaded, i, img, result)

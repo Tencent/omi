@@ -1,20 +1,20 @@
 import TWEEN from './tween'
-import {setRafInterval, clearRafInterval} from './raf-interval'
+import { setRafInterval, clearRafInterval } from './raf-interval'
 
 class To {
-  constructor (element) {
+  constructor(element) {
     this.element = element
     this.cmds = []
     this.index = 0
     this.tweens = []
     this._pause = false
-    this.loop = setRafInterval(function () {
+    this.loop = setRafInterval(function() {
       TWEEN.update()
     }, 15)
     this.cycleCount = 0
   }
 
-  to (target, duration, easing) {
+  to(target, duration, easing) {
     this.cmds.push(['to'])
     if (arguments.length !== 0) {
       for (let key in target) {
@@ -24,97 +24,97 @@ class To {
     return this
   }
 
-  set (prop, value, duration, easing) {
+  set(prop, value, duration, easing) {
     this.cmds[this.cmds.length - 1].push([prop, [value, duration, easing]])
     return this
   }
 
-  x () {
+  x() {
     this.cmds[this.cmds.length - 1].push(['x', arguments])
     return this
   }
 
-  y () {
+  y() {
     this.cmds[this.cmds.length - 1].push(['y', arguments])
     return this
   }
 
-  z () {
+  z() {
     this.cmds[this.cmds.length - 1].push(['z', arguments])
     return this
   }
 
-  rotation () {
+  rotation() {
     this.cmds[this.cmds.length - 1].push(['rotation', arguments])
     return this
   }
 
-  scaleX () {
+  scaleX() {
     this.cmds[this.cmds.length - 1].push(['scaleX', arguments])
     return this
   }
 
-  scaleY () {
+  scaleY() {
     this.cmds[this.cmds.length - 1].push(['scaleY', arguments])
     return this
   }
 
-  skewX () {
+  skewX() {
     this.cmds[this.cmds.length - 1].push(['skewX', arguments])
     return this
   }
 
-  skewY () {
+  skewY() {
     this.cmds[this.cmds.length - 1].push(['skewY', arguments])
     return this
   }
 
-  originX () {
+  originX() {
     this.cmds[this.cmds.length - 1].push(['originX', arguments])
     return this
   }
 
-  originY () {
+  originY() {
     this.cmds[this.cmds.length - 1].push(['originY', arguments])
     return this
   }
 
-  alpha () {
+  alpha() {
     this.cmds[this.cmds.length - 1].push(['alpha', arguments])
     return this
   }
 
-  begin (fn) {
+  begin(fn) {
     this.cmds[this.cmds.length - 1].begin = fn
     return this
   }
 
-  progress (fn) {
+  progress(fn) {
     this.cmds[this.cmds.length - 1].progress = fn
     return this
   }
 
-  end (fn) {
+  end(fn) {
     this.cmds[this.cmds.length - 1].end = fn
     return this
   }
 
-  wait () {
+  wait() {
     this.cmds.push(['wait', arguments])
     return this
   }
 
-  then () {
+  then() {
     this.cmds.push(['then', arguments])
     return this
   }
 
-  cycle () {
+  cycle() {
     this.cmds.push(['cycle', arguments])
     return this
   }
 
-  start () {
+  start() {
     if (this._pause) return
     var len = this.cmds.length
     if (this.index < len) {
@@ -125,7 +125,7 @@ class To {
     return this
   }
 
-  pause () {
+  pause() {
     this._pause = true
     for (var i = 0, len = this.tweens.length; i < len; i++) {
       this.tweens[i].pause()
@@ -136,7 +136,7 @@ class To {
     }
   }
 
-  toggle () {
+  toggle() {
     if (this._pause) {
       this.play()
     } else {
@@ -144,14 +144,14 @@ class To {
     }
   }
 
-  play () {
+  play() {
     this._pause = false
     for (var i = 0, len = this.tweens.length; i < len; i++) {
       this.tweens[i].play()
     }
     var self = this
     if (this.currentTask === 'wait') {
-      setTimeout(function () {
+      setTimeout(function() {
         if (self._pause) return
         self.index++
         self.start()
@@ -160,19 +160,19 @@ class To {
     }
   }
 
-  stop () {
+  stop() {
     for (var i = 0, len = this.tweens.length; i < len; i++) {
       this.tweens[i].stop()
     }
     this.cmds.length = 0
   }
 
-  animate (name) {
+  animate(name) {
     this.cmds = this.cmds.concat(To.animationMap[name] || [])
     return this
   }
 
-  exec (cmd, last) {
+  exec(cmd, last) {
     var len = cmd.length,
       self = this
     this.currentTask = cmd[0]
@@ -188,15 +188,15 @@ class To {
 
           var t = new TWEEN.Tween(this.element)
             .to(target, task[1][1])
-            .onStart(function () {
+            .onStart(function() {
               if (cmd.begin) cmd.begin.call(self.element, self.element)
             })
-            .onUpdate(function () {
+            .onUpdate(function() {
               if (cmd.progress) cmd.progress.call(self.element, self.element)
               // self.element[prop] = this[prop];
             })
             .easing(ease || TWEEN.Easing.Linear.None)
-            .onComplete(function () {
+            .onComplete(function() {
               self.stepCompleteCount++
               if (self.stepCompleteCount === len - 1) {
                 if (cmd.end) cmd.end.call(self.element, self.element)
@@ -212,7 +212,7 @@ class To {
       case 'wait':
         this.currentTaskBegin = new Date()
         this.timeout = cmd[1][0]
-        setTimeout(function () {
+        setTimeout(function() {
           if (self._pause) return
           self.index++
           self.start()
@@ -223,7 +223,7 @@ class To {
       case 'then':
         var arg = cmd[1][0]
         arg.index = 0
-        arg.complete = function () {
+        arg.complete = function() {
           self.index++
           self.start()
           if (last && self.complete) self.complete()
@@ -251,13 +251,13 @@ class To {
   }
 }
 
-To.get = function (element) {
+To.get = function(element) {
   var to = new To(element)
   return to
 }
 
 To.animationMap = {}
-To.extend = function (animationName, cmds) {
+To.extend = function(animationName, cmds) {
   To.animationMap[animationName] = cmds
 }
 

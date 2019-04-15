@@ -2,7 +2,7 @@ import CanvasRender from '../render/canvas-render'
 import Group from '../display/group.js'
 
 class Renderer {
-  constructor (canvasOrContext, width, height) {
+  constructor(canvasOrContext, width, height) {
     this.renderList = []
     if (arguments.length === 3) {
       this.renderer = new CanvasRender(canvasOrContext, width, height)
@@ -16,31 +16,31 @@ class Renderer {
     this.ctx = this.renderer.ctx
   }
 
-  update (stage) {
+  update(stage) {
     this.renderer.clear(this.ctx, this.width, this.height)
     this.renderer.render(this.ctx, stage)
     this.ctx.draw && this.ctx.draw()
   }
 
-  getHitRenderList (stage) {
+  getHitRenderList(stage) {
     const objs = this.renderList
     objs.length = 0
     this.computeMatrix(stage)
     return objs
   }
 
-  computeMatrix (stage) {
+  computeMatrix(stage) {
     for (var i = 0, len = stage.children.length; i < len; i++) {
       this._computeMatrix(stage.children[i])
     }
   }
 
-  initComplex (o) {
+  initComplex(o) {
     o.complexCompositeOperation = this._getCompositeOperation(o)
     o.complexAlpha = this._getAlpha(o, 1)
   }
 
-  _computeMatrix (o, mtx) {
+  _computeMatrix(o, mtx) {
     if (!o.isVisible()) {
       return
     }
@@ -50,7 +50,17 @@ class Renderer {
       o._matrix.initialize(1, 0, 0, 1, 0, 0)
     }
 
-    o._matrix.appendTransform(o.x, o.y, o.scaleX, o.scaleY, o.rotation, o.skewX, o.skewY, o.originX, o.originY)
+    o._matrix.appendTransform(
+      o.x,
+      o.y,
+      o.scaleX,
+      o.scaleY,
+      o.rotation,
+      o.skewX,
+      o.skewY,
+      o.originX,
+      o.originY
+    )
 
     if (o instanceof Group) {
       var list = o.children,
@@ -73,12 +83,12 @@ class Renderer {
     }
   }
 
-  _getCompositeOperation (o) {
+  _getCompositeOperation(o) {
     if (o.compositeOperation) return o.compositeOperation
     if (o.parent) return this._getCompositeOperation(o.parent)
   }
 
-  _getAlpha (o, alpha) {
+  _getAlpha(o, alpha) {
     var result = o.alpha * alpha
     if (o.parent) {
       return this._getAlpha(o.parent, result)
@@ -86,11 +96,11 @@ class Renderer {
     return result
   }
 
-  isInStage (o) {
+  isInStage(o) {
     return this.collisionBetweenAABB(o.AABB, this.stage.AABB)
   }
 
-  collisionBetweenAABB (AABB1, AABB2) {
+  collisionBetweenAABB(AABB1, AABB2) {
     var maxX = AABB1[0] + AABB1[2]
     if (maxX < AABB2[0]) return false
     var minX = AABB1[0]

@@ -2,7 +2,7 @@ import DisplayObject from './display-object.js'
 import util from '../../common/util'
 
 class Bitmap extends DisplayObject {
-  constructor (img, onLoad) {
+  constructor(img, onLoad) {
     super()
     if (typeof img === 'string') {
       if (Bitmap.cache[img]) {
@@ -19,7 +19,7 @@ class Bitmap extends DisplayObject {
         }
         onLoad && onLoad.call(this)
       } else if (util.isWeapp) {
-        util.getImageInWx(img, (result) => {
+        util.getImageInWx(img, result => {
           this.img = result.img
           if (!this.rect) {
             this.rect = [0, 0, result.width, result.height]
@@ -31,9 +31,8 @@ class Bitmap extends DisplayObject {
         })
       } else {
         this.img = util.isWegame ? wx.createImage() : new window.Image()
-       
+
         this.img.onload = () => {
-          
           if (!this.rect) {
             this.rect = [0, 0, this.img.width, this.img.height]
           }
@@ -53,9 +52,11 @@ class Bitmap extends DisplayObject {
     }
   }
 
-  clone () {
+  clone() {
     // 复制完img宽度0？？所以直接传字符串
-    const bitmap = new Bitmap(typeof this.img === 'string' ? this.img : this.img.src)
+    const bitmap = new Bitmap(
+      typeof this.img === 'string' ? this.img : this.img.src
+    )
     bitmap.x = this.x
     bitmap.y = this.y
     bitmap.scaleX = this.scaleX
@@ -73,8 +74,6 @@ class Bitmap extends DisplayObject {
   }
 }
 
-Bitmap.cache = {
-
-}
+Bitmap.cache = {}
 
 export default Bitmap

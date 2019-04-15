@@ -1,4 +1,3 @@
-
 import { invert } from './invert'
 import { blur } from './blur'
 import { brightness } from './brightness'
@@ -9,7 +8,7 @@ import { threshold } from './threshold'
 import { gamma } from './gamma'
 import { colorize } from './colorize'
 
-export function filter (pixels, name) {
+export function filter(pixels, name) {
   if (typeof name === 'string') {
     let type = name.split('(')[0]
     let num = getNumber(name)
@@ -39,8 +38,13 @@ export function filter (pixels, name) {
   }
 }
 
-function getNumber (str) {
-  str = str.replace(/(invert)|(brightness)|(blur)|(contrast)|(grayscale)|(sepia)|(threshold)|(gamma)?\(/g, '').replace(')', '')
+function getNumber(str) {
+  str = str
+    .replace(
+      /(invert)|(brightness)|(blur)|(contrast)|(grayscale)|(sepia)|(threshold)|(gamma)?\(/g,
+      ''
+    )
+    .replace(')', '')
   if (str.indexOf('%') !== -1) {
     return Number(str.replace('%', '')) / 100
   } else if (str.indexOf('px') !== -1) {

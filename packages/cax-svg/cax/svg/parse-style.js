@@ -1,8 +1,8 @@
 //https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute
 
 const map = {
-  'stroke': 'strokeStyle',
-  'fill': 'fillStyle',
+  stroke: 'strokeStyle',
+  fill: 'fillStyle',
   'stroke-width': 'lineWidth'
 }
 
@@ -10,13 +10,13 @@ const attrs = ['stroke', 'fill', 'stroke-width']
 export function parseStyle(props) {
   let style = {}
   const cssText = props.style
-  if(props['stroke-width']){
+  if (props['stroke-width']) {
     style.lineWidth = props['stroke-width']
   }
-  if(props['stroke']){
+  if (props['stroke']) {
     style.strokeStyle = props['stroke']
   }
-  if(props['fill']){
+  if (props['fill']) {
     style.fillStyle = props['fill']
   }
   if (!cssText) return style

@@ -1,4 +1,3 @@
-
 import Graphics from '../display/graphics.js'
 import Render from './render.js'
 import Event from '../base/event.js'
@@ -8,7 +7,7 @@ import Text from '../display/text.js'
 import Group from '../display/group'
 
 class WxHitRender extends Render {
-  constructor (ctx, component, canvasId) {
+  constructor(ctx, component, canvasId) {
     super()
 
     this.ctx = ctx
@@ -19,7 +18,7 @@ class WxHitRender extends Render {
     this.disableEvents = ['mouseover', 'mouseout', 'mousemove', 'touchmove']
   }
 
-  clear () {
+  clear() {
     this.ctx.clearRect(0, 0, 2, 2)
   }
 
@@ -36,35 +35,34 @@ class WxHitRender extends Render {
   //   }
   // }
 
-
-  hitAABB (o, evt) {
+  hitAABB(o, evt) {
     let list = o.children.slice(0),
       l = list.length
     for (let i = l - 1; i >= 0; i--) {
       let child = list[i]
       // if (!this.isbindingEvent(child)) continue;
-			let path = this._hitAABB(child, evt, [], true)
+      let path = this._hitAABB(child, evt, [], true)
 
       if (path.length > 0) {
-				let target = path[path.length - 1]
-				this._dispatchEvent(target, evt)
-				return target
-			}
+        let target = path[path.length - 1]
+        this._dispatchEvent(target, evt)
+        return target
+      }
     }
   }
 
-  _hitAABB (o, evt, path, rootCall) {
+  _hitAABB(o, evt, path, rootCall) {
     if (o.ignoreHit || !o.isVisible()) {
       return
-		}
+    }
 
-		o.initAABB()
-		if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
-			// this._bubbleEvent(o, type, evt);
+    o.initAABB()
+    if (o.AABB && this.checkPointInAABB(evt.stageX, evt.stageY, o.AABB)) {
+      // this._bubbleEvent(o, type, evt);
       o.___$push = true
-			path.push(o)
-			//return o
-		}
+      path.push(o)
+      //return o
+    }
 
     if (o instanceof Group) {
       let list = o.children.slice(0),
@@ -72,7 +70,7 @@ class WxHitRender extends Render {
       for (let i = l - 1; i >= 0; i--) {
         let child = list[i]
         this._hitAABB(child, evt, path)
-        if(child.___$push){
+        if (child.___$push) {
           delete child.___$push
           //同级只找一个就好了，所有 break
           break
@@ -81,12 +79,12 @@ class WxHitRender extends Render {
       }
     }
 
-		if(rootCall){
-			return path
-		}
+    if (rootCall) {
+      return path
+    }
   }
 
-  checkPointInAABB (x, y, AABB) {
+  checkPointInAABB(x, y, AABB) {
     let minX = AABB[0]
     if (x < minX) return false
     let minY = AABB[1]
@@ -98,12 +96,22 @@ class WxHitRender extends Render {
     return true
   }
 
-  hit (list, evt, cb, current) {
+  hit(list, evt, cb, current) {
     const ctx = this.ctx
     const obj = list[current]
     const mtx = obj._hitMatrix.initialize(1, 0, 0, 1, 0, 0)
     ctx.save()
-    mtx.appendTransform(obj.x - evt.stageX, obj.y - evt.stageY, obj.scaleX, obj.scaleY, obj.rotation, obj.skewX, obj.skewY, obj.originX, obj.originY)
+    mtx.appendTransform(
+      obj.x - evt.stageX,
+      obj.y - evt.stageY,
+      obj.scaleX,
+      obj.scaleY,
+      obj.rotation,
+      obj.skewX,
+      obj.skewY,
+      obj.originX,
+      obj.originY
+    )
     ctx.globalCompositeOperation = obj.complexCompositeOperation
     ctx.globalAlpha = obj.complexAlpha
     ctx.setTransform(mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx, mtx.ty)
@@ -112,38 +120,63 @@ class WxHitRender extends Render {
     } else if (obj instanceof Sprite && obj.rect) {
       obj.updateFrame()
       const rect = obj.rect
-      ctx.drawImage(obj.img, rect[0], rect[1], rect[2], rect[3], 0, 0, rect[2], rect[3])
+      ctx.drawImage(
+        obj.img,
+        rect[0],
+        rect[1],
+        rect[2],
+        rect[3],
+        0,
+        0,
+        rect[2],
+        rect[3]
+      )
     } else if (obj instanceof Bitmap && obj.rect) {
       const bRect = obj.rect
-      ctx.drawImage(obj.img, bRect[0], bRect[1], bRect[2], bRect[3], 0, 0, bRect[2], bRect[3])
+      ctx.drawImage(
+        obj.img,
+        bRect[0],
+        bRect[1],
+        bRect[2],
+        bRect[3],
+        0,
+        0,
+        bRect[2],
+        bRect[3]
+      )
     } else if (obj instanceof Text) {
       ctx.font = obj.font
       ctx.fillStyle = obj.color
-      ctx.textAlign= obj.textAlign
+      ctx.textAlign = obj.textAlign
       ctx.fillText(obj.text, 0, 0)
     }
     ctx.restore()
     current--
     ctx.draw(false, () => {
-      wx.canvasGetImageData({
-        canvasId: this._hitCanvasId,
-        x: 0,
-        y: 0,
-        width: 1,
-        height: 1,
-        success: (res) => {
-          if (res.data[3] > 1) {
-            this._dispatchEvent(obj, evt)
-            cb(obj)
-          } else {
-            if (current > -1) { this.hit(list, evt, cb, current) }
+      wx.canvasGetImageData(
+        {
+          canvasId: this._hitCanvasId,
+          x: 0,
+          y: 0,
+          width: 1,
+          height: 1,
+          success: res => {
+            if (res.data[3] > 1) {
+              this._dispatchEvent(obj, evt)
+              cb(obj)
+            } else {
+              if (current > -1) {
+                this.hit(list, evt, cb, current)
+              }
+            }
           }
-        }
-      }, this._component)
+        },
+        this._component
+      )
     })
   }
 
-  _dispatchEvent (obj, evt) {
+  _dispatchEvent(obj, evt) {
     if (this.disableEvents.indexOf(evt.type) !== -1) return
     let mockEvt = new Event()
     mockEvt.stageX = evt.stageX
