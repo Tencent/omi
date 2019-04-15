@@ -15,6 +15,10 @@ class SVG extends Group {
     super()
     this.vdom = vdom
 
+    if (Object.prototype.toString.call(this.vdom) === '[object Array]') {
+      this.vdom = this.vdom.filter(item => typeof item !== 'string')[0]
+    }
+
     const root = new Group()
     const options = Object.assign(
       {
@@ -24,7 +28,7 @@ class SVG extends Group {
       vdom.props
     )
 
-    this.vdom.children.forEach(vdomChild => {
+    this.vdom.children && this.vdom.children.forEach(vdomChild => {
       this.generate(root, vdomChild)
     })
 

@@ -33,6 +33,47 @@ renderSVG(html`
 <rect x="20" y="20" width="40" height="40" style="fill: #3333cc" transform="rotate(15)"></rect>
     </svg>`, 'svg-c', this)
     
+    renderSVG(html` <svg width="300" height="220">
+    <rect x="20" y="20" width="40" height="40"
+      style="stroke: #3333cc; fill:none;"
+        />
+<rect x="20" y="20" width="40" height="40"
+      style="fill: #3333cc"
+      transform="rotate(15, 40, 40)"
+        /></svg>`, 'svg-d', this)
+    
+
+    renderSVG(html` <svg width="300" height="220">
+     <rect x="10" y="10" width="20" height="30"
+      style="stroke: #3333cc; fill:none;" />
+
+<rect x="10" y="10" width="20" height="30"
+      style="stroke: #000000; fill:none;"
+      transform="scale(2)" />
+    </svg>`, 'svg-e', this)
+
+    
+renderSVG(html` <svg width="300" height="220">
+<rect x="10" y="10" width="20" height="30"
+      style="stroke: #3333cc; fill:none;" />
+
+<rect x="10" y="10" width="20" height="30"
+      style="stroke: #000000; fill:none;"
+      transform="scale(2,3)" />
+</svg>`, 'svg-f', this)
+
+
+
+renderSVG(html` <svg width="300" height="220">
+
+<path d="M20,20 l20,20 l0,20 l-20,20 Z"
+      style="stroke: #3333cc; fill:none;" />
+
+<path d="M20,20 l20,20 l0,20 l-20,20 Z"
+      style="stroke: #000000; fill:none;"
+      transform="translate(100, 0) scale(-1, 1) " />
+</svg>`, 'svg-g', this)
+   
 
   },
 

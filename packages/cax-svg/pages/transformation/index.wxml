@@ -3,4 +3,8 @@
   <cax-element id="svg-a"></cax-element>
   <cax-element id="svg-b"></cax-element>
   <cax-element id="svg-c"></cax-element>
+  <cax-element id="svg-d"></cax-element>
+  <cax-element id="svg-e"></cax-element>
+  <cax-element id="svg-f"></cax-element>
+  <cax-element id="svg-g"></cax-element>
 </view>

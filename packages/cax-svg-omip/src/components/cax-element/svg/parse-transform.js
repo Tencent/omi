@@ -47,16 +47,16 @@ export function transform(props, target, x, y) {
   const t = {}
   Matrix2D.decompose(mts.a, mts.b, mts.c, mts.d, mts.e, mts.f, t)
 
-  target.rotation = (t.rotation * 180) / Math.PI
+  target.rotation = t.rotation * 57.29577951308232
 
   target.x = parseFloat(t.x) + target.originX
   target.y = parseFloat(t.y) + target.originY
 
   target.scaleY = t.scaleY
   target.scaleX = t.scaleX
-  target.skewX = t.skewX
-  target.skewY = t.skewY
-
+  target.skewX = t.skewX * 57.29577951308232
+  target.skewY = t.skewY * 57.29577951308232
+ 
   if (props.width && props.height) {
     target.width = parseFloat(props.width)
     target.height = parseFloat(props.height)
