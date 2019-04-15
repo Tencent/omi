@@ -54,4 +54,11 @@ export function transform(props, target) {
     target.width = parseFloat(props.width)
     target.height = parseFloat(props.height)
   }
+
+  if (props['bounds-x']) {
+    target.boundsX = parseFloat(props['bounds-x'])
+  }
+  if (props['bounds-y']) {
+    target.boundsY = parseFloat(props['bounds-y'])
+  }
 }

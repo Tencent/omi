@@ -21,6 +21,9 @@ class DisplayObject extends EventDispatcher {
     this.absClipRuleNonzero = true
     this.cacheUpdating = false
 
+    this.boundsX = 0
+    this.boundsY = 0
+
     try {
       Object.defineProperties(this, {
         stage: { get: this._getStage },
@@ -35,6 +38,7 @@ class DisplayObject extends EventDispatcher {
       })
     } catch (e) {}
 
+    //不推荐，使用 boundsX、boundsX、width、height代替
     this.hitBox = null
   }
 
@@ -65,6 +69,11 @@ class DisplayObject extends EventDispatcher {
       height = this.hitBox[3]
       tx = this.hitBox[0] * mtx.a + this.hitBox[1] * mtx.c + tx
       ty = this.hitBox[0] * mtx.b + this.hitBox[1] * mtx.d + ty
+    }
+
+    if (this.boundsX || this.boundsY) {
+      tx = this.boundsX * mtx.a + this.boundsY * mtx.c + tx
+      ty = this.boundsX * mtx.b + this.boundsY * mtx.d + ty
     }
 
     let xA = width * mtx.a,
