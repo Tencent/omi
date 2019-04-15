@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "Next generation web framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
