@@ -42,7 +42,7 @@ export function transform(props, target) {
     target.rotation = (t.rotation * 180) / Math.PI
 
     target.x += parseFloat(t.x)
-    target.y += t.y
+    target.y += parseFloat(t.y)
 
     target.scaleY = t.scaleY
     target.scaleX = t.scaleX

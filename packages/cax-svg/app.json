@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/transformation/index",
     "pages/animate/index",
     "pages/batman/index",
     "pages/path/index",
