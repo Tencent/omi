@@ -28,31 +28,34 @@ export function transform(props, target, x, y) {
   }
   if (props.transform) {
     const obj = parse(props.transform)
+    if (obj.data.matrix) {
+      args.push({ a: obj.data.matrix[0], b: obj.data.matrix[1], c: obj.data.matrix[2], d: obj.data.matrix[3], e: obj.data.matrix[4], f: obj.data.matrix[5] })
+    } else {
+      obj.order.forEach(prop => {
+        if (prop === 'rotate') {
+          obj.data[prop][0] *= Math.PI / 180
+          //svg rotate 2、3个参数不影响 position，origin会影响position，所以注释
+          //if (obj.data[prop].length > 1) {
+          // target.originX = obj.data[prop][1] * -1
+          // target.originY = obj.data[prop][2] * -1
+          //}
+        }
 
-    obj.order.forEach(prop => {
-      if (prop === 'rotate') {
-        obj.data[prop][0] *= Math.PI / 180
-        //svg rotate 2、3个参数不影响 position，origin会影响position，所以注释
-        //if (obj.data[prop].length > 1) {
-        // target.originX = obj.data[prop][1] * -1
-        // target.originY = obj.data[prop][2] * -1
-        //}
-      }
-
-      if (prop === 'skewX') {
-        args.push(mt['skew'].apply(null, [obj.data[prop][0] * Math.PI / -180, 0]))
-      } else if (prop === 'skewY') {
-        args.push(mt['skew'].apply(null, [0, obj.data[prop][0] * Math.PI / 180]))
-      } else if (prop === 'skew') {
-        args.push(mt['skew'].apply(null, [obj.data[prop][0] * Math.PI / -180, obj.data[prop][1] * Math.PI / 180]))
-      } else {
-        args.push(mt[prop].apply(null, obj.data[prop]))
-      }
+        if (prop === 'skewX') {
+          args.push(mt['skew'].apply(null, [obj.data[prop][0] * Math.PI / -180, 0]))
+        } else if (prop === 'skewY') {
+          args.push(mt['skew'].apply(null, [0, obj.data[prop][0] * Math.PI / 180]))
+        } else if (prop === 'skew') {
+          args.push(mt['skew'].apply(null, [obj.data[prop][0] * Math.PI / -180, obj.data[prop][1] * Math.PI / 180]))
+        } else {
+          args.push(mt[prop].apply(null, obj.data[prop]))
+        }
 
 
-    })
+      })
+    }
   }
-
+  
   const mts = args.length > 0 ? mt.compose.apply(null, args) : { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 }
 
   const t = {}

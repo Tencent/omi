@@ -102,6 +102,50 @@ renderSVG(html` <svg width="300" height="250">
 <rect x="150" y="10" width="20" height="30" style="stroke: #000000; fill:none;" transform="skewY(10)"></rect>
 </svg>`, 'svg-i', this)
 
+
+
+renderSVG(html` <svg width="300" height="250">
+
+<rect x="20" y="20" width="50" height="50"
+      style="fill: #cc3333"/>
+
+<rect x="20" y="20" width="50" height="50"
+      style="fill: #3333cc"
+      transform="matrix(1,0,0,1,100,20)"
+        />    
+</svg>`, 'svg-j', this)
+
+
+
+
+renderSVG(html` <svg width="300" height="250">
+
+<rect x="50" y="10" width="20" height="30"
+      style="stroke: #3333cc; fill:none;"
+        />
+<rect x="50" y="10" width="20" height="30"
+      style="stroke: #000000; fill:none;"
+      transform="translate(50,0) rotate(30)" />    
+</svg>`, 'svg-k', this)
+
+
+
+renderSVG(html` <svg width="300" height="250">
+
+<rect x="50" y="10" width="20" height="30"
+      style="stroke: #000000; stroke-width: 2px; fill:none;"
+        />
+<rect x="50" y="10" width="20" height="30"
+      style="stroke: #3333cc; stroke-width: 2px;  fill:none;"
+      transform="translate(100,0) rotate(45)" />
+<rect x="50" y="10" width="20" height="30"
+      style="stroke: #cc3333; stroke-width: 2px;  fill:none;"
+      transform="rotate(45) translate(100,0)" />    
+</svg>`, 'svg-l', this)
+
+
+
+
   },
 
   changePath: function (){
