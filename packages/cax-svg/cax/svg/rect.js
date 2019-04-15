@@ -19,8 +19,11 @@ export function rect(props) {
     Number(options.height),
     parseStyle(props)
   )
-  rect.x = Number(options.x)
-  rect.y = Number(options.y)
+  //移入transform里统一计算
+  //rect.x = Number(options.x)
+  //rect.y = Number(options.y)
+ 
+ 
 
   transform(props, rect)
   parseEvent(props, rect)

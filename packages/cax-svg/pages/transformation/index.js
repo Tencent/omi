@@ -26,6 +26,14 @@ renderSVG(html`
 
     // svg.stage.update()
 
+    renderSVG(html`
+    <svg width="300" height="220">
+    <rect x="20" y="20" width="40" height="40" style="stroke: #3333cc; fill:none;"></rect>
+
+<rect x="20" y="20" width="40" height="40" style="fill: #3333cc" transform="rotate(15)"></rect>
+    </svg>`, 'svg-c', this)
+    
+
   },
 
   changePath: function (){

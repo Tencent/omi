@@ -6,8 +6,9 @@ function parse(a) {
   const data = {}
   const order = []
   for (let i in (a = a.match(/(\w+\((\-?\d+\.?\d*e?\-?\d*,?)+\))+/g))) {
-    const c = a[i].match(/[\w\.\-]+/g)
+    let c = a[i].match(/[\w\.\-]+/g)
     const key = c.shift()
+    c = c.map(item => Number(item))
     order.push(key)
     data[key] = c
   }
@@ -19,36 +20,40 @@ function parse(a) {
 
 export function transform(props, target) {
   if (!props) return
-
+  const args = []
+  args.push(mt['translate'].apply(null, [Number(props.x), Number(props.y)]))
   if (props.transform) {
     const obj = parse(props.transform)
-    const args = []
+
     obj.order.forEach(prop => {
       if (prop === 'rotate') {
         obj.data[prop][0] *= Math.PI / 180
-        if (obj.data[prop].length > 1) {
-          target.originX = obj.data[prop][1] * -1
-          target.originY = obj.data[prop][2] * -1
-        }
+        //svg rotate 2、3个参数不影响 position，origin会影响position，所以注释
+        //if (obj.data[prop].length > 1) {
+        // target.originX = obj.data[prop][1] * -1
+        // target.originY = obj.data[prop][2] * -1
+        //}
       }
       args.push(mt[prop].apply(null, obj.data[prop]))
     })
-
-    const mts = mt.compose.apply(null, args)
-
-    const t = {}
-    Matrix2D.decompose(mts.a, mts.b, mts.c, mts.d, mts.e, mts.f, t)
-
-    target.rotation = (t.rotation * 180) / Math.PI
-
-    target.x += parseFloat(t.x)
-    target.y += parseFloat(t.y)
-
-    target.scaleY = t.scaleY
-    target.scaleX = t.scaleX
-    target.skewX = t.skewX
-    target.skewY = t.skewY
   }
+  target.originX = Number(props.x) * -1
+  target.originY = Number(props.y) * -1
+  const mts = mt.compose.apply(null, args)
+
+  const t = {}
+  Matrix2D.decompose(mts.a, mts.b, mts.c, mts.d, mts.e, mts.f, t)
+
+  target.rotation = (t.rotation * 180) / Math.PI
+
+  target.x = parseFloat(t.x) + target.originX
+  target.y = parseFloat(t.y) + target.originY
+
+  target.scaleY = t.scaleY
+  target.scaleX = t.scaleX
+  target.skewX = t.skewX
+  target.skewY = t.skewY
+  
 
   if (props.width && props.height) {
     target.width = parseFloat(props.width)
