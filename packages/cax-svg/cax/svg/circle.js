@@ -3,7 +3,7 @@ import { parseStyle } from './parse-style'
 import { transform } from './parse-transform'
 import { parseEvent } from './parse-event'
 
-export function circle(props) {
+export function circle(props, scope) {
   const options = Object.assign(
     {
       r: 0,
@@ -18,6 +18,6 @@ export function circle(props) {
   // circle.y = Number(options.cy)
 
   transform(props, circle, Number(options.cx), Number(options.cy))
-  parseEvent(props, circle)
+  parseEvent(props, circle, scope)
   return circle
 }
