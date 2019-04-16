@@ -9,7 +9,7 @@ function renderSVG(vdom, canvas, scope) {
     canvas,
     scope
   )
-  const svg = new SVG(vdom)
+  const svg = new SVG(vdom, scope)
   stage.add(svg)
   stage.update()
   triggerAddedStage(svg)

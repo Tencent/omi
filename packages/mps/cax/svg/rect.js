@@ -3,7 +3,7 @@ import { parseStyle } from './parse-style'
 import { transform } from './parse-transform'
 import { parseEvent } from './parse-event'
 
-export function rect(props) {
+export function rect(props, scope) {
   const options = Object.assign(
     {
       width: 0,
@@ -26,7 +26,7 @@ export function rect(props) {
  
 
   transform(props, rect, Number(options.x), Number(options.y))
-  parseEvent(props, rect)
+  parseEvent(props, rect, scope)
 
   return rect
 }

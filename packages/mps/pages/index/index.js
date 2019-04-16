@@ -18,9 +18,27 @@ Page({
       url: '../logs/logs'
     })
   },
+  tapHandler: function(){
+    this.pause = !this.pause
+  },
   onLoad: function () {
 
-    renderSVG(testSVG, 'svg-a', this)
+    const svg = renderSVG(testSVG, 'svg-a', this)
+    const rect = svg.children[0]
+    rect.originX = rect.width/2
+    rect.originY = rect.height/2
+    rect.x = svg.stage.width/2
+    rect.y = svg.stage.height/2
+    this.pause = false
+    this.interval = setInterval(()=>{
+      if(!this.pause){
+        rect.rotation++
+        svg.stage.update()
+      }
+    },15)
+
+    this.rect = rect
+    
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

@@ -9,12 +9,13 @@ import { path } from './path'
 import { pasition } from './pasition'
 import { group } from './group'
 import { animate } from './animate'
+import { parseEvent } from './parse-event'
 
 class SVG extends Group {
-  constructor(vdom) {
+  constructor(vdom, scope) {
     super()
     this.vdom = vdom
-
+    this.scope = scope
     if (Object.prototype.toString.call(this.vdom) === '[object Array]') {
       this.vdom = this.vdom.filter(item => typeof item !== 'string')[0]
     }
@@ -29,43 +30,43 @@ class SVG extends Group {
     )
 
     this.vdom.children && this.vdom.children.forEach(vdomChild => {
-      this.generate(root, vdomChild)
+      this.generate(root, vdomChild, scope)
     })
 
     root.x = Number(options.x)
     root.y = Number(options.y)
-
+    parseEvent(vdom.props, root, scope)
     this.add(root)
   }
 
-  generate(parent, vdomChild) {
+  generate(parent, vdomChild, scope) {
     switch (vdomChild.type) {
       case 'rect':
-        parent.add(rect(vdomChild.props))
+        parent.add(rect(vdomChild.props, scope))
         break
 
       case 'circle':
-        parent.add(circle(vdomChild.props))
+        parent.add(circle(vdomChild.props, scope))
         break
 
       case 'ellipse':
-        parent.add(ellipse(vdomChild.props))
+        parent.add(ellipse(vdomChild.props, scope))
         break
 
       case 'line':
-        parent.add(line(vdomChild.props))
+        parent.add(line(vdomChild.props, scope))
         break
       case 'polyline':
-        parent.add(polyline(vdomChild.props))
+        parent.add(polyline(vdomChild.props, scope))
 
         break
 
       case 'polygon':
-        parent.add(polygon(vdomChild.props))
+        parent.add(polygon(vdomChild.props, scope))
         break
 
       case 'path':
-        const obj = path(vdomChild.props)
+        const obj = path(vdomChild.props, scope)
         parent.add(obj)
         if (
         vdomChild.children &&
@@ -77,14 +78,14 @@ class SVG extends Group {
         break
 
       case 'pasition':
-        parent.add(pasition(vdomChild.props))
+        parent.add(pasition(vdomChild.props, scope))
         break
 
       case 'g':
-        const p = group(vdomChild.props)
+        const p = group(vdomChild.props, scope)
         parent.add(p)
         vdomChild.children.forEach(child => {
-          this.generate(p, child)
+          this.generate(p, child, scope)
         })
         break
     }
