@@ -5,14 +5,13 @@ todo:
 * 自动轮播支持 http://tavmjong.free.fr/blog/wp-content/uploads/BATMAN/batman_logos.svg （间隔时间支持）
 * debug bounds box
 * pasition easing function
-* Transformation + animejs
 
+* Transformation + tojs
 * Transformation 
 * boundsX 和 boundsY 
 * text
 * image
 * SVG Viewport and View Box
-* animation(using animejs)
 * event handler
 * jsx support(extend omip)
 
