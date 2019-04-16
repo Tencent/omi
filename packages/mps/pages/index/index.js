@@ -1,3 +1,6 @@
+import testSVG from '../../svg/test'
+import { renderSVG } from '../../cax/svg'
+
 //index.js
 //获取应用实例
 const app = getApp()
@@ -16,6 +19,8 @@ Page({
     })
   },
   onLoad: function () {
+
+    renderSVG(testSVG, 'svg-a', this)
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

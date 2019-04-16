@@ -1,7 +1,7 @@
 <view class="container">
   <view class="userinfo">
     <block>
-      <block wx:if="{{!hasUserInfo && canIUse}}">
+      <block wx:if="{{ !hasUserInfo && canIUse }}">
         <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">
           获取头像昵称
         </button>
@@ -11,13 +11,16 @@
           <image
             bindtap="bindViewTap"
             class="userinfo-avatar"
-            src="{{userInfo.avatarUrl}}"
+            src="{{ userInfo.avatarUrl }}"
             mode="cover"
           ></image
-          ><text class="userinfo-nickname">{{userInfo.nickName}}</text>
+          ><text class="userinfo-nickname">{{ userInfo.nickName }}</text>
         </block>
       </block>
     </block>
   </view>
-  <view class="usermotto"><text class="user-motto">{{motto}}</text> </view>
+  <view class="usermotto"
+    ><text class="user-motto">{{ motto }}</text>
+  </view>
+  <cax-element id="svg-a"></cax-element>
 </view>

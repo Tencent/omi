@@ -19,4 +19,5 @@
 	<view class="usermotto">
 		<text class="user-motto">{motto}</text>
 	</view>
+	<cax-element id='svg-a'></cax-element>
 </view>

@@ -16,16 +16,6 @@ class WeElement {
   }
 }`}
 
-// var code = require("babel-core").transform("<div dd='1'>aaa</div>",{
-//   "plugins": [
-//     ["transform-react-jsx", {
-//       "pragma": "global.__h"
-//     }]
-//   ]
-// }).code;
-
-// console.log(code)
-
 var baseOptions = {
   isRoot: false,
   isApp: false,
@@ -81,22 +71,22 @@ function compile(file, watch) {
 
   var dir = path.dirname(file.path)
   var name = path.basename(file.path, '.jsx')
-  console.log('[编译文件]'.green ,  file.path)
+  console.log('[编译文件]'.green, file.path)
   var template = jsx2wxml.default({
     ...baseOptions,
     code: buildComponent(file.contents)
-  }).template.replace(/<block>/,'').replace(/([\s\S]*)<\/block>/,'$1')
-  console.log('[编译完成]'.green ,  file.path)
+  }).template.replace(/<block>/, '').replace(/([\s\S]*)<\/block>/, '$1')
+  console.log('[编译完成]'.green, file.path)
 
   const res = prettier.format(template, { parser: "angular" })
-  console.log('[代码美化]'.green , name + '.wxml' )
+  console.log('[代码美化]'.green, name + '.wxml')
 
   fs.writeFileSync(dir + '/' + name + '.wxml', res)
-  console.log('[写入文件]' .green , name + '.wxml')
+  console.log('[写入文件]'.green, name + '.wxml')
 
-  if(watch){
-    console.log('[编译完成]'.green , name + '.wxml' )
-    console.log('[监听更改]'.green, '...' )
+  if (watch) {
+    console.log('[编译完成]'.green, name + '.wxml')
+    console.log('[监听更改]'.green, '...')
   }
 }
 
@@ -106,8 +96,8 @@ function compileLess(file, watch) {
   console.log('[编译文件]'.green, file.path)
 
   less.render(file.contents, {
-      paths: ['.', './common-less'],
-    }, function (e, output) {
+    paths: ['.', './common-less'],
+  }, function (e, output) {
     console.log('[编译完成]'.green, file.path)
 
     fs.writeFileSync(dir + '/' + name + '.wxss', output.css)
@@ -136,9 +126,60 @@ gulp.task('compileLess', () => {
 
 })
 
-gulp.task('default', ['compile', 'compileLess', 'watch', 'watchLess', 'watchCommonLess'])
-console.log('[开始编译]'.green ,'...')
-gulp.start('default',function(){
-  console.log('[编译完成]'.green , '恭喜你全部文件编译完成。' )
-  console.log('[监听更改]'.green, '...' )
+
+gulp.task('compileSVG', () => {
+  return gulp
+    .src(['./**/*.svg', '!./node_modules/**', '!./_scripts/**'])
+    .pipe(
+      tap(file => {
+        compileSVG({
+          path: file.path,
+          contents: file.contents.toString()
+        })
+      })
+    )
+
+})
+
+gulp.task('watchSVG', () => {
+  watch(['./**/*.svg', '!./node_modules/**', '!./_scripts/**'], { events: ['add', 'change'] }, (evt, type) => {
+    var contents = fs.readFileSync(evt.path)
+    compileSVG({
+      path: evt.path,
+      contents: contents.toString()
+    }, true)
+  })
+})
+
+function compileSVG(file, watch) {
+
+  var dir = path.dirname(file.path)
+  var name = path.basename(file.path, '.svg')
+  console.log('[编译文件]'.green, file.path)
+
+  var code = require("babel-core").transform(file.contents, {
+    "plugins": [
+      ["transform-react-jsx", {
+        "pragma": "h"
+      }]
+    ]
+  }).code;
+
+  console.log('[编译完成]'.green, file.path)
+
+  fs.writeFileSync(dir + '/' + name + '.js', prettier.format(`const h = (type, props, ...children)=>({ type, props, children });export default ${code}`, { parser: "babel" }))
+  console.log('[写入文件]'.green, name + '.js')
+
+  if (watch) {
+    console.log('[编译完成]'.green, name + '.js')
+    console.log('[监听更改]'.green, '...')
+  }
+
+}
+
+gulp.task('default', ['compile', 'compileLess', 'compileSVG', 'watch', 'watchLess', 'watchCommonLess', 'watchSVG'])
+console.log('[开始编译]'.green, '...')
+gulp.start('default', function () {
+  console.log('[编译完成]'.green, '恭喜你全部文件编译完成。')
+  console.log('[监听更改]'.green, '...')
 })
