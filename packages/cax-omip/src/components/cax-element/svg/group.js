@@ -2,7 +2,7 @@ import Group from '../render/display/group'
 import { transform } from './parse-transform'
 import { parseEvent } from './parse-event'
 
-export function group(props) {
+export function group(props, scope) {
   const options = Object.assign(
     {
       width: 0,
@@ -18,7 +18,7 @@ export function group(props) {
   // obj.y = Number(options.y)
 
   transform(props, obj, Number(options.x), Number(options.y))
-  parseEvent(props, obj)
+  parseEvent(props, obj, scope)
 
   return obj
 }

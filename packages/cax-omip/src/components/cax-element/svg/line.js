@@ -3,7 +3,7 @@ import { parseStyle } from './parse-style'
 import { transform } from './parse-transform'
 import { parseEvent } from './parse-event'
 
-export function line(props) {
+export function line(props, scope) {
   const obj = new Line(
     Number(props.x1),
     Number(props.y1),
@@ -12,6 +12,6 @@ export function line(props) {
     parseStyle(props)
   )
   transform(props, obj)
-  parseEvent(props, obj)
+  parseEvent(props, obj, scope)
   return obj
 }

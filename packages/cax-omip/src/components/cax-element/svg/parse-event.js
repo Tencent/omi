@@ -1,4 +1,4 @@
-export function parseEvent(props, obj) {
+export function parseEvent(props, obj, scope) {
   if (!props) return
 
   const tapHandler =
@@ -22,7 +22,11 @@ export function parseEvent(props, obj) {
     obj.on('touchend', evt => {
       if (_x !== null) {
         if (Math.abs(evt.stageX - _x) < 20 && Math.abs(evt.stageY - _y) < 20) {
-          tapHandler(evt)
+          if (typeof tapHandler === 'string') {
+            scope[tapHandler]()
+          } else {
+            tapHandler(evt)
+          }
           _x = null
           _y = null
         }

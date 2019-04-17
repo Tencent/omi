@@ -6,7 +6,7 @@ import pathTransition from '../pasition/index'
 import color from '../common/color'
 import { toSVGString } from '../common/util'
 
-export function pasition(props) {
+export function pasition(props, scope) {
   const lerp = color.lerp
   const obj = new Path(props.from, parseStyle(props))
   const fs = props['from-stroke']
@@ -22,7 +22,7 @@ export function pasition(props) {
   obj.pasitionTo = props.to
   obj.pasitionFrom = props.from
   transform(props, obj)
-  parseEvent(props, obj)
+  parseEvent(props, obj, scope)
 
   let stage,
     isFrom = true,

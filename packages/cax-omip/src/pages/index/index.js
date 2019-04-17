@@ -2,7 +2,7 @@
 import { WeElement, define } from 'omi'
 import './index.css'
 import '../../components/cax-element'
-import { renderSVG } from '../../components/cax-element/svg'
+import { renderSVG } from '../../components/cax-element/cax'
 
 //获取应用实例
 const app = getApp()

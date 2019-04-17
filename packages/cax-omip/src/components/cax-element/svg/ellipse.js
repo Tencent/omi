@@ -3,7 +3,7 @@ import { parseStyle } from './parse-style'
 import { transform } from './parse-transform'
 import { parseEvent } from './parse-event'
 
-export function ellipse(props) {
+export function ellipse(props, scope) {
   const options = Object.assign(
     {
       rx: 0,
@@ -22,6 +22,6 @@ export function ellipse(props) {
   // ellipse.x = Number(options.cx)
   // ellipse.y = Number(options.cy)
   transform(props, ellipse, Number(options.cx), Number(options.cy))
-  parseEvent(props, ellipse)
+  parseEvent(props, ellipse, scope)
   return ellipse
 }
