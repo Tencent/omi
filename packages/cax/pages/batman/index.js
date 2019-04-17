@@ -1,4 +1,4 @@
-import { html, renderSVG } from '../../cax/svg'
+import { html, renderSVG } from '../../cax/cax'
 
 Page({
   onLoad: function (options) {
