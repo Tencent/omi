@@ -32,6 +32,67 @@ SVG 是可缩放矢量图形(Scalable Vector Graphics)，基于可扩展标记�
 * [Cax 最新渲染引擎](https://github.com/Tencent/omi/tree/master/packages/cax/cax)
 * HTM，Hyperscript Tagged Markup，可能是 JSX 的替代品或者另一种选择，使用ES标准的模板语法实现的 Hyperscript 运行时/编译时生成，preact 作者(也是google工程师)打造
 
+这里稍微解释下 Hyperscript：
+
+比如 JSX 中的
+
+```jsx
+<div>
+  Hello {this.props.name}
+</div>
+```
+
+或者 js 中的 htm:
+
+```js
+html`<div>
+  Hello {this.props.name}
+</div>`
+```
+
+最后都会被编译成:
+
+```js
+h(
+  "div",
+  null,
+  "Hello ",
+  this.props.name
+);
+```
+
+嵌套的 div 也会变编译成 h 嵌套 h，比如
+
+```jsx
+<div>
+  <div>abc</div>
+</div>
+```
+
+编译后:
+
+```js
+h(
+  "div",
+  null,
+  h(
+    "div",
+    null,
+    "abc"
+  )
+)
+```
+
+而 h 函数的定义也是相当简洁:
+
+```js
+function h(type, props, ...children) {
+  return { type, props, children }
+}
+```
+
+通过 h 的执行可以 js 中拿到结构化的数据，也就是所谓的虚拟 dom。需要注意的是 htm 有轻微的运行时开销，jsx 没有。
+
 一句话总结：
 
 > 使用小程序内置的 Canvas 渲染器， 在 Cax 中实现 SVG 标准的子集，使用 JSX 或者 HTM 描述 SVG 结构行为表现
@@ -82,3 +143,44 @@ renderSVG(html`
 
 
 <img src="https://github.com/Tencent/omi/blob/master/assets/cax-omi.jpg" width="400" />
+
+在 omip 和 mps 当中使用 cax 渲染 svg，你可以不用使用 htm。比如在 omip 中实现上面两个例子：
+
+```jsx
+    renderSVG(
+<svg width="300" height="220">
+  <rect bindtap="tapHandler"
+  height="110" width="110"
+  style="stroke:#ff0000; fill: #ccccff"
+  transform="translate(100 50) rotate(45 50 50)">
+  </rect>
+</svg>, 'svg-a', this.scope)
+```
+
+
+```js
+renderSVG(
+<svg width="300" height="220">
+  <g transform="translate(50,10) scale(0.2 0.2)">
+   <circle fill="#07C160" cx="512" cy="512" r="512"/>
+   <polygon fill="white" points="159.97,807.8 338.71,532.42 509.9,829.62 519.41,829.62 678.85,536.47 864.03,807.8 739.83,194.38 729.2,194.38 517.73,581.23 293.54,194.38 283.33,194.38 "/>
+   <circle fill="white" cx="839.36" cy="242.47" r="50"/>
+  </g>
+</svg>, 'svg-a', this.scope)
+```
+
+在 mps 中，更加彻底，你可以单独创建 svg 文件，通过 import 导入。
+
+```js
+import testSVG from '../../svg/test'
+import { renderSVG } from '../../cax/cax'
+
+Page({
+  tapHandler: function(){
+    this.pause = !this.pause
+  },
+  onLoad: function () {
+    renderSVG(testSVG, 'svg-a', this)
+  }
+})
+```
