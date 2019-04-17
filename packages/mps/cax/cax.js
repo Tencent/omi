@@ -27,6 +27,7 @@ import { setRafInterval, clearRafInterval } from './common/raf-interval'
 
 import html from './svg/html'
 import SVG from './svg/index'
+import { renderSVG } from './svg/render'
 
 To.easing = {
   linear: TWEEN.Easing.Linear.None
@@ -43,6 +44,7 @@ const cax = {
   },
   SVG,
   html,
+  renderSVG,
   Stage,
   WeStage,
   Graphics,

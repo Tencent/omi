@@ -1,5 +1,5 @@
 import testSVG from '../../svg/test'
-import { renderSVG } from '../../cax/svg'
+import { renderSVG } from '../../cax/cax'
 
 //index.js
 //获取应用实例

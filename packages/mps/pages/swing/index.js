@@ -1,6 +1,5 @@
 import testSVG from '../../svg/test'
-import { renderSVG } from '../../cax/svg'
-import { To } from '../../cax/cax'
+import { renderSVG, To } from '../../cax/cax'
 
 Page({
   data: {

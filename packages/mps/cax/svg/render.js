@@ -1,9 +1,10 @@
-import cax, { html, SVG } from './cax'
+import SVG from './index'
+import Stage from '../render/display/stage'
 
-function renderSVG(vdom, canvas, scope) {
+export function renderSVG(vdom, canvas, scope) {
   const w = vdom.props ? vdom.props.width : 300
   const h = vdom.props ? vdom.props.height : 150
-  const stage = new cax.Stage(
+  const stage = new Stage(
     w,
     h,
     canvas,
@@ -24,5 +25,3 @@ function triggerAddedStage(svg) {
       triggerAddedStage(child)
     })
 }
-
-export { renderSVG, html }
