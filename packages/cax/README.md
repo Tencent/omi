@@ -1,6 +1,6 @@
 # 今天，小程序正式支持 SVG
 
-经过腾讯 Omi 团队的努力，今天你可以在小程序中使用 SVG!
+经过腾讯 Omi 团队的努力，今天你可以在小程序中使用 Cax 引擎高性能渲染 SVG！
 
 SVG 是可缩放矢量图形(Scalable Vector Graphics)，基于可扩展标记语言，用于描述二维矢量图形的一种图形格式。它由万维网联盟制定，是一个开放标准。SVG 的优势有很多:
 
@@ -29,7 +29,7 @@ SVG 是可缩放矢量图形(Scalable Vector Graphics)，基于可扩展标记�
 
 * JSX，史上最强 UI 表达式，支持书写 XML-Hyperscript 互转的 JS 语言
 * 小程序内置 Canvas 渲染器
-* [Cax 最新渲染引擎](https://github.com/Tencent/omi/tree/master/packages/cax-svg/cax)
+* [Cax 最新渲染引擎](https://github.com/Tencent/omi/tree/master/packages/cax/cax)
 * HTM，Hyperscript Tagged Markup，可能是 JSX 的替代品或者另一种选择，使用ES标准的模板语法实现的 Hyperscript 运行时/编译时生成，preact 作者(也是google工程师)打造
 
 一句话总结：
