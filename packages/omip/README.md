@@ -4,7 +4,7 @@
 | ------------------------------- | ----------------------------------- |
 | omip| 直接使用 Omi 开发小程序或 H5 SPA|
 | [mps](https://github.com/Tencent/omi/tree/master/packages/mps)| 【原生小程序】增强的小程序开发框架(JSX+Less 输出 WXML+WXSS) |
-| [cax](https://github.com/Tencent/omi/tree/master/packages/cax)| 小程序代码 Canvas 和 SVG 渲染引擎 |
+| [cax](https://github.com/Tencent/omi/tree/master/packages/cax)| 小程序 Canvas 和 SVG 渲染引擎 |
 | [mps-cloud](https://github.com/Tencent/omi/tree/master/packages/mps#mps-cloud)| 【原生小程序云开发】小程序插上 JSX、Less 和 Cloud 的翅膀 |
 | [omi-cloud](https://github.com/Tencent/omi/tree/master/packages/omi-cloud)| Omip + 小程序•云开发|
 | [omix](https://github.com/Tencent/omi/tree/master/packages/omix)| 【原生小程序】极小却精巧的小程序框架|
