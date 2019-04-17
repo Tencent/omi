@@ -227,11 +227,14 @@ renderSVG(html`
 
 再试试著名的 SVG 老虎:
 
-<img src="https://github.com/Tencent/omi/blob/master/assets/tiger.jpg" width="700" />
+<img src="https://github.com/Tencent/omi/blob/master/assets/tiger.jpg" width="600" />
 
 path 太长，就不贴代码了，可以[点击这里查看](https://github.com/Tencent/omi/blob/master/packages/cax/pages/tiger/index.js)
 
-就这么多？未完待续...
+就这么多？未完待续...，后续补充:
+
+* pasiton 扩展 svg 标签能力
+* tween + to + svg 打破声明式动画约束
 
 ## 其他
 
