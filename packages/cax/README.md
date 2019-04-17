@@ -233,8 +233,126 @@ path 太长，就不贴代码了，可以[点击这里查看](https://github.com
 
 就这么多？未完待续...，后续补充:
 
-* pasiton 扩展 svg 标签能力
-* tween + to + svg 打破声明式动画约束
+## pasiton 标签
+
+```js
+import { html, renderSVG } from '../../cax/cax'
+
+Page({
+  onLoad: function () {
+
+
+    const svg = renderSVG(html`
+<svg width="200" height="200">
+  <pasition duration="200" bindtap=${this.changePath} width="100" height="100" from="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88
+		c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242
+		C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879
+		s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"
+    to="M49.1 23.5H2.1C0.9 23.5 0 24.5 0 25.6s0.9 2.1 2.1 2.1h47c1.1 0 2.1-0.9 2.1-2.1C51.2 24.5 50.3 23.5 49.1 23.5zM49.1 7.8H2.1C0.9 7.8 0 8.8 0 9.9c0 1.1 0.9 2.1 2.1 2.1h47c1.1 0 2.1-0.9 2.1-2.1C51.2 8.8 50.3 7.8 49.1 7.8zM49.1 39.2H2.1C0.9 39.2 0 40.1 0 41.3s0.9 2.1 2.1 2.1h47c1.1 0 2.1-0.9 2.1-2.1S50.3 39.2 49.1 39.2z"
+    from-stroke="red" to-stroke="green" from-fill="blue" to-fill="red" stroke-width="2" />
+</svg>`, 'svg-c', this)
+
+    this.pasitionElement = svg.children[0]
+
+  },
+
+  changePath: function () {
+    this.pasitionElement.toggle()
+  }
+})
+```
+
+pasiton 提供了两个 path 和 颜色 相互切换的能力，最常见的场景比如 menu 按钮和 close 按钮点击后 path 的变形。
+
+## 线性运动
+
+这里举一个在 mps 中使用 SVG 的案例:
+
+```js
+import { renderSVG, To } from '../../cax/cax'
+
+Page({
+  tapHandler: function(){
+    this.pause = !this.pause
+  },
+
+  onLoad: function () {
+    const svg = renderSVG(html`
+    <svg width="300" height="300">
+     <rect bindtap="tapHandler" x="0" y="0" height="110" width="110"
+            style="stroke:#ff0000; fill: #0000ff" />
+    </svg>`
+    , 'svg-a', this)
+    const rect = svg.children[0]
+    rect.originX = rect.width/2
+    rect.originY = rect.height/2
+    rect.x = svg.stage.width/2
+    rect.y = svg.stage.height/2
+    this.pause = false
+    this.interval = setInterval(()=>{
+      if(!this.pause){
+        rect.rotation++
+        svg.stage.update()
+      }
+    },15)
+})
+```
+
+效果如下:
+
+![](https://github.com/Tencent/omi/blob/master/assets/rect.gif)
+
+## 组合运动
+
+```js
+import { renderSVG, To } from '../../cax/cax'
+
+Page({
+  onLoad: function () {
+
+    const svg = renderSVG(html`
+    <svg width="300" height="300">
+     <rect bindtap="tapHandler" x="0" y="0" height="110" width="110"
+            style="stroke:#ff0000; fill: #0000ff" />
+    </svg>`
+    ,'svg-a', this)
+    const rect = svg.children[0]
+    rect.originX = rect.width/2
+    rect.originY = rect.height
+    rect.x = svg.stage.width/2
+    rect.y = svg.stage.height/2
+
+    var sineInOut = To.easing.sinusoidalInOut
+    To.get(rect)
+        .to().scaleY(0.8, 450, sineInOut).skewX(20, 900, sineInOut)
+        .wait(900)
+        .cycle().start()
+    To.get(rect)
+        .wait(450)
+        .to().scaleY(1, 450, sineInOut)
+        .wait(900)
+        .cycle().start()
+    To.get(rect)
+        .wait(900)
+        .to().scaleY(0.8, 450, sineInOut).skewX(-20, 900, sineInOut)
+        .cycle()
+        .start()
+    To.get(rect)
+        .wait(1350)
+        .to().scaleY(1, 450, sineInOut)
+        .cycle()
+        .start()
+
+      setInterval(() => {
+          rect.stage.update()
+      }, 16)
+  }
+})
+```
+
+效果如下:
+
+![](https://github.com/Tencent/omi/blob/master/assets/swing.gif)
 
 ## 其他
 
