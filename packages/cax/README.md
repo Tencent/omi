@@ -122,6 +122,24 @@ Page({
 })
 ```
 
+其中的 svg-a 对应着 wxml 里 cax-element 的 id:
+
+```js
+<view class="container">
+  <cax-element id="svg-c"></cax-element>
+</view>
+```
+
+声明组件依赖
+
+```json
+{
+  "usingComponents": {
+    "cax-element":"../../cax/index"
+  }
+}
+```
+
 小程序种显示效果:
 
 <img src="https://github.com/Tencent/omi/blob/master/assets/cax-rect.jpg" width="400" />
@@ -212,3 +230,12 @@ renderSVG(html`
 <img src="https://github.com/Tencent/omi/blob/master/assets/tiger.jpg" width="700" />
 
 path 太长，就不贴代码了，可以[点击这里查看](https://github.com/Tencent/omi/blob/master/packages/cax/pages/tiger/index.js)
+
+就这么多？未完待续...
+
+## 其他
+
+* vscode 安装 lit-html 插件使 html`内容` 高亮
+* 还希望小程序 SVG 提供什么功能可以[开 issues](https://github.com/Tencent/omi/issues/new)告诉我们，评估后通过，我们去实现！
+* [Cax SVG Github](https://github.com/Tencent/omi/tree/master/packages/cax)
+* [参考文档](http://tutorials.jenkov.com/svg/index.html)
