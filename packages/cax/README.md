@@ -172,6 +172,7 @@ renderSVG(
 在 mps 中，更加彻底，你可以单独创建 svg 文件，通过 import 导入。
 
 ```js
+//注意这里不能写 test.svg，因为 mps 会把 test.svg 编译成 test.js 
 import testSVG from '../../svg/test'
 import { renderSVG } from '../../cax/cax'
 
@@ -184,3 +185,13 @@ Page({
   }
 })
 ```
+
+所以总结一下:
+
+* 你可以在 mps 中直接使用 import 的 SVG 文件的方式使用 SVG
+* 你可以直接在 omip 中使用 JSX 的使用使用 SVG
+* 你可以直接在原生小程序当中使用 htm 的方式使用 SVG
+
+这就完了？远没有，看 cax 在小程序中的这个例子：
+
+![](https://github.com/Tencent/omi/blob/master/assets/cax.gif)
