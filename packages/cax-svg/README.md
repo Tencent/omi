@@ -49,7 +49,7 @@ Page({
   <rect bindtap="tapHandler"
   height="110" width="110"
   style="stroke:#ff0000; fill: #ccccff"
-  transform="translate(30) rotate(45 50 50)">
+  transform="translate(100 50) rotate(45 50 50)">
   </rect>
 </svg>`, 'svg-a', this)
 
@@ -63,8 +63,22 @@ Page({
 
 小程序种显示效果:
 
-
+<img src="https://github.com/Tencent/omi/blob/master/assets/cax-rect.jpg" width="400" />
 
 在来一个复杂的例子，用 SVG 绘制 Omi 的 logo:
 
+```js
+renderSVG(html`
+<svg width="300" height="220">
+  <g transform="translate(50,10) scale(0.2 0.2)">
+   <circle fill="#07C160" cx="512" cy="512" r="512"/>
+   <polygon fill="white" points="159.97,807.8 338.71,532.42 509.9,829.62 519.41,829.62 678.85,536.47 864.03,807.8 739.83,194.38 729.2,194.38 517.73,581.23 293.54,194.38 283.33,194.38 "/>
+   <circle fill="white" cx="839.36" cy="242.47" r="50"/>
+  </g>
+</svg>`, 'svg-a', this)
+```
 
+小程序种显示效果:
+
+
+<img src="https://github.com/Tencent/omi/blob/master/assets/cax-omi.jpg" width="400" />
