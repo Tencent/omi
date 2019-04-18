@@ -100,7 +100,7 @@ function h(type, props, ...children) {
 直接看在小程序种使用案例:
 
 ```js
-import { html, renderSVG } from '../../cax/svg'
+import { html, renderSVG } from '../../cax/cax'
 
 Page({
   onLoad: function () {
@@ -265,6 +265,10 @@ Page({
 ```
 
 pasiton 提供了两个 path 和 颜色 相互切换的能力，最常见的场景比如 menu 按钮和 close 按钮点击后 path 的变形。
+
+举个例子，看颜色和 path 同时变化：
+
+![](https://github.com/Tencent/omi/blob/master/assets/rect.gif)
 
 ## 线性运动
 
