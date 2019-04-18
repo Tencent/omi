@@ -206,10 +206,37 @@ Page({
 })
 ```
 
+比如 test.svg ：
+
+```html
+<svg width="300" height="300">
+  <rect bindtap="tapHandler" x="0" y="0" height="110" width="110"
+         style="stroke:#ff0000; fill: #0000ff" />
+</svg>
+```
+
+会被 mps 编译成：
+
+```js
+const h = (type, props, ...children) => ({ type, props, children });
+export default h(
+  "svg",
+  { width: "300", height: "300" },
+  h("rect", {
+    bindtap: "tapHandler",
+    x: "0",
+    y: "0",
+    height: "110",
+    width: "110",
+    style: "stroke:#ff0000; fill: #0000ff"
+  })
+);
+```
+
 所以总结一下:
 
 * 你可以在 mps 中直接使用 import 的 SVG 文件的方式使用 SVG
-* 你可以直接在 omip 中使用 JSX 的使用使用 SVG
+* 你可以直接在 omip 中使用 JSX 的使用 SVG
 * 你可以直接在原生小程序当中使用 htm 的方式使用 SVG
 
 这就完了？远没有，看 cax 在小程序中的这个例子：
