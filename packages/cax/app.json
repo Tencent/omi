@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/path/index",
     "pages/tiger/index",
     "pages/transformation/index",
     "pages/animate/index",
     "pages/batman/index",
-    "pages/path/index",
+    
     "pages/index/index"
   ],
   "window": {
