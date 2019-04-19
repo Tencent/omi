@@ -144,7 +144,16 @@ Page({
 
 <img src="https://github.com/Tencent/omi/blob/master/assets/cax-rect.jpg" width="400" />
 
-在来一个复杂的例子，用 SVG 绘制 Omi 的 logo:
+
+可以使用 `width`，`height`，`bounds-x` 和 `bounds-y` 设置绑定事件的范围，比如:
+
+```jsx
+<path width="100" height="100" bounds-x="50" bounds-y="50" />
+```
+
+需要注意的是，元素的事件触发的包围盒受自身或者父节点的 transform 影响，所以不是绝对坐标的 rect 触发区域。
+
+再来一个复杂的例子，用 SVG 绘制 Omi 的 logo:
 
 ```js
 renderSVG(html`
