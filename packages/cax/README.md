@@ -97,7 +97,7 @@ function h(type, props, ...children) {
 
 > 使用小程序内置的 Canvas 渲染器， 在 Cax 中实现 SVG 标准的子集，使用 JSX 或者 HTM 描述 SVG 结构行为表现
 
-直接看在小程序种使用案例:
+直接看在小程序中使用案例:
 
 ```js
 import { html, renderSVG } from '../../cax/cax'
@@ -140,7 +140,7 @@ Page({
 }
 ```
 
-小程序种显示效果:
+小程序中显示效果:
 
 <img src="https://github.com/Tencent/omi/blob/master/assets/cax-rect.jpg" width="400" />
 
@@ -157,7 +157,7 @@ renderSVG(html`
 </svg>`, 'svg-a', this)
 ```
 
-小程序种显示效果:
+小程序中显示效果:
 
 
 <img src="https://github.com/Tencent/omi/blob/master/assets/cax-omi.jpg" width="400" />
