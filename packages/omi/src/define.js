@@ -70,7 +70,7 @@ export function define(name, ctor) {
   }
 }
 
-function getPath(obj) {
+export function getPath(obj) {
   if (Object.prototype.toString.call(obj) === '[object Array]') {
     const result = {}
     obj.forEach(item => {

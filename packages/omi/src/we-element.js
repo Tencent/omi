@@ -2,6 +2,7 @@ import { cssToDom, nProps, isArray, getUse } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
+import { getPath } from './define'
 
 let id = 0
 
@@ -26,8 +27,15 @@ export default class WeElement extends HTMLElement {
     }
     if (this.store) {
       this.store.instances.push(this)
-    }
-    this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use))
+		}
+
+		if(this.initUse){
+			const use = this.initUse()
+			this._updatePath = getPath(use)
+			this.use = getUse(this.store.data, use)
+		}else{
+			this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use))
+		}
     this.beforeInstall()
     !this._isInstalled && this.install()
     this.afterInstall()

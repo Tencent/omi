@@ -44,7 +44,8 @@ function extendStoreUpate(store) {
           updateAll ||
           this.updateAll ||
           (instance.constructor.updatePath &&
-            needUpdate(patch, instance.constructor.updatePath))
+            needUpdate(patch, instance.constructor.updatePath)) ||(
+							instance._updatePath &&  needUpdate(patch, instance._updatePath))
         ) {
           //update this.use
           instance.constructor.use && (instance.use = getUse(store.data, instance.constructor.use))

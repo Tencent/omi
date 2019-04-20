@@ -44,6 +44,54 @@ describe('store', () => {
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>1</div>')
   })
 
+	it('test initUse', () => {
+
+    class Ele extends WeElement {
+			initUse (){
+				return ['a']
+			}
+
+			installed(){
+				this.store.data.a = 2
+			}
+
+      render() {
+				return <div>{this.store.data.a}</div>
+      }
+    }
+
+    define('my-ele4', Ele)
+    sinon.spy(Ele.prototype, 'render')
+    render(<my-ele4 />, scratch, {
+			data:{a:1}
+		})
+
+    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
+
+	it('test static use', () => {
+
+    class Ele extends WeElement {
+			static use = ['a']
+
+			installed(){
+				this.store.data.a = 2
+			}
+
+      render() {
+				return <div>{this.store.data.a}</div>
+      }
+    }
+
+    define('my-ele5', Ele)
+    sinon.spy(Ele.prototype, 'render')
+    render(<my-ele5 />, scratch, {
+			data:{a:1}
+		})
+
+    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>2</div>')
+	})
+
 	it('should render store.data in sub element', () => {
 		class SubEle extends WeElement {
       render() {

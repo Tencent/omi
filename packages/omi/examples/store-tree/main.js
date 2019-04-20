@@ -25,9 +25,9 @@ function generateTree() {
 const tree = generateTree()
 
 define('tree-node', class extends WeElement {
-  static use = [
-    'tree'
-  ]
+  // static use = [
+  //   'tree'
+  // ]
 
   handleIncrementClick = () => {
     this.store.increment(this.props.id)
@@ -48,6 +48,12 @@ define('tree-node', class extends WeElement {
     this.store.removeChild(parentId, id)
     this.store.deleteNode(id)
   }
+
+	initUse(){
+		return [
+			`tree[${this.props.id}]`
+		]
+	}
 
   renderChild = childId => {
     const { id } = this.props
