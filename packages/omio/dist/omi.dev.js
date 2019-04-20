@@ -1,5 +1,5 @@
 /**
- * omi v2.1.1  http://omijs.org
+ * omi v2.1.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1083,6 +1083,87 @@
     }
   }
 
+  function define(name, ctor) {
+    options.mapping[name] = ctor;
+    if (ctor.use) {
+      ctor.updatePath = getPath(ctor.use);
+    } else if (ctor.data) {
+      //Compatible with older versions
+      ctor.updatePath = getUpdatePath(ctor.data);
+    }
+  }
+
+  function getPath(obj) {
+    if (Object.prototype.toString.call(obj) === '[object Array]') {
+      var result = {};
+      obj.forEach(function (item) {
+        if (typeof item === 'string') {
+          result[item] = true;
+        } else {
+          var tempPath = item[Object.keys(item)[0]];
+          if (typeof tempPath === 'string') {
+            result[tempPath] = true;
+          } else {
+            if (typeof tempPath[0] === 'string') {
+              result[tempPath[0]] = true;
+            } else {
+              tempPath[0].forEach(function (path) {
+                return result[path] = true;
+              });
+            }
+          }
+        }
+      });
+      return result;
+    } else {
+      return getUpdatePath(obj);
+    }
+  }
+
+  function getUpdatePath(data) {
+    var result = {};
+    dataToPath(data, result);
+    return result;
+  }
+
+  function dataToPath(data, result) {
+    Object.keys(data).forEach(function (key) {
+      result[key] = true;
+      var type = Object.prototype.toString.call(data[key]);
+      if (type === '[object Object]') {
+        _objToPath(data[key], key, result);
+      } else if (type === '[object Array]') {
+        _arrayToPath(data[key], key, result);
+      }
+    });
+  }
+
+  function _objToPath(data, path, result) {
+    Object.keys(data).forEach(function (key) {
+      result[path + '.' + key] = true;
+      delete result[path];
+      var type = Object.prototype.toString.call(data[key]);
+      if (type === '[object Object]') {
+        _objToPath(data[key], path + '.' + key, result);
+      } else if (type === '[object Array]') {
+        _arrayToPath(data[key], path + '.' + key, result);
+      }
+    });
+  }
+
+  function _arrayToPath(data, path, result) {
+    data.forEach(function (item, index) {
+      result[path + '[' + index + ']'] = true;
+      delete result[path];
+      var type = Object.prototype.toString.call(item);
+      if (type === '[object Object]') {
+        _objToPath(item, path + '[' + index + ']', result);
+      } else if (type === '[object Array]') {
+        _arrayToPath(item, path + '[' + index + ']', result);
+      }
+    });
+  }
+
   /** Retains a pool of Components for re-use, keyed on component name.
    *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
    *	@private
@@ -1109,9 +1190,16 @@
     }
     vnode && (inst.scopedCssAttr = vnode.css);
 
-    if (inst.constructor.use && inst.store && inst.store.data) {
-      inst.store.instances.push(inst);
-      inst.use = getUse(inst.store.data, inst.constructor.use);
+    if (inst.store && inst.store.data) {
+      if (inst.constructor.use) {
+        inst.use = getUse(inst.store.data, inst.constructor.use);
+        inst.store.instances.push(inst);
+      } else if (inst.initUse) {
+        var use = inst.initUse();
+        inst._updatePath = getPath(use);
+        inst.use = getUse(inst.store.data, use);
+        inst.store.instances.push(inst);
+      }
     }
 
     if (list) {
@@ -1743,9 +1831,14 @@
       var updateAll = matchGlobalData(this.globalData, patch);
       if (Object.keys(patch).length > 0) {
         this.instances.forEach(function (instance) {
-          if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath)) {
+          if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
             //update this.use
-            instance.use = getUse(store.data, instance.constructor.use);
+            if (instance.constructor.use) {
+              instance.use = getUse(store.data, instance.constructor.use);
+            } else if (instance.initUse) {
+              instance.use = getUse(store.data, instance.initUse());
+            }
+
             instance.update();
           }
         });
@@ -1808,87 +1901,6 @@
       }
     });
     return mpPath;
-  }
-
-  function define(name, ctor) {
-    options.mapping[name] = ctor;
-    if (ctor.use) {
-      ctor.updatePath = getPath(ctor.use);
-    } else if (ctor.data) {
-      //Compatible with older versions
-      ctor.updatePath = getUpdatePath(ctor.data);
-    }
-  }
-
-  function getPath(obj) {
-    if (Object.prototype.toString.call(obj) === '[object Array]') {
-      var result = {};
-      obj.forEach(function (item) {
-        if (typeof item === 'string') {
-          result[item] = true;
-        } else {
-          var tempPath = item[Object.keys(item)[0]];
-          if (typeof tempPath === 'string') {
-            result[tempPath] = true;
-          } else {
-            if (typeof tempPath[0] === 'string') {
-              result[tempPath[0]] = true;
-            } else {
-              tempPath[0].forEach(function (path) {
-                return result[path] = true;
-              });
-            }
-          }
-        }
-      });
-      return result;
-    } else {
-      return getUpdatePath(obj);
-    }
-  }
-
-  function getUpdatePath(data) {
-    var result = {};
-    dataToPath(data, result);
-    return result;
-  }
-
-  function dataToPath(data, result) {
-    Object.keys(data).forEach(function (key) {
-      result[key] = true;
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
-        _objToPath(data[key], key, result);
-      } else if (type === '[object Array]') {
-        _arrayToPath(data[key], key, result);
-      }
-    });
-  }
-
-  function _objToPath(data, path, result) {
-    Object.keys(data).forEach(function (key) {
-      result[path + '.' + key] = true;
-      delete result[path];
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === '[object Object]') {
-        _objToPath(data[key], path + '.' + key, result);
-      } else if (type === '[object Array]') {
-        _arrayToPath(data[key], path + '.' + key, result);
-      }
-    });
-  }
-
-  function _arrayToPath(data, path, result) {
-    data.forEach(function (item, index) {
-      result[path + '[' + index + ']'] = true;
-      delete result[path];
-      var type = Object.prototype.toString.call(item);
-      if (type === '[object Object]') {
-        _objToPath(item, path + '[' + index + ']', result);
-      } else if (type === '[object Array]') {
-        _arrayToPath(item, path + '[' + index + ']', result);
-      }
-    });
   }
 
   function rpx(str) {
@@ -2266,7 +2278,7 @@
     merge: merge
   };
   options.root.omi = options.root.Omi;
-  options.root.Omi.version = 'omio-2.1.1';
+  options.root.Omi.version = 'omio-2.1.2';
 
   var Omi = {
     h: h,

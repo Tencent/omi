@@ -1,5 +1,6 @@
 import Component from '../component'
 import { getUse } from '../util'
+import { getPath } from  '../define'
 /** Retains a pool of Components for re-use, keyed on component name.
  *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
  *	@private
@@ -27,9 +28,18 @@ export function createComponent(Ctor, props, context, vnode) {
   }
   vnode && (inst.scopedCssAttr = vnode.css)
 
-  if (inst.constructor.use && inst.store && inst.store.data) {
-    inst.store.instances.push(inst)
-    inst.use = getUse(inst.store.data, inst.constructor.use)
+  if ( inst.store && inst.store.data) {
+		if(inst.constructor.use){
+			inst.use = getUse(inst.store.data, inst.constructor.use)
+			inst.store.instances.push(inst)
+		} else if(inst.initUse){
+			const use = inst.initUse()
+			inst._updatePath = getPath(use)
+			inst.use = getUse(inst.store.data, use)
+			inst.store.instances.push(inst)
+		}
+
+
   }
 
   if (list) {

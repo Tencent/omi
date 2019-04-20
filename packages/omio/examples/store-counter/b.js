@@ -58,8 +58,6 @@
 
   var stack = [];
 
-  var EMPTY_CHILDREN = [];
-
   /**
    * JSX/hyperscript reviver.
    * @see http://jasonformat.com/wtf-is-jsx
@@ -89,7 +87,7 @@
    * @public
    */
   function h(nodeName, attributes) {
-    var children = EMPTY_CHILDREN,
+    var children = [],
         lastSimple = void 0,
         child = void 0,
         simple = void 0,
@@ -115,7 +113,7 @@
 
         if (simple && lastSimple) {
           children[children.length - 1] += child;
-        } else if (children === EMPTY_CHILDREN) {
+        } else if (children.length === 0) {
           children = [child];
         } else {
           children.push(child);
@@ -332,7 +330,7 @@
   }
 
   function getUse(data, paths) {
-    var obj = {};
+    var obj = [];
     paths.forEach(function (path, index) {
       var isPath = typeof path === 'string';
       if (isPath) {
@@ -1086,6 +1084,90 @@
     }
   }
 
+  var OBJECTTYPE = '[object Object]';
+  var ARRAYTYPE = '[object Array]';
+
+  function define(name, ctor) {
+    options.mapping[name] = ctor;
+    if (ctor.use) {
+      ctor.updatePath = getPath(ctor.use);
+    } else if (ctor.data) {
+      //Compatible with older versions
+      ctor.updatePath = getUpdatePath(ctor.data);
+    }
+  }
+
+  function getPath(obj) {
+    if (Object.prototype.toString.call(obj) === '[object Array]') {
+      var result = {};
+      obj.forEach(function (item) {
+        if (typeof item === 'string') {
+          result[item] = true;
+        } else {
+          var tempPath = item[Object.keys(item)[0]];
+          if (typeof tempPath === 'string') {
+            result[tempPath] = true;
+          } else {
+            if (typeof tempPath[0] === 'string') {
+              result[tempPath[0]] = true;
+            } else {
+              tempPath[0].forEach(function (path) {
+                return result[path] = true;
+              });
+            }
+          }
+        }
+      });
+      return result;
+    } else {
+      return getUpdatePath(obj);
+    }
+  }
+
+  function getUpdatePath(data) {
+    var result = {};
+    dataToPath(data, result);
+    return result;
+  }
+
+  function dataToPath(data, result) {
+    Object.keys(data).forEach(function (key) {
+      result[key] = true;
+      var type = Object.prototype.toString.call(data[key]);
+      if (type === OBJECTTYPE) {
+        _objToPath(data[key], key, result);
+      } else if (type === ARRAYTYPE) {
+        _arrayToPath(data[key], key, result);
+      }
+    });
+  }
+
+  function _objToPath(data, path, result) {
+    Object.keys(data).forEach(function (key) {
+      result[path + '.' + key] = true;
+      delete result[path];
+      var type = Object.prototype.toString.call(data[key]);
+      if (type === OBJECTTYPE) {
+        _objToPath(data[key], path + '.' + key, result);
+      } else if (type === ARRAYTYPE) {
+        _arrayToPath(data[key], path + '.' + key, result);
+      }
+    });
+  }
+
+  function _arrayToPath(data, path, result) {
+    data.forEach(function (item, index) {
+      result[path + '[' + index + ']'] = true;
+      delete result[path];
+      var type = Object.prototype.toString.call(item);
+      if (type === OBJECTTYPE) {
+        _objToPath(item, path + '[' + index + ']', result);
+      } else if (type === ARRAYTYPE) {
+        _arrayToPath(item, path + '[' + index + ']', result);
+      }
+    });
+  }
+
   /** Retains a pool of Components for re-use, keyed on component name.
    *	Note: since component names are not unique or even necessarily available, these are primarily a form of sharding.
    *	@private
@@ -1112,9 +1194,16 @@
     }
     vnode && (inst.scopedCssAttr = vnode.css);
 
-    if (inst.constructor.use && inst.store && inst.store.data) {
-      inst.store.instances.push(inst);
-      inst.use = getUse(inst.store.data, inst.constructor.use);
+    if (inst.store && inst.store.data) {
+      if (inst.constructor.use) {
+        inst.use = getUse(inst.store.data, inst.constructor.use);
+        inst.store.instances.push(inst);
+      } else if (inst.initUse) {
+        var use = inst.initUse();
+        inst._updatePath = getPath(use);
+        inst.use = getUse(inst.store.data, use);
+        inst.store.instances.push(inst);
+      }
     }
 
     if (list) {
@@ -1621,6 +1710,15 @@
 
     if (component.uninstall) component.uninstall();
 
+    if (component.store && component.store.instances) {
+      for (var i = 0, len = component.store.instances.length; i < len; i++) {
+        if (component.store.instances[i] === component) {
+          component.store.instances.splice(i, 1);
+          break;
+        }
+      }
+    }
+
     component.base = null;
 
     // recursively tear down & recollect high-order component children:
@@ -1693,21 +1791,7 @@
    */
   function render(vnode, parent, store, empty, merge) {
     parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
-    if (store) {
-      store.instances = [];
-      extendStoreUpate(store);
-      var timeout = null;
-      var patchs = {};
-      obaa(store.data, function (prop, val, old, path) {
-        clearTimeout(timeout);
-        var key = fixPath(path + '-' + prop);
-        patchs[key] = true;
-        timeout = setTimeout(function () {
-          store.update(patchs);
-          patchs = {};
-        }, 0);
-      });
-    }
+    obsStore(store);
 
     if (empty) {
       while (parent.firstChild) {
@@ -1722,6 +1806,28 @@
     return diff(merge, vnode, store, false, parent, false);
   }
 
+  function obsStore(store) {
+    if (store && store.data) {
+      store.instances = [];
+      extendStoreUpate(store);
+
+      obaa(store.data, function (prop, val, old, path) {
+        var patchs = {};
+        var key = fixPath(path + '-' + prop);
+        patchs[key] = true;
+        store.update(patchs);
+      });
+    }
+  }
+
+  function merge(vnode, merge, store) {
+    obsStore(store);
+
+    merge = typeof merge === 'string' ? document.querySelector(merge) : merge;
+
+    return diff(merge, vnode, store);
+  }
+
   function extendStoreUpate(store) {
     store.update = function (patch) {
       var _this = this;
@@ -1729,9 +1835,14 @@
       var updateAll = matchGlobalData(this.globalData, patch);
       if (Object.keys(patch).length > 0) {
         this.instances.forEach(function (instance) {
-          if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath)) {
+          if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
             //update this.use
-            instance.use = getUse(store.data, instance.constructor.use);
+            if (instance.constructor.use) {
+              instance.use = getUse(store.data, instance.constructor.use);
+            } else if (instance.initUse) {
+              instance.use = getUse(store.data, instance.initUse());
+            }
+
             instance.update();
           }
         });
@@ -1796,94 +1907,16 @@
     return mpPath;
   }
 
-  var OBJECTTYPE = '[object Object]';
-  var ARRAYTYPE = '[object Array]';
-
-  function define(name, ctor) {
-    options.mapping[name] = ctor;
-    if (ctor.use) {
-      ctor.updatePath = getPath(ctor.use);
-    } else if (ctor.data) {
-      //Compatible with older versions
-      ctor.updatePath = getUpdatePath(ctor.data);
-    }
-  }
-
-  function getPath(obj) {
-    if (Object.prototype.toString.call(obj) === '[object Array]') {
-      var result = {};
-      obj.forEach(function (item) {
-        if (typeof item === 'string') {
-          result[item] = true;
-        } else {
-          var tempPath = item[Object.keys(item)[0]];
-          if (typeof tempPath === 'string') {
-            result[tempPath] = true;
-          } else {
-            if (typeof tempPath[0] === 'string') {
-              result[tempPath[0]] = true;
-            } else {
-              tempPath[0].forEach(function (path) {
-                return result[path] = true;
-              });
-            }
-          }
-        }
-      });
-      return result;
-    } else {
-      return getUpdatePath(obj);
-    }
-  }
-
-  function getUpdatePath(data) {
-    var result = {};
-    dataToPath(data, result);
-    return result;
-  }
-
-  function dataToPath(data, result) {
-    Object.keys(data).forEach(function (key) {
-      result[key] = true;
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === OBJECTTYPE) {
-        _objToPath(data[key], key, result);
-      } else if (type === ARRAYTYPE) {
-        _arrayToPath(data[key], key, result);
-      }
-    });
-  }
-
-  function _objToPath(data, path, result) {
-    Object.keys(data).forEach(function (key) {
-      result[path + '.' + key] = true;
-      delete result[path];
-      var type = Object.prototype.toString.call(data[key]);
-      if (type === OBJECTTYPE) {
-        _objToPath(data[key], path + '.' + key, result);
-      } else if (type === ARRAYTYPE) {
-        _arrayToPath(data[key], path + '.' + key, result);
-      }
-    });
-  }
-
-  function _arrayToPath(data, path, result) {
-    data.forEach(function (item, index) {
-      result[path + '[' + index + ']'] = true;
-      delete result[path];
-      var type = Object.prototype.toString.call(item);
-      if (type === OBJECTTYPE) {
-        _objToPath(item, path + '[' + index + ']', result);
-      } else if (type === ARRAYTYPE) {
-        _arrayToPath(item, path + '[' + index + ']', result);
-      }
-    });
-  }
-
   function rpx(str) {
     return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
       return window.innerWidth * Number(b) / 750 + 'px';
     });
+  }
+
+  function tag(name) {
+    return function (target) {
+      define(name, target);
+    };
   }
 
   var _class$1, _temp$1;
@@ -1954,16 +1987,16 @@
         args = _Array$prototype$slic.slice(1);
 
     if (props) {
-      if (props.class) {
-        args.unshift(props.class);
-        delete props.class;
+      if (props['class']) {
+        args.unshift(props['class']);
+        delete props['class'];
       } else if (props.className) {
         args.unshift(props.className);
         delete props.className;
       }
     }
     if (args.length > 0) {
-      return { class: classNames.apply(null, args) };
+      return { 'class': classNames.apply(null, args) };
     }
   }
 
@@ -2027,8 +2060,21 @@
     return str || undefined;
   }
 
+  function renderToString(vnode, opts, store, isSvgMode) {
+    store = store || {};
+    opts = Object.assign({
+      scopedCSS: true
+    }, opts);
+    var css = {};
+    var html = _renderToString(vnode, opts, store, isSvgMode, css);
+    return {
+      css: Object.values(css),
+      html: html
+    };
+  }
+
   /** The default export is an alias of `render()`. */
-  function renderToString(vnode, opts, store, isSvgMode, css) {
+  function _renderToString(vnode, opts, store, isSvgMode, css) {
     if (vnode == null || typeof vnode === 'boolean') {
       return '';
     }
@@ -2036,10 +2082,6 @@
     var nodeName = vnode.nodeName,
         attributes = vnode.attributes,
         isComponent = false;
-    store = store || {};
-    opts = Object.assign({
-      scopedCSS: true
-    }, opts);
 
     var pretty = true && opts.pretty,
         indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
@@ -2065,24 +2107,25 @@
       if (c.install) c.install();
       if (c.beforeRender) c.beforeRender();
       rendered = c.render(c.props, c.data, c.store);
-      var tempCss = void 0;
+
       if (opts.scopedCSS) {
 
         if (c.constructor.css || c.css) {
 
           var cssStr = c.constructor.css ? c.constructor.css : typeof c.css === 'function' ? c.css() : c.css;
           var cssAttr = '_s' + getCtorName(c.constructor);
-
-          tempCss = '<style type="text/css" id="' + cssAttr + '">' + scoper(cssStr, cssAttr) + '</style>';
-
-          addScopedAttrStatic(rendered, '_s' + getCtorName(c.constructor));
+          css[cssAttr] = {
+            id: cssAttr,
+            css: scoper(cssStr, cssAttr)
+          };
+          addScopedAttrStatic(rendered, cssAttr);
         }
 
         c.scopedCSSAttr = vnode.css;
         scopeHost(rendered, c.scopedCSSAttr);
       }
 
-      return renderToString(rendered, opts, store, false, tempCss);
+      return _renderToString(rendered, opts, store, false, css);
     }
 
     // render JSX to HTML
@@ -2105,7 +2148,7 @@
         if (!(opts && opts.allAttributes) && (name === 'key' || name === 'ref')) continue;
 
         if (name === 'className') {
-          if (attributes.class) continue;
+          if (attributes['class']) continue;
           name = 'class';
         } else if (isSvgMode && name.match(/^xlink:?./)) {
           name = name.toLowerCase().replace(/^xlink:?/, 'xlink:');
@@ -2162,7 +2205,7 @@
         var child = vnode.children[_i];
         if (child != null && child !== false) {
           var childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
-              ret = renderToString(child, opts, store, childSvgMode);
+              ret = _renderToString(child, opts, store, childSvgMode, css);
           if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
           if (ret) pieces.push(ret);
         }
@@ -2185,7 +2228,6 @@
       s += '</' + nodeName + '>';
     }
 
-    if (css) return css + s;
     return s;
   }
 
@@ -2234,10 +2276,12 @@
     classNames: classNames,
     extractClass: extractClass,
     getHost: getHost,
-    renderToString: renderToString
+    renderToString: renderToString,
+    tag: tag,
+    merge: merge
   };
   options.root.omi = options.root.Omi;
-  options.root.Omi.version = 'omio-1.3.8';
+  options.root.Omi.version = 'omio-2.1.2';
 
   var _class$2, _temp2;
 

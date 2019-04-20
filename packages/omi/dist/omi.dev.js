@@ -1423,7 +1423,12 @@
         this.instances.forEach(function (instance) {
           if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
             //update this.use
-            instance.constructor.use && (instance.use = getUse(store.data, instance.constructor.use));
+            if (instance.constructor.use) {
+              instance.use = getUse(store.data, instance.constructor.use);
+            } else if (instance.initUse) {
+              instance.use = getUse(store.data, instance.initUse());
+            }
+
             instance.update();
           }
         });
@@ -1668,7 +1673,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.0.5';
+  options.root.Omi.version = '6.0.6';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
