@@ -362,112 +362,6 @@
         });
         if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
-    function render(vnode, parent, store) {
-        parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
-        if (store) {
-            store.instances = [];
-            extendStoreUpate(store);
-            store.data = new JSONPatcherProxy(store.data).observe(!1, function(patch) {
-                var patchs = {};
-                if ('remove' === patch.op) {
-                    var kv = getArrayPatch(patch.path, store);
-                    patchs[kv.k] = kv.v;
-                    update(patchs, store);
-                } else {
-                    var key = fixPath(patch.path);
-                    patchs[key] = patch.value;
-                    update(patchs, store);
-                }
-            });
-            parent.store = store;
-        }
-        return diff(null, vnode, {}, !1, parent, !1);
-    }
-    function update(patch, store) {
-        store.update(patch);
-    }
-    function extendStoreUpate(store) {
-        store.update = function(patch) {
-            var _this = this;
-            var updateAll = matchGlobalData(this.globalData, patch);
-            if (Object.keys(patch).length > 0) {
-                this.instances.forEach(function(instance) {
-                    if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath)) {
-                        instance.constructor.use && (instance.use = getUse(store.data, instance.constructor.use));
-                        instance.update();
-                    }
-                });
-                this.onChange && this.onChange(patch);
-            }
-        };
-    }
-    function matchGlobalData(globalData, diffResult) {
-        if (!globalData) return !1;
-        for (var keyA in diffResult) {
-            if (globalData.indexOf(keyA) > -1) return !0;
-            for (var i = 0, len = globalData.length; i < len; i++) if (includePath(keyA, globalData[i])) return !0;
-        }
-        return !1;
-    }
-    function needUpdate(diffResult, updatePath) {
-        for (var keyA in diffResult) {
-            if (updatePath[keyA]) return !0;
-            for (var keyB in updatePath) if (includePath(keyA, keyB)) return !0;
-        }
-        return !1;
-    }
-    function includePath(pathA, pathB) {
-        if (0 === pathA.indexOf(pathB)) {
-            var next = pathA.substr(pathB.length, 1);
-            if ('[' === next || '.' === next) return !0;
-        }
-        return !1;
-    }
-    function fixPath(path) {
-        var mpPath = '';
-        var arr = path.replace('/', '').split('/');
-        arr.forEach(function(item, index) {
-            if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
-        });
-        return mpPath;
-    }
-    function getArrayPatch(path, store) {
-        var arr = path.replace('/', '').split('/');
-        var current = store.data[arr[0]];
-        for (var i = 1, len = arr.length; i < len - 1; i++) current = current[arr[i]];
-        return {
-            k: fixArrPath(path),
-            v: current
-        };
-    }
-    function fixArrPath(path) {
-        var mpPath = '';
-        var arr = path.replace('/', '').split('/');
-        var len = arr.length;
-        arr.forEach(function(item, index) {
-            if (index < len - 1) if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
-        });
-        return mpPath;
-    }
-    function _classCallCheck$1(instance, Constructor) {
-        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
-    }
-    function _possibleConstructorReturn$1(self, call) {
-        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
-    }
-    function _inherits$1(subClass, superClass) {
-        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-        subClass.prototype = Object.create(superClass && superClass.prototype, {
-            constructor: {
-                value: subClass,
-                enumerable: !1,
-                writable: !0,
-                configurable: !0
-            }
-        });
-        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-    }
     function define(name, ctor) {
         if ('WeElement' === ctor.is) {
             customElements.define(name, ctor);
@@ -476,12 +370,12 @@
             var Element = function(_WeElement) {
                 function Element() {
                     var _temp, _this, _ret;
-                    _classCallCheck$1(this, Element);
+                    _classCallCheck(this, Element);
                     for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) args[key] = arguments[key];
-                    return _ret = (_temp = _this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [ this ].concat(args))), 
-                    _this.C = 0, _this.D = {}, _this.K = null, _temp), _possibleConstructorReturn$1(_this, _ret);
+                    return _ret = (_temp = _this = _possibleConstructorReturn(this, _WeElement.call.apply(_WeElement, [ this ].concat(args))), 
+                    _this.C = 0, _this.D = {}, _this.K = null, _temp), _possibleConstructorReturn(_this, _ret);
                 }
-                _inherits$1(Element, _WeElement);
+                _inherits(Element, _WeElement);
                 Element.prototype.render = function(props, data) {
                     return ctor.call(this, props, data);
                 };
@@ -566,6 +460,112 @@
             var type = Object.prototype.toString.call(item);
             if ('[object Object]' === type) _objToPath(item, path + '[' + index + ']', result); else if ('[object Array]' === type) _arrayToPath(item, path + '[' + index + ']', result);
         });
+    }
+    function _classCallCheck$1(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
+    function _possibleConstructorReturn$1(self, call) {
+        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
+    }
+    function _inherits$1(subClass, superClass) {
+        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
+    function render(vnode, parent, store) {
+        parent = 'string' == typeof parent ? document.querySelector(parent) : parent;
+        if (store) {
+            store.instances = [];
+            extendStoreUpate(store);
+            store.data = new JSONPatcherProxy(store.data).observe(!1, function(patch) {
+                var patchs = {};
+                if ('remove' === patch.op) {
+                    var kv = getArrayPatch(patch.path, store);
+                    patchs[kv.k] = kv.v;
+                    update(patchs, store);
+                } else {
+                    var key = fixPath(patch.path);
+                    patchs[key] = patch.value;
+                    update(patchs, store);
+                }
+            });
+            parent.store = store;
+        }
+        return diff(null, vnode, {}, !1, parent, !1);
+    }
+    function update(patch, store) {
+        store.update(patch);
+    }
+    function extendStoreUpate(store) {
+        store.update = function(patch) {
+            var _this = this;
+            var updateAll = matchGlobalData(this.globalData, patch);
+            if (Object.keys(patch).length > 0) {
+                this.instances.forEach(function(instance) {
+                    if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance.M && needUpdate(patch, instance.M)) {
+                        instance.constructor.use && (instance.use = getUse(store.data, instance.constructor.use));
+                        instance.update();
+                    }
+                });
+                this.onChange && this.onChange(patch);
+            }
+        };
+    }
+    function matchGlobalData(globalData, diffResult) {
+        if (!globalData) return !1;
+        for (var keyA in diffResult) {
+            if (globalData.indexOf(keyA) > -1) return !0;
+            for (var i = 0, len = globalData.length; i < len; i++) if (includePath(keyA, globalData[i])) return !0;
+        }
+        return !1;
+    }
+    function needUpdate(diffResult, updatePath) {
+        for (var keyA in diffResult) {
+            if (updatePath[keyA]) return !0;
+            for (var keyB in updatePath) if (includePath(keyA, keyB)) return !0;
+        }
+        return !1;
+    }
+    function includePath(pathA, pathB) {
+        if (0 === pathA.indexOf(pathB)) {
+            var next = pathA.substr(pathB.length, 1);
+            if ('[' === next || '.' === next) return !0;
+        }
+        return !1;
+    }
+    function fixPath(path) {
+        var mpPath = '';
+        var arr = path.replace('/', '').split('/');
+        arr.forEach(function(item, index) {
+            if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
+        });
+        return mpPath;
+    }
+    function getArrayPatch(path, store) {
+        var arr = path.replace('/', '').split('/');
+        var current = store.data[arr[0]];
+        for (var i = 1, len = arr.length; i < len - 1; i++) current = current[arr[i]];
+        return {
+            k: fixArrPath(path),
+            v: current
+        };
+    }
+    function fixArrPath(path) {
+        var mpPath = '';
+        var arr = path.replace('/', '').split('/');
+        var len = arr.length;
+        arr.forEach(function(item, index) {
+            if (index < len - 1) if (index) if (isNaN(Number(item))) mpPath += '.' + item; else mpPath += '[' + item + ']'; else mpPath += item;
+        });
+        return mpPath;
     }
     function tag(name, pure) {
         return function(target) {
@@ -860,14 +860,14 @@
     var id = 0;
     var WeElement = function(_HTMLElement) {
         function WeElement() {
-            _classCallCheck(this, WeElement);
-            var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+            _classCallCheck$1(this, WeElement);
+            var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));
             _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
             _this.elementId = id++;
             _this.data = {};
             return _this;
         }
-        _inherits(WeElement, _HTMLElement);
+        _inherits$1(WeElement, _HTMLElement);
         WeElement.prototype.connectedCallback = function() {
             var p = this.parentNode;
             while (p && !this.store) {
@@ -875,7 +875,11 @@
                 p = p.parentNode || p.host;
             }
             if (this.store) this.store.instances.push(this);
-            this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
+            if (this.initUse) {
+                var use = this.initUse();
+                this.M = getPath(use);
+                this.use = getUse(this.store.data, use);
+            } else this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
             this.beforeInstall();
             !this.B && this.install();
             this.afterInstall();
@@ -981,7 +985,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.0.4';
+    options.root.Omi.version = '6.0.5';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

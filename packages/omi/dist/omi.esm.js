@@ -1,5 +1,5 @@
 /**
- * omi v6.0.4  http://omijs.org
+ * omi v6.0.5  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1095,15 +1095,172 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function define(name, ctor) {
+  if (ctor.is === 'WeElement') {
+    customElements.define(name, ctor);
+    if (ctor.use) {
+      ctor.updatePath = getPath(ctor.use);
+    } else if (ctor.data) {
+      //Compatible with older versions
+      ctor.updatePath = getUpdatePath(ctor.data);
+    }
+  } else {
+    var Element = function (_WeElement) {
+      _inherits(Element, _WeElement);
+
+      function Element() {
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, Element);
+
+        for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
+          args[key] = arguments[key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn(_this, _ret);
+      }
+
+      Element.prototype.render = function render(props, data) {
+        return ctor.call(this, props, data);
+      };
+
+      Element.prototype.beforeRender = function beforeRender() {
+        this._useId = 0;
+      };
+
+      Element.prototype.useCss = function useCss(css) {
+        if (css === this._preCss) {
+          return;
+        }
+        this._preCss = css;
+        var style = this.shadowRoot.querySelector('style');
+        style && this.shadowRoot.removeChild(style);
+        this.shadowRoot.appendChild(cssToDom(css));
+      };
+
+      Element.prototype.useData = function useData(data) {
+        return this.use({ data: data });
+      };
+
+      Element.prototype.use = function use(option) {
+        var _this2 = this;
+
+        this._useId++;
+        var updater = function updater(newValue) {
+          var item = _this2._useMap[updater.id];
+
+          item.data = newValue;
+
+          _this2.update();
+          item.effect && item.effect();
+        };
+
+        updater.id = this._useId;
+        if (!this._isInstalled) {
+          this._useMap[this._useId] = option;
+          return [option.data, updater];
+        }
+
+        return [this._useMap[this._useId].data, updater];
+      };
+
+      Element.prototype.installed = function installed() {
+        this._isInstalled = true;
+      };
+
+      return Element;
+    }(WeElement);
+
+    customElements.define(name, Element);
+  }
+}
+
+function getPath(obj) {
+  if (Object.prototype.toString.call(obj) === '[object Array]') {
+    var result = {};
+    obj.forEach(function (item) {
+      if (typeof item === 'string') {
+        result[item] = true;
+      } else {
+        var tempPath = item[Object.keys(item)[0]];
+        if (typeof tempPath === 'string') {
+          result[tempPath] = true;
+        } else {
+          if (typeof tempPath[0] === 'string') {
+            result[tempPath[0]] = true;
+          } else {
+            tempPath[0].forEach(function (path) {
+              return result[path] = true;
+            });
+          }
+        }
+      }
+    });
+    return result;
+  } else {
+    return getUpdatePath(obj);
+  }
+}
+
+function getUpdatePath(data) {
+  var result = {};
+  dataToPath(data, result);
+  return result;
+}
+
+function dataToPath(data, result) {
+  Object.keys(data).forEach(function (key) {
+    result[key] = true;
+    var type = Object.prototype.toString.call(data[key]);
+    if (type === '[object Object]') {
+      _objToPath(data[key], key, result);
+    } else if (type === '[object Array]') {
+      _arrayToPath(data[key], key, result);
+    }
+  });
+}
+
+function _objToPath(data, path, result) {
+  Object.keys(data).forEach(function (key) {
+    result[path + '.' + key] = true;
+    delete result[path];
+    var type = Object.prototype.toString.call(data[key]);
+    if (type === '[object Object]') {
+      _objToPath(data[key], path + '.' + key, result);
+    } else if (type === '[object Array]') {
+      _arrayToPath(data[key], path + '.' + key, result);
+    }
+  });
+}
+
+function _arrayToPath(data, path, result) {
+  data.forEach(function (item, index) {
+    result[path + '[' + index + ']'] = true;
+    delete result[path];
+    var type = Object.prototype.toString.call(item);
+    if (type === '[object Object]') {
+      _objToPath(item, path + '[' + index + ']', result);
+    } else if (type === '[object Array]') {
+      _arrayToPath(item, path + '[' + index + ']', result);
+    }
+  });
+}
+
+function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var id = 0;
 
 var WeElement = function (_HTMLElement) {
-  _inherits(WeElement, _HTMLElement);
+  _inherits$1(WeElement, _HTMLElement);
 
   function WeElement() {
-    _classCallCheck(this, WeElement);
+    _classCallCheck$1(this, WeElement);
 
-    var _this = _possibleConstructorReturn(this, _HTMLElement.call(this));
+    var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));
 
     _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
     _this.elementId = id++;
@@ -1120,7 +1277,14 @@ var WeElement = function (_HTMLElement) {
     if (this.store) {
       this.store.instances.push(this);
     }
-    this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
+
+    if (this.initUse) {
+      var use = this.initUse();
+      this._updatePath = getPath(use);
+      this.use = getUse(this.store.data, use);
+    } else {
+      this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
+    }
     this.beforeInstall();
     !this._isInstalled && this.install();
     this.afterInstall();
@@ -1254,7 +1418,7 @@ function extendStoreUpate(store) {
 
     if (Object.keys(patch).length > 0) {
       this.instances.forEach(function (instance) {
-        if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath)) {
+        if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
           //update this.use
           instance.constructor.use && (instance.use = getUse(store.data, instance.constructor.use));
           instance.update();
@@ -1348,163 +1512,6 @@ function fixArrPath(path) {
     }
   });
   return mpPath;
-}
-
-function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function define(name, ctor) {
-  if (ctor.is === 'WeElement') {
-    customElements.define(name, ctor);
-    if (ctor.use) {
-      ctor.updatePath = getPath(ctor.use);
-    } else if (ctor.data) {
-      //Compatible with older versions
-      ctor.updatePath = getUpdatePath(ctor.data);
-    }
-  } else {
-    var Element = function (_WeElement) {
-      _inherits$1(Element, _WeElement);
-
-      function Element() {
-        var _temp, _this, _ret;
-
-        _classCallCheck$1(this, Element);
-
-        for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
-          args[key] = arguments[key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn$1(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn$1(_this, _ret);
-      }
-
-      Element.prototype.render = function render(props, data) {
-        return ctor.call(this, props, data);
-      };
-
-      Element.prototype.beforeRender = function beforeRender() {
-        this._useId = 0;
-      };
-
-      Element.prototype.useCss = function useCss(css) {
-        if (css === this._preCss) {
-          return;
-        }
-        this._preCss = css;
-        var style = this.shadowRoot.querySelector('style');
-        style && this.shadowRoot.removeChild(style);
-        this.shadowRoot.appendChild(cssToDom(css));
-      };
-
-      Element.prototype.useData = function useData(data) {
-        return this.use({ data: data });
-      };
-
-      Element.prototype.use = function use(option) {
-        var _this2 = this;
-
-        this._useId++;
-        var updater = function updater(newValue) {
-          var item = _this2._useMap[updater.id];
-
-          item.data = newValue;
-
-          _this2.update();
-          item.effect && item.effect();
-        };
-
-        updater.id = this._useId;
-        if (!this._isInstalled) {
-          this._useMap[this._useId] = option;
-          return [option.data, updater];
-        }
-
-        return [this._useMap[this._useId].data, updater];
-      };
-
-      Element.prototype.installed = function installed() {
-        this._isInstalled = true;
-      };
-
-      return Element;
-    }(WeElement);
-
-    customElements.define(name, Element);
-  }
-}
-
-function getPath(obj) {
-  if (Object.prototype.toString.call(obj) === '[object Array]') {
-    var result = {};
-    obj.forEach(function (item) {
-      if (typeof item === 'string') {
-        result[item] = true;
-      } else {
-        var tempPath = item[Object.keys(item)[0]];
-        if (typeof tempPath === 'string') {
-          result[tempPath] = true;
-        } else {
-          if (typeof tempPath[0] === 'string') {
-            result[tempPath[0]] = true;
-          } else {
-            tempPath[0].forEach(function (path) {
-              return result[path] = true;
-            });
-          }
-        }
-      }
-    });
-    return result;
-  } else {
-    return getUpdatePath(obj);
-  }
-}
-
-function getUpdatePath(data) {
-  var result = {};
-  dataToPath(data, result);
-  return result;
-}
-
-function dataToPath(data, result) {
-  Object.keys(data).forEach(function (key) {
-    result[key] = true;
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], key, result);
-    }
-  });
-}
-
-function _objToPath(data, path, result) {
-  Object.keys(data).forEach(function (key) {
-    result[path + '.' + key] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(data[key]);
-    if (type === '[object Object]') {
-      _objToPath(data[key], path + '.' + key, result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(data[key], path + '.' + key, result);
-    }
-  });
-}
-
-function _arrayToPath(data, path, result) {
-  data.forEach(function (item, index) {
-    result[path + '[' + index + ']'] = true;
-    delete result[path];
-    var type = Object.prototype.toString.call(item);
-    if (type === '[object Object]') {
-      _objToPath(item, path + '[' + index + ']', result);
-    } else if (type === '[object Array]') {
-      _arrayToPath(item, path + '[' + index + ']', result);
-    }
-  });
 }
 
 function tag(name, pure) {
@@ -1658,7 +1665,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.0.4';
+options.root.Omi.version = '6.0.5';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef };
