@@ -186,3 +186,20 @@ define('my-sidebar', class extends WeElement {
 ```
 
 Here is an example of using the ES2015+ Grammar `const [xx, xxx] = xxxx` for fast assignment.
+
+
+## initUse
+
+If you don't want the same components to have the same dependencies, you can use `initUse' to achieve dynamic use:
+
+```js
+initUse() {
+  return [
+    'a.b',
+    'c[1].d',
+    `e.f.${xxx}.d[${index}]`
+  ]
+}
+```
+
+Very flexible!

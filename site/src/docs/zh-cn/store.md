@@ -187,3 +187,20 @@ define('my-sidebar', class extends WeElement {
 ```
 
 这里举了个例子使用 ES2015+ 语法  `const [xx, xxx] = xxxx` 的语法快速赋值。
+
+## 动态 use
+
+如果你不希望同样的组件拥有同样的依赖，可以使用动态的 use：
+
+
+```js
+initUse() {
+  return [
+    'a.b',
+    'c[1].d',
+    `e.f.${xxx}.d[${index}]`
+  ]
+}
+```
+
+非常灵活！
