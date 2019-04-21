@@ -125,50 +125,53 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 ## Add Omi in One Minute
 
-This page demonstrates using Omi **with no build tooling**.
+This page demonstrates using Omi **with no build tooling**,  directly run in the browser.
 
-- [Online Demo!](https://tencent.github.io/omi/assets/)
-- [Omi.js CDN](https://unpkg.com/omi)
+- [→ Online Demo!](https://tencent.github.io/omi/packages/omi/examples/no-transpiler/)
 
 ```html
 <!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Add Omi in One Minute</title>
+	<title>Omi demo without transpiler</title>
 </head>
 
 <body>
-  <script src="https://unpkg.com/omi"></script>
-  <script>
-    const { WeElement, h, render, define } = Omi
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script>
+		const { define, WeElement, html, render } = Omi
 
-    define('like-button', class extends WeElement {
-        install() {
-          this.data = { liked: false }
-        }
+		define('my-counter', class extends WeElement {
 
-        render() {
-          if (this.data.liked) {
-            return 'You liked this.'
-          }
+			install() {
+				this.data.count = 1
+				this.sub = this.sub.bind(this)
+				this.add = this.add.bind(this)
+			}
 
-          return h(
-            'button',
-            {
-              onClick: () => {
-                this.data.liked = true
-                this.update()
-              }
-            },
-            'Like'
-          )
-        }
-      })
+			sub() {
+				this.data.count--
+				this.update()
+			}
 
-    render(h('like-button'), 'body')
-  </script>
+			add() {
+				this.data.count++
+				this.update()
+			}
+
+			render() {
+				return html`
+					<div>
+						<button onClick=${this.sub}>-</button>
+						<span>${this.data.count}</span>
+						<button onClick=${this.add}>+</button>
+					</div>
+					`}
+		})
+
+		render(html`<my-counter />`, 'body')
+	</script>
 </body>
 
 </html>
