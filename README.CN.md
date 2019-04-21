@@ -1,8 +1,8 @@
 [English](./README.md) | 简体中文 | [한국어](./README.KR.md)
 
-<p align="right">Omi <strong>v6.0.6</strong></p>
-<p align="right">Omio <strong>v2.1.2</strong></p>
-<p align="center"><img src="./assets/omi-logo2019.svg" alt="omi" width="300"/></p>
+<p align="right">Omi <strong>v6.1.0</strong></p>
+<p align="right">Omio <strong>v2.2.0</strong></p>
+<p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
 <p align="center"><b>基于 Web Components 并支持 IE8+(omio) 和 小程序(omip)</b></p>
 

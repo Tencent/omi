@@ -1,6 +1,6 @@
 {
   "name": "omi",
-  "version": "6.0.6",
+  "version": "6.1.0",
   "description": "Next generation web framework.",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -172,5 +172,8 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
+  },
+  "dependencies": {
+    "htm": "^2.1.1"
   }
 }
