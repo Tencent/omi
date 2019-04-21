@@ -134,44 +134,44 @@ This page demonstrates using Omi **with no build tooling**,  directly run in the
 <html>
 
 <head>
-	<title>Omi demo without transpiler</title>
+  <title>Omi demo without transpiler</title>
 </head>
 
 <body>
-	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-	<script>
-		const { define, WeElement, html, render } = Omi
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script>
+    const { define, WeElement, html, render } = Omi
 
-		define('my-counter', class extends WeElement {
+    define('my-counter', class extends WeElement {
 
-			install() {
-				this.data.count = 1
-				this.sub = this.sub.bind(this)
-				this.add = this.add.bind(this)
-			}
+      install() {
+        this.data.count = 1
+        this.sub = this.sub.bind(this)
+        this.add = this.add.bind(this)
+      }
 
-			sub() {
-				this.data.count--
-				this.update()
-			}
+      sub() {
+        this.data.count--
+        this.update()
+      }
 
-			add() {
-				this.data.count++
-				this.update()
-			}
+      add() {
+        this.data.count++
+        this.update()
+      }
 
-			render() {
-				return html`
-					<div>
-						<button onClick=${this.sub}>-</button>
-						<span>${this.data.count}</span>
-						<button onClick=${this.add}>+</button>
-					</div>
-					`}
-		})
+      render() {
+        return html`
+          <div>
+            <button onClick=${this.sub}>-</button>
+            <span>${this.data.count}</span>
+            <button onClick=${this.add}>+</button>
+          </div>
+          `}
+    })
 
-		render(html`<my-counter />`, 'body')
-	</script>
+    render(html`<my-counter />`, 'body')
+  </script>
 </body>
 
 </html>
