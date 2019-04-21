@@ -15,7 +15,6 @@
 		define('my-counter', class extends WeElement {
 
 			install() {
-				this.constructor.observe = true
 				this.data.count = 1
 				this.sub = this.sub.bind(this)
 				this.add = this.add.bind(this)
@@ -23,10 +22,12 @@
 
 			sub() {
 				this.data.count--
+				this.update()
 			}
 
 			add() {
 				this.data.count++
+				this.update()
 			}
 
 			render() {
@@ -42,7 +43,7 @@
 		render(html`<my-counter />`, 'body')
 	</script>
 
-	<a href="https://github.com/Tencent/omi/tree/master/packages/omi-html" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
 		<img src="//alloyteam.github.io/github.png" alt="">
 	</a>
 </body>
