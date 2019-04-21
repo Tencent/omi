@@ -139,8 +139,57 @@
 
 下面这个页面不需要任何构建工具就可以执行
 
-* [点击这里看执行结果](https://tencent.github.io/omi/assets/)
-* [Omi.js CDN](https://unpkg.com/omi)
+* [→ 点击这里看执行结果](https://tencent.github.io/omi/packages/omi/examples/no-transpiler/)
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Omi demo without transpiler</title>
+</head>
+
+<body>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script>
+    const { define, WeElement, html, render } = Omi
+
+    define('my-counter', class extends WeElement {
+
+      install() {
+        this.data.count = 1
+        this.sub = this.sub.bind(this)
+        this.add = this.add.bind(this)
+      }
+
+      sub() {
+        this.data.count--
+        this.update()
+      }
+
+      add() {
+        this.data.count++
+        this.update()
+      }
+
+      render() {
+        return html`
+          <div>
+            <button onClick=${this.sub}>-</button>
+            <span>${this.data.count}</span>
+            <button onClick=${this.add}>+</button>
+          </div>
+          `}
+    })
+
+    render(html`<my-counter />`, 'body')
+  </script>
+</body>
+
+</html>
+```
+
+### 使用 store 
 
 ```html
 <!DOCTYPE html>
@@ -148,39 +197,49 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Add Omi in One Minute</title>
+  <title>Omi demo without transpiler</title>
 </head>
 
 <body>
-  <script src="https://unpkg.com/omi"></script>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
   <script>
-    const { WeElement, h, render, define } = Omi
+    const { define, WeElement, html, render } = Omi
 
-    define('like-button', class extends WeElement {
-        install() {
-          this.data = { liked: false }
-        }
+    define('my-counter', class extends WeElement {
+      initUse() {
+        return ['count']
+      }
 
-        render() {
-          if (this.data.liked) {
-            return 'You liked this.'
-          }
+      install() {
+        this.sub = this.sub.bind(this)
+        this.add = this.add.bind(this)
+      }
 
-          return h(
-            'button',
-            {
-              onClick: () => {
-                this.data.liked = true
-                this.update()
-              }
-            },
-            'Like'
-          )
-        }
-      })
+      sub() {
+        this.store.data.count--
+      }
 
-    render(h('like-button'), 'body')
+      add() {
+        this.store.data.count++
+      }
+
+      render() {
+        return html`
+          <div>
+            <button onClick=${this.sub}>-</button>
+            <span>${this.store.data.count}</span>
+            <button onClick=${this.add}>+</button>
+          </div>
+          `}
+    })
+
+    render(html`<my-counter />`, 'body', {
+      data: {
+        count: 1
+      }
+    })
   </script>
+
 </body>
 
 </html>
