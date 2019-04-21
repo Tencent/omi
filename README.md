@@ -284,45 +284,6 @@ You will find that the `MyCounter` class name defined above is never used. So yo
 import { render, WeElement, define } from 'omi'
 
 define('my-counter', class extends WeElement {
-    static observe = true
-    
-    data = {
-      count: 1
-    }
-
-    static css = `
-      span{
-          color: red;
-      }`
-
-    sub = () => {
-      this.data.count--
-    }
-
-    add = () => {
-      this.data.count++
-    }
-
-    render() {
-      return (
-        <div>
-          <button onClick={this.sub}>-</button>
-          <span>{this.data.count}</span>
-          <button onClick={this.add}>+</button>
-        </div>
-      )
-    }
-  })
-
-render(<my-counter />, 'body')
-```
-
-You can also update the view manually then you can choose the best time to update.
-
-```js
-import { render, WeElement, define } from 'omi'
-
-define('my-counter', class extends WeElement {
   data = {
     count: 1
   }
@@ -355,7 +316,6 @@ define('my-counter', class extends WeElement {
 
 render(<my-counter />, 'body')
 ```
-
 
 [→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
 
