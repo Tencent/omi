@@ -177,6 +177,62 @@ This page demonstrates using Omi **with no build tooling**,  directly run in the
 </html>
 ```
 
+### Using store system
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Omi demo without transpiler</title>
+</head>
+
+<body>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script>
+    const { define, WeElement, html, render } = Omi
+
+    define('my-counter', class extends WeElement {
+      initUse() {
+        return ['count']
+      }
+
+      install() {
+        this.sub = this.sub.bind(this)
+        this.add = this.add.bind(this)
+      }
+
+      sub() {
+        this.store.data.count--
+      }
+
+      add() {
+        this.store.data.count++
+      }
+
+      render() {
+        return html`
+          <div>
+            <button onClick=${this.sub}>-</button>
+            <span>${this.store.data.count}</span>
+            <button onClick=${this.add}>+</button>
+          </div>
+          `}
+    })
+
+    render(html`<my-counter />`, 'body', {
+      data: {
+        count: 1
+      }
+    })
+  </script>
+
+</body>
+
+</html>
+```
+
 You can also use `like-button` tag directly in HTML：
 
 ```jsx
