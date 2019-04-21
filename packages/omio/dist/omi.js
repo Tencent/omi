@@ -1105,7 +1105,18 @@
                 if ('$observeProps' !== prop && '$observer' !== prop) if (!obaa.isFunction(target[prop])) {
                     if (!target.$observeProps) target.$observeProps = {};
                     if (void 0 !== path) target.$observeProps.$observerPath = path; else target.$observeProps.$observerPath = '#';
+                    var self = this;
                     var currentValue = target.$observeProps[prop] = target[prop];
+                    Object.defineProperty(target, prop, {
+                        get: function() {
+                            return this.$observeProps[prop];
+                        },
+                        set: function(value) {
+                            var old = this.$observeProps[prop];
+                            this.$observeProps[prop] = value;
+                            self.onPropertyChanged(prop, value, old, this, target.$observeProps.$observerPath);
+                        }
+                    });
                     if ('object' == typeof currentValue) {
                         if (obaa.isArray(currentValue)) {
                             this.mock(currentValue);
