@@ -940,6 +940,10 @@
         if (void 0 !== defaultProps) for (var i in defaultProps) if (void 0 === props[i]) props[i] = defaultProps[i];
         return props;
     }
+    function htm(t) {
+        var r = n(this, e(t), arguments, []);
+        return r.length > 1 ? r : r[0];
+    }
     function createRef() {
         return {};
     }
@@ -1209,6 +1213,32 @@
         return String(s).length > (length || 40) || !ignoreLines && -1 !== String(s).indexOf('\n') || -1 !== String(s).indexOf('<');
     };
     var JS_TO_CSS = {};
+    var n = function(t, r, u, e) {
+        for (var p = 1; p < r.length; p++) {
+            var s = r[p++], a = "number" == typeof s ? u[s] : s;
+            1 === r[p] ? e[0] = a : 2 === r[p] ? (e[1] = e[1] || {})[r[++p]] = a : 3 === r[p] ? e[1] = Object.assign(e[1] || {}, a) : e.push(r[p] ? t.apply(null, n(t, a, u, [ "", null ])) : a);
+        }
+        return e;
+    }, t = function(n) {
+        for (var t, r, u = 1, e = "", p = "", s = [ 0 ], a = function(n) {
+            1 === u && (n || (e = e.replace(/^\s*\n\s*|\s*\n\s*$/g, ""))) ? s.push(n || e, 0) : 3 === u && (n || e) ? (s.push(n || e, 1), 
+            u = 2) : 2 === u && "..." === e && n ? s.push(n, 3) : 2 === u && e && !n ? s.push(!0, 2, e) : 4 === u && r && (s.push(n || e, 2, r), 
+            r = ""), e = "";
+        }, f = 0; f < n.length; f++) {
+            f && (1 === u && a(), a(f));
+            for (var h = 0; h < n[f].length; h++) t = n[f][h], 1 === u ? "<" === t ? (a(), s = [ s ], u = 3) : e += t : p ? t === p ? p = "" : e += t : '"' === t || "'" === t ? p = t : ">" === t ? (a(), 
+            u = 1) : u && ("=" === t ? (u = 4, r = e, e = "") : "/" === t ? (a(), 3 === u && (s = s[0]), u = s, (s = s[0]).push(u, 4), 
+            u = 0) : " " === t || "\t" === t || "\n" === t || "\r" === t ? (a(), u = 2) : e += t);
+        }
+        return a(), s;
+    }, r = "function" == typeof Map, u = r ? new Map() : {}, e = r ? function(n) {
+        var r = u.get(n);
+        return r || u.set(n, r = t(n)), r;
+    } : function(n) {
+        for (var r = "", e = 0; e < n.length; e++) r += n[e].length + "-" + n[e];
+        return u[r] || (u[r] = t(n));
+    };
+    var html = htm.bind(h);
     var WeElement = Component;
     var defineElement = define;
     options.root.Omi = {
@@ -1230,10 +1260,12 @@
         getHost: getHost,
         renderToString: renderToString,
         tag: tag,
-        merge: merge
+        merge: merge,
+        html: html,
+        htm: htm
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.1.2';
+    options.root.Omi.version = 'omio-2.2.0';
     var Omi = {
         h: h,
         createElement: h,
@@ -1253,7 +1285,9 @@
         getHost: getHost,
         renderToString: renderToString,
         tag: tag,
-        merge: merge
+        merge: merge,
+        html: html,
+        htm: htm
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();

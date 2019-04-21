@@ -11,6 +11,9 @@ import ModelView from './model-view'
 import { classNames, extractClass } from './class'
 import { getHost } from './get-host'
 import { renderToString } from './render-to-string'
+import htm from 'htm'
+
+const html = htm.bind(h)
 
 const WeElement = Component
 const defineElement = define
@@ -37,10 +40,12 @@ options.root.Omi = {
   getHost,
   renderToString,
   tag,
-  merge
+  merge,
+  html,
+  htm
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'omio-2.1.2'
+options.root.Omi.version = 'omio-2.2.0'
 
 export default {
   h,
@@ -61,7 +66,9 @@ export default {
   getHost,
   renderToString,
   tag,
-  merge
+  merge,
+  html,
+  htm
 }
 
 export {
@@ -83,5 +90,7 @@ export {
   getHost,
   renderToString,
   tag,
-  merge
+  merge,
+  html,
+  htm
 }

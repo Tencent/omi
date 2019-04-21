@@ -1,6 +1,6 @@
 {
   "name": "omio",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Omi for old browsers(IE8+ and mobile browsers).",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -168,5 +168,8 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
+  },
+  "dependencies": {
+    "htm": "^2.1.1"
   }
 }
