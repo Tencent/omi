@@ -80,6 +80,42 @@ Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
 Omi uses Shadow DOM based style isolation and semantic structure.
 
+### TypeScript Auto Complete
+
+```jsx
+import { h, WeElement, tag, classNames } from 'omi';
+import styles from './_index.less';
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'o-button': Omi.CustomElementBaseAttributes & {
+        href?: string,
+        disabled?: boolean,
+        type?: 'default' | 'primary' | 'danger',
+        htmltype?: "submit" | "button" | "reset",
+        onClick?: (e: any) => void
+      };
+    }
+  }
+}
+
+interface IProps {
+  href?: string,
+  disabled?: boolean,
+  type?: string,
+  htmltype?: string,
+  onClick?: (e: any) => void
+}
+
+@tag('o-button')
+export default class oButton extends WeElement<IProps, {}> {
+...
+...
+```
+
+<img src="https://tencent.github.io/omi/assets/ts.jpg" alt="omi" width="400"/>
+
 ## Useful Resources
 
 | **Title Name**  | **Other language** | **Related**|
