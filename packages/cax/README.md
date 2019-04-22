@@ -304,7 +304,7 @@ pasiton 提供了两个 path 和 颜色 相互切换的能力，最常见的场�
 
 举个例子，看颜色和 path 同时变化：
 
-![](https://github.com/Tencent/omi/blob/master/assets/rect.gif)
+![](https://github.com/Tencent/omi/blob/master/assets/pk.gif)
 
 ## 线性运动
 
