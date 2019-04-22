@@ -103,10 +103,10 @@ declare namespace Omi {
 		props: RenderableProps<P>;
 		data: D;
 		host: HTMLElement;
-
+	
 		update(): void;
 		fire(name: string, data?: object): void;
-
+		css(): string;
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;
@@ -157,7 +157,7 @@ declare namespace Omi {
 
 		update(): void;
 		fire(name: string, data?: object): void;
-
+		css(): string;
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;
@@ -182,6 +182,8 @@ declare namespace Omi {
 	function nextTick(callback: Callback, scope?: any): void;
 	function observe(target: WeElementConstructor): void;
 	function getHost(element: WeElement): WeElement;
+	function classNames(...args: any[]): string;
+	function extractClass(...args: any[]): object;
 
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
