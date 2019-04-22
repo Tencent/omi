@@ -1,5 +1,5 @@
 /*!
- *  omix v1.0.1 by dntzhang
+ *  omix v1.0.2 by dntzhang
  *  Github: https://github.com/Tencent/omi
  *  MIT Licensed.
 */
