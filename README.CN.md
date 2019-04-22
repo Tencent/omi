@@ -85,6 +85,43 @@
 |-|-|
 | ![Omi](./assets/omi-render.jpg) | ![React](./assets/react-render.jpg) |
 
+
+### TypeScript 智能提示
+
+```jsx
+import { h, WeElement, tag, classNames } from 'omi';
+import styles from './_index.less';
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'o-button': Omi.CustomElementBaseAttributes & {
+        href?: string,
+        disabled?: boolean,
+        type?: 'default' | 'primary' | 'danger',
+        htmltype?: "submit" | "button" | "reset",
+        onClick?: (e: any) => void
+      };
+    }
+  }
+}
+
+interface IProps {
+  href?: string,
+  disabled?: boolean,
+  type?: string,
+  htmltype?: string,
+  onClick?: (e: any) => void
+}
+
+@tag('o-button')
+export default class oButton extends WeElement<IProps, {}> {
+...
+...
+```
+
+<img src="https://tencent.github.io/omi/assets/ts.jpg" alt="omi" width="400"/>
+
 ## 必须收藏的资源
 
 * [Comi 原理揭秘](https://github.com/Tencent/omi/blob/master/tutorial/comi-principle.md)
