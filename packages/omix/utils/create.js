@@ -90,7 +90,6 @@ function updateByFnProp(ele, data) {
   ele.setData(patch)
 }
 
-let globalStore = null
 
 function create(store, option) {
   if (arguments.length === 2) {
@@ -99,7 +98,7 @@ function create(store, option) {
     }
 
     getApp().globalData && (getApp().globalData.store = store)
-    globalStore = store
+   
     option.data = option.data || {}
     option.data.store = store.data
     observeStore(store)
@@ -160,20 +159,20 @@ function observeStore(store) {
       patch['store.' + fixPath(path + '-' + prop)] = value
     }
 
-    _update(patch)
+    _update(patch, store)
     
     
   })
 }
 
-function _update(kv) {
-  for (let key in globalStore.instances) {
-    globalStore.instances[key].forEach(ins => {
+function _update(kv, store) {
+  for (let key in store.instances) {
+    store.instances[key].forEach(ins => {
       ins.setData.call(ins, kv)
-      updateStoreByFnProp(ins, globalStore.data)
+      updateStoreByFnProp(ins, store.data)
     })
   }
-  globalStore.onChange && globalStore.onChange(kv)
+  store.onChange && store.onChange(kv)
 }
 
 function updateStoreByFnProp(ele, data) {
