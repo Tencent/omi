@@ -48,7 +48,7 @@ const omi = {
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.1.0'
+options.root.Omi.version = '6.1.1'
 
 export default omi
 
