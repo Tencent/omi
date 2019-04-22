@@ -1276,7 +1276,7 @@
         htm: htm
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'omio-2.2.0';
+    options.root.Omi.version = 'omio-2.2.1';
     var Omi = {
         h: h,
         createElement: h,
