@@ -84,37 +84,34 @@ Omi uses Shadow DOM based style isolation and semantic structure.
 
 ```jsx
 import { h, WeElement, tag, classNames } from 'omi';
-import styles from './_index.less';
+import * as styles from './_index.less';
+
+interface ButtonProps {
+  href?: string,
+  disabled?: boolean,
+  type?: 'default' | 'primary' | 'danger',
+  htmltype?: 'submit' | 'button' | 'reset',
+  onClick?: (e: any) => void
+}
+
+const TAG = 'o-button'
 
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      'o-button': Omi.CustomElementBaseAttributes & {
-        href?: string,
-        disabled?: boolean,
-        type?: 'default' | 'primary' | 'danger',
-        htmltype?: "submit" | "button" | "reset",
-        onClick?: (e: any) => void
-      };
+      [TAG]: Omi.CustomElementBaseAttributes & ButtonProps
     }
   }
 }
 
-interface IProps {
-  href?: string,
-  disabled?: boolean,
-  type?: string,
-  htmltype?: string,
-  onClick?: (e: any) => void
-}
-
-@tag('o-button')
-export default class oButton extends WeElement<IProps, {}> {
+@tag(TAG)
+export default class oButton extends WeElement<ButtonProps, {}> {
+...
 ...
 ...
 ```
 
-<img src="https://tencent.github.io/omi/assets/ts.jpg" alt="omi" width="400"/>
+<img src="https://tencent.github.io/omi/assets/ts.png" alt="omi" width="427"/>
 
 ## Useful Resources
 
