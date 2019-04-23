@@ -111,7 +111,7 @@ export default class oButton extends WeElement<ButtonProps, {}> {
 ...
 ```
 
-<img src="https://tencent.github.io/omi/assets/ts.png" alt="omi" width="427"/>
+<img src="./assets/ts.png" alt="omi" width="427"/>
 
 ## Useful Resources
 
