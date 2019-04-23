@@ -30,6 +30,7 @@
     "template": "rollup -c config/rollup.example.js --watch",
     "children": "rollup -c config/rollup.example.js --watch",
     "timer": "rollup -c config/rollup.example.js --watch",
+    "react-style": "rollup -c config/rollup.example.js --watch",
     "store-old": "rollup -c config/rollup.example.js --watch",
     "store-counter": "rollup -c config/rollup.example.js --watch",
     "store-todo": "rollup -c config/rollup.example.js --watch",

@@ -3,6 +3,7 @@ import { isSameNodeType, isNamedNode } from './index'
 import { createNode, setAccessor } from '../dom/index'
 import { npn, isArray } from '../util'
 import { removeNode } from '../dom/index'
+import options from '../options'
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
@@ -113,7 +114,15 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // If the VNode represents a Component, perform a component diff:
   let vnodeName = vnode.nodeName
-
+  if (typeof vnodeName === 'function') {
+    for(let key in options.mapping){
+      if(options.mapping[key] === vnodeName){
+        vnodeName = key
+        vnode.nodeName = key
+        break
+      }
+    }
+  }
   // Tracks entering and exiting SVG namespace when descending through the tree.
   isSvgMode =
     vnodeName === 'svg'
@@ -302,7 +311,13 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
 export function recollectNodeTree(node, unmountOnly) {
   // If the node's VNode had a ref function, invoke it with null here.
   // (this is part of the React spec, and smart for unsetting references)
-  if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) node[ATTR_KEY].ref(null)
+  if (node[ATTR_KEY] != null && node[ATTR_KEY].ref) {
+    if (typeof node[ATTR_KEY].ref === 'function') {
+      node[ATTR_KEY].ref(null)
+    } else if (node[ATTR_KEY].ref.current) {
+      node[ATTR_KEY].ref.current = null
+    }
+  }
 
   if (unmountOnly === false || node[ATTR_KEY] == null) {
     removeNode(node)
