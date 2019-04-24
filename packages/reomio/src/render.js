@@ -11,7 +11,7 @@ import { getUse } from './util'
 export function render(vnode, parent, store, empty, merge) {
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent
   if(arguments.length === 3 && typeof Element!== undefined && (store instanceof Element || typeof store === 'string')){
-    return diff(merge, vnode, {}, false, parent, false)
+    return diff(store, vnode, {}, false, parent, false)
   }
   obsStore(store)
 

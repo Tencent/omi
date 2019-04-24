@@ -1,4 +1,5 @@
 import { FORCE_RENDER } from './constants'
+import { extend } from './util'
 import { renderComponent } from './vdom/component'
 import options from './options'
 import { enqueueRender } from './render-queue'
