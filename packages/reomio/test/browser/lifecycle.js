@@ -222,8 +222,8 @@ describe('lifecycle', () => {
 				name: 'children'
 			}
 
-			afterUpdate () {
-				console.log('afterUpdate');
+			updated () {
+				console.log('updated');
 				afterUpdateable = true;
 			}
 
@@ -236,11 +236,11 @@ describe('lifecycle', () => {
 		define('children', children);
 		define('my-render', M6);
 
-		sinon.spy(children.prototype, 'afterUpdate');
+		sinon.spy(children.prototype, 'updated');
 
 		render(<my-render />, scratch);
 
-		expect(children.prototype.afterUpdate).to.have.been.calledOnce;
+		expect(children.prototype.updated).to.have.been.calledOnce;
 
 		expect(scratch.innerHTML).to.equal('<div><div>dl</div></div>')
 
