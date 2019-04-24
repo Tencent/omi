@@ -1,4 +1,4 @@
-import { diff } from './vdom/diff';
+import { diff } from './vdom/diff'
 
 /**
  * Render JSX into a `parent` Element.
@@ -18,5 +18,5 @@ import { diff } from './vdom/diff';
  * render(<Thing name="one" />, document.querySelector('#foo'));
  */
 export function render(vnode, parent, merge) {
-	return diff(merge, vnode, {}, false, parent, false);
+  return diff(merge, vnode, {}, false, parent, false)
 }

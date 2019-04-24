@@ -1,12 +1,11 @@
-import { Component } from '../component';
+import { Component } from '../component'
 
 /**
  * Retains a pool of Components for re-use.
  * @type {Component[]}
  * @private
  */
-export const recyclerComponents = [];
-
+export const recyclerComponents = []
 
 /**
  * Create a component. Normalizes differences between PFC's and classful
@@ -17,32 +16,30 @@ export const recyclerComponents = [];
  * @returns {import('../component').Component}
  */
 export function createComponent(Ctor, props, context) {
-	let inst, i = recyclerComponents.length;
+  let inst,
+    i = recyclerComponents.length
 
-	if (Ctor.prototype && Ctor.prototype.render) {
-		inst = new Ctor(props, context);
-		Component.call(inst, props, context);
-	}
-	else {
-		inst = new Component(props, context);
-		inst.constructor = Ctor;
-		inst.render = doRender;
-	}
+  if (Ctor.prototype && Ctor.prototype.render) {
+    inst = new Ctor(props, context)
+    Component.call(inst, props, context)
+  } else {
+    inst = new Component(props, context)
+    inst.constructor = Ctor
+    inst.render = doRender
+  }
 
+  while (i--) {
+    if (recyclerComponents[i].constructor === Ctor) {
+      inst.nextBase = recyclerComponents[i].nextBase
+      recyclerComponents.splice(i, 1)
+      return inst
+    }
+  }
 
-	while (i--) {
-		if (recyclerComponents[i].constructor===Ctor) {
-			inst.nextBase = recyclerComponents[i].nextBase;
-			recyclerComponents.splice(i, 1);
-			return inst;
-		}
-	}
-
-	return inst;
+  return inst
 }
-
 
 /** The `.render()` method for a PFC backing instance. */
 function doRender(props, state, context) {
-	return this.constructor(props, context);
+  return this.constructor(props, context)
 }
