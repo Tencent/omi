@@ -19,22 +19,20 @@ import {
 } from './diff'
 import { createComponent, recyclerComponents } from './component-recycler'
 import { removeNode } from '../dom/index'
+import {
+  addScopedAttrStatic,
+  getCtorName,
+  scopeHost
+} from '../style'
+import { proxyUpdate } from '../observe'
 
-/**
- * Set a component's `props` and possibly re-render the component
- * @param {import('../component').Component} component The Component to set props on
- * @param {object} props The new props
- * @param {number} renderMode Render options - specifies how to re-render the component
- * @param {object} context The new context
- * @param {boolean} mountAll Whether or not to immediately mount all components
+/** Set a component's `props` (generally derived from JSX attributes).
+ *	@param {Object} props
+ *	@param {Object} [opts]
+ *	@param {boolean} [opts.renderSync=false]	If `true` and {@link options.syncComponentUpdates} is `true`, triggers synchronous rendering.
+ *	@param {boolean} [opts.render=true]			If `false`, no render will be triggered.
  */
-export function setComponentProps(
-  component,
-  props,
-  renderMode,
-  context,
-  mountAll
-) {
+export function setComponentProps(component, props, renderMode, context, mountAll) {
   if (component._disable) return
   component._disable = true
 
@@ -49,6 +47,16 @@ export function setComponentProps(
     } else if (component.componentWillReceiveProps) {
       component.componentWillReceiveProps(props, context)
     }
+  }
+
+  if (!component.base || mountAll) {
+    if (component.beforeInstall) component.beforeInstall()
+    if (component.install) component.install()
+    if (component.constructor.observe) {
+      proxyUpdate(component)
+    }
+  } else if (component.receiveProps) {
+    component.receiveProps(props, context, component.props)
   }
 
   if (context && context !== component.context) {
@@ -76,14 +84,36 @@ export function setComponentProps(
   applyRef(component.__ref, component)
 }
 
-/**
- * Render a Component, triggering necessary lifecycle events and taking
- * High-Order Components into account.
- * @param {import('../component').Component} component The component to render
- * @param {number} [renderMode] render mode, see constants.js for available options.
- * @param {boolean} [mountAll] Whether or not to immediately mount all components
- * @param {boolean} [isChild] ?
- * @private
+function shallowComparison(old, attrs) {
+  let name
+
+  for (name in old) {
+    if (attrs[name] == null && old[name] != null) {
+      return true
+    }
+  }
+
+  if (old.children.length > 0 || attrs.children.length > 0) {
+    return true
+  }
+
+  for (name in attrs) {
+    if (name != 'children') {
+      let type = typeof attrs[name]
+      if (type == 'function' || type == 'object') {
+        return true
+      } else if (attrs[name] != old[name]) {
+        return true
+      }
+    }
+  }
+}
+
+/** Render a Component, triggering necessary lifecycle events and taking High-Order Components into account.
+ *	@param {Component} component
+ *	@param {Object} [opts]
+ *	@param {boolean} [opts.build=false]		If `true`, component will build and store a DOM node if not already associated with one.
+ *	@private
  */
 export function renderComponent(component, renderMode, mountAll, isChild) {
   if (component._disable) return
@@ -104,17 +134,18 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
     inst,
     cbase
 
-  if (component.constructor.getDerivedStateFromProps) {
-    state = extend(
-      extend({}, state),
-      component.constructor.getDerivedStateFromProps(props, state)
-    )
-    component.state = state
-  }
+    if (component.constructor.getDerivedStateFromProps) {
+      state = extend(
+        extend({}, state),
+        component.constructor.getDerivedStateFromProps(props, state)
+      )
+      component.state = state
+    }
 
   // if updating
   if (isUpdate) {
     component.props = previousProps
+    component.data = previousState
     component.state = previousState
     component.context = previousContext
     if (
@@ -126,8 +157,18 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
     } else if (component.componentWillUpdate) {
       component.componentWillUpdate(props, state, context)
     }
+
+    if (component.store || renderMode == FORCE_RENDER || shallowComparison(previousProps, props)) {
+      skip = false
+      if (component.beforeUpdate) {
+        component.beforeUpdate(props, state, context)
+      }
+    } else {
+      skip = true
+    }
     component.props = props
     component.state = state
+    component.data = state
     component.context = context
   }
 
@@ -135,7 +176,18 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
   component._dirty = false
 
   if (!skip) {
+    component.beforeRender && component.beforeRender()
     rendered = component.render(props, state, context)
+
+    //don't rerender
+    if (component.constructor.css || component.css) {
+      addScopedAttrStatic(
+        rendered,
+        '_s' + getCtorName(component.constructor)
+      )
+    }
+
+    scopeHost(rendered, component.scopedCssAttr)
 
     // context to pass to the child, can be updated via (grand-)parent component
     if (component.getChildContext) {
@@ -148,28 +200,23 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 
     let childComponent = rendered && rendered.nodeName,
       toUnmount,
-      base
-
-    if (typeof childComponent === 'function') {
+      base,
+      ctor = options.mapping[childComponent]
+      if(typeof childComponent === 'function'){
+        ctor = childComponent
+      }
+    if (ctor) {
       // set up high order component link
 
       let childProps = getNodeProps(rendered)
       inst = initialChildComponent
 
-      if (
-        inst &&
-        inst.constructor === childComponent &&
-        childProps.key == inst.__key
-      ) {
+      if (inst && inst.constructor === ctor && childProps.key == inst.__key) {
         setComponentProps(inst, childProps, SYNC_RENDER, context, false)
       } else {
         toUnmount = inst
 
-        component._component = inst = createComponent(
-          childComponent,
-          childProps,
-          context
-        )
+        component._component = inst = createComponent(ctor, childProps, context)
         inst.nextBase = inst.nextBase || nextBase
         inst._parentComponent = component
         setComponentProps(inst, childProps, NO_RENDER, context, false)
@@ -238,11 +285,16 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
     if (component.componentDidUpdate) {
       component.componentDidUpdate(previousProps, previousState, snapshot)
     }
+    if (component.updated) {
+      component.updated(previousProps, previousState, snapshot)
+    }
     if (options.afterUpdate) options.afterUpdate(component)
   }
 
-  while (component._renderCallbacks.length)
-    component._renderCallbacks.pop().call(component)
+  if (component._renderCallbacks != null) {
+    while (component._renderCallbacks.length)
+      component._renderCallbacks.pop().call(component)
+  }
 
   if (!diffLevel && !isChild) flushMounts()
 }
@@ -276,7 +328,7 @@ export function buildComponentFromVNode(dom, vnode, context, mountAll) {
       dom = oldDom = null
     }
 
-    c = createComponent(vnode.nodeName, props, context)
+    c = createComponent(vnode.nodeName, props, context, vnode)
     if (dom && !c.nextBase) {
       c.nextBase = dom
       // passing dom/oldDom as nextBase will recycle it if unused, so bypass recycling on L229:
@@ -307,6 +359,17 @@ export function unmountComponent(component) {
   component._disable = true
 
   if (component.componentWillUnmount) component.componentWillUnmount()
+
+	if (component.uninstall) component.uninstall()
+
+	if (component.store && component.store.instances) {
+		for (let i = 0, len = component.store.instances.length; i < len; i++) {
+			if (component.store.instances[i] === component) {
+				component.store.instances.splice(i, 1)
+				break
+			}
+		}
+	}
 
   component.base = null
 

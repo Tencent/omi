@@ -1,7 +1,8 @@
 import { FORCE_RENDER } from './constants'
-import { extend } from './util'
 import { renderComponent } from './vdom/component'
+import options from './options'
 import { enqueueRender } from './render-queue'
+import { nProps, assign } from './util'
 /**
  * Base Component class.
  * Provides `setState()` and `forceUpdate()`, which trigger rendering.
@@ -17,69 +18,63 @@ import { enqueueRender } from './render-queue'
  *   }
  * }
  */
-export function Component(props, context) {
-  this._dirty = true
 
-  /**
-   * @public
-   * @type {object}
-   */
-  this.context = context
+let id = 0
 
-  /**
-   * @public
-   * @type {object}
-   */
-  this.props = props
+export default class Component {
+  static is = 'WeElement'
 
-  /**
-   * @public
-   * @type {object}
-   */
-  this.state = this.state || {}
+  constructor(props, store) {
+    this._dirty = true
+    this.context = store
+    this.props = assign(
+      nProps(this.constructor.props),
+      this.constructor.defaultProps,
+      props
+    )
+    this.elementId = id++
+    this.data = this.constructor.data || this.data || this.state || {}
+    this.state = this.data
+    this._preCss = null
 
-  this._renderCallbacks = []
-}
+    this.store = store
+    this._renderCallbacks = []
+  }
 
-extend(Component.prototype, {
-  /**
-   * Update component state and schedule a re-render.
-   * @param {object} state A dict of state properties to be shallowly merged
-   * 	into the current state, or a function that will produce such a dict. The
-   * 	function is called with the current state and props.
-   * @param {() => void} callback A function to be called once component state is
-   * 	updated
-   */
+  update(callback) {
+    this._willUpdate = true
+    if (callback)
+      (this._renderCallbacks = this._renderCallbacks || []).push(callback)
+    renderComponent(this, FORCE_RENDER)
+    if (options.componentChange) options.componentChange(this, this.base)
+    this._willUpdate = false
+  }
+
   setState(state, callback) {
     if (!this.prevState) this.prevState = this.state
     this.state = extend(
       extend({}, this.state),
       typeof state === 'function' ? state(this.state, this.props) : state
     )
+    this.data = this.state
     if (callback) this._renderCallbacks.push(callback)
     enqueueRender(this)
-  },
+  }
 
-  /**
-   * Immediately perform a synchronous re-render of the component.
-   * @param {() => void} callback A function to be called after component is
-   * 	re-rendered.
-   * @private
-   */
+  fire(type, data) {
+    Object.keys(this.props).every(key => {
+      if ('on' + type.toLowerCase() === key.toLowerCase()) {
+        this.props[key]({ detail: data })
+        return false
+      }
+      return true
+    })
+  }
+
   forceUpdate(callback) {
     if (callback) this._renderCallbacks.push(callback)
     renderComponent(this, FORCE_RENDER)
-  },
+  }
 
-  /**
-   * Accepts `props` and `state`, and returns a new Virtual DOM tree to build.
-   * Virtual DOM is generally constructed via [JSX](http://jasonformat.com/wtf-is-jsx).
-   * @param {object} props Props (eg: JSX attributes) received from parent
-   * 	element/component
-   * @param {object} state The component's current state
-   * @param {object} context Context object, as returned by the nearest
-   *  ancestor's `getChildContext()`
-   * @returns {import('./vnode').VNode | void}
-   */
   render() {}
-})
+}

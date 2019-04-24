@@ -1,28 +1,15 @@
-export = preact;
-export as namespace preact;
+export = Omi;
+export as namespace Omi;
 
-declare namespace preact {
+declare namespace Omi {
+	type Callback = (...args: any[]) => void;
 	type Key = string | number;
 	type Ref<T> = (instance: T) => void;
 	type ComponentChild = VNode<any> | object | string | number | boolean | null;
 	type ComponentChildren = ComponentChild[] | ComponentChild;
 
-	/**
-	 * @deprecated
-	 *
-	 * Use Attributes instead
-	 */
-	type ComponentProps = Attributes;
-
-	/**
-	 * @deprecated
-	 *
-	 * Use ClassAttributes instead
-	 */
-	type PreactHTMLAttributes = ClassAttributes<any>;
-
 	interface Attributes {
-		key?: Key;
+		key?: string | number | any;
 		jsx?: boolean;
 	}
 
@@ -30,19 +17,33 @@ declare namespace preact {
 		ref?: Ref<T>;
 	}
 
-	interface PreactDOMAttributes {
+	interface OmiDOMAttributes {
 		children?: ComponentChildren;
 		dangerouslySetInnerHTML?: {
 			__html: string;
 		};
 	}
 
-	type ComponentFactory<P> = ComponentConstructor<P> | FunctionalComponent<P>;
 	/**
-	 * Define the contract for a virtual node in preact.
+	 * Use this to manually set the attributes of a custom element
+	 *
+	 * declare global {
+	 *     namespace JSX {
+	 * 	       interface IntrinsicElements {
+	 *             'hello-element': CustomElementBaseAttributes & {
+	 *                 propFromParent: string;
+	 *             }
+	 *         }
+	 *     }
+	 * }
+	 */
+	interface CustomElementBaseAttributes extends ClassAttributes<any>, OmiDOMAttributes {}
+
+	/**
+	 * Define the contract for a virtual node in omi.
 	 *
 	 * A virtual node has a name, a map of attributes, an array
-	 * of child {VNode}s and a key. The key is used by preact for
+	 * of child {VNode}s and a key. The key is used by omi for
 	 * internal purposes.
 	 */
 	interface VNode<P = any> {
@@ -56,22 +57,16 @@ declare namespace preact {
 		P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> }
 	>;
 
-	interface FunctionalComponent<P = {}> {
-		(props: RenderableProps<P>, context?: any): VNode<any> | null;
-		displayName?: string;
-		defaultProps?: Partial<P>;
-	}
+	interface WeElement<P, D> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+		updated?(): void;
+		beforeRender?(): void;
+		receiveProps?(): void;
 
-	interface ComponentConstructor<P = {}, S = {}> {
-		new (props: P, context?: any): Component<P, S>;
-		displayName?: string;
-		defaultProps?: Partial<P>;
-	}
-
-	// Type alias for a component considered generally, whether stateless or stateful.
-	type AnyComponent<P = {}, S = {}> = FunctionalComponent<P> | ComponentConstructor<P, S>;
-
-	interface Component<P = {}, S = {}> {
 		componentWillMount?(): void;
 		componentDidMount?(): void;
 		componentWillUnmount?(): void;
@@ -82,38 +77,132 @@ declare namespace preact {
 		componentDidUpdate?(previousProps: Readonly<P>, previousState: Readonly<S>, previousContext: any): void;
 	}
 
-	abstract class Component<P, S> {
-		constructor(props?: P, context?: any);
-
-		static displayName?: string;
-		static defaultProps?: any;
-
-		state: Readonly<S>;
-		props: RenderableProps<P>;
-		context: any;
-		base?: HTMLElement;
-
-		setState<K extends keyof S>(state: Pick<S, K>, callback?: () => void): void;
-		setState<K extends keyof S>(fn: (prevState: S, props: P) => Pick<S, K>, callback?: () => void): void;
-
-		forceUpdate(callback?: () => void): void;
-
-		abstract render(props?: RenderableProps<P>, state?: Readonly<S>, context?: any): ComponentChild;
+	interface ModelView<P, D> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+		updated?(): void;
+		beforeRender?(): void;
+		receiveProps?(): void;
 	}
 
+	interface Component<P, D> {
+		install?(): void;
+		installed?(): void;
+		uninstall?(): void;
+		beforeUpdate?(): void;
+		afterUpdate?(): void;
+		updated?(): void;
+		beforeRender?(): void;
+		receiveProps?(): void;
+
+		componentWillMount?(): void;
+		componentDidMount?(): void;
+		componentWillUnmount?(): void;
+		getChildContext?(): object;
+		componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+		shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+		componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+		componentDidUpdate?(previousProps: Readonly<P>, previousState: Readonly<S>, previousContext: any): void;
+	}
+
+	abstract class WeElement<P = {}, D = {}> {
+		constructor();
+
+		// Allow static members to reference class type parameters
+		// https://github.com/Microsoft/TypeScript/issues/24018
+		static props: object;
+		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
+		static css: string;
+
+		props: RenderableProps<P>;
+		data: D;
+		host: HTMLElement;
+
+		update(): void;
+		fire(name: string, data?: object): void;
+		css(): string;
+		// Abstract methods don't infer argument types
+		// https://github.com/Microsoft/TypeScript/issues/14887
+		abstract render(props: RenderableProps<P>, data: D): void;
+	}
+
+	// The class type (not instance of class)
+	// https://stackoverflow.com/q/42753968/2777142
+	interface WeElementConstructor {
+		new(): WeElement;
+	}
+
+	abstract class ModelView<P = {}, D = {}> {
+		constructor();
+
+		// Allow static members to reference class type parameters
+		// https://github.com/Microsoft/TypeScript/issues/24018
+		static props: object;
+		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
+
+		props: RenderableProps<P>;
+		data: D;
+		host: HTMLElement;
+
+		update(): void;
+		fire(name: string, data?: object): void;
+
+		// Abstract methods don't infer argument types
+		// https://github.com/Microsoft/TypeScript/issues/14887
+		abstract render(props: RenderableProps<P>, data: D): void;
+	}
+
+	abstract class Component<P = {}, D = {}> {
+		constructor();
+
+		// Allow static members to reference class type parameters
+		// https://github.com/Microsoft/TypeScript/issues/24018
+		static props: object;
+		static data: object;
+		static observe: boolean;
+		static mergeUpdate: boolean;
+		static css: string;
+
+		props: RenderableProps<P>;
+		data: D;
+		host: HTMLElement;
+
+		update(): void;
+		fire(name: string, data?: object): void;
+		css(): string;
+		// Abstract methods don't infer argument types
+		// https://github.com/Microsoft/TypeScript/issues/14887
+		abstract render(props: RenderableProps<P>, data: D): void;
+	}
+
+	function h<P>(
+		node: string,
+		params: Attributes & P | null,
+		...children: ComponentChildren[]
+	): VNode<any>;
 	function h(
 		node: string,
 		params: JSX.HTMLAttributes & JSX.SVGAttributes & Record<string, any> | null,
 		...children: ComponentChildren[]
 	): VNode<any>;
-	function h<P>(
-		node: ComponentFactory<P>,
-		params: Attributes & P | null,
-		...children: ComponentChildren[]
-	): VNode<any>;
 
-	function render(node: ComponentChild, parent: Element | Document | ShadowRoot | DocumentFragment, mergeWith?: Element): Element;
-	function rerender(): void;
+	function render(vnode: ComponentChild, parent: string | Element | Document | ShadowRoot | DocumentFragment, store?: object, empty?: boolean, merge?: string | Element | Document | ShadowRoot | DocumentFragment): void;
+
+	function define(name: string, ctor: WeElementConstructor): void;
+	function tag(name: string, pure?: boolean): (ctor: WeElementConstructor) => void;
+	function tick(callback: Callback, scope?: any): void;
+	function nextTick(callback: Callback, scope?: any): void;
+	function observe(target: WeElementConstructor): void;
+	function getHost(element: WeElement): WeElement;
+	function classNames(...args: any[]): string;
+	function extractClass(...args: any[]): object;
 	function cloneElement(element: JSX.Element, props: any, ...children: ComponentChildren[]): JSX.Element;
 
 	var options: {
@@ -121,7 +210,7 @@ declare namespace preact {
 		debounceRendering?: (render: () => void) => void;
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
-	};
+  };
 }
 
 type Defaultize<Props, Defaults> =
@@ -135,10 +224,13 @@ type Defaultize<Props, Defaults> =
 
 declare global {
 	namespace JSX {
-		interface Element extends preact.VNode<any> {
+		interface Element extends Omi.VNode<any> {
 		}
 
-		interface ElementClass extends preact.Component<any, any> {
+		interface ElementClass extends Omi.WeElement<any, any> {
+		}
+
+		interface ElementClass extends Omi.Component<any, any> {
 		}
 
 		interface ElementAttributesProperty {
@@ -418,7 +510,7 @@ declare global {
 		type GenericEventHandler = EventHandler<Event>;
 		type PointerEventHandler = EventHandler<PointerEvent>;
 
-		interface DOMAttributes extends preact.PreactDOMAttributes {
+		interface DOMAttributes extends Omi.OmiDOMAttributes {
 			// Image Events
 			onLoad?: GenericEventHandler;
 			onError?: GenericEventHandler;
@@ -455,7 +547,6 @@ declare global {
 			onSearchCapture?: GenericEventHandler;
 			onSubmit?: GenericEventHandler;
 			onSubmitCapture?: GenericEventHandler;
-			onInvalid?: GenericEventHandler;
 
 			// Keyboard Events
 			onKeyDown?: KeyboardEventHandler;
@@ -606,7 +697,7 @@ declare global {
 			onTransitionEndCapture?: TransitionEventHandler;
 		}
 
-		interface HTMLAttributes extends preact.PreactHTMLAttributes, DOMAttributes {
+		interface HTMLAttributes extends Omi.ClassAttributes<any>, DOMAttributes {
 			// Standard HTML Attributes
 			accept?: string;
 			acceptCharset?: string;
@@ -902,6 +993,7 @@ declare global {
 			text: SVGAttributes;
 			tspan: SVGAttributes;
 			use: SVGAttributes;
+			[tagName: string]: any;
 		}
 	}
 }
