@@ -1,6 +1,6 @@
 !function() {
     'use strict';
-    function VNode() {}
+    function VNode$1() {}
     function h(nodeName, attributes) {
         var lastSimple, child, simple, i, children = [];
         for (i = arguments.length; i-- > 2; ) stack.push(arguments[i]);
@@ -14,7 +14,7 @@
             if (simple && lastSimple) children[children.length - 1] += child; else if (0 === children.length) children = [ child ]; else children.push(child);
             lastSimple = simple;
         }
-        var p = new VNode();
+        var p = new VNode$1();
         p.nodeName = nodeName;
         p.children = children;
         p.attributes = null == attributes ? void 0 : attributes;
@@ -925,8 +925,225 @@
         var r = n(this, e(t), arguments, []);
         return r.length > 1 ? r : r[0];
     }
+    function _classCallCheck$1(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
+    function _possibleConstructorReturn$1(self, call) {
+        if (!self) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        return call && ("object" == typeof call || "function" == typeof call) ? call : self;
+    }
+    function _inherits$1(subClass, superClass) {
+        if ("function" != typeof superClass && null !== superClass) throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: !1,
+                writable: !0,
+                configurable: !0
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
+    function objectIs(x, y) {
+        if (x === y) return 0 !== x || 1 / x == 1 / y; else return x !== x && y !== y;
+    }
+    function createEventEmitter(value) {
+        var handlers = [];
+        return {
+            on: function(handler) {
+                handlers.push(handler);
+            },
+            off: function(handler) {
+                handlers = handlers.filter(function(h) {
+                    return h !== handler;
+                });
+            },
+            get: function() {
+                return value;
+            },
+            set: function(newValue, changedBits) {
+                value = newValue;
+                handlers.forEach(function(handler) {
+                    return handler(value, changedBits);
+                });
+            }
+        };
+    }
+    function onlyChild(children) {
+        return Array.isArray(children) ? children[0] : children;
+    }
+    function createContext(defaultValue, calculateChangedBits) {
+        var contextProp = '__create-react-context-' + id$1++ + '__';
+        var Provider = function(_Component) {
+            function Provider() {
+                var _temp, _this, _ret;
+                _classCallCheck$1(this, Provider);
+                for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) args[key] = arguments[key];
+                return _ret = (_temp = _this = _possibleConstructorReturn$1(this, _Component.call.apply(_Component, [ this ].concat(args))), 
+                _this.emitter = createEventEmitter(_this.props.value), _temp), _possibleConstructorReturn$1(_this, _ret);
+            }
+            _inherits$1(Provider, _Component);
+            Provider.prototype.getChildContext = function() {
+                var _ref;
+                return _ref = {}, _ref[contextProp] = this.emitter, _ref;
+            };
+            Provider.prototype.componentWillReceiveProps = function(nextProps) {
+                if (this.props.value !== nextProps.value) {
+                    var oldValue = this.props.value;
+                    var newValue = nextProps.value;
+                    var changedBits;
+                    if (objectIs(oldValue, newValue)) changedBits = 0; else {
+                        changedBits = 'function' == typeof calculateChangedBits ? calculateChangedBits(oldValue, newValue) : 1073741823;
+                        if ('production' !== process.env.NODE_ENV) ;
+                        changedBits |= 0;
+                        if (0 !== changedBits) this.emitter.set(nextProps.value, changedBits);
+                    }
+                }
+            };
+            Provider.prototype.render = function() {
+                return this.props.children;
+            };
+            return Provider;
+        }(Component);
+        var Consumer = function(_Component2) {
+            function Consumer() {
+                var _temp2, _this2, _ret2;
+                _classCallCheck$1(this, Consumer);
+                for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) args[_key2] = arguments[_key2];
+                return _ret2 = (_temp2 = _this2 = _possibleConstructorReturn$1(this, _Component2.call.apply(_Component2, [ this ].concat(args))), 
+                _this2.state = {
+                    value: _this2.getValue()
+                }, _this2.onUpdate = function(newValue, changedBits) {
+                    var observedBits = 0 | _this2.observedBits;
+                    if (0 != (observedBits & changedBits)) _this2.setState({
+                        value: _this2.getValue()
+                    });
+                }, _temp2), _possibleConstructorReturn$1(_this2, _ret2);
+            }
+            _inherits$1(Consumer, _Component2);
+            Consumer.prototype.componentWillReceiveProps = function(nextProps) {
+                var observedBits = nextProps.observedBits;
+                this.observedBits = void 0 === observedBits || null === observedBits ? 1073741823 : observedBits;
+            };
+            Consumer.prototype.componentDidMount = function() {
+                if (this.context && this.context[contextProp]) this.context[contextProp].on(this.onUpdate);
+                var observedBits = this.props.observedBits;
+                this.observedBits = void 0 === observedBits || null === observedBits ? 1073741823 : observedBits;
+            };
+            Consumer.prototype.componentWillUnmount = function() {
+                if (this.context && this.context[contextProp]) this.context[contextProp].off(this.onUpdate);
+            };
+            Consumer.prototype.getValue = function() {
+                if (this.context && this.context[contextProp]) return this.context[contextProp].get(); else return defaultValue;
+            };
+            Consumer.prototype.render = function() {
+                return onlyChild(this.props.children)(this.state.value);
+            };
+            return Consumer;
+        }(Component);
+        return {
+            Provider: Provider,
+            Consumer: Consumer
+        };
+    }
+    function _classCallCheck$2(instance, Constructor) {
+        if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
+    }
     function createRef() {
         return {};
+    }
+    function isValidElement(element) {
+        return element && (element instanceof VNode || element.$$typeof === REACT_ELEMENT_TYPE);
+    }
+    function renderSubtreeIntoContainer(parentComponent, vnode, container, callback) {
+        var wrap = h(ContextProvider, {
+            context: parentComponent.context
+        }, vnode);
+        var renderContainer = render(wrap, container);
+        var component = renderContainer._component || renderContainer.base;
+        if (callback) callback.call(component, renderContainer);
+        return component;
+    }
+    function Portal(props) {
+        renderSubtreeIntoContainer(this, props.vnode, props.container);
+    }
+    function createPortal(vnode, container) {
+        return h(Portal, {
+            vnode: vnode,
+            container: container
+        });
+    }
+    function findDOMNode(component) {
+        return component && (component.base || 1 === component.nodeType && component) || null;
+    }
+    function unmountComponentAtNode(container) {
+        var existing = container.I && container.I.base;
+        if (existing && existing.parentNode === container) {
+            render(h(EmptyComponent), container, existing);
+            return !0;
+        }
+        return !1;
+    }
+    function shallowDiffers(a, b) {
+        for (var i in a) if (!(i in b)) return !0;
+        for (var i in b) if (a[i] !== b[i]) return !0;
+        return !1;
+    }
+    function callMethod(ctx, m, args) {
+        if ('string' == typeof m) m = ctx.constructor.prototype[m];
+        if ('function' == typeof m) return m.apply(ctx, args);
+    }
+    function multihook(hooks, skipDuplicates) {
+        return function() {
+            var ret;
+            for (var i = 0; i < hooks.length; i++) {
+                var r = callMethod(this, hooks[i], arguments);
+                if (skipDuplicates && null != r) {
+                    if (!ret) ret = {};
+                    for (var key in r) if (r.hasOwnProperty(key)) ret[key] = r[key];
+                } else if (void 0 !== r) ret = r;
+            }
+            return ret;
+        };
+    }
+    function newComponentHook(props, context) {
+        propsHook.call(this, props, context);
+        this.componentWillReceiveProps = multihook([ propsHook, this.componentWillReceiveProps || 'componentWillReceiveProps' ]);
+        this.render = multihook([ propsHook, beforeRender, this.render || 'render', afterRender ]);
+    }
+    function propsHook(props, context) {
+        if (props) {
+            var c = props.children;
+            if (c && Array.isArray(c) && 1 === c.length && ('string' == typeof c[0] || 'function' == typeof c[0] || c[0] instanceof VNode)) {
+                props.children = c[0];
+                if (props.children && 'object' == typeof props.children) {
+                    props.children.length = 1;
+                    props.children[0] = props.children;
+                }
+            }
+            if (DEV) {
+                var ctor = 'function' == typeof this ? this : this.constructor;
+                this.propTypes || ctor.propTypes;
+                this.displayName || ctor.name;
+            }
+        }
+    }
+    function beforeRender(props) {
+        currentComponent = this;
+    }
+    function afterRender() {
+        if (currentComponent === this) currentComponent = null;
+    }
+    function _Component(props, context, opts) {
+        Component.call(this, props, context);
+        this.state = this.getInitialState ? this.getInitialState() : {};
+        this.refs = {};
+        this.J = {};
+        if (opts !== BYPASS_HOOK) newComponentHook.call(this, props, context);
+    }
+    function F() {}
+    function PureComponent(props, context) {
+        _Component.call(this, props, context);
     }
     var options = {
         scopedStyle: !0,
@@ -1228,9 +1445,70 @@
         for (var r = "", e = 0; e < n.length; e++) r += n[e].length + "-" + n[e];
         return u[r] || (u[r] = t(n));
     };
+    var ARR = [];
+    var Children = {
+        map: function(children, fn, ctx) {
+            if (null == children) return null;
+            children = Children.toArray(children);
+            if (ctx && ctx !== children) fn = fn.bind(ctx);
+            return children.map(fn);
+        },
+        forEach: function(children, fn, ctx) {
+            if (null == children) return null;
+            children = Children.toArray(children);
+            if (ctx && ctx !== children) fn = fn.bind(ctx);
+            children.forEach(fn);
+        },
+        count: function(children) {
+            return children && children.length || 0;
+        },
+        only: function(children) {
+            children = Children.toArray(children);
+            if (1 !== children.length) throw new Error('Children.only() expects only one child.');
+            return children[0];
+        },
+        toArray: function(children) {
+            if (null == children) return []; else return ARR.concat(children);
+        }
+    };
+    var id$1 = 0;
     var html = htm.bind(h);
     var WeElement = Component;
     var defineElement = define;
+    var REACT_ELEMENT_TYPE = 'undefined' != typeof Symbol && Symbol.for && Symbol.for('react.element') || 60103;
+    var ContextProvider = function() {
+        function ContextProvider() {
+            _classCallCheck$2(this, ContextProvider);
+        }
+        ContextProvider.prototype.getChildContext = function() {
+            return this.props.context;
+        };
+        ContextProvider.prototype.render = function(props) {
+            return props.children[0];
+        };
+        return ContextProvider;
+    }();
+    var unstable_renderSubtreeIntoContainer = renderSubtreeIntoContainer;
+    extend(_Component.prototype = new Component(), {
+        constructor: _Component,
+        isReactComponent: {},
+        replaceState: function(state, callback) {
+            this.setState(state, callback);
+            for (var i in this.state) if (!(i in state)) delete this.state[i];
+        },
+        getDOMNode: function() {
+            return this.base;
+        },
+        isMounted: function() {
+            return !!this.base;
+        }
+    });
+    F.prototype = _Component.prototype;
+    PureComponent.prototype = new F();
+    PureComponent.prototype.isPureReactComponent = !0;
+    PureComponent.prototype.shouldComponentUpdate = function(props, state) {
+        return shallowDiffers(this.props, props) || shallowDiffers(this.state, state);
+    };
     options.root.Omi = {
         h: h,
         createElement: h,
@@ -1252,10 +1530,18 @@
         tag: tag,
         merge: merge,
         html: html,
-        htm: htm
+        htm: htm,
+        Children: Children,
+        isValidElement: isValidElement,
+        createPortal: createPortal,
+        findDOMNode: findDOMNode,
+        unmountComponentAtNode: unmountComponentAtNode,
+        unstable_renderSubtreeIntoContainer: unstable_renderSubtreeIntoContainer,
+        PureComponent: PureComponent,
+        createContext: createContext
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'reomio-0.0.1';
+    options.root.Omi.version = 'reomio-1.0.1';
     var Omi = {
         h: h,
         createElement: h,
@@ -1277,7 +1563,15 @@
         tag: tag,
         merge: merge,
         html: html,
-        htm: htm
+        htm: htm,
+        Children: Children,
+        isValidElement: isValidElement,
+        createPortal: createPortal,
+        findDOMNode: findDOMNode,
+        unmountComponentAtNode: unmountComponentAtNode,
+        unstable_renderSubtreeIntoContainer: unstable_renderSubtreeIntoContainer,
+        PureComponent: PureComponent,
+        createContext: createContext
     };
     if ('undefined' != typeof module) module.exports = Omi; else self.Omi = Omi;
 }();

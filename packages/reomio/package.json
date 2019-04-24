@@ -1,6 +1,6 @@
 {
   "name": "reomio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React + Omio",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
@@ -171,5 +171,8 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2"
   }
 }
