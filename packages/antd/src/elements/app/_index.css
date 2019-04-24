@@ -14,6 +14,10 @@
 	color: white;
 }
 
+.app-header h1 {
+	color: white;
+}
+
 .app-title {
 	font-size: 1.5em;
 }
