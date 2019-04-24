@@ -22,8 +22,6 @@ import { enqueueRender } from './render-queue'
 let id = 0
 
 export default function Component(props, store) {
-
-
   this._dirty = true
   this.context = store
   this.props = props
@@ -36,7 +34,6 @@ export default function Component(props, store) {
   this.store = store
   this._renderCallbacks = []
 }
-
 
 extend(Component.prototype, {
   update(callback) {
@@ -72,10 +69,7 @@ extend(Component.prototype, {
     renderComponent(this, FORCE_RENDER)
   },
 
-  render() { }
-
+  render() {}
 })
-
-
 
 Component.is = 'WeElement'

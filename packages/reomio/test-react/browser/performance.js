@@ -356,7 +356,7 @@ describe('performance', function() {
 			render(<App />, scratch, scratch.firstChild);
 		}, ({ ticks, message }) => {
 			console.log(`PERF: SSR Hydrate: ${message}`);
-			expect(ticks).to.be.below(3000 * MULTIPLIER);
+			expect(ticks).to.be.below(4000 * MULTIPLIER);
 			done();
 		});
 	});

@@ -1,6 +1,6 @@
 import Component from '../component'
 import { getUse } from '../util'
-import { getPath } from  '../define'
+import { getPath } from '../define'
 
 /**
  * Retains a pool of Components for re-use.
@@ -19,7 +19,7 @@ export const recyclerComponents = []
  */
 export function createComponent(Ctor, props, context, vnode) {
   let inst,
-  i = recyclerComponents.length
+    i = recyclerComponents.length
 
   if (Ctor.prototype && Ctor.prototype.render) {
     inst = new Ctor(props, context)
@@ -31,18 +31,16 @@ export function createComponent(Ctor, props, context, vnode) {
   }
   vnode && (inst.scopedCssAttr = vnode.css)
 
-  if ( inst.store && inst.store.data) {
-		if(inst.constructor.use){
-			inst.use = getUse(inst.store.data, inst.constructor.use)
-			inst.store.instances.push(inst)
-		} else if(inst.initUse){
-			const use = inst.initUse()
-			inst._updatePath = getPath(use)
-			inst.use = getUse(inst.store.data, use)
-			inst.store.instances.push(inst)
-		}
-
-
+  if (inst.store && inst.store.data) {
+    if (inst.constructor.use) {
+      inst.use = getUse(inst.store.data, inst.constructor.use)
+      inst.store.instances.push(inst)
+    } else if (inst.initUse) {
+      const use = inst.initUse()
+      inst._updatePath = getPath(use)
+      inst.use = getUse(inst.store.data, use)
+      inst.store.instances.push(inst)
+    }
   }
 
   while (i--) {
@@ -52,7 +50,7 @@ export function createComponent(Ctor, props, context, vnode) {
       return inst
     }
   }
-  
+
   return inst
 }
 

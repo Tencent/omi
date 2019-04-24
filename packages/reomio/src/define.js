@@ -7,7 +7,8 @@ export function define(name, ctor) {
   options.mapping[name] = ctor
   if (ctor.use) {
     ctor.updatePath = getPath(ctor.use)
-  } else if (ctor.data) { //Compatible with older versions
+  } else if (ctor.data) {
+    //Compatible with older versions
     ctor.updatePath = getUpdatePath(ctor.data)
   }
 }
@@ -23,10 +24,10 @@ export function getPath(obj) {
         if (typeof tempPath === 'string') {
           result[tempPath] = true
         } else {
-          if(typeof tempPath[0] === 'string'){
+          if (typeof tempPath[0] === 'string') {
             result[tempPath[0]] = true
-          }else{
-            tempPath[0].forEach(path => result[path] = true)
+          } else {
+            tempPath[0].forEach(path => (result[path] = true))
           }
         }
       }

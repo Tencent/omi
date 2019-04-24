@@ -93,7 +93,7 @@ export function addStyleWithoutId(cssText) {
 export function addScopedAttrStatic(vdom, attr) {
   if (options.scopedStyle) {
     scopeVdom(attr, vdom)
-  } 
+  }
 }
 
 export function addStyleToHead(style, attr) {

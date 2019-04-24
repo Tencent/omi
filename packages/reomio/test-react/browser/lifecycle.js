@@ -1488,6 +1488,7 @@ describe('Lifecycle methods', () => {
 			});
 		});
 
+		//_dirty 加上可以修复这个单元测试，_dirty是可以合并 setState
 		it("should be passed correct this.state for batched setState", () => {
 			/** @type {() => void} */
 			let updateState;

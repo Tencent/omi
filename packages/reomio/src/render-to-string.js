@@ -9,55 +9,58 @@
 
 import options from './options'
 
-import {
-  addScopedAttrStatic,
-  getCtorName,
-  scopeHost,
-  scoper
-} from './style'
+import { addScopedAttrStatic, getCtorName, scopeHost, scoper } from './style'
 
+const encodeEntities = s =>
+  String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
 
-const encodeEntities = s => String(s)
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;');
-
-const indent = (s, char) => String(s).replace(/(\n+)/g, '$1' + (char || '\t'));
+const indent = (s, char) => String(s).replace(/(\n+)/g, '$1' + (char || '\t'))
 
 const mapping = options.mapping
 
-const VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/;
+const VOID_ELEMENTS = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/
 
-const isLargeString = (s, length, ignoreLines) => (String(s).length > (length || 40) || (!ignoreLines && String(s).indexOf('\n') !== -1) || String(s).indexOf('<') !== -1);
+const isLargeString = (s, length, ignoreLines) =>
+  String(s).length > (length || 40) ||
+  (!ignoreLines && String(s).indexOf('\n') !== -1) ||
+  String(s).indexOf('<') !== -1
 
-const JS_TO_CSS = {};
+const JS_TO_CSS = {}
 
 // Convert an Object style to a CSSText string
 function styleObjToCss(s) {
-  let str = '';
+  let str = ''
   for (let prop in s) {
-    let val = s[prop];
+    let val = s[prop]
     if (val != null) {
-      if (str) str += ' ';
+      if (str) str += ' '
       // str += jsToCss(prop);
-      str += JS_TO_CSS[prop] || (JS_TO_CSS[prop] = prop.replace(/([A-Z])/g, '-$1').toLowerCase());
-      str += ': ';
-      str += val;
+      str +=
+        JS_TO_CSS[prop] ||
+        (JS_TO_CSS[prop] = prop.replace(/([A-Z])/g, '-$1').toLowerCase())
+      str += ': '
+      str += val
       if (typeof val === 'number' && IS_NON_DIMENSIONAL.test(prop) === false) {
-        str += 'px';
+        str += 'px'
       }
-      str += ';';
+      str += ';'
     }
   }
-  return str || undefined;
+  return str || undefined
 }
 
-export function renderToString(vnode, opts, store, isSvgMode){
-  store = store || {};
-  opts = Object.assign({
-    scopedCSS: true
-  },opts)
+export function renderToString(vnode, opts, store, isSvgMode) {
+  store = store || {}
+  opts = Object.assign(
+    {
+      scopedCSS: true
+    },
+    opts
+  )
   const css = {}
   const html = _renderToString(vnode, opts, store, isSvgMode, css)
   return {
@@ -69,187 +72,189 @@ export function renderToString(vnode, opts, store, isSvgMode){
 /** The default export is an alias of `render()`. */
 function _renderToString(vnode, opts, store, isSvgMode, css) {
   if (vnode == null || typeof vnode === 'boolean') {
-    return '';
+    return ''
   }
 
   let nodeName = vnode.nodeName,
     attributes = vnode.attributes,
-    isComponent = false;
-  
+    isComponent = false
 
   let pretty = true && opts.pretty,
-    indentChar = pretty && typeof pretty === 'string' ? pretty : '\t';
+    indentChar = pretty && typeof pretty === 'string' ? pretty : '\t'
 
   // #text nodes
   if (typeof vnode !== 'object' && !nodeName) {
-    return encodeEntities(vnode);
+    return encodeEntities(vnode)
   }
 
   // components
   const ctor = mapping[nodeName]
   if (ctor) {
-    isComponent = true;
+    isComponent = true
 
     let props = getNodeProps(vnode),
-      rendered;
+      rendered
     // class-based components
-    let c = new ctor(props, store);
+    let c = new ctor(props, store)
     // turn off stateful re-rendering:
-    c._disable = c.__x = true;
-    c.props = props;
-    c.store = store;
-    if (c.install) c.install();
-    if (c.beforeRender) c.beforeRender();
-    rendered = c.render(c.props, c.data, c.store);
+    c._disable = c.__x = true
+    c.props = props
+    c.store = store
+    if (c.install) c.install()
+    if (c.beforeRender) c.beforeRender()
+    rendered = c.render(c.props, c.data, c.store)
 
-    if(opts.scopedCSS){
-
+    if (opts.scopedCSS) {
       if (c.constructor.css || c.css) {
-
-        const cssStr = c.constructor.css ? c.constructor.css : (typeof c.css === 'function' ? c.css() : c.css)
+        const cssStr = c.constructor.css
+          ? c.constructor.css
+          : typeof c.css === 'function'
+            ? c.css()
+            : c.css
         const cssAttr = '_s' + getCtorName(c.constructor)
         css[cssAttr] = {
           id: cssAttr,
           css: scoper(cssStr, cssAttr)
         }
-        addScopedAttrStatic(
-          rendered,
-          cssAttr
-        )
+        addScopedAttrStatic(rendered, cssAttr)
       }
-    
+
       c.scopedCSSAttr = vnode.css
       scopeHost(rendered, c.scopedCSSAttr)
     }
 
-    return _renderToString(rendered, opts, store, false, css);
+    return _renderToString(rendered, opts, store, false, css)
   }
 
-
   // render JSX to HTML
-  let s = '', html;
+  let s = '',
+    html
 
   if (attributes) {
-    let attrs = Object.keys(attributes);
+    let attrs = Object.keys(attributes)
 
     // allow sorting lexicographically for more determinism (useful for tests, such as via preact-jsx-chai)
-    if (opts && opts.sortAttributes === true) attrs.sort();
+    if (opts && opts.sortAttributes === true) attrs.sort()
 
     for (let i = 0; i < attrs.length; i++) {
       let name = attrs[i],
-        v = attributes[name];
-      if (name === 'children') continue;
+        v = attributes[name]
+      if (name === 'children') continue
 
-      if (name.match(/[\s\n\\/='"\0<>]/)) continue;
+      if (name.match(/[\s\n\\/='"\0<>]/)) continue
 
-      if (!(opts && opts.allAttributes) && (name === 'key' || name === 'ref')) continue;
+      if (!(opts && opts.allAttributes) && (name === 'key' || name === 'ref'))
+        continue
 
       if (name === 'className') {
-        if (attributes['class']) continue;
-        name = 'class';
-      }
-      else if (isSvgMode && name.match(/^xlink:?./)) {
-        name = name.toLowerCase().replace(/^xlink:?/, 'xlink:');
+        if (attributes['class']) continue
+        name = 'class'
+      } else if (isSvgMode && name.match(/^xlink:?./)) {
+        name = name.toLowerCase().replace(/^xlink:?/, 'xlink:')
       }
 
       if (name === 'style' && v && typeof v === 'object') {
-        v = styleObjToCss(v);
+        v = styleObjToCss(v)
       }
 
-      let hooked = opts.attributeHook && opts.attributeHook(name, v, store, opts, isComponent);
+      let hooked =
+        opts.attributeHook &&
+        opts.attributeHook(name, v, store, opts, isComponent)
       if (hooked || hooked === '') {
-        s += hooked;
-        continue;
+        s += hooked
+        continue
       }
 
       if (name === 'dangerouslySetInnerHTML') {
-        html = v && v.__html;
-      }
-      else if ((v || v === 0 || v === '') && typeof v !== 'function') {
+        html = v && v.__html
+      } else if ((v || v === 0 || v === '') && typeof v !== 'function') {
         if (v === true || v === '') {
-          v = name;
+          v = name
           // in non-xml mode, allow boolean attributes
           if (!opts || !opts.xml) {
-            s += ' ' + name;
-            continue;
+            s += ' ' + name
+            continue
           }
         }
-        s += ` ${name}="${encodeEntities(v)}"`;
+        s += ` ${name}="${encodeEntities(v)}"`
       }
     }
   }
 
   // account for >1 multiline attribute
   if (pretty) {
-    let sub = s.replace(/^\n\s*/, ' ');
-    if (sub !== s && !~sub.indexOf('\n')) s = sub;
-    else if (pretty && ~s.indexOf('\n')) s += '\n';
+    let sub = s.replace(/^\n\s*/, ' ')
+    if (sub !== s && !~sub.indexOf('\n')) s = sub
+    else if (pretty && ~s.indexOf('\n')) s += '\n'
   }
 
-  s = `<${nodeName}${s}>`;
-  if (String(nodeName).match(/[\s\n\\/='"\0<>]/)) throw s;
+  s = `<${nodeName}${s}>`
+  if (String(nodeName).match(/[\s\n\\/='"\0<>]/)) throw s
 
-  let isVoid = String(nodeName).match(VOID_ELEMENTS);
-  if (isVoid) s = s.replace(/>$/, ' />');
+  let isVoid = String(nodeName).match(VOID_ELEMENTS)
+  if (isVoid) s = s.replace(/>$/, ' />')
 
-  let pieces = [];
+  let pieces = []
   if (html) {
     // if multiline, indent.
     if (pretty && isLargeString(html)) {
-      html = '\n' + indentChar + indent(html, indentChar);
+      html = '\n' + indentChar + indent(html, indentChar)
     }
-    s += html;
-  }
-  else if (vnode.children) {
-    let hasLarge = pretty && ~s.indexOf('\n');
+    s += html
+  } else if (vnode.children) {
+    let hasLarge = pretty && ~s.indexOf('\n')
     for (let i = 0; i < vnode.children.length; i++) {
-      let child = vnode.children[i];
+      let child = vnode.children[i]
       if (child != null && child !== false) {
-        let childSvgMode = nodeName === 'svg' ? true : nodeName === 'foreignObject' ? false : isSvgMode,
-          ret = _renderToString(child, opts, store, childSvgMode, css);
-        if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true;
-        if (ret) pieces.push(ret);
+        let childSvgMode =
+            nodeName === 'svg'
+              ? true
+              : nodeName === 'foreignObject'
+                ? false
+                : isSvgMode,
+          ret = _renderToString(child, opts, store, childSvgMode, css)
+        if (pretty && !hasLarge && isLargeString(ret)) hasLarge = true
+        if (ret) pieces.push(ret)
       }
     }
     if (pretty && hasLarge) {
-      for (let i = pieces.length; i--;) {
-        pieces[i] = '\n' + indentChar + indent(pieces[i], indentChar);
+      for (let i = pieces.length; i--; ) {
+        pieces[i] = '\n' + indentChar + indent(pieces[i], indentChar)
       }
     }
   }
 
   if (pieces.length) {
-    s += pieces.join('');
-  }
-  else if (opts && opts.xml) {
-    return s.substring(0, s.length - 1) + ' />';
+    s += pieces.join('')
+  } else if (opts && opts.xml) {
+    return s.substring(0, s.length - 1) + ' />'
   }
 
   if (!isVoid) {
-    if (pretty && ~s.indexOf('\n')) s += '\n';
-    s += `</${nodeName}>`;
+    if (pretty && ~s.indexOf('\n')) s += '\n'
+    s += `</${nodeName}>`
   }
 
   return s
 }
 
 function assign(obj, props) {
-  for (let i in props) obj[i] = props[i];
-  return obj;
+  for (let i in props) obj[i] = props[i]
+  return obj
 }
 
 function getNodeProps(vnode) {
-  let props = assign({}, vnode.attributes);
-  props.children = vnode.children;
+  let props = assign({}, vnode.attributes)
+  props.children = vnode.children
 
-  let defaultProps = vnode.nodeName.defaultProps;
+  let defaultProps = vnode.nodeName.defaultProps
   if (defaultProps !== undefined) {
     for (let i in defaultProps) {
       if (props[i] === undefined) {
-        props[i] = defaultProps[i];
+        props[i] = defaultProps[i]
       }
     }
   }
 
-  return props;
+  return props
 }

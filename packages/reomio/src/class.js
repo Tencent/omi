@@ -48,6 +48,6 @@ export function extractClass() {
     }
   }
   if (args.length > 0) {
-    return { 'class': classNames.apply(null, args) }
+    return { class: classNames.apply(null, args) }
   }
 }

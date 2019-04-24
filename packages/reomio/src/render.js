@@ -10,7 +10,13 @@ import { getUse } from './util'
  */
 export function render(vnode, parent, store, empty, merge) {
   parent = typeof parent === 'string' ? document.querySelector(parent) : parent
-  if(arguments.length === 3 && typeof Element!== undefined && (store instanceof Element || typeof store === 'string')){
+  if (
+    store &&
+    (typeof store === 'string' ||
+      (arguments.length === 3 &&
+        typeof Element !== undefined &&
+        (store instanceof Element || store.nodeType === 3)))
+  ) {
     return diff(store, vnode, {}, false, parent, false)
   }
   obsStore(store)
@@ -22,25 +28,22 @@ export function render(vnode, parent, store, empty, merge) {
   }
 
   if (merge) {
-    merge =
-      typeof merge === 'string'
-        ? document.querySelector(merge)
-        : merge
+    merge = typeof merge === 'string' ? document.querySelector(merge) : merge
   }
 
   return diff(merge, vnode, store, false, parent, false)
 }
 
-function obsStore(store){
+function obsStore(store) {
   if (store && store.data) {
     store.instances = []
     extendStoreUpate(store)
 
     obaa(store.data, (prop, val, old, path) => {
-			const patchs = {}
+      const patchs = {}
       const key = fixPath(path + '-' + prop)
       patchs[key] = true
-			store.update(patchs)
+      store.update(patchs)
     })
   }
 }
@@ -48,10 +51,7 @@ function obsStore(store){
 export function merge(vnode, merge, store) {
   obsStore(store)
 
-  merge =
-    typeof merge === 'string'
-      ? document.querySelector(merge)
-      : merge
+  merge = typeof merge === 'string' ? document.querySelector(merge) : merge
 
   return diff(merge, vnode, store)
 }
@@ -65,16 +65,15 @@ function extendStoreUpate(store) {
           updateAll ||
           this.updateAll ||
           (instance.constructor.updatePath &&
-						needUpdate(patch, instance.constructor.updatePath)) ||
-						(instance._updatePath &&
-							needUpdate(patch, instance._updatePath))
+            needUpdate(patch, instance.constructor.updatePath)) ||
+          (instance._updatePath && needUpdate(patch, instance._updatePath))
         ) {
-					//update this.use
-					if(instance.constructor.use){
-						instance.use = getUse(store.data, instance.constructor.use)
-					} else if(instance.initUse){
-						instance.use = getUse(store.data, instance.initUse())
-					}
+          //update this.use
+          if (instance.constructor.use) {
+            instance.use = getUse(store.data, instance.constructor.use)
+          } else if (instance.initUse) {
+            instance.use = getUse(store.data, instance.initUse())
+          }
 
           instance.update()
         }

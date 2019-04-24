@@ -28,7 +28,14 @@ export function flushMounts() {
     if (c.componentDidMount) c.componentDidMount()
     if (c.installed) c.installed()
     if (c.constructor.css || c.css) {
-      addStyleToHead(c.constructor.css ? c.constructor.css : (typeof c.css === 'function' ? c.css() : c.css), '_s' + getCtorName(c.constructor))
+      addStyleToHead(
+        c.constructor.css
+          ? c.constructor.css
+          : typeof c.css === 'function'
+            ? c.css()
+            : c.css,
+        '_s' + getCtorName(c.constructor)
+      )
     }
   }
 }
@@ -85,7 +92,6 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
     vnode.nodeName = options.mapping[vnodeName]
     return buildComponentFromVNode(dom, vnode, context, mountAll)
   }
- 
 
   // Fast case: Strings & Numbers create/update Text nodes.
   if (typeof vnode === 'string' || typeof vnode === 'number') {

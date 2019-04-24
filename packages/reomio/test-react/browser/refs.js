@@ -203,11 +203,16 @@ describe('refs', () => {
 	it('should not pass ref into component as a prop', () => {
 		let foo = spy('foo'),
 			bar = spy('bar');
-
+		let r1 ,r2
 		class Foo extends Component {
-			render(){ return <div />; }
+			render(){ 
+				r1 = this.props.ref
+				return <div />; }
 		}
-		const Bar = spy('Bar', () => <div />);
+		const Bar = spy('Bar', (props) => {
+			r2 = props.ref
+return <div />
+		});
 
 		sinon.spy(Foo.prototype, 'render');
 
@@ -218,8 +223,10 @@ describe('refs', () => {
 			</div>
 		), scratch);
 
-		expect(Foo.prototype.render).to.have.been.calledWithMatch({ ref:sinon.match.falsy, a:'a' }, { }, { });
-		expect(Bar).to.have.been.calledWithMatch({ b:'b', ref:sinon.match.falsy }, { });
+		expect(r1).to.equal(undefined)
+		expect(r2).to.equal(undefined)
+		// expect(Foo.prototype.render).to.have.been.calledWithMatch({ ref:sinon.match.falsy, a:'a' }, { }, { });
+		// expect(Bar).to.have.been.calledWithMatch({ b:'b', ref:sinon.match.falsy }, { });
 	});
 
 	// Test for #232

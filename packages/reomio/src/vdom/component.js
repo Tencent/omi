@@ -19,11 +19,7 @@ import {
 } from './diff'
 import { createComponent, recyclerComponents } from './component-recycler'
 import { removeNode } from '../dom/index'
-import {
-  addScopedAttrStatic,
-  getCtorName,
-  scopeHost
-} from '../style'
+import { addScopedAttrStatic, getCtorName, scopeHost } from '../style'
 import { proxyUpdate } from '../observe'
 
 /** Set a component's `props` (generally derived from JSX attributes).
@@ -32,7 +28,13 @@ import { proxyUpdate } from '../observe'
  *	@param {boolean} [opts.renderSync=false]	If `true` and {@link options.syncComponentUpdates} is `true`, triggers synchronous rendering.
  *	@param {boolean} [opts.render=true]			If `false`, no render will be triggered.
  */
-export function setComponentProps(component, props, renderMode, context, mountAll) {
+export function setComponentProps(
+  component,
+  props,
+  renderMode,
+  context,
+  mountAll
+) {
   if (component._disable) return
   component._disable = true
 
@@ -134,13 +136,13 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
     inst,
     cbase
 
-    if (component.constructor.getDerivedStateFromProps) {
-      state = extend(
-        extend({}, state),
-        component.constructor.getDerivedStateFromProps(props, state)
-      )
-      component.state = state
-    }
+  if (component.constructor.getDerivedStateFromProps) {
+    state = extend(
+      extend({}, state),
+      component.constructor.getDerivedStateFromProps(props, state)
+    )
+    component.state = state
+  }
 
   // if updating
   if (isUpdate) {
@@ -158,11 +160,11 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
       if (component.componentWillUpdate) {
         component.componentWillUpdate(props, state, context)
       }
-    
+
       if (component.beforeUpdate) {
         component.beforeUpdate(props, state, context)
       }
-    } 
+    }
 
     // if (component.store || renderMode == FORCE_RENDER || shallowComparison(previousProps, props)) {
     //   skip = false
@@ -187,10 +189,7 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
 
     //don't rerender
     if (component.constructor.css || component.css) {
-      addScopedAttrStatic(
-        rendered,
-        '_s' + getCtorName(component.constructor)
-      )
+      addScopedAttrStatic(rendered, '_s' + getCtorName(component.constructor))
     }
 
     scopeHost(rendered, component.scopedCssAttr)
@@ -208,9 +207,9 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
       toUnmount,
       base,
       ctor = options.mapping[childComponent]
-      if(typeof childComponent === 'function'){
-        ctor = childComponent
-      }
+    if (typeof childComponent === 'function') {
+      ctor = childComponent
+    }
     if (ctor) {
       // set up high order component link
 
@@ -366,16 +365,16 @@ export function unmountComponent(component) {
 
   if (component.componentWillUnmount) component.componentWillUnmount()
 
-	if (component.uninstall) component.uninstall()
+  if (component.uninstall) component.uninstall()
 
-	if (component.store && component.store.instances) {
-		for (let i = 0, len = component.store.instances.length; i < len; i++) {
-			if (component.store.instances[i] === component) {
-				component.store.instances.splice(i, 1)
-				break
-			}
-		}
-	}
+  if (component.store && component.store.instances) {
+    for (let i = 0, len = component.store.instances.length; i < len; i++) {
+      if (component.store.instances[i] === component) {
+        component.store.instances.splice(i, 1)
+        break
+      }
+    }
+  }
 
   component.base = null
 
