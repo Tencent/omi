@@ -2,7 +2,7 @@ import { define, WeElement } from 'omi'
 import logo from './logo.svg'
 import '../app-intro'
 import 'omiu/button'
-import { Button } from 'antd'
+import { Button, Breadcrumb } from 'antd'
 
 define('my-app', class extends WeElement {
   static css = require('./_index.css')
@@ -28,11 +28,18 @@ define('my-app', class extends WeElement {
         </header>
         <app-intro />
         <div>
-    <Button type="primary" onClick={this.clickHandler2}>Primary</Button>
-    <Button>Default</Button>
-    <Button type="dashed">Dashed</Button>
-    <Button type="danger">Danger</Button>
-  </div>
+        <Button type="primary" onClick={this.clickHandler2}>Primary</Button>
+        <Button>Default</Button>
+        <Button type="dashed">Dashed</Button>
+        <Button type="danger">Danger</Button>
+
+        <Breadcrumb>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item><a href="">Application Center</a></Breadcrumb.Item>
+          <Breadcrumb.Item><a href="">Application List</a></Breadcrumb.Item>
+          <Breadcrumb.Item>An Application</Breadcrumb.Item>
+        </Breadcrumb>
+        </div>
         <o-button style='width:200px;'>I am omiu button.</o-button>
       </div>
     )
