@@ -41,6 +41,10 @@ define('my-app', class extends WeElement {
         </Breadcrumb>
         </div>
         <o-button style='width:200px;'>I am omiu button.</o-button>
+
+        <a href="https://github.com/Tencent/omi" target="_blank" style="position: absolute;z-index: 1000; right: 0; top: 0;">
+          <img src="https://alloyteam.github.io/github.png" alt="" />
+        </a>
       </div>
     )
   }
