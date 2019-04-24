@@ -1,0 +1,36 @@
+{
+  "name": "reomio",
+  "version": "0.0.0",
+  "description": "React + Omio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tencent/omi.git"
+  },
+  "files": [
+    "src",
+    "dist",
+    "typings.json"
+  ],
+  "keywords": [
+    "omi",
+    "omio",
+    "jsx",
+    "proxy",
+    "preact",
+    "react",
+    "virtual dom",
+    "vdom",
+    "components",
+    "virtual",
+    "dom"
+  ],
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  }
+}

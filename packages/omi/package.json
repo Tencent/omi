@@ -116,6 +116,7 @@
     "eslint-plugin-react": "^7.7.0",
     "flow-bin": "^0.67.1",
     "gzip-size-cli": "^2.0.0",
+    "htm": "^2.1.1",
     "istanbul-instrumenter-loader": "^3.0.0",
     "jest": "^23.6.0",
     "jscodeshift": "^0.5.0",
@@ -173,8 +174,5 @@
     "semi": false,
     "tabWidth": 2,
     "useTabs": false
-  },
-  "dependencies": {
-    "htm": "^2.1.1"
   }
 }
