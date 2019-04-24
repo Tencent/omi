@@ -145,7 +145,7 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
   // if updating
   if (isUpdate) {
     component.props = previousProps
-    component.data = previousState
+    //component.data = previousState
     component.state = previousState
     component.context = previousContext
     if (
@@ -154,21 +154,27 @@ export function renderComponent(component, renderMode, mountAll, isChild) {
       component.shouldComponentUpdate(props, state, context) === false
     ) {
       skip = true
-    } else if (component.componentWillUpdate) {
-      component.componentWillUpdate(props, state, context)
-    }
-
-    if (component.store || renderMode == FORCE_RENDER || shallowComparison(previousProps, props)) {
-      skip = false
+    } else {
+      if (component.componentWillUpdate) {
+        component.componentWillUpdate(props, state, context)
+      }
+    
       if (component.beforeUpdate) {
         component.beforeUpdate(props, state, context)
       }
-    } else {
-      skip = true
-    }
+    } 
+
+    // if (component.store || renderMode == FORCE_RENDER || shallowComparison(previousProps, props)) {
+    //   skip = false
+    //   if (component.beforeUpdate) {
+    //     component.beforeUpdate(props, state, context)
+    //   }
+    // } else {
+    //   skip = true
+    // }
     component.props = props
     component.state = state
-    component.data = state
+    //component.data = state
     component.context = context
   }
 
