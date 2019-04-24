@@ -1,6 +1,6 @@
 {
   "name": "reomio",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "React + Omio",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",

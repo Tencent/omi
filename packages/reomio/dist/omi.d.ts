@@ -10,6 +10,7 @@ declare namespace Omi {
 
 	interface Attributes {
 		key?: string | number | any;
+		jsx?: boolean;
 	}
 
 	interface ClassAttributes<T> extends Attributes {
@@ -46,7 +47,7 @@ declare namespace Omi {
 	 * internal purposes.
 	 */
 	interface VNode<P = any> {
-		nodeName: string;
+		nodeName: ComponentFactory<P> | string;
 		attributes: P;
 		children: Array<VNode<any> | string>;
 		key?: Key | null;
@@ -65,6 +66,15 @@ declare namespace Omi {
 		updated?(): void;
 		beforeRender?(): void;
 		receiveProps?(): void;
+
+		componentWillMount?(): void;
+		componentDidMount?(): void;
+		componentWillUnmount?(): void;
+		getChildContext?(): object;
+		componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+		shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+		componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+		componentDidUpdate?(previousProps: Readonly<P>, previousState: Readonly<S>, previousContext: any): void;
 	}
 
 	interface ModelView<P, D> {
@@ -87,6 +97,15 @@ declare namespace Omi {
 		updated?(): void;
 		beforeRender?(): void;
 		receiveProps?(): void;
+
+		componentWillMount?(): void;
+		componentDidMount?(): void;
+		componentWillUnmount?(): void;
+		getChildContext?(): object;
+		componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+		shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+		componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+		componentDidUpdate?(previousProps: Readonly<P>, previousState: Readonly<S>, previousContext: any): void;
 	}
 
 	abstract class WeElement<P = {}, D = {}> {
@@ -184,13 +203,15 @@ declare namespace Omi {
 	function getHost(element: WeElement): WeElement;
 	function classNames(...args: any[]): string;
 	function extractClass(...args: any[]): object;
+	function cloneElement(element: JSX.Element, props: any, ...children: ComponentChildren[]): JSX.Element;
 
 	var options: {
+		syncComponentUpdates?: boolean;
+		debounceRendering?: (render: () => void) => void;
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
   };
 }
-
 
 type Defaultize<Props, Defaults> =
 	// Distribute over unions
