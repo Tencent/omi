@@ -36,6 +36,8 @@ export default function Component(props, store) {
 }
 
 extend(Component.prototype, {
+  isReactComponent: {},
+  
   update(callback) {
     this._willUpdate = true
     if (callback)

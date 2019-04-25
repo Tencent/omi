@@ -1,6 +1,5 @@
 !function() {
     'use strict';
-    function VNode$1() {}
     function h(nodeName, attributes) {
         var lastSimple, child, simple, i, children = [];
         for (i = arguments.length; i-- > 2; ) stack.push(arguments[i]);
@@ -14,7 +13,7 @@
             if (simple && lastSimple) children[children.length - 1] += child; else if (0 === children.length) children = [ child ]; else children.push(child);
             lastSimple = simple;
         }
-        var p = new VNode$1();
+        var p = new VNode();
         p.nodeName = nodeName;
         p.children = children;
         p.attributes = null == attributes ? void 0 : attributes;
@@ -1121,19 +1120,15 @@
                     props.children[0] = props.children;
                 }
             }
-            if (DEV) {
+            if (options.DEV) {
                 var ctor = 'function' == typeof this ? this : this.constructor;
                 this.propTypes || ctor.propTypes;
                 this.displayName || ctor.name;
             }
         }
     }
-    function beforeRender(props) {
-        currentComponent = this;
-    }
-    function afterRender() {
-        if (currentComponent === this) currentComponent = null;
-    }
+    function beforeRender(props) {}
+    function afterRender() {}
     function _Component(props, context, opts) {
         Component.call(this, props, context);
         this.state = this.getInitialState ? this.getInitialState() : {};
@@ -1145,6 +1140,7 @@
     function PureComponent(props, context) {
         _Component.call(this, props, context);
     }
+    var VNode = function() {};
     var options = {
         scopedStyle: !0,
         mapping: {},
@@ -1362,6 +1358,7 @@
     var nextTickCallback = [];
     var id = 0;
     extend(Component.prototype, {
+        isReactComponent: {},
         update: function(callback) {
             this.A = !0;
             if (callback) (this.__h = this.__h || []).push(callback);
@@ -1489,9 +1486,9 @@
         return ContextProvider;
     }();
     var unstable_renderSubtreeIntoContainer = renderSubtreeIntoContainer;
+    var BYPASS_HOOK = {};
     extend(_Component.prototype = new Component(), {
         constructor: _Component,
-        isReactComponent: {},
         replaceState: function(state, callback) {
             this.setState(state, callback);
             for (var i in this.state) if (!(i in state)) delete this.state[i];
@@ -1541,7 +1538,7 @@
         createContext: createContext
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'reomio-1.0.1';
+    options.root.Omi.version = 'reomio-1.0.2';
     var Omi = {
         h: h,
         createElement: h,

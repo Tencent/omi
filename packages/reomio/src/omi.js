@@ -15,6 +15,7 @@ import htm from 'htm'
 import Children from './children'
 import { extend } from './util'
 import createContext from './create-context'
+import { VNode } from './vnode'
 
 const html = htm.bind(h)
 
@@ -38,6 +39,7 @@ class ContextProvider {
 		return props.children[0];
 	}
 }
+
 
 function renderSubtreeIntoContainer(parentComponent, vnode, container, callback) {
 	let wrap = h(ContextProvider, { context: parentComponent.context }, vnode);
@@ -130,7 +132,7 @@ function propsHook(props, context) {
 	}
 
 	// add proptype checking
-	if (DEV) {
+	if (options.DEV) {
 		let ctor = typeof this==='function' ? this : this.constructor,
 			propTypes = this.propTypes || ctor.propTypes;
 		const displayName = this.displayName || ctor.name;
@@ -141,6 +143,7 @@ function propsHook(props, context) {
 	}
 }
 
+let currentComponent
 
 function beforeRender(props) {
 	currentComponent = this;
@@ -152,6 +155,7 @@ function afterRender() {
 	}
 }
 
+const BYPASS_HOOK = {}
 
 function _Component(props, context, opts) {
 	Component.call(this, props, context);
@@ -164,8 +168,6 @@ function _Component(props, context, opts) {
 }
 extend(_Component.prototype = new Component(), {
 	constructor: _Component,
-
-	isReactComponent: {},
 
 	replaceState(state, callback) {
 		this.setState(state, callback);
@@ -230,7 +232,7 @@ options.root.Omi = {
   createContext
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'reomio-1.0.1'
+options.root.Omi.version = 'reomio-1.0.2'
 
 export default {
   h,

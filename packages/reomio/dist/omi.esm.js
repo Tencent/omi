@@ -1,13 +1,12 @@
 /**
- * omi v1.0.1  http://omijs.org
+ * omi v1.0.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
  * MIT Licensed.
  */
 
-/** Virtual DOM Node */
-function VNode$1() {}
+var VNode = function VNode() {};
 
 function getGlobal() {
   if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
@@ -128,7 +127,7 @@ function h(nodeName, attributes) {
     }
   }
 
-  var p = new VNode$1();
+  var p = new VNode();
   p.nodeName = nodeName;
   p.children = children;
   p.attributes = attributes == null ? undefined : attributes;
@@ -1743,6 +1742,8 @@ function Component(props, store) {
 }
 
 extend(Component.prototype, {
+  isReactComponent: {},
+
   update: function update(callback) {
     this._willUpdate = true;
     if (callback) (this._renderCallbacks = this._renderCallbacks || []).push(callback);
@@ -2576,7 +2577,7 @@ function propsHook(props, context) {
 	}
 
 	// add proptype checking
-	if (DEV) {
+	if (options.DEV) {
 		var ctor = typeof this === 'function' ? this : this.constructor,
 		    propTypes = this.propTypes || ctor.propTypes;
 		var displayName = this.displayName || ctor.name;
@@ -2588,14 +2589,12 @@ function propsHook(props, context) {
 }
 
 function beforeRender(props) {
-	currentComponent = this;
 }
 
 function afterRender() {
-	if (currentComponent === this) {
-		currentComponent = null;
-	}
 }
+
+var BYPASS_HOOK = {};
 
 function _Component(props, context, opts) {
 	Component.call(this, props, context);
@@ -2608,8 +2607,6 @@ function _Component(props, context, opts) {
 }
 extend(_Component.prototype = new Component(), {
 	constructor: _Component,
-
-	isReactComponent: {},
 
 	replaceState: function replaceState(state, callback) {
 		this.setState(state, callback);
@@ -2671,7 +2668,7 @@ options.root.Omi = {
 	createContext: createContext
 };
 options.root.omi = options.root.Omi;
-options.root.Omi.version = 'reomio-1.0.1';
+options.root.Omi.version = 'reomio-1.0.2';
 
 var omi = {
 	h: h,

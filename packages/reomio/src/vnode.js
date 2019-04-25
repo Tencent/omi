@@ -1,2 +1,1 @@
-/** Virtual DOM Node */
-export function VNode() {}
+export const VNode = function VNode() {};
