@@ -160,5 +160,10 @@
       "@babel/plugin-proposal-object-rest-spread",
       "@babel/plugin-syntax-dynamic-import"
     ]
+  },
+  "alias": {
+    "omi": "reomio",
+    "react": "reomio",
+    "react-dom": "reomio"
   }
 }
