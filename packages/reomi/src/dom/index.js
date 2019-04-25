@@ -3,18 +3,18 @@ import { applyRef } from '../util'
 import options from '../options'
 
 /**
- * Create an element with the given nodeName.
- * @param {string} nodeName The DOM node to create
+ * Create an element with the given type.
+ * @param {string} type The DOM node to create
  * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
  *  namespace.
  * @returns {Element} The created DOM node
  */
-export function createNode(nodeName, isSvg) {
+export function createNode(type, isSvg) {
   /** @type {Element} */
   let node = isSvg
-    ? document.createElementNS('http://www.w3.org/2000/svg', nodeName)
-    : document.createElement(nodeName)
-  node.normalizedNodeName = nodeName
+    ? document.createElementNS('http://www.w3.org/2000/svg', type)
+    : document.createElement(type)
+  node.normalizedNodeName = type
   return node
 }
 

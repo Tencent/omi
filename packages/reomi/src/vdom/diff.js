@@ -4,7 +4,7 @@ import { createNode, setAccessor } from '../dom/index'
 import { npn, isArray } from '../util'
 import { removeNode } from '../dom/index'
 import options from '../options'
-
+import ReactDom from 'react-dom'
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
 
@@ -77,7 +77,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
 /** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
 function idiff(dom, vnode, context, mountAll, componentRoot) {
   if (dom && vnode && dom.props) {
-    dom.props.children = vnode.children
+    dom.props.children = vnode.props.children
   }
   let out = dom,
     prevSvgMode = isSvgMode
@@ -113,14 +113,23 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
 
   // If the VNode represents a Component, perform a component diff:
-  let vnodeName = vnode.nodeName
+  let vnodeName = vnode.type
+ 
   if (typeof vnodeName === 'function') {
+  
+    let isReact = true
     for(let key in options.mapping){
       if(options.mapping[key] === vnodeName){
         vnodeName = key
-        vnode.nodeName = key
+        vnode.type = key
+        isReact = false
         break
       }
+    }
+    if(isReact){
+      const div = document.createElement('div')
+      ReactDom.render(vnode, div)
+      return div.firstChild
     }
   }
   // Tracks entering and exiting SVG namespace when descending through the tree.
@@ -150,14 +159,16 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   let fc = out.firstChild,
     props = out[ATTR_KEY],
-    vchildren = vnode.children
+    vchildren = vnode.props.children
 
   if (props == null) {
     props = out[ATTR_KEY] = {}
     for (let a = out.attributes, i = a.length; i--; )
       props[a[i].name] = a[i].value
   }
-
+  if(vchildren && vchildren.length === undefined){
+    vchildren = [vchildren]
+  }
   // Optimization: fast-path for elements containing a single TextNode:
   if (
     !hydrating &&
@@ -186,9 +197,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
   }
 
   // Apply attributes/props from VNode to the DOM Element:
-  diffAttributes(out, vnode.attributes, props, vnode.children)
+  diffAttributes(out, vnode.props, props, vnode.props.children)
   if (out.props) {
-    out.props.children = vnode.children
+    out.props.children = vnode.props.children
   }
   // restore previous SVG mode: (in case we're exiting an SVG namespace)
   isSvgMode = prevSvgMode

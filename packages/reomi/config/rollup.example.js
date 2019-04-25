@@ -2,6 +2,7 @@ import nodeResolve from "rollup-plugin-node-resolve";
 import babel from "rollup-plugin-babel";
 import memory from "rollup-plugin-memory";
 import commonjs from "rollup-plugin-commonjs";
+import replace from 'rollup-plugin-replace'
 
 var ENV = process.env.npm_lifecycle_event;
 
@@ -26,6 +27,9 @@ export default {
 		nodeResolve({
 			main: true
 		}),
+		replace({
+      'process.env.NODE_ENV': JSON.stringify( 'production' )
+    }),
 		commonjs({
 				include: 'node_modules/**'
 		}),

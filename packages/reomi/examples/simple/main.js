@@ -1,46 +1,32 @@
-import { define, render, WeElement, createRef } from '../../src/omi'
-import './hello-element'
+import { define, render, WeElement } from '../../src/omi'
+
+import HelloMessage from './hello-message'
 
 define('my-app', class extends WeElement {
-  data = { abc: 'abc', passToChild: 123 }
 
-  install() {
-    this.dd = { a: 1 }
 
-    this.a = createRef()
-    this.b = createRef()
-  }
-
-  onMyEvent = evt => {
-    this.data.abc = ' by ' + evt.detail.name
-    this.data.passToChild = 1234
-    this.dd.a++
-    this.update()
-  }
-
-  static css =`
+  static css = `
          div{
              color: green;
          }`
-  
 
-  installed(){
-    console.log(this.a)
-    console.log(this.b)
+  name = 'Reomi'
+
+  onClick = () => {
+    this.name = 'React + Omi'
+    this.update()
   }
+
   render(props, data) {
     return (
-      <div>
-       <div ref={this.a}>Hello {props.name} {data.abc} {this.dd.a}</div>
-        <hello-element ref={this.b}
-          onMyEvent={this.onMyEvent}
-          propFromParent={data.passToChild}
-          dd={this.dd}
-          msg="WeElement"
-        />
+      <div onClick={this.onClick}>
+        <HelloMessage name={this.name} />
       </div>
     )
   }
 })
 
-render(<my-app name="Omi v4.0" />, 'body')
+render(
+  <my-app />,
+  document.body
+);

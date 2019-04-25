@@ -12,24 +12,24 @@ export function isSameNodeType(node, vnode, hydrating) {
   if (typeof vnode === 'string' || typeof vnode === 'number') {
     return node.splitText !== undefined
   }
-  if (typeof vnode.nodeName === 'string') {
-    return !node._componentConstructor && isNamedNode(node, vnode.nodeName)
-  } else if  (typeof vnode.nodeName === 'function'){
-    return options.mapping[node.nodeName.toLowerCase()] === vnode.nodeName
+  if (typeof vnode.type === 'string') {
+    return !node._componentConstructor && isNamedNode(node, vnode.type)
+  } else if  (typeof vnode.type === 'function'){
+    return options.mapping[node.nodeName.toLowerCase()] === vnode.type
   }
-  return hydrating || node._componentConstructor === vnode.nodeName
+  return hydrating || node._componentConstructor === vnode.type
 }
 
 /**
- * Check if an Element has a given nodeName, case-insensitively.
+ * Check if an Element has a given type, case-insensitively.
  *
  * @param {Element} node	A DOM Element to inspect the name of.
- * @param {String} nodeName	Unnormalized name to compare against.
+ * @param {String} type	Unnormalized name to compare against.
  */
-export function isNamedNode(node, nodeName) {
+export function isNamedNode(node, type) {
   return (
-    node.normalizedNodeName === nodeName ||
-    node.nodeName.toLowerCase() === nodeName.toLowerCase()
+    node.normalizedNodeName === type ||
+    node.nodeName.toLowerCase() === type.toLowerCase()
   )
 }
 
@@ -45,7 +45,7 @@ export function getNodeProps(vnode) {
   let props = extend({}, vnode.attributes)
   props.children = vnode.children
 
-  let defaultProps = vnode.nodeName.defaultProps
+  let defaultProps = vnode.type.defaultProps
   if (defaultProps !== undefined) {
     for (let i in defaultProps) {
       if (props[i] === undefined) {
