@@ -1,5 +1,5 @@
 /**
- * omi v6.1.1  http://omijs.org
+ * omi v6.1.2  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -27,7 +27,8 @@
    */
   var options = {
     store: null,
-    root: getGlobal()
+    root: getGlobal(),
+    mapping: {}
   };
 
   var stack = [];
@@ -214,6 +215,8 @@
     }
     if (typeof vnode.nodeName === 'string') {
       return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+    } else if (typeof vnode.nodeName === 'function') {
+      return options.mapping[node.nodeName.toLowerCase()] === vnode.nodeName;
     }
     return hydrating || node._componentConstructor === vnode.nodeName;
   }
@@ -454,7 +457,15 @@
 
     // If the VNode represents a Component, perform a component diff:
     var vnodeName = vnode.nodeName;
-
+    if (typeof vnodeName === 'function') {
+      for (var key in options.mapping) {
+        if (options.mapping[key] === vnodeName) {
+          vnodeName = key;
+          vnode.nodeName = key;
+          break;
+        }
+      }
+    }
     // Tracks entering and exiting SVG namespace when descending through the tree.
     isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
 
@@ -610,7 +621,13 @@
   function recollectNodeTree(node, unmountOnly) {
     // If the node's VNode had a ref function, invoke it with null here.
     // (this is part of the React spec, and smart for unsetting references)
-    if (node['__omiattr_'] != null && node['__omiattr_'].ref) node['__omiattr_'].ref(null);
+    if (node['__omiattr_'] != null && node['__omiattr_'].ref) {
+      if (typeof node['__omiattr_'].ref === 'function') {
+        node['__omiattr_'].ref(null);
+      } else if (node['__omiattr_'].ref.current) {
+        node['__omiattr_'].ref.current = null;
+      }
+    }
 
     if (unmountOnly === false || node['__omiattr_'] == null) {
       removeNode(node);
@@ -1101,6 +1118,7 @@
   function define(name, ctor) {
     if (ctor.is === 'WeElement') {
       customElements.define(name, ctor);
+      options.mapping[name] = ctor;
       if (ctor.use) {
         ctor.updatePath = getPath(ctor.use);
       } else if (ctor.data) {

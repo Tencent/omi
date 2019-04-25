@@ -83,7 +83,8 @@
     }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
-        if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else return hydrating || node._componentConstructor === vnode.nodeName;
+        if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else if ('function' == typeof vnode.nodeName) return options.mapping[node.nodeName.toLowerCase()] === vnode.nodeName;
+        return hydrating || node._componentConstructor === vnode.nodeName;
     }
     function isNamedNode(node, nodeName) {
         return node.__n === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
@@ -201,6 +202,11 @@
             return out;
         }
         var vnodeName = vnode.nodeName;
+        if ('function' == typeof vnodeName) for (var key in options.mapping) if (options.mapping[key] === vnodeName) {
+            vnodeName = key;
+            vnode.nodeName = key;
+            break;
+        }
         isSvgMode = 'svg' === vnodeName ? !0 : 'foreignObject' === vnodeName ? !1 : isSvgMode;
         vnodeName = String(vnodeName);
         if (!dom || !isNamedNode(dom, vnodeName)) {
@@ -258,7 +264,7 @@
         while (min <= childrenLen) if (void 0 !== (child = children[childrenLen--])) recollectNodeTree(child, !1);
     }
     function recollectNodeTree(node, unmountOnly) {
-        if (null != node.__omiattr_ && node.__omiattr_.ref) node.__omiattr_.ref(null);
+        if (null != node.__omiattr_ && node.__omiattr_.ref) if ('function' == typeof node.__omiattr_.ref) node.__omiattr_.ref(null); else if (node.__omiattr_.ref.current) node.__omiattr_.ref.current = null;
         if (!1 === unmountOnly || null == node.__omiattr_) removeNode(node);
         removeChildren(node);
     }
@@ -365,6 +371,7 @@
     function define(name, ctor) {
         if ('WeElement' === ctor.is) {
             customElements.define(name, ctor);
+            options.mapping[name] = ctor;
             if (ctor.use) ctor.updatePath = getPath(ctor.use); else if (ctor.data) ctor.updatePath = getUpdatePath(ctor.data);
         } else {
             var Element = function(_WeElement) {
@@ -644,7 +651,8 @@
             if ('object' != typeof global || !global || global.Math !== Math || global.Array !== Array) return self || window || global || function() {
                 return this;
             }(); else return global;
-        }()
+        }(),
+        mapping: {}
     };
     var stack = [];
     !function() {

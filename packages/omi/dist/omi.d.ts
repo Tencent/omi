@@ -101,12 +101,12 @@ declare namespace Omi {
 		static css: string;
 
 		props: RenderableProps<P>;
-		data: D;
-		host: HTMLElement;
+		data?: D;
+		host?: HTMLElement;
 	
-		update(): void;
-		fire(name: string, data?: object): void;
-		css(): string;
+		update?(): void;
+		fire?(name: string, data?: object): void;
+		css?(): string;
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;
@@ -152,12 +152,12 @@ declare namespace Omi {
 		static css: string;
 
 		props: RenderableProps<P>;
-		data: D;
-		host: HTMLElement;
-
-		update(): void;
-		fire(name: string, data?: object): void;
-		css(): string;
+		data?: D;
+		host?: HTMLElement;
+	
+		update?(): void;
+		fire?(name: string, data?: object): void;
+		css?(): string;
 		// Abstract methods don't infer argument types
 		// https://github.com/Microsoft/TypeScript/issues/14887
 		abstract render(props: RenderableProps<P>, data: D): void;
@@ -211,7 +211,7 @@ declare global {
 
 		interface ElementClass extends Omi.Component<any, any> {
 		}
-
+		
 		interface ElementAttributesProperty {
 			props: any;
 		}
