@@ -64,6 +64,7 @@
 - 小巧的尺寸
 - 拥有官方 UI 组件库 - [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)
 - 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
+- 使用  [reomio](https://github.com/Tencent/omi/tree/master/packages/reomio) 同时支持两种语法(omi 和 react)，可同时使用两个框架的生态
 - 真正的 [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md), 拥有 [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力支持
 - 支持 `TypeScript`
 - 响应式数据绑定

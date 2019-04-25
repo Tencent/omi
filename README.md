@@ -61,6 +61,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 - Reactive data-binding
 - Having official UI components - [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)
 - Excellent compatibility(IE8+) with [omio](https://github.com/Tencent/omi/tree/master/packages/omio)
+- Supporting both grammars of omi and react with [reomio](https://github.com/Tencent/omi/tree/master/packages/reomio)
 - Real [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md) with [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) strong support
 - Enhanced CSS, [rpx unit support](https://github.com/Tencent/omi/releases/tag/v4.0.26) base on **750** screen width
 - Compliance with browser trend and API design
