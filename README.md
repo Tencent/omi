@@ -433,16 +433,24 @@ You can set up the PUBLIC_URL, such as：
 ...
 ```
 
-#### Switch omi and omio
+#### Switch omi, omio and reomio
 
 Add or remove the alias config in package.json to switch omi and omio：
 
 ```js
- ...
- "alias": {
-    "omi": "omio"
-  }
-  ...
+"alias": {
+  "omi": "omio"
+}
+```
+
+Using reomio:
+
+```js
+"alias": {
+  "omi": "reomio",
+  "react": "reomio",
+  "react-dom": "reomio"
+}
 ```
     
 <!-- About compiled website URL：

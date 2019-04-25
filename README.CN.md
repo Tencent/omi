@@ -448,18 +448,25 @@ $ npm run build       # 编译发布
 ...
 ```
 
-#### 切换 omi 和 omio
+#### 切换 omi, omio 和 reomio
 
 增加或删除 package.json 里的 alias config 可以切换 omi 和 omio 渲染:
 
 ```js
- ...
- "alias": {
-    "omi": "omio"
-  }
-  ...
+"alias": {
+  "omi": "omio"
+}
 ```
-    
+
+使用 reomio:
+
+```js
+"alias": {
+  "omi": "reomio",
+  "react": "reomio",
+  "react-dom": "reomio"
+}
+```
 
 <!-- 关于编译网站的 url 前缀的设置，可以参考两个地址：
 

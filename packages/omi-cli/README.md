@@ -29,42 +29,34 @@ Directory description:
 | **Template Type**|  **Command**|  **Describe**|
 | ------------ |  -----------|  ----------------- |
 |Base Template(v3.3.0+)|`omi init my-app`| Basic omi or omio(IE8+) project template.|
+|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
 |小程序模板(v3.3.5+)|`omi init-p my-app`| Omi 开发小程序 |
 |基础模板(v3.3.9+)|`omi init-o my-app`| 支持 IE8 的基础模板，只是 build 的时候支持 IE8，开发调试请用 IE9|
 |Base Template with snapshoot|`omi init-snap my-app`| Basic omi or omio(IE8+) project template with snapshoot prerendering.|
-|TypeScript Template(omi-cli v3.3.0+)|`omi init-ts my-app`|Basic template with typescript.|
 |Mobile Template|`omi init-weui my-app`| Mobile web app template with weui and omi-router.|
 |omi-mp Template(omi-cli v3.0.13+)|`omi init-mp my-app`  |Developing web with mini program template.|
 |MVVM Template(omi-cli v3.0.22+)|`omi init-mvvm my-app`  |MVVM template.|
 <!-- |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.| -->
 
-CLI's auto-created project scaffolding is based on a single-page create-react-app to be converted into a multi-page one, with configuration issues to see [create-react-app user guide](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md)
 
+## Switch omi, omio and reomio
 
-About compiled website URL：
+Add or remove the alias config in package.json to switch omi and omio：
 
-* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
-* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
-
-Such as in windows:
-
-```json
-"scripts": {
-  "start": "node scripts/start.js",
-  "_build": "node scripts/build.js",
-  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
+```js
+"alias": {
+  "omi": "omio"
 }
 ```
 
-In mac os:
+Using reomio:
 
-```json
-"scripts": {
-    "start": "node scripts/start.js",
-    "_build": "node scripts/build.js",
-    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
-    "fix": "eslint src --fix"
-  },
+```js
+"alias": {
+  "omi": "reomio",
+  "react": "reomio",
+  "react-dom": "reomio"
+}
 ```
 
 # License
