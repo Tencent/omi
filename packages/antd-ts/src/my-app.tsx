@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './my-app.css';
 import { define, WeElement } from 'omi';
+import { Button } from 'antd'
 
 define('my-app', class extends WeElement {
   render() {
@@ -9,7 +10,7 @@ define('my-app', class extends WeElement {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/my-app.tsx</code> and save to reload.
-      </p>
+        </p>
         <div>
           <a
             className="App-link"
@@ -18,7 +19,8 @@ define('my-app', class extends WeElement {
             rel="noopener noreferrer"
           >
              OmiJS.ORG
-        </a> <a
+          </a> 
+          <a
             className="App-link"
             href="https://github.com/Tencent/omi"
             target="_blank"
@@ -27,6 +29,9 @@ define('my-app', class extends WeElement {
             Omi Github
         </a>
         </div>
+        <Button type="primary">Default</Button>
+        <Button type="dashed">Dashed</Button>
+        <Button type="danger">Danger</Button>
       </header>
     </div>
   }
