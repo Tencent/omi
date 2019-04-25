@@ -853,7 +853,8 @@
       }
       if (isReact) {
         var div = document.createElement('div');
-        reactDom.render(vnode, div);
+        var cpt = reactDom.render(vnode, div);
+        div.firstChild._reactComponent = cpt;
         return div.firstChild;
       }
     }
@@ -979,16 +980,28 @@
           }
 
         // morph the matched/found/created DOM child to match vchild (deep)
-        child = idiff(child, vchild, context, mountAll);
+        var out = idiff(child, vchild, context, mountAll);
+        if (out._reactComponent) {
+          var diffIt = false;
+          for (var k = 0, cl = dom.childNodes.length; k < cl; k++) {
+            if (dom.childNodes[_i]._reactComponent.constructor === out._reactComponent.constructor) {
+              diffIt = true;
+              domDiff(dom.childNodes[_i], out);
+              break;
+            }
+          }
 
-        f = originalChildren[_i];
-        if (child && child !== dom && child !== f) {
-          if (f == null) {
-            dom.appendChild(child);
-          } else if (child === f.nextSibling) {
-            removeNode(f);
-          } else {
-            dom.insertBefore(child, f);
+          !diffIt && dom.appendChild(out);
+        } else {
+          f = originalChildren[_i];
+          if (out && out !== dom && out !== f) {
+            if (f == null) {
+              dom.appendChild(out);
+            } else if (out === f.nextSibling) {
+              removeNode(f);
+            } else {
+              dom.insertBefore(out, f);
+            }
           }
         }
       }
@@ -1097,6 +1110,8 @@
       }
     }
   }
+
+  function domDiff() {}
 
   /*!
    * https://github.com/Palindrom/JSONPatcherProxy

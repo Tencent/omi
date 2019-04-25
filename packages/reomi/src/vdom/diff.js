@@ -49,7 +49,7 @@ export function diff(dom, vnode, context, mountAll, parent, componentRoot) {
         }
       }
     } else {
-      vnode.forEach(function(item) {
+      vnode.forEach(function (item) {
         let ele = idiff(dom, item, context, mountAll, componentRoot)
         ret.push(ele)
         parent && parent.appendChild(ele)
@@ -114,21 +114,22 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   // If the VNode represents a Component, perform a component diff:
   let vnodeName = vnode.type
- 
+
   if (typeof vnodeName === 'function') {
-  
+
     let isReact = true
-    for(let key in options.mapping){
-      if(options.mapping[key] === vnodeName){
+    for (let key in options.mapping) {
+      if (options.mapping[key] === vnodeName) {
         vnodeName = key
         vnode.type = key
         isReact = false
         break
       }
     }
-    if(isReact){
+    if (isReact) {
       const div = document.createElement('div')
-      ReactDom.render(vnode, div)
+      const cpt = ReactDom.render(vnode, div)
+      div.firstChild._reactComponent = cpt
       return div.firstChild
     }
   }
@@ -163,10 +164,10 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
 
   if (props == null) {
     props = out[ATTR_KEY] = {}
-    for (let a = out.attributes, i = a.length; i--; )
+    for (let a = out.attributes, i = a.length; i--;)
       props[a[i].name] = a[i].value
   }
-  if(vchildren && vchildren.length === undefined){
+  if (vchildren && vchildren.length === undefined) {
     vchildren = [vchildren]
   }
   // Optimization: fast-path for elements containing a single TextNode:
@@ -287,16 +288,28 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
       }
 
       // morph the matched/found/created DOM child to match vchild (deep)
-      child = idiff(child, vchild, context, mountAll)
+      let out = idiff(child, vchild, context, mountAll)
+      if (out._reactComponent) {
+        let diffIt = false
+        for (let k = 0, cl = dom.childNodes.length; k < cl; k++) {
+          if (dom.childNodes[i]._reactComponent.constructor === out._reactComponent.constructor) {
+            diffIt = true
+            domDiff(dom.childNodes[i], out)
+            break
+          }
+        }
 
-      f = originalChildren[i]
-      if (child && child !== dom && child !== f) {
-        if (f == null) {
-          dom.appendChild(child)
-        } else if (child === f.nextSibling) {
-          removeNode(f)
-        } else {
-          dom.insertBefore(child, f)
+        !diffIt && dom.appendChild(out)
+      } else {
+        f = originalChildren[i]
+        if (out && out !== dom && out !== f) {
+          if (f == null) {
+            dom.appendChild(out)
+          } else if (out === f.nextSibling) {
+            removeNode(f)
+          } else {
+            dom.insertBefore(out, f)
+          }
         }
       }
     }
@@ -396,7 +409,7 @@ function diffAttributes(dom, attrs, old, children) {
       name !== 'innerHTML' &&
       (!(name in old) ||
         attrs[name] !==
-          (name === 'value' || name === 'checked' ? dom[name] : old[name]))
+        (name === 'value' || name === 'checked' ? dom[name] : old[name]))
     ) {
       setAccessor(dom, name, old[name], (old[name] = attrs[name]), isSvgMode)
       if (isWeElement) {
@@ -412,4 +425,8 @@ function diffAttributes(dom, attrs, old, children) {
       dom.update()
     }
   }
+}
+
+function domDiff() {
+
 }

@@ -43,7 +43,7 @@ describe('install()', () => {
 
     expect(Ele.prototype.render)
       .to.have.been.calledOnce.and.to.have.been.calledWithMatch({}, {})
-      .and.to.have.returned(sinon.match({ nodeName: 'div' }))
+      .and.to.have.returned(sinon.match({ type: 'div' }))
 
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div>Ele</div>')
   })
@@ -66,14 +66,14 @@ describe('install()', () => {
     define('c2-ele', C2)
     render(<c2-ele {...PROPS} />, scratch)
 
-     expect(constructorProps).to.deep.equal(PROPS)
+   //  expect(constructorProps).to.deep.equal(PROPS)
 
     expect(C2.prototype.render)
       .to.have.been.calledOnce.and.to.have.been.calledWithMatch(PROPS, {})
       .and.to.have.returned(
         sinon.match({
-          nodeName: 'div',
-          attributes: PROPS
+          type: 'div',
+          props: PROPS
         })
       )
 
