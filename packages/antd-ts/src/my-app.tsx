@@ -29,9 +29,10 @@ define('my-app', class extends WeElement {
             Omi Github
         </a>
         </div>
-        <Button type="primary">Default</Button>
-        <Button type="dashed">Dashed</Button>
-        <Button type="danger">Danger</Button>
+        <Button type="primary">Antd Button Primary</Button>
+        <Button>Antd Button Default</Button>
+        <Button type="dashed">Antd Button Dashed</Button>
+        <Button type="danger">Antd Button Danger</Button>
       </header>
     </div>
   }
