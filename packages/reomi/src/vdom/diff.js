@@ -5,6 +5,8 @@ import { npn, isArray } from '../util'
 import { removeNode } from '../dom/index'
 import options from '../options'
 import ReactDom from 'react-dom'
+import morphdom from 'morphdom'
+
 /** Queue of components that have been mounted and are awaiting componentDidMount */
 export const mounts = []
 
@@ -292,9 +294,9 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
       if (out._reactComponent) {
         let diffIt = false
         for (let k = 0, cl = dom.childNodes.length; k < cl; k++) {
-          if (dom.childNodes[i]._reactComponent.constructor === out._reactComponent.constructor) {
+          if (dom.childNodes[i] && dom.childNodes[i]._reactComponent.constructor === out._reactComponent.constructor) {
             diffIt = true
-            domDiff(dom.childNodes[i], out)
+            morphdom(dom.childNodes[i], out)
             break
           }
         }
@@ -425,8 +427,4 @@ function diffAttributes(dom, attrs, old, children) {
       dom.update()
     }
   }
-}
-
-function domDiff() {
-
 }

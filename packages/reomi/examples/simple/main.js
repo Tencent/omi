@@ -11,9 +11,10 @@ define('my-app', class extends WeElement {
          }`
 
   name = 'Reomi'
-
+  name2 = 'Reomi2'
   onClick = () => {
     this.name = 'React + Omi'
+    this.name2 = 'abc'
     this.update()
   }
 
@@ -21,6 +22,7 @@ define('my-app', class extends WeElement {
     return (
       <div onClick={this.onClick}>
         <HelloMessage name={this.name} />
+        <HelloMessage name={this.name2} />
       </div>
     )
   }
