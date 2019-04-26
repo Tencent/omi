@@ -177,6 +177,22 @@ module.exports = {
                 'css-loader'
             ]
           },
+          {
+            test: /[\\|\/]_[\S]*\.less$/,
+            use: [
+                'to-string-loader',
+                'css-loader',
+                'less-loader'
+            ]
+          },
+          {
+            test: /\.less$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                'less-loader'
+            ]
+          },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
           // "style" loader turns CSS into JS modules that inject <style> tags.
