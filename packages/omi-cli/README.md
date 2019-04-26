@@ -39,7 +39,7 @@ Directory description:
 <!-- |[SPA Template](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/)(omi-cli v3.0.10+)|`omi init-spa my-app`|Single page application template with omi-router.| -->
 
 
-## Switch omi, omio and reomio
+## Switch omi, omio and reomi
 
 Add or remove the alias config in package.json to switch omi and omio：
 
@@ -49,13 +49,13 @@ Add or remove the alias config in package.json to switch omi and omio：
 }
 ```
 
-Using reomio:
+Using reomi:
 
 ```js
 "alias": {
-  "omi": "reomio",
-  "react": "reomio",
-  "react-dom": "reomio"
+  "omi": "reomi",
+  "react": "reomi",
+  "react-dom": "reomi"
 }
 ```
 

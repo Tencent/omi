@@ -4,7 +4,7 @@
 <p align="right">Omio <strong>v2.2.1</strong></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
-<p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omip) 和 React语法(reomio)</b></p>
+<p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omip) 和 React语法(reomi)</b></p>
 
 ## Omi 生态
 
@@ -64,7 +64,7 @@
 - 小巧的尺寸
 - 拥有官方 UI 组件库 - [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)
 - 使用 [omio](https://github.com/Tencent/omi/tree/master/packages/omio) 可以兼容到 IE8
-- 使用  [reomio](https://github.com/Tencent/omi/tree/master/packages/reomio) 同时支持两种语法(omi 和 react)，可同时使用两个框架的生态
+- 使用  [reomi](https://github.com/Tencent/omi/tree/master/packages/reomi) 同时支持两种语法(omi 和 react)，可同时使用两个框架的生态
 - 真正的 [MVVM](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.cn.md), 拥有 [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) 强力支持
 - 支持 `TypeScript`
 - 响应式数据绑定
@@ -449,7 +449,7 @@ $ npm run build       # 编译发布
 ...
 ```
 
-#### 切换 omi, omio 和 reomio
+#### 切换 omi, omio 和 reomi
 
 增加或删除 package.json 里的 alias config 可以切换 omi 和 omio 渲染:
 
@@ -459,13 +459,13 @@ $ npm run build       # 编译发布
 }
 ```
 
-使用 reomio:
+使用 reomi:
 
 ```js
 "alias": {
-  "omi": "reomio",
-  "react": "reomio",
-  "react-dom": "reomio"
+  "omi": "reomi",
+  "react": "reomi",
+  "react-dom": "reomi"
 }
 ```
 
