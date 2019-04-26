@@ -4,7 +4,7 @@ import '../app-intro'
 import 'omiu/button'
 
 define('my-app', class extends WeElement {
-  css = require('./_index.css')
+  static css = require('./_index.less')
 
   name = 'Omi'
 
