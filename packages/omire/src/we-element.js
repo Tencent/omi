@@ -3,6 +3,7 @@ import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
 import { getPath } from './define'
+import { retargetEvents } from './event'
 
 let id = 0
 
@@ -56,6 +57,7 @@ export default class WeElement extends HTMLElement {
     } else if (this.css) {
       shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css))
     }
+    retargetEvents(shadowRoot)
     !this._isInstalled && this.beforeRender()
     options.afterInstall && options.afterInstall(this)
     if (this.constructor.observe) {

@@ -11,9 +11,12 @@ import { tick, nextTick } from './tick'
 import ModelView from './model-view'
 import { classNames, extractClass } from './class'
 import htm from 'htm'
-import { h, createElement, cloneElement } from 'preact'
+import React from 'react'
 
 const html = htm.bind(h)
+const h = React.createElement
+const createElement = React.createElement
+const cloneElement = React.cloneElement
 
 function createRef() {
   return {}
