@@ -1,6 +1,6 @@
 
 import { WeElement } from 'omi'
-import './index.css'
+import './index.less'
 import { Page } from '../../decorator'
 
 //获取应用实例
@@ -9,7 +9,7 @@ const app = getApp()
 @Page
 class PageIndex extends WeElement {
   config = {
-    // 定义需要引入的第三方组件
+    // 定义需要引入的第三方组件, h5 不能使用
     usingComponents: {
       'pure-ele-test': '../../components/pure-ele-test/index' // 书写第三方组件的相对路径
     }

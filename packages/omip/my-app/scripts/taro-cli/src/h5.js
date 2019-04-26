@@ -36,6 +36,18 @@ const entryFilePath = Util.resolveScriptPath(path.join(sourcePath, CONFIG.ENTRY)
 const entryFileName = path.basename(entryFilePath)
 let pxTransformConfig = { designWidth: projectConfig.designWidth || 750 }
 const pathAlias = projectConfig.alias || {}
+const less = require('less')
+
+less.renderSync = function (input, options) {
+  if (!options || typeof options != "object") options = {};
+  options.sync = true;
+  var css;
+  this.render(input, options, function (err, result) {
+      if (err) throw err;
+      css = result.css;
+  });
+  return css;
+};
 
 const PACKAGES = {
   '@tarojs/taro': '@tarojs/taro',
@@ -391,8 +403,15 @@ function processEntry (code, filePath) {
         const specifiers = node.specifiers
         let value = source.value
         //@fix
-        if(value.endsWith('.css')){
-          appCSS = fs.readFileSync(filePath.replace('.js','.css'), 'utf-8').replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '')
+        if (value.endsWith('.css') || value.endsWith('.less')) {
+          appCSS = fs.readFileSync(filePath.replace('.js', '.css'), 'utf-8').replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '')
+          if (value.endsWith('.less')) {
+            appCSS = less.renderSync(appCSS, {
+              syncImport: true
+            }, function (e, output) {
+
+            });
+          }
           // astPath.replaceWith(t.variableDeclaration('const',[t.variableDeclarator(t.identifier(`___css`),t.stringLiteral(appCSS))]))
           astPath.remove()
           return
@@ -689,8 +708,20 @@ function processOthers (code, filePath, fileType) {
         let value = source.value
         const specifiers = node.specifiers
         //@fix
-        if(value.endsWith('.css')){
-          let css = fs.readFileSync(filePath.replace('.js','.css'), 'utf-8').replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '')
+        let isCss = value.endsWith('.css')
+        let isLess = value.endsWith('.less')
+        if (isCss || isLess) {
+          let css = fs.readFileSync(filePath.replace('.js', isCss ? '.css' : '.less'), 'utf-8').replace(/\/\*[^*]*\*+([^/][^*]*\*+)*\//g, '')
+
+          if (isLess) {
+            css = less.renderSync(css, {
+              syncImport: true
+            }, function (e, output) {
+
+            });
+          }
+
+          
           //page里需要注入 appcss
           if(filePath.indexOf('/src/pages/')!==-1||filePath.indexOf('\\src\\pages\\')!==-1){
             css = appCSS + css
@@ -868,7 +899,7 @@ function processFiles (filePath) {
  
   try {
     if (isScriptFile || isStyleFile) {
-      filePath = filePath.replace(/(.*)css/, '$1js')
+      filePath = filePath.replace(/(.*)css/, '$1js').replace(/(.*)less/, '$1js')
       const file = fs.readFileSync(filePath)
       // 脚本文件 处理一下
       const fileType = classifyFiles(filePath)
@@ -878,7 +909,7 @@ function processFiles (filePath) {
         : processOthers(content, filePath, fileType)
       const jsCode = transformResult.code
       fs.ensureDirSync(distDirname)
-      fs.writeFileSync(distPath.replace(/(.*)css/, '$1js'), Buffer.from(jsCode))
+      fs.writeFileSync(distPath.replace(/(.*)css/, '$1js').replace(/(.*)less/, '$1js'), Buffer.from(jsCode))
     } else {
       // 其他 直接复制
       fs.ensureDirSync(distDirname)

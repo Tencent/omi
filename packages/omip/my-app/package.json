@@ -23,6 +23,7 @@
     "@babel/code-frame": "^7.0.0-beta.44",
     "@fdaciuk/ajax": "^3.0.4",
     "@tarojs/components": "1.2.13",
+    "@tarojs/plugin-less": "^1.2.26",
     "@tarojs/router": "1.2.13",
     "@tarojs/taro": "1.2.13",
     "@tarojs/taro-alipay": "1.2.13",
