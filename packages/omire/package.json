@@ -1,7 +1,7 @@
 {
-  "name": "reomi",
+  "name": "omire",
   "version": "0.0.0",
-  "description": "React + Omi, reuse React Component in Web Components",
+  "description": "Omi + React, reuse React Component in Web Components",
   "main": "dist/omi.js",
   "jsnext:main": "dist/omi.esm.js",
   "module": "dist/omi.esm.js",
