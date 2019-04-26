@@ -4,7 +4,7 @@ import { createNode, setAccessor } from '../dom/index'
 import { npn, isArray } from '../util'
 import { removeNode } from '../dom/index'
 import options from '../options'
-import ReactDom from 'react-dom'
+import { render } from 'preact'
 import morphdom from 'morphdom'
 
 /** Queue of components that have been mounted and are awaiting componentDidMount */
@@ -129,10 +129,9 @@ function idiff(dom, vnode, context, mountAll, componentRoot) {
       }
     }
     if (isReact) {
-      const div = document.createElement('div')
-      const cpt = ReactDom.render(vnode, div)
-      div.firstChild._reactComponent = cpt
-      return div.firstChild
+        const div = document.createElement('div')
+        render(vnode, div )
+        return div.firstChild
     }
   }
   // Tracks entering and exiting SVG namespace when descending through the tree.
@@ -291,10 +290,13 @@ function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
 
       // morph the matched/found/created DOM child to match vchild (deep)
       let out = idiff(child, vchild, context, mountAll)
-      if (out._reactComponent) {
+   
+
+
+      if (out === -1) {
         let diffIt = false
         for (let k = 0, cl = dom.childNodes.length; k < cl; k++) {
-          if (dom.childNodes[i] && dom.childNodes[i]._reactComponent.constructor === out._reactComponent.constructor) {
+          if (dom.childNodes[i] && dom.childNodes[i]._component.constructor === out._component.constructor) {
             diffIt = true
             morphdom(dom.childNodes[i], out)
             break

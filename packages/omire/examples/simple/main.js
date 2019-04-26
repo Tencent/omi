@@ -22,7 +22,7 @@ define('my-app', class extends WeElement {
     return (
       <div onClick={this.onClick}>
         <HelloMessage name={this.name} />
-        <HelloMessage name={this.name2} />
+        {/* <HelloMessage name={this.name2} /> */}
       </div>
     )
   }
