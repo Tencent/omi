@@ -136,8 +136,8 @@ describe('render react components', () => {
 
       name = 'Reomi'
       name2 = 'Reomi2'
-      install () {
-        a= this
+      install() {
+        a = this
       }
 
 
@@ -181,8 +181,8 @@ describe('render react components', () => {
 
       name = 'Reomi'
       name2 = 'Reomi2'
-      install () {
-        a= this
+      install() {
+        a = this
       }
 
       render(props, data) {
@@ -202,4 +202,44 @@ describe('render react components', () => {
     expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<style>\n         div{\n             color: green;\n         }</style><div><div>Hello React + Omi</div><div>abc</div><div>Hello Reomi2</div></div>')
   })
 
+
+
+  it('base 5', () => {
+    class HelloMessage extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          value: 1
+        }
+      }
+      componentDidMount() {
+        this.setState({ value: 12 }, () => {
+          console.log(111)
+        })
+      }
+      render() {
+        return (
+          <div>
+            Hello {this.state.value}
+          </div>
+        );
+      }
+    }
+    let a
+
+    define('my-app5', class extends WeElement {
+
+
+      render(props, data) {
+        return (
+          <div>
+            <HelloMessage />
+          </div>
+        )
+      }
+    })
+
+    render(<my-app5 />, scratch)
+    expect(scratch.firstChild.shadowRoot.innerHTML).to.equal('<div><div>Hello 12</div></div>')
+  })
 })
