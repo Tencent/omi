@@ -69,10 +69,10 @@ class SVG extends Group {
         const obj = path(vdomChild.props, scope)
         parent.add(obj)
         if (
-        vdomChild.children &&
+          vdomChild.children &&
           vdomChild.children[0] &&
           vdomChild.children[0].type === 'animate'
-      ) {
+        ) {
           animate(obj, vdomChild.children[0].props)
         }
         break
@@ -88,6 +88,15 @@ class SVG extends Group {
           this.generate(p, child, scope)
         })
         break
+
+      default:
+        if (Object.prototype.toString.call(vdomChild) === '[object Array]' && vdomChild.length > 0) {
+          vdomChild.forEach(child => {
+            this.generate(parent, child, scope)
+          })
+        }
+
+
     }
   }
 }
