@@ -232,7 +232,7 @@ options.root.Omi = {
   createContext
 }
 options.root.omi = options.root.Omi
-options.root.Omi.version = 'reomio-1.0.2'
+options.root.Omi.version = 'reomi-1.0.0'
 
 export default {
   h,

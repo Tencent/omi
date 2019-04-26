@@ -1538,7 +1538,7 @@
         createContext: createContext
     };
     options.root.omi = options.root.Omi;
-    options.root.Omi.version = 'reomio-1.0.2';
+    options.root.Omi.version = 'reomi-1.0.0';
     var Omi = {
         h: h,
         createElement: h,
