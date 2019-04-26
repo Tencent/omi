@@ -14,7 +14,7 @@
     "build": "npm-run-all --silent clean transpile copy-typescript-definition strip optimize minify size",
     "stateful": "rollup -c config/rollup.example.js --watch",
     "todo": "rollup -c config/rollup.example.js --watch",
-    "decorators": "rollup -c config/rollup.example.js --watch",
+    "markdown": "rollup -c config/rollup.example.js --watch",
     "mobx": "rollup -c config/rollup.example.js --watch",
     "todomvc": "rollup -c config/rollup.example.js --watch",
     "mvvm": "rollup -c config/rollup.example.js --watch",
@@ -152,7 +152,8 @@
     "sinon-chai": "^3.0.0",
     "typescript": "^2.8.1",
     "uglify-js": "^2.7.5",
-    "webpack": "^4.3.0"
+    "webpack": "^4.3.0",
+    "remarkable": "^1.7.1"
   },
   "greenkeeper": {
     "ignore": [
