@@ -10,7 +10,7 @@ todo:
 * Transformation 
 * boundsX 和 boundsY 
 * text
-* image
+* image(由于 svg image 设计得很失败，所以渲染 image 和 web 有差异，请使用 transform 对image 进行变形，而不使用 width和height)
 * SVG Viewport and View Box
 * event handler
 * jsx support(extend omip)
