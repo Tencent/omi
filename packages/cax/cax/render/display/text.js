@@ -16,9 +16,12 @@ class Text extends DisplayObject {
     this.text = text
     option = option || {}
     this.font = option.font || '10px sans-serif'
+    this.fontSize = option.fontSize || 10
     this.color = option.color || 'black'
     this.textAlign = option.textAlign || 'left'
-    this.baseline = option.baseline || 'top'
+    this.baseline = option.baseline || 'bottom'
+    this.fillStyle = option.fillStyle
+    this.strokeStyle = option.strokeStyle
   }
 
   getWidth() {

@@ -3,7 +3,9 @@
 const map = {
   stroke: 'strokeStyle',
   fill: 'fillStyle',
-  'stroke-width': 'lineWidth'
+  'stroke-width': 'lineWidth',
+  'font-size': 'fontSize',
+  'font-family': 'fontFamily'
 }
 
 const attrs = ['stroke', 'fill', 'stroke-width']

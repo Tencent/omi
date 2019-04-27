@@ -1,12 +1,13 @@
 {
   "pages": [
+		"pages/text/index",
     "pages/path/index",
     "pages/map/index",
     "pages/tiger/index",
     "pages/transformation/index",
     "pages/animate/index",
     "pages/batman/index",
-    
+
     "pages/index/index"
   ],
   "window": {
