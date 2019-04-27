@@ -1,6 +1,7 @@
 {
   "pages": [
 		"pages/text/index",
+		"pages/image/index",
     "pages/path/index",
     "pages/map/index",
     "pages/tiger/index",
