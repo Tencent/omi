@@ -15,12 +15,12 @@
 | **项目**                         | **描述**                           |
 | ------------------------------- | ----------------------------------- |
 | [omi-docs](https://tencent.github.io/omi/site/docs/cn.html)| Omi 官方文档 |
-| [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到IE8+和移动端浏览器)。|
-| [omis![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omis)| 服务端同构渲染解决方案(目前只能用 omio)。 |
-| [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)| Omi 官方 UI。|
+| [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| 兼容老浏览器的 Omi 版本(支持到IE8+和移动端浏览器)|
+| [omis![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omis)| 服务端同构渲染解决方案(目前只能用 omio) |
+| [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)| Omi 官方 UI|
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选。 |
+| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 |
 
 #### 小程序生态
 
