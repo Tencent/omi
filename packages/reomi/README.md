@@ -14,7 +14,6 @@ define('my-app', class extends WeElement {
         <Button>Antd Button Default</Button>
         <Button type="dashed">Antd Button Dashed</Button>
         <Button type="danger">Antd Button Danger</Button>
-      </header>
     </div>
   }
 })
