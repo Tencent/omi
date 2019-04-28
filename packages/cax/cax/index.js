@@ -1,4 +1,4 @@
-import cax from './index'
+import cax from './cax'
 
 Component({
   /**
