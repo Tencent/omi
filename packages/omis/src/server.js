@@ -57,23 +57,7 @@ app.get('*', async (req, res, next) => {
       //fetch,
       // The twins below are wild, be careful!
       pathname: req.path,
-      query: req.query,
-      //mock
-      fetch() {
-        return new Promise(function (resolve, reject) {
-          setTimeout(() => {
-            resolve({
-              json: function () {
-                return {
-                  data: {
-                    name: 'Like'
-                  }
-                }
-              }
-            })
-          }, 1000)
-        })
-      }
+      query: req.query
     };
 
     const route = await router.resolve(context);
@@ -85,7 +69,7 @@ app.get('*', async (req, res, next) => {
 
     const data = { ...route };
 
-    const obj = Omi.renderToString(route.component, {}, route.data)
+    const obj = Omi.renderToString(route.component, {}, { data: route.data })
 
 
     const scripts = new Set();

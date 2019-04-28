@@ -4,7 +4,7 @@ import { merge } from 'omio'
 
 function routerResolve() {
   router.resolve({ pathname: location.pathname, query: {}, client: true }).then(route => {
-    merge(route.component, '#app>div', route.data)
+    merge(route.component, '#app>div', { data: route.data })
   })
 }
 

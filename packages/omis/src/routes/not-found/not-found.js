@@ -1,6 +1,6 @@
 import { WeElement, define } from 'omio'
 
-define('not-found', class  extends WeElement {
+define('not-found', class extends WeElement {
 
   static css = require('./_not-found.css')
 
