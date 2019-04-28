@@ -14,7 +14,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 | [omi-docs](https://tencent.github.io/omi/site/docs/index.html)| Omi official documents |
 | [omio![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omio)| Omi for old browsers with same api(IE8+ and mobile browsers).|
 | [omis![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omis)| Server-side rendering(support omio only). |
-| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js. [→ DEMO](https://tencent.github.io/omi/packages/omi-router/examples/spa/build/) |
+| [omi-router](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi official router in 1KB js. |
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding |
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
 | [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Omi official UI|
@@ -39,7 +39,6 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 | [omi-chart](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| Simple HTML5 Charts using chart-x tag.|
 | [md2site](https://tencent.github.io/omi/assets/md2site/)| Static Site Generator with markdown powered by Omio.|
 | [omi-mvvm](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)| MVVM comes back bravely with [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) strong support.|
-| [omi-html](https://github.com/Tencent/omi/tree/master/packages/omi-html)| Using [htm](https://github.com/developit/htm) in omi.|
 | [omi-30-seconds](https://github.com/Tencent/omi/tree/master/packages/omi-30-seconds)| Useful Omi snippets that you can understand in 30 seconds.|
 | [omi-canvas](https://github.com/Tencent/omi/tree/master/packages/omi-canvas)| Perfect fusion of web components, jsx and canvas.|
 | [omi-swiper](https://github.com/loo41/Omi-Swiper)| Omi + Swiper  |
@@ -901,6 +900,7 @@ Please contact us for any questions. Also, Add [Omi QQ Group](https://github.com
 ## Thanks
 
 * [preact](https://github.com/developit/preact)
+* [htm](https://github.com/developit/htm) 
 * [create-react-app](https://github.com/facebook/create-react-app)
 * [JSX](https://github.com/facebook/jsx)
 * [JSONPatcherProxy](https://github.com/Palindrom/JSONPatcherProxy)
