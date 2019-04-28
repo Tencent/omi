@@ -219,7 +219,15 @@ class CanvasRender extends Render {
       ctx.fillStyle = o.color
       ctx.textAlign = o.textAlign
       ctx.textBaseline = o.baseline
-      ctx.fillText(o.text, 0, 0)
+      ctx.setFontSize && ctx.setFontSize(o.fontSize)
+      if(o.fillStyle !== 'none'){
+        ctx.fillStyle = o.fillStyle
+        ctx.fillText(o.text, 0, 0)
+      }
+      if(o.strokeStyle && o.strokeStyle !== 'none'){
+        ctx.strokeStyle = o.strokeStyle
+        ctx.strokeText(o.text, 0, 0)
+      }
     }
   }
 

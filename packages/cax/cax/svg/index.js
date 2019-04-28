@@ -7,6 +7,8 @@ import { polyline } from './polyline'
 import { polygon } from './polygon'
 import { path } from './path'
 import { pasition } from './pasition'
+import { text } from './text'
+import { image } from './image'
 import { group } from './group'
 import { animate } from './animate'
 import { parseEvent } from './parse-event'
@@ -56,13 +58,21 @@ class SVG extends Group {
       case 'line':
         parent.add(line(vdomChild.props, scope))
         break
+
       case 'polyline':
         parent.add(polyline(vdomChild.props, scope))
-
         break
 
       case 'polygon':
         parent.add(polygon(vdomChild.props, scope))
+        break
+
+      case 'text':
+        parent.add(text(vdomChild.children[0], vdomChild.props, scope))
+        break
+
+      case 'image':
+        parent.add(image(vdomChild.props, scope))
         break
 
       case 'path':

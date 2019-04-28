@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+  <cax-element id="svg-a"></cax-element>
+  <cax-element id="svg-b"></cax-element>
+  <cax-element id="svg-c"></cax-element>
+  <cax-element id="svg-d"></cax-element>
+</view>
