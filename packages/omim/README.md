@@ -1,8 +1,3 @@
-```
-npm install webpack webpack-cli webpack-dev-server -g
-```
+# Omim
 
-```
-npm run start or yarn start
-npm run build or yarn build
-```
+Material Design for Omi.
