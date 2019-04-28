@@ -51,6 +51,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
+|[eno-loader](https://github.com/Wscats/eno-loader)|Webpack loader for Omi.js components|
 
 ## Why Omi?
 
