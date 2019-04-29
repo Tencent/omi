@@ -9,7 +9,7 @@
   "minified:main": "dist/omim.min.js",
   "types": "dist/omim.d.ts",
   "scripts": {
-    "demo": "webpack --config ./configs/webpack.demo.js",
+    "demo": "webpack -w --config ./configs/webpack.demo.js &&",
     "start": "webpack-dev-server --config ./config/webpack.dev.js",
     "build": "webpack --config ./config/webpack.build.js"
   },
