@@ -1,5 +1,5 @@
 
-import * as css from './_index.scss'
+import * as css from './index.scss'
 import { WeElement, tag, h } from 'omi'
 import { MDCTextField } from '@material/textfield/index';
 
