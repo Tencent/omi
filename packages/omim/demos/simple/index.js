@@ -1,5 +1,6 @@
-import '../../src/textfield/index.tsx'
+import TextField from '../../src/text-field/index.js'
 import { render, h } from 'omi'
 
-render(<m-text-field />, 'body')
+console.log(TextField)
+render(<m-text-field placeholder='Label' aa="aa" />, 'body')
 

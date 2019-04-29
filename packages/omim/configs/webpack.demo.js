@@ -8,11 +8,10 @@ try {
   argv = process.argv;
 }
 
-
 module.exports = {
-  entry: './demos/' + argv[2] + '/index.js',
+  entry: './demos/' + argv[1] + '/index.js',
   output: {
-    path: path.resolve(__dirname, '../demos/' + argv[2]),
+    path: path.resolve(__dirname, '../demos/' + argv[1]),
     filename: 'bundle.js'
   },
   mode: 'development',
