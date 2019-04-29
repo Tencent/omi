@@ -9,8 +9,8 @@
   "minified:main": "dist/omim.min.js",
   "types": "dist/omim.d.ts",
   "scripts": {
-    "start": "webpack -w --config ./configs/webpack.demo.js &&",
-    "build": "node ./configs/webpack.build.js"
+    "start": "webpack -w --config ./scripts/webpack.demo.js &&",
+    "build": "node ./scripts/webpack.build.js"
   },
   "eslintConfig": {
     "extends": "./config/eslint-config.js"

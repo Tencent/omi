@@ -58,9 +58,11 @@ module.exports = {
     // },
     {
       test: /\.[t|j]sx?$/,
-      use: 'ts-loader',
-      exclude: /node_modules/
-    }
-    ]
+      loader: 'ts-loader',
+      exclude: /node_modules/,
+      options: {
+        configFile: "tsconfig.demo.json"
+      }
+    }]
   }
 };
