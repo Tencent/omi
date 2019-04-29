@@ -1,6 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
+const fs = require('fs');
 
 var name = process.argv[2]
 
@@ -48,4 +49,7 @@ webpack({
     // Handle errors here
   }
   // Done processing
+  fs.renameSync(path.resolve(__dirname, '../dist/index.d.ts'), path.resolve(__dirname, '../src/' + name+'/index.d.ts'))
+  fs.rmdirSync('dist')
+  console.log(`Build ${name} successfully!`)
 });

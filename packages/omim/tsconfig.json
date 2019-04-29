@@ -6,7 +6,8 @@
     "jsxFactory": "h",
     "target": "es5",
     "outDir": "dist",
-    "allowJs": true
+    "allowJs": true,
+    "declaration": true
   },
   "include": [
     "src/**/*"
