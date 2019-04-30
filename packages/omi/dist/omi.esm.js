@@ -1,5 +1,5 @@
 /**
- * omi v6.1.2  http://omijs.org
+ * omi v6.2.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1332,6 +1332,13 @@ var WeElement = function (_HTMLElement) {
     }
     this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
     this.rendered();
+
+    if (this.props.css) {
+      this._customStyleElement = cssToDom(this.props.css);
+      this._customStyleContent = this.props.css;
+      shadowRoot.appendChild(this._customStyleElement);
+    }
+
     if (isArray(this._host)) {
       this._host.forEach(function (item) {
         shadowRoot.appendChild(item);
@@ -1360,6 +1367,10 @@ var WeElement = function (_HTMLElement) {
     this._willUpdate = true;
     this.beforeUpdate();
     this.beforeRender();
+    if (this._customStyleContent !== this.props.css) {
+      this._customStyleContent = this.props.css;
+      this._customStyleElement.textContent = this._customStyleContent;
+    }
     this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
     this._willUpdate = false;
     this.updated();
@@ -1694,7 +1705,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.1.1';
+options.root.Omi.version = '6.2.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm };

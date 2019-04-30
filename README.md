@@ -1,6 +1,6 @@
 English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 
-<p align="right">Omi <strong>v6.1.2</strong></p>
+<p align="right">Omi <strong>v6.2.0</strong></p>
 <p align="right">Omio <strong>v2.2.1</strong></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - Next front end framework using web components with omio(IE8+), omip(小程序) and reomi(react) fallback in tiny js.</h2>

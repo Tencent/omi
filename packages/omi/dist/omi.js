@@ -913,6 +913,11 @@
             }
             this.L = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
             this.rendered();
+            if (this.props.css) {
+                this.N = cssToDom(this.props.css);
+                this.O = this.props.css;
+                shadowRoot.appendChild(this.N);
+            }
             if (isArray(this.L)) this.L.forEach(function(item) {
                 shadowRoot.appendChild(item);
             }); else shadowRoot.appendChild(this.L);
@@ -931,6 +936,10 @@
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
+            if (this.O !== this.props.css) {
+                this.O = this.props.css;
+                this.N.textContent = this.O;
+            }
             this.L = diff(this.L, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
             this.J = !1;
             this.updated();
@@ -1025,7 +1034,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.1.1';
+    options.root.Omi.version = '6.2.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -10,7 +10,6 @@ declare namespace Omi {
 
 	interface Attributes {
 		key?: string | number | any;
-		css?: string
 	}
 
 	interface ClassAttributes<T> extends Attributes {
@@ -38,7 +37,7 @@ declare namespace Omi {
 	 * }
 	 */
 	interface CustomElementBaseAttributes extends ClassAttributes<any>, OmiDOMAttributes {}
-	interface Props extends ClassAttributes<any>, OmiDOMAttributes {}
+
 	/**
 	 * Define the contract for a virtual node in omi.
 	 *
