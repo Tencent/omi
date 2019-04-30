@@ -3,10 +3,14 @@ const glob = require('glob');
 const webpack = require('webpack');
 const fs = require('fs');
 
-var name = process.argv[2]
+const name = process.argv[2]
+let library = name.replace(/-(\w)/g, ($, $1) => {
+  return $1.toUpperCase()
+})
 
+library = 'M' + library.substr(0, 1).toUpperCase() + library.substr(1, library.length)
 
-webpack({
+const config = {
   devtool: 'source-map',
   entry: {
     [name]: './src/' + name + '/index.tsx'
@@ -14,7 +18,8 @@ webpack({
   output: {
     path: path.resolve(__dirname, '../src/' + name),
     filename: 'index.js',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    library: library
   },
   mode: 'development',
   module: {
@@ -45,10 +50,17 @@ webpack({
     }
     ]
   }
-}, (err, stats) => { // Stats Object
+}
+
+if (name !== 'icon') {
+  config.externals = {
+    '@omim/icon': 'MIcon'
+  }
+}
+webpack(config, (err, stats) => { // Stats Object
   if (err || stats.hasErrors()) {
     // Handle errors here
   }
   // Done processing
-  
+
 });
