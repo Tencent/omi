@@ -18,7 +18,7 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 | [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| Project scaffolding. [→ Base Templates](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ Other Templates](https://github.com/omijs) |
 | [omi-devtools](https://github.com/f/omi-devtools)| Browser DevTools extension |
 | [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Omi official UI|
-|[omil](https://github.com/Wscats/omil)|Webpack loader for Omi.js components|
+| [omil](https://github.com/Wscats/omil)|Webpack loader for Omi.js components|
 
 #### Mini Program
 
