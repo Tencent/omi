@@ -50,21 +50,5 @@ webpack({
     // Handle errors here
   }
   // Done processing
-  fs.renameSync(path.resolve(__dirname, '../dist/'+ name +'/index.d.ts'), path.resolve(__dirname, '../src/' + name+'/index.d.ts'))
-  deleteFolderRecursive('dist')
-  console.log(`Build ${name} successfully!`)
+  
 });
-
-var deleteFolderRecursive = function(path) {
-  if (fs.existsSync(path)) {
-    fs.readdirSync(path).forEach(function(file, index){
-      var curPath = path + "/" + file;
-      if (fs.lstatSync(curPath).isDirectory()) { // recurse
-        deleteFolderRecursive(curPath);
-      } else { // delete file
-        fs.unlinkSync(curPath);
-      }
-    });
-    fs.rmdirSync(path);
-  }
-};

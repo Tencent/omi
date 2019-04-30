@@ -5,7 +5,6 @@
     "jsx": "react",
     "jsxFactory": "h",
     "target": "es5",
-    "outDir": "dist",
     "allowJs": true,
     "declaration": true
   },
