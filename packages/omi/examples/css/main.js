@@ -1,32 +1,28 @@
-import { define, render, WeElement, createRef } from '../../src/omi'
-import './hello-element'
+import { define, render, WeElement } from '../../src/omi'
+import './my-element'
 
 define('my-app', class extends WeElement {
-  
+
   myCSS = `
-  div{
-    color:green;
+  h1{
+    color: green;
   }`
 
-  onClick = ()=>{
-    this.myCSS =  `
-    div{
-      color:blue;
+  onClick = () => {
+    this.myCSS = `
+    h1{
+      color: blue;
     }`
     this.update()
   }
-  
-  render(props, data) {
 
-  
-
+  render() {
     return (
       <div onClick={this.onClick}>
-       
-        <hello-element css={this.myCSS}/>
+        <my-element css={this.myCSS} />
       </div>
     )
   }
 })
 
-render(<my-app name="Omi v4.0" />, 'body')
+render(<my-app />, 'body')

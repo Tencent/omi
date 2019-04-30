@@ -17,7 +17,8 @@ const config = {
           { name: '生命周期', md: 'lifecycle' },
           { name: 'Ref', md: 'ref' },
           { name: 'Class', md: 'class' },
-          { name: 'Store', md: 'store' }
+          { name: 'Store', md: 'store' },
+          { name: 'CSS', md: 'css' }
         ]
       },
       {
@@ -49,7 +50,8 @@ const config = {
           { name: 'Lifecycle', md: 'lifecycle' },
           { name: 'Ref', md: 'ref' },
           { name: 'Class', md: 'class' },
-          { name: 'Store', md: 'store' }
+          { name: 'Store', md: 'store' },
+          { name: 'CSS', md: 'css' }
         ]
       },
       {

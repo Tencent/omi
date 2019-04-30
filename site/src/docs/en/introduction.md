@@ -15,7 +15,7 @@ This page demonstrates using Omi **with no build tooling**:
 ```html
 <script src="https://unpkg.com/omi"></script>
 <script>
-  const { define, WeElement, h, render } = Omi
+  const { define, WeElement, html, render } = Omi
 
   define('my-counter', class extends WeElement {
     install() {
@@ -35,29 +35,16 @@ This page demonstrates using Omi **with no build tooling**:
     }
 
     render() {
-      return h(
-        'div',
-        null,
-        h(
-          'button',
-          { onClick: this.sub },
-          '-'
-        ),
-        h(
-          'span',
-          null,
-          this.data.count
-        ),
-        h(
-          'button',
-          { onClick: this.add },
-          '+'
-        )
-      )
-    }
+      return html`
+        <div>
+          <button onClick=${this.sub}>-</button>
+          <span>${this.data.count}</span>
+          <button onClick=${this.add}>+</button>
+        </div>
+        `}
   })
 
-  render(h('my-counter'), 'body')
+  render(html`<my-counter />`, 'body')
 </script>
 ```
 

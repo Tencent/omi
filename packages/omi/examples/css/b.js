@@ -1716,7 +1716,7 @@
 
   function _inherits$3(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  define('hello-element', (_temp$2 = _class$2 = function (_WeElement) {
+  define('my-element', (_temp$2 = _class$2 = function (_WeElement) {
     _inherits$3(_class, _WeElement);
 
     function _class() {
@@ -1729,12 +1729,16 @@
       return Omi.h(
         'div',
         null,
-        'ABC'
+        Omi.h(
+          'h1',
+          null,
+          'ABC'
+        )
       );
     };
 
     return _class;
-  }(WeElement), _class$2.css = 'div{color:red;}', _temp$2));
+  }(WeElement), _class$2.css = 'h1{\n    color:red;\n  }', _temp$2));
 
   function _classCallCheck$4(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1754,25 +1758,24 @@
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.myCSS = '\n  div{\n    color:green;\n  }', _this.onClick = function () {
-        _this.myCSS = '\n    div{\n      color:blue;\n    }';
+      return _ret = (_temp = (_this = _possibleConstructorReturn$4(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this.myCSS = '\n  h1{\n    color: green;\n  }', _this.onClick = function () {
+        _this.myCSS = '\n    h1{\n      color: blue;\n    }';
         _this.update();
       }, _temp), _possibleConstructorReturn$4(_this, _ret);
     }
 
-    _class2.prototype.render = function render$$1(props, data) {
-
+    _class2.prototype.render = function render$$1() {
       return Omi.h(
         'div',
         { onClick: this.onClick },
-        Omi.h('hello-element', { css: this.myCSS })
+        Omi.h('my-element', { css: this.myCSS })
       );
     };
 
     return _class2;
   }(WeElement));
 
-  render(Omi.h('my-app', { name: 'Omi v4.0' }), 'body');
+  render(Omi.h('my-app', null), 'body');
 
 }());
 //# sourceMappingURL=b.js.map
