@@ -8,7 +8,7 @@ interface Props {
     noLabel: boolean;
     helperText: string;
     characterCounter: number[];
-    placeholder: '';
+    label: '';
     required: boolean;
     pattern: RegExp;
     minLength: number;
@@ -16,6 +16,8 @@ interface Props {
     min: number;
     max: number;
     step: number;
+    rows: number;
+    cols: number;
     value: string;
     disabled: boolean;
     useNativeValidation: boolean;
@@ -38,6 +40,6 @@ export default class TextField extends WeElement<Props, Data> {
     layout: () => void;
     uninstall(): void;
     refIt: (e: any) => void;
-    render(props: any, data: any): JSX.Element;
+    render(props: any, data: any): JSX.Element[];
 }
 export {};
