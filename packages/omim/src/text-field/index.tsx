@@ -19,18 +19,9 @@ export default class TextField extends WeElement<Props, Data>{
 
   textField: MDCTextField
   root: HTMLElement
-  _constructorCSS: string
-
-  install() {
-    if (this.props.customCSS) {
-      this._constructorCSS = TextField.css
-      TextField.css += this.props.customCSS
-    }
-  }
 
   installed() {
     this.textField = new MDCTextField(this.root)
-    TextField.css = this._constructorCSS
   }
 
   refIt = (e) => { this.root = e }

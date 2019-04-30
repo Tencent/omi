@@ -10,8 +10,6 @@ export default class TextField extends WeElement<Props, Data> {
     static css: any;
     textField: MDCTextField;
     root: HTMLElement;
-    _constructorCSS: string;
-    install(): void;
     installed(): void;
     refIt: (e: any) => void;
     render(props: any, data: any): JSX.Element;
