@@ -6202,6 +6202,9 @@ var TextField = /** @class */ (function (_super) {
         }
         return vd;
     };
+    TextField.defaultProps = {
+        showHelper: true
+    };
     TextField.css = css;
     TextField = __decorate([
         omi_1.tag('m-text-field')

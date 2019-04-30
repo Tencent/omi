@@ -56,6 +56,10 @@ function extract(from, props) {
 
 @tag('m-text-field')
 export default class TextField extends WeElement<Props, Data>{
+  static defaultProps = {
+    showHelper: true
+  }
+  
   static css = css
 
   mdc: MDCTextField

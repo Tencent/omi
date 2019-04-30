@@ -31,6 +31,9 @@ interface Props {
 interface Data {
 }
 export default class TextField extends WeElement<Props, Data> {
+    static defaultProps: {
+        showHelper: boolean;
+    };
     static css: any;
     mdc: MDCTextField;
     root: HTMLElement;
