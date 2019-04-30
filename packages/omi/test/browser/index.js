@@ -32,9 +32,7 @@ describe('install()', () => {
       render() {
         return <div>Ele</div>
       }
-      install() {
-        console.log(123)
-      }
+      
     }
 
     define('my-ele', Ele)
