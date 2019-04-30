@@ -49,13 +49,14 @@ const config = {
       exclude: /node_modules/
     }
     ]
+  },
+  externals:{
+    'omi': 'Omi'
   }
 }
 
 if (name !== 'icon') {
-  config.externals = {
-    '@omim/icon': 'MIcon'
-  }
+  //config.externals['@omim/icon'] = MIcon
 }
 webpack(config, (err, stats) => { // Stats Object
   if (err || stats.hasErrors()) {
