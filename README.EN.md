@@ -16,6 +16,7 @@ English | [简体中文](./README.md) | [한국어](./README.KR.md)
 | [omis![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omis)| Server-side rendering(support omio only). |
 | [omix![](https://raw.githubusercontent.com/dntzhang/cax/master/asset/hot.png) ](https://github.com/Tencent/omi/tree/master/packages/omix)| Tiny size mini programe framework.|
 | [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/index.html)| Omi official UI|
+| [omil](https://github.com/Wscats/omil)|Webpack loader for Omi.js components|
 | [omi-chart](https://github.com/Tencent/omi/tree/master/packages/omi-chart)| Simple HTML5 Charts using chart-x tag.|
 | [md2site](https://tencent.github.io/omi/assets/md2site/)| Static Site Generator with markdown powered by Omio.|
 | [omi-mvvm](https://github.com/Tencent/omi/blob/master/tutorial/omi-mvvm.md)| MVVM comes back bravely with [mappingjs](https://github.com/Tencent/omi/tree/master/packages/mappingjs) strong support.|
@@ -37,6 +38,7 @@ English | [简体中文](./README.md) | [한국어](./README.KR.md)
 | [omi-native](https://github.com/Tencent/omi/tree/master/packages/omi-native)|Render web components to native|
 |[omi-i18n](https://github.com/i18next/omi-i18n)| Internationalization solution for omi.js using i18next ecosystem |
 | [omi-page](https://github.com/Tencent/omi/tree/master/packages/omi-page) |Tiny client-side router by [page](https://github.com/visionmedia/page.js)|
+| [omi-snippets](https://github.com/Wscats/omi-snippets) |A beautify extension for .omi or .eno file|
 
 ## Why Omi?
 
