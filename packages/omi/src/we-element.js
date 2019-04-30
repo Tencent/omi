@@ -72,6 +72,13 @@ export default class WeElement extends HTMLElement {
       false
     )
     this.rendered()
+
+    if (this.props.css) {
+      this._customStyleElement = cssToDom(this.props.css)
+      this._customStyleContent = this.props.css
+      shadowRoot.appendChild(this._customStyleElement)
+    }
+
     if (isArray(this._host)) {
       this._host.forEach(function(item) {
         shadowRoot.appendChild(item)
@@ -100,6 +107,10 @@ export default class WeElement extends HTMLElement {
     this._willUpdate = true
     this.beforeUpdate()
     this.beforeRender()
+    if(this._customStyleContent !== this.props.css){
+      this._customStyleContent = this.props.css
+      this._customStyleElement.textContent = this._customStyleContent
+    }
     this._host = diff(
       this._host,
       this.render(this.props, this.data, this.store),
