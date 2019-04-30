@@ -98,7 +98,7 @@ export default class TextField extends WeElement<Props, Data>{
 
     const vd = [
       <div ref={this.refIt} {...cls}>
-        {!props.iconRight && <m-icon class='icon' {...extract(props,['path','paths'])}></m-icon>}
+        {(props.path || props.paths) && !props.iconRight && <m-icon class='icon' {...extract(props,['path','paths'])}></m-icon>}
         {props.characterCounter && props.textarea && <div class="mdc-text-field-character-counter">{props.characterCounter[0]} / {props.characterCounter[1]}</div>}
         {
           props.textarea ?
@@ -116,7 +116,7 @@ export default class TextField extends WeElement<Props, Data>{
             </div> :
             (!props.noLabel && <label class="mdc-floating-label" for="my-text-field">{props.label}</label>)
         }
-        {props.iconRight && <m-icon class='icon' {...extract(props,['path','paths'])}></m-icon>}
+        {(props.path || props.paths) && props.iconRight && <m-icon class='icon' {...extract(props,['path','paths'])}></m-icon>}
         <div class="mdc-line-ripple"></div>
       </div>
     ]

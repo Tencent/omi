@@ -8151,7 +8151,7 @@ var TextField = /** @class */ (function (_super) {
         var inputProps = extract(props, ['disabled', 'required', 'pattern', 'value', 'minLength', 'maxLength', 'min', 'max', 'step']);
         var vd = [
             omi_1.h("div", __assign({ ref: this.refIt }, cls),
-                !props.iconRight && omi_1.h("m-icon", __assign({ class: 'icon' }, extract(props, ['path', 'paths']))),
+                (props.path || props.paths) && !props.iconRight && omi_1.h("m-icon", __assign({ class: 'icon' }, extract(props, ['path', 'paths']))),
                 props.characterCounter && props.textarea && omi_1.h("div", { class: "mdc-text-field-character-counter" },
                     props.characterCounter[0],
                     " / ",
@@ -8165,7 +8165,7 @@ var TextField = /** @class */ (function (_super) {
                         omi_1.h("div", { class: "mdc-notched-outline__notch" }, !props.noLabel && omi_1.h("label", { for: "tf-outlined", class: "mdc-floating-label" }, props.label)),
                         omi_1.h("div", { class: "mdc-notched-outline__trailing" })) :
                     (!props.noLabel && omi_1.h("label", { class: "mdc-floating-label", for: "my-text-field" }, props.label)),
-                props.iconRight && omi_1.h("m-icon", __assign({ class: 'icon' }, extract(props, ['path', 'paths']))),
+                (props.path || props.paths) && props.iconRight && omi_1.h("m-icon", __assign({ class: 'icon' }, extract(props, ['path', 'paths']))),
                 omi_1.h("div", { class: "mdc-line-ripple" }))
         ];
         if (props.helperText || (props.characterCounter && !props.textarea)) {
