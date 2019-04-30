@@ -1,11 +1,39 @@
 
 import * as css from './index.scss'
 import { WeElement, tag, h } from 'omi'
-import { MDCTextField } from '@material/textfield/index';
+import { MDCTextField } from '@material/textfield/index'
+import { MDCRipple } from '@material/ripple/index'
 
 interface Props {
+  fullWidth: boolean,
+  textarea: boolean,
+  outlined: boolean,
+  noLabel: boolean,
+  helperText: string,
+  characterCounter:number[],
+
+  //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
+
   placeholder: '',
-  customCSS: string
+
+  required: boolean,
+  pattern: RegExp,
+  minLength: number,
+  maxLength: number,
+  min: number,
+  max: number,
+  step: number,
+
+  value: string,
+  disabled: boolean, //also add style class 
+  useNativeValidation: boolean,
+  valid: boolean,
+  helperTextContent: string,
+  ripple: MDCRipple,
+  leadingIconAriaLabel: string,
+  trailingIconAriaLabel: string,
+  leadingIconContent: string,
+  trailingIconContent: string
 }
 
 interface Data {
@@ -17,13 +45,26 @@ interface Data {
 export default class TextField extends WeElement<Props, Data>{
   static css = css
 
-  textField: MDCTextField
+  mdc: MDCTextField
   root: HTMLElement
 
   installed() {
-    this.textField = new MDCTextField(this.root)
+    this.mdc = new MDCTextField(this.root)
+
   }
 
+  focus = () => {
+    this.mdc.focus()
+  }
+
+  layout = () => {
+    this.mdc.layout()
+  }
+
+  uninstall() {
+    this.mdc.destroy()
+  }
+  
   refIt = (e) => { this.root = e }
 
   render(props, data) {

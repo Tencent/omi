@@ -1,4 +1,4 @@
-import '../../src/text-field/index.js'
+import '../../src/text-field/index.tsx'
 import { render, h } from 'omi'
 
 render(<m-text-field placeholder='Label' css={`

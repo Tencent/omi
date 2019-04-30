@@ -1,16 +1,42 @@
 import { WeElement } from 'omi';
 import { MDCTextField } from '@material/textfield/index';
+import { MDCRipple } from '@material/ripple/index';
 interface Props {
+    fullWidth: boolean;
+    textarea: boolean;
+    outlined: boolean;
+    noLabel: boolean;
+    helperText: string;
+    characterCounter: number[];
     placeholder: '';
-    customCSS: string;
+    required: boolean;
+    pattern: RegExp;
+    minLength: number;
+    maxLength: number;
+    min: number;
+    max: number;
+    step: number;
+    value: string;
+    disabled: boolean;
+    useNativeValidation: boolean;
+    valid: boolean;
+    helperTextContent: string;
+    ripple: MDCRipple;
+    leadingIconAriaLabel: string;
+    trailingIconAriaLabel: string;
+    leadingIconContent: string;
+    trailingIconContent: string;
 }
 interface Data {
 }
 export default class TextField extends WeElement<Props, Data> {
     static css: any;
-    textField: MDCTextField;
+    mdc: MDCTextField;
     root: HTMLElement;
     installed(): void;
+    focus: () => void;
+    layout: () => void;
+    uninstall(): void;
     refIt: (e: any) => void;
     render(props: any, data: any): JSX.Element;
 }
