@@ -7,6 +7,7 @@ var name = process.argv[2]
 
 
 webpack({
+  devtool: 'source-map',
   entry: {
     [name]: './src/' + name + '/index.tsx'
   },

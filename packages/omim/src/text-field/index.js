@@ -104,7 +104,112 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCComponent\", function() { return MDCComponent; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/base/foundation.js\");\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\nvar MDCComponent = /** @class */ (function () {\n    function MDCComponent(root, foundation) {\n        var args = [];\n        for (var _i = 2; _i < arguments.length; _i++) {\n            args[_i - 2] = arguments[_i];\n        }\n        this.root_ = root;\n        this.initialize.apply(this, tslib__WEBPACK_IMPORTED_MODULE_0__[\"__spread\"](args));\n        // Note that we initialize foundation here and not within the constructor's default param so that\n        // this.root_ is defined and can be used within the foundation class.\n        this.foundation_ = foundation === undefined ? this.getDefaultFoundation() : foundation;\n        this.foundation_.init();\n        this.initialSyncWithDOM();\n    }\n    MDCComponent.attachTo = function (root) {\n        // Subclasses which extend MDCBase should provide an attachTo() method that takes a root element and\n        // returns an instantiated component with its root set to that element. Also note that in the cases of\n        // subclasses, an explicit foundation class will not have to be passed in; it will simply be initialized\n        // from getDefaultFoundation().\n        return new MDCComponent(root, new _foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFoundation\"]({}));\n    };\n    /* istanbul ignore next: method param only exists for typing purposes; it does not need to be unit tested */\n    MDCComponent.prototype.initialize = function () {\n        var _args = [];\n        for (var _i = 0; _i < arguments.length; _i++) {\n            _args[_i] = arguments[_i];\n        }\n        // Subclasses can override this to do any additional setup work that would be considered part of a\n        // \"constructor\". Essentially, it is a hook into the parent constructor before the foundation is\n        // initialized. Any additional arguments besides root and foundation will be passed in here.\n    };\n    MDCComponent.prototype.getDefaultFoundation = function () {\n        // Subclasses must override this method to return a properly configured foundation class for the\n        // component.\n        throw new Error('Subclasses must override getDefaultFoundation to return a properly configured ' +\n            'foundation class');\n    };\n    MDCComponent.prototype.initialSyncWithDOM = function () {\n        // Subclasses should override this method if they need to perform work to synchronize with a host DOM\n        // object. An example of this would be a form control wrapper that needs to synchronize its internal state\n        // to some property or attribute of the host DOM. Please note: this is *not* the place to perform DOM\n        // reads/writes that would cause layout / paint, as this is called synchronously from within the constructor.\n    };\n    MDCComponent.prototype.destroy = function () {\n        // Subclasses may implement this method to release any resources / deregister any listeners they have\n        // attached. An example of this might be deregistering a resize event from the window object.\n        this.foundation_.destroy();\n    };\n    MDCComponent.prototype.listen = function (evtType, handler) {\n        this.root_.addEventListener(evtType, handler);\n    };\n    MDCComponent.prototype.unlisten = function (evtType, handler) {\n        this.root_.removeEventListener(evtType, handler);\n    };\n    /**\n     * Fires a cross-browser-compatible custom event from the component root of the given type, with the given data.\n     */\n    MDCComponent.prototype.emit = function (evtType, evtData, shouldBubble) {\n        if (shouldBubble === void 0) { shouldBubble = false; }\n        var evt;\n        if (typeof CustomEvent === 'function') {\n            evt = new CustomEvent(evtType, {\n                bubbles: shouldBubble,\n                detail: evtData,\n            });\n        }\n        else {\n            evt = document.createEvent('CustomEvent');\n            evt.initCustomEvent(evtType, shouldBubble, false, evtData);\n        }\n        this.root_.dispatchEvent(evt);\n    };\n    return MDCComponent;\n}());\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCComponent);\n//# sourceMappingURL=component.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/base/component.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCComponent", function() { return MDCComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/base/foundation.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+var MDCComponent = /** @class */ (function () {
+    function MDCComponent(root, foundation) {
+        var args = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            args[_i - 2] = arguments[_i];
+        }
+        this.root_ = root;
+        this.initialize.apply(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__spread"](args));
+        // Note that we initialize foundation here and not within the constructor's default param so that
+        // this.root_ is defined and can be used within the foundation class.
+        this.foundation_ = foundation === undefined ? this.getDefaultFoundation() : foundation;
+        this.foundation_.init();
+        this.initialSyncWithDOM();
+    }
+    MDCComponent.attachTo = function (root) {
+        // Subclasses which extend MDCBase should provide an attachTo() method that takes a root element and
+        // returns an instantiated component with its root set to that element. Also note that in the cases of
+        // subclasses, an explicit foundation class will not have to be passed in; it will simply be initialized
+        // from getDefaultFoundation().
+        return new MDCComponent(root, new _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]({}));
+    };
+    /* istanbul ignore next: method param only exists for typing purposes; it does not need to be unit tested */
+    MDCComponent.prototype.initialize = function () {
+        var _args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            _args[_i] = arguments[_i];
+        }
+        // Subclasses can override this to do any additional setup work that would be considered part of a
+        // "constructor". Essentially, it is a hook into the parent constructor before the foundation is
+        // initialized. Any additional arguments besides root and foundation will be passed in here.
+    };
+    MDCComponent.prototype.getDefaultFoundation = function () {
+        // Subclasses must override this method to return a properly configured foundation class for the
+        // component.
+        throw new Error('Subclasses must override getDefaultFoundation to return a properly configured ' +
+            'foundation class');
+    };
+    MDCComponent.prototype.initialSyncWithDOM = function () {
+        // Subclasses should override this method if they need to perform work to synchronize with a host DOM
+        // object. An example of this would be a form control wrapper that needs to synchronize its internal state
+        // to some property or attribute of the host DOM. Please note: this is *not* the place to perform DOM
+        // reads/writes that would cause layout / paint, as this is called synchronously from within the constructor.
+    };
+    MDCComponent.prototype.destroy = function () {
+        // Subclasses may implement this method to release any resources / deregister any listeners they have
+        // attached. An example of this might be deregistering a resize event from the window object.
+        this.foundation_.destroy();
+    };
+    MDCComponent.prototype.listen = function (evtType, handler) {
+        this.root_.addEventListener(evtType, handler);
+    };
+    MDCComponent.prototype.unlisten = function (evtType, handler) {
+        this.root_.removeEventListener(evtType, handler);
+    };
+    /**
+     * Fires a cross-browser-compatible custom event from the component root of the given type, with the given data.
+     */
+    MDCComponent.prototype.emit = function (evtType, evtData, shouldBubble) {
+        if (shouldBubble === void 0) { shouldBubble = false; }
+        var evt;
+        if (typeof CustomEvent === 'function') {
+            evt = new CustomEvent(evtType, {
+                bubbles: shouldBubble,
+                detail: evtData,
+            });
+        }
+        else {
+            evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(evtType, shouldBubble, false, evtData);
+        }
+        this.root_.dispatchEvent(evt);
+    };
+    return MDCComponent;
+}());
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCComponent);
+//# sourceMappingURL=component.js.map
 
 /***/ }),
 
@@ -116,7 +221,84 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCFoundation\", function() { return MDCFoundation; });\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\nvar MDCFoundation = /** @class */ (function () {\n    function MDCFoundation(adapter) {\n        if (adapter === void 0) { adapter = {}; }\n        this.adapter_ = adapter;\n    }\n    Object.defineProperty(MDCFoundation, \"cssClasses\", {\n        get: function () {\n            // Classes extending MDCFoundation should implement this method to return an object which exports every\n            // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}\n            return {};\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCFoundation, \"strings\", {\n        get: function () {\n            // Classes extending MDCFoundation should implement this method to return an object which exports all\n            // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}\n            return {};\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCFoundation, \"numbers\", {\n        get: function () {\n            // Classes extending MDCFoundation should implement this method to return an object which exports all\n            // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}\n            return {};\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCFoundation, \"defaultAdapter\", {\n        get: function () {\n            // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient\n            // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter\n            // validation.\n            return {};\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCFoundation.prototype.init = function () {\n        // Subclasses should override this method to perform initialization routines (registering events, etc.)\n    };\n    MDCFoundation.prototype.destroy = function () {\n        // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)\n    };\n    return MDCFoundation;\n}());\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCFoundation);\n//# sourceMappingURL=foundation.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/base/foundation.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFoundation", function() { return MDCFoundation; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var MDCFoundation = /** @class */ (function () {
+    function MDCFoundation(adapter) {
+        if (adapter === void 0) { adapter = {}; }
+        this.adapter_ = adapter;
+    }
+    Object.defineProperty(MDCFoundation, "cssClasses", {
+        get: function () {
+            // Classes extending MDCFoundation should implement this method to return an object which exports every
+            // CSS class the foundation class needs as a property. e.g. {ACTIVE: 'mdc-component--active'}
+            return {};
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCFoundation, "strings", {
+        get: function () {
+            // Classes extending MDCFoundation should implement this method to return an object which exports all
+            // semantic strings as constants. e.g. {ARIA_ROLE: 'tablist'}
+            return {};
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCFoundation, "numbers", {
+        get: function () {
+            // Classes extending MDCFoundation should implement this method to return an object which exports all
+            // of its semantic numbers as constants. e.g. {ANIMATION_DELAY_MS: 350}
+            return {};
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCFoundation, "defaultAdapter", {
+        get: function () {
+            // Classes extending MDCFoundation may choose to implement this getter in order to provide a convenient
+            // way of viewing the necessary methods of an adapter. In the future, this could also be used for adapter
+            // validation.
+            return {};
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCFoundation.prototype.init = function () {
+        // Subclasses should override this method to perform initialization routines (registering events, etc.)
+    };
+    MDCFoundation.prototype.destroy = function () {
+        // Subclasses should override this method to perform de-initialization routines (de-registering events, etc.)
+    };
+    return MDCFoundation;
+}());
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCFoundation);
+//# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
@@ -128,7 +310,34 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ponyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ponyfill */ \"./node_modules/@material/dom/ponyfill.js\");\n/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, \"ponyfill\", function() { return _ponyfill__WEBPACK_IMPORTED_MODULE_0__; });\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/dom/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ponyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "ponyfill", function() { return _ponyfill__WEBPACK_IMPORTED_MODULE_0__; });
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -140,7 +349,55 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pon
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"closest\", function() { return closest; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"matches\", function() { return matches; });\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n/**\n * @fileoverview A \"ponyfill\" is a polyfill that doesn't modify the global prototype chain.\n * This makes ponyfills safer than traditional polyfills, especially for libraries like MDC.\n */\nfunction closest(element, selector) {\n    if (element.closest) {\n        return element.closest(selector);\n    }\n    var el = element;\n    while (el) {\n        if (matches(el, selector)) {\n            return el;\n        }\n        el = el.parentElement;\n    }\n    return null;\n}\nfunction matches(element, selector) {\n    var nativeMatches = element.matches\n        || element.webkitMatchesSelector\n        || element.msMatchesSelector;\n    return nativeMatches.call(element, selector);\n}\n//# sourceMappingURL=ponyfill.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/dom/ponyfill.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closest", function() { return closest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "matches", function() { return matches; });
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+/**
+ * @fileoverview A "ponyfill" is a polyfill that doesn't modify the global prototype chain.
+ * This makes ponyfills safer than traditional polyfills, especially for libraries like MDC.
+ */
+function closest(element, selector) {
+    if (element.closest) {
+        return element.closest(selector);
+    }
+    var el = element;
+    while (el) {
+        if (matches(el, selector)) {
+            return el;
+        }
+        el = el.parentElement;
+    }
+    return null;
+}
+function matches(element, selector) {
+    var nativeMatches = element.matches
+        || element.webkitMatchesSelector
+        || element.msMatchesSelector;
+    return nativeMatches.call(element, selector);
+}
+//# sourceMappingURL=ponyfill.js.map
 
 /***/ }),
 
@@ -152,7 +409,80 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCFloatingLabel\", function() { return MDCFloatingLabel; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ \"./node_modules/@material/base/component.js\");\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/floating-label/foundation.js\");\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCFloatingLabel = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCFloatingLabel, _super);\n    function MDCFloatingLabel() {\n        return _super !== null && _super.apply(this, arguments) || this;\n    }\n    MDCFloatingLabel.attachTo = function (root) {\n        return new MDCFloatingLabel(root);\n    };\n    /**\n     * Styles the label to produce the label shake for errors.\n     * @param shouldShake If true, shakes the label by adding a CSS class; otherwise, stops shaking by removing the class.\n     */\n    MDCFloatingLabel.prototype.shake = function (shouldShake) {\n        this.foundation_.shake(shouldShake);\n    };\n    /**\n     * Styles the label to float/dock.\n     * @param shouldFloat If true, floats the label by adding a CSS class; otherwise, docks it by removing the class.\n     */\n    MDCFloatingLabel.prototype.float = function (shouldFloat) {\n        this.foundation_.float(shouldFloat);\n    };\n    MDCFloatingLabel.prototype.getWidth = function () {\n        return this.foundation_.getWidth();\n    };\n    MDCFloatingLabel.prototype.getDefaultFoundation = function () {\n        var _this = this;\n        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.\n        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.\n        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n        var adapter = {\n            addClass: function (className) { return _this.root_.classList.add(className); },\n            removeClass: function (className) { return _this.root_.classList.remove(className); },\n            getWidth: function () { return _this.root_.scrollWidth; },\n            registerInteractionHandler: function (evtType, handler) { return _this.listen(evtType, handler); },\n            deregisterInteractionHandler: function (evtType, handler) { return _this.unlisten(evtType, handler); },\n        };\n        // tslint:enable:object-literal-sort-keys\n        return new _foundation__WEBPACK_IMPORTED_MODULE_2__[\"MDCFloatingLabelFoundation\"](adapter);\n    };\n    return MDCFloatingLabel;\n}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__[\"MDCComponent\"]));\n\n//# sourceMappingURL=component.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/floating-label/component.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFloatingLabel", function() { return MDCFloatingLabel; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/floating-label/foundation.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCFloatingLabel = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCFloatingLabel, _super);
+    function MDCFloatingLabel() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCFloatingLabel.attachTo = function (root) {
+        return new MDCFloatingLabel(root);
+    };
+    /**
+     * Styles the label to produce the label shake for errors.
+     * @param shouldShake If true, shakes the label by adding a CSS class; otherwise, stops shaking by removing the class.
+     */
+    MDCFloatingLabel.prototype.shake = function (shouldShake) {
+        this.foundation_.shake(shouldShake);
+    };
+    /**
+     * Styles the label to float/dock.
+     * @param shouldFloat If true, floats the label by adding a CSS class; otherwise, docks it by removing the class.
+     */
+    MDCFloatingLabel.prototype.float = function (shouldFloat) {
+        this.foundation_.float(shouldFloat);
+    };
+    MDCFloatingLabel.prototype.getWidth = function () {
+        return this.foundation_.getWidth();
+    };
+    MDCFloatingLabel.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = {
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            getWidth: function () { return _this.root_.scrollWidth; },
+            registerInteractionHandler: function (evtType, handler) { return _this.listen(evtType, handler); },
+            deregisterInteractionHandler: function (evtType, handler) { return _this.unlisten(evtType, handler); },
+        };
+        // tslint:enable:object-literal-sort-keys
+        return new _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFloatingLabelFoundation"](adapter);
+    };
+    return MDCFloatingLabel;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
 
 /***/ }),
 
@@ -164,7 +494,36 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cssClasses\", function() { return cssClasses; });\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\nvar cssClasses = {\n    LABEL_FLOAT_ABOVE: 'mdc-floating-label--float-above',\n    LABEL_SHAKE: 'mdc-floating-label--shake',\n    ROOT: 'mdc-floating-label',\n};\n//# sourceMappingURL=constants.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/floating-label/constants.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses = {
+    LABEL_FLOAT_ABOVE: 'mdc-floating-label--float-above',
+    LABEL_SHAKE: 'mdc-floating-label--shake',
+    ROOT: 'mdc-floating-label',
+};
+//# sourceMappingURL=constants.js.map
 
 /***/ }),
 
@@ -176,7 +535,117 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCFloatingLabelFoundation\", function() { return MDCFloatingLabelFoundation; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ \"./node_modules/@material/base/foundation.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/floating-label/constants.js\");\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCFloatingLabelFoundation = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCFloatingLabelFoundation, _super);\n    function MDCFloatingLabelFoundation(adapter) {\n        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, MDCFloatingLabelFoundation.defaultAdapter, adapter)) || this;\n        _this.shakeAnimationEndHandler_ = function () { return _this.handleShakeAnimationEnd_(); };\n        return _this;\n    }\n    Object.defineProperty(MDCFloatingLabelFoundation, \"cssClasses\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCFloatingLabelFoundation, \"defaultAdapter\", {\n        /**\n         * See {@link MDCFloatingLabelAdapter} for typing information on parameters and return types.\n         */\n        get: function () {\n            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n            return {\n                addClass: function () { return undefined; },\n                removeClass: function () { return undefined; },\n                getWidth: function () { return 0; },\n                registerInteractionHandler: function () { return undefined; },\n                deregisterInteractionHandler: function () { return undefined; },\n            };\n            // tslint:enable:object-literal-sort-keys\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCFloatingLabelFoundation.prototype.init = function () {\n        this.adapter_.registerInteractionHandler('animationend', this.shakeAnimationEndHandler_);\n    };\n    MDCFloatingLabelFoundation.prototype.destroy = function () {\n        this.adapter_.deregisterInteractionHandler('animationend', this.shakeAnimationEndHandler_);\n    };\n    /**\n     * Returns the width of the label element.\n     */\n    MDCFloatingLabelFoundation.prototype.getWidth = function () {\n        return this.adapter_.getWidth();\n    };\n    /**\n     * Styles the label to produce a shake animation to indicate an error.\n     * @param shouldShake If true, adds the shake CSS class; otherwise, removes shake class.\n     */\n    MDCFloatingLabelFoundation.prototype.shake = function (shouldShake) {\n        var LABEL_SHAKE = MDCFloatingLabelFoundation.cssClasses.LABEL_SHAKE;\n        if (shouldShake) {\n            this.adapter_.addClass(LABEL_SHAKE);\n        }\n        else {\n            this.adapter_.removeClass(LABEL_SHAKE);\n        }\n    };\n    /**\n     * Styles the label to float or dock.\n     * @param shouldFloat If true, adds the float CSS class; otherwise, removes float and shake classes to dock the label.\n     */\n    MDCFloatingLabelFoundation.prototype.float = function (shouldFloat) {\n        var _a = MDCFloatingLabelFoundation.cssClasses, LABEL_FLOAT_ABOVE = _a.LABEL_FLOAT_ABOVE, LABEL_SHAKE = _a.LABEL_SHAKE;\n        if (shouldFloat) {\n            this.adapter_.addClass(LABEL_FLOAT_ABOVE);\n        }\n        else {\n            this.adapter_.removeClass(LABEL_FLOAT_ABOVE);\n            this.adapter_.removeClass(LABEL_SHAKE);\n        }\n    };\n    MDCFloatingLabelFoundation.prototype.handleShakeAnimationEnd_ = function () {\n        var LABEL_SHAKE = MDCFloatingLabelFoundation.cssClasses.LABEL_SHAKE;\n        this.adapter_.removeClass(LABEL_SHAKE);\n    };\n    return MDCFloatingLabelFoundation;\n}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFoundation\"]));\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCFloatingLabelFoundation);\n//# sourceMappingURL=foundation.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/floating-label/foundation.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFloatingLabelFoundation", function() { return MDCFloatingLabelFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/floating-label/constants.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCFloatingLabelFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCFloatingLabelFoundation, _super);
+    function MDCFloatingLabelFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCFloatingLabelFoundation.defaultAdapter, adapter)) || this;
+        _this.shakeAnimationEndHandler_ = function () { return _this.handleShakeAnimationEnd_(); };
+        return _this;
+    }
+    Object.defineProperty(MDCFloatingLabelFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCFloatingLabelFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCFloatingLabelAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                addClass: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                getWidth: function () { return 0; },
+                registerInteractionHandler: function () { return undefined; },
+                deregisterInteractionHandler: function () { return undefined; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCFloatingLabelFoundation.prototype.init = function () {
+        this.adapter_.registerInteractionHandler('animationend', this.shakeAnimationEndHandler_);
+    };
+    MDCFloatingLabelFoundation.prototype.destroy = function () {
+        this.adapter_.deregisterInteractionHandler('animationend', this.shakeAnimationEndHandler_);
+    };
+    /**
+     * Returns the width of the label element.
+     */
+    MDCFloatingLabelFoundation.prototype.getWidth = function () {
+        return this.adapter_.getWidth();
+    };
+    /**
+     * Styles the label to produce a shake animation to indicate an error.
+     * @param shouldShake If true, adds the shake CSS class; otherwise, removes shake class.
+     */
+    MDCFloatingLabelFoundation.prototype.shake = function (shouldShake) {
+        var LABEL_SHAKE = MDCFloatingLabelFoundation.cssClasses.LABEL_SHAKE;
+        if (shouldShake) {
+            this.adapter_.addClass(LABEL_SHAKE);
+        }
+        else {
+            this.adapter_.removeClass(LABEL_SHAKE);
+        }
+    };
+    /**
+     * Styles the label to float or dock.
+     * @param shouldFloat If true, adds the float CSS class; otherwise, removes float and shake classes to dock the label.
+     */
+    MDCFloatingLabelFoundation.prototype.float = function (shouldFloat) {
+        var _a = MDCFloatingLabelFoundation.cssClasses, LABEL_FLOAT_ABOVE = _a.LABEL_FLOAT_ABOVE, LABEL_SHAKE = _a.LABEL_SHAKE;
+        if (shouldFloat) {
+            this.adapter_.addClass(LABEL_FLOAT_ABOVE);
+        }
+        else {
+            this.adapter_.removeClass(LABEL_FLOAT_ABOVE);
+            this.adapter_.removeClass(LABEL_SHAKE);
+        }
+    };
+    MDCFloatingLabelFoundation.prototype.handleShakeAnimationEnd_ = function () {
+        var LABEL_SHAKE = MDCFloatingLabelFoundation.cssClasses.LABEL_SHAKE;
+        this.adapter_.removeClass(LABEL_SHAKE);
+    };
+    return MDCFloatingLabelFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCFloatingLabelFoundation);
+//# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
@@ -188,7 +657,38 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ \"./node_modules/@material/floating-label/component.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCFloatingLabel\", function() { return _component__WEBPACK_IMPORTED_MODULE_0__[\"MDCFloatingLabel\"]; });\n\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/floating-label/foundation.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCFloatingLabelFoundation\", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFloatingLabelFoundation\"]; });\n\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/floating-label/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/floating-label/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFloatingLabel", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCFloatingLabel"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/floating-label/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFloatingLabelFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFloatingLabelFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -200,7 +700,83 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCLineRipple\", function() { return MDCLineRipple; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ \"./node_modules/@material/base/component.js\");\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/line-ripple/foundation.js\");\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCLineRipple = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCLineRipple, _super);\n    function MDCLineRipple() {\n        return _super !== null && _super.apply(this, arguments) || this;\n    }\n    MDCLineRipple.attachTo = function (root) {\n        return new MDCLineRipple(root);\n    };\n    /**\n     * Activates the line ripple\n     */\n    MDCLineRipple.prototype.activate = function () {\n        this.foundation_.activate();\n    };\n    /**\n     * Deactivates the line ripple\n     */\n    MDCLineRipple.prototype.deactivate = function () {\n        this.foundation_.deactivate();\n    };\n    /**\n     * Sets the transform origin given a user's click location.\n     * The `rippleCenter` is the x-coordinate of the middle of the ripple.\n     */\n    MDCLineRipple.prototype.setRippleCenter = function (xCoordinate) {\n        this.foundation_.setRippleCenter(xCoordinate);\n    };\n    MDCLineRipple.prototype.getDefaultFoundation = function () {\n        var _this = this;\n        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.\n        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.\n        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n        var adapter = {\n            addClass: function (className) { return _this.root_.classList.add(className); },\n            removeClass: function (className) { return _this.root_.classList.remove(className); },\n            hasClass: function (className) { return _this.root_.classList.contains(className); },\n            setStyle: function (propertyName, value) { return _this.root_.style.setProperty(propertyName, value); },\n            registerEventHandler: function (evtType, handler) { return _this.listen(evtType, handler); },\n            deregisterEventHandler: function (evtType, handler) { return _this.unlisten(evtType, handler); },\n        };\n        // tslint:enable:object-literal-sort-keys\n        return new _foundation__WEBPACK_IMPORTED_MODULE_2__[\"MDCLineRippleFoundation\"](adapter);\n    };\n    return MDCLineRipple;\n}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__[\"MDCComponent\"]));\n\n//# sourceMappingURL=component.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/line-ripple/component.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCLineRipple", function() { return MDCLineRipple; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/line-ripple/foundation.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCLineRipple = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCLineRipple, _super);
+    function MDCLineRipple() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCLineRipple.attachTo = function (root) {
+        return new MDCLineRipple(root);
+    };
+    /**
+     * Activates the line ripple
+     */
+    MDCLineRipple.prototype.activate = function () {
+        this.foundation_.activate();
+    };
+    /**
+     * Deactivates the line ripple
+     */
+    MDCLineRipple.prototype.deactivate = function () {
+        this.foundation_.deactivate();
+    };
+    /**
+     * Sets the transform origin given a user's click location.
+     * The `rippleCenter` is the x-coordinate of the middle of the ripple.
+     */
+    MDCLineRipple.prototype.setRippleCenter = function (xCoordinate) {
+        this.foundation_.setRippleCenter(xCoordinate);
+    };
+    MDCLineRipple.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = {
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            setStyle: function (propertyName, value) { return _this.root_.style.setProperty(propertyName, value); },
+            registerEventHandler: function (evtType, handler) { return _this.listen(evtType, handler); },
+            deregisterEventHandler: function (evtType, handler) { return _this.unlisten(evtType, handler); },
+        };
+        // tslint:enable:object-literal-sort-keys
+        return new _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCLineRippleFoundation"](adapter);
+    };
+    return MDCLineRipple;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
 
 /***/ }),
 
@@ -212,7 +788,36 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cssClasses\", function() { return cssClasses; });\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\nvar cssClasses = {\n    LINE_RIPPLE_ACTIVE: 'mdc-line-ripple--active',\n    LINE_RIPPLE_DEACTIVATING: 'mdc-line-ripple--deactivating',\n};\n\n//# sourceMappingURL=constants.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/line-ripple/constants.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses = {
+    LINE_RIPPLE_ACTIVE: 'mdc-line-ripple--active',
+    LINE_RIPPLE_DEACTIVATING: 'mdc-line-ripple--deactivating',
+};
+
+//# sourceMappingURL=constants.js.map
 
 /***/ }),
 
@@ -224,7 +829,102 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCLineRippleFoundation\", function() { return MDCLineRippleFoundation; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ \"./node_modules/@material/base/foundation.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/line-ripple/constants.js\");\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCLineRippleFoundation = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCLineRippleFoundation, _super);\n    function MDCLineRippleFoundation(adapter) {\n        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, MDCLineRippleFoundation.defaultAdapter, adapter)) || this;\n        _this.transitionEndHandler_ = function (evt) { return _this.handleTransitionEnd(evt); };\n        return _this;\n    }\n    Object.defineProperty(MDCLineRippleFoundation, \"cssClasses\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCLineRippleFoundation, \"defaultAdapter\", {\n        /**\n         * See {@link MDCLineRippleAdapter} for typing information on parameters and return types.\n         */\n        get: function () {\n            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n            return {\n                addClass: function () { return undefined; },\n                removeClass: function () { return undefined; },\n                hasClass: function () { return false; },\n                setStyle: function () { return undefined; },\n                registerEventHandler: function () { return undefined; },\n                deregisterEventHandler: function () { return undefined; },\n            };\n            // tslint:enable:object-literal-sort-keys\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCLineRippleFoundation.prototype.init = function () {\n        this.adapter_.registerEventHandler('transitionend', this.transitionEndHandler_);\n    };\n    MDCLineRippleFoundation.prototype.destroy = function () {\n        this.adapter_.deregisterEventHandler('transitionend', this.transitionEndHandler_);\n    };\n    MDCLineRippleFoundation.prototype.activate = function () {\n        this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].LINE_RIPPLE_DEACTIVATING);\n        this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].LINE_RIPPLE_ACTIVE);\n    };\n    MDCLineRippleFoundation.prototype.setRippleCenter = function (xCoordinate) {\n        this.adapter_.setStyle('transform-origin', xCoordinate + \"px center\");\n    };\n    MDCLineRippleFoundation.prototype.deactivate = function () {\n        this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].LINE_RIPPLE_DEACTIVATING);\n    };\n    MDCLineRippleFoundation.prototype.handleTransitionEnd = function (evt) {\n        // Wait for the line ripple to be either transparent or opaque\n        // before emitting the animation end event\n        var isDeactivating = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].LINE_RIPPLE_DEACTIVATING);\n        if (evt.propertyName === 'opacity') {\n            if (isDeactivating) {\n                this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].LINE_RIPPLE_ACTIVE);\n                this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].LINE_RIPPLE_DEACTIVATING);\n            }\n        }\n    };\n    return MDCLineRippleFoundation;\n}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFoundation\"]));\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCLineRippleFoundation);\n//# sourceMappingURL=foundation.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/line-ripple/foundation.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCLineRippleFoundation", function() { return MDCLineRippleFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/line-ripple/constants.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCLineRippleFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCLineRippleFoundation, _super);
+    function MDCLineRippleFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCLineRippleFoundation.defaultAdapter, adapter)) || this;
+        _this.transitionEndHandler_ = function (evt) { return _this.handleTransitionEnd(evt); };
+        return _this;
+    }
+    Object.defineProperty(MDCLineRippleFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCLineRippleFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCLineRippleAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                addClass: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                hasClass: function () { return false; },
+                setStyle: function () { return undefined; },
+                registerEventHandler: function () { return undefined; },
+                deregisterEventHandler: function () { return undefined; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCLineRippleFoundation.prototype.init = function () {
+        this.adapter_.registerEventHandler('transitionend', this.transitionEndHandler_);
+    };
+    MDCLineRippleFoundation.prototype.destroy = function () {
+        this.adapter_.deregisterEventHandler('transitionend', this.transitionEndHandler_);
+    };
+    MDCLineRippleFoundation.prototype.activate = function () {
+        this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].LINE_RIPPLE_DEACTIVATING);
+        this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].LINE_RIPPLE_ACTIVE);
+    };
+    MDCLineRippleFoundation.prototype.setRippleCenter = function (xCoordinate) {
+        this.adapter_.setStyle('transform-origin', xCoordinate + "px center");
+    };
+    MDCLineRippleFoundation.prototype.deactivate = function () {
+        this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].LINE_RIPPLE_DEACTIVATING);
+    };
+    MDCLineRippleFoundation.prototype.handleTransitionEnd = function (evt) {
+        // Wait for the line ripple to be either transparent or opaque
+        // before emitting the animation end event
+        var isDeactivating = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].LINE_RIPPLE_DEACTIVATING);
+        if (evt.propertyName === 'opacity') {
+            if (isDeactivating) {
+                this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].LINE_RIPPLE_ACTIVE);
+                this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].LINE_RIPPLE_DEACTIVATING);
+            }
+        }
+    };
+    return MDCLineRippleFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCLineRippleFoundation);
+//# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
@@ -236,7 +936,38 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ \"./node_modules/@material/line-ripple/component.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCLineRipple\", function() { return _component__WEBPACK_IMPORTED_MODULE_0__[\"MDCLineRipple\"]; });\n\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/line-ripple/foundation.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCLineRippleFoundation\", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCLineRippleFoundation\"]; });\n\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/line-ripple/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/line-ripple/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCLineRipple", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCLineRipple"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/line-ripple/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCLineRippleFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCLineRippleFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -248,7 +979,93 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCNotchedOutline\", function() { return MDCNotchedOutline; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ \"./node_modules/@material/base/component.js\");\n/* harmony import */ var _material_floating_label_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/floating-label/foundation */ \"./node_modules/@material/floating-label/foundation.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/notched-outline/constants.js\");\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/notched-outline/foundation.js\");\n/**\n * @license\n * Copyright 2017 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\n\n\nvar MDCNotchedOutline = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCNotchedOutline, _super);\n    function MDCNotchedOutline() {\n        return _super !== null && _super.apply(this, arguments) || this;\n    }\n    MDCNotchedOutline.attachTo = function (root) {\n        return new MDCNotchedOutline(root);\n    };\n    MDCNotchedOutline.prototype.initialSyncWithDOM = function () {\n        this.notchElement_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_3__[\"strings\"].NOTCH_ELEMENT_SELECTOR);\n        var label = this.root_.querySelector('.' + _material_floating_label_foundation__WEBPACK_IMPORTED_MODULE_2__[\"MDCFloatingLabelFoundation\"].cssClasses.ROOT);\n        if (label) {\n            label.style.transitionDuration = '0s';\n            this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_3__[\"cssClasses\"].OUTLINE_UPGRADED);\n            requestAnimationFrame(function () {\n                label.style.transitionDuration = '';\n            });\n        }\n        else {\n            this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_3__[\"cssClasses\"].NO_LABEL);\n        }\n    };\n    /**\n     * Updates classes and styles to open the notch to the specified width.\n     * @param notchWidth The notch width in the outline.\n     */\n    MDCNotchedOutline.prototype.notch = function (notchWidth) {\n        this.foundation_.notch(notchWidth);\n    };\n    /**\n     * Updates classes and styles to close the notch.\n     */\n    MDCNotchedOutline.prototype.closeNotch = function () {\n        this.foundation_.closeNotch();\n    };\n    MDCNotchedOutline.prototype.getDefaultFoundation = function () {\n        var _this = this;\n        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.\n        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.\n        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n        var adapter = {\n            addClass: function (className) { return _this.root_.classList.add(className); },\n            removeClass: function (className) { return _this.root_.classList.remove(className); },\n            setNotchWidthProperty: function (width) { return _this.notchElement_.style.setProperty('width', width + 'px'); },\n            removeNotchWidthProperty: function () { return _this.notchElement_.style.removeProperty('width'); },\n        };\n        // tslint:enable:object-literal-sort-keys\n        return new _foundation__WEBPACK_IMPORTED_MODULE_4__[\"MDCNotchedOutlineFoundation\"](adapter);\n    };\n    return MDCNotchedOutline;\n}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__[\"MDCComponent\"]));\n\n//# sourceMappingURL=component.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/notched-outline/component.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCNotchedOutline", function() { return MDCNotchedOutline; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_floating_label_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/floating-label/foundation */ "./node_modules/@material/floating-label/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/notched-outline/constants.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/notched-outline/foundation.js");
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+var MDCNotchedOutline = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCNotchedOutline, _super);
+    function MDCNotchedOutline() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCNotchedOutline.attachTo = function (root) {
+        return new MDCNotchedOutline(root);
+    };
+    MDCNotchedOutline.prototype.initialSyncWithDOM = function () {
+        this.notchElement_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].NOTCH_ELEMENT_SELECTOR);
+        var label = this.root_.querySelector('.' + _material_floating_label_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFloatingLabelFoundation"].cssClasses.ROOT);
+        if (label) {
+            label.style.transitionDuration = '0s';
+            this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].OUTLINE_UPGRADED);
+            requestAnimationFrame(function () {
+                label.style.transitionDuration = '';
+            });
+        }
+        else {
+            this.root_.classList.add(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].NO_LABEL);
+        }
+    };
+    /**
+     * Updates classes and styles to open the notch to the specified width.
+     * @param notchWidth The notch width in the outline.
+     */
+    MDCNotchedOutline.prototype.notch = function (notchWidth) {
+        this.foundation_.notch(notchWidth);
+    };
+    /**
+     * Updates classes and styles to close the notch.
+     */
+    MDCNotchedOutline.prototype.closeNotch = function () {
+        this.foundation_.closeNotch();
+    };
+    MDCNotchedOutline.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = {
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            setNotchWidthProperty: function (width) { return _this.notchElement_.style.setProperty('width', width + 'px'); },
+            removeNotchWidthProperty: function () { return _this.notchElement_.style.removeProperty('width'); },
+        };
+        // tslint:enable:object-literal-sort-keys
+        return new _foundation__WEBPACK_IMPORTED_MODULE_4__["MDCNotchedOutlineFoundation"](adapter);
+    };
+    return MDCNotchedOutline;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
 
 /***/ }),
 
@@ -260,7 +1077,46 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cssClasses\", function() { return cssClasses; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"numbers\", function() { return numbers; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"strings\", function() { return strings; });\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\nvar strings = {\n    NOTCH_ELEMENT_SELECTOR: '.mdc-notched-outline__notch',\n};\nvar numbers = {\n    // This should stay in sync with $mdc-notched-outline-padding * 2.\n    NOTCH_ELEMENT_PADDING: 8,\n};\nvar cssClasses = {\n    NO_LABEL: 'mdc-notched-outline--no-label',\n    OUTLINE_NOTCHED: 'mdc-notched-outline--notched',\n    OUTLINE_UPGRADED: 'mdc-notched-outline--upgraded',\n};\n\n//# sourceMappingURL=constants.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/notched-outline/constants.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var strings = {
+    NOTCH_ELEMENT_SELECTOR: '.mdc-notched-outline__notch',
+};
+var numbers = {
+    // This should stay in sync with $mdc-notched-outline-padding * 2.
+    NOTCH_ELEMENT_PADDING: 8,
+};
+var cssClasses = {
+    NO_LABEL: 'mdc-notched-outline--no-label',
+    OUTLINE_NOTCHED: 'mdc-notched-outline--notched',
+    OUTLINE_UPGRADED: 'mdc-notched-outline--upgraded',
+};
+
+//# sourceMappingURL=constants.js.map
 
 /***/ }),
 
@@ -272,7 +1128,104 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCNotchedOutlineFoundation\", function() { return MDCNotchedOutlineFoundation; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ \"./node_modules/@material/base/foundation.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/notched-outline/constants.js\");\n/**\n * @license\n * Copyright 2017 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCNotchedOutlineFoundation = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCNotchedOutlineFoundation, _super);\n    function MDCNotchedOutlineFoundation(adapter) {\n        return _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, MDCNotchedOutlineFoundation.defaultAdapter, adapter)) || this;\n    }\n    Object.defineProperty(MDCNotchedOutlineFoundation, \"strings\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCNotchedOutlineFoundation, \"cssClasses\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCNotchedOutlineFoundation, \"numbers\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"numbers\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCNotchedOutlineFoundation, \"defaultAdapter\", {\n        /**\n         * See {@link MDCNotchedOutlineAdapter} for typing information on parameters and return types.\n         */\n        get: function () {\n            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n            return {\n                addClass: function () { return undefined; },\n                removeClass: function () { return undefined; },\n                setNotchWidthProperty: function () { return undefined; },\n                removeNotchWidthProperty: function () { return undefined; },\n            };\n            // tslint:enable:object-literal-sort-keys\n        },\n        enumerable: true,\n        configurable: true\n    });\n    /**\n     * Adds the outline notched selector and updates the notch width calculated based off of notchWidth.\n     */\n    MDCNotchedOutlineFoundation.prototype.notch = function (notchWidth) {\n        var OUTLINE_NOTCHED = MDCNotchedOutlineFoundation.cssClasses.OUTLINE_NOTCHED;\n        if (notchWidth > 0) {\n            notchWidth += _constants__WEBPACK_IMPORTED_MODULE_2__[\"numbers\"].NOTCH_ELEMENT_PADDING; // Add padding from left/right.\n        }\n        this.adapter_.setNotchWidthProperty(notchWidth);\n        this.adapter_.addClass(OUTLINE_NOTCHED);\n    };\n    /**\n     * Removes notched outline selector to close the notch in the outline.\n     */\n    MDCNotchedOutlineFoundation.prototype.closeNotch = function () {\n        var OUTLINE_NOTCHED = MDCNotchedOutlineFoundation.cssClasses.OUTLINE_NOTCHED;\n        this.adapter_.removeClass(OUTLINE_NOTCHED);\n        this.adapter_.removeNotchWidthProperty();\n    };\n    return MDCNotchedOutlineFoundation;\n}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFoundation\"]));\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCNotchedOutlineFoundation);\n//# sourceMappingURL=foundation.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/notched-outline/foundation.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCNotchedOutlineFoundation", function() { return MDCNotchedOutlineFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/notched-outline/constants.js");
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCNotchedOutlineFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCNotchedOutlineFoundation, _super);
+    function MDCNotchedOutlineFoundation(adapter) {
+        return _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCNotchedOutlineFoundation.defaultAdapter, adapter)) || this;
+    }
+    Object.defineProperty(MDCNotchedOutlineFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCNotchedOutlineFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCNotchedOutlineFoundation, "numbers", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCNotchedOutlineFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCNotchedOutlineAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                addClass: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                setNotchWidthProperty: function () { return undefined; },
+                removeNotchWidthProperty: function () { return undefined; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Adds the outline notched selector and updates the notch width calculated based off of notchWidth.
+     */
+    MDCNotchedOutlineFoundation.prototype.notch = function (notchWidth) {
+        var OUTLINE_NOTCHED = MDCNotchedOutlineFoundation.cssClasses.OUTLINE_NOTCHED;
+        if (notchWidth > 0) {
+            notchWidth += _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"].NOTCH_ELEMENT_PADDING; // Add padding from left/right.
+        }
+        this.adapter_.setNotchWidthProperty(notchWidth);
+        this.adapter_.addClass(OUTLINE_NOTCHED);
+    };
+    /**
+     * Removes notched outline selector to close the notch in the outline.
+     */
+    MDCNotchedOutlineFoundation.prototype.closeNotch = function () {
+        var OUTLINE_NOTCHED = MDCNotchedOutlineFoundation.cssClasses.OUTLINE_NOTCHED;
+        this.adapter_.removeClass(OUTLINE_NOTCHED);
+        this.adapter_.removeNotchWidthProperty();
+    };
+    return MDCNotchedOutlineFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCNotchedOutlineFoundation);
+//# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
@@ -284,7 +1237,38 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ \"./node_modules/@material/notched-outline/component.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCNotchedOutline\", function() { return _component__WEBPACK_IMPORTED_MODULE_0__[\"MDCNotchedOutline\"]; });\n\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/notched-outline/foundation.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCNotchedOutlineFoundation\", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCNotchedOutlineFoundation\"]; });\n\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/notched-outline/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/notched-outline/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCNotchedOutline", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCNotchedOutline"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/notched-outline/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCNotchedOutlineFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCNotchedOutlineFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -296,7 +1280,124 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCRipple\", function() { return MDCRipple; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ \"./node_modules/@material/base/component.js\");\n/* harmony import */ var _material_dom_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/index */ \"./node_modules/@material/dom/index.js\");\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/ripple/foundation.js\");\n/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ \"./node_modules/@material/ripple/util.js\");\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\n\n\nvar MDCRipple = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCRipple, _super);\n    function MDCRipple() {\n        var _this = _super !== null && _super.apply(this, arguments) || this;\n        _this.disabled = false;\n        return _this;\n    }\n    MDCRipple.attachTo = function (root, opts) {\n        if (opts === void 0) { opts = { isUnbounded: undefined }; }\n        var ripple = new MDCRipple(root);\n        // Only override unbounded behavior if option is explicitly specified\n        if (opts.isUnbounded !== undefined) {\n            ripple.unbounded = opts.isUnbounded;\n        }\n        return ripple;\n    };\n    MDCRipple.createAdapter = function (instance) {\n        return {\n            addClass: function (className) { return instance.root_.classList.add(className); },\n            browserSupportsCssVars: function () { return _util__WEBPACK_IMPORTED_MODULE_4__[\"supportsCssVariables\"](window); },\n            computeBoundingRect: function () { return instance.root_.getBoundingClientRect(); },\n            containsEventTarget: function (target) { return instance.root_.contains(target); },\n            deregisterDocumentInteractionHandler: function (evtType, handler) {\n                return document.documentElement.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__[\"applyPassive\"]());\n            },\n            deregisterInteractionHandler: function (evtType, handler) {\n                return instance.root_.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__[\"applyPassive\"]());\n            },\n            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },\n            getWindowPageOffset: function () { return ({ x: window.pageXOffset, y: window.pageYOffset }); },\n            isSurfaceActive: function () { return _material_dom_index__WEBPACK_IMPORTED_MODULE_2__[\"ponyfill\"].matches(instance.root_, ':active'); },\n            isSurfaceDisabled: function () { return Boolean(instance.disabled); },\n            isUnbounded: function () { return Boolean(instance.unbounded); },\n            registerDocumentInteractionHandler: function (evtType, handler) {\n                return document.documentElement.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__[\"applyPassive\"]());\n            },\n            registerInteractionHandler: function (evtType, handler) {\n                return instance.root_.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__[\"applyPassive\"]());\n            },\n            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },\n            removeClass: function (className) { return instance.root_.classList.remove(className); },\n            updateCssVariable: function (varName, value) { return instance.root_.style.setProperty(varName, value); },\n        };\n    };\n    Object.defineProperty(MDCRipple.prototype, \"unbounded\", {\n        get: function () {\n            return Boolean(this.unbounded_);\n        },\n        set: function (unbounded) {\n            this.unbounded_ = Boolean(unbounded);\n            this.setUnbounded_();\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCRipple.prototype.activate = function () {\n        this.foundation_.activate();\n    };\n    MDCRipple.prototype.deactivate = function () {\n        this.foundation_.deactivate();\n    };\n    MDCRipple.prototype.layout = function () {\n        this.foundation_.layout();\n    };\n    MDCRipple.prototype.getDefaultFoundation = function () {\n        return new _foundation__WEBPACK_IMPORTED_MODULE_3__[\"MDCRippleFoundation\"](MDCRipple.createAdapter(this));\n    };\n    MDCRipple.prototype.initialSyncWithDOM = function () {\n        var root = this.root_;\n        this.unbounded = 'mdcRippleIsUnbounded' in root.dataset;\n    };\n    /**\n     * Closure Compiler throws an access control error when directly accessing a\n     * protected or private property inside a getter/setter, like unbounded above.\n     * By accessing the protected property inside a method, we solve that problem.\n     * That's why this function exists.\n     */\n    MDCRipple.prototype.setUnbounded_ = function () {\n        this.foundation_.setUnbounded(Boolean(this.unbounded_));\n    };\n    return MDCRipple;\n}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__[\"MDCComponent\"]));\n\n//# sourceMappingURL=component.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/ripple/component.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return MDCRipple; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/index */ "./node_modules/@material/dom/index.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+var MDCRipple = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRipple, _super);
+    function MDCRipple() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.disabled = false;
+        return _this;
+    }
+    MDCRipple.attachTo = function (root, opts) {
+        if (opts === void 0) { opts = { isUnbounded: undefined }; }
+        var ripple = new MDCRipple(root);
+        // Only override unbounded behavior if option is explicitly specified
+        if (opts.isUnbounded !== undefined) {
+            ripple.unbounded = opts.isUnbounded;
+        }
+        return ripple;
+    };
+    MDCRipple.createAdapter = function (instance) {
+        return {
+            addClass: function (className) { return instance.root_.classList.add(className); },
+            browserSupportsCssVars: function () { return _util__WEBPACK_IMPORTED_MODULE_4__["supportsCssVariables"](window); },
+            computeBoundingRect: function () { return instance.root_.getBoundingClientRect(); },
+            containsEventTarget: function (target) { return instance.root_.contains(target); },
+            deregisterDocumentInteractionHandler: function (evtType, handler) {
+                return document.documentElement.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
+            },
+            deregisterInteractionHandler: function (evtType, handler) {
+                return instance.root_.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
+            },
+            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },
+            getWindowPageOffset: function () { return ({ x: window.pageXOffset, y: window.pageYOffset }); },
+            isSurfaceActive: function () { return _material_dom_index__WEBPACK_IMPORTED_MODULE_2__["ponyfill"].matches(instance.root_, ':active'); },
+            isSurfaceDisabled: function () { return Boolean(instance.disabled); },
+            isUnbounded: function () { return Boolean(instance.unbounded); },
+            registerDocumentInteractionHandler: function (evtType, handler) {
+                return document.documentElement.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
+            },
+            registerInteractionHandler: function (evtType, handler) {
+                return instance.root_.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
+            },
+            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },
+            removeClass: function (className) { return instance.root_.classList.remove(className); },
+            updateCssVariable: function (varName, value) { return instance.root_.style.setProperty(varName, value); },
+        };
+    };
+    Object.defineProperty(MDCRipple.prototype, "unbounded", {
+        get: function () {
+            return Boolean(this.unbounded_);
+        },
+        set: function (unbounded) {
+            this.unbounded_ = Boolean(unbounded);
+            this.setUnbounded_();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCRipple.prototype.activate = function () {
+        this.foundation_.activate();
+    };
+    MDCRipple.prototype.deactivate = function () {
+        this.foundation_.deactivate();
+    };
+    MDCRipple.prototype.layout = function () {
+        this.foundation_.layout();
+    };
+    MDCRipple.prototype.getDefaultFoundation = function () {
+        return new _foundation__WEBPACK_IMPORTED_MODULE_3__["MDCRippleFoundation"](MDCRipple.createAdapter(this));
+    };
+    MDCRipple.prototype.initialSyncWithDOM = function () {
+        var root = this.root_;
+        this.unbounded = 'mdcRippleIsUnbounded' in root.dataset;
+    };
+    /**
+     * Closure Compiler throws an access control error when directly accessing a
+     * protected or private property inside a getter/setter, like unbounded above.
+     * By accessing the protected property inside a method, we solve that problem.
+     * That's why this function exists.
+     */
+    MDCRipple.prototype.setUnbounded_ = function () {
+        this.foundation_.setUnbounded(Boolean(this.unbounded_));
+    };
+    return MDCRipple;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
 
 /***/ }),
 
@@ -308,7 +1409,58 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cssClasses\", function() { return cssClasses; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"strings\", function() { return strings; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"numbers\", function() { return numbers; });\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\nvar cssClasses = {\n    // Ripple is a special case where the \"root\" component is really a \"mixin\" of sorts,\n    // given that it's an 'upgrade' to an existing component. That being said it is the root\n    // CSS class that all other CSS classes derive from.\n    BG_FOCUSED: 'mdc-ripple-upgraded--background-focused',\n    FG_ACTIVATION: 'mdc-ripple-upgraded--foreground-activation',\n    FG_DEACTIVATION: 'mdc-ripple-upgraded--foreground-deactivation',\n    ROOT: 'mdc-ripple-upgraded',\n    UNBOUNDED: 'mdc-ripple-upgraded--unbounded',\n};\nvar strings = {\n    VAR_FG_SCALE: '--mdc-ripple-fg-scale',\n    VAR_FG_SIZE: '--mdc-ripple-fg-size',\n    VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',\n    VAR_FG_TRANSLATE_START: '--mdc-ripple-fg-translate-start',\n    VAR_LEFT: '--mdc-ripple-left',\n    VAR_TOP: '--mdc-ripple-top',\n};\nvar numbers = {\n    DEACTIVATION_TIMEOUT_MS: 225,\n    FG_DEACTIVATION_MS: 150,\n    INITIAL_ORIGIN_SCALE: 0.6,\n    PADDING: 10,\n    TAP_DELAY_MS: 300,\n};\n//# sourceMappingURL=constants.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/ripple/constants.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses = {
+    // Ripple is a special case where the "root" component is really a "mixin" of sorts,
+    // given that it's an 'upgrade' to an existing component. That being said it is the root
+    // CSS class that all other CSS classes derive from.
+    BG_FOCUSED: 'mdc-ripple-upgraded--background-focused',
+    FG_ACTIVATION: 'mdc-ripple-upgraded--foreground-activation',
+    FG_DEACTIVATION: 'mdc-ripple-upgraded--foreground-deactivation',
+    ROOT: 'mdc-ripple-upgraded',
+    UNBOUNDED: 'mdc-ripple-upgraded--unbounded',
+};
+var strings = {
+    VAR_FG_SCALE: '--mdc-ripple-fg-scale',
+    VAR_FG_SIZE: '--mdc-ripple-fg-size',
+    VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',
+    VAR_FG_TRANSLATE_START: '--mdc-ripple-fg-translate-start',
+    VAR_LEFT: '--mdc-ripple-left',
+    VAR_TOP: '--mdc-ripple-top',
+};
+var numbers = {
+    DEACTIVATION_TIMEOUT_MS: 225,
+    FG_DEACTIVATION_MS: 150,
+    INITIAL_ORIGIN_SCALE: 0.6,
+    PADDING: 10,
+    TAP_DELAY_MS: 300,
+};
+//# sourceMappingURL=constants.js.map
 
 /***/ }),
 
@@ -320,7 +1472,473 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCRippleFoundation\", function() { return MDCRippleFoundation; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ \"./node_modules/@material/base/foundation.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/ripple/constants.js\");\n/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ \"./node_modules/@material/ripple/util.js\");\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\n\n// Activation events registered on the root element of each instance for activation\nvar ACTIVATION_EVENT_TYPES = [\n    'touchstart', 'pointerdown', 'mousedown', 'keydown',\n];\n// Deactivation events registered on documentElement when a pointer-related down event occurs\nvar POINTER_DEACTIVATION_EVENT_TYPES = [\n    'touchend', 'pointerup', 'mouseup', 'contextmenu',\n];\n// simultaneous nested activations\nvar activatedTargets = [];\nvar MDCRippleFoundation = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCRippleFoundation, _super);\n    function MDCRippleFoundation(adapter) {\n        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, MDCRippleFoundation.defaultAdapter, adapter)) || this;\n        _this.activationAnimationHasEnded_ = false;\n        _this.activationTimer_ = 0;\n        _this.fgDeactivationRemovalTimer_ = 0;\n        _this.fgScale_ = '0';\n        _this.frame_ = { width: 0, height: 0 };\n        _this.initialSize_ = 0;\n        _this.layoutFrame_ = 0;\n        _this.maxRadius_ = 0;\n        _this.unboundedCoords_ = { left: 0, top: 0 };\n        _this.activationState_ = _this.defaultActivationState_();\n        _this.activationTimerCallback_ = function () {\n            _this.activationAnimationHasEnded_ = true;\n            _this.runDeactivationUXLogicIfReady_();\n        };\n        _this.activateHandler_ = function (e) { return _this.activate_(e); };\n        _this.deactivateHandler_ = function () { return _this.deactivate_(); };\n        _this.focusHandler_ = function () { return _this.handleFocus(); };\n        _this.blurHandler_ = function () { return _this.handleBlur(); };\n        _this.resizeHandler_ = function () { return _this.layout(); };\n        return _this;\n    }\n    Object.defineProperty(MDCRippleFoundation, \"cssClasses\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCRippleFoundation, \"strings\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCRippleFoundation, \"numbers\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"numbers\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCRippleFoundation, \"defaultAdapter\", {\n        get: function () {\n            return {\n                addClass: function () { return undefined; },\n                browserSupportsCssVars: function () { return true; },\n                computeBoundingRect: function () { return ({ top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 }); },\n                containsEventTarget: function () { return true; },\n                deregisterDocumentInteractionHandler: function () { return undefined; },\n                deregisterInteractionHandler: function () { return undefined; },\n                deregisterResizeHandler: function () { return undefined; },\n                getWindowPageOffset: function () { return ({ x: 0, y: 0 }); },\n                isSurfaceActive: function () { return true; },\n                isSurfaceDisabled: function () { return true; },\n                isUnbounded: function () { return true; },\n                registerDocumentInteractionHandler: function () { return undefined; },\n                registerInteractionHandler: function () { return undefined; },\n                registerResizeHandler: function () { return undefined; },\n                removeClass: function () { return undefined; },\n                updateCssVariable: function () { return undefined; },\n            };\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCRippleFoundation.prototype.init = function () {\n        var _this = this;\n        var supportsPressRipple = this.supportsPressRipple_();\n        this.registerRootHandlers_(supportsPressRipple);\n        if (supportsPressRipple) {\n            var _a = MDCRippleFoundation.cssClasses, ROOT_1 = _a.ROOT, UNBOUNDED_1 = _a.UNBOUNDED;\n            requestAnimationFrame(function () {\n                _this.adapter_.addClass(ROOT_1);\n                if (_this.adapter_.isUnbounded()) {\n                    _this.adapter_.addClass(UNBOUNDED_1);\n                    // Unbounded ripples need layout logic applied immediately to set coordinates for both shade and ripple\n                    _this.layoutInternal_();\n                }\n            });\n        }\n    };\n    MDCRippleFoundation.prototype.destroy = function () {\n        var _this = this;\n        if (this.supportsPressRipple_()) {\n            if (this.activationTimer_) {\n                clearTimeout(this.activationTimer_);\n                this.activationTimer_ = 0;\n                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_ACTIVATION);\n            }\n            if (this.fgDeactivationRemovalTimer_) {\n                clearTimeout(this.fgDeactivationRemovalTimer_);\n                this.fgDeactivationRemovalTimer_ = 0;\n                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_DEACTIVATION);\n            }\n            var _a = MDCRippleFoundation.cssClasses, ROOT_2 = _a.ROOT, UNBOUNDED_2 = _a.UNBOUNDED;\n            requestAnimationFrame(function () {\n                _this.adapter_.removeClass(ROOT_2);\n                _this.adapter_.removeClass(UNBOUNDED_2);\n                _this.removeCssVars_();\n            });\n        }\n        this.deregisterRootHandlers_();\n        this.deregisterDeactivationHandlers_();\n    };\n    /**\n     * @param evt Optional event containing position information.\n     */\n    MDCRippleFoundation.prototype.activate = function (evt) {\n        this.activate_(evt);\n    };\n    MDCRippleFoundation.prototype.deactivate = function () {\n        this.deactivate_();\n    };\n    MDCRippleFoundation.prototype.layout = function () {\n        var _this = this;\n        if (this.layoutFrame_) {\n            cancelAnimationFrame(this.layoutFrame_);\n        }\n        this.layoutFrame_ = requestAnimationFrame(function () {\n            _this.layoutInternal_();\n            _this.layoutFrame_ = 0;\n        });\n    };\n    MDCRippleFoundation.prototype.setUnbounded = function (unbounded) {\n        var UNBOUNDED = MDCRippleFoundation.cssClasses.UNBOUNDED;\n        if (unbounded) {\n            this.adapter_.addClass(UNBOUNDED);\n        }\n        else {\n            this.adapter_.removeClass(UNBOUNDED);\n        }\n    };\n    MDCRippleFoundation.prototype.handleFocus = function () {\n        var _this = this;\n        requestAnimationFrame(function () {\n            return _this.adapter_.addClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);\n        });\n    };\n    MDCRippleFoundation.prototype.handleBlur = function () {\n        var _this = this;\n        requestAnimationFrame(function () {\n            return _this.adapter_.removeClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);\n        });\n    };\n    /**\n     * We compute this property so that we are not querying information about the client\n     * until the point in time where the foundation requests it. This prevents scenarios where\n     * client-side feature-detection may happen too early, such as when components are rendered on the server\n     * and then initialized at mount time on the client.\n     */\n    MDCRippleFoundation.prototype.supportsPressRipple_ = function () {\n        return this.adapter_.browserSupportsCssVars();\n    };\n    MDCRippleFoundation.prototype.defaultActivationState_ = function () {\n        return {\n            activationEvent: undefined,\n            hasDeactivationUXRun: false,\n            isActivated: false,\n            isProgrammatic: false,\n            wasActivatedByPointer: false,\n            wasElementMadeActive: false,\n        };\n    };\n    /**\n     * supportsPressRipple Passed from init to save a redundant function call\n     */\n    MDCRippleFoundation.prototype.registerRootHandlers_ = function (supportsPressRipple) {\n        var _this = this;\n        if (supportsPressRipple) {\n            ACTIVATION_EVENT_TYPES.forEach(function (evtType) {\n                _this.adapter_.registerInteractionHandler(evtType, _this.activateHandler_);\n            });\n            if (this.adapter_.isUnbounded()) {\n                this.adapter_.registerResizeHandler(this.resizeHandler_);\n            }\n        }\n        this.adapter_.registerInteractionHandler('focus', this.focusHandler_);\n        this.adapter_.registerInteractionHandler('blur', this.blurHandler_);\n    };\n    MDCRippleFoundation.prototype.registerDeactivationHandlers_ = function (evt) {\n        var _this = this;\n        if (evt.type === 'keydown') {\n            this.adapter_.registerInteractionHandler('keyup', this.deactivateHandler_);\n        }\n        else {\n            POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {\n                _this.adapter_.registerDocumentInteractionHandler(evtType, _this.deactivateHandler_);\n            });\n        }\n    };\n    MDCRippleFoundation.prototype.deregisterRootHandlers_ = function () {\n        var _this = this;\n        ACTIVATION_EVENT_TYPES.forEach(function (evtType) {\n            _this.adapter_.deregisterInteractionHandler(evtType, _this.activateHandler_);\n        });\n        this.adapter_.deregisterInteractionHandler('focus', this.focusHandler_);\n        this.adapter_.deregisterInteractionHandler('blur', this.blurHandler_);\n        if (this.adapter_.isUnbounded()) {\n            this.adapter_.deregisterResizeHandler(this.resizeHandler_);\n        }\n    };\n    MDCRippleFoundation.prototype.deregisterDeactivationHandlers_ = function () {\n        var _this = this;\n        this.adapter_.deregisterInteractionHandler('keyup', this.deactivateHandler_);\n        POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {\n            _this.adapter_.deregisterDocumentInteractionHandler(evtType, _this.deactivateHandler_);\n        });\n    };\n    MDCRippleFoundation.prototype.removeCssVars_ = function () {\n        var _this = this;\n        var rippleStrings = MDCRippleFoundation.strings;\n        var keys = Object.keys(rippleStrings);\n        keys.forEach(function (key) {\n            if (key.indexOf('VAR_') === 0) {\n                _this.adapter_.updateCssVariable(rippleStrings[key], null);\n            }\n        });\n    };\n    MDCRippleFoundation.prototype.activate_ = function (evt) {\n        var _this = this;\n        if (this.adapter_.isSurfaceDisabled()) {\n            return;\n        }\n        var activationState = this.activationState_;\n        if (activationState.isActivated) {\n            return;\n        }\n        // Avoid reacting to follow-on events fired by touch device after an already-processed user interaction\n        var previousActivationEvent = this.previousActivationEvent_;\n        var isSameInteraction = previousActivationEvent && evt !== undefined && previousActivationEvent.type !== evt.type;\n        if (isSameInteraction) {\n            return;\n        }\n        activationState.isActivated = true;\n        activationState.isProgrammatic = evt === undefined;\n        activationState.activationEvent = evt;\n        activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : evt !== undefined && (evt.type === 'mousedown' || evt.type === 'touchstart' || evt.type === 'pointerdown');\n        var hasActivatedChild = evt !== undefined && activatedTargets.length > 0 && activatedTargets.some(function (target) { return _this.adapter_.containsEventTarget(target); });\n        if (hasActivatedChild) {\n            // Immediately reset activation state, while preserving logic that prevents touch follow-on events\n            this.resetActivationState_();\n            return;\n        }\n        if (evt !== undefined) {\n            activatedTargets.push(evt.target);\n            this.registerDeactivationHandlers_(evt);\n        }\n        activationState.wasElementMadeActive = this.checkElementMadeActive_(evt);\n        if (activationState.wasElementMadeActive) {\n            this.animateActivation_();\n        }\n        requestAnimationFrame(function () {\n            // Reset array on next frame after the current event has had a chance to bubble to prevent ancestor ripples\n            activatedTargets = [];\n            if (!activationState.wasElementMadeActive\n                && evt !== undefined\n                && (evt.key === ' ' || evt.keyCode === 32)) {\n                // If space was pressed, try again within an rAF call to detect :active, because different UAs report\n                // active states inconsistently when they're called within event handling code:\n                // - https://bugs.chromium.org/p/chromium/issues/detail?id=635971\n                // - https://bugzilla.mozilla.org/show_bug.cgi?id=1293741\n                // We try first outside rAF to support Edge, which does not exhibit this problem, but will crash if a CSS\n                // variable is set within a rAF callback for a submit button interaction (#2241).\n                activationState.wasElementMadeActive = _this.checkElementMadeActive_(evt);\n                if (activationState.wasElementMadeActive) {\n                    _this.animateActivation_();\n                }\n            }\n            if (!activationState.wasElementMadeActive) {\n                // Reset activation state immediately if element was not made active.\n                _this.activationState_ = _this.defaultActivationState_();\n            }\n        });\n    };\n    MDCRippleFoundation.prototype.checkElementMadeActive_ = function (evt) {\n        return (evt !== undefined && evt.type === 'keydown') ? this.adapter_.isSurfaceActive() : true;\n    };\n    MDCRippleFoundation.prototype.animateActivation_ = function () {\n        var _this = this;\n        var _a = MDCRippleFoundation.strings, VAR_FG_TRANSLATE_START = _a.VAR_FG_TRANSLATE_START, VAR_FG_TRANSLATE_END = _a.VAR_FG_TRANSLATE_END;\n        var _b = MDCRippleFoundation.cssClasses, FG_DEACTIVATION = _b.FG_DEACTIVATION, FG_ACTIVATION = _b.FG_ACTIVATION;\n        var DEACTIVATION_TIMEOUT_MS = MDCRippleFoundation.numbers.DEACTIVATION_TIMEOUT_MS;\n        this.layoutInternal_();\n        var translateStart = '';\n        var translateEnd = '';\n        if (!this.adapter_.isUnbounded()) {\n            var _c = this.getFgTranslationCoordinates_(), startPoint = _c.startPoint, endPoint = _c.endPoint;\n            translateStart = startPoint.x + \"px, \" + startPoint.y + \"px\";\n            translateEnd = endPoint.x + \"px, \" + endPoint.y + \"px\";\n        }\n        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_START, translateStart);\n        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_END, translateEnd);\n        // Cancel any ongoing activation/deactivation animations\n        clearTimeout(this.activationTimer_);\n        clearTimeout(this.fgDeactivationRemovalTimer_);\n        this.rmBoundedActivationClasses_();\n        this.adapter_.removeClass(FG_DEACTIVATION);\n        // Force layout in order to re-trigger the animation.\n        this.adapter_.computeBoundingRect();\n        this.adapter_.addClass(FG_ACTIVATION);\n        this.activationTimer_ = setTimeout(function () { return _this.activationTimerCallback_(); }, DEACTIVATION_TIMEOUT_MS);\n    };\n    MDCRippleFoundation.prototype.getFgTranslationCoordinates_ = function () {\n        var _a = this.activationState_, activationEvent = _a.activationEvent, wasActivatedByPointer = _a.wasActivatedByPointer;\n        var startPoint;\n        if (wasActivatedByPointer) {\n            startPoint = Object(_util__WEBPACK_IMPORTED_MODULE_3__[\"getNormalizedEventCoords\"])(activationEvent, this.adapter_.getWindowPageOffset(), this.adapter_.computeBoundingRect());\n        }\n        else {\n            startPoint = {\n                x: this.frame_.width / 2,\n                y: this.frame_.height / 2,\n            };\n        }\n        // Center the element around the start point.\n        startPoint = {\n            x: startPoint.x - (this.initialSize_ / 2),\n            y: startPoint.y - (this.initialSize_ / 2),\n        };\n        var endPoint = {\n            x: (this.frame_.width / 2) - (this.initialSize_ / 2),\n            y: (this.frame_.height / 2) - (this.initialSize_ / 2),\n        };\n        return { startPoint: startPoint, endPoint: endPoint };\n    };\n    MDCRippleFoundation.prototype.runDeactivationUXLogicIfReady_ = function () {\n        var _this = this;\n        // This method is called both when a pointing device is released, and when the activation animation ends.\n        // The deactivation animation should only run after both of those occur.\n        var FG_DEACTIVATION = MDCRippleFoundation.cssClasses.FG_DEACTIVATION;\n        var _a = this.activationState_, hasDeactivationUXRun = _a.hasDeactivationUXRun, isActivated = _a.isActivated;\n        var activationHasEnded = hasDeactivationUXRun || !isActivated;\n        if (activationHasEnded && this.activationAnimationHasEnded_) {\n            this.rmBoundedActivationClasses_();\n            this.adapter_.addClass(FG_DEACTIVATION);\n            this.fgDeactivationRemovalTimer_ = setTimeout(function () {\n                _this.adapter_.removeClass(FG_DEACTIVATION);\n            }, _constants__WEBPACK_IMPORTED_MODULE_2__[\"numbers\"].FG_DEACTIVATION_MS);\n        }\n    };\n    MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {\n        var FG_ACTIVATION = MDCRippleFoundation.cssClasses.FG_ACTIVATION;\n        this.adapter_.removeClass(FG_ACTIVATION);\n        this.activationAnimationHasEnded_ = false;\n        this.adapter_.computeBoundingRect();\n    };\n    MDCRippleFoundation.prototype.resetActivationState_ = function () {\n        var _this = this;\n        this.previousActivationEvent_ = this.activationState_.activationEvent;\n        this.activationState_ = this.defaultActivationState_();\n        // Touch devices may fire additional events for the same interaction within a short time.\n        // Store the previous event until it's safe to assume that subsequent events are for new interactions.\n        setTimeout(function () { return _this.previousActivationEvent_ = undefined; }, MDCRippleFoundation.numbers.TAP_DELAY_MS);\n    };\n    MDCRippleFoundation.prototype.deactivate_ = function () {\n        var _this = this;\n        var activationState = this.activationState_;\n        // This can happen in scenarios such as when you have a keyup event that blurs the element.\n        if (!activationState.isActivated) {\n            return;\n        }\n        var state = tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, activationState);\n        if (activationState.isProgrammatic) {\n            requestAnimationFrame(function () { return _this.animateDeactivation_(state); });\n            this.resetActivationState_();\n        }\n        else {\n            this.deregisterDeactivationHandlers_();\n            requestAnimationFrame(function () {\n                _this.activationState_.hasDeactivationUXRun = true;\n                _this.animateDeactivation_(state);\n                _this.resetActivationState_();\n            });\n        }\n    };\n    MDCRippleFoundation.prototype.animateDeactivation_ = function (_a) {\n        var wasActivatedByPointer = _a.wasActivatedByPointer, wasElementMadeActive = _a.wasElementMadeActive;\n        if (wasActivatedByPointer || wasElementMadeActive) {\n            this.runDeactivationUXLogicIfReady_();\n        }\n    };\n    MDCRippleFoundation.prototype.layoutInternal_ = function () {\n        var _this = this;\n        this.frame_ = this.adapter_.computeBoundingRect();\n        var maxDim = Math.max(this.frame_.height, this.frame_.width);\n        // Surface diameter is treated differently for unbounded vs. bounded ripples.\n        // Unbounded ripple diameter is calculated smaller since the surface is expected to already be padded appropriately\n        // to extend the hitbox, and the ripple is expected to meet the edges of the padded hitbox (which is typically\n        // square). Bounded ripples, on the other hand, are fully expected to expand beyond the surface's longest diameter\n        // (calculated based on the diagonal plus a constant padding), and are clipped at the surface's border via\n        // `overflow: hidden`.\n        var getBoundedRadius = function () {\n            var hypotenuse = Math.sqrt(Math.pow(_this.frame_.width, 2) + Math.pow(_this.frame_.height, 2));\n            return hypotenuse + MDCRippleFoundation.numbers.PADDING;\n        };\n        this.maxRadius_ = this.adapter_.isUnbounded() ? maxDim : getBoundedRadius();\n        // Ripple is sized as a fraction of the largest dimension of the surface, then scales up using a CSS scale transform\n        this.initialSize_ = Math.floor(maxDim * MDCRippleFoundation.numbers.INITIAL_ORIGIN_SCALE);\n        this.fgScale_ = \"\" + this.maxRadius_ / this.initialSize_;\n        this.updateLayoutCssVars_();\n    };\n    MDCRippleFoundation.prototype.updateLayoutCssVars_ = function () {\n        var _a = MDCRippleFoundation.strings, VAR_FG_SIZE = _a.VAR_FG_SIZE, VAR_LEFT = _a.VAR_LEFT, VAR_TOP = _a.VAR_TOP, VAR_FG_SCALE = _a.VAR_FG_SCALE;\n        this.adapter_.updateCssVariable(VAR_FG_SIZE, this.initialSize_ + \"px\");\n        this.adapter_.updateCssVariable(VAR_FG_SCALE, this.fgScale_);\n        if (this.adapter_.isUnbounded()) {\n            this.unboundedCoords_ = {\n                left: Math.round((this.frame_.width / 2) - (this.initialSize_ / 2)),\n                top: Math.round((this.frame_.height / 2) - (this.initialSize_ / 2)),\n            };\n            this.adapter_.updateCssVariable(VAR_LEFT, this.unboundedCoords_.left + \"px\");\n            this.adapter_.updateCssVariable(VAR_TOP, this.unboundedCoords_.top + \"px\");\n        }\n    };\n    return MDCRippleFoundation;\n}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFoundation\"]));\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCRippleFoundation);\n//# sourceMappingURL=foundation.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/ripple/foundation.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/ripple/constants.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+// Activation events registered on the root element of each instance for activation
+var ACTIVATION_EVENT_TYPES = [
+    'touchstart', 'pointerdown', 'mousedown', 'keydown',
+];
+// Deactivation events registered on documentElement when a pointer-related down event occurs
+var POINTER_DEACTIVATION_EVENT_TYPES = [
+    'touchend', 'pointerup', 'mouseup', 'contextmenu',
+];
+// simultaneous nested activations
+var activatedTargets = [];
+var MDCRippleFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRippleFoundation, _super);
+    function MDCRippleFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCRippleFoundation.defaultAdapter, adapter)) || this;
+        _this.activationAnimationHasEnded_ = false;
+        _this.activationTimer_ = 0;
+        _this.fgDeactivationRemovalTimer_ = 0;
+        _this.fgScale_ = '0';
+        _this.frame_ = { width: 0, height: 0 };
+        _this.initialSize_ = 0;
+        _this.layoutFrame_ = 0;
+        _this.maxRadius_ = 0;
+        _this.unboundedCoords_ = { left: 0, top: 0 };
+        _this.activationState_ = _this.defaultActivationState_();
+        _this.activationTimerCallback_ = function () {
+            _this.activationAnimationHasEnded_ = true;
+            _this.runDeactivationUXLogicIfReady_();
+        };
+        _this.activateHandler_ = function (e) { return _this.activate_(e); };
+        _this.deactivateHandler_ = function () { return _this.deactivate_(); };
+        _this.focusHandler_ = function () { return _this.handleFocus(); };
+        _this.blurHandler_ = function () { return _this.handleBlur(); };
+        _this.resizeHandler_ = function () { return _this.layout(); };
+        return _this;
+    }
+    Object.defineProperty(MDCRippleFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCRippleFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCRippleFoundation, "numbers", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCRippleFoundation, "defaultAdapter", {
+        get: function () {
+            return {
+                addClass: function () { return undefined; },
+                browserSupportsCssVars: function () { return true; },
+                computeBoundingRect: function () { return ({ top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 }); },
+                containsEventTarget: function () { return true; },
+                deregisterDocumentInteractionHandler: function () { return undefined; },
+                deregisterInteractionHandler: function () { return undefined; },
+                deregisterResizeHandler: function () { return undefined; },
+                getWindowPageOffset: function () { return ({ x: 0, y: 0 }); },
+                isSurfaceActive: function () { return true; },
+                isSurfaceDisabled: function () { return true; },
+                isUnbounded: function () { return true; },
+                registerDocumentInteractionHandler: function () { return undefined; },
+                registerInteractionHandler: function () { return undefined; },
+                registerResizeHandler: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                updateCssVariable: function () { return undefined; },
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCRippleFoundation.prototype.init = function () {
+        var _this = this;
+        var supportsPressRipple = this.supportsPressRipple_();
+        this.registerRootHandlers_(supportsPressRipple);
+        if (supportsPressRipple) {
+            var _a = MDCRippleFoundation.cssClasses, ROOT_1 = _a.ROOT, UNBOUNDED_1 = _a.UNBOUNDED;
+            requestAnimationFrame(function () {
+                _this.adapter_.addClass(ROOT_1);
+                if (_this.adapter_.isUnbounded()) {
+                    _this.adapter_.addClass(UNBOUNDED_1);
+                    // Unbounded ripples need layout logic applied immediately to set coordinates for both shade and ripple
+                    _this.layoutInternal_();
+                }
+            });
+        }
+    };
+    MDCRippleFoundation.prototype.destroy = function () {
+        var _this = this;
+        if (this.supportsPressRipple_()) {
+            if (this.activationTimer_) {
+                clearTimeout(this.activationTimer_);
+                this.activationTimer_ = 0;
+                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_ACTIVATION);
+            }
+            if (this.fgDeactivationRemovalTimer_) {
+                clearTimeout(this.fgDeactivationRemovalTimer_);
+                this.fgDeactivationRemovalTimer_ = 0;
+                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_DEACTIVATION);
+            }
+            var _a = MDCRippleFoundation.cssClasses, ROOT_2 = _a.ROOT, UNBOUNDED_2 = _a.UNBOUNDED;
+            requestAnimationFrame(function () {
+                _this.adapter_.removeClass(ROOT_2);
+                _this.adapter_.removeClass(UNBOUNDED_2);
+                _this.removeCssVars_();
+            });
+        }
+        this.deregisterRootHandlers_();
+        this.deregisterDeactivationHandlers_();
+    };
+    /**
+     * @param evt Optional event containing position information.
+     */
+    MDCRippleFoundation.prototype.activate = function (evt) {
+        this.activate_(evt);
+    };
+    MDCRippleFoundation.prototype.deactivate = function () {
+        this.deactivate_();
+    };
+    MDCRippleFoundation.prototype.layout = function () {
+        var _this = this;
+        if (this.layoutFrame_) {
+            cancelAnimationFrame(this.layoutFrame_);
+        }
+        this.layoutFrame_ = requestAnimationFrame(function () {
+            _this.layoutInternal_();
+            _this.layoutFrame_ = 0;
+        });
+    };
+    MDCRippleFoundation.prototype.setUnbounded = function (unbounded) {
+        var UNBOUNDED = MDCRippleFoundation.cssClasses.UNBOUNDED;
+        if (unbounded) {
+            this.adapter_.addClass(UNBOUNDED);
+        }
+        else {
+            this.adapter_.removeClass(UNBOUNDED);
+        }
+    };
+    MDCRippleFoundation.prototype.handleFocus = function () {
+        var _this = this;
+        requestAnimationFrame(function () {
+            return _this.adapter_.addClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
+        });
+    };
+    MDCRippleFoundation.prototype.handleBlur = function () {
+        var _this = this;
+        requestAnimationFrame(function () {
+            return _this.adapter_.removeClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
+        });
+    };
+    /**
+     * We compute this property so that we are not querying information about the client
+     * until the point in time where the foundation requests it. This prevents scenarios where
+     * client-side feature-detection may happen too early, such as when components are rendered on the server
+     * and then initialized at mount time on the client.
+     */
+    MDCRippleFoundation.prototype.supportsPressRipple_ = function () {
+        return this.adapter_.browserSupportsCssVars();
+    };
+    MDCRippleFoundation.prototype.defaultActivationState_ = function () {
+        return {
+            activationEvent: undefined,
+            hasDeactivationUXRun: false,
+            isActivated: false,
+            isProgrammatic: false,
+            wasActivatedByPointer: false,
+            wasElementMadeActive: false,
+        };
+    };
+    /**
+     * supportsPressRipple Passed from init to save a redundant function call
+     */
+    MDCRippleFoundation.prototype.registerRootHandlers_ = function (supportsPressRipple) {
+        var _this = this;
+        if (supportsPressRipple) {
+            ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+                _this.adapter_.registerInteractionHandler(evtType, _this.activateHandler_);
+            });
+            if (this.adapter_.isUnbounded()) {
+                this.adapter_.registerResizeHandler(this.resizeHandler_);
+            }
+        }
+        this.adapter_.registerInteractionHandler('focus', this.focusHandler_);
+        this.adapter_.registerInteractionHandler('blur', this.blurHandler_);
+    };
+    MDCRippleFoundation.prototype.registerDeactivationHandlers_ = function (evt) {
+        var _this = this;
+        if (evt.type === 'keydown') {
+            this.adapter_.registerInteractionHandler('keyup', this.deactivateHandler_);
+        }
+        else {
+            POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+                _this.adapter_.registerDocumentInteractionHandler(evtType, _this.deactivateHandler_);
+            });
+        }
+    };
+    MDCRippleFoundation.prototype.deregisterRootHandlers_ = function () {
+        var _this = this;
+        ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+            _this.adapter_.deregisterInteractionHandler(evtType, _this.activateHandler_);
+        });
+        this.adapter_.deregisterInteractionHandler('focus', this.focusHandler_);
+        this.adapter_.deregisterInteractionHandler('blur', this.blurHandler_);
+        if (this.adapter_.isUnbounded()) {
+            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
+        }
+    };
+    MDCRippleFoundation.prototype.deregisterDeactivationHandlers_ = function () {
+        var _this = this;
+        this.adapter_.deregisterInteractionHandler('keyup', this.deactivateHandler_);
+        POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+            _this.adapter_.deregisterDocumentInteractionHandler(evtType, _this.deactivateHandler_);
+        });
+    };
+    MDCRippleFoundation.prototype.removeCssVars_ = function () {
+        var _this = this;
+        var rippleStrings = MDCRippleFoundation.strings;
+        var keys = Object.keys(rippleStrings);
+        keys.forEach(function (key) {
+            if (key.indexOf('VAR_') === 0) {
+                _this.adapter_.updateCssVariable(rippleStrings[key], null);
+            }
+        });
+    };
+    MDCRippleFoundation.prototype.activate_ = function (evt) {
+        var _this = this;
+        if (this.adapter_.isSurfaceDisabled()) {
+            return;
+        }
+        var activationState = this.activationState_;
+        if (activationState.isActivated) {
+            return;
+        }
+        // Avoid reacting to follow-on events fired by touch device after an already-processed user interaction
+        var previousActivationEvent = this.previousActivationEvent_;
+        var isSameInteraction = previousActivationEvent && evt !== undefined && previousActivationEvent.type !== evt.type;
+        if (isSameInteraction) {
+            return;
+        }
+        activationState.isActivated = true;
+        activationState.isProgrammatic = evt === undefined;
+        activationState.activationEvent = evt;
+        activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : evt !== undefined && (evt.type === 'mousedown' || evt.type === 'touchstart' || evt.type === 'pointerdown');
+        var hasActivatedChild = evt !== undefined && activatedTargets.length > 0 && activatedTargets.some(function (target) { return _this.adapter_.containsEventTarget(target); });
+        if (hasActivatedChild) {
+            // Immediately reset activation state, while preserving logic that prevents touch follow-on events
+            this.resetActivationState_();
+            return;
+        }
+        if (evt !== undefined) {
+            activatedTargets.push(evt.target);
+            this.registerDeactivationHandlers_(evt);
+        }
+        activationState.wasElementMadeActive = this.checkElementMadeActive_(evt);
+        if (activationState.wasElementMadeActive) {
+            this.animateActivation_();
+        }
+        requestAnimationFrame(function () {
+            // Reset array on next frame after the current event has had a chance to bubble to prevent ancestor ripples
+            activatedTargets = [];
+            if (!activationState.wasElementMadeActive
+                && evt !== undefined
+                && (evt.key === ' ' || evt.keyCode === 32)) {
+                // If space was pressed, try again within an rAF call to detect :active, because different UAs report
+                // active states inconsistently when they're called within event handling code:
+                // - https://bugs.chromium.org/p/chromium/issues/detail?id=635971
+                // - https://bugzilla.mozilla.org/show_bug.cgi?id=1293741
+                // We try first outside rAF to support Edge, which does not exhibit this problem, but will crash if a CSS
+                // variable is set within a rAF callback for a submit button interaction (#2241).
+                activationState.wasElementMadeActive = _this.checkElementMadeActive_(evt);
+                if (activationState.wasElementMadeActive) {
+                    _this.animateActivation_();
+                }
+            }
+            if (!activationState.wasElementMadeActive) {
+                // Reset activation state immediately if element was not made active.
+                _this.activationState_ = _this.defaultActivationState_();
+            }
+        });
+    };
+    MDCRippleFoundation.prototype.checkElementMadeActive_ = function (evt) {
+        return (evt !== undefined && evt.type === 'keydown') ? this.adapter_.isSurfaceActive() : true;
+    };
+    MDCRippleFoundation.prototype.animateActivation_ = function () {
+        var _this = this;
+        var _a = MDCRippleFoundation.strings, VAR_FG_TRANSLATE_START = _a.VAR_FG_TRANSLATE_START, VAR_FG_TRANSLATE_END = _a.VAR_FG_TRANSLATE_END;
+        var _b = MDCRippleFoundation.cssClasses, FG_DEACTIVATION = _b.FG_DEACTIVATION, FG_ACTIVATION = _b.FG_ACTIVATION;
+        var DEACTIVATION_TIMEOUT_MS = MDCRippleFoundation.numbers.DEACTIVATION_TIMEOUT_MS;
+        this.layoutInternal_();
+        var translateStart = '';
+        var translateEnd = '';
+        if (!this.adapter_.isUnbounded()) {
+            var _c = this.getFgTranslationCoordinates_(), startPoint = _c.startPoint, endPoint = _c.endPoint;
+            translateStart = startPoint.x + "px, " + startPoint.y + "px";
+            translateEnd = endPoint.x + "px, " + endPoint.y + "px";
+        }
+        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_START, translateStart);
+        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_END, translateEnd);
+        // Cancel any ongoing activation/deactivation animations
+        clearTimeout(this.activationTimer_);
+        clearTimeout(this.fgDeactivationRemovalTimer_);
+        this.rmBoundedActivationClasses_();
+        this.adapter_.removeClass(FG_DEACTIVATION);
+        // Force layout in order to re-trigger the animation.
+        this.adapter_.computeBoundingRect();
+        this.adapter_.addClass(FG_ACTIVATION);
+        this.activationTimer_ = setTimeout(function () { return _this.activationTimerCallback_(); }, DEACTIVATION_TIMEOUT_MS);
+    };
+    MDCRippleFoundation.prototype.getFgTranslationCoordinates_ = function () {
+        var _a = this.activationState_, activationEvent = _a.activationEvent, wasActivatedByPointer = _a.wasActivatedByPointer;
+        var startPoint;
+        if (wasActivatedByPointer) {
+            startPoint = Object(_util__WEBPACK_IMPORTED_MODULE_3__["getNormalizedEventCoords"])(activationEvent, this.adapter_.getWindowPageOffset(), this.adapter_.computeBoundingRect());
+        }
+        else {
+            startPoint = {
+                x: this.frame_.width / 2,
+                y: this.frame_.height / 2,
+            };
+        }
+        // Center the element around the start point.
+        startPoint = {
+            x: startPoint.x - (this.initialSize_ / 2),
+            y: startPoint.y - (this.initialSize_ / 2),
+        };
+        var endPoint = {
+            x: (this.frame_.width / 2) - (this.initialSize_ / 2),
+            y: (this.frame_.height / 2) - (this.initialSize_ / 2),
+        };
+        return { startPoint: startPoint, endPoint: endPoint };
+    };
+    MDCRippleFoundation.prototype.runDeactivationUXLogicIfReady_ = function () {
+        var _this = this;
+        // This method is called both when a pointing device is released, and when the activation animation ends.
+        // The deactivation animation should only run after both of those occur.
+        var FG_DEACTIVATION = MDCRippleFoundation.cssClasses.FG_DEACTIVATION;
+        var _a = this.activationState_, hasDeactivationUXRun = _a.hasDeactivationUXRun, isActivated = _a.isActivated;
+        var activationHasEnded = hasDeactivationUXRun || !isActivated;
+        if (activationHasEnded && this.activationAnimationHasEnded_) {
+            this.rmBoundedActivationClasses_();
+            this.adapter_.addClass(FG_DEACTIVATION);
+            this.fgDeactivationRemovalTimer_ = setTimeout(function () {
+                _this.adapter_.removeClass(FG_DEACTIVATION);
+            }, _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"].FG_DEACTIVATION_MS);
+        }
+    };
+    MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {
+        var FG_ACTIVATION = MDCRippleFoundation.cssClasses.FG_ACTIVATION;
+        this.adapter_.removeClass(FG_ACTIVATION);
+        this.activationAnimationHasEnded_ = false;
+        this.adapter_.computeBoundingRect();
+    };
+    MDCRippleFoundation.prototype.resetActivationState_ = function () {
+        var _this = this;
+        this.previousActivationEvent_ = this.activationState_.activationEvent;
+        this.activationState_ = this.defaultActivationState_();
+        // Touch devices may fire additional events for the same interaction within a short time.
+        // Store the previous event until it's safe to assume that subsequent events are for new interactions.
+        setTimeout(function () { return _this.previousActivationEvent_ = undefined; }, MDCRippleFoundation.numbers.TAP_DELAY_MS);
+    };
+    MDCRippleFoundation.prototype.deactivate_ = function () {
+        var _this = this;
+        var activationState = this.activationState_;
+        // This can happen in scenarios such as when you have a keyup event that blurs the element.
+        if (!activationState.isActivated) {
+            return;
+        }
+        var state = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, activationState);
+        if (activationState.isProgrammatic) {
+            requestAnimationFrame(function () { return _this.animateDeactivation_(state); });
+            this.resetActivationState_();
+        }
+        else {
+            this.deregisterDeactivationHandlers_();
+            requestAnimationFrame(function () {
+                _this.activationState_.hasDeactivationUXRun = true;
+                _this.animateDeactivation_(state);
+                _this.resetActivationState_();
+            });
+        }
+    };
+    MDCRippleFoundation.prototype.animateDeactivation_ = function (_a) {
+        var wasActivatedByPointer = _a.wasActivatedByPointer, wasElementMadeActive = _a.wasElementMadeActive;
+        if (wasActivatedByPointer || wasElementMadeActive) {
+            this.runDeactivationUXLogicIfReady_();
+        }
+    };
+    MDCRippleFoundation.prototype.layoutInternal_ = function () {
+        var _this = this;
+        this.frame_ = this.adapter_.computeBoundingRect();
+        var maxDim = Math.max(this.frame_.height, this.frame_.width);
+        // Surface diameter is treated differently for unbounded vs. bounded ripples.
+        // Unbounded ripple diameter is calculated smaller since the surface is expected to already be padded appropriately
+        // to extend the hitbox, and the ripple is expected to meet the edges of the padded hitbox (which is typically
+        // square). Bounded ripples, on the other hand, are fully expected to expand beyond the surface's longest diameter
+        // (calculated based on the diagonal plus a constant padding), and are clipped at the surface's border via
+        // `overflow: hidden`.
+        var getBoundedRadius = function () {
+            var hypotenuse = Math.sqrt(Math.pow(_this.frame_.width, 2) + Math.pow(_this.frame_.height, 2));
+            return hypotenuse + MDCRippleFoundation.numbers.PADDING;
+        };
+        this.maxRadius_ = this.adapter_.isUnbounded() ? maxDim : getBoundedRadius();
+        // Ripple is sized as a fraction of the largest dimension of the surface, then scales up using a CSS scale transform
+        this.initialSize_ = Math.floor(maxDim * MDCRippleFoundation.numbers.INITIAL_ORIGIN_SCALE);
+        this.fgScale_ = "" + this.maxRadius_ / this.initialSize_;
+        this.updateLayoutCssVars_();
+    };
+    MDCRippleFoundation.prototype.updateLayoutCssVars_ = function () {
+        var _a = MDCRippleFoundation.strings, VAR_FG_SIZE = _a.VAR_FG_SIZE, VAR_LEFT = _a.VAR_LEFT, VAR_TOP = _a.VAR_TOP, VAR_FG_SCALE = _a.VAR_FG_SCALE;
+        this.adapter_.updateCssVariable(VAR_FG_SIZE, this.initialSize_ + "px");
+        this.adapter_.updateCssVariable(VAR_FG_SCALE, this.fgScale_);
+        if (this.adapter_.isUnbounded()) {
+            this.unboundedCoords_ = {
+                left: Math.round((this.frame_.width / 2) - (this.initialSize_ / 2)),
+                top: Math.round((this.frame_.height / 2) - (this.initialSize_ / 2)),
+            };
+            this.adapter_.updateCssVariable(VAR_LEFT, this.unboundedCoords_.left + "px");
+            this.adapter_.updateCssVariable(VAR_TOP, this.unboundedCoords_.top + "px");
+        }
+    };
+    return MDCRippleFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCRippleFoundation);
+//# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
@@ -332,7 +1950,109 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"supportsCssVariables\", function() { return supportsCssVariables; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"applyPassive\", function() { return applyPassive; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getNormalizedEventCoords\", function() { return getNormalizedEventCoords; });\n/**\n * Stores result from supportsCssVariables to avoid redundant processing to\n * detect CSS custom variable support.\n */\nvar supportsCssVariables_;\n/**\n * Stores result from applyPassive to avoid redundant processing to detect\n * passive event listener support.\n */\nvar supportsPassive_;\nfunction detectEdgePseudoVarBug(windowObj) {\n    // Detect versions of Edge with buggy var() support\n    // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11495448/\n    var document = windowObj.document;\n    var node = document.createElement('div');\n    node.className = 'mdc-ripple-surface--test-edge-var-bug';\n    document.body.appendChild(node);\n    // The bug exists if ::before style ends up propagating to the parent element.\n    // Additionally, getComputedStyle returns null in iframes with display: \"none\" in Firefox,\n    // but Firefox is known to support CSS custom properties correctly.\n    // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397\n    var computedStyle = windowObj.getComputedStyle(node);\n    var hasPseudoVarBug = computedStyle !== null && computedStyle.borderTopStyle === 'solid';\n    node.remove();\n    return hasPseudoVarBug;\n}\nfunction supportsCssVariables(windowObj, forceRefresh) {\n    if (forceRefresh === void 0) { forceRefresh = false; }\n    var CSS = windowObj.CSS;\n    var supportsCssVars = supportsCssVariables_;\n    if (typeof supportsCssVariables_ === 'boolean' && !forceRefresh) {\n        return supportsCssVariables_;\n    }\n    var supportsFunctionPresent = CSS && typeof CSS.supports === 'function';\n    if (!supportsFunctionPresent) {\n        return false;\n    }\n    var explicitlySupportsCssVars = CSS.supports('--css-vars', 'yes');\n    // See: https://bugs.webkit.org/show_bug.cgi?id=154669\n    // See: README section on Safari\n    var weAreFeatureDetectingSafari10plus = (CSS.supports('(--css-vars: yes)') &&\n        CSS.supports('color', '#00000000'));\n    if (explicitlySupportsCssVars || weAreFeatureDetectingSafari10plus) {\n        supportsCssVars = !detectEdgePseudoVarBug(windowObj);\n    }\n    else {\n        supportsCssVars = false;\n    }\n    if (!forceRefresh) {\n        supportsCssVariables_ = supportsCssVars;\n    }\n    return supportsCssVars;\n}\n/**\n * Determine whether the current browser supports passive event listeners, and\n * if so, use them.\n */\nfunction applyPassive(globalObj, forceRefresh) {\n    if (globalObj === void 0) { globalObj = window; }\n    if (forceRefresh === void 0) { forceRefresh = false; }\n    if (supportsPassive_ === undefined || forceRefresh) {\n        var isSupported_1 = false;\n        try {\n            globalObj.document.addEventListener('test', function () { return undefined; }, {\n                get passive() {\n                    isSupported_1 = true;\n                    return isSupported_1;\n                },\n            });\n        }\n        catch (e) {\n        } // tslint:disable-line:no-empty cannot throw error due to tests. tslint also disables console.log.\n        supportsPassive_ = isSupported_1;\n    }\n    return supportsPassive_ ? { passive: true } : false;\n}\nfunction getNormalizedEventCoords(evt, pageOffset, clientRect) {\n    if (!evt) {\n        return { x: 0, y: 0 };\n    }\n    var x = pageOffset.x, y = pageOffset.y;\n    var documentX = x + clientRect.left;\n    var documentY = y + clientRect.top;\n    var normalizedX;\n    var normalizedY;\n    // Determine touch point relative to the ripple container.\n    if (evt.type === 'touchstart') {\n        var touchEvent = evt;\n        normalizedX = touchEvent.changedTouches[0].pageX - documentX;\n        normalizedY = touchEvent.changedTouches[0].pageY - documentY;\n    }\n    else {\n        var mouseEvent = evt;\n        normalizedX = mouseEvent.pageX - documentX;\n        normalizedY = mouseEvent.pageY - documentY;\n    }\n    return { x: normalizedX, y: normalizedY };\n}\n//# sourceMappingURL=util.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/ripple/util.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "supportsCssVariables", function() { return supportsCssVariables; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyPassive", function() { return applyPassive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNormalizedEventCoords", function() { return getNormalizedEventCoords; });
+/**
+ * Stores result from supportsCssVariables to avoid redundant processing to
+ * detect CSS custom variable support.
+ */
+var supportsCssVariables_;
+/**
+ * Stores result from applyPassive to avoid redundant processing to detect
+ * passive event listener support.
+ */
+var supportsPassive_;
+function detectEdgePseudoVarBug(windowObj) {
+    // Detect versions of Edge with buggy var() support
+    // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11495448/
+    var document = windowObj.document;
+    var node = document.createElement('div');
+    node.className = 'mdc-ripple-surface--test-edge-var-bug';
+    document.body.appendChild(node);
+    // The bug exists if ::before style ends up propagating to the parent element.
+    // Additionally, getComputedStyle returns null in iframes with display: "none" in Firefox,
+    // but Firefox is known to support CSS custom properties correctly.
+    // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+    var computedStyle = windowObj.getComputedStyle(node);
+    var hasPseudoVarBug = computedStyle !== null && computedStyle.borderTopStyle === 'solid';
+    node.remove();
+    return hasPseudoVarBug;
+}
+function supportsCssVariables(windowObj, forceRefresh) {
+    if (forceRefresh === void 0) { forceRefresh = false; }
+    var CSS = windowObj.CSS;
+    var supportsCssVars = supportsCssVariables_;
+    if (typeof supportsCssVariables_ === 'boolean' && !forceRefresh) {
+        return supportsCssVariables_;
+    }
+    var supportsFunctionPresent = CSS && typeof CSS.supports === 'function';
+    if (!supportsFunctionPresent) {
+        return false;
+    }
+    var explicitlySupportsCssVars = CSS.supports('--css-vars', 'yes');
+    // See: https://bugs.webkit.org/show_bug.cgi?id=154669
+    // See: README section on Safari
+    var weAreFeatureDetectingSafari10plus = (CSS.supports('(--css-vars: yes)') &&
+        CSS.supports('color', '#00000000'));
+    if (explicitlySupportsCssVars || weAreFeatureDetectingSafari10plus) {
+        supportsCssVars = !detectEdgePseudoVarBug(windowObj);
+    }
+    else {
+        supportsCssVars = false;
+    }
+    if (!forceRefresh) {
+        supportsCssVariables_ = supportsCssVars;
+    }
+    return supportsCssVars;
+}
+/**
+ * Determine whether the current browser supports passive event listeners, and
+ * if so, use them.
+ */
+function applyPassive(globalObj, forceRefresh) {
+    if (globalObj === void 0) { globalObj = window; }
+    if (forceRefresh === void 0) { forceRefresh = false; }
+    if (supportsPassive_ === undefined || forceRefresh) {
+        var isSupported_1 = false;
+        try {
+            globalObj.document.addEventListener('test', function () { return undefined; }, {
+                get passive() {
+                    isSupported_1 = true;
+                    return isSupported_1;
+                },
+            });
+        }
+        catch (e) {
+        } // tslint:disable-line:no-empty cannot throw error due to tests. tslint also disables console.log.
+        supportsPassive_ = isSupported_1;
+    }
+    return supportsPassive_ ? { passive: true } : false;
+}
+function getNormalizedEventCoords(evt, pageOffset, clientRect) {
+    if (!evt) {
+        return { x: 0, y: 0 };
+    }
+    var x = pageOffset.x, y = pageOffset.y;
+    var documentX = x + clientRect.left;
+    var documentY = y + clientRect.top;
+    var normalizedX;
+    var normalizedY;
+    // Determine touch point relative to the ripple container.
+    if (evt.type === 'touchstart') {
+        var touchEvent = evt;
+        normalizedX = touchEvent.changedTouches[0].pageX - documentX;
+        normalizedY = touchEvent.changedTouches[0].pageY - documentY;
+    }
+    else {
+        var mouseEvent = evt;
+        normalizedX = mouseEvent.pageX - documentX;
+        normalizedY = mouseEvent.pageY - documentY;
+    }
+    return { x: normalizedX, y: normalizedY };
+}
+//# sourceMappingURL=util.js.map
 
 /***/ }),
 
@@ -344,7 +2064,66 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldCharacterCounter\", function() { return MDCTextFieldCharacterCounter; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ \"./node_modules/@material/base/component.js\");\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/textfield/character-counter/foundation.js\");\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCTextFieldCharacterCounter = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCTextFieldCharacterCounter, _super);\n    function MDCTextFieldCharacterCounter() {\n        return _super !== null && _super.apply(this, arguments) || this;\n    }\n    MDCTextFieldCharacterCounter.attachTo = function (root) {\n        return new MDCTextFieldCharacterCounter(root);\n    };\n    Object.defineProperty(MDCTextFieldCharacterCounter.prototype, \"foundation\", {\n        get: function () {\n            return this.foundation_;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCTextFieldCharacterCounter.prototype.getDefaultFoundation = function () {\n        var _this = this;\n        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.\n        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.\n        var adapter = {\n            setContent: function (content) {\n                _this.root_.textContent = content;\n            },\n        };\n        return new _foundation__WEBPACK_IMPORTED_MODULE_2__[\"MDCTextFieldCharacterCounterFoundation\"](adapter);\n    };\n    return MDCTextFieldCharacterCounter;\n}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__[\"MDCComponent\"]));\n\n//# sourceMappingURL=component.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/character-counter/component.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounter", function() { return MDCTextFieldCharacterCounter; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/textfield/character-counter/foundation.js");
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCTextFieldCharacterCounter = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTextFieldCharacterCounter, _super);
+    function MDCTextFieldCharacterCounter() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCTextFieldCharacterCounter.attachTo = function (root) {
+        return new MDCTextFieldCharacterCounter(root);
+    };
+    Object.defineProperty(MDCTextFieldCharacterCounter.prototype, "foundation", {
+        get: function () {
+            return this.foundation_;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCTextFieldCharacterCounter.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        var adapter = {
+            setContent: function (content) {
+                _this.root_.textContent = content;
+            },
+        };
+        return new _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTextFieldCharacterCounterFoundation"](adapter);
+    };
+    return MDCTextFieldCharacterCounter;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
 
 /***/ }),
 
@@ -356,7 +2135,39 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"strings\", function() { return strings; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cssClasses\", function() { return cssClasses; });\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\nvar cssClasses = {\n    ROOT: 'mdc-text-field-character-counter',\n};\nvar strings = {\n    ROOT_SELECTOR: \".\" + cssClasses.ROOT,\n};\n\n//# sourceMappingURL=constants.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/character-counter/constants.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses = {
+    ROOT: 'mdc-text-field-character-counter',
+};
+var strings = {
+    ROOT_SELECTOR: "." + cssClasses.ROOT,
+};
+
+//# sourceMappingURL=constants.js.map
 
 /***/ }),
 
@@ -368,7 +2179,77 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldCharacterCounterFoundation\", function() { return MDCTextFieldCharacterCounterFoundation; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ \"./node_modules/@material/base/foundation.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/textfield/character-counter/constants.js\");\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCTextFieldCharacterCounterFoundation = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCTextFieldCharacterCounterFoundation, _super);\n    function MDCTextFieldCharacterCounterFoundation(adapter) {\n        return _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, MDCTextFieldCharacterCounterFoundation.defaultAdapter, adapter)) || this;\n    }\n    Object.defineProperty(MDCTextFieldCharacterCounterFoundation, \"cssClasses\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldCharacterCounterFoundation, \"strings\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldCharacterCounterFoundation, \"defaultAdapter\", {\n        /**\n         * See {@link MDCTextFieldCharacterCounterAdapter} for typing information on parameters and return types.\n         */\n        get: function () {\n            return {\n                setContent: function () { return undefined; },\n            };\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCTextFieldCharacterCounterFoundation.prototype.setCounterValue = function (currentLength, maxLength) {\n        currentLength = Math.min(currentLength, maxLength);\n        this.adapter_.setContent(currentLength + \" / \" + maxLength);\n    };\n    return MDCTextFieldCharacterCounterFoundation;\n}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFoundation\"]));\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCTextFieldCharacterCounterFoundation);\n//# sourceMappingURL=foundation.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/character-counter/foundation.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounterFoundation", function() { return MDCTextFieldCharacterCounterFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/textfield/character-counter/constants.js");
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCTextFieldCharacterCounterFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTextFieldCharacterCounterFoundation, _super);
+    function MDCTextFieldCharacterCounterFoundation(adapter) {
+        return _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCTextFieldCharacterCounterFoundation.defaultAdapter, adapter)) || this;
+    }
+    Object.defineProperty(MDCTextFieldCharacterCounterFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldCharacterCounterFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldCharacterCounterFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCTextFieldCharacterCounterAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            return {
+                setContent: function () { return undefined; },
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCTextFieldCharacterCounterFoundation.prototype.setCounterValue = function (currentLength, maxLength) {
+        currentLength = Math.min(currentLength, maxLength);
+        this.adapter_.setContent(currentLength + " / " + maxLength);
+    };
+    return MDCTextFieldCharacterCounterFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCTextFieldCharacterCounterFoundation);
+//# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
@@ -380,7 +2261,38 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ \"./node_modules/@material/textfield/character-counter/component.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldCharacterCounter\", function() { return _component__WEBPACK_IMPORTED_MODULE_0__[\"MDCTextFieldCharacterCounter\"]; });\n\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/textfield/character-counter/foundation.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldCharacterCounterFoundation\", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCTextFieldCharacterCounterFoundation\"]; });\n\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/character-counter/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/textfield/character-counter/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounter", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTextFieldCharacterCounter"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/textfield/character-counter/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounterFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCTextFieldCharacterCounterFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -392,7 +2304,465 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCTextField\", function() { return MDCTextField; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ \"./node_modules/@material/base/component.js\");\n/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ \"./node_modules/@material/dom/ponyfill.js\");\n/* harmony import */ var _material_floating_label_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/floating-label/index */ \"./node_modules/@material/floating-label/index.js\");\n/* harmony import */ var _material_line_ripple_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/line-ripple/index */ \"./node_modules/@material/line-ripple/index.js\");\n/* harmony import */ var _material_notched_outline_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/notched-outline/index */ \"./node_modules/@material/notched-outline/index.js\");\n/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material/ripple/component */ \"./node_modules/@material/ripple/component.js\");\n/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material/ripple/foundation */ \"./node_modules/@material/ripple/foundation.js\");\n/* harmony import */ var _character_counter_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./character-counter/index */ \"./node_modules/@material/textfield/character-counter/index.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/textfield/constants.js\");\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/textfield/foundation.js\");\n/* harmony import */ var _helper_text_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./helper-text/index */ \"./node_modules/@material/textfield/helper-text/index.js\");\n/* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./icon/index */ \"./node_modules/@material/textfield/icon/index.js\");\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\n\n\n\n\n\n\n\n\n\n\nvar MDCTextField = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCTextField, _super);\n    function MDCTextField() {\n        return _super !== null && _super.apply(this, arguments) || this;\n    }\n    MDCTextField.attachTo = function (root) {\n        return new MDCTextField(root);\n    };\n    MDCTextField.prototype.initialize = function (rippleFactory, lineRippleFactory, helperTextFactory, characterCounterFactory, iconFactory, labelFactory, outlineFactory) {\n        if (rippleFactory === void 0) { rippleFactory = function (el, foundation) { return new _material_ripple_component__WEBPACK_IMPORTED_MODULE_6__[\"MDCRipple\"](el, foundation); }; }\n        if (lineRippleFactory === void 0) { lineRippleFactory = function (el) { return new _material_line_ripple_index__WEBPACK_IMPORTED_MODULE_4__[\"MDCLineRipple\"](el); }; }\n        if (helperTextFactory === void 0) { helperTextFactory = function (el) { return new _helper_text_index__WEBPACK_IMPORTED_MODULE_11__[\"MDCTextFieldHelperText\"](el); }; }\n        if (characterCounterFactory === void 0) { characterCounterFactory = function (el) { return new _character_counter_index__WEBPACK_IMPORTED_MODULE_8__[\"MDCTextFieldCharacterCounter\"](el); }; }\n        if (iconFactory === void 0) { iconFactory = function (el) { return new _icon_index__WEBPACK_IMPORTED_MODULE_12__[\"MDCTextFieldIcon\"](el); }; }\n        if (labelFactory === void 0) { labelFactory = function (el) { return new _material_floating_label_index__WEBPACK_IMPORTED_MODULE_3__[\"MDCFloatingLabel\"](el); }; }\n        if (outlineFactory === void 0) { outlineFactory = function (el) { return new _material_notched_outline_index__WEBPACK_IMPORTED_MODULE_5__[\"MDCNotchedOutline\"](el); }; }\n        this.input_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_9__[\"strings\"].INPUT_SELECTOR);\n        var labelElement = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_9__[\"strings\"].LABEL_SELECTOR);\n        this.label_ = labelElement ? labelFactory(labelElement) : null;\n        var lineRippleElement = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_9__[\"strings\"].LINE_RIPPLE_SELECTOR);\n        this.lineRipple_ = lineRippleElement ? lineRippleFactory(lineRippleElement) : null;\n        var outlineElement = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_9__[\"strings\"].OUTLINE_SELECTOR);\n        this.outline_ = outlineElement ? outlineFactory(outlineElement) : null;\n        // Helper text\n        var helperTextStrings = _helper_text_index__WEBPACK_IMPORTED_MODULE_11__[\"MDCTextFieldHelperTextFoundation\"].strings;\n        var nextElementSibling = this.root_.nextElementSibling;\n        var hasHelperLine = (nextElementSibling && nextElementSibling.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_9__[\"cssClasses\"].HELPER_LINE));\n        var helperTextEl = hasHelperLine && nextElementSibling && nextElementSibling.querySelector(helperTextStrings.ROOT_SELECTOR);\n        this.helperText_ = helperTextEl ? helperTextFactory(helperTextEl) : null;\n        // Character counter\n        var characterCounterStrings = _character_counter_index__WEBPACK_IMPORTED_MODULE_8__[\"MDCTextFieldCharacterCounterFoundation\"].strings;\n        var characterCounterEl = this.root_.querySelector(characterCounterStrings.ROOT_SELECTOR);\n        // If character counter is not found in root element search in sibling element.\n        if (!characterCounterEl && hasHelperLine && nextElementSibling) {\n            characterCounterEl = nextElementSibling.querySelector(characterCounterStrings.ROOT_SELECTOR);\n        }\n        this.characterCounter_ = characterCounterEl ? characterCounterFactory(characterCounterEl) : null;\n        this.leadingIcon_ = null;\n        this.trailingIcon_ = null;\n        var iconElements = this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_9__[\"strings\"].ICON_SELECTOR);\n        if (iconElements.length > 0) {\n            if (iconElements.length > 1) { // Has both icons.\n                this.leadingIcon_ = iconFactory(iconElements[0]);\n                this.trailingIcon_ = iconFactory(iconElements[1]);\n            }\n            else {\n                if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_9__[\"cssClasses\"].WITH_LEADING_ICON)) {\n                    this.leadingIcon_ = iconFactory(iconElements[0]);\n                }\n                else {\n                    this.trailingIcon_ = iconFactory(iconElements[0]);\n                }\n            }\n        }\n        this.ripple = this.createRipple_(rippleFactory);\n    };\n    MDCTextField.prototype.destroy = function () {\n        if (this.ripple) {\n            this.ripple.destroy();\n        }\n        if (this.lineRipple_) {\n            this.lineRipple_.destroy();\n        }\n        if (this.helperText_) {\n            this.helperText_.destroy();\n        }\n        if (this.characterCounter_) {\n            this.characterCounter_.destroy();\n        }\n        if (this.leadingIcon_) {\n            this.leadingIcon_.destroy();\n        }\n        if (this.trailingIcon_) {\n            this.trailingIcon_.destroy();\n        }\n        if (this.label_) {\n            this.label_.destroy();\n        }\n        if (this.outline_) {\n            this.outline_.destroy();\n        }\n        _super.prototype.destroy.call(this);\n    };\n    /**\n     * Initializes the Text Field's internal state based on the environment's\n     * state.\n     */\n    MDCTextField.prototype.initialSyncWithDOM = function () {\n        this.disabled = this.input_.disabled;\n    };\n    Object.defineProperty(MDCTextField.prototype, \"value\", {\n        get: function () {\n            return this.foundation_.getValue();\n        },\n        /**\n         * @param value The value to set on the input.\n         */\n        set: function (value) {\n            this.foundation_.setValue(value);\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"disabled\", {\n        get: function () {\n            return this.foundation_.isDisabled();\n        },\n        /**\n         * @param disabled Sets the Text Field disabled or enabled.\n         */\n        set: function (disabled) {\n            this.foundation_.setDisabled(disabled);\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"valid\", {\n        get: function () {\n            return this.foundation_.isValid();\n        },\n        /**\n         * @param valid Sets the Text Field valid or invalid.\n         */\n        set: function (valid) {\n            this.foundation_.setValid(valid);\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"required\", {\n        get: function () {\n            return this.input_.required;\n        },\n        /**\n         * @param required Sets the Text Field to required.\n         */\n        set: function (required) {\n            this.input_.required = required;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"pattern\", {\n        get: function () {\n            return this.input_.pattern;\n        },\n        /**\n         * @param pattern Sets the input element's validation pattern.\n         */\n        set: function (pattern) {\n            this.input_.pattern = pattern;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"minLength\", {\n        get: function () {\n            return this.input_.minLength;\n        },\n        /**\n         * @param minLength Sets the input element's minLength.\n         */\n        set: function (minLength) {\n            this.input_.minLength = minLength;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"maxLength\", {\n        get: function () {\n            return this.input_.maxLength;\n        },\n        /**\n         * @param maxLength Sets the input element's maxLength.\n         */\n        set: function (maxLength) {\n            // Chrome throws exception if maxLength is set to a value less than zero\n            if (maxLength < 0) {\n                this.input_.removeAttribute('maxLength');\n            }\n            else {\n                this.input_.maxLength = maxLength;\n            }\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"min\", {\n        get: function () {\n            return this.input_.min;\n        },\n        /**\n         * @param min Sets the input element's min.\n         */\n        set: function (min) {\n            this.input_.min = min;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"max\", {\n        get: function () {\n            return this.input_.max;\n        },\n        /**\n         * @param max Sets the input element's max.\n         */\n        set: function (max) {\n            this.input_.max = max;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"step\", {\n        get: function () {\n            return this.input_.step;\n        },\n        /**\n         * @param step Sets the input element's step.\n         */\n        set: function (step) {\n            this.input_.step = step;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"helperTextContent\", {\n        /**\n         * Sets the helper text element content.\n         */\n        set: function (content) {\n            this.foundation_.setHelperTextContent(content);\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"leadingIconAriaLabel\", {\n        /**\n         * Sets the aria label of the leading icon.\n         */\n        set: function (label) {\n            this.foundation_.setLeadingIconAriaLabel(label);\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"leadingIconContent\", {\n        /**\n         * Sets the text content of the leading icon.\n         */\n        set: function (content) {\n            this.foundation_.setLeadingIconContent(content);\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"trailingIconAriaLabel\", {\n        /**\n         * Sets the aria label of the trailing icon.\n         */\n        set: function (label) {\n            this.foundation_.setTrailingIconAriaLabel(label);\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"trailingIconContent\", {\n        /**\n         * Sets the text content of the trailing icon.\n         */\n        set: function (content) {\n            this.foundation_.setTrailingIconContent(content);\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextField.prototype, \"useNativeValidation\", {\n        /**\n         * Enables or disables the use of native validation. Use this for custom validation.\n         * @param useNativeValidation Set this to false to ignore native input validation.\n         */\n        set: function (useNativeValidation) {\n            this.foundation_.setUseNativeValidation(useNativeValidation);\n        },\n        enumerable: true,\n        configurable: true\n    });\n    /**\n     * Focuses the input element.\n     */\n    MDCTextField.prototype.focus = function () {\n        this.input_.focus();\n    };\n    /**\n     * Recomputes the outline SVG path for the outline element.\n     */\n    MDCTextField.prototype.layout = function () {\n        var openNotch = this.foundation_.shouldFloat;\n        this.foundation_.notchOutline(openNotch);\n    };\n    MDCTextField.prototype.getDefaultFoundation = function () {\n        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.\n        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.\n        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n        var adapter = tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, this.getRootAdapterMethods_(), this.getInputAdapterMethods_(), this.getLabelAdapterMethods_(), this.getLineRippleAdapterMethods_(), this.getOutlineAdapterMethods_());\n        // tslint:enable:object-literal-sort-keys\n        return new _foundation__WEBPACK_IMPORTED_MODULE_10__[\"MDCTextFieldFoundation\"](adapter, this.getFoundationMap_());\n    };\n    MDCTextField.prototype.getRootAdapterMethods_ = function () {\n        var _this = this;\n        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n        return {\n            addClass: function (className) { return _this.root_.classList.add(className); },\n            removeClass: function (className) { return _this.root_.classList.remove(className); },\n            hasClass: function (className) { return _this.root_.classList.contains(className); },\n            registerTextFieldInteractionHandler: function (evtType, handler) { return _this.listen(evtType, handler); },\n            deregisterTextFieldInteractionHandler: function (evtType, handler) { return _this.unlisten(evtType, handler); },\n            registerValidationAttributeChangeHandler: function (handler) {\n                var getAttributesList = function (mutationsList) {\n                    return mutationsList\n                        .map(function (mutation) { return mutation.attributeName; })\n                        .filter(function (attributeName) { return attributeName; });\n                };\n                var observer = new MutationObserver(function (mutationsList) { return handler(getAttributesList(mutationsList)); });\n                var config = { attributes: true };\n                observer.observe(_this.input_, config);\n                return observer;\n            },\n            deregisterValidationAttributeChangeHandler: function (observer) { return observer.disconnect(); },\n        };\n        // tslint:enable:object-literal-sort-keys\n    };\n    MDCTextField.prototype.getInputAdapterMethods_ = function () {\n        var _this = this;\n        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n        return {\n            getNativeInput: function () { return _this.input_; },\n            isFocused: function () { return document.activeElement === _this.input_; },\n            registerInputInteractionHandler: function (evtType, handler) { return _this.input_.addEventListener(evtType, handler); },\n            deregisterInputInteractionHandler: function (evtType, handler) { return _this.input_.removeEventListener(evtType, handler); },\n        };\n        // tslint:enable:object-literal-sort-keys\n    };\n    MDCTextField.prototype.getLabelAdapterMethods_ = function () {\n        var _this = this;\n        return {\n            floatLabel: function (shouldFloat) { return _this.label_ && _this.label_.float(shouldFloat); },\n            getLabelWidth: function () { return _this.label_ ? _this.label_.getWidth() : 0; },\n            hasLabel: function () { return Boolean(_this.label_); },\n            shakeLabel: function (shouldShake) { return _this.label_ && _this.label_.shake(shouldShake); },\n        };\n    };\n    MDCTextField.prototype.getLineRippleAdapterMethods_ = function () {\n        var _this = this;\n        return {\n            activateLineRipple: function () {\n                if (_this.lineRipple_) {\n                    _this.lineRipple_.activate();\n                }\n            },\n            deactivateLineRipple: function () {\n                if (_this.lineRipple_) {\n                    _this.lineRipple_.deactivate();\n                }\n            },\n            setLineRippleTransformOrigin: function (normalizedX) {\n                if (_this.lineRipple_) {\n                    _this.lineRipple_.setRippleCenter(normalizedX);\n                }\n            },\n        };\n    };\n    MDCTextField.prototype.getOutlineAdapterMethods_ = function () {\n        var _this = this;\n        return {\n            closeOutline: function () { return _this.outline_ && _this.outline_.closeNotch(); },\n            hasOutline: function () { return Boolean(_this.outline_); },\n            notchOutline: function (labelWidth) { return _this.outline_ && _this.outline_.notch(labelWidth); },\n        };\n    };\n    /**\n     * @return A map of all subcomponents to subfoundations.\n     */\n    MDCTextField.prototype.getFoundationMap_ = function () {\n        return {\n            characterCounter: this.characterCounter_ ? this.characterCounter_.foundation : undefined,\n            helperText: this.helperText_ ? this.helperText_.foundation : undefined,\n            leadingIcon: this.leadingIcon_ ? this.leadingIcon_.foundation : undefined,\n            trailingIcon: this.trailingIcon_ ? this.trailingIcon_.foundation : undefined,\n        };\n    };\n    MDCTextField.prototype.createRipple_ = function (rippleFactory) {\n        var _this = this;\n        var isTextArea = this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_9__[\"cssClasses\"].TEXTAREA);\n        var isOutlined = this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_9__[\"cssClasses\"].OUTLINED);\n        if (isTextArea || isOutlined) {\n            return null;\n        }\n        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.\n        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.\n        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n        var adapter = tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, _material_ripple_component__WEBPACK_IMPORTED_MODULE_6__[\"MDCRipple\"].createAdapter(this), { isSurfaceActive: function () { return _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__[\"matches\"](_this.input_, ':active'); }, registerInteractionHandler: function (evtType, handler) { return _this.input_.addEventListener(evtType, handler); }, deregisterInteractionHandler: function (evtType, handler) { return _this.input_.removeEventListener(evtType, handler); } });\n        // tslint:enable:object-literal-sort-keys\n        return rippleFactory(this.root_, new _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_7__[\"MDCRippleFoundation\"](adapter));\n    };\n    return MDCTextField;\n}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__[\"MDCComponent\"]));\n\n//# sourceMappingURL=component.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/component.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTextField", function() { return MDCTextField; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony import */ var _material_floating_label_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/floating-label/index */ "./node_modules/@material/floating-label/index.js");
+/* harmony import */ var _material_line_ripple_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/line-ripple/index */ "./node_modules/@material/line-ripple/index.js");
+/* harmony import */ var _material_notched_outline_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material/notched-outline/index */ "./node_modules/@material/notched-outline/index.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/ripple/component.js");
+/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _character_counter_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./character-counter/index */ "./node_modules/@material/textfield/character-counter/index.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/textfield/constants.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/textfield/foundation.js");
+/* harmony import */ var _helper_text_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./helper-text/index */ "./node_modules/@material/textfield/helper-text/index.js");
+/* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./icon/index */ "./node_modules/@material/textfield/icon/index.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+var MDCTextField = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTextField, _super);
+    function MDCTextField() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCTextField.attachTo = function (root) {
+        return new MDCTextField(root);
+    };
+    MDCTextField.prototype.initialize = function (rippleFactory, lineRippleFactory, helperTextFactory, characterCounterFactory, iconFactory, labelFactory, outlineFactory) {
+        if (rippleFactory === void 0) { rippleFactory = function (el, foundation) { return new _material_ripple_component__WEBPACK_IMPORTED_MODULE_6__["MDCRipple"](el, foundation); }; }
+        if (lineRippleFactory === void 0) { lineRippleFactory = function (el) { return new _material_line_ripple_index__WEBPACK_IMPORTED_MODULE_4__["MDCLineRipple"](el); }; }
+        if (helperTextFactory === void 0) { helperTextFactory = function (el) { return new _helper_text_index__WEBPACK_IMPORTED_MODULE_11__["MDCTextFieldHelperText"](el); }; }
+        if (characterCounterFactory === void 0) { characterCounterFactory = function (el) { return new _character_counter_index__WEBPACK_IMPORTED_MODULE_8__["MDCTextFieldCharacterCounter"](el); }; }
+        if (iconFactory === void 0) { iconFactory = function (el) { return new _icon_index__WEBPACK_IMPORTED_MODULE_12__["MDCTextFieldIcon"](el); }; }
+        if (labelFactory === void 0) { labelFactory = function (el) { return new _material_floating_label_index__WEBPACK_IMPORTED_MODULE_3__["MDCFloatingLabel"](el); }; }
+        if (outlineFactory === void 0) { outlineFactory = function (el) { return new _material_notched_outline_index__WEBPACK_IMPORTED_MODULE_5__["MDCNotchedOutline"](el); }; }
+        this.input_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_9__["strings"].INPUT_SELECTOR);
+        var labelElement = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_9__["strings"].LABEL_SELECTOR);
+        this.label_ = labelElement ? labelFactory(labelElement) : null;
+        var lineRippleElement = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_9__["strings"].LINE_RIPPLE_SELECTOR);
+        this.lineRipple_ = lineRippleElement ? lineRippleFactory(lineRippleElement) : null;
+        var outlineElement = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_9__["strings"].OUTLINE_SELECTOR);
+        this.outline_ = outlineElement ? outlineFactory(outlineElement) : null;
+        // Helper text
+        var helperTextStrings = _helper_text_index__WEBPACK_IMPORTED_MODULE_11__["MDCTextFieldHelperTextFoundation"].strings;
+        var nextElementSibling = this.root_.nextElementSibling;
+        var hasHelperLine = (nextElementSibling && nextElementSibling.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_9__["cssClasses"].HELPER_LINE));
+        var helperTextEl = hasHelperLine && nextElementSibling && nextElementSibling.querySelector(helperTextStrings.ROOT_SELECTOR);
+        this.helperText_ = helperTextEl ? helperTextFactory(helperTextEl) : null;
+        // Character counter
+        var characterCounterStrings = _character_counter_index__WEBPACK_IMPORTED_MODULE_8__["MDCTextFieldCharacterCounterFoundation"].strings;
+        var characterCounterEl = this.root_.querySelector(characterCounterStrings.ROOT_SELECTOR);
+        // If character counter is not found in root element search in sibling element.
+        if (!characterCounterEl && hasHelperLine && nextElementSibling) {
+            characterCounterEl = nextElementSibling.querySelector(characterCounterStrings.ROOT_SELECTOR);
+        }
+        this.characterCounter_ = characterCounterEl ? characterCounterFactory(characterCounterEl) : null;
+        this.leadingIcon_ = null;
+        this.trailingIcon_ = null;
+        var iconElements = this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_9__["strings"].ICON_SELECTOR);
+        if (iconElements.length > 0) {
+            if (iconElements.length > 1) { // Has both icons.
+                this.leadingIcon_ = iconFactory(iconElements[0]);
+                this.trailingIcon_ = iconFactory(iconElements[1]);
+            }
+            else {
+                if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_9__["cssClasses"].WITH_LEADING_ICON)) {
+                    this.leadingIcon_ = iconFactory(iconElements[0]);
+                }
+                else {
+                    this.trailingIcon_ = iconFactory(iconElements[0]);
+                }
+            }
+        }
+        this.ripple = this.createRipple_(rippleFactory);
+    };
+    MDCTextField.prototype.destroy = function () {
+        if (this.ripple) {
+            this.ripple.destroy();
+        }
+        if (this.lineRipple_) {
+            this.lineRipple_.destroy();
+        }
+        if (this.helperText_) {
+            this.helperText_.destroy();
+        }
+        if (this.characterCounter_) {
+            this.characterCounter_.destroy();
+        }
+        if (this.leadingIcon_) {
+            this.leadingIcon_.destroy();
+        }
+        if (this.trailingIcon_) {
+            this.trailingIcon_.destroy();
+        }
+        if (this.label_) {
+            this.label_.destroy();
+        }
+        if (this.outline_) {
+            this.outline_.destroy();
+        }
+        _super.prototype.destroy.call(this);
+    };
+    /**
+     * Initializes the Text Field's internal state based on the environment's
+     * state.
+     */
+    MDCTextField.prototype.initialSyncWithDOM = function () {
+        this.disabled = this.input_.disabled;
+    };
+    Object.defineProperty(MDCTextField.prototype, "value", {
+        get: function () {
+            return this.foundation_.getValue();
+        },
+        /**
+         * @param value The value to set on the input.
+         */
+        set: function (value) {
+            this.foundation_.setValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "disabled", {
+        get: function () {
+            return this.foundation_.isDisabled();
+        },
+        /**
+         * @param disabled Sets the Text Field disabled or enabled.
+         */
+        set: function (disabled) {
+            this.foundation_.setDisabled(disabled);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "valid", {
+        get: function () {
+            return this.foundation_.isValid();
+        },
+        /**
+         * @param valid Sets the Text Field valid or invalid.
+         */
+        set: function (valid) {
+            this.foundation_.setValid(valid);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "required", {
+        get: function () {
+            return this.input_.required;
+        },
+        /**
+         * @param required Sets the Text Field to required.
+         */
+        set: function (required) {
+            this.input_.required = required;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "pattern", {
+        get: function () {
+            return this.input_.pattern;
+        },
+        /**
+         * @param pattern Sets the input element's validation pattern.
+         */
+        set: function (pattern) {
+            this.input_.pattern = pattern;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "minLength", {
+        get: function () {
+            return this.input_.minLength;
+        },
+        /**
+         * @param minLength Sets the input element's minLength.
+         */
+        set: function (minLength) {
+            this.input_.minLength = minLength;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "maxLength", {
+        get: function () {
+            return this.input_.maxLength;
+        },
+        /**
+         * @param maxLength Sets the input element's maxLength.
+         */
+        set: function (maxLength) {
+            // Chrome throws exception if maxLength is set to a value less than zero
+            if (maxLength < 0) {
+                this.input_.removeAttribute('maxLength');
+            }
+            else {
+                this.input_.maxLength = maxLength;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "min", {
+        get: function () {
+            return this.input_.min;
+        },
+        /**
+         * @param min Sets the input element's min.
+         */
+        set: function (min) {
+            this.input_.min = min;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "max", {
+        get: function () {
+            return this.input_.max;
+        },
+        /**
+         * @param max Sets the input element's max.
+         */
+        set: function (max) {
+            this.input_.max = max;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "step", {
+        get: function () {
+            return this.input_.step;
+        },
+        /**
+         * @param step Sets the input element's step.
+         */
+        set: function (step) {
+            this.input_.step = step;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "helperTextContent", {
+        /**
+         * Sets the helper text element content.
+         */
+        set: function (content) {
+            this.foundation_.setHelperTextContent(content);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "leadingIconAriaLabel", {
+        /**
+         * Sets the aria label of the leading icon.
+         */
+        set: function (label) {
+            this.foundation_.setLeadingIconAriaLabel(label);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "leadingIconContent", {
+        /**
+         * Sets the text content of the leading icon.
+         */
+        set: function (content) {
+            this.foundation_.setLeadingIconContent(content);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "trailingIconAriaLabel", {
+        /**
+         * Sets the aria label of the trailing icon.
+         */
+        set: function (label) {
+            this.foundation_.setTrailingIconAriaLabel(label);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "trailingIconContent", {
+        /**
+         * Sets the text content of the trailing icon.
+         */
+        set: function (content) {
+            this.foundation_.setTrailingIconContent(content);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextField.prototype, "useNativeValidation", {
+        /**
+         * Enables or disables the use of native validation. Use this for custom validation.
+         * @param useNativeValidation Set this to false to ignore native input validation.
+         */
+        set: function (useNativeValidation) {
+            this.foundation_.setUseNativeValidation(useNativeValidation);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Focuses the input element.
+     */
+    MDCTextField.prototype.focus = function () {
+        this.input_.focus();
+    };
+    /**
+     * Recomputes the outline SVG path for the outline element.
+     */
+    MDCTextField.prototype.layout = function () {
+        var openNotch = this.foundation_.shouldFloat;
+        this.foundation_.notchOutline(openNotch);
+    };
+    MDCTextField.prototype.getDefaultFoundation = function () {
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, this.getRootAdapterMethods_(), this.getInputAdapterMethods_(), this.getLabelAdapterMethods_(), this.getLineRippleAdapterMethods_(), this.getOutlineAdapterMethods_());
+        // tslint:enable:object-literal-sort-keys
+        return new _foundation__WEBPACK_IMPORTED_MODULE_10__["MDCTextFieldFoundation"](adapter, this.getFoundationMap_());
+    };
+    MDCTextField.prototype.getRootAdapterMethods_ = function () {
+        var _this = this;
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        return {
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            registerTextFieldInteractionHandler: function (evtType, handler) { return _this.listen(evtType, handler); },
+            deregisterTextFieldInteractionHandler: function (evtType, handler) { return _this.unlisten(evtType, handler); },
+            registerValidationAttributeChangeHandler: function (handler) {
+                var getAttributesList = function (mutationsList) {
+                    return mutationsList
+                        .map(function (mutation) { return mutation.attributeName; })
+                        .filter(function (attributeName) { return attributeName; });
+                };
+                var observer = new MutationObserver(function (mutationsList) { return handler(getAttributesList(mutationsList)); });
+                var config = { attributes: true };
+                observer.observe(_this.input_, config);
+                return observer;
+            },
+            deregisterValidationAttributeChangeHandler: function (observer) { return observer.disconnect(); },
+        };
+        // tslint:enable:object-literal-sort-keys
+    };
+    MDCTextField.prototype.getInputAdapterMethods_ = function () {
+        var _this = this;
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        return {
+            getNativeInput: function () { return _this.input_; },
+            isFocused: function () { return document.activeElement === _this.input_; },
+            registerInputInteractionHandler: function (evtType, handler) { return _this.input_.addEventListener(evtType, handler); },
+            deregisterInputInteractionHandler: function (evtType, handler) { return _this.input_.removeEventListener(evtType, handler); },
+        };
+        // tslint:enable:object-literal-sort-keys
+    };
+    MDCTextField.prototype.getLabelAdapterMethods_ = function () {
+        var _this = this;
+        return {
+            floatLabel: function (shouldFloat) { return _this.label_ && _this.label_.float(shouldFloat); },
+            getLabelWidth: function () { return _this.label_ ? _this.label_.getWidth() : 0; },
+            hasLabel: function () { return Boolean(_this.label_); },
+            shakeLabel: function (shouldShake) { return _this.label_ && _this.label_.shake(shouldShake); },
+        };
+    };
+    MDCTextField.prototype.getLineRippleAdapterMethods_ = function () {
+        var _this = this;
+        return {
+            activateLineRipple: function () {
+                if (_this.lineRipple_) {
+                    _this.lineRipple_.activate();
+                }
+            },
+            deactivateLineRipple: function () {
+                if (_this.lineRipple_) {
+                    _this.lineRipple_.deactivate();
+                }
+            },
+            setLineRippleTransformOrigin: function (normalizedX) {
+                if (_this.lineRipple_) {
+                    _this.lineRipple_.setRippleCenter(normalizedX);
+                }
+            },
+        };
+    };
+    MDCTextField.prototype.getOutlineAdapterMethods_ = function () {
+        var _this = this;
+        return {
+            closeOutline: function () { return _this.outline_ && _this.outline_.closeNotch(); },
+            hasOutline: function () { return Boolean(_this.outline_); },
+            notchOutline: function (labelWidth) { return _this.outline_ && _this.outline_.notch(labelWidth); },
+        };
+    };
+    /**
+     * @return A map of all subcomponents to subfoundations.
+     */
+    MDCTextField.prototype.getFoundationMap_ = function () {
+        return {
+            characterCounter: this.characterCounter_ ? this.characterCounter_.foundation : undefined,
+            helperText: this.helperText_ ? this.helperText_.foundation : undefined,
+            leadingIcon: this.leadingIcon_ ? this.leadingIcon_.foundation : undefined,
+            trailingIcon: this.trailingIcon_ ? this.trailingIcon_.foundation : undefined,
+        };
+    };
+    MDCTextField.prototype.createRipple_ = function (rippleFactory) {
+        var _this = this;
+        var isTextArea = this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_9__["cssClasses"].TEXTAREA);
+        var isOutlined = this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_9__["cssClasses"].OUTLINED);
+        if (isTextArea || isOutlined) {
+            return null;
+        }
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, _material_ripple_component__WEBPACK_IMPORTED_MODULE_6__["MDCRipple"].createAdapter(this), { isSurfaceActive: function () { return _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__["matches"](_this.input_, ':active'); }, registerInteractionHandler: function (evtType, handler) { return _this.input_.addEventListener(evtType, handler); }, deregisterInteractionHandler: function (evtType, handler) { return _this.input_.removeEventListener(evtType, handler); } });
+        // tslint:enable:object-literal-sort-keys
+        return rippleFactory(this.root_, new _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_7__["MDCRippleFoundation"](adapter));
+    };
+    return MDCTextField;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
 
 /***/ }),
 
@@ -404,7 +2774,72 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cssClasses\", function() { return cssClasses; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"strings\", function() { return strings; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"numbers\", function() { return numbers; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"VALIDATION_ATTR_WHITELIST\", function() { return VALIDATION_ATTR_WHITELIST; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ALWAYS_FLOAT_TYPES\", function() { return ALWAYS_FLOAT_TYPES; });\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\nvar strings = {\n    ARIA_CONTROLS: 'aria-controls',\n    ICON_SELECTOR: '.mdc-text-field__icon',\n    INPUT_SELECTOR: '.mdc-text-field__input',\n    LABEL_SELECTOR: '.mdc-floating-label',\n    LINE_RIPPLE_SELECTOR: '.mdc-line-ripple',\n    OUTLINE_SELECTOR: '.mdc-notched-outline',\n};\nvar cssClasses = {\n    DENSE: 'mdc-text-field--dense',\n    DISABLED: 'mdc-text-field--disabled',\n    FOCUSED: 'mdc-text-field--focused',\n    HELPER_LINE: 'mdc-text-field-helper-line',\n    INVALID: 'mdc-text-field--invalid',\n    OUTLINED: 'mdc-text-field--outlined',\n    ROOT: 'mdc-text-field',\n    TEXTAREA: 'mdc-text-field--textarea',\n    WITH_LEADING_ICON: 'mdc-text-field--with-leading-icon',\n};\nvar numbers = {\n    DENSE_LABEL_SCALE: 0.923,\n    LABEL_SCALE: 0.75,\n};\n/**\n * Whitelist based off of https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation\n * under the \"Validation-related attributes\" section.\n */\nvar VALIDATION_ATTR_WHITELIST = [\n    'pattern', 'min', 'max', 'required', 'step', 'minlength', 'maxlength',\n];\n/**\n * Label should always float for these types as they show some UI even if value is empty.\n */\nvar ALWAYS_FLOAT_TYPES = [\n    'color', 'date', 'datetime-local', 'month', 'range', 'time', 'week',\n];\n\n//# sourceMappingURL=constants.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/constants.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VALIDATION_ATTR_WHITELIST", function() { return VALIDATION_ATTR_WHITELIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALWAYS_FLOAT_TYPES", function() { return ALWAYS_FLOAT_TYPES; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var strings = {
+    ARIA_CONTROLS: 'aria-controls',
+    ICON_SELECTOR: '.mdc-text-field__icon',
+    INPUT_SELECTOR: '.mdc-text-field__input',
+    LABEL_SELECTOR: '.mdc-floating-label',
+    LINE_RIPPLE_SELECTOR: '.mdc-line-ripple',
+    OUTLINE_SELECTOR: '.mdc-notched-outline',
+};
+var cssClasses = {
+    DENSE: 'mdc-text-field--dense',
+    DISABLED: 'mdc-text-field--disabled',
+    FOCUSED: 'mdc-text-field--focused',
+    HELPER_LINE: 'mdc-text-field-helper-line',
+    INVALID: 'mdc-text-field--invalid',
+    OUTLINED: 'mdc-text-field--outlined',
+    ROOT: 'mdc-text-field',
+    TEXTAREA: 'mdc-text-field--textarea',
+    WITH_LEADING_ICON: 'mdc-text-field--with-leading-icon',
+};
+var numbers = {
+    DENSE_LABEL_SCALE: 0.923,
+    LABEL_SCALE: 0.75,
+};
+/**
+ * Whitelist based off of https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation
+ * under the "Validation-related attributes" section.
+ */
+var VALIDATION_ATTR_WHITELIST = [
+    'pattern', 'min', 'max', 'required', 'step', 'minlength', 'maxlength',
+];
+/**
+ * Label should always float for these types as they show some UI even if value is empty.
+ */
+var ALWAYS_FLOAT_TYPES = [
+    'color', 'date', 'datetime-local', 'month', 'range', 'time', 'week',
+];
+
+//# sourceMappingURL=constants.js.map
 
 /***/ }),
 
@@ -416,7 +2851,471 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldFoundation\", function() { return MDCTextFieldFoundation; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ \"./node_modules/@material/base/foundation.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/textfield/constants.js\");\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar POINTERDOWN_EVENTS = ['mousedown', 'touchstart'];\nvar INTERACTION_EVENTS = ['click', 'keydown'];\nvar MDCTextFieldFoundation = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCTextFieldFoundation, _super);\n    /**\n     * @param adapter\n     * @param foundationMap Map from subcomponent names to their subfoundations.\n     */\n    function MDCTextFieldFoundation(adapter, foundationMap) {\n        if (foundationMap === void 0) { foundationMap = {}; }\n        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, MDCTextFieldFoundation.defaultAdapter, adapter)) || this;\n        _this.isFocused_ = false;\n        _this.receivedUserInput_ = false;\n        _this.isValid_ = true;\n        _this.useNativeValidation_ = true;\n        _this.helperText_ = foundationMap.helperText;\n        _this.characterCounter_ = foundationMap.characterCounter;\n        _this.leadingIcon_ = foundationMap.leadingIcon;\n        _this.trailingIcon_ = foundationMap.trailingIcon;\n        _this.inputFocusHandler_ = function () { return _this.activateFocus(); };\n        _this.inputBlurHandler_ = function () { return _this.deactivateFocus(); };\n        _this.inputInputHandler_ = function () { return _this.handleInput(); };\n        _this.setPointerXOffset_ = function (evt) { return _this.setTransformOrigin(evt); };\n        _this.textFieldInteractionHandler_ = function () { return _this.handleTextFieldInteraction(); };\n        _this.validationAttributeChangeHandler_ = function (attributesList) { return _this.handleValidationAttributeChange(attributesList); };\n        return _this;\n    }\n    Object.defineProperty(MDCTextFieldFoundation, \"cssClasses\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldFoundation, \"strings\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldFoundation, \"numbers\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"numbers\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldFoundation.prototype, \"shouldAlwaysFloat_\", {\n        get: function () {\n            var type = this.getNativeInput_().type;\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"ALWAYS_FLOAT_TYPES\"].indexOf(type) >= 0;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldFoundation.prototype, \"shouldFloat\", {\n        get: function () {\n            return this.shouldAlwaysFloat_ || this.isFocused_ || Boolean(this.getValue()) || this.isBadInput_();\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldFoundation.prototype, \"shouldShake\", {\n        get: function () {\n            return !this.isFocused_ && !this.isValid() && Boolean(this.getValue());\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldFoundation, \"defaultAdapter\", {\n        /**\n         * See {@link MDCTextFieldAdapter} for typing information on parameters and return types.\n         */\n        get: function () {\n            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n            return {\n                addClass: function () { return undefined; },\n                removeClass: function () { return undefined; },\n                hasClass: function () { return true; },\n                registerTextFieldInteractionHandler: function () { return undefined; },\n                deregisterTextFieldInteractionHandler: function () { return undefined; },\n                registerInputInteractionHandler: function () { return undefined; },\n                deregisterInputInteractionHandler: function () { return undefined; },\n                registerValidationAttributeChangeHandler: function () { return new MutationObserver(function () { return undefined; }); },\n                deregisterValidationAttributeChangeHandler: function () { return undefined; },\n                getNativeInput: function () { return null; },\n                isFocused: function () { return false; },\n                activateLineRipple: function () { return undefined; },\n                deactivateLineRipple: function () { return undefined; },\n                setLineRippleTransformOrigin: function () { return undefined; },\n                shakeLabel: function () { return undefined; },\n                floatLabel: function () { return undefined; },\n                hasLabel: function () { return false; },\n                getLabelWidth: function () { return 0; },\n                hasOutline: function () { return false; },\n                notchOutline: function () { return undefined; },\n                closeOutline: function () { return undefined; },\n            };\n            // tslint:enable:object-literal-sort-keys\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCTextFieldFoundation.prototype.init = function () {\n        var _this = this;\n        if (this.adapter_.isFocused()) {\n            this.inputFocusHandler_();\n        }\n        else if (this.adapter_.hasLabel() && this.shouldFloat) {\n            this.notchOutline(true);\n            this.adapter_.floatLabel(true);\n        }\n        this.adapter_.registerInputInteractionHandler('focus', this.inputFocusHandler_);\n        this.adapter_.registerInputInteractionHandler('blur', this.inputBlurHandler_);\n        this.adapter_.registerInputInteractionHandler('input', this.inputInputHandler_);\n        POINTERDOWN_EVENTS.forEach(function (evtType) {\n            _this.adapter_.registerInputInteractionHandler(evtType, _this.setPointerXOffset_);\n        });\n        INTERACTION_EVENTS.forEach(function (evtType) {\n            _this.adapter_.registerTextFieldInteractionHandler(evtType, _this.textFieldInteractionHandler_);\n        });\n        this.validationObserver_ =\n            this.adapter_.registerValidationAttributeChangeHandler(this.validationAttributeChangeHandler_);\n        this.setCharacterCounter_(this.getValue().length);\n    };\n    MDCTextFieldFoundation.prototype.destroy = function () {\n        var _this = this;\n        this.adapter_.deregisterInputInteractionHandler('focus', this.inputFocusHandler_);\n        this.adapter_.deregisterInputInteractionHandler('blur', this.inputBlurHandler_);\n        this.adapter_.deregisterInputInteractionHandler('input', this.inputInputHandler_);\n        POINTERDOWN_EVENTS.forEach(function (evtType) {\n            _this.adapter_.deregisterInputInteractionHandler(evtType, _this.setPointerXOffset_);\n        });\n        INTERACTION_EVENTS.forEach(function (evtType) {\n            _this.adapter_.deregisterTextFieldInteractionHandler(evtType, _this.textFieldInteractionHandler_);\n        });\n        this.adapter_.deregisterValidationAttributeChangeHandler(this.validationObserver_);\n    };\n    /**\n     * Handles user interactions with the Text Field.\n     */\n    MDCTextFieldFoundation.prototype.handleTextFieldInteraction = function () {\n        var nativeInput = this.adapter_.getNativeInput();\n        if (nativeInput && nativeInput.disabled) {\n            return;\n        }\n        this.receivedUserInput_ = true;\n    };\n    /**\n     * Handles validation attribute changes\n     */\n    MDCTextFieldFoundation.prototype.handleValidationAttributeChange = function (attributesList) {\n        var _this = this;\n        attributesList.some(function (attributeName) {\n            if (_constants__WEBPACK_IMPORTED_MODULE_2__[\"VALIDATION_ATTR_WHITELIST\"].indexOf(attributeName) > -1) {\n                _this.styleValidity_(true);\n                return true;\n            }\n            return false;\n        });\n        if (attributesList.indexOf('maxlength') > -1) {\n            this.setCharacterCounter_(this.getValue().length);\n        }\n    };\n    /**\n     * Opens/closes the notched outline.\n     */\n    MDCTextFieldFoundation.prototype.notchOutline = function (openNotch) {\n        if (!this.adapter_.hasOutline()) {\n            return;\n        }\n        if (openNotch) {\n            var isDense = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].DENSE);\n            var labelScale = isDense ? _constants__WEBPACK_IMPORTED_MODULE_2__[\"numbers\"].DENSE_LABEL_SCALE : _constants__WEBPACK_IMPORTED_MODULE_2__[\"numbers\"].LABEL_SCALE;\n            var labelWidth = this.adapter_.getLabelWidth() * labelScale;\n            this.adapter_.notchOutline(labelWidth);\n        }\n        else {\n            this.adapter_.closeOutline();\n        }\n    };\n    /**\n     * Activates the text field focus state.\n     */\n    MDCTextFieldFoundation.prototype.activateFocus = function () {\n        this.isFocused_ = true;\n        this.styleFocused_(this.isFocused_);\n        this.adapter_.activateLineRipple();\n        if (this.adapter_.hasLabel()) {\n            this.notchOutline(this.shouldFloat);\n            this.adapter_.floatLabel(this.shouldFloat);\n            this.adapter_.shakeLabel(this.shouldShake);\n        }\n        if (this.helperText_) {\n            this.helperText_.showToScreenReader();\n        }\n    };\n    /**\n     * Sets the line ripple's transform origin, so that the line ripple activate\n     * animation will animate out from the user's click location.\n     */\n    MDCTextFieldFoundation.prototype.setTransformOrigin = function (evt) {\n        var touches = evt.touches;\n        var targetEvent = touches ? touches[0] : evt;\n        var targetClientRect = targetEvent.target.getBoundingClientRect();\n        var normalizedX = targetEvent.clientX - targetClientRect.left;\n        this.adapter_.setLineRippleTransformOrigin(normalizedX);\n    };\n    /**\n     * Handles input change of text input and text area.\n     */\n    MDCTextFieldFoundation.prototype.handleInput = function () {\n        this.autoCompleteFocus();\n        this.setCharacterCounter_(this.getValue().length);\n    };\n    /**\n     * Activates the Text Field's focus state in cases when the input value\n     * changes without user input (e.g. programmatically).\n     */\n    MDCTextFieldFoundation.prototype.autoCompleteFocus = function () {\n        if (!this.receivedUserInput_) {\n            this.activateFocus();\n        }\n    };\n    /**\n     * Deactivates the Text Field's focus state.\n     */\n    MDCTextFieldFoundation.prototype.deactivateFocus = function () {\n        this.isFocused_ = false;\n        this.adapter_.deactivateLineRipple();\n        var isValid = this.isValid();\n        this.styleValidity_(isValid);\n        this.styleFocused_(this.isFocused_);\n        if (this.adapter_.hasLabel()) {\n            this.notchOutline(this.shouldFloat);\n            this.adapter_.floatLabel(this.shouldFloat);\n            this.adapter_.shakeLabel(this.shouldShake);\n        }\n        if (!this.shouldFloat) {\n            this.receivedUserInput_ = false;\n        }\n    };\n    MDCTextFieldFoundation.prototype.getValue = function () {\n        return this.getNativeInput_().value;\n    };\n    /**\n     * @param value The value to set on the input Element.\n     */\n    MDCTextFieldFoundation.prototype.setValue = function (value) {\n        // Prevent Safari from moving the caret to the end of the input when the value has not changed.\n        if (this.getValue() !== value) {\n            this.getNativeInput_().value = value;\n            this.setCharacterCounter_(value.length);\n        }\n        var isValid = this.isValid();\n        this.styleValidity_(isValid);\n        if (this.adapter_.hasLabel()) {\n            this.notchOutline(this.shouldFloat);\n            this.adapter_.floatLabel(this.shouldFloat);\n            this.adapter_.shakeLabel(this.shouldShake);\n        }\n    };\n    /**\n     * @return The custom validity state, if set; otherwise, the result of a native validity check.\n     */\n    MDCTextFieldFoundation.prototype.isValid = function () {\n        return this.useNativeValidation_\n            ? this.isNativeInputValid_() : this.isValid_;\n    };\n    /**\n     * @param isValid Sets the custom validity state of the Text Field.\n     */\n    MDCTextFieldFoundation.prototype.setValid = function (isValid) {\n        this.isValid_ = isValid;\n        this.styleValidity_(isValid);\n        var shouldShake = !isValid && !this.isFocused_;\n        if (this.adapter_.hasLabel()) {\n            this.adapter_.shakeLabel(shouldShake);\n        }\n    };\n    /**\n     * Enables or disables the use of native validation. Use this for custom validation.\n     * @param useNativeValidation Set this to false to ignore native input validation.\n     */\n    MDCTextFieldFoundation.prototype.setUseNativeValidation = function (useNativeValidation) {\n        this.useNativeValidation_ = useNativeValidation;\n    };\n    MDCTextFieldFoundation.prototype.isDisabled = function () {\n        return this.getNativeInput_().disabled;\n    };\n    /**\n     * @param disabled Sets the text-field disabled or enabled.\n     */\n    MDCTextFieldFoundation.prototype.setDisabled = function (disabled) {\n        this.getNativeInput_().disabled = disabled;\n        this.styleDisabled_(disabled);\n    };\n    /**\n     * @param content Sets the content of the helper text.\n     */\n    MDCTextFieldFoundation.prototype.setHelperTextContent = function (content) {\n        if (this.helperText_) {\n            this.helperText_.setContent(content);\n        }\n    };\n    /**\n     * Sets the aria label of the leading icon.\n     */\n    MDCTextFieldFoundation.prototype.setLeadingIconAriaLabel = function (label) {\n        if (this.leadingIcon_) {\n            this.leadingIcon_.setAriaLabel(label);\n        }\n    };\n    /**\n     * Sets the text content of the leading icon.\n     */\n    MDCTextFieldFoundation.prototype.setLeadingIconContent = function (content) {\n        if (this.leadingIcon_) {\n            this.leadingIcon_.setContent(content);\n        }\n    };\n    /**\n     * Sets the aria label of the trailing icon.\n     */\n    MDCTextFieldFoundation.prototype.setTrailingIconAriaLabel = function (label) {\n        if (this.trailingIcon_) {\n            this.trailingIcon_.setAriaLabel(label);\n        }\n    };\n    /**\n     * Sets the text content of the trailing icon.\n     */\n    MDCTextFieldFoundation.prototype.setTrailingIconContent = function (content) {\n        if (this.trailingIcon_) {\n            this.trailingIcon_.setContent(content);\n        }\n    };\n    /**\n     * Sets character counter values that shows characters used and the total character limit.\n     */\n    MDCTextFieldFoundation.prototype.setCharacterCounter_ = function (currentLength) {\n        if (!this.characterCounter_) {\n            return;\n        }\n        var maxLength = this.getNativeInput_().maxLength;\n        if (maxLength === -1) {\n            throw new Error('MDCTextFieldFoundation: Expected maxlength html property on text input or textarea.');\n        }\n        this.characterCounter_.setCounterValue(currentLength, maxLength);\n    };\n    /**\n     * @return True if the Text Field input fails in converting the user-supplied value.\n     */\n    MDCTextFieldFoundation.prototype.isBadInput_ = function () {\n        // The badInput property is not supported in IE 11 💩.\n        return this.getNativeInput_().validity.badInput || false;\n    };\n    /**\n     * @return The result of native validity checking (ValidityState.valid).\n     */\n    MDCTextFieldFoundation.prototype.isNativeInputValid_ = function () {\n        return this.getNativeInput_().validity.valid;\n    };\n    /**\n     * Styles the component based on the validity state.\n     */\n    MDCTextFieldFoundation.prototype.styleValidity_ = function (isValid) {\n        var INVALID = MDCTextFieldFoundation.cssClasses.INVALID;\n        if (isValid) {\n            this.adapter_.removeClass(INVALID);\n        }\n        else {\n            this.adapter_.addClass(INVALID);\n        }\n        if (this.helperText_) {\n            this.helperText_.setValidity(isValid);\n        }\n    };\n    /**\n     * Styles the component based on the focused state.\n     */\n    MDCTextFieldFoundation.prototype.styleFocused_ = function (isFocused) {\n        var FOCUSED = MDCTextFieldFoundation.cssClasses.FOCUSED;\n        if (isFocused) {\n            this.adapter_.addClass(FOCUSED);\n        }\n        else {\n            this.adapter_.removeClass(FOCUSED);\n        }\n    };\n    /**\n     * Styles the component based on the disabled state.\n     */\n    MDCTextFieldFoundation.prototype.styleDisabled_ = function (isDisabled) {\n        var _a = MDCTextFieldFoundation.cssClasses, DISABLED = _a.DISABLED, INVALID = _a.INVALID;\n        if (isDisabled) {\n            this.adapter_.addClass(DISABLED);\n            this.adapter_.removeClass(INVALID);\n        }\n        else {\n            this.adapter_.removeClass(DISABLED);\n        }\n        if (this.leadingIcon_) {\n            this.leadingIcon_.setDisabled(isDisabled);\n        }\n        if (this.trailingIcon_) {\n            this.trailingIcon_.setDisabled(isDisabled);\n        }\n    };\n    /**\n     * @return The native text input element from the host environment, or an object with the same shape for unit tests.\n     */\n    MDCTextFieldFoundation.prototype.getNativeInput_ = function () {\n        // this.adapter_ may be undefined in foundation unit tests. This happens when testdouble is creating a mock object\n        // and invokes the shouldShake/shouldFloat getters (which in turn call getValue(), which calls this method) before\n        // init() has been called from the MDCTextField constructor. To work around that issue, we return a dummy object.\n        var nativeInput = this.adapter_ ? this.adapter_.getNativeInput() : null;\n        return nativeInput || {\n            disabled: false,\n            maxLength: -1,\n            type: 'input',\n            validity: {\n                badInput: false,\n                valid: true,\n            },\n            value: '',\n        };\n    };\n    return MDCTextFieldFoundation;\n}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFoundation\"]));\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCTextFieldFoundation);\n//# sourceMappingURL=foundation.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/foundation.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldFoundation", function() { return MDCTextFieldFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/textfield/constants.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var POINTERDOWN_EVENTS = ['mousedown', 'touchstart'];
+var INTERACTION_EVENTS = ['click', 'keydown'];
+var MDCTextFieldFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTextFieldFoundation, _super);
+    /**
+     * @param adapter
+     * @param foundationMap Map from subcomponent names to their subfoundations.
+     */
+    function MDCTextFieldFoundation(adapter, foundationMap) {
+        if (foundationMap === void 0) { foundationMap = {}; }
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCTextFieldFoundation.defaultAdapter, adapter)) || this;
+        _this.isFocused_ = false;
+        _this.receivedUserInput_ = false;
+        _this.isValid_ = true;
+        _this.useNativeValidation_ = true;
+        _this.helperText_ = foundationMap.helperText;
+        _this.characterCounter_ = foundationMap.characterCounter;
+        _this.leadingIcon_ = foundationMap.leadingIcon;
+        _this.trailingIcon_ = foundationMap.trailingIcon;
+        _this.inputFocusHandler_ = function () { return _this.activateFocus(); };
+        _this.inputBlurHandler_ = function () { return _this.deactivateFocus(); };
+        _this.inputInputHandler_ = function () { return _this.handleInput(); };
+        _this.setPointerXOffset_ = function (evt) { return _this.setTransformOrigin(evt); };
+        _this.textFieldInteractionHandler_ = function () { return _this.handleTextFieldInteraction(); };
+        _this.validationAttributeChangeHandler_ = function (attributesList) { return _this.handleValidationAttributeChange(attributesList); };
+        return _this;
+    }
+    Object.defineProperty(MDCTextFieldFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldFoundation, "numbers", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldFoundation.prototype, "shouldAlwaysFloat_", {
+        get: function () {
+            var type = this.getNativeInput_().type;
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["ALWAYS_FLOAT_TYPES"].indexOf(type) >= 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldFoundation.prototype, "shouldFloat", {
+        get: function () {
+            return this.shouldAlwaysFloat_ || this.isFocused_ || Boolean(this.getValue()) || this.isBadInput_();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldFoundation.prototype, "shouldShake", {
+        get: function () {
+            return !this.isFocused_ && !this.isValid() && Boolean(this.getValue());
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCTextFieldAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                addClass: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                hasClass: function () { return true; },
+                registerTextFieldInteractionHandler: function () { return undefined; },
+                deregisterTextFieldInteractionHandler: function () { return undefined; },
+                registerInputInteractionHandler: function () { return undefined; },
+                deregisterInputInteractionHandler: function () { return undefined; },
+                registerValidationAttributeChangeHandler: function () { return new MutationObserver(function () { return undefined; }); },
+                deregisterValidationAttributeChangeHandler: function () { return undefined; },
+                getNativeInput: function () { return null; },
+                isFocused: function () { return false; },
+                activateLineRipple: function () { return undefined; },
+                deactivateLineRipple: function () { return undefined; },
+                setLineRippleTransformOrigin: function () { return undefined; },
+                shakeLabel: function () { return undefined; },
+                floatLabel: function () { return undefined; },
+                hasLabel: function () { return false; },
+                getLabelWidth: function () { return 0; },
+                hasOutline: function () { return false; },
+                notchOutline: function () { return undefined; },
+                closeOutline: function () { return undefined; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCTextFieldFoundation.prototype.init = function () {
+        var _this = this;
+        if (this.adapter_.isFocused()) {
+            this.inputFocusHandler_();
+        }
+        else if (this.adapter_.hasLabel() && this.shouldFloat) {
+            this.notchOutline(true);
+            this.adapter_.floatLabel(true);
+        }
+        this.adapter_.registerInputInteractionHandler('focus', this.inputFocusHandler_);
+        this.adapter_.registerInputInteractionHandler('blur', this.inputBlurHandler_);
+        this.adapter_.registerInputInteractionHandler('input', this.inputInputHandler_);
+        POINTERDOWN_EVENTS.forEach(function (evtType) {
+            _this.adapter_.registerInputInteractionHandler(evtType, _this.setPointerXOffset_);
+        });
+        INTERACTION_EVENTS.forEach(function (evtType) {
+            _this.adapter_.registerTextFieldInteractionHandler(evtType, _this.textFieldInteractionHandler_);
+        });
+        this.validationObserver_ =
+            this.adapter_.registerValidationAttributeChangeHandler(this.validationAttributeChangeHandler_);
+        this.setCharacterCounter_(this.getValue().length);
+    };
+    MDCTextFieldFoundation.prototype.destroy = function () {
+        var _this = this;
+        this.adapter_.deregisterInputInteractionHandler('focus', this.inputFocusHandler_);
+        this.adapter_.deregisterInputInteractionHandler('blur', this.inputBlurHandler_);
+        this.adapter_.deregisterInputInteractionHandler('input', this.inputInputHandler_);
+        POINTERDOWN_EVENTS.forEach(function (evtType) {
+            _this.adapter_.deregisterInputInteractionHandler(evtType, _this.setPointerXOffset_);
+        });
+        INTERACTION_EVENTS.forEach(function (evtType) {
+            _this.adapter_.deregisterTextFieldInteractionHandler(evtType, _this.textFieldInteractionHandler_);
+        });
+        this.adapter_.deregisterValidationAttributeChangeHandler(this.validationObserver_);
+    };
+    /**
+     * Handles user interactions with the Text Field.
+     */
+    MDCTextFieldFoundation.prototype.handleTextFieldInteraction = function () {
+        var nativeInput = this.adapter_.getNativeInput();
+        if (nativeInput && nativeInput.disabled) {
+            return;
+        }
+        this.receivedUserInput_ = true;
+    };
+    /**
+     * Handles validation attribute changes
+     */
+    MDCTextFieldFoundation.prototype.handleValidationAttributeChange = function (attributesList) {
+        var _this = this;
+        attributesList.some(function (attributeName) {
+            if (_constants__WEBPACK_IMPORTED_MODULE_2__["VALIDATION_ATTR_WHITELIST"].indexOf(attributeName) > -1) {
+                _this.styleValidity_(true);
+                return true;
+            }
+            return false;
+        });
+        if (attributesList.indexOf('maxlength') > -1) {
+            this.setCharacterCounter_(this.getValue().length);
+        }
+    };
+    /**
+     * Opens/closes the notched outline.
+     */
+    MDCTextFieldFoundation.prototype.notchOutline = function (openNotch) {
+        if (!this.adapter_.hasOutline()) {
+            return;
+        }
+        if (openNotch) {
+            var isDense = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].DENSE);
+            var labelScale = isDense ? _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"].DENSE_LABEL_SCALE : _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"].LABEL_SCALE;
+            var labelWidth = this.adapter_.getLabelWidth() * labelScale;
+            this.adapter_.notchOutline(labelWidth);
+        }
+        else {
+            this.adapter_.closeOutline();
+        }
+    };
+    /**
+     * Activates the text field focus state.
+     */
+    MDCTextFieldFoundation.prototype.activateFocus = function () {
+        this.isFocused_ = true;
+        this.styleFocused_(this.isFocused_);
+        this.adapter_.activateLineRipple();
+        if (this.adapter_.hasLabel()) {
+            this.notchOutline(this.shouldFloat);
+            this.adapter_.floatLabel(this.shouldFloat);
+            this.adapter_.shakeLabel(this.shouldShake);
+        }
+        if (this.helperText_) {
+            this.helperText_.showToScreenReader();
+        }
+    };
+    /**
+     * Sets the line ripple's transform origin, so that the line ripple activate
+     * animation will animate out from the user's click location.
+     */
+    MDCTextFieldFoundation.prototype.setTransformOrigin = function (evt) {
+        var touches = evt.touches;
+        var targetEvent = touches ? touches[0] : evt;
+        var targetClientRect = targetEvent.target.getBoundingClientRect();
+        var normalizedX = targetEvent.clientX - targetClientRect.left;
+        this.adapter_.setLineRippleTransformOrigin(normalizedX);
+    };
+    /**
+     * Handles input change of text input and text area.
+     */
+    MDCTextFieldFoundation.prototype.handleInput = function () {
+        this.autoCompleteFocus();
+        this.setCharacterCounter_(this.getValue().length);
+    };
+    /**
+     * Activates the Text Field's focus state in cases when the input value
+     * changes without user input (e.g. programmatically).
+     */
+    MDCTextFieldFoundation.prototype.autoCompleteFocus = function () {
+        if (!this.receivedUserInput_) {
+            this.activateFocus();
+        }
+    };
+    /**
+     * Deactivates the Text Field's focus state.
+     */
+    MDCTextFieldFoundation.prototype.deactivateFocus = function () {
+        this.isFocused_ = false;
+        this.adapter_.deactivateLineRipple();
+        var isValid = this.isValid();
+        this.styleValidity_(isValid);
+        this.styleFocused_(this.isFocused_);
+        if (this.adapter_.hasLabel()) {
+            this.notchOutline(this.shouldFloat);
+            this.adapter_.floatLabel(this.shouldFloat);
+            this.adapter_.shakeLabel(this.shouldShake);
+        }
+        if (!this.shouldFloat) {
+            this.receivedUserInput_ = false;
+        }
+    };
+    MDCTextFieldFoundation.prototype.getValue = function () {
+        return this.getNativeInput_().value;
+    };
+    /**
+     * @param value The value to set on the input Element.
+     */
+    MDCTextFieldFoundation.prototype.setValue = function (value) {
+        // Prevent Safari from moving the caret to the end of the input when the value has not changed.
+        if (this.getValue() !== value) {
+            this.getNativeInput_().value = value;
+            this.setCharacterCounter_(value.length);
+        }
+        var isValid = this.isValid();
+        this.styleValidity_(isValid);
+        if (this.adapter_.hasLabel()) {
+            this.notchOutline(this.shouldFloat);
+            this.adapter_.floatLabel(this.shouldFloat);
+            this.adapter_.shakeLabel(this.shouldShake);
+        }
+    };
+    /**
+     * @return The custom validity state, if set; otherwise, the result of a native validity check.
+     */
+    MDCTextFieldFoundation.prototype.isValid = function () {
+        return this.useNativeValidation_
+            ? this.isNativeInputValid_() : this.isValid_;
+    };
+    /**
+     * @param isValid Sets the custom validity state of the Text Field.
+     */
+    MDCTextFieldFoundation.prototype.setValid = function (isValid) {
+        this.isValid_ = isValid;
+        this.styleValidity_(isValid);
+        var shouldShake = !isValid && !this.isFocused_;
+        if (this.adapter_.hasLabel()) {
+            this.adapter_.shakeLabel(shouldShake);
+        }
+    };
+    /**
+     * Enables or disables the use of native validation. Use this for custom validation.
+     * @param useNativeValidation Set this to false to ignore native input validation.
+     */
+    MDCTextFieldFoundation.prototype.setUseNativeValidation = function (useNativeValidation) {
+        this.useNativeValidation_ = useNativeValidation;
+    };
+    MDCTextFieldFoundation.prototype.isDisabled = function () {
+        return this.getNativeInput_().disabled;
+    };
+    /**
+     * @param disabled Sets the text-field disabled or enabled.
+     */
+    MDCTextFieldFoundation.prototype.setDisabled = function (disabled) {
+        this.getNativeInput_().disabled = disabled;
+        this.styleDisabled_(disabled);
+    };
+    /**
+     * @param content Sets the content of the helper text.
+     */
+    MDCTextFieldFoundation.prototype.setHelperTextContent = function (content) {
+        if (this.helperText_) {
+            this.helperText_.setContent(content);
+        }
+    };
+    /**
+     * Sets the aria label of the leading icon.
+     */
+    MDCTextFieldFoundation.prototype.setLeadingIconAriaLabel = function (label) {
+        if (this.leadingIcon_) {
+            this.leadingIcon_.setAriaLabel(label);
+        }
+    };
+    /**
+     * Sets the text content of the leading icon.
+     */
+    MDCTextFieldFoundation.prototype.setLeadingIconContent = function (content) {
+        if (this.leadingIcon_) {
+            this.leadingIcon_.setContent(content);
+        }
+    };
+    /**
+     * Sets the aria label of the trailing icon.
+     */
+    MDCTextFieldFoundation.prototype.setTrailingIconAriaLabel = function (label) {
+        if (this.trailingIcon_) {
+            this.trailingIcon_.setAriaLabel(label);
+        }
+    };
+    /**
+     * Sets the text content of the trailing icon.
+     */
+    MDCTextFieldFoundation.prototype.setTrailingIconContent = function (content) {
+        if (this.trailingIcon_) {
+            this.trailingIcon_.setContent(content);
+        }
+    };
+    /**
+     * Sets character counter values that shows characters used and the total character limit.
+     */
+    MDCTextFieldFoundation.prototype.setCharacterCounter_ = function (currentLength) {
+        if (!this.characterCounter_) {
+            return;
+        }
+        var maxLength = this.getNativeInput_().maxLength;
+        if (maxLength === -1) {
+            throw new Error('MDCTextFieldFoundation: Expected maxlength html property on text input or textarea.');
+        }
+        this.characterCounter_.setCounterValue(currentLength, maxLength);
+    };
+    /**
+     * @return True if the Text Field input fails in converting the user-supplied value.
+     */
+    MDCTextFieldFoundation.prototype.isBadInput_ = function () {
+        // The badInput property is not supported in IE 11 💩.
+        return this.getNativeInput_().validity.badInput || false;
+    };
+    /**
+     * @return The result of native validity checking (ValidityState.valid).
+     */
+    MDCTextFieldFoundation.prototype.isNativeInputValid_ = function () {
+        return this.getNativeInput_().validity.valid;
+    };
+    /**
+     * Styles the component based on the validity state.
+     */
+    MDCTextFieldFoundation.prototype.styleValidity_ = function (isValid) {
+        var INVALID = MDCTextFieldFoundation.cssClasses.INVALID;
+        if (isValid) {
+            this.adapter_.removeClass(INVALID);
+        }
+        else {
+            this.adapter_.addClass(INVALID);
+        }
+        if (this.helperText_) {
+            this.helperText_.setValidity(isValid);
+        }
+    };
+    /**
+     * Styles the component based on the focused state.
+     */
+    MDCTextFieldFoundation.prototype.styleFocused_ = function (isFocused) {
+        var FOCUSED = MDCTextFieldFoundation.cssClasses.FOCUSED;
+        if (isFocused) {
+            this.adapter_.addClass(FOCUSED);
+        }
+        else {
+            this.adapter_.removeClass(FOCUSED);
+        }
+    };
+    /**
+     * Styles the component based on the disabled state.
+     */
+    MDCTextFieldFoundation.prototype.styleDisabled_ = function (isDisabled) {
+        var _a = MDCTextFieldFoundation.cssClasses, DISABLED = _a.DISABLED, INVALID = _a.INVALID;
+        if (isDisabled) {
+            this.adapter_.addClass(DISABLED);
+            this.adapter_.removeClass(INVALID);
+        }
+        else {
+            this.adapter_.removeClass(DISABLED);
+        }
+        if (this.leadingIcon_) {
+            this.leadingIcon_.setDisabled(isDisabled);
+        }
+        if (this.trailingIcon_) {
+            this.trailingIcon_.setDisabled(isDisabled);
+        }
+    };
+    /**
+     * @return The native text input element from the host environment, or an object with the same shape for unit tests.
+     */
+    MDCTextFieldFoundation.prototype.getNativeInput_ = function () {
+        // this.adapter_ may be undefined in foundation unit tests. This happens when testdouble is creating a mock object
+        // and invokes the shouldShake/shouldFloat getters (which in turn call getValue(), which calls this method) before
+        // init() has been called from the MDCTextField constructor. To work around that issue, we return a dummy object.
+        var nativeInput = this.adapter_ ? this.adapter_.getNativeInput() : null;
+        return nativeInput || {
+            disabled: false,
+            maxLength: -1,
+            type: 'input',
+            validity: {
+                badInput: false,
+                valid: true,
+            },
+            value: '',
+        };
+    };
+    return MDCTextFieldFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCTextFieldFoundation);
+//# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
@@ -428,7 +3327,73 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldHelperText\", function() { return MDCTextFieldHelperText; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ \"./node_modules/@material/base/component.js\");\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/textfield/helper-text/foundation.js\");\n/**\n * @license\n * Copyright 2017 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCTextFieldHelperText = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCTextFieldHelperText, _super);\n    function MDCTextFieldHelperText() {\n        return _super !== null && _super.apply(this, arguments) || this;\n    }\n    MDCTextFieldHelperText.attachTo = function (root) {\n        return new MDCTextFieldHelperText(root);\n    };\n    Object.defineProperty(MDCTextFieldHelperText.prototype, \"foundation\", {\n        get: function () {\n            return this.foundation_;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCTextFieldHelperText.prototype.getDefaultFoundation = function () {\n        var _this = this;\n        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.\n        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.\n        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n        var adapter = {\n            addClass: function (className) { return _this.root_.classList.add(className); },\n            removeClass: function (className) { return _this.root_.classList.remove(className); },\n            hasClass: function (className) { return _this.root_.classList.contains(className); },\n            setAttr: function (attr, value) { return _this.root_.setAttribute(attr, value); },\n            removeAttr: function (attr) { return _this.root_.removeAttribute(attr); },\n            setContent: function (content) {\n                _this.root_.textContent = content;\n            },\n        };\n        // tslint:enable:object-literal-sort-keys\n        return new _foundation__WEBPACK_IMPORTED_MODULE_2__[\"MDCTextFieldHelperTextFoundation\"](adapter);\n    };\n    return MDCTextFieldHelperText;\n}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__[\"MDCComponent\"]));\n\n//# sourceMappingURL=component.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/helper-text/component.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperText", function() { return MDCTextFieldHelperText; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/textfield/helper-text/foundation.js");
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCTextFieldHelperText = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTextFieldHelperText, _super);
+    function MDCTextFieldHelperText() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCTextFieldHelperText.attachTo = function (root) {
+        return new MDCTextFieldHelperText(root);
+    };
+    Object.defineProperty(MDCTextFieldHelperText.prototype, "foundation", {
+        get: function () {
+            return this.foundation_;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCTextFieldHelperText.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = {
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            setAttr: function (attr, value) { return _this.root_.setAttribute(attr, value); },
+            removeAttr: function (attr) { return _this.root_.removeAttribute(attr); },
+            setContent: function (content) {
+                _this.root_.textContent = content;
+            },
+        };
+        // tslint:enable:object-literal-sort-keys
+        return new _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTextFieldHelperTextFoundation"](adapter);
+    };
+    return MDCTextFieldHelperText;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
 
 /***/ }),
 
@@ -440,7 +3405,43 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"strings\", function() { return strings; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cssClasses\", function() { return cssClasses; });\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\nvar cssClasses = {\n    HELPER_TEXT_PERSISTENT: 'mdc-text-field-helper-text--persistent',\n    HELPER_TEXT_VALIDATION_MSG: 'mdc-text-field-helper-text--validation-msg',\n    ROOT: 'mdc-text-field-helper-text',\n};\nvar strings = {\n    ARIA_HIDDEN: 'aria-hidden',\n    ROLE: 'role',\n    ROOT_SELECTOR: \".\" + cssClasses.ROOT,\n};\n\n//# sourceMappingURL=constants.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/helper-text/constants.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses = {
+    HELPER_TEXT_PERSISTENT: 'mdc-text-field-helper-text--persistent',
+    HELPER_TEXT_VALIDATION_MSG: 'mdc-text-field-helper-text--validation-msg',
+    ROOT: 'mdc-text-field-helper-text',
+};
+var strings = {
+    ARIA_HIDDEN: 'aria-hidden',
+    ROLE: 'role',
+    ROOT_SELECTOR: "." + cssClasses.ROOT,
+};
+
+//# sourceMappingURL=constants.js.map
 
 /***/ }),
 
@@ -452,7 +3453,137 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldHelperTextFoundation\", function() { return MDCTextFieldHelperTextFoundation; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ \"./node_modules/@material/base/foundation.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/textfield/helper-text/constants.js\");\n/**\n * @license\n * Copyright 2017 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCTextFieldHelperTextFoundation = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCTextFieldHelperTextFoundation, _super);\n    function MDCTextFieldHelperTextFoundation(adapter) {\n        return _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, MDCTextFieldHelperTextFoundation.defaultAdapter, adapter)) || this;\n    }\n    Object.defineProperty(MDCTextFieldHelperTextFoundation, \"cssClasses\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldHelperTextFoundation, \"strings\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldHelperTextFoundation, \"defaultAdapter\", {\n        /**\n         * See {@link MDCTextFieldHelperTextAdapter} for typing information on parameters and return types.\n         */\n        get: function () {\n            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n            return {\n                addClass: function () { return undefined; },\n                removeClass: function () { return undefined; },\n                hasClass: function () { return false; },\n                setAttr: function () { return undefined; },\n                removeAttr: function () { return undefined; },\n                setContent: function () { return undefined; },\n            };\n            // tslint:enable:object-literal-sort-keys\n        },\n        enumerable: true,\n        configurable: true\n    });\n    /**\n     * Sets the content of the helper text field.\n     */\n    MDCTextFieldHelperTextFoundation.prototype.setContent = function (content) {\n        this.adapter_.setContent(content);\n    };\n    /**\n     * @param isPersistent Sets the persistency of the helper text.\n     */\n    MDCTextFieldHelperTextFoundation.prototype.setPersistent = function (isPersistent) {\n        if (isPersistent) {\n            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].HELPER_TEXT_PERSISTENT);\n        }\n        else {\n            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].HELPER_TEXT_PERSISTENT);\n        }\n    };\n    /**\n     * @param isValidation True to make the helper text act as an error validation message.\n     */\n    MDCTextFieldHelperTextFoundation.prototype.setValidation = function (isValidation) {\n        if (isValidation) {\n            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].HELPER_TEXT_VALIDATION_MSG);\n        }\n        else {\n            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].HELPER_TEXT_VALIDATION_MSG);\n        }\n    };\n    /**\n     * Makes the helper text visible to the screen reader.\n     */\n    MDCTextFieldHelperTextFoundation.prototype.showToScreenReader = function () {\n        this.adapter_.removeAttr(_constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"].ARIA_HIDDEN);\n    };\n    /**\n     * Sets the validity of the helper text based on the input validity.\n     */\n    MDCTextFieldHelperTextFoundation.prototype.setValidity = function (inputIsValid) {\n        var helperTextIsPersistent = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].HELPER_TEXT_PERSISTENT);\n        var helperTextIsValidationMsg = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__[\"cssClasses\"].HELPER_TEXT_VALIDATION_MSG);\n        var validationMsgNeedsDisplay = helperTextIsValidationMsg && !inputIsValid;\n        if (validationMsgNeedsDisplay) {\n            this.adapter_.setAttr(_constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"].ROLE, 'alert');\n        }\n        else {\n            this.adapter_.removeAttr(_constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"].ROLE);\n        }\n        if (!helperTextIsPersistent && !validationMsgNeedsDisplay) {\n            this.hide_();\n        }\n    };\n    /**\n     * Hides the help text from screen readers.\n     */\n    MDCTextFieldHelperTextFoundation.prototype.hide_ = function () {\n        this.adapter_.setAttr(_constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"].ARIA_HIDDEN, 'true');\n    };\n    return MDCTextFieldHelperTextFoundation;\n}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFoundation\"]));\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCTextFieldHelperTextFoundation);\n//# sourceMappingURL=foundation.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/helper-text/foundation.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperTextFoundation", function() { return MDCTextFieldHelperTextFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/textfield/helper-text/constants.js");
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCTextFieldHelperTextFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTextFieldHelperTextFoundation, _super);
+    function MDCTextFieldHelperTextFoundation(adapter) {
+        return _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCTextFieldHelperTextFoundation.defaultAdapter, adapter)) || this;
+    }
+    Object.defineProperty(MDCTextFieldHelperTextFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldHelperTextFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldHelperTextFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCTextFieldHelperTextAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                addClass: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                hasClass: function () { return false; },
+                setAttr: function () { return undefined; },
+                removeAttr: function () { return undefined; },
+                setContent: function () { return undefined; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Sets the content of the helper text field.
+     */
+    MDCTextFieldHelperTextFoundation.prototype.setContent = function (content) {
+        this.adapter_.setContent(content);
+    };
+    /**
+     * @param isPersistent Sets the persistency of the helper text.
+     */
+    MDCTextFieldHelperTextFoundation.prototype.setPersistent = function (isPersistent) {
+        if (isPersistent) {
+            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_PERSISTENT);
+        }
+        else {
+            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_PERSISTENT);
+        }
+    };
+    /**
+     * @param isValidation True to make the helper text act as an error validation message.
+     */
+    MDCTextFieldHelperTextFoundation.prototype.setValidation = function (isValidation) {
+        if (isValidation) {
+            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_VALIDATION_MSG);
+        }
+        else {
+            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_VALIDATION_MSG);
+        }
+    };
+    /**
+     * Makes the helper text visible to the screen reader.
+     */
+    MDCTextFieldHelperTextFoundation.prototype.showToScreenReader = function () {
+        this.adapter_.removeAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ARIA_HIDDEN);
+    };
+    /**
+     * Sets the validity of the helper text based on the input validity.
+     */
+    MDCTextFieldHelperTextFoundation.prototype.setValidity = function (inputIsValid) {
+        var helperTextIsPersistent = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_PERSISTENT);
+        var helperTextIsValidationMsg = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"].HELPER_TEXT_VALIDATION_MSG);
+        var validationMsgNeedsDisplay = helperTextIsValidationMsg && !inputIsValid;
+        if (validationMsgNeedsDisplay) {
+            this.adapter_.setAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ROLE, 'alert');
+        }
+        else {
+            this.adapter_.removeAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ROLE);
+        }
+        if (!helperTextIsPersistent && !validationMsgNeedsDisplay) {
+            this.hide_();
+        }
+    };
+    /**
+     * Hides the help text from screen readers.
+     */
+    MDCTextFieldHelperTextFoundation.prototype.hide_ = function () {
+        this.adapter_.setAttr(_constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ARIA_HIDDEN, 'true');
+    };
+    return MDCTextFieldHelperTextFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCTextFieldHelperTextFoundation);
+//# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
@@ -464,7 +3595,38 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ \"./node_modules/@material/textfield/helper-text/component.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldHelperText\", function() { return _component__WEBPACK_IMPORTED_MODULE_0__[\"MDCTextFieldHelperText\"]; });\n\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/textfield/helper-text/foundation.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldHelperTextFoundation\", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCTextFieldHelperTextFoundation\"]; });\n\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/helper-text/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/textfield/helper-text/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperText", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTextFieldHelperText"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/textfield/helper-text/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperTextFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCTextFieldHelperTextFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -476,7 +3638,74 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldIcon\", function() { return MDCTextFieldIcon; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ \"./node_modules/@material/base/component.js\");\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/textfield/icon/foundation.js\");\n/**\n * @license\n * Copyright 2017 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar MDCTextFieldIcon = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCTextFieldIcon, _super);\n    function MDCTextFieldIcon() {\n        return _super !== null && _super.apply(this, arguments) || this;\n    }\n    MDCTextFieldIcon.attachTo = function (root) {\n        return new MDCTextFieldIcon(root);\n    };\n    Object.defineProperty(MDCTextFieldIcon.prototype, \"foundation\", {\n        get: function () {\n            return this.foundation_;\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCTextFieldIcon.prototype.getDefaultFoundation = function () {\n        var _this = this;\n        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.\n        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.\n        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n        var adapter = {\n            getAttr: function (attr) { return _this.root_.getAttribute(attr); },\n            setAttr: function (attr, value) { return _this.root_.setAttribute(attr, value); },\n            removeAttr: function (attr) { return _this.root_.removeAttribute(attr); },\n            setContent: function (content) {\n                _this.root_.textContent = content;\n            },\n            registerInteractionHandler: function (evtType, handler) { return _this.listen(evtType, handler); },\n            deregisterInteractionHandler: function (evtType, handler) { return _this.unlisten(evtType, handler); },\n            notifyIconAction: function () { return _this.emit(_foundation__WEBPACK_IMPORTED_MODULE_2__[\"MDCTextFieldIconFoundation\"].strings.ICON_EVENT, {} /* evtData */, true /* shouldBubble */); },\n        };\n        // tslint:enable:object-literal-sort-keys\n        return new _foundation__WEBPACK_IMPORTED_MODULE_2__[\"MDCTextFieldIconFoundation\"](adapter);\n    };\n    return MDCTextFieldIcon;\n}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__[\"MDCComponent\"]));\n\n//# sourceMappingURL=component.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/icon/component.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIcon", function() { return MDCTextFieldIcon; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/textfield/icon/foundation.js");
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCTextFieldIcon = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTextFieldIcon, _super);
+    function MDCTextFieldIcon() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCTextFieldIcon.attachTo = function (root) {
+        return new MDCTextFieldIcon(root);
+    };
+    Object.defineProperty(MDCTextFieldIcon.prototype, "foundation", {
+        get: function () {
+            return this.foundation_;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCTextFieldIcon.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = {
+            getAttr: function (attr) { return _this.root_.getAttribute(attr); },
+            setAttr: function (attr, value) { return _this.root_.setAttribute(attr, value); },
+            removeAttr: function (attr) { return _this.root_.removeAttribute(attr); },
+            setContent: function (content) {
+                _this.root_.textContent = content;
+            },
+            registerInteractionHandler: function (evtType, handler) { return _this.listen(evtType, handler); },
+            deregisterInteractionHandler: function (evtType, handler) { return _this.unlisten(evtType, handler); },
+            notifyIconAction: function () { return _this.emit(_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTextFieldIconFoundation"].strings.ICON_EVENT, {} /* evtData */, true /* shouldBubble */); },
+        };
+        // tslint:enable:object-literal-sort-keys
+        return new _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTextFieldIconFoundation"](adapter);
+    };
+    return MDCTextFieldIcon;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
 
 /***/ }),
 
@@ -488,7 +3717,36 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"strings\", function() { return strings; });\n/**\n * @license\n * Copyright 2016 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\nvar strings = {\n    ICON_EVENT: 'MDCTextField:icon',\n    ICON_ROLE: 'button',\n};\n\n//# sourceMappingURL=constants.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/icon/constants.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var strings = {
+    ICON_EVENT: 'MDCTextField:icon',
+    ICON_ROLE: 'button',
+};
+
+//# sourceMappingURL=constants.js.map
 
 /***/ }),
 
@@ -500,7 +3758,116 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldIconFoundation\", function() { return MDCTextFieldIconFoundation; });\n/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ \"./node_modules/tslib/tslib.es6.js\");\n/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ \"./node_modules/@material/base/foundation.js\");\n/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ \"./node_modules/@material/textfield/icon/constants.js\");\n/**\n * @license\n * Copyright 2017 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\nvar INTERACTION_EVENTS = ['click', 'keydown'];\nvar MDCTextFieldIconFoundation = /** @class */ (function (_super) {\n    tslib__WEBPACK_IMPORTED_MODULE_0__[\"__extends\"](MDCTextFieldIconFoundation, _super);\n    function MDCTextFieldIconFoundation(adapter) {\n        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__[\"__assign\"]({}, MDCTextFieldIconFoundation.defaultAdapter, adapter)) || this;\n        _this.savedTabIndex_ = null;\n        _this.interactionHandler_ = function (evt) { return _this.handleInteraction(evt); };\n        return _this;\n    }\n    Object.defineProperty(MDCTextFieldIconFoundation, \"strings\", {\n        get: function () {\n            return _constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"];\n        },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(MDCTextFieldIconFoundation, \"defaultAdapter\", {\n        /**\n         * See {@link MDCTextFieldIconAdapter} for typing information on parameters and return types.\n         */\n        get: function () {\n            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.\n            return {\n                getAttr: function () { return null; },\n                setAttr: function () { return undefined; },\n                removeAttr: function () { return undefined; },\n                setContent: function () { return undefined; },\n                registerInteractionHandler: function () { return undefined; },\n                deregisterInteractionHandler: function () { return undefined; },\n                notifyIconAction: function () { return undefined; },\n            };\n            // tslint:enable:object-literal-sort-keys\n        },\n        enumerable: true,\n        configurable: true\n    });\n    MDCTextFieldIconFoundation.prototype.init = function () {\n        var _this = this;\n        this.savedTabIndex_ = this.adapter_.getAttr('tabindex');\n        INTERACTION_EVENTS.forEach(function (evtType) {\n            _this.adapter_.registerInteractionHandler(evtType, _this.interactionHandler_);\n        });\n    };\n    MDCTextFieldIconFoundation.prototype.destroy = function () {\n        var _this = this;\n        INTERACTION_EVENTS.forEach(function (evtType) {\n            _this.adapter_.deregisterInteractionHandler(evtType, _this.interactionHandler_);\n        });\n    };\n    MDCTextFieldIconFoundation.prototype.setDisabled = function (disabled) {\n        if (!this.savedTabIndex_) {\n            return;\n        }\n        if (disabled) {\n            this.adapter_.setAttr('tabindex', '-1');\n            this.adapter_.removeAttr('role');\n        }\n        else {\n            this.adapter_.setAttr('tabindex', this.savedTabIndex_);\n            this.adapter_.setAttr('role', _constants__WEBPACK_IMPORTED_MODULE_2__[\"strings\"].ICON_ROLE);\n        }\n    };\n    MDCTextFieldIconFoundation.prototype.setAriaLabel = function (label) {\n        this.adapter_.setAttr('aria-label', label);\n    };\n    MDCTextFieldIconFoundation.prototype.setContent = function (content) {\n        this.adapter_.setContent(content);\n    };\n    MDCTextFieldIconFoundation.prototype.handleInteraction = function (evt) {\n        var isEnterKey = evt.key === 'Enter' || evt.keyCode === 13;\n        if (evt.type === 'click' || isEnterKey) {\n            this.adapter_.notifyIconAction();\n        }\n    };\n    return MDCTextFieldIconFoundation;\n}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCFoundation\"]));\n\n// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.\n/* harmony default export */ __webpack_exports__[\"default\"] = (MDCTextFieldIconFoundation);\n//# sourceMappingURL=foundation.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/icon/foundation.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIconFoundation", function() { return MDCTextFieldIconFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/textfield/icon/constants.js");
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var INTERACTION_EVENTS = ['click', 'keydown'];
+var MDCTextFieldIconFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTextFieldIconFoundation, _super);
+    function MDCTextFieldIconFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCTextFieldIconFoundation.defaultAdapter, adapter)) || this;
+        _this.savedTabIndex_ = null;
+        _this.interactionHandler_ = function (evt) { return _this.handleInteraction(evt); };
+        return _this;
+    }
+    Object.defineProperty(MDCTextFieldIconFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTextFieldIconFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCTextFieldIconAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                getAttr: function () { return null; },
+                setAttr: function () { return undefined; },
+                removeAttr: function () { return undefined; },
+                setContent: function () { return undefined; },
+                registerInteractionHandler: function () { return undefined; },
+                deregisterInteractionHandler: function () { return undefined; },
+                notifyIconAction: function () { return undefined; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCTextFieldIconFoundation.prototype.init = function () {
+        var _this = this;
+        this.savedTabIndex_ = this.adapter_.getAttr('tabindex');
+        INTERACTION_EVENTS.forEach(function (evtType) {
+            _this.adapter_.registerInteractionHandler(evtType, _this.interactionHandler_);
+        });
+    };
+    MDCTextFieldIconFoundation.prototype.destroy = function () {
+        var _this = this;
+        INTERACTION_EVENTS.forEach(function (evtType) {
+            _this.adapter_.deregisterInteractionHandler(evtType, _this.interactionHandler_);
+        });
+    };
+    MDCTextFieldIconFoundation.prototype.setDisabled = function (disabled) {
+        if (!this.savedTabIndex_) {
+            return;
+        }
+        if (disabled) {
+            this.adapter_.setAttr('tabindex', '-1');
+            this.adapter_.removeAttr('role');
+        }
+        else {
+            this.adapter_.setAttr('tabindex', this.savedTabIndex_);
+            this.adapter_.setAttr('role', _constants__WEBPACK_IMPORTED_MODULE_2__["strings"].ICON_ROLE);
+        }
+    };
+    MDCTextFieldIconFoundation.prototype.setAriaLabel = function (label) {
+        this.adapter_.setAttr('aria-label', label);
+    };
+    MDCTextFieldIconFoundation.prototype.setContent = function (content) {
+        this.adapter_.setContent(content);
+    };
+    MDCTextFieldIconFoundation.prototype.handleInteraction = function (evt) {
+        var isEnterKey = evt.key === 'Enter' || evt.keyCode === 13;
+        if (evt.type === 'click' || isEnterKey) {
+            this.adapter_.notifyIconAction();
+        }
+    };
+    return MDCTextFieldIconFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCTextFieldIconFoundation);
+//# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
@@ -512,7 +3879,38 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ \"./node_modules/@material/textfield/icon/component.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldIcon\", function() { return _component__WEBPACK_IMPORTED_MODULE_0__[\"MDCTextFieldIcon\"]; });\n\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/textfield/icon/foundation.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldIconFoundation\", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCTextFieldIconFoundation\"]; });\n\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/icon/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/textfield/icon/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIcon", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTextFieldIcon"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/textfield/icon/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIconFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCTextFieldIconFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -524,7 +3922,56 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ \"./node_modules/@material/textfield/component.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextField\", function() { return _component__WEBPACK_IMPORTED_MODULE_0__[\"MDCTextField\"]; });\n\n/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ \"./node_modules/@material/textfield/foundation.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldFoundation\", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__[\"MDCTextFieldFoundation\"]; });\n\n/* harmony import */ var _character_counter_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./character-counter/index */ \"./node_modules/@material/textfield/character-counter/index.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldCharacterCounter\", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_2__[\"MDCTextFieldCharacterCounter\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldCharacterCounterFoundation\", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_2__[\"MDCTextFieldCharacterCounterFoundation\"]; });\n\n/* harmony import */ var _helper_text_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper-text/index */ \"./node_modules/@material/textfield/helper-text/index.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldHelperText\", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_3__[\"MDCTextFieldHelperText\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldHelperTextFoundation\", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_3__[\"MDCTextFieldHelperTextFoundation\"]; });\n\n/* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icon/index */ \"./node_modules/@material/textfield/icon/index.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldIcon\", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_4__[\"MDCTextFieldIcon\"]; });\n\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"MDCTextFieldIconFoundation\", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_4__[\"MDCTextFieldIconFoundation\"]; });\n\n/**\n * @license\n * Copyright 2019 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n\n\n\n\n\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack:///./node_modules/@material/textfield/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/textfield/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextField", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTextField"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/textfield/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCTextFieldFoundation"]; });
+
+/* harmony import */ var _character_counter_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./character-counter/index */ "./node_modules/@material/textfield/character-counter/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounter", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_2__["MDCTextFieldCharacterCounter"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldCharacterCounterFoundation", function() { return _character_counter_index__WEBPACK_IMPORTED_MODULE_2__["MDCTextFieldCharacterCounterFoundation"]; });
+
+/* harmony import */ var _helper_text_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper-text/index */ "./node_modules/@material/textfield/helper-text/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperText", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_3__["MDCTextFieldHelperText"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldHelperTextFoundation", function() { return _helper_text_index__WEBPACK_IMPORTED_MODULE_3__["MDCTextFieldHelperTextFoundation"]; });
+
+/* harmony import */ var _icon_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icon/index */ "./node_modules/@material/textfield/icon/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIcon", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_4__["MDCTextFieldIcon"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTextFieldIconFoundation", function() { return _icon_index__WEBPACK_IMPORTED_MODULE_4__["MDCTextFieldIconFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -535,7 +3982,15 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _com
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ \"./node_modules/css-loader/lib/css-base.js\")(false);\n// imports\n\n\n// module\nexports.push([module.i, \".mdc-floating-label {\\n  font-family: Roboto, sans-serif;\\n  -moz-osx-font-smoothing: grayscale;\\n  -webkit-font-smoothing: antialiased;\\n  font-size: 1rem;\\n  line-height: 1.75rem;\\n  font-weight: 400;\\n  letter-spacing: 0.00937em;\\n  text-decoration: inherit;\\n  text-transform: inherit;\\n  position: absolute;\\n  /* @noflip */\\n  left: 0;\\n  /* @noflip */\\n  transform-origin: left top;\\n  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1);\\n  /* @alternate */\\n  line-height: 1.15rem;\\n  text-align: left;\\n  text-overflow: ellipsis;\\n  white-space: nowrap;\\n  cursor: text;\\n  overflow: hidden;\\n  will-change: transform; }\\n  [dir=\\\"rtl\\\"] .mdc-floating-label, .mdc-floating-label[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    right: 0;\\n    /* @noflip */\\n    left: auto;\\n    /* @noflip */\\n    transform-origin: right top;\\n    /* @noflip */\\n    text-align: right; }\\n\\n.mdc-floating-label--float-above {\\n  cursor: auto; }\\n\\n.mdc-floating-label--float-above {\\n  transform: translateY(-50%) scale(0.75); }\\n\\n.mdc-floating-label--shake {\\n  animation: mdc-floating-label-shake-float-above-standard 250ms 1; }\\n\\n@keyframes mdc-floating-label-shake-float-above-standard {\\n  0% {\\n    transform: translateX(calc(0 - 0%)) translateY(-50%) scale(0.75); }\\n  33% {\\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\\n    transform: translateX(calc(4% - 0%)) translateY(-50%) scale(0.75); }\\n  66% {\\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\\n    transform: translateX(calc(-4% - 0%)) translateY(-50%) scale(0.75); }\\n  100% {\\n    transform: translateX(calc(0 - 0%)) translateY(-50%) scale(0.75); } }\\n\\n.mdc-line-ripple {\\n  position: absolute;\\n  bottom: 0;\\n  left: 0;\\n  width: 100%;\\n  height: 2px;\\n  transform: scaleX(0);\\n  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1), opacity 180ms cubic-bezier(0.4, 0, 0.2, 1);\\n  opacity: 0;\\n  z-index: 2; }\\n\\n.mdc-line-ripple--active {\\n  transform: scaleX(1);\\n  opacity: 1; }\\n\\n.mdc-line-ripple--deactivating {\\n  opacity: 0; }\\n\\n.mdc-notched-outline {\\n  display: flex;\\n  position: absolute;\\n  right: 0;\\n  left: 0;\\n  box-sizing: border-box;\\n  width: 100%;\\n  max-width: 100%;\\n  height: 100%;\\n  /* @noflip */\\n  text-align: left;\\n  pointer-events: none; }\\n  [dir=\\\"rtl\\\"] .mdc-notched-outline, .mdc-notched-outline[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    text-align: right; }\\n  .mdc-notched-outline__leading, .mdc-notched-outline__notch, .mdc-notched-outline__trailing {\\n    box-sizing: border-box;\\n    height: 100%;\\n    transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);\\n    border-top: 1px solid;\\n    border-bottom: 1px solid;\\n    pointer-events: none; }\\n  .mdc-notched-outline__leading {\\n    /* @noflip */\\n    border-left: 1px solid;\\n    /* @noflip */\\n    border-right: none;\\n    width: 12px; }\\n    [dir=\\\"rtl\\\"] .mdc-notched-outline__leading, .mdc-notched-outline__leading[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      border-left: none;\\n      /* @noflip */\\n      border-right: 1px solid; }\\n  .mdc-notched-outline__trailing {\\n    /* @noflip */\\n    border-left: none;\\n    /* @noflip */\\n    border-right: 1px solid;\\n    flex-grow: 1; }\\n    [dir=\\\"rtl\\\"] .mdc-notched-outline__trailing, .mdc-notched-outline__trailing[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      border-left: 1px solid;\\n      /* @noflip */\\n      border-right: none; }\\n  .mdc-notched-outline__notch {\\n    flex: 0 0 auto;\\n    width: auto;\\n    max-width: calc(100% - 12px * 2); }\\n  .mdc-notched-outline .mdc-floating-label {\\n    display: inline-block;\\n    position: relative;\\n    top: 17px;\\n    bottom: auto;\\n    max-width: 100%; }\\n  .mdc-notched-outline .mdc-floating-label--float-above {\\n    text-overflow: clip; }\\n  .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n    max-width: calc(100% / .75); }\\n\\n.mdc-notched-outline--notched .mdc-notched-outline__notch {\\n  /* @noflip */\\n  padding-left: 0;\\n  /* @noflip */\\n  padding-right: 8px;\\n  border-top: none; }\\n  [dir=\\\"rtl\\\"] .mdc-notched-outline--notched .mdc-notched-outline__notch, .mdc-notched-outline--notched .mdc-notched-outline__notch[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 8px;\\n    /* @noflip */\\n    padding-right: 0; }\\n\\n.mdc-notched-outline--no-label .mdc-notched-outline__notch {\\n  padding: 0; }\\n\\n@keyframes mdc-ripple-fg-radius-in {\\n  from {\\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\\n  to {\\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\\n\\n@keyframes mdc-ripple-fg-opacity-in {\\n  from {\\n    animation-timing-function: linear;\\n    opacity: 0; }\\n  to {\\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\\n\\n@keyframes mdc-ripple-fg-opacity-out {\\n  from {\\n    animation-timing-function: linear;\\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\\n  to {\\n    opacity: 0; } }\\n\\n.mdc-ripple-surface--test-edge-var-bug {\\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\\n  visibility: hidden; }\\n  .mdc-ripple-surface--test-edge-var-bug::before {\\n    border: var(--mdc-ripple-surface-test-edge-var); }\\n\\n.mdc-text-field-helper-text {\\n  font-family: Roboto, sans-serif;\\n  -moz-osx-font-smoothing: grayscale;\\n  -webkit-font-smoothing: antialiased;\\n  font-size: 0.75rem;\\n  line-height: 1.25rem;\\n  font-weight: 400;\\n  letter-spacing: 0.03333em;\\n  text-decoration: inherit;\\n  text-transform: inherit;\\n  display: block;\\n  margin-top: 0;\\n  /* @alternate */\\n  line-height: normal;\\n  margin: 0;\\n  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);\\n  opacity: 0;\\n  will-change: opacity; }\\n  .mdc-text-field-helper-text::before {\\n    display: inline-block;\\n    width: 0;\\n    height: 16px;\\n    content: \\\"\\\";\\n    vertical-align: 0; }\\n\\n.mdc-text-field-helper-text--persistent {\\n  transition: none;\\n  opacity: 1;\\n  will-change: initial; }\\n\\n.mdc-text-field-character-counter {\\n  font-family: Roboto, sans-serif;\\n  -moz-osx-font-smoothing: grayscale;\\n  -webkit-font-smoothing: antialiased;\\n  font-size: 0.75rem;\\n  line-height: 1.25rem;\\n  font-weight: 400;\\n  letter-spacing: 0.03333em;\\n  text-decoration: inherit;\\n  text-transform: inherit;\\n  display: block;\\n  margin-top: 0;\\n  /* @alternate */\\n  line-height: normal;\\n  /* @noflip */\\n  margin-left: auto;\\n  /* @noflip */\\n  margin-right: 0;\\n  /* @noflip */\\n  padding-left: 16px;\\n  /* @noflip */\\n  padding-right: 0;\\n  white-space: nowrap; }\\n  .mdc-text-field-character-counter::before {\\n    display: inline-block;\\n    width: 0;\\n    height: 16px;\\n    content: \\\"\\\";\\n    vertical-align: 0; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field-character-counter, .mdc-text-field-character-counter[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    margin-left: 0;\\n    /* @noflip */\\n    margin-right: auto; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field-character-counter, .mdc-text-field-character-counter[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 0;\\n    /* @noflip */\\n    padding-right: 16px; }\\n\\n.mdc-text-field--with-leading-icon .mdc-text-field__icon,\\n.mdc-text-field--with-trailing-icon .mdc-text-field__icon {\\n  position: absolute;\\n  bottom: 16px;\\n  cursor: pointer; }\\n\\n.mdc-text-field__icon:not([tabindex]),\\n.mdc-text-field__icon[tabindex=\\\"-1\\\"] {\\n  cursor: default;\\n  pointer-events: none; }\\n\\n.mdc-text-field {\\n  --mdc-ripple-fg-size: 0;\\n  --mdc-ripple-left: 0;\\n  --mdc-ripple-top: 0;\\n  --mdc-ripple-fg-scale: 1;\\n  --mdc-ripple-fg-translate-end: 0;\\n  --mdc-ripple-fg-translate-start: 0;\\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\\n  will-change: transform, opacity;\\n  border-radius: 4px 4px 0 0;\\n  display: inline-flex;\\n  position: relative;\\n  box-sizing: border-box;\\n  height: 56px;\\n  overflow: hidden;\\n  /* @alternate */\\n  will-change: opacity, transform, color; }\\n  .mdc-text-field::before, .mdc-text-field::after {\\n    position: absolute;\\n    border-radius: 50%;\\n    opacity: 0;\\n    pointer-events: none;\\n    content: \\\"\\\"; }\\n  .mdc-text-field::before {\\n    transition: opacity 15ms linear, background-color 15ms linear;\\n    z-index: 1; }\\n  .mdc-text-field.mdc-ripple-upgraded::before {\\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\\n  .mdc-text-field.mdc-ripple-upgraded::after {\\n    top: 0;\\n    /* @noflip */\\n    left: 0;\\n    transform: scale(0);\\n    transform-origin: center center; }\\n  .mdc-text-field.mdc-ripple-upgraded--unbounded::after {\\n    top: var(--mdc-ripple-top, 0);\\n    /* @noflip */\\n    left: var(--mdc-ripple-left, 0); }\\n  .mdc-text-field.mdc-ripple-upgraded--foreground-activation::after {\\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\\n  .mdc-text-field.mdc-ripple-upgraded--foreground-deactivation::after {\\n    animation: mdc-ripple-fg-opacity-out 150ms;\\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\\n  .mdc-text-field::before, .mdc-text-field::after {\\n    background-color: rgba(0, 0, 0, 0.87); }\\n  .mdc-text-field:hover::before {\\n    opacity: 0.04; }\\n  .mdc-text-field:not(.mdc-ripple-upgraded):focus::before, .mdc-text-field.mdc-ripple-upgraded--background-focused::before {\\n    transition-duration: 75ms;\\n    opacity: 0.12; }\\n  .mdc-text-field::before, .mdc-text-field::after {\\n    top: calc(50% - 100%);\\n    /* @noflip */\\n    left: calc(50% - 100%);\\n    width: 200%;\\n    height: 200%; }\\n  .mdc-text-field.mdc-ripple-upgraded::after {\\n    width: var(--mdc-ripple-fg-size, 100%);\\n    height: var(--mdc-ripple-fg-size, 100%); }\\n  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {\\n    color: rgba(0, 0, 0, 0.6); }\\n  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {\\n    color: rgba(0, 0, 0, 0.87); }\\n  .mdc-text-field .mdc-text-field__input {\\n    caret-color: #0052d9;\\n    /* @alternate */\\n    caret-color: var(--mdc-theme-primary, #0052d9); }\\n  .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input {\\n    border-bottom-color: rgba(0, 0, 0, 0.42); }\\n  .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input:hover {\\n    border-bottom-color: rgba(0, 0, 0, 0.87); }\\n  .mdc-text-field .mdc-line-ripple {\\n    background-color: #0052d9;\\n    /* @alternate */\\n    background-color: var(--mdc-theme-primary, #0052d9); }\\n  .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--textarea) {\\n    border-bottom-color: rgba(0, 0, 0, 0.12); }\\n  .mdc-text-field:not(.mdc-text-field--disabled) + .mdc-text-field-helper-line .mdc-text-field-helper-text {\\n    color: rgba(0, 0, 0, 0.6); }\\n  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,\\n  .mdc-text-field:not(.mdc-text-field--disabled) + .mdc-text-field-helper-line .mdc-text-field-character-counter {\\n    color: rgba(0, 0, 0, 0.6); }\\n  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon {\\n    color: rgba(0, 0, 0, 0.54); }\\n  .mdc-text-field:not(.mdc-text-field--disabled) {\\n    background-color: whitesmoke; }\\n  .mdc-text-field .mdc-floating-label {\\n    /* @noflip */\\n    left: 16px;\\n    /* @noflip */\\n    right: initial;\\n    top: 18px;\\n    pointer-events: none; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field .mdc-floating-label, .mdc-text-field .mdc-floating-label[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      left: initial;\\n      /* @noflip */\\n      right: 16px; }\\n  .mdc-text-field--textarea .mdc-floating-label {\\n    /* @noflip */\\n    left: 4px;\\n    /* @noflip */\\n    right: initial; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--textarea .mdc-floating-label, .mdc-text-field--textarea .mdc-floating-label[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      left: initial;\\n      /* @noflip */\\n      right: 4px; }\\n  .mdc-text-field--outlined .mdc-floating-label {\\n    /* @noflip */\\n    left: 4px;\\n    /* @noflip */\\n    right: initial;\\n    top: 17px; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--outlined .mdc-floating-label, .mdc-text-field--outlined .mdc-floating-label[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      left: initial;\\n      /* @noflip */\\n      right: 4px; }\\n  .mdc-text-field--outlined--with-leading-icon .mdc-floating-label {\\n    /* @noflip */\\n    left: 36px;\\n    /* @noflip */\\n    right: initial; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--outlined--with-leading-icon .mdc-floating-label, .mdc-text-field--outlined--with-leading-icon .mdc-floating-label[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      left: initial;\\n      /* @noflip */\\n      right: 36px; }\\n    .mdc-text-field--outlined--with-leading-icon .mdc-floating-label--float-above {\\n      /* @noflip */\\n      left: 40px;\\n      /* @noflip */\\n      right: initial; }\\n      [dir=\\\"rtl\\\"] .mdc-text-field--outlined--with-leading-icon .mdc-floating-label--float-above, .mdc-text-field--outlined--with-leading-icon .mdc-floating-label--float-above[dir=\\\"rtl\\\"] {\\n        /* @noflip */\\n        left: initial;\\n        /* @noflip */\\n        right: 40px; }\\n\\n.mdc-text-field__input {\\n  font-family: Roboto, sans-serif;\\n  -moz-osx-font-smoothing: grayscale;\\n  -webkit-font-smoothing: antialiased;\\n  font-size: 1rem;\\n  line-height: 1.75rem;\\n  font-weight: 400;\\n  letter-spacing: 0.00937em;\\n  text-decoration: inherit;\\n  text-transform: inherit;\\n  align-self: flex-end;\\n  box-sizing: border-box;\\n  width: 100%;\\n  height: 100%;\\n  padding: 20px 16px 6px;\\n  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);\\n  border: none;\\n  border-bottom: 1px solid;\\n  border-radius: 0;\\n  background: none;\\n  appearance: none; }\\n  .mdc-text-field__input::placeholder {\\n    transition: opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);\\n    opacity: 0;\\n    color: rgba(0, 0, 0, 0.54); }\\n  .mdc-text-field__input:-ms-input-placeholder {\\n    color: rgba(0, 0, 0, 0.54) !important; }\\n  .mdc-text-field--fullwidth .mdc-text-field__input::placeholder,\\n  .mdc-text-field--no-label .mdc-text-field__input::placeholder,\\n  .mdc-text-field--focused .mdc-text-field__input::placeholder {\\n    transition-delay: 40ms;\\n    transition-duration: 110ms;\\n    opacity: 1; }\\n  .mdc-text-field__input:focus {\\n    outline: none; }\\n  .mdc-text-field__input:invalid {\\n    box-shadow: none; }\\n  .mdc-text-field__input:-webkit-autofill {\\n    z-index: auto !important; }\\n  .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input {\\n    padding: 16px; }\\n\\n.mdc-text-field__input:-webkit-autofill + .mdc-floating-label {\\n  transform: translateY(-50%) scale(0.75);\\n  cursor: auto; }\\n\\n.mdc-text-field--outlined {\\n  border: none;\\n  overflow: visible; }\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\\n    border-color: rgba(0, 0, 0, 0.24); }\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing,\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing {\\n    border-color: rgba(0, 0, 0, 0.87); }\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {\\n    border-color: #0052d9;\\n    /* @alternate */\\n    border-color: var(--mdc-theme-primary, #0052d9); }\\n  .mdc-text-field--outlined .mdc-floating-label--shake {\\n    animation: mdc-floating-label-shake-float-above-text-field-outlined 250ms 1; }\\n  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {\\n    /* @noflip */\\n    border-radius: 4px 0 0 4px; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading, .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      border-radius: 0 4px 4px 0; }\\n  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {\\n    /* @noflip */\\n    border-radius: 0 4px 4px 0; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing, .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      border-radius: 4px 0 0 4px; }\\n  .mdc-text-field--outlined .mdc-floating-label--float-above {\\n    transform: translateY(-144%) scale(1); }\\n  .mdc-text-field--outlined .mdc-floating-label--float-above {\\n    font-size: 0.75rem; }\\n  .mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n  .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n    transform: translateY(-130%) scale(0.75); }\\n  .mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n  .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n    font-size: 1rem; }\\n  .mdc-text-field--outlined::before, .mdc-text-field--outlined::after {\\n    content: none; }\\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled) {\\n    background-color: transparent; }\\n  .mdc-text-field--outlined .mdc-text-field__input {\\n    display: flex;\\n    padding: 12px 16px 14px;\\n    border: none !important;\\n    background-color: transparent;\\n    z-index: 1; }\\n  .mdc-text-field--outlined .mdc-text-field__icon {\\n    z-index: 2; }\\n\\n.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,\\n.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,\\n.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {\\n  border-width: 2px; }\\n\\n.mdc-text-field--outlined.mdc-text-field--disabled {\\n  background-color: transparent; }\\n  .mdc-text-field--outlined.mdc-text-field--disabled .mdc-notched-outline__leading,\\n  .mdc-text-field--outlined.mdc-text-field--disabled .mdc-notched-outline__notch,\\n  .mdc-text-field--outlined.mdc-text-field--disabled .mdc-notched-outline__trailing {\\n    border-color: rgba(0, 0, 0, 0.06); }\\n  .mdc-text-field--outlined.mdc-text-field--disabled .mdc-text-field__input {\\n    border-bottom: none; }\\n\\n.mdc-text-field--outlined.mdc-text-field--dense {\\n  height: 48px; }\\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above {\\n    transform: translateY(-134%) scale(1); }\\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above {\\n    font-size: 0.8rem; }\\n  .mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n    transform: translateY(-120%) scale(0.8); }\\n  .mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n    font-size: 1rem; }\\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--shake {\\n    animation: mdc-floating-label-shake-float-above-text-field-outlined-dense 250ms 1; }\\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-text-field__input {\\n    padding: 12px 12px 7px; }\\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label {\\n    top: 14px; }\\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-text-field__icon {\\n    top: 12px; }\\n\\n.mdc-text-field--with-leading-icon .mdc-text-field__icon {\\n  /* @noflip */\\n  left: 16px;\\n  /* @noflip */\\n  right: initial; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon .mdc-text-field__icon, .mdc-text-field--with-leading-icon .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: initial;\\n    /* @noflip */\\n    right: 16px; }\\n\\n.mdc-text-field--with-leading-icon .mdc-text-field__input {\\n  /* @noflip */\\n  padding-left: 48px;\\n  /* @noflip */\\n  padding-right: 16px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon .mdc-text-field__input, .mdc-text-field--with-leading-icon .mdc-text-field__input[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 16px;\\n    /* @noflip */\\n    padding-right: 48px; }\\n\\n.mdc-text-field--with-leading-icon .mdc-floating-label {\\n  /* @noflip */\\n  left: 48px;\\n  /* @noflip */\\n  right: initial; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon .mdc-floating-label, .mdc-text-field--with-leading-icon .mdc-floating-label[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: initial;\\n    /* @noflip */\\n    right: 48px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__icon {\\n  /* @noflip */\\n  left: 16px;\\n  /* @noflip */\\n  right: initial; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: initial;\\n    /* @noflip */\\n    right: 16px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__input {\\n  /* @noflip */\\n  padding-left: 48px;\\n  /* @noflip */\\n  padding-right: 16px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__input, .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__input[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 16px;\\n    /* @noflip */\\n    padding-right: 48px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above {\\n  transform: translateY(-144%) translateX(-32px) scale(1); }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above, .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above[dir=\\\"rtl\\\"] {\\n    transform: translateY(-144%) translateX(32px) scale(1); }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above {\\n  font-size: 0.75rem; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n  transform: translateY(-130%) translateX(-32px) scale(0.75); }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=\\\"rtl\\\"], [dir=\\\"rtl\\\"]\\n  .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n  .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=\\\"rtl\\\"] {\\n    transform: translateY(-130%) translateX(32px) scale(0.75); }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n  font-size: 1rem; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake {\\n  animation: mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1; }\\n\\n[dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake, .mdc-text-field--with-leading-icon.mdc-text-field--outlined[dir=\\\"rtl\\\"] .mdc-floating-label--shake {\\n  animation: mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-rtl 250ms 1; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label {\\n  /* @noflip */\\n  left: 36px;\\n  /* @noflip */\\n  right: initial; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label, .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: initial;\\n    /* @noflip */\\n    right: 36px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above {\\n  transform: translateY(-134%) translateX(-21px) scale(1); }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above[dir=\\\"rtl\\\"] {\\n    transform: translateY(-134%) translateX(21px) scale(1); }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above {\\n  font-size: 0.8rem; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n  transform: translateY(-120%) translateX(-21px) scale(0.8); }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=\\\"rtl\\\"], [dir=\\\"rtl\\\"]\\n  .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n  .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=\\\"rtl\\\"] {\\n    transform: translateY(-120%) translateX(21px) scale(0.8); }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n  font-size: 1rem; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--shake {\\n  animation: mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-dense 250ms 1; }\\n\\n[dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--shake, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense[dir=\\\"rtl\\\"] .mdc-floating-label--shake {\\n  animation: mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-dense-rtl 250ms 1; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label {\\n  /* @noflip */\\n  left: 32px;\\n  /* @noflip */\\n  right: initial; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: initial;\\n    /* @noflip */\\n    right: 32px; }\\n\\n.mdc-text-field--with-trailing-icon .mdc-text-field__icon {\\n  /* @noflip */\\n  left: initial;\\n  /* @noflip */\\n  right: 12px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-trailing-icon .mdc-text-field__icon, .mdc-text-field--with-trailing-icon .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: 12px;\\n    /* @noflip */\\n    right: initial; }\\n\\n.mdc-text-field--with-trailing-icon .mdc-text-field__input {\\n  /* @noflip */\\n  padding-left: 16px;\\n  /* @noflip */\\n  padding-right: 48px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-trailing-icon .mdc-text-field__input, .mdc-text-field--with-trailing-icon .mdc-text-field__input[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 48px;\\n    /* @noflip */\\n    padding-right: 16px; }\\n\\n.mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__icon {\\n  /* @noflip */\\n  left: initial;\\n  /* @noflip */\\n  right: 16px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__icon, .mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: 16px;\\n    /* @noflip */\\n    right: initial; }\\n\\n.mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__input {\\n  /* @noflip */\\n  padding-left: 16px;\\n  /* @noflip */\\n  padding-right: 48px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__input, .mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__input[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 48px;\\n    /* @noflip */\\n    padding-right: 16px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon {\\n  /* @noflip */\\n  left: 16px;\\n  /* @noflip */\\n  right: auto; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: auto;\\n    /* @noflip */\\n    right: 16px; }\\n  .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon ~ .mdc-text-field__icon {\\n    /* @noflip */\\n    right: 12px;\\n    /* @noflip */\\n    left: auto; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon ~ .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon ~ .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      right: auto;\\n      /* @noflip */\\n      left: 12px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__input {\\n  /* @noflip */\\n  padding-left: 48px;\\n  /* @noflip */\\n  padding-right: 48px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__input, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__input[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 48px;\\n    /* @noflip */\\n    padding-right: 48px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__icon,\\n.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon {\\n  bottom: 16px;\\n  transform: scale(0.8); }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__icon {\\n  /* @noflip */\\n  left: 12px;\\n  /* @noflip */\\n  right: initial; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: initial;\\n    /* @noflip */\\n    right: 12px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__input {\\n  /* @noflip */\\n  padding-left: 44px;\\n  /* @noflip */\\n  padding-right: 16px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__input, .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__input[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 16px;\\n    /* @noflip */\\n    padding-right: 44px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-floating-label {\\n  /* @noflip */\\n  left: 44px;\\n  /* @noflip */\\n  right: initial; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-floating-label, .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-floating-label[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: initial;\\n    /* @noflip */\\n    right: 44px; }\\n\\n.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon {\\n  /* @noflip */\\n  left: initial;\\n  /* @noflip */\\n  right: 12px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon, .mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: 12px;\\n    /* @noflip */\\n    right: initial; }\\n\\n.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input {\\n  /* @noflip */\\n  padding-left: 16px;\\n  /* @noflip */\\n  padding-right: 44px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input, .mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 44px;\\n    /* @noflip */\\n    padding-right: 16px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon {\\n  /* @noflip */\\n  left: 12px;\\n  /* @noflip */\\n  right: auto; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    left: auto;\\n    /* @noflip */\\n    right: 12px; }\\n  .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon ~ .mdc-text-field__icon {\\n    /* @noflip */\\n    right: 12px;\\n    /* @noflip */\\n    left: auto; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon ~ .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon ~ .mdc-text-field__icon[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      right: auto;\\n      /* @noflip */\\n      left: 12px; }\\n\\n.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input {\\n  /* @noflip */\\n  padding-left: 44px;\\n  /* @noflip */\\n  padding-right: 44px; }\\n  [dir=\\\"rtl\\\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input[dir=\\\"rtl\\\"] {\\n    /* @noflip */\\n    padding-left: 44px;\\n    /* @noflip */\\n    padding-right: 44px; }\\n\\n.mdc-text-field--dense .mdc-floating-label--float-above {\\n  transform: translateY(-70%) scale(0.8); }\\n\\n.mdc-text-field--dense .mdc-floating-label--shake {\\n  animation: mdc-floating-label-shake-float-above-text-field-dense 250ms 1; }\\n\\n.mdc-text-field--dense .mdc-text-field__input {\\n  padding: 12px 12px 0; }\\n\\n.mdc-text-field--dense .mdc-floating-label {\\n  font-size: .813rem; }\\n  .mdc-text-field--dense .mdc-floating-label--float-above {\\n    font-size: .813rem; }\\n\\n.mdc-text-field__input:required ~ .mdc-floating-label::after,\\n.mdc-text-field__input:required ~ .mdc-notched-outline .mdc-floating-label::after {\\n  margin-left: 1px;\\n  content: \\\"*\\\"; }\\n\\n.mdc-text-field--textarea {\\n  display: inline-flex;\\n  width: auto;\\n  height: auto;\\n  transition: none;\\n  overflow: visible; }\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\\n    border-color: rgba(0, 0, 0, 0.24); }\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing,\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing {\\n    border-color: rgba(0, 0, 0, 0.87); }\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {\\n    border-color: #0052d9;\\n    /* @alternate */\\n    border-color: var(--mdc-theme-primary, #0052d9); }\\n  .mdc-text-field--textarea .mdc-floating-label--shake {\\n    animation: mdc-floating-label-shake-float-above-text-field-outlined 250ms 1; }\\n  .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__leading {\\n    /* @noflip */\\n    border-radius: 4px 0 0 4px; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__leading, .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__leading[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      border-radius: 0 4px 4px 0; }\\n  .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__trailing {\\n    /* @noflip */\\n    border-radius: 0 4px 4px 0; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__trailing, .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__trailing[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      border-radius: 4px 0 0 4px; }\\n  .mdc-text-field--textarea::before, .mdc-text-field--textarea::after {\\n    content: none; }\\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled) {\\n    background-color: transparent; }\\n  .mdc-text-field--textarea .mdc-floating-label--float-above {\\n    transform: translateY(-144%) scale(1); }\\n  .mdc-text-field--textarea .mdc-floating-label--float-above {\\n    font-size: 0.75rem; }\\n  .mdc-text-field--textarea.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n  .mdc-text-field--textarea .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n    transform: translateY(-130%) scale(0.75); }\\n  .mdc-text-field--textarea.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\\n  .mdc-text-field--textarea .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\\n    font-size: 1rem; }\\n  .mdc-text-field--textarea .mdc-text-field-character-counter {\\n    /* @noflip */\\n    left: initial;\\n    /* @noflip */\\n    right: 16px;\\n    position: absolute;\\n    bottom: 13px; }\\n    [dir=\\\"rtl\\\"] .mdc-text-field--textarea .mdc-text-field-character-counter, .mdc-text-field--textarea .mdc-text-field-character-counter[dir=\\\"rtl\\\"] {\\n      /* @noflip */\\n      left: 16px;\\n      /* @noflip */\\n      right: initial; }\\n  .mdc-text-field--textarea .mdc-text-field__input {\\n    align-self: auto;\\n    box-sizing: border-box;\\n    height: auto;\\n    margin: 8px 1px 1px 0;\\n    padding: 0 16px 16px;\\n    border: none; }\\n  .mdc-text-field--textarea .mdc-text-field-character-counter + .mdc-text-field__input {\\n    margin-bottom: 28px;\\n    padding-bottom: 0; }\\n  .mdc-text-field--textarea .mdc-floating-label {\\n    top: 17px;\\n    bottom: auto;\\n    width: auto;\\n    pointer-events: none; }\\n  .mdc-text-field--textarea.mdc-text-field--focused .mdc-notched-outline__leading,\\n  .mdc-text-field--textarea.mdc-text-field--focused .mdc-notched-outline__notch,\\n  .mdc-text-field--textarea.mdc-text-field--focused .mdc-notched-outline__trailing {\\n    border-width: 2px; }\\n\\n.mdc-text-field--fullwidth {\\n  width: 100%; }\\n  .mdc-text-field--fullwidth:not(.mdc-text-field--textarea) {\\n    display: block; }\\n    .mdc-text-field--fullwidth:not(.mdc-text-field--textarea)::before, .mdc-text-field--fullwidth:not(.mdc-text-field--textarea)::after {\\n      content: none; }\\n    .mdc-text-field--fullwidth:not(.mdc-text-field--textarea):not(.mdc-text-field--disabled) {\\n      background-color: transparent; }\\n    .mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input {\\n      padding: 0; }\\n  .mdc-text-field--fullwidth.mdc-text-field--textarea .mdc-text-field__input {\\n    resize: vertical; }\\n\\n.mdc-text-field--fullwidth.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--textarea) {\\n  border-bottom-color: #b00020;\\n  /* @alternate */\\n  border-bottom-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field-helper-line {\\n  display: flex;\\n  justify-content: space-between;\\n  box-sizing: border-box; }\\n  .mdc-text-field--dense + .mdc-text-field-helper-line {\\n    margin-bottom: 4px; }\\n  .mdc-text-field + .mdc-text-field-helper-line {\\n    padding-right: 16px;\\n    padding-left: 16px; }\\n\\n.mdc-form-field > .mdc-text-field + label {\\n  align-self: flex-start; }\\n\\n.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {\\n  color: rgba(0, 82, 217, 0.87); }\\n\\n.mdc-text-field--focused .mdc-text-field__input:required ~ .mdc-floating-label::after,\\n.mdc-text-field--focused .mdc-text-field__input:required ~ .mdc-notched-outline .mdc-floating-label::after {\\n  color: #b00020;\\n  /* @alternate */\\n  color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--focused + .mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg) {\\n  opacity: 1; }\\n\\n.mdc-text-field--textarea.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\\n.mdc-text-field--textarea.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\\n.mdc-text-field--textarea.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\\n  border-color: #0052d9;\\n  /* @alternate */\\n  border-color: var(--mdc-theme-primary, #0052d9); }\\n\\n.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input {\\n  border-bottom-color: #b00020;\\n  /* @alternate */\\n  border-bottom-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input:hover {\\n  border-bottom-color: #b00020;\\n  /* @alternate */\\n  border-bottom-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple {\\n  background-color: #b00020;\\n  /* @alternate */\\n  background-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {\\n  color: #b00020;\\n  /* @alternate */\\n  color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--invalid + .mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg {\\n  color: #b00020;\\n  /* @alternate */\\n  color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--invalid .mdc-text-field__input {\\n  caret-color: #b00020;\\n  /* @alternate */\\n  caret-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--invalid.mdc-text-field--with-trailing-icon:not(.mdc-text-field--with-leading-icon):not(.mdc-text-field--disabled) .mdc-text-field__icon {\\n  color: #b00020;\\n  /* @alternate */\\n  color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--invalid.mdc-text-field--with-trailing-icon.mdc-text-field--with-leading-icon:not(.mdc-text-field--disabled) .mdc-text-field__icon ~ .mdc-text-field__icon {\\n  color: #b00020;\\n  /* @alternate */\\n  color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--invalid + .mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg {\\n  opacity: 1; }\\n\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\\n  border-color: #b00020;\\n  /* @alternate */\\n  border-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing,\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing {\\n  border-color: #b00020;\\n  /* @alternate */\\n  border-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,\\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {\\n  border-color: #b00020;\\n  /* @alternate */\\n  border-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\\n  border-color: #b00020;\\n  /* @alternate */\\n  border-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing,\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing {\\n  border-color: #b00020;\\n  /* @alternate */\\n  border-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,\\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {\\n  border-color: #b00020;\\n  /* @alternate */\\n  border-color: var(--mdc-theme-error, #b00020); }\\n\\n.mdc-text-field--disabled {\\n  background-color: #fafafa;\\n  border-bottom: none;\\n  pointer-events: none; }\\n  .mdc-text-field--disabled .mdc-text-field__input {\\n    border-bottom-color: rgba(0, 0, 0, 0.06); }\\n  .mdc-text-field--disabled .mdc-text-field__input {\\n    color: rgba(0, 0, 0, 0.37); }\\n  .mdc-text-field--disabled .mdc-floating-label {\\n    color: rgba(0, 0, 0, 0.37); }\\n  .mdc-text-field--disabled + .mdc-text-field-helper-line .mdc-text-field-helper-text {\\n    color: rgba(0, 0, 0, 0.37); }\\n  .mdc-text-field--disabled .mdc-text-field-character-counter,\\n  .mdc-text-field--disabled + .mdc-text-field-helper-line .mdc-text-field-character-counter {\\n    color: rgba(0, 0, 0, 0.37); }\\n  .mdc-text-field--disabled .mdc-text-field__icon {\\n    color: rgba(0, 0, 0, 0.3); }\\n  .mdc-text-field--disabled:not(.mdc-text-field--textarea) {\\n    border-bottom-color: rgba(0, 0, 0, 0.12); }\\n  .mdc-text-field--disabled .mdc-floating-label {\\n    cursor: default; }\\n\\n.mdc-text-field--textarea.mdc-text-field--disabled {\\n  background-color: transparent;\\n  /* @alternate */\\n  background-color: #f9f9f9; }\\n  .mdc-text-field--textarea.mdc-text-field--disabled .mdc-notched-outline__leading,\\n  .mdc-text-field--textarea.mdc-text-field--disabled .mdc-notched-outline__notch,\\n  .mdc-text-field--textarea.mdc-text-field--disabled .mdc-notched-outline__trailing {\\n    border-color: rgba(0, 0, 0, 0.06); }\\n  .mdc-text-field--textarea.mdc-text-field--disabled .mdc-text-field__input {\\n    border-bottom: none; }\\n\\n@keyframes mdc-floating-label-shake-float-above-text-field-dense {\\n  0% {\\n    transform: translateX(calc(0 - 0%)) translateY(-70%) scale(0.8); }\\n  33% {\\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\\n    transform: translateX(calc(4% - 0%)) translateY(-70%) scale(0.8); }\\n  66% {\\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\\n    transform: translateX(calc(-4% - 0%)) translateY(-70%) scale(0.8); }\\n  100% {\\n    transform: translateX(calc(0 - 0%)) translateY(-70%) scale(0.8); } }\\n\\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined {\\n  0% {\\n    transform: translateX(calc(0 - 0%)) translateY(-130%) scale(0.75); }\\n  33% {\\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\\n    transform: translateX(calc(4% - 0%)) translateY(-130%) scale(0.75); }\\n  66% {\\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\\n    transform: translateX(calc(-4% - 0%)) translateY(-130%) scale(0.75); }\\n  100% {\\n    transform: translateX(calc(0 - 0%)) translateY(-130%) scale(0.75); } }\\n\\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-dense {\\n  0% {\\n    transform: translateX(calc(0 - 0%)) translateY(-120%) scale(0.8); }\\n  33% {\\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\\n    transform: translateX(calc(4% - 0%)) translateY(-120%) scale(0.8); }\\n  66% {\\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\\n    transform: translateX(calc(-4% - 0%)) translateY(-120%) scale(0.8); }\\n  100% {\\n    transform: translateX(calc(0 - 0%)) translateY(-120%) scale(0.8); } }\\n\\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon {\\n  0% {\\n    transform: translateX(calc(0 - 0)) translateY(-130%) scale(0.75); }\\n  33% {\\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\\n    transform: translateX(calc(4% - 0)) translateY(-130%) scale(0.75); }\\n  66% {\\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\\n    transform: translateX(calc(-4% - 0)) translateY(-130%) scale(0.75); }\\n  100% {\\n    transform: translateX(calc(0 - 0)) translateY(-130%) scale(0.75); } }\\n\\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-dense {\\n  0% {\\n    transform: translateX(calc(0 - 21px)) translateY(-120%) scale(0.8); }\\n  33% {\\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\\n    transform: translateX(calc(4% - 21px)) translateY(-120%) scale(0.8); }\\n  66% {\\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\\n    transform: translateX(calc(-4% - 21px)) translateY(-120%) scale(0.8); }\\n  100% {\\n    transform: translateX(calc(0 - 21px)) translateY(-120%) scale(0.8); } }\\n\\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-rtl {\\n  0% {\\n    transform: translateX(calc(0 - 0)) translateY(-130%) scale(0.75); }\\n  33% {\\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\\n    transform: translateX(calc(4% - 0)) translateY(-130%) scale(0.75); }\\n  66% {\\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\\n    transform: translateX(calc(-4% - 0)) translateY(-130%) scale(0.75); }\\n  100% {\\n    transform: translateX(calc(0 - 0)) translateY(-130%) scale(0.75); } }\\n\\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-dense-rtl {\\n  0% {\\n    transform: translateX(calc(0 - -21px)) translateY(-120%) scale(0.8); }\\n  33% {\\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\\n    transform: translateX(calc(4% - -21px)) translateY(-120%) scale(0.8); }\\n  66% {\\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\\n    transform: translateX(calc(-4% - -21px)) translateY(-120%) scale(0.8); }\\n  100% {\\n    transform: translateX(calc(0 - -21px)) translateY(-120%) scale(0.8); } }\\n\\n@keyframes mdc-floating-label-shake-float-above-textarea {\\n  0% {\\n    transform: translateX(calc(0 - 0%)) translateY(-130%) scale(0.75); }\\n  33% {\\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\\n    transform: translateX(calc(4% - 0%)) translateY(-130%) scale(0.75); }\\n  66% {\\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\\n    transform: translateX(calc(-4% - 0%)) translateY(-130%) scale(0.75); }\\n  100% {\\n    transform: translateX(calc(0 - 0%)) translateY(-130%) scale(0.75); } }\\n\", \"\"]);\n\n// exports\n\n\n//# sourceURL=webpack:///./src/text-field/index.scss?./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2");
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".mdc-floating-label {\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 1rem;\n  line-height: 1.75rem;\n  font-weight: 400;\n  letter-spacing: 0.00937em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  position: absolute;\n  /* @noflip */\n  left: 0;\n  /* @noflip */\n  transform-origin: left top;\n  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1);\n  /* @alternate */\n  line-height: 1.15rem;\n  text-align: left;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  cursor: text;\n  overflow: hidden;\n  will-change: transform; }\n  [dir=\"rtl\"] .mdc-floating-label, .mdc-floating-label[dir=\"rtl\"] {\n    /* @noflip */\n    right: 0;\n    /* @noflip */\n    left: auto;\n    /* @noflip */\n    transform-origin: right top;\n    /* @noflip */\n    text-align: right; }\n\n.mdc-floating-label--float-above {\n  cursor: auto; }\n\n.mdc-floating-label--float-above {\n  transform: translateY(-50%) scale(0.75); }\n\n.mdc-floating-label--shake {\n  animation: mdc-floating-label-shake-float-above-standard 250ms 1; }\n\n@keyframes mdc-floating-label-shake-float-above-standard {\n  0% {\n    transform: translateX(calc(0 - 0%)) translateY(-50%) scale(0.75); }\n  33% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(calc(4% - 0%)) translateY(-50%) scale(0.75); }\n  66% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(calc(-4% - 0%)) translateY(-50%) scale(0.75); }\n  100% {\n    transform: translateX(calc(0 - 0%)) translateY(-50%) scale(0.75); } }\n\n.mdc-line-ripple {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 2px;\n  transform: scaleX(0);\n  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1), opacity 180ms cubic-bezier(0.4, 0, 0.2, 1);\n  opacity: 0;\n  z-index: 2; }\n\n.mdc-line-ripple--active {\n  transform: scaleX(1);\n  opacity: 1; }\n\n.mdc-line-ripple--deactivating {\n  opacity: 0; }\n\n.mdc-notched-outline {\n  display: flex;\n  position: absolute;\n  right: 0;\n  left: 0;\n  box-sizing: border-box;\n  width: 100%;\n  max-width: 100%;\n  height: 100%;\n  /* @noflip */\n  text-align: left;\n  pointer-events: none; }\n  [dir=\"rtl\"] .mdc-notched-outline, .mdc-notched-outline[dir=\"rtl\"] {\n    /* @noflip */\n    text-align: right; }\n  .mdc-notched-outline__leading, .mdc-notched-outline__notch, .mdc-notched-outline__trailing {\n    box-sizing: border-box;\n    height: 100%;\n    transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);\n    border-top: 1px solid;\n    border-bottom: 1px solid;\n    pointer-events: none; }\n  .mdc-notched-outline__leading {\n    /* @noflip */\n    border-left: 1px solid;\n    /* @noflip */\n    border-right: none;\n    width: 12px; }\n    [dir=\"rtl\"] .mdc-notched-outline__leading, .mdc-notched-outline__leading[dir=\"rtl\"] {\n      /* @noflip */\n      border-left: none;\n      /* @noflip */\n      border-right: 1px solid; }\n  .mdc-notched-outline__trailing {\n    /* @noflip */\n    border-left: none;\n    /* @noflip */\n    border-right: 1px solid;\n    flex-grow: 1; }\n    [dir=\"rtl\"] .mdc-notched-outline__trailing, .mdc-notched-outline__trailing[dir=\"rtl\"] {\n      /* @noflip */\n      border-left: 1px solid;\n      /* @noflip */\n      border-right: none; }\n  .mdc-notched-outline__notch {\n    flex: 0 0 auto;\n    width: auto;\n    max-width: calc(100% - 12px * 2); }\n  .mdc-notched-outline .mdc-floating-label {\n    display: inline-block;\n    position: relative;\n    top: 17px;\n    bottom: auto;\n    max-width: 100%; }\n  .mdc-notched-outline .mdc-floating-label--float-above {\n    text-overflow: clip; }\n  .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n    max-width: calc(100% / .75); }\n\n.mdc-notched-outline--notched .mdc-notched-outline__notch {\n  /* @noflip */\n  padding-left: 0;\n  /* @noflip */\n  padding-right: 8px;\n  border-top: none; }\n  [dir=\"rtl\"] .mdc-notched-outline--notched .mdc-notched-outline__notch, .mdc-notched-outline--notched .mdc-notched-outline__notch[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 8px;\n    /* @noflip */\n    padding-right: 0; }\n\n.mdc-notched-outline--no-label .mdc-notched-outline__notch {\n  padding: 0; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-text-field-helper-text {\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 0.75rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: 0.03333em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  display: block;\n  margin-top: 0;\n  /* @alternate */\n  line-height: normal;\n  margin: 0;\n  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);\n  opacity: 0;\n  will-change: opacity; }\n  .mdc-text-field-helper-text::before {\n    display: inline-block;\n    width: 0;\n    height: 16px;\n    content: \"\";\n    vertical-align: 0; }\n\n.mdc-text-field-helper-text--persistent {\n  transition: none;\n  opacity: 1;\n  will-change: initial; }\n\n.mdc-text-field-character-counter {\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 0.75rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: 0.03333em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  display: block;\n  margin-top: 0;\n  /* @alternate */\n  line-height: normal;\n  /* @noflip */\n  margin-left: auto;\n  /* @noflip */\n  margin-right: 0;\n  /* @noflip */\n  padding-left: 16px;\n  /* @noflip */\n  padding-right: 0;\n  white-space: nowrap; }\n  .mdc-text-field-character-counter::before {\n    display: inline-block;\n    width: 0;\n    height: 16px;\n    content: \"\";\n    vertical-align: 0; }\n  [dir=\"rtl\"] .mdc-text-field-character-counter, .mdc-text-field-character-counter[dir=\"rtl\"] {\n    /* @noflip */\n    margin-left: 0;\n    /* @noflip */\n    margin-right: auto; }\n  [dir=\"rtl\"] .mdc-text-field-character-counter, .mdc-text-field-character-counter[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 0;\n    /* @noflip */\n    padding-right: 16px; }\n\n.mdc-text-field--with-leading-icon .mdc-text-field__icon,\n.mdc-text-field--with-trailing-icon .mdc-text-field__icon {\n  position: absolute;\n  bottom: 16px;\n  cursor: pointer; }\n\n.mdc-text-field__icon:not([tabindex]),\n.mdc-text-field__icon[tabindex=\"-1\"] {\n  cursor: default;\n  pointer-events: none; }\n\n.mdc-text-field {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  will-change: transform, opacity;\n  border-radius: 4px 4px 0 0;\n  display: inline-flex;\n  position: relative;\n  box-sizing: border-box;\n  height: 56px;\n  overflow: hidden;\n  /* @alternate */\n  will-change: opacity, transform, color; }\n  .mdc-text-field::before, .mdc-text-field::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-text-field::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-text-field.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-text-field.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-text-field.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-text-field.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-text-field.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-text-field::before, .mdc-text-field::after {\n    background-color: rgba(0, 0, 0, 0.87); }\n  .mdc-text-field:hover::before {\n    opacity: 0.04; }\n  .mdc-text-field:not(.mdc-ripple-upgraded):focus::before, .mdc-text-field.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-text-field::before, .mdc-text-field::after {\n    top: calc(50% - 100%);\n    /* @noflip */\n    left: calc(50% - 100%);\n    width: 200%;\n    height: 200%; }\n  .mdc-text-field.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {\n    color: rgba(0, 0, 0, 0.6); }\n  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {\n    color: rgba(0, 0, 0, 0.87); }\n  .mdc-text-field .mdc-text-field__input {\n    caret-color: #0052d9;\n    /* @alternate */\n    caret-color: var(--mdc-theme-primary, #0052d9); }\n  .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input {\n    border-bottom-color: rgba(0, 0, 0, 0.42); }\n  .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input:hover {\n    border-bottom-color: rgba(0, 0, 0, 0.87); }\n  .mdc-text-field .mdc-line-ripple {\n    background-color: #0052d9;\n    /* @alternate */\n    background-color: var(--mdc-theme-primary, #0052d9); }\n  .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--textarea) {\n    border-bottom-color: rgba(0, 0, 0, 0.12); }\n  .mdc-text-field:not(.mdc-text-field--disabled) + .mdc-text-field-helper-line .mdc-text-field-helper-text {\n    color: rgba(0, 0, 0, 0.6); }\n  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field-character-counter,\n  .mdc-text-field:not(.mdc-text-field--disabled) + .mdc-text-field-helper-line .mdc-text-field-character-counter {\n    color: rgba(0, 0, 0, 0.6); }\n  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon {\n    color: rgba(0, 0, 0, 0.54); }\n  .mdc-text-field:not(.mdc-text-field--disabled) {\n    background-color: whitesmoke; }\n  .mdc-text-field .mdc-floating-label {\n    /* @noflip */\n    left: 16px;\n    /* @noflip */\n    right: initial;\n    top: 18px;\n    pointer-events: none; }\n    [dir=\"rtl\"] .mdc-text-field .mdc-floating-label, .mdc-text-field .mdc-floating-label[dir=\"rtl\"] {\n      /* @noflip */\n      left: initial;\n      /* @noflip */\n      right: 16px; }\n  .mdc-text-field--textarea .mdc-floating-label {\n    /* @noflip */\n    left: 4px;\n    /* @noflip */\n    right: initial; }\n    [dir=\"rtl\"] .mdc-text-field--textarea .mdc-floating-label, .mdc-text-field--textarea .mdc-floating-label[dir=\"rtl\"] {\n      /* @noflip */\n      left: initial;\n      /* @noflip */\n      right: 4px; }\n  .mdc-text-field--outlined .mdc-floating-label {\n    /* @noflip */\n    left: 4px;\n    /* @noflip */\n    right: initial;\n    top: 17px; }\n    [dir=\"rtl\"] .mdc-text-field--outlined .mdc-floating-label, .mdc-text-field--outlined .mdc-floating-label[dir=\"rtl\"] {\n      /* @noflip */\n      left: initial;\n      /* @noflip */\n      right: 4px; }\n  .mdc-text-field--outlined--with-leading-icon .mdc-floating-label {\n    /* @noflip */\n    left: 36px;\n    /* @noflip */\n    right: initial; }\n    [dir=\"rtl\"] .mdc-text-field--outlined--with-leading-icon .mdc-floating-label, .mdc-text-field--outlined--with-leading-icon .mdc-floating-label[dir=\"rtl\"] {\n      /* @noflip */\n      left: initial;\n      /* @noflip */\n      right: 36px; }\n    .mdc-text-field--outlined--with-leading-icon .mdc-floating-label--float-above {\n      /* @noflip */\n      left: 40px;\n      /* @noflip */\n      right: initial; }\n      [dir=\"rtl\"] .mdc-text-field--outlined--with-leading-icon .mdc-floating-label--float-above, .mdc-text-field--outlined--with-leading-icon .mdc-floating-label--float-above[dir=\"rtl\"] {\n        /* @noflip */\n        left: initial;\n        /* @noflip */\n        right: 40px; }\n\n.mdc-text-field__input {\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 1rem;\n  line-height: 1.75rem;\n  font-weight: 400;\n  letter-spacing: 0.00937em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  align-self: flex-end;\n  box-sizing: border-box;\n  width: 100%;\n  height: 100%;\n  padding: 20px 16px 6px;\n  transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);\n  border: none;\n  border-bottom: 1px solid;\n  border-radius: 0;\n  background: none;\n  appearance: none; }\n  .mdc-text-field__input::placeholder {\n    transition: opacity 67ms cubic-bezier(0.4, 0, 0.2, 1);\n    opacity: 0;\n    color: rgba(0, 0, 0, 0.54); }\n  .mdc-text-field__input:-ms-input-placeholder {\n    color: rgba(0, 0, 0, 0.54) !important; }\n  .mdc-text-field--fullwidth .mdc-text-field__input::placeholder,\n  .mdc-text-field--no-label .mdc-text-field__input::placeholder,\n  .mdc-text-field--focused .mdc-text-field__input::placeholder {\n    transition-delay: 40ms;\n    transition-duration: 110ms;\n    opacity: 1; }\n  .mdc-text-field__input:focus {\n    outline: none; }\n  .mdc-text-field__input:invalid {\n    box-shadow: none; }\n  .mdc-text-field__input:-webkit-autofill {\n    z-index: auto !important; }\n  .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input {\n    padding: 16px; }\n\n.mdc-text-field__input:-webkit-autofill + .mdc-floating-label {\n  transform: translateY(-50%) scale(0.75);\n  cursor: auto; }\n\n.mdc-text-field--outlined {\n  border: none;\n  overflow: visible; }\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\n    border-color: rgba(0, 0, 0, 0.24); }\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing,\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing {\n    border-color: rgba(0, 0, 0, 0.87); }\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {\n    border-color: #0052d9;\n    /* @alternate */\n    border-color: var(--mdc-theme-primary, #0052d9); }\n  .mdc-text-field--outlined .mdc-floating-label--shake {\n    animation: mdc-floating-label-shake-float-above-text-field-outlined 250ms 1; }\n  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {\n    /* @noflip */\n    border-radius: 4px 0 0 4px; }\n    [dir=\"rtl\"] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading, .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading[dir=\"rtl\"] {\n      /* @noflip */\n      border-radius: 0 4px 4px 0; }\n  .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {\n    /* @noflip */\n    border-radius: 0 4px 4px 0; }\n    [dir=\"rtl\"] .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing, .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing[dir=\"rtl\"] {\n      /* @noflip */\n      border-radius: 4px 0 0 4px; }\n  .mdc-text-field--outlined .mdc-floating-label--float-above {\n    transform: translateY(-144%) scale(1); }\n  .mdc-text-field--outlined .mdc-floating-label--float-above {\n    font-size: 0.75rem; }\n  .mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n  .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n    transform: translateY(-130%) scale(0.75); }\n  .mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n  .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n    font-size: 1rem; }\n  .mdc-text-field--outlined::before, .mdc-text-field--outlined::after {\n    content: none; }\n  .mdc-text-field--outlined:not(.mdc-text-field--disabled) {\n    background-color: transparent; }\n  .mdc-text-field--outlined .mdc-text-field__input {\n    display: flex;\n    padding: 12px 16px 14px;\n    border: none !important;\n    background-color: transparent;\n    z-index: 1; }\n  .mdc-text-field--outlined .mdc-text-field__icon {\n    z-index: 2; }\n\n.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__leading,\n.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__notch,\n.mdc-text-field--outlined.mdc-text-field--focused .mdc-notched-outline__trailing {\n  border-width: 2px; }\n\n.mdc-text-field--outlined.mdc-text-field--disabled {\n  background-color: transparent; }\n  .mdc-text-field--outlined.mdc-text-field--disabled .mdc-notched-outline__leading,\n  .mdc-text-field--outlined.mdc-text-field--disabled .mdc-notched-outline__notch,\n  .mdc-text-field--outlined.mdc-text-field--disabled .mdc-notched-outline__trailing {\n    border-color: rgba(0, 0, 0, 0.06); }\n  .mdc-text-field--outlined.mdc-text-field--disabled .mdc-text-field__input {\n    border-bottom: none; }\n\n.mdc-text-field--outlined.mdc-text-field--dense {\n  height: 48px; }\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above {\n    transform: translateY(-134%) scale(1); }\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above {\n    font-size: 0.8rem; }\n  .mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n    transform: translateY(-120%) scale(0.8); }\n  .mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n    font-size: 1rem; }\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--shake {\n    animation: mdc-floating-label-shake-float-above-text-field-outlined-dense 250ms 1; }\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-text-field__input {\n    padding: 12px 12px 7px; }\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label {\n    top: 14px; }\n  .mdc-text-field--outlined.mdc-text-field--dense .mdc-text-field__icon {\n    top: 12px; }\n\n.mdc-text-field--with-leading-icon .mdc-text-field__icon {\n  /* @noflip */\n  left: 16px;\n  /* @noflip */\n  right: initial; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon .mdc-text-field__icon, .mdc-text-field--with-leading-icon .mdc-text-field__icon[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 16px; }\n\n.mdc-text-field--with-leading-icon .mdc-text-field__input {\n  /* @noflip */\n  padding-left: 48px;\n  /* @noflip */\n  padding-right: 16px; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon .mdc-text-field__input, .mdc-text-field--with-leading-icon .mdc-text-field__input[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 16px;\n    /* @noflip */\n    padding-right: 48px; }\n\n.mdc-text-field--with-leading-icon .mdc-floating-label {\n  /* @noflip */\n  left: 48px;\n  /* @noflip */\n  right: initial; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon .mdc-floating-label, .mdc-text-field--with-leading-icon .mdc-floating-label[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 48px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__icon {\n  /* @noflip */\n  left: 16px;\n  /* @noflip */\n  right: initial; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__icon[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 16px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__input {\n  /* @noflip */\n  padding-left: 48px;\n  /* @noflip */\n  padding-right: 16px; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__input, .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-text-field__input[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 16px;\n    /* @noflip */\n    padding-right: 48px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above {\n  transform: translateY(-144%) translateX(-32px) scale(1); }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above, .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above[dir=\"rtl\"] {\n    transform: translateY(-144%) translateX(32px) scale(1); }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--float-above {\n  font-size: 0.75rem; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n  transform: translateY(-130%) translateX(-32px) scale(0.75); }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n  .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=\"rtl\"] {\n    transform: translateY(-130%) translateX(32px) scale(0.75); }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n  font-size: 1rem; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake {\n  animation: mdc-floating-label-shake-float-above-text-field-outlined-leading-icon 250ms 1; }\n\n[dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label--shake, .mdc-text-field--with-leading-icon.mdc-text-field--outlined[dir=\"rtl\"] .mdc-floating-label--shake {\n  animation: mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-rtl 250ms 1; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label {\n  /* @noflip */\n  left: 36px;\n  /* @noflip */\n  right: initial; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label, .mdc-text-field--with-leading-icon.mdc-text-field--outlined .mdc-floating-label[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 36px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above {\n  transform: translateY(-134%) translateX(-21px) scale(1); }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above[dir=\"rtl\"] {\n    transform: translateY(-134%) translateX(21px) scale(1); }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--float-above {\n  font-size: 0.8rem; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n  transform: translateY(-120%) translateX(-21px) scale(0.8); }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=\"rtl\"], [dir=\"rtl\"]\n  .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n  .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above[dir=\"rtl\"] {\n    transform: translateY(-120%) translateX(21px) scale(0.8); }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n  font-size: 1rem; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--shake {\n  animation: mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-dense 250ms 1; }\n\n[dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label--shake, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense[dir=\"rtl\"] .mdc-floating-label--shake {\n  animation: mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-dense-rtl 250ms 1; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label {\n  /* @noflip */\n  left: 32px;\n  /* @noflip */\n  right: initial; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label, .mdc-text-field--with-leading-icon.mdc-text-field--outlined.mdc-text-field--dense .mdc-floating-label[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 32px; }\n\n.mdc-text-field--with-trailing-icon .mdc-text-field__icon {\n  /* @noflip */\n  left: initial;\n  /* @noflip */\n  right: 12px; }\n  [dir=\"rtl\"] .mdc-text-field--with-trailing-icon .mdc-text-field__icon, .mdc-text-field--with-trailing-icon .mdc-text-field__icon[dir=\"rtl\"] {\n    /* @noflip */\n    left: 12px;\n    /* @noflip */\n    right: initial; }\n\n.mdc-text-field--with-trailing-icon .mdc-text-field__input {\n  /* @noflip */\n  padding-left: 16px;\n  /* @noflip */\n  padding-right: 48px; }\n  [dir=\"rtl\"] .mdc-text-field--with-trailing-icon .mdc-text-field__input, .mdc-text-field--with-trailing-icon .mdc-text-field__input[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 48px;\n    /* @noflip */\n    padding-right: 16px; }\n\n.mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__icon {\n  /* @noflip */\n  left: initial;\n  /* @noflip */\n  right: 16px; }\n  [dir=\"rtl\"] .mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__icon, .mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__icon[dir=\"rtl\"] {\n    /* @noflip */\n    left: 16px;\n    /* @noflip */\n    right: initial; }\n\n.mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__input {\n  /* @noflip */\n  padding-left: 16px;\n  /* @noflip */\n  padding-right: 48px; }\n  [dir=\"rtl\"] .mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__input, .mdc-text-field--with-trailing-icon.mdc-text-field--outlined .mdc-text-field__input[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 48px;\n    /* @noflip */\n    padding-right: 16px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon {\n  /* @noflip */\n  left: 16px;\n  /* @noflip */\n  right: auto; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon[dir=\"rtl\"] {\n    /* @noflip */\n    left: auto;\n    /* @noflip */\n    right: 16px; }\n  .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon ~ .mdc-text-field__icon {\n    /* @noflip */\n    right: 12px;\n    /* @noflip */\n    left: auto; }\n    [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon ~ .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__icon ~ .mdc-text-field__icon[dir=\"rtl\"] {\n      /* @noflip */\n      right: auto;\n      /* @noflip */\n      left: 12px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__input {\n  /* @noflip */\n  padding-left: 48px;\n  /* @noflip */\n  padding-right: 48px; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__input, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon .mdc-text-field__input[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 48px;\n    /* @noflip */\n    padding-right: 48px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__icon,\n.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon {\n  bottom: 16px;\n  transform: scale(0.8); }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__icon {\n  /* @noflip */\n  left: 12px;\n  /* @noflip */\n  right: initial; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__icon[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 12px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__input {\n  /* @noflip */\n  padding-left: 44px;\n  /* @noflip */\n  padding-right: 16px; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__input, .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-text-field__input[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 16px;\n    /* @noflip */\n    padding-right: 44px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-floating-label {\n  /* @noflip */\n  left: 44px;\n  /* @noflip */\n  right: initial; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-floating-label, .mdc-text-field--with-leading-icon.mdc-text-field--dense .mdc-floating-label[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 44px; }\n\n.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon {\n  /* @noflip */\n  left: initial;\n  /* @noflip */\n  right: 12px; }\n  [dir=\"rtl\"] .mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon, .mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon[dir=\"rtl\"] {\n    /* @noflip */\n    left: 12px;\n    /* @noflip */\n    right: initial; }\n\n.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input {\n  /* @noflip */\n  padding-left: 16px;\n  /* @noflip */\n  padding-right: 44px; }\n  [dir=\"rtl\"] .mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input, .mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 44px;\n    /* @noflip */\n    padding-right: 16px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon {\n  /* @noflip */\n  left: 12px;\n  /* @noflip */\n  right: auto; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon[dir=\"rtl\"] {\n    /* @noflip */\n    left: auto;\n    /* @noflip */\n    right: 12px; }\n  .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon ~ .mdc-text-field__icon {\n    /* @noflip */\n    right: 12px;\n    /* @noflip */\n    left: auto; }\n    [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon ~ .mdc-text-field__icon, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__icon ~ .mdc-text-field__icon[dir=\"rtl\"] {\n      /* @noflip */\n      right: auto;\n      /* @noflip */\n      left: 12px; }\n\n.mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input {\n  /* @noflip */\n  padding-left: 44px;\n  /* @noflip */\n  padding-right: 44px; }\n  [dir=\"rtl\"] .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input, .mdc-text-field--with-leading-icon.mdc-text-field--with-trailing-icon.mdc-text-field--dense .mdc-text-field__input[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 44px;\n    /* @noflip */\n    padding-right: 44px; }\n\n.mdc-text-field--dense .mdc-floating-label--float-above {\n  transform: translateY(-70%) scale(0.8); }\n\n.mdc-text-field--dense .mdc-floating-label--shake {\n  animation: mdc-floating-label-shake-float-above-text-field-dense 250ms 1; }\n\n.mdc-text-field--dense .mdc-text-field__input {\n  padding: 12px 12px 0; }\n\n.mdc-text-field--dense .mdc-floating-label {\n  font-size: .813rem; }\n  .mdc-text-field--dense .mdc-floating-label--float-above {\n    font-size: .813rem; }\n\n.mdc-text-field__input:required ~ .mdc-floating-label::after,\n.mdc-text-field__input:required ~ .mdc-notched-outline .mdc-floating-label::after {\n  margin-left: 1px;\n  content: \"*\"; }\n\n.mdc-text-field--textarea {\n  display: inline-flex;\n  width: auto;\n  height: auto;\n  transition: none;\n  overflow: visible; }\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\n    border-color: rgba(0, 0, 0, 0.24); }\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing,\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing {\n    border-color: rgba(0, 0, 0, 0.87); }\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {\n    border-color: #0052d9;\n    /* @alternate */\n    border-color: var(--mdc-theme-primary, #0052d9); }\n  .mdc-text-field--textarea .mdc-floating-label--shake {\n    animation: mdc-floating-label-shake-float-above-text-field-outlined 250ms 1; }\n  .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__leading {\n    /* @noflip */\n    border-radius: 4px 0 0 4px; }\n    [dir=\"rtl\"] .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__leading, .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__leading[dir=\"rtl\"] {\n      /* @noflip */\n      border-radius: 0 4px 4px 0; }\n  .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__trailing {\n    /* @noflip */\n    border-radius: 0 4px 4px 0; }\n    [dir=\"rtl\"] .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__trailing, .mdc-text-field--textarea .mdc-notched-outline .mdc-notched-outline__trailing[dir=\"rtl\"] {\n      /* @noflip */\n      border-radius: 4px 0 0 4px; }\n  .mdc-text-field--textarea::before, .mdc-text-field--textarea::after {\n    content: none; }\n  .mdc-text-field--textarea:not(.mdc-text-field--disabled) {\n    background-color: transparent; }\n  .mdc-text-field--textarea .mdc-floating-label--float-above {\n    transform: translateY(-144%) scale(1); }\n  .mdc-text-field--textarea .mdc-floating-label--float-above {\n    font-size: 0.75rem; }\n  .mdc-text-field--textarea.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n  .mdc-text-field--textarea .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n    transform: translateY(-130%) scale(0.75); }\n  .mdc-text-field--textarea.mdc-notched-outline--upgraded .mdc-floating-label--float-above,\n  .mdc-text-field--textarea .mdc-notched-outline--upgraded .mdc-floating-label--float-above {\n    font-size: 1rem; }\n  .mdc-text-field--textarea .mdc-text-field-character-counter {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 16px;\n    position: absolute;\n    bottom: 13px; }\n    [dir=\"rtl\"] .mdc-text-field--textarea .mdc-text-field-character-counter, .mdc-text-field--textarea .mdc-text-field-character-counter[dir=\"rtl\"] {\n      /* @noflip */\n      left: 16px;\n      /* @noflip */\n      right: initial; }\n  .mdc-text-field--textarea .mdc-text-field__input {\n    align-self: auto;\n    box-sizing: border-box;\n    height: auto;\n    margin: 8px 1px 1px 0;\n    padding: 0 16px 16px;\n    border: none; }\n  .mdc-text-field--textarea .mdc-text-field-character-counter + .mdc-text-field__input {\n    margin-bottom: 28px;\n    padding-bottom: 0; }\n  .mdc-text-field--textarea .mdc-floating-label {\n    top: 17px;\n    bottom: auto;\n    width: auto;\n    pointer-events: none; }\n  .mdc-text-field--textarea.mdc-text-field--focused .mdc-notched-outline__leading,\n  .mdc-text-field--textarea.mdc-text-field--focused .mdc-notched-outline__notch,\n  .mdc-text-field--textarea.mdc-text-field--focused .mdc-notched-outline__trailing {\n    border-width: 2px; }\n\n.mdc-text-field--fullwidth {\n  width: 100%; }\n  .mdc-text-field--fullwidth:not(.mdc-text-field--textarea) {\n    display: block; }\n    .mdc-text-field--fullwidth:not(.mdc-text-field--textarea)::before, .mdc-text-field--fullwidth:not(.mdc-text-field--textarea)::after {\n      content: none; }\n    .mdc-text-field--fullwidth:not(.mdc-text-field--textarea):not(.mdc-text-field--disabled) {\n      background-color: transparent; }\n    .mdc-text-field--fullwidth:not(.mdc-text-field--textarea) .mdc-text-field__input {\n      padding: 0; }\n  .mdc-text-field--fullwidth.mdc-text-field--textarea .mdc-text-field__input {\n    resize: vertical; }\n\n.mdc-text-field--fullwidth.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--textarea) {\n  border-bottom-color: #b00020;\n  /* @alternate */\n  border-bottom-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field-helper-line {\n  display: flex;\n  justify-content: space-between;\n  box-sizing: border-box; }\n  .mdc-text-field--dense + .mdc-text-field-helper-line {\n    margin-bottom: 4px; }\n  .mdc-text-field + .mdc-text-field-helper-line {\n    padding-right: 16px;\n    padding-left: 16px; }\n\n.mdc-form-field > .mdc-text-field + label {\n  align-self: flex-start; }\n\n.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {\n  color: rgba(0, 82, 217, 0.87); }\n\n.mdc-text-field--focused .mdc-text-field__input:required ~ .mdc-floating-label::after,\n.mdc-text-field--focused .mdc-text-field__input:required ~ .mdc-notched-outline .mdc-floating-label::after {\n  color: #b00020;\n  /* @alternate */\n  color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--focused + .mdc-text-field-helper-line .mdc-text-field-helper-text:not(.mdc-text-field-helper-text--validation-msg) {\n  opacity: 1; }\n\n.mdc-text-field--textarea.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\n.mdc-text-field--textarea.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\n.mdc-text-field--textarea.mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\n  border-color: #0052d9;\n  /* @alternate */\n  border-color: var(--mdc-theme-primary, #0052d9); }\n\n.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input {\n  border-bottom-color: #b00020;\n  /* @alternate */\n  border-bottom-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mdc-text-field__input:hover {\n  border-bottom-color: #b00020;\n  /* @alternate */\n  border-bottom-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple {\n  background-color: #b00020;\n  /* @alternate */\n  background-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {\n  color: #b00020;\n  /* @alternate */\n  color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--invalid + .mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg {\n  color: #b00020;\n  /* @alternate */\n  color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--invalid .mdc-text-field__input {\n  caret-color: #b00020;\n  /* @alternate */\n  caret-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--invalid.mdc-text-field--with-trailing-icon:not(.mdc-text-field--with-leading-icon):not(.mdc-text-field--disabled) .mdc-text-field__icon {\n  color: #b00020;\n  /* @alternate */\n  color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--invalid.mdc-text-field--with-trailing-icon.mdc-text-field--with-leading-icon:not(.mdc-text-field--disabled) .mdc-text-field__icon ~ .mdc-text-field__icon {\n  color: #b00020;\n  /* @alternate */\n  color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--invalid + .mdc-text-field-helper-line .mdc-text-field-helper-text--validation-msg {\n  opacity: 1; }\n\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\n  border-color: #b00020;\n  /* @alternate */\n  border-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing,\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing {\n  border-color: #b00020;\n  /* @alternate */\n  border-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,\n.mdc-text-field--textarea.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {\n  border-color: #b00020;\n  /* @alternate */\n  border-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {\n  border-color: #b00020;\n  /* @alternate */\n  border-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__input:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing,\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__leading,\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__notch,\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused) .mdc-text-field__icon:hover ~ .mdc-notched-outline .mdc-notched-outline__trailing {\n  border-color: #b00020;\n  /* @alternate */\n  border-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,\n.mdc-text-field--outlined.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {\n  border-color: #b00020;\n  /* @alternate */\n  border-color: var(--mdc-theme-error, #b00020); }\n\n.mdc-text-field--disabled {\n  background-color: #fafafa;\n  border-bottom: none;\n  pointer-events: none; }\n  .mdc-text-field--disabled .mdc-text-field__input {\n    border-bottom-color: rgba(0, 0, 0, 0.06); }\n  .mdc-text-field--disabled .mdc-text-field__input {\n    color: rgba(0, 0, 0, 0.37); }\n  .mdc-text-field--disabled .mdc-floating-label {\n    color: rgba(0, 0, 0, 0.37); }\n  .mdc-text-field--disabled + .mdc-text-field-helper-line .mdc-text-field-helper-text {\n    color: rgba(0, 0, 0, 0.37); }\n  .mdc-text-field--disabled .mdc-text-field-character-counter,\n  .mdc-text-field--disabled + .mdc-text-field-helper-line .mdc-text-field-character-counter {\n    color: rgba(0, 0, 0, 0.37); }\n  .mdc-text-field--disabled .mdc-text-field__icon {\n    color: rgba(0, 0, 0, 0.3); }\n  .mdc-text-field--disabled:not(.mdc-text-field--textarea) {\n    border-bottom-color: rgba(0, 0, 0, 0.12); }\n  .mdc-text-field--disabled .mdc-floating-label {\n    cursor: default; }\n\n.mdc-text-field--textarea.mdc-text-field--disabled {\n  background-color: transparent;\n  /* @alternate */\n  background-color: #f9f9f9; }\n  .mdc-text-field--textarea.mdc-text-field--disabled .mdc-notched-outline__leading,\n  .mdc-text-field--textarea.mdc-text-field--disabled .mdc-notched-outline__notch,\n  .mdc-text-field--textarea.mdc-text-field--disabled .mdc-notched-outline__trailing {\n    border-color: rgba(0, 0, 0, 0.06); }\n  .mdc-text-field--textarea.mdc-text-field--disabled .mdc-text-field__input {\n    border-bottom: none; }\n\n@keyframes mdc-floating-label-shake-float-above-text-field-dense {\n  0% {\n    transform: translateX(calc(0 - 0%)) translateY(-70%) scale(0.8); }\n  33% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(calc(4% - 0%)) translateY(-70%) scale(0.8); }\n  66% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(calc(-4% - 0%)) translateY(-70%) scale(0.8); }\n  100% {\n    transform: translateX(calc(0 - 0%)) translateY(-70%) scale(0.8); } }\n\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined {\n  0% {\n    transform: translateX(calc(0 - 0%)) translateY(-130%) scale(0.75); }\n  33% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(calc(4% - 0%)) translateY(-130%) scale(0.75); }\n  66% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(calc(-4% - 0%)) translateY(-130%) scale(0.75); }\n  100% {\n    transform: translateX(calc(0 - 0%)) translateY(-130%) scale(0.75); } }\n\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-dense {\n  0% {\n    transform: translateX(calc(0 - 0%)) translateY(-120%) scale(0.8); }\n  33% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(calc(4% - 0%)) translateY(-120%) scale(0.8); }\n  66% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(calc(-4% - 0%)) translateY(-120%) scale(0.8); }\n  100% {\n    transform: translateX(calc(0 - 0%)) translateY(-120%) scale(0.8); } }\n\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon {\n  0% {\n    transform: translateX(calc(0 - 0)) translateY(-130%) scale(0.75); }\n  33% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(calc(4% - 0)) translateY(-130%) scale(0.75); }\n  66% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(calc(-4% - 0)) translateY(-130%) scale(0.75); }\n  100% {\n    transform: translateX(calc(0 - 0)) translateY(-130%) scale(0.75); } }\n\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-dense {\n  0% {\n    transform: translateX(calc(0 - 21px)) translateY(-120%) scale(0.8); }\n  33% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(calc(4% - 21px)) translateY(-120%) scale(0.8); }\n  66% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(calc(-4% - 21px)) translateY(-120%) scale(0.8); }\n  100% {\n    transform: translateX(calc(0 - 21px)) translateY(-120%) scale(0.8); } }\n\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-rtl {\n  0% {\n    transform: translateX(calc(0 - 0)) translateY(-130%) scale(0.75); }\n  33% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(calc(4% - 0)) translateY(-130%) scale(0.75); }\n  66% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(calc(-4% - 0)) translateY(-130%) scale(0.75); }\n  100% {\n    transform: translateX(calc(0 - 0)) translateY(-130%) scale(0.75); } }\n\n@keyframes mdc-floating-label-shake-float-above-text-field-outlined-leading-icon-dense-rtl {\n  0% {\n    transform: translateX(calc(0 - -21px)) translateY(-120%) scale(0.8); }\n  33% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(calc(4% - -21px)) translateY(-120%) scale(0.8); }\n  66% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(calc(-4% - -21px)) translateY(-120%) scale(0.8); }\n  100% {\n    transform: translateX(calc(0 - -21px)) translateY(-120%) scale(0.8); } }\n\n@keyframes mdc-floating-label-shake-float-above-textarea {\n  0% {\n    transform: translateX(calc(0 - 0%)) translateY(-130%) scale(0.75); }\n  33% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(calc(4% - 0%)) translateY(-130%) scale(0.75); }\n  66% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(calc(-4% - 0%)) translateY(-130%) scale(0.75); }\n  100% {\n    transform: translateX(calc(0 - 0%)) translateY(-130%) scale(0.75); } }\n", ""]);
+
+// exports
+
 
 /***/ }),
 
@@ -546,7 +4001,83 @@ eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("/*\n\tMIT License http://www.opensource.org/licenses/mit-license.php\n\tAuthor Tobias Koppers @sokra\n*/\n// css base code, injected by the css-loader\nmodule.exports = function(useSourceMap) {\n\tvar list = [];\n\n\t// return the list of modules as css string\n\tlist.toString = function toString() {\n\t\treturn this.map(function (item) {\n\t\t\tvar content = cssWithMappingToString(item, useSourceMap);\n\t\t\tif(item[2]) {\n\t\t\t\treturn \"@media \" + item[2] + \"{\" + content + \"}\";\n\t\t\t} else {\n\t\t\t\treturn content;\n\t\t\t}\n\t\t}).join(\"\");\n\t};\n\n\t// import a list of modules into the list\n\tlist.i = function(modules, mediaQuery) {\n\t\tif(typeof modules === \"string\")\n\t\t\tmodules = [[null, modules, \"\"]];\n\t\tvar alreadyImportedModules = {};\n\t\tfor(var i = 0; i < this.length; i++) {\n\t\t\tvar id = this[i][0];\n\t\t\tif(typeof id === \"number\")\n\t\t\t\talreadyImportedModules[id] = true;\n\t\t}\n\t\tfor(i = 0; i < modules.length; i++) {\n\t\t\tvar item = modules[i];\n\t\t\t// skip already imported module\n\t\t\t// this implementation is not 100% perfect for weird media query combinations\n\t\t\t//  when a module is imported multiple times with different media queries.\n\t\t\t//  I hope this will never occur (Hey this way we have smaller bundles)\n\t\t\tif(typeof item[0] !== \"number\" || !alreadyImportedModules[item[0]]) {\n\t\t\t\tif(mediaQuery && !item[2]) {\n\t\t\t\t\titem[2] = mediaQuery;\n\t\t\t\t} else if(mediaQuery) {\n\t\t\t\t\titem[2] = \"(\" + item[2] + \") and (\" + mediaQuery + \")\";\n\t\t\t\t}\n\t\t\t\tlist.push(item);\n\t\t\t}\n\t\t}\n\t};\n\treturn list;\n};\n\nfunction cssWithMappingToString(item, useSourceMap) {\n\tvar content = item[1] || '';\n\tvar cssMapping = item[3];\n\tif (!cssMapping) {\n\t\treturn content;\n\t}\n\n\tif (useSourceMap && typeof btoa === 'function') {\n\t\tvar sourceMapping = toComment(cssMapping);\n\t\tvar sourceURLs = cssMapping.sources.map(function (source) {\n\t\t\treturn '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'\n\t\t});\n\n\t\treturn [content].concat(sourceURLs).concat([sourceMapping]).join('\\n');\n\t}\n\n\treturn [content].join('\\n');\n}\n\n// Adapted from convert-source-map (MIT)\nfunction toComment(sourceMap) {\n\t// eslint-disable-next-line no-undef\n\tvar base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));\n\tvar data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;\n\n\treturn '/*# ' + data + ' */';\n}\n\n\n//# sourceURL=webpack:///./node_modules/css-loader/lib/css-base.js?");
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
 
 /***/ }),
 
@@ -558,7 +4089,1742 @@ eval("/*\n\tMIT License http://www.opensource.org/licenses/mit-license.php\n\tAu
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"tag\", function() { return tag; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"WeElement\", function() { return WeElement; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"Component\", function() { return Component; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"h\", function() { return h; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"createElement\", function() { return h; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"options\", function() { return options; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"define\", function() { return define; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"observe\", function() { return observe; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"cloneElement\", function() { return cloneElement; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getHost\", function() { return getHost; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"rpx\", function() { return rpx; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"tick\", function() { return tick; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"nextTick\", function() { return nextTick; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ModelView\", function() { return ModelView; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"defineElement\", function() { return defineElement; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"classNames\", function() { return classNames; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"extractClass\", function() { return extractClass; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"createRef\", function() { return createRef; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"html\", function() { return html; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"htm\", function() { return htm; });\n/**\n * omi v6.2.1  http://omijs.org\n * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.\n * By dntzhang https://github.com/dntzhang\n * Github: https://github.com/Tencent/omi\n * MIT Licensed.\n */\n\n/** Virtual DOM Node */\nfunction VNode() {}\n\nfunction getGlobal() {\n  if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {\n    return self || window || global || function () {\n      return this;\n    }();\n  }\n  return global;\n}\n\n/** Global options\n *\t@public\n *\t@namespace options {Object}\n */\nvar options = {\n  store: null,\n  root: getGlobal(),\n  mapping: {}\n};\n\nvar stack = [];\n\nfunction h(nodeName, attributes) {\n  var children = [],\n      lastSimple,\n      child,\n      simple,\n      i;\n  for (i = arguments.length; i-- > 2;) {\n    stack.push(arguments[i]);\n  }\n  if (attributes && attributes.children != null) {\n    if (!stack.length) stack.push(attributes.children);\n    delete attributes.children;\n  }\n  while (stack.length) {\n    if ((child = stack.pop()) && child.pop !== undefined) {\n      for (i = child.length; i--;) {\n        stack.push(child[i]);\n      }\n    } else {\n      if (typeof child === 'boolean') child = null;\n\n      if (simple = typeof nodeName !== 'function') {\n        if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;\n      }\n\n      if (simple && lastSimple) {\n        children[children.length - 1] += child;\n      } else if (children.length === 0) {\n        children = [child];\n      } else {\n        children.push(child);\n      }\n\n      lastSimple = simple;\n    }\n  }\n\n  var p = new VNode();\n  p.nodeName = nodeName;\n  p.children = children;\n  p.attributes = attributes == null ? undefined : attributes;\n  p.key = attributes == null ? undefined : attributes.key;\n\n  // if a \"vnode hook\" is defined, pass every created VNode to it\n  if (options.vnode !== undefined) options.vnode(p);\n\n  return p;\n}\n\n/**\n * @license\n * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.\n * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt\n * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt\n * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt\n * Code distributed by Google as part of the polymer project is also\n * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt\n */\n(function () {\n  if (\n  // No Reflect, no classes, no need for shim because native custom elements\n  // require ES2015 classes or Reflect.\n  window.Reflect === undefined || window.customElements === undefined ||\n  // The webcomponentsjs custom elements polyfill doesn't require\n  // ES2015-compatible construction (`super()` or `Reflect.construct`).\n  window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {\n    return;\n  }\n  var BuiltInHTMLElement = HTMLElement;\n  window.HTMLElement = function HTMLElement() {\n    return Reflect.construct(BuiltInHTMLElement, [], this.constructor);\n  };\n  HTMLElement.prototype = BuiltInHTMLElement.prototype;\n  HTMLElement.prototype.constructor = HTMLElement;\n  Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);\n})();\n\nfunction cssToDom(css) {\n  var node = document.createElement('style');\n  node.textContent = css;\n  return node;\n}\n\nfunction npn(str) {\n  return str.replace(/-(\\w)/g, function ($, $1) {\n    return $1.toUpperCase();\n  });\n}\n\nfunction extend(obj, props) {\n  for (var i in props) {\n    obj[i] = props[i];\n  }return obj;\n}\n\n/** Invoke or update a ref, depending on whether it is a function or object ref.\n *  @param {object|function} [ref=null]\n *  @param {any} [value]\n */\nfunction applyRef(ref, value) {\n  if (ref != null) {\n    if (typeof ref == 'function') ref(value);else ref.current = value;\n  }\n}\n\n/**\n * Call a function asynchronously, as soon as possible. Makes\n * use of HTML Promise to schedule the callback if available,\n * otherwise falling back to `setTimeout` (mainly for IE<11).\n * @type {(callback: function) => void}\n */\nvar defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;\n\nfunction isArray(obj) {\n  return Object.prototype.toString.call(obj) === '[object Array]';\n}\n\nfunction nProps(props) {\n  if (!props || isArray(props)) return {};\n  var result = {};\n  Object.keys(props).forEach(function (key) {\n    result[key] = props[key].value;\n  });\n  return result;\n}\n\nfunction getUse(data, paths) {\n  var obj = [];\n  paths.forEach(function (path, index) {\n    var isPath = typeof path === 'string';\n    if (isPath) {\n      obj[index] = getTargetByPath(data, path);\n    } else {\n      var key = Object.keys(path)[0];\n      var value = path[key];\n      if (typeof value === 'string') {\n        obj[index] = getTargetByPath(data, value);\n      } else {\n        var tempPath = value[0];\n        if (typeof tempPath === 'string') {\n          var tempVal = getTargetByPath(data, tempPath);\n          obj[index] = value[1] ? value[1](tempVal) : tempVal;\n        } else {\n          var args = [];\n          tempPath.forEach(function (path) {\n            args.push(getTargetByPath(data, path));\n          });\n          obj[index] = value[1].apply(null, args);\n        }\n      }\n      obj[key] = obj[index];\n    }\n  });\n  return obj;\n}\n\nfunction getTargetByPath(origin, path) {\n  var arr = path.replace(/]/g, '').replace(/\\[/g, '.').split('.');\n  var current = origin;\n  for (var i = 0, len = arr.length; i < len; i++) {\n    current = current[arr[i]];\n  }\n  return current;\n}\n\n// DOM properties that should NOT have \"px\" added when numeric\nvar IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;\n\n/**\n * Check if two nodes are equivalent.\n *\n * @param {Node} node\t\t\tDOM Node to compare\n * @param {VNode} vnode\t\t\tVirtual DOM node to compare\n * @param {boolean} [hydrating=false]\tIf true, ignores component constructors when comparing.\n * @private\n */\nfunction isSameNodeType(node, vnode, hydrating) {\n  if (typeof vnode === 'string' || typeof vnode === 'number') {\n    return node.splitText !== undefined;\n  }\n  if (typeof vnode.nodeName === 'string') {\n    return !node._componentConstructor && isNamedNode(node, vnode.nodeName);\n  } else if (typeof vnode.nodeName === 'function') {\n    return options.mapping[node.nodeName.toLowerCase()] === vnode.nodeName;\n  }\n  return hydrating || node._componentConstructor === vnode.nodeName;\n}\n\n/**\n * Check if an Element has a given nodeName, case-insensitively.\n *\n * @param {Element} node\tA DOM Element to inspect the name of.\n * @param {String} nodeName\tUnnormalized name to compare against.\n */\nfunction isNamedNode(node, nodeName) {\n  return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();\n}\n\n/**\n * Create an element with the given nodeName.\n * @param {string} nodeName The DOM node to create\n * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG\n *  namespace.\n * @returns {Element} The created DOM node\n */\nfunction createNode(nodeName, isSvg) {\n  /** @type {Element} */\n  var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);\n  node.normalizedNodeName = nodeName;\n  return node;\n}\n\n/**\n * Remove a child node from its parent if attached.\n * @param {Node} node The node to remove\n */\nfunction removeNode(node) {\n  var parentNode = node.parentNode;\n  if (parentNode) parentNode.removeChild(node);\n}\n\n/**\n * Set a named attribute on the given Node, with special behavior for some names\n * and event handlers. If `value` is `null`, the attribute/handler will be\n * removed.\n * @param {Element} node An element to mutate\n * @param {string} name The name/key to set, such as an event or attribute name\n * @param {*} old The last value that was set for this name/node pair\n * @param {*} value An attribute value, such as a function to be used as an\n *  event handler\n * @param {boolean} isSvg Are we currently diffing inside an svg?\n * @private\n */\nfunction setAccessor(node, name, old, value, isSvg) {\n  if (name === 'className') name = 'class';\n\n  if (name === 'key') {\n    // ignore\n  } else if (name === 'ref') {\n    applyRef(old, null);\n    applyRef(value, node);\n  } else if (name === 'class' && !isSvg) {\n    node.className = value || '';\n  } else if (name === 'style') {\n    if (!value || typeof value === 'string' || typeof old === 'string') {\n      node.style.cssText = value || '';\n    }\n    if (value && typeof value === 'object') {\n      if (typeof old !== 'string') {\n        for (var i in old) {\n          if (!(i in value)) node.style[i] = '';\n        }\n      }\n      for (var i in value) {\n        node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];\n      }\n    }\n  } else if (name === 'dangerouslySetInnerHTML') {\n    if (value) node.innerHTML = value.__html || '';\n  } else if (name[0] == 'o' && name[1] == 'n') {\n    var useCapture = name !== (name = name.replace(/Capture$/, ''));\n    name = name.toLowerCase().substring(2);\n    if (value) {\n      if (!old) {\n        node.addEventListener(name, eventProxy, useCapture);\n        if (name == 'tap') {\n          node.addEventListener('touchstart', touchStart, useCapture);\n          node.addEventListener('touchend', touchEnd, useCapture);\n        }\n      }\n    } else {\n      node.removeEventListener(name, eventProxy, useCapture);\n      if (name == 'tap') {\n        node.removeEventListener('touchstart', touchStart, useCapture);\n        node.removeEventListener('touchend', touchEnd, useCapture);\n      }\n    }\n(node._listeners || (node._listeners = {}))[name] = value;\n  } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {\n    // Attempt to set a DOM property to the given value.\n    // IE & FF throw for certain property-value combinations.\n    try {\n      node[name] = value == null ? '' : value;\n    } catch (e) {}\n    if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);\n  } else {\n    var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));\n    // spellcheck is treated differently than all other boolean values and\n    // should not be removed when the value is `false`. See:\n    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck\n    if (value == null || value === false) {\n      if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);\n    } else if (typeof value !== 'function') {\n      if (ns) {\n        node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);\n      } else {\n        node.setAttribute(name, value);\n      }\n    }\n  }\n}\n\n/**\n * Proxy an event to hooked event handlers\n * @param {Event} e The event object from the browser\n * @private\n */\nfunction eventProxy(e) {\n  return this._listeners[e.type](options.event && options.event(e) || e);\n}\n\nfunction touchStart(e) {\n  this.___touchX = e.touches[0].pageX;\n  this.___touchY = e.touches[0].pageY;\n  this.___scrollTop = document.body.scrollTop;\n}\n\nfunction touchEnd(e) {\n  if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {\n    this.dispatchEvent(new CustomEvent('tap', { detail: e }));\n  }\n}\n\n/** Diff recursion count, used to track the end of the diff cycle. */\nvar diffLevel = 0;\n\n/** Global flag indicating if the diff is currently within an SVG */\nvar isSvgMode = false;\n\n/** Global flag indicating if the diff is performing hydration */\nvar hydrating = false;\n\n/** Apply differences in a given vnode (and it's deep children) to a real DOM Node.\n *\t@param {Element} [dom=null]\t\tA DOM node to mutate into the shape of the `vnode`\n *\t@param {VNode} vnode\t\t\tA VNode (with descendants forming a tree) representing the desired DOM structure\n *\t@returns {Element} dom\t\t\tThe created/mutated element\n *\t@private\n */\nfunction diff(dom, vnode, context, mountAll, parent, componentRoot) {\n  // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)\n  var ret;\n  if (!diffLevel++) {\n    // when first starting the diff, check if we're diffing an SVG or within an SVG\n    isSvgMode = parent != null && parent.ownerSVGElement !== undefined;\n\n    // hydration is indicated by the existing element to be diffed not having a prop cache\n    hydrating = dom != null && !('__omiattr_' in dom);\n  }\n  if (isArray(vnode)) {\n    ret = [];\n    var parentNode = null;\n    if (isArray(dom)) {\n      var domLength = dom.length;\n      var vnodeLength = vnode.length;\n      var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;\n      parentNode = dom[0].parentNode;\n      for (var i = 0; i < maxLength; i++) {\n        var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);\n        ret.push(ele);\n        if (i > domLength - 1) {\n          parentNode.appendChild(ele);\n        }\n      }\n    } else {\n      vnode.forEach(function (item) {\n        var ele = idiff(dom, item, context, mountAll, componentRoot);\n        ret.push(ele);\n        parent && parent.appendChild(ele);\n      });\n    }\n  } else {\n    if (isArray(dom)) {\n      ret = idiff(dom[0], vnode, context, mountAll, componentRoot);\n    } else {\n      ret = idiff(dom, vnode, context, mountAll, componentRoot);\n    }\n    // append the element if its a new parent\n    if (parent && ret.parentNode !== parent) parent.appendChild(ret);\n  }\n\n  // diffLevel being reduced to 0 means we're exiting the diff\n  if (! --diffLevel) {\n    hydrating = false;\n    // invoke queued componentDidMount lifecycle methods\n  }\n\n  return ret;\n}\n\n/** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */\nfunction idiff(dom, vnode, context, mountAll, componentRoot) {\n  if (dom && vnode && dom.props) {\n    dom.props.children = vnode.children;\n  }\n  var out = dom,\n      prevSvgMode = isSvgMode;\n\n  // empty values (null, undefined, booleans) render as empty Text nodes\n  if (vnode == null || typeof vnode === 'boolean') vnode = '';\n\n  // Fast case: Strings & Numbers create/update Text nodes.\n  if (typeof vnode === 'string' || typeof vnode === 'number') {\n    // update if it's already a Text node:\n    if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {\n      /* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */\n      if (dom.nodeValue != vnode) {\n        dom.nodeValue = vnode;\n      }\n    } else {\n      // it wasn't a Text node: replace it with one and recycle the old Element\n      out = document.createTextNode(vnode);\n      if (dom) {\n        if (dom.parentNode) dom.parentNode.replaceChild(out, dom);\n        recollectNodeTree(dom, true);\n      }\n    }\n\n    out['__omiattr_'] = true;\n\n    return out;\n  }\n\n  // If the VNode represents a Component, perform a component diff:\n  var vnodeName = vnode.nodeName;\n  if (typeof vnodeName === 'function') {\n    for (var key in options.mapping) {\n      if (options.mapping[key] === vnodeName) {\n        vnodeName = key;\n        vnode.nodeName = key;\n        break;\n      }\n    }\n  }\n  // Tracks entering and exiting SVG namespace when descending through the tree.\n  isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;\n\n  // If there's no existing element or it's the wrong type, create a new one:\n  vnodeName = String(vnodeName);\n  if (!dom || !isNamedNode(dom, vnodeName)) {\n    out = createNode(vnodeName, isSvgMode);\n\n    if (dom) {\n      // move children into the replacement node\n      while (dom.firstChild) {\n        out.appendChild(dom.firstChild);\n      } // if the previous Element was mounted into the DOM, replace it inline\n      if (dom.parentNode) dom.parentNode.replaceChild(out, dom);\n\n      // recycle the old element (skips non-Element node types)\n      recollectNodeTree(dom, true);\n    }\n  }\n\n  var fc = out.firstChild,\n      props = out['__omiattr_'],\n      vchildren = vnode.children;\n\n  if (props == null) {\n    props = out['__omiattr_'] = {};\n    for (var a = out.attributes, i = a.length; i--;) {\n      props[a[i].name] = a[i].value;\n    }\n  }\n\n  // Optimization: fast-path for elements containing a single TextNode:\n  if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {\n    if (fc.nodeValue != vchildren[0]) {\n      fc.nodeValue = vchildren[0];\n    }\n  }\n  // otherwise, if there are existing or new children, diff them:\n  else if (vchildren && vchildren.length || fc != null) {\n      if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {\n        innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);\n      }\n    }\n\n  // Apply attributes/props from VNode to the DOM Element:\n  diffAttributes(out, vnode.attributes, props, vnode.children);\n  if (out.props) {\n    out.props.children = vnode.children;\n  }\n  // restore previous SVG mode: (in case we're exiting an SVG namespace)\n  isSvgMode = prevSvgMode;\n\n  return out;\n}\n\n/** Apply child and attribute changes between a VNode and a DOM Node to the DOM.\n *\t@param {Element} dom\t\t\tElement whose children should be compared & mutated\n *\t@param {Array} vchildren\t\tArray of VNodes to compare to `dom.childNodes`\n *\t@param {Object} context\t\t\tImplicitly descendant context object (from most recent `getChildContext()`)\n *\t@param {Boolean} mountAll\n *\t@param {Boolean} isHydrating\tIf `true`, consumes externally created elements similar to hydration\n */\nfunction innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {\n  var originalChildren = dom.childNodes,\n      children = [],\n      keyed = {},\n      keyedLen = 0,\n      min = 0,\n      len = originalChildren.length,\n      childrenLen = 0,\n      vlen = vchildren ? vchildren.length : 0,\n      j,\n      c,\n      f,\n      vchild,\n      child;\n\n  // Build up a map of keyed children and an Array of unkeyed children:\n  if (len !== 0) {\n    for (var i = 0; i < len; i++) {\n      var _child = originalChildren[i],\n          props = _child['__omiattr_'],\n          key = vlen && props ? _child._component ? _child._component.__key : props.key : null;\n      if (key != null) {\n        keyedLen++;\n        keyed[key] = _child;\n      } else if (props || (_child.splitText !== undefined ? isHydrating ? _child.nodeValue.trim() : true : isHydrating)) {\n        children[childrenLen++] = _child;\n      }\n    }\n  }\n\n  if (vlen !== 0) {\n    for (var i = 0; i < vlen; i++) {\n      vchild = vchildren[i];\n      child = null;\n\n      // attempt to find a node based on key matching\n      var key = vchild.key;\n      if (key != null) {\n        if (keyedLen && keyed[key] !== undefined) {\n          child = keyed[key];\n          keyed[key] = undefined;\n          keyedLen--;\n        }\n      }\n      // attempt to pluck a node of the same type from the existing children\n      else if (!child && min < childrenLen) {\n          for (j = min; j < childrenLen; j++) {\n            if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {\n              child = c;\n              children[j] = undefined;\n              if (j === childrenLen - 1) childrenLen--;\n              if (j === min) min++;\n              break;\n            }\n          }\n        }\n\n      // morph the matched/found/created DOM child to match vchild (deep)\n      child = idiff(child, vchild, context, mountAll);\n\n      f = originalChildren[i];\n      if (child && child !== dom && child !== f) {\n        if (f == null) {\n          dom.appendChild(child);\n        } else if (child === f.nextSibling) {\n          removeNode(f);\n        } else {\n          dom.insertBefore(child, f);\n        }\n      }\n    }\n  }\n\n  // remove unused keyed children:\n  if (keyedLen) {\n    for (var i in keyed) {\n      if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);\n    }\n  }\n\n  // remove orphaned unkeyed children:\n  while (min <= childrenLen) {\n    if ((child = children[childrenLen--]) !== undefined) recollectNodeTree(child, false);\n  }\n}\n\n/** Recursively recycle (or just unmount) a node and its descendants.\n *\t@param {Node} node\t\t\t\t\t\tDOM node to start unmount/removal from\n *\t@param {Boolean} [unmountOnly=false]\tIf `true`, only triggers unmount lifecycle, skips removal\n */\nfunction recollectNodeTree(node, unmountOnly) {\n  // If the node's VNode had a ref function, invoke it with null here.\n  // (this is part of the React spec, and smart for unsetting references)\n  if (node['__omiattr_'] != null && node['__omiattr_'].ref) {\n    if (typeof node['__omiattr_'].ref === 'function') {\n      node['__omiattr_'].ref(null);\n    } else if (node['__omiattr_'].ref.current) {\n      node['__omiattr_'].ref.current = null;\n    }\n  }\n\n  if (unmountOnly === false || node['__omiattr_'] == null) {\n    removeNode(node);\n  }\n\n  removeChildren(node);\n}\n\n/** Recollect/unmount all children.\n *\t- we use .lastChild here because it causes less reflow than .firstChild\n *\t- it's also cheaper than accessing the .childNodes Live NodeList\n */\nfunction removeChildren(node) {\n  node = node.lastChild;\n  while (node) {\n    var next = node.previousSibling;\n    recollectNodeTree(node, true);\n    node = next;\n  }\n}\n\n/** Apply differences in attributes from a VNode to the given DOM Element.\n *\t@param {Element} dom\t\tElement with attributes to diff `attrs` against\n *\t@param {Object} attrs\t\tThe desired end-state key-value attribute pairs\n *\t@param {Object} old\t\t\tCurrent/previous attributes (from previous VNode or element's prop cache)\n */\nfunction diffAttributes(dom, attrs, old, children) {\n  var name;\n  var update = false;\n  var isWeElement = dom.update;\n  var oldClone;\n  if (dom.receiveProps) {\n    oldClone = Object.assign({}, old);\n  }\n  // remove attributes no longer present on the vnode by setting them to undefined\n  for (name in old) {\n    if (!(attrs && attrs[name] != null) && old[name] != null) {\n      setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);\n      if (isWeElement) {\n        delete dom.props[name];\n        update = true;\n      }\n    }\n  }\n\n  // add new & update changed attributes\n  for (name in attrs) {\n    if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {\n      if (name === 'style') {\n        setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);\n      }\n      if (dom.receiveProps) {\n        try {\n          old[name] = JSON.parse(JSON.stringify(attrs[name]));\n        } catch (e) {\n          console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');\n        }\n      }\n      dom.props[npn(name)] = attrs[name];\n      update = true;\n    } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {\n      setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);\n      if (isWeElement) {\n        dom.props[npn(name)] = attrs[name];\n        update = true;\n      }\n    }\n  }\n\n  if (isWeElement && dom.parentNode) {\n    if (update || children.length > 0 || dom.store) {\n      dom.receiveProps(dom.props, dom.data, oldClone);\n      dom.update();\n    }\n  }\n}\n\n/*!\n * https://github.com/Palindrom/JSONPatcherProxy\n * (c) 2017 Starcounter\n * MIT license\n */\n\n/** Class representing a JS Object observer  */\nvar JSONPatcherProxy = function () {\n  /**\n   * Deep clones your object and returns a new object.\n   */\n  function deepClone(obj) {\n    switch (typeof obj) {\n      case 'object':\n        return JSON.parse(JSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5\n      case 'undefined':\n        return null; //this is how JSON.stringify behaves for array items\n      default:\n        return obj; //no need to clone primitives\n    }\n  }\n  JSONPatcherProxy.deepClone = deepClone;\n\n  function escapePathComponent(str) {\n    if (str.indexOf('/') == -1 && str.indexOf('~') == -1) return str;\n    return str.replace(/~/g, '~0').replace(/\\//g, '~1');\n  }\n  JSONPatcherProxy.escapePathComponent = escapePathComponent;\n\n  /**\n   * Walk up the parenthood tree to get the path\n   * @param {JSONPatcherProxy} instance\n   * @param {Object} obj the object you need to find its path\n   */\n  function findObjectPath(instance, obj) {\n    var pathComponents = [];\n    var parentAndPath = instance.parenthoodMap.get(obj);\n    while (parentAndPath && parentAndPath.path) {\n      // because we're walking up-tree, we need to use the array as a stack\n      pathComponents.unshift(parentAndPath.path);\n      parentAndPath = instance.parenthoodMap.get(parentAndPath.parent);\n    }\n    if (pathComponents.length) {\n      var path = pathComponents.join('/');\n      return '/' + path;\n    }\n    return '';\n  }\n  /**\n   * A callback to be used as th proxy set trap callback.\n   * It updates parenthood map if needed, proxifies nested newly-added objects, calls default callbacks with the changes occurred.\n   * @param {JSONPatcherProxy} instance JSONPatcherProxy instance\n   * @param {Object} target the affected object\n   * @param {String} key the effect property's name\n   * @param {Any} newValue the value being set\n   */\n  function setTrap(instance, target, key, newValue) {\n    var parentPath = findObjectPath(instance, target);\n\n    var destinationPropKey = parentPath + '/' + escapePathComponent(key);\n\n    if (instance.proxifiedObjectsMap.has(newValue)) {\n      var newValueOriginalObject = instance.proxifiedObjectsMap.get(newValue);\n\n      instance.parenthoodMap.set(newValueOriginalObject.originalObject, {\n        parent: target,\n        path: key\n      });\n    }\n    /*\n        mark already proxified values as inherited.\n        rationale: proxy.arr.shift()\n        will emit\n        {op: replace, path: '/arr/1', value: arr_2}\n        {op: remove, path: '/arr/2'}\n         by default, the second operation would revoke the proxy, and this renders arr revoked.\n        That's why we need to remember the proxies that are inherited.\n      */\n    var revokableInstance = instance.proxifiedObjectsMap.get(newValue);\n    /*\n    Why do we need to check instance.isProxifyingTreeNow?\n     We need to make sure we mark revokables as inherited ONLY when we're observing,\n    because throughout the first proxification, a sub-object is proxified and then assigned to\n    its parent object. This assignment of a pre-proxified object can fool us into thinking\n    that it's a proxified object moved around, while in fact it's the first assignment ever.\n     Checking isProxifyingTreeNow ensures this is not happening in the first proxification,\n    but in fact is is a proxified object moved around the tree\n    */\n    if (revokableInstance && !instance.isProxifyingTreeNow) {\n      revokableInstance.inherited = true;\n    }\n\n    // if the new value is an object, make sure to watch it\n    if (newValue && typeof newValue == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {\n      instance.parenthoodMap.set(newValue, {\n        parent: target,\n        path: key\n      });\n      newValue = instance._proxifyObjectTreeRecursively(target, newValue, key);\n    }\n    // let's start with this operation, and may or may not update it later\n    var operation = {\n      op: 'remove',\n      path: destinationPropKey\n    };\n    if (typeof newValue == 'undefined') {\n      // applying De Morgan's laws would be a tad faster, but less readable\n      if (!Array.isArray(target) && !target.hasOwnProperty(key)) {\n        // `undefined` is being set to an already undefined value, keep silent\n        return Reflect.set(target, key, newValue);\n      }\n      // when array element is set to `undefined`, should generate replace to `null`\n      if (Array.isArray(target)) {\noperation.op = 'replace', operation.value = null;\n      }\n      var oldValue = instance.proxifiedObjectsMap.get(target[key]);\n      // was the deleted a proxified object?\n      if (oldValue) {\n        instance.parenthoodMap.delete(target[key]);\n        instance.disableTrapsForProxy(oldValue);\n        instance.proxifiedObjectsMap.delete(oldValue);\n      }\n    } else {\n      if (Array.isArray(target) && !Number.isInteger(+key.toString())) {\n        /* array props (as opposed to indices) don't emit any patches, to avoid needless `length` patches */\n        if (key != 'length') {\n          console.warn('JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch');\n        }\n        return Reflect.set(target, key, newValue);\n      }\n      operation.op = 'add';\n      if (target.hasOwnProperty(key)) {\n        if (typeof target[key] !== 'undefined' || Array.isArray(target)) {\n          operation.op = 'replace'; // setting `undefined` array elements is a `replace` op\n        }\n      }\n      operation.value = newValue;\n    }\n    operation.oldValue = target[key];\n    var reflectionResult = Reflect.set(target, key, newValue);\n    instance.defaultCallback(operation);\n    return reflectionResult;\n  }\n  /**\n   * A callback to be used as th proxy delete trap callback.\n   * It updates parenthood map if needed, calls default callbacks with the changes occurred.\n   * @param {JSONPatcherProxy} instance JSONPatcherProxy instance\n   * @param {Object} target the effected object\n   * @param {String} key the effected property's name\n   */\n  function deleteTrap(instance, target, key) {\n    if (typeof target[key] !== 'undefined') {\n      var parentPath = findObjectPath(instance, target);\n      var destinationPropKey = parentPath + '/' + escapePathComponent(key);\n\n      var revokableProxyInstance = instance.proxifiedObjectsMap.get(target[key]);\n\n      if (revokableProxyInstance) {\n        if (revokableProxyInstance.inherited) {\n          /*\n            this is an inherited proxy (an already proxified object that was moved around),\n            we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.\n            And we know that because we mark moved proxies with `inherited` flag when we move them\n             it is a good idea to remove this flag if we come across it here, in deleteProperty trap.\n            We DO want to revoke the proxy if it was removed again.\n          */\n          revokableProxyInstance.inherited = false;\n        } else {\n          instance.parenthoodMap.delete(revokableProxyInstance.originalObject);\n          instance.disableTrapsForProxy(revokableProxyInstance);\n          instance.proxifiedObjectsMap.delete(target[key]);\n        }\n      }\n      var reflectionResult = Reflect.deleteProperty(target, key);\n\n      instance.defaultCallback({\n        op: 'remove',\n        path: destinationPropKey\n      });\n\n      return reflectionResult;\n    }\n  }\n  /* pre-define resume and pause functions to enhance constructors performance */\n  function resume() {\n    var _this = this;\n\n    this.defaultCallback = function (operation) {\n      _this.isRecording && _this.patches.push(operation);\n      _this.userCallback && _this.userCallback(operation);\n    };\n    this.isObserving = true;\n  }\n  function pause() {\n    this.defaultCallback = function () {};\n    this.isObserving = false;\n  }\n  /**\n   * Creates an instance of JSONPatcherProxy around your object of interest `root`.\n   * @param {Object|Array} root - the object you want to wrap\n   * @param {Boolean} [showDetachedWarning = true] - whether to log a warning when a detached sub-object is modified @see {@link https://github.com/Palindrom/JSONPatcherProxy#detached-objects}\n   * @returns {JSONPatcherProxy}\n   * @constructor\n   */\n  function JSONPatcherProxy(root, showDetachedWarning) {\n    this.isProxifyingTreeNow = false;\n    this.isObserving = false;\n    this.proxifiedObjectsMap = new Map();\n    this.parenthoodMap = new Map();\n    // default to true\n    if (typeof showDetachedWarning !== 'boolean') {\n      showDetachedWarning = true;\n    }\n\n    this.showDetachedWarning = showDetachedWarning;\n    this.originalObject = root;\n    this.cachedProxy = null;\n    this.isRecording = false;\n    this.userCallback;\n    /**\n     * @memberof JSONPatcherProxy\n     * Restores callback back to the original one provided to `observe`.\n     */\n    this.resume = resume.bind(this);\n    /**\n     * @memberof JSONPatcherProxy\n     * Replaces your callback with a noop function.\n     */\n    this.pause = pause.bind(this);\n  }\n\n  JSONPatcherProxy.prototype.generateProxyAtPath = function (parent, obj, path) {\n    var _this2 = this;\n\n    if (!obj) {\n      return obj;\n    }\n    var traps = {\n      set: function set(target, key, value, receiver) {\n        return setTrap(_this2, target, key, value, receiver);\n      },\n      deleteProperty: function deleteProperty(target, key) {\n        return deleteTrap(_this2, target, key);\n      }\n    };\n    var revocableInstance = Proxy.revocable(obj, traps);\n    // cache traps object to disable them later.\n    revocableInstance.trapsInstance = traps;\n    revocableInstance.originalObject = obj;\n\n    /* keeping track of object's parent and path */\n\n    this.parenthoodMap.set(obj, { parent: parent, path: path });\n\n    /* keeping track of all the proxies to be able to revoke them later */\n    this.proxifiedObjectsMap.set(revocableInstance.proxy, revocableInstance);\n    return revocableInstance.proxy;\n  };\n  // grab tree's leaves one by one, encapsulate them into a proxy and return\n  JSONPatcherProxy.prototype._proxifyObjectTreeRecursively = function (parent, root, path) {\n    for (var key in root) {\n      if (root.hasOwnProperty(key)) {\n        if (root[key] instanceof Object) {\n          root[key] = this._proxifyObjectTreeRecursively(root, root[key], escapePathComponent(key));\n        }\n      }\n    }\n    return this.generateProxyAtPath(parent, root, path);\n  };\n  // this function is for aesthetic purposes\n  JSONPatcherProxy.prototype.proxifyObjectTree = function (root) {\n    /*\n    while proxyifying object tree,\n    the proxyifying operation itself is being\n    recorded, which in an unwanted behavior,\n    that's why we disable recording through this\n    initial process;\n    */\n    this.pause();\n    this.isProxifyingTreeNow = true;\n    var proxifiedObject = this._proxifyObjectTreeRecursively(undefined, root, '');\n    /* OK you can record now */\n    this.isProxifyingTreeNow = false;\n    this.resume();\n    return proxifiedObject;\n  };\n  /**\n   * Turns a proxified object into a forward-proxy object; doesn't emit any patches anymore, like a normal object\n   * @param {Proxy} proxy - The target proxy object\n   */\n  JSONPatcherProxy.prototype.disableTrapsForProxy = function (revokableProxyInstance) {\n    if (this.showDetachedWarning) {\n      var message = \"You're accessing an object that is detached from the observedObject tree, see https://github.com/Palindrom/JSONPatcherProxy#detached-objects\";\n\n      revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {\n        console.warn(message);\n        return Reflect.set(targetObject, propKey, newValue);\n      };\n      revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {\n        console.warn(message);\n        return Reflect.set(targetObject, propKey, newValue);\n      };\n      revokableProxyInstance.trapsInstance.deleteProperty = function (targetObject, propKey) {\n        return Reflect.deleteProperty(targetObject, propKey);\n      };\n    } else {\n      delete revokableProxyInstance.trapsInstance.set;\n      delete revokableProxyInstance.trapsInstance.get;\n      delete revokableProxyInstance.trapsInstance.deleteProperty;\n    }\n  };\n  /**\n   * Proxifies the object that was passed in the constructor and returns a proxified mirror of it. Even though both parameters are options. You need to pass at least one of them.\n   * @param {Boolean} [record] - whether to record object changes to a later-retrievable patches array.\n   * @param {Function} [callback] - this will be synchronously called with every object change with a single `patch` as the only parameter.\n   */\n  JSONPatcherProxy.prototype.observe = function (record, callback) {\n    if (!record && !callback) {\n      throw new Error('You need to either record changes or pass a callback');\n    }\n    this.isRecording = record;\n    this.userCallback = callback;\n    /*\n    I moved it here to remove it from `unobserve`,\n    this will also make the constructor faster, why initiate\n    the array before they decide to actually observe with recording?\n    They might need to use only a callback.\n    */\n    if (record) this.patches = [];\n    this.cachedProxy = this.proxifyObjectTree(this.originalObject);\n    return this.cachedProxy;\n  };\n  /**\n   * If the observed is set to record, it will synchronously return all the patches and empties patches array.\n   */\n  JSONPatcherProxy.prototype.generate = function () {\n    if (!this.isRecording) {\n      throw new Error('You should set record to true to get patches later');\n    }\n    return this.patches.splice(0, this.patches.length);\n  };\n  /**\n   * Revokes all proxies rendering the observed object useless and good for garbage collection @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/revocable}\n   */\n  JSONPatcherProxy.prototype.revoke = function () {\n    this.proxifiedObjectsMap.forEach(function (el) {\n      el.revoke();\n    });\n  };\n  /**\n   * Disables all proxies' traps, turning the observed object into a forward-proxy object, like a normal object that you can modify silently.\n   */\n  JSONPatcherProxy.prototype.disableTraps = function () {\n    this.proxifiedObjectsMap.forEach(this.disableTrapsForProxy, this);\n  };\n  return JSONPatcherProxy;\n}();\n\nvar callbacks = [];\nvar nextTickCallback = [];\n\nfunction tick(fn, scope) {\n  callbacks.push({ fn: fn, scope: scope });\n}\n\nfunction fireTick() {\n  callbacks.forEach(function (item) {\n    item.fn.call(item.scope);\n  });\n\n  nextTickCallback.forEach(function (nextItem) {\n    nextItem.fn.call(nextItem.scope);\n  });\n  nextTickCallback.length = 0;\n}\n\nfunction nextTick(fn, scope) {\n  nextTickCallback.push({ fn: fn, scope: scope });\n}\n\nfunction observe(target) {\n  target.observe = true;\n}\n\nfunction proxyUpdate(ele) {\n  var timeout = null;\n  ele.data = new JSONPatcherProxy(ele.data).observe(false, function () {\n    if (ele._willUpdate) {\n      return;\n    }\n    if (ele.constructor.mergeUpdate) {\n      clearTimeout(timeout);\n\n      timeout = setTimeout(function () {\n        ele.update();\n        fireTick();\n      }, 0);\n    } else {\n      ele.update();\n      fireTick();\n    }\n  });\n}\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nfunction define(name, ctor) {\n  if (ctor.is === 'WeElement') {\n    customElements.define(name, ctor);\n    options.mapping[name] = ctor;\n    if (ctor.use) {\n      ctor.updatePath = getPath(ctor.use);\n    } else if (ctor.data) {\n      //Compatible with older versions\n      ctor.updatePath = getUpdatePath(ctor.data);\n    }\n  } else {\n    var Element = function (_WeElement) {\n      _inherits(Element, _WeElement);\n\n      function Element() {\n        var _temp, _this, _ret;\n\n        _classCallCheck(this, Element);\n\n        for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {\n          args[key] = arguments[key];\n        }\n\n        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn(_this, _ret);\n      }\n\n      Element.prototype.render = function render(props, data) {\n        return ctor.call(this, props, data);\n      };\n\n      Element.prototype.beforeRender = function beforeRender() {\n        this._useId = 0;\n      };\n\n      Element.prototype.useCss = function useCss(css) {\n        if (css === this._preCss) {\n          return;\n        }\n        this._preCss = css;\n        var style = this.shadowRoot.querySelector('style');\n        style && this.shadowRoot.removeChild(style);\n        this.shadowRoot.appendChild(cssToDom(css));\n      };\n\n      Element.prototype.useData = function useData(data) {\n        return this.use({ data: data });\n      };\n\n      Element.prototype.use = function use(option) {\n        var _this2 = this;\n\n        this._useId++;\n        var updater = function updater(newValue) {\n          var item = _this2._useMap[updater.id];\n\n          item.data = newValue;\n\n          _this2.update();\n          item.effect && item.effect();\n        };\n\n        updater.id = this._useId;\n        if (!this._isInstalled) {\n          this._useMap[this._useId] = option;\n          return [option.data, updater];\n        }\n\n        return [this._useMap[this._useId].data, updater];\n      };\n\n      Element.prototype.installed = function installed() {\n        this._isInstalled = true;\n      };\n\n      return Element;\n    }(WeElement);\n\n    customElements.define(name, Element);\n  }\n}\n\nfunction getPath(obj) {\n  if (Object.prototype.toString.call(obj) === '[object Array]') {\n    var result = {};\n    obj.forEach(function (item) {\n      if (typeof item === 'string') {\n        result[item] = true;\n      } else {\n        var tempPath = item[Object.keys(item)[0]];\n        if (typeof tempPath === 'string') {\n          result[tempPath] = true;\n        } else {\n          if (typeof tempPath[0] === 'string') {\n            result[tempPath[0]] = true;\n          } else {\n            tempPath[0].forEach(function (path) {\n              return result[path] = true;\n            });\n          }\n        }\n      }\n    });\n    return result;\n  } else {\n    return getUpdatePath(obj);\n  }\n}\n\nfunction getUpdatePath(data) {\n  var result = {};\n  dataToPath(data, result);\n  return result;\n}\n\nfunction dataToPath(data, result) {\n  Object.keys(data).forEach(function (key) {\n    result[key] = true;\n    var type = Object.prototype.toString.call(data[key]);\n    if (type === '[object Object]') {\n      _objToPath(data[key], key, result);\n    } else if (type === '[object Array]') {\n      _arrayToPath(data[key], key, result);\n    }\n  });\n}\n\nfunction _objToPath(data, path, result) {\n  Object.keys(data).forEach(function (key) {\n    result[path + '.' + key] = true;\n    delete result[path];\n    var type = Object.prototype.toString.call(data[key]);\n    if (type === '[object Object]') {\n      _objToPath(data[key], path + '.' + key, result);\n    } else if (type === '[object Array]') {\n      _arrayToPath(data[key], path + '.' + key, result);\n    }\n  });\n}\n\nfunction _arrayToPath(data, path, result) {\n  data.forEach(function (item, index) {\n    result[path + '[' + index + ']'] = true;\n    delete result[path];\n    var type = Object.prototype.toString.call(item);\n    if (type === '[object Object]') {\n      _objToPath(item, path + '[' + index + ']', result);\n    } else if (type === '[object Array]') {\n      _arrayToPath(item, path + '[' + index + ']', result);\n    }\n  });\n}\n\nfunction _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits$1(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar id = 0;\n\nvar WeElement = function (_HTMLElement) {\n  _inherits$1(WeElement, _HTMLElement);\n\n  function WeElement() {\n    _classCallCheck$1(this, WeElement);\n\n    var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));\n\n    _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);\n    _this.elementId = id++;\n    _this.data = {};\n    return _this;\n  }\n\n  WeElement.prototype.connectedCallback = function connectedCallback() {\n    var p = this.parentNode;\n    while (p && !this.store) {\n      this.store = p.store;\n      p = p.parentNode || p.host;\n    }\n    if (this.store) {\n      this.store.instances.push(this);\n    }\n\n    if (this.initUse) {\n      var use = this.initUse();\n      this._updatePath = getPath(use);\n      this.use = getUse(this.store.data, use);\n    } else {\n      this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));\n    }\n    this.beforeInstall();\n    !this._isInstalled && this.install();\n    this.afterInstall();\n    var shadowRoot;\n    if (!this.shadowRoot) {\n      shadowRoot = this.attachShadow({\n        mode: 'open'\n      });\n    } else {\n      shadowRoot = this.shadowRoot;\n      var fc;\n      while (fc = shadowRoot.firstChild) {\n        shadowRoot.removeChild(fc);\n      }\n    }\n    if (this.constructor.css) {\n      shadowRoot.appendChild(cssToDom(this.constructor.css));\n    } else if (this.css) {\n      shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));\n    }\n    !this._isInstalled && this.beforeRender();\n    options.afterInstall && options.afterInstall(this);\n    if (this.constructor.observe) {\n      this.beforeObserve();\n      proxyUpdate(this);\n      this.observed();\n    }\n    this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);\n    this.rendered();\n\n    if (this.props.css) {\n      this._customStyleElement = cssToDom(this.props.css);\n      this._customStyleContent = this.props.css;\n      shadowRoot.appendChild(this._customStyleElement);\n    }\n\n    if (isArray(this._host)) {\n      this._host.forEach(function (item) {\n        shadowRoot.appendChild(item);\n      });\n    } else {\n      shadowRoot.appendChild(this._host);\n    }\n    !this._isInstalled && this.installed();\n    this._isInstalled = true;\n  };\n\n  WeElement.prototype.disconnectedCallback = function disconnectedCallback() {\n    this.uninstall();\n    this._isInstalled = false;\n    if (this.store) {\n      for (var i = 0, len = this.store.instances.length; i < len; i++) {\n        if (this.store.instances[i] === this) {\n          this.store.instances.splice(i, 1);\n          break;\n        }\n      }\n    }\n  };\n\n  WeElement.prototype.update = function update() {\n    this._willUpdate = true;\n    this.beforeUpdate();\n    this.beforeRender();\n    if (this._customStyleContent !== this.props.css) {\n      this._customStyleContent = this.props.css;\n      this._customStyleElement.textContent = this._customStyleContent;\n    }\n    this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);\n    this._willUpdate = false;\n    this.updated();\n  };\n\n  WeElement.prototype.fire = function fire(name, data) {\n    this.dispatchEvent(new CustomEvent(name.toLowerCase(), { detail: data }));\n  };\n\n  WeElement.prototype.beforeInstall = function beforeInstall() {};\n\n  WeElement.prototype.install = function install() {};\n\n  WeElement.prototype.afterInstall = function afterInstall() {};\n\n  WeElement.prototype.installed = function installed() {};\n\n  WeElement.prototype.uninstall = function uninstall() {};\n\n  WeElement.prototype.beforeUpdate = function beforeUpdate() {};\n\n  WeElement.prototype.updated = function updated() {};\n\n  WeElement.prototype.beforeRender = function beforeRender() {};\n\n  WeElement.prototype.rendered = function rendered() {};\n\n  WeElement.prototype.receiveProps = function receiveProps() {};\n\n  WeElement.prototype.beforeObserve = function beforeObserve() {};\n\n  WeElement.prototype.observed = function observed() {};\n\n  return WeElement;\n}(HTMLElement);\n\nWeElement.is = 'WeElement';\n\nfunction render(vnode, parent, store) {\n  parent = typeof parent === 'string' ? document.querySelector(parent) : parent;\n  if (store) {\n    store.instances = [];\n    extendStoreUpate(store);\n\n    store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {\n      var patchs = {};\n      if (patch.op === 'remove') {\n        // fix arr splice\n        var kv = getArrayPatch(patch.path, store);\n        patchs[kv.k] = kv.v;\n\n        update(patchs, store);\n      } else {\n        var key = fixPath(patch.path);\n        patchs[key] = patch.value;\n\n        update(patchs, store);\n      }\n    });\n    parent.store = store;\n  }\n  return diff(null, vnode, {}, false, parent, false);\n}\n\nfunction update(patch, store) {\n  store.update(patch);\n}\n\nfunction extendStoreUpate(store) {\n  store.update = function (patch) {\n    var _this = this;\n\n    var updateAll = matchGlobalData(this.globalData, patch);\n\n    if (Object.keys(patch).length > 0) {\n      this.instances.forEach(function (instance) {\n        if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {\n          //update this.use\n          if (instance.constructor.use) {\n            instance.use = getUse(store.data, instance.constructor.use);\n          } else if (instance.initUse) {\n            instance.use = getUse(store.data, instance.initUse());\n          }\n\n          instance.update();\n        }\n      });\n      this.onChange && this.onChange(patch);\n    }\n  };\n}\n\nfunction matchGlobalData(globalData, diffResult) {\n  if (!globalData) return false;\n  for (var keyA in diffResult) {\n    if (globalData.indexOf(keyA) > -1) {\n      return true;\n    }\n    for (var i = 0, len = globalData.length; i < len; i++) {\n      if (includePath(keyA, globalData[i])) {\n        return true;\n      }\n    }\n  }\n  return false;\n}\n\nfunction needUpdate(diffResult, updatePath) {\n  for (var keyA in diffResult) {\n    if (updatePath[keyA]) {\n      return true;\n    }\n    for (var keyB in updatePath) {\n      if (includePath(keyA, keyB)) {\n        return true;\n      }\n    }\n  }\n  return false;\n}\n\nfunction includePath(pathA, pathB) {\n  if (pathA.indexOf(pathB) === 0) {\n    var next = pathA.substr(pathB.length, 1);\n    if (next === '[' || next === '.') {\n      return true;\n    }\n  }\n  return false;\n}\n\nfunction fixPath(path) {\n  var mpPath = '';\n  var arr = path.replace('/', '').split('/');\n  arr.forEach(function (item, index) {\n    if (index) {\n      if (isNaN(Number(item))) {\n        mpPath += '.' + item;\n      } else {\n        mpPath += '[' + item + ']';\n      }\n    } else {\n      mpPath += item;\n    }\n  });\n  return mpPath;\n}\n\nfunction getArrayPatch(path, store) {\n  var arr = path.replace('/', '').split('/');\n  var current = store.data[arr[0]];\n  for (var i = 1, len = arr.length; i < len - 1; i++) {\n    current = current[arr[i]];\n  }\n  return { k: fixArrPath(path), v: current };\n}\n\nfunction fixArrPath(path) {\n  var mpPath = '';\n  var arr = path.replace('/', '').split('/');\n  var len = arr.length;\n  arr.forEach(function (item, index) {\n    if (index < len - 1) {\n      if (index) {\n        if (isNaN(Number(item))) {\n          mpPath += '.' + item;\n        } else {\n          mpPath += '[' + item + ']';\n        }\n      } else {\n        mpPath += item;\n      }\n    }\n  });\n  return mpPath;\n}\n\nfunction tag(name, pure) {\n  return function (target) {\n    target.pure = pure;\n    define(name, target);\n  };\n}\n\n/**\n * Clones the given VNode, optionally adding attributes/props and replacing its children.\n * @param {VNode} vnode\t\tThe virtual DOM element to clone\n * @param {Object} props\tAttributes/props to add when cloning\n * @param {VNode} rest\t\tAny additional arguments will be used as replacement children.\n */\nfunction cloneElement(vnode, props) {\n  return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);\n}\n\nfunction getHost(ele) {\n  var p = ele.parentNode;\n  while (p) {\n    if (p.host) {\n      return p.host;\n    } else if (p.shadowRoot && p.shadowRoot.host) {\n      return p.shadowRoot.host;\n    } else {\n      p = p.parentNode;\n    }\n  }\n}\n\nfunction rpx(str) {\n  return str.replace(/([1-9]\\d*|0)(\\.\\d*)*rpx/g, function (a, b) {\n    return window.innerWidth * Number(b) / 750 + 'px';\n  });\n}\n\nfunction _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return call && (typeof call === \"object\" || typeof call === \"function\") ? call : self; }\n\nfunction _inherits$2(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function, not \" + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }\n\nvar ModelView = function (_WeElement) {\n  _inherits$2(ModelView, _WeElement);\n\n  function ModelView() {\n    _classCallCheck$2(this, ModelView);\n\n    return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));\n  }\n\n  ModelView.prototype.beforeInstall = function beforeInstall() {\n    this.data = this.vm.data;\n  };\n\n  ModelView.prototype.observed = function observed() {\n    this.vm.data = this.data;\n  };\n\n  return ModelView;\n}(WeElement);\n\nModelView.observe = true;\nModelView.mergeUpdate = false;\n\n/**\n * classNames based on https://github.com/JedWatson/classnames\n * by Jed Watson\n * Licensed under the MIT License\n * https://github.com/JedWatson/classnames/blob/master/LICENSE\n * modified by dntzhang\n */\n\nvar hasOwn = {}.hasOwnProperty;\n\nfunction classNames() {\n  var classes = [];\n\n  for (var i = 0; i < arguments.length; i++) {\n    var arg = arguments[i];\n    if (!arg) continue;\n\n    var argType = typeof arg;\n\n    if (argType === 'string' || argType === 'number') {\n      classes.push(arg);\n    } else if (Array.isArray(arg) && arg.length) {\n      var inner = classNames.apply(null, arg);\n      if (inner) {\n        classes.push(inner);\n      }\n    } else if (argType === 'object') {\n      for (var key in arg) {\n        if (hasOwn.call(arg, key) && arg[key]) {\n          classes.push(key);\n        }\n      }\n    }\n  }\n\n  return classes.join(' ');\n}\n\nfunction extractClass() {\n  var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0),\n      props = _Array$prototype$slic[0],\n      args = _Array$prototype$slic.slice(1);\n\n  if (props.class) {\n    args.unshift(props.class);\n    delete props.class;\n  } else if (props.className) {\n    args.unshift(props.className);\n    delete props.className;\n  }\n  if (args.length > 0) {\n    return { class: classNames.apply(null, args) };\n  }\n}\n\nvar n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p++],a=\"number\"==typeof s?u[s]:s;1===r[p]?e[0]=a:2===r[p]?(e[1]=e[1]||{})[r[++p]]=a:3===r[p]?e[1]=Object.assign(e[1]||{},a):e.push(r[p]?t.apply(null,n(t,a,u,[\"\",null])):a);}return e},t=function(n){for(var t,r,u=1,e=\"\",p=\"\",s=[0],a=function(n){1===u&&(n||(e=e.replace(/^\\s*\\n\\s*|\\s*\\n\\s*$/g,\"\")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&\"...\"===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,2,e):4===u&&r&&(s.push(n||e,2,r), r=\"\"), e=\"\";},f=0;f<n.length;f++){f&&(1===u&&a(), a(f));for(var h=0;h<n[f].length;h++)t=n[f][h], 1===u?\"<\"===t?(a(), s=[s], u=3):e+=t:p?t===p?p=\"\":e+=t:'\"'===t||\"'\"===t?p=t:\">\"===t?(a(), u=1):u&&(\"=\"===t?(u=4, r=e, e=\"\"):\"/\"===t?(a(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,4), u=0):\" \"===t||\"\\t\"===t||\"\\n\"===t||\"\\r\"===t?(a(), u=2):e+=t);}return a(), s},r=\"function\"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r=\"\",e=0;e<n.length;e++)r+=n[e].length+\"-\"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}\n\nvar html = htm.bind(h);\n\nfunction createRef() {\n  return {};\n}\n\nvar Component = WeElement;\nvar defineElement = define;\n\nvar omi = {\n  tag: tag,\n  WeElement: WeElement,\n  Component: Component,\n  render: render,\n  h: h,\n  createElement: h,\n  options: options,\n  define: define,\n  observe: observe,\n  cloneElement: cloneElement,\n  getHost: getHost,\n  rpx: rpx,\n  tick: tick,\n  nextTick: nextTick,\n  ModelView: ModelView,\n  defineElement: defineElement,\n  classNames: classNames,\n  extractClass: extractClass,\n  createRef: createRef,\n  html: html,\n  htm: htm\n};\n\noptions.root.Omi = omi;\noptions.root.omi = omi;\noptions.root.Omi.version = '6.2.1';\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (omi);\n\n//# sourceMappingURL=omi.esm.js.map\n\n/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ \"./node_modules/webpack/buildin/global.js\")))\n\n//# sourceURL=webpack:///./node_modules/omi/dist/omi.esm.js?");
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tag", function() { return tag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WeElement", function() { return WeElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Component", function() { return Component; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return h; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return h; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "options", function() { return options; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "define", function() { return define; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "observe", function() { return observe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cloneElement", function() { return cloneElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getHost", function() { return getHost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rpx", function() { return rpx; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tick", function() { return tick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nextTick", function() { return nextTick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModelView", function() { return ModelView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defineElement", function() { return defineElement; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "classNames", function() { return classNames; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extractClass", function() { return extractClass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createRef", function() { return createRef; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "html", function() { return html; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "htm", function() { return htm; });
+/**
+ * omi v6.2.1  http://omijs.org
+ * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
+ * By dntzhang https://github.com/dntzhang
+ * Github: https://github.com/Tencent/omi
+ * MIT Licensed.
+ */
+
+/** Virtual DOM Node */
+function VNode() {}
+
+function getGlobal() {
+  if (typeof global !== 'object' || !global || global.Math !== Math || global.Array !== Array) {
+    return self || window || global || function () {
+      return this;
+    }();
+  }
+  return global;
+}
+
+/** Global options
+ *	@public
+ *	@namespace options {Object}
+ */
+var options = {
+  store: null,
+  root: getGlobal(),
+  mapping: {}
+};
+
+var stack = [];
+
+function h(nodeName, attributes) {
+  var children = [],
+      lastSimple,
+      child,
+      simple,
+      i;
+  for (i = arguments.length; i-- > 2;) {
+    stack.push(arguments[i]);
+  }
+  if (attributes && attributes.children != null) {
+    if (!stack.length) stack.push(attributes.children);
+    delete attributes.children;
+  }
+  while (stack.length) {
+    if ((child = stack.pop()) && child.pop !== undefined) {
+      for (i = child.length; i--;) {
+        stack.push(child[i]);
+      }
+    } else {
+      if (typeof child === 'boolean') child = null;
+
+      if (simple = typeof nodeName !== 'function') {
+        if (child == null) child = '';else if (typeof child === 'number') child = String(child);else if (typeof child !== 'string') simple = false;
+      }
+
+      if (simple && lastSimple) {
+        children[children.length - 1] += child;
+      } else if (children.length === 0) {
+        children = [child];
+      } else {
+        children.push(child);
+      }
+
+      lastSimple = simple;
+    }
+  }
+
+  var p = new VNode();
+  p.nodeName = nodeName;
+  p.children = children;
+  p.attributes = attributes == null ? undefined : attributes;
+  p.key = attributes == null ? undefined : attributes.key;
+
+  // if a "vnode hook" is defined, pass every created VNode to it
+  if (options.vnode !== undefined) options.vnode(p);
+
+  return p;
+}
+
+/**
+ * @license
+ * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+ */
+(function () {
+  if (
+  // No Reflect, no classes, no need for shim because native custom elements
+  // require ES2015 classes or Reflect.
+  window.Reflect === undefined || window.customElements === undefined ||
+  // The webcomponentsjs custom elements polyfill doesn't require
+  // ES2015-compatible construction (`super()` or `Reflect.construct`).
+  window.customElements.hasOwnProperty('polyfillWrapFlushCallback')) {
+    return;
+  }
+  var BuiltInHTMLElement = HTMLElement;
+  window.HTMLElement = function HTMLElement() {
+    return Reflect.construct(BuiltInHTMLElement, [], this.constructor);
+  };
+  HTMLElement.prototype = BuiltInHTMLElement.prototype;
+  HTMLElement.prototype.constructor = HTMLElement;
+  Object.setPrototypeOf(HTMLElement, BuiltInHTMLElement);
+})();
+
+function cssToDom(css) {
+  var node = document.createElement('style');
+  node.textContent = css;
+  return node;
+}
+
+function npn(str) {
+  return str.replace(/-(\w)/g, function ($, $1) {
+    return $1.toUpperCase();
+  });
+}
+
+function extend(obj, props) {
+  for (var i in props) {
+    obj[i] = props[i];
+  }return obj;
+}
+
+/** Invoke or update a ref, depending on whether it is a function or object ref.
+ *  @param {object|function} [ref=null]
+ *  @param {any} [value]
+ */
+function applyRef(ref, value) {
+  if (ref != null) {
+    if (typeof ref == 'function') ref(value);else ref.current = value;
+  }
+}
+
+/**
+ * Call a function asynchronously, as soon as possible. Makes
+ * use of HTML Promise to schedule the callback if available,
+ * otherwise falling back to `setTimeout` (mainly for IE<11).
+ * @type {(callback: function) => void}
+ */
+var defer = typeof Promise == 'function' ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+
+function isArray(obj) {
+  return Object.prototype.toString.call(obj) === '[object Array]';
+}
+
+function nProps(props) {
+  if (!props || isArray(props)) return {};
+  var result = {};
+  Object.keys(props).forEach(function (key) {
+    result[key] = props[key].value;
+  });
+  return result;
+}
+
+function getUse(data, paths) {
+  var obj = [];
+  paths.forEach(function (path, index) {
+    var isPath = typeof path === 'string';
+    if (isPath) {
+      obj[index] = getTargetByPath(data, path);
+    } else {
+      var key = Object.keys(path)[0];
+      var value = path[key];
+      if (typeof value === 'string') {
+        obj[index] = getTargetByPath(data, value);
+      } else {
+        var tempPath = value[0];
+        if (typeof tempPath === 'string') {
+          var tempVal = getTargetByPath(data, tempPath);
+          obj[index] = value[1] ? value[1](tempVal) : tempVal;
+        } else {
+          var args = [];
+          tempPath.forEach(function (path) {
+            args.push(getTargetByPath(data, path));
+          });
+          obj[index] = value[1].apply(null, args);
+        }
+      }
+      obj[key] = obj[index];
+    }
+  });
+  return obj;
+}
+
+function getTargetByPath(origin, path) {
+  var arr = path.replace(/]/g, '').replace(/\[/g, '.').split('.');
+  var current = origin;
+  for (var i = 0, len = arr.length; i < len; i++) {
+    current = current[arr[i]];
+  }
+  return current;
+}
+
+// DOM properties that should NOT have "px" added when numeric
+var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
+
+/**
+ * Check if two nodes are equivalent.
+ *
+ * @param {Node} node			DOM Node to compare
+ * @param {VNode} vnode			Virtual DOM node to compare
+ * @param {boolean} [hydrating=false]	If true, ignores component constructors when comparing.
+ * @private
+ */
+function isSameNodeType(node, vnode, hydrating) {
+  if (typeof vnode === 'string' || typeof vnode === 'number') {
+    return node.splitText !== undefined;
+  }
+  if (typeof vnode.nodeName === 'string') {
+    return !node._componentConstructor && isNamedNode(node, vnode.nodeName);
+  } else if (typeof vnode.nodeName === 'function') {
+    return options.mapping[node.nodeName.toLowerCase()] === vnode.nodeName;
+  }
+  return hydrating || node._componentConstructor === vnode.nodeName;
+}
+
+/**
+ * Check if an Element has a given nodeName, case-insensitively.
+ *
+ * @param {Element} node	A DOM Element to inspect the name of.
+ * @param {String} nodeName	Unnormalized name to compare against.
+ */
+function isNamedNode(node, nodeName) {
+  return node.normalizedNodeName === nodeName || node.nodeName.toLowerCase() === nodeName.toLowerCase();
+}
+
+/**
+ * Create an element with the given nodeName.
+ * @param {string} nodeName The DOM node to create
+ * @param {boolean} [isSvg=false] If `true`, creates an element within the SVG
+ *  namespace.
+ * @returns {Element} The created DOM node
+ */
+function createNode(nodeName, isSvg) {
+  /** @type {Element} */
+  var node = isSvg ? document.createElementNS('http://www.w3.org/2000/svg', nodeName) : document.createElement(nodeName);
+  node.normalizedNodeName = nodeName;
+  return node;
+}
+
+/**
+ * Remove a child node from its parent if attached.
+ * @param {Node} node The node to remove
+ */
+function removeNode(node) {
+  var parentNode = node.parentNode;
+  if (parentNode) parentNode.removeChild(node);
+}
+
+/**
+ * Set a named attribute on the given Node, with special behavior for some names
+ * and event handlers. If `value` is `null`, the attribute/handler will be
+ * removed.
+ * @param {Element} node An element to mutate
+ * @param {string} name The name/key to set, such as an event or attribute name
+ * @param {*} old The last value that was set for this name/node pair
+ * @param {*} value An attribute value, such as a function to be used as an
+ *  event handler
+ * @param {boolean} isSvg Are we currently diffing inside an svg?
+ * @private
+ */
+function setAccessor(node, name, old, value, isSvg) {
+  if (name === 'className') name = 'class';
+
+  if (name === 'key') {
+    // ignore
+  } else if (name === 'ref') {
+    applyRef(old, null);
+    applyRef(value, node);
+  } else if (name === 'class' && !isSvg) {
+    node.className = value || '';
+  } else if (name === 'style') {
+    if (!value || typeof value === 'string' || typeof old === 'string') {
+      node.style.cssText = value || '';
+    }
+    if (value && typeof value === 'object') {
+      if (typeof old !== 'string') {
+        for (var i in old) {
+          if (!(i in value)) node.style[i] = '';
+        }
+      }
+      for (var i in value) {
+        node.style[i] = typeof value[i] === 'number' && IS_NON_DIMENSIONAL.test(i) === false ? value[i] + 'px' : value[i];
+      }
+    }
+  } else if (name === 'dangerouslySetInnerHTML') {
+    if (value) node.innerHTML = value.__html || '';
+  } else if (name[0] == 'o' && name[1] == 'n') {
+    var useCapture = name !== (name = name.replace(/Capture$/, ''));
+    name = name.toLowerCase().substring(2);
+    if (value) {
+      if (!old) {
+        node.addEventListener(name, eventProxy, useCapture);
+        if (name == 'tap') {
+          node.addEventListener('touchstart', touchStart, useCapture);
+          node.addEventListener('touchend', touchEnd, useCapture);
+        }
+      }
+    } else {
+      node.removeEventListener(name, eventProxy, useCapture);
+      if (name == 'tap') {
+        node.removeEventListener('touchstart', touchStart, useCapture);
+        node.removeEventListener('touchend', touchEnd, useCapture);
+      }
+    }
+(node._listeners || (node._listeners = {}))[name] = value;
+  } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
+    // Attempt to set a DOM property to the given value.
+    // IE & FF throw for certain property-value combinations.
+    try {
+      node[name] = value == null ? '' : value;
+    } catch (e) {}
+    if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
+  } else {
+    var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
+    // spellcheck is treated differently than all other boolean values and
+    // should not be removed when the value is `false`. See:
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
+    if (value == null || value === false) {
+      if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
+    } else if (typeof value !== 'function') {
+      if (ns) {
+        node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
+      } else {
+        node.setAttribute(name, value);
+      }
+    }
+  }
+}
+
+/**
+ * Proxy an event to hooked event handlers
+ * @param {Event} e The event object from the browser
+ * @private
+ */
+function eventProxy(e) {
+  return this._listeners[e.type](options.event && options.event(e) || e);
+}
+
+function touchStart(e) {
+  this.___touchX = e.touches[0].pageX;
+  this.___touchY = e.touches[0].pageY;
+  this.___scrollTop = document.body.scrollTop;
+}
+
+function touchEnd(e) {
+  if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
+    this.dispatchEvent(new CustomEvent('tap', { detail: e }));
+  }
+}
+
+/** Diff recursion count, used to track the end of the diff cycle. */
+var diffLevel = 0;
+
+/** Global flag indicating if the diff is currently within an SVG */
+var isSvgMode = false;
+
+/** Global flag indicating if the diff is performing hydration */
+var hydrating = false;
+
+/** Apply differences in a given vnode (and it's deep children) to a real DOM Node.
+ *	@param {Element} [dom=null]		A DOM node to mutate into the shape of the `vnode`
+ *	@param {VNode} vnode			A VNode (with descendants forming a tree) representing the desired DOM structure
+ *	@returns {Element} dom			The created/mutated element
+ *	@private
+ */
+function diff(dom, vnode, context, mountAll, parent, componentRoot) {
+  // diffLevel having been 0 here indicates initial entry into the diff (not a subdiff)
+  var ret;
+  if (!diffLevel++) {
+    // when first starting the diff, check if we're diffing an SVG or within an SVG
+    isSvgMode = parent != null && parent.ownerSVGElement !== undefined;
+
+    // hydration is indicated by the existing element to be diffed not having a prop cache
+    hydrating = dom != null && !('__omiattr_' in dom);
+  }
+  if (isArray(vnode)) {
+    ret = [];
+    var parentNode = null;
+    if (isArray(dom)) {
+      var domLength = dom.length;
+      var vnodeLength = vnode.length;
+      var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
+      parentNode = dom[0].parentNode;
+      for (var i = 0; i < maxLength; i++) {
+        var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
+        ret.push(ele);
+        if (i > domLength - 1) {
+          parentNode.appendChild(ele);
+        }
+      }
+    } else {
+      vnode.forEach(function (item) {
+        var ele = idiff(dom, item, context, mountAll, componentRoot);
+        ret.push(ele);
+        parent && parent.appendChild(ele);
+      });
+    }
+  } else {
+    if (isArray(dom)) {
+      ret = idiff(dom[0], vnode, context, mountAll, componentRoot);
+    } else {
+      ret = idiff(dom, vnode, context, mountAll, componentRoot);
+    }
+    // append the element if its a new parent
+    if (parent && ret.parentNode !== parent) parent.appendChild(ret);
+  }
+
+  // diffLevel being reduced to 0 means we're exiting the diff
+  if (! --diffLevel) {
+    hydrating = false;
+    // invoke queued componentDidMount lifecycle methods
+  }
+
+  return ret;
+}
+
+/** Internals of `diff()`, separated to allow bypassing diffLevel / mount flushing. */
+function idiff(dom, vnode, context, mountAll, componentRoot) {
+  if (dom && vnode && dom.props) {
+    dom.props.children = vnode.children;
+  }
+  var out = dom,
+      prevSvgMode = isSvgMode;
+
+  // empty values (null, undefined, booleans) render as empty Text nodes
+  if (vnode == null || typeof vnode === 'boolean') vnode = '';
+
+  // Fast case: Strings & Numbers create/update Text nodes.
+  if (typeof vnode === 'string' || typeof vnode === 'number') {
+    // update if it's already a Text node:
+    if (dom && dom.splitText !== undefined && dom.parentNode && (!dom._component || componentRoot)) {
+      /* istanbul ignore if */ /* Browser quirk that can't be covered: https://github.com/developit/preact/commit/fd4f21f5c45dfd75151bd27b4c217d8003aa5eb9 */
+      if (dom.nodeValue != vnode) {
+        dom.nodeValue = vnode;
+      }
+    } else {
+      // it wasn't a Text node: replace it with one and recycle the old Element
+      out = document.createTextNode(vnode);
+      if (dom) {
+        if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+        recollectNodeTree(dom, true);
+      }
+    }
+
+    out['__omiattr_'] = true;
+
+    return out;
+  }
+
+  // If the VNode represents a Component, perform a component diff:
+  var vnodeName = vnode.nodeName;
+  if (typeof vnodeName === 'function') {
+    for (var key in options.mapping) {
+      if (options.mapping[key] === vnodeName) {
+        vnodeName = key;
+        vnode.nodeName = key;
+        break;
+      }
+    }
+  }
+  // Tracks entering and exiting SVG namespace when descending through the tree.
+  isSvgMode = vnodeName === 'svg' ? true : vnodeName === 'foreignObject' ? false : isSvgMode;
+
+  // If there's no existing element or it's the wrong type, create a new one:
+  vnodeName = String(vnodeName);
+  if (!dom || !isNamedNode(dom, vnodeName)) {
+    out = createNode(vnodeName, isSvgMode);
+
+    if (dom) {
+      // move children into the replacement node
+      while (dom.firstChild) {
+        out.appendChild(dom.firstChild);
+      } // if the previous Element was mounted into the DOM, replace it inline
+      if (dom.parentNode) dom.parentNode.replaceChild(out, dom);
+
+      // recycle the old element (skips non-Element node types)
+      recollectNodeTree(dom, true);
+    }
+  }
+
+  var fc = out.firstChild,
+      props = out['__omiattr_'],
+      vchildren = vnode.children;
+
+  if (props == null) {
+    props = out['__omiattr_'] = {};
+    for (var a = out.attributes, i = a.length; i--;) {
+      props[a[i].name] = a[i].value;
+    }
+  }
+
+  // Optimization: fast-path for elements containing a single TextNode:
+  if (!hydrating && vchildren && vchildren.length === 1 && typeof vchildren[0] === 'string' && fc != null && fc.splitText !== undefined && fc.nextSibling == null) {
+    if (fc.nodeValue != vchildren[0]) {
+      fc.nodeValue = vchildren[0];
+    }
+  }
+  // otherwise, if there are existing or new children, diff them:
+  else if (vchildren && vchildren.length || fc != null) {
+      if (!(out.constructor.is == 'WeElement' && out.constructor.noSlot)) {
+        innerDiffNode(out, vchildren, context, mountAll, hydrating || props.dangerouslySetInnerHTML != null);
+      }
+    }
+
+  // Apply attributes/props from VNode to the DOM Element:
+  diffAttributes(out, vnode.attributes, props, vnode.children);
+  if (out.props) {
+    out.props.children = vnode.children;
+  }
+  // restore previous SVG mode: (in case we're exiting an SVG namespace)
+  isSvgMode = prevSvgMode;
+
+  return out;
+}
+
+/** Apply child and attribute changes between a VNode and a DOM Node to the DOM.
+ *	@param {Element} dom			Element whose children should be compared & mutated
+ *	@param {Array} vchildren		Array of VNodes to compare to `dom.childNodes`
+ *	@param {Object} context			Implicitly descendant context object (from most recent `getChildContext()`)
+ *	@param {Boolean} mountAll
+ *	@param {Boolean} isHydrating	If `true`, consumes externally created elements similar to hydration
+ */
+function innerDiffNode(dom, vchildren, context, mountAll, isHydrating) {
+  var originalChildren = dom.childNodes,
+      children = [],
+      keyed = {},
+      keyedLen = 0,
+      min = 0,
+      len = originalChildren.length,
+      childrenLen = 0,
+      vlen = vchildren ? vchildren.length : 0,
+      j,
+      c,
+      f,
+      vchild,
+      child;
+
+  // Build up a map of keyed children and an Array of unkeyed children:
+  if (len !== 0) {
+    for (var i = 0; i < len; i++) {
+      var _child = originalChildren[i],
+          props = _child['__omiattr_'],
+          key = vlen && props ? _child._component ? _child._component.__key : props.key : null;
+      if (key != null) {
+        keyedLen++;
+        keyed[key] = _child;
+      } else if (props || (_child.splitText !== undefined ? isHydrating ? _child.nodeValue.trim() : true : isHydrating)) {
+        children[childrenLen++] = _child;
+      }
+    }
+  }
+
+  if (vlen !== 0) {
+    for (var i = 0; i < vlen; i++) {
+      vchild = vchildren[i];
+      child = null;
+
+      // attempt to find a node based on key matching
+      var key = vchild.key;
+      if (key != null) {
+        if (keyedLen && keyed[key] !== undefined) {
+          child = keyed[key];
+          keyed[key] = undefined;
+          keyedLen--;
+        }
+      }
+      // attempt to pluck a node of the same type from the existing children
+      else if (!child && min < childrenLen) {
+          for (j = min; j < childrenLen; j++) {
+            if (children[j] !== undefined && isSameNodeType(c = children[j], vchild, isHydrating)) {
+              child = c;
+              children[j] = undefined;
+              if (j === childrenLen - 1) childrenLen--;
+              if (j === min) min++;
+              break;
+            }
+          }
+        }
+
+      // morph the matched/found/created DOM child to match vchild (deep)
+      child = idiff(child, vchild, context, mountAll);
+
+      f = originalChildren[i];
+      if (child && child !== dom && child !== f) {
+        if (f == null) {
+          dom.appendChild(child);
+        } else if (child === f.nextSibling) {
+          removeNode(f);
+        } else {
+          dom.insertBefore(child, f);
+        }
+      }
+    }
+  }
+
+  // remove unused keyed children:
+  if (keyedLen) {
+    for (var i in keyed) {
+      if (keyed[i] !== undefined) recollectNodeTree(keyed[i], false);
+    }
+  }
+
+  // remove orphaned unkeyed children:
+  while (min <= childrenLen) {
+    if ((child = children[childrenLen--]) !== undefined) recollectNodeTree(child, false);
+  }
+}
+
+/** Recursively recycle (or just unmount) a node and its descendants.
+ *	@param {Node} node						DOM node to start unmount/removal from
+ *	@param {Boolean} [unmountOnly=false]	If `true`, only triggers unmount lifecycle, skips removal
+ */
+function recollectNodeTree(node, unmountOnly) {
+  // If the node's VNode had a ref function, invoke it with null here.
+  // (this is part of the React spec, and smart for unsetting references)
+  if (node['__omiattr_'] != null && node['__omiattr_'].ref) {
+    if (typeof node['__omiattr_'].ref === 'function') {
+      node['__omiattr_'].ref(null);
+    } else if (node['__omiattr_'].ref.current) {
+      node['__omiattr_'].ref.current = null;
+    }
+  }
+
+  if (unmountOnly === false || node['__omiattr_'] == null) {
+    removeNode(node);
+  }
+
+  removeChildren(node);
+}
+
+/** Recollect/unmount all children.
+ *	- we use .lastChild here because it causes less reflow than .firstChild
+ *	- it's also cheaper than accessing the .childNodes Live NodeList
+ */
+function removeChildren(node) {
+  node = node.lastChild;
+  while (node) {
+    var next = node.previousSibling;
+    recollectNodeTree(node, true);
+    node = next;
+  }
+}
+
+/** Apply differences in attributes from a VNode to the given DOM Element.
+ *	@param {Element} dom		Element with attributes to diff `attrs` against
+ *	@param {Object} attrs		The desired end-state key-value attribute pairs
+ *	@param {Object} old			Current/previous attributes (from previous VNode or element's prop cache)
+ */
+function diffAttributes(dom, attrs, old, children) {
+  var name;
+  var update = false;
+  var isWeElement = dom.update;
+  var oldClone;
+  if (dom.receiveProps) {
+    oldClone = Object.assign({}, old);
+  }
+  // remove attributes no longer present on the vnode by setting them to undefined
+  for (name in old) {
+    if (!(attrs && attrs[name] != null) && old[name] != null) {
+      setAccessor(dom, name, old[name], old[name] = undefined, isSvgMode);
+      if (isWeElement) {
+        delete dom.props[name];
+        update = true;
+      }
+    }
+  }
+
+  // add new & update changed attributes
+  for (name in attrs) {
+    if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
+      if (name === 'style') {
+        setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+      }
+      if (dom.receiveProps) {
+        try {
+          old[name] = JSON.parse(JSON.stringify(attrs[name]));
+        } catch (e) {
+          console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
+        }
+      }
+      dom.props[npn(name)] = attrs[name];
+      update = true;
+    } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
+      setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
+      if (isWeElement) {
+        dom.props[npn(name)] = attrs[name];
+        update = true;
+      }
+    }
+  }
+
+  if (isWeElement && dom.parentNode) {
+    if (update || children.length > 0 || dom.store) {
+      dom.receiveProps(dom.props, dom.data, oldClone);
+      dom.update();
+    }
+  }
+}
+
+/*!
+ * https://github.com/Palindrom/JSONPatcherProxy
+ * (c) 2017 Starcounter
+ * MIT license
+ */
+
+/** Class representing a JS Object observer  */
+var JSONPatcherProxy = function () {
+  /**
+   * Deep clones your object and returns a new object.
+   */
+  function deepClone(obj) {
+    switch (typeof obj) {
+      case 'object':
+        return JSON.parse(JSON.stringify(obj)); //Faster than ES5 clone - http://jsperf.com/deep-cloning-of-objects/5
+      case 'undefined':
+        return null; //this is how JSON.stringify behaves for array items
+      default:
+        return obj; //no need to clone primitives
+    }
+  }
+  JSONPatcherProxy.deepClone = deepClone;
+
+  function escapePathComponent(str) {
+    if (str.indexOf('/') == -1 && str.indexOf('~') == -1) return str;
+    return str.replace(/~/g, '~0').replace(/\//g, '~1');
+  }
+  JSONPatcherProxy.escapePathComponent = escapePathComponent;
+
+  /**
+   * Walk up the parenthood tree to get the path
+   * @param {JSONPatcherProxy} instance
+   * @param {Object} obj the object you need to find its path
+   */
+  function findObjectPath(instance, obj) {
+    var pathComponents = [];
+    var parentAndPath = instance.parenthoodMap.get(obj);
+    while (parentAndPath && parentAndPath.path) {
+      // because we're walking up-tree, we need to use the array as a stack
+      pathComponents.unshift(parentAndPath.path);
+      parentAndPath = instance.parenthoodMap.get(parentAndPath.parent);
+    }
+    if (pathComponents.length) {
+      var path = pathComponents.join('/');
+      return '/' + path;
+    }
+    return '';
+  }
+  /**
+   * A callback to be used as th proxy set trap callback.
+   * It updates parenthood map if needed, proxifies nested newly-added objects, calls default callbacks with the changes occurred.
+   * @param {JSONPatcherProxy} instance JSONPatcherProxy instance
+   * @param {Object} target the affected object
+   * @param {String} key the effect property's name
+   * @param {Any} newValue the value being set
+   */
+  function setTrap(instance, target, key, newValue) {
+    var parentPath = findObjectPath(instance, target);
+
+    var destinationPropKey = parentPath + '/' + escapePathComponent(key);
+
+    if (instance.proxifiedObjectsMap.has(newValue)) {
+      var newValueOriginalObject = instance.proxifiedObjectsMap.get(newValue);
+
+      instance.parenthoodMap.set(newValueOriginalObject.originalObject, {
+        parent: target,
+        path: key
+      });
+    }
+    /*
+        mark already proxified values as inherited.
+        rationale: proxy.arr.shift()
+        will emit
+        {op: replace, path: '/arr/1', value: arr_2}
+        {op: remove, path: '/arr/2'}
+         by default, the second operation would revoke the proxy, and this renders arr revoked.
+        That's why we need to remember the proxies that are inherited.
+      */
+    var revokableInstance = instance.proxifiedObjectsMap.get(newValue);
+    /*
+    Why do we need to check instance.isProxifyingTreeNow?
+     We need to make sure we mark revokables as inherited ONLY when we're observing,
+    because throughout the first proxification, a sub-object is proxified and then assigned to
+    its parent object. This assignment of a pre-proxified object can fool us into thinking
+    that it's a proxified object moved around, while in fact it's the first assignment ever.
+     Checking isProxifyingTreeNow ensures this is not happening in the first proxification,
+    but in fact is is a proxified object moved around the tree
+    */
+    if (revokableInstance && !instance.isProxifyingTreeNow) {
+      revokableInstance.inherited = true;
+    }
+
+    // if the new value is an object, make sure to watch it
+    if (newValue && typeof newValue == 'object' && !instance.proxifiedObjectsMap.has(newValue)) {
+      instance.parenthoodMap.set(newValue, {
+        parent: target,
+        path: key
+      });
+      newValue = instance._proxifyObjectTreeRecursively(target, newValue, key);
+    }
+    // let's start with this operation, and may or may not update it later
+    var operation = {
+      op: 'remove',
+      path: destinationPropKey
+    };
+    if (typeof newValue == 'undefined') {
+      // applying De Morgan's laws would be a tad faster, but less readable
+      if (!Array.isArray(target) && !target.hasOwnProperty(key)) {
+        // `undefined` is being set to an already undefined value, keep silent
+        return Reflect.set(target, key, newValue);
+      }
+      // when array element is set to `undefined`, should generate replace to `null`
+      if (Array.isArray(target)) {
+operation.op = 'replace', operation.value = null;
+      }
+      var oldValue = instance.proxifiedObjectsMap.get(target[key]);
+      // was the deleted a proxified object?
+      if (oldValue) {
+        instance.parenthoodMap.delete(target[key]);
+        instance.disableTrapsForProxy(oldValue);
+        instance.proxifiedObjectsMap.delete(oldValue);
+      }
+    } else {
+      if (Array.isArray(target) && !Number.isInteger(+key.toString())) {
+        /* array props (as opposed to indices) don't emit any patches, to avoid needless `length` patches */
+        if (key != 'length') {
+          console.warn('JSONPatcherProxy noticed a non-integer prop was set for an array. This will not emit a patch');
+        }
+        return Reflect.set(target, key, newValue);
+      }
+      operation.op = 'add';
+      if (target.hasOwnProperty(key)) {
+        if (typeof target[key] !== 'undefined' || Array.isArray(target)) {
+          operation.op = 'replace'; // setting `undefined` array elements is a `replace` op
+        }
+      }
+      operation.value = newValue;
+    }
+    operation.oldValue = target[key];
+    var reflectionResult = Reflect.set(target, key, newValue);
+    instance.defaultCallback(operation);
+    return reflectionResult;
+  }
+  /**
+   * A callback to be used as th proxy delete trap callback.
+   * It updates parenthood map if needed, calls default callbacks with the changes occurred.
+   * @param {JSONPatcherProxy} instance JSONPatcherProxy instance
+   * @param {Object} target the effected object
+   * @param {String} key the effected property's name
+   */
+  function deleteTrap(instance, target, key) {
+    if (typeof target[key] !== 'undefined') {
+      var parentPath = findObjectPath(instance, target);
+      var destinationPropKey = parentPath + '/' + escapePathComponent(key);
+
+      var revokableProxyInstance = instance.proxifiedObjectsMap.get(target[key]);
+
+      if (revokableProxyInstance) {
+        if (revokableProxyInstance.inherited) {
+          /*
+            this is an inherited proxy (an already proxified object that was moved around),
+            we shouldn't revoke it, because even though it was removed from path1, it is still used in path2.
+            And we know that because we mark moved proxies with `inherited` flag when we move them
+             it is a good idea to remove this flag if we come across it here, in deleteProperty trap.
+            We DO want to revoke the proxy if it was removed again.
+          */
+          revokableProxyInstance.inherited = false;
+        } else {
+          instance.parenthoodMap.delete(revokableProxyInstance.originalObject);
+          instance.disableTrapsForProxy(revokableProxyInstance);
+          instance.proxifiedObjectsMap.delete(target[key]);
+        }
+      }
+      var reflectionResult = Reflect.deleteProperty(target, key);
+
+      instance.defaultCallback({
+        op: 'remove',
+        path: destinationPropKey
+      });
+
+      return reflectionResult;
+    }
+  }
+  /* pre-define resume and pause functions to enhance constructors performance */
+  function resume() {
+    var _this = this;
+
+    this.defaultCallback = function (operation) {
+      _this.isRecording && _this.patches.push(operation);
+      _this.userCallback && _this.userCallback(operation);
+    };
+    this.isObserving = true;
+  }
+  function pause() {
+    this.defaultCallback = function () {};
+    this.isObserving = false;
+  }
+  /**
+   * Creates an instance of JSONPatcherProxy around your object of interest `root`.
+   * @param {Object|Array} root - the object you want to wrap
+   * @param {Boolean} [showDetachedWarning = true] - whether to log a warning when a detached sub-object is modified @see {@link https://github.com/Palindrom/JSONPatcherProxy#detached-objects}
+   * @returns {JSONPatcherProxy}
+   * @constructor
+   */
+  function JSONPatcherProxy(root, showDetachedWarning) {
+    this.isProxifyingTreeNow = false;
+    this.isObserving = false;
+    this.proxifiedObjectsMap = new Map();
+    this.parenthoodMap = new Map();
+    // default to true
+    if (typeof showDetachedWarning !== 'boolean') {
+      showDetachedWarning = true;
+    }
+
+    this.showDetachedWarning = showDetachedWarning;
+    this.originalObject = root;
+    this.cachedProxy = null;
+    this.isRecording = false;
+    this.userCallback;
+    /**
+     * @memberof JSONPatcherProxy
+     * Restores callback back to the original one provided to `observe`.
+     */
+    this.resume = resume.bind(this);
+    /**
+     * @memberof JSONPatcherProxy
+     * Replaces your callback with a noop function.
+     */
+    this.pause = pause.bind(this);
+  }
+
+  JSONPatcherProxy.prototype.generateProxyAtPath = function (parent, obj, path) {
+    var _this2 = this;
+
+    if (!obj) {
+      return obj;
+    }
+    var traps = {
+      set: function set(target, key, value, receiver) {
+        return setTrap(_this2, target, key, value, receiver);
+      },
+      deleteProperty: function deleteProperty(target, key) {
+        return deleteTrap(_this2, target, key);
+      }
+    };
+    var revocableInstance = Proxy.revocable(obj, traps);
+    // cache traps object to disable them later.
+    revocableInstance.trapsInstance = traps;
+    revocableInstance.originalObject = obj;
+
+    /* keeping track of object's parent and path */
+
+    this.parenthoodMap.set(obj, { parent: parent, path: path });
+
+    /* keeping track of all the proxies to be able to revoke them later */
+    this.proxifiedObjectsMap.set(revocableInstance.proxy, revocableInstance);
+    return revocableInstance.proxy;
+  };
+  // grab tree's leaves one by one, encapsulate them into a proxy and return
+  JSONPatcherProxy.prototype._proxifyObjectTreeRecursively = function (parent, root, path) {
+    for (var key in root) {
+      if (root.hasOwnProperty(key)) {
+        if (root[key] instanceof Object) {
+          root[key] = this._proxifyObjectTreeRecursively(root, root[key], escapePathComponent(key));
+        }
+      }
+    }
+    return this.generateProxyAtPath(parent, root, path);
+  };
+  // this function is for aesthetic purposes
+  JSONPatcherProxy.prototype.proxifyObjectTree = function (root) {
+    /*
+    while proxyifying object tree,
+    the proxyifying operation itself is being
+    recorded, which in an unwanted behavior,
+    that's why we disable recording through this
+    initial process;
+    */
+    this.pause();
+    this.isProxifyingTreeNow = true;
+    var proxifiedObject = this._proxifyObjectTreeRecursively(undefined, root, '');
+    /* OK you can record now */
+    this.isProxifyingTreeNow = false;
+    this.resume();
+    return proxifiedObject;
+  };
+  /**
+   * Turns a proxified object into a forward-proxy object; doesn't emit any patches anymore, like a normal object
+   * @param {Proxy} proxy - The target proxy object
+   */
+  JSONPatcherProxy.prototype.disableTrapsForProxy = function (revokableProxyInstance) {
+    if (this.showDetachedWarning) {
+      var message = "You're accessing an object that is detached from the observedObject tree, see https://github.com/Palindrom/JSONPatcherProxy#detached-objects";
+
+      revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
+        console.warn(message);
+        return Reflect.set(targetObject, propKey, newValue);
+      };
+      revokableProxyInstance.trapsInstance.set = function (targetObject, propKey, newValue) {
+        console.warn(message);
+        return Reflect.set(targetObject, propKey, newValue);
+      };
+      revokableProxyInstance.trapsInstance.deleteProperty = function (targetObject, propKey) {
+        return Reflect.deleteProperty(targetObject, propKey);
+      };
+    } else {
+      delete revokableProxyInstance.trapsInstance.set;
+      delete revokableProxyInstance.trapsInstance.get;
+      delete revokableProxyInstance.trapsInstance.deleteProperty;
+    }
+  };
+  /**
+   * Proxifies the object that was passed in the constructor and returns a proxified mirror of it. Even though both parameters are options. You need to pass at least one of them.
+   * @param {Boolean} [record] - whether to record object changes to a later-retrievable patches array.
+   * @param {Function} [callback] - this will be synchronously called with every object change with a single `patch` as the only parameter.
+   */
+  JSONPatcherProxy.prototype.observe = function (record, callback) {
+    if (!record && !callback) {
+      throw new Error('You need to either record changes or pass a callback');
+    }
+    this.isRecording = record;
+    this.userCallback = callback;
+    /*
+    I moved it here to remove it from `unobserve`,
+    this will also make the constructor faster, why initiate
+    the array before they decide to actually observe with recording?
+    They might need to use only a callback.
+    */
+    if (record) this.patches = [];
+    this.cachedProxy = this.proxifyObjectTree(this.originalObject);
+    return this.cachedProxy;
+  };
+  /**
+   * If the observed is set to record, it will synchronously return all the patches and empties patches array.
+   */
+  JSONPatcherProxy.prototype.generate = function () {
+    if (!this.isRecording) {
+      throw new Error('You should set record to true to get patches later');
+    }
+    return this.patches.splice(0, this.patches.length);
+  };
+  /**
+   * Revokes all proxies rendering the observed object useless and good for garbage collection @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/revocable}
+   */
+  JSONPatcherProxy.prototype.revoke = function () {
+    this.proxifiedObjectsMap.forEach(function (el) {
+      el.revoke();
+    });
+  };
+  /**
+   * Disables all proxies' traps, turning the observed object into a forward-proxy object, like a normal object that you can modify silently.
+   */
+  JSONPatcherProxy.prototype.disableTraps = function () {
+    this.proxifiedObjectsMap.forEach(this.disableTrapsForProxy, this);
+  };
+  return JSONPatcherProxy;
+}();
+
+var callbacks = [];
+var nextTickCallback = [];
+
+function tick(fn, scope) {
+  callbacks.push({ fn: fn, scope: scope });
+}
+
+function fireTick() {
+  callbacks.forEach(function (item) {
+    item.fn.call(item.scope);
+  });
+
+  nextTickCallback.forEach(function (nextItem) {
+    nextItem.fn.call(nextItem.scope);
+  });
+  nextTickCallback.length = 0;
+}
+
+function nextTick(fn, scope) {
+  nextTickCallback.push({ fn: fn, scope: scope });
+}
+
+function observe(target) {
+  target.observe = true;
+}
+
+function proxyUpdate(ele) {
+  var timeout = null;
+  ele.data = new JSONPatcherProxy(ele.data).observe(false, function () {
+    if (ele._willUpdate) {
+      return;
+    }
+    if (ele.constructor.mergeUpdate) {
+      clearTimeout(timeout);
+
+      timeout = setTimeout(function () {
+        ele.update();
+        fireTick();
+      }, 0);
+    } else {
+      ele.update();
+      fireTick();
+    }
+  });
+}
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function define(name, ctor) {
+  if (ctor.is === 'WeElement') {
+    customElements.define(name, ctor);
+    options.mapping[name] = ctor;
+    if (ctor.use) {
+      ctor.updatePath = getPath(ctor.use);
+    } else if (ctor.data) {
+      //Compatible with older versions
+      ctor.updatePath = getUpdatePath(ctor.data);
+    }
+  } else {
+    var Element = function (_WeElement) {
+      _inherits(Element, _WeElement);
+
+      function Element() {
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, Element);
+
+        for (var _len = arguments.length, args = Array(_len), key = 0; key < _len; key++) {
+          args[key] = arguments[key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, _WeElement.call.apply(_WeElement, [this].concat(args))), _this), _this._useId = 0, _this._useMap = {}, _this._preCss = null, _temp), _possibleConstructorReturn(_this, _ret);
+      }
+
+      Element.prototype.render = function render(props, data) {
+        return ctor.call(this, props, data);
+      };
+
+      Element.prototype.beforeRender = function beforeRender() {
+        this._useId = 0;
+      };
+
+      Element.prototype.useCss = function useCss(css) {
+        if (css === this._preCss) {
+          return;
+        }
+        this._preCss = css;
+        var style = this.shadowRoot.querySelector('style');
+        style && this.shadowRoot.removeChild(style);
+        this.shadowRoot.appendChild(cssToDom(css));
+      };
+
+      Element.prototype.useData = function useData(data) {
+        return this.use({ data: data });
+      };
+
+      Element.prototype.use = function use(option) {
+        var _this2 = this;
+
+        this._useId++;
+        var updater = function updater(newValue) {
+          var item = _this2._useMap[updater.id];
+
+          item.data = newValue;
+
+          _this2.update();
+          item.effect && item.effect();
+        };
+
+        updater.id = this._useId;
+        if (!this._isInstalled) {
+          this._useMap[this._useId] = option;
+          return [option.data, updater];
+        }
+
+        return [this._useMap[this._useId].data, updater];
+      };
+
+      Element.prototype.installed = function installed() {
+        this._isInstalled = true;
+      };
+
+      return Element;
+    }(WeElement);
+
+    customElements.define(name, Element);
+  }
+}
+
+function getPath(obj) {
+  if (Object.prototype.toString.call(obj) === '[object Array]') {
+    var result = {};
+    obj.forEach(function (item) {
+      if (typeof item === 'string') {
+        result[item] = true;
+      } else {
+        var tempPath = item[Object.keys(item)[0]];
+        if (typeof tempPath === 'string') {
+          result[tempPath] = true;
+        } else {
+          if (typeof tempPath[0] === 'string') {
+            result[tempPath[0]] = true;
+          } else {
+            tempPath[0].forEach(function (path) {
+              return result[path] = true;
+            });
+          }
+        }
+      }
+    });
+    return result;
+  } else {
+    return getUpdatePath(obj);
+  }
+}
+
+function getUpdatePath(data) {
+  var result = {};
+  dataToPath(data, result);
+  return result;
+}
+
+function dataToPath(data, result) {
+  Object.keys(data).forEach(function (key) {
+    result[key] = true;
+    var type = Object.prototype.toString.call(data[key]);
+    if (type === '[object Object]') {
+      _objToPath(data[key], key, result);
+    } else if (type === '[object Array]') {
+      _arrayToPath(data[key], key, result);
+    }
+  });
+}
+
+function _objToPath(data, path, result) {
+  Object.keys(data).forEach(function (key) {
+    result[path + '.' + key] = true;
+    delete result[path];
+    var type = Object.prototype.toString.call(data[key]);
+    if (type === '[object Object]') {
+      _objToPath(data[key], path + '.' + key, result);
+    } else if (type === '[object Array]') {
+      _arrayToPath(data[key], path + '.' + key, result);
+    }
+  });
+}
+
+function _arrayToPath(data, path, result) {
+  data.forEach(function (item, index) {
+    result[path + '[' + index + ']'] = true;
+    delete result[path];
+    var type = Object.prototype.toString.call(item);
+    if (type === '[object Object]') {
+      _objToPath(item, path + '[' + index + ']', result);
+    } else if (type === '[object Array]') {
+      _arrayToPath(item, path + '[' + index + ']', result);
+    }
+  });
+}
+
+function _classCallCheck$1(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn$1(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits$1(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var id = 0;
+
+var WeElement = function (_HTMLElement) {
+  _inherits$1(WeElement, _HTMLElement);
+
+  function WeElement() {
+    _classCallCheck$1(this, WeElement);
+
+    var _this = _possibleConstructorReturn$1(this, _HTMLElement.call(this));
+
+    _this.props = Object.assign(nProps(_this.constructor.props), _this.constructor.defaultProps);
+    _this.elementId = id++;
+    _this.data = {};
+    return _this;
+  }
+
+  WeElement.prototype.connectedCallback = function connectedCallback() {
+    var p = this.parentNode;
+    while (p && !this.store) {
+      this.store = p.store;
+      p = p.parentNode || p.host;
+    }
+    if (this.store) {
+      this.store.instances.push(this);
+    }
+
+    if (this.initUse) {
+      var use = this.initUse();
+      this._updatePath = getPath(use);
+      this.use = getUse(this.store.data, use);
+    } else {
+      this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
+    }
+    this.beforeInstall();
+    !this._isInstalled && this.install();
+    this.afterInstall();
+    var shadowRoot;
+    if (!this.shadowRoot) {
+      shadowRoot = this.attachShadow({
+        mode: 'open'
+      });
+    } else {
+      shadowRoot = this.shadowRoot;
+      var fc;
+      while (fc = shadowRoot.firstChild) {
+        shadowRoot.removeChild(fc);
+      }
+    }
+    if (this.constructor.css) {
+      shadowRoot.appendChild(cssToDom(this.constructor.css));
+    } else if (this.css) {
+      shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
+    }
+    !this._isInstalled && this.beforeRender();
+    options.afterInstall && options.afterInstall(this);
+    if (this.constructor.observe) {
+      this.beforeObserve();
+      proxyUpdate(this);
+      this.observed();
+    }
+    this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
+    this.rendered();
+
+    if (this.props.css) {
+      this._customStyleElement = cssToDom(this.props.css);
+      this._customStyleContent = this.props.css;
+      shadowRoot.appendChild(this._customStyleElement);
+    }
+
+    if (isArray(this._host)) {
+      this._host.forEach(function (item) {
+        shadowRoot.appendChild(item);
+      });
+    } else {
+      shadowRoot.appendChild(this._host);
+    }
+    !this._isInstalled && this.installed();
+    this._isInstalled = true;
+  };
+
+  WeElement.prototype.disconnectedCallback = function disconnectedCallback() {
+    this.uninstall();
+    this._isInstalled = false;
+    if (this.store) {
+      for (var i = 0, len = this.store.instances.length; i < len; i++) {
+        if (this.store.instances[i] === this) {
+          this.store.instances.splice(i, 1);
+          break;
+        }
+      }
+    }
+  };
+
+  WeElement.prototype.update = function update() {
+    this._willUpdate = true;
+    this.beforeUpdate();
+    this.beforeRender();
+    if (this._customStyleContent !== this.props.css) {
+      this._customStyleContent = this.props.css;
+      this._customStyleElement.textContent = this._customStyleContent;
+    }
+    this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
+    this._willUpdate = false;
+    this.updated();
+  };
+
+  WeElement.prototype.fire = function fire(name, data) {
+    this.dispatchEvent(new CustomEvent(name.toLowerCase(), { detail: data }));
+  };
+
+  WeElement.prototype.beforeInstall = function beforeInstall() {};
+
+  WeElement.prototype.install = function install() {};
+
+  WeElement.prototype.afterInstall = function afterInstall() {};
+
+  WeElement.prototype.installed = function installed() {};
+
+  WeElement.prototype.uninstall = function uninstall() {};
+
+  WeElement.prototype.beforeUpdate = function beforeUpdate() {};
+
+  WeElement.prototype.updated = function updated() {};
+
+  WeElement.prototype.beforeRender = function beforeRender() {};
+
+  WeElement.prototype.rendered = function rendered() {};
+
+  WeElement.prototype.receiveProps = function receiveProps() {};
+
+  WeElement.prototype.beforeObserve = function beforeObserve() {};
+
+  WeElement.prototype.observed = function observed() {};
+
+  return WeElement;
+}(HTMLElement);
+
+WeElement.is = 'WeElement';
+
+function render(vnode, parent, store) {
+  parent = typeof parent === 'string' ? document.querySelector(parent) : parent;
+  if (store) {
+    store.instances = [];
+    extendStoreUpate(store);
+
+    store.data = new JSONPatcherProxy(store.data).observe(false, function (patch) {
+      var patchs = {};
+      if (patch.op === 'remove') {
+        // fix arr splice
+        var kv = getArrayPatch(patch.path, store);
+        patchs[kv.k] = kv.v;
+
+        update(patchs, store);
+      } else {
+        var key = fixPath(patch.path);
+        patchs[key] = patch.value;
+
+        update(patchs, store);
+      }
+    });
+    parent.store = store;
+  }
+  return diff(null, vnode, {}, false, parent, false);
+}
+
+function update(patch, store) {
+  store.update(patch);
+}
+
+function extendStoreUpate(store) {
+  store.update = function (patch) {
+    var _this = this;
+
+    var updateAll = matchGlobalData(this.globalData, patch);
+
+    if (Object.keys(patch).length > 0) {
+      this.instances.forEach(function (instance) {
+        if (updateAll || _this.updateAll || instance.constructor.updatePath && needUpdate(patch, instance.constructor.updatePath) || instance._updatePath && needUpdate(patch, instance._updatePath)) {
+          //update this.use
+          if (instance.constructor.use) {
+            instance.use = getUse(store.data, instance.constructor.use);
+          } else if (instance.initUse) {
+            instance.use = getUse(store.data, instance.initUse());
+          }
+
+          instance.update();
+        }
+      });
+      this.onChange && this.onChange(patch);
+    }
+  };
+}
+
+function matchGlobalData(globalData, diffResult) {
+  if (!globalData) return false;
+  for (var keyA in diffResult) {
+    if (globalData.indexOf(keyA) > -1) {
+      return true;
+    }
+    for (var i = 0, len = globalData.length; i < len; i++) {
+      if (includePath(keyA, globalData[i])) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function needUpdate(diffResult, updatePath) {
+  for (var keyA in diffResult) {
+    if (updatePath[keyA]) {
+      return true;
+    }
+    for (var keyB in updatePath) {
+      if (includePath(keyA, keyB)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function includePath(pathA, pathB) {
+  if (pathA.indexOf(pathB) === 0) {
+    var next = pathA.substr(pathB.length, 1);
+    if (next === '[' || next === '.') {
+      return true;
+    }
+  }
+  return false;
+}
+
+function fixPath(path) {
+  var mpPath = '';
+  var arr = path.replace('/', '').split('/');
+  arr.forEach(function (item, index) {
+    if (index) {
+      if (isNaN(Number(item))) {
+        mpPath += '.' + item;
+      } else {
+        mpPath += '[' + item + ']';
+      }
+    } else {
+      mpPath += item;
+    }
+  });
+  return mpPath;
+}
+
+function getArrayPatch(path, store) {
+  var arr = path.replace('/', '').split('/');
+  var current = store.data[arr[0]];
+  for (var i = 1, len = arr.length; i < len - 1; i++) {
+    current = current[arr[i]];
+  }
+  return { k: fixArrPath(path), v: current };
+}
+
+function fixArrPath(path) {
+  var mpPath = '';
+  var arr = path.replace('/', '').split('/');
+  var len = arr.length;
+  arr.forEach(function (item, index) {
+    if (index < len - 1) {
+      if (index) {
+        if (isNaN(Number(item))) {
+          mpPath += '.' + item;
+        } else {
+          mpPath += '[' + item + ']';
+        }
+      } else {
+        mpPath += item;
+      }
+    }
+  });
+  return mpPath;
+}
+
+function tag(name, pure) {
+  return function (target) {
+    target.pure = pure;
+    define(name, target);
+  };
+}
+
+/**
+ * Clones the given VNode, optionally adding attributes/props and replacing its children.
+ * @param {VNode} vnode		The virtual DOM element to clone
+ * @param {Object} props	Attributes/props to add when cloning
+ * @param {VNode} rest		Any additional arguments will be used as replacement children.
+ */
+function cloneElement(vnode, props) {
+  return h(vnode.nodeName, extend(extend({}, vnode.attributes), props), arguments.length > 2 ? [].slice.call(arguments, 2) : vnode.children);
+}
+
+function getHost(ele) {
+  var p = ele.parentNode;
+  while (p) {
+    if (p.host) {
+      return p.host;
+    } else if (p.shadowRoot && p.shadowRoot.host) {
+      return p.shadowRoot.host;
+    } else {
+      p = p.parentNode;
+    }
+  }
+}
+
+function rpx(str) {
+  return str.replace(/([1-9]\d*|0)(\.\d*)*rpx/g, function (a, b) {
+    return window.innerWidth * Number(b) / 750 + 'px';
+  });
+}
+
+function _classCallCheck$2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn$2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits$2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ModelView = function (_WeElement) {
+  _inherits$2(ModelView, _WeElement);
+
+  function ModelView() {
+    _classCallCheck$2(this, ModelView);
+
+    return _possibleConstructorReturn$2(this, _WeElement.apply(this, arguments));
+  }
+
+  ModelView.prototype.beforeInstall = function beforeInstall() {
+    this.data = this.vm.data;
+  };
+
+  ModelView.prototype.observed = function observed() {
+    this.vm.data = this.data;
+  };
+
+  return ModelView;
+}(WeElement);
+
+ModelView.observe = true;
+ModelView.mergeUpdate = false;
+
+/**
+ * classNames based on https://github.com/JedWatson/classnames
+ * by Jed Watson
+ * Licensed under the MIT License
+ * https://github.com/JedWatson/classnames/blob/master/LICENSE
+ * modified by dntzhang
+ */
+
+var hasOwn = {}.hasOwnProperty;
+
+function classNames() {
+  var classes = [];
+
+  for (var i = 0; i < arguments.length; i++) {
+    var arg = arguments[i];
+    if (!arg) continue;
+
+    var argType = typeof arg;
+
+    if (argType === 'string' || argType === 'number') {
+      classes.push(arg);
+    } else if (Array.isArray(arg) && arg.length) {
+      var inner = classNames.apply(null, arg);
+      if (inner) {
+        classes.push(inner);
+      }
+    } else if (argType === 'object') {
+      for (var key in arg) {
+        if (hasOwn.call(arg, key) && arg[key]) {
+          classes.push(key);
+        }
+      }
+    }
+  }
+
+  return classes.join(' ');
+}
+
+function extractClass() {
+  var _Array$prototype$slic = Array.prototype.slice.call(arguments, 0),
+      props = _Array$prototype$slic[0],
+      args = _Array$prototype$slic.slice(1);
+
+  if (props.class) {
+    args.unshift(props.class);
+    delete props.class;
+  } else if (props.className) {
+    args.unshift(props.className);
+    delete props.className;
+  }
+  if (args.length > 0) {
+    return { class: classNames.apply(null, args) };
+  }
+}
+
+var n=function(t,r,u,e){for(var p=1;p<r.length;p++){var s=r[p++],a="number"==typeof s?u[s]:s;1===r[p]?e[0]=a:2===r[p]?(e[1]=e[1]||{})[r[++p]]=a:3===r[p]?e[1]=Object.assign(e[1]||{},a):e.push(r[p]?t.apply(null,n(t,a,u,["",null])):a);}return e},t=function(n){for(var t,r,u=1,e="",p="",s=[0],a=function(n){1===u&&(n||(e=e.replace(/^\s*\n\s*|\s*\n\s*$/g,"")))?s.push(n||e,0):3===u&&(n||e)?(s.push(n||e,1), u=2):2===u&&"..."===e&&n?s.push(n,3):2===u&&e&&!n?s.push(!0,2,e):4===u&&r&&(s.push(n||e,2,r), r=""), e="";},f=0;f<n.length;f++){f&&(1===u&&a(), a(f));for(var h=0;h<n[f].length;h++)t=n[f][h], 1===u?"<"===t?(a(), s=[s], u=3):e+=t:p?t===p?p="":e+=t:'"'===t||"'"===t?p=t:">"===t?(a(), u=1):u&&("="===t?(u=4, r=e, e=""):"/"===t?(a(), 3===u&&(s=s[0]), u=s, (s=s[0]).push(u,4), u=0):" "===t||"\t"===t||"\n"===t||"\r"===t?(a(), u=2):e+=t);}return a(), s},r="function"==typeof Map,u=r?new Map:{},e=r?function(n){var r=u.get(n);return r||u.set(n,r=t(n)), r}:function(n){for(var r="",e=0;e<n.length;e++)r+=n[e].length+"-"+n[e];return u[r]||(u[r]=t(n))};function htm(t){var r=n(this,e(t),arguments,[]);return r.length>1?r:r[0]}
+
+var html = htm.bind(h);
+
+function createRef() {
+  return {};
+}
+
+var Component = WeElement;
+var defineElement = define;
+
+var omi = {
+  tag: tag,
+  WeElement: WeElement,
+  Component: Component,
+  render: render,
+  h: h,
+  createElement: h,
+  options: options,
+  define: define,
+  observe: observe,
+  cloneElement: cloneElement,
+  getHost: getHost,
+  rpx: rpx,
+  tick: tick,
+  nextTick: nextTick,
+  ModelView: ModelView,
+  defineElement: defineElement,
+  classNames: classNames,
+  extractClass: extractClass,
+  createRef: createRef,
+  html: html,
+  htm: htm
+};
+
+options.root.Omi = omi;
+options.root.omi = omi;
+options.root.Omi.version = '6.2.1';
+
+/* harmony default export */ __webpack_exports__["default"] = (omi);
+
+//# sourceMappingURL=omi.esm.js.map
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -570,7 +5836,213 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* WEBPACK VAR INJECTION */(f
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__extends\", function() { return __extends; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__assign\", function() { return __assign; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__rest\", function() { return __rest; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__decorate\", function() { return __decorate; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__param\", function() { return __param; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__metadata\", function() { return __metadata; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__awaiter\", function() { return __awaiter; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__generator\", function() { return __generator; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__exportStar\", function() { return __exportStar; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__values\", function() { return __values; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__read\", function() { return __read; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__spread\", function() { return __spread; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__await\", function() { return __await; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__asyncGenerator\", function() { return __asyncGenerator; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__asyncDelegator\", function() { return __asyncDelegator; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__asyncValues\", function() { return __asyncValues; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__makeTemplateObject\", function() { return __makeTemplateObject; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__importStar\", function() { return __importStar; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"__importDefault\", function() { return __importDefault; });\n/*! *****************************************************************************\r\nCopyright (c) Microsoft Corporation. All rights reserved.\r\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use\r\nthis file except in compliance with the License. You may obtain a copy of the\r\nLicense at http://www.apache.org/licenses/LICENSE-2.0\r\n\r\nTHIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\r\nKIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED\r\nWARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,\r\nMERCHANTABLITY OR NON-INFRINGEMENT.\r\n\r\nSee the Apache Version 2.0 License for specific language governing permissions\r\nand limitations under the License.\r\n***************************************************************************** */\r\n/* global Reflect, Promise */\r\n\r\nvar extendStatics = function(d, b) {\r\n    extendStatics = Object.setPrototypeOf ||\r\n        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\r\n        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\r\n    return extendStatics(d, b);\r\n};\r\n\r\nfunction __extends(d, b) {\r\n    extendStatics(d, b);\r\n    function __() { this.constructor = d; }\r\n    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\r\n}\r\n\r\nvar __assign = function() {\r\n    __assign = Object.assign || function __assign(t) {\r\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\r\n            s = arguments[i];\r\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];\r\n        }\r\n        return t;\r\n    }\r\n    return __assign.apply(this, arguments);\r\n}\r\n\r\nfunction __rest(s, e) {\r\n    var t = {};\r\n    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)\r\n        t[p] = s[p];\r\n    if (s != null && typeof Object.getOwnPropertySymbols === \"function\")\r\n        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)\r\n            t[p[i]] = s[p[i]];\r\n    return t;\r\n}\r\n\r\nfunction __decorate(decorators, target, key, desc) {\r\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\r\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\r\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\r\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\r\n}\r\n\r\nfunction __param(paramIndex, decorator) {\r\n    return function (target, key) { decorator(target, key, paramIndex); }\r\n}\r\n\r\nfunction __metadata(metadataKey, metadataValue) {\r\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(metadataKey, metadataValue);\r\n}\r\n\r\nfunction __awaiter(thisArg, _arguments, P, generator) {\r\n    return new (P || (P = Promise))(function (resolve, reject) {\r\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\r\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\r\n        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }\r\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\r\n    });\r\n}\r\n\r\nfunction __generator(thisArg, body) {\r\n    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;\r\n    return g = { next: verb(0), \"throw\": verb(1), \"return\": verb(2) }, typeof Symbol === \"function\" && (g[Symbol.iterator] = function() { return this; }), g;\r\n    function verb(n) { return function (v) { return step([n, v]); }; }\r\n    function step(op) {\r\n        if (f) throw new TypeError(\"Generator is already executing.\");\r\n        while (_) try {\r\n            if (f = 1, y && (t = op[0] & 2 ? y[\"return\"] : op[0] ? y[\"throw\"] || ((t = y[\"return\"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;\r\n            if (y = 0, t) op = [op[0] & 2, t.value];\r\n            switch (op[0]) {\r\n                case 0: case 1: t = op; break;\r\n                case 4: _.label++; return { value: op[1], done: false };\r\n                case 5: _.label++; y = op[1]; op = [0]; continue;\r\n                case 7: op = _.ops.pop(); _.trys.pop(); continue;\r\n                default:\r\n                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }\r\n                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }\r\n                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }\r\n                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }\r\n                    if (t[2]) _.ops.pop();\r\n                    _.trys.pop(); continue;\r\n            }\r\n            op = body.call(thisArg, _);\r\n        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }\r\n        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };\r\n    }\r\n}\r\n\r\nfunction __exportStar(m, exports) {\r\n    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];\r\n}\r\n\r\nfunction __values(o) {\r\n    var m = typeof Symbol === \"function\" && o[Symbol.iterator], i = 0;\r\n    if (m) return m.call(o);\r\n    return {\r\n        next: function () {\r\n            if (o && i >= o.length) o = void 0;\r\n            return { value: o && o[i++], done: !o };\r\n        }\r\n    };\r\n}\r\n\r\nfunction __read(o, n) {\r\n    var m = typeof Symbol === \"function\" && o[Symbol.iterator];\r\n    if (!m) return o;\r\n    var i = m.call(o), r, ar = [], e;\r\n    try {\r\n        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);\r\n    }\r\n    catch (error) { e = { error: error }; }\r\n    finally {\r\n        try {\r\n            if (r && !r.done && (m = i[\"return\"])) m.call(i);\r\n        }\r\n        finally { if (e) throw e.error; }\r\n    }\r\n    return ar;\r\n}\r\n\r\nfunction __spread() {\r\n    for (var ar = [], i = 0; i < arguments.length; i++)\r\n        ar = ar.concat(__read(arguments[i]));\r\n    return ar;\r\n}\r\n\r\nfunction __await(v) {\r\n    return this instanceof __await ? (this.v = v, this) : new __await(v);\r\n}\r\n\r\nfunction __asyncGenerator(thisArg, _arguments, generator) {\r\n    if (!Symbol.asyncIterator) throw new TypeError(\"Symbol.asyncIterator is not defined.\");\r\n    var g = generator.apply(thisArg, _arguments || []), i, q = [];\r\n    return i = {}, verb(\"next\"), verb(\"throw\"), verb(\"return\"), i[Symbol.asyncIterator] = function () { return this; }, i;\r\n    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }\r\n    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }\r\n    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }\r\n    function fulfill(value) { resume(\"next\", value); }\r\n    function reject(value) { resume(\"throw\", value); }\r\n    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }\r\n}\r\n\r\nfunction __asyncDelegator(o) {\r\n    var i, p;\r\n    return i = {}, verb(\"next\"), verb(\"throw\", function (e) { throw e; }), verb(\"return\"), i[Symbol.iterator] = function () { return this; }, i;\r\n    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === \"return\" } : f ? f(v) : v; } : f; }\r\n}\r\n\r\nfunction __asyncValues(o) {\r\n    if (!Symbol.asyncIterator) throw new TypeError(\"Symbol.asyncIterator is not defined.\");\r\n    var m = o[Symbol.asyncIterator], i;\r\n    return m ? m.call(o) : (o = typeof __values === \"function\" ? __values(o) : o[Symbol.iterator](), i = {}, verb(\"next\"), verb(\"throw\"), verb(\"return\"), i[Symbol.asyncIterator] = function () { return this; }, i);\r\n    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }\r\n    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }\r\n}\r\n\r\nfunction __makeTemplateObject(cooked, raw) {\r\n    if (Object.defineProperty) { Object.defineProperty(cooked, \"raw\", { value: raw }); } else { cooked.raw = raw; }\r\n    return cooked;\r\n};\r\n\r\nfunction __importStar(mod) {\r\n    if (mod && mod.__esModule) return mod;\r\n    var result = {};\r\n    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];\r\n    result.default = mod;\r\n    return result;\r\n}\r\n\r\nfunction __importDefault(mod) {\r\n    return (mod && mod.__esModule) ? mod : { default: mod };\r\n}\r\n\n\n//# sourceURL=webpack:///./node_modules/tslib/tslib.es6.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__extends", function() { return __extends; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__assign", function() { return __assign; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__rest", function() { return __rest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__decorate", function() { return __decorate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__param", function() { return __param; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__metadata", function() { return __metadata; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__awaiter", function() { return __awaiter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__generator", function() { return __generator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__exportStar", function() { return __exportStar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__values", function() { return __values; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__read", function() { return __read; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spread", function() { return __spread; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__await", function() { return __await; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncGenerator", function() { return __asyncGenerator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncDelegator", function() { return __asyncDelegator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncValues", function() { return __asyncValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__makeTemplateObject", function() { return __makeTemplateObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importStar", function() { return __importStar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importDefault", function() { return __importDefault; });
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function __exportStar(m, exports) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+
+function __values(o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result.default = mod;
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
 
 /***/ }),
 
@@ -581,7 +6053,27 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn this;\n})();\n\ntry {\n\t// This works if eval is allowed (see CSP)\n\tg = g || new Function(\"return this\")();\n} catch (e) {\n\t// This works if the window reference is available\n\tif (typeof window === \"object\") g = window;\n}\n\n// g can still be undefined, but nothing to do about it...\n// We return undefined, instead of nothing here, so it's\n// easier to handle this case. if(!global) { ...}\n\nmodule.exports = g;\n\n\n//# sourceURL=webpack:///(webpack)/buildin/global.js?");
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 
@@ -592,7 +6084,15 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("\n        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ \"./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/text-field/index.scss\");\n\n        if (typeof result === \"string\") {\n            module.exports = result;\n        } else {\n            module.exports = result.toString();\n        }\n    \n\n//# sourceURL=webpack:///./src/text-field/index.scss?");
+
+        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/text-field/index.scss");
+
+        if (typeof result === "string") {
+            module.exports = result;
+        } else {
+            module.exports = result.toString();
+        }
+    
 
 /***/ }),
 
@@ -604,9 +6104,115 @@ eval("\n        var result = __webpack_require__(/*! !../../node_modules/css-loa
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nvar __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nvar __assign = (this && this.__assign) || function () {\n    __assign = Object.assign || function(t) {\n        for (var s, i = 1, n = arguments.length; i < n; i++) {\n            s = arguments[i];\n            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))\n                t[p] = s[p];\n        }\n        return t;\n    };\n    return __assign.apply(this, arguments);\n};\nvar __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar css = __webpack_require__(/*! ./index.scss */ \"./src/text-field/index.scss\");\nvar omi_1 = __webpack_require__(/*! omi */ \"./node_modules/omi/dist/omi.esm.js\");\nvar index_1 = __webpack_require__(/*! @material/textfield/index */ \"./node_modules/@material/textfield/index.js\");\nfunction extract(from, props) {\n    var to = {};\n    props.forEach(function (prop) {\n        if (from[prop] !== undefined) {\n            to[prop] = from[prop];\n        }\n    });\n    return to;\n}\nvar TextField = /** @class */ (function (_super) {\n    __extends(TextField, _super);\n    function TextField() {\n        var _this = _super !== null && _super.apply(this, arguments) || this;\n        _this.focus = function () {\n            _this.mdc.focus();\n        };\n        _this.layout = function () {\n            _this.mdc.layout();\n        };\n        _this.refIt = function (e) { _this.root = e; };\n        return _this;\n    }\n    TextField.prototype.installed = function () {\n        this.mdc = new index_1.MDCTextField(this.root);\n    };\n    TextField.prototype.uninstall = function () {\n        this.mdc.destroy();\n    };\n    TextField.prototype.render = function (props, data) {\n        var cls = omi_1.extractClass(props, 'mdc-text-field', {\n            'mdc-text-field--fullwidth': props.fullWidth,\n            'mdc-text-field--textarea': props.textarea,\n            'mdc-text-field--disabled': props.disabled\n        });\n        var inputProps = extract(props, ['disabled', 'required', 'pattern', 'value', 'minLength', 'maxLength', 'min', 'max', 'step']);\n        var vd = [\n            omi_1.h(\"div\", __assign({ ref: this.refIt }, cls),\n                props.characterCounter && props.textarea && omi_1.h(\"div\", { class: \"mdc-text-field-character-counter\" },\n                    props.characterCounter[0],\n                    \" / \",\n                    props.characterCounter[1]),\n                props.textarea ?\n                    omi_1.h(\"textarea\", __assign({ id: \"my-text-field\", class: \"mdc-text-field__input\", rows: props.rows, cols: props.cols }, inputProps)) :\n                    omi_1.h(\"input\", __assign({ type: \"text\", id: \"my-text-field\", class: \"mdc-text-field__input\" }, inputProps)),\n                props.outlined ?\n                    omi_1.h(\"div\", { class: \"mdc-notched-outline\" },\n                        omi_1.h(\"div\", { class: \"mdc-notched-outline__leading\" }),\n                        omi_1.h(\"div\", { class: \"mdc-notched-outline__notch\" }, !props.noLabel && omi_1.h(\"label\", { for: \"tf-outlined\", class: \"mdc-floating-label\" }, props.label)),\n                        omi_1.h(\"div\", { class: \"mdc-notched-outline__trailing\" })) :\n                    (!props.noLabel && omi_1.h(\"label\", { class: \"mdc-floating-label\", for: \"my-text-field\" }, props.label)),\n                props.characterCounter && !props.textarea && omi_1.h(\"div\", { class: \"mdc-text-field-helper-line\" },\n                    omi_1.h(\"div\", { class: \"mdc-text-field-character-counter\" },\n                        props.characterCounter[0],\n                        \" / \",\n                        props.characterCounter[1])),\n                omi_1.h(\"div\", { class: \"mdc-line-ripple\" }))\n        ];\n        if (props.helperText) {\n            vd.push(omi_1.h(\"div\", { class: \"mdc-text-field-helper-line\" },\n                omi_1.h(\"div\", { class: \"mdc-text-field-helper-text\" }, props.helperText)));\n        }\n        return vd;\n    };\n    TextField.css = css;\n    TextField = __decorate([\n        omi_1.tag('m-text-field')\n    ], TextField);\n    return TextField;\n}(omi_1.WeElement));\nexports.default = TextField;\n\n\n//# sourceURL=webpack:///./src/text-field/index.tsx?");
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var css = __webpack_require__(/*! ./index.scss */ "./src/text-field/index.scss");
+var omi_1 = __webpack_require__(/*! omi */ "./node_modules/omi/dist/omi.esm.js");
+var index_1 = __webpack_require__(/*! @material/textfield/index */ "./node_modules/@material/textfield/index.js");
+function extract(from, props) {
+    var to = {};
+    props.forEach(function (prop) {
+        if (from[prop] !== undefined) {
+            to[prop] = from[prop];
+        }
+    });
+    return to;
+}
+var TextField = /** @class */ (function (_super) {
+    __extends(TextField, _super);
+    function TextField() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.focus = function () {
+            _this.mdc.focus();
+        };
+        _this.layout = function () {
+            _this.mdc.layout();
+        };
+        _this.refIt = function (e) { _this.root = e; };
+        return _this;
+    }
+    TextField.prototype.installed = function () {
+        this.mdc = new index_1.MDCTextField(this.root);
+    };
+    TextField.prototype.uninstall = function () {
+        this.mdc.destroy();
+    };
+    TextField.prototype.render = function (props, data) {
+        var cls = omi_1.extractClass(props, 'mdc-text-field', {
+            'mdc-text-field--fullwidth': props.fullWidth,
+            'mdc-text-field--textarea': props.textarea,
+            'mdc-text-field--disabled': props.disabled
+        });
+        var inputProps = extract(props, ['disabled', 'required', 'pattern', 'value', 'minLength', 'maxLength', 'min', 'max', 'step']);
+        var vd = [
+            omi_1.h("div", __assign({ ref: this.refIt }, cls),
+                props.characterCounter && props.textarea && omi_1.h("div", { class: "mdc-text-field-character-counter" },
+                    props.characterCounter[0],
+                    " / ",
+                    props.characterCounter[1]),
+                props.textarea ?
+                    omi_1.h("textarea", __assign({ id: "my-text-field", class: "mdc-text-field__input", rows: props.rows, cols: props.cols }, inputProps)) :
+                    omi_1.h("input", __assign({ type: "text", id: "my-text-field", class: "mdc-text-field__input" }, inputProps)),
+                props.outlined ?
+                    omi_1.h("div", { class: "mdc-notched-outline" },
+                        omi_1.h("div", { class: "mdc-notched-outline__leading" }),
+                        omi_1.h("div", { class: "mdc-notched-outline__notch" }, !props.noLabel && omi_1.h("label", { for: "tf-outlined", class: "mdc-floating-label" }, props.label)),
+                        omi_1.h("div", { class: "mdc-notched-outline__trailing" })) :
+                    (!props.noLabel && omi_1.h("label", { class: "mdc-floating-label", for: "my-text-field" }, props.label)),
+                props.characterCounter && !props.textarea && omi_1.h("div", { class: "mdc-text-field-helper-line" },
+                    omi_1.h("div", { class: "mdc-text-field-character-counter" },
+                        props.characterCounter[0],
+                        " / ",
+                        props.characterCounter[1])),
+                omi_1.h("div", { class: "mdc-line-ripple" }))
+        ];
+        if (props.helperText) {
+            vd.push(omi_1.h("div", { class: "mdc-text-field-helper-line" },
+                omi_1.h("div", { class: "mdc-text-field-helper-text" }, props.helperText)));
+        }
+        return vd;
+    };
+    TextField.css = css;
+    TextField = __decorate([
+        omi_1.tag('m-text-field')
+    ], TextField);
+    return TextField;
+}(omi_1.WeElement));
+exports.default = TextField;
+
 
 /***/ })
 
 /******/ });
 });
+//# sourceMappingURL=index.js.map
