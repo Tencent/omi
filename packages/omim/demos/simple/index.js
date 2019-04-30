@@ -3,8 +3,8 @@ import { render, h } from 'omi'
 
 render(
   <div>
-
-    <m-text-field />
+    <h3>Filled</h3>
+    <m-text-field label='Label'/>
     <br />
 
     <m-text-field disabled />
