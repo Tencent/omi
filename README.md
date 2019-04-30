@@ -100,7 +100,7 @@ const TAG = 'o-button'
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      [TAG]: Omi.CustomElementBaseAttributes & ButtonProps
+      [TAG]: Omi.Props & ButtonProps
     }
   }
 }
