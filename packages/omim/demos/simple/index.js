@@ -35,7 +35,10 @@ render(
     <m-text-field helperText="Helper Text" label='Label2' />
     <br />
 
-    <m-text-field characterCounter={[50, 100]} label='Label2' />
+    <m-text-field showHelper helperText="Helper Text" label='Label2' />
+    <br />
+
+    <m-text-field characterCounter={[50, 100]} helperText="Helper Text"  label='Label2' />
     <br />
 
 

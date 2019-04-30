@@ -2,13 +2,14 @@
 import * as css from './index.scss'
 import { WeElement, tag, h, extractClass } from 'omi'
 import { MDCTextField } from '@material/textfield/index'
-import { MDCRipple } from '@material/ripple/index'
+//import { MDCRipple } from '@material/ripple/index'
 
 interface Props {
   fullWidth: boolean,
   textarea: boolean,
   outlined: boolean,
   noLabel: boolean,
+  showHelper: boolean,
   helperText: string,
   characterCounter: number[],
 
@@ -32,7 +33,7 @@ interface Props {
   useNativeValidation: boolean,
   valid: boolean,
   helperTextContent: string,
-  ripple: MDCRipple,
+  //ripple: MDCRipple,
   leadingIconAriaLabel: string,
   trailingIconAriaLabel: string,
   leadingIconContent: string,
@@ -106,17 +107,18 @@ export default class TextField extends WeElement<Props, Data>{
             </div> :
             (!props.noLabel && <label class="mdc-floating-label" for="my-text-field">{props.label}</label>)
         }
-        {props.characterCounter && !props.textarea && <div class="mdc-text-field-helper-line">
-          <div class="mdc-text-field-character-counter">{props.characterCounter[0]} / {props.characterCounter[1]}</div>
-        </div>}
+
         <div class="mdc-line-ripple"></div>
       </div>
     ]
 
-    if (props.helperText) {
+    if (props.helperText || (props.characterCounter && !props.textarea)) {
       vd.push(
         <div class="mdc-text-field-helper-line">
-          <div class="mdc-text-field-helper-text">{props.helperText}</div>
+          {props.helperText && <div class={`mdc-text-field-helper-text${props.showHelper?' mdc-text-field-helper-text--persistent':''}`}>{props.helperText}</div>}
+          {props.characterCounter && !props.textarea && <div class="mdc-text-field-helper-line">
+            <div class="mdc-text-field-character-counter">{props.characterCounter[0]} / {props.characterCounter[1]}</div>
+          </div>}
         </div>)
     }
 

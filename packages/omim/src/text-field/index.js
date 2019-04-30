@@ -6189,16 +6189,16 @@ var TextField = /** @class */ (function (_super) {
                         omi_1.h("div", { class: "mdc-notched-outline__notch" }, !props.noLabel && omi_1.h("label", { for: "tf-outlined", class: "mdc-floating-label" }, props.label)),
                         omi_1.h("div", { class: "mdc-notched-outline__trailing" })) :
                     (!props.noLabel && omi_1.h("label", { class: "mdc-floating-label", for: "my-text-field" }, props.label)),
+                omi_1.h("div", { class: "mdc-line-ripple" }))
+        ];
+        if (props.helperText || (props.characterCounter && !props.textarea)) {
+            vd.push(omi_1.h("div", { class: "mdc-text-field-helper-line" },
+                props.helperText && omi_1.h("div", { class: "mdc-text-field-helper-text" + (props.showHelper ? ' mdc-text-field-helper-text--persistent' : '') }, props.helperText),
                 props.characterCounter && !props.textarea && omi_1.h("div", { class: "mdc-text-field-helper-line" },
                     omi_1.h("div", { class: "mdc-text-field-character-counter" },
                         props.characterCounter[0],
                         " / ",
-                        props.characterCounter[1])),
-                omi_1.h("div", { class: "mdc-line-ripple" }))
-        ];
-        if (props.helperText) {
-            vd.push(omi_1.h("div", { class: "mdc-text-field-helper-line" },
-                omi_1.h("div", { class: "mdc-text-field-helper-text" }, props.helperText)));
+                        props.characterCounter[1]))));
         }
         return vd;
     };
