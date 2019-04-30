@@ -20,7 +20,7 @@
 | [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)| Omi 官方 UI|
 | [omi-router ](https://github.com/Tencent/omi/tree/master/packages/omi-router) |Omi 官方路由,超级小的尺寸，只有 1KB 的 js|
 | [omi-devtools](https://github.com/f/omi-devtools)| 谷歌浏览器开发工具扩展|
-| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 |
+| [omi-cli](https://github.com/Tencent/omi/tree/master/packages/omi-cli)| 项目脚手架工具，各种模板任你选 [→ 基础模板](https://github.com/Tencent/omi/tree/master/packages/omi-cli/template) and [→ 其他模板](https://github.com/omijs) |
 |[omil](https://github.com/Wscats/omil)| Omi components 的 Webpack loader |
 
 #### 小程序生态
