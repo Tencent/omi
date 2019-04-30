@@ -1,5 +1,6 @@
 import { WeElement } from 'omi';
 import { MDCTextField } from '@material/textfield/index';
+import '../icon';
 interface Props {
     fullWidth: boolean;
     textarea: boolean;
@@ -7,6 +8,7 @@ interface Props {
     noLabel: boolean;
     showHelper: boolean;
     helperText: string;
+    iconRight: boolean;
     characterCounter: number[];
     label: '';
     required: boolean;

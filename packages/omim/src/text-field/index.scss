@@ -1,2 +1,15 @@
 @import "../theme";
 @import "@material/textfield/mdc-text-field";
+
+.mdc-text-field--with-leading-icon .icon{
+  position: absolute;
+  top: 12px; 
+  left: 10px;
+} 
+
+.mdc-text-field--with-trailing-icon .icon{
+  position: absolute;
+  top: 12px; 
+  right: 12px;
+}
+

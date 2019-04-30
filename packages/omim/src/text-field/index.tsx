@@ -2,6 +2,7 @@
 import * as css from './index.scss'
 import { WeElement, tag, h, extractClass } from 'omi'
 import { MDCTextField } from '@material/textfield/index'
+import '../icon'
 //import { MDCRipple } from '@material/ripple/index'
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
   noLabel: boolean,
   showHelper: boolean,
   helperText: string,
+  iconRight: boolean,
   characterCounter: number[],
 
   //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
@@ -87,13 +89,16 @@ export default class TextField extends WeElement<Props, Data>{
     const cls = extractClass(props, 'mdc-text-field', {
       'mdc-text-field--fullwidth': props.fullWidth,
       'mdc-text-field--textarea': props.textarea,
-      'mdc-text-field--disabled': props.disabled
+      'mdc-text-field--disabled': props.disabled,
+      'mdc-text-field--with-leading-icon': (props.path || props.paths) && !props.iconRight,
+      'mdc-text-field--with-trailing-icon': (props.path || props.paths) && props.iconRight
     })
 
     const inputProps = extract(props, ['disabled', 'required', 'pattern', 'value', 'minLength', 'maxLength', 'min', 'max', 'step'])
 
     const vd = [
       <div ref={this.refIt} {...cls}>
+        {!props.iconRight && <m-icon class='icon' {...extract(props,['path','paths'])}></m-icon>}
         {props.characterCounter && props.textarea && <div class="mdc-text-field-character-counter">{props.characterCounter[0]} / {props.characterCounter[1]}</div>}
         {
           props.textarea ?
@@ -111,7 +116,7 @@ export default class TextField extends WeElement<Props, Data>{
             </div> :
             (!props.noLabel && <label class="mdc-floating-label" for="my-text-field">{props.label}</label>)
         }
-
+        {props.iconRight && <m-icon class='icon' {...extract(props,['path','paths'])}></m-icon>}
         <div class="mdc-line-ripple"></div>
       </div>
     ]
