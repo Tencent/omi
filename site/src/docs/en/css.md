@@ -1,6 +1,6 @@
 ## CSS
 
-This is the css of props, not `static css', which provides the ability to modify scoped style within shadow dom. 
+This is the css of props, not `static css`, which provides the ability to modify scoped style within shadow dom. 
 
 ## Example
 
