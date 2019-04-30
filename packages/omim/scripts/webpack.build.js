@@ -50,8 +50,13 @@ const config = {
     }
     ]
   },
-  externals:{
-    'omi': 'Omi'
+  externals: {
+    'omi': {
+      commonjs: "omi",
+      commonjs2: "omi",
+      amd: "omi",
+      root: "Omi"
+    }
   }
 }
 

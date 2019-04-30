@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("Omi"));
+		module.exports = factory(require("omi"));
 	else if(typeof define === 'function' && define.amd)
-		define(["Omi"], factory);
+		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["MTextField"] = factory(require("Omi"));
+		exports["MTextField"] = factory(require("omi"));
 	else
 		root["MTextField"] = factory(root["Omi"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
@@ -6531,9 +6531,9 @@ exports.default = TextField;
 /***/ }),
 
 /***/ "omi":
-/*!**********************!*\
-  !*** external "Omi" ***!
-  \**********************/
+/*!******************************************************************************!*\
+  !*** external {"commonjs":"omi","commonjs2":"omi","amd":"omi","root":"Omi"} ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
