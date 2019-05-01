@@ -13,6 +13,12 @@
     "material design",
     "material-design"
   ],
-  "author": "dntzhang",
-  "license": "MIT"
+  "author": "dntzhang <dntzhang@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tencent/omi/issues"
+  },
+  "homepage": "https://github.com/Tencent/omi",
+  "typings": "./index.d.ts",
+  "types": "index.d.ts"
 }

@@ -61,7 +61,12 @@ const config = {
 }
 
 if (name !== 'icon') {
-  //config.externals['@omim/icon'] = MIcon
+  config.externals['../icon'] = {
+    commonjs: "@omim/icon",
+    commonjs2: "@omim/icon",
+    amd: "@omim/icon",
+    root: "MIcon"
+  }
 }
 webpack(config, (err, stats) => { // Stats Object
   if (err || stats.hasErrors()) {
