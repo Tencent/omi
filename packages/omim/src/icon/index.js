@@ -263,6 +263,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
+function attrToProp(ele, attrs) {
+    attrs.forEach(function (attr) {
+        var key = attr[0];
+        var val = ele.getAttribute(key);
+        if (val !== null) {
+            switch (attr[1]) {
+                case String:
+                    ele.props[key] = val;
+                    break;
+                case Number:
+                    ele.props[key] = Number(val);
+                    break;
+                case Object:
+                    ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
+                    break;
+            }
+        }
+    });
+}
 var Icon = /** @class */ (function (_super) {
     __extends(Icon, _super);
     function Icon() {
@@ -276,12 +295,11 @@ var Icon = /** @class */ (function (_super) {
     Icon.prototype.render = function (props) {
         //兼容 web components 模式直接再 html 中使用 标签，而不使用omi render 函数
         if (!(props.path || props.paths)) {
-            props.path = this.getAttribute('path');
-            props.paths = eval(this.getAttribute('paths'));
-            var scale = this.getAttribute('scale');
-            if (scale !== null) {
-                props.scale = Number(this.getAttribute('scale'));
-            }
+            attrToProp(this, [
+                ['path', String],
+                ['paths', Object],
+                ['scale', Number]
+            ]);
         }
         return (omi_1.h("i", __assign({}, omi_1.extractClass(props, 'm-icon'), { onClick: this.onClick }),
             omi_1.h("svg", { viewBox: "0 0 1024 1024", class: omi_1.classNames({ rotate: props.rotate }), width: props.scale + 'em', height: props.scale + 'em', fill: props.color, "aria-hidden": "true" }, props.paths ? (props.paths.map(function (item) {
