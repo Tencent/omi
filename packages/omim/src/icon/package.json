@@ -1,6 +1,6 @@
 {
   "name": "@omim/icon",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Material Design for Omi.",
   "main": "index.js",
   "scripts": {

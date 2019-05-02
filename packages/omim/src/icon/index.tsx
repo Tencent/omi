@@ -24,6 +24,7 @@ function attrToProp(ele, attrs) {
           break
         case Object:
           ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g,'"$1"'))
+          ele.removeAttribute(key)
           break
       }
     }
