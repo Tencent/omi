@@ -277,8 +277,11 @@ var Icon = /** @class */ (function (_super) {
         //兼容 web components 模式直接再 html 中使用 标签，而不使用omi render 函数
         if (!(props.path || props.paths)) {
             props.path = this.getAttribute('path');
-            props.paths = eval(this.getAttribute('path'));
-            props.scale = Number(this.getAttribute('scale'));
+            props.paths = eval(this.getAttribute('paths'));
+            var scale = this.getAttribute('scale');
+            if (scale !== null) {
+                props.scale = Number(this.getAttribute('scale'));
+            }
         }
         return (omi_1.h("i", __assign({}, omi_1.extractClass(props, 'm-icon'), { onClick: this.onClick }),
             omi_1.h("svg", { viewBox: "0 0 1024 1024", class: omi_1.classNames({ rotate: props.rotate }), width: props.scale + 'em', height: props.scale + 'em', fill: props.color, "aria-hidden": "true" }, props.paths ? (props.paths.map(function (item) {
