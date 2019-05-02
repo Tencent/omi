@@ -11,19 +11,23 @@ interface Data {
 }
 
 function attrToProp(ele, attrs) {
-  attrs.forEach(attr => {
-    const key = attr[0]
+  if (ele.normalizedNodeName) return
+
+  Object.keys(attrs).forEach(key => {
+    const type = attrs[key]
     const val = ele.getAttribute(key)
     if (val !== null) {
-      switch (attr[1]) {
+      switch (type) {
         case String:
           ele.props[key] = val
           break
         case Number:
           ele.props[key] = Number(val)
           break
+        case Boolean:
+          ele.props[key] = true
         case Object:
-          ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g,'"$1"'))
+          ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'))
           ele.removeAttribute(key)
           break
       }
@@ -46,13 +50,12 @@ export default class Icon extends WeElement<Props, Data>{
 
   render(props) {
     //兼容 web components 模式直接再 html 中使用 标签，而不使用omi render 函数
-    if (!(props.path || props.paths)) {
-      attrToProp(this, [
-        ['path', String],
-        ['paths', Object],
-        ['scale', Number]
-      ])
-    }
+    attrToProp(this, {
+      path: String,
+      paths: Object,
+      scale: Number
+    })
+
     return (
       <i {...extractClass(props, 'm-icon')} onClick={this.onClick} >
         <svg

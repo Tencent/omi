@@ -1,6 +1,6 @@
 {
-  "name": "@omim/icon",
-  "version": "0.0.6",
+  "name": "@omim/text-field",
+  "version": "0.0.1",
   "description": "Material Design for Omi.",
   "main": "index.js",
   "scripts": {
@@ -20,5 +20,8 @@
   },
   "homepage": "https://github.com/Tencent/omi",
   "typings": "./index.d.ts",
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "dependencies": {
+    "@omim/icon": "^0.0.6"
+  }
 }

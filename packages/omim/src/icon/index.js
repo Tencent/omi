@@ -264,17 +264,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
 function attrToProp(ele, attrs) {
-    attrs.forEach(function (attr) {
-        var key = attr[0];
+    if (ele.normalizedNodeName)
+        return;
+    Object.keys(attrs).forEach(function (key) {
+        var type = attrs[key];
         var val = ele.getAttribute(key);
         if (val !== null) {
-            switch (attr[1]) {
+            switch (type) {
                 case String:
                     ele.props[key] = val;
                     break;
                 case Number:
                     ele.props[key] = Number(val);
                     break;
+                case Boolean:
+                    ele.props[key] = true;
                 case Object:
                     ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
                     ele.removeAttribute(key);
@@ -295,13 +299,11 @@ var Icon = /** @class */ (function (_super) {
     }
     Icon.prototype.render = function (props) {
         //兼容 web components 模式直接再 html 中使用 标签，而不使用omi render 函数
-        if (!(props.path || props.paths)) {
-            attrToProp(this, [
-                ['path', String],
-                ['paths', Object],
-                ['scale', Number]
-            ]);
-        }
+        attrToProp(this, {
+            path: String,
+            paths: Object,
+            scale: Number
+        });
         return (omi_1.h("i", __assign({}, omi_1.extractClass(props, 'm-icon'), { onClick: this.onClick }),
             omi_1.h("svg", { viewBox: "0 0 1024 1024", class: omi_1.classNames({ rotate: props.rotate }), width: props.scale + 'em', height: props.scale + 'em', fill: props.color, "aria-hidden": "true" }, props.paths ? (props.paths.map(function (item) {
                 var attrs = { d: item.path, fill: props.color || 'black' };

@@ -10,9 +10,9 @@ interface Props {
     helperText: string;
     iconRight: boolean;
     characterCounter: number[];
-    label: '';
+    label: string;
     required: boolean;
-    pattern: RegExp;
+    pattern: string;
     minLength: number;
     maxLength: number;
     min: number;

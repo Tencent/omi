@@ -17,10 +17,10 @@ interface Props {
 
   //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
 
-  label: '',
+  label: string,
 
   required: boolean,
-  pattern: RegExp,
+  pattern: string, //RegExp string such as [A-z]{3}
   minLength: number,
   maxLength: number,
   min: number,
@@ -46,6 +46,31 @@ interface Data {
 
 }
 
+function attrToProp(ele, attrs) {
+  if (ele.normalizedNodeName) return
+
+  Object.keys(attrs).forEach(key => {
+    const type = attrs[key]
+    const val = ele.getAttribute(key)
+    if (val !== null) {
+      switch (type) {
+        case String:
+          ele.props[key] = val
+          break
+        case Number:
+          ele.props[key] = Number(val)
+          break
+        case Boolean:
+          ele.props[key] = true
+        case Object:
+          ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'))
+          ele.removeAttribute(key)
+          break
+      }
+    }
+  })
+}
+
 function extract(from, props) {
   const to = {}
   props.forEach(prop => {
@@ -61,7 +86,7 @@ export default class TextField extends WeElement<Props, Data>{
   static defaultProps = {
     showHelper: true
   }
-  
+
   static css = css
 
   mdc: MDCTextField
@@ -86,6 +111,43 @@ export default class TextField extends WeElement<Props, Data>{
   refIt = (e) => { this.root = e }
 
   render(props, data) {
+    attrToProp(this, {
+      fullWidth: Boolean,
+      textarea: Boolean,
+      outlined: Boolean,
+      noLabel: Boolean,
+      showHelper: Boolean,
+      helperText: String,
+      iconRight: Boolean,
+      characterCounter: Object,
+
+      //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
+
+      label: String,
+
+      required: Boolean,
+      pattern: String, //RegExp string such as [A-z]{3}
+      minLength: Number,
+      maxLength: Number,
+      min: Number,
+      max: Number,
+      step: Number,
+
+      rows: Number,
+      cols: Number,
+
+      value: String,
+      disabled: Boolean, //also add style class 
+      useNativeValidation: Boolean,
+      valid: Boolean,
+      helperTextContent: String,
+      //ripple: MDCRipple,
+      leadingIconAriaLabel: String,
+      trailingIconAriaLabel: String,
+      leadingIconContent: String,
+      trailingIconContent: String
+    })
+   
     const cls = extractClass(props, 'mdc-text-field', {
       'mdc-text-field--fullwidth': props.fullWidth,
       'mdc-text-field--textarea': props.textarea,
@@ -98,7 +160,7 @@ export default class TextField extends WeElement<Props, Data>{
 
     const vd = [
       <div ref={this.refIt} {...cls}>
-        {(props.path || props.paths) && !props.iconRight && <m-icon class='icon' {...extract(props,['path','paths'])}></m-icon>}
+        {(props.path || props.paths) && !props.iconRight && <m-icon class='icon' {...extract(props, ['path', 'paths'])}></m-icon>}
         {props.characterCounter && props.textarea && <div class="mdc-text-field-character-counter">{props.characterCounter[0]} / {props.characterCounter[1]}</div>}
         {
           props.textarea ?
@@ -116,7 +178,7 @@ export default class TextField extends WeElement<Props, Data>{
             </div> :
             (!props.noLabel && <label class="mdc-floating-label" for="my-text-field">{props.label}</label>)
         }
-        {(props.path || props.paths) && props.iconRight && <m-icon class='icon' {...extract(props,['path','paths'])}></m-icon>}
+        {(props.path || props.paths) && props.iconRight && <m-icon class='icon' {...extract(props, ['path', 'paths'])}></m-icon>}
         <div class="mdc-line-ripple"></div>
       </div>
     ]
@@ -124,7 +186,7 @@ export default class TextField extends WeElement<Props, Data>{
     if (props.helperText || (props.characterCounter && !props.textarea)) {
       vd.push(
         <div class="mdc-text-field-helper-line">
-          {props.helperText && <div class={`mdc-text-field-helper-text${props.showHelper?' mdc-text-field-helper-text--persistent':''}`}>{props.helperText}</div>}
+          {props.helperText && <div class={`mdc-text-field-helper-text${props.showHelper ? ' mdc-text-field-helper-text--persistent' : ''}`}>{props.helperText}</div>}
           {props.characterCounter && !props.textarea && <div class="mdc-text-field-helper-line">
             <div class="mdc-text-field-character-counter">{props.characterCounter[0]} / {props.characterCounter[1]}</div>
           </div>}
@@ -134,6 +196,3 @@ export default class TextField extends WeElement<Props, Data>{
     return vd
   }
 }
-
-
-
