@@ -1,11 +1,12 @@
 # Omim
 
-Material Design for Omi.
+Material Design for the Web, powered by Omi.
 
 ## Features
 
 * Simple wrapper of [material-components-web](https://github.com/material-components/material-components-web)
-* Render by Custom Elements of Web Components, any framework can use them
+* Render by Custom Elements of Web Components
+* Any framework can use the components, such as Omi, React, Vue and Angular 
 
 ## CMD
 
