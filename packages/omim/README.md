@@ -16,3 +16,8 @@ Build demo:
 npm start demo-name
 ```
 
+## Publish
+
+```bash
+npm publish --access public
+```
