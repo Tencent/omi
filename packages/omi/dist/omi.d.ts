@@ -57,7 +57,7 @@ declare namespace Omi {
 		P & Attributes & { children?: ComponentChildren; ref?: Ref<RefType> }
 	>;
 
-	interface WeElement<P, D> {
+	interface WeElement<P, D> extends HTMLElement {
 		install?(): void;
 		installed?(): void;
 		uninstall?(): void;
@@ -79,7 +79,7 @@ declare namespace Omi {
 		receiveProps?(): void;
 	}
 
-	interface Component<P, D> {
+	interface Component<P, D> extends HTMLElement {
 		install?(): void;
 		installed?(): void;
 		uninstall?(): void;

@@ -25,6 +25,12 @@ export default class Icon extends WeElement<Props, Data>{
   }
 
   render(props) {
+    //兼容 web components 模式直接再 html 中使用 标签，而不使用omi render 函数
+    if(!(props.path || props.paths)){
+      props.path = this.getAttribute('path')
+      props.paths = eval(this.getAttribute('path'))
+      props.scale = Number(this.getAttribute('scale'))
+    }
     return (
       <i {...extractClass(props, 'm-icon')} onClick={this.onClick} >
         <svg
