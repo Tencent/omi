@@ -27,15 +27,15 @@ export default class WeElement extends HTMLElement {
     }
     if (this.store) {
       this.store.instances.push(this)
-		}
+    }
 
-		if(this.initUse){
-			const use = this.initUse()
-			this._updatePath = getPath(use)
-			this.use = getUse(this.store.data, use)
-		}else{
-			this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use))
-		}
+    if (this.initUse) {
+      const use = this.initUse()
+      this._updatePath = getPath(use)
+      this.use = getUse(this.store.data, use)
+    } else {
+      this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use))
+    }
     this.beforeInstall()
     !this._isInstalled && this.install()
     this.afterInstall()
@@ -63,6 +63,7 @@ export default class WeElement extends HTMLElement {
       proxyUpdate(this)
       this.observed()
     }
+    this.attrsToProps()
     this._host = diff(
       null,
       this.render(this.props, this.data, this.store),
@@ -80,7 +81,7 @@ export default class WeElement extends HTMLElement {
     }
 
     if (isArray(this._host)) {
-      this._host.forEach(function(item) {
+      this._host.forEach(function (item) {
         shadowRoot.appendChild(item)
       })
     } else {
@@ -107,10 +108,11 @@ export default class WeElement extends HTMLElement {
     this._willUpdate = true
     this.beforeUpdate()
     this.beforeRender()
-    if(this._customStyleContent !== this.props.css){
+    if (this._customStyleContent !== this.props.css) {
       this._customStyleContent = this.props.css
       this._customStyleElement.textContent = this._customStyleContent
     }
+    this.attrsToProps()
     this._host = diff(
       this._host,
       this.render(this.props, this.data, this.store),
@@ -122,31 +124,67 @@ export default class WeElement extends HTMLElement {
     this.updated()
   }
 
+  removeAttribute(key) {
+    super.removeAttribute(key)
+    this.update()
+  }
+
+  setAttribute(key, val) {
+    super.setAttribute(key, val)
+    this.update()
+  }
+
+  attrsToProps() {
+    const ele = this
+    const attrs = this.constructor.propTypes
+    if (ele.normalizedNodeName) return
+    Object.keys(attrs).forEach(key => {
+      const type = attrs[key]
+      const val = ele.getAttribute(key)
+      if (val !== null) {
+        switch (type) {
+          case String:
+            ele.props[key] = val
+            break
+          case Number:
+            ele.props[key] = Number(val)
+            break
+          case Boolean:
+            ele.props[key] = true
+          case Object:
+            ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'))
+            ele.removeAttribute(key)
+            break
+        }
+      }
+    })
+  }
+
   fire(name, data) {
     this.dispatchEvent(new CustomEvent(name.toLowerCase(), { detail: data }))
   }
 
-  beforeInstall() {}
+  beforeInstall() { }
 
-  install() {}
+  install() { }
 
-  afterInstall() {}
+  afterInstall() { }
 
-  installed() {}
+  installed() { }
 
-  uninstall() {}
+  uninstall() { }
 
-  beforeUpdate() {}
+  beforeUpdate() { }
 
-  updated() {}
+  updated() { }
 
-  beforeRender() {}
+  beforeRender() { }
 
-  rendered() {}
+  rendered() { }
 
-  receiveProps() {}
+  receiveProps() { }
 
-  beforeObserve() {}
+  beforeObserve() { }
 
-  observed() {}
+  observed() { }
 }
