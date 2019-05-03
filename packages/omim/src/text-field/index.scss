@@ -1,6 +1,11 @@
 @import "../theme";
 @import "@material/textfield/mdc-text-field";
 
+.icon{
+  cursor: default;
+  pointer-events: none;
+}
+
 .mdc-text-field--with-leading-icon .icon{
   position: absolute;
   top: 12px; 

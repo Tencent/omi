@@ -1,6 +1,6 @@
 {
   "name": "@omim/text-field",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Material Design for Omi.",
   "main": "index.js",
   "scripts": {

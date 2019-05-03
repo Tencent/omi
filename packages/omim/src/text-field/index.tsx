@@ -13,8 +13,8 @@ interface Props {
   showHelper: boolean,
   helperText: string,
   iconRight: boolean,
-  characterCounter: number[],
-
+  //characterCounter: number[],
+  characterCounter: boolean,
   //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
 
   label: string,
@@ -71,7 +71,7 @@ function attrToProp(ele, attrs) {
   })
 }
 
-function extract(from, props) {
+function extract(from, props):any {
   const to = {}
   props.forEach(prop => {
     if (from[prop] !== undefined) {
@@ -119,7 +119,7 @@ export default class TextField extends WeElement<Props, Data>{
       showHelper: Boolean,
       helperText: String,
       iconRight: Boolean,
-      characterCounter: Object,
+      characterCounter: Boolean,
 
       //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
 
@@ -149,6 +149,7 @@ export default class TextField extends WeElement<Props, Data>{
     })
    
     const cls = extractClass(props, 'mdc-text-field', {
+      'mdc-text-field--outlined': props.outlined,
       'mdc-text-field--fullwidth': props.fullWidth,
       'mdc-text-field--textarea': props.textarea,
       'mdc-text-field--disabled': props.disabled,
@@ -158,10 +159,15 @@ export default class TextField extends WeElement<Props, Data>{
 
     const inputProps = extract(props, ['disabled', 'required', 'pattern', 'value', 'minLength', 'maxLength', 'min', 'max', 'step'])
 
+    if(props.fullWidth && !props.outlined){
+      inputProps.placeholder = props.label
+      props.label = null
+    }
+
     const vd = [
       <div ref={this.refIt} {...cls}>
         {(props.path || props.paths) && !props.iconRight && <m-icon class='icon' {...extract(props, ['path', 'paths'])}></m-icon>}
-        {props.characterCounter && props.textarea && <div class="mdc-text-field-character-counter">{props.characterCounter[0]} / {props.characterCounter[1]}</div>}
+        {props.characterCounter && props.textarea && <div class="mdc-text-field-character-counter"></div>}
         {
           props.textarea ?
             <textarea id="my-text-field" class="mdc-text-field__input" rows={props.rows} cols={props.cols} {...inputProps}></textarea> :
@@ -172,14 +178,14 @@ export default class TextField extends WeElement<Props, Data>{
             <div class="mdc-notched-outline">
               <div class="mdc-notched-outline__leading"></div>
               <div class="mdc-notched-outline__notch">
-                {!props.noLabel && <label for="tf-outlined" class="mdc-floating-label">{props.label}</label>}
+                {props.label === undefined || !props.noLabel && <label for="tf-outlined" class="mdc-floating-label">{props.label}</label>}
               </div>
               <div class="mdc-notched-outline__trailing"></div>
             </div> :
-            (!props.noLabel && <label class="mdc-floating-label" for="my-text-field">{props.label}</label>)
+            (props.label === undefined || !props.noLabel && <label class="mdc-floating-label" for="my-text-field">{props.label}</label>)
         }
         {(props.path || props.paths) && props.iconRight && <m-icon class='icon' {...extract(props, ['path', 'paths'])}></m-icon>}
-        <div class="mdc-line-ripple"></div>
+        {!props.outlined && <div class="mdc-line-ripple"></div>}
       </div>
     ]
 
@@ -188,7 +194,7 @@ export default class TextField extends WeElement<Props, Data>{
         <div class="mdc-text-field-helper-line">
           {props.helperText && <div class={`mdc-text-field-helper-text${props.showHelper ? ' mdc-text-field-helper-text--persistent' : ''}`}>{props.helperText}</div>}
           {props.characterCounter && !props.textarea && <div class="mdc-text-field-helper-line">
-            <div class="mdc-text-field-character-counter">{props.characterCounter[0]} / {props.characterCounter[1]}</div>
+            <div class="mdc-text-field-character-counter"></div>
           </div>}
         </div>)
     }

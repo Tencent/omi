@@ -9,7 +9,7 @@ interface Props {
     showHelper: boolean;
     helperText: string;
     iconRight: boolean;
-    characterCounter: number[];
+    characterCounter: boolean;
     label: string;
     required: boolean;
     pattern: string;
