@@ -2,7 +2,7 @@ const config = {
   menus: {
     'zh-cn': [
       {
-        title: 'Omiu',
+        title: 'Omim',
         list: [
           { name: '简介', md: 'introduction' }
         ]
@@ -69,7 +69,7 @@ const config = {
     ],
     en: [
       {
-        title: 'Omiu',
+        title: 'Omim',
         list: [
           { name: 'Introduction', md: 'introduction' }
         ]

@@ -1,55 +1,29 @@
-## Omiu 
+# Omim
 
-Omiu is the official UI component library of Omi, based on Omio(IE8+) and compatible with Omi, using the design style of Wechat 7.0.
+Material Design for the Web, powered by Omi.
 
-## Colors
+## Features
 
-|  **Color**  | **Meaning**  |
-| ------------- |:-------------:|
-| #07C160  | Noble Vigorous Green | 
-| #171717  | Steady Elegant Black |   
-| #FEFEFE  | Transcendent White |   
-| #F95050  | Temperament Eye-catching Red |   
-| #ECECEC  | Lost Indifferent Gray |   
+* Simple wrapper of [material-components-web](https://github.com/material-components/material-components-web)
+* Render by Custom Elements of Web Components
+* Any framework can use the components, such as Omi, React, Vue and Angular 
 
+## CMD
 
-## Use it immediately
+Build component:
 
-```
-npm i omi-cli -g             
-omi init my-app   
-cd my-app           
-npm start                     
-npm run build    
+```bash
+npm run build -- component-name
 ```
 
-> `npx omi-cli init my-app` is also supported(npm v5.2.0+).
+Build demo:
 
-## Use it in existing project
-
-```js
-npm i omiu
+```bash
+npm start demo-name
 ```
 
-```js
-import { WeElement, define, render } from 'omi'
-//written by E6+,  you need to set JS under node modules to run normally after Babel or TS compilation
-import 'omiu/button'
-//or import all, published by ES5
-//import 'omiu'
+## Publish
 
-define('my-app', class extends WeElement {
-  onClick = () => {
-    console.log('Hello omiu!');
-  }
-
-  render() {
-    return (
-      <o-button onClick={this.onClick}>I am button.</o-button>
-    )
-  }
-})
-
-render(<my-app />, 'body')
+```bash
+npm publish --access public
 ```
-
