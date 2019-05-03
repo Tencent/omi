@@ -4,7 +4,9 @@ import { define } from './define'
 import { updateData } from './update-data'
 
 class Component {
-  constructor() { }
+  constructor() {
+    this.props = Object.assign({}, this.constructor.defaultProps)
+  }
 
   data = {}
 
@@ -12,9 +14,9 @@ class Component {
     
     this.beforeUpdate && this.beforeUpdate()
     this.beforeRender && this.beforeRender()
-
+  
     try {
-      this._createData()
+      Object.assign(this._createData(), this.props)
     } catch (e) {
       console.log(e)
     }

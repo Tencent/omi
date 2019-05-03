@@ -5,6 +5,10 @@ import '../my-element'
 import './index.css'
 
 define('my-counter', class extends WeElement {
+  static defaultProps = {
+    aa: 'aaaaa'
+  }
+
   data = {
     count: 1
   }
@@ -28,6 +32,7 @@ define('my-counter', class extends WeElement {
         <text>{this.data.count}</text>
         <button onClick={this.add}>+</button>
         <my-element msg='omi'></my-element>
+        <view>{this.props.aa}</view>
       </view>
     )
   }

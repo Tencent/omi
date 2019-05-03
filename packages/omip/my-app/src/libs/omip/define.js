@@ -28,11 +28,11 @@ export function define(name, ctor) {
         }
       }
     })
-    ins.props = this.properties
+    //ins.props = this.properties
   }
 
   config.properties = ctor.properties
-
+  
   Object.keys(ctor.properties).forEach(key => {
     ctor.properties[key].observer = function (newVal, oldVal, changedPath) {
       ins.props[key] = newVal
@@ -41,7 +41,7 @@ export function define(name, ctor) {
   })
 
   config.attached = function () {
-    ins.props = this.properties
+    //ins.props = this.properties
     ins.install.call(ins)
     ins.update()
   }
