@@ -1,5 +1,5 @@
 /**
- * omi v6.2.2  http://omijs.org
+ * omi v6.3.0  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -195,6 +195,11 @@ function getTargetByPath(origin, path) {
   return current;
 }
 
+var hyphenateRE = /\B([A-Z])/g;
+function hyphenate(str) {
+  return str.replace(hyphenateRE, '-$1').toLowerCase();
+}
+
 // DOM properties that should NOT have "px" added when numeric
 var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
@@ -314,19 +319,19 @@ function setAccessor(node, name, old, value, isSvg) {
     try {
       node[name] = value == null ? '' : value;
     } catch (e) {}
-    if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
+    if ((value == null || value === false) && name != 'spellcheck') node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
   } else {
     var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
     // spellcheck is treated differently than all other boolean values and
     // should not be removed when the value is `false`. See:
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
     if (value == null || value === false) {
-      if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
+      if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
     } else if (typeof value !== 'function') {
       if (ns) {
         node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
       } else {
-        node.setAttribute(name, value);
+        node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value);
       }
     }
   }
@@ -1330,6 +1335,7 @@ var WeElement = function (_HTMLElement) {
       proxyUpdate(this);
       this.observed();
     }
+    this.attrsToProps();
     this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
     this.rendered();
 
@@ -1371,9 +1377,54 @@ var WeElement = function (_HTMLElement) {
       this._customStyleContent = this.props.css;
       this._customStyleElement.textContent = this._customStyleContent;
     }
+    this.attrsToProps();
     this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
     this._willUpdate = false;
     this.updated();
+  };
+
+  WeElement.prototype.removeAttribute = function removeAttribute(key) {
+    _HTMLElement.prototype.removeAttribute.call(this, key);
+    this.update();
+  };
+
+  WeElement.prototype.setAttribute = function setAttribute(key, val) {
+    _HTMLElement.prototype.setAttribute.call(this, key, val);
+    this.update();
+  };
+
+  WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
+    _HTMLElement.prototype.removeAttribute.call(this, key);
+  };
+
+  WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
+    _HTMLElement.prototype.setAttribute.call(this, key, val);
+  };
+
+  WeElement.prototype.attrsToProps = function attrsToProps() {
+    var ele = this;
+    var attrs = this.constructor.propTypes;
+    if (ele.normalizedNodeName) return;
+    Object.keys(attrs).forEach(function (key) {
+      var type = attrs[key];
+      var val = ele.getAttribute(hyphenate(key));
+      if (val !== null) {
+        switch (type) {
+          case String:
+            ele.props[key] = val;
+            break;
+          case Number:
+            ele.props[key] = Number(val);
+            break;
+          case Boolean:
+            ele.props[key] = true;
+            break;
+          case Object:
+            ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
+            break;
+        }
+      }
+    });
   };
 
   WeElement.prototype.fire = function fire(name, data) {
@@ -1705,7 +1756,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.2.2';
+options.root.Omi.version = '6.3.0';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm };

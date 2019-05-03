@@ -81,6 +81,9 @@
         for (var i = 0, len = arr.length; i < len; i++) current = current[arr[i]];
         return current;
     }
+    function hyphenate(str) {
+        return str.replace(hyphenateRE, '-$1').toLowerCase();
+    }
     function isSameNodeType(node, vnode, hydrating) {
         if ('string' == typeof vnode || 'number' == typeof vnode) return void 0 !== node.splitText;
         if ('string' == typeof vnode.nodeName) return !node._componentConstructor && isNamedNode(node, vnode.nodeName); else if ('function' == typeof vnode.nodeName) return options.mapping[node.nodeName.toLowerCase()] === vnode.nodeName;
@@ -134,10 +137,10 @@
             try {
                 node[name] = null == value ? '' : value;
             } catch (e) {}
-            if ((null == value || !1 === value) && 'spellcheck' != name) node.removeAttribute(name);
+            if ((null == value || !1 === value) && 'spellcheck' != name) node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
         } else {
             var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
-            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.setAttribute(name, value);
+            if (null == value || !1 === value) if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase()); else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name); else if ('function' != typeof value) if (ns) node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value); else node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value);
         }
     }
     function eventProxy(e) {
@@ -667,6 +670,7 @@
         }
     }();
     'function' == typeof Promise ? Promise.resolve().then.bind(Promise.resolve()) : setTimeout;
+    var hyphenateRE = /\B([A-Z])/g;
     var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
     var diffLevel = 0;
     var isSvgMode = !1;
@@ -911,6 +915,7 @@
                 proxyUpdate(this);
                 this.observed();
             }
+            this.attrsToProps();
             this.L = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
             this.rendered();
             if (this.props.css) {
@@ -940,9 +945,48 @@
                 this.O = this.props.css;
                 this.N.textContent = this.O;
             }
+            this.attrsToProps();
             this.L = diff(this.L, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
             this.J = !1;
             this.updated();
+        };
+        WeElement.prototype.removeAttribute = function(key) {
+            _HTMLElement.prototype.removeAttribute.call(this, key);
+            this.update();
+        };
+        WeElement.prototype.setAttribute = function(key, val) {
+            _HTMLElement.prototype.setAttribute.call(this, key, val);
+            this.update();
+        };
+        WeElement.prototype.pureRemoveAttribute = function(key) {
+            _HTMLElement.prototype.removeAttribute.call(this, key);
+        };
+        WeElement.prototype.pureSetAttribute = function(key, val) {
+            _HTMLElement.prototype.setAttribute.call(this, key, val);
+        };
+        WeElement.prototype.attrsToProps = function() {
+            var ele = this;
+            var attrs = this.constructor.propTypes;
+            if (!ele.__n) Object.keys(attrs).forEach(function(key) {
+                var type = attrs[key];
+                var val = ele.getAttribute(hyphenate(key));
+                if (null !== val) switch (type) {
+                  case String:
+                    ele.props[key] = val;
+                    break;
+
+                  case Number:
+                    ele.props[key] = Number(val);
+                    break;
+
+                  case Boolean:
+                    ele.props[key] = !0;
+                    break;
+
+                  case Object:
+                    ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
+                }
+            });
         };
         WeElement.prototype.fire = function(name, data) {
             this.dispatchEvent(new CustomEvent(name.toLowerCase(), {
@@ -1034,7 +1078,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.2.2';
+    options.root.Omi.version = '6.3.0';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
