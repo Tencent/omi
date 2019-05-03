@@ -190,6 +190,11 @@
     return current;
   }
 
+  var hyphenateRE = /\B([A-Z])/g;
+  function hyphenate(str) {
+    return str.replace(hyphenateRE, '-$1').toLowerCase();
+  }
+
   // render modes
 
   var ATTR_KEY = '__omiattr_';
@@ -313,19 +318,19 @@
       try {
         node[name] = value == null ? '' : value;
       } catch (e) {}
-      if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
+      if ((value == null || value === false) && name != 'spellcheck') node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
     } else {
       var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
       // spellcheck is treated differently than all other boolean values and
       // should not be removed when the value is `false`. See:
       // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
       if (value == null || value === false) {
-        if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.removeAttribute(name);
+        if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
       } else if (typeof value !== 'function') {
         if (ns) {
           node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
         } else {
-          node.setAttribute(name, value);
+          node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value);
         }
       }
     }
@@ -1392,13 +1397,21 @@
       this.update();
     };
 
+    WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
+      _HTMLElement.prototype.removeAttribute.call(this, key);
+    };
+
+    WeElement.prototype.pureSetAttribute = function pureSetAttribute(key, val) {
+      _HTMLElement.prototype.setAttribute.call(this, key, val);
+    };
+
     WeElement.prototype.attrsToProps = function attrsToProps() {
       var ele = this;
       var attrs = this.constructor.propTypes;
       if (ele.normalizedNodeName) return;
       Object.keys(attrs).forEach(function (key) {
         var type = attrs[key];
-        var val = ele.getAttribute(key);
+        var val = ele.getAttribute(hyphenate(key));
         if (val !== null) {
           switch (type) {
             case String:
@@ -1409,9 +1422,9 @@
               break;
             case Boolean:
               ele.props[key] = true;
+              break;
             case Object:
               ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
-              ele.removeAttribute(key);
               break;
           }
         }
@@ -1764,6 +1777,7 @@
     }
 
     _class.prototype.render = function render$$1(props) {
+      console.error(props.boolTest);
       return Omi.h(
         'div',
         null,
@@ -1775,10 +1789,11 @@
     return _class;
   }(WeElement), _class$2.propTypes = {
     first: String,
-    last: String
+    last: String,
+    boolTest: Boolean
   }, _temp$2));
 
-  render(Omi.h('my-component', { first: 'dnt', last: 'zhang' }), 'body');
+  render(Omi.h('my-component', { first: 'dnt', last: 'zhang', 'bool-test': true }), 'body');
 
 }());
 //# sourceMappingURL=b.js.map

@@ -92,7 +92,7 @@ export function setAccessor(node, name, old, value, isSvg) {
       node[name] = value == null ? '' : value
     } catch (e) {}
     if ((value == null || value === false) && name != 'spellcheck')
-      node.removeAttribute(name)
+      node.pureRemoveAttribute ? node.pureRemoveAttribute(name) :  node.removeAttribute(name)
   } else {
     let ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''))
     // spellcheck is treated differently than all other boolean values and
@@ -104,7 +104,7 @@ export function setAccessor(node, name, old, value, isSvg) {
           'http://www.w3.org/1999/xlink',
           name.toLowerCase()
         )
-      else node.removeAttribute(name)
+      else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) :  node.removeAttribute(name)
     } else if (typeof value !== 'function') {
       if (ns) {
         node.setAttributeNS(
@@ -113,7 +113,7 @@ export function setAccessor(node, name, old, value, isSvg) {
           value
         )
       } else {
-        node.setAttribute(name, value)
+        node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value)
       }
     }
   }

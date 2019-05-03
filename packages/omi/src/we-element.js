@@ -1,4 +1,4 @@
-import { cssToDom, nProps, isArray, getUse } from './util'
+import { cssToDom, nProps, isArray, getUse, hyphenate } from './util'
 import { diff } from './vdom/diff'
 import options from './options'
 import { proxyUpdate } from './observe'
@@ -134,13 +134,21 @@ export default class WeElement extends HTMLElement {
     this.update()
   }
 
+  pureRemoveAttribute(key) {
+    super.removeAttribute(key)
+  }
+
+  pureSetAttribute(key, val) {
+    super.setAttribute(key, val)
+  }
+
   attrsToProps() {
     const ele = this
     const attrs = this.constructor.propTypes
     if (ele.normalizedNodeName) return
     Object.keys(attrs).forEach(key => {
       const type = attrs[key]
-      const val = ele.getAttribute(key)
+      const val = ele.getAttribute(hyphenate(key))
       if (val !== null) {
         switch (type) {
           case String:
@@ -151,9 +159,9 @@ export default class WeElement extends HTMLElement {
             break
           case Boolean:
             ele.props[key] = true
+            break
           case Object:
             ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'))
-            ele.removeAttribute(key)
             break
         }
       }
