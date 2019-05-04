@@ -12,7 +12,7 @@ iframe{
 .switch{
   width: 40px;
   height: 40px;
-  background-color: #AA0000;
+  background-color: rgb(96, 101, 114);
   border-radius: 50%;
   position: fixed;
   right: 50px;
