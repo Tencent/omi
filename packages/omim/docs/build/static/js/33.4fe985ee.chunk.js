@@ -1,2 +1,0 @@
-webpackJsonp([33],{62:function(n,a){n.exports="## Tab \n\n\u9009\u9879\u5361\u3002\n\n## \u4f7f\u7528\n\n```js\n<o-tab onChange={this.tabChange}>\n  <item active={true}>TabA</item>\n  <item >TabB</item>\n</o-tab>\n```\n\n## API\n\n### Props\n\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\n| ------------- |:-------------:|:-----:|:-------------|\n| onChange         |   function  |    --   |             |\u3000\n| children         |    json array  |    --   |             |\u3000"}});
-//# sourceMappingURL=33.4fe985ee.chunk.js.map

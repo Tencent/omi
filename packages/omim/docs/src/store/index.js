@@ -53,6 +53,9 @@ class Store {
             this.html = this.remarkable.render(m)
             this.myContent.update()
             document.body.scrollTop = 0
+            if(document.documentElement){
+              document.documentElement.scrollTop = 0
+            }
           })
         })
       })
