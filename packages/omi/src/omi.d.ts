@@ -66,6 +66,7 @@ declare namespace Omi {
 		updated?(): void;
 		beforeRender?(): void;
 		receiveProps?(): void;
+		attrsToProps(): void;
 	}
 
 	interface ModelView<P, D> {
@@ -88,6 +89,7 @@ declare namespace Omi {
 		updated?(): void;
 		beforeRender?(): void;
 		receiveProps?(): void;
+		attrsToProps(): void;
 	}
 
 	abstract class WeElement<P = {}, D = {}> {

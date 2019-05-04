@@ -46,31 +46,6 @@ interface Data {
 
 }
 
-function attrToProp(ele, attrs) {
-  if (ele.normalizedNodeName) return
-
-  Object.keys(attrs).forEach(key => {
-    const type = attrs[key]
-    const val = ele.getAttribute(key)
-    if (val !== null) {
-      switch (type) {
-        case String:
-          ele.props[key] = val
-          break
-        case Number:
-          ele.props[key] = Number(val)
-          break
-        case Boolean:
-          ele.props[key] = true
-        case Object:
-          ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'))
-          ele.removeAttribute(key)
-          break
-      }
-    }
-  })
-}
-
 function extract(from, props):any {
   const to = {}
   props.forEach(prop => {
@@ -85,6 +60,43 @@ function extract(from, props):any {
 export default class TextField extends WeElement<Props, Data>{
   static defaultProps = {
     showHelper: true
+  }
+
+  static propTypes = {
+    fullWidth: Boolean,
+    textarea: Boolean,
+    outlined: Boolean,
+    noLabel: Boolean,
+    showHelper: Boolean,
+    helperText: String,
+    iconRight: Boolean,
+    characterCounter: Boolean,
+
+    //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
+
+    label: String,
+
+    required: Boolean,
+    pattern: String, //RegExp string such as [A-z]{3}
+    minLength: Number,
+    maxLength: Number,
+    min: Number,
+    max: Number,
+    step: Number,
+
+    rows: Number,
+    cols: Number,
+
+    value: String,
+    disabled: Boolean, //also add style class 
+    useNativeValidation: Boolean,
+    valid: Boolean,
+    helperTextContent: String,
+    //ripple: MDCRipple,
+    leadingIconAriaLabel: String,
+    trailingIconAriaLabel: String,
+    leadingIconContent: String,
+    trailingIconContent: String
   }
 
   static css = css
@@ -110,44 +122,7 @@ export default class TextField extends WeElement<Props, Data>{
 
   refIt = (e) => { this.root = e }
 
-  render(props, data) {
-    attrToProp(this, {
-      fullWidth: Boolean,
-      textarea: Boolean,
-      outlined: Boolean,
-      noLabel: Boolean,
-      showHelper: Boolean,
-      helperText: String,
-      iconRight: Boolean,
-      characterCounter: Boolean,
-
-      //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
-
-      label: String,
-
-      required: Boolean,
-      pattern: String, //RegExp string such as [A-z]{3}
-      minLength: Number,
-      maxLength: Number,
-      min: Number,
-      max: Number,
-      step: Number,
-
-      rows: Number,
-      cols: Number,
-
-      value: String,
-      disabled: Boolean, //also add style class 
-      useNativeValidation: Boolean,
-      valid: Boolean,
-      helperTextContent: String,
-      //ripple: MDCRipple,
-      leadingIconAriaLabel: String,
-      trailingIconAriaLabel: String,
-      leadingIconContent: String,
-      trailingIconContent: String
-    })
-   
+  render(props) {
     const cls = extractClass(props, 'mdc-text-field', {
       'mdc-text-field--outlined': props.outlined,
       'mdc-text-field--fullwidth': props.fullWidth,

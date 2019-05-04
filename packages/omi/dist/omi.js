@@ -967,7 +967,7 @@
         WeElement.prototype.attrsToProps = function() {
             var ele = this;
             var attrs = this.constructor.propTypes;
-            if (!ele.__n) Object.keys(attrs).forEach(function(key) {
+            if (!ele.__n && attrs) Object.keys(attrs).forEach(function(key) {
                 var type = attrs[key];
                 var val = ele.getAttribute(hyphenate(key));
                 if (null !== val) switch (type) {
@@ -1078,7 +1078,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.0';
+    options.root.Omi.version = '6.3.1';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

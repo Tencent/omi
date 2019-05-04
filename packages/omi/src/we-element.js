@@ -145,7 +145,7 @@ export default class WeElement extends HTMLElement {
   attrsToProps() {
     const ele = this
     const attrs = this.constructor.propTypes
-    if (ele.normalizedNodeName) return
+    if (ele.normalizedNodeName || !attrs) return
     Object.keys(attrs).forEach(key => {
       const type = attrs[key]
       const val = ele.getAttribute(hyphenate(key))
