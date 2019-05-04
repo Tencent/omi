@@ -4418,7 +4418,7 @@ var TextField = /** @class */ (function (_super) {
         var vd = [
             omi_1.h("div", __assign({ ref: this.refIt }, cls),
                 (props.path || props.paths) && !props.iconRight && omi_1.h("m-icon", __assign({ class: 'icon' }, extract(props, ['path', 'paths']))),
-                props.characterCounter && props.textarea && omi_1.h("div", { class: "mdc-text-field-character-counter" }),
+                props.counter && props.textarea && omi_1.h("div", { class: "mdc-text-field-character-counter" }),
                 props.textarea ?
                     omi_1.h("textarea", __assign({ id: "my-text-field", class: "mdc-text-field__input", rows: props.rows, cols: props.cols }, inputProps)) :
                     omi_1.h("input", __assign({ type: "text", id: "my-text-field", class: "mdc-text-field__input" }, inputProps)),
@@ -4431,10 +4431,10 @@ var TextField = /** @class */ (function (_super) {
                 (props.path || props.paths) && props.iconRight && omi_1.h("m-icon", __assign({ class: 'icon' }, extract(props, ['path', 'paths']))),
                 !props.outlined && omi_1.h("div", { class: "mdc-line-ripple" }))
         ];
-        if (props.helperText || (props.characterCounter && !props.textarea)) {
+        if (props.helperText || (props.counter && !props.textarea)) {
             vd.push(omi_1.h("div", { class: "mdc-text-field-helper-line" },
                 props.helperText && omi_1.h("div", { class: "mdc-text-field-helper-text" + (props.showHelper ? ' mdc-text-field-helper-text--persistent' : '') }, props.helperText),
-                props.characterCounter && !props.textarea && omi_1.h("div", { class: "mdc-text-field-helper-line" },
+                props.counter && !props.textarea && omi_1.h("div", { class: "mdc-text-field-helper-line" },
                     omi_1.h("div", { class: "mdc-text-field-character-counter" }))));
         }
         return vd;
@@ -4450,8 +4450,8 @@ var TextField = /** @class */ (function (_super) {
         showHelper: Boolean,
         helperText: String,
         iconRight: Boolean,
-        characterCounter: Boolean,
-        //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
+        counter: Boolean,
+        //Multi-line Text Field (Textarea) with Character Counter  (textarea+counter)
         label: String,
         required: Boolean,
         pattern: String,

@@ -9,7 +9,7 @@ interface Props {
     showHelper: boolean;
     helperText: string;
     iconRight: boolean;
-    characterCounter: boolean;
+    counter: boolean;
     label: string;
     required: boolean;
     pattern: string;
@@ -44,7 +44,7 @@ export default class TextField extends WeElement<Props, Data> {
         showHelper: BooleanConstructor;
         helperText: StringConstructor;
         iconRight: BooleanConstructor;
-        characterCounter: BooleanConstructor;
+        counter: BooleanConstructor;
         label: StringConstructor;
         required: BooleanConstructor;
         pattern: StringConstructor;

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Omiu REPL</title>
-  <link rel="shortcut icon" href="https://tencent.github.io/omi/assets/md2site/favicon.ico">
+  <link rel="shortcut icon" href="../favicon.ico">
   <link rel="stylesheet" type="text/css" href="./libs/normalize.css" />
   <link rel="stylesheet" type="text/css" href="./libs/codemirror.css" />
   <style>
@@ -78,57 +78,20 @@
     </div>
     <div class="playground">
       <div class="editor">
-        <textarea id="editor">define('my-app', class extends WeElement {
+<textarea id="editor"><m-icon 
+  path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'>
+</m-icon>
 
-  render() {
-    return (
-      <div>
-        <o-icon 
-          path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'>
-        </o-icon>
-        <o-icon paths={[{
-          color: '#F98080',
-          path: 'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
-        }, {
-          color: '#F95050',
-          path: 'M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z'
-        }]}></o-icon>
-        <o-icon type="loading" rotate isFill />
-        <o-icon type="close" isFill />
-        <o-icon type="pay" isFill />
-        <o-icon type="chat" isFill />
-        <o-icon type="scan" isFill />
-        <o-icon type="add-friend" isFill />
-
-        <o-equal-space>
-          <o-icon type="loading" rotate isFill>
-            Loading
-          </o-icon>
-          <o-icon type="close" isFill>
-            Close
-          </o-icon>
-          <o-icon type="pay" isFill>
-            Pay
-          </o-icon>
-        </o-equal-space>
-
-        <o-equal-space>
-          <o-icon type="loading" color='#07C160' rotate isFill>
-            Loading
-          </o-icon>
-          <o-icon type="close" color='#07C160' isFill>
-            Close
-          </o-icon>
-          <o-icon type="pay" color='#07C160' isFill>
-            Pay
-          </o-icon>
-        </o-equal-space>
-      </div>
-    )
-  }
-})
-
-render(<my-app />, 'body')</textarea>
+<m-icon 
+ paths="[{ 
+    color: '#F98080', 
+    path: 'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
+  }, 
+  { 
+    color: '#F95050', 
+    path: 'M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z'
+  }]">
+</m-icon></textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>
@@ -169,6 +132,8 @@ render(<my-app />, 'body')</textarea>
     }
 
     function compile(a, b) {
+      window._sourceCode = a
+      return a
       var c, d; a = a || "", lastCode = a, hideNotify(), c = "/* @jsx createElement */\n"; try { d = Babel.transform(c + a, { presets: ["react", "es2015", "stage-1"] }).code } catch (e) { return console.error(e), showNotify(e), void 0 }
       window._sourceCode = d
       return d;

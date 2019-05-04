@@ -13,9 +13,9 @@ interface Props {
   showHelper: boolean,
   helperText: string,
   iconRight: boolean,
-  //characterCounter: number[],
-  characterCounter: boolean,
-  //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
+  //counter: number[],
+  counter: boolean,
+  //Multi-line Text Field (Textarea) with Character Counter  (textarea+counter)
 
   label: string,
 
@@ -70,9 +70,9 @@ export default class TextField extends WeElement<Props, Data>{
     showHelper: Boolean,
     helperText: String,
     iconRight: Boolean,
-    characterCounter: Boolean,
+    counter: Boolean,
 
-    //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
+    //Multi-line Text Field (Textarea) with Character Counter  (textarea+counter)
 
     label: String,
 
@@ -142,7 +142,7 @@ export default class TextField extends WeElement<Props, Data>{
     const vd = [
       <div ref={this.refIt} {...cls}>
         {(props.path || props.paths) && !props.iconRight && <m-icon class='icon' {...extract(props, ['path', 'paths'])}></m-icon>}
-        {props.characterCounter && props.textarea && <div class="mdc-text-field-character-counter"></div>}
+        {props.counter && props.textarea && <div class="mdc-text-field-character-counter"></div>}
         {
           props.textarea ?
             <textarea id="my-text-field" class="mdc-text-field__input" rows={props.rows} cols={props.cols} {...inputProps}></textarea> :
@@ -164,11 +164,11 @@ export default class TextField extends WeElement<Props, Data>{
       </div>
     ]
 
-    if (props.helperText || (props.characterCounter && !props.textarea)) {
+    if (props.helperText || (props.counter && !props.textarea)) {
       vd.push(
         <div class="mdc-text-field-helper-line">
           {props.helperText && <div class={`mdc-text-field-helper-text${props.showHelper ? ' mdc-text-field-helper-text--persistent' : ''}`}>{props.helperText}</div>}
-          {props.characterCounter && !props.textarea && <div class="mdc-text-field-helper-line">
+          {props.counter && !props.textarea && <div class="mdc-text-field-helper-line">
             <div class="mdc-text-field-character-counter"></div>
           </div>}
         </div>)

@@ -84,7 +84,7 @@ render(
 .mdc-text-field { 
   width:200px; 
 }
-`} characterCounter maxLength={50} helperText="Helper Text" label='Label2' />
+`} counter maxLength={50} helperText="Helper Text" label='Label2' />
 
 
     <br />
@@ -94,7 +94,7 @@ render(
 .mdc-text-field { 
   width:200px; 
 }
-`} textarea outlined helperText="Helper Text" maxLength={200} characterCounter label='Label2' />
+`} textarea outlined helperText="Helper Text" maxLength={200} counter label='Label2' />
     <br />
 
 
