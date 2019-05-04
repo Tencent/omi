@@ -18,7 +18,7 @@ define('my-element', class extends WeElement {
 使用元素:
 
 ```jsx
-<my-element name="world"></my-first-element>
+<my-element name="world"></my-element>
 ```
 
 你也可以传任意类型的数据给 props:
@@ -36,13 +36,13 @@ define('my-element', class extends WeElement {
 使用元素:
 
 ```jsx
-<my-first-element myObj={{ name: 'world' }}></my-first-element>
+<my-element myObj={{ name: 'world' }}></my-element>
 ```
 
 你可以通过静态属性 `static defaultProps` 来设置默认值:
 
 ```jsx
-define('my-first-element', class extends WeElement {
+define('my-element', class extends WeElement {
   static defaultProps = {
 		name: 'Omi',
 		myAge: 18

@@ -18,7 +18,7 @@ define('my-element', class extends WeElement {
 Using element:
 
 ```jsx
-<my-element name="world"></my-first-element>
+<my-element name="world"></my-element>
 ```
 
 You can also pass any type of data to props:
@@ -36,13 +36,13 @@ define('my-element', class extends WeElement {
 Using element:
 
 ```jsx
-<my-first-element myObj={{ name: 'world' }}></my-first-element>
+<my-element myObj={{ name: 'world' }}></my-element>
 ```
 
 You can set the default value by the static default Props property:
 
 ```jsx
-define('my-first-element', class extends WeElement {
+define('my-element', class extends WeElement {
   static defaultProps = {
 		name: 'Omi',
 		myAge: 18

@@ -58,7 +58,7 @@ You can also use `like-button` tag directly in HTML：
 
 - [Online Demo!](https://tencent.github.io/omi/assets/omi.html)
 
-The HTML structure is written in hyperscript and JS is written in ES5. You can use JSX and ES2015 + instead.
+You can use JSX and ES2015+ to write the element:
 
 
 ```jsx {8-11}
