@@ -36,6 +36,35 @@ export default class TextField extends WeElement<Props, Data> {
     static defaultProps: {
         showHelper: boolean;
     };
+    static propTypes: {
+        fullWidth: BooleanConstructor;
+        textarea: BooleanConstructor;
+        outlined: BooleanConstructor;
+        noLabel: BooleanConstructor;
+        showHelper: BooleanConstructor;
+        helperText: StringConstructor;
+        iconRight: BooleanConstructor;
+        characterCounter: BooleanConstructor;
+        label: StringConstructor;
+        required: BooleanConstructor;
+        pattern: StringConstructor;
+        minLength: NumberConstructor;
+        maxLength: NumberConstructor;
+        min: NumberConstructor;
+        max: NumberConstructor;
+        step: NumberConstructor;
+        rows: NumberConstructor;
+        cols: NumberConstructor;
+        value: StringConstructor;
+        disabled: BooleanConstructor;
+        useNativeValidation: BooleanConstructor;
+        valid: BooleanConstructor;
+        helperTextContent: StringConstructor;
+        leadingIconAriaLabel: StringConstructor;
+        trailingIconAriaLabel: StringConstructor;
+        leadingIconContent: StringConstructor;
+        trailingIconContent: StringConstructor;
+    };
     static css: any;
     mdc: MDCTextField;
     root: HTMLElement;
@@ -44,6 +73,6 @@ export default class TextField extends WeElement<Props, Data> {
     layout: () => void;
     uninstall(): void;
     refIt: (e: any) => void;
-    render(props: any, data: any): JSX.Element[];
+    render(props: any): JSX.Element[];
 }
 export {};

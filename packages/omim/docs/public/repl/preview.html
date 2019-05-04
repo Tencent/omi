@@ -24,7 +24,7 @@
 
   <script>
   /**
- * omi v6.3.0  http://omijs.org
+ * omi v6.3.1  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1784,7 +1784,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.3.0';
+  options.root.Omi.version = '6.3.1';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
@@ -1792,7 +1792,7 @@
 
   </script>
   <script src="../js/icon.js"></script>
-  <script src="../js/text-field.js"></script>
+  <!-- <script src="../js/text-field.js"></script> -->
   <!-- <script>
     var createElement = Omi.createElement
     var define = Omi.define
@@ -1804,7 +1804,7 @@
 
 <body style="background-color:#eee;">
   <script>
-    document.body.innerHTML = parent._source
+    document.body.innerHTML = parent._sourceCode
     // var script = document.createElement("script");
     // script.innerHTML = parent._sourceCode;
     // document.body.appendChild(script)

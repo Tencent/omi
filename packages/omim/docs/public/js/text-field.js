@@ -4373,30 +4373,6 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/text-field/index.scss")
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var index_1 = __webpack_require__(/*! @material/textfield/index */ "./node_modules/@material/textfield/index.js");
 __webpack_require__(/*! ../icon */ "../icon");
-function attrToProp(ele, attrs) {
-    if (ele.normalizedNodeName)
-        return;
-    Object.keys(attrs).forEach(function (key) {
-        var type = attrs[key];
-        var val = ele.getAttribute(key);
-        if (val !== null) {
-            switch (type) {
-                case String:
-                    ele.props[key] = val;
-                    break;
-                case Number:
-                    ele.props[key] = Number(val);
-                    break;
-                case Boolean:
-                    ele.props[key] = true;
-                case Object:
-                    ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
-                    ele.removeAttribute(key);
-                    break;
-            }
-        }
-    });
-}
 function extract(from, props) {
     var to = {};
     props.forEach(function (prop) {
@@ -4425,38 +4401,7 @@ var TextField = /** @class */ (function (_super) {
     TextField.prototype.uninstall = function () {
         this.mdc.destroy();
     };
-    TextField.prototype.render = function (props, data) {
-        attrToProp(this, {
-            fullWidth: Boolean,
-            textarea: Boolean,
-            outlined: Boolean,
-            noLabel: Boolean,
-            showHelper: Boolean,
-            helperText: String,
-            iconRight: Boolean,
-            characterCounter: Boolean,
-            //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
-            label: String,
-            required: Boolean,
-            pattern: String,
-            minLength: Number,
-            maxLength: Number,
-            min: Number,
-            max: Number,
-            step: Number,
-            rows: Number,
-            cols: Number,
-            value: String,
-            disabled: Boolean,
-            useNativeValidation: Boolean,
-            valid: Boolean,
-            helperTextContent: String,
-            //ripple: MDCRipple,
-            leadingIconAriaLabel: String,
-            trailingIconAriaLabel: String,
-            leadingIconContent: String,
-            trailingIconContent: String
-        });
+    TextField.prototype.render = function (props) {
         var cls = omi_1.extractClass(props, 'mdc-text-field', {
             'mdc-text-field--outlined': props.outlined,
             'mdc-text-field--fullwidth': props.fullWidth,
@@ -4496,6 +4441,37 @@ var TextField = /** @class */ (function (_super) {
     };
     TextField.defaultProps = {
         showHelper: true
+    };
+    TextField.propTypes = {
+        fullWidth: Boolean,
+        textarea: Boolean,
+        outlined: Boolean,
+        noLabel: Boolean,
+        showHelper: Boolean,
+        helperText: String,
+        iconRight: Boolean,
+        characterCounter: Boolean,
+        //Multi-line Text Field (Textarea) with Character Counter  (textarea+characterCounter)
+        label: String,
+        required: Boolean,
+        pattern: String,
+        minLength: Number,
+        maxLength: Number,
+        min: Number,
+        max: Number,
+        step: Number,
+        rows: Number,
+        cols: Number,
+        value: String,
+        disabled: Boolean,
+        useNativeValidation: Boolean,
+        valid: Boolean,
+        helperTextContent: String,
+        //ripple: MDCRipple,
+        leadingIconAriaLabel: String,
+        trailingIconAriaLabel: String,
+        leadingIconContent: String,
+        trailingIconContent: String
     };
     TextField.css = css;
     TextField = __decorate([
