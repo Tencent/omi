@@ -1,8 +1,8 @@
 {
   "index.css": "static/css/index.7278cfb8.css",
   "index.css.map": "static/css/index.7278cfb8.css.map",
-  "index.js": "static/js/index.c550fa12.js",
-  "index.js.map": "static/js/index.c550fa12.js.map",
+  "index.js": "static/js/index.f00d021f.js",
+  "index.js.map": "static/js/index.f00d021f.js.map",
   "static/js/0.280409e8.chunk.js": "static/js/0.280409e8.chunk.js",
   "static/js/0.280409e8.chunk.js.map": "static/js/0.280409e8.chunk.js.map",
   "static/js/1.ef8289fc.chunk.js": "static/js/1.ef8289fc.chunk.js",
@@ -29,8 +29,8 @@
   "static/js/19.a2909422.chunk.js.map": "static/js/19.a2909422.chunk.js.map",
   "static/js/2.887cd832.chunk.js": "static/js/2.887cd832.chunk.js",
   "static/js/2.887cd832.chunk.js.map": "static/js/2.887cd832.chunk.js.map",
-  "static/js/20.c195ff86.chunk.js": "static/js/20.c195ff86.chunk.js",
-  "static/js/20.c195ff86.chunk.js.map": "static/js/20.c195ff86.chunk.js.map",
+  "static/js/20.c1d3820a.chunk.js": "static/js/20.c1d3820a.chunk.js",
+  "static/js/20.c1d3820a.chunk.js.map": "static/js/20.c1d3820a.chunk.js.map",
   "static/js/21.a94b9aaa.chunk.js": "static/js/21.a94b9aaa.chunk.js",
   "static/js/21.a94b9aaa.chunk.js.map": "static/js/21.a94b9aaa.chunk.js.map",
   "static/js/22.de59814d.chunk.js": "static/js/22.de59814d.chunk.js",
@@ -95,8 +95,8 @@
   "static/js/49.39f67b82.chunk.js.map": "static/js/49.39f67b82.chunk.js.map",
   "static/js/5.a859ec9c.chunk.js": "static/js/5.a859ec9c.chunk.js",
   "static/js/5.a859ec9c.chunk.js.map": "static/js/5.a859ec9c.chunk.js.map",
-  "static/js/50.223663d5.chunk.js": "static/js/50.223663d5.chunk.js",
-  "static/js/50.223663d5.chunk.js.map": "static/js/50.223663d5.chunk.js.map",
+  "static/js/50.1faf97d9.chunk.js": "static/js/50.1faf97d9.chunk.js",
+  "static/js/50.1faf97d9.chunk.js.map": "static/js/50.1faf97d9.chunk.js.map",
   "static/js/51.e19237ba.chunk.js": "static/js/51.e19237ba.chunk.js",
   "static/js/51.e19237ba.chunk.js.map": "static/js/51.e19237ba.chunk.js.map",
   "static/js/52.4c0b59bc.chunk.js": "static/js/52.4c0b59bc.chunk.js",
@@ -126,6 +126,6 @@
   "static/media/omi-logo2019.svg": "static/media/omi-logo2019.923166c3.svg",
   "zh-cn.css": "static/css/zh-cn.7278cfb8.css",
   "zh-cn.css.map": "static/css/zh-cn.7278cfb8.css.map",
-  "zh-cn.js": "static/js/zh-cn.68fd73ac.js",
-  "zh-cn.js.map": "static/js/zh-cn.68fd73ac.js.map"
+  "zh-cn.js": "static/js/zh-cn.94c5d27a.js",
+  "zh-cn.js.map": "static/js/zh-cn.94c5d27a.js.map"
 }
