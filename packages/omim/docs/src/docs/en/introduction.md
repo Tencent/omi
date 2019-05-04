@@ -1,6 +1,6 @@
 # Omim
 
-Material Design for the Web, powered by Omi.
+Material Design for the Web, powered by [Omi](https://github.com/Tencent/omi).
 
 ## Features
 
