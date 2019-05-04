@@ -1,0 +1,2 @@
+webpackJsonp([6],{89:function(n,e){n.exports="## SelectList\n\n\u9009\u9879\u5217\u8868\u3002\n\n## \u4f7f\u7528\n\n```js\n<o-select-list\n  onSelect={this.onSelect}\n  list={this.list}\n  selectedIndex={this.selectedIndex}\n/>\n```\n\n## API\n\n### Props\n\n|  **Name**  | **Type**        | **Defaults**  | **Details**  |\n| ------------- |:-------------:|:-----:|:-------------:|\n| list  | json array|       |           |\n| selectedIndex  | number |       |           |\n| onSelect  | function|       |           |\n"}});
+//# sourceMappingURL=6.0898f133.chunk.js.map
