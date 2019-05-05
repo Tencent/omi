@@ -43,8 +43,8 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | icon | xcatliu |
 | text-field | dntzhang |
 | card | wscats |
-| chip |  |
-| dialog |  |
+| chip | hulei |
+| dialog | zainchen |
 | drawer |  |
 | elevation |  |
 | grid-list |  |
