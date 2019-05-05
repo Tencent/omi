@@ -1,6 +1,6 @@
 {
   "name": "@omim/button",
-  "version": "0.0.7",
+  "version": "0.0.1",
   "description": "Material Design for Omi.",
   "main": "index.js",
   "scripts": {
