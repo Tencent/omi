@@ -42,7 +42,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | button | vorshen |
 | icon | xcatliu |
 | text-field | dntzhang |
-| card |  |
+| card | wscats |
 | chip |  |
 | dialog |  |
 | drawer |  |
