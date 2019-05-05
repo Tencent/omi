@@ -44,7 +44,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | text-field | dntzhang |
 | card | wscats |
 | chip | hulei |
-| dialog |  |
+| dialog | zainchen |
 | drawer |  |
 | elevation |  |
 | grid-list |  |
