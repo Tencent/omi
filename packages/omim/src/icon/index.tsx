@@ -25,14 +25,9 @@ export default class Icon extends WeElement<Props, Data>{
     scale: Number
   }
 
-  onClick = e => {
-    this.props.onClick && this.props.onClick(e)
-    //e.stopPropagation()
-  }
-
   render(props) {
     return (
-      <i {...extractClass(props, 'm-icon')} onClick={this.onClick} >
+      <i {...extractClass(props, 'm-icon')} >
         <svg
           viewBox="0 0 1024 1024"
           class={classNames({ rotate: props.rotate })}

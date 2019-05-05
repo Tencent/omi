@@ -1,4 +1,4 @@
-import { tag, WeElement, h, extractClass, classNames } from 'omi'
+import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import { MDCRipple } from '@material/ripple'
 import '../icon'
