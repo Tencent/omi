@@ -3,6 +3,11 @@
   display: inline-block;
 }
 
+.m-icon svg{
+  display: inline-block;
+  vertical-align: top;
+}
+
 .rotate {
   display: inline-block;
   -webkit-animation: rotate 1s infinite linear;

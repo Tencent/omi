@@ -98,6 +98,8 @@
     "useTabs": false
   },
   "dependencies": {
+    "@material/button": "^2.0.0",
+    "@material/ripple": "^2.0.0",
     "@material/textfield": "^1.1.1"
   }
 }
