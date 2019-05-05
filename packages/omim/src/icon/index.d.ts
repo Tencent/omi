@@ -14,7 +14,6 @@ export default class Icon extends WeElement<Props, Data> {
         paths: ObjectConstructor;
         scale: NumberConstructor;
     };
-    onClick: (e: any) => void;
     render(props: any): JSX.Element;
 }
 export {};
