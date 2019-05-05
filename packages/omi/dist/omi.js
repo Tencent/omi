@@ -966,27 +966,30 @@
         };
         WeElement.prototype.attrsToProps = function() {
             var ele = this;
-            var attrs = this.constructor.propTypes;
-            if (!ele.__n && attrs) Object.keys(attrs).forEach(function(key) {
-                var type = attrs[key];
-                var val = ele.getAttribute(hyphenate(key));
-                if (null !== val) switch (type) {
-                  case String:
-                    ele.props[key] = val;
-                    break;
+            if (!ele.__n) {
+                ele.props.css = ele.getAttribute('css');
+                var attrs = this.constructor.propTypes;
+                if (attrs) Object.keys(attrs).forEach(function(key) {
+                    var type = attrs[key];
+                    var val = ele.getAttribute(hyphenate(key));
+                    if (null !== val) switch (type) {
+                      case String:
+                        ele.props[key] = val;
+                        break;
 
-                  case Number:
-                    ele.props[key] = Number(val);
-                    break;
+                      case Number:
+                        ele.props[key] = Number(val);
+                        break;
 
-                  case Boolean:
-                    ele.props[key] = !0;
-                    break;
+                      case Boolean:
+                        ele.props[key] = !0;
+                        break;
 
-                  case Object:
-                    ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
-                }
-            });
+                      case Object:
+                        ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
+                    }
+                });
+            }
         };
         WeElement.prototype.fire = function(name, data) {
             this.dispatchEvent(new CustomEvent(name.toLowerCase(), {
@@ -1078,7 +1081,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.1';
+    options.root.Omi.version = '6.3.2';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
