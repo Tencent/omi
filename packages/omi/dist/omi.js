@@ -941,7 +941,7 @@
             this.J = !0;
             this.beforeUpdate();
             this.beforeRender();
-            if (this.O !== this.props.css) {
+            if (this.O != this.props.css) {
                 this.O = this.props.css;
                 this.N.textContent = this.O;
             }
@@ -1081,7 +1081,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.2';
+    options.root.Omi.version = '6.3.3';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

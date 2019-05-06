@@ -108,7 +108,8 @@ export default class WeElement extends HTMLElement {
     this._willUpdate = true
     this.beforeUpdate()
     this.beforeRender()
-    if (this._customStyleContent !== this.props.css) {
+    //fix null !== undefined
+    if (this._customStyleContent != this.props.css) {
       this._customStyleContent = this.props.css
       this._customStyleElement.textContent = this._customStyleContent
     }
