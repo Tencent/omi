@@ -39,13 +39,18 @@ define('my-element', class extends WeElement {
 <my-element myObj={{ name: 'world' }}></my-element>
 ```
 
-你可以通过静态属性 `static defaultProps` 来设置默认值:
+你可以通过静态属性 `static defaultProps` 来设置默认值，使用 `static propTypes` 来设置类型:
 
 ```jsx
 define('my-element', class extends WeElement {
   static defaultProps = {
 		name: 'Omi',
 		myAge: 18
+  }
+  
+  static propTypes = {
+		name: String,
+		myAge: Number
 	}
 
   render(props) {
@@ -55,3 +60,9 @@ define('my-element', class extends WeElement {
   }
 })
 ```
+
+需要特别注意，如果你的自定义元素想要直接在其他框架或者无框架的情况下原生使用，请一定要加上 `static propTypes` 才能生效。比如，这样就可以直接在 body 中使用:
+
+<body>
+  <my-element name="dntzhang" my-age="20"></my-element>
+</body>
