@@ -5,15 +5,12 @@ interface Data {
 }
 export default class LayoutGrid extends WeElement<Props, Data> {
     static css: any;
-    static defaultProps: {
-        scale: number;
-    };
     static propTypes: {
-        path: StringConstructor;
-        paths: ObjectConstructor;
-        scale: NumberConstructor;
+        alignLeft: BooleanConstructor;
+        alignRight: BooleanConstructor;
     };
     install(): void;
+    renderChild(child: any): JSX.Element;
     render(props: any): JSX.Element;
 }
 export {};

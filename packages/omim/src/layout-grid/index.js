@@ -243,6 +243,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -260,36 +271,63 @@ var LayoutGrid = /** @class */ (function (_super) {
     }
     LayoutGrid.prototype.install = function () {
         var _this = this;
-        document.addEventListener('DOMContentLoaded', function (event) {
-            //the event occurred
+        document.addEventListener('DOMContentLoaded', function () {
             _this.update();
-            //console.log(123)
         });
     };
-    LayoutGrid.prototype.render = function (props) {
-        if (!this.innerHTML.trim())
-            return omi_1.h("div", null);
-        var doc = parser.parseFromString("<div>" + this.innerHTML + "</div>", "text/xml");
-        var arr = Array.prototype.slice.call(doc.childNodes[0].childNodes, 0);
-        console.log(Object.prototype.toString.call(doc.childNodes[0].childNodes));
+    LayoutGrid.prototype.renderChild = function (child) {
+        var _this = this;
+        var arr = Array.prototype.slice.call(child.childNodes, 0);
         arr = arr.filter(function (item) {
             return item.nodeName === 'cell';
         });
-        console.log(arr);
+        if (arr.length > 0) {
+            return omi_1.h("div", { class: "mdc-layout-grid__cell" },
+                omi_1.h("div", { class: "mdc-layout-grid__inner" }, arr.map(function (item) {
+                    return _this.renderChild(item);
+                })));
+        }
+        else {
+            var cell = omi_1.h("div", { class: omi_1.classNames('mdc-layout-grid__cell', {
+                    "mdc-layout-grid__cell--align-top": child.hasAttribute('align-top'),
+                    "mdc-layout-grid__cell--align-middle": child.hasAttribute('align-middle'),
+                    "mdc-layout-grid__cell--align-bottom": child.hasAttribute('align-bottom')
+                }) });
+            for (var i = 0, len = child.childNodes.length; i < len; i++) {
+                if (child.childNodes[i].nodeType === 3) {
+                    cell.children.push(child.childNodes[i].nodeValue);
+                }
+                else {
+                    cell.children.push(processNode(child.childNodes[i]));
+                }
+            }
+            return cell;
+        }
+    };
+    LayoutGrid.prototype.render = function (props) {
+        var _this = this;
+        if (!this.innerHTML.trim())
+            return;
+        var doc = parser.parseFromString("<div>" + this.innerHTML + "</div>", "text/xml");
+        var arr = Array.prototype.slice.call(doc.childNodes[0].childNodes, 0);
+        arr = arr.filter(function (item) {
+            return item.nodeName === 'cell';
+        });
+        console.log(props);
+        // mdc-layout-grid--align-right
         //dom -> vdom
-        return (omi_1.h("div", { class: "mdc-layout-grid" },
+        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-layout-grid', {
+            'mdc-layout-grid--align-right': props.alignRight,
+            'mdc-layout-grid--align-left': props.alignLeft
+        })),
             omi_1.h("div", { class: "mdc-layout-grid__inner" }, arr.map(function (item) {
-                return omi_1.h("div", { class: "mdc-layout-grid__cell" }, item.innerHTML);
+                return _this.renderChild(item);
             }))));
     };
     LayoutGrid.css = css;
-    LayoutGrid.defaultProps = {
-        scale: 2
-    };
     LayoutGrid.propTypes = {
-        path: String,
-        paths: Object,
-        scale: Number
+        alignLeft: Boolean,
+        alignRight: Boolean
     };
     LayoutGrid = __decorate([
         omi_1.tag('m-layout-grid')
@@ -297,6 +335,25 @@ var LayoutGrid = /** @class */ (function (_super) {
     return LayoutGrid;
 }(omi_1.WeElement));
 exports.default = LayoutGrid;
+function processNode(node) {
+    if (node.nodeType === 1) {
+        var i, child, attributes = {}, children = [];
+        for (i = 0; (child = node.attributes[i]); ++i) {
+            attributes[child.nodeName] = child.nodeValue;
+        }
+        for (i = 0; (child = node.childNodes[i]); ++i) {
+            children.push(processNode(child));
+        }
+        return {
+            nodeName: node.tagName,
+            attributes: attributes,
+            children: children
+        };
+    }
+    if (node.nodeType === 3) {
+        return node.nodeValue;
+    }
+}
 
 
 /***/ }),
