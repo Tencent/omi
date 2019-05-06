@@ -313,8 +313,6 @@ var LayoutGrid = /** @class */ (function (_super) {
         arr = arr.filter(function (item) {
             return item.nodeName === 'cell';
         });
-        console.log(props);
-        // mdc-layout-grid--align-right
         //dom -> vdom
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-layout-grid', {
             'mdc-layout-grid--align-right': props.alignRight,
