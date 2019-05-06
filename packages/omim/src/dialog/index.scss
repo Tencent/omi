@@ -1,0 +1,14 @@
+@import "../theme";
+@import "@material/dialog/mdc-dialog";
+
+// .m-dialog{
+//   display: block;
+//   margin-right: 0.6em;
+//   height: 50px;
+//   width: 50px;
+//   background: red;
+// }
+
+.mdc-dialog m-button {
+    margin-left: 8px;
+}
