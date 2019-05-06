@@ -102,6 +102,7 @@
     "@material/image-list": "^1.1.1",
     "@material/layout-grid": "^0.41.0",
     "@material/ripple": "^2.0.0",
-    "@material/textfield": "^1.1.1"
+    "@material/textfield": "^1.1.1",
+    "@material/elevation": "^1.1.0"
   }
 }
