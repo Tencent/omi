@@ -63,6 +63,8 @@ define('my-element', class extends WeElement {
 
 需要特别注意，如果你的自定义元素想要直接在其他框架或者无框架的情况下原生使用，请一定要加上 `static propTypes` 才能生效。比如，这样就可以直接在 body 中使用:
 
+```html
 <body>
   <my-element name="dntzhang" my-age="20"></my-element>
 </body>
+```

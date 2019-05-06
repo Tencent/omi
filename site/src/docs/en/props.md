@@ -63,6 +63,8 @@ define('my-element', class extends WeElement {
 
 Special attention should be paid to adding `static propTypes` if your custom elements want to be used directly in other frameworks or without frameworks. For example, it can be used directly in the body:
 
+```html
 <body>
   <my-element name="dntzhang" my-age="20"></my-element>
 </body>
+```
