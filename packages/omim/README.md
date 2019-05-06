@@ -55,7 +55,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | switch|  |
 | layout-grid| uxu |
 | linear-progress|  |
-| list|  |
+| list| fangfang |
 | menu-surface|  |
 | menu| |
 | snackbar|  |
