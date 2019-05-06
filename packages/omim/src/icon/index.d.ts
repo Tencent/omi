@@ -1,6 +1,8 @@
 import { WeElement } from 'omi';
 interface Props {
-    onClick: (...arg: any) => {};
+    path?: string;
+    paths?: object;
+    scale?: number;
 }
 interface Data {
 }

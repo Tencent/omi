@@ -3,7 +3,9 @@ import * as css from './index.scss'
 
 
 interface Props {
-  onClick: (...arg: any) => {}
+  path?: string,
+  paths?: object,
+  scale?: number
 }
 
 interface Data {
