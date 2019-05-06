@@ -47,8 +47,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | dialog | zainchen |
 | drawer |  |
 | elevation |  |
-| grid-list | lee |
-| image-list|  |
+| image-list| lee |
 | checkbox|  |
 | radio|  |
 | select|  |
