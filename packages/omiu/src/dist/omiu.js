@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.15 By dntzhang 
+ *  omiu v0.0.17 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -460,6 +460,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }, {
     key: 'render',
     value: function render(props) {
+      //fix omi render
+      if (this instanceof HTMLElement) {
+        delete props['onClick'];
+        delete props['onclick'];
+      }
       var cls = (0, _omi.extractClass)(props) || {};
 
       var _props = this.props,
@@ -1514,7 +1519,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
         { 'class': 'o-dialog', style: { display: display } },
         Omi.h(
           'div',
-          _extends({ 'class': 'content' }, styleObj),
+          _extends({ 'class': '_content' }, styleObj),
           Omi.h(
             'h1',
             null,
@@ -1560,7 +1565,7 @@ dialog.alert = function (msg, options) {
     document.body.removeChild(dom);
   }
   dom = (0, _omi.render)(Omi.h('o-dialog', {
-    onConfirm: closeAlert,
+    onConfirm: closeDialog,
     width: options.width,
     show: true,
     type: 'alert',
@@ -1570,7 +1575,28 @@ dialog.alert = function (msg, options) {
   }), 'body');
 };
 
-function closeAlert() {
+dialog.confirm = function (msg, options) {
+  options = options || {};
+  if (dom) {
+    document.body.removeChild(dom);
+  }
+  dom = (0, _omi.render)(Omi.h('o-dialog', {
+    onConfirm: function onConfirm() {
+      options.onConfirm && options.onConfirm();
+      closeDialog();
+    },
+    onClose: closeDialog,
+    width: options.width,
+    show: true,
+    type: 'confirm',
+    title: options.title || '提示',
+    msg: msg,
+    cancelText: options.confirmText || '取消',
+    confirmText: options.confirmText || '确定'
+  }), 'body');
+};
+
+function closeDialog() {
   if (dom) {
     document.body.removeChild(dom);
     dom = null;
@@ -1600,7 +1626,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-dialog {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left: 0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n.content {\n  width: 80%;\n  height: auto;\n  background-color: white;\n  position: fixed;\n  left: 10%;\n  top: 20%;\n  border-radius: 4px;\n  text-align: center;\n  padding: 10px;\n}\n\nh1 {\n  font-size: 18px;\n  font-weight: normal;\n  padding: 20px;\n  margin: 0px;\n}\n\np {\n  font-size: 16px;\n  color: #666;\n  padding-bottom: 20px;\n  margin: 0px;\n  border-bottom: 1px solid #eee;\n}\n\na {\n  padding: 15px;\n  text-align: center;\n  font-size: 16px;\n  display: inline-block;\n  width: 50%;\n  box-sizing: border-box;\n}\n\n.ok {\n  color: #07C160;\n  cursor: pointer;\n}\n\n.close {\n  border-right: 1px solid #eee;\n  color: black;\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, ".o-dialog {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left: 0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n._content {\n  width: 80%;\n  height: auto;\n  background-color: white;\n  position: fixed;\n  left: 10%;\n  top: 20%;\n  border-radius: 4px;\n  text-align: center;\n  white-space: pre;\n}\n\nh1 {\n  font-size: 18px;\n  font-weight: normal;\n  padding: 20px;\n  margin: 0px;\n}\n\np {\n  font-size: 16px;\n  color: #666;\n  padding: 0 20px 20px;\n  margin: 0px;\n  border-bottom: 1px solid #eee;\n  word-break: break-all;\n  white-space: normal;\n}\n\na {\n  padding: 15px;\n  text-align: center;\n  font-size: 16px;\n  display: inline-block;\n  width: 50%;\n  box-sizing: border-box;\n}\n\n.ok {\n  color: #07C160;\n  cursor: pointer;\n}\n\n.close {\n  border-right: 1px solid #eee;\n  color: black;\n  cursor: pointer;\n}\n", ""]);
 
 
 
@@ -2837,7 +2863,7 @@ if (typeof result === "string") {
 
 exports = module.exports = __webpack_require__(1)(false);
 // Module
-exports.push([module.i, ".o-popup {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left: 0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n._content {\n  width: 80%;\n  height: auto;\n  min-height: 200px;\n  background-color: white;\n  position: fixed;\n  left: 50%;\n  margin-left: -40%;\n  border-radius: 4px;\n}\n\n._header {\n  height: 40px;\n  border-bottom: 1px solid #ccc;\n  margin: 15px 10px;\n}\n\n._close {\n  position: absolute;\n  right: 10px;\n  top: 20px;\n  cursor: pointer;\n}\n\n._title {\n  position: absolute;\n  left: 10px;\n  top: 20px;\n}\n\n._main {\n  margin: 0 auto;\n  margin-bottom: 20px;\n  width: 70%;\n}\n\n._footer {\n  text-align: right;\n  margin-top: 10px;\n}\n\n._okBtn {\n  margin-left: 10px;\n}", ""]);
+exports.push([module.i, ".o-popup {\n  width: 100%;\n  height: 100%;\n  position: fixed;\n  background-color: rgba(0, 0, 0, 0.4);\n  left: 0;\n  top: 0;\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n  z-index: 100;\n}\n\n._content {\n  width: 80%;\n  height: auto;\n  min-height: 200px;\n  background-color: white;\n  position: fixed;\n  left: 50%;\n  margin-left: -40%;\n  border-radius: 4px;\n}\n\n._header {\n  height: 40px;\n  border-bottom: 1px solid #ccc;\n  margin: 15px 10px;\n}\n\n._close {\n  position: absolute;\n  right: 10px;\n  top: 20px;\n  cursor: pointer;\n}\n\n._title {\n  position: absolute;\n  left: 20px;\n  top: 20px;\n  font-weight: bold; \n  font-size: 16px;\n}\n\n._main {\n  margin: 0 auto;\n  margin-bottom: 20px;\n  width: 70%;\n}\n\n._footer {\n  text-align: right;\n  margin-top: 10px;\n}\n\n._okBtn {\n  margin-left: 10px;\n}", ""]);
 
 
 
@@ -4602,8 +4628,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       });
       _this.dataSource.push(item);
       _this.update();
-    }, _this.itemInput = function (e, key, item) {
+      _this.props.onAdd && _this.props.onAdd();
+    }, _this.itemInput = function (e, key, item, index) {
       item[key] = e.target.value;
+      for (var i = 0, len = _this.props.columns.length; i < len; i++) {
+        if (_this.props.columns[i].onInput && _this.props.columns[i].key === key) {
+          _this.props.columns[i].onInput(e, e.target.value.trim(), index);
+          break;
+        }
+      }
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -4645,15 +4678,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                     columu.title
                   ),
                   Omi.h('o-input', { oninput: function oninput(e) {
-                      _this2.itemInput(e, columu.key, item);
+                      _this2.itemInput(e, columu.key, item, index);
                     }, 'class': 'ipt ' + (colIndex === len - 1 ? 'ipt2' : 'ipt1'), value: item[columu.key] })
                 );
               }),
-              index === dataLen - 1 ? Omi.h(
+              index === dataLen - 1 ? index === 0 ? Omi.h(
                 'o-button',
                 { 'class': 'btn', size: 'small', onClick: _this2.addItem, type: 'default' },
                 '+'
-              ) : Omi.h(
+              ) : [Omi.h(
+                'o-button',
+                { 'class': 'btn', size: 'small', onClick: function onClick(e) {
+                    _this2.removeItem(item);
+                  }, type: 'default' },
+                '-'
+              ), Omi.h(
+                'o-button',
+                { 'class': 'btn', size: 'small', style: 'margin-top:0;', onClick: _this2.addItem, type: 'default' },
+                '+'
+              )] : Omi.h(
                 'o-button',
                 { 'class': 'btn', onClick: function onClick(e) {
                     _this2.removeItem(item);

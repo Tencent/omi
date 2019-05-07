@@ -4,7 +4,7 @@
 <p align="right">Omio <strong>v2.2.1</strong></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
-<p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omip) 和 React语法(reomi)</b></p>
+<p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omip) 和 任意前端框架</b></p>
 
 ## Omi 生态
 
@@ -62,6 +62,7 @@
 
 ### 特性
 
+- 框架无关，任何框架可以使用 Omi 自定义元素
 - 提供桌面、移动和小程序整体解决方案
 - 小巧的尺寸
 - 拥有官方 UI 组件库 - [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)

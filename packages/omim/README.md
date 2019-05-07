@@ -48,11 +48,11 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | drawer |  |
 | elevation | liulinboyi |
 | image-list| lee |
-| checkbox|  |
-| radio|  |
-| select|  |
+| checkbox| lei |
+| radio| lihengjun |
+| select| lei |
 | slider|  |
-| switch|  |
+| switch| zhang |
 | layout-grid| uxu |
 | linear-progress|  |
 | list| fangfang |

@@ -13,6 +13,11 @@ define('o-button', class extends WeElement {
   }
 
   render(props) {
+    //fix omi render
+    if(this instanceof HTMLElement){
+      delete props['onClick']
+      delete props['onclick']
+    }
     let cls = extractClass(props) || {}
     const {
       component,
