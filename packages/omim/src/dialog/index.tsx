@@ -48,7 +48,7 @@ export default class Dialog extends WeElement<Props, Data>{
               {props.message}
             </section>
             {
-              ((props.cancelbutton) && (props.confirmbutton)) &&
+              ((props.cancelbutton) || (props.confirmbutton)) &&
               <footer class='mdc-dialog__actions'>
                 {(props.cancelbutton) && <m-button ripple {...props.cancelbutton}>{props.cancelbutton.text}</m-button>}
                 {(props.confirmbutton) && <m-button ripple {...props.confirmbutton}>{props.confirmbutton.text}</m-button>}

@@ -2269,7 +2269,7 @@ var Dialog = /** @class */ (function (_super) {
                 omi_1.h("div", { class: 'mdc-dialog__surface' },
                     (props.title) && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
                     omi_1.h("section", { class: 'mdc-dialog__content' }, props.message),
-                    ((props.cancelbutton) && (props.confirmbutton)) &&
+                    ((props.cancelbutton) || (props.confirmbutton)) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },
                             (props.cancelbutton) && omi_1.h("m-button", __assign({ ripple: true }, props.cancelbutton), props.cancelbutton.text),
                             (props.confirmbutton) && omi_1.h("m-button", __assign({ ripple: true }, props.confirmbutton), props.confirmbutton.text))))));
