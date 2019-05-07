@@ -2,6 +2,8 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import { MDCFormField } from '@material/form-field'
 import { MDCCheckbox } from '@material/checkbox'
+// @ts-ignore
+import { extract } from '../util.ts'
 
 interface Props {
   label?: string,
@@ -56,21 +58,5 @@ export default class Checkbox extends WeElement<Props, Data>{
         <label for="checkbox">{props.label}</label>
       </div>
     )
-  }
-}
-
-function extract(props, prop) {
-  if (typeof prop === 'string') {
-    if (props.hasOwnProperty(prop)) {
-      return { [prop]: props[prop] }
-    }
-  } else {
-    const res = {}
-    prop.forEach(key => {
-      if (props.hasOwnProperty(key)) {
-        res[key] = props[key]
-      }
-    })
-    return res
   }
 }
