@@ -59,7 +59,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | menu-surface|  |
 | menu| |
 | snackbar|  |
-| tabs|  |
+| tabs| FAKER-A |
 | toolbar|  |
 | top-app-bar|  |
 | typography|  |
