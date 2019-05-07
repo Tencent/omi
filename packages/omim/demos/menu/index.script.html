@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+</head>
+
+<body>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/select/index.js"></script>
+  <m-icon path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'>
+  </m-icon>
+
+  <script>
+    function change(e) {
+      console.log(e.detail)
+    }
+  </script>
+  <m-select onchange="change(event)" label="Choose One Item">
+    <option value="" disabled selected></option>
+    <option value="grains">
+      Bread, Cereal, Rice, and Pasta
+    </option>
+    <option value="vegetables">
+      Vegetables
+    </option>
+    <option value="fruit">
+      Fruit
+    </option>
+  </m-select>
+
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+</body>
+
+</html>
