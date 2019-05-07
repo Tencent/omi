@@ -5930,9 +5930,7 @@ var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 var Select = /** @class */ (function (_super) {
     __extends(Select, _super);
     function Select() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.normalizedNodeName = null;
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Select.prototype.installed = function () {
         var _this = this;
@@ -5951,7 +5949,6 @@ var Select = /** @class */ (function (_super) {
         });
     };
     Select.prototype.render = function (props) {
-        console.log(util_ts_1.htmlToVdom(this.innerHTML));
         return (omi_1.h("div", { class: "mdc-select" },
             omi_1.h("i", { class: "mdc-select__dropdown-icon" }),
             omi_1.h("select", { class: "mdc-select__native-control" }, this.normalizedNodeName ? props.children : util_ts_1.htmlToVdom(this.innerHTML)),
