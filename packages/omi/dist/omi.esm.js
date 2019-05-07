@@ -1,5 +1,5 @@
 /**
- * omi v6.3.3  http://omijs.org
+ * omi v6.3.4  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -313,7 +313,8 @@ function setAccessor(node, name, old, value, isSvg) {
       }
     }
 (node._listeners || (node._listeners = {}))[name] = value;
-  } else if (name !== 'list' && name !== 'type' && !isSvg && name in node) {
+  } else if (name !== 'list' && name !== 'type' && !isSvg && name in node && value != '') {
+    //value != '' fix for selected, disabled, checked
     // Attempt to set a DOM property to the given value.
     // IE & FF throw for certain property-value combinations.
     try {
@@ -1759,7 +1760,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.3.3';
+options.root.Omi.version = '6.3.4';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm };

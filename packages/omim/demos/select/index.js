@@ -7,13 +7,13 @@ render(
       <option value="" disabled selected></option>
       <option value="grains">
         Bread, Cereal, Rice, and Pasta
-        </option>
+      </option>
       <option value="vegetables">
         Vegetables
-        </option>
+      </option>
       <option value="fruit">
         Fruit
-        </option>
+      </option>
     </m-select>
 
   </div>
