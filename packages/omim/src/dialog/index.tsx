@@ -1,16 +1,16 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 // import { MDCDialogAdapter } from '@material/dialog'
-import '../icon'
 import '../button'
+
 
 interface Props {
   show: boolean,
   scrollable: boolean,
   title: string,
   message: string,
-  cancelButton: object,
-  confirmButton: object
+  cancelbutton: object,
+  confirmbutton: object
 }
 
 interface Data {
@@ -26,8 +26,8 @@ export default class Dialog extends WeElement<Props, Data>{
     scrollable: Boolean,
     title: String,
     message: String,
-    cancelButton: Object,
-    confirmButton: Object
+    cancelbutton: Object,
+    confirmbutton: Object
   }
 
   installed() {
@@ -36,7 +36,7 @@ export default class Dialog extends WeElement<Props, Data>{
   
   render(props) {
     return (
-      <div id='confirmation-dialog' {...extractClass(props, 'mdc-dialog', {
+      <div {...extractClass(props, 'mdc-dialog', {
         'mdc-dialog--open': props.show,
         'mdc-dialog--scrollable': props.scrollable
       })}>
@@ -47,10 +47,13 @@ export default class Dialog extends WeElement<Props, Data>{
             <section class='mdc-dialog__content'>
               {props.message}
             </section>
-            <footer class='mdc-dialog__actions'>
-              {(props.cancelButton) && <m-button ripple {...props.cancelButton}>{props.cancelButton.text}</m-button>}
-              {(props.confirmButton) && <m-button ripple {...props.confirmButton}>{props.confirmButton.text}</m-button>}
-            </footer>
+            {
+              ((props.cancelbutton) || (props.confirmbutton)) &&
+              <footer class='mdc-dialog__actions'>
+                {(props.cancelbutton) && <m-button ripple {...props.cancelbutton}>{props.cancelbutton.text}</m-button>}
+                {(props.confirmbutton) && <m-button ripple {...props.confirmbutton}>{props.confirmbutton.text}</m-button>}
+              </footer>
+            }
           </div>
         </div>
       </div>

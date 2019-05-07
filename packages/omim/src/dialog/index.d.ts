@@ -1,13 +1,12 @@
 import { WeElement } from 'omi';
-import '../icon';
 import '../button';
 interface Props {
     show: boolean;
     scrollable: boolean;
     title: string;
     message: string;
-    cancelButton: object;
-    confirmButton: object;
+    cancelbutton: object;
+    confirmbutton: object;
 }
 interface Data {
 }
@@ -18,8 +17,8 @@ export default class Dialog extends WeElement<Props, Data> {
         scrollable: BooleanConstructor;
         title: StringConstructor;
         message: StringConstructor;
-        cancelButton: ObjectConstructor;
-        confirmButton: ObjectConstructor;
+        cancelbutton: ObjectConstructor;
+        confirmbutton: ObjectConstructor;
     };
     installed(): void;
     render(props: any): JSX.Element;
