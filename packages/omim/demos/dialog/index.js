@@ -11,21 +11,33 @@ define('my-app', class extends WeElement {
 
   onShowAlert = (e) => {
     this.alertShow = true
+    this.simpleShow = false
+    this.confirmationShow = false
+    this.scrollableShow = false
     this.update()
   }
 
   onShowSimple = (e) => {
     this.simpleShow = true
+    this.alertShow = false
+    this.confirmationShow = false
+    this.scrollableShow = false
     this.update()
   }
 
   onShowConfirmation = (e) => {
     this.confirmationShow = true
+    this.simpleShow = false
+    this.alertShow = false
+    this.scrollableShow = false
     this.update()
   }
 
   onShowScrollable = (e) => {
     this.scrollableShow = true
+    this.simpleShow = false
+    this.alertShow = false
+    this.confirmationShow = false
     this.update()
   }
   
@@ -54,6 +66,7 @@ define('my-app', class extends WeElement {
         <m-button onClick={this.onShowScrollable} ripple>Scrollable</m-button>
         <m-dialog
           show={this.alertShow}
+          scrimcancel
           message={<p>Discard draft?</p>}
           cancelbutton={{
             text: 'Cancel',
@@ -67,6 +80,7 @@ define('my-app', class extends WeElement {
         <m-dialog
           css={css}
           show={this.simpleShow}
+          scrimcancel
           title='Select an account'
           message={
             <ul class="mdc-list mdc-list--avatar-list" style="list-style-type: none;">
@@ -121,6 +135,7 @@ define('my-app', class extends WeElement {
         <m-dialog
           css={css}
           show={this.confirmationShow}
+          scrimcancel
           title='Phone ringtone'
           message={
             <ul class="mdc-list" style="list-style-type: none;">
@@ -193,6 +208,7 @@ define('my-app', class extends WeElement {
         <m-dialog
           show={this.scrollableShow}
           scrollable
+          scrimcancel
           title='The Wonderful Wizard of Oz'
           message={
             <div>
@@ -217,7 +233,6 @@ define('my-app', class extends WeElement {
             onClick: this.onConfirm
           }}
         />
-
       </div>
     )
   }
