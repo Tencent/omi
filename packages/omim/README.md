@@ -41,7 +41,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | ------------------------------- | ----------------------------------- |
 | button | vorshen |
 | icon | xcatliu |
-| text-field | dntzhang |
+| text-field | done |
 | card | wscats |
 | chip | hulei |
 | dialog | zainchen |
@@ -61,6 +61,6 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | tabs| FAKER-A |
 | toolbar|  |
 | top-app-bar|  |
-| typography|  |
+| typography| done |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
