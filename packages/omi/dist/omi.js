@@ -133,7 +133,7 @@
                 }
             }
             (node.__l || (node.__l = {}))[name] = value;
-        } else if ('list' !== name && 'type' !== name && !isSvg && name in node) {
+        } else if ('list' !== name && 'type' !== name && !isSvg && name in node && '' != value) {
             try {
                 node[name] = null == value ? '' : value;
             } catch (e) {}
@@ -1081,7 +1081,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.3';
+    options.root.Omi.version = '6.3.4';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -48,7 +48,7 @@ export default class Select extends WeElement<Props, Data>{
       <div class="mdc-select">
         <i class="mdc-select__dropdown-icon"></i>
         <select class="mdc-select__native-control">
-          {htmlToVdom(this.innerHTML)}
+          {this.normalizedNodeName ? props.children : htmlToVdom(this.innerHTML)}
         </select>
         <label class="mdc-floating-label">{props.label}</label>
         <div class="mdc-line-ripple"></div>

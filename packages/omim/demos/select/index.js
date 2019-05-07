@@ -3,17 +3,17 @@ import { render, h } from 'omi'
 
 render(
   <div>
-    <m-select onChange={(e) => { console.log(e.detail) }}>
+    <m-select label="Choose One Item" onChange={(e) => { console.log(e.detail) }}>
       <option value="" disabled selected></option>
       <option value="grains">
         Bread, Cereal, Rice, and Pasta
-        </option>
+      </option>
       <option value="vegetables">
         Vegetables
-        </option>
+      </option>
       <option value="fruit">
         Fruit
-        </option>
+      </option>
     </m-select>
 
   </div>
