@@ -5,3 +5,7 @@ select {
   appearance: none;
   -webkit-appearance: none;
 }
+
+.mdc-select__menu{
+  display: none;
+}

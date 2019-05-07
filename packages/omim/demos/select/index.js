@@ -15,6 +15,10 @@ render(
         Fruit
       </option>
     </m-select>
+    <br />
+
+    <m-select menu={} label="Choose One Item" onChange={(e) => { console.log(e.detail) }}>
+    </m-select>
 
   </div>
   , 'body')

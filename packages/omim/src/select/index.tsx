@@ -1,11 +1,14 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import { MDCSelect } from '@material/select';
+import * as globalCss from './global.scss'
+
 // @ts-ignore
 import { extract, htmlToVdom } from '../util.ts'
 
 interface Props {
   label?: string,
+  menu?: object
 }
 
 interface Data {
@@ -22,11 +25,17 @@ export default class Select extends WeElement<Props, Data>{
   }
 
   static propTypes = {
-    label: String
+    label: String,
+    menu: Object
   }
 
   installed() {
-
+    if(this.props.menu){
+      const style = document.createElement('style')
+      style.textContent = globalCss
+      document.querySelector('head').appendChild(style)
+    }
+    
     const select = new MDCSelect(this.shadowRoot.querySelector('.mdc-select'));
 
     select.listen('MDCSelect:change', () => {
@@ -44,6 +53,33 @@ export default class Select extends WeElement<Props, Data>{
   }
 
   render(props) {
+    if(props.menu){
+      return (
+        <div class="mdc-select">
+        <input type="hidden" name="enhanced-select"></input>
+        <i class="mdc-select__dropdown-icon"></i>
+        <div class="mdc-select__selected-text"></div>
+       
+        <div class="mdc-select__menu mdc-menu mdc-menu-surface">
+          <ul class="mdc-list">
+            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true"></li>
+            <li class="mdc-list-item" data-value="grains">
+              Bread, Cereal, Rice, and Pasta
+            </li>
+            <li class="mdc-list-item" data-value="vegetables">
+              Vegetables
+            </li>
+            <li class="mdc-list-item" data-value="fruit">
+              Fruit2
+            </li>
+          </ul>
+        </div> 
+
+        <label class="mdc-floating-label">{props.label}</label>
+        <div class="mdc-line-ripple"></div>
+      </div>
+      )
+    }
     return (
       <div class="mdc-select">
         <i class="mdc-select__dropdown-icon"></i>

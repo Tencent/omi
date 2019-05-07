@@ -25,13 +25,16 @@ export default class Menu extends WeElement<Props, Data>{
 
   }
 
+  menu: MDCMenu = null
+
   installed() {
     const menu = new MDCMenu(this.shadowRoot.querySelector('.mdc-menu'))
     menu.open = true
 
-    menu.listen('MDCMenu:selected', (evt:CustomEvent) => {
+    menu.listen('MDCMenu:selected', (evt: CustomEvent) => {
       this.fire('selected', evt.detail)
     });
+    this.menu = menu
   }
 
   install() {
@@ -40,11 +43,11 @@ export default class Menu extends WeElement<Props, Data>{
 
   render(props) {
     return (
-      <div class="mdc-menu mdc-menu-surface" tabIndex={-1}>
+      <div {...extractClass(props, 'mdc-menu mdc-menu-surface')} tabIndex={-1}>
         <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
           {props.list.map(item => <li class="mdc-list-item" role="menuitem">
-            <span class={classNames('mdc-list-item__text',{
-              'mdc-list-item--disabled':item.disabled
+            <span class={classNames('mdc-list-item__text', {
+              'mdc-list-item--disabled': item.disabled
             })}>{item.text}</span>
           </li>)}
 
