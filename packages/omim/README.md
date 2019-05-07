@@ -51,7 +51,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | checkbox| lei |
 | radio| lihengjun |
 | select| lei |
-| slider|  |
+| slider| done |
 | switch| zhang |
 | layout-grid| uxu |
 | linear-progress|  |
