@@ -1,21 +1,23 @@
 import { WeElement } from 'omi';
 interface Props {
-    path?: string;
-    paths?: object;
-    scale?: number;
+    label?: string;
+    disabled?: boolean;
+    indeterminate?: boolean;
+    checked?: boolean;
+    value: string;
 }
 interface Data {
 }
-export default class Icon extends WeElement<Props, Data> {
+export default class Checkbox extends WeElement<Props, Data> {
     static css: any;
-    static defaultProps: {
-        scale: number;
-    };
     static propTypes: {
-        path: StringConstructor;
-        paths: ObjectConstructor;
-        scale: NumberConstructor;
+        label: StringConstructor;
+        disabled: BooleanConstructor;
+        indeterminate: BooleanConstructor;
+        checked: BooleanConstructor;
+        value: StringConstructor;
     };
+    installed(): void;
     render(props: any): JSX.Element;
 }
 export {};
