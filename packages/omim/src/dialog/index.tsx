@@ -1,5 +1,6 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
+// import { MDCDialog } from '@material/dialog'
 // import { MDCDialogAdapter } from '@material/dialog'
 import '../button'
 
@@ -33,7 +34,7 @@ export default class Dialog extends WeElement<Props, Data>{
   }
 
   installed() {
-    
+
   }
 
   onScrim = evt  => {
