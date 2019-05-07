@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.16 By dntzhang 
+ *  omiu v0.0.17 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
