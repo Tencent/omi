@@ -2252,23 +2252,32 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/dialog/index.scss");
 // import { MDCDialogAdapter } from '@material/dialog'
 __webpack_require__(/*! ../button */ "./src/button/index.js");
+// @ts-ignore
+var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 var Dialog = /** @class */ (function (_super) {
     __extends(Dialog, _super);
     function Dialog() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.showDialog = true;
+        _this.onScrimCancel = function (e) {
+            _this.showDialog = false;
+            _this.update();
+            _this.showDialog = true;
+        };
+        return _this;
     }
     Dialog.prototype.installed = function () {
     };
     Dialog.prototype.render = function (props) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-dialog', {
-            'mdc-dialog--open': props.show,
+            'mdc-dialog--open': props.show && this.showDialog,
             'mdc-dialog--scrollable': props.scrollable
         })),
-            omi_1.h("div", { class: 'mdc-dialog__scrim' }),
+            (props.scrimcancel) ? omi_1.h("div", { class: 'mdc-dialog__scrim', onClick: this.onScrimCancel }) : omi_1.h("div", { class: 'mdc-dialog__scrim' }),
             omi_1.h("div", { class: 'mdc-dialog__container' },
                 omi_1.h("div", { class: 'mdc-dialog__surface' },
                     (props.title) && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
-                    omi_1.h("section", { class: 'mdc-dialog__content' }, props.message),
+                    omi_1.h("section", { class: 'mdc-dialog__content' }, typeof props.message === 'string' ? util_ts_1.htmlToVdom(props.message) : props.message),
                     ((props.cancelbutton) || (props.confirmbutton)) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },
                             (props.cancelbutton) && omi_1.h("m-button", __assign({ ripple: true }, props.cancelbutton), props.cancelbutton.text),
@@ -2278,6 +2287,7 @@ var Dialog = /** @class */ (function (_super) {
     Dialog.propTypes = {
         show: Boolean,
         scrollable: Boolean,
+        scrimcancel: Boolean,
         title: String,
         message: String,
         cancelbutton: Object,
@@ -2289,6 +2299,70 @@ var Dialog = /** @class */ (function (_super) {
     return Dialog;
 }(omi_1.WeElement));
 exports.default = Dialog;
+
+
+/***/ }),
+
+/***/ "./src/util.ts":
+/*!*********************!*\
+  !*** ./src/util.ts ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function extract(props, prop) {
+    var _a;
+    if (typeof prop === 'string') {
+        if (props.hasOwnProperty(prop)) {
+            return _a = {}, _a[prop] = props[prop], _a;
+        }
+    }
+    else {
+        var res_1 = {};
+        prop.forEach(function (key) {
+            if (props.hasOwnProperty(key)) {
+                res_1[key] = props[key];
+            }
+        });
+        return res_1;
+    }
+}
+exports.extract = extract;
+var parser = new DOMParser();
+function htmlToVdom(html) {
+    if (!html)
+        return null;
+    return processNode(parser.parseFromString("<div>" + html + "</div>", "text/xml").childNodes[0]).children;
+}
+exports.htmlToVdom = htmlToVdom;
+function processNode(node) {
+    if (node.nodeType === 1) {
+        var i, child, attributes = {}, children = [];
+        for (i = 0; (child = node.attributes[i]); ++i) {
+            attributes[child.nodeName] = child.nodeValue;
+        }
+        for (i = 0; (child = node.childNodes[i]); ++i) {
+            var vn = processNode(child);
+            if (vn !== null)
+                children.push(vn);
+        }
+        return {
+            nodeName: node.tagName,
+            attributes: attributes,
+            children: children
+        };
+    }
+    if (node.nodeType === 3) {
+        var v = node.nodeValue.trim();
+        if (v !== '') {
+            return v;
+        }
+        return null;
+    }
+}
 
 
 /***/ }),
