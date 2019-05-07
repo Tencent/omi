@@ -1,19 +1,26 @@
 import { WeElement } from 'omi';
 interface Props {
-    label?: string;
+    discrete?: boolean;
+    value?: number;
     disabled?: boolean;
-    checked?: boolean;
-    value: string;
 }
 interface Data {
 }
-export default class Radio extends WeElement<Props, Data> {
+export default class Slider extends WeElement<Props, Data> {
     static css: any;
+    static defaultProps: {
+        value: number;
+        step: number;
+        min: number;
+        max: number;
+    };
     static propTypes: {
-        label: StringConstructor;
+        discrete: BooleanConstructor;
+        value: NumberConstructor;
         disabled: BooleanConstructor;
-        checked: BooleanConstructor;
-        value: StringConstructor;
+        min: NumberConstructor;
+        max: NumberConstructor;
+        step: NumberConstructor;
     };
     installed(): void;
     render(props: any): JSX.Element;

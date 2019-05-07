@@ -7,7 +7,7 @@ interface Props {
 }
 interface Data {
 }
-export default class Radio extends WeElement<Props, Data> {
+export default class Switch extends WeElement<Props, Data> {
     static css: any;
     static propTypes: {
         label: StringConstructor;
@@ -16,6 +16,6 @@ export default class Radio extends WeElement<Props, Data> {
         value: StringConstructor;
     };
     installed(): void;
-    render(props: any): JSX.Element;
+    render(props: any): JSX.Element[];
 }
 export {};

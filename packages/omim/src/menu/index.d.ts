@@ -1,17 +1,15 @@
 import { WeElement } from 'omi';
+import { MDCMenu } from '@material/menu';
 interface Props {
     label?: string;
 }
 interface Data {
 }
-export default class Select extends WeElement<Props, Data> {
+export default class Menu extends WeElement<Props, Data> {
     static css: any;
-    static defaultProps: {
-        scale: number;
-    };
-    static propTypes: {
-        label: StringConstructor;
-    };
+    static defaultProps: {};
+    static propTypes: {};
+    menu: MDCMenu;
     installed(): void;
     install(): void;
     render(props: any): JSX.Element;

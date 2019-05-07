@@ -116,6 +116,7 @@
     "@material/slider": "^1.1.0",
     "@material/snackbar": "^2.0.0",
     "@material/switch": "^2.0.0",
-    "@material/textfield": "^1.1.1"
+    "@material/textfield": "^1.1.1",
+    "@material/typography": "^1.0.0"
   }
 }
