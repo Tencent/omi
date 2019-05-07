@@ -84,39 +84,6 @@ Compare TodoApp by Omi and React, Omi and React rendering DOM structure:
 
 Omi uses Shadow DOM based style isolation and semantic structure.
 
-### TypeScript Auto Complete
-
-```jsx
-import { h, WeElement, tag, classNames } from 'omi';
-import * as styles from './_index.less';
-
-interface ButtonProps {
-  href?: string,
-  disabled?: boolean,
-  type?: 'default' | 'primary' | 'danger',
-  htmltype?: 'submit' | 'button' | 'reset',
-  onClick?: (e: any) => void
-}
-
-const TAG = 'o-button'
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      [TAG]: Omi.Props & ButtonProps
-    }
-  }
-}
-
-@tag(TAG)
-export default class oButton extends WeElement<ButtonProps, {}> {
-...
-...
-...
-```
-
-<img src="./assets/ts.png" alt="omi" width="427"/>
-
 ## Useful Resources
 
 | **Title Name**  | **Other language** | **Related**|
@@ -151,7 +118,7 @@ export default class oButton extends WeElement<ButtonProps, {}> {
   - [Project Template](#project-template)
   - [Hello Element](#hello-element)
   - [TodoApp](#todoapp)
-  - [Store](#store)
+  - [TypeScript Auto Complete](#typescript-auto-complete)
   - [Lifecycle](#lifecycle)
 - [Debugging](#debugging)
 - [Browsers Support](#browsers-support)
@@ -216,6 +183,8 @@ This page demonstrates using Omi **with no build tooling**,  directly run in the
 
 ### Using store system
 
+Omi Store provides a way to pass data through the component tree without having to pass props down manually at every level, injected from the root component and shared across all subcomponents. It's very simple to use:
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -241,6 +210,7 @@ This page demonstrates using Omi **with no build tooling**,  directly run in the
       }
 
       sub() {
+        ////use this.store in any method of any children components
         this.store.data.count--
       }
 
@@ -258,6 +228,7 @@ This page demonstrates using Omi **with no build tooling**,  directly run in the
           `}
     })
 
+    //Injection through a third parameter
     render(html`<my-counter />`, 'body', {
       data: {
         count: 1
@@ -281,41 +252,6 @@ You can also use `like-button` tag directly in HTML：
 ### Add Omi in 30 Seconds
 
 You can also quickly build omi projects using modern JS code:
-<!-- 
-```js
-import { render, WeElement, tag, observe } from "omi"
-
-@observe
-@tag("my-counter")
-class MyCounter extends WeElement {
-
-  data = {
-    count: 0
-  }
-
-  sub = () => {
-    this.data.count--
-  }
-
-  add = () => {
-    this.data.count++
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{this.data.count}</span>
-        <button onClick={this.add}>+</button>
-      </div>
-    )
-  }
-}
-
-render(<my-counter />, "body")
-``` -->
-<!-- 
-You will find that the `MyCounter` class name defined above is never used. So you can also use the following way to avoid Eslint hints: -->
 
 ```js
 import { render, WeElement, define } from 'omi'
@@ -356,38 +292,6 @@ render(<my-counter />, 'body')
 
 [→ counter demo](https://tencent.github.io/omi/packages/omi/examples/counter/)
 
-<!-- You can also be defined as a form of pure functions:
-
-```js
-import { define, render } from 'omi'
-
-define('my-counter', function() {
-  const [count, setCount] = this.use({
-    data: 0,
-    effect: function() {
-      document.title = `The num is ${this.data}.`
-    }
-  })
-
-  this.useCss(`button{ color: red; }`)
-
-  return (
-    <div>
-      <button onClick={() => setCount(count - 1)}>-</button>
-      <span>{count}</span>
-      <button onClick={() => setCount(count + 1)}>+</button>
-    </div>
-  )
-})
-
-render(<my-counter />, 'body')
-```
-
-If you don't need effect, you can use `useData` directly:
-
-```js
-const [count, setCount] = this.useData(0)
-``` -->
 
 ## Getting Started
 
@@ -457,39 +361,6 @@ Using reomi:
 }
 ```
     
-<!-- About compiled website URL：
-
-* [build env doc](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#referencing-environment-variables-in-the-html)
-* [build problem](https://stackoverflow.com/questions/42686149/create-react-app-build-with-public-url)
-
-Such as in windows:
-
-```json
-"scripts": {
-  "start": "node scripts/start.js",
-  "_build": "node scripts/build.js",
-  "build":"set PUBLIC_URL=https://fe.wxpay.oa.com/dv&& npm run _build"
-}
-```
-
-In mac os:
-
-```json
-"scripts": {
-    "start": "node scripts/start.js",
-    "_build": "node scripts/build.js",
-    "build":"PUBLIC_URL=https://fe.wxpay.oa.com/dv npm run _build",
-    "fix": "eslint src --fix"
-  },
-```
-
-If you only want to use relative addresses:
-
-```
-"build":"set PUBLIC_URL=.&& npm run _build"  //windows
-"build":"PUBLIC_URL=. npm run _build",       //mac os
-``` -->
-
 ### Project Template
 
 | **Template Type**|  **Command**|  **Describe**|
@@ -698,148 +569,38 @@ define('todo-app', class extends WeElement {
 render(<todo-app />, 'body')
 ```
 
-### Store
+### TypeScript Auto Complete
 
-Omi Store provides a way to pass data through the component tree without having to pass props down manually at every level, injected from the root component and shared across all subcomponents. It's very simple to use:
+```jsx
+import { h, WeElement, tag, classNames } from 'omi';
+import * as styles from './_index.less';
 
-```js
-import { define, render, WeElement } from 'omi'
-
-define('my-hello', class extends WeElement {
-  render() {
-    //use this.store in any method of any children components
-    return <div>{this.store.name}</div>
-  }
-})
-
-define('my-app', class extends WeElement {
-  handleClick = () => {
-     //use this.store in any method of any children components
-    this.store.reverse()
-    this.update()
-  }
-
-  render() {
-    return (
-      <div>
-        <my-hello />
-        <button onclick={this.handleClick}>reverse</button>
-      </div>
-    )
-  }
-})
-
-const store = {
-  name: 'abc',
-  reverse: function() {
-    this.name = this.name.split("").reverse().join("")
-  }
+interface ButtonProps {
+  href?: string,
+  disabled?: boolean,
+  type?: 'default' | 'primary' | 'danger',
+  htmltype?: 'submit' | 'button' | 'reset',
+  onClick?: (e: any) => void
 }
-//Injection through a third parameter
-render(<my-app />, document.body, store)
-```
 
-Unlike global variables, when there are multiple root nodes, multiple stores can be injected, while there is only one global variable.
+const TAG = 'o-button'
 
-<!-- It will automatically update the UI partially when store.data is changed. The powerful **Store architecture** is high-performanced since all the data is mounted on the store.
-
-```js
-export default {
-  data: {
-    items: [],
-    text: "",
-    firstName: "dnt",
-    lastName: "zhang",
-    fullName: function() {
-      return this.firstName + this.lastName;
-    },
-    globalPropTest: "abc", // Change it will refresh all elements without changing the components and page declaring data dependency.
-    ccc: { ddd: 1 } // Change it will refresh all elements without changing the components and page declaring data dependency.
-  },
-  globalData: ["globalPropTest", "ccc.ddd"],
-  add: function() {
-    if (!this.data.text.trim().length) {
-      return;
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [TAG]: Omi.Props & ButtonProps
     }
-    this.data.items.push({
-      text: this.data.text,
-      id: Date.now()
-    });
-    this.data.text = "";
-  }
-  // Default value is false, set to true will update all instances when data changing.
-  // updateAll: true
-};
-```
-
-Custom Element requires declaring dependent data so that Omi stores compute the dependency path based on the data declared on the custom component and update it locally as needed. Such as:
-
-```js
-define('todo-app', class extends WeElement {
-  // If you use store, the data is only used to declare dependencies.
-  static get data() {
-    return { items: [], text: "" };
-  }
-  // ...
-  handleChange = e => {
-    this.store.data.text = e.target.value;
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.store.add();
-  };
-})
-```
-
-- The logic of data is **encapsulated in the store definition method** (such as `store.add`).
-- Views are only **responsible for passing data to store**, such as calling `store.add` or setting `store.data.text` on top.
-
-You need to inject `store` from the root node at render time to use this store:
-
-```js
-render(<todo-app />, "body", store);
-```
-
-[→ Store Source Code](https://github.com/Tencent/omi/blob/master/packages/omi/examples/store/main.js) -->
-
-
-<!-- 
-## Mitt
-
-If you don't want to use store's data system, you can also use publish subscribe mode. For example, using [mitt](https://github.com/developit/mitt) across component communication in Omi:
-
-* [cross-component-communication](https://github.com/Tencent/omi/blob/master/packages/omi-30-seconds/README.md#cross-component-communication) -->
-
-<!-- 
-If you want to be compatible with IE11, please use the `omi-mobx` instead of omi's own observe.
-
-### Omi Mobx
-
-```js
-import { tag, WeElement } from "omi"
-import { observe } from "omi-mobx"
-
-@observe
-@tag("my-app")
-class MyApp extends WeElement {
-  install() {
-    this.data.name = "omi"
-  }
-
-  onClick = () => {
-    this.data.name = "Omi V4.0"
-  }
-
-  render(props, data) {
-    return (
-      <div onClick={this.onClick}>
-        <h1>Welcome to {data.name}</h1>
-      </div>
-    )
   }
 }
-``` -->
+
+@tag(TAG)
+export default class oButton extends WeElement<ButtonProps, {}> {
+...
+...
+...
+```
+
+<img src="./assets/ts.png" alt="omi" width="427"/>
 
 ### Lifecycle
 
