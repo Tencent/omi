@@ -105,6 +105,7 @@
     "@material/ripple": "^2.0.0",
     "@material/textfield": "^1.1.1",
     "@material/elevation": "^1.1.0",
-    "@omim/icon": "^0.0.8"
+    "@material/list": "^2.0.0",
+    "@material/radio": "^2.0.0"
   }
 }

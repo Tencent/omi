@@ -33,10 +33,18 @@ export default class Dialog extends WeElement<Props, Data>{
   installed() {
     
   }
+
+  stringToHtml = (str) => {
+    return str
+    var div = document.createElement('div')
+    div.innerHTML = str
+    console.log(div.innerHTML)
+    return div.innerHTML
+  }
   
   render(props) {
     return (
-      <div id='confirmation-dialog' {...extractClass(props, 'mdc-dialog', {
+      <div {...extractClass(props, 'mdc-dialog', {
         'mdc-dialog--open': props.show,
         'mdc-dialog--scrollable': props.scrollable
       })}>
@@ -45,12 +53,15 @@ export default class Dialog extends WeElement<Props, Data>{
           <div class='mdc-dialog__surface'>
             {(props.title) && <h2 class='mdc-dialog__title'>{props.title}</h2>}
             <section class='mdc-dialog__content'>
-              {props.message}
+              {this.stringToHtml(props.message)}
             </section>
-            <footer class='mdc-dialog__actions'>
-              {(props.cancelbutton) && <m-button ripple {...props.cancelbutton}>{props.cancelbutton.text}</m-button>}
-              {(props.confirmbutton) && <m-button ripple {...props.confirmbutton}>{props.confirmbutton.text}</m-button>}
-            </footer>
+            {
+              ((props.cancelbutton) && (props.confirmbutton)) &&
+              <footer class='mdc-dialog__actions'>
+                {(props.cancelbutton) && <m-button ripple {...props.cancelbutton}>{props.cancelbutton.text}</m-button>}
+                {(props.confirmbutton) && <m-button ripple {...props.confirmbutton}>{props.confirmbutton.text}</m-button>}
+              </footer>
+            }
           </div>
         </div>
       </div>
