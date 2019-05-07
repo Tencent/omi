@@ -1,6 +1,6 @@
 import '../../src/dialog/index.tsx'
 import { render, WeElement, define, h } from 'omi'
-import * as css from './list.scss'
+import * as css from './material.scss'
 
 define('my-app', class extends WeElement {
 

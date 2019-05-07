@@ -2255,15 +2255,7 @@ __webpack_require__(/*! ../button */ "./src/button/index.js");
 var Dialog = /** @class */ (function (_super) {
     __extends(Dialog, _super);
     function Dialog() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.stringToHtml = function (str) {
-            return str;
-            var div = document.createElement('div');
-            div.innerHTML = str;
-            console.log(div.innerHTML);
-            return div.innerHTML;
-        };
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Dialog.prototype.installed = function () {
     };
@@ -2276,7 +2268,7 @@ var Dialog = /** @class */ (function (_super) {
             omi_1.h("div", { class: 'mdc-dialog__container' },
                 omi_1.h("div", { class: 'mdc-dialog__surface' },
                     (props.title) && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
-                    omi_1.h("section", { class: 'mdc-dialog__content' }, this.stringToHtml(props.message)),
+                    omi_1.h("section", { class: 'mdc-dialog__content' }, props.message),
                     ((props.cancelbutton) && (props.confirmbutton)) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },
                             (props.cancelbutton) && omi_1.h("m-button", __assign({ ripple: true }, props.cancelbutton), props.cancelbutton.text),

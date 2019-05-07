@@ -33,14 +33,6 @@ export default class Dialog extends WeElement<Props, Data>{
   installed() {
     
   }
-
-  stringToHtml = (str) => {
-    return str
-    var div = document.createElement('div')
-    div.innerHTML = str
-    console.log(div.innerHTML)
-    return div.innerHTML
-  }
   
   render(props) {
     return (
@@ -53,7 +45,7 @@ export default class Dialog extends WeElement<Props, Data>{
           <div class='mdc-dialog__surface'>
             {(props.title) && <h2 class='mdc-dialog__title'>{props.title}</h2>}
             <section class='mdc-dialog__content'>
-              {this.stringToHtml(props.message)}
+              {props.message}
             </section>
             {
               ((props.cancelbutton) && (props.confirmbutton)) &&

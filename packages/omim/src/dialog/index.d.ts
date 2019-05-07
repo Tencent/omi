@@ -21,7 +21,6 @@ export default class Dialog extends WeElement<Props, Data> {
         confirmbutton: ObjectConstructor;
     };
     installed(): void;
-    stringToHtml: (str: any) => any;
     render(props: any): JSX.Element;
 }
 export {};
