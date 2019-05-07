@@ -62,6 +62,7 @@
 
 ### 特性
 
+- 框架无关，任何框架可以使用 Omi 自定义元素
 - 提供桌面、移动和小程序整体解决方案
 - 小巧的尺寸
 - 拥有官方 UI 组件库 - [omiu](https://tencent.github.io/omi/packages/omiu/examples/build/zh-cn.html)

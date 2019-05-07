@@ -57,7 +57,8 @@ English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 
 ## Why Omi?
 
-- One framework. Mobile & desktop & mini program.
+- Cross framework(react, vue, angular) custom elements by omi
+- One framework. Mobile & desktop & mini program
 - Tiny size
 - Supports TypeScript
 - Reactive data-binding
