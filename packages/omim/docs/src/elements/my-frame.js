@@ -7,6 +7,10 @@ import './my-demo'
 
 define('my-frame', class extends WeElement {
 
+  installed(){
+    this.store.init()
+  }
+
   render() {
     return (
       <div>

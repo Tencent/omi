@@ -4,7 +4,7 @@
     margin-left: 260px;
     padding: 1px 10px 10px 20px;
     color: #24292e;
-    overflow: hidden;
+    /* overflow: hidden; */
     max-width: 900px;
 }
 
