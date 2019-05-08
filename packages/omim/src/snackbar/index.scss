@@ -1,0 +1,7 @@
+@import "../theme";
+@import "@material/snackbar/mdc-snackbar";
+@import "@material/button/mdc-button";
+
+.mdc-snackbar__action:not(:disabled){
+  color: $mdc-theme-secondary!important;
+}
