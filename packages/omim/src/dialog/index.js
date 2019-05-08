@@ -2261,15 +2261,15 @@ var Dialog = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.onScrim = function (evt) {
             _this.fire('scrim');
-            evt.stopPropagation();
+            evt && evt.stopPropagation();
         };
         _this.onCancel = function (evt) {
             _this.fire('cancel');
-            evt.stopPropagation();
+            evt && evt.stopPropagation();
         };
         _this.onConfirm = function (evt) {
             _this.fire('confirm');
-            evt.stopPropagation();
+            evt && evt.stopPropagation();
         };
         return _this;
     }
@@ -2285,10 +2285,10 @@ var Dialog = /** @class */ (function (_super) {
                 omi_1.h("div", { class: 'mdc-dialog__surface' },
                     (props.title) && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
                     omi_1.h("section", { class: 'mdc-dialog__content' }, typeof props.message === 'string' ? util_ts_1.htmlToVdom(props.message) : props.message),
-                    ((props.cancelbutton) || (props.confirmbutton)) &&
+                    ((props.cancelButton) || (props.confirmButton)) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },
-                            (props.cancelbutton) && omi_1.h("m-button", __assign({ onClick: this.onCancel, ripple: true }, props.cancelbutton), props.cancelbutton.text),
-                            (props.confirmbutton) && omi_1.h("m-button", __assign({ onClick: this.onConfirm, ripple: true }, props.confirmbutton), props.confirmbutton.text))))));
+                            (props.cancelButton) && omi_1.h("m-button", __assign({ onClick: this.onCancel, ripple: true }, props.cancelButton), props.cancelButton.text),
+                            (props.confirmButton) && omi_1.h("m-button", __assign({ onClick: this.onConfirm, ripple: true }, props.confirmButton), props.confirmButton.text))))));
     };
     Dialog.css = css;
     Dialog.propTypes = {
@@ -2296,8 +2296,8 @@ var Dialog = /** @class */ (function (_super) {
         scrollable: Boolean,
         title: String,
         message: String,
-        cancelbutton: Object,
-        confirmbutton: Object
+        cancelButton: Object,
+        confirmButton: Object
     };
     Dialog = __decorate([
         omi_1.tag('m-dialog')

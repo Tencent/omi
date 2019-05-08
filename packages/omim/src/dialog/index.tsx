@@ -12,8 +12,8 @@ interface Props {
   scrollable: boolean,
   title: string,
   message: string,
-  cancelbutton: object,
-  confirmbutton: object
+  cancelButton: object,
+  confirmButton: object
 }
 
 interface Data {
@@ -29,27 +29,27 @@ export default class Dialog extends WeElement<Props, Data>{
     scrollable: Boolean,
     title: String,
     message: String,
-    cancelbutton: Object,
-    confirmbutton: Object
+    cancelButton: Object,
+    confirmButton: Object
   }
 
   installed() {
 
   }
 
-  onScrim = evt  => {
+  onScrim = (evt: Event)  => {
     this.fire('scrim')
-    evt.stopPropagation()
+    evt && evt.stopPropagation()
   }
 
-  onCancel = evt => {
+  onCancel = (evt: Event) => {
     this.fire('cancel')
-    evt.stopPropagation()
+    evt && evt.stopPropagation()
   }
 
-  onConfirm = evt => {
+  onConfirm = (evt: Event) => {
     this.fire('confirm')
-    evt.stopPropagation()
+    evt && evt.stopPropagation()
   }
   
   render(props) {
@@ -66,10 +66,10 @@ export default class Dialog extends WeElement<Props, Data>{
               {typeof props.message === 'string' ? htmlToVdom(props.message) : props.message}
             </section>
             {
-              ((props.cancelbutton) || (props.confirmbutton)) &&
+              ((props.cancelButton) || (props.confirmButton)) &&
               <footer class='mdc-dialog__actions'>
-                {(props.cancelbutton) && <m-button onClick={this.onCancel} ripple {...props.cancelbutton}>{props.cancelbutton.text}</m-button>}
-                {(props.confirmbutton) && <m-button onClick={this.onConfirm} ripple {...props.confirmbutton}>{props.confirmbutton.text}</m-button>}
+                {(props.cancelButton) && <m-button onClick={this.onCancel} ripple {...props.cancelButton}>{props.cancelButton.text}</m-button>}
+                {(props.confirmButton) && <m-button onClick={this.onConfirm} ripple {...props.confirmButton}>{props.confirmButton.text}</m-button>}
               </footer>
             }
           </div>
