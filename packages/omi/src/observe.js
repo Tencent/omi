@@ -24,3 +24,14 @@ export function proxyUpdate(ele) {
     }
   })
 }
+
+export function proxyProps(ele) {
+  ele.props = new JSONProxy(ele.props).observe(false, (patch) => {
+		if(patch.path!== '/children'){
+			ele.pureSetAttribute(patch.path.replace('/',''), patch.value)
+			if (!ele._willUpdate) {
+				ele.update()
+			}
+		}
+  })
+}
