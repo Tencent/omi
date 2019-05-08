@@ -45,7 +45,6 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | card | wscats |
 | chip | hulei |
 | dialog | zainchen |
-| drawer |  |
 | elevation | liulinboyi |
 | image-list| lee |
 | checkbox| lei |
@@ -54,12 +53,13 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | slider| done |
 | switch| zhang |
 | layout-grid| uxu |
-| linear-progress|  |
+| linear-progress| dnt |
 | list| fangfang |
 | menu| done|
-| snackbar|  |
+| snackbar| dnt |
 | tabs| FAKER-A |
 | top-app-bar| zainchen |
 | typography| done |
+| drawer |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
