@@ -2250,6 +2250,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/dialog/index.scss");
+// import { MDCDialog } from '@material/dialog'
 // import { MDCDialogAdapter } from '@material/dialog'
 __webpack_require__(/*! ../button */ "./src/button/index.js");
 // @ts-ignore
@@ -2258,11 +2259,17 @@ var Dialog = /** @class */ (function (_super) {
     __extends(Dialog, _super);
     function Dialog() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.showDialog = true;
-        _this.onScrimCancel = function (e) {
-            _this.showDialog = false;
-            _this.update();
-            _this.showDialog = true;
+        _this.onScrim = function (evt) {
+            _this.fire('scrim');
+            evt.stopPropagation();
+        };
+        _this.onCancel = function (evt) {
+            _this.fire('cancel');
+            evt.stopPropagation();
+        };
+        _this.onConfirm = function (evt) {
+            _this.fire('confirm');
+            evt.stopPropagation();
         };
         return _this;
     }
@@ -2270,24 +2277,23 @@ var Dialog = /** @class */ (function (_super) {
     };
     Dialog.prototype.render = function (props) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-dialog', {
-            'mdc-dialog--open': props.show && this.showDialog,
+            'mdc-dialog--open': props.show,
             'mdc-dialog--scrollable': props.scrollable
         })),
-            (props.scrimcancel) ? omi_1.h("div", { class: 'mdc-dialog__scrim', onClick: this.onScrimCancel }) : omi_1.h("div", { class: 'mdc-dialog__scrim' }),
+            omi_1.h("div", { class: 'mdc-dialog__scrim', onClick: this.onScrim }),
             omi_1.h("div", { class: 'mdc-dialog__container' },
                 omi_1.h("div", { class: 'mdc-dialog__surface' },
                     (props.title) && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
                     omi_1.h("section", { class: 'mdc-dialog__content' }, typeof props.message === 'string' ? util_ts_1.htmlToVdom(props.message) : props.message),
                     ((props.cancelbutton) || (props.confirmbutton)) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },
-                            (props.cancelbutton) && omi_1.h("m-button", __assign({ ripple: true }, props.cancelbutton), props.cancelbutton.text),
-                            (props.confirmbutton) && omi_1.h("m-button", __assign({ ripple: true }, props.confirmbutton), props.confirmbutton.text))))));
+                            (props.cancelbutton) && omi_1.h("m-button", __assign({ onClick: this.onCancel, ripple: true }, props.cancelbutton), props.cancelbutton.text),
+                            (props.confirmbutton) && omi_1.h("m-button", __assign({ onClick: this.onConfirm, ripple: true }, props.confirmbutton), props.confirmbutton.text))))));
     };
     Dialog.css = css;
     Dialog.propTypes = {
         show: Boolean,
         scrollable: Boolean,
-        scrimcancel: Boolean,
         title: String,
         message: String,
         cancelbutton: Object,

@@ -17,24 +17,24 @@
     <m-button onClick="onShowScrollable()" ripple>Scrollable</m-button>
     <m-dialog
       id="m-dialog-alert"
-      scrimcancel
+      onScrim="onClose()"
+      onCancel="onClose()"
+      onConfirm="onConfirm()"
       message="<p>Discard draft?</p>"
       cancelbutton="{
-        text: 'Cancel',
-        onClick: 'onCloseAlert()'
+        text: 'Cancel'
       }"
       confirmbutton="{
-        text: 'Discard',
-        onClick: 'onCloseAlert()'
+        text: 'Discard'
       }"
     ></m-dialog>
     <m-dialog
       id="m-dialog-simple"
-      scrimcancel
+      onScrim="onClose()"
       title='Select an account'
       message="
         <ul class='mdc-list mdc-list--avatar-list' style='list-style-type: none;'>
-          <li onClick='onCloseSimple()' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+          <li onClick='onConfirm()' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
             <table>
               <tr>
                 <td>
@@ -49,7 +49,7 @@
               </tr>
             </table>
           </li>
-          <li onClick='onCloseSimple()' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+          <li onClick='onConfirm()' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
             <table>
               <tr>
                 <td>
@@ -64,7 +64,7 @@
               </tr>
             </table>
           </li>
-          <li onClick='onCloseSimple()' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+          <li onClick='onConfirm()' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
             <table>
               <tr>
                 <td>
@@ -84,7 +84,9 @@
     ></m-dialog>
     <m-dialog
       id="m-dialog-confirmation"
-      scrimcancel
+      onScrim="onClose()"
+      onCancel="onClose()"
+      onConfirm="onConfirm()"
       title='Phone ringtone'
       message="
         <ul class='mdc-list' style='list-style-type: none;'>
@@ -139,8 +141,7 @@
           path: 'M923 283.6a260.04 260.04 0 0 0-56.9-82.8 264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3.1-35.3-7-69.6-20.9-101.9zM512 814.8S156 586.7 156 385.5C156 283.6 240.3 201 344.3 201c73.1 0 136.5 40.8 167.7 100.4C543.2 241.8 606.6 201 679.7 201c104 0 188.3 82.6 188.3 184.5 0 201.2-356 429.3-356 429.3z',
           color: '#F95050',
           scale: 1.3
-        },
-        onClick: 'onClose()'
+        }
       }"
       confirmbutton="{
         text: 'OK',
@@ -150,14 +151,15 @@
           path: 'M923 283.6a260.04 260.04 0 0 0-56.9-82.8 264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3.1-35.3-7-69.6-20.9-101.9zM512 814.8S156 586.7 156 385.5C156 283.6 240.3 201 344.3 201c73.1 0 136.5 40.8 167.7 100.4C543.2 241.8 606.6 201 679.7 201c104 0 188.3 82.6 188.3 184.5 0 201.2-356 429.3-356 429.3z',
           color: '#F95050',
           scale: 1.3
-        },
-        onClick: 'onConfirm()'
+        }
       }"
     ></m-dialog>
     <m-dialog
       id="m-dialog-scrollable"
       scrollable
-      scrimcancel
+      onScrim="onClose()"
+      onCancel="onClose()"
+      onConfirm="onConfirm()"
       title='The Wonderful Wizard of Oz'
       message="
         <div>
@@ -174,38 +176,56 @@
         </div>
       "
       cancelbutton="{
-        text: 'Decline',
-        onClick: 'onClose()'
+        text: 'Decline'
       }"
       confirmbutton="{
-        text: 'Accept',
-        onClick: 'onConfirm()'
+        text: 'Accept'
       }"
-    />
+    ></m-dialog>
+    <p id="show-text"></p>
   </div>
   <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
     <!-- <img src="//alloyteam.github.io/github.png" alt=""> -->
   </a>
   <script>
+    const dialogAlert = document.getElementById("m-dialog-alert");
+    const dialogSimple = document.getElementById("m-dialog-simple");
+    const dialogConfirmation = document.getElementById("m-dialog-confirmation");
+    const dialogScrollable = document.getElementById("m-dialog-scrollable");
+    const thowText = document.getElementById("show-text");
+
     function onShowAlert() {
-      var dialog = document.getElementById("m-dialog-alert");
-      dialog.setAttribute("show", true);
-    }
-    function onCloseAlert() {
-      var dialog = document.getElementById("m-dialog-alert");
-      dialog.setAttribute("show", false);
+      dialogAlert.setAttribute("show", true);
+      thowText.innerHTML = "open alert!";
     }
     function onShowSimple() {
-      var dialog = document.getElementById("m-dialog-simple");
-      dialog.setAttribute("show", true);
+      dialogSimple.setAttribute("show", true);
+      thowText.innerHTML = "open simple!";
     }
     function onShowConfirmation() {
-      var dialog = document.getElementById("m-dialog-confirmation");
-      dialog.setAttribute("show", false);
+      dialogConfirmation.setAttribute("show", true);
+      thowText.innerHTML = "open confirmation!";
     }
     function onShowScrollable() {
-      var dialog = document.getElementById("m-dialog-scrollable");
-      dialog.setAttribute("show", false);
+      dialogScrollable.setAttribute("show", true);
+      thowText.innerHTML = "open scrollable!";
+    }
+
+    function onClose() {
+      dialogAlert.removeAttribute("show");
+      dialogSimple.removeAttribute("show");
+      dialogConfirmation.removeAttribute("show");
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+      console.log('onClose');
+    }
+    function onConfirm() {
+      dialogAlert.removeAttribute("show");
+      dialogSimple.removeAttribute("show");
+      dialogConfirmation.removeAttribute("show");
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+      console.log('onConfirm');
     }
   </script>
 </body>
