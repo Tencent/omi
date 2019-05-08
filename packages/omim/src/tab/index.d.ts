@@ -8,7 +8,7 @@ interface Props {
 }
 interface Data {
 }
-export default class Tabs extends WeElement<Props, Data> {
+export default class Tab extends WeElement<Props, Data> {
     static css: any;
     data: {
         active: any;

@@ -16,8 +16,8 @@ interface Data {
 
 }
 
-@tag('m-tabs')
-export default class Tabs extends WeElement<Props, Data>{
+@tag('m-tab')
+export default class Tab extends WeElement<Props, Data>{
   static css = css
 
   data = {

@@ -1,26 +1,19 @@
 import { WeElement } from 'omi';
 interface Props {
-    discrete?: boolean;
-    value?: number;
-    disabled?: boolean;
+    buffer?: number;
+    progress?: number;
 }
 interface Data {
 }
-export default class Slider extends WeElement<Props, Data> {
+export default class LinearProgress extends WeElement<Props, Data> {
     static css: any;
     static defaultProps: {
-        value: number;
-        step: number;
-        min: number;
-        max: number;
+        buffer: number;
+        progress: number;
     };
     static propTypes: {
-        discrete: BooleanConstructor;
-        value: NumberConstructor;
-        disabled: BooleanConstructor;
-        min: NumberConstructor;
-        max: NumberConstructor;
-        step: NumberConstructor;
+        buffer: NumberConstructor;
+        progress: NumberConstructor;
     };
     installed(): void;
     render(props: any): JSX.Element;

@@ -1,27 +1,19 @@
 import { WeElement } from 'omi';
+import { MDCSnackbar } from '@material/snackbar';
 interface Props {
-    discrete?: boolean;
-    value?: number;
-    disabled?: boolean;
+    show?: boolean;
 }
 interface Data {
 }
-export default class Slider extends WeElement<Props, Data> {
+export default class Snackbar extends WeElement<Props, Data> {
     static css: any;
     static defaultProps: {
-        value: number;
-        step: number;
-        min: number;
-        max: number;
+        show: boolean;
     };
     static propTypes: {
-        discrete: BooleanConstructor;
-        value: NumberConstructor;
-        disabled: BooleanConstructor;
-        min: NumberConstructor;
-        max: NumberConstructor;
-        step: NumberConstructor;
+        show: BooleanConstructor;
     };
+    snackbar: MDCSnackbar;
     installed(): void;
     render(props: any): JSX.Element;
 }
