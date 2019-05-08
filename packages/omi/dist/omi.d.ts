@@ -190,7 +190,8 @@ declare namespace Omi {
 	function getHost(element: WeElement): WeElement;
 	function classNames(...args: any[]): string;
 	function extractClass(...args: any[]): object;
-
+	function o(obj: any): string;
+	
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;

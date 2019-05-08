@@ -641,6 +641,9 @@
             class: classNames.apply(null, args)
         };
     }
+    function o(obj) {
+        return JSON.stringify(obj);
+    }
     function htm(t) {
         var r = n(this, e(t), arguments, []);
         return r.length > 1 ? r : r[0];
@@ -987,7 +990,7 @@
 
                       case Object:
                         ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
-                    }
+                    } else ele.props[key] = null;
                 });
             }
         };
@@ -1077,11 +1080,12 @@
         extractClass: extractClass,
         createRef: createRef,
         html: html,
-        htm: htm
+        htm: htm,
+        o: o
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.4';
+    options.root.Omi.version = '6.3.5';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
