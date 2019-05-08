@@ -67,6 +67,7 @@ declare namespace Omi {
 		beforeRender?(): void;
 		receiveProps?(): void;
 		attrsToProps(): void;
+		setAttribute(name: string, value: any): void;
 	}
 
 	interface ModelView<P, D> {
@@ -78,6 +79,8 @@ declare namespace Omi {
 		updated?(): void;
 		beforeRender?(): void;
 		receiveProps?(): void;
+		attrsToProps(): void;
+		setAttribute(name: string, value: any): void;
 	}
 
 	interface Component<P, D> extends HTMLElement {
@@ -90,6 +93,7 @@ declare namespace Omi {
 		beforeRender?(): void;
 		receiveProps?(): void;
 		attrsToProps(): void;
+		setAttribute(name: string, value: any): void;
 	}
 
 	abstract class WeElement<P = {}, D = {}> {
@@ -190,6 +194,7 @@ declare namespace Omi {
 	function getHost(element: WeElement): WeElement;
 	function classNames(...args: any[]): string;
 	function extractClass(...args: any[]): object;
+	function o(obj: any): string;
 
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;

@@ -131,7 +131,11 @@ export default class WeElement extends HTMLElement {
   }
 
   setAttribute(key, val) {
-    super.setAttribute(key, val)
+    if (val && typeof val === 'object') {
+      super.setAttribute(key, JSON.stringify(val))
+    } else {
+      super.setAttribute(key, val)
+    }
     this.update()
   }
 

@@ -1,7 +1,13 @@
 import { define, WeElement } from 'omi'
-import css from './_index.css'
+import '../my-footer'
 
 define('my-content', class extends WeElement {
+  static css = require('./_index.css')
+
+  static use = [
+    'html'
+  ]
+
   install() {
     this.store.myContent = this
   }
@@ -24,13 +30,13 @@ define('my-content', class extends WeElement {
     let codesArr = Array.prototype.slice.call(codes);
     let codeHlNumArr = []
     codesArr.forEach(code => {
-      let arr = code.className.match(/{[\S\s]*}/)
+      let arr = code.className.match(/{([\S\s]*)}/)
       let pre = code.parentNode
       //bug!
-      //pre.setAttribute('data-line', '1,3-4')
+      arr && pre.setAttribute('data-line', arr[1])
       if (code.className) {
         pre.className = code.className
-     
+
         const temp = code.className.match(/language-\w*/g)[0]
         if (temp) {
           code.innerHTML = Prism.highlight(code.innerText, Prism.languages[temp.split('-')[1]], temp.split('-')[1])
@@ -99,14 +105,13 @@ define('my-content', class extends WeElement {
 
   render() {
     return (
-      <div
-        class="content" ontouchend={this.touchEnd}
-        dangerouslySetInnerHTML={{ __html: this.store.html }}
-      />
+      <div class="content">
+        <div
+           ontouchend={this.touchEnd}
+          dangerouslySetInnerHTML={{ __html: this.store.data.html }}
+        />
+        <my-footer />
+      </div>
     )
-  }
-
-  css() {
-    return css
   }
 })
