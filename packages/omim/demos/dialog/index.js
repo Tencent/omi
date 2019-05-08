@@ -66,11 +66,11 @@ define('my-app', class extends WeElement {
           onConfirm={this.onConfirm}
           show={this.alertShow}
           message={<p>Discard draft?</p>}
-          cancelbutton={{
+          cancel-button={{
             text: 'Cancel',
             // onClick: this.onClose
           }}
-          confirmbutton={{
+          confirm-button={{
             text: 'Discard',
             // onClick: this.onConfirm
           }}
@@ -182,7 +182,7 @@ define('my-app', class extends WeElement {
               </li>
             </ul>
           }
-          cancelbutton={{
+          cancel-button={{
             text: 'Cancel',
             unelevated: true,
             dense: true,
@@ -193,7 +193,7 @@ define('my-app', class extends WeElement {
             },
             onClick: this.onClose
           }}
-          confirmbutton={{
+          confirm-button={{
             text: 'OK',
             unelevated: true,
             dense: true,
@@ -225,11 +225,11 @@ define('my-app', class extends WeElement {
               <p>From the far north they heard a low wail of the wind, and Uncle Henry and Dorothy could see where the long grass bowed in waves before the coming storm. There now came a sharp whistling in the air from the south, and as they turned their eyes that way they saw ripples in the grass coming from that direction also.</p>
             </div>
           }
-          cancelbutton={{
+          cancel-button={{
             text: 'Decline',
             onClick: this.onClose
           }}
-          confirmbutton={{
+          confirm-button={{
             text: 'Accept',
             onClick: this.onConfirm
           }}

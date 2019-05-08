@@ -5,8 +5,8 @@ interface Props {
     scrollable: boolean;
     title: string;
     message: string;
-    cancelbutton: object;
-    confirmbutton: object;
+    cancelButton: object;
+    confirmButton: object;
 }
 interface Data {
 }
@@ -17,13 +17,13 @@ export default class Dialog extends WeElement<Props, Data> {
         scrollable: BooleanConstructor;
         title: StringConstructor;
         message: StringConstructor;
-        cancelbutton: ObjectConstructor;
-        confirmbutton: ObjectConstructor;
+        cancelButton: ObjectConstructor;
+        confirmButton: ObjectConstructor;
     };
     installed(): void;
-    onScrim: (evt: any) => void;
-    onCancel: (evt: any) => void;
-    onConfirm: (evt: any) => void;
+    onScrim: (evt: Event) => void;
+    onCancel: (evt: Event) => void;
+    onConfirm: (evt: Event) => void;
     render(props: any): JSX.Element;
 }
 export {};
