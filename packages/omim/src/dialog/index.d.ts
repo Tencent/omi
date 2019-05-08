@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import { MDCDialog } from '@material/dialog';
 import '../button';
 interface Props {
     show: boolean;
@@ -20,6 +21,8 @@ export default class Dialog extends WeElement<Props, Data> {
         cancelButton: ObjectConstructor;
         confirmButton: ObjectConstructor;
     };
+    dialog: MDCDialog;
+    updated(): void;
     installed(): void;
     onScrim: (evt: Event) => void;
     onCancel: (evt: Event) => void;
