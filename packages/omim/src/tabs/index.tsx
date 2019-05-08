@@ -38,6 +38,7 @@ export default class Tabs extends WeElement<Props, Data>{
   }
 
   activateTab(prop) {
+    // @ts-ignore
     let index = [].findIndex.call(this.props.children,(item => item.attributes.prop === prop))
     this.data.tabBar.activateTab(index)
   }
