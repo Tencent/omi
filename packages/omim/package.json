@@ -118,6 +118,7 @@
     "@material/switch": "^2.0.0",
     "@material/textfield": "^1.1.1",
     "@material/typography": "^1.0.0",
-    "@material/tab-bar": "^2.1.0"
+    "@material/tab-bar": "^2.1.0",
+    "@material/top-app-bar": "^2.1.0"
   }
 }
