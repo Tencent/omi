@@ -958,7 +958,7 @@
             this.update();
         };
         WeElement.prototype.setAttribute = function(key, val) {
-            _HTMLElement.prototype.setAttribute.call(this, key, val);
+            if (val && 'object' == typeof val) _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val)); else _HTMLElement.prototype.setAttribute.call(this, key, val);
             this.update();
         };
         WeElement.prototype.pureRemoveAttribute = function(key) {
@@ -1085,7 +1085,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.5';
+    options.root.Omi.version = '6.3.6';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

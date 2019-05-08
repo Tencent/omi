@@ -1,6 +1,6 @@
 [English](./README.md) | 简体中文 | [한국어](./README.KR.md)
 
-<p align="right">Omi <strong>v6.3.5</strong></p>
+<p align="right">Omi <strong>v6.3.6</strong></p>
 <p align="right">Omio <strong>v2.2.1</strong></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="300"/></p>
 <h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
