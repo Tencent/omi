@@ -3,12 +3,8 @@ import * as css from './index.scss'
 import {MDCTopAppBar} from '@material/top-app-bar';
 import '../icon'
 
-// @ts-ignore
-// import { htmlToVdom } from '../util.ts'
-
 interface Props {
   title: string,
-  ripple: boolean,
   short: boolean,
   shortCollapsed: boolean,
   prominent: boolean,
@@ -28,7 +24,6 @@ export default class topAppBar extends WeElement<Props, Data>{
 
   static propTypes = {
     title: String,
-    ripple: Boolean,
     short: Boolean,
     shortCollapsed: Boolean,
     prominent: Boolean,
@@ -46,7 +41,10 @@ export default class topAppBar extends WeElement<Props, Data>{
     return (
       <header {...extractClass(props, 'mdc-top-app-bar', {
         'mdc-top-app-bar--fixed': props.fixed,
-        'mdc-top-app-bar--dense': props.dense
+        'mdc-top-app-bar--dense': props.dense,
+        'mdc-top-app-bar--short': props.short || props.shortCollapsed,
+        'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
+        'mdc-top-app-bar--prominent': props.prominent
       })}>
         <div class="mdc-top-app-bar__row">
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
