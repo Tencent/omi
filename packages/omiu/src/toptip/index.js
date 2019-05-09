@@ -1,5 +1,5 @@
 import { define, WeElement } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 
 define('o-toptip', class extends WeElement {
   static css = css

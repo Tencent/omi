@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.1.0 By dntzhang 
+ *  omiu v0.1.1 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -3746,7 +3746,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement), _class.css = css, _temp));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 77 */
