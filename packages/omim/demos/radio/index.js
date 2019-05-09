@@ -1,9 +1,26 @@
 import '../../src/radio/index.tsx'
 import { render, h } from 'omi'
 
-render(
-  <div>
-    <m-radio label='Label'> </m-radio>
+
+  import { define, WeElement, render, h } from 'omi'
+
+
+define('my-app', class extends WeElement {
+  onSelected = (evt) => {
+    console.log(evt)
+  }
+
+  show = false
+
+  onClick = () => {
+    this.show = !this.show
+    this.update()
+  }
+
+  render() {
+    return <div>
+    <m-radio label='Label' name="abc"> </m-radio>
+    <m-radio label='Label' checked name="abc"> </m-radio>
     <br />
 
     <m-radio checked label='checked'> </m-radio>
@@ -12,5 +29,8 @@ render(
     <m-radio disabled label='disabled'> </m-radio>
 
   </div>
-  , 'body')
+
+  }
+})
+render(<my-app />, 'body')
 

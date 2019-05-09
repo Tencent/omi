@@ -9,7 +9,8 @@ interface Props {
   label?: string,
   disabled?: boolean,
   checked?: boolean,
-  value: string
+  value: string,
+  name?: string
 }
 
 interface Data {
@@ -18,25 +19,40 @@ interface Data {
 
 
 @tag('m-radio')
-export default class Radio extends WeElement<Props, Data>{
+class Radio extends WeElement<Props, Data>{
   static css = css
 
   static propTypes = {
     label: String,
     disabled: Boolean,
     checked: Boolean,
-    value: String
+    value: String,
+    name: String
   }
 
+  group: Radio[]
+  radio: MDCRadio
   installed() {
-    const checkbox = new MDCRadio(this.shadowRoot.querySelector('.mdc-radio'))
+    const radio = new MDCRadio(this.shadowRoot.querySelector('.mdc-radio'))
     const formField = new MDCFormField(this.shadowRoot.querySelector('.mdc-form-field'))
-    formField.input = checkbox
+    formField.input = radio
+    this.radio = radio
+    this.group = this.getScopeRoot(this.shadowRoot.host).querySelectorAll(`m-radio[name='${this.props.name}']`)
+  }
+
+  clickHandler = () => {
+
+    this.group.forEach(item => {
+      item.radio.checked = false
+    })
+
+    this.radio.checked = true
   }
 
   render(props) {
+
     return (
-      <div {...extractClass(props, 'mdc-form-field', {
+      <div onClick={this.clickHandler} {...extractClass(props, 'mdc-form-field', {
         'mdc-checkbox--disabled': props.disabled
       })}>
         <div class={classNames('mdc-radio', {
@@ -53,5 +69,16 @@ export default class Radio extends WeElement<Props, Data>{
         <label for="radio">{props.label}</label>
       </div>
     )
+  }
+
+  getScopeRoot(current) {
+    while (true) {
+      const p = current.parentNode
+      if (p) {
+        current = p
+      } else {
+        return current
+      }
+    }
   }
 }
