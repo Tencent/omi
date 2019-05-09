@@ -85,7 +85,7 @@ export function setAccessor(node, name, old, value, isSvg) {
       }
     }
     ;(node._listeners || (node._listeners = {}))[name] = value
-  } else if (name !== 'list' && name !== 'type' && !isSvg && name in node && value != '') { //value != '' fix for selected, disabled, checked
+  } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value != '') { //value != '' fix for selected, disabled, checked
     // Attempt to set a DOM property to the given value.
     // IE & FF throw for certain property-value combinations.
     try {
