@@ -1,2 +1,10 @@
 @import "../theme";
 @import "@material/top-app-bar/mdc-top-app-bar";
+@import "@material/ripple/mdc-ripple";
+
+.material-icons {
+  --mdc-ripple-fg-size:28px;
+  --mdc-ripple-fg-scale:1.71429;
+  --mdc-ripple-left:10px;
+  --mdc-ripple-top:10px;
+}

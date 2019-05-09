@@ -1,7 +1,8 @@
 import { WeElement } from 'omi';
-import '../icon';
+import '../button';
 interface Props {
     title: string;
+    ripple: boolean;
     short: boolean;
     shortCollapsed: boolean;
     prominent: boolean;
@@ -16,6 +17,7 @@ export default class topAppBar extends WeElement<Props, Data> {
     static css: any;
     static propTypes: {
         title: StringConstructor;
+        ripple: BooleanConstructor;
         short: BooleanConstructor;
         shortCollapsed: BooleanConstructor;
         prominent: BooleanConstructor;
