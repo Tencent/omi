@@ -36,6 +36,18 @@ export default class topAppBar extends WeElement<Props, Data>{
   installed() {
     new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
   }
+
+   onNavigation = (evt: Event) => {
+    this.fire('navigation')
+    evt && evt.stopPropagation()
+  }
+
+  onAction = (evt: any) => {
+    if(evt) {
+      this.fire('action' + evt.toElement.accessKey)
+      evt.stopPropagation()
+    }
+  }
   
   render(props) {
     return (
@@ -48,16 +60,16 @@ export default class topAppBar extends WeElement<Props, Data>{
       })}>
         <div class="mdc-top-app-bar__row">
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            <button class="mdc-top-app-bar__navigation-icon">
+            {props.navigationButton &&<button class="mdc-top-app-bar__navigation-icon" onClick={this.onNavigation}>
               {(props.navigationButton.path || props.navigationButton.paths) ?
               <m-icon {...props.navigationButton}></m-icon> : props.navigationButton.text}
-            </button>
+            </button>}
             <span class="mdc-top-app-bar__title">{props.title}</span>
           </section>
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-            {props.actionItems.map(item =>
-              <button class="mdc-top-app-bar__action-item">
-                {(item.path || item.paths) ? <m-icon {...item}></m-icon> : item.text}
+            {props.actionItems && props.actionItems.map((item, index) =>
+              <button accessKey={index.toString()} class="mdc-top-app-bar__action-item" onClick={this.onAction}>
+                {(item.path || item.paths) ? <m-icon accessKey={index.toString()} {...item}></m-icon> : item.text}
               </button>
             )}
           </section>

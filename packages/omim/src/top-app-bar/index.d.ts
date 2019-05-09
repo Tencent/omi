@@ -2,7 +2,6 @@ import { WeElement } from 'omi';
 import '../icon';
 interface Props {
     title: string;
-    ripple: boolean;
     short: boolean;
     shortCollapsed: boolean;
     prominent: boolean;
@@ -17,7 +16,6 @@ export default class topAppBar extends WeElement<Props, Data> {
     static css: any;
     static propTypes: {
         title: StringConstructor;
-        ripple: BooleanConstructor;
         short: BooleanConstructor;
         shortCollapsed: BooleanConstructor;
         prominent: BooleanConstructor;
@@ -27,6 +25,8 @@ export default class topAppBar extends WeElement<Props, Data> {
         actionItems: ArrayConstructor;
     };
     installed(): void;
+    onNavigation: (evt: Event) => void;
+    onAction: (evt: any) => void;
     render(props: any): JSX.Element;
 }
 export {};
