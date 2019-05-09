@@ -1,5 +1,5 @@
 import { WeElement } from 'omi';
-import '../button';
+import '../icon';
 interface Props {
     title: string;
     short: boolean;
@@ -7,8 +7,8 @@ interface Props {
     prominent: boolean;
     dense: boolean;
     fixed: boolean;
-    navigationButton: object;
-    actionItems: ArrayConstructor;
+    navigationIcon: object;
+    actionItems: Array<object>;
 }
 interface Data {
 }
@@ -21,7 +21,7 @@ export default class topAppBar extends WeElement<Props, Data> {
         prominent: BooleanConstructor;
         dense: BooleanConstructor;
         fixed: BooleanConstructor;
-        navigationButton: ObjectConstructor;
+        navigationIcon: ObjectConstructor;
         actionItems: ArrayConstructor;
     };
     installed(): void;
