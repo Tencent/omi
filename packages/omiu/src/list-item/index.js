@@ -1,10 +1,9 @@
 import { define, WeElement } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 
 define('o-list-item', class extends WeElement {
-  css() {
-    return style
-  }
+  static css = css
+
   render(props) {
     let border = props.__inList ? 'border-bottom-1px' : 'border-1px'
     return (

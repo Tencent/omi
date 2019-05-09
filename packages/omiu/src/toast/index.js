@@ -8,9 +8,7 @@ define('o-toast', class extends WeElement {
     show: false
   }
 
-  css() {
-    return css
-  }
+  static css = css
 
   render(props) {
     const cls = extractClass(props, 'weui-toast')

@@ -2,10 +2,7 @@ import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-timeline', class extends WeElement {
-  css() {
-    return css
-  }
-
+  static css = css
 
   render(props) {
     return <div {...extractClass(props, 'o-timeline')}>

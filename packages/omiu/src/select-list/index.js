@@ -9,9 +9,7 @@ define('o-select-list', class extends WeElement {
     list: []
   }
 
-  css() {
-    return css
-  }
+  static css = css
 
   onSelect = (item, index) => {
     this.props.onSelect && this.props.onSelect(item, index)

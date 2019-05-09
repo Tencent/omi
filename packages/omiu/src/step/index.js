@@ -8,7 +8,7 @@ const state = {
 }
 
 define('o-step', class extends WeElement {
-  css = require('./_index.css')
+  static css = require('./_index.css')
 
   render(props) {
     return (

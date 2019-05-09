@@ -3,9 +3,7 @@ import css from './_index.css'
 import path from './path'
 
 define('o-icon', class extends WeElement {
-  css() {
-    return css
-  }
+  static css = css
 
   static defaultProps = {
     scale: 2

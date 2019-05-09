@@ -1,14 +1,12 @@
 import { define, WeElement, extractClass } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 import '../icon'
 // import cellStyle from '../cells/_index.css'
 // import '../icon/font-face.css'
 // import fontStyle from '../icon/_font.scss'
 
 define('o-selection', class extends WeElement {
-  css() {
-    return style
-  }
+  static css = css
 
   onTapMore = () => {
     this.fire('tapmore')

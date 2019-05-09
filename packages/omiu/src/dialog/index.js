@@ -1,5 +1,5 @@
 import { define, WeElement, render } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 
 define('o-dialog', class extends WeElement {
   close = () => {
@@ -10,9 +10,7 @@ define('o-dialog', class extends WeElement {
     this.props.onConfirm && this.props.onConfirm()
   }
 
-  css() {
-    return style
-  }
+  static css = css
 
   render(props) {
     const display = props.show ? 'block' : 'none'

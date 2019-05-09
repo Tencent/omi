@@ -4,9 +4,7 @@ import css from './_index.css'
 define('o-pagination', class extends WeElement {
   static observe = true
 
-  css() {
-    return css
-  }
+  static css = css
 
   install() {
     this.data = Object.assign(

@@ -3,9 +3,7 @@ import css from './_index.css'
 
 
 define('o-table', class extends WeElement {
-  css() {
-    return css
-  }
+  static css = css
 
   install() {
     this.dataSource = this.props.dataSource

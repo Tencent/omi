@@ -1,7 +1,7 @@
 import { define, WeElement, extractClass, createRef } from 'omi'
 
 define('o-input-label', class extends WeElement {
-  css = require('./_index.css')
+  static css = require('./_index.css')
 
   value = ''
 

@@ -4,9 +4,7 @@ import '../button'
 import '../icon'
 
 define('o-popover', class extends WeElement {
-  css() {
-    return css
-  }
+  static css = css
 
   static defaultProps = {
     x: 0,

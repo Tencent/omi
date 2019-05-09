@@ -4,9 +4,7 @@ import '../button'
 import '../icon'
 
 define('o-popup', class extends WeElement {
-  css() {
-    return css
-  }
+  static css = css
 
   close = () => {
     this.props.onClose && this.props.onClose()

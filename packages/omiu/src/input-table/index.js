@@ -4,9 +4,7 @@ import '../input'
 import '../button'
 
 define('o-input-table', class extends WeElement {
-  css() {
-    return css
-  }
+  static css = css
 
   onClick = index => {
     this.props.onChange(index)

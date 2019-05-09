@@ -1,5 +1,5 @@
 /*!
- *  omiu v0.0.17 By dntzhang 
+ *  omiu v0.1.0 By dntzhang 
  *  Github: https://github.com/AlloyTeam/omi
  *  MIT Licensed.
  */
@@ -227,11 +227,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       var style = { style: props.style };
@@ -267,7 +262,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement), _class.defaultProps = {
+}(_omi.WeElement), _class.css = _index2['default'], _class.defaultProps = {
   scale: 2
 }, _temp2));
 
@@ -453,11 +448,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       //fix omi render
@@ -501,7 +491,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   disabled: false,
   type: 'primary',
   size: 'normal'
-}, _temp));
+}, _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 5 */
@@ -838,6 +828,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -846,34 +838,34 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-input', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-input', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.css = __webpack_require__(27), _this.value = '', _this.ref = (0, _omi.createRef)(), _this.onInput = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.value = '', _this.ref = (0, _omi.createRef)(), _this.onInput = function () {
       _this.value = _this.ref.current.value;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       return Omi.h('input', _extends({ ref: this.ref }, (0, _omi.extractClass)(props, 'o-input'), { onInput: this.onInput }, props, { placeholder: props.placeholder }));
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = __webpack_require__(27), _temp2));
 
 /***/ }),
 /* 7 */
@@ -1191,6 +1183,8 @@ __webpack_require__(126);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(11);
@@ -1205,21 +1199,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-input-number', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-input-number', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.minus = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.minus = function () {
       if (_this.data.mDisabled) return;
       _this.data.value -= _this.props.step;
       _this.data.mDisabled = _this.data.value <= _this.props.min;
@@ -1245,12 +1239,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'install',
     value: function install() {
       this.data.value = this.props.value;
@@ -1302,8 +1291,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 11 */
@@ -1339,6 +1328,8 @@ exports.push([module.i, ".o-input-number {\n  position: relative;\n  width: 150p
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(14);
@@ -1353,7 +1344,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-badge', function (_WeElement) {
+(0, _omi.define)('o-badge', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -1363,11 +1354,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       if (props.content !== undefined) {
@@ -1399,7 +1385,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 14 */
@@ -1466,6 +1452,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(19);
@@ -1480,33 +1468,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-dialog', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-dialog', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.close = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.close = function () {
       _this.props.onClose && _this.props.onClose();
     }, _this.confirm = function () {
       _this.props.onConfirm && _this.props.onConfirm();
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       var display = props.show ? 'block' : 'none';
@@ -1553,8 +1536,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 var dialog = {},
     dom = void 0;
@@ -1641,6 +1624,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(22);
@@ -1655,7 +1640,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-equal-space', function (_WeElement) {
+(0, _omi.define)('o-equal-space', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -1665,11 +1650,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       var itemProps = null;
@@ -1693,7 +1673,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 22 */
@@ -1804,6 +1784,8 @@ exports.push([module.i, ".o-input {\n  position: relative;\n  display: inline-bl
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(30);
@@ -1820,7 +1802,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-list', function (_WeElement) {
+(0, _omi.define)('o-list', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -1830,11 +1812,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       props.children.forEach(function (child) {
@@ -1858,7 +1835,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 30 */
@@ -1894,6 +1871,8 @@ exports.push([module.i, "h2.title {\n  font-size: 14px;\n  font-weight: normal;\
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(33);
@@ -1908,7 +1887,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-list-item', function (_WeElement) {
+(0, _omi.define)('o-list-item', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -1918,11 +1897,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       var border = props.__inList ? 'border-bottom-1px' : 'border-1px';
@@ -1946,7 +1920,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 33 */
@@ -1984,6 +1958,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(36);
@@ -1998,7 +1974,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-loading', function (_WeElement) {
+(0, _omi.define)('o-loading', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -2008,11 +1984,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       return Omi.h('div', _extends({}, (0, _omi.extractClass)(props, 'o-loading'), {
@@ -2022,7 +1993,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 36 */
@@ -2113,6 +2084,8 @@ Omi.h(
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(41);
@@ -2129,31 +2102,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-dropdown-menu', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-dropdown-menu', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
       _this.props.onChange(index);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       return Omi.h(
@@ -2180,8 +2148,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 41 */
@@ -2217,6 +2185,8 @@ exports.push([module.i, ".o-dropdown-menu {\n  max-width: 160px;\n  position: re
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(44);
@@ -2235,7 +2205,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-msg', function (_WeElement) {
+(0, _omi.define)('o-msg', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -2253,11 +2223,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     key: 'confirm',
     value: function confirm() {
       this.props.confirm();
-    }
-  }, {
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
     }
   }, {
     key: 'render',
@@ -2297,7 +2262,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 44 */
@@ -2333,6 +2298,8 @@ exports.push([module.i, "h2 {\n  font-size: 20px;\n}\n\np {\n  font-size: 16px;\
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(47);
@@ -2347,31 +2314,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-nav', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-nav', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
       _this.props.onChange(index);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       var _this2 = this;
@@ -2401,8 +2363,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 47 */
@@ -2464,11 +2426,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'install',
     value: function install() {
       this.data = Object.assign({
@@ -2689,7 +2646,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement), _class.observe = true, _temp));
+}(_omi.WeElement), _class.observe = true, _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 50 */
@@ -2725,6 +2682,8 @@ exports.push([module.i, "div {\n  color: rgba(0, 0, 0, .65);\n}\n\n* {\n  box-si
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(53);
@@ -2743,33 +2702,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-popup', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-popup', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.close = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.close = function () {
       _this.props.onClose && _this.props.onClose();
     }, _this.confirm = function () {
       _this.props.onConfirm && _this.props.onConfirm();
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'installed',
     value: function installed() {
       this.computeTop();
@@ -2839,8 +2793,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 53 */
@@ -2904,11 +2858,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       return Omi.h(
@@ -2923,7 +2872,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement), _class.observe = true, _temp));
+}(_omi.WeElement), _class.observe = true, _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 56 */
@@ -2959,6 +2908,8 @@ exports.push([module.i, ".o-progress {\n  width: 100%;\n  height: 12px;\n  backg
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(59);
@@ -2979,21 +2930,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // import '../icon/font-face.css'
 // import fontStyle from '../icon/_font.scss'
 
-(0, _omi.define)('o-selection', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-selection', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onTapMore = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.onTapMore = function () {
       _this.fire('tapmore');
     }, _this.onSelectSingle = function (index) {
       _this.fire('select', { index: index });
@@ -3012,12 +2963,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       var _this2 = this;
@@ -3129,8 +3075,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 59 */
@@ -3168,6 +3114,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(62);
@@ -3182,21 +3130,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-slider', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-slider', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.start = function (evt) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.start = function (evt) {
       _this._x = evt.touches[0].pageX;
       document.addEventListener('touchmove', _this.move);
       document.addEventListener('touchend', _this.end);
@@ -3215,12 +3163,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'install',
     value: function install() {
       this.percentage = this.props.percentage;
@@ -3291,8 +3234,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 62 */
@@ -3330,6 +3273,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(65);
@@ -3344,31 +3289,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-switch', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-switch', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onChange = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.onChange = function () {
       _this.fire('change', _this._ele.checked);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       var _this2 = this;
@@ -3401,8 +3341,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 65 */
@@ -3438,6 +3378,8 @@ exports.push([module.i, "* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(68);
@@ -3452,31 +3394,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-tab', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-tab', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
       _this.props.onChange(index);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       var _this2 = this;
@@ -3506,8 +3443,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 68 */
@@ -3545,6 +3482,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(71);
@@ -3559,31 +3498,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-tab-bar', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-tab-bar', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
       _this.props.onChange(index);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       var _this2 = this;
@@ -3610,8 +3544,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 71 */
@@ -3647,6 +3581,8 @@ exports.push([module.i, "/*ul*/\n\n.o-tab-bar {\n  display: -webkit-box;\n  disp
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(74);
@@ -3661,7 +3597,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-timeline', function (_WeElement) {
+(0, _omi.define)('o-timeline', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -3671,11 +3607,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       return Omi.h(
@@ -3729,7 +3660,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 74 */
@@ -3765,6 +3696,8 @@ exports.push([module.i, ".o-timeline {\n  font-size: 12px;\n  padding-top: 30px;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(77);
@@ -3779,7 +3712,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-toptip', function (_WeElement) {
+(0, _omi.define)('o-toptip', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -3789,11 +3722,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'hide',
     value: function hide() {
       clearTimeout(this.timer);
@@ -3818,7 +3746,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = css, _temp));
 
 /***/ }),
 /* 77 */
@@ -3896,11 +3824,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'renderMenuItem',
     value: function renderMenuItem() {
       return this.props.menus.map(function (menu, idx) {
@@ -3988,7 +3911,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   menus: [],
   actions: [],
   show: false
-}, _temp2));
+}, _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 80 */
@@ -4062,11 +3985,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       var cls = (0, _omi.extractClass)(props, 'weui-toast');
@@ -4098,7 +4016,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement), _class.defaultProps = {
   type: 'success',
   show: false
-}, _temp));
+}, _class.css = _index2['default'], _temp));
 
 var toast = {},
     dom = void 0;
@@ -4161,6 +4079,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(86);
@@ -4175,7 +4095,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-checkbox', function (_WeElement) {
+(0, _omi.define)('o-checkbox', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -4185,11 +4105,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       var checked = props.checked ? { checked: true } : null;
@@ -4206,7 +4121,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 86 */
@@ -4244,6 +4159,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(89);
@@ -4258,7 +4175,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-radio', function (_WeElement) {
+(0, _omi.define)('o-radio', (_temp = _class = function (_WeElement) {
   _inherits(_class, _WeElement);
 
   function _class() {
@@ -4268,11 +4185,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       var checked = props.checked ? { checked: true } : null;
@@ -4291,7 +4203,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement));
+}(_omi.WeElement), _class.css = _index2['default'], _temp));
 
 /***/ }),
 /* 89 */
@@ -4329,6 +4241,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(92);
@@ -4343,33 +4257,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-dropdown', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-dropdown', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onSelect = function (index) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.onSelect = function (index) {
       _this.props.onSelect && _this.props.onSelect(index);
     }, _this.onToggle = function (index) {
       _this.props.onToggle && _this.props.onToggle(index);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       var _this2 = this;
@@ -4409,8 +4318,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 92 */
@@ -4448,6 +4357,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(95);
@@ -4462,32 +4373,27 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-table', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-table', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.removeItem = function (item) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.removeItem = function (item) {
       _this.dataSource.splice(_this.dataSource.indexOf(item), 1);
       _this.update();
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'install',
     value: function install() {
       this.dataSource = this.props.dataSource;
@@ -4547,8 +4453,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 95 */
@@ -4584,6 +4490,8 @@ exports.push([module.i, ".table-fill {\n  background: white;\n  border-radius: 3
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(98);
@@ -4602,21 +4510,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-input-table', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-input-table', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (index) {
       _this.props.onChange(index);
     }, _this.removeItem = function (item) {
       _this.dataSource.splice(_this.dataSource.indexOf(item), 1);
@@ -4640,12 +4548,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'install',
     value: function install() {
       this.dataSource = this.props.dataSource;
@@ -4710,8 +4613,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 98 */
@@ -4834,6 +4737,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 var _index = __webpack_require__(104);
@@ -4852,21 +4757,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-date-picker', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-date-picker', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.gotoNextMonth = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.gotoNextMonth = function () {
       _this.currentDate = getNextMonth(_this.currentDate);
       _this.initDate();
       _this.update();
@@ -4893,12 +4798,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
+  _createClass(_class, [{
     key: 'install',
     value: function install() {
       this.now = new Date();
@@ -5111,8 +5011,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = _index2['default'], _temp2));
 
 //星期日是0
 function getFirstDayWeek(e, t) {
@@ -5232,11 +5132,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'uninstall',
     value: function uninstall() {
       document.body.removeEventListener('mousedown', this.bodyClickHandler);
@@ -5353,7 +5248,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement), _class.defaultProps = {
+}(_omi.WeElement), _class.css = _index2['default'], _class.defaultProps = {
   x: 0,
   y: 0
 }, _temp2));
@@ -5418,7 +5313,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.css = __webpack_require__(110), _this._current = 0, _this._rect = null, _this._hover = false, _this.onSelect = function (evt) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this._current = 0, _this._rect = null, _this._hover = false, _this.onSelect = function (evt) {
       _this._rect = _this.base.getBoundingClientRect();
       var dx = evt.pageX - _this._rect.left;
       var value = dx / _this._rect.width * _this.props.total;
@@ -5495,7 +5390,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }]);
 
   return _class;
-}(_omi.WeElement), _class.defaultProps = {
+}(_omi.WeElement), _class.css = __webpack_require__(110), _class.defaultProps = {
   value: 0
 }, _temp2));
 
@@ -5535,6 +5430,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5543,26 +5440,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-input-label', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-input-label', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.css = __webpack_require__(113), _this.value = '', _this.ref = (0, _omi.createRef)(), _this.onInput = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.value = '', _this.ref = (0, _omi.createRef)(), _this.onInput = function () {
       _this.value = _this.ref.current.value;
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       return Omi.h(
@@ -5578,8 +5475,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = __webpack_require__(113), _temp2));
 
 /***/ }),
 /* 113 */
@@ -5617,6 +5514,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp2;
+
 var _omi = __webpack_require__(0);
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -5627,21 +5526,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-(0, _omi.define)('o-input-button', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-input-button', (_temp2 = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
+  function _class() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, _class2);
+    _classCallCheck(this, _class);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.css = __webpack_require__(116), _this.value = '', _this.ref = (0, _omi.createRef)(), _this.onInput = function () {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.value = '', _this.ref = (0, _omi.createRef)(), _this.onInput = function () {
       _this.value = _this.ref.current.value;
     }, _this.onClick = function (e) {
       _this.props.onClick && _this.props.onClick(e, _this.value);
@@ -5649,7 +5548,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  _createClass(_class2, [{
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       var onClick = props.onClick,
@@ -5668,8 +5567,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = __webpack_require__(116), _temp2));
 
 /***/ }),
 /* 116 */
@@ -7666,11 +7565,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
   }
 
   _createClass(_class, [{
-    key: 'css',
-    value: function css() {
-      return _index2['default'];
-    }
-  }, {
     key: 'render',
     value: function render(props) {
       var _this2 = this;
@@ -7702,7 +7596,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 }(_omi.WeElement), _class.defaultProps = {
   selectedIndex: 0,
   list: []
-}, _temp2));
+}, _class.css = _index2['default'], _temp2));
 
 /***/ }),
 /* 124 */
@@ -7742,6 +7636,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _class, _temp;
+
 var _omi = __webpack_require__(0);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7757,24 +7653,16 @@ var state = {
   TODO: 3
 };
 
-(0, _omi.define)('o-step', function (_WeElement) {
-  _inherits(_class2, _WeElement);
+(0, _omi.define)('o-step', (_temp = _class = function (_WeElement) {
+  _inherits(_class, _WeElement);
 
-  function _class2() {
-    var _ref;
+  function _class() {
+    _classCallCheck(this, _class);
 
-    var _temp, _this, _ret;
-
-    _classCallCheck(this, _class2);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class2.__proto__ || Object.getPrototypeOf(_class2)).call.apply(_ref, [this].concat(args))), _this), _this.css = __webpack_require__(127), _temp), _possibleConstructorReturn(_this, _ret);
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
   }
 
-  _createClass(_class2, [{
+  _createClass(_class, [{
     key: 'render',
     value: function render(props) {
       return Omi.h(
@@ -7842,8 +7730,8 @@ var state = {
     }
   }]);
 
-  return _class2;
-}(_omi.WeElement));
+  return _class;
+}(_omi.WeElement), _class.css = __webpack_require__(127), _temp));
 
 exports['default'] = state;
 

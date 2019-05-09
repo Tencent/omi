@@ -1,5 +1,5 @@
 import { define, WeElement } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 
 define('o-prompt', class extends WeElement {
   close = () => {
@@ -13,9 +13,7 @@ define('o-prompt', class extends WeElement {
     this.props.onConfirm && this.props.onConfirm()
   }
 
-  css() {
-    return style
-  }
+  static css = css
 
   afterUpdate(){
     if(this.props.show){

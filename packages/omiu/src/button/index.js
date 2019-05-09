@@ -8,9 +8,7 @@ define('o-button', class extends WeElement {
     size: 'normal'
   }
 
-  css() {
-    return css
-  }
+  static css = css
 
   render(props) {
     //fix omi render

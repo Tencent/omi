@@ -3,9 +3,7 @@ import css from './_index.css'
 
 define('o-dropdown', class extends WeElement {
 
-  css() {
-    return css
-  }
+  static css = css
 
   onSelect = (index) => {
     this.props.onSelect && this.props.onSelect(index)

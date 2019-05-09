@@ -2,7 +2,7 @@ import { define, WeElement, extractClass } from 'omi'
 
 
 define('o-rate', class extends WeElement {
-  css = require('./_index.css')
+  static css = require('./_index.css')
 
   static defaultProps = {
     value: 0
