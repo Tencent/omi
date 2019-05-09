@@ -1,10 +1,7 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
-// import {MDCTopAppBar} from '@material/top-app-bar';
+import {MDCTopAppBar} from '@material/top-app-bar';
 import '../icon'
-
-// @ts-ignore
-// import { htmlToVdom } from '../util.ts'
 
 interface Props {
   title: string,
@@ -14,7 +11,7 @@ interface Props {
   dense: boolean,
   fixed: boolean,
   navigationIcon: object,
-  actionItems: Array<object>
+  actionItems: object
 }
 
 interface Data {
@@ -33,27 +30,48 @@ export default class topAppBar extends WeElement<Props, Data>{
     dense: Boolean,
     fixed: Boolean,
     navigationIcon: Object,
-    actionItems: Array
+    actionItems: Object
   }
   
   installed() {
-    
+    new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
+  }
+
+   onNavigation = (evt: Event) => {
+    this.fire('navigation')
+    evt && evt.stopPropagation()
+  }
+
+  onAction = (evt: any) => {
+    if(evt) {
+      this.fire('action' + evt.toElement.accessKey)
+      evt.stopPropagation()
+    }
   }
   
   render(props) {
     return (
       <header {...extractClass(props, 'mdc-top-app-bar', {
-        
+        'mdc-top-app-bar--fixed': props.fixed,
+        'mdc-top-app-bar--dense': props.dense,
+        'mdc-top-app-bar--short': props.short || props.shortCollapsed,
+        'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
+        'mdc-top-app-bar--prominent': props.prominent
       })}>
         <div class="mdc-top-app-bar__row">
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            <button class="material-icons mdc-top-app-bar__navigation-icon mdc-ripple-upgraded--unbounded mdc-ripple-upgraded" style="--mdc-ripple-fg-size:28px; --mdc-ripple-fg-scale:1.71429; --mdc-ripple-left:10px; --mdc-ripple-top:10px;">menu</button>
-            <span class="mdc-top-app-bar__title">Standard</span>
+            {props.navigationIcon &&<button class="mdc-top-app-bar__navigation-icon" onClick={this.onNavigation}>
+              {(props.navigationIcon.path || props.navigationIcon.paths) ?
+              <m-icon {...props.navigationIcon}></m-icon> : props.navigationIcon.text}
+            </button>}
+            <span class="mdc-top-app-bar__title">{props.title}</span>
           </section>
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-            <button class="material-icons mdc-top-app-bar__action-item mdc-ripple-upgraded--unbounded mdc-ripple-upgraded" aria-label="Download" style="--mdc-ripple-fg-size:28px; --mdc-ripple-fg-scale:1.71429; --mdc-ripple-left:10px; --mdc-ripple-top:10px;">file_download</button>
-            <button class="material-icons mdc-top-app-bar__action-item mdc-ripple-upgraded--unbounded mdc-ripple-upgraded" aria-label="Print this page" style="--mdc-ripple-fg-size:28px; --mdc-ripple-fg-scale:1.71429; --mdc-ripple-left:10px; --mdc-ripple-top:10px;">print</button>
-            <button class="material-icons mdc-top-app-bar__action-item mdc-ripple-upgraded--unbounded mdc-ripple-upgraded" aria-label="Bookmark this page" style="--mdc-ripple-fg-size:28px; --mdc-ripple-fg-scale:1.71429; --mdc-ripple-left:10px; --mdc-ripple-top:10px;">bookmark</button>
+            {props.actionItems && props.actionItems.map((item, index) =>
+              <button accessKey={index.toString()} class="mdc-top-app-bar__action-item" onClick={this.onAction}>
+                {(item.path || item.paths) ? <m-icon accessKey={index.toString()} {...item}></m-icon> : item.text}
+              </button>
+            )}
           </section>
         </div>
       </header>

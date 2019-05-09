@@ -1890,7 +1890,7 @@ exports.default = Button;
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 Icon.prototype.render = function (props) {
-                    return (omi_1.h("i", __assign({}, omi_1.extractClass(props, 'm-icon')), omi_1.h("svg", { viewBox: "0 0 1024 1024", class: omi_1.classNames({ rotate: props.rotate }), width: props.scale + 'em', height: props.scale + 'em', fill: props.color, "aria-hidden": "true" }, props.paths ? (props.paths.map(function (item) {
+                    return (omi_1.h("i", __assign({}, omi_1.extractClass(props, 'm-icon')), omi_1.h("svg", { viewBox: '0 0 ' + props.view + ' ' + props.view, class: omi_1.classNames({ rotate: props.rotate }), width: props.scale + 'em', height: props.scale + 'em', fill: props.color, "aria-hidden": "true" }, props.paths ? (props.paths.map(function (item) {
                         var attrs = { d: item.path, fill: props.color || 'black' };
                         if (item.color)
                             attrs.fill = item.color;
@@ -1899,11 +1899,13 @@ exports.default = Button;
                 };
                 Icon.css = css;
                 Icon.defaultProps = {
+                    view: 1024,
                     scale: 2
                 };
                 Icon.propTypes = {
                     path: String,
                     paths: Object,
+                    view: Number,
                     scale: Number
                 };
                 Icon = __decorate([
