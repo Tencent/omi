@@ -5,6 +5,7 @@ import * as css from './index.scss'
 interface Props {
   path?: string,
   paths?: object,
+  view?: number,
   scale?: number
 }
 
@@ -18,12 +19,14 @@ export default class Icon extends WeElement<Props, Data>{
   static css = css
 
   static defaultProps = {
+    view: 1024,
     scale: 2
   }
 
   static propTypes = {
     path: String,
     paths: Object,
+    view: Number,
     scale: Number
   }
 
@@ -31,7 +34,7 @@ export default class Icon extends WeElement<Props, Data>{
     return (
       <i {...extractClass(props, 'm-icon')} >
         <svg
-          viewBox="0 0 1024 1024"
+          viewBox={'0 0 ' + props.view + ' ' + props.view}
           class={classNames({ rotate: props.rotate })}
           width={props.scale + 'em'}
           height={props.scale + 'em'}
