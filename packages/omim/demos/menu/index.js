@@ -1,19 +1,32 @@
 import '../../src/menu/index.tsx'
-import { render, h } from 'omi'
+import '../../src/button/index.tsx'
+import { define, WeElement, render, h } from 'omi'
 
-function onSelected(evt){
-  console.log(evt)
-}
 
-render(
-  <div>
-    <m-menu onSelected={onSelected} list={[
-      {text:'A Menu Item'},
-      {text:'A Disabled Menu Item', disabled: true },
-      {text:'Another Menu Item'}
-    ]}>
-    </m-menu>
+define('my-app', class extends WeElement {
+  onSelected = (evt) => {
+    console.log(evt)
+  }
 
-  </div>
-  , 'body')
+  show = false
+
+  onClick = () => {
+    this.show = !this.show
+    this.update()
+  }
+
+  render() {
+    return <div>
+      <m-button onClick={this.onClick}>OPEN MENU</m-button>
+      <m-menu anchor show={this.show} onSelected={this.onSelected} list={[
+        { text: 'A Menu Item' },
+        { text: 'A Disabled Menu Item', disabled: true },
+        { text: 'Another Menu Item' }
+      ]}></m-menu>
+
+    </div>
+
+  }
+})
+render(<my-app />, 'body')
 
