@@ -14,11 +14,17 @@
   </m-icon>
 
   <script>
-    function change(e) {
+    function changeA(e) {
       console.log(e.detail)
     }
+
+    function changeB(e) {
+      console.log(e.detail)
+    }
+
+    
   </script>
-  <m-select onchange="change(event)" label="Choose One Item">
+  <m-select onchange="changeA(event)" label="Choose One Item">
     <option value="" disabled selected></option>
     <option value="grains">
       Bread, Cereal, Rice, and Pasta
@@ -30,6 +36,15 @@
       Fruit
     </option>
   </m-select>
+<br/>
+<br/>
+<br/>
+<m-select menu="[
+  { text: 'Google', value: 0 },
+  { text: 'Omi', value: 1 },
+  { text: 'Tencent', value: 2 }
+]" label="Choose One Item" onchange="changeB(event)" >
+</m-select>
 
   <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
     <img src="//alloyteam.github.io/github.png" alt="">

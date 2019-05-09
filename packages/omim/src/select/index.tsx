@@ -30,12 +30,12 @@ export default class Select extends WeElement<Props, Data>{
   }
 
   installed() {
-    if(this.props.menu){
+    if (this.props.menu) {
       const style = document.createElement('style')
       style.textContent = globalCss
       document.querySelector('head').appendChild(style)
     }
-    
+
     const select = new MDCSelect(this.shadowRoot.querySelector('.mdc-select'));
 
     select.listen('MDCSelect:change', () => {
@@ -53,31 +53,25 @@ export default class Select extends WeElement<Props, Data>{
   }
 
   render(props) {
-    if(props.menu){
+    if (props.menu) {
       return (
         <div class="mdc-select">
-        <input type="hidden" name="enhanced-select"></input>
-        <i class="mdc-select__dropdown-icon"></i>
-        <div class="mdc-select__selected-text"></div>
-       
-        <div class="mdc-select__menu mdc-menu mdc-menu-surface">
-          <ul class="mdc-list">
-            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true"></li>
-            <li class="mdc-list-item" data-value="grains">
-              Bread, Cereal, Rice, and Pasta
-            </li>
-            <li class="mdc-list-item" data-value="vegetables">
-              Vegetables
-            </li>
-            <li class="mdc-list-item" data-value="fruit">
-              Fruit2
-            </li>
-          </ul>
-        </div> 
+          <input type="hidden" name="enhanced-select"></input>
+          <i class="mdc-select__dropdown-icon"></i>
+          <div class="mdc-select__selected-text"></div>
 
-        <label class="mdc-floating-label">{props.label}</label>
-        <div class="mdc-line-ripple"></div>
-      </div>
+          <div class="mdc-select__menu mdc-menu mdc-menu-surface">
+            <ul class="mdc-list">
+            {props.menu.map(item=><li class="mdc-list-item" data-value={item.value}>
+                {item.text}
+            </li>)}
+            
+            </ul>
+          </div>
+
+          <label class="mdc-floating-label">{props.label}</label>
+          <div class="mdc-line-ripple"></div>
+        </div>
       )
     }
     return (

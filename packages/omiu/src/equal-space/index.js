@@ -2,9 +2,7 @@ import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-equal-space', class extends WeElement {
-  css() {
-    return css
-  }
+  static css = css
 
   render(props) {
     let itemProps = null

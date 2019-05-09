@@ -1,14 +1,13 @@
 import { define, WeElement, extractClass } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 
 define('o-slider', class extends WeElement {
-  css() {
-    return style
-  }
+  static css = css
 
   install() {
     this.percentage = this.props.percentage
   }
+  
   installed() {
     this._width = this._ele.getBoundingClientRect().width
   }

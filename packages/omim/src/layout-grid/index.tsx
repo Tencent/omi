@@ -12,7 +12,7 @@ interface Data {
 const parser = new DOMParser()
 
 @tag('m-layout-grid')
-export default class LayoutGrid extends WeElement<Props, Data>{
+class LayoutGrid extends WeElement<Props, Data>{
   static css = css
 
   static propTypes = {
@@ -85,7 +85,6 @@ export default class LayoutGrid extends WeElement<Props, Data>{
   }
 }
 
-
 function processNode(node) {
   if (node.nodeType === 1) {
     var i, child, attributes = {}, children = [];
@@ -105,3 +104,5 @@ function processNode(node) {
     return node.nodeValue;
   }
 }
+
+export { css }

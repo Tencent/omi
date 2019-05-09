@@ -5,7 +5,8 @@ import { MDCSlider } from '@material/slider'
 interface Props {
   discrete?: boolean,
   value?: number,
-  disabled?: boolean
+  disabled?: boolean,
+  displayMarkers?: boolean
 }
 
 interface Data {
@@ -30,7 +31,8 @@ export default class Slider extends WeElement<Props, Data>{
     disabled: Boolean,
     min: Number,
     max: Number,
-    step: Number
+    step: Number,
+    displayMarkers: Boolean
   }
 
   installed() {

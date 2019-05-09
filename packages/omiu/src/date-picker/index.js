@@ -5,9 +5,7 @@ import '../input'
 
 define('o-date-picker', class extends WeElement {
 
-  css() {
-    return css
-  }
+  static css = css
 
   install() {
     this.now = new Date()

@@ -3,9 +3,7 @@ import css from './_index.css'
 import '../icon'
 
 define('o-dropdown-menu', class extends WeElement {
-  css() {
-    return css
-  }
+  static css = css
 
   onClick = index => {
     this.props.onChange(index)

@@ -263,6 +263,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/layout-grid/index.scss");
+exports.css = css;
 var parser = new DOMParser();
 var LayoutGrid = /** @class */ (function (_super) {
     __extends(LayoutGrid, _super);
@@ -332,7 +333,6 @@ var LayoutGrid = /** @class */ (function (_super) {
     ], LayoutGrid);
     return LayoutGrid;
 }(omi_1.WeElement));
-exports.default = LayoutGrid;
 function processNode(node) {
     if (node.nodeType === 1) {
         var i, child, attributes = {}, children = [];

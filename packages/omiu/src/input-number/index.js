@@ -2,9 +2,7 @@ import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-input-number', class extends WeElement {
-  css() {
-    return css
-  }
+  static css = css
 
   install() {
     this.data.value = this.props.value

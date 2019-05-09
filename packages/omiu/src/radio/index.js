@@ -3,9 +3,7 @@ import css from './_index.css'
 
 define('o-radio', class extends WeElement {
 
-  css() {
-    return css
-  }
+  static css = css
 
   render(props) {
     const checked = props.checked ? { checked: true } : null

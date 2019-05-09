@@ -1,11 +1,10 @@
 import { define, WeElement, extractClass } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 import '../list-item'
 
 define('o-list', class extends WeElement {
-  css() {
-    return style
-  }
+  static css = css
+
   render(props) {
     props.children.forEach(child => {
       child.attributes.__inList = true

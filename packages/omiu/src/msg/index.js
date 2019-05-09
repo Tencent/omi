@@ -1,5 +1,5 @@
 import { define, WeElement, extractClass } from 'omi'
-import style from './_index.css'
+import css from './_index.css'
 import '../icon'
 import '../button'
 
@@ -12,9 +12,7 @@ define('o-msg', class extends WeElement {
     this.props.confirm()
   }
 
-  css() {
-    return style
-  }
+  static css = css
 
   render(props) {
     const button = props.type === 'warn' ? 'warn' : 'primary'

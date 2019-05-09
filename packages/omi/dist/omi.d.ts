@@ -111,6 +111,7 @@ declare namespace Omi {
 		data?: D;
 		host?: HTMLElement;
 		normalizedNodeName?: string;
+		elementId: number;
 	
 		update?(): void;
 		fire?(name: string, data?: object): void;
@@ -163,6 +164,7 @@ declare namespace Omi {
 		data?: D;
 		host?: HTMLElement;
 		normalizedNodeName?: string;
+		elementId: number;
 	
 		update?(): void;
 		fire?(name: string, data?: object): void;

@@ -3,6 +3,7 @@ interface Props {
     discrete?: boolean;
     value?: number;
     disabled?: boolean;
+    displayMarkers?: boolean;
 }
 interface Data {
 }
@@ -21,6 +22,7 @@ export default class Slider extends WeElement<Props, Data> {
         min: NumberConstructor;
         max: NumberConstructor;
         step: NumberConstructor;
+        displayMarkers: BooleanConstructor;
     };
     installed(): void;
     render(props: any): JSX.Element;

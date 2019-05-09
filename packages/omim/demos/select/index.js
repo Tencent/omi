@@ -16,8 +16,13 @@ render(
       </option>
     </m-select>
     <br />
-
-    <m-select menu={} label="Choose One Item" onChange={(e) => { console.log(e.detail) }}>
+    <br />
+    <br />
+    <m-select menu={[
+      { text: 'Google', value: 0 },
+      { text: 'Omi', value: 1 },
+      { text: 'Tencent', value: 2 }
+    ]} label="Choose One Item" onChange={(e) => { console.log(e.detail) }}>
     </m-select>
 
   </div>

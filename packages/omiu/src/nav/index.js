@@ -2,10 +2,8 @@ import { define, WeElement, extractClass } from 'omi'
 import css from './_index.css'
 
 define('o-nav', class extends WeElement {
-  css() {
-    return css
-  }
-
+  static css = css
+  
   onClick = index => {
     this.props.onChange(index)
   }

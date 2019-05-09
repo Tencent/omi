@@ -9,9 +9,7 @@ define('o-action-sheet', class extends WeElement {
     show: false
   }
 
-  css() {
-    return css
-  }
+  static css = css
 
   renderMenuItem() {
     return this.props.menus.map((menu, idx) => {
