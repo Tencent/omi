@@ -2611,8 +2611,8 @@ var topAppBar = /** @class */ (function (_super) {
         })),
             omi_1.h("div", { class: "mdc-top-app-bar__row" },
                 omi_1.h("section", { class: "mdc-top-app-bar__section mdc-top-app-bar__section--align-start" },
-                    props.navigationButton && omi_1.h("button", { class: "mdc-top-app-bar__navigation-icon", onClick: this.onNavigation }, (props.navigationButton.path || props.navigationButton.paths) ?
-                        omi_1.h("m-icon", __assign({}, props.navigationButton)) : props.navigationButton.text),
+                    props.navigationIcon && omi_1.h("button", { class: "mdc-top-app-bar__navigation-icon", onClick: this.onNavigation }, (props.navigationIcon.path || props.navigationIcon.paths) ?
+                        omi_1.h("m-icon", __assign({}, props.navigationIcon)) : props.navigationIcon.text),
                     omi_1.h("span", { class: "mdc-top-app-bar__title" }, props.title)),
                 omi_1.h("section", { class: "mdc-top-app-bar__section mdc-top-app-bar__section--align-end" }, props.actionItems && props.actionItems.map(function (item, index) {
                     return omi_1.h("button", { accessKey: index.toString(), class: "mdc-top-app-bar__action-item", onClick: _this.onAction }, (item.path || item.paths) ? omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item)) : item.text);
@@ -2626,8 +2626,8 @@ var topAppBar = /** @class */ (function (_super) {
         prominent: Boolean,
         dense: Boolean,
         fixed: Boolean,
-        navigationButton: Object,
-        actionItems: Array
+        navigationIcon: Object,
+        actionItems: Object
     };
     topAppBar = __decorate([
         omi_1.tag('m-top-app-bar')

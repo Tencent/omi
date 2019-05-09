@@ -36,7 +36,7 @@ define('my-app', class extends WeElement {
     }
   `
 
-  showDemoStart = true
+  showDemoStart = false
 
   onDemoStart = e => {
     this.showDemoStart = !this.showDemoStart
@@ -58,7 +58,7 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             title='Click to show menus'
             onNavigation={this.onDemoStart}
-            navigation-button={{
+            navigation-icon={{
               view: 24,
               path: 'M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z'
             }}
@@ -78,7 +78,7 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             title={'Standard' + this.titleOmi}
             onNavigation={this.onMenu}
-            navigation-button={{
+            navigation-icon={{
               text: 'menu',
               view: 48,
               path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z',
@@ -106,7 +106,7 @@ define('my-app', class extends WeElement {
           <m-top-app-bar
             fixed
             title={'Fixed' + this.titleOmi}
-            navigation-button={{
+            navigation-icon={{
               view: 48,
               path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z',
               onClick: this.onMenu
@@ -133,7 +133,7 @@ define('my-app', class extends WeElement {
             fixed
             title={'Dense + Fixed' + this.titleOmi}
             onNavigation={this.onMenu}
-            navigation-button={{
+            navigation-icon={{
               view: 48,
               path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
             }}
@@ -151,7 +151,7 @@ define('my-app', class extends WeElement {
             fixed
             title={'Prominent + Fixed' + this.titleOmi}
             onNavigation={this.onMenu}
-            navigation-button={{
+            navigation-icon={{
               view: 48,
               path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
             }}
@@ -170,7 +170,7 @@ define('my-app', class extends WeElement {
             fixed
             title={'Prominent + Dense + Fixed' + this.titleOmi}
             onNavigation={this.onMenu}
-            navigation-button={{
+            navigation-icon={{
               view: 48,
               path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
             }}
@@ -187,15 +187,35 @@ define('my-app', class extends WeElement {
             fixed
             title='Click to hide menus'
             onNavigation={this.onDemoStart}
-            navigation-button={{
+            navigation-icon={{
               view: 24,
               path: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'
             }}
             onAction0={this.onDemoStart}
             onAction1={this.onDemoStart}
             onAction2={this.onDemoStart}
+            onAction3={this.onDemoStart}
+            onAction4={this.onDemoStart}
+            onAction5={this.onDemoStart}
+            onAction6={this.onDemoStart}
+            onAction7={this.onDemoStart}
             action-items={[
               {
+                view: 24,
+                path: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'
+              }, {
+                view: 24,
+                path: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'
+              }, {
+                view: 24,
+                path: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'
+              }, {
+                view: 24,
+                path: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'
+              }, {
+                view: 24,
+                path: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'
+              }, {
                 view: 24,
                 path: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'
               }, {
@@ -218,7 +238,7 @@ define('my-app', class extends WeElement {
             shortCollapsed
             title={'Short - Always Collapsed' + this.titleOmi}
             onNavigation={this.onMenu}
-            navigation-button={{
+            navigation-icon={{
               view: 48,
               path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
             }}
@@ -240,7 +260,7 @@ define('my-app', class extends WeElement {
             short
             title={'Short' + this.titleOmi}
             onNavigation={this.onMenu}
-            navigation-button={{
+            navigation-icon={{
               view: 48,
               path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
             }}
@@ -263,7 +283,7 @@ define('my-app', class extends WeElement {
             dense
             title={'Short + Dense' + this.titleOmi}
             onNavigation={this.onMenu}
-            navigation-button={{
+            navigation-icon={{
               view: 48,
               path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
             }}
@@ -279,67 +299,87 @@ define('my-app', class extends WeElement {
         <div id='demo-build' class='demos-display'>
           <div class='demo'>
             <div>
-              <a href='#' target='_blank'>
+              <a href='./index-standard.script.html' target='_blank'>
                 <h3 class='mdc-typography--subtitle1'>Standard</h3>
               </a>
             </div>
             <div>
               <div>
-                <iframe class='iframe' src=''></iframe>
+                <iframe class='iframe' src='./index-standard.script.html'></iframe>
               </div>
             </div>
           </div>
           <div class='demo'>
             <div>
-              <a href='#' target='_blank'>
+              <a href='./index-fixed.script.html' target='_blank'>
                 <h3 class='mdc-typography--subtitle1'>Fixed</h3>
               </a>
             </div>
             <div>
-              <iframe class='iframe' src=''></iframe>
+              <iframe class='iframe' src='./index-fixed.script.html'></iframe>
             </div>
           </div>
           <div class='demo'>
             <div>
-              <a href='#' target='_blank'>
+              <a href='./index-dense.script.html' target='_blank'>
                 <h3 class='mdc-typography--subtitle1'>Dense</h3>
               </a>
             </div>
             <div>
-              <iframe class='iframe' src=''></iframe>
+              <iframe class='iframe' src='./index-dense.script.html'></iframe>
             </div>
           </div>
           <div class='demo'>
             <div>
-              <a href='#' target='_blank'>
+              <a href='./index-dense-fixed.script.html' target='_blank'>
+                <h3 class='mdc-typography--subtitle1'>Dense + Fixed</h3>
+              </a>
+            </div>
+            <div>
+              <iframe class='iframe' src='./index-dense-fixed.script.html'></iframe>
+            </div>
+          </div>
+          <div class='demo'>
+            <div>
+              <a href='./index-prominent.script.html' target='_blank'>
                 <h3 class='mdc-typography--subtitle1'>Prominent</h3>
               </a>
             </div>
             <div>
-              <iframe class='iframe' src=''></iframe>
+              <iframe class='iframe' src='./index-prominent.script.html'></iframe>
             </div>
           </div>
           <div class='demo'>
             <div>
-              <a href='#' target='_blank'>
+              <a href='./index-prominent-dense.script.html' target='_blank'>
+                <h3 class='mdc-typography--subtitle1'>Prominent + Dense</h3>
+              </a>
+            </div>
+            <div>
+              <iframe class='iframe' src='./index-prominent-dense.script.html'></iframe>
+            </div>
+          </div>
+          <div class='demo'>
+            <div>
+              <a href='./index-short.script.html' target='_blank'>
                 <h3 class='mdc-typography--subtitle1'>Short</h3>
               </a>
             </div>
             <div>
-              <iframe class='iframe' src=''></iframe>
+              <iframe class='iframe' src='./index-short.script.html'></iframe>
             </div>
           </div>
           <div class='demo'>
             <div>
-              <a href='#' target='_blank'>
+              <a href='./index-short-collapsed.script.html' target='_blank'>
                 <h3 class='mdc-typography--subtitle1'>Short - Always Collapsed</h3>
               </a>
             </div>
             <div>
-              <iframe class='iframe' src=''></iframe>
+              <iframe class='iframe' src='./index-short-collapsed.script.html'></iframe>
             </div>
           </div>
-          <div style='width:1500px;height:500px;background:#EEE;'></div>
+          <div style='width:100%;height:500px;background:#EEE;'></div>
         </div>
        </div>
     )

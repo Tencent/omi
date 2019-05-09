@@ -10,8 +10,8 @@ interface Props {
   prominent: boolean,
   dense: boolean,
   fixed: boolean,
-  navigationButton: object,
-  actionItems: Array<object>
+  navigationIcon: object,
+  actionItems: object
 }
 
 interface Data {
@@ -29,8 +29,8 @@ export default class topAppBar extends WeElement<Props, Data>{
     prominent: Boolean,
     dense: Boolean,
     fixed: Boolean,
-    navigationButton: Object,
-    actionItems: Array
+    navigationIcon: Object,
+    actionItems: Object
   }
   
   installed() {
@@ -60,9 +60,9 @@ export default class topAppBar extends WeElement<Props, Data>{
       })}>
         <div class="mdc-top-app-bar__row">
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            {props.navigationButton &&<button class="mdc-top-app-bar__navigation-icon" onClick={this.onNavigation}>
-              {(props.navigationButton.path || props.navigationButton.paths) ?
-              <m-icon {...props.navigationButton}></m-icon> : props.navigationButton.text}
+            {props.navigationIcon &&<button class="mdc-top-app-bar__navigation-icon" onClick={this.onNavigation}>
+              {(props.navigationIcon.path || props.navigationIcon.paths) ?
+              <m-icon {...props.navigationIcon}></m-icon> : props.navigationIcon.text}
             </button>}
             <span class="mdc-top-app-bar__title">{props.title}</span>
           </section>
