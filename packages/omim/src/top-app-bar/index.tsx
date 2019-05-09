@@ -48,7 +48,7 @@ export default class topAppBar extends WeElement<Props, Data>{
       })}>
         <div class="mdc-top-app-bar__row">
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            <button class="material-icons mdc-top-app-bar__navigation-icon">
+            <button class="mdc-top-app-bar__navigation-icon">
               {(props.navigationButton.path || props.navigationButton.paths) ?
               <m-icon {...props.navigationButton}></m-icon> : props.navigationButton.text}
             </button>
@@ -56,7 +56,7 @@ export default class topAppBar extends WeElement<Props, Data>{
           </section>
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
             {props.actionItems.map(item =>
-              <button class="material-icons mdc-top-app-bar__action-item">
+              <button class="mdc-top-app-bar__action-item">
                 {(item.path || item.paths) ? <m-icon {...item}></m-icon> : item.text}
               </button>
             )}
