@@ -8,22 +8,19 @@ import { render, h } from 'omi'
 define('my-app', class extends WeElement {
   onSelected = (evt) => {
     console.log(evt)
+    this.checked = evt.detail.value === 2
   }
 
-  show = false
+  checked = false
 
-  onClick = () => {
-    this.show = !this.show
-    this.update()
-  }
 
   render() {
     return <div>
-    <m-radio label='Label' name="abc"> </m-radio>
-    <m-radio label='Label' checked name="abc"> </m-radio>
+    <m-radio onSelected={this.onSelected} value={1} label='Label' checked={!this.checked} name="abc"> </m-radio>
+    <m-radio  onSelected={this.onSelected} value={2} label='Label' checked={this.checked} name="abc"> </m-radio>
     <br />
 
-    <m-radio checked label='checked'> </m-radio>
+    <m-radio checked label='checked' onclick={()=>{this.update()}}> </m-radio>
     <br />
 
     <m-radio disabled label='disabled'> </m-radio>

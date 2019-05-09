@@ -41,12 +41,15 @@ class Radio extends WeElement<Props, Data>{
   }
 
   clickHandler = () => {
-
+    if (this.props.disabled) return
     this.group.forEach(item => {
       item.radio.checked = false
     })
-
-    this.radio.checked = true
+    const pre = this.radio.checked
+    if (!pre) {
+      this.radio.checked = true
+      this.fire('selected', { value: this.props.value })
+    }
   }
 
   render(props) {
