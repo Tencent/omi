@@ -1,5 +1,5 @@
 /**
- * omi v6.3.6  http://omijs.org
+ * omi v6.3.8  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1120,6 +1120,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function define(name, ctor) {
   if (ctor.is === 'WeElement') {
+    if (options.mapping[name]) {
+      if (options.mapping[name] === ctor) {
+        console.warn('You redefine custom elements named [' + name + '], redundant JS files may be referenced.');
+      } else {
+        console.warn('This custom elements name [' + name + '] has already been used, please rename it.');
+      }
+      return;
+    }
     customElements.define(name, ctor);
     options.mapping[name] = ctor;
     if (ctor.use) {
@@ -1432,7 +1440,9 @@ var WeElement = function (_HTMLElement) {
             break;
         }
       } else {
-        ele.props[key] = null;
+        if (!ele.constructor.defaultProps || !ele.constructor.defaultProps.hasOwnProperty(key)) {
+          ele.props[key] = null;
+        }
       }
     });
   };
@@ -1771,7 +1781,7 @@ var omi = {
 
 options.root.Omi = omi;
 options.root.omi = omi;
-options.root.Omi.version = '6.3.6';
+options.root.Omi.version = '6.3.8';
 
 export default omi;
 export { tag, WeElement, Component, render, h, h as createElement, options, define, observe, cloneElement, getHost, rpx, tick, nextTick, ModelView, defineElement, classNames, extractClass, createRef, html, htm, o };

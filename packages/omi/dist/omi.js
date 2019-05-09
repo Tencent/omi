@@ -373,6 +373,10 @@
     }
     function define(name, ctor) {
         if ('WeElement' === ctor.is) {
+            if (options.mapping[name]) {
+                if (options.mapping[name] === ctor) console.warn('You redefine custom elements named [' + name + '], redundant JS files may be referenced.'); else console.warn('This custom elements name [' + name + '] has already been used, please rename it.');
+                return;
+            }
             customElements.define(name, ctor);
             options.mapping[name] = ctor;
             if (ctor.use) ctor.updatePath = getPath(ctor.use); else if (ctor.data) ctor.updatePath = getUpdatePath(ctor.data);
@@ -990,7 +994,7 @@
 
                       case Object:
                         ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
-                    } else ele.props[key] = null;
+                    } else if (!ele.constructor.defaultProps || !ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = null;
                 });
             }
         };
@@ -1085,7 +1089,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.6';
+    options.root.Omi.version = '6.3.8';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -5,11 +5,11 @@ render(
   <div>
     <m-linear-progress value={0.1}  buffer={0.2}> </m-linear-progress>
     <br />
-    <m-linear-progress value={0.1}  > </m-linear-progress>
+    <m-linear-progress value={0.2}  > </m-linear-progress>
     <br />
     <m-linear-progress indeterminate > </m-linear-progress>
     <br />
-    <m-linear-progress reversed > </m-linear-progress>
+    <m-linear-progress reversed value={0.3}> </m-linear-progress>
   </div>
   , 'body')
 

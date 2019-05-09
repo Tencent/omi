@@ -4,7 +4,9 @@ import { MDCLinearProgress } from '@material/linear-progress'
 
 interface Props {
   buffer?: number,
-  progress?: number
+  value?: number,
+  indeterminate: boolean,
+  reversed: boolean
 }
 
 interface Data {
@@ -18,17 +20,19 @@ export default class LinearProgress extends WeElement<Props, Data>{
 
   static defaultProps = {
     buffer: 1,
-    progress: 0
+    value: 0
   }
 
   static propTypes = {
     buffer: Number,
-    progress: Number
+    value: Number,
+    indeterminate: Boolean,
+    reversed: Boolean
   }
 
   installed() {
 
-    new MDCLinearProgress(this.shadowRoot.querySelector('.mdc-slider'));
+    new MDCLinearProgress(this.shadowRoot.querySelector('.mdc-linear-progress'));
     // progress.listen('MDCSlider:change', () => {
     //   this.fire('change', { value: slider.progress })
     // });
@@ -42,7 +46,6 @@ export default class LinearProgress extends WeElement<Props, Data>{
 
     return (
      
-
       <div role="progressbar" {...extractClass(props,'mdc-linear-progress',{
         "mdc-linear-progress--reversed" :props.reversed
       })}>

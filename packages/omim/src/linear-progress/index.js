@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["omi"], factory);
 	else if(typeof exports === 'object')
-		exports["MRadio"] = factory(require("omi"));
+		exports["MLinearProgress"] = factory(require("omi"));
 	else
-		root["MRadio"] = factory(root["Omi"]);
+		root["MLinearProgress"] = factory(root["Omi"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_omi__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,10 +91,104 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/radio/index.tsx");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/linear-progress/index.tsx");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./node_modules/@material/animation/util.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@material/animation/util.js ***!
+  \**************************************************/
+/*! exports provided: getCorrectPropertyName, getCorrectEventName */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCorrectPropertyName", function() { return getCorrectPropertyName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCorrectEventName", function() { return getCorrectEventName; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssPropertyNameMap = {
+    animation: {
+        prefixed: '-webkit-animation',
+        standard: 'animation',
+    },
+    transform: {
+        prefixed: '-webkit-transform',
+        standard: 'transform',
+    },
+    transition: {
+        prefixed: '-webkit-transition',
+        standard: 'transition',
+    },
+};
+var jsEventTypeMap = {
+    animationend: {
+        cssProperty: 'animation',
+        prefixed: 'webkitAnimationEnd',
+        standard: 'animationend',
+    },
+    animationiteration: {
+        cssProperty: 'animation',
+        prefixed: 'webkitAnimationIteration',
+        standard: 'animationiteration',
+    },
+    animationstart: {
+        cssProperty: 'animation',
+        prefixed: 'webkitAnimationStart',
+        standard: 'animationstart',
+    },
+    transitionend: {
+        cssProperty: 'transition',
+        prefixed: 'webkitTransitionEnd',
+        standard: 'transitionend',
+    },
+};
+function isWindow(windowObj) {
+    return Boolean(windowObj.document) && typeof windowObj.document.createElement === 'function';
+}
+function getCorrectPropertyName(windowObj, cssProperty) {
+    if (isWindow(windowObj) && cssProperty in cssPropertyNameMap) {
+        var el = windowObj.document.createElement('div');
+        var _a = cssPropertyNameMap[cssProperty], standard = _a.standard, prefixed = _a.prefixed;
+        var isStandard = standard in el.style;
+        return isStandard ? standard : prefixed;
+    }
+    return cssProperty;
+}
+function getCorrectEventName(windowObj, eventType) {
+    if (isWindow(windowObj) && eventType in jsEventTypeMap) {
+        var el = windowObj.document.createElement('div');
+        var _a = jsEventTypeMap[eventType], standard = _a.standard, prefixed = _a.prefixed, cssProperty = _a.cssProperty;
+        var isStandard = cssProperty in el.style;
+        return isStandard ? standard : prefixed;
+    }
+    return eventType;
+}
+//# sourceMappingURL=util.js.map
+
+/***/ }),
 
 /***/ "./node_modules/@material/base/component.js":
 /*!**************************************************!*\
@@ -302,79 +396,19 @@ var MDCFoundation = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/@material/dom/ponyfill.js":
-/*!************************************************!*\
-  !*** ./node_modules/@material/dom/ponyfill.js ***!
-  \************************************************/
-/*! exports provided: closest, matches */
+/***/ "./node_modules/@material/linear-progress/component.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@material/linear-progress/component.js ***!
+  \*************************************************************/
+/*! exports provided: MDCLinearProgress */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closest", function() { return closest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "matches", function() { return matches; });
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-/**
- * @fileoverview A "ponyfill" is a polyfill that doesn't modify the global prototype chain.
- * This makes ponyfills safer than traditional polyfills, especially for libraries like MDC.
- */
-function closest(element, selector) {
-    if (element.closest) {
-        return element.closest(selector);
-    }
-    var el = element;
-    while (el) {
-        if (matches(el, selector)) {
-            return el;
-        }
-        el = el.parentElement;
-    }
-    return null;
-}
-function matches(element, selector) {
-    var nativeMatches = element.matches
-        || element.webkitMatchesSelector
-        || element.msMatchesSelector;
-    return nativeMatches.call(element, selector);
-}
-//# sourceMappingURL=ponyfill.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/form-field/component.js":
-/*!********************************************************!*\
-  !*** ./node_modules/@material/form-field/component.js ***!
-  \********************************************************/
-/*! exports provided: MDCFormField */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFormField", function() { return MDCFormField; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCLinearProgress", function() { return MDCLinearProgress; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/form-field/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/linear-progress/foundation.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -400,71 +434,73 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var MDCFormField = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCFormField, _super);
-    function MDCFormField() {
+var MDCLinearProgress = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCLinearProgress, _super);
+    function MDCLinearProgress() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    MDCFormField.attachTo = function (root) {
-        return new MDCFormField(root);
+    MDCLinearProgress.attachTo = function (root) {
+        return new MDCLinearProgress(root);
     };
-    Object.defineProperty(MDCFormField.prototype, "input", {
-        get: function () {
-            return this.input_;
-        },
-        set: function (input) {
-            this.input_ = input;
+    Object.defineProperty(MDCLinearProgress.prototype, "determinate", {
+        set: function (value) {
+            this.foundation_.setDeterminate(value);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MDCFormField.prototype, "label_", {
-        get: function () {
-            var LABEL_SELECTOR = _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFormFieldFoundation"].strings.LABEL_SELECTOR;
-            return this.root_.querySelector(LABEL_SELECTOR);
+    Object.defineProperty(MDCLinearProgress.prototype, "progress", {
+        set: function (value) {
+            this.foundation_.setProgress(value);
         },
         enumerable: true,
         configurable: true
     });
-    MDCFormField.prototype.getDefaultFoundation = function () {
+    Object.defineProperty(MDCLinearProgress.prototype, "buffer", {
+        set: function (value) {
+            this.foundation_.setBuffer(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCLinearProgress.prototype, "reverse", {
+        set: function (value) {
+            this.foundation_.setReverse(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCLinearProgress.prototype.open = function () {
+        this.foundation_.open();
+    };
+    MDCLinearProgress.prototype.close = function () {
+        this.foundation_.close();
+    };
+    MDCLinearProgress.prototype.getDefaultFoundation = function () {
         var _this = this;
         // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
         // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
         var adapter = {
-            activateInputRipple: function () {
-                if (_this.input_ && _this.input_.ripple) {
-                    _this.input_.ripple.activate();
-                }
-            },
-            deactivateInputRipple: function () {
-                if (_this.input_ && _this.input_.ripple) {
-                    _this.input_.ripple.deactivate();
-                }
-            },
-            deregisterInteractionHandler: function (evtType, handler) {
-                if (_this.label_) {
-                    _this.label_.removeEventListener(evtType, handler);
-                }
-            },
-            registerInteractionHandler: function (evtType, handler) {
-                if (_this.label_) {
-                    _this.label_.addEventListener(evtType, handler);
-                }
-            },
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            getBuffer: function () { return _this.root_.querySelector(_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCLinearProgressFoundation"].strings.BUFFER_SELECTOR); },
+            getPrimaryBar: function () { return _this.root_.querySelector(_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCLinearProgressFoundation"].strings.PRIMARY_BAR_SELECTOR); },
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            setStyle: function (el, styleProperty, value) { return el.style.setProperty(styleProperty, value); },
         };
-        return new _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFormFieldFoundation"](adapter);
+        return new _foundation__WEBPACK_IMPORTED_MODULE_2__["MDCLinearProgressFoundation"](adapter);
     };
-    return MDCFormField;
+    return MDCLinearProgress;
 }(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
 
 //# sourceMappingURL=component.js.map
 
 /***/ }),
 
-/***/ "./node_modules/@material/form-field/constants.js":
-/*!********************************************************!*\
-  !*** ./node_modules/@material/form-field/constants.js ***!
-  \********************************************************/
+/***/ "./node_modules/@material/linear-progress/constants.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@material/linear-progress/constants.js ***!
+  \*************************************************************/
 /*! exports provided: cssClasses, strings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -495,28 +531,32 @@ __webpack_require__.r(__webpack_exports__);
  * THE SOFTWARE.
  */
 var cssClasses = {
-    ROOT: 'mdc-form-field',
+    CLOSED_CLASS: 'mdc-linear-progress--closed',
+    INDETERMINATE_CLASS: 'mdc-linear-progress--indeterminate',
+    REVERSED_CLASS: 'mdc-linear-progress--reversed',
 };
 var strings = {
-    LABEL_SELECTOR: '.mdc-form-field > label',
+    BUFFER_SELECTOR: '.mdc-linear-progress__buffer',
+    PRIMARY_BAR_SELECTOR: '.mdc-linear-progress__primary-bar',
 };
 //# sourceMappingURL=constants.js.map
 
 /***/ }),
 
-/***/ "./node_modules/@material/form-field/foundation.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@material/form-field/foundation.js ***!
-  \*********************************************************/
-/*! exports provided: MDCFormFieldFoundation, default */
+/***/ "./node_modules/@material/linear-progress/foundation.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@material/linear-progress/foundation.js ***!
+  \**************************************************************/
+/*! exports provided: MDCLinearProgressFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFormFieldFoundation", function() { return MDCFormFieldFoundation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCLinearProgressFoundation", function() { return MDCLinearProgressFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/form-field/constants.js");
+/* harmony import */ var _material_animation_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/animation/util */ "./node_modules/@material/animation/util.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/linear-progress/constants.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -542,73 +582,113 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var MDCFormFieldFoundation = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCFormFieldFoundation, _super);
-    function MDCFormFieldFoundation(adapter) {
-        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCFormFieldFoundation.defaultAdapter, adapter)) || this;
-        _this.clickHandler_ = function () { return _this.handleClick_(); };
-        return _this;
+
+var MDCLinearProgressFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCLinearProgressFoundation, _super);
+    function MDCLinearProgressFoundation(adapter) {
+        return _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCLinearProgressFoundation.defaultAdapter, adapter)) || this;
     }
-    Object.defineProperty(MDCFormFieldFoundation, "cssClasses", {
+    Object.defineProperty(MDCLinearProgressFoundation, "cssClasses", {
         get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+            return _constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"];
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MDCFormFieldFoundation, "strings", {
+    Object.defineProperty(MDCLinearProgressFoundation, "strings", {
         get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+            return _constants__WEBPACK_IMPORTED_MODULE_3__["strings"];
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MDCFormFieldFoundation, "defaultAdapter", {
+    Object.defineProperty(MDCLinearProgressFoundation, "defaultAdapter", {
         get: function () {
             return {
-                activateInputRipple: function () { return undefined; },
-                deactivateInputRipple: function () { return undefined; },
-                deregisterInteractionHandler: function () { return undefined; },
-                registerInteractionHandler: function () { return undefined; },
+                addClass: function () { return undefined; },
+                getBuffer: function () { return null; },
+                getPrimaryBar: function () { return null; },
+                hasClass: function () { return false; },
+                removeClass: function () { return undefined; },
+                setStyle: function () { return undefined; },
             };
         },
         enumerable: true,
         configurable: true
     });
-    MDCFormFieldFoundation.prototype.init = function () {
-        this.adapter_.registerInteractionHandler('click', this.clickHandler_);
+    MDCLinearProgressFoundation.prototype.init = function () {
+        this.isDeterminate_ = !this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].INDETERMINATE_CLASS);
+        this.isReversed_ = this.adapter_.hasClass(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].REVERSED_CLASS);
+        this.progress_ = 0;
     };
-    MDCFormFieldFoundation.prototype.destroy = function () {
-        this.adapter_.deregisterInteractionHandler('click', this.clickHandler_);
+    MDCLinearProgressFoundation.prototype.setDeterminate = function (isDeterminate) {
+        this.isDeterminate_ = isDeterminate;
+        if (this.isDeterminate_) {
+            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].INDETERMINATE_CLASS);
+            this.setScale_(this.adapter_.getPrimaryBar(), this.progress_);
+        }
+        else {
+            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].INDETERMINATE_CLASS);
+            this.setScale_(this.adapter_.getPrimaryBar(), 1);
+            this.setScale_(this.adapter_.getBuffer(), 1);
+        }
     };
-    MDCFormFieldFoundation.prototype.handleClick_ = function () {
-        var _this = this;
-        this.adapter_.activateInputRipple();
-        requestAnimationFrame(function () { return _this.adapter_.deactivateInputRipple(); });
+    MDCLinearProgressFoundation.prototype.setProgress = function (value) {
+        this.progress_ = value;
+        if (this.isDeterminate_) {
+            this.setScale_(this.adapter_.getPrimaryBar(), value);
+        }
     };
-    return MDCFormFieldFoundation;
-}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+    MDCLinearProgressFoundation.prototype.setBuffer = function (value) {
+        if (this.isDeterminate_) {
+            this.setScale_(this.adapter_.getBuffer(), value);
+        }
+    };
+    MDCLinearProgressFoundation.prototype.setReverse = function (isReversed) {
+        this.isReversed_ = isReversed;
+        if (this.isReversed_) {
+            this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].REVERSED_CLASS);
+        }
+        else {
+            this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].REVERSED_CLASS);
+        }
+    };
+    MDCLinearProgressFoundation.prototype.open = function () {
+        this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].CLOSED_CLASS);
+    };
+    MDCLinearProgressFoundation.prototype.close = function () {
+        this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].CLOSED_CLASS);
+    };
+    MDCLinearProgressFoundation.prototype.setScale_ = function (el, scaleValue) {
+        if (!el) {
+            return;
+        }
+        var value = "scaleX(" + scaleValue + ")";
+        this.adapter_.setStyle(el, Object(_material_animation_util__WEBPACK_IMPORTED_MODULE_1__["getCorrectPropertyName"])(window, 'transform'), value);
+    };
+    return MDCLinearProgressFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFoundation"]));
 
 // tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCFormFieldFoundation);
+/* harmony default export */ __webpack_exports__["default"] = (MDCLinearProgressFoundation);
 //# sourceMappingURL=foundation.js.map
 
 /***/ }),
 
-/***/ "./node_modules/@material/form-field/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/form-field/index.js ***!
-  \****************************************************/
-/*! exports provided: MDCFormField, MDCFormFieldFoundation */
+/***/ "./node_modules/@material/linear-progress/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material/linear-progress/index.js ***!
+  \*********************************************************/
+/*! exports provided: MDCLinearProgress, MDCLinearProgressFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/form-field/component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFormField", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCFormField"]; });
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/linear-progress/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCLinearProgress", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCLinearProgress"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/form-field/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFormFieldFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFormFieldFoundation"]; });
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/linear-progress/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCLinearProgressFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCLinearProgressFoundation"]; });
 
 /**
  * @license
@@ -638,1106 +718,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/@material/radio/component.js":
-/*!***************************************************!*\
-  !*** ./node_modules/@material/radio/component.js ***!
-  \***************************************************/
-/*! exports provided: MDCRadio */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRadio", function() { return MDCRadio; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/ripple/component.js");
-/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/@material/ripple/foundation.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/radio/foundation.js");
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-
-var MDCRadio = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRadio, _super);
-    function MDCRadio() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.ripple_ = _this.createRipple_();
-        return _this;
-    }
-    MDCRadio.attachTo = function (root) {
-        return new MDCRadio(root);
-    };
-    Object.defineProperty(MDCRadio.prototype, "checked", {
-        get: function () {
-            return this.nativeControl_.checked;
-        },
-        set: function (checked) {
-            this.nativeControl_.checked = checked;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRadio.prototype, "disabled", {
-        get: function () {
-            return this.nativeControl_.disabled;
-        },
-        set: function (disabled) {
-            this.foundation_.setDisabled(disabled);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRadio.prototype, "value", {
-        get: function () {
-            return this.nativeControl_.value;
-        },
-        set: function (value) {
-            this.nativeControl_.value = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRadio.prototype, "ripple", {
-        get: function () {
-            return this.ripple_;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCRadio.prototype.destroy = function () {
-        this.ripple_.destroy();
-        _super.prototype.destroy.call(this);
-    };
-    MDCRadio.prototype.getDefaultFoundation = function () {
-        var _this = this;
-        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
-        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
-        var adapter = {
-            addClass: function (className) { return _this.root_.classList.add(className); },
-            removeClass: function (className) { return _this.root_.classList.remove(className); },
-            setNativeControlDisabled: function (disabled) { return _this.nativeControl_.disabled = disabled; },
-        };
-        return new _foundation__WEBPACK_IMPORTED_MODULE_4__["MDCRadioFoundation"](adapter);
-    };
-    MDCRadio.prototype.createRipple_ = function () {
-        var _this = this;
-        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
-        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
-        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
-        var adapter = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"].createAdapter(this), { registerInteractionHandler: function (evtType, handler) { return _this.nativeControl_.addEventListener(evtType, handler); }, deregisterInteractionHandler: function (evtType, handler) { return _this.nativeControl_.removeEventListener(evtType, handler); }, 
-            // Radio buttons technically go "active" whenever there is *any* keyboard interaction.
-            // This is not the UI we desire.
-            isSurfaceActive: function () { return false; }, isUnbounded: function () { return true; } });
-        // tslint:enable:object-literal-sort-keys
-        return new _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"](this.root_, new _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__["MDCRippleFoundation"](adapter));
-    };
-    Object.defineProperty(MDCRadio.prototype, "nativeControl_", {
-        get: function () {
-            var NATIVE_CONTROL_SELECTOR = _foundation__WEBPACK_IMPORTED_MODULE_4__["MDCRadioFoundation"].strings.NATIVE_CONTROL_SELECTOR;
-            var el = this.root_.querySelector(NATIVE_CONTROL_SELECTOR);
-            if (!el) {
-                throw new Error("Radio component requires a " + NATIVE_CONTROL_SELECTOR + " element");
-            }
-            return el;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return MDCRadio;
-}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
-
-//# sourceMappingURL=component.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/radio/constants.js":
-/*!***************************************************!*\
-  !*** ./node_modules/@material/radio/constants.js ***!
-  \***************************************************/
-/*! exports provided: strings, cssClasses */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-var strings = {
-    NATIVE_CONTROL_SELECTOR: '.mdc-radio__native-control',
-};
-var cssClasses = {
-    DISABLED: 'mdc-radio--disabled',
-    ROOT: 'mdc-radio',
-};
-
-//# sourceMappingURL=constants.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/radio/foundation.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/radio/foundation.js ***!
-  \****************************************************/
-/*! exports provided: MDCRadioFoundation, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRadioFoundation", function() { return MDCRadioFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/radio/constants.js");
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-var MDCRadioFoundation = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRadioFoundation, _super);
-    function MDCRadioFoundation(adapter) {
-        return _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCRadioFoundation.defaultAdapter, adapter)) || this;
-    }
-    Object.defineProperty(MDCRadioFoundation, "cssClasses", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRadioFoundation, "strings", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRadioFoundation, "defaultAdapter", {
-        get: function () {
-            return {
-                addClass: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                setNativeControlDisabled: function () { return undefined; },
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCRadioFoundation.prototype.setDisabled = function (disabled) {
-        var DISABLED = MDCRadioFoundation.cssClasses.DISABLED;
-        this.adapter_.setNativeControlDisabled(disabled);
-        if (disabled) {
-            this.adapter_.addClass(DISABLED);
-        }
-        else {
-            this.adapter_.removeClass(DISABLED);
-        }
-    };
-    return MDCRadioFoundation;
-}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCRadioFoundation);
-//# sourceMappingURL=foundation.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/radio/index.js":
-/*!***********************************************!*\
-  !*** ./node_modules/@material/radio/index.js ***!
-  \***********************************************/
-/*! exports provided: MDCRadio, MDCRadioFoundation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/radio/component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCRadio", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCRadio"]; });
-
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/radio/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCRadioFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCRadioFoundation"]; });
-
-/**
- * @license
- * Copyright 2019 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/ripple/component.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/ripple/component.js ***!
-  \****************************************************/
-/*! exports provided: MDCRipple */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return MDCRipple; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-
-var MDCRipple = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRipple, _super);
-    function MDCRipple() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.disabled = false;
-        return _this;
-    }
-    MDCRipple.attachTo = function (root, opts) {
-        if (opts === void 0) { opts = { isUnbounded: undefined }; }
-        var ripple = new MDCRipple(root);
-        // Only override unbounded behavior if option is explicitly specified
-        if (opts.isUnbounded !== undefined) {
-            ripple.unbounded = opts.isUnbounded;
-        }
-        return ripple;
-    };
-    MDCRipple.createAdapter = function (instance) {
-        return {
-            addClass: function (className) { return instance.root_.classList.add(className); },
-            browserSupportsCssVars: function () { return _util__WEBPACK_IMPORTED_MODULE_4__["supportsCssVariables"](window); },
-            computeBoundingRect: function () { return instance.root_.getBoundingClientRect(); },
-            containsEventTarget: function (target) { return instance.root_.contains(target); },
-            deregisterDocumentInteractionHandler: function (evtType, handler) {
-                return document.documentElement.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            deregisterInteractionHandler: function (evtType, handler) {
-                return instance.root_.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },
-            getWindowPageOffset: function () { return ({ x: window.pageXOffset, y: window.pageYOffset }); },
-            isSurfaceActive: function () { return Object(_material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__["matches"])(instance.root_, ':active'); },
-            isSurfaceDisabled: function () { return Boolean(instance.disabled); },
-            isUnbounded: function () { return Boolean(instance.unbounded); },
-            registerDocumentInteractionHandler: function (evtType, handler) {
-                return document.documentElement.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            registerInteractionHandler: function (evtType, handler) {
-                return instance.root_.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },
-            removeClass: function (className) { return instance.root_.classList.remove(className); },
-            updateCssVariable: function (varName, value) { return instance.root_.style.setProperty(varName, value); },
-        };
-    };
-    Object.defineProperty(MDCRipple.prototype, "unbounded", {
-        get: function () {
-            return Boolean(this.unbounded_);
-        },
-        set: function (unbounded) {
-            this.unbounded_ = Boolean(unbounded);
-            this.setUnbounded_();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCRipple.prototype.activate = function () {
-        this.foundation_.activate();
-    };
-    MDCRipple.prototype.deactivate = function () {
-        this.foundation_.deactivate();
-    };
-    MDCRipple.prototype.layout = function () {
-        this.foundation_.layout();
-    };
-    MDCRipple.prototype.getDefaultFoundation = function () {
-        return new _foundation__WEBPACK_IMPORTED_MODULE_3__["MDCRippleFoundation"](MDCRipple.createAdapter(this));
-    };
-    MDCRipple.prototype.initialSyncWithDOM = function () {
-        var root = this.root_;
-        this.unbounded = 'mdcRippleIsUnbounded' in root.dataset;
-    };
-    /**
-     * Closure Compiler throws an access control error when directly accessing a
-     * protected or private property inside a getter/setter, like unbounded above.
-     * By accessing the protected property inside a method, we solve that problem.
-     * That's why this function exists.
-     */
-    MDCRipple.prototype.setUnbounded_ = function () {
-        this.foundation_.setUnbounded(Boolean(this.unbounded_));
-    };
-    return MDCRipple;
-}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
-
-//# sourceMappingURL=component.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/ripple/constants.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/ripple/constants.js ***!
-  \****************************************************/
-/*! exports provided: cssClasses, strings, numbers */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-var cssClasses = {
-    // Ripple is a special case where the "root" component is really a "mixin" of sorts,
-    // given that it's an 'upgrade' to an existing component. That being said it is the root
-    // CSS class that all other CSS classes derive from.
-    BG_FOCUSED: 'mdc-ripple-upgraded--background-focused',
-    FG_ACTIVATION: 'mdc-ripple-upgraded--foreground-activation',
-    FG_DEACTIVATION: 'mdc-ripple-upgraded--foreground-deactivation',
-    ROOT: 'mdc-ripple-upgraded',
-    UNBOUNDED: 'mdc-ripple-upgraded--unbounded',
-};
-var strings = {
-    VAR_FG_SCALE: '--mdc-ripple-fg-scale',
-    VAR_FG_SIZE: '--mdc-ripple-fg-size',
-    VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',
-    VAR_FG_TRANSLATE_START: '--mdc-ripple-fg-translate-start',
-    VAR_LEFT: '--mdc-ripple-left',
-    VAR_TOP: '--mdc-ripple-top',
-};
-var numbers = {
-    DEACTIVATION_TIMEOUT_MS: 225,
-    FG_DEACTIVATION_MS: 150,
-    INITIAL_ORIGIN_SCALE: 0.6,
-    PADDING: 10,
-    TAP_DELAY_MS: 300,
-};
-//# sourceMappingURL=constants.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/ripple/foundation.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/@material/ripple/foundation.js ***!
-  \*****************************************************/
-/*! exports provided: MDCRippleFoundation, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-// Activation events registered on the root element of each instance for activation
-var ACTIVATION_EVENT_TYPES = [
-    'touchstart', 'pointerdown', 'mousedown', 'keydown',
-];
-// Deactivation events registered on documentElement when a pointer-related down event occurs
-var POINTER_DEACTIVATION_EVENT_TYPES = [
-    'touchend', 'pointerup', 'mouseup', 'contextmenu',
-];
-// simultaneous nested activations
-var activatedTargets = [];
-var MDCRippleFoundation = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRippleFoundation, _super);
-    function MDCRippleFoundation(adapter) {
-        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCRippleFoundation.defaultAdapter, adapter)) || this;
-        _this.activationAnimationHasEnded_ = false;
-        _this.activationTimer_ = 0;
-        _this.fgDeactivationRemovalTimer_ = 0;
-        _this.fgScale_ = '0';
-        _this.frame_ = { width: 0, height: 0 };
-        _this.initialSize_ = 0;
-        _this.layoutFrame_ = 0;
-        _this.maxRadius_ = 0;
-        _this.unboundedCoords_ = { left: 0, top: 0 };
-        _this.activationState_ = _this.defaultActivationState_();
-        _this.activationTimerCallback_ = function () {
-            _this.activationAnimationHasEnded_ = true;
-            _this.runDeactivationUXLogicIfReady_();
-        };
-        _this.activateHandler_ = function (e) { return _this.activate_(e); };
-        _this.deactivateHandler_ = function () { return _this.deactivate_(); };
-        _this.focusHandler_ = function () { return _this.handleFocus(); };
-        _this.blurHandler_ = function () { return _this.handleBlur(); };
-        _this.resizeHandler_ = function () { return _this.layout(); };
-        return _this;
-    }
-    Object.defineProperty(MDCRippleFoundation, "cssClasses", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRippleFoundation, "strings", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRippleFoundation, "numbers", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRippleFoundation, "defaultAdapter", {
-        get: function () {
-            return {
-                addClass: function () { return undefined; },
-                browserSupportsCssVars: function () { return true; },
-                computeBoundingRect: function () { return ({ top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 }); },
-                containsEventTarget: function () { return true; },
-                deregisterDocumentInteractionHandler: function () { return undefined; },
-                deregisterInteractionHandler: function () { return undefined; },
-                deregisterResizeHandler: function () { return undefined; },
-                getWindowPageOffset: function () { return ({ x: 0, y: 0 }); },
-                isSurfaceActive: function () { return true; },
-                isSurfaceDisabled: function () { return true; },
-                isUnbounded: function () { return true; },
-                registerDocumentInteractionHandler: function () { return undefined; },
-                registerInteractionHandler: function () { return undefined; },
-                registerResizeHandler: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                updateCssVariable: function () { return undefined; },
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCRippleFoundation.prototype.init = function () {
-        var _this = this;
-        var supportsPressRipple = this.supportsPressRipple_();
-        this.registerRootHandlers_(supportsPressRipple);
-        if (supportsPressRipple) {
-            var _a = MDCRippleFoundation.cssClasses, ROOT_1 = _a.ROOT, UNBOUNDED_1 = _a.UNBOUNDED;
-            requestAnimationFrame(function () {
-                _this.adapter_.addClass(ROOT_1);
-                if (_this.adapter_.isUnbounded()) {
-                    _this.adapter_.addClass(UNBOUNDED_1);
-                    // Unbounded ripples need layout logic applied immediately to set coordinates for both shade and ripple
-                    _this.layoutInternal_();
-                }
-            });
-        }
-    };
-    MDCRippleFoundation.prototype.destroy = function () {
-        var _this = this;
-        if (this.supportsPressRipple_()) {
-            if (this.activationTimer_) {
-                clearTimeout(this.activationTimer_);
-                this.activationTimer_ = 0;
-                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_ACTIVATION);
-            }
-            if (this.fgDeactivationRemovalTimer_) {
-                clearTimeout(this.fgDeactivationRemovalTimer_);
-                this.fgDeactivationRemovalTimer_ = 0;
-                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_DEACTIVATION);
-            }
-            var _a = MDCRippleFoundation.cssClasses, ROOT_2 = _a.ROOT, UNBOUNDED_2 = _a.UNBOUNDED;
-            requestAnimationFrame(function () {
-                _this.adapter_.removeClass(ROOT_2);
-                _this.adapter_.removeClass(UNBOUNDED_2);
-                _this.removeCssVars_();
-            });
-        }
-        this.deregisterRootHandlers_();
-        this.deregisterDeactivationHandlers_();
-    };
-    /**
-     * @param evt Optional event containing position information.
-     */
-    MDCRippleFoundation.prototype.activate = function (evt) {
-        this.activate_(evt);
-    };
-    MDCRippleFoundation.prototype.deactivate = function () {
-        this.deactivate_();
-    };
-    MDCRippleFoundation.prototype.layout = function () {
-        var _this = this;
-        if (this.layoutFrame_) {
-            cancelAnimationFrame(this.layoutFrame_);
-        }
-        this.layoutFrame_ = requestAnimationFrame(function () {
-            _this.layoutInternal_();
-            _this.layoutFrame_ = 0;
-        });
-    };
-    MDCRippleFoundation.prototype.setUnbounded = function (unbounded) {
-        var UNBOUNDED = MDCRippleFoundation.cssClasses.UNBOUNDED;
-        if (unbounded) {
-            this.adapter_.addClass(UNBOUNDED);
-        }
-        else {
-            this.adapter_.removeClass(UNBOUNDED);
-        }
-    };
-    MDCRippleFoundation.prototype.handleFocus = function () {
-        var _this = this;
-        requestAnimationFrame(function () {
-            return _this.adapter_.addClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
-        });
-    };
-    MDCRippleFoundation.prototype.handleBlur = function () {
-        var _this = this;
-        requestAnimationFrame(function () {
-            return _this.adapter_.removeClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
-        });
-    };
-    /**
-     * We compute this property so that we are not querying information about the client
-     * until the point in time where the foundation requests it. This prevents scenarios where
-     * client-side feature-detection may happen too early, such as when components are rendered on the server
-     * and then initialized at mount time on the client.
-     */
-    MDCRippleFoundation.prototype.supportsPressRipple_ = function () {
-        return this.adapter_.browserSupportsCssVars();
-    };
-    MDCRippleFoundation.prototype.defaultActivationState_ = function () {
-        return {
-            activationEvent: undefined,
-            hasDeactivationUXRun: false,
-            isActivated: false,
-            isProgrammatic: false,
-            wasActivatedByPointer: false,
-            wasElementMadeActive: false,
-        };
-    };
-    /**
-     * supportsPressRipple Passed from init to save a redundant function call
-     */
-    MDCRippleFoundation.prototype.registerRootHandlers_ = function (supportsPressRipple) {
-        var _this = this;
-        if (supportsPressRipple) {
-            ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-                _this.adapter_.registerInteractionHandler(evtType, _this.activateHandler_);
-            });
-            if (this.adapter_.isUnbounded()) {
-                this.adapter_.registerResizeHandler(this.resizeHandler_);
-            }
-        }
-        this.adapter_.registerInteractionHandler('focus', this.focusHandler_);
-        this.adapter_.registerInteractionHandler('blur', this.blurHandler_);
-    };
-    MDCRippleFoundation.prototype.registerDeactivationHandlers_ = function (evt) {
-        var _this = this;
-        if (evt.type === 'keydown') {
-            this.adapter_.registerInteractionHandler('keyup', this.deactivateHandler_);
-        }
-        else {
-            POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-                _this.adapter_.registerDocumentInteractionHandler(evtType, _this.deactivateHandler_);
-            });
-        }
-    };
-    MDCRippleFoundation.prototype.deregisterRootHandlers_ = function () {
-        var _this = this;
-        ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-            _this.adapter_.deregisterInteractionHandler(evtType, _this.activateHandler_);
-        });
-        this.adapter_.deregisterInteractionHandler('focus', this.focusHandler_);
-        this.adapter_.deregisterInteractionHandler('blur', this.blurHandler_);
-        if (this.adapter_.isUnbounded()) {
-            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
-        }
-    };
-    MDCRippleFoundation.prototype.deregisterDeactivationHandlers_ = function () {
-        var _this = this;
-        this.adapter_.deregisterInteractionHandler('keyup', this.deactivateHandler_);
-        POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-            _this.adapter_.deregisterDocumentInteractionHandler(evtType, _this.deactivateHandler_);
-        });
-    };
-    MDCRippleFoundation.prototype.removeCssVars_ = function () {
-        var _this = this;
-        var rippleStrings = MDCRippleFoundation.strings;
-        var keys = Object.keys(rippleStrings);
-        keys.forEach(function (key) {
-            if (key.indexOf('VAR_') === 0) {
-                _this.adapter_.updateCssVariable(rippleStrings[key], null);
-            }
-        });
-    };
-    MDCRippleFoundation.prototype.activate_ = function (evt) {
-        var _this = this;
-        if (this.adapter_.isSurfaceDisabled()) {
-            return;
-        }
-        var activationState = this.activationState_;
-        if (activationState.isActivated) {
-            return;
-        }
-        // Avoid reacting to follow-on events fired by touch device after an already-processed user interaction
-        var previousActivationEvent = this.previousActivationEvent_;
-        var isSameInteraction = previousActivationEvent && evt !== undefined && previousActivationEvent.type !== evt.type;
-        if (isSameInteraction) {
-            return;
-        }
-        activationState.isActivated = true;
-        activationState.isProgrammatic = evt === undefined;
-        activationState.activationEvent = evt;
-        activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : evt !== undefined && (evt.type === 'mousedown' || evt.type === 'touchstart' || evt.type === 'pointerdown');
-        var hasActivatedChild = evt !== undefined && activatedTargets.length > 0 && activatedTargets.some(function (target) { return _this.adapter_.containsEventTarget(target); });
-        if (hasActivatedChild) {
-            // Immediately reset activation state, while preserving logic that prevents touch follow-on events
-            this.resetActivationState_();
-            return;
-        }
-        if (evt !== undefined) {
-            activatedTargets.push(evt.target);
-            this.registerDeactivationHandlers_(evt);
-        }
-        activationState.wasElementMadeActive = this.checkElementMadeActive_(evt);
-        if (activationState.wasElementMadeActive) {
-            this.animateActivation_();
-        }
-        requestAnimationFrame(function () {
-            // Reset array on next frame after the current event has had a chance to bubble to prevent ancestor ripples
-            activatedTargets = [];
-            if (!activationState.wasElementMadeActive
-                && evt !== undefined
-                && (evt.key === ' ' || evt.keyCode === 32)) {
-                // If space was pressed, try again within an rAF call to detect :active, because different UAs report
-                // active states inconsistently when they're called within event handling code:
-                // - https://bugs.chromium.org/p/chromium/issues/detail?id=635971
-                // - https://bugzilla.mozilla.org/show_bug.cgi?id=1293741
-                // We try first outside rAF to support Edge, which does not exhibit this problem, but will crash if a CSS
-                // variable is set within a rAF callback for a submit button interaction (#2241).
-                activationState.wasElementMadeActive = _this.checkElementMadeActive_(evt);
-                if (activationState.wasElementMadeActive) {
-                    _this.animateActivation_();
-                }
-            }
-            if (!activationState.wasElementMadeActive) {
-                // Reset activation state immediately if element was not made active.
-                _this.activationState_ = _this.defaultActivationState_();
-            }
-        });
-    };
-    MDCRippleFoundation.prototype.checkElementMadeActive_ = function (evt) {
-        return (evt !== undefined && evt.type === 'keydown') ? this.adapter_.isSurfaceActive() : true;
-    };
-    MDCRippleFoundation.prototype.animateActivation_ = function () {
-        var _this = this;
-        var _a = MDCRippleFoundation.strings, VAR_FG_TRANSLATE_START = _a.VAR_FG_TRANSLATE_START, VAR_FG_TRANSLATE_END = _a.VAR_FG_TRANSLATE_END;
-        var _b = MDCRippleFoundation.cssClasses, FG_DEACTIVATION = _b.FG_DEACTIVATION, FG_ACTIVATION = _b.FG_ACTIVATION;
-        var DEACTIVATION_TIMEOUT_MS = MDCRippleFoundation.numbers.DEACTIVATION_TIMEOUT_MS;
-        this.layoutInternal_();
-        var translateStart = '';
-        var translateEnd = '';
-        if (!this.adapter_.isUnbounded()) {
-            var _c = this.getFgTranslationCoordinates_(), startPoint = _c.startPoint, endPoint = _c.endPoint;
-            translateStart = startPoint.x + "px, " + startPoint.y + "px";
-            translateEnd = endPoint.x + "px, " + endPoint.y + "px";
-        }
-        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_START, translateStart);
-        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_END, translateEnd);
-        // Cancel any ongoing activation/deactivation animations
-        clearTimeout(this.activationTimer_);
-        clearTimeout(this.fgDeactivationRemovalTimer_);
-        this.rmBoundedActivationClasses_();
-        this.adapter_.removeClass(FG_DEACTIVATION);
-        // Force layout in order to re-trigger the animation.
-        this.adapter_.computeBoundingRect();
-        this.adapter_.addClass(FG_ACTIVATION);
-        this.activationTimer_ = setTimeout(function () { return _this.activationTimerCallback_(); }, DEACTIVATION_TIMEOUT_MS);
-    };
-    MDCRippleFoundation.prototype.getFgTranslationCoordinates_ = function () {
-        var _a = this.activationState_, activationEvent = _a.activationEvent, wasActivatedByPointer = _a.wasActivatedByPointer;
-        var startPoint;
-        if (wasActivatedByPointer) {
-            startPoint = Object(_util__WEBPACK_IMPORTED_MODULE_3__["getNormalizedEventCoords"])(activationEvent, this.adapter_.getWindowPageOffset(), this.adapter_.computeBoundingRect());
-        }
-        else {
-            startPoint = {
-                x: this.frame_.width / 2,
-                y: this.frame_.height / 2,
-            };
-        }
-        // Center the element around the start point.
-        startPoint = {
-            x: startPoint.x - (this.initialSize_ / 2),
-            y: startPoint.y - (this.initialSize_ / 2),
-        };
-        var endPoint = {
-            x: (this.frame_.width / 2) - (this.initialSize_ / 2),
-            y: (this.frame_.height / 2) - (this.initialSize_ / 2),
-        };
-        return { startPoint: startPoint, endPoint: endPoint };
-    };
-    MDCRippleFoundation.prototype.runDeactivationUXLogicIfReady_ = function () {
-        var _this = this;
-        // This method is called both when a pointing device is released, and when the activation animation ends.
-        // The deactivation animation should only run after both of those occur.
-        var FG_DEACTIVATION = MDCRippleFoundation.cssClasses.FG_DEACTIVATION;
-        var _a = this.activationState_, hasDeactivationUXRun = _a.hasDeactivationUXRun, isActivated = _a.isActivated;
-        var activationHasEnded = hasDeactivationUXRun || !isActivated;
-        if (activationHasEnded && this.activationAnimationHasEnded_) {
-            this.rmBoundedActivationClasses_();
-            this.adapter_.addClass(FG_DEACTIVATION);
-            this.fgDeactivationRemovalTimer_ = setTimeout(function () {
-                _this.adapter_.removeClass(FG_DEACTIVATION);
-            }, _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"].FG_DEACTIVATION_MS);
-        }
-    };
-    MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {
-        var FG_ACTIVATION = MDCRippleFoundation.cssClasses.FG_ACTIVATION;
-        this.adapter_.removeClass(FG_ACTIVATION);
-        this.activationAnimationHasEnded_ = false;
-        this.adapter_.computeBoundingRect();
-    };
-    MDCRippleFoundation.prototype.resetActivationState_ = function () {
-        var _this = this;
-        this.previousActivationEvent_ = this.activationState_.activationEvent;
-        this.activationState_ = this.defaultActivationState_();
-        // Touch devices may fire additional events for the same interaction within a short time.
-        // Store the previous event until it's safe to assume that subsequent events are for new interactions.
-        setTimeout(function () { return _this.previousActivationEvent_ = undefined; }, MDCRippleFoundation.numbers.TAP_DELAY_MS);
-    };
-    MDCRippleFoundation.prototype.deactivate_ = function () {
-        var _this = this;
-        var activationState = this.activationState_;
-        // This can happen in scenarios such as when you have a keyup event that blurs the element.
-        if (!activationState.isActivated) {
-            return;
-        }
-        var state = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, activationState);
-        if (activationState.isProgrammatic) {
-            requestAnimationFrame(function () { return _this.animateDeactivation_(state); });
-            this.resetActivationState_();
-        }
-        else {
-            this.deregisterDeactivationHandlers_();
-            requestAnimationFrame(function () {
-                _this.activationState_.hasDeactivationUXRun = true;
-                _this.animateDeactivation_(state);
-                _this.resetActivationState_();
-            });
-        }
-    };
-    MDCRippleFoundation.prototype.animateDeactivation_ = function (_a) {
-        var wasActivatedByPointer = _a.wasActivatedByPointer, wasElementMadeActive = _a.wasElementMadeActive;
-        if (wasActivatedByPointer || wasElementMadeActive) {
-            this.runDeactivationUXLogicIfReady_();
-        }
-    };
-    MDCRippleFoundation.prototype.layoutInternal_ = function () {
-        var _this = this;
-        this.frame_ = this.adapter_.computeBoundingRect();
-        var maxDim = Math.max(this.frame_.height, this.frame_.width);
-        // Surface diameter is treated differently for unbounded vs. bounded ripples.
-        // Unbounded ripple diameter is calculated smaller since the surface is expected to already be padded appropriately
-        // to extend the hitbox, and the ripple is expected to meet the edges of the padded hitbox (which is typically
-        // square). Bounded ripples, on the other hand, are fully expected to expand beyond the surface's longest diameter
-        // (calculated based on the diagonal plus a constant padding), and are clipped at the surface's border via
-        // `overflow: hidden`.
-        var getBoundedRadius = function () {
-            var hypotenuse = Math.sqrt(Math.pow(_this.frame_.width, 2) + Math.pow(_this.frame_.height, 2));
-            return hypotenuse + MDCRippleFoundation.numbers.PADDING;
-        };
-        this.maxRadius_ = this.adapter_.isUnbounded() ? maxDim : getBoundedRadius();
-        // Ripple is sized as a fraction of the largest dimension of the surface, then scales up using a CSS scale transform
-        this.initialSize_ = Math.floor(maxDim * MDCRippleFoundation.numbers.INITIAL_ORIGIN_SCALE);
-        this.fgScale_ = "" + this.maxRadius_ / this.initialSize_;
-        this.updateLayoutCssVars_();
-    };
-    MDCRippleFoundation.prototype.updateLayoutCssVars_ = function () {
-        var _a = MDCRippleFoundation.strings, VAR_FG_SIZE = _a.VAR_FG_SIZE, VAR_LEFT = _a.VAR_LEFT, VAR_TOP = _a.VAR_TOP, VAR_FG_SCALE = _a.VAR_FG_SCALE;
-        this.adapter_.updateCssVariable(VAR_FG_SIZE, this.initialSize_ + "px");
-        this.adapter_.updateCssVariable(VAR_FG_SCALE, this.fgScale_);
-        if (this.adapter_.isUnbounded()) {
-            this.unboundedCoords_ = {
-                left: Math.round((this.frame_.width / 2) - (this.initialSize_ / 2)),
-                top: Math.round((this.frame_.height / 2) - (this.initialSize_ / 2)),
-            };
-            this.adapter_.updateCssVariable(VAR_LEFT, this.unboundedCoords_.left + "px");
-            this.adapter_.updateCssVariable(VAR_TOP, this.unboundedCoords_.top + "px");
-        }
-    };
-    return MDCRippleFoundation;
-}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCRippleFoundation);
-//# sourceMappingURL=foundation.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/ripple/util.js":
-/*!***********************************************!*\
-  !*** ./node_modules/@material/ripple/util.js ***!
-  \***********************************************/
-/*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "supportsCssVariables", function() { return supportsCssVariables; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyPassive", function() { return applyPassive; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNormalizedEventCoords", function() { return getNormalizedEventCoords; });
-/**
- * Stores result from supportsCssVariables to avoid redundant processing to
- * detect CSS custom variable support.
- */
-var supportsCssVariables_;
-/**
- * Stores result from applyPassive to avoid redundant processing to detect
- * passive event listener support.
- */
-var supportsPassive_;
-function detectEdgePseudoVarBug(windowObj) {
-    // Detect versions of Edge with buggy var() support
-    // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11495448/
-    var document = windowObj.document;
-    var node = document.createElement('div');
-    node.className = 'mdc-ripple-surface--test-edge-var-bug';
-    document.body.appendChild(node);
-    // The bug exists if ::before style ends up propagating to the parent element.
-    // Additionally, getComputedStyle returns null in iframes with display: "none" in Firefox,
-    // but Firefox is known to support CSS custom properties correctly.
-    // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-    var computedStyle = windowObj.getComputedStyle(node);
-    var hasPseudoVarBug = computedStyle !== null && computedStyle.borderTopStyle === 'solid';
-    if (node.parentNode) {
-        node.parentNode.removeChild(node);
-    }
-    return hasPseudoVarBug;
-}
-function supportsCssVariables(windowObj, forceRefresh) {
-    if (forceRefresh === void 0) { forceRefresh = false; }
-    var CSS = windowObj.CSS;
-    var supportsCssVars = supportsCssVariables_;
-    if (typeof supportsCssVariables_ === 'boolean' && !forceRefresh) {
-        return supportsCssVariables_;
-    }
-    var supportsFunctionPresent = CSS && typeof CSS.supports === 'function';
-    if (!supportsFunctionPresent) {
-        return false;
-    }
-    var explicitlySupportsCssVars = CSS.supports('--css-vars', 'yes');
-    // See: https://bugs.webkit.org/show_bug.cgi?id=154669
-    // See: README section on Safari
-    var weAreFeatureDetectingSafari10plus = (CSS.supports('(--css-vars: yes)') &&
-        CSS.supports('color', '#00000000'));
-    if (explicitlySupportsCssVars || weAreFeatureDetectingSafari10plus) {
-        supportsCssVars = !detectEdgePseudoVarBug(windowObj);
-    }
-    else {
-        supportsCssVars = false;
-    }
-    if (!forceRefresh) {
-        supportsCssVariables_ = supportsCssVars;
-    }
-    return supportsCssVars;
-}
-/**
- * Determine whether the current browser supports passive event listeners, and
- * if so, use them.
- */
-function applyPassive(globalObj, forceRefresh) {
-    if (globalObj === void 0) { globalObj = window; }
-    if (forceRefresh === void 0) { forceRefresh = false; }
-    if (supportsPassive_ === undefined || forceRefresh) {
-        var isSupported_1 = false;
-        try {
-            globalObj.document.addEventListener('test', function () { return undefined; }, {
-                get passive() {
-                    isSupported_1 = true;
-                    return isSupported_1;
-                },
-            });
-        }
-        catch (e) {
-        } // tslint:disable-line:no-empty cannot throw error due to tests. tslint also disables console.log.
-        supportsPassive_ = isSupported_1;
-    }
-    return supportsPassive_ ? { passive: true } : false;
-}
-function getNormalizedEventCoords(evt, pageOffset, clientRect) {
-    if (!evt) {
-        return { x: 0, y: 0 };
-    }
-    var x = pageOffset.x, y = pageOffset.y;
-    var documentX = x + clientRect.left;
-    var documentY = y + clientRect.top;
-    var normalizedX;
-    var normalizedY;
-    // Determine touch point relative to the ripple container.
-    if (evt.type === 'touchstart') {
-        var touchEvent = evt;
-        normalizedX = touchEvent.changedTouches[0].pageX - documentX;
-        normalizedY = touchEvent.changedTouches[0].pageY - documentY;
-    }
-    else {
-        var mouseEvent = evt;
-        normalizedX = mouseEvent.pageX - documentX;
-        normalizedY = mouseEvent.pageY - documentY;
-    }
-    return { x: normalizedX, y: normalizedY };
-}
-//# sourceMappingURL=util.js.map
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/radio/index.scss":
-/*!***********************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/radio/index.scss ***!
-  \***********************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/linear-progress/index.scss":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/linear-progress/index.scss ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1746,7 +730,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".mdc-form-field {\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: 0.01786em;\n  text-decoration: inherit;\n  text-transform: inherit;\n  color: rgba(0, 0, 0, 0.87);\n  /* @alternate */\n  color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));\n  display: inline-flex;\n  align-items: center;\n  vertical-align: middle; }\n  .mdc-form-field > label {\n    order: 0;\n    /* @noflip */\n    margin-right: auto;\n    /* @noflip */\n    padding-left: 4px; }\n  [dir=\"rtl\"] .mdc-form-field > label, .mdc-form-field[dir=\"rtl\"] > label {\n    /* @noflip */\n    margin-left: auto;\n    /* @noflip */\n    padding-right: 4px; }\n\n.mdc-form-field--align-end > label {\n  order: -1;\n  /* @noflip */\n  margin-left: auto;\n  /* @noflip */\n  padding-right: 4px; }\n\n[dir=\"rtl\"] .mdc-form-field--align-end > label, .mdc-form-field--align-end[dir=\"rtl\"] > label {\n  /* @noflip */\n  margin-right: auto;\n  /* @noflip */\n  padding-left: 4px; }\n\n.mdc-radio {\n  display: inline-block;\n  position: relative;\n  flex: 0 0 auto;\n  box-sizing: border-box;\n  width: 40px;\n  height: 40px;\n  padding: 10px;\n  cursor: pointer;\n  /* @alternate */\n  will-change: opacity, transform, border-color, color; }\n  .mdc-radio .mdc-radio__native-control:enabled:not(:checked) + .mdc-radio__background .mdc-radio__outer-circle {\n    border-color: rgba(0, 0, 0, 0.54); }\n  .mdc-radio .mdc-radio__native-control:enabled:checked + .mdc-radio__background .mdc-radio__outer-circle {\n    border-color: #018786;\n    /* @alternate */\n    border-color: var(--mdc-theme-secondary, #018786); }\n  .mdc-radio .mdc-radio__native-control:enabled + .mdc-radio__background .mdc-radio__inner-circle {\n    border-color: #018786;\n    /* @alternate */\n    border-color: var(--mdc-theme-secondary, #018786); }\n  .mdc-radio .mdc-radio__background::before {\n    background-color: #018786; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-radio .mdc-radio__background::before {\n        /* @alternate */\n        background-color: var(--mdc-theme-secondary, #018786); } }\n  .mdc-radio__background {\n    display: inline-block;\n    position: absolute;\n    left: 10px;\n    box-sizing: border-box;\n    width: 50%;\n    height: 50%; }\n    .mdc-radio__background::before {\n      position: absolute;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      transform: scale(0, 0);\n      border-radius: 50%;\n      opacity: 0;\n      pointer-events: none;\n      content: \"\";\n      transition: opacity 120ms 0ms cubic-bezier(0.4, 0, 0.6, 1), transform 120ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }\n  .mdc-radio__outer-circle {\n    position: absolute;\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    border-width: 2px;\n    border-style: solid;\n    border-radius: 50%;\n    transition: border-color 120ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }\n  .mdc-radio__inner-circle {\n    position: absolute;\n    top: 0;\n    left: 0;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    transform: scale(0, 0);\n    border-width: 10px;\n    border-style: solid;\n    border-radius: 50%;\n    transition: transform 120ms 0ms cubic-bezier(0.4, 0, 0.6, 1), border-color 120ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }\n  .mdc-radio__native-control {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    margin: 0;\n    padding: 0;\n    opacity: 0;\n    cursor: inherit;\n    z-index: 1; }\n\n.mdc-radio__native-control:checked + .mdc-radio__background,\n.mdc-radio__native-control:disabled + .mdc-radio__background {\n  transition: opacity 120ms 0ms cubic-bezier(0, 0, 0.2, 1), transform 120ms 0ms cubic-bezier(0, 0, 0.2, 1); }\n  .mdc-radio__native-control:checked + .mdc-radio__background .mdc-radio__outer-circle,\n  .mdc-radio__native-control:disabled + .mdc-radio__background .mdc-radio__outer-circle {\n    transition: border-color 120ms 0ms cubic-bezier(0, 0, 0.2, 1); }\n  .mdc-radio__native-control:checked + .mdc-radio__background .mdc-radio__inner-circle,\n  .mdc-radio__native-control:disabled + .mdc-radio__background .mdc-radio__inner-circle {\n    transition: transform 120ms 0ms cubic-bezier(0, 0, 0.2, 1), border-color 120ms 0ms cubic-bezier(0, 0, 0.2, 1); }\n\n.mdc-radio--disabled {\n  cursor: default;\n  pointer-events: none; }\n\n.mdc-radio__native-control:checked + .mdc-radio__background .mdc-radio__inner-circle {\n  transform: scale(0.5);\n  transition: transform 120ms 0ms cubic-bezier(0, 0, 0.2, 1), border-color 120ms 0ms cubic-bezier(0, 0, 0.2, 1); }\n\n.mdc-radio__native-control:disabled + .mdc-radio__background,\n[aria-disabled=\"true\"] .mdc-radio__native-control + .mdc-radio__background {\n  cursor: default; }\n  .mdc-radio__native-control:disabled + .mdc-radio__background .mdc-radio__outer-circle,\n  [aria-disabled=\"true\"] .mdc-radio__native-control + .mdc-radio__background .mdc-radio__outer-circle {\n    border-color: rgba(0, 0, 0, 0.26); }\n  .mdc-radio__native-control:disabled + .mdc-radio__background .mdc-radio__inner-circle,\n  [aria-disabled=\"true\"] .mdc-radio__native-control + .mdc-radio__background .mdc-radio__inner-circle {\n    border-color: rgba(0, 0, 0, 0.26); }\n\n.mdc-radio__native-control:focus + .mdc-radio__background::before {\n  transform: scale(2, 2);\n  opacity: 0.12;\n  transition: opacity 120ms 0ms cubic-bezier(0, 0, 0.2, 1), transform 120ms 0ms cubic-bezier(0, 0, 0.2, 1); }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-radio {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  will-change: transform, opacity; }\n  .mdc-radio::before, .mdc-radio::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-radio::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-radio.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-radio.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-radio.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-radio.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-radio.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-radio::before, .mdc-radio::after {\n    top: calc(50% - 50%);\n    /* @noflip */\n    left: calc(50% - 50%);\n    width: 100%;\n    height: 100%; }\n  .mdc-radio.mdc-ripple-upgraded::before, .mdc-radio.mdc-ripple-upgraded::after {\n    top: var(--mdc-ripple-top, calc(50% - 50%));\n    /* @noflip */\n    left: var(--mdc-ripple-left, calc(50% - 50%));\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-radio.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-radio::before, .mdc-radio::after {\n    background-color: #018786; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-radio::before, .mdc-radio::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-secondary, #018786); } }\n  .mdc-radio:hover::before {\n    opacity: 0.04; }\n  .mdc-radio:not(.mdc-ripple-upgraded):focus::before, .mdc-radio.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-radio:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-radio:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-radio.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n  .mdc-radio.mdc-ripple-upgraded--background-focused .mdc-radio__background::before {\n    content: none; }\n", ""]);
+exports.push([module.i, "@keyframes primary-indeterminate-translate {\n  0% {\n    transform: translateX(0); }\n  20% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(0); }\n  59.15% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(83.67142%); }\n  100% {\n    transform: translateX(200.61106%); } }\n\n@keyframes primary-indeterminate-scale {\n  0% {\n    transform: scaleX(0.08); }\n  36.65% {\n    animation-timing-function: cubic-bezier(0.33473, 0.12482, 0.78584, 1);\n    transform: scaleX(0.08); }\n  69.15% {\n    animation-timing-function: cubic-bezier(0.06, 0.11, 0.6, 1);\n    transform: scaleX(0.66148); }\n  100% {\n    transform: scaleX(0.08); } }\n\n@keyframes secondary-indeterminate-translate {\n  0% {\n    animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40969);\n    transform: translateX(0); }\n  25% {\n    animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73371);\n    transform: translateX(37.65191%); }\n  48.35% {\n    animation-timing-function: cubic-bezier(0.4, 0.62704, 0.6, 0.90203);\n    transform: translateX(84.38617%); }\n  100% {\n    transform: translateX(160.27778%); } }\n\n@keyframes secondary-indeterminate-scale {\n  0% {\n    animation-timing-function: cubic-bezier(0.20503, 0.05705, 0.57661, 0.45397);\n    transform: scaleX(0.08); }\n  19.15% {\n    animation-timing-function: cubic-bezier(0.15231, 0.19643, 0.64837, 1.00432);\n    transform: scaleX(0.4571); }\n  44.15% {\n    animation-timing-function: cubic-bezier(0.25776, -0.00316, 0.21176, 1.38179);\n    transform: scaleX(0.72796); }\n  100% {\n    transform: scaleX(0.08); } }\n\n@keyframes buffering {\n  to {\n    transform: translateX(-10px); } }\n\n@keyframes primary-indeterminate-translate-reverse {\n  0% {\n    transform: translateX(0); }\n  20% {\n    animation-timing-function: cubic-bezier(0.5, 0, 0.70173, 0.49582);\n    transform: translateX(0); }\n  59.15% {\n    animation-timing-function: cubic-bezier(0.30244, 0.38135, 0.55, 0.95635);\n    transform: translateX(-83.67142%); }\n  100% {\n    transform: translateX(-200.61106%); } }\n\n@keyframes secondary-indeterminate-translate-reverse {\n  0% {\n    animation-timing-function: cubic-bezier(0.15, 0, 0.51506, 0.40969);\n    transform: translateX(0); }\n  25% {\n    animation-timing-function: cubic-bezier(0.31033, 0.28406, 0.8, 0.73371);\n    transform: translateX(-37.65191%); }\n  48.35% {\n    animation-timing-function: cubic-bezier(0.4, 0.62704, 0.6, 0.90203);\n    transform: translateX(-84.38617%); }\n  100% {\n    transform: translateX(-160.27778%); } }\n\n@keyframes buffering-reverse {\n  to {\n    transform: translateX(10px); } }\n\n.mdc-linear-progress {\n  position: relative;\n  width: 100%;\n  height: 4px;\n  transform: translateZ(0);\n  transition: opacity 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1);\n  overflow: hidden; }\n  .mdc-linear-progress__bar {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    animation: none;\n    transform-origin: top left;\n    transition: transform 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }\n  .mdc-linear-progress__bar-inner {\n    display: inline-block;\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    animation: none; }\n  .mdc-linear-progress__buffering-dots {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    animation: buffering 250ms infinite linear;\n    background-repeat: repeat-x;\n    background-size: 10px 4px; }\n  .mdc-linear-progress__buffer {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    transform-origin: top left;\n    transition: transform 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1); }\n  .mdc-linear-progress__primary-bar {\n    transform: scaleX(0); }\n  .mdc-linear-progress__secondary-bar {\n    visibility: hidden; }\n  .mdc-linear-progress--indeterminate .mdc-linear-progress__bar {\n    transition: none; }\n  .mdc-linear-progress--indeterminate .mdc-linear-progress__primary-bar {\n    left: -145.166611%;\n    animation: primary-indeterminate-translate 2s infinite linear; }\n    .mdc-linear-progress--indeterminate .mdc-linear-progress__primary-bar > .mdc-linear-progress__bar-inner {\n      animation: primary-indeterminate-scale 2s infinite linear; }\n  .mdc-linear-progress--indeterminate .mdc-linear-progress__secondary-bar {\n    left: -54.888891%;\n    animation: secondary-indeterminate-translate 2s infinite linear;\n    visibility: visible; }\n    .mdc-linear-progress--indeterminate .mdc-linear-progress__secondary-bar > .mdc-linear-progress__bar-inner {\n      animation: secondary-indeterminate-scale 2s infinite linear; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__bar,\n  .mdc-linear-progress--reversed .mdc-linear-progress__buffer {\n    right: 0;\n    transform-origin: center right; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__primary-bar {\n    animation-name: primary-indeterminate-translate-reverse; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__secondary-bar {\n    animation-name: secondary-indeterminate-translate-reverse; }\n  .mdc-linear-progress--reversed .mdc-linear-progress__buffering-dots {\n    animation: buffering-reverse 250ms infinite linear; }\n  .mdc-linear-progress--closed {\n    opacity: 0; }\n\n.mdc-linear-progress__bar-inner {\n  background-color: #0052d9;\n  /* @alternate */\n  background-color: var(--mdc-theme-primary, #0052d9); }\n\n.mdc-linear-progress__buffering-dots {\n  background-image: url(\"data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' enable-background='new 0 0 5 2' xml:space='preserve' viewBox='0 0 5 2' preserveAspectRatio='none slice'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23e6e6e6'/%3E%3C/svg%3E\"); }\n\n.mdc-linear-progress__buffer {\n  background-color: #e6e6e6; }\n\n.mdc-linear-progress--indeterminate.mdc-linear-progress--reversed .mdc-linear-progress__primary-bar {\n  right: -145.166611%;\n  left: auto; }\n\n.mdc-linear-progress--indeterminate.mdc-linear-progress--reversed .mdc-linear-progress__secondary-bar {\n  right: -54.888891%;\n  left: auto; }\n", ""]);
 
 // exports
 
@@ -2058,15 +1042,15 @@ function __importDefault(mod) {
 
 /***/ }),
 
-/***/ "./src/radio/index.scss":
-/*!******************************!*\
-  !*** ./src/radio/index.scss ***!
-  \******************************/
+/***/ "./src/linear-progress/index.scss":
+/*!****************************************!*\
+  !*** ./src/linear-progress/index.scss ***!
+  \****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/radio/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/linear-progress/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -2077,10 +1061,10 @@ function __importDefault(mod) {
 
 /***/ }),
 
-/***/ "./src/radio/index.tsx":
-/*!*****************************!*\
-  !*** ./src/radio/index.tsx ***!
-  \*****************************/
+/***/ "./src/linear-progress/index.tsx":
+/*!***************************************!*\
+  !*** ./src/linear-progress/index.tsx ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2118,79 +1102,56 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
-var css = __webpack_require__(/*! ./index.scss */ "./src/radio/index.scss");
-var form_field_1 = __webpack_require__(/*! @material/form-field */ "./node_modules/@material/form-field/index.js");
-var radio_1 = __webpack_require__(/*! @material/radio */ "./node_modules/@material/radio/index.js");
-// @ts-ignore
-var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
-var Radio = /** @class */ (function (_super) {
-    __extends(Radio, _super);
-    function Radio() {
+var css = __webpack_require__(/*! ./index.scss */ "./src/linear-progress/index.scss");
+var linear_progress_1 = __webpack_require__(/*! @material/linear-progress */ "./node_modules/@material/linear-progress/index.js");
+var LinearProgress = /** @class */ (function (_super) {
+    __extends(LinearProgress, _super);
+    function LinearProgress() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Radio.prototype.installed = function () {
-        var checkbox = new radio_1.MDCRadio(this.shadowRoot.querySelector('.mdc-radio'));
-        var formField = new form_field_1.MDCFormField(this.shadowRoot.querySelector('.mdc-form-field'));
-        formField.input = checkbox;
+    LinearProgress.prototype.installed = function () {
+        new linear_progress_1.MDCLinearProgress(this.shadowRoot.querySelector('.mdc-linear-progress'));
+        // progress.listen('MDCSlider:change', () => {
+        //   this.fire('change', { value: slider.progress })
+        // });
     };
-    Radio.prototype.render = function (props) {
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-form-field', {
-            'mdc-checkbox--disabled': props.disabled
-        })),
-            omi_1.h("div", { class: omi_1.classNames('mdc-radio', {
-                    'mdc-radio--disabled': props.disabled
-                }) },
-                omi_1.h("input", __assign({ type: "radio" }, util_ts_1.extract(props, ['checked', 'value', 'disabled']), { class: "mdc-radio__native-control", id: "radio" })),
-                omi_1.h("div", { class: "mdc-radio__background" },
-                    omi_1.h("div", { class: "mdc-radio__outer-circle" }),
-                    omi_1.h("div", { class: "mdc-radio__inner-circle" }))),
-            omi_1.h("label", { for: "radio" }, props.label)));
-    };
-    Radio.css = css;
-    Radio.propTypes = {
-        label: String,
-        disabled: Boolean,
-        checked: Boolean,
-        value: String
-    };
-    Radio = __decorate([
-        omi_1.tag('m-radio')
-    ], Radio);
-    return Radio;
-}(omi_1.WeElement));
-exports.default = Radio;
-
-
-/***/ }),
-
-/***/ "./src/util.ts":
-/*!*********************!*\
-  !*** ./src/util.ts ***!
-  \*********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-function extract(props, prop) {
-    var _a;
-    if (typeof prop === 'string') {
-        if (props.hasOwnProperty(prop)) {
-            return _a = {}, _a[prop] = props[prop], _a;
+    LinearProgress.prototype.render = function (props) {
+        if (props.indeterminate) {
+            return omi_1.h("div", { role: "progressbar", class: "mdc-linear-progress mdc-linear-progress--indeterminate" },
+                omi_1.h("div", { class: "mdc-linear-progress__buffering-dots" }),
+                omi_1.h("div", { class: "mdc-linear-progress__buffer" }),
+                omi_1.h("div", { class: "mdc-linear-progress__bar mdc-linear-progress__primary-bar" },
+                    omi_1.h("span", { class: "mdc-linear-progress__bar-inner" })),
+                omi_1.h("div", { class: "mdc-linear-progress__bar mdc-linear-progress__secondary-bar" },
+                    omi_1.h("span", { class: "mdc-linear-progress__bar-inner" })));
         }
-    }
-    else {
-        var res_1 = {};
-        prop.forEach(function (key) {
-            if (props.hasOwnProperty(key)) {
-                res_1[key] = props[key];
-            }
-        });
-        return res_1;
-    }
-}
-exports.extract = extract;
+        return (omi_1.h("div", __assign({ role: "progressbar" }, omi_1.extractClass(props, 'mdc-linear-progress', {
+            "mdc-linear-progress--reversed": props.reversed
+        })),
+            omi_1.h("div", { class: "mdc-linear-progress__buffering-dots" }),
+            omi_1.h("div", { class: "mdc-linear-progress__buffer", style: "transform: scaleX(" + props.buffer + ");" }),
+            omi_1.h("div", { class: "mdc-linear-progress__bar mdc-linear-progress__primary-bar", style: "transform: scaleX(" + props.value + ");" },
+                omi_1.h("span", { class: "mdc-linear-progress__bar-inner" })),
+            omi_1.h("div", { class: "mdc-linear-progress__bar mdc-linear-progress__secondary-bar" },
+                omi_1.h("span", { class: "mdc-linear-progress__bar-inner" }))));
+    };
+    LinearProgress.css = css;
+    LinearProgress.defaultProps = {
+        buffer: 1,
+        value: 0
+    };
+    LinearProgress.propTypes = {
+        buffer: Number,
+        value: Number,
+        indeterminate: Boolean,
+        reversed: Boolean
+    };
+    LinearProgress = __decorate([
+        omi_1.tag('m-linear-progress')
+    ], LinearProgress);
+    return LinearProgress;
+}(omi_1.WeElement));
+exports.default = LinearProgress;
 
 
 /***/ }),

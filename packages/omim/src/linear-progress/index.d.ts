@@ -1,7 +1,9 @@
 import { WeElement } from 'omi';
 interface Props {
     buffer?: number;
-    progress?: number;
+    value?: number;
+    indeterminate: boolean;
+    reversed: boolean;
 }
 interface Data {
 }
@@ -9,11 +11,13 @@ export default class LinearProgress extends WeElement<Props, Data> {
     static css: any;
     static defaultProps: {
         buffer: number;
-        progress: number;
+        value: number;
     };
     static propTypes: {
         buffer: NumberConstructor;
-        progress: NumberConstructor;
+        value: NumberConstructor;
+        indeterminate: BooleanConstructor;
+        reversed: BooleanConstructor;
     };
     installed(): void;
     render(props: any): JSX.Element;
