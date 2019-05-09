@@ -38,6 +38,10 @@ class Radio extends WeElement<Props, Data>{
     formField.input = radio
     this.radio = radio
     this.group = this.getScopeRoot(this.shadowRoot.host).querySelectorAll(`m-radio[name='${this.props.name}']`)
+    //fix group 不一致
+    this.group.forEach(ele => {
+      ele.group = this.group
+    })
   }
 
   clickHandler = () => {

@@ -2128,19 +2128,30 @@ var Radio = /** @class */ (function (_super) {
     function Radio() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.clickHandler = function () {
+            if (_this.props.disabled)
+                return;
             _this.group.forEach(function (item) {
                 item.radio.checked = false;
             });
-            _this.radio.checked = true;
+            var pre = _this.radio.checked;
+            if (!pre) {
+                _this.radio.checked = true;
+                _this.fire('selected', { value: _this.props.value });
+            }
         };
         return _this;
     }
     Radio.prototype.installed = function () {
+        var _this = this;
         var radio = new radio_1.MDCRadio(this.shadowRoot.querySelector('.mdc-radio'));
         var formField = new form_field_1.MDCFormField(this.shadowRoot.querySelector('.mdc-form-field'));
         formField.input = radio;
         this.radio = radio;
         this.group = this.getScopeRoot(this.shadowRoot.host).querySelectorAll("m-radio[name='" + this.props.name + "']");
+        //fix group 不一致
+        this.group.forEach(function (ele) {
+            ele.group = _this.group;
+        });
     };
     Radio.prototype.render = function (props) {
         return (omi_1.h("div", __assign({ onClick: this.clickHandler }, omi_1.extractClass(props, 'mdc-form-field', {
