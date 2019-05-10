@@ -71,6 +71,33 @@
       height: 200px;
     }
 
+    /* elevation */
+    .elevation-demo-surface {
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -ms-flex-pack: distribute;
+      justify-content: space-around;
+      min-height: 100px;
+      min-width: 200px;
+      margin: 15px;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+    .elevation-demo-container {
+      display: -ms-flexbox;
+      display: flex;
+      margin: auto;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+
+
   </style>
   <script src="./libs/omi.dev.js"></script>
   <script src="../js/icon.js"></script>
@@ -78,6 +105,17 @@
   <script src="../js/button.js"></script>
   <script src="../js/dialog.js"></script>
   <script src="../js/top-app-bar.js"></script>
+  <script src="../js/checkbox.js"></script>
+  <script src="../js/elevation.js"></script>
+  <script src="../js/image-list.js"></script>
+  <script src="../js/layout-grid.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/linear-progress.js"></script>
+  <script src="../js/radio.js"></script>
+  <script src="../js/select.js"></script>
+  <script src="../js/slider.js"></script>
+  <script src="../js/snackbar.js"></script>
+  
   <!-- <script>
     var createElement = Omi.createElement
     var define = Omi.define
@@ -175,6 +213,82 @@
       topAppBarShowMenus.addEventListener('action0', () => {
         window.open('./top-app-bar')
       })
+
+    } else if(parent.location.pathname === '/repl/menu.html') {
+      
+      var menu = document.querySelector('#menu')
+      var btn = document.querySelector('#btn')
+      
+      btn.addEventListener('click', function () {
+        menu.toggle()
+      })
+
+      menu.addEventListener('selected', (evt) => {
+        console.log(evt.detail)
+      })
+
+    } else if(parent.location.pathname === '/repl/select.html') {
+      
+      function changeA(e) {
+        console.log(e.detail)
+      }
+
+      function changeB(e) {
+        console.log(e.detail)
+      }
+
+    } else if(parent.location.pathname === '/repl/slider.html') {
+      function change(evt){
+        console.log(evt.detail.value)
+      }
+    } else if(parent.location.pathname === '/repl/snackbar.html') {
+      const button1 = document.getElementById("button1");
+      const button2 = document.getElementById("button2");
+      const button3 = document.getElementById("button3");
+
+      const snackbar1 = document.getElementById("snackbar1");
+      const snackbar2 = document.getElementById("snackbar2");
+      const snackbar3 = document.getElementById("snackbar3");
+
+      button1.addEventListener('click', () => {
+        snackbar3.removeAttribute("show");
+        snackbar2.removeAttribute("show");
+        snackbar1.setAttribute("show", true);
+      })
+      button2.addEventListener('click', () => {
+        snackbar1.removeAttribute("show");
+        snackbar3.removeAttribute("show");
+        snackbar2.setAttribute("show", true);
+      })
+      button3.addEventListener('click', () => {
+        snackbar1.removeAttribute("show");
+        snackbar2.removeAttribute("show");
+        snackbar3.setAttribute("show", true);
+      })
+
+      // function showA() {
+      //   snackbar3.removeAttribute("show");
+      //   snackbar2.removeAttribute("show");
+      //   snackbar1.setAttribute("show", true);
+      // }
+
+      // function showB() {
+      //   snackbar1.removeAttribute("show");
+      //   snackbar3.removeAttribute("show");
+      //   snackbar2.setAttribute("show", true);
+      // }
+
+      // function showC() {
+      //   snackbar2.removeAttribute("show");
+      //   snackbar1.removeAttribute("show");
+      //   snackbar3.setAttribute("show", true);
+      // }
+
+      // function onClosed() {
+      //   snackbar2.removeAttribute("show");
+      //   snackbar1.removeAttribute("show");
+      //   snackbar3.removeAttribute("show");
+      // }
       
     }
   </script>

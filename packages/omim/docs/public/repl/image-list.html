@@ -79,169 +79,117 @@
     <div class="playground">
       <div class="editor">
 <textarea id="editor">
-<h3>Filled</h3>
-
-<m-text-field label='Label1' helper-text='Helper Text'></m-text-field>
-<br />
-
-<m-text-field
-  helper-text='Helper Text'
-  icon-right
-  path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'
-  label='Label2'
-  css='
-    .mdc-text-field { 
-      width:200px;
+<image-list
+  css="
+    .mdc-image-list__item {
+      width:calc(100% / 4 - 4.3333333px)!important;
+      margin:2px;
     }
-  '
-></m-text-field>
-<br />
-
-<m-text-field
-  helper-text='Helper Text'
-  path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'
-  label='Label3'
-  css='
-    .mdc-text-field { 
-      width:200px;
+    .mdc-image-list__image {
+      border-radius: 8px;
     }
-  '
-></m-text-field>
-<br />
-
-<h3>Shaped Filled</h3>
-
-<m-text-field
-  helper-text='Helper Text'
-  css='
-    .mdc-text-field {
-      border-radius: 16px 16px 0 0;
+    .mdc-image-list__supporting {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      background: rgba(0,0,0,.6);
+      color: #FFF;
+      border-radius: 0 0 8px 8px;
     }
-  '
-></m-text-field>
-<br />
+  "
+  list="[
+    { src: './image-list/3x2-1.jpg', label: 'Text label' },
+    { src: './image-list/3x2-2.jpg', label: 'Text label' },
+    { src: './image-list/3x2-3.jpg', label: 'Text label' },
+    { src: './image-list/3x2-4.jpg', label: 'Text label' },
+    { src: './image-list/3x2-5.jpg', label: 'Text label' },
+    { src: './image-list/3x2-6.jpg', label: 'Text label' },
+    { src: './image-list/3x2-7.jpg', label: 'Text label' },
+    { src: './image-list/3x2-8.jpg', label: 'Text label' },
+    { src: './image-list/3x2-9.jpg', label: 'Text label' },
+    { src: './image-list/3x2-10.jpg', label: 'Text label' },
+    { src: './image-list/3x2-11.jpg', label: 'Text label' },
+    { src: './image-list/3x2-12.jpg', label: 'Text label' },
+    { src: './image-list/3x2-13.jpg', label: 'Text label' },
+    { src: './image-list/3x2-14.jpg', label: 'Text label' },
+    { src: './image-list/3x2-15.jpg', label: 'Text label' }
+  ]"
+></image-list>
 
-<h3>Outlined</h3>
+<br></br>
 
-<m-text-field outlined label='Label'></m-text-field>
-<br />
-
-<h3>Shaped Outlined</h3>
-
-<m-text-field
-  outlined
-  label='Label'
-  helper-text='Helper Text'
-  css='
-    .mdc-notched-outline__leading {
-      border-radius: 28px 0 0 28px!important;
-      width: 28px!important;
+<image-list
+  css="
+    .mdc-image-list {
+      column-count: 5;
     }
-    .mdc-notched-outline__trailing {
-      border-radius: 0 28px 28px 0!important;
+  "
+  masonry list="[
+    {
+      src: './image-list/3x2-16.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/2x3-2.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/2x3-4.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/3x2-4.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/2x3-7.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/2x3-1.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/2x3-3.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/3x2-3.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/2x3-6.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/3x2-6.jpg',
+      label: 'Text label'
+    },
+
+    {
+      src: './image-list/3x2-1.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/3x2-2.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/2x3-5.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/3x2-5.jpg',
+      label: 'Text label'
+    },
+    {
+      src: './image-list/3x2-7.jpg',
+      label: 'Text label'
     }
-  '
-></m-text-field>
-<br />
-
-<h3>Text Field without label</h3>
-
-<m-text-field helper-text='Helper Text'></m-text-field>
-<br />
-
-<m-text-field
-  outlined
-  helper-text='Helper Text'
-  css='
-    .mdc-notched-outline__leading {
-      border-radius: 28px 0 0 28px!important;
-      width: 28px!important;
-    }
-    .mdc-notched-outline__trailing {
-      border-radius: 0 28px 28px 0!important;
-    }
-  '
-></m-text-field>
-<br />
-
-<h3>Text Field with Character Counter</h3>
-
-<m-text-field
-  style="width:200px;display:block;"
-  css='
-    .mdc-text-field { 
-      width:200px; 
-    }
-  '
-  counter
-  max-length='50'
-  helper-text="Helper Text"
-  label='Label2'
-></m-text-field>
-<br />
-
-<m-text-field
-  css='
-    .mdc-text-field { 
-      width:200px; 
-    }
-  '
-  textarea
-  outlined
-  helper-text="Helper Text"
-  max-length='200'
-  counter
-  label='Label2'
-></m-text-field>
-<br />
-
-<h3>Full Width</h3>
-
-<m-text-field full-width helper-text="Helper Text" label='Label'></m-text-field>
-
-<h3>Full Width Textarea</h3>
-
-<m-text-field full-width textarea outlined helper-text="Helper Text" label='Label'></m-text-field>
-
-<h3>Disabled</h3>
-
-<m-text-field disabled></m-text-field>
-<br />
-
-<h3>Other</h3>
-
-<m-text-field textarea rows='5' cols='30'></m-text-field>
-<br />
-
-<m-text-field value='TEST TEXT'></m-text-field>
-<br />
-
-<m-text-field label='Label' value='TEST TEXT'></m-text-field>
-<br />
-
-<m-text-field full-width label='Label'></m-text-field>
-<br />
-
-<m-text-field noLabel label='Label'></m-text-field>
-<br />
-
-<m-text-field helper-text="Helper Text" label='Label2'></m-text-field>
-<br />
-
-<m-text-field show-helper helper-text="Helper Text" label='Label2'></m-text-field>
-<br />
-
-<m-text-field required label='Label2'></m-text-field>
-<br />
-
-<m-text-field
-  label='Label'
-  css='
-    .mdc-floating-label{ 
-      color:red!important; 
-    }
-  '
-></m-text-field></textarea>
+  ]"
+></image-list></textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>

@@ -15,21 +15,41 @@ const config = {
         ]
       },
       {
+        title: '布局',
+        list: [
+          { name: 'Layout Grid', md: 'layout-grid', demo: './repl/layout-grid.html' },
+          { name: 'Elevation', md: 'elevation', demo: './repl/elevation.html' },
+          { name: 'Image List', md: 'image-list', demo: './repl/image-list.html' }
+        ]
+      },
+      {
         title: '导航',
         list: [
-          { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' }
+          { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
+          { name: 'Menu', md: 'menu', demo: './repl/menu.html' }
         ]
       },
       {
         title: '操作反馈',
         list: [
-          {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'}
+          {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
+          {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'}
         ]
       },
       {
         title: '表单',
         list: [
-          { name: 'TextField', md: 'text-field', demo: './repl/text-field.html' }
+          { name: 'Text Field', md: 'text-field', demo: './repl/text-field.html' },
+          { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
+          { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
+          { name: 'Select', md: 'select', demo: './repl/select.html' }
+        ]
+      },
+      {
+        title: '数据展示',
+        list: [
+          { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
+          { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
         ]
       }
     ],
@@ -48,21 +68,41 @@ const config = {
         ]
       },
       {
+        title: 'Layout',
+        list: [
+          { name: 'Layout Grid', md: 'layout-grid', demo: './repl/layout-grid.html' },
+          { name: 'Elevation', md: 'elevation', demo: './repl/elevation.html' },
+          { name: 'Image List', md: 'image-list', demo: './repl/image-list.html' }
+        ]
+      },
+      {
         title: 'Navigation',
         list: [
-          { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' }
+          { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
+          { name: 'Menu', md: 'menu', demo: './repl/menu.html' }
         ]
       },
       {
         title: 'Operational Feedback',
         list: [
-          {name: 'dialog', md: 'dialog', demo: './repl/dialog.html'}
+          {name: 'dialog', md: 'dialog', demo: './repl/dialog.html'},
+          {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'}
         ]
       },
       {
         title: 'Form',
         list: [
-          { name: 'TextField', md: 'text-field', demo: './repl/text-field.html' }
+          { name: 'Text Field', md: 'text-field', demo: './repl/text-field.html' },
+          { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
+          { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
+          { name: 'Select', md: 'select', demo: './repl/select.html' }
+        ]
+      },
+      {
+        title: 'Data',
+        list: [
+          { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
+          { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
         ]
       }
     ]
