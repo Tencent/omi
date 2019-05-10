@@ -3,8 +3,8 @@
 <p align="right">Omi <strong>v6.3.8</strong></p>
 <p align="right">Omio <strong>v2.2.1</strong></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="300"/></p>
-<h2 align="center">Omi - 下一代前端框架，去万物糟粕，合精华为一点点 JS</h2>
-<p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omip) 和 任意前端框架</b></p>
+<h2 align="center">Omi - 前端跨框架跨平台框架</h2>
+<p align="center"><b>基于 Web Components 并支持 IE8+(omio)，小程序(omip) 和 任意前端框架集成</b></p>
 
 ## Omi 生态
 
