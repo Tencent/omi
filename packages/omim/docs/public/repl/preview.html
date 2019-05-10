@@ -20,9 +20,59 @@
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
       background-color: #555;
     }
-  </style>
 
-  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.dev.js"></script>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* button */
+    h3 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    m-button {
+      margin-left: 10px;
+    }
+
+    /* icon */
+    m-icon {
+      margin: 20px;
+    }
+
+    /* top-app-bar */
+    .mdc-typography--subtitle1 {
+      font-size: 1rem;
+      line-height: 1.75rem;
+      font-weight: 400;
+      letter-spacing: .009375em;
+    }
+    .demos-content-one {
+      height: 130px;
+    }
+    .demos-content-two {
+      height: 80px;
+    }
+    .demos-display {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 200px;
+    }
+    .demo {
+      display: inline-block;
+      flex: 1 1 45%;
+      justify-content: space-around;
+      min-height: 200px;
+      min-width: 50px;
+      padding: 15px;
+    }
+    .iframe {
+      width: 100%;
+      height: 200px;
+    }
+
+  </style>
+  <script src="./libs/omi.dev.js"></script>
   <script src="../js/icon.js"></script>
   <script src="../js/text-field.js"></script>
   <script src="../js/button.js"></script>
@@ -43,74 +93,89 @@
     // var script = document.createElement("script");
     // script.innerHTML = parent._sourceCode;
     // document.body.appendChild(script)
+    // console.log(parent.location.pathname)
+    
+    if(parent.location.pathname === '/repl/dialog.html') {
 
-  </script>
-  <script id="dialog">
-    const dialogAlert = document.getElementById("m-dialog-alert");
-    const dialogSimple = document.getElementById("m-dialog-simple");
-    const dialogConfirmation = document.getElementById("m-dialog-confirmation");
-    const dialogScrollable = document.getElementById("m-dialog-scrollable");
-    const thowText = document.getElementById("show-text");
+      const dialogAlert = document.getElementById("m-dialog-alert");
+      const dialogSimple = document.getElementById("m-dialog-simple");
+      const dialogConfirmation = document.getElementById("m-dialog-confirmation");
+      const dialogScrollable = document.getElementById("m-dialog-scrollable");
+      const thowText = document.getElementById("show-text");
+  
+      dialogAlert.addEventListener('scrim', () => {
+        dialogAlert.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogAlert.addEventListener('cancel', () => {
+        dialogAlert.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogAlert.addEventListener('confirm', () => {
+        dialogAlert.removeAttribute("show");
+        thowText.innerHTML = "Accepted, thanks!";
+      })
+  
+      dialogSimple.addEventListener('scrim', () => {
+        dialogSimple.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+  
+      dialogConfirmation.addEventListener('scrim', () => {
+        dialogConfirmation.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogConfirmation.addEventListener('cancel', () => {
+        dialogConfirmation.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogConfirmation.addEventListener('confirm', () => {
+        dialogConfirmation.removeAttribute("show");
+        thowText.innerHTML = "Accepted, thanks!";
+      })
+  
+      dialogScrollable.addEventListener('scrim', () => {
+        dialogScrollable.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogScrollable.addEventListener('cancel', () => {
+        dialogScrollable.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogScrollable.addEventListener('confirm', () => {
+        dialogScrollable.removeAttribute("show");
+        thowText.innerHTML = "Accepted, thanks!";
+      })
+  
+      function onShowAlert() {
+        dialogAlert.setAttribute("show", true);
+        thowText.innerHTML = "open alert!";
+      }
+      function onShowSimple() {
+        dialogSimple.setAttribute("show", true);
+        thowText.innerHTML = "open simple!";
+      }
+      function onShowConfirmation() {
+        dialogConfirmation.setAttribute("show", true);
+        thowText.innerHTML = "open confirmation!";
+      }
+      function onShowScrollable() {
+        dialogScrollable.setAttribute("show", true);
+        thowText.innerHTML = "open scrollable!";
+      }
 
-    dialogAlert.addEventListener('scrim', () => {
-      dialogAlert.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-    dialogAlert.addEventListener('cancel', () => {
-      dialogAlert.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-    dialogAlert.addEventListener('confirm', () => {
-      dialogAlert.removeAttribute("show");
-      thowText.innerHTML = "Accepted, thanks!";
-    })
+    } else if(parent.location.pathname === '/repl/top-app-bar.html') {
 
-    dialogSimple.addEventListener('scrim', () => {
-      dialogSimple.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
+      const demoShowButton = document.getElementById("demo-show-button");
+      const topAppBarShowMenus = document.getElementById("m-top-app-bar-show-menus");
 
-    dialogConfirmation.addEventListener('scrim', () => {
-      dialogConfirmation.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-    dialogConfirmation.addEventListener('cancel', () => {
-      dialogConfirmation.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-    dialogConfirmation.addEventListener('confirm', () => {
-      dialogConfirmation.removeAttribute("show");
-      thowText.innerHTML = "Accepted, thanks!";
-    })
-
-    dialogScrollable.addEventListener('scrim', () => {
-      dialogScrollable.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-    dialogScrollable.addEventListener('cancel', () => {
-      dialogScrollable.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-    })
-    dialogScrollable.addEventListener('confirm', () => {
-      dialogScrollable.removeAttribute("show");
-      thowText.innerHTML = "Accepted, thanks!";
-    })
-
-    function onShowAlert() {
-      dialogAlert.setAttribute("show", true);
-      thowText.innerHTML = "open alert!";
-    }
-    function onShowSimple() {
-      dialogSimple.setAttribute("show", true);
-      thowText.innerHTML = "open simple!";
-    }
-    function onShowConfirmation() {
-      dialogConfirmation.setAttribute("show", true);
-      thowText.innerHTML = "open confirmation!";
-    }
-    function onShowScrollable() {
-      dialogScrollable.setAttribute("show", true);
-      thowText.innerHTML = "open scrollable!";
+      topAppBarShowMenus.addEventListener('navigation', () => {
+        window.open('./top-app-bar')
+      })
+      topAppBarShowMenus.addEventListener('action0', () => {
+        window.open('./top-app-bar')
+      })
+      
     }
   </script>
 </body>

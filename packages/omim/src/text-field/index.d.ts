@@ -10,6 +10,8 @@ interface Props {
     helperText: string;
     iconRight: boolean;
     counter: boolean;
+    path: string;
+    paths: string;
     label: string;
     required: boolean;
     pattern: string;
@@ -45,6 +47,8 @@ export default class TextField extends WeElement<Props, Data> {
         helperText: StringConstructor;
         iconRight: BooleanConstructor;
         counter: BooleanConstructor;
+        path: StringConstructor;
+        paths: StringConstructor;
         label: StringConstructor;
         required: BooleanConstructor;
         pattern: StringConstructor;
