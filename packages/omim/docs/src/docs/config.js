@@ -38,7 +38,7 @@ const config = {
       {
         title: 'Form',
         list: [
-          { name: 'TextField', md: 'text-field', demo: './repl/input.html', demo: './repl/text-field.html' }
+          { name: 'TextField', md: 'text-field', demo: './repl/text-field.html' }
         ]
       }
     ]
