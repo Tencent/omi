@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta charset="UTF-8" />
   <title>Add Omi in One Minute</title>
+  <link rel='stylesheet' type='text/css' href='./mdc.list.min.css' />
+  <link rel='stylesheet' type='text/css' href='./mdc.radio.min.css' />
+  <style>
+    :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
+      cursor: default;
+    }
+    .test-list-item__label {
+      width: 100%;
+      height: 100%;
+      line-height: 48px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -17,9 +30,9 @@
     <m-button onClick="onShowScrollable()" ripple>Scrollable</m-button>
     <m-dialog
       id="m-dialog-alert"
-      onScrim="onClose()"
-      onCancel="onClose()"
-      onConfirm="onConfirm()"
+      onScrim
+      onCancel
+      onConfirm
       message="<p>Discard draft?</p>"
       cancel-button="{
         text: 'Cancel'
@@ -30,11 +43,24 @@
     ></m-dialog>
     <m-dialog
       id="m-dialog-simple"
-      onScrim="onClose()"
+      onScrim
       title='Select an account'
       message="
+        <link rel='stylesheet' type='text/css' href='./mdc.list.min.css' />
+        <link rel='stylesheet' type='text/css' href='./mdc.radio.min.css' />
+        <style>
+          :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
+            cursor: default;
+          }
+          .test-list-item__label {
+            width: 100%;
+            height: 100%;
+            line-height: 48px;
+            cursor: pointer;
+          }
+        </style>
         <ul class='mdc-list mdc-list--avatar-list' style='list-style-type: none;'>
-          <li onClick='onConfirm()' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+          <li id='li-one' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com' onClick='onClick()'>
             <table>
               <tr>
                 <td>
@@ -50,7 +76,7 @@
               </tr>
             </table>
           </li>
-          <li onClick='onConfirm()' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+          <li class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
             <table>
               <tr>
                 <td>
@@ -66,7 +92,7 @@
               </tr>
             </table>
           </li>
-          <li onClick='onConfirm()' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+          <li class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
             <table>
               <tr>
                 <td>
@@ -87,11 +113,24 @@
     ></m-dialog>
     <m-dialog
       id="m-dialog-confirmation"
-      onScrim="onClose()"
-      onCancel="onClose()"
-      onConfirm="onConfirm()"
+      onScrim
+      onCancel
+      onConfirm
       title='Phone ringtone'
       message="
+        <link rel='stylesheet' type='text/css' href='./mdc.list.min.css' />
+        <link rel='stylesheet' type='text/css' href='./mdc.radio.min.css' />
+        <style>
+          :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
+            cursor: default;
+          }
+          .test-list-item__label {
+            width: 100%;
+            height: 100%;
+            line-height: 48px;
+            cursor: pointer;
+          }
+        </style>
         <ul class='mdc-list' style='list-style-type: none;'>
           <li class='mdc-list-item' tabindex='0'>
             <span class='mdc-list-item__graphic'>
@@ -160,9 +199,9 @@
     <m-dialog
       id="m-dialog-scrollable"
       scrollable
-      onScrim="onClose()"
-      onCancel="onClose()"
-      onConfirm="onConfirm()"
+      onScrim
+      onCancel
+      onConfirm
       title='The Wonderful Wizard of Oz'
       message="
         <p>
@@ -195,6 +234,50 @@
     const dialogScrollable = document.getElementById("m-dialog-scrollable");
     const thowText = document.getElementById("show-text");
 
+    dialogAlert.addEventListener('scrim', () => {
+      dialogAlert.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogAlert.addEventListener('cancel', () => {
+      dialogAlert.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogAlert.addEventListener('confirm', () => {
+      dialogAlert.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+    })
+
+    dialogSimple.addEventListener('scrim', () => {
+      dialogSimple.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+
+    dialogConfirmation.addEventListener('scrim', () => {
+      dialogConfirmation.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogConfirmation.addEventListener('cancel', () => {
+      dialogConfirmation.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogConfirmation.addEventListener('confirm', () => {
+      dialogConfirmation.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+    })
+
+    dialogScrollable.addEventListener('scrim', () => {
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogScrollable.addEventListener('cancel', () => {
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogScrollable.addEventListener('confirm', () => {
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+    })
+
     function onShowAlert() {
       dialogAlert.setAttribute("show", true);
       thowText.innerHTML = "open alert!";
@@ -210,23 +293,6 @@
     function onShowScrollable() {
       dialogScrollable.setAttribute("show", true);
       thowText.innerHTML = "open scrollable!";
-    }
-
-    function onClose() {
-      dialogAlert.removeAttribute("show");
-      dialogSimple.removeAttribute("show");
-      dialogConfirmation.removeAttribute("show");
-      dialogScrollable.removeAttribute("show");
-      thowText.innerHTML = "Declined... Maybe next time?";
-      console.log('onClose');
-    }
-    function onConfirm() {
-      dialogAlert.removeAttribute("show");
-      dialogSimple.removeAttribute("show");
-      dialogConfirmation.removeAttribute("show");
-      dialogScrollable.removeAttribute("show");
-      thowText.innerHTML = "Accepted, thanks!";
-      console.log('onConfirm');
     }
   </script>
 </body>
