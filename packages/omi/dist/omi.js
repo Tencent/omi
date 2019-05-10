@@ -1063,7 +1063,7 @@
     var html = htm.bind(h);
     var Component = WeElement;
     var defineElement = define;
-    var elements = options.mappings;
+    var elements = options.mapping;
     var omi = {
         tag: tag,
         WeElement: WeElement,
@@ -1091,7 +1091,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.11';
+    options.root.Omi.version = '6.3.12';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

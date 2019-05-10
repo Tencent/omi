@@ -22,7 +22,7 @@ function createRef() {
 
 const Component = WeElement
 const defineElement = define
-const elements = options.mappings
+const elements = options.mapping
 
 const omi = {
   tag,
@@ -52,7 +52,7 @@ const omi = {
 
 options.root.Omi = omi
 options.root.omi = omi
-options.root.Omi.version = '6.3.11'
+options.root.Omi.version = '6.3.12'
 
 export default omi
 
