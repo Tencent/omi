@@ -381,7 +381,7 @@ define('my-app', class extends WeElement {
           </div>
           <div style='width:100%;height:500px;background:#EEE;'></div>
         </div>
-       </div>
+      </div>
     )
   }
 })

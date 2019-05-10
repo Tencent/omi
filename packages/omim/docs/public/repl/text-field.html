@@ -78,7 +78,27 @@
     </div>
     <div class="playground">
       <div class="editor">
-<textarea id="editor"><m-text-field label='Label' helper-text='helper text' ></m-text-field></textarea>
+<textarea id="editor">
+<h3>Filled</h3>
+<m-text-field label='Label' helper-text='Helper Text'></m-text-field>
+<br />
+
+<m-text-field label='Label' paths="[{ color: '#F98080' , path:
+'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
+}, { color: '#F95050' , path:
+'M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z'
+}]"></m-text-field>
+
+<h3>Shaped Filled</h3>
+
+<m-text-field helper-text='Helper Text' class='shaped'></m-text-field>
+<br />
+
+
+
+<h3>Outlined</h3>
+
+<m-text-field outlined label='Label' /></textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>

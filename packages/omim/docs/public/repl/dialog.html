@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Omiu REPL</title>
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="stylesheet" type="text/css" href="./libs/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="./libs/codemirror.css" />
+  <style>
+    .cm-s-default{background-color:#f9f9f9}.cm-s-dark{background-color:#1e1d23;color:#e9eded}.cm-s-dark .CodeMirror-gutters{background-color:#1e1d23;color:#537f7e;border:none}.cm-s-dark .CodeMirror-guttermarker,.cm-s-dark .CodeMirror-guttermarker-subtle,.cm-s-dark .CodeMirror-linenumber{color:#999}.cm-s-dark .CodeMirror-cursor{border-left:1px solid #f8f8f0}.cm-s-dark div.CodeMirror-selected{background:hsla(0,0%,100%,.15)}.cm-s-dark .CodeMirror-line::selection,.cm-s-dark .CodeMirror-line>span::selection,.cm-s-dark .CodeMirror-line>span>span::selection,.cm-s-dark.CodeMirror-focused div.CodeMirror-selected{background:hsla(0,0%,100%,.1)}.cm-s-dark .CodeMirror-line::-moz-selection,.cm-s-dark .CodeMirror-line>span::-moz-selection,.cm-s-dark .CodeMirror-line>span>span::-moz-selection{background:hsla(0,0%,100%,.1)}.cm-s-dark .CodeMirror-activeline-background{background:transparent}.cm-s-dark .cm-keyword{color:#c792ea}.cm-s-dark .cm-operator{color:#e9eded}.cm-s-dark .cm-variable-2{color:#80cbc4}.cm-s-dark .cm-variable-3{color:#82b1ff}.cm-s-dark .cm-builtin{color:#decb6b}.cm-s-dark .cm-atom,.cm-s-dark .cm-number{color:#f77669}.cm-s-dark .cm-def{color:#e9eded}.cm-s-dark .cm-string{color:#c3e88d}.cm-s-dark .cm-string-2{color:#80cbc4}.cm-s-dark .cm-comment{color:#546e7a}.cm-s-dark .cm-variable{color:#82b1ff}.cm-s-dark .cm-meta,.cm-s-dark .cm-tag{color:#80cbc4}.cm-s-dark .cm-attribute{color:#ffcb6b}.cm-s-dark .cm-property{color:#80cbae}.cm-s-dark .cm-qualifier,.cm-s-dark .cm-variable-3{color:#decb6b}.cm-s-dark .cm-tag{color:#ff5370}.cm-s-dark .cm-error{color:#fff;background-color:#ec5f67}.cm-s-dark .CodeMirror-matchingbracket{text-decoration:underline;color:#fff!important}body{margin:0}#editor{display:none}.container{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column}.action-bar{background-color:#3d3d3e;height:40px;display:flex}.playground{display:flex;flex-direction:row;flex:1}.editor{overflow:scroll;flex:1}.CodeMirror{height:100%}.preview{position:relative;width:50%;overflow:hidden;background-color:#eee}.frame{position:absolute;width:100%;height:100%;border:0;background-color:#fff}.notification{position:absolute;z-index:1000;bottom:10px;right:40px;background:#1e1d23;min-width:280px;max-width:700px;border-radius:5px}.notification.hide{display:none}.notification-content{margin:9pt;font-size:10px;line-height:1.4;color:rgb(233, 64, 55)}
+    </style>
+
+  <style>
+    .editor{
+            overflow: hidden;
+        }
+        
+    .tool-bar{
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    ::-webkit-scrollbar-track
+    {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar
+    {
+      width: 12px;
+      height: 12px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb
+    {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background-color: #555;
+    }
+
+    @media screen and (max-width: 768px) {  
+          .playground {
+            display: block;
+          }
+
+        .playground .editor{
+          position: absolute;
+          top: 40%;
+          width: 100%;
+          height: 60%;
+          
+        }
+
+        .playground .preview{
+          display: inline-block;
+          width: 100%;
+          height: 40%;
+          position: absolute;
+          top:0px;
+        }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <a href="https://github.com/Tencent/omi/tree/master/packages/omiu" target="_blank" style="position: absolute;z-index: 1000; right: 0; top: 0;">
+    <img src="https://alloyteam.github.io/github.png" alt="" />
+  </a> -->
+  <div class="container">
+    <div class="tool-bar" style="display:none;">
+      <button style="margin-left:20px;" onclick="run()">Run</button>
+      <div style="margin-left: 10px;display: inline-block;"><input id="autoCheckbox" type="checkbox" checked id="autoRun"><label
+          for="autoRun" style="cursor: pointer;color: white;">Auto Run</label></div>
+    </div>
+    <div class="playground">
+      <div class="editor">
+<textarea id="editor">
+<m-button onClick="onShowAlert()" ripple>Alert</m-button>
+<m-button onClick="onShowSimple()" ripple>Simple</m-button>
+<m-button onClick="onShowConfirmation()" ripple>Confirmation</m-button>
+<m-button onClick="onShowScrollable()" ripple>Scrollable</m-button>
+<m-dialog
+  id="m-dialog-alert"
+  onScrim
+  onCancel
+  onConfirm
+  message="<p>Discard draft?</p>"
+  cancel-button="{
+    text: 'Cancel'
+  }"
+  confirm-button="{
+    text: 'Discard'
+  }"
+></m-dialog>
+<m-dialog
+  id="m-dialog-simple"
+  onScrim
+  title='Select an account'
+  message="
+    <link rel='stylesheet' type='text/css' href='../css/mdc.list.min.css' />
+    <link rel='stylesheet' type='text/css' href='../css/mdc.radio.min.css' />
+    <style>
+      :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
+        cursor: default;
+      }
+      .test-list-item__label {
+        width: 100%;
+        height: 100%;
+        line-height: 48px;
+        cursor: pointer;
+      }
+    </style>
+    <ul class='mdc-list mdc-list--avatar-list' style='list-style-type: none;'>
+      <li id='li-one' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com' onClick='onClick()'>
+        <table>
+          <tr>
+            <td>
+              <m-icon
+                view='48'
+                color='rgba(0,0,0,.3)'
+                path='M24 4c-7.73 0-14 6.27-14 14 0 10.5 14 26 14 26s14-15.5 14-26c0-7.73-6.27-14-14-14zm0 4c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm0 20c-3.34 0-6.27-1.71-8-4.29.03-2.65 5.34-4.11 8-4.11s7.96 1.46 8 4.11C30.27 26.29 27.34 28 24 28z'>
+              </m-icon>
+            </td>
+            <td>
+              &nbsp;&nbsp;<span class='test-list-item__label'>user1@example.com</span>
+            </td>
+          </tr>
+        </table>
+      </li>
+      <li class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+        <table>
+          <tr>
+            <td>
+            <m-icon
+              view='48'
+              color='rgba(0,0,0,.3)'
+              path='M42 12H26.83l6.59-6.59L32 4l-8 8-8-8-1.41 1.41L21.17 12H6c-2.21 0-4 1.79-4 4v24c0 2.21 1.79 4 4 4h36c2.21 0 4-1.79 4-4V16c0-2.21-1.79-4-4-4zm0 28H6V16h36v24zM18 20v16l14-8z'>
+            </m-icon>
+            </td>
+            <td>
+              &nbsp;&nbsp;<span class='test-list-item__label'>user2@example.com</span>
+            </td>
+          </tr>
+        </table>
+      </li>
+      <li class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+        <table>
+          <tr>
+            <td>
+            <m-icon
+              view='48'
+              color='rgba(0,0,0,.3)'
+              path='M26 14h-4v8h-8v4h8v8h4v-8h8v-4h-8v-8zM24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16z'>
+            </m-icon>
+            </td>
+            <td>
+              &nbsp;&nbsp;<span class='test-list-item__label'>Add account</span>
+            </td>
+          </tr>
+        </table>
+      </li>
+    </ul>
+  "
+></m-dialog>
+<m-dialog
+  id="m-dialog-confirmation"
+  onScrim
+  onCancel
+  onConfirm
+  title='Phone ringtone'
+  message="
+    <link rel='stylesheet' type='text/css' href='../css/mdc.list.min.css' />
+    <link rel='stylesheet' type='text/css' href='../css/mdc.radio.min.css' />
+    <style>
+      :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
+        cursor: default;
+      }
+      .test-list-item__label {
+        width: 100%;
+        height: 100%;
+        line-height: 48px;
+        cursor: pointer;
+      }
+    </style>
+    <ul class='mdc-list' style='list-style-type: none;'>
+      <li class='mdc-list-item' tabindex='0'>
+        <span class='mdc-list-item__graphic'>
+          <div class='mdc-radio'>
+            <input class='mdc-radio__native-control' type='radio' id='test-dialog-baseline-confirmation-radio-1' name='test-dialog-baseline-confirmation-radio-group' value='1' checked='' tabindex='-1' />
+            <div class='mdc-radio__background'>
+              <div class='mdc-radio__outer-circle'>
+              </div>
+              <div class='mdc-radio__inner-circle'>
+              </div>
+            </div>
+          </div>
+        </span>
+        <label class='test-list-item__label' for='test-dialog-baseline-confirmation-radio-1'>Never Gonna Give You Up</label>
+      </li>
+      <li class='mdc-list-item' tabindex='-1'>
+        <span class='mdc-list-item__graphic'>
+          <div class='mdc-radio'>
+            <input class='mdc-radio__native-control' type='radio' id='test-dialog-baseline-confirmation-radio-2' name='test-dialog-baseline-confirmation-radio-group' value='2' tabindex='-1' />
+            <div class='mdc-radio__background'>
+              <div class='mdc-radio__outer-circle'>
+              </div>
+              <div class='mdc-radio__inner-circle'>
+              </div>
+            </div>
+          </div>
+        </span>
+        <label class='test-list-item__label' for='test-dialog-baseline-confirmation-radio-2'>Hot Cross Buns</label>
+      </li><li class='mdc-list-item' tabindex='-1'>
+        <span class='mdc-list-item__graphic'>
+          <div class='mdc-radio'>
+            <input class='mdc-radio__native-control' type='radio' id='test-dialog-baseline-confirmation-radio-3' name='test-dialog-baseline-confirmation-radio-group' value='3' tabindex='-1' />
+            <div class='mdc-radio__background'>
+              <div class='mdc-radio__outer-circle'>
+              </div>
+              <div class='mdc-radio__inner-circle'>
+              </div>
+            </div>
+          </div>
+        </span>
+        <label class='test-list-item__label' for='test-dialog-baseline-confirmation-radio-3'>None</label>
+      </li>
+    </ul>
+  "
+  cancel-button="{
+    text: 'Cancel',
+    unelevated: true,
+    dense: true,
+    icon: {
+      path: 'M923 283.6a260.04 260.04 0 0 0-56.9-82.8 264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3.1-35.3-7-69.6-20.9-101.9zM512 814.8S156 586.7 156 385.5C156 283.6 240.3 201 344.3 201c73.1 0 136.5 40.8 167.7 100.4C543.2 241.8 606.6 201 679.7 201c104 0 188.3 82.6 188.3 184.5 0 201.2-356 429.3-356 429.3z',
+      color: '#F95050',
+      scale: 1.3
+    }
+  }"
+  confirm-button="{
+    text: 'OK',
+    unelevated: true,
+    dense: true,
+    icon: {
+      path: 'M923 283.6a260.04 260.04 0 0 0-56.9-82.8 264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3.1-35.3-7-69.6-20.9-101.9zM512 814.8S156 586.7 156 385.5C156 283.6 240.3 201 344.3 201c73.1 0 136.5 40.8 167.7 100.4C543.2 241.8 606.6 201 679.7 201c104 0 188.3 82.6 188.3 184.5 0 201.2-356 429.3-356 429.3z',
+      color: '#F95050',
+      scale: 1.3
+    }
+  }"
+></m-dialog>
+<m-dialog
+  id="m-dialog-scrollable"
+  scrollable
+  onScrim
+  onCancel
+  onConfirm
+  title='The Wonderful Wizard of Oz'
+  message="
+    <p>
+      <a href='https://github.com/Tencent/omi/blob/master/packages/omim' target='_blank' rel='noopener noreferrer'>Read the full book</a>
+    </p>
+    <p>Dorothy lived in the midst of the great Kansas prairies, with Uncle Henry, who was a farmer, and Aunt Em, who was the farmer's wife. Their house was small, for the lumber to build it had to be carried by wagon many miles. There were four walls, a floor and a roof, which made one room; and this room contained a rusty looking cookstove, a cupboard for the dishes, a table, three or four chairs, and the beds. Uncle Henry and Aunt Em had a big bed in one corner, and Dorothy a little bed in another corner. There was no garret at all, and no cellar--except a small hole dug in the ground, called a cyclone cellar, where the family could go in case one of those great whirlwinds arose, mighty enough to crush any building in its path. It was reached by a trap door in the middle of the floor, from which a ladder led down into the small, dark hole.</p>
+    <p>When Dorothy stood in the doorway and looked around, she could see nothing but the great gray prairie on every side. Not a tree nor a house broke the broad sweep of flat country that reached to the edge of the sky in all directions. The sun had baked the plowed land into a gray mass, with little cracks running through it. Even the grass was not green, for the sun had burned the tops of the long blades until they were the same gray color to be seen everywhere. Once the house had been painted, but the sun blistered the paint and the rains washed it away, and now the house was as dull and gray as everything else.</p>
+    <p>When Aunt Em came there to live she was a young, pretty wife. The sun and wind had changed her, too. They had taken the sparkle from her eyes and left them a sober gray; they had taken the red from her cheeks and lips, and they were gray also. She was thin and gaunt, and never smiled now. When Dorothy, who was an orphan, first came to her, Aunt Em had been so startled by the child's laughter that she would scream and press her hand upon her heart whenever Dorothy's merry voice reached her ears; and she still looked at the little girl with wonder that she could find anything to laugh at.</p>
+    <p>Uncle Henry never laughed. He worked hard from morning till night and did not know what joy was. He was gray also, from his long beard to his rough boots, and he looked stern and solemn, and rarely spoke.</p>
+    <p>It was Toto that made Dorothy laugh, and saved her from growing as gray as her other surroundings. Toto was not gray; he was a little black dog, with long silky hair and small black eyes that twinkled merrily on either side of his funny, wee nose. Toto played all day long, and Dorothy played with him, and loved him dearly.</p>
+    <p>Today, however, they were not playing. Uncle Henry sat upon the doorstep and looked anxiously at the sky, which was even grayer than usual. Dorothy stood in the door with Toto in her arms, and looked at the sky too. Aunt Em was washing the dishes.</p>
+    <p>From the far north they heard a low wail of the wind, and Uncle Henry and Dorothy could see where the long grass bowed in waves before the coming storm. There now came a sharp whistling in the air from the south, and as they turned their eyes that way they saw ripples in the grass coming from that direction also.</p>
+  "
+  cancel-button="{
+    text: 'Decline'
+  }"
+  confirm-button="{
+    text: 'Accept'
+  }"
+></m-dialog>
+<p id="show-text"></p></textarea>
+      </div>
+      <div class="preview">
+        <iframe class="frame" id="frame"></iframe>
+      </div>
+
+    </div>
+
+    <div class="notification hide" id="notification">
+      <pre class="notification-content" id="notification-content"></pre>
+    </div>
+  </div>
+
+  <script src="./libs/babel.min.js"></script>
+  <script src="./libs/codemirror.js"></script>
+  <script src="./libs/xml.js"></script>
+  <script src="./libs/javascript.js"></script>
+
+  <script>
+    var style, lastTimer, lastCode, lastScript, queryString = getQueryString(),
+      sourceFromQueryString = queryString.code, backgroundColor = queryString.bgColor, editorTheme = queryString.theme || "dark", notification = document.getElementById("notification"), notificationContent = document.getElementById("notification-content"), frame = document.getElementById("frame"),
+      storageKey = "alloyrender_playground_source",
+      myTextarea = document.getElementById("editor"),
+      editor = CodeMirror.fromTextArea(myTextarea, { lineNumbers: !0, theme: editorTheme, tabSize: 2, mode: "javascript" }), lastStorageSource = localStorage.getItem(storageKey),
+      source = sourceFromQueryString || lastStorageSource || editor.getValue();
+    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./preview.html";
+
+    function getQueryString() { for (var d, a = {}, b = location.search.slice(1), c = /([^&=]+)=([^&]*)/g; d = c.exec(b);)a[decodeURIComponent(d[1])] = decodeURIComponent(d[2]); return a }
+    function hideNotify() { notification.classList.add("hide") }
+    function showNotify(a, b) { notificationContent.innerHTML = a, notification.classList.remove("hide"), lastTimer && clearTimeout(lastTimer), b && (lastTimer = setTimeout(hideNotify, b)) };
+    function runCompiled(a) {
+      var c, b = frame.contentDocument.body;
+      lastScript && b.removeChild(lastScript);
+      c = document.createElement("script");
+      c.innerHTML = a;
+      window._sourceCode = a
+      lastScript = c;
+      b.appendChild(c)
+    }
+
+    function compile(a, b) {
+      window._sourceCode = a
+      return a
+      var c, d; a = a || "", lastCode = a, hideNotify(), c = "/* @jsx createElement */\n"; try { d = Babel.transform(c + a, { presets: ["react", "es2015", "stage-1"] }).code } catch (e) { return console.error(e), showNotify(e), void 0 }
+      window._sourceCode = d
+      return d;
+      //return isReady?(runCompiled(d),void 0):(!b&&showNotify("Preview.html is not ready!",3e3),void 0)
+    }
+
+    function run() {
+      frame.contentWindow.location.reload(true);
+    }
+
+
+
+    editor.on("changes", function (a) {
+      var b = a.getValue();
+      compile(b);
+      //localStorage.setItem(storageKey,b);
+      if (document.querySelector('#autoCheckbox').checked) {
+        frame.contentWindow.location.reload(true);
+      }
+      // window.history.pushState({a:1}, "My Profile",window.location.protocol + "//alloyteam.github.io/AlloyRender/repl/index.html?code="+encodeURIComponent(b));
+    });
+  </script>
+</body>
+
+</html>

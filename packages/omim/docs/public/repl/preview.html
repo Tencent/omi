@@ -26,6 +26,8 @@
   <script src="../js/icon.js"></script>
   <script src="../js/text-field.js"></script>
   <script src="../js/button.js"></script>
+  <script src="../js/dialog.js"></script>
+  <script src="../js/top-app-bar.js"></script>
   <!-- <script>
     var createElement = Omi.createElement
     var define = Omi.define
@@ -41,6 +43,75 @@
     // var script = document.createElement("script");
     // script.innerHTML = parent._sourceCode;
     // document.body.appendChild(script)
+
+  </script>
+  <script id="dialog">
+    const dialogAlert = document.getElementById("m-dialog-alert");
+    const dialogSimple = document.getElementById("m-dialog-simple");
+    const dialogConfirmation = document.getElementById("m-dialog-confirmation");
+    const dialogScrollable = document.getElementById("m-dialog-scrollable");
+    const thowText = document.getElementById("show-text");
+
+    dialogAlert.addEventListener('scrim', () => {
+      dialogAlert.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogAlert.addEventListener('cancel', () => {
+      dialogAlert.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogAlert.addEventListener('confirm', () => {
+      dialogAlert.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+    })
+
+    dialogSimple.addEventListener('scrim', () => {
+      dialogSimple.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+
+    dialogConfirmation.addEventListener('scrim', () => {
+      dialogConfirmation.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogConfirmation.addEventListener('cancel', () => {
+      dialogConfirmation.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogConfirmation.addEventListener('confirm', () => {
+      dialogConfirmation.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+    })
+
+    dialogScrollable.addEventListener('scrim', () => {
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogScrollable.addEventListener('cancel', () => {
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogScrollable.addEventListener('confirm', () => {
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+    })
+
+    function onShowAlert() {
+      dialogAlert.setAttribute("show", true);
+      thowText.innerHTML = "open alert!";
+    }
+    function onShowSimple() {
+      dialogSimple.setAttribute("show", true);
+      thowText.innerHTML = "open simple!";
+    }
+    function onShowConfirmation() {
+      dialogConfirmation.setAttribute("show", true);
+      thowText.innerHTML = "open confirmation!";
+    }
+    function onShowScrollable() {
+      dialogScrollable.setAttribute("show", true);
+      thowText.innerHTML = "open scrollable!";
+    }
   </script>
 </body>
 
