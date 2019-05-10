@@ -30,7 +30,7 @@ declare namespace Omi {
 	 * declare global {
 	 *     namespace JSX {
 	 * 	       interface IntrinsicElements {
-	 *             'hello-element': CustomElementBaseAttributes & {
+	 *             'hello-element': Props & {
 	 *                 propFromParent: string;
 	 *             }
 	 *         }
@@ -201,7 +201,9 @@ declare namespace Omi {
 	var options: {
 		vnode?: (vnode: VNode<any>) => void;
 		event?: (event: Event) => Event;
-  };
+	};
+	
+	var elements: object
 }
 
 
