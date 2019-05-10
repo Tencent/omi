@@ -1,0 +1,78 @@
+@import '../theme';
+
+.m-icon {
+  margin-left: 0.6em;
+  text-align: center;
+  display: inline-block;
+}
+
+.mdc-tag {
+  margin: 5px 5px 0 0;
+  background-color: #fff;
+  color: #000;
+  padding: 0 10px;
+  height: 32px;
+  font-size: 12px;
+  box-sizing: border-box;
+  border: 1px solid rgba(64, 158, 255, 0.2);
+  white-space: nowrap;
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  line-height: 2.25rem;
+  font-weight: 500;
+  letter-spacing: 0.08929em;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 10px;
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  line-height: inherit;
+  user-select: none;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.mdc-tag--active {
+  background-color: #ccc;
+}
+
+.mdc-tag--success {
+  background-color: rgba(103, 194, 58, 0.1);
+  border-color: rgba(103, 194, 58, 0.2);
+  color: #09bb07 !important;
+}
+.mdc-tag--primary {
+  background-color: rgba(64, 158, 255, 0.1);
+  border-color: rgba(64, 158, 255, 0.2);
+  color: #0052d9 !important;
+}
+.mdc-tag--warn {
+  background-color: rgba(230, 162, 60, 0.1);
+  border-color: rgba(230, 162, 60, 0.2);
+  color: #e6a23c !important;
+}
+.mdc-tag--danger {
+  background-color: rgba(245, 108, 108, 0.1);
+  border-color: rgba(245, 108, 108, 0.2);
+  color: #e64340 !important;
+}
+
+.mdc-tag--mediun {
+  height: 28px;
+  line-height: 26px;
+}
+
+.mdc-tag--small {
+  height: 24px;
+  padding: 0 8px;
+  line-height: 22px;
+}
+
+.mdc-tag--mini {
+  height: 20px;
+  padding: 0 5px;
+  line-height: 19px;
+}
