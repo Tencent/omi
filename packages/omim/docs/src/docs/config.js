@@ -33,7 +33,7 @@ const config = {
         title: '操作反馈',
         list: [
           {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
-          {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'}
+          {name: 'Snackbar***', md: 'snackbar', demo: './repl/snackbar.html'}
         ]
       },
       {
@@ -42,6 +42,7 @@ const config = {
           { name: 'Text Field', md: 'text-field', demo: './repl/text-field.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
           { name: 'Select', md: 'select', demo: './repl/select.html' }
         ]
       },
@@ -50,6 +51,12 @@ const config = {
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
+        ]
+      },
+      {
+        title: '其它',
+        list: [
+          { name: 'Typography', md: 'typography', demo: './repl/typography.html' }
         ]
       }
     ],
@@ -86,7 +93,7 @@ const config = {
         title: 'Operational Feedback',
         list: [
           {name: 'dialog', md: 'dialog', demo: './repl/dialog.html'},
-          {name: 'Snackbar', md: 'snackbar', demo: './repl/snackbar.html'}
+          {name: 'Snackbar***', md: 'snackbar', demo: './repl/snackbar.html'}
         ]
       },
       {
@@ -95,6 +102,7 @@ const config = {
           { name: 'Text Field', md: 'text-field', demo: './repl/text-field.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
           { name: 'Select', md: 'select', demo: './repl/select.html' }
         ]
       },
@@ -103,6 +111,12 @@ const config = {
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
+        ]
+      },
+      {
+        title: 'Other',
+        list: [
+          { name: 'Typography', md: 'typography', demo: './repl/typography.html' }
         ]
       }
     ]

@@ -96,6 +96,11 @@
       width: 100%;
     }
 
+    /* switch */
+    m-switch {
+      margin: 10px;
+    }
+
 
 
   </style>
@@ -115,6 +120,9 @@
   <script src="../js/select.js"></script>
   <script src="../js/slider.js"></script>
   <script src="../js/snackbar.js"></script>
+  <script src="../js/switch.js"></script>
+  <script src="../js/typography.js"></script>
+
   
   <!-- <script>
     var createElement = Omi.createElement
@@ -123,6 +131,8 @@
     var render = Omi.render
 
   </script> -->
+
+  
 </head>
 
 <body style="background-color:#eee;">
@@ -131,16 +141,19 @@
     // var script = document.createElement("script");
     // script.innerHTML = parent._sourceCode;
     // document.body.appendChild(script)
-    // console.log(parent.location.pathname)
+    console.log(parent)
+    console.log(parent.location.pathname)
     
-    if(parent.location.pathname === '/repl/dialog.html') {
+    // window.onload = function() {
+      // document.body.innerHTML = parent._sourceCode
+    if(parent.location.pathname.indexOf('dialog.html') != -1) {
 
       const dialogAlert = document.getElementById("m-dialog-alert");
       const dialogSimple = document.getElementById("m-dialog-simple");
       const dialogConfirmation = document.getElementById("m-dialog-confirmation");
       const dialogScrollable = document.getElementById("m-dialog-scrollable");
       const thowText = document.getElementById("show-text");
-  
+
       dialogAlert.addEventListener('scrim', () => {
         dialogAlert.removeAttribute("show");
         thowText.innerHTML = "Declined... Maybe next time?";
@@ -153,12 +166,12 @@
         dialogAlert.removeAttribute("show");
         thowText.innerHTML = "Accepted, thanks!";
       })
-  
+
       dialogSimple.addEventListener('scrim', () => {
         dialogSimple.removeAttribute("show");
         thowText.innerHTML = "Declined... Maybe next time?";
       })
-  
+
       dialogConfirmation.addEventListener('scrim', () => {
         dialogConfirmation.removeAttribute("show");
         thowText.innerHTML = "Declined... Maybe next time?";
@@ -171,7 +184,7 @@
         dialogConfirmation.removeAttribute("show");
         thowText.innerHTML = "Accepted, thanks!";
       })
-  
+
       dialogScrollable.addEventListener('scrim', () => {
         dialogScrollable.removeAttribute("show");
         thowText.innerHTML = "Declined... Maybe next time?";
@@ -184,7 +197,7 @@
         dialogScrollable.removeAttribute("show");
         thowText.innerHTML = "Accepted, thanks!";
       })
-  
+
       function onShowAlert() {
         dialogAlert.setAttribute("show", true);
         thowText.innerHTML = "open alert!";
@@ -202,7 +215,7 @@
         thowText.innerHTML = "open scrollable!";
       }
 
-    } else if(parent.location.pathname === '/repl/top-app-bar.html') {
+    } else if(parent.location.pathname.indexOf('top-app-bar.html') != -1) {
 
       const demoShowButton = document.getElementById("demo-show-button");
       const topAppBarShowMenus = document.getElementById("m-top-app-bar-show-menus");
@@ -214,11 +227,11 @@
         window.open('./top-app-bar')
       })
 
-    } else if(parent.location.pathname === '/repl/menu.html') {
-      
+    } else if(parent.location.pathname.indexOf('menu.html') != -1) {
+
       var menu = document.querySelector('#menu')
       var btn = document.querySelector('#btn')
-      
+
       btn.addEventListener('click', function () {
         menu.toggle()
       })
@@ -227,8 +240,8 @@
         console.log(evt.detail)
       })
 
-    } else if(parent.location.pathname === '/repl/select.html') {
-      
+    } else if(parent.location.pathname.indexOf('select.html') != -1) {
+
       function changeA(e) {
         console.log(e.detail)
       }
@@ -237,11 +250,11 @@
         console.log(e.detail)
       }
 
-    } else if(parent.location.pathname === '/repl/slider.html') {
+    } else if(parent.location.pathname.indexOf('slider.html') != -1) {
       function change(evt){
         console.log(evt.detail.value)
       }
-    } else if(parent.location.pathname === '/repl/snackbar.html') {
+    } else if(parent.location.pathname.indexOf('snackbar.html') != -1) {
       const button1 = document.getElementById("button1");
       const button2 = document.getElementById("button2");
       const button3 = document.getElementById("button3");
@@ -266,31 +279,33 @@
         snackbar3.setAttribute("show", true);
       })
 
-      // function showA() {
-      //   snackbar3.removeAttribute("show");
-      //   snackbar2.removeAttribute("show");
-      //   snackbar1.setAttribute("show", true);
-      // }
+      function showA() {
+        snackbar3.removeAttribute("show");
+        snackbar2.removeAttribute("show");
+        snackbar1.setAttribute("show", true);
+      }
 
-      // function showB() {
-      //   snackbar1.removeAttribute("show");
-      //   snackbar3.removeAttribute("show");
-      //   snackbar2.setAttribute("show", true);
-      // }
+      function showB() {
+        snackbar1.removeAttribute("show");
+        snackbar3.removeAttribute("show");
+        snackbar2.setAttribute("show", true);
+      }
 
-      // function showC() {
-      //   snackbar2.removeAttribute("show");
-      //   snackbar1.removeAttribute("show");
-      //   snackbar3.setAttribute("show", true);
-      // }
+      function showC() {
+        snackbar2.removeAttribute("show");
+        snackbar1.removeAttribute("show");
+        snackbar3.setAttribute("show", true);
+      }
 
-      // function onClosed() {
-      //   snackbar2.removeAttribute("show");
-      //   snackbar1.removeAttribute("show");
-      //   snackbar3.removeAttribute("show");
-      // }
-      
-    }
+      function onClosed() {
+        snackbar2.removeAttribute("show");
+        snackbar1.removeAttribute("show");
+        snackbar3.removeAttribute("show");
+      }
+
+      }
+      // document.body.innerHTML = parent._sourceCode
+    // }
   </script>
 </body>
 
