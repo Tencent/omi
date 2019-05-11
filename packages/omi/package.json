@@ -13,6 +13,7 @@
     "copy-typescript-definition": "copyfiles -f src/omi.d.ts dist",
     "build": "npm-run-all --silent clean transpile copy-typescript-definition strip optimize minify size",
     "slot": "rollup -c config/rollup.example.js --watch",
+    "perfs": "rollup -c config/rollup.example.js --watch",
     "css": "rollup -c config/rollup.example.js --watch",
     "hook": "rollup -c config/rollup.example.js --watch",
     "decorators": "rollup -c config/rollup.example.js --watch",
