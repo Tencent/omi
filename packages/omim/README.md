@@ -58,6 +58,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | menu| done|
 | snackbar| dnt |
 | tab | FAKER-A |
+| tag | mtonhuang |
 | top-app-bar| zainchen |
 | typography| done |
 | drawer | zainchen |
