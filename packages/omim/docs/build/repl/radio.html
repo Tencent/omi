@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Omiu REPL</title>
-  <link rel="shortcut icon" href="https://tencent.github.io/omi/assets/md2site/favicon.ico">
+  <link rel="shortcut icon" href="../favicon.ico">
   <link rel="stylesheet" type="text/css" href="./libs/normalize.css" />
   <link rel="stylesheet" type="text/css" href="./libs/codemirror.css" />
   <style>
@@ -16,7 +16,7 @@
     .editor{
             overflow: hidden;
         }
-
+        
     .tool-bar{
         height: 40px;
         line-height: 40px;
@@ -42,7 +42,7 @@
       background-color: #555;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 768px) {  
           .playground {
             display: block;
           }
@@ -52,7 +52,7 @@
           top: 40%;
           width: 100%;
           height: 60%;
-
+          
         }
 
         .playground .preview{
@@ -78,19 +78,15 @@
     </div>
     <div class="playground">
       <div class="editor">
-        <textarea id="editor">define('my-app', class extends WeElement {
+<textarea id="editor">
+<m-radio id='r1' value="1" label='Label' checked name="abc"> </m-radio>
+<m-radio id='r2' value="2" label='Label' name="abc"> </m-radio>
+<br />
 
-	render() {
-		return (
-			<div>
-				<o-radio checked name='group' label='groupA'></o-radio>
-				<o-radio name='group' label='groupB'></o-radio>
-			</div>
-		)
-	}
-})
+<m-radio checked label='checked'> </m-radio>
+<br />
 
-render(<my-app />, 'body')</textarea>
+<m-radio disabled label='disabled'> </m-radio></textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>
@@ -131,6 +127,8 @@ render(<my-app />, 'body')</textarea>
     }
 
     function compile(a, b) {
+      window._sourceCode = a
+      return a
       var c, d; a = a || "", lastCode = a, hideNotify(), c = "/* @jsx createElement */\n"; try { d = Babel.transform(c + a, { presets: ["react", "es2015", "stage-1"] }).code } catch (e) { return console.error(e), showNotify(e), void 0 }
       window._sourceCode = d
       return d;
