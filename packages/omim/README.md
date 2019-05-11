@@ -60,6 +60,6 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | tab | FAKER-A |
 | top-app-bar| zainchen |
 | typography| done |
-| drawer |  |
+| drawer | zainchen |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
