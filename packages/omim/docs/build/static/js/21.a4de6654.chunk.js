@@ -1,0 +1,2 @@
+webpackJsonp([21],{53:function(n,r){n.exports="## Switch\r\n\r\nSwitch toggle the state of a single setting on or off. They are the preferred way to adjust settings on mobile.\r\n\r\n## Usage\r\n\r\n```jsx\r\n<m-switch label='Label1'></m-switch>\r\n\r\n<m-switch label='Label2'></m-switch>\r\n\r\n<m-switch label='Label3'></m-switch>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n  label?: string,\r\n  disabled?: boolean,\r\n  checked?: boolean,\r\n  value: string\r\n}\r\n```"}});
+//# sourceMappingURL=21.a4de6654.chunk.js.map
