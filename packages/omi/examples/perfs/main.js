@@ -18,28 +18,28 @@ define('my-app', class extends WeElement {
   render() {
 		return (
       <div>
-        <table className="table table-striped latest-data">
+        <table class="table table-striped latest-data">
           <tbody>
             {
               this.databases.map(function(database) {
                 return (
                   <tr key={database.dbname}>
-                    <td className="dbname">
+                    <td class="dbname">
                       {database.dbname}
                     </td>
-                    <td className="query-count">
-                      <span className={database.lastSample.countClassName}>
+                    <td class="query-count">
+                      <span class={database.lastSample.countClassName}>
                         {database.lastSample.nbQueries}
                       </span>
                     </td>
                       {
                         database.lastSample.topFiveQueries.map(function(query, index) {
                           return (
-                            <td className={ "Query " + query.elapsedClassName}>
+                            <td class={ "Query " + query.elapsedClassName}>
                               {query.formatElapsed}
-                              <div className="popover left">
-                                <div className="popover-content">{query.query}</div>
-                                <div className="arrow"/>
+                              <div class="popover left">
+                                <div class="popover-content">{query.query}</div>
+                                <div class="arrow"/>
                               </div>
                             </td>
                           );

@@ -68,9 +68,6 @@
     p.attributes = attributes == null ? undefined : attributes;
     p.key = attributes == null ? undefined : attributes.key;
 
-    // if a "vnode hook" is defined, pass every created VNode to it
-    if (options.vnode !== undefined) options.vnode(p);
-
     return p;
   }
 
@@ -118,16 +115,6 @@
     for (var i in props) {
       obj[i] = props[i];
     }return obj;
-  }
-
-  /** Invoke or update a ref, depending on whether it is a function or object ref.
-   *  @param {object|function} [ref=null]
-   *  @param {any} [value]
-   */
-  function applyRef(ref, value) {
-    if (ref != null) {
-      if (typeof ref == 'function') ref(value);else ref.current = value;
-    }
   }
 
   /**
@@ -199,9 +186,6 @@
 
   var ATTR_KEY = '__omiattr_';
 
-  // DOM properties that should NOT have "px" added when numeric
-  var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
-
   /**
    * Check if two nodes are equivalent.
    *
@@ -268,93 +252,28 @@
    * @private
    */
   function setAccessor(node, name, old, value, isSvg) {
-    if (name === 'className') name = 'class';
-
-    if (name === 'key') {
-      // ignore
-    } else if (name === 'ref') {
-      applyRef(old, null);
-      applyRef(value, node);
-    } else if (name === 'class' && !isSvg) {
+    // if (name === 'className') name = 'class'
+    if (name === 'class') {
       node.className = value || '';
-    } else if (name === 'style') {
-      if (!value || typeof value === 'string' || typeof old === 'string') {
-        node.style.cssText = value || '';
-      }
-      if (value && typeof value === 'object') {
-        if (typeof old !== 'string') {
-          for (var i in old) {
-            if (!(i in value)) node.style[i] = '';
-          }
-        }
-        for (var _i in value) {
-          node.style[_i] = typeof value[_i] === 'number' && IS_NON_DIMENSIONAL.test(_i) === false ? value[_i] + 'px' : value[_i];
-        }
-      }
-    } else if (name === 'dangerouslySetInnerHTML') {
-      if (value) node.innerHTML = value.__html || '';
-    } else if (name[0] == 'o' && name[1] == 'n') {
-      var useCapture = name !== (name = name.replace(/Capture$/, ''));
-      name = name.toLowerCase().substring(2);
-      if (value) {
-        if (!old) {
-          node.addEventListener(name, eventProxy, useCapture);
-          if (name == 'tap') {
-            node.addEventListener('touchstart', touchStart, useCapture);
-            node.addEventListener('touchend', touchEnd, useCapture);
-          }
-        }
-      } else {
-        node.removeEventListener(name, eventProxy, useCapture);
-        if (name == 'tap') {
-          node.removeEventListener('touchstart', touchStart, useCapture);
-          node.removeEventListener('touchend', touchEnd, useCapture);
-        }
-      }
-  (node._listeners || (node._listeners = {}))[name] = value;
-    } else if (name !== 'list' && name !== 'type' && name !== 'css' && !isSvg && name in node && value != '') {
+    } else if (name !== 'list' && name !== 'type' && name in node) {
       //value != '' fix for selected, disabled, checked
       // Attempt to set a DOM property to the given value.
       // IE & FF throw for certain property-value combinations.
-      try {
-        node[name] = value == null ? '' : value;
-      } catch (e) {}
-      if ((value == null || value === false) && name != 'spellcheck') node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
+
+      node[name] = value == null ? '' : value;
+
+      if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
     } else {
-      var ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''));
+      //let ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''))
       // spellcheck is treated differently than all other boolean values and
       // should not be removed when the value is `false`. See:
       // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-spellcheck
       if (value == null || value === false) {
-        if (ns) node.removeAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase());else node.pureRemoveAttribute ? node.pureRemoveAttribute(name) : node.removeAttribute(name);
+        node.removeAttribute(name);
       } else if (typeof value !== 'function') {
-        if (ns) {
-          node.setAttributeNS('http://www.w3.org/1999/xlink', name.toLowerCase(), value);
-        } else {
-          node.pureSetAttribute ? node.pureSetAttribute(name, value) : node.setAttribute(name, value);
-        }
+
+        node.setAttribute(name, value);
       }
-    }
-  }
-
-  /**
-   * Proxy an event to hooked event handlers
-   * @param {Event} e The event object from the browser
-   * @private
-   */
-  function eventProxy(e) {
-    return this._listeners[e.type](options.event && options.event(e) || e);
-  }
-
-  function touchStart(e) {
-    this.___touchX = e.touches[0].pageX;
-    this.___touchY = e.touches[0].pageY;
-    this.___scrollTop = document.body.scrollTop;
-  }
-
-  function touchEnd(e) {
-    if (Math.abs(e.changedTouches[0].pageX - this.___touchX) < 30 && Math.abs(e.changedTouches[0].pageY - this.___touchY) < 30 && Math.abs(document.body.scrollTop - this.___scrollTop) < 30) {
-      this.dispatchEvent(new CustomEvent('tap', { detail: e }));
     }
   }
 
@@ -383,37 +302,11 @@
       // hydration is indicated by the existing element to be diffed not having a prop cache
       hydrating = dom != null && !(ATTR_KEY in dom);
     }
-    if (isArray(vnode)) {
-      ret = [];
-      var parentNode = null;
-      if (isArray(dom)) {
-        var domLength = dom.length;
-        var vnodeLength = vnode.length;
-        var maxLength = domLength >= vnodeLength ? domLength : vnodeLength;
-        parentNode = dom[0].parentNode;
-        for (var i = 0; i < maxLength; i++) {
-          var ele = idiff(dom[i], vnode[i], context, mountAll, componentRoot);
-          ret.push(ele);
-          if (i > domLength - 1) {
-            parentNode.appendChild(ele);
-          }
-        }
-      } else {
-        vnode.forEach(function (item) {
-          var ele = idiff(dom, item, context, mountAll, componentRoot);
-          ret.push(ele);
-          parent && parent.appendChild(ele);
-        });
-      }
-    } else {
-      if (isArray(dom)) {
-        ret = idiff(dom[0], vnode, context, mountAll, componentRoot);
-      } else {
-        ret = idiff(dom, vnode, context, mountAll, componentRoot);
-      }
-      // append the element if its a new parent
-      if (parent && ret.parentNode !== parent) parent.appendChild(ret);
-    }
+
+    ret = idiff(dom, vnode, context, mountAll, componentRoot);
+
+    // append the element if its a new parent
+    if (parent && ret.parentNode !== parent) parent.appendChild(ret);
 
     // diffLevel being reduced to 0 means we're exiting the diff
     if (! --diffLevel) {
@@ -658,12 +551,8 @@
    */
   function diffAttributes(dom, attrs, old, children) {
     var name = void 0;
-    var update = false;
     var isWeElement = dom.update;
-    var oldClone = void 0;
-    if (dom.receiveProps) {
-      oldClone = Object.assign({}, old);
-    }
+
     // remove attributes no longer present on the vnode by setting them to undefined
     for (name in old) {
       if (!(attrs && attrs[name] != null) && old[name] != null) {
@@ -678,16 +567,7 @@
     // add new & update changed attributes
     for (name in attrs) {
       if (isWeElement && typeof attrs[name] === 'object' && name !== 'ref') {
-        if (name === 'style') {
-          setAccessor(dom, name, old[name], old[name] = attrs[name], isSvgMode);
-        }
-        if (dom.receiveProps) {
-          try {
-            old[name] = JSON.parse(JSON.stringify(attrs[name]));
-          } catch (e) {
-            console.warn('When using receiveProps, you cannot pass prop of cyclic dependencies down.');
-          }
-        }
+
         dom.props[npn(name)] = attrs[name];
         update = true;
       } else if (name !== 'children' && name !== 'innerHTML' && (!(name in old) || attrs[name] !== (name === 'value' || name === 'checked' ? dom[name] : old[name]))) {
@@ -700,10 +580,7 @@
     }
 
     if (isWeElement && dom.parentNode) {
-      if (update || children.length > 0 || dom.store) {
-        dom.receiveProps(dom.props, dom.data, oldClone);
-        dom.update();
-      }
+      dom.update();
     }
   }
 
@@ -1065,50 +942,14 @@
     return JSONPatcherProxy;
   }();
 
-  var callbacks = [];
-  var nextTickCallback = [];
-
   function tick(fn, scope) {
-    callbacks.push({ fn: fn, scope: scope });
-  }
-
-  function fireTick() {
-    callbacks.forEach(function (item) {
-      item.fn.call(item.scope);
-    });
-
-    nextTickCallback.forEach(function (nextItem) {
-      nextItem.fn.call(nextItem.scope);
-    });
-    nextTickCallback.length = 0;
   }
 
   function nextTick(fn, scope) {
-    nextTickCallback.push({ fn: fn, scope: scope });
   }
 
   function observe(target) {
     target.observe = true;
-  }
-
-  function proxyUpdate(ele) {
-    var timeout = null;
-    ele.data = new JSONPatcherProxy(ele.data).observe(false, function () {
-      if (ele._willUpdate) {
-        return;
-      }
-      if (ele.constructor.mergeUpdate) {
-        clearTimeout(timeout);
-
-        timeout = setTimeout(function () {
-          ele.update();
-          fireTick();
-        }, 0);
-      } else {
-        ele.update();
-        fireTick();
-      }
-    });
   }
 
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1336,19 +1177,19 @@
           shadowRoot.removeChild(fc);
         }
       }
-      if (this.constructor.css) {
-        shadowRoot.appendChild(cssToDom(this.constructor.css));
-      } else if (this.css) {
-        shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css));
-      }
+      // if (this.constructor.css) {
+      //   shadowRoot.appendChild(cssToDom(this.constructor.css))
+      // } else if (this.css) {
+      //   shadowRoot.appendChild(cssToDom(typeof this.css === 'function' ? this.css() : this.css))
+      // }
       !this._isInstalled && this.beforeRender();
       options.afterInstall && options.afterInstall(this);
-      if (this.constructor.observe) {
-        this.beforeObserve();
-        proxyUpdate(this);
-        this.observed();
-      }
-      this.attrsToProps();
+      // if (this.constructor.observe) {
+      //   this.beforeObserve()
+      //   proxyUpdate(this)
+      //   this.observed()
+      // }
+      //this.attrsToProps()
       this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
       this.rendered();
 
@@ -1383,33 +1224,33 @@
     };
 
     WeElement.prototype.update = function update() {
-      this._willUpdate = true;
-      this.beforeUpdate();
-      this.beforeRender();
-      //fix null !== undefined
-      if (this._customStyleContent != this.props.css) {
-        this._customStyleContent = this.props.css;
-        this._customStyleElement.textContent = this._customStyleContent;
-      }
-      this.attrsToProps();
+      // this._willUpdate = true
+      // this.beforeUpdate()
+      // this.beforeRender()
+      // //fix null !== undefined
+      // if (this._customStyleContent != this.props.css) {
+      //   this._customStyleContent = this.props.css
+      //   this._customStyleElement.textContent = this._customStyleContent
+      // }
+      // this.attrsToProps()
       this._host = diff(this._host, this.render(this.props, this.data, this.store), null, null, this.shadowRoot);
-      this._willUpdate = false;
-      this.updated();
+      // this._willUpdate = false
+      // this.updated()
     };
 
-    WeElement.prototype.removeAttribute = function removeAttribute(key) {
-      _HTMLElement.prototype.removeAttribute.call(this, key);
-      this.update();
-    };
+    // removeAttribute(key) {
+    //   super.removeAttribute(key)
+    //   this.update()
+    // }
 
-    WeElement.prototype.setAttribute = function setAttribute(key, val) {
-      if (val && typeof val === 'object') {
-        _HTMLElement.prototype.setAttribute.call(this, key, JSON.stringify(val));
-      } else {
-        _HTMLElement.prototype.setAttribute.call(this, key, val);
-      }
-      this.update();
-    };
+    // setAttribute(key, val) {
+    //   if (val && typeof val === 'object') {
+    //     super.setAttribute(key, JSON.stringify(val))
+    //   } else {
+    //     super.setAttribute(key, val)
+    //   }
+    //   this.update()
+    // }
 
     WeElement.prototype.pureRemoveAttribute = function pureRemoveAttribute(key) {
       _HTMLElement.prototype.removeAttribute.call(this, key);
@@ -1495,12 +1336,12 @@
           var kv = getArrayPatch(patch.path, store);
           patchs[kv.k] = kv.v;
 
-          update(patchs, store);
+          update$1(patchs, store);
         } else {
           var key = fixPath(patch.path);
           patchs[key] = patch.value;
 
-          update(patchs, store);
+          update$1(patchs, store);
         }
       });
       parent.store = store;
@@ -1508,7 +1349,7 @@
     return diff(null, vnode, {}, false, parent, false);
   }
 
-  function update(patch, store) {
+  function update$1(patch, store) {
     store.update(patch);
   }
 
@@ -1822,7 +1663,7 @@
         null,
         Omi.h(
           'table',
-          { className: 'table table-striped latest-data' },
+          { 'class': 'table table-striped latest-data' },
           Omi.h(
             'tbody',
             null,
@@ -1832,32 +1673,32 @@
                 { key: database.dbname },
                 Omi.h(
                   'td',
-                  { className: 'dbname' },
+                  { 'class': 'dbname' },
                   database.dbname
                 ),
                 Omi.h(
                   'td',
-                  { className: 'query-count' },
+                  { 'class': 'query-count' },
                   Omi.h(
                     'span',
-                    { className: database.lastSample.countClassName },
+                    { 'class': database.lastSample.countClassName },
                     database.lastSample.nbQueries
                   )
                 ),
                 database.lastSample.topFiveQueries.map(function (query, index) {
                   return Omi.h(
                     'td',
-                    { className: "Query " + query.elapsedClassName },
+                    { 'class': "Query " + query.elapsedClassName },
                     query.formatElapsed,
                     Omi.h(
                       'div',
-                      { className: 'popover left' },
+                      { 'class': 'popover left' },
                       Omi.h(
                         'div',
-                        { className: 'popover-content' },
+                        { 'class': 'popover-content' },
                         query.query
                       ),
-                      Omi.h('div', { className: 'arrow' })
+                      Omi.h('div', { 'class': 'arrow' })
                     )
                   );
                 })
