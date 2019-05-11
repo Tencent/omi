@@ -1,6 +1,6 @@
 ## Top App Bar
 
-MDC Top App Bar acts as a container for items such as application title, navigation icon, and action items.
+Top App Bar acts as a container for items such as application title, navigation icon, and action items.
 
 ## Usage
 
