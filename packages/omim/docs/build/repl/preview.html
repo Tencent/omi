@@ -146,7 +146,7 @@
     
     // window.onload = function() {
       // document.body.innerHTML = parent._sourceCode
-    if(parent.location.pathname.indexOf('dialog.html') != -1) {
+    if(parent.location.pathname.indexOf('repl/dialog.html') != -1) {
 
       const dialogAlert = document.getElementById("m-dialog-alert");
       const dialogSimple = document.getElementById("m-dialog-simple");
@@ -215,7 +215,7 @@
         thowText.innerHTML = "open scrollable!";
       }
 
-    } else if(parent.location.pathname.indexOf('top-app-bar.html') != -1) {
+    } else if(parent.location.pathname.indexOf('repl/top-app-bar.html') != -1) {
 
       const demoShowButton = document.getElementById("demo-show-button");
       const topAppBarShowMenus = document.getElementById("m-top-app-bar-show-menus");
@@ -227,7 +227,7 @@
         window.open('./top-app-bar')
       })
 
-    } else if(parent.location.pathname.indexOf('menu.html') != -1) {
+    } else if(parent.location.pathname.indexOf('repl/menu.html') != -1) {
 
       var menu = document.querySelector('#menu')
       var btn = document.querySelector('#btn')
@@ -240,7 +240,7 @@
         console.log(evt.detail)
       })
 
-    } else if(parent.location.pathname.indexOf('select.html') != -1) {
+    } else if(parent.location.pathname.indexOf('repl/select.html') != -1) {
 
       function changeA(e) {
         console.log(e.detail)
@@ -250,11 +250,11 @@
         console.log(e.detail)
       }
 
-    } else if(parent.location.pathname.indexOf('slider.html') != -1) {
+    } else if(parent.location.pathname.indexOf('repl/slider.html') != -1) {
       function change(evt){
         console.log(evt.detail.value)
       }
-    } else if(parent.location.pathname.indexOf('snackbar.html') != -1) {
+    } else if(parent.location.pathname.indexOf('repl/snackbar.html') != -1) {
       const button1 = document.getElementById("button1");
       const button2 = document.getElementById("button2");
       const button3 = document.getElementById("button3");

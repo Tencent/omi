@@ -32,8 +32,7 @@ const config = {
       {
         title: '操作反馈',
         list: [
-          {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'},
-          {name: 'Snackbar***', md: 'snackbar', demo: './repl/snackbar.html'}
+          {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'}
         ]
       },
       {
@@ -51,12 +50,6 @@ const config = {
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
-        ]
-      },
-      {
-        title: '其它',
-        list: [
-          { name: 'Typography', md: 'typography', demo: './repl/typography.html' }
         ]
       }
     ],
@@ -92,8 +85,7 @@ const config = {
       {
         title: 'Operational Feedback',
         list: [
-          {name: 'dialog', md: 'dialog', demo: './repl/dialog.html'},
-          {name: 'Snackbar***', md: 'snackbar', demo: './repl/snackbar.html'}
+          {name: 'dialog', md: 'dialog', demo: './repl/dialog.html'}
         ]
       },
       {
@@ -111,12 +103,6 @@ const config = {
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
-        ]
-      },
-      {
-        title: 'Other',
-        list: [
-          { name: 'Typography', md: 'typography', demo: './repl/typography.html' }
         ]
       }
     ]
