@@ -1,64 +1,28 @@
-## Icon 
+## Linear Progress
 
-SVG 制作的 Icon.
+线性进度组件是符合材料设计进度和活动要求的规范对齐线性进度指示器组件。
 
 ## 使用
 
-```html
-<m-icon 
-  path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'>
-</m-icon>
-
-```
-
-也可以支持多 path 多颜色：
-
-```html
-<m-icon 
- paths="[{ 
-    color: '#F98080', 
-    path: 'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
-  }, 
-  { 
-    color: '#F95050', 
-    path: 'M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z'
-  }]">
-</m-icon>
-```
-
-## Omi 中使用
-
-JSX:
-
 ```jsx
-<m-icon 
-  path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z' />
-```
+<m-linear-progress value='0.3' buffer='0.1'></m-linear-progress>
 
-JSX:
+<m-linear-progress value='0.1'> </m-linear-progress>
 
-```jsx
-<m-icon paths={[{
-  color: '#F98080',
-  path: 'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
-}, {
-  color: '#F95050',
-  path: 'M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z'
-}]} />
+<m-linear-progress indeterminate > </m-linear-progress>
+
+<m-linear-progress reversed value="0.2"> </m-linear-progress>
 ```
 
 ## API
 
 ### Props
 
-|  **Name**  | **Type**        | **Defaults**  | **Details**  |
-| ------------- |:-------------:|:-----:|:-------------:|
-| paths  | json array |--  |   |
-| path  | string|--  ||
-| scale | number   |   2 | |
-| color | string| black ||
-| rotate | bool| false ||
-
-* [→ 你可以直接使用 antd 的海量 svg path 作为 icon 的 path](https://ant.design/components/icon-cn/),你可以通过开发者工具查看对应 icon 的 path
-* [→ 也可以直接上 antd github 获取 svg path](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons/svg)
-
+```jsx
+{
+  buffer?: number,
+  value?: number,
+  indeterminate: boolean,
+  reversed: boolean
+}
+```
