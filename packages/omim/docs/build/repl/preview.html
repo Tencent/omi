@@ -20,12 +20,102 @@
       -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
       background-color: #555;
     }
-  </style>
 
-  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.dev.js"></script>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* button */
+    h3 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    m-button {
+      margin-left: 10px;
+    }
+
+    /* icon */
+    m-icon {
+      margin: 20px;
+    }
+
+    /* top-app-bar */
+    .mdc-typography--subtitle1 {
+      font-size: 1rem;
+      line-height: 1.75rem;
+      font-weight: 400;
+      letter-spacing: .009375em;
+    }
+    .demos-content-one {
+      height: 130px;
+    }
+    .demos-content-two {
+      height: 80px;
+    }
+    .demos-display {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 200px;
+    }
+    .demo {
+      display: inline-block;
+      flex: 1 1 45%;
+      justify-content: space-around;
+      min-height: 200px;
+      min-width: 50px;
+      padding: 15px;
+    }
+    .iframe {
+      width: 100%;
+      height: 200px;
+    }
+
+    /* elevation */
+    .elevation-demo-surface {
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -ms-flex-pack: distribute;
+      justify-content: space-around;
+      min-height: 100px;
+      min-width: 200px;
+      margin: 15px;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+    .elevation-demo-container {
+      display: -ms-flexbox;
+      display: flex;
+      margin: auto;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+
+
+  </style>
+  <script src="./libs/omi.dev.js"></script>
   <script src="../js/icon.js"></script>
   <script src="../js/text-field.js"></script>
   <script src="../js/button.js"></script>
+  <script src="../js/dialog.js"></script>
+  <script src="../js/top-app-bar.js"></script>
+  <script src="../js/checkbox.js"></script>
+  <script src="../js/elevation.js"></script>
+  <script src="../js/image-list.js"></script>
+  <script src="../js/layout-grid.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/linear-progress.js"></script>
+  <script src="../js/radio.js"></script>
+  <script src="../js/select.js"></script>
+  <script src="../js/slider.js"></script>
+  <script src="../js/snackbar.js"></script>
+  
   <!-- <script>
     var createElement = Omi.createElement
     var define = Omi.define
@@ -41,6 +131,166 @@
     // var script = document.createElement("script");
     // script.innerHTML = parent._sourceCode;
     // document.body.appendChild(script)
+    // console.log(parent.location.pathname)
+    
+    if(parent.location.pathname === '/repl/dialog.html') {
+
+      const dialogAlert = document.getElementById("m-dialog-alert");
+      const dialogSimple = document.getElementById("m-dialog-simple");
+      const dialogConfirmation = document.getElementById("m-dialog-confirmation");
+      const dialogScrollable = document.getElementById("m-dialog-scrollable");
+      const thowText = document.getElementById("show-text");
+  
+      dialogAlert.addEventListener('scrim', () => {
+        dialogAlert.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogAlert.addEventListener('cancel', () => {
+        dialogAlert.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogAlert.addEventListener('confirm', () => {
+        dialogAlert.removeAttribute("show");
+        thowText.innerHTML = "Accepted, thanks!";
+      })
+  
+      dialogSimple.addEventListener('scrim', () => {
+        dialogSimple.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+  
+      dialogConfirmation.addEventListener('scrim', () => {
+        dialogConfirmation.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogConfirmation.addEventListener('cancel', () => {
+        dialogConfirmation.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogConfirmation.addEventListener('confirm', () => {
+        dialogConfirmation.removeAttribute("show");
+        thowText.innerHTML = "Accepted, thanks!";
+      })
+  
+      dialogScrollable.addEventListener('scrim', () => {
+        dialogScrollable.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogScrollable.addEventListener('cancel', () => {
+        dialogScrollable.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      dialogScrollable.addEventListener('confirm', () => {
+        dialogScrollable.removeAttribute("show");
+        thowText.innerHTML = "Accepted, thanks!";
+      })
+  
+      function onShowAlert() {
+        dialogAlert.setAttribute("show", true);
+        thowText.innerHTML = "open alert!";
+      }
+      function onShowSimple() {
+        dialogSimple.setAttribute("show", true);
+        thowText.innerHTML = "open simple!";
+      }
+      function onShowConfirmation() {
+        dialogConfirmation.setAttribute("show", true);
+        thowText.innerHTML = "open confirmation!";
+      }
+      function onShowScrollable() {
+        dialogScrollable.setAttribute("show", true);
+        thowText.innerHTML = "open scrollable!";
+      }
+
+    } else if(parent.location.pathname === '/repl/top-app-bar.html') {
+
+      const demoShowButton = document.getElementById("demo-show-button");
+      const topAppBarShowMenus = document.getElementById("m-top-app-bar-show-menus");
+
+      topAppBarShowMenus.addEventListener('navigation', () => {
+        window.open('./top-app-bar')
+      })
+      topAppBarShowMenus.addEventListener('action0', () => {
+        window.open('./top-app-bar')
+      })
+
+    } else if(parent.location.pathname === '/repl/menu.html') {
+      
+      var menu = document.querySelector('#menu')
+      var btn = document.querySelector('#btn')
+      
+      btn.addEventListener('click', function () {
+        menu.toggle()
+      })
+
+      menu.addEventListener('selected', (evt) => {
+        console.log(evt.detail)
+      })
+
+    } else if(parent.location.pathname === '/repl/select.html') {
+      
+      function changeA(e) {
+        console.log(e.detail)
+      }
+
+      function changeB(e) {
+        console.log(e.detail)
+      }
+
+    } else if(parent.location.pathname === '/repl/slider.html') {
+      function change(evt){
+        console.log(evt.detail.value)
+      }
+    } else if(parent.location.pathname === '/repl/snackbar.html') {
+      const button1 = document.getElementById("button1");
+      const button2 = document.getElementById("button2");
+      const button3 = document.getElementById("button3");
+
+      const snackbar1 = document.getElementById("snackbar1");
+      const snackbar2 = document.getElementById("snackbar2");
+      const snackbar3 = document.getElementById("snackbar3");
+
+      button1.addEventListener('click', () => {
+        snackbar3.removeAttribute("show");
+        snackbar2.removeAttribute("show");
+        snackbar1.setAttribute("show", true);
+      })
+      button2.addEventListener('click', () => {
+        snackbar1.removeAttribute("show");
+        snackbar3.removeAttribute("show");
+        snackbar2.setAttribute("show", true);
+      })
+      button3.addEventListener('click', () => {
+        snackbar1.removeAttribute("show");
+        snackbar2.removeAttribute("show");
+        snackbar3.setAttribute("show", true);
+      })
+
+      // function showA() {
+      //   snackbar3.removeAttribute("show");
+      //   snackbar2.removeAttribute("show");
+      //   snackbar1.setAttribute("show", true);
+      // }
+
+      // function showB() {
+      //   snackbar1.removeAttribute("show");
+      //   snackbar3.removeAttribute("show");
+      //   snackbar2.setAttribute("show", true);
+      // }
+
+      // function showC() {
+      //   snackbar2.removeAttribute("show");
+      //   snackbar1.removeAttribute("show");
+      //   snackbar3.setAttribute("show", true);
+      // }
+
+      // function onClosed() {
+      //   snackbar2.removeAttribute("show");
+      //   snackbar1.removeAttribute("show");
+      //   snackbar3.removeAttribute("show");
+      // }
+      
+    }
   </script>
 </body>
 
