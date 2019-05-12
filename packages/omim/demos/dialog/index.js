@@ -13,6 +13,10 @@ define('my-app', class extends WeElement {
 
   showText = ''
 
+  onOpenClose = (e) => {
+    console.log(e.detail.type)
+  }
+
   onShowAlert = (e) => {
     this.alertShow = true
     this.showText = 'open alert!'
@@ -63,6 +67,10 @@ define('my-app', class extends WeElement {
         <m-button onClick={this.onShowConfirmation} ripple>Confirmation</m-button>
         <m-button onClick={this.onShowScrollable} ripple>Scrollable</m-button>
         <m-dialog
+          onOpening={this.onOpenClose}
+          onOpened={this.onOpenClose}
+          onClosing={this.onOpenClose}
+          onClosed={this.onOpenClose}
           onScrim={this.onClose}
           onCancel={this.onClose}
           onConfirm={this.onConfirm}
@@ -78,6 +86,10 @@ define('my-app', class extends WeElement {
           }}
         />
         <m-dialog
+          onOpening={this.onOpenClose}
+          onOpened={this.onOpenClose}
+          onClosing={this.onOpenClose}
+          onClosed={this.onOpenClose}
           onScrim={this.onClose}
           css={css}
           show={this.simpleShow}
@@ -137,12 +149,16 @@ define('my-app', class extends WeElement {
         />
         <m-dialog
           css={css}
+          onOpening={this.onOpenClose}
+          onOpened={this.onOpenClose}
+          onClosing={this.onOpenClose}
+          onClosed={this.onOpenClose}
           onScrim={this.onClose}
           show={this.confirmationShow}
           title='Phone ringtone'
           message={
             <ul class="mdc-list" style="list-style-type: none;">
-              <li class="mdc-list-item" tabindex="0">
+              <li class="mdc-list-item" tabindex="0" aria-checked="false">
                 <span class="mdc-list-item__graphic">
                   <div class="mdc-radio">
                     <input class="mdc-radio__native-control" type="radio" id="test-dialog-baseline-confirmation-radio-1" name="test-dialog-baseline-confirmation-radio-group" value="1" checked="" tabindex="-1" />
@@ -156,7 +172,7 @@ define('my-app', class extends WeElement {
                 </span>
                 <label class="test-list-item__label" for="test-dialog-baseline-confirmation-radio-1">Never Gonna Give You Up</label>
               </li>
-              <li class="mdc-list-item" tabindex="-1">
+              <li class="mdc-list-item" tabindex="-1" aria-checked="false">
                 <span class="mdc-list-item__graphic">
                   <div class="mdc-radio">
                     <input class="mdc-radio__native-control" type="radio" id="test-dialog-baseline-confirmation-radio-2" name="test-dialog-baseline-confirmation-radio-group" value="2" tabindex="-1" />
@@ -170,7 +186,7 @@ define('my-app', class extends WeElement {
                 </span>
                 <label class="test-list-item__label" for="test-dialog-baseline-confirmation-radio-2">Hot Cross Buns</label>
               </li>
-              <li class="mdc-list-item" tabindex="-1">
+              <li class="mdc-list-item" tabindex="-1" aria-checked="false">
                 <span class="mdc-list-item__graphic">
                   <div class="mdc-radio">
                     <input class="mdc-radio__native-control" type="radio" id="test-dialog-baseline-confirmation-radio-3" name="test-dialog-baseline-confirmation-radio-group" value="3" tabindex="-1" />
@@ -210,6 +226,10 @@ define('my-app', class extends WeElement {
           }}
         />
         <m-dialog
+          onOpening={this.onOpenClose}
+          onOpened={this.onOpenClose}
+          onClosing={this.onOpenClose}
+          onClosed={this.onOpenClose}
           onScrim={this.onClose}
           show={this.scrollableShow}
           scrollable
