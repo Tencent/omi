@@ -2,18 +2,17 @@
 @import "@material/list/mdc-list";
 @import "@material/radio/mdc-radio";
 
-:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
-    cursor: default;
+.m-list-radio {
+    padding: 0;
 }
 
 .mdc-list-item__graphic {
     margin-right: 0px;
 }
 
-.test-list-item__label {
+.m-list-label {
     padding-left: 32px;
     width: 100%;
     height: 100%;
     line-height: 48px;
-    cursor: pointer;
 }
