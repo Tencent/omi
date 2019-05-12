@@ -1,5 +1,7 @@
 import '../../src/dialog/index.tsx'
+
 import { render, WeElement, define, h } from 'omi'
+
 import * as css from './material.scss'
 
 define('my-app', class extends WeElement {
@@ -134,8 +136,8 @@ define('my-app', class extends WeElement {
           }
         />
         <m-dialog
-          onScrim={this.onClose}
           css={css}
+          onScrim={this.onClose}
           show={this.confirmationShow}
           title='Phone ringtone'
           message={
@@ -167,7 +169,8 @@ define('my-app', class extends WeElement {
                   </div>
                 </span>
                 <label class="test-list-item__label" for="test-dialog-baseline-confirmation-radio-2">Hot Cross Buns</label>
-              </li><li class="mdc-list-item" tabindex="-1">
+              </li>
+              <li class="mdc-list-item" tabindex="-1">
                 <span class="mdc-list-item__graphic">
                   <div class="mdc-radio">
                     <input class="mdc-radio__native-control" type="radio" id="test-dialog-baseline-confirmation-radio-3" name="test-dialog-baseline-confirmation-radio-group" value="3" tabindex="-1" />
