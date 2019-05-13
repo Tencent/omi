@@ -116,12 +116,10 @@ define('my-app', class extends WeElement {
           show={this.alertShow}
           message={<p>Discard draft?</p>}
           cancel-button={{
-            text: 'Cancel',
-            // onClick: this.onClose
+            text: 'Cancel'
           }}
           confirm-button={{
-            text: 'Discard',
-            // onClick: this.onConfirm
+            text: 'Discard'
           }}
         />
         <m-dialog
@@ -198,7 +196,7 @@ define('my-app', class extends WeElement {
           message={
             <ul class="mdc-list" style="list-style-type: none;">
               <li onClick={this.onList1} class="mdc-list-item m-list-radio" tabindex={this.listIndex1}>
-                <m-radio
+              <m-radio
                   css={`
                     .mdc-form-field {
                       padding: 0 16px;
@@ -211,22 +209,18 @@ define('my-app', class extends WeElement {
                       font-size: initial;
                       cursor: pointer;
                     }
+                    /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+                    .mdc-radio::before {
+                      transition: auto;
+                      z-index: 0;
+                    }
+                    .mdc-radio__native-control {
+                      z-index: 0;
+                    }
                   `}
                   name="abc"
                   label='Never Gonna Give You Up'
                 ></m-radio>
-                {/* <span class="mdc-list-item__graphic">
-                  <div class="mdc-radio">
-                    <input class="mdc-radio__native-control" type="radio" id="test-dialog-baseline-confirmation-radio-1" name="test-dialog-baseline-confirmation-radio-group" value="1" checked="" tabindex="-1" />
-                    <div class="mdc-radio__background">
-                      <div class="mdc-radio__outer-circle">
-                      </div>
-                      <div class="mdc-radio__inner-circle">
-                      </div>
-                    </div>
-                  </div>
-                </span>
-                <label class="test-list-item__label m-list-label" for="test-dialog-baseline-confirmation-radio-1">Never Gonna Give You Up</label> */}
               </li>
               <li onClick={this.onList2} class="mdc-list-item m-list-radio" tabindex={this.listIndex2}>
                 <m-radio
@@ -243,22 +237,18 @@ define('my-app', class extends WeElement {
                       padding-right: 86px;
                       cursor: pointer;
                     }
+                    /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+                    .mdc-radio::before {
+                      transition: auto;
+                      z-index: 0;
+                    }
+                    .mdc-radio__native-control {
+                      z-index: 0;
+                    }
                   `}
                   name="abc"
                   label='Hot Cross Buns'
                 ></m-radio>
-                {/* <span class="mdc-list-item__graphic">
-                  <div class="mdc-radio">
-                    <input class="mdc-radio__native-control" type="radio" id="test-dialog-baseline-confirmation-radio-2" name="test-dialog-baseline-confirmation-radio-group" value="2" tabindex="-1" />
-                    <div class="mdc-radio__background">
-                      <div class="mdc-radio__outer-circle">
-                      </div>
-                      <div class="mdc-radio__inner-circle">
-                      </div>
-                    </div>
-                  </div>
-                </span>
-                <label class="test-list-item__label m-list-label" for="test-dialog-baseline-confirmation-radio-2">Hot Cross Buns</label> */}
               </li>
               <li onClick={this.onList3} class="mdc-list-item m-list-radio" tabindex={this.listIndex3}>
                 <m-radio
@@ -275,22 +265,18 @@ define('my-app', class extends WeElement {
                       padding-right: 163px;
                       cursor: pointer;
                     }
+                    /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+                    .mdc-radio::before {
+                      transition: auto;
+                      z-index: 0;
+                    }
+                    .mdc-radio__native-control {
+                      z-index: 0;
+                    }
                   `}
                   name="abc"
                   label='None'
                 ></m-radio>
-                {/* <span class="mdc-list-item__graphic">
-                  <div class="mdc-radio">
-                    <input class="mdc-radio__native-control" type="radio" id="test-dialog-baseline-confirmation-radio-3" name="test-dialog-baseline-confirmation-radio-group" value="3" tabindex="-1" />
-                    <div class="mdc-radio__background">
-                      <div class="mdc-radio__outer-circle">
-                      </div>
-                      <div class="mdc-radio__inner-circle">
-                      </div>
-                    </div>
-                  </div>
-                </span>
-                <label class="test-list-item__label m-list-label" for="test-dialog-baseline-confirmation-radio-3">None</label> */}
               </li>
             </ul>
           }
