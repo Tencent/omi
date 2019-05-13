@@ -4708,6 +4708,7 @@ var Dialog = /** @class */ (function (_super) {
     Dialog.prototype.installed = function () {
         var _this = this;
         this.dialog = new dialog_1.MDCDialog(this.shadowRoot.querySelector('.mdc-dialog'));
+        this.props.show ? this.dialog.open() : this.dialog.close();
         this.dialog.listen('MDCDialog:opening', function (evt) {
             _this.fire('opening', evt);
             evt && evt.stopPropagation();
