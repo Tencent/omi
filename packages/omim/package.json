@@ -101,7 +101,7 @@
     "@material/button": "^2.0.0",
     "@material/checkbox": "^2.1.0",
     "@material/dialog": "^2.0.0",
-    "@material/drawer": "^2.0.0",
+    "@material/drawer": "^2.1.1",
     "@material/elevation": "^1.1.0",
     "@material/form-field": "^2.0.0",
     "@material/image-list": "^1.1.1",
