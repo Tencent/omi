@@ -241,11 +241,11 @@ Omi Store provides a way to pass data through the component tree without having 
 </html>
 ```
 
-You can also use `like-button` tag directly in HTML：
+You can also use `my-counter` tag directly in HTML：
 
 ```jsx
 <body>
-  <like-button />
+  <my-counter />
 </body>
 ```
 
