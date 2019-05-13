@@ -1,6 +1,7 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import { MDCDialog } from '@material/dialog'
+
 import '../button'
 
 // @ts-ignore
@@ -40,7 +41,26 @@ export default class Dialog extends WeElement<Props, Data>{
   
   installed() {
     this.dialog = new MDCDialog(this.shadowRoot.querySelector('.mdc-dialog'));
-    this.props.show ? this.dialog.open() : this.dialog.close()
+
+    this.dialog.listen('MDCDialog:opening', (evt) => {
+      this.fire('opening', evt)
+      evt && evt.stopPropagation()
+    });
+
+    this.dialog.listen('MDCDialog:opened', (evt) => {
+      this.fire('opened', evt)
+      evt && evt.stopPropagation()
+    });
+
+    this.dialog.listen('MDCDialog:closing', (evt) => {
+      this.fire('closing', evt)
+      evt && evt.stopPropagation()
+    });
+
+    this.dialog.listen('MDCDialog:closed', (evt) => {
+      this.fire('closed', evt)
+      evt && evt.stopPropagation()
+    });
   }
 
   onScrim = (evt: Event)  => {
@@ -69,7 +89,8 @@ export default class Dialog extends WeElement<Props, Data>{
             {(props.title) && <h2 class='mdc-dialog__title'>{props.title}</h2>}
             <section class='mdc-dialog__content'>
               {typeof props.message === 'string' ? htmlToVdom(props.message) : props.message}
-              <a class='m-dialog-content-focus' href="#"></a>  {/* solve the problem that the content focus is empty */}
+              {/* solve the problem that the content focus is empty */}
+              <a class='m-dialog-content-focus' href="#"></a>
             </section>
             {
               ((props.cancelButton) || (props.confirmButton)) &&

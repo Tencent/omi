@@ -4706,8 +4706,24 @@ var Dialog = /** @class */ (function (_super) {
         this.props.show ? this.dialog.open() : this.dialog.close();
     };
     Dialog.prototype.installed = function () {
+        var _this = this;
         this.dialog = new dialog_1.MDCDialog(this.shadowRoot.querySelector('.mdc-dialog'));
-        this.props.show ? this.dialog.open() : this.dialog.close();
+        this.dialog.listen('MDCDialog:opening', function (evt) {
+            _this.fire('opening', evt);
+            evt && evt.stopPropagation();
+        });
+        this.dialog.listen('MDCDialog:opened', function (evt) {
+            _this.fire('opened', evt);
+            evt && evt.stopPropagation();
+        });
+        this.dialog.listen('MDCDialog:closing', function (evt) {
+            _this.fire('closing', evt);
+            evt && evt.stopPropagation();
+        });
+        this.dialog.listen('MDCDialog:closed', function (evt) {
+            _this.fire('closed', evt);
+            evt && evt.stopPropagation();
+        });
     };
     Dialog.prototype.render = function (props) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-dialog', {
@@ -4719,8 +4735,7 @@ var Dialog = /** @class */ (function (_super) {
                     (props.title) && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
                     omi_1.h("section", { class: 'mdc-dialog__content' },
                         typeof props.message === 'string' ? util_ts_1.htmlToVdom(props.message) : props.message,
-                        omi_1.h("a", { class: 'm-dialog-content-focus', href: "#" }),
-                        "  "),
+                        omi_1.h("a", { class: 'm-dialog-content-focus', href: "#" })),
                     ((props.cancelButton) || (props.confirmButton)) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },
                             (props.cancelButton) && omi_1.h("m-button", __assign({ onClick: this.onCancel, ripple: true }, props.cancelButton), props.cancelButton.text),

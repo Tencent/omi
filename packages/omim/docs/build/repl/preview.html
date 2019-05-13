@@ -154,6 +154,19 @@
       const dialogScrollable = document.getElementById("m-dialog-scrollable");
       const thowText = document.getElementById("show-text");
 
+      //Alert
+      dialogAlert.addEventListener('opening', (e) => {
+        console.log(e.detail.type)
+      })
+      dialogAlert.addEventListener('opened', (e) => {
+        console.log(e.detail.type)
+      })
+      dialogAlert.addEventListener('closing', (e) => {
+        console.log(e.detail.type)
+      })
+      dialogAlert.addEventListener('closed', (e) => {
+        console.log(e.detail.type)
+      })
       dialogAlert.addEventListener('scrim', () => {
         dialogAlert.removeAttribute("show");
         thowText.innerHTML = "Declined... Maybe next time?";
@@ -167,11 +180,67 @@
         thowText.innerHTML = "Accepted, thanks!";
       })
 
+      //Simple
+      dialogSimple.addEventListener('opening', (e) => {
+        console.log(e.detail.type)
+      })
+      dialogSimple.addEventListener('opened', (e) => {
+        console.log(e.detail.type)
+      })
+      dialogSimple.addEventListener('closing', (e) => {
+        console.log(e.detail.type)
+      })
+      dialogSimple.addEventListener('closed', (e) => {
+        console.log(e.detail.type)
+      })
       dialogSimple.addEventListener('scrim', () => {
         dialogSimple.removeAttribute("show");
         thowText.innerHTML = "Declined... Maybe next time?";
       })
-
+      const liSmple0 = dialogSimple.shadowRoot.querySelector('#li-simple-0');
+      const liSmple1 = dialogSimple.shadowRoot.querySelector('#li-simple-1');
+      const liSmple2 = dialogSimple.shadowRoot.querySelector('#li-simple-2');
+      // console.log(liSmple0);
+      // console.log(liSmple1);
+      // console.log(liSmple2);
+      liSmple0.addEventListener('click', (e) => {
+        // console.log(e)
+        liSmple0.setAttribute('tabindex', '0');
+        liSmple1.setAttribute('tabindex', '-1');
+        liSmple2.setAttribute('tabindex', '-1');
+        dialogSimple.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      liSmple1.addEventListener('click', (e) => {
+        // console.log(e)
+        liSmple0.setAttribute('tabindex', '-1');
+        liSmple1.setAttribute('tabindex', '0');
+        liSmple2.setAttribute('tabindex', '-1');
+        dialogSimple.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      liSmple2.addEventListener('click', (e) => {
+        // console.log(e)
+        liSmple0.setAttribute('tabindex', '-1');
+        liSmple1.setAttribute('tabindex', '-1');
+        liSmple2.setAttribute('tabindex', '0');
+        dialogSimple.removeAttribute("show");
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      
+      //Confirmation
+      dialogConfirmation.addEventListener('opening', (e) => {
+        console.log(e.detail.type)
+      })
+      dialogConfirmation.addEventListener('opened', (e) => {
+        console.log(e.detail.type)
+      })
+      dialogConfirmation.addEventListener('closing', (e) => {
+        console.log(e.detail.type)
+      })
+      dialogConfirmation.addEventListener('closed', (e) => {
+        console.log(e.detail.type)
+      })
       dialogConfirmation.addEventListener('scrim', () => {
         dialogConfirmation.removeAttribute("show");
         thowText.innerHTML = "Declined... Maybe next time?";
@@ -183,6 +252,28 @@
       dialogConfirmation.addEventListener('confirm', () => {
         dialogConfirmation.removeAttribute("show");
         thowText.innerHTML = "Accepted, thanks!";
+      })
+      //li-confirmation-0
+      const liConfirmation0 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-0');
+      const liConfirmation1 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-1');
+      const liConfirmation2 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-2');
+      liConfirmation0.addEventListener('click', (e) => {
+        liConfirmation0.setAttribute('tabindex', '0');
+        liConfirmation1.setAttribute('tabindex', '-1');
+        liConfirmation2.setAttribute('tabindex', '-1');
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      liConfirmation1.addEventListener('click', (e) => {
+        liConfirmation0.setAttribute('tabindex', '-1');
+        liConfirmation1.setAttribute('tabindex', '0');
+        liConfirmation2.setAttribute('tabindex', '-1');
+        thowText.innerHTML = "Declined... Maybe next time?";
+      })
+      liConfirmation2.addEventListener('click', (e) => {
+        liConfirmation0.setAttribute('tabindex', '-1');
+        liConfirmation1.setAttribute('tabindex', '-1');
+        liConfirmation2.setAttribute('tabindex', '0');
+        thowText.innerHTML = "Declined... Maybe next time?";
       })
 
       dialogScrollable.addEventListener('scrim', () => {
@@ -197,6 +288,7 @@
         dialogScrollable.removeAttribute("show");
         thowText.innerHTML = "Accepted, thanks!";
       })
+      
 
       function onShowAlert() {
         dialogAlert.setAttribute("show", true);

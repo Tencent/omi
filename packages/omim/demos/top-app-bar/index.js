@@ -27,7 +27,7 @@ define('my-app', class extends WeElement {
       flex: 1 1 45%;
       justify-content: space-around;
       min-height: 200px;
-      min-width: 400px;
+      // min-width: 400px;
       padding: 15px;
     }
     .iframe {

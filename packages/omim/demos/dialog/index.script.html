@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta charset="UTF-8" />
   <title>Add Omi in One Minute</title>
-  <link rel='stylesheet' type='text/css' href='./mdc.list.min.css' />
-  <link rel='stylesheet' type='text/css' href='./mdc.radio.min.css' />
   <style>
     :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
       cursor: default;
@@ -23,6 +21,7 @@
 <body>
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
   <script src="../../src/dialog/index.js"></script>
+  <script src="../../src/radio/index.js"></script>
   <div>
     <m-button onClick="onShowAlert()" ripple>Alert</m-button>
     <m-button onClick="onShowSimple()" ripple>Simple</m-button>
@@ -30,6 +29,10 @@
     <m-button onClick="onShowScrollable()" ripple>Scrollable</m-button>
     <m-dialog
       id="m-dialog-alert"
+      onOpening
+      onOpened
+      onClosing
+      onClosed
       onScrim
       onCancel
       onConfirm
@@ -43,32 +46,24 @@
     ></m-dialog>
     <m-dialog
       id="m-dialog-simple"
+      onOpening
+      onOpened
+      onClosing
+      onClosed
       onScrim
       title='Select an account'
       message="
         <link rel='stylesheet' type='text/css' href='./mdc.list.min.css' />
-        <link rel='stylesheet' type='text/css' href='./mdc.radio.min.css' />
-        <style>
-          :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
-            cursor: default;
-          }
-          .test-list-item__label {
-            width: 100%;
-            height: 100%;
-            line-height: 48px;
-            cursor: pointer;
-          }
-        </style>
-        <ul class='mdc-list mdc-list--avatar-list' style='list-style-type: none;'>
-          <li id='li-one' class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com' onClick='onClick()'>
+        <ul class='mdc-list mdc-list--avatar-list'>
+          <li id='li-simple-0' class='mdc-list-item' tabindex='-1'>
             <table>
               <tr>
                 <td>
-                  <m-icon
-                    view='48'
-                    color='rgba(0,0,0,.3)'
-                    path='M24 4c-7.73 0-14 6.27-14 14 0 10.5 14 26 14 26s14-15.5 14-26c0-7.73-6.27-14-14-14zm0 4c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm0 20c-3.34 0-6.27-1.71-8-4.29.03-2.65 5.34-4.11 8-4.11s7.96 1.46 8 4.11C30.27 26.29 27.34 28 24 28z'>
-                  </m-icon>
+                <m-icon
+                  view='48'
+                  color='rgba(0,0,0,.3)'
+                  path='M24 4c-7.73 0-14 6.27-14 14 0 10.5 14 26 14 26s14-15.5 14-26c0-7.73-6.27-14-14-14zm0 4c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm0 20c-3.34 0-6.27-1.71-8-4.29.03-2.65 5.34-4.11 8-4.11s7.96 1.46 8 4.11C30.27 26.29 27.34 28 24 28z'>
+                </m-icon>
                 </td>
                 <td>
                   &nbsp;&nbsp;<span class='test-list-item__label'>user1@example.com</span>
@@ -76,7 +71,7 @@
               </tr>
             </table>
           </li>
-          <li class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+          <li id='li-simple-1' class='mdc-list-item' tabindex='-1'>
             <table>
               <tr>
                 <td>
@@ -92,7 +87,7 @@
               </tr>
             </table>
           </li>
-          <li class='mdc-list-item' tabindex='0' data-mdc-dialog-action='user1@example.com'>
+          <li id='li-simple-2' class='mdc-list-item' tabindex='0'>
             <table>
               <tr>
                 <td>
@@ -113,65 +108,104 @@
     ></m-dialog>
     <m-dialog
       id="m-dialog-confirmation"
+      onOpening
+      onOpened
+      onClosing
+      onClosed
       onScrim
       onCancel
       onConfirm
       title='Phone ringtone'
       message="
         <link rel='stylesheet' type='text/css' href='./mdc.list.min.css' />
-        <link rel='stylesheet' type='text/css' href='./mdc.radio.min.css' />
         <style>
-          :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
-            cursor: default;
-          }
-          .test-list-item__label {
-            width: 100%;
-            height: 100%;
-            line-height: 48px;
-            cursor: pointer;
+          .m-list-radio {
+            padding: 0;
           }
         </style>
         <ul class='mdc-list' style='list-style-type: none;'>
-          <li class='mdc-list-item' tabindex='0'>
-            <span class='mdc-list-item__graphic'>
-              <div class='mdc-radio'>
-                <input class='mdc-radio__native-control' type='radio' id='test-dialog-baseline-confirmation-radio-1' name='test-dialog-baseline-confirmation-radio-group' value='1' checked='' tabindex='-1' />
-                <div class='mdc-radio__background'>
-                  <div class='mdc-radio__outer-circle'>
-                  </div>
-                  <div class='mdc-radio__inner-circle'>
-                  </div>
-                </div>
-              </div>
-            </span>
-            <label class='test-list-item__label' for='test-dialog-baseline-confirmation-radio-1'>Never Gonna Give You Up</label>
+          <li id='li-confirmation-0' class='mdc-list-item m-list-radio' tabindex='-1'>
+          <m-radio
+              css='
+                .mdc-form-field {
+                  padding: 0 16px;
+                  line-height: 48px;
+                }
+                .mdc-radio {
+                  margin-left: -7.2px;
+                }
+                .mdc-form-field > label {
+                  font-size: initial;
+                  cursor: pointer;
+                }
+                /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+                .mdc-radio::before {
+                  transition: auto;
+                  z-index: 0;
+                }
+                .mdc-radio__native-control {
+                  z-index: 0;
+                }
+              '
+              name='abc'
+              label='Never Gonna Give You Up'
+            ></m-radio>
           </li>
-          <li class='mdc-list-item' tabindex='-1'>
-            <span class='mdc-list-item__graphic'>
-              <div class='mdc-radio'>
-                <input class='mdc-radio__native-control' type='radio' id='test-dialog-baseline-confirmation-radio-2' name='test-dialog-baseline-confirmation-radio-group' value='2' tabindex='-1' />
-                <div class='mdc-radio__background'>
-                  <div class='mdc-radio__outer-circle'>
-                  </div>
-                  <div class='mdc-radio__inner-circle'>
-                  </div>
-                </div>
-              </div>
-            </span>
-            <label class='test-list-item__label' for='test-dialog-baseline-confirmation-radio-2'>Hot Cross Buns</label>
-          </li><li class='mdc-list-item' tabindex='-1'>
-            <span class='mdc-list-item__graphic'>
-              <div class='mdc-radio'>
-                <input class='mdc-radio__native-control' type='radio' id='test-dialog-baseline-confirmation-radio-3' name='test-dialog-baseline-confirmation-radio-group' value='3' tabindex='-1' />
-                <div class='mdc-radio__background'>
-                  <div class='mdc-radio__outer-circle'>
-                  </div>
-                  <div class='mdc-radio__inner-circle'>
-                  </div>
-                </div>
-              </div>
-            </span>
-            <label class='test-list-item__label' for='test-dialog-baseline-confirmation-radio-3'>None</label>
+          <li id='li-confirmation-1' class='mdc-list-item m-list-radio' tabindex='-1'>
+            <m-radio
+              css='
+                .mdc-form-field {
+                  padding: 0 16px;
+                  line-height: 48px;
+                }
+                .mdc-radio {
+                  margin-left: -7.2px;
+                }
+                .mdc-form-field > label {
+                  font-size: initial;
+                  padding-right: 86px;
+                  cursor: pointer;
+                }
+                /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+                .mdc-radio::before {
+                  transition: auto;
+                  z-index: 0;
+                }
+                .mdc-radio__native-control {
+                  z-index: 0;
+                }
+              '
+              name='abc'
+              label='Hot Cross Buns'
+            ></m-radio>
+          </li>
+          <li id='li-confirmation-2' class='mdc-list-item m-list-radio' tabindex='-1'>
+            <m-radio
+              css='
+                .mdc-form-field {
+                  padding: 0 16px;
+                  line-height: 48px;
+                }
+                .mdc-radio {
+                  margin-left: -7.2px;
+                }
+                .mdc-form-field > label {
+                  font-size: initial;
+                  padding-right: 163px;
+                  cursor: pointer;
+                }
+                /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+                .mdc-radio::before {
+                  transition: auto;
+                  z-index: 0;
+                }
+                .mdc-radio__native-control {
+                  z-index: 0;
+                }
+              '
+              name='abc'
+              label='None'
+            ></m-radio>
           </li>
         </ul>
       "
@@ -181,7 +215,7 @@
         dense: true,
         icon: {
           path: 'M923 283.6a260.04 260.04 0 0 0-56.9-82.8 264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3.1-35.3-7-69.6-20.9-101.9zM512 814.8S156 586.7 156 385.5C156 283.6 240.3 201 344.3 201c73.1 0 136.5 40.8 167.7 100.4C543.2 241.8 606.6 201 679.7 201c104 0 188.3 82.6 188.3 184.5 0 201.2-356 429.3-356 429.3z',
-          color: '#F95050',
+          color: '#FFF',
           scale: 1.3
         }
       }"
@@ -191,7 +225,7 @@
         dense: true,
         icon: {
           path: 'M923 283.6a260.04 260.04 0 0 0-56.9-82.8 264.4 264.4 0 0 0-84-55.5A265.34 265.34 0 0 0 679.7 125c-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5a258.44 258.44 0 0 0-56.9 82.8c-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3.1-35.3-7-69.6-20.9-101.9zM512 814.8S156 586.7 156 385.5C156 283.6 240.3 201 344.3 201c73.1 0 136.5 40.8 167.7 100.4C543.2 241.8 606.6 201 679.7 201c104 0 188.3 82.6 188.3 184.5 0 201.2-356 429.3-356 429.3z',
-          color: '#F95050',
+          color: '#FFF',
           scale: 1.3
         }
       }"
@@ -234,6 +268,19 @@
     const dialogScrollable = document.getElementById("m-dialog-scrollable");
     const thowText = document.getElementById("show-text");
 
+    //Alert
+    dialogAlert.addEventListener('opening', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogAlert.addEventListener('opened', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogAlert.addEventListener('closing', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogAlert.addEventListener('closed', (e) => {
+      console.log(e.detail.type)
+    })
     dialogAlert.addEventListener('scrim', () => {
       dialogAlert.removeAttribute("show");
       thowText.innerHTML = "Declined... Maybe next time?";
@@ -247,11 +294,67 @@
       thowText.innerHTML = "Accepted, thanks!";
     })
 
+    //Simple
+    dialogSimple.addEventListener('opening', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogSimple.addEventListener('opened', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogSimple.addEventListener('closing', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogSimple.addEventListener('closed', (e) => {
+      console.log(e.detail.type)
+    })
     dialogSimple.addEventListener('scrim', () => {
       dialogSimple.removeAttribute("show");
       thowText.innerHTML = "Declined... Maybe next time?";
     })
-
+    const liSmple0 = dialogSimple.shadowRoot.querySelector('#li-simple-0');
+    const liSmple1 = dialogSimple.shadowRoot.querySelector('#li-simple-1');
+    const liSmple2 = dialogSimple.shadowRoot.querySelector('#li-simple-2');
+    // console.log(liSmple0);
+    // console.log(liSmple1);
+    // console.log(liSmple2);
+    liSmple0.addEventListener('click', (e) => {
+      // console.log(e)
+      liSmple0.setAttribute('tabindex', '0');
+      liSmple1.setAttribute('tabindex', '-1');
+      liSmple2.setAttribute('tabindex', '-1');
+      dialogSimple.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    liSmple1.addEventListener('click', (e) => {
+      // console.log(e)
+      liSmple0.setAttribute('tabindex', '-1');
+      liSmple1.setAttribute('tabindex', '0');
+      liSmple2.setAttribute('tabindex', '-1');
+      dialogSimple.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    liSmple2.addEventListener('click', (e) => {
+      // console.log(e)
+      liSmple0.setAttribute('tabindex', '-1');
+      liSmple1.setAttribute('tabindex', '-1');
+      liSmple2.setAttribute('tabindex', '0');
+      dialogSimple.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    
+    //Confirmation
+    dialogConfirmation.addEventListener('opening', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogConfirmation.addEventListener('opened', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogConfirmation.addEventListener('closing', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogConfirmation.addEventListener('closed', (e) => {
+      console.log(e.detail.type)
+    })
     dialogConfirmation.addEventListener('scrim', () => {
       dialogConfirmation.removeAttribute("show");
       thowText.innerHTML = "Declined... Maybe next time?";
@@ -263,6 +366,28 @@
     dialogConfirmation.addEventListener('confirm', () => {
       dialogConfirmation.removeAttribute("show");
       thowText.innerHTML = "Accepted, thanks!";
+    })
+    //li-confirmation-0
+    const liConfirmation0 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-0');
+    const liConfirmation1 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-1');
+    const liConfirmation2 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-2');
+    liConfirmation0.addEventListener('click', (e) => {
+      liConfirmation0.setAttribute('tabindex', '0');
+      liConfirmation1.setAttribute('tabindex', '-1');
+      liConfirmation2.setAttribute('tabindex', '-1');
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    liConfirmation1.addEventListener('click', (e) => {
+      liConfirmation0.setAttribute('tabindex', '-1');
+      liConfirmation1.setAttribute('tabindex', '0');
+      liConfirmation2.setAttribute('tabindex', '-1');
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    liConfirmation2.addEventListener('click', (e) => {
+      liConfirmation0.setAttribute('tabindex', '-1');
+      liConfirmation1.setAttribute('tabindex', '-1');
+      liConfirmation2.setAttribute('tabindex', '0');
+      thowText.innerHTML = "Declined... Maybe next time?";
     })
 
     dialogScrollable.addEventListener('scrim', () => {
@@ -277,6 +402,7 @@
       dialogScrollable.removeAttribute("show");
       thowText.innerHTML = "Accepted, thanks!";
     })
+    
 
     function onShowAlert() {
       dialogAlert.setAttribute("show", true);

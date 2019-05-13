@@ -1,14 +1,6 @@
 @import "../../src/theme";
 @import "@material/list/mdc-list";
-@import "@material/radio/mdc-radio";
 
-:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item {
-    cursor: default;
-}
-
-.test-list-item__label {
-    width: 100%;
-    height: 100%;
-    line-height: 48px;
-    cursor: pointer;
+.m-list-radio {
+    padding: 0;
 }
