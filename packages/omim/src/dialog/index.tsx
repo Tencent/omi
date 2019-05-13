@@ -42,6 +42,8 @@ export default class Dialog extends WeElement<Props, Data>{
   installed() {
     this.dialog = new MDCDialog(this.shadowRoot.querySelector('.mdc-dialog'));
 
+    this.props.show ? this.dialog.open() : this.dialog.close()
+
     this.dialog.listen('MDCDialog:opening', (evt) => {
       this.fire('opening', evt)
       evt && evt.stopPropagation()
