@@ -2602,25 +2602,32 @@ var topAppBar = /** @class */ (function (_super) {
     };
     topAppBar.prototype.render = function (props) {
         var _this = this;
-        return (omi_1.h("header", __assign({}, omi_1.extractClass(props, 'mdc-top-app-bar', {
-            'mdc-top-app-bar--fixed': props.fixed,
-            'mdc-top-app-bar--dense': props.dense,
-            'mdc-top-app-bar--short': props.short || props.shortCollapsed,
-            'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
-            'mdc-top-app-bar--prominent': props.prominent
-        })),
-            omi_1.h("div", { class: "mdc-top-app-bar__row" },
-                omi_1.h("section", { class: "mdc-top-app-bar__section mdc-top-app-bar__section--align-start" },
-                    props.navigationIcon && omi_1.h("button", { class: "mdc-top-app-bar__navigation-icon", onClick: this.onNavigation }, (props.navigationIcon.path || props.navigationIcon.paths) ?
-                        omi_1.h("m-icon", __assign({}, props.navigationIcon)) : props.navigationIcon.text),
-                    omi_1.h("span", { class: "mdc-top-app-bar__title" }, props.title)),
-                omi_1.h("section", { class: "mdc-top-app-bar__section mdc-top-app-bar__section--align-end" }, props.actionItems && props.actionItems.map(function (item, index) {
-                    return omi_1.h("button", { accessKey: index.toString(), class: "mdc-top-app-bar__action-item", onClick: _this.onAction }, (item.path || item.paths) ? omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item)) : item.text);
-                })))));
+        return (omi_1.h("div", null,
+            omi_1.h("header", __assign({}, omi_1.extractClass(props, 'mdc-top-app-bar', {
+                'mdc-top-app-bar--fixed': props.fixed,
+                'mdc-top-app-bar--dense': props.dense,
+                'mdc-top-app-bar--short': props.short || props.shortCollapsed,
+                'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
+                'mdc-top-app-bar--prominent': props.prominent
+            })),
+                omi_1.h("div", { class: 'mdc-top-app-bar__row' },
+                    props.navigationIcon &&
+                        omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-start' },
+                            omi_1.h("button", { class: 'mdc-top-app-bar__navigation-icon', onClick: this.onNavigation }, (props.navigationIcon.path || props.navigationIcon.paths) ?
+                                omi_1.h("m-icon", __assign({}, props.navigationIcon)) : props.navigationIcon.text),
+                            omi_1.h("span", { class: 'mdc-top-app-bar__title' }, props.heading)),
+                    props.actionItems &&
+                        omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-end' }, props.actionItems.map(function (item, index) {
+                            return omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, (item.path || item.paths) ? omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item)) : item.text);
+                        })))),
+            omi_1.h("div", __assign({}, omi_1.extractClass(props, (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
+                (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :
+                    props.dense ? 'mdc-top-app-bar--dense-fixed-adjust' :
+                        props.prominent ? 'mdc-top-app-bar--prominent-fixed-adjust' : 'mdc-top-app-bar--fixed-adjust')))));
     };
     topAppBar.css = css;
     topAppBar.propTypes = {
-        title: String,
+        heading: String,
         short: Boolean,
         shortCollapsed: Boolean,
         prominent: Boolean,

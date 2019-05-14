@@ -56,7 +56,7 @@ define('my-app', class extends WeElement {
         {!this.showDemoStart &&
         <div id='demo-show-button'>
           <m-top-app-bar
-            title='Click to show menus'
+            heading='Click to show menus'
             onNavigation={this.onDemoStart}
             navigation-icon={{
               view: 24,
@@ -70,13 +70,11 @@ define('my-app', class extends WeElement {
               }
             ]}
           />
-          <br/><br/>
         </div>}
-        {/* style='display:none;' */}
         {this.showDemoStart &&
         <div id='demo-start'>
           <m-top-app-bar
-            title={'Standard' + this.titleOmi}
+            heading={'Standard' + this.titleOmi}
             onNavigation={this.onMenu}
             navigation-icon={{
               text: 'menu',
@@ -102,10 +100,10 @@ define('my-app', class extends WeElement {
               }
             ]}
           />
-          <div style='height:80px;'></div>
+          <div style='height:15px;'></div>
           <m-top-app-bar
             fixed
-            title={'Fixed' + this.titleOmi}
+            heading={'Fixed' + this.titleOmi}
             navigation-icon={{
               view: 48,
               path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z',
@@ -127,11 +125,11 @@ define('my-app', class extends WeElement {
               }
             ]}
           />
-          <div style='height:80px;'></div>
+          <div style='height:15px;'></div>
           <m-top-app-bar
             dense
             fixed
-            title={'Dense + Fixed' + this.titleOmi}
+            heading={'Dense + Fixed' + this.titleOmi}
             onNavigation={this.onMenu}
             navigation-icon={{
               view: 48,
@@ -145,11 +143,11 @@ define('my-app', class extends WeElement {
               }
             ]}
           />
-          <div style='height:65px;'></div>
+          <div style='height:15px;'></div>
           <m-top-app-bar
             prominent
             fixed
-            title={'Prominent + Fixed' + this.titleOmi}
+            heading={'Prominent + Fixed' + this.titleOmi}
             onNavigation={this.onMenu}
             navigation-icon={{
               view: 48,
@@ -163,12 +161,12 @@ define('my-app', class extends WeElement {
               }
             ]}
           />
-          <div style='height:145px;'></div>
+          <div style='height:15px;'></div>
           <m-top-app-bar
             prominent
             dense
             fixed
-            title={'Prominent + Dense + Fixed' + this.titleOmi}
+            heading={'Prominent + Dense + Fixed' + this.titleOmi}
             onNavigation={this.onMenu}
             navigation-icon={{
               view: 48,
@@ -182,10 +180,10 @@ define('my-app', class extends WeElement {
               }
             ]}
           />
-          <div style='height:114px;'></div>
+          <div style='height:15px;'></div>
           <m-top-app-bar
             fixed
-            title='Click to hide menus'
+            heading='Click to hide menus'
             onNavigation={this.onDemoStart}
             navigation-icon={{
               view: 24,
@@ -227,16 +225,15 @@ define('my-app', class extends WeElement {
               }
             ]}
           />
-          <div style='height:80px;'></div>
+          <div style='height:15px;'></div>
           <m-top-app-bar
             css={`
               .mdc-top-app-bar { 
                 position: static;
-                // margin: 100px;
               }
             `}
             shortCollapsed
-            title={'Short - Always Collapsed' + this.titleOmi}
+            heading={'Short - Always Collapsed' + this.titleOmi}
             onNavigation={this.onMenu}
             navigation-icon={{
               view: 48,
@@ -250,15 +247,15 @@ define('my-app', class extends WeElement {
               }
             ]}
           />
-          <div style='height:20px;'></div>
           <m-top-app-bar
             css={`
               .mdc-top-app-bar { 
                 position: static;
+                margin-top: -40px;
               }
             `}
             short
-            title={'Short' + this.titleOmi}
+            heading={'Short' + this.titleOmi}
             onNavigation={this.onMenu}
             navigation-icon={{
               view: 48,
@@ -272,16 +269,16 @@ define('my-app', class extends WeElement {
               }
             ]}
           />
-          <div style='height:20px;'></div>
           <m-top-app-bar
             css={`
               .mdc-top-app-bar { 
                 position: static;
+                margin-top: -40px;
               }
             `}
             short
             dense
-            title={'Short + Dense' + this.titleOmi}
+            heading={'Short + Dense' + this.titleOmi}
             onNavigation={this.onMenu}
             navigation-icon={{
               view: 48,

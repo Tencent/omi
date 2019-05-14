@@ -4,7 +4,7 @@ import {MDCTopAppBar} from '@material/top-app-bar';
 import '../icon'
 
 interface Props {
-  title: string,
+  heading: string,
   short: boolean,
   shortCollapsed: boolean,
   prominent: boolean,
@@ -23,7 +23,7 @@ export default class topAppBar extends WeElement<Props, Data>{
   static css = css
 
   static propTypes = {
-    title: String,
+    heading: String,
     short: Boolean,
     shortCollapsed: Boolean,
     prominent: Boolean,
@@ -51,30 +51,40 @@ export default class topAppBar extends WeElement<Props, Data>{
   
   render(props) {
     return (
-      <header {...extractClass(props, 'mdc-top-app-bar', {
-        'mdc-top-app-bar--fixed': props.fixed,
-        'mdc-top-app-bar--dense': props.dense,
-        'mdc-top-app-bar--short': props.short || props.shortCollapsed,
-        'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
-        'mdc-top-app-bar--prominent': props.prominent
-      })}>
-        <div class="mdc-top-app-bar__row">
-          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            {props.navigationIcon &&<button class="mdc-top-app-bar__navigation-icon" onClick={this.onNavigation}>
-              {(props.navigationIcon.path || props.navigationIcon.paths) ?
-              <m-icon {...props.navigationIcon}></m-icon> : props.navigationIcon.text}
-            </button>}
-            <span class="mdc-top-app-bar__title">{props.title}</span>
-          </section>
-          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
-            {props.actionItems && props.actionItems.map((item, index) =>
-              <button accessKey={index.toString()} class="mdc-top-app-bar__action-item" onClick={this.onAction}>
-                {(item.path || item.paths) ? <m-icon accessKey={index.toString()} {...item}></m-icon> : item.text}
+      <div>
+        <header {...extractClass(props, 'mdc-top-app-bar', {
+          'mdc-top-app-bar--fixed': props.fixed,
+          'mdc-top-app-bar--dense': props.dense,
+          'mdc-top-app-bar--short': props.short || props.shortCollapsed,
+          'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
+          'mdc-top-app-bar--prominent': props.prominent
+        })}>
+          <div class='mdc-top-app-bar__row'>
+            {props.navigationIcon &&
+            <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
+              <button class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
+                {(props.navigationIcon.path || props.navigationIcon.paths) ?
+                <m-icon {...props.navigationIcon}></m-icon> : props.navigationIcon.text}
               </button>
-            )}
-          </section>
-        </div>
-      </header>
+              <span class='mdc-top-app-bar__title'>{props.heading}</span>
+            </section>}
+            {props.actionItems &&
+              <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
+              {props.actionItems.map((item, index) =>
+                <button accessKey={index.toString()} class='mdc-top-app-bar__action-item' onClick={this.onAction}>
+                  {(item.path || item.paths) ? <m-icon accessKey={index.toString()} {...item}></m-icon> : item.text}
+                </button>
+              )}
+            </section>}
+          </div>
+        </header>
+        <div {...extractClass(props,
+          (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
+          (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :
+          props.dense ? 'mdc-top-app-bar--dense-fixed-adjust' :
+          props.prominent ? 'mdc-top-app-bar--prominent-fixed-adjust' : 'mdc-top-app-bar--fixed-adjust'
+        )}></div>
+      </div>
     )
   }
 }

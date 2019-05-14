@@ -24,7 +24,7 @@
   <div>
     <m-top-app-bar
       id="topAppBar"
-      title="Standard"
+      heading="Standard"
       onNavigation
       navigation-icon="{
         text: 'menu',
@@ -47,7 +47,6 @@
       ]"
     ></m-top-app-bar>
     <div id="content" class="content">
-      <br/><br/><br/>
       Why Omi?<br/>
       One framework. Mobile & desktop & mini program.<br/>
       Tiny size<br/>
@@ -75,16 +74,16 @@
     var content = document.querySelector('#content')
 
     topAppBar.addEventListener('navigation', () => {
-      content.innerHTML = "<br/><br/><br/>(Omi)";
+      content.innerHTML = "(Omi)";
     })
     topAppBar.addEventListener('action0', () => {
-      content.innerHTML = "<br/><br/><br/>(Omim)";
+      content.innerHTML = "(Omim)";
     })
     topAppBar.addEventListener('action1', () => {
-      content.innerHTML = "<br/><br/><br/>(Omiu)";
+      content.innerHTML = "(Omiu)";
     })
     topAppBar.addEventListener('action2', () => {
-      content.innerHTML = "<br/><br/><br/>(Omio)";
+      content.innerHTML = "(Omio)";
     })
   </script>
 </body>

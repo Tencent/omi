@@ -88,17 +88,17 @@ export default class Dialog extends WeElement<Props, Data>{
         <div class='mdc-dialog__scrim' onClick={this.onScrim}></div>
         <div class='mdc-dialog__container'>
           <div class='mdc-dialog__surface'>
-            {(props.title) && <h2 class='mdc-dialog__title'>{props.title}</h2>}
+            {props.title && <h2 class='mdc-dialog__title'>{props.title}</h2>}
             <section class='mdc-dialog__content'>
               {typeof props.message === 'string' ? htmlToVdom(props.message) : props.message}
               {/* solve the problem that the content focus is empty */}
               <a class='m-dialog-content-focus' href="#"></a>
             </section>
             {
-              ((props.cancelButton) || (props.confirmButton)) &&
+              (props.cancelButton || props.confirmButton) &&
               <footer class='mdc-dialog__actions'>
-                {(props.cancelButton) && <m-button onClick={this.onCancel} ripple {...props.cancelButton}>{props.cancelButton.text}</m-button>}
-                {(props.confirmButton) && <m-button onClick={this.onConfirm} ripple {...props.confirmButton}>{props.confirmButton.text}</m-button>}
+                {props.cancelButton && <m-button onClick={this.onCancel} ripple {...props.cancelButton}>{props.cancelButton.text}</m-button>}
+                {props.confirmButton && <m-button onClick={this.onConfirm} ripple {...props.confirmButton}>{props.confirmButton.text}</m-button>}
               </footer>
             }
           </div>
