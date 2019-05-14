@@ -61,7 +61,14 @@ function init(args) {
             if (existsSync(gitPath)) {
               spawn.sync('rm', ['-rf', gitPath])
             }
-
+            // change a project name if project.config.json exist
+            if (existsSync(join(dest, 'project.config.json'))) {
+              var appProjectJson = require(join(dest, 'project.config.json'));
+              appProjectJson.projectname = projectName;
+              fs.writeFile(join(dest, 'project.config.json'), JSON.stringify(appProjectJson, null, 2), (err) => {
+                if (err) return console.log(err);
+              });
+            }
             // change a package name as a project name if package.json exist
             if (existsSync(join(dest, 'package.json'))) {
               var appPackage = require(join(dest, 'package.json'));
@@ -69,7 +76,6 @@ function init(args) {
               fs.writeFile(join(dest, 'package.json'), JSON.stringify(appPackage, null, 2), (err) => {
                 if (err) return console.log(err);
               });
-
               process.chdir(customPrjName || '.');
 
               // install ndoe package modules
