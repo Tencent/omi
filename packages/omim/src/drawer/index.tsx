@@ -1,13 +1,12 @@
 import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import {MDCDrawer, MDCDismissibleDrawerFoundation} from '@material/drawer'
-// import {MDCList} from '@material/list';
+import {MDCList} from '@material/list';
 import '../icon'
 
 interface Props {
   dismissible: boolean,
   modal: boolean,
-  removeAnimation: boolean,
   show: boolean,
   heading: string,
   subHeading: string
@@ -24,7 +23,6 @@ export default class Drawer extends WeElement<Props, Data>{
   static propTypes = {
     dismissible: Boolean,
     modal: Boolean,
-    removeAnimation: Boolean,
     show: Boolean,
     heading: String,
     subHeading: String
@@ -34,23 +32,23 @@ export default class Drawer extends WeElement<Props, Data>{
     
   }
 
-  deawer: MDCDrawer
   drawerFoundation: MDCDismissibleDrawerFoundation
 
   updated() {
-    this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
+    if(this.props.dismissible || this.props.modal) {
+      this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
+    }
   }
   
   installed() {
-    // const drawer = new MDCDrawer(this.shadowRoot.querySelector('.mdc-drawer'))
     if(this.props.dismissible || this.props.modal) {
-      this.deawer = MDCDrawer.attachTo(this.shadowRoot.querySelector('.mdc-drawer'))
-      this.drawerFoundation = this.deawer.getDefaultFoundation()
+      const deawer = MDCDrawer.attachTo(this.shadowRoot.querySelector('.mdc-drawer'))
+      this.drawerFoundation = deawer.getDefaultFoundation()
       this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
+    } else {
+      const list = MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
+      list.wrapFocus = true;
     }
-    // const list = MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
-    // list.wrapFocus = true;
-
   }
 
   // onScrim = (evt) => {
@@ -63,8 +61,7 @@ export default class Drawer extends WeElement<Props, Data>{
       <div class="drawer-frame-root">
         <aside {...extractClass(props, 'mdc-drawer', {
           'mdc-drawer--dismissible': props.dismissible || props.modal,
-          'mdc-drawer--modal': props.modal,
-          'mdc-drawer--open': props.removeAnimation
+          'mdc-drawer--modal': props.modal
         })}>
           {
             (props.heading || props.subHeading) &&
@@ -92,9 +89,10 @@ export default class Drawer extends WeElement<Props, Data>{
         </aside>
         {props.modal && <div class="mdc-drawer-scrim"></div>}
         <div class="mdc-drawer-app-content">
-          <slot name='mdc-drawer-app-content'></slot>
+          <slot name='m-drawer-content-all'></slot>
+          <slot name='m-drawer-header'></slot>
           <div class="drawer-main-content">
-            <slot name='drawer-main-content'></slot>
+            <slot name='m-drawer-content-main'></slot>
           </div>
         </div>
       </div>

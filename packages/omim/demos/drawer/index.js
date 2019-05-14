@@ -17,14 +17,15 @@ define('my-app', class extends WeElement {
       <div>
         <m-drawer
           dismissible
-          // remove-animation
           show={this.showDrawer}
-          heading='Heading'
-          sub-heading='sub heading'
+          heading='Title'
+          sub-heading='subTitle'
         >
-          <div slot='mdc-drawer-app-content'>
+          <div slot='m-drawer-header'>
             <m-top-app-bar
-              heading='Click to show menus'
+              drawer-top-app-bar
+              // adjust={false}
+              heading='Drawer'
               onNavigation={this.onTopAppBar}
               navigation-icon={{
                 view: 24,
@@ -32,12 +33,15 @@ define('my-app', class extends WeElement {
               }}
             />
           </div>
-          <div slot='drawer-main-content'>
-            Lorem ipsp-bar--dense-fixed-adjust	Class used to style the content below the dense top app bar to prevent the top app bar from covering it.
+          <div slot='m-drawer-content-main'>
+            dntzhang
+            <p>zain</p>
+            <p>jane</p>
+            <p>Lorem ipsp-bar--dense-fixed-adjust	Class used to style the content below the dense top app bar to prevent the top app bar from covering it.
 mdc-top-app-bar--dense-prominent-fixed-adjust	Class used to style the content below the top app bar when styled as both dense and prominent, to prevent the top app bar from covering it.
 mdc-top-app-bar--short	Class used to style the top app bar as a short top app bar.
 mdc-top-app-bar--short-collapsed	Class used to indicate the short top app bar is collapsed.
-mdc-top-app-bar--short-fixed-adjust	Class used to style the content below the short top app bar to prevent the top app bar fro
+mdc-top-app-bar--short-fixed-adjust	Class used to style the content below the short top app bar to prevent the top app bar fro</p>
           </div>
         </m-drawer>
       </div>

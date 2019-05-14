@@ -10,6 +10,8 @@ interface Props {
   prominent: boolean,
   dense: boolean,
   fixed: boolean,
+  adjust: boolean,
+  drawerTopAppBar: boolean,
   navigationIcon: object,
   actionItems: object
 }
@@ -29,8 +31,14 @@ export default class topAppBar extends WeElement<Props, Data>{
     prominent: Boolean,
     dense: Boolean,
     fixed: Boolean,
+    adjust: Boolean,
+    drawerTopAppBar: Boolean,
     navigationIcon: Object,
     actionItems: Object
+  }
+
+  static defaultProps = {
+    adjust: true
   }
   
   installed() {
@@ -57,19 +65,22 @@ export default class topAppBar extends WeElement<Props, Data>{
           'mdc-top-app-bar--dense': props.dense,
           'mdc-top-app-bar--short': props.short || props.shortCollapsed,
           'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
-          'mdc-top-app-bar--prominent': props.prominent
+          'mdc-top-app-bar--prominent': props.prominent,
+          'drawer-top-app-bar': props.drawerTopAppBar
         })}>
           <div class='mdc-top-app-bar__row'>
-            {props.navigationIcon &&
+            {(props.navigationIcon || props.heading) &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
-              <button class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
-                {(props.navigationIcon.path || props.navigationIcon.paths) ?
-                <m-icon {...props.navigationIcon}></m-icon> : props.navigationIcon.text}
-              </button>
-              <span class='mdc-top-app-bar__title'>{props.heading}</span>
+              {props.navigationIcon &&
+                <button class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
+                  {(props.navigationIcon.path || props.navigationIcon.paths) ?
+                  <m-icon {...props.navigationIcon}></m-icon> : props.navigationIcon.text}
+                </button>
+              }
+              {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
             </section>}
             {props.actionItems &&
-              <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
+            <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
               {props.actionItems.map((item, index) =>
                 <button accessKey={index.toString()} class='mdc-top-app-bar__action-item' onClick={this.onAction}>
                   {(item.path || item.paths) ? <m-icon accessKey={index.toString()} {...item}></m-icon> : item.text}
@@ -78,12 +89,13 @@ export default class topAppBar extends WeElement<Props, Data>{
             </section>}
           </div>
         </header>
+        {props.adjust &&
         <div {...extractClass(props,
           (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
           (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :
           props.dense ? 'mdc-top-app-bar--dense-fixed-adjust' :
           props.prominent ? 'mdc-top-app-bar--prominent-fixed-adjust' : 'mdc-top-app-bar--fixed-adjust'
-        )}></div>
+        )}></div>}
       </div>
     )
   }

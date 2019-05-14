@@ -1,4 +1,14 @@
 @import "../theme";
 @import "@material/drawer/mdc-drawer";
 @import "@material/list/mdc-list";
-@import "@material/top-app-bar/mdc-top-app-bar";
+
+.drawer-frame-root {
+  display: flex;
+  height: 100vh;
+}
+
+.mdc-drawer-app-content {
+  flex: auto;
+  overflow: auto;
+  position: relative;
+}
