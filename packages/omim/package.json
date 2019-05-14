@@ -100,6 +100,7 @@
   "dependencies": {
     "@material/button": "^2.0.0",
     "@material/checkbox": "^2.1.0",
+    "@material/chips": "^2.1.0",
     "@material/dialog": "^2.0.0",
     "@material/drawer": "^2.1.1",
     "@material/elevation": "^1.1.0",

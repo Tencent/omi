@@ -1,8 +1,7 @@
 English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
 
-<p align="right">Omi <strong>v6.3.12</strong></p>
-<p align="right">Omio <strong>v2.2.1</strong></p>
-<p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="300"/></p>
+<p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="100"/></p>
+<p align="center"><img src="https://tencent.github.io/omi/assets/omi-inside-outside.jpg" alt="omi" width="1000"/></p>
 <h2 align="center">Omi -  Front End Cross-Frameworks Framework</h2>
 
 ## Ecosystem of Omi
@@ -242,11 +241,11 @@ Omi Store provides a way to pass data through the component tree without having 
 </html>
 ```
 
-You can also use `like-button` tag directly in HTML：
+You can also use `my-counter` tag directly in HTML：
 
 ```jsx
 <body>
-  <like-button />
+  <my-counter />
 </body>
 ```
 
