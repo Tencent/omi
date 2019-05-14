@@ -101,7 +101,9 @@
       margin: 10px;
     }
 
-
+		body{
+			padding: 15px;
+		}
 
   </style>
   <script src="./libs/omi.dev.js"></script>
@@ -123,7 +125,7 @@
   <script src="../js/switch.js"></script>
   <script src="../js/typography.js"></script>
 
-  
+
   <!-- <script>
     var createElement = Omi.createElement
     var define = Omi.define
@@ -132,7 +134,7 @@
 
   </script> -->
 
-  
+
 </head>
 
 <body style="background-color:#eee;">
@@ -143,7 +145,7 @@
     // document.body.appendChild(script)
     console.log(parent)
     console.log(parent.location.pathname)
-    
+
     // window.onload = function() {
       // document.body.innerHTML = parent._sourceCode
     if(parent.location.pathname.indexOf('repl/dialog.html') != -1) {
@@ -227,7 +229,7 @@
         dialogSimple.removeAttribute("show");
         thowText.innerHTML = "Declined... Maybe next time?";
       })
-      
+
       //Confirmation
       dialogConfirmation.addEventListener('opening', (e) => {
         console.log(e.detail.type)
@@ -288,7 +290,7 @@
         dialogScrollable.removeAttribute("show");
         thowText.innerHTML = "Accepted, thanks!";
       })
-      
+
 
       function onShowAlert() {
         dialogAlert.setAttribute("show", true);
