@@ -42,10 +42,13 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
   
   installed() {
-    new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
+    const topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
+    topAppBar.listen('MDCTopAppBar:nav', (evt: any) => {
+      this.fire('nav')
+    });
   }
 
-   onNavigation = (evt: Event) => {
+  onNavigation = (evt: Event) => {
     this.fire('navigation')
     evt && evt.stopPropagation()
   }
@@ -72,11 +75,10 @@ export default class topAppBar extends WeElement<Props, Data>{
             {(props.navigationIcon || props.heading) &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
               {props.navigationIcon &&
-                <button class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
-                  {(props.navigationIcon.path || props.navigationIcon.paths) ?
-                  <m-icon {...props.navigationIcon}></m-icon> : props.navigationIcon.text}
-                </button>
-              }
+              <button class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
+                {(props.navigationIcon.path || props.navigationIcon.paths) ?
+                <m-icon {...props.navigationIcon}></m-icon> : props.navigationIcon.text}
+              </button>}
               {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
             </section>}
             {props.actionItems &&

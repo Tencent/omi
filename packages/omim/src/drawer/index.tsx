@@ -45,22 +45,23 @@ export default class Drawer extends WeElement<Props, Data>{
       const deawer = MDCDrawer.attachTo(this.shadowRoot.querySelector('.mdc-drawer'))
       this.drawerFoundation = deawer.getDefaultFoundation()
       this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
+      deawer.listen('MDCDrawer:opened', (evt: any) => {
+        this.fire('opened')
+      })
+      deawer.listen('MDCDrawer:closed', (evt: any) => {
+        this.fire('closed')
+      })
     } else {
       const list = MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
       list.wrapFocus = true;
     }
   }
-
-  // onScrim = (evt) => {
-  //   console.log('scrim')
-  //   const a = new MDCModalDrawerFoundation()
-  // }
-
+  
   render(props) {
     return (
       <div class="drawer-frame-root">
         <aside {...extractClass(props, 'mdc-drawer', {
-          'mdc-drawer--dismissible': props.dismissible || props.modal,
+          'mdc-drawer--dismissible': props.dismissible,
           'mdc-drawer--modal': props.modal
         })}>
           {

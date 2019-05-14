@@ -9,23 +9,39 @@ define('my-app', class extends WeElement {
 
   onTopAppBar = (evt) => {
     this.showDrawer = !this.showDrawer
+    console.log('drawer open')
     this.update()
+  }
+
+  onDrawerClosed = (evt) => {
+    this.showDrawer = false
+    console.log('drawer closed')
   }
 
   render(props, data) {
     return(
       <div>
         <m-drawer
-          dismissible
+          // dismissible
+          modal
           show={this.showDrawer}
           heading='Title'
           sub-heading='subTitle'
+          onClosed={this.onDrawerClosed}
         >
           <div slot='m-drawer-header'>
             <m-top-app-bar
+              css={`
+                .mdc-top-app-bar {
+                  z-index: 7;
+                }
+              `}
               drawer-top-app-bar
               // adjust={false}
+              // short
+              // fixed
               heading='Drawer'
+              // onNav={this.onTopAppBar}
               onNavigation={this.onTopAppBar}
               navigation-icon={{
                 view: 24,
