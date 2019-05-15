@@ -92,8 +92,8 @@ export default class Drawer extends WeElement<Props, Data>{
                     href={item.href}
                     tabindex={`${item.focus ? '0' : '-1'}`}
                     aria-selected={`${item.focus ? true : false}`}
-                    onClick={this.onList}
-                  >
+                    target={item.target && '_blank'}
+                    onClick={this.onList}>
                     <m-icon
                       accessKey={index.toString()}
                       {...item.icon}
@@ -104,28 +104,26 @@ export default class Drawer extends WeElement<Props, Data>{
                             margin-top: -28px;
                           }
                         `}
-                      `}
-                    >
+                      `}>
                       {!(item.icon.path || item.icon.paths) && item.icon.text}
                     </m-icon>
                     {item.text}
                   </a>
                 }
               })}
-              {/* {!props.frame && <slot></slot>} */}
-              <a class='mdc-list-item' href='#' tabindex='-1'><i class='material-icons mdc-list-item__graphic' aria-hidden='true'>announcement</i>Help &amp; feedback</a>
             </nav>
           </div>
         </aside>
         {props.modal && <div class='mdc-drawer-scrim'></div>}
-        {props.frame &&
+        {props.frame ?
         <div class='mdc-drawer-app-content'>
           <slot></slot>
           <slot name='m-drawer-header'></slot>
           <div class='m-drawer-content'>
             <slot name='m-drawer-content'></slot>
           </div>
-        </div>}
+        </div> :
+        <slot></slot>}
       </div>
     )
   }
