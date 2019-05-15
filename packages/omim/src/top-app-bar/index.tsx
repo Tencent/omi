@@ -12,7 +12,8 @@ interface Props {
   fixed: boolean,
   adjust: boolean,
   navigationIcon: object,
-  actionItems: object
+  actionItems: object,
+  scrollTarget: EventTarget
 }
 
 interface Data {
@@ -32,7 +33,8 @@ export default class topAppBar extends WeElement<Props, Data>{
     fixed: Boolean,
     adjust: Boolean,
     navigationIcon: Object,
-    actionItems: Object
+    actionItems: Object,
+    scrollTarget: EventTarget
   }
 
   static defaultProps = {
@@ -41,9 +43,12 @@ export default class topAppBar extends WeElement<Props, Data>{
   
   installed() {
     const topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
+    
     topAppBar.listen('MDCTopAppBar:nav', (evt: any) => {
       this.fire('nav')
     });
+
+    this.props.scrollTarget && topAppBar.setScrollTarget(this.props.scrollTarget)
   }
 
   onNavigation = (evt: Event) => {

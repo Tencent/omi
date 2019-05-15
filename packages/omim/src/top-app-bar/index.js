@@ -2603,6 +2603,9 @@ var topAppBar = /** @class */ (function (_super) {
         topAppBar.listen('MDCTopAppBar:nav', function (evt) {
             _this.fire('nav');
         });
+        console.log(this.props.scrollTarget);
+        this.props.scrollTarget && topAppBar.setScrollTarget(this.props.scrollTarget);
+        console.log('sdfadsafds');
     };
     topAppBar.prototype.render = function (props) {
         var _this = this;
@@ -2641,7 +2644,8 @@ var topAppBar = /** @class */ (function (_super) {
         fixed: Boolean,
         adjust: Boolean,
         navigationIcon: Object,
-        actionItems: Object
+        actionItems: Object,
+        scrollTarget: EventTarget
     };
     topAppBar.defaultProps = {};
     topAppBar = __decorate([

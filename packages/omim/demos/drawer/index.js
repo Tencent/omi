@@ -7,6 +7,20 @@ define('my-app', class extends WeElement {
 
   showDrawer = false
 
+  target = null //document.getElementsByClassName('m-drawer-content')
+
+  install() {
+    
+  }
+
+  installed() {
+    const zain = this.shadowRoot.childNodes[0].childNodes[0]._host.getElementsByClassName('m-drawer-content')[0]
+    this.target = zain
+    console.log(this.target)
+    console.log('ed')
+    this.update()
+  }
+
   onTopAppBar = (evt) => {
     this.showDrawer = !this.showDrawer
     console.log('drawer open')
@@ -80,12 +94,14 @@ define('my-app', class extends WeElement {
           ]}
         >
           <div slot='m-drawer-header'>
+            {this.target &&
             <m-top-app-bar
               css={`
                 .mdc-top-app-bar {
                   position: absolute;
                 }
               `}
+              scrollTarget={this.target}
               heading='Omim'
               onNavigation={this.onTopAppBar}
               navigation-icon={{
@@ -93,7 +109,7 @@ define('my-app', class extends WeElement {
                 path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z',
                 onClick: this.onMenu
               }}
-            />
+            />}
           </div>
           <div slot='m-drawer-content'>
             <br/><br/><br/>

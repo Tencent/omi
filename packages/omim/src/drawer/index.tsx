@@ -2,6 +2,7 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import {MDCDrawer, MDCDismissibleDrawerFoundation} from '@material/drawer'
 import {MDCList} from '@material/list';
+import {MDCTopAppBar} from '@material/top-app-bar';
 import '../icon'
 
 interface Props {
@@ -100,8 +101,8 @@ export default class Drawer extends WeElement<Props, Data>{
                       class='mdc-list-item__graphic'
                       css={`
                         ${!(item.icon.path || item.icon.paths) && `
-                          .m-icon div {
-                            margin-top: -28px;
+                          .m-icon svg {
+                            display: none;
                           }
                         `}
                       `}>
