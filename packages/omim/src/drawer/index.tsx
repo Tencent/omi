@@ -2,12 +2,12 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import {MDCDrawer, MDCDismissibleDrawerFoundation} from '@material/drawer'
 import {MDCList} from '@material/list';
-import {MDCTopAppBar} from '@material/top-app-bar';
 import '../icon'
 
 interface Props {
   frame: boolean,
   dismissible: boolean,
+  dismissibleSmooth: boolean,
   modal: boolean,
   show: boolean,
   heading: string,
@@ -26,6 +26,7 @@ export default class Drawer extends WeElement<Props, Data>{
   static propTypes = {
     frame: Boolean,
     dismissible: Boolean,
+    dismissibleSmooth: Boolean,
     modal: Boolean,
     show: Boolean,
     heading: String,
@@ -60,6 +61,8 @@ export default class Drawer extends WeElement<Props, Data>{
       const list = MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
       list.wrapFocus = true;
     }
+
+    // console.log(this.shadowRoot.querySelector('.m-drawer-content').firstChild)
   }
 
   onList = (evt: any) => {
@@ -95,6 +98,7 @@ export default class Drawer extends WeElement<Props, Data>{
                     aria-selected={`${item.focus ? true : false}`}
                     target={item.target && '_blank'}
                     onClick={this.onList}>
+                    {item.icon &&
                     <m-icon
                       accessKey={index.toString()}
                       {...item.icon}
@@ -107,7 +111,7 @@ export default class Drawer extends WeElement<Props, Data>{
                         `}
                       `}>
                       {!(item.icon.path || item.icon.paths) && item.icon.text}
-                    </m-icon>
+                    </m-icon>}
                     {item.text}
                   </a>
                 }
@@ -117,7 +121,7 @@ export default class Drawer extends WeElement<Props, Data>{
         </aside>
         {props.modal && <div class='mdc-drawer-scrim'></div>}
         {props.frame ?
-        <div class='mdc-drawer-app-content'>
+        <div class={classNames('mdc-drawer-app-content', {'transition-mode1': props.dismissibleSmooth})}>
           <slot></slot>
           <slot name='m-drawer-header'></slot>
           <div class='m-drawer-content'>
