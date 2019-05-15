@@ -2598,7 +2598,11 @@ var topAppBar = /** @class */ (function (_super) {
         return _this;
     }
     topAppBar.prototype.installed = function () {
-        new top_app_bar_1.MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
+        var _this = this;
+        var topAppBar = new top_app_bar_1.MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
+        topAppBar.listen('MDCTopAppBar:nav', function (evt) {
+            _this.fire('nav');
+        });
     };
     topAppBar.prototype.render = function (props) {
         var _this = this;
@@ -2611,19 +2615,21 @@ var topAppBar = /** @class */ (function (_super) {
                 'mdc-top-app-bar--prominent': props.prominent
             })),
                 omi_1.h("div", { class: 'mdc-top-app-bar__row' },
-                    props.navigationIcon &&
+                    (props.navigationIcon || props.heading) &&
                         omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-start' },
-                            omi_1.h("button", { class: 'mdc-top-app-bar__navigation-icon', onClick: this.onNavigation }, (props.navigationIcon.path || props.navigationIcon.paths) ?
-                                omi_1.h("m-icon", __assign({}, props.navigationIcon)) : props.navigationIcon.text),
-                            omi_1.h("span", { class: 'mdc-top-app-bar__title' }, props.heading)),
+                            props.navigationIcon &&
+                                omi_1.h("button", { class: 'mdc-top-app-bar__navigation-icon', onClick: this.onNavigation }, (props.navigationIcon.path || props.navigationIcon.paths) ?
+                                    omi_1.h("m-icon", __assign({}, props.navigationIcon)) : props.navigationIcon.text),
+                            props.heading && omi_1.h("span", { class: 'mdc-top-app-bar__title' }, props.heading)),
                     props.actionItems &&
                         omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-end' }, props.actionItems.map(function (item, index) {
                             return omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, (item.path || item.paths) ? omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item)) : item.text);
                         })))),
-            omi_1.h("div", __assign({}, omi_1.extractClass(props, (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
-                (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :
-                    props.dense ? 'mdc-top-app-bar--dense-fixed-adjust' :
-                        props.prominent ? 'mdc-top-app-bar--prominent-fixed-adjust' : 'mdc-top-app-bar--fixed-adjust')))));
+            props.adjust &&
+                omi_1.h("div", __assign({}, omi_1.extractClass(props, (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
+                    (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :
+                        props.dense ? 'mdc-top-app-bar--dense-fixed-adjust' :
+                            props.prominent ? 'mdc-top-app-bar--prominent-fixed-adjust' : 'mdc-top-app-bar--fixed-adjust')))));
     };
     topAppBar.css = css;
     topAppBar.propTypes = {
@@ -2633,9 +2639,11 @@ var topAppBar = /** @class */ (function (_super) {
         prominent: Boolean,
         dense: Boolean,
         fixed: Boolean,
+        adjust: Boolean,
         navigationIcon: Object,
         actionItems: Object
     };
+    topAppBar.defaultProps = {};
     topAppBar = __decorate([
         omi_1.tag('m-top-app-bar')
     ], topAppBar);

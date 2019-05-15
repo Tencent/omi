@@ -11,7 +11,6 @@ interface Props {
   dense: boolean,
   fixed: boolean,
   adjust: boolean,
-  drawerTopAppBar: boolean,
   navigationIcon: object,
   actionItems: object
 }
@@ -32,13 +31,12 @@ export default class topAppBar extends WeElement<Props, Data>{
     dense: Boolean,
     fixed: Boolean,
     adjust: Boolean,
-    drawerTopAppBar: Boolean,
     navigationIcon: Object,
     actionItems: Object
   }
 
   static defaultProps = {
-    adjust: true
+    
   }
   
   installed() {
@@ -68,8 +66,7 @@ export default class topAppBar extends WeElement<Props, Data>{
           'mdc-top-app-bar--dense': props.dense,
           'mdc-top-app-bar--short': props.short || props.shortCollapsed,
           'mdc-top-app-bar--short-collapsed': props.shortCollapsed,
-          'mdc-top-app-bar--prominent': props.prominent,
-          'drawer-top-app-bar': props.drawerTopAppBar
+          'mdc-top-app-bar--prominent': props.prominent
         })}>
           <div class='mdc-top-app-bar__row'>
             {(props.navigationIcon || props.heading) &&

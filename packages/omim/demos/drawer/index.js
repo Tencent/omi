@@ -18,26 +18,77 @@ define('my-app', class extends WeElement {
     console.log('drawer closed')
   }
 
+  onList = (evt) => {
+    console.log(evt)
+  }
+
   render(props, data) {
     return(
       <div>
         <m-drawer
-          // dismissible
-          modal
+          frame
+          dismissible
+          // modal
           show={this.showDrawer}
           heading='Title'
           sub-heading='subTitle'
           onClosed={this.onDrawerClosed}
+          onList0={this.onList}
+          lists={[
+            {
+              focus: true,
+              text: 'Inbox',
+              icon: {
+                view: 48,
+                path: 'M24 42.7l-2.9-2.63C10.8 30.72 4 24.55 4 17 4 10.83 8.83 6 15 6c3.48 0 6.82 1.62 9 4.17C26.18 7.62 29.52 6 33 6c6.17 0 11 4.83 11 11 0 7.55-6.8 13.72-17.1 23.07L24 42.7z',
+              },
+              href: '#'
+            }, {
+              text: 'Inbox',
+              icon: {
+                view: 48,
+                path: 'M24 42.7l-2.9-2.63C10.8 30.72 4 24.55 4 17 4 10.83 8.83 6 15 6c3.48 0 6.82 1.62 9 4.17C26.18 7.62 29.52 6 33 6c6.17 0 11 4.83 11 11 0 7.55-6.8 13.72-17.1 23.07L24 42.7z',
+              },
+              href: '#'
+            }, {
+              text: 'Inbox',
+              icon: {
+                view: 48,
+                path: 'M24 42.7l-2.9-2.63C10.8 30.72 4 24.55 4 17 4 10.83 8.83 6 15 6c3.48 0 6.82 1.62 9 4.17C26.18 7.62 29.52 6 33 6c6.17 0 11 4.83 11 11 0 7.55-6.8 13.72-17.1 23.07L24 42.7z',
+              },
+              href: '#'
+            }, {
+              divider: true
+            }, {
+              subheader: 'Labels'
+            }, {
+              text: 'Inbox',
+              icon: {
+                text: 'icon',
+                view: 48
+                // path: 'M24 42.7l-2.9-2.63C10.8 30.72 4 24.55 4 17 4 10.83 8.83 6 15 6c3.48 0 6.82 1.62 9 4.17C26.18 7.62 29.52 6 33 6c6.17 0 11 4.83 11 11 0 7.55-6.8 13.72-17.1 23.07L24 42.7z',
+              },
+              href: '#'
+            }, {
+              text: 'Inbox',
+              icon: {
+                view: 48,
+                path: 'M24 42.7l-2.9-2.63C10.8 30.72 4 24.55 4 17 4 10.83 8.83 6 15 6c3.48 0 6.82 1.62 9 4.17C26.18 7.62 29.52 6 33 6c6.17 0 11 4.83 11 11 0 7.55-6.8 13.72-17.1 23.07L24 42.7z',
+              },
+              href: '#'
+            }
+          ]}
         >
           <div slot='m-drawer-header'>
             <m-top-app-bar
               css={`
                 .mdc-top-app-bar {
-                  z-index: 7;
+                  position: absolute;
+                  // z-index: 7;
                 }
               `}
-              drawer-top-app-bar
-              // adjust={false}
+              dense
+              // adjust
               // short
               // fixed
               heading='Drawer'
@@ -49,7 +100,8 @@ define('my-app', class extends WeElement {
               }}
             />
           </div>
-          <div slot='m-drawer-content-main'>
+          <div slot='m-drawer-content'>
+            <br/><br/>
             dntzhang
             <p>zain</p>
             <p>jane</p>

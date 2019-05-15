@@ -7,6 +7,7 @@ interface Props {
     prominent: boolean;
     dense: boolean;
     fixed: boolean;
+    adjust: boolean;
     navigationIcon: object;
     actionItems: object;
 }
@@ -21,9 +22,11 @@ export default class topAppBar extends WeElement<Props, Data> {
         prominent: BooleanConstructor;
         dense: BooleanConstructor;
         fixed: BooleanConstructor;
+        adjust: BooleanConstructor;
         navigationIcon: ObjectConstructor;
         actionItems: ObjectConstructor;
     };
+    static defaultProps: {};
     installed(): void;
     onNavigation: (evt: Event) => void;
     onAction: (evt: any) => void;

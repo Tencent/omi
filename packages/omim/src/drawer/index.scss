@@ -2,13 +2,21 @@
 @import "@material/drawer/mdc-drawer";
 @import "@material/list/mdc-list";
 
-.drawer-frame-root {
+.m-drawer-frame-root {
   display: flex;
   height: 100vh;
 }
 
-.mdc-drawer-app-content {
-  flex: auto;
+.m-drawer-content {
   overflow: auto;
-  position: relative;
+  height: 100%;
 }
+
+// .app-bar {
+//   position: absolute;
+// }
+
+// // only apply this style if below top app bar
+// .mdc-top-app-bar {
+//   z-index: 7;
+// }
