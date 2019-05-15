@@ -9,7 +9,8 @@ interface Props {
   dense: boolean,
   unelevated: boolean,
   outlined: boolean,
-  icon: object
+  svgIcon: object,
+  icon: string
 }
 
 interface Data {
@@ -26,7 +27,8 @@ export default class Button extends WeElement<Props, Data>{
     dense: Boolean,
     unelevated: Boolean,
     outlined: Boolean,
-    icon: Object
+    svgIcon: Object,
+    icon: String
   }
 
   installed() {
@@ -43,7 +45,8 @@ export default class Button extends WeElement<Props, Data>{
         'mdc-button--unelevated': props.unelevated,
         'mdc-button--outlined': props.outlined
       })}>
-        {(props.icon) && <m-icon class='m-icon' {...props.icon}></m-icon>}
+        {(props.icon) && <i class="mdc-fab__icon material-icons">{props.icon}</i>}
+        {(props.svgIcon) && <m-icon class='m-icon' {...props.svgIcon}></m-icon>}
         <span class="mdc-button__label"><slot></slot></span>
       </button>
     )

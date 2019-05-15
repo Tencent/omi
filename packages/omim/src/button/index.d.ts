@@ -6,7 +6,8 @@ interface Props {
     dense: boolean;
     unelevated: boolean;
     outlined: boolean;
-    icon: object;
+    svgIcon: object;
+    icon: string;
 }
 interface Data {
 }
@@ -18,7 +19,8 @@ export default class Button extends WeElement<Props, Data> {
         dense: BooleanConstructor;
         unelevated: BooleanConstructor;
         outlined: BooleanConstructor;
-        icon: ObjectConstructor;
+        svgIcon: ObjectConstructor;
+        icon: StringConstructor;
     };
     installed(): void;
     render(props: any): JSX.Element;
