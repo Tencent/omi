@@ -62,7 +62,9 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | top-app-bar| zainchen |
 | typography| done |
 | drawer | zainchen |
-| badge | nsfuc |
+| badge | done |
+| fab | done |
+| icon-button |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 

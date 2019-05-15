@@ -1,21 +1,17 @@
 import { WeElement } from 'omi';
 interface Props {
-    label?: string;
-    disabled?: boolean;
-    indeterminate?: boolean;
-    checked?: boolean;
-    value: string;
+    id?: string;
+    selected?: boolean;
+    shouldRemoveOnTrailingIconClick?: boolean;
 }
 interface Data {
 }
 export default class chip extends WeElement<Props, Data> {
     static css: any;
     static propTypes: {
-        label: StringConstructor;
-        disabled: BooleanConstructor;
-        indeterminate: BooleanConstructor;
-        checked: BooleanConstructor;
-        value: StringConstructor;
+        id: StringConstructor;
+        selected: BooleanConstructor;
+        shouldRemoveOnTrailingIconClick: BooleanConstructor;
     };
     installed(): void;
     render(props: any): JSX.Element;
