@@ -56,6 +56,7 @@ define('my-app', class extends WeElement {
         {!this.showDemoStart &&
         <div id='demo-show-button'>
           <m-top-app-bar
+            adjust
             heading='Click to show menus'
             onNavigation={this.onDemoStart}
             navigation-icon={{
@@ -74,6 +75,7 @@ define('my-app', class extends WeElement {
         {this.showDemoStart &&
         <div id='demo-start'>
           <m-top-app-bar
+            adjust
             heading={'Standard' + this.titleOmi}
             onNavigation={this.onMenu}
             navigation-icon={{
@@ -102,6 +104,7 @@ define('my-app', class extends WeElement {
           />
           <div style='height:15px;'></div>
           <m-top-app-bar
+            adjust
             fixed
             heading={'Fixed' + this.titleOmi}
             navigation-icon={{
@@ -127,6 +130,7 @@ define('my-app', class extends WeElement {
           />
           <div style='height:15px;'></div>
           <m-top-app-bar
+            adjust
             dense
             fixed
             heading={'Dense + Fixed' + this.titleOmi}
@@ -145,6 +149,7 @@ define('my-app', class extends WeElement {
           />
           <div style='height:15px;'></div>
           <m-top-app-bar
+            adjust
             prominent
             fixed
             heading={'Prominent + Fixed' + this.titleOmi}
@@ -163,6 +168,7 @@ define('my-app', class extends WeElement {
           />
           <div style='height:15px;'></div>
           <m-top-app-bar
+            adjust
             prominent
             dense
             fixed
@@ -182,6 +188,7 @@ define('my-app', class extends WeElement {
           />
           <div style='height:15px;'></div>
           <m-top-app-bar
+            adjust
             fixed
             heading='Click to hide menus'
             onNavigation={this.onDemoStart}
@@ -232,6 +239,7 @@ define('my-app', class extends WeElement {
                 position: static;
               }
             `}
+            adjust
             shortCollapsed
             heading={'Short - Always Collapsed' + this.titleOmi}
             onNavigation={this.onMenu}
@@ -254,6 +262,7 @@ define('my-app', class extends WeElement {
                 margin-top: -40px;
               }
             `}
+            adjust
             short
             heading={'Short' + this.titleOmi}
             onNavigation={this.onMenu}
@@ -276,6 +285,7 @@ define('my-app', class extends WeElement {
                 margin-top: -40px;
               }
             `}
+            adjust
             short
             dense
             heading={'Short + Dense' + this.titleOmi}

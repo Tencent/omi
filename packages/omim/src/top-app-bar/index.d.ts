@@ -7,8 +7,10 @@ interface Props {
     prominent: boolean;
     dense: boolean;
     fixed: boolean;
+    adjust: boolean;
     navigationIcon: object;
     actionItems: object;
+    scrollTarget: EventTarget;
 }
 interface Data {
 }
@@ -21,9 +23,15 @@ export default class topAppBar extends WeElement<Props, Data> {
         prominent: BooleanConstructor;
         dense: BooleanConstructor;
         fixed: BooleanConstructor;
+        adjust: BooleanConstructor;
         navigationIcon: ObjectConstructor;
         actionItems: ObjectConstructor;
+        scrollTarget: {
+            new (): EventTarget;
+            prototype: EventTarget;
+        };
     };
+    static defaultProps: {};
     installed(): void;
     onNavigation: (evt: Event) => void;
     onAction: (evt: any) => void;
