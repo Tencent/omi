@@ -62,6 +62,12 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | top-app-bar| zainchen |
 | typography| done |
 | drawer | zainchen |
-| badge | nsfuc |
+| badge | done |
+| fab | done |
+| icon-button |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
+
+Some [material packages](https://github.com/material-components/material-components-web/tree/master/packages) have not yet been released. Please wait for their release. Or pull the corresponding package from the branch to implement, without starting from scratch.
+
+有些 [material packages](https://github.com/material-components/material-components-web/tree/master/packages) 尚未发布，请等待其发布后 omi 再去实现。或者从分支中拉去对应的 package 进行实现，不必从零开始实现。
