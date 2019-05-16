@@ -13,7 +13,8 @@ interface Props {
   icon: string,
   imgs: object,
   svg: object,
-  color: string
+  color: string,
+  disabled: boolean
 }
 
 interface Data {
@@ -35,7 +36,8 @@ export default class IconButton extends WeElement<Props, Data>{
     icon: String,
     imgs: Object,
     svg: Object,
-    color: String
+    color: String,
+    disabled: Boolean
   }
   install() {
     document.addEventListener('DOMContentLoaded', () => {
@@ -65,12 +67,12 @@ export default class IconButton extends WeElement<Props, Data>{
     if (props.children && props.children[0] && props.children[1]) {
       props.children[0].attributes.class = 'mdc-icon-button__icon'
       props.children[1].attributes.class = 'mdc-icon-button__icon mdc-icon-button__icon--on'
-      return <button style={`color:${props.color};`} {...extractClass(props, 'mdc-icon-button material-icons')}>
+      return <button style={`color:${props.color};`} {...extractClass(props, 'mdc-icon-button material-icons')} {...extract(props, ['disabled'])}>
         {props.children}
       </button>
     }
     return (
-      <button style={`color:${props.color};`} {...extractClass(props, 'mdc-icon-button material-icons')}>
+      <button style={`color:${props.color};`} {...extractClass(props, 'mdc-icon-button material-icons')} {...extract(props, ['disabled'])}>
         {props.icon ? props.icon : (props.icons ? [
           <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">{props.icons[0]}</i>,
           <i class="material-icons mdc-icon-button__icon">{props.icons[1]}</i>

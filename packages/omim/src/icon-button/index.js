@@ -2690,9 +2690,9 @@ var IconButton = /** @class */ (function (_super) {
         if (props.children && props.children[0] && props.children[1]) {
             props.children[0].attributes.class = 'mdc-icon-button__icon';
             props.children[1].attributes.class = 'mdc-icon-button__icon mdc-icon-button__icon--on';
-            return omi_1.h("button", __assign({ style: "color:" + props.color + ";" }, omi_1.extractClass(props, 'mdc-icon-button material-icons')), props.children);
+            return omi_1.h("button", __assign({ style: "color:" + props.color + ";" }, omi_1.extractClass(props, 'mdc-icon-button material-icons'), util_ts_1.extract(props, ['disabled'])), props.children);
         }
-        return (omi_1.h("button", __assign({ style: "color:" + props.color + ";" }, omi_1.extractClass(props, 'mdc-icon-button material-icons')), props.icon ? props.icon : (props.icons ? [
+        return (omi_1.h("button", __assign({ style: "color:" + props.color + ";" }, omi_1.extractClass(props, 'mdc-icon-button material-icons'), util_ts_1.extract(props, ['disabled'])), props.icon ? props.icon : (props.icons ? [
             omi_1.h("i", { class: "material-icons mdc-icon-button__icon mdc-icon-button__icon--on" }, props.icons[0]),
             omi_1.h("i", { class: "material-icons mdc-icon-button__icon" }, props.icons[1])
         ] : (props.imgs && [
@@ -2711,7 +2711,8 @@ var IconButton = /** @class */ (function (_super) {
         icon: String,
         imgs: Object,
         svg: Object,
-        color: String
+        color: String,
+        disabled: Boolean
     };
     IconButton = __decorate([
         omi_1.tag('m-icon-button')

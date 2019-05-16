@@ -7,6 +7,7 @@ function clickHandler() {
 render(
   <div>
     <h3>m-icon-button</h3>
+
     <m-icon-button icon='wifi'></m-icon-button>
     <m-icon-button onChange={(evt) => { console.log(evt.detail.isOn) }} icons={['favorite', 'favorite_border']}></m-icon-button>
 
@@ -18,6 +19,8 @@ render(
 
       <svg viewBox="0 0 1024 1024" class="" width="2em" height="2em" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="#F98080"></path><path d="M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z" fill="#F95050"></path></svg>
     </m-icon-button>
+
+    <m-icon-button disabled icon='wifi'></m-icon-button>
   </div>
   , 'body')
 
