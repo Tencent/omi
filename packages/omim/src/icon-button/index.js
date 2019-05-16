@@ -2710,7 +2710,8 @@ var IconButton = /** @class */ (function (_super) {
         icons: Object,
         icon: String,
         imgs: Object,
-        svg: Object
+        svg: Object,
+        color: String
     };
     IconButton = __decorate([
         omi_1.tag('m-icon-button')

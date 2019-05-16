@@ -7,8 +7,10 @@ function clickHandler() {
 render(
   <div>
     <h3>m-icon-button</h3>
-    <m-icon-button icon='favorite'></m-icon-button>
+    <m-icon-button icon='wifi'></m-icon-button>
     <m-icon-button onChange={(evt) => { console.log(evt.detail.isOn) }} icons={['favorite', 'favorite_border']}></m-icon-button>
+
+    <m-icon-button color="red" icons={['favorite', 'favorite_border']}></m-icon-button>
 
     <m-icon-button>
 

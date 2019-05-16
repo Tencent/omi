@@ -6,6 +6,7 @@ interface Props {
     icon: string;
     imgs: object;
     svg: object;
+    color: string;
 }
 interface Data {
 }
@@ -21,6 +22,7 @@ export default class IconButton extends WeElement<Props, Data> {
         icon: StringConstructor;
         imgs: ObjectConstructor;
         svg: ObjectConstructor;
+        color: StringConstructor;
     };
     install(): void;
     render(props: any): JSX.Element;

@@ -12,7 +12,8 @@ interface Props {
   icons: object,
   icon: string,
   imgs: object,
-  svg: object
+  svg: object,
+  color: string
 }
 
 interface Data {
@@ -33,7 +34,8 @@ export default class IconButton extends WeElement<Props, Data>{
     icons: Object,
     icon: String,
     imgs: Object,
-    svg: Object
+    svg: Object,
+    color: String
   }
   install() {
     document.addEventListener('DOMContentLoaded', () => {
