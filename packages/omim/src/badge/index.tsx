@@ -31,7 +31,7 @@ export default class Badge extends WeElement<Props, Data>{
     if (props.content !== undefined) {
       return <div {...extractClass(props, 'm-badge')}>
         {props.children[0]}
-        <span class="badge" style="top: -.7em;right: -1em;">{props.content}</span>
+        <span class="badge" >{props.content}</span>
       </div>
 
     }
@@ -39,7 +39,7 @@ export default class Badge extends WeElement<Props, Data>{
       return (
         <div class="m-badge">
           {props.children[0]}
-        <span class="circle" style="position: absolute;top: -.2em;right: -.2em;"></span>
+        <span class="circle badge"></span>
         </div>
       )
     }
