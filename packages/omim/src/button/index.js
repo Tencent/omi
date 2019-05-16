@@ -1605,6 +1605,9 @@ var Button = /** @class */ (function (_super) {
                 omi_1.h("slot", null))));
     };
     Button.css = css;
+    Button.defaultProps = {
+        ripple: true
+    };
     Button.propTypes = {
         ripple: Boolean,
         raised: Boolean,
@@ -1908,7 +1911,8 @@ exports.default = Button;
                     path: String,
                     paths: Object,
                     view: Number,
-                    scale: Number
+                    scale: Number,
+                    color: String
                 };
                 Icon = __decorate([
                     omi_1.tag('m-icon')

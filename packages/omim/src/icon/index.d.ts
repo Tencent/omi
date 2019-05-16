@@ -4,6 +4,7 @@ interface Props {
     paths?: object;
     view?: number;
     scale?: number;
+    color?: string;
 }
 interface Data {
 }
@@ -18,6 +19,7 @@ export default class Icon extends WeElement<Props, Data> {
         paths: ObjectConstructor;
         view: NumberConstructor;
         scale: NumberConstructor;
+        color: StringConstructor;
     };
     render(props: any): JSX.Element;
 }

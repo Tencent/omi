@@ -1,14 +1,12 @@
 import { WeElement, define, render } from 'omi'
 import '../../src/tree'
 
-
 define('my-app', class extends WeElement {
   treeData = {
     name: 'Root',
     expand: true,
     id: 0,
     children: [
-
       {
         name: 'Test English',
         type: 'group',
@@ -42,19 +40,12 @@ define('my-app', class extends WeElement {
     ]
   }
 
-  onNodeClick = (id, evt)=> {
+  onNodeClick = (id, evt) => {
     console.log(id, evt)
   }
 
   render() {
-    return (
-
-      <o-tree
-        data={this.treeData}
-        onNodeClick={this.onNodeClick} />
-
-
-    )
+    return <o-tree data={this.treeData} onNodeClick={this.onNodeClick} />
   }
 })
 

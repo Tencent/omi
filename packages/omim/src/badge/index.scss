@@ -8,24 +8,41 @@
 }
 
 .badge {
-  position: absolute;
-  padding: .15em .4em;
-  min-width: 8px;
-  border-radius: 18px;
+
   background-color: #F95050;
   color: #FFFFFF;
   line-height: 1.2;
-  text-align: center;
-  font-size: 12px;
-  vertical-align: middle;
-  white-space: nowrap;
-  overflow: hidden;
-  max-width: 35px;
+
+
+
+  top: 0;
+  right: 0;
+  height: 20px;
+  display: flex;
+  padding: 0 4px;
+  z-index: 1;
+  position: absolute;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  min-width: 20px;
+  transform: scale(1) translate(50%, -50%);
+  box-sizing: border-box;
+  transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  align-items: center;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  align-content: center;
+  border-radius: 10px;
+  flex-direction: row;
+  justify-content: center;
+  transform-origin: 100% 0%;
 }
 
 .circle {
-  width: 10px;
-  height: 10px;
+
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: #F95050;
+  min-width: 8px;
+  padding: 0;
 }

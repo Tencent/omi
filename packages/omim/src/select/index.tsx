@@ -20,10 +20,6 @@ interface Data {
 export default class Select extends WeElement<Props, Data>{
   static css = css
 
-  static defaultProps = {
-    scale: 2
-  }
-
   static propTypes = {
     label: String,
     menu: Object

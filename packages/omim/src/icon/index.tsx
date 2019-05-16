@@ -6,7 +6,8 @@ interface Props {
   path?: string,
   paths?: object,
   view?: number,
-  scale?: number
+  scale?: number,
+  color?: string
 }
 
 interface Data {
@@ -27,7 +28,8 @@ export default class Icon extends WeElement<Props, Data>{
     path: String,
     paths: Object,
     view: Number,
-    scale: Number
+    scale: Number,
+    color: String
   }
 
   render(props) {
