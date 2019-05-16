@@ -2491,7 +2491,8 @@ function __importDefault(mod) {
                     path: String,
                     paths: Object,
                     view: Number,
-                    scale: Number
+                    scale: Number,
+                    color: String
                 };
                 Icon = __decorate([
                     omi_1.tag('m-icon')
@@ -2603,9 +2604,7 @@ var topAppBar = /** @class */ (function (_super) {
         topAppBar.listen('MDCTopAppBar:nav', function (evt) {
             _this.fire('nav');
         });
-        console.log(this.props.scrollTarget);
         this.props.scrollTarget && topAppBar.setScrollTarget(this.props.scrollTarget);
-        console.log('sdfadsafds');
     };
     topAppBar.prototype.render = function (props) {
         var _this = this;
