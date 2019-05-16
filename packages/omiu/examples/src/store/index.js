@@ -7,7 +7,7 @@ class Store {
     this.menus = config.menus[this.lan]
     this.md = this.menus[0].list[0].md
     this.remarkable = new Remarkable({ html: true })
-    if (location.hash === "") {
+    if (location.hash === '') {
       this.getMarkDown(this.md, this.lan, m => {
         this.html = this.remarkable.render(m)
         this.myContent.update()
@@ -31,7 +31,7 @@ class Store {
     this.mySidebar.update()
   }
 
-  hideSidebar(){
+  hideSidebar() {
     this.sideBarShow = false
     this.mySidebar.update()
   }
@@ -66,4 +66,4 @@ class Store {
   }
 }
 
-export default Store 
+export default Store

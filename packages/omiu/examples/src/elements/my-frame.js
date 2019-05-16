@@ -6,7 +6,6 @@ import './my-sidebar'
 import './my-demo'
 
 define('my-frame', class extends WeElement {
-
   render() {
     return (
       <div>
