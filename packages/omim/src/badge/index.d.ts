@@ -6,8 +6,9 @@ interface Data {
 }
 export default class Badge extends WeElement<Props, Data> {
     static css: any;
-    data: {
-        active: any;
+    static propTypes: {
+        dot: BooleanConstructor;
+        content: StringConstructor;
     };
     installed(): void;
     uninstall(): void;

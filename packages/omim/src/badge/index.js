@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".m-badge {\n  position: relative;\n  display: inline-block; }\n\n.badge {\n  position: absolute;\n  padding: .15em .4em;\n  min-width: 8px;\n  border-radius: 18px;\n  background-color: #F95050;\n  color: #FFFFFF;\n  line-height: 1.2;\n  text-align: center;\n  font-size: 12px;\n  vertical-align: middle;\n  white-space: nowrap;\n  overflow: hidden;\n  max-width: 35px; }\n\n.circle {\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  background-color: #F95050; }\n", ""]);
+exports.push([module.i, ".m-badge {\n  position: relative;\n  display: inline-block; }\n\n.badge {\n  background-color: #F95050;\n  color: #FFFFFF;\n  line-height: 1.2;\n  top: 0;\n  right: 0;\n  height: 20px;\n  display: flex;\n  padding: 0 4px;\n  z-index: 1;\n  position: absolute;\n  flex-wrap: wrap;\n  font-size: 0.75rem;\n  min-width: 20px;\n  transform: scale(1) translate(50%, -50%);\n  box-sizing: border-box;\n  transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\n  align-items: center;\n  font-family: \"Roboto\", \"Helvetica\", \"Arial\", sans-serif;\n  font-weight: 500;\n  align-content: center;\n  border-radius: 10px;\n  flex-direction: row;\n  justify-content: center;\n  transform-origin: 100% 0%; }\n\n.circle {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  min-width: 8px;\n  padding: 0; }\n", ""]);
 
 // exports
 
@@ -267,30 +267,31 @@ __webpack_require__(/*! ../icon */ "./src/icon/index.js");
 var Badge = /** @class */ (function (_super) {
     __extends(Badge, _super);
     function Badge() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.data = {
-            active: null
-        };
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Badge.prototype.installed = function () {
     };
     Badge.prototype.uninstall = function () {
     };
     Badge.prototype.render = function (props) {
-        if (props.content !== undefined) {
+        if (props.content) {
             return omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-badge')),
-                props.children[0],
-                omi_1.h("span", { class: "badge", style: "top: -.7em;right: -1em;" }, props.content));
+                props.children ? props.children[0] : omi_1.h("slot", null),
+                omi_1.h("span", { class: "badge" }, props.content));
         }
         if (props.dot) {
+            console.log(111);
             return (omi_1.h("div", { class: "m-badge" },
-                props.children[0],
-                omi_1.h("span", { class: "circle", style: "position: absolute;top: -.2em;right: -.2em;" })));
+                props.children ? props.children[0] : omi_1.h("slot", null),
+                omi_1.h("span", { class: "circle badge" })));
         }
-        return omi_1.h("div", { class: "m-badge" }, props.children[0]);
+        return omi_1.h("div", { class: "m-badge" }, props.children ? props.children[0] : omi_1.h("slot", null));
     };
     Badge.css = css;
+    Badge.propTypes = {
+        dot: Boolean,
+        content: String
+    };
     Badge = __decorate([
         omi_1.tag('m-badge')
     ], Badge);
@@ -585,7 +586,8 @@ exports.default = Badge;
                     path: String,
                     paths: Object,
                     view: Number,
-                    scale: Number
+                    scale: Number,
+                    color: String
                 };
                 Icon = __decorate([
                     omi_1.tag('m-icon')

@@ -1910,7 +1910,8 @@ exports.default = Fab;
                     path: String,
                     paths: Object,
                     view: Number,
-                    scale: Number
+                    scale: Number,
+                    color: String
                 };
                 Icon = __decorate([
                     omi_1.tag('m-icon')

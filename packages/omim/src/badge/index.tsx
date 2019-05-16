@@ -14,9 +14,11 @@ interface Data {
 export default class Badge extends WeElement<Props, Data>{
   static css = css
 
-  data = {
-    active: null
+  static propTypes = {
+    dot: Boolean,
+    content: String
   }
+
 
   installed() {
 
@@ -28,22 +30,22 @@ export default class Badge extends WeElement<Props, Data>{
 
 
   render(props) {
-    if (props.content !== undefined) {
+    if (props.content) {
       return <div {...extractClass(props, 'm-badge')}>
-        {props.children[0]}
-        <span class="badge" >{props.content}</span>
+        {props.children ? props.children[0] : <slot></slot>}
+        <span class="badge">{props.content}</span>
       </div>
 
     }
     if (props.dot) {
       return (
         <div class="m-badge">
-          {props.children[0]}
-        <span class="circle badge"></span>
+          {props.children ? props.children[0] : <slot></slot>}
+          <span class="circle badge"></span>
         </div>
       )
     }
-    return <div class="m-badge">{props.children[0]}</div>
+    return <div class="m-badge">{props.children ? props.children[0] : <slot></slot>}</div>
   }
 }
 
