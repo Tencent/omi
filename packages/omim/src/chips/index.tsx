@@ -1,4 +1,4 @@
-import { tag, WeElement, h, extractClass } from 'omi'
+import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import { MDCChipSet, MDCChip } from '@material/chips'
 import '../icon'
@@ -8,14 +8,10 @@ interface Props {
     text: string,
     selected?: boolean,
     leading?: {
-      icon: object,
-      tabindex?: number,
-      role?: string
+      icon: object
     },
     trailing?: {
-      icon: object,
-      tabindex?: number,
-      role?: string
+      icon: object
     },
     checkmark: boolean
   }],
@@ -40,7 +36,7 @@ export default class chipSet extends WeElement<Props, Data>{
   }
 
   installed() {
-
+    
   }
 
   render(props) {
@@ -56,10 +52,10 @@ export default class chipSet extends WeElement<Props, Data>{
             return <div {
               ...extractClass(props,
                 'mdc-chip', {
-                  'mdc-chip--selected': props.choice && item.selected
+                  'mdc-chip--selected': item.selected
                 })}>
 
-              {(item.leading) && <i class="material-icons mdc-chip__icon mdc-chip__icon--leading" role="button">
+              {(item.leading) && <i class={classNames('material-icons', 'mdc-chip__icon', 'mdc-chip__icon--leading', {'mdc-chip__icon--leading-hidden': props.filter && item.checkmark && item.selected})}>
                 {(item.leading.icon) && <m-icon class='m-icon' {...item.leading.icon}></m-icon>}
               </i>}
 
@@ -72,7 +68,7 @@ export default class chipSet extends WeElement<Props, Data>{
 
               <div class="mdc-chip__text">{ item.text }</div>
 
-              {(item.trailing) && <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" tabindex="0" role="button">
+              {(item.trailing) && <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing">
                 {(item.trailing.icon) && <m-icon class='m-icon' {...item.trailing.icon}></m-icon>}
               </i>}
             </div>
