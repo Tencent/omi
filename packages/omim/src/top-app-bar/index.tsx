@@ -4,16 +4,16 @@ import {MDCTopAppBar} from '@material/top-app-bar';
 import '../icon'
 
 interface Props {
-  heading: string,
-  short: boolean,
-  shortCollapsed: boolean,
-  prominent: boolean,
-  dense: boolean,
-  fixed: boolean,
-  adjust: boolean,
-  navigationIcon: object,
-  actionItems: object,
-  scrollTarget: EventTarget
+  heading?: string,
+  short?: boolean,
+  shortCollapsed?: boolean,
+  prominent?: boolean,
+  dense?: boolean,
+  fixed?: boolean,
+  adjust?: boolean,
+  navigationIcon?: object,
+  actionItems?: object,
+  scrollTarget?: EventTarget
 }
 
 interface Data {

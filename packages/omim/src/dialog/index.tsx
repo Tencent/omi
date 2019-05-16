@@ -8,12 +8,12 @@ import '../button'
 import { htmlToVdom } from '../util.ts'
 
 interface Props {
-  show: boolean,
-  scrollable: boolean,
-  title: string,
-  message: string,
-  cancelButton: object,
-  confirmButton: object
+  show?: boolean,
+  scrollable?: boolean,
+  title?: string,
+  message?: string,
+  cancelButton?: object,
+  confirmButton?: object
 }
 
 interface Data {

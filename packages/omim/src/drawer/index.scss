@@ -21,6 +21,11 @@
   -o-transition: .3s; /* Opera */
 }
 
+.m-dialog-content-focus {
+  display: block;
+  margin-top: -16px;
+}
+
 // .app-bar {
 //   position: absolute;
 // }

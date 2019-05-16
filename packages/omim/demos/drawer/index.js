@@ -7,10 +7,22 @@ define('my-app', class extends WeElement {
 
   showDrawer = false
 
-  target = null
+  scrollTarget = null
+
+  topAppBarHeight = null
 
   installed() {
-    this.target = this.shadowRoot.childNodes[0].childNodes[0]._host.getElementsByClassName('m-drawer-content')[0]
+    //Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar
+    //获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
+    this.scrollTarget = this.shadowRoot.querySelector('m-drawer').shadowRoot.lastElementChild.getElementsByClassName('m-drawer-content')[0]
+    // console.log(this.scrollTarget)
+    this.update()
+
+    //Automatically get the 'm-top-app-bar' height and fill it into the content section
+    //自动获取 'm-top-app-bar' 高度，填充到内容部分
+    const topAppBar = document.getElementsByTagName('my-app')[0].shadowRoot.lastElementChild.getElementsByTagName('m-top-app-bar')[0].shadowRoot.querySelector('.mdc-top-app-bar')
+    this.topAppBarHeight = window.getComputedStyle(topAppBar).height
+    // console.log(this.topAppBarHeight)
     this.update()
   }
 
@@ -36,8 +48,8 @@ define('my-app', class extends WeElement {
           frame
           modal
           show={this.showDrawer}
-          heading='Title'
-          sub-heading='subTitle'
+          heading='Demo'
+          sub-heading='omim-drawer'
           onClosed={this.onDrawerClosed}
           onList0={this.onList}
           lists={[
@@ -81,14 +93,14 @@ define('my-app', class extends WeElement {
           ]}
         >
           <div slot='m-drawer-header'>
-            {this.target &&
+            {this.scrollTarget &&
             <m-top-app-bar
               css={`
                 .mdc-top-app-bar {
                   position: absolute;
                 }
               `}
-              scrollTarget={this.target}
+              scroll-target={this.scrollTarget}
               heading='Omim'
               onNavigation={this.onTopAppBar}
               navigation-icon={{
@@ -99,7 +111,7 @@ define('my-app', class extends WeElement {
             />}
           </div>
           <div slot='m-drawer-content'>
-            <br/><br/><br/>
+            <div style={`height:${this.topAppBarHeight}`}></div>
             <h2><a id="user-content-why-omi" class="anchor" aria-hidden="true" href="#why-omi"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Why Omi?</h2>
             <ul>
               <li>Cross framework(react, vue, angular) custom elements by omi</li>
