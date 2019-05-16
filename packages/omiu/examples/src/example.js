@@ -26,7 +26,6 @@ import '../../src/tree'
 import { loading, close } from 'path-d'
 import path from './utils/path'
 import toast from '../../src/toast'
-import { setTimeout } from 'timers';
 
 define('my-app', class extends WeElement {
   onChange = v => {
@@ -50,7 +49,6 @@ define('my-app', class extends WeElement {
     selectedIndex: 2,
     selectedIndexs: [0, 1],
     percentage: 30
-
   }
 
   onTapMore = () => {
@@ -114,9 +112,9 @@ define('my-app', class extends WeElement {
 
   showToast = () => {
     toast.showLoading()
-    setTimeout(function(){
+    setTimeout(() => {
       toast.hideLoading()
-    },3000)
+    }, 3000)
   }
 
   showToast
@@ -130,9 +128,6 @@ define('my-app', class extends WeElement {
   }
 
   render(props, data) {
-
-
-
     return (
       <div class="ctn">
         <o-button
@@ -173,7 +168,7 @@ define('my-app', class extends WeElement {
             Mini
           </o-button>
         </o-equal-space>
-        <br></br>
+        <br />
         <o-equal-space>
           <o-pagination
             total={25}
@@ -197,12 +192,34 @@ define('my-app', class extends WeElement {
         <o-progress bgColor="#ccc" innerColor="#07C160" value={50} />
 
         <br />
-        <o-timeline data={[
-          { msgA: '2018.11.111111111111111111', msgB: '15:22:09', msgC: '创建测试项目', msgD: '[牛顿值取消规则]' },
-          { msgA: '2018.11.11', msgB: '15:22:09', msgC: '创建测试项目', msgD: '[牛顿值取消规则]' },
-          { msgA: '2018.11.11', msgB: '15:22:09', msgC: '创建测试项目', msgD: '[牛顿值取消规则]' },
-          { msgA: '2018.11.11', msgB: '15:22:09', msgC: '创建测试项目', msgD: '[牛顿值取消规则]' }
-        ]} />
+        <o-timeline
+          data={[
+            {
+              msgA: '2018.11.111111111111111111',
+              msgB: '15:22:09',
+              msgC: '创建测试项目',
+              msgD: '[牛顿值取消规则]'
+            },
+            {
+              msgA: '2018.11.11',
+              msgB: '15:22:09',
+              msgC: '创建测试项目',
+              msgD: '[牛顿值取消规则]'
+            },
+            {
+              msgA: '2018.11.11',
+              msgB: '15:22:09',
+              msgC: '创建测试项目',
+              msgD: '[牛顿值取消规则]'
+            },
+            {
+              msgA: '2018.11.11',
+              msgB: '15:22:09',
+              msgC: '创建测试项目',
+              msgD: '[牛顿值取消规则]'
+            }
+          ]}
+        />
 
         <br />
 
@@ -223,15 +240,13 @@ define('my-app', class extends WeElement {
         <br />
 
         <o-equal-space>
-          <o-icon path={loading()} rotate >
+          <o-icon path={loading()} rotate>
             Loading
-        </o-icon>
-          <o-icon path={close()} >
-            Close
-        </o-icon>
+          </o-icon>
+          <o-icon path={close()}>Close</o-icon>
           <o-icon type="pay" isFill>
             Pay
-        </o-icon>
+          </o-icon>
         </o-equal-space>
         <br />
         <br />
@@ -243,11 +258,11 @@ define('my-app', class extends WeElement {
         <br />
         <br />
 
-        <o-menu >
-          <item icon={{ path: path.pathA, color: '#F2F2F2' }} text='发起群聊'></item>
-          <item icon={{ path: path.pathB, color: '#F2F2F2' }} text='添加朋友'></item>
-          <item icon={{ path: path.pathC, color: '#F2F2F2' }} text='扫一扫吧'></item>
-          <item icon={{ path: path.pathD, color: '#F2F2F2' }} text='收款支付'></item>
+        <o-menu>
+          <item icon={{ path: path.pathA, color: '#F2F2F2' }} text="发起群聊" />
+          <item icon={{ path: path.pathB, color: '#F2F2F2' }} text="添加朋友" />
+          <item icon={{ path: path.pathC, color: '#F2F2F2' }} text="扫一扫吧" />
+          <item icon={{ path: path.pathD, color: '#F2F2F2' }} text="收款支付" />
         </o-menu>
 
         <br />
@@ -260,7 +275,7 @@ define('my-app', class extends WeElement {
             <o-icon type="pay" isFill color="#07C160" />
           </o-badge>
 
-          <o-badge content='new'>
+          <o-badge content="new">
             <o-icon type="github" isFill color="#07C160" />
           </o-badge>
         </o-equal-space>
@@ -329,7 +344,9 @@ define('my-app', class extends WeElement {
         </o-list>
         <br />
         <br />
-        <o-equal-space><o-loading size="40px" /></o-equal-space>
+        <o-equal-space>
+          <o-loading size="40px" />
+        </o-equal-space>
         <br />
         <br />
         <o-msg type="success" title="提示" content="欢迎使用 Omiu" />
@@ -363,15 +380,12 @@ define('my-app', class extends WeElement {
         />
 
         <o-equal-space>
-          <o-switch onChange={this.onChangeB} checked={false}>
-          </o-switch>
+          <o-switch onChange={this.onChangeB} checked={false} />
         </o-equal-space>
 
         <o-equal-space>
-          <o-switch onChange={this.onChangeA} checked={true}>
-          </o-switch>
+          <o-switch onChange={this.onChangeA} checked={true} />
         </o-equal-space>
-
 
         <br />
         <br />
@@ -445,8 +459,6 @@ define('my-app', class extends WeElement {
 
 render(<my-app />, 'body')
 
-
-
 // //defaultExpandedKeys: keys,   //默认展开 keys节点
 //     //defaultSelectedKeys: keys,  //默认选中(高亮) keys节点
 //     //defaultCheckedKeys: keys,  //默认Checked keys节点
@@ -479,7 +491,6 @@ render(<my-app />, 'body')
 //         ]
 //       }
 //     ]
-
 
 //     //先查出根节点
 //     function findRoot(treeData) {
@@ -533,9 +544,6 @@ render(<my-app />, 'body')
 //         <span>operations </span>
 //       </span>
 //     );
-
-
-
 
 //     <h2>基础树</h2>
 //     <o-rc-tree

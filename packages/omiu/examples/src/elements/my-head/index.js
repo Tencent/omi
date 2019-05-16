@@ -23,13 +23,17 @@ define('my-head', class extends WeElement {
         </a>
         <ul class="menu">
           <li class="github_li">
-            <a href="https://github.com/Tencent/omi/tree/master/packages/omiu/examples/src/docs">{this.store.lan === 'en'?'Edit Docs':'编辑文档'}</a>
+            <a href="https://github.com/Tencent/omi/tree/master/packages/omiu/examples/src/docs">
+              {this.store.lan === 'en' ? 'Edit Docs' : '编辑文档'}
+            </a>
           </li>
-          <li style='color:#aaa;'>|</li>
+          <li style="color:#aaa;">|</li>
           <li class="github_li">
-            <a href="https://github.com/Tencent/omi/tree/master/packages/omiu">{this.store.lan === 'en'?'Github':'源码'}</a>
+            <a href="https://github.com/Tencent/omi/tree/master/packages/omiu">
+              {this.store.lan === 'en' ? 'Github' : '源码'}
+            </a>
           </li>
-          <li style='color:#aaa;'>|</li>
+          <li style="color:#aaa;">|</li>
           <li class="github_li m_show">
             {this.store.lan === 'en' ? (
               <a href="zh-cn.html">中文</a>

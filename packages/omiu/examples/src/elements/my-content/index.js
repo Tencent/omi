@@ -21,7 +21,7 @@ define('my-content', class extends WeElement {
   initCodeStyle() {
     let codes = document.querySelectorAll('code')
 
-    let codesArr = Array.prototype.slice.call(codes);
+    let codesArr = Array.prototype.slice.call(codes)
     let codeHlNumArr = []
     codesArr.forEach(code => {
       let arr = code.className.match(/{[\S\s]*}/)
@@ -30,16 +30,24 @@ define('my-content', class extends WeElement {
       //pre.setAttribute('data-line', '1,3-4')
       if (code.className) {
         pre.className = code.className
-     
+
         const temp = code.className.match(/language-\w*/g)[0]
         if (temp) {
-          code.innerHTML = Prism.highlight(code.innerText, Prism.languages[temp.split('-')[1]], temp.split('-')[1])
+          code.innerHTML = Prism.highlight(
+            code.innerText,
+            Prism.languages[temp.split('-')[1]],
+            temp.split('-')[1]
+          )
         }
       } else {
         let pre = code.parentNode
         code.className = 'language-markup'
         pre.className = 'language-markup'
-        code.innerHTML = Prism.highlight(code.innerText, Prism.languages.markup, 'markup')
+        code.innerHTML = Prism.highlight(
+          code.innerText,
+          Prism.languages.markup,
+          'markup'
+        )
       }
       // let hllNums = null
       // if (arr) {
@@ -77,7 +85,7 @@ define('my-content', class extends WeElement {
     //   }
     // })
     //fix line-highlight
-    window.dispatchEvent(new Event('resize'));
+    window.dispatchEvent(new Event('resize'))
   }
 
   _arrToNumber(numArr) {
@@ -100,7 +108,8 @@ define('my-content', class extends WeElement {
   render() {
     return (
       <div
-        class="content" ontouchend={this.touchEnd}
+        class="content"
+        ontouchend={this.touchEnd}
         dangerouslySetInnerHTML={{ __html: this.store.html }}
       />
     )
