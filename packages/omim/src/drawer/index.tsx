@@ -84,9 +84,9 @@ export default class Drawer extends WeElement<Props, Data>{
             <nav class='mdc-list'>
               {props.lists.map((item, index) => {
                 if(item.divider) {
-                  return <hr class='mdc-list-divider' />
+                  return <hr accessKey={index.toString()} class='mdc-list-divider' />
                 } else if(item.subheader) {
-                  return <h6 class='mdc-list-group__subheader'>{item.subheader}</h6>
+                  return <h6 accessKey={index.toString()} class='mdc-list-group__subheader'>{item.subheader}</h6>
                 } else {
                   return <a accessKey={index.toString()}
                     class={classNames('mdc-list-item', {
