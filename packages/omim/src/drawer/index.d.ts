@@ -4,6 +4,7 @@ import '../icon';
 interface Props {
     frame: boolean;
     dismissible: boolean;
+    dismissibleSmooth: boolean;
     modal: boolean;
     show: boolean;
     heading: string;
@@ -17,6 +18,7 @@ export default class Drawer extends WeElement<Props, Data> {
     static propTypes: {
         frame: BooleanConstructor;
         dismissible: BooleanConstructor;
+        dismissibleSmooth: BooleanConstructor;
         modal: BooleanConstructor;
         show: BooleanConstructor;
         heading: StringConstructor;

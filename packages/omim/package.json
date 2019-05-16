@@ -106,6 +106,7 @@
     "@material/elevation": "^1.1.0",
     "@material/fab": "^2.1.1",
     "@material/form-field": "^2.0.0",
+    "@material/icon-button": "^2.1.1",
     "@material/image-list": "^1.1.1",
     "@material/layout-grid": "^0.41.0",
     "@material/linear-progress": "^1.1.0",
