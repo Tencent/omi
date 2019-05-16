@@ -280,7 +280,6 @@ var Badge = /** @class */ (function (_super) {
                 omi_1.h("span", { class: "badge" }, props.content));
         }
         if (props.dot) {
-            console.log(111);
             return (omi_1.h("div", { class: "m-badge" },
                 props.children ? props.children[0] : omi_1.h("slot", null),
                 omi_1.h("span", { class: "circle badge" })));
