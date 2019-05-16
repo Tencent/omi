@@ -10,6 +10,8 @@ Material Design for the Web, powered by Omi.
 * Simple wrapper of [material-components-web](https://github.com/material-components/material-components-web)
 * Render by Custom Elements of Web Components
 * Any framework can use the components, such as Omi, React, Vue and Angular 
+* Support both JSX and native HTML elements 
+* Each element can be used independently
 
 ## CMD
 
