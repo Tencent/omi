@@ -2,12 +2,12 @@ import { WeElement } from 'omi';
 import { MDCDialog } from '@material/dialog';
 import '../button';
 interface Props {
-    show: boolean;
-    scrollable: boolean;
-    title: string;
-    message: string;
-    cancelButton: object;
-    confirmButton: object;
+    show?: boolean;
+    scrollable?: boolean;
+    title?: string;
+    message?: string;
+    cancelButton?: object;
+    confirmButton?: object;
 }
 interface Data {
 }

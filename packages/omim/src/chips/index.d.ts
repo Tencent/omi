@@ -6,13 +6,9 @@ interface Props {
         selected?: boolean;
         leading?: {
             icon: object;
-            tabindex?: number;
-            role?: string;
         };
         trailing?: {
             icon: object;
-            tabindex?: number;
-            role?: string;
         };
         checkmark: boolean;
     }];

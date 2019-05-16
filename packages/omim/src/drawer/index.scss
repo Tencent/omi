@@ -7,6 +7,10 @@
   height: 100vh;
 }
 
+.mdc-drawer-app-content {
+  width: 100%;
+}
+
 .m-drawer-content {
   overflow: auto;
   height: 100%;
@@ -19,6 +23,11 @@
   -moz-transition: .3s; /* Firefox 4 */
   -webkit-transition: .3s; /* Safari 和 Chrome */
   -o-transition: .3s; /* Opera */
+}
+
+.m-dialog-content-focus {
+  display: block;
+  margin-top: -16px;
 }
 
 // .app-bar {

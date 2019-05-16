@@ -5,14 +5,14 @@ import {MDCList} from '@material/list';
 import '../icon'
 
 interface Props {
-  frame: boolean,
-  dismissible: boolean,
-  dismissibleSmooth: boolean,
-  modal: boolean,
-  show: boolean,
-  heading: string,
-  subHeading: string,
-  lists: object
+  frame?: boolean,
+  dismissible?: boolean,
+  dismissibleSmooth?: boolean,
+  modal?: boolean,
+  show?: boolean,
+  heading?: string,
+  subHeading?: string,
+  lists?: object
 }
 
 interface Data {
@@ -45,7 +45,7 @@ export default class Drawer extends WeElement<Props, Data>{
       this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
     }
   }
-  
+
   installed() {
     if(this.props.dismissible || this.props.modal) {
       const deawer = MDCDrawer.attachTo(this.shadowRoot.querySelector('.mdc-drawer'))
@@ -61,8 +61,6 @@ export default class Drawer extends WeElement<Props, Data>{
       const list = MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
       list.wrapFocus = true;
     }
-
-    // console.log(this.shadowRoot.querySelector('.m-drawer-content').firstChild)
   }
 
   onList = (evt: any) => {
@@ -81,13 +79,14 @@ export default class Drawer extends WeElement<Props, Data>{
             {props.heading && <h3 class='mdc-drawer__title'>{props.heading}</h3>}
             {props.subHeading && <h6 class='mdc-drawer__subtitle'>{props.subHeading}</h6>}
           </div>}
+          {props.lists &&
           <div class='mdc-drawer__content'>
             <nav class='mdc-list'>
               {props.lists.map((item, index) => {
                 if(item.divider) {
-                  return <hr class='mdc-list-divider' />
+                  return <hr accessKey={index.toString()} class='mdc-list-divider' />
                 } else if(item.subheader) {
-                  return <h6 class='mdc-list-group__subheader'>{item.subheader}</h6>
+                  return <h6 accessKey={index.toString()} class='mdc-list-group__subheader'>{item.subheader}</h6>
                 } else {
                   return <a accessKey={index.toString()}
                     class={classNames('mdc-list-item', {
@@ -117,16 +116,18 @@ export default class Drawer extends WeElement<Props, Data>{
                 }
               })}
             </nav>
-          </div>
+          </div>}
+          {/* solve the problem that the content focus is empty */}
+          <a class='m-drawer-content-focus' href="#"></a>
         </aside>
         {props.modal && <div class='mdc-drawer-scrim'></div>}
         {props.frame ?
         <div class={classNames('mdc-drawer-app-content', {'transition-mode1': props.dismissibleSmooth})}>
-          <slot></slot>
           <slot name='m-drawer-header'></slot>
           <div class='m-drawer-content'>
             <slot name='m-drawer-content'></slot>
           </div>
+          <slot></slot>
         </div> :
         <slot></slot>}
       </div>

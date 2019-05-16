@@ -2,14 +2,14 @@ import { WeElement } from 'omi';
 import { MDCDismissibleDrawerFoundation } from '@material/drawer';
 import '../icon';
 interface Props {
-    frame: boolean;
-    dismissible: boolean;
-    dismissibleSmooth: boolean;
-    modal: boolean;
-    show: boolean;
-    heading: string;
-    subHeading: string;
-    lists: object;
+    frame?: boolean;
+    dismissible?: boolean;
+    dismissibleSmooth?: boolean;
+    modal?: boolean;
+    show?: boolean;
+    heading?: string;
+    subHeading?: string;
+    lists?: object;
 }
 interface Data {
 }
