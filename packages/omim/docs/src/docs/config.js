@@ -54,7 +54,8 @@ const config = {
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
-          { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
+          { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
+          { name: 'Typography', md: 'typography', demo: './repl/typography.html' }
         ]
       }
     ],
@@ -112,7 +113,8 @@ const config = {
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
-          { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
+          { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
+          { name: 'Typography', md: 'typography', demo: './repl/typography.html' }
         ]
       }
     ]
