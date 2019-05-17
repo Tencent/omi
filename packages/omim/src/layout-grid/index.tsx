@@ -21,54 +21,79 @@ class LayoutGrid extends WeElement<Props, Data>{
   }
 
   install() {
-    document.addEventListener('DOMContentLoaded', () => {
-      this.update()
-    })
+    if (!this.props.children) {
+      document.addEventListener('DOMContentLoaded', () => {
+        this.update()
+      })
+    }
   }
 
   renderChild(child) {
-    let arr = Array.prototype.slice.call(child.childNodes, 0)
-    arr = arr.filter((item) => {
-      return item.nodeName === 'cell'
-    })
+    if (child.childNodes) {
+      let arr = Array.prototype.slice.call(child.childNodes, 0)
+      arr = arr.filter((item) => {
+        return item.nodeName === 'cell'
+      })
 
-    if (arr.length > 0) {
-      return <div class="mdc-layout-grid__cell">
-        <div class="mdc-layout-grid__inner">
-          {arr.map(item => {
-            return this.renderChild(item)
-          })}
+      if (arr.length > 0) {
+        return <div class="mdc-layout-grid__cell">
+          <div class="mdc-layout-grid__inner">
+            {arr.map(item => {
+              return this.renderChild(item)
+            })}
+          </div>
         </div>
-      </div>
-    } else {
-      
-      const cell = <div class={classNames('mdc-layout-grid__cell',{
-        "mdc-layout-grid__cell--align-top": child.hasAttribute('align-top'),
-        "mdc-layout-grid__cell--align-middle": child.hasAttribute('align-middle'),
-        "mdc-layout-grid__cell--align-bottom": child.hasAttribute('align-bottom')
-      })}></div>
-      for (let i = 0, len = child.childNodes.length; i < len; i++) {
-        if (child.childNodes[i].nodeType === 3) {
-          cell.children.push(child.childNodes[i].nodeValue)
-        } else {
-          cell.children.push(processNode(child.childNodes[i]))
-        }
+      } else {
 
+        const cell = <div class={classNames('mdc-layout-grid__cell', {
+          "mdc-layout-grid__cell--align-top": child.hasAttribute('align-top'),
+          "mdc-layout-grid__cell--align-middle": child.hasAttribute('align-middle'),
+          "mdc-layout-grid__cell--align-bottom": child.hasAttribute('align-bottom')
+        })}></div>
+        for (let i = 0, len = child.childNodes.length; i < len; i++) {
+          if (child.childNodes[i].nodeType === 3) {
+            cell.children.push(child.childNodes[i].nodeValue)
+          } else {
+            cell.children.push(processNode(child.childNodes[i]))
+          }
+
+        }
+        return cell
       }
-      return cell
+    } else {
+      if (child.children[0] && child.children[0].nodeName === 'cell') {
+        return <div class="mdc-layout-grid__cell">
+          <div class="mdc-layout-grid__inner">
+            {child.children.map(item => {
+              return this.renderChild(item)
+            })}
+          </div>
+        </div>
+      } else {
+        return <div class={classNames('mdc-layout-grid__cell', {
+          "mdc-layout-grid__cell--align-top": child.attributes && child.attributes['align-top'],
+          "mdc-layout-grid__cell--align-middle": child.attributes && child.attributes['align-middle'],
+          "mdc-layout-grid__cell--align-bottom": child.attributes && child.attributes['align-bottom']
+        })}>{child.children}</div>
+      }
     }
   }
 
   render(props) {
+    let arr = props.children
 
     if (!this.innerHTML.trim()) return
-    const doc = parser.parseFromString(`<div>${this.innerHTML}</div>`, "text/xml");
-    let arr = Array.prototype.slice.call(doc.childNodes[0].childNodes, 0)
 
-    arr = arr.filter((item) => {
-      return item.nodeName === 'cell'
-    })
-  
+    if (!arr) {
+      const doc = parser.parseFromString(`<div>${this.innerHTML}</div>`, "text/xml");
+      arr = Array.prototype.slice.call(doc.childNodes[0].childNodes, 0)
+
+      arr = arr.filter((item) => {
+        return item.nodeName === 'cell'
+      })
+    }
+
+
     //dom -> vdom
     return (
       <div {...extractClass(props, 'mdc-layout-grid', {

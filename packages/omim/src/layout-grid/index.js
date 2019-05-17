@@ -272,48 +272,70 @@ var LayoutGrid = /** @class */ (function (_super) {
     }
     LayoutGrid.prototype.install = function () {
         var _this = this;
-        document.addEventListener('DOMContentLoaded', function () {
-            _this.update();
-        });
+        if (!this.props.children) {
+            document.addEventListener('DOMContentLoaded', function () {
+                _this.update();
+            });
+        }
     };
     LayoutGrid.prototype.renderChild = function (child) {
         var _this = this;
-        var arr = Array.prototype.slice.call(child.childNodes, 0);
-        arr = arr.filter(function (item) {
-            return item.nodeName === 'cell';
-        });
-        if (arr.length > 0) {
-            return omi_1.h("div", { class: "mdc-layout-grid__cell" },
-                omi_1.h("div", { class: "mdc-layout-grid__inner" }, arr.map(function (item) {
-                    return _this.renderChild(item);
-                })));
+        if (child.childNodes) {
+            var arr = Array.prototype.slice.call(child.childNodes, 0);
+            arr = arr.filter(function (item) {
+                return item.nodeName === 'cell';
+            });
+            if (arr.length > 0) {
+                return omi_1.h("div", { class: "mdc-layout-grid__cell" },
+                    omi_1.h("div", { class: "mdc-layout-grid__inner" }, arr.map(function (item) {
+                        return _this.renderChild(item);
+                    })));
+            }
+            else {
+                var cell = omi_1.h("div", { class: omi_1.classNames('mdc-layout-grid__cell', {
+                        "mdc-layout-grid__cell--align-top": child.hasAttribute('align-top'),
+                        "mdc-layout-grid__cell--align-middle": child.hasAttribute('align-middle'),
+                        "mdc-layout-grid__cell--align-bottom": child.hasAttribute('align-bottom')
+                    }) });
+                for (var i = 0, len = child.childNodes.length; i < len; i++) {
+                    if (child.childNodes[i].nodeType === 3) {
+                        cell.children.push(child.childNodes[i].nodeValue);
+                    }
+                    else {
+                        cell.children.push(processNode(child.childNodes[i]));
+                    }
+                }
+                return cell;
+            }
         }
         else {
-            var cell = omi_1.h("div", { class: omi_1.classNames('mdc-layout-grid__cell', {
-                    "mdc-layout-grid__cell--align-top": child.hasAttribute('align-top'),
-                    "mdc-layout-grid__cell--align-middle": child.hasAttribute('align-middle'),
-                    "mdc-layout-grid__cell--align-bottom": child.hasAttribute('align-bottom')
-                }) });
-            for (var i = 0, len = child.childNodes.length; i < len; i++) {
-                if (child.childNodes[i].nodeType === 3) {
-                    cell.children.push(child.childNodes[i].nodeValue);
-                }
-                else {
-                    cell.children.push(processNode(child.childNodes[i]));
-                }
+            if (child.children[0] && child.children[0].nodeName === 'cell') {
+                return omi_1.h("div", { class: "mdc-layout-grid__cell" },
+                    omi_1.h("div", { class: "mdc-layout-grid__inner" }, child.children.map(function (item) {
+                        return _this.renderChild(item);
+                    })));
             }
-            return cell;
+            else {
+                return omi_1.h("div", { class: omi_1.classNames('mdc-layout-grid__cell', {
+                        "mdc-layout-grid__cell--align-top": child.attributes && child.attributes['align-top'],
+                        "mdc-layout-grid__cell--align-middle": child.attributes && child.attributes['align-middle'],
+                        "mdc-layout-grid__cell--align-bottom": child.attributes && child.attributes['align-bottom']
+                    }) }, child.children);
+            }
         }
     };
     LayoutGrid.prototype.render = function (props) {
         var _this = this;
+        var arr = props.children;
         if (!this.innerHTML.trim())
             return;
-        var doc = parser.parseFromString("<div>" + this.innerHTML + "</div>", "text/xml");
-        var arr = Array.prototype.slice.call(doc.childNodes[0].childNodes, 0);
-        arr = arr.filter(function (item) {
-            return item.nodeName === 'cell';
-        });
+        if (!arr) {
+            var doc = parser.parseFromString("<div>" + this.innerHTML + "</div>", "text/xml");
+            arr = Array.prototype.slice.call(doc.childNodes[0].childNodes, 0);
+            arr = arr.filter(function (item) {
+                return item.nodeName === 'cell';
+            });
+        }
         //dom -> vdom
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-layout-grid', {
             'mdc-layout-grid--align-right': props.alignRight,
