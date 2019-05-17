@@ -32,17 +32,32 @@ Then:
 
 ```js
 import '@omim/core/button'
-
-//Then use in Omi, React, Vue and Angular:
-//<m-button>I am button</m-button>
-
-//Or pure js:
-
-//const button = document.createElement('m-button')
-
 ```
 
-## CMD
+Then use the element in Omi, React, Vue or Angular:
+
+``` html
+<m-button>I am button</m-button>
+```
+
+It can also be used in pure js:
+
+```js
+var button = document.createElement('m-button')
+button.innerHTML = 'I am button'
+document.body.append(button)
+button.addEventListener('click', function () {
+  console.log('Clicked!')
+})
+
+//or
+//document.body.innerHTML = '<m-button>I am button</m-button>'
+```
+
+
+## Contribution
+
+### CMD
 
 Build component:
 
@@ -56,13 +71,11 @@ Build demo:
 npm start demo-name
 ```
 
-## Publish
+Publish:
 
 ```bash
 npm publish --access public
 ```
-
-## Contribution
 
 To prevent duplication of development, PR submission fills in owner to lock the component.
 
