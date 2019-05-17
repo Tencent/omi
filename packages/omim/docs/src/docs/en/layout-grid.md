@@ -19,6 +19,12 @@ Material design’s responsive UI is based on a column-variate grid layout. It h
 </m-layout-grid>
 ```
 
+Because layout converts HTML strings into vdom, there will be a lot of overhead, so use this component in jsx, and use only its CSS in html.
+
+```js
+import { css } from '@omim/core/layout-grid'
+```
+
 ## API
 
 ### Props

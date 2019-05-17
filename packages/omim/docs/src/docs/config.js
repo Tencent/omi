@@ -85,7 +85,7 @@ const config = {
       {
         title: 'Operational Feedback',
         list: [
-          {name: 'dialog', md: 'dialog', demo: './repl/dialog.html'}
+          {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'}
         ]
       },
       {
