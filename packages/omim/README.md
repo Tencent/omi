@@ -15,6 +15,8 @@ Material Design for the Web, powered by Omi.
 
 ## Usage
 
+### Via script
+
 ```html
 <script src="https://unpkg.com/omi"></script>
 <script src="https://unpkg.com/@omim/core@0.0.1/button/index.js"></script>
@@ -22,7 +24,7 @@ Material Design for the Web, powered by Omi.
 <m-button>I am button</m-button>
 ```
 
-Via npm:
+### Via npm
 
 ``` bash
 npm install @omim/core
