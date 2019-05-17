@@ -1,6 +1,8 @@
 import { WeElement } from 'omi';
 import '../icon';
 interface Props {
+    dot: boolean;
+    content: string;
 }
 interface Data {
 }

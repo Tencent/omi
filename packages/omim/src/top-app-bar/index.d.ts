@@ -12,6 +12,7 @@ interface Props {
     navigationIcon?: object;
     actionItems?: object;
     scrollTarget?: EventTarget;
+    scrollTargetDrawer?: boolean;
 }
 interface Data {
 }
@@ -31,10 +32,11 @@ export default class topAppBar extends WeElement<Props, Data> {
             new (): EventTarget;
             prototype: EventTarget;
         };
+        scrollTargetDrawer: BooleanConstructor;
     };
     static defaultProps: {};
     topAppBar: MDCTopAppBar;
-    update(): void;
+    updated(): void;
     installed(): void;
     onNavigation: (evt: Event) => void;
     onAction: (evt: any) => void;

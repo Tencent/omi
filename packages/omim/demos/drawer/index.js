@@ -259,35 +259,35 @@ define('my-app', class extends WeElement {
             }, {
               divider: true
             }, {
-              subheader: 'ZainChen sample'
+              subheader: 'Other sample'
             }, {
-              text: 'ZainDemo1',
+              text: 'Demo1',
               icon: {
                 view: 1024,
                 path: 'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 736H663.9V602.2h104l15.6-120.7H663.9v-77.1c0-35 9.7-58.8 59.8-58.8h63.9v-108c-11.1-1.5-49-4.8-93.2-4.8-92.2 0-155.3 56.3-155.3 159.6v89H434.9v120.7h104.3V848H176V176h672v672z',
               },
-              href: '#/ZainDemo1'
+              href: '#/Demo1'
             }, {
-              text: 'ZainDemo2',
+              text: 'Demo2',
               icon: {
                 view: 1024,
                 path: 'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-88.1 216C766.9 823.4 729 839 688.4 839c-26.1 0-51.8-6.8-74.6-19.7l-22.5-12.7-25.5 4.5c-17.8 3.2-35.8 4.8-53.6 4.8-41.4 0-81.3-8.1-119.1-24.1-36.3-15.3-69-37.3-97.2-65.5a304.29 304.29 0 0 1-65.5-97.1c-16-37.7-24-77.6-24-119 0-17.4 1.6-35.2 4.6-52.8l4.4-25.1L203 410a151.02 151.02 0 0 1-19.1-73.4c0-40.6 15.7-78.5 44.4-107.2C257.1 200.7 295 185 335.6 185a153 153 0 0 1 71.4 17.9l22.4 11.8 24.8-4.8c18.9-3.6 38.4-5.5 58-5.5 41.4 0 81.3 8.1 119 24 36.5 15.4 69.1 37.4 97.2 65.5 28.2 28.1 50.2 60.8 65.6 97.2 16 37.7 24 77.6 24 119 0 18.4-1.7 37-5.1 55.5l-4.7 25.5 12.6 22.6c12.6 22.5 19.2 48 19.2 73.7 0 40.7-15.7 78.5-44.4 107.2zM583.4 466.2L495 446.6c-33.6-7.7-72.3-17.8-72.3-49.5s27.1-53.9 76.1-53.9c98.7 0 89.7 67.8 138.7 67.8 25.8 0 48.4-15.2 48.4-41.2 0-60.8-97.4-106.5-180-106.5-89.7 0-185.2 38.1-185.2 139.5 0 48.8 17.4 100.8 113.6 124.9l119.4 29.8c36.1 8.9 45.2 29.2 45.2 47.6 0 30.5-30.3 60.3-85.2 60.3-107.2 0-92.3-82.5-149.7-82.5-25.8 0-44.5 17.8-44.5 43.1 0 49.4 60 115.4 194.2 115.4 127.7 0 191-61.5 191-144 0-53.1-24.5-109.6-121.3-131.2z',
               },
-              href: '#/ZainDemo2'
+              href: '#/Demo2'
             }, {
-              text: 'ZainDemo3',
+              text: 'Demo3',
               icon: {
                 view: 1024,
                 path: 'M925.6 405.1l-203-253.7a6.5 6.5 0 0 0-5-2.4H306.4c-1.9 0-3.8.9-5 2.4l-203 253.7a6.5 6.5 0 0 0 .2 8.3l408.6 459.5c1.2 1.4 3 2.1 4.8 2.1 1.8 0 3.5-.8 4.8-2.1l408.6-459.5a6.5 6.5 0 0 0 .2-8.3zM645.2 206.4l34.4 133.9-132.5-133.9h98.1zm8.2 178.5H370.6L512 242l141.4 142.9zM378.8 206.4h98.1L344.3 340.3l34.5-133.9zm-53.4 7l-44.1 171.5h-93.1l137.2-171.5zM194.6 434.9H289l125.8 247.7-220.2-247.7zM512 763.4L345.1 434.9h333.7L512 763.4zm97.1-80.8L735 434.9h94.4L609.1 682.6zm133.6-297.7l-44.1-171.5 137.2 171.5h-93.1z',
               },
-              href: '#/ZainDemo3'
+              href: '#/Demo3'
             }, {
-              text: 'ZainDemo4',
+              text: 'Demo4',
               icon: {
                 view: 1024,
                 path: 'M868.2 377.4c-18.9-45.1-46.3-85.6-81.2-120.6a377.26 377.26 0 0 0-120.5-81.2A375.65 375.65 0 0 0 519 145.8c-41.9 0-82.9 6.7-121.9 20C306 123.3 200.8 120 170.6 120c-2.2 0-7.4 0-9.4.2-11.9.4-22.8 6.5-29.2 16.4-6.5 9.9-7.7 22.4-3.4 33.5l64.3 161.6a378.59 378.59 0 0 0-52.8 193.2c0 51.4 10 101 29.8 147.6 18.9 45 46.2 85.6 81.2 120.5 34.7 34.8 75.4 62.1 120.5 81.2C418.3 894 467.9 904 519 904c51.3 0 100.9-10.1 147.7-29.8 44.9-18.9 85.5-46.3 120.4-81.2 34.7-34.8 62.1-75.4 81.2-120.6a376.5 376.5 0 0 0 29.8-147.6c-.2-51.2-10.1-100.8-29.9-147.4zm-66.4 266.5a307.08 307.08 0 0 1-65.9 98c-28.4 28.5-61.3 50.7-97.7 65.9h-.1c-38 16-78.3 24.2-119.9 24.2a306.51 306.51 0 0 1-217.5-90.2c-28.4-28.5-50.6-61.4-65.8-97.8v-.1c-16-37.8-24.1-78.2-24.1-119.9 0-55.4 14.8-109.7 42.8-157l13.2-22.1-9.5-23.9L206 192c14.9.6 35.9 2.1 59.7 5.6 43.8 6.5 82.5 17.5 114.9 32.6l19 8.9 19.9-6.8c31.5-10.8 64.8-16.2 98.9-16.2a306.51 306.51 0 0 1 217.5 90.2c28.4 28.5 50.6 61.4 65.8 97.8l.1.1.1.1c16 37.6 24.1 78 24.2 119.8-.1 41.7-8.3 82-24.3 119.8zM681.1 364.2c-20.4 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.6 37.1 37.1 37.1s37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1zm-175.2 0c-20.5 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.7 37.1 37.1 37.1 20.5 0 37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1z',
               },
-              href: '#/ZainDemo4'
+              href: '#/Demo4'
             }, {
               divider: true
             }, {
@@ -330,12 +330,82 @@ define('my-app', class extends WeElement {
             <div class='demos-display'>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
+                  <a href="./index-permanent.script.html" target="_blank">
                     <h3 class="mdc-typography--subtitle1">Permanent</h3>
                   </a>
                 </div>
                 <div>
                   <iframe class="drawer-iframe" title="Permanent" src="./index-permanent.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-permanent.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-permanent.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-modal.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Modal</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-modal.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-dismissible.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Dismissible</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-dismissible.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo1.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo1</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo1.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo2.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo2</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo2.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo3.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo3</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo3.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo4.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo4</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo4.script.html"></iframe>
                 </div>
               </div>
             </div>
@@ -386,31 +456,31 @@ define('my-app', class extends WeElement {
             }, {
               divider: true
             }, {
-              subheader: 'ZainChen sample'
+              subheader: 'Other sample'
             }, {
-              text: 'ZainDemo1',
+              text: 'Demo1',
               icon: {
                 path: 'M488.1 414.7V303.4L300.9 428l83.6 55.8zm254.1 137.7v-79.8l-59.8 39.9zM512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm278 533c0 1.1-.1 2.1-.2 3.1 0 .4-.1.7-.2 1a14.16 14.16 0 0 1-.8 3.2c-.2.6-.4 1.2-.6 1.7-.2.4-.4.8-.5 1.2-.3.5-.5 1.1-.8 1.6-.2.4-.4.7-.7 1.1-.3.5-.7 1-1 1.5-.3.4-.5.7-.8 1-.4.4-.8.9-1.2 1.3-.3.3-.6.6-1 .9-.4.4-.9.8-1.4 1.1-.4.3-.7.6-1.1.8-.1.1-.3.2-.4.3L525.2 786c-4 2.7-8.6 4-13.2 4-4.7 0-9.3-1.4-13.3-4L244.6 616.9c-.1-.1-.3-.2-.4-.3l-1.1-.8c-.5-.4-.9-.7-1.3-1.1-.3-.3-.6-.6-1-.9-.4-.4-.8-.8-1.2-1.3a7 7 0 0 1-.8-1c-.4-.5-.7-1-1-1.5-.2-.4-.5-.7-.7-1.1-.3-.5-.6-1.1-.8-1.6-.2-.4-.4-.8-.5-1.2-.2-.6-.4-1.2-.6-1.7-.1-.4-.3-.8-.4-1.2-.2-.7-.3-1.3-.4-2-.1-.3-.1-.7-.2-1-.1-1-.2-2.1-.2-3.1V427.9c0-1 .1-2.1.2-3.1.1-.3.1-.7.2-1a14.16 14.16 0 0 1 .8-3.2c.2-.6.4-1.2.6-1.7.2-.4.4-.8.5-1.2.2-.5.5-1.1.8-1.6.2-.4.4-.7.7-1.1.6-.9 1.2-1.7 1.8-2.5.4-.4.8-.9 1.2-1.3.3-.3.6-.6 1-.9.4-.4.9-.8 1.3-1.1.4-.3.7-.6 1.1-.8.1-.1.3-.2.4-.3L498.7 239c8-5.3 18.5-5.3 26.5 0l254.1 169.1c.1.1.3.2.4.3l1.1.8 1.4 1.1c.3.3.6.6 1 .9.4.4.8.8 1.2 1.3.7.8 1.3 1.6 1.8 2.5.2.4.5.7.7 1.1.3.5.6 1 .8 1.6.2.4.4.8.5 1.2.2.6.4 1.2.6 1.7.1.4.3.8.4 1.2.2.7.3 1.3.4 2 .1.3.1.7.2 1 .1 1 .2 2.1.2 3.1V597zm-254.1 13.3v111.3L723.1 597l-83.6-55.8zM281.8 472.6v79.8l59.8-39.9zM512 456.1l-84.5 56.4 84.5 56.4 84.5-56.4zM723.1 428L535.9 303.4v111.3l103.6 69.1zM384.5 541.2L300.9 597l187.2 124.6V610.3l-103.6-69.1z',
               },
-              href: '#/ZainDemo1'
+              href: '#/Demo1'
             }, {
-              text: 'ZainDemo2',
+              text: 'Demo2',
               icon: {
                 path: 'M960 509.2c0-2.2 0-4.7-.1-7.6-.1-8.1-.3-17.2-.5-26.9-.8-27.9-2.2-55.7-4.4-81.9-3-36.1-7.4-66.2-13.4-88.8a139.52 139.52 0 0 0-98.3-98.5c-28.3-7.6-83.7-12.3-161.7-15.2-37.1-1.4-76.8-2.3-116.5-2.8-13.9-.2-26.8-.3-38.4-.4h-29.4c-11.6.1-24.5.2-38.4.4-39.7.5-79.4 1.4-116.5 2.8-78 3-133.5 7.7-161.7 15.2A139.35 139.35 0 0 0 82.4 304C76.3 326.6 72 356.7 69 392.8c-2.2 26.2-3.6 54-4.4 81.9-.3 9.7-.4 18.8-.5 26.9 0 2.9-.1 5.4-.1 7.6v5.6c0 2.2 0 4.7.1 7.6.1 8.1.3 17.2.5 26.9.8 27.9 2.2 55.7 4.4 81.9 3 36.1 7.4 66.2 13.4 88.8 12.8 47.9 50.4 85.7 98.3 98.5 28.2 7.6 83.7 12.3 161.7 15.2 37.1 1.4 76.8 2.3 116.5 2.8 13.9.2 26.8.3 38.4.4h29.4c11.6-.1 24.5-.2 38.4-.4 39.7-.5 79.4-1.4 116.5-2.8 78-3 133.5-7.7 161.7-15.2 47.9-12.8 85.5-50.5 98.3-98.5 6.1-22.6 10.4-52.7 13.4-88.8 2.2-26.2 3.6-54 4.4-81.9.3-9.7.4-18.8.5-26.9 0-2.9.1-5.4.1-7.6v-5.6zm-72 5.2c0 2.1 0 4.4-.1 7.1-.1 7.8-.3 16.4-.5 25.7-.7 26.6-2.1 53.2-4.2 77.9-2.7 32.2-6.5 58.6-11.2 76.3-6.2 23.1-24.4 41.4-47.4 47.5-21 5.6-73.9 10.1-145.8 12.8-36.4 1.4-75.6 2.3-114.7 2.8-13.7.2-26.4.3-37.8.3h-28.6l-37.8-.3c-39.1-.5-78.2-1.4-114.7-2.8-71.9-2.8-124.9-7.2-145.8-12.8-23-6.2-41.2-24.4-47.4-47.5-4.7-17.7-8.5-44.1-11.2-76.3-2.1-24.7-3.4-51.3-4.2-77.9-.3-9.3-.4-18-.5-25.7 0-2.7-.1-5.1-.1-7.1v-4.8c0-2.1 0-4.4.1-7.1.1-7.8.3-16.4.5-25.7.7-26.6 2.1-53.2 4.2-77.9 2.7-32.2 6.5-58.6 11.2-76.3 6.2-23.1 24.4-41.4 47.4-47.5 21-5.6 73.9-10.1 145.8-12.8 36.4-1.4 75.6-2.3 114.7-2.8 13.7-.2 26.4-.3 37.8-.3h28.6l37.8.3c39.1.5 78.2 1.4 114.7 2.8 71.9 2.8 124.9 7.2 145.8 12.8 23 6.2 41.2 24.4 47.4 47.5 4.7 17.7 8.5 44.1 11.2 76.3 2.1 24.7 3.4 51.3 4.2 77.9.3 9.3.4 18 .5 25.7 0 2.7.1 5.1.1 7.1v4.8zM423 646l232-135-232-133z',
               },
-              href: '#/ZainDemo2'
+              href: '#/Demo2'
             }, {
-              text: 'ZainDemo3',
+              text: 'Demo3',
               icon: {
                 path: 'M825 768.9c-3.3-.9-7.3-.4-11.9 1.3-61.6 28.2-121.5 48.3-179.7 60.2C507.7 856 385.2 842.6 266 790.3c-33.1-14.6-79.1-39.2-138-74a9.36 9.36 0 0 0-5.3-2c-2-.1-3.7.1-5.3.9-1.6.8-2.8 1.8-3.7 3.1-.9 1.3-1.1 3.1-.4 5.4.6 2.2 2.1 4.7 4.6 7.4 10.4 12.2 23.3 25.2 38.6 39s35.6 29.4 60.9 46.8c25.3 17.4 51.8 32.9 79.3 46.4 27.6 13.5 59.6 24.9 96.1 34.1s73 13.8 109.4 13.8c36.2 0 71.4-3.7 105.5-10.9 34.2-7.3 63-15.9 86.5-25.9 23.4-9.9 45-21 64.8-33 19.8-12 34.4-22.2 43.9-30.3 9.5-8.2 16.3-14.6 20.2-19.4 4.6-5.7 6.9-10.6 6.9-14.9.1-4.5-1.7-7.1-5-7.9zM527.4 348.1c-15.2 1.3-33.5 4.1-55 8.3-21.5 4.1-41.4 9.3-59.8 15.4s-37.2 14.6-56.3 25.4c-19.2 10.8-35.5 23.2-49 37s-24.5 31.1-33.1 52c-8.6 20.8-12.9 43.7-12.9 68.7 0 27.1 4.7 51.2 14.3 72.5 9.5 21.3 22.2 38 38.2 50.4 15.9 12.4 34 22.1 54 29.2 20 7.1 41.2 10.3 63.2 9.4 22-.9 43.5-4.3 64.4-10.3 20.8-5.9 40.4-15.4 58.6-28.3 18.2-12.9 33.1-28.2 44.8-45.7 4.3 6.6 8.1 11.5 11.5 14.7l8.7 8.9c5.8 5.9 14.7 14.6 26.7 26.1 11.9 11.5 24.1 22.7 36.3 33.7l104.4-99.9-6-4.9c-4.3-3.3-9.4-8-15.2-14.3-5.8-6.2-11.6-13.1-17.2-20.5-5.7-7.4-10.6-16.1-14.7-25.9-4.1-9.8-6.2-19.3-6.2-28.5V258.7c0-10.1-1.9-21-5.7-32.8-3.9-11.7-10.7-24.5-20.7-38.3-10-13.8-22.4-26.2-37.2-37-14.9-10.8-34.7-20-59.6-27.4-24.8-7.4-52.6-11.1-83.2-11.1-31.3 0-60.4 3.7-87.6 10.9-27.1 7.3-50.3 17-69.7 29.2-19.3 12.2-35.9 26.3-49.7 42.4-13.8 16.1-24.1 32.9-30.8 50.4-6.7 17.5-10.1 35.2-10.1 53.1L408 310c5.5-16.4 12.9-30.6 22-42.8 9.2-12.2 17.9-21 25.8-26.5 8-5.5 16.6-9.9 25.7-13.2 9.2-3.3 15.4-5 18.6-5.4 3.2-.3 5.7-.4 7.6-.4 26.7 0 45.2 7.9 55.6 23.6 6.5 9.5 9.7 23.9 9.7 43.3v56.6c-15.2.6-30.4 1.6-45.6 2.9zM573.1 500c0 16.6-2.2 31.7-6.5 45-9.2 29.1-26.7 47.4-52.4 54.8-22.4 6.6-43.7 3.3-63.9-9.8-21.5-14-32.2-33.8-32.2-59.3 0-19.9 5-36.9 15-51.1 10-14.1 23.3-24.7 40-31.7s33-12 49-14.9c15.9-3 33-4.8 51-5.4V500zm335.2 218.9c-4.3-5.4-15.9-8.9-34.9-10.7-19-1.8-35.5-1.7-49.7.4-15.3 1.8-31.1 6.2-47.3 13.4-16.3 7.1-23.4 13.1-21.6 17.8l.7 1.3.9.7 1.4.2h4.6c.8 0 1.8-.1 3.2-.2 1.4-.1 2.7-.3 3.9-.4 1.2-.1 2.9-.3 5.1-.4 2.1-.1 4.1-.4 6-.7.3 0 3.7-.3 10.3-.9 6.6-.6 11.4-1 14.3-1.3 2.9-.3 7.8-.6 14.5-.9 6.7-.3 12.1-.3 16.1 0 4 .3 8.5.7 13.6 1.1 5.1.4 9.2 1.3 12.4 2.7 3.2 1.3 5.6 3 7.1 5.1 5.2 6.6 4.2 21.2-3 43.9s-14 40.8-20.4 54.2c-2.8 5.7-2.8 9.2 0 10.7s6.7.1 11.9-4c15.6-12.2 28.6-30.6 39.1-55.3 6.1-14.6 10.5-29.8 13.1-45.7 2.4-15.9 2-26.2-1.3-31z',
               },
-              href: '#/ZainDemo3'
+              href: '#/Demo3'
             }, {
-              text: 'ZainDemo4',
+              text: 'Demo4',
               icon: {
                 path: 'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM529 311.4c0-27.8 22.5-50.4 50.3-50.4 27.8 0 50.3 22.6 50.3 50.4v134.4c0 27.8-22.5 50.4-50.3 50.4-27.8 0-50.3-22.6-50.3-50.4V311.4zM361.5 580.2c0 27.8-22.5 50.4-50.3 50.4-13.3 0-26.1-5.3-35.6-14.8-9.4-9.5-14.7-22.3-14.7-35.6 0-27.8 22.5-50.4 50.3-50.4h50.3v50.4zm134 134.4c0 27.8-22.5 50.4-50.3 50.4-27.8 0-50.3-22.6-50.3-50.4V580.2c0-27.8 22.5-50.4 50.3-50.4 13.3 0 26.1 5.3 35.6 14.8s14.7 22.3 14.7 35.6v134.4zm-50.2-218.4h-134c-27.8 0-50.3-22.6-50.3-50.4 0-27.8 22.5-50.4 50.3-50.4h134c27.8 0 50.3 22.6 50.3 50.4-.1 27.9-22.6 50.4-50.3 50.4zm0-134.4c-13.3 0-26.1-5.3-35.6-14.8S395 324.8 395 311.4c0-27.8 22.5-50.4 50.3-50.4 27.8 0 50.3 22.6 50.3 50.4v50.4h-50.3zm134 403.2c-27.8 0-50.3-22.6-50.3-50.4v-50.4h50.3c27.8 0 50.3 22.6 50.3 50.4 0 27.8-22.5 50.4-50.3 50.4zm134-134.4h-134c-13.3 0-26.1-5.3-35.6-14.8-9.4-9.5-14.7-22.3-14.7-35.6 0-27.8 22.5-50.4 50.3-50.4h134c27.8 0 50.3 22.6 50.3 50.4 0 27.8-22.5 50.4-50.3 50.4zm0-134.4H663v-50.4c0-27.8 22.5-50.4 50.3-50.4s50.3 22.6 50.3 50.4c0 27.8-22.5 50.4-50.3 50.4z',
               },
-              href: '#/ZainDemo4'
+              href: '#/Demo4'
             }, {
               divider: true
             }, {
@@ -458,32 +528,82 @@ define('my-app', class extends WeElement {
             <div class='demos-display'>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
-                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                  <a href="./index-dismissible.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Dismissible</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Dismissible" src="./index-dismissible.script.html"></iframe>
                 </div>
               </div>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
+                  <a href="./index-permanent.script.html" target="_blank">
                     <h3 class="mdc-typography--subtitle1">Permanent</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-permanent.script.html"></iframe>
                 </div>
               </div>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
-                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                  <a href="./index-modal.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Modal</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-modal.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-dismissible.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Dismissible</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-dismissible.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo1.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo1</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo1.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo2.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo2</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo2.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo3.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo3</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo3.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo4.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo4</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo4.script.html"></iframe>
                 </div>
               </div>
             </div>
@@ -533,31 +653,31 @@ define('my-app', class extends WeElement {
             }, {
               divider: true
             }, {
-              subheader: 'ZainChen sample'
+              subheader: 'Other sample'
             }, {
-              text: 'ZainDemo1',
+              text: 'Demo1',
               icon: {
                 path: 'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 736H663.9V602.2h104l15.6-120.7H663.9v-77.1c0-35 9.7-58.8 59.8-58.8h63.9v-108c-11.1-1.5-49-4.8-93.2-4.8-92.2 0-155.3 56.3-155.3 159.6v89H434.9v120.7h104.3V848H176V176h672v672z',
               },
-              href: '#/ZainDemo1'
+              href: '#/Demo1'
             }, {
-              text: 'ZainDemo2',
+              text: 'Demo2',
               icon: {
                 path: 'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-88.1 216C766.9 823.4 729 839 688.4 839c-26.1 0-51.8-6.8-74.6-19.7l-22.5-12.7-25.5 4.5c-17.8 3.2-35.8 4.8-53.6 4.8-41.4 0-81.3-8.1-119.1-24.1-36.3-15.3-69-37.3-97.2-65.5a304.29 304.29 0 0 1-65.5-97.1c-16-37.7-24-77.6-24-119 0-17.4 1.6-35.2 4.6-52.8l4.4-25.1L203 410a151.02 151.02 0 0 1-19.1-73.4c0-40.6 15.7-78.5 44.4-107.2C257.1 200.7 295 185 335.6 185a153 153 0 0 1 71.4 17.9l22.4 11.8 24.8-4.8c18.9-3.6 38.4-5.5 58-5.5 41.4 0 81.3 8.1 119 24 36.5 15.4 69.1 37.4 97.2 65.5 28.2 28.1 50.2 60.8 65.6 97.2 16 37.7 24 77.6 24 119 0 18.4-1.7 37-5.1 55.5l-4.7 25.5 12.6 22.6c12.6 22.5 19.2 48 19.2 73.7 0 40.7-15.7 78.5-44.4 107.2zM583.4 466.2L495 446.6c-33.6-7.7-72.3-17.8-72.3-49.5s27.1-53.9 76.1-53.9c98.7 0 89.7 67.8 138.7 67.8 25.8 0 48.4-15.2 48.4-41.2 0-60.8-97.4-106.5-180-106.5-89.7 0-185.2 38.1-185.2 139.5 0 48.8 17.4 100.8 113.6 124.9l119.4 29.8c36.1 8.9 45.2 29.2 45.2 47.6 0 30.5-30.3 60.3-85.2 60.3-107.2 0-92.3-82.5-149.7-82.5-25.8 0-44.5 17.8-44.5 43.1 0 49.4 60 115.4 194.2 115.4 127.7 0 191-61.5 191-144 0-53.1-24.5-109.6-121.3-131.2z',
               },
-              href: '#/ZainDemo2'
+              href: '#/Demo2'
             }, {
-              text: 'ZainDemo3',
+              text: 'Demo3',
               icon: {
                 path: 'M925.6 405.1l-203-253.7a6.5 6.5 0 0 0-5-2.4H306.4c-1.9 0-3.8.9-5 2.4l-203 253.7a6.5 6.5 0 0 0 .2 8.3l408.6 459.5c1.2 1.4 3 2.1 4.8 2.1 1.8 0 3.5-.8 4.8-2.1l408.6-459.5a6.5 6.5 0 0 0 .2-8.3zM645.2 206.4l34.4 133.9-132.5-133.9h98.1zm8.2 178.5H370.6L512 242l141.4 142.9zM378.8 206.4h98.1L344.3 340.3l34.5-133.9zm-53.4 7l-44.1 171.5h-93.1l137.2-171.5zM194.6 434.9H289l125.8 247.7-220.2-247.7zM512 763.4L345.1 434.9h333.7L512 763.4zm97.1-80.8L735 434.9h94.4L609.1 682.6zm133.6-297.7l-44.1-171.5 137.2 171.5h-93.1z',
               },
-              href: '#/ZainDemo3'
+              href: '#/Demo3'
             }, {
-              text: 'ZainDemo4',
+              text: 'Demo4',
               icon: {
                 path: 'M868.2 377.4c-18.9-45.1-46.3-85.6-81.2-120.6a377.26 377.26 0 0 0-120.5-81.2A375.65 375.65 0 0 0 519 145.8c-41.9 0-82.9 6.7-121.9 20C306 123.3 200.8 120 170.6 120c-2.2 0-7.4 0-9.4.2-11.9.4-22.8 6.5-29.2 16.4-6.5 9.9-7.7 22.4-3.4 33.5l64.3 161.6a378.59 378.59 0 0 0-52.8 193.2c0 51.4 10 101 29.8 147.6 18.9 45 46.2 85.6 81.2 120.5 34.7 34.8 75.4 62.1 120.5 81.2C418.3 894 467.9 904 519 904c51.3 0 100.9-10.1 147.7-29.8 44.9-18.9 85.5-46.3 120.4-81.2 34.7-34.8 62.1-75.4 81.2-120.6a376.5 376.5 0 0 0 29.8-147.6c-.2-51.2-10.1-100.8-29.9-147.4zm-66.4 266.5a307.08 307.08 0 0 1-65.9 98c-28.4 28.5-61.3 50.7-97.7 65.9h-.1c-38 16-78.3 24.2-119.9 24.2a306.51 306.51 0 0 1-217.5-90.2c-28.4-28.5-50.6-61.4-65.8-97.8v-.1c-16-37.8-24.1-78.2-24.1-119.9 0-55.4 14.8-109.7 42.8-157l13.2-22.1-9.5-23.9L206 192c14.9.6 35.9 2.1 59.7 5.6 43.8 6.5 82.5 17.5 114.9 32.6l19 8.9 19.9-6.8c31.5-10.8 64.8-16.2 98.9-16.2a306.51 306.51 0 0 1 217.5 90.2c28.4 28.5 50.6 61.4 65.8 97.8l.1.1.1.1c16 37.6 24.1 78 24.2 119.8-.1 41.7-8.3 82-24.3 119.8zM681.1 364.2c-20.4 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.6 37.1 37.1 37.1s37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1zm-175.2 0c-20.5 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.7 37.1 37.1 37.1 20.5 0 37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1z',
               },
-              href: '#/ZainDemo4'
+              href: '#/Demo4'
             }, {
               divider: true
             }, {
@@ -604,32 +724,82 @@ define('my-app', class extends WeElement {
             <div class='demos-display'>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
-                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                  <a href="./index-modal.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Modal</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-modal.script.html"></iframe>
                 </div>
               </div>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
+                  <a href="./index-permanent.script.html" target="_blank">
                     <h3 class="mdc-typography--subtitle1">Permanent</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-permanent.script.html"></iframe>
                 </div>
               </div>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
-                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                  <a href="./index-modal.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Modal</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-modal.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-dismissible.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Dismissible</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-dismissible.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo1.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo1</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo1.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo2.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo2</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo2.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo3.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo3</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo3.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo4.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo4</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo4.script.html"></iframe>
                 </div>
               </div>
             </div>
@@ -646,7 +816,7 @@ define('my-app', class extends WeElement {
             fixed
             dense
             adjust
-            heading='Omim Drawer Zain Demo1'
+            heading='Omim Drawer Demo1'
             onNavigation={this.onTopAppBar}
             navigation-icon={{
               view: 48,
@@ -703,32 +873,32 @@ define('my-app', class extends WeElement {
               }, {
                 divider: true
               }, {
-                subheader: 'ZainChen sample'
+                subheader: 'Other sample'
               }, {
                 focus: true,
-                text: 'ZainDemo1',
+                text: 'Demo1',
                 icon: {
                   path: 'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 736H663.9V602.2h104l15.6-120.7H663.9v-77.1c0-35 9.7-58.8 59.8-58.8h63.9v-108c-11.1-1.5-49-4.8-93.2-4.8-92.2 0-155.3 56.3-155.3 159.6v89H434.9v120.7h104.3V848H176V176h672v672z',
                 },
-                href: '#/ZainDemo1'
+                href: '#/Demo1'
               }, {
-                text: 'ZainDemo2',
+                text: 'Demo2',
                 icon: {
                   path: 'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-88.1 216C766.9 823.4 729 839 688.4 839c-26.1 0-51.8-6.8-74.6-19.7l-22.5-12.7-25.5 4.5c-17.8 3.2-35.8 4.8-53.6 4.8-41.4 0-81.3-8.1-119.1-24.1-36.3-15.3-69-37.3-97.2-65.5a304.29 304.29 0 0 1-65.5-97.1c-16-37.7-24-77.6-24-119 0-17.4 1.6-35.2 4.6-52.8l4.4-25.1L203 410a151.02 151.02 0 0 1-19.1-73.4c0-40.6 15.7-78.5 44.4-107.2C257.1 200.7 295 185 335.6 185a153 153 0 0 1 71.4 17.9l22.4 11.8 24.8-4.8c18.9-3.6 38.4-5.5 58-5.5 41.4 0 81.3 8.1 119 24 36.5 15.4 69.1 37.4 97.2 65.5 28.2 28.1 50.2 60.8 65.6 97.2 16 37.7 24 77.6 24 119 0 18.4-1.7 37-5.1 55.5l-4.7 25.5 12.6 22.6c12.6 22.5 19.2 48 19.2 73.7 0 40.7-15.7 78.5-44.4 107.2zM583.4 466.2L495 446.6c-33.6-7.7-72.3-17.8-72.3-49.5s27.1-53.9 76.1-53.9c98.7 0 89.7 67.8 138.7 67.8 25.8 0 48.4-15.2 48.4-41.2 0-60.8-97.4-106.5-180-106.5-89.7 0-185.2 38.1-185.2 139.5 0 48.8 17.4 100.8 113.6 124.9l119.4 29.8c36.1 8.9 45.2 29.2 45.2 47.6 0 30.5-30.3 60.3-85.2 60.3-107.2 0-92.3-82.5-149.7-82.5-25.8 0-44.5 17.8-44.5 43.1 0 49.4 60 115.4 194.2 115.4 127.7 0 191-61.5 191-144 0-53.1-24.5-109.6-121.3-131.2z',
                 },
-                href: '#/ZainDemo2'
+                href: '#/Demo2'
               }, {
-                text: 'ZainDemo3',
+                text: 'Demo3',
                 icon: {
                   path: 'M925.6 405.1l-203-253.7a6.5 6.5 0 0 0-5-2.4H306.4c-1.9 0-3.8.9-5 2.4l-203 253.7a6.5 6.5 0 0 0 .2 8.3l408.6 459.5c1.2 1.4 3 2.1 4.8 2.1 1.8 0 3.5-.8 4.8-2.1l408.6-459.5a6.5 6.5 0 0 0 .2-8.3zM645.2 206.4l34.4 133.9-132.5-133.9h98.1zm8.2 178.5H370.6L512 242l141.4 142.9zM378.8 206.4h98.1L344.3 340.3l34.5-133.9zm-53.4 7l-44.1 171.5h-93.1l137.2-171.5zM194.6 434.9H289l125.8 247.7-220.2-247.7zM512 763.4L345.1 434.9h333.7L512 763.4zm97.1-80.8L735 434.9h94.4L609.1 682.6zm133.6-297.7l-44.1-171.5 137.2 171.5h-93.1z',
                 },
-                href: '#/ZainDemo3'
+                href: '#/Demo3'
               }, {
-                text: 'ZainDemo4',
+                text: 'Demo4',
                 icon: {
                   path: 'M868.2 377.4c-18.9-45.1-46.3-85.6-81.2-120.6a377.26 377.26 0 0 0-120.5-81.2A375.65 375.65 0 0 0 519 145.8c-41.9 0-82.9 6.7-121.9 20C306 123.3 200.8 120 170.6 120c-2.2 0-7.4 0-9.4.2-11.9.4-22.8 6.5-29.2 16.4-6.5 9.9-7.7 22.4-3.4 33.5l64.3 161.6a378.59 378.59 0 0 0-52.8 193.2c0 51.4 10 101 29.8 147.6 18.9 45 46.2 85.6 81.2 120.5 34.7 34.8 75.4 62.1 120.5 81.2C418.3 894 467.9 904 519 904c51.3 0 100.9-10.1 147.7-29.8 44.9-18.9 85.5-46.3 120.4-81.2 34.7-34.8 62.1-75.4 81.2-120.6a376.5 376.5 0 0 0 29.8-147.6c-.2-51.2-10.1-100.8-29.9-147.4zm-66.4 266.5a307.08 307.08 0 0 1-65.9 98c-28.4 28.5-61.3 50.7-97.7 65.9h-.1c-38 16-78.3 24.2-119.9 24.2a306.51 306.51 0 0 1-217.5-90.2c-28.4-28.5-50.6-61.4-65.8-97.8v-.1c-16-37.8-24.1-78.2-24.1-119.9 0-55.4 14.8-109.7 42.8-157l13.2-22.1-9.5-23.9L206 192c14.9.6 35.9 2.1 59.7 5.6 43.8 6.5 82.5 17.5 114.9 32.6l19 8.9 19.9-6.8c31.5-10.8 64.8-16.2 98.9-16.2a306.51 306.51 0 0 1 217.5 90.2c28.4 28.5 50.6 61.4 65.8 97.8l.1.1.1.1c16 37.6 24.1 78 24.2 119.8-.1 41.7-8.3 82-24.3 119.8zM681.1 364.2c-20.4 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.6 37.1 37.1 37.1s37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1zm-175.2 0c-20.5 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.7 37.1 37.1 37.1 20.5 0 37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1z',
                 },
-                href: '#/ZainDemo4'
+                href: '#/Demo4'
               }, {
                 divider: true
               }, {
@@ -755,32 +925,82 @@ define('my-app', class extends WeElement {
           <div class='demos-display'>
             <div class="drawer-demo">
               <div>
-                <a href="#/component/drawer/permanent" target="_blank">
-                  <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                <a href="./index-demo1.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo1</h3>
                 </a>
               </div>
               <div>
-                <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo1.script.html"></iframe>
               </div>
             </div>
             <div class="drawer-demo">
               <div>
-                <a href="#/component/drawer/permanent" target="_blank">
+                <a href="./index-permanent.script.html" target="_blank">
                   <h3 class="mdc-typography--subtitle1">Permanent</h3>
                 </a>
               </div>
               <div>
-                <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-permanent.script.html"></iframe>
               </div>
             </div>
             <div class="drawer-demo">
               <div>
-                <a href="#/component/drawer/permanent" target="_blank">
-                  <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                <a href="./index-modal.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Modal</h3>
                 </a>
               </div>
               <div>
-                <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-modal.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-dismissible.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Dismissible</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-dismissible.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-demo1.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo1</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo1.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-demo2.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo2</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo2.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-demo3.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo3</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo3.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-demo4.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo4</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo4.script.html"></iframe>
               </div>
             </div>
           </div>
@@ -795,7 +1015,7 @@ define('my-app', class extends WeElement {
             `}
             short
             adjust
-            heading='Omim Drawer Zain Demo2'
+            heading='Omim Drawer Demo2'
             onNavigation={this.onTopAppBar}
             navigation-icon={{
               view: 48,
@@ -846,32 +1066,32 @@ define('my-app', class extends WeElement {
               }, {
                 divider: true
               }, {
-                subheader: 'ZainChen sample'
+                subheader: 'Other sample'
               }, {
-                text: 'ZainDemo1',
+                text: 'Demo1',
                 icon: {
                   path: 'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 736H663.9V602.2h104l15.6-120.7H663.9v-77.1c0-35 9.7-58.8 59.8-58.8h63.9v-108c-11.1-1.5-49-4.8-93.2-4.8-92.2 0-155.3 56.3-155.3 159.6v89H434.9v120.7h104.3V848H176V176h672v672z',
                 },
-                href: '#/ZainDemo1'
+                href: '#/Demo1'
               }, {
                 focus: true,
-                text: 'ZainDemo2',
+                text: 'Demo2',
                 icon: {
                   path: 'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-88.1 216C766.9 823.4 729 839 688.4 839c-26.1 0-51.8-6.8-74.6-19.7l-22.5-12.7-25.5 4.5c-17.8 3.2-35.8 4.8-53.6 4.8-41.4 0-81.3-8.1-119.1-24.1-36.3-15.3-69-37.3-97.2-65.5a304.29 304.29 0 0 1-65.5-97.1c-16-37.7-24-77.6-24-119 0-17.4 1.6-35.2 4.6-52.8l4.4-25.1L203 410a151.02 151.02 0 0 1-19.1-73.4c0-40.6 15.7-78.5 44.4-107.2C257.1 200.7 295 185 335.6 185a153 153 0 0 1 71.4 17.9l22.4 11.8 24.8-4.8c18.9-3.6 38.4-5.5 58-5.5 41.4 0 81.3 8.1 119 24 36.5 15.4 69.1 37.4 97.2 65.5 28.2 28.1 50.2 60.8 65.6 97.2 16 37.7 24 77.6 24 119 0 18.4-1.7 37-5.1 55.5l-4.7 25.5 12.6 22.6c12.6 22.5 19.2 48 19.2 73.7 0 40.7-15.7 78.5-44.4 107.2zM583.4 466.2L495 446.6c-33.6-7.7-72.3-17.8-72.3-49.5s27.1-53.9 76.1-53.9c98.7 0 89.7 67.8 138.7 67.8 25.8 0 48.4-15.2 48.4-41.2 0-60.8-97.4-106.5-180-106.5-89.7 0-185.2 38.1-185.2 139.5 0 48.8 17.4 100.8 113.6 124.9l119.4 29.8c36.1 8.9 45.2 29.2 45.2 47.6 0 30.5-30.3 60.3-85.2 60.3-107.2 0-92.3-82.5-149.7-82.5-25.8 0-44.5 17.8-44.5 43.1 0 49.4 60 115.4 194.2 115.4 127.7 0 191-61.5 191-144 0-53.1-24.5-109.6-121.3-131.2z',
                 },
-                href: '#/ZainDemo2'
+                href: '#/Demo2'
               }, {
-                text: 'ZainDemo3',
+                text: 'Demo3',
                 icon: {
                   path: 'M925.6 405.1l-203-253.7a6.5 6.5 0 0 0-5-2.4H306.4c-1.9 0-3.8.9-5 2.4l-203 253.7a6.5 6.5 0 0 0 .2 8.3l408.6 459.5c1.2 1.4 3 2.1 4.8 2.1 1.8 0 3.5-.8 4.8-2.1l408.6-459.5a6.5 6.5 0 0 0 .2-8.3zM645.2 206.4l34.4 133.9-132.5-133.9h98.1zm8.2 178.5H370.6L512 242l141.4 142.9zM378.8 206.4h98.1L344.3 340.3l34.5-133.9zm-53.4 7l-44.1 171.5h-93.1l137.2-171.5zM194.6 434.9H289l125.8 247.7-220.2-247.7zM512 763.4L345.1 434.9h333.7L512 763.4zm97.1-80.8L735 434.9h94.4L609.1 682.6zm133.6-297.7l-44.1-171.5 137.2 171.5h-93.1z',
                 },
-                href: '#/ZainDemo3'
+                href: '#/Demo3'
               }, {
-                text: 'ZainDemo4',
+                text: 'Demo4',
                 icon: {
                   path: 'M868.2 377.4c-18.9-45.1-46.3-85.6-81.2-120.6a377.26 377.26 0 0 0-120.5-81.2A375.65 375.65 0 0 0 519 145.8c-41.9 0-82.9 6.7-121.9 20C306 123.3 200.8 120 170.6 120c-2.2 0-7.4 0-9.4.2-11.9.4-22.8 6.5-29.2 16.4-6.5 9.9-7.7 22.4-3.4 33.5l64.3 161.6a378.59 378.59 0 0 0-52.8 193.2c0 51.4 10 101 29.8 147.6 18.9 45 46.2 85.6 81.2 120.5 34.7 34.8 75.4 62.1 120.5 81.2C418.3 894 467.9 904 519 904c51.3 0 100.9-10.1 147.7-29.8 44.9-18.9 85.5-46.3 120.4-81.2 34.7-34.8 62.1-75.4 81.2-120.6a376.5 376.5 0 0 0 29.8-147.6c-.2-51.2-10.1-100.8-29.9-147.4zm-66.4 266.5a307.08 307.08 0 0 1-65.9 98c-28.4 28.5-61.3 50.7-97.7 65.9h-.1c-38 16-78.3 24.2-119.9 24.2a306.51 306.51 0 0 1-217.5-90.2c-28.4-28.5-50.6-61.4-65.8-97.8v-.1c-16-37.8-24.1-78.2-24.1-119.9 0-55.4 14.8-109.7 42.8-157l13.2-22.1-9.5-23.9L206 192c14.9.6 35.9 2.1 59.7 5.6 43.8 6.5 82.5 17.5 114.9 32.6l19 8.9 19.9-6.8c31.5-10.8 64.8-16.2 98.9-16.2a306.51 306.51 0 0 1 217.5 90.2c28.4 28.5 50.6 61.4 65.8 97.8l.1.1.1.1c16 37.6 24.1 78 24.2 119.8-.1 41.7-8.3 82-24.3 119.8zM681.1 364.2c-20.4 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.6 37.1 37.1 37.1s37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1zm-175.2 0c-20.5 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.7 37.1 37.1 37.1 20.5 0 37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1z',
                 },
-                href: '#/ZainDemo4'
+                href: '#/Demo4'
               }, {
                 divider: true
               }, {
@@ -898,32 +1118,82 @@ define('my-app', class extends WeElement {
           <div class='demos-display'>
             <div class="drawer-demo">
               <div>
-                <a href="#/component/drawer/permanent" target="_blank">
-                  <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                <a href="./index-demo2.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo2</h3>
                 </a>
               </div>
               <div>
-                <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo2.script.html"></iframe>
               </div>
             </div>
             <div class="drawer-demo">
               <div>
-                <a href="#/component/drawer/permanent" target="_blank">
+                <a href="./index-permanent.script.html" target="_blank">
                   <h3 class="mdc-typography--subtitle1">Permanent</h3>
                 </a>
               </div>
               <div>
-                <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-permanent.script.html"></iframe>
               </div>
             </div>
             <div class="drawer-demo">
               <div>
-                <a href="#/component/drawer/permanent" target="_blank">
-                  <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                <a href="./index-modal.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Modal</h3>
                 </a>
               </div>
               <div>
-                <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-modal.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-dismissible.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Dismissible</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-dismissible.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-demo1.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo1</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo1.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-demo2.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo2</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo2.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-demo3.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo3</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo3.script.html"></iframe>
+              </div>
+            </div>
+            <div class="drawer-demo">
+              <div>
+                <a href="./index-demo4.script.html" target="_blank">
+                  <h3 class="mdc-typography--subtitle1">Demo4</h3>
+                </a>
+              </div>
+              <div>
+                <iframe class="drawer-iframe" title="Permanent" src="./index-demo4.script.html"></iframe>
               </div>
             </div>
           </div>
@@ -939,7 +1209,7 @@ define('my-app', class extends WeElement {
             `}
             fixed
             dense
-            heading='Omim Drawer Zain Demo3'
+            heading='Omim Drawer Demo3'
             scroll-target={this.scrollTarget}
           />}
           <m-drawer
@@ -992,32 +1262,32 @@ define('my-app', class extends WeElement {
               }, {
                 divider: true
               }, {
-                subheader: 'ZainChen sample'
+                subheader: 'Other sample'
               }, {
-                text: 'ZainDemo1',
+                text: 'Demo1',
                 icon: {
                   path: 'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 736H663.9V602.2h104l15.6-120.7H663.9v-77.1c0-35 9.7-58.8 59.8-58.8h63.9v-108c-11.1-1.5-49-4.8-93.2-4.8-92.2 0-155.3 56.3-155.3 159.6v89H434.9v120.7h104.3V848H176V176h672v672z',
                 },
-                href: '#/ZainDemo1'
+                href: '#/Demo1'
               }, {
-                text: 'ZainDemo2',
+                text: 'Demo2',
                 icon: {
                   path: 'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-88.1 216C766.9 823.4 729 839 688.4 839c-26.1 0-51.8-6.8-74.6-19.7l-22.5-12.7-25.5 4.5c-17.8 3.2-35.8 4.8-53.6 4.8-41.4 0-81.3-8.1-119.1-24.1-36.3-15.3-69-37.3-97.2-65.5a304.29 304.29 0 0 1-65.5-97.1c-16-37.7-24-77.6-24-119 0-17.4 1.6-35.2 4.6-52.8l4.4-25.1L203 410a151.02 151.02 0 0 1-19.1-73.4c0-40.6 15.7-78.5 44.4-107.2C257.1 200.7 295 185 335.6 185a153 153 0 0 1 71.4 17.9l22.4 11.8 24.8-4.8c18.9-3.6 38.4-5.5 58-5.5 41.4 0 81.3 8.1 119 24 36.5 15.4 69.1 37.4 97.2 65.5 28.2 28.1 50.2 60.8 65.6 97.2 16 37.7 24 77.6 24 119 0 18.4-1.7 37-5.1 55.5l-4.7 25.5 12.6 22.6c12.6 22.5 19.2 48 19.2 73.7 0 40.7-15.7 78.5-44.4 107.2zM583.4 466.2L495 446.6c-33.6-7.7-72.3-17.8-72.3-49.5s27.1-53.9 76.1-53.9c98.7 0 89.7 67.8 138.7 67.8 25.8 0 48.4-15.2 48.4-41.2 0-60.8-97.4-106.5-180-106.5-89.7 0-185.2 38.1-185.2 139.5 0 48.8 17.4 100.8 113.6 124.9l119.4 29.8c36.1 8.9 45.2 29.2 45.2 47.6 0 30.5-30.3 60.3-85.2 60.3-107.2 0-92.3-82.5-149.7-82.5-25.8 0-44.5 17.8-44.5 43.1 0 49.4 60 115.4 194.2 115.4 127.7 0 191-61.5 191-144 0-53.1-24.5-109.6-121.3-131.2z',
                 },
-                href: '#/ZainDemo2'
+                href: '#/Demo2'
               }, {
                 focus: true,
-                text: 'ZainDemo3',
+                text: 'Demo3',
                 icon: {
                   path: 'M925.6 405.1l-203-253.7a6.5 6.5 0 0 0-5-2.4H306.4c-1.9 0-3.8.9-5 2.4l-203 253.7a6.5 6.5 0 0 0 .2 8.3l408.6 459.5c1.2 1.4 3 2.1 4.8 2.1 1.8 0 3.5-.8 4.8-2.1l408.6-459.5a6.5 6.5 0 0 0 .2-8.3zM645.2 206.4l34.4 133.9-132.5-133.9h98.1zm8.2 178.5H370.6L512 242l141.4 142.9zM378.8 206.4h98.1L344.3 340.3l34.5-133.9zm-53.4 7l-44.1 171.5h-93.1l137.2-171.5zM194.6 434.9H289l125.8 247.7-220.2-247.7zM512 763.4L345.1 434.9h333.7L512 763.4zm97.1-80.8L735 434.9h94.4L609.1 682.6zm133.6-297.7l-44.1-171.5 137.2 171.5h-93.1z',
                 },
-                href: '#/ZainDemo3'
+                href: '#/Demo3'
               }, {
-                text: 'ZainDemo4',
+                text: 'Demo4',
                 icon: {
                   path: 'M868.2 377.4c-18.9-45.1-46.3-85.6-81.2-120.6a377.26 377.26 0 0 0-120.5-81.2A375.65 375.65 0 0 0 519 145.8c-41.9 0-82.9 6.7-121.9 20C306 123.3 200.8 120 170.6 120c-2.2 0-7.4 0-9.4.2-11.9.4-22.8 6.5-29.2 16.4-6.5 9.9-7.7 22.4-3.4 33.5l64.3 161.6a378.59 378.59 0 0 0-52.8 193.2c0 51.4 10 101 29.8 147.6 18.9 45 46.2 85.6 81.2 120.5 34.7 34.8 75.4 62.1 120.5 81.2C418.3 894 467.9 904 519 904c51.3 0 100.9-10.1 147.7-29.8 44.9-18.9 85.5-46.3 120.4-81.2 34.7-34.8 62.1-75.4 81.2-120.6a376.5 376.5 0 0 0 29.8-147.6c-.2-51.2-10.1-100.8-29.9-147.4zm-66.4 266.5a307.08 307.08 0 0 1-65.9 98c-28.4 28.5-61.3 50.7-97.7 65.9h-.1c-38 16-78.3 24.2-119.9 24.2a306.51 306.51 0 0 1-217.5-90.2c-28.4-28.5-50.6-61.4-65.8-97.8v-.1c-16-37.8-24.1-78.2-24.1-119.9 0-55.4 14.8-109.7 42.8-157l13.2-22.1-9.5-23.9L206 192c14.9.6 35.9 2.1 59.7 5.6 43.8 6.5 82.5 17.5 114.9 32.6l19 8.9 19.9-6.8c31.5-10.8 64.8-16.2 98.9-16.2a306.51 306.51 0 0 1 217.5 90.2c28.4 28.5 50.6 61.4 65.8 97.8l.1.1.1.1c16 37.6 24.1 78 24.2 119.8-.1 41.7-8.3 82-24.3 119.8zM681.1 364.2c-20.4 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.6 37.1 37.1 37.1s37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1zm-175.2 0c-20.5 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.7 37.1 37.1 37.1 20.5 0 37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1z',
                 },
-                href: '#/ZainDemo4'
+                href: '#/Demo4'
               }, {
                 divider: true
               }, {
@@ -1046,32 +1316,82 @@ define('my-app', class extends WeElement {
               <div class='demos-display'>
                 <div class="drawer-demo">
                   <div>
-                    <a href="#/component/drawer/permanent" target="_blank">
-                      <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                    <a href="./index-demo3.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo3</h3>
                     </a>
                   </div>
                   <div>
-                    <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo3.script.html"></iframe>
                   </div>
                 </div>
                 <div class="drawer-demo">
                   <div>
-                    <a href="#/component/drawer/permanent" target="_blank">
+                    <a href="./index-permanent.script.html" target="_blank">
                       <h3 class="mdc-typography--subtitle1">Permanent</h3>
                     </a>
                   </div>
                   <div>
-                    <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-permanent.script.html"></iframe>
                   </div>
                 </div>
                 <div class="drawer-demo">
                   <div>
-                    <a href="#/component/drawer/permanent" target="_blank">
-                      <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                    <a href="./index-modal.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Modal</h3>
                     </a>
                   </div>
                   <div>
-                    <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-modal.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-dismissible.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Dismissible</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-dismissible.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-demo1.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo1</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo1.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-demo2.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo2</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo2.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-demo3.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo3</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo3.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-demo4.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo4</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo4.script.html"></iframe>
                   </div>
                 </div>
               </div>
@@ -1089,7 +1409,7 @@ define('my-app', class extends WeElement {
             `}
             fixed
             dense
-            heading='Omim Drawer Zain Demo4'
+            heading='Omim Drawer Demo4'
             scroll-target={this.scrollTarget}
             onNavigation={this.onTopAppBar}
             navigation-icon={{
@@ -1149,32 +1469,32 @@ define('my-app', class extends WeElement {
               }, {
                 divider: true
               }, {
-                subheader: 'ZainChen sample'
+                subheader: 'Other sample'
               }, {
-                text: 'ZainDemo1',
+                text: 'Demo1',
                 icon: {
                   path: 'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 736H663.9V602.2h104l15.6-120.7H663.9v-77.1c0-35 9.7-58.8 59.8-58.8h63.9v-108c-11.1-1.5-49-4.8-93.2-4.8-92.2 0-155.3 56.3-155.3 159.6v89H434.9v120.7h104.3V848H176V176h672v672z',
                 },
-                href: '#/ZainDemo1'
+                href: '#/Demo1'
               }, {
-                text: 'ZainDemo2',
+                text: 'Demo2',
                 icon: {
                   path: 'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-88.1 216C766.9 823.4 729 839 688.4 839c-26.1 0-51.8-6.8-74.6-19.7l-22.5-12.7-25.5 4.5c-17.8 3.2-35.8 4.8-53.6 4.8-41.4 0-81.3-8.1-119.1-24.1-36.3-15.3-69-37.3-97.2-65.5a304.29 304.29 0 0 1-65.5-97.1c-16-37.7-24-77.6-24-119 0-17.4 1.6-35.2 4.6-52.8l4.4-25.1L203 410a151.02 151.02 0 0 1-19.1-73.4c0-40.6 15.7-78.5 44.4-107.2C257.1 200.7 295 185 335.6 185a153 153 0 0 1 71.4 17.9l22.4 11.8 24.8-4.8c18.9-3.6 38.4-5.5 58-5.5 41.4 0 81.3 8.1 119 24 36.5 15.4 69.1 37.4 97.2 65.5 28.2 28.1 50.2 60.8 65.6 97.2 16 37.7 24 77.6 24 119 0 18.4-1.7 37-5.1 55.5l-4.7 25.5 12.6 22.6c12.6 22.5 19.2 48 19.2 73.7 0 40.7-15.7 78.5-44.4 107.2zM583.4 466.2L495 446.6c-33.6-7.7-72.3-17.8-72.3-49.5s27.1-53.9 76.1-53.9c98.7 0 89.7 67.8 138.7 67.8 25.8 0 48.4-15.2 48.4-41.2 0-60.8-97.4-106.5-180-106.5-89.7 0-185.2 38.1-185.2 139.5 0 48.8 17.4 100.8 113.6 124.9l119.4 29.8c36.1 8.9 45.2 29.2 45.2 47.6 0 30.5-30.3 60.3-85.2 60.3-107.2 0-92.3-82.5-149.7-82.5-25.8 0-44.5 17.8-44.5 43.1 0 49.4 60 115.4 194.2 115.4 127.7 0 191-61.5 191-144 0-53.1-24.5-109.6-121.3-131.2z',
                 },
-                href: '#/ZainDemo2'
+                href: '#/Demo2'
               }, {
-                text: 'ZainDemo3',
+                text: 'Demo3',
                 icon: {
                   path: 'M925.6 405.1l-203-253.7a6.5 6.5 0 0 0-5-2.4H306.4c-1.9 0-3.8.9-5 2.4l-203 253.7a6.5 6.5 0 0 0 .2 8.3l408.6 459.5c1.2 1.4 3 2.1 4.8 2.1 1.8 0 3.5-.8 4.8-2.1l408.6-459.5a6.5 6.5 0 0 0 .2-8.3zM645.2 206.4l34.4 133.9-132.5-133.9h98.1zm8.2 178.5H370.6L512 242l141.4 142.9zM378.8 206.4h98.1L344.3 340.3l34.5-133.9zm-53.4 7l-44.1 171.5h-93.1l137.2-171.5zM194.6 434.9H289l125.8 247.7-220.2-247.7zM512 763.4L345.1 434.9h333.7L512 763.4zm97.1-80.8L735 434.9h94.4L609.1 682.6zm133.6-297.7l-44.1-171.5 137.2 171.5h-93.1z',
                 },
-                href: '#/ZainDemo3'
+                href: '#/Demo3'
               }, {
                 focus: true,
-                text: 'ZainDemo4',
+                text: 'Demo4',
                 icon: {
                   path: 'M868.2 377.4c-18.9-45.1-46.3-85.6-81.2-120.6a377.26 377.26 0 0 0-120.5-81.2A375.65 375.65 0 0 0 519 145.8c-41.9 0-82.9 6.7-121.9 20C306 123.3 200.8 120 170.6 120c-2.2 0-7.4 0-9.4.2-11.9.4-22.8 6.5-29.2 16.4-6.5 9.9-7.7 22.4-3.4 33.5l64.3 161.6a378.59 378.59 0 0 0-52.8 193.2c0 51.4 10 101 29.8 147.6 18.9 45 46.2 85.6 81.2 120.5 34.7 34.8 75.4 62.1 120.5 81.2C418.3 894 467.9 904 519 904c51.3 0 100.9-10.1 147.7-29.8 44.9-18.9 85.5-46.3 120.4-81.2 34.7-34.8 62.1-75.4 81.2-120.6a376.5 376.5 0 0 0 29.8-147.6c-.2-51.2-10.1-100.8-29.9-147.4zm-66.4 266.5a307.08 307.08 0 0 1-65.9 98c-28.4 28.5-61.3 50.7-97.7 65.9h-.1c-38 16-78.3 24.2-119.9 24.2a306.51 306.51 0 0 1-217.5-90.2c-28.4-28.5-50.6-61.4-65.8-97.8v-.1c-16-37.8-24.1-78.2-24.1-119.9 0-55.4 14.8-109.7 42.8-157l13.2-22.1-9.5-23.9L206 192c14.9.6 35.9 2.1 59.7 5.6 43.8 6.5 82.5 17.5 114.9 32.6l19 8.9 19.9-6.8c31.5-10.8 64.8-16.2 98.9-16.2a306.51 306.51 0 0 1 217.5 90.2c28.4 28.5 50.6 61.4 65.8 97.8l.1.1.1.1c16 37.6 24.1 78 24.2 119.8-.1 41.7-8.3 82-24.3 119.8zM681.1 364.2c-20.4 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.6 37.1 37.1 37.1s37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1zm-175.2 0c-20.5 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.7 37.1 37.1 37.1 20.5 0 37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1z',
                 },
-                href: '#/ZainDemo4'
+                href: '#/Demo4'
               }, {
                 divider: true
               }, {
@@ -1203,32 +1523,82 @@ define('my-app', class extends WeElement {
               <div class='demos-display'>
                 <div class="drawer-demo">
                   <div>
-                    <a href="#/component/drawer/permanent" target="_blank">
-                      <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                    <a href="./index-demo4.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo4</h3>
                     </a>
                   </div>
                   <div>
-                    <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo4.script.html"></iframe>
                   </div>
                 </div>
                 <div class="drawer-demo">
                   <div>
-                    <a href="#/component/drawer/permanent" target="_blank">
+                    <a href="./index-permanent.script.html" target="_blank">
                       <h3 class="mdc-typography--subtitle1">Permanent</h3>
                     </a>
                   </div>
                   <div>
-                    <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-permanent.script.html"></iframe>
                   </div>
                 </div>
                 <div class="drawer-demo">
                   <div>
-                    <a href="#/component/drawer/permanent" target="_blank">
-                      <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                    <a href="./index-modal.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Modal</h3>
                     </a>
                   </div>
                   <div>
-                    <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-modal.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-dismissible.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Dismissible</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-dismissible.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-demo1.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo1</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo1.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-demo2.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo2</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo2.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-demo3.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo3</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo3.script.html"></iframe>
+                  </div>
+                </div>
+                <div class="drawer-demo">
+                  <div>
+                    <a href="./index-demo4.script.html" target="_blank">
+                      <h3 class="mdc-typography--subtitle1">Demo4</h3>
+                    </a>
+                  </div>
+                  <div>
+                    <iframe class="drawer-iframe" title="Permanent" src="./index-demo4.script.html"></iframe>
                   </div>
                 </div>
               </div>
@@ -1281,31 +1651,31 @@ define('my-app', class extends WeElement {
             }, {
               divider: true
             }, {
-              subheader: 'ZainChen sample'
+              subheader: 'Other sample'
             }, {
-              text: 'ZainDemo1',
+              text: 'Demo1',
               icon: {
                 path: 'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 736H663.9V602.2h104l15.6-120.7H663.9v-77.1c0-35 9.7-58.8 59.8-58.8h63.9v-108c-11.1-1.5-49-4.8-93.2-4.8-92.2 0-155.3 56.3-155.3 159.6v89H434.9v120.7h104.3V848H176V176h672v672z',
               },
-              href: '#/ZainDemo1'
+              href: '#/Demo1'
             }, {
-              text: 'ZainDemo2',
+              text: 'Demo2',
               icon: {
                 path: 'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-88.1 216C766.9 823.4 729 839 688.4 839c-26.1 0-51.8-6.8-74.6-19.7l-22.5-12.7-25.5 4.5c-17.8 3.2-35.8 4.8-53.6 4.8-41.4 0-81.3-8.1-119.1-24.1-36.3-15.3-69-37.3-97.2-65.5a304.29 304.29 0 0 1-65.5-97.1c-16-37.7-24-77.6-24-119 0-17.4 1.6-35.2 4.6-52.8l4.4-25.1L203 410a151.02 151.02 0 0 1-19.1-73.4c0-40.6 15.7-78.5 44.4-107.2C257.1 200.7 295 185 335.6 185a153 153 0 0 1 71.4 17.9l22.4 11.8 24.8-4.8c18.9-3.6 38.4-5.5 58-5.5 41.4 0 81.3 8.1 119 24 36.5 15.4 69.1 37.4 97.2 65.5 28.2 28.1 50.2 60.8 65.6 97.2 16 37.7 24 77.6 24 119 0 18.4-1.7 37-5.1 55.5l-4.7 25.5 12.6 22.6c12.6 22.5 19.2 48 19.2 73.7 0 40.7-15.7 78.5-44.4 107.2zM583.4 466.2L495 446.6c-33.6-7.7-72.3-17.8-72.3-49.5s27.1-53.9 76.1-53.9c98.7 0 89.7 67.8 138.7 67.8 25.8 0 48.4-15.2 48.4-41.2 0-60.8-97.4-106.5-180-106.5-89.7 0-185.2 38.1-185.2 139.5 0 48.8 17.4 100.8 113.6 124.9l119.4 29.8c36.1 8.9 45.2 29.2 45.2 47.6 0 30.5-30.3 60.3-85.2 60.3-107.2 0-92.3-82.5-149.7-82.5-25.8 0-44.5 17.8-44.5 43.1 0 49.4 60 115.4 194.2 115.4 127.7 0 191-61.5 191-144 0-53.1-24.5-109.6-121.3-131.2z',
               },
-              href: '#/ZainDemo2'
+              href: '#/Demo2'
             }, {
-              text: 'ZainDemo3',
+              text: 'Demo3',
               icon: {
                 path: 'M925.6 405.1l-203-253.7a6.5 6.5 0 0 0-5-2.4H306.4c-1.9 0-3.8.9-5 2.4l-203 253.7a6.5 6.5 0 0 0 .2 8.3l408.6 459.5c1.2 1.4 3 2.1 4.8 2.1 1.8 0 3.5-.8 4.8-2.1l408.6-459.5a6.5 6.5 0 0 0 .2-8.3zM645.2 206.4l34.4 133.9-132.5-133.9h98.1zm8.2 178.5H370.6L512 242l141.4 142.9zM378.8 206.4h98.1L344.3 340.3l34.5-133.9zm-53.4 7l-44.1 171.5h-93.1l137.2-171.5zM194.6 434.9H289l125.8 247.7-220.2-247.7zM512 763.4L345.1 434.9h333.7L512 763.4zm97.1-80.8L735 434.9h94.4L609.1 682.6zm133.6-297.7l-44.1-171.5 137.2 171.5h-93.1z',
               },
-              href: '#/ZainDemo3'
+              href: '#/Demo3'
             }, {
-              text: 'ZainDemo4',
+              text: 'Demo4',
               icon: {
                 path: 'M868.2 377.4c-18.9-45.1-46.3-85.6-81.2-120.6a377.26 377.26 0 0 0-120.5-81.2A375.65 375.65 0 0 0 519 145.8c-41.9 0-82.9 6.7-121.9 20C306 123.3 200.8 120 170.6 120c-2.2 0-7.4 0-9.4.2-11.9.4-22.8 6.5-29.2 16.4-6.5 9.9-7.7 22.4-3.4 33.5l64.3 161.6a378.59 378.59 0 0 0-52.8 193.2c0 51.4 10 101 29.8 147.6 18.9 45 46.2 85.6 81.2 120.5 34.7 34.8 75.4 62.1 120.5 81.2C418.3 894 467.9 904 519 904c51.3 0 100.9-10.1 147.7-29.8 44.9-18.9 85.5-46.3 120.4-81.2 34.7-34.8 62.1-75.4 81.2-120.6a376.5 376.5 0 0 0 29.8-147.6c-.2-51.2-10.1-100.8-29.9-147.4zm-66.4 266.5a307.08 307.08 0 0 1-65.9 98c-28.4 28.5-61.3 50.7-97.7 65.9h-.1c-38 16-78.3 24.2-119.9 24.2a306.51 306.51 0 0 1-217.5-90.2c-28.4-28.5-50.6-61.4-65.8-97.8v-.1c-16-37.8-24.1-78.2-24.1-119.9 0-55.4 14.8-109.7 42.8-157l13.2-22.1-9.5-23.9L206 192c14.9.6 35.9 2.1 59.7 5.6 43.8 6.5 82.5 17.5 114.9 32.6l19 8.9 19.9-6.8c31.5-10.8 64.8-16.2 98.9-16.2a306.51 306.51 0 0 1 217.5 90.2c28.4 28.5 50.6 61.4 65.8 97.8l.1.1.1.1c16 37.6 24.1 78 24.2 119.8-.1 41.7-8.3 82-24.3 119.8zM681.1 364.2c-20.4 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.6 37.1 37.1 37.1s37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1zm-175.2 0c-20.5 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.7 37.1 37.1 37.1 20.5 0 37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1z',
               },
-              href: '#/ZainDemo4'
+              href: '#/Demo4'
             }, {
               divider: true
             }, {
@@ -1353,32 +1723,82 @@ define('my-app', class extends WeElement {
             <div class='demos-display'>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
-                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                  <a href="./index-alone.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Alone</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-alone.script.html"></iframe>
                 </div>
               </div>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
+                  <a href="./index-permanent.script.html" target="_blank">
                     <h3 class="mdc-typography--subtitle1">Permanent</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-permanent.script.html"></iframe>
                 </div>
               </div>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
-                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                  <a href="./index-modal.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Modal</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-modal.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-dismissible.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Dismissible</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-dismissible.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo1.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo1</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo1.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo2.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo2</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo2.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo3.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo3</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo3.script.html"></iframe>
+                </div>
+              </div>
+              <div class="drawer-demo">
+                <div>
+                  <a href="./index-demo4.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Demo4</h3>
+                  </a>
+                </div>
+                <div>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-demo4.script.html"></iframe>
                 </div>
               </div>
             </div>
@@ -1430,31 +1850,31 @@ define('my-app', class extends WeElement {
             }, {
               divider: true
             }, {
-              subheader: 'ZainChen sample'
+              subheader: 'Other sample'
             }, {
-              text: 'ZainDemo1',
+              text: 'Demo1',
               icon: {
                 path: 'M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-32 736H663.9V602.2h104l15.6-120.7H663.9v-77.1c0-35 9.7-58.8 59.8-58.8h63.9v-108c-11.1-1.5-49-4.8-93.2-4.8-92.2 0-155.3 56.3-155.3 159.6v89H434.9v120.7h104.3V848H176V176h672v672z',
               },
-              href: '#/ZainDemo1'
+              href: '#/Demo1'
             }, {
-              text: 'ZainDemo2',
+              text: 'Demo2',
               icon: {
                 path: 'M883.7 578.6c4.1-22.5 6.3-45.5 6.3-68.5 0-51-10-100.5-29.7-147-19-45-46.3-85.4-81-120.1a375.79 375.79 0 0 0-120.1-80.9c-46.6-19.7-96-29.7-147-29.7-24 0-48.1 2.3-71.5 6.8A225.1 225.1 0 0 0 335.6 113c-59.7 0-115.9 23.3-158.1 65.5A222.25 222.25 0 0 0 112 336.6c0 38 9.8 75.4 28.1 108.4-3.7 21.4-5.7 43.3-5.7 65.1 0 51 10 100.5 29.7 147 19 45 46.2 85.4 80.9 120.1 34.7 34.7 75.1 61.9 120.1 80.9 46.6 19.7 96 29.7 147 29.7 22.2 0 44.4-2 66.2-5.9 33.5 18.9 71.3 29 110 29 59.7 0 115.9-23.2 158.1-65.5 42.3-42.2 65.5-98.4 65.5-158.1.1-38-9.7-75.5-28.2-108.7zm-88.1 216C766.9 823.4 729 839 688.4 839c-26.1 0-51.8-6.8-74.6-19.7l-22.5-12.7-25.5 4.5c-17.8 3.2-35.8 4.8-53.6 4.8-41.4 0-81.3-8.1-119.1-24.1-36.3-15.3-69-37.3-97.2-65.5a304.29 304.29 0 0 1-65.5-97.1c-16-37.7-24-77.6-24-119 0-17.4 1.6-35.2 4.6-52.8l4.4-25.1L203 410a151.02 151.02 0 0 1-19.1-73.4c0-40.6 15.7-78.5 44.4-107.2C257.1 200.7 295 185 335.6 185a153 153 0 0 1 71.4 17.9l22.4 11.8 24.8-4.8c18.9-3.6 38.4-5.5 58-5.5 41.4 0 81.3 8.1 119 24 36.5 15.4 69.1 37.4 97.2 65.5 28.2 28.1 50.2 60.8 65.6 97.2 16 37.7 24 77.6 24 119 0 18.4-1.7 37-5.1 55.5l-4.7 25.5 12.6 22.6c12.6 22.5 19.2 48 19.2 73.7 0 40.7-15.7 78.5-44.4 107.2zM583.4 466.2L495 446.6c-33.6-7.7-72.3-17.8-72.3-49.5s27.1-53.9 76.1-53.9c98.7 0 89.7 67.8 138.7 67.8 25.8 0 48.4-15.2 48.4-41.2 0-60.8-97.4-106.5-180-106.5-89.7 0-185.2 38.1-185.2 139.5 0 48.8 17.4 100.8 113.6 124.9l119.4 29.8c36.1 8.9 45.2 29.2 45.2 47.6 0 30.5-30.3 60.3-85.2 60.3-107.2 0-92.3-82.5-149.7-82.5-25.8 0-44.5 17.8-44.5 43.1 0 49.4 60 115.4 194.2 115.4 127.7 0 191-61.5 191-144 0-53.1-24.5-109.6-121.3-131.2z',
               },
-              href: '#/ZainDemo2'
+              href: '#/Demo2'
             }, {
-              text: 'ZainDemo3',
+              text: 'Demo3',
               icon: {
                 path: 'M925.6 405.1l-203-253.7a6.5 6.5 0 0 0-5-2.4H306.4c-1.9 0-3.8.9-5 2.4l-203 253.7a6.5 6.5 0 0 0 .2 8.3l408.6 459.5c1.2 1.4 3 2.1 4.8 2.1 1.8 0 3.5-.8 4.8-2.1l408.6-459.5a6.5 6.5 0 0 0 .2-8.3zM645.2 206.4l34.4 133.9-132.5-133.9h98.1zm8.2 178.5H370.6L512 242l141.4 142.9zM378.8 206.4h98.1L344.3 340.3l34.5-133.9zm-53.4 7l-44.1 171.5h-93.1l137.2-171.5zM194.6 434.9H289l125.8 247.7-220.2-247.7zM512 763.4L345.1 434.9h333.7L512 763.4zm97.1-80.8L735 434.9h94.4L609.1 682.6zm133.6-297.7l-44.1-171.5 137.2 171.5h-93.1z',
               },
-              href: '#/ZainDemo3'
+              href: '#/Demo3'
             }, {
-              text: 'ZainDemo4',
+              text: 'Demo4',
               icon: {
                 path: 'M868.2 377.4c-18.9-45.1-46.3-85.6-81.2-120.6a377.26 377.26 0 0 0-120.5-81.2A375.65 375.65 0 0 0 519 145.8c-41.9 0-82.9 6.7-121.9 20C306 123.3 200.8 120 170.6 120c-2.2 0-7.4 0-9.4.2-11.9.4-22.8 6.5-29.2 16.4-6.5 9.9-7.7 22.4-3.4 33.5l64.3 161.6a378.59 378.59 0 0 0-52.8 193.2c0 51.4 10 101 29.8 147.6 18.9 45 46.2 85.6 81.2 120.5 34.7 34.8 75.4 62.1 120.5 81.2C418.3 894 467.9 904 519 904c51.3 0 100.9-10.1 147.7-29.8 44.9-18.9 85.5-46.3 120.4-81.2 34.7-34.8 62.1-75.4 81.2-120.6a376.5 376.5 0 0 0 29.8-147.6c-.2-51.2-10.1-100.8-29.9-147.4zm-66.4 266.5a307.08 307.08 0 0 1-65.9 98c-28.4 28.5-61.3 50.7-97.7 65.9h-.1c-38 16-78.3 24.2-119.9 24.2a306.51 306.51 0 0 1-217.5-90.2c-28.4-28.5-50.6-61.4-65.8-97.8v-.1c-16-37.8-24.1-78.2-24.1-119.9 0-55.4 14.8-109.7 42.8-157l13.2-22.1-9.5-23.9L206 192c14.9.6 35.9 2.1 59.7 5.6 43.8 6.5 82.5 17.5 114.9 32.6l19 8.9 19.9-6.8c31.5-10.8 64.8-16.2 98.9-16.2a306.51 306.51 0 0 1 217.5 90.2c28.4 28.5 50.6 61.4 65.8 97.8l.1.1.1.1c16 37.6 24.1 78 24.2 119.8-.1 41.7-8.3 82-24.3 119.8zM681.1 364.2c-20.4 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.6 37.1 37.1 37.1s37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1zm-175.2 0c-20.5 0-37.1 16.7-37.1 37.1v55.1c0 20.4 16.7 37.1 37.1 37.1 20.5 0 37.1-16.7 37.1-37.1v-55.1c0-20.5-16.7-37.1-37.1-37.1z',
               },
-              href: '#/ZainDemo4'
+              href: '#/Demo4'
             }, {
               divider: true
             }, {
@@ -1502,32 +1922,12 @@ define('my-app', class extends WeElement {
             <div class='demos-display'>
               <div class="drawer-demo">
                 <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
-                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
+                  <a href="./index-alone.script.html" target="_blank">
+                    <h3 class="mdc-typography--subtitle1">Alone</h3>
                   </a>
                 </div>
                 <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
-                </div>
-              </div>
-              <div class="drawer-demo">
-                <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
-                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
-                  </a>
-                </div>
-                <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
-                </div>
-              </div>
-              <div class="drawer-demo">
-                <div>
-                  <a href="#/component/drawer/permanent" target="_blank">
-                    <h3 class="mdc-typography--subtitle1">Permanent</h3>
-                  </a>
-                </div>
-                <div>
-                  <iframe class="drawer-iframe" title="Permanent" src="https://material-components.github.io/material-components-web-catalog/?bust#/component/drawer/permanent"></iframe>
+                  <iframe class="drawer-iframe" title="Permanent" src="./index-alone.script.html"></iframe>
                 </div>
               </div>
             </div>

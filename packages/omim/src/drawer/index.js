@@ -3551,7 +3551,7 @@ var Drawer = /** @class */ (function (_super) {
             props.frame ?
                 omi_1.h("div", { class: omi_1.classNames('mdc-drawer-app-content', { 'transition-mode1': props.dismissibleSmooth }) },
                     omi_1.h("slot", { name: 'm-drawer-header' }),
-                    omi_1.h("div", { class: 'm-drawer-content' },
+                    omi_1.h("div", { id: 'm-drawer-content', class: 'm-drawer-content' },
                         omi_1.h("slot", { name: 'm-drawer-content' })),
                     omi_1.h("slot", null)) :
                 omi_1.h("slot", null)));

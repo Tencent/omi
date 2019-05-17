@@ -2598,12 +2598,17 @@ var topAppBar = /** @class */ (function (_super) {
         };
         return _this;
     }
-    topAppBar.prototype.update = function () {
+    topAppBar.prototype.updated = function () {
         // Update after initializing the component
         // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar
         // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
-        console.log(this.props.heading);
-        this.props.scrollTarget && this.topAppBar.setScrollTarget(this.props.scrollTarget);
+        if (this.props.scrollTargetDrawer) { //script设置m-drawer组件的scrollTarget(m-drawer的frame属性为true时使用,临时解决方案)
+            var target = document.querySelector('m-drawer').shadowRoot.querySelector('#m-drawer-content');
+            target && this.topAppBar.setScrollTarget(target);
+        }
+        else {
+            this.props.scrollTarget && this.topAppBar.setScrollTarget(this.props.scrollTarget);
+        }
     };
     topAppBar.prototype.installed = function () {
         var _this = this;
@@ -2611,8 +2616,11 @@ var topAppBar = /** @class */ (function (_super) {
         this.topAppBar.listen('MDCTopAppBar:nav', function (evt) {
             _this.fire('nav');
         });
-        // Update after initializing the component
-        // this.props.scrollTarget && topAppBar.setScrollTarget(this.props.scrollTarget)
+        //script设置m-drawer组件的scrollTarget(m-drawer的frame属性为true时使用)
+        if (this.props.scrollTargetDrawer) {
+            var target = document.querySelector('m-drawer').shadowRoot.querySelector('#m-drawer-content');
+            target && this.topAppBar.setScrollTarget(target);
+        }
     };
     topAppBar.prototype.render = function (props) {
         var _this = this;
@@ -2634,7 +2642,12 @@ var topAppBar = /** @class */ (function (_super) {
                     props.actionItems &&
                         omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-end' }, props.actionItems.map(function (item, index) {
                             return omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, (item.path || item.paths) ? omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item)) : item.text);
-                        }))))));
+                        })))),
+            props.adjust &&
+                omi_1.h("div", __assign({}, omi_1.extractClass(props, (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
+                    (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :
+                        props.dense ? 'mdc-top-app-bar--dense-fixed-adjust' :
+                            props.prominent ? 'mdc-top-app-bar--prominent-fixed-adjust' : 'mdc-top-app-bar--fixed-adjust')))));
     };
     topAppBar.css = css;
     topAppBar.propTypes = {
@@ -2647,7 +2660,8 @@ var topAppBar = /** @class */ (function (_super) {
         adjust: Boolean,
         navigationIcon: Object,
         actionItems: Object,
-        scrollTarget: EventTarget
+        scrollTarget: EventTarget,
+        scrollTargetDrawer: Boolean
     };
     topAppBar.defaultProps = {};
     topAppBar = __decorate([
