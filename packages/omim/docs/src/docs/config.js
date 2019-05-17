@@ -12,7 +12,8 @@ const config = {
         list: [
           { name: 'Button', md: 'button', demo: './repl/button.html' },
           { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
-          { name: 'Icon', md: 'icon', demo: './repl/icon.html' }
+          { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
+          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button' }
         ]
       },
       {
@@ -67,7 +68,8 @@ const config = {
         list: [
           { name: 'Button', md: 'button', demo: './repl/button.html' },
           { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
-          { name: 'Icon', md: 'icon', demo: './repl/icon.html' }
+          { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
+          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' }
         ]
       },
       {
