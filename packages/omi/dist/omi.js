@@ -373,10 +373,7 @@
     }
     function define(name, ctor) {
         if ('WeElement' === ctor.is) {
-            if (options.mapping[name]) {
-                if (options.mapping[name] === ctor) console.warn('You redefine custom elements named [' + name + '], redundant JS files may be referenced.'); else console.warn('This custom elements name [' + name + '] has already been used, please rename it.');
-                return;
-            }
+            if (options.mapping[name]) return;
             customElements.define(name, ctor);
             options.mapping[name] = ctor;
             if (ctor.use) ctor.updatePath = getPath(ctor.use); else if (ctor.data) ctor.updatePath = getUpdatePath(ctor.data);
@@ -1091,7 +1088,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.12';
+    options.root.Omi.version = '6.3.13';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -8,11 +8,11 @@ const ARRAYTYPE = '[object Array]'
 export function define(name, ctor) {
   if (ctor.is === 'WeElement') {
     if(options.mapping[name]){
-      if(options.mapping[name] === ctor){
-        console.warn(`You redefine custom elements named [${name}], redundant JS files may be referenced.`)
-      } else {
-        console.warn(`This custom elements name [${name}] has already been used, please rename it.`)
-      }
+      // if(options.mapping[name] === ctor){
+      //   console.warn(`You redefine custom elements named [${name}], redundant JS files may be referenced.`)
+      // } else {
+      //   console.warn(`This custom elements name [${name}] has already been used, please rename it.`)
+      // }
       return
     }
     customElements.define(name, ctor)
