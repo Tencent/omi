@@ -1,0 +1,2 @@
+webpackJsonp([5],{79:function(n,a){n.exports='## Snackbar \n\nSnackbar \u5728\u5c4f\u5e55\u5e95\u90e8\u63d0\u4f9b\u5173\u4e8e\u5e94\u7528\u7a0b\u5e8f\u8fdb\u7a0b\u7684\u7b80\u77ed\u6d88\u606f\u3002\n\n## \u4f7f\u7528\n\n```html\n<m-snackbar id=\'snackbar1\' button-text="RETRY" msg="Can\'t send photo. Retry in 5 seconds."></m-snackbar>\n```\n\n## API\n\n### Props\n\n```jsx\n{\n  show?: boolean,\n  stacked?: boolean,\n  msg: string,\n  buttonText?: string,\n  leading?: boolean\n}\n```'}});
+//# sourceMappingURL=5.e9a1635c.chunk.js.map

@@ -78,24 +78,35 @@
     </div>
     <div class="playground">
       <div class="editor">
-<textarea id="editor">
-<h1 class="mdc-typography--headline1">Headline 1</h1>
-<h2 class="mdc-typography--headline2">Headline 2</h2>
-<h3 class="mdc-typography--headline3">Headline 3</h3>
-<h4 class="mdc-typography--headline4">Headline 4</h4>
-<h5 class="mdc-typography--headline5">Headline 5</h5>
-<h6 class="mdc-typography--headline6">Headline 6</h6>
-<h6 class="mdc-typography--subtitle1">Subtitle 1</h6>
-<h6 class="mdc-typography--subtitle2">Subtitle 2</h6>
-<p class="mdc-typography--body1">Body 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</p>
-<p class="mdc-typography--body2">Body 2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate aliquid ad quas sunt voluptatum officia dolorum cumque, possimus nihil molestias sapiente necessitatibus dolor saepe inventore, soluta id accusantium voluptas beatae.</p>
-<div>
-  <span class="mdc-typography--button">Button text</span>
-</div>
-<div><span class="mdc-typography--caption">Caption text</span>
-</div>
-<div><span class="mdc-typography--overline">Overline text</span></div>
-</textarea>
+<textarea id="editor"><div>
+  <m-fab ripple icon="favorite_border"></m-fab>
+  <br />
+  <br />
+  <m-fab ripple mini icon="favorite"></m-fab>
+  <br />
+  <br />
+  <m-fab ripple icon="add">Create</m-fab>
+
+   <br />
+  <br />
+  <m-fab ripple iconRight icon="add">Create</m-fab>
+  <br />
+  <br />
+  <m-fab ripple>Create</m-fab>
+  <br />
+  <br />
+   <m-fab css=".mdc-fab{
+    border-radius: 50% 0!important;
+   }" ripple icon="favorite_border"></m-fab>
+
+  <m-fab style="margin:20px;" ripple mini css=".mdc-fab{
+    border-radius: 8px!important;
+   }" icon="favorite"></m-fab>
+ 
+  <m-fab css=".mdc-fab{
+    border-radius: 12px!important;
+   }"  ripple icon="add">Create</m-fab>
+</div></textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>
@@ -108,7 +119,6 @@
     </div>
   </div>
 
-
   <script src="./libs/codemirror.js"></script>
   <script src="./libs/xml.js"></script>
   <script src="./libs/javascript.js"></script>
@@ -120,7 +130,7 @@
       myTextarea = document.getElementById("editor"),
       editor = CodeMirror.fromTextArea(myTextarea, { lineNumbers: !0, theme: editorTheme, tabSize: 2, mode: "javascript" }), lastStorageSource = localStorage.getItem(storageKey),
       source = sourceFromQueryString || lastStorageSource || editor.getValue();
-    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./typography-preview.html";
+    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./fab-preview.html";
 
     function getQueryString() { for (var d, a = {}, b = location.search.slice(1), c = /([^&=]+)=([^&]*)/g; d = c.exec(b);)a[decodeURIComponent(d[1])] = decodeURIComponent(d[2]); return a }
     function hideNotify() { notification.classList.add("hide") }
@@ -135,13 +145,9 @@
       b.appendChild(c)
     }
 
-    function compile(a, b) {
-      window._sourceCode = a
+		function compile(a, b) {
+			window._sourceCode = a
       return a
-      var c, d; a = a || "", lastCode = a, hideNotify(), c = "/* @jsx createElement */\n"; try { d = Babel.transform(c + a, { presets: ["react", "es2015", "stage-1"] }).code } catch (e) { return console.error(e), showNotify(e), void 0 }
-      window._sourceCode = d
-      return d;
-      //return isReady?(runCompiled(d),void 0):(!b&&showNotify("Preview.html is not ready!",3e3),void 0)
     }
 
     function run() {
