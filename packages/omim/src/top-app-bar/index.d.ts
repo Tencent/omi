@@ -1,4 +1,5 @@
 import { WeElement } from 'omi';
+import { MDCTopAppBar } from '@material/top-app-bar';
 import '../icon';
 interface Props {
     heading?: string;
@@ -32,6 +33,8 @@ export default class topAppBar extends WeElement<Props, Data> {
         };
     };
     static defaultProps: {};
+    topAppBar: MDCTopAppBar;
+    update(): void;
     installed(): void;
     onNavigation: (evt: Event) => void;
     onAction: (evt: any) => void;

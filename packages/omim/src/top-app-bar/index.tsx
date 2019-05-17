@@ -40,15 +40,26 @@ export default class topAppBar extends WeElement<Props, Data>{
   static defaultProps = {
     
   }
+
+  topAppBar: MDCTopAppBar
+
+  update() {
+    // Update after initializing the component
+    // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar
+    // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
+    console.log(this.props.heading)
+    this.props.scrollTarget && this.topAppBar.setScrollTarget(this.props.scrollTarget)
+  }
   
   installed() {
-    const topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
+    this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
     
-    topAppBar.listen('MDCTopAppBar:nav', (evt: any) => {
+    this.topAppBar.listen('MDCTopAppBar:nav', (evt: any) => {
       this.fire('nav')
     });
 
-    this.props.scrollTarget && topAppBar.setScrollTarget(this.props.scrollTarget)
+    // Update after initializing the component
+    // this.props.scrollTarget && topAppBar.setScrollTarget(this.props.scrollTarget)
   }
 
   onNavigation = (evt: Event) => {
