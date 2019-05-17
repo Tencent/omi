@@ -53,7 +53,8 @@ const config = {
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
-          { name: 'Tag', md: 'tag', demo: './repl/tag.html' }
+          { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
+          { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
         ]
       }
     ],
@@ -110,7 +111,8 @@ const config = {
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
-          { name: 'Tag', md: 'tag', demo: './repl/tag.html' }
+          { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
+          { name: 'Badge', md: 'badge', demo: './repl/badge.html' }
         ]
       }
     ]
