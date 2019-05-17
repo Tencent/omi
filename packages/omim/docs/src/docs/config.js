@@ -46,10 +46,11 @@ const config = {
         ]
       },
       {
-        title: '数据展示',
+        title: '其他',
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
-          { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
+          { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
+          { name: 'Chips', md: 'chips', demo: './repl/chips.html' }
         ]
       }
     ],
@@ -99,10 +100,11 @@ const config = {
         ]
       },
       {
-        title: 'Data',
+        title: 'Other',
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
-          { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
+          { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
+          { name: 'Chips', md: 'chips', demo: './repl/chips.html' }
         ]
       }
     ]
