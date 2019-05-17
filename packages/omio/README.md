@@ -23,6 +23,7 @@ Required omi-cli v3.3.0+.
 Omio has the same grammar as omi, but there are also some differences:
 
 * Omio does not support slot, please use `props.children` instead like react 
+* Reset.css is valid in omio, but not in omi
 
 ## Use in omi project
 
@@ -53,47 +54,6 @@ module.exports = {
   }
 };
 ```
-
-## Support IE8
-
-```js
-import { render, WeElement, define } from '../../src/omi'
-
-define('my-counter', class extends WeElement {
-  //commented out for ie8
-  //static observe = true
-
-  data = {
-    count: 1
-  }
-
-  sub = () => {
-    this.data.count--
-    //no observe, so call this.update for ie8
-    this.update()
-  }
-
-  add = () => {
-    this.data.count++
-    //no observe, so call this.update for ie8
-    this.update()
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{this.data.count}</span>
-        <button onClick={this.add}>+</button>
-      </div>
-    )
-  }
-})
-
-render(<my-counter />, 'body')
-```
-
-If you only need to be compatible with IE9 and IE9+，you can use `static observe = true`.
 
 ## License
 

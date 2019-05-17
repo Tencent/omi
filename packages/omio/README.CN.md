@@ -23,7 +23,7 @@ $ npm run build
 omio 拥有 omi一样的语法，但是也有一些差异需要注意：
 
 * Omio 不支持 slot, 请使用 `props.children` 代替，像 react 一样，omi 也支持 `props.children` 
-
+* reset.css 在 omio 中有效，在 omi 中无效
 
 ## 在 Omi 项目中使用
 
@@ -56,48 +56,6 @@ module.exports = {
   }
 };
 ```
-
-
-## 兼容 IE8
-
-```js
-import { render, WeElement, define } from '../../src/omi'
-
-define('my-counter', class extends WeElement {
-  //ie8 不能使用 observe
-  //static observe = true
-
-  data = {
-    count: 1
-  }
-
-  sub = () => {
-    this.data.count--
-    //手动 update
-    this.update()
-  }
-
-  add = () => {
-    this.data.count++
-    //手动 update
-    this.update()
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.sub}>-</button>
-        <span>{this.data.count}</span>
-        <button onClick={this.add}>+</button>
-      </div>
-    )
-  }
-})
-
-render(<my-counter />, 'body')
-```
-
-如果你不需要兼容 IE8，只需要兼容 IE9+，你可以使用 `static observe = true` 进行数据监听自动更新视图。
 
 ## 相关文章
 
