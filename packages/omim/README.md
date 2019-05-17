@@ -13,6 +13,35 @@ Material Design for the Web, powered by Omi.
 * Support both JSX and native HTML elements 
 * Each element can be used independently
 
+## Usage
+
+```html
+<script src="https://unpkg.com/omi"></script>
+<script src="https://unpkg.com/@omim/core@0.0.1/button/index.js"></script>
+
+<m-button>I am button</m-button>
+```
+
+Via npm:
+
+``` bash
+npm install @omim/core
+```
+
+Then:
+
+```js
+import '@omim/core/button'
+
+//Then use in Omi, React, Vue and Angular:
+//<m-button>I am button</m-button>
+
+//Or pure js:
+
+//const button = document.createElement('m-button')
+
+```
+
 ## CMD
 
 Build component:
