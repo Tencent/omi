@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Omiu REPL</title>
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="stylesheet" type="text/css" href="./libs/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="./libs/codemirror.css" />
+  <style>
+    .cm-s-default{background-color:#f9f9f9}.cm-s-dark{background-color:#1e1d23;color:#e9eded}.cm-s-dark .CodeMirror-gutters{background-color:#1e1d23;color:#537f7e;border:none}.cm-s-dark .CodeMirror-guttermarker,.cm-s-dark .CodeMirror-guttermarker-subtle,.cm-s-dark .CodeMirror-linenumber{color:#999}.cm-s-dark .CodeMirror-cursor{border-left:1px solid #f8f8f0}.cm-s-dark div.CodeMirror-selected{background:hsla(0,0%,100%,.15)}.cm-s-dark .CodeMirror-line::selection,.cm-s-dark .CodeMirror-line>span::selection,.cm-s-dark .CodeMirror-line>span>span::selection,.cm-s-dark.CodeMirror-focused div.CodeMirror-selected{background:hsla(0,0%,100%,.1)}.cm-s-dark .CodeMirror-line::-moz-selection,.cm-s-dark .CodeMirror-line>span::-moz-selection,.cm-s-dark .CodeMirror-line>span>span::-moz-selection{background:hsla(0,0%,100%,.1)}.cm-s-dark .CodeMirror-activeline-background{background:transparent}.cm-s-dark .cm-keyword{color:#c792ea}.cm-s-dark .cm-operator{color:#e9eded}.cm-s-dark .cm-variable-2{color:#80cbc4}.cm-s-dark .cm-variable-3{color:#82b1ff}.cm-s-dark .cm-builtin{color:#decb6b}.cm-s-dark .cm-atom,.cm-s-dark .cm-number{color:#f77669}.cm-s-dark .cm-def{color:#e9eded}.cm-s-dark .cm-string{color:#c3e88d}.cm-s-dark .cm-string-2{color:#80cbc4}.cm-s-dark .cm-comment{color:#546e7a}.cm-s-dark .cm-variable{color:#82b1ff}.cm-s-dark .cm-meta,.cm-s-dark .cm-tag{color:#80cbc4}.cm-s-dark .cm-attribute{color:#ffcb6b}.cm-s-dark .cm-property{color:#80cbae}.cm-s-dark .cm-qualifier,.cm-s-dark .cm-variable-3{color:#decb6b}.cm-s-dark .cm-tag{color:#ff5370}.cm-s-dark .cm-error{color:#fff;background-color:#ec5f67}.cm-s-dark .CodeMirror-matchingbracket{text-decoration:underline;color:#fff!important}body{margin:0}#editor{display:none}.container{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column}.action-bar{background-color:#3d3d3e;height:40px;display:flex}.playground{display:flex;flex-direction:row;flex:1}.editor{overflow:scroll;flex:1}.CodeMirror{height:100%}.preview{position:relative;width:50%;overflow:hidden;background-color:#eee}.frame{position:absolute;width:100%;height:100%;border:0;background-color:#fff}.notification{position:absolute;z-index:1000;bottom:10px;right:40px;background:#1e1d23;min-width:280px;max-width:700px;border-radius:5px}.notification.hide{display:none}.notification-content{margin:9pt;font-size:10px;line-height:1.4;color:rgb(233, 64, 55)}
+    </style>
+
+  <style>
+    .editor{
+            overflow: hidden;
+        }
+
+    .tool-bar{
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    ::-webkit-scrollbar-track
+    {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar
+    {
+      width: 12px;
+      height: 12px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb
+    {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background-color: #555;
+    }
+
+    @media screen and (max-width: 768px) {
+          .playground {
+            display: block;
+          }
+
+        .playground .editor{
+          position: absolute;
+          top: 40%;
+          width: 100%;
+          height: 60%;
+
+        }
+
+        .playground .preview{
+          display: inline-block;
+          width: 100%;
+          height: 40%;
+          position: absolute;
+          top:0px;
+        }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <a href="https://github.com/Tencent/omi/tree/master/packages/omiu" target="_blank" style="position: absolute;z-index: 1000; right: 0; top: 0;">
+    <img src="https://alloyteam.github.io/github.png" alt="" />
+  </a> -->
+  <div class="container">
+    <div class="tool-bar" style="display:none;">
+      <button style="margin-left:20px;" onclick="run()">Run</button>
+      <div style="margin-left: 10px;display: inline-block;"><input id="autoCheckbox" type="checkbox" checked id="autoRun"><label
+          for="autoRun" style="cursor: pointer;color: white;">Auto Run</label></div>
+    </div>
+    <div class="playground">
+      <div class="editor">
+<textarea id="editor"><div> <div>
+  <m-icon-button icon='wifi'></m-icon-button>
+  <m-icon-button onChange="change(event)" icons="['favorite', 'favorite_border']"></m-icon-button>
+  <m-icon-button color="red" icons="['favorite', 'favorite_border']"></m-icon-button>
+  <m-icon-button>
+    <svg viewBox="0 0 24 24" class="" width="2em" height="2em" aria-hidden="true">
+      <path d="M7.52 21.48C4.25 19.94 1.91 16.76 1.55 13H.05C.56 19.16 5.71 24 12 24l.66-.03-3.81-3.81-1.33 1.32zm.89-6.52c-.19 0-.37-.03-.52-.08-.16-.06-.29-.13-.4-.24-.11-.1-.2-.22-.26-.37-.06-.14-.09-.3-.09-.47h-1.3c0 .36.07.68.21.95.14.27.33.5.56.69.24.18.51.32.82.41.3.1.62.15.96.15.37 0 .72-.05 1.03-.15.32-.1.6-.25.83-.44s.42-.43.55-.72c.13-.29.2-.61.2-.97 0-.19-.02-.38-.07-.56-.05-.18-.12-.35-.23-.51-.1-.16-.24-.3-.4-.43-.17-.13-.37-.23-.61-.31.2-.09.37-.2.52-.33.15-.13.27-.27.37-.42.1-.15.17-.3.22-.46.05-.16.07-.32.07-.48 0-.36-.06-.68-.18-.96-.12-.28-.29-.51-.51-.69-.2-.19-.47-.33-.77-.43C9.1 8.05 8.76 8 8.39 8c-.36 0-.69.05-1 .16-.3.11-.57.26-.79.45-.21.19-.38.41-.51.67-.12.26-.18.54-.18.85h1.3c0-.17.03-.32.09-.45s.14-.25.25-.34c.11-.09.23-.17.38-.22.15-.05.3-.08.48-.08.4 0 .7.1.89.31.19.2.29.49.29.86 0 .18-.03.34-.08.49-.05.15-.14.27-.25.37-.11.1-.25.18-.41.24-.16.06-.36.09-.58.09H7.5v1.03h.77c.22 0 .42.02.6.07s.33.13.45.23c.12.11.22.24.29.4.07.16.1.35.1.57 0 .41-.12.72-.35.93-.23.23-.55.33-.95.33zm8.55-5.92c-.32-.33-.7-.59-1.14-.77-.43-.18-.92-.27-1.46-.27H12v8h2.3c.55 0 1.06-.09 1.51-.27.45-.18.84-.43 1.16-.76.32-.33.57-.73.74-1.19.17-.47.26-.99.26-1.57v-.4c0-.58-.09-1.1-.26-1.57-.18-.47-.43-.87-.75-1.2zm-.39 3.16c0 .42-.05.79-.14 1.13-.1.33-.24.62-.43.85-.19.23-.43.41-.71.53-.29.12-.62.18-.99.18h-.91V9.12h.97c.72 0 1.27.23 1.64.69.38.46.57 1.12.57 1.99v.4zM12 0l-.66.03 3.81 3.81 1.33-1.33c3.27 1.55 5.61 4.72 5.96 8.48h1.5C23.44 4.84 18.29 0 12 0z"></path>
+    </svg>
+
+    <svg viewBox="0 0 1024 1024" class="" width="2em" height="2em" aria-hidden="true">
+      <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+        fill="#F98080"></path>
+      <path d="M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z"
+        fill="#F95050"></path>
+    </svg>
+  </m-icon-button>
+  <m-icon-button disabled icon='wifi'></m-icon-button>
+</div></textarea>
+      </div>
+      <div class="preview">
+        <iframe class="frame" id="frame"></iframe>
+      </div>
+
+    </div>
+
+    <div class="notification hide" id="notification">
+      <pre class="notification-content" id="notification-content"></pre>
+    </div>
+  </div>
+
+  <script src="./libs/codemirror.js"></script>
+  <script src="./libs/xml.js"></script>
+  <script src="./libs/javascript.js"></script>
+
+  <script>
+    var style, lastTimer, lastCode, lastScript, queryString = getQueryString(),
+      sourceFromQueryString = queryString.code, backgroundColor = queryString.bgColor, editorTheme = queryString.theme || "dark", notification = document.getElementById("notification"), notificationContent = document.getElementById("notification-content"), frame = document.getElementById("frame"),
+      storageKey = "alloyrender_playground_source",
+      myTextarea = document.getElementById("editor"),
+      editor = CodeMirror.fromTextArea(myTextarea, { lineNumbers: !0, theme: editorTheme, tabSize: 2, mode: "javascript" }), lastStorageSource = localStorage.getItem(storageKey),
+      source = sourceFromQueryString || lastStorageSource || editor.getValue();
+    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./icon-button-preview.html";
+
+    function getQueryString() { for (var d, a = {}, b = location.search.slice(1), c = /([^&=]+)=([^&]*)/g; d = c.exec(b);)a[decodeURIComponent(d[1])] = decodeURIComponent(d[2]); return a }
+    function hideNotify() { notification.classList.add("hide") }
+    function showNotify(a, b) { notificationContent.innerHTML = a, notification.classList.remove("hide"), lastTimer && clearTimeout(lastTimer), b && (lastTimer = setTimeout(hideNotify, b)) };
+    function runCompiled(a) {
+      var c, b = frame.contentDocument.body;
+      lastScript && b.removeChild(lastScript);
+      c = document.createElement("script");
+      c.innerHTML = a;
+      window._sourceCode = a
+      lastScript = c;
+      b.appendChild(c)
+    }
+
+		function compile(a, b) {
+			window._sourceCode = a
+      return a
+    }
+
+    function run() {
+      frame.contentWindow.location.reload(true);
+    }
+
+
+
+    editor.on("changes", function (a) {
+      var b = a.getValue();
+      compile(b);
+      //localStorage.setItem(storageKey,b);
+      if (document.querySelector('#autoCheckbox').checked) {
+        frame.contentWindow.location.reload(true);
+      }
+      // window.history.pushState({a:1}, "My Profile",window.location.protocol + "//alloyteam.github.io/AlloyRender/repl/index.html?code="+encodeURIComponent(b));
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+webpackJsonp([4],{80:function(n,e){n.exports="## Switch\n\n\u5207\u6362\u6253\u5f00\u6216\u5173\u95ed\u5355\u4e2a\u8bbe\u7f6e\u7684\u72b6\u6001\u3002 \u5b83\u4eec\u662f\u8c03\u6574\u79fb\u52a8\u8bbe\u7f6e\u7684\u9996\u9009\u65b9\u5f0f\u3002\n\n## \u4f7f\u7528\n\n```jsx\n<m-switch label='Label1'></m-switch>\n\n<m-switch label='Label2'></m-switch>\n\n<m-switch label='Label3'></m-switch>\n```\n\n## API\n\n### Props\n\n```jsx\n{\n  label?: string,\n  disabled?: boolean,\n  checked?: boolean,\n  value: string\n}\n```"}});
+//# sourceMappingURL=4.54f70e79.chunk.js.map

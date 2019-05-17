@@ -3,7 +3,8 @@ import * as css from './index.scss'
 import '../icon'
 
 interface Props {
-
+  dot: boolean,
+  content: string
 }
 
 interface Data {

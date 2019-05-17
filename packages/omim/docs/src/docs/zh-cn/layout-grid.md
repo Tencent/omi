@@ -19,6 +19,12 @@
 </m-layout-grid>
 ```
 
+由于 layout 会把 html 字符串转换成 vdom，会有很大的开销，所以请在 jsx 中使用这个组件，html 的方式请只使用它的 css。
+
+```js
+import { css } from '@omim/core/layout-grid'
+```
+
 ## API
 
 ### Props

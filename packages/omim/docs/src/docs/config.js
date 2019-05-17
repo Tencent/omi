@@ -11,7 +11,9 @@ const config = {
         title: '基础元素',
         list: [
           { name: 'Button', md: 'button', demo: './repl/button.html' },
-          { name: 'Icon', md: 'icon', demo: './repl/icon.html' }
+          { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
+          { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
+          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button' }
         ]
       },
       {
@@ -46,10 +48,14 @@ const config = {
         ]
       },
       {
-        title: '数据展示',
+        title: '其他',
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
-          { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
+          { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
+          { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
+          { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
+          { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
+          { name: 'Typography', md: 'typography', demo: './repl/typography.html' }
         ]
       }
     ],
@@ -64,7 +70,9 @@ const config = {
         title: 'Base Element',
         list: [
           { name: 'Button', md: 'button', demo: './repl/button.html' },
-          { name: 'Icon', md: 'icon', demo: './repl/icon.html' }
+          { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
+          { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
+          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' }
         ]
       },
       {
@@ -85,7 +93,7 @@ const config = {
       {
         title: 'Operational Feedback',
         list: [
-          {name: 'dialog', md: 'dialog', demo: './repl/dialog.html'}
+          {name: 'Dialog', md: 'dialog', demo: './repl/dialog.html'}
         ]
       },
       {
@@ -99,10 +107,14 @@ const config = {
         ]
       },
       {
-        title: 'Data',
+        title: 'Other',
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
-          { name: 'Slider', md: 'slider', demo: './repl/slider.html' }
+          { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
+          { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
+          { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
+          { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
+          { name: 'Typography', md: 'typography', demo: './repl/typography.html' }
         ]
       }
     ]
