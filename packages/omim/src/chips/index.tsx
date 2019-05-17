@@ -1,5 +1,6 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
+import { MDCRipple } from '@material/ripple'
 import { MDCChipSet, MDCChip } from '@material/chips'
 import '../icon'
 
@@ -11,13 +12,16 @@ interface Props {
       icon: object
     },
     trailing?: {
-      icon: object
+      icon: object,
+      role?: string,
+      tabindex?: number
     },
     checkmark: boolean
   }],
   input?: boolean,
   choice?: boolean,
-  filter?: boolean
+  filter?: boolean,
+  ripple?: boolean
 }
 
 interface Data {
@@ -28,7 +32,12 @@ interface Data {
 export default class chipSet extends WeElement<Props, Data>{
   static css = css
 
+  static defaultProps = {
+    ripple: true
+  }
+
   static propTypes = {
+    ripple: Boolean,
     chips: Object,
     input: Boolean,
     choice: Boolean,
@@ -36,7 +45,18 @@ export default class chipSet extends WeElement<Props, Data>{
   }
 
   installed() {
-    
+    if (this.props.ripple) {
+      this.shadowRoot.querySelectorAll('.mdc-chip').forEach(item => {
+        new MDCRipple(item)
+      })
+    }
+
+    var chipSet = this.shadowRoot.querySelector('.mdc-chip-set');
+    MDCChipSet.attachTo(chipSet);
+    chipSet.addEventListener('MDCChip:removal', function(event) {
+      const root = event.detail.root;
+      root && chipSet.removeChild(root);
+    });
   }
 
   render(props) {
@@ -49,7 +69,7 @@ export default class chipSet extends WeElement<Props, Data>{
       })}>
         {
           props.chips.map(item => {
-            return <div {
+            return <div tabindex="0" {
               ...extractClass(props,
                 'mdc-chip', {
                   'mdc-chip--selected': item.selected
