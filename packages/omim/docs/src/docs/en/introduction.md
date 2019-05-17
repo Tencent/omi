@@ -1,6 +1,6 @@
 # Omim
 
-Material Design for the Web, powered by [Omi](https://github.com/Tencent/omi).
+Cross-Frameworks components, powered by Material Design and [Omi](https://github.com/Tencent/omi).
 
 * [DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
 * [material.io docs](https://material.io/develop/web/components/buttons/) & [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
