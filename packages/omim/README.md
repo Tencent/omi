@@ -3,7 +3,7 @@
 Material Design for the Web, powered by Omi.
 
 * [DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
-* [material.io web](https://material.io/develop/web/)
+* [material.io docs](https://material.io/develop/web/components/buttons/) & [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
 
 ## Features
 
