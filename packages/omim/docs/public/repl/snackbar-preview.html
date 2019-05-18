@@ -45,148 +45,76 @@
       background-color: #555;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-    }
 
-    /* button */
-    h3 {
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-    m-button {
-      margin-left: 10px;
-    }
-
-    /* icon */
-    m-icon {
-      margin: 20px;
-    }
-
-    /* top-app-bar */
-    .mdc-typography--subtitle1 {
-      font-size: 1rem;
-      line-height: 1.75rem;
-      font-weight: 400;
-      letter-spacing: .009375em;
-    }
-    .demos-content-one {
-      height: 130px;
-    }
-    .demos-content-two {
-      height: 80px;
-    }
-    .demos-display {
-      display: flex;
-      flex-wrap: wrap;
-      min-height: 200px;
-    }
-    .demo {
-      display: inline-block;
-      flex: 1 1 45%;
-      justify-content: space-around;
-      min-height: 200px;
-      min-width: 50px;
-      padding: 15px;
-    }
-    .iframe {
-      width: 100%;
-      height: 200px;
-    }
-
-    /* elevation */
-    .elevation-demo-surface {
-      display: -ms-inline-flexbox;
-      display: inline-flex;
-      -ms-flex-pack: distribute;
-      justify-content: space-around;
-      min-height: 100px;
-      min-width: 200px;
-      margin: 15px;
-      -ms-flex-align: center;
-      align-items: center;
-    }
-    .elevation-demo-container {
-      display: -ms-flexbox;
-      display: flex;
-      margin: auto;
-      -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
-      -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      -ms-flex-pack: justify;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    /* switch */
-    m-switch {
-      margin: 10px;
-    }
-
-		body{
-			padding: 15px;
-		}
 
   </style>
   <script src="./libs/omi.dev.js"></script>
+  <script src="../js/snackbar.js"></script>
   <script src="../js/button.js"></script>
-	<script src="../js/snackbar.js"></script>
+
 </head>
 
 <body style="background-color:#eee;">
   <script>
 		document.body.innerHTML = parent._sourceCode
 
-		const button1 = document.getElementById("button1");
-		const button2 = document.getElementById("button2");
-		const button3 = document.getElementById("button3");
+		if(parent.location.pathname.indexOf('repl/snackbar.html') != -1) {
+      
+      const mButtonA = document.querySelector("#m-button-a");
+      const mButtonB = document.querySelector("#m-button-b");
+      const mButtonC = document.querySelector("#m-button-c");
 
-		const snackbar1 = document.getElementById("snackbar1");
-		const snackbar2 = document.getElementById("snackbar2");
-		const snackbar3 = document.getElementById("snackbar3");
+      const mSnackbarA = document.querySelector("#m-snackbar-a");
+      const mSnackbarB = document.querySelector("#m-snackbar-b");
+      const mSnackbarC = document.querySelector("#m-snackbar-c");
 
-		button1.addEventListener('click', () => {
-			snackbar3.removeAttribute("show");
-			snackbar2.removeAttribute("show");
-			snackbar1.setAttribute("show", true);
-		})
-		button2.addEventListener('click', () => {
-			snackbar1.removeAttribute("show");
-			snackbar3.removeAttribute("show");
-			snackbar2.setAttribute("show", true);
-		})
-		button3.addEventListener('click', () => {
-			snackbar1.removeAttribute("show");
-			snackbar2.removeAttribute("show");
-			snackbar3.setAttribute("show", true);
-		})
+      mButtonA.addEventListener("click", () => {
+        mSnackbarA.setAttribute("show", true);
+        mSnackbarB.removeAttribute("show");
+        mSnackbarC.removeAttribute("show");
+      })
+      mButtonB.addEventListener("click", () => {
+        mSnackbarA.removeAttribute("show");
+        mSnackbarB.setAttribute("show", true);
+        mSnackbarC.removeAttribute("show");
+      })
+      mButtonC.addEventListener("click", () => {
+        mSnackbarA.removeAttribute("show");
+        mSnackbarB.removeAttribute("show");
+        mSnackbarC.setAttribute("show", true);
+      })
 
-		function showA() {
-			snackbar3.removeAttribute("show");
-			snackbar2.removeAttribute("show");
-			snackbar1.setAttribute("show", true);
-		}
+      mSnackbarA.addEventListener("closed", () => {
+        console.log("closedA");
+      })
+      mSnackbarB.addEventListener("closed", () => {
+        console.log("closedB");
+      })
+      mSnackbarC.addEventListener("closed", () => {
+        console.log("closedC");
+      })
 
-		function showB() {
-			snackbar1.removeAttribute("show");
-			snackbar3.removeAttribute("show");
-			snackbar2.setAttribute("show", true);
-		}
+      mSnackbarA.addEventListener("buttonclick", () => {
+        console.log("buttonClickA");
+      })
+      mSnackbarB.addEventListener("buttonclick", () => {
+        console.log("buttonClickB");
+      })
+      mSnackbarC.addEventListener("buttonclick", () => {
+        console.log("buttonClickC");
+      })
 
-		function showC() {
-			snackbar2.removeAttribute("show");
-			snackbar1.removeAttribute("show");
-			snackbar3.setAttribute("show", true);
-		}
+      mSnackbarA.addEventListener("iconbuttonclick", () => {
+        console.log("onIconButtonClickA");
+      })
+      mSnackbarB.addEventListener("iconbuttonclick", () => {
+        console.log("onIconButtonClickB");
+      })
+      mSnackbarC.addEventListener("iconbuttonclick", () => {
+        console.log("onIconButtonClickC");
+      })
 
-		function onClosed() {
-			snackbar2.removeAttribute("show");
-			snackbar1.removeAttribute("show");
-			snackbar3.removeAttribute("show");
-		}
-
+    }
 
   </script>
 </body>

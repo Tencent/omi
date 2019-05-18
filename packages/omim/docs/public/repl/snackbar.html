@@ -79,13 +79,15 @@
     <div class="playground">
       <div class="editor">
 <textarea id="editor">
-<m-button id='button1' unelevated ripple>BASELINE</m-button>
-<m-button id='button2' unelevated ripple>LEADING</m-button>
-<m-button id='button3' unelevated ripple>STACKED</m-button>
 
-<m-snackbar id='snackbar1' onClosed button-text="RETRY" msg="Can't send photo. Retry in 5 seconds."></m-snackbar>
-<m-snackbar id='snackbar2' onClosed button-text="UNDO" msg="Your photo has been archived." leading></m-snackbar>
-<m-snackbar id='snackbar3' stacked msg='This item already has the label "travel". You can add a new label.' onClosed button-text="ADD A NEW LABEL"></m-snackbar></textarea>
+<m-button id="m-button-a" unelevated ripple>BASELINE</m-button>
+<m-button id="m-button-b" unelevated ripple>LEADING</m-button>
+<m-button id="m-button-c" unelevated ripple>STACKED</m-button>
+
+
+<m-snackbar id="m-snackbar-a" button-text="RETRY" msg="Can't send photo. Retry in 5 seconds."></m-snackbar>
+<m-snackbar id="m-snackbar-b" button-text="UNDO" msg="Your photo has been archived." leading></m-snackbar>
+<m-snackbar id="m-snackbar-c" stacked msg='This item already has the label "travel". You can add a new label.' button-text="ADD A NEW LABEL"></m-snackbar></textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>

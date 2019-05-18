@@ -45,8 +45,8 @@
 
     mButtonA.addEventListener("click", () => {
       mSnackbarA.setAttribute("show", true);
-      mSnackbarB.setAttribute("show", false);
-      mSnackbarC.setAttribute("show", false);
+      mSnackbarB.removeAttribute("show");
+      mSnackbarC.removeAttribute("show");
     })
     mButtonB.addEventListener("click", () => {
       mSnackbarA.removeAttribute("show");
@@ -60,13 +60,33 @@
     })
 
     mSnackbarA.addEventListener("closed", () => {
-      mSnackbarA.removeAttribute("show");
+      console.log("closedA");
     })
     mSnackbarB.addEventListener("closed", () => {
-      mSnackbarB.removeAttribute("show");
+      console.log("closedB");
     })
     mSnackbarC.addEventListener("closed", () => {
-      mSnackbarC.removeAttribute("show");
+      console.log("closedC");
+    })
+
+    mSnackbarA.addEventListener("buttonclick", () => {
+      console.log("buttonClickA");
+    })
+    mSnackbarB.addEventListener("buttonclick", () => {
+      console.log("buttonClickB");
+    })
+    mSnackbarC.addEventListener("buttonclick", () => {
+      console.log("buttonClickC");
+    })
+
+    mSnackbarA.addEventListener("iconbuttonclick", () => {
+      console.log("onIconButtonClickA");
+    })
+    mSnackbarB.addEventListener("iconbuttonclick", () => {
+      console.log("onIconButtonClickB");
+    })
+    mSnackbarC.addEventListener("iconbuttonclick", () => {
+      console.log("onIconButtonClickC");
     })
   </script>
 

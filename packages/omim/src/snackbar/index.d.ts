@@ -11,9 +11,7 @@ interface Data {
 }
 export default class Snackbar extends WeElement<Props, Data> {
     static css: any;
-    static defaultProps: {
-        show: boolean;
-    };
+    static defaultProps: {};
     static propTypes: {
         show: BooleanConstructor;
         stacked: BooleanConstructor;
@@ -24,6 +22,8 @@ export default class Snackbar extends WeElement<Props, Data> {
     snackbar: MDCSnackbar;
     installed(): void;
     updated(): void;
+    onButtonClick: (evt: Event) => void;
+    onIconButtonClick: (evt: Event) => void;
     render(props: any): JSX.Element;
 }
 export {};
