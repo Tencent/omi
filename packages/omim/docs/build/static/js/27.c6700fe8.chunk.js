@@ -1,0 +1,2 @@
+webpackJsonp([27],{59:function(n,r){n.exports="## Tag \r\n\r\nTag can display categories and categorize things.\r\n\r\n## Usage\r\n\r\n```jsx\r\n<m-tag>default</m-tag>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n  type: string,\r\n  active: boolean,\r\n  size: string,\r\n  icon: object\r\n}\r\n```"}});
+//# sourceMappingURL=27.c6700fe8.chunk.js.map

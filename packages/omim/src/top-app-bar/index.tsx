@@ -13,7 +13,8 @@ interface Props {
   adjust?: boolean,
   navigationIcon?: object,
   actionItems?: object,
-  scrollTarget?: EventTarget
+  scrollTarget?: EventTarget,
+  scrollTargetDrawer?: boolean
 }
 
 interface Data {
@@ -34,21 +35,40 @@ export default class topAppBar extends WeElement<Props, Data>{
     adjust: Boolean,
     navigationIcon: Object,
     actionItems: Object,
-    scrollTarget: EventTarget
+    scrollTarget: EventTarget,
+    scrollTargetDrawer: Boolean
   }
 
   static defaultProps = {
     
   }
+
+  topAppBar: MDCTopAppBar
+
+  updated() {
+    // Update after initializing the component
+    // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar
+    // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
+    if(this.props.scrollTargetDrawer) {  //script设置m-drawer组件的scrollTarget(m-drawer的frame属性为true时使用,临时解决方案)
+      const target = document.querySelector('m-drawer').shadowRoot.querySelector('#m-drawer-content')
+      target && this.topAppBar.setScrollTarget(target)
+    } else {
+      this.props.scrollTarget && this.topAppBar.setScrollTarget(this.props.scrollTarget)
+    }
+  }
   
   installed() {
-    const topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
+    this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
     
-    topAppBar.listen('MDCTopAppBar:nav', (evt: any) => {
+    this.topAppBar.listen('MDCTopAppBar:nav', (evt: any) => {
       this.fire('nav')
     });
 
-    this.props.scrollTarget && topAppBar.setScrollTarget(this.props.scrollTarget)
+    //script设置m-drawer组件的scrollTarget(m-drawer的frame属性为true时使用)
+    if(this.props.scrollTargetDrawer) {
+      const target = document.querySelector('m-drawer').shadowRoot.querySelector('#m-drawer-content')
+      target && this.topAppBar.setScrollTarget(target)
+    }
   }
 
   onNavigation = (evt: Event) => {

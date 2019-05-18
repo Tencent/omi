@@ -124,7 +124,7 @@ export default class Drawer extends WeElement<Props, Data>{
         {props.frame ?
         <div class={classNames('mdc-drawer-app-content', {'transition-mode1': props.dismissibleSmooth})}>
           <slot name='m-drawer-header'></slot>
-          <div class='m-drawer-content'>
+          <div id='m-drawer-content' class='m-drawer-content'>
             <slot name='m-drawer-content'></slot>
           </div>
           <slot></slot>

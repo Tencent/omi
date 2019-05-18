@@ -1,0 +1,2 @@
+webpackJsonp([31],{55:function(e,n){e.exports="## Select\r\n\r\nSelect provides Material Design single-option select menus. It is fully accessible, and fully RTL-aware.\r\n\r\n## Usage\r\n\r\n```jsx\r\n<m-select menu=\"[\r\n  { text: 'Google', value: 0 },\r\n  { text: 'Omi', value: 1 },\r\n  { text: 'Tencent', value: 2 }\r\n]\" label=\"Choose One Item\" onchange=\"changeB(event)\" >\r\n</m-select>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n  label: String,\r\n  menu: Object\r\n}\r\n```"}});
+//# sourceMappingURL=31.fc3ad5f2.chunk.js.map

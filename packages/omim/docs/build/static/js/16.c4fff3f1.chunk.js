@@ -1,0 +1,2 @@
+webpackJsonp([16],{70:function(n,r){n.exports='## Fab \r\n\r\n\u6d6e\u52a8\u64cd\u4f5c\u6309\u94ae\u8868\u793a\u5e94\u7528\u7a0b\u5e8f\u4e2d\u7684\u4e3b\u8981\u64cd\u4f5c\u3002\r\n\r\n## Usage\r\n\r\n```html\r\n<m-fab ripple icon="favorite_border"></m-fab>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n  ripple: boolean,\r\n  mini: boolean,\r\n  iconRight: boolean,\r\n  icon: string\r\n}\r\n```\r\n'}});
+//# sourceMappingURL=16.c4fff3f1.chunk.js.map

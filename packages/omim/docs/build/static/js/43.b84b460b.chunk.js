@@ -1,2 +1,0 @@
-webpackJsonp([43],{41:function(e,n){e.exports="## Checkbox\n\nCheckbox allow the user to select one or more items from a set.\n\n## Usage\n\n```jsx\n<m-checkbox label='Label'> </m-checkbox>\n\n<m-checkbox checked label='checked'> </m-checkbox>\n\n<m-checkbox indeterminate label='indeterminate'> </m-checkbox>\n\n<m-checkbox disabled label='disabled'> </m-checkbox>\n```\n\n## API\n\n### Props\n\n```jsx\n{\n  label?: string,\n  disabled?: boolean,\n  indeterminate?: boolean,\n  checked?: boolean,\n  value: string\n}\n```"}});
-//# sourceMappingURL=43.b84b460b.chunk.js.map

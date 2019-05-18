@@ -28,7 +28,8 @@ const config = {
         title: '导航',
         list: [
           { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
-          { name: 'Menu', md: 'menu', demo: './repl/menu.html' }
+          { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
+          { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' }
         ]
       },
       {
@@ -87,7 +88,8 @@ const config = {
         title: 'Navigation',
         list: [
           { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
-          { name: 'Menu', md: 'menu', demo: './repl/menu.html' }
+          { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
+          { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' }
         ]
       },
       {

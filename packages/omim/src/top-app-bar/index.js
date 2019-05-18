@@ -2598,13 +2598,29 @@ var topAppBar = /** @class */ (function (_super) {
         };
         return _this;
     }
+    topAppBar.prototype.updated = function () {
+        // Update after initializing the component
+        // Get the target scrollbar of 'm-top-app-bar' and trigger the animation based on this scrollbar
+        // 获取 'm-top-app-bar' 的目标滚动条，根据此滚动条触发动画
+        if (this.props.scrollTargetDrawer) { //script设置m-drawer组件的scrollTarget(m-drawer的frame属性为true时使用,临时解决方案)
+            var target = document.querySelector('m-drawer').shadowRoot.querySelector('#m-drawer-content');
+            target && this.topAppBar.setScrollTarget(target);
+        }
+        else {
+            this.props.scrollTarget && this.topAppBar.setScrollTarget(this.props.scrollTarget);
+        }
+    };
     topAppBar.prototype.installed = function () {
         var _this = this;
-        var topAppBar = new top_app_bar_1.MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
-        topAppBar.listen('MDCTopAppBar:nav', function (evt) {
+        this.topAppBar = new top_app_bar_1.MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'));
+        this.topAppBar.listen('MDCTopAppBar:nav', function (evt) {
             _this.fire('nav');
         });
-        this.props.scrollTarget && topAppBar.setScrollTarget(this.props.scrollTarget);
+        //script设置m-drawer组件的scrollTarget(m-drawer的frame属性为true时使用)
+        if (this.props.scrollTargetDrawer) {
+            var target = document.querySelector('m-drawer').shadowRoot.querySelector('#m-drawer-content');
+            target && this.topAppBar.setScrollTarget(target);
+        }
     };
     topAppBar.prototype.render = function (props) {
         var _this = this;
@@ -2644,7 +2660,8 @@ var topAppBar = /** @class */ (function (_super) {
         adjust: Boolean,
         navigationIcon: Object,
         actionItems: Object,
-        scrollTarget: EventTarget
+        scrollTarget: EventTarget,
+        scrollTargetDrawer: Boolean
     };
     topAppBar.defaultProps = {};
     topAppBar = __decorate([
