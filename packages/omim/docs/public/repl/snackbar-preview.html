@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+
+  <style>
+		@font-face {
+			font-family: 'Material Icons';
+			font-style: normal;
+			font-weight: 400;
+			src: url(./md.woff2) format('woff2');
+		}
+
+		.material-icons {
+			font-family: 'Material Icons';
+			font-weight: normal;
+			font-style: normal;
+			font-size: 24px;
+			line-height: 1;
+			letter-spacing: normal;
+			text-transform: none;
+			display: inline-block;
+			white-space: nowrap;
+			word-wrap: normal;
+			direction: ltr;
+			-webkit-font-feature-settings: 'liga';
+			-webkit-font-smoothing: antialiased;
+		}
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      background-color: #555;
+    }
+
+
+  </style>
+  <script src="./libs/omi.dev.js"></script>
+  <script src="../js/snackbar.js"></script>
+  <script src="../js/button.js"></script>
+</head>
+
+<body style="background-color:#eee;">
+  <script>
+		document.body.innerHTML = parent._sourceCode
+		if(parent.location.pathname.indexOf('repl/snackbar.html') != -1) {
+      
+      const mButtonA = document.querySelector("#m-button-a");
+      const mButtonB = document.querySelector("#m-button-b");
+      const mButtonC = document.querySelector("#m-button-c");
+
+      const mSnackbarA = document.querySelector("#m-snackbar-a");
+      const mSnackbarB = document.querySelector("#m-snackbar-b");
+      const mSnackbarC = document.querySelector("#m-snackbar-c");
+
+      mButtonA.addEventListener("click", () => {
+        mSnackbarA.setAttribute("show", true);
+        mSnackbarB.removeAttribute("show");
+        mSnackbarC.removeAttribute("show");
+      })
+      mButtonB.addEventListener("click", () => {
+        mSnackbarA.removeAttribute("show");
+        mSnackbarB.setAttribute("show", true);
+        mSnackbarC.removeAttribute("show");
+      })
+      mButtonC.addEventListener("click", () => {
+        mSnackbarA.removeAttribute("show");
+        mSnackbarB.removeAttribute("show");
+        mSnackbarC.setAttribute("show", true);
+      })
+
+      mSnackbarA.addEventListener("closed", () => {
+        console.log("closedA");
+      })
+      mSnackbarB.addEventListener("closed", () => {
+        console.log("closedB");
+      })
+      mSnackbarC.addEventListener("closed", () => {
+        console.log("closedC");
+      })
+
+      mSnackbarA.addEventListener("buttonclick", () => {
+        console.log("buttonClickA");
+      })
+      mSnackbarB.addEventListener("buttonclick", () => {
+        console.log("buttonClickB");
+      })
+      mSnackbarC.addEventListener("buttonclick", () => {
+        console.log("buttonClickC");
+      })
+
+      mSnackbarA.addEventListener("iconbuttonclick", () => {
+        console.log("onIconButtonClickA");
+      })
+      mSnackbarB.addEventListener("iconbuttonclick", () => {
+        console.log("onIconButtonClickB");
+      })
+      mSnackbarC.addEventListener("iconbuttonclick", () => {
+        console.log("onIconButtonClickC");
+      })
+
+    }
+  </script>
+</body>
+
+</html>

@@ -8,7 +8,7 @@ define('my-app', class extends WeElement {
   showA = () => {
     this.bShow = false
     this.cShow = false
-    this.aShow = !this.aShow
+    this.aShow = true
     this.update()
   }
   showB = () => {
@@ -24,19 +24,18 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
-  //script 必须每个 m-snackbar 独立 onClosed sprops.how 属性 且 update (JSX可不用写上)
-  // onClosedA = () => {
-  //   this.aShow = false
-  //   this.update()
-  // }
-  // onClosedB = () => {
-  //   this.bShow = false
-  //   this.update()
-  // }
-  // onClosedC = () => {
-  //   this.cShow = false
-  //   this.update()
-  // }
+  onClosedA = () => {
+    console.log('onClosedA')
+    this.update()
+  }
+  onClosedB = () => {
+    console.log('onClosedB')
+    this.update()
+  }
+  onClosedC = () => {
+    console.log('onClosedC')
+    this.update()
+  }
 
   onButtonClickA = () => {
     console.log('onButtonClickA')

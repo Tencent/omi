@@ -1371,7 +1371,7 @@ var Snackbar = /** @class */ (function (_super) {
         });
         snackbar.listen('MDCSnackbar:closed', function () {
             _this.fire('closed');
-            //直接改掉下次需要 diff 的 attr,(zain: script 外部每个组件独立 onClosed sprops.how 属性 后 update)
+            //直接改掉下次需要 diff 的 attr,(zain: 加判断，兼容 script)
             if (_this['__omiattr_']) {
                 _this['__omiattr_'].show = false;
             }

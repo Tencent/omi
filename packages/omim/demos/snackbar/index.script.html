@@ -59,15 +59,14 @@
       mSnackbarC.setAttribute("show", true);
     })
 
-    //script 必须每个 m-snackbar 独立 onClosed sprops.how 属性 且 update (JSX可不用写上)
     mSnackbarA.addEventListener("closed", () => {
-      mSnackbarA.removeAttribute("show");
+      console.log("closedA");
     })
     mSnackbarB.addEventListener("closed", () => {
-      mSnackbarB.removeAttribute("show");
+      console.log("closedB");
     })
     mSnackbarC.addEventListener("closed", () => {
-      mSnackbarC.removeAttribute("show");
+      console.log("closedC");
     })
 
     mSnackbarA.addEventListener("buttonclick", () => {
