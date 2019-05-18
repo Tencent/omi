@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+
+  <style>
+		@font-face {
+			font-family: 'Material Icons';
+			font-style: normal;
+			font-weight: 400;
+			src: url(./md.woff2) format('woff2');
+		}
+
+		.material-icons {
+			font-family: 'Material Icons';
+			font-weight: normal;
+			font-style: normal;
+			font-size: 24px;
+			line-height: 1;
+			letter-spacing: normal;
+			text-transform: none;
+			display: inline-block;
+			white-space: nowrap;
+			word-wrap: normal;
+			direction: ltr;
+			-webkit-font-feature-settings: 'liga';
+			-webkit-font-smoothing: antialiased;
+		}
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      background-color: #555;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* button */
+    h3 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    m-button {
+      margin-left: 10px;
+    }
+
+    /* icon */
+    m-icon {
+      margin: 20px;
+    }
+
+    /* top-app-bar */
+    .mdc-typography--subtitle1 {
+      font-size: 1rem;
+      line-height: 1.75rem;
+      font-weight: 400;
+      letter-spacing: .009375em;
+    }
+    .demos-content-one {
+      height: 130px;
+    }
+    .demos-content-two {
+      height: 80px;
+    }
+    .demos-display {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 200px;
+    }
+    .demo {
+      display: inline-block;
+      flex: 1 1 45%;
+      justify-content: space-around;
+      min-height: 200px;
+      min-width: 50px;
+      padding: 15px;
+    }
+    .iframe {
+      width: 100%;
+      height: 200px;
+    }
+
+    /* elevation */
+    .elevation-demo-surface {
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -ms-flex-pack: distribute;
+      justify-content: space-around;
+      min-height: 100px;
+      min-width: 200px;
+      margin: 15px;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+    .elevation-demo-container {
+      display: -ms-flexbox;
+      display: flex;
+      margin: auto;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    /* switch */
+    m-switch {
+      margin: 10px;
+    }
+
+		body{
+			padding: 15px;
+		}
+
+  </style>
+  <script src="./libs/omi.dev.js"></script>
+  <script src="../js/button.js"></script>
+	<script src="../js/snackbar.js"></script>
+</head>
+
+<body style="background-color:#eee;">
+  <script>
+		document.body.innerHTML = parent._sourceCode
+
+		const button1 = document.getElementById("button1");
+		const button2 = document.getElementById("button2");
+		const button3 = document.getElementById("button3");
+
+		const snackbar1 = document.getElementById("snackbar1");
+		const snackbar2 = document.getElementById("snackbar2");
+		const snackbar3 = document.getElementById("snackbar3");
+
+		button1.addEventListener('click', () => {
+			snackbar3.removeAttribute("show");
+			snackbar2.removeAttribute("show");
+			snackbar1.setAttribute("show", true);
+		})
+		button2.addEventListener('click', () => {
+			snackbar1.removeAttribute("show");
+			snackbar3.removeAttribute("show");
+			snackbar2.setAttribute("show", true);
+		})
+		button3.addEventListener('click', () => {
+			snackbar1.removeAttribute("show");
+			snackbar2.removeAttribute("show");
+			snackbar3.setAttribute("show", true);
+		})
+
+		function showA() {
+			snackbar3.removeAttribute("show");
+			snackbar2.removeAttribute("show");
+			snackbar1.setAttribute("show", true);
+		}
+
+		function showB() {
+			snackbar1.removeAttribute("show");
+			snackbar3.removeAttribute("show");
+			snackbar2.setAttribute("show", true);
+		}
+
+		function showC() {
+			snackbar2.removeAttribute("show");
+			snackbar1.removeAttribute("show");
+			snackbar3.setAttribute("show", true);
+		}
+
+		function onClosed() {
+			snackbar2.removeAttribute("show");
+			snackbar1.removeAttribute("show");
+			snackbar3.removeAttribute("show");
+		}
+
+
+  </script>
+</body>
+
+</html>

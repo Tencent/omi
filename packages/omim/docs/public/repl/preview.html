@@ -335,56 +335,7 @@
       function change(evt){
         console.log(evt.detail.value)
       }
-    } else if(parent.location.pathname.indexOf('repl/snackbar.html') != -1) {
-      const button1 = document.getElementById("button1");
-      const button2 = document.getElementById("button2");
-      const button3 = document.getElementById("button3");
-
-      const snackbar1 = document.getElementById("snackbar1");
-      const snackbar2 = document.getElementById("snackbar2");
-      const snackbar3 = document.getElementById("snackbar3");
-
-      button1.addEventListener('click', () => {
-        snackbar3.removeAttribute("show");
-        snackbar2.removeAttribute("show");
-        snackbar1.setAttribute("show", true);
-      })
-      button2.addEventListener('click', () => {
-        snackbar1.removeAttribute("show");
-        snackbar3.removeAttribute("show");
-        snackbar2.setAttribute("show", true);
-      })
-      button3.addEventListener('click', () => {
-        snackbar1.removeAttribute("show");
-        snackbar2.removeAttribute("show");
-        snackbar3.setAttribute("show", true);
-      })
-
-      function showA() {
-        snackbar3.removeAttribute("show");
-        snackbar2.removeAttribute("show");
-        snackbar1.setAttribute("show", true);
-      }
-
-      function showB() {
-        snackbar1.removeAttribute("show");
-        snackbar3.removeAttribute("show");
-        snackbar2.setAttribute("show", true);
-      }
-
-      function showC() {
-        snackbar2.removeAttribute("show");
-        snackbar1.removeAttribute("show");
-        snackbar3.setAttribute("show", true);
-      }
-
-      function onClosed() {
-        snackbar2.removeAttribute("show");
-        snackbar1.removeAttribute("show");
-        snackbar3.removeAttribute("show");
-      }
-
-      }
+    }
       // document.body.innerHTML = parent._sourceCode
     // }
   </script>
