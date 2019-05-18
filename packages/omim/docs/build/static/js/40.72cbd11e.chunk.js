@@ -1,0 +1,2 @@
+webpackJsonp([40],{46:function(n,r){n.exports='## Fab \r\n\r\nA floating action button represents the primary action in an application.\r\n\r\n## Usage\r\n\r\n```html\r\n<m-fab ripple icon="favorite_border"></m-fab>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n  ripple: boolean,\r\n  mini: boolean,\r\n  iconRight: boolean,\r\n  icon: string\r\n}\r\n```\r\n'}});
+//# sourceMappingURL=40.72cbd11e.chunk.js.map
