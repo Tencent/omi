@@ -827,7 +827,8 @@ define('my-app', class extends WeElement {
             css={`
               .mdc-drawer {
                 position: fixed;
-                box-shadow: 3px 0 10px #ccc;
+                box-shadow: 3px 0 10px #888;
+                height: 80%;
               }
             `}
             dismissible
@@ -1023,6 +1024,11 @@ define('my-app', class extends WeElement {
             }}
           />
           <m-drawer
+            css={`
+              .mdc-drawer {
+                height: 80%;
+              }
+            `}
             modal
             show={this.showDrawer}
             heading='Omim'
