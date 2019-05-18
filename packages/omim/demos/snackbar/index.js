@@ -5,30 +5,62 @@ import { define, WeElement, render, h } from 'omi'
 
 
 define('my-app', class extends WeElement {
-  toggleA = () => {
+  showA = () => {
     this.bShow = false
     this.cShow = false
     this.aShow = !this.aShow
     this.update()
   }
-
-  onClosed = () => {
-    this.aShow = false
-    this.bShow = false
-    this.cShow = false
-  }
-
   showB = () => {
     this.aShow = false
     this.cShow = false
     this.bShow = true
     this.update()
   }
-
   showC = () => {
     this.aShow = false
     this.bShow = false
     this.cShow = true
+    this.update()
+  }
+
+  //script 必须每个 m-snackbar 独立 onClosed sprops.how 属性 且 update (JSX可不用写上)
+  // onClosedA = () => {
+  //   this.aShow = false
+  //   this.update()
+  // }
+  // onClosedB = () => {
+  //   this.bShow = false
+  //   this.update()
+  // }
+  // onClosedC = () => {
+  //   this.cShow = false
+  //   this.update()
+  // }
+
+  onButtonClickA = () => {
+    console.log('onButtonClickA')
+    this.update()
+  }
+  onButtonClickB = () => {
+    console.log('onButtonClickB')
+    this.update()
+  }
+  onButtonClickC = () => {
+    console.log('onButtonClickC')
+    this.update()
+  }
+
+  onIconButtonClickA = () => {
+    console.log('onIconButtonClickA')
+    this.update()
+  }
+  onIconButtonClickB = () => {
+    console.log('onIconButtonClickB')
+    this.update()
+  }
+  onIconButtonClickC = () => {
+    console.log('onIconButtonClickC')
     this.update()
   }
 
@@ -38,13 +70,34 @@ define('my-app', class extends WeElement {
 
   render() {
     return <div>
-      <m-button unelevated onClick={this.toggleA}>BASELINE</m-button>
+      <m-button unelevated onClick={this.showA}>BASELINE</m-button>
       <m-button unelevated style="margin:10px;" onClick={this.showB}>LEADING</m-button>
       <m-button unelevated onClick={this.showC}>STACKED</m-button>
 
-      <m-snackbar onClosed={this.onClosed} buttonText="RETRY" msg="Can't send photo. Retry in 5 seconds." show={this.aShow}></m-snackbar>
-      <m-snackbar onClosed={this.onClosed} buttonText="UNDO" msg="Your photo has been archived." leading show={this.bShow}></m-snackbar>
-      <m-snackbar stacked msg='This item already has the label "travel". You can add a new label.' onClosed={this.onClosed} show={this.cShow} buttonText="ADD A NEW LABEL"></m-snackbar>
+      <m-snackbar
+        onClosed={this.onClosedA}
+        onButtonClick={this.onButtonClickA}
+        onIconButtonClick={this.onIconButtonClickA}
+        buttonText="RETRY"
+        msg="Can't send photo. Retry in 5 seconds."
+        show={this.aShow}
+      ></m-snackbar>
+      <m-snackbar
+        onClosed={this.onClosedB}
+        onButtonClick={this.onButtonClickB}
+        onIconButtonClick={this.onIconButtonClickB}
+        buttonText="UNDO"
+        msg="Your photo has been archived."
+        leading show={this.bShow}
+      ></m-snackbar>
+      <m-snackbar
+        onClosed={this.onClosedC}
+        onButtonClick={this.onButtonClickC}
+        onIconButtonClick={this.onIconButtonClickC}
+        stacked msg='This item already has the label "travel". You can add a new label.'
+        buttonText="ADD A NEW LABEL"
+        show={this.cShow}
+      ></m-snackbar>
     </div>
   }
 })

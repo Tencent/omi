@@ -20,7 +20,7 @@ export default class Snackbar extends WeElement<Props, Data>{
   static css = css
 
   static defaultProps = {
-    show: false
+    
   }
 
   static propTypes = {
@@ -32,9 +32,10 @@ export default class Snackbar extends WeElement<Props, Data>{
   }
 
   snackbar: MDCSnackbar
+
   installed() {
 
-    const snackbar = new MDCSnackbar(this.shadowRoot.querySelector('.mdc-snackbar'));
+    const snackbar = new MDCSnackbar(this.shadowRoot.querySelector('.mdc-snackbar'))
 
     snackbar.listen('MDCSnackbar:opened', () => {
       this.fire('opened')
@@ -42,8 +43,10 @@ export default class Snackbar extends WeElement<Props, Data>{
 
     snackbar.listen('MDCSnackbar:closed', () => {
       this.fire('closed')
-      //直接改掉下次需要 diff 的 attr
-      this['__omiattr_'].show = false
+      //直接改掉下次需要 diff 的 attr,(zain: script 外部每个组件独立 onClosed sprops.how 属性 后 update)
+      if(this['__omiattr_']) {
+        this['__omiattr_'].show = false
+      }
     })
 
     this.snackbar = snackbar
@@ -62,6 +65,14 @@ export default class Snackbar extends WeElement<Props, Data>{
     }
   }
 
+  onButtonClick = (evt: Event) => {
+    this.fire('buttonClick')
+  }
+
+  onIconButtonClick = (evt: Event) => {
+    this.fire('iconButtonClick')
+  }
+
   render(props) {
     return (
       <div {...extractClass(props, 'mdc-snackbar', {
@@ -75,8 +86,8 @@ export default class Snackbar extends WeElement<Props, Data>{
             {props.msg}
           </div>
           <div class="mdc-snackbar__actions">
-            <button type="button" class="mdc-button mdc-snackbar__action">{props.buttonText}</button>
-            <button class="mdc-icon-button mdc-snackbar__dismiss material-icons" title="Dismiss" style="color:white;">close</button>
+            <button onClick={this.onButtonClick} type="button" class="mdc-button mdc-snackbar__action">{props.buttonText}</button>
+            <button onClick={this.onIconButtonClick} class="mdc-icon-button mdc-snackbar__dismiss material-icons" title="Dismiss" style="color:white;">close</button>
           </div>
         </div>
       </div>

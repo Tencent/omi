@@ -45,8 +45,8 @@
 
     mButtonA.addEventListener("click", () => {
       mSnackbarA.setAttribute("show", true);
-      mSnackbarB.setAttribute("show", false);
-      mSnackbarC.setAttribute("show", false);
+      mSnackbarB.removeAttribute("show");
+      mSnackbarC.removeAttribute("show");
     })
     mButtonB.addEventListener("click", () => {
       mSnackbarA.removeAttribute("show");
@@ -59,6 +59,7 @@
       mSnackbarC.setAttribute("show", true);
     })
 
+    //script 必须每个 m-snackbar 独立 onClosed sprops.how 属性 且 update (JSX可不用写上)
     mSnackbarA.addEventListener("closed", () => {
       mSnackbarA.removeAttribute("show");
     })
@@ -67,6 +68,26 @@
     })
     mSnackbarC.addEventListener("closed", () => {
       mSnackbarC.removeAttribute("show");
+    })
+
+    mSnackbarA.addEventListener("buttonclick", () => {
+      console.log("buttonClickA");
+    })
+    mSnackbarB.addEventListener("buttonclick", () => {
+      console.log("buttonClickB");
+    })
+    mSnackbarC.addEventListener("buttonclick", () => {
+      console.log("buttonClickC");
+    })
+
+    mSnackbarA.addEventListener("iconbuttonclick", () => {
+      console.log("onIconButtonClickA");
+    })
+    mSnackbarB.addEventListener("iconbuttonclick", () => {
+      console.log("onIconButtonClickB");
+    })
+    mSnackbarC.addEventListener("iconbuttonclick", () => {
+      console.log("onIconButtonClickC");
     })
   </script>
 
