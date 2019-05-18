@@ -1,0 +1,2 @@
+webpackJsonp([15],{71:function(n,o){n.exports="## Icon Button \n\nIcon Button \u5141\u8bb8\u7528\u6237\u53ea\u9700\u70b9\u51fb\u4e00\u6b21\u5c31\u53ef\u4ee5\u8fdb\u884c\u64cd\u4f5c\u548c\u505a\u51fa\u9009\u62e9\u3002\n\n## \u4f7f\u7528\n\n```html\n<m-icon-button icon='wifi'></m-icon-button>\n```\n\n\n## API\n\n### Props\n\n```jsx\n{\n  ripple?: boolean,\n  toggle?: object,\n  icons: object,\n  icon: string,\n  imgs: object,\n  svg: object,\n  color: string,\n  disabled: boolean\n}\n```"}});
+//# sourceMappingURL=15.0aa936a2.chunk.js.map

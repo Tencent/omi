@@ -172,9 +172,11 @@ export default class WeElement extends HTMLElement {
             break
         }
       } else {
-        if ((!ele.constructor.defaultProps) || !ele.constructor.defaultProps.hasOwnProperty(key)) {
-          ele.props[key] = null
-        }
+        if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
+          ele.props[key] = ele.constructor.defaultProps[key]
+        } else {
+					ele.props[key] = null
+				}
 			}
     })
   }

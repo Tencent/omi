@@ -1354,14 +1354,7 @@ var snackbar_1 = __webpack_require__(/*! @material/snackbar */ "./node_modules/@
 var Snackbar = /** @class */ (function (_super) {
     __extends(Snackbar, _super);
     function Snackbar() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.onButtonClick = function (evt) {
-            _this.fire('buttonClick');
-        };
-        _this.onIconButtonClick = function (evt) {
-            _this.fire('iconButtonClick');
-        };
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Snackbar.prototype.installed = function () {
         var _this = this;
@@ -1371,10 +1364,8 @@ var Snackbar = /** @class */ (function (_super) {
         });
         snackbar.listen('MDCSnackbar:closed', function () {
             _this.fire('closed');
-            //直接改掉下次需要 diff 的 attr,(zain: 加判断，兼容 script)
-            if (_this['__omiattr_']) {
-                _this['__omiattr_'].show = false;
-            }
+            //直接改掉下次需要 diff 的 attr, html 模式下初始化没有这个属性？？
+            _this['__omiattr_'] && (_this['__omiattr_'].show = false);
         });
         this.snackbar = snackbar;
         if (this.props.show) {
@@ -1400,11 +1391,13 @@ var Snackbar = /** @class */ (function (_super) {
             omi_1.h("div", { class: "mdc-snackbar__surface" },
                 omi_1.h("div", { class: "mdc-snackbar__label", role: "status", "aria-live": "polite" }, props.msg),
                 omi_1.h("div", { class: "mdc-snackbar__actions" },
-                    omi_1.h("button", { onClick: this.onButtonClick, type: "button", class: "mdc-button mdc-snackbar__action" }, props.buttonText),
-                    omi_1.h("button", { onClick: this.onIconButtonClick, class: "mdc-icon-button mdc-snackbar__dismiss material-icons", title: "Dismiss", style: "color:white;" }, "close")))));
+                    omi_1.h("button", { type: "button", class: "mdc-button mdc-snackbar__action" }, props.buttonText),
+                    omi_1.h("button", { class: "mdc-icon-button mdc-snackbar__dismiss material-icons", title: "Dismiss", style: "color:white;" }, "close")))));
     };
     Snackbar.css = css;
-    Snackbar.defaultProps = {};
+    Snackbar.defaultProps = {
+        show: false
+    };
     Snackbar.propTypes = {
         show: Boolean,
         stacked: Boolean,
@@ -1418,6 +1411,7 @@ var Snackbar = /** @class */ (function (_super) {
     return Snackbar;
 }(omi_1.WeElement));
 exports.default = Snackbar;
+
 
 
 /***/ }),

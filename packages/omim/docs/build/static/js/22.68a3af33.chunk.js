@@ -1,0 +1,2 @@
+webpackJsonp([22],{64:function(n,o){n.exports="## Button \u6309\u94ae \n\n\u70b9\u51fb\u6216\u89e6\u6478\u89e6\u53d1\u4e00\u4e2a\u64cd\u4f5c\u7684\u5143\u7d20\u3002\u54cd\u5e94\u7528\u6237\u70b9\u51fb\u64cd\u4f5c\uff0c\u89e6\u53d1\u5c01\u88c5\u7684\u903b\u8f91\u3002\n\n## \u4f7f\u7528\n\n```jsx\n<m-button>\u6211\u662f\u6309\u94ae</m-button>\n```\n\n## API\n\n### Props\n\n```jsx\n{\n  ripple: boolean,\n  raised: boolean,\n  dense: boolean,\n  unelevated: boolean,\n  outlined: boolean,\n  icon: object\n}\n```"}});
+//# sourceMappingURL=22.68a3af33.chunk.js.map

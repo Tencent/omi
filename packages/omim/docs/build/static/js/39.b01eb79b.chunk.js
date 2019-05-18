@@ -1,2 +1,0 @@
-webpackJsonp([39],{47:function(n,r){n.exports="## Icon Button \r\n\r\nIcon button allow users to take actions, and make choices, with a single tap.\r\n\r\n## Usage\r\n\r\n```html\r\n<m-icon-button icon='wifi'></m-icon-button>\r\n```\r\n\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n  ripple?: boolean,\r\n  toggle?: object,\r\n  icons: object,\r\n  icon: string,\r\n  imgs: object,\r\n  svg: object,\r\n  color: string,\r\n  disabled: boolean\r\n}\r\n```"}});
-//# sourceMappingURL=39.b01eb79b.chunk.js.map
