@@ -2,6 +2,9 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import { MDCSnackbar } from '@material/snackbar';
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   show?: boolean,
   stacked?: boolean,
@@ -17,10 +20,10 @@ interface Data {
 
 @tag('m-snackbar')
 export default class Snackbar extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static defaultProps = {
-    
+
   }
 
   static propTypes = {

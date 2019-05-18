@@ -3,6 +3,8 @@ import * as css from './index.scss'
 import {MDCDrawer, MDCDismissibleDrawerFoundation} from '@material/drawer'
 import {MDCList} from '@material/list';
 import '../icon'
+//@ts-ignore
+import { theme } from '../theme.ts'
 
 interface Props {
   frame?: boolean,
@@ -21,7 +23,7 @@ interface Data {
 
 @tag('m-drawer')
 export default class Drawer extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static propTypes = {
     frame: Boolean,
@@ -35,7 +37,7 @@ export default class Drawer extends WeElement<Props, Data>{
   }
 
   static defaultProps = {
-    
+
   }
 
   drawerFoundation: MDCDismissibleDrawerFoundation
@@ -66,7 +68,7 @@ export default class Drawer extends WeElement<Props, Data>{
   onList = (evt: any) => {
     evt && this.fire('list' + evt.toElement.accessKey, {evt, })
   }
-  
+
   render(props) {
     return (
       <div class={classNames({'m-drawer-frame-root': props.frame})}>

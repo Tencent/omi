@@ -6,6 +6,9 @@ import { MDCIconButtonToggle } from '@material/icon-button'
 // @ts-ignore
 import { extract, htmlToVdom } from '../util.ts'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   ripple?: boolean,
   toggle?: object,
@@ -23,7 +26,7 @@ interface Data {
 
 @tag('m-icon-button')
 export default class IconButton extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static defaultProps = {
     ripple: true
@@ -48,13 +51,13 @@ export default class IconButton extends WeElement<Props, Data>{
         const r = new MDCRipple(root)
         r.unbounded = true
       }
-  
+
       if (this.props.icons || this.props.imgs || (this.props.children && this.props.children[0] && this.props.children[1])) {
         const toggleButton = new MDCIconButtonToggle(root)
         toggleButton.listen('MDCIconButtonToggle:change', (evt: CustomEvent) => {
           this.fire('change', { isOn: evt.detail.isOn })
         })
-  
+
       }
     })
   }

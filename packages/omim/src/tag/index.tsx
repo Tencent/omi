@@ -2,6 +2,9 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import '../icon'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   type: string,
   active: boolean,
@@ -15,7 +18,7 @@ interface Data {
 
 @tag('m-tag')
 export default class Tag extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static propTypes = {
     type: String,
@@ -26,7 +29,7 @@ export default class Tag extends WeElement<Props, Data>{
 
   render(props) {
     return (
-      <div {...extractClass(props, 
+      <div {...extractClass(props,
         'mdc-tag',
         props.type ? 'mdc-tag--'+`${props.type}` : '',
         props.size ? 'mdc-tag--' + `${props.size}` : ''

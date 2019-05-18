@@ -12,7 +12,7 @@ interface Props {
 interface Data {
 }
 export default class Dialog extends WeElement<Props, Data> {
-    static css: any;
+    static css: string;
     static propTypes: {
         show: BooleanConstructor;
         scrollable: BooleanConstructor;

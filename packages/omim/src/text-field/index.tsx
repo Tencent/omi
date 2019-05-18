@@ -5,6 +5,9 @@ import { MDCTextField } from '@material/textfield/index'
 import '../icon'
 //import { MDCRipple } from '@material/ripple/index'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   fullWidth: boolean,
   textarea: boolean,
@@ -34,7 +37,7 @@ interface Props {
   cols: number,
 
   value: string,
-  disabled: boolean, //also add style class 
+  disabled: boolean, //also add style class
   useNativeValidation: boolean,
   valid: boolean,
   helperTextContent: string,
@@ -94,7 +97,7 @@ export default class TextField extends WeElement<Props, Data>{
     cols: Number,
 
     value: String,
-    disabled: Boolean, //also add style class 
+    disabled: Boolean, //also add style class
     useNativeValidation: Boolean,
     valid: Boolean,
     helperTextContent: String,
@@ -105,7 +108,7 @@ export default class TextField extends WeElement<Props, Data>{
     trailingIconContent: String
   }
 
-  static css = css
+  static css = theme() + css
 
   mdc: MDCTextField
   root: HTMLElement

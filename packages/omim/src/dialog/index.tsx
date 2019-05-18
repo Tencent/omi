@@ -7,6 +7,9 @@ import '../button'
 // @ts-ignore
 import { htmlToVdom } from '../util.ts'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   show?: boolean,
   scrollable?: boolean,
@@ -22,7 +25,7 @@ interface Data {
 
 @tag('m-dialog')
 export default class Dialog extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static propTypes = {
     show: Boolean,
@@ -38,7 +41,7 @@ export default class Dialog extends WeElement<Props, Data>{
   updated() {
     this.props.show ? this.dialog.open() : this.dialog.close()
   }
-  
+
   installed() {
     this.dialog = new MDCDialog(this.shadowRoot.querySelector('.mdc-dialog'));
 
@@ -79,7 +82,7 @@ export default class Dialog extends WeElement<Props, Data>{
     this.fire('confirm')
     evt && evt.stopPropagation()
   }
-  
+
   render(props) {
     return (
       <div {...extractClass(props, 'mdc-dialog', {

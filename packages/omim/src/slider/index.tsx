@@ -2,6 +2,9 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import { MDCSlider } from '@material/slider'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   discrete?: boolean,
   value?: number,
@@ -16,7 +19,7 @@ interface Data {
 
 @tag('m-slider')
 export default class Slider extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static defaultProps = {
     value: 0,

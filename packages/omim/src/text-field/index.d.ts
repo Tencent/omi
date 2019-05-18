@@ -69,7 +69,7 @@ export default class TextField extends WeElement<Props, Data> {
         leadingIconContent: StringConstructor;
         trailingIconContent: StringConstructor;
     };
-    static css: any;
+    static css: string;
     mdc: MDCTextField;
     root: HTMLElement;
     installed(): void;

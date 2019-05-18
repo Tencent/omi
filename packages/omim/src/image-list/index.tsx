@@ -1,6 +1,8 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
 
 interface Props {
   masonry: boolean,
@@ -14,7 +16,7 @@ interface Data {
 
 @tag('image-list')
 export default class ImageList extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static defaultProps = {
 

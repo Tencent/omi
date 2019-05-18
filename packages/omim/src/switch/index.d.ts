@@ -8,7 +8,7 @@ interface Props {
 interface Data {
 }
 export default class Switch extends WeElement<Props, Data> {
-    static css: any;
+    static css: string;
     static propTypes: {
         label: StringConstructor;
         disabled: BooleanConstructor;

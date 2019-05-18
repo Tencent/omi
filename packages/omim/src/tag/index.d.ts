@@ -9,7 +9,7 @@ interface Props {
 interface Data {
 }
 export default class Tag extends WeElement<Props, Data> {
-    static css: any;
+    static css: string;
     static propTypes: {
         type: StringConstructor;
         active: BooleanConstructor;

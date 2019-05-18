@@ -5,6 +5,9 @@ import { MDCSwitch } from '@material/switch';
 // @ts-ignore
 import { extract } from '../util.ts'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   label?: string,
   disabled?: boolean,
@@ -19,7 +22,7 @@ interface Data {
 
 @tag('m-switch')
 export default class Switch extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static propTypes = {
     label: String,

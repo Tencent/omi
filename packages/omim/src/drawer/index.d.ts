@@ -14,7 +14,7 @@ interface Props {
 interface Data {
 }
 export default class Drawer extends WeElement<Props, Data> {
-    static css: any;
+    static css: string;
     static propTypes: {
         frame: BooleanConstructor;
         dismissible: BooleanConstructor;

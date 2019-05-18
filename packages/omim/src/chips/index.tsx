@@ -3,6 +3,8 @@ import * as css from './index.scss'
 import { MDCRipple } from '@material/ripple'
 import { MDCChipSet, MDCChip } from '@material/chips'
 import '../icon'
+//@ts-ignore
+import { theme } from '../theme.ts'
 
 interface Props {
   chips: [{
@@ -30,7 +32,7 @@ interface Data {
 
 @tag('m-chips')
 export default class chipSet extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static defaultProps = {
     ripple: true
@@ -61,7 +63,7 @@ export default class chipSet extends WeElement<Props, Data>{
 
   render(props) {
     return (
-      <div {...extractClass(props, 
+      <div {...extractClass(props,
         'mdc-chip-set', {
         'mdc-chip-set--input': props.input,
         'mdc-chip-set--choice': props.choice,

@@ -2,6 +2,9 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import { MDCLinearProgress } from '@material/linear-progress'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   buffer?: number,
   value?: number,
@@ -16,7 +19,7 @@ interface Data {
 
 @tag('m-linear-progress')
 export default class LinearProgress extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static defaultProps = {
     buffer: 1,
@@ -45,7 +48,7 @@ export default class LinearProgress extends WeElement<Props, Data>{
     }
 
     return (
-     
+
       <div role="progressbar" {...extractClass(props,'mdc-linear-progress',{
         "mdc-linear-progress--reversed" :props.reversed
       })}>
