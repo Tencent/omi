@@ -1,2 +1,0 @@
-webpackJsonp([3],{83:function(n,r){n.exports="## Tag \r\n\r\nTag \u53ef\u4ee5\u663e\u793a\u7c7b\u522b\uff0c\u4e3a\u4e1c\u897f\u5206\u7c7b\u3002\r\n\r\n## Usage\r\n\r\n```jsx\r\n<m-tag>default</m-tag>\r\n```\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n  type: string,\r\n  active: boolean,\r\n  size: string,\r\n  icon: object\r\n}\r\n```"}});
-//# sourceMappingURL=3.15970f97.chunk.js.map

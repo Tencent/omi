@@ -79,9 +79,9 @@
     <div class="playground">
       <div class="editor">
 <textarea id="editor">
-<m-button id='button1' unelevated ripple onClick>BASELINE</m-button>
-<m-button id='button2' unelevated ripple onClick>LEADING</m-button>
-<m-button id='button3' unelevated ripple onClick>STACKED</m-button>
+<m-button id='button1' unelevated ripple>BASELINE</m-button>
+<m-button id='button2' unelevated ripple>LEADING</m-button>
+<m-button id='button3' unelevated ripple>STACKED</m-button>
 
 <m-snackbar id='snackbar1' onClosed button-text="RETRY" msg="Can't send photo. Retry in 5 seconds."></m-snackbar>
 <m-snackbar id='snackbar2' onClosed button-text="UNDO" msg="Your photo has been archived." leading></m-snackbar>
@@ -101,16 +101,16 @@
 
   <script src="./libs/codemirror.js"></script>
   <script src="./libs/xml.js"></script>
-  <script src="./libs/javascript.js"></script>
+
 
   <script>
     var style, lastTimer, lastCode, lastScript, queryString = getQueryString(),
       sourceFromQueryString = queryString.code, backgroundColor = queryString.bgColor, editorTheme = queryString.theme || "dark", notification = document.getElementById("notification"), notificationContent = document.getElementById("notification-content"), frame = document.getElementById("frame"),
       storageKey = "alloyrender_playground_source",
       myTextarea = document.getElementById("editor"),
-      editor = CodeMirror.fromTextArea(myTextarea, { lineNumbers: !0, theme: editorTheme, tabSize: 2, mode: "javascript" }), lastStorageSource = localStorage.getItem(storageKey),
+      editor = CodeMirror.fromTextArea(myTextarea, { lineNumbers: !0, theme: editorTheme, tabSize: 2, mode: "text/html" }), lastStorageSource = localStorage.getItem(storageKey),
       source = sourceFromQueryString || lastStorageSource || editor.getValue();
-    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./preview.html";
+    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./snackbar-preview.html";
 
     function getQueryString() { for (var d, a = {}, b = location.search.slice(1), c = /([^&=]+)=([^&]*)/g; d = c.exec(b);)a[decodeURIComponent(d[1])] = decodeURIComponent(d[2]); return a }
     function hideNotify() { notification.classList.add("hide") }
