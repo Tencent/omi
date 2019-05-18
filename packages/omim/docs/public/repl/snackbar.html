@@ -108,7 +108,7 @@
       sourceFromQueryString = queryString.code, backgroundColor = queryString.bgColor, editorTheme = queryString.theme || "dark", notification = document.getElementById("notification"), notificationContent = document.getElementById("notification-content"), frame = document.getElementById("frame"),
       storageKey = "alloyrender_playground_source",
       myTextarea = document.getElementById("editor"),
-      editor = CodeMirror.fromTextArea(myTextarea, { lineNumbers: !0, theme: editorTheme, tabSize: 2, mode: "javascript" }), lastStorageSource = localStorage.getItem(storageKey),
+      editor = CodeMirror.fromTextArea(myTextarea, { lineNumbers: !0, theme: editorTheme, tabSize: 2, mode: "text/html" }), lastStorageSource = localStorage.getItem(storageKey),
       source = sourceFromQueryString || lastStorageSource || editor.getValue();
     "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./preview.html";
 
