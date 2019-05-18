@@ -2423,6 +2423,8 @@ var form_field_1 = __webpack_require__(/*! @material/form-field */ "./node_modul
 var checkbox_1 = __webpack_require__(/*! @material/checkbox */ "./node_modules/@material/checkbox/index.js");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Checkbox = /** @class */ (function (_super) {
     __extends(Checkbox, _super);
     function Checkbox() {
@@ -2445,7 +2447,7 @@ var Checkbox = /** @class */ (function (_super) {
                     omi_1.h("div", { class: "mdc-checkbox__mixedmark" }))),
             omi_1.h("label", { for: "checkbox" }, props.label)));
     };
-    Checkbox.css = css;
+    Checkbox.css = theme_ts_1.theme() + css;
     Checkbox.propTypes = {
         label: String,
         disabled: Boolean,
@@ -2459,6 +2461,31 @@ var Checkbox = /** @class */ (function (_super) {
     return Checkbox;
 }(omi_1.WeElement));
 exports.default = Checkbox;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

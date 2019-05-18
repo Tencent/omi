@@ -1872,6 +1872,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/switch/index.scss");
 var switch_1 = __webpack_require__(/*! @material/switch */ "./node_modules/@material/switch/index.js");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Switch = /** @class */ (function (_super) {
     __extends(Switch, _super);
     function Switch() {
@@ -1890,7 +1892,7 @@ var Switch = /** @class */ (function (_super) {
             omi_1.h("label", { for: "basic-switch" }, props.label)
         ];
     };
-    Switch.css = css;
+    Switch.css = theme_ts_1.theme() + css;
     Switch.propTypes = {
         label: String,
         disabled: Boolean,
@@ -1903,6 +1905,31 @@ var Switch = /** @class */ (function (_super) {
     return Switch;
 }(omi_1.WeElement));
 exports.default = Switch;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

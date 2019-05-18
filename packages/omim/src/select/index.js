@@ -5966,6 +5966,8 @@ var select_1 = __webpack_require__(/*! @material/select */ "./node_modules/@mate
 var globalCss = __webpack_require__(/*! ./global.scss */ "./src/select/global.scss");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Select = /** @class */ (function (_super) {
     __extends(Select, _super);
     function Select() {
@@ -6009,7 +6011,7 @@ var Select = /** @class */ (function (_super) {
             omi_1.h("label", { class: "mdc-floating-label" }, props.label),
             omi_1.h("div", { class: "mdc-line-ripple" })));
     };
-    Select.css = css;
+    Select.css = theme_ts_1.theme() + css;
     Select.propTypes = {
         label: String,
         menu: Object
@@ -6020,6 +6022,31 @@ var Select = /** @class */ (function (_super) {
     return Select;
 }(omi_1.WeElement));
 exports.default = Select;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

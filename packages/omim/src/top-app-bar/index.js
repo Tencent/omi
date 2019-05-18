@@ -362,10 +362,465 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/ripple/component.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/ripple/component.js ***!
-  \****************************************************/
+/***/ "./node_modules/@material/top-app-bar/component.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/component.js ***!
+  \*********************************************************/
+/*! exports provided: MDCTopAppBar */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBar", function() { return MDCTopAppBar; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/component.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/constants.js");
+/* harmony import */ var _fixed_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fixed/foundation */ "./node_modules/@material/top-app-bar/fixed/foundation.js");
+/* harmony import */ var _short_foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./short/foundation */ "./node_modules/@material/top-app-bar/short/foundation.js");
+/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+
+
+var MDCTopAppBar = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTopAppBar, _super);
+    function MDCTopAppBar() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCTopAppBar.attachTo = function (root) {
+        return new MDCTopAppBar(root);
+    };
+    MDCTopAppBar.prototype.initialize = function (rippleFactory) {
+        if (rippleFactory === void 0) { rippleFactory = function (el) { return _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"].attachTo(el); }; }
+        this.navIcon_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].NAVIGATION_ICON_SELECTOR);
+        // Get all icons in the toolbar and instantiate the ripples
+        var icons = [].slice.call(this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].ACTION_ITEM_SELECTOR));
+        if (this.navIcon_) {
+            icons.push(this.navIcon_);
+        }
+        this.iconRipples_ = icons.map(function (icon) {
+            var ripple = rippleFactory(icon);
+            ripple.unbounded = true;
+            return ripple;
+        });
+        this.scrollTarget_ = window;
+    };
+    MDCTopAppBar.prototype.destroy = function () {
+        this.iconRipples_.forEach(function (iconRipple) { return iconRipple.destroy(); });
+        _super.prototype.destroy.call(this);
+    };
+    MDCTopAppBar.prototype.setScrollTarget = function (target) {
+        // Remove scroll handler from the previous scroll target
+        this.foundation_.destroyScrollHandler();
+        this.scrollTarget_ = target;
+        // Initialize scroll handler on the new scroll target
+        this.foundation_.initScrollHandler();
+    };
+    MDCTopAppBar.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = {
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            setStyle: function (property, value) { return _this.root_.style.setProperty(property, value); },
+            getTopAppBarHeight: function () { return _this.root_.clientHeight; },
+            registerNavigationIconInteractionHandler: function (evtType, handler) {
+                if (_this.navIcon_) {
+                    _this.navIcon_.addEventListener(evtType, handler);
+                }
+            },
+            deregisterNavigationIconInteractionHandler: function (evtType, handler) {
+                if (_this.navIcon_) {
+                    _this.navIcon_.removeEventListener(evtType, handler);
+                }
+            },
+            notifyNavigationIconClicked: function () { return _this.emit(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].NAVIGATION_EVENT, {}); },
+            registerScrollHandler: function (handler) { return _this.scrollTarget_.addEventListener('scroll', handler); },
+            deregisterScrollHandler: function (handler) { return _this.scrollTarget_.removeEventListener('scroll', handler); },
+            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },
+            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },
+            getViewportScrollY: function () {
+                var win = _this.scrollTarget_;
+                var el = _this.scrollTarget_;
+                return win.pageYOffset !== undefined ? win.pageYOffset : el.scrollTop;
+            },
+            getTotalActionItems: function () { return _this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].ACTION_ITEM_SELECTOR).length; },
+        };
+        // tslint:enable:object-literal-sort-keys
+        var foundation;
+        if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].SHORT_CLASS)) {
+            foundation = new _short_foundation__WEBPACK_IMPORTED_MODULE_5__["MDCShortTopAppBarFoundation"](adapter);
+        }
+        else if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].FIXED_CLASS)) {
+            foundation = new _fixed_foundation__WEBPACK_IMPORTED_MODULE_4__["MDCFixedTopAppBarFoundation"](adapter);
+        }
+        else {
+            foundation = new _standard_foundation__WEBPACK_IMPORTED_MODULE_6__["MDCTopAppBarFoundation"](adapter);
+        }
+        return foundation;
+    };
+    return MDCTopAppBar;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/constants.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/constants.js ***!
+  \*********************************************************/
+/*! exports provided: cssClasses, numbers, strings */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses = {
+    FIXED_CLASS: 'mdc-top-app-bar--fixed',
+    FIXED_SCROLLED_CLASS: 'mdc-top-app-bar--fixed-scrolled',
+    SHORT_CLASS: 'mdc-top-app-bar--short',
+    SHORT_COLLAPSED_CLASS: 'mdc-top-app-bar--short-collapsed',
+    SHORT_HAS_ACTION_ITEM_CLASS: 'mdc-top-app-bar--short-has-action-item',
+};
+var numbers = {
+    DEBOUNCE_THROTTLE_RESIZE_TIME_MS: 100,
+    MAX_TOP_APP_BAR_HEIGHT: 128,
+};
+var strings = {
+    ACTION_ITEM_SELECTOR: '.mdc-top-app-bar__action-item',
+    NAVIGATION_EVENT: 'MDCTopAppBar:nav',
+    NAVIGATION_ICON_SELECTOR: '.mdc-top-app-bar__navigation-icon',
+    ROOT_SELECTOR: '.mdc-top-app-bar',
+    TITLE_SELECTOR: '.mdc-top-app-bar__title',
+};
+
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/fixed/foundation.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/fixed/foundation.js ***!
+  \****************************************************************/
+/*! exports provided: MDCFixedTopAppBarFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFixedTopAppBarFoundation", function() { return MDCFixedTopAppBarFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./node_modules/@material/top-app-bar/constants.js");
+/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCFixedTopAppBarFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCFixedTopAppBarFoundation, _super);
+    /* istanbul ignore next: optional argument is not a branch statement */
+    function MDCFixedTopAppBarFoundation(adapter) {
+        var _this = _super.call(this, adapter) || this;
+        /**
+         * State variable for the previous scroll iteration top app bar state
+         */
+        _this.wasScrolled_ = false;
+        _this.scrollHandler_ = function () { return _this.fixedScrollHandler_(); };
+        return _this;
+    }
+    /**
+     * Scroll handler for applying/removing the modifier class on the fixed top app bar.
+     */
+    MDCFixedTopAppBarFoundation.prototype.fixedScrollHandler_ = function () {
+        var currentScroll = this.adapter_.getViewportScrollY();
+        if (currentScroll <= 0) {
+            if (this.wasScrolled_) {
+                this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"].FIXED_SCROLLED_CLASS);
+                this.wasScrolled_ = false;
+            }
+        }
+        else {
+            if (!this.wasScrolled_) {
+                this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"].FIXED_SCROLLED_CLASS);
+                this.wasScrolled_ = true;
+            }
+        }
+    };
+    return MDCFixedTopAppBarFoundation;
+}(_standard_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTopAppBarFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCFixedTopAppBarFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/foundation.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/foundation.js ***!
+  \**********************************************************/
+/*! exports provided: MDCTopAppBarBaseFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarBaseFoundation", function() { return MDCTopAppBarBaseFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/constants.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCTopAppBarBaseFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTopAppBarBaseFoundation, _super);
+    /* istanbul ignore next: optional argument is not a branch statement */
+    function MDCTopAppBarBaseFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCTopAppBarBaseFoundation.defaultAdapter, adapter)) || this;
+        _this.navClickHandler_ = function () { return _this.adapter_.notifyNavigationIconClicked(); };
+        return _this;
+    }
+    Object.defineProperty(MDCTopAppBarBaseFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTopAppBarBaseFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTopAppBarBaseFoundation, "numbers", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTopAppBarBaseFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCTopAppBarAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                addClass: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                hasClass: function () { return false; },
+                setStyle: function () { return undefined; },
+                getTopAppBarHeight: function () { return 0; },
+                registerNavigationIconInteractionHandler: function () { return undefined; },
+                deregisterNavigationIconInteractionHandler: function () { return undefined; },
+                notifyNavigationIconClicked: function () { return undefined; },
+                registerScrollHandler: function () { return undefined; },
+                deregisterScrollHandler: function () { return undefined; },
+                registerResizeHandler: function () { return undefined; },
+                deregisterResizeHandler: function () { return undefined; },
+                getViewportScrollY: function () { return 0; },
+                getTotalActionItems: function () { return 0; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCTopAppBarBaseFoundation.prototype.init = function () {
+        this.initScrollHandler();
+        this.initResizeHandler_();
+        this.adapter_.registerNavigationIconInteractionHandler('click', this.navClickHandler_);
+    };
+    MDCTopAppBarBaseFoundation.prototype.destroy = function () {
+        this.destroyScrollHandler();
+        this.destroyResizeHandler_();
+        this.adapter_.deregisterNavigationIconInteractionHandler('click', this.navClickHandler_);
+    };
+    MDCTopAppBarBaseFoundation.prototype.initScrollHandler = function () {
+        if (this.scrollHandler_) {
+            this.adapter_.registerScrollHandler(this.scrollHandler_);
+        }
+    };
+    MDCTopAppBarBaseFoundation.prototype.destroyScrollHandler = function () {
+        if (this.scrollHandler_) {
+            this.adapter_.deregisterScrollHandler(this.scrollHandler_);
+        }
+    };
+    MDCTopAppBarBaseFoundation.prototype.initResizeHandler_ = function () {
+        if (this.resizeHandler_) {
+            this.adapter_.registerResizeHandler(this.resizeHandler_);
+        }
+    };
+    MDCTopAppBarBaseFoundation.prototype.destroyResizeHandler_ = function () {
+        if (this.resizeHandler_) {
+            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
+        }
+    };
+    return MDCTopAppBarBaseFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCTopAppBarBaseFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/index.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/index.js ***!
+  \*****************************************************/
+/*! exports provided: MDCTopAppBar, MDCTopAppBarBaseFoundation, MDCFixedTopAppBarFoundation, MDCShortTopAppBarFoundation, MDCTopAppBarFoundation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/top-app-bar/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBar", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTopAppBar"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/top-app-bar/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarBaseFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCTopAppBarBaseFoundation"]; });
+
+/* harmony import */ var _fixed_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fixed/foundation */ "./node_modules/@material/top-app-bar/fixed/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFixedTopAppBarFoundation", function() { return _fixed_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFixedTopAppBarFoundation"]; });
+
+/* harmony import */ var _short_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./short/foundation */ "./node_modules/@material/top-app-bar/short/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCShortTopAppBarFoundation", function() { return _short_foundation__WEBPACK_IMPORTED_MODULE_3__["MDCShortTopAppBarFoundation"]; });
+
+/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarFoundation", function() { return _standard_foundation__WEBPACK_IMPORTED_MODULE_4__["MDCTopAppBarFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/component.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/node_modules/@material/ripple/component.js ***!
+  \***************************************************************************************/
 /*! exports provided: MDCRipple */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -375,8 +830,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
 /* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -491,10 +946,10 @@ var MDCRipple = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/ripple/constants.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/ripple/constants.js ***!
-  \****************************************************/
+/***/ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/constants.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/node_modules/@material/ripple/constants.js ***!
+  \***************************************************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -554,10 +1009,10 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/@material/ripple/foundation.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/@material/ripple/foundation.js ***!
-  \*****************************************************/
+/***/ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/foundation.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/node_modules/@material/ripple/foundation.js ***!
+  \****************************************************************************************/
 /*! exports provided: MDCRippleFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -566,8 +1021,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/constants.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1032,10 +1487,10 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/ripple/util.js":
-/*!***********************************************!*\
-  !*** ./node_modules/@material/ripple/util.js ***!
-  \***********************************************/
+/***/ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/util.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/node_modules/@material/ripple/util.js ***!
+  \**********************************************************************************/
 /*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1145,461 +1600,6 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
     return { x: normalizedX, y: normalizedY };
 }
 //# sourceMappingURL=util.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/component.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/component.js ***!
-  \*********************************************************/
-/*! exports provided: MDCTopAppBar */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBar", function() { return MDCTopAppBar; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/ripple/component.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/constants.js");
-/* harmony import */ var _fixed_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fixed/foundation */ "./node_modules/@material/top-app-bar/fixed/foundation.js");
-/* harmony import */ var _short_foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./short/foundation */ "./node_modules/@material/top-app-bar/short/foundation.js");
-/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-
-
-
-var MDCTopAppBar = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTopAppBar, _super);
-    function MDCTopAppBar() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    MDCTopAppBar.attachTo = function (root) {
-        return new MDCTopAppBar(root);
-    };
-    MDCTopAppBar.prototype.initialize = function (rippleFactory) {
-        if (rippleFactory === void 0) { rippleFactory = function (el) { return _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"].attachTo(el); }; }
-        this.navIcon_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].NAVIGATION_ICON_SELECTOR);
-        // Get all icons in the toolbar and instantiate the ripples
-        var icons = [].slice.call(this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].ACTION_ITEM_SELECTOR));
-        if (this.navIcon_) {
-            icons.push(this.navIcon_);
-        }
-        this.iconRipples_ = icons.map(function (icon) {
-            var ripple = rippleFactory(icon);
-            ripple.unbounded = true;
-            return ripple;
-        });
-        this.scrollTarget_ = window;
-    };
-    MDCTopAppBar.prototype.destroy = function () {
-        this.iconRipples_.forEach(function (iconRipple) { return iconRipple.destroy(); });
-        _super.prototype.destroy.call(this);
-    };
-    MDCTopAppBar.prototype.setScrollTarget = function (target) {
-        // Remove scroll handler from the previous scroll target
-        this.foundation_.destroyScrollHandler();
-        this.scrollTarget_ = target;
-        // Initialize scroll handler on the new scroll target
-        this.foundation_.initScrollHandler();
-    };
-    MDCTopAppBar.prototype.getDefaultFoundation = function () {
-        var _this = this;
-        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
-        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
-        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
-        var adapter = {
-            hasClass: function (className) { return _this.root_.classList.contains(className); },
-            addClass: function (className) { return _this.root_.classList.add(className); },
-            removeClass: function (className) { return _this.root_.classList.remove(className); },
-            setStyle: function (property, value) { return _this.root_.style.setProperty(property, value); },
-            getTopAppBarHeight: function () { return _this.root_.clientHeight; },
-            registerNavigationIconInteractionHandler: function (evtType, handler) {
-                if (_this.navIcon_) {
-                    _this.navIcon_.addEventListener(evtType, handler);
-                }
-            },
-            deregisterNavigationIconInteractionHandler: function (evtType, handler) {
-                if (_this.navIcon_) {
-                    _this.navIcon_.removeEventListener(evtType, handler);
-                }
-            },
-            notifyNavigationIconClicked: function () { return _this.emit(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].NAVIGATION_EVENT, {}); },
-            registerScrollHandler: function (handler) { return _this.scrollTarget_.addEventListener('scroll', handler); },
-            deregisterScrollHandler: function (handler) { return _this.scrollTarget_.removeEventListener('scroll', handler); },
-            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },
-            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },
-            getViewportScrollY: function () {
-                var win = _this.scrollTarget_;
-                var el = _this.scrollTarget_;
-                return win.pageYOffset !== undefined ? win.pageYOffset : el.scrollTop;
-            },
-            getTotalActionItems: function () { return _this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].ACTION_ITEM_SELECTOR).length; },
-        };
-        // tslint:enable:object-literal-sort-keys
-        var foundation;
-        if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].SHORT_CLASS)) {
-            foundation = new _short_foundation__WEBPACK_IMPORTED_MODULE_5__["MDCShortTopAppBarFoundation"](adapter);
-        }
-        else if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].FIXED_CLASS)) {
-            foundation = new _fixed_foundation__WEBPACK_IMPORTED_MODULE_4__["MDCFixedTopAppBarFoundation"](adapter);
-        }
-        else {
-            foundation = new _standard_foundation__WEBPACK_IMPORTED_MODULE_6__["MDCTopAppBarFoundation"](adapter);
-        }
-        return foundation;
-    };
-    return MDCTopAppBar;
-}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
-
-//# sourceMappingURL=component.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/constants.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/constants.js ***!
-  \*********************************************************/
-/*! exports provided: cssClasses, numbers, strings */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-var cssClasses = {
-    FIXED_CLASS: 'mdc-top-app-bar--fixed',
-    FIXED_SCROLLED_CLASS: 'mdc-top-app-bar--fixed-scrolled',
-    SHORT_CLASS: 'mdc-top-app-bar--short',
-    SHORT_COLLAPSED_CLASS: 'mdc-top-app-bar--short-collapsed',
-    SHORT_HAS_ACTION_ITEM_CLASS: 'mdc-top-app-bar--short-has-action-item',
-};
-var numbers = {
-    DEBOUNCE_THROTTLE_RESIZE_TIME_MS: 100,
-    MAX_TOP_APP_BAR_HEIGHT: 128,
-};
-var strings = {
-    ACTION_ITEM_SELECTOR: '.mdc-top-app-bar__action-item',
-    NAVIGATION_EVENT: 'MDCTopAppBar:nav',
-    NAVIGATION_ICON_SELECTOR: '.mdc-top-app-bar__navigation-icon',
-    ROOT_SELECTOR: '.mdc-top-app-bar',
-    TITLE_SELECTOR: '.mdc-top-app-bar__title',
-};
-
-//# sourceMappingURL=constants.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/fixed/foundation.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/fixed/foundation.js ***!
-  \****************************************************************/
-/*! exports provided: MDCFixedTopAppBarFoundation, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFixedTopAppBarFoundation", function() { return MDCFixedTopAppBarFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./node_modules/@material/top-app-bar/constants.js");
-/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-var MDCFixedTopAppBarFoundation = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCFixedTopAppBarFoundation, _super);
-    /* istanbul ignore next: optional argument is not a branch statement */
-    function MDCFixedTopAppBarFoundation(adapter) {
-        var _this = _super.call(this, adapter) || this;
-        /**
-         * State variable for the previous scroll iteration top app bar state
-         */
-        _this.wasScrolled_ = false;
-        _this.scrollHandler_ = function () { return _this.fixedScrollHandler_(); };
-        return _this;
-    }
-    /**
-     * Scroll handler for applying/removing the modifier class on the fixed top app bar.
-     */
-    MDCFixedTopAppBarFoundation.prototype.fixedScrollHandler_ = function () {
-        var currentScroll = this.adapter_.getViewportScrollY();
-        if (currentScroll <= 0) {
-            if (this.wasScrolled_) {
-                this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"].FIXED_SCROLLED_CLASS);
-                this.wasScrolled_ = false;
-            }
-        }
-        else {
-            if (!this.wasScrolled_) {
-                this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"].FIXED_SCROLLED_CLASS);
-                this.wasScrolled_ = true;
-            }
-        }
-    };
-    return MDCFixedTopAppBarFoundation;
-}(_standard_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTopAppBarFoundation"]));
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCFixedTopAppBarFoundation);
-//# sourceMappingURL=foundation.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/foundation.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/foundation.js ***!
-  \**********************************************************/
-/*! exports provided: MDCTopAppBarBaseFoundation, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarBaseFoundation", function() { return MDCTopAppBarBaseFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/constants.js");
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-var MDCTopAppBarBaseFoundation = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTopAppBarBaseFoundation, _super);
-    /* istanbul ignore next: optional argument is not a branch statement */
-    function MDCTopAppBarBaseFoundation(adapter) {
-        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCTopAppBarBaseFoundation.defaultAdapter, adapter)) || this;
-        _this.navClickHandler_ = function () { return _this.adapter_.notifyNavigationIconClicked(); };
-        return _this;
-    }
-    Object.defineProperty(MDCTopAppBarBaseFoundation, "strings", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTopAppBarBaseFoundation, "cssClasses", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTopAppBarBaseFoundation, "numbers", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTopAppBarBaseFoundation, "defaultAdapter", {
-        /**
-         * See {@link MDCTopAppBarAdapter} for typing information on parameters and return types.
-         */
-        get: function () {
-            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
-            return {
-                addClass: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                hasClass: function () { return false; },
-                setStyle: function () { return undefined; },
-                getTopAppBarHeight: function () { return 0; },
-                registerNavigationIconInteractionHandler: function () { return undefined; },
-                deregisterNavigationIconInteractionHandler: function () { return undefined; },
-                notifyNavigationIconClicked: function () { return undefined; },
-                registerScrollHandler: function () { return undefined; },
-                deregisterScrollHandler: function () { return undefined; },
-                registerResizeHandler: function () { return undefined; },
-                deregisterResizeHandler: function () { return undefined; },
-                getViewportScrollY: function () { return 0; },
-                getTotalActionItems: function () { return 0; },
-            };
-            // tslint:enable:object-literal-sort-keys
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCTopAppBarBaseFoundation.prototype.init = function () {
-        this.initScrollHandler();
-        this.initResizeHandler_();
-        this.adapter_.registerNavigationIconInteractionHandler('click', this.navClickHandler_);
-    };
-    MDCTopAppBarBaseFoundation.prototype.destroy = function () {
-        this.destroyScrollHandler();
-        this.destroyResizeHandler_();
-        this.adapter_.deregisterNavigationIconInteractionHandler('click', this.navClickHandler_);
-    };
-    MDCTopAppBarBaseFoundation.prototype.initScrollHandler = function () {
-        if (this.scrollHandler_) {
-            this.adapter_.registerScrollHandler(this.scrollHandler_);
-        }
-    };
-    MDCTopAppBarBaseFoundation.prototype.destroyScrollHandler = function () {
-        if (this.scrollHandler_) {
-            this.adapter_.deregisterScrollHandler(this.scrollHandler_);
-        }
-    };
-    MDCTopAppBarBaseFoundation.prototype.initResizeHandler_ = function () {
-        if (this.resizeHandler_) {
-            this.adapter_.registerResizeHandler(this.resizeHandler_);
-        }
-    };
-    MDCTopAppBarBaseFoundation.prototype.destroyResizeHandler_ = function () {
-        if (this.resizeHandler_) {
-            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
-        }
-    };
-    return MDCTopAppBarBaseFoundation;
-}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCTopAppBarBaseFoundation);
-//# sourceMappingURL=foundation.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/index.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/index.js ***!
-  \*****************************************************/
-/*! exports provided: MDCTopAppBar, MDCTopAppBarBaseFoundation, MDCFixedTopAppBarFoundation, MDCShortTopAppBarFoundation, MDCTopAppBarFoundation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/top-app-bar/component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBar", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTopAppBar"]; });
-
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/top-app-bar/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarBaseFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCTopAppBarBaseFoundation"]; });
-
-/* harmony import */ var _fixed_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fixed/foundation */ "./node_modules/@material/top-app-bar/fixed/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFixedTopAppBarFoundation", function() { return _fixed_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFixedTopAppBarFoundation"]; });
-
-/* harmony import */ var _short_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./short/foundation */ "./node_modules/@material/top-app-bar/short/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCShortTopAppBarFoundation", function() { return _short_foundation__WEBPACK_IMPORTED_MODULE_3__["MDCShortTopAppBarFoundation"]; });
-
-/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarFoundation", function() { return _standard_foundation__WEBPACK_IMPORTED_MODULE_4__["MDCTopAppBarFoundation"]; });
-
-/**
- * @license
- * Copyright 2019 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-
-//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -2469,6 +2469,8 @@ function __importDefault(mod) {
             Object.defineProperty(exports, "__esModule", { value: true });
             var omi_1 = __webpack_require__(/*! omi */ "omi");
             var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
+            //@ts-ignore
+            var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
             var Icon = /** @class */ (function (_super) {
                 __extends(Icon, _super);
                 function Icon() {
@@ -2482,7 +2484,7 @@ function __importDefault(mod) {
                         return omi_1.h("path", __assign({}, attrs));
                     })) : omi_1.h("path", { d: props.path })), props.children && (omi_1.h("div", { style: "color:" + (props.color || 'black') + ";" }, props.children[0]))));
                 };
-                Icon.css = css;
+                Icon.css = theme_ts_1.theme() + css;
                 Icon.defaultProps = {
                     view: 1024,
                     scale: 2
@@ -2502,6 +2504,27 @@ function __importDefault(mod) {
             exports.default = Icon;
             /***/ 
         }),
+        /***/ "./src/theme.ts": 
+        /*!**********************!*\
+          !*** ./src/theme.ts ***!
+          \**********************/
+        /*! no static exports found */
+        /***/ (function (module, exports, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports, "__esModule", { value: true });
+            if (typeof window === 'object') {
+                window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+                window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+                window.OmimThemeError = window.OmimThemeError || '#f5222d';
+            }
+            function theme() {
+                if (typeof window === 'object') {
+                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+                }
+            }
+            exports.theme = theme;
+            /***/ 
+        }),
         /***/ "omi": 
         /*!******************************************************************************!*\
           !*** external {"commonjs":"omi","commonjs2":"omi","amd":"omi","root":"Omi"} ***!
@@ -2515,6 +2538,31 @@ function __importDefault(mod) {
     });
 });
 //# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),
@@ -2582,6 +2630,8 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/top-app-bar/index.scss");
 var top_app_bar_1 = __webpack_require__(/*! @material/top-app-bar */ "./node_modules/@material/top-app-bar/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var topAppBar = /** @class */ (function (_super) {
     __extends(topAppBar, _super);
     function topAppBar() {
@@ -2649,7 +2699,7 @@ var topAppBar = /** @class */ (function (_super) {
                         props.dense ? 'mdc-top-app-bar--dense-fixed-adjust' :
                             props.prominent ? 'mdc-top-app-bar--prominent-fixed-adjust' : 'mdc-top-app-bar--fixed-adjust')))));
     };
-    topAppBar.css = css;
+    topAppBar.css = theme_ts_1.theme() + css;
     topAppBar.propTypes = {
         heading: String,
         short: Boolean,

@@ -263,6 +263,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/image-list/index.scss");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var ImageList = /** @class */ (function (_super) {
     __extends(ImageList, _super);
     function ImageList() {
@@ -279,7 +281,7 @@ var ImageList = /** @class */ (function (_super) {
             omi_1.h("div", { class: "mdc-image-list__supporting" },
                 omi_1.h("span", { class: "mdc-image-list__label" }, item.label))); })));
     };
-    ImageList.css = css;
+    ImageList.css = theme_ts_1.theme() + css;
     ImageList.defaultProps = {};
     ImageList.propTypes = {
         masonry: Boolean,
@@ -291,6 +293,31 @@ var ImageList = /** @class */ (function (_super) {
     return ImageList;
 }(omi_1.WeElement));
 exports.default = ImageList;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

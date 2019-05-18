@@ -2660,6 +2660,8 @@ var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/@mate
 var icon_button_1 = __webpack_require__(/*! @material/icon-button */ "./node_modules/@material/icon-button/index.js");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var IconButton = /** @class */ (function (_super) {
     __extends(IconButton, _super);
     function IconButton() {
@@ -2700,7 +2702,7 @@ var IconButton = /** @class */ (function (_super) {
             omi_1.h("img", { src: props.imgs[1], class: "mdc-icon-button__icon mdc-icon-button__icon--on" })
         ]))));
     };
-    IconButton.css = css;
+    IconButton.css = theme_ts_1.theme() + css;
     IconButton.defaultProps = {
         ripple: true
     };
@@ -2720,6 +2722,31 @@ var IconButton = /** @class */ (function (_super) {
     return IconButton;
 }(omi_1.WeElement));
 exports.default = IconButton;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

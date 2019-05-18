@@ -4561,6 +4561,8 @@ function __importDefault(mod) {
             Object.defineProperty(exports, "__esModule", { value: true });
             var omi_1 = __webpack_require__(/*! omi */ "omi");
             var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
+            //@ts-ignore
+            var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
             var Icon = /** @class */ (function (_super) {
                 __extends(Icon, _super);
                 function Icon() {
@@ -4574,7 +4576,7 @@ function __importDefault(mod) {
                         return omi_1.h("path", __assign({}, attrs));
                     })) : omi_1.h("path", { d: props.path })), props.children && (omi_1.h("div", { style: "color:" + (props.color || 'black') + ";" }, props.children[0]))));
                 };
-                Icon.css = css;
+                Icon.css = theme_ts_1.theme() + css;
                 Icon.defaultProps = {
                     view: 1024,
                     scale: 2
@@ -4583,7 +4585,8 @@ function __importDefault(mod) {
                     path: String,
                     paths: Object,
                     view: Number,
-                    scale: Number
+                    scale: Number,
+                    color: String
                 };
                 Icon = __decorate([
                     omi_1.tag('m-icon')
@@ -4591,6 +4594,27 @@ function __importDefault(mod) {
                 return Icon;
             }(omi_1.WeElement));
             exports.default = Icon;
+            /***/ 
+        }),
+        /***/ "./src/theme.ts": 
+        /*!**********************!*\
+          !*** ./src/theme.ts ***!
+          \**********************/
+        /*! no static exports found */
+        /***/ (function (module, exports, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports, "__esModule", { value: true });
+            if (typeof window === 'object') {
+                window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+                window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+                window.OmimThemeError = window.OmimThemeError || '#f5222d';
+            }
+            function theme() {
+                if (typeof window === 'object') {
+                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+                }
+            }
+            exports.theme = theme;
             /***/ 
         }),
         /***/ "omi": 
@@ -4673,6 +4697,9 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/text-field/index.scss")
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var index_1 = __webpack_require__(/*! @material/textfield/index */ "./node_modules/@material/textfield/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
+//import { MDCRipple } from '@material/ripple/index'
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 function extract(from, props) {
     var to = {};
     props.forEach(function (prop) {
@@ -4775,13 +4802,38 @@ var TextField = /** @class */ (function (_super) {
         leadingIconContent: String,
         trailingIconContent: String
     };
-    TextField.css = css;
+    TextField.css = theme_ts_1.theme() + css;
     TextField = __decorate([
         omi_1.tag('m-text-field')
     ], TextField);
     return TextField;
 }(omi_1.WeElement));
 exports.default = TextField;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),
