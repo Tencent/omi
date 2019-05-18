@@ -9,18 +9,25 @@ interface Props {
         };
         trailing?: {
             icon: object;
+            role?: string;
+            tabindex?: number;
         };
         checkmark: boolean;
     }];
     input?: boolean;
     choice?: boolean;
     filter?: boolean;
+    ripple?: boolean;
 }
 interface Data {
 }
 export default class chipSet extends WeElement<Props, Data> {
     static css: any;
+    static defaultProps: {
+        ripple: boolean;
+    };
     static propTypes: {
+        ripple: BooleanConstructor;
         chips: ObjectConstructor;
         input: BooleanConstructor;
         choice: BooleanConstructor;

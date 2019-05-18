@@ -1364,8 +1364,8 @@ var Snackbar = /** @class */ (function (_super) {
         });
         snackbar.listen('MDCSnackbar:closed', function () {
             _this.fire('closed');
-            //直接改掉下次需要 diff 的 attr
-            _this['__omiattr_'].show = false;
+            //直接改掉下次需要 diff 的 attr, html 模式下初始化没有这个属性？？
+            _this['__omiattr_'] && (_this['__omiattr_'].show = false);
         });
         this.snackbar = snackbar;
         if (this.props.show) {
