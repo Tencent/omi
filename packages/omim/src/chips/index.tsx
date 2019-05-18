@@ -53,7 +53,7 @@ export default class chipSet extends WeElement<Props, Data>{
 
     var chipSet = this.shadowRoot.querySelector('.mdc-chip-set');
     MDCChipSet.attachTo(chipSet);
-    chipSet.addEventListener('MDCChip:removal', function(event) {
+    chipSet.addEventListener('MDCChip:removal', function(event: any) {
       const root = event.detail.root;
       root && chipSet.removeChild(root);
     });

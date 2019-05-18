@@ -5,27 +5,74 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta charset="UTF-8" />
   <title>Add Omi in One Minute</title>
+  <style>
+    /* fallback */
+    @font-face {
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-weight: 400;
+      src: url(https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+    }
+  </style>
 </head>
 
 <body>
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-  <script src="../../src/icon/index.js"></script>
-  <m-icon path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'>
-  </m-icon>
+  <script src="../../src/snackbar/index.js"></script>
+  <script src="../../src/button/index.js"></script>
 
-  <m-icon paths="[{ color: '#F98080' , path:
-    'M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z'
-    }, { color: '#F95050' , path:
-    'M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z'
-    }]" />
-  <script>
+  <m-button id="m-button-a" unelevated>BASELINE</m-button>
+  <m-button id="m-button-b" unelevated style="margin:10px;">LEADING</m-button>
+  <m-button id="m-button-c" unelevated>STACKED</m-button>
+
+  <m-snackbar id="m-snackbar-a" button-text="RETRY" msg="Can't send photo. Retry in 5 seconds."></m-snackbar>
+  <m-snackbar id="m-snackbar-b" button-text="UNDO" msg="Your photo has been archived." leading></m-snackbar>
+  <m-snackbar id="m-snackbar-c" stacked msg='This item already has the label "travel". You can add a new label.' button-text="ADD A NEW LABEL"></m-snackbar>
+
+  <!-- <script>
     Omi.render(Omi.html`<m-icon path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z'>
   </m-icon>`, 'body')
+  </script> -->
+
+  <script>
+    const mButtonA = document.querySelector("#m-button-a");
+    const mButtonB = document.querySelector("#m-button-b");
+    const mButtonC = document.querySelector("#m-button-c");
+
+    const mSnackbarA = document.querySelector("#m-snackbar-a");
+    const mSnackbarB = document.querySelector("#m-snackbar-b");
+    const mSnackbarC = document.querySelector("#m-snackbar-c");
+
+    mButtonA.addEventListener("click", () => {
+      mSnackbarA.setAttribute("show", true);
+      mSnackbarB.setAttribute("show", false);
+      mSnackbarC.setAttribute("show", false);
+    })
+    mButtonB.addEventListener("click", () => {
+      mSnackbarA.removeAttribute("show");
+      mSnackbarB.setAttribute("show", true);
+      mSnackbarC.removeAttribute("show");
+    })
+    mButtonC.addEventListener("click", () => {
+      mSnackbarA.removeAttribute("show");
+      mSnackbarB.removeAttribute("show");
+      mSnackbarC.setAttribute("show", true);
+    })
+
+    mSnackbarA.addEventListener("closed", () => {
+      mSnackbarA.removeAttribute("show");
+    })
+    mSnackbarB.addEventListener("closed", () => {
+      mSnackbarB.removeAttribute("show");
+    })
+    mSnackbarC.addEventListener("closed", () => {
+      mSnackbarC.removeAttribute("show");
+    })
   </script>
 
-  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+  <!-- <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
     <img src="//alloyteam.github.io/github.png" alt="">
-  </a>
+  </a> -->
 </body>
 
 </html>
