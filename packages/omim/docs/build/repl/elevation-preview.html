@@ -158,8 +158,7 @@
 
   </style>
   <script src="./libs/omi.dev.js"></script>
-  <script src="../js/drawer.js"></script>
-  <script src="../js/top-app-bar.js"></script>
+  <script src="../js/elevation.js"></script>
 </head>
 
 <body style="background-color:#eee;">
@@ -171,7 +170,7 @@
       const mDrawer = document.getElementById('m-drawer')
       const mTopAppBar = mTopAppBarId.shadowRoot.querySelector('.mdc-top-app-bar').firstElementChild;
       const tabHeight = window.getComputedStyle(mTopAppBar).height;
-      
+
       document.getElementById('content-top-height').setAttribute('style', `height:${tabHeight}`);
 
       mTopAppBarId.addEventListener('navigation',  () => {
@@ -186,7 +185,7 @@
          mDrawer.removeAttribute('show')
       })
 
-    }
+}
   </script>
 </body>
 

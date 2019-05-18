@@ -158,35 +158,12 @@
 
   </style>
   <script src="./libs/omi.dev.js"></script>
-  <script src="../js/drawer.js"></script>
-  <script src="../js/top-app-bar.js"></script>
+  <script src="../js/checkbox.js"></script>
 </head>
 
 <body style="background-color:#eee;">
   <script>
 		document.body.innerHTML = parent._sourceCode
-		if(parent.location.pathname.indexOf('repl/drawer.html') != -1) {
-
-      const mTopAppBarId = document.getElementById('m-top-app-bar-id');
-      const mDrawer = document.getElementById('m-drawer')
-      const mTopAppBar = mTopAppBarId.shadowRoot.querySelector('.mdc-top-app-bar').firstElementChild;
-      const tabHeight = window.getComputedStyle(mTopAppBar).height;
-      
-      document.getElementById('content-top-height').setAttribute('style', `height:${tabHeight}`);
-
-      mTopAppBarId.addEventListener('navigation',  () => {
-        mDrawer.getAttribute('show') ? mDrawer.removeAttribute('show') : mDrawer.setAttribute('show', true)
-      })
-
-      mTopAppBarId.addEventListener('action0',  () => {
-        window.open('./drawer/index.html')
-      })
-
-      mDrawer.addEventListener('closed',  () => {
-         mDrawer.removeAttribute('show')
-      })
-
-    }
   </script>
 </body>
 

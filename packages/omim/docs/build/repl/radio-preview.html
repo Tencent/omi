@@ -126,67 +126,14 @@
 			padding: 15px;
 		}
 
-    /* drawer */
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    .mdc-typography--subtitle1 {
-      font-size: 1rem;
-      line-height: 1.75rem;
-      font-weight: 400;
-      letter-spacing: .009375em;
-    }
-    .demos-display {
-      display: flex;
-      flex-wrap: wrap;
-      min-height: 200px;
-    }
-    .drawer-demo {
-      display: inline-block;
-      flex: 1 1 80%;
-      justify-content: space-around;
-      min-height: 100px;
-      min-width: 100px;
-      padding: 30px;
-    }
-    .drawer-iframe {
-      width: 100%;
-      height: 400px;
-    }
-
   </style>
   <script src="./libs/omi.dev.js"></script>
-  <script src="../js/drawer.js"></script>
-  <script src="../js/top-app-bar.js"></script>
+  <script src="../js/radio.js"></script>
 </head>
 
 <body style="background-color:#eee;">
   <script>
 		document.body.innerHTML = parent._sourceCode
-		if(parent.location.pathname.indexOf('repl/drawer.html') != -1) {
-
-      const mTopAppBarId = document.getElementById('m-top-app-bar-id');
-      const mDrawer = document.getElementById('m-drawer')
-      const mTopAppBar = mTopAppBarId.shadowRoot.querySelector('.mdc-top-app-bar').firstElementChild;
-      const tabHeight = window.getComputedStyle(mTopAppBar).height;
-      
-      document.getElementById('content-top-height').setAttribute('style', `height:${tabHeight}`);
-
-      mTopAppBarId.addEventListener('navigation',  () => {
-        mDrawer.getAttribute('show') ? mDrawer.removeAttribute('show') : mDrawer.setAttribute('show', true)
-      })
-
-      mTopAppBarId.addEventListener('action0',  () => {
-        window.open('./drawer/index.html')
-      })
-
-      mDrawer.addEventListener('closed',  () => {
-         mDrawer.removeAttribute('show')
-      })
-
-    }
   </script>
 </body>
 
