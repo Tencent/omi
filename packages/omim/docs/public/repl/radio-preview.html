@@ -134,20 +134,6 @@
 <body style="background-color:#eee;">
   <script>
 		document.body.innerHTML = parent._sourceCode
-		if(parent.location.pathname.indexOf('repl/menu.html') != -1) {
-
-var menu = document.querySelector('#menu')
-var btn = document.querySelector('#btn')
-
-btn.addEventListener('click', function () {
-	menu.toggle()
-})
-
-menu.addEventListener('selected', (evt) => {
-	console.log(evt.detail)
-})
-
-}
   </script>
 </body>
 
