@@ -55,8 +55,10 @@
       margin-top: 10px;
       margin-bottom: 10px;
     }
-    m-button {
-      margin-left: 10px;
+
+    /* icon */
+    m-icon {
+      margin: 20px;
     }
 
     /* top-app-bar */
@@ -126,13 +128,27 @@
 
   </style>
   <script src="./libs/omi.dev.js"></script>
-  <script src="../js/badge.js"></script>
-
+  <script src="../js/button.js"></script>
+	<script src="../js/menu.js"></script>
 </head>
 
 <body style="background-color:#eee;">
   <script>
-    document.body.innerHTML = parent._sourceCode
+		document.body.innerHTML = parent._sourceCode
+		if(parent.location.pathname.indexOf('repl/menu.html') != -1) {
+
+var menu = document.querySelector('#menu')
+var btn = document.querySelector('#btn')
+
+btn.addEventListener('click', function () {
+	menu.toggle()
+})
+
+menu.addEventListener('selected', (evt) => {
+	console.log(evt.detail)
+})
+
+}
   </script>
 </body>
 

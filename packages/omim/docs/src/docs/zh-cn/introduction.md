@@ -2,9 +2,6 @@
 
 [Omi](https://github.com/Tencent/omi) 打造的 Material Design 框架无关标准组件，任意框架都可以使用。
 
-* [DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
-* [material.io docs](https://material.io/develop/web/components/buttons/) & [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
-
 ## 特性
 
 * 基于 [material-components-web](https://github.com/material-components/material-components-web) 简单包装
@@ -78,3 +75,8 @@ Publish:
 ```bash
 npm publish --access public
 ```
+
+## 相关链接
+
+* [material.io docs](https://material.io/develop/web/components/buttons/) 
+* [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 

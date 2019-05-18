@@ -33,12 +33,12 @@ define('my-demo', class extends WeElement {
     this.show = false
     this.update()
   }
-  
+
   render() {
     if(!this.demo) return
     return (
       <div>
-        { this.show && <iframe style={`height:${window.innerHeight-59}px`} src={this.demo} ></iframe>}
+        <iframe style={`height:${window.innerHeight-59}px;visibility:${this.show?'visible':'hidden'};`} src={this.demo} ></iframe>
 
         {!this.show && <div class="switch code" onClick={this.onShow}>
           <img src={require('./code.png')}></img>
