@@ -21,10 +21,11 @@ export default class Tab extends WeElement<Props, Data> {
         align: StringConstructor;
         useMinWidth: BooleanConstructor;
         stacked: BooleanConstructor;
+        svgIcon: ObjectConstructor;
     };
-    installed(): void;
+    install(): void;
     uninstall(): void;
-    activateTab(prop: any): void;
+    activateTab(value: any): void;
     renderButton(vnode: any, activeProp: any): JSX.Element;
     render(props: any): JSX.Element;
 }

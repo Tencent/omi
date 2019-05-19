@@ -5,7 +5,8 @@ import '../icon'
 
 //@ts-ignore
 import { theme } from '../theme.ts'
-
+// @ts-ignore
+import { extract, htmlToVdom } from '../util.ts'
 
 interface Props {
   defaultActive: string,
@@ -33,16 +34,20 @@ export default class Tab extends WeElement<Props, Data>{
 		width: String,
 		align: String,
 		useMinWidth: Boolean,
-		stacked: Boolean
+		stacked: Boolean,
+		svgIcon: Object
 	}
 
-  installed() {
-    this.data.tabBar = new MDCTabBar(this.shadowRoot.querySelector('.mdc-tab-bar'));
-    this.data.tabBar.listen('MDCTabBar:activated', (e) => {
-      let item = this.props.children[e.detail.index]
-      this.fire('change', item.attributes)
+	install() {
+    document.addEventListener('DOMContentLoaded', () => {
+			this.data.tabBar = new MDCTabBar(this.shadowRoot.querySelector('.mdc-tab-bar'));
+			this.data.tabBar.listen('MDCTabBar:activated', (e) => {
+				let item = this.props.children[e.detail.index]
+				this.fire('change', item.attributes)
+			})
+      this.update()
     })
-  }
+	}
 
   uninstall() {
     this.data.tabBar.destory()
@@ -56,7 +61,7 @@ export default class Tab extends WeElement<Props, Data>{
 
   renderButton( vnode, activeProp ) {
     const { attributes: props } = vnode
-    const isActive = activeProp === props.value
+		const isActive = activeProp === props.value
     return (
       <button {...extractClass(props,'mdc-tab',{
 				'mdc-tab--active': isActive,
@@ -77,7 +82,7 @@ export default class Tab extends WeElement<Props, Data>{
   }
 
   render(props) {
-    const { children, defaultActive, width, align } = props
+		const { children, defaultActive, width, align } = props
     const style = { width: width || '100%' }
     const alignClass = align && 'mdc-tab-scroller--align-' + align
     const scrollerClasses = extractClass(props, 'mdc-tab-scroller', alignClass)
@@ -86,7 +91,10 @@ export default class Tab extends WeElement<Props, Data>{
         <div { ...scrollerClasses }>
           <div class="mdc-tab-scroller__scroll-area">
             <div class="mdc-tab-scroller__scroll-content">
-              { children.map(vnode => this.renderButton(vnode, defaultActive)) }
+							{ children?
+									children.map(vnode => this.renderButton(vnode, defaultActive)):
+									this.innerHTML &&	htmlToVdom(this.innerHTML).map(vnode => this.renderButton(vnode, defaultActive))
+							 }
             </div>
           </div>
         </div>

@@ -4133,6 +4133,8 @@ var tab_bar_1 = __webpack_require__(/*! @material/tab-bar */ "./node_modules/@ma
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
+// @ts-ignore
+var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 var Tab = /** @class */ (function (_super) {
     __extends(Tab, _super);
     function Tab() {
@@ -4143,25 +4145,30 @@ var Tab = /** @class */ (function (_super) {
         };
         return _this;
     }
-    Tab.prototype.installed = function () {
+    Tab.prototype.install = function () {
         var _this = this;
-        this.data.tabBar = new tab_bar_1.MDCTabBar(this.shadowRoot.querySelector('.mdc-tab-bar'));
-        this.data.tabBar.listen('MDCTabBar:activated', function (e) {
-            var item = _this.props.children[e.detail.index];
-            _this.fire('tabChange', item.attributes);
+        document.addEventListener('DOMContentLoaded', function () {
+            _this.data.tabBar = new tab_bar_1.MDCTabBar(_this.shadowRoot.querySelector('.mdc-tab-bar'));
+            console.log(111);
+            _this.data.tabBar.listen('MDCTabBar:activated', function (e) {
+                var item = _this.props.children[e.detail.index];
+                _this.fire('change', item.attributes);
+            });
+            _this.update();
         });
     };
     Tab.prototype.uninstall = function () {
         this.data.tabBar.destory();
     };
-    Tab.prototype.activateTab = function (prop) {
+    Tab.prototype.activateTab = function (value) {
         // @ts-ignore
-        var index = [].findIndex(this.props.children, (function (item) { return item.attributes.prop === prop; }));
+        var index = [].findIndex(this.props.children, (function (item) { return item.attributes.value === value; }));
         this.data.tabBar.activateTab(index);
     };
     Tab.prototype.renderButton = function (vnode, activeProp) {
         var props = vnode.attributes;
-        var isActive = activeProp === props.prop;
+        var isActive = activeProp === props.value;
+        console.log(isActive);
         return (omi_1.h("button", __assign({}, omi_1.extractClass(props, 'mdc-tab', {
             'mdc-tab--active': isActive,
             'mdc-tab--min-width': this.props.useMinWidth,
@@ -4185,7 +4192,9 @@ var Tab = /** @class */ (function (_super) {
         return (omi_1.h("div", { class: "mdc-tab-bar", style: style, role: "tablist" },
             omi_1.h("div", __assign({}, scrollerClasses),
                 omi_1.h("div", { class: "mdc-tab-scroller__scroll-area" },
-                    omi_1.h("div", { class: "mdc-tab-scroller__scroll-content" }, children.map(function (vnode) { return _this.renderButton(vnode, defaultActive); }))))));
+                    omi_1.h("div", { class: "mdc-tab-scroller__scroll-content" }, children ?
+                        children.map(function (vnode) { return _this.renderButton(vnode, defaultActive); }) :
+                        this.innerHTML && util_ts_1.htmlToVdom(this.innerHTML).map(function (vnode) { return _this.renderButton(vnode, defaultActive); }))))));
     };
     Tab.css = theme_ts_1.theme() + css;
     Tab.propTypes = {
@@ -4193,7 +4202,8 @@ var Tab = /** @class */ (function (_super) {
         width: String,
         align: String,
         useMinWidth: Boolean,
-        stacked: Boolean
+        stacked: Boolean,
+        svgIcon: Object
     };
     Tab = __decorate([
         omi_1.tag('m-tab')
@@ -4226,6 +4236,70 @@ function theme() {
     }
 }
 exports.theme = theme;
+
+
+/***/ }),
+
+/***/ "./src/util.ts":
+/*!*********************!*\
+  !*** ./src/util.ts ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function extract(props, prop) {
+    var _a;
+    if (typeof prop === 'string') {
+        if (props.hasOwnProperty(prop)) {
+            return _a = {}, _a[prop] = props[prop], _a;
+        }
+    }
+    else {
+        var res_1 = {};
+        prop.forEach(function (key) {
+            if (props.hasOwnProperty(key)) {
+                res_1[key] = props[key];
+            }
+        });
+        return res_1;
+    }
+}
+exports.extract = extract;
+var parser = new DOMParser();
+function htmlToVdom(html) {
+    if (!html)
+        return null;
+    return processNode(parser.parseFromString("<div>" + html + "</div>", "text/xml").childNodes[0]).children;
+}
+exports.htmlToVdom = htmlToVdom;
+function processNode(node) {
+    if (node.nodeType === 1) {
+        var i, child, attributes = {}, children = [];
+        for (i = 0; (child = node.attributes[i]); ++i) {
+            attributes[child.nodeName] = child.nodeValue;
+        }
+        for (i = 0; (child = node.childNodes[i]); ++i) {
+            var vn = processNode(child);
+            if (vn !== null)
+                children.push(vn);
+        }
+        return {
+            nodeName: node.tagName,
+            attributes: attributes,
+            children: children
+        };
+    }
+    if (node.nodeType === 3) {
+        var v = node.nodeValue.trim();
+        if (v !== '') {
+            return v;
+        }
+        return null;
+    }
+}
 
 
 /***/ }),
