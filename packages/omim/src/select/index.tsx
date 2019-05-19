@@ -6,6 +6,9 @@ import * as globalCss from './global.scss'
 // @ts-ignore
 import { extract, htmlToVdom } from '../util.ts'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   label?: string,
   menu?: object
@@ -18,7 +21,7 @@ interface Data {
 
 @tag('m-select')
 export default class Select extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static propTypes = {
     label: String,
@@ -61,7 +64,7 @@ export default class Select extends WeElement<Props, Data>{
             {props.menu.map(item=><li class="mdc-list-item" data-value={item.value}>
                 {item.text}
             </li>)}
-            
+
             </ul>
           </div>
 

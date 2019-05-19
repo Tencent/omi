@@ -3,6 +3,8 @@ import * as css from './index.scss'
 import { MDCTabBar } from '@material/tab-bar'
 import '../icon'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
 
 
 interface Props {
@@ -18,7 +20,7 @@ interface Data {
 
 @tag('m-tab')
 export default class Tab extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   data = {
     active: null,

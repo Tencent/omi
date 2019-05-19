@@ -3,6 +3,9 @@ import * as css from './index.scss'
 import {MDCTopAppBar} from '@material/top-app-bar';
 import '../icon'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   heading?: string,
   short?: boolean,
@@ -23,7 +26,7 @@ interface Data {
 
 @tag('m-top-app-bar')
 export default class topAppBar extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static propTypes = {
     heading: String,
@@ -40,7 +43,7 @@ export default class topAppBar extends WeElement<Props, Data>{
   }
 
   static defaultProps = {
-    
+
   }
 
   topAppBar: MDCTopAppBar
@@ -56,10 +59,10 @@ export default class topAppBar extends WeElement<Props, Data>{
       this.props.scrollTarget && this.topAppBar.setScrollTarget(this.props.scrollTarget)
     }
   }
-  
+
   installed() {
     this.topAppBar = new MDCTopAppBar(this.shadowRoot.querySelector('.mdc-top-app-bar'))
-    
+
     this.topAppBar.listen('MDCTopAppBar:nav', (evt: any) => {
       this.fire('nav')
     });
@@ -82,7 +85,7 @@ export default class topAppBar extends WeElement<Props, Data>{
       evt.stopPropagation()
     }
   }
-  
+
   render(props) {
     return (
       <div>

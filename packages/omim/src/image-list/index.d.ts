@@ -6,7 +6,7 @@ interface Props {
 interface Data {
 }
 export default class ImageList extends WeElement<Props, Data> {
-    static css: any;
+    static css: string;
     static defaultProps: {};
     static propTypes: {
         masonry: BooleanConstructor;

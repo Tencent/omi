@@ -264,6 +264,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/layout-grid/index.scss");
 exports.css = css;
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var parser = new DOMParser();
 var LayoutGrid = /** @class */ (function (_super) {
     __extends(LayoutGrid, _super);
@@ -345,7 +347,7 @@ var LayoutGrid = /** @class */ (function (_super) {
                 return _this.renderChild(item);
             }))));
     };
-    LayoutGrid.css = css;
+    LayoutGrid.css = theme_ts_1.theme() + css;
     LayoutGrid.propTypes = {
         alignLeft: Boolean,
         alignRight: Boolean
@@ -374,6 +376,31 @@ function processNode(node) {
         return node.nodeValue;
     }
 }
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

@@ -1,6 +1,8 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
 
 interface Props {
 }
@@ -13,7 +15,7 @@ const parser = new DOMParser()
 
 @tag('m-layout-grid')
 class LayoutGrid extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static propTypes = {
     alignLeft: Boolean,

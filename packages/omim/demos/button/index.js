@@ -1,3 +1,8 @@
+
+window.OmimThemePrimary =  'red'
+window.OmimThemeSecondary =  'blue'
+window.OmimThemeError =  'yellow'
+
 import '../../src/button/index.tsx'
 import { render, h } from 'omi'
 

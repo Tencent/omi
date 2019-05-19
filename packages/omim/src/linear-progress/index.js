@@ -1104,6 +1104,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/linear-progress/index.scss");
 var linear_progress_1 = __webpack_require__(/*! @material/linear-progress */ "./node_modules/@material/linear-progress/index.js");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var LinearProgress = /** @class */ (function (_super) {
     __extends(LinearProgress, _super);
     function LinearProgress() {
@@ -1135,7 +1137,7 @@ var LinearProgress = /** @class */ (function (_super) {
             omi_1.h("div", { class: "mdc-linear-progress__bar mdc-linear-progress__secondary-bar" },
                 omi_1.h("span", { class: "mdc-linear-progress__bar-inner" }))));
     };
-    LinearProgress.css = css;
+    LinearProgress.css = theme_ts_1.theme() + css;
     LinearProgress.defaultProps = {
         buffer: 1,
         value: 0
@@ -1152,6 +1154,31 @@ var LinearProgress = /** @class */ (function (_super) {
     return LinearProgress;
 }(omi_1.WeElement));
 exports.default = LinearProgress;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

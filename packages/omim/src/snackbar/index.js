@@ -1351,10 +1351,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/snackbar/index.scss");
 var snackbar_1 = __webpack_require__(/*! @material/snackbar */ "./node_modules/@material/snackbar/index.js");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Snackbar = /** @class */ (function (_super) {
     __extends(Snackbar, _super);
     function Snackbar() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.onButtonClick = function (evt) {
+            _this.fire('buttonClick');
+        };
+        _this.onIconButtonClick = function (evt) {
+            _this.fire('iconButtonClick');
+        };
+        return _this;
     }
     Snackbar.prototype.installed = function () {
         var _this = this;
@@ -1391,13 +1400,11 @@ var Snackbar = /** @class */ (function (_super) {
             omi_1.h("div", { class: "mdc-snackbar__surface" },
                 omi_1.h("div", { class: "mdc-snackbar__label", role: "status", "aria-live": "polite" }, props.msg),
                 omi_1.h("div", { class: "mdc-snackbar__actions" },
-                    omi_1.h("button", { type: "button", class: "mdc-button mdc-snackbar__action" }, props.buttonText),
-                    omi_1.h("button", { class: "mdc-icon-button mdc-snackbar__dismiss material-icons", title: "Dismiss", style: "color:white;" }, "close")))));
+                    omi_1.h("button", { onClick: this.onButtonClick, type: "button", class: "mdc-button mdc-snackbar__action" }, props.buttonText),
+                    omi_1.h("button", { onClick: this.onIconButtonClick, class: "mdc-icon-button mdc-snackbar__dismiss material-icons", title: "Dismiss", style: "color:white;" }, "close")))));
     };
-    Snackbar.css = css;
-    Snackbar.defaultProps = {
-        show: false
-    };
+    Snackbar.css = theme_ts_1.theme() + css;
+    Snackbar.defaultProps = {};
     Snackbar.propTypes = {
         show: Boolean,
         stacked: Boolean,
@@ -1412,6 +1419,30 @@ var Snackbar = /** @class */ (function (_super) {
 }(omi_1.WeElement));
 exports.default = Snackbar;
 
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

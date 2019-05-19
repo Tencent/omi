@@ -3,6 +3,9 @@ import * as css from './index.scss'
 import { MDCRipple } from '@material/ripple'
 import '../icon'
 
+//@ts-ignore
+import { theme } from '../theme.ts'
+
 interface Props {
   ripple: boolean,
   mini: boolean,
@@ -16,7 +19,7 @@ interface Data {
 
 @tag('m-fab')
 export default class Fab extends WeElement<Props, Data>{
-  static css = css
+  static css = theme() + css
 
   static propTypes = {
     ripple: Boolean,
@@ -30,7 +33,7 @@ export default class Fab extends WeElement<Props, Data>{
       this.update()
     })
   }
-  
+
   installed() {
     if (this.props.ripple) {
       new MDCRipple(this.shadowRoot.querySelector('.mdc-fab'))

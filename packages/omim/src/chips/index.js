@@ -3311,6 +3311,8 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/chips/index.scss");
 var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/@material/ripple/index.js");
 var chips_1 = __webpack_require__(/*! @material/chips */ "./node_modules/@material/chips/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var chipSet = /** @class */ (function (_super) {
     __extends(chipSet, _super);
     function chipSet() {
@@ -3346,7 +3348,7 @@ var chipSet = /** @class */ (function (_super) {
                 (item.trailing) && omi_1.h("i", { class: "material-icons mdc-chip__icon mdc-chip__icon--trailing" }, (item.trailing.icon) && omi_1.h("m-icon", __assign({ class: 'm-icon' }, item.trailing.icon))));
         })));
     };
-    chipSet.css = css;
+    chipSet.css = theme_ts_1.theme() + css;
     chipSet.defaultProps = {
         ripple: true
     };
@@ -3675,6 +3677,31 @@ exports.default = chipSet;
     });
 });
 //# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

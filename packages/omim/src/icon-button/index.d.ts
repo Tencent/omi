@@ -12,7 +12,7 @@ interface Props {
 interface Data {
 }
 export default class IconButton extends WeElement<Props, Data> {
-    static css: any;
+    static css: string;
     static defaultProps: {
         ripple: boolean;
     };

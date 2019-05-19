@@ -2123,6 +2123,8 @@ var form_field_1 = __webpack_require__(/*! @material/form-field */ "./node_modul
 var radio_1 = __webpack_require__(/*! @material/radio */ "./node_modules/@material/radio/index.js");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Radio = /** @class */ (function (_super) {
     __extends(Radio, _super);
     function Radio() {
@@ -2177,7 +2179,7 @@ var Radio = /** @class */ (function (_super) {
             }
         }
     };
-    Radio.css = css;
+    Radio.css = theme_ts_1.theme() + css;
     Radio.propTypes = {
         label: String,
         disabled: Boolean,
@@ -2190,6 +2192,31 @@ var Radio = /** @class */ (function (_super) {
     ], Radio);
     return Radio;
 }(omi_1.WeElement));
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

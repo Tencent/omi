@@ -1604,6 +1604,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/slider/index.scss");
 var slider_1 = __webpack_require__(/*! @material/slider */ "./node_modules/@material/slider/index.js");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Slider = /** @class */ (function (_super) {
     __extends(Slider, _super);
     function Slider() {
@@ -1632,7 +1634,7 @@ var Slider = /** @class */ (function (_super) {
                     omi_1.h("circle", { cx: "10.5", cy: "10.5", r: "7.875" })),
                 omi_1.h("div", { class: "mdc-slider__focus-ring" }))));
     };
-    Slider.css = css;
+    Slider.css = theme_ts_1.theme() + css;
     Slider.defaultProps = {
         value: 0,
         step: 1,
@@ -1654,6 +1656,31 @@ var Slider = /** @class */ (function (_super) {
     return Slider;
 }(omi_1.WeElement));
 exports.default = Slider;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

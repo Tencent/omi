@@ -10,7 +10,7 @@ interface Props {
 interface Data {
 }
 export default class Snackbar extends WeElement<Props, Data> {
-    static css: any;
+    static css: string;
     static defaultProps: {};
     static propTypes: {
         show: BooleanConstructor;

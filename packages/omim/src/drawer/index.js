@@ -3485,6 +3485,8 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/drawer/index.scss");
 var drawer_1 = __webpack_require__(/*! @material/drawer */ "./node_modules/@material/drawer/index.js");
 var list_1 = __webpack_require__(/*! @material/list */ "./node_modules/@material/list/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Drawer = /** @class */ (function (_super) {
     __extends(Drawer, _super);
     function Drawer() {
@@ -3556,7 +3558,7 @@ var Drawer = /** @class */ (function (_super) {
                     omi_1.h("slot", null)) :
                 omi_1.h("slot", null)));
     };
-    Drawer.css = css;
+    Drawer.css = theme_ts_1.theme() + css;
     Drawer.propTypes = {
         frame: Boolean,
         dismissible: Boolean,
@@ -3886,6 +3888,31 @@ exports.default = Drawer;
     });
 });
 //# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

@@ -17,7 +17,7 @@ interface Props {
 interface Data {
 }
 export default class topAppBar extends WeElement<Props, Data> {
-    static css: any;
+    static css: string;
     static propTypes: {
         heading: StringConstructor;
         short: BooleanConstructor;
