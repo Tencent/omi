@@ -1,2 +1,0 @@
-webpackJsonp([33],{53:function(n,e){n.exports="## Menu\n\nA menu displays a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n## Usage\n\n```jsx\n<m-menu anchor id=\"menu\" onSelected=\"onSelected()\" list=\"[\n  { text: 'A Menu Item' },\n  { text: 'A Disabled Menu Item', disabled: true },\n  { text: 'Another Menu Item' }\n]\">\n</m-menu>\n```\n\n## API\n\n### Props\n\n```jsx\n{\n  show?: boolean,\n  list: object,\n  anchor: boolean\n}\n```"}});
-//# sourceMappingURL=33.3d72436a.chunk.js.map

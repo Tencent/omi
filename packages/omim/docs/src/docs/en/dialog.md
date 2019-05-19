@@ -57,7 +57,7 @@ JSX:
 | show | boolean | -- | Whether to display a dialog box |
 | scrollable | boolean | -- | Displays upper and lower border lines when a scroll bar is present |
 | title | string | -- | Dialog title |
-| message | string/Vdom | -- | Dialog content |
+| message | string/dom | -- | Dialog content |
 | cancel-button | object | -- | Dialog box cancels button content, supports all m-icon attribute |
 | confirm-button | object | -- | Dialog to confirm button content, supports all m-icon attribute |
 | onOpening | function | -- | Dialog opening trigger |

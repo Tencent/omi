@@ -66,7 +66,7 @@ export default class Drawer extends WeElement<Props, Data>{
   }
 
   onList = (evt: any) => {
-    evt && this.fire('list' + evt.toElement.accessKey, {evt, })
+    evt && this.fire('list' + evt.toElement.accessKey, evt)
   }
 
   render(props) {

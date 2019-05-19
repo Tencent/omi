@@ -13,13 +13,25 @@ Select provides Material Design single-option select menus. It is fully accessib
 </m-select>
 ```
 
+## Used in Omi
+
+JSX:
+
+```jsx
+<m-select menu={[
+  { text: 'Google', value: 0 },
+  { text: 'Omi', value: 1 },
+  { text: 'Tencent', value: 2 }
+]} label="Choose One Item" onChange={(e) => { console.log(e.detail) }}>
+</m-select>
+```
+
 ## API
 
 ### Props
 
-```jsx
-{
-  label: String,
-  menu: Object
-}
-```
+|  **Name**  | **Type**        | **Defaults**  | **Details**  |
+| ------------- |:-------------:|:-----:|:-------------:|
+| label | String | -- | select box title text |
+| menu | Object | -- | Menu content |
+| onChange | function | -- | Select the trigger |

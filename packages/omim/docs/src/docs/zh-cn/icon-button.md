@@ -42,3 +42,4 @@ JSX:
 | svg | object | -- | svg图标 |
 | color | string | -- | 颜色 |
 | disabled | boolean | -- | 使图标按钮失效 |
+| onChange | function | -- | 图标变化触发 |
