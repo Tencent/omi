@@ -21,7 +21,6 @@ export default class Tab extends WeElement<Props, Data> {
         align: StringConstructor;
         useMinWidth: BooleanConstructor;
         stacked: BooleanConstructor;
-        svgIcon: ObjectConstructor;
     };
     install(): void;
     uninstall(): void;

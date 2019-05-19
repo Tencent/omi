@@ -34,18 +34,17 @@ export default class Tab extends WeElement<Props, Data>{
 		width: String,
 		align: String,
 		useMinWidth: Boolean,
-		stacked: Boolean,
-		svgIcon: Object
+		stacked: Boolean
 	}
 
 	install() {
     document.addEventListener('DOMContentLoaded', () => {
-			this.data.tabBar = new MDCTabBar(this.shadowRoot.querySelector('.mdc-tab-bar'));
-			this.data.tabBar.listen('MDCTabBar:activated', (e) => {
-				let item = this.props.children[e.detail.index]
-				this.fire('change', item.attributes)
-			})
-      this.update()
+				this.data.tabBar = new MDCTabBar(this.shadowRoot.querySelector('.mdc-tab-bar'));
+				this.data.tabBar.listen('MDCTabBar:activated', (e) => {
+					let item = this.props.children[e.detail.index]
+					this.fire('change', item.attributes)
+				})
+				 this.update()
     })
 	}
 
@@ -60,7 +59,11 @@ export default class Tab extends WeElement<Props, Data>{
   }
 
   renderButton( vnode, activeProp ) {
-    const { attributes: props } = vnode
+		const { attributes: props } = vnode
+		//todo fix this?
+		if(props['svg-icon']){
+			props.svgIcon = JSON.parse(props['svg-icon'].replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'))
+		}
 		const isActive = activeProp === props.value
     return (
       <button {...extractClass(props,'mdc-tab',{

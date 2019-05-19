@@ -4149,7 +4149,6 @@ var Tab = /** @class */ (function (_super) {
         var _this = this;
         document.addEventListener('DOMContentLoaded', function () {
             _this.data.tabBar = new tab_bar_1.MDCTabBar(_this.shadowRoot.querySelector('.mdc-tab-bar'));
-            console.log(111);
             _this.data.tabBar.listen('MDCTabBar:activated', function (e) {
                 var item = _this.props.children[e.detail.index];
                 _this.fire('change', item.attributes);
@@ -4158,7 +4157,7 @@ var Tab = /** @class */ (function (_super) {
         });
     };
     Tab.prototype.uninstall = function () {
-        this.data.tabBar.destory();
+        //this.data.tabBar.destory()
     };
     Tab.prototype.activateTab = function (value) {
         // @ts-ignore
@@ -4167,8 +4166,11 @@ var Tab = /** @class */ (function (_super) {
     };
     Tab.prototype.renderButton = function (vnode, activeProp) {
         var props = vnode.attributes;
+        //todo fix this?
+        if (props['svg-icon']) {
+            props.svgIcon = JSON.parse(props['svg-icon'].replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
+        }
         var isActive = activeProp === props.value;
-        console.log(isActive);
         return (omi_1.h("button", __assign({}, omi_1.extractClass(props, 'mdc-tab', {
             'mdc-tab--active': isActive,
             'mdc-tab--min-width': this.props.useMinWidth,
@@ -4185,6 +4187,7 @@ var Tab = /** @class */ (function (_super) {
     };
     Tab.prototype.render = function (props) {
         var _this = this;
+        console.log(util_ts_1.htmlToVdom(this.innerHTML));
         var children = props.children, defaultActive = props.defaultActive, width = props.width, align = props.align;
         var style = { width: width || '100%' };
         var alignClass = align && 'mdc-tab-scroller--align-' + align;
@@ -4202,8 +4205,7 @@ var Tab = /** @class */ (function (_super) {
         width: String,
         align: String,
         useMinWidth: Boolean,
-        stacked: Boolean,
-        svgIcon: Object
+        stacked: Boolean
     };
     Tab = __decorate([
         omi_1.tag('m-tab')
