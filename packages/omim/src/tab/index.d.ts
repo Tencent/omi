@@ -5,6 +5,7 @@ interface Props {
     width: string;
     align: 'start' | 'end' | 'center';
     useMinWidth: boolean;
+    stacked: boolean;
 }
 interface Data {
 }
@@ -14,9 +15,17 @@ export default class Tab extends WeElement<Props, Data> {
         active: any;
         tabBar: any;
     };
-    installed(): void;
+    static propTypes: {
+        defaultActive: StringConstructor;
+        width: StringConstructor;
+        align: StringConstructor;
+        useMinWidth: BooleanConstructor;
+        stacked: BooleanConstructor;
+        svgIcon: ObjectConstructor;
+    };
+    install(): void;
     uninstall(): void;
-    activateTab(prop: any): void;
+    activateTab(value: any): void;
     renderButton(vnode: any, activeProp: any): JSX.Element;
     render(props: any): JSX.Element;
 }
