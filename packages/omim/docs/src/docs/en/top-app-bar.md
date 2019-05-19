@@ -4,7 +4,7 @@ Top App Bar acts as a container for items such as application title, navigation 
 
 ## Usage
 
-```jsx
+```html
 <m-top-app-bar
   title='Omim'
   short
@@ -23,19 +23,46 @@ Top App Bar acts as a container for items such as application title, navigation 
 ></m-top-app-bar>
 ```
 
+## Used in Omi
+
+JSX:
+
+```jsx
+<m-top-app-bar
+  adjust
+  heading='Click to show menus'
+  onNavigation={this.onDemoStart}
+  navigation-icon={{
+    view: 24,
+    path: 'M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z'
+  }}
+  onAction0={this.onDemoStart}
+  action-items={[
+    {
+      view: 24,
+      path: 'M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z'
+    }
+  ]}
+/>
+```
+
 ## API
 
 ### Props
 
-```jsx
-{
-  title: string,
-  short: boolean,
-  shortCollapsed: boolean,
-  prominent: boolean,
-  dense: boolean,
-  fixed: boolean,
-  navigationIcon: object,
-  actionItems: object
-}
-```
+|  **Name**  | **Type**        | **Defaults**  | **Details**  |
+| ------------- |:-------------:|:-----:|:-------------:|
+| heading | string | -- | title content |
+| short | boolean | -- | With shortened animation |
+| shortCollapsed | boolean | -- | Fixed to a shortened state |
+| prominent | boolean | -- | Highlight title |
+| dense | boolean | -- | More compact top app bar |
+| fixed | boolean | -- | Fixation top app bar |
+| adjust | boolean | -- | Automatically fills the top app bar height |
+| navigationIcon | object | -- | Left button |
+| actionItems | object | -- | Right button |
+| scrollTarget | EventTarget | -- | Sets the target scroll bar(used in JSX) |
+| scrollTargetDrawer | boolean | -- | Sets the target scroll bar(m-drawer Component usage 'frame' property, and is used under specific conditions) |
+| onNav | function | -- | Click the left navigation bar to trigger |
+| onNavigation | function | -- | Click the left navigation bar to trigger |
+| onAction(0-N) | function | -- | Click the right button to trigger, and the number of the right button will correspond to the tail number |

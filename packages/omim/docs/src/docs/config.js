@@ -45,7 +45,6 @@ const config = {
           { name: 'Text Field', md: 'text-field', demo: './repl/text-field.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
-          { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
           { name: 'Select', md: 'select', demo: './repl/select.html' }
         ]
       },
@@ -106,7 +105,6 @@ const config = {
           { name: 'Text Field', md: 'text-field', demo: './repl/text-field.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
-          { name: 'Switch', md: 'switch', demo: './repl/switch.html' },
           { name: 'Select', md: 'select', demo: './repl/select.html' }
         ]
       },

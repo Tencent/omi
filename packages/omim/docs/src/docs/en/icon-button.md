@@ -42,3 +42,4 @@ JSX:
 | svg | object | -- | svg icon |
 | color | string | -- | color |
 | disabled | boolean | -- | Disable the icon button |
+| onChange | function | -- | Icon change trigger |

@@ -2,9 +2,9 @@
 
 Material design’s responsive UI is based on a column-variate grid layout. It has 12 columns on desktop, 8 columns on tablet and 4 columns on phone.
 
-## Usage
+## Usage (Omi in the same way)
 
-```jsx
+```html
 <m-layout-grid
   align-right
   style='text-align:center;'
@@ -29,9 +29,7 @@ import { css } from '@omim/core/layout-grid'
 
 ### Props
 
-```jsx
-{
-  align-right: boolean,
-  align-left: boolean
-}
-```
+|  **Name**  | **Type**        | **Defaults**  | **Details**  |
+| ------------- |:-------------:|:-----:|:-------------:|
+| align-right | boolean | -- | Align right |
+| align-left | boolean | -- | Align left |

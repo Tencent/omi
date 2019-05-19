@@ -13,7 +13,6 @@ The Navigation Drawer is used to organize access to destinations and other funct
   onClosed
   onList2
   onList3
-  onList4
   lists="[
     {
       divider: true
@@ -53,13 +52,6 @@ JSX:
   onClosed={this.onDrawerClosed}
   onList2={this.onListPermanent}
   onList3={this.onListDismissible}
-  onList4={this.onListModal}
-  onList7={this.onListZainDemo1}
-  onList8={this.onListZainDemo2}
-  onList9={this.onListZainDemo3}
-  onList10={this.onListZainDemo4}
-  onList13={this.onListDemoAll}
-  onList16={this.onListAlone}
   lists={[
     {
       divider: true
