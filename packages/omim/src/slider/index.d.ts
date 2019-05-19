@@ -3,6 +3,9 @@ interface Props {
     discrete?: boolean;
     value?: number;
     disabled?: boolean;
+    min: number;
+    max: number;
+    step: number;
     displayMarkers?: boolean;
 }
 interface Data {

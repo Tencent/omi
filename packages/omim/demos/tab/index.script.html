@@ -12,10 +12,15 @@
 	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
 	<script src="../../src/tab/index.js"></script>
 
+	<script>
+	function change(e){
+		console.log(e.detail)
+	}
+	</script>
 	<div>
 			<h3>Tabs with icons next to labels</h3>
 
-		<m-tab default-active='speed' onChange={this.onChange} align="end">
+		<m-tab default-active='speed' onChange="change(event)" align="end">
 			<item label="Recents" value="speed" icon="access_time"></item>
 			<item label="Nearby" value="fire" icon="near_me"></item>
 			<item label="Favorites" value="lol" icon="favorite"></item>

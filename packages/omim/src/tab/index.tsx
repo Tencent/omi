@@ -9,9 +9,9 @@ import { theme } from '../theme.ts'
 import { extract, htmlToVdom } from '../util.ts'
 
 interface Props {
-  defaultActive: string,
-  width: string,
-  align: 'start' | 'end' | 'center', // 三种可能值  start | end | center
+	defaultActive: string,
+	width: string,
+	align: 'start' | 'end' | 'center', // 三种可能值  start | end | center
 	useMinWidth: boolean,
 	stacked: boolean
 }
@@ -22,12 +22,12 @@ interface Data {
 
 @tag('m-tab')
 export default class Tab extends WeElement<Props, Data>{
-  static css = theme() + css
+	static css = theme() + css
 
-  data = {
-    active: null,
-    tabBar: null
-  }
+	data = {
+		active: null,
+		tabBar: null
+	}
 
 	static propTypes = {
 		defaultActive: String,
@@ -38,70 +38,73 @@ export default class Tab extends WeElement<Props, Data>{
 	}
 
 	install() {
-    document.addEventListener('DOMContentLoaded', () => {
-				this.data.tabBar = new MDCTabBar(this.shadowRoot.querySelector('.mdc-tab-bar'));
-				this.data.tabBar.listen('MDCTabBar:activated', (e) => {
-					let item = this.props.children[e.detail.index]
-					this.fire('change', item.attributes)
-				})
-				 this.update()
-    })
+		document.addEventListener('DOMContentLoaded', () => {
+			//update first
+			this.update()
+			//init mdc tab
+			this.data.tabBar = new MDCTabBar(this.shadowRoot.querySelector('.mdc-tab-bar'));
+			this.data.tabBar.listen('MDCTabBar:activated', (e) => {
+				let item = this.props.children[e.detail.index]
+				this.fire('change', item.attributes)
+			})
+		})
 	}
 
-  uninstall() {
-    this.data.tabBar.destory()
-  }
+	uninstall() {
+		this.data.tabBar.destory()
+	}
 
-  activateTab(value) {
-    // @ts-ignore
-    let index = [].findIndex(this.props.children, (item => item.attributes.value === value))
-    this.data.tabBar.activateTab(index)
-  }
+	activateTab(value) {
+		// @ts-ignore
+		let index = [].findIndex(this.props.children, (item => item.attributes.value === value))
+		this.data.tabBar.activateTab(index)
+	}
 
-  renderButton( vnode, activeProp ) {
+	renderButton(vnode, activeProp) {
 		const { attributes: props } = vnode
 		//todo fix this?
-		if(props['svg-icon']){
+		if (props['svg-icon']) {
 			props.svgIcon = JSON.parse(props['svg-icon'].replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'))
 		}
 		const isActive = activeProp === props.value
-    return (
-      <button {...extractClass(props,'mdc-tab',{
+		return (
+			<button {...extractClass(props, 'mdc-tab', {
 				'mdc-tab--active': isActive,
 				'mdc-tab--min-width': this.props.useMinWidth,
-				'mdc-tab--stacked':  this.props.stacked
-				})} role="tab" aria-selected={ isActive }>
-        <span class="mdc-tab__content">
-					{ props.icon && <span class="mdc-tab__icon material-icons" aria-hidden="true">{props.icon}</span> }
-					{ props.svgIcon && <span class="mdc-tab__icon" aria-hidden="true"><m-icon {...props.svgIcon}></m-icon></span> }
-          <span class="mdc-tab__text-label">{ vnode.attributes.label }</span>
-        </span>
-        <span {...extractClass(props,'mdc-tab-indicator',{'mdc-tab-indicator--active': isActive })}>
-          <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-        </span>
-        <span class="mdc-tab__ripple"></span>
-      </button>
+				'mdc-tab--stacked': this.props.stacked
+			})} role="tab" aria-selected={isActive}>
+				<span class="mdc-tab__content">
+					{props.icon && <span class="mdc-tab__icon material-icons" aria-hidden="true">{props.icon}</span>}
+					{props.svgIcon && <span class="mdc-tab__icon" aria-hidden="true"><m-icon {...props.svgIcon}></m-icon></span>}
+					<span class="mdc-tab__text-label">{vnode.attributes.label}</span>
+				</span>
+				<span {...extractClass(props, 'mdc-tab-indicator', { 'mdc-tab-indicator--active': isActive })}>
+					<span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+				</span>
+				<span class="mdc-tab__ripple"></span>
+			</button>
 		)
-  }
+	}
 
-  render(props) {
-		const { children, defaultActive, width, align } = props
-    const style = { width: width || '100%' }
-    const alignClass = align && 'mdc-tab-scroller--align-' + align
-    const scrollerClasses = extractClass(props, 'mdc-tab-scroller', alignClass)
-    return (
-      <div class="mdc-tab-bar" style={ style } role="tablist">
-        <div { ...scrollerClasses }>
-          <div class="mdc-tab-scroller__scroll-area">
-            <div class="mdc-tab-scroller__scroll-content">
-							{ children?
-									children.map(vnode => this.renderButton(vnode, defaultActive)):
-									this.innerHTML &&	htmlToVdom(this.innerHTML).map(vnode => this.renderButton(vnode, defaultActive))
-							 }
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+	render(props) {
+		const { defaultActive, width, align } = props
+		if (this.innerHTML && !props.children) {
+			props.children = htmlToVdom(this.innerHTML)
+		}
+		const { children } = props
+		const style = { width: width || '100%' }
+		const alignClass = align && 'mdc-tab-scroller--align-' + align
+		const scrollerClasses = extractClass(props, 'mdc-tab-scroller', alignClass)
+		return (
+			<div class="mdc-tab-bar" style={style} role="tablist">
+				<div {...scrollerClasses}>
+					<div class="mdc-tab-scroller__scroll-area">
+						<div class="mdc-tab-scroller__scroll-content">
+							{children && children.map(vnode => this.renderButton(vnode, defaultActive))}
+						</div>
+					</div>
+				</div>
+			</div>
+		)
 	}
 }

@@ -4148,16 +4148,18 @@ var Tab = /** @class */ (function (_super) {
     Tab.prototype.install = function () {
         var _this = this;
         document.addEventListener('DOMContentLoaded', function () {
+            //update first
+            _this.update();
+            //init mdc tab
             _this.data.tabBar = new tab_bar_1.MDCTabBar(_this.shadowRoot.querySelector('.mdc-tab-bar'));
             _this.data.tabBar.listen('MDCTabBar:activated', function (e) {
                 var item = _this.props.children[e.detail.index];
                 _this.fire('change', item.attributes);
             });
-            _this.update();
         });
     };
     Tab.prototype.uninstall = function () {
-        //this.data.tabBar.destory()
+        this.data.tabBar.destory();
     };
     Tab.prototype.activateTab = function (value) {
         // @ts-ignore
@@ -4187,17 +4189,18 @@ var Tab = /** @class */ (function (_super) {
     };
     Tab.prototype.render = function (props) {
         var _this = this;
-        console.log(util_ts_1.htmlToVdom(this.innerHTML));
-        var children = props.children, defaultActive = props.defaultActive, width = props.width, align = props.align;
+        var defaultActive = props.defaultActive, width = props.width, align = props.align;
+        if (this.innerHTML && !props.children) {
+            props.children = util_ts_1.htmlToVdom(this.innerHTML);
+        }
+        var children = props.children;
         var style = { width: width || '100%' };
         var alignClass = align && 'mdc-tab-scroller--align-' + align;
         var scrollerClasses = omi_1.extractClass(props, 'mdc-tab-scroller', alignClass);
         return (omi_1.h("div", { class: "mdc-tab-bar", style: style, role: "tablist" },
             omi_1.h("div", __assign({}, scrollerClasses),
                 omi_1.h("div", { class: "mdc-tab-scroller__scroll-area" },
-                    omi_1.h("div", { class: "mdc-tab-scroller__scroll-content" }, children ?
-                        children.map(function (vnode) { return _this.renderButton(vnode, defaultActive); }) :
-                        this.innerHTML && util_ts_1.htmlToVdom(this.innerHTML).map(function (vnode) { return _this.renderButton(vnode, defaultActive); }))))));
+                    omi_1.h("div", { class: "mdc-tab-scroller__scroll-content" }, children && children.map(function (vnode) { return _this.renderButton(vnode, defaultActive); }))))));
     };
     Tab.css = theme_ts_1.theme() + css;
     Tab.propTypes = {
