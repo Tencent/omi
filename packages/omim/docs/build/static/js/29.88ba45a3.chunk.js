@@ -1,2 +1,0 @@
-webpackJsonp([29],{57:function(n,s){n.exports='## Snackbar \n\nSnackbar provide brief messages about app processes at the bottom of the screen.\n\n## Usage\n\n```html\n<m-snackbar id=\'snackbar1\' button-text="RETRY" msg="Can\'t send photo. Retry in 5 seconds."></m-snackbar>\n```\n\n## API\n\n### Props\n\n```jsx\n{\n  show?: boolean,\n  stacked?: boolean,\n  msg: string,\n  buttonText?: string,\n  leading?: boolean\n}\n```'}});
-//# sourceMappingURL=29.88ba45a3.chunk.js.map

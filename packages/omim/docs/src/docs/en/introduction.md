@@ -53,6 +53,29 @@ button.addEventListener('click', function () {
 //document.body.innerHTML = '<m-button>I am button</m-button>'
 ```
 
+## Change Theme Color
+
+```js
+window.OmimThemePrimary =  'red'
+window.OmimThemeSecondary =  'blue'
+window.OmimThemeError =  'yellow'
+
+import '@omim/core/button'
+```
+
+or
+
+```html
+<script src="https://unpkg.com/omi"></script>
+<script>
+  window.OmimThemePrimary =  'red'
+  window.OmimThemeSecondary =  'blue'
+  window.OmimThemeError =  'yellow'
+</script>
+<script src="https://unpkg.com/@omim/core@0.0.1/button/index.js"></script>
+
+<m-button>I am button</m-button>
+```
 
 ## Contribution
 
