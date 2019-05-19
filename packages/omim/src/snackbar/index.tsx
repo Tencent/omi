@@ -43,10 +43,10 @@ export default class Snackbar extends WeElement<Props, Data>{
 
     snackbar.listen('MDCSnackbar:closed', () => {
       this.fire('closed')
-      //直接改掉下次需要 diff 的 attr,(zain: 加判断，兼容 script)
-      if(this['__omiattr_']) {
-        this['__omiattr_'].show = false
-      }
+
+			//直接改掉下次需要 diff 的 attr, html 模式下初始化没有这个属性？？
+      this['__omiattr_'] && (this['__omiattr_'].show = false)
+
     })
 
     this.snackbar = snackbar

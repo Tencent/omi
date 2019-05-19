@@ -1,5 +1,5 @@
 /**
- * omi v6.3.12  http://omijs.org
+ * omi v6.3.14  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -1124,11 +1124,11 @@
   function define(name, ctor) {
     if (ctor.is === 'WeElement') {
       if (options.mapping[name]) {
-        if (options.mapping[name] === ctor) {
-          // console.warn('You redefine custom elements named [' + name + '], redundant JS files may be referenced.');  //组件冲突异常提示暂时注释掉
-        } else {
-          // console.warn('This custom elements name [' + name + '] has already been used, please rename it.');  //组件冲突异常提示暂时注释掉
-        }
+        // if(options.mapping[name] === ctor){
+        //   console.warn(`You redefine custom elements named [${name}], redundant JS files may be referenced.`)
+        // } else {
+        //   console.warn(`This custom elements name [${name}] has already been used, please rename it.`)
+        // }
         return;
       }
       customElements.define(name, ctor);
@@ -1443,7 +1443,9 @@
               break;
           }
         } else {
-          if (!ele.constructor.defaultProps || !ele.constructor.defaultProps.hasOwnProperty(key)) {
+          if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) {
+            ele.props[key] = ele.constructor.defaultProps[key];
+          } else {
             ele.props[key] = null;
           }
         }
@@ -1786,7 +1788,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.3.12';
+  options.root.Omi.version = '6.3.14';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());
