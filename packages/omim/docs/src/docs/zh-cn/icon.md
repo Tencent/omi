@@ -35,7 +35,7 @@ JSX:
   path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z' />
 ```
 
-JSX:
+支持多 path 多颜色：
 
 ```jsx
 <m-icon paths={[{
@@ -53,11 +53,12 @@ JSX:
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| paths  | json array |--  |   |
-| path  | string|--  ||
-| scale | number   |   2 | |
-| color | string| black ||
-| rotate | bool| false ||
+| paths  | object | --  | 支持多图标 path |
+| path  | string | --  | 图标的 path 值 |
+| view  | number | 1024 | 视图大小 |
+| scale | number   | 2 | 图标放大倍数 |
+| color | string | black | 颜色 |
+| rotate | bool | false | 旋转动画 |
 
 * [→ 你可以直接使用 antd 的海量 svg path 作为 icon 的 path](https://ant.design/components/icon-cn/),你可以通过开发者工具查看对应 icon 的 path
 * [→ 也可以直接上 antd github 获取 svg path](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons/svg)

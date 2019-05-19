@@ -290,7 +290,8 @@ var Icon = /** @class */ (function (_super) {
         paths: Object,
         view: Number,
         scale: Number,
-        color: String
+        color: String,
+        rotate: Boolean
     };
     Icon = __decorate([
         omi_1.tag('m-icon')

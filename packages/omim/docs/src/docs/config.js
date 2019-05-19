@@ -13,7 +13,7 @@ const config = {
           { name: 'Button', md: 'button', demo: './repl/button.html' },
           { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
           { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
-          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button' }
+          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' }
         ]
       },
       {

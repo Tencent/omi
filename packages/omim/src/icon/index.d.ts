@@ -5,6 +5,7 @@ interface Props {
     view?: number;
     scale?: number;
     color?: string;
+    rotate?: boolean;
 }
 interface Data {
 }
@@ -20,6 +21,7 @@ export default class Icon extends WeElement<Props, Data> {
         view: NumberConstructor;
         scale: NumberConstructor;
         color: StringConstructor;
+        rotate: BooleanConstructor;
     };
     render(props: any): JSX.Element;
 }
