@@ -71,5 +71,5 @@ JSX:
 | ripple | boolean | -- | 单击标签形成波纹 |
 | filter | boolean | -- | 过滤模式 |
 | choice | boolean | -- | 选择模式 |
-| input | boolean | -- | |
+| input | boolean | -- | 表示该组中的芯片是输入芯片，通过将文本转换为芯片来实现用户输入。 |
 | chips | object | -- | 自定义标签内容 |

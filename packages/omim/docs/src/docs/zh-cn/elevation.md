@@ -4,7 +4,7 @@
 
 ## 使用
 
-```jsx
+```html
 <m-elevation
   css=".mdc-elevation {
     width: 100%;
@@ -18,12 +18,30 @@
 >1dp</m-elevation>
 ```
 
+## Omi 中使用
+
+JSX:
+
+```jsx
+<m-elevation
+  css={`
+    .mdc-elevation {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  `}
+  class="elevation-demo-surface"
+  z="1"
+>1dp</m-elevation>
+```
+
 ## API
 
 ### Props
 
-```jsx
-{
-  z: number
-}
-```
+|  **Name**  | **Type**        | **Defaults**  | **Details**  |
+| ------------- |:-------------:|:-----:|:-------------:|
+| z | number | -- | 阴影外观控制 |

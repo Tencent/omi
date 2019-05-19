@@ -35,7 +35,7 @@ JSX:
   path='M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z' />
 ```
 
-JSX:
+Support multiple paths:
 
 ```jsx
 <m-icon paths={[{
@@ -53,11 +53,12 @@ JSX:
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| paths  | json array |--  |   |
-| path  | string| -- ||
-| scale | number   |   2 | |
-| color | string| black ||
-| rotate | bool| false ||
+| paths  | object | --  | Support for multiple icon path |
+| path  | string | --  | Icon path value |
+| view  | number | 1024 | View size |
+| scale | number   | 2 | Icon magnification |
+| color | string | black | color |
+| rotate | bool | false | Rotate transform |
 
 * [→ You can use antd's SVG path directly](https://ant.design/components/icon/)
 * [→ You can find the path in the github of andt icons](https://github.com/ant-design/ant-design-icons/tree/master/packages/icons/svg)

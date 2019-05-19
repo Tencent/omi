@@ -94,7 +94,7 @@ JSX:
 | ------------- |:-------------:|:-----:|:-------------:|
 | frame | boolean | -- | 是否使用 m-drawer 默认框架（配合`<div slot='m-drawer-header'></div><div slot='m-drawer-content'></div>`使用） |
 | dismissible | boolean | -- | 是否可自由拉出或关闭，无黑色透明 div 覆盖窗口 |
-| dismissibleSmooth | boolean | -- | 使 dismissible 动画更平滑 |
+| dismissible-smooth | boolean | -- | 使 dismissible 动画更平滑 |
 | modal | boolean | -- | 是否可自由拉出或关闭，有黑色透明 div 覆盖窗口 |
 | show | boolean | -- | 是否显示 drawer |
 | heading | string | -- | 主标题内容 |

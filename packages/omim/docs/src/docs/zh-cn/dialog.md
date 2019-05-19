@@ -58,8 +58,8 @@ JSX:
 | scrollable | boolean | -- | 是否在有滚动条时显示上下边框线 |
 | title | string | -- | 对话框标题 |
 | message | string/Vdom | -- | 对话框内容 |
-| cancelButton | object | -- | 对话框取消按钮内容，支持所有 m-icon 属性 |
-| confirmButton | object | -- | 对话框确认按钮内容，支持所有 m-icon 属性 |
+| cancel-button | object | -- | 对话框取消按钮内容，支持所有 m-icon 属性 |
+| confirm-button | object | -- | 对话框确认按钮内容，支持所有 m-icon 属性 |
 | onOpening | function | -- | 对话框打开过程触发 |
 | onOpened | function | -- | 对话框打开完成后触发 |
 | onClosing | function | -- | 对话框关闭过程触发 |

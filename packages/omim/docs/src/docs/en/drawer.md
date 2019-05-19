@@ -92,14 +92,14 @@ JSX:
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| frame | boolean | -- | 是否使用 m-drawer 默认框架（配合`<div slot='m-drawer-header'></div><div slot='m-drawer-content'></div>`使用） |
-| dismissible | boolean | -- | 是否可自由拉出或关闭，无黑色透明 div 覆盖窗口 |
-| dismissibleSmooth | boolean | -- | 使 dismissible 动画更平滑 |
-| modal | boolean | -- | 是否可自由拉出或关闭，有黑色透明 div 覆盖窗口 |
-| show | boolean | -- | 是否显示 drawer |
-| heading | string | -- | 主标题内容 |
-| subHeading | string | -- | 附标题内容 |
-| lists | object | -- | 列表内容 |
-| onOpened | function | -- | drawer 打开完成后触发 |
-| onClosed | function | -- | drawer 关闭完成后触发 |
-| onList(0-N) | function | -- | 所有列表的单击触发事件，尾加编号对应列表对象数量 |
+| frame | boolean | -- | Whether to use m-drawer Default frame (cooperate`<div slot='m-drawer-header'></div><div slot='m-drawer-content'></div>`Use) |
+| dismissible | boolean | -- | Can be freely pulled out or closed, no black transparent div cover Window |
+| dismissible-smooth | boolean | -- | Dismissible the animation is smoother |
+| modal | boolean | -- | Free to pull out or close, with black transparency div cover Window |
+| show | boolean | -- | Int show drawer |
+| heading | string | -- | Main heading content |
+| subHeading | string | -- | Subtitle content |
+| lists | object | -- | List the content |
+| onOpened | function | -- | Drawer triggered when the open is complete |
+| onClosed | function | -- | Drawer trigger after shutdown is complete |
+| onList(0-N) | function | -- | Click trigger event for all lists, the number of the tail plus number corresponds to the number of list objects |

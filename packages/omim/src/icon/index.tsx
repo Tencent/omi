@@ -9,7 +9,8 @@ interface Props {
   paths?: object,
   view?: number,
   scale?: number,
-  color?: string
+  color?: string,
+  rotate?: boolean
 }
 
 interface Data {
@@ -31,7 +32,8 @@ export default class Icon extends WeElement<Props, Data>{
     paths: Object,
     view: Number,
     scale: Number,
-    color: String
+    color: String,
+    rotate: Boolean
   }
 
   render(props) {

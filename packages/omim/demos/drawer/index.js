@@ -1,7 +1,10 @@
+//window.OmimThemePrimary =  'green'
+
 import '../../src/drawer/index.tsx'
 import '../../src/top-app-bar/index.tsx'
 
 import { render, WeElement, define, h } from 'omi'
+
 
 define('my-app', class extends WeElement {
 

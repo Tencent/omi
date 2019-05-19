@@ -71,5 +71,5 @@ JSX:
 | ripple | boolean | -- | Click the label to create a ripple |
 | filter | boolean | -- | filtered model |
 | choice | boolean | -- | choice model |
-| input | boolean | -- | |
+| input | boolean | -- |Indicates that the chips in the set are input chips, which enable user input by converting text into chips. |
 | chips | object | -- | Customize label content |
