@@ -42,6 +42,10 @@ export default class Drawer extends WeElement<Props, Data>{
 
   drawerFoundation: MDCDismissibleDrawerFoundation
 
+  //Record list data for returning current list data
+  //记录列表数据，用于返回当前列表数据
+  listAll = new Array()
+
   updated() {
     if(this.props.dismissible || this.props.modal) {
       this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
@@ -59,10 +63,14 @@ export default class Drawer extends WeElement<Props, Data>{
       deawer.listen('MDCDrawer:closed', (evt: any) => {
         this.fire('closed', evt)
       })
-    } else {
-      const list = MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
-      list.wrapFocus = true;
     }
+    const list = MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
+    list.wrapFocus = true;
+    //The event will fire twice, why?
+    list.listen('MDCList:action', (evt: any) => {
+      console.log('zainzain')
+      this.fire('change', this.listAll[evt.detail.index])
+    })
   }
 
   onList = (evt: any) => {
@@ -90,6 +98,7 @@ export default class Drawer extends WeElement<Props, Data>{
                 } else if(item.subheader) {
                   return <h6 accessKey={index.toString()} class='mdc-list-group__subheader'>{item.subheader}</h6>
                 } else {
+                  this.listAll.push(item)
                   return <a accessKey={index.toString()}
                     class={classNames('mdc-list-item', {
                       'mdc-list-item--activated': item.focus
