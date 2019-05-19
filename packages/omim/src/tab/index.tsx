@@ -11,7 +11,8 @@ interface Props {
   defaultActive: string,
   width: string,
   align: 'start' | 'end' | 'center', // 三种可能值  start | end | center
-  useMinWidth: boolean,
+	useMinWidth: boolean,
+	stacked: boolean
 }
 
 interface Data {
@@ -26,6 +27,14 @@ export default class Tab extends WeElement<Props, Data>{
     active: null,
     tabBar: null
   }
+
+	static propTypes = {
+		defaultActive: String,
+		width: String,
+		align: String,
+		useMinWidth: Boolean,
+		stacked: Boolean
+	}
 
   installed() {
     this.data.tabBar = new MDCTabBar(this.shadowRoot.querySelector('.mdc-tab-bar'));
@@ -49,9 +58,14 @@ export default class Tab extends WeElement<Props, Data>{
     const { attributes: props } = vnode
     const isActive = activeProp === props.prop
     return (
-      <button {...extractClass(props,'mdc-tab',{'mdc-tab--active': isActive, 'mdc-tab--min-width': this.props.useMinWidth })} role="tab" aria-selected={ isActive }>
+      <button {...extractClass(props,'mdc-tab',{
+				'mdc-tab--active': isActive,
+				'mdc-tab--min-width': this.props.useMinWidth,
+				'mdc-tab--stacked':  this.props.stacked
+				})} role="tab" aria-selected={ isActive }>
         <span class="mdc-tab__content">
-          { props.icon && <span class="mdc-tab__icon" aria-hidden="true"><m-icon {...props.icon}></m-icon></span> }
+					{ props.icon && <span class="mdc-tab__icon material-icons" aria-hidden="true">{props.icon}</span> }
+					{ props.svgIcon && <span class="mdc-tab__icon" aria-hidden="true"><m-icon {...props.svgIcon}></m-icon></span> }
           <span class="mdc-tab__text-label">{ vnode.attributes.label }</span>
         </span>
         <span {...extractClass(props,'mdc-tab-indicator',{'mdc-tab-indicator--active': isActive })}>
@@ -59,7 +73,7 @@ export default class Tab extends WeElement<Props, Data>{
         </span>
         <span class="mdc-tab__ripple"></span>
       </button>
-    )
+		)
   }
 
   render(props) {
@@ -78,5 +92,5 @@ export default class Tab extends WeElement<Props, Data>{
         </div>
       </div>
     )
-  }
+	}
 }

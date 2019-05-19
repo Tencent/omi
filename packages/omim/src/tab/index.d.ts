@@ -5,6 +5,7 @@ interface Props {
     width: string;
     align: 'start' | 'end' | 'center';
     useMinWidth: boolean;
+    stacked: boolean;
 }
 interface Data {
 }
@@ -13,6 +14,13 @@ export default class Tab extends WeElement<Props, Data> {
     data: {
         active: any;
         tabBar: any;
+    };
+    static propTypes: {
+        defaultActive: StringConstructor;
+        width: StringConstructor;
+        align: StringConstructor;
+        useMinWidth: BooleanConstructor;
+        stacked: BooleanConstructor;
     };
     installed(): void;
     uninstall(): void;
