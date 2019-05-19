@@ -40,7 +40,7 @@ export default class Tab extends WeElement<Props, Data>{
     this.data.tabBar = new MDCTabBar(this.shadowRoot.querySelector('.mdc-tab-bar'));
     this.data.tabBar.listen('MDCTabBar:activated', (e) => {
       let item = this.props.children[e.detail.index]
-      this.fire('tabChange', item.attributes)
+      this.fire('change', item.attributes)
     })
   }
 
@@ -48,15 +48,15 @@ export default class Tab extends WeElement<Props, Data>{
     this.data.tabBar.destory()
   }
 
-  activateTab(prop) {
+  activateTab(value) {
     // @ts-ignore
-    let index = [].findIndex(this.props.children, (item => item.attributes.prop === prop))
+    let index = [].findIndex(this.props.children, (item => item.attributes.value === value))
     this.data.tabBar.activateTab(index)
   }
 
   renderButton( vnode, activeProp ) {
     const { attributes: props } = vnode
-    const isActive = activeProp === props.prop
+    const isActive = activeProp === props.value
     return (
       <button {...extractClass(props,'mdc-tab',{
 				'mdc-tab--active': isActive,
