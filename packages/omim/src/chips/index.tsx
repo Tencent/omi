@@ -53,12 +53,23 @@ export default class chipSet extends WeElement<Props, Data>{
       })
     }
 
-    var chipSet = this.shadowRoot.querySelector('.mdc-chip-set');
-    MDCChipSet.attachTo(chipSet);
-    chipSet.addEventListener('MDCChip:removal', function(event: any) {
-      const root = event.detail.root;
-      root && chipSet.removeChild(root);
-    });
+    const chipSetEl = this.shadowRoot.querySelector('.mdc-chip-set')
+    const chipSet = new MDCChipSet(chipSetEl)
+    console.info(chipSet)
+    chipSetEl.addEventListener('MDCChip:removal', event => {
+      this.fire('removal', { target: event, chips: chipSet.chips })
+      const root = event.detail.root
+      root && chipSetEl.removeChild(root)
+    })
+    chipSetEl.addEventListener('MDCChip:selection', event => {
+      this.fire('selection', { target: event, chips: chipSet.chips })
+    })
+    chipSetEl.addEventListener('MDCChip:interaction', event => {
+      this.fire('interaction', { target: event, chips: chipSet.chips })
+    })
+    chipSetEl.addEventListener('MDCChip:trailingIconInteraction', event => {
+      this.fire('trailingIconInteraction', { target: event, chips: chipSet.chips })
+    })
   }
 
   render(props) {

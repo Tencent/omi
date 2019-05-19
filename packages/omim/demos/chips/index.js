@@ -35,17 +35,26 @@ define('chips-demo', class extends WeElement {
     console.info(this.chipsChoice)
   }
 
+  remove = (e) => {
+    console.info(e.detail)
+    // const {index, id, text} = e
+    // console.info(index, id, text)
+  }
+
+  chipsInteraction = e => {
+    console.info(e.detail)
+  }
+
   render(props, data) {
     return(
       <div>
         <h1 onClick={this.changeChips}>none</h1>
         <h4>choice chip-set</h4>
-        <m-chips choice chips={this.chipsChoice}>
-          <div>sdf</div>
+        <m-chips choice chips={this.chipsChoice} onRemoval={this.remove}>
         </m-chips>
 
         <h4>filter chip-set</h4>
-        <m-chips filter chips={[
+        <m-chips filter onInteraction={this.chipsInteraction} chips={[
           {
             text: 'checkmark without selected',
             checkmark: true,
