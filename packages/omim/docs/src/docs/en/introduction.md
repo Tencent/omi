@@ -2,6 +2,8 @@
 
 Cross-Frameworks components, powered by Material Design and [Omi](https://github.com/Tencent/omi).
 
+![](https://tencent.github.io/omi/packages/omim/assets/jpeg.png)
+
 ## Features
 
 * Simple wrapper of [material-components-web](https://github.com/material-components/material-components-web)

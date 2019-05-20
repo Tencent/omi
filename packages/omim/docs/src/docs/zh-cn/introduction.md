@@ -2,6 +2,8 @@
 
 [Omi](https://github.com/Tencent/omi) 打造的 Material Design 框架无关标准组件，任意框架都可以使用。
 
+![](https://tencent.github.io/omi/packages/omim/assets/jpeg.png)
+
 ## 特性
 
 * 基于 [material-components-web](https://github.com/material-components/material-components-web) 简单包装
