@@ -19,6 +19,7 @@ export default class Switch extends WeElement<Props, Data> {
     static defaultProps: {};
     switchControl: MDCSwitch;
     switchFoundation: MDCSwitchFoundation;
+    updated(): void;
     installed(): void;
     onInput: (evt: any) => void;
     render(props: any): JSX.Element[];

@@ -5,19 +5,51 @@ import { define, WeElement, render, h } from 'omi'
 
 define('my-app', class extends WeElement {
 
+  disabledA = false
+  disabledB = false
+  disabledC = true
+
+  checkedA = false
+  checkedB = true
+  checkedC = true
+
   onChange = (e) => {
     console.log(e.detail)
   }
 
+  onChangeDisabledA = (e) => {
+    console.log(e.detail)
+    this.disabledA = e.detail.checked
+    this.checkedA = e.detail.checked
+    this.update()
+  }
+  onChangeDisabledB = (e) => {
+    console.log(e.detail)
+    this.disabledB = e.detail.checked
+    this.checkedB = e.detail.checked
+    this.update()
+  }
+  onChangeDisabledC = (e) => {
+    console.log(e.detail)
+    this.disabledC = e.detail.checked
+    this.checkedC = e.detail.checked
+    this.update()
+  }
+
   render() {
     return <div>
-      <m-switch label='LabelA' value='omim one' onChange={this.onChange}></m-switch>
+      <m-switch label='LabelA' value='omim A' checked={this.checkedA} disabled={this.disabledA} onChange={this.onChange}></m-switch>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <m-switch label='LabelA-Disabled' value='omim A-Disabled' onChange={this.onChangeDisabledA}></m-switch>
       <br /><br />
-      <m-switch label='LabelB' value='omim two' checked onChange={this.onChange}></m-switch>
+      <m-switch label='LabelB' value='omim B' checked={this.checkedB} disabled={this.disabledB} onChange={this.onChange}></m-switch>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <m-switch label='LabelB-Disabled' value='omim B-Disabled' onChange={this.onChangeDisabledB}></m-switch>
       <br /><br />
-      <m-switch label='LabelC' value='omim three' checked disabled onChange={this.onChange}></m-switch>
+      <m-switch label='LabelC' value='omim C' checked={this.checkedC} disabled={this.disabledC} onChange={this.onChange}></m-switch>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <m-switch label='LabelC-Disabled' value='omim C-Disabled' checked onChange={this.onChangeDisabledC}></m-switch>
       <br /><br />
-      <m-switch label='LabelD' value='omim four' disabled onChange={this.onChange}></m-switch>
     </div>
   }
 })
