@@ -1895,16 +1895,28 @@ var Switch = /** @class */ (function (_super) {
             _this.fire('change', {
                 value: _this.props.value,
                 checked: _this.switchControl.checked,
+                disabled: _this.switchControl.disabled,
                 label: _this.props.label
             });
         };
         return _this;
     }
+    Switch.prototype.updated = function () {
+        if (this.props.disabled) {
+            this.switchFoundation.setChecked(false);
+        }
+        this.switchFoundation.setDisabled(this.props.disabled);
+    };
     Switch.prototype.installed = function () {
         this.switchControl = new switch_1.MDCSwitch(this.shadowRoot.querySelector('.mdc-switch'));
         this.switchFoundation = this.switchControl.getDefaultFoundation();
+        if (this.props.disabled) {
+            this.switchFoundation.setChecked(false);
+        }
+        else {
+            this.switchFoundation.setChecked(this.props.checked);
+        }
         this.switchFoundation.setDisabled(this.props.disabled);
-        this.switchFoundation.setChecked(this.props.checked);
     };
     Switch.prototype.render = function (props) {
         return [

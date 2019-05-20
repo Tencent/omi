@@ -11,24 +11,57 @@
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
   <script src="../../src/switch/index.js"></script>
   
-  <m-switch id='m-switch-a' label='LabelA' value='omim one' onChange={this.onChange}></m-switch>
+  <m-switch id='m-switch-a' label='LabelA' value='omim A' onChange='onChange(event)'></m-switch>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <m-switch label='LabelA-Disabled' value='omim A-Disabled' onChange='onChangeDisabledA(event)'></m-switch>
   <br /><br />
-  <m-switch id='m-switch-b' label='LabelB' value='omim two' checked onChange={this.onChange}></m-switch>
+  <m-switch id='m-switch-b' label='LabelB' value='omim B' checked onChange='onChange(event)'></m-switch>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <m-switch label='LabelB-Disabled' value='omim B-Disabled' onChange='onChangeDisabledB(event)'></m-switch>
   <br /><br />
-  <m-switch id='m-switch-c' label='LabelC' value='omim three' checked disabled onChange={this.onChange}></m-switch>
-  <br /><br />
-  <m-switch id='m-switch-d' label='LabelD' value='omim four' disabled onChange={this.onChange}></m-switch>
+  <m-switch id='m-switch-c' label='LabelC' value='omim C' checked disabled onChange='onChange(event)'></m-switch>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <m-switch label='LabelC-Disabled' value='omim C-Disabled' checked onChange='onChangeDisabledC(event)'></m-switch>
   
   <script>
-    const mSwitchA = document.getElementById("m-switch-a");
-    const mSwitchB = document.getElementById("m-switch-b");
+    const mSwitchA = document.getElementById('m-switch-a');
+    const mSwitchB = document.getElementById('m-switch-b');
+    const mSwitchC = document.getElementById('m-switch-c');
 
-    mSwitchA.addEventListener('change', (e) => {
-      console.log(e.detail);
-    })
-    mSwitchB.addEventListener('change', (e) => {
-      console.log(e.detail);
-    })
+    function onChange(event) {
+      event && console.log(event.detail);
+    }
+
+    function onChangeDisabledA(event) {
+      event && console.log(event.detail);
+      if(event.detail.checked) {
+        mSwitchA.setAttribute('disabled', true);
+        mSwitchA.setAttribute('checked', true);
+      } else {
+        mSwitchA.removeAttribute('disabled');
+        mSwitchA.removeAttribute('checked');
+      }
+    }
+    function onChangeDisabledB(event) {
+      event && console.log(event.detail);
+      if(event.detail.checked) {
+        mSwitchB.setAttribute('disabled', true);
+        mSwitchB.setAttribute('checked', true);
+      } else {
+        mSwitchB.removeAttribute('disabled');
+        mSwitchB.removeAttribute('checked');
+      }
+    }
+    function onChangeDisabledC(event) {
+      event && console.log(event.detail);
+      if(event.detail.checked) {
+        mSwitchC.setAttribute('disabled', true);
+        mSwitchC.setAttribute('checked', true);
+      } else {
+        mSwitchC.removeAttribute('disabled');
+        mSwitchC.removeAttribute('checked');
+      }
+    }
   </script>
 
   <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
