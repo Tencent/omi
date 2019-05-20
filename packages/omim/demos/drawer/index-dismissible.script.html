@@ -335,6 +335,9 @@
       mTopAppBarId.addEventListener('navigation',  () => {
         mDrawer.getAttribute('show') ? mDrawer.removeAttribute('show') : mDrawer.setAttribute('show', true)
       })
+      mDrawer.addEventListener('change', (e) => {
+        console.log(e.detail);
+      })
     }
   </script>
 </body>

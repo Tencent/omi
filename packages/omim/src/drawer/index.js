@@ -3491,8 +3491,11 @@ var Drawer = /** @class */ (function (_super) {
     __extends(Drawer, _super);
     function Drawer() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        //Record list data for returning current list data
+        //记录列表数据，用于返回当前列表数据
+        _this.listAll = new Array();
         _this.onList = function (evt) {
-            evt && _this.fire('list' + evt.toElement.accessKey, { evt: evt, });
+            evt && _this.fire('list' + evt.toElement.accessKey, evt);
         };
         return _this;
     }
@@ -3514,10 +3517,15 @@ var Drawer = /** @class */ (function (_super) {
                 _this.fire('closed', evt);
             });
         }
-        else {
-            var list = list_1.MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
-            list.wrapFocus = true;
-        }
+        var list = list_1.MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
+        list.wrapFocus = true;
+        list.listen('MDCList:action', function (evt) {
+            //The event will fire twice, why?(Solution: Prevent duplication listen)
+            if (!_this.listAll[evt.detail.index].markListen) {
+                _this.fire('change', _this.listAll[evt.detail.index]);
+                _this.listAll[evt.detail.index].markListen = true;
+            }
+        });
     };
     Drawer.prototype.render = function (props) {
         var _this = this;
@@ -3540,6 +3548,7 @@ var Drawer = /** @class */ (function (_super) {
                                 return omi_1.h("h6", { accessKey: index.toString(), class: 'mdc-list-group__subheader' }, item.subheader);
                             }
                             else {
+                                _this.listAll.push(item);
                                 return omi_1.h("a", { accessKey: index.toString(), class: omi_1.classNames('mdc-list-item', {
                                         'mdc-list-item--activated': item.focus
                                     }), href: item.href, tabindex: "" + (item.focus ? '0' : '-1'), "aria-selected": "" + (item.focus ? true : false), target: item.target && '_blank', onClick: _this.onList },
@@ -3842,6 +3851,8 @@ exports.default = Drawer;
             Object.defineProperty(exports, "__esModule", { value: true });
             var omi_1 = __webpack_require__(/*! omi */ "omi");
             var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
+            //@ts-ignore
+            var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
             var Icon = /** @class */ (function (_super) {
                 __extends(Icon, _super);
                 function Icon() {
@@ -3855,7 +3866,7 @@ exports.default = Drawer;
                         return omi_1.h("path", __assign({}, attrs));
                     })) : omi_1.h("path", { d: props.path })), props.children && (omi_1.h("div", { style: "color:" + (props.color || 'black') + ";" }, props.children[0]))));
                 };
-                Icon.css = css;
+                Icon.css = theme_ts_1.theme() + css;
                 Icon.defaultProps = {
                     view: 1024,
                     scale: 2
@@ -3865,7 +3876,8 @@ exports.default = Drawer;
                     paths: Object,
                     view: Number,
                     scale: Number,
-                    color: String
+                    color: String,
+                    rotate: Boolean
                 };
                 Icon = __decorate([
                     omi_1.tag('m-icon')
@@ -3873,6 +3885,27 @@ exports.default = Drawer;
                 return Icon;
             }(omi_1.WeElement));
             exports.default = Icon;
+            /***/ 
+        }),
+        /***/ "./src/theme.ts": 
+        /*!**********************!*\
+          !*** ./src/theme.ts ***!
+          \**********************/
+        /*! no static exports found */
+        /***/ (function (module, exports, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports, "__esModule", { value: true });
+            if (typeof window === 'object') {
+                window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+                window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+                window.OmimThemeError = window.OmimThemeError || '#f5222d';
+            }
+            function theme() {
+                if (typeof window === 'object') {
+                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+                }
+            }
+            exports.theme = theme;
             /***/ 
         }),
         /***/ "omi": 

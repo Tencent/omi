@@ -72,6 +72,10 @@ define('my-app', class extends WeElement {
     this.update()
   }
 
+  onChange = (evt) => {
+    console.log(evt.detail)
+  }
+
   onDrawerClosed = (evt) => {
     this.showDrawer = false
     console.log('drawer closed')
@@ -222,6 +226,7 @@ define('my-app', class extends WeElement {
           frame
           heading='Omim'
           sub-heading='drawer-demo-permanent'
+          onChange={this.onChange}
           onClosed={this.onDrawerClosed}
           onList2={this.onListPermanent}
           onList3={this.onListDismissible}
@@ -422,6 +427,7 @@ define('my-app', class extends WeElement {
           show={this.showDrawer}
           heading='Omim'
           sub-heading='drawer-demo-dismissible'
+          onChange={this.onChange}
           onClosed={this.onDrawerClosed}
           onList2={this.onListPermanent}
           onList3={this.onListDismissible}
@@ -619,6 +625,7 @@ define('my-app', class extends WeElement {
           show={this.showDrawer}
           heading='Omim'
           sub-heading='drawer-demo-modal'
+          onChange={this.onChange}
           onClosed={this.onDrawerClosed}
           onList2={this.onListPermanent}
           onList3={this.onListDismissible}
@@ -838,6 +845,7 @@ define('my-app', class extends WeElement {
             show={this.showDrawer}
             heading='Omim'
             sub-heading='drawer-demo-zain'
+            onChange={this.onChange}
             onClosed={this.onDrawerClosed}
             onList2={this.onListPermanent}
             onList3={this.onListDismissible}
@@ -1036,6 +1044,7 @@ define('my-app', class extends WeElement {
             show={this.showDrawer}
             heading='Omim'
             sub-heading='drawer-demo-zain'
+            onChange={this.onChange}
             onClosed={this.onDrawerClosed}
             onList2={this.onListPermanent}
             onList3={this.onListDismissible}
@@ -1232,6 +1241,7 @@ define('my-app', class extends WeElement {
             show={this.showDrawer}
             heading='Omim'
             sub-heading='drawer-demo-zain'
+            onChange={this.onChange}
             onClosed={this.onDrawerClosed}
             onList2={this.onListPermanent}
             onList3={this.onListDismissible}
@@ -1439,6 +1449,7 @@ define('my-app', class extends WeElement {
             show={this.showDrawer}
             heading='Omim'
             sub-heading='drawer-demo-zain'
+            onChange={this.onChange}
             onClosed={this.onDrawerClosed}
             onList2={this.onListPermanent}
             onList3={this.onListDismissible}
@@ -1621,6 +1632,7 @@ define('my-app', class extends WeElement {
           show={this.showDrawer}
           heading='Omim'
           sub-heading='drawer-demo-all'
+          onChange={this.onChange}
           onClosed={this.onDrawerClosed}
           onList2={this.onListPermanent}
           onList3={this.onListDismissible}
@@ -1820,6 +1832,7 @@ define('my-app', class extends WeElement {
           show={this.showDrawer}
           heading='Omim'
           sub-heading='drawer-demo-Alone'
+          onChange={this.onChange}
           onClosed={this.onDrawerClosed}
           onList2={this.onListPermanent}
           onList3={this.onListDismissible}
