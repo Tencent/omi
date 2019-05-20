@@ -329,6 +329,11 @@
       const mTopAppBarId = document.getElementById('m-top-app-bar-id').shadowRoot.querySelector('.mdc-top-app-bar').firstElementChild;
       const tabHeight = window.getComputedStyle(mTopAppBarId).height;
       document.getElementById('content-top-height').setAttribute('style', `height:${tabHeight}`);
+
+      const mDrawer = document.getElementById('drawer-id');
+      mDrawer.addEventListener('change', (e) => {
+        console.log(e.detail);
+      })
     }
   </script>
 </body>

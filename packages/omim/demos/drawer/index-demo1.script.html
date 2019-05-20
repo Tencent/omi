@@ -338,6 +338,9 @@
       mDrawer.addEventListener('closed',  () => {
          mDrawer.removeAttribute('show')
       })
+      mDrawer.addEventListener('change', (e) => {
+        console.log(e.detail);
+      })
     }
   </script>
 </body>
