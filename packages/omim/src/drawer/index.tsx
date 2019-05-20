@@ -67,7 +67,7 @@ export default class Drawer extends WeElement<Props, Data>{
     const list = MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
     list.wrapFocus = true;
     list.listen('MDCList:action', (evt: any) => {
-      //The event will fire twice, why?(Solution: Prevent duplication listen)
+      //The event will fire twice, why? May be a list listener included in the drawer.(Solution: Prevent duplication listen)
       if(!this.listAll[evt.detail.index].markListen) {
         this.fire('change', this.listAll[evt.detail.index])
         this.listAll[evt.detail.index].markListen = true
