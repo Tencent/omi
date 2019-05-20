@@ -49,11 +49,15 @@ export default class Switch extends WeElement<Props, Data>{
   }
 
   initSwitch() {
-    if(typeof this.props.checked === 'boolean') {
-      this.switchFoundation.setChecked(this.props.checked)
+    if(this.props.checked == true) {
+      this.switchFoundation.setChecked(true)
+    } else {
+      this.switchFoundation.setChecked(false)
     }
-    if(typeof this.props.disabled === 'boolean') {
-      this.switchFoundation.setDisabled(this.props.disabled)
+    if(this.props.disabled === true) {
+      this.switchFoundation.setDisabled(true)
+    } else {
+      this.switchFoundation.setDisabled(false)
     }
   }
 

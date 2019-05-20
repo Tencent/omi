@@ -15,6 +15,8 @@ define('my-app', class extends WeElement {
   checkedC = false
   checkedD = true
 
+  checkedDisabledA = false
+  checkedDisabledB = false
   checkedDisabledC = true
   checkedDisabledD = true
 
@@ -42,11 +44,13 @@ define('my-app', class extends WeElement {
   onChangeDisabledA = (e) => {
     console.log(e.detail)
     this.disabledA = e.detail.checked
+    this.checkedDisabledA = e.detail.checked
     this.update()
   }
   onChangeDisabledB = (e) => {
     console.log(e.detail)
     this.disabledB = e.detail.checked
+    this.checkedDisabledB = e.detail.checked
     this.update()
   }
   onChangeDisabledC = (e) => {
@@ -66,11 +70,11 @@ define('my-app', class extends WeElement {
     return <div>
       <m-switch label='LabelA' value='omim A' checked={this.checkedA} disabled={this.disabledA} onChange={this.onChangeA}></m-switch>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <m-switch label='LabelA-Disabled' value='omim A-Disabled' onChange={this.onChangeDisabledA}></m-switch>
+      <m-switch label='LabelA-Disabled' value='omim A-Disabled' checked={this.checkedDisabledA} onChange={this.onChangeDisabledA}></m-switch>
       <br /><br />
       <m-switch label='LabelB' value='omim B' checked={this.checkedB} disabled={this.disabledB} onChange={this.onChangeB}></m-switch>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <m-switch label='LabelB-Disabled' value='omim B-Disabled' onChange={this.onChangeDisabledB}></m-switch>
+      <m-switch label='LabelB-Disabled' value='omim B-Disabled' checked={this.checkedDisabledB} onChange={this.onChangeDisabledB}></m-switch>
       <br /><br />
       <m-switch label='LabelC' value='omim C' checked={this.checkedC} disabled={this.disabledC} onChange={this.onChangeC}></m-switch>
       &nbsp;&nbsp;&nbsp;&nbsp;
