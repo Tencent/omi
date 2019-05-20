@@ -15,10 +15,10 @@
 ### 通过 script
 
 ```html
-<script src="https://unpkg.com/omi"></script>
-<script src="https://unpkg.com/@omim/core@0.0.1/button/index.js"></script>
-
 <m-button>I am button</m-button>
+
+<script src="https://unpkg.com/omi"></script>
+<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
 ```
 
 ### 通过 npm
@@ -66,15 +66,15 @@ import '@omim/core/button'
 或者
 
 ```html
+<m-button>I am button</m-button>
+
 <script src="https://unpkg.com/omi"></script>
 <script>
   window.OmimThemePrimary =  'red'
   window.OmimThemeSecondary =  'blue'
   window.OmimThemeError =  'yellow'
 </script>
-<script src="https://unpkg.com/@omim/core@0.0.1/button/index.js"></script>
-
-<m-button>I am button</m-button>
+<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
 ```
 
 ## 贡献
