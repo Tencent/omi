@@ -11,54 +11,69 @@
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
   <script src="../../src/switch/index.js"></script>
   
-  <m-switch id='m-switch-a' label='LabelA' value='omim A' onChange='onChange(event)'></m-switch>
+  <m-switch id='m-switch-a' label='LabelA' value='omim A'></m-switch>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <m-switch label='LabelA-Disabled' value='omim A-Disabled' onChange='onChangeDisabledA(event)'></m-switch>
+  <m-switch id='m-switch-disabled-a' label='LabelA-Disabled' value='omim A-Disabled'></m-switch>
   <br /><br />
-  <m-switch id='m-switch-b' label='LabelB' value='omim B' checked onChange='onChange(event)'></m-switch>
+  <m-switch id='m-switch-b' label='LabelB' value='omim B' checked></m-switch>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <m-switch label='LabelB-Disabled' value='omim B-Disabled' onChange='onChangeDisabledB(event)'></m-switch>
+  <m-switch id='m-switch-disabled-c' label='LabelB-Disabled' value='omim B-Disabled'></m-switch>
   <br /><br />
-  <m-switch id='m-switch-c' label='LabelC' value='omim C' checked disabled onChange='onChange(event)'></m-switch>
+  <m-switch id='m-switch-c' label='LabelC' value='omim C' disabled></m-switch>
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <m-switch label='LabelC-Disabled' value='omim C-Disabled' checked onChange='onChangeDisabledC(event)'></m-switch>
+  <m-switch id='m-switch-disabled-c' label='LabelC-Disabled' value='omim C-Disabled' checked></m-switch>
+  <br /><br />
+  <m-switch id='m-switch-d' label='LabelD' value='omim D' checked disabled></m-switch>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <m-switch id='m-switch-disabled-d' label='LabelD-Disabled' value='omim D-Disabled' checked></m-switch>
   
   <script>
     const mSwitchA = document.getElementById('m-switch-a');
     const mSwitchB = document.getElementById('m-switch-b');
     const mSwitchC = document.getElementById('m-switch-c');
+    const mSwitchD = document.getElementById('m-switch-d');
+    const mSwitchDisabledA = document.getElementById('m-switch-disabled-a');
+    const mSwitchDisabledB = document.getElementById('m-switch-disabled-b');
+    const mSwitchDisabledC = document.getElementById('m-switch-disabled-c');
+    const mSwitchDisabledD = document.getElementById('m-switch-disabled-d');
 
-    function onChange(event) {
-      event && console.log(event.detail);
-    }
+    mSwitchA.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchA.setAttribute('checked', true) : mSwitchA.removeAttribute('checked');
+    })
+    mSwitchB.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchB.setAttribute('checked', true) : mSwitchB.removeAttribute('checked');
+    })
+    mSwitchC.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchC.setAttribute('checked', true) : mSwitchC.removeAttribute('checked');
+    })
+    mSwitchD.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchD.setAttribute('checked', true) : mSwitchD.removeAttribute('checked');
+    })
 
-    function onChangeDisabledA(event) {
-      event && console.log(event.detail);
-      if(event.detail.checked) {
-        mSwitchA.setAttribute('disabled', true);
-      } else {
-        mSwitchA.removeAttribute('disabled');
-        mSwitchA.removeAttribute('checked');
-      }
-    }
-    function onChangeDisabledB(event) {
-      event && console.log(event.detail);
-      if(event.detail.checked) {
-        mSwitchB.setAttribute('disabled', true);
-      } else {
-        mSwitchB.removeAttribute('disabled');
-        mSwitchB.removeAttribute('checked');
-      }
-    }
-    function onChangeDisabledC(event) {
-      event && console.log(event.detail);
-      if(event.detail.checked) {
-        mSwitchC.setAttribute('disabled', true);
-      } else {
-        mSwitchC.removeAttribute('disabled');
-        mSwitchC.removeAttribute('checked');
-      }
-    }
+    mSwitchDisabledA.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchDisabledA.setAttribute('checked', true) : mSwitchDisabledA.removeAttribute('checked');
+      e.detail.checked ? mSwitchA.setAttribute('disabled', true) : mSwitchA.removeAttribute('disabled');
+    })
+    mSwitchDisabledB.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchDisabledB.setAttribute('checked', true) : mSwitchDisabledB.removeAttribute('checked');
+      e.detail.checked ? mSwitchB.setAttribute('disabled', true) : mSwitchB.removeAttribute('disabled');
+    })
+    mSwitchDisabledC.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchDisabledC.setAttribute('checked', true) : mSwitchDisabledC.removeAttribute('checked');
+      e.detail.checked ? mSwitchC.setAttribute('disabled', true) : mSwitchC.removeAttribute('disabled');
+    })
+    mSwitchDisabledD.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchDisabledD.setAttribute('checked', true) : mSwitchDisabledD.removeAttribute('checked');
+      e.detail.checked ? mSwitchD.setAttribute('disabled', true) : mSwitchD.removeAttribute('disabled');
+    })
   </script>
 
   <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">

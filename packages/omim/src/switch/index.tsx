@@ -38,22 +38,23 @@ export default class Switch extends WeElement<Props, Data>{
   switchFoundation: MDCSwitchFoundation
 
   updated() {
-    if(this.props.disabled) {
-      this.switchFoundation.setChecked(false)
-    }
-    this.switchFoundation.setDisabled(this.props.disabled)
+    this.initSwitch()
   }
 
   installed() {
     this.switchControl = new MDCSwitch(this.shadowRoot.querySelector('.mdc-switch'))
     this.switchFoundation = this.switchControl.getDefaultFoundation()
 
-    if(this.props.disabled) {
-      this.switchFoundation.setChecked(false)
-    } else {
+    this.initSwitch()
+  }
+
+  initSwitch() {
+    if(typeof this.props.checked === 'boolean') {
       this.switchFoundation.setChecked(this.props.checked)
     }
-    this.switchFoundation.setDisabled(this.props.disabled)
+    if(typeof this.props.disabled === 'boolean') {
+      this.switchFoundation.setDisabled(this.props.disabled)
+    }
   }
 
   onInput = (evt) => {

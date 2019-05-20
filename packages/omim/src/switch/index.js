@@ -1902,21 +1902,20 @@ var Switch = /** @class */ (function (_super) {
         return _this;
     }
     Switch.prototype.updated = function () {
-        if (this.props.disabled) {
-            this.switchFoundation.setChecked(false);
-        }
-        this.switchFoundation.setDisabled(this.props.disabled);
+        this.initSwitch();
     };
     Switch.prototype.installed = function () {
         this.switchControl = new switch_1.MDCSwitch(this.shadowRoot.querySelector('.mdc-switch'));
         this.switchFoundation = this.switchControl.getDefaultFoundation();
-        if (this.props.disabled) {
-            this.switchFoundation.setChecked(false);
-        }
-        else {
+        this.initSwitch();
+    };
+    Switch.prototype.initSwitch = function () {
+        if (typeof this.props.checked === 'boolean') {
             this.switchFoundation.setChecked(this.props.checked);
         }
-        this.switchFoundation.setDisabled(this.props.disabled);
+        if (typeof this.props.disabled === 'boolean') {
+            this.switchFoundation.setDisabled(this.props.disabled);
+        }
     };
     Switch.prototype.render = function (props) {
         return [
