@@ -20,19 +20,25 @@ define('my-app', class extends WeElement {
   onChangeDisabledA = (e) => {
     console.log(e.detail)
     this.disabledA = e.detail.checked
-    this.checkedA = e.detail.checked
+    if(!e.detail.checked) {
+      this.checkedA = false
+    }
     this.update()
   }
   onChangeDisabledB = (e) => {
     console.log(e.detail)
     this.disabledB = e.detail.checked
-    this.checkedB = e.detail.checked
+    if(!e.detail.checked) {
+      this.checkedB = false
+    }
     this.update()
   }
   onChangeDisabledC = (e) => {
     console.log(e.detail)
     this.disabledC = e.detail.checked
-    this.checkedC = e.detail.checked
+    if(!e.detail.checked) {
+      this.checkedC = false
+    }
     this.update()
   }
 

@@ -12,7 +12,7 @@ interface Props {
   label?: string,
   disabled?: boolean,
   checked?: boolean,
-  value: string
+  value?: string
 }
 
 interface Data {
