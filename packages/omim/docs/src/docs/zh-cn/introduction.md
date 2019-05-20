@@ -2,7 +2,7 @@
 
 [Omi](https://github.com/Tencent/omi) 打造的 Material Design 框架无关标准组件，任意框架都可以使用。
 
-![](https://tencent.github.io/omi/packages/omim/assets/pv4.jpeg)
+![](https://tencent.github.io/omi/packages/omim/assets/pv4.jpeg?a=1)
 
 ## 特性
 
