@@ -3520,7 +3520,7 @@ var Drawer = /** @class */ (function (_super) {
         var list = list_1.MDCList.attachTo(this.shadowRoot.querySelector('.mdc-list'));
         list.wrapFocus = true;
         list.listen('MDCList:action', function (evt) {
-            //The event will fire twice, why?(Solution: Prevent duplication listen)
+            //The event will fire twice, why? May be a list listener included in the drawer.(Solution: Prevent duplication listen)
             if (!_this.listAll[evt.detail.index].markListen) {
                 _this.fire('change', _this.listAll[evt.detail.index]);
                 _this.listAll[evt.detail.index].markListen = true;

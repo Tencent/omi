@@ -362,6 +362,792 @@ function matches(element, selector) {
 
 /***/ }),
 
+/***/ "./node_modules/@material/ripple/component.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/ripple/component.js ***!
+  \****************************************************/
+/*! exports provided: MDCRipple */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return MDCRipple; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+var MDCRipple = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRipple, _super);
+    function MDCRipple() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.disabled = false;
+        return _this;
+    }
+    MDCRipple.attachTo = function (root, opts) {
+        if (opts === void 0) { opts = { isUnbounded: undefined }; }
+        var ripple = new MDCRipple(root);
+        // Only override unbounded behavior if option is explicitly specified
+        if (opts.isUnbounded !== undefined) {
+            ripple.unbounded = opts.isUnbounded;
+        }
+        return ripple;
+    };
+    MDCRipple.createAdapter = function (instance) {
+        return {
+            addClass: function (className) { return instance.root_.classList.add(className); },
+            browserSupportsCssVars: function () { return _util__WEBPACK_IMPORTED_MODULE_4__["supportsCssVariables"](window); },
+            computeBoundingRect: function () { return instance.root_.getBoundingClientRect(); },
+            containsEventTarget: function (target) { return instance.root_.contains(target); },
+            deregisterDocumentInteractionHandler: function (evtType, handler) {
+                return document.documentElement.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
+            },
+            deregisterInteractionHandler: function (evtType, handler) {
+                return instance.root_.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
+            },
+            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },
+            getWindowPageOffset: function () { return ({ x: window.pageXOffset, y: window.pageYOffset }); },
+            isSurfaceActive: function () { return Object(_material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__["matches"])(instance.root_, ':active'); },
+            isSurfaceDisabled: function () { return Boolean(instance.disabled); },
+            isUnbounded: function () { return Boolean(instance.unbounded); },
+            registerDocumentInteractionHandler: function (evtType, handler) {
+                return document.documentElement.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
+            },
+            registerInteractionHandler: function (evtType, handler) {
+                return instance.root_.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
+            },
+            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },
+            removeClass: function (className) { return instance.root_.classList.remove(className); },
+            updateCssVariable: function (varName, value) { return instance.root_.style.setProperty(varName, value); },
+        };
+    };
+    Object.defineProperty(MDCRipple.prototype, "unbounded", {
+        get: function () {
+            return Boolean(this.unbounded_);
+        },
+        set: function (unbounded) {
+            this.unbounded_ = Boolean(unbounded);
+            this.setUnbounded_();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCRipple.prototype.activate = function () {
+        this.foundation_.activate();
+    };
+    MDCRipple.prototype.deactivate = function () {
+        this.foundation_.deactivate();
+    };
+    MDCRipple.prototype.layout = function () {
+        this.foundation_.layout();
+    };
+    MDCRipple.prototype.getDefaultFoundation = function () {
+        return new _foundation__WEBPACK_IMPORTED_MODULE_3__["MDCRippleFoundation"](MDCRipple.createAdapter(this));
+    };
+    MDCRipple.prototype.initialSyncWithDOM = function () {
+        var root = this.root_;
+        this.unbounded = 'mdcRippleIsUnbounded' in root.dataset;
+    };
+    /**
+     * Closure Compiler throws an access control error when directly accessing a
+     * protected or private property inside a getter/setter, like unbounded above.
+     * By accessing the protected property inside a method, we solve that problem.
+     * That's why this function exists.
+     */
+    MDCRipple.prototype.setUnbounded_ = function () {
+        this.foundation_.setUnbounded(Boolean(this.unbounded_));
+    };
+    return MDCRipple;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/ripple/constants.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@material/ripple/constants.js ***!
+  \****************************************************/
+/*! exports provided: cssClasses, strings, numbers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses = {
+    // Ripple is a special case where the "root" component is really a "mixin" of sorts,
+    // given that it's an 'upgrade' to an existing component. That being said it is the root
+    // CSS class that all other CSS classes derive from.
+    BG_FOCUSED: 'mdc-ripple-upgraded--background-focused',
+    FG_ACTIVATION: 'mdc-ripple-upgraded--foreground-activation',
+    FG_DEACTIVATION: 'mdc-ripple-upgraded--foreground-deactivation',
+    ROOT: 'mdc-ripple-upgraded',
+    UNBOUNDED: 'mdc-ripple-upgraded--unbounded',
+};
+var strings = {
+    VAR_FG_SCALE: '--mdc-ripple-fg-scale',
+    VAR_FG_SIZE: '--mdc-ripple-fg-size',
+    VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',
+    VAR_FG_TRANSLATE_START: '--mdc-ripple-fg-translate-start',
+    VAR_LEFT: '--mdc-ripple-left',
+    VAR_TOP: '--mdc-ripple-top',
+};
+var numbers = {
+    DEACTIVATION_TIMEOUT_MS: 225,
+    FG_DEACTIVATION_MS: 150,
+    INITIAL_ORIGIN_SCALE: 0.6,
+    PADDING: 10,
+    TAP_DELAY_MS: 300,
+};
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/ripple/foundation.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/ripple/foundation.js ***!
+  \*****************************************************/
+/*! exports provided: MDCRippleFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/ripple/constants.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+// Activation events registered on the root element of each instance for activation
+var ACTIVATION_EVENT_TYPES = [
+    'touchstart', 'pointerdown', 'mousedown', 'keydown',
+];
+// Deactivation events registered on documentElement when a pointer-related down event occurs
+var POINTER_DEACTIVATION_EVENT_TYPES = [
+    'touchend', 'pointerup', 'mouseup', 'contextmenu',
+];
+// simultaneous nested activations
+var activatedTargets = [];
+var MDCRippleFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRippleFoundation, _super);
+    function MDCRippleFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCRippleFoundation.defaultAdapter, adapter)) || this;
+        _this.activationAnimationHasEnded_ = false;
+        _this.activationTimer_ = 0;
+        _this.fgDeactivationRemovalTimer_ = 0;
+        _this.fgScale_ = '0';
+        _this.frame_ = { width: 0, height: 0 };
+        _this.initialSize_ = 0;
+        _this.layoutFrame_ = 0;
+        _this.maxRadius_ = 0;
+        _this.unboundedCoords_ = { left: 0, top: 0 };
+        _this.activationState_ = _this.defaultActivationState_();
+        _this.activationTimerCallback_ = function () {
+            _this.activationAnimationHasEnded_ = true;
+            _this.runDeactivationUXLogicIfReady_();
+        };
+        _this.activateHandler_ = function (e) { return _this.activate_(e); };
+        _this.deactivateHandler_ = function () { return _this.deactivate_(); };
+        _this.focusHandler_ = function () { return _this.handleFocus(); };
+        _this.blurHandler_ = function () { return _this.handleBlur(); };
+        _this.resizeHandler_ = function () { return _this.layout(); };
+        return _this;
+    }
+    Object.defineProperty(MDCRippleFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCRippleFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCRippleFoundation, "numbers", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCRippleFoundation, "defaultAdapter", {
+        get: function () {
+            return {
+                addClass: function () { return undefined; },
+                browserSupportsCssVars: function () { return true; },
+                computeBoundingRect: function () { return ({ top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 }); },
+                containsEventTarget: function () { return true; },
+                deregisterDocumentInteractionHandler: function () { return undefined; },
+                deregisterInteractionHandler: function () { return undefined; },
+                deregisterResizeHandler: function () { return undefined; },
+                getWindowPageOffset: function () { return ({ x: 0, y: 0 }); },
+                isSurfaceActive: function () { return true; },
+                isSurfaceDisabled: function () { return true; },
+                isUnbounded: function () { return true; },
+                registerDocumentInteractionHandler: function () { return undefined; },
+                registerInteractionHandler: function () { return undefined; },
+                registerResizeHandler: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                updateCssVariable: function () { return undefined; },
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCRippleFoundation.prototype.init = function () {
+        var _this = this;
+        var supportsPressRipple = this.supportsPressRipple_();
+        this.registerRootHandlers_(supportsPressRipple);
+        if (supportsPressRipple) {
+            var _a = MDCRippleFoundation.cssClasses, ROOT_1 = _a.ROOT, UNBOUNDED_1 = _a.UNBOUNDED;
+            requestAnimationFrame(function () {
+                _this.adapter_.addClass(ROOT_1);
+                if (_this.adapter_.isUnbounded()) {
+                    _this.adapter_.addClass(UNBOUNDED_1);
+                    // Unbounded ripples need layout logic applied immediately to set coordinates for both shade and ripple
+                    _this.layoutInternal_();
+                }
+            });
+        }
+    };
+    MDCRippleFoundation.prototype.destroy = function () {
+        var _this = this;
+        if (this.supportsPressRipple_()) {
+            if (this.activationTimer_) {
+                clearTimeout(this.activationTimer_);
+                this.activationTimer_ = 0;
+                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_ACTIVATION);
+            }
+            if (this.fgDeactivationRemovalTimer_) {
+                clearTimeout(this.fgDeactivationRemovalTimer_);
+                this.fgDeactivationRemovalTimer_ = 0;
+                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_DEACTIVATION);
+            }
+            var _a = MDCRippleFoundation.cssClasses, ROOT_2 = _a.ROOT, UNBOUNDED_2 = _a.UNBOUNDED;
+            requestAnimationFrame(function () {
+                _this.adapter_.removeClass(ROOT_2);
+                _this.adapter_.removeClass(UNBOUNDED_2);
+                _this.removeCssVars_();
+            });
+        }
+        this.deregisterRootHandlers_();
+        this.deregisterDeactivationHandlers_();
+    };
+    /**
+     * @param evt Optional event containing position information.
+     */
+    MDCRippleFoundation.prototype.activate = function (evt) {
+        this.activate_(evt);
+    };
+    MDCRippleFoundation.prototype.deactivate = function () {
+        this.deactivate_();
+    };
+    MDCRippleFoundation.prototype.layout = function () {
+        var _this = this;
+        if (this.layoutFrame_) {
+            cancelAnimationFrame(this.layoutFrame_);
+        }
+        this.layoutFrame_ = requestAnimationFrame(function () {
+            _this.layoutInternal_();
+            _this.layoutFrame_ = 0;
+        });
+    };
+    MDCRippleFoundation.prototype.setUnbounded = function (unbounded) {
+        var UNBOUNDED = MDCRippleFoundation.cssClasses.UNBOUNDED;
+        if (unbounded) {
+            this.adapter_.addClass(UNBOUNDED);
+        }
+        else {
+            this.adapter_.removeClass(UNBOUNDED);
+        }
+    };
+    MDCRippleFoundation.prototype.handleFocus = function () {
+        var _this = this;
+        requestAnimationFrame(function () {
+            return _this.adapter_.addClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
+        });
+    };
+    MDCRippleFoundation.prototype.handleBlur = function () {
+        var _this = this;
+        requestAnimationFrame(function () {
+            return _this.adapter_.removeClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
+        });
+    };
+    /**
+     * We compute this property so that we are not querying information about the client
+     * until the point in time where the foundation requests it. This prevents scenarios where
+     * client-side feature-detection may happen too early, such as when components are rendered on the server
+     * and then initialized at mount time on the client.
+     */
+    MDCRippleFoundation.prototype.supportsPressRipple_ = function () {
+        return this.adapter_.browserSupportsCssVars();
+    };
+    MDCRippleFoundation.prototype.defaultActivationState_ = function () {
+        return {
+            activationEvent: undefined,
+            hasDeactivationUXRun: false,
+            isActivated: false,
+            isProgrammatic: false,
+            wasActivatedByPointer: false,
+            wasElementMadeActive: false,
+        };
+    };
+    /**
+     * supportsPressRipple Passed from init to save a redundant function call
+     */
+    MDCRippleFoundation.prototype.registerRootHandlers_ = function (supportsPressRipple) {
+        var _this = this;
+        if (supportsPressRipple) {
+            ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+                _this.adapter_.registerInteractionHandler(evtType, _this.activateHandler_);
+            });
+            if (this.adapter_.isUnbounded()) {
+                this.adapter_.registerResizeHandler(this.resizeHandler_);
+            }
+        }
+        this.adapter_.registerInteractionHandler('focus', this.focusHandler_);
+        this.adapter_.registerInteractionHandler('blur', this.blurHandler_);
+    };
+    MDCRippleFoundation.prototype.registerDeactivationHandlers_ = function (evt) {
+        var _this = this;
+        if (evt.type === 'keydown') {
+            this.adapter_.registerInteractionHandler('keyup', this.deactivateHandler_);
+        }
+        else {
+            POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+                _this.adapter_.registerDocumentInteractionHandler(evtType, _this.deactivateHandler_);
+            });
+        }
+    };
+    MDCRippleFoundation.prototype.deregisterRootHandlers_ = function () {
+        var _this = this;
+        ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+            _this.adapter_.deregisterInteractionHandler(evtType, _this.activateHandler_);
+        });
+        this.adapter_.deregisterInteractionHandler('focus', this.focusHandler_);
+        this.adapter_.deregisterInteractionHandler('blur', this.blurHandler_);
+        if (this.adapter_.isUnbounded()) {
+            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
+        }
+    };
+    MDCRippleFoundation.prototype.deregisterDeactivationHandlers_ = function () {
+        var _this = this;
+        this.adapter_.deregisterInteractionHandler('keyup', this.deactivateHandler_);
+        POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
+            _this.adapter_.deregisterDocumentInteractionHandler(evtType, _this.deactivateHandler_);
+        });
+    };
+    MDCRippleFoundation.prototype.removeCssVars_ = function () {
+        var _this = this;
+        var rippleStrings = MDCRippleFoundation.strings;
+        var keys = Object.keys(rippleStrings);
+        keys.forEach(function (key) {
+            if (key.indexOf('VAR_') === 0) {
+                _this.adapter_.updateCssVariable(rippleStrings[key], null);
+            }
+        });
+    };
+    MDCRippleFoundation.prototype.activate_ = function (evt) {
+        var _this = this;
+        if (this.adapter_.isSurfaceDisabled()) {
+            return;
+        }
+        var activationState = this.activationState_;
+        if (activationState.isActivated) {
+            return;
+        }
+        // Avoid reacting to follow-on events fired by touch device after an already-processed user interaction
+        var previousActivationEvent = this.previousActivationEvent_;
+        var isSameInteraction = previousActivationEvent && evt !== undefined && previousActivationEvent.type !== evt.type;
+        if (isSameInteraction) {
+            return;
+        }
+        activationState.isActivated = true;
+        activationState.isProgrammatic = evt === undefined;
+        activationState.activationEvent = evt;
+        activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : evt !== undefined && (evt.type === 'mousedown' || evt.type === 'touchstart' || evt.type === 'pointerdown');
+        var hasActivatedChild = evt !== undefined && activatedTargets.length > 0 && activatedTargets.some(function (target) { return _this.adapter_.containsEventTarget(target); });
+        if (hasActivatedChild) {
+            // Immediately reset activation state, while preserving logic that prevents touch follow-on events
+            this.resetActivationState_();
+            return;
+        }
+        if (evt !== undefined) {
+            activatedTargets.push(evt.target);
+            this.registerDeactivationHandlers_(evt);
+        }
+        activationState.wasElementMadeActive = this.checkElementMadeActive_(evt);
+        if (activationState.wasElementMadeActive) {
+            this.animateActivation_();
+        }
+        requestAnimationFrame(function () {
+            // Reset array on next frame after the current event has had a chance to bubble to prevent ancestor ripples
+            activatedTargets = [];
+            if (!activationState.wasElementMadeActive
+                && evt !== undefined
+                && (evt.key === ' ' || evt.keyCode === 32)) {
+                // If space was pressed, try again within an rAF call to detect :active, because different UAs report
+                // active states inconsistently when they're called within event handling code:
+                // - https://bugs.chromium.org/p/chromium/issues/detail?id=635971
+                // - https://bugzilla.mozilla.org/show_bug.cgi?id=1293741
+                // We try first outside rAF to support Edge, which does not exhibit this problem, but will crash if a CSS
+                // variable is set within a rAF callback for a submit button interaction (#2241).
+                activationState.wasElementMadeActive = _this.checkElementMadeActive_(evt);
+                if (activationState.wasElementMadeActive) {
+                    _this.animateActivation_();
+                }
+            }
+            if (!activationState.wasElementMadeActive) {
+                // Reset activation state immediately if element was not made active.
+                _this.activationState_ = _this.defaultActivationState_();
+            }
+        });
+    };
+    MDCRippleFoundation.prototype.checkElementMadeActive_ = function (evt) {
+        return (evt !== undefined && evt.type === 'keydown') ? this.adapter_.isSurfaceActive() : true;
+    };
+    MDCRippleFoundation.prototype.animateActivation_ = function () {
+        var _this = this;
+        var _a = MDCRippleFoundation.strings, VAR_FG_TRANSLATE_START = _a.VAR_FG_TRANSLATE_START, VAR_FG_TRANSLATE_END = _a.VAR_FG_TRANSLATE_END;
+        var _b = MDCRippleFoundation.cssClasses, FG_DEACTIVATION = _b.FG_DEACTIVATION, FG_ACTIVATION = _b.FG_ACTIVATION;
+        var DEACTIVATION_TIMEOUT_MS = MDCRippleFoundation.numbers.DEACTIVATION_TIMEOUT_MS;
+        this.layoutInternal_();
+        var translateStart = '';
+        var translateEnd = '';
+        if (!this.adapter_.isUnbounded()) {
+            var _c = this.getFgTranslationCoordinates_(), startPoint = _c.startPoint, endPoint = _c.endPoint;
+            translateStart = startPoint.x + "px, " + startPoint.y + "px";
+            translateEnd = endPoint.x + "px, " + endPoint.y + "px";
+        }
+        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_START, translateStart);
+        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_END, translateEnd);
+        // Cancel any ongoing activation/deactivation animations
+        clearTimeout(this.activationTimer_);
+        clearTimeout(this.fgDeactivationRemovalTimer_);
+        this.rmBoundedActivationClasses_();
+        this.adapter_.removeClass(FG_DEACTIVATION);
+        // Force layout in order to re-trigger the animation.
+        this.adapter_.computeBoundingRect();
+        this.adapter_.addClass(FG_ACTIVATION);
+        this.activationTimer_ = setTimeout(function () { return _this.activationTimerCallback_(); }, DEACTIVATION_TIMEOUT_MS);
+    };
+    MDCRippleFoundation.prototype.getFgTranslationCoordinates_ = function () {
+        var _a = this.activationState_, activationEvent = _a.activationEvent, wasActivatedByPointer = _a.wasActivatedByPointer;
+        var startPoint;
+        if (wasActivatedByPointer) {
+            startPoint = Object(_util__WEBPACK_IMPORTED_MODULE_3__["getNormalizedEventCoords"])(activationEvent, this.adapter_.getWindowPageOffset(), this.adapter_.computeBoundingRect());
+        }
+        else {
+            startPoint = {
+                x: this.frame_.width / 2,
+                y: this.frame_.height / 2,
+            };
+        }
+        // Center the element around the start point.
+        startPoint = {
+            x: startPoint.x - (this.initialSize_ / 2),
+            y: startPoint.y - (this.initialSize_ / 2),
+        };
+        var endPoint = {
+            x: (this.frame_.width / 2) - (this.initialSize_ / 2),
+            y: (this.frame_.height / 2) - (this.initialSize_ / 2),
+        };
+        return { startPoint: startPoint, endPoint: endPoint };
+    };
+    MDCRippleFoundation.prototype.runDeactivationUXLogicIfReady_ = function () {
+        var _this = this;
+        // This method is called both when a pointing device is released, and when the activation animation ends.
+        // The deactivation animation should only run after both of those occur.
+        var FG_DEACTIVATION = MDCRippleFoundation.cssClasses.FG_DEACTIVATION;
+        var _a = this.activationState_, hasDeactivationUXRun = _a.hasDeactivationUXRun, isActivated = _a.isActivated;
+        var activationHasEnded = hasDeactivationUXRun || !isActivated;
+        if (activationHasEnded && this.activationAnimationHasEnded_) {
+            this.rmBoundedActivationClasses_();
+            this.adapter_.addClass(FG_DEACTIVATION);
+            this.fgDeactivationRemovalTimer_ = setTimeout(function () {
+                _this.adapter_.removeClass(FG_DEACTIVATION);
+            }, _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"].FG_DEACTIVATION_MS);
+        }
+    };
+    MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {
+        var FG_ACTIVATION = MDCRippleFoundation.cssClasses.FG_ACTIVATION;
+        this.adapter_.removeClass(FG_ACTIVATION);
+        this.activationAnimationHasEnded_ = false;
+        this.adapter_.computeBoundingRect();
+    };
+    MDCRippleFoundation.prototype.resetActivationState_ = function () {
+        var _this = this;
+        this.previousActivationEvent_ = this.activationState_.activationEvent;
+        this.activationState_ = this.defaultActivationState_();
+        // Touch devices may fire additional events for the same interaction within a short time.
+        // Store the previous event until it's safe to assume that subsequent events are for new interactions.
+        setTimeout(function () { return _this.previousActivationEvent_ = undefined; }, MDCRippleFoundation.numbers.TAP_DELAY_MS);
+    };
+    MDCRippleFoundation.prototype.deactivate_ = function () {
+        var _this = this;
+        var activationState = this.activationState_;
+        // This can happen in scenarios such as when you have a keyup event that blurs the element.
+        if (!activationState.isActivated) {
+            return;
+        }
+        var state = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, activationState);
+        if (activationState.isProgrammatic) {
+            requestAnimationFrame(function () { return _this.animateDeactivation_(state); });
+            this.resetActivationState_();
+        }
+        else {
+            this.deregisterDeactivationHandlers_();
+            requestAnimationFrame(function () {
+                _this.activationState_.hasDeactivationUXRun = true;
+                _this.animateDeactivation_(state);
+                _this.resetActivationState_();
+            });
+        }
+    };
+    MDCRippleFoundation.prototype.animateDeactivation_ = function (_a) {
+        var wasActivatedByPointer = _a.wasActivatedByPointer, wasElementMadeActive = _a.wasElementMadeActive;
+        if (wasActivatedByPointer || wasElementMadeActive) {
+            this.runDeactivationUXLogicIfReady_();
+        }
+    };
+    MDCRippleFoundation.prototype.layoutInternal_ = function () {
+        var _this = this;
+        this.frame_ = this.adapter_.computeBoundingRect();
+        var maxDim = Math.max(this.frame_.height, this.frame_.width);
+        // Surface diameter is treated differently for unbounded vs. bounded ripples.
+        // Unbounded ripple diameter is calculated smaller since the surface is expected to already be padded appropriately
+        // to extend the hitbox, and the ripple is expected to meet the edges of the padded hitbox (which is typically
+        // square). Bounded ripples, on the other hand, are fully expected to expand beyond the surface's longest diameter
+        // (calculated based on the diagonal plus a constant padding), and are clipped at the surface's border via
+        // `overflow: hidden`.
+        var getBoundedRadius = function () {
+            var hypotenuse = Math.sqrt(Math.pow(_this.frame_.width, 2) + Math.pow(_this.frame_.height, 2));
+            return hypotenuse + MDCRippleFoundation.numbers.PADDING;
+        };
+        this.maxRadius_ = this.adapter_.isUnbounded() ? maxDim : getBoundedRadius();
+        // Ripple is sized as a fraction of the largest dimension of the surface, then scales up using a CSS scale transform
+        this.initialSize_ = Math.floor(maxDim * MDCRippleFoundation.numbers.INITIAL_ORIGIN_SCALE);
+        this.fgScale_ = "" + this.maxRadius_ / this.initialSize_;
+        this.updateLayoutCssVars_();
+    };
+    MDCRippleFoundation.prototype.updateLayoutCssVars_ = function () {
+        var _a = MDCRippleFoundation.strings, VAR_FG_SIZE = _a.VAR_FG_SIZE, VAR_LEFT = _a.VAR_LEFT, VAR_TOP = _a.VAR_TOP, VAR_FG_SCALE = _a.VAR_FG_SCALE;
+        this.adapter_.updateCssVariable(VAR_FG_SIZE, this.initialSize_ + "px");
+        this.adapter_.updateCssVariable(VAR_FG_SCALE, this.fgScale_);
+        if (this.adapter_.isUnbounded()) {
+            this.unboundedCoords_ = {
+                left: Math.round((this.frame_.width / 2) - (this.initialSize_ / 2)),
+                top: Math.round((this.frame_.height / 2) - (this.initialSize_ / 2)),
+            };
+            this.adapter_.updateCssVariable(VAR_LEFT, this.unboundedCoords_.left + "px");
+            this.adapter_.updateCssVariable(VAR_TOP, this.unboundedCoords_.top + "px");
+        }
+    };
+    return MDCRippleFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCRippleFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/ripple/util.js":
+/*!***********************************************!*\
+  !*** ./node_modules/@material/ripple/util.js ***!
+  \***********************************************/
+/*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "supportsCssVariables", function() { return supportsCssVariables; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyPassive", function() { return applyPassive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNormalizedEventCoords", function() { return getNormalizedEventCoords; });
+/**
+ * Stores result from supportsCssVariables to avoid redundant processing to
+ * detect CSS custom variable support.
+ */
+var supportsCssVariables_;
+/**
+ * Stores result from applyPassive to avoid redundant processing to detect
+ * passive event listener support.
+ */
+var supportsPassive_;
+function detectEdgePseudoVarBug(windowObj) {
+    // Detect versions of Edge with buggy var() support
+    // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11495448/
+    var document = windowObj.document;
+    var node = document.createElement('div');
+    node.className = 'mdc-ripple-surface--test-edge-var-bug';
+    document.body.appendChild(node);
+    // The bug exists if ::before style ends up propagating to the parent element.
+    // Additionally, getComputedStyle returns null in iframes with display: "none" in Firefox,
+    // but Firefox is known to support CSS custom properties correctly.
+    // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+    var computedStyle = windowObj.getComputedStyle(node);
+    var hasPseudoVarBug = computedStyle !== null && computedStyle.borderTopStyle === 'solid';
+    if (node.parentNode) {
+        node.parentNode.removeChild(node);
+    }
+    return hasPseudoVarBug;
+}
+function supportsCssVariables(windowObj, forceRefresh) {
+    if (forceRefresh === void 0) { forceRefresh = false; }
+    var CSS = windowObj.CSS;
+    var supportsCssVars = supportsCssVariables_;
+    if (typeof supportsCssVariables_ === 'boolean' && !forceRefresh) {
+        return supportsCssVariables_;
+    }
+    var supportsFunctionPresent = CSS && typeof CSS.supports === 'function';
+    if (!supportsFunctionPresent) {
+        return false;
+    }
+    var explicitlySupportsCssVars = CSS.supports('--css-vars', 'yes');
+    // See: https://bugs.webkit.org/show_bug.cgi?id=154669
+    // See: README section on Safari
+    var weAreFeatureDetectingSafari10plus = (CSS.supports('(--css-vars: yes)') &&
+        CSS.supports('color', '#00000000'));
+    if (explicitlySupportsCssVars || weAreFeatureDetectingSafari10plus) {
+        supportsCssVars = !detectEdgePseudoVarBug(windowObj);
+    }
+    else {
+        supportsCssVars = false;
+    }
+    if (!forceRefresh) {
+        supportsCssVariables_ = supportsCssVars;
+    }
+    return supportsCssVars;
+}
+/**
+ * Determine whether the current browser supports passive event listeners, and
+ * if so, use them.
+ */
+function applyPassive(globalObj, forceRefresh) {
+    if (globalObj === void 0) { globalObj = window; }
+    if (forceRefresh === void 0) { forceRefresh = false; }
+    if (supportsPassive_ === undefined || forceRefresh) {
+        var isSupported_1 = false;
+        try {
+            globalObj.document.addEventListener('test', function () { return undefined; }, {
+                get passive() {
+                    isSupported_1 = true;
+                    return isSupported_1;
+                },
+            });
+        }
+        catch (e) {
+        } // tslint:disable-line:no-empty cannot throw error due to tests. tslint also disables console.log.
+        supportsPassive_ = isSupported_1;
+    }
+    return supportsPassive_ ? { passive: true } : false;
+}
+function getNormalizedEventCoords(evt, pageOffset, clientRect) {
+    if (!evt) {
+        return { x: 0, y: 0 };
+    }
+    var x = pageOffset.x, y = pageOffset.y;
+    var documentX = x + clientRect.left;
+    var documentY = y + clientRect.top;
+    var normalizedX;
+    var normalizedY;
+    // Determine touch point relative to the ripple container.
+    if (evt.type === 'touchstart') {
+        var touchEvent = evt;
+        normalizedX = touchEvent.changedTouches[0].pageX - documentX;
+        normalizedY = touchEvent.changedTouches[0].pageY - documentY;
+    }
+    else {
+        var mouseEvent = evt;
+        normalizedX = mouseEvent.pageX - documentX;
+        normalizedY = mouseEvent.pageY - documentY;
+    }
+    return { x: normalizedX, y: normalizedY };
+}
+//# sourceMappingURL=util.js.map
+
+/***/ }),
+
 /***/ "./node_modules/@material/tab-bar/component.js":
 /*!*****************************************************!*\
   !*** ./node_modules/@material/tab-bar/component.js ***!
@@ -2294,8 +3080,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTab", function() { return MDCTab; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/tab/node_modules/@material/ripple/component.js");
-/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/@material/tab/node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/ripple/component.js");
+/* harmony import */ var _material_ripple_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material/ripple/foundation */ "./node_modules/@material/ripple/foundation.js");
 /* harmony import */ var _material_tab_indicator_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material/tab-indicator/component */ "./node_modules/@material/tab-indicator/component.js");
 /* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/tab/foundation.js");
 /**
@@ -2622,792 +3408,6 @@ var MDCTabFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/tab/node_modules/@material/ripple/component.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@material/tab/node_modules/@material/ripple/component.js ***!
-  \*******************************************************************************/
-/*! exports provided: MDCRipple */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRipple", function() { return MDCRipple; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-/* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/tab/node_modules/@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/tab/node_modules/@material/ripple/util.js");
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-
-var MDCRipple = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRipple, _super);
-    function MDCRipple() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.disabled = false;
-        return _this;
-    }
-    MDCRipple.attachTo = function (root, opts) {
-        if (opts === void 0) { opts = { isUnbounded: undefined }; }
-        var ripple = new MDCRipple(root);
-        // Only override unbounded behavior if option is explicitly specified
-        if (opts.isUnbounded !== undefined) {
-            ripple.unbounded = opts.isUnbounded;
-        }
-        return ripple;
-    };
-    MDCRipple.createAdapter = function (instance) {
-        return {
-            addClass: function (className) { return instance.root_.classList.add(className); },
-            browserSupportsCssVars: function () { return _util__WEBPACK_IMPORTED_MODULE_4__["supportsCssVariables"](window); },
-            computeBoundingRect: function () { return instance.root_.getBoundingClientRect(); },
-            containsEventTarget: function (target) { return instance.root_.contains(target); },
-            deregisterDocumentInteractionHandler: function (evtType, handler) {
-                return document.documentElement.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            deregisterInteractionHandler: function (evtType, handler) {
-                return instance.root_.removeEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },
-            getWindowPageOffset: function () { return ({ x: window.pageXOffset, y: window.pageYOffset }); },
-            isSurfaceActive: function () { return Object(_material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__["matches"])(instance.root_, ':active'); },
-            isSurfaceDisabled: function () { return Boolean(instance.disabled); },
-            isUnbounded: function () { return Boolean(instance.unbounded); },
-            registerDocumentInteractionHandler: function (evtType, handler) {
-                return document.documentElement.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            registerInteractionHandler: function (evtType, handler) {
-                return instance.root_.addEventListener(evtType, handler, _util__WEBPACK_IMPORTED_MODULE_4__["applyPassive"]());
-            },
-            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },
-            removeClass: function (className) { return instance.root_.classList.remove(className); },
-            updateCssVariable: function (varName, value) { return instance.root_.style.setProperty(varName, value); },
-        };
-    };
-    Object.defineProperty(MDCRipple.prototype, "unbounded", {
-        get: function () {
-            return Boolean(this.unbounded_);
-        },
-        set: function (unbounded) {
-            this.unbounded_ = Boolean(unbounded);
-            this.setUnbounded_();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCRipple.prototype.activate = function () {
-        this.foundation_.activate();
-    };
-    MDCRipple.prototype.deactivate = function () {
-        this.foundation_.deactivate();
-    };
-    MDCRipple.prototype.layout = function () {
-        this.foundation_.layout();
-    };
-    MDCRipple.prototype.getDefaultFoundation = function () {
-        return new _foundation__WEBPACK_IMPORTED_MODULE_3__["MDCRippleFoundation"](MDCRipple.createAdapter(this));
-    };
-    MDCRipple.prototype.initialSyncWithDOM = function () {
-        var root = this.root_;
-        this.unbounded = 'mdcRippleIsUnbounded' in root.dataset;
-    };
-    /**
-     * Closure Compiler throws an access control error when directly accessing a
-     * protected or private property inside a getter/setter, like unbounded above.
-     * By accessing the protected property inside a method, we solve that problem.
-     * That's why this function exists.
-     */
-    MDCRipple.prototype.setUnbounded_ = function () {
-        this.foundation_.setUnbounded(Boolean(this.unbounded_));
-    };
-    return MDCRipple;
-}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
-
-//# sourceMappingURL=component.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/tab/node_modules/@material/ripple/constants.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@material/tab/node_modules/@material/ripple/constants.js ***!
-  \*******************************************************************************/
-/*! exports provided: cssClasses, strings, numbers */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-var cssClasses = {
-    // Ripple is a special case where the "root" component is really a "mixin" of sorts,
-    // given that it's an 'upgrade' to an existing component. That being said it is the root
-    // CSS class that all other CSS classes derive from.
-    BG_FOCUSED: 'mdc-ripple-upgraded--background-focused',
-    FG_ACTIVATION: 'mdc-ripple-upgraded--foreground-activation',
-    FG_DEACTIVATION: 'mdc-ripple-upgraded--foreground-deactivation',
-    ROOT: 'mdc-ripple-upgraded',
-    UNBOUNDED: 'mdc-ripple-upgraded--unbounded',
-};
-var strings = {
-    VAR_FG_SCALE: '--mdc-ripple-fg-scale',
-    VAR_FG_SIZE: '--mdc-ripple-fg-size',
-    VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',
-    VAR_FG_TRANSLATE_START: '--mdc-ripple-fg-translate-start',
-    VAR_LEFT: '--mdc-ripple-left',
-    VAR_TOP: '--mdc-ripple-top',
-};
-var numbers = {
-    DEACTIVATION_TIMEOUT_MS: 225,
-    FG_DEACTIVATION_MS: 150,
-    INITIAL_ORIGIN_SCALE: 0.6,
-    PADDING: 10,
-    TAP_DELAY_MS: 300,
-};
-//# sourceMappingURL=constants.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/tab/node_modules/@material/ripple/foundation.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@material/tab/node_modules/@material/ripple/foundation.js ***!
-  \********************************************************************************/
-/*! exports provided: MDCRippleFoundation, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/tab/node_modules/@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/tab/node_modules/@material/ripple/util.js");
-/**
- * @license
- * Copyright 2016 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-// Activation events registered on the root element of each instance for activation
-var ACTIVATION_EVENT_TYPES = [
-    'touchstart', 'pointerdown', 'mousedown', 'keydown',
-];
-// Deactivation events registered on documentElement when a pointer-related down event occurs
-var POINTER_DEACTIVATION_EVENT_TYPES = [
-    'touchend', 'pointerup', 'mouseup', 'contextmenu',
-];
-// simultaneous nested activations
-var activatedTargets = [];
-var MDCRippleFoundation = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCRippleFoundation, _super);
-    function MDCRippleFoundation(adapter) {
-        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCRippleFoundation.defaultAdapter, adapter)) || this;
-        _this.activationAnimationHasEnded_ = false;
-        _this.activationTimer_ = 0;
-        _this.fgDeactivationRemovalTimer_ = 0;
-        _this.fgScale_ = '0';
-        _this.frame_ = { width: 0, height: 0 };
-        _this.initialSize_ = 0;
-        _this.layoutFrame_ = 0;
-        _this.maxRadius_ = 0;
-        _this.unboundedCoords_ = { left: 0, top: 0 };
-        _this.activationState_ = _this.defaultActivationState_();
-        _this.activationTimerCallback_ = function () {
-            _this.activationAnimationHasEnded_ = true;
-            _this.runDeactivationUXLogicIfReady_();
-        };
-        _this.activateHandler_ = function (e) { return _this.activate_(e); };
-        _this.deactivateHandler_ = function () { return _this.deactivate_(); };
-        _this.focusHandler_ = function () { return _this.handleFocus(); };
-        _this.blurHandler_ = function () { return _this.handleBlur(); };
-        _this.resizeHandler_ = function () { return _this.layout(); };
-        return _this;
-    }
-    Object.defineProperty(MDCRippleFoundation, "cssClasses", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRippleFoundation, "strings", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRippleFoundation, "numbers", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCRippleFoundation, "defaultAdapter", {
-        get: function () {
-            return {
-                addClass: function () { return undefined; },
-                browserSupportsCssVars: function () { return true; },
-                computeBoundingRect: function () { return ({ top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 }); },
-                containsEventTarget: function () { return true; },
-                deregisterDocumentInteractionHandler: function () { return undefined; },
-                deregisterInteractionHandler: function () { return undefined; },
-                deregisterResizeHandler: function () { return undefined; },
-                getWindowPageOffset: function () { return ({ x: 0, y: 0 }); },
-                isSurfaceActive: function () { return true; },
-                isSurfaceDisabled: function () { return true; },
-                isUnbounded: function () { return true; },
-                registerDocumentInteractionHandler: function () { return undefined; },
-                registerInteractionHandler: function () { return undefined; },
-                registerResizeHandler: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                updateCssVariable: function () { return undefined; },
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCRippleFoundation.prototype.init = function () {
-        var _this = this;
-        var supportsPressRipple = this.supportsPressRipple_();
-        this.registerRootHandlers_(supportsPressRipple);
-        if (supportsPressRipple) {
-            var _a = MDCRippleFoundation.cssClasses, ROOT_1 = _a.ROOT, UNBOUNDED_1 = _a.UNBOUNDED;
-            requestAnimationFrame(function () {
-                _this.adapter_.addClass(ROOT_1);
-                if (_this.adapter_.isUnbounded()) {
-                    _this.adapter_.addClass(UNBOUNDED_1);
-                    // Unbounded ripples need layout logic applied immediately to set coordinates for both shade and ripple
-                    _this.layoutInternal_();
-                }
-            });
-        }
-    };
-    MDCRippleFoundation.prototype.destroy = function () {
-        var _this = this;
-        if (this.supportsPressRipple_()) {
-            if (this.activationTimer_) {
-                clearTimeout(this.activationTimer_);
-                this.activationTimer_ = 0;
-                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_ACTIVATION);
-            }
-            if (this.fgDeactivationRemovalTimer_) {
-                clearTimeout(this.fgDeactivationRemovalTimer_);
-                this.fgDeactivationRemovalTimer_ = 0;
-                this.adapter_.removeClass(MDCRippleFoundation.cssClasses.FG_DEACTIVATION);
-            }
-            var _a = MDCRippleFoundation.cssClasses, ROOT_2 = _a.ROOT, UNBOUNDED_2 = _a.UNBOUNDED;
-            requestAnimationFrame(function () {
-                _this.adapter_.removeClass(ROOT_2);
-                _this.adapter_.removeClass(UNBOUNDED_2);
-                _this.removeCssVars_();
-            });
-        }
-        this.deregisterRootHandlers_();
-        this.deregisterDeactivationHandlers_();
-    };
-    /**
-     * @param evt Optional event containing position information.
-     */
-    MDCRippleFoundation.prototype.activate = function (evt) {
-        this.activate_(evt);
-    };
-    MDCRippleFoundation.prototype.deactivate = function () {
-        this.deactivate_();
-    };
-    MDCRippleFoundation.prototype.layout = function () {
-        var _this = this;
-        if (this.layoutFrame_) {
-            cancelAnimationFrame(this.layoutFrame_);
-        }
-        this.layoutFrame_ = requestAnimationFrame(function () {
-            _this.layoutInternal_();
-            _this.layoutFrame_ = 0;
-        });
-    };
-    MDCRippleFoundation.prototype.setUnbounded = function (unbounded) {
-        var UNBOUNDED = MDCRippleFoundation.cssClasses.UNBOUNDED;
-        if (unbounded) {
-            this.adapter_.addClass(UNBOUNDED);
-        }
-        else {
-            this.adapter_.removeClass(UNBOUNDED);
-        }
-    };
-    MDCRippleFoundation.prototype.handleFocus = function () {
-        var _this = this;
-        requestAnimationFrame(function () {
-            return _this.adapter_.addClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
-        });
-    };
-    MDCRippleFoundation.prototype.handleBlur = function () {
-        var _this = this;
-        requestAnimationFrame(function () {
-            return _this.adapter_.removeClass(MDCRippleFoundation.cssClasses.BG_FOCUSED);
-        });
-    };
-    /**
-     * We compute this property so that we are not querying information about the client
-     * until the point in time where the foundation requests it. This prevents scenarios where
-     * client-side feature-detection may happen too early, such as when components are rendered on the server
-     * and then initialized at mount time on the client.
-     */
-    MDCRippleFoundation.prototype.supportsPressRipple_ = function () {
-        return this.adapter_.browserSupportsCssVars();
-    };
-    MDCRippleFoundation.prototype.defaultActivationState_ = function () {
-        return {
-            activationEvent: undefined,
-            hasDeactivationUXRun: false,
-            isActivated: false,
-            isProgrammatic: false,
-            wasActivatedByPointer: false,
-            wasElementMadeActive: false,
-        };
-    };
-    /**
-     * supportsPressRipple Passed from init to save a redundant function call
-     */
-    MDCRippleFoundation.prototype.registerRootHandlers_ = function (supportsPressRipple) {
-        var _this = this;
-        if (supportsPressRipple) {
-            ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-                _this.adapter_.registerInteractionHandler(evtType, _this.activateHandler_);
-            });
-            if (this.adapter_.isUnbounded()) {
-                this.adapter_.registerResizeHandler(this.resizeHandler_);
-            }
-        }
-        this.adapter_.registerInteractionHandler('focus', this.focusHandler_);
-        this.adapter_.registerInteractionHandler('blur', this.blurHandler_);
-    };
-    MDCRippleFoundation.prototype.registerDeactivationHandlers_ = function (evt) {
-        var _this = this;
-        if (evt.type === 'keydown') {
-            this.adapter_.registerInteractionHandler('keyup', this.deactivateHandler_);
-        }
-        else {
-            POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-                _this.adapter_.registerDocumentInteractionHandler(evtType, _this.deactivateHandler_);
-            });
-        }
-    };
-    MDCRippleFoundation.prototype.deregisterRootHandlers_ = function () {
-        var _this = this;
-        ACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-            _this.adapter_.deregisterInteractionHandler(evtType, _this.activateHandler_);
-        });
-        this.adapter_.deregisterInteractionHandler('focus', this.focusHandler_);
-        this.adapter_.deregisterInteractionHandler('blur', this.blurHandler_);
-        if (this.adapter_.isUnbounded()) {
-            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
-        }
-    };
-    MDCRippleFoundation.prototype.deregisterDeactivationHandlers_ = function () {
-        var _this = this;
-        this.adapter_.deregisterInteractionHandler('keyup', this.deactivateHandler_);
-        POINTER_DEACTIVATION_EVENT_TYPES.forEach(function (evtType) {
-            _this.adapter_.deregisterDocumentInteractionHandler(evtType, _this.deactivateHandler_);
-        });
-    };
-    MDCRippleFoundation.prototype.removeCssVars_ = function () {
-        var _this = this;
-        var rippleStrings = MDCRippleFoundation.strings;
-        var keys = Object.keys(rippleStrings);
-        keys.forEach(function (key) {
-            if (key.indexOf('VAR_') === 0) {
-                _this.adapter_.updateCssVariable(rippleStrings[key], null);
-            }
-        });
-    };
-    MDCRippleFoundation.prototype.activate_ = function (evt) {
-        var _this = this;
-        if (this.adapter_.isSurfaceDisabled()) {
-            return;
-        }
-        var activationState = this.activationState_;
-        if (activationState.isActivated) {
-            return;
-        }
-        // Avoid reacting to follow-on events fired by touch device after an already-processed user interaction
-        var previousActivationEvent = this.previousActivationEvent_;
-        var isSameInteraction = previousActivationEvent && evt !== undefined && previousActivationEvent.type !== evt.type;
-        if (isSameInteraction) {
-            return;
-        }
-        activationState.isActivated = true;
-        activationState.isProgrammatic = evt === undefined;
-        activationState.activationEvent = evt;
-        activationState.wasActivatedByPointer = activationState.isProgrammatic ? false : evt !== undefined && (evt.type === 'mousedown' || evt.type === 'touchstart' || evt.type === 'pointerdown');
-        var hasActivatedChild = evt !== undefined && activatedTargets.length > 0 && activatedTargets.some(function (target) { return _this.adapter_.containsEventTarget(target); });
-        if (hasActivatedChild) {
-            // Immediately reset activation state, while preserving logic that prevents touch follow-on events
-            this.resetActivationState_();
-            return;
-        }
-        if (evt !== undefined) {
-            activatedTargets.push(evt.target);
-            this.registerDeactivationHandlers_(evt);
-        }
-        activationState.wasElementMadeActive = this.checkElementMadeActive_(evt);
-        if (activationState.wasElementMadeActive) {
-            this.animateActivation_();
-        }
-        requestAnimationFrame(function () {
-            // Reset array on next frame after the current event has had a chance to bubble to prevent ancestor ripples
-            activatedTargets = [];
-            if (!activationState.wasElementMadeActive
-                && evt !== undefined
-                && (evt.key === ' ' || evt.keyCode === 32)) {
-                // If space was pressed, try again within an rAF call to detect :active, because different UAs report
-                // active states inconsistently when they're called within event handling code:
-                // - https://bugs.chromium.org/p/chromium/issues/detail?id=635971
-                // - https://bugzilla.mozilla.org/show_bug.cgi?id=1293741
-                // We try first outside rAF to support Edge, which does not exhibit this problem, but will crash if a CSS
-                // variable is set within a rAF callback for a submit button interaction (#2241).
-                activationState.wasElementMadeActive = _this.checkElementMadeActive_(evt);
-                if (activationState.wasElementMadeActive) {
-                    _this.animateActivation_();
-                }
-            }
-            if (!activationState.wasElementMadeActive) {
-                // Reset activation state immediately if element was not made active.
-                _this.activationState_ = _this.defaultActivationState_();
-            }
-        });
-    };
-    MDCRippleFoundation.prototype.checkElementMadeActive_ = function (evt) {
-        return (evt !== undefined && evt.type === 'keydown') ? this.adapter_.isSurfaceActive() : true;
-    };
-    MDCRippleFoundation.prototype.animateActivation_ = function () {
-        var _this = this;
-        var _a = MDCRippleFoundation.strings, VAR_FG_TRANSLATE_START = _a.VAR_FG_TRANSLATE_START, VAR_FG_TRANSLATE_END = _a.VAR_FG_TRANSLATE_END;
-        var _b = MDCRippleFoundation.cssClasses, FG_DEACTIVATION = _b.FG_DEACTIVATION, FG_ACTIVATION = _b.FG_ACTIVATION;
-        var DEACTIVATION_TIMEOUT_MS = MDCRippleFoundation.numbers.DEACTIVATION_TIMEOUT_MS;
-        this.layoutInternal_();
-        var translateStart = '';
-        var translateEnd = '';
-        if (!this.adapter_.isUnbounded()) {
-            var _c = this.getFgTranslationCoordinates_(), startPoint = _c.startPoint, endPoint = _c.endPoint;
-            translateStart = startPoint.x + "px, " + startPoint.y + "px";
-            translateEnd = endPoint.x + "px, " + endPoint.y + "px";
-        }
-        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_START, translateStart);
-        this.adapter_.updateCssVariable(VAR_FG_TRANSLATE_END, translateEnd);
-        // Cancel any ongoing activation/deactivation animations
-        clearTimeout(this.activationTimer_);
-        clearTimeout(this.fgDeactivationRemovalTimer_);
-        this.rmBoundedActivationClasses_();
-        this.adapter_.removeClass(FG_DEACTIVATION);
-        // Force layout in order to re-trigger the animation.
-        this.adapter_.computeBoundingRect();
-        this.adapter_.addClass(FG_ACTIVATION);
-        this.activationTimer_ = setTimeout(function () { return _this.activationTimerCallback_(); }, DEACTIVATION_TIMEOUT_MS);
-    };
-    MDCRippleFoundation.prototype.getFgTranslationCoordinates_ = function () {
-        var _a = this.activationState_, activationEvent = _a.activationEvent, wasActivatedByPointer = _a.wasActivatedByPointer;
-        var startPoint;
-        if (wasActivatedByPointer) {
-            startPoint = Object(_util__WEBPACK_IMPORTED_MODULE_3__["getNormalizedEventCoords"])(activationEvent, this.adapter_.getWindowPageOffset(), this.adapter_.computeBoundingRect());
-        }
-        else {
-            startPoint = {
-                x: this.frame_.width / 2,
-                y: this.frame_.height / 2,
-            };
-        }
-        // Center the element around the start point.
-        startPoint = {
-            x: startPoint.x - (this.initialSize_ / 2),
-            y: startPoint.y - (this.initialSize_ / 2),
-        };
-        var endPoint = {
-            x: (this.frame_.width / 2) - (this.initialSize_ / 2),
-            y: (this.frame_.height / 2) - (this.initialSize_ / 2),
-        };
-        return { startPoint: startPoint, endPoint: endPoint };
-    };
-    MDCRippleFoundation.prototype.runDeactivationUXLogicIfReady_ = function () {
-        var _this = this;
-        // This method is called both when a pointing device is released, and when the activation animation ends.
-        // The deactivation animation should only run after both of those occur.
-        var FG_DEACTIVATION = MDCRippleFoundation.cssClasses.FG_DEACTIVATION;
-        var _a = this.activationState_, hasDeactivationUXRun = _a.hasDeactivationUXRun, isActivated = _a.isActivated;
-        var activationHasEnded = hasDeactivationUXRun || !isActivated;
-        if (activationHasEnded && this.activationAnimationHasEnded_) {
-            this.rmBoundedActivationClasses_();
-            this.adapter_.addClass(FG_DEACTIVATION);
-            this.fgDeactivationRemovalTimer_ = setTimeout(function () {
-                _this.adapter_.removeClass(FG_DEACTIVATION);
-            }, _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"].FG_DEACTIVATION_MS);
-        }
-    };
-    MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {
-        var FG_ACTIVATION = MDCRippleFoundation.cssClasses.FG_ACTIVATION;
-        this.adapter_.removeClass(FG_ACTIVATION);
-        this.activationAnimationHasEnded_ = false;
-        this.adapter_.computeBoundingRect();
-    };
-    MDCRippleFoundation.prototype.resetActivationState_ = function () {
-        var _this = this;
-        this.previousActivationEvent_ = this.activationState_.activationEvent;
-        this.activationState_ = this.defaultActivationState_();
-        // Touch devices may fire additional events for the same interaction within a short time.
-        // Store the previous event until it's safe to assume that subsequent events are for new interactions.
-        setTimeout(function () { return _this.previousActivationEvent_ = undefined; }, MDCRippleFoundation.numbers.TAP_DELAY_MS);
-    };
-    MDCRippleFoundation.prototype.deactivate_ = function () {
-        var _this = this;
-        var activationState = this.activationState_;
-        // This can happen in scenarios such as when you have a keyup event that blurs the element.
-        if (!activationState.isActivated) {
-            return;
-        }
-        var state = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, activationState);
-        if (activationState.isProgrammatic) {
-            requestAnimationFrame(function () { return _this.animateDeactivation_(state); });
-            this.resetActivationState_();
-        }
-        else {
-            this.deregisterDeactivationHandlers_();
-            requestAnimationFrame(function () {
-                _this.activationState_.hasDeactivationUXRun = true;
-                _this.animateDeactivation_(state);
-                _this.resetActivationState_();
-            });
-        }
-    };
-    MDCRippleFoundation.prototype.animateDeactivation_ = function (_a) {
-        var wasActivatedByPointer = _a.wasActivatedByPointer, wasElementMadeActive = _a.wasElementMadeActive;
-        if (wasActivatedByPointer || wasElementMadeActive) {
-            this.runDeactivationUXLogicIfReady_();
-        }
-    };
-    MDCRippleFoundation.prototype.layoutInternal_ = function () {
-        var _this = this;
-        this.frame_ = this.adapter_.computeBoundingRect();
-        var maxDim = Math.max(this.frame_.height, this.frame_.width);
-        // Surface diameter is treated differently for unbounded vs. bounded ripples.
-        // Unbounded ripple diameter is calculated smaller since the surface is expected to already be padded appropriately
-        // to extend the hitbox, and the ripple is expected to meet the edges of the padded hitbox (which is typically
-        // square). Bounded ripples, on the other hand, are fully expected to expand beyond the surface's longest diameter
-        // (calculated based on the diagonal plus a constant padding), and are clipped at the surface's border via
-        // `overflow: hidden`.
-        var getBoundedRadius = function () {
-            var hypotenuse = Math.sqrt(Math.pow(_this.frame_.width, 2) + Math.pow(_this.frame_.height, 2));
-            return hypotenuse + MDCRippleFoundation.numbers.PADDING;
-        };
-        this.maxRadius_ = this.adapter_.isUnbounded() ? maxDim : getBoundedRadius();
-        // Ripple is sized as a fraction of the largest dimension of the surface, then scales up using a CSS scale transform
-        this.initialSize_ = Math.floor(maxDim * MDCRippleFoundation.numbers.INITIAL_ORIGIN_SCALE);
-        this.fgScale_ = "" + this.maxRadius_ / this.initialSize_;
-        this.updateLayoutCssVars_();
-    };
-    MDCRippleFoundation.prototype.updateLayoutCssVars_ = function () {
-        var _a = MDCRippleFoundation.strings, VAR_FG_SIZE = _a.VAR_FG_SIZE, VAR_LEFT = _a.VAR_LEFT, VAR_TOP = _a.VAR_TOP, VAR_FG_SCALE = _a.VAR_FG_SCALE;
-        this.adapter_.updateCssVariable(VAR_FG_SIZE, this.initialSize_ + "px");
-        this.adapter_.updateCssVariable(VAR_FG_SCALE, this.fgScale_);
-        if (this.adapter_.isUnbounded()) {
-            this.unboundedCoords_ = {
-                left: Math.round((this.frame_.width / 2) - (this.initialSize_ / 2)),
-                top: Math.round((this.frame_.height / 2) - (this.initialSize_ / 2)),
-            };
-            this.adapter_.updateCssVariable(VAR_LEFT, this.unboundedCoords_.left + "px");
-            this.adapter_.updateCssVariable(VAR_TOP, this.unboundedCoords_.top + "px");
-        }
-    };
-    return MDCRippleFoundation;
-}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCRippleFoundation);
-//# sourceMappingURL=foundation.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/tab/node_modules/@material/ripple/util.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@material/tab/node_modules/@material/ripple/util.js ***!
-  \**************************************************************************/
-/*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "supportsCssVariables", function() { return supportsCssVariables; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyPassive", function() { return applyPassive; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNormalizedEventCoords", function() { return getNormalizedEventCoords; });
-/**
- * Stores result from supportsCssVariables to avoid redundant processing to
- * detect CSS custom variable support.
- */
-var supportsCssVariables_;
-/**
- * Stores result from applyPassive to avoid redundant processing to detect
- * passive event listener support.
- */
-var supportsPassive_;
-function detectEdgePseudoVarBug(windowObj) {
-    // Detect versions of Edge with buggy var() support
-    // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11495448/
-    var document = windowObj.document;
-    var node = document.createElement('div');
-    node.className = 'mdc-ripple-surface--test-edge-var-bug';
-    document.body.appendChild(node);
-    // The bug exists if ::before style ends up propagating to the parent element.
-    // Additionally, getComputedStyle returns null in iframes with display: "none" in Firefox,
-    // but Firefox is known to support CSS custom properties correctly.
-    // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-    var computedStyle = windowObj.getComputedStyle(node);
-    var hasPseudoVarBug = computedStyle !== null && computedStyle.borderTopStyle === 'solid';
-    if (node.parentNode) {
-        node.parentNode.removeChild(node);
-    }
-    return hasPseudoVarBug;
-}
-function supportsCssVariables(windowObj, forceRefresh) {
-    if (forceRefresh === void 0) { forceRefresh = false; }
-    var CSS = windowObj.CSS;
-    var supportsCssVars = supportsCssVariables_;
-    if (typeof supportsCssVariables_ === 'boolean' && !forceRefresh) {
-        return supportsCssVariables_;
-    }
-    var supportsFunctionPresent = CSS && typeof CSS.supports === 'function';
-    if (!supportsFunctionPresent) {
-        return false;
-    }
-    var explicitlySupportsCssVars = CSS.supports('--css-vars', 'yes');
-    // See: https://bugs.webkit.org/show_bug.cgi?id=154669
-    // See: README section on Safari
-    var weAreFeatureDetectingSafari10plus = (CSS.supports('(--css-vars: yes)') &&
-        CSS.supports('color', '#00000000'));
-    if (explicitlySupportsCssVars || weAreFeatureDetectingSafari10plus) {
-        supportsCssVars = !detectEdgePseudoVarBug(windowObj);
-    }
-    else {
-        supportsCssVars = false;
-    }
-    if (!forceRefresh) {
-        supportsCssVariables_ = supportsCssVars;
-    }
-    return supportsCssVars;
-}
-/**
- * Determine whether the current browser supports passive event listeners, and
- * if so, use them.
- */
-function applyPassive(globalObj, forceRefresh) {
-    if (globalObj === void 0) { globalObj = window; }
-    if (forceRefresh === void 0) { forceRefresh = false; }
-    if (supportsPassive_ === undefined || forceRefresh) {
-        var isSupported_1 = false;
-        try {
-            globalObj.document.addEventListener('test', function () { return undefined; }, {
-                get passive() {
-                    isSupported_1 = true;
-                    return isSupported_1;
-                },
-            });
-        }
-        catch (e) {
-        } // tslint:disable-line:no-empty cannot throw error due to tests. tslint also disables console.log.
-        supportsPassive_ = isSupported_1;
-    }
-    return supportsPassive_ ? { passive: true } : false;
-}
-function getNormalizedEventCoords(evt, pageOffset, clientRect) {
-    if (!evt) {
-        return { x: 0, y: 0 };
-    }
-    var x = pageOffset.x, y = pageOffset.y;
-    var documentX = x + clientRect.left;
-    var documentY = y + clientRect.top;
-    var normalizedX;
-    var normalizedY;
-    // Determine touch point relative to the ripple container.
-    if (evt.type === 'touchstart') {
-        var touchEvent = evt;
-        normalizedX = touchEvent.changedTouches[0].pageX - documentX;
-        normalizedY = touchEvent.changedTouches[0].pageY - documentY;
-    }
-    else {
-        var mouseEvent = evt;
-        normalizedX = mouseEvent.pageX - documentX;
-        normalizedY = mouseEvent.pageY - documentY;
-    }
-    return { x: normalizedX, y: normalizedY };
-}
-//# sourceMappingURL=util.js.map
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/tab/index.scss":
 /*!*********************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/tab/index.scss ***!
@@ -3420,7 +3420,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n.mdc-tab-bar {\n  width: 100%; }\n\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n.mdc-tab-scroller {\n  overflow-y: hidden; }\n\n.mdc-tab-scroller__test {\n  position: absolute;\n  top: -9999px;\n  width: 100px;\n  height: 100px;\n  overflow-x: scroll; }\n\n.mdc-tab-scroller__scroll-area {\n  -webkit-overflow-scrolling: touch;\n  display: flex;\n  overflow-x: hidden; }\n\n.mdc-tab-scroller__scroll-area::-webkit-scrollbar,\n.mdc-tab-scroller__test::-webkit-scrollbar {\n  display: none; }\n\n.mdc-tab-scroller__scroll-area--scroll {\n  overflow-x: scroll; }\n\n.mdc-tab-scroller__scroll-content {\n  position: relative;\n  display: flex;\n  flex: 1 0 auto;\n  transform: none;\n  will-change: transform; }\n\n.mdc-tab-scroller--align-start .mdc-tab-scroller__scroll-content {\n  justify-content: flex-start; }\n\n.mdc-tab-scroller--align-end .mdc-tab-scroller__scroll-content {\n  justify-content: flex-end; }\n\n.mdc-tab-scroller--align-center .mdc-tab-scroller__scroll-content {\n  justify-content: center; }\n\n.mdc-tab-scroller--animating .mdc-tab-scroller__scroll-area {\n  -webkit-overflow-scrolling: auto; }\n\n.mdc-tab-scroller--animating .mdc-tab-scroller__scroll-content {\n  transition: 250ms transform cubic-bezier(0.4, 0, 0.2, 1); }\n\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n.mdc-tab-indicator {\n  display: flex;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n  z-index: 1; }\n  .mdc-tab-indicator .mdc-tab-indicator__content--underline {\n    border-color: #6200ee;\n    /* @alternate */\n    border-color: var(--mdc-theme-primary, #6200ee); }\n  .mdc-tab-indicator .mdc-tab-indicator__content--underline {\n    border-top-width: 2px; }\n  .mdc-tab-indicator .mdc-tab-indicator__content--icon {\n    color: #018786;\n    /* @alternate */\n    color: var(--mdc-theme-secondary, #018786); }\n  .mdc-tab-indicator .mdc-tab-indicator__content--icon {\n    height: 34px;\n    font-size: 34px; }\n\n.mdc-tab-indicator__content {\n  transform-origin: left;\n  opacity: 0; }\n\n.mdc-tab-indicator__content--underline {\n  align-self: flex-end;\n  box-sizing: border-box;\n  width: 100%;\n  border-top-style: solid; }\n\n.mdc-tab-indicator__content--icon {\n  align-self: center;\n  margin: 0 auto; }\n\n.mdc-tab-indicator--active .mdc-tab-indicator__content {\n  opacity: 1; }\n\n.mdc-tab-indicator .mdc-tab-indicator__content {\n  transition: 250ms transform cubic-bezier(0.4, 0, 0.2, 1); }\n\n.mdc-tab-indicator--no-transition .mdc-tab-indicator__content {\n  transition: none; }\n\n.mdc-tab-indicator--fade .mdc-tab-indicator__content {\n  transition: 150ms opacity linear; }\n\n.mdc-tab-indicator--active.mdc-tab-indicator--fade .mdc-tab-indicator__content {\n  transition-delay: 100ms; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n.mdc-tab {\n  position: relative;\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 0.875rem;\n  line-height: 2.25rem;\n  font-weight: 500;\n  letter-spacing: 0.08929em;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding-right: 24px;\n  padding-left: 24px;\n  display: flex;\n  flex: 1 0 auto;\n  justify-content: center;\n  box-sizing: border-box;\n  height: 48px;\n  margin: 0;\n  padding-top: 0;\n  padding-bottom: 0;\n  border: none;\n  outline: none;\n  background: none;\n  text-align: center;\n  white-space: nowrap;\n  cursor: pointer;\n  -webkit-appearance: none;\n  z-index: 1; }\n  .mdc-tab .mdc-tab__text-label {\n    color: rgba(0, 0, 0, 0.6); }\n  .mdc-tab .mdc-tab__icon {\n    color: rgba(0, 0, 0, 0.54);\n    fill: currentColor; }\n  .mdc-tab::-moz-focus-inner {\n    padding: 0;\n    border: 0; }\n\n.mdc-tab--min-width {\n  flex: 0 1 auto; }\n\n.mdc-tab__ripple {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  will-change: transform, opacity;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden; }\n  .mdc-tab__ripple::before, .mdc-tab__ripple::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-tab__ripple::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-tab__ripple.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-tab__ripple.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-tab__ripple.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-tab__ripple.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-tab__ripple.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-tab__ripple::before, .mdc-tab__ripple::after {\n    top: calc(50% - 100%);\n    /* @noflip */\n    left: calc(50% - 100%);\n    width: 200%;\n    height: 200%; }\n  .mdc-tab__ripple.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-tab__ripple::before, .mdc-tab__ripple::after {\n    background-color: #6200ee; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-tab__ripple::before, .mdc-tab__ripple::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-primary, #6200ee); } }\n  .mdc-tab__ripple:hover::before {\n    opacity: 0.04; }\n  .mdc-tab__ripple:not(.mdc-ripple-upgraded):focus::before, .mdc-tab__ripple.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-tab__ripple:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-tab__ripple:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-tab__ripple.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n\n.mdc-tab__content {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: inherit;\n  pointer-events: none; }\n\n.mdc-tab__text-label,\n.mdc-tab__icon {\n  transition: 150ms color linear;\n  z-index: 2; }\n\n.mdc-tab__text-label {\n  display: inline-block;\n  line-height: 1; }\n\n.mdc-tab__icon {\n  width: 24px;\n  height: 24px;\n  font-size: 24px; }\n\n.mdc-tab--stacked {\n  height: 72px; }\n\n.mdc-tab--stacked .mdc-tab__content {\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between; }\n\n.mdc-tab--stacked .mdc-tab__icon {\n  padding-top: 12px; }\n\n.mdc-tab--stacked .mdc-tab__text-label {\n  padding-bottom: 16px; }\n\n.mdc-tab--active .mdc-tab__text-label {\n  color: #6200ee;\n  /* @alternate */\n  color: var(--mdc-theme-primary, #6200ee); }\n\n.mdc-tab--active .mdc-tab__icon {\n  color: #6200ee;\n  /* @alternate */\n  color: var(--mdc-theme-primary, #6200ee);\n  fill: currentColor; }\n\n.mdc-tab--active .mdc-tab__text-label,\n.mdc-tab--active .mdc-tab__icon {\n  transition-delay: 100ms; }\n\n.mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon + .mdc-tab__text-label {\n  /* @noflip */\n  padding-left: 8px;\n  /* @noflip */\n  padding-right: 0; }\n  [dir=\"rtl\"] .mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon + .mdc-tab__text-label, .mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon + .mdc-tab__text-label[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 0;\n    /* @noflip */\n    padding-right: 8px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n", ""]);
+exports.push([module.i, "/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n.mdc-tab-bar {\n  width: 100%; }\n\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n.mdc-tab-scroller {\n  overflow-y: hidden; }\n\n.mdc-tab-scroller__test {\n  position: absolute;\n  top: -9999px;\n  width: 100px;\n  height: 100px;\n  overflow-x: scroll; }\n\n.mdc-tab-scroller__scroll-area {\n  -webkit-overflow-scrolling: touch;\n  display: flex;\n  overflow-x: hidden; }\n\n.mdc-tab-scroller__scroll-area::-webkit-scrollbar,\n.mdc-tab-scroller__test::-webkit-scrollbar {\n  display: none; }\n\n.mdc-tab-scroller__scroll-area--scroll {\n  overflow-x: scroll; }\n\n.mdc-tab-scroller__scroll-content {\n  position: relative;\n  display: flex;\n  flex: 1 0 auto;\n  transform: none;\n  will-change: transform; }\n\n.mdc-tab-scroller--align-start .mdc-tab-scroller__scroll-content {\n  justify-content: flex-start; }\n\n.mdc-tab-scroller--align-end .mdc-tab-scroller__scroll-content {\n  justify-content: flex-end; }\n\n.mdc-tab-scroller--align-center .mdc-tab-scroller__scroll-content {\n  justify-content: center; }\n\n.mdc-tab-scroller--animating .mdc-tab-scroller__scroll-area {\n  -webkit-overflow-scrolling: auto; }\n\n.mdc-tab-scroller--animating .mdc-tab-scroller__scroll-content {\n  transition: 250ms transform cubic-bezier(0.4, 0, 0.2, 1); }\n\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n.mdc-tab-indicator {\n  display: flex;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n  z-index: 1; }\n  .mdc-tab-indicator .mdc-tab-indicator__content--underline {\n    border-color: #6200ee;\n    /* @alternate */\n    border-color: var(--mdc-theme-primary, #6200ee); }\n  .mdc-tab-indicator .mdc-tab-indicator__content--underline {\n    border-top-width: 2px; }\n  .mdc-tab-indicator .mdc-tab-indicator__content--icon {\n    color: #018786;\n    /* @alternate */\n    color: var(--mdc-theme-secondary, #018786); }\n  .mdc-tab-indicator .mdc-tab-indicator__content--icon {\n    height: 34px;\n    font-size: 34px; }\n\n.mdc-tab-indicator__content {\n  transform-origin: left;\n  opacity: 0; }\n\n.mdc-tab-indicator__content--underline {\n  align-self: flex-end;\n  box-sizing: border-box;\n  width: 100%;\n  border-top-style: solid; }\n\n.mdc-tab-indicator__content--icon {\n  align-self: center;\n  margin: 0 auto; }\n\n.mdc-tab-indicator--active .mdc-tab-indicator__content {\n  opacity: 1; }\n\n.mdc-tab-indicator .mdc-tab-indicator__content {\n  transition: 250ms transform cubic-bezier(0.4, 0, 0.2, 1); }\n\n.mdc-tab-indicator--no-transition .mdc-tab-indicator__content {\n  transition: none; }\n\n.mdc-tab-indicator--fade .mdc-tab-indicator__content {\n  transition: 150ms opacity linear; }\n\n.mdc-tab-indicator--active.mdc-tab-indicator--fade .mdc-tab-indicator__content {\n  transition-delay: 100ms; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n/**\n * @license\n * Copyright 2018 Google Inc.\n *\n * Permission is hereby granted, free of charge, to any person obtaining a copy\n * of this software and associated documentation files (the \"Software\"), to deal\n * in the Software without restriction, including without limitation the rights\n * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n * copies of the Software, and to permit persons to whom the Software is\n * furnished to do so, subject to the following conditions:\n *\n * The above copyright notice and this permission notice shall be included in\n * all copies or substantial portions of the Software.\n *\n * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n * THE SOFTWARE.\n */\n.mdc-tab {\n  position: relative;\n  font-family: Roboto, sans-serif;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  font-size: 0.875rem;\n  line-height: 2.25rem;\n  font-weight: 500;\n  letter-spacing: 0.08929em;\n  text-decoration: none;\n  text-transform: uppercase;\n  padding-right: 24px;\n  padding-left: 24px;\n  display: flex;\n  flex: 1 0 auto;\n  justify-content: center;\n  box-sizing: border-box;\n  height: 48px;\n  margin: 0;\n  padding-top: 0;\n  padding-bottom: 0;\n  border: none;\n  outline: none;\n  background: none;\n  text-align: center;\n  white-space: nowrap;\n  cursor: pointer;\n  -webkit-appearance: none;\n  z-index: 1; }\n  .mdc-tab .mdc-tab__text-label {\n    color: rgba(0, 0, 0, 0.6); }\n  .mdc-tab .mdc-tab__icon {\n    color: rgba(0, 0, 0, 0.54);\n    fill: currentColor; }\n  .mdc-tab::-moz-focus-inner {\n    padding: 0;\n    border: 0; }\n\n.mdc-tab--min-width {\n  flex: 0 1 auto; }\n\n.mdc-tab__ripple {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  will-change: transform, opacity;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden; }\n  .mdc-tab__ripple::before, .mdc-tab__ripple::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-tab__ripple::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-tab__ripple.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-tab__ripple.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-tab__ripple.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-tab__ripple.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-tab__ripple.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-tab__ripple::before, .mdc-tab__ripple::after {\n    top: calc(50% - 100%);\n    /* @noflip */\n    left: calc(50% - 100%);\n    width: 200%;\n    height: 200%; }\n  .mdc-tab__ripple.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-tab__ripple::before, .mdc-tab__ripple::after {\n    background-color: #6200ee; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-tab__ripple::before, .mdc-tab__ripple::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-primary, #6200ee); } }\n  .mdc-tab__ripple:hover::before {\n    opacity: 0.04; }\n  .mdc-tab__ripple:not(.mdc-ripple-upgraded):focus::before, .mdc-tab__ripple.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-tab__ripple:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-tab__ripple:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-tab__ripple.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n\n.mdc-tab__content {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: inherit;\n  pointer-events: none; }\n\n.mdc-tab__text-label,\n.mdc-tab__icon {\n  transition: 150ms color linear;\n  z-index: 2; }\n\n.mdc-tab__text-label {\n  display: inline-block;\n  line-height: 1; }\n\n.mdc-tab__icon {\n  width: 24px;\n  height: 24px;\n  font-size: 24px; }\n\n.mdc-tab--stacked {\n  height: 72px; }\n\n.mdc-tab--stacked .mdc-tab__content {\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between; }\n\n.mdc-tab--stacked .mdc-tab__icon {\n  padding-top: 12px; }\n\n.mdc-tab--stacked .mdc-tab__text-label {\n  padding-bottom: 16px; }\n\n.mdc-tab--active .mdc-tab__text-label {\n  color: #6200ee; }\n\n.mdc-tab--active .mdc-tab__icon {\n  color: #6200ee;\n  fill: currentColor; }\n\n.mdc-tab--active .mdc-tab__text-label,\n.mdc-tab--active .mdc-tab__icon {\n  transition-delay: 100ms; }\n\n.mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon + .mdc-tab__text-label {\n  /* @noflip */\n  padding-left: 8px;\n  /* @noflip */\n  padding-right: 0; }\n  [dir=\"rtl\"] .mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon + .mdc-tab__text-label, .mdc-tab:not(.mdc-tab--stacked) .mdc-tab__icon + .mdc-tab__text-label[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 0;\n    /* @noflip */\n    padding-right: 8px; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n", ""]);
 
 // exports
 
