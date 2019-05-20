@@ -5,10 +5,7 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 * [DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
 * [material.io docs](https://material.io/develop/web/components/buttons/) & [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
 
-| **Preview** | **Preview** |
-|-|-|
-| ![](./assets/md1.png) | ![](./assets/md2.png) |
-| ![](./assets/md3.png) | ![](./assets/md4.png) |
+![](./assets/pv3.jpeg)
 
 ## Features
 
