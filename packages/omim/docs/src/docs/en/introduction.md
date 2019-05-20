@@ -2,7 +2,7 @@
 
 Cross-Frameworks components, powered by Material Design and [Omi](https://github.com/Tencent/omi).
 
-![](https://tencent.github.io/omi/packages/omim/assets/pv3.jpeg)
+![](https://tencent.github.io/omi/packages/omim/assets/pv4.jpeg)
 
 ## Features
 
