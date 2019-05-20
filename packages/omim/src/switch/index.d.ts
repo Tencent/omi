@@ -4,7 +4,7 @@ interface Props {
     label?: string;
     disabled?: boolean;
     checked?: boolean;
-    value: string;
+    value?: string;
 }
 interface Data {
 }
@@ -21,6 +21,7 @@ export default class Switch extends WeElement<Props, Data> {
     switchFoundation: MDCSwitchFoundation;
     updated(): void;
     installed(): void;
+    initSwitch(): void;
     onInput: (evt: any) => void;
     render(props: any): JSX.Element[];
 }
