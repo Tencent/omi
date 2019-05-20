@@ -1,6 +1,6 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
-import { MDCSwitch } from '@material/switch';
+import { MDCSwitch, MDCSwitchFoundation } from '@material/switch';
 
 // @ts-ignore
 import { extract } from '../util.ts'
@@ -19,7 +19,6 @@ interface Data {
 
 }
 
-
 @tag('m-switch')
 export default class Switch extends WeElement<Props, Data>{
   static css = theme() + css
@@ -31,22 +30,50 @@ export default class Switch extends WeElement<Props, Data>{
     value: String
   }
 
+  static defaultProps = {
+
+  }
+
+  switchControl: MDCSwitch
+  switchFoundation: MDCSwitchFoundation
+
   installed() {
-    const switchControl = new MDCSwitch(this.shadowRoot.querySelector('.mdc-switch'));
+    this.switchControl = new MDCSwitch(this.shadowRoot.querySelector('.mdc-switch'))
+    this.switchFoundation = this.switchControl.getDefaultFoundation()
+
+    this.switchFoundation.setDisabled(this.props.disabled)
+    this.switchFoundation.setChecked(this.props.checked)
+  }
+
+  onInput = (evt) => {
+    this.fire('change', {
+      value: this.props.value,
+      checked: this.switchControl.checked,
+      label: this.props.label
+    })
   }
 
   render(props) {
     return [
-      <div class="mdc-switch">
+      <div {...extractClass(props, 'mdc-switch', {
+        'mdc-switch--disabled': props.disabled,
+        'mdc-switch--checked': props.checked
+      })}>
         <div class="mdc-switch__track"></div>
         <div class="mdc-switch__thumb-underlay">
           <div class="mdc-switch__thumb">
-            <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch" />
+            <input
+              {...extract(props, ['value'])}
+              type="checkbox"
+              id="basic-switch"
+              class="mdc-switch__native-control"
+              role="switch"
+              onClick={this.onInput}
+            />
           </div>
         </div>
       </div>,
-      <label for="basic-switch">{props.label}</label>
+      <label for="basic-switch"> {props.label}</label>
     ]
-
   }
 }
