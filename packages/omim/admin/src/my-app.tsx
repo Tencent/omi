@@ -1,8 +1,8 @@
 import logo from './logo.svg'
 import * as css from './_my-app.css'
-import { define, WeElement } from 'omi'
+import { define, WeElement, h } from 'omi'
 import '@omim/core/button'
-import MDrawer from '@omim/core/drawer'
+import '@omim/core/drawer'
 import '@omim/core/top-app-bar'
 
 
@@ -112,11 +112,10 @@ define('my-app', class extends WeElement {
     
      
       <m-drawer
-        //@ts-ignore
         ref={ (evt)=>{this.drawer = evt}}
         style="position:fixed;top:0px;z-index:100000"
         frame
-        show={this.showDrawer}
+        show={true}
         heading='Omim'
         sub-heading='drawer-demo-modal'
         onClosed={this.onDrawerClosed}

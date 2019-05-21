@@ -1,6 +1,6 @@
 import './index.css';
 import './my-app'
-import { render } from 'omi'
+import { render, h } from 'omi'
 
 render(<my-app />, 'body')
 
