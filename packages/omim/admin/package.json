@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "omi": "latest",
+    "omi-router": "^2.0.10",
     "omio": "latest"
   },
   "alias": {

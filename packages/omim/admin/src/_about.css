@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+        flex-direction: column;
+        
+        margin-inline-end: 3px;
+        margin-inline-start: 3px;
+        outline: none;
+        position: relative;
+}
+
+
+:host(:not(.expanded)) #card {
+  background-image: var(--cr-card-elevation_-_background-image); box-shadow: var(--cr-card-elevation_-_box-shadow);
+        background-color: var(--cr-card-background-color);
+        border-radius: var(--cr-card-border-radius);
+        flex: 1;
+}

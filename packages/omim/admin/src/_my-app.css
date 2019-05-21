@@ -34,5 +34,6 @@
 }
 
 .main{
-  text-indent: 10px;
+  padding-top: 15px; 
+  text-indent: 15px;
 }
