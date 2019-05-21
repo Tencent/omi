@@ -1,6 +1,7 @@
 import { WeElement } from 'omi';
 import { MDCTopAppBar } from '@material/top-app-bar';
 import '../icon';
+import '../icon-button';
 interface Props {
     heading?: string;
     short?: boolean;
@@ -9,7 +10,7 @@ interface Props {
     dense?: boolean;
     fixed?: boolean;
     adjust?: boolean;
-    navigationIcon?: object;
+    navigation?: object;
     actionItems?: object;
     scrollTarget?: EventTarget;
     scrollTargetDrawer?: boolean;
@@ -26,7 +27,7 @@ export default class topAppBar extends WeElement<Props, Data> {
         dense: BooleanConstructor;
         fixed: BooleanConstructor;
         adjust: BooleanConstructor;
-        navigationIcon: ObjectConstructor;
+        navigation: ObjectConstructor;
         actionItems: ObjectConstructor;
         scrollTarget: {
             new (): EventTarget;
@@ -38,6 +39,7 @@ export default class topAppBar extends WeElement<Props, Data> {
     topAppBar: MDCTopAppBar;
     updated(): void;
     installed(): void;
+    isArray(value: any): boolean;
     onNavigation: (evt: Event) => void;
     onAction: (evt: any) => void;
     render(props: any): JSX.Element;

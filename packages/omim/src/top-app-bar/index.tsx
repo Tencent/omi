@@ -109,7 +109,7 @@ export default class topAppBar extends WeElement<Props, Data>{
             {(props.navigation || props.heading) &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
               {props.navigation &&
-              typeof props.navigation === 'string' ?
+              (typeof props.navigation === 'string' ?
               <m-icon-button class='mdc-top-app-bar__navigation-icon' icon={props.navigation} onClick={this.onNavigation}></m-icon-button> :
               this.isArray(props.navigation) ?
               <m-icon-button class='mdc-top-app-bar__navigation-icon' icons={props.navigation} onClick={this.onNavigation}></m-icon-button> :
@@ -124,7 +124,7 @@ export default class topAppBar extends WeElement<Props, Data>{
               </button> :
               <button class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
                 {props.navigation.text}
-              </button>)}
+              </button>))}
               {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
             </section>}
             {props.actionItems &&
