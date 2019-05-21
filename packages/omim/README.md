@@ -110,24 +110,24 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 
 | **Components**                         | **Owner**                    |
 | ------------------------------- | ----------------------------------- |
-| button | vorshen |
-| icon | xcatliu |
+| button | done |
+| icon | done |
 | text-field | done |
 | card | wscats |
 | chip | hulei |
 | dialog | zainchen |
 | elevation | liulinboyi |
-| image-list| lee |
-| checkbox| lei |
+| image-list| done |
+| checkbox| done |
 | radio| lihengjun |
-| select| lei |
+| select| done |
 | slider| done |
-| switch| zhang |
-| layout-grid| uxu |
-| linear-progress| dnt |
-| list| fangfang |
+| switch| zainchen |
+| layout-grid| done |
+| linear-progress| done |
+| list| zainchen |
 | menu| done|
-| snackbar| dnt |
+| snackbar| done |
 | tab | FAKER-A |
 | tag | mtonhuang |
 | top-app-bar| zainchen |
