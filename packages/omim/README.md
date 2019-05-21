@@ -146,7 +146,7 @@ Some [material packages](https://github.com/material-components/material-compone
 
 ## Todo
 
-### TypeScript Auto Complete
+### TypeScript Auto Complete(todo)
 
 ```jsx
 interface ButtonProps {
@@ -173,10 +173,14 @@ export default class Button extends WeElement<ButtonProps, {}> {
 ...
 ```
 
-### Import core
+### Import core(todo)
 
 Support import all element of core:
 
 ```
 import '@import/core'
 ```
+
+### Omim Page Templates(todo)
+
+[Coming!]([https://github.com/Tencent/omi/tree/master/packages/omim/template])
