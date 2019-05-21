@@ -183,4 +183,4 @@ import '@import/core'
 
 ### Omim Page Templates(todo)
 
-[Coming!](https://github.com/Tencent/omi/tree/master/packages/omim/template)
+[Coming!](https://github.com/Tencent/omi/tree/master/packages/omim/templates)
