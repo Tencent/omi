@@ -2,6 +2,7 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import {MDCTopAppBar} from '@material/top-app-bar';
 import '../icon'
+import '../icon-button'
 
 //@ts-ignore
 import { theme } from '../theme.ts'
@@ -14,7 +15,7 @@ interface Props {
   dense?: boolean,
   fixed?: boolean,
   adjust?: boolean,
-  navigationIcon?: object,
+  navigation?: object,
   actionItems?: object,
   scrollTarget?: EventTarget,
   scrollTargetDrawer?: boolean
@@ -36,7 +37,7 @@ export default class topAppBar extends WeElement<Props, Data>{
     dense: Boolean,
     fixed: Boolean,
     adjust: Boolean,
-    navigationIcon: Object,
+    navigation: Object,
     actionItems: Object,
     scrollTarget: EventTarget,
     scrollTargetDrawer: Boolean
@@ -74,6 +75,14 @@ export default class topAppBar extends WeElement<Props, Data>{
     }
   }
 
+  isArray(value){
+    if (typeof Array.isArray === "function") {
+      return Array.isArray(value);
+    } else {
+      return Object.prototype.toString.call(value) === "[object Array]";
+    }
+  }
+
   onNavigation = (evt: Event) => {
     this.fire('navigation')
     evt && evt.stopPropagation()
@@ -97,22 +106,46 @@ export default class topAppBar extends WeElement<Props, Data>{
           'mdc-top-app-bar--prominent': props.prominent
         })}>
           <div class='mdc-top-app-bar__row'>
-            {(props.navigationIcon || props.heading) &&
+            {(props.navigation || props.heading) &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
-              {props.navigationIcon &&
+              {props.navigation &&
+              typeof props.navigation === 'string' ?
+              <m-icon-button class='mdc-top-app-bar__navigation-icon' icon={props.navigation} onClick={this.onNavigation}></m-icon-button> :
+              this.isArray(props.navigation) ?
+              <m-icon-button class='mdc-top-app-bar__navigation-icon' icons={props.navigation} onClick={this.onNavigation}></m-icon-button> :
+              (props.navigation.mIconButton ?
+              <m-icon-button class='mdc-top-app-bar__navigation-icon' {...props.navigation.mIconButton} onClick={this.onNavigation}>
+                {(props.children && props.children[0] && props.children[1]) && props.children}
+              </m-icon-button> :
+              props.navigation.mIcon ?
               <button class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
-                {(props.navigationIcon.path || props.navigationIcon.paths) ?
-                <m-icon {...props.navigationIcon}></m-icon> : props.navigationIcon.text}
-              </button>}
+                {(props.navigation.mIcon.path || props.navigation.mIcon.paths) ?
+                <m-icon {...props.navigation.mIcon}></m-icon> : props.navigation.text}
+              </button> :
+              <button class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
+                {props.navigation.text}
+              </button>)}
               {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
             </section>}
             {props.actionItems &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
-              {props.actionItems.map((item, index) =>
+              {typeof props.actionItems === 'string' ?
+              <m-icon-button accessKey='0' class='mdc-top-app-bar__action-item' icon={props.actionItems} onClick={this.onAction}></m-icon-button> :
+              props.actionItems.map((item, index) => {
+                return typeof item === 'string' ?
+                <m-icon-button accessKey={index.toString()} class='mdc-top-app-bar__action-item' icon={item} onClick={this.onAction}></m-icon-button> :
+                this.isArray(item) ?
+                <m-icon-button accessKey={index.toString()} class='mdc-top-app-bar__action-item' icons={item} onClick={this.onAction}></m-icon-button> :
+                item.mIconButton ?
+                <m-icon-button accessKey={index.toString()} class='mdc-top-app-bar__action-item' {...item.mIconButton} onClick={this.onAction}></m-icon-button> :
+                item.mIcon ?
                 <button accessKey={index.toString()} class='mdc-top-app-bar__action-item' onClick={this.onAction}>
-                  {(item.path || item.paths) ? <m-icon accessKey={index.toString()} {...item}></m-icon> : item.text}
+                  {(item.mIcon.path || item.mIcon.paths) ? <m-icon accessKey={index.toString()} {...item.mIcon}></m-icon> : item.text}
+                </button> :
+                <button accessKey={index.toString()} class='mdc-top-app-bar__action-item' onClick={this.onAction}>
+                  {item.text}
                 </button>
-              )}
+              })}
             </section>}
           </div>
         </header>
