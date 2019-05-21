@@ -184,3 +184,20 @@ import '@import/core'
 ### Omim Page Templates(todo)
 
 [Coming!](https://github.com/Tencent/omi/tree/master/packages/omim/templates)
+
+### Bug?(todo)
+
+```js
+import Button from '@import/core/button'
+```
+
+The above code cannot register custom elements.
+
+
+```js
+import '@import/core/button'
+```
+
+The above code can register custom elements.
+
+Why??
