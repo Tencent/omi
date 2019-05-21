@@ -9,7 +9,7 @@ import '@omim/core/top-app-bar'
 define('my-app', class extends WeElement {
   static css = css
 
-  
+
   onDrawerClosed = () => {
 
   }
@@ -19,12 +19,11 @@ define('my-app', class extends WeElement {
   onListDismissible = () => {
 
   }
-  toggleDrawer= () => {
-    
+  toggleDrawer = () => {
+
     this.showDrawer = !this.showDrawer
     //@ts-ignore
     this.update()
-    console.log( this.showDrawer)
   }
   onDemoStart = () => {
     toggleFullScreen()
@@ -34,88 +33,92 @@ define('my-app', class extends WeElement {
 
   render() {
     return <div class="app">
-   
-    <m-top-app-bar css=" .mdc-top-app-bar{padding-left:256px;}"
-        adjust
-        fixed
-        class='abc'
-        heading='Omim Templates'
-        onNavigation={this.toggleDrawer}
-        navigation-icon={{
-          view: 48,
-          //M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z
-          path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
-        }}
-        onAction0={this.onDemoStart}
-        actionItems={[
-          {
-            view: 24,
-            path: 'M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z',
-            color: '#fff'
-          }
-        ]}
-      />
-      <div class='main'>
-      <h1 class="mdc-typography--headline1">Headline 1</h1>
-      <h2 class="mdc-typography--headline2">Headline 2</h2>
-      <h3 class="mdc-typography--headline3">Headline 3</h3>
-      <h4 class="mdc-typography--headline4">Headline 4</h4>
-      <h5 class="mdc-typography--headline5">Headline 5</h5>
-      <h6 class="mdc-typography--headline6">Headline 6</h6>
-      <h6 class="mdc-typography--subtitle1">Subtitle 1</h6>
-      <h6 class="mdc-typography--subtitle2">Subtitle 2</h6>
-      <p class="mdc-typography--body1">Body 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</p>
-      <p class="mdc-typography--body2">Body 2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate aliquid ad quas sunt voluptatum officia dolorum cumque, possimus nihil molestias sapiente necessitatibus dolor saepe inventore, soluta id accusantium voluptas beatae.</p>
       <div>
-        <span class="mdc-typography--button">Button text</span>
-      </div>
-      <div><span class="mdc-typography--caption">Caption text</span>
-      </div>
-      <div><span class="mdc-typography--overline">Overline text</span></div>
+
+        <m-top-app-bar css={`.mdc-top-app-bar{padding-left:${this.showDrawer ? '256' : '0'}px;transition-property: padding-left;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);}`}
+          adjust
+          fixed
+          class='abc'
+          heading='Omim Templates'
+          onNavigation={this.toggleDrawer}
+          navigation-icon={{
+            view: 48,
+            //M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z
+            path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
+          }}
+          onAction0={this.onDemoStart}
+          actionItems={[
+            {
+              view: 24,
+              path: 'M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z',
+              color: '#fff'
+            }
+          ]}
+        />
+        <div class='main' style={` padding-left:${this.showDrawer ? '256' : '0'}px;transition: padding-left .4s cubic-bezier(0.4, 0, 0.2, 1);`}>
+          <h1 class="mdc-typography--headline1">Headline 1</h1>
+          <h2 class="mdc-typography--headline2">Headline 2</h2>
+          <h3 class="mdc-typography--headline3">Headline 3</h3>
+          <h4 class="mdc-typography--headline4">Headline 4</h4>
+          <h5 class="mdc-typography--headline5">Headline 5</h5>
+          <h6 class="mdc-typography--headline6">Headline 6</h6>
+          <h6 class="mdc-typography--subtitle1">Subtitle 1</h6>
+          <h6 class="mdc-typography--subtitle2">Subtitle 2</h6>
+          <p class="mdc-typography--body1">Body 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</p>
+          <p class="mdc-typography--body2">Body 2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate aliquid ad quas sunt voluptatum officia dolorum cumque, possimus nihil molestias sapiente necessitatibus dolor saepe inventore, soluta id accusantium voluptas beatae.</p>
+          <div>
+            <span class="mdc-typography--button">Button text</span>
+          </div>
+          <div><span class="mdc-typography--caption">Caption text</span>
+          </div>
+          <div><span class="mdc-typography--overline">Overline text</span></div>
 
 
-       <h1 class="mdc-typography--headline1">Headline 1</h1>
-      <h2 class="mdc-typography--headline2">Headline 2</h2>
-      <h3 class="mdc-typography--headline3">Headline 3</h3>
-      <h4 class="mdc-typography--headline4">Headline 4</h4>
-      <h5 class="mdc-typography--headline5">Headline 5</h5>
-      <h6 class="mdc-typography--headline6">Headline 6</h6>
-      <h6 class="mdc-typography--subtitle1">Subtitle 1</h6>
-      <h6 class="mdc-typography--subtitle2">Subtitle 2</h6>
-      <p class="mdc-typography--body1">Body 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</p>
-      <p class="mdc-typography--body2">Body 2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate aliquid ad quas sunt voluptatum officia dolorum cumque, possimus nihil molestias sapiente necessitatibus dolor saepe inventore, soluta id accusantium voluptas beatae.</p>
-      <div>
-        <span class="mdc-typography--button">Button text</span>
-      </div>
-      <div><span class="mdc-typography--caption">Caption text</span>
-      </div>
-      <div><span class="mdc-typography--overline">Overline text</span></div>
+          <h1 class="mdc-typography--headline1">Headline 1</h1>
+          <h2 class="mdc-typography--headline2">Headline 2</h2>
+          <h3 class="mdc-typography--headline3">Headline 3</h3>
+          <h4 class="mdc-typography--headline4">Headline 4</h4>
+          <h5 class="mdc-typography--headline5">Headline 5</h5>
+          <h6 class="mdc-typography--headline6">Headline 6</h6>
+          <h6 class="mdc-typography--subtitle1">Subtitle 1</h6>
+          <h6 class="mdc-typography--subtitle2">Subtitle 2</h6>
+          <p class="mdc-typography--body1">Body 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</p>
+          <p class="mdc-typography--body2">Body 2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate aliquid ad quas sunt voluptatum officia dolorum cumque, possimus nihil molestias sapiente necessitatibus dolor saepe inventore, soluta id accusantium voluptas beatae.</p>
+          <div>
+            <span class="mdc-typography--button">Button text</span>
+          </div>
+          <div><span class="mdc-typography--caption">Caption text</span>
+          </div>
+          <div><span class="mdc-typography--overline">Overline text</span></div>
 
 
-       <h1 class="mdc-typography--headline1">Headline 1</h1>
-      <h2 class="mdc-typography--headline2">Headline 2</h2>
-      <h3 class="mdc-typography--headline3">Headline 3</h3>
-      <h4 class="mdc-typography--headline4">Headline 4</h4>
-      <h5 class="mdc-typography--headline5">Headline 5</h5>
-      <h6 class="mdc-typography--headline6">Headline 6</h6>
-      <h6 class="mdc-typography--subtitle1">Subtitle 1</h6>
-      <h6 class="mdc-typography--subtitle2">Subtitle 2</h6>
-      <p class="mdc-typography--body1">Body 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</p>
-      <p class="mdc-typography--body2">Body 2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate aliquid ad quas sunt voluptatum officia dolorum cumque, possimus nihil molestias sapiente necessitatibus dolor saepe inventore, soluta id accusantium voluptas beatae.</p>
-      <div>
-        <span class="mdc-typography--button">Button text</span>
+          <h1 class="mdc-typography--headline1">Headline 1</h1>
+          <h2 class="mdc-typography--headline2">Headline 2</h2>
+          <h3 class="mdc-typography--headline3">Headline 3</h3>
+          <h4 class="mdc-typography--headline4">Headline 4</h4>
+          <h5 class="mdc-typography--headline5">Headline 5</h5>
+          <h6 class="mdc-typography--headline6">Headline 6</h6>
+          <h6 class="mdc-typography--subtitle1">Subtitle 1</h6>
+          <h6 class="mdc-typography--subtitle2">Subtitle 2</h6>
+          <p class="mdc-typography--body1">Body 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.</p>
+          <p class="mdc-typography--body2">Body 2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate aliquid ad quas sunt voluptatum officia dolorum cumque, possimus nihil molestias sapiente necessitatibus dolor saepe inventore, soluta id accusantium voluptas beatae.</p>
+          <div>
+            <span class="mdc-typography--button">Button text</span>
+          </div>
+          <div><span class="mdc-typography--caption">Caption text</span>
+          </div>
+          <div><span class="mdc-typography--overline">Overline text</span></div>
+        </div>
+
       </div>
-      <div><span class="mdc-typography--caption">Caption text</span>
-      </div>
-      <div><span class="mdc-typography--overline">Overline text</span></div>
-      </div>
-    
-     
+
       <m-drawer
-        ref={ (evt)=>{this.drawer = evt}}
+        ref={(evt) => { this.drawer = evt }}
         style="position:fixed;top:0px;z-index:100000"
         frame
-        show={true}
+        dismissible
+        show={this.showDrawer}
         heading='Omim'
         sub-heading='drawer-demo-modal'
         onClosed={this.onDrawerClosed}
@@ -154,11 +157,11 @@ define('my-app', class extends WeElement {
 function toggleFullScreen() {
   //@ts-ignore
   if (!document.fullscreenElement) {
-      //@ts-ignore
-      document.documentElement.requestFullscreen();
+    //@ts-ignore
+    document.documentElement.requestFullscreen();
   } else {
     if (document.exitFullscreen) {
-      document.exitFullscreen(); 
+      document.exitFullscreen();
     }
   }
 }
