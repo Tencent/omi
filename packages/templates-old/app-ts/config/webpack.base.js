@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const packageJson = require('../package.json')
 
 module.exports = {
 
@@ -14,10 +15,11 @@ module.exports = {
     
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
-        alias: {
-            '@': path.resolve(__dirname, '..', 'src'),
-            'omi': 'omio'
-        }
+        alias: packageJson.alias
+        // alias: {
+        //     '@': path.resolve(__dirname, '..', 'src'),
+        //     'omi': 'omio'
+        // }
     },
 
     module: {

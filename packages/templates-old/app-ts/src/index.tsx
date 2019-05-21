@@ -1,82 +1,30 @@
-import { WeElement, render, h, define } from 'omi';
-import './hello-omi';
-import './index.css';
-import * as logo from './logo.svg';
-
-interface AbcEvent extends Event {
-    detail: {
-        name: string;
-        age: number;
-    }
-}
+import { WeElement, render, h, define, tag } from 'omi'
+import './hello-omi'
+import './index.css'
+import * as css from './_index.less'
+import * as logo from './logo.svg'
 
 interface MyAppProps {
-    name: string;
+	name: string
 }
 
 interface MyAppData {
-    abc: string;
-    passToChild: string;
+	abc: string
 }
 
-define('my-app', class extends WeElement<MyAppProps, MyAppData> {
-    static get data(): MyAppData {
-        return {
-            abc: '',
-            passToChild: 'from parent'
-        };
-    }
+@tag('my-app')
+export default class extends WeElement<MyAppProps, MyAppData> {
 
-    /**
-     * bind CustomEvent
-     * @TODO @xcatliu @dntzhang It's hard to find the event data type
-     */
-    onAbc = (evt: AbcEvent) => {
-        // get evt data by evt.detail
-        this.data.abc = ` by ${evt.detail.name}`
-        this.update()
-    }
+	static css = css
 
-    css() {
-        return `
-        .app {
-            text-align: center;
-        }
-        
-        .app-logo {
-            animation: app-logo-spin infinite 20s linear;
-            height: 80px;
-        }
-        
-        .app-header {
-            background-color: #222;
-            height: 150px;
-            padding: 20px;
-            color: white;
-        }
-        
-        .app-title {
-            font-size: 1.5em;
-        }
-        
-        .app-logo {
-            cursor: pointer;
-        }
-        
-        @keyframes app-logo-spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        } 
-        `
-    }
+	onAbc = (evt: CustomEvent) => {
+		this.data.abc = ` by ${evt.detail.name}`
+		this.update()
+	}
 
-    render(props, data) {
-        return (
-            <div class="app">
+	render(props) {
+		return (
+			<div class="app">
 				<header class="app-header">
 					<img
 						src={logo}
@@ -85,11 +33,11 @@ define('my-app', class extends WeElement<MyAppProps, MyAppData> {
 					/>
 					<h1 class="app-title">Welcome to {props.name}</h1>
 				</header>
-                Hello {this.props.name} {this.data.abc}
-                <hello-omi onAbc={this.onAbc} propFromParent={this.data.passToChild} msg="Omi"></hello-omi>
+				{this.data.abc}	
+				<hello-omi onAbc={this.onAbc} msg="Omi"></hello-omi>
 			</div>
-        )
-    }
-})
+		)
+	}
+}
 
 render(<my-app name='Omi'></my-app>, '#root')

@@ -32,5 +32,8 @@
   "dependencies": {
     "omi": "latest",
     "omio": "latest"
+  },
+  "alias": {
+    "omi": "omi"
   }
 }

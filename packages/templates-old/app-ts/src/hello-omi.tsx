@@ -1,31 +1,37 @@
-import { define, WeElement, h } from 'omi'
+import { WeElement, h, tag } from 'omi'
 
 interface HelloOmiProps {
-    msg: string;
-    propFromParent: string;
+	msg: string
+	onAbc: (evt: CustomEvent) => void
 }
 
-define('hello-omi', class extends WeElement<HelloOmiProps> {
+const tagName = 'hello-omi'
+declare global {
+	namespace JSX {
+		interface IntrinsicElements {
+			[tagName]: Omi.Props & HelloOmiProps
+		}
+	}
+}
 
-    onClick = (evt: Event) => {
-        // trigger CustomEvent
-        this.fire('abc', { name: 'dntzhang & f & xcatliu', age: 12 })
-        evt.stopPropagation()
-    }
+@tag(tagName)
+export default class extends WeElement<HelloOmiProps> {
+	static css = `div {
+        color: red;
+        cursor: pointer;
+    }`
 
-    css() {
-        return `div {
-            color: red;
-            cursor: pointer;
-        }`
-    }
+	onClick = (evt: Event) => {
+		// trigger CustomEvent
+		this.fire('abc', { name: 'dntzhang & f & xcatliu', age: 12 })
+		evt.stopPropagation()
+	}
 
-    render() {
-        return (
-            <div onClick={this.onClick}>
-                Hello {this.props.msg} [{this.props.propFromParent}]
-                <div>Click Me!</div>
-            </div>
-        )
-    }
-})
+	render() {
+		return (
+			<div onClick={this.onClick}>
+				<div>	Hello {this.props.msg} Click Me!</div>
+			</div>
+		)
+	}
+}
