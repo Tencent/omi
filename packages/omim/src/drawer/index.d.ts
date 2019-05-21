@@ -28,6 +28,7 @@ export default class Drawer extends WeElement<Props, Data> {
     static defaultProps: {};
     drawerFoundation: MDCDismissibleDrawerFoundation;
     listAll: any[];
+    initShow: boolean;
     updated(): void;
     installed(): void;
     onList: (evt: any) => void;

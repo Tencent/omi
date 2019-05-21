@@ -46,6 +46,9 @@ export default class Drawer extends WeElement<Props, Data>{
   //记录列表数据，用于返回当前列表数据
   listAll = new Array()
 
+  //去除初始状态为显示时刷新页面的显示动画
+  initShow = true
+
   updated() {
     if(this.props.dismissible || this.props.modal) {
       this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
@@ -53,10 +56,12 @@ export default class Drawer extends WeElement<Props, Data>{
   }
 
   installed() {
+    this.initShow = this.props.show
     if(this.props.dismissible || this.props.modal) {
       const deawer = MDCDrawer.attachTo(this.shadowRoot.querySelector('.mdc-drawer'))
       this.drawerFoundation = deawer.getDefaultFoundation()
-      this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
+      //去除初始状态为显示时刷新页面的显示动画
+      // this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
       deawer.listen('MDCDrawer:opened', (evt: any) => {
         this.fire('opened', evt)
       })
@@ -84,7 +89,8 @@ export default class Drawer extends WeElement<Props, Data>{
       <div class={classNames({'m-drawer-frame-root': props.frame})}>
         <aside {...extractClass(props, 'mdc-drawer', {
           'mdc-drawer--dismissible': props.dismissible,
-          'mdc-drawer--modal': props.modal
+          'mdc-drawer--modal': props.modal,
+          'mdc-drawer--open': this.initShow
         })}>
           {(props.heading || props.subHeading) &&
           <div class='mdc-drawer__header'>
