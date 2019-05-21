@@ -146,7 +146,7 @@ Some [material packages](https://github.com/material-components/material-compone
 
 ## Todo
 
-Support TypeScript Auto Complete:
+### TypeScript Auto Complete
 
 ```jsx
 interface ButtonProps {
@@ -171,4 +171,12 @@ export default class Button extends WeElement<ButtonProps, {}> {
 ...
 ...
 ...
+```
+
+### Import core
+
+Support import all element of core:
+
+```
+import '@import/core'
 ```
