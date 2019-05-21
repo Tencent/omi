@@ -1,9 +1,10 @@
-import logo from './logo.svg';
-import './my-app.css';
-import { define, WeElement } from 'omi';
-import { Button } from 'antd'
+import logo from './logo.svg'
+import * as css from './_my-app.css'
+import { define, WeElement } from 'omi'
 
 define('my-app', class extends WeElement {
+  static css = css
+
   render() {
     return <div className="App">
       <header className="App-header">
@@ -29,10 +30,6 @@ define('my-app', class extends WeElement {
             Omi Github
         </a>
         </div>
-        <Button type="primary">Antd Button Primary</Button>
-        <Button>Antd Button Default</Button>
-        <Button type="dashed">Antd Button Dashed</Button>
-        <Button type="danger">Antd Button Danger</Button>
       </header>
     </div>
   }
