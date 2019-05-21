@@ -1,5 +1,5 @@
 {
-  "name": "antd-ts",
+  "name": "omi-ts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,7 +21,6 @@
     "@types/react-dom": "16.8.4",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
-    "antd": "^3.16.5",
     "babel-eslint": "10.0.1",
     "babel-jest": "24.7.1",
     "babel-loader": "8.0.5",
@@ -46,6 +45,8 @@
     "jest-environment-jsdom-fourteen": "0.1.0",
     "jest-resolve": "24.7.1",
     "jest-watch-typeahead": "0.3.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "0.5.0",
     "omi": "latest",
     "omio": "latest",
@@ -66,6 +67,7 @@
     "semver": "6.0.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "1.2.3",
+    "to-string-loader": "^1.1.5",
     "typescript": "3.4.4",
     "url-loader": "1.1.2",
     "webpack": "4.29.6",
@@ -163,8 +165,6 @@
     ]
   },
   "alias": {
-    "omi": "reomi",
-    "react": "reomi",
-    "react-dom": "reomi"
+    "omi": "omi"
   }
 }
