@@ -2,6 +2,8 @@
 
 [Omi](https://github.com/Tencent/omi) 打造的 Material Design 框架无关标准组件，任意框架都可以使用。
 
+![](https://tencent.github.io/omi/packages/omim/assets/pv4.jpeg?a=1)
+
 ## 特性
 
 * 基于 [material-components-web](https://github.com/material-components/material-components-web) 简单包装
@@ -15,10 +17,10 @@
 ### 通过 script
 
 ```html
-<script src="https://unpkg.com/omi"></script>
-<script src="https://unpkg.com/@omim/core@0.0.1/button/index.js"></script>
-
 <m-button>I am button</m-button>
+
+<script src="https://unpkg.com/omi"></script>
+<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
 ```
 
 ### 通过 npm
@@ -66,15 +68,15 @@ import '@omim/core/button'
 或者
 
 ```html
+<m-button>I am button</m-button>
+
 <script src="https://unpkg.com/omi"></script>
 <script>
   window.OmimThemePrimary =  'red'
   window.OmimThemeSecondary =  'blue'
   window.OmimThemeError =  'yellow'
 </script>
-<script src="https://unpkg.com/@omim/core@0.0.1/button/index.js"></script>
-
-<m-button>I am button</m-button>
+<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
 ```
 
 ## 贡献

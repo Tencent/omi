@@ -2,6 +2,8 @@
 
 Cross-Frameworks components, powered by Material Design and [Omi](https://github.com/Tencent/omi).
 
+![](https://tencent.github.io/omi/packages/omim/assets/pv4.jpeg?a=1)
+
 ## Features
 
 * Simple wrapper of [material-components-web](https://github.com/material-components/material-components-web)
@@ -15,10 +17,10 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 ### Via script
 
 ```html
-<script src="https://unpkg.com/omi"></script>
-<script src="https://unpkg.com/@omim/core@0.0.1/button/index.js"></script>
-
 <m-button>I am button</m-button>
+
+<script src="https://unpkg.com/omi"></script>
+<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
 ```
 
 ### Via npm
@@ -66,15 +68,15 @@ import '@omim/core/button'
 or
 
 ```html
+<m-button>I am button</m-button>
+
 <script src="https://unpkg.com/omi"></script>
 <script>
   window.OmimThemePrimary =  'red'
   window.OmimThemeSecondary =  'blue'
   window.OmimThemeError =  'yellow'
 </script>
-<script src="https://unpkg.com/@omim/core@0.0.1/button/index.js"></script>
-
-<m-button>I am button</m-button>
+<script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
 ```
 
 ## Contribution

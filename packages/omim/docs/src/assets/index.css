@@ -122,3 +122,8 @@ pre[data-line] {
 :not(pre) > code[class*="language-"], pre[class*="language-"] {
   font-size: 0.8em;
 }
+
+
+img{
+  max-width: 900px;
+}
