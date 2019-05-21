@@ -3494,6 +3494,8 @@ var Drawer = /** @class */ (function (_super) {
         //Record list data for returning current list data
         //记录列表数据，用于返回当前列表数据
         _this.listAll = new Array();
+        //去除初始状态为显示时刷新页面的显示动画
+        _this.initShow = true;
         _this.onList = function (evt) {
             evt && _this.fire('list' + evt.toElement.accessKey, evt);
         };
@@ -3506,10 +3508,12 @@ var Drawer = /** @class */ (function (_super) {
     };
     Drawer.prototype.installed = function () {
         var _this = this;
+        this.initShow = this.props.show;
         if (this.props.dismissible || this.props.modal) {
             var deawer = drawer_1.MDCDrawer.attachTo(this.shadowRoot.querySelector('.mdc-drawer'));
             this.drawerFoundation = deawer.getDefaultFoundation();
-            this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close();
+            //去除初始状态为显示时刷新页面的显示动画
+            // this.props.show ? this.drawerFoundation.open() : this.drawerFoundation.close()
             deawer.listen('MDCDrawer:opened', function (evt) {
                 _this.fire('opened', evt);
             });
@@ -3532,7 +3536,8 @@ var Drawer = /** @class */ (function (_super) {
         return (omi_1.h("div", { class: omi_1.classNames({ 'm-drawer-frame-root': props.frame }) },
             omi_1.h("aside", __assign({}, omi_1.extractClass(props, 'mdc-drawer', {
                 'mdc-drawer--dismissible': props.dismissible,
-                'mdc-drawer--modal': props.modal
+                'mdc-drawer--modal': props.modal,
+                'mdc-drawer--open': this.initShow
             })),
                 (props.heading || props.subHeading) &&
                     omi_1.h("div", { class: 'mdc-drawer__header' },
