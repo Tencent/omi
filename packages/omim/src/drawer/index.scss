@@ -11,6 +11,10 @@
   width: 100%;
 }
 
+// .mdc-drawer.mdc-drawer--open:not(.mdc-drawer--closing) + .mdc-drawer-app-content {
+//   margin-left: 0px;
+// }
+
 .m-drawer-content {
   overflow: auto;
   height: 100%;

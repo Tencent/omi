@@ -16,7 +16,9 @@ interface Props {
   fixed?: boolean,
   adjust?: boolean,
   navigation?: object,
+  navigationElement?: object,
   actionItems?: object,
+  actionElement?: object,
   scrollTarget?: EventTarget,
   scrollTargetDrawer?: boolean
 }
@@ -38,7 +40,9 @@ export default class topAppBar extends WeElement<Props, Data>{
     fixed: Boolean,
     adjust: Boolean,
     navigation: Object,
+    navigationElement: Object,
     actionItems: Object,
+    actionElement: Object,
     scrollTarget: EventTarget,
     scrollTargetDrawer: Boolean
   }
@@ -108,8 +112,11 @@ export default class topAppBar extends WeElement<Props, Data>{
           <div class='mdc-top-app-bar__row'>
             {(props.navigation || props.heading) &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
-              {props.navigation &&
-              typeof props.navigation === 'string' ?
+              {/* 支持自定义元素，开发完成 */}
+              {props.navigationElement ?
+              props.navigationElement :
+              props.navigation &&
+              (typeof props.navigation === 'string' ?
               <m-icon-button class='mdc-top-app-bar__navigation-icon' icon={props.navigation} onClick={this.onNavigation}></m-icon-button> :
               this.isArray(props.navigation) ?
               <m-icon-button class='mdc-top-app-bar__navigation-icon' icons={props.navigation} onClick={this.onNavigation}></m-icon-button> :
@@ -124,12 +131,17 @@ export default class topAppBar extends WeElement<Props, Data>{
               </button> :
               <button class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
                 {props.navigation.text}
-              </button>)}
+              </button>))}
               {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
             </section>}
             {props.actionItems &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
-              {typeof props.actionItems === 'string' ?
+              {/* 支持自定义元素，开发中 */}
+              {props.actionElement ?
+              props.actionElement.map((item) => {
+                return item
+              }) :
+              typeof props.actionItems === 'string' ?
               <m-icon-button accessKey='0' class='mdc-top-app-bar__action-item' icon={props.actionItems} onClick={this.onAction}></m-icon-button> :
               props.actionItems.map((item, index) => {
                 return typeof item === 'string' ?
