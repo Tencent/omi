@@ -57,7 +57,8 @@ const config = {
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
-          { name: 'Tab', md: 'tab', demo: './repl/tab.html' }
+          { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
+          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' }
         ]
       }
     ],
@@ -118,7 +119,8 @@ const config = {
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
-          { name: 'Tab', md: 'tab', demo: './repl/tab.html' }
+          { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
+          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' }
         ]
       }
     ]
