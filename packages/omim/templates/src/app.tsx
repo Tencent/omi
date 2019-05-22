@@ -3,10 +3,10 @@ import * as css from './_app.css'
 import { define, WeElement, h } from 'omi'
 import '@omim/core/button'
 import '@omim/core/drawer'
-import '@omim/core/top-app-bar'
 import 'omi-router'
 import './dashboard'
 import './about'
+import './top-bar'
 
 const hash = location.hash || '#/dashboard'
 
@@ -43,12 +43,13 @@ define('my-app', class extends WeElement {
   onListDismissible = () => {
 
   }
-  toggleDrawer = () => {
 
+  toggleDrawer = () => {
     this.showDrawer = !this.showDrawer
     //@ts-ignore
     this.update()
   }
+
   onDemoStart = () => {
     toggleFullScreen()
   }
@@ -59,27 +60,8 @@ define('my-app', class extends WeElement {
     return <div class="app">
       <div>
 
-        <m-top-app-bar css={`.mdc-top-app-bar{padding-left:${this.showDrawer ? '256' : '0'}px;transition-property: padding-left;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);}`}
-          adjust
-          fixed
-          class='abc'
-          heading=''
-          onNavigation={this.toggleDrawer}
-          navigation-icon={{
-            view: 48,
-            //M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z
-            path: 'M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z'
-          }}
-          onAction0={this.onDemoStart}
-          actionItems={[
-            {
-              view: 24,
-              path: 'M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z',
-              color: '#fff'
-            }
-          ]}
-        />
+        <top-bar onClickA={this.toggleDrawer} onClickB={this.onDemoStart} css={`.mdc-top-app-bar{padding-left:${this.showDrawer ? '256' : '0'}px;transition-property: padding-left;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);}`} />
         <div class='main' style={` padding-left:${this.showDrawer ? '256' : '0'}px;transition: padding-left .4s cubic-bezier(0.4, 0, 0.2, 1);`}>
           <this.mainTag ></this.mainTag>
         </div>
