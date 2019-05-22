@@ -17,7 +17,7 @@ define('my-about', class extends WeElement {
         css='.mdc-card{text-indent: 0;margin:40px auto;}'
         title='Omim Templates'
         subTitle='by omi team - omijs.org'
-        content='版权所有2019 Omi Inc. 保留所有权利。' img={bg}>
+        content='版权所有2019 Tencent Omi Inc. 保留所有权利。' img={bg}>
       </m-card>
     </div>
   }

@@ -18,6 +18,11 @@ define('my-app', class extends WeElement {
 
   install() {
     //@ts-ignore
+    route('/', () => {
+      this.mainTag = 'my-dashboard'
+      this.update()
+    })
+    //@ts-ignore
     route('/dashboard', () => {
       this.mainTag = 'my-dashboard'
       this.update()
@@ -59,7 +64,7 @@ define('my-app', class extends WeElement {
           adjust
           fixed
           class='abc'
-          heading='Omim Templates'
+          heading=''
           onNavigation={this.toggleDrawer}
           navigation-icon={{
             view: 48,
@@ -86,7 +91,7 @@ define('my-app', class extends WeElement {
         frame
         dismissible
         show={this.showDrawer}
-        heading='Omim'
+        heading='Omim Templates'
         sub-heading='powered by omi'
         onClosed={this.onDrawerClosed}
         onList2={this.onListPermanent}
