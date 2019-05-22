@@ -11,10 +11,10 @@ interface Props {
     text: string,
     selected?: boolean,
     leading?: {
-      icon: object
+      icon: object | string
     },
     trailing?: {
-      icon: object,
+      icon: object | string,
       role?: string,
       tabindex?: number
     },
@@ -46,19 +46,20 @@ export default class chipSet extends WeElement<Props, Data>{
     filter: Boolean
   }
 
+  trailingClickHandle = (index) => {
+    this.fire('trailingIconInteraction', index)
+  }
+
+  chipClickHandle = (index) => {
+    this.fire('interaction', index)
+  }
+
   installed() {
     if (this.props.ripple) {
       this.shadowRoot.querySelectorAll('.mdc-chip').forEach(item => {
         new MDCRipple(item)
       })
     }
-
-    var chipSet = this.shadowRoot.querySelector('.mdc-chip-set');
-    MDCChipSet.attachTo(chipSet);
-    chipSet.addEventListener('MDCChip:removal', function(event: any) {
-      const root = event.detail.root;
-      root && chipSet.removeChild(root);
-    });
   }
 
   render(props) {
@@ -70,15 +71,16 @@ export default class chipSet extends WeElement<Props, Data>{
         'mdc-chip-set--filter': props.filter
       })}>
         {
-          props.chips.map(item => {
+          props.chips.map((item, index) => {
             return <div tabindex="0" {
               ...extractClass(props,
                 'mdc-chip', {
                   'mdc-chip--selected': item.selected
-                })}>
+                })} onClick={() => this.chipClickHandle(index)}>
 
               {(item.leading) && <i class={classNames('material-icons', 'mdc-chip__icon', 'mdc-chip__icon--leading', {'mdc-chip__icon--leading-hidden': props.filter && item.checkmark && item.selected})}>
-                {(item.leading.icon) && <m-icon class='m-icon' {...item.leading.icon}></m-icon>}
+                { (item.leading.icon && typeof item.leading.icon === 'object') && <m-icon class='m-icon' {...item.leading.icon}></m-icon>}
+                { (item.leading.icon && typeof item.leading.icon === 'string') && item.leading.icon }
               </i>}
 
               {(props.filter && item.checkmark) && <div class="mdc-chip__checkmark" >
@@ -90,8 +92,9 @@ export default class chipSet extends WeElement<Props, Data>{
 
               <div class="mdc-chip__text">{ item.text }</div>
 
-              {(item.trailing) && <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing">
-                {(item.trailing.icon) && <m-icon class='m-icon' {...item.trailing.icon}></m-icon>}
+              {(item.trailing) && <i class="material-icons mdc-chip__icon mdc-chip__icon--trailing" onClick={() => this.trailingClickHandle(index) }>
+                {(item.trailing.icon && typeof item.trailing.icon === 'object') && <m-icon class='m-icon' {...item.trailing.icon}></m-icon>}
+                { (item.trailing.icon && typeof item.trailing.icon === 'string') && item.trailing.icon }
               </i>}
             </div>
           })
