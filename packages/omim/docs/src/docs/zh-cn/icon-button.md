@@ -28,6 +28,10 @@ JSX:
 <m-icon-button color="red" icons={['favorite', 'favorite_border']}></m-icon-button>
 ```
 
+## 更多官方 Icons
+
+访问 [Material Icons 官方网站](https://material.io/tools/icons/?style=baseline) 获取更多 Icons。
+
 ## API
 
 ### Props

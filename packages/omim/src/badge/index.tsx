@@ -5,8 +5,10 @@ import '../icon'
 import { theme } from '../theme.ts'
 
 interface Props {
-  dot: boolean,
-  content: string
+  dot?: boolean,
+  content?: string,
+  x?: number,
+  y?: number
 }
 
 interface Data {
@@ -17,9 +19,16 @@ interface Data {
 export default class Badge extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static defaultProps = {
+    x: 0,
+    y: 0
+  }
+
   static propTypes = {
     dot: Boolean,
-    content: String
+    content: String,
+    x: Number,
+    y: Number
   }
 
 
@@ -36,15 +45,15 @@ export default class Badge extends WeElement<Props, Data>{
     if (props.content) {
       return <div {...extractClass(props, 'm-badge')}>
         {props.children ? props.children[0] : <slot></slot>}
-        <span class="badge">{props.content}</span>
+        <span class="badge" style={`right:${props.x * -1}px;top:${props.y}px;`}>{props.content}</span>
       </div>
-
     }
+
     if (props.dot) {
       return (
         <div class="m-badge">
           {props.children ? props.children[0] : <slot></slot>}
-          <span class="circle badge"></span>
+          <span style={`right:${props.x * -1}px;top:${props.y}px;`} class="circle badge"></span>
         </div>
       )
     }

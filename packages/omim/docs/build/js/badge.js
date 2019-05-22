@@ -264,6 +264,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/badge/index.scss");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Badge = /** @class */ (function (_super) {
     __extends(Badge, _super);
     function Badge() {
@@ -277,19 +279,25 @@ var Badge = /** @class */ (function (_super) {
         if (props.content) {
             return omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-badge')),
                 props.children ? props.children[0] : omi_1.h("slot", null),
-                omi_1.h("span", { class: "badge" }, props.content));
+                omi_1.h("span", { class: "badge", style: "right:" + props.x * -1 + "px;top:" + props.y + "px;" }, props.content));
         }
         if (props.dot) {
             return (omi_1.h("div", { class: "m-badge" },
                 props.children ? props.children[0] : omi_1.h("slot", null),
-                omi_1.h("span", { class: "circle badge" })));
+                omi_1.h("span", { style: "right:" + props.x * -1 + "px;top:" + props.y + "px;", class: "circle badge" })));
         }
         return omi_1.h("div", { class: "m-badge" }, props.children ? props.children[0] : omi_1.h("slot", null));
     };
-    Badge.css = css;
+    Badge.css = theme_ts_1.theme() + css;
+    Badge.defaultProps = {
+        x: 0,
+        y: 0
+    };
     Badge.propTypes = {
         dot: Boolean,
-        content: String
+        content: String,
+        x: Number,
+        y: Number
     };
     Badge = __decorate([
         omi_1.tag('m-badge')
@@ -563,6 +571,8 @@ exports.default = Badge;
             Object.defineProperty(exports, "__esModule", { value: true });
             var omi_1 = __webpack_require__(/*! omi */ "omi");
             var css = __webpack_require__(/*! ./index.scss */ "./src/icon/index.scss");
+            //@ts-ignore
+            var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
             var Icon = /** @class */ (function (_super) {
                 __extends(Icon, _super);
                 function Icon() {
@@ -576,7 +586,7 @@ exports.default = Badge;
                         return omi_1.h("path", __assign({}, attrs));
                     })) : omi_1.h("path", { d: props.path })), props.children && (omi_1.h("div", { style: "color:" + (props.color || 'black') + ";" }, props.children[0]))));
                 };
-                Icon.css = css;
+                Icon.css = theme_ts_1.theme() + css;
                 Icon.defaultProps = {
                     view: 1024,
                     scale: 2
@@ -586,7 +596,8 @@ exports.default = Badge;
                     paths: Object,
                     view: Number,
                     scale: Number,
-                    color: String
+                    color: String,
+                    rotate: Boolean
                 };
                 Icon = __decorate([
                     omi_1.tag('m-icon')
@@ -594,6 +605,27 @@ exports.default = Badge;
                 return Icon;
             }(omi_1.WeElement));
             exports.default = Icon;
+            /***/ 
+        }),
+        /***/ "./src/theme.ts": 
+        /*!**********************!*\
+          !*** ./src/theme.ts ***!
+          \**********************/
+        /*! no static exports found */
+        /***/ (function (module, exports, __webpack_require__) {
+            "use strict";
+            Object.defineProperty(exports, "__esModule", { value: true });
+            if (typeof window === 'object') {
+                window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+                window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+                window.OmimThemeError = window.OmimThemeError || '#f5222d';
+            }
+            function theme() {
+                if (typeof window === 'object') {
+                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+                }
+            }
+            exports.theme = theme;
             /***/ 
         }),
         /***/ "omi": 
@@ -609,6 +641,31 @@ exports.default = Badge;
     });
 });
 //# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
 
 
 /***/ }),

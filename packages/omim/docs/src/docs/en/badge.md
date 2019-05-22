@@ -28,3 +28,5 @@ JSX:
 | ------------- |:-------------:|:-----:|:-------------:|
 | dot | boolean | -- | The content of the badge is a dot |
 | content | string | -- | Customize badge content |
+| x | number | 0 | Offset x |
+| y | number | 0 | Offset y |
