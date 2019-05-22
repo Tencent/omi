@@ -1,6 +1,7 @@
 import { WeElement } from 'omi';
 import { MDCDismissibleDrawerFoundation } from '@material/drawer';
 import '../icon';
+import '../icon-button';
 interface Props {
     frame?: boolean;
     dismissible?: boolean;

@@ -3,6 +3,8 @@ import * as css from './index.scss'
 import {MDCDrawer, MDCDismissibleDrawerFoundation} from '@material/drawer'
 import {MDCList} from '@material/list';
 import '../icon'
+import '../icon-button'
+
 //@ts-ignore
 import { theme } from '../theme.ts'
 
@@ -90,7 +92,7 @@ export default class Drawer extends WeElement<Props, Data>{
         <aside {...extractClass(props, 'mdc-drawer', {
           'mdc-drawer--dismissible': props.dismissible,
           'mdc-drawer--modal': props.modal,
-          'mdc-drawer--open': this.initShow
+          'mdc-drawer--open': this.initShow && (props.dismissible || props.modal)
         })}>
           {(props.heading || props.subHeading) &&
           <div class='mdc-drawer__header'>
@@ -116,19 +118,21 @@ export default class Drawer extends WeElement<Props, Data>{
                     aria-selected={`${item.focus ? true : false}`}
                     target={item.target && '_blank'}
                     onClick={this.onList}>
-                    {item.icon &&
+                    {item.mIconButton ?
+                    <m-icon-button accessKey={index.toString()} {...item.mIconButton} class='mdc-list-item__graphic'></m-icon-button> :
+                    item.mIcon &&
                     <m-icon
                       accessKey={index.toString()}
-                      {...item.icon}
+                      {...item.mIcon}
                       class='mdc-list-item__graphic'
                       css={`
-                        ${!(item.icon.path || item.icon.paths) && `
+                        ${!(item.mIcon.path || item.mIcon.paths) && `
                           .m-icon svg {
                             display: none;
                           }
                         `}
                       `}>
-                      {!(item.icon.path || item.icon.paths) && item.icon.text}
+                      {!(item.mIcon.path || item.mIcon.paths) && item.mIcon.text}
                     </m-icon>}
                     {item.text}
                   </a>
