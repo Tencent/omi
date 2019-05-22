@@ -61,7 +61,7 @@ define('my-app', class extends WeElement {
             onNavigation={this.onDemoStart}
             //Support a lot of methods
             //支持非常多种写法
-            navigation-element={<img onClick={this.onDemoStart} style='width:50px' src='../../assets/pv4.jpeg'></img>}
+            navigation-element={<img style='width:50px' src='../../assets/pv4.jpeg'></img>}
             // navigation='wifi'
             // navigation={'favorite'}
             // navigation={['favorite', 'favorite_border']}
@@ -80,7 +80,7 @@ define('my-app', class extends WeElement {
             //Support a lot of methods
             //支持非常多种写法
             action-elements={[
-              <img style='width:50px' src='../../assets/pv4.jpeg'></img>,
+              <img onClick={this.onDemoStart} style='width:50px' src='../../assets/pv4.jpeg'></img>,
               <h1 style='color:red'>zain</h1>
             ]}
             // action-items='wifi'
