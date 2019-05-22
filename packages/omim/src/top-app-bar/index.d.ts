@@ -13,7 +13,7 @@ interface Props {
     navigation?: object;
     navigationElement?: object;
     actionItems?: object;
-    actionElement?: object;
+    actionElements?: object;
     scrollTarget?: EventTarget;
     scrollTargetDrawer?: boolean;
 }
@@ -32,7 +32,7 @@ export default class topAppBar extends WeElement<Props, Data> {
         navigation: ObjectConstructor;
         navigationElement: ObjectConstructor;
         actionItems: ObjectConstructor;
-        actionElement: ObjectConstructor;
+        actionElements: ObjectConstructor;
         scrollTarget: {
             new (): EventTarget;
             prototype: EventTarget;

@@ -4,6 +4,9 @@ import {MDCTopAppBar} from '@material/top-app-bar';
 import '../icon'
 import '../icon-button'
 
+// @ts-ignore
+import { htmlToVdom } from '../util.ts'
+
 //@ts-ignore
 import { theme } from '../theme.ts'
 
@@ -18,7 +21,7 @@ interface Props {
   navigation?: object,
   navigationElement?: object,
   actionItems?: object,
-  actionElement?: object,
+  actionElements?: object,
   scrollTarget?: EventTarget,
   scrollTargetDrawer?: boolean
 }
@@ -42,7 +45,7 @@ export default class topAppBar extends WeElement<Props, Data>{
     navigation: Object,
     navigationElement: Object,
     actionItems: Object,
-    actionElement: Object,
+    actionElements: Object,
     scrollTarget: EventTarget,
     scrollTargetDrawer: Boolean
   }
@@ -112,9 +115,9 @@ export default class topAppBar extends WeElement<Props, Data>{
           <div class='mdc-top-app-bar__row'>
             {(props.navigation || props.heading) &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
-              {/* 支持自定义元素，开发完成 */}
+              {/* Support for custom elements, development completed (支持自定义元素，开发完成) */}
               {props.navigationElement ?
-              props.navigationElement :
+              (typeof props.navigationElement === 'string' ? htmlToVdom(props.navigationElement) : props.navigationElement) :
               props.navigation &&
               (typeof props.navigation === 'string' ?
               <m-icon-button class='mdc-top-app-bar__navigation-icon' icon={props.navigation} onClick={this.onNavigation}></m-icon-button> :
@@ -134,14 +137,16 @@ export default class topAppBar extends WeElement<Props, Data>{
               </button>))}
               {props.heading && <span class='mdc-top-app-bar__title'>{props.heading}</span>}
             </section>}
-            {props.actionItems &&
+            {(props.actionItems || props.actionElements) &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
               {/* 支持自定义元素，开发中 */}
-              {props.actionElement ?
-              props.actionElement.map((item) => {
-                return item
+              {console.log(props.actionElements)}
+              {props.actionElements ?
+              props.actionElements.map((item) => {
+                return (typeof item === 'string' ? htmlToVdom(item) : item)
               }) :
-              typeof props.actionItems === 'string' ?
+              props.actionItems &&
+              (typeof props.actionItems === 'string' ?
               <m-icon-button accessKey='0' class='mdc-top-app-bar__action-item' icon={props.actionItems} onClick={this.onAction}></m-icon-button> :
               props.actionItems.map((item, index) => {
                 return typeof item === 'string' ?
@@ -157,7 +162,7 @@ export default class topAppBar extends WeElement<Props, Data>{
                 <button accessKey={index.toString()} class='mdc-top-app-bar__action-item' onClick={this.onAction}>
                   {item.text}
                 </button>
-              })}
+              }))}
             </section>}
           </div>
         </header>
