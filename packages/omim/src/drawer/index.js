@@ -2700,6 +2700,8 @@ var drawer_1 = __webpack_require__(/*! @material/drawer */ "./node_modules/@mate
 var list_1 = __webpack_require__(/*! @material/list */ "./node_modules/@material/list/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
 __webpack_require__(/*! ../icon-button */ "./src/icon-button/index.js");
+// @ts-ignore
+var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Drawer = /** @class */ (function (_super) {
@@ -2772,10 +2774,12 @@ var Drawer = /** @class */ (function (_super) {
                                 return omi_1.h("a", { accessKey: index.toString(), class: omi_1.classNames('mdc-list-item', {
                                         'mdc-list-item--activated': item.focus
                                     }), href: item.href, tabindex: "" + (item.focus ? '0' : '-1'), "aria-selected": "" + (item.focus ? true : false), target: item.target && '_blank', onClick: _this.onList },
-                                    item.mIconButton ?
-                                        omi_1.h("m-icon-button", __assign({ accessKey: index.toString() }, item.mIconButton, { class: 'mdc-list-item__graphic' })) :
-                                        item.mIcon &&
-                                            omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item.mIcon, { class: 'mdc-list-item__graphic', css: "\n                        " + (!(item.mIcon.path || item.mIcon.paths) && "\n                          .m-icon svg {\n                            display: none;\n                          }\n                        ") + "\n                      " }), !(item.mIcon.path || item.mIcon.paths) && item.mIcon.text),
+                                    item.iconElement ?
+                                        (typeof item.iconElement === 'string' ? util_ts_1.htmlToVdom(item.iconElement) : item.iconElement) :
+                                        item.mIconButton ?
+                                            omi_1.h("m-icon-button", __assign({ accessKey: index.toString() }, item.mIconButton, { class: 'mdc-list-item__graphic' })) :
+                                            item.mIcon &&
+                                                omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item.mIcon, { class: 'mdc-list-item__graphic', css: "\n                        " + (!(item.mIcon.path || item.mIcon.paths) && "\n                          .m-icon svg {\n                            display: none;\n                          }\n                        ") + "\n                      " }), !(item.mIcon.path || item.mIcon.paths) && item.mIcon.text),
                                     item.text);
                             }
                         }))),
@@ -6005,6 +6009,70 @@ function theme() {
     }
 }
 exports.theme = theme;
+
+
+/***/ }),
+
+/***/ "./src/util.ts":
+/*!*********************!*\
+  !*** ./src/util.ts ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function extract(props, prop) {
+    var _a;
+    if (typeof prop === 'string') {
+        if (props.hasOwnProperty(prop)) {
+            return _a = {}, _a[prop] = props[prop], _a;
+        }
+    }
+    else {
+        var res_1 = {};
+        prop.forEach(function (key) {
+            if (props.hasOwnProperty(key)) {
+                res_1[key] = props[key];
+            }
+        });
+        return res_1;
+    }
+}
+exports.extract = extract;
+var parser = new DOMParser();
+function htmlToVdom(html) {
+    if (!html)
+        return null;
+    return processNode(parser.parseFromString("<div>" + html + "</div>", "text/xml").childNodes[0]).children;
+}
+exports.htmlToVdom = htmlToVdom;
+function processNode(node) {
+    if (node.nodeType === 1) {
+        var i, child, attributes = {}, children = [];
+        for (i = 0; (child = node.attributes[i]); ++i) {
+            attributes[child.nodeName] = child.nodeValue;
+        }
+        for (i = 0; (child = node.childNodes[i]); ++i) {
+            var vn = processNode(child);
+            if (vn !== null)
+                children.push(vn);
+        }
+        return {
+            nodeName: node.tagName,
+            attributes: attributes,
+            children: children
+        };
+    }
+    if (node.nodeType === 3) {
+        var v = node.nodeValue.trim();
+        if (v !== '') {
+            return v;
+        }
+        return null;
+    }
+}
 
 
 /***/ }),

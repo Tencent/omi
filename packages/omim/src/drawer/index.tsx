@@ -5,6 +5,9 @@ import {MDCList} from '@material/list';
 import '../icon'
 import '../icon-button'
 
+// @ts-ignore
+import { htmlToVdom } from '../util.ts'
+
 //@ts-ignore
 import { theme } from '../theme.ts'
 
@@ -118,7 +121,9 @@ export default class Drawer extends WeElement<Props, Data>{
                     aria-selected={`${item.focus ? true : false}`}
                     target={item.target && '_blank'}
                     onClick={this.onList}>
-                    {item.mIconButton ?
+                    {item.iconElement ?
+                    (typeof item.iconElement === 'string' ? htmlToVdom(item.iconElement) : item.iconElement) :
+                    item.mIconButton ?
                     <m-icon-button accessKey={index.toString()} {...item.mIconButton} class='mdc-list-item__graphic'></m-icon-button> :
                     item.mIcon &&
                     <m-icon
