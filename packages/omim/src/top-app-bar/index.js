@@ -5469,6 +5469,8 @@ var css = __webpack_require__(/*! ./index.scss */ "./src/top-app-bar/index.scss"
 var top_app_bar_1 = __webpack_require__(/*! @material/top-app-bar */ "./node_modules/@material/top-app-bar/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
 __webpack_require__(/*! ../icon-button */ "./src/icon-button/index.js");
+// @ts-ignore
+var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var topAppBar = /** @class */ (function (_super) {
@@ -5532,32 +5534,41 @@ var topAppBar = /** @class */ (function (_super) {
                 omi_1.h("div", { class: 'mdc-top-app-bar__row' },
                     (props.navigation || props.heading) &&
                         omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-start' },
-                            props.navigation &&
-                                (typeof props.navigation === 'string' ?
-                                    omi_1.h("m-icon-button", { class: 'mdc-top-app-bar__navigation-icon', icon: props.navigation, onClick: this.onNavigation }) :
-                                    this.isArray(props.navigation) ?
-                                        omi_1.h("m-icon-button", { class: 'mdc-top-app-bar__navigation-icon', icons: props.navigation, onClick: this.onNavigation }) :
-                                        (props.navigation.mIconButton ?
-                                            omi_1.h("m-icon-button", __assign({ class: 'mdc-top-app-bar__navigation-icon' }, props.navigation.mIconButton, { onClick: this.onNavigation }), (props.children && props.children[0] && props.children[1]) && props.children) :
-                                            props.navigation.mIcon ?
-                                                omi_1.h("button", { class: 'mdc-top-app-bar__navigation-icon', onClick: this.onNavigation }, (props.navigation.mIcon.path || props.navigation.mIcon.paths) ?
-                                                    omi_1.h("m-icon", __assign({}, props.navigation.mIcon)) : props.navigation.text) :
-                                                omi_1.h("button", { class: 'mdc-top-app-bar__navigation-icon', onClick: this.onNavigation }, props.navigation.text))),
+                            props.navigationElement ?
+                                (typeof props.navigationElement === 'string' ? util_ts_1.htmlToVdom(props.navigationElement) : props.navigationElement) :
+                                props.navigation &&
+                                    (typeof props.navigation === 'string' ?
+                                        omi_1.h("m-icon-button", { class: 'mdc-top-app-bar__navigation-icon', icon: props.navigation, onClick: this.onNavigation }) :
+                                        this.isArray(props.navigation) ?
+                                            omi_1.h("m-icon-button", { class: 'mdc-top-app-bar__navigation-icon', icons: props.navigation, onClick: this.onNavigation }) :
+                                            (props.navigation.mIconButton ?
+                                                omi_1.h("m-icon-button", __assign({ class: 'mdc-top-app-bar__navigation-icon' }, props.navigation.mIconButton, { onClick: this.onNavigation }), (props.children && props.children[0] && props.children[1]) && props.children) :
+                                                props.navigation.mIcon ?
+                                                    omi_1.h("button", { class: 'mdc-top-app-bar__navigation-icon', onClick: this.onNavigation }, (props.navigation.mIcon.path || props.navigation.mIcon.paths) ?
+                                                        omi_1.h("m-icon", __assign({}, props.navigation.mIcon)) : props.navigation.text) :
+                                                    omi_1.h("button", { class: 'mdc-top-app-bar__navigation-icon', onClick: this.onNavigation }, props.navigation.text))),
                             props.heading && omi_1.h("span", { class: 'mdc-top-app-bar__title' }, props.heading)),
-                    props.actionItems &&
-                        omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-end' }, typeof props.actionItems === 'string' ?
-                            omi_1.h("m-icon-button", { accessKey: '0', class: 'mdc-top-app-bar__action-item', icon: props.actionItems, onClick: this.onAction }) :
-                            props.actionItems.map(function (item, index) {
-                                return typeof item === 'string' ?
-                                    omi_1.h("m-icon-button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', icon: item, onClick: _this.onAction }) :
-                                    _this.isArray(item) ?
-                                        omi_1.h("m-icon-button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', icons: item, onClick: _this.onAction }) :
-                                        item.mIconButton ?
-                                            omi_1.h("m-icon-button", __assign({ accessKey: index.toString(), class: 'mdc-top-app-bar__action-item' }, item.mIconButton, { onClick: _this.onAction })) :
-                                            item.mIcon ?
-                                                omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, (item.mIcon.path || item.mIcon.paths) ? omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item.mIcon)) : item.text) :
-                                                omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, item.text);
-                            })))),
+                    (props.actionItems || props.actionElements) &&
+                        omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-end' },
+                            console.log(props.actionElements),
+                            props.actionElements ?
+                                props.actionElements.map(function (item) {
+                                    return (typeof item === 'string' ? util_ts_1.htmlToVdom(item) : item);
+                                }) :
+                                props.actionItems &&
+                                    (typeof props.actionItems === 'string' ?
+                                        omi_1.h("m-icon-button", { accessKey: '0', class: 'mdc-top-app-bar__action-item', icon: props.actionItems, onClick: this.onAction }) :
+                                        props.actionItems.map(function (item, index) {
+                                            return typeof item === 'string' ?
+                                                omi_1.h("m-icon-button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', icon: item, onClick: _this.onAction }) :
+                                                _this.isArray(item) ?
+                                                    omi_1.h("m-icon-button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', icons: item, onClick: _this.onAction }) :
+                                                    item.mIconButton ?
+                                                        omi_1.h("m-icon-button", __assign({ accessKey: index.toString(), class: 'mdc-top-app-bar__action-item' }, item.mIconButton, { onClick: _this.onAction })) :
+                                                        item.mIcon ?
+                                                            omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, (item.mIcon.path || item.mIcon.paths) ? omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item.mIcon)) : item.text) :
+                                                            omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, item.text);
+                                        }))))),
             props.adjust &&
                 omi_1.h("div", __assign({}, omi_1.extractClass(props, (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
                     (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :
@@ -5574,7 +5585,9 @@ var topAppBar = /** @class */ (function (_super) {
         fixed: Boolean,
         adjust: Boolean,
         navigation: Object,
+        navigationElement: Object,
         actionItems: Object,
+        actionElements: Object,
         scrollTarget: EventTarget,
         scrollTargetDrawer: Boolean
     };
@@ -5585,6 +5598,70 @@ var topAppBar = /** @class */ (function (_super) {
     return topAppBar;
 }(omi_1.WeElement));
 exports.default = topAppBar;
+
+
+/***/ }),
+
+/***/ "./src/util.ts":
+/*!*********************!*\
+  !*** ./src/util.ts ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function extract(props, prop) {
+    var _a;
+    if (typeof prop === 'string') {
+        if (props.hasOwnProperty(prop)) {
+            return _a = {}, _a[prop] = props[prop], _a;
+        }
+    }
+    else {
+        var res_1 = {};
+        prop.forEach(function (key) {
+            if (props.hasOwnProperty(key)) {
+                res_1[key] = props[key];
+            }
+        });
+        return res_1;
+    }
+}
+exports.extract = extract;
+var parser = new DOMParser();
+function htmlToVdom(html) {
+    if (!html)
+        return null;
+    return processNode(parser.parseFromString("<div>" + html + "</div>", "text/xml").childNodes[0]).children;
+}
+exports.htmlToVdom = htmlToVdom;
+function processNode(node) {
+    if (node.nodeType === 1) {
+        var i, child, attributes = {}, children = [];
+        for (i = 0; (child = node.attributes[i]); ++i) {
+            attributes[child.nodeName] = child.nodeValue;
+        }
+        for (i = 0; (child = node.childNodes[i]); ++i) {
+            var vn = processNode(child);
+            if (vn !== null)
+                children.push(vn);
+        }
+        return {
+            nodeName: node.tagName,
+            attributes: attributes,
+            children: children
+        };
+    }
+    if (node.nodeType === 3) {
+        var v = node.nodeValue.trim();
+        if (v !== '') {
+            return v;
+        }
+        return null;
+    }
+}
 
 
 /***/ }),
