@@ -137,6 +137,7 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | fab | done |
 | icon-button | done |
 | toolbar | hulei |
+| avatar | done |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 

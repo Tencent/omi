@@ -4,6 +4,10 @@ import logo from './omi-logo2019.svg'
 define('my-head', class extends WeElement {
   static css = require('./_index.css')
 
+  static use = [
+    'position'
+  ]
+
   toggleMenus = evt => {
     this.store.toogleSidebar()
     evt.stopPropagation()
@@ -34,9 +38,9 @@ define('my-head', class extends WeElement {
           <li style='color:#aaa;'>|</li>
           <li class="github_li m_show">
             {this.store.data.lan === 'en' ? (
-              <a href="cn.html">中文</a>
+              <a href={`cn.html${location.hash}`}>中文</a>
             ) : (
-              <a href="index.html">English</a>
+              <a href={`index.html${location.hash}`}>English</a>
             )}
           </li>
         </ul>
