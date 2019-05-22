@@ -1898,6 +1898,8 @@ function toComment(sourceMap) {
 var tabbable = __webpack_require__(/*! tabbable */ "./node_modules/tabbable/index.js");
 var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
 
+var activeFocusDelay;
+
 var activeFocusTraps = (function() {
   var trapQueue = [];
   return {
@@ -1987,6 +1989,8 @@ function focusTrap(element, userOptions) {
   function deactivate(deactivateOptions) {
     if (!state.active) return;
 
+    clearTimeout(activeFocusDelay);
+
     removeListeners();
     state.active = false;
     state.paused = false;
@@ -2035,9 +2039,10 @@ function focusTrap(element, userOptions) {
 
     // Delay ensures that the focused element doesn't capture the event
     // that caused the focus trap activation.
-    delay(function() {
+    activeFocusDelay = delay(function() {
       tryFocus(getInitialFocusNode());
     });
+
     doc.addEventListener('focusin', checkFocusIn, true);
     doc.addEventListener('mousedown', checkPointerDown, {
       capture: true,
@@ -4790,6 +4795,7 @@ var Dialog = /** @class */ (function (_super) {
                     props.title && omi_1.h("h2", { class: 'mdc-dialog__title' }, props.title),
                     omi_1.h("section", { class: 'mdc-dialog__content' },
                         typeof props.message === 'string' ? util_ts_1.htmlToVdom(props.message) : props.message,
+                        this.innerHTML ? util_ts_1.htmlToVdom(this.innerHTML) : props.children && util_ts_1.htmlToVdom(props.children),
                         omi_1.h("a", { class: 'm-dialog-content-focus', href: "#" })),
                     (props.cancelButton || props.confirmButton) &&
                         omi_1.h("footer", { class: 'mdc-dialog__actions' },
