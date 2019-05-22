@@ -28,6 +28,10 @@ JSX:
 <m-icon-button color="red" icons={['favorite', 'favorite_border']}></m-icon-button>
 ```
 
+## More Icons
+
+[Material Icons](https://material.io/tools/icons/?style=baseline)
+
 ## API
 
 ### Props
