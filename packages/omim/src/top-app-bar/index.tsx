@@ -139,8 +139,7 @@ export default class topAppBar extends WeElement<Props, Data>{
             </section>}
             {(props.actionItems || props.actionElements) &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
-              {/* 支持自定义元素，开发中 */}
-              {console.log(props.actionElements)}
+              {/* Support for custom elements, development completed (支持自定义元素，开发完成) */}
               {props.actionElements ?
               props.actionElements.map((item) => {
                 return (typeof item === 'string' ? htmlToVdom(item) : item)
