@@ -2,6 +2,7 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import {MDCDrawer, MDCDismissibleDrawerFoundation} from '@material/drawer'
 import {MDCList} from '@material/list';
+import {MDCRipple} from '@material/ripple';
 import '../icon'
 import '../icon-button'
 
@@ -83,6 +84,7 @@ export default class Drawer extends WeElement<Props, Data>{
         this.listAll[evt.detail.index].markListen = true
       }
     })
+    list.listElements.map((listItemEl) => new MDCRipple(listItemEl));
   }
 
   onList = (evt: any) => {
@@ -122,7 +124,9 @@ export default class Drawer extends WeElement<Props, Data>{
                     target={item.target && '_blank'}
                     onClick={this.onList}>
                     {item.iconElement ?
-                    (typeof item.iconElement === 'string' ? htmlToVdom(item.iconElement) : item.iconElement) :
+                    <div accessKey={index.toString()} class='mdc-list-item__graphic'>
+                      {typeof item.iconElement === 'string' ? htmlToVdom(item.iconElement) : item.iconElement}
+                    </div> :
                     item.mIconButton ?
                     <m-icon-button accessKey={index.toString()} {...item.mIconButton} class='mdc-list-item__graphic'></m-icon-button> :
                     item.mIcon &&

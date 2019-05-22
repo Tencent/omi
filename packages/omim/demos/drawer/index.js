@@ -252,7 +252,7 @@ define('my-app', class extends WeElement {
             }, {
               text: 'Dismissible',
               iconElement: [
-                <img onClick={this.onDemoStart} style='width:60px' src='../../assets/pv4.jpeg'></img>
+                <img style='width:60px' src='../../assets/pv4.jpeg'></img>
               ],
               mIconButton: {
                 icon: 'favorite'
