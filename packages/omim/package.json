@@ -99,6 +99,7 @@
   },
   "dependencies": {
     "@material/button": "^2.0.0",
+    "@material/card": "^2.1.1",
     "@material/checkbox": "^2.1.0",
     "@material/chips": "^2.1.0",
     "@material/dialog": "^2.0.0",

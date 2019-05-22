@@ -110,24 +110,24 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 
 | **Components**                         | **Owner**                    |
 | ------------------------------- | ----------------------------------- |
-| button | vorshen |
-| icon | xcatliu |
+| button | done |
+| icon | done |
 | text-field | done |
 | card | wscats |
 | chip | hulei |
 | dialog | zainchen |
 | elevation | liulinboyi |
-| image-list| lee |
-| checkbox| lei |
+| image-list| done |
+| checkbox| done |
 | radio| lihengjun |
-| select| lei |
+| select| done |
 | slider| done |
-| switch| zhang |
-| layout-grid| uxu |
-| linear-progress| dnt |
-| list| fangfang |
+| switch| zainchen |
+| layout-grid| done |
+| linear-progress| done |
+| list| zainchen |
 | menu| done|
-| snackbar| dnt |
+| snackbar| done |
 | tab | FAKER-A |
 | tag | mtonhuang |
 | top-app-bar| zainchen |
@@ -146,7 +146,7 @@ Some [material packages](https://github.com/material-components/material-compone
 
 ## Todo
 
-### TypeScript Auto Complete
+### TypeScript Auto Complete(todo)
 
 ```jsx
 interface ButtonProps {
@@ -173,10 +173,31 @@ export default class Button extends WeElement<ButtonProps, {}> {
 ...
 ```
 
-### Import core
+### Import core(todo)
 
 Support import all element of core:
 
 ```
 import '@import/core'
 ```
+
+### Omim Page Templates(todo)
+
+[Coming!](https://github.com/Tencent/omi/tree/master/packages/omim/templates)
+
+### Bug?(todo)
+
+```js
+import Button from '@import/core/button'
+```
+
+The above code cannot register custom elements.
+
+
+```js
+import '@import/core/button'
+```
+
+The above code can register custom elements.
+
+Why??

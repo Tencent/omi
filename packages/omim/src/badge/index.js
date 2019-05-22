@@ -279,19 +279,25 @@ var Badge = /** @class */ (function (_super) {
         if (props.content) {
             return omi_1.h("div", __assign({}, omi_1.extractClass(props, 'm-badge')),
                 props.children ? props.children[0] : omi_1.h("slot", null),
-                omi_1.h("span", { class: "badge" }, props.content));
+                omi_1.h("span", { class: "badge", style: "right:" + props.x * -1 + "px;top:" + props.y + "px;" }, props.content));
         }
         if (props.dot) {
             return (omi_1.h("div", { class: "m-badge" },
                 props.children ? props.children[0] : omi_1.h("slot", null),
-                omi_1.h("span", { class: "circle badge" })));
+                omi_1.h("span", { style: "right:" + props.x * -1 + "px;top:" + props.y + "px;", class: "circle badge" })));
         }
         return omi_1.h("div", { class: "m-badge" }, props.children ? props.children[0] : omi_1.h("slot", null));
     };
     Badge.css = theme_ts_1.theme() + css;
+    Badge.defaultProps = {
+        x: 0,
+        y: 0
+    };
     Badge.propTypes = {
         dot: Boolean,
-        content: String
+        content: String,
+        x: Number,
+        y: Number
     };
     Badge = __decorate([
         omi_1.tag('m-badge')
