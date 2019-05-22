@@ -5,10 +5,10 @@ interface Props {
         text: string,
         selected?: boolean,
         leading?: {
-            icon: object
+            icon: object | string
         },
         trailing?: {
-            icon: object,
+            icon: object | string,
             role?: string,
             tabindex?: number
         },
