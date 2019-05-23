@@ -1,0 +1,11 @@
+@import "../theme";
+@import "@material/ripple/mdc-ripple";
+
+
+.my-surface {
+  @include mdc-ripple-surface;
+  @include mdc-states-base-color(black);
+  @include mdc-states-hover-opacity(.1);
+  @include mdc-states-focus-opacity(.3);
+  @include mdc-states-press-opacity(1);
+}
