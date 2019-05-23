@@ -22,6 +22,7 @@ export default class Switch extends WeElement<Props, Data> {
     static defaultProps: {};
     listAll: any[];
     install(): void;
+    renderList(node: any): JSX.Element;
     render(props: any): JSX.Element;
 }
 export {};

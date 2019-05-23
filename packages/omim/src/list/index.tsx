@@ -74,7 +74,40 @@ export default class Switch extends WeElement<Props, Data>{
   // }
 
   renderList(node) {
-    
+    const { attributes: props } = node
+    if(node && node.attributes && node.attributes.divider) {
+      return <li role="separator" {...extractClass(node, 'mdc-list-divider', {
+        'mdc-list-divider--padded': (node.attributes && node.attributes.padded),
+        'mdc-list-divider--inset': (node.attributes && node.attributes.inset)
+      })}></li>
+    } else if(node) {
+      return <li {...extractClass(node, 'mdc-list-item', {
+        'mdc-list-item--disabled': (node.attributes && node.attributes.disabled),
+        'mdc-list-item--selected': (node.attributes && node.attributes.selected),
+        'mdc-list-item--activated': (node.attributes && node.attributes.activated)
+      })} tabindex="0">
+        {node.attributes && console.log(node.attributes['graphic'])}
+        {node.attributes && node.attributes.graphic &&
+        <span class="mdc-list-item__graphic">
+          {typeof node.attributes.graphic === 'string' ? htmlToVdom(node.attributes.graphic) : node.attributes.graphic}
+        </span>}
+        <div style='display:none'>
+          {(node.attributes && node.attributes['primary-text']) && (node.attributes.primaryText = node.attributes['primary-text'])}
+          {(node.attributes && node.attributes['secondary-text']) && (node.attributes.secondaryText = node.attributes['secondary-text'])}
+        </div>
+        {node.attributes && (node.attributes.text || node.attributes.primaryText || node.attributes.secondaryText) &&
+        <span class="mdc-list-item__text">
+          {node.attributes.primaryText && <span class="mdc-list-item__primary-text">{node.attributes.primaryText}</span>}
+          {node.attributes.secondaryText && <span class="mdc-list-item__secondary-text">{node.attributes.secondaryText}</span>}
+          {node.attributes.text}
+        </span>}
+        {node.attributes && node.attributes.meta &&
+        <span class="mdc-list-item__meta">
+          {typeof node.attributes.meta === 'string' ? htmlToVdom(node.attributes.meta) : node.attributes.meta}
+        </span>}
+        {typeof node.children === 'string' ? htmlToVdom(node.children) : node.children}
+      </li>
+    }
   }
   
   render(props) {
@@ -88,40 +121,10 @@ export default class Switch extends WeElement<Props, Data>{
         'mdc-list--two-line': props.twoLine
       })}>
         {props.children && props.children.map((item) => {
-          if(item && item.attributes && item.attributes.divider) {
-            return <li role="separator" {...extractClass(item, 'mdc-list-divider', {
-              'mdc-list-divider--padded': (item.attributes && item.attributes.padded),
-              'mdc-list-divider--inset': (item.attributes && item.attributes.inset)
-            })}></li>
-          } else if(item) {
+          if(item && item.attributes && !item.attributes.divider) {
             listOne.push(item)
-            return <li {...extractClass(item, 'mdc-list-item', {
-              'mdc-list-item--disabled': (item.attributes && item.attributes.disabled),
-              'mdc-list-item--selected': (item.attributes && item.attributes.selected),
-              'mdc-list-item--activated': (item.attributes && item.attributes.activated)
-            })} tabindex="0">
-              {console.log(item.attributes['graphic'])}
-              {item.attributes && item.attributes.graphic &&
-              <span class="mdc-list-item__graphic">
-                {typeof item.attributes.graphic === 'string' ? htmlToVdom(item.attributes.graphic) : item.attributes.graphic}
-              </span>}
-              <div style='display:none'>
-                {(item.attributes && item.attributes['primary-text']) && (item.attributes.primaryText = item.attributes['primary-text'])}
-                {(item.attributes && item.attributes['secondary-text']) && (item.attributes.secondaryText = item.attributes['secondary-text'])}
-              </div>
-              {item.attributes && (item.attributes.text || item.attributes.primaryText || item.attributes.secondaryText) &&
-              <span class="mdc-list-item__text">
-                {item.attributes.primaryText && <span class="mdc-list-item__primary-text">{item.attributes.primaryText}</span>}
-                {item.attributes.secondaryText && <span class="mdc-list-item__secondary-text">{item.attributes.secondaryText}</span>}
-                {item.attributes.text}
-              </span>}
-              {item.attributes && item.attributes.meta &&
-              <span class="mdc-list-item__meta">
-                {typeof item.attributes.meta === 'string' ? htmlToVdom(item.attributes.meta) : item.attributes.meta}
-              </span>}
-              {typeof item.children === 'string' ? htmlToVdom(item.children) : item.children}
-            </li>
           }
+          return this.renderList(item)
         })}
         <div style='display:none'>{this.listAll.push(listOne)}</div>
       </ul>
@@ -139,39 +142,10 @@ export default class Switch extends WeElement<Props, Data>{
                 'mdc-list--two-line': list.attributes && list.attributes.twoLine
               })}>
                 {list.children && list.children.map((item) => {
-                  if(item && item.attributes && item.attributes.divider) {
-                    return <li role="separator" {...extractClass(item, 'mdc-list-divider', {
-                      'mdc-list-divider--padded': (item.attributes && item.attributes.padded),
-                      'mdc-list-divider--inset': (item.attributes && item.attributes.inset)
-                    })}></li>
-                  } else if(item) {
+                  if(item && item.attributes && !item.attributes.divider) {
                     listOne.push(item)
-                    return <li {...extractClass(item, 'mdc-list-item', {
-                      'mdc-list-item--disabled': (item.attributes && item.attributes.disabled),
-                      'mdc-list-item--selected': (item.attributes && item.attributes.selected),
-                      'mdc-list-item--activated': (item.attributes && item.attributes.activated)
-                    })} tabindex="0">
-                      {item.attributes && item.attributes.graphic &&
-                      <span class="mdc-list-item__graphic">
-                        {typeof item.attributes.graphic === 'string' ? htmlToVdom(item.attributes.graphic) : item.attributes.graphic}
-                      </span>}
-                      <div style='display:none'>
-                        {(item.attributes && item.attributes['primary-text']) && (item.attributes.primaryText = item.attributes['primary-text'])}
-                        {(item.attributes && item.attributes['secondary-text']) && (item.attributes.secondaryText = item.attributes['secondary-text'])}
-                      </div>
-                      {item.attributes && (item.attributes.text || item.attributes.primaryText || item.attributes.secondaryText) &&
-                      <span class="mdc-list-item__text">
-                        {item.attributes.primaryText && <span class="mdc-list-item__primary-text">{item.attributes.primaryText}</span>}
-                        {item.attributes.secondaryText && <span class="mdc-list-item__secondary-text">{item.attributes.secondaryText}</span>}
-                        {item.attributes.text}
-                      </span>}
-                      {item.attributes && item.attributes.meta &&
-                      <span class="mdc-list-item__meta">
-                        {typeof item.attributes.meta === 'string' ? htmlToVdom(item.attributes.meta) : item.attributes.meta}
-                      </span>}
-                      {typeof item.children === 'string' ? htmlToVdom(item.children) : item.children}
-                    </li>
                   }
+                  return this.renderList(item)
                 })}
                 <div style='display:none'>{this.listAll.push(listOne)}</div>
               </ul>

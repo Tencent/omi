@@ -2459,6 +2459,35 @@ var Switch = /** @class */ (function (_super) {
     //     })
     //   })
     // }
+    Switch.prototype.renderList = function (node) {
+        if (node && node.attributes && node.attributes.divider) {
+            return omi_1.h("li", __assign({ role: "separator" }, omi_1.extractClass(node, 'mdc-list-divider', {
+                'mdc-list-divider--padded': (node.attributes && node.attributes.padded),
+                'mdc-list-divider--inset': (node.attributes && node.attributes.inset)
+            })));
+        }
+        else if (node) {
+            return omi_1.h("li", __assign({}, omi_1.extractClass(node, 'mdc-list-item', {
+                'mdc-list-item--disabled': (node.attributes && node.attributes.disabled),
+                'mdc-list-item--selected': (node.attributes && node.attributes.selected),
+                'mdc-list-item--activated': (node.attributes && node.attributes.activated)
+            }), { tabindex: "0" }),
+                node.attributes && console.log(node.attributes['graphic']),
+                node.attributes && node.attributes.graphic &&
+                    omi_1.h("span", { class: "mdc-list-item__graphic" }, typeof node.attributes.graphic === 'string' ? util_ts_1.htmlToVdom(node.attributes.graphic) : node.attributes.graphic),
+                omi_1.h("div", { style: 'display:none' },
+                    (node.attributes && node.attributes['primary-text']) && (node.attributes.primaryText = node.attributes['primary-text']),
+                    (node.attributes && node.attributes['secondary-text']) && (node.attributes.secondaryText = node.attributes['secondary-text'])),
+                node.attributes && (node.attributes.text || node.attributes.primaryText || node.attributes.secondaryText) &&
+                    omi_1.h("span", { class: "mdc-list-item__text" },
+                        node.attributes.primaryText && omi_1.h("span", { class: "mdc-list-item__primary-text" }, node.attributes.primaryText),
+                        node.attributes.secondaryText && omi_1.h("span", { class: "mdc-list-item__secondary-text" }, node.attributes.secondaryText),
+                        node.attributes.text),
+                node.attributes && node.attributes.meta &&
+                    omi_1.h("span", { class: "mdc-list-item__meta" }, typeof node.attributes.meta === 'string' ? util_ts_1.htmlToVdom(node.attributes.meta) : node.attributes.meta),
+                typeof node.children === 'string' ? util_ts_1.htmlToVdom(node.children) : node.children);
+        }
+    };
     Switch.prototype.render = function (props) {
         var _this = this;
         props.children = (this.innerHTML && !props.children) ? util_ts_1.htmlToVdom(this.innerHTML) : props.children;
@@ -2471,34 +2500,10 @@ var Switch = /** @class */ (function (_super) {
                 'mdc-list--two-line': props.twoLine
             })),
                 props.children && props.children.map(function (item) {
-                    if (item && item.attributes && item.attributes.divider) {
-                        return omi_1.h("li", __assign({ role: "separator" }, omi_1.extractClass(item, 'mdc-list-divider', {
-                            'mdc-list-divider--padded': (item.attributes && item.attributes.padded),
-                            'mdc-list-divider--inset': (item.attributes && item.attributes.inset)
-                        })));
-                    }
-                    else if (item) {
+                    if (item && item.attributes && !item.attributes.divider) {
                         listOne_1.push(item);
-                        return omi_1.h("li", __assign({}, omi_1.extractClass(item, 'mdc-list-item', {
-                            'mdc-list-item--disabled': (item.attributes && item.attributes.disabled),
-                            'mdc-list-item--selected': (item.attributes && item.attributes.selected),
-                            'mdc-list-item--activated': (item.attributes && item.attributes.activated)
-                        }), { tabindex: "0" }),
-                            console.log(item.attributes['graphic']),
-                            item.attributes && item.attributes.graphic &&
-                                omi_1.h("span", { class: "mdc-list-item__graphic" }, typeof item.attributes.graphic === 'string' ? util_ts_1.htmlToVdom(item.attributes.graphic) : item.attributes.graphic),
-                            omi_1.h("div", { style: 'display:none' },
-                                (item.attributes && item.attributes['primary-text']) && (item.attributes.primaryText = item.attributes['primary-text']),
-                                (item.attributes && item.attributes['secondary-text']) && (item.attributes.secondaryText = item.attributes['secondary-text'])),
-                            item.attributes && (item.attributes.text || item.attributes.primaryText || item.attributes.secondaryText) &&
-                                omi_1.h("span", { class: "mdc-list-item__text" },
-                                    item.attributes.primaryText && omi_1.h("span", { class: "mdc-list-item__primary-text" }, item.attributes.primaryText),
-                                    item.attributes.secondaryText && omi_1.h("span", { class: "mdc-list-item__secondary-text" }, item.attributes.secondaryText),
-                                    item.attributes.text),
-                            item.attributes && item.attributes.meta &&
-                                omi_1.h("span", { class: "mdc-list-item__meta" }, typeof item.attributes.meta === 'string' ? util_ts_1.htmlToVdom(item.attributes.meta) : item.attributes.meta),
-                            typeof item.children === 'string' ? util_ts_1.htmlToVdom(item.children) : item.children);
                     }
+                    return _this.renderList(item);
                 }),
                 omi_1.h("div", { style: 'display:none' }, this.listAll.push(listOne_1)));
         }
@@ -2515,33 +2520,10 @@ var Switch = /** @class */ (function (_super) {
                             'mdc-list--two-line': list.attributes && list.attributes.twoLine
                         })),
                             list.children && list.children.map(function (item) {
-                                if (item && item.attributes && item.attributes.divider) {
-                                    return omi_1.h("li", __assign({ role: "separator" }, omi_1.extractClass(item, 'mdc-list-divider', {
-                                        'mdc-list-divider--padded': (item.attributes && item.attributes.padded),
-                                        'mdc-list-divider--inset': (item.attributes && item.attributes.inset)
-                                    })));
-                                }
-                                else if (item) {
+                                if (item && item.attributes && !item.attributes.divider) {
                                     listOne_2.push(item);
-                                    return omi_1.h("li", __assign({}, omi_1.extractClass(item, 'mdc-list-item', {
-                                        'mdc-list-item--disabled': (item.attributes && item.attributes.disabled),
-                                        'mdc-list-item--selected': (item.attributes && item.attributes.selected),
-                                        'mdc-list-item--activated': (item.attributes && item.attributes.activated)
-                                    }), { tabindex: "0" }),
-                                        item.attributes && item.attributes.graphic &&
-                                            omi_1.h("span", { class: "mdc-list-item__graphic" }, typeof item.attributes.graphic === 'string' ? util_ts_1.htmlToVdom(item.attributes.graphic) : item.attributes.graphic),
-                                        omi_1.h("div", { style: 'display:none' },
-                                            (item.attributes && item.attributes['primary-text']) && (item.attributes.primaryText = item.attributes['primary-text']),
-                                            (item.attributes && item.attributes['secondary-text']) && (item.attributes.secondaryText = item.attributes['secondary-text'])),
-                                        item.attributes && (item.attributes.text || item.attributes.primaryText || item.attributes.secondaryText) &&
-                                            omi_1.h("span", { class: "mdc-list-item__text" },
-                                                item.attributes.primaryText && omi_1.h("span", { class: "mdc-list-item__primary-text" }, item.attributes.primaryText),
-                                                item.attributes.secondaryText && omi_1.h("span", { class: "mdc-list-item__secondary-text" }, item.attributes.secondaryText),
-                                                item.attributes.text),
-                                        item.attributes && item.attributes.meta &&
-                                            omi_1.h("span", { class: "mdc-list-item__meta" }, typeof item.attributes.meta === 'string' ? util_ts_1.htmlToVdom(item.attributes.meta) : item.attributes.meta),
-                                        typeof item.children === 'string' ? util_ts_1.htmlToVdom(item.children) : item.children);
                                 }
+                                return _this.renderList(item);
                             }),
                             omi_1.h("div", { style: 'display:none' }, _this.listAll.push(listOne_2)))
                     ];
