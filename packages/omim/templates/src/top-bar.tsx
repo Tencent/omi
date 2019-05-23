@@ -3,6 +3,7 @@ import { define, WeElement, h } from 'omi'
 import '@omim/core/icon'
 import '@omim/core/icon-button'
 import '@omim/core/badge'
+import '@omim/core/avatar'
 
 define('top-bar', class extends WeElement {
   static css = css
