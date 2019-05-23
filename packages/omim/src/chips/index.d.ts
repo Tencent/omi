@@ -2,22 +2,22 @@ import { WeElement } from 'omi';
 import '../icon';
 interface Props {
     chips: [{
-        text: string,
-        selected?: boolean,
+        text: string;
+        selected?: boolean;
         leading?: {
-            icon: object | string
-        },
+            icon: object | string;
+        };
         trailing?: {
-            icon: object | string,
-            role?: string,
-            tabindex?: number
-        },
-        checkmark: boolean
-    }],
-    input?: boolean,
-    choice?: boolean,
-    filter?: boolean,
-    ripple?: boolean
+            icon: object | string;
+            role?: string;
+            tabindex?: number;
+        };
+        checkmark: boolean;
+    }];
+    input?: boolean;
+    choice?: boolean;
+    filter?: boolean;
+    ripple?: boolean;
 }
 interface Data {
 }
@@ -32,8 +32,9 @@ export default class chipSet extends WeElement<Props, Data> {
         input: BooleanConstructor;
         choice: BooleanConstructor;
         filter: BooleanConstructor;
-        ripple: BooleanConstructor;
     };
+    trailingClickHandle: (index: any) => void;
+    chipClickHandle: (index: any) => void;
     installed(): void;
     render(props: any): JSX.Element;
 }

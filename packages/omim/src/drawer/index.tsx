@@ -61,8 +61,11 @@ export default class Drawer extends WeElement<Props, Data>{
     }
   }
 
-  installed() {
+  install() {
     this.initShow = this.props.show
+  }
+
+  installed() {
     if(this.props.dismissible || this.props.modal) {
       const deawer = MDCDrawer.attachTo(this.shadowRoot.querySelector('.mdc-drawer'))
       this.drawerFoundation = deawer.getDefaultFoundation()
