@@ -2460,31 +2460,31 @@ var Switch = /** @class */ (function (_super) {
     //   })
     // }
     Switch.prototype.renderList = function (node) {
-        if (node && node.attributes && node.attributes.divider) {
+        var props = node.attributes;
+        if (node && props && props.divider) {
             return omi_1.h("li", __assign({ role: "separator" }, omi_1.extractClass(node, 'mdc-list-divider', {
-                'mdc-list-divider--padded': (node.attributes && node.attributes.padded),
-                'mdc-list-divider--inset': (node.attributes && node.attributes.inset)
+                'mdc-list-divider--padded': (props && props.padded),
+                'mdc-list-divider--inset': (props && props.inset)
             })));
         }
         else if (node) {
             return omi_1.h("li", __assign({}, omi_1.extractClass(node, 'mdc-list-item', {
-                'mdc-list-item--disabled': (node.attributes && node.attributes.disabled),
-                'mdc-list-item--selected': (node.attributes && node.attributes.selected),
-                'mdc-list-item--activated': (node.attributes && node.attributes.activated)
+                'mdc-list-item--disabled': (props && props.disabled),
+                'mdc-list-item--selected': (props && props.selected),
+                'mdc-list-item--activated': (props && props.activated)
             }), { tabindex: "0" }),
-                node.attributes && console.log(node.attributes['graphic']),
-                node.attributes && node.attributes.graphic &&
-                    omi_1.h("span", { class: "mdc-list-item__graphic" }, typeof node.attributes.graphic === 'string' ? util_ts_1.htmlToVdom(node.attributes.graphic) : node.attributes.graphic),
+                props && props.graphic &&
+                    omi_1.h("span", { class: "mdc-list-item__graphic" }, typeof props.graphic === 'string' ? util_ts_1.htmlToVdom(props.graphic) : props.graphic),
                 omi_1.h("div", { style: 'display:none' },
-                    (node.attributes && node.attributes['primary-text']) && (node.attributes.primaryText = node.attributes['primary-text']),
-                    (node.attributes && node.attributes['secondary-text']) && (node.attributes.secondaryText = node.attributes['secondary-text'])),
-                node.attributes && (node.attributes.text || node.attributes.primaryText || node.attributes.secondaryText) &&
+                    (props && props['primary-text']) && (props.primaryText = props['primary-text']),
+                    (props && props['secondary-text']) && (props.secondaryText = props['secondary-text'])),
+                props && (props.text || props.primaryText || props.secondaryText) &&
                     omi_1.h("span", { class: "mdc-list-item__text" },
-                        node.attributes.primaryText && omi_1.h("span", { class: "mdc-list-item__primary-text" }, node.attributes.primaryText),
-                        node.attributes.secondaryText && omi_1.h("span", { class: "mdc-list-item__secondary-text" }, node.attributes.secondaryText),
-                        node.attributes.text),
-                node.attributes && node.attributes.meta &&
-                    omi_1.h("span", { class: "mdc-list-item__meta" }, typeof node.attributes.meta === 'string' ? util_ts_1.htmlToVdom(node.attributes.meta) : node.attributes.meta),
+                        props.primaryText && omi_1.h("span", { class: "mdc-list-item__primary-text" }, props.primaryText),
+                        props.secondaryText && omi_1.h("span", { class: "mdc-list-item__secondary-text" }, props.secondaryText),
+                        props.text),
+                props && props.meta &&
+                    omi_1.h("span", { class: "mdc-list-item__meta" }, typeof props.meta === 'string' ? util_ts_1.htmlToVdom(props.meta) : props.meta),
                 typeof node.children === 'string' ? util_ts_1.htmlToVdom(node.children) : node.children);
         }
     };

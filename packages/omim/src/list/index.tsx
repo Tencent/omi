@@ -75,35 +75,34 @@ export default class Switch extends WeElement<Props, Data>{
 
   renderList(node) {
     const { attributes: props } = node
-    if(node && node.attributes && node.attributes.divider) {
+    if(node && props && props.divider) {
       return <li role="separator" {...extractClass(node, 'mdc-list-divider', {
-        'mdc-list-divider--padded': (node.attributes && node.attributes.padded),
-        'mdc-list-divider--inset': (node.attributes && node.attributes.inset)
+        'mdc-list-divider--padded': (props && props.padded),
+        'mdc-list-divider--inset': (props && props.inset)
       })}></li>
     } else if(node) {
       return <li {...extractClass(node, 'mdc-list-item', {
-        'mdc-list-item--disabled': (node.attributes && node.attributes.disabled),
-        'mdc-list-item--selected': (node.attributes && node.attributes.selected),
-        'mdc-list-item--activated': (node.attributes && node.attributes.activated)
+        'mdc-list-item--disabled': (props && props.disabled),
+        'mdc-list-item--selected': (props && props.selected),
+        'mdc-list-item--activated': (props && props.activated)
       })} tabindex="0">
-        {node.attributes && console.log(node.attributes['graphic'])}
-        {node.attributes && node.attributes.graphic &&
+        {props && props.graphic &&
         <span class="mdc-list-item__graphic">
-          {typeof node.attributes.graphic === 'string' ? htmlToVdom(node.attributes.graphic) : node.attributes.graphic}
+          {typeof props.graphic === 'string' ? htmlToVdom(props.graphic) : props.graphic}
         </span>}
         <div style='display:none'>
-          {(node.attributes && node.attributes['primary-text']) && (node.attributes.primaryText = node.attributes['primary-text'])}
-          {(node.attributes && node.attributes['secondary-text']) && (node.attributes.secondaryText = node.attributes['secondary-text'])}
+          {(props && props['primary-text']) && (props.primaryText = props['primary-text'])}
+          {(props && props['secondary-text']) && (props.secondaryText = props['secondary-text'])}
         </div>
-        {node.attributes && (node.attributes.text || node.attributes.primaryText || node.attributes.secondaryText) &&
+        {props && (props.text || props.primaryText || props.secondaryText) &&
         <span class="mdc-list-item__text">
-          {node.attributes.primaryText && <span class="mdc-list-item__primary-text">{node.attributes.primaryText}</span>}
-          {node.attributes.secondaryText && <span class="mdc-list-item__secondary-text">{node.attributes.secondaryText}</span>}
-          {node.attributes.text}
+          {props.primaryText && <span class="mdc-list-item__primary-text">{props.primaryText}</span>}
+          {props.secondaryText && <span class="mdc-list-item__secondary-text">{props.secondaryText}</span>}
+          {props.text}
         </span>}
-        {node.attributes && node.attributes.meta &&
+        {props && props.meta &&
         <span class="mdc-list-item__meta">
-          {typeof node.attributes.meta === 'string' ? htmlToVdom(node.attributes.meta) : node.attributes.meta}
+          {typeof props.meta === 'string' ? htmlToVdom(props.meta) : props.meta}
         </span>}
         {typeof node.children === 'string' ? htmlToVdom(node.children) : node.children}
       </li>
