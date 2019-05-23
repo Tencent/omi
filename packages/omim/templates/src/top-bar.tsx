@@ -33,6 +33,7 @@ define('top-bar', class extends WeElement {
               <m-badge content={99} x={-10} y={10}>
                 <m-icon-button icon='favorite'></m-icon-button>
               </m-badge>
+              <m-avatar src='https://material-ui.com/static/images/avatar/1.jpg' style='margin-left:20px;'></m-avatar>
             </section>
           </div>
         </header>
