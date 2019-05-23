@@ -31,6 +31,7 @@ export default class Drawer extends WeElement<Props, Data> {
     listAll: any[];
     initShow: boolean;
     updated(): void;
+    install(): void;
     installed(): void;
     onList: (evt: any) => void;
     render(props: any): JSX.Element;

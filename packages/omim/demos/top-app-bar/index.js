@@ -1,4 +1,6 @@
 import '../../src/top-app-bar/index.tsx'
+import '../../src/avatar/index.tsx'
+import '../../src/badge/index.tsx'
 import { render, WeElement, define, h } from 'omi'
 
 define('my-app', class extends WeElement {
@@ -61,7 +63,7 @@ define('my-app', class extends WeElement {
             onNavigation={this.onDemoStart}
             //Support a lot of methods
             //支持非常多种写法
-            navigation-element={<img onClick={this.onDemoStart} style='width:50px' src='../../assets/pv4.jpeg'></img>}
+            navigation-element={<m-badge content={99} ><m-avatar backgroundColor='#87d068'>DNT</m-avatar></m-badge>}
             // navigation='wifi'
             // navigation={'favorite'}
             // navigation={['favorite', 'favorite_border']}
@@ -77,11 +79,13 @@ define('my-app', class extends WeElement {
             //   }
             // }}
             // onAction0={this.onDemoStart}
+            onAction1={this.onDemoStart}
             //Support a lot of methods
             //支持非常多种写法
             action-elements={[
-              <img style='width:50px' src='../../assets/pv4.jpeg'></img>,
-              <h1 style='color:red'>zain</h1>
+              <img onClick={this.onDemoStart} style='width:50px' src='../../assets/pv4.jpeg'></img>,
+              <m-badge accessKey='1' content={99} ><m-avatar backgroundColor='#87d068'>DNT</m-avatar></m-badge>,
+              <m-icon-button icons={['favorite', 'favorite_border']}>wifi</m-icon-button>
             ]}
             // action-items='wifi'
             // action-items={'wifi'}

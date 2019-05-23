@@ -5535,7 +5535,7 @@ var topAppBar = /** @class */ (function (_super) {
                     (props.navigation || props.heading) &&
                         omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-start' },
                             props.navigationElement ?
-                                (typeof props.navigationElement === 'string' ? util_ts_1.htmlToVdom(props.navigationElement) : props.navigationElement) :
+                                omi_1.h("div", { class: 'mdc-top-app-bar__navigation-icon', onClick: this.onNavigation }, typeof props.navigationElement === 'string' ? util_ts_1.htmlToVdom(props.navigationElement) : props.navigationElement) :
                                 props.navigation &&
                                     (typeof props.navigation === 'string' ?
                                         omi_1.h("m-icon-button", { class: 'mdc-top-app-bar__navigation-icon', icon: props.navigation, onClick: this.onNavigation }) :
@@ -5549,26 +5549,24 @@ var topAppBar = /** @class */ (function (_super) {
                                                     omi_1.h("button", { class: 'mdc-top-app-bar__navigation-icon', onClick: this.onNavigation }, props.navigation.text))),
                             props.heading && omi_1.h("span", { class: 'mdc-top-app-bar__title' }, props.heading)),
                     (props.actionItems || props.actionElements) &&
-                        omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-end' },
-                            console.log(props.actionElements),
-                            props.actionElements ?
-                                props.actionElements.map(function (item) {
-                                    return (typeof item === 'string' ? util_ts_1.htmlToVdom(item) : item);
-                                }) :
-                                props.actionItems &&
-                                    (typeof props.actionItems === 'string' ?
-                                        omi_1.h("m-icon-button", { accessKey: '0', class: 'mdc-top-app-bar__action-item', icon: props.actionItems, onClick: this.onAction }) :
-                                        props.actionItems.map(function (item, index) {
-                                            return typeof item === 'string' ?
-                                                omi_1.h("m-icon-button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', icon: item, onClick: _this.onAction }) :
-                                                _this.isArray(item) ?
-                                                    omi_1.h("m-icon-button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', icons: item, onClick: _this.onAction }) :
-                                                    item.mIconButton ?
-                                                        omi_1.h("m-icon-button", __assign({ accessKey: index.toString(), class: 'mdc-top-app-bar__action-item' }, item.mIconButton, { onClick: _this.onAction })) :
-                                                        item.mIcon ?
-                                                            omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, (item.mIcon.path || item.mIcon.paths) ? omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item.mIcon)) : item.text) :
-                                                            omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, item.text);
-                                        }))))),
+                        omi_1.h("section", { class: 'mdc-top-app-bar__section mdc-top-app-bar__section--align-end' }, props.actionElements ?
+                            props.actionElements.map(function (item, index) {
+                                return omi_1.h("div", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, typeof item === 'string' ? util_ts_1.htmlToVdom(item) : item);
+                            }) :
+                            props.actionItems &&
+                                (typeof props.actionItems === 'string' ?
+                                    omi_1.h("m-icon-button", { accessKey: '0', class: 'mdc-top-app-bar__action-item', icon: props.actionItems, onClick: this.onAction }) :
+                                    props.actionItems.map(function (item, index) {
+                                        return typeof item === 'string' ?
+                                            omi_1.h("m-icon-button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', icon: item, onClick: _this.onAction }) :
+                                            _this.isArray(item) ?
+                                                omi_1.h("m-icon-button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', icons: item, onClick: _this.onAction }) :
+                                                item.mIconButton ?
+                                                    omi_1.h("m-icon-button", __assign({ accessKey: index.toString(), class: 'mdc-top-app-bar__action-item' }, item.mIconButton, { onClick: _this.onAction })) :
+                                                    item.mIcon ?
+                                                        omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, (item.mIcon.path || item.mIcon.paths) ? omi_1.h("m-icon", __assign({ accessKey: index.toString() }, item.mIcon)) : item.text) :
+                                                        omi_1.h("button", { accessKey: index.toString(), class: 'mdc-top-app-bar__action-item', onClick: _this.onAction }, item.text);
+                                    }))))),
             props.adjust &&
                 omi_1.h("div", __assign({}, omi_1.extractClass(props, (props.short || props.shortCollapsed) ? 'mdc-top-app-bar--short-fixed-adjust' :
                     (props.dense && props.prominent) ? 'mdc-top-app-bar--dense-prominent-fixed-adjust' :

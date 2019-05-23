@@ -2,8 +2,12 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import {MDCDrawer, MDCDismissibleDrawerFoundation} from '@material/drawer'
 import {MDCList} from '@material/list';
+import {MDCRipple} from '@material/ripple';
 import '../icon'
 import '../icon-button'
+
+// @ts-ignore
+import { htmlToVdom } from '../util.ts'
 
 //@ts-ignore
 import { theme } from '../theme.ts'
@@ -57,8 +61,11 @@ export default class Drawer extends WeElement<Props, Data>{
     }
   }
 
-  installed() {
+  install() {
     this.initShow = this.props.show
+  }
+
+  installed() {
     if(this.props.dismissible || this.props.modal) {
       const deawer = MDCDrawer.attachTo(this.shadowRoot.querySelector('.mdc-drawer'))
       this.drawerFoundation = deawer.getDefaultFoundation()
@@ -80,6 +87,7 @@ export default class Drawer extends WeElement<Props, Data>{
         this.listAll[evt.detail.index].markListen = true
       }
     })
+    list.listElements.map((listItemEl) => new MDCRipple(listItemEl));
   }
 
   onList = (evt: any) => {
@@ -118,7 +126,11 @@ export default class Drawer extends WeElement<Props, Data>{
                     aria-selected={`${item.focus ? true : false}`}
                     target={item.target && '_blank'}
                     onClick={this.onList}>
-                    {item.mIconButton ?
+                    {item.iconElement ?
+                    <div accessKey={index.toString()} class='mdc-list-item__graphic'>
+                      {typeof item.iconElement === 'string' ? htmlToVdom(item.iconElement) : item.iconElement}
+                    </div> :
+                    item.mIconButton ?
                     <m-icon-button accessKey={index.toString()} {...item.mIconButton} class='mdc-list-item__graphic'></m-icon-button> :
                     item.mIcon &&
                     <m-icon

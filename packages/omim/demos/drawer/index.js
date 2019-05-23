@@ -251,6 +251,9 @@ define('my-app', class extends WeElement {
               href: '#/Permanent'
             }, {
               text: 'Dismissible',
+              iconElement: [
+                <img style='width:60px' src='../../assets/pv4.jpeg'></img>
+              ],
               mIconButton: {
                 icon: 'favorite'
               },

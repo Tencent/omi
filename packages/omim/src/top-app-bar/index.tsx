@@ -117,7 +117,9 @@ export default class topAppBar extends WeElement<Props, Data>{
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-start'>
               {/* Support for custom elements, development completed (支持自定义元素，开发完成) */}
               {props.navigationElement ?
-              (typeof props.navigationElement === 'string' ? htmlToVdom(props.navigationElement) : props.navigationElement) :
+              <div class='mdc-top-app-bar__navigation-icon' onClick={this.onNavigation}>
+                {typeof props.navigationElement === 'string' ? htmlToVdom(props.navigationElement) : props.navigationElement}
+              </div> :
               props.navigation &&
               (typeof props.navigation === 'string' ?
               <m-icon-button class='mdc-top-app-bar__navigation-icon' icon={props.navigation} onClick={this.onNavigation}></m-icon-button> :
@@ -139,11 +141,12 @@ export default class topAppBar extends WeElement<Props, Data>{
             </section>}
             {(props.actionItems || props.actionElements) &&
             <section class='mdc-top-app-bar__section mdc-top-app-bar__section--align-end'>
-              {/* 支持自定义元素，开发中 */}
-              {console.log(props.actionElements)}
+              {/* Support for custom elements, development completed (支持自定义元素，开发完成) */}
               {props.actionElements ?
-              props.actionElements.map((item) => {
-                return (typeof item === 'string' ? htmlToVdom(item) : item)
+              props.actionElements.map((item, index) => {
+                return <div accessKey={index.toString()} class='mdc-top-app-bar__action-item' onClick={this.onAction}>
+                  {typeof item === 'string' ? htmlToVdom(item) : item}
+                </div>
               }) :
               props.actionItems &&
               (typeof props.actionItems === 'string' ?

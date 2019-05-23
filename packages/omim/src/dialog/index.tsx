@@ -94,6 +94,7 @@ export default class Dialog extends WeElement<Props, Data>{
             {props.title && <h2 class='mdc-dialog__title'>{props.title}</h2>}
             <section class='mdc-dialog__content'>
               {typeof props.message === 'string' ? htmlToVdom(props.message) : props.message}
+              {this.innerHTML ? htmlToVdom(this.innerHTML) : props.children && htmlToVdom(props.children)}
               {/* solve the problem that the content focus is empty */}
               <a class='m-dialog-content-focus' href="#"></a>
             </section>
