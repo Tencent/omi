@@ -90,7 +90,7 @@ export default class Switch extends WeElement<Props, Data>{
           </div>
         </div>
       </div>,
-      <label for="basic-switch"> {props.label}</label>
+      <label for="basic-switch">&nbsp;{props.label}</label>
     ]
   }
 }

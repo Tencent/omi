@@ -9,12 +9,67 @@
 
 <body>
   <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/typography/index.js"></script>
   <script src="../../src/list/index.js"></script>
-  
-  <!-- ////////////////////////////////////////// -->
-  
+  <script src="../../src/switch/index.js"></script>
+  <script src="../../src/icon-button/index.js"></script>
+  <script src="../../src/checkbox/index.js"></script>
+  <script src="../../src/radio/index.js"></script>
   <script>
-    /////////////////////////////////////////////////
+    var style = document.createElement('style')
+    style.textContent = MTypography.css
+    document.querySelector('head').append(style)
+  </script>
+  
+  <h3 class="mdc-typography--subtitle1">Single-Line</h3>
+  <m-list
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item text="Line">item</item>
+    <item text="Line">item</item>
+    <item text="Line">item</item>
+  </m-list>
+
+  <h3 class="mdc-typography--subtitle1">Two-Line</h3>
+  <m-list
+    onChange="onChange(event)"
+    two-line
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item primary-text='Line item' secondary-text='Secondary text'></item>
+    <item primary-text='Line item' secondary-text='Secondary text'></item>
+    <item primary-text='Line item' secondary-text='Secondary text'></item>
+  </m-list>
+
+  <h3 class="mdc-typography--subtitle1">Leading Icon</h3>
+  <m-list
+  onChange="onChange(event)"
+  css="
+    .mdc-list,.mdc-list-group {
+      max-width: 600px;
+      border: 1px solid rgba(0,0,0,.1);
+    }
+  ">
+    <item graphic="h1>zain/h1>"><h1>zain</h1></item>
+    <!-- <item graphic="<m-icon-button icons={['wifi', '3d_rotation']}></m-icon-button>">Line item</item>
+    <item graphic="<m-icon-button icons={['wb_cloudy', 'wb_sunny']}></m-icon-button>">Line item</item> -->
+  </m-list>
+
+
+
+  <script>
+    function onChange(e) {
+      console.log(e.detail.attributes)
+    }
   </script>
 
   <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
