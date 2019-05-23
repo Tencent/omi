@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta charset="UTF-8" />
   <title>Add Omi in One Minute</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
@@ -53,17 +54,27 @@
   <h3 class="mdc-typography--subtitle1">Leading Icon</h3>
   <m-list
   onChange="onChange(event)"
+  two-line
   css="
     .mdc-list,.mdc-list-group {
       max-width: 600px;
       border: 1px solid rgba(0,0,0,.1);
     }
   ">
-    <item graphic="<h1>zain</h1>"><h1>zain</h1></item>
+    <item>
+      <div slot="graphic">
+        <h1>zain</h1>
+      </div>
+    </item>
+    <item meta="aaaaa">
+      
+    </item>
     <!-- <item graphic="<m-icon-button icons={['wifi', '3d_rotation']}></m-icon-button>">Line item</item>
     <item graphic="<m-icon-button icons={['wb_cloudy', 'wb_sunny']}></m-icon-button>">Line item</item> -->
-  </m-list>
-
+  </m-list><div slot="graphic">
+        <m-icon-button icons="['wifi', '3d_rotation']"></m-icon-button>
+      </div>
+  <m-icon-button icons="['wifi', '3d_rotation']"></m-icon-button>
 
 
   <script>

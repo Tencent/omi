@@ -19,7 +19,7 @@ define('my-app', class extends WeElement {
   `
 
   onChange = (e) => {
-    if(e.detail.attributes) {
+    if(e.detail && e.detail.attributes) {
       console.log(e.detail.attributes)
     } else {
       console.log(e.detail)
@@ -243,27 +243,27 @@ define('my-app', class extends WeElement {
       </m-list>
 
       <h3 class="mdc-typography--subtitle1">Other</h3>
-      <m-list css={this.css} disabled>
+      <m-list css={this.css} disabled onChange={this.onChange}>
         <item>Disabled-0</item>
         <item disabled>Disabled-1</item>
       </m-list>
       <br/>
-      <m-list css={this.css} dense>
+      <m-list css={this.css} dense onChange={this.onChange}>
         <item>Dense-0</item>
         <item>Dense-1</item>
       </m-list>
       <br/>
-      <m-list css={this.css} avatar>
+      <m-list css={this.css} avatar onChange={this.onChange}>
         <item>Avatar-0</item>
         <item>Avatar-1</item>
       </m-list>
       <br/>
-      <m-list css={this.css} twoLine>
+      <m-list css={this.css} twoLine onChange={this.onChange}>
         <item>Two Line-0</item>
         <item>Two Line-1</item>
       </m-list>
       <br/>
-      <m-list css={this.css}>
+      <m-list css={this.css} onChange={this.onChange}>
         <item>Divider:</item>
         <item divider></item>
         <item>Divider+Padded:</item>

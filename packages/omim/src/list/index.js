@@ -2460,21 +2460,26 @@ var Switch = /** @class */ (function (_super) {
     //   })
     // }
     Switch.prototype.renderList = function (node) {
+        if (!node) {
+            return null;
+        }
         var props = node.attributes;
-        if (node && props && props.divider) {
+        if (props && props.divider) {
             return omi_1.h("li", __assign({ role: "separator" }, omi_1.extractClass(node, 'mdc-list-divider', {
                 'mdc-list-divider--padded': (props && props.padded),
                 'mdc-list-divider--inset': (props && props.inset)
             })));
         }
-        else if (node) {
+        else {
             return omi_1.h("li", __assign({}, omi_1.extractClass(node, 'mdc-list-item', {
                 'mdc-list-item--disabled': (props && props.disabled),
                 'mdc-list-item--selected': (props && props.selected),
                 'mdc-list-item--activated': (props && props.activated)
             }), { tabindex: "0" }),
                 props && props.graphic &&
-                    omi_1.h("span", { class: "mdc-list-item__graphic" }, typeof props.graphic === 'string' ? util_ts_1.htmlToVdom(props.graphic) : props.graphic),
+                    omi_1.h("span", { class: "mdc-list-item__graphic" },
+                        typeof props.graphic === 'string' ? util_ts_1.htmlToVdom(props.graphic) : props.graphic,
+                        omi_1.h("slot", { name: 'graphic' })),
                 omi_1.h("div", { style: 'display:none' },
                     (props && props['primary-text']) && (props.primaryText = props['primary-text']),
                     (props && props['secondary-text']) && (props.secondaryText = props['secondary-text'])),
@@ -2500,7 +2505,7 @@ var Switch = /** @class */ (function (_super) {
                 'mdc-list--two-line': props.twoLine
             })),
                 props.children && props.children.map(function (item) {
-                    if (item && item.attributes && !item.attributes.divider) {
+                    if ((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
                         listOne_1.push(item);
                     }
                     return _this.renderList(item);
@@ -2520,7 +2525,7 @@ var Switch = /** @class */ (function (_super) {
                             'mdc-list--two-line': list.attributes && list.attributes.twoLine
                         })),
                             list.children && list.children.map(function (item) {
-                                if (item && item.attributes && !item.attributes.divider) {
+                                if ((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
                                     listOne_2.push(item);
                                 }
                                 return _this.renderList(item);

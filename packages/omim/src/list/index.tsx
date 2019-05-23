@@ -74,13 +74,16 @@ export default class Switch extends WeElement<Props, Data>{
   // }
 
   renderList(node) {
+    if(!node) {
+      return null
+    }
     const { attributes: props } = node
-    if(node && props && props.divider) {
+    if(props && props.divider) {
       return <li role="separator" {...extractClass(node, 'mdc-list-divider', {
         'mdc-list-divider--padded': (props && props.padded),
         'mdc-list-divider--inset': (props && props.inset)
       })}></li>
-    } else if(node) {
+    } else {
       return <li {...extractClass(node, 'mdc-list-item', {
         'mdc-list-item--disabled': (props && props.disabled),
         'mdc-list-item--selected': (props && props.selected),
@@ -89,6 +92,7 @@ export default class Switch extends WeElement<Props, Data>{
         {props && props.graphic &&
         <span class="mdc-list-item__graphic">
           {typeof props.graphic === 'string' ? htmlToVdom(props.graphic) : props.graphic}
+          {/* <slot name='graphic'></slot> */}
         </span>}
         <div style='display:none'>
           {(props && props['primary-text']) && (props.primaryText = props['primary-text'])}
@@ -120,7 +124,7 @@ export default class Switch extends WeElement<Props, Data>{
         'mdc-list--two-line': props.twoLine
       })}>
         {props.children && props.children.map((item) => {
-          if(item && item.attributes && !item.attributes.divider) {
+          if((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
             listOne.push(item)
           }
           return this.renderList(item)
@@ -141,7 +145,7 @@ export default class Switch extends WeElement<Props, Data>{
                 'mdc-list--two-line': list.attributes && list.attributes.twoLine
               })}>
                 {list.children && list.children.map((item) => {
-                  if(item && item.attributes && !item.attributes.divider) {
+                  if((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
                     listOne.push(item)
                   }
                   return this.renderList(item)
