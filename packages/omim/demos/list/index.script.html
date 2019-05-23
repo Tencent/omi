@@ -46,40 +46,173 @@
         border: 1px solid rgba(0,0,0,.1);
       }
     ">
-    <item primary-text='Line item' secondary-text='Secondary text'></item>
-    <item primary-text='Line item' secondary-text='Secondary text'></item>
-    <item primary-text='Line item' secondary-text='Secondary text'></item>
+    <div primary-text='Line item' secondary-text='Secondary text'></div>
+    <a primary-text='Line item' secondary-text='Secondary text'></a>
+    <p primary-text='Line item' secondary-text='Secondary text'></p>
   </m-list>
 
   <h3 class="mdc-typography--subtitle1">Leading Icon</h3>
   <m-list
-  onChange="onChange(event)"
-  two-line
-  css="
-    .mdc-list,.mdc-list-group {
-      max-width: 600px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
-  ">
-    <item>
-      <div slot="graphic">
-        <h1>zain</h1>
-      </div>
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item text='Line item'>
+      <graphic><m-icon-button icon='favorite'></m-icon-button></graphic>
     </item>
-    <item meta="aaaaa">
-      
+    <item text='Line item'>
+      <graphic><m-icon-button icon='3d_rotation'></m-icon-button></graphic>
     </item>
-    <!-- <item graphic="<m-icon-button icons={['wifi', '3d_rotation']}></m-icon-button>">Line item</item>
-    <item graphic="<m-icon-button icons={['wb_cloudy', 'wb_sunny']}></m-icon-button>">Line item</item> -->
-  </m-list><div slot="graphic">
-        <m-icon-button icons="['wifi', '3d_rotation']"></m-icon-button>
-      </div>
-  <m-icon-button icons="['wifi', '3d_rotation']"></m-icon-button>
+    <item text='Line item'>
+      <graphic><m-icon-button icon='wb_cloudy'></m-icon-button></graphic>
+    </item>
+  </m-list>
 
+  <h3 class="mdc-typography--subtitle1">List with activated item</h3>
+  <m-list
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item text='Inbox'>
+      <graphic><m-icon-button icon='inbox'></m-icon-button></graphic>
+    </item>
+    <item activated='true' text='Star'>
+      <graphic><m-icon-button icon='star'></m-icon-button></graphic>
+    </item>
+    <item text='Send'>
+      <graphic><m-icon-button icon='send'></m-icon-button></graphic>
+    </item>
+    <item text='Drafts'>
+      <graphic><m-icon-button icon='drafts'></m-icon-button></graphic>
+    </item>
+  </m-list>
+
+  <h3 class="mdc-typography--subtitle1">List with shaped activated item</h3>
+  <m-list
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+      .mdc-list-item {
+        border-radius: 0 32px 32px 0;
+      }
+    ">
+    <item text='Inbox'>
+      <graphic><m-icon-button icon='inbox'></m-icon-button></graphic>
+    </item>
+    <item activated='true' text='Star'>
+      <graphic><m-icon-button icon='star'></m-icon-button></graphic>
+    </item>
+    <item text='Send'>
+      <graphic><m-icon-button icon='send'></m-icon-button></graphic>
+    </item>
+    <item text='Drafts'>
+      <graphic><m-icon-button icon='drafts'></m-icon-button></graphic>
+    </item>
+  </m-list>
+
+  <h3 class="mdc-typography--subtitle1">Trailing Icon</h3>
+  <m-list
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item text='Line item'>
+      <metas><m-icon-button icon='info'></m-icon-button></metas>
+    </item>
+    <item text='Line item'>
+      <metas><m-icon-button icon='info'></m-icon-button></metas>
+    </item>
+    <item text='Line item'>
+      <metas><m-icon-button icon='info'></m-icon-button></metas>
+    </item>
+  </m-list>
+
+  <h3 class="mdc-typography--subtitle1">Two-Line with Leading and Trailing Icon and Divider</h3>
+  <m-list
+    two-line
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+      .mdc-list-item__graphic {
+        margin-left: 0;
+        margin-right: 16px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(0,0,0,.3);
+        color: #fff;
+      }
+    ">
+    <item primary-text='Dog Photos' secondary-text='9 Jan 2018'>
+      <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
+      <metas><m-icon-button icon='info'></m-icon-button></metas>
+    </item>
+    <item primary-text='Cat Photos' secondary-text='22 Dec 2017'>
+      <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
+      <metas><m-icon-button icon='info'></m-icon-button></metas>
+    </item>
+    <item divider='true'></item>
+    <item primary-text='Potatoes' secondary-text='30 Noc 2017'>
+      <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
+      <metas><m-icon-button icon='info'></m-icon-button></metas>
+    </item>
+    <item primary-text='Carrots' secondary-text='17 Oct 2017'>
+      <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
+      <metas><m-icon-button icon='info'></m-icon-button></metas>
+    </item>
+  </m-list>
+
+  <h3 class="mdc-typography--subtitle1">List with Trailing Checkbox</h3>
+  <m-list
+    onChange="onChangeCheckbox(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item id='checked-a' text='Dog Photos'>
+      <metas><m-checkbox id='link-checkbox-a'></m-checkbox></metas>
+    </item>
+    <item id='checked-b' text='Cat Photos'>
+      <metas><m-checkbox id='link-checkbox-b' checked='true'></m-checkbox></metas>
+    </item>
+    <item id='checked-c' text='Potatoes'>
+      <metas><m-checkbox id='link-checkbox-c'></m-checkbox></metas>
+    </item>
+    <item id='checked-d' text='Carrots'>
+      <metas><m-checkbox id='link-checkbox-d' checked='true'></m-checkbox></metas>
+    </item>
+  </m-list>
 
   <script>
     function onChange(e) {
-      console.log(e.detail.attributes)
+      console.log(e.detail.attributes);
+    }
+
+    const linkCheckedA = document.getElementById('link-checkbox-a');
+    const linkCheckedB = document.getElementById('link-checkbox-b');
+    const linkCheckedC = document.getElementById('link-checkbox-c');
+    const linkCheckedD = document.getElementById('link-checkbox-d');
+    function onChangeCheckbox(e) {
+      linkCheckedA.setAttribute('checked', true);
+      console.log(e.detail.children[0].children[0].attributes.checked)
     }
   </script>
 

@@ -9,7 +9,7 @@ interface Props {
 }
 interface Data {
 }
-export default class Icon extends WeElement<Props, Data> {
+export default class Tree extends WeElement<Props, Data> {
     static css: string;
     static defaultProps: {
         view: number;

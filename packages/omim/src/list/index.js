@@ -2459,11 +2459,34 @@ var Switch = /** @class */ (function (_super) {
     //     })
     //   })
     // }
+    /**
+     * Find the specified element name node (if there is a duplicate name node, only the first one is returned)
+     * 查找指定元素名节点(如果有重复名称节点，只返回第一个)
+     * @param nodes All nodes to be found (待查找的所有节点)
+     * @param str Specify the node name (指定节点名称)
+     */
+    Switch.prototype.findElement = function (nodes, str) {
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i] && nodes[i].nodeName === str) {
+                return nodes[i];
+            }
+        }
+        return null;
+    };
     Switch.prototype.renderList = function (node) {
         if (!node) {
             return null;
         }
         var props = node.attributes;
+        var graphic = this.findElement(node.children, 'graphic');
+        var metas = this.findElement(node.children, 'metas');
+        // console.log(metas)
+        {
+            (props && props['primary-text']) && (props.primaryText = props['primary-text']);
+        }
+        {
+            (props && props['secondary-text']) && (props.secondaryText = props['secondary-text']);
+        }
         if (props && props.divider) {
             return omi_1.h("li", __assign({ role: "separator" }, omi_1.extractClass(node, 'mdc-list-divider', {
                 'mdc-list-divider--padded': (props && props.padded),
@@ -2476,21 +2499,22 @@ var Switch = /** @class */ (function (_super) {
                 'mdc-list-item--selected': (props && props.selected),
                 'mdc-list-item--activated': (props && props.activated)
             }), { tabindex: "0" }),
-                props && props.graphic &&
+                props && (props.graphic || graphic) &&
                     omi_1.h("span", { class: "mdc-list-item__graphic" },
                         typeof props.graphic === 'string' ? util_ts_1.htmlToVdom(props.graphic) : props.graphic,
-                        omi_1.h("slot", { name: 'graphic' })),
-                omi_1.h("div", { style: 'display:none' },
-                    (props && props['primary-text']) && (props.primaryText = props['primary-text']),
-                    (props && props['secondary-text']) && (props.secondaryText = props['secondary-text'])),
+                        typeof graphic === 'string' ? util_ts_1.htmlToVdom(graphic) : graphic),
                 props && (props.text || props.primaryText || props.secondaryText) &&
                     omi_1.h("span", { class: "mdc-list-item__text" },
                         props.primaryText && omi_1.h("span", { class: "mdc-list-item__primary-text" }, props.primaryText),
                         props.secondaryText && omi_1.h("span", { class: "mdc-list-item__secondary-text" }, props.secondaryText),
                         props.text),
-                props && props.meta &&
-                    omi_1.h("span", { class: "mdc-list-item__meta" }, typeof props.meta === 'string' ? util_ts_1.htmlToVdom(props.meta) : props.meta),
-                typeof node.children === 'string' ? util_ts_1.htmlToVdom(node.children) : node.children);
+                props && (props.meta || metas) &&
+                    omi_1.h("span", { class: "mdc-list-item__meta" },
+                        typeof props.meta === 'string' ? util_ts_1.htmlToVdom(props.meta) : props.meta,
+                        typeof metas === 'string' ? util_ts_1.htmlToVdom(metas) : metas),
+                node.children.map(function (node) {
+                    return node && (!(node.nodeName === 'graphic' || node.nodeName === 'metas')) && (typeof node === 'string' ? util_ts_1.htmlToVdom(node) : node);
+                }));
         }
     };
     Switch.prototype.render = function (props) {
