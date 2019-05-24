@@ -4,106 +4,14 @@
 <head>
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	<meta charset="UTF-8" />
-	<title>Add Omi in One Minute</title>
+	<title>Omim Tree Demo</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
-	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-	<script src="../../src/tree/index.js"></script>
 
-	<script>
-	const node = {
-		title: 'p-0',
-		id: 1,
-		icon: 'account_balance_wallet',
-		children: [
-			{
-				title: 'p-1',
-				id: 2,
-				icon: 'assignment_ind',
-				children: [
-					{ title: 'p-2', id: 3, icon: 'chrome_reader_mode', checked: true },
-					{ title: 'p-2.5', id: 13, icon: 'chrome_reader_mode' }
-				]
-			},
-			{
-				title: 'p-4',
-				id: 4,
-				icon: 'extension',
-
-				children: [
-					{
-						title: 'p-5', id: 5, selected: true, icon: 'dashboard', checked: true,
-						disabled: true
-					},
-					{ title: '项目六', id: 6, icon: 'favorite' },
-					{ title: '项目7', id: 7 }
-				]
-			},
-			{
-				title: 'p-11',
-				id: 4,
-				icon: 'group_work',
-
-				children: [
-					{
-						title: 'p-12', id: 12, selected: true, icon: 'fingerprint', checked: true
-					}
-				]
-			}
-		]
-	}
-
-
-	function toggleHandler(evt){
-		const node = getNodeById(evt.detail.id, this.node)
-		node.close = !node.close
-		this.update()
-	}
-
-	function onNodeClick (evt) {
-		const pre = getNodeById(evt.detail.pre, this.node)
-		pre.selected = false
-		const node = this.getNodeById(evt.detail.id, this.node)
-		node.selected = true
-		this.update()
-	}
-
-	function onCheck(evt) {
-		const node = this.getNodeById(evt.detail.id, this.node)
-		if (!node.children) {
-
-			node.checked = evt.detail.checked
-		} else {
-			this.checkAll(node, evt.detail.state !== 'checked')
-
-		}
-		this.update()
-	}
-
-	function checkAll(node, checked) {
-		node.children && node.children.forEach(child => {
-			child.checked = checked
-			this.checkAll(child, checked)
-		})
-	}
-
-	function getNodeById(id, node) {
-		if (node.id === id) return node
-		if (node.children) {
-			for (let i = 0, len = node.children.length; i < len; i++) {
-				let child = node.children[i]
-				let target = this.getNodeById(id, child)
-				if (target) {
-					return target
-				}
-			}
-		}
-	}
-	</script>
 	<div>
-		<m-tree checkbox onNodeClick="onNodeClick(event)" onToggle="toggleHandler(event)" onCheck="onCheck(event)" node="{
+		<m-tree id='myTree' checkbox node="{
 			title: 'p-0',
 			id: 1,
 			icon: 'account_balance_wallet',
@@ -145,6 +53,63 @@
 		}">
 		</m-tree>
 	</div>
+
+	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+	<script src="../../src/tree/index.js"></script>
+
+	<script>
+
+		var myTree = document.querySelector('#myTree')
+		var nodeData = myTree.props.node
+
+		myTree.addEventListener('check', (evt) => {
+			const node = getNodeById(evt.detail.id, nodeData)
+			if (!node.children) {
+				node.checked = evt.detail.checked
+			} else {
+				checkAll(node, evt.detail.state !== 'checked')
+			}
+			myTree.setAttribute('node', nodeData)
+		})
+
+
+		myTree.addEventListener('toggle', (evt) => {
+			const node = getNodeById(evt.detail.id, nodeData)
+			node.close = !node.close
+			myTree.setAttribute('node', nodeData)
+		})
+
+		myTree.addEventListener('nodeclick', (evt) => {
+			const pre = getNodeById(evt.detail.pre, nodeData)
+			pre.selected = false
+			const node = getNodeById(evt.detail.id, nodeData)
+			node.selected = true
+			myTree.setAttribute('node', nodeData)
+		})
+
+
+		function checkAll(node, checked) {
+			node.children && node.children.forEach(child => {
+				child.checked = checked
+				checkAll(child, checked)
+			})
+		}
+
+		function getNodeById(id, node) {
+			if (node.id === id) return node
+			if (node.children) {
+				for (let i = 0, len = node.children.length; i < len; i++) {
+					let child = node.children[i]
+					let target = getNodeById(id, child)
+					if (target) {
+						return target
+					}
+				}
+			}
+		}
+	</script>
+
+
 	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
 		<img src="//alloyteam.github.io/github.png" alt="">
 	</a>

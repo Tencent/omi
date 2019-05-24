@@ -1,6 +1,7 @@
 import { WeElement } from 'omi';
 interface Props {
     checkbox?: boolean;
+    node: object;
 }
 interface Data {
 }
