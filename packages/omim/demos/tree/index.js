@@ -19,17 +19,25 @@ define('my-app', class extends WeElement {
 				title: 'p-4',
 				id: 4,
 				children: [
-					{ title: 'p-5', id: 5 }
+					{ title: 'p-5', id: 5, selected: true },
+					{ title: '项目六', id: 6 }
 				]
 			}
 		]
 	}
 
 	toggleHandler = (evt) => {
-		const node = this.getNodeById(evt.detail, this.node)
+		const node = this.getNodeById(evt.detail.id, this.node)
 		node.close = !node.close
 		this.update()
+	}
 
+	onNodeClick = (evt) => {
+		const pre = this.getNodeById(evt.detail.pre, this.node)
+		pre.selected = false
+		const node = this.getNodeById(evt.detail.id, this.node)
+		node.selected = true
+		this.update()
 	}
 
 	getNodeById(id, node) {
@@ -48,6 +56,7 @@ define('my-app', class extends WeElement {
 	render() {
 		return <div>
 			<m-tree
+				onNodeClick={this.onNodeClick}
 				onToggle={this.toggleHandler}
 				node={this.node}></m-tree>
 		</div>
