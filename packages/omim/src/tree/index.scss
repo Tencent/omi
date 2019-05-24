@@ -1,11 +1,64 @@
 @import "../theme";
-@import "@material/ripple/mdc-ripple";
 
-
-.my-surface {
-  @include mdc-ripple-surface;
-  @include mdc-states-base-color(black);
-  @include mdc-states-hover-opacity(.1);
-  @include mdc-states-focus-opacity(.3);
-  @include mdc-states-press-opacity(1);
+* {
+  box-sizing: border-box;
 }
+
+li {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0px;
+  white-space: nowrap;
+}
+
+ul{
+  margin: 0;
+  padding: 0 0 0 18px;
+  
+}
+
+.children{
+  transition: all .4s ease; 
+  overflow: hidden;
+}
+
+.tree-item{
+ vertical-align: middle;
+}
+
+
+.tree-item li{
+  margin-left: 10px; 
+ }
+
+
+.arrow{
+  vertical-align: middle;
+  cursor: pointer;
+ }
+
+ .close>.arrow{
+  transform: rotate(-90deg);
+ }
+
+
+.mdc-tree-title{
+  padding: 0 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mdc-tree-title:hover{
+  background-color: #cbebfc;
+}
+
+
+.mdc-tree-title.selected{
+  background-color: #bae7ff;
+}
+
+
+
+ .tree-item,.arrow{
+   transition: all .4s ease; 
+ }
