@@ -1,5 +1,27 @@
 @import "../theme";
 
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: top;
+  margin-right: 3px;
+  display: inline-block;
+  line-height: 24px;
+  height: 24px;
+
+}
+
 * {
   box-sizing: border-box;
 }
@@ -11,54 +33,68 @@ li {
   white-space: nowrap;
 }
 
-ul{
+ul {
   margin: 0;
   padding: 0 0 0 18px;
-  
+
 }
 
-.children{
-  transition: all .4s ease; 
+.children {
+  transition: all .4s ease;
   overflow: hidden;
 }
 
-.tree-item{
- vertical-align: middle;
+.tree-item {
+  vertical-align: top;
 }
 
 
-.tree-item li{
-  margin-left: 10px; 
- }
+.tree-item li {
+  margin-left: 10px;
+}
 
 
-.arrow{
-  vertical-align: middle;
+.arrow {
+  vertical-align: top;
   cursor: pointer;
- }
+  height: 24px;
+  line-height: 24px;
+  display: inline-block;
+}
 
- .close>.arrow{
+.close>.arrow {
   transform: rotate(-90deg);
- }
-
-
-.mdc-tree-title{
-  padding: 0 10px;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
-.mdc-tree-title:hover{
+
+.mdc-tree-title {
+  padding: 0 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 24px;
+  line-height: 24px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.text {
+  display: inline-block;
+  line-height: 24px;
+  height: 24px;
+}
+
+.mdc-tree-title:hover {
   background-color: #cbebfc;
 }
 
 
-.mdc-tree-title.selected{
+.mdc-tree-title.selected {
   background-color: #bae7ff;
 }
 
 
 
- .tree-item,.arrow{
-   transition: all .4s ease; 
- }
+.tree-item,
+.arrow {
+  transition: all .4s ease;
+}

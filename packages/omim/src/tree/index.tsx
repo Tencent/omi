@@ -43,11 +43,11 @@ export default class Tree extends WeElement<Props, Data>{
   }
 
   onNodeClick = (id) => {
-    this.fire('nodeClick', { id, pre: this._preSelected  })
+    this.fire('nodeClick', { id, pre: this._preSelected })
   }
 
   renderNode(node) {
-    if(node.selected){
+    if (node.selected) {
       this._preSelected = node.id
     }
     return <ul>
@@ -59,10 +59,10 @@ export default class Tree extends WeElement<Props, Data>{
           <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path>
         </svg>}
         <span onClick={_ => this.onNodeClick(node.id)} class={classNames('mdc-tree-title', {
-        'selected': node.selected
-      })}>{node.title}</span>
+          'selected': node.selected
+        })}>{node.icon && <i class='material-icons'>{node.icon}</i>}<span class='text'>{node.title}</span></span>
 
-        <div class='children' style={`height: ${node.close ? 0 : (node.children ? (this._getChildCount(node)) * 30 : 0)}px;`}> {node.children && node.children.length > 0 && node.children.map(_ => this.renderNode(_))}</div>
+        <div class='children' style={`height: ${node.close ? 0 : (node.children ? (this._getChildCount(node)) * 33 : 0)}px;`}> {node.children && node.children.length > 0 && node.children.map(_ => this.renderNode(_))}</div>
       </li>
     </ul>
   }
