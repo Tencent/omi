@@ -13,6 +13,7 @@ define('my-app', class extends WeElement {
 				title: 'p-1',
 				id: 2,
 				icon: 'assignment_ind',
+				checked: true,
 				children: [
 					{ title: 'p-2', id: 3, icon: 'chrome_reader_mode' }
 				]
@@ -21,8 +22,10 @@ define('my-app', class extends WeElement {
 				title: 'p-4',
 				id: 4,
 				icon: 'extension',
+			
 				children: [
-					{ title: 'p-5', id: 5, selected: true, icon: 'dashboard' },
+					{ title: 'p-5', id: 5, selected: true, icon: 'dashboard',	checked: true,
+					disabled: true, },
 					{ title: '项目六', id: 6, icon: 'favorite' },
 					{ title: '项目7', id: 7  }
 				]
@@ -60,6 +63,7 @@ define('my-app', class extends WeElement {
 	render() {
 		return <div>
 			<m-tree
+				checkbox
 				onNodeClick={this.onNodeClick}
 				onToggle={this.toggleHandler}
 				node={this.node}></m-tree>

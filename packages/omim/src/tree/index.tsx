@@ -1,16 +1,10 @@
 import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
-
 //@ts-ignore
 import { theme } from '../theme.ts'
 
 interface Props {
-  path?: string,
-  paths?: object,
-  view?: number,
-  scale?: number,
-  color?: string,
-  rotate?: boolean
+  checkbox?: boolean
 }
 
 interface Data {
@@ -28,12 +22,7 @@ export default class Tree extends WeElement<Props, Data>{
   }
 
   static propTypes = {
-    path: String,
-    paths: Object,
-    view: Number,
-    scale: Number,
-    color: String,
-    rotate: Boolean
+    checkbox: Boolean
   }
 
   _preSelected = null
@@ -58,6 +47,11 @@ export default class Tree extends WeElement<Props, Data>{
           class="arrow" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">
           <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path>
         </svg>}
+        {this.props.checkbox && <span class={classNames('mdc-tree-checkbox', {
+          'mdc-tree-checkbox-disabled': node.disabled,
+          'mdc-tree-checkbox-checked': node.checked,
+          'mdc-tree-checkbox-indeterminate': this._isIndeterminate(node)
+        })}><span class="mdc-tree-checkbox-inner"></span></span>}
         <span onClick={_ => this.onNodeClick(node.id)} class={classNames('mdc-tree-title', {
           'selected': node.selected
         })}>{node.icon && <i class='material-icons'>{node.icon}</i>}<span class='text'>{node.title}</span></span>
@@ -65,6 +59,10 @@ export default class Tree extends WeElement<Props, Data>{
         <div class='children' style={`height: ${node.close ? 0 : (node.children ? (this._getChildCount(node)) * 33 : 0)}px;`}> {node.children && node.children.length > 0 && node.children.map(_ => this.renderNode(_))}</div>
       </li>
     </ul>
+  }
+
+  _isIndeterminate(node) {
+    return false
   }
 
   _getChildCount(node) {
@@ -79,8 +77,8 @@ export default class Tree extends WeElement<Props, Data>{
     return count
 
   }
-  render(props) {
 
+  render(props) {
     return this.renderNode(props.node)
   }
 }
