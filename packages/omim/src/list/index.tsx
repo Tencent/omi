@@ -56,22 +56,11 @@ export default class List extends WeElement<Props, Data>{
           } else {
             this.fire('change', this.listAll[index+1][evt.detail.index])
           }
+          // this.update()
         })
       })
 		})
   }
-  
-  // installed() {
-  //   const lists = this.shadowRoot.querySelectorAll('.mdc-list')
-  //   console.log(lists)
-  //   lists.forEach((list, index) => {
-  //     const listControl = new MDCList(list)
-  //     listControl.listElements.map((listItemEl) => new MDCRipple(listItemEl))
-  //     listControl.listen('MDCList:action', (evt: any) => {
-  //       this.fire('change', this.listAll[index][evt.detail.index])
-  //     })
-  //   })
-  // }
 
   /**
    * Find the specified element name node (if there is a duplicate name node, only the first one is returned)
@@ -133,6 +122,7 @@ export default class List extends WeElement<Props, Data>{
   }
   
   render(props) {
+    this.listAll = []
     props.children = (this.innerHTML && !props.children) ? htmlToVdom(this.innerHTML) : props.children
     if(!props.group) {
       const listOne = new Array()

@@ -190,10 +190,10 @@
       }
     ">
     <item id='switch-a' text='Dog Photos'>
-      <metas><m-switch></m-switch></metas>
+      <metas><m-switch id='aaa' checked="true"></m-switch></metas>
     </item>
     <item id='switch-a' text='Cat Photos'>
-      <metas><m-switch id='aaa' checked="true"></m-switch></metas>
+      <metas><m-switch checked="true"></m-switch></metas>
     </item>
     <item id='switch-a' text='Potatoes'>
       <metas><m-switch></m-switch></metas>
@@ -203,6 +203,8 @@
     </item>
   </m-list>
   <m-switch id='bbb' checked="true"></m-switch>
+
+
   <script>
     function onChange(e) {
       console.log(e.detail.attributes);
@@ -211,7 +213,7 @@
     function onChangeSwitch(e) {
       document.getElementById('bbb').removeAttribute('checked')
       document.getElementById('m-list-switch').shadowRoot.querySelector('#aaa').removeAttribute('checked')
-      console.log(document.getElementById('aaa'))
+      console.log(document.getElementById('m-list-switch').shadowRoot.querySelector('#aaa'))
       console.log(e.detail.children[0].children[0].attributes.checked)
     }
   </script>

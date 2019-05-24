@@ -2444,21 +2444,11 @@ var List = /** @class */ (function (_super) {
                     else {
                         _this.fire('change', _this.listAll[index + 1][evt.detail.index]);
                     }
+                    // this.update()
                 });
             });
         });
     };
-    // installed() {
-    //   const lists = this.shadowRoot.querySelectorAll('.mdc-list')
-    //   console.log(lists)
-    //   lists.forEach((list, index) => {
-    //     const listControl = new MDCList(list)
-    //     listControl.listElements.map((listItemEl) => new MDCRipple(listItemEl))
-    //     listControl.listen('MDCList:action', (evt: any) => {
-    //       this.fire('change', this.listAll[index][evt.detail.index])
-    //     })
-    //   })
-    // }
     /**
      * Find the specified element name node (if there is a duplicate name node, only the first one is returned)
      * 查找指定元素名节点(如果有重复名称节点，只返回第一个)
@@ -2519,6 +2509,7 @@ var List = /** @class */ (function (_super) {
     };
     List.prototype.render = function (props) {
         var _this = this;
+        this.listAll = [];
         props.children = (this.innerHTML && !props.children) ? util_ts_1.htmlToVdom(this.innerHTML) : props.children;
         if (!props.group) {
             var listOne_1 = new Array();
