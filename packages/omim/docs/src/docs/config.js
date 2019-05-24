@@ -58,7 +58,8 @@ const config = {
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' }
+          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
+          { name: 'Tree', md: 'tree', demo: './repl/tree.html' }
         ]
       }
     ],
@@ -120,7 +121,8 @@ const config = {
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' }
+          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
+          { name: 'Tree', md: 'tree', demo: './repl/tree.html' }
         ]
       }
     ]

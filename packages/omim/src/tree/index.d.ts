@@ -1,33 +1,24 @@
 import { WeElement } from 'omi';
 interface Props {
-    path?: string;
-    paths?: object;
-    view?: number;
-    scale?: number;
-    color?: string;
-    rotate?: boolean;
+    checkbox?: boolean;
+    node: object;
 }
 interface Data {
 }
 export default class Tree extends WeElement<Props, Data> {
     static css: string;
-    static defaultProps: {
-        view: number;
-        scale: number;
-    };
     static propTypes: {
-        path: StringConstructor;
-        paths: ObjectConstructor;
-        view: NumberConstructor;
-        scale: NumberConstructor;
-        color: StringConstructor;
-        rotate: BooleanConstructor;
+        checkbox: BooleanConstructor;
+        node: ObjectConstructor;
     };
     _preSelected: any;
     toggle: (id: any, open: any) => void;
+    _check: (node: any, state: any) => void;
     onNodeClick: (id: any) => void;
     renderNode(node: any): JSX.Element;
+    _isChecked(node: any, obj: any, tag: any): "indeterminate" | "checked" | "unchecked";
     _getChildCount(node: any): number;
+    _fixChecked(node: any): void;
     render(props: any): JSX.Element;
 }
 export {};
