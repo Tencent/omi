@@ -23,7 +23,7 @@ interface Data {
 }
 
 @tag('m-list')
-export default class Switch extends WeElement<Props, Data>{
+export default class List extends WeElement<Props, Data>{
   static css = theme() + css
 
   static propTypes = {

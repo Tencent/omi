@@ -9,7 +9,7 @@ interface Props {
 }
 interface Data {
 }
-export default class Switch extends WeElement<Props, Data> {
+export default class List extends WeElement<Props, Data> {
     static css: string;
     static propTypes: {
         group: BooleanConstructor;

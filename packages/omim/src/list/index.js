@@ -2420,14 +2420,14 @@ var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/@mate
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
-var Switch = /** @class */ (function (_super) {
-    __extends(Switch, _super);
-    function Switch() {
+var List = /** @class */ (function (_super) {
+    __extends(List, _super);
+    function List() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.listAll = new Array();
         return _this;
     }
-    Switch.prototype.install = function () {
+    List.prototype.install = function () {
         var _this = this;
         document.addEventListener('DOMContentLoaded', function () {
             //update first
@@ -2465,7 +2465,7 @@ var Switch = /** @class */ (function (_super) {
      * @param nodes All nodes to be found (待查找的所有节点)
      * @param str Specify the node name (指定节点名称)
      */
-    Switch.prototype.findElement = function (nodes, str) {
+    List.prototype.findElement = function (nodes, str) {
         for (var i = 0; i < nodes.length; i++) {
             if (nodes[i] && nodes[i].nodeName === str) {
                 return nodes[i];
@@ -2473,7 +2473,7 @@ var Switch = /** @class */ (function (_super) {
         }
         return null;
     };
-    Switch.prototype.renderList = function (node) {
+    List.prototype.renderList = function (node) {
         if (!node) {
             return null;
         }
@@ -2517,7 +2517,7 @@ var Switch = /** @class */ (function (_super) {
                 }));
         }
     };
-    Switch.prototype.render = function (props) {
+    List.prototype.render = function (props) {
         var _this = this;
         props.children = (this.innerHTML && !props.children) ? util_ts_1.htmlToVdom(this.innerHTML) : props.children;
         if (!props.group) {
@@ -2560,8 +2560,8 @@ var Switch = /** @class */ (function (_super) {
             }));
         }
     };
-    Switch.css = theme_ts_1.theme() + css;
-    Switch.propTypes = {
+    List.css = theme_ts_1.theme() + css;
+    List.propTypes = {
         group: Boolean,
         subheader: Boolean,
         disabled: Boolean,
@@ -2569,13 +2569,13 @@ var Switch = /** @class */ (function (_super) {
         avatar: Boolean,
         twoLine: Boolean
     };
-    Switch.defaultProps = {};
-    Switch = __decorate([
+    List.defaultProps = {};
+    List = __decorate([
         omi_1.tag('m-list')
-    ], Switch);
-    return Switch;
+    ], List);
+    return List;
 }(omi_1.WeElement));
-exports.default = Switch;
+exports.default = List;
 
 
 /***/ }),

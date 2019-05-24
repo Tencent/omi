@@ -180,6 +180,7 @@
 
   <h3 class="mdc-typography--subtitle1">List with Trailing Checkbox</h3>
   <m-list
+    id='m-list-checkbox'
     onChange="onChangeCheckbox(event)"
     css="
       .mdc-list,.mdc-list-group {
@@ -206,12 +207,14 @@
       console.log(e.detail.attributes);
     }
 
-    const linkCheckedA = document.getElementById('link-checkbox-a');
-    const linkCheckedB = document.getElementById('link-checkbox-b');
-    const linkCheckedC = document.getElementById('link-checkbox-c');
-    const linkCheckedD = document.getElementById('link-checkbox-d');
+    const mListCheckbox = document.getElementById('m-list-checkbox');
     function onChangeCheckbox(e) {
-      linkCheckedA.setAttribute('checked', true);
+      const linkCheckedA = mListCheckbox.shadowRoot.querySelector('#link-checkbox-a')//.shadowRoot.querySelector('input');
+      const linkCheckedB = mListCheckbox.shadowRoot.querySelector('#link-checkbox-b');
+      const linkCheckedC = mListCheckbox.shadowRoot.querySelector('#link-checkbox-c');
+      const linkCheckedD = mListCheckbox.shadowRoot.querySelector('#link-checkbox-d');
+      console.log(linkCheckedA)
+      linkCheckedA.setAttribute('checked', true)
       console.log(e.detail.children[0].children[0].attributes.checked)
     }
   </script>
