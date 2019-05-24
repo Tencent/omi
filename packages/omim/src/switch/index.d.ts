@@ -2,8 +2,8 @@ import { WeElement } from 'omi';
 import { MDCSwitch, MDCSwitchFoundation } from '@material/switch';
 interface Props {
     label?: string;
-    disabled?: boolean;
-    checked?: boolean;
+    disabled?: boolean | string;
+    checked?: boolean | string;
     value?: string;
 }
 interface Data {

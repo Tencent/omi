@@ -178,43 +178,40 @@
     </item>
   </m-list>
 
-  <h3 class="mdc-typography--subtitle1">List with Trailing Checkbox</h3>
+  <h3 class="mdc-typography--subtitle1">List with Trailing Switch</h3>
   <m-list
-    id='m-list-checkbox'
-    onChange="onChangeCheckbox(event)"
+    id="m-list-switch"
+    onChange="onChangeSwitch(event)"
+    avatar
     css="
       .mdc-list,.mdc-list-group {
         max-width: 600px;
         border: 1px solid rgba(0,0,0,.1);
       }
     ">
-    <item id='checked-a' text='Dog Photos'>
-      <metas><m-checkbox id='link-checkbox-a'></m-checkbox></metas>
+    <item id='switch-a' text='Dog Photos'>
+      <metas><m-switch></m-switch></metas>
     </item>
-    <item id='checked-b' text='Cat Photos'>
-      <metas><m-checkbox id='link-checkbox-b' checked='true'></m-checkbox></metas>
+    <item id='switch-a' text='Cat Photos'>
+      <metas><m-switch id='aaa' checked="true"></m-switch></metas>
     </item>
-    <item id='checked-c' text='Potatoes'>
-      <metas><m-checkbox id='link-checkbox-c'></m-checkbox></metas>
+    <item id='switch-a' text='Potatoes'>
+      <metas><m-switch></m-switch></metas>
     </item>
-    <item id='checked-d' text='Carrots'>
-      <metas><m-checkbox id='link-checkbox-d' checked='true'></m-checkbox></metas>
+    <item id='switch-a' text='Carrots'>
+      <metas><m-switch checked="true"></m-switch></metas>
     </item>
   </m-list>
-
+  <m-switch id='bbb' checked="true"></m-switch>
   <script>
     function onChange(e) {
       console.log(e.detail.attributes);
     }
 
-    const mListCheckbox = document.getElementById('m-list-checkbox');
-    function onChangeCheckbox(e) {
-      const linkCheckedA = mListCheckbox.shadowRoot.querySelector('#link-checkbox-a')//.shadowRoot.querySelector('input');
-      const linkCheckedB = mListCheckbox.shadowRoot.querySelector('#link-checkbox-b');
-      const linkCheckedC = mListCheckbox.shadowRoot.querySelector('#link-checkbox-c');
-      const linkCheckedD = mListCheckbox.shadowRoot.querySelector('#link-checkbox-d');
-      console.log(linkCheckedA)
-      linkCheckedA.setAttribute('checked', true)
+    function onChangeSwitch(e) {
+      document.getElementById('bbb').removeAttribute('checked')
+      document.getElementById('m-list-switch').shadowRoot.querySelector('#aaa').removeAttribute('checked')
+      console.log(document.getElementById('aaa'))
       console.log(e.detail.children[0].children[0].attributes.checked)
     }
   </script>

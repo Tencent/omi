@@ -23,6 +23,11 @@ export default class Tree extends WeElement<Props, Data> {
         color: StringConstructor;
         rotate: BooleanConstructor;
     };
+    _preSelected: any;
+    toggle: (id: any, open: any) => void;
+    onNodeClick: (id: any) => void;
+    renderNode(node: any): JSX.Element;
+    _getChildCount(node: any): number;
     render(props: any): JSX.Element;
 }
 export {};

@@ -1910,13 +1910,13 @@ var Switch = /** @class */ (function (_super) {
         this.initSwitch();
     };
     Switch.prototype.initSwitch = function () {
-        if (this.props.checked === true) {
+        if (this.props.checked === true || this.props.checked === 'true') {
             this.switchFoundation.setChecked(true);
         }
         else {
             this.switchFoundation.setChecked(false);
         }
-        if (this.props.disabled === true) {
+        if (this.props.disabled === true || this.props.disabled === 'true') {
             this.switchFoundation.setDisabled(true);
         }
         else {

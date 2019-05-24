@@ -207,6 +207,7 @@ define('my-app', class extends WeElement {
         <item id='switch-c' text='Potatoes' meta={<m-switch checked={this.switchC}></m-switch>}></item>
         <item id='switch-d' text='Carrots' meta={<m-switch checked={this.switchD}></m-switch>}></item>
       </m-list>
+      
       <h3 class="mdc-typography--subtitle1">List Groups</h3>
       <m-list
         group
