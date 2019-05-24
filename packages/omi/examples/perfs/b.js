@@ -255,14 +255,6 @@
     // if (name === 'className') name = 'class'
     if (name === 'class') {
       node.className = value || '';
-    } else if (name !== 'list' && name !== 'type' && name in node) {
-      //value != '' fix for selected, disabled, checked
-      // Attempt to set a DOM property to the given value.
-      // IE & FF throw for certain property-value combinations.
-
-      node[name] = value == null ? '' : value;
-
-      if ((value == null || value === false) && name != 'spellcheck') node.removeAttribute(name);
     } else {
       //let ns = isSvg && name !== (name = name.replace(/^xlink:?/, ''))
       // spellcheck is treated differently than all other boolean values and
