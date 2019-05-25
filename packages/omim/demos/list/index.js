@@ -96,7 +96,7 @@ define('my-app', class extends WeElement {
           }
         `}
       >
-        <m-list subheader='group-0 (click)'>
+        <m-list subheader={<h3>group-0 (click)</h3>}>
           <item text='group-0-0'></item>
           <item text='group-0-1'></item>
           <item divider padded inset></item>

@@ -60,7 +60,8 @@ const config = {
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
           { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
-          { name: 'Tree', md: 'tree', demo: './repl/tree.html' }
+          { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
+          { name: 'List', md: 'list', demo: './repl/list.html' }
         ]
       }
     ],
@@ -124,7 +125,8 @@ const config = {
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
           { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
-          { name: 'Tree', md: 'tree', demo: './repl/tree.html' }
+          { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
+          { name: 'List', md: 'list', demo: './repl/list.html' }
         ]
       }
     ]
