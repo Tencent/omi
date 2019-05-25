@@ -23,7 +23,7 @@ interface Data {
 }
 
 @tag('m-list')
-export default class Switch extends WeElement<Props, Data>{
+export default class List extends WeElement<Props, Data>{
   static css = theme() + css
 
   static propTypes = {
@@ -58,20 +58,8 @@ export default class Switch extends WeElement<Props, Data>{
           }
         })
       })
-		})
+    })
   }
-  
-  // installed() {
-  //   const lists = this.shadowRoot.querySelectorAll('.mdc-list')
-  //   console.log(lists)
-  //   lists.forEach((list, index) => {
-  //     const listControl = new MDCList(list)
-  //     listControl.listElements.map((listItemEl) => new MDCRipple(listItemEl))
-  //     listControl.listen('MDCList:action', (evt: any) => {
-  //       this.fire('change', this.listAll[index][evt.detail.index])
-  //     })
-  //   })
-  // }
 
   /**
    * Find the specified element name node (if there is a duplicate name node, only the first one is returned)
@@ -131,8 +119,45 @@ export default class Switch extends WeElement<Props, Data>{
       </li>
     }
   }
+
+  groupNum = -1
+  groupHeight = new Object()
+
+  onGroup = (evt) => {
+    let groupNo = null
+    let mList = null
+    for(let i = 0; i < evt.path.length; i++) {
+      if(evt.path[i].id = 'subheader') {
+        mList = evt.path[i].nextElementSibling
+        groupNo = evt.path[i].accessKey
+        if(typeof this.groupHeight[groupNo] === 'undefined') {
+          this.groupHeight[groupNo] = mList.clientHeight
+        }
+        break;
+      }
+    }
+    if(mList) {
+      let height = mList.clientHeight
+      if(height != 0) {
+        const time = setInterval(() => {
+          height -= 20
+          height < 0 && (height = 0)
+          mList.style.height = height+'px'
+          height === 0 && clearInterval(time)
+        }, 10);
+      } else {
+        const time = setInterval(() => {
+          height += 20
+          height > this.groupHeight[groupNo] && (height = this.groupHeight[groupNo])
+          mList.style.height = height+'px'
+          height === this.groupHeight[groupNo] && clearInterval(time)
+        }, 10);
+      }
+    }
+  }
   
   render(props) {
+    this.listAll = []
     props.children = (this.innerHTML && !props.children) ? htmlToVdom(this.innerHTML) : props.children
     if(!props.group) {
       const listOne = new Array()
@@ -155,8 +180,9 @@ export default class Switch extends WeElement<Props, Data>{
         {props.children && props.children.map((list) => {
           if(list && list.nodeName === 'm-list') {
             const listOne = new Array()
+            this.groupNum += 1
             return [
-              (list.attributes && list.attributes.subheader && <h3 class="mdc-list-group__subheader">{list.attributes.subheader}</h3>),
+              (list.attributes && list.attributes.subheader && <h3 id='subheader' accessKey={this.groupNum.toString()} class='mdc-list-group__subheader' onClick={this.onGroup}>{list.attributes.subheader}</h3>),
               <ul {...extractClass(list, 'mdc-list', {
                 'mdc-list--non-interactive': list.attributes && list.attributes.disabled,
                 'mdc-list--dense': list.attributes && list.attributes.dense,

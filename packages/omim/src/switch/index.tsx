@@ -10,8 +10,8 @@ import { theme } from '../theme.ts'
 
 interface Props {
   label?: string,
-  disabled?: boolean,
-  checked?: boolean,
+  disabled?: boolean | string,
+  checked?: boolean | string,
   value?: string
 }
 
@@ -49,12 +49,12 @@ export default class Switch extends WeElement<Props, Data>{
   }
 
   initSwitch() {
-    if(this.props.checked === true) {
+    if(this.props.checked === true || this.props.checked === 'true') {
       this.switchFoundation.setChecked(true)
     } else {
       this.switchFoundation.setChecked(false)
     }
-    if(this.props.disabled === true) {
+    if(this.props.disabled === true || this.props.disabled === 'true') {
       this.switchFoundation.setDisabled(true)
     } else {
       this.switchFoundation.setDisabled(false)

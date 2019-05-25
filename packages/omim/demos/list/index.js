@@ -80,6 +80,41 @@ define('my-app', class extends WeElement {
 
   render() {
     return <div>
+      <h3 class="mdc-typography--subtitle1">List Groups</h3>
+      <m-list
+        group
+        onChange={this.onChangeGroup}
+        css={`
+          .mdc-list,.mdc-list-group {
+            max-width: 600px;
+            border: 1px solid rgba(0,0,0,.1);
+          }
+          .mdc-list-group__subheader {
+            background: #EEE;
+            margin: 0;
+            padding: 8px;
+          }
+        `}
+      >
+        <m-list subheader='group-0 (click)'>
+          <item text='group-0-0'></item>
+          <item text='group-0-1'></item>
+          <item divider padded inset></item>
+          <item text='group-0-2'></item>
+          <item selected text='group-0-3'></item>
+          <item text='group-0-4'></item>
+        </m-list>
+        <m-list subheader='group-1 (click)'>
+          <item selected text='group-1-0'></item>
+          <item text='group-1-1'></item>
+        </m-list>
+        <m-list subheader='group-2 (click)'>
+          <item text='group-2-0'></item>
+          <item selected text='group-2-1'></item>
+          <item text='group-2-1'></item>
+        </m-list>
+      </m-list>
+
       <h3 class="mdc-typography--subtitle1">Single-Line</h3>
       <m-list onChange={this.onChange} css={this.css}>
         <item>Line item</item>
@@ -207,41 +242,7 @@ define('my-app', class extends WeElement {
         <item id='switch-c' text='Potatoes' meta={<m-switch checked={this.switchC}></m-switch>}></item>
         <item id='switch-d' text='Carrots' meta={<m-switch checked={this.switchD}></m-switch>}></item>
       </m-list>
-      <h3 class="mdc-typography--subtitle1">List Groups</h3>
-      <m-list
-        group
-        onChange={this.onChangeGroup}
-        css={`
-          .mdc-list,.mdc-list-group {
-            max-width: 600px;
-            border: 1px solid rgba(0,0,0,.1);
-          }
-          .mdc-list-group__subheader {
-            background: #EEE;
-            margin: 0;
-            padding: 8px;
-          }
-        `}
-      >
-        <m-list subheader='group-0'>
-          <item text='group-0-0'></item>
-          <item text='group-0-1'></item>
-          <item divider padded inset></item>
-          <item text='group-0-2'></item>
-          <item selected text='group-0-3'></item>
-          <item text='group-0-4'></item>
-        </m-list>
-        <m-list subheader='group-1'>
-          <item selected text='group-1-0'></item>
-          <item text='group-1-1'></item>
-        </m-list>
-        <m-list subheader='group-2'>
-          <item text='group-2-0'></item>
-          <item selected text='group-2-1'></item>
-          <item text='group-2-1'></item>
-        </m-list>
-      </m-list>
-
+      
       <h3 class="mdc-typography--subtitle1">Other</h3>
       <m-list css={this.css} disabled onChange={this.onChange}>
         <item>Disabled-0</item>
