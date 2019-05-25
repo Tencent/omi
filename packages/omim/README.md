@@ -213,6 +213,7 @@ Why??
 
 * Fix render item of m-table in html element
 * Add theme to REPL 
+* Add omiu elements to omim
 
 ### Links
 
