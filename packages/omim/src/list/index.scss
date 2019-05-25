@@ -1,2 +1,10 @@
 @import "../theme";
 @import "@material/list/mdc-list";
+
+.mdc-list-group__subheader {
+  cursor: pointer;
+}
+
+.mdc-list {
+  overflow: hidden;
+}

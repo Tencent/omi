@@ -30,6 +30,9 @@ export default class List extends WeElement<Props, Data> {
      */
     findElement(nodes: any, str: any): any;
     renderList(node: any): JSX.Element;
+    groupNum: number;
+    groupHeight: Object;
+    onGroup: (evt: any) => void;
     render(props: any): JSX.Element;
 }
 export {};

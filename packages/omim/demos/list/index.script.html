@@ -21,6 +21,41 @@
     style.textContent = MTypography.css
     document.querySelector('head').append(style)
   </script>
+
+  <h3 class="mdc-typography--subtitle1">List Groups</h3>
+  <m-list
+    group
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+      .mdc-list-group__subheader {
+        background: #EEE;
+        margin: 0;
+        padding: 8px;
+      }
+    "
+  >
+    <m-list subheader='group-0'>
+      <item text='group-0-0'></item>
+      <item text='group-0-1'></item>
+      <item divider='true' padded='true' inset='true'></item>
+      <item text='group-0-2'></item>
+      <item selected="true" text='group-0-3'></item>
+      <item text='group-0-4'></item>
+    </m-list>
+    <m-list subheader='group-1'>
+      <item selected="true" text='group-1-0'></item>
+      <item text='group-1-1'></item>
+    </m-list>
+    <m-list subheader='group-2'>
+      <item text='group-2-0'></item>
+      <item selected="true" text='group-2-1'></item>
+      <item text='group-2-1'></item>
+    </m-list>
+  </m-list>
   
   <h3 class="mdc-typography--subtitle1">Single-Line</h3>
   <m-list
@@ -189,32 +224,132 @@
         border: 1px solid rgba(0,0,0,.1);
       }
     ">
-    <item id='switch-a' text='Dog Photos'>
-      <metas><m-switch id='aaa' checked="true"></m-switch></metas>
+    <item text='Dog Photos'>
+      <metas><m-switch id='m-switch-a' value='omim'></m-switch></metas>
     </item>
-    <item id='switch-a' text='Cat Photos'>
-      <metas><m-switch checked="true"></m-switch></metas>
+    <item text='Cat Photos'>
+      <metas><m-switch id='m-switch-b' checked="true" value='omio'></m-switch></metas>
     </item>
-    <item id='switch-a' text='Potatoes'>
-      <metas><m-switch></m-switch></metas>
+    <item text='Potatoes'>
+      <metas><m-switch id='m-switch-c' value='omix'></m-switch></metas>
     </item>
-    <item id='switch-a' text='Carrots'>
-      <metas><m-switch checked="true"></m-switch></metas>
+    <item text='Carrots'>
+      <metas><m-switch id='m-switch-d' checked="true" value='omi'></m-switch></metas>
     </item>
   </m-list>
-  <m-switch id='bbb' checked="true"></m-switch>
 
+  <h3 class="mdc-typography--subtitle1">Other</h3>
+  <m-list
+    disabled="true"
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item>Disabled-0</item>
+    <item disabled="true">Disabled-1</item>
+  </m-list>
+  <br/>
+  <m-list
+    dense="true"
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item>Dense-0</item>
+    <item>Dense-1</item>
+  </m-list>
+  <br/>
+  <m-list
+    avatar="true"
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item>Avatar-0</item>
+    <item>Avatar-1</item>
+  </m-list>
+  <br/>
+  <m-list
+    two-line="true"
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item>Two Line-0</item>
+    <item>Two Line-1</item>
+  </m-list>
+  <br/>
+  <m-list
+    onChange="onChange(event)"
+    css="
+      .mdc-list,.mdc-list-group {
+        max-width: 600px;
+        border: 1px solid rgba(0,0,0,.1);
+      }
+    ">
+    <item>Divider:</item>
+    <item divider="true"></item>
+    <item>Divider+Padded:</item>
+    <item divider="true" padded="true"></item>
+    <item>Divider+Inset:</item>
+    <item divider="true" inset="true"></item>
+    <item>Divider+Padded+Inset:</item>
+    <item divider="true" padded="true" inset="true"></item>
+    <item disabled="true">Disabled</item>
+    <item selected="true">Selected</item>
+    <item activated="true">Activated</item>
+    <item text='Graphic'>
+      <graphic><m-icon-button icon='folder'></m-icon-button></graphic>
+    </item>
+    <item text='Text'></item>
+    <item primary-text='Primary Text' secondary-text='Secondary Text'></item>
+    <item text='Meta'>
+      <metas><m-icon-button icon='folder'></m-icon-button></metas>
+    </item>
+  </m-list>
 
   <script>
     function onChange(e) {
       console.log(e.detail.attributes);
     }
 
+    
     function onChangeSwitch(e) {
-      document.getElementById('bbb').removeAttribute('checked')
-      document.getElementById('m-list-switch').shadowRoot.querySelector('#aaa').removeAttribute('checked')
-      console.log(document.getElementById('m-list-switch').shadowRoot.querySelector('#aaa'))
-      console.log(e.detail.children[0].children[0].attributes.checked)
+      const checked = e.detail.children[0].children[0].attributes.checked;
+
+      const mSwitchA = document.getElementById('m-list-switch').shadowRoot.querySelector('#m-switch-a');
+      const mdcSwitchA = mSwitchA.shadowRoot.querySelector('.mdc-switch');
+
+      const mSwitchB = document.getElementById('m-list-switch').shadowRoot.querySelector('#m-switch-b');
+      const mdcSwitchB = mSwitchB.shadowRoot.querySelector('.mdc-switch');
+
+      const mSwitchC = document.getElementById('m-list-switch').shadowRoot.querySelector('#m-switch-c');
+      const mdcSwitchC = mSwitchC.shadowRoot.querySelector('.mdc-switch');
+
+      const mSwitchD = document.getElementById('m-list-switch').shadowRoot.querySelector('#m-switch-d');
+      const mdcSwitchD = mSwitchD.shadowRoot.querySelector('.mdc-switch');
+
+      console.log(e.detail.children[0].children[0].attributes)
+      switch(e.detail.children[0].children[0].attributes.id) {
+        case 'm-switch-a': checked ? mdcSwitchA.classList.remove('mdc-switch--checked') : mdcSwitchA.classList.add('mdc-switch--checked'); break;
+        case 'm-switch-b': checked ? mdcSwitchB.classList.remove('mdc-switch--checked') : mdcSwitchB.classList.add('mdc-switch--checked'); break;
+        case 'm-switch-c': checked ? mdcSwitchC.classList.remove('mdc-switch--checked') : mdcSwitchC.classList.add('mdc-switch--checked'); break;
+        case 'm-switch-d': checked ? mdcSwitchD.classList.remove('mdc-switch--checked') : mdcSwitchD.classList.add('mdc-switch--checked'); break;
+      }
+
+      e.detail.children[0].children[0].attributes.checked = !e.detail.children[0].children[0].attributes.checked
     }
   </script>
 
