@@ -1,3 +1,5 @@
+@import "../theme";
+
 .table-fill {
   background: white;
   border-radius: 3px;
@@ -37,7 +39,7 @@ tr {
 }
 
 tr:hover td {
-  background: rgb(12, 201, 103, .1);
+  background: rgba(12, 201, 103, .1);
 }
 
 tr:first-child {
@@ -53,7 +55,7 @@ tr:nth-child(odd) td {
 }
 
 tr:nth-child(odd):hover td {
-  background: rgb(12, 201, 103, .1);
+  background: rgba(12, 201, 103, .1);
 }
 
 tr:last-child td:first-child {
@@ -105,5 +107,5 @@ td.text-right {
 
 a {
   text-decoration: none;
-  color: #07C160;
+  color: $mdc-theme-primary;
 }

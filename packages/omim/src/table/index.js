@@ -101,9 +101,104 @@ return /******/ (function(modules) { // webpackBootstrap
   !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/table/index.scss ***!
   \***********************************************************************************************************/
 /*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".table-fill {\n  background: white;\n  border-radius: 3px;\n  border-collapse: collapse;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);\n  animation: float 5s infinite; }\n\nth {\n  color: white;\n  background: #1b1e24;\n  border-right: 1px solid #343a45;\n  font-size: 15px;\n  font-weight: 100;\n  padding: 5px;\n  text-align: left;\n  vertical-align: middle; }\n\nth:first-child {\n  border-top-left-radius: 3px; }\n\nth:last-child {\n  border-top-right-radius: 3px;\n  border-right: none; }\n\ntr {\n  border-top: 1px solid #C1C3D1;\n  color: #666B85;\n  font-size: 16px;\n  font-weight: normal; }\n\ntr:hover td {\n  background: rgba(12, 201, 103, 0.1); }\n\ntr:first-child {\n  border-top: none; }\n\ntr:last-child {\n  border-bottom: none; }\n\ntr:nth-child(odd) td {\n  background: whitesmoke; }\n\ntr:nth-child(odd):hover td {\n  background: rgba(12, 201, 103, 0.1); }\n\ntr:last-child td:first-child {\n  border-bottom-left-radius: 3px; }\n\ntr:last-child td:last-child {\n  border-bottom-right-radius: 3px; }\n\ntd {\n  background: #FFFFFF;\n  padding: 5px;\n  text-align: left;\n  vertical-align: middle;\n  font-weight: 300;\n  font-size: 14px;\n  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\n  border-right: 1px solid #C1C3D1; }\n\ntd:last-child {\n  border-right: 0px; }\n\nth.text-left {\n  text-align: left; }\n\nth.text-center {\n  text-align: center; }\n\nth.text-right {\n  text-align: right; }\n\ntd.text-left {\n  text-align: left; }\n\ntd.text-center {\n  text-align: center; }\n\ntd.text-right {\n  text-align: right; }\n\na {\n  text-decoration: none;\n  color: #07C160; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/sass-loader/lib/loader.js):\n\n  background: rgb(12, 201, 103, .1);\n             ^\n      Wrong number of arguments (4 for 3) for `rgb'\n      in /Users/dnt/project/omi/packages/omim/src/table/index.scss (line 40, column 15)");
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
 
 /***/ }),
 

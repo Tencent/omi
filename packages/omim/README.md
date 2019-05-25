@@ -3,7 +3,6 @@
 Cross-Frameworks components, powered by Material Design and [Omi](https://github.com/Tencent/omi).
 
 * [DOCS & REPL](https://tencent.github.io/omi/packages/omim/docs/build/index.html)
-* [material.io docs](https://material.io/develop/web/components/buttons/) & [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
 
 ![](./assets/pv4.jpeg)
 
@@ -14,6 +13,7 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 * Any framework can use the components, such as Omi, React, Vue and Angular 
 * Support both JSX and native HTML elements 
 * Each element can be used independently
+* Super easy to change theme colors, fonts and rounded corners
 
 ## Usage
 
@@ -81,6 +81,8 @@ or
 </script>
 <script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
 ```
+
+[→ Click here for more configurations](https://github.com/Tencent/omi/blob/master/packages/omim/src/theme.ts)
 
 ## Contribution
 
@@ -202,3 +204,9 @@ import '@import/core/button'
 The above code can register custom elements.
 
 Why??
+
+### Links
+
+* [material.io docs](https://material.io/develop/web/components/buttons/) 
+* [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
+* [material-theme-builder](https://material-theme-builder.glitch.me/)

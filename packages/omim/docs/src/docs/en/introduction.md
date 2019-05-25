@@ -11,6 +11,7 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 * Any framework can use the components, such as Omi, React, Vue and Angular 
 * Support both JSX and native HTML elements 
 * Each element can be used independently
+* Super easy to change theme colors, fonts and rounded corners
 
 ## Usage
 
@@ -79,6 +80,8 @@ or
 <script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
 ```
 
+[→ Click here for more configurations](https://github.com/Tencent/omi/blob/master/packages/omim/src/theme.ts)
+
 ## Contribution
 
 ### CMD
@@ -105,3 +108,4 @@ npm publish --access public
 
 * [material.io docs](https://material.io/develop/web/components/buttons/) 
 * [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
+* [material-theme-builder](https://material-theme-builder.glitch.me/)
