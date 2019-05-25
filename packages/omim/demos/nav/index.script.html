@@ -11,7 +11,7 @@
 <body>
 
 	<div>
-		<m-tree id='myTree' checkbox node="{
+		<m-nav id='myNav' checkbox nodes="[{
 			title: 'p-0',
 			id: 1,
 			icon: 'account_balance_wallet',
@@ -29,7 +29,7 @@
 					title: 'p-4',
 					id: 4,
 					icon: 'extension',
-	
+
 					children: [
 						{
 							title: 'p-5', id: 5, selected: true, icon: 'dashboard', checked: true,
@@ -38,69 +38,61 @@
 						{ title: '项目六', id: 6, icon: 'favorite' },
 						{ title: '项目7', id: 7 }
 					]
-				},
-				{
-					title: 'p-11',
-					id: 4,
-					icon: 'group_work',
-					children: [
-						{
-							title: 'p-12', id: 12, icon: 'fingerprint', checked: true
-						}
-					]
 				}
 			]
-		}">
-		</m-tree>
+		},
+		{
+			title: 'p-11',
+			id: 14,
+			icon: 'group_work',
+
+			children: [
+				{
+					title: 'p-12', id: 12, icon: 'fingerprint', checked: true
+				}
+			]
+		}]">
+		</m-nav>
 	</div>
 
 	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
-	<script src="../../src/tree/index.js"></script>
+	<script src="../../src/nav/index.js"></script>
 
 	<script>
 
-		var myTree = document.querySelector('#myTree')
-		var nodeData = myTree.props.node
+		var myNav = document.querySelector('#myNav')
+		var nodeData = myNav.props.nodes
 
-		myTree.addEventListener('check', (evt) => {
-			const node = getNodeById(evt.detail.id, nodeData)
-			if (!node.children) {
-				node.checked = evt.detail.checked
-			} else {
-				checkAll(node, evt.detail.state !== 'checked')
-			}
-			myTree.setAttribute('node', nodeData)
-		})
-
-
-		myTree.addEventListener('toggle', (evt) => {
+		myNav.addEventListener('toggle', (evt) => {
 			const node = getNodeById(evt.detail.id, nodeData)
 			node.close = !node.close
-			myTree.setAttribute('node', nodeData)
+			myNav.setAttribute('nodes', nodeData)
 		})
 
-		myTree.addEventListener('nodeclick', (evt) => {
+		myNav.addEventListener('nodeclick', (evt) => {
 			const pre = getNodeById(evt.detail.pre, nodeData)
 			pre.selected = false
 			const node = getNodeById(evt.detail.id, nodeData)
 			node.selected = true
-			myTree.setAttribute('node', nodeData)
+			myNav.setAttribute('nodes', nodeData)
 		})
 
-
-		function checkAll(node, checked) {
-			node.children && node.children.forEach(child => {
-				child.checked = checked
-				checkAll(child, checked)
-			})
+		function getNodeById(id, nodes) {
+			for (let i = 0, len = nodes.length; i < len; i++) {
+				let child = nodes[i]
+				let target = this._getNodeById(id, child)
+				if (target) {
+					return target
+				}
+			}
 		}
 
-		function getNodeById(id, node) {
+		function _getNodeById(id, node) {
 			if (node.id === id) return node
 			if (node.children) {
 				for (let i = 0, len = node.children.length; i < len; i++) {
 					let child = node.children[i]
-					let target = getNodeById(id, child)
+					let target = _getNodeById(id, child)
 					if (target) {
 						return target
 					}

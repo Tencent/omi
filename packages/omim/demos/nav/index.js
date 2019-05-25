@@ -72,19 +72,11 @@ define('my-app', class extends WeElement {
 		this.update()
 	}
 
-	checkAll(node, checked) {
-		node.children && node.children.forEach(child => {
-			child.checked = checked
-			this.checkAll(child, checked)
-		})
-	}
-
   getNodeById(id, nodes) {
 
 			for (let i = 0, len = nodes.length; i < len; i++) {
 				let child = nodes[i]
         let target = this._getNodeById(id, child)
-        console.log(id,target)
 				if (target) {
 					return target
 				}

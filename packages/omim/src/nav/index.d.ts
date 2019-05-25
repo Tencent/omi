@@ -1,20 +1,18 @@
 import { WeElement } from 'omi';
 interface Props {
-    checkbox?: boolean;
-    node: object;
+    nodes: object;
 }
 interface Data {
 }
 export default class Nav extends WeElement<Props, Data> {
     static css: string;
     static propTypes: {
-        checkbox: BooleanConstructor;
-        node: ObjectConstructor;
+        nodes: ObjectConstructor;
     };
     _preSelected: any;
-    toggle: (id: any, open: any) => void;
+    toggle: (evt: any, id: any, open: any) => void;
     onNodeClick: (id: any) => void;
-    renderNode(node: any): JSX.Element;
+    renderNode(node: any, level: any): JSX.Element;
     _getChildCount(node: any): number;
     render(props: any): JSX.Element;
 }
