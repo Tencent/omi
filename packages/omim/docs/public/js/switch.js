@@ -1509,7 +1509,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".mdc-switch {\n  display: inline-block;\n  position: relative;\n  outline: none;\n  user-select: none; }\n  .mdc-switch.mdc-switch--checked .mdc-switch__track {\n    background-color: #1890ff;\n    /* @alternate */\n    background-color: var(--mdc-theme-secondary, #1890ff);\n    border-color: #1890ff;\n    /* @alternate */\n    border-color: var(--mdc-theme-secondary, #1890ff); }\n  .mdc-switch.mdc-switch--checked .mdc-switch__thumb {\n    background-color: #1890ff;\n    /* @alternate */\n    background-color: var(--mdc-theme-secondary, #1890ff);\n    border-color: #1890ff;\n    /* @alternate */\n    border-color: var(--mdc-theme-secondary, #1890ff); }\n  .mdc-switch:not(.mdc-switch--checked) .mdc-switch__track {\n    background-color: #000;\n    border-color: #000; }\n  .mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb {\n    background-color: #fff;\n    border-color: #fff; }\n\n.mdc-switch__native-control {\n  /* @noflip */\n  left: 0;\n  /* @noflip */\n  right: initial;\n  position: absolute;\n  top: 0;\n  width: 68px;\n  height: 48px;\n  margin: 0;\n  opacity: 0;\n  cursor: pointer;\n  pointer-events: auto; }\n  [dir=\"rtl\"] .mdc-switch__native-control, .mdc-switch__native-control[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 0; }\n\n.mdc-switch__track {\n  box-sizing: border-box;\n  width: 32px;\n  height: 14px;\n  border: 1px solid;\n  border-radius: 7px;\n  opacity: .38;\n  transition: opacity 90ms cubic-bezier(0.4, 0, 0.2, 1), background-color 90ms cubic-bezier(0.4, 0, 0.2, 1), border-color 90ms cubic-bezier(0.4, 0, 0.2, 1); }\n\n.mdc-switch__thumb-underlay {\n  /* @noflip */\n  left: -18px;\n  /* @noflip */\n  right: initial;\n  display: flex;\n  position: absolute;\n  top: -17px;\n  align-items: center;\n  justify-content: center;\n  width: 48px;\n  height: 48px;\n  transform: translateX(0);\n  transition: transform 90ms cubic-bezier(0.4, 0, 0.2, 1), background-color 90ms cubic-bezier(0.4, 0, 0.2, 1), border-color 90ms cubic-bezier(0.4, 0, 0.2, 1); }\n  [dir=\"rtl\"] .mdc-switch__thumb-underlay, .mdc-switch__thumb-underlay[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: -18px; }\n\n.mdc-switch__thumb {\n  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);\n  box-sizing: border-box;\n  width: 20px;\n  height: 20px;\n  border: 10px solid;\n  border-radius: 50%;\n  pointer-events: none;\n  z-index: 1; }\n\n.mdc-switch--checked .mdc-switch__track {\n  opacity: .54; }\n\n.mdc-switch--checked .mdc-switch__thumb-underlay {\n  transform: translateX(20px); }\n  [dir=\"rtl\"] .mdc-switch--checked .mdc-switch__thumb-underlay, .mdc-switch--checked .mdc-switch__thumb-underlay[dir=\"rtl\"] {\n    transform: translateX(-20px); }\n\n.mdc-switch--checked .mdc-switch__native-control {\n  transform: translateX(-20px); }\n  [dir=\"rtl\"] .mdc-switch--checked .mdc-switch__native-control, .mdc-switch--checked .mdc-switch__native-control[dir=\"rtl\"] {\n    transform: translateX(20px); }\n\n.mdc-switch--disabled {\n  opacity: .38;\n  pointer-events: none; }\n  .mdc-switch--disabled .mdc-switch__thumb {\n    border-width: 1px; }\n  .mdc-switch--disabled .mdc-switch__native-control {\n    cursor: default;\n    pointer-events: none; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay::before, .mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay::after {\n  background-color: #9e9e9e; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay:hover::before {\n  opacity: 0.08; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded):focus::before, .mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay.mdc-ripple-upgraded--background-focused::before {\n  transition-duration: 75ms;\n  opacity: 0.24; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded)::after {\n  transition: opacity 150ms linear; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded):active::after {\n  transition-duration: 75ms;\n  opacity: 0.24; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay.mdc-ripple-upgraded {\n  --mdc-ripple-fg-opacity: 0.24; }\n\n.mdc-switch__thumb-underlay {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  will-change: transform, opacity; }\n  .mdc-switch__thumb-underlay::before, .mdc-switch__thumb-underlay::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-switch__thumb-underlay::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-switch__thumb-underlay::before, .mdc-switch__thumb-underlay::after {\n    top: calc(50% - 50%);\n    /* @noflip */\n    left: calc(50% - 50%);\n    width: 100%;\n    height: 100%; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded::before, .mdc-switch__thumb-underlay.mdc-ripple-upgraded::after {\n    top: var(--mdc-ripple-top, calc(50% - 50%));\n    /* @noflip */\n    left: var(--mdc-ripple-left, calc(50% - 50%));\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-switch__thumb-underlay::before, .mdc-switch__thumb-underlay::after {\n    background-color: #1890ff; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-switch__thumb-underlay::before, .mdc-switch__thumb-underlay::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-secondary, #1890ff); } }\n  .mdc-switch__thumb-underlay:hover::before {\n    opacity: 0.04; }\n  .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded):focus::before, .mdc-switch__thumb-underlay.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n", ""]);
+exports.push([module.i, ".mdc-switch {\n  display: inline-block;\n  position: relative;\n  outline: none;\n  user-select: none; }\n  .mdc-switch.mdc-switch--checked .mdc-switch__track {\n    background-color: #1890ff;\n    /* @alternate */\n    background-color: var(--mdc-theme-secondary, #1890ff);\n    border-color: #1890ff;\n    /* @alternate */\n    border-color: var(--mdc-theme-secondary, #1890ff); }\n  .mdc-switch.mdc-switch--checked .mdc-switch__thumb {\n    background-color: #1890ff;\n    /* @alternate */\n    background-color: var(--mdc-theme-secondary, #1890ff);\n    border-color: #1890ff;\n    /* @alternate */\n    border-color: var(--mdc-theme-secondary, #1890ff); }\n  .mdc-switch:not(.mdc-switch--checked) .mdc-switch__track {\n    background-color: #000;\n    border-color: #000; }\n  .mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb {\n    background-color: #fff;\n    border-color: #fff; }\n\n.mdc-switch__native-control {\n  /* @noflip */\n  left: 0;\n  /* @noflip */\n  right: initial;\n  position: absolute;\n  top: 0;\n  width: 68px;\n  height: 48px;\n  margin: 0;\n  opacity: 0;\n  cursor: pointer;\n  pointer-events: auto; }\n  [dir=\"rtl\"] .mdc-switch__native-control, .mdc-switch__native-control[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: 0; }\n\n.mdc-switch__track {\n  box-sizing: border-box;\n  width: 32px;\n  height: 14px;\n  border: 1px solid;\n  border-radius: 7px;\n  opacity: .38;\n  transition: opacity 90ms cubic-bezier(0.4, 0, 0.2, 1), background-color 90ms cubic-bezier(0.4, 0, 0.2, 1), border-color 90ms cubic-bezier(0.4, 0, 0.2, 1); }\n\n.mdc-switch__thumb-underlay {\n  /* @noflip */\n  left: -18px;\n  /* @noflip */\n  right: initial;\n  display: flex;\n  position: absolute;\n  top: -17px;\n  align-items: center;\n  justify-content: center;\n  width: 48px;\n  height: 48px;\n  transform: translateX(0);\n  transition: transform 90ms cubic-bezier(0.4, 0, 0.2, 1), background-color 90ms cubic-bezier(0.4, 0, 0.2, 1), border-color 90ms cubic-bezier(0.4, 0, 0.2, 1); }\n  [dir=\"rtl\"] .mdc-switch__thumb-underlay, .mdc-switch__thumb-underlay[dir=\"rtl\"] {\n    /* @noflip */\n    left: initial;\n    /* @noflip */\n    right: -18px; }\n\n.mdc-switch__thumb {\n  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);\n  box-sizing: border-box;\n  width: 20px;\n  height: 20px;\n  border: 10px solid;\n  border-radius: 50%;\n  pointer-events: none;\n  z-index: 1; }\n\n.mdc-switch--checked .mdc-switch__track {\n  opacity: .54; }\n\n.mdc-switch--checked .mdc-switch__thumb-underlay {\n  transform: translateX(20px); }\n  [dir=\"rtl\"] .mdc-switch--checked .mdc-switch__thumb-underlay, .mdc-switch--checked .mdc-switch__thumb-underlay[dir=\"rtl\"] {\n    transform: translateX(-20px); }\n\n.mdc-switch--checked .mdc-switch__native-control {\n  transform: translateX(-20px); }\n  [dir=\"rtl\"] .mdc-switch--checked .mdc-switch__native-control, .mdc-switch--checked .mdc-switch__native-control[dir=\"rtl\"] {\n    transform: translateX(20px); }\n\n.mdc-switch--disabled {\n  opacity: .38;\n  pointer-events: none; }\n  .mdc-switch--disabled .mdc-switch__thumb {\n    border-width: 1px; }\n  .mdc-switch--disabled .mdc-switch__native-control {\n    cursor: default;\n    pointer-events: none; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay::before, .mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay::after {\n  background-color: #9e9e9e; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay:hover::before {\n  opacity: 0.08; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded):focus::before, .mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay.mdc-ripple-upgraded--background-focused::before {\n  transition-duration: 75ms;\n  opacity: 0.24; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded)::after {\n  transition: opacity 150ms linear; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded):active::after {\n  transition-duration: 75ms;\n  opacity: 0.24; }\n\n.mdc-switch:not(.mdc-switch--checked) .mdc-switch__thumb-underlay.mdc-ripple-upgraded {\n  --mdc-ripple-fg-opacity: 0.24; }\n\n.mdc-switch__thumb-underlay {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }\n  .mdc-switch__thumb-underlay::before, .mdc-switch__thumb-underlay::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-switch__thumb-underlay::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-switch__thumb-underlay::before, .mdc-switch__thumb-underlay::after {\n    top: calc(50% - 50%);\n    /* @noflip */\n    left: calc(50% - 50%);\n    width: 100%;\n    height: 100%; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded::before, .mdc-switch__thumb-underlay.mdc-ripple-upgraded::after {\n    top: var(--mdc-ripple-top, calc(50% - 50%));\n    /* @noflip */\n    left: var(--mdc-ripple-left, calc(50% - 50%));\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-switch__thumb-underlay::before, .mdc-switch__thumb-underlay::after {\n    background-color: #1890ff; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-switch__thumb-underlay::before, .mdc-switch__thumb-underlay::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-secondary, #1890ff); } }\n  .mdc-switch__thumb-underlay:hover::before {\n    opacity: 0.04; }\n  .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded):focus::before, .mdc-switch__thumb-underlay.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-switch__thumb-underlay:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-switch__thumb-underlay.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n", ""]);
 
 // exports
 
@@ -1862,6 +1862,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1872,37 +1883,164 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/switch/index.scss");
 var switch_1 = __webpack_require__(/*! @material/switch */ "./node_modules/@material/switch/index.js");
+// @ts-ignore
+var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
+//@ts-ignore
+var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Switch = /** @class */ (function (_super) {
     __extends(Switch, _super);
     function Switch() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.onInput = function (evt) {
+            _this.fire('change', {
+                value: _this.props.value,
+                checked: _this.switchControl.checked,
+                disabled: _this.switchControl.disabled,
+                label: _this.props.label
+            });
+        };
+        return _this;
     }
+    Switch.prototype.updated = function () {
+        this.initSwitch();
+    };
     Switch.prototype.installed = function () {
-        var switchControl = new switch_1.MDCSwitch(this.shadowRoot.querySelector('.mdc-switch'));
+        this.switchControl = new switch_1.MDCSwitch(this.shadowRoot.querySelector('.mdc-switch'));
+        this.switchFoundation = this.switchControl.getDefaultFoundation();
+        this.initSwitch();
+    };
+    Switch.prototype.initSwitch = function () {
+        if (this.props.checked === true || this.props.checked === 'true') {
+            this.switchFoundation.setChecked(true);
+        }
+        else {
+            this.switchFoundation.setChecked(false);
+        }
+        if (this.props.disabled === true || this.props.disabled === 'true') {
+            this.switchFoundation.setDisabled(true);
+        }
+        else {
+            this.switchFoundation.setDisabled(false);
+        }
     };
     Switch.prototype.render = function (props) {
         return [
-            omi_1.h("div", { class: "mdc-switch" },
+            omi_1.h("div", __assign({}, omi_1.extractClass(props, 'mdc-switch', {
+                'mdc-switch--disabled': props.disabled,
+                'mdc-switch--checked': props.checked
+            })),
                 omi_1.h("div", { class: "mdc-switch__track" }),
                 omi_1.h("div", { class: "mdc-switch__thumb-underlay" },
                     omi_1.h("div", { class: "mdc-switch__thumb" },
-                        omi_1.h("input", { type: "checkbox", id: "basic-switch", class: "mdc-switch__native-control", role: "switch" })))),
-            omi_1.h("label", { for: "basic-switch" }, props.label)
+                        omi_1.h("input", __assign({}, util_ts_1.extract(props, ['value']), { type: "checkbox", id: "basic-switch", class: "mdc-switch__native-control", role: "switch", onClick: this.onInput }))))),
+            omi_1.h("label", { for: "basic-switch" },
+                "\u00A0",
+                props.label)
         ];
     };
-    Switch.css = css;
+    Switch.css = theme_ts_1.theme() + css;
     Switch.propTypes = {
         label: String,
         disabled: Boolean,
         checked: Boolean,
         value: String
     };
+    Switch.defaultProps = {};
     Switch = __decorate([
         omi_1.tag('m-switch')
     ], Switch);
     return Switch;
 }(omi_1.WeElement));
 exports.default = Switch;
+
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+if (typeof window === 'object') {
+    window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
+    window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
+    window.OmimThemeError = window.OmimThemeError || '#f5222d';
+}
+function theme() {
+    if (typeof window === 'object') {
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+    }
+}
+exports.theme = theme;
+
+
+/***/ }),
+
+/***/ "./src/util.ts":
+/*!*********************!*\
+  !*** ./src/util.ts ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function extract(props, prop) {
+    var _a;
+    if (typeof prop === 'string') {
+        if (props.hasOwnProperty(prop)) {
+            return _a = {}, _a[prop] = props[prop], _a;
+        }
+    }
+    else {
+        var res_1 = {};
+        prop.forEach(function (key) {
+            if (props.hasOwnProperty(key)) {
+                res_1[key] = props[key];
+            }
+        });
+        return res_1;
+    }
+}
+exports.extract = extract;
+var parser = new DOMParser();
+function htmlToVdom(html) {
+    if (!html)
+        return null;
+    return processNode(parser.parseFromString("<div>" + html + "</div>", "text/xml").childNodes[0]).children;
+}
+exports.htmlToVdom = htmlToVdom;
+function processNode(node) {
+    if (node.nodeType === 1) {
+        var i, child, attributes = {}, children = [];
+        for (i = 0; (child = node.attributes[i]); ++i) {
+            attributes[child.nodeName] = child.nodeValue;
+        }
+        for (i = 0; (child = node.childNodes[i]); ++i) {
+            var vn = processNode(child);
+            if (vn !== null)
+                children.push(vn);
+        }
+        return {
+            nodeName: node.tagName,
+            attributes: attributes,
+            children: children
+        };
+    }
+    if (node.nodeType === 3) {
+        var v = node.nodeValue.trim();
+        if (v !== '') {
+            return v;
+        }
+        return null;
+    }
+}
 
 
 /***/ }),

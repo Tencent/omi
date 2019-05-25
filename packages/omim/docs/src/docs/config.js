@@ -43,9 +43,10 @@ const config = {
         title: '表单',
         list: [
           { name: 'Text Field', md: 'text-field', demo: './repl/text-field.html' },
+          { name: 'Select', md: 'select', demo: './repl/select.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
-          { name: 'Select', md: 'select', demo: './repl/select.html' }
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' }
         ]
       },
       {
@@ -106,9 +107,10 @@ const config = {
         title: 'Form',
         list: [
           { name: 'Text Field', md: 'text-field', demo: './repl/text-field.html' },
+          { name: 'Select', md: 'select', demo: './repl/select.html' },
           { name: 'Checkbox', md: 'checkbox', demo: './repl/checkbox.html' },
           { name: 'Radio', md: 'radio', demo: './repl/radio.html' },
-          { name: 'Select', md: 'select', demo: './repl/select.html' }
+          { name: 'Switch', md: 'switch', demo: './repl/switch.html' }
         ]
       },
       {

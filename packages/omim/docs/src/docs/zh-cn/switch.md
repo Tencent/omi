@@ -4,10 +4,10 @@
 
 ## 使用
 
-```jsx
-<m-switch label='Label1'></m-switch>
-<m-switch label='Label2'></m-switch>
-<m-switch label='Label3'></m-switch>
+```html
+<m-switch id='m-switch-d' label='LabelD' value='omim D' checked disabled></m-switch>
+
+<m-switch id='m-switch-disabled-d' label='LabelD-Disabled' value='omim D-Disabled' checked></m-switch>
 ```
 
 ## Omi 中使用
@@ -15,7 +15,9 @@
 JSX:
 
 ```jsx
+<m-switch label='LabelD' value='omim D' checked={this.checkedD} disabled={this.disabledD} onChange={this.onChangeD}></m-switch>
 
+<m-switch label='LabelD-Disabled' value='omim D-Disabled' checked={this.checkedDisabledD} onChange={this.onChangeDisabledD}></m-switch>
 ```
 
 ## API
@@ -24,21 +26,7 @@ JSX:
 
 |  **Name**  | **Type**        | **Defaults**  | **Details**  |
 | ------------- |:-------------:|:-----:|:-------------:|
-| z | number | -- | 阴影外观控制 |
-
-  label?: string,
-  disabled?: boolean,
-  checked?: boolean,
-  value: string
-## API
-
-### Props
-
-```jsx
-{
-  label?: string,
-  disabled?: boolean,
-  checked?: boolean,
-  value: string
-}
-```
+| label | string | -- | 右侧文本内容 |
+| disabled | boolean / string | -- | 是否禁用 |
+| checked | boolean / string | -- | 初始状态是否选中 |
+| value | string | -- | 值 |
