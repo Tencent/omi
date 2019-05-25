@@ -1,0 +1,209 @@
+@import "../theme";
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: top;
+  margin-right: 3px;
+  display: inline-block;
+  line-height: 24px;
+  height: 24px;
+  max-width: 24px;
+  overflow: hidden;
+
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0px;
+  white-space: nowrap;
+}
+
+ul {
+  margin: 0;
+  padding: 0 0 0 18px;
+
+}
+
+.children {
+  transition: all .4s ease;
+  overflow: hidden;
+}
+
+.tree-item {
+  vertical-align: top;
+}
+
+
+.tree-item li {
+  margin-left: 10px;
+}
+
+
+.arrow {
+  vertical-align: top;
+  cursor: pointer;
+  height: 24px;
+  line-height: 24px;
+  display: inline-block;
+}
+
+.close>.arrow {
+  transform: rotate(-90deg);
+}
+
+
+.mdc-tree-title {
+  padding: 0 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 24px;
+  line-height: 24px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.text {
+  display: inline-block;
+  line-height: 24px;
+  height: 24px;
+}
+
+.mdc-tree-title:hover {
+  background-color: #cbebfc;
+}
+
+
+.mdc-tree-title.selected {
+  background-color: #bae7ff;
+}
+
+
+
+.tree-item,
+.arrow {
+  transition: all .4s ease;
+}
+
+
+.mdc-tree-checkbox-checked .mdc-tree-checkbox-inner::after {
+  position: absolute;
+  display: table;
+  border: 2px solid #fff;
+  border-top: 0;
+  border-left: 0;
+  -webkit-transform: rotate(45deg) scale(1) translate(-50%, -50%);
+  -ms-transform: rotate(45deg) scale(1) translate(-50%, -50%);
+  transform: rotate(45deg) scale(1) translate(-50%, -50%);
+  opacity: 1;
+  -webkit-transition: all .2s cubic-bezier(.12, .4, .29, 1.46) .1s;
+  transition: all .2s cubic-bezier(.12, .4, .29, 1.46) .1s;
+  content: ' ';
+}
+
+.mdc-tree-checkbox-inner::after {
+  position: absolute;
+  top: 50%;
+  left: 21%;
+  display: table;
+  width: 5.71428571px;
+  height: 9.14285714px;
+  border: 2px solid #fff;
+  border-top: 0;
+  border-left: 0;
+  -webkit-transform: rotate(45deg) scale(0) translate(-50%, -50%);
+  -ms-transform: rotate(45deg) scale(0) translate(-50%, -50%);
+  transform: rotate(45deg) scale(0) translate(-50%, -50%);
+  opacity: 0;
+  -webkit-transition: all .1s cubic-bezier(.71, -0.46, .88, .6), opacity .1s;
+  transition: all .1s cubic-bezier(.71, -0.46, .88, .6), opacity .1s;
+  content: ' ';
+}
+
+.mdc-tree-checkbox-checked .mdc-tree-checkbox-inner {
+  background-color: $mdc-theme-secondary;
+  border-color: $mdc-theme-secondary;
+}
+
+.mdc-tree-checkbox-inner {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  border-collapse: separate;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.mdc-tree-checkbox {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  -webkit-font-feature-settings: 'tnum';
+  font-feature-settings: 'tnum';
+  position: relative;
+  top: -0.09em;
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: none;
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+.mdc-tree-checkbox-disabled .mdc-tree-checkbox-inner {
+  background-color: #f5f5f5;
+  border-color: #d9d9d9 !important;
+  cursor: not-allowed;
+}
+
+.mdc-tree-checkbox-disabled.mdc-tree-checkbox-checked .mdc-tree-checkbox-inner::after {
+  border-color: rgba(0, 0, 0, 0.25);
+  -webkit-animation-name: none;
+  animation-name: none;
+}
+
+.mdc-tree-checkbox-indeterminate .mdc-tree-checkbox-inner::after {
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: $mdc-theme-secondary;
+  border: 0;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  content: ' ';
+}
