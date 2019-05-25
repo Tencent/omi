@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".table-fill {\n  background: white;\n  border-radius: 3px;\n  border-collapse: collapse;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);\n  animation: float 5s infinite; }\n\nth {\n  color: white;\n  background: #1b1e24;\n  border-right: 1px solid #343a45;\n  font-size: 15px;\n  font-weight: 100;\n  padding: 5px;\n  text-align: left;\n  vertical-align: middle; }\n\nth:first-child {\n  border-top-left-radius: 3px; }\n\nth:last-child {\n  border-top-right-radius: 3px;\n  border-right: none; }\n\ntr {\n  border-top: 1px solid #C1C3D1;\n  color: #666B85;\n  font-size: 16px;\n  font-weight: normal; }\n\ntr:hover td {\n  background: rgba(12, 201, 103, 0.1); }\n\ntr:first-child {\n  border-top: none; }\n\ntr:last-child {\n  border-bottom: none; }\n\ntr:nth-child(odd) td {\n  background: whitesmoke; }\n\ntr:nth-child(odd):hover td {\n  background: rgba(12, 201, 103, 0.1); }\n\ntr:last-child td:first-child {\n  border-bottom-left-radius: 3px; }\n\ntr:last-child td:last-child {\n  border-bottom-right-radius: 3px; }\n\ntd {\n  background: #FFFFFF;\n  padding: 5px;\n  text-align: left;\n  vertical-align: middle;\n  font-weight: 300;\n  font-size: 14px;\n  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\n  border-right: 1px solid #C1C3D1; }\n\ntd:last-child {\n  border-right: 0px; }\n\nth.text-left {\n  text-align: left; }\n\nth.text-center {\n  text-align: center; }\n\nth.text-right {\n  text-align: right; }\n\ntd.text-left {\n  text-align: left; }\n\ntd.text-center {\n  text-align: center; }\n\ntd.text-right {\n  text-align: right; }\n\na {\n  text-decoration: none;\n  color: #07C160; }\n", ""]);
+exports.push([module.i, ".table-fill {\n  background: white;\n  border-radius: 3px;\n  border-collapse: collapse;\n  margin: auto;\n  padding: 5px;\n  width: 100%;\n  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);\n  animation: float 5s infinite; }\n\nth {\n  color: white;\n  background: #1b1e24;\n  border-right: 1px solid #343a45;\n  font-size: 15px;\n  font-weight: 100;\n  padding: 5px;\n  text-align: left;\n  vertical-align: middle; }\n\nth:first-child {\n  border-top-left-radius: 3px; }\n\nth:last-child {\n  border-top-right-radius: 3px;\n  border-right: none; }\n\ntr {\n  border-top: 1px solid #C1C3D1;\n  color: #666B85;\n  font-size: 16px;\n  font-weight: normal; }\n\ntr:hover td {\n  background: rgba(24, 144, 255, 0.03); }\n\ntr:first-child {\n  border-top: none; }\n\ntr:last-child {\n  border-bottom: none; }\n\ntr:nth-child(odd) td {\n  background: whitesmoke; }\n\ntr:nth-child(odd):hover td {\n  background: rgba(24, 144, 255, 0.03); }\n\ntr:last-child td:first-child {\n  border-bottom-left-radius: 3px; }\n\ntr:last-child td:last-child {\n  border-bottom-right-radius: 3px; }\n\ntd {\n  background: #FFFFFF;\n  padding: 5px;\n  text-align: left;\n  vertical-align: middle;\n  font-weight: 300;\n  font-size: 14px;\n  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\n  border-right: 1px solid #C1C3D1; }\n\ntd:last-child {\n  border-right: 0px; }\n\nth.text-left {\n  text-align: left; }\n\nth.text-center {\n  text-align: center; }\n\nth.text-right {\n  text-align: right; }\n\ntd.text-left {\n  text-align: left; }\n\ntd.text-center {\n  text-align: center; }\n\ntd.text-right {\n  text-align: right; }\n\na {\n  text-decoration: none;\n  color: #1890ff; }\n", ""]);
 
 // exports
 
@@ -300,6 +300,10 @@ var Table = /** @class */ (function (_super) {
             }))); }))));
     };
     Table.css = theme_ts_1.theme() + css;
+    Table.propTypes = {
+        dataSource: Object,
+        columns: Object
+    };
     Table = __decorate([
         omi_1.tag('m-table')
     ], Table);
@@ -324,10 +328,20 @@ if (typeof window === 'object') {
     window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
     window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
     window.OmimThemeError = window.OmimThemeError || '#f5222d';
+    window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
+    window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
+    window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
+    window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
+    window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
+    window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
+    window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
+    window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
+    window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
+    window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
 }
 function theme() {
     if (typeof window === 'object') {
-        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --$mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --$mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --$mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --$mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --$mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --$mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --$mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --$mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --$mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --$mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
     }
 }
 exports.theme = theme;
