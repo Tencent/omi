@@ -205,6 +205,11 @@ The above code can register custom elements.
 
 Why??
 
+### Other(todo)
+
+* Fix render item of m-table in html element
+* Add theme to REPL 
+
 ### Links
 
 * [material.io docs](https://material.io/develop/web/components/buttons/) 
