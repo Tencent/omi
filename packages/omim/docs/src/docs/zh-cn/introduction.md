@@ -11,6 +11,7 @@
 * 任意框架都可以使用这些组件(比如 Omi, React, Vue and Angular)
 * 同时支持 JSX 和 原生 HTML 标签的使用方式 
 * 每个组件可以单独使用
+* 超级容易更换主题颜色、字体和圆角
 
 ## 使用指南
 
@@ -79,6 +80,8 @@ import '@omim/core/button'
 <script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
 ```
 
+[→ 点击查看更多配置](https://github.com/Tencent/omi/blob/master/packages/omim/src/theme.ts)
+
 ## 贡献
 
 ### CMD
@@ -105,3 +108,4 @@ npm publish --access public
 
 * [material.io docs](https://material.io/develop/web/components/buttons/) 
 * [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
+* [material-theme-builder](https://material-theme-builder.glitch.me/)

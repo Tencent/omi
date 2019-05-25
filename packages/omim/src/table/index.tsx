@@ -5,7 +5,8 @@ import * as css from './index.scss'
 import { theme } from '../theme.ts'
 
 interface Props {
-	dataSource: object
+	dataSource: object,
+	columns: object
 }
 
 @tag('m-table')
@@ -13,6 +14,11 @@ export default class Table extends WeElement<Props, {}> {
   static css = theme() + css
 
 	dataSource = null
+
+	static propTypes = {
+		dataSource: Object,
+		columns: Object
+	}
 
   install() {
     this.dataSource = this.props.dataSource
