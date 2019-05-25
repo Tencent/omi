@@ -13,7 +13,9 @@ const config = {
           { name: 'Button', md: 'button', demo: './repl/button.html' },
           { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
           { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
-          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' }
+          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
+          { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
+          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' }
         ]
       },
       {
@@ -29,7 +31,9 @@ const config = {
         list: [
           { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
-          { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' }
+          { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' },
+          { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
         ]
       },
       {
@@ -49,16 +53,13 @@ const config = {
         ]
       },
       {
-        title: '其他',
+        title: '数据',
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
-          { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
-          { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' }
         ]
       }
@@ -76,7 +77,9 @@ const config = {
           { name: 'Button', md: 'button', demo: './repl/button.html' },
           { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
           { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
-          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' }
+          { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
+          { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
+          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' }
         ]
       },
       {
@@ -92,7 +95,9 @@ const config = {
         list: [
           { name: 'Top App Bar', md: 'top-app-bar', demo: './repl/top-app-bar.html' },
           { name: 'Menu', md: 'menu', demo: './repl/menu.html' },
-          { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' }
+          { name: 'Drawer', md: 'drawer', demo: './repl/drawer.html' },
+          { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
+          { name: 'Nav', md: 'nav', demo: './repl/nav.html' }
         ]
       },
       {
@@ -112,16 +117,13 @@ const config = {
         ]
       },
       {
-        title: 'Other',
+        title: 'Data',
         list: [
           { name: 'Linear Progress', md: 'linear-progress', demo: './repl/linear-progress.html' },
           { name: 'Slider', md: 'slider', demo: './repl/slider.html' },
           { name: 'Chips', md: 'chips', demo: './repl/chips.html' },
           { name: 'Tag', md: 'tag', demo: './repl/tag.html' },
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
-          { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
-          { name: 'Tab', md: 'tab', demo: './repl/tab.html' },
-          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' }
         ]
       }
