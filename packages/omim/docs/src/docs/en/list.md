@@ -58,7 +58,7 @@ JSX:
 | padded | boolean | -- | The left and right sides are not filled with dividing lines |
 | inset | boolean | -- | The avatar is not filled with dividing lines |
 | disabled | boolean | -- | Disabled |
-| selected | boolean | -- | Selected |
+| selected | element | -- | Selected |
 | activated | boolean | -- | Always selected |
 | graphic | element | -- | Leftmost content |
 | text | string | -- | Intermediate text |

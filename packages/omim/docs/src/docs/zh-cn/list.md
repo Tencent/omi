@@ -58,7 +58,7 @@ JSX:
 | padded | boolean | -- | 左右两边不填充分割线 |
 | inset | boolean | -- | 头像处不填充分割线 |
 | disabled | boolean | -- | 禁用 |
-| selected | boolean | -- | 选中 |
+| selected | element | -- | 选中 |
 | activated | boolean | -- | 一直选中 |
 | graphic | element | -- | 最左边内容 |
 | text | string | -- | 中间文本 |
