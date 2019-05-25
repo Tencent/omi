@@ -180,10 +180,12 @@ export default class List extends WeElement<Props, Data>{
           if(list && list.nodeName === 'm-list') {
             const listOne = new Array()
             this.groupNum += 1
+            const subheader = this.findElement(list.children, 'subheader')
             return [
-              (list.attributes && list.attributes.subheader &&
+              (list.attributes && (list.attributes.subheader || subheader) &&
               <h3 id='subheader' accessKey={this.groupNum.toString()} class='mdc-list-group__subheader' onClick={this.onGroup}>
                 {typeof list.attributes.subheader === 'string' ? htmlToVdom(list.attributes.subheader) : list.attributes.subheader}
+                {typeof subheader === 'string' ? htmlToVdom(subheader) : subheader}
               </h3>),
               <ul {...extractClass(list, 'mdc-list', {
                 'mdc-list--non-interactive': list.attributes && list.attributes.disabled,
@@ -192,10 +194,12 @@ export default class List extends WeElement<Props, Data>{
                 'mdc-list--two-line': list.attributes && list.attributes.twoLine
               })}>
                 {list.children && list.children.map((item) => {
-                  if((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
-                    listOne.push(item)
+                  if(item.nodeName !== 'subheader') {
+                    if((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
+                      listOne.push(item)
+                    }
+                    return this.renderList(item)
                   }
-                  return this.renderList(item)
                 })}
                 <div style='display:none'>{this.listAll.push(listOne)}</div>
               </ul>

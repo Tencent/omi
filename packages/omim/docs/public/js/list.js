@@ -2431,8 +2431,9 @@ var List = /** @class */ (function (_super) {
             var groupNo = null;
             var mList = null;
             for (var i = 0; i < evt.path.length; i++) {
-                if (evt.path[i].id = 'subheader') {
+                if (evt.path[i].id === 'subheader') {
                     mList = evt.path[i].nextElementSibling;
+                    console.log(evt.path[i]);
                     groupNo = evt.path[i].accessKey;
                     if (typeof _this.groupHeight[groupNo] === 'undefined') {
                         _this.groupHeight[groupNo] = mList.clientHeight;
@@ -2566,8 +2567,12 @@ var List = /** @class */ (function (_super) {
                 if (list && list.nodeName === 'm-list') {
                     var listOne_2 = new Array();
                     _this.groupNum += 1;
+                    var subheader = _this.findElement(list.children, 'subheader');
                     return [
-                        (list.attributes && list.attributes.subheader && omi_1.h("h3", { id: 'subheader', accessKey: _this.groupNum.toString(), class: 'mdc-list-group__subheader', onClick: _this.onGroup }, list.attributes.subheader)),
+                        (list.attributes && (list.attributes.subheader || subheader) &&
+                            omi_1.h("h3", { id: 'subheader', accessKey: _this.groupNum.toString(), class: 'mdc-list-group__subheader', onClick: _this.onGroup },
+                                typeof list.attributes.subheader === 'string' ? util_ts_1.htmlToVdom(list.attributes.subheader) : list.attributes.subheader,
+                                typeof subheader === 'string' ? util_ts_1.htmlToVdom(subheader) : subheader)),
                         omi_1.h("ul", __assign({}, omi_1.extractClass(list, 'mdc-list', {
                             'mdc-list--non-interactive': list.attributes && list.attributes.disabled,
                             'mdc-list--dense': list.attributes && list.attributes.dense,
@@ -2575,10 +2580,12 @@ var List = /** @class */ (function (_super) {
                             'mdc-list--two-line': list.attributes && list.attributes.twoLine
                         })),
                             list.children && list.children.map(function (item) {
-                                if ((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
-                                    listOne_2.push(item);
+                                if (item.nodeName !== 'subheader') {
+                                    if ((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
+                                        listOne_2.push(item);
+                                    }
+                                    return _this.renderList(item);
                                 }
-                                return _this.renderList(item);
                             }),
                             omi_1.h("div", { style: 'display:none' }, _this.listAll.push(listOne_2)))
                     ];
@@ -2632,7 +2639,7 @@ if (typeof window === 'object') {
 }
 function theme() {
     if (typeof window === 'object') {
-        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --$mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --$mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --$mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --$mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --$mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --$mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --$mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --$mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --$mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --$mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
     }
 }
 exports.theme = theme;
