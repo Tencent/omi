@@ -34,7 +34,7 @@ define('my-app', class extends WeElement {
 			},
 			{
 				title: 'p-11',
-				id: 4,
+				id: 14,
 				icon: 'group_work',
 
 				children: [
