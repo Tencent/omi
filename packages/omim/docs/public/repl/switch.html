@@ -79,14 +79,21 @@
     <div class="playground">
       <div class="editor">
 <textarea id="editor">
-<br/>
-<m-switch label='Label1'></m-switch>
-<br/>
-<br/>
-<m-switch label='Label2'></m-switch>
-<br/>
-<br/>
-<m-switch label='Label3'></m-switch></textarea>
+<m-switch id='m-switch-a' label='LabelA' value='omim A'></m-switch>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<m-switch id='m-switch-disabled-a' label='LabelA-Disabled' value='omim A-Disabled'></m-switch>
+<br /><br />
+<m-switch id='m-switch-b' label='LabelB' value='omim B' checked></m-switch>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<m-switch id='m-switch-disabled-b' label='LabelB-Disabled' value='omim B-Disabled'></m-switch>
+<br /><br />
+<m-switch id='m-switch-c' label='LabelC' value='omim C' disabled></m-switch>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<m-switch id='m-switch-disabled-c' label='LabelC-Disabled' value='omim C-Disabled' checked></m-switch>
+<br /><br />
+<m-switch id='m-switch-d' label='LabelD' value='omim D' checked disabled></m-switch>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<m-switch id='m-switch-disabled-d' label='LabelD-Disabled' value='omim D-Disabled' checked></m-switch></textarea>
       </div>
       <div class="preview">
         <iframe class="frame" id="frame"></iframe>

@@ -11,7 +11,6 @@ import { theme } from '../theme.ts'
 
 interface Props {
   group?: boolean,
-  subheader?: boolean,
   disabled?: boolean,
   dense?: boolean,
   avatar?: boolean,
@@ -28,7 +27,6 @@ export default class List extends WeElement<Props, Data>{
 
   static propTypes = {
     group: Boolean,
-    subheader: Boolean,
     disabled: Boolean,
     dense: Boolean,
     avatar: Boolean,
@@ -127,8 +125,9 @@ export default class List extends WeElement<Props, Data>{
     let groupNo = null
     let mList = null
     for(let i = 0; i < evt.path.length; i++) {
-      if(evt.path[i].id = 'subheader') {
+      if(evt.path[i].id === 'subheader') {
         mList = evt.path[i].nextElementSibling
+        console.log(evt.path[i])
         groupNo = evt.path[i].accessKey
         if(typeof this.groupHeight[groupNo] === 'undefined') {
           this.groupHeight[groupNo] = mList.clientHeight
@@ -181,8 +180,13 @@ export default class List extends WeElement<Props, Data>{
           if(list && list.nodeName === 'm-list') {
             const listOne = new Array()
             this.groupNum += 1
+            const subheader = this.findElement(list.children, 'subheader')
             return [
-              (list.attributes && list.attributes.subheader && <h3 id='subheader' accessKey={this.groupNum.toString()} class='mdc-list-group__subheader' onClick={this.onGroup}>{list.attributes.subheader}</h3>),
+              (list.attributes && (list.attributes.subheader || subheader) &&
+              <h3 id='subheader' accessKey={this.groupNum.toString()} class='mdc-list-group__subheader' onClick={this.onGroup}>
+                {typeof list.attributes.subheader === 'string' ? htmlToVdom(list.attributes.subheader) : list.attributes.subheader}
+                {typeof subheader === 'string' ? htmlToVdom(subheader) : subheader}
+              </h3>),
               <ul {...extractClass(list, 'mdc-list', {
                 'mdc-list--non-interactive': list.attributes && list.attributes.disabled,
                 'mdc-list--dense': list.attributes && list.attributes.dense,
@@ -190,10 +194,12 @@ export default class List extends WeElement<Props, Data>{
                 'mdc-list--two-line': list.attributes && list.attributes.twoLine
               })}>
                 {list.children && list.children.map((item) => {
-                  if((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
-                    listOne.push(item)
+                  if(item.nodeName !== 'subheader') {
+                    if((item && item.attributes && !item.attributes.divider) || (item && !item.attributes)) {
+                      listOne.push(item)
+                    }
+                    return this.renderList(item)
                   }
-                  return this.renderList(item)
                 })}
                 <div style='display:none'>{this.listAll.push(listOne)}</div>
               </ul>

@@ -1,7 +1,6 @@
 import { WeElement } from 'omi';
 interface Props {
     group?: boolean;
-    subheader?: boolean;
     disabled?: boolean;
     dense?: boolean;
     avatar?: boolean;
@@ -13,7 +12,6 @@ export default class List extends WeElement<Props, Data> {
     static css: string;
     static propTypes: {
         group: BooleanConstructor;
-        subheader: BooleanConstructor;
         disabled: BooleanConstructor;
         dense: BooleanConstructor;
         avatar: BooleanConstructor;

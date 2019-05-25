@@ -96,7 +96,15 @@ define('my-app', class extends WeElement {
           }
         `}
       >
-        <m-list subheader='group-0 (click)'>
+        <m-list
+          subheader={[
+            <table>
+              <tr>
+                <td><m-icon-button icons={['3d_rotation', 'wifi']}></m-icon-button></td>
+                <td>group-0 (click)</td>
+              </tr>
+            </table>
+          ]}>
           <item text='group-0-0'></item>
           <item text='group-0-1'></item>
           <item divider padded inset></item>
@@ -104,11 +112,27 @@ define('my-app', class extends WeElement {
           <item selected text='group-0-3'></item>
           <item text='group-0-4'></item>
         </m-list>
-        <m-list subheader='group-1 (click)'>
+        <m-list
+          subheader={[
+            <table>
+              <tr>
+                <td><m-icon-button icons={['3d_rotation', 'wifi']}></m-icon-button></td>
+                <td>group-1 (click)</td>
+              </tr>
+            </table>
+          ]}>
           <item selected text='group-1-0'></item>
           <item text='group-1-1'></item>
         </m-list>
-        <m-list subheader='group-2 (click)'>
+        <m-list
+          subheader={[
+            <table>
+              <tr>
+                <td><m-icon-button icons={['3d_rotation', 'wifi']}></m-icon-button></td>
+                <td>group-2 (click)</td>
+              </tr>
+            </table>
+          ]}>
           <item text='group-2-0'></item>
           <item selected text='group-2-1'></item>
           <item text='group-2-1'></item>
