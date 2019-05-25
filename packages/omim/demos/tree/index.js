@@ -15,7 +15,10 @@ define('my-app', class extends WeElement {
 				icon: 'assignment_ind',
 				children: [
 					{ title: 'p-2', id: 3, icon: 'chrome_reader_mode', checked: true },
-					{ title: 'p-2.5', id: 13, icon: 'chrome_reader_mode' }
+					{ title: 'p-2.5', id: 13, icon: 'chrome_reader_mode',children:[{
+            title: 'p-1',
+            id: 1112,
+          }] }
 				]
 			},
 			{

@@ -63,7 +63,7 @@ export default class Tree extends WeElement<Props, Data>{
           'selected': node.selected
         })}>{node.icon && <i class='material-icons'>{node.icon}</i>}<span class='text'>{node.title}</span></span>
 
-        <div class='children' style={`height: ${node.close ? 0 : (node.children ? (this._getChildCount(node)) * 33 : 0)}px;`}> {node.children && node.children.length > 0 && node.children.map(_ => this.renderNode(_))}</div>
+        <div class='children' style={`height: ${node.close ? 0 : (node.children ? (this._getChildCount(node)) * 32 : 0)}px;`}> {node.children && node.children.length > 0 && node.children.map(_ => this.renderNode(_))}</div>
       </li>
     </ul>
   }
@@ -103,7 +103,7 @@ export default class Tree extends WeElement<Props, Data>{
 
   _getChildCount(node) {
     let count = 0
-    if (node.children) {
+    if (node.children && !node.close) {
       count += node.children.length
       node.children.forEach(child => {
         count += this._getChildCount(child)
@@ -114,14 +114,7 @@ export default class Tree extends WeElement<Props, Data>{
 
   }
 
-  _fixChecked(node) {
-
-  }
-
   render(props) {
-    if (props.checkbox) {
-      this._fixChecked(props.node)
-    }
     return this.renderNode(props.node)
   }
 }

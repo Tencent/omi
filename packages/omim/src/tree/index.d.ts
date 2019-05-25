@@ -18,7 +18,6 @@ export default class Tree extends WeElement<Props, Data> {
     renderNode(node: any): JSX.Element;
     _isChecked(node: any, obj: any, tag: any): "checked" | "indeterminate" | "unchecked";
     _getChildCount(node: any): number;
-    _fixChecked(node: any): void;
     render(props: any): JSX.Element;
 }
 export {};

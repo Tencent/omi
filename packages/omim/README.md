@@ -140,6 +140,10 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | icon-button | done |
 | toolbar | hulei |
 | avatar | done |
+| tree | done |
+| table | done |
+| nav | done |
+| welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 
@@ -209,6 +213,7 @@ Why??
 
 * Fix render item of m-table in html element
 * Add theme to REPL 
+* Add omiu elements to omim
 
 ### Links
 

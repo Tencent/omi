@@ -362,10 +362,465 @@ function matches(element, selector) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/ripple/component.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/ripple/component.js ***!
-  \****************************************************/
+/***/ "./node_modules/@material/top-app-bar/component.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/component.js ***!
+  \*********************************************************/
+/*! exports provided: MDCTopAppBar */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBar", function() { return MDCTopAppBar; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
+/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/component.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/constants.js");
+/* harmony import */ var _fixed_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fixed/foundation */ "./node_modules/@material/top-app-bar/fixed/foundation.js");
+/* harmony import */ var _short_foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./short/foundation */ "./node_modules/@material/top-app-bar/short/foundation.js");
+/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+
+
+var MDCTopAppBar = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTopAppBar, _super);
+    function MDCTopAppBar() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MDCTopAppBar.attachTo = function (root) {
+        return new MDCTopAppBar(root);
+    };
+    MDCTopAppBar.prototype.initialize = function (rippleFactory) {
+        if (rippleFactory === void 0) { rippleFactory = function (el) { return _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"].attachTo(el); }; }
+        this.navIcon_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].NAVIGATION_ICON_SELECTOR);
+        // Get all icons in the toolbar and instantiate the ripples
+        var icons = [].slice.call(this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].ACTION_ITEM_SELECTOR));
+        if (this.navIcon_) {
+            icons.push(this.navIcon_);
+        }
+        this.iconRipples_ = icons.map(function (icon) {
+            var ripple = rippleFactory(icon);
+            ripple.unbounded = true;
+            return ripple;
+        });
+        this.scrollTarget_ = window;
+    };
+    MDCTopAppBar.prototype.destroy = function () {
+        this.iconRipples_.forEach(function (iconRipple) { return iconRipple.destroy(); });
+        _super.prototype.destroy.call(this);
+    };
+    MDCTopAppBar.prototype.setScrollTarget = function (target) {
+        // Remove scroll handler from the previous scroll target
+        this.foundation_.destroyScrollHandler();
+        this.scrollTarget_ = target;
+        // Initialize scroll handler on the new scroll target
+        this.foundation_.initScrollHandler();
+    };
+    MDCTopAppBar.prototype.getDefaultFoundation = function () {
+        var _this = this;
+        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+        var adapter = {
+            hasClass: function (className) { return _this.root_.classList.contains(className); },
+            addClass: function (className) { return _this.root_.classList.add(className); },
+            removeClass: function (className) { return _this.root_.classList.remove(className); },
+            setStyle: function (property, value) { return _this.root_.style.setProperty(property, value); },
+            getTopAppBarHeight: function () { return _this.root_.clientHeight; },
+            registerNavigationIconInteractionHandler: function (evtType, handler) {
+                if (_this.navIcon_) {
+                    _this.navIcon_.addEventListener(evtType, handler);
+                }
+            },
+            deregisterNavigationIconInteractionHandler: function (evtType, handler) {
+                if (_this.navIcon_) {
+                    _this.navIcon_.removeEventListener(evtType, handler);
+                }
+            },
+            notifyNavigationIconClicked: function () { return _this.emit(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].NAVIGATION_EVENT, {}); },
+            registerScrollHandler: function (handler) { return _this.scrollTarget_.addEventListener('scroll', handler); },
+            deregisterScrollHandler: function (handler) { return _this.scrollTarget_.removeEventListener('scroll', handler); },
+            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },
+            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },
+            getViewportScrollY: function () {
+                var win = _this.scrollTarget_;
+                var el = _this.scrollTarget_;
+                return win.pageYOffset !== undefined ? win.pageYOffset : el.scrollTop;
+            },
+            getTotalActionItems: function () { return _this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].ACTION_ITEM_SELECTOR).length; },
+        };
+        // tslint:enable:object-literal-sort-keys
+        var foundation;
+        if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].SHORT_CLASS)) {
+            foundation = new _short_foundation__WEBPACK_IMPORTED_MODULE_5__["MDCShortTopAppBarFoundation"](adapter);
+        }
+        else if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].FIXED_CLASS)) {
+            foundation = new _fixed_foundation__WEBPACK_IMPORTED_MODULE_4__["MDCFixedTopAppBarFoundation"](adapter);
+        }
+        else {
+            foundation = new _standard_foundation__WEBPACK_IMPORTED_MODULE_6__["MDCTopAppBarFoundation"](adapter);
+        }
+        return foundation;
+    };
+    return MDCTopAppBar;
+}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
+
+//# sourceMappingURL=component.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/constants.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/constants.js ***!
+  \*********************************************************/
+/*! exports provided: cssClasses, numbers, strings */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssClasses = {
+    FIXED_CLASS: 'mdc-top-app-bar--fixed',
+    FIXED_SCROLLED_CLASS: 'mdc-top-app-bar--fixed-scrolled',
+    SHORT_CLASS: 'mdc-top-app-bar--short',
+    SHORT_COLLAPSED_CLASS: 'mdc-top-app-bar--short-collapsed',
+    SHORT_HAS_ACTION_ITEM_CLASS: 'mdc-top-app-bar--short-has-action-item',
+};
+var numbers = {
+    DEBOUNCE_THROTTLE_RESIZE_TIME_MS: 100,
+    MAX_TOP_APP_BAR_HEIGHT: 128,
+};
+var strings = {
+    ACTION_ITEM_SELECTOR: '.mdc-top-app-bar__action-item',
+    NAVIGATION_EVENT: 'MDCTopAppBar:nav',
+    NAVIGATION_ICON_SELECTOR: '.mdc-top-app-bar__navigation-icon',
+    ROOT_SELECTOR: '.mdc-top-app-bar',
+    TITLE_SELECTOR: '.mdc-top-app-bar__title',
+};
+
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/fixed/foundation.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/fixed/foundation.js ***!
+  \****************************************************************/
+/*! exports provided: MDCFixedTopAppBarFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFixedTopAppBarFoundation", function() { return MDCFixedTopAppBarFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./node_modules/@material/top-app-bar/constants.js");
+/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCFixedTopAppBarFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCFixedTopAppBarFoundation, _super);
+    /* istanbul ignore next: optional argument is not a branch statement */
+    function MDCFixedTopAppBarFoundation(adapter) {
+        var _this = _super.call(this, adapter) || this;
+        /**
+         * State variable for the previous scroll iteration top app bar state
+         */
+        _this.wasScrolled_ = false;
+        _this.scrollHandler_ = function () { return _this.fixedScrollHandler_(); };
+        return _this;
+    }
+    /**
+     * Scroll handler for applying/removing the modifier class on the fixed top app bar.
+     */
+    MDCFixedTopAppBarFoundation.prototype.fixedScrollHandler_ = function () {
+        var currentScroll = this.adapter_.getViewportScrollY();
+        if (currentScroll <= 0) {
+            if (this.wasScrolled_) {
+                this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"].FIXED_SCROLLED_CLASS);
+                this.wasScrolled_ = false;
+            }
+        }
+        else {
+            if (!this.wasScrolled_) {
+                this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"].FIXED_SCROLLED_CLASS);
+                this.wasScrolled_ = true;
+            }
+        }
+    };
+    return MDCFixedTopAppBarFoundation;
+}(_standard_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTopAppBarFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCFixedTopAppBarFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/foundation.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/foundation.js ***!
+  \**********************************************************/
+/*! exports provided: MDCTopAppBarBaseFoundation, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarBaseFoundation", function() { return MDCTopAppBarBaseFoundation; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/constants.js");
+/**
+ * @license
+ * Copyright 2018 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+var MDCTopAppBarBaseFoundation = /** @class */ (function (_super) {
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTopAppBarBaseFoundation, _super);
+    /* istanbul ignore next: optional argument is not a branch statement */
+    function MDCTopAppBarBaseFoundation(adapter) {
+        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCTopAppBarBaseFoundation.defaultAdapter, adapter)) || this;
+        _this.navClickHandler_ = function () { return _this.adapter_.notifyNavigationIconClicked(); };
+        return _this;
+    }
+    Object.defineProperty(MDCTopAppBarBaseFoundation, "strings", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTopAppBarBaseFoundation, "cssClasses", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTopAppBarBaseFoundation, "numbers", {
+        get: function () {
+            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MDCTopAppBarBaseFoundation, "defaultAdapter", {
+        /**
+         * See {@link MDCTopAppBarAdapter} for typing information on parameters and return types.
+         */
+        get: function () {
+            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
+            return {
+                addClass: function () { return undefined; },
+                removeClass: function () { return undefined; },
+                hasClass: function () { return false; },
+                setStyle: function () { return undefined; },
+                getTopAppBarHeight: function () { return 0; },
+                registerNavigationIconInteractionHandler: function () { return undefined; },
+                deregisterNavigationIconInteractionHandler: function () { return undefined; },
+                notifyNavigationIconClicked: function () { return undefined; },
+                registerScrollHandler: function () { return undefined; },
+                deregisterScrollHandler: function () { return undefined; },
+                registerResizeHandler: function () { return undefined; },
+                deregisterResizeHandler: function () { return undefined; },
+                getViewportScrollY: function () { return 0; },
+                getTotalActionItems: function () { return 0; },
+            };
+            // tslint:enable:object-literal-sort-keys
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MDCTopAppBarBaseFoundation.prototype.init = function () {
+        this.initScrollHandler();
+        this.initResizeHandler_();
+        this.adapter_.registerNavigationIconInteractionHandler('click', this.navClickHandler_);
+    };
+    MDCTopAppBarBaseFoundation.prototype.destroy = function () {
+        this.destroyScrollHandler();
+        this.destroyResizeHandler_();
+        this.adapter_.deregisterNavigationIconInteractionHandler('click', this.navClickHandler_);
+    };
+    MDCTopAppBarBaseFoundation.prototype.initScrollHandler = function () {
+        if (this.scrollHandler_) {
+            this.adapter_.registerScrollHandler(this.scrollHandler_);
+        }
+    };
+    MDCTopAppBarBaseFoundation.prototype.destroyScrollHandler = function () {
+        if (this.scrollHandler_) {
+            this.adapter_.deregisterScrollHandler(this.scrollHandler_);
+        }
+    };
+    MDCTopAppBarBaseFoundation.prototype.initResizeHandler_ = function () {
+        if (this.resizeHandler_) {
+            this.adapter_.registerResizeHandler(this.resizeHandler_);
+        }
+    };
+    MDCTopAppBarBaseFoundation.prototype.destroyResizeHandler_ = function () {
+        if (this.resizeHandler_) {
+            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
+        }
+    };
+    return MDCTopAppBarBaseFoundation;
+}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
+
+// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+/* harmony default export */ __webpack_exports__["default"] = (MDCTopAppBarBaseFoundation);
+//# sourceMappingURL=foundation.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/index.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/index.js ***!
+  \*****************************************************/
+/*! exports provided: MDCTopAppBar, MDCTopAppBarBaseFoundation, MDCFixedTopAppBarFoundation, MDCShortTopAppBarFoundation, MDCTopAppBarFoundation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/top-app-bar/component.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBar", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTopAppBar"]; });
+
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/top-app-bar/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarBaseFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCTopAppBarBaseFoundation"]; });
+
+/* harmony import */ var _fixed_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fixed/foundation */ "./node_modules/@material/top-app-bar/fixed/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFixedTopAppBarFoundation", function() { return _fixed_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFixedTopAppBarFoundation"]; });
+
+/* harmony import */ var _short_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./short/foundation */ "./node_modules/@material/top-app-bar/short/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCShortTopAppBarFoundation", function() { return _short_foundation__WEBPACK_IMPORTED_MODULE_3__["MDCShortTopAppBarFoundation"]; });
+
+/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarFoundation", function() { return _standard_foundation__WEBPACK_IMPORTED_MODULE_4__["MDCTopAppBarFoundation"]; });
+
+/**
+ * @license
+ * Copyright 2019 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/component.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/node_modules/@material/ripple/component.js ***!
+  \***************************************************************************************/
 /*! exports provided: MDCRipple */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -375,8 +830,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
 /* harmony import */ var _material_dom_ponyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/dom/ponyfill */ "./node_modules/@material/dom/ponyfill.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/ripple/foundation.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/foundation.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -491,10 +946,10 @@ var MDCRipple = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/ripple/constants.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/ripple/constants.js ***!
-  \****************************************************/
+/***/ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/constants.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/node_modules/@material/ripple/constants.js ***!
+  \***************************************************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -554,10 +1009,10 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/@material/ripple/foundation.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/@material/ripple/foundation.js ***!
-  \*****************************************************/
+/***/ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/foundation.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/node_modules/@material/ripple/foundation.js ***!
+  \****************************************************************************************/
 /*! exports provided: MDCRippleFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -566,8 +1021,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCRippleFoundation", function() { return MDCRippleFoundation; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/ripple/constants.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/ripple/util.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/constants.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/util.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -1032,10 +1487,10 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/ripple/util.js":
-/*!***********************************************!*\
-  !*** ./node_modules/@material/ripple/util.js ***!
-  \***********************************************/
+/***/ "./node_modules/@material/top-app-bar/node_modules/@material/ripple/util.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@material/top-app-bar/node_modules/@material/ripple/util.js ***!
+  \**********************************************************************************/
 /*! exports provided: supportsCssVariables, applyPassive, getNormalizedEventCoords */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1145,461 +1600,6 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
     return { x: normalizedX, y: normalizedY };
 }
 //# sourceMappingURL=util.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/component.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/component.js ***!
-  \*********************************************************/
-/*! exports provided: MDCTopAppBar */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBar", function() { return MDCTopAppBar; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-/* harmony import */ var _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/ripple/component */ "./node_modules/@material/ripple/component.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/constants.js");
-/* harmony import */ var _fixed_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fixed/foundation */ "./node_modules/@material/top-app-bar/fixed/foundation.js");
-/* harmony import */ var _short_foundation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./short/foundation */ "./node_modules/@material/top-app-bar/short/foundation.js");
-/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-
-
-
-var MDCTopAppBar = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTopAppBar, _super);
-    function MDCTopAppBar() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    MDCTopAppBar.attachTo = function (root) {
-        return new MDCTopAppBar(root);
-    };
-    MDCTopAppBar.prototype.initialize = function (rippleFactory) {
-        if (rippleFactory === void 0) { rippleFactory = function (el) { return _material_ripple_component__WEBPACK_IMPORTED_MODULE_2__["MDCRipple"].attachTo(el); }; }
-        this.navIcon_ = this.root_.querySelector(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].NAVIGATION_ICON_SELECTOR);
-        // Get all icons in the toolbar and instantiate the ripples
-        var icons = [].slice.call(this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].ACTION_ITEM_SELECTOR));
-        if (this.navIcon_) {
-            icons.push(this.navIcon_);
-        }
-        this.iconRipples_ = icons.map(function (icon) {
-            var ripple = rippleFactory(icon);
-            ripple.unbounded = true;
-            return ripple;
-        });
-        this.scrollTarget_ = window;
-    };
-    MDCTopAppBar.prototype.destroy = function () {
-        this.iconRipples_.forEach(function (iconRipple) { return iconRipple.destroy(); });
-        _super.prototype.destroy.call(this);
-    };
-    MDCTopAppBar.prototype.setScrollTarget = function (target) {
-        // Remove scroll handler from the previous scroll target
-        this.foundation_.destroyScrollHandler();
-        this.scrollTarget_ = target;
-        // Initialize scroll handler on the new scroll target
-        this.foundation_.initScrollHandler();
-    };
-    MDCTopAppBar.prototype.getDefaultFoundation = function () {
-        var _this = this;
-        // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
-        // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
-        // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
-        var adapter = {
-            hasClass: function (className) { return _this.root_.classList.contains(className); },
-            addClass: function (className) { return _this.root_.classList.add(className); },
-            removeClass: function (className) { return _this.root_.classList.remove(className); },
-            setStyle: function (property, value) { return _this.root_.style.setProperty(property, value); },
-            getTopAppBarHeight: function () { return _this.root_.clientHeight; },
-            registerNavigationIconInteractionHandler: function (evtType, handler) {
-                if (_this.navIcon_) {
-                    _this.navIcon_.addEventListener(evtType, handler);
-                }
-            },
-            deregisterNavigationIconInteractionHandler: function (evtType, handler) {
-                if (_this.navIcon_) {
-                    _this.navIcon_.removeEventListener(evtType, handler);
-                }
-            },
-            notifyNavigationIconClicked: function () { return _this.emit(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].NAVIGATION_EVENT, {}); },
-            registerScrollHandler: function (handler) { return _this.scrollTarget_.addEventListener('scroll', handler); },
-            deregisterScrollHandler: function (handler) { return _this.scrollTarget_.removeEventListener('scroll', handler); },
-            registerResizeHandler: function (handler) { return window.addEventListener('resize', handler); },
-            deregisterResizeHandler: function (handler) { return window.removeEventListener('resize', handler); },
-            getViewportScrollY: function () {
-                var win = _this.scrollTarget_;
-                var el = _this.scrollTarget_;
-                return win.pageYOffset !== undefined ? win.pageYOffset : el.scrollTop;
-            },
-            getTotalActionItems: function () { return _this.root_.querySelectorAll(_constants__WEBPACK_IMPORTED_MODULE_3__["strings"].ACTION_ITEM_SELECTOR).length; },
-        };
-        // tslint:enable:object-literal-sort-keys
-        var foundation;
-        if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].SHORT_CLASS)) {
-            foundation = new _short_foundation__WEBPACK_IMPORTED_MODULE_5__["MDCShortTopAppBarFoundation"](adapter);
-        }
-        else if (this.root_.classList.contains(_constants__WEBPACK_IMPORTED_MODULE_3__["cssClasses"].FIXED_CLASS)) {
-            foundation = new _fixed_foundation__WEBPACK_IMPORTED_MODULE_4__["MDCFixedTopAppBarFoundation"](adapter);
-        }
-        else {
-            foundation = new _standard_foundation__WEBPACK_IMPORTED_MODULE_6__["MDCTopAppBarFoundation"](adapter);
-        }
-        return foundation;
-    };
-    return MDCTopAppBar;
-}(_material_base_component__WEBPACK_IMPORTED_MODULE_1__["MDCComponent"]));
-
-//# sourceMappingURL=component.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/constants.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/constants.js ***!
-  \*********************************************************/
-/*! exports provided: cssClasses, numbers, strings */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cssClasses", function() { return cssClasses; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numbers", function() { return numbers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strings", function() { return strings; });
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-var cssClasses = {
-    FIXED_CLASS: 'mdc-top-app-bar--fixed',
-    FIXED_SCROLLED_CLASS: 'mdc-top-app-bar--fixed-scrolled',
-    SHORT_CLASS: 'mdc-top-app-bar--short',
-    SHORT_COLLAPSED_CLASS: 'mdc-top-app-bar--short-collapsed',
-    SHORT_HAS_ACTION_ITEM_CLASS: 'mdc-top-app-bar--short-has-action-item',
-};
-var numbers = {
-    DEBOUNCE_THROTTLE_RESIZE_TIME_MS: 100,
-    MAX_TOP_APP_BAR_HEIGHT: 128,
-};
-var strings = {
-    ACTION_ITEM_SELECTOR: '.mdc-top-app-bar__action-item',
-    NAVIGATION_EVENT: 'MDCTopAppBar:nav',
-    NAVIGATION_ICON_SELECTOR: '.mdc-top-app-bar__navigation-icon',
-    ROOT_SELECTOR: '.mdc-top-app-bar',
-    TITLE_SELECTOR: '.mdc-top-app-bar__title',
-};
-
-//# sourceMappingURL=constants.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/fixed/foundation.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/fixed/foundation.js ***!
-  \****************************************************************/
-/*! exports provided: MDCFixedTopAppBarFoundation, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCFixedTopAppBarFoundation", function() { return MDCFixedTopAppBarFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants */ "./node_modules/@material/top-app-bar/constants.js");
-/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-var MDCFixedTopAppBarFoundation = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCFixedTopAppBarFoundation, _super);
-    /* istanbul ignore next: optional argument is not a branch statement */
-    function MDCFixedTopAppBarFoundation(adapter) {
-        var _this = _super.call(this, adapter) || this;
-        /**
-         * State variable for the previous scroll iteration top app bar state
-         */
-        _this.wasScrolled_ = false;
-        _this.scrollHandler_ = function () { return _this.fixedScrollHandler_(); };
-        return _this;
-    }
-    /**
-     * Scroll handler for applying/removing the modifier class on the fixed top app bar.
-     */
-    MDCFixedTopAppBarFoundation.prototype.fixedScrollHandler_ = function () {
-        var currentScroll = this.adapter_.getViewportScrollY();
-        if (currentScroll <= 0) {
-            if (this.wasScrolled_) {
-                this.adapter_.removeClass(_constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"].FIXED_SCROLLED_CLASS);
-                this.wasScrolled_ = false;
-            }
-        }
-        else {
-            if (!this.wasScrolled_) {
-                this.adapter_.addClass(_constants__WEBPACK_IMPORTED_MODULE_1__["cssClasses"].FIXED_SCROLLED_CLASS);
-                this.wasScrolled_ = true;
-            }
-        }
-    };
-    return MDCFixedTopAppBarFoundation;
-}(_standard_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCTopAppBarFoundation"]));
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCFixedTopAppBarFoundation);
-//# sourceMappingURL=foundation.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/foundation.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/foundation.js ***!
-  \**********************************************************/
-/*! exports provided: MDCTopAppBarBaseFoundation, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarBaseFoundation", function() { return MDCTopAppBarBaseFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/top-app-bar/constants.js");
-/**
- * @license
- * Copyright 2018 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-var MDCTopAppBarBaseFoundation = /** @class */ (function (_super) {
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"](MDCTopAppBarBaseFoundation, _super);
-    /* istanbul ignore next: optional argument is not a branch statement */
-    function MDCTopAppBarBaseFoundation(adapter) {
-        var _this = _super.call(this, tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, MDCTopAppBarBaseFoundation.defaultAdapter, adapter)) || this;
-        _this.navClickHandler_ = function () { return _this.adapter_.notifyNavigationIconClicked(); };
-        return _this;
-    }
-    Object.defineProperty(MDCTopAppBarBaseFoundation, "strings", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["strings"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTopAppBarBaseFoundation, "cssClasses", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["cssClasses"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTopAppBarBaseFoundation, "numbers", {
-        get: function () {
-            return _constants__WEBPACK_IMPORTED_MODULE_2__["numbers"];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MDCTopAppBarBaseFoundation, "defaultAdapter", {
-        /**
-         * See {@link MDCTopAppBarAdapter} for typing information on parameters and return types.
-         */
-        get: function () {
-            // tslint:disable:object-literal-sort-keys Methods should be in the same order as the adapter interface.
-            return {
-                addClass: function () { return undefined; },
-                removeClass: function () { return undefined; },
-                hasClass: function () { return false; },
-                setStyle: function () { return undefined; },
-                getTopAppBarHeight: function () { return 0; },
-                registerNavigationIconInteractionHandler: function () { return undefined; },
-                deregisterNavigationIconInteractionHandler: function () { return undefined; },
-                notifyNavigationIconClicked: function () { return undefined; },
-                registerScrollHandler: function () { return undefined; },
-                deregisterScrollHandler: function () { return undefined; },
-                registerResizeHandler: function () { return undefined; },
-                deregisterResizeHandler: function () { return undefined; },
-                getViewportScrollY: function () { return 0; },
-                getTotalActionItems: function () { return 0; },
-            };
-            // tslint:enable:object-literal-sort-keys
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MDCTopAppBarBaseFoundation.prototype.init = function () {
-        this.initScrollHandler();
-        this.initResizeHandler_();
-        this.adapter_.registerNavigationIconInteractionHandler('click', this.navClickHandler_);
-    };
-    MDCTopAppBarBaseFoundation.prototype.destroy = function () {
-        this.destroyScrollHandler();
-        this.destroyResizeHandler_();
-        this.adapter_.deregisterNavigationIconInteractionHandler('click', this.navClickHandler_);
-    };
-    MDCTopAppBarBaseFoundation.prototype.initScrollHandler = function () {
-        if (this.scrollHandler_) {
-            this.adapter_.registerScrollHandler(this.scrollHandler_);
-        }
-    };
-    MDCTopAppBarBaseFoundation.prototype.destroyScrollHandler = function () {
-        if (this.scrollHandler_) {
-            this.adapter_.deregisterScrollHandler(this.scrollHandler_);
-        }
-    };
-    MDCTopAppBarBaseFoundation.prototype.initResizeHandler_ = function () {
-        if (this.resizeHandler_) {
-            this.adapter_.registerResizeHandler(this.resizeHandler_);
-        }
-    };
-    MDCTopAppBarBaseFoundation.prototype.destroyResizeHandler_ = function () {
-        if (this.resizeHandler_) {
-            this.adapter_.deregisterResizeHandler(this.resizeHandler_);
-        }
-    };
-    return MDCTopAppBarBaseFoundation;
-}(_material_base_foundation__WEBPACK_IMPORTED_MODULE_1__["MDCFoundation"]));
-
-// tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
-/* harmony default export */ __webpack_exports__["default"] = (MDCTopAppBarBaseFoundation);
-//# sourceMappingURL=foundation.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@material/top-app-bar/index.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/@material/top-app-bar/index.js ***!
-  \*****************************************************/
-/*! exports provided: MDCTopAppBar, MDCTopAppBarBaseFoundation, MDCFixedTopAppBarFoundation, MDCShortTopAppBarFoundation, MDCTopAppBarFoundation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/top-app-bar/component.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBar", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCTopAppBar"]; });
-
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/top-app-bar/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarBaseFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCTopAppBarBaseFoundation"]; });
-
-/* harmony import */ var _fixed_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fixed/foundation */ "./node_modules/@material/top-app-bar/fixed/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCFixedTopAppBarFoundation", function() { return _fixed_foundation__WEBPACK_IMPORTED_MODULE_2__["MDCFixedTopAppBarFoundation"]; });
-
-/* harmony import */ var _short_foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./short/foundation */ "./node_modules/@material/top-app-bar/short/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCShortTopAppBarFoundation", function() { return _short_foundation__WEBPACK_IMPORTED_MODULE_3__["MDCShortTopAppBarFoundation"]; });
-
-/* harmony import */ var _standard_foundation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./standard/foundation */ "./node_modules/@material/top-app-bar/standard/foundation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCTopAppBarFoundation", function() { return _standard_foundation__WEBPACK_IMPORTED_MODULE_4__["MDCTopAppBarFoundation"]; });
-
-/**
- * @license
- * Copyright 2019 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
-
-
-
-//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -1895,7 +1895,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".mdc-top-app-bar {\n  background-color: #0052d9;\n  /* @alternate */\n  background-color: var(--mdc-theme-primary, #0052d9);\n  color: white;\n  display: flex;\n  position: fixed;\n  flex-direction: column;\n  justify-content: space-between;\n  box-sizing: border-box;\n  width: 100%;\n  z-index: 4; }\n  .mdc-top-app-bar .mdc-top-app-bar__action-item,\n  .mdc-top-app-bar .mdc-top-app-bar__navigation-icon {\n    color: #fff;\n    /* @alternate */\n    color: var(--mdc-theme-on-primary, #fff); }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item::before, .mdc-top-app-bar .mdc-top-app-bar__action-item::after,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon::before,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon::after {\n      background-color: #fff; }\n      @supports not (-ms-ime-align: auto) {\n        .mdc-top-app-bar .mdc-top-app-bar__action-item::before, .mdc-top-app-bar .mdc-top-app-bar__action-item::after,\n        .mdc-top-app-bar .mdc-top-app-bar__navigation-icon::before,\n        .mdc-top-app-bar .mdc-top-app-bar__navigation-icon::after {\n          /* @alternate */\n          background-color: var(--mdc-theme-on-primary, #fff); } }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item:hover::before,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon:hover::before {\n      opacity: 0.08; }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded):focus::before, .mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-upgraded--background-focused::before,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded):focus::before,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--background-focused::before {\n      transition-duration: 75ms;\n      opacity: 0.24; }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded)::after,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded)::after {\n      transition: opacity 150ms linear; }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded):active::after,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded):active::after {\n      transition-duration: 75ms;\n      opacity: 0.24; }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-upgraded,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded {\n      --mdc-ripple-fg-opacity: 0.24; }\n  .mdc-top-app-bar__row {\n    display: flex;\n    position: relative;\n    box-sizing: border-box;\n    width: 100%;\n    height: 64px; }\n  .mdc-top-app-bar__section {\n    display: inline-flex;\n    flex: 1 1 auto;\n    align-items: center;\n    min-width: 0;\n    padding: 8px 12px;\n    z-index: 1; }\n    .mdc-top-app-bar__section--align-start {\n      justify-content: flex-start;\n      order: -1; }\n    .mdc-top-app-bar__section--align-end {\n      justify-content: flex-end;\n      order: 1; }\n  .mdc-top-app-bar__title {\n    font-family: Roboto, sans-serif;\n    -moz-osx-font-smoothing: grayscale;\n    -webkit-font-smoothing: antialiased;\n    font-size: 1.25rem;\n    line-height: 2rem;\n    font-weight: 500;\n    letter-spacing: 0.0125em;\n    text-decoration: inherit;\n    text-transform: inherit;\n    /* @noflip */\n    padding-left: 20px;\n    /* @noflip */\n    padding-right: 0;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n    z-index: 1; }\n    [dir=\"rtl\"] .mdc-top-app-bar__title, .mdc-top-app-bar__title[dir=\"rtl\"] {\n      /* @noflip */\n      padding-left: 0;\n      /* @noflip */\n      padding-right: 20px; }\n  .mdc-top-app-bar__action-item, .mdc-top-app-bar__navigation-icon {\n    --mdc-ripple-fg-size: 0;\n    --mdc-ripple-left: 0;\n    --mdc-ripple-top: 0;\n    --mdc-ripple-fg-scale: 1;\n    --mdc-ripple-fg-translate-end: 0;\n    --mdc-ripple-fg-translate-start: 0;\n    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n    display: flex;\n    position: relative;\n    flex-shrink: 0;\n    align-items: center;\n    justify-content: center;\n    box-sizing: border-box;\n    width: 48px;\n    height: 48px;\n    padding: 12px;\n    border: none;\n    outline: none;\n    background-color: transparent;\n    fill: currentColor;\n    color: inherit;\n    text-decoration: none;\n    cursor: pointer; }\n    .mdc-top-app-bar__action-item::before, .mdc-top-app-bar__action-item::after, .mdc-top-app-bar__navigation-icon::before, .mdc-top-app-bar__navigation-icon::after {\n      position: absolute;\n      border-radius: 50%;\n      opacity: 0;\n      pointer-events: none;\n      content: \"\"; }\n    .mdc-top-app-bar__action-item::before, .mdc-top-app-bar__navigation-icon::before {\n      transition: opacity 15ms linear, background-color 15ms linear;\n      z-index: 1; }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded::before, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::before {\n      transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::after {\n      top: 0;\n      /* @noflip */\n      left: 0;\n      transform: scale(0);\n      transform-origin: center center; }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded--unbounded::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--unbounded::after {\n      top: var(--mdc-ripple-top, 0);\n      /* @noflip */\n      left: var(--mdc-ripple-left, 0); }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded--foreground-activation::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--foreground-activation::after {\n      animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded--foreground-deactivation::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--foreground-deactivation::after {\n      animation: mdc-ripple-fg-opacity-out 150ms;\n      transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n    .mdc-top-app-bar__action-item::before, .mdc-top-app-bar__action-item::after, .mdc-top-app-bar__navigation-icon::before, .mdc-top-app-bar__navigation-icon::after {\n      top: calc(50% - 50%);\n      /* @noflip */\n      left: calc(50% - 50%);\n      width: 100%;\n      height: 100%; }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded::before, .mdc-top-app-bar__action-item.mdc-ripple-upgraded::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::before, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::after {\n      top: var(--mdc-ripple-top, calc(50% - 50%));\n      /* @noflip */\n      left: var(--mdc-ripple-left, calc(50% - 50%));\n      width: var(--mdc-ripple-fg-size, 100%);\n      height: var(--mdc-ripple-fg-size, 100%); }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::after {\n      width: var(--mdc-ripple-fg-size, 100%);\n      height: var(--mdc-ripple-fg-size, 100%); }\n\n.mdc-top-app-bar--short-collapsed {\n  /* @noflip */\n  border-radius: 0 0 24px 0; }\n  [dir=\"rtl\"] .mdc-top-app-bar--short-collapsed, .mdc-top-app-bar--short-collapsed[dir=\"rtl\"] {\n    /* @noflip */\n    border-radius: 0 0 0 24px; }\n\n.mdc-top-app-bar--short {\n  top: 0;\n  /* @noflip */\n  right: auto;\n  /* @noflip */\n  left: 0;\n  width: 100%;\n  transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1); }\n  [dir=\"rtl\"] .mdc-top-app-bar--short, .mdc-top-app-bar--short[dir=\"rtl\"] {\n    /* @noflip */\n    right: 0;\n    /* @noflip */\n    left: auto; }\n  .mdc-top-app-bar--short .mdc-top-app-bar__row {\n    height: 56px; }\n  .mdc-top-app-bar--short .mdc-top-app-bar__section {\n    padding: 4px; }\n  .mdc-top-app-bar--short .mdc-top-app-bar__title {\n    transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);\n    opacity: 1; }\n\n.mdc-top-app-bar--short-collapsed {\n  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);\n  width: 56px;\n  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1); }\n  .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__title {\n    display: none; }\n  .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__action-item {\n    transition: padding 150ms cubic-bezier(0.4, 0, 0.2, 1); }\n\n.mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item {\n  width: 112px; }\n  .mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end {\n    /* @noflip */\n    padding-left: 0;\n    /* @noflip */\n    padding-right: 12px; }\n    [dir=\"rtl\"] .mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end, .mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end[dir=\"rtl\"] {\n      /* @noflip */\n      padding-left: 12px;\n      /* @noflip */\n      padding-right: 0; }\n\n.mdc-top-app-bar--dense .mdc-top-app-bar__row {\n  height: 48px; }\n\n.mdc-top-app-bar--dense .mdc-top-app-bar__section {\n  padding: 0 4px; }\n\n.mdc-top-app-bar--dense .mdc-top-app-bar__title {\n  /* @noflip */\n  padding-left: 12px;\n  /* @noflip */\n  padding-right: 0; }\n  [dir=\"rtl\"] .mdc-top-app-bar--dense .mdc-top-app-bar__title, .mdc-top-app-bar--dense .mdc-top-app-bar__title[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 0;\n    /* @noflip */\n    padding-right: 12px; }\n\n.mdc-top-app-bar--prominent .mdc-top-app-bar__row {\n  height: 128px; }\n\n.mdc-top-app-bar--prominent .mdc-top-app-bar__title {\n  align-self: flex-end;\n  padding-bottom: 2px; }\n\n.mdc-top-app-bar--prominent .mdc-top-app-bar__action-item,\n.mdc-top-app-bar--prominent .mdc-top-app-bar__navigation-icon {\n  align-self: flex-start; }\n\n.mdc-top-app-bar--fixed {\n  transition: box-shadow 200ms linear; }\n\n.mdc-top-app-bar--fixed-scrolled {\n  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);\n  transition: box-shadow 200ms linear; }\n\n.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__row {\n  height: 96px; }\n\n.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__section {\n  padding: 0 12px; }\n\n.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title {\n  /* @noflip */\n  padding-left: 20px;\n  /* @noflip */\n  padding-right: 0;\n  padding-bottom: 9px; }\n  [dir=\"rtl\"] .mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title, .mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 0;\n    /* @noflip */\n    padding-right: 20px; }\n\n.mdc-top-app-bar--fixed-adjust {\n  padding-top: 64px; }\n\n.mdc-top-app-bar--dense-fixed-adjust {\n  padding-top: 48px; }\n\n.mdc-top-app-bar--short-fixed-adjust {\n  padding-top: 56px; }\n\n.mdc-top-app-bar--prominent-fixed-adjust {\n  padding-top: 128px; }\n\n.mdc-top-app-bar--dense-prominent-fixed-adjust {\n  padding-top: 96px; }\n\n@media (max-width: 599px) {\n  .mdc-top-app-bar__row {\n    height: 56px; }\n  .mdc-top-app-bar__section {\n    padding: 4px; }\n  .mdc-top-app-bar--short {\n    transition: width 200ms cubic-bezier(0.4, 0, 0.2, 1); }\n  .mdc-top-app-bar--short-collapsed {\n    transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1); }\n    .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end {\n      /* @noflip */\n      padding-left: 0;\n      /* @noflip */\n      padding-right: 12px; }\n      [dir=\"rtl\"] .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end, .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end[dir=\"rtl\"] {\n        /* @noflip */\n        padding-left: 12px;\n        /* @noflip */\n        padding-right: 0; }\n  .mdc-top-app-bar--prominent .mdc-top-app-bar__title {\n    padding-bottom: 6px; }\n  .mdc-top-app-bar--fixed-adjust {\n    padding-top: 56px; } }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-ripple-surface {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  position: relative;\n  outline: none;\n  overflow: hidden; }\n  .mdc-ripple-surface::before, .mdc-ripple-surface::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-ripple-surface::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-ripple-surface.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-ripple-surface.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-ripple-surface.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-ripple-surface.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-ripple-surface.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-ripple-surface::before, .mdc-ripple-surface::after {\n    background-color: #000; }\n  .mdc-ripple-surface:hover::before {\n    opacity: 0.04; }\n  .mdc-ripple-surface:not(.mdc-ripple-upgraded):focus::before, .mdc-ripple-surface.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-ripple-surface:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n  .mdc-ripple-surface::before, .mdc-ripple-surface::after {\n    top: calc(50% - 100%);\n    /* @noflip */\n    left: calc(50% - 100%);\n    width: 200%;\n    height: 200%; }\n  .mdc-ripple-surface.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-ripple-surface[data-mdc-ripple-is-unbounded] {\n    overflow: visible; }\n    .mdc-ripple-surface[data-mdc-ripple-is-unbounded]::before, .mdc-ripple-surface[data-mdc-ripple-is-unbounded]::after {\n      top: calc(50% - 50%);\n      /* @noflip */\n      left: calc(50% - 50%);\n      width: 100%;\n      height: 100%; }\n    .mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::before, .mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after {\n      top: var(--mdc-ripple-top, calc(50% - 50%));\n      /* @noflip */\n      left: var(--mdc-ripple-left, calc(50% - 50%));\n      width: var(--mdc-ripple-fg-size, 100%);\n      height: var(--mdc-ripple-fg-size, 100%); }\n    .mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after {\n      width: var(--mdc-ripple-fg-size, 100%);\n      height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-ripple-surface--primary::before, .mdc-ripple-surface--primary::after {\n    background-color: #0052d9; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-ripple-surface--primary::before, .mdc-ripple-surface--primary::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-primary, #0052d9); } }\n  .mdc-ripple-surface--primary:hover::before {\n    opacity: 0.04; }\n  .mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):focus::before, .mdc-ripple-surface--primary.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface--primary:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface--primary.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n  .mdc-ripple-surface--accent::before, .mdc-ripple-surface--accent::after {\n    background-color: #1890ff; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-ripple-surface--accent::before, .mdc-ripple-surface--accent::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-secondary, #1890ff); } }\n  .mdc-ripple-surface--accent:hover::before {\n    opacity: 0.04; }\n  .mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):focus::before, .mdc-ripple-surface--accent.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface--accent:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface--accent.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n", ""]);
+exports.push([module.i, ".mdc-top-app-bar {\n  background-color: #0052d9;\n  /* @alternate */\n  background-color: var(--mdc-theme-primary, #0052d9);\n  color: white;\n  display: flex;\n  position: fixed;\n  flex-direction: column;\n  justify-content: space-between;\n  box-sizing: border-box;\n  width: 100%;\n  z-index: 4; }\n  .mdc-top-app-bar .mdc-top-app-bar__action-item,\n  .mdc-top-app-bar .mdc-top-app-bar__navigation-icon {\n    color: #ffffff;\n    /* @alternate */\n    color: var(--mdc-theme-on-primary, #ffffff); }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item::before, .mdc-top-app-bar .mdc-top-app-bar__action-item::after,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon::before,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon::after {\n      background-color: #ffffff; }\n      @supports not (-ms-ime-align: auto) {\n        .mdc-top-app-bar .mdc-top-app-bar__action-item::before, .mdc-top-app-bar .mdc-top-app-bar__action-item::after,\n        .mdc-top-app-bar .mdc-top-app-bar__navigation-icon::before,\n        .mdc-top-app-bar .mdc-top-app-bar__navigation-icon::after {\n          /* @alternate */\n          background-color: var(--mdc-theme-on-primary, #ffffff); } }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item:hover::before,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon:hover::before {\n      opacity: 0.08; }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded):focus::before, .mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-upgraded--background-focused::before,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded):focus::before,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--background-focused::before {\n      transition-duration: 75ms;\n      opacity: 0.24; }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded)::after,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded)::after {\n      transition: opacity 150ms linear; }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item:not(.mdc-ripple-upgraded):active::after,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon:not(.mdc-ripple-upgraded):active::after {\n      transition-duration: 75ms;\n      opacity: 0.24; }\n    .mdc-top-app-bar .mdc-top-app-bar__action-item.mdc-ripple-upgraded,\n    .mdc-top-app-bar .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded {\n      --mdc-ripple-fg-opacity: 0.24; }\n  .mdc-top-app-bar__row {\n    display: flex;\n    position: relative;\n    box-sizing: border-box;\n    width: 100%;\n    height: 64px; }\n  .mdc-top-app-bar__section {\n    display: inline-flex;\n    flex: 1 1 auto;\n    align-items: center;\n    min-width: 0;\n    padding: 8px 12px;\n    z-index: 1; }\n    .mdc-top-app-bar__section--align-start {\n      justify-content: flex-start;\n      order: -1; }\n    .mdc-top-app-bar__section--align-end {\n      justify-content: flex-end;\n      order: 1; }\n  .mdc-top-app-bar__title {\n    font-family: Roboto, sans-serif;\n    -moz-osx-font-smoothing: grayscale;\n    -webkit-font-smoothing: antialiased;\n    font-size: 1.25rem;\n    line-height: 2rem;\n    font-weight: 500;\n    letter-spacing: 0.0125em;\n    text-decoration: inherit;\n    text-transform: inherit;\n    /* @noflip */\n    padding-left: 20px;\n    /* @noflip */\n    padding-right: 0;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n    z-index: 1; }\n    [dir=\"rtl\"] .mdc-top-app-bar__title, .mdc-top-app-bar__title[dir=\"rtl\"] {\n      /* @noflip */\n      padding-left: 0;\n      /* @noflip */\n      padding-right: 20px; }\n  .mdc-top-app-bar__action-item, .mdc-top-app-bar__navigation-icon {\n    --mdc-ripple-fg-size: 0;\n    --mdc-ripple-left: 0;\n    --mdc-ripple-top: 0;\n    --mdc-ripple-fg-scale: 1;\n    --mdc-ripple-fg-translate-end: 0;\n    --mdc-ripple-fg-translate-start: 0;\n    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n    will-change: transform, opacity;\n    display: flex;\n    position: relative;\n    flex-shrink: 0;\n    align-items: center;\n    justify-content: center;\n    box-sizing: border-box;\n    width: 48px;\n    height: 48px;\n    padding: 12px;\n    border: none;\n    outline: none;\n    background-color: transparent;\n    fill: currentColor;\n    color: inherit;\n    text-decoration: none;\n    cursor: pointer; }\n    .mdc-top-app-bar__action-item::before, .mdc-top-app-bar__action-item::after, .mdc-top-app-bar__navigation-icon::before, .mdc-top-app-bar__navigation-icon::after {\n      position: absolute;\n      border-radius: 50%;\n      opacity: 0;\n      pointer-events: none;\n      content: \"\"; }\n    .mdc-top-app-bar__action-item::before, .mdc-top-app-bar__navigation-icon::before {\n      transition: opacity 15ms linear, background-color 15ms linear;\n      z-index: 1; }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded::before, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::before {\n      transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::after {\n      top: 0;\n      /* @noflip */\n      left: 0;\n      transform: scale(0);\n      transform-origin: center center; }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded--unbounded::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--unbounded::after {\n      top: var(--mdc-ripple-top, 0);\n      /* @noflip */\n      left: var(--mdc-ripple-left, 0); }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded--foreground-activation::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--foreground-activation::after {\n      animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded--foreground-deactivation::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded--foreground-deactivation::after {\n      animation: mdc-ripple-fg-opacity-out 150ms;\n      transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n    .mdc-top-app-bar__action-item::before, .mdc-top-app-bar__action-item::after, .mdc-top-app-bar__navigation-icon::before, .mdc-top-app-bar__navigation-icon::after {\n      top: calc(50% - 50%);\n      /* @noflip */\n      left: calc(50% - 50%);\n      width: 100%;\n      height: 100%; }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded::before, .mdc-top-app-bar__action-item.mdc-ripple-upgraded::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::before, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::after {\n      top: var(--mdc-ripple-top, calc(50% - 50%));\n      /* @noflip */\n      left: var(--mdc-ripple-left, calc(50% - 50%));\n      width: var(--mdc-ripple-fg-size, 100%);\n      height: var(--mdc-ripple-fg-size, 100%); }\n    .mdc-top-app-bar__action-item.mdc-ripple-upgraded::after, .mdc-top-app-bar__navigation-icon.mdc-ripple-upgraded::after {\n      width: var(--mdc-ripple-fg-size, 100%);\n      height: var(--mdc-ripple-fg-size, 100%); }\n\n.mdc-top-app-bar--short-collapsed {\n  /* @noflip */\n  border-radius: 0 0 24px 0; }\n  [dir=\"rtl\"] .mdc-top-app-bar--short-collapsed, .mdc-top-app-bar--short-collapsed[dir=\"rtl\"] {\n    /* @noflip */\n    border-radius: 0 0 0 24px; }\n\n.mdc-top-app-bar--short {\n  top: 0;\n  /* @noflip */\n  right: auto;\n  /* @noflip */\n  left: 0;\n  width: 100%;\n  transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1); }\n  [dir=\"rtl\"] .mdc-top-app-bar--short, .mdc-top-app-bar--short[dir=\"rtl\"] {\n    /* @noflip */\n    right: 0;\n    /* @noflip */\n    left: auto; }\n  .mdc-top-app-bar--short .mdc-top-app-bar__row {\n    height: 56px; }\n  .mdc-top-app-bar--short .mdc-top-app-bar__section {\n    padding: 4px; }\n  .mdc-top-app-bar--short .mdc-top-app-bar__title {\n    transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);\n    opacity: 1; }\n\n.mdc-top-app-bar--short-collapsed {\n  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);\n  width: 56px;\n  transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1); }\n  .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__title {\n    display: none; }\n  .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__action-item {\n    transition: padding 150ms cubic-bezier(0.4, 0, 0.2, 1); }\n\n.mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item {\n  width: 112px; }\n  .mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end {\n    /* @noflip */\n    padding-left: 0;\n    /* @noflip */\n    padding-right: 12px; }\n    [dir=\"rtl\"] .mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end, .mdc-top-app-bar--short-collapsed.mdc-top-app-bar--short-has-action-item .mdc-top-app-bar__section--align-end[dir=\"rtl\"] {\n      /* @noflip */\n      padding-left: 12px;\n      /* @noflip */\n      padding-right: 0; }\n\n.mdc-top-app-bar--dense .mdc-top-app-bar__row {\n  height: 48px; }\n\n.mdc-top-app-bar--dense .mdc-top-app-bar__section {\n  padding: 0 4px; }\n\n.mdc-top-app-bar--dense .mdc-top-app-bar__title {\n  /* @noflip */\n  padding-left: 12px;\n  /* @noflip */\n  padding-right: 0; }\n  [dir=\"rtl\"] .mdc-top-app-bar--dense .mdc-top-app-bar__title, .mdc-top-app-bar--dense .mdc-top-app-bar__title[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 0;\n    /* @noflip */\n    padding-right: 12px; }\n\n.mdc-top-app-bar--prominent .mdc-top-app-bar__row {\n  height: 128px; }\n\n.mdc-top-app-bar--prominent .mdc-top-app-bar__title {\n  align-self: flex-end;\n  padding-bottom: 2px; }\n\n.mdc-top-app-bar--prominent .mdc-top-app-bar__action-item,\n.mdc-top-app-bar--prominent .mdc-top-app-bar__navigation-icon {\n  align-self: flex-start; }\n\n.mdc-top-app-bar--fixed {\n  transition: box-shadow 200ms linear; }\n\n.mdc-top-app-bar--fixed-scrolled {\n  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);\n  transition: box-shadow 200ms linear; }\n\n.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__row {\n  height: 96px; }\n\n.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__section {\n  padding: 0 12px; }\n\n.mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title {\n  /* @noflip */\n  padding-left: 20px;\n  /* @noflip */\n  padding-right: 0;\n  padding-bottom: 9px; }\n  [dir=\"rtl\"] .mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title, .mdc-top-app-bar--dense.mdc-top-app-bar--prominent .mdc-top-app-bar__title[dir=\"rtl\"] {\n    /* @noflip */\n    padding-left: 0;\n    /* @noflip */\n    padding-right: 20px; }\n\n.mdc-top-app-bar--fixed-adjust {\n  padding-top: 64px; }\n\n.mdc-top-app-bar--dense-fixed-adjust {\n  padding-top: 48px; }\n\n.mdc-top-app-bar--short-fixed-adjust {\n  padding-top: 56px; }\n\n.mdc-top-app-bar--prominent-fixed-adjust {\n  padding-top: 128px; }\n\n.mdc-top-app-bar--dense-prominent-fixed-adjust {\n  padding-top: 96px; }\n\n@media (max-width: 599px) {\n  .mdc-top-app-bar__row {\n    height: 56px; }\n  .mdc-top-app-bar__section {\n    padding: 4px; }\n  .mdc-top-app-bar--short {\n    transition: width 200ms cubic-bezier(0.4, 0, 0.2, 1); }\n  .mdc-top-app-bar--short-collapsed {\n    transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1); }\n    .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end {\n      /* @noflip */\n      padding-left: 0;\n      /* @noflip */\n      padding-right: 12px; }\n      [dir=\"rtl\"] .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end, .mdc-top-app-bar--short-collapsed .mdc-top-app-bar__section--align-end[dir=\"rtl\"] {\n        /* @noflip */\n        padding-left: 12px;\n        /* @noflip */\n        padding-right: 0; }\n  .mdc-top-app-bar--prominent .mdc-top-app-bar__title {\n    padding-bottom: 6px; }\n  .mdc-top-app-bar--fixed-adjust {\n    padding-top: 56px; } }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-ripple-surface {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  will-change: transform, opacity;\n  position: relative;\n  outline: none;\n  overflow: hidden; }\n  .mdc-ripple-surface::before, .mdc-ripple-surface::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-ripple-surface::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-ripple-surface.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-ripple-surface.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-ripple-surface.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-ripple-surface.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-ripple-surface.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-ripple-surface::before, .mdc-ripple-surface::after {\n    background-color: #000000; }\n  .mdc-ripple-surface:hover::before {\n    opacity: 0.04; }\n  .mdc-ripple-surface:not(.mdc-ripple-upgraded):focus::before, .mdc-ripple-surface.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-ripple-surface:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n  .mdc-ripple-surface::before, .mdc-ripple-surface::after {\n    top: calc(50% - 100%);\n    /* @noflip */\n    left: calc(50% - 100%);\n    width: 200%;\n    height: 200%; }\n  .mdc-ripple-surface.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-ripple-surface[data-mdc-ripple-is-unbounded] {\n    overflow: visible; }\n    .mdc-ripple-surface[data-mdc-ripple-is-unbounded]::before, .mdc-ripple-surface[data-mdc-ripple-is-unbounded]::after {\n      top: calc(50% - 50%);\n      /* @noflip */\n      left: calc(50% - 50%);\n      width: 100%;\n      height: 100%; }\n    .mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::before, .mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after {\n      top: var(--mdc-ripple-top, calc(50% - 50%));\n      /* @noflip */\n      left: var(--mdc-ripple-left, calc(50% - 50%));\n      width: var(--mdc-ripple-fg-size, 100%);\n      height: var(--mdc-ripple-fg-size, 100%); }\n    .mdc-ripple-surface[data-mdc-ripple-is-unbounded].mdc-ripple-upgraded::after {\n      width: var(--mdc-ripple-fg-size, 100%);\n      height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-ripple-surface--primary::before, .mdc-ripple-surface--primary::after {\n    background-color: #0052d9; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-ripple-surface--primary::before, .mdc-ripple-surface--primary::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-primary, #0052d9); } }\n  .mdc-ripple-surface--primary:hover::before {\n    opacity: 0.04; }\n  .mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):focus::before, .mdc-ripple-surface--primary.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface--primary:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-ripple-surface--primary:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface--primary.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n  .mdc-ripple-surface--accent::before, .mdc-ripple-surface--accent::after {\n    background-color: #1890ff; }\n    @supports not (-ms-ime-align: auto) {\n      .mdc-ripple-surface--accent::before, .mdc-ripple-surface--accent::after {\n        /* @alternate */\n        background-color: var(--mdc-theme-secondary, #1890ff); } }\n  .mdc-ripple-surface--accent:hover::before {\n    opacity: 0.04; }\n  .mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):focus::before, .mdc-ripple-surface--accent.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface--accent:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-ripple-surface--accent:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-ripple-surface--accent.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n", ""]);
 
 // exports
 
@@ -4445,7 +4445,7 @@ function __importDefault(mod) {
             exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
             // imports
             // module
-            exports.push([module.i, ".mdc-icon-button {\n  width: 48px;\n  height: 48px;\n  padding: 12px;\n  font-size: 24px;\n  display: inline-block;\n  position: relative;\n  box-sizing: border-box;\n  border: none;\n  outline: none;\n  background-color: transparent;\n  fill: currentColor;\n  color: inherit;\n  text-decoration: none;\n  cursor: pointer;\n  user-select: none; }\n  .mdc-icon-button svg,\n  .mdc-icon-button img {\n    width: 24px;\n    height: 24px; }\n  .mdc-icon-button:disabled {\n    color: rgba(0, 0, 0, 0.38);\n    /* @alternate */\n    color: var(--mdc-theme-text-disabled-on-light, rgba(0, 0, 0, 0.38));\n    cursor: default;\n    pointer-events: none; }\n\n.mdc-icon-button__icon {\n  display: inline-block; }\n  .mdc-icon-button__icon.mdc-icon-button__icon--on {\n    display: none; }\n\n.mdc-icon-button--on .mdc-icon-button__icon {\n  display: none; }\n  .mdc-icon-button--on .mdc-icon-button__icon.mdc-icon-button__icon--on {\n    display: inline-block; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-icon-button {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  will-change: transform, opacity; }\n  .mdc-icon-button::before, .mdc-icon-button::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-icon-button::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-icon-button.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-icon-button.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-icon-button.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-icon-button.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-icon-button.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-icon-button::before, .mdc-icon-button::after {\n    top: calc(50% - 50%);\n    /* @noflip */\n    left: calc(50% - 50%);\n    width: 100%;\n    height: 100%; }\n  .mdc-icon-button.mdc-ripple-upgraded::before, .mdc-icon-button.mdc-ripple-upgraded::after {\n    top: var(--mdc-ripple-top, calc(50% - 50%));\n    /* @noflip */\n    left: var(--mdc-ripple-left, calc(50% - 50%));\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-icon-button.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-icon-button::before, .mdc-icon-button::after {\n    background-color: #000; }\n  .mdc-icon-button:hover::before {\n    opacity: 0.04; }\n  .mdc-icon-button:not(.mdc-ripple-upgraded):focus::before, .mdc-icon-button.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-icon-button:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-icon-button:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-icon-button.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n", ""]);
+            exports.push([module.i, ".mdc-icon-button {\n  width: 48px;\n  height: 48px;\n  padding: 12px;\n  font-size: 24px;\n  display: inline-block;\n  position: relative;\n  box-sizing: border-box;\n  border: none;\n  outline: none;\n  background-color: transparent;\n  fill: currentColor;\n  color: inherit;\n  text-decoration: none;\n  cursor: pointer;\n  user-select: none; }\n  .mdc-icon-button svg,\n  .mdc-icon-button img {\n    width: 24px;\n    height: 24px; }\n  .mdc-icon-button:disabled {\n    color: rgba(0, 0, 0, 0.38);\n    /* @alternate */\n    color: var(--mdc-theme-text-disabled-on-light, rgba(0, 0, 0, 0.38));\n    cursor: default;\n    pointer-events: none; }\n\n.mdc-icon-button__icon {\n  display: inline-block; }\n  .mdc-icon-button__icon.mdc-icon-button__icon--on {\n    display: none; }\n\n.mdc-icon-button--on .mdc-icon-button__icon {\n  display: none; }\n  .mdc-icon-button--on .mdc-icon-button__icon.mdc-icon-button__icon--on {\n    display: inline-block; }\n\n@keyframes mdc-ripple-fg-radius-in {\n  from {\n    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    transform: translate(var(--mdc-ripple-fg-translate-start, 0)) scale(1); }\n  to {\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); } }\n\n@keyframes mdc-ripple-fg-opacity-in {\n  from {\n    animation-timing-function: linear;\n    opacity: 0; }\n  to {\n    opacity: var(--mdc-ripple-fg-opacity, 0); } }\n\n@keyframes mdc-ripple-fg-opacity-out {\n  from {\n    animation-timing-function: linear;\n    opacity: var(--mdc-ripple-fg-opacity, 0); }\n  to {\n    opacity: 0; } }\n\n.mdc-ripple-surface--test-edge-var-bug {\n  --mdc-ripple-surface-test-edge-var: 1px solid #000;\n  visibility: hidden; }\n  .mdc-ripple-surface--test-edge-var-bug::before {\n    border: var(--mdc-ripple-surface-test-edge-var); }\n\n.mdc-icon-button {\n  --mdc-ripple-fg-size: 0;\n  --mdc-ripple-left: 0;\n  --mdc-ripple-top: 0;\n  --mdc-ripple-fg-scale: 1;\n  --mdc-ripple-fg-translate-end: 0;\n  --mdc-ripple-fg-translate-start: 0;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n  will-change: transform, opacity; }\n  .mdc-icon-button::before, .mdc-icon-button::after {\n    position: absolute;\n    border-radius: 50%;\n    opacity: 0;\n    pointer-events: none;\n    content: \"\"; }\n  .mdc-icon-button::before {\n    transition: opacity 15ms linear, background-color 15ms linear;\n    z-index: 1; }\n  .mdc-icon-button.mdc-ripple-upgraded::before {\n    transform: scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-icon-button.mdc-ripple-upgraded::after {\n    top: 0;\n    /* @noflip */\n    left: 0;\n    transform: scale(0);\n    transform-origin: center center; }\n  .mdc-icon-button.mdc-ripple-upgraded--unbounded::after {\n    top: var(--mdc-ripple-top, 0);\n    /* @noflip */\n    left: var(--mdc-ripple-left, 0); }\n  .mdc-icon-button.mdc-ripple-upgraded--foreground-activation::after {\n    animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards; }\n  .mdc-icon-button.mdc-ripple-upgraded--foreground-deactivation::after {\n    animation: mdc-ripple-fg-opacity-out 150ms;\n    transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1)); }\n  .mdc-icon-button::before, .mdc-icon-button::after {\n    top: calc(50% - 50%);\n    /* @noflip */\n    left: calc(50% - 50%);\n    width: 100%;\n    height: 100%; }\n  .mdc-icon-button.mdc-ripple-upgraded::before, .mdc-icon-button.mdc-ripple-upgraded::after {\n    top: var(--mdc-ripple-top, calc(50% - 50%));\n    /* @noflip */\n    left: var(--mdc-ripple-left, calc(50% - 50%));\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-icon-button.mdc-ripple-upgraded::after {\n    width: var(--mdc-ripple-fg-size, 100%);\n    height: var(--mdc-ripple-fg-size, 100%); }\n  .mdc-icon-button::before, .mdc-icon-button::after {\n    background-color: #000000; }\n  .mdc-icon-button:hover::before {\n    opacity: 0.04; }\n  .mdc-icon-button:not(.mdc-ripple-upgraded):focus::before, .mdc-icon-button.mdc-ripple-upgraded--background-focused::before {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-icon-button:not(.mdc-ripple-upgraded)::after {\n    transition: opacity 150ms linear; }\n  .mdc-icon-button:not(.mdc-ripple-upgraded):active::after {\n    transition-duration: 75ms;\n    opacity: 0.12; }\n  .mdc-icon-button.mdc-ripple-upgraded {\n    --mdc-ripple-fg-opacity: 0.12; }\n\n.material-icons {\n  font-family: 'Material Icons';\n  font-weight: normal;\n  font-style: normal;\n  font-size: 24px;\n  line-height: 1;\n  letter-spacing: normal;\n  text-transform: none;\n  display: inline-block;\n  white-space: nowrap;\n  word-wrap: normal;\n  direction: ltr;\n  -webkit-font-feature-settings: 'liga';\n  -webkit-font-smoothing: antialiased; }\n", ""]);
             // exports
             /***/ 
         }),
@@ -4958,10 +4958,20 @@ function __importDefault(mod) {
                 window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
                 window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
                 window.OmimThemeError = window.OmimThemeError || '#f5222d';
+                window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
+                window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
+                window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
+                window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
+                window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
+                window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
+                window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
+                window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
+                window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
+                window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
             }
             function theme() {
                 if (typeof window === 'object') {
-                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
                 }
             }
             exports.theme = theme;
@@ -5354,10 +5364,20 @@ function __importDefault(mod) {
                 window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
                 window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
                 window.OmimThemeError = window.OmimThemeError || '#f5222d';
+                window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
+                window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
+                window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
+                window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
+                window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
+                window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
+                window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
+                window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
+                window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
+                window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
             }
             function theme() {
                 if (typeof window === 'object') {
-                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+                    return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
                 }
             }
             exports.theme = theme;
@@ -5394,10 +5414,20 @@ if (typeof window === 'object') {
     window.OmimThemePrimary = window.OmimThemePrimary || '#0052d9';
     window.OmimThemeSecondary = window.OmimThemeSecondary || '#1890ff';
     window.OmimThemeError = window.OmimThemeError || '#f5222d';
+    window.OmimThemeSurface = window.OmimThemeSurface || '#ffffff';
+    window.OmimThemeOnPrimary = window.OmimThemeOnPrimary || '#ffffff';
+    window.OmimThemeOnSecondary = window.OmimThemeOnSecondary || '#ffffff';
+    window.OmimThemeOnError = window.OmimThemeOnError || '#ffffff';
+    window.OmimThemeOnSurface = window.OmimThemeOnSurface || '#000000';
+    window.OmimThemeBackground = window.OmimThemeBackground || '#ffffff';
+    window.OmimShapeSmallComponentRadius = window.OmimShapeSmallComponentRadius || '4px';
+    window.OmimShapeMediumComponentRadius = window.OmimShapeMediumComponentRadius || '4px';
+    window.OmimShapeLargeComponentRadius = window.OmimShapeLargeComponentRadius || '0px';
+    window.OmimTypographyFontFamily = window.OmimTypographyFontFamily || 'Roboto, sans-serif;';
 }
 function theme() {
     if (typeof window === 'object') {
-        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n}";
+        return "* {\n  --mdc-theme-primary: " + window.OmimThemePrimary + ";\n  --mdc-theme-secondary: " + window.OmimThemeSecondary + ";\n  --mdc-theme-error: " + window.OmimThemeError + ";\n  --mdc-theme-surface: " + window.OmimThemeSurface + ";\n\n  --mdc-theme-on-primary: " + window.OmimThemeOnPrimary + ";\n  --mdc-theme-on-secondary: " + window.OmimThemeOnSecondary + ";\n  --mdc-theme-on-error: " + window.OmimThemeOnError + ";\n  --mdc-theme-on-surface: " + window.OmimThemeOnSurface + ";\n  --mdc-theme-background: " + window.OmimThemeBackground + ";\n\n  --mdc-shape-small-component-radius: " + window.OmimShapeSmallComponentRadius + ";\n  --mdc-shape-medium-component-radius: " + window.OmimShapeMediumComponentRadius + ";\n  --mdc-shape-large-component-radius: " + window.OmimShapeLargeComponentRadius + ";\n  --mdc-typography--font-family: " + window.OmimTypographyFontFamily + ";\n}";
     }
 }
 exports.theme = theme;

@@ -39,18 +39,18 @@ export function theme() {
   --mdc-theme-primary: ${window.OmimThemePrimary};
   --mdc-theme-secondary: ${window.OmimThemeSecondary};
   --mdc-theme-error: ${window.OmimThemeError};
-  --$mdc-theme-surface: ${window.OmimThemeSurface};
+  --mdc-theme-surface: ${window.OmimThemeSurface};
 
-  --$mdc-theme-on-primary: ${window.OmimThemeOnPrimary};
-  --$mdc-theme-on-secondary: ${window.OmimThemeOnSecondary};
-  --$mdc-theme-on-error: ${window.OmimThemeOnError};
-  --$mdc-theme-on-surface: ${window.OmimThemeOnSurface};
-  --$mdc-theme-background: ${window.OmimThemeBackground};
+  --mdc-theme-on-primary: ${window.OmimThemeOnPrimary};
+  --mdc-theme-on-secondary: ${window.OmimThemeOnSecondary};
+  --mdc-theme-on-error: ${window.OmimThemeOnError};
+  --mdc-theme-on-surface: ${window.OmimThemeOnSurface};
+  --mdc-theme-background: ${window.OmimThemeBackground};
 
-  --$mdc-shape-small-component-radius: ${window.OmimShapeSmallComponentRadius};
-  --$mdc-shape-medium-component-radius: ${window.OmimShapeMediumComponentRadius};
-  --$mdc-shape-large-component-radius: ${window.OmimShapeLargeComponentRadius};
-  --$mdc-typography--font-family: ${window.OmimTypographyFontFamily};
+  --mdc-shape-small-component-radius: ${window.OmimShapeSmallComponentRadius};
+  --mdc-shape-medium-component-radius: ${window.OmimShapeMediumComponentRadius};
+  --mdc-shape-large-component-radius: ${window.OmimShapeLargeComponentRadius};
+  --mdc-typography--font-family: ${window.OmimTypographyFontFamily};
 }`
   }
 }

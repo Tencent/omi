@@ -1,0 +1,118 @@
+@import "../theme";
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: top;
+  margin-right: 3px;
+  display: inline-block;
+  line-height: 35px;
+  height: 35px;
+  max-width: 24px;
+  overflow: hidden;
+
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0px;
+  white-space: nowrap;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+	width: 100%;
+}
+
+.m-nav{
+	border: 1px solid #ccc;
+	width: 256px;
+	border-radius: 4px;
+}
+
+.children {
+  transition: all .4s ease;
+  overflow: hidden;
+}
+
+.tree-item {
+	vertical-align: top;
+	position: relative;
+}
+
+
+
+.arrow {
+  vertical-align: top;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
+	position: absolute;
+	right: 10px;
+	top:0px;
+
+}
+
+.close>.mdc-tree-title>.arrow {
+  transform: rotate(180deg);
+}
+
+.mdc-tree-title:hover{
+
+	background-color:rgba($mdc-theme-secondary, .001);
+
+}
+
+.mdc-tree-title {
+  padding: 0 10px;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
+  display: block;
+
+
+}
+
+.text {
+  display: inline-block;
+  line-height: 35px;
+  height: 35px;
+}
+
+.mdc-tree-title:hover {
+  background-color: #cbebfc;
+}
+
+
+.mdc-tree-title.selected {
+	background-color: rgba($mdc-theme-secondary, .05);
+	color: $mdc-theme-primary;
+}
+
+
+
+.tree-item,
+.arrow {
+  transition: all .4s ease;
+}
+
