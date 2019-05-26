@@ -263,6 +263,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/row/index.scss");
+var element_children_1 = __webpack_require__(/*! ../util/element-children */ "./src/util/element-children.js");
+var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Row = /** @class */ (function (_super) {
@@ -270,6 +272,18 @@ var Row = /** @class */ (function (_super) {
     function Row() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Row.prototype.install = function () {
+        var _this = this;
+        dom_ready_1.domReady(function () {
+            var children = element_children_1.elementChildren(_this);
+            children.forEach(function (child, index) {
+                if (!child.hasAttribute('slot')) {
+                    child.setAttribute('slot', index + '');
+                }
+            });
+            _this.update();
+        });
+    };
     Row.prototype.render = function (props) {
         return (omi_1.h("div", __assign({}, omi_1.extractClass(props, props.type === 'flex' ? 'flex' : 'block')), props.cols.map(function (_, index) { return omi_1.h("div", { class: "col col" + (_.span === undefined ? _ : _.span) },
             omi_1.h("slot", { name: index })); })));
@@ -319,6 +333,54 @@ function theme() {
     }
 }
 exports.theme = theme;
+
+
+/***/ }),
+
+/***/ "./src/util/dom-ready.js":
+/*!*******************************!*\
+  !*** ./src/util/dom-ready.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    readyCallbacks.push(callback);
+}
+exports.domReady = domReady;
+
+
+/***/ }),
+
+/***/ "./src/util/element-children.js":
+/*!**************************************!*\
+  !*** ./src/util/element-children.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function elementChildren(element) {
+    var childNodes = element.childNodes, children = [], i = childNodes.length;
+    while (i--) {
+        if (childNodes[i].nodeType == 1) {
+            children.unshift(childNodes[i]);
+        }
+    }
+    return children;
+}
+exports.elementChildren = elementChildren;
 
 
 /***/ }),

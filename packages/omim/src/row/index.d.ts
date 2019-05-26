@@ -14,6 +14,7 @@ export default class Row extends WeElement<Props, Data> {
     static propTypes: {
         cols: ObjectConstructor;
     };
+    install(): void;
     render(props: any): JSX.Element;
 }
 export {};
