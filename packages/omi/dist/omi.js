@@ -900,6 +900,7 @@
                 this.M = getPath(use);
                 this.use = getUse(this.store.data, use);
             } else this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
+            this.attrsToProps();
             this.beforeInstall();
             !this.B && this.install();
             this.afterInstall();
@@ -919,7 +920,6 @@
                 proxyUpdate(this);
                 this.observed();
             }
-            this.attrsToProps();
             this.L = diff(null, this.render(this.props, this.data, this.store), {}, !1, null, !1);
             this.rendered();
             if (this.props.css) {
@@ -989,6 +989,7 @@
                         ele.props[key] = !0;
                         break;
 
+                      case Array:
                       case Object:
                         ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
                     } else if (ele.constructor.defaultProps && ele.constructor.defaultProps.hasOwnProperty(key)) ele.props[key] = ele.constructor.defaultProps[key]; else ele.props[key] = null;
@@ -1088,7 +1089,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.14';
+    options.root.Omi.version = '6.3.15';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map

@@ -23,12 +23,7 @@ export default class Row extends WeElement<Props, Data>{
   static css = theme() + css
 
   static propTypes = {
-    path: String,
-    paths: Object,
-    view: Number,
-    scale: Number,
-    color: String,
-    rotate: Boolean
+    cols: Object
   }
 
   render(props) {
