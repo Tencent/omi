@@ -2,30 +2,100 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-  <meta charset="UTF-8" />
-  <title>Add Omi in One Minute</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<meta charset="UTF-8" />
+	<title>Add Omi in One Minute</title>
+	<style>
+		m-row {
+			margin-top: 15px;
+			display: block;
+			height: 35px;
+		}
+	</style>
 </head>
 
 <body>
 	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
 	<script src="../../src/row/index.js"></script>
 	<script src="../../src/button/index.js"></script>
-	<m-row cols="[8, 8, 8]">
-		<m-button >col-8-0</m-button>
-		<m-button >col-8-1</m-button>
-		<m-button >col-8-2</m-button>
+	<m-row css="
+	::slotted(m-button){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+	::slotted(m-button:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+}" cols="[8, 8, 8]">
+		<m-button>col-8-0</m-button>
+		<m-button>col-8-1</m-button>
+		<m-button>col-8-2</m-button>
 	</m-row>
 
-	<m-row cols="[8, 8, 8]">
+	<m-row css="
+	::slotted(m-button){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+	::slotted(m-button:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+}" cols="[8, 8, 8]">
 		<m-button slot="2">col-8-0</m-button>
 		<m-button slot="1">col-8-1</m-button>
 		<m-button slot="0">col-8-2</m-button>
 	</m-row>
 
-  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
-    <img src="//alloyteam.github.io/github.png" alt="">
-  </a>
+	<m-row css="
+	::slotted(m-button){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+	}
+	::slotted(m-button:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+}" cols="[8, {
+		span: 8,
+		offset: 8
+	}]">
+		<m-button>col-8</m-button>
+		<m-button>col-8-offset-8</m-button>
+	</m-row>
+
+	<m-row gutter="16" cols="[6,6,6,6]" css="
+    ::slotted(m-button){
+      background: #c2d5f5;
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+    ::slotted(m-button:nth-child(2n + 1)) {
+      width: 100%;
+      display: block;
+      text-align: center;
+    background: #d9dde4;
+}">
+		<m-button>col-6</m-button>
+		<m-button>col-6</m-button>
+		<m-button>col-6</m-button>
+		<m-button>col-6</m-button>
+	</m-row>
+
+	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+		<img src="//alloyteam.github.io/github.png" alt="">
+	</a>
 </body>
 
 </html>

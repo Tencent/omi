@@ -6,7 +6,8 @@ import { domReady } from '../util/dom-ready'
 import { theme } from '../theme.ts'
 
 interface Props {
-	cols: object
+	cols: object,
+	gutter: number
 }
 
 interface Data {
@@ -19,7 +20,8 @@ export default class Row extends WeElement<Props, Data>{
 	static css = theme() + css
 
 	static propTypes = {
-		cols: Object
+		cols: Object,
+		gutter: Number
 	}
 
 
@@ -38,7 +40,15 @@ export default class Row extends WeElement<Props, Data>{
 	render(props) {
 		return (
 			<div {...extractClass(props, props.type === 'flex' ? 'flex' : 'block')}>
-				{props.cols.map((_, index) => <div class={`col col${_.span === undefined ? _ : _.span}`}><slot name={index}></slot></div>)}
+				{props.cols.map((_, index) => {
+					const style = props.gutter !== undefined ?{
+						style:`padding-left: ${props.gutter /2}px; padding-right: ${props.gutter /2}px;`
+					}:null
+					return <div {...style }class={classNames(`col col${_.span === undefined ? _ : _.span}`,{
+						['offset'+_.offset]: _.offset !== undefined
+					})}><slot name={index}></slot>
+					</div>
+				})}
 			</div>
 		)
 	}

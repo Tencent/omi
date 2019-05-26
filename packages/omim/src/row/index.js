@@ -108,7 +108,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".col {\n  display: block;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.block {\n  display: block; }\n\n.block > div {\n  float: left; }\n\n.flex {\n  display: flex; }\n\n.col1 {\n  width: 4.16666667%;\n  *width: 4.16666667%; }\n\n.col2 {\n  width: 8.33333333%;\n  *width: 8.33333333%; }\n\n.col3 {\n  width: 12.5%;\n  *width: 12.5%; }\n\n.col4 {\n  width: 16.66666667%;\n  *width: 16.66666667%; }\n\n.col5 {\n  width: 20.83333333%;\n  *width: 20.83333333%; }\n\n.col6 {\n  width: 25%;\n  *width: 25%; }\n\n.col7 {\n  width: 29.16666667%;\n  *width: 29.16666667%; }\n\n.col8 {\n  width: 33.33333333%;\n  *width: 33.33333333%; }\n\n.col9 {\n  width: 37.5%;\n  *width: 37.5%; }\n\n.col10 {\n  width: 41.66666667%;\n  *width: 41.66666667%; }\n\n.col11 {\n  width: 45.83333333%;\n  *width: 45.83333333%; }\n\n.col12 {\n  width: 50%;\n  *width: 50%; }\n\n.col13 {\n  width: 54.16666667%;\n  *width: 54.16666667%; }\n\n.col14 {\n  width: 58.33333333%;\n  *width: 58.33333333%; }\n\n.col15 {\n  width: 62.5%;\n  *width: 62.5%; }\n\n.col16 {\n  width: 66.66666667%;\n  *width: 66.66666667%; }\n\n.col17 {\n  width: 70.83333333%;\n  *width: 70.83333333%; }\n\n.col18 {\n  width: 75%;\n  *width: 75%; }\n\n.col19 {\n  width: 79.16666667%;\n  *width: 79.16666667%; }\n\n.col20 {\n  width: 83.33333333%;\n  *width: 83.33333333%; }\n\n.col21 {\n  width: 87.5%;\n  *width: 87.5%; }\n\n.col22 {\n  width: 91.66666667%;\n  *width: 91.66666667%; }\n\n.col23 {\n  width: 95.83333333%;\n  *width: 95.83333333%; }\n\n.col24 {\n  width: 100%;\n  *width: 100%; }\n", ""]);
+exports.push([module.i, ".col {\n  display: block;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n.block {\n  display: block; }\n\n.block > div {\n  float: left; }\n\n.flex {\n  display: flex; }\n\n.col1 {\n  width: 4.16666667%; }\n\n.col2 {\n  width: 8.33333333%; }\n\n.col3 {\n  width: 12.5%; }\n\n.col4 {\n  width: 16.66666667%; }\n\n.col5 {\n  width: 20.83333333%; }\n\n.col6 {\n  width: 25%; }\n\n.col7 {\n  width: 29.16666667%; }\n\n.col8 {\n  width: 33.33333333%; }\n\n.col9 {\n  width: 37.5%; }\n\n.col10 {\n  width: 41.66666667%; }\n\n.col11 {\n  width: 45.83333333%; }\n\n.col12 {\n  width: 50%; }\n\n.col13 {\n  width: 54.16666667%; }\n\n.col14 {\n  width: 58.33333333%; }\n\n.col15 {\n  width: 62.5%; }\n\n.col16 {\n  width: 66.66666667%; }\n\n.col17 {\n  width: 70.83333333%; }\n\n.col18 {\n  width: 75%; }\n\n.col19 {\n  width: 79.16666667%; }\n\n.col20 {\n  width: 83.33333333%; }\n\n.col21 {\n  width: 87.5%; }\n\n.col22 {\n  width: 91.66666667%; }\n\n.col23 {\n  width: 95.83333333%; }\n\n.col24 {\n  width: 100%; }\n\n.offset1 {\n  margin-left: 4.16666667%; }\n\n.offset2 {\n  margin-left: 8.33333333%; }\n\n.offset3 {\n  margin-left: 12.5%; }\n\n.offset4 {\n  margin-left: 16.66666667%; }\n\n.offset5 {\n  margin-left: 20.83333333%; }\n\n.offset6 {\n  margin-left: 25%; }\n\n.offset7 {\n  margin-left: 29.16666667%; }\n\n.offset8 {\n  margin-left: 33.33333333%; }\n\n.offset9 {\n  margin-left: 37.5%; }\n\n.offset10 {\n  margin-left: 41.66666667%; }\n\n.offset11 {\n  margin-left: 45.83333333%; }\n\n.offset12 {\n  margin-left: 50%; }\n\n.offset13 {\n  margin-left: 54.16666667%; }\n\n.offset14 {\n  margin-left: 58.33333333%; }\n\n.offset15 {\n  margin-left: 62.5%; }\n\n.offset16 {\n  margin-left: 66.66666667%; }\n\n.offset17 {\n  margin-left: 70.83333333%; }\n\n.offset18 {\n  margin-left: 75%; }\n\n.offset19 {\n  margin-left: 79.16666667%; }\n\n.offset20 {\n  margin-left: 83.33333333%; }\n\n.offset21 {\n  margin-left: 87.5%; }\n\n.offset22 {\n  margin-left: 91.66666667%; }\n\n.offset23 {\n  margin-left: 95.83333333%; }\n\n.offset24 {\n  margin-left: 100%; }\n", ""]);
 
 // exports
 
@@ -285,12 +285,21 @@ var Row = /** @class */ (function (_super) {
         });
     };
     Row.prototype.render = function (props) {
-        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, props.type === 'flex' ? 'flex' : 'block')), props.cols.map(function (_, index) { return omi_1.h("div", { class: "col col" + (_.span === undefined ? _ : _.span) },
-            omi_1.h("slot", { name: index })); })));
+        return (omi_1.h("div", __assign({}, omi_1.extractClass(props, props.type === 'flex' ? 'flex' : 'block')), props.cols.map(function (_, index) {
+            var _a;
+            var style = props.gutter !== undefined ? {
+                style: "padding-left: " + props.gutter / 2 + "px; padding-right: " + props.gutter / 2 + "px;"
+            } : null;
+            return omi_1.h("div", __assign({}, style, { class: omi_1.classNames("col col" + (_.span === undefined ? _ : _.span), (_a = {},
+                    _a['offset' + _.offset] = _.offset !== undefined,
+                    _a)) }),
+                omi_1.h("slot", { name: index }));
+        })));
     };
     Row.css = theme_ts_1.theme() + css;
     Row.propTypes = {
-        cols: Object
+        cols: Object,
+        gutter: Number
     };
     Row = __decorate([
         omi_1.tag('m-row')

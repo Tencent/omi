@@ -2,21 +2,46 @@ import '../../src/row/index.tsx'
 import '../../src/button/index.tsx'
 import { render, h } from 'omi'
 
+const css = `::slotted(m-button){
+  background: #c2d5f5;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+::slotted(m-button:nth-child(2n + 1)) {
+  width: 100%;
+  display: block;
+  text-align: center;
+background: #d9dde4;
+}`
 render(
   <div>
-    <m-row cols={[8, 8, 8]}>
+    <m-row css={css} cols={[8, 8, 8]}>
       <m-button >col-8-0</m-button>
       <m-button >col-8-1</m-button>
       <m-button>col-8-2</m-button>
     </m-row>
 
-    <m-row cols={[8, 8, 8]}>
+    <m-row css={css} cols={[8, 8, 8]}>
       <m-button slot="2">col-8-0</m-button>
       <m-button slot="1">col-8-1</m-button>
       <m-button slot="0">col-8-2</m-button>
     </m-row>
 
+    <m-row css={css} cols={[8, {
+      span: 8,
+      offset: 8
+    }]}>
+      <m-button>col-8</m-button>
+      <m-button>col-8-offset-8</m-button>
+    </m-row>
 
+    <m-row gutter={16} cols={[6, 6, 6, 6]} css={css}>
+      <m-button>col-6</m-button>
+      <m-button>col-6</m-button>
+      <m-button>col-6</m-button>
+      <m-button>col-6</m-button>
+    </m-row>
 
 
   </div>
@@ -29,14 +54,6 @@ render(
   //xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 2 }}
 
 
-
-  // <m-row gutter={16} cols={[8, {
-  //   span: 8,
-  //   offset: 8
-  // }]}>
-  //   <m-button>col-8</m-button>
-  //   <m-button>col-8</m-button>
-  // </m-row>
 
   // <m-row cols={[{
   //   span: 18,
