@@ -1,4 +1,4 @@
-English | [简体中文](./README.CN.md) | [한국어](./README.KR.md)
+English | [简体中文](./README.CN.md) 
 
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="100"/></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-inside-outside.jpg" alt="omi" width="1000"/></p>
@@ -622,6 +622,13 @@ Easy to debug via [Omi DevTools Extension](https://github.com/f/omi-devtools) [[
 Since Omi uses Web Components and Shadow-DOM, it doesn't need to have another elements panel such as React has. It just adds a panel to the **Elements' sidebar** and it's powerful as much as React DevTools.
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
+
+### View registered elements
+
+```js
+console.log(Omi.elements)
+```
+
 <!-- 
 ## React to Omi
 

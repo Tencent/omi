@@ -1,4 +1,4 @@
-[English](./README.md) | 简体中文 | [한국어](./README.KR.md)
+[English](./README.md) | 简体中文 
 
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-logo2019.svg" alt="omi" width="100"/></p>
 <p align="center"><img src="https://tencent.github.io/omi/assets/omi-inside-outside.jpg" alt="omi" width="1000"/></p>
@@ -885,6 +885,13 @@ class MyApp extends WeElement {
 既然  Omi 使用了 Web Components 和 Shadow-DOM, 所以不需要像 React 一样安装其他元素面板，只需要使用 Chrome 自带的 **Elements' sidebar** 便可，它和 React 开发者工具一样强大。
 
 ![Omi DevTools](https://github.com/f/omi-devtools/raw/master/omi-devtools.gif)
+
+### 查看所有注册的元素
+
+```js
+console.log(Omi.elements)
+```
+
 <!-- 
 ## React 组件转成 Omi
 
