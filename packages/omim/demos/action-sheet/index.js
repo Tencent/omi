@@ -6,34 +6,35 @@ import { define, render, h, WeElement } from 'omi'
 define('my-app', class extends WeElement {
 
   data = {
-    ios_show: false,
-    android_show: false,
+    iosShow: false,
+    androidShow: false,
     menus: [{
-      label: 'Option 1',
-      onClick: () => { }
+      label: 'Option 1'
     }, {
-      label: 'Option 2',
-      onClick: () => { }
+      label: 'Option 2'
     }, {
-      label: 'Option 3',
-      onClick: () => { }
-    }, {
-      label: 'Option 4',
-      onClick: () => { }
+      label: 'Option 3'
     }],
-    actions: [
-      {
-        label: 'Cancel',
-        onClick: this.hide
-      }
-    ]
-  };
+    actions: [{
+        label: 'Cancel'
+    }]
+  }
+
+  onMenuClick = (evt)=>{
+    console.log(evt.detail)
+    this.hide()
+  }
+
+  onActionClick = (evt)=>{
+    console.log(evt.detail)
+    this.hide()
+  }
 
   hide = () => {
     Object.assign(this.data, {
       auto_show: false,
-      ios_show: false,
-      android_show: false,
+      iosShow: false,
+      androidShow: false,
     })
     this.update()
   }
@@ -42,29 +43,32 @@ define('my-app', class extends WeElement {
     return (
       <div>
         <m-button type="default"
-          onClick={e => { this.data.ios_show = true; this.update(); }}
+          onClick={e => { this.data.iosShow = true; this.update(); }}
         >
           IOS ActionSheet</m-button>
         <m-action-sheet
           menus={this.data.menus}
+          onMenuClick={this.onMenuClick}
+          onActionClick={this.hide}
           actions={this.data.actions}
-          show={this.data.ios_show}
+          show={this.data.iosShow}
           type="ios"
-          onClose={e => { this.data.ios_show = false; this.update(); }}
+          onClose={e => { this.data.iosShow = false; this.update(); }}
         />
 
         <br />
 
         <m-button type="default"
-          onClick={e => { this.data.android_show = true; this.update(); }}>
+          onClick={e => { this.data.androidShow = true; this.update(); }}>
           Android ActionSheet
         </m-button>
         <m-action-sheet
           menus={this.data.menus}
           actions={this.data.actions}
-          show={this.data.android_show}
+          onMenuClick={this.onMenuClick}
+          show={this.data.androidShow}
           type="android"
-          onClose={e => { this.data.android_show = false; this.update(); }}
+          onClose={e => { this.data.androidShow = false; this.update(); }}
         />
       </div>
     );

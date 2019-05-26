@@ -30,12 +30,21 @@ export default class ActionSheet extends WeElement<Props, {}> {
       })
 
       return (
-        <div key={idx} {...others} className={cls}>
+        <div key={idx} {...others} onClick={_=>this.menuClick(menu)} className={cls}>
           {label}
         </div>
       )
     })
   }
+
+	actionClick = (item)=>{
+		this.fire('actionclick', item)
+	}
+
+
+	menuClick = (item)=>{
+		this.fire('menuclick', item)
+	}
 
   renderActions() {
     return this.props.actions.map((action, idx) => {
@@ -46,7 +55,7 @@ export default class ActionSheet extends WeElement<Props, {}> {
       })
 
       return (
-        <div key={idx} {...others} className={cls}>
+        <div key={idx} onClick={_=>this.actionClick(action)} {...others} className={cls}>
           {label}
         </div>
       )
