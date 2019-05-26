@@ -20,10 +20,10 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 ### Via script
 
 ```html
-<m-button>I am button</m-button>
-
 <script src="https://unpkg.com/omi"></script>
 <script src="https://unpkg.com/@omim/core@latest/button/index.js"></script>
+
+<m-button>I am button</m-button>
 ```
 
 ### Via npm
@@ -94,6 +94,12 @@ Build component:
 npm run build -- component-name
 ```
 
+Build all component:
+
+```bash
+npm run build-all
+```
+
 Build demo:
 
 ```bash
@@ -143,6 +149,8 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | tree | done |
 | table | done |
 | nav | done |
+| action-sheet | done |
+| row | done |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
