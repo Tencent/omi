@@ -2,6 +2,10 @@ import * as css from './_drawer.css'
 import { define, WeElement, h, extractClass } from 'omi'
 import '@omim/core/nav'
 
+
+const hash = location.hash || '#/dashboard'
+
+
 define('my-drawer', class extends WeElement {
 	static css = css
 
@@ -41,13 +45,14 @@ define('my-drawer', class extends WeElement {
 		title: 'Dashboard',
 		id: 1,
 		icon: 'dashboard',
-		selected: true,
+		selected: hash === '#/dashboard',
 		hash: '/dashboard'
 	},
 	{
 		title: 'About',
 		id: 2,
 		icon: 'people',
+		selected: hash === '#/about',
 		hash: '/about'
 	},
 	{

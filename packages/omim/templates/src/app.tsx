@@ -8,9 +8,6 @@ import './about'
 import './top-bar'
 import './drawer'
 
-const hash = location.hash || '#/dashboard'
-
-
 define('my-app', class extends WeElement {
   static css = css
 
