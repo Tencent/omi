@@ -1,0 +1,32 @@
+.app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  height: 100%;
+  background-color: #FFFFFF;
+  border-right: 1px solid #ccc; 
+}
+
+h3 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1.25rem;
+  text-indent: 10px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 11px;
+
+}
+
+h6 {
+  margin-top: 0px;
+  text-indent: 12px;
+  font-size: .875rem;
+  color: rgba(0, 0, 0, .6);
+  margin-bottom: 14px;
+}
+
+.title{
+  background-color: #efefef; 
+  height: 65px;
+}
