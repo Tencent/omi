@@ -5,7 +5,7 @@ Click or touch it to trigger an operation. The encapsulated logic is triggered i
 ## Usage
 
 ```html
-<m-button ripple>Default</m-button>
+<m-button ripple icon="favorite">Default</m-button>
 
 <m-button ripple dense>Dense</m-button>
 
@@ -21,7 +21,7 @@ Click or touch it to trigger an operation. The encapsulated logic is triggered i
 JSX:
 
 ```jsx
-<m-button ripple raised>Default</m-button>
+<m-button ripple raised icon="favorite">Default</m-button>
 
 <m-button ripple dense raised>Dense</m-button>
 
@@ -44,4 +44,4 @@ JSX:
 | unelevated | boolean | -- | It has padding, no shadows |
 | outlined | boolean | -- | No padding, have border |
 | svg-icon | object | -- | svg icon |
-| icon | object | -- | icon |
+| icon | string | -- | icon |

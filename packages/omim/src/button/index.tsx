@@ -51,7 +51,7 @@ export default class Button extends WeElement<Props, Data>{
         'mdc-button--unelevated': props.unelevated,
         'mdc-button--outlined': props.outlined
       })}>
-        {(props.icon) && <i class="mdc-fab__icon material-icons">{props.icon}</i>}
+        {(props.icon) && <i class="material-icons mdc-button__icon">{props.icon}</i>}
         {(props.svgIcon) && <m-icon class='m-icon' {...props.svgIcon}></m-icon>}
         <span class="mdc-button__label"><slot></slot></span>
       </button>

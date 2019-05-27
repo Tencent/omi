@@ -5,7 +5,7 @@
 ## 使用
 
 ```html
-<m-button ripple>Default</m-button>
+<m-button ripple icon="favorite">Default</m-button>
 
 <m-button ripple dense>Dense</m-button>
 
@@ -21,7 +21,7 @@
 JSX:
 
 ```jsx
-<m-button ripple raised>Default</m-button>
+<m-button ripple raised icon="favorite">Default</m-button>
 
 <m-button ripple dense raised>Dense</m-button>
 
@@ -44,4 +44,4 @@ JSX:
 | unelevated | boolean | -- | 有填充，无阴影 |
 | outlined | boolean | -- | 无填充，有边框 |
 | svg-icon | object | -- | svg图标 |
-| icon | object | -- | 图标 |
+| icon | string | -- | 图标 |
