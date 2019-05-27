@@ -16,7 +16,7 @@ h3 {
   margin-bottom: 0px;
   margin-top: 0px;
   padding-top: 11px;
-
+  font-weight: normal;
 }
 
 h6 {
@@ -25,6 +25,7 @@ h6 {
   font-size: .875rem;
   color: rgba(0, 0, 0, .6);
   margin-bottom: 14px;
+  font-weight: normal;
 }
 
 .title{

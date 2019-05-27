@@ -237,6 +237,6 @@ exports.default = css;
 
 /***/ })
 
-/******/ })["default"];
+/******/ });
 });
 //# sourceMappingURL=index.js.map

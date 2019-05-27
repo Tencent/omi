@@ -292,6 +292,9 @@ var Row = /** @class */ (function (_super) {
     function Row() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Row.resetTheme = function () {
+        this.css = theme_ts_1.theme() + css + rs;
+    };
     Row.prototype.install = function () {
         var _this = this;
         dom_ready_1.domReady(function () {
