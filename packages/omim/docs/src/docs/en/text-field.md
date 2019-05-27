@@ -20,7 +20,7 @@ User's input box, enter some content for submission to the server.
 ></m-text-field>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

@@ -11,7 +11,7 @@ Linear Progress component is a spec-aligned linear progress indicator component 
 <m-linear-progress reversed value="0.2"> </m-linear-progress>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

@@ -10,7 +10,7 @@ Snackbar provide brief messages about app processes at the bottom of the screen.
 <m-snackbar id="m-snackbar-c" stacked msg='This item already has the label "travel". You can add a new label.' button-text="ADD A NEW LABEL"></m-snackbar>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

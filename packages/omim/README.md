@@ -8,7 +8,6 @@ Cross-Frameworks components, powered by Material Design and [Omi](https://github
 
 ## Features
 
-* Simple wrapper of [material-components-web](https://github.com/material-components/material-components-web)
 * Render by Custom Elements of Web Components
 * Any framework can use the components, such as Omi, React, Vue and Angular 
 * Support both JSX and native HTML elements 
@@ -228,3 +227,4 @@ Why??
 * [material.io docs](https://material.io/develop/web/components/buttons/) 
 * [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
 * [material-theme-builder](https://material-theme-builder.glitch.me/)
+* [material-components-web](https://github.com/material-components/material-components-web)

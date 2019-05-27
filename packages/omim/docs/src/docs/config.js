@@ -21,6 +21,7 @@ const config = {
       {
         title: '布局',
         list: [
+          { name: 'Row', md: 'row', demo: './repl/row.html' },
           { name: 'Layout Grid', md: 'layout-grid', demo: './repl/layout-grid.html' },
           { name: 'Elevation', md: 'elevation', demo: './repl/elevation.html' },
           { name: 'Image List', md: 'image-list', demo: './repl/image-list.html' }
@@ -87,6 +88,7 @@ const config = {
       {
         title: 'Layout',
         list: [
+          { name: 'Row', md: 'row', demo: './repl/row.html' },
           { name: 'Layout Grid', md: 'layout-grid', demo: './repl/layout-grid.html' },
           { name: 'Elevation', md: 'elevation', demo: './repl/elevation.html' },
           { name: 'Image List', md: 'image-list', demo: './repl/image-list.html' }

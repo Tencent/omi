@@ -23,7 +23,7 @@ Top App Bar acts as a container for items such as application title, navigation 
 ></m-top-app-bar>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

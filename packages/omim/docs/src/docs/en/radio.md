@@ -11,7 +11,7 @@ Radio buttons allow the user to select one option from a set while seeing all av
 <m-radio disabled label='disabled'> </m-radio>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

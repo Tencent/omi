@@ -10,7 +10,7 @@ Switch toggle the state of a single setting on or off. They are the preferred wa
 <m-switch id='m-switch-disabled-d' label='LabelD-Disabled' value='omim D-Disabled' checked></m-switch>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

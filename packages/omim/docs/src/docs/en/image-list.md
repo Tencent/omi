@@ -26,7 +26,7 @@ Image List provides a RTL-aware Material Design image list component. An Image L
 ></image-list>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

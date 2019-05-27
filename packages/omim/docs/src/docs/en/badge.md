@@ -10,7 +10,7 @@ Badge generates a small badge to the top-right of its child(ren).
 </m-badge>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

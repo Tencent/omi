@@ -6,7 +6,6 @@
 
 ## 特性
 
-* 基于 [material-components-web](https://github.com/material-components/material-components-web) 简单包装
 * 使用标准 Web Components 的 Custom Elements 渲染 
 * 任意框架都可以使用这些组件(比如 Omi, React, Vue and Angular)
 * 同时支持 JSX 和 原生 HTML 标签的使用方式 
@@ -109,3 +108,4 @@ npm publish --access public
 * [material.io docs](https://material.io/develop/web/components/buttons/) 
 * [material.io demo](https://material-components.github.io/material-components-web-catalog/#/) 
 * [material-theme-builder](https://material-theme-builder.glitch.me/)
+* [material-components-web](https://github.com/material-components/material-components-web)

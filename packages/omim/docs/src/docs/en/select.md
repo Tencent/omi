@@ -13,7 +13,7 @@ Select provides Material Design single-option select menus. It is fully accessib
 </m-select>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

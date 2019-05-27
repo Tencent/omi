@@ -14,7 +14,7 @@ Tag can display categories and categorize things.
 }">default</m-tag>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

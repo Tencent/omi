@@ -8,10 +8,10 @@ import { theme } from '../theme.ts'
 
 interface Props {
 	cols: object,
-	gutter: number,
-	justify: string,
-	align: string,
-	type: string
+	gutter?: number,
+	justify?: string,
+	align?: string,
+	type?: string
 }
 
 interface Data {

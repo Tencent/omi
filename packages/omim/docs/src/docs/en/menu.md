@@ -13,7 +13,7 @@ A menu displays a list of choices on a temporary surface. They appear when users
 </m-menu>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

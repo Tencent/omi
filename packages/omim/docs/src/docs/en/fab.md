@@ -19,7 +19,7 @@ A floating action button represents the primary action in an application.
 </m-fab>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

@@ -28,7 +28,7 @@ Lists are continuous, vertical indexes of text or images.
 </m-list>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

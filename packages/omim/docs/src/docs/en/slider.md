@@ -11,7 +11,7 @@ Slider provides an implementation of the Material Design slider component. Slide
 <m-slider discrete display-markers step="2"> </m-slider>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

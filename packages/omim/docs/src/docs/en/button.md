@@ -16,7 +16,7 @@ Click or touch it to trigger an operation. The encapsulated logic is triggered i
 }">ICON</m-button>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

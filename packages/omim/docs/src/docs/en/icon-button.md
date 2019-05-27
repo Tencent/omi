@@ -20,7 +20,7 @@ Icon button allow users to take actions, and make choices, with a single tap.
 </m-icon-button>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

@@ -1,10 +1,10 @@
 import { WeElement } from 'omi';
 interface Props {
     cols: object;
-    gutter: number;
-    justify: string;
-    align: string;
-    type: string;
+    gutter?: number;
+    justify?: string;
+    align?: string;
+    type?: string;
 }
 interface Data {
 }

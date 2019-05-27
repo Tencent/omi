@@ -38,7 +38,7 @@ The Navigation Drawer is used to organize access to destinations and other funct
 </m-drawer>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 

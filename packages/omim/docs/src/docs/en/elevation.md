@@ -18,7 +18,7 @@ Shadows provide important visual cues about objects’ depth and directional mov
 >1dp</m-elevation>
 ```
 
-## Used in Omi
+## Usage in Omi
 
 JSX:
 
