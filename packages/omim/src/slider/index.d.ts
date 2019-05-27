@@ -12,6 +12,7 @@ interface Data {
 }
 export default class Slider extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static defaultProps: {
         value: number;
         step: number;

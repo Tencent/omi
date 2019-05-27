@@ -110,6 +110,10 @@ export default class TextField extends WeElement<Props, Data>{
 
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   mdc: MDCTextField
   root: HTMLElement
 

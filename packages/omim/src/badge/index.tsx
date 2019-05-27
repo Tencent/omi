@@ -19,6 +19,10 @@ interface Data {
 export default class Badge extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static defaultProps = {
     x: 0,
     y: 0

@@ -16,7 +16,10 @@ interface Data {
 export default class Nav extends WeElement<Props, Data>{
 	static css = theme() + css
 
-
+  static resetTheme() {
+    this.css = theme() + css
+	}
+	
 	static propTypes = {
 		nodes: Object
 	}

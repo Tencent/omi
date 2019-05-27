@@ -402,6 +402,49 @@
 		<div>col-b</div>
 		<div>col-c</div>
 	</m-row>
+
+
+	<h3>Responsive with number(xs sm md lg xl)</h3>
+	<m-row type="flex" justify="space-around" align="bottom" cols="[{
+		xs: 24,
+		sm: 24,
+		md: 8,
+		lg: 7,
+		xl: 6
+	}, {
+		xs: 24,
+		sm: 12,
+		md: 8,
+		lg: 10,
+		xl: 12
+	}, {
+		xs: 24,
+		sm: 12,
+		md: 8,
+		lg: 7,
+		xl: 6
+	}]"
+	 css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-a</div>
+		<div>col-b</div>
+		<div>col-c</div>
+	</m-row>
+
 	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
 		<img src="//alloyteam.github.io/github.png" alt="">
 	</a>

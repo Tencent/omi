@@ -11,6 +11,7 @@ interface Data {
 }
 export default class Tab extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     data: {
         active: any;
         tabBar: any;

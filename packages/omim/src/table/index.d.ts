@@ -5,6 +5,7 @@ interface Props {
 }
 export default class Table extends WeElement<Props, {}> {
     static css: string;
+    static resetTheme(): void;
     dataSource: any;
     static propTypes: {
         dataSource: ObjectConstructor;

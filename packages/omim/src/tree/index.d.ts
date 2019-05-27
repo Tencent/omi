@@ -7,6 +7,7 @@ interface Data {
 }
 export default class Tree extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static propTypes: {
         checkbox: BooleanConstructor;
         node: ObjectConstructor;

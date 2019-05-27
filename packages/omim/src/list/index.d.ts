@@ -10,6 +10,7 @@ interface Data {
 }
 export default class List extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static propTypes: {
         group: BooleanConstructor;
         disabled: BooleanConstructor;

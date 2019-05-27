@@ -23,6 +23,7 @@ interface Data {
 }
 export default class chipSet extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static defaultProps: {
         ripple: boolean;
     };

@@ -8,14 +8,15 @@ const config = {
         ]
       },
       {
-        title: '基础元素',
+        title: '基础',
         list: [
           { name: 'Button', md: 'button', demo: './repl/button.html' },
           { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
           { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
           { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
-          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' }
+          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
+          { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' }
         ]
       },
       {
@@ -75,14 +76,15 @@ const config = {
         ]
       },
       {
-        title: 'Base Element',
+        title: 'Base',
         list: [
           { name: 'Button', md: 'button', demo: './repl/button.html' },
           { name: 'Fab', md: 'fab', demo: './repl/fab.html' },
           { name: 'Icon', md: 'icon', demo: './repl/icon.html' },
           { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
-          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' }
+          { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
+          { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' }
         ]
       },
       {

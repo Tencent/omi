@@ -96,10 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@material/animation/util.js":
-/*!**************************************************!*\
-  !*** ./node_modules/@material/animation/util.js ***!
-  \**************************************************/
+/***/ "./node_modules/_@material_animation@1.0.0@@material/animation/util.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/_@material_animation@1.0.0@@material/animation/util.js ***!
+  \*****************************************************************************/
 /*! exports provided: getCorrectPropertyName, getCorrectEventName */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -190,18 +190,18 @@ function getCorrectEventName(windowObj, eventType) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/base/component.js":
-/*!**************************************************!*\
-  !*** ./node_modules/@material/base/component.js ***!
-  \**************************************************/
+/***/ "./node_modules/_@material_base@1.0.0@@material/base/component.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/_@material_base@1.0.0@@material/base/component.js ***!
+  \************************************************************************/
 /*! exports provided: MDCComponent, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCComponent", function() { return MDCComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/base/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -307,10 +307,10 @@ var MDCComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/@material/base/foundation.js":
-/*!***************************************************!*\
-  !*** ./node_modules/@material/base/foundation.js ***!
-  \***************************************************/
+/***/ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/_@material_base@1.0.0@@material/base/foundation.js ***!
+  \*************************************************************************/
 /*! exports provided: MDCFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -396,20 +396,20 @@ var MDCFoundation = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/@material/slider/component.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/slider/component.js ***!
-  \****************************************************/
+/***/ "./node_modules/_@material_slider@1.1.0@@material/slider/component.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/_@material_slider@1.1.0@@material/slider/component.js ***!
+  \****************************************************************************/
 /*! exports provided: MDCSlider */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSlider", function() { return MDCSlider; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/@material/base/component.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/slider/constants.js");
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/slider/foundation.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
+/* harmony import */ var _material_base_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/base/component */ "./node_modules/_@material_base@1.0.0@@material/base/component.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_slider@1.1.0@@material/slider/constants.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_slider@1.1.0@@material/slider/foundation.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -600,10 +600,10 @@ var MDCSlider = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/slider/constants.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@material/slider/constants.js ***!
-  \****************************************************/
+/***/ "./node_modules/_@material_slider@1.1.0@@material/slider/constants.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/_@material_slider@1.1.0@@material/slider/constants.js ***!
+  \****************************************************************************/
 /*! exports provided: cssClasses, strings, numbers */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -665,20 +665,20 @@ var numbers = {
 
 /***/ }),
 
-/***/ "./node_modules/@material/slider/foundation.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/@material/slider/foundation.js ***!
-  \*****************************************************/
+/***/ "./node_modules/_@material_slider@1.1.0@@material/slider/foundation.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/_@material_slider@1.1.0@@material/slider/foundation.js ***!
+  \*****************************************************************************/
 /*! exports provided: MDCSliderFoundation, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MDCSliderFoundation", function() { return MDCSliderFoundation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _material_animation_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/animation/util */ "./node_modules/@material/animation/util.js");
-/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/@material/base/foundation.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/@material/slider/constants.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js");
+/* harmony import */ var _material_animation_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material/animation/util */ "./node_modules/_@material_animation@1.0.0@@material/animation/util.js");
+/* harmony import */ var _material_base_foundation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material/base/foundation */ "./node_modules/_@material_base@1.0.0@@material/base/foundation.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./constants */ "./node_modules/_@material_slider@1.1.0@@material/slider/constants.js");
 /**
  * @license
  * Copyright 2017 Google Inc.
@@ -1175,19 +1175,19 @@ var MDCSliderFoundation = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./node_modules/@material/slider/index.js":
-/*!************************************************!*\
-  !*** ./node_modules/@material/slider/index.js ***!
-  \************************************************/
+/***/ "./node_modules/_@material_slider@1.1.0@@material/slider/index.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/_@material_slider@1.1.0@@material/slider/index.js ***!
+  \************************************************************************/
 /*! exports provided: MDCSlider, MDCSliderFoundation */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/@material/slider/component.js");
+/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component */ "./node_modules/_@material_slider@1.1.0@@material/slider/component.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSlider", function() { return _component__WEBPACK_IMPORTED_MODULE_0__["MDCSlider"]; });
 
-/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/@material/slider/foundation.js");
+/* harmony import */ var _foundation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./foundation */ "./node_modules/_@material_slider@1.1.0@@material/slider/foundation.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MDCSliderFoundation", function() { return _foundation__WEBPACK_IMPORTED_MODULE_1__["MDCSliderFoundation"]; });
 
 /**
@@ -1218,14 +1218,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/slider/index.scss":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./src/slider/index.scss ***!
-  \************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/slider/index.scss":
+/*!*************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./src/slider/index.scss ***!
+  \*************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -1237,10 +1237,10 @@ exports.push([module.i, "@keyframes mdc-slider-emphasize {\n  0% {\n    animatio
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1324,10 +1324,10 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/tslib/tslib.es6.js":
-/*!*****************************************!*\
-  !*** ./node_modules/tslib/tslib.es6.js ***!
-  \*****************************************/
+/***/ "./node_modules/_tslib@1.9.3@tslib/tslib.es6.js":
+/*!******************************************************!*\
+  !*** ./node_modules/_tslib@1.9.3@tslib/tslib.es6.js ***!
+  \******************************************************/
 /*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1550,7 +1550,7 @@ function __importDefault(mod) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../node_modules/css-loader!../../node_modules/sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./src/slider/index.scss");
+        var result = __webpack_require__(/*! !../../node_modules/_css-loader@1.0.1@css-loader!../../node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./index.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./src/slider/index.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -1603,7 +1603,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/slider/index.scss");
-var slider_1 = __webpack_require__(/*! @material/slider */ "./node_modules/@material/slider/index.js");
+var slider_1 = __webpack_require__(/*! @material/slider */ "./node_modules/_@material_slider@1.1.0@@material/slider/index.js");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Slider = /** @class */ (function (_super) {
@@ -1611,6 +1611,9 @@ var Slider = /** @class */ (function (_super) {
     function Slider() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Slider.resetTheme = function () {
+        this.css = theme_ts_1.theme() + css;
+    };
     Slider.prototype.installed = function () {
         var _this = this;
         var slider = new slider_1.MDCSlider(this.shadowRoot.querySelector('.mdc-slider'));

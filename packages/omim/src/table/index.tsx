@@ -13,6 +13,10 @@ interface Props {
 export default class Table extends WeElement<Props, {}> {
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
 	dataSource = null
 
 	static propTypes = {

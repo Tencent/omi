@@ -24,6 +24,10 @@ interface Data {
 export default class Tab extends WeElement<Props, Data>{
 	static css = theme() + css
 
+	static resetTheme() {
+    this.css = theme() + css
+	}
+	
 	data = {
 		active: null,
 		tabBar: null

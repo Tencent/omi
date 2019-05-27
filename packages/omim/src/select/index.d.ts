@@ -7,6 +7,7 @@ interface Data {
 }
 export default class Select extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static propTypes: {
         label: StringConstructor;
         menu: ObjectConstructor;

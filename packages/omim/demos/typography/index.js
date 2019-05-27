@@ -1,4 +1,4 @@
-import { css } from '../../src/typography/index.tsx'
+import css from '../../src/typography/index.tsx'
 import { define, render, h, WeElement } from 'omi'
 
 define('my-app', class extends WeElement {

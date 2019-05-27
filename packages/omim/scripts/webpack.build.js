@@ -20,6 +20,7 @@ const config = {
     filename: 'index.js',
     libraryTarget: 'umd',
     library: library
+    // libraryExport: "default" 
   },
   mode: 'development',
   module: {

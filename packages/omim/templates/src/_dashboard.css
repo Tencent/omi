@@ -1,0 +1,19 @@
+.app{
+  padding: 10px;
+}
+
+.header{
+  position: relative;
+}
+
+h3{
+  font-weight: normal;
+
+}
+
+m-icon-button{
+  position: absolute;
+  right: 10px;
+  top: -13px;
+  color: rgba(0,0,0,.54)
+}

@@ -10,6 +10,7 @@ interface Data {
 }
 export default class Row extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static propTypes: {
         cols: ObjectConstructor;
         gutter: NumberConstructor;

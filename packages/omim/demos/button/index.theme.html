@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Add Omi in One Minute</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body style="background-color:#f9f7f7;">
+  <script>window.OmimThemePrimary = "#ecb89a"</script>
+  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="../../src/switch/index.js"></script>
+  <script src="../../src/button/index.js"></script>
+
+  <h3>Switch Color of Theme</h3>
+  <m-switch onchange="change(event)"></m-switch>
+  <div id='root'>
+
+    <h3>Text Button</h3>
+
+    <m-button ripple>Default</m-button>
+    <m-button ripple dense>Dense</m-button>
+    <m-button ripple icon="favorite">ICON</m-button>
+
+    <h3>Raised Button</h3>
+
+    <m-button ripple raised>Default</m-button>
+    <m-button ripple dense raised>Dense</m-button>
+    <m-button ripple raised icon="favorite">ICON</m-button>
+
+    <h3>Unelevated Button</h3>
+
+    <m-button ripple unelevated>Default</m-button>
+    <m-button ripple dense unelevated>Dense</m-button>
+    <m-button ripple unelevated icon="favorite">ICON</m-button>
+
+    <h3>Outlined Button</h3>
+
+    <m-button ripple outlined>Default</m-button>
+    <m-button ripple dense outlined>Dense</m-button>
+    <m-button ripple outlined icon="favorite">ICON</m-button>
+
+    <h3>Shaped Button</h3>
+
+    <m-button ripple unelevated css=".mdc-button{ border-radius: 18px;}">Default</m-button>
+    <m-button ripple dense unelevated css=".mdc-button{ border-radius: 18px!important;}">Dense</m-button>
+    <m-button ripple unelevated icon="favorite" css=".mdc-button{ border-radius: 18px;}">ICON</m-button>
+
+  </div>
+
+  <script>
+    function change(evt) {
+      window.OmimThemePrimary = evt.detail.checked ? '#0052d9' : '#ecb89a'
+      MButton.resetTheme()
+      document.querySelector('#root').innerHTML = " <h3>Text Button</h3>\n    \n    <m-button ripple>Default</m-button>\n    <m-button ripple dense>Dense</m-button>\n    <m-button ripple icon=\"favorite\">ICON</m-button>\n\n    <h3>Raised Button</h3>\n\n    <m-button ripple raised>Default</m-button>\n    <m-button ripple dense raised>Dense</m-button>\n    <m-button ripple raised icon=\"favorite\">ICON</m-button>\n\n    <h3>Unelevated Button</h3>\n\n    <m-button ripple unelevated>Default</m-button>\n    <m-button ripple dense unelevated>Dense</m-button>\n    <m-button ripple unelevated icon=\"favorite\">ICON</m-button>\n\n    <h3>Outlined Button</h3>\n\n    <m-button ripple outlined>Default</m-button>\n    <m-button ripple dense outlined>Dense</m-button>\n    <m-button ripple outlined icon=\"favorite\">ICON</m-button>\n\n    <h3>Shaped Button</h3>\n\n    <m-button ripple unelevated css=\".mdc-button{ border-radius: 18px;}\">Default</m-button>\n    <m-button ripple dense unelevated css=\".mdc-button{ border-radius: 18px!important;}\">Dense</m-button>\n    <m-button ripple unelevated icon=\"favorite\" css=\".mdc-button{ border-radius: 18px;}\">ICON</m-button>\n\n     ";
+    }
+  </script>
+  <a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
+    <img src="//alloyteam.github.io/github.png" alt="">
+  </a>
+</body>
+
+</html>

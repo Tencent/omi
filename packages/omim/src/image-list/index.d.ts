@@ -7,6 +7,7 @@ interface Data {
 }
 export default class ImageList extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static defaultProps: {};
     static propTypes: {
         masonry: BooleanConstructor;

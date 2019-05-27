@@ -11,6 +11,7 @@ interface Data {
 }
 export default class Snackbar extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static defaultProps: {};
     static propTypes: {
         show: BooleanConstructor;

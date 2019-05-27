@@ -20,6 +20,10 @@ interface Data {
 export default class Tag extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static propTypes = {
     type: String,
     active: Boolean,
