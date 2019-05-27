@@ -1,6 +1,7 @@
 import * as css from './_dashboard.css'
 import { define, WeElement, h } from 'omi'
 import '@omim/core/row'
+import '@omim/core/icon-button'
 
 define('my-dashboard', class extends WeElement {
   static css = css
@@ -9,7 +10,11 @@ define('my-dashboard', class extends WeElement {
   render() {
     return <div class="app">
     
-
+      <div class='header'>
+        <h3>Dashboard</h3>
+        <m-icon-button icon="refresh"></m-icon-button>
+      </div>
+    
       <m-row type="flex" justify="space-around" align="bottom" cols={[{
           xs: 24,
           sm: 24,
