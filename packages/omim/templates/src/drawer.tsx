@@ -1,14 +1,12 @@
 import * as css from './_drawer.css'
 import { define, WeElement, h, extractClass } from 'omi'
 import '@omim/core/nav'
-import typography from '@omim/core/typography'
 
 const hash = location.hash || '#/dashboard'
 
 
 define('my-drawer', class extends WeElement {
-
-	static css = css + typography
+	static css = css
 
 
 	render(props) {
