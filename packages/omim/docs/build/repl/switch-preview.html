@@ -45,87 +45,12 @@
       background-color: #555;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    /* button */
-    h3 {
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-    m-button {
-      margin-left: 10px;
-    }
-
-    /* icon */
-    m-icon {
-      margin: 20px;
-    }
-
-    /* top-app-bar */
-    .mdc-typography--subtitle1 {
-      font-size: 1rem;
-      line-height: 1.75rem;
-      font-weight: 400;
-      letter-spacing: .009375em;
-    }
-    .demos-content-one {
-      height: 130px;
-    }
-    .demos-content-two {
-      height: 80px;
-    }
-    .demos-display {
-      display: flex;
-      flex-wrap: wrap;
-      min-height: 200px;
-    }
-    .demo {
-      display: inline-block;
-      flex: 1 1 45%;
-      justify-content: space-around;
-      min-height: 200px;
-      min-width: 50px;
-      padding: 15px;
-    }
-    .iframe {
-      width: 100%;
-      height: 200px;
-    }
-
-    /* elevation */
-    .elevation-demo-surface {
-      display: -ms-inline-flexbox;
-      display: inline-flex;
-      -ms-flex-pack: distribute;
-      justify-content: space-around;
-      min-height: 100px;
-      min-width: 200px;
-      margin: 15px;
-      -ms-flex-align: center;
-      align-items: center;
-    }
-    .elevation-demo-container {
-      display: -ms-flexbox;
-      display: flex;
-      margin: auto;
-      -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
-      -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      -ms-flex-pack: justify;
-      justify-content: space-between;
-      width: 100%;
-    }
-
     /* switch */
     m-switch {
       margin: 10px;
     }
 
-		body{
+    body{
 			padding: 15px;
 		}
 
@@ -138,6 +63,53 @@
 <body style="background-color:#eee;">
   <script>
     document.body.innerHTML = parent._sourceCode
+
+    const mSwitchA = document.getElementById('m-switch-a');
+    const mSwitchB = document.getElementById('m-switch-b');
+    const mSwitchC = document.getElementById('m-switch-c');
+    const mSwitchD = document.getElementById('m-switch-d');
+    const mSwitchDisabledA = document.getElementById('m-switch-disabled-a');
+    const mSwitchDisabledB = document.getElementById('m-switch-disabled-b');
+    const mSwitchDisabledC = document.getElementById('m-switch-disabled-c');
+    const mSwitchDisabledD = document.getElementById('m-switch-disabled-d');
+
+    mSwitchA.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchA.setAttribute('checked', true) : mSwitchA.removeAttribute('checked');
+    })
+    mSwitchB.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchB.setAttribute('checked', true) : mSwitchB.removeAttribute('checked');
+    })
+    mSwitchC.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchC.setAttribute('checked', true) : mSwitchC.removeAttribute('checked');
+    })
+    mSwitchD.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchD.setAttribute('checked', true) : mSwitchD.removeAttribute('checked');
+    })
+
+    mSwitchDisabledA.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchDisabledA.setAttribute('checked', true) : mSwitchDisabledA.removeAttribute('checked');
+      e.detail.checked ? mSwitchA.setAttribute('disabled', true) : mSwitchA.removeAttribute('disabled');
+    })
+    mSwitchDisabledB.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchDisabledB.setAttribute('checked', true) : mSwitchDisabledB.removeAttribute('checked');
+      e.detail.checked ? mSwitchB.setAttribute('disabled', true) : mSwitchB.removeAttribute('disabled');
+    })
+    mSwitchDisabledC.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchDisabledC.setAttribute('checked', true) : mSwitchDisabledC.removeAttribute('checked');
+      e.detail.checked ? mSwitchC.setAttribute('disabled', true) : mSwitchC.removeAttribute('disabled');
+    })
+    mSwitchDisabledD.addEventListener('change', (e) => {
+      console.log(e.detail)
+      e.detail.checked ? mSwitchDisabledD.setAttribute('checked', true) : mSwitchDisabledD.removeAttribute('checked');
+      e.detail.checked ? mSwitchD.setAttribute('disabled', true) : mSwitchD.removeAttribute('disabled');
+    })
   </script>
 </body>
 
