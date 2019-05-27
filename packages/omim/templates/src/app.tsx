@@ -67,7 +67,7 @@ define('my-app', class extends WeElement {
         </div>
       </div>
 
-      <my-drawer></my-drawer>
+      <my-drawer show={this.showDrawer}></my-drawer>
      
     </div>
   }

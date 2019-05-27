@@ -1,13 +1,15 @@
 import * as css from './_drawer.css'
-import { define, WeElement, h } from 'omi'
+import { define, WeElement, h, extractClass } from 'omi'
 import '@omim/core/nav'
 
 define('my-drawer', class extends WeElement {
 	static css = css
 
 
-	render() {
-		return <div class="app">
+	render(props) {
+		return <div {...extractClass(props, 'app', {
+			'hide': !props.show
+		})}>
 			<div>
 				<div class="title">
 					<h3>Omim Templates</h3>
@@ -39,21 +41,32 @@ define('my-drawer', class extends WeElement {
 		title: 'Dashboard',
 		id: 1,
 		icon: 'dashboard',
-		selected: true
+		selected: true,
+		hash: '/dashboard'
 	},
 	{
 		title: 'About',
-		id: 15,
-		icon: 'people'
+		id: 2,
+		icon: 'people',
+		hash: '/about'
 	},
 	{
-		title: 'p-11',
+		title: 'Page Templates',
 		id: 14,
-		icon: 'group_work',
+		icon: 'view_list',
 
 		children: [
 			{
-				title: 'p-12', id: 12, icon: 'fingerprint', checked: true
+				title: '403', id: 3, icon: 'view_day'
+			},
+			{
+				title: '404', id: 4, icon: 'view_day'
+			},
+			{
+				title: '500', id: 5, icon: 'view_day'
+			},
+			{
+				title: 'Login', id: 6, icon: 'view_day'
 			}
 		]
 	}]
@@ -69,6 +82,8 @@ define('my-drawer', class extends WeElement {
 		pre.selected = false
 		const node = this.getNodeById(evt.detail.id, this.nodes)
 		node.selected = true
+
+		location.hash = node.hash
 		this.update()
 	}
 
