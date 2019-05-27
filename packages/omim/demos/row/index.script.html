@@ -6,10 +6,12 @@
 	<meta charset="UTF-8" />
 	<title>Add Omi in One Minute</title>
 	<style>
-		m-row {
+		m-row{
 			margin-top: 15px;
 			display: block;
-			height: 35px;
+			height: auto;
+			min-height: 40px;
+			border: 1px solid #ccc;
 		}
 	</style>
 </head>
@@ -17,82 +19,389 @@
 <body>
 	<script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
 	<script src="../../src/row/index.js"></script>
-	<script src="../../src/button/index.js"></script>
+	<h3>Base</h3>
 	<m-row css="
-	::slotted(m-button){
+	::slotted(div){
 		background: #c2d5f5;
 		width: 100%;
 		display: block;
 		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
 	}
-	::slotted(m-button:nth-child(2n + 1)) {
+	::slotted(div:nth-child(2n + 1)) {
 		width: 100%;
 		display: block;
 		text-align: center;
 	background: #d9dde4;
-}" cols="[8, 8, 8]">
-		<m-button>col-8-0</m-button>
-		<m-button>col-8-1</m-button>
-		<m-button>col-8-2</m-button>
+	}"
+	 cols="[8, 8, 8]">
+		<div>col-8-0</div>
+		<div>col-8-1</div>
+		<div>col-8-2</div>
 	</m-row>
 
+	<h3>Slot order</h3>
 	<m-row css="
-	::slotted(m-button){
+	::slotted(div){
 		background: #c2d5f5;
 		width: 100%;
 		display: block;
 		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
 	}
-	::slotted(m-button:nth-child(2n + 1)) {
+	::slotted(div:nth-child(2n + 1)) {
 		width: 100%;
 		display: block;
 		text-align: center;
 	background: #d9dde4;
-}" cols="[8, 8, 8]">
-		<m-button slot="2">col-8-0</m-button>
-		<m-button slot="1">col-8-1</m-button>
-		<m-button slot="0">col-8-2</m-button>
+	}"
+	 cols="[8, 8, 8]">
+		<div slot="2">col-8-0-slot-2</div>
+		<div slot="1">col-8-1-slot-1</div>
+		<div slot="0">col-8-2-slot-0</div>
 	</m-row>
 
+	<h3>Offset</h3>
 	<m-row css="
-	::slotted(m-button){
+	::slotted(div){
 		background: #c2d5f5;
 		width: 100%;
 		display: block;
 		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
 	}
-	::slotted(m-button:nth-child(2n + 1)) {
+	::slotted(div:nth-child(2n + 1)) {
 		width: 100%;
 		display: block;
 		text-align: center;
 	background: #d9dde4;
-}" cols="[8, {
+	}"
+	 cols="[8, {
 		span: 8,
 		offset: 8
 	}]">
-		<m-button>col-8</m-button>
-		<m-button>col-8-offset-8</m-button>
+		<div>col-8</div>
+		<div>col-8-offset-8</div>
 	</m-row>
 
+	<h3>Gutter</h3>
 	<m-row gutter="16" cols="[6,6,6,6]" css="
-    ::slotted(m-button){
-      background: #c2d5f5;
-      width: 100%;
-      display: block;
-      text-align: center;
-    }
-    ::slotted(m-button:nth-child(2n + 1)) {
-      width: 100%;
-      display: block;
-      text-align: center;
-    background: #d9dde4;
-}">
-		<m-button>col-6</m-button>
-		<m-button>col-6</m-button>
-		<m-button>col-6</m-button>
-		<m-button>col-6</m-button>
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-6</div>
+		<div>col-6</div>
+		<div>col-6</div>
+		<div>col-6</div>
 	</m-row>
 
+
+	<h3>Push and Pull</h3>
+	<m-row css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}"
+	 cols="[{
+		span: 18,
+		push: 6
+	}, {
+		span: 6,
+		pull: 18
+	}]">
+		<div>col-18-push-6</div>
+		<div>col-6-pull-18</div>
+	</m-row>
+
+	<h3>Flex justify start</h3>
+	<m-row type="flex" justify="start" cols="[4, 4, 4, 4]" css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+	</m-row>
+
+	<h3>Flex justify center</h3>
+	<m-row type="flex" justify="center" cols="[4, 4, 4, 4]" css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+	</m-row>
+
+	<h3>Flex justify end</h3>
+	<m-row type="flex" justify="end" cols="[4, 4, 4, 4]" css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+	</m-row>
+
+	<h3>Flex justify space-between</h3>
+	<m-row type="flex" justify="space-between" cols="[4, 4, 4, 4]" css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+	</m-row>
+
+	<h3>Flex justify space-around</h3>
+	<m-row type="flex" justify="space-around" cols="[4, 4, 4, 4]" css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+		<div>col-4</div>
+	</m-row>
+
+
+	<h3>Flex align top</h3>
+	<m-row type="flex" justify="space-around" align="top" cols="[4, 4, 4, 4]" css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-4</div>
+		<div style='height:70px;'>col-4-h-70</div>
+		<div>col-4</div>
+		<div style='height:100px;'>col-4-h-100</div>
+	</m-row>
+
+
+	<h3>Flex align middle</h3>
+	<m-row type="flex" justify="space-around" align="middle" cols="[4, 4, 4, 4]" css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-4</div>
+		<div style='height:70px;'>col-4-h-70</div>
+		<div>col-4</div>
+		<div style='height:100px;'>col-4-h-100</div>
+	</m-row>
+
+	<h3>Flex align bottom</h3>
+	<m-row type="flex" justify="space-around" align="bottom" cols="[4, 4, 4, 4]" css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-4</div>
+		<div style='height:70px;'>col-4-h-70</div>
+		<div>col-4</div>
+		<div style='height:100px;'>col-4-h-100</div>
+	</m-row>
+
+
+	<h3>Responsive with number(xs sm md lg xl)</h3>
+	<m-row type="flex" justify="space-around" align="bottom" cols="[{
+		xs: 8,
+		sm: 4,
+		md: 6,
+		lg: 8,
+		xl: 10
+	}, {
+		xs: 20,
+		sm: 16,
+		md: 12,
+		lg: 8,
+		xl: 4
+	}, {
+		xs: 2,
+		sm: 4,
+		md: 6,
+		lg: 8,
+		xl: 10
+	}]"
+	 css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-a</div>
+		<div>col-b</div>
+		<div>col-c</div>
+	</m-row>
+
+
+	<h3>Responsive with object(xs sm md lg xl)</h3>
+	<m-row type="flex" justify="space-around" align="bottom" cols="[{
+		xs: { span: 5, offset: 1 },
+		lg: { span: 6, offset: 2 }
+	}, {
+		xs: { span: 11, offset: 1 },
+		lg: { span: 6, offset: 2 }
+	}, {
+		xs: { span: 5, offset: 1 },
+		lg: { span: 6, offset: 2 }
+	}]"
+	 css="
+	::slotted(div){
+		background: #c2d5f5;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: #0052d9;
+		height:40px;
+		line-height:40px;
+	}
+	::slotted(div:nth-child(2n + 1)) {
+		width: 100%;
+		display: block;
+		text-align: center;
+	background: #d9dde4;
+	}">
+		<div>col-a</div>
+		<div>col-b</div>
+		<div>col-c</div>
+	</m-row>
 	<a href="https://github.com/Tencent/omi" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 3;">
 		<img src="//alloyteam.github.io/github.png" alt="">
 	</a>
