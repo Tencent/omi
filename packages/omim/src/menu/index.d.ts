@@ -9,6 +9,7 @@ interface Data {
 }
 export default class Menu extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static defaultProps: {};
     static propTypes: {
         list: ObjectConstructor;

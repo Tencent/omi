@@ -13,6 +13,7 @@ interface Data {
 }
 export default class Dialog extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static propTypes: {
         show: BooleanConstructor;
         scrollable: BooleanConstructor;

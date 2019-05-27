@@ -23,6 +23,10 @@ interface Data {
 export default class Button extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+
   static defaultProps = {
     ripple: true
   }

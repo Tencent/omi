@@ -27,6 +27,10 @@ interface Data {
 export default class Dialog extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static propTypes = {
     show: Boolean,
     scrollable: Boolean,

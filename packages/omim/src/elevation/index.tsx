@@ -14,6 +14,10 @@ interface Data {}
 export default class Elevation extends WeElement<Props, Data> {
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static propTypes = {
     z: Number
   }

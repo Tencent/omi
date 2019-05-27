@@ -21,6 +21,10 @@ interface Data {
 export default class Fab extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static propTypes = {
     ripple: Boolean,
     mini: Boolean,

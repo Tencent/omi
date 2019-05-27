@@ -18,6 +18,10 @@ interface Data {
 export default class ImageList extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static defaultProps = {
 
   }

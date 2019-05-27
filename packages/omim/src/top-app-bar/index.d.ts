@@ -21,6 +21,7 @@ interface Data {
 }
 export default class topAppBar extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static propTypes: {
         heading: StringConstructor;
         short: BooleanConstructor;

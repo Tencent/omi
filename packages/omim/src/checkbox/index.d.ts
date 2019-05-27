@@ -10,6 +10,7 @@ interface Data {
 }
 export default class Checkbox extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static propTypes: {
         label: StringConstructor;
         disabled: BooleanConstructor;

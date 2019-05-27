@@ -17,6 +17,10 @@ const parser = new DOMParser()
 class LayoutGrid extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static propTypes = {
     alignLeft: Boolean,
     alignRight: Boolean

@@ -96,15 +96,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@material/typography/mdc-typography.scss":
-/*!***************************************************************!*\
-  !*** ./node_modules/@material/typography/mdc-typography.scss ***!
-  \***************************************************************/
+/***/ "./node_modules/_@material_typography@1.0.0@@material/typography/mdc-typography.scss":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/_@material_typography@1.0.0@@material/typography/mdc-typography.scss ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-        var result = __webpack_require__(/*! !../../css-loader!../../sass-loader/lib/loader.js??ref--4-2!./mdc-typography.scss */ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./node_modules/@material/typography/mdc-typography.scss");
+        var result = __webpack_require__(/*! !../../_css-loader@1.0.1@css-loader!../../_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./mdc-typography.scss */ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_typography@1.0.0@@material/typography/mdc-typography.scss");
 
         if (typeof result === "string") {
             module.exports = result;
@@ -115,14 +115,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/sass-loader/lib/loader.js?!./node_modules/@material/typography/mdc-typography.scss":
-/*!********************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/sass-loader/lib/loader.js??ref--4-2!./node_modules/@material/typography/mdc-typography.scss ***!
-  \********************************************************************************************************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/index.js!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js?!./node_modules/_@material_typography@1.0.0@@material/typography/mdc-typography.scss":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader!./node_modules/_sass-loader@7.1.0@sass-loader/lib/loader.js??ref--4-2!./node_modules/_@material_typography@1.0.0@@material/typography/mdc-typography.scss ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../_css-loader@1.0.1@css-loader/lib/css-base.js */ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js")(false);
 // imports
 
 
@@ -134,10 +134,10 @@ exports.push([module.i, ".mdc-typography {\n  font-family: Roboto, sans-serif;\n
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
+/***/ "./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/_css-loader@1.0.1@css-loader/lib/css-base.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -231,12 +231,12 @@ function toComment(sourceMap) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var css = __webpack_require__(/*! @material/typography/mdc-typography.scss */ "./node_modules/@material/typography/mdc-typography.scss");
-exports.css = css;
+var css = __webpack_require__(/*! @material/typography/mdc-typography.scss */ "./node_modules/_@material_typography@1.0.0@@material/typography/mdc-typography.scss");
+exports.default = css;
 
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
 });
 //# sourceMappingURL=index.js.map

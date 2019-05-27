@@ -25,6 +25,10 @@ interface Data {
 class Radio extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static propTypes = {
     label: String,
     disabled: Boolean,

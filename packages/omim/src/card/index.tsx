@@ -15,6 +15,10 @@ interface Data {
 export default class Card extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static propTypes = {
     width: String,
     img: String,

@@ -23,6 +23,10 @@ interface Data {
 export default class Select extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static propTypes = {
     label: String,
     menu: Object

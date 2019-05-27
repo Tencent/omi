@@ -10,6 +10,7 @@ interface Data {
 }
 export default class Badge extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static defaultProps: {
         x: number;
         y: number;

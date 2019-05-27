@@ -22,6 +22,10 @@ interface Data {
 export default class Icon extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static defaultProps = {
     view: 1024,
     scale: 2

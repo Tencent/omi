@@ -23,6 +23,10 @@ interface Data {
 export default class Row extends WeElement<Props, Data>{
 	static css = theme() + css + rs
 
+  static resetTheme() {
+    this.css = theme() + css + rs
+	}
+	
 	static propTypes = {
 		cols: Object,
 		gutter: Number,
@@ -30,7 +34,6 @@ export default class Row extends WeElement<Props, Data>{
 		align: String,
 		type: String
 	}
-
 
 	install() {
 		domReady(() => {

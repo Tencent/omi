@@ -1589,6 +1589,9 @@ var Button = /** @class */ (function (_super) {
     function Button() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Button.resetTheme = function () {
+        this.css = theme_ts_1.theme() + css;
+    };
     Button.prototype.installed = function () {
         if (this.props.ripple) {
             new ripple_1.MDCRipple(this.shadowRoot.querySelector('.mdc-button'));
@@ -2021,6 +2024,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
 });
 //# sourceMappingURL=index.js.map

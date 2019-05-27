@@ -21,6 +21,10 @@ interface Data {
 export default class LinearProgress extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static defaultProps = {
     buffer: 1,
     value: 0

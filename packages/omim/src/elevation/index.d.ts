@@ -6,6 +6,7 @@ interface Data {
 }
 export default class Elevation extends WeElement<Props, Data> {
     static css: string;
+    static resetTheme(): void;
     static propTypes: {
         z: NumberConstructor;
     };

@@ -25,6 +25,10 @@ interface Data {
 export default class List extends WeElement<Props, Data>{
   static css = theme() + css
 
+  static resetTheme() {
+    this.css = theme() + css
+  }
+  
   static propTypes = {
     group: Boolean,
     disabled: Boolean,
