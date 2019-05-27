@@ -195,93 +195,93 @@ define('my-app', class extends WeElement {
           onScrim={this.onClose}
           show={this.confirmationShow}
           title='Phone ringtone'
-          message={
-            <ul class="mdc-list" style="list-style-type: none;">
-              <li onClick={this.onList1} class="mdc-list-item m-list-radio" tabindex={this.listIndex1}>
-              <m-radio
-                  css={`
-                    .mdc-form-field {
-                      padding: 0 16px;
-                      line-height: 48px;
-                    }
-                    .mdc-radio {
-                      margin-left: -7.2px;
-                    }
-                    .mdc-form-field > label {
-                      font-size: initial;
-                      cursor: pointer;
-                    }
-                    /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
-                    .mdc-radio::before {
-                      transition: auto;
-                      z-index: 0;
-                    }
-                    .mdc-radio__native-control {
-                      z-index: 0;
-                    }
-                  `}
-                  name="abc"
-                  label='Never Gonna Give You Up'
-                ></m-radio>
-              </li>
-              <li onClick={this.onList2} class="mdc-list-item m-list-radio" tabindex={this.listIndex2}>
-                <m-radio
-                  css={`
-                    .mdc-form-field {
-                      padding: 0 16px;
-                      line-height: 48px;
-                    }
-                    .mdc-radio {
-                      margin-left: -7.2px;
-                    }
-                    .mdc-form-field > label {
-                      font-size: initial;
-                      padding-right: 86px;
-                      cursor: pointer;
-                    }
-                    /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
-                    .mdc-radio::before {
-                      transition: auto;
-                      z-index: 0;
-                    }
-                    .mdc-radio__native-control {
-                      z-index: 0;
-                    }
-                  `}
-                  name="abc"
-                  label='Hot Cross Buns'
-                ></m-radio>
-              </li>
-              <li onClick={this.onList3} class="mdc-list-item m-list-radio" tabindex={this.listIndex3}>
-                <m-radio
-                  css={`
-                    .mdc-form-field {
-                      padding: 0 16px;
-                      line-height: 48px;
-                    }
-                    .mdc-radio {
-                      margin-left: -7.2px;
-                    }
-                    .mdc-form-field > label {
-                      font-size: initial;
-                      padding-right: 163px;
-                      cursor: pointer;
-                    }
-                    /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
-                    .mdc-radio::before {
-                      transition: auto;
-                      z-index: 0;
-                    }
-                    .mdc-radio__native-control {
-                      z-index: 0;
-                    }
-                  `}
-                  name="abc"
-                  label='None'
-                ></m-radio>
-              </li>
-            </ul>
-          }
+          // message={
+          //   <ul class="mdc-list" style="list-style-type: none;">
+          //     <li onClick={this.onList1} class="mdc-list-item m-list-radio" tabindex={this.listIndex1}>
+          //     <m-radio
+          //         css={`
+          //           .mdc-form-field {
+          //             padding: 0 16px;
+          //             line-height: 48px;
+          //           }
+          //           .mdc-radio {
+          //             margin-left: -7.2px;
+          //           }
+          //           .mdc-form-field > label {
+          //             font-size: initial;
+          //             cursor: pointer;
+          //           }
+          //           /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+          //           .mdc-radio::before {
+          //             transition: auto;
+          //             z-index: 0;
+          //           }
+          //           .mdc-radio__native-control {
+          //             z-index: 0;
+          //           }
+          //         `}
+          //         name="abc"
+          //         label='Never Gonna Give You Up'
+          //       ></m-radio>
+          //     </li>
+          //     <li onClick={this.onList2} class="mdc-list-item m-list-radio" tabindex={this.listIndex2}>
+          //       <m-radio
+          //         css={`
+          //           .mdc-form-field {
+          //             padding: 0 16px;
+          //             line-height: 48px;
+          //           }
+          //           .mdc-radio {
+          //             margin-left: -7.2px;
+          //           }
+          //           .mdc-form-field > label {
+          //             font-size: initial;
+          //             padding-right: 86px;
+          //             cursor: pointer;
+          //           }
+          //           /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+          //           .mdc-radio::before {
+          //             transition: auto;
+          //             z-index: 0;
+          //           }
+          //           .mdc-radio__native-control {
+          //             z-index: 0;
+          //           }
+          //         `}
+          //         name="abc"
+          //         label='Hot Cross Buns'
+          //       ></m-radio>
+          //     </li>
+          //     <li onClick={this.onList3} class="mdc-list-item m-list-radio" tabindex={this.listIndex3}>
+          //       <m-radio
+          //         css={`
+          //           .mdc-form-field {
+          //             padding: 0 16px;
+          //             line-height: 48px;
+          //           }
+          //           .mdc-radio {
+          //             margin-left: -7.2px;
+          //           }
+          //           .mdc-form-field > label {
+          //             font-size: initial;
+          //             padding-right: 163px;
+          //             cursor: pointer;
+          //           }
+          //           /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+          //           .mdc-radio::before {
+          //             transition: auto;
+          //             z-index: 0;
+          //           }
+          //           .mdc-radio__native-control {
+          //             z-index: 0;
+          //           }
+          //         `}
+          //         name="abc"
+          //         label='None'
+          //       ></m-radio>
+          //     </li>
+          //   </ul>
+          // }
           cancel-button={{
             text: 'Cancel',
             unelevated: true,
@@ -306,7 +306,93 @@ define('my-app', class extends WeElement {
             // },
             onClick: this.onConfirm
           }}
-        />
+        >
+          <ul class="mdc-list" style="list-style-type: none;">
+            <li onClick={this.onList1} class="mdc-list-item m-list-radio" tabindex={this.listIndex1}>
+            <m-radio
+                css={`
+                  .mdc-form-field {
+                    padding: 0 16px;
+                    line-height: 48px;
+                  }
+                  .mdc-radio {
+                    margin-left: -7.2px;
+                  }
+                  .mdc-form-field > label {
+                    font-size: initial;
+                    cursor: pointer;
+                  }
+                  /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+                  .mdc-radio::before {
+                    transition: auto;
+                    z-index: 0;
+                  }
+                  .mdc-radio__native-control {
+                    z-index: 0;
+                  }
+                `}
+                name="abc"
+                label='Never Gonna Give You Up'
+              ></m-radio>
+            </li>
+            <li onClick={this.onList2} class="mdc-list-item m-list-radio" tabindex={this.listIndex2}>
+              <m-radio
+                css={`
+                  .mdc-form-field {
+                    padding: 0 16px;
+                    line-height: 48px;
+                  }
+                  .mdc-radio {
+                    margin-left: -7.2px;
+                  }
+                  .mdc-form-field > label {
+                    font-size: initial;
+                    padding-right: 86px;
+                    cursor: pointer;
+                  }
+                  /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+                  .mdc-radio::before {
+                    transition: auto;
+                    z-index: 0;
+                  }
+                  .mdc-radio__native-control {
+                    z-index: 0;
+                  }
+                `}
+                name="abc"
+                label='Hot Cross Buns'
+              ></m-radio>
+            </li>
+            <li onClick={this.onList3} class="mdc-list-item m-list-radio" tabindex={this.listIndex3}>
+              <m-radio
+                css={`
+                  .mdc-form-field {
+                    padding: 0 16px;
+                    line-height: 48px;
+                  }
+                  .mdc-radio {
+                    margin-left: -7.2px;
+                  }
+                  .mdc-form-field > label {
+                    font-size: initial;
+                    padding-right: 163px;
+                    cursor: pointer;
+                  }
+                  /*以下两个css覆盖为了防止pc端dialog内radio出现一闪一闪的黑色列表*/
+                  .mdc-radio::before {
+                    transition: auto;
+                    z-index: 0;
+                  }
+                  .mdc-radio__native-control {
+                    z-index: 0;
+                  }
+                `}
+                name="abc"
+                label='None'
+              ></m-radio>
+            </li>
+          </ul>
+        </m-dialog>
         <m-dialog
           onOpening={this.onOpenClose}
           onOpened={this.onOpenClose}

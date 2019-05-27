@@ -2433,7 +2433,7 @@ var List = /** @class */ (function (_super) {
             for (var i = 0; i < evt.path.length; i++) {
                 if (evt.path[i].id === 'subheader') {
                     mList = evt.path[i].nextElementSibling;
-                    console.log(evt.path[i]);
+                    // console.log(evt.path[i])
                     groupNo = evt.path[i].accessKey;
                     if (typeof _this.groupHeight[groupNo] === 'undefined') {
                         _this.groupHeight[groupNo] = mList.clientHeight;
@@ -2480,6 +2480,7 @@ var List = /** @class */ (function (_super) {
                     else {
                         _this.fire('change', _this.listAll[index + 1][evt.detail.index]);
                     }
+                    _this.update();
                 });
             });
         });
@@ -2505,7 +2506,7 @@ var List = /** @class */ (function (_super) {
         var props = node.attributes;
         var graphic = this.findElement(node.children, 'graphic');
         var metas = this.findElement(node.children, 'metas');
-        // console.log(metas)
+        console.log(metas);
         {
             (props && props['primary-text']) && (props.primaryText = props['primary-text']);
         }
@@ -2527,7 +2528,7 @@ var List = /** @class */ (function (_super) {
                 props && (props.graphic || graphic) &&
                     omi_1.h("span", { class: "mdc-list-item__graphic" },
                         typeof props.graphic === 'string' ? util_ts_1.htmlToVdom(props.graphic) : props.graphic,
-                        typeof graphic === 'string' ? util_ts_1.htmlToVdom(graphic) : graphic),
+                        graphic && (typeof graphic.children === 'string' ? util_ts_1.htmlToVdom(graphic.children) : graphic.children)),
                 props && (props.text || props.primaryText || props.secondaryText) &&
                     omi_1.h("span", { class: "mdc-list-item__text" },
                         props.primaryText && omi_1.h("span", { class: "mdc-list-item__primary-text" }, props.primaryText),
@@ -2536,7 +2537,7 @@ var List = /** @class */ (function (_super) {
                 props && (props.meta || metas) &&
                     omi_1.h("span", { class: "mdc-list-item__meta" },
                         typeof props.meta === 'string' ? util_ts_1.htmlToVdom(props.meta) : props.meta,
-                        typeof metas === 'string' ? util_ts_1.htmlToVdom(metas) : metas),
+                        metas && (typeof metas.children === 'string' ? util_ts_1.htmlToVdom(metas.children) : metas.children)),
                 node.children.map(function (node) {
                     return node && (!(node.nodeName === 'graphic' || node.nodeName === 'metas')) && (typeof node === 'string' ? util_ts_1.htmlToVdom(node) : node);
                 }));
