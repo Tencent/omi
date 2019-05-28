@@ -65,7 +65,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(): void;
+		receiveProps?(props: RenderableProps<P>, data: D, oldProps:RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
 	}
@@ -78,7 +78,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(): void;
+		receiveProps?(props: RenderableProps<P>, data: D, oldProps:RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
 	}
@@ -91,7 +91,7 @@ declare namespace Omi {
 		afterUpdate?(): void;
 		updated?(): void;
 		beforeRender?(): void;
-		receiveProps?(): void;
+		receiveProps?(props: RenderableProps<P>, data: D, oldProps:RenderableProps<P>): any;
 		attrsToProps(): void;
 		setAttribute(name: string, value: any): void;
 	}

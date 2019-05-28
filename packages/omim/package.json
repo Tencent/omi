@@ -124,6 +124,7 @@
     "@material/tab-bar": "^2.1.0",
     "@material/textfield": "^1.1.1",
     "@material/top-app-bar": "^2.1.0",
-    "@material/typography": "^1.0.0"
+    "@material/typography": "^1.0.0",
+    "chart.js": "^2.8.0"
   }
 }
