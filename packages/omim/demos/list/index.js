@@ -92,7 +92,6 @@ define('my-app', class extends WeElement {
           .mdc-list-group__subheader {
             background: #EEE;
             margin: 0;
-            padding: 8px;
           }
         `}
       >

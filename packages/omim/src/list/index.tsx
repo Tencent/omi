@@ -135,7 +135,6 @@ export default class List extends WeElement<Props, Data>{
     for(let i = 0; i < evt.path.length; i++) {
       if(evt.path[i].id === 'subheader') {
         mList = evt.path[i].nextElementSibling
-        // console.log(evt.path[i])
         groupNo = evt.path[i].accessKey
         if(typeof this.groupHeight[groupNo] === 'undefined') {
           this.groupHeight[groupNo] = mList.clientHeight
@@ -183,6 +182,7 @@ export default class List extends WeElement<Props, Data>{
         <div style='display:none'>{this.listAll.push(listOne)}</div>
       </ul>
     } else {
+      this.groupNum = -1
       return <div class='mdc-list-group'>
         {props.children && props.children.map((list) => {
           if(list && list.nodeName === 'm-list') {
