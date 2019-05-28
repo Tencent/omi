@@ -1,4 +1,4 @@
-import { tag, WeElement, h, extractClass } from 'omi'
+import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import {MDCList} from '@material/list';
 import {MDCRipple} from '@material/ripple';
@@ -105,7 +105,11 @@ export default class List extends WeElement<Props, Data>{
           {graphic && (typeof graphic.children === 'string'  ? htmlToVdom(graphic.children) : graphic.children)}
         </span>}
         {props && (props.text || props.primaryText || props.secondaryText) &&
-        <span class="mdc-list-item__text">
+        <span  class={classNames('mdc-list-item__text', {
+          'mdc-list-item__text-one-line-a': (!this.props.twoLine && props.primaryText && props.secondaryText),
+          'mdc-list-item__text-one-line-b': (!this.props.twoLine && props.primaryText && !props.secondaryText),
+          'mdc-list-item__text-one-line-c': (!this.props.twoLine && !props.primaryText && props.secondaryText)
+        })}>
           {props.primaryText && <span class="mdc-list-item__primary-text">{props.primaryText}</span>}
           {props.secondaryText && <span class="mdc-list-item__secondary-text">{props.secondaryText}</span>}
           {props.text}

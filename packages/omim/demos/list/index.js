@@ -302,7 +302,7 @@ define('my-app', class extends WeElement {
         <item activated>Activated</item>
         <item graphic={<m-icon-button icon='folder'></m-icon-button>}>Graphic</item>
         <item text='Text'></item>
-        <item primaryText='Primary Text' secondaryText='Secondary Text'></item>
+        <item primary-text='Primary Text' secondary-text='Secondary Text'></item>
         <item text='Meta' meta={<m-icon-button icon='folder'></m-icon-button>}></item>
       </m-list>
     </div>
