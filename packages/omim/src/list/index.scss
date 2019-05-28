@@ -9,6 +9,14 @@
   overflow: hidden;
 }
 
-:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item::before, :not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item::after {
-  background-color: rgba(0,0,0,.01)!important;
+.mdc-list-item__text-one-line-a {
+  margin-top: -16px;
+}
+
+.mdc-list-item__text-one-line-b {
+  margin-top: -18px;
+}
+
+.mdc-list-item__text-one-line-c {
+  margin-top: -5px;
 }

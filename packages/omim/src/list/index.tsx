@@ -1,4 +1,4 @@
-import { tag, WeElement, h, extractClass } from 'omi'
+import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import {MDCList} from '@material/list';
 import {MDCRipple} from '@material/ripple';
@@ -85,7 +85,7 @@ export default class List extends WeElement<Props, Data>{
     const { attributes: props } = node
     const graphic = this.findElement(node.children, 'graphic')
     const metas = this.findElement(node.children, 'metas')
-    // console.log(metas)
+    // console.log(metas)  //调试中，组件内组件无法刷新问题
     {(props && props['primary-text']) && (props.primaryText = props['primary-text'])}
     {(props && props['secondary-text']) && (props.secondaryText = props['secondary-text'])}
     if(props && props.divider) {
@@ -102,10 +102,14 @@ export default class List extends WeElement<Props, Data>{
         {props && (props.graphic || graphic) &&
         <span class="mdc-list-item__graphic">
           {typeof props.graphic === 'string' ? htmlToVdom(props.graphic) : props.graphic}
-          {typeof graphic === 'string'  ? htmlToVdom(graphic) : graphic}
+          {graphic && (typeof graphic.children === 'string'  ? htmlToVdom(graphic.children) : graphic.children)}
         </span>}
         {props && (props.text || props.primaryText || props.secondaryText) &&
-        <span class="mdc-list-item__text">
+        <span  class={classNames('mdc-list-item__text', {
+          'mdc-list-item__text-one-line-a': (!this.props.twoLine && props.primaryText && props.secondaryText),
+          'mdc-list-item__text-one-line-b': (!this.props.twoLine && props.primaryText && !props.secondaryText),
+          'mdc-list-item__text-one-line-c': (!this.props.twoLine && !props.primaryText && props.secondaryText)
+        })}>
           {props.primaryText && <span class="mdc-list-item__primary-text">{props.primaryText}</span>}
           {props.secondaryText && <span class="mdc-list-item__secondary-text">{props.secondaryText}</span>}
           {props.text}
@@ -113,7 +117,7 @@ export default class List extends WeElement<Props, Data>{
         {props && (props.meta || metas) &&
         <span class="mdc-list-item__meta">
           {typeof props.meta === 'string' ? htmlToVdom(props.meta) : props.meta}
-          {typeof metas === 'string'  ? htmlToVdom(metas) : metas}
+          {metas && (typeof metas.children === 'string'  ? htmlToVdom(metas.children) : metas.children)}
         </span>}
         {node.children.map((node) => {
             return node && (!(node.nodeName === 'graphic' || node.nodeName === 'metas')) && (typeof node === 'string' ? htmlToVdom(node) : node)
@@ -131,7 +135,7 @@ export default class List extends WeElement<Props, Data>{
     for(let i = 0; i < evt.path.length; i++) {
       if(evt.path[i].id === 'subheader') {
         mList = evt.path[i].nextElementSibling
-        console.log(evt.path[i])
+        // console.log(evt.path[i])
         groupNo = evt.path[i].accessKey
         if(typeof this.groupHeight[groupNo] === 'undefined') {
           this.groupHeight[groupNo] = mList.clientHeight

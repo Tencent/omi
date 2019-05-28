@@ -1,0 +1,2 @@
+webpackJsonp([69],{39:function(r,n){r.exports='## Avatar\r\n\r\nUsed to represent users or things, supporting the display of pictures, icons or characters.\r\n\r\n## Usage\r\n\r\n```html\r\n<m-avatar size="60" src="avatar.jpg"></m-avatar>\r\n\r\n<m-avatar icon="person"></m-avatar>\r\n```\r\n\r\n\r\n## API\r\n\r\n### Props\r\n\r\n```jsx\r\n{\r\n    alt?: string;\r\n    src?: string;\r\n    size?: number;\r\n    square?: boolean;\r\n    icon?: string;\r\n    color?: string;\r\n    backgroundColor?: string;\r\n}\r\n```'}});
+//# sourceMappingURL=69.45f56ad4.chunk.js.map
