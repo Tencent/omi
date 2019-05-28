@@ -1,5 +1,5 @@
 import { h, WeElement, tag } from 'omi'
-import Chart from 'chart.js'
+import * as Chart from 'chart.js'
 
 interface Props {
   data: object,
@@ -19,6 +19,18 @@ class ChartBase extends WeElement<Props, {}> {
     this.chart.update()
   }
 
+  static propTypes = {
+    data: Object,
+    options: Object,
+    width: Number,
+    height: Number,
+    horizontal: String
+  }
+
+  update(){
+    this.chart.update()
+  }
+
   _refCanvas = (e) => { this.canvas = e }
 
   render(props) {
@@ -31,7 +43,7 @@ class ChartBase extends WeElement<Props, {}> {
   }
 }
 
-@tag('c-bar')
+@tag('m-bar')
 class Bar extends ChartBase {
   chart: Chart
   canvas: HTMLCanvasElement
@@ -44,7 +56,7 @@ class Bar extends ChartBase {
   }
 }
 
-@tag('c-line')
+@tag('m-line')
 class Line extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
@@ -55,7 +67,7 @@ class Line extends ChartBase {
   }
 }
 
-@tag('c-radar')
+@tag('m-radar')
 class Radar extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
@@ -66,7 +78,7 @@ class Radar extends ChartBase {
   }
 }
 
-@tag('c-scatter')
+@tag('m-scatter')
 class Scatter extends ChartBase {
   installed() {
     this.chart = new Chart.Scatter(this.canvas.getContext('2d'), {
@@ -76,7 +88,7 @@ class Scatter extends ChartBase {
   }
 }
 
-@tag('c-doughnut')
+@tag('m-doughnut')
 class Doughnut extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
@@ -87,7 +99,7 @@ class Doughnut extends ChartBase {
   }
 }
 
-@tag('c-pie')
+@tag('m-pie')
 class Pie extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
@@ -98,7 +110,7 @@ class Pie extends ChartBase {
   }
 }
 
-@tag('c-polar-area')
+@tag('m-polar-area')
 class PolarArea extends ChartBase {
   installed() {
     this.chart = new Chart.PolarArea(this.canvas.getContext('2d'), {
@@ -108,7 +120,7 @@ class PolarArea extends ChartBase {
   }
 }
 
-@tag('c-bubble')
+@tag('m-bubble')
 class Bubble extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
