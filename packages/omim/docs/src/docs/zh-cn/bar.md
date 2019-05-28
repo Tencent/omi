@@ -2,6 +2,27 @@
 
 柱状图。
 
+## 安装
+
+### 通过 script
+
+```html
+<script src="https://unpkg.com/omi"></script>
+<script src="https://unpkg.com/@omim/core@latest/chart/index.js"></script>
+```
+
+### 通过 npm
+
+``` bash
+npm install @omim/core
+```
+
+然后:
+
+```js
+import '@omim/core/chart'
+```
+
 ## 使用
 
 ```html
@@ -43,7 +64,7 @@
 }"></m-bar>
 ```
 
-## 更新图标
+## 更新图表
 
 ```js
 //获取该元素

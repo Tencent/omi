@@ -70,7 +70,8 @@ const config = {
       {
         title: '图表',
         list: [
-          { name: '柱状图', md: 'bar', demo: './repl/bar.html' }
+          { name: '柱状图', md: 'bar', demo: './repl/bar.html' },
+          { name: '线状图', md: 'line', demo: './repl/line.html' }
         ]
       }
     ],
@@ -144,7 +145,8 @@ const config = {
       {
         title: 'Chart',
         list: [
-          { name: 'Bar', md: 'bar', demo: './repl/bar.html' }
+          { name: 'Bar', md: 'bar', demo: './repl/bar.html' },
+          { name: 'Line', md: 'line', demo: './repl/line.html' }
         ]
       }
     ]
