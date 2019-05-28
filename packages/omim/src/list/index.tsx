@@ -58,10 +58,6 @@ export default class List extends WeElement<Props, Data>{
           } else {
             this.fire('change', this.listAll[index+1][evt.detail.index])
           }
-          //this.update()  //调试中，组件内组件无法刷新问题
-          // const aaa = null
-          // this.receiveProps(aaa, 'zain', this.props)
-          // console.log(aaa)
         })
       })
     })
@@ -89,7 +85,7 @@ export default class List extends WeElement<Props, Data>{
     const { attributes: props } = node
     const graphic = this.findElement(node.children, 'graphic')
     const metas = this.findElement(node.children, 'metas')
-    console.log(metas)  //调试中，组件内组件无法刷新问题
+    // console.log(metas)  //调试中，组件内组件无法刷新问题
     {(props && props['primary-text']) && (props.primaryText = props['primary-text'])}
     {(props && props['secondary-text']) && (props.secondaryText = props['secondary-text'])}
     if(props && props.divider) {

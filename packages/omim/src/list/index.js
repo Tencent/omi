@@ -2483,7 +2483,6 @@ var List = /** @class */ (function (_super) {
                     else {
                         _this.fire('change', _this.listAll[index + 1][evt.detail.index]);
                     }
-                    _this.update(); //调试中，组件内组件无法刷新问题
                 });
             });
         });
@@ -2509,7 +2508,7 @@ var List = /** @class */ (function (_super) {
         var props = node.attributes;
         var graphic = this.findElement(node.children, 'graphic');
         var metas = this.findElement(node.children, 'metas');
-        console.log(metas); //调试中，组件内组件无法刷新问题
+        // console.log(metas)  //调试中，组件内组件无法刷新问题
         {
             (props && props['primary-text']) && (props.primaryText = props['primary-text']);
         }
