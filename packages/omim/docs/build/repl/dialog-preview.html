@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+
+  <style>
+		/* fallback */
+		@font-face {
+			font-family: 'Material Icons';
+			font-style: normal;
+			font-weight: 400;
+			src: url(./md.woff2) format('woff2');
+		}
+
+		.material-icons {
+			font-family: 'Material Icons';
+			font-weight: normal;
+			font-style: normal;
+			font-size: 24px;
+			line-height: 1;
+			letter-spacing: normal;
+			text-transform: none;
+			display: inline-block;
+			white-space: nowrap;
+			word-wrap: normal;
+			direction: ltr;
+			-webkit-font-feature-settings: 'liga';
+			-webkit-font-smoothing: antialiased;
+		}
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      background-color: #555;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+  </style>
+  <script src="./libs/omi.dev.js"></script>
+  <script src="../js/button.js"></script>
+  <script src="../js/dialog.js"></script>
+  <script src="../js/radio.js"></script>
+
+</head>
+
+<body style="background-color:#eee;">
+  <script>
+    document.body.innerHTML = parent._sourceCode
+
+    const dialogAlert = document.getElementById("m-dialog-alert");
+    const dialogSimple = document.getElementById("m-dialog-simple");
+    const dialogConfirmation = document.getElementById("m-dialog-confirmation");
+    const dialogScrollable = document.getElementById("m-dialog-scrollable");
+    const thowText = document.getElementById("show-text");
+
+    //Alert
+    dialogAlert.addEventListener('opening', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogAlert.addEventListener('opened', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogAlert.addEventListener('closing', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogAlert.addEventListener('closed', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogAlert.addEventListener('scrim', () => {
+      dialogAlert.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogAlert.addEventListener('cancel', () => {
+      dialogAlert.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogAlert.addEventListener('confirm', () => {
+      dialogAlert.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+    })
+
+    //Simple
+    dialogSimple.addEventListener('opening', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogSimple.addEventListener('opened', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogSimple.addEventListener('closing', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogSimple.addEventListener('closed', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogSimple.addEventListener('scrim', () => {
+      dialogSimple.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    const liSmple0 = dialogSimple.shadowRoot.querySelector('#li-simple-0');
+    const liSmple1 = dialogSimple.shadowRoot.querySelector('#li-simple-1');
+    const liSmple2 = dialogSimple.shadowRoot.querySelector('#li-simple-2');
+    // console.log(liSmple0);
+    // console.log(liSmple1);
+    // console.log(liSmple2);
+    liSmple0.addEventListener('click', (e) => {
+      // console.log(e)
+      liSmple0.setAttribute('tabindex', '0');
+      liSmple1.setAttribute('tabindex', '-1');
+      liSmple2.setAttribute('tabindex', '-1');
+      dialogSimple.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    liSmple1.addEventListener('click', (e) => {
+      // console.log(e)
+      liSmple0.setAttribute('tabindex', '-1');
+      liSmple1.setAttribute('tabindex', '0');
+      liSmple2.setAttribute('tabindex', '-1');
+      dialogSimple.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    liSmple2.addEventListener('click', (e) => {
+      // console.log(e)
+      liSmple0.setAttribute('tabindex', '-1');
+      liSmple1.setAttribute('tabindex', '-1');
+      liSmple2.setAttribute('tabindex', '0');
+      dialogSimple.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+
+    //Confirmation
+    dialogConfirmation.addEventListener('opening', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogConfirmation.addEventListener('opened', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogConfirmation.addEventListener('closing', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogConfirmation.addEventListener('closed', (e) => {
+      console.log(e.detail.type)
+    })
+    dialogConfirmation.addEventListener('scrim', () => {
+      dialogConfirmation.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogConfirmation.addEventListener('cancel', () => {
+      dialogConfirmation.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogConfirmation.addEventListener('confirm', () => {
+      dialogConfirmation.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+    })
+    //li-confirmation-0
+    const liConfirmation0 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-0');
+    const liConfirmation1 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-1');
+    const liConfirmation2 = dialogConfirmation.shadowRoot.querySelector('#li-confirmation-2');
+    liConfirmation0.addEventListener('click', (e) => {
+      liConfirmation0.setAttribute('tabindex', '0');
+      liConfirmation1.setAttribute('tabindex', '-1');
+      liConfirmation2.setAttribute('tabindex', '-1');
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    liConfirmation1.addEventListener('click', (e) => {
+      liConfirmation0.setAttribute('tabindex', '-1');
+      liConfirmation1.setAttribute('tabindex', '0');
+      liConfirmation2.setAttribute('tabindex', '-1');
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    liConfirmation2.addEventListener('click', (e) => {
+      liConfirmation0.setAttribute('tabindex', '-1');
+      liConfirmation1.setAttribute('tabindex', '-1');
+      liConfirmation2.setAttribute('tabindex', '0');
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+
+    dialogScrollable.addEventListener('scrim', () => {
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogScrollable.addEventListener('cancel', () => {
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Declined... Maybe next time?";
+    })
+    dialogScrollable.addEventListener('confirm', () => {
+      dialogScrollable.removeAttribute("show");
+      thowText.innerHTML = "Accepted, thanks!";
+    })
+
+
+    function onShowAlert() {
+      dialogAlert.setAttribute("show", true);
+      thowText.innerHTML = "open alert!";
+    }
+    function onShowSimple() {
+      dialogSimple.setAttribute("show", true);
+      thowText.innerHTML = "open simple!";
+    }
+    function onShowConfirmation() {
+      dialogConfirmation.setAttribute("show", true);
+      thowText.innerHTML = "open confirmation!";
+    }
+    function onShowScrollable() {
+      dialogScrollable.setAttribute("show", true);
+      thowText.innerHTML = "open scrollable!";
+    }
+  </script>
+</body>
+
+</html>
