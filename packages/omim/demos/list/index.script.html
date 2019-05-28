@@ -9,7 +9,8 @@
 </head>
 
 <body>
-  <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+  <script src="omi.js"></script>
+  <!-- <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script> -->
   <script src="../../src/typography/index.js"></script>
   <script src="../../src/list/index.js"></script>
   <script src="../../src/switch/index.js"></script>
@@ -355,7 +356,8 @@
       const mSwitchA = document.getElementById('m-list-switch').shadowRoot.querySelector('#m-switch-a');
       const mdcSwitchA = mSwitchA.shadowRoot.querySelector('.mdc-switch');
 
-      document.getElementById('m-switch-a').setAttribute('value', 'zain')
+      // document.getElementById('m-switch-a').setAttribute('value', 'zain')
+      mSwitchA.setAttribute('value', 'zain')
       // document.getElementById('m-list-switch').setAttribute('two-line', true)
       console.log(mSwitchA)
 

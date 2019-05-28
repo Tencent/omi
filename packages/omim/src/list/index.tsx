@@ -58,7 +58,10 @@ export default class List extends WeElement<Props, Data>{
           } else {
             this.fire('change', this.listAll[index+1][evt.detail.index])
           }
-          this.update()  //调试中，组件内组件无法刷新问题
+          //this.update()  //调试中，组件内组件无法刷新问题
+          // const aaa = null
+          // this.receiveProps(aaa, 'zain', this.props)
+          // console.log(aaa)
         })
       })
     })
