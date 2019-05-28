@@ -1,28 +1,40 @@
 import { h, WeElement, tag } from 'omi'
 import Chart from 'chart.js'
 
-class ChartBase extends WeElement<{},{}> {
-  chart: any
+interface Props {
+  data: object,
+  options: object,
+  width: number,
+  height: number,
+  horizontal?: string
+}
+
+class ChartBase extends WeElement<Props, {}> {
+  chart: Chart
   canvas: HTMLCanvasElement
-  
+
   receiveProps(props) {
     this.chart.data = props.data
     this.chart.options = props.options
     this.chart.update()
   }
 
+  _refCanvas = (e) => { this.canvas = e }
+
   render(props) {
     return (
       <div style={{ width: props.width + 'px', height: props.height + 'px' }}>
-        <canvas ref={(e) => { this.canvas = e }}>
+        <canvas ref={this._refCanvas}>
         </canvas>
       </div>
     )
   }
 }
 
-@tag('mc-bar')
+@tag('c-bar')
 class Bar extends ChartBase {
+  chart: Chart
+  canvas: HTMLCanvasElement
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
       type: this.props.horizontal ? 'horizontalBar' : 'bar',
@@ -32,9 +44,7 @@ class Bar extends ChartBase {
   }
 }
 
-
-//@ts-ignore
-@tag('mc-line')
+@tag('c-line')
 class Line extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
@@ -45,8 +55,8 @@ class Line extends ChartBase {
   }
 }
 
-
-define('chart-radar', class extends ChartBase {
+@tag('c-radar')
+class Radar extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
       type: 'radar',
@@ -54,18 +64,20 @@ define('chart-radar', class extends ChartBase {
       options: this.props.options
     })
   }
-})
+}
 
-define('chart-scatter', class extends ChartBase {
+@tag('c-scatter')
+class Scatter extends ChartBase {
   installed() {
     this.chart = new Chart.Scatter(this.canvas.getContext('2d'), {
       data: this.props.data,
       options: this.props.options
     })
   }
-})
+}
 
-define('chart-doughnut', class extends ChartBase {
+@tag('c-doughnut')
+class Doughnut extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
       type: 'doughnut',
@@ -73,9 +85,10 @@ define('chart-doughnut', class extends ChartBase {
       options: this.props.options
     })
   }
-})
+}
 
-define('chart-pie', class extends ChartBase {
+@tag('c-pie')
+class Pie extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
       type: 'pie',
@@ -83,18 +96,20 @@ define('chart-pie', class extends ChartBase {
       options: this.props.options
     })
   }
-})
+}
 
-define('chart-polar-area', class extends ChartBase {
+@tag('c-polar-area')
+class PolarArea extends ChartBase {
   installed() {
     this.chart = new Chart.PolarArea(this.canvas.getContext('2d'), {
       data: this.props.data,
       options: this.props.options
     })
   }
-})
+}
 
-define('chart-bubble', class extends ChartBase {
+@tag('c-bubble')
+class Bubble extends ChartBase {
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
       type: 'bubble',
@@ -102,5 +117,4 @@ define('chart-bubble', class extends ChartBase {
       options: this.props.options
     })
   }
-})
-
+}
