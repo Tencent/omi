@@ -70,8 +70,10 @@ const config = {
       {
         title: '图表',
         list: [
+          { name: '简介', md: 'introduction-chart' },
           { name: '柱状图', md: 'bar', demo: './repl/bar.html' },
-          { name: '线状图', md: 'line', demo: './repl/line.html' }
+          { name: '线状图', md: 'line', demo: './repl/line.html' },
+          { name: '散点图', md: 'scatter', demo: './repl/scatter.html' }
         ]
       }
     ],
@@ -145,8 +147,10 @@ const config = {
       {
         title: 'Chart',
         list: [
+          { name: 'Introduction', md: 'introduction-chart' },
           { name: 'Bar', md: 'bar', demo: './repl/bar.html' },
-          { name: 'Line', md: 'line', demo: './repl/line.html' }
+          { name: 'Line', md: 'line', demo: './repl/line.html' },
+          { name: 'Scatter', md: 'scatter', demo: './repl/scatter.html' }
         ]
       }
     ]

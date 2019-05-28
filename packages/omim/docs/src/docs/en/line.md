@@ -2,27 +2,6 @@
 
 Line chart.
 
-## Install
-
-### Via script
-
-```html
-<script src="https://unpkg.com/omi"></script>
-<script src="https://unpkg.com/@omim/core@latest/chart/index.js"></script>
-```
-
-### Via npm
-
-``` bash
-npm install @omim/core
-```
-
-Then:
-
-```js
-import '@omim/core/chart'
-```
-
 ## Usage
 
 ```html
