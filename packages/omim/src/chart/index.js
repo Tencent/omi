@@ -32471,7 +32471,6 @@ var ChartBase = /** @class */ (function (_super) {
         this.chart.update();
     };
     ChartBase.prototype.render = function (props) {
-        console.log(props.data.datasets[0].data[0]);
         return (omi_1.h("div", { style: { width: props.width + 'px', height: props.height + 'px' } },
             omi_1.h("canvas", { ref: this._refCanvas })));
     };

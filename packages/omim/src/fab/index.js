@@ -1973,7 +1973,7 @@ exports.default = Fab;
             /***/ 
         })
         /******/ 
-    })["default"];
+    });
 });
 //# sourceMappingURL=index.js.map
 
@@ -2026,6 +2026,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_omi__;
 
 /***/ })
 
-/******/ });
+/******/ })["default"];
 });
 //# sourceMappingURL=index.js.map
