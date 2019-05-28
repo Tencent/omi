@@ -308,10 +308,7 @@
                 update = !0;
             }
         }
-        if (isWeElement && dom.parentNode) if (update || children.length > 0 || dom.store) {
-            dom.receiveProps(dom.props, dom.data, oldClone);
-            dom.update();
-        }
+        if (isWeElement && dom.parentNode) if (update || children.length > 0 || dom.store && !dom.store.data) if (!1 !== dom.receiveProps(dom.props, dom.data, oldClone)) dom.update();
     }
     function tick(fn, scope) {
         callbacks.push({
@@ -1089,7 +1086,7 @@
     };
     options.root.Omi = omi;
     options.root.omi = omi;
-    options.root.Omi.version = '6.3.15';
+    options.root.Omi.version = '6.3.16';
     if ('undefined' != typeof module) module.exports = omi; else self.Omi = omi;
 }();
 //# sourceMappingURL=omi.js.map
