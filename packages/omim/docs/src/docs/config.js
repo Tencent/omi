@@ -66,6 +66,12 @@ const config = {
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
           { name: 'List', md: 'list', demo: './repl/list.html' }
         ]
+      },
+      {
+        title: '图表',
+        list: [
+          { name: '柱状图', md: 'bar', demo: './repl/bar.html' }
+        ]
       }
     ],
     en: [
@@ -133,6 +139,12 @@ const config = {
           { name: 'Badge', md: 'badge', demo: './repl/badge.html' },
           { name: 'Tree', md: 'tree', demo: './repl/tree.html' },
           { name: 'List', md: 'list', demo: './repl/list.html' }
+        ]
+      },
+      {
+        title: 'Chart',
+        list: [
+          { name: 'Bar', md: 'bar', demo: './repl/bar.html' }
         ]
       }
     ]

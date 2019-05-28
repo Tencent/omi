@@ -19,8 +19,8 @@ const config = {
     path: path.resolve(__dirname, '../src/' + name),
     filename: 'index.js',
     libraryTarget: 'umd',
-    library: library
-    // libraryExport: "default" 
+    library: library,
+    libraryExport: "default" 
   },
   mode: 'development',
   module: {
