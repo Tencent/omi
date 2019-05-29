@@ -79,69 +79,37 @@
     <div class="playground">
       <div class="editor">
 <textarea id="editor"><div>
-  <m-scatter id="myScatter" width="600" height="300" data="{
-    datasets: [{
-        label: 'My First dataset',
-        borderColor: 'rgb(255, 99, 132)',
+  <m-radar id="myRadar" width="600" height="300" data="{
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
         backgroundColor: 'rgba(255, 99, 132, .2)',
-        data: [{
-          x: 50,
-          y: 32
-        }, {
-          x: 22,
-          y: 10
-        }, {
-          x: 80,
-          y: 44
-        }, {
-          x: 22,
-          y: 77
-        }, {
-          x: 3,
-          y: 9
-        }, {
-          x: 44,
-          y: 11
-        }, {
-          x: 12,
-          y: 100
-        }]
-      }, {
-        label: 'My Second dataset',
-        borderColor: 'rgb(54, 162, 235)',
-        backgroundColor: 'rgba(54, 162, 235, .2)',
-        data: [{
-          x: 20,
-          y: 132
-        }, {
-          x: 32,
-          y: 40
-        }, {
-          x: 80,
-          y: 84
-        }, {
-          x: 32,
-          y: 77
-        }, {
-          x: 13,
-          y: 9
-        }, {
-          x: 24,
-          y: 11
-        }, {
-          x: 12,
-          y: 60
-        }]
+        borderColor: 'rgb(255, 99, 132)',
+        borderWidth: 1
       }]
     }"
 
     options="{
-      title: {
-        display: true,
-        text: 'Omim Scatter Chart'
+      maintainAspectRatio: true,
+      spanGaps: false,
+      elements: {
+        line: {
+          tension: 0.000001
+        }
+      },
+      plugins: {
+        filler: {
+          propagate: false
+        },
+        'samples-filler-analyser': {
+          target: 'chart-analyser'
+        }
       }
     }">
-  </m-scatter>
+  </m-radar>
+
+  <m-button raised id="myBtn">Random Data</m-button>
 </div>
 </textarea>
       </div>
@@ -168,7 +136,7 @@
       myTextarea = document.getElementById("editor"),
       editor = CodeMirror.fromTextArea(myTextarea, { lineNumbers: !0, theme: editorTheme, tabSize: 2, mode: "text/html" }), lastStorageSource = localStorage.getItem(storageKey),
       source = sourceFromQueryString || lastStorageSource || editor.getValue();
-    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./scatter-preview.html";
+    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./radar-preview.html";
 
     function getQueryString() { for (var d, a = {}, b = location.search.slice(1), c = /([^&=]+)=([^&]*)/g; d = c.exec(b);)a[decodeURIComponent(d[1])] = decodeURIComponent(d[2]); return a }
     function hideNotify() { notification.classList.add("hide") }

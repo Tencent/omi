@@ -1,5 +1,5 @@
 /**
- * omi v6.3.14  http://omijs.org
+ * omi v6.3.17  http://omijs.org
  * Omi === Preact + Scoped CSS + Store System + Native Support in 3kb javascript.
  * By dntzhang https://github.com/dntzhang
  * Github: https://github.com/Tencent/omi
@@ -704,9 +704,10 @@
     }
 
     if (isWeElement && dom.parentNode) {
-      if (update || children.length > 0 || dom.store) {
-        dom.receiveProps(dom.props, dom.data, oldClone);
-        dom.update();
+      if (update || children.length > 0 || dom.store && !dom.store.data) {
+        if (dom.receiveProps(dom.props, dom.data, oldClone) !== false) {
+          dom.update();
+        }
       }
     }
   }
@@ -1320,6 +1321,7 @@
       } else {
         this.constructor.use && (this.use = getUse(this.store.data, this.constructor.use));
       }
+      this.attrsToProps();
       this.beforeInstall();
       !this._isInstalled && this.install();
       this.afterInstall();
@@ -1347,7 +1349,7 @@
         proxyUpdate(this);
         this.observed();
       }
-      this.attrsToProps();
+
       this._host = diff(null, this.render(this.props, this.data, this.store), {}, false, null, false);
       this.rendered();
 
@@ -1438,8 +1440,9 @@
             case Boolean:
               ele.props[key] = true;
               break;
+            case Array:
             case Object:
-              ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'));
+              ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"').replace(/,(\s*})/g, '$1'));
               break;
           }
         } else {
@@ -1788,7 +1791,7 @@
 
   options.root.Omi = omi;
   options.root.omi = omi;
-  options.root.Omi.version = '6.3.14';
+  options.root.Omi.version = '6.3.17';
 
   if (typeof module != 'undefined') module.exports = omi;else self.Omi = omi;
 }());

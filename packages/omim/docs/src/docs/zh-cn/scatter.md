@@ -79,7 +79,6 @@
   data: object,
   options: object,
   width: number,
-  height: number,
-  horizontal?: string
+  height: number
 }
 ```

@@ -93,7 +93,7 @@ Build component:
 npm run build -- component-name
 ```
 
-Build all component:
+Build all components:
 
 ```bash
 npm run build-all

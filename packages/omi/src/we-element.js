@@ -170,7 +170,11 @@ export default class WeElement extends HTMLElement {
 						break
 					case Array:
           case Object:
-            ele.props[key] = JSON.parse(val.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:([^\/])/g, '"$2":$4').replace(/'([\s\S]*?)'/g, '"$1"'))
+            ele.props[key] = JSON.parse(val
+              .replace(/(['"])?([a-zA-Z0-9_-]+)(['"])?:([^\/])/g, '"$2":$4')
+              .replace(/'([\s\S]*?)'/g, '"$1"')
+              .replace(/,(\s*})/g, '$1')
+              )
             break
         }
       } else {

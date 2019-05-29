@@ -83,21 +83,27 @@ import '@omim/core/button'
 
 ## 贡献
 
-### CMD
+### 一些命令
 
-Build component:
+Build 组件:
 
 ```bash
 npm run build -- component-name
 ```
 
-Build demo:
+Build 所有组件:
+
+```bash
+npm run build-all
+```
+
+Build 例子:
 
 ```bash
 npm start demo-name
 ```
 
-Publish:
+发布:
 
 ```bash
 npm publish --access public

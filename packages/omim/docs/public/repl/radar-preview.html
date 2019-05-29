@@ -142,7 +142,7 @@
   <script>
     document.body.innerHTML = parent._sourceCode
     var btn = document.querySelector('#myBtn')
-    var chart = document.querySelector('#myBar')
+    var chart = document.querySelector('#myRadar')
 
     btn.addEventListener('click', function () {
 
@@ -158,7 +158,7 @@
     setTimeout(function(){
       chart.props.data.datasets[0].data[0] += 0.01
       chart.update()
-    },1000)
+    }, 1000)
   </script>
 </body>
 
