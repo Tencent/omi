@@ -13,7 +13,6 @@ export default class Select extends WeElement<Props, Data> {
         menu: ObjectConstructor;
     };
     installed(): void;
-    install(): void;
     render(props: any): JSX.Element;
 }
 export {};

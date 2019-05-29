@@ -1,28 +1,40 @@
-import { tag, WeElement, classNames, h } from 'omi'
+import { tag, WeElement, classNames, h, render } from 'omi'
 import * as css from './index.scss'
 
 
 interface Props {
-	menus: any[],
-	actions?: any[],
-	onClose?: (evt)=>void,
-	show?: boolean,
-	type: 'ios'|'android'
+  items: any[],
+  actions?: any[],
+  onClose?: (evt) => void,
+  show?: boolean,
+  type: 'ios' | 'android'
 }
 
 @tag('m-action-sheet')
-export default class ActionSheet extends WeElement<Props, {}> {
+class ActionSheet extends WeElement<Props, {}> {
   static defaultProps = {
     type: '',
-    menus: [],
+    items: [],
     actions: [],
-		show: false
+    show: false
+  }
+
+  static propTypes = {
+    type: String,
+    items: Object,
+    actions: Object,
+    show: Boolean
   }
 
   static css = css
 
   renderMenuItem() {
-    return this.props.menus.map((menu, idx) => {
+    return this.props.items.map((menu, idx) => {
+      if (typeof menu === 'string') {
+        return <div key={idx} onClick={_ => this.menuClick(menu)} className='m-actionsheet__cell'>
+          {menu}
+        </div>
+      }
       const { label, className, ...others } = menu
       const cls = classNames({
         'm-actionsheet__cell': true,
@@ -30,21 +42,21 @@ export default class ActionSheet extends WeElement<Props, {}> {
       })
 
       return (
-        <div key={idx} {...others} onClick={_=>this.menuClick(menu)} className={cls}>
+        <div key={idx} {...others} onClick={_ => this.menuClick(menu)} className={cls}>
           {label}
         </div>
       )
     })
   }
 
-	actionClick = (item)=>{
-		this.fire('actionclick', item)
-	}
+  actionClick = (item) => {
+    this.fire('actionclick', item)
+  }
 
 
-	menuClick = (item)=>{
-		this.fire('menuclick', item)
-	}
+  menuClick = (item) => {
+    this.fire('itemclick', item)
+  }
 
   renderActions() {
     return this.props.actions.map((action, idx) => {
@@ -55,19 +67,19 @@ export default class ActionSheet extends WeElement<Props, {}> {
       })
 
       return (
-        <div key={idx} onClick={_=>this.actionClick(action)} {...others} className={cls}>
+        <div key={idx} onClick={_ => this.actionClick(action)} {...others} className={cls}>
           {label}
         </div>
       )
     })
   }
 
-  handleMaskClick = e => {
-    if (this.props.onClose) this.props.onClose(e)
+  handleMaskClick = () => {
+    this.fire('close')
   }
 
   render() {
-    const { show, type, onClose, menus, actions, ...others } = this.props
+    const { show, type, onClose, items, actions, ...others } = this.props
     const cls = classNames({
       'm-actionsheet': true,
       'm-actionsheet_toggle': show
@@ -88,5 +100,30 @@ export default class ActionSheet extends WeElement<Props, {}> {
         </div>
       </div>
     )
+  }
+}
+
+let dom
+
+export default function actionSheet(options) {
+  if (dom) {
+    document.body.removeChild(dom)
+    dom = null
+  }
+
+  dom = render(<m-action-sheet
+    items={options.items}
+    onItemClick={options.onItemClick}
+    actions={options.ios? [{label:options.cancel?options.cancel:'Cancel'}]:[]}
+    onClick={close}
+    show
+    type={options.ios ? 'ios' : 'android'}
+  />, 'body')
+}
+
+function close() {
+  if (dom) {
+    document.body.removeChild(dom)
+    dom = null
   }
 }

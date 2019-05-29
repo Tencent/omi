@@ -1,2 +1,59 @@
 @import "../theme";
 
+ol {
+  list-style-type: decimal;
+  font-size: 14px; 
+}
+
+li {
+  list-style: none;
+  display: inline-block;
+  color: rgba(0,0,0,0.45);
+  vertical-align: middle;
+}
+
+.breadcrumb-li a{
+  color: rgba(0,0,0,0.45);
+}
+
+a{
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 20px;
+  height: 20px;
+}
+
+.split{
+  margin: 0 8px; 
+}
+
+.current{
+  color: rgba(0,0,0,.7);
+  vertical-align: middle;
+  line-height: 20px;
+  height: 20px;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: top;
+  margin-right: 3px;
+  display: inline-block;
+  line-height: 20px;
+  height: 20px;
+  max-width: 24px;
+  overflow: hidden;
+
+}

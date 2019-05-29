@@ -2,7 +2,7 @@ import { tag, WeElement, h, extractClass, classNames } from 'omi'
 import * as css from './index.scss'
 import { MDCSelect } from '@material/select';
 import * as globalCss from './global.scss'
-
+import { domReady } from '../util/dom-ready'
 // @ts-ignore
 import { extract, htmlToVdom } from '../util.ts'
 
@@ -47,10 +47,8 @@ export default class Select extends WeElement<Props, Data>{
         value: select.value
       })
     });
-  }
 
-  install() {
-    document.addEventListener('DOMContentLoaded', () => {
+    domReady(() => {
       this.update()
     })
   }

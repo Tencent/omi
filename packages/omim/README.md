@@ -150,6 +150,15 @@ To prevent duplication of development, PR submission fills in owner to lock the 
 | nav | member |done |
 | action-sheet | member |done |
 | row | member |done |
+| chart bar| member |done |
+| chart line| member |done |
+| chart scatter| member |done |
+| chart pie| member |done |
+| chart doughnut| member |done |
+| chart radar| member |done |
+| chart polar area| member |done |
+| chart bubble| member |done |
+| chart bar line| member |done |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |
 | welcome to add a new element! |  |

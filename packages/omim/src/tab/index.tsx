@@ -2,7 +2,7 @@ import { tag, h, WeElement, extractClass } from 'omi'
 import * as css from './index.scss'
 import { MDCTabBar } from '@material/tab-bar'
 import '../icon'
-
+import { domReady } from '../util/dom-ready'
 //@ts-ignore
 import { theme } from '../theme.ts'
 // @ts-ignore
@@ -41,8 +41,8 @@ export default class Tab extends WeElement<Props, Data>{
 		stacked: Boolean
 	}
 
-	install() {
-		document.addEventListener('DOMContentLoaded', () => {
+	installed() {
+		domReady(() => {
 			//update first
 			this.update()
 			//init mdc tab

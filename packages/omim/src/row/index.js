@@ -295,7 +295,7 @@ var Row = /** @class */ (function (_super) {
     Row.resetTheme = function () {
         this.css = theme_ts_1.theme() + css + rs;
     };
-    Row.prototype.install = function () {
+    Row.prototype.installed = function () {
         var _this = this;
         dom_ready_1.domReady(function () {
             var children = element_children_1.elementChildren(_this);
@@ -417,14 +417,20 @@ exports.theme = theme;
 Object.defineProperty(exports, "__esModule", { value: true });
 var readyCallbacks = [];
 document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
     readyCallbacks.forEach(function (callback) {
         callback();
     });
 });
 function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
     readyCallbacks.push(callback);
 }
 exports.domReady = domReady;
+domReady.done = false;
 
 
 /***/ }),

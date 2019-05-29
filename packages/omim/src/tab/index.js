@@ -4144,6 +4144,7 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/tab/index.scss");
 var tab_bar_1 = __webpack_require__(/*! @material/tab-bar */ "./node_modules/_@material_tab-bar@2.2.0@@material/tab-bar/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
+var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 // @ts-ignore
@@ -4161,9 +4162,9 @@ var Tab = /** @class */ (function (_super) {
     Tab.resetTheme = function () {
         this.css = theme_ts_1.theme() + css;
     };
-    Tab.prototype.install = function () {
+    Tab.prototype.installed = function () {
         var _this = this;
-        document.addEventListener('DOMContentLoaded', function () {
+        dom_ready_1.domReady(function () {
             //update first
             _this.update();
             //init mdc tab
@@ -4331,6 +4332,36 @@ function processNode(node) {
         return null;
     }
 }
+
+
+/***/ }),
+
+/***/ "./src/util/dom-ready.js":
+/*!*******************************!*\
+  !*** ./src/util/dom-ready.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
+    readyCallbacks.push(callback);
+}
+exports.domReady = domReady;
+domReady.done = false;
 
 
 /***/ }),

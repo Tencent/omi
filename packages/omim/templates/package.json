@@ -30,7 +30,7 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "@omim/core": "^0.3.1",
+    "@omim/core": "^0.3.5",
     "omi": "latest",
     "omi-router": "^2.0.10",
     "omio": "latest"

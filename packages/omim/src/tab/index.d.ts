@@ -23,7 +23,7 @@ export default class Tab extends WeElement<Props, Data> {
         useMinWidth: BooleanConstructor;
         stacked: BooleanConstructor;
     };
-    install(): void;
+    installed(): void;
     uninstall(): void;
     activateTab(value: any): void;
     renderButton(vnode: any, activeProp: any): JSX.Element;

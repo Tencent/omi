@@ -17,7 +17,6 @@ export default class Fab extends WeElement<Props, Data> {
         iconRight: BooleanConstructor;
         icon: StringConstructor;
     };
-    install(): void;
     installed(): void;
     render(props: any): JSX.Element;
 }

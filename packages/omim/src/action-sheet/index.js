@@ -280,18 +280,20 @@ var ActionSheet = /** @class */ (function (_super) {
             _this.fire('actionclick', item);
         };
         _this.menuClick = function (item) {
-            _this.fire('menuclick', item);
+            _this.fire('itemclick', item);
         };
-        _this.handleMaskClick = function (e) {
-            if (_this.props.onClose)
-                _this.props.onClose(e);
+        _this.handleMaskClick = function () {
+            _this.fire('close');
         };
         return _this;
     }
     ActionSheet.prototype.renderMenuItem = function () {
         var _this = this;
-        return this.props.menus.map(function (menu, idx) {
+        return this.props.items.map(function (menu, idx) {
             var _a;
+            if (typeof menu === 'string') {
+                return omi_1.h("div", { key: idx, onClick: function (_) { return _this.menuClick(menu); }, className: 'm-actionsheet__cell' }, menu);
+            }
             var label = menu.label, className = menu.className, others = __rest(menu, ["label", "className"]);
             var cls = omi_1.classNames((_a = {
                     'm-actionsheet__cell': true
@@ -315,7 +317,7 @@ var ActionSheet = /** @class */ (function (_super) {
         });
     };
     ActionSheet.prototype.render = function () {
-        var _a = this.props, show = _a.show, type = _a.type, onClose = _a.onClose, menus = _a.menus, actions = _a.actions, others = __rest(_a, ["show", "type", "onClose", "menus", "actions"]);
+        var _a = this.props, show = _a.show, type = _a.type, onClose = _a.onClose, items = _a.items, actions = _a.actions, others = __rest(_a, ["show", "type", "onClose", "items", "actions"]);
         var cls = omi_1.classNames({
             'm-actionsheet': true,
             'm-actionsheet_toggle': show
@@ -329,9 +331,15 @@ var ActionSheet = /** @class */ (function (_super) {
     };
     ActionSheet.defaultProps = {
         type: '',
-        menus: [],
+        items: [],
         actions: [],
         show: false
+    };
+    ActionSheet.propTypes = {
+        type: String,
+        items: Object,
+        actions: Object,
+        show: Boolean
     };
     ActionSheet.css = css;
     ActionSheet = __decorate([
@@ -339,7 +347,21 @@ var ActionSheet = /** @class */ (function (_super) {
     ], ActionSheet);
     return ActionSheet;
 }(omi_1.WeElement));
-exports.default = ActionSheet;
+var dom;
+function actionSheet(options) {
+    if (dom) {
+        document.body.removeChild(dom);
+        dom = null;
+    }
+    dom = omi_1.render(omi_1.h("m-action-sheet", { items: options.items, onItemClick: options.onItemClick, actions: options.ios ? [{ label: options.cancel ? options.cancel : 'Cancel' }] : [], onClick: close, show: true, type: options.ios ? 'ios' : 'android' }), 'body');
+}
+exports.default = actionSheet;
+function close() {
+    if (dom) {
+        document.body.removeChild(dom);
+        dom = null;
+    }
+}
 
 
 /***/ }),

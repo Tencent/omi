@@ -2,6 +2,7 @@ import { tag, WeElement, h, extractClass } from 'omi'
 import * as css from './index.scss'
 import { MDCRipple } from '@material/ripple'
 import '../icon'
+import { domReady } from '../util/dom-ready' 
 
 //@ts-ignore
 import { theme } from '../theme.ts'
@@ -32,13 +33,11 @@ export default class Fab extends WeElement<Props, Data>{
     icon: String
   }
 
-  install() {
-    document.addEventListener('DOMContentLoaded', () => {
+  installed() {
+    domReady(()=>{
       this.update()
     })
-  }
 
-  installed() {
     if (this.props.ripple) {
       new MDCRipple(this.shadowRoot.querySelector('.mdc-fab'))
     }

@@ -20,7 +20,7 @@ export default class List extends WeElement<Props, Data> {
     };
     static defaultProps: {};
     listAll: any[];
-    install(): void;
+    installed(): void;
     /**
      * Find the specified element name node (if there is a duplicate name node, only the first one is returned)
      * 查找指定元素名节点(如果有重复名称节点，只返回第一个)

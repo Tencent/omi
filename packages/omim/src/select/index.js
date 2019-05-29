@@ -5964,6 +5964,7 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/select/index.scss");
 var select_1 = __webpack_require__(/*! @material/select */ "./node_modules/_@material_select@2.2.0@@material/select/index.js");
 var globalCss = __webpack_require__(/*! ./global.scss */ "./src/select/global.scss");
+var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 //@ts-ignore
@@ -5990,10 +5991,7 @@ var Select = /** @class */ (function (_super) {
                 value: select.value
             });
         });
-    };
-    Select.prototype.install = function () {
-        var _this = this;
-        document.addEventListener('DOMContentLoaded', function () {
+        dom_ready_1.domReady(function () {
             _this.update();
         });
     };
@@ -6124,6 +6122,36 @@ function processNode(node) {
         return null;
     }
 }
+
+
+/***/ }),
+
+/***/ "./src/util/dom-ready.js":
+/*!*******************************!*\
+  !*** ./src/util/dom-ready.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
+    readyCallbacks.push(callback);
+}
+exports.domReady = domReady;
+domReady.done = false;
 
 
 /***/ }),
