@@ -16,6 +16,7 @@ const config = {
           { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
+          { name: 'Breadcrumb', md: 'breadcrumb', demo: './repl/breadcrumb.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' }
         ]
       },
@@ -100,6 +101,7 @@ const config = {
           { name: 'IconButton', md: 'icon-button', demo: './repl/icon-button.html' },
           { name: 'Typography', md: 'typography', demo: './repl/typography.html' },
           { name: 'Avatar', md: 'avatar', demo: './repl/avatar.html' },
+          { name: 'Breadcrumb', md: 'breadcrumb', demo: './repl/breadcrumb.html' },
           { name: 'Theme', md: 'theme', demo: 'https://tencent.github.io/omi/packages/omim/demos/button/index.theme.html' }
         ]
       },
