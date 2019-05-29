@@ -5,8 +5,7 @@ interface Props {
   data: object,
   options: object,
   width: number,
-  height: number,
-  horizontal?: string
+  height: number
 }
 
 class ChartBase extends WeElement<Props, {}> {
@@ -23,11 +22,10 @@ class ChartBase extends WeElement<Props, {}> {
     data: Object,
     options: Object,
     width: Number,
-    height: Number,
-    horizontal: String
+    height: Number
   }
 
-  update(){
+  update() {
     this.chart.update()
   }
 
@@ -49,6 +47,7 @@ class Bar extends ChartBase {
   canvas: HTMLCanvasElement
   installed() {
     this.chart = new Chart(this.canvas.getContext('2d'), {
+      //@ts-ignore
       type: this.props.horizontal ? 'horizontalBar' : 'bar',
       data: this.props.data,
       options: this.props.options
@@ -123,6 +122,14 @@ class PolarArea extends ChartBase {
 @tag('m-bubble')
 class Bubble extends ChartBase {
   installed() {
+    //@ts-ignore
+    const exp = this.props.options.elements.point.radius
+    //@ts-ignore
+    this.props.options.elements.point.radius = (context) => {
+      var $v = context.dataset.data[context.dataIndex].v
+      var $w = context.chart.width;
+      return (new Function('$v', '$w', 'return ' + exp))($v, $w)
+    }
     this.chart = new Chart(this.canvas.getContext('2d'), {
       type: 'bubble',
       data: this.props.data,

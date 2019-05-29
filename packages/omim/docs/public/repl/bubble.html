@@ -79,40 +79,59 @@
     <div class="playground">
       <div class="editor">
 <textarea id="editor"><div>
-  <m-doughnut id="myDoughnut" width="600" height="300" data="{
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderColor: 'white',
-      borderWidth: 1
-    }]
-  }"
+  <m-bubble id="myChart" width="600" height="350" 
+    data="{
+      datasets: [{
+        label: 'My First dataset',
+        borderColor: 'rgb(55,99,132)',
+        backgroundColor: 'transparent',
+        data: [
+          { x: 11, y: 44, v: 22 }, 
+          { x: 77, y: 11, v: 11 }, 
+          { x: 55, y: 22, v: 99 }, 
+          { x: 44, y: 33, v: 34 }, 
+          { x: 33, y: 9, v: 98 }, 
+          { x: 20, y: 1, v: 1 }, 
+          { x: 55, y: 3, v: 2 }
+        ]
+        }, {
+          label: 'My Second dataset',
+          borderColor: 'rgb(255,99,132)',
+          backgroundColor: 'transparent',
+          data: [
+          { x: 18, y: 44, v: 22 }, 
+          { x: 77, y: 21, v: 11 }, 
+          { x: 55, y: 122, v: 99 }, 
+          { x: 84, y: 3, v: 34 }, 
+          { x: 33, y: 29, v: 98 }, 
+          { x: 20, y: 111, v: 1 }, 
+          { x: 55, y: 13, v: 2 }
+          ]
+        }]
+      }"
 
     options="{
-      responsive: true,
-      legend: {
-        position: 'top'
-      },
-      title: {
-        display: true,
-        text: 'Omim Doughnut Chart'
-      },
-      animation: {
-        animateScale: true,
-        animateRotate: true
-      }
-    }"></m-doughnut>
+			aspectRatio: 1,
+			legend: false,
+			tooltips: false,
 
-  <m-button raised id="myBtn">Random Data</m-button>
+			elements: {
+				point: {
+					borderColor: '#ccc',
+
+					borderWidth: 1,
+
+					hoverBackgroundColor: 'transparent',
+
+					hoverBorderColor: 'red',
+
+					hoverBorderWidth: 2,
+
+					radius: '3 + Math.abs($v)/100 * $w/24'
+				}
+      }
+    }">
+  </m-bubble>
 </div>
 </textarea>
       </div>
@@ -139,7 +158,7 @@
       myTextarea = document.getElementById("editor"),
       editor = CodeMirror.fromTextArea(myTextarea, { lineNumbers: !0, theme: editorTheme, tabSize: 2, mode: "text/html" }), lastStorageSource = localStorage.getItem(storageKey),
       source = sourceFromQueryString || lastStorageSource || editor.getValue();
-    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./doughnut-preview.html";
+    "dark" === editorTheme && (style = document.createElement("style"), style.innerHTML = ".container {background-color: #1e1d23}", document.body.appendChild(style)), source && (editor.setValue(source), compile(source, !0)), frame.src = "./bubble-preview.html";
 
     function getQueryString() { for (var d, a = {}, b = location.search.slice(1), c = /([^&=]+)=([^&]*)/g; d = c.exec(b);)a[decodeURIComponent(d[1])] = decodeURIComponent(d[2]); return a }
     function hideNotify() { notification.classList.add("hide") }
