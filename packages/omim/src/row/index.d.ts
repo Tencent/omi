@@ -19,6 +19,7 @@ export default class Row extends WeElement<Props, Data> {
         type: StringConstructor;
     };
     install(): void;
+    _init(): void;
     render(props: any): JSX.Element;
 }
 export {};

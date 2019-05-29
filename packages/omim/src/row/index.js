@@ -297,15 +297,20 @@ var Row = /** @class */ (function (_super) {
     };
     Row.prototype.install = function () {
         var _this = this;
-        dom_ready_1.domReady(function () {
-            var children = element_children_1.elementChildren(_this);
-            children.forEach(function (child, index) {
-                if (!child.hasAttribute('slot')) {
-                    child.setAttribute('slot', index + '');
-                }
+        dom_ready_1.domReady.done ?
+            this._init() :
+            dom_ready_1.domReady(function () {
+                _this._init();
             });
-            _this.update();
+    };
+    Row.prototype._init = function () {
+        var children = element_children_1.elementChildren(this);
+        children.forEach(function (child, index) {
+            if (!child.hasAttribute('slot')) {
+                child.setAttribute('slot', index + '');
+            }
         });
+        this.update();
     };
     Row.prototype.render = function (props) {
         var _a;
@@ -417,6 +422,7 @@ exports.theme = theme;
 Object.defineProperty(exports, "__esModule", { value: true });
 var readyCallbacks = [];
 document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
     readyCallbacks.forEach(function (callback) {
         callback();
     });
@@ -425,6 +431,7 @@ function domReady(callback) {
     readyCallbacks.push(callback);
 }
 exports.domReady = domReady;
+domReady.done = false;
 
 
 /***/ }),
