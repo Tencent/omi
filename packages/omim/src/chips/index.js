@@ -1991,7 +1991,7 @@ exports.default = chipSet;
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 

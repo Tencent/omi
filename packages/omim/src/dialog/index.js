@@ -4649,7 +4649,7 @@ function extend() {
                         /***/
                     })
                     /******/
-                });
+                })["default"];
             });
             //# sourceMappingURL=index.js.map
             /***/ 

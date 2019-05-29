@@ -1582,6 +1582,7 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/fab/index.scss");
 var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/index.js");
 __webpack_require__(/*! ../icon */ "./src/icon/index.js");
+var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var Fab = /** @class */ (function (_super) {
@@ -1592,13 +1593,11 @@ var Fab = /** @class */ (function (_super) {
     Fab.resetTheme = function () {
         this.css = theme_ts_1.theme() + css;
     };
-    Fab.prototype.install = function () {
+    Fab.prototype.installed = function () {
         var _this = this;
-        document.addEventListener('DOMContentLoaded', function () {
+        dom_ready_1.domReady(function () {
             _this.update();
         });
-    };
-    Fab.prototype.installed = function () {
         if (this.props.ripple) {
             new ripple_1.MDCRipple(this.shadowRoot.querySelector('.mdc-fab'));
         }
@@ -1973,7 +1972,7 @@ exports.default = Fab;
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 
@@ -2011,6 +2010,36 @@ function theme() {
     }
 }
 exports.theme = theme;
+
+
+/***/ }),
+
+/***/ "./src/util/dom-ready.js":
+/*!*******************************!*\
+  !*** ./src/util/dom-ready.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
+    readyCallbacks.push(callback);
+}
+exports.domReady = domReady;
+domReady.done = false;
 
 
 /***/ }),

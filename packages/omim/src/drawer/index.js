@@ -5723,7 +5723,7 @@ exports.default = Drawer;
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 
@@ -6072,7 +6072,7 @@ exports.default = Drawer;
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 

@@ -27,7 +27,7 @@ export default class IconButton extends WeElement<Props, Data> {
         color: StringConstructor;
         disabled: BooleanConstructor;
     };
-    install(): void;
+    installed(): void;
     render(props: any): JSX.Element;
 }
 export {};

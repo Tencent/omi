@@ -297,20 +297,15 @@ var Row = /** @class */ (function (_super) {
     };
     Row.prototype.install = function () {
         var _this = this;
-        dom_ready_1.domReady.done ?
-            this._init() :
-            dom_ready_1.domReady(function () {
-                _this._init();
+        dom_ready_1.domReady(function () {
+            var children = element_children_1.elementChildren(_this);
+            children.forEach(function (child, index) {
+                if (!child.hasAttribute('slot')) {
+                    child.setAttribute('slot', index + '');
+                }
             });
-    };
-    Row.prototype._init = function () {
-        var children = element_children_1.elementChildren(this);
-        children.forEach(function (child, index) {
-            if (!child.hasAttribute('slot')) {
-                child.setAttribute('slot', index + '');
-            }
+            _this.update();
         });
-        this.update();
     };
     Row.prototype.render = function (props) {
         var _a;
@@ -428,6 +423,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
     readyCallbacks.push(callback);
 }
 exports.domReady = domReady;

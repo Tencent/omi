@@ -264,6 +264,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/layout-grid/index.scss");
 exports.css = css;
+var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 //@ts-ignore
 var theme_ts_1 = __webpack_require__(/*! ../theme.ts */ "./src/theme.ts");
 var parser = new DOMParser();
@@ -275,10 +276,10 @@ var LayoutGrid = /** @class */ (function (_super) {
     LayoutGrid.resetTheme = function () {
         this.css = theme_ts_1.theme() + css;
     };
-    LayoutGrid.prototype.install = function () {
+    LayoutGrid.prototype.installed = function () {
         var _this = this;
         if (!this.props.children) {
-            document.addEventListener('DOMContentLoaded', function () {
+            dom_ready_1.domReady(function () {
                 _this.update();
             });
         }
@@ -414,6 +415,36 @@ function theme() {
     }
 }
 exports.theme = theme;
+
+
+/***/ }),
+
+/***/ "./src/util/dom-ready.js":
+/*!*******************************!*\
+  !*** ./src/util/dom-ready.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
+    readyCallbacks.push(callback);
+}
+exports.domReady = domReady;
+domReady.done = false;
 
 
 /***/ }),

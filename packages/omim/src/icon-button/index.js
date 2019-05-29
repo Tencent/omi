@@ -1872,6 +1872,7 @@ var omi_1 = __webpack_require__(/*! omi */ "omi");
 var css = __webpack_require__(/*! ./index.scss */ "./src/icon-button/index.scss");
 var ripple_1 = __webpack_require__(/*! @material/ripple */ "./node_modules/_@material_ripple@2.1.1@@material/ripple/index.js");
 var icon_button_1 = __webpack_require__(/*! @material/icon-button */ "./node_modules/_@material_icon-button@2.1.1@@material/icon-button/index.js");
+var dom_ready_1 = __webpack_require__(/*! ../util/dom-ready */ "./src/util/dom-ready.js");
 // @ts-ignore
 var util_ts_1 = __webpack_require__(/*! ../util.ts */ "./src/util.ts");
 //@ts-ignore
@@ -1884,9 +1885,9 @@ var IconButton = /** @class */ (function (_super) {
     IconButton.resetTheme = function () {
         this.css = theme_ts_1.theme() + css;
     };
-    IconButton.prototype.install = function () {
+    IconButton.prototype.installed = function () {
         var _this = this;
-        document.addEventListener('DOMContentLoaded', function () {
+        dom_ready_1.domReady(function () {
             _this.update();
             var root = _this.shadowRoot.querySelector('.mdc-icon-button');
             if (_this.props.ripple) {
@@ -2038,6 +2039,36 @@ function processNode(node) {
         return null;
     }
 }
+
+
+/***/ }),
+
+/***/ "./src/util/dom-ready.js":
+/*!*******************************!*\
+  !*** ./src/util/dom-ready.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var readyCallbacks = [];
+document.addEventListener('DOMContentLoaded', function () {
+    domReady.done = true;
+    readyCallbacks.forEach(function (callback) {
+        callback();
+    });
+});
+function domReady(callback) {
+    if (domReady.done) {
+        callback();
+        return;
+    }
+    readyCallbacks.push(callback);
+}
+exports.domReady = domReady;
+domReady.done = false;
 
 
 /***/ }),

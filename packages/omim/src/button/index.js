@@ -1974,7 +1974,7 @@ exports.default = Button;
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 

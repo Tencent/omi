@@ -654,7 +654,7 @@ exports.default = Avatar;
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 

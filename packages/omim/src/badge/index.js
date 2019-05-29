@@ -654,7 +654,7 @@ exports.default = Badge;
             /***/ 
         })
         /******/ 
-    });
+    })["default"];
 });
 //# sourceMappingURL=index.js.map
 
