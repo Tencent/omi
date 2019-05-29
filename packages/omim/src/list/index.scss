@@ -20,3 +20,8 @@
 .mdc-list-item__text-one-line-c {
   margin-top: -5px;
 }
+
+// mouse hover black question
+:not(.mdc-list--non-interactive)>:not(.mdc-list-item--disabled).mdc-list-item::before {
+  z-index: 0;
+}
